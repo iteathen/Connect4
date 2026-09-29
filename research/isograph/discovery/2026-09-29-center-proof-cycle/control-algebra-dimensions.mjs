@@ -74,39 +74,48 @@ function heightsFromBits(p0,p1,width,height){
   return h;
 }
 
-function columnPermutationData(width,height,span){
+function columnPermutationData(width,height){
   return permutations(width).map(perm=>{
     const cellMap=new Uint8Array(width*height);
     for(let row=0;row<height;row++)for(let oldCol=0;oldCol<width;oldCol++)
       cellMap[row*width+oldCol]=row*width+perm[oldCol];
-    const remap=new Uint32Array(span);
-    for(let mask=1;mask<span;mask++){
-      const low=mask&-mask,bit=31-Math.clz32(low);
-      remap[mask]=remap[mask^low]|(1<<cellMap[bit]);
-    }
-    return {perm,remap};
+    return {perm,cellMap,maskCache:new Map([[0,0]])};
   });
+}
+
+function permuteMask(mask,pd){
+  const known=pd.maskCache.get(mask);
+  if(known!==undefined)return known;
+  let rest=mask>>>0,out=0;
+  while(rest){
+    const low=rest&-rest,bit=31-Math.clz32(low);
+    out|=1<<pd.cellMap[bit];
+    rest=(rest^low)>>>0;
+  }
+  out>>>=0;
+  pd.maskCache.set(mask,out);
+  return out;
 }
 
 function serializeResidualQ(heights,r0,r1,permutationData){
   if(!permutationData)
     return Array.from(heights).join(',')+'|'+r0.join('.')+'|'+r1.join('.');
-  const {perm,remap}=permutationData,newHeights=new Uint8Array(heights.length);
+  const {perm}=permutationData,newHeights=new Uint8Array(heights.length);
   for(let oldCol=0;oldCol<heights.length;oldCol++)
     newHeights[perm[oldCol]]=heights[oldCol];
-  const a=r0.map(mask=>remap[mask]).sort((x,y)=>x-y),
-    b=r1.map(mask=>remap[mask]).sort((x,y)=>x-y);
+  const a=r0.map(mask=>permuteMask(mask,permutationData)).sort((x,y)=>x-y),
+    b=r1.map(mask=>permuteMask(mask,permutationData)).sort((x,y)=>x-y);
   return Array.from(newHeights).join(',')+'|'+a.join('.')+'|'+b.join('.');
 }
 
 function canonicalResidualQState(heights,r0,r1,permutationData){
   let best=null,bestHeights=null,bestR0=null,bestR1=null;
-  for(const {perm,remap} of permutationData){
-    const h=new Uint8Array(heights.length);
+  for(const pd of permutationData){
+    const {perm}=pd,h=new Uint8Array(heights.length);
     for(let oldCol=0;oldCol<heights.length;oldCol++)
       h[perm[oldCol]]=heights[oldCol];
-    const a=r0.map(mask=>remap[mask]).sort((x,y)=>x-y),
-      b=r1.map(mask=>remap[mask]).sort((x,y)=>x-y),
+    const a=r0.map(mask=>permuteMask(mask,pd)).sort((x,y)=>x-y),
+      b=r1.map(mask=>permuteMask(mask,pd)).sort((x,y)=>x-y),
       signature=Array.from(h).join(',')+'|'+a.join('.')+'|'+b.join('.');
     if(best===null||signature<best){
       best=signature;
@@ -233,7 +242,7 @@ export function analyzeUnlabelledQuotientDimension({width,height,k,auditResidual
 
   let residualOrbitAudit=null;
   if(auditResidualOrbit){
-    const permutationData=columnPermutationData(width,height,span),
+    const permutationData=columnPermutationData(width,height),
       orientationSignatures=new Set(),orbitToClasses=new Map(),
       orbitStateCount=new Map(),classToOrbits=new Map();
 
@@ -358,9 +367,9 @@ export function analyzeUnlabelledQuotientDimension({width,height,k,auditResidual
 
 export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontierBlocker=false,nonterminalFrontierBlocker=false,moverFinalCapParity=false}){
   const cells=width*height;
-  assert.ok(cells<=20,'direct residual-orbit harness is intentionally bounded to <=20 cells');
-  const masks=winMasks(width,height,k),span=2**cells,
-    permutationData=columnPermutationData(width,height,span),
+  assert.ok(cells<=30,'direct residual-orbit harness is intentionally bounded to <=30 cells');
+  const masks=winMasks(width,height,k),
+    permutationData=columnPermutationData(width,height),
     nodes=new Map(),byRank=Array.from({length:cells+1},()=>[]);
   let literalActionEdges=0,duplicateEquivalentActionEdges=0;
 
