@@ -7,7 +7,7 @@ on:
     paths:
       - '.github/workflows/isomax-control-algebra.yml'
       - 'research/isograph/discovery/2026-09-29-center-proof-cycle/control-algebra*.mjs'
-      - 'research/isograph/discovery/2026-09-29-center-proof-cycle/run-control-algebra.mjs'
+      - 'research/isograph/discovery/2026-09-29-center-proof-cycle/run-control-algebra*.mjs'
       - 'research/isograph/discovery/2026-09-29-center-proof-cycle/parity-geometry.mjs'
       - 'research/isograph/discovery/2026-09-29-center-proof-cycle/probe.mjs'
       - 'research/isograph/discovery/2026-09-29-center-proof-cycle/CONTROL_ALGEBRA_*'
@@ -28,7 +28,9 @@ jobs:
         with:
           node-version: '26'
       - name: Structural controls
-        run: node --test research/isograph/discovery/2026-09-29-center-proof-cycle/control-algebra.test.mjs research/isograph/discovery/2026-09-29-center-proof-cycle/parity-dimension.test.mjs
+        run: node --test research/isograph/discovery/2026-09-29-center-proof-cycle/control-algebra.test.mjs research/isograph/discovery/2026-09-29-center-proof-cycle/control-algebra-dimensions.test.mjs research/isograph/discovery/2026-09-29-center-proof-cycle/parity-dimension.test.mjs
+      - name: Emit quotient dimension result
+        run: node research/isograph/discovery/2026-09-29-center-proof-cycle/run-control-algebra-dimensions.mjs
       - name: Research integrity
         run: node tools/verify-research-integrity.mjs
       - name: Emit blind structural result
