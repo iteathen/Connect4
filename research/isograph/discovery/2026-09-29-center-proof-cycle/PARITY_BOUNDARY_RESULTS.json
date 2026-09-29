@@ -1,0 +1,433 @@
+{
+  "inputs": "geometry/rules/prefix only",
+  "prefixes": [
+    {
+      "width": 7,
+      "height": 6,
+      "moves": [
+        4
+      ],
+      "rank": 1,
+      "attacker": 1,
+      "responder": 0,
+      "phase": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "unmatched": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "prefixConsistent": true,
+      "monochromatic": [
+        0,
+        0
+      ],
+      "bulkSafe": true,
+      "pairsRemaining": [
+        3,
+        3,
+        3,
+        2,
+        3,
+        3,
+        3
+      ],
+      "firstPossibleUnmatchedMove": 5
+    },
+    {
+      "width": 7,
+      "height": 6,
+      "moves": [
+        4,
+        4
+      ],
+      "rank": 2,
+      "attacker": 0,
+      "responder": 1,
+      "phase": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unmatched": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prefixConsistent": true,
+      "monochromatic": [
+        12,
+        12
+      ],
+      "bulkSafe": false,
+      "pairsRemaining": [
+        3,
+        3,
+        3,
+        2,
+        3,
+        3,
+        3
+      ],
+      "firstPossibleUnmatchedMove": null
+    },
+    {
+      "width": 7,
+      "height": 6,
+      "moves": [
+        4,
+        4,
+        4
+      ],
+      "rank": 3,
+      "attacker": 1,
+      "responder": 0,
+      "phase": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "unmatched": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "prefixConsistent": true,
+      "monochromatic": [
+        0,
+        0
+      ],
+      "bulkSafe": true,
+      "pairsRemaining": [
+        3,
+        3,
+        3,
+        1,
+        3,
+        3,
+        3
+      ],
+      "firstPossibleUnmatchedMove": 3
+    },
+    {
+      "width": 7,
+      "height": 6,
+      "moves": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "rank": 4,
+      "attacker": 0,
+      "responder": 1,
+      "phase": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unmatched": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prefixConsistent": true,
+      "monochromatic": [
+        12,
+        12
+      ],
+      "bulkSafe": false,
+      "pairsRemaining": [
+        3,
+        3,
+        3,
+        1,
+        3,
+        3,
+        3
+      ],
+      "firstPossibleUnmatchedMove": null
+    },
+    {
+      "width": 7,
+      "height": 6,
+      "moves": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "rank": 5,
+      "attacker": 1,
+      "responder": 0,
+      "phase": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "unmatched": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "prefixConsistent": true,
+      "monochromatic": [
+        0,
+        0
+      ],
+      "bulkSafe": true,
+      "pairsRemaining": [
+        3,
+        3,
+        3,
+        0,
+        3,
+        3,
+        3
+      ],
+      "firstPossibleUnmatchedMove": 1
+    }
+  ],
+  "boundary": {
+    "scope": "7x6, P0 strict same-column response after odd center stacks 1/3/5",
+    "boardOutcomesRead": false,
+    "gameTreeSearched": false,
+    "counts": {
+      "states": 4096,
+      "fullDraw": 1,
+      "immediateP0Win": 1987,
+      "noImmediateP0WinAndTwoP1Threats": 0,
+      "noImmediateP0WinAndOneP1Threat": 0,
+      "noImmediateThreats": 2108
+    },
+    "byRank": {
+      "6": {
+        "noImmediateThreats": 1
+      },
+      "8": {
+        "noImmediateThreats": 6
+      },
+      "10": {
+        "noImmediateThreats": 21
+      },
+      "12": {
+        "noImmediateThreats": 54,
+        "immediateP0Win": 2
+      },
+      "14": {
+        "noImmediateThreats": 107,
+        "immediateP0Win": 13
+      },
+      "16": {
+        "noImmediateThreats": 176,
+        "immediateP0Win": 40
+      },
+      "18": {
+        "noImmediateThreats": 246,
+        "immediateP0Win": 90
+      },
+      "20": {
+        "noImmediateThreats": 288,
+        "immediateP0Win": 168
+      },
+      "22": {
+        "noImmediateThreats": 300,
+        "immediateP0Win": 246
+      },
+      "24": {
+        "noImmediateThreats": 278,
+        "immediateP0Win": 302
+      },
+      "26": {
+        "immediateP0Win": 323,
+        "noImmediateThreats": 223
+      },
+      "28": {
+        "immediateP0Win": 294,
+        "noImmediateThreats": 162
+      },
+      "30": {
+        "immediateP0Win": 229,
+        "noImmediateThreats": 107
+      },
+      "32": {
+        "immediateP0Win": 152,
+        "noImmediateThreats": 64
+      },
+      "34": {
+        "immediateP0Win": 81,
+        "noImmediateThreats": 39
+      },
+      "36": {
+        "noImmediateThreats": 22,
+        "immediateP0Win": 34
+      },
+      "38": {
+        "noImmediateThreats": 10,
+        "immediateP0Win": 11
+      },
+      "40": {
+        "noImmediateThreats": 4,
+        "immediateP0Win": 2
+      },
+      "42": {
+        "fullDraw": 1
+      }
+    },
+    "witnesses": {
+      "noImmediateThreats": {
+        "sidePairs": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "moves": [
+          4,
+          4,
+          4,
+          4,
+          4,
+          4
+        ],
+        "own": [],
+        "opponent": []
+      },
+      "immediateP0Win": {
+        "sidePairs": [
+          2,
+          1,
+          1,
+          0,
+          0,
+          0
+        ],
+        "moves": [
+          4,
+          4,
+          4,
+          1,
+          1,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          4,
+          4,
+          4
+        ],
+        "own": [
+          2
+        ],
+        "opponent": []
+      },
+      "fullDraw": {
+        "sidePairs": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "moves": [
+          4,
+          4,
+          4,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          7,
+          7,
+          7,
+          7,
+          7,
+          7,
+          4,
+          4,
+          4
+        ],
+        "own": [],
+        "opponent": []
+      }
+    },
+    "endpointSetsEqual": true,
+    "endpointSetSizeFormula": "(H/2+1)^(W-1) for this single-defect safe response family",
+    "noPolynomialWidthClaim": true
+  }
+}
