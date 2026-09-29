@@ -305,6 +305,31 @@ test('support-release turn capacity removes timing-unrealizable residuals withou
   }
 });
 
+test('bounded open-cap terminal dominance removes behaviorally redundant opponent obligations',()=>{
+  const physical=analyzeUnlabelledQuotientDimensionMatrix();
+  for(const row of physical.cases){
+    const base=analyzeDirectResidualOrbitGraph({
+      width:row.width,height:row.height,k:row.k,
+      nonterminalFrontierBlocker:true,
+      moverFinalCapParity:true,
+      remainingMoveCapacity:true,
+      supportReleaseTurnCapacity:true,
+    }),closed=analyzeDirectResidualOrbitGraph({
+      width:row.width,height:row.height,k:row.k,
+      nonterminalFrontierBlocker:true,
+      moverFinalCapParity:true,
+      remainingMoveCapacity:true,
+      supportReleaseTurnCapacity:true,
+      opponentOpenCapTerminalDominance:true,
+    });
+    assert.equal(closed.recursiveUnlabelledClasses,row.classes);
+    assert.equal(closed.rootValue,row.rootValue);
+    assert.equal(closed.wdlSplitClasses,0);
+    assert.ok(closed.residualOrbitStates<=base.residualOrbitStates);
+    assert.ok(closed.literalActionEdges<=base.literalActionEdges);
+  }
+});
+
 test('final-event cap parity removes mover-unrealizable residuals without changing quotient',()=>{
   const physical=analyzeUnlabelledQuotientDimensionMatrix();
   for(const row of physical.cases){
