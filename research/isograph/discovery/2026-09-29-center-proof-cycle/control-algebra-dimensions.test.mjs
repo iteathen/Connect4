@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   analyzeDirectResidualOrbitGraph,
+  analyzeDirectResidualOrbitGrowthCompact,
   analyzeUnlabelledQuotientDimension,
   analyzeUnlabelledQuotientDimensionMatrix,
 } from './control-algebra-dimensions.mjs';
@@ -76,6 +77,34 @@ test('direct residual orbit producer reproduces recursive quotient across small 
     assert.equal(direct.wdlSplitClasses,0);
     assert.ok(direct.residualOrbitStates<=row.states);
   }
+});
+
+test('compact direct-growth evaluator is exactly equivalent on rewritten 4x4 control',()=>{
+  const full=analyzeDirectResidualOrbitGraph({
+    width:4,height:4,k:4,
+    nonterminalFrontierBlocker:true,
+    moverFinalCapParity:true,
+    measureLocalBranchClosure:false,
+  }),compact=analyzeDirectResidualOrbitGrowthCompact({
+    width:4,height:4,k:4,
+    nonterminalFrontierBlocker:true,
+    moverFinalCapParity:true,
+  });
+  for(const key of [
+    'residualOrbitStates',
+    'literalActionEdges',
+    'duplicateEquivalentActionEdges',
+    'recursiveUnlabelledClasses',
+    'wdlSplitClasses',
+    'rootValue',
+    'rootLegalActions',
+    'rootDistinctOrbitChildren',
+    'rootDistinctRecursiveChildren',
+    'earliestDynamicMergeRank',
+  ])assert.equal(compact[key],full[key],key);
+  assert.deepEqual(compact.frontier,full.frontier);
+  assert.deepEqual(compact.dynamicMergeByRank,full.dynamicMergeByRank);
+  assert.equal(compact.fullGraphObjectsRetained,false);
 });
 
 test('local branch closure reaches the exact 4x4 quotient in seven rounds after structural rewrites',()=>{
