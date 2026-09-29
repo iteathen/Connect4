@@ -1299,11 +1299,25 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
 
     const groups=earliestDynamicMergeRows.map(([classId,rows])=>{
       const childKeys=rows.map(rec=>rec.key),
-        parentMaps=childKeys.map(key=>new Map(
-          (parentsByChild.get(key)??[]).map(entry=>[entry.parent.key,entry]))),
+        parentEntries=childKeys.map(key=>parentsByChild.get(key)??[]),
+        parentMaps=parentEntries.map(entries=>new Map(
+          entries.map(entry=>[entry.parent.key,entry]))),
+        parentClassMaps=parentEntries.map(entries=>{
+          const map=new Map();
+          for(const entry of entries){
+            const parentClass=stateClass.get(entry.parent.key);
+            let xs=map.get(parentClass);
+            if(!xs){xs=[];map.set(parentClass,xs);}
+            xs.push(entry);
+          }
+          return map;
+        }),
         commonParentKeys=parentMaps.length?
           [...parentMaps[0].keys()].filter(key=>
-            parentMaps.every(map=>map.has(key))):[];
+            parentMaps.every(map=>map.has(key))):[],
+        commonParentClasses=parentClassMaps.length?
+          [...parentClassMaps[0].keys()].filter(parentClass=>
+            parentClassMaps.every(map=>map.has(parentClass))):[];
       return {
         classId,
         childOrbitIndices:rows.map(rec=>orbitIndex.get(rec.key)),
@@ -1312,12 +1326,25 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
           return {
             parentOrbitIndex:orbitIndex.get(key),
             parentRank:parent.rank,
+            parentClass:stateClass.get(key),
             parentSupport:Array.from(parent.heights),
             parentP0Residuals:[...parent.r0],
             parentP1Residuals:[...parent.r1],
             actionColumns:parentMaps.map(map=>map.get(key).columns),
           };
         }),
+        commonParentClasses:commonParentClasses.map(parentClass=>({
+          parentClass,
+          perChild:parentClassMaps.map(map=>
+            map.get(parentClass).map(entry=>({
+              parentOrbitIndex:orbitIndex.get(entry.parent.key),
+              parentRank:entry.parent.rank,
+              parentSupport:Array.from(entry.parent.heights),
+              parentP0Residuals:[...entry.parent.r0],
+              parentP1Residuals:[...entry.parent.r1],
+              actionColumns:entry.columns,
+            }))),
+        })),
       };
     });
     earliestDynamicMergeParentAudit={
@@ -1328,6 +1355,12 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
         groups.filter(group=>group.commonParents.length===0).length,
       totalCommonParents:groups.reduce(
         (n,group)=>n+group.commonParents.length,0),
+      groupsWithCommonParentClass:
+        groups.filter(group=>group.commonParentClasses.length>0).length,
+      groupsWithoutCommonParentClass:
+        groups.filter(group=>group.commonParentClasses.length===0).length,
+      totalCommonParentClasses:groups.reduce(
+        (n,group)=>n+group.commonParentClasses.length,0),
       rows:groups,
     };
   }
