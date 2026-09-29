@@ -3,8 +3,10 @@
 **Status:** bounded exact structural evidence; XOR placement hypothesis remains open  
 **Research direction:** Joshua Oshiro  
 **Branch:** `research/nim-control-parity-algebra-20260929`  
-**Tested head:** `9e5c73debd741b0aeee5ec24c3081e4410a6d92c`  
-**Workflow:** `36596563362` — success  
+**Initial tested head:** `9e5c73debd741b0aeee5ec24c3081e4410a6d92c`  
+**Initial workflow:** `36596563362` — success  
+**Generic-sign falsifier head:** `27ddaa0dfe3c57fad3e010cf5ac5ee7acc245cec`  
+**Falsifier workflow:** `36597022900` — success  
 **Scope:** direct residual-orbit 4x4 Connect-4 control only  
 **Solved/outcome labels used by producer:** no
 
@@ -92,8 +94,11 @@ pure action-transporter fibers         80
 multiplicity/inactive-erasure fibers  220
 
 transporter parity well-defined        38
-exact binary parity fibers             26
-parity-ambiguous transporter fibers    42
+pure-transporter fibers with
+  all four slot tokens distinct         38
+exact binary opposite-sign fibers       26
+binary distinct-slot same-sign fibers   12
+parity-ambiguous transporter fibers     42
 ```
 
 The 26 exact binary parity fibers occur only in the middle/late ranks tested:
@@ -126,41 +131,89 @@ C49,C57,C62,I
 
 again with opposite exact parity bits.
 
+## Generic permutation-sign falsifier
+
+The apparent late binary phase has a decisive generic confound.
+
+For an ordered action profile under the full column permutation group, the
+transporters between two copies form a coset of the profile stabilizer. The
+parity of that coset is well-defined exactly when the stabilizer contains no
+odd permutation.
+
+For these token profiles:
+
+- if any slot token repeats, swapping two equal tokens is an odd stabilizer;
+  therefore both transporter parities occur;
+- if all slot tokens are distinct, the transporter is unique; therefore its
+  parity is automatically well-defined.
+
+So, independently of Connect Four:
+
+```text
+full-permutation transporter sign is well-defined
+    iff
+all slot tokens are distinct
+```
+
+The falsifier encoded this equivalence as an assertion over every pure
+transporter fiber. It passed exactly:
+
+```text
+pure-transporter distinct-slot fibers   38
+parity-well-defined fibers              38
+exact equality                           true
+```
+
+Therefore the 38 well-defined sign fibers, including the 26 binary
+opposite-sign examples, are completely explained by generic permutation
+bookkeeping. They are **not positive evidence for a Connect-Four-specific XOR
+control law**.
+
+The 26/12 split among binary distinct-slot fibers merely says that, relative to
+a chosen base profile, 26 second realizations are reached by an odd permutation
+and 12 by an even one. No game-specific invariant has yet been isolated from
+that fact.
+
 ## Interpretation
 
-The result rejects a simple global claim that the remaining action-labelled
-structure is merely one XOR bit.
+The useful result is now primarily negative and locational.
 
-Most split fibers (220/300) are not even pure action transporters: the
-action-unlabelled quotient also erases duplicate/multiplicity and inactive-slot
-structure. Among the 80 pure transporter fibers, 42 have both even and odd
-transporters because their stabilizer makes permutation parity ambiguous.
-
-However, 26 fibers exhibit an exact `Z2` phase **only after** the phase-free
-child continuation classes are frozen:
+The experiment rejects both:
 
 ```text
-same continuation-set truth
-+ two action-labelled realizations
-+ transporter parity is well-defined
+remaining action-labelled structure = one global XOR bit
+```
+
+and:
+
+```text
+well-defined action-permutation sign = Connect Four control parity
+```
+
+Most split fibers (220/300) are not pure transporters at all; action-unlabelled
+semantics also erases duplicate/multiplicity and inactive-action structure.
+Among the remaining pure transporter fibers, ordinary permutation sign is
+either ambiguous because of repeated tokens or trivially determined because
+all tokens are distinct.
+
+This does **not** reject the owner's sequencing hypothesis. It sharpens it.
+If a Nim-like XOR exists, it must survive quotienting of generic action-label
+gauge as well as residual/cofactor and continuation semantics.
+
+The next target is therefore not raw transporter sign. It is the recursive
+residue that remains when the **immediate phase-free action profile is already
+identical** but multiple action-labelled continuation classes still exist:
+
+```text
+same action-unlabelled class
++ same immediate phase-free action profile
++ different recursive action-labelled class
     ->
-one exact binary action-phase bit
+deeper continuation phase candidate
 ```
 
-This is qualitatively different from the earlier raw response-incidence XOR.
-It is evidence that a genuine GF(2) layer can emerge late in the reduction
-sequence, but it is not evidence that one parity bit covers the full quotient.
-
-The current evidence therefore favors:
-
-```text
-derive structural/continuation object first
--> remove multiplicity / inactive-action semantics where valid
--> identify guarded transporter fibers
--> apply XOR/parity only where the residual phase is actually binary
-```
-
-rather than applying XOR globally to raw move coordinates.
+Any XOR test should be applied there, or to a derived path/cocycle invariant,
+because ordinary current-node permutation parity has already been factored out.
 
 ## Relation to BSFP
 
@@ -180,6 +233,7 @@ This does not establish:
 - a polynomial construction;
 - a production solver optimization.
 
-The next useful question is whether the 26 exact binary fibers share a
-rule-derived geometric/obligation guard, and whether that guard generalizes
-across dimensions without solved labels.
+The next useful question is whether identical immediate phase-free profiles can
+still contain multiple recursive action-labelled classes. Those deeper splits
+remove the generic current-node permutation-sign explanation and are the next
+candidate location for a guarded phase/XOR law.
