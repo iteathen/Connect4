@@ -1401,9 +1401,13 @@ function canonicalResidualQStateRefinedCompact(heights,r0,r1,width,height){
     if(!cols){cols=[];grouped.set(signatures[col],cols);}
     cols.push(col);
   }
-  const groups=[...grouped.entries()]
-    .sort((a,b)=>a[0].localeCompare(b[0]))
-    .map(([,cols])=>permutationsOfValues(cols));
+  const groupEntries=[...grouped.entries()]
+      .sort((a,b)=>a[0].localeCompare(b[0])),
+    tieClassSizes=groupEntries
+      .map(([,cols])=>cols.length)
+      .filter(n=>n>1)
+      .sort((a,b)=>b-a),
+    groups=groupEntries.map(([,cols])=>permutationsOfValues(cols));
   let candidatePermutations=1;
   for(const group of groups)candidatePermutations*=group.length;
 
@@ -1437,6 +1441,7 @@ function canonicalResidualQStateRefinedCompact(heights,r0,r1,width,height){
     r0:bestR0,
     r1:bestR1,
     candidatePermutations,
+    tieClassSizes,
   };
 }
 
@@ -1673,6 +1678,193 @@ export function analyzeDirectResidualOrbitGrowthCompact({
     frontier,
   };
 }
+
+
+export function analyzeDirectResidualOrbitPrefix({
+  width,height,k,maxRank,
+  nonterminalFrontierBlocker=true,
+  moverFinalCapParity=true,
+}){
+  const cells=width*height;
+  assert.ok(cells<=30,
+    'direct residual-orbit prefix harness is intentionally bounded to <=30 cells');
+  assert.ok(Number.isInteger(maxRank)&&maxRank>=0&&maxRank<=cells,
+    'maxRank must be an integer within the board rank range');
+
+  const masks=winMasks(width,height,k),
+    workByRank=Array.from({length:maxRank},(_,rank)=>({
+      rank,
+      literalActionEdges:0,
+      duplicateEquivalentActionEdges:0,
+      canonicalizationCalls:0,
+      canonicalPermutationCandidates:0,
+      maxCanonicalPermutationCandidates:0,
+      noTieCalls:0,
+      binaryTieCalls:0,
+      nonbinaryTieCalls:0,
+      tieProfileCalls:{},
+      producedDistinctStates:0,
+    }));
+
+  function recordCanonicalization(rank,out){
+    if(rank<0||rank>=workByRank.length)return;
+    const row=workByRank[rank],
+      sizes=out.tieClassSizes??[],
+      profile=sizes.length?sizes.join('x'):'none';
+    row.canonicalizationCalls++;
+    row.canonicalPermutationCandidates+=out.candidatePermutations;
+    row.maxCanonicalPermutationCandidates=Math.max(
+      row.maxCanonicalPermutationCandidates,out.candidatePermutations);
+    row.tieProfileCalls[profile]=(row.tieProfileCalls[profile]??0)+1;
+    if(!sizes.length)row.noTieCalls++;
+    else if(sizes.every(n=>n===2))row.binaryTieCalls++;
+    else row.nonbinaryTieCalls++;
+  }
+
+  function canonicalize(heights,r0,r1,rank){
+    const out=canonicalResidualQStateRefinedCompact(
+      heights,r0,r1,width,height);
+    recordCanonicalization(rank,out);
+    return out;
+  }
+
+  const initialResidual=normalizeMaskAntichain(masks),
+    rootHeights=new Uint8Array(width),
+    rootBlocked=nonterminalFrontierBlocker?
+      applyUniversalFrontierBlocker(
+        rootHeights,initialResidual,initialResidual,width,height,
+        {nonterminalOnly:true}):
+      {r0:initialResidual,r1:initialResidual,removed:0},
+    rootClosed=moverFinalCapParity?
+      applyMoverFinalCapParity(
+        rootHeights,rootBlocked.r0,rootBlocked.r1,width,height):
+      rootBlocked,
+    root=canonicalResidualQStateRefinedCompact(
+      rootHeights,rootClosed.r0,rootClosed.r1,width,height),
+    rootKey='Q:'+root.signature,
+    rootCanonicalization={
+      candidatePermutations:root.candidatePermutations,
+      tieClassSizes:root.tieClassSizes,
+    },
+    frontier=[];
+
+  let current=new Map([[rootKey,{
+    key:rootKey,
+    terminal:false,
+    heights:root.heights,
+    r0:root.r0,
+    r1:root.r1,
+  }]]);
+
+  for(let rank=0;rank<=maxRank;rank++){
+    let terminalStates=0;
+    for(const rec of current.values())if(rec.terminal)terminalStates++;
+    frontier.push({
+      rank,
+      states:current.size,
+      nonterminalStates:current.size-terminalStates,
+      terminalStates,
+    });
+    if(rank===maxRank)break;
+
+    const next=new Map(),row=workByRank[rank];
+    for(const rec of current.values()){
+      if(rec.terminal)continue;
+      const mover=rank&1,childKeys=[],
+        own=mover?rec.r1:rec.r0,
+        opponent=mover?rec.r0:rec.r1;
+
+      for(let col=0;col<width;col++)if(rec.heights[col]<height){
+        row.literalActionEdges++;
+        const cell=rec.heights[col]*width+col,bit=1<<cell,
+          ownNext=[];
+        let wins=false;
+        for(const requirement of own){
+          if(requirement&bit){
+            const residual=requirement&~bit;
+            if(residual===0){wins=true;break;}
+            ownNext.push(residual);
+          }else ownNext.push(requirement);
+        }
+
+        let childKey,childRec;
+        if(wins){
+          const kind=mover?'P1':'P0';
+          childKey='T:'+(rank+1)+':'+kind;
+          childRec={key:childKey,terminal:true,kind};
+        }else{
+          const nextHeights=new Uint8Array(rec.heights);
+          nextHeights[col]++;
+          if(rank+1===cells){
+            childKey='T:'+(rank+1)+':D';
+            childRec={key:childKey,terminal:true,kind:'D'};
+          }else{
+            const opponentNext=opponent.filter(
+                requirement=>(requirement&bit)===0),
+              ownNormalized=normalizeMaskAntichain(ownNext),
+              opponentNormalized=normalizeMaskAntichain(opponentNext),
+              r0=mover?opponentNormalized:ownNormalized,
+              r1=mover?ownNormalized:opponentNormalized,
+              blocked=nonterminalFrontierBlocker?
+                applyUniversalFrontierBlocker(
+                  nextHeights,r0,r1,width,height,{nonterminalOnly:true}):
+                {r0,r1,removed:0},
+              closed=moverFinalCapParity?
+                applyMoverFinalCapParity(
+                  nextHeights,blocked.r0,blocked.r1,width,height):
+                blocked,
+              canonical=canonicalize(
+                nextHeights,closed.r0,closed.r1,rank);
+            childKey='Q:'+canonical.signature;
+            childRec={
+              key:childKey,
+              terminal:false,
+              heights:canonical.heights,
+              r0:canonical.r0,
+              r1:canonical.r1,
+            };
+          }
+        }
+        childKeys.push(childKey);
+        if(!next.has(childKey))next.set(childKey,childRec);
+      }
+      row.duplicateEquivalentActionEdges+=
+        childKeys.length-new Set(childKeys).size;
+    }
+    row.producedDistinctStates=next.size;
+    current=next;
+  }
+
+  return {
+    schema:'connect4.direct-residual-orbit-prefix.v1',
+    inputs:'root geometry + residual-antichain cofactor rules + support + action relabeling',
+    physicalBoardStatesEnumerated:false,
+    outcomeLabelsUsedByProducer:false,
+    width,height,k,cells,maxRank,
+    canonicalization:'refinement-partitioned exact tie search',
+    nonterminalFrontierBlocker,
+    moverFinalCapParity,
+    winningLineCount:masks.length,
+    rootCanonicalization,
+    prefixStates:frontier.reduce((n,x)=>n+x.states,0),
+    literalActionEdges:workByRank.reduce(
+      (n,x)=>n+x.literalActionEdges,0),
+    duplicateEquivalentActionEdges:workByRank.reduce(
+      (n,x)=>n+x.duplicateEquivalentActionEdges,0),
+    canonicalizationCalls:workByRank.reduce(
+      (n,x)=>n+x.canonicalizationCalls,0),
+    canonicalPermutationCandidates:workByRank.reduce(
+      (n,x)=>n+x.canonicalPermutationCandidates,0),
+    maxCanonicalPermutationCandidates:Math.max(
+      root.candidatePermutations,
+      ...workByRank.map(x=>x.maxCanonicalPermutationCandidates)),
+    nonbinaryTieCalls:workByRank.reduce(
+      (n,x)=>n+x.nonbinaryTieCalls,0),
+    frontier,
+    workByRank,
+  };
+}
+
 
 export function analyzeUnlabelledQuotientDimensionMatrix({
   cases=[
