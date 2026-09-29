@@ -1008,10 +1008,22 @@
   },
   "completion_gate": [
     "31/31 source assertion bodies have exact native primitive expansions and non-null roots 212001..212031.",
-    "64/64 currently admitted IA bodies have exact native primitive expansions and non-null roots 211001..211064.",
+    "64/64 admitted IA bodies have exact native primitive expansions and non-null roots 211001..211064.",
     "Every reducible loop/recursion support object is expanded to primitive control semantics.",
     "No assertion is classified source-reference-only, derived-only, or provenance-only as a substitute for reducing its semantic body.",
-    "A complete post-round IA pass over all 95 currently admitted assertion bodies adds zero new assertions/support refinements/QU refinements.",
-    "DP, NEI, DTS, and Experimental Inquiry remain unused."
-  ]
+    "Complete round 16 over all 95 assertion bodies adds zero new normalized assertions, zero support refinements, and zero QU refinements.",
+    "DP, NEI, DTS, and Experimental Inquiry remain unused.",
+    "Endpoint is PAUSE."
+  ],
+  "fixed_point": {
+    "round": 16,
+    "report": "COMPLETE_ROUND_16_FIXED_POINT_0_1.json",
+    "source_assertions": 31,
+    "implicit_assertions": 64,
+    "total_assertion_bodies": 95,
+    "new_assertions": 0,
+    "support_refinements": 0,
+    "qu_refinements": 0,
+    "result": "FIXED_POINT_REACHED"
+  }
 }

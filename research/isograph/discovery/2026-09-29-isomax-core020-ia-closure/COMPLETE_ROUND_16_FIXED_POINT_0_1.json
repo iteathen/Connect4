@@ -1,0 +1,96 @@
+{
+  "schema": "isomax.core020.structural_control.complete_implicit_assertion_fixed_point.v1",
+  "round": 16,
+  "date_author_local": "2026-09-29",
+  "research_direction": "Joshua Oshiro",
+  "status": "COMPLETE_PRIMITIVE_OPERATIONAL_FIXED_POINT",
+  "input": {
+    "source_assertions": 31,
+    "admitted_implicit_assertions": 64,
+    "total_assertion_bodies": 95,
+    "prior_round": "ROUND_15_COMPLETE_0_1.json",
+    "qu_state": "QU_LEDGER_ROUND15_0_5.json"
+  },
+  "new_assertions": [],
+  "support_refinements": [],
+  "qu_refinements": [],
+  "family_results": {
+    "B": {
+      "new_assertions": 0,
+      "disposition": "SATURATED_FOR_COMPLETE_FINITE_BOOLEAN_SYSTEMS",
+      "note": "Round-15 additions introduce census, quotient, exit-class, and producer-scope facts but no new Boolean assignment system beyond the already admitted coarse/refined 5x4 and flat 4x4 systems."
+    },
+    "I": {
+      "new_assertions": 0,
+      "disposition": "SATURATED_FOR_COMPLETE_EXTENTIONAL_INCIDENCE",
+      "note": "All material aggregate edge/path/profile/class/vector incidences are already consumed by the final source roots and SC-IA061..064; further conjunctions normalize to admitted bodies."
+    },
+    "F": {
+      "new_assertions": 0,
+      "disposition": "SATURATED_FOR_COMPLETE_NONDETERMINATION_WITNESSES",
+      "note": "Equal 20-cell bound, recursive quotient compression, and exit-rich continuation each already have their normalized counterexample form in SC-IA061..063. Combining them only strengthens antecedents of those same non-implications."
+    },
+    "Q": {
+      "new_assertions": 0,
+      "disposition": "SATURATED_FOR_COMPLETE_COARSE_PROJECTIONS",
+      "note": "The newly admitted recursive 4x4 compression supplies no new missing coordinate, while the exact 5x4 residual projection/refinement consequences are already represented by SC-IA003..052."
+    },
+    "C": {
+      "new_assertions": 0,
+      "disposition": "SATURATED_FOR_COMPLETE_CROSS_SUPPORT_COMPOSITION",
+      "note": "SC-IA064 is the material new composition of full 5x4 obstruction with outcome-blind production. Composing it with the no-WDL-bridge firewall or partial2 control restates existing scope/QU facts and yields no new exact bridge."
+    },
+    "R": {
+      "new_assertions": 0,
+      "disposition": "SATURATED_FOR_CURRENT_REPAIR_OBLIGATIONS",
+      "note": "The full-carrier aggregate sources establish a larger obstruction family but do not provide a generalized repair. All exact repair conclusions remain confined to the shortest represented 5x4 witness and are already admitted."
+    },
+    "U": {
+      "new_assertions": 0,
+      "disposition": "SATURATED_AFTER_ROUND15_QU_REFINEMENT",
+      "note": "SC-QR013..017 already consume every material exact restriction introduced by the aggregate assertions and SC-IA061..064. No remaining admissible QU alternative is exactly excluded by the complete packet."
+    },
+    "S": {
+      "new_assertions": 0,
+      "disposition": "SATURATED_FOR_COMPLETE_SCOPE_FIREWALLS",
+      "note": "No complete-packet fact licenses width generalization, a W/D/L or nimber bridge, a complete-5x4 residual repair, or a larger codomain. Existing scope assertions and QUs already preserve those boundaries."
+    },
+    "M": {
+      "new_assertions": 0,
+      "disposition": "SATURATED_FOR_COMPLETE_FINITE_MAP_CLOSURE",
+      "note": "Round 15 introduced no new transporter map family. Existing route-A, route-B, relative-transporter, width-4, and width-5 finite permutation closures produce no new material normalized assertion."
+    }
+  },
+  "forbidden_support_audit": {
+    "discovery_protocol_used": false,
+    "natural_entropic_identity_used": false,
+    "dts_used": false,
+    "experimental_inquiry_used": false,
+    "production_isomax_modified": false,
+    "bsfp_modified": false,
+    "external_solved_wdl_used_by_structural_producer": false
+  },
+  "primitive_closure": {
+    "source_roots": "212001..212031",
+    "implicit_roots": "211001..211064",
+    "omitted_assertions": 0,
+    "reducible_authoritative_leaves": 0,
+    "bounded_control_recursions": [
+      "4x4 structural residual producer",
+      "4x5 structural residual producer",
+      "5x4 structural residual producer",
+      "4x4 physical legal/WDL/optimal partial2 producer",
+      "GF(2) elimination/decomposition",
+      "cycle/path/forest recurrences"
+    ],
+    "unresolved_termination_qu": 0
+  },
+  "stop_rule_result": {
+    "new_normalized_assertions": 0,
+    "support_refinements": 0,
+    "qu_refinements": 0,
+    "result": "FIXED_POINT_REACHED"
+  },
+  "completeness_claim": "OPERATIONAL_FIXED_POINT_FOR_THE_COMPLETE_FROZEN_31_SOURCE_PLUS_64_IA_PACKET__NOT_UNIVERSAL_LOGICAL_COMPLETENESS",
+  "stop_disposition": "PAUSE. Do not run DP, NEI, DTS, Experimental Inquiry, or solver implementation."
+}
