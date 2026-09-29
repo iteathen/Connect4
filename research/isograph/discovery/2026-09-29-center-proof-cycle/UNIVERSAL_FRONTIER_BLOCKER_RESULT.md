@@ -2,8 +2,8 @@
 
 **Status:** bounded exact 4x4 evidence; local rule candidate identified  
 **Research direction:** Joshua Oshiro  
-**Source head:** `2461a5babe6a47cdb03300323b133287b8b73b2c`  
-**Workflow:** `36549196291` — success  
+**Source head:** `cd92ad08832b398b5642861a198d9c1f0f9c9bcf`  
+**Workflow:** `36549583331` — success  
 **Production effect:** none
 
 ## Earliest non-static collapse
@@ -102,6 +102,51 @@ not by an opaque minimax coincidence.
 If repeated closure under such local guaranteed-blocker rules removes a large
 part of the 10,507 -> 8,242 gap, it would provide a non-recursive structural
 route toward the branch-and-collapse quotient.
+
+## Qualified closure result
+
+The candidate rule was then applied eagerly to every direct residual state
+before canonicalization and branching.
+
+Result:
+
+~~~text
+baseline residual-orbit states          10,507
+with universal frontier blocker         10,075
+states eliminated                          432
+
+baseline literal action edges           31,669
+with universal frontier blocker         30,732
+edges eliminated                            937
+
+recursive action-unlabelled classes      8,242
+with rule enabled                         8,242
+
+W/D/L-split classes                          0
+root value                                    0
+~~~
+
+The unexplained static-to-recursive gap shrinks from:
+
+~~~text
+10,507 - 8,242 = 2,265
+~~~
+
+to:
+
+~~~text
+10,075 - 8,242 = 1,833
+~~~
+
+So this one local implicit assertion explains 432 of the 2,265 excess static
+residual-orbit states, about 19.1% of the gap.
+
+More importantly, the earliest remaining dynamic merge moves from rank 6 to
+rank 8. The exact rank-6 discrepancy that exposed the rule disappears.
+
+The rule is therefore not merely descriptive of one example: exhaustive 4x4
+application preserves the full recursive quotient and derived value while
+reducing the structural graph.
 
 ## Non-claims
 
