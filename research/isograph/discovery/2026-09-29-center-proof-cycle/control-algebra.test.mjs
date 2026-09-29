@@ -113,3 +113,24 @@ test('depth-graded control residue recovers the existing middle derivative',()=>
   assert.equal(r.connectK.find(x=>x.connectK===8).depthGcd,'1+x^2+x^4+x^6');
   assert.equal(r.connectK.find(x=>x.connectK===12).depthGcd,'1+x^2+x^4+x^6+x^8+x^10');
 });
+
+
+test('control-response polynomial is the winning window with one derivative removed',()=>{
+  assert.equal(typeof algebra.analyzeControlWindowFactorization,'function');
+  const r=algebra.analyzeControlWindowFactorization({minK:3,maxK:32});
+  assert.equal(r.inputs,'geometry/rules only');
+  assert.equal(r.outcomeLabelsRead,false);
+  assert.deepEqual(r.mismatches,[]);
+  for(const x of r.rows){
+    assert.equal(x.ungradedCancellation,x.connectK%4===0);
+    if(x.connectK%4===0){
+      assert.equal(x.depthGcd,x.windowOverFirstDerivative);
+      assert.equal(x.controlDerivativeMultiplicity,x.windowDerivativeMultiplicity-1);
+    }
+  }
+  const k4=r.rows.find(x=>x.connectK===4);
+  assert.equal(k4.windowPolynomial,'1+x+x^2+x^3');
+  assert.equal(k4.depthGcd,'1+x^2');
+  assert.equal(k4.windowDerivativeMultiplicity,3);
+  assert.equal(k4.controlDerivativeMultiplicity,2);
+});
