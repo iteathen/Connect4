@@ -6,6 +6,7 @@ import {
   analyzeFullColumnCancellation,
   analyzeDepthPolynomialAnnihilator,
   analyzeControlWindowFactorization,
+  analyzeControlWindowFactorizationRectangles,
 } from './control-algebra.mjs';
 
 const result={
@@ -20,5 +21,6 @@ const result={
   fullColumnCancellation:analyzeFullColumnCancellation(),
   depthPolynomialAnnihilator:analyzeDepthPolynomialAnnihilator(),
   controlWindowFactorization:analyzeControlWindowFactorization(),
+  controlWindowFactorizationRectangles:analyzeControlWindowFactorizationRectangles(),
 };
 console.log(JSON.stringify(result,null,2));
