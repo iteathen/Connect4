@@ -238,3 +238,17 @@ test('optimal sibling moves are compared under partial2 and terminal-realization
   assert.ok(a.samePartial2DifferentTerminalSetPairs>=0);
   assert.ok(a.differentPartial2SameTerminalSetPairs>=0);
 });
+
+
+test('equivalent optimal sibling deltas define a GF2 gauge candidate',()=>{
+  const r=algebra.analyzeOptimalBranchCollapse4x4();
+  const g=r.equivalentSiblingDeltaSpace;
+  assert.ok(g);
+  assert.equal(g.sameTerminalPairs,98702);
+  assert.ok(g.sameTerminalDistinctDeltas>0);
+  assert.ok(g.sameTerminalDeltaRank>0&&g.sameTerminalDeltaRank<=40);
+  assert.equal(g.sameTerminalPairsNotInSpan,0);
+  assert.ok(g.differentTerminalPairs>0);
+  assert.ok(g.differentTerminalPairsCollapsedBySpan>=0);
+  assert.ok(g.allOptimalDeltaRank>=g.sameTerminalDeltaRank);
+});
