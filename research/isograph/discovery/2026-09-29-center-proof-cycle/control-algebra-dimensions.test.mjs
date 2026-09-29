@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   analyzeDirectResidualOrbitGraph,
+  analyzeDirectResidualOrbitGrowthCompact,
   analyzeUnlabelledQuotientDimension,
   analyzeUnlabelledQuotientDimensionMatrix,
 } from './control-algebra-dimensions.mjs';
@@ -76,6 +77,67 @@ test('direct residual orbit producer reproduces recursive quotient across small 
     assert.equal(direct.wdlSplitClasses,0);
     assert.ok(direct.residualOrbitStates<=row.states);
   }
+});
+
+test('compact direct-growth canonicalizers are exactly equivalent on rewritten 4x4 control',()=>{
+  const full=analyzeDirectResidualOrbitGraph({
+    width:4,height:4,k:4,
+    nonterminalFrontierBlocker:true,
+    moverFinalCapParity:true,
+    measureLocalBranchClosure:false,
+  }),compact=analyzeDirectResidualOrbitGrowthCompact({
+    width:4,height:4,k:4,
+    nonterminalFrontierBlocker:true,
+    moverFinalCapParity:true,
+  }),refined=analyzeDirectResidualOrbitGrowthCompact({
+    width:4,height:4,k:4,
+    nonterminalFrontierBlocker:true,
+    moverFinalCapParity:true,
+    refinedColumnCanonicalization:true,
+  });
+  for(const candidate of [compact,refined]){
+    for(const key of [
+      'residualOrbitStates',
+      'literalActionEdges',
+      'duplicateEquivalentActionEdges',
+      'recursiveUnlabelledClasses',
+      'wdlSplitClasses',
+      'rootValue',
+      'rootLegalActions',
+      'rootDistinctOrbitChildren',
+      'rootDistinctRecursiveChildren',
+      'earliestDynamicMergeRank',
+    ])assert.equal(candidate[key],full[key],key);
+    assert.deepEqual(candidate.frontier,full.frontier);
+    assert.deepEqual(candidate.dynamicMergeByRank,full.dynamicMergeByRank);
+    assert.equal(candidate.fullGraphObjectsRetained,false);
+  }
+  assert.equal(refined.refinedColumnCanonicalization,true);
+  assert.ok(refined.maxCanonicalPermutationCandidates<=
+    compact.maxCanonicalPermutationCandidates);
+  assert.ok(refined.canonicalPermutationCandidates<
+    compact.canonicalPermutationCandidates);
+});
+
+test('column refinements are exact wherever they certify search-free canonicalization',()=>{
+  const r=analyzeDirectResidualOrbitGraph({
+    width:4,height:4,k:4,
+    nonterminalFrontierBlocker:true,
+    moverFinalCapParity:true,
+    auditColumnRefinement:true,
+    auditPairColumnRefinement:true,
+  }),a=r.columnRefinementAudit,b=r.pairColumnRefinementAudit;
+  for(const x of [a,b]){
+    assert.ok(x);
+    assert.ok(x.auditedStates>0);
+    assert.equal(x.canonicalCollisions,0);
+    assert.equal(x.exactOnSearchFreeStates,true);
+    assert.equal(x.searchFreeStates+x.fallbackStates,x.auditedStates);
+    assert.ok(x.searchFreeStates>0);
+  }
+  assert.equal(b.auditedStates,a.auditedStates);
+  assert.ok(b.fallbackStates<=a.fallbackStates);
+  assert.ok(b.maxPermutationSearchUpperBound<=a.maxPermutationSearchUpperBound);
 });
 
 test('local branch closure reaches the exact 4x4 quotient in seven rounds after structural rewrites',()=>{
