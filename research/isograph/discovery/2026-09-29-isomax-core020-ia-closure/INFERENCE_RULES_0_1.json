@@ -1,0 +1,61 @@
+{
+  "schema": "isomax.core020.structural_control.inference_rules.v1",
+  "date_author_local": "2026-09-29",
+  "excluded_modules": [
+    "Discovery Protocol",
+    "Natural Entropic Identity",
+    "DTS"
+  ],
+  "families": [
+    {
+      "id": "B",
+      "name": "finite Boolean closure",
+      "authority": "Core primitive logic + exact Boolean truth tables",
+      "rule": "Derive only consequences valid for every assignment in the explicitly represented finite Boolean carrier. Exhaustive truth-table verification is admissible."
+    },
+    {
+      "id": "I",
+      "name": "finite incidence conjunction",
+      "authority": "Core ordered predicate incidence + equality/disequality",
+      "rule": "Combine exact raw incidences without adding unrepresented domain meaning."
+    },
+    {
+      "id": "F",
+      "name": "functional non-determination witness",
+      "authority": "Core equality + exact finite incidences",
+      "rule": "If two distinct represented inputs have the same proposed determining projection but different exact outputs, no single-valued function of that projection alone fits both observations."
+    },
+    {
+      "id": "Q",
+      "name": "quotient/coarsening witness",
+      "authority": "Core equality + exact membership incidence",
+      "rule": "If distinct fine referents with a represented difference are incident to one quotient referent, the quotient is non-injective for that represented distinction. No natural-identity claim follows."
+    },
+    {
+      "id": "C",
+      "name": "cross-support composition",
+      "authority": "Core exact implication/conjunction",
+      "rule": "Combine previously grounded exact assertions when the new body is a necessary consequence and all scopes/guards intersect consistently."
+    },
+    {
+      "id": "R",
+      "name": "necessary repair condition",
+      "authority": "Core negation/implication over an established inconsistent finite constraint set",
+      "rule": "If a finite conjunction is unsatisfiable, any satisfying successor model must change at least one load-bearing conjunct, identification, domain assumption, or codomain semantics explicitly named by the claim."
+    },
+    {
+      "id": "U",
+      "name": "QU refinement by exact exclusion",
+      "authority": "QU 0.1 refinement semantics",
+      "rule": "Remove an admissible alternative only when an exact assertion excludes it under the same subject/scope. Do not add a preferred realization or probability."
+    },
+    {
+      "id": "S",
+      "name": "scope/non-implication firewall",
+      "authority": "Core support fidelity",
+      "rule": "A true assertion in one represented carrier supplies no exact assertion in a distinct carrier without an explicit bridge. Coexistence with a counterexample may certify that a proposed unguarded implication is unsupported/false in the represented model."
+    }
+  ],
+  "stop_rule": "A complete pass over B,I,F,Q,C,R,U,S adds zero new normalized exact assertion bodies and zero material support or QU refinements.",
+  "completeness_nonclaim": "Operational closure for this frozen packet only; not a universal theorem-proving completeness claim."
+}
