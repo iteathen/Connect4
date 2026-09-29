@@ -29,6 +29,7 @@ const result={
     nonterminalFrontierBlocker:true,
     moverFinalCapParity:true,
     auditColumnRefinement:true,
+    auditPairColumnRefinement:true,
   }),
   directMatrix:matrix.cases.map(row=>analyzeDirectResidualOrbitGraph({
     width:row.width,height:row.height,k:row.k,
