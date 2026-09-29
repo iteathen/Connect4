@@ -1,0 +1,189 @@
+{
+  "schema": "isomax.core020.structural_control.complete_implicit_assertion_round.v1",
+  "round": 15,
+  "date_author_local": "2026-09-29",
+  "research_direction": "Joshua Oshiro",
+  "support_revision": {
+    "source_roots": "COMPLETE_SOURCE_CORE020_0_1.isg",
+    "prior_ia_roots": "COMPLETE_IA_CORE020_0_1.isg",
+    "producer": "RESIDUAL_PRODUCER_CONTROL_CORE020_0_3.isg",
+    "rules": "INFERENCE_RULES_0_2.json"
+  },
+  "input": {
+    "source_assertions": 31,
+    "prior_admitted_implicit_assertions": 60
+  },
+  "new_assertions": [
+    {
+      "id": "SC-IA061",
+      "family": "F",
+      "support_mode": "EXACT",
+      "title": "equal 20-cell bound does not determine cocycle integrability",
+      "body": "The bounded 4x5 and 5x4 structural producers both have 20 occupied-cell ranks, yet the 4x5 full carrier has zero nonzero fundamental-cycle syndromes while the 5x4 full carrier has 25. The common 20-cell bound therefore does not determine cocycle integrability on these two exact cases.",
+      "normalized_body": "same_20_cell_bound_4x5_5x4_different_nonzero_cycle_syndrome_status",
+      "premises": [
+        "SC-E025",
+        "SC-E026"
+      ],
+      "rule": "F",
+      "scope": "exact bounded 4x5-c4 and 5x4-c4 producer cases only",
+      "native_id": 211061,
+      "qu_dependencies": []
+    },
+    {
+      "id": "SC-IA062",
+      "family": "F",
+      "support_mode": "EXACT",
+      "title": "recursive quotient compression coexists with nonvacuous flatness",
+      "body": "On the bounded 4x4 direct residual carrier, at least two distinct structural states share one recursive action-unlabelled class, while the full binary inheritance graph has cycle rank 1 and zero nonzero fundamental-cycle syndromes. Recursive quotient non-injectivity alone therefore does not force a cocycle obstruction.",
+      "normalized_body": "4x4_recursive_quotient_noninjective_and_full_cycle_rank1_flat",
+      "premises": [
+        "SC-E024",
+        "SC-E027"
+      ],
+      "rule": "F",
+      "scope": "exact bounded 4x4 direct residual carrier",
+      "native_id": 211062,
+      "qu_dependencies": []
+    },
+    {
+      "id": "SC-IA063",
+      "family": "F",
+      "support_mode": "EXACT",
+      "title": "exit-rich deeper continuation coexists with nonvacuous flatness",
+      "body": "The bounded 4x4 deeper carrier has nonempty nonbinary-continuation, action-transporter, and branch/multiplicity-erasure exit classes, while its full binary inheritance graph has cycle rank 1 and zero nonzero fundamental-cycle syndromes. The mere presence of those exit classes is therefore insufficient by itself to force a cocycle obstruction.",
+      "normalized_body": "4x4_nonbinary_transporter_erasure_exits_coexist_with_full_flat_cycle",
+      "premises": [
+        "SC-E024",
+        "SC-E029"
+      ],
+      "rule": "F",
+      "scope": "exact bounded 4x4 deeper continuation carrier",
+      "native_id": 211063,
+      "qu_dependencies": []
+    },
+    {
+      "id": "SC-IA064",
+      "family": "C",
+      "support_mode": "EXACT",
+      "title": "full 5x4 obstruction is produced outcome-blind",
+      "body": "The bounded structural phase producer consumes no solved W/D/L labels, yet its complete 5x4 carrier has 25 nonzero fundamental-cycle syndromes and 12 contradictory reconvergences. The full represented 5x4 nonintegrability is therefore present in the outcome-blind structural producer.",
+      "normalized_body": "5x4_full_25_nonzero_12_contradictions_outcome_blind_producer",
+      "premises": [
+        "SC-E022",
+        "SC-E026"
+      ],
+      "rule": "C",
+      "scope": "exact bounded 5x4-c4 structural producer",
+      "native_id": 211064,
+      "qu_dependencies": []
+    }
+  ],
+  "support_refinements": [],
+  "qu_refinements": [
+    {
+      "id": "SC-QR013",
+      "target": "QU-SC-001",
+      "rule": "U",
+      "premises": [
+        "SC-E026"
+      ],
+      "add_fixed": [
+        "the complete bounded 5x4 carrier has 25 nonzero fundamental-cycle syndromes and 12 contradictory reconvergences, so the obstruction is not confined to the single shortest witness"
+      ],
+      "remove_alternatives": [],
+      "probability_added": false
+    },
+    {
+      "id": "SC-QR014",
+      "target": "QU-SC-003",
+      "rule": "U",
+      "premises": [
+        "SC-IA064",
+        "SC-E031"
+      ],
+      "add_fixed": [
+        "the complete 5x4 nonintegrability census is produced without solved W/D/L labels as producer inputs",
+        "on the bounded 4x4 physical carrier, the exact W/D/L-defined optimal-edge restriction leaves the global partial2 sibling-delta set equal to the all-legal set: 176 vectors with rank 22"
+      ],
+      "remove_alternatives": [],
+      "probability_added": false
+    },
+    {
+      "id": "SC-QR015",
+      "target": "QU-SC-004",
+      "rule": "U",
+      "premises": [
+        "SC-E026"
+      ],
+      "add_fixed": [
+        "the complete 5x4 carrier contains 12 contradictory reconvergences; the shortest transporter/history route pair belongs to a larger exact obstruction family"
+      ],
+      "remove_alternatives": [],
+      "probability_added": false
+    },
+    {
+      "id": "SC-QR016",
+      "target": "QU-SC-005",
+      "rule": "U",
+      "premises": [
+        "SC-E026"
+      ],
+      "add_fixed": [
+        "the unchanged bounded 5x4 scalar carrier has 25 nonzero fundamental-cycle syndromes, not only the shortest local contradiction"
+      ],
+      "remove_alternatives": [],
+      "probability_added": false
+    },
+    {
+      "id": "SC-QR017",
+      "target": "QU-SC-006",
+      "rule": "U",
+      "premises": [
+        "SC-IA063"
+      ],
+      "add_fixed": [
+        "the bounded 4x4 deeper carrier has nonempty nonbinary, transporter, and branch/multiplicity-erasure exits while its full binary cocycle has zero nonzero fundamental-cycle syndromes"
+      ],
+      "remove_alternatives": [
+        "the mere presence of any nonbinary, transporter, or branch/multiplicity-erasure exit is sufficient by itself to force a cocycle obstruction"
+      ],
+      "probability_added": false
+    }
+  ],
+  "rejected_candidates": [
+    {
+      "id": "SC-RJ025",
+      "body": "Because 4x5 and 5x4 have the same 20-cell bound, transposing width and height causes the 5x4 obstruction.",
+      "reason": "The two exact cases establish non-determination by cell bound, not a causal explanation by transposition.",
+      "disposition": "REJECTED_CAUSAL_OVERREACH"
+    },
+    {
+      "id": "SC-RJ026",
+      "body": "Recursive quotient compression causes the 4x4 carrier to be flat.",
+      "reason": "The packet establishes coexistence of quotient non-injectivity and flatness, not causation.",
+      "disposition": "REJECTED_CAUSAL_OVERREACH"
+    },
+    {
+      "id": "SC-RJ027",
+      "body": "Nonbinary/transporter/erasure exits are irrelevant to cocycle obstruction in every case.",
+      "reason": "The 4x4 control only shows that their presence alone is insufficient; it does not show they never contribute elsewhere.",
+      "disposition": "REJECTED_GENERALIZATION_OVERREACH",
+      "qu": "QU-SC-006"
+    },
+    {
+      "id": "SC-RJ028",
+      "body": "Legal=optimal partial2 delta sets prove structural phase equals W/D/L or a nimber.",
+      "reason": "The partial2 equality is an exact structural invariant under one W/D/L-defined filter; it supplies no theorem equating phase with game value.",
+      "disposition": "REJECTED_VALUE_BRIDGE_OVERREACH",
+      "qu": "QU-SC-003"
+    },
+    {
+      "id": "SC-RJ029",
+      "body": "Twenty-five nonzero syndromes require twenty-five Boolean correction coordinates.",
+      "reason": "Syndrome count does not by itself establish a minimum corrected state dimension or codomain.",
+      "disposition": "REJECTED_DIMENSION_OVERREACH",
+      "qu": "QU-SC-005"
+    }
+  ]
+}
