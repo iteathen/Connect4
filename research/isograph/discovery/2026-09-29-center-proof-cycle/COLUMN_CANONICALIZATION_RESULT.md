@@ -158,3 +158,56 @@ refinement and provide the next target for algebraic/orbit analysis.
 This result does not prove polynomial generalized Connect Four, polynomial
 structural graph size, a polynomial worst-case canonicalizer, an XOR W/D/L
 formula, or a production-solver optimization.
+
+## Coupled fallback automorphisms — exact 4x4 audit
+
+The complete 18-state first-order/pair-refinement fallback family was then
+audited against all 24 literal column permutations.
+
+For every one of the 18 states:
+
+~~~text
+exact automorphism-group size: 2
+automorphisms:
+  1. identity
+  2. simultaneous swap of both unresolved two-column color classes
+~~~
+
+No fallback admitted either tied-pair swap independently.
+
+Thus, if the two unresolved pair orientations are encoded as bits `a,b in
+GF(2)`, the observed exact symmetry is the diagonal subgroup
+
+~~~text
+{(0,0), (1,1)}
+~~~
+
+equivalently the parity/equality constraint
+
+~~~text
+a xor b = 0
+~~~
+
+for the orientation action on each of these bounded states.
+
+This explains why both first-order and ordered-pair local refinement fail: the
+remaining ambiguity is not a missing local distinction inside either pair.
+The symmetry is coupled across the two pairs. Flipping one pair alone changes
+the structural state; flipping both together preserves it.
+
+This is a direct bounded appearance of a GF(2)-like composition law inside the
+residual/action-orbit canonicalization problem. It is materially narrower than
+an XOR W/D/L law and must not be generalized beyond the audited family without
+additional proof.
+
+Open questions now include whether:
+
+- analogous fallback components on larger widths decompose into binary
+  orientation variables plus linear GF(2) constraints;
+- the constraint graph has polynomially bounded rank/size;
+- solving those constraints can replace factorial tie-class enumeration while
+  preserving exact residual-state canonicalization.
+
+Negative evidence remains important: the second-order local refinement resolved
+none of these states, so any successful generalized rule must represent coupled
+orientation transport rather than merely richer independent column features.
