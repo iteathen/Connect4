@@ -1208,7 +1208,7 @@ export function analyzeOptimalBranchCollapse4x4(){
     optimal:buildUnlabeledQuotient(true),
   };
 
-  function buildMq2StyleQuotient(actionLabelled){
+  function buildMq2StyleQuotient(actionLabelled,{includeMover=true}={}){
     const stateClass=new Map(),signatureClass=new Map(),classWdlMask=new Map(),
       classRelativeWdlMask=new Map(),classSize=new Map();
     let nextId=0,preWinStates=0,wdlSplitClasses=0;
@@ -1249,7 +1249,7 @@ export function analyzeOptimalBranchCollapse4x4(){
         // Erase literal column identity and duplicate equivalent choices,
         // but preserve which player is choosing.
         const unique=[...new Set(tokens)].sort();
-        signature=`U:${rank&1}:${unique.join('|')}`;
+        signature=includeMover?`U:${rank&1}:${unique.join('|')}`:`R:${unique.join('|')}`;
       }
 
       let id=signatureClass.get(signature);
@@ -1295,6 +1295,7 @@ export function analyzeOptimalBranchCollapse4x4(){
 
   const mq2Labelled=buildMq2StyleQuotient(true),
     mq2Unlabelled=buildMq2StyleQuotient(false),
+    mq2RelativeNoMover=buildMq2StyleQuotient(false,{includeMover:false}),
     mq2Crosscheck={
       preWinStates:mq2Labelled.preWinStates,
       actionLabelledBehaviorClasses:mq2Labelled.classes,
@@ -1303,6 +1304,9 @@ export function analyzeOptimalBranchCollapse4x4(){
       actionUnlabelledValueClasses:mq2Unlabelled.classes,
       actionUnlabelledAbsoluteWdlSplitClasses:mq2Unlabelled.wdlSplitClasses,
       actionUnlabelledRelativeWdlSplitClasses:mq2Unlabelled.relativeWdlSplitClasses,
+      actionUnlabelledRelativeNoMoverClasses:mq2RelativeNoMover.classes,
+      actionUnlabelledRelativeNoMoverWdlSplitClasses:mq2RelativeNoMover.relativeWdlSplitClasses,
+      actionUnlabelledRelativeNoMoverAbsoluteWdlSplitClasses:mq2RelativeNoMover.wdlSplitClasses,
       rootLiteralActions:mq2Unlabelled.rootLiteralActions,
       rootDistinctUnlabelledActionClasses:mq2Unlabelled.rootDistinctChildClasses,
     };
