@@ -83,6 +83,21 @@ const R={
   PARTIAL_FEATURE_FIRST:5899422,
   PARTIAL_FEATURE_NEXT:5899423,
   PARTIAL_FEATURE_LAST:5899424,
+  TREE_EDGE:5899430,
+  FOREST_ROOT:5899431,
+  FOREST_PARENT:5899432,
+  FOREST_DEPTH:5899433,
+  CYCLE_PATH_NODE:5899434,
+  CYCLE_PATH_EDGE:5899435,
+  CYCLE_PATH_ACC:5899436,
+  CONTRADICT_PATH_NODE:5899440,
+  CONTRADICT_PATH_EDGE:5899441,
+  CONTRADICT_PATH_ACC:5899442,
+  RESPONSE_BASIS_SOURCE_COEFF:5899450,
+  RESPONSE_AUG_BASIS_SOURCE_COEFF:5899451,
+  PARTIAL_OPT_BASIS_SOURCE_COEFF:5899452,
+  PARTIAL_LEGAL_BASIS_SOURCE_COEFF:5899453,
+  RESPONSE_DEP_COEFF_PARITY:5899454,
 };
 const CASE={'4x4-c4':5899100,'4x5-c4':5899101,'5x4-c4':5899102,response:5899103,partial2:5899104};
 const SET={
@@ -187,6 +202,120 @@ function contradictoryPairs(groupIds,edges){
   return out;
 }
 
+
+function cycleBasisCertificate(groupIds,edges){
+  const parent=new Map(groupIds.map(id=>[id,id]));
+  const phase=new Map(groupIds.map(id=>[id,0]));
+  const size=new Map(groupIds.map(id=>[id,1]));
+  const tree=[],closures=[];
+  function find(id){
+    const p=parent.get(id);
+    if(p===id)return [id,0];
+    const [root,up]=find(p),par=phase.get(id)^up;
+    parent.set(id,root);phase.set(id,par);
+    return [root,par];
+  }
+  for(const edge of edges){
+    let [ra,pa]=find(edge.from),[rb,pb]=find(edge.to);
+    if(ra===rb){
+      closures.push({edge,syndrome:pa^pb^edge.delta});
+      continue;
+    }
+    tree.push(edge);
+    const bridge=pa^pb^edge.delta;
+    if(size.get(ra)<size.get(rb)){
+      parent.set(ra,rb);phase.set(ra,bridge);size.set(rb,size.get(ra)+size.get(rb));
+    }else{
+      parent.set(rb,ra);phase.set(rb,bridge);size.set(ra,size.get(ra)+size.get(rb));
+    }
+  }
+
+  const adj=new Map(groupIds.map(id=>[id,[]]));
+  for(const edge of tree){
+    adj.get(edge.from).push({next:edge.to,edge});
+    adj.get(edge.to).push({next:edge.from,edge});
+  }
+  for(const rows of adj.values())rows.sort((a,b)=>a.next-b.next||a.edge.id-b.edge.id);
+
+  const roots=[],parents=[],depth=new Map(),seen=new Set();
+  for(const start of [...groupIds].sort((a,b)=>a-b)){
+    if(seen.has(start))continue;
+    roots.push(start);seen.add(start);depth.set(start,0);
+    const queue=[start];
+    for(let qi=0;qi<queue.length;qi++){
+      const node=queue[qi];
+      for(const row of adj.get(node)){
+        if(seen.has(row.next))continue;
+        seen.add(row.next);depth.set(row.next,depth.get(node)+1);
+        parents.push({child:row.next,parent:node,edge:row.edge});
+        queue.push(row.next);
+      }
+    }
+  }
+
+  function treePath(source,target){
+    const prev=new Map([[source,null]]),queue=[source];
+    for(let qi=0;qi<queue.length&&!prev.has(target);qi++){
+      const node=queue[qi];
+      for(const row of adj.get(node)){
+        if(prev.has(row.next))continue;
+        prev.set(row.next,{node,edge:row.edge});queue.push(row.next);
+      }
+    }
+    if(!prev.has(target))throw new Error('closure endpoints disconnected in forest');
+    const nodes=[target],pathEdges=[];
+    let cur=target;
+    while(cur!==source){
+      const p=prev.get(cur);pathEdges.push(p.edge);cur=p.node;nodes.push(cur);
+    }
+    nodes.reverse();pathEdges.reverse();
+    return {nodes,edges:pathEdges};
+  }
+
+  const cycles=closures.map(row=>{
+    const path=treePath(row.edge.from,row.edge.to),acc=[0];
+    for(const edge of path.edges)acc.push(acc[acc.length-1]^edge.delta);
+    const syndrome=acc[acc.length-1]^row.edge.delta;
+    if(syndrome!==row.syndrome)throw new Error('fundamental cycle syndrome certificate mismatch');
+    return {...row,path,acc};
+  });
+  if(tree.length+closures.length!==edges.length)
+    throw new Error('forest/closure partition mismatch');
+  return {tree,closures,roots,parents,depth,cycles};
+}
+
+function contradictoryPathCertificates(groupIds,edges,pairs){
+  const outgoing=new Map(groupIds.map(id=>[id,[]]));
+  for(const edge of edges)outgoing.get(edge.from).push(edge);
+  for(const rows of outgoing.values())rows.sort((a,b)=>a.to-b.to||a.delta-b.delta||a.id-b.id);
+
+  function onePath(source,target,targetParity){
+    const failed=new Set();
+    function visit(node,parity){
+      const key=node+'|'+parity;
+      if(failed.has(key))return null;
+      if(node===target)return parity===targetParity?[]:null;
+      for(const edge of outgoing.get(node)??[]){
+        const suffix=visit(edge.to,parity^edge.delta);
+        if(suffix)return [edge,...suffix];
+      }
+      failed.add(key);return null;
+    }
+    const path=visit(source,0);
+    if(!path)throw new Error('missing contradictory path certificate');
+    const nodes=[source],acc=[0];
+    for(const edge of path){nodes.push(edge.to);acc.push(acc[acc.length-1]^edge.delta);}
+    if(nodes[nodes.length-1]!==target||acc[acc.length-1]!==targetParity)
+      throw new Error('bad contradictory path certificate');
+    return {edges:path,nodes,acc};
+  }
+
+  return pairs.map((pair,index)=>({
+    index,pair,
+    paths:[onePath(pair.source,pair.target,0),onePath(pair.source,pair.target,1)],
+  }));
+}
+
 for(const [label,row,ci] of phaseEntries){
   const c=CASE[label],w=row.witness,bp=w.binaryPhase;
   raw.add(P0);raw.add(P1);raw.add(LIVE);raw.add(INACTIVE);
@@ -249,11 +378,33 @@ for(const [label,row,ci] of phaseEntries){
   }
   const closures=cycleClosures(bp.binaryGroupIds,reduced);
   for(const x of closures)t(R.CYCLE_CLOSURE,c,edgeTok(ci,x.edgeId),x.syndrome?BIT1:BIT0);
+  const cycleCert=cycleBasisCertificate(bp.binaryGroupIds,reduced);
+  for(const edge of cycleCert.tree)t(R.TREE_EDGE,c,edgeTok(ci,edge.id));
+  for(const root of cycleCert.roots)t(R.FOREST_ROOT,c,groupTok(ci,root));
+  for(const [node,d] of cycleCert.depth)t(R.FOREST_DEPTH,c,groupTok(ci,node),nat(d));
+  for(const row of cycleCert.parents)
+    t(R.FOREST_PARENT,c,groupTok(ci,row.child),groupTok(ci,row.parent),edgeTok(ci,row.edge.id));
+  for(const row of cycleCert.cycles){
+    const ce=edgeTok(ci,row.edge.id);
+    row.path.nodes.forEach((node,i)=>t(R.CYCLE_PATH_NODE,c,ce,nat(i),groupTok(ci,node)));
+    row.path.edges.forEach((edge,i)=>t(R.CYCLE_PATH_EDGE,c,ce,nat(i),edgeTok(ci,edge.id)));
+    row.acc.forEach((bit,i)=>t(R.CYCLE_PATH_ACC,c,ce,nat(i),bit?BIT1:BIT0));
+  }
   const contradictions=contradictoryPairs(bp.binaryGroupIds,reduced);
   contradictions.forEach((x,i)=>{
     const pt=pairTok(ci,i);
     t(R.CONTRADICTORY_PAIR,c,pt,groupTok(ci,x.source),groupTok(ci,x.target));
   });
+  const contradictionCert=contradictoryPathCertificates(bp.binaryGroupIds,reduced,contradictions);
+  for(const row of contradictionCert){
+    const pt=pairTok(ci,row.index);
+    row.paths.forEach((p,parity)=>{
+      const pb=parity?BIT1:BIT0;
+      p.nodes.forEach((node,i)=>t(R.CONTRADICT_PATH_NODE,c,pt,pb,nat(i),groupTok(ci,node)));
+      p.edges.forEach((edge,i)=>t(R.CONTRADICT_PATH_EDGE,c,pt,pb,nat(i),edgeTok(ci,edge.id)));
+      p.acc.forEach((bit,i)=>t(R.CONTRADICT_PATH_ACC,c,pt,pb,nat(i),bit?BIT1:BIT0));
+    });
+  }
 
   (w.actionLabelledFibers??[]).forEach((f,i)=>{
     const ft=fiberTok(ci,i);t(R.SPLIT_FIBER,c,ft);
@@ -342,6 +493,34 @@ function decomposeHex(hex,basisRows){
   return coeff;
 }
 
+
+function basisSourceCertificate(hexRows,width,basisRows){
+  const basis=new Array(width).fill(null);
+  for(let i=0;i<hexRows.length;i++){
+    let row=BigInt('0x'+(hexRows[i]||'0')),combo=1n<<BigInt(i),inserted=false;
+    for(let bit=width-1;bit>=0;bit--)if((row>>BigInt(bit))&1n){
+      if(basis[bit]){row^=basis[bit].row;combo^=basis[bit].combo;}
+      else{basis[bit]={row,combo};inserted=true;break;}
+    }
+    if(!inserted&&row!==0n)throw new Error('basis certificate elimination residue');
+  }
+  const expected=new Map(basisRows.map(row=>[row.pivot,BigInt('0x'+row.bits)]));
+  const out=[];
+  for(let pivot=0;pivot<width;pivot++){
+    const row=basis[pivot],want=expected.get(pivot);
+    if(!row){
+      if(want!==undefined)throw new Error('missing expected basis pivot '+pivot);
+      continue;
+    }
+    if(want===undefined||row.row!==want)throw new Error('basis row mismatch at pivot '+pivot);
+    const sources=[];
+    for(let i=0;i<hexRows.length;i++)if((row.combo>>BigInt(i))&1n)sources.push(i);
+    out.push({pivot,sources});
+  }
+  if(out.length!==basisRows.length)throw new Error('basis certificate rank mismatch');
+  return out;
+}
+
 function hexBits(hex){
   const n=BigInt('0x'+(hex||'0'));
   const out=[];
@@ -376,6 +555,14 @@ function hexBits(hex){
     t(R.BASIS_PIVOT,bt,feat(row.pivot));
     for(const b of hexBits(row.bits))t(R.RESPONSE_AUG_BASIS_BIT,bt,feat(b));
   }
+  const responseBasisCert=basisSourceCertificate(w.responseVectors.map(v=>v.bits),138,w.pairedBasis);
+  for(const row of responseBasisCert)
+    for(const i of row.sources)t(R.RESPONSE_BASIS_SOURCE_COEFF,6720000+row.pivot,6700000+w.responseVectors[i].id);
+  const augmentedHex=[...w.responseVectors.map(v=>v.bits),w.unmatchedCenterVector];
+  const augmentedBasisCert=basisSourceCertificate(augmentedHex,138,w.augmentedBasis);
+  for(const row of augmentedBasisCert)for(const i of row.sources)
+    t(R.RESPONSE_AUG_BASIS_SOURCE_COEFF,6730000+row.pivot,
+      i<w.responseVectors.length?6700000+w.responseVectors[i].id:unmatchedVector);
   for(const b of hexBits(w.unmatchedCenterVector))t(R.RESPONSE_UNMATCHED_BIT,c,feat(b));
   for(const v of w.responseVectors){
     const vt=6700000+v.id;
@@ -386,6 +573,12 @@ function hexBits(hex){
   }
   for(const pivot of decomposeHex(w.unmatchedCenterVector,w.augmentedBasis))
     t(R.RESPONSE_AUG_COEFF,unmatchedVector,6730000+pivot);
+  for(const row of w.pairedBasis){
+    let parity=0;
+    for(const v of w.responseVectors)if(w.dependencyLabels.includes(v.label)&&
+      decomposeHex(v.bits,w.pairedBasis).includes(row.pivot))parity^=1;
+    t(R.RESPONSE_DEP_COEFF_PARITY,c,6720000+row.pivot,parity?BIT1:BIT0);
+  }
   t(R.RESPONSE_UNMATCHED_CELL,c,233353);
   for(let bit=0;bit<138;bit++){
     const player=bit<69?P0:P1,line=bit%69;
@@ -424,6 +617,14 @@ function hexBits(hex){
     t(R.BASIS_PIVOT,bt,bit(row.pivot));
     for(const b of hexBits(row.bits))t(R.PARTIAL_LEGAL_BASIS_BIT,bt,bit(b));
   }
+  const optHex=w.optimalDistinctDeltas;
+  const legalHex=w.legalDistinctDeltas;
+  const optBasisCert=basisSourceCertificate(optHex,40,w.optimalBasis);
+  for(const row of optBasisCert)for(const i of row.sources)
+    t(R.PARTIAL_OPT_BASIS_SOURCE_COEFF,6820000+row.pivot,tokByHex.get(optHex[i]));
+  const legalBasisCert=basisSourceCertificate(legalHex,40,w.legalBasis);
+  for(const row of legalBasisCert)for(const i of row.sources)
+    t(R.PARTIAL_LEGAL_BASIS_SOURCE_COEFF,6830000+row.pivot,tokByHex.get(legalHex[i]));
   for(const hex of w.optimalDistinctDeltas){
     const dt=tokByHex.get(hex);
     for(const pivot of decomposeHex(hex,w.optimalBasis))
