@@ -4,6 +4,9 @@ Owner direction: Joshua Oshiro. Started 2026-09-28 local / 2026-09-29 UTC.
 Status: OPEN research campaign; no new gameplay authority or runtime adoption.
 Strategy owner: GSP-004 guarded obligation closure.
 
+Current focus correction: [limited-information proof objective](LIMITED_INFORMATION_OBJECTIVE.md).
+It supersedes further full-solve timing expansion as the immediate next task.
+
 ## Questions and frozen boundaries
 
 For one-based prefixes `44`, `444`, `4444`, construct a small rule-derived
