@@ -1,0 +1,166 @@
+{
+  "schema": "isomax.core020.structural_control.implicit_assertion_round.v2",
+  "round": 12,
+  "date_author_local": "2026-09-29",
+  "strict_support_revision": "ISOMAX_STRUCTURAL_CONTROL_CORE020_0_2.isg + A0 v2 + INFERENCE_RULES_0_2.json",
+  "input": [
+    "A0_EXPLICIT_ASSERTIONS_0_1.json",
+    "ROUND_01_0_1.json",
+    "ROUND_02_0_1.json",
+    "ROUND_03_0_1.json",
+    "ROUND_04_0_1.json",
+    "ROUND_05_0_1.json",
+    "ROUND_06_0_1.json",
+    "ROUND_07_0_1.json",
+    "ROUND_08_0_1.json",
+    "ROUND_09_0_1.json",
+    "ROUND_10_0_1.json"
+  ],
+  "new_assertions": [
+    {
+      "id": "SC-IA053",
+      "family": "M",
+      "support_mode": "EXACT",
+      "title": "route-A transporter is an odd involution",
+      "body": "The complete mapping 197500 fixes slots 0,1,4 and swaps slots 2 and 3; applying it twice returns every represented slot to itself, and its inversion parity is 1.",
+      "normalized_body": "routeA_transporter_is_odd_involution_swap_2_3_fix_0_1_4",
+      "premises": [
+        "SC-E005",
+        "SC-E015"
+      ],
+      "rule": "M",
+      "scope": "shortest 5x4 route-A accumulated transporter",
+      "qu_dependencies": []
+    },
+    {
+      "id": "SC-IA054",
+      "family": "M",
+      "support_mode": "EXACT",
+      "title": "route-B transporter is an odd involution",
+      "body": "The complete mapping 197501 fixes slots 2,3,4 and swaps slots 0 and 1; applying it twice returns every represented slot to itself, and its inversion parity is 1.",
+      "normalized_body": "routeB_transporter_is_odd_involution_swap_0_1_fix_2_3_4",
+      "premises": [
+        "SC-E006",
+        "SC-E015"
+      ],
+      "rule": "M",
+      "scope": "shortest 5x4 route-B accumulated transporter",
+      "qu_dependencies": []
+    },
+    {
+      "id": "SC-IA055",
+      "family": "M",
+      "support_mode": "EXACT",
+      "title": "relative transporter is even",
+      "body": "The definitionally composed transporter 197502 = 197501 after 197500 maps slots as [1,0,3,2,4], has exactly two inversions, and therefore has represented parity bit 0.",
+      "normalized_body": "relative_transporter_B_after_A_maps_1_0_3_2_4_and_is_even",
+      "premises": [
+        "SC-IA053",
+        "SC-IA054"
+      ],
+      "rule": "M",
+      "scope": "shortest 5x4 transporter pair",
+      "qu_dependencies": []
+    },
+    {
+      "id": "SC-IA056",
+      "family": "B",
+      "support_mode": "EXACT",
+      "title": "route phase difference is odd while relative transporter parity is even",
+      "body": "The two shortest route phases differ by XOR 1, while the exact relative transporter 197502 has parity bit 0.",
+      "normalized_body": "shortest_route_phase_difference_one_relative_transporter_parity_zero",
+      "premises": [
+        "SC-IA010",
+        "SC-IA055"
+      ],
+      "rule": "B",
+      "scope": "shortest 5x4 two-route witness",
+      "qu_dependencies": []
+    },
+    {
+      "id": "SC-IA057",
+      "family": "F",
+      "support_mode": "EXACT",
+      "title": "relative transporter parity cannot explain the shortest phase difference",
+      "body": "On the shortest 5x4 two-route witness, even relative transporter parity coexists with an odd route-phase difference; relative transporter parity alone therefore cannot equal or determine the represented phase difference on this pair.",
+      "normalized_body": "relative_transporter_parity_does_not_determine_shortest_route_phase_difference",
+      "premises": [
+        "SC-IA056"
+      ],
+      "rule": "F",
+      "scope": "shortest 5x4 two-route witness",
+      "qu_dependencies": [],
+      "related_qu": [
+        "QU-SC-004"
+      ]
+    },
+    {
+      "id": "SC-IA058",
+      "family": "I",
+      "support_mode": "EXACT",
+      "title": "oriented action histories share their second action and differ at the first",
+      "body": "The two represented source-frame action sequences are (1,2) and (0,2): their second action slot is the same represented slot 2 and their first action slots differ.",
+      "normalized_body": "shortest_action_sequences_share_second_slot2_differ_first_slots1_0",
+      "premises": [
+        "SC-E016"
+      ],
+      "rule": "I",
+      "scope": "shortest 5x4 source-frame action sequences",
+      "qu_dependencies": []
+    }
+  ],
+  "support_refinements": [
+    {
+      "id": "SC-SR003",
+      "assertion": "SC-E014",
+      "support_mode": "EXACT_IMPLICIT_SUPPORT",
+      "premises": [
+        "SC-IA053",
+        "SC-IA054"
+      ],
+      "rule": "M",
+      "witness": "The two complete represented transporter maps independently reduce to one inversion each, hence equal parity bit 1.",
+      "note": "This replaces reliance on an opaque sign observation with primitive map/order/inversion/XOR support."
+    }
+  ],
+  "qu_refinements": [
+    {
+      "id": "SC-QR011",
+      "target": "QU-SC-004",
+      "rule": "U",
+      "premises": [
+        "SC-IA055",
+        "SC-IA056",
+        "SC-IA057"
+      ],
+      "add_fixed": [
+        "the exact relative transporter of the shortest route pair is even while the represented route-phase difference is odd"
+      ],
+      "remove_alternatives": [
+        "ordinary parity of the exact relative transporter is sufficient to explain the shortest route-phase difference"
+      ],
+      "retain_open": [
+        "full non-parity transporter/orientation structure matters on some obstruction components",
+        "an intrinsic endpoint/residual relation subsumes the needed transition distinction",
+        "a relabeling-invariant state coordinate makes transporter history unnecessary"
+      ],
+      "probability_added": false
+    }
+  ],
+  "rejected_candidates": [
+    {
+      "id": "SC-RJ022",
+      "body": "Because the relative transporter is even, full transporter structure is irrelevant.",
+      "reason": "Parity loses information; the full relative map remains nontrivial and the current evidence only falsifies its parity projection.",
+      "disposition": "REJECTED_PROJECTION_OVERREACH",
+      "qu": "QU-SC-004"
+    },
+    {
+      "id": "SC-RJ023",
+      "body": "The differing first action alone causes the phase difference.",
+      "reason": "The exact sequences differ at the first action, but co-occurrence does not prove causal sufficiency.",
+      "disposition": "REJECTED_CAUSAL_OVERREACH",
+      "qu": "QU-SC-001"
+    }
+  ]
+}
