@@ -37,6 +37,14 @@ test('direct residual orbit graph reproduces the recursive 4x4 quotient without 
   assert.equal(r.earliestDynamicMergeRank,6);
   assert.equal(r.dynamicMergeByRank[6].orbitExcess,2);
   assert.ok(r.earliestDynamicMergeGroups.length>0);
+
+  const closed=analyzeDirectResidualOrbitGraph({
+    width:4,height:4,k:4,universalFrontierBlocker:true,
+  });
+  assert.ok(closed.residualOrbitStates<r.residualOrbitStates);
+  assert.equal(closed.recursiveUnlabelledClasses,r.recursiveUnlabelledClasses);
+  assert.equal(closed.rootValue,r.rootValue);
+  assert.equal(closed.wdlSplitClasses,0);
 });
 
 test('cross-dimension rule-only quotients remain WDL-homogeneous under post-hoc validation',()=>{
