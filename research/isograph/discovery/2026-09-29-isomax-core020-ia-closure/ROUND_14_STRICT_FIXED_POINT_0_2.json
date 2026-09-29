@@ -1,0 +1,88 @@
+{
+  "schema": "isomax.core020.structural_control.implicit_assertion_fixed_point_pass.v2",
+  "round": 14,
+  "date_author_local": "2026-09-29",
+  "status": "STRICT_OPERATIONAL_FIXED_POINT",
+  "strict_support_revision": {
+    "native": "ISOMAX_STRUCTURAL_CONTROL_CORE020_0_2.isg",
+    "explicit": "A0_EXPLICIT_ASSERTIONS_0_1.json schema v2",
+    "rules": "INFERENCE_RULES_0_2.json",
+    "qu": "QU_LEDGER_FINAL_0_4.json"
+  },
+  "input": {
+    "explicit_assertions": 31,
+    "ia_eligible_explicit_assertions": 21,
+    "prior_admitted_implicit_assertions": 60,
+    "prior_support_refinements": 3,
+    "prior_qu_refinements": 12
+  },
+  "new_assertions": 0,
+  "support_refinements": 0,
+  "qu_refinements": 0,
+  "family_results": {
+    "B": {
+      "new_assertions": 0,
+      "disposition": "SATURATED_FOR_STRICT_FINITE_BOOLEAN_SYSTEMS",
+      "note": "Boolean consequences of the concrete 5x4 coarse/refined systems, concrete 4x4 flat system, route phases, transporter inversion parity, and relative-phase equations normalize to admitted bodies."
+    },
+    "I": {
+      "new_assertions": 0,
+      "disposition": "SATURATED_FOR_STRICT_EXTENSIONAL_INCIDENCE",
+      "note": "Material conjunctions of edge/path, coarse-projection, support, residual-membership, transporter-map, slot-order, action-sequence, and source-provenance incidences are already consumed."
+    },
+    "F": {
+      "new_assertions": 0,
+      "disposition": "SATURATED_FOR_DECLARED_PROJECTIONS",
+      "note": "Support-only, coarse-endpoint, endpoint+sign, relative-parity, and sign+common-second-action non-determination witnesses are represented."
+    },
+    "Q": {
+      "new_assertions": 0,
+      "disposition": "SATURATED_FOR_RENDERED_COARSE_PROJECTION",
+      "note": "Fine residual distinctions, strict target refinement, and target/source repair asymmetry are represented. No additional primitive-expanded coarse fiber exists in the strict packet."
+    },
+    "C": {
+      "new_assertions": 0,
+      "disposition": "SATURATED_UNDER_NORMALIZED_COMPOSITION",
+      "note": "The local residual correction, gauge-invariant endpoint equation, transporter/history coexistence, and strict map consequences produce no new material normalized bodies."
+    },
+    "R": {
+      "new_assertions": 0,
+      "disposition": "SATURATED_FOR_CURRENT_REPAIR_OBLIGATIONS",
+      "note": "Target separation necessity, target-only sufficiency, source non-necessity, and codomain non-necessity for the shortest witness are already admitted."
+    },
+    "U": {
+      "new_assertions": 0,
+      "disposition": "SATURATED_WITH_GENERALIZED_QUS_PRESERVED",
+      "note": "The strict map closure excludes absolute sign, relative sign, and sign+common-second-action explanations on the shortest pair. Remaining generalized alternatives are not exactly decidable from this packet."
+    },
+    "S": {
+      "new_assertions": 0,
+      "disposition": "SATURATED_FOR_SCOPE_FIREWALLS",
+      "note": "Binary-tie XOR, local continuation repair, full-carrier aggregate views, W/D/L/nimber, and generalized-width claims remain correctly separated."
+    },
+    "M": {
+      "new_assertions": 0,
+      "disposition": "SATURATED_FOR_EXPLICIT_THREE-TRANSPORTER_MAP FAMILY",
+      "note": "The two source-explicit transporters, their primitive permutation proofs, their involution/oddness, the definitionally composed relative transporter, its even involution structure, and relevant action-sequence overlap have all material consequences represented."
+    }
+  },
+  "primitive_firewall": {
+    "external_boolean_ids": false,
+    "opaque_route_phase_leaf": false,
+    "opaque_permutation_sign_leaf": false,
+    "opaque_transporter_content_leaf": false,
+    "opaque_action_sequence_leaf": false,
+    "ad_hoc_domain_membership_layer": false,
+    "ia_eligible_sidecar_only_premises": false,
+    "exact_ia_load_bearing_qu_dependencies": false,
+    "aggregate_derived_views_are_ia_premises": false
+  },
+  "forbidden_support_audit": {
+    "discovery_protocol_used": false,
+    "natural_entropic_identity_used": false,
+    "dts_used": false,
+    "wdl_or_nimber_bridge_used": false
+  },
+  "stop_rule": "A complete strict pass over B,I,F,Q,C,R,U,S,M added zero distinct material normalized assertion bodies, zero material support refinements, and zero QU refinements.",
+  "completeness_claim": "OPERATIONAL_ONLY__STRICT_PRIMITIVE_FROZEN_PACKET__NOT_UNIVERSAL_LOGICAL_COMPLETENESS"
+}
