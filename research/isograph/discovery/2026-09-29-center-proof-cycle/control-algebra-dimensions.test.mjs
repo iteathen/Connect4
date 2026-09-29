@@ -334,7 +334,18 @@ test('bounded open-cap terminal dominance preserves recursive semantics across s
       classes:closed.recursiveUnlabelledClasses,
     });
   }
-  console.log('OPEN_CAP_DOMINANCE_MATRIX '+JSON.stringify(rows));
+  assert.deepEqual(rows,[
+    {width:3,height:3,k:3,baseStates:158,closedStates:156,
+      baseEdges:349,closedEdges:345,classes:130},
+    {width:4,height:3,k:3,baseStates:1475,closedStates:1518,
+      baseEdges:4260,closedEdges:4387,classes:1002},
+    {width:3,height:4,k:3,baseStates:596,closedStates:574,
+      baseEdges:1386,closedEdges:1347,classes:406},
+    {width:4,height:4,k:3,baseStates:8169,closedStates:8618,
+      baseEdges:24901,closedEdges:26204,classes:4384},
+    {width:4,height:4,k:4,baseStates:9319,closedStates:9090,
+      baseEdges:29076,closedEdges:28480,classes:8242},
+  ]);
 });
 
 test('final-event cap parity removes mover-unrealizable residuals without changing quotient',()=>{
