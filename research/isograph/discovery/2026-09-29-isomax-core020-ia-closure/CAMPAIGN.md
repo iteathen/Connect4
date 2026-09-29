@@ -173,59 +173,44 @@ Do not continue into implementation.
 
 ## 9. Strict Core-0.20 re-audit and completion
 
-A later strict primitive re-audit found that the first compact packet still
-used several reducible support conveniences: imported Boolean IDs, raw route
-phase/sign fields, opaque transporter/action-sequence identities, incomplete
-finite carrier closure, and two sidecar-only IA-eligible scope assertions.
+The first compact packet did **not** satisfy the strongest Core-0.20 rule.
+The strict re-audit found reducible support and assertion bodies that had been
+left at higher semantic levels. Those findings are preserved in:
 
-Those findings are preserved in:
+- `STRICT_PRIMITIVE_REAUDIT_0_1.md`.
 
-- STRICT_PRIMITIVE_REAUDIT_0_1.md
-
-The corrected successor is:
-
-- ISOMAX_STRUCTURAL_CONTROL_CORE020_0_2.isg
-- PRIMITIVE_RENDERING_AUDIT_0_2.md
-- PRIMITIVE_CLOSURE_LEDGER_0_2.json
-- INFERENCE_RULES_0_2.json
-
-Strict reduction exposed eight additional exact IAs. Recursive exact IA closure
-therefore resumed and reached its current fixed point at:
-
-- ROUND_14_STRICT_FIXED_POINT_0_2.json
-
-Current final result:
-
-- FIXED_POINT_REPORT_0_2_STRICT.md
-- QU_LEDGER_FINAL_0_4.json
-- verifier workflow: IsoMax Core020 IA closure
-
-Aggregate experimental results remain integrated as derived/provenance views
-only. They do not qualify as primitive leaves and are not IA premises in this
-compact packet.
-
-The campaign is paused at the owner-requested boundary. No DP, NEI, DTS, or
-production implementation continuation is part of this work cycle.
-
-
-## 10. Current strict routing after primitive re-audit
-
-Current exact report:
-
-`FIXED_POINT_REPORT_0_3_STRICT_PRIMITIVE.md`
-
-Current strict authority inside this candidate packet:
+Current strict routing is:
 
 - source kernel: `ISOMAX_STRUCTURAL_CONTROL_CORE020_0_2.isg`;
+- source-premise audit: `PRIMITIVE_RENDERING_AUDIT_0_2.md`;
+- primitive closure ledger: `PRIMITIVE_CLOSURE_LEDGER_STRICT_0_4.json`;
 - native IA bodies: `STRICT_IA_CORE020_0_3.isg`;
-- IA admission: `STRICT_IA_ADMISSION_0_3.json`;
-- fixed point: `STRICT_ROUND_05_FIXED_POINT_0_3.json`;
-- strict QU disposition: `STRICT_QU_DISPOSITION_0_1.json`.
+- strict IA admission: `STRICT_IA_ADMISSION_0_3.json`;
+- strict IA rounds: `STRICT_ROUND_01_0_2.json`,
+  `STRICT_ROUND_02_0_2.json`, `STRICT_ROUND_04_0_3.json`;
+- strict fixed point: `STRICT_ROUND_05_FIXED_POINT_0_3.json`;
+- strict QU disposition: `STRICT_QU_DISPOSITION_0_1.json`;
+- current report: `FIXED_POINT_REPORT_0_3_STRICT_PRIMITIVE.md`;
+- strict verifier: `verify-strict-primitive-closure.mjs`.
 
-The earlier 60 prose IAs are not current primitive authority. Fourteen native
-primitive IA bodies qualify in the compact exact scope. Aggregate recent
-research without a complete primitive reverse map is outside strict native
-scope and remains source-reference-only.
+Current exact disposition:
 
-The campaign remains paused. No DP, NEI, DTS, EI, or implementation pass
-follows.
+```text
+31 frozen source assertions
+21 strict primitive IA-eligible source premises
+14 admitted native primitive IA bodies
+60 predecessor high-level IA views superseded
+  21 have material content represented by native IA bodies
+  39 remain derived explanatory views only
+
+strict exact QU refinements = 0
+generalized QU_UNEXPANDED seams = 6
+```
+
+Aggregate carrier/cycle/count research without a complete primitive reverse map
+is source-reference-only in this compact packet. It is **not** a Core-0.20
+primitive leaf and is not an IA premise.
+
+The campaign is paused at the owner-requested boundary. No DP, NEI, DTS,
+Experimental Inquiry, W/D/L bridge, or production implementation continuation
+is part of this work cycle.
