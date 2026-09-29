@@ -140,6 +140,25 @@ test('column refinements are exact wherever they certify search-free canonicaliz
   assert.ok(b.maxPermutationSearchUpperBound<=a.maxPermutationSearchUpperBound);
 });
 
+test('binary tie stabilizer is derived from incidence and matches exact fallback automorphisms',()=>{
+  const r=analyzeDirectResidualOrbitGraph({
+    width:4,height:4,k:4,
+    nonterminalFrontierBlocker:true,
+    moverFinalCapParity:true,
+    auditBinaryTieStabilizers:true,
+  }),a=r.binaryTieStabilizerAudit;
+  assert.ok(a);
+  assert.equal(a.fallbackStates,18);
+  assert.equal(a.constructiveMatchesExact,true);
+  assert.deepEqual(a.pairCounts,[2]);
+  assert.deepEqual(a.dimensions,[1]);
+  assert.deepEqual(a.parityCheckSets,['3']);
+  assert.deepEqual(a.exactVectorSets,['0,3']);
+  assert.ok(a.rows.every(row=>
+    row.constructiveMatchesExact&&
+    row.exactUnrepresented===0));
+});
+
 test('local branch closure reaches the exact 4x4 quotient in seven rounds after structural rewrites',()=>{
   const r=analyzeDirectResidualOrbitGraph({
     width:4,height:4,k:4,
