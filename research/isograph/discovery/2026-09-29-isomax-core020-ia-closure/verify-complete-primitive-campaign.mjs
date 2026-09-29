@@ -221,8 +221,9 @@ function assertNoFreeVariables(text,name){
   assert.deepEqual([...new Set(free)],[],name+' free variables');
 }
 for(const [name,text] of [
-  ['completeSource',completeSource],['graphControl',graphControl],
-  ['profileControl',profileControl],['gf2Control',gf2Control],
+  ['sourceScope',sourceScope],['loopControl',loopControl],
+  ['completeSource',completeSource],['completeIa',completeIa],
+  ['graphControl',graphControl],['profileControl',profileControl],['gf2Control',gf2Control],
   ['directProducer',directProducer],['physicalProducer',physicalProducer],
   ['width4Permutations',width4Permutations],['width5Permutations',width5Permutations],['stateSerialization',stateSerialization],
   ['residualProducer1',residualProducer1],['residualProducer2',residualProducer2],['residualProducer3',residualProducer3],
