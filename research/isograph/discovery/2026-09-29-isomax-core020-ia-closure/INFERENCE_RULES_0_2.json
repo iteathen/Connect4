@@ -1,0 +1,60 @@
+{
+  "schema": "isomax.core020.structural_control.inference_rules.v2",
+  "date_author_local": "2026-09-29",
+  "predecessor": "INFERENCE_RULES_0_1.json",
+  "excluded_modules": [
+    "Discovery Protocol",
+    "Natural Entropic Identity",
+    "DTS"
+  ],
+  "families": [
+    {
+      "id": "B",
+      "name": "finite Boolean closure",
+      "authority": "Core primitive logic + exact Boolean truth tables"
+    },
+    {
+      "id": "I",
+      "name": "finite incidence conjunction",
+      "authority": "Core ordered predicate incidence + equality/disequality"
+    },
+    {
+      "id": "F",
+      "name": "functional non-determination witness",
+      "authority": "Core equality + exact finite incidences"
+    },
+    {
+      "id": "Q",
+      "name": "coarse-projection witness",
+      "authority": "Core equality + exact projection incidence"
+    },
+    {
+      "id": "C",
+      "name": "cross-support composition",
+      "authority": "Core exact implication/conjunction"
+    },
+    {
+      "id": "R",
+      "name": "necessary repair condition",
+      "authority": "Core negation/implication over established inconsistent finite constraints"
+    },
+    {
+      "id": "U",
+      "name": "QU refinement by exact exclusion",
+      "authority": "QU 0.1 refinement semantics"
+    },
+    {
+      "id": "S",
+      "name": "scope/non-implication firewall",
+      "authority": "Core support fidelity"
+    },
+    {
+      "id": "M",
+      "name": "finite map closure",
+      "authority": "Core quantification/equality/ordered relation application over explicitly closed finite carriers",
+      "rule": "Derive mapping composition, fixed points, inversion content, involution, and parity only from the represented complete finite maps and primitive Boolean/XOR support. No symmetric-group label is an authoritative leaf."
+    }
+  ],
+  "stop_rule": "A complete pass over B,I,F,Q,C,R,U,S,M adds zero new normalized exact assertion bodies, zero material support refinements, and zero QU refinements.",
+  "completeness_nonclaim": "Operational closure for this frozen strict packet only."
+}
