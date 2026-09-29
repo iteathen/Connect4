@@ -1138,9 +1138,10 @@ export function analyzeOptimalBranchCollapse4x4(){
 
   function buildUnlabeledQuotient(optimalOnly){
     const stateClass=new Map(),signatureClass=new Map(),classWdlMask=new Map(),
-      classRelativeWdlMask=new Map(),classSize=new Map();
+      classRelativeWdlMask=new Map(),classSize=new Map(),
+      statesByRank=Array(17).fill(0),classesByRank=Array(17).fill(0);
     let nextId=0,statesWithDuplicateEquivalentMoves=0,duplicateEquivalentMoveEdges=0,
-      maxClassSize=0;
+      maxClassSize=0,successorEdgesProcessed=0;
 
     const legalChildKeys=rec=>{
       if(optimalOnly)return (optimalByKey.get(rec.key)??[]).map(e=>e.childKey);
@@ -1155,12 +1156,14 @@ export function analyzeOptimalBranchCollapse4x4(){
     };
 
     for(let rank=16;rank>=0;rank--)for(const rec of byRank[rank]){
+      statesByRank[rank]++;
       let signature,childKeys=[];
       if(rec.terminal){
         const terminalKind=rec.winner===0?'P0':rec.winner===1?'P1':'D';
         signature=`T:${rank}:${terminalKind}`;
       }else{
         childKeys=legalChildKeys(rec);
+        successorEdgesProcessed+=childKeys.length;
         const ids=childKeys.map(key=>{
           const id=stateClass.get(key);
           assert.notEqual(id,undefined,'child quotient class must exist at higher rank');
@@ -1174,7 +1177,11 @@ export function analyzeOptimalBranchCollapse4x4(){
         }
       }
       let id=signatureClass.get(signature);
-      if(id===undefined){id=nextId++;signatureClass.set(signature,id);}
+      if(id===undefined){
+        id=nextId++;
+        signatureClass.set(signature,id);
+        classesByRank[rank]++;
+      }
       stateClass.set(rec.key,id);
       const bit=rec.value<0?1:rec.value>0?4:2;
       classWdlMask.set(id,(classWdlMask.get(id)??0)|bit);
@@ -1197,6 +1204,12 @@ export function analyzeOptimalBranchCollapse4x4(){
       statesWithDuplicateEquivalentMoves,
       duplicateEquivalentMoveEdges,
       maxClassSize,
+      successorEdgesProcessed,
+      frontier:statesByRank.map((states,rank)=>({
+        rank,
+        states,
+        classes:classesByRank[rank],
+      })),
       rootClass:stateClass.get(rootKey),
       rootLegalMoves:rootChildren.length,
       rootDistinctChildClasses:rootDistinct,
@@ -1210,14 +1223,16 @@ export function analyzeOptimalBranchCollapse4x4(){
 
   function buildMq2StyleQuotient(actionLabelled,{includeMover=true,optimalOnly=false}={}){
     const stateClass=new Map(),signatureClass=new Map(),classWdlMask=new Map(),
-      classRelativeWdlMask=new Map(),classSize=new Map();
-    let nextId=0,preWinStates=0,wdlSplitClasses=0;
+      classRelativeWdlMask=new Map(),classSize=new Map(),
+      statesByRank=Array(17).fill(0),classesByRank=Array(17).fill(0);
+    let nextId=0,preWinStates=0,wdlSplitClasses=0,successorEdgesProcessed=0;
 
     for(let rank=16;rank>=0;rank--)for(const rec of byRank[rank]){
       // MQ2 stores states only until before a completed winning move.
       // A full-board non-winning draw remains a state at rank 16.
       if(rec.winner!==null)continue;
       preWinStates++;
+      statesByRank[rank]++;
       const heights=heightVector(rec.p0,rec.p1),tokens=[],
         optimalChildByColumn=optimalOnly?
           new Map((optimalByKey.get(rec.key)??[]).map(edge=>[edge.column,edge.childKey])):null;
@@ -1246,6 +1261,7 @@ export function analyzeOptimalBranchCollapse4x4(){
           token=`C${childClass}`;
         }
         tokens.push(token);
+        successorEdgesProcessed++;
       }
 
       let signature;
@@ -1260,7 +1276,11 @@ export function analyzeOptimalBranchCollapse4x4(){
       }
 
       let id=signatureClass.get(signature);
-      if(id===undefined){id=nextId++;signatureClass.set(signature,id);}
+      if(id===undefined){
+        id=nextId++;
+        signatureClass.set(signature,id);
+        classesByRank[rank]++;
+      }
       stateClass.set(rec.key,id);
       const bit=rec.value<0?1:rec.value>0?4:2,
         relative=(rec.rank&1)?-rec.value:rec.value,
@@ -1298,6 +1318,12 @@ export function analyzeOptimalBranchCollapse4x4(){
       wdlSplitStates,
       relativeWdlSplitClasses,
       relativeWdlSplitStates,
+      successorEdgesProcessed,
+      frontier:statesByRank.map((states,rank)=>({
+        rank,
+        states,
+        classes:classesByRank[rank],
+      })),
       rootLiteralActions:rootChildClasses.length,
       rootDistinctChildClasses:new Set(rootChildClasses).size,
     };
@@ -1325,6 +1351,16 @@ export function analyzeOptimalBranchCollapse4x4(){
       rootDistinctUnlabelledActionClasses:mq2Unlabelled.rootDistinctChildClasses,
       rootOptimalLiteralActions:mq2OptimalRelative.rootLiteralActions,
       rootDistinctOptimalChildClasses:mq2OptimalRelative.rootDistinctChildClasses,
+      construction:{
+        allLegalUnlabelled:{
+          successorEdgesProcessed:mq2RelativeNoMover.successorEdgesProcessed,
+          frontier:mq2RelativeNoMover.frontier,
+        },
+        optimalUnlabelled:{
+          successorEdgesProcessed:mq2OptimalRelative.successorEdgesProcessed,
+          frontier:mq2OptimalRelative.frontier,
+        },
+      },
     };
 
   const rootTerminalMask=terminalMaskFor(keyOf(0,0));
