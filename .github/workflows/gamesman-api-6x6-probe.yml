@@ -1,0 +1,29 @@
+name: gamesman-api-6x6-probe
+
+on:
+  push:
+    branches:
+      - experiment/gamesman-api-6x6-probe-20260928
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Probe Gamesman 6x6 solved-position API
+        shell: python
+        run: |
+          import json, urllib.parse, urllib.request
+          base = "https://nyc.cs.berkeley.edu/universal/v1/connect4/6x6/"
+          with urllib.request.urlopen(base, timeout=30) as r:
+              variant = json.load(r)
+          print("VARIANT", json.dumps(variant, sort_keys=True))
+          p = variant["startPosition"]
+          url = base + "positions/?p=" + urllib.parse.quote(p, safe="")
+          with urllib.request.urlopen(url, timeout=30) as r:
+              root = json.load(r)
+          print("ROOT", json.dumps(root, sort_keys=True))
