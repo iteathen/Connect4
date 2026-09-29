@@ -1,0 +1,127 @@
+{
+  "schema": "connect4.isomax.discovery.experimental_warrant.v1",
+  "id": "EW-004",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE_ADAPTIVE_REPAIR",
+  "purpose": [
+    "DISCRIMINATING",
+    "CHARACTERIZING"
+  ],
+  "parent_warrant": "EW-002",
+  "parent_discrepancy": "All 3x3/3x4/4x3 k=3 controls had binary cocycle cycle rank 0 under every frontier/cap setting, so they could not adjudicate an orientation-vs-integrability hypothesis.",
+  "clue_preservation": "The gravity-relative orientation clue remains live because the negative result lacked nonvacuous cycle coverage.",
+  "objective": "Find the nearest fresh k=3 transposed family with nonzero binary-cycle opportunity, then test whether transposed geometry changes syndrome behavior.",
+  "scope_frontier": {
+    "anchored": [
+      "k=3",
+      "one-size outward extension",
+      "transposed 3x5/5x3",
+      "balanced 4x4 control",
+      "all frontier/cap settings"
+    ],
+    "control": [
+      "cycle-rank nonvacuity checked before syndrome interpretation"
+    ],
+    "deferred": [
+      "6-cell-wide cases",
+      "k=4 new boards",
+      "other closures"
+    ],
+    "excluded": [
+      "claiming orientation effect when cycle rank is zero",
+      "solved W/D/L producer input"
+    ]
+  },
+  "experiments": [
+    {
+      "width": 3,
+      "height": 5,
+      "k": 3,
+      "nonterminalFrontierBlocker": false,
+      "moverFinalCapParity": false
+    },
+    {
+      "width": 3,
+      "height": 5,
+      "k": 3,
+      "nonterminalFrontierBlocker": false,
+      "moverFinalCapParity": true
+    },
+    {
+      "width": 3,
+      "height": 5,
+      "k": 3,
+      "nonterminalFrontierBlocker": true,
+      "moverFinalCapParity": false
+    },
+    {
+      "width": 3,
+      "height": 5,
+      "k": 3,
+      "nonterminalFrontierBlocker": true,
+      "moverFinalCapParity": true
+    },
+    {
+      "width": 5,
+      "height": 3,
+      "k": 3,
+      "nonterminalFrontierBlocker": false,
+      "moverFinalCapParity": false
+    },
+    {
+      "width": 5,
+      "height": 3,
+      "k": 3,
+      "nonterminalFrontierBlocker": false,
+      "moverFinalCapParity": true
+    },
+    {
+      "width": 5,
+      "height": 3,
+      "k": 3,
+      "nonterminalFrontierBlocker": true,
+      "moverFinalCapParity": false
+    },
+    {
+      "width": 5,
+      "height": 3,
+      "k": 3,
+      "nonterminalFrontierBlocker": true,
+      "moverFinalCapParity": true
+    },
+    {
+      "width": 4,
+      "height": 4,
+      "k": 3,
+      "nonterminalFrontierBlocker": false,
+      "moverFinalCapParity": false
+    },
+    {
+      "width": 4,
+      "height": 4,
+      "k": 3,
+      "nonterminalFrontierBlocker": false,
+      "moverFinalCapParity": true
+    },
+    {
+      "width": 4,
+      "height": 4,
+      "k": 3,
+      "nonterminalFrontierBlocker": true,
+      "moverFinalCapParity": false
+    },
+    {
+      "width": 4,
+      "height": 4,
+      "k": 3,
+      "nonterminalFrontierBlocker": true,
+      "moverFinalCapParity": true
+    }
+  ],
+  "adaptive_evidence_firewall": "EW-004 scope was chosen after observing EW-002. It is exploratory confirmation of nonvacuity and must be labeled adaptive.",
+  "negative_coverage_rule": "If all EW-004 cases also have cycle rank 0, only this k=3 size range is covered; the k=4 parent clue remains live.",
+  "prohibited_information_sources": [
+    "solved database",
+    "W/D/L as structural producer input"
+  ]
+}
