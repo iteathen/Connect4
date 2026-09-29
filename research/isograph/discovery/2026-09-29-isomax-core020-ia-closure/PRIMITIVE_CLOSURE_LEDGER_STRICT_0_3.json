@@ -1,0 +1,143 @@
+{
+  "schema": "isomax.core020.structural_control.strict_primitive_closure_ledger.v3",
+  "date_author_local": "2026-09-29",
+  "research_direction": "Joshua Oshiro",
+  "governing_rule": "If it can be definitionally reduced, it is not an admissible authoritative leaf.",
+  "native_kernel": "ISOMAX_STRUCTURAL_CONTROL_CORE020_0_2.isg",
+  "native_ia": "STRICT_IA_CORE020_0_2.isg",
+  "exact_source_assertion_scope": {
+    "eligible_count": 21,
+    "rule": "Each IA-eligible A0 assertion is mapped to strict native kernel structure and marked CLOSED_TO_STRICT_KERNEL.",
+    "excluded_sidecar_assertions": [
+      "SC-E022",
+      "SC-E023",
+      "SC-E024",
+      "SC-E025",
+      "SC-E026",
+      "SC-E027",
+      "SC-E028",
+      "SC-E029",
+      "SC-E030",
+      "SC-E031"
+    ]
+  },
+  "strict_ia_bodies": [
+    {
+      "id": "SC-SIA001",
+      "native_id": "210001",
+      "status": "CLOSED_PRIMITIVE",
+      "root": "^150019 210001",
+      "semantics": "allowed-orientation iff Boolean equality"
+    },
+    {
+      "id": "SC-SIA002",
+      "native_id": "210002",
+      "status": "CLOSED_PRIMITIVE",
+      "root": "^150019 210002",
+      "semantics": "complete concrete 4x4 Boolean solution set"
+    },
+    {
+      "id": "SC-SIA003",
+      "native_id": "210003",
+      "status": "CLOSED_PRIMITIVE",
+      "root": "^150019 210003",
+      "semantics": "complete target-split 5x4 Boolean solution set"
+    },
+    {
+      "id": "SC-SIA004",
+      "native_id": "210004",
+      "status": "CLOSED_PRIMITIVE",
+      "root": "^150019 210004",
+      "semantics": "route phase relation equals final residual-bit relation on both shortest routes"
+    },
+    {
+      "id": "SC-SIA005",
+      "native_id": "210005",
+      "status": "CLOSED_PRIMITIVE",
+      "root": "^150019 210005",
+      "semantics": "XOR invariance under simultaneous input complement"
+    },
+    {
+      "id": "SC-SIA006",
+      "native_id": "210006",
+      "status": "CLOSED_PRIMITIVE",
+      "root": "^150019 210006",
+      "semantics": "relative target/source XOR equals represented final residual bit in every target-split solution"
+    },
+    {
+      "id": "SC-SIA007",
+      "native_id": "210007",
+      "status": "CLOSED_PRIMITIVE",
+      "root": "^150019 210007",
+      "semantics": "shortest 5x4 route phases XOR to one"
+    },
+    {
+      "id": "SC-SIA008",
+      "native_id": "210008",
+      "status": "CLOSED_PRIMITIVE",
+      "root": "^150019 210008",
+      "semantics": "explicit 4x4 route phases XOR to zero"
+    }
+  ],
+  "reducible_kernel_relations": [
+    {
+      "id": "196104",
+      "status": "CLOSED_PRIMITIVE",
+      "expansion": "two-edge phase is IFF over path incidence, edge incidence and XOR truth table"
+    },
+    {
+      "id": "196105",
+      "status": "CLOSED_PRIMITIVE",
+      "expansion": "three-edge phase is IFF over path incidence, edge incidence and iterated XOR"
+    },
+    {
+      "id": "196116",
+      "status": "CLOSED_PRIMITIVE",
+      "expansion": "transporter inversion bit is IFF over exact slot-pair, transporter map, strict order and Boolean values"
+    },
+    {
+      "id": "196117",
+      "status": "CLOSED_PRIMITIVE",
+      "expansion": "transporter sign is IFF over the ten inversion bits and iterated XOR"
+    },
+    {
+      "id": "196119",
+      "status": "CLOSED_PRIMITIVE",
+      "expansion": "transporter bijection is expanded into totality and uniqueness in both directions"
+    }
+  ],
+  "raw_extensional_relations": [
+    "196100 XOR four-row truth table",
+    "196101 concrete edge tuples",
+    "196102 concrete two-edge paths",
+    "196103 concrete three-edge paths",
+    "196106 route/transporter/action-sequence/final-state incidence with reducible phase/sign removed",
+    "196107 shared-support incidence",
+    "196108 residual-membership bit observations",
+    "196109 exact two-tuple allowed-orientation relation",
+    "196111 fine-to-coarse incidence",
+    "196112 path-to-board provenance",
+    "196113 complete transporter maps",
+    "196114 complete strict slot order",
+    "196115 complete ten-pair extension",
+    "196118 complete ordered source-frame action sequences"
+  ],
+  "raw_atom_rule": "Internal structure of a raw atom is omitted only when the exact claim uses that atom solely for identity/value and every load-bearing behavior is represented by incidence.",
+  "qu_unexpanded": [
+    "199000 generalized intrinsic correction",
+    "199001 width-4 theorem",
+    "199002 W/D/L or nimber bridge",
+    "199003 transition-orientation requirement outside shortest witness",
+    "199004 corrected global phase codomain",
+    "199005 generic-confluence explanation"
+  ],
+  "qu_scope_rule": "These QU_UNEXPANDED nodes are outside the strict exact IA support cone; they preserve unresolved generalization and therefore do not block the narrowed exact rendering.",
+  "derived_views": {
+    "predecessor_high_level_ias": 52,
+    "disposition": "NOT_PRIMITIVE_AUTHORITY",
+    "map": "STRICT_IA_ADMISSION_0_2.json",
+    "aggregate_source_views": "P2-035..P2-042 remain provenance/navigation only"
+  },
+  "exact_closure_claim": "Every authoritative exact IA body and every load-bearing relation in its dependency cone terminates in Core primitive logic or exact raw finite incidence/value atoms.",
+  "nonclaim": "No primitive-completeness claim is made for the aggregate full-carrier census views or unresolved generalized QUs."
+}
