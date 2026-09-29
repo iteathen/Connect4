@@ -1729,6 +1729,7 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     byRank:deeperProfileByRank,
     examples:deeperGroupRecords.slice(0,128),
     propagationExamples:binaryPropagationRecords.slice(0,128),
+    binaryPhaseCocycleAudit,
   };
 
   const lateActionParityAudit={
