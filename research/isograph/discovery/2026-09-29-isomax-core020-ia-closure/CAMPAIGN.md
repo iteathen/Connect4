@@ -4,7 +4,7 @@
 **Research direction:** Joshua Oshiro  
 **Owner:** `research/semantic-quotient`  
 **Work branch:** `research/isomax-core020-ia-closure-20260929`  
-**Status:** active candidate research; no gameplay-authority effect; no production-solver effect
+**Status:** OPERATIONAL FIXED POINT REACHED / PAUSED; no gameplay-authority effect; no production-solver effect
 
 ## 1. Owner instruction
 
@@ -166,3 +166,18 @@ At that point STOP.
 Do not run DP.
 Do not run NEI.
 Do not continue into implementation.
+
+
+## 9. Completion
+
+Recursive exact IA closure reached its operational fixed point in
+ROUND_11_FIXED_POINT_0_1.json.
+
+Final result:
+
+- FIXED_POINT_REPORT_0_1.md
+- QU_LEDGER_FINAL_0_3.json
+- verifier workflow: IsoMax Core020 IA closure
+
+The campaign is paused at the owner-requested boundary. No DP, NEI, DTS, or
+production implementation continuation is part of this work cycle.
