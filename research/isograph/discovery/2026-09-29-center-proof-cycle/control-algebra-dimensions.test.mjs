@@ -52,6 +52,21 @@ test('cross-dimension rule-only quotients remain WDL-homogeneous under post-hoc 
   }
 });
 
+test('direct residual orbit producer reproduces recursive quotient across small dimensions',()=>{
+  const physical=analyzeUnlabelledQuotientDimensionMatrix();
+  for(const row of physical.cases){
+    const direct=analyzeDirectResidualOrbitGraph({
+      width:row.width,height:row.height,k:row.k,
+    });
+    assert.equal(direct.physicalBoardStatesEnumerated,false);
+    assert.equal(direct.outcomeLabelsUsedByProducer,false);
+    assert.equal(direct.recursiveUnlabelledClasses,row.classes);
+    assert.equal(direct.rootValue,row.rootValue);
+    assert.equal(direct.wdlSplitClasses,0);
+    assert.ok(direct.residualOrbitStates<=row.states);
+  }
+});
+
 test('gravity makes width-height perturbation an explicit control rather than a transpose assumption',()=>{
   const a=analyzeUnlabelledQuotientDimension({width:4,height:3,k:3});
   const b=analyzeUnlabelledQuotientDimension({width:3,height:4,k:3});
