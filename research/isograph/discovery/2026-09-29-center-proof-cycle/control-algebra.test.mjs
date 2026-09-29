@@ -1,9 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {
-  analyzeStandardCenterControlAlgebra,
-  analyzeBoundaryPolynomialAlgebra,
-} from './control-algebra.mjs';
+import * as algebra from './control-algebra.mjs';
+const {analyzeStandardCenterControlAlgebra,analyzeBoundaryPolynomialAlgebra}=algebra;
 
 test('standard 7x6 center response family has a nontrivial GF(2) defect',()=>{
   const r=analyzeStandardCenterControlAlgebra();
@@ -37,4 +35,20 @@ test('shared 2108-state boundary first exposes cubic and then complete quartic s
     'c3H*c5H*(1 xor c6L)',
   ]);
   assert.equal(r.cubicUnionImmediateWins,768);
+});
+
+
+test('dimension perturbation derives control algebra without outcome labels',()=>{
+  assert.equal(typeof algebra.analyzeDimensionControlAlgebra,'function');
+  const r=algebra.analyzeDimensionControlAlgebra({widths:[4,5,6,7,8],heights:[4,6,8]});
+  assert.equal(r.inputs,'geometry/rules only');
+  assert.equal(r.outcomeLabelsRead,false);
+  assert.equal(r.rows.length,15);
+  const standard=r.rows.find(x=>x.width===7&&x.height===6);
+  assert.ok(standard);
+  assert.equal(standard.safeDefects.length,1);
+  assert.equal(standard.safeDefects[0].column,4);
+  assert.equal(standard.safeDefects[0].responsePairs,20);
+  assert.equal(standard.safeDefects[0].responsePairRank,19);
+  assert.equal(standard.safeDefects[0].unmatchedIndependent,true);
 });
