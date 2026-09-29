@@ -69,16 +69,39 @@ const R={
   RESPONSE_FEATURE_ROLE:5899291,
   RESPONSE_UNMATCHED_CELL:5899292,
   PARTIAL_FEATURE_ROLE:5899293,
+  SET_MEMBER:5899400,
+  ENUM_AT:5899401,
 };
 const CASE={'4x4-c4':5899100,'4x5-c4':5899101,'5x4-c4':5899102,response:5899103,partial2:5899104};
+const SET={
+  G44:5901000,C44:5901001,Z44:5901002,N44:5901003,X44:5901004,
+  G45:5901010,C45:5901011,Z45:5901012,N45:5901013,X45:5901014,
+  G54:5901020,C54:5901021,Z54:5901022,N54:5901023,X54:5901024,
+  F44PURE:5901030,F44PARITY:5901031,D44BIN:5901032,
+  P44BIN:5901033,P44NONBIN:5901034,P44TRANS:5901035,P44ERASE:5901036,P44TERM:5901037,
+  Q44STATES:5901040,Q44CLASSES:5901041,
+  RESP:5901050,RESPDEP:5901051,RESPBASIS:5901052,RESPAUG:5901053,
+  P2OPT:5901060,P2LEGAL:5901061,P2OPTBASIS:5901062,P2LEGALBASIS:5901063,
+};
 const BIT0=196900,BIT1=196901;
 const P0=5899300,P1=5899301;
 const LIVE=5899302,INACTIVE=5899303;
 const nat=n=>n===0?7001:5000000+n;
 
-const raw=new Set([...Object.values(CASE)]);
+const raw=new Set([...Object.values(CASE),...Object.values(SET)]);
 const tuples=[];
 const t=(rel,...args)=>tuples.push([rel,...args]);
+
+const setRows=new Map();
+function addSet(setId,elements){
+  raw.add(setId);
+  const unique=[...new Set(elements)];
+  setRows.set(setId,unique);
+  for(let i=0;i<unique.length;i++){
+    t(R.SET_MEMBER,setId,unique[i]);
+    t(R.ENUM_AT,setId,nat(i),unique[i]);
+  }
+}
 for(const c of Object.values(CASE))t(R.CASE,c);
 
 const phaseEntries=[
@@ -225,6 +248,7 @@ for(const [label,row,ci] of phaseEntries){
     if(f.parityWellDefined)t(R.PARITY_DEFINED_FIBER,c,ft);
   });
 
+  const propSets={binary:[],nonbinary:[],transporter:[],erasure:[],terminal:[]};
   let ps=0,binaryEdgeCursor=0;
   for(const rec of w.binaryPropagationRecords??[]){
     for(const ch of rec.changed??[]){
@@ -234,13 +258,34 @@ for(const [label,row,ci] of phaseEntries){
       if(ch.type==='binary-continuation'){
         const e=bp.binaryInheritanceEdges[binaryEdgeCursor++];
         t(R.EDGE_PROP,c,edgeTok(ci,e.id),pt);
-        t(R.PROP_BINARY,c,pt);
-      } else if(ch.type==='nonbinary-continuation')t(R.PROP_NONBINARY,c,pt);
-      else if(ch.type==='child-transporter')t(R.PROP_TRANSPORTER,c,pt);
-      else if(ch.type==='child-branch-erasure')t(R.PROP_ERASURE,c,pt);
-      else if(ch.type==='terminal-or-unknown')t(R.PROP_TERMINAL,c,pt);
+        t(R.PROP_BINARY,c,pt);propSets.binary.push(pt);
+      } else if(ch.type==='nonbinary-continuation'){t(R.PROP_NONBINARY,c,pt);propSets.nonbinary.push(pt);}
+      else if(ch.type==='child-transporter'){t(R.PROP_TRANSPORTER,c,pt);propSets.transporter.push(pt);}
+      else if(ch.type==='child-branch-erasure'){t(R.PROP_ERASURE,c,pt);propSets.erasure.push(pt);}
+      else if(ch.type==='terminal-or-unknown'){t(R.PROP_TERMINAL,c,pt);propSets.terminal.push(pt);}
       else throw new Error('unknown propagation type '+ch.type);
     }
+  }
+  const ciSets=ci===0?
+    {g:SET.G44,c:SET.C44,z:SET.Z44,n:SET.N44,x:SET.X44}:
+    ci===1?{g:SET.G45,c:SET.C45,z:SET.Z45,n:SET.N45,x:SET.X45}:
+      {g:SET.G54,c:SET.C54,z:SET.Z54,n:SET.N54,x:SET.X54};
+  addSet(ciSets.g,bp.binaryGroupIds.map(id=>groupTok(ci,id)));
+  const closures=cycleClosures(bp.binaryGroupIds,bp.reducedEdges);
+  addSet(ciSets.c,closures.map(x=>edgeTok(ci,x.edgeId)));
+  addSet(ciSets.z,closures.filter(x=>x.syndrome===0).map(x=>edgeTok(ci,x.edgeId)));
+  addSet(ciSets.n,closures.filter(x=>x.syndrome===1).map(x=>edgeTok(ci,x.edgeId)));
+  addSet(ciSets.x,contradictoryPairs(bp.binaryGroupIds,bp.reducedEdges).map((_,i)=>pairTok(ci,i)));
+  if(ci===0){
+    const fibres=w.actionLabelledFibers??[];
+    addSet(SET.F44PURE,fibres.map((f,i)=>f.pureTransporter&&f.allSlotsDistinct?fiberTok(ci,i):null).filter(x=>x!==null));
+    addSet(SET.F44PARITY,fibres.map((f,i)=>f.parityWellDefined?fiberTok(ci,i):null).filter(x=>x!==null));
+    addSet(SET.D44BIN,bp.binaryGroupIds.map(id=>groupTok(ci,id)));
+    addSet(SET.P44BIN,propSets.binary);
+    addSet(SET.P44NONBIN,propSets.nonbinary);
+    addSet(SET.P44TRANS,propSets.transporter);
+    addSet(SET.P44ERASE,propSets.erasure);
+    addSet(SET.P44TERM,propSets.terminal);
   }
 }
 
@@ -267,6 +312,8 @@ for(const [label,row,ci] of phaseEntries){
     t(R.DIRECT_STATE_CLASS,c,st,cl);
   });
   for(const cl of [...classSet].sort((a,b)=>a-b))t(R.DIRECT_CLASS,c,cl);
+  addSet(SET.Q44STATES,rows.map((_,i)=>6500000+i));
+  addSet(SET.Q44CLASSES,[...classSet].sort((a,b)=>a-b));
 }
 
 function hexBits(hex){
@@ -303,6 +350,10 @@ function hexBits(hex){
     const player=bit<69?P0:P1,line=bit%69;
     t(R.RESPONSE_FEATURE_ROLE,feat(bit),player,234300+line);
   }
+  addSet(SET.RESP,w.responseVectors.map(v=>6700000+v.id));
+  addSet(SET.RESPDEP,w.responseVectors.filter(v=>w.dependencyLabels.includes(v.label)).map(v=>6700000+v.id));
+  addSet(SET.RESPBASIS,w.pairedBasis.map(row=>6720000+row.pivot));
+  addSet(SET.RESPAUG,w.augmentedBasis.map(row=>6730000+row.pivot));
 }
 
 {
@@ -325,6 +376,10 @@ function hexBits(hex){
     const bt=6830000+row.pivot;raw.add(bt);t(R.PARTIAL_LEGAL_BASIS,c,bt);
     for(const b of hexBits(row.bits))t(R.PARTIAL_LEGAL_BASIS_BIT,bt,bit(b));
   }
+  addSet(SET.P2OPT,w.optimalDistinctDeltas.map(hex=>tokByHex.get(hex)));
+  addSet(SET.P2LEGAL,w.legalDistinctDeltas.map(hex=>tokByHex.get(hex)));
+  addSet(SET.P2OPTBASIS,w.optimalBasis.map(row=>6820000+row.pivot));
+  addSet(SET.P2LEGALBASIS,w.legalBasis.map(row=>6830000+row.pivot));
 }
 
 const relIds=Object.values(R);
