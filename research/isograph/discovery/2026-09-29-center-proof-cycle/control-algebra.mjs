@@ -1105,6 +1105,34 @@ export function analyzeOptimalBranchCollapse4x4(){
   for(const delta of differentTerminalDeltas)
     if(gf2InSpan(delta,sameBasis.basis,40))differentTerminalPairsCollapsedBySpan++;
 
+  const allLegalDeltas=[];
+  let allLegalSiblingPairs=0;
+  for(const rec of memo.values()){
+    if(rec.terminal)continue;
+    const heights=heightVector(rec.p0,rec.p1),sigs=[];
+    for(let col=0;col<4;col++)if(heights[col]<4){
+      const cell=heights[col]*4+col,bit=1<<cell,
+        childKey=(rec.rank&1)?keyOf(rec.p0,rec.p1|bit):keyOf(rec.p0|bit,rec.p1),
+        child=memo.get(childKey);
+      assert.ok(child,'all legal child states must be in the exact graph');
+      sigs.push(fourByFourPartial2Signature(g,child.p0,child.p1));
+    }
+    for(let i=0;i<sigs.length;i++)for(let j=i+1;j<sigs.length;j++){
+      allLegalSiblingPairs++;
+      allLegalDeltas.push(sigs[i]^sigs[j]);
+    }
+  }
+  const allLegalUnique=uniqueBigInts(allLegalDeltas),
+    allLegalBasis=gf2Basis(allLegalUnique,40),
+    optimalDeltaSet=new Set(allUnique.map(String)),
+    legalDeltaSet=new Set(allLegalUnique.map(String));
+  let legalDeltasOutsideOptimalSpan=0;
+  for(const delta of allLegalUnique)
+    if(!gf2InSpan(delta,allBasis.basis,40))legalDeltasOutsideOptimalSpan++;
+  const optimalDeltaSetEqualsLegal=
+    optimalDeltaSet.size===legalDeltaSet.size&&
+    [...legalDeltaSet].every(x=>optimalDeltaSet.has(x));
+
   const rootTerminalMask=terminalMaskFor(keyOf(0,0));
   return {
     inputs:'4x4 connect-4 rules only',
@@ -1146,6 +1174,11 @@ export function analyzeOptimalBranchCollapse4x4(){
       allOptimalDeltaRank:allBasis.rank,
       sameTerminalPairsNotInSpan,
       differentTerminalPairsCollapsedBySpan,
+      allLegalSiblingPairs,
+      allLegalDistinctDeltas:allLegalUnique.length,
+      allLegalDeltaRank:allLegalBasis.rank,
+      legalDeltasOutsideOptimalSpan,
+      optimalDeltaSetEqualsLegal,
     },
   };
 }
