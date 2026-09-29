@@ -3,20 +3,22 @@
 ## C = NC? Control-Parity Algebra, Branch Collapse, and a Structural Research Program for Generalized Connect Four
 
 **Author:** Joshua Oshiro  
-**Current revision:** 0.6  
+**Current revision:** 0.7  
 **Status:** research preprint; not peer reviewed  
 **License:** CC BY 4.0
 
 Current paper:
 
-- [C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_6.md](C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_6.md)
+- [C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_7.md](C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_7.md)
 
 Current publication preflight:
 
-- [C_EQUALS_NC_PUBLICATION_PREFLIGHT_0_6.md](../../isograph/discovery/2026-09-29-center-proof-cycle/C_EQUALS_NC_PUBLICATION_PREFLIGHT_0_6.md)
+- [C_EQUALS_NC_PUBLICATION_PREFLIGHT_0_7.md](../../isograph/discovery/2026-09-29-center-proof-cycle/C_EQUALS_NC_PUBLICATION_PREFLIGHT_0_7.md)
 
 Historical revisions remain preserved:
 
+- [C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_6.md](C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_6.md)
+- [C_EQUALS_NC_PUBLICATION_PREFLIGHT_0_6.md](../../isograph/discovery/2026-09-29-center-proof-cycle/C_EQUALS_NC_PUBLICATION_PREFLIGHT_0_6.md)
 - [C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_5.md](C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_5.md)
 - [C_EQUALS_NC_PUBLICATION_PREFLIGHT_0_5.md](../../isograph/discovery/2026-09-29-center-proof-cycle/C_EQUALS_NC_PUBLICATION_PREFLIGHT_0_5.md)
 - [C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_4.md](C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_4.md)
@@ -28,7 +30,7 @@ Historical revisions remain preserved:
 - [C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_1.md](C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_1.md)
 - [C_EQUALS_NC_PUBLICATION_PREFLIGHT_0_1.md](../../isograph/discovery/2026-09-29-center-proof-cycle/C_EQUALS_NC_PUBLICATION_PREFLIGHT_0_1.md)
 
-Revision 0.6 adds the theorem-contamination firewall. It requires the complete proof graph of any search-eliminating production theorem—not merely the final theorem statement—to derive its authority only from game rules, board geometry, admissible current-state facts, and previously qualified rule-derived theorems. It also adds a deletion test and blind-perturbation control for detecting disguised solved-answer fitting.
+Revision 0.7 adds the canonical 28-realization theorem-contamination example. It explains that a solved perfect-play value cannot be used as the target that selects, tunes, or validates a theorem before that theorem has an independent rule/geometry derivation—even if the final theorem contains only geometric quantities and never literally contains the solved value 28.
 
 The paper explicitly discloses AI-agent assistance and states that the AI agent was **not responsible for the core findings**. Joshua Oshiro is credited as author and as the originator of the core conceptual findings and research direction. The IsoGraph system is credited as designed by Joshua Oshiro.
 
