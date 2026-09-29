@@ -359,3 +359,118 @@ export function analyzeGuardedResponseProjections(){
     projections:ids.map(responseProjection),
   };
 }
+
+
+function connectKGeometry(columns,rows,connectK){
+  const lines=[];
+  for(let r=0;r<rows;r++)for(let c=0;c<columns;c++)
+    for(const [dc,dr] of [[1,0],[0,1],[1,1],[1,-1]]){
+      const x=c+(connectK-1)*dc,y=r+(connectK-1)*dr;
+      if(x<columns&&y>=0&&y<rows)
+        lines.push(Array.from({length:connectK},(_,i)=>(r+i*dr)*columns+c+i*dc));
+    }
+  return {columns,rows,connectK,cells:columns*rows,lines};
+}
+
+function incidenceFor(g,player,cell){
+  let v=0n;
+  for(let i=0;i<g.lines.length;i++)if(g.lines[i].includes(cell))
+    v|=1n<<BigInt(player*g.lines.length+i);
+  return v;
+}
+
+function fullColumnContribution(g,column,phase){
+  let v=0n;
+  for(let row=0;row<g.rows;row++)
+    v^=incidenceFor(g,(row&1)^phase,row*g.columns+column);
+  return v;
+}
+
+function parityClassContribution(g,phase,columnParity){
+  let v=0n;
+  for(let c=0;c<g.columns;c++)if((c&1)===columnParity)
+    v^=fullColumnContribution(g,c,phase);
+  return v;
+}
+
+function singleDefectIdentity(g,defectColumn){
+  const actualColumn=c=>fullColumnContribution(g,c,c===defectColumn?0:1);
+  let opposite=0n,same=0n;
+  for(let c=0;c<g.columns;c++){
+    if((c&1)===(defectColumn&1))same^=actualColumn(c);
+    else opposite^=actualColumn(c);
+  }
+  const defectDelta=fullColumnContribution(g,defectColumn,0)^
+    fullColumnContribution(g,defectColumn,1);
+  return {oppositeZero:opposite===0n,sameEqualsDefectDelta:same===defectDelta};
+}
+
+function standardResponseSystemAtHeight(height){
+  const g=connectKGeometry(7,height,4),defectColumn=3,
+    initialHeight=c=>c===defectColumn?1:0,
+    pairVectors=[],unmatched=[];
+  const relationColumns=new Set([0,2,4,6]);
+  let completedRelation=0n;
+  for(let c=0;c<7;c++){
+    const start=initialHeight(c),remaining=height-start,pairs=remaining>>>1;
+    for(let k=0;k<pairs;k++){
+      const row=start+(k<<1),
+        v=incidenceFor(g,1,row*7+c)^incidenceFor(g,0,(row+1)*7+c);
+      pairVectors.push(v);
+      if(relationColumns.has(c))completedRelation^=v;
+    }
+    if(remaining&1){
+      const row=height-1,v=incidenceFor(g,1,row*7+c);
+      unmatched.push(v);
+      if(relationColumns.has(c))completedRelation^=v;
+    }
+  }
+  const width=g.lines.length*2,pairRank=gf2Basis(pairVectors,width).rank,
+    combinedRank=gf2Basis([...pairVectors,...unmatched],width).rank;
+  return {
+    height,
+    pairCount:pairVectors.length,
+    pairRank,
+    pairNullity:pairVectors.length-pairRank,
+    unmatchedTops:unmatched.length,
+    unmatchedAddedRank:combinedRank-pairRank,
+    combinedNullity:pairVectors.length+unmatched.length-combinedRank,
+    completedRelationZero:completedRelation===0n,
+  };
+}
+
+export function analyzeFullColumnCancellation(){
+  const uniformParityFailures=[],singleDefectIdentityFailures=[];
+  for(let width=4;width<=12;width++)for(let height=4;height<=12;height++){
+    const g=connectKGeometry(width,height,4);
+    for(let phase=0;phase<2;phase++)for(let parity=0;parity<2;parity++)
+      if(parityClassContribution(g,phase,parity)!==0n)
+        uniformParityFailures.push({width,height,phase,parity});
+    for(let defect=0;defect<width;defect++){
+      const x=singleDefectIdentity(g,defect);
+      if(!x.oppositeZero||!x.sameEqualsDefectDelta)
+        singleDefectIdentityFailures.push({width,height,column:defect+1,...x});
+    }
+  }
+
+  const connectKPeriodicity=[];
+  for(let connectK=3;connectK<=8;connectK++){
+    const width=connectK+4,height=connectK+4,
+      g=connectKGeometry(width,height,connectK);
+    let ok=true;
+    for(let phase=0;phase<2;phase++)for(let parity=0;parity<2;parity++)
+      ok=ok&&parityClassContribution(g,phase,parity)===0n;
+    connectKPeriodicity.push({connectK,width,height,uniformParityCancellation:ok});
+  }
+
+  return {
+    inputs:'geometry/rules only',
+    outcomeLabelsRead:false,
+    dimensionSweep:{
+      connectK:4,widths:[4,12],heights:[4,12],
+      uniformParityFailures,singleDefectIdentityFailures,
+    },
+    standardWidth7:[4,5,6,7,8,9].map(standardResponseSystemAtHeight),
+    connectKPeriodicity,
+  };
+}
