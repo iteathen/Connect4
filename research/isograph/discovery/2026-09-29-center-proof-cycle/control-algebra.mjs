@@ -559,3 +559,70 @@ export function analyzeDepthPolynomialAnnihilator(){
     connectK,
   };
 }
+
+
+function polynomialDivmod(a,b){
+  if(!b)throw new RangeError('zero polynomial divisor');
+  const db=polynomialDegree(b);
+  let q=0n,r=a;
+  while(r&&polynomialDegree(r)>=db){
+    const shift=polynomialDegree(r)-db;
+    q^=1n<<BigInt(shift);
+    r^=b<<BigInt(shift);
+  }
+  return {q,r};
+}
+
+function polynomialMultiplicity(p,factor){
+  let n=0;
+  while(p){
+    const {q,r}=polynomialDivmod(p,factor);
+    if(r)break;
+    p=q;n++;
+  }
+  return n;
+}
+
+function windowPolynomial(connectK){
+  let p=0n;for(let i=0;i<connectK;i++)p|=1n<<BigInt(i);return p;
+}
+
+export function analyzeControlWindowFactorization({minK=3,maxK=32}={}){
+  assert.ok(Number.isInteger(minK)&&Number.isInteger(maxK)&&minK>=2&&maxK>=minK);
+  const rows=[],mismatches=[],firstDerivative=0b11n;
+  for(let k=minK;k<=maxK;k++){
+    const g=connectKGeometry(k+4,k+4,k);
+    let ungradedCancellation=true;
+    for(let phase=0;phase<2;phase++)for(let parity=0;parity<2;parity++)
+      ungradedCancellation=ungradedCancellation&&parityClassContribution(g,phase,parity)===0n;
+
+    const polys=depthResidualPolynomials(g,1,0);
+    let depthGcd=0n;for(const p of polys)depthGcd=polynomialGcd(depthGcd,p);
+
+    const window=windowPolynomial(k),
+      division=polynomialDivmod(window,firstDerivative),
+      windowMultiplicity=polynomialMultiplicity(window,firstDerivative),
+      controlMultiplicity=polynomialMultiplicity(depthGcd,firstDerivative),
+      expectedCancellation=(k%4)===0,
+      expectedGcd=expectedCancellation?division.q:1n,
+      row={
+        connectK:k,
+        ungradedCancellation,
+        windowPolynomial:polynomialText(window),
+        depthGcd:polynomialText(depthGcd),
+        windowOverFirstDerivative:division.r===0n?polynomialText(division.q):null,
+        windowDerivativeMultiplicity:windowMultiplicity,
+        controlDerivativeMultiplicity:controlMultiplicity,
+      };
+    rows.push(row);
+    if(ungradedCancellation!==expectedCancellation||depthGcd!==expectedGcd)
+      mismatches.push({
+        connectK:k,
+        expectedCancellation,
+        actualCancellation:ungradedCancellation,
+        expectedDepthGcd:polynomialText(expectedGcd),
+        actualDepthGcd:polynomialText(depthGcd),
+      });
+  }
+  return {inputs:'geometry/rules only',outcomeLabelsRead:false,minK,maxK,rows,mismatches};
+}
