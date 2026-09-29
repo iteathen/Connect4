@@ -1,0 +1,455 @@
+{
+  "schema": "isomax.core020.complete_source_admission.v1",
+  "date_author_local": "2026-09-29",
+  "research_direction": "Joshua Oshiro",
+  "governing_rule": "Every frozen source assertion remains in the qualification target. Reducible semantics are primitive-expanded rather than omitted; legacy strict-scope classifications are retained only as historical metadata.",
+  "qualified_core_020_semantic_sha256": "9a619b552a6ef7719e5b4b5f3a9df4a732ff4377b9bc7b86c385ed5c992b88e7",
+  "qualified_qu_01_semantic_sha256": "1f1510b41e4351726e4d9e714eb32ece0d5e69f0964255aabd7b4a6e94eee4cc",
+  "count": 31,
+  "dependencies": [
+    "ISOMAX_STRUCTURAL_CONTROL_CORE020_0_2.isg",
+    "SOURCE_SCOPE_CORE020_0_1.isg",
+    "LOOP_RECURSION_CORE020_0_1.isg",
+    "BOARD_GEOMETRY_CORE020_0_1.isg",
+    "WIDTH4_PERMUTATIONS_CORE020_0_1.isg",
+    "AGGREGATE_NATURALS_CORE020_0_1.isg",
+    "AGGREGATE_WITNESS_CORE020_0_1.isg",
+    "AGGREGATE_CONTROL_CORE020_0_2.isg",
+    "AGGREGATE_CONTROL_CONTRACT_0_2.md"
+  ],
+  "admitted": [
+    {
+      "id": "SC-E001",
+      "title": "Boolean XOR truth table",
+      "exact_body": "The represented Boolean XOR relation has exactly 00->0, 01->1, 10->1, 11->0.",
+      "status": "PRIMITIVE_EXPANDED_ASSERTION",
+      "complete_closure_eligible": true,
+      "primitive_support": [
+        "196100 raw extension"
+      ],
+      "native_root": null,
+      "legacy_strict_status": "CLOSED_TO_STRICT_KERNEL"
+    },
+    {
+      "id": "SC-E002",
+      "title": "5x4 route A edge facts",
+      "exact_body": "Path 197200 consists of edges 197100:197000->197001 delta0 action1 and 197101:197001->197002 delta0 action0.",
+      "status": "PRIMITIVE_EXPANDED_ASSERTION",
+      "complete_closure_eligible": true,
+      "primitive_support": [
+        "196101",
+        "196102"
+      ],
+      "native_root": null,
+      "legacy_strict_status": "CLOSED_TO_STRICT_KERNEL"
+    },
+    {
+      "id": "SC-E003",
+      "title": "5x4 route B edge facts",
+      "exact_body": "Path 197201 consists of edges 197102:197000->197003 delta0 action0 and 197103:197003->197002 delta1 action0.",
+      "status": "PRIMITIVE_EXPANDED_ASSERTION",
+      "complete_closure_eligible": true,
+      "primitive_support": [
+        "196101",
+        "196102"
+      ],
+      "native_root": null,
+      "legacy_strict_status": "CLOSED_TO_STRICT_KERNEL"
+    },
+    {
+      "id": "SC-E004",
+      "title": "5x4 common quotient endpoints",
+      "exact_body": "Paths 197200 and 197201 begin at quotient node 197000 and end at quotient node 197002.",
+      "status": "PRIMITIVE_EXPANDED_ASSERTION",
+      "complete_closure_eligible": true,
+      "primitive_support": [
+        "196101",
+        "196102"
+      ],
+      "native_root": null,
+      "legacy_strict_status": "CLOSED_TO_STRICT_KERNEL"
+    },
+    {
+      "id": "SC-E005",
+      "title": "5x4 route A transport observation",
+      "exact_body": "Route 197200 has computed phase bit 0; its accumulated transporter has computed sign bit 1 and extensional mapping 197500; its ordered source-frame action sequence is 197510; its final fine state is 197402.",
+      "status": "PRIMITIVE_EXPANDED_ASSERTION",
+      "complete_closure_eligible": true,
+      "primitive_support": [
+        "196104",
+        "196106",
+        "196113",
+        "196114",
+        "196115",
+        "196116",
+        "196117",
+        "196118"
+      ],
+      "native_root": null,
+      "legacy_strict_status": "CLOSED_TO_STRICT_KERNEL"
+    },
+    {
+      "id": "SC-E006",
+      "title": "5x4 route B transport observation",
+      "exact_body": "Route 197201 has computed phase bit 1; its accumulated transporter has computed sign bit 1 and extensional mapping 197501; its ordered source-frame action sequence is 197511; its final fine state is 197403.",
+      "status": "PRIMITIVE_EXPANDED_ASSERTION",
+      "complete_closure_eligible": true,
+      "primitive_support": [
+        "196104",
+        "196106",
+        "196113",
+        "196114",
+        "196115",
+        "196116",
+        "196117",
+        "196118"
+      ],
+      "native_root": null,
+      "legacy_strict_status": "CLOSED_TO_STRICT_KERNEL"
+    },
+    {
+      "id": "SC-E007",
+      "title": "5x4 source sheets share support",
+      "exact_body": "Fine source sheets 197400 and 197401 both have support identity 197600.",
+      "status": "PRIMITIVE_EXPANDED_ASSERTION",
+      "complete_closure_eligible": true,
+      "primitive_support": [
+        "196107"
+      ],
+      "native_root": null,
+      "legacy_strict_status": "CLOSED_TO_STRICT_KERNEL"
+    },
+    {
+      "id": "SC-E008",
+      "title": "5x4 source sheets share quotient node",
+      "exact_body": "Fine source sheets 197400 and 197401 are both members of quotient node 197000.",
+      "status": "PRIMITIVE_EXPANDED_ASSERTION",
+      "complete_closure_eligible": true,
+      "primitive_support": [
+        "196111"
+      ],
+      "native_root": null,
+      "legacy_strict_status": "CLOSED_TO_STRICT_KERNEL"
+    },
+    {
+      "id": "SC-E009",
+      "title": "5x4 source residual distinction A",
+      "exact_body": "For P0 residual token 197700, source sheet 197400 has membership bit 1 and source sheet 197401 has membership bit 0.",
+      "status": "PRIMITIVE_EXPANDED_ASSERTION",
+      "complete_closure_eligible": true,
+      "primitive_support": [
+        "196108"
+      ],
+      "native_root": null,
+      "legacy_strict_status": "CLOSED_TO_STRICT_KERNEL"
+    },
+    {
+      "id": "SC-E010",
+      "title": "5x4 source residual distinction B",
+      "exact_body": "For P0 residual token 197701, source sheet 197400 has membership bit 0 and source sheet 197401 has membership bit 1.",
+      "status": "PRIMITIVE_EXPANDED_ASSERTION",
+      "complete_closure_eligible": true,
+      "primitive_support": [
+        "196108"
+      ],
+      "native_root": null,
+      "legacy_strict_status": "CLOSED_TO_STRICT_KERNEL"
+    },
+    {
+      "id": "SC-E011",
+      "title": "5x4 final states share quotient node",
+      "exact_body": "Final exact residual states 197402 and 197403 are both members of quotient node 197002.",
+      "status": "PRIMITIVE_EXPANDED_ASSERTION",
+      "complete_closure_eligible": true,
+      "primitive_support": [
+        "196111"
+      ],
+      "native_root": null,
+      "legacy_strict_status": "CLOSED_TO_STRICT_KERNEL"
+    },
+    {
+      "id": "SC-E012",
+      "title": "5x4 final residual distinction",
+      "exact_body": "For P0 residual token 197700, final state 197402 has membership bit 0 and final state 197403 has membership bit 1.",
+      "status": "PRIMITIVE_EXPANDED_ASSERTION",
+      "complete_closure_eligible": true,
+      "primitive_support": [
+        "196108"
+      ],
+      "native_root": null,
+      "legacy_strict_status": "CLOSED_TO_STRICT_KERNEL"
+    },
+    {
+      "id": "SC-E013",
+      "title": "shortest 5x4 scalar constraint obstruction",
+      "exact_body": "The shortest represented 5x4 four-edge Boolean node-potential constraint system is unsatisfiable.",
+      "status": "PRIMITIVE_EXPANDED_ASSERTION",
+      "complete_closure_eligible": true,
+      "primitive_support": [
+        "SC-E001",
+        "SC-E002",
+        "SC-E003",
+        "SC-E004"
+      ],
+      "native_root": null,
+      "legacy_strict_status": "CLOSED_TO_STRICT_KERNEL"
+    },
+    {
+      "id": "SC-E014",
+      "title": "permutation-sign explanation falsified",
+      "exact_body": "On the two shortest 5x4 routes the computed accumulated transporter-sign bits are equal while the computed route-phase bits differ; the represented sign projection alone does not determine route phase on this pair.",
+      "status": "PRIMITIVE_EXPANDED_ASSERTION",
+      "complete_closure_eligible": true,
+      "primitive_support": [
+        "196104",
+        "196106",
+        "196113",
+        "196114",
+        "196115",
+        "196116",
+        "196117"
+      ],
+      "native_root": null,
+      "legacy_strict_status": "CLOSED_TO_STRICT_KERNEL"
+    },
+    {
+      "id": "SC-E015",
+      "title": "full transporters differ",
+      "exact_body": "The two shortest 5x4 routes have different accumulated transporter mappings; for example their images of source slot 197300 are different.",
+      "status": "PRIMITIVE_EXPANDED_ASSERTION",
+      "complete_closure_eligible": true,
+      "primitive_support": [
+        "196106",
+        "196113"
+      ],
+      "native_root": null,
+      "legacy_strict_status": "CLOSED_TO_STRICT_KERNEL"
+    },
+    {
+      "id": "SC-E016",
+      "title": "source-frame action histories differ",
+      "exact_body": "The two shortest 5x4 routes have different ordered source-frame action sequences: 197510=(197301,197302) and 197511=(197300,197302).",
+      "status": "PRIMITIVE_EXPANDED_ASSERTION",
+      "complete_closure_eligible": true,
+      "primitive_support": [
+        "196106",
+        "196118"
+      ],
+      "native_root": null,
+      "legacy_strict_status": "CLOSED_TO_STRICT_KERNEL"
+    },
+    {
+      "id": "SC-E017",
+      "title": "4x4 route A edge facts",
+      "exact_body": "Path 197210 is 197010->197011->197012->197013 and each of its three edge delta bits is 0.",
+      "status": "PRIMITIVE_EXPANDED_ASSERTION",
+      "complete_closure_eligible": true,
+      "primitive_support": [
+        "196101",
+        "196103"
+      ],
+      "native_root": null,
+      "legacy_strict_status": "CLOSED_TO_STRICT_KERNEL"
+    },
+    {
+      "id": "SC-E018",
+      "title": "4x4 route B edge facts",
+      "exact_body": "Path 197211 is 197010->197014->197015->197013 and each of its three edge delta bits is 0.",
+      "status": "PRIMITIVE_EXPANDED_ASSERTION",
+      "complete_closure_eligible": true,
+      "primitive_support": [
+        "196101",
+        "196103"
+      ],
+      "native_root": null,
+      "legacy_strict_status": "CLOSED_TO_STRICT_KERNEL"
+    },
+    {
+      "id": "SC-E019",
+      "title": "4x4 common quotient endpoints",
+      "exact_body": "Paths 197210 and 197211 begin at quotient node 197010 and end at quotient node 197013.",
+      "status": "PRIMITIVE_EXPANDED_ASSERTION",
+      "complete_closure_eligible": true,
+      "primitive_support": [
+        "196101",
+        "196103"
+      ],
+      "native_root": null,
+      "legacy_strict_status": "CLOSED_TO_STRICT_KERNEL"
+    },
+    {
+      "id": "SC-E020",
+      "title": "two-bit allowed-orientation relation",
+      "exact_body": "The represented two-bit allowed-orientation relation contains exactly (0,0) and (1,1).",
+      "status": "PRIMITIVE_EXPANDED_ASSERTION",
+      "complete_closure_eligible": true,
+      "primitive_support": [
+        "196109"
+      ],
+      "native_root": null,
+      "legacy_strict_status": "CLOSED_TO_STRICT_KERNEL"
+    },
+    {
+      "id": "SC-E021",
+      "title": "allowed-orientation XOR-zero equivalence",
+      "exact_body": "For two represented Boolean orientation bits, allowed-orientation relation membership is equivalent to represented XOR output zero.",
+      "status": "PRIMITIVE_EXPANDED_ASSERTION",
+      "complete_closure_eligible": true,
+      "primitive_support": [
+        "196109",
+        "196110",
+        "196100"
+      ],
+      "native_root": null,
+      "legacy_strict_status": "CLOSED_TO_STRICT_KERNEL"
+    },
+    {
+      "id": "SC-E022",
+      "title": "phase producer outcome blindness",
+      "exact_body": "The structural phase producers represented in this campaign do not use solved W/D/L labels as producer inputs.",
+      "status": "PRIMITIVE_EXPANDED_ASSERTION",
+      "complete_closure_eligible": true,
+      "primitive_support": [
+        "SOURCE_SCOPE_CORE020_0_1.isg",
+        "AGGREGATE_CONTROL_CONTRACT_0_2.md"
+      ],
+      "native_root": 244022,
+      "legacy_strict_status": "PROVENANCE_SCOPE_ONLY__NOT_EXACT_IA_PREMISE"
+    },
+    {
+      "id": "SC-E023",
+      "title": "no represented WDL bridge",
+      "exact_body": "No source integrated into this packet supplies an exact theorem equating the represented structural phase with W/D/L or a nimber.",
+      "status": "PRIMITIVE_EXPANDED_ASSERTION",
+      "complete_closure_eligible": true,
+      "primitive_support": [
+        "SOURCE_SCOPE_CORE020_0_1.isg",
+        "AGGREGATE_CONTROL_CONTRACT_0_2.md"
+      ],
+      "native_root": 244023,
+      "legacy_strict_status": "PROVENANCE_SCOPE_ONLY__NOT_EXACT_IA_PREMISE"
+    },
+    {
+      "id": "SC-E024",
+      "title": "4x4 full cocycle census",
+      "exact_body": "The pinned 4x4 full carrier reports cycle rank 1 with 1 zero and 0 nonzero independent syndromes.",
+      "status": "PRIMITIVE_EXPANDED_ASSERTION",
+      "complete_closure_eligible": true,
+      "primitive_support": [
+        "AGGREGATE_CONTROL_CORE020_0_2.isg",
+        "AGGREGATE_WITNESS_CORE020_0_1.isg",
+        "AGGREGATE_CONTROL_CONTRACT_0_2.md"
+      ],
+      "native_root": 246024,
+      "legacy_strict_status": "DERIVED_SOURCE_OBSERVATION__NOT_CORE020_LEAF"
+    },
+    {
+      "id": "SC-E025",
+      "title": "4x5 full cocycle census",
+      "exact_body": "The pinned 4x5 full carrier reports cycle rank 40 with 40 zero and 0 nonzero independent syndromes.",
+      "status": "PRIMITIVE_EXPANDED_ASSERTION",
+      "complete_closure_eligible": true,
+      "primitive_support": [
+        "AGGREGATE_CONTROL_CORE020_0_2.isg",
+        "AGGREGATE_WITNESS_CORE020_0_1.isg",
+        "AGGREGATE_CONTROL_CONTRACT_0_2.md"
+      ],
+      "native_root": 246025,
+      "legacy_strict_status": "DERIVED_SOURCE_OBSERVATION__NOT_CORE020_LEAF"
+    },
+    {
+      "id": "SC-E026",
+      "title": "5x4 full cocycle census",
+      "exact_body": "The pinned 5x4 full carrier reports cycle rank 644 with 619 zero and 25 nonzero independent syndromes and 12 contradictory reconvergences.",
+      "status": "PRIMITIVE_EXPANDED_ASSERTION",
+      "complete_closure_eligible": true,
+      "primitive_support": [
+        "AGGREGATE_CONTROL_CORE020_0_2.isg",
+        "AGGREGATE_WITNESS_CORE020_0_1.isg",
+        "AGGREGATE_CONTROL_CONTRACT_0_2.md"
+      ],
+      "native_root": 246026,
+      "legacy_strict_status": "DERIVED_SOURCE_OBSERVATION__NOT_CORE020_LEAF"
+    },
+    {
+      "id": "SC-E027",
+      "title": "direct residual quotient reconstruction",
+      "exact_body": "The pinned 4x4 direct residual producer reports 10507 structural states and 8242 recursive action-unlabelled classes without physical-board enumeration or solved W/D/L producer labels.",
+      "status": "PRIMITIVE_EXPANDED_ASSERTION",
+      "complete_closure_eligible": true,
+      "primitive_support": [
+        "AGGREGATE_CONTROL_CORE020_0_2.isg",
+        "AGGREGATE_WITNESS_CORE020_0_1.isg",
+        "AGGREGATE_CONTROL_CONTRACT_0_2.md"
+      ],
+      "native_root": 246027,
+      "legacy_strict_status": "DERIVED_SOURCE_OBSERVATION__NOT_CORE020_LEAF"
+    },
+    {
+      "id": "SC-E028",
+      "title": "generic current-action parity falsifier",
+      "exact_body": "On the pinned 4x4 late-action audit, transporter parity is well-defined exactly for the 38 pure-transporter fibers whose four slot tokens are all distinct.",
+      "status": "PRIMITIVE_EXPANDED_ASSERTION",
+      "complete_closure_eligible": true,
+      "primitive_support": [
+        "AGGREGATE_CONTROL_CORE020_0_2.isg",
+        "AGGREGATE_WITNESS_CORE020_0_1.isg",
+        "AGGREGATE_CONTROL_CONTRACT_0_2.md"
+      ],
+      "native_root": 246028,
+      "legacy_strict_status": "DERIVED_SOURCE_OBSERVATION__NOT_CORE020_LEAF"
+    },
+    {
+      "id": "SC-E029",
+      "title": "deeper binary inheritance census",
+      "exact_body": "The pinned 4x4 deeper carrier has 61 binary groups and 31 binary-continuation child edges, with exits into nonbinary, transporter, and branch-erasure classes.",
+      "status": "PRIMITIVE_EXPANDED_ASSERTION",
+      "complete_closure_eligible": true,
+      "primitive_support": [
+        "AGGREGATE_CONTROL_CORE020_0_2.isg",
+        "AGGREGATE_WITNESS_CORE020_0_1.isg",
+        "AGGREGATE_CONTROL_CONTRACT_0_2.md"
+      ],
+      "native_root": 246029,
+      "legacy_strict_status": "DERIVED_SOURCE_OBSERVATION__NOT_CORE020_LEAF"
+    },
+    {
+      "id": "SC-E030",
+      "title": "response-incidence XOR dependency",
+      "exact_body": "The pinned standard 7x6 single-defect response family reports one exact response-incidence XOR dependency T1 xor T3 xor T5 xor T7 = 0 and an independent unmatched center-top event.",
+      "status": "PRIMITIVE_EXPANDED_ASSERTION",
+      "complete_closure_eligible": true,
+      "primitive_support": [
+        "AGGREGATE_CONTROL_CORE020_0_2.isg",
+        "AGGREGATE_WITNESS_CORE020_0_1.isg",
+        "AGGREGATE_CONTROL_CONTRACT_0_2.md"
+      ],
+      "native_root": 246030,
+      "legacy_strict_status": "DERIVED_SOURCE_OBSERVATION__NOT_CORE020_LEAF"
+    },
+    {
+      "id": "SC-E031",
+      "title": "legal and optimal partial2 delta sets coincide",
+      "exact_body": "The pinned exhaustive 4x4 branch-collapse audit reports the same 176 partial2 sibling deltas and rank-22 span for all legal siblings and optimal siblings.",
+      "status": "PRIMITIVE_EXPANDED_ASSERTION",
+      "complete_closure_eligible": true,
+      "primitive_support": [
+        "AGGREGATE_CONTROL_CORE020_0_2.isg",
+        "AGGREGATE_WITNESS_CORE020_0_1.isg",
+        "AGGREGATE_CONTROL_CONTRACT_0_2.md"
+      ],
+      "native_root": 246031,
+      "legacy_strict_status": "DERIVED_SOURCE_OBSERVATION__NOT_CORE020_LEAF"
+    }
+  ],
+  "completion_gate": {
+    "frozen_source_assertions": 31,
+    "admitted_source_assertions": 31,
+    "omitted_assertions": 0,
+    "provenance_only_authoritative_bodies": 0,
+    "derived_only_authoritative_bodies": 0,
+    "aggregate_assertions_primitive_expanded": true,
+    "source_scope_assertions_primitive_expanded": true,
+    "all_source_assertions_complete_closure_eligible": true
+  }
+}
