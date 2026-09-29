@@ -52,3 +52,23 @@ test('dimension perturbation derives control algebra without outcome labels',()=
   assert.equal(standard.safeDefects[0].responsePairRank,19);
   assert.equal(standard.safeDefects[0].unmatchedIndependent,true);
 });
+
+
+test('guard refinement grades the response algebra without outcome labels',()=>{
+  assert.equal(typeof algebra.analyzeGuardedResponseProjections,'function');
+  const r=algebra.analyzeGuardedResponseProjections();
+  assert.equal(r.inputs,'geometry/rules only');
+  assert.equal(r.outcomeLabelsRead,false);
+  assert.equal(r.responsePairs,20);
+  assert.ok(r.projections.length>=5);
+  for(const p of r.projections){
+    assert.equal(p.responsePairs,20);
+    assert.ok(p.rank>=0&&p.rank<=20);
+    assert.equal(p.nullity,20-p.rank);
+    assert.equal(typeof p.unmatchedIndependent,'boolean');
+  }
+  const base=r.projections.find(p=>p.id==='player-line');
+  assert.ok(base);
+  assert.equal(base.rank,19);
+  assert.equal(base.nullity,1);
+});
