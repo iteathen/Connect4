@@ -1120,6 +1120,59 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     };
   }
 
+  const literalContinuationMemo=new Map();
+  function rawLiteralStep(heights,r0,r1,col){
+    const rank=Array.from(heights).reduce((a,b)=>a+b,0),
+      mover=rank&1;
+    if(heights[col]>=height)return null;
+    const bit=1<<(heights[col]*width+col),
+      own=mover?r1:r0,
+      opponent=mover?r0:r1,
+      ownNext=[];
+    let wins=false;
+    for(const requirement of own){
+      if(requirement&bit){
+        const residual=requirement&~bit;
+        if(residual===0){wins=true;break;}
+        ownNext.push(residual);
+      }else ownNext.push(requirement);
+    }
+    if(wins)return {terminal:true,kind:mover?'P1':'P0'};
+    const nextHeights=new Uint8Array(heights);
+    nextHeights[col]++;
+    if(rank+1===cells)return {terminal:true,kind:'D'};
+    const opponentNext=opponent.filter(
+        requirement=>(requirement&bit)===0),
+      ownNormalized=normalizeMaskAntichain(ownNext),
+      opponentNormalized=normalizeMaskAntichain(opponentNext);
+    return mover?
+      {terminal:false,heights:nextHeights,r0:opponentNormalized,r1:ownNormalized}:
+      {terminal:false,heights:nextHeights,r0:ownNormalized,r1:opponentNormalized};
+  }
+  function literalContinuationEquivalent(a,b){
+    const key=serializeResidualQ(a.heights,a.r0,a.r1,null)+'||'+
+      serializeResidualQ(b.heights,b.r0,b.r1,null),
+      known=literalContinuationMemo.get(key);
+    if(known!==undefined)return known;
+    assert.deepEqual(Array.from(a.heights),Array.from(b.heights),
+      'literal continuation comparison requires identical support');
+    for(let col=0;col<width;col++)if(a.heights[col]<height){
+      const x=rawLiteralStep(a.heights,a.r0,a.r1,col),
+        y=rawLiteralStep(b.heights,b.r0,b.r1,col);
+      if(x.terminal||y.terminal){
+        if(!(x.terminal&&y.terminal&&x.kind===y.kind)){
+          literalContinuationMemo.set(key,false);
+          return false;
+        }
+      }else if(!literalContinuationEquivalent(x,y)){
+        literalContinuationMemo.set(key,false);
+        return false;
+      }
+    }
+    literalContinuationMemo.set(key,true);
+    return true;
+  }
+
   let opponentResidualDeletionAudit=null;
   if(auditOpponentResidualDeletion){
     const rows=[],byRankAudit=Array.from({length:cells+1},(_,rank)=>({
@@ -1184,6 +1237,9 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
           rest=(rest^low)>>>0;
         }
         depths.sort((a,b)=>a-b);
+        const literalEquivalent=literalContinuationEquivalent(
+          {heights:rec.heights,r0:rec.r0,r1:rec.r1},
+          {heights:rec.heights,r0,r1});
         rows.push({
           rank,
           support:Array.from(rec.heights),
@@ -1193,6 +1249,7 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
           opponentMoves,
           moveCapacityImpossible,
           supportReleaseImpossible,
+          literalContinuationEquivalent:literalEquivalent,
           removedFrontierHits:bitCount(removed&frontierMask),
           removedCapHits:bitCount(removed&capMask),
           equalsOpenCaps:removed===capMask,
@@ -1223,6 +1280,13 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
         rows.filter(x=>x.equalsOpenCaps&&x.supportReleaseImpossible).length,
       exactOpenCapUnexplained:
         rows.filter(x=>x.equalsOpenCaps&&!x.supportReleaseImpossible).length,
+      literalContinuationEquivalentDeletions:
+        rows.filter(x=>x.literalContinuationEquivalent).length,
+      exactOpenCapLiteralEquivalent:
+        rows.filter(x=>x.equalsOpenCaps&&x.literalContinuationEquivalent).length,
+      exactOpenCapUnexplainedLiteralEquivalent:
+        rows.filter(x=>x.equalsOpenCaps&&!x.supportReleaseImpossible&&
+          x.literalContinuationEquivalent).length,
       containsAllOpenCapsDeletions:
         rows.filter(x=>x.containsAllOpenCaps).length,
       moveCapacityExplainedDeletions:
