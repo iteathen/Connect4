@@ -1998,6 +1998,7 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     earliestActionLabelledMergeRank:
       earliestActionLabelledMergeRank<0?null:earliestActionLabelledMergeRank,
     actionLabelledFrontier,
+    lateActionParityAudit,
     wdlSplitClasses,
     rootValue:values.get(rootKey),
     rootLegalActions:rootRec.children.length,
