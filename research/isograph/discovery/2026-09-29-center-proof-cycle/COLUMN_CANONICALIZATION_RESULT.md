@@ -153,6 +153,78 @@ The 18 unresolved 4x4 fallbacks are therefore scientifically useful rather than
 mere failures: they isolate the part of column identity not recovered by local
 refinement and provide the next target for algebraic/orbit analysis.
 
+
+## Guarded binary-tie stabilizer theorem
+
+The 18-state audit also exposes a general algebraic fact that does not depend
+on those particular boards.
+
+Assume a structurally refined residual state has `m` unresolved column-color
+classes and every unresolved class contains exactly two columns. Give each
+class one orientation bit:
+
+~~~text
+x_i = 0  -> keep the pair orientation
+x_i = 1  -> swap the pair
+~~~
+
+The complete within-class permutation group is then
+
+~~~text
+G = (Z2)^m = GF(2)^m
+~~~
+
+because composing two pair-swap vectors is componentwise XOR.
+
+For a fixed residual/support state `s`, let
+
+~~~text
+H_s = { x in G : x(s) = s }
+~~~
+
+be the set of within-class flips that preserve the exact structural state.
+Because a stabilizer is a subgroup and every subgroup of `GF(2)^m` is a
+vector subspace, `H_s` is exactly a binary linear subspace. Therefore there
+exists a parity-check matrix `A_s` over `GF(2)` such that
+
+~~~text
+H_s = ker(A_s)
+~~~
+
+and all exact coupled-orientation symmetries satisfy
+
+~~~text
+A_s x = 0.
+~~~
+
+This is a guarded deductive result about the **orientation-stabilizer layer**.
+It does not depend on solved outcomes or minimax labels.
+
+For the complete 18-state 4x4 fallback family:
+
+~~~text
+m = 2
+dim(H_s) = 1
+H_s = {(0,0),(1,1)}
+A_s can be represented by [1 1]
+orbit size under G = 2
+~~~
+
+so the only surviving nontrivial orientation symmetry is exactly
+
+~~~text
+x_1 xor x_2 = 0.
+~~~
+
+This is an exact place where XOR composition is derived rather than assumed.
+
+The remaining complexity question is constructive. Existence of `A_s` does
+not by itself provide a polynomial procedure for deriving `A_s` from the
+residual/support incidence without enumerating `2^m` orientations. Nor does
+it address unresolved tie classes of size greater than two, whose internal
+permutation groups are generally non-abelian symmetric groups rather than
+binary vector spaces.
+
 ## Non-claims
 
 This result does not prove polynomial generalized Connect Four, polynomial
