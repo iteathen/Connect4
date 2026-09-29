@@ -170,7 +170,75 @@ The one nontrivial 4x4 Connect-4 cycle survives the already-qualified residual c
 
 The result therefore is not tied to retention of all redundant residual syntax.
 
-## 6. Exact bounded conclusion
+## 6. 4x5 same-rule falsifier
+
+The next same-rule control was run on the already-feasible 4x5 Connect-4 direct
+carrier, with the same outcome-blind structural producer and the established
+nonterminal-blocker + final-cap-parity closures.
+
+Workflow `36606903079`, job `109538134321`, succeeded at experimental head
+`db39e9c75b3807bbe156bd4919d8642fb194b9f8`.
+
+The larger carrier has:
+
+```text
+residual-orbit states                 102,815
+recursive action-unlabelled classes   86,791
+recursive action-labelled classes     89,642
+
+deeper groups                            768
+binary deeper groups                     696
+binary continuation edges                469
+delta-1 edges                             95
+```
+
+After collapsing 21 duplicate same-map parallel edges:
+
+```text
+reduced inheritance edges               448
+active binary phase nodes               498
+active weak components                   90
+branching points                         75
+joining points                           95
+
+reconvergent source/target pairs          42
+topological reconvergences                42
+contradictory reconvergences               0
+maximum path multiplicity                  5
+
+cycle rank                                40
+zero cycle syndromes                      40
+nonzero cycle syndromes                    0
+```
+
+All forty independent cycle constraints therefore agree.
+
+The carrier still exits the binary region substantially:
+
+```text
+nonbinary continuation                    92
+action transporter                       260
+branch/multiplicity erasure              107
+terminal/unknown                           0
+```
+
+The 4x5 result is substantially stronger than the single-cycle 4x4 result:
+the phase-potential hypothesis survived forty independent cycle constraints,
+with 95 sheet-flipping edges present.
+
+Measured GitHub-hosted Node 26 cost:
+
+```text
+elapsed        11.255 s
+RSS            ~341 MiB
+heap used      ~205 MiB
+```
+
+This remains a bounded structural result. Generic two-sheet transition-cover
+integrability and generic transition/cofactor confluence remain active
+alternative explanations.
+
+## 7. Exact bounded conclusion
 
 The strongest justified statement is:
 
@@ -188,26 +256,21 @@ a polynomial construction
 a globally closed binary dynamics theorem
 ```
 
-## 7. Remaining falsifiers and next step
+## 8. Remaining falsifiers and next step
 
-Only one independent cycle exists, so falsification power is still thin.
+The 4x5 carrier now supplies forty independent zero-syndrome cycles, so the
+immediate small-sample objection is materially weaker.
 
-The unique cycle is an action-order diamond, leaving generic transition/cofactor confluence and generic trivial two-sheet covering as serious alternative explanations.
+The strongest remaining falsifier is explanatory rather than merely
+enumerative: determine whether these cycles are forced by generic
+transition/cofactor confluence or whether the phase survives reconvergences
+that cannot be reduced to local action-order commutation.
 
-The next useful experiment should increase independent cycle rank rather than merely state count. A larger same-rule carrier such as 4x5 Connect-4 is appropriate because prior rule-only growth work already showed that control is feasible.
+In parallel, a width-perturbed same-rule carrier such as 5x4 Connect-4 would
+test whether the integrability depends on the narrow four-column geometry.
 
-For each larger carrier report:
-
-```text
-binary inheritance cycle rank
-zero/nonzero cycle syndrome histogram
-genuine reconvergent route count
-parallel/multiplicity-edge census
-exit types
-shortest/longest inherited chains
-```
-
-Any nonzero syndrome is a direct falsifier of the present scalar phase carrier or evidence that another structural variable is missing.
+Any nonzero syndrome remains a direct falsifier of the present scalar phase
+carrier or evidence that another structural variable is missing.
 
 ## Provenance
 
