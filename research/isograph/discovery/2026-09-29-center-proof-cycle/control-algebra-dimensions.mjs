@@ -458,7 +458,7 @@ function binaryTieStateEncoding(heights,r0,r1,width,height){
       const key=player+'|'+parts.join('|');
       let block=blocks.get(key);
       if(!block){
-        block={activeMask:activeMask>>>0,vectors:new Set()};
+        block={key,activeMask:activeMask>>>0,vectors:new Set()};
         blocks.set(key,block);
       }
       assert.equal(block.activeMask,activeMask>>>0,
@@ -470,9 +470,10 @@ function binaryTieStateEncoding(heights,r0,r1,width,height){
     entries,
     pairCount:pairEntries.length,
     blocks:[...blocks.values()].map(block=>({
+      key:block.key,
       activeMask:block.activeMask,
       vectors:[...block.vectors].sort((a,b)=>a-b),
-    })),
+    })).sort((a,b)=>a.key.localeCompare(b.key)),
   };
 }
 
@@ -1239,6 +1240,159 @@ function permutationsOfValues(values){
   return out;
 }
 
+
+function gf2SolveAffineSmall(rows,rhs,width){
+  const matrix=rows.map((mask,i)=>({
+      mask:mask>>>0,
+      rhs:(rhs[i]??0)&1,
+    })),pivots=[];
+  let r=0;
+  for(let col=0;col<width&&r<matrix.length;col++){
+    let pivot=r;
+    while(pivot<matrix.length&&!((matrix[pivot].mask>>>col)&1))pivot++;
+    if(pivot===matrix.length)continue;
+    [matrix[r],matrix[pivot]]=[matrix[pivot],matrix[r]];
+    for(let i=0;i<matrix.length;i++)if(i!==r&&((matrix[i].mask>>>col)&1)){
+      matrix[i].mask=(matrix[i].mask^matrix[r].mask)>>>0;
+      matrix[i].rhs^=matrix[r].rhs;
+    }
+    pivots.push(col);
+    r++;
+  }
+  for(let i=r;i<matrix.length;i++)
+    if(matrix[i].mask===0&&matrix[i].rhs)
+      return {consistent:false,particular:0,basis:[]};
+  let particular=0;
+  for(let i=0;i<r;i++)if(matrix[i].rhs)
+    particular|=1<<pivots[i];
+  return {
+    consistent:true,
+    particular:particular>>>0,
+    basis:gf2NullspaceBasisSmall(rows,width),
+  };
+}
+
+function gf2MinAffineCosetSmall(offset,basis,width){
+  let out=offset>>>0;
+  const pivots=new Array(width).fill(0);
+  for(const row of gf2RowBasisSmall(basis,width)){
+    const bit=31-Math.clz32(row);
+    pivots[bit]=row;
+  }
+  for(let bit=width-1;bit>=0;bit--)
+    if(((out>>>bit)&1)&&pivots[bit])out=(out^pivots[bit])>>>0;
+  return out;
+}
+
+function compareNumberArraysLex(a,b){
+  const n=Math.min(a.length,b.length);
+  for(let i=0;i<n;i++)if(a[i]!==b[i])return a[i]-b[i];
+  return a.length-b.length;
+}
+
+function canonicalBinaryTieOrientation(encoding){
+  const m=encoding.pairCount;
+  if(!encoding.binary)return null;
+  if(m===0)return {
+    orientation:0,
+    candidateTranslations:0,
+    remainingDimension:0,
+  };
+  const rows=[],rhs=[];
+  let candidateTranslations=0;
+  for(const block of encoding.blocks){
+    const solution=gf2SolveAffineSmall(rows,rhs,m);
+    assert.equal(solution.consistent,true,
+      'binary tie canonicalization constraints must remain satisfiable');
+    const active=block.activeMask>>>0,
+      projectedBasis=gf2RowBasisSmall(
+        solution.basis.map(x=>(x&active)>>>0).filter(Boolean),m),
+      p0=(solution.particular&active)>>>0,
+      candidateHs=new Set();
+    let bestFirst=null;
+    for(const v of block.vectors){
+      const y=gf2MinAffineCosetSmall(
+        ((v^p0)&active)>>>0,projectedBasis,m);
+      if(bestFirst===null||y<bestFirst){
+        bestFirst=y;
+        candidateHs.clear();
+      }
+      if(y===bestFirst)candidateHs.add(((v^y)&active)>>>0);
+    }
+
+    let bestImage=null,bestH=0;
+    for(const h of candidateHs){
+      candidateTranslations++;
+      const image=block.vectors
+        .map(v=>((v^h)&active)>>>0)
+        .sort((a,b)=>a-b);
+      if(bestImage===null||compareNumberArraysLex(image,bestImage)<0||
+          (compareNumberArraysLex(image,bestImage)===0&&h<bestH)){
+        bestImage=image;
+        bestH=h;
+      }
+    }
+    assert.notEqual(bestImage,null,
+      'binary tie block must have a canonical translated image');
+
+    const stabilizer=deriveBinaryTieStabilizer({
+      binary:true,
+      pairCount:m,
+      blocks:[block],
+    });
+    for(const check of stabilizer.parityChecks){
+      rows.push(check>>>0);
+      rhs.push(gf2ParitySmall(check&bestH));
+    }
+  }
+  const final=gf2SolveAffineSmall(rows,rhs,m);
+  assert.equal(final.consistent,true,
+    'binary tie canonical orientation must remain satisfiable');
+  return {
+    orientation:final.particular>>>0,
+    candidateTranslations,
+    remainingDimension:final.basis.length,
+  };
+}
+
+function canonicalResidualQStateBinaryLinearCompact(heights,r0,r1,width,height){
+  const encoding=binaryTieStateEncoding(heights,r0,r1,width,height);
+  if(!encoding.binary)return null;
+  const linear=canonicalBinaryTieOrientation(encoding),
+    order=[];
+  let pair=0;
+  for(const entry of encoding.entries){
+    if(entry.cols.length===1){
+      order.push(entry.cols[0]);
+    }else{
+      const [a,b]=entry.cols;
+      if((linear.orientation>>>pair)&1)order.push(b,a);
+      else order.push(a,b);
+      pair++;
+    }
+  }
+  const pd=makeColumnPermutation(width,height,order),
+    {perm}=pd,h=new Uint8Array(width);
+  for(let oldCol=0;oldCol<width;oldCol++)
+    h[perm[oldCol]]=heights[oldCol];
+  const a=r0.map(mask=>permuteMask(mask,pd)).sort((x,y)=>x-y),
+    b=r1.map(mask=>permuteMask(mask,pd)).sort((x,y)=>x-y),
+    signature=Array.from(h).join(',')+'|'+
+      a.map(x=>(x>>>0).toString(36)).join('.')+'|'+
+      b.map(x=>(x>>>0).toString(36)).join('.');
+  return {
+    signature,
+    heights:h,
+    r0:a,
+    r1:b,
+    candidatePermutations:0,
+    binaryLinear:true,
+    linearTranslationCandidates:linear.candidateTranslations,
+    remainingOrientationDimension:linear.remainingDimension,
+  };
+}
+
+
 function canonicalResidualQStateRefinedCompact(heights,r0,r1,width,height){
   const {signatures}=refinementColumnSignatures(heights,r0,r1,width,height),
     grouped=new Map();
@@ -1291,11 +1445,13 @@ export function analyzeDirectResidualOrbitGrowthCompact({
   nonterminalFrontierBlocker=true,
   moverFinalCapParity=true,
   refinedColumnCanonicalization=false,
+  binaryTieLinearCanonicalization=false,
 }){
   const cells=width*height;
   assert.ok(cells<=30,'compact direct-growth harness is intentionally bounded to <=30 cells');
   const masks=winMasks(width,height,k),
-    permutationData=refinedColumnCanonicalization?null:columnPermutationData(width,height),
+    permutationData=(refinedColumnCanonicalization||binaryTieLinearCanonicalization)?
+      null:columnPermutationData(width,height),
     memo=new Map(),classSignatureToId=new Map(),
     statesByRank=Array(cells+1).fill(0),
     classesByRank=Array(cells+1).fill(0),
@@ -1306,19 +1462,38 @@ export function analyzeDirectResidualOrbitGrowthCompact({
   let nextClassId=0,literalActionEdges=0,duplicateEquivalentActionEdges=0,
     earliestDynamicMergeRank=null,rootLegalActions=0,
     rootDistinctOrbitChildren=0,rootDistinctRecursiveChildren=0,
-    canonicalPermutationCandidates=0,maxCanonicalPermutationCandidates=0;
+    canonicalPermutationCandidates=0,maxCanonicalPermutationCandidates=0,
+    binaryLinearCanonicalizations=0,binaryLinearFallbackCanonicalizations=0,
+    binaryLinearTranslationCandidates=0,maxBinaryLinearTranslationCandidates=0;
 
   const pack=(classId,value)=>classId*3+(value+1),
     unpackClass=packed=>Math.floor(packed/3),
     unpackValue=packed=>(packed%3)-1;
 
   function canonicalize(heights,r0,r1){
-    const out=refinedColumnCanonicalization?
-      canonicalResidualQStateRefinedCompact(heights,r0,r1,width,height):
-      {
+    let out;
+    if(binaryTieLinearCanonicalization){
+      out=canonicalResidualQStateBinaryLinearCompact(
+        heights,r0,r1,width,height);
+      if(out){
+        binaryLinearCanonicalizations++;
+        binaryLinearTranslationCandidates+=out.linearTranslationCandidates;
+        maxBinaryLinearTranslationCandidates=Math.max(
+          maxBinaryLinearTranslationCandidates,out.linearTranslationCandidates);
+      }else{
+        binaryLinearFallbackCanonicalizations++;
+        out=canonicalResidualQStateRefinedCompact(
+          heights,r0,r1,width,height);
+      }
+    }else if(refinedColumnCanonicalization){
+      out=canonicalResidualQStateRefinedCompact(
+        heights,r0,r1,width,height);
+    }else{
+      out={
         ...canonicalResidualQStateCompact(heights,r0,r1,permutationData),
         candidatePermutations:permutationData.length,
       };
+    }
     canonicalPermutationCandidates+=out.candidatePermutations;
     maxCanonicalPermutationCandidates=Math.max(
       maxCanonicalPermutationCandidates,out.candidatePermutations);
@@ -1465,13 +1640,20 @@ export function analyzeDirectResidualOrbitGrowthCompact({
     validationUsesDerivedWdl:true,
     fullGraphObjectsRetained:false,
     width,height,k,cells,
-    canonicalization:refinedColumnCanonicalization?
-      'refinement-partitioned exact tie search':
-      'full column permutation search',
+    canonicalization:binaryTieLinearCanonicalization?
+      'GF(2) binary-tie affine canonicalization + exact nonbinary fallback':
+      refinedColumnCanonicalization?
+        'refinement-partitioned exact tie search':
+        'full column permutation search',
     columnPermutations:permutationData?.length??null,
     canonicalPermutationCandidates,
     maxCanonicalPermutationCandidates,
     refinedColumnCanonicalization,
+    binaryTieLinearCanonicalization,
+    binaryLinearCanonicalizations,
+    binaryLinearFallbackCanonicalizations,
+    binaryLinearTranslationCandidates,
+    maxBinaryLinearTranslationCandidates,
     nonterminalFrontierBlocker,
     moverFinalCapParity,
     winningLineCount:masks.length,
