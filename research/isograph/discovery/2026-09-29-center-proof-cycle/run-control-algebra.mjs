@@ -3,6 +3,7 @@ import {
   analyzeBoundaryPolynomialAlgebra,
   analyzeDimensionControlAlgebra,
   analyzeGuardedResponseProjections,
+  analyzeFullColumnCancellation,
 } from './control-algebra.mjs';
 
 const result={
@@ -14,5 +15,6 @@ const result={
   boundary7x6:analyzeBoundaryPolynomialAlgebra(),
   dimensions:analyzeDimensionControlAlgebra(),
   guardedResponseProjections:analyzeGuardedResponseProjections(),
+  fullColumnCancellation:analyzeFullColumnCancellation(),
 };
 console.log(JSON.stringify(result,null,2));
