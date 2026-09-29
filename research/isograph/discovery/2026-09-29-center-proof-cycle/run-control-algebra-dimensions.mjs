@@ -13,6 +13,9 @@ const result={
   directResidualOrbit4x4:analyzeDirectResidualOrbitGraph({
     width:4,height:4,k:4,
   }),
+  directResidualOrbit4x4UniversalBlocker:analyzeDirectResidualOrbitGraph({
+    width:4,height:4,k:4,universalFrontierBlocker:true,
+  }),
   directMatrix:matrix.cases.map(row=>analyzeDirectResidualOrbitGraph({
     width:row.width,height:row.height,k:row.k,
   })),
