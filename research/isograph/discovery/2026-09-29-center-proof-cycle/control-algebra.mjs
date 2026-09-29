@@ -66,7 +66,7 @@ function standardResponseVectors(){
   return {g,vectors,labels};
 }
 
-export function analyzeStandardCenterControlAlgebra(){
+export function analyzeStandardCenterControlAlgebra({emitPrimitiveWitnessData=false}={}){
   const {g,vectors,labels}=standardResponseVectors(),
     width=g.lines.length*2,
     dep=firstDependency(vectors,labels,width),
@@ -85,6 +85,20 @@ export function analyzeStandardCenterControlAlgebra(){
     unmatchedCenterIndependent:withUnmatched===pairRank+1,
     rankWithUnmatchedCenter:withUnmatched,
     outcomeLabelsRead:false,
+    primitiveWitnessData:emitPrimitiveWitnessData?{
+      lineCells:g.lines.map((line,id)=>({id,cells:[...line]})),
+      responseVectors:vectors.map((vector,id)=>({
+        id,label:labels[id],bits:vector.toString(16),
+      })),
+      dependencyLabels:[...dep.dependencyLabels],
+      unmatchedCenterVector:unmatched.toString(16),
+      pairedBasis:gf2Basis(vectors,width).basis
+        .map((row,pivot)=>row?{pivot,bits:row.toString(16)}:null)
+        .filter(Boolean),
+      augmentedBasis:gf2Basis([...vectors,unmatched],width).basis
+        .map((row,pivot)=>row?{pivot,bits:row.toString(16)}:null)
+        .filter(Boolean),
+    }:null,
   };
 }
 
@@ -916,7 +930,7 @@ function popcountBigInt(x){
   return n;
 }
 
-export function analyzeOptimalBranchCollapse4x4(){
+export function analyzeOptimalBranchCollapse4x4({emitPrimitiveWitnessData=false}={}){
   const {g,masks}=fourByFourWinMasks(),memo=new Map();
   const wonMask=bits=>{
     let out=0n;
@@ -1412,5 +1426,15 @@ export function analyzeOptimalBranchCollapse4x4(){
     },
     structuralQuotients,
     mq2Crosscheck,
+    primitiveWitnessData:emitPrimitiveWitnessData?{
+      optimalDistinctDeltas:allUnique.map(x=>x.toString(16)),
+      legalDistinctDeltas:allLegalUnique.map(x=>x.toString(16)),
+      optimalBasis:allBasis.basis
+        .map((row,pivot)=>row?{pivot,bits:row.toString(16)}:null)
+        .filter(Boolean),
+      legalBasis:allLegalBasis.basis
+        .map((row,pivot)=>row?{pivot,bits:row.toString(16)}:null)
+        .filter(Boolean),
+    }:null,
   };
 }
