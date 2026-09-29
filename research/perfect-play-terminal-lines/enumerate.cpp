@@ -1,5 +1,7 @@
+#include <algorithm>
 #include <array>
 #include <cstdint>
+#include <cstdlib>
 #include <iostream>
 #include <string>
 #include <unordered_map>
@@ -12,6 +14,11 @@
 struct Line {
     std::array<std::pair<int,int>,4> cells; // row, col
     const char* kind;
+};
+
+struct Fingerprint {
+    uint64_t key;
+    bool mirrored;
 };
 
 static std::vector<Line> make_lines() {
@@ -34,18 +41,18 @@ static std::vector<Line> make_lines() {
     return lines;
 }
 
-static uint64_t fingerprint(Position& pos) {
-    uint64_t key = 0;
-    uint64_t mul = 1;
+static Fingerprint fingerprint(Position& pos) {
+    uint64_t direct = 0, mirror = 0, mul = 1;
     for (int r = 0; r < BOARD_HEIGHT; ++r) {
         for (int c = 0; c < BOARD_WIDTH; ++c) {
-            const int p = pos.get_player(r,c);
-            const uint64_t d = p == -1 ? 1 : (p == 1 ? 2 : 0);
-            key += d * mul;
+            const int p0 = pos.get_player(r,c);
+            const int p1 = pos.get_player(r,BOARD_WIDTH - 1 - c);
+            direct += uint64_t(p0 == -1 ? 1 : (p0 == 1 ? 2 : 0)) * mul;
+            mirror += uint64_t(p1 == -1 ? 1 : (p1 == 1 ? 2 : 0)) * mul;
             mul *= 3;
         }
     }
-    return key;
+    return mirror < direct ? Fingerprint{mirror,true} : Fingerprint{direct,false};
 }
 
 class Enumerator {
@@ -55,46 +62,61 @@ public:
             std::cerr << "This experiment expects <=64 geometric lines.\n";
             std::exit(2);
         }
+
+        line_reflect.resize(lines.size());
+        std::unordered_map<std::string,size_t> by_cells;
+        for (size_t i = 0; i < lines.size(); ++i) by_cells.emplace(line_key(lines[i], false), i);
+        for (size_t i = 0; i < lines.size(); ++i) {
+            auto it = by_cells.find(line_key(lines[i], true));
+            if (it == by_cells.end()) {
+                std::cerr << "Unable to reflect line " << i << "\n";
+                std::exit(3);
+            }
+            line_reflect[i] = it->second;
+        }
     }
 
-    uint64_t collect(Position& pos) {
-        const uint64_t key = fingerprint(pos);
-        if (auto it = memo.find(key); it != memo.end()) return it->second;
+    uint64_t collect(Position& pos, int best) {
+        const Fingerprint fp = fingerprint(pos);
+        if (auto it = memo.find(fp.key); it != memo.end()) {
+            return fp.mirrored ? reflect_mask(it->second) : it->second;
+        }
         ++states;
 
         if (pos.is_game_over()) {
-            uint64_t out = terminal_lines(pos);
-            memo.emplace(key, out);
+            const uint64_t out = terminal_lines(pos);
+            memo.emplace(fp.key, fp.mirrored ? reflect_mask(out) : out);
             return out;
         }
 
-        const int best = solver.solve(pos);
         uint64_t out = 0;
-
         for (int col = 0; col < BOARD_WIDTH; ++col) {
             if (!pos.is_move_valid(col)) continue;
 
             const board before = pos.move(col);
-            const int child_score = -solver.solve(pos, -best, -best + 1);
 
+            // Parent exact score already tells us the exact score of every
+            // optimal child. A null-window query is enough to distinguish
+            // optimal from suboptimal moves; do not re-solve this state.
+            const int child_score = -solver.solve(pos, -best, -best + 1);
             if (child_score >= best) {
                 ++optimal_edges;
-                out |= collect(pos);
+                out |= collect(pos, -best);
             }
 
             pos.unmove(before);
         }
 
-        memo.emplace(key, out);
+        memo.emplace(fp.key, fp.mirrored ? reflect_mask(out) : out);
         return out;
     }
 
     void run() {
         Position root{};
         const int root_score = solver.solve(root);
-        // A root draw has no terminal winning line under perfect play.
-        // Do not enumerate the enormous set of draw-preserving continuations.
-        const uint64_t mask = root_score == 0 ? 0 : collect(root);
+
+        // Under perfect play a theoretical draw has no terminal winning line.
+        const uint64_t mask = root_score == 0 ? 0 : collect(root, root_score);
 
         int count = 0;
         for (size_t i = 0; i < lines.size(); ++i) if (mask & (uint64_t(1) << i)) ++count;
@@ -120,6 +142,32 @@ public:
     }
 
 private:
+    std::string line_key(const Line& line, bool mirrored) const {
+        std::array<int,4> cells{};
+        for (int i = 0; i < 4; ++i) {
+            const auto [r,c0] = line.cells[i];
+            const int c = mirrored ? BOARD_WIDTH - 1 - c0 : c0;
+            cells[i] = r * BOARD_WIDTH + c;
+        }
+        std::sort(cells.begin(), cells.end());
+        std::string key;
+        for (int cell : cells) {
+            key += std::to_string(cell);
+            key.push_back(',');
+        }
+        return key;
+    }
+
+    uint64_t reflect_mask(uint64_t mask) const {
+        uint64_t out = 0;
+        while (mask) {
+            const unsigned i = __builtin_ctzll(mask);
+            out |= uint64_t(1) << line_reflect[i];
+            mask &= mask - 1;
+        }
+        return out;
+    }
+
     uint64_t terminal_lines(Position& pos) {
         if (pos.is_draw()) return 0;
 
@@ -142,6 +190,7 @@ private:
 
     Solver solver;
     std::vector<Line> lines;
+    std::vector<size_t> line_reflect;
     std::unordered_map<uint64_t,uint64_t> memo;
     uint64_t states = 0;
     uint64_t optimal_edges = 0;
