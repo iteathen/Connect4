@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {
   analyzeDirectResidualOrbitGraph,
   analyzeDirectResidualOrbitGrowthCompact,
+  analyzeDirectResidualOrbitPrefix,
   analyzeUnlabelledQuotientDimension,
   analyzeUnlabelledQuotientDimensionMatrix,
 } from './control-algebra-dimensions.mjs';
@@ -77,6 +78,35 @@ test('direct residual orbit producer reproduces recursive quotient across small 
     assert.equal(direct.wdlSplitClasses,0);
     assert.ok(direct.residualOrbitStates<=row.states);
   }
+});
+
+test('forward structural prefix census reproduces complete rewritten 4x4 orbit frontier',()=>{
+  const full=analyzeDirectResidualOrbitGraph({
+    width:4,height:4,k:4,
+    nonterminalFrontierBlocker:true,
+    moverFinalCapParity:true,
+    measureLocalBranchClosure:false,
+  }),prefix=analyzeDirectResidualOrbitPrefix({
+    width:4,height:4,k:4,maxRank:16,
+    nonterminalFrontierBlocker:true,
+    moverFinalCapParity:true,
+  });
+  assert.equal(prefix.physicalBoardStatesEnumerated,false);
+  assert.equal(prefix.outcomeLabelsUsedByProducer,false);
+  assert.deepEqual(
+    prefix.frontier.map(x=>x.states),
+    full.frontier.map(x=>x.states),
+  );
+  assert.equal(prefix.prefixStates,full.residualOrbitStates);
+  assert.equal(prefix.literalActionEdges,full.literalActionEdges);
+  assert.equal(
+    prefix.duplicateEquivalentActionEdges,
+    full.duplicateEquivalentActionEdges,
+  );
+  assert.ok(prefix.canonicalizationCalls>0);
+  assert.ok(prefix.canonicalPermutationCandidates>=
+    prefix.canonicalizationCalls);
+  assert.ok(prefix.workByRank.some(x=>x.nonbinaryTieCalls>0));
 });
 
 test('compact direct-growth canonicalizers are exactly equivalent on rewritten 4x4 control',()=>{
