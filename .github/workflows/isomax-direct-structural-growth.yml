@@ -23,10 +23,10 @@ jobs:
           node-version: '26'
       - name: Direct residual growth
         env:
-          C4_WIDTH: '6'
+          C4_WIDTH: '5'
           C4_HEIGHT: '4'
           C4_K: '4'
-          C4_REFINED_COLUMN_CANON: '1'
+          C4_BINARY_TIE_LINEAR_CANON: '1'
         run: node --max-old-space-size=4096 research/isograph/discovery/2026-09-29-center-proof-cycle/run-direct-residual-growth.mjs
       - name: Research integrity
         run: node tools/verify-research-integrity.mjs

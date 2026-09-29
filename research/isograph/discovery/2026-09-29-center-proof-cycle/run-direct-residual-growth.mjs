@@ -3,7 +3,9 @@ import {analyzeDirectResidualOrbitGrowthCompact} from './control-algebra-dimensi
 
 const width=Number(process.env.C4_WIDTH??4),
   height=Number(process.env.C4_HEIGHT??5),
-  k=Number(process.env.C4_K??4);
+  k=Number(process.env.C4_K??4),
+  refinedColumnCanonicalization=process.env.C4_REFINED_COLUMN_CANON==='1',
+  binaryTieLinearCanonicalization=process.env.C4_BINARY_TIE_LINEAR_CANON==='1';
 const started=performance.now();
 const result=analyzeDirectResidualOrbitGrowthCompact({
   width,
@@ -11,7 +13,8 @@ const result=analyzeDirectResidualOrbitGrowthCompact({
   k,
   nonterminalFrontierBlocker:true,
   moverFinalCapParity:true,
-  refinedColumnCanonicalization:true,
+  refinedColumnCanonicalization,
+  binaryTieLinearCanonicalization,
 });
 const elapsedMs=performance.now()-started;
 console.log(JSON.stringify({
