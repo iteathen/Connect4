@@ -1,0 +1,24 @@
+{
+  "schema": "isomax.core020.structural_control.strict_ia_fixed_point.v3",
+  "round": 5,
+  "date_author_local": "2026-09-29",
+  "status": "STRICT_PRIMITIVE_BODY_FIXED_POINT",
+  "input": [
+    "STRICT_ROUND_01_0_2.json",
+    "STRICT_ROUND_02_0_2.json",
+    "STRICT_ROUND_04_0_3.json"
+  ],
+  "admitted_native_ias": 14,
+  "new_assertions": 0,
+  "support_refinements": 0,
+  "qu_refinements": 0,
+  "family_results": {
+    "boolean": "No new native Boolean assertion body beyond the admitted solution-set, phase, complement, and parity relations.",
+    "incidence": "No new native finite-incidence assertion body beyond the admitted residual, route, transporter, and action-sequence formulas.",
+    "mapping": "No new native mapping body beyond the two odd involutions, exact relative even transporter, and their phase-parity relation.",
+    "composition": "Further exact compositions normalize to one of the 14 admitted native bodies or to explicit A0 facts.",
+    "unknowns": "Generalization beyond the strict local packet remains QU_UNEXPANDED and supplies no native exact assertion."
+  },
+  "stop_rule": "A complete strict native-body pass adds zero distinct material primitive assertion bodies, zero support refinements, and zero QU refinements.",
+  "completeness_claim": "OPERATIONAL_ONLY__FROZEN_STRICT_NATIVE_PACKET__NOT_UNIVERSAL_LOGICAL_COMPLETENESS"
+}
