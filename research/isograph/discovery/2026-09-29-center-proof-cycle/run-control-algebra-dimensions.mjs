@@ -24,6 +24,12 @@ const result={
     nonterminalFrontierBlocker:true,
     moverFinalCapParity:true,
   }),
+  directResidualOrbit4x4RemainingMoveCapacity:analyzeDirectResidualOrbitGraph({
+    width:4,height:4,k:4,
+    nonterminalFrontierBlocker:true,
+    moverFinalCapParity:true,
+    remainingMoveCapacity:true,
+  }),
   directResidualOrbit4x4ColumnRefinement:analyzeDirectResidualOrbitGraph({
     width:4,height:4,k:4,
     nonterminalFrontierBlocker:true,
