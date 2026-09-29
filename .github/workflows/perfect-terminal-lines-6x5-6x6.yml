@@ -1,0 +1,54 @@
+name: perfect-terminal-lines-6x5-6x6
+
+on:
+  push:
+    branches:
+      - experiment/perfect-terminal-lines-6x5-6x6-20260928
+
+jobs:
+  enumerate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run exact enumerations
+        shell: bash
+        run: |
+          set -euxo pipefail
+          git clone --depth 1 https://github.com/ChristopheSteininger/c4.git upstream
+
+          run_case() {
+            W="$1"
+            H="$2"
+            DIR="c4-${W}x${H}"
+            cp -a upstream "$DIR"
+            cd "$DIR"
+
+            sed -i "s/inline constexpr int BOARD_WIDTH = 7;/inline constexpr int BOARD_WIDTH = ${W};/" src/solver/settings.h
+            sed -i "s/inline constexpr int BOARD_HEIGHT = 6;/inline constexpr int BOARD_HEIGHT = ${H};/" src/solver/settings.h
+            sed -i "s/inline constexpr int NUM_THREADS = 0;/inline constexpr int NUM_THREADS = 2;/" src/solver/settings.h
+            sed -i "s/inline constexpr uint64_t NUM_TABLE_ENTRIES = 134217757;/inline constexpr uint64_t NUM_TABLE_ENTRIES = 8388617;/" src/solver/settings.h
+
+            cp "$GITHUB_WORKSPACE/research/perfect-play-terminal-lines/enumerate.cpp" src/enumerate.cpp
+
+            cat >> CMakeLists.txt <<'EOF'
+          add_executable(enumerate "${CMAKE_SOURCE_DIR}/src/enumerate.cpp")
+          target_link_libraries(enumerate PRIVATE solver)
+          EOF
+
+            CC=clang CXX=clang++ cmake --preset optimise
+            CC=clang CXX=clang++ cmake --build --preset optimise --target enumerate -j2
+            timeout 1200s ./out/optimise/enumerate | tee "$GITHUB_WORKSPACE/result-${W}x${H}.txt"
+            cd "$GITHUB_WORKSPACE"
+          }
+
+          run_case 6 5
+          run_case 6 6
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: perfect-terminal-lines-results
+          path: |
+            result-6x5.txt
+            result-6x6.txt
