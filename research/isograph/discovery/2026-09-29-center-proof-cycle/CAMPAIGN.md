@@ -71,6 +71,28 @@ are not timing evidence. Primary authority is total process cycles to exact
 output, with matching W/D/L and root move; fixed-window throughput is descriptive.
 Existing 10-minute empty baseline is retained, not rerun as a ritual.
 
+Owner clarification after initial screen: instruction-only changes preserving
+search behavior may use small completed controls for cycle screening. Cache,
+pruning/deduction, ordering, structural or mixed changes need large branch-heavy
+workloads for performance conclusions. Small boards validate rules only.
+
+## Resumed next packet
+
+C1 gets one matched ABBA on the target standard-7x6 `44`, with the unchanged
+selected profile and a 300000 ms application ceiling per sample. Source A is
+6bbba7c and B is preserved 37d369c; no further source edits. This addresses the
+pending deeper disposition rather than stacking more changes. If censored,
+retain that status and do not manufacture a solve-speed ratio.
+
+P3 first examines the full fixed synchronized-channel response family on 7x6
+roots/children. Enumerate disjoint column pairs with a shared prefix length L,
+requiring equal remainder parity and even post-channel tails. Unpaired columns
+require even remainder. The responder takes the other equal-depth endpoint
+inside a channel, or the upper vertical cell outside it. Check coverage of every
+live attacker residual, including first-win timing, from rules only. Preserve
+uncovered residuals. This is a cold certificate-family census, not a worker
+change or a claim that finding a policy is polynomial. No precomputed outcomes.
+
 No gray/column masks, support pooling, new TT identity, BSFP changes or PR #84
 merge. Original owner-neutrality already costs zero additional worker work.
 
