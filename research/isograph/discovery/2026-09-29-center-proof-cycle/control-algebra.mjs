@@ -1210,7 +1210,7 @@ export function analyzeOptimalBranchCollapse4x4(){
 
   function buildMq2StyleQuotient(actionLabelled){
     const stateClass=new Map(),signatureClass=new Map(),classWdlMask=new Map(),
-      classSize=new Map();
+      classRelativeWdlMask=new Map(),classSize=new Map();
     let nextId=0,preWinStates=0,wdlSplitClasses=0;
 
     for(let rank=16;rank>=0;rank--)for(const rec of byRank[rank]){
