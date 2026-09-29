@@ -10,6 +10,7 @@ const result=analyzeDirectResidualOrbitPrefix({
   width,height,k,maxRank,
   nonterminalFrontierBlocker:true,
   moverFinalCapParity:true,
+  remainingMoveCapacity:true,
 });
 const elapsedMs=performance.now()-started;
 console.log(JSON.stringify({
