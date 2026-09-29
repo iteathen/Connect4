@@ -1065,6 +1065,156 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
   const earliestActionLabelledMergeRank=statesByRank.findIndex(
     (states,rank)=>states>actionLabelledClassesByRank[rank]);
 
+  // Late-action phase audit.  First freeze the recursively derived
+  // action-unlabelled child classes, then ask what remains in the labelled
+  // fibers.  This deliberately tests parity after continuation semantics
+  // rather than applying XOR to raw move coordinates.
+  const labelledToUnlabelled=new Map(),
+    unlabelledToLabelled=new Map(),
+    labelledActionProfiles=new Map(),
+    unlabelledClassRank=new Map();
+  for(const rec of nodes.values()){
+    const unlabelled=stateClass.get(rec.key),
+      labelled=actionLabelledStateClass.get(rec.key);
+    assert.notEqual(unlabelled,undefined);
+    assert.notEqual(labelled,undefined);
+    const prior=labelledToUnlabelled.get(labelled);
+    if(prior===undefined)labelledToUnlabelled.set(labelled,unlabelled);
+    else assert.equal(prior,unlabelled,
+      'action-labelled class must refine one action-unlabelled class');
+    let labels=unlabelledToLabelled.get(unlabelled);
+    if(!labels){labels=new Set();unlabelledToLabelled.set(unlabelled,labels);}
+    labels.add(labelled);
+    const priorRank=unlabelledClassRank.get(unlabelled);
+    if(priorRank===undefined)unlabelledClassRank.set(unlabelled,rec.rank);
+    else assert.equal(priorRank,rec.rank);
+
+    if(!rec.terminal){
+      const tokens=[],childIds=rec.children.map(child=>{
+        const id=stateClass.get(child);
+        assert.notEqual(id,undefined);
+        return id;
+      });
+      let childIndex=0;
+      for(let col=0;col<width;col++){
+        if(rec.heights[col]>=height)tokens.push('I');
+        else tokens.push('C'+childIds[childIndex++]);
+      }
+      assert.equal(childIndex,childIds.length);
+      const profile=tokens.join(',');
+      const priorProfile=labelledActionProfiles.get(labelled);
+      if(priorProfile===undefined)labelledActionProfiles.set(labelled,profile);
+      else assert.equal(priorProfile,profile,
+        'labelled class must have one phase-free immediate action profile');
+    }
+  }
+
+  const permutationParity=perm=>{
+      let parity=0;
+      for(let i=0;i<perm.length;i++)for(let j=i+1;j<perm.length;j++)
+        if(perm[i]>perm[j])parity^=1;
+      return parity;
+    },
+    moveProfile=(profile,pd)=>{
+      const source=profile.split(','),target=Array(width);
+      for(let oldCol=0;oldCol<width;oldCol++)
+        target[pd.perm[oldCol]]=source[oldCol];
+      return target.join(',');
+    },
+    multisetProfile=profile=>profile.split(',').sort().join(',');
+
+  const actionLabelledFiberHistogram=new Map(),
+    actionLabelledSplitByRank=Array.from({length:cells+1},(_,rank)=>({
+      rank,splitUnlabelledClasses:0,labelledClassExcess:0,
+      pureTransporterFibers:0,exactBinaryParityFibers:0,
+    })),
+    actionLabelledFiberExamples=[];
+  let splitUnlabelledClasses=0,labelledClassExcess=0,maxLabelledFiberSize=1,
+    pureTransporterFibers=0,multiplicityErasureFibers=0,
+    binarySplitFibers=0,powerOfTwoSplitFibers=0,
+    parityWellDefinedFibers=0,exactBinaryParityFibers=0,
+    parityAmbiguousFibers=0;
+
+  for(const [unlabelled,labelsSet] of unlabelledToLabelled){
+    const labels=[...labelsSet].sort((a,b)=>a-b),size=labels.length;
+    actionLabelledFiberHistogram.set(
+      size,(actionLabelledFiberHistogram.get(size)??0)+1);
+    maxLabelledFiberSize=Math.max(maxLabelledFiberSize,size);
+    if(size<=1)continue;
+    splitUnlabelledClasses++;
+    labelledClassExcess+=size-1;
+    if(size===2)binarySplitFibers++;
+    if((size&(size-1))===0)powerOfTwoSplitFibers++;
+    const rank=unlabelledClassRank.get(unlabelled),
+      rankRow=actionLabelledSplitByRank[rank];
+    rankRow.splitUnlabelledClasses++;
+    rankRow.labelledClassExcess+=size-1;
+
+    const profiles=labels.map(id=>labelledActionProfiles.get(id));
+    assert.ok(profiles.every(x=>x!==undefined),
+      'split action-labelled fiber must be nonterminal');
+    const multisets=new Set(profiles.map(multisetProfile)),
+      pureTransporter=multisets.size===1;
+    if(pureTransporter){
+      pureTransporterFibers++;
+      rankRow.pureTransporterFibers++;
+    }else multiplicityErasureFibers++;
+
+    let parityWellDefined=false,exactBinaryParity=false,paritySets=[];
+    if(pureTransporter){
+      const base=profiles[0];
+      paritySets=profiles.map(profile=>{
+        const set=new Set();
+        for(const pd of permutationData)
+          if(moveProfile(profile,pd)===base)
+            set.add(permutationParity(pd.perm));
+        assert.ok(set.size>0,'pure transporter profile needs a transporter');
+        return [...set].sort((a,b)=>a-b);
+      });
+      parityWellDefined=paritySets.every(set=>set.length===1);
+      if(parityWellDefined){
+        parityWellDefinedFibers++;
+        exactBinaryParity=size===2&&
+          paritySets[0][0]!==paritySets[1][0];
+        if(exactBinaryParity){
+          exactBinaryParityFibers++;
+          rankRow.exactBinaryParityFibers++;
+        }
+      }else parityAmbiguousFibers++;
+    }
+
+    if(actionLabelledFiberExamples.length<128)
+      actionLabelledFiberExamples.push({
+        rank,unlabelledClass:unlabelled,labelledClasses:labels,
+        fiberSize:size,profiles,
+        pureTransporter,parityWellDefined,paritySets,exactBinaryParity,
+      });
+  }
+  assert.equal(
+    labelledClassExcess,actionLabelledNextId-nextId,
+    'labelled fiber excess must equal labelled-minus-unlabelled class count');
+
+  const lateActionParityAudit={
+    basis:'recursive action-labelled classes over frozen action-unlabelled child semantics',
+    interpretation:'tests action-slot phase only after residual/cofactor and continuation quotienting',
+    totalUnlabelledClasses:nextId,
+    totalActionLabelledClasses:actionLabelledNextId,
+    splitUnlabelledClasses,
+    labelledClassExcess,
+    maxLabelledFiberSize,
+    fiberSizeHistogram:Object.fromEntries(
+      [...actionLabelledFiberHistogram.entries()].sort((a,b)=>a[0]-b[0])),
+    binarySplitFibers,
+    powerOfTwoSplitFibers,
+    pureTransporterFibers,
+    multiplicityErasureFibers,
+    parityWellDefinedFibers,
+    exactBinaryParityFibers,
+    parityAmbiguousFibers,
+    byRank:actionLabelledSplitByRank,
+    examples:actionLabelledFiberExamples,
+  };
+
   let localBranchClosureResult=null;
   if(measureLocalBranchClosure){
     function samePartition(candidate,reference){
