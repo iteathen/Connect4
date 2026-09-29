@@ -5,6 +5,7 @@ const data=JSON.parse(fs.readFileSync(new URL('./AGGREGATE_WITNESS_DATA_0_1.json
 
 const R={
   CASE:5899000,
+  ATOM:5899001,
   BINARY_GROUP:5899200,
   RAW_EDGE:5899201,
   REDUCED_EDGE:5899202,
@@ -222,9 +223,11 @@ function hexBits(hex){
 const relIds=Object.values(R);
 let out='[\n  (^0 [ ^150010 ^150013 ^150014 ^150024 ])\n]\n\n';
 out+='[\n  (^150013 '+R.CASE+')\n';
-for(const id of relIds.filter(x=>x!==R.CASE))out+='  (^150014 '+id+')\n';
+for(const id of relIds.filter(x=>x!==R.CASE&&x!==R.ATOM))out+='  (^150014 '+id+')\n';
+out+='  (^150013 '+R.ATOM+')\n';
 for(const id of [...raw].sort((a,b)=>a-b))out+='  (^150014 '+id+')\n';
 out+=']\n\n';
+for(const id of [...raw].sort((a,b)=>a-b))out+='[(^150010 '+R.ATOM+' '+id+')]\n';
 for(const row of tuples)out+='[(^150024 '+row.join(' ')+')]\n';
 fs.writeFileSync(new URL('./AGGREGATE_WITNESS_CORE020_0_1.isg',here),out);
 
