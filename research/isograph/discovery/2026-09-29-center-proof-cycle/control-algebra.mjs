@@ -1069,25 +1069,41 @@ export function analyzeOptimalBranchCollapse4x4(){
   let siblingStatesAudited=0,allChildrenSamePartial2=0,childrenSplitAcrossPartial2=0,
     allChildrenSameTerminalSet=0,childrenSplitAcrossTerminalSet=0,
     samePartial2DifferentTerminalSetPairs=0,differentPartial2SameTerminalSetPairs=0;
+  const allOptimalDeltas=[],sameTerminalDeltas=[],differentTerminalDeltas=[];
   for(const rec of memo.values()){
     const edges=optimalByKey.get(rec.key);
     if(!edges||edges.length<2)continue;
     siblingStatesAudited++;
     const partial2=edges.map(edge=>{
       const child=memo.get(edge.childKey);
-      return fourByFourPartial2Signature(g,child.p0,child.p1).toString();
+      return fourByFourPartial2Signature(g,child.p0,child.p1);
     });
-    const terminalSets=edges.map(edge=>terminalMaskFor(edge.childKey).toString());
-    if(new Set(partial2).size===1)allChildrenSamePartial2++;
+    const terminalSets=edges.map(edge=>terminalMaskFor(edge.childKey));
+    if(new Set(partial2.map(String)).size===1)allChildrenSamePartial2++;
     else childrenSplitAcrossPartial2++;
-    if(new Set(terminalSets).size===1)allChildrenSameTerminalSet++;
+    if(new Set(terminalSets.map(String)).size===1)allChildrenSameTerminalSet++;
     else childrenSplitAcrossTerminalSet++;
     for(let i=0;i<edges.length;i++)for(let j=i+1;j<edges.length;j++){
-      const sameP=partial2[i]===partial2[j],sameT=terminalSets[i]===terminalSets[j];
+      const sameP=partial2[i]===partial2[j],sameT=terminalSets[i]===terminalSets[j],
+        delta=partial2[i]^partial2[j];
+      allOptimalDeltas.push(delta);
+      if(sameT)sameTerminalDeltas.push(delta);
+      else differentTerminalDeltas.push(delta);
       if(sameP&&!sameT)samePartial2DifferentTerminalSetPairs++;
       if(!sameP&&sameT)differentPartial2SameTerminalSetPairs++;
     }
   }
+
+  const uniqueBigInts=values=>[...new Set(values.map(String))].map(BigInt),
+    sameUnique=uniqueBigInts(sameTerminalDeltas),
+    allUnique=uniqueBigInts(allOptimalDeltas),
+    sameBasis=gf2Basis(sameUnique,40),
+    allBasis=gf2Basis(allUnique,40);
+  let sameTerminalPairsNotInSpan=0,differentTerminalPairsCollapsedBySpan=0;
+  for(const delta of sameTerminalDeltas)
+    if(!gf2InSpan(delta,sameBasis.basis,40))sameTerminalPairsNotInSpan++;
+  for(const delta of differentTerminalDeltas)
+    if(gf2InSpan(delta,sameBasis.basis,40))differentTerminalPairsCollapsedBySpan++;
 
   const rootTerminalMask=terminalMaskFor(keyOf(0,0));
   return {
@@ -1120,6 +1136,16 @@ export function analyzeOptimalBranchCollapse4x4(){
       childrenSplitAcrossTerminalSet,
       samePartial2DifferentTerminalSetPairs,
       differentPartial2SameTerminalSetPairs,
+    },
+    equivalentSiblingDeltaSpace:{
+      sameTerminalPairs:sameTerminalDeltas.length,
+      differentTerminalPairs:differentTerminalDeltas.length,
+      sameTerminalDistinctDeltas:sameUnique.length,
+      allOptimalDistinctDeltas:allUnique.length,
+      sameTerminalDeltaRank:sameBasis.rank,
+      allOptimalDeltaRank:allBasis.rank,
+      sameTerminalPairsNotInSpan,
+      differentTerminalPairsCollapsedBySpan,
     },
   };
 }
