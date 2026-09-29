@@ -206,3 +206,26 @@ compact packet.
 
 The campaign is paused at the owner-requested boundary. No DP, NEI, DTS, or
 production implementation continuation is part of this work cycle.
+
+
+## 10. Current strict routing after primitive re-audit
+
+Current exact report:
+
+`FIXED_POINT_REPORT_0_3_STRICT_PRIMITIVE.md`
+
+Current strict authority inside this candidate packet:
+
+- source kernel: `ISOMAX_STRUCTURAL_CONTROL_CORE020_0_2.isg`;
+- native IA bodies: `STRICT_IA_CORE020_0_3.isg`;
+- IA admission: `STRICT_IA_ADMISSION_0_3.json`;
+- fixed point: `STRICT_ROUND_05_FIXED_POINT_0_3.json`;
+- strict QU disposition: `STRICT_QU_DISPOSITION_0_1.json`.
+
+The earlier 60 prose IAs are not current primitive authority. Fourteen native
+primitive IA bodies qualify in the compact exact scope. Aggregate recent
+research without a complete primitive reverse map is outside strict native
+scope and remains source-reference-only.
+
+The campaign remains paused. No DP, NEI, DTS, EI, or implementation pass
+follows.
