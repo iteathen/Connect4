@@ -1,0 +1,155 @@
+{
+  "schema": "isomax.core020.structural_control.implicit_assertion_round.v1",
+  "round": 8,
+  "date_author_local": "2026-09-29",
+  "input": [
+    "A0_EXPLICIT_ASSERTIONS_0_1.json",
+    "ROUND_01_0_1.json",
+    "ROUND_02_0_1.json",
+    "ROUND_03_0_1.json",
+    "ROUND_04_0_1.json",
+    "ROUND_05_0_1.json",
+    "ROUND_06_0_1.json",
+    "ROUND_07_0_1.json"
+  ],
+  "new_assertions": [
+    {
+      "id": "SC-IA042",
+      "family": "B",
+      "support_mode": "EXACT",
+      "title": "endpoint residual correction flattens the shortest route pair",
+      "body": "Define corrected_route_bit = observed_route_phase XOR final_P0_residual_197700_membership for the two shortest routes. The corrected bit is 0 on both routes.",
+      "normalized_body": "endpoint_residual_197700_correction_makes_both_shortest_route_bits_zero",
+      "premises": [
+        "SC-E001",
+        "SC-IA041"
+      ],
+      "rule": "B",
+      "scope": "exactly the two shortest 5x4 routes",
+      "qu_dependencies": [
+        "QU-SC-001"
+      ]
+    },
+    {
+      "id": "SC-IA043",
+      "family": "S",
+      "support_mode": "EXACT",
+      "title": "the shortest obstruction alone does not force a larger phase codomain",
+      "body": "Because the shortest 5x4 contradiction is satisfiable after a strict state refinement while retaining one Boolean phase value per refined node and retaining all four edge deltas, this witness alone does not establish that a higher-dimensional, non-binary, or non-abelian phase codomain is necessary.",
+      "normalized_body": "shortest_5x4_obstruction_alone_does_not_force_phase_codomain_enlargement",
+      "premises": [
+        "SC-IA026",
+        "SC-IA029",
+        "SC-IA037"
+      ],
+      "rule": "S",
+      "scope": "shortest 5x4 obstruction only",
+      "qu_dependencies": [
+        "QU-SC-005"
+      ]
+    },
+    {
+      "id": "SC-IA044",
+      "family": "R",
+      "support_mode": "EXACT",
+      "title": "two refined target identities are locally necessary and sufficient",
+      "body": "Any state-refinement-only scalar repair of the shortest witness must place final states 197402 and 197403 in distinct refined target identities, and the represented residual-bit split provides exactly such two distinct target identities with a satisfying scalar assignment.",
+      "normalized_body": "two_distinct_refined_target_identities_are_necessary_and_sufficient_for_shortest_state_refinement_scalar_repair",
+      "premises": [
+        "SC-IA021",
+        "SC-IA025",
+        "SC-IA026",
+        "SC-IA034"
+      ],
+      "rule": "R",
+      "scope": "shortest 5x4 obstruction; state-refinement-only scalar repairs preserving routes/deltas",
+      "qu_dependencies": [
+        "QU-SC-001"
+      ]
+    },
+    {
+      "id": "SC-IA045",
+      "family": "B",
+      "support_mode": "EXACT",
+      "title": "concrete 4x4 flat witness has exactly two complement-related assignments",
+      "body": "The six-node concrete 4x4 zero-delta reconvergence system has exactly two Boolean node-potential assignments: all nodes 0 and all nodes 1.",
+      "normalized_body": "concrete_4x4_zero_delta_reconvergence_has_exactly_two_global_complement_assignments",
+      "premises": [
+        "SC-E001",
+        "SC-E017",
+        "SC-E018",
+        "SC-E019"
+      ],
+      "rule": "B",
+      "scope": "explicit 4x4 two-route witness only",
+      "qu_dependencies": []
+    },
+    {
+      "id": "SC-IA046",
+      "family": "B",
+      "support_mode": "EXACT",
+      "title": "fixing the 4x4 source phase uniquely fixes the concrete flat witness",
+      "body": "In the explicit 4x4 two-route witness, fixing the source node phase uniquely fixes every other represented node phase.",
+      "normalized_body": "fixing_source_phase_uniquely_determines_concrete_4x4_flat_assignment",
+      "premises": [
+        "SC-IA045"
+      ],
+      "rule": "B",
+      "scope": "explicit 4x4 two-route witness only",
+      "qu_dependencies": []
+    },
+    {
+      "id": "SC-IA047",
+      "family": "C",
+      "support_mode": "EXACT",
+      "title": "local residual refinement restores ordinary global-complement gauge freedom",
+      "body": "Both the explicit flat 4x4 witness and the residual-bit-refined shortest 5x4 witness have exactly two satisfying scalar assignments related by global complement; the local residual refinement removes the contradiction without introducing additional absolute phase choices in that witness.",
+      "normalized_body": "local_residual_refinement_restores_two_solution_global_complement_gauge_on_shortest_5x4_witness",
+      "premises": [
+        "SC-IA038",
+        "SC-IA045"
+      ],
+      "rule": "C",
+      "scope": "comparison of the two explicitly primitive-supported finite constraint systems",
+      "qu_dependencies": [
+        "QU-SC-001"
+      ]
+    }
+  ],
+  "support_refinements": [],
+  "qu_refinements": [
+    {
+      "id": "SC-QR008",
+      "target": "QU-SC-005",
+      "rule": "U",
+      "premises": [
+        "SC-IA043"
+      ],
+      "add_fixed": [
+        "the shortest obstruction does not itself require enlargement beyond a scalar Boolean codomain once the state quotient is refined"
+      ],
+      "retain_open": [
+        "whether the complete 5x4 obstruction family is scalar-integrable under one principled state refinement",
+        "whether other obstructions force multiple Boolean coordinates",
+        "whether a non-binary or non-abelian carrier is required globally"
+      ],
+      "probability_added": false
+    }
+  ],
+  "rejected_candidates": [
+    {
+      "id": "SC-RJ016",
+      "body": "Scalar GF(2) is therefore sufficient for the complete corrected 5x4 carrier.",
+      "reason": "SC-IA043 is only a non-necessity result for one obstruction; the remaining obstruction family is not primitive-expanded or repaired.",
+      "disposition": "REJECTED_SCOPE_WIDENING",
+      "qu": "QU-SC-005"
+    },
+    {
+      "id": "SC-RJ017",
+      "body": "Exactly one residual bit is globally minimal.",
+      "reason": "The one-witness two-class refinement proves only local target separation, not a global generalized information lower bound or unique coordinate.",
+      "disposition": "REJECTED_GLOBAL_MINIMALITY_OVERREACH",
+      "qu": "QU-SC-001"
+    }
+  ]
+}
