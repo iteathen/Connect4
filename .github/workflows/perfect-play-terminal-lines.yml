@@ -22,7 +22,7 @@ jobs:
 
     steps:
       - name: Checkout experiment
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
 
       - name: Prepare exact solver
         shell: bash
@@ -31,7 +31,7 @@ jobs:
           git clone --depth 1 https://github.com/ChristopheSteininger/c4.git /tmp/c4
           cd /tmp/c4
 
-          case '\${{ matrix.board }}' in
+          case '${{ matrix.board }}' in
             6x5) W=6; H=5 ;;
             6x6) W=6; H=6 ;;
             7x6) W=7; H=6 ;;
@@ -56,7 +56,7 @@ jobs:
 
           cp "$GITHUB_WORKSPACE/research/experiments/2026-09-28-width6-perfect-play-lines/enumerate.cpp" enum.cpp
           cat >> CMakeLists.txt <<'CMAKE'
-          add_executable(enumerate "\${CMAKE_SOURCE_DIR}/enum.cpp")
+          add_executable(enumerate "${CMAKE_SOURCE_DIR}/enum.cpp")
           target_link_libraries(enumerate PRIVATE solver)
           CMAKE
 
@@ -68,11 +68,11 @@ jobs:
         run: |
           set -euxo pipefail
           cd /tmp/c4
-          /usr/bin/time -v ./build/enumerate 2>&1 | tee "$GITHUB_WORKSPACE/result-\${{ matrix.board }}.txt"
+          /usr/bin/time -v ./build/enumerate 2>&1 | tee "$GITHUB_WORKSPACE/result-${{ matrix.board }}.txt"
 
       - name: Upload result
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: perfect-play-lines-\${{ matrix.board }}
-          path: result-\${{ matrix.board }}.txt
+          name: perfect-play-lines-${{ matrix.board }}
+          path: result-${{ matrix.board }}.txt
