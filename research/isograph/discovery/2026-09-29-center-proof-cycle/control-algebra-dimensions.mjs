@@ -667,7 +667,7 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     let auditedStates=0,searchFreeStates=0,fallbackStates=0,
       maxIterations=0,maxTieClass=1,maxPermutationSearchUpperBound=1,
       canonicalCollisions=0;
-    const seenCanonical=new Map();
+    const seenCanonical=new Map(),fallbackExamples=[];
     for(const rec of nodes.values()){
       if(rec.terminal)continue;
       const a=auditRefinedColumnCanonicalization(
@@ -682,7 +682,18 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
         const prior=seenCanonical.get(a.canonicalSignature);
         if(prior!==undefined&&prior!==rec.key)canonicalCollisions++;
         else seenCanonical.set(a.canonicalSignature,rec.key);
-      }else fallbackStates++;
+      }else{
+        fallbackStates++;
+        if(fallbackExamples.length<32)fallbackExamples.push({
+          support:Array.from(rec.heights),
+          p0Residuals:[...rec.r0],
+          p1Residuals:[...rec.r1],
+          iterations:a.iterations,
+          colorClasses:a.colorClasses,
+          maxTieClass:a.maxTieClass,
+          permutationSearchUpperBound:a.permutationSearchUpperBound,
+        });
+      }
     }
     columnRefinementAudit={
       method:'iterated column incidence color refinement + exact tie automorphism check',
@@ -695,6 +706,7 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
       maxPermutationSearchUpperBound,
       canonicalCollisions,
       exactOnSearchFreeStates:canonicalCollisions===0,
+      fallbackExamples,
     };
   }
 
