@@ -167,3 +167,23 @@ test('response-factor law survives rectangular boundary perturbation',()=>{
     assert.equal(x.depthGcd,x.windowOverFirstDerivative);
   }
 });
+
+
+test('guarded boundary macro policy isolates a higher-degree strategic layer',()=>{
+  assert.equal(typeof algebra.analyzeGuardedBoundaryMacroPolicy,'function');
+  const r=algebra.analyzeGuardedBoundaryMacroPolicy();
+  assert.equal(r.inputs,'geometry/rules/restricted policy only');
+  assert.equal(r.outcomeLabelsRead,false);
+  assert.equal(r.boundaryStates,2108);
+  assert.equal(r.certifiedP0Wins,160);
+  assert.equal(r.uncertifiedStates,1948);
+  assert.deepEqual(r.terminalDrawTraps,[
+    '4,6,6,6,6,6,6',
+    '6,6,4,6,6,6,6',
+    '6,6,6,6,4,6,6',
+    '6,6,6,6,6,6,4',
+  ]);
+  assert.deepEqual(r.polynomialSeparation.map(x=>[x.degree,x.certifiedWinsSeparated]),[
+    [1,0],[2,0],[3,0],[4,0],[5,136],[6,160],
+  ]);
+});
