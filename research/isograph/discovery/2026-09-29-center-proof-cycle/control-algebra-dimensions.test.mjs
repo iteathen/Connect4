@@ -107,6 +107,21 @@ test('compact direct-growth evaluator is exactly equivalent on rewritten 4x4 con
   assert.equal(compact.fullGraphObjectsRetained,false);
 });
 
+test('column incidence refinement is exact wherever it certifies search-free canonicalization',()=>{
+  const r=analyzeDirectResidualOrbitGraph({
+    width:4,height:4,k:4,
+    nonterminalFrontierBlocker:true,
+    moverFinalCapParity:true,
+    auditColumnRefinement:true,
+  }),a=r.columnRefinementAudit;
+  assert.ok(a);
+  assert.ok(a.auditedStates>0);
+  assert.equal(a.canonicalCollisions,0);
+  assert.equal(a.exactOnSearchFreeStates,true);
+  assert.equal(a.searchFreeStates+a.fallbackStates,a.auditedStates);
+  assert.ok(a.searchFreeStates>0);
+});
+
 test('local branch closure reaches the exact 4x4 quotient in seven rounds after structural rewrites',()=>{
   const r=analyzeDirectResidualOrbitGraph({
     width:4,height:4,k:4,
