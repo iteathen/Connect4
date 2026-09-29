@@ -44,6 +44,7 @@ const result={
     auditColumnRefinement:true,
     auditPairColumnRefinement:true,
     auditOpponentResidualDeletion:true,
+    auditEarliestMergeParents:true,
   }),
   directMatrix:matrix.cases.map(row=>analyzeDirectResidualOrbitGraph({
     width:row.width,height:row.height,k:row.k,
