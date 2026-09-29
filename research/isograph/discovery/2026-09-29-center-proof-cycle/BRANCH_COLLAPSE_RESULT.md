@@ -90,3 +90,36 @@ This audit does not establish the standard-board set of 28 terminal lines and
 does not use it as a premise. It does not prove the current GF(2) carrier is the
 correct value quotient. It establishes only that branch-and-collapse behavior
 is an exact feature of perfect-play structure on the exhaustive 4x4 control.
+
+
+## Sibling quotient audit
+
+A follow-up compared every set of sibling optimal moves against two signatures:
+
+1. player-labelled line `partial^2`;
+2. the exact set of terminal realizations reachable while both players remain
+   W/D/L-optimal.
+
+Across all 56,763 multi-optimal states:
+
+```text
+all optimal children share the same partial^2 signature          0
+optimal children split across partial^2 signatures          56,763
+
+all optimal children share the same terminal-realization set 47,148
+children split across terminal-realization sets                9,615
+
+sibling pairs:
+same partial^2, different terminal set                              0
+different partial^2, same terminal set                         98,702
+```
+
+This is a strong bounded falsifier of treating literal `partial^2` as the
+final value carrier. The middle derivative remains exact structural geometry,
+but perfect-play equivalence is much coarser than its literal player-labelled
+coordinates.
+
+The next algebraic question is whether XOR differences between equivalent
+sibling `partial^2` signatures form a low-dimensional or otherwise
+geometry-derived gauge subspace that can be quotiented out without erasing
+strategically meaningful distinctions.
