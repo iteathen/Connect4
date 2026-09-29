@@ -794,7 +794,106 @@ export function analyzeUnlabelledQuotientDimension({width,height,k,auditResidual
 }
 
 
-export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontierBlocker=false,nonterminalFrontierBlocker=false,moverFinalCapParity=false,remainingMoveCapacity=false,supportReleaseTurnCapacity=false,measureLocalBranchClosure=true,auditColumnRefinement=false,auditPairColumnRefinement=false,auditBinaryTieStabilizers=false,auditOpponentResidualDeletion=false,auditEarliestMergeParents=false,auditEarliestMergeWitness=false}){
+function analyzeOpenCapTerminalDominanceProof(
+  heights,r0,r1,width,height,removedOwner,removed,{maxRemaining=12}={}
+){
+  const cells=width*height,
+    rank=Array.from(heights).reduce((a,b)=>a+b,0),
+    remaining=cells-rank;
+  if(remaining>maxRemaining)return null;
+
+  const h=new Uint8Array(heights),
+    futureOwner=new Int8Array(cells).fill(-1),
+    futurePly=new Int8Array(cells);
+  let conditionedSchedules=0,coveredSchedules=0,uncoveredSchedules=0;
+
+  function completionPly(requirement,player){
+    let rest=requirement>>>0,maxPly=0;
+    while(rest){
+      const low=rest&-rest,bit=31-Math.clz32(low);
+      if(futureOwner[bit]!==player)return null;
+      maxPly=Math.max(maxPly,futurePly[bit]);
+      rest=(rest^low)>>>0;
+    }
+    return maxPly;
+  }
+
+  function visit(depth){
+    if(depth===remaining){
+      conditionedSchedules++;
+      const removedCompletion=completionPly(removed,removedOwner);
+      assert.notEqual(removedCompletion,null,
+        'conditioned open-cap schedule must complete audited residual');
+      let covered=false;
+      for(const [player,requirements] of [[0,r0],[1,r1]]){
+        for(const requirement of requirements){
+          if(player===removedOwner&&requirement===removed)continue;
+          const t=completionPly(requirement,player);
+          if(t!==null&&t<=removedCompletion){covered=true;break;}
+        }
+        if(covered)break;
+      }
+      if(covered)coveredSchedules++;
+      else uncoveredSchedules++;
+      return;
+    }
+
+    const player=(rank+depth)&1;
+    for(let col=0;col<width;col++)if(h[col]<height){
+      const row=h[col],bitIndex=row*width+col,bit=1<<bitIndex;
+      if((removed&bit)&&player!==removedOwner)continue;
+      h[col]++;
+      futureOwner[bitIndex]=player;
+      futurePly[bitIndex]=depth+1;
+      visit(depth+1);
+      futurePly[bitIndex]=0;
+      futureOwner[bitIndex]=-1;
+      h[col]--;
+    }
+  }
+
+  visit(0);
+  return {
+    conditionedSchedules,
+    coveredSchedules,
+    uncoveredSchedules,
+    unrealizable:conditionedSchedules===0,
+    terminalDominated:
+      conditionedSchedules>0&&uncoveredSchedules===0,
+  };
+}
+
+function applyOpponentOpenCapTerminalDominance(
+  heights,r0,r1,width,height,{maxRemaining=12}={}
+){
+  const rank=Array.from(heights).reduce((a,b)=>a+b,0),
+    mover=rank&1,
+    opponentPlayer=1-mover;
+  let capMask=0;
+  for(let col=0;col<width;col++)if(heights[col]<height)
+    capMask|=1<<((height-1)*width+col);
+  capMask>>>=0;
+  if(capMask===0)return {r0,r1,removed:0,proof:null};
+
+  const opponent=opponentPlayer?r1:r0;
+  if(!opponent.includes(capMask))
+    return {r0,r1,removed:0,proof:null};
+
+  const proof=analyzeOpenCapTerminalDominanceProof(
+    heights,r0,r1,width,height,opponentPlayer,capMask,{maxRemaining});
+  if(!proof||!(proof.unrealizable||proof.terminalDominated))
+    return {r0,r1,removed:0,proof};
+
+  if(opponentPlayer){
+    const next=r1.filter(requirement=>requirement!==capMask);
+    return {r0,r1:next,removed:r1.length-next.length,proof};
+  }
+  const next=r0.filter(requirement=>requirement!==capMask);
+  return {r0:next,r1,removed:r0.length-next.length,proof};
+}
+
+
+export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontierBlocker=false,nonterminalFrontierBlocker=false,moverFinalCapParity=false,remainingMoveCapacity=false,supportReleaseTurnCapacity=false,opponentOpenCapTerminalDominance=false,measureLocalBranchClosure=true,auditColumnRefinement=false,auditPairColumnRefinement=false,auditBinaryTieStabilizers=false,auditOpponentResidualDeletion=false,auditEarliestMergeParents=false,auditEarliestMergeWitness=false}){
   const cells=width*height;
   assert.ok(cells<=30,'direct residual-orbit harness is intentionally bounded to <=30 cells');
   const masks=winMasks(width,height,k),
@@ -867,8 +966,12 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
               applySupportReleaseTurnCapacity(
                 nextHeights,capacityClosed.r0,capacityClosed.r1,width,height):
               capacityClosed,
+            dominanceClosed=opponentOpenCapTerminalDominance?
+              applyOpponentOpenCapTerminalDominance(
+                nextHeights,releaseClosed.r0,releaseClosed.r1,width,height):
+              releaseClosed,
             canonical=canonicalResidualQState(
-              nextHeights,releaseClosed.r0,releaseClosed.r1,permutationData);
+              nextHeights,dominanceClosed.r0,dominanceClosed.r1,permutationData);
           childKey=visit(canonical);
         }
       }
@@ -897,8 +1000,12 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
       applySupportReleaseTurnCapacity(
         rootHeights,rootCapacityClosed.r0,rootCapacityClosed.r1,width,height):
       rootCapacityClosed,
+    rootDominanceClosed=opponentOpenCapTerminalDominance?
+      applyOpponentOpenCapTerminalDominance(
+        rootHeights,rootReleaseClosed.r0,rootReleaseClosed.r1,width,height):
+      rootReleaseClosed,
     root=canonicalResidualQState(
-      rootHeights,rootReleaseClosed.r0,rootReleaseClosed.r1,permutationData),
+      rootHeights,rootDominanceClosed.r0,rootDominanceClosed.r1,permutationData),
     rootKey=visit(root);
 
   const stateClass=new Map(),signatureClass=new Map(),
@@ -1681,6 +1788,7 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     moverFinalCapParity,
     remainingMoveCapacity,
     supportReleaseTurnCapacity,
+    opponentOpenCapTerminalDominance,
     measureLocalBranchClosure,
     auditColumnRefinement,
     auditPairColumnRefinement,
