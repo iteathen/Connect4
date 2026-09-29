@@ -482,18 +482,7 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     return true;
   }
 
-  let localClass=new Map(),localNextId=0;
-  for(let rank=cells;rank>=0;rank--)for(const rec of byRank[rank]){
-    if(rec.terminal){
-      const sig='T:'+rec.rank+':'+rec.kind;
-      let id=localClass.get(sig);
-      if(id===undefined)id=localNextId++;
-      localClass.set(rec.key,id);
-    }else{
-      localClass.set(rec.key,localNextId++);
-    }
-  }
-  // Rebuild round 0 cleanly because terminal signature strings are not state keys.
+  let localClass;
   {
     const terminalIds=new Map(),next=new Map();
     let id=0;
@@ -505,7 +494,7 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
         next.set(rec.key,classId);
       }else next.set(rec.key,id++);
     }
-    localClass=next;localNextId=id;
+    localClass=next;
   }
 
   const localBranchClosure=[{
