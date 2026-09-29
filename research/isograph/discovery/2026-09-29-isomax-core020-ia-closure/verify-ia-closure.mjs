@@ -111,10 +111,10 @@ assert.equal(coarse.length,0);
 // route A target d0, route B target d1.
 const refined=assignments(5,([a,b,c,d0,d1])=>
   xor(a,b)===0&&xor(b,d0)===0&&xor(a,c)===0&&xor(c,d1)===1);
-assert.deepEqual(refined,[
-  [0,0,0,0,1],
-  [1,1,1,1,0],
-]);
+assert.deepEqual(
+  refined.map(x=>x.join('')).sort(),
+  ['00001','11110']
+);
 for(const [a,b,c,d0,d1] of refined){
   assert.equal(xor(d0,a),0);
   assert.equal(xor(d1,a),1);
@@ -124,10 +124,10 @@ for(const [a,b,c,d0,d1] of refined){
 const flat4=assignments(6,([s,a,b,t,c,d])=>
   xor(s,a)===0&&xor(a,b)===0&&xor(b,t)===0&&
   xor(s,c)===0&&xor(c,d)===0&&xor(d,t)===0);
-assert.deepEqual(flat4,[
-  [0,0,0,0,0,0],
-  [1,1,1,1,1,1],
-]);
+assert.deepEqual(
+  flat4.map(x=>x.join('')).sort(),
+  ['000000','111111']
+);
 
 // Binary-tie allowed pairs are exactly Boolean equality / XOR-zero.
 const tiePairs=[];
