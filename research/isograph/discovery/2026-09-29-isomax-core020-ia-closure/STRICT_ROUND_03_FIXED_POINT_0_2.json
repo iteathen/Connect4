@@ -1,0 +1,22 @@
+{
+  "schema": "isomax.core020.structural_control.strict_ia_fixed_point.v2",
+  "round": 3,
+  "date_author_local": "2026-09-29",
+  "status": "OPERATIONAL_FIXED_POINT",
+  "input": [
+    "STRICT_ROUND_01_0_2.json",
+    "STRICT_ROUND_02_0_2.json"
+  ],
+  "admitted_native_ias": 8,
+  "new_assertions": 0,
+  "support_refinements": 0,
+  "qu_refinements": 0,
+  "family_results": {
+    "boolean": "No new material Boolean body beyond exact solution sets, phase parity, complement invariance, and relative endpoint equation.",
+    "incidence": "No new material finite-incidence body beyond the two route/final-state equalities already admitted.",
+    "composition": "Further compositions normalize to admitted native bodies or A0 source facts.",
+    "unknowns": "No generalized QU is narrowed by a new strict primitive theorem beyond fixed local observations; broader generalization remains QU_UNEXPANDED."
+  },
+  "stop_rule": "A complete strict native-body pass adds zero distinct material primitive assertion bodies, zero support refinements, and zero QU refinements.",
+  "completeness_claim": "OPERATIONAL_ONLY__FROZEN_PACKET__NOT_UNIVERSAL_LOGICAL_COMPLETENESS"
+}
