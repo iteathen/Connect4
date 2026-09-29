@@ -134,3 +134,20 @@ test('control-response polynomial is the winning window with one derivative remo
   assert.equal(k4.windowDerivativeMultiplicity,3);
   assert.equal(k4.controlDerivativeMultiplicity,2);
 });
+
+
+test('general Connect-K cancellation equals the winning window after removing one response factor',()=>{
+  assert.equal(typeof algebra.analyzeConnectKResponseFactorLaw,'function');
+  const r=algebra.analyzeConnectKResponseFactorLaw({minK:3,maxK:32});
+  assert.equal(r.inputs,'geometry/rules only');
+  assert.equal(r.outcomeLabelsRead,false);
+  assert.equal(r.rows.length,30);
+  assert.deepEqual(r.failures,[]);
+  for(const x of r.rows){
+    assert.equal(x.uniformParityCancellation,x.connectK%4===0);
+    if(x.connectK%4===0){
+      assert.equal(x.depthGcdEqualsResponseQuotient,true);
+      assert.equal(x.responseQuotientDivisibleByPartial2,true);
+    }
+  }
+});
