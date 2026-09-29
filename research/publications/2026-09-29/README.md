@@ -3,17 +3,17 @@
 ## C = NC? Control-Parity Algebra, Branch Collapse, and a Structural Research Program for Generalized Connect Four
 
 **Author:** Joshua Oshiro  
-**Current revision:** 0.12  
+**Current revision:** 0.13  
 **Status:** comprehensive research preprint; not peer reviewed  
 **License:** CC BY 4.0
 
 Current paper:
 
-- [C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_12.md](C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_12.md)
+- [C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_13.md](C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_13.md)
 
 Current publication preflight:
 
-- [C_EQUALS_NC_PUBLICATION_PREFLIGHT_0_12.md](../../isograph/discovery/2026-09-29-center-proof-cycle/C_EQUALS_NC_PUBLICATION_PREFLIGHT_0_12.md)
+- [C_EQUALS_NC_PUBLICATION_PREFLIGHT_0_13.md](../../isograph/discovery/2026-09-29-center-proof-cycle/C_EQUALS_NC_PUBLICATION_PREFLIGHT_0_13.md)
 
 Comprehensive research audit used from revision 0.8 onward:
 
@@ -25,6 +25,8 @@ Human-facing gameplay companion:
 
 Historical paper revisions remain preserved:
 
+- [C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_12.md](C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_12.md)
+- [C_EQUALS_NC_PUBLICATION_PREFLIGHT_0_12.md](../../isograph/discovery/2026-09-29-center-proof-cycle/C_EQUALS_NC_PUBLICATION_PREFLIGHT_0_12.md)
 - [C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_11.md](C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_11.md)
 - [C_EQUALS_NC_PUBLICATION_PREFLIGHT_0_11.md](../../isograph/discovery/2026-09-29-center-proof-cycle/C_EQUALS_NC_PUBLICATION_PREFLIGHT_0_11.md)
 - [C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_10.md](C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_10.md)
@@ -48,7 +50,7 @@ Historical paper revisions remain preserved:
 - [C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_1.md](C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_1.md)
 - [C_EQUALS_NC_PUBLICATION_PREFLIGHT_0_1.md](../../isograph/discovery/2026-09-29-center-proof-cycle/C_EQUALS_NC_PUBLICATION_PREFLIGHT_0_1.md)
 
-Revision 0.12 adds the heuristic-domain firewall: heuristics may change search order, effort allocation, principal-variation priority, and non-authoritative evaluation, but may never remove alternatives from the proof obligation. Rule-derived centerline and live-line evaluations remain admissible search guidance; oracle-informed tuning is excluded from blind structural-performance claims unless separately disclosed. A long heuristic prefix cannot become a disguised opening book.
+Revision 0.13 integrates the late structural-closure and recursive-phase campaign. It adds remaining-move and support-release capacity laws, literal-continuation residual equivalence, first-terminal dominance, the representation non-monotonicity countercontrol, rejection of raw action-permutation parity, and the deeper GF(2) continuation cocycle strengthened from one 4x4 cycle to forty independent zero-syndrome constraints on 4x5 Connect-4.
 
 Revision 0.9 adds the practical human-board-strategy translation. It turns the structural results into a move protocol based on playable immediate threats, live residual winning recipes, support exposure, response-resource overload, first-win preemption, guarded parity/control, symmetry, and live-line evaluation. The section explicitly labels theorem-backed advice, rule-derived heuristics, computationally exact moves, and external solved-play facts.
 
