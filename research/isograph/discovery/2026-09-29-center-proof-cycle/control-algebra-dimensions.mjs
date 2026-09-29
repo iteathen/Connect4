@@ -794,7 +794,7 @@ export function analyzeUnlabelledQuotientDimension({width,height,k,auditResidual
 }
 
 
-export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontierBlocker=false,nonterminalFrontierBlocker=false,moverFinalCapParity=false,remainingMoveCapacity=false,measureLocalBranchClosure=true,auditColumnRefinement=false,auditPairColumnRefinement=false,auditBinaryTieStabilizers=false,auditOpponentResidualDeletion=false}){
+export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontierBlocker=false,nonterminalFrontierBlocker=false,moverFinalCapParity=false,remainingMoveCapacity=false,supportReleaseTurnCapacity=false,measureLocalBranchClosure=true,auditColumnRefinement=false,auditPairColumnRefinement=false,auditBinaryTieStabilizers=false,auditOpponentResidualDeletion=false}){
   const cells=width*height;
   assert.ok(cells<=30,'direct residual-orbit harness is intentionally bounded to <=30 cells');
   const masks=winMasks(width,height,k),
@@ -863,8 +863,12 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
               applyRemainingMoveCapacity(
                 nextHeights,closed.r0,closed.r1,width,height):
               closed,
+            releaseClosed=supportReleaseTurnCapacity?
+              applySupportReleaseTurnCapacity(
+                nextHeights,capacityClosed.r0,capacityClosed.r1,width,height):
+              capacityClosed,
             canonical=canonicalResidualQState(
-              nextHeights,capacityClosed.r0,capacityClosed.r1,permutationData);
+              nextHeights,releaseClosed.r0,releaseClosed.r1,permutationData);
           childKey=visit(canonical);
         }
       }
@@ -889,8 +893,12 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
       applyRemainingMoveCapacity(
         rootHeights,rootClosed.r0,rootClosed.r1,width,height):
       rootClosed,
+    rootReleaseClosed=supportReleaseTurnCapacity?
+      applySupportReleaseTurnCapacity(
+        rootHeights,rootCapacityClosed.r0,rootCapacityClosed.r1,width,height):
+      rootCapacityClosed,
     root=canonicalResidualQState(
-      rootHeights,rootCapacityClosed.r0,rootCapacityClosed.r1,permutationData),
+      rootHeights,rootReleaseClosed.r0,rootReleaseClosed.r1,permutationData),
     rootKey=visit(root);
 
   const stateClass=new Map(),signatureClass=new Map(),
@@ -1276,6 +1284,7 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     nonterminalFrontierBlocker,
     moverFinalCapParity,
     remainingMoveCapacity,
+    supportReleaseTurnCapacity,
     measureLocalBranchClosure,
     auditColumnRefinement,
     auditPairColumnRefinement,
@@ -1329,6 +1338,48 @@ function applyRemainingMoveCapacity(heights,r0,r1,width,height){
     removed:(r0.length-next0.length)+(r1.length-next1.length),
     p0Moves,
     p1Moves,
+  };
+}
+
+
+function residualFitsSupportReleaseTurns(
+  requirement,heights,width,height,player
+){
+  const rank=Array.from(heights).reduce((a,b)=>a+b,0),
+    remaining=width*height-rank,
+    mover=rank&1,
+    releases=[];
+  let rest=requirement>>>0;
+  while(rest){
+    const low=rest&-rest,bit=31-Math.clz32(low),
+      row=Math.floor(bit/width),col=bit%width,
+      release=row-heights[col]+1;
+    assert.ok(release>0,
+      'residual requirements must refer only to future cells');
+    releases.push(release);
+    rest=(rest^low)>>>0;
+  }
+  releases.sort((a,b)=>a-b);
+  let slot=player===mover?1:2;
+  for(const release of releases){
+    while(slot<release)slot+=2;
+    if(slot>remaining)return false;
+    slot+=2;
+  }
+  return true;
+}
+
+function applySupportReleaseTurnCapacity(heights,r0,r1,width,height){
+  const next0=r0.filter(requirement=>
+      residualFitsSupportReleaseTurns(
+        requirement,heights,width,height,0)),
+    next1=r1.filter(requirement=>
+      residualFitsSupportReleaseTurns(
+        requirement,heights,width,height,1));
+  return {
+    r0:next0,
+    r1:next1,
+    removed:(r0.length-next0.length)+(r1.length-next1.length),
   };
 }
 
