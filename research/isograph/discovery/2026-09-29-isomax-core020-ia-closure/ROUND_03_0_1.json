@@ -1,5 +1,5 @@
 {
-  "schema": "isomax.core020.structural_control.implicit_assertion_round.v1",
+  "schema": "isomax.core020.structural_control.implicit_assertion_round.v2",
   "round": 3,
   "date_author_local": "2026-09-29",
   "input": [
@@ -22,7 +22,8 @@
       ],
       "rule": "R",
       "scope": "shortest 5x4 obstruction under scalar Boolean node-potential semantics",
-      "qu_dependencies": [
+      "qu_dependencies": [],
+      "related_qu": [
         "QU-SC-001",
         "QU-SC-005"
       ]
@@ -43,7 +44,8 @@
       ],
       "rule": "R",
       "scope": "shortest 5x4 obstruction; conditional on state-refinement-only repair",
-      "qu_dependencies": [
+      "qu_dependencies": [],
+      "related_qu": [
         "QU-SC-001"
       ]
     },
@@ -60,7 +62,8 @@
       ],
       "rule": "R",
       "scope": "shortest 5x4 obstruction",
-      "qu_dependencies": [
+      "qu_dependencies": [],
+      "related_qu": [
         "QU-SC-001",
         "QU-SC-005"
       ]
@@ -80,10 +83,11 @@
       ],
       "rule": "C",
       "scope": "shortest 5x4 obstruction witness",
-      "qu_dependencies": [
+      "qu_dependencies": [],
+      "note": "Presence at the seam is exact; causal sufficiency is not asserted.",
+      "related_qu": [
         "QU-SC-001"
-      ],
-      "note": "Presence at the seam is exact; causal sufficiency is not asserted."
+      ]
     },
     {
       "id": "SC-IA024",
@@ -172,5 +176,6 @@
       "disposition": "REJECTED_SCOPE_WIDENING",
       "qu": "QU-SC-002"
     }
-  ]
+  ],
+  "strict_support_revision": "ISOMAX_STRUCTURAL_CONTROL_CORE020_0_2.isg + A0 v2"
 }
