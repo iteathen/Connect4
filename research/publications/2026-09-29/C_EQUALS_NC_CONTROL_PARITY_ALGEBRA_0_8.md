@@ -1914,7 +1914,7 @@ For now the question mark is load-bearing.
 
 ## 20. Comprehensive Connect4 / IsoMax research synthesis
 
-Revision 0.8 was preceded by a full audit of the current Connect4 authority inventory and major historical research lines. The qualified/successor claim inventory contains 93 normalized claims: 65 retained, 4 strengthened, 17 historical-only, 7 open, and 0 uncovered. The synthesis below includes the findings judged mathematically or methodologically significant enough to affect this paper. It is a project-significance audit, not by itself an external priority/novelty claim.
+Revision 0.8 was preceded by a full audit of the current Connect4 authority inventory and major historical research lines [42,51,61]. The qualified/successor claim inventory contains 93 normalized claims: 65 retained, 4 strengthened, 17 historical-only, 7 open, and 0 uncovered. The synthesis below includes the findings judged mathematically or methodologically significant enough to affect this paper. Source mapping is preserved in the dedicated audit and references [42]-[63]. This is a project-significance audit, not by itself an external priority/novelty claim.
 
 ### A. Exact semantic state and identity
 
@@ -2432,6 +2432,12 @@ smaller state equality.
 
 This directly supports the current searchless theorem program.
 
+#### E3. Generic structural closure also recovers large parts of historical strategy logic
+
+The authority audit records a generated comparison in which generic blocker/upward-closure semantics reproduced the tested solved-group behavior of 331,955 generated A1-A9 historical-rule instances with zero mismatches in that corpus [51]. This is empirical validation of the generic structural language, not a claim that the named historical strategies were newly discovered or that every strategic-compatibility condition has been subsumed.
+
+The negative controls are equally important: race-free eventual-ownership inference is unsound; blanket resource-overlap exclusion is too strict; and one tested legacy A9 responder orientation produced false no-win claims [51]. Temporal order, compatibility, and exact role orientation therefore remain explicit proof obligations.
+
 ---
 
 ### F. Realizability, strategy dependence, and complexity boundaries
@@ -2816,78 +2822,73 @@ Opening books, persistent solved caches, or known best moves may be used only as
 
 ## 21. Conclusion
 
-Revision 0.4 preserves all prior bounded findings and adds a sharper separation between what has now been structurally solved and what remains the dominant open complexity burden.
+The complete Connect4/IsoMax research corpus supports a broader conclusion than the recent control-parity campaign alone.
 
-The established bounded picture now includes:
+The project has **not** produced a polynomial generalized Connect Four solver, a complete searchless standard-root proof, or an XOR formula for W/D/L. It has, however, changed the mathematical shape of the remaining problem.
 
-1. the common 2,108-state odd-center boundary on standard 7x6 under the declared rule-derived response policy;
-2. a nontrivial GF(2) response cancellation relation plus an independent unmatched control event;
-3. guarded low-degree Boolean-polynomial identities on the shared boundary;
-4. a post-hoc outcome falsifier proving that the first one-relation/one-defect skeleton is not W/D/L-complete;
-5. extensive exact optimal branch divergence and reconvergence on exhaustive 4x4;
-6. an 8,242-class recursive action-unlabeled quotient of the 161,029-state physical 4x4 graph;
-7. a direct residual transition producer that reconstructs that quotient without enumerating physical board states;
-8. local realizability and blocker rules that remove 1,066 of 2,265 static excess states, about 47%, before recursive quotienting;
-9. finite local branch closure that reaches the exact quotient in seven rounds on the rewritten 4x4 graph;
-10. direct rule-only growth through 4x7 and 5x4, with gravity/support orientation strongly affecting structural graph size;
-11. exact refinement-partitioned column canonicalization and an exact binary-tie XOR stabilizer theorem.
+At the ordinary-game level, support plus normalized residual winning requirements gives an exact future-behavior state \(q_o\). Horizontal reflection gives an exact transporter-aware quotient \(q_r\). Ordinary value is one rank-well-founded alternating dependency; IsoMax, BSFP, and possible bidirectional methods are different evaluation policies over that relation rather than distinct game semantics.
 
-Revision 0.4 adds three further advances.
+At the geometry level, Connect-4 windows form a third finite-difference system over GF(2). The diagonal relations are derived mixed derivatives, the regular incidence cokernel has seven modes, and CPC ownership/phase/seam structure can be represented through one guarded binary control potential.
 
-First, the binary-tie stabilizer is now **constructive**, not merely existential. Residual-incidence blocks and GF(2) elimination recover the exact stabilizer on all 18 audited 4x4 fallback states without enumerating all binary orientation assignments. Under the guard that every unresolved refinement class has size at most two, exact canonical orientation can likewise be selected by affine GF(2) methods with polynomial work in the explicit residual representation and number of tie pairs.
+At the first-move level, the negative half of the root theorem is already internal and rule-derived: all six non-center openings admit exact defender safety certificates on standard 7x6. Therefore any self-contained proof of a P0 forced win must begin in the center. The remaining turn-one burden is a **positive center-win theorem**, not a comparison against six unresolved alternatives.
 
-Second, this structurally cleaner canonicalizer fails an important runtime test. On exact 5x4 it reduces exhaustive fallback permutation candidates by 73.27% but increases wall time by 40.69% relative to the simpler partitioned exact canonicalizer. The result cleanly separates a polynomial guarded representation result from an implementation-performance claim.
+At the output level, W/D/L value and perfect-play terminal-line provenance admit an exact set-valued algebra and a clean factorization. The number of perfect-play terminal lines depends on the tie convention: the preserved W/D/L-only support is 61, while the distance-sensitive strong convention yields 28. Both are solved-result evidence, not theorem premises. A separate structural object also has dimension 28, but equal cardinality does not identify it with the strong-play terminal-line set, and its production use is quarantined pending blind provenance review.
 
-Third, the 6x4 width experiments locate the present scale wall. The full direct run reaches the ten-minute workflow limit, but exact prefixes show:
+At the proof level, residual winning requirements and recursive proof obligations share the same antichain absorption algebra. Proof expressions can compress even when state equivalence cannot. The standard-7x6 \(I/O/E/A\) pilot's 105 universal branches collapsing to 30 consequence branches is a concrete instance of this distinction.
+
+At the realizability level, the project has exact characterizations of several hidden constraints: support-local line-hit realizability as a pinned NAE CSP, colored-history reachability as an alternating constrained shuffle/linear extension, and projection-preserving strategy as observation-based uniformity. Variable-width history realizability already contains an NP-hard constrained-shuffle problem. These facts explain why local parity, pairwise compatibility, or unit-capacity matching alone cannot supply a complete strategic calculus.
+
+At the residual-boundary level, exact partial W/D/L information reduces to four nested antichain fronts, and alternating Bellman blocks are monotone lattice polynomials. The hard algebraic terms are mixed opponent-reply covers, not scalar minimax itself. Exact skyline, dominance, absorption, and shared-cover transformations demonstrate that these laws can eliminate enormous redundant symbolic products on bounded controls.
+
+At the decision level, support-local action-value frontiers provide a candidate route directly from structural order to exact action scores and best-move proofs. Complete controls show millions of comparable state/action pairs with no recorded value-order violations, and bounded standard-7x6 tests prove many held-out best moves with zero false claims in the recorded samples. Root-scale frontier construction remains open.
+
+At the newest control-parity layer, different physical histories collapse to common residual boundaries; paired responses exhibit exact GF(2) relations; guarded polynomial identities emerge; action labels can be quotiented; direct structural graphs can be constructed without physical-board enumeration; local realizability rules explain a substantial part of recursive collapse; and binary tie symmetries yield a constructive XOR stabilizer. Yet 6x4 prefix growth shows that the structural frontier itself can still explode even when canonicalization and per-state residual size are modest.
+
+At the implementation level, IsoMax demonstrates the practical consequence of exact structural information. Scoped local zero bounds removed roughly 75% of nodes and 56% of process cycles on their declared long control, while dense residual-cofactor propagation produced a smaller but measurable whole-solver improvement. Equally important, numerous plausible parallel-search changes were rejected when they increased total work or weakened an exact witness contract. The relevant objective is exact whole-proof economics, not a single proxy.
+
+These findings localize the central missing law:
+
+$$
+\text{compact structural observation}
++\text{realizability}
++\text{support/resources/deadlines}
++\text{uniform controller response}
++\text{first-win semantics}
+\longrightarrow
+\text{CertifiedObligation / exact value consequence},
+$$
+
+computed **before** universal alternatives or structural frontiers expand.
+
+For the immediate standard-board application, the next decisive theorem is especially concrete:
+
+$$
+\text{Connect Four rules}+\text{7x6 geometry}
+\vdash
+\text{center opening is a P0 win}.
+$$
+
+Combined with the already proved non-center safety theorem, this would derive the first move without an opening book or solved-position premise.
+
+The same standard applies to later opening plies. The independently confirmed \(44\to444\) result is useful validation [63], but recursive exact search is not yet the desired compact structural theorem. A production shortcut must remain derivable after deleting every oracle output, solved table, opening book, known best-move label, and outcome-fitted parameter.
+
+The broad research program can now be stated as:
 
 ~~~text
-through rank 10:
-    286,356 cumulative structural states
-    167,629 frontier states
-
-through rank 11:
-    616,710 cumulative structural states
-    330,354 frontier states
+physical game
+    -> exact residual future semantics
+    -> finite-difference / control-potential geometry
+    -> realizability and proof constraints
+    -> compact antichain value/proof boundaries
+    -> guarded controllable predecessor
+    -> theorem-backed search elimination.
 ~~~
 
-The rank-10-to-11 frontier nearly doubles while average residual requirements per state fall by 12.32%. Maximum exact canonicalization search remains only eight candidates, and only 16 nonbinary tie calls occur among 848,710 rank-10 transition canonicalizations.
+A substantial fraction of this chain is already exact.
 
-The strongest current negative conclusion is therefore:
+The missing links are no longer vague.
 
-> the visible 6x4 width wall is dominated by structural frontier cardinality under the present exact closure, not by large permutation search or by growing residual-antichain size per state.
-
-This sharply redirects the research.
-
-The next major mathematical task is not merely to optimize canonicalization. It is to discover additional exact obligation, support-chain, deadline, or branch-transporter equivalences that identify states **before** the structural frontier multiplies.
-
-The XOR program also has a clearer boundary. One exact XOR law is now proved and constructively usable inside the guarded binary orientation-stabilizer layer:
-
-$$
-H_s=\ker(A_s),
-$$
-
-with the audited family reducing to
-
-$$
-x_1\oplus x_2=0.
-$$
-
-But literal move-coordinate XOR has already been falsified as a strategic selector, and no XOR law for W/D/L has been established. Any larger algebra must operate on guarded residual/control objects after the appropriate action and realizability quotients.
-
-A generalized structural solution would still require:
-
-1. additional exact pre-branch closures that control structural frontier growth;
-2. a compact construction for branch-local action/support transport;
-3. exact treatment of nonbinary tie classes;
-4. a bound on residual/control graph size in generalized board parameters;
-5. integration of control parity, resources, obligations, and first-win deadlines;
-6. a proved bridge from the final guarded algebra to exact W/D/L or optimal-action classification.
-
-The paper therefore moves closer to the intended “C = NC?” idea in one important sense: more of the apparent search has become explicit structure, and one XOR component has become a theorem rather than a metaphor.
-
-It also moves farther from premature optimism in another sense: the 6x4 diagnostics expose a concrete structural-growth wall that no current canonicalization improvement removes.
-
-The question mark remains load-bearing.
+They are now the primary research target.
 
 ---
 
@@ -3004,6 +3005,49 @@ This license applies to the original text, analysis, diagrams, and explanatory m
 
 [41] Connect4 Project. “Direct structural prefix — 6x4 Connect-4 through rank 11.” Blob 9e4325bc1912383694af5eee79696e6c01cfdeb0; producer head 4298b1d825361462eb03db7572bbe90991b06e4f; workflow 36558462364. research/isograph/discovery/2026-09-29-center-proof-cycle/DIRECT_STRUCTURAL_PREFIX_6X4_RANK11_RESULT.md, branch research/nim-control-parity-algebra-20260929.
 
+[42] Connect4 Project. “Connect4 IsoGraph Logic Authority 1.2.” Blob 14f46d82cfe349b01aea7fa881568dfdca9aa5a0. `research/isograph/CONNECT4_LOGIC_AUTHORITY_1_2.md`, branch `research/semantic-quotient`.
+
+[43] Connect4 Project. “High-value lead investigation — exact future-behavior congruence of q.” Blob 4d72c6984380bfee2c74345062a1849ebbd514db. `research/isograph/discovery/2026-09-18-high-value-leads/STANDARD_7X6_Q_CONGRUENCE.md`.
+
+[44] Connect4 Project. “Operational-layer method emergence from the Connect4 IsoGraph.” Blob 88228aebbf266c363082d67043f6a3f9c18b8030. `research/isograph/discovery/2026-09-18-method-emergence/OPERATIONAL_LAYER_METHOD_EMERGENCE.md`.
+
+[45] Connect4 Project. “Recursive proof-frontier antichain isomorphism.” Blob 0ef1904e404a722a82693228a6e0ff5dcea1704a. `docs/research/2026-09-13-recursive-proof-frontier-antichain-isomorphism.md`.
+
+[46] Connect4 Project. “Non-center opening structural safety theorem.” Blob c6d62b984c68aa493fb0fe8f40a191f0ce8152b1. `docs/research/2026-09-13-noncenter-opening-structural-safety-theorem.md`.
+
+[47] Connect4 Project. “Connect-4 derived difference axioms.” Blob 6ac1b59a5085fc6ad72b6af23d27b01988501241. `docs/research/2026-09-14-connect4-derived-difference-axioms.md`.
+
+[48] Connect4 Project. “CPC as a binary control potential: ownership, phase and seams in one scalar field.” Blob acc62a2817837b52cc93c34fa964e73195b1024a. `docs/research/2026-09-14-cpc-control-potential-unification.md`.
+
+[49] Connect4 Project. “Perfect-play line-output algebra.” Blob a99f2e9246c69ce6b9091c34b679c99c61eeba80. `docs/research/2026-09-13-perfect-play-line-output-algebra.md`.
+
+[50] Connect4 Project. “Winning-region / terminal-line-output factorization.” Blob d2cb21a70052123a91e25271631505aa58a4c6d1. `docs/research/2026-09-13-winning-region-output-factorization.md`.
+
+[51] Connect4 Project. “Connect4 Game-Theory IsoGraph 1.2 — claim coverage.” Blob b0e2d21935b3035997c19c42941b225e77cf5ff9. `research/isograph/successor/CONNECT4_GAME_THEORY_CLAIM_COVERAGE_1_2_CANDIDATE.json`.
+
+[52] Connect4 Project. “Candidate theorem — support-local residual order induces isotone exact action value.” Blob fb77a590aab4a3442fb902138e4ce1b9be960a90. `research/isograph/discovery/2026-09-18-policy-frontier/SUPPORT_LOCAL_ACTION_VALUE_ISOTONY.md`.
+
+[53] Connect4 Project. “Standard 7x6 bounded action-value frontier test.” Blob 3e097d8d597cd90e73c5e695734517dd37fbfcb6. `research/isograph/discovery/2026-09-18-policy-frontier/STANDARD_7X6_BOUNDED_FRONTIER_TEST.md`.
+
+[54] Connect4 Project. “RBA Quantifiable Unknown 0.3 — board-fiber refinement.” Blob 5be5a12117578efb9fd6a567ca9bc8dc6f1ec2b2. `research/isograph/successor/CONNECT4_RBA_QU_0_3.md`.
+
+[55] Connect4 Project. “RBA Quantifiable Unknown 0.4 — Bellman-information refinement.” Blob b15e3b9c54254fd59cdc00d1915b0dfd368d09a7. `research/isograph/successor/CONNECT4_RBA_QU_0_4.md`.
+
+[56] Connect4 Project. “RBA Quantifiable Unknown 0.6 — four-front block refinement.” Blob a84884654f1940addbb920d9e46a2d399fd6d8e9. `research/isograph/successor/CONNECT4_RBA_QU_0_6.md`.
+
+[57] Connect4 Project. “RBA rank27 staged-product qualification 0.2.” Blob 70700a170d85a5d4427fe6d7f5bdbc039d12a6e6. `research/isograph/discovery/2026-09-18-policy-frontier/RBA_RANK27_STAGED_PLANNER_QUALIFICATION_0_2.md`.
+
+[58] Connect4 Project. “RBA shared-target principal-cover transformer and rank26 predecessor assessment 0.1.” Blob 18a4b83cfb0a53e984dc6c77977b37b60900289b. `research/isograph/discovery/2026-09-18-policy-frontier/RBA_SHARED_TARGET_COVER_DP_RANK26_CHECKPOINT_0_1.md`.
+
+[59] JSMinSys Project. Pull Request #79, “IsoMax Phase2: integrate local search-derived zero bounds.” Scoped long-control evidence reports process cycles -56.26% and nodes -75.33%, with exact/public/shared-value guards. https://github.com/iteathen/JSMinSys/pull/79.
+
+[60] JSMinSys Project. Pull Request #33, “Optimize Connect4 cofactor dense propagation.” Scoped same-runner four-worker evidence reports wall -11.38%, CPU -8.68%, process cycles -8.72%. https://github.com/iteathen/JSMinSys/pull/33.
+
+[61] Connect4 Project. “C = NC? comprehensive Connect4 / IsoMax research audit — 2026-09-29.” Blob 0b4788b9fc93cadc7cbfcf8d14b7759096d908a8. `research/publications/2026-09-29/C_EQUALS_NC_RESEARCH_AUDIT_0_1.md`.
+
+[62] Connect4 Project. “Standard 7x6 recursive proof closure.” Blob 1496875ecddb356898c924578c94f3b41dd71d30. `docs/research/2026-09-13-standard7x6-recursive-proof-closure.md`.
+
+[63] Connect4 Project. “Position 44 — oracle-blind exact next-move proof.” Blob 9e53a3e4515377a93fd4038988d79bc6560194cf. `research/isograph/discovery/2026-09-28-44-geometry-blind/RESULT.md`, branch `research/44-geometry-blind-20260928`.
 ---
 
 ## Citation
