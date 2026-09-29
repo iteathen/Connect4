@@ -1,0 +1,214 @@
+{
+  "schema": "isomax.core020.structural_control.implicit_assertion_round.v1",
+  "round": 1,
+  "date_author_local": "2026-09-29",
+  "input": "A0_EXPLICIT_ASSERTIONS_0_1.json",
+  "new_assertions": [
+    {
+      "id": "SC-IA001",
+      "family": "F",
+      "support_mode": "EXACT",
+      "title": "observed transporter-sign projection is non-injective",
+      "body": "On the two shortest 5x4 routes, distinct represented full-transporter identities 197500 and 197501 have the same accumulated permutation-sign bit 1.",
+      "normalized_body": "exists_distinct_transporter_same_sign_on_shortest_5x4_witness",
+      "premises": [
+        "SC-E005",
+        "SC-E006",
+        "SC-E015"
+      ],
+      "rule": "F",
+      "scope": "shortest 5x4 obstruction witness",
+      "qu_dependencies": []
+    },
+    {
+      "id": "SC-IA002",
+      "family": "F",
+      "support_mode": "EXACT",
+      "title": "support alone does not determine distinguished source residual membership",
+      "body": "The shared support identity 197600 does not determine the P0 membership bit of residual token 197700 across source sheets 197400 and 197401.",
+      "normalized_body": "support_projection_nondetermines_source_residual_197700_on_witness",
+      "premises": [
+        "SC-E007",
+        "SC-E009"
+      ],
+      "rule": "F",
+      "scope": "shortest 5x4 obstruction source sheets",
+      "qu_dependencies": []
+    },
+    {
+      "id": "SC-IA003",
+      "family": "Q",
+      "support_mode": "EXACT",
+      "title": "source quotient is non-injective for represented residual content",
+      "body": "Quotient node 197000 contains at least two fine source sheets with different represented P0 residual-membership content.",
+      "normalized_body": "source_quotient_197000_noninjective_for_represented_residual_content",
+      "premises": [
+        "SC-E008",
+        "SC-E009",
+        "SC-E010"
+      ],
+      "rule": "Q",
+      "scope": "shortest 5x4 obstruction source quotient",
+      "qu_dependencies": []
+    },
+    {
+      "id": "SC-IA004",
+      "family": "Q",
+      "support_mode": "EXACT",
+      "title": "target quotient is non-injective for represented residual content",
+      "body": "Quotient node 197002 contains at least two fine final residual states with different represented P0 residual-membership content.",
+      "normalized_body": "target_quotient_197002_noninjective_for_represented_residual_content",
+      "premises": [
+        "SC-E011",
+        "SC-E012"
+      ],
+      "rule": "Q",
+      "scope": "shortest 5x4 obstruction target quotient",
+      "qu_dependencies": []
+    },
+    {
+      "id": "SC-IA005",
+      "family": "F",
+      "support_mode": "EXACT",
+      "title": "quotient endpoints do not determine route phase",
+      "body": "For the shortest 5x4 obstruction, the ordered quotient endpoint pair (197000,197002) is compatible with route phase 0 and route phase 1; route phase is not a function of those quotient endpoints alone.",
+      "normalized_body": "5x4_shortest_route_phase_not_function_of_current_quotient_endpoints",
+      "premises": [
+        "SC-E004",
+        "SC-E005",
+        "SC-E006"
+      ],
+      "rule": "F",
+      "scope": "shortest 5x4 obstruction routes",
+      "qu_dependencies": []
+    },
+    {
+      "id": "SC-IA006",
+      "family": "F",
+      "support_mode": "EXACT",
+      "title": "quotient endpoints do not determine accumulated full transporter",
+      "body": "For the same quotient endpoint pair (197000,197002), the two shortest 5x4 routes carry distinct accumulated full-transporter identities.",
+      "normalized_body": "5x4_shortest_full_transporter_not_function_of_current_quotient_endpoints",
+      "premises": [
+        "SC-E004",
+        "SC-E015"
+      ],
+      "rule": "F",
+      "scope": "shortest 5x4 obstruction routes",
+      "qu_dependencies": []
+    },
+    {
+      "id": "SC-IA007",
+      "family": "F",
+      "support_mode": "EXACT",
+      "title": "quotient endpoints do not determine oriented action history",
+      "body": "For the same quotient endpoint pair (197000,197002), the two shortest 5x4 routes carry distinct source-frame action-sequence identities.",
+      "normalized_body": "5x4_shortest_action_history_not_function_of_current_quotient_endpoints",
+      "premises": [
+        "SC-E004",
+        "SC-E016"
+      ],
+      "rule": "F",
+      "scope": "shortest 5x4 obstruction routes",
+      "qu_dependencies": []
+    },
+    {
+      "id": "SC-IA008",
+      "family": "B",
+      "support_mode": "EXACT",
+      "title": "binary-tie stabilizer relation is Boolean equality",
+      "body": "For represented Boolean bits x,y, BINARY_TIE_ALLOWED(x,y) holds exactly when x=y.",
+      "normalized_body": "binary_tie_allowed_iff_boolean_bit_equality",
+      "premises": [
+        "SC-E001",
+        "SC-E020",
+        "SC-E021"
+      ],
+      "rule": "B",
+      "scope": "guarded all-binary-tie orientation relation represented in packet",
+      "qu_dependencies": []
+    },
+    {
+      "id": "SC-IA009",
+      "family": "B",
+      "support_mode": "EXACT",
+      "title": "constant-zero node assignment satisfies the concrete 4x4 reconvergence",
+      "body": "Assigning Boolean 0 to every represented node 197010..197015 satisfies every edge equation in both concrete 4x4 witness routes.",
+      "normalized_body": "constant_zero_assignment_satisfies_concrete_4x4_two_route_equations",
+      "premises": [
+        "SC-E001",
+        "SC-E017",
+        "SC-E018",
+        "SC-E019"
+      ],
+      "rule": "B",
+      "scope": "explicit 4x4 reconvergence witness only",
+      "qu_dependencies": []
+    },
+    {
+      "id": "SC-IA010",
+      "family": "B",
+      "support_mode": "EXACT",
+      "title": "shortest 5x4 closed route difference has odd delta parity",
+      "body": "XORing the four represented edge-delta bits from the two shortest 5x4 routes gives 1.",
+      "normalized_body": "shortest_5x4_route_symmetric_difference_edge_delta_xor_equals_1",
+      "premises": [
+        "SC-E001",
+        "SC-E002",
+        "SC-E003"
+      ],
+      "rule": "B",
+      "scope": "shortest 5x4 obstruction witness only",
+      "qu_dependencies": []
+    },
+    {
+      "id": "SC-IA011",
+      "family": "B",
+      "support_mode": "EXACT",
+      "title": "concrete 4x4 route difference has zero delta parity",
+      "body": "XORing the six represented edge-delta bits from the two explicit 4x4 routes gives 0.",
+      "normalized_body": "concrete_4x4_route_symmetric_difference_edge_delta_xor_equals_0",
+      "premises": [
+        "SC-E001",
+        "SC-E017",
+        "SC-E018"
+      ],
+      "rule": "B",
+      "scope": "explicit 4x4 reconvergence witness only",
+      "qu_dependencies": []
+    }
+  ],
+  "support_refinements": [
+    {
+      "id": "SC-SR001",
+      "assertion": "SC-E013",
+      "support_mode": "EXACT_IMPLICIT_SUPPORT",
+      "premises": [
+        "SC-E001",
+        "SC-E002",
+        "SC-E003",
+        "SC-E004"
+      ],
+      "rule": "B",
+      "witness": "Exhaust all 2^4 assignments to one Boolean value on quotient nodes 197000,197001,197003,197002. None satisfies the four edge equations simultaneously.",
+      "note": "SC-E013 remains source-explicit; this adds independent primitive implicit support without rewriting provenance."
+    }
+  ],
+  "qu_refinements": [],
+  "rejected_candidates": [
+    {
+      "id": "SC-RJ001",
+      "body": "Residual incidence explains all 25 5x4 nonzero syndromes.",
+      "reason": "The concrete witness shows residual incidence differs, but no represented premise proves sufficiency over the full obstruction family.",
+      "disposition": "REJECTED_AS_UNSUPPORTED_EXACT_IA",
+      "qu": "QU-SC-001"
+    },
+    {
+      "id": "SC-RJ002",
+      "body": "The full accumulated transporter is the intrinsic corrected phase.",
+      "reason": "The source explicitly warns that carrying the full transporter is history-dependent; no intrinsic state theorem is represented.",
+      "disposition": "REJECTED_AS_UNSUPPORTED_EXACT_IA",
+      "qu": "QU-SC-004"
+    }
+  ]
+}
