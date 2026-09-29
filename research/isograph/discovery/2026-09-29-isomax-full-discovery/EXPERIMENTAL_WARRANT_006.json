@@ -1,0 +1,172 @@
+{
+  "schema": "connect4.isomax.discovery.experimental_warrant.v1",
+  "id": "EW-006",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE_COUNTERFACTUAL",
+  "purpose": [
+    "DISCRIMINATING",
+    "CONSTRUCTIVE_MODEL_DISCOVERY"
+  ],
+  "anchors": [
+    "EW-004",
+    "SC-E025",
+    "SC-E026",
+    "QU-SC-006"
+  ],
+  "parent_clue": "Fresh k=3 evidence separates cycle opportunity from cocycle obstruction and shows gravity-relative transposition can change cycle rank without creating nonzero syndrome.",
+  "represented_insufficiency": "Board-level counts do not identify which winning-line residual interactions create or suppress the 5x4 obstruction.",
+  "objective": "Counterfactually intervene on H/V/D winning-line residual families while holding board geometry, gravity, turn order, quotient machinery, and standard frontier/cap closures fixed.",
+  "model_intervention": true,
+  "interpretation_barrier": "These subsets are not standard Connect-Four rules and cannot be reported as game outcomes. They are causal probes of the structural residual producer.",
+  "experiments": [
+    {
+      "label": "4x5",
+      "width": 4,
+      "height": 5,
+      "k": 4,
+      "directions": [
+        "H"
+      ]
+    },
+    {
+      "label": "5x4",
+      "width": 5,
+      "height": 4,
+      "k": 4,
+      "directions": [
+        "H"
+      ]
+    },
+    {
+      "label": "4x5",
+      "width": 4,
+      "height": 5,
+      "k": 4,
+      "directions": [
+        "V"
+      ]
+    },
+    {
+      "label": "5x4",
+      "width": 5,
+      "height": 4,
+      "k": 4,
+      "directions": [
+        "V"
+      ]
+    },
+    {
+      "label": "4x5",
+      "width": 4,
+      "height": 5,
+      "k": 4,
+      "directions": [
+        "D"
+      ]
+    },
+    {
+      "label": "5x4",
+      "width": 5,
+      "height": 4,
+      "k": 4,
+      "directions": [
+        "D"
+      ]
+    },
+    {
+      "label": "4x5",
+      "width": 4,
+      "height": 5,
+      "k": 4,
+      "directions": [
+        "H",
+        "V"
+      ]
+    },
+    {
+      "label": "5x4",
+      "width": 5,
+      "height": 4,
+      "k": 4,
+      "directions": [
+        "H",
+        "V"
+      ]
+    },
+    {
+      "label": "4x5",
+      "width": 4,
+      "height": 5,
+      "k": 4,
+      "directions": [
+        "H",
+        "D"
+      ]
+    },
+    {
+      "label": "5x4",
+      "width": 5,
+      "height": 4,
+      "k": 4,
+      "directions": [
+        "H",
+        "D"
+      ]
+    },
+    {
+      "label": "4x5",
+      "width": 4,
+      "height": 5,
+      "k": 4,
+      "directions": [
+        "V",
+        "D"
+      ]
+    },
+    {
+      "label": "5x4",
+      "width": 5,
+      "height": 4,
+      "k": 4,
+      "directions": [
+        "V",
+        "D"
+      ]
+    },
+    {
+      "label": "4x5",
+      "width": 4,
+      "height": 5,
+      "k": 4,
+      "directions": [
+        "H",
+        "V",
+        "D"
+      ]
+    },
+    {
+      "label": "5x4",
+      "width": 5,
+      "height": 4,
+      "k": 4,
+      "directions": [
+        "H",
+        "V",
+        "D"
+      ]
+    }
+  ],
+  "targeted_observations": [
+    "cycle rank",
+    "nonzero syndromes",
+    "contradictions",
+    "binary group/edge counts",
+    "state/class counts"
+  ],
+  "open_observation_channel": "Preserve all subset results including cases with zero cycle opportunity, unexpected obstruction creation, or loss of baseline obstruction.",
+  "adaptive_evidence_firewall": "Line-family dimension was selected after geometry evidence. Any candidate sufficient family requires confirmation in a separate fresh intervention before promotion.",
+  "prohibited_information_sources": [
+    "solved database",
+    "W/D/L as structural producer input"
+  ]
+}
