@@ -3,17 +3,17 @@
 ## C = NC? Control-Parity Algebra, Branch Collapse, and a Structural Research Program for Generalized Connect Four
 
 **Author:** Joshua Oshiro  
-**Current revision:** 0.10  
+**Current revision:** 0.11  
 **Status:** comprehensive research preprint; not peer reviewed  
 **License:** CC BY 4.0
 
 Current paper:
 
-- [C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_10.md](C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_10.md)
+- [C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_11.md](C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_11.md)
 
 Current publication preflight:
 
-- [C_EQUALS_NC_PUBLICATION_PREFLIGHT_0_10.md](../../isograph/discovery/2026-09-29-center-proof-cycle/C_EQUALS_NC_PUBLICATION_PREFLIGHT_0_10.md)
+- [C_EQUALS_NC_PUBLICATION_PREFLIGHT_0_11.md](../../isograph/discovery/2026-09-29-center-proof-cycle/C_EQUALS_NC_PUBLICATION_PREFLIGHT_0_11.md)
 
 Comprehensive research audit used from revision 0.8 onward:
 
@@ -25,6 +25,8 @@ Human-facing gameplay companion:
 
 Historical paper revisions remain preserved:
 
+- [C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_10.md](C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_10.md)
+- [C_EQUALS_NC_PUBLICATION_PREFLIGHT_0_10.md](../../isograph/discovery/2026-09-29-center-proof-cycle/C_EQUALS_NC_PUBLICATION_PREFLIGHT_0_10.md)
 - [C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_9.md](C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_9.md)
 - [C_EQUALS_NC_PUBLICATION_PREFLIGHT_0_9.md](../../isograph/discovery/2026-09-29-center-proof-cycle/C_EQUALS_NC_PUBLICATION_PREFLIGHT_0_9.md)
 - [C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_8.md](C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_8.md)
@@ -44,7 +46,7 @@ Historical paper revisions remain preserved:
 - [C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_1.md](C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_1.md)
 - [C_EQUALS_NC_PUBLICATION_PREFLIGHT_0_1.md](../../isograph/discovery/2026-09-29-center-proof-cycle/C_EQUALS_NC_PUBLICATION_PREFLIGHT_0_1.md)
 
-Revision 0.10 closes the solve-engine freshness loophole: generic theorem schemas and derivation algorithms are admissible, but a fresh solve may not consume target-instance conclusions or proof certificates produced by an earlier solve. The engine must instantiate and verify every search-eliminating theorem consequence from the current W/H/K instance and generic game/theorem machinery before using it.
+Revision 0.11 replaces the over-strict runtime re-execution rule with the closed-law/result distinction. A provenance-clean general theorem whose proof is fully closed may be promoted into the solver theorem base and used directly; an unclosed theorem or target-instance result may not. The current non-center opening work therefore requires a closure audit before its 7x6 consequence can be treated as a solver axiom.
 
 Revision 0.9 adds the practical human-board-strategy translation. It turns the structural results into a move protocol based on playable immediate threats, live residual winning recipes, support exposure, response-resource overload, first-win preemption, guarded parity/control, symmetry, and live-line evaluation. The section explicitly labels theorem-backed advice, rule-derived heuristics, computationally exact moves, and external solved-play facts.
 
