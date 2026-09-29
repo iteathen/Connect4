@@ -1,17 +1,17 @@
 import {performance} from 'node:perf_hooks';
-import {analyzeDirectResidualOrbitGraph} from './control-algebra-dimensions.mjs';
+import {analyzeDirectResidualOrbitGrowthCompact} from './control-algebra-dimensions.mjs';
 
 const width=Number(process.env.C4_WIDTH??4),
   height=Number(process.env.C4_HEIGHT??5),
   k=Number(process.env.C4_K??4);
 const started=performance.now();
-const result=analyzeDirectResidualOrbitGraph({
+const result=analyzeDirectResidualOrbitGrowthCompact({
   width,
   height,
   k,
   nonterminalFrontierBlocker:true,
   moverFinalCapParity:true,
-  measureLocalBranchClosure:false,
+  refinedColumnCanonicalization:true,
 });
 const elapsedMs=performance.now()-started;
 console.log(JSON.stringify({
