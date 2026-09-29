@@ -1120,6 +1120,86 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     };
   }
 
+  function auditOpenCapTerminalDominance(rec,removed,removedOwner){
+    const rank=rec.rank,remaining=cells-rank;
+    if(remaining>12)return null;
+    const heights=new Uint8Array(rec.heights),
+      futureOwner=new Int8Array(cells).fill(-1),
+      futurePly=new Int8Array(cells),
+      coverCounts=new Map();
+    let conditionedSchedules=0,coveredSchedules=0,
+      uncoveredSchedules=0,minRemovedCompletionPly=null,maxRemovedCompletionPly=null;
+
+    function completionPly(requirement,player){
+      let rest=requirement>>>0,maxPly=0;
+      while(rest){
+        const low=rest&-rest,bit=31-Math.clz32(low);
+        if(futureOwner[bit]!==player)return null;
+        maxPly=Math.max(maxPly,futurePly[bit]);
+        rest=(rest^low)>>>0;
+      }
+      return maxPly;
+    }
+
+    function visit(depth){
+      if(depth===remaining){
+        conditionedSchedules++;
+        const removedCompletion=completionPly(removed,removedOwner);
+        assert.notEqual(removedCompletion,null,
+          'conditioned open-cap schedule must complete the audited residual');
+        minRemovedCompletionPly=minRemovedCompletionPly===null?
+          removedCompletion:Math.min(minRemovedCompletionPly,removedCompletion);
+        maxRemovedCompletionPly=maxRemovedCompletionPly===null?
+          removedCompletion:Math.max(maxRemovedCompletionPly,removedCompletion);
+
+        let covered=false,earliest=Infinity,earliestRows=[];
+        for(const [player,requirements] of [[0,rec.r0],[1,rec.r1]]){
+          for(const requirement of requirements){
+            if(player===removedOwner&&requirement===removed)continue;
+            const t=completionPly(requirement,player);
+            if(t===null||t>removedCompletion)continue;
+            if(t<earliest){earliest=t;earliestRows=[];}
+            if(t===earliest)earliestRows.push({player,requirement,t});
+            covered=true;
+          }
+        }
+        if(covered){
+          coveredSchedules++;
+          for(const row of earliestRows){
+            const key=row.player+':'+row.requirement+':'+row.t;
+            coverCounts.set(key,(coverCounts.get(key)??0)+1);
+          }
+        }else uncoveredSchedules++;
+        return;
+      }
+
+      const player=(rank+depth)&1;
+      for(let col=0;col<width;col++)if(heights[col]<height){
+        const row=heights[col],bitIndex=row*width+col,bit=1<<bitIndex;
+        if((removed&bit)&&player!==removedOwner)continue;
+        heights[col]++;
+        futureOwner[bitIndex]=player;
+        futurePly[bitIndex]=depth+1;
+        visit(depth+1);
+        futurePly[bitIndex]=0;
+        futureOwner[bitIndex]=-1;
+        heights[col]--;
+      }
+    }
+    visit(0);
+    return {
+      conditionedSchedules,
+      coveredSchedules,
+      uncoveredSchedules,
+      terminalDominated:
+        conditionedSchedules>0&&uncoveredSchedules===0,
+      minRemovedCompletionPly,
+      maxRemovedCompletionPly,
+      coverCounts:Object.fromEntries(
+        [...coverCounts.entries()].sort((a,b)=>a[0].localeCompare(b[0]))),
+    };
+  }
+
   const literalContinuationMemo=new Map();
   function rawLiteralStep(heights,r0,r1,col){
     const rank=Array.from(heights).reduce((a,b)=>a+b,0),
@@ -1239,7 +1319,10 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
         depths.sort((a,b)=>a-b);
         const literalEquivalent=literalContinuationEquivalent(
           {heights:rec.heights,r0:rec.r0,r1:rec.r1},
-          {heights:rec.heights,r0,r1});
+          {heights:rec.heights,r0,r1}),
+          openCapTerminalDominance=removed===capMask?
+            auditOpenCapTerminalDominance(
+              rec,removed,opponentPlayer):null;
         rows.push({
           rank,
           support:Array.from(rec.heights),
@@ -1250,6 +1333,7 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
           moveCapacityImpossible,
           supportReleaseImpossible,
           literalContinuationEquivalent:literalEquivalent,
+          openCapTerminalDominance,
           removedFrontierHits:bitCount(removed&frontierMask),
           removedCapHits:bitCount(removed&capMask),
           equalsOpenCaps:removed===capMask,
@@ -1287,6 +1371,18 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
       exactOpenCapUnexplainedLiteralEquivalent:
         rows.filter(x=>x.equalsOpenCaps&&!x.supportReleaseImpossible&&
           x.literalContinuationEquivalent).length,
+      exactOpenCapTerminalDominated:
+        rows.filter(x=>x.equalsOpenCaps&&
+          x.openCapTerminalDominance?.terminalDominated).length,
+      exactOpenCapUnexplainedTerminalDominated:
+        rows.filter(x=>x.equalsOpenCaps&&!x.supportReleaseImpossible&&
+          x.openCapTerminalDominance?.terminalDominated).length,
+      exactOpenCapConditionedSchedules:
+        rows.filter(x=>x.equalsOpenCaps).reduce(
+          (n,x)=>n+(x.openCapTerminalDominance?.conditionedSchedules??0),0),
+      exactOpenCapUncoveredSchedules:
+        rows.filter(x=>x.equalsOpenCaps).reduce(
+          (n,x)=>n+(x.openCapTerminalDominance?.uncoveredSchedules??0),0),
       containsAllOpenCapsDeletions:
         rows.filter(x=>x.containsAllOpenCaps).length,
       moveCapacityExplainedDeletions:
