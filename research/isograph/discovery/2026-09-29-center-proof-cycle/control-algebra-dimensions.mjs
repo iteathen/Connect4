@@ -1578,6 +1578,7 @@ export function analyzeDirectResidualOrbitGrowthCompact({
   width,height,k,
   nonterminalFrontierBlocker=true,
   moverFinalCapParity=true,
+  remainingMoveCapacity=false,
   refinedColumnCanonicalization=false,
   binaryTieLinearCanonicalization=false,
 }){
@@ -1598,7 +1599,8 @@ export function analyzeDirectResidualOrbitGrowthCompact({
     rootDistinctOrbitChildren=0,rootDistinctRecursiveChildren=0,
     canonicalPermutationCandidates=0,maxCanonicalPermutationCandidates=0,
     binaryLinearCanonicalizations=0,binaryLinearFallbackCanonicalizations=0,
-    binaryLinearTranslationCandidates=0,maxBinaryLinearTranslationCandidates=0;
+    binaryLinearTranslationCandidates=0,maxBinaryLinearTranslationCandidates=0,
+    remainingMoveCapacityRemovals=0;
 
   const pack=(classId,value)=>classId*3+(value+1),
     unpackClass=packed=>Math.floor(packed/3),
@@ -1709,8 +1711,13 @@ export function analyzeDirectResidualOrbitGrowthCompact({
               applyMoverFinalCapParity(
                 nextHeights,blocked.r0,blocked.r1,width,height):
               blocked,
+            capacity=remainingMoveCapacity?
+              applyRemainingMoveCapacity(
+                nextHeights,closed.r0,closed.r1,width,height):
+              {r0:closed.r0,r1:closed.r1,removed:0},
             canonical=canonicalize(
-              nextHeights,closed.r0,closed.r1);
+              nextHeights,capacity.r0,capacity.r1);
+          remainingMoveCapacityRemovals+=capacity.removed;
           child=visit(canonical);
         }
       }
@@ -1748,9 +1755,14 @@ export function analyzeDirectResidualOrbitGrowthCompact({
       applyMoverFinalCapParity(
         rootHeights,rootBlocked.r0,rootBlocked.r1,width,height):
       rootBlocked,
+    rootCapacity=remainingMoveCapacity?
+      applyRemainingMoveCapacity(
+        rootHeights,rootClosed.r0,rootClosed.r1,width,height):
+      {r0:rootClosed.r0,r1:rootClosed.r1,removed:0},
     root=canonicalize(
-      rootHeights,rootClosed.r0,rootClosed.r1),
+      rootHeights,rootCapacity.r0,rootCapacity.r1),
     rootResult=visit(root);
+  remainingMoveCapacityRemovals+=rootCapacity.removed;
 
   let wdlSplitClasses=0;
   for(const mask of classValueMask)
@@ -1790,6 +1802,8 @@ export function analyzeDirectResidualOrbitGrowthCompact({
     maxBinaryLinearTranslationCandidates,
     nonterminalFrontierBlocker,
     moverFinalCapParity,
+    remainingMoveCapacity,
+    remainingMoveCapacityRemovals,
     winningLineCount:masks.length,
     residualOrbitStates:memo.size,
     literalActionEdges,
@@ -1813,6 +1827,7 @@ export function analyzeDirectResidualOrbitPrefix({
   width,height,k,maxRank,
   nonterminalFrontierBlocker=true,
   moverFinalCapParity=true,
+  remainingMoveCapacity=false,
 }){
   const cells=width*height;
   assert.ok(cells<=30,
@@ -1832,6 +1847,7 @@ export function analyzeDirectResidualOrbitPrefix({
       binaryTieCalls:0,
       nonbinaryTieCalls:0,
       tieProfileCalls:{},
+      remainingMoveCapacityRemovals:0,
       producedDistinctStates:0,
     }));
 
@@ -1868,8 +1884,12 @@ export function analyzeDirectResidualOrbitPrefix({
       applyMoverFinalCapParity(
         rootHeights,rootBlocked.r0,rootBlocked.r1,width,height):
       rootBlocked,
+    rootCapacity=remainingMoveCapacity?
+      applyRemainingMoveCapacity(
+        rootHeights,rootClosed.r0,rootClosed.r1,width,height):
+      {r0:rootClosed.r0,r1:rootClosed.r1,removed:0},
     root=canonicalResidualQStateRefinedCompact(
-      rootHeights,rootClosed.r0,rootClosed.r1,width,height),
+      rootHeights,rootCapacity.r0,rootCapacity.r1,width,height),
     rootKey='Q:'+root.signature,
     rootCanonicalization={
       candidatePermutations:root.candidatePermutations,
@@ -1957,8 +1977,13 @@ export function analyzeDirectResidualOrbitPrefix({
                 applyMoverFinalCapParity(
                   nextHeights,blocked.r0,blocked.r1,width,height):
                 blocked,
+              capacity=remainingMoveCapacity?
+                applyRemainingMoveCapacity(
+                  nextHeights,closed.r0,closed.r1,width,height):
+                {r0:closed.r0,r1:closed.r1,removed:0},
               canonical=canonicalize(
-                nextHeights,closed.r0,closed.r1,rank);
+                nextHeights,capacity.r0,capacity.r1,rank);
+            row.remainingMoveCapacityRemovals+=capacity.removed;
             childKey='Q:'+canonical.signature;
             childRec={
               key:childKey,
@@ -1988,6 +2013,10 @@ export function analyzeDirectResidualOrbitPrefix({
     canonicalization:'refinement-partitioned exact tie search',
     nonterminalFrontierBlocker,
     moverFinalCapParity,
+    remainingMoveCapacity,
+    remainingMoveCapacityRemovals:
+      rootCapacity.removed+workByRank.reduce(
+        (n,x)=>n+x.remainingMoveCapacityRemovals,0),
     winningLineCount:masks.length,
     rootCanonicalization,
     prefixStates:frontier.reduce((n,x)=>n+x.states,0),
