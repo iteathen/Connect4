@@ -908,3 +908,186 @@ export function analyzeGuardedBoundaryMacroPolicy(){
   };
 }
 
+
+
+function popcountBigInt(x){
+  let n=0;
+  while(x){n++;x&=x-1n;}
+  return n;
+}
+
+export function analyzeOptimalBranchCollapse4x4(){
+  const {g,masks}=fourByFourWinMasks(),memo=new Map();
+  const wonMask=bits=>{
+    let out=0n;
+    for(let i=0;i<masks.length;i++)if((bits&masks[i])===masks[i])
+      out|=1n<<BigInt(i);
+    return out;
+  };
+  const won=bits=>wonMask(bits)!==0n;
+  const keyOf=(p0,p1)=>p0*65536+p1;
+
+  function solve(p0,p1,heights,rank){
+    const key=keyOf(p0,p1),known=memo.get(key);
+    if(known)return known.value;
+    let value,terminal=false,winner=null;
+    if(won(p0)){value=1;terminal=true;winner=0;}
+    else if(won(p1)){value=-1;terminal=true;winner=1;}
+    else if(rank===16){value=0;terminal=true;}
+    else{
+      value=(rank&1)?1:-1;
+      for(let col=0;col<4;col++)if(heights[col]<4){
+        const cell=heights[col]*4+col,bit=1<<cell;
+        heights[col]++;
+        const child=(rank&1)?
+          solve(p0,p1|bit,heights,rank+1):
+          solve(p0|bit,p1,heights,rank+1);
+        heights[col]--;
+        value=(rank&1)?Math.min(value,child):Math.max(value,child);
+      }
+    }
+    memo.set(key,{key,p0,p1,rank,value,terminal,winner});
+    return value;
+  }
+
+  const rootValue=solve(0,0,new Uint8Array(4),0);
+
+  const heightVector=(p0,p1)=>{
+    const occ=p0|p1,h=new Uint8Array(4);
+    for(let c=0;c<4;c++)while(h[c]<4&&(occ&(1<<(h[c]*4+c))))h[c]++;
+    return h;
+  };
+
+  const optimalByKey=new Map(),indegree=new Map();
+  let optimalEdges=0,multiOptimalStates=0,moverWinningMultiOptimalStates=0,
+    maxOptimalBranching=0;
+  for(const rec of memo.values()){
+    if(rec.terminal)continue;
+    const heights=heightVector(rec.p0,rec.p1),edges=[];
+    for(let col=0;col<4;col++)if(heights[col]<4){
+      const cell=heights[col]*4+col,bit=1<<cell,
+        childKey=(rec.rank&1)?keyOf(rec.p0,rec.p1|bit):keyOf(rec.p0|bit,rec.p1),
+        child=memo.get(childKey);
+      assert.ok(child,'minimax traversal must materialize every legal child');
+      if(child.value===rec.value){
+        edges.push({column:col,childKey});
+        optimalEdges++;
+        indegree.set(childKey,(indegree.get(childKey)??0)+1);
+      }
+    }
+    assert.ok(edges.length>0,'every nonterminal state must have an optimal move');
+    optimalByKey.set(rec.key,edges);
+    maxOptimalBranching=Math.max(maxOptimalBranching,edges.length);
+    if(edges.length>1){
+      multiOptimalStates++;
+      const moverWinning=(rec.rank&1)?rec.value===-1:rec.value===1;
+      if(moverWinning)moverWinningMultiOptimalStates++;
+    }
+  }
+
+  let optimalMergeStates=0,maxOptimalIndegree=0;
+  for(const n of indegree.values()){
+    maxOptimalIndegree=Math.max(maxOptimalIndegree,n);
+    if(n>1)optimalMergeStates++;
+  }
+
+  let optimalThreePlyDiamonds=0,firstDiamond=null;
+  for(const rec of memo.values()){
+    const first=optimalByKey.get(rec.key);
+    if(!first||first.length<2)continue;
+    for(let i=0;i<first.length;i++)for(let j=i+1;j<first.length;j++){
+      const a=first[i],b=first[j],
+        ea=optimalByKey.get(a.childKey),eb=optimalByKey.get(b.childKey);
+      if(!ea||!eb)continue;
+      const byColumnB=new Map(eb.map(e=>[e.column,e]));
+      for(const oa of ea){
+        const ob=byColumnB.get(oa.column);
+        if(!ob)continue;
+        const ga=optimalByKey.get(oa.childKey),gb=optimalByKey.get(ob.childKey);
+        if(!ga||!gb)continue;
+        const ca=ga.find(e=>e.column===b.column),
+          cb=gb.find(e=>e.column===a.column);
+        if(ca&&cb&&ca.childKey===cb.childKey){
+          optimalThreePlyDiamonds++;
+          if(!firstDiamond)firstDiamond={
+            stateKey:rec.key,rank:rec.rank,value:rec.value,
+            firstMoves:[a.column+1,b.column+1],
+            commonReply:oa.column+1,
+            reconvergedKey:ca.childKey,
+          };
+        }
+      }
+    }
+  }
+
+  const terminalMaskMemo=new Map();
+  function terminalMaskFor(key){
+    const known=terminalMaskMemo.get(key);
+    if(known!==undefined)return known;
+    const rec=memo.get(key);
+    let mask=0n;
+    if(rec.terminal){
+      if(rec.winner===0)mask=wonMask(rec.p0);
+      else if(rec.winner===1)mask=wonMask(rec.p1)<<10n;
+      else mask=1n<<20n;
+    }else{
+      for(const edge of optimalByKey.get(key))
+        mask|=terminalMaskFor(edge.childKey);
+    }
+    terminalMaskMemo.set(key,mask);
+    return mask;
+  }
+
+  let winningStatesWithMultipleTerminalLines=0,maxTerminalWinningLines=0,
+    exampleBranchCollapse=null;
+  const lineIds=mask=>{
+    const out=[];
+    for(let i=0;i<10;i++)if((mask>>BigInt(i))&1n)out.push(i);
+    return out;
+  };
+  for(const rec of memo.values()){
+    if(rec.terminal||rec.value===0)continue;
+    const terminalMask=terminalMaskFor(rec.key),
+      winnerMask=rec.value===1?(terminalMask&((1n<<10n)-1n)):
+        ((terminalMask>>10n)&((1n<<10n)-1n)),
+      lineCount=popcountBigInt(winnerMask);
+    maxTerminalWinningLines=Math.max(maxTerminalWinningLines,lineCount);
+    if(lineCount>1){
+      winningStatesWithMultipleTerminalLines++;
+      const edges=optimalByKey.get(rec.key);
+      if(!exampleBranchCollapse&&edges&&edges.length>1){
+        exampleBranchCollapse={
+          stateKey:rec.key,rank:rec.rank,value:rec.value,
+          playerToMove:(rec.rank&1)?1:0,
+          optimalMoves:edges.map(e=>e.column+1),
+          terminalWinningLines:lineIds(winnerMask),
+        };
+      }
+    }
+  }
+
+  const rootTerminalMask=terminalMaskFor(keyOf(0,0));
+  return {
+    inputs:'4x4 connect-4 rules only',
+    solvedInputsUsed:false,
+    states:memo.size,
+    rootValue,
+    rootOptimalMoves:(optimalByKey.get(keyOf(0,0))??[]).map(e=>e.column+1),
+    rootTerminalRealizations:{
+      p0WinningLines:popcountBigInt(rootTerminalMask&((1n<<10n)-1n)),
+      p1WinningLines:popcountBigInt((rootTerminalMask>>10n)&((1n<<10n)-1n)),
+      drawReachable:!!((rootTerminalMask>>20n)&1n),
+    },
+    optimalEdges,
+    multiOptimalStates,
+    moverWinningMultiOptimalStates,
+    maxOptimalBranching,
+    optimalMergeStates,
+    maxOptimalIndegree,
+    optimalThreePlyDiamonds,
+    firstDiamond,
+    winningStatesWithMultipleTerminalLines,
+    maxTerminalWinningLines,
+    exampleBranchCollapse,
+  };
+}
