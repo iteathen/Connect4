@@ -794,7 +794,7 @@ export function analyzeUnlabelledQuotientDimension({width,height,k,auditResidual
 }
 
 
-export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontierBlocker=false,nonterminalFrontierBlocker=false,moverFinalCapParity=false,measureLocalBranchClosure=true,auditColumnRefinement=false,auditPairColumnRefinement=false,auditBinaryTieStabilizers=false,auditOpponentResidualDeletion=false}){
+export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontierBlocker=false,nonterminalFrontierBlocker=false,moverFinalCapParity=false,remainingMoveCapacity=false,measureLocalBranchClosure=true,auditColumnRefinement=false,auditPairColumnRefinement=false,auditBinaryTieStabilizers=false,auditOpponentResidualDeletion=false}){
   const cells=width*height;
   assert.ok(cells<=30,'direct residual-orbit harness is intentionally bounded to <=30 cells');
   const masks=winMasks(width,height,k),
@@ -859,8 +859,12 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
               applyMoverFinalCapParity(
                 nextHeights,blocked.r0,blocked.r1,width,height):
               blocked,
+            capacityClosed=remainingMoveCapacity?
+              applyRemainingMoveCapacity(
+                nextHeights,closed.r0,closed.r1,width,height):
+              closed,
             canonical=canonicalResidualQState(
-              nextHeights,closed.r0,closed.r1,permutationData);
+              nextHeights,capacityClosed.r0,capacityClosed.r1,permutationData);
           childKey=visit(canonical);
         }
       }
@@ -881,8 +885,12 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
       applyMoverFinalCapParity(
         rootHeights,rootBlocked.r0,rootBlocked.r1,width,height):
       rootBlocked,
+    rootCapacityClosed=remainingMoveCapacity?
+      applyRemainingMoveCapacity(
+        rootHeights,rootClosed.r0,rootClosed.r1,width,height):
+      rootClosed,
     root=canonicalResidualQState(
-      rootHeights,rootClosed.r0,rootClosed.r1,permutationData),
+      rootHeights,rootCapacityClosed.r0,rootCapacityClosed.r1,permutationData),
     rootKey=visit(root);
 
   const stateClass=new Map(),signatureClass=new Map(),
@@ -1267,6 +1275,7 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     universalFrontierBlocker,
     nonterminalFrontierBlocker,
     moverFinalCapParity,
+    remainingMoveCapacity,
     measureLocalBranchClosure,
     auditColumnRefinement,
     auditPairColumnRefinement,
@@ -1297,6 +1306,31 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
   };
 }
 
+
+
+function applyRemainingMoveCapacity(heights,r0,r1,width,height){
+  const rank=Array.from(heights).reduce((a,b)=>a+b,0),
+    remaining=width*height-rank,
+    mover=rank&1,
+    moverMoves=Math.ceil(remaining/2),
+    opponentMoves=Math.floor(remaining/2),
+    p0Moves=mover===0?moverMoves:opponentMoves,
+    p1Moves=mover===1?moverMoves:opponentMoves,
+    popcount=mask=>{
+      let n=0;
+      for(let v=mask>>>0;v;v=(v&(v-1))>>>0)n++;
+      return n;
+    },
+    next0=r0.filter(requirement=>popcount(requirement)<=p0Moves),
+    next1=r1.filter(requirement=>popcount(requirement)<=p1Moves);
+  return {
+    r0:next0,
+    r1:next1,
+    removed:(r0.length-next0.length)+(r1.length-next1.length),
+    p0Moves,
+    p1Moves,
+  };
+}
 
 function canonicalResidualQStateCompact(heights,r0,r1,permutationData){
   let best=null,bestHeights=null,bestR0=null,bestR1=null;
