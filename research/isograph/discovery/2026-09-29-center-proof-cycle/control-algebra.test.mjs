@@ -200,3 +200,22 @@ test('exhaustive 4x4 audits support plus line partial2 against exact WDL',()=>{
   assert.ok(r.classes>0&&r.classes<=r.states);
   assert.ok(r.splitClasses>=0&&r.splitClasses<=r.classes);
 });
+
+
+test('exhaustive optimal policy graph branches and collapses under perfect play',()=>{
+  assert.equal(typeof algebra.analyzeOptimalBranchCollapse4x4,'function');
+  const r=algebra.analyzeOptimalBranchCollapse4x4();
+  assert.equal(r.inputs,'4x4 connect-4 rules only');
+  assert.equal(r.solvedInputsUsed,false);
+  assert.equal(r.states,161029);
+  assert.ok(r.optimalEdges>0);
+  assert.ok(r.multiOptimalStates>0);
+  assert.ok(r.moverWinningMultiOptimalStates>0);
+  assert.ok(r.optimalMergeStates>0);
+  assert.ok(r.optimalTwoPlyDiamonds>0);
+  assert.ok(r.winningStatesWithMultipleTerminalLines>0);
+  assert.ok(r.maxTerminalWinningLines>1);
+  assert.ok(r.exampleBranchCollapse);
+  assert.ok(r.exampleBranchCollapse.optimalMoves.length>1);
+  assert.ok(r.exampleBranchCollapse.terminalWinningLines.length>1);
+});
