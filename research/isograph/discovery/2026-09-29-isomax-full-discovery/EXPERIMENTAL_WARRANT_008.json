@@ -1,0 +1,34 @@
+{
+  "schema": "connect4.isomax.discovery.experimental_warrant.v1",
+  "id": "EW-008",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE_ADAPTIVE_CONTROL",
+  "purpose": [
+    "DISCRIMINATING",
+    "CHARACTERIZING"
+  ],
+  "parent_warrant": "EW-003",
+  "parent_clue": "Flat 4x4 earliest recursive merges have one-step witnesses, whereas obstructed 5x4 earliest merges require depth 7-9 and are mostly transport-only across all child classes.",
+  "objective": "Run the same structural audit on flat 4x5 to distinguish obstruction-related nonlocal merge depth from generic larger-board behavior.",
+  "experiment": {
+    "label": "4x5",
+    "width": 4,
+    "height": 5,
+    "k": 4,
+    "nonterminalFrontierBlocker": true,
+    "moverFinalCapParity": true
+  },
+  "targeted_observations": [
+    "earliest merge rank",
+    "merge witness min/max depth",
+    "common parent/class incidence",
+    "residual-deletion equivalence",
+    "symmetry-refinement controls",
+    "local closure rounds"
+  ],
+  "adaptive_evidence_firewall": "4x5 control selected after EW-003. Any merge-depth model remains finite-case until further fresh confirmation.",
+  "prohibited_information_sources": [
+    "solved database",
+    "W/D/L as structural producer input"
+  ]
+}
