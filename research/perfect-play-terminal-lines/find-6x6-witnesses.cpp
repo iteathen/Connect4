@@ -196,7 +196,7 @@ int main(int argc,char** argv){
     if(ri<0||ri>=(int)reps.size())return 6;
     int id=reps[ri],mid=bysig.at(sig(lines[id],true));
     std::vector<int> w;
-    bool ok=f.find(id,w,150.0);
+    bool ok=f.find(id,w,600.0);
     std::cout<<"REP_INDEX "<<ri<<"\n";
     std::cout<<"LINE "<<id<<" MIRROR "<<mid<<" KIND "<<lines[id].kind<<"\n";
     std::cout<<"OK "<<ok<<" TIMEOUT "<<f.timeout()<<" DFS_CALLS "<<f.get_calls()<<"\n";
