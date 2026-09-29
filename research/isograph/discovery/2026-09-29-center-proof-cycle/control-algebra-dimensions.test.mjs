@@ -78,6 +78,23 @@ test('direct residual orbit producer reproduces recursive quotient across small 
   }
 });
 
+test('local branch closure reaches the exact 4x4 quotient in seven rounds after structural rewrites',()=>{
+  const r=analyzeDirectResidualOrbitGraph({
+    width:4,height:4,k:4,
+    nonterminalFrontierBlocker:true,
+    moverFinalCapParity:true,
+  });
+  assert.equal(r.localBranchClosure.roundsToFull,7);
+  assert.deepEqual(
+    r.localBranchClosure.rounds.map(x=>x.classes),
+    [9441,9237,8948,8629,8375,8269,8250,8242],
+  );
+  assert.equal(
+    r.localBranchClosure.rounds.at(-1).matchesFull,
+    true,
+  );
+});
+
 test('final-event cap parity removes mover-unrealizable residuals without changing quotient',()=>{
   const physical=analyzeUnlabelledQuotientDimensionMatrix();
   for(const row of physical.cases){
