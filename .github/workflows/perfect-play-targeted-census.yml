@@ -1,0 +1,75 @@
+name: Targeted perfect-play terminal-line census
+
+on:
+  push:
+    branches:
+      - experiment/perfect-play-terminal-lines-width6
+    paths:
+      - '.github/workflows/perfect-play-targeted-census.yml'
+  workflow_dispatch:
+
+jobs:
+  census:
+    strategy:
+      fail-fast: false
+      matrix:
+        board:
+          - '6x6'
+          - '7x6'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout experiment
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+
+      - name: Build exact targeted census
+        shell: bash
+        run: |
+          set -euxo pipefail
+          git clone --depth 1 https://github.com/ChristopheSteininger/c4.git /tmp/c4
+          cd /tmp/c4
+
+          case '${{ matrix.board }}' in
+            6x6) W=6; H=6 ;;
+            7x6) W=7; H=6 ;;
+            *) exit 2 ;;
+          esac
+
+          python3 - "$W" "$H" <<'PY'
+          from pathlib import Path
+          import re, sys
+          w, h = map(int, sys.argv[1:])
+          p = Path("src/solver/settings.h")
+          s = p.read_text()
+          s = re.sub(r"inline constexpr int BOARD_WIDTH = \d+;", f"inline constexpr int BOARD_WIDTH = {w};", s)
+          s = re.sub(r"inline constexpr int BOARD_HEIGHT = \d+;", f"inline constexpr int BOARD_HEIGHT = {h};", s)
+          s = re.sub(r"inline constexpr int NUM_THREADS = \d+;", "inline constexpr int NUM_THREADS = 2;", s)
+          s = re.sub(r"inline constexpr bool LOAD_BOOK_FILE = (true|false);", "inline constexpr bool LOAD_BOOK_FILE = false;", s)
+          s = re.sub(r"inline constexpr bool LOAD_TABLE_FILE = (true|false);", "inline constexpr bool LOAD_TABLE_FILE = false;", s)
+          s = re.sub(r"inline constexpr bool UPDATE_TABLE_FILE = (true|false);", "inline constexpr bool UPDATE_TABLE_FILE = false;", s)
+          p.write_text(s)
+          PY
+
+          cp "$GITHUB_WORKSPACE/research/experiments/2026-09-28-width6-perfect-play-lines/targeted-census.cpp" targeted-census.cpp
+          cat >> CMakeLists.txt <<'CMAKE'
+          add_executable(targeted_census "${CMAKE_SOURCE_DIR}/targeted-census.cpp")
+          target_link_libraries(targeted_census PRIVATE solver)
+          CMAKE
+
+          cmake -S . -B build -DMODE=OPTIMISE -DCMAKE_CXX_COMPILER=clang++
+          cmake --build build --target targeted_census -j2
+
+      - name: Run exact targeted census
+        shell: bash
+        run: |
+          set -euxo pipefail
+          cd /tmp/c4
+          /usr/bin/time -v ./build/targeted_census 2>&1 | tee "$GITHUB_WORKSPACE/targeted-${{ matrix.board }}.txt"
+
+      - name: Upload result
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: targeted-perfect-play-lines-${{ matrix.board }}
+          path: targeted-${{ matrix.board }}.txt
