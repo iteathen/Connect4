@@ -268,3 +268,20 @@ test('optimal sibling GF2 gauge is compared against all legal move-choice deltas
       g.allLegalDistinctDeltas===g.allOptimalDistinctDeltas
   );
 });
+
+
+test('unlabeled successor quotients expose branch-equivalent control classes',()=>{
+  const r=algebra.analyzeOptimalBranchCollapse4x4();
+  const q=r.structuralQuotients;
+  assert.ok(q);
+  assert.equal(q.allLegal.wdlSplitClasses,0);
+  assert.equal(q.optimal.wdlSplitClasses,0);
+  assert.ok(q.allLegal.classes>0&&q.allLegal.classes<r.states);
+  assert.ok(q.optimal.classes>0&&q.optimal.classes<=q.allLegal.classes);
+  assert.ok(q.allLegal.statesWithDuplicateEquivalentMoves>0);
+  assert.ok(q.optimal.statesWithDuplicateEquivalentMoves>0);
+  assert.equal(q.allLegal.rootLegalMoves,4);
+  assert.equal(q.optimal.rootLegalMoves,4);
+  assert.ok(q.allLegal.rootDistinctChildClasses>=1&&q.allLegal.rootDistinctChildClasses<=4);
+  assert.ok(q.optimal.rootDistinctChildClasses>=1&&q.optimal.rootDistinctChildClasses<=4);
+});
