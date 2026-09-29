@@ -1,5 +1,5 @@
 {
-  "schema": "isomax.core020.structural_control.implicit_assertion_round.v1",
+  "schema": "isomax.core020.structural_control.implicit_assertion_round.v2",
   "round": 5,
   "date_author_local": "2026-09-29",
   "input": [
@@ -24,7 +24,8 @@
       ],
       "rule": "C",
       "scope": "shortest 5x4 obstruction only",
-      "qu_dependencies": [
+      "qu_dependencies": [],
+      "related_qu": [
         "QU-SC-001",
         "QU-SC-005"
       ]
@@ -43,7 +44,8 @@
       ],
       "rule": "S",
       "scope": "logical non-implication witnessed by the shortest 5x4 obstruction/refinement pair",
-      "qu_dependencies": [
+      "qu_dependencies": [],
+      "related_qu": [
         "QU-SC-005"
       ]
     },
@@ -61,7 +63,8 @@
       ],
       "rule": "C",
       "scope": "shortest 5x4 obstruction only",
-      "qu_dependencies": [
+      "qu_dependencies": [],
+      "related_qu": [
         "QU-SC-004"
       ]
     },
@@ -78,7 +81,8 @@
       ],
       "rule": "S",
       "scope": "shortest 5x4 witness under the two explicitly represented state-identification relations",
-      "qu_dependencies": [
+      "qu_dependencies": [],
+      "related_qu": [
         "QU-SC-001"
       ]
     }
@@ -119,5 +123,6 @@
       "disposition": "REJECTED_AS_UNSUPPORTED_EXACT_IA",
       "qu": "QU-SC-005"
     }
-  ]
+  ],
+  "strict_support_revision": "ISOMAX_STRUCTURAL_CONTROL_CORE020_0_2.isg + A0 v2"
 }
