@@ -893,7 +893,7 @@ function applyOpponentOpenCapTerminalDominance(
 }
 
 
-export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontierBlocker=false,nonterminalFrontierBlocker=false,moverFinalCapParity=false,remainingMoveCapacity=false,supportReleaseTurnCapacity=false,opponentOpenCapTerminalDominance=false,measureLocalBranchClosure=true,auditColumnRefinement=false,auditPairColumnRefinement=false,auditBinaryTieStabilizers=false,auditOpponentResidualDeletion=false,auditEarliestMergeParents=false,auditEarliestMergeWitness=false}){
+export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontierBlocker=false,nonterminalFrontierBlocker=false,moverFinalCapParity=false,remainingMoveCapacity=false,supportReleaseTurnCapacity=false,opponentOpenCapTerminalDominance=false,measureLocalBranchClosure=true,auditColumnRefinement=false,auditPairColumnRefinement=false,auditBinaryTieStabilizers=false,auditOpponentResidualDeletion=false,auditEarliestMergeParents=false,auditEarliestMergeWitness=false,emitPrimitiveWitnessData=false,emitFullDirectCarrier=false}){
   const cells=width*height;
   assert.ok(cells<=30,'direct residual-orbit harness is intentionally bounded to <=30 cells');
   const masks=winMasks(width,height,k),
@@ -1147,7 +1147,7 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
       rank,splitUnlabelledClasses:0,labelledClassExcess:0,
       pureTransporterFibers:0,exactBinaryParityFibers:0,
     })),
-    actionLabelledFiberExamples=[];
+    actionLabelledFiberExamples=[],actionLabelledFiberRecords=[];
   let splitUnlabelledClasses=0,labelledClassExcess=0,maxLabelledFiberSize=1,
     pureTransporterFibers=0,multiplicityErasureFibers=0,
     binarySplitFibers=0,powerOfTwoSplitFibers=0,
@@ -1209,13 +1209,16 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
       }else parityAmbiguousFibers++;
     }
 
+    const fiberRecord={
+      rank,unlabelledClass:unlabelled,labelledClasses:labels,
+      fiberSize:size,profiles,
+      recursiveProfiles:labels.map(id=>labelledRecursiveProfiles.get(id)??null),
+      pureTransporter,allSlotsDistinct,
+      parityWellDefined,paritySets,exactBinaryParity,
+    };
+    actionLabelledFiberRecords.push(fiberRecord);
     if(actionLabelledFiberExamples.length<128)
-      actionLabelledFiberExamples.push({
-        rank,unlabelledClass:unlabelled,labelledClasses:labels,
-        fiberSize:size,profiles,
-        pureTransporter,allSlotsDistinct,
-        parityWellDefined,paritySets,exactBinaryParity,
-      });
+      actionLabelledFiberExamples.push(fiberRecord);
   }
   assert.equal(
     labelledClassExcess,actionLabelledNextId-nextId,
@@ -2828,6 +2831,33 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
   }
 
 
+  const primitiveWitnessData=emitPrimitiveWitnessData?{
+    actionLabelledFibers:actionLabelledFiberRecords,
+    deeperGroups:deeperGroupRecords,
+    binaryPropagationRecords,
+    binaryPhase:{
+      binaryGroupIds,
+      binaryInheritanceEdges,
+      reducedEdges,
+      simpleEdges,
+      activeBinaryIds,
+      sourceIds,
+      sinkIds,
+    },
+    directCarrier:emitFullDirectCarrier?[...nodes.values()].map(rec=>({
+      key:rec.key,
+      rank:rec.rank,
+      terminal:rec.terminal,
+      kind:rec.kind,
+      heights:rec.heights?Array.from(rec.heights):null,
+      p0Residuals:rec.r0?[...rec.r0]:null,
+      p1Residuals:rec.r1?[...rec.r1]:null,
+      children:[...rec.children],
+      recursiveUnlabelledClass:stateClass.get(rec.key),
+      recursiveActionLabelledClass:actionLabelledStateClass.get(rec.key),
+    })):null,
+  }:null;
+
   return {
     schema:'connect4.direct-residual-orbit-graph.v1',
     inputs:'root geometry + residual-antichain cofactor rules + support + action relabeling',
@@ -2861,6 +2891,7 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     actionLabelledFrontier,
     lateActionParityAudit,
     deeperContinuationPhaseAudit,
+    primitiveWitnessData,
     wdlSplitClasses,
     rootValue:values.get(rootKey),
     rootLegalActions:rootRec.children.length,
