@@ -3,24 +3,26 @@
 ## C = NC? Control-Parity Algebra, Branch Collapse, and a Structural Research Program for Generalized Connect Four
 
 **Author:** Joshua Oshiro  
-**Current revision:** 0.2  
+**Current revision:** 0.3  
 **Status:** research preprint; not peer reviewed  
 **License:** CC BY 4.0
 
 Current paper:
 
-- [C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_2.md](C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_2.md)
+- [C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_3.md](C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_3.md)
 
 Current publication preflight:
 
+- [C_EQUALS_NC_PUBLICATION_PREFLIGHT_0_3.md](../../isograph/discovery/2026-09-29-center-proof-cycle/C_EQUALS_NC_PUBLICATION_PREFLIGHT_0_3.md)
+
+Historical revisions remain preserved:
+
+- [C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_2.md](C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_2.md)
 - [C_EQUALS_NC_PUBLICATION_PREFLIGHT_0_2.md](../../isograph/discovery/2026-09-29-center-proof-cycle/C_EQUALS_NC_PUBLICATION_PREFLIGHT_0_2.md)
-
-Historical revision 0.1 remains preserved:
-
 - [C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_1.md](C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_1.md)
 - [C_EQUALS_NC_PUBLICATION_PREFLIGHT_0_1.md](../../isograph/discovery/2026-09-29-center-proof-cycle/C_EQUALS_NC_PUBLICATION_PREFLIGHT_0_1.md)
 
-Revision 0.2 adds the later recursive unlabeled quotient, cross-dimension quotient controls, residual-q column-orbit carrier, direct residual-orbit graph reconstruction, and sibling-delta falsifier results.
+Revision 0.3 adds the later residual-realizability closures, finite local branch closure, direct structural-growth controls through 4x7 and 5x4, refinement-partitioned exact canonicalization, and the guarded binary-tie XOR stabilizer theorem.
 
 The paper explicitly discloses AI-agent assistance and states that the AI agent was **not responsible for the core findings**. Joshua Oshiro is credited as author and as the originator of the core conceptual findings and research direction. The IsoGraph system is credited as designed by Joshua Oshiro.
 
