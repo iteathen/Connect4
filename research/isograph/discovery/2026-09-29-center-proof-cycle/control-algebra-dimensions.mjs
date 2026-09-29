@@ -1281,7 +1281,7 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     ])),
     changedChildTypeHistogram=new Map(),
     binaryContinuationEdgeCountHistogram=new Map(),
-    binaryPropagationExamples=[];
+    binaryPropagationRecords=[];
   let changedChildPairs=0,binaryContinuationEdges=0,
     nonbinaryContinuationEdges=0,childTransporterEdges=0,
     childBranchErasureEdges=0,childTerminalOrUnknownEdges=0;
@@ -1341,8 +1341,7 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     }
     binaryContinuationEdgeCountHistogram.set(
       binaryEdges,(binaryContinuationEdgeCountHistogram.get(binaryEdges)??0)+1);
-    if(binaryPropagationExamples.length<128)
-      binaryPropagationExamples.push({
+    binaryPropagationRecords.push({
         groupId:row.id,rank:row.rank,
         unlabelledClass:row.unlabelledClass,
         phaseFreeProfile:row.phaseFreeProfile,
@@ -1356,6 +1355,353 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     [...binaryChangedSlotHistogram.entries()].reduce((n,[slots,count])=>
       n+slots*count,0),
     'changed child classifications must cover every binary changed slot');
+
+  const binaryGroupRows=deeperGroupRecords.filter(
+      row=>row.labelledClasses.length===2),
+    binaryGroupIds=binaryGroupRows.map(row=>row.id),
+    binaryGroupRank=new Map(binaryGroupRows.map(row=>[row.id,row.rank])),
+    binaryInheritanceEdges=[];
+
+  for(const parent of binaryPropagationRecords){
+    const parentGroup=deeperGroupRecords[parent.groupId];
+    assert.equal(parentGroup.labelledClasses.length,2);
+    for(const child of parent.changed){
+      if(child.type!=='binary-continuation')continue;
+      const targetGroup=deeperGroupRecords[child.targetGroupId];
+      assert.equal(targetGroup.labelledClasses.length,2);
+      assert.equal(targetGroup.rank,parentGroup.rank+1,
+        'binary continuation must advance exactly one legal action rank');
+      const targetSheet0=targetGroup.labelledClasses.indexOf(child.left),
+        targetSheet1=targetGroup.labelledClasses.indexOf(child.right);
+      assert.ok(targetSheet0>=0&&targetSheet1>=0,
+        'binary continuation children must lie on target sheets');
+      assert.notEqual(targetSheet0,targetSheet1,
+        'binary continuation must map the two parent sheets bijectively');
+      assert.equal(targetSheet1,targetSheet0^1,
+        'binary target sheet map must be a Z2 permutation');
+      binaryInheritanceEdges.push({
+        id:binaryInheritanceEdges.length,
+        from:parent.groupId,
+        to:child.targetGroupId,
+        column:child.column,
+        parentRank:parentGroup.rank,
+        targetRank:targetGroup.rank,
+        delta:targetSheet0,
+        parentLabelledClasses:[...parentGroup.labelledClasses],
+        targetLabelledClasses:[...targetGroup.labelledClasses],
+        mappedTargetSheets:[targetSheet0,targetSheet1],
+      });
+    }
+  }
+  assert.equal(binaryInheritanceEdges.length,binaryContinuationEdges,
+    'cocycle carrier must contain every binary continuation edge');
+
+  function auditPhasePaths(edgeRows){
+    const outgoing=new Map(binaryGroupIds.map(id=>[id,[]]));
+    for(const edge of edgeRows)outgoing.get(edge.from).push(edge);
+    for(const rows of outgoing.values())rows.sort((a,b)=>
+      a.to-b.to||a.delta-b.delta||a.id-b.id);
+    const ordered=[...binaryGroupIds].sort((a,b)=>
+      binaryGroupRank.get(a)-binaryGroupRank.get(b)||a-b),
+      edgeById=new Map(edgeRows.map(edge=>[edge.id,edge]));
+    let reconvergentPairs=0,pathIndependentReconvergences=0,
+      contradictoryReconvergences=0,topologicalReconvergences=0,
+      maxPathMultiplicity=1;
+    const examples=[];
+
+    for(const source of ordered){
+      const stats=new Map(),start={
+        counts:[1,0],
+        min:[0,Infinity],
+        max:[0,-Infinity],
+        witnesses:[[[]],[]],
+      };
+      stats.set(source,start);
+      for(const node of ordered){
+        const current=stats.get(node);
+        if(!current)continue;
+        for(const edge of outgoing.get(node)){
+          let target=stats.get(edge.to);
+          if(!target){
+            target={
+              counts:[0,0],
+              min:[Infinity,Infinity],
+              max:[-Infinity,-Infinity],
+              witnesses:[[],[]],
+            };
+            stats.set(edge.to,target);
+          }
+          for(let parity=0;parity<2;parity++){
+            if(current.counts[parity]===0)continue;
+            const nextParity=parity^edge.delta;
+            target.counts[nextParity]+=current.counts[parity];
+            target.min[nextParity]=Math.min(
+              target.min[nextParity],current.min[parity]+1);
+            target.max[nextParity]=Math.max(
+              target.max[nextParity],current.max[parity]+1);
+            for(const witness of current.witnesses[parity]){
+              if(target.witnesses[nextParity].length>=4)break;
+              target.witnesses[nextParity].push([...witness,edge.id]);
+            }
+          }
+        }
+      }
+
+      for(const [target,row] of stats){
+        if(target===source)continue;
+        const multiplicity=row.counts[0]+row.counts[1];
+        if(multiplicity<=1)continue;
+        reconvergentPairs++;
+        maxPathMultiplicity=Math.max(maxPathMultiplicity,multiplicity);
+        const contradictory=row.counts[0]>0&&row.counts[1]>0;
+        if(contradictory)contradictoryReconvergences++;
+        else pathIndependentReconvergences++;
+        const witnesses=[...row.witnesses[0],...row.witnesses[1]],
+          routeSignatures=new Set(witnesses.map(witness=>[
+            source,...witness.map(id=>edgeById.get(id).to),
+          ].join('>'))),
+          topological=routeSignatures.size>1;
+        if(topological)topologicalReconvergences++;
+        if(examples.length<32)examples.push({
+          source,target,multiplicity,
+          parityPathCounts:[...row.counts],
+          minPathEdges:Math.min(...row.min.filter(Number.isFinite)),
+          maxPathEdges:Math.max(...row.max.filter(Number.isFinite)),
+          contradictory,topological,
+          witnessEdgeIdsByParity:row.witnesses.map(list=>
+            list.slice(0,2).map(witness=>[...witness])),
+        });
+      }
+    }
+
+    return {
+      reconvergentPairs,
+      pathIndependentReconvergences,
+      contradictoryReconvergences,
+      topologicalReconvergences,
+      maxPathMultiplicity,
+      examples,
+    };
+  }
+
+  function auditPhaseIntegrability(edgeRows){
+    const parent=new Map(binaryGroupIds.map(id=>[id,id])),
+      parityToParent=new Map(binaryGroupIds.map(id=>[id,0])),
+      size=new Map(binaryGroupIds.map(id=>[id,1]));
+    function find(id){
+      const p=parent.get(id);
+      if(p===id)return [id,0];
+      const [root,up]=find(p),parity=parityToParent.get(id)^up;
+      parent.set(id,root);
+      parityToParent.set(id,parity);
+      return [root,parity];
+    }
+    let zeroCycleSyndromes=0,nonzeroCycleSyndromes=0;
+    const syndromeExamples=[];
+    for(const edge of edgeRows){
+      let [rootA,phaseA]=find(edge.from),
+        [rootB,phaseB]=find(edge.to);
+      if(rootA===rootB){
+        const syndrome=phaseA^phaseB^edge.delta;
+        if(syndrome===0)zeroCycleSyndromes++;
+        else nonzeroCycleSyndromes++;
+        if(syndromeExamples.length<32)syndromeExamples.push({
+          closingEdgeId:edge.id,from:edge.from,to:edge.to,
+          delta:edge.delta,syndrome,
+        });
+        continue;
+      }
+      const bridge=phaseA^phaseB^edge.delta;
+      if(size.get(rootA)<size.get(rootB)){
+        parent.set(rootA,rootB);
+        parityToParent.set(rootA,bridge);
+        size.set(rootB,size.get(rootA)+size.get(rootB));
+      }else{
+        parent.set(rootB,rootA);
+        parityToParent.set(rootB,bridge);
+        size.set(rootA,size.get(rootA)+size.get(rootB));
+      }
+    }
+    const componentRoots=new Set(binaryGroupIds.map(id=>find(id)[0])),
+      activeIds=new Set(edgeRows.flatMap(edge=>[edge.from,edge.to])),
+      activeRoots=new Set([...activeIds].map(id=>find(id)[0])),
+      cycleRank=edgeRows.length-activeIds.size+activeRoots.size;
+    assert.equal(
+      zeroCycleSyndromes+nonzeroCycleSyndromes,cycleRank,
+      'fundamental cycle closures must equal binary inheritance cycle rank');
+    return {
+      cycleRank,
+      weakComponents:componentRoots.size,
+      activeWeakComponents:activeRoots.size,
+      zeroCycleSyndromes,
+      nonzeroCycleSyndromes,
+      globalPhasePotentialExists:nonzeroCycleSyndromes===0,
+      syndromeExamples,
+    };
+  }
+
+  const pairRows=new Map();
+  for(const edge of binaryInheritanceEdges){
+    const key=edge.from+'>'+edge.to;
+    let rows=pairRows.get(key);
+    if(!rows){rows=[];pairRows.set(key,rows);}
+    rows.push(edge);
+  }
+  const parallelPairs=[...pairRows.entries()].filter(([,rows])=>rows.length>1),
+    conflictingParallelPairs=parallelPairs.filter(([,rows])=>
+      new Set(rows.map(row=>row.delta)).size>1),
+    uniqueByMap=new Map();
+  for(const edge of binaryInheritanceEdges){
+    const key=edge.from+'>'+edge.to+'|'+edge.delta;
+    if(!uniqueByMap.has(key))uniqueByMap.set(key,edge);
+  }
+  const reducedEdges=[...uniqueByMap.values()],
+    simpleEdges=[...pairRows.values()].map(rows=>rows[0]),
+    outgoingTargets=new Map(binaryGroupIds.map(id=>[id,new Set()])),
+    incomingSources=new Map(binaryGroupIds.map(id=>[id,new Set()])),
+    weakAdj=new Map(binaryGroupIds.map(id=>[id,new Set()]));
+  for(const edge of simpleEdges){
+    outgoingTargets.get(edge.from).add(edge.to);
+    incomingSources.get(edge.to).add(edge.from);
+    weakAdj.get(edge.from).add(edge.to);
+    weakAdj.get(edge.to).add(edge.from);
+  }
+
+  const weakComponentSizes=[],seenWeak=new Set();
+  for(const start of binaryGroupIds){
+    if(seenWeak.has(start))continue;
+    const stack=[start];
+    seenWeak.add(start);
+    let n=0;
+    while(stack.length){
+      const id=stack.pop();
+      n++;
+      for(const next of weakAdj.get(id))if(!seenWeak.has(next)){
+        seenWeak.add(next);
+        stack.push(next);
+      }
+    }
+    weakComponentSizes.push(n);
+  }
+  weakComponentSizes.sort((a,b)=>b-a);
+
+  const activeBinaryIds=binaryGroupIds.filter(id=>
+      outgoingTargets.get(id).size||incomingSources.get(id).size),
+    sourceIds=activeBinaryIds.filter(id=>incomingSources.get(id).size===0),
+    sinkIds=activeBinaryIds.filter(id=>outgoingTargets.get(id).size===0),
+    chainMemo=new Map();
+  function chainBounds(id){
+    const prior=chainMemo.get(id);
+    if(prior)return prior;
+    const targets=[...outgoingTargets.get(id)];
+    if(!targets.length){
+      const leaf={min:0,max:0};
+      chainMemo.set(id,leaf);
+      return leaf;
+    }
+    const children=targets.map(chainBounds),result={
+      min:1+Math.min(...children.map(x=>x.min)),
+      max:1+Math.max(...children.map(x=>x.max)),
+    };
+    chainMemo.set(id,result);
+    return result;
+  }
+  const sourceChainBounds=sourceIds.map(id=>({id,...chainBounds(id)})),
+    shortestInheritedChainEdges=sourceChainBounds.length?
+      Math.min(...sourceChainBounds.map(x=>x.min)):0,
+    longestInheritedChainEdges=sourceChainBounds.length?
+      Math.max(...sourceChainBounds.map(x=>x.max)):0;
+
+  const pathAudit=auditPhasePaths(reducedEdges),
+    integrabilityAudit=auditPhaseIntegrability(reducedEdges),
+    gaugeFlippedEdges=reducedEdges.map(edge=>({
+      ...edge,
+      delta:edge.delta^(edge.from&1)^(edge.to&1),
+    })),
+    flippedPathAudit=auditPhasePaths(gaugeFlippedEdges),
+    flippedIntegrabilityAudit=auditPhaseIntegrability(gaugeFlippedEdges),
+    gaugeFlipInvariant=
+      pathAudit.reconvergentPairs===flippedPathAudit.reconvergentPairs&&
+      pathAudit.pathIndependentReconvergences===
+        flippedPathAudit.pathIndependentReconvergences&&
+      pathAudit.contradictoryReconvergences===
+        flippedPathAudit.contradictoryReconvergences&&
+      integrabilityAudit.cycleRank===flippedIntegrabilityAudit.cycleRank&&
+      integrabilityAudit.nonzeroCycleSyndromes===
+        flippedIntegrabilityAudit.nonzeroCycleSyndromes&&
+      integrabilityAudit.globalPhasePotentialExists===
+        flippedIntegrabilityAudit.globalPhasePotentialExists;
+  assert.equal(gaugeFlipInvariant,true,
+    'cocycle obstruction/path-consistency verdict must survive local sheet gauge flips');
+
+  const binaryPhaseCocycleAudit={
+    basis:'binary deeper-continuation groups after immediate action gauge removal',
+    sheetConvention:'sorted recursive action-labelled class ids; absolute 0/1 names are gauge only',
+    edgeDelta:'target sheet reached from parent local sheet 0',
+    outcomeLabelsUsed:false,
+    binaryPhaseNodes:binaryGroupIds.length,
+    activeBinaryPhaseNodes:activeBinaryIds.length,
+    isolatedBinaryPhaseNodes:binaryGroupIds.length-activeBinaryIds.length,
+    inheritanceEdges:binaryInheritanceEdges.length,
+    reducedInheritanceEdges:reducedEdges.length,
+    distinctDirectedPairs:pairRows.size,
+    duplicateSameMapEdges:binaryInheritanceEdges.length-reducedEdges.length,
+    parallelDirectedPairs:parallelPairs.length,
+    conflictingParallelPairs:conflictingParallelPairs.length,
+    edgeMapsBijective:true,
+    rankGradedDAG:binaryInheritanceEdges.every(edge=>
+      edge.targetRank===edge.parentRank+1),
+    weakComponents:weakComponentSizes.length,
+    weakComponentSizes,
+    branchingPoints:binaryGroupIds.filter(id=>
+      outgoingTargets.get(id).size>1).length,
+    joiningPoints:binaryGroupIds.filter(id=>
+      incomingSources.get(id).size>1).length,
+    sourceNodes:sourceIds.length,
+    sinkNodes:sinkIds.length,
+    shortestInheritedChainEdges,
+    longestInheritedChainEdges,
+    reconvergentPairs:pathAudit.reconvergentPairs,
+    topologicalReconvergences:pathAudit.topologicalReconvergences,
+    pathIndependentReconvergences:pathAudit.pathIndependentReconvergences,
+    contradictoryReconvergences:pathAudit.contradictoryReconvergences,
+    maxPathMultiplicity:pathAudit.maxPathMultiplicity,
+    cycleRank:integrabilityAudit.cycleRank,
+    zeroCycleSyndromes:integrabilityAudit.zeroCycleSyndromes,
+    nonzeroCycleSyndromes:integrabilityAudit.nonzeroCycleSyndromes,
+    globalPhasePotentialExists:integrabilityAudit.globalPhasePotentialExists,
+    nonvacuousPathIndependence:
+      pathAudit.topologicalReconvergences>0&&
+      pathAudit.contradictoryReconvergences===0,
+    uniquePathVacuity:
+      pathAudit.reconvergentPairs===0&&integrabilityAudit.cycleRank===0,
+    gaugeFlipInvariant,
+    genericTwoSheetCoverNotExcluded:true,
+    exits:{
+      nonbinaryContinuation:nonbinaryContinuationEdges,
+      actionTransporter:childTransporterEdges,
+      branchOrMultiplicityErasure:childBranchErasureEdges,
+      terminalOrUnknown:childTerminalOrUnknownEdges,
+    },
+    branchingNodeIds:binaryGroupIds.filter(id=>
+      outgoingTargets.get(id).size>1).slice(0,32),
+    joiningNodeIds:binaryGroupIds.filter(id=>
+      incomingSources.get(id).size>1).slice(0,32),
+    parallelPairExamples:parallelPairs.slice(0,32).map(([key,rows])=>({
+      key,edgeIds:rows.map(row=>row.id),
+      deltas:rows.map(row=>row.delta),
+      columns:rows.map(row=>row.column),
+    })),
+    conflictingParallelExamples:conflictingParallelPairs.slice(0,32)
+      .map(([key,rows])=>({
+        key,edgeIds:rows.map(row=>row.id),
+        deltas:rows.map(row=>row.delta),
+        columns:rows.map(row=>row.column),
+      })),
+    reconvergenceExamples:pathAudit.examples,
+    cycleSyndromeExamples:integrabilityAudit.syndromeExamples,
+    edgeExamples:binaryInheritanceEdges.slice(0,64),
+  };
 
   const deeperContinuationPhaseAudit={
     basis:'same action-unlabelled class + identical immediate phase-free action profile',
@@ -1382,7 +1728,7 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
       [...binaryContinuationEdgeCountHistogram.entries()].sort((a,b)=>a[0]-b[0])),
     byRank:deeperProfileByRank,
     examples:deeperGroupRecords.slice(0,128),
-    propagationExamples:binaryPropagationExamples,
+    propagationExamples:binaryPropagationRecords.slice(0,128),
   };
 
   const lateActionParityAudit={
