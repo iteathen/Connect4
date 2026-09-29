@@ -79,7 +79,7 @@ test('direct residual orbit producer reproduces recursive quotient across small 
   }
 });
 
-test('compact direct-growth evaluator is exactly equivalent on rewritten 4x4 control',()=>{
+test('compact direct-growth canonicalizers are exactly equivalent on rewritten 4x4 control',()=>{
   const full=analyzeDirectResidualOrbitGraph({
     width:4,height:4,k:4,
     nonterminalFrontierBlocker:true,
@@ -89,22 +89,34 @@ test('compact direct-growth evaluator is exactly equivalent on rewritten 4x4 con
     width:4,height:4,k:4,
     nonterminalFrontierBlocker:true,
     moverFinalCapParity:true,
+  }),refined=analyzeDirectResidualOrbitGrowthCompact({
+    width:4,height:4,k:4,
+    nonterminalFrontierBlocker:true,
+    moverFinalCapParity:true,
+    refinedColumnCanonicalization:true,
   });
-  for(const key of [
-    'residualOrbitStates',
-    'literalActionEdges',
-    'duplicateEquivalentActionEdges',
-    'recursiveUnlabelledClasses',
-    'wdlSplitClasses',
-    'rootValue',
-    'rootLegalActions',
-    'rootDistinctOrbitChildren',
-    'rootDistinctRecursiveChildren',
-    'earliestDynamicMergeRank',
-  ])assert.equal(compact[key],full[key],key);
-  assert.deepEqual(compact.frontier,full.frontier);
-  assert.deepEqual(compact.dynamicMergeByRank,full.dynamicMergeByRank);
-  assert.equal(compact.fullGraphObjectsRetained,false);
+  for(const candidate of [compact,refined]){
+    for(const key of [
+      'residualOrbitStates',
+      'literalActionEdges',
+      'duplicateEquivalentActionEdges',
+      'recursiveUnlabelledClasses',
+      'wdlSplitClasses',
+      'rootValue',
+      'rootLegalActions',
+      'rootDistinctOrbitChildren',
+      'rootDistinctRecursiveChildren',
+      'earliestDynamicMergeRank',
+    ])assert.equal(candidate[key],full[key],key);
+    assert.deepEqual(candidate.frontier,full.frontier);
+    assert.deepEqual(candidate.dynamicMergeByRank,full.dynamicMergeByRank);
+    assert.equal(candidate.fullGraphObjectsRetained,false);
+  }
+  assert.equal(refined.refinedColumnCanonicalization,true);
+  assert.ok(refined.maxCanonicalPermutationCandidates<=
+    compact.maxCanonicalPermutationCandidates);
+  assert.ok(refined.canonicalPermutationCandidates<
+    compact.canonicalPermutationCandidates);
 });
 
 test('column refinements are exact wherever they certify search-free canonicalization',()=>{
