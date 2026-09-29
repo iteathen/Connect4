@@ -187,3 +187,16 @@ test('guarded boundary macro policy isolates a higher-degree strategic layer',()
     [1,0],[2,0],[3,0],[4,0],[5,136],[6,160],
   ]);
 });
+
+
+test('exhaustive 4x4 audits support plus line partial2 against exact WDL',()=>{
+  assert.equal(typeof algebra.analyzeExhaustive4x4DerivativeCarrier,'function');
+  const r=algebra.analyzeExhaustive4x4DerivativeCarrier();
+  assert.equal(r.inputs,'4x4 connect-4 rules only');
+  assert.equal(r.solvedInputsUsed,false);
+  assert.equal(r.states,161029);
+  assert.equal(r.wdlCounts.loss+r.wdlCounts.draw+r.wdlCounts.win,r.states);
+  assert.equal(r.carrier,'support + player-labelled line partial^2');
+  assert.ok(r.classes>0&&r.classes<=r.states);
+  assert.ok(r.splitClasses>=0&&r.splitClasses<=r.classes);
+});
