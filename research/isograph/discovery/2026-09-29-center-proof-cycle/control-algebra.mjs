@@ -253,3 +253,109 @@ export function analyzeDimensionControlAlgebra({widths=[4,5,6,7,8,9,10],heights=
   }
   return {inputs:'geometry/rules only',connectK:4,outcomeLabelsRead:false,rows};
 }
+
+
+function standardResponseFragments(){
+  const g=geometry(7,6),initialHeights=[0,0,0,1,0,0,0],fragments=[];
+  for(let c=0;c<7;c++){
+    const starts=c===3?[1,3]:[0,2,4];
+    for(const h of starts){
+      const lowerDepth=h-initialHeights[c],upperDepth=h+1-initialHeights[c];
+      assert.ok(lowerDepth>=0&&upperDepth===lowerDepth+1);
+      fragments.push({
+        label:`c${c+1}:r${h+1}-${h+2}`,
+        column:c,startRow:h,pairOrdinal:lowerDepth>>>1,
+        tokens:[
+          {player:1,cell:h*7+c,row:h,column:c,supportDepth:lowerDepth},
+          {player:0,cell:(h+1)*7+c,row:h+1,column:c,supportDepth:upperDepth},
+        ],
+      });
+    }
+  }
+  const row=5,column=3,supportDepth=row-initialHeights[column];
+  return {
+    g,fragments,
+    unmatched:{
+      label:'c4:r6-unmatched',
+      column,row,pairOrdinal:supportDepth>>>1,
+      tokens:[{player:1,cell:row*7+column,row,column,supportDepth}],
+    },
+  };
+}
+
+function tokenFeatureKeys(g,token,fragment,id){
+  const keys=[];
+  for(let li=0;li<g.lines.length;li++){
+    const pos=g.lines[li].indexOf(token.cell);
+    if(pos<0)continue;
+    let suffix;
+    switch(id){
+      case 'player-line': suffix='';break;
+      case 'player-line-support-parity': suffix=`:${token.supportDepth&1}`;break;
+      case 'player-line-support-depth': suffix=`:${token.supportDepth}`;break;
+      case 'player-line-pair-depth': suffix=`:${fragment.pairOrdinal}`;break;
+      case 'player-line-row-parity': suffix=`:${token.row&1}`;break;
+      case 'player-line-row': suffix=`:${token.row}`;break;
+      case 'player-line-position': suffix=`:${pos}`;break;
+      case 'player-line-resource-column': suffix=`:${token.column}`;break;
+      default: throw new RangeError('unknown response projection');
+    }
+    keys.push(`${token.player}:${li}${suffix}`);
+  }
+  return keys;
+}
+
+function responseProjection(id){
+  const {g,fragments,unmatched}=standardResponseFragments(),
+    all=[...fragments,unmatched],keySet=new Set();
+  for(const fragment of all)for(const token of fragment.tokens)
+    for(const key of tokenFeatureKeys(g,token,fragment,id))keySet.add(key);
+  const keys=[...keySet].sort(),index=new Map(keys.map((key,i)=>[key,i])),
+    vector=fragment=>{
+      let v=0n;
+      for(const token of fragment.tokens)for(const key of tokenFeatureKeys(g,token,fragment,id))
+        v^=1n<<BigInt(index.get(key));
+      return v;
+    },
+    vectors=fragments.map(vector),width=keys.length,
+    rank=gf2Basis(vectors,width).rank,
+    unmatchedVector=vector(unmatched),
+    withUnmatched=gf2Basis([...vectors,unmatchedVector],width).rank,
+    dep=firstDependency(vectors,fragments.map(x=>x.label),width),
+    baseDependency=new Set([
+      'c1:r1-2','c1:r3-4','c1:r5-6',
+      'c3:r1-2','c3:r3-4','c3:r5-6',
+      'c5:r1-2','c5:r3-4','c5:r5-6',
+      'c7:r1-2','c7:r3-4','c7:r5-6',
+    ]);
+  let baseRelation=0n;
+  for(let i=0;i<fragments.length;i++)if(baseDependency.has(fragments[i].label))
+    baseRelation^=vectors[i];
+  return {
+    id,featureCount:width,responsePairs:vectors.length,rank,
+    nullity:vectors.length-rank,
+    unmatchedIndependent:withUnmatched===rank+1,
+    rankWithUnmatched:withUnmatched,
+    originalRelationSurvives:baseRelation===0n,
+    firstDependencyLabels:dep.dependencyLabels,
+  };
+}
+
+export function analyzeGuardedResponseProjections(){
+  const ids=[
+    'player-line',
+    'player-line-support-parity',
+    'player-line-support-depth',
+    'player-line-pair-depth',
+    'player-line-row-parity',
+    'player-line-row',
+    'player-line-position',
+    'player-line-resource-column',
+  ];
+  return {
+    inputs:'geometry/rules only',
+    responsePairs:20,
+    outcomeLabelsRead:false,
+    projections:ids.map(responseProjection),
+  };
+}
