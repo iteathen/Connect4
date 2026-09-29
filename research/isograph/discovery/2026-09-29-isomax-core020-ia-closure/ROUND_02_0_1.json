@@ -1,5 +1,5 @@
 {
-  "schema": "isomax.core020.structural_control.implicit_assertion_round.v1",
+  "schema": "isomax.core020.structural_control.implicit_assertion_round.v2",
   "round": 2,
   "date_author_local": "2026-09-29",
   "input": [
@@ -113,10 +113,11 @@
       ],
       "rule": "C",
       "scope": "shortest 5x4 obstruction witness",
-      "qu_dependencies": [
+      "qu_dependencies": [],
+      "note": "This asserts discriminator existence only, not sufficiency to repair all syndromes.",
+      "related_qu": [
         "QU-SC-001"
-      ],
-      "note": "This asserts discriminator existence only, not sufficiency to repair all syndromes."
+      ]
     },
     {
       "id": "SC-IA019",
@@ -131,7 +132,8 @@
       ],
       "rule": "C",
       "scope": "shortest 5x4 obstruction routes",
-      "qu_dependencies": [
+      "qu_dependencies": [],
+      "related_qu": [
         "QU-SC-004"
       ]
     }
@@ -167,5 +169,6 @@
       "disposition": "REJECTED_AS_SCOPE_OVERREACH",
       "qu": "QU-SC-002"
     }
-  ]
+  ],
+  "strict_support_revision": "ISOMAX_STRUCTURAL_CONTROL_CORE020_0_2.isg + A0 v2"
 }
