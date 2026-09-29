@@ -1,0 +1,111 @@
+{
+  "schema": "isomax.core020.structural_control.implicit_assertion_round.v1",
+  "round": 9,
+  "date_author_local": "2026-09-29",
+  "input": [
+    "A0_EXPLICIT_ASSERTIONS_0_1.json",
+    "ROUND_01_0_1.json",
+    "ROUND_02_0_1.json",
+    "ROUND_03_0_1.json",
+    "ROUND_04_0_1.json",
+    "ROUND_05_0_1.json",
+    "ROUND_06_0_1.json",
+    "ROUND_07_0_1.json",
+    "ROUND_08_0_1.json"
+  ],
+  "new_assertions": [
+    {
+      "id": "SC-IA048",
+      "family": "B",
+      "support_mode": "EXACT",
+      "title": "relative endpoint phase equals the distinguished residual bit",
+      "body": "For each shortest route in every satisfying residual-bit-refined assignment, target_phase XOR source_phase equals the final P0 residual-token-197700 membership bit.",
+      "normalized_body": "refined_shortest_relative_endpoint_phase_equals_final_residual_197700_bit",
+      "premises": [
+        "SC-E001",
+        "SC-IA040"
+      ],
+      "rule": "B",
+      "scope": "shortest 5x4 residual-bit-refined witness",
+      "qu_dependencies": [
+        "QU-SC-001"
+      ]
+    },
+    {
+      "id": "SC-IA049",
+      "family": "B",
+      "support_mode": "EXACT",
+      "title": "the local residual correction is independent of absolute phase gauge",
+      "body": "Simultaneously complementing source and target phase bits leaves target_phase XOR source_phase unchanged; therefore the equality in SC-IA048 is invariant under the only global-complement gauge freedom of the refined shortest witness.",
+      "normalized_body": "shortest_residual_relative_phase_equation_invariant_under_global_complement_gauge",
+      "premises": [
+        "SC-E001",
+        "SC-IA038",
+        "SC-IA048"
+      ],
+      "rule": "B",
+      "scope": "shortest 5x4 residual-bit-refined witness",
+      "qu_dependencies": [
+        "QU-SC-001"
+      ]
+    },
+    {
+      "id": "SC-IA050",
+      "family": "C",
+      "support_mode": "EXACT",
+      "title": "the corrected local relation survives observed transporter/history difference",
+      "body": "The two shortest routes have different full transporters and different source-frame action histories, yet both satisfy the same gauge-invariant relation target_phase XOR source_phase = final residual-token-197700 membership; those observed transporter/history differences do not prevent this state-local relative relation on the two-route family.",
+      "normalized_body": "shortest_state_local_relative_residual_phase_relation_survives_observed_transporter_and_history_difference",
+      "premises": [
+        "SC-E015",
+        "SC-E016",
+        "SC-IA048",
+        "SC-IA049"
+      ],
+      "rule": "C",
+      "scope": "exactly the two shortest 5x4 routes",
+      "qu_dependencies": [
+        "QU-SC-001",
+        "QU-SC-004"
+      ]
+    }
+  ],
+  "support_refinements": [],
+  "qu_refinements": [
+    {
+      "id": "SC-QR009",
+      "target": "QU-SC-004",
+      "rule": "U",
+      "premises": [
+        "SC-IA048",
+        "SC-IA049",
+        "SC-IA050"
+      ],
+      "add_fixed": [
+        "the shortest two-route family admits a history-free gauge-invariant relative phase relation expressed by an endpoint residual-membership bit"
+      ],
+      "retain_open": [
+        "whether such an intrinsic endpoint relation exists for every 5x4 obstruction",
+        "whether transition orientation is required outside the shortest family",
+        "whether a relabeling-invariant residual predicate can replace the frozen representative token"
+      ],
+      "probability_added": false
+    }
+  ],
+  "rejected_candidates": [
+    {
+      "id": "SC-RJ018",
+      "body": "All transporter/orientation information is irrelevant to the corrected generalized carrier.",
+      "reason": "Only the shortest two-route family has a state-local correction independent of its observed transporter/history difference.",
+      "disposition": "REJECTED_SCOPE_WIDENING",
+      "qu": "QU-SC-004"
+    },
+    {
+      "id": "SC-RJ019",
+      "body": "The frozen residual token 197700 is a gauge-independent generalized coordinate.",
+      "reason": "The phase equation is independent of absolute phase gauge, but the token itself remains tied to the frozen canonical representative; relabeling-invariant formulation is still open.",
+      "disposition": "REJECTED_COORDINATE_OVERREACH",
+      "qu": "QU-SC-001"
+    }
+  ]
+}
