@@ -227,6 +227,37 @@ const all=[...targets.keys()];const fullSat=satisfiable(all);let core=[];if(!ful
 
 const coreSet=new Set(core);
 const coreLabels=core.map(i=>label(targets[i]));
+function satisfiableRestricted(indices,allowed){
+  const need=new Set(indices);
+  function rec(forbidden){
+    if(!need.size)return true;
+    let ti=-1,opts=null;
+    for(const x of need){
+      const o=coverers[x].filter(c=>allowed(c)&&!forbidden.has(c.id));
+      if(opts===null||o.length<opts.length){ti=x;opts=o;if(!o.length)break;}
+    }
+    if(!opts||!opts.length)return false;
+    need.delete(ti);
+    for(const c of opts){
+      const removed=[];
+      for(const x of [...need])if(((c.cover>>BigInt(x))&1n)!==0n){need.delete(x);removed.push(x);}
+      const nf=new Set(forbidden);for(const q of conflict[c.id])nf.add(q);
+      if(rec(nf))return true;
+      for(const x of removed)need.add(x);
+    }
+    need.add(ti);return false;
+  }
+  return rec(new Set());
+}
+function subsets(xs){
+  const out=[];
+  for(let m=0;m<(1<<xs.length);m++){
+    const s=[];for(let i=0;i<xs.length;i++)if((m>>i)&1)s.push(xs[i]);
+    out.push(s);
+  }
+  return out;
+}
+
 const coreDiagnostics=core.map(i=>{
   const opts=coverers[i].map(c=>({
     id:c.id,
@@ -246,6 +277,23 @@ const coreDiagnostics=core.map(i=>{
   };
 });
 
+const bottomIndex=core.find(i=>label(targets[i])==='D1-E1-F1-G1');
+const bottomPivotCuts=coverers[bottomIndex].map(pivot=>{
+  const residual=core.filter(i=>((pivot.cover>>BigInt(i))&1n)===0n);
+  const exactAllowed=c=>c.id!==pivot.id&&!conflict[pivot.id].has(c.id);
+  const exactResidualSatisfiable=satisfiableRestricted(residual,exactAllowed);
+  const resources=[...pivot.resources].sort();
+  const failing=subsets(resources).filter(S=>S.length&&
+    !satisfiableRestricted(residual,c=>S.every(r=>!c.resources.has(r))));
+  const minimal=failing.filter(S=>!failing.some(T=>T.length<S.length&&T.every(x=>S.includes(x))));
+  return {
+    pivot:{id:pivot.id,type:pivot.type,name:pivot.name,resources,solvesCore:core.filter(i=>((pivot.cover>>BigInt(i))&1n)!==0n).map(i=>label(targets[i]))},
+    properResidual:residual.map(i=>label(targets[i])),
+    exactResidualSatisfiable,
+    minimalResourceCuts:minimal,
+  };
+});
+
 return {
   name,
   survivingP0Requirements: targets.length,
@@ -256,6 +304,7 @@ return {
   uncoveredAtBest: targets.filter((_,i)=>((best.mask>>BigInt(i))&1n)===0n).map(label),
   inclusionMinimalCore: coreLabels,
   coreDiagnostics,
+  bottomPivotCuts,
 };
 }
 
