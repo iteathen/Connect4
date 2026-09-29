@@ -9,7 +9,7 @@
       "family": "F",
       "support_mode": "EXACT",
       "title": "observed transporter-sign projection is non-injective",
-      "body": "On the two shortest 5x4 routes, distinct represented full-transporter identities 197500 and 197501 have the same accumulated permutation-sign bit 1.",
+      "body": "On the two shortest 5x4 routes, the two represented full-transporter mappings are extensionally different while both have computed permutation-sign bit 1.",
       "normalized_body": "exists_distinct_transporter_same_sign_on_shortest_5x4_witness",
       "premises": [
         "SC-E005",
@@ -86,8 +86,8 @@
       "id": "SC-IA006",
       "family": "F",
       "support_mode": "EXACT",
-      "title": "quotient endpoints do not determine accumulated full transporter",
-      "body": "For the same quotient endpoint pair (197000,197002), the two shortest 5x4 routes carry distinct accumulated full-transporter identities.",
+      "title": "coarse endpoints do not determine accumulated full transporter",
+      "body": "For the same coarse endpoint pair (197000,197002), the two shortest 5x4 routes carry extensionally different accumulated full-transporter mappings.",
       "normalized_body": "5x4_shortest_full_transporter_not_function_of_current_quotient_endpoints",
       "premises": [
         "SC-E004",
@@ -101,8 +101,8 @@
       "id": "SC-IA007",
       "family": "F",
       "support_mode": "EXACT",
-      "title": "quotient endpoints do not determine oriented action history",
-      "body": "For the same quotient endpoint pair (197000,197002), the two shortest 5x4 routes carry distinct source-frame action-sequence identities.",
+      "title": "coarse endpoints do not determine oriented action history",
+      "body": "For the same coarse endpoint pair (197000,197002), the two shortest 5x4 routes carry different ordered source-frame action sequences.",
       "normalized_body": "5x4_shortest_action_history_not_function_of_current_quotient_endpoints",
       "premises": [
         "SC-E004",
