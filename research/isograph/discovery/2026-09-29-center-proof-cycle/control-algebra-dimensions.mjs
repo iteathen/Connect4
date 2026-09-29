@@ -29,7 +29,73 @@ function peakBy(frontier,key){
     {rank:-1,states:0,classes:0});
 }
 
-export function analyzeUnlabelledQuotientDimension({width,height,k}){
+function permutations(n){
+  const out=[],a=Array.from({length:n},(_,i)=>i);
+  function visit(i){
+    if(i===n){out.push([...a]);return;}
+    for(let j=i;j<n;j++){
+      [a[i],a[j]]=[a[j],a[i]];
+      visit(i+1);
+      [a[i],a[j]]=[a[j],a[i]];
+    }
+  }
+  visit(0);
+  return out;
+}
+
+function normalizeResidualAntichain(winMasks,selfBits,opponentBits){
+  const raw=[];
+  for(const mask of winMasks){
+    if(mask&opponentBits)continue;
+    const residual=mask&~selfBits;
+    if(residual)raw.push(residual);
+  }
+  const unique=[...new Set(raw)].sort((a,b)=>a-b),out=[];
+  for(let i=0;i<unique.length;i++){
+    const a=unique[i];
+    let absorbed=false;
+    for(let j=0;j<unique.length;j++)if(i!==j){
+      const b=unique[j];
+      if(a!==b&&(a&b)===b){absorbed=true;break;}
+    }
+    if(!absorbed)out.push(a);
+  }
+  return out;
+}
+
+function heightsFromBits(p0,p1,width,height){
+  const occ=p0|p1,h=new Uint8Array(width);
+  for(let c=0;c<width;c++)
+    while(h[c]<height&&(occ&(1<<(h[c]*width+c))))h[c]++;
+  return h;
+}
+
+function columnPermutationData(width,height,span){
+  return permutations(width).map(perm=>{
+    const cellMap=new Uint8Array(width*height);
+    for(let row=0;row<height;row++)for(let oldCol=0;oldCol<width;oldCol++)
+      cellMap[row*width+oldCol]=row*width+perm[oldCol];
+    const remap=new Uint32Array(span);
+    for(let mask=1;mask<span;mask++){
+      const low=mask&-mask,bit=31-Math.clz32(low);
+      remap[mask]=remap[mask^low]|(1<<cellMap[bit]);
+    }
+    return {perm,remap};
+  });
+}
+
+function serializeResidualQ(heights,r0,r1,permutationData){
+  if(!permutationData)
+    return Array.from(heights).join(',')+'|'+r0.join('.')+'|'+r1.join('.');
+  const {perm,remap}=permutationData,newHeights=new Uint8Array(heights.length);
+  for(let oldCol=0;oldCol<heights.length;oldCol++)
+    newHeights[perm[oldCol]]=heights[oldCol];
+  const a=r0.map(mask=>remap[mask]).sort((x,y)=>x-y),
+    b=r1.map(mask=>remap[mask]).sort((x,y)=>x-y);
+  return Array.from(newHeights).join(',')+'|'+a.join('.')+'|'+b.join('.');
+}
+
+export function analyzeUnlabelledQuotientDimension({width,height,k,auditResidualOrbit=false}){
   const cells=width*height;
   assert.ok(cells<=20,'Number-key research harness is intentionally bounded to <=20 cells');
   const masks=winMasks(width,height,k),span=2**cells,memo=new Map(),
@@ -105,6 +171,73 @@ export function analyzeUnlabelledQuotientDimension({width,height,k}){
     if(size>maxClassSize)maxClassSize=size;
   }
 
+
+  let residualOrbitAudit=null;
+  if(auditResidualOrbit){
+    const permutationData=columnPermutationData(width,height,span),
+      orientationSignatures=new Set(),orbitToClasses=new Map(),
+      orbitStateCount=new Map(),classToOrbits=new Map();
+
+    for(const rec of memo.values()){
+      const classId=stateClass.get(rec.key);
+      let orientation,orbit;
+      if(rec.terminal){
+        const kind=rec.winner===0?'P0':rec.winner===1?'P1':'D';
+        orientation='T:'+rec.rank+':'+kind;
+        orbit=orientation;
+      }else{
+        const heights=heightsFromBits(rec.p0,rec.p1,width,height),
+          r0=normalizeResidualAntichain(masks,rec.p0,rec.p1),
+          r1=normalizeResidualAntichain(masks,rec.p1,rec.p0);
+        orientation='Q:'+serializeResidualQ(heights,r0,r1,null);
+        orbit=null;
+        for(const pd of permutationData){
+          const candidate='Q:'+serializeResidualQ(heights,r0,r1,pd);
+          if(orbit===null||candidate<orbit)orbit=candidate;
+        }
+      }
+      orientationSignatures.add(orientation);
+      let classes=orbitToClasses.get(orbit);
+      if(!classes){classes=new Set();orbitToClasses.set(orbit,classes);}
+      classes.add(classId);
+      orbitStateCount.set(orbit,(orbitStateCount.get(orbit)??0)+1);
+      let orbits=classToOrbits.get(classId);
+      if(!orbits){orbits=new Set();classToOrbits.set(classId,orbits);}
+      orbits.add(orbit);
+    }
+
+    let splitOrbitSignatures=0,splitOrbitStates=0,
+      recursiveClassesWithMultipleOrbitSignatures=0,
+      maxOrbitSignaturesPerRecursiveClass=0;
+    for(const [signature,classes] of orbitToClasses)if(classes.size>1){
+      splitOrbitSignatures++;
+      splitOrbitStates+=orbitStateCount.get(signature)??0;
+    }
+    for(const orbits of classToOrbits.values()){
+      if(orbits.size>1)recursiveClassesWithMultipleOrbitSignatures++;
+      if(orbits.size>maxOrbitSignaturesPerRecursiveClass)
+        maxOrbitSignaturesPerRecursiveClass=orbits.size;
+    }
+
+    residualOrbitAudit={
+      basis:'support + normalized P0/P1 residual antichains',
+      canonicalization:'all column-label permutations',
+      permutations:permutationData.length,
+      orientationSensitiveClasses:orientationSignatures.size,
+      columnOrbitClasses:orbitToClasses.size,
+      recursiveClasses:nextId,
+      splitOrbitSignatures,
+      splitOrbitStates,
+      soundAgainstRecursiveQuotient:splitOrbitSignatures===0,
+      recursiveClassesWithMultipleOrbitSignatures,
+      maxOrbitSignaturesPerRecursiveClass,
+      exactMatch:
+        splitOrbitSignatures===0&&
+        recursiveClassesWithMultipleOrbitSignatures===0&&
+        orbitToClasses.size===nextId,
+    };
+  }
+
   // Validation only: derive exact W/D/L after producer classes are frozen.
   const values=new Map();
   for(let rank=cells;rank>=0;rank--)for(const rec of byRank[rank]){
@@ -156,6 +289,7 @@ export function analyzeUnlabelledQuotientDimension({width,height,k}){
     statesWithDuplicateEquivalentMoves,
     duplicateEquivalentMoveEdges,
     maxClassSize,
+    residualOrbitAudit,
     peakStateFrontier:peakBy(frontier,'states'),
     peakClassFrontier:peakBy(frontier,'classes'),
     frontier,
