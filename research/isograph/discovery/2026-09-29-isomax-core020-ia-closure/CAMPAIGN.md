@@ -4,7 +4,7 @@
 **Research direction:** Joshua Oshiro  
 **Owner:** `research/semantic-quotient`  
 **Work branch:** `research/isomax-core020-ia-closure-20260929`  
-**Status:** OPERATIONAL FIXED POINT REACHED / PAUSED; no gameplay-authority effect; no production-solver effect
+**Status:** STRICT CORE-0.20 PRIMITIVE FIXED POINT REACHED / PAUSED; no gameplay-authority effect; no production-solver effect
 
 ## 1. Owner instruction
 
@@ -133,9 +133,10 @@ Every IA records:
 - premise IDs;
 - exact inference rule;
 - scope/guards;
-- QU dependencies if any;
 - support mode;
 - provenance.
+
+Open QUs that are not logically load-bearing are recorded only as related research context, not as exact support dependencies.
 
 No plausible research hypothesis is admitted as an Exact IA.
 
@@ -149,13 +150,15 @@ The 5x4 obstruction is not normalized away.
 
 ## 8. Stop rule
 
-Iterate IA generation until one complete pass over the declared inference
+Iterate IA generation until one complete pass over the strict inference
 families adds:
 
 ```text
 0 new normalized assertion bodies
 and
-0 material support refinements.
+0 material support refinements
+and
+0 QU refinements.
 ```
 
 That is an operational fixed point for this frozen packet, not universal
@@ -168,16 +171,38 @@ Do not run NEI.
 Do not continue into implementation.
 
 
-## 9. Completion
+## 9. Strict Core-0.20 re-audit and completion
 
-Recursive exact IA closure reached its operational fixed point in
-ROUND_11_FIXED_POINT_0_1.json.
+A later strict primitive re-audit found that the first compact packet still
+used several reducible support conveniences: imported Boolean IDs, raw route
+phase/sign fields, opaque transporter/action-sequence identities, incomplete
+finite carrier closure, and two sidecar-only IA-eligible scope assertions.
 
-Final result:
+Those findings are preserved in:
 
-- FIXED_POINT_REPORT_0_1.md
-- QU_LEDGER_FINAL_0_3.json
+- STRICT_PRIMITIVE_REAUDIT_0_1.md
+
+The corrected successor is:
+
+- ISOMAX_STRUCTURAL_CONTROL_CORE020_0_2.isg
+- PRIMITIVE_RENDERING_AUDIT_0_2.md
+- PRIMITIVE_CLOSURE_LEDGER_0_2.json
+- INFERENCE_RULES_0_2.json
+
+Strict reduction exposed eight additional exact IAs. Recursive exact IA closure
+therefore resumed and reached its current fixed point at:
+
+- ROUND_14_STRICT_FIXED_POINT_0_2.json
+
+Current final result:
+
+- FIXED_POINT_REPORT_0_2_STRICT.md
+- QU_LEDGER_FINAL_0_4.json
 - verifier workflow: IsoMax Core020 IA closure
+
+Aggregate experimental results remain integrated as derived/provenance views
+only. They do not qualify as primitive leaves and are not IA premises in this
+compact packet.
 
 The campaign is paused at the owner-requested boundary. No DP, NEI, DTS, or
 production implementation continuation is part of this work cycle.
