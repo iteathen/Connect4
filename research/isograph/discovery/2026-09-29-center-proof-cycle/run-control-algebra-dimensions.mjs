@@ -19,6 +19,11 @@ const result={
   directResidualOrbit4x4NonterminalBlocker:analyzeDirectResidualOrbitGraph({
     width:4,height:4,k:4,nonterminalFrontierBlocker:true,
   }),
+  directResidualOrbit4x4CapParity:analyzeDirectResidualOrbitGraph({
+    width:4,height:4,k:4,
+    nonterminalFrontierBlocker:true,
+    moverFinalCapParity:true,
+  }),
   directMatrix:matrix.cases.map(row=>analyzeDirectResidualOrbitGraph({
     width:row.width,height:row.height,k:row.k,
   })),
