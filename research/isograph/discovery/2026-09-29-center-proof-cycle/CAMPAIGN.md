@@ -7,6 +7,8 @@ Strategy owner: GSP-004 guarded obligation closure.
 Current focus correction: [limited-information proof objective](LIMITED_INFORMATION_OBJECTIVE.md).
 It supersedes further full-solve timing expansion as the immediate next task.
 
+Latest research checkpoint: [dimension/parity and shared center-boundary obligation](PARITY_DIMENSION_RESULT.md).
+
 ## Questions and frozen boundaries
 
 For one-based prefixes `44`, `444`, `4444`, construct a small rule-derived

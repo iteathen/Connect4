@@ -58,3 +58,14 @@ Compile obligations into a proof DAG rather than a move tree.
 ## Success condition
 
 An empty-root proof obtained from structural closure alone, with no ordinary minimax recursion and no hidden exhaustive successor traversal.
+
+## Current center-prefix discovery checkpoint
+
+[Dimension/parity and center-boundary controls](../isograph/discovery/2026-09-29-center-proof-cycle/PARITY_DIMENSION_RESULT.md)
+retain the existing strict-followup draw theorem and test a stronger restricted
+policy: take an immediate win, otherwise follow up. On standard 7x6, starts
+4/444/44444 reach the same 2108 unresolved boundary states and no draw endpoints
+within that policy. This is bounded research evidence, not a completed winning
+certificate or production optimization. The next obligation is to cover those
+states with compatible response/deadline rules or derive a necessary earlier
+control switch. External board-size outcomes are discovery evidence only.
