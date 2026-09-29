@@ -93,6 +93,9 @@ console.log(JSON.stringify({
     parallelPairExamples:cocycle.parallelPairExamples,
     conflictingParallelExamples:cocycle.conflictingParallelExamples,
     reconvergenceExamples:cocycle.reconvergenceExamples,
+    contradictoryReconvergenceExamples:
+      cocycle.contradictoryReconvergenceExamples,
     cycleSyndromeExamples:cocycle.cycleSyndromeExamples,
+    nonzeroCycleSyndromeExamples:cocycle.nonzeroCycleSyndromeExamples,
   },
 },null,2));
