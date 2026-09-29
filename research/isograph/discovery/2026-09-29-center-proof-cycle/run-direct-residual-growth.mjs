@@ -11,6 +11,7 @@ const result=analyzeDirectResidualOrbitGrowthCompact({
   k,
   nonterminalFrontierBlocker:true,
   moverFinalCapParity:true,
+  refinedColumnCanonicalization:true,
 });
 const elapsedMs=performance.now()-started;
 console.log(JSON.stringify({
