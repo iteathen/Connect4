@@ -1225,7 +1225,7 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     deeperProfileByRank=Array.from({length:cells+1},(_,rank)=>({
       rank,groups:0,labelledClassExcess:0,binaryGroups:0,
     })),
-    deeperProfileExamples=[];
+    deeperGroupRecords=[],deeperProfileExamples=[];
   let deeperProfileSplitUnlabelledFibers=0,deeperProfileGroups=0,
     deeperProfileLabelledExcess=0,deeperProfileBinaryGroups=0,
     deeperProfilePowerOfTwoGroups=0,maxDeeperProfileGroupSize=1,
@@ -1247,7 +1247,13 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     const rank=unlabelledClassRank.get(unlabelled),
       rankRow=deeperProfileByRank[rank];
     for(const [profile,ids0] of splitGroups){
-      const ids=[...ids0].sort((a,b)=>a-b),size=ids.length;
+      const ids=[...ids0].sort((a,b)=>a-b),size=ids.length,
+        record={
+          id:deeperGroupRecords.length,rank,unlabelledClass:unlabelled,
+          phaseFreeProfile:profile,labelledClasses:ids,
+          recursiveProfiles:ids.map(id=>labelledRecursiveProfiles.get(id)),
+        };
+      deeperGroupRecords.push(record);
       deeperProfileGroups++;
       deeperProfileLabelledExcess+=size-1;
       maxDeeperProfileGroupSize=Math.max(maxDeeperProfileGroupSize,size);
@@ -1258,8 +1264,8 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
       if(size===2){
         deeperProfileBinaryGroups++;
         rankRow.binaryGroups++;
-        const a=labelledRecursiveProfiles.get(ids[0]).split(','),
-          b=labelledRecursiveProfiles.get(ids[1]).split(',');
+        const a=record.recursiveProfiles[0].split(','),
+          b=record.recursiveProfiles[1].split(',');
         assert.equal(a.length,b.length);
         let changed=0;
         for(let i=0;i<a.length;i++)if(a[i]!==b[i])changed++;
@@ -1267,15 +1273,89 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
           changed,(binaryChangedSlotHistogram.get(changed)??0)+1);
       }
       if((size&(size-1))===0)deeperProfilePowerOfTwoGroups++;
-
-      if(deeperProfileExamples.length<128)
-        deeperProfileExamples.push({
-          rank,unlabelledClass:unlabelled,phaseFreeProfile:profile,
-          labelledClasses:ids,
-          recursiveProfiles:ids.map(id=>labelledRecursiveProfiles.get(id)),
-        });
     }
   }
+
+  const deeperGroupByKey=new Map(deeperGroupRecords.map(row=>[
+      row.unlabelledClass+'|'+row.phaseFreeProfile,row,
+    ])),
+    changedChildTypeHistogram=new Map(),
+    binaryContinuationEdgeCountHistogram=new Map(),
+    binaryPropagationExamples=[];
+  let changedChildPairs=0,binaryContinuationEdges=0,
+    nonbinaryContinuationEdges=0,childTransporterEdges=0,
+    childBranchErasureEdges=0,childTerminalOrUnknownEdges=0;
+
+  for(const row of deeperGroupRecords){
+    if(row.labelledClasses.length!==2)continue;
+    const a=row.recursiveProfiles[0].split(','),
+      b=row.recursiveProfiles[1].split(',');
+    let binaryEdges=0;
+    const changed=[];
+    for(let col=0;col<a.length;col++){
+      if(a[col]===b[col])continue;
+      assert.ok(a[col].startsWith('L')&&b[col].startsWith('L'),
+        'deeper binary difference must compare live child classes');
+      changedChildPairs++;
+      const left=Number(a[col].slice(1)),right=Number(b[col].slice(1)),
+        leftUnlabelled=labelledToUnlabelled.get(left),
+        rightUnlabelled=labelledToUnlabelled.get(right);
+      assert.equal(leftUnlabelled,rightUnlabelled,
+        'phase-free-identical parent slot must preserve child unlabelled class');
+      const leftProfile=labelledActionProfiles.get(left),
+        rightProfile=labelledActionProfiles.get(right);
+      let type,targetGroup=null;
+      if(leftProfile===undefined||rightProfile===undefined){
+        type='terminal-or-unknown';
+        childTerminalOrUnknownEdges++;
+      }else if(leftProfile===rightProfile){
+        targetGroup=deeperGroupByKey.get(
+          leftUnlabelled+'|'+leftProfile)??null;
+        assert.ok(targetGroup,
+          'same-profile changed child pair must belong to deeper group');
+        assert.ok(targetGroup.labelledClasses.includes(left)&&
+          targetGroup.labelledClasses.includes(right));
+        if(targetGroup.labelledClasses.length===2){
+          type='binary-continuation';
+          binaryContinuationEdges++;
+          binaryEdges++;
+        }else{
+          type='nonbinary-continuation';
+          nonbinaryContinuationEdges++;
+        }
+      }else if(multisetProfile(leftProfile)===multisetProfile(rightProfile)){
+        type='child-transporter';
+        childTransporterEdges++;
+      }else{
+        type='child-branch-erasure';
+        childBranchErasureEdges++;
+      }
+      changedChildTypeHistogram.set(
+        type,(changedChildTypeHistogram.get(type)??0)+1);
+      changed.push({
+        column:col,left,right,childUnlabelledClass:leftUnlabelled,
+        leftPhaseFreeProfile:leftProfile??null,
+        rightPhaseFreeProfile:rightProfile??null,
+        type,targetGroupId:targetGroup?.id??null,
+      });
+    }
+    binaryContinuationEdgeCountHistogram.set(
+      binaryEdges,(binaryContinuationEdgeCountHistogram.get(binaryEdges)??0)+1);
+    if(binaryPropagationExamples.length<128)
+      binaryPropagationExamples.push({
+        groupId:row.id,rank:row.rank,
+        unlabelledClass:row.unlabelledClass,
+        phaseFreeProfile:row.phaseFreeProfile,
+        labelledClasses:row.labelledClasses,
+        changed,
+      });
+  }
+
+  assert.equal(
+    changedChildPairs,
+    [...binaryChangedSlotHistogram.entries()].reduce((n,[slots,count])=>
+      n+slots*count,0),
+    'changed child classifications must cover every binary changed slot');
 
   const deeperContinuationPhaseAudit={
     basis:'same action-unlabelled class + identical immediate phase-free action profile',
@@ -1290,8 +1370,19 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     powerOfTwoGroups:deeperProfilePowerOfTwoGroups,
     binaryChangedSlotHistogram:Object.fromEntries(
       [...binaryChangedSlotHistogram.entries()].sort((a,b)=>a[0]-b[0])),
+    changedChildPairs,
+    changedChildTypeHistogram:Object.fromEntries(
+      [...changedChildTypeHistogram.entries()].sort()),
+    binaryContinuationEdges,
+    nonbinaryContinuationEdges,
+    childTransporterEdges,
+    childBranchErasureEdges,
+    childTerminalOrUnknownEdges,
+    binaryContinuationEdgeCountHistogram:Object.fromEntries(
+      [...binaryContinuationEdgeCountHistogram.entries()].sort((a,b)=>a[0]-b[0])),
     byRank:deeperProfileByRank,
-    examples:deeperProfileExamples,
+    examples:deeperGroupRecords.slice(0,128),
+    propagationExamples:binaryPropagationExamples,
   };
 
   const lateActionParityAudit={
