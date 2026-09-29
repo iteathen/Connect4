@@ -1138,7 +1138,7 @@ export function analyzeOptimalBranchCollapse4x4(){
 
   function buildUnlabeledQuotient(optimalOnly){
     const stateClass=new Map(),signatureClass=new Map(),classWdlMask=new Map(),
-      classSize=new Map();
+      classRelativeWdlMask=new Map(),classSize=new Map();
     let nextId=0,statesWithDuplicateEquivalentMoves=0,duplicateEquivalentMoveEdges=0,
       maxClassSize=0;
 
@@ -1255,14 +1255,20 @@ export function analyzeOptimalBranchCollapse4x4(){
       let id=signatureClass.get(signature);
       if(id===undefined){id=nextId++;signatureClass.set(signature,id);}
       stateClass.set(rec.key,id);
-      const bit=rec.value<0?1:rec.value>0?4:2;
+      const bit=rec.value<0?1:rec.value>0?4:2,
+        relative=(rec.rank&1)?-rec.value:rec.value,
+        relativeBit=relative<0?1:relative>0?4:2;
       classWdlMask.set(id,(classWdlMask.get(id)??0)|bit);
+      classRelativeWdlMask.set(id,(classRelativeWdlMask.get(id)??0)|relativeBit);
       classSize.set(id,(classSize.get(id)??0)+1);
     }
 
-    let wdlSplitStates=0;
+    let wdlSplitStates=0,relativeWdlSplitClasses=0,relativeWdlSplitStates=0;
     for(const [id,mask] of classWdlMask)if((mask&(mask-1))!==0){
       wdlSplitClasses++;wdlSplitStates+=classSize.get(id)??0;
+    }
+    for(const [id,mask] of classRelativeWdlMask)if((mask&(mask-1))!==0){
+      relativeWdlSplitClasses++;relativeWdlSplitStates+=classSize.get(id)??0;
     }
 
     const root=memo.get(keyOf(0,0)),heights=heightVector(root.p0,root.p1),
@@ -1280,6 +1286,8 @@ export function analyzeOptimalBranchCollapse4x4(){
       classes:nextId,
       wdlSplitClasses,
       wdlSplitStates,
+      relativeWdlSplitClasses,
+      relativeWdlSplitStates,
       rootLiteralActions:rootChildClasses.length,
       rootDistinctChildClasses:new Set(rootChildClasses).size,
     };
@@ -1290,9 +1298,11 @@ export function analyzeOptimalBranchCollapse4x4(){
     mq2Crosscheck={
       preWinStates:mq2Labelled.preWinStates,
       actionLabelledBehaviorClasses:mq2Labelled.classes,
-      actionLabelledWdlSplitClasses:mq2Labelled.wdlSplitClasses,
+      actionLabelledAbsoluteWdlSplitClasses:mq2Labelled.wdlSplitClasses,
+      actionLabelledRelativeWdlSplitClasses:mq2Labelled.relativeWdlSplitClasses,
       actionUnlabelledValueClasses:mq2Unlabelled.classes,
-      actionUnlabelledWdlSplitClasses:mq2Unlabelled.wdlSplitClasses,
+      actionUnlabelledAbsoluteWdlSplitClasses:mq2Unlabelled.wdlSplitClasses,
+      actionUnlabelledRelativeWdlSplitClasses:mq2Unlabelled.relativeWdlSplitClasses,
       rootLiteralActions:mq2Unlabelled.rootLiteralActions,
       rootDistinctUnlabelledActionClasses:mq2Unlabelled.rootDistinctChildClasses,
     };
