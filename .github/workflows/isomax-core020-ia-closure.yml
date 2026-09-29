@@ -1,0 +1,27 @@
+name: IsoMax Core020 IA closure
+
+on:
+  push:
+    branches:
+      - research/isomax-core020-ia-closure-20260929
+    paths:
+      - '.github/workflows/isomax-core020-ia-closure.yml'
+      - 'research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: '26'
+      - name: Verify IA closure packet
+        run: node research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/verify-ia-closure.mjs
+      - name: Research integrity
+        run: node tools/verify-research-integrity.mjs
