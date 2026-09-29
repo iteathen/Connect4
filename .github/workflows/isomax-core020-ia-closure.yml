@@ -26,5 +26,19 @@ jobs:
         run: node research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/verify-strict-primitive-closure.mjs
       - name: Verify complete primitive campaign
         run: node research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/verify-complete-primitive-campaign.mjs
+      - name: Rebuild native witnesses deterministically
+        run: |
+          node research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/build-aggregate-witness-native.mjs
+          git diff --exit-code -- \
+            research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/AGGREGATE_WITNESS_CORE020_0_1.isg \
+            research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/AGGREGATE_NATURALS_CORE020_0_1.isg \
+            research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/PRODUCER_WITNESS_SCHEMA_CORE020_0_1.isg \
+            research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/MASK16_CORE020_0_1.isg \
+            research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/PARTIAL2_VECTOR_WITNESS_CORE020_0_1.isg \
+            research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/PARTIAL2_PHYSICAL_WITNESS_CORE020_0_1_00.isg \
+            research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/PARTIAL2_PHYSICAL_WITNESS_CORE020_0_1_01.isg \
+            research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/PARTIAL2_PHYSICAL_WITNESS_CORE020_0_1_02.isg \
+            research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/PARTIAL2_PHYSICAL_WITNESS_CORE020_0_1_03.isg \
+            research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/PARTIAL2_PHYSICAL_WITNESS_CORE020_0_1_04.isg
       - name: Research integrity
         run: node tools/verify-research-integrity.mjs

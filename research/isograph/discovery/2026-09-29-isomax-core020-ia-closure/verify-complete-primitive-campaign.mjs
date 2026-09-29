@@ -21,6 +21,13 @@ const aggregateControl=read('AGGREGATE_CONTROL_CORE020_0_2.isg');
 const aggregateWitness=read('AGGREGATE_WITNESS_CORE020_0_1.isg');
 const completeIa=read('COMPLETE_IA_CORE020_0_1.isg');
 const loopControl=read('LOOP_RECURSION_CORE020_0_1.isg');
+const completeSource=read('COMPLETE_SOURCE_CORE020_0_1.isg');
+const graphControl=read('AGGREGATE_GRAPH_CONTROL_CORE020_0_1.isg');
+const profileControl=read('AGGREGATE_PROFILE_CONTROL_CORE020_0_1.isg');
+const gf2Control=read('AGGREGATE_GF2_CONTROL_CORE020_0_1.isg');
+const directProducer=read('DIRECT_RESIDUAL_PRODUCER_CORE020_0_1.isg');
+const physicalProducer=read('PARTIAL2_PHYSICAL_PRODUCER_CORE020_0_1.isg');
+const producerSchema=read('PRODUCER_WITNESS_SCHEMA_CORE020_0_1.isg');
 
 function delimiterAudit(text){
   let par=0,br=0,minPar=0,minBr=0;
@@ -37,6 +44,10 @@ for(const [name,text] of [
   ['sourceScope',sourceScope],['aggregateControl',aggregateControl],
   ['aggregateWitness',aggregateWitness],['completeIa',completeIa],
   ['loopControl',loopControl],
+  ['completeSource',completeSource],['graphControl',graphControl],
+  ['profileControl',profileControl],['gf2Control',gf2Control],
+  ['directProducer',directProducer],['physicalProducer',physicalProducer],
+  ['producerSchema',producerSchema],
 ]){
   assert.deepEqual(delimiterAudit(text),{par:0,br:0,minPar:0,minBr:0},name+' delimiter balance');
 }
@@ -44,20 +55,34 @@ for(const [name,text] of [
 assert.equal(sourceAdmission.count,31);
 assert.equal(sourceAdmission.admitted.length,31);
 assert.equal(new Set(sourceAdmission.admitted.map(x=>x.id)).size,31);
-for(const a of sourceAdmission.admitted){
-  assert.equal(a.status,'PRIMITIVE_EXPANDED_ASSERTION',a.id);
-  assert.equal(a.complete_closure_eligible,true,a.id);
-}
-for(const [id,root] of Object.entries({
-  'SC-E022':244022,'SC-E023':244023,'SC-E024':246024,'SC-E025':246025,
-  'SC-E026':246026,'SC-E027':246027,'SC-E028':246028,'SC-E029':246029,
-  'SC-E030':246030,'SC-E031':246031,
-})){
+for(let i=0;i<31;i++){
+  const id='SC-E'+String(i+1).padStart(3,'0'),root=212001+i;
   const a=sourceAdmission.admitted.find(x=>x.id===id);
   assert.ok(a,id);
+  assert.equal(a.status,'PRIMITIVE_EXPANDED_ASSERTION',id);
+  assert.equal(a.complete_closure_eligible,true,id);
   assert.equal(a.native_root,root,id+' native root');
-  const hay=root<246000?sourceScope:aggregateControl;
-  assert.ok(hay.includes('^150019 '+root),id+' root missing');
+  assert.equal(a.native_root_file,'COMPLETE_SOURCE_CORE020_0_1.isg',id);
+  assert.ok(completeSource.includes('^150019 '+root),id+' root missing');
+}
+assert.equal(sourceAdmission.completion_gate.null_native_roots,0);
+assert.equal(sourceAdmission.completion_gate.source_assertions_with_native_root,31);
+
+for(const rel of [246108,246107])
+  assert.ok(graphControl.includes('^150010 '+rel),'missing graph control '+rel);
+for(const rel of [246206,246210,246211])
+  assert.ok(profileControl.includes('^150010 '+rel),'missing profile control '+rel);
+for(const rel of [246335,246336])
+  assert.ok(gf2Control.includes('^150010 '+rel),'missing GF2 control '+rel);
+assert.ok(directProducer.includes('^150010 246429'),'missing direct producer closure');
+assert.ok(physicalProducer.includes('^150010 246517'),'missing physical producer closure');
+
+for(const [name,text] of [
+  ['completeSource',completeSource],['graphControl',graphControl],
+  ['profileControl',profileControl],['gf2Control',gf2Control],
+  ['directProducer',directProducer],['physicalProducer',physicalProducer],
+]){
+  assert.equal(text.includes('^150021'),false,name+' must not hide unresolved semantics behind QU');
 }
 
 assert.equal(iaAdmission.count,60);
@@ -71,6 +96,18 @@ assert.equal(obligation.counts?.frozen_source_assertions??31,31);
 assert.equal(obligation.counts?.generated_implicit_assertions??60,60);
 for(const x of obligation.source_assertions)assert.equal(x.may_be_omitted,false,x.id);
 for(const x of obligation.implicit_assertions)assert.equal(x.may_be_omitted,false,x.id);
+assert.equal(obligation.source_assertions.length,31);
+assert.equal(obligation.implicit_assertions.length,60);
+for(let i=0;i<31;i++){
+  const x=obligation.source_assertions[i];
+  assert.equal(x.current_status,'PRIMITIVE_EXPANDED_ASSERTION',x.id);
+  assert.equal(x.native_root,212001+i,x.id);
+}
+for(let i=0;i<60;i++){
+  const x=obligation.implicit_assertions[i];
+  assert.equal(x.current_disposition,'PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION',x.id);
+  assert.equal(x.native_root,211001+i,x.id);
+}
 
 assert.equal(sourceAdmission.qualified_core_020_semantic_sha256,
   '9a619b552a6ef7719e5b4b5f3a9df4a732ff4377b9bc7b86c385ed5c992b88e7');
@@ -97,6 +134,23 @@ const p54=phaseCase({
 });
 const response=analyzeStandardCenterControlAlgebra({emitPrimitiveWitnessData:true});
 const partial=analyzeOptimalBranchCollapse4x4({emitPrimitiveWitnessData:true});
+
+const physicalFresh=partial.primitiveWitnessData?.physicalCarrier??[];
+assert.equal(physicalFresh.length,161029);
+let physicalSeen=0;
+for(let shard=0;shard<5;shard++){
+  const name='PARTIAL2_PHYSICAL_CARRIER_0_1_'+String(shard).padStart(2,'0')+'.json';
+  const saved=json(name);
+  assert.equal(saved.schema,'isomax.core020.partial2_physical_carrier_shard.v1');
+  assert.equal(saved.start_index,physicalSeen);
+  assert.equal(saved.rows.length,saved.count);
+  for(let i=0;i<saved.rows.length;i++){
+    const a=saved.rows[i],b=physicalFresh[physicalSeen+i];
+    assert.deepEqual(a,b,'physical shard mismatch '+name+' row '+i);
+  }
+  physicalSeen+=saved.rows.length;
+}
+assert.equal(physicalSeen,physicalFresh.length);
 
 function phaseSummary(r){
   const c=r.deeperContinuationPhaseAudit.binaryPhaseCocycleAudit;
@@ -470,5 +524,6 @@ console.log(JSON.stringify({
   },
   direct4x4:{states:p44.residualOrbitStates,classes:p44.recursiveUnlabelledClasses},
   response:{pairs:response.responsePairs,rank:response.responsePairRank,augmentedRank:response.rankWithUnmatchedCenter},
-  partial2:{distinct:ds.allLegalDistinctDeltas,rank:ds.allLegalDeltaRank},
+  partial2:{distinct:ds.allLegalDistinctDeltas,rank:ds.allLegalDeltaRank,physicalStates:physicalSeen},
+  finalNativeRoots:{source:31,implicit:60},
 },null,2));
