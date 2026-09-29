@@ -151,6 +151,18 @@
       "support": "196116 IFF over pair/map/order plus local Boolean equality"
     },
     {
+      "id": "P2-024B",
+      "node": "transporter permutation predicate",
+      "status": "CLOSED_PRIMITIVE",
+      "support": "196119 IFF total + functional + surjective + injective over explicit five-slot carrier"
+    },
+    {
+      "id": "P2-024C",
+      "node": "relative transporter composition",
+      "status": "CLOSED_PRIMITIVE",
+      "support": "197502 T_MAP defined pointwise by existential composition of 197500 then 197501"
+    },
+    {
       "id": "P2-025",
       "node": "accumulated transporter sign",
       "status": "CLOSED_PRIMITIVE",
@@ -267,6 +279,6 @@
       "source": "BRANCH_COLLAPSE_RESULT.md"
     }
   ],
-  "exact_ia_support_scope": "Every exact IA premise is dependency-closed to P2-001..P2-028 or another exact IA whose own support closes there.",
+  "exact_ia_support_scope": "Every exact IA premise is dependency-closed to strict primitive entries P2-001..P2-028 plus P2-024B/P2-024C, or to another exact IA whose own support closes there.",
   "nonclaim": "The aggregate derived source views P2-035..P2-042 are integrated as provenance/navigation only and do not qualify as primitive semantic leaves in this compact packet."
 }
