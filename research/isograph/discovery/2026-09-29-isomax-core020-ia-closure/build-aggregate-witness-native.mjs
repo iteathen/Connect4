@@ -271,11 +271,10 @@ for(const [label,row,ci] of phaseEntries){
     ci===1?{g:SET.G45,c:SET.C45,z:SET.Z45,n:SET.N45,x:SET.X45}:
       {g:SET.G54,c:SET.C54,z:SET.Z54,n:SET.N54,x:SET.X54};
   addSet(ciSets.g,bp.binaryGroupIds.map(id=>groupTok(ci,id)));
-  const closures=cycleClosures(bp.binaryGroupIds,bp.reducedEdges);
   addSet(ciSets.c,closures.map(x=>edgeTok(ci,x.edgeId)));
   addSet(ciSets.z,closures.filter(x=>x.syndrome===0).map(x=>edgeTok(ci,x.edgeId)));
   addSet(ciSets.n,closures.filter(x=>x.syndrome===1).map(x=>edgeTok(ci,x.edgeId)));
-  addSet(ciSets.x,contradictoryPairs(bp.binaryGroupIds,bp.reducedEdges).map((_,i)=>pairTok(ci,i)));
+  addSet(ciSets.x,contradictions.map((_,i)=>pairTok(ci,i)));
   if(ci===0){
     const fibres=w.actionLabelledFibers??[];
     addSet(SET.F44PURE,fibres.map((f,i)=>f.pureTransporter&&f.allSlotsDistinct?fiberTok(ci,i):null).filter(x=>x!==null));
