@@ -107,19 +107,25 @@ test('compact direct-growth evaluator is exactly equivalent on rewritten 4x4 con
   assert.equal(compact.fullGraphObjectsRetained,false);
 });
 
-test('column incidence refinement is exact wherever it certifies search-free canonicalization',()=>{
+test('column refinements are exact wherever they certify search-free canonicalization',()=>{
   const r=analyzeDirectResidualOrbitGraph({
     width:4,height:4,k:4,
     nonterminalFrontierBlocker:true,
     moverFinalCapParity:true,
     auditColumnRefinement:true,
-  }),a=r.columnRefinementAudit;
-  assert.ok(a);
-  assert.ok(a.auditedStates>0);
-  assert.equal(a.canonicalCollisions,0);
-  assert.equal(a.exactOnSearchFreeStates,true);
-  assert.equal(a.searchFreeStates+a.fallbackStates,a.auditedStates);
-  assert.ok(a.searchFreeStates>0);
+    auditPairColumnRefinement:true,
+  }),a=r.columnRefinementAudit,b=r.pairColumnRefinementAudit;
+  for(const x of [a,b]){
+    assert.ok(x);
+    assert.ok(x.auditedStates>0);
+    assert.equal(x.canonicalCollisions,0);
+    assert.equal(x.exactOnSearchFreeStates,true);
+    assert.equal(x.searchFreeStates+x.fallbackStates,x.auditedStates);
+    assert.ok(x.searchFreeStates>0);
+  }
+  assert.equal(b.auditedStates,a.auditedStates);
+  assert.ok(b.fallbackStates<=a.fallbackStates);
+  assert.ok(b.maxPermutationSearchUpperBound<=a.maxPermutationSearchUpperBound);
 });
 
 test('local branch closure reaches the exact 4x4 quotient in seven rounds after structural rewrites',()=>{
