@@ -1133,6 +1133,81 @@ export function analyzeOptimalBranchCollapse4x4(){
     optimalDeltaSet.size===legalDeltaSet.size&&
     [...legalDeltaSet].every(x=>optimalDeltaSet.has(x));
 
+  const byRank=Array.from({length:17},()=>[]);
+  for(const rec of memo.values())byRank[rec.rank].push(rec);
+
+  function buildUnlabeledQuotient(optimalOnly){
+    const stateClass=new Map(),signatureClass=new Map(),classWdlMask=new Map(),
+      classSize=new Map();
+    let nextId=0,statesWithDuplicateEquivalentMoves=0,duplicateEquivalentMoveEdges=0,
+      maxClassSize=0;
+
+    const legalChildKeys=rec=>{
+      if(optimalOnly)return (optimalByKey.get(rec.key)??[]).map(e=>e.childKey);
+      const heights=heightVector(rec.p0,rec.p1),out=[];
+      for(let col=0;col<4;col++)if(heights[col]<4){
+        const cell=heights[col]*4+col,bit=1<<cell,
+          childKey=(rec.rank&1)?keyOf(rec.p0,rec.p1|bit):keyOf(rec.p0|bit,rec.p1);
+        assert.ok(memo.has(childKey));
+        out.push(childKey);
+      }
+      return out;
+    };
+
+    for(let rank=16;rank>=0;rank--)for(const rec of byRank[rank]){
+      let signature,childKeys=[];
+      if(rec.terminal){
+        const terminalKind=rec.winner===0?'P0':rec.winner===1?'P1':'D';
+        signature=`T:${rank}:${terminalKind}`;
+      }else{
+        childKeys=legalChildKeys(rec);
+        const ids=childKeys.map(key=>{
+          const id=stateClass.get(key);
+          assert.notEqual(id,undefined,'child quotient class must exist at higher rank');
+          return id;
+        });
+        const unique=[...new Set(ids)].sort((a,b)=>a-b);
+        signature=`N:${rank}:${rec.rank&1}:${unique.join('.')}`;
+        if(unique.length<ids.length){
+          statesWithDuplicateEquivalentMoves++;
+          duplicateEquivalentMoveEdges+=ids.length-unique.length;
+        }
+      }
+      let id=signatureClass.get(signature);
+      if(id===undefined){id=nextId++;signatureClass.set(signature,id);}
+      stateClass.set(rec.key,id);
+      const bit=rec.value<0?1:rec.value>0?4:2;
+      classWdlMask.set(id,(classWdlMask.get(id)??0)|bit);
+      const size=(classSize.get(id)??0)+1;
+      classSize.set(id,size);maxClassSize=Math.max(maxClassSize,size);
+    }
+
+    let wdlSplitClasses=0,wdlSplitStates=0;
+    for(const [id,mask] of classWdlMask)if((mask&(mask-1))!==0){
+      wdlSplitClasses++;wdlSplitStates+=classSize.get(id)??0;
+    }
+
+    const rootKey=keyOf(0,0),rootRec=memo.get(rootKey),
+      rootChildren=legalChildKeys(rootRec),
+      rootDistinct=new Set(rootChildren.map(k=>stateClass.get(k))).size;
+    return {
+      classes:nextId,
+      wdlSplitClasses,
+      wdlSplitStates,
+      statesWithDuplicateEquivalentMoves,
+      duplicateEquivalentMoveEdges,
+      maxClassSize,
+      rootClass:stateClass.get(rootKey),
+      rootLegalMoves:rootChildren.length,
+      rootDistinctChildClasses:rootDistinct,
+    };
+  }
+
+  const structuralQuotients={
+    allLegal:buildUnlabeledQuotient(false),
+    optimal:buildUnlabeledQuotient(true),
+  };
+
   const rootTerminalMask=terminalMaskFor(keyOf(0,0));
   return {
     inputs:'4x4 connect-4 rules only',
@@ -1180,5 +1255,6 @@ export function analyzeOptimalBranchCollapse4x4(){
       legalDeltasOutsideOptimalSpan,
       optimalDeltaSetEqualsLegal,
     },
+    structuralQuotients,
   };
 }
