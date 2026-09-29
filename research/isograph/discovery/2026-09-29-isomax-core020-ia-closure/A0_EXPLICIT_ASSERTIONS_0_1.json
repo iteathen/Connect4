@@ -1,5 +1,5 @@
 {
-  "schema": "isomax.core020.structural_control.explicit_assertions.v1",
+  "schema": "isomax.core020.structural_control.explicit_assertions.v2",
   "date_author_local": "2026-09-29",
   "research_direction": "Joshua Oshiro",
   "support_policy": "Core 0.20 primitive firewall; only ia_eligible=true assertions may support exact IAs in this campaign.",
@@ -14,7 +14,8 @@
       "primitive_support": [
         "196100 raw extension"
       ],
-      "source": "ISOMAX_STRUCTURAL_CONTROL_CORE020_0_1.isg"
+      "source": "ISOMAX_STRUCTURAL_CONTROL_CORE020_0_1.isg",
+      "primitive_status": "CLOSED_TO_STRICT_KERNEL"
     },
     {
       "id": "SC-E002",
@@ -27,7 +28,8 @@
         "196101",
         "196102"
       ],
-      "source": "PHASE_COCYCLE_5X4_OBSTRUCTION_ANALYSIS.md"
+      "source": "PHASE_COCYCLE_5X4_OBSTRUCTION_ANALYSIS.md",
+      "primitive_status": "CLOSED_TO_STRICT_KERNEL"
     },
     {
       "id": "SC-E003",
@@ -40,7 +42,8 @@
         "196101",
         "196102"
       ],
-      "source": "PHASE_COCYCLE_5X4_OBSTRUCTION_ANALYSIS.md"
+      "source": "PHASE_COCYCLE_5X4_OBSTRUCTION_ANALYSIS.md",
+      "primitive_status": "CLOSED_TO_STRICT_KERNEL"
     },
     {
       "id": "SC-E004",
@@ -53,7 +56,8 @@
         "196101",
         "196102"
       ],
-      "source": "PHASE_COCYCLE_5X4_OBSTRUCTION_ANALYSIS.md"
+      "source": "PHASE_COCYCLE_5X4_OBSTRUCTION_ANALYSIS.md",
+      "primitive_status": "CLOSED_TO_STRICT_KERNEL"
     },
     {
       "id": "SC-E005",
@@ -61,11 +65,19 @@
       "kind": "EXPLICIT_ASSERTION",
       "support_mode": "EXACT",
       "ia_eligible": true,
-      "body": "Route 197200 has phase bit 0, accumulated permutation-sign bit 1, transporter 197500, source-frame action sequence 197510, and final exact residual state 197402.",
+      "body": "Route 197200 has computed phase bit 0; its accumulated transporter has computed sign bit 1 and extensional mapping 197500; its ordered source-frame action sequence is 197510; its final fine state is 197402.",
       "primitive_support": [
-        "196106"
+        "196104",
+        "196106",
+        "196113",
+        "196114",
+        "196115",
+        "196116",
+        "196117",
+        "196118"
       ],
-      "source": "PHASE_COCYCLE_5X4_TRANSPORTER_RESULT.md"
+      "source": "PHASE_COCYCLE_5X4_TRANSPORTER_RESULT.md",
+      "primitive_status": "CLOSED_TO_STRICT_KERNEL"
     },
     {
       "id": "SC-E006",
@@ -73,11 +85,19 @@
       "kind": "EXPLICIT_ASSERTION",
       "support_mode": "EXACT",
       "ia_eligible": true,
-      "body": "Route 197201 has phase bit 1, accumulated permutation-sign bit 1, transporter 197501, source-frame action sequence 197511, and final exact residual state 197403.",
+      "body": "Route 197201 has computed phase bit 1; its accumulated transporter has computed sign bit 1 and extensional mapping 197501; its ordered source-frame action sequence is 197511; its final fine state is 197403.",
       "primitive_support": [
-        "196106"
+        "196104",
+        "196106",
+        "196113",
+        "196114",
+        "196115",
+        "196116",
+        "196117",
+        "196118"
       ],
-      "source": "PHASE_COCYCLE_5X4_TRANSPORTER_RESULT.md"
+      "source": "PHASE_COCYCLE_5X4_TRANSPORTER_RESULT.md",
+      "primitive_status": "CLOSED_TO_STRICT_KERNEL"
     },
     {
       "id": "SC-E007",
@@ -89,7 +109,8 @@
       "primitive_support": [
         "196107"
       ],
-      "source": "PHASE_COCYCLE_5X4_OBSTRUCTION_ANALYSIS.md"
+      "source": "PHASE_COCYCLE_5X4_OBSTRUCTION_ANALYSIS.md",
+      "primitive_status": "CLOSED_TO_STRICT_KERNEL"
     },
     {
       "id": "SC-E008",
@@ -101,7 +122,8 @@
       "primitive_support": [
         "196111"
       ],
-      "source": "PHASE_COCYCLE_5X4_OBSTRUCTION_ANALYSIS.md"
+      "source": "PHASE_COCYCLE_5X4_OBSTRUCTION_ANALYSIS.md",
+      "primitive_status": "CLOSED_TO_STRICT_KERNEL"
     },
     {
       "id": "SC-E009",
@@ -113,7 +135,8 @@
       "primitive_support": [
         "196108"
       ],
-      "source": "PHASE_COCYCLE_5X4_OBSTRUCTION_ANALYSIS.md"
+      "source": "PHASE_COCYCLE_5X4_OBSTRUCTION_ANALYSIS.md",
+      "primitive_status": "CLOSED_TO_STRICT_KERNEL"
     },
     {
       "id": "SC-E010",
@@ -125,7 +148,8 @@
       "primitive_support": [
         "196108"
       ],
-      "source": "PHASE_COCYCLE_5X4_OBSTRUCTION_ANALYSIS.md"
+      "source": "PHASE_COCYCLE_5X4_OBSTRUCTION_ANALYSIS.md",
+      "primitive_status": "CLOSED_TO_STRICT_KERNEL"
     },
     {
       "id": "SC-E011",
@@ -137,7 +161,8 @@
       "primitive_support": [
         "196111"
       ],
-      "source": "PHASE_COCYCLE_5X4_TRANSPORTER_RESULT.md"
+      "source": "PHASE_COCYCLE_5X4_TRANSPORTER_RESULT.md",
+      "primitive_status": "CLOSED_TO_STRICT_KERNEL"
     },
     {
       "id": "SC-E012",
@@ -149,15 +174,16 @@
       "primitive_support": [
         "196108"
       ],
-      "source": "PHASE_COCYCLE_5X4_TRANSPORTER_RESULT.md"
+      "source": "PHASE_COCYCLE_5X4_TRANSPORTER_RESULT.md",
+      "primitive_status": "CLOSED_TO_STRICT_KERNEL"
     },
     {
       "id": "SC-E013",
-      "title": "5x4 scalar phase obstruction",
+      "title": "shortest 5x4 scalar constraint obstruction",
       "kind": "EXPLICIT_ASSERTION",
       "support_mode": "EXACT",
       "ia_eligible": true,
-      "body": "The present 5x4 carrier has a contradictory scalar Boolean phase reconvergence and therefore no global scalar node potential satisfying every represented edge equation.",
+      "body": "The shortest represented 5x4 four-edge Boolean node-potential constraint system is unsatisfiable.",
       "primitive_support": [
         "SC-E001",
         "SC-E002",
@@ -165,7 +191,8 @@
         "SC-E004"
       ],
       "source": "PHASE_COCYCLE_5X4_RESULT.md",
-      "note": "The source states the global conclusion explicitly; later rounds may add independent implicit support but must not relabel this body as source-implicit."
+      "note": "The full 5x4 carrier obstruction remains separately preserved as derived source observation SC-E026.",
+      "primitive_status": "CLOSED_TO_STRICT_KERNEL"
     },
     {
       "id": "SC-E014",
@@ -173,11 +200,18 @@
       "kind": "EXPLICIT_ASSERTION",
       "support_mode": "EXACT",
       "ia_eligible": true,
-      "body": "On the shortest 5x4 contradictory routes the accumulated permutation-sign bits are equal while the phase bits differ; permutation sign alone does not determine the phase there.",
+      "body": "On the two shortest 5x4 routes the computed accumulated transporter-sign bits are equal while the computed route-phase bits differ; the represented sign projection alone does not determine route phase on this pair.",
       "primitive_support": [
-        "196106"
+        "196104",
+        "196106",
+        "196113",
+        "196114",
+        "196115",
+        "196116",
+        "196117"
       ],
-      "source": "PHASE_COCYCLE_5X4_TRANSPORTER_RESULT.md"
+      "source": "PHASE_COCYCLE_5X4_TRANSPORTER_RESULT.md",
+      "primitive_status": "CLOSED_TO_STRICT_KERNEL"
     },
     {
       "id": "SC-E015",
@@ -185,11 +219,13 @@
       "kind": "EXPLICIT_ASSERTION",
       "support_mode": "EXACT",
       "ia_eligible": true,
-      "body": "The two shortest contradictory 5x4 routes have distinct accumulated full-transporter identities 197500 and 197501.",
+      "body": "The two shortest 5x4 routes have different accumulated transporter mappings; for example their images of source slot 197300 are different.",
       "primitive_support": [
-        "196106"
+        "196106",
+        "196113"
       ],
-      "source": "PHASE_COCYCLE_5X4_TRANSPORTER_RESULT.md"
+      "source": "PHASE_COCYCLE_5X4_TRANSPORTER_RESULT.md",
+      "primitive_status": "CLOSED_TO_STRICT_KERNEL"
     },
     {
       "id": "SC-E016",
@@ -197,11 +233,13 @@
       "kind": "EXPLICIT_ASSERTION",
       "support_mode": "EXACT",
       "ia_eligible": true,
-      "body": "The two shortest contradictory 5x4 routes have distinct source-frame action-sequence identities 197510 and 197511.",
+      "body": "The two shortest 5x4 routes have different ordered source-frame action sequences: 197510=(197301,197302) and 197511=(197300,197302).",
       "primitive_support": [
-        "196106"
+        "196106",
+        "196118"
       ],
-      "source": "PHASE_COCYCLE_5X4_TRANSPORTER_RESULT.md"
+      "source": "PHASE_COCYCLE_5X4_TRANSPORTER_RESULT.md",
+      "primitive_status": "CLOSED_TO_STRICT_KERNEL"
     },
     {
       "id": "SC-E017",
@@ -214,7 +252,8 @@
         "196101",
         "196103"
       ],
-      "source": "PHASE_COCYCLE_RESULT.md"
+      "source": "PHASE_COCYCLE_RESULT.md",
+      "primitive_status": "CLOSED_TO_STRICT_KERNEL"
     },
     {
       "id": "SC-E018",
@@ -227,7 +266,8 @@
         "196101",
         "196103"
       ],
-      "source": "PHASE_COCYCLE_RESULT.md"
+      "source": "PHASE_COCYCLE_RESULT.md",
+      "primitive_status": "CLOSED_TO_STRICT_KERNEL"
     },
     {
       "id": "SC-E019",
@@ -240,58 +280,63 @@
         "196101",
         "196103"
       ],
-      "source": "PHASE_COCYCLE_RESULT.md"
+      "source": "PHASE_COCYCLE_RESULT.md",
+      "primitive_status": "CLOSED_TO_STRICT_KERNEL"
     },
     {
       "id": "SC-E020",
-      "title": "binary-tie allowed pairs",
+      "title": "two-bit allowed-orientation relation",
       "kind": "EXPLICIT_ASSERTION",
       "support_mode": "EXACT",
       "ia_eligible": true,
-      "body": "The represented two-bit binary-tie stabilizer relation contains exactly (0,0) and (1,1).",
+      "body": "The represented two-bit allowed-orientation relation contains exactly (0,0) and (1,1).",
       "primitive_support": [
         "196109"
       ],
-      "source": "COLUMN_CANONICALIZATION_RESULT.md"
+      "source": "COLUMN_CANONICALIZATION_RESULT.md",
+      "primitive_status": "CLOSED_TO_STRICT_KERNEL"
     },
     {
       "id": "SC-E021",
-      "title": "binary-tie XOR-zero equivalence",
+      "title": "allowed-orientation XOR-zero equivalence",
       "kind": "EXPLICIT_ASSERTION",
       "support_mode": "EXACT",
       "ia_eligible": true,
-      "body": "For two Boolean orientation bits, binary-tie stabilizer membership is equivalent to represented XOR output 0.",
+      "body": "For two represented Boolean orientation bits, allowed-orientation relation membership is equivalent to represented XOR output zero.",
       "primitive_support": [
         "196109",
         "196110",
         "196100"
       ],
-      "source": "COLUMN_CANONICALIZATION_RESULT.md"
+      "source": "COLUMN_CANONICALIZATION_RESULT.md",
+      "primitive_status": "CLOSED_TO_STRICT_KERNEL"
     },
     {
       "id": "SC-E022",
       "title": "phase producer outcome blindness",
       "kind": "EXPLICIT_SCOPE_ASSERTION",
       "support_mode": "EXACT",
-      "ia_eligible": true,
+      "ia_eligible": false,
       "body": "The structural phase producers represented in this campaign do not use solved W/D/L labels as producer inputs.",
       "primitive_support": [
         "SOURCE_MANIFEST_0_1.json scope/provenance"
       ],
-      "source": "phase-cocycle source reports"
+      "source": "phase-cocycle source reports",
+      "primitive_status": "PROVENANCE_SCOPE_ONLY__NOT_EXACT_IA_PREMISE"
     },
     {
       "id": "SC-E023",
       "title": "no represented WDL bridge",
       "kind": "EXPLICIT_SCOPE_ASSERTION",
       "support_mode": "EXACT",
-      "ia_eligible": true,
+      "ia_eligible": false,
       "body": "No source integrated into this packet supplies an exact theorem equating the represented structural phase with W/D/L or a nimber.",
       "primitive_support": [
         "SOURCE_MANIFEST_0_1.json",
         "QU-SC-003"
       ],
-      "source": "source non-claims"
+      "source": "source non-claims",
+      "primitive_status": "PROVENANCE_SCOPE_ONLY__NOT_EXACT_IA_PREMISE"
     },
     {
       "id": "SC-E024",
@@ -301,7 +346,8 @@
       "ia_eligible": false,
       "body": "The pinned 4x4 full carrier reports cycle rank 1 with 1 zero and 0 nonzero independent syndromes.",
       "derived_view": "DV-006",
-      "source": "PHASE_COCYCLE_RESULT.md"
+      "source": "PHASE_COCYCLE_RESULT.md",
+      "primitive_status": "DERIVED_SOURCE_OBSERVATION__NOT_CORE020_LEAF"
     },
     {
       "id": "SC-E025",
@@ -311,7 +357,8 @@
       "ia_eligible": false,
       "body": "The pinned 4x5 full carrier reports cycle rank 40 with 40 zero and 0 nonzero independent syndromes.",
       "derived_view": "DV-007",
-      "source": "PHASE_COCYCLE_4X5_RESULT.md"
+      "source": "PHASE_COCYCLE_4X5_RESULT.md",
+      "primitive_status": "DERIVED_SOURCE_OBSERVATION__NOT_CORE020_LEAF"
     },
     {
       "id": "SC-E026",
@@ -321,7 +368,8 @@
       "ia_eligible": false,
       "body": "The pinned 5x4 full carrier reports cycle rank 644 with 619 zero and 25 nonzero independent syndromes and 12 contradictory reconvergences.",
       "derived_view": "DV-008",
-      "source": "PHASE_COCYCLE_5X4_RESULT.md"
+      "source": "PHASE_COCYCLE_5X4_RESULT.md",
+      "primitive_status": "DERIVED_SOURCE_OBSERVATION__NOT_CORE020_LEAF"
     },
     {
       "id": "SC-E027",
@@ -331,7 +379,8 @@
       "ia_eligible": false,
       "body": "The pinned 4x4 direct residual producer reports 10507 structural states and 8242 recursive action-unlabelled classes without physical-board enumeration or solved W/D/L producer labels.",
       "derived_view": "DV-001",
-      "source": "DIRECT_RESIDUAL_ORBIT_GRAPH_RESULT.md"
+      "source": "DIRECT_RESIDUAL_ORBIT_GRAPH_RESULT.md",
+      "primitive_status": "DERIVED_SOURCE_OBSERVATION__NOT_CORE020_LEAF"
     },
     {
       "id": "SC-E028",
@@ -341,7 +390,8 @@
       "ia_eligible": false,
       "body": "On the pinned 4x4 late-action audit, transporter parity is well-defined exactly for the 38 pure-transporter fibers whose four slot tokens are all distinct.",
       "derived_view": "DV-003",
-      "source": "LATE_ACTION_PARITY_RESULT.md"
+      "source": "LATE_ACTION_PARITY_RESULT.md",
+      "primitive_status": "DERIVED_SOURCE_OBSERVATION__NOT_CORE020_LEAF"
     },
     {
       "id": "SC-E029",
@@ -351,7 +401,8 @@
       "ia_eligible": false,
       "body": "The pinned 4x4 deeper carrier has 61 binary groups and 31 binary-continuation child edges, with exits into nonbinary, transporter, and branch-erasure classes.",
       "derived_view": "DV-004",
-      "source": "DEEPER_CONTINUATION_PHASE_RESULT.md"
+      "source": "DEEPER_CONTINUATION_PHASE_RESULT.md",
+      "primitive_status": "DERIVED_SOURCE_OBSERVATION__NOT_CORE020_LEAF"
     },
     {
       "id": "SC-E030",
@@ -361,7 +412,8 @@
       "ia_eligible": false,
       "body": "The pinned standard 7x6 single-defect response family reports one exact response-incidence XOR dependency T1 xor T3 xor T5 xor T7 = 0 and an independent unmatched center-top event.",
       "derived_view": "DV-012",
-      "source": "CONTROL_ALGEBRA_RESULT.md"
+      "source": "CONTROL_ALGEBRA_RESULT.md",
+      "primitive_status": "DERIVED_SOURCE_OBSERVATION__NOT_CORE020_LEAF"
     },
     {
       "id": "SC-E031",
@@ -371,7 +423,10 @@
       "ia_eligible": false,
       "body": "The pinned exhaustive 4x4 branch-collapse audit reports the same 176 partial2 sibling deltas and rank-22 span for all legal siblings and optimal siblings.",
       "derived_view": "DV-015",
-      "source": "BRANCH_COLLAPSE_RESULT.md"
+      "source": "BRANCH_COLLAPSE_RESULT.md",
+      "primitive_status": "DERIVED_SOURCE_OBSERVATION__NOT_CORE020_LEAF"
     }
-  ]
+  ],
+  "strict_native_kernel": "ISOMAX_STRUCTURAL_CONTROL_CORE020_0_2.isg",
+  "revision_note": "Core-0.20 strict re-audit: all IA-eligible supports now route to the strict local primitive kernel; provenance/aggregate views are non-eligible."
 }
