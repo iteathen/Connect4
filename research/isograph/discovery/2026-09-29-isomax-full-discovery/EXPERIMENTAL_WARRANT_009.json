@@ -1,0 +1,39 @@
+{
+  "schema": "connect4.isomax.discovery.experimental_warrant.v1",
+  "id": "EW-009",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE_REPAIR_INVARIANCE",
+  "purpose": [
+    "DISCRIMINATING",
+    "CHARACTERIZING"
+  ],
+  "anchors": [
+    "EW-003",
+    "QU-SC-001",
+    "QU-SC-006"
+  ],
+  "objective": "Activate the existing exact open-cap pruning proof on standard 4x5 and 5x4 producers and test cocycle invariance.",
+  "experiments": [
+    {
+      "width": 4,
+      "height": 5,
+      "k": 4,
+      "opponentOpenCapTerminalDominance": true
+    },
+    {
+      "width": 5,
+      "height": 4,
+      "k": 4,
+      "opponentOpenCapTerminalDominance": true
+    }
+  ],
+  "baseline_sources": [
+    "SC-E025",
+    "SC-E026"
+  ],
+  "interpretation_barrier": "Research pruning intervention until independently qualified as producer semantics.",
+  "prohibited_information_sources": [
+    "solved database",
+    "W/D/L as structural producer input"
+  ]
+}
