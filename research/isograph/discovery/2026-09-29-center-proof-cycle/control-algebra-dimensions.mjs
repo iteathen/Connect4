@@ -43,13 +43,7 @@ function permutations(n){
   return out;
 }
 
-function normalizeResidualAntichain(winMasks,selfBits,opponentBits){
-  const raw=[];
-  for(const mask of winMasks){
-    if(mask&opponentBits)continue;
-    const residual=mask&~selfBits;
-    if(residual)raw.push(residual);
-  }
+function normalizeMaskAntichain(raw){
   const unique=[...new Set(raw)].sort((a,b)=>a-b),out=[];
   for(let i=0;i<unique.length;i++){
     const a=unique[i];
@@ -61,6 +55,16 @@ function normalizeResidualAntichain(winMasks,selfBits,opponentBits){
     if(!absorbed)out.push(a);
   }
   return out;
+}
+
+function normalizeResidualAntichain(winMasks,selfBits,opponentBits){
+  const raw=[];
+  for(const mask of winMasks){
+    if(mask&opponentBits)continue;
+    const residual=mask&~selfBits;
+    if(residual)raw.push(residual);
+  }
+  return normalizeMaskAntichain(raw);
 }
 
 function heightsFromBits(p0,p1,width,height){
@@ -93,6 +97,25 @@ function serializeResidualQ(heights,r0,r1,permutationData){
   const a=r0.map(mask=>remap[mask]).sort((x,y)=>x-y),
     b=r1.map(mask=>remap[mask]).sort((x,y)=>x-y);
   return Array.from(newHeights).join(',')+'|'+a.join('.')+'|'+b.join('.');
+}
+
+function canonicalResidualQState(heights,r0,r1,permutationData){
+  let best=null,bestHeights=null,bestR0=null,bestR1=null;
+  for(const {perm,remap} of permutationData){
+    const h=new Uint8Array(heights.length);
+    for(let oldCol=0;oldCol<heights.length;oldCol++)
+      h[perm[oldCol]]=heights[oldCol];
+    const a=r0.map(mask=>remap[mask]).sort((x,y)=>x-y),
+      b=r1.map(mask=>remap[mask]).sort((x,y)=>x-y),
+      signature=Array.from(h).join(',')+'|'+a.join('.')+'|'+b.join('.');
+    if(best===null||signature<best){
+      best=signature;
+      bestHeights=h;
+      bestR0=a;
+      bestR1=b;
+    }
+  }
+  return {signature:best,heights:bestHeights,r0:bestR0,r1:bestR1};
 }
 
 export function analyzeUnlabelledQuotientDimension({width,height,k,auditResidualOrbit=false}){
@@ -292,6 +315,154 @@ export function analyzeUnlabelledQuotientDimension({width,height,k,auditResidual
     residualOrbitAudit,
     peakStateFrontier:peakBy(frontier,'states'),
     peakClassFrontier:peakBy(frontier,'classes'),
+    frontier,
+  };
+}
+
+
+export function analyzeDirectResidualOrbitGraph({width,height,k}){
+  const cells=width*height;
+  assert.ok(cells<=20,'direct residual-orbit harness is intentionally bounded to <=20 cells');
+  const masks=winMasks(width,height,k),span=2**cells,
+    permutationData=columnPermutationData(width,height,span),
+    nodes=new Map(),byRank=Array.from({length:cells+1},()=>[]);
+  let literalActionEdges=0,duplicateEquivalentActionEdges=0;
+
+  function addTerminal(rank,kind){
+    const key='T:'+rank+':'+kind;
+    if(!nodes.has(key)){
+      const rec={key,rank,terminal:true,kind,children:[]};
+      nodes.set(key,rec);
+      byRank[rank].push(rec);
+    }
+    return key;
+  }
+
+  function visit(state){
+    const key='Q:'+state.signature,known=nodes.get(key);
+    if(known)return key;
+    const rank=Array.from(state.heights).reduce((a,b)=>a+b,0),
+      rec={
+        key,rank,terminal:false,kind:null,
+        heights:state.heights,r0:state.r0,r1:state.r1,children:[],
+      };
+    nodes.set(key,rec);
+    byRank[rank].push(rec);
+
+    for(let col=0;col<width;col++)if(state.heights[col]<height){
+      literalActionEdges++;
+      const cell=state.heights[col]*width+col,bit=1<<cell,mover=rank&1,
+        own=mover?state.r1:state.r0,opponent=mover?state.r0:state.r1,
+        ownNext=[];
+      let wins=false;
+      for(const requirement of own){
+        if(requirement&bit){
+          const residual=requirement&~bit;
+          if(residual===0){wins=true;break;}
+          ownNext.push(residual);
+        }else ownNext.push(requirement);
+      }
+
+      let childKey;
+      if(wins){
+        childKey=addTerminal(rank+1,mover?'P1':'P0');
+      }else{
+        const nextHeights=new Uint8Array(state.heights);
+        nextHeights[col]++;
+        if(rank+1===cells){
+          childKey=addTerminal(rank+1,'D');
+        }else{
+          const opponentNext=opponent.filter(requirement=>(requirement&bit)===0),
+            ownNormalized=normalizeMaskAntichain(ownNext),
+            opponentNormalized=normalizeMaskAntichain(opponentNext),
+            r0=mover?opponentNormalized:ownNormalized,
+            r1=mover?ownNormalized:opponentNormalized,
+            canonical=canonicalResidualQState(
+              nextHeights,r0,r1,permutationData);
+          childKey=visit(canonical);
+        }
+      }
+      rec.children.push(childKey);
+    }
+    duplicateEquivalentActionEdges+=
+      rec.children.length-new Set(rec.children).size;
+    return key;
+  }
+
+  const initialResidual=normalizeMaskAntichain(masks),
+    root=canonicalResidualQState(
+      new Uint8Array(width),initialResidual,initialResidual,permutationData),
+    rootKey=visit(root);
+
+  const stateClass=new Map(),signatureClass=new Map(),
+    statesByRank=Array(cells+1).fill(0),classesByRank=Array(cells+1).fill(0);
+  let nextId=0;
+  for(let rank=cells;rank>=0;rank--)for(const rec of byRank[rank]){
+    statesByRank[rank]++;
+    let signature;
+    if(rec.terminal)signature=rec.key;
+    else{
+      const ids=rec.children.map(child=>{
+        const id=stateClass.get(child);
+        assert.notEqual(id,undefined,'direct q child class must exist');
+        return id;
+      }),unique=[...new Set(ids)].sort((a,b)=>a-b);
+      signature='N:'+rank+':'+(rank&1)+':'+unique.join('.');
+    }
+    let id=signatureClass.get(signature);
+    if(id===undefined){
+      id=nextId++;
+      signatureClass.set(signature,id);
+      classesByRank[rank]++;
+    }
+    stateClass.set(rec.key,id);
+  }
+
+  // Post-hoc exact W/D/L validation on the direct q-orbit graph.
+  const values=new Map(),classValueMask=new Map();
+  for(let rank=cells;rank>=0;rank--)for(const rec of byRank[rank]){
+    let value;
+    if(rec.terminal)
+      value=rec.kind==='P0'?1:rec.kind==='P1'?-1:0;
+    else{
+      const childValues=rec.children.map(child=>values.get(child));
+      assert.ok(childValues.every(x=>x!==undefined));
+      value=(rank&1)?Math.min(...childValues):Math.max(...childValues);
+    }
+    values.set(rec.key,value);
+    const id=stateClass.get(rec.key),bit=value<0?1:value>0?4:2;
+    classValueMask.set(id,(classValueMask.get(id)??0)|bit);
+  }
+  let wdlSplitClasses=0;
+  for(const mask of classValueMask.values())
+    if((mask&(mask-1))!==0)wdlSplitClasses++;
+
+  const frontier=statesByRank.map((states,rank)=>({
+      rank,states,classes:classesByRank[rank],
+    })),
+    rootRec=nodes.get(rootKey);
+
+  return {
+    schema:'connect4.direct-residual-orbit-graph.v1',
+    inputs:'root geometry + residual-antichain cofactor rules + support + action relabeling',
+    physicalBoardStatesEnumerated:false,
+    outcomeLabelsUsedByProducer:false,
+    validationUsesDerivedWdl:true,
+    width,height,k,cells,
+    columnPermutations:permutationData.length,
+    winningLineCount:masks.length,
+    residualOrbitStates:nodes.size,
+    literalActionEdges,
+    duplicateEquivalentActionEdges,
+    recursiveUnlabelledClasses:nextId,
+    wdlSplitClasses,
+    rootValue:values.get(rootKey),
+    rootLegalActions:rootRec.children.length,
+    rootDistinctOrbitChildren:new Set(rootRec.children).size,
+    rootDistinctRecursiveChildren:
+      new Set(rootRec.children.map(child=>stateClass.get(child))).size,
+    peakOrbitStateFrontier:peakBy(frontier,'states'),
+    peakRecursiveClassFrontier:peakBy(frontier,'classes'),
     frontier,
   };
 }
