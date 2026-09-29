@@ -77,6 +77,7 @@ by incidences below.
 196108  RESIDUAL_MEMBER_BIT(subject, player, residual_token, bit)
 196109  BINARY_TIE_ALLOWED(bit1, bit2)
 196110  XOR_ZERO(bit1, bit2)
+196111  MEMBER_OF_QUOTIENT(fine_state_or_sheet, quotient_node)
 196112  PATH_BOARD(path, board)
 ```
 
