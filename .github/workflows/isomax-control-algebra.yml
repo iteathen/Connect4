@@ -1,0 +1,29 @@
+name: IsoMax control algebra research
+
+on:
+  push:
+    branches:
+      - research/nim-control-parity-algebra-20260929
+    paths:
+      - '.github/workflows/isomax-control-algebra.yml'
+      - 'research/isograph/discovery/2026-09-29-center-proof-cycle/control-algebra*.mjs'
+      - 'research/isograph/discovery/2026-09-29-center-proof-cycle/parity-geometry.mjs'
+      - 'research/isograph/discovery/2026-09-29-center-proof-cycle/probe.mjs'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  rule-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: '26'
+      - name: Structural controls
+        run: node --test research/isograph/discovery/2026-09-29-center-proof-cycle/control-algebra.test.mjs
+      - name: Emit blind structural result
+        run: node research/isograph/discovery/2026-09-29-center-proof-cycle/run-control-algebra.mjs
