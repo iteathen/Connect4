@@ -794,7 +794,7 @@ export function analyzeUnlabelledQuotientDimension({width,height,k,auditResidual
 }
 
 
-export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontierBlocker=false,nonterminalFrontierBlocker=false,moverFinalCapParity=false,remainingMoveCapacity=false,supportReleaseTurnCapacity=false,measureLocalBranchClosure=true,auditColumnRefinement=false,auditPairColumnRefinement=false,auditBinaryTieStabilizers=false,auditOpponentResidualDeletion=false,auditEarliestMergeParents=false}){
+export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontierBlocker=false,nonterminalFrontierBlocker=false,moverFinalCapParity=false,remainingMoveCapacity=false,supportReleaseTurnCapacity=false,measureLocalBranchClosure=true,auditColumnRefinement=false,auditPairColumnRefinement=false,auditBinaryTieStabilizers=false,auditOpponentResidualDeletion=false,auditEarliestMergeParents=false,auditEarliestMergeWitness=false}){
   const cells=width*height;
   assert.ok(cells<=30,'direct residual-orbit harness is intentionally bounded to <=30 cells');
   const masks=winMasks(width,height,k),
@@ -1392,6 +1392,122 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
   }
 
 
+
+  let earliestDynamicMergeWitnessAudit=null;
+  if(auditEarliestMergeWitness&&earliestDynamicMergeRows.length){
+    const witnessMemo=new Map();
+    function witnessDistance(aKey,bKey){
+      if(aKey===bKey)return 0;
+      const pairKey=aKey<bKey?aKey+'||'+bKey:bKey+'||'+aKey,
+        known=witnessMemo.get(pairKey);
+      if(known!==undefined)return known;
+      const a=nodes.get(aKey),b=nodes.get(bKey);
+      assert.ok(a&&b,'witness states must exist');
+      assert.equal(stateClass.get(aKey),stateClass.get(bKey),
+        'witness pair must share recursive class');
+      assert.equal(a.rank,b.rank,'witness pair must share rank');
+      assert.ok(!a.terminal&&!b.terminal,
+        'distinct terminal states cannot share one recursive class');
+
+      const byClass=rec=>{
+        const map=new Map();
+        for(const child of rec.children){
+          const id=stateClass.get(child);
+          let xs=map.get(id);
+          if(!xs){xs=[];map.set(id,xs);}
+          if(!xs.includes(child))xs.push(child);
+        }
+        return map;
+      },am=byClass(a),bm=byClass(b);
+      assert.deepEqual([...am.keys()].sort((x,y)=>x-y),
+        [...bm.keys()].sort((x,y)=>x-y));
+
+      let worst=0;
+      for(const [id,as] of am){
+        const bs=bm.get(id);
+        let best=Infinity;
+        for(const ak of as)for(const bk of bs)
+          best=Math.min(best,witnessDistance(ak,bk));
+        assert.ok(Number.isFinite(best));
+        worst=Math.max(worst,best);
+      }
+      const out=1+worst;
+      witnessMemo.set(pairKey,out);
+      return out;
+    }
+
+    function directOverlapStats(a,b){
+      const group=rec=>{
+        const map=new Map();
+        for(const child of rec.children){
+          const id=stateClass.get(child);
+          let xs=map.get(id);
+          if(!xs){xs=new Set();map.set(id,xs);}
+          xs.add(child);
+        }
+        return map;
+      },am=group(a),bm=group(b);
+      let classesWithExactSharedChild=0,classesRequiringTransport=0,
+        sharedLiteralChildStates=0;
+      const classRows=[];
+      for(const [id,as] of am){
+        const bs=bm.get(id),shared=[...as].filter(k=>bs.has(k));
+        sharedLiteralChildStates+=shared.length;
+        if(shared.length)classesWithExactSharedChild++;
+        else classesRequiringTransport++;
+        classRows.push({
+          childClass:id,
+          aDistinctChildren:as.size,
+          bDistinctChildren:bs.size,
+          sharedLiteralChildren:shared.length,
+          requiresTransport:shared.length===0,
+        });
+      }
+      return {
+        childClasses:am.size,
+        classesWithExactSharedChild,
+        classesRequiringTransport,
+        sharedLiteralChildStates,
+        classRows,
+      };
+    }
+
+    const rows=[];
+    for(const [classId,groupRows] of earliestDynamicMergeRows){
+      for(let i=0;i<groupRows.length;i++)for(let j=i+1;j<groupRows.length;j++){
+        const a=groupRows[i],b=groupRows[j],
+          overlap=directOverlapStats(a,b);
+        rows.push({
+          classId,
+          aOrbitIndex:orbitIndex.get(a.key),
+          bOrbitIndex:orbitIndex.get(b.key),
+          rank:a.rank,
+          witnessDepth:witnessDistance(a.key,b.key),
+          sameSupport:Array.from(a.heights).every(
+            (x,k)=>x===b.heights[k]),
+          sameP0Residuals:
+            JSON.stringify(a.r0)===JSON.stringify(b.r0),
+          sameP1Residuals:
+            JSON.stringify(a.r1)===JSON.stringify(b.r1),
+          ...overlap,
+        });
+      }
+    }
+    earliestDynamicMergeWitnessAudit={
+      pairs:rows.length,
+      minWitnessDepth:Math.min(...rows.map(x=>x.witnessDepth)),
+      maxWitnessDepth:Math.max(...rows.map(x=>x.witnessDepth)),
+      allSameP0Residuals:rows.every(x=>x.sameP0Residuals),
+      pairsWithSameSupport:rows.filter(x=>x.sameSupport).length,
+      pairsWithAnyExactSharedChildClass:
+        rows.filter(x=>x.classesWithExactSharedChild>0).length,
+      pairsRequiringTransportInEveryChildClass:
+        rows.filter(x=>x.classesRequiringTransport===x.childClasses).length,
+      rows,
+    };
+  }
+
+
   return {
     schema:'connect4.direct-residual-orbit-graph.v1',
     inputs:'root geometry + residual-antichain cofactor rules + support + action relabeling',
@@ -1411,6 +1527,7 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     auditBinaryTieStabilizers,
     auditOpponentResidualDeletion,
     auditEarliestMergeParents,
+    auditEarliestMergeWitness,
     winningLineCount:masks.length,
     residualOrbitStates:nodes.size,
     literalActionEdges,
@@ -1425,6 +1542,7 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     earliestDynamicMergeRank,
     earliestDynamicMergeGroups,
     earliestDynamicMergeParentAudit,
+    earliestDynamicMergeWitnessAudit,
     dynamicMergeByRank,
     columnRefinementAudit,
     pairColumnRefinementAudit,
