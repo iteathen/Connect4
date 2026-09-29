@@ -95,3 +95,21 @@ test('complete-column XOR cancellation survives height parity and exposes K mod 
   assert.deepEqual(r.connectKPeriodicity.map(x=>[x.connectK,x.uniformParityCancellation]),
     [[3,false],[4,true],[5,false],[6,false],[7,false],[8,true]]);
 });
+
+
+test('depth-graded control residue recovers the existing middle derivative',()=>{
+  assert.equal(typeof algebra.analyzeDepthPolynomialAnnihilator,'function');
+  const r=algebra.analyzeDepthPolynomialAnnihilator();
+  assert.equal(r.inputs,'geometry/rules only');
+  assert.equal(r.outcomeLabelsRead,false);
+  assert.deepEqual(r.standard7x6.nonzeroRelationPolynomials,['1+x^2','x+x^3','x^2+x^4','x^3+x^5']);
+  assert.equal(r.standard7x6.gcd,'1+x^2');
+  assert.equal(r.standard7x6.existingOperator,'partial^2');
+  assert.deepEqual(r.connectK.map(x=>[x.connectK,x.ungradedCancellation]),[
+    [3,false],[4,true],[5,false],[6,false],[7,false],
+    [8,true],[9,false],[10,false],[11,false],[12,true],
+  ]);
+  assert.equal(r.connectK.find(x=>x.connectK===4).depthGcd,'1+x^2');
+  assert.equal(r.connectK.find(x=>x.connectK===8).depthGcd,'1+x^2+x^4+x^6');
+  assert.equal(r.connectK.find(x=>x.connectK===12).depthGcd,'1+x^2+x^4+x^6+x^8+x^10');
+});
