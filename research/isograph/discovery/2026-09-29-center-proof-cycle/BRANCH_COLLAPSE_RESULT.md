@@ -1,0 +1,92 @@
+# Optimal branch-and-collapse audit — exhaustive 4x4
+
+**Status:** bounded exact rule-derived evidence  
+**Research direction:** Joshua Oshiro  
+**Branch:** `research/nim-control-parity-algebra-20260929`  
+**Tested head:** `f03d08e9ba6ab941f87b7e815bc1086a2238c832`  
+**Workflow:** `36542646831` — success  
+**Inputs:** 4x4 Connect-4 rules only; no solved database or opening labels
+
+## Result
+
+The complete legal 4x4 game graph contains 161,029 states.
+
+Exact W/D/L-optimal edges were generated from the rules and retained for both
+players. The resulting optimal-policy DAG is highly non-unique:
+
+```text
+optimal edges                         219,010
+states with >1 optimal move            56,763
+mover-winning states with >1 optimal    5,695
+maximum optimal branching                   4
+optimal transposition merge states      65,507
+maximum optimal indegree                     4
+explicit three-ply optimal diamonds      67,292
+```
+
+Thus exact perfect play does not define a unique principal variation even on
+this small board. Different optimal physical branches frequently reconverge.
+
+## Terminal realization multiplicity
+
+Among exact winning states:
+
+```text
+winning states with >1 terminal winning line   13,951
+maximum distinct winning lines from one state        6
+```
+
+The audit found a value-+1 state with two optimal moves whose perfect
+continuations reach two different winning-line realizations.
+
+This is the small-board analogue of the standard-7x6 observation that perfect
+play can realize multiple winning lines. It supports treating literal moves and
+literal terminal lines as realizations of a coarser control object rather than
+as the control object itself.
+
+## Example local reconvergence
+
+One exact three-ply diamond begins from a rank-13 draw-valued state:
+
+```text
+first optimal choices: columns 2 or 3
+common optimal reply: column 4
+third optimal move: the other first-choice column
+-> same physical state
+```
+
+The endpoint identity is checked on the exact board representation, not merely
+on W/D/L.
+
+## Root control
+
+The empty 4x4 root is a draw and all four opening columns are W/D/L-optimal.
+Under optimal play its terminal realization is draw-only. This is useful because
+it separates **move non-uniqueness** from **winning-line multiplicity**: the
+former exists even when the root value is draw.
+
+## Interpretation
+
+Any proposed latent control algebra should permit:
+
+```text
+one control class
+-> multiple literal optimal actions
+-> different physical states
+-> later transposition / quotient collapse
+-> multiple terminal realizations with the same exact value
+```
+
+A candidate is not falsified merely because equal-value states have different
+best-move sets or different terminal lines.
+
+Conversely, a proposed "solution" that always emits one literal move is too
+fine or is imposing an unnecessary tie-break unless uniqueness is separately
+proved.
+
+## Non-claims
+
+This audit does not establish the standard-board set of 28 terminal lines and
+does not use it as a premise. It does not prove the current GF(2) carrier is the
+correct value quotient. It establishes only that branch-and-collapse behavior
+is an exact feature of perfect-play structure on the exhaustive 4x4 control.
