@@ -10,6 +10,9 @@ on:
       - 'research/isograph/discovery/2026-09-29-center-proof-cycle/run-control-algebra.mjs'
       - 'research/isograph/discovery/2026-09-29-center-proof-cycle/parity-geometry.mjs'
       - 'research/isograph/discovery/2026-09-29-center-proof-cycle/probe.mjs'
+      - 'research/isograph/discovery/2026-09-29-center-proof-cycle/CONTROL_ALGEBRA_*'
+      - 'research/hypotheses/NIM_LIKE_CONTROL_PARITY_ALGEBRA.md'
+      - 'research/gameplay-strategy/GSP-004-GUARDED_OBLIGATION_CLOSURE.md'
   workflow_dispatch:
 
 permissions:
@@ -25,6 +28,8 @@ jobs:
         with:
           node-version: '26'
       - name: Structural controls
-        run: node --test research/isograph/discovery/2026-09-29-center-proof-cycle/control-algebra.test.mjs
+        run: node --test research/isograph/discovery/2026-09-29-center-proof-cycle/control-algebra.test.mjs research/isograph/discovery/2026-09-29-center-proof-cycle/parity-dimension.test.mjs
+      - name: Research integrity
+        run: node tools/verify-research-integrity.mjs
       - name: Emit blind structural result
         run: node research/isograph/discovery/2026-09-29-center-proof-cycle/run-control-algebra.mjs
