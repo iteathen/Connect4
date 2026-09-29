@@ -1,0 +1,133 @@
+{
+  "schema": "isomax.core020.aggregate_assertion_reduction_plan.v1",
+  "date_author_local": "2026-09-29",
+  "research_direction": "Joshua Oshiro",
+  "loop_recursion_contract": "LOOP_RECURSION_CORE020_0_1.isg",
+  "assertions": [
+    {
+      "id": "SC-E022",
+      "semantic_target": "phase producer outcome blindness",
+      "reduction": [
+        "Represent exact producer input-role carrier.",
+        "Represent consumed-input incidence as a closed finite relation.",
+        "Represent W/D/L-label role as a distinct raw role.",
+        "Assert by universal quantification that no consumed-input incidence uses that role."
+      ],
+      "control": "finite universal scan over represented producer input-role carrier",
+      "termination": "finite closed carrier"
+    },
+    {
+      "id": "SC-E023",
+      "semantic_target": "absence of exact phase-to-WDL/nimber bridge in integrated source assertion set",
+      "reduction": [
+        "Represent closed finite source-assertion carrier.",
+        "Represent assertion-kind/body dependency incidence.",
+        "Define PHASE_VALUE_BRIDGE(a) in primitive logic.",
+        "Universally assert NOT PHASE_VALUE_BRIDGE(a) for every integrated source assertion."
+      ],
+      "control": "finite universal scan over source-assertion carrier",
+      "termination": "31-element frozen carrier"
+    },
+    {
+      "id": "SC-E024",
+      "semantic_target": "4x4 full binary-phase census",
+      "reduction": [
+        "Generate direct residual-orbit carrier by root recursion over rule-derived Q_STEP modulo column-permutation orbit equality.",
+        "Compute recursive action-unlabelled and action-labelled classes bottom-up by finite rank.",
+        "Build deeper same-profile binary groups and binary inheritance edges by finite scans.",
+        "Deduplicate directed same-map edges.",
+        "Run finite path and integrability/cycle audit loops.",
+        "Count cycle-basis edges and syndrome bits with primitive natural counters."
+      ],
+      "control": "well-founded state recursion + bounded rank loops + finite edge/path loops",
+      "termination": "rank increases on every game transition and is bounded by 16 occupied cells; all later scans are over generated finite carriers"
+    },
+    {
+      "id": "SC-E025",
+      "semantic_target": "4x5 full binary-phase census",
+      "reduction": [
+        "Same primitive producer/audit schema as SC-E024 with width=4,height=5,k=4."
+      ],
+      "control": "well-founded state recursion + finite loops",
+      "termination": "rank bounded by 20 occupied cells"
+    },
+    {
+      "id": "SC-E026",
+      "semantic_target": "5x4 full binary-phase census",
+      "reduction": [
+        "Same primitive producer/audit schema as SC-E024 with width=5,height=4,k=4."
+      ],
+      "control": "well-founded state recursion + finite loops",
+      "termination": "rank bounded by 20 occupied cells"
+    },
+    {
+      "id": "SC-E027",
+      "semantic_target": "4x4 direct structural state/class counts",
+      "reduction": [
+        "Use direct residual Q recursion from empty support/full winning-line residuals.",
+        "Use column-permutation orbit equality instead of opaque canonical string semantics.",
+        "Count reachable orbit nodes by finite enumeration loop.",
+        "Compute action-unlabelled recursive classes bottom-up by rank and count distinct signatures."
+      ],
+      "control": "well-founded reachability recursion + bounded descending-rank classification loop",
+      "termination": "rank bounded by 16"
+    },
+    {
+      "id": "SC-E028",
+      "semantic_target": "4x4 generic current-action parity falsifier count equality",
+      "reduction": [
+        "Construct split action-unlabelled fibers by finite scan.",
+        "Define pure-transporter fiber extensionally from action profiles.",
+        "Define all-distinct slot predicate by pairwise disequality.",
+        "Define transporter parity from primitive finite permutation inversion XOR.",
+        "Define parity-well-defined by universal equality of transporter parity within the transporter set.",
+        "Count both predicates and assert both counts equal 38 and their member sets are equal."
+      ],
+      "control": "finite loops over generated labelled/unlabelled class carriers and finite width-4 permutation carrier",
+      "termination": "all carriers finite after rank-bounded producer recursion"
+    },
+    {
+      "id": "SC-E029",
+      "semantic_target": "4x4 deeper binary inheritance census",
+      "reduction": [
+        "Group labelled classes by same unlabelled class and identical phase-free immediate profile.",
+        "Define binary group as exactly two labelled members.",
+        "Compare recursive labelled child profiles slotwise.",
+        "Classify each changed child pair by exact finite predicates: binary continuation, nonbinary continuation, action transporter, branch/multiplicity erasure, terminal/unknown.",
+        "Count binary groups, binary continuation edges, and exit classes with primitive counters."
+      ],
+      "control": "finite nested loops over class/profile/slot carriers",
+      "termination": "finite generated carriers; width=4 slot loop"
+    },
+    {
+      "id": "SC-E030",
+      "semantic_target": "7x6 response-incidence XOR dependency and unmatched-top independence",
+      "reduction": [
+        "Generate winning-line carrier from 7x6 geometry and k=4 line predicate.",
+        "Generate declared response-pair carrier from response policy.",
+        "Build each response incidence vector by finite scan over winning lines.",
+        "XOR-fold the three pair vectors in each odd column and then T1,T3,T5,T7.",
+        "Represent GF(2) elimination as finite row/pivot loops.",
+        "Assert paired generator rank=19/nullity=1, dependency vector zero, and augmented unmatched-top rank=20."
+      ],
+      "control": "finite geometry loops + finite XOR folds + finite GF(2) elimination loops",
+      "termination": "finite 7x6 geometry, finite 20-generator matrix and finite bit width"
+    },
+    {
+      "id": "SC-E031",
+      "semantic_target": "4x4 legal/optimal partial2 sibling delta-set equality and rank 22",
+      "reduction": [
+        "Generate complete legal 4x4 physical game graph by rule recursion with first-win terminal stop.",
+        "Compute exact W/D/L bottom-up over finite rank only for defining the optimal-edge subset.",
+        "Enumerate legal sibling pairs and optimal sibling pairs by finite loops.",
+        "Compute each partial2 delta from the primitive represented partial2 relation.",
+        "Deduplicate each delta set and compare by extensional set equality.",
+        "Run finite GF(2) elimination on either equal set to obtain rank 22 and count 176 distinct deltas."
+      ],
+      "control": "well-founded physical-game recursion + bottom-up value recursion + finite sibling-pair loops + finite GF(2) elimination",
+      "termination": "rank bounded by 16 occupied cells; all subsequent carriers finite"
+    }
+  ],
+  "no_assertion_omission": true,
+  "generalized_open_questions": "Remain QU only when they concern unbounded/generalized semantics not discharged by the bounded producer."
+}
