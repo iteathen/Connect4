@@ -1,0 +1,166 @@
+{
+  "schema": "isomax.core020.structural_control.derived_view_map.v1",
+  "date_author_local": "2026-09-29",
+  "rule": "Derived views are navigation/reconstruction aids. Exact IA support must route to primitive support or exact raw observations, not to the label itself.",
+  "views": [
+    {
+      "id": "DV-001",
+      "name": "direct residual-orbit carrier",
+      "source": "DIRECT_RESIDUAL_ORBIT_GRAPH_RESULT.md",
+      "primitive_base": [
+        "PC-001",
+        "PC-002",
+        "PC-003"
+      ],
+      "load_bearing_for_new_ia": false
+    },
+    {
+      "id": "DV-002",
+      "name": "recursive action-unlabelled quotient",
+      "source": "UNLABELED_BRANCH_QUOTIENT_RESULT.md",
+      "primitive_base": [
+        "PC-001",
+        "PC-002",
+        "PC-003"
+      ],
+      "load_bearing_for_new_ia": false
+    },
+    {
+      "id": "DV-003",
+      "name": "generic current-action parity falsifier",
+      "source": "LATE_ACTION_PARITY_RESULT.md",
+      "primitive_base": [
+        "PC-018"
+      ],
+      "load_bearing_for_new_ia": false
+    },
+    {
+      "id": "DV-004",
+      "name": "deeper binary continuation phase",
+      "source": "DEEPER_CONTINUATION_PHASE_RESULT.md",
+      "primitive_base": [
+        "PC-014"
+      ],
+      "load_bearing_for_new_ia": false
+    },
+    {
+      "id": "DV-005",
+      "name": "recursive binary inheritance",
+      "source": "RECURSIVE_PHASE_INHERITANCE_RESULT.md",
+      "primitive_base": [
+        "PC-014"
+      ],
+      "load_bearing_for_new_ia": false
+    },
+    {
+      "id": "DV-006",
+      "name": "4x4 scalar cocycle census",
+      "source": "PHASE_COCYCLE_RESULT.md",
+      "primitive_base": [
+        "PC-007"
+      ],
+      "load_bearing_for_new_ia": false
+    },
+    {
+      "id": "DV-007",
+      "name": "4x5 scalar cocycle census",
+      "source": "PHASE_COCYCLE_4X5_RESULT.md",
+      "primitive_base": [
+        "PC-016"
+      ],
+      "load_bearing_for_new_ia": false
+    },
+    {
+      "id": "DV-008",
+      "name": "5x4 scalar cocycle obstruction census",
+      "source": "PHASE_COCYCLE_5X4_RESULT.md",
+      "primitive_base": [
+        "PC-005",
+        "PC-006"
+      ],
+      "load_bearing_for_new_ia": false
+    },
+    {
+      "id": "DV-009",
+      "name": "5x4 shortest obstruction",
+      "source": "PHASE_COCYCLE_5X4_OBSTRUCTION_ANALYSIS.md",
+      "primitive_base": [
+        "PC-005",
+        "PC-006",
+        "PC-008",
+        "PC-009"
+      ],
+      "load_bearing_for_new_ia": true
+    },
+    {
+      "id": "DV-010",
+      "name": "5x4 transporter falsifier",
+      "source": "PHASE_COCYCLE_5X4_TRANSPORTER_RESULT.md",
+      "primitive_base": [
+        "PC-010"
+      ],
+      "load_bearing_for_new_ia": true
+    },
+    {
+      "id": "DV-011",
+      "name": "binary-tie stabilizer XOR law",
+      "source": "COLUMN_CANONICALIZATION_RESULT.md",
+      "primitive_base": [
+        "PC-011"
+      ],
+      "load_bearing_for_new_ia": true
+    },
+    {
+      "id": "DV-012",
+      "name": "raw response-incidence GF2 relation",
+      "source": "CONTROL_ALGEBRA_RESULT.md",
+      "primitive_base": [
+        "PC-019"
+      ],
+      "load_bearing_for_new_ia": false
+    },
+    {
+      "id": "DV-013",
+      "name": "restricted-boundary polynomial identities",
+      "source": "CONTROL_ALGEBRA_RESULT.md",
+      "primitive_base": [
+        "PC-019"
+      ],
+      "load_bearing_for_new_ia": false
+    },
+    {
+      "id": "DV-014",
+      "name": "perfect-play branch nonuniqueness",
+      "source": "BRANCH_COLLAPSE_RESULT.md",
+      "primitive_base": [
+        "PC-020"
+      ],
+      "load_bearing_for_new_ia": false
+    },
+    {
+      "id": "DV-015",
+      "name": "legal/optimal partial2 delta-space equality",
+      "source": "BRANCH_COLLAPSE_RESULT.md",
+      "primitive_base": [
+        "PC-020"
+      ],
+      "load_bearing_for_new_ia": false
+    },
+    {
+      "id": "DV-016",
+      "name": "small-board phase perturbations",
+      "source": "PHASE_COCYCLE_DIMENSION_PERTURBATION.md",
+      "primitive_base": [],
+      "load_bearing_for_new_ia": false
+    },
+    {
+      "id": "DV-017",
+      "name": "4x4 representation robustness",
+      "source": "PHASE_COCYCLE_REPRESENTATION_ROBUSTNESS.md",
+      "primitive_base": [
+        "PC-015"
+      ],
+      "load_bearing_for_new_ia": false
+    }
+  ]
+}
