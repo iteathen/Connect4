@@ -2,6 +2,7 @@ import {
   analyzeStandardCenterControlAlgebra,
   analyzeBoundaryPolynomialAlgebra,
   analyzeDimensionControlAlgebra,
+  analyzeGuardedResponseProjections,
 } from './control-algebra.mjs';
 
 const result={
@@ -12,5 +13,6 @@ const result={
   standard7x6:analyzeStandardCenterControlAlgebra(),
   boundary7x6:analyzeBoundaryPolynomialAlgebra(),
   dimensions:analyzeDimensionControlAlgebra(),
+  guardedResponseProjections:analyzeGuardedResponseProjections(),
 };
 console.log(JSON.stringify(result,null,2));
