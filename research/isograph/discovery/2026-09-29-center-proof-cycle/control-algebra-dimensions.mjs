@@ -515,7 +515,7 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     });
     if(earliestDynamicMergeRank===null&&merged.length){
       earliestDynamicMergeRank=rank;
-      earliestDynamicMergeGroups=merged.slice(0,6).map(([classId,rows])=>({
+      earliestDynamicMergeGroups=merged.slice(0,64).map(([classId,rows])=>({
         classId,
         orbitStates:rows.map(rec=>({
           orbitIndex:orbitIndex.get(rec.key),
