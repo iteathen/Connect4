@@ -301,3 +301,12 @@ test('4x4 action-labelled MQ2 is reproduced before erasing literal move labels',
   assert.equal(q.rootLiteralActions,4);
   assert.ok(q.rootDistinctUnlabelledActionClasses>=1&&q.rootDistinctUnlabelledActionClasses<=4);
 });
+
+
+test('mover-relative action-unlabelled quotient does not require absolute player identity',()=>{
+  const r=algebra.analyzeOptimalBranchCollapse4x4();
+  const q=r.mq2Crosscheck;
+  assert.ok(q.actionUnlabelledRelativeNoMoverClasses>0);
+  assert.ok(q.actionUnlabelledRelativeNoMoverClasses<=q.actionUnlabelledValueClasses);
+  assert.equal(q.actionUnlabelledRelativeNoMoverWdlSplitClasses,0);
+});
