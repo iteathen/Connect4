@@ -1702,6 +1702,248 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
       };
     });
 
+  const shortestContradiction=[...pathAudit.contradictoryExamples]
+    .sort((a,b)=>a.minPathEdges-b.minPathEdges||
+      a.maxPathEdges-b.maxPathEdges||a.source-b.source||a.target-b.target)[0]??null;
+
+  function inversePermutation(perm){
+    const out=new Array(perm.length);
+    for(let i=0;i<perm.length;i++)out[perm[i]]=i;
+    return out;
+  }
+  function composePermutation(first,second){
+    // first maps source -> current; second maps current -> next.
+    return first.map(x=>second[x]);
+  }
+  function permutationKey(perm){return perm.join(',');}
+  function childKeyAtColumn(rec,column){
+    assert.ok(!rec.terminal&&rec.heights[column]<height);
+    let index=0;
+    for(let col=0;col<width;col++)if(rec.heights[col]<height){
+      if(col===column)return rec.children[index];
+      index++;
+    }
+    assert.fail('playable column must resolve to one stored child');
+  }
+  function rawChildBeforeCanonicalization(rec,column){
+    assert.ok(!rec.terminal&&rec.heights[column]<height);
+    const rank=rec.rank,mover=rank&1,
+      cell=rec.heights[column]*width+column,bit=1<<cell,
+      own=mover?rec.r1:rec.r0,
+      opponent=mover?rec.r0:rec.r1,
+      ownNext=[];
+    let wins=false;
+    for(const requirement of own){
+      if(requirement&bit){
+        const residual=requirement&~bit;
+        if(residual===0){wins=true;break;}
+        ownNext.push(residual);
+      }else ownNext.push(requirement);
+    }
+    assert.equal(wins,false,
+      'binary continuation transporter audit must remain nonterminal');
+    const nextHeights=new Uint8Array(rec.heights);
+    nextHeights[column]++;
+    assert.ok(rank+1<cells,
+      'binary continuation transporter audit must precede board exhaustion');
+    const opponentNext=opponent.filter(requirement=>(requirement&bit)===0),
+      ownNormalized=normalizeMaskAntichain(ownNext),
+      opponentNormalized=normalizeMaskAntichain(opponentNext),
+      r0=mover?opponentNormalized:ownNormalized,
+      r1=mover?ownNormalized:opponentNormalized,
+      blocked=(universalFrontierBlocker||nonterminalFrontierBlocker)?
+        applyUniversalFrontierBlocker(
+          nextHeights,r0,r1,width,height,
+          {nonterminalOnly:nonterminalFrontierBlocker}):
+        {r0,r1,removed:0},
+      closed=moverFinalCapParity?
+        applyMoverFinalCapParity(
+          nextHeights,blocked.r0,blocked.r1,width,height):
+        blocked,
+      capacityClosed=remainingMoveCapacity?
+        applyRemainingMoveCapacity(
+          nextHeights,closed.r0,closed.r1,width,height):
+        closed,
+      releaseClosed=supportReleaseTurnCapacity?
+        applySupportReleaseTurnCapacity(
+          nextHeights,capacityClosed.r0,capacityClosed.r1,width,height):
+        capacityClosed,
+      dominanceClosed=opponentOpenCapTerminalDominance?
+        applyOpponentOpenCapTerminalDominance(
+          nextHeights,releaseClosed.r0,releaseClosed.r1,width,height):
+        releaseClosed;
+    return {
+      heights:nextHeights,
+      r0:dominanceClosed.r0,
+      r1:dominanceClosed.r1,
+    };
+  }
+  function canonicalTransporters(raw,expectedChildKey){
+    let best=null;
+    const rows=[];
+    for(const pd of permutationData){
+      const signature=serializeResidualQ(
+        raw.heights,raw.r0,raw.r1,pd);
+      if(best===null||signature<best){
+        best=signature;
+        rows.length=0;
+        rows.push(pd);
+      }else if(signature===best)rows.push(pd);
+    }
+    assert.equal('Q:'+best,expectedChildKey,
+      'transporter audit must reproduce stored canonical child');
+    const permutations=rows.map(pd=>Array.from(pd.perm)),
+      paritySet=[...new Set(permutations.map(permutationParity))]
+        .sort((a,b)=>a-b);
+    return {
+      count:permutations.length,
+      paritySet,
+      permutations,
+    };
+  }
+  function traceContradictionRoute(sourceGroupId,startSheet,edgePath){
+    const sourceGroup=deeperGroupRecords[sourceGroupId],
+      startLabelled=sourceGroup.labelledClasses[startSheet],
+      representative=obstructionRepresentatives.get(startLabelled);
+    assert.ok(representative,
+      'contradiction transporter audit needs source representative');
+    let rec=nodes.get(representative.key),
+      currentSheet=startSheet,
+      accumulatedDelta=0,
+      histories=[{
+        totalPermutation:Array.from({length:width},(_,i)=>i),
+        sourceActions:[],
+      }],
+      steps=[];
+    assert.equal(actionLabelledStateClass.get(rec.key),startLabelled);
+
+    for(const edge of edgePath){
+      const currentGroup=deeperGroupRecords[edge.from],
+        targetGroup=deeperGroupRecords[edge.to],
+        currentLabelled=actionLabelledStateClass.get(rec.key);
+      assert.equal(currentGroup.labelledClasses[currentSheet],currentLabelled,
+        'route trace must enter edge on expected parent sheet');
+      const childKey=childKeyAtColumn(rec,edge.column),
+        childRec=nodes.get(childKey);
+      assert.ok(childRec&&!childRec.terminal,
+        'binary continuation route must have structural child');
+      const raw=rawChildBeforeCanonicalization(rec,edge.column),
+        transport=canonicalTransporters(raw,childKey),
+        childLabelled=actionLabelledStateClass.get(childKey),
+        childSheet=targetGroup.labelledClasses.indexOf(childLabelled);
+      assert.ok(childSheet>=0,
+        'traced child must lie in target binary group');
+      assert.equal(childSheet,currentSheet^edge.delta,
+        'traced concrete state must realize the class-level delta');
+
+      const nextHistories=new Map();
+      for(const history of histories){
+        const inverse=inversePermutation(history.totalPermutation),
+          sourceAction=inverse[edge.column];
+        for(const permutation of transport.permutations){
+          const totalPermutation=composePermutation(
+            history.totalPermutation,permutation),
+            row={
+              totalPermutation,
+              sourceActions:[...history.sourceActions,sourceAction],
+            },
+            key=permutationKey(totalPermutation)+'|'+row.sourceActions.join(',');
+          if(!nextHistories.has(key))nextHistories.set(key,row);
+        }
+      }
+      histories=[...nextHistories.values()];
+      accumulatedDelta^=edge.delta;
+      steps.push({
+        edgeId:edge.id,
+        from:edge.from,
+        to:edge.to,
+        column:edge.column,
+        delta:edge.delta,
+        parentStateKey:rec.key,
+        childStateKey:childKey,
+        parentLabelledClass:currentLabelled,
+        childLabelledClass:childLabelled,
+        parentSheet:currentSheet,
+        childSheet,
+        canonicalizerCount:transport.count,
+        canonicalizerParitySet:transport.paritySet,
+        canonicalizerPermutations:transport.permutations,
+        historyCountAfterStep:histories.length,
+      });
+      rec=childRec;
+      currentSheet=childSheet;
+    }
+
+    return {
+      startSheet,
+      startLabelledClass:startLabelled,
+      accumulatedDelta,
+      finalStateKey:rec.key,
+      finalLabelledClass:actionLabelledStateClass.get(rec.key),
+      finalSheet:currentSheet,
+      expectedFinalSheet:startSheet^accumulatedDelta,
+      totalTransporterCount:new Set(
+        histories.map(row=>permutationKey(row.totalPermutation))).size,
+      totalTransporterParitySet:[...new Set(histories.map(row=>
+        permutationParity(row.totalPermutation)))].sort((a,b)=>a-b),
+      totalTransporters:[...new Map(histories.map(row=>[
+        permutationKey(row.totalPermutation),row.totalPermutation,
+      ])).values()],
+      sourceActionSequences:[...new Set(histories.map(row=>
+        row.sourceActions.join(',')))].sort(),
+      steps,
+    };
+  }
+
+  let shortestContradictionTransporterAudit=null;
+  if(shortestContradiction){
+    const parityPaths=shortestContradiction.witnessPathsByParity,
+      routeRows=[];
+    for(let parity=0;parity<2;parity++){
+      const path=parityPaths[parity]?.[0]??null;
+      if(!path)continue;
+      for(let startSheet=0;startSheet<2;startSheet++)
+        routeRows.push({
+          pathParity:parity,
+          trace:traceContradictionRoute(
+            shortestContradiction.source,startSheet,path),
+        });
+    }
+    const byStartSheet=[];
+    for(let startSheet=0;startSheet<2;startSheet++){
+      const rows=routeRows.filter(row=>row.trace.startSheet===startSheet),
+        parity0=rows.find(row=>row.pathParity===0)?.trace??null,
+        parity1=rows.find(row=>row.pathParity===1)?.trace??null;
+      if(parity0&&parity1){
+        const actions0=new Set(parity0.sourceActionSequences),
+          actions1=new Set(parity1.sourceActionSequences),
+          transport0=new Set(parity0.totalTransporters.map(permutationKey)),
+          transport1=new Set(parity1.totalTransporters.map(permutationKey));
+        byStartSheet.push({
+          startSheet,
+          sameExactFinalState:
+            parity0.finalStateKey===parity1.finalStateKey,
+          sameFinalLabelledClass:
+            parity0.finalLabelledClass===parity1.finalLabelledClass,
+          sameFinalSheet:parity0.finalSheet===parity1.finalSheet,
+          sourceActionSequenceIntersection:
+            [...actions0].filter(x=>actions1.has(x)).sort(),
+          totalTransporterIntersection:
+            [...transport0].filter(x=>transport1.has(x)).sort(),
+        });
+      }
+    }
+    shortestContradictionTransporterAudit={
+      source:shortestContradiction.source,
+      target:shortestContradiction.target,
+      minPathEdges:shortestContradiction.minPathEdges,
+      routeRows,
+      byStartSheet,
+      interpretation:
+        'exact canonicalization transporter sets for the shortest contradictory cocycle witness',
+    };
+  }
+
   const binaryPhaseCocycleAudit={
     basis:'binary deeper-continuation groups after immediate action gauge removal',
     sheetConvention:'sorted recursive action-labelled class ids; absolute 0/1 names are gauge only',
@@ -1776,6 +2018,7 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     cycleSyndromeExamples:integrabilityAudit.syndromeExamples,
     nonzeroCycleSyndromeExamples:integrabilityAudit.nonzeroSyndromeExamples,
     obstructionGroupExamples,
+    shortestContradictionTransporterAudit,
     edgeExamples:binaryInheritanceEdges.slice(0,64),
   };
 
