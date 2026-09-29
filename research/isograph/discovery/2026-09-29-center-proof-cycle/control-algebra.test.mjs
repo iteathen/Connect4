@@ -293,10 +293,11 @@ test('4x4 action-labelled MQ2 is reproduced before erasing literal move labels',
   assert.ok(q);
   assert.equal(q.preWinStates,139625);
   assert.equal(q.actionLabelledBehaviorClasses,27424);
-  assert.equal(q.actionLabelledWdlSplitClasses,0);
+  assert.equal(q.actionLabelledAbsoluteWdlSplitClasses,26);
+  assert.equal(q.actionLabelledRelativeWdlSplitClasses,0);
   assert.ok(q.actionUnlabelledValueClasses>0);
   assert.ok(q.actionUnlabelledValueClasses<q.actionLabelledBehaviorClasses);
-  assert.equal(q.actionUnlabelledWdlSplitClasses,0);
+  assert.equal(q.actionUnlabelledRelativeWdlSplitClasses,0);
   assert.equal(q.rootLiteralActions,4);
   assert.ok(q.rootDistinctUnlabelledActionClasses>=1&&q.rootDistinctUnlabelledActionClasses<=4);
 });
