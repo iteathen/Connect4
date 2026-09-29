@@ -78,6 +78,24 @@ test('direct residual orbit producer reproduces recursive quotient across small 
   }
 });
 
+test('nonterminal frontier blocker strengthens universal blocker without changing quotient',()=>{
+  const physical=analyzeUnlabelledQuotientDimensionMatrix();
+  for(const row of physical.cases){
+    const universal=analyzeDirectResidualOrbitGraph({
+      width:row.width,height:row.height,k:row.k,
+      universalFrontierBlocker:true,
+    }),strong=analyzeDirectResidualOrbitGraph({
+      width:row.width,height:row.height,k:row.k,
+      nonterminalFrontierBlocker:true,
+    });
+    assert.equal(strong.recursiveUnlabelledClasses,row.classes);
+    assert.equal(strong.rootValue,row.rootValue);
+    assert.equal(strong.wdlSplitClasses,0);
+    assert.ok(strong.residualOrbitStates<=universal.residualOrbitStates);
+    assert.ok(strong.literalActionEdges<=universal.literalActionEdges);
+  }
+});
+
 test('universal frontier blocker preserves direct quotient across small dimensions',()=>{
   const physical=analyzeUnlabelledQuotientDimensionMatrix();
   for(const row of physical.cases){
