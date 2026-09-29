@@ -201,6 +201,7 @@ assert.equal(ledger.predecessor_views.predecessor_high_level_ias,60);
 assert.equal(ledger.predecessor_views.disposition,'NOT_PRIMITIVE_AUTHORITY');
 assert.equal(ledger.fixed_point.admitted_native_ias,14);
 assert.equal(ledger.fixed_point.new_assertions,0);
+assert.ok(fs.existsSync(path.join(here,'FIXED_POINT_REPORT_0_3_STRICT_PRIMITIVE.md')),'missing strict primitive final report');
 
 console.log(JSON.stringify({
   status:'PASS',
