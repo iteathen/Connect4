@@ -8,7 +8,8 @@ const readJson=name=>JSON.parse(fs.readFileSync(path.join(here,name),'utf8'));
 const a0=readJson('A0_EXPLICIT_ASSERTIONS_0_1.json');
 const rounds=[];
 for(let i=1;i<=10;i++)rounds.push(readJson(`ROUND_${String(i).padStart(2,'0')}_0_1.json`));
-const fixed=readJson('ROUND_11_FIXED_POINT_0_1.json');\nconst finalQu=readJson('QU_LEDGER_FINAL_0_3.json');
+const fixed=readJson('ROUND_11_FIXED_POINT_0_1.json');
+const finalQu=readJson('QU_LEDGER_FINAL_0_3.json');
 
 assert.equal(a0.assertions.length,31);
 assert.equal(a0.assertions.filter(x=>x.ia_eligible).length,23);
