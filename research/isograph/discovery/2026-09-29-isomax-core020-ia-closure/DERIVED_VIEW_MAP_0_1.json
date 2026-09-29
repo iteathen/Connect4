@@ -1,7 +1,7 @@
 {
-  "schema": "isomax.core020.structural_control.derived_view_map.v1",
+  "schema": "isomax.core020.structural_control.source_reference_map.v2",
   "date_author_local": "2026-09-29",
-  "rule": "Derived views are navigation/reconstruction aids. Exact IA support must route to primitive support or exact raw observations, not to the label itself.",
+  "rule": "Only entries whose complete semantic reverse map exists in the strict primitive kernel qualify as derived semantic views. Aggregate research without such a reverse map is an external source reference only.",
   "views": [
     {
       "id": "DV-001",
@@ -12,7 +12,10 @@
         "PC-002",
         "PC-003"
       ],
-      "load_bearing_for_new_ia": false
+      "load_bearing_for_new_ia": false,
+      "classification": "EXTERNAL_SOURCE_REFERENCE_ONLY",
+      "semantic_admission": "OUTSIDE_STRICT_NATIVE_RENDERING_SCOPE",
+      "reason": "No complete primitive reverse map for this aggregate claim is contained in ISOMAX_STRUCTURAL_CONTROL_CORE020_0_2.isg."
     },
     {
       "id": "DV-002",
@@ -23,7 +26,10 @@
         "PC-002",
         "PC-003"
       ],
-      "load_bearing_for_new_ia": false
+      "load_bearing_for_new_ia": false,
+      "classification": "EXTERNAL_SOURCE_REFERENCE_ONLY",
+      "semantic_admission": "OUTSIDE_STRICT_NATIVE_RENDERING_SCOPE",
+      "reason": "No complete primitive reverse map for this aggregate claim is contained in ISOMAX_STRUCTURAL_CONTROL_CORE020_0_2.isg."
     },
     {
       "id": "DV-003",
@@ -32,7 +38,10 @@
       "primitive_base": [
         "PC-018"
       ],
-      "load_bearing_for_new_ia": false
+      "load_bearing_for_new_ia": false,
+      "classification": "EXTERNAL_SOURCE_REFERENCE_ONLY",
+      "semantic_admission": "OUTSIDE_STRICT_NATIVE_RENDERING_SCOPE",
+      "reason": "No complete primitive reverse map for this aggregate claim is contained in ISOMAX_STRUCTURAL_CONTROL_CORE020_0_2.isg."
     },
     {
       "id": "DV-004",
@@ -41,7 +50,10 @@
       "primitive_base": [
         "PC-014"
       ],
-      "load_bearing_for_new_ia": false
+      "load_bearing_for_new_ia": false,
+      "classification": "EXTERNAL_SOURCE_REFERENCE_ONLY",
+      "semantic_admission": "OUTSIDE_STRICT_NATIVE_RENDERING_SCOPE",
+      "reason": "No complete primitive reverse map for this aggregate claim is contained in ISOMAX_STRUCTURAL_CONTROL_CORE020_0_2.isg."
     },
     {
       "id": "DV-005",
@@ -50,7 +62,10 @@
       "primitive_base": [
         "PC-014"
       ],
-      "load_bearing_for_new_ia": false
+      "load_bearing_for_new_ia": false,
+      "classification": "EXTERNAL_SOURCE_REFERENCE_ONLY",
+      "semantic_admission": "OUTSIDE_STRICT_NATIVE_RENDERING_SCOPE",
+      "reason": "No complete primitive reverse map for this aggregate claim is contained in ISOMAX_STRUCTURAL_CONTROL_CORE020_0_2.isg."
     },
     {
       "id": "DV-006",
@@ -59,7 +74,10 @@
       "primitive_base": [
         "PC-007"
       ],
-      "load_bearing_for_new_ia": false
+      "load_bearing_for_new_ia": false,
+      "classification": "EXTERNAL_SOURCE_REFERENCE_ONLY",
+      "semantic_admission": "OUTSIDE_STRICT_NATIVE_RENDERING_SCOPE",
+      "reason": "No complete primitive reverse map for this aggregate claim is contained in ISOMAX_STRUCTURAL_CONTROL_CORE020_0_2.isg."
     },
     {
       "id": "DV-007",
@@ -68,7 +86,10 @@
       "primitive_base": [
         "PC-016"
       ],
-      "load_bearing_for_new_ia": false
+      "load_bearing_for_new_ia": false,
+      "classification": "EXTERNAL_SOURCE_REFERENCE_ONLY",
+      "semantic_admission": "OUTSIDE_STRICT_NATIVE_RENDERING_SCOPE",
+      "reason": "No complete primitive reverse map for this aggregate claim is contained in ISOMAX_STRUCTURAL_CONTROL_CORE020_0_2.isg."
     },
     {
       "id": "DV-008",
@@ -78,7 +99,10 @@
         "PC-005",
         "PC-006"
       ],
-      "load_bearing_for_new_ia": false
+      "load_bearing_for_new_ia": false,
+      "classification": "EXTERNAL_SOURCE_REFERENCE_ONLY",
+      "semantic_admission": "OUTSIDE_STRICT_NATIVE_RENDERING_SCOPE",
+      "reason": "No complete primitive reverse map for this aggregate claim is contained in ISOMAX_STRUCTURAL_CONTROL_CORE020_0_2.isg."
     },
     {
       "id": "DV-009",
@@ -90,7 +114,9 @@
         "PC-008",
         "PC-009"
       ],
-      "load_bearing_for_new_ia": true
+      "load_bearing_for_new_ia": true,
+      "classification": "DERIVED_VIEW_WITH_STRICT_PRIMITIVE_BASE",
+      "semantic_admission": "ADMITTED_ONLY_TO_THE_EXACT_LOCAL_SCOPE_LISTED_IN_primitive_base"
     },
     {
       "id": "DV-010",
@@ -99,7 +125,9 @@
       "primitive_base": [
         "PC-010"
       ],
-      "load_bearing_for_new_ia": true
+      "load_bearing_for_new_ia": true,
+      "classification": "DERIVED_VIEW_WITH_STRICT_PRIMITIVE_BASE",
+      "semantic_admission": "ADMITTED_ONLY_TO_THE_EXACT_LOCAL_SCOPE_LISTED_IN_primitive_base"
     },
     {
       "id": "DV-011",
@@ -108,7 +136,9 @@
       "primitive_base": [
         "PC-011"
       ],
-      "load_bearing_for_new_ia": true
+      "load_bearing_for_new_ia": true,
+      "classification": "DERIVED_VIEW_WITH_STRICT_PRIMITIVE_BASE",
+      "semantic_admission": "ADMITTED_ONLY_TO_THE_EXACT_LOCAL_SCOPE_LISTED_IN_primitive_base"
     },
     {
       "id": "DV-012",
@@ -117,7 +147,10 @@
       "primitive_base": [
         "PC-019"
       ],
-      "load_bearing_for_new_ia": false
+      "load_bearing_for_new_ia": false,
+      "classification": "EXTERNAL_SOURCE_REFERENCE_ONLY",
+      "semantic_admission": "OUTSIDE_STRICT_NATIVE_RENDERING_SCOPE",
+      "reason": "No complete primitive reverse map for this aggregate claim is contained in ISOMAX_STRUCTURAL_CONTROL_CORE020_0_2.isg."
     },
     {
       "id": "DV-013",
@@ -126,7 +159,10 @@
       "primitive_base": [
         "PC-019"
       ],
-      "load_bearing_for_new_ia": false
+      "load_bearing_for_new_ia": false,
+      "classification": "EXTERNAL_SOURCE_REFERENCE_ONLY",
+      "semantic_admission": "OUTSIDE_STRICT_NATIVE_RENDERING_SCOPE",
+      "reason": "No complete primitive reverse map for this aggregate claim is contained in ISOMAX_STRUCTURAL_CONTROL_CORE020_0_2.isg."
     },
     {
       "id": "DV-014",
@@ -135,7 +171,10 @@
       "primitive_base": [
         "PC-020"
       ],
-      "load_bearing_for_new_ia": false
+      "load_bearing_for_new_ia": false,
+      "classification": "EXTERNAL_SOURCE_REFERENCE_ONLY",
+      "semantic_admission": "OUTSIDE_STRICT_NATIVE_RENDERING_SCOPE",
+      "reason": "No complete primitive reverse map for this aggregate claim is contained in ISOMAX_STRUCTURAL_CONTROL_CORE020_0_2.isg."
     },
     {
       "id": "DV-015",
@@ -144,14 +183,20 @@
       "primitive_base": [
         "PC-020"
       ],
-      "load_bearing_for_new_ia": false
+      "load_bearing_for_new_ia": false,
+      "classification": "EXTERNAL_SOURCE_REFERENCE_ONLY",
+      "semantic_admission": "OUTSIDE_STRICT_NATIVE_RENDERING_SCOPE",
+      "reason": "No complete primitive reverse map for this aggregate claim is contained in ISOMAX_STRUCTURAL_CONTROL_CORE020_0_2.isg."
     },
     {
       "id": "DV-016",
       "name": "small-board phase perturbations",
       "source": "PHASE_COCYCLE_DIMENSION_PERTURBATION.md",
       "primitive_base": [],
-      "load_bearing_for_new_ia": false
+      "load_bearing_for_new_ia": false,
+      "classification": "EXTERNAL_SOURCE_REFERENCE_ONLY",
+      "semantic_admission": "OUTSIDE_STRICT_NATIVE_RENDERING_SCOPE",
+      "reason": "No complete primitive reverse map for this aggregate claim is contained in ISOMAX_STRUCTURAL_CONTROL_CORE020_0_2.isg."
     },
     {
       "id": "DV-017",
@@ -160,7 +205,10 @@
       "primitive_base": [
         "PC-015"
       ],
-      "load_bearing_for_new_ia": false
+      "load_bearing_for_new_ia": false,
+      "classification": "EXTERNAL_SOURCE_REFERENCE_ONLY",
+      "semantic_admission": "OUTSIDE_STRICT_NATIVE_RENDERING_SCOPE",
+      "reason": "No complete primitive reverse map for this aggregate claim is contained in ISOMAX_STRUCTURAL_CONTROL_CORE020_0_2.isg."
     }
   ]
 }
