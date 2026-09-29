@@ -356,6 +356,205 @@ function auditPairRefinedColumnCanonicalization(heights,r0,r1,width,height){
   };
 }
 
+
+function gf2ParitySmall(x){
+  let p=0;
+  for(let v=x>>>0;v;v=(v&(v-1))>>>0)p^=1;
+  return p;
+}
+
+function gf2RowBasisSmall(rows,width){
+  const basis=new Array(width).fill(0);
+  for(const row0 of rows){
+    let row=row0>>>0;
+    for(let bit=width-1;bit>=0;bit--)if((row>>>bit)&1){
+      if(basis[bit])row=(row^basis[bit])>>>0;
+      else{basis[bit]=row;break;}
+    }
+  }
+  return basis.filter(Boolean);
+}
+
+function gf2InSpanSmall(row0,basis,width){
+  let row=row0>>>0;
+  const pivots=new Array(width).fill(0);
+  for(const b of basis){
+    const bit=31-Math.clz32(b);
+    pivots[bit]=b;
+  }
+  for(let bit=width-1;bit>=0;bit--)if((row>>>bit)&1){
+    if(!pivots[bit])return false;
+    row=(row^pivots[bit])>>>0;
+  }
+  return true;
+}
+
+function gf2NullspaceBasisSmall(rows,width){
+  const matrix=[...new Set(rows.map(x=>x>>>0).filter(Boolean))],
+    pivots=[];
+  let r=0;
+  for(let col=0;col<width&&r<matrix.length;col++){
+    let pivot=r;
+    while(pivot<matrix.length&&!((matrix[pivot]>>>col)&1))pivot++;
+    if(pivot===matrix.length)continue;
+    [matrix[r],matrix[pivot]]=[matrix[pivot],matrix[r]];
+    for(let i=0;i<matrix.length;i++)if(i!==r&&((matrix[i]>>>col)&1))
+      matrix[i]=(matrix[i]^matrix[r])>>>0;
+    pivots.push(col);
+    r++;
+  }
+  matrix.length=r;
+  const pivotSet=new Set(pivots),out=[];
+  for(let free=0;free<width;free++)if(!pivotSet.has(free)){
+    let x=(1<<free)>>>0;
+    for(let i=0;i<pivots.length;i++)
+      if(gf2ParitySmall(matrix[i]&x))x|=1<<pivots[i];
+    out.push(x>>>0);
+  }
+  return gf2RowBasisSmall(out,width);
+}
+
+function binaryTieStateEncoding(heights,r0,r1,width,height){
+  const {signatures}=refinementColumnSignatures(heights,r0,r1,width,height),
+    entries=[...new Set(signatures)].sort().map(signature=>({
+      signature,
+      cols:Array.from({length:width},(_,c)=>c)
+        .filter(c=>signatures[c]===signature),
+    }));
+  if(entries.some(x=>x.cols.length>2))
+    return {binary:false,entries,pairCount:0,blocks:[]};
+  const pairEntries=entries.filter(x=>x.cols.length===2);
+  if(!pairEntries.length)
+    return {binary:true,entries,pairCount:0,blocks:[]};
+  const pairIndex=new Map(pairEntries.map((x,i)=>[x.signature,i])),
+    rowPattern=(mask,col)=>{
+      let p=0;
+      for(let row=0;row<height;row++)
+        if(mask&(1<<(row*width+col)))p|=1<<row;
+      return p;
+    },
+    blocks=new Map();
+
+  for(const [player,requirements] of [[0,r0],[1,r1]])
+    for(const mask of requirements){
+      let activeMask=0,orientation=0;
+      const parts=[];
+      for(const entry of entries){
+        if(entry.cols.length===1){
+          const p=rowPattern(mask,entry.cols[0]);
+          parts.push('S:'+entry.signature+':'+p);
+        }else{
+          const [ca,cb]=entry.cols,
+            a=rowPattern(mask,ca),b=rowPattern(mask,cb),
+            lo=Math.min(a,b),hi=Math.max(a,b),
+            pi=pairIndex.get(entry.signature);
+          parts.push('P:'+entry.signature+':'+lo+','+hi);
+          if(a!==b){
+            activeMask|=1<<pi;
+            if(a>b)orientation|=1<<pi;
+          }
+        }
+      }
+      const key=player+'|'+parts.join('|');
+      let block=blocks.get(key);
+      if(!block){
+        block={activeMask:activeMask>>>0,vectors:new Set()};
+        blocks.set(key,block);
+      }
+      assert.equal(block.activeMask,activeMask>>>0,
+        'requirements in one binary orientation orbit must share active coordinates');
+      block.vectors.add((orientation&activeMask)>>>0);
+    }
+  return {
+    binary:true,
+    entries,
+    pairCount:pairEntries.length,
+    blocks:[...blocks.values()].map(block=>({
+      activeMask:block.activeMask,
+      vectors:[...block.vectors].sort((a,b)=>a-b),
+    })),
+  };
+}
+
+function deriveBinaryTieStabilizer(encoding){
+  const m=encoding.pairCount;
+  if(!encoding.binary)return null;
+  if(m===0)return {pairCount:0,basis:[],parityChecks:[],dimension:0};
+  const allMask=((1<<m)-1)>>>0,constraints=[];
+  for(const block of encoding.blocks){
+    const values=block.vectors,set=new Set(values),
+      t0=values[0]??0,valid=[];
+    for(const t of values){
+      const h=((t^t0)&block.activeMask)>>>0;
+      if(values.every(q=>set.has((q^h)>>>0)))valid.push(h);
+    }
+    const blockBasis=gf2RowBasisSmall(valid,m);
+    for(let bit=0;bit<m;bit++)if(!((block.activeMask>>>bit)&1))
+      blockBasis.push((1<<bit)>>>0);
+    const normalizedBasis=gf2RowBasisSmall(blockBasis,m),
+      parityChecks=gf2NullspaceBasisSmall(normalizedBasis,m);
+    constraints.push(...parityChecks);
+  }
+  const parityChecks=gf2RowBasisSmall(constraints,m),
+    basis=gf2NullspaceBasisSmall(parityChecks,m);
+  return {pairCount:m,basis,parityChecks,dimension:basis.length,allMask};
+}
+
+function exactBinaryTieAutomorphisms(
+  heights,r0,r1,width,height,encoding,permutationData
+){
+  if(!encoding?.binary)return null;
+  const entries=encoding.entries,original=serializeResidualQ(heights,r0,r1,null),
+    vectors=[],unrepresented=[];
+  for(const pd of permutationData){
+    if(serializeResidualQ(heights,r0,r1,pd)!==original)continue;
+    let vector=0,pair=0,valid=true;
+    for(const entry of entries){
+      const cols=entry.cols;
+      if(cols.length===1){
+        if(pd.perm[cols[0]]!==cols[0]){valid=false;break;}
+      }else{
+        const [a,b]=cols,pa=pd.perm[a],pb=pd.perm[b];
+        if(pa===a&&pb===b){}
+        else if(pa===b&&pb===a)vector|=1<<pair;
+        else{valid=false;break;}
+        pair++;
+      }
+    }
+    if(valid)vectors.push(vector>>>0);
+    else unrepresented.push(Array.from(pd.perm));
+  }
+  return {
+    vectors:[...new Set(vectors)].sort((a,b)=>a-b),
+    unrepresented,
+  };
+}
+
+function auditConstructiveBinaryTieStabilizer(
+  heights,r0,r1,width,height,permutationData
+){
+  const encoding=binaryTieStateEncoding(heights,r0,r1,width,height);
+  if(!encoding.binary||encoding.pairCount===0)return null;
+  const derived=deriveBinaryTieStabilizer(encoding),
+    exact=exactBinaryTieAutomorphisms(
+      heights,r0,r1,width,height,encoding,permutationData);
+  const allExactInDerived=
+    exact.unrepresented.length===0&&
+    exact.vectors.every(v=>gf2InSpanSmall(
+      v,derived.basis,derived.pairCount));
+  return {
+    pairCount:derived.pairCount,
+    dimension:derived.dimension,
+    basis:derived.basis,
+    parityChecks:derived.parityChecks,
+    exactVectors:exact.vectors,
+    exactUnrepresented:exact.unrepresented.length,
+    constructiveMatchesExact:
+      allExactInDerived&&
+      exact.vectors.length===2**derived.dimension,
+  };
+}
+
 function applyUniversalFrontierBlocker(
   heights,r0,r1,width,height,{nonterminalOnly=false}={}
 ){
@@ -594,7 +793,7 @@ export function analyzeUnlabelledQuotientDimension({width,height,k,auditResidual
 }
 
 
-export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontierBlocker=false,nonterminalFrontierBlocker=false,moverFinalCapParity=false,measureLocalBranchClosure=true,auditColumnRefinement=false,auditPairColumnRefinement=false}){
+export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontierBlocker=false,nonterminalFrontierBlocker=false,moverFinalCapParity=false,measureLocalBranchClosure=true,auditColumnRefinement=false,auditPairColumnRefinement=false,auditBinaryTieStabilizers=false}){
   const cells=width*height;
   assert.ok(cells<=30,'direct residual-orbit harness is intentionally bounded to <=30 cells');
   const masks=winMasks(width,height,k),
@@ -874,6 +1073,36 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     };
   }
 
+
+  let binaryTieStabilizerAudit=null;
+  if(auditBinaryTieStabilizers){
+    const rows=[];
+    for(const rec of nodes.values()){
+      if(rec.terminal)continue;
+      const refinement=auditRefinedColumnCanonicalization(
+        rec.heights,rec.r0,rec.r1,width,height);
+      if(refinement.searchFree)continue;
+      const row=auditConstructiveBinaryTieStabilizer(
+        rec.heights,rec.r0,rec.r1,width,height,permutationData);
+      if(row)rows.push({
+        support:Array.from(rec.heights),
+        ...row,
+      });
+    }
+    binaryTieStabilizerAudit={
+      fallbackStates:rows.length,
+      constructiveMatchesExact:
+        rows.every(row=>row.constructiveMatchesExact),
+      pairCounts:[...new Set(rows.map(row=>row.pairCount))].sort((a,b)=>a-b),
+      dimensions:[...new Set(rows.map(row=>row.dimension))].sort((a,b)=>a-b),
+      parityCheckSets:[...new Set(rows.map(row=>
+        row.parityChecks.join(',')))].sort(),
+      exactVectorSets:[...new Set(rows.map(row=>
+        row.exactVectors.join(',')))].sort(),
+      rows,
+    };
+  }
+
   // Post-hoc exact W/D/L validation on the direct q-orbit graph.
   const values=new Map(),classValueMask=new Map();
   for(let rank=cells;rank>=0;rank--)for(const rec of byRank[rank]){
@@ -947,6 +1176,7 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     measureLocalBranchClosure,
     auditColumnRefinement,
     auditPairColumnRefinement,
+    auditBinaryTieStabilizers,
     winningLineCount:masks.length,
     residualOrbitStates:nodes.size,
     literalActionEdges,
@@ -963,6 +1193,7 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     dynamicMergeByRank,
     columnRefinementAudit,
     pairColumnRefinementAudit,
+    binaryTieStabilizerAudit,
     localBranchClosure:localBranchClosureResult,
     peakOrbitStateFrontier:peakBy(frontier,'states'),
     peakRecursiveClassFrontier:peakBy(frontier,'classes'),
