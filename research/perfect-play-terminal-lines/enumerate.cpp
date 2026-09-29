@@ -92,7 +92,9 @@ public:
     void run() {
         Position root{};
         const int root_score = solver.solve(root);
-        // A root draw has no terminal winning line under perfect play.\n        // Do not enumerate the enormous set of draw-preserving continuations.\n        const uint64_t mask = root_score == 0 ? 0 : collect(root);
+        // A root draw has no terminal winning line under perfect play.
+        // Do not enumerate the enormous set of draw-preserving continuations.
+        const uint64_t mask = root_score == 0 ? 0 : collect(root);
 
         int count = 0;
         for (size_t i = 0; i < lines.size(); ++i) if (mask & (uint64_t(1) << i)) ++count;
