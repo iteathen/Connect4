@@ -16,13 +16,15 @@ permissions:
 jobs:
   verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
         with:
           node-version: '26'
-      - name: Verify strict primitive closure
+      - name: Verify historical strict primitive closure
         run: node research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/verify-strict-primitive-closure.mjs
+      - name: Verify complete primitive campaign
+        run: node research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/verify-complete-primitive-campaign.mjs
       - name: Research integrity
         run: node tools/verify-research-integrity.mjs
