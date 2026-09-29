@@ -89,8 +89,8 @@ export function analyzeStandardCenterControlAlgebra(){
 }
 
 function immediateWin(g,s,player){
-  for(let c=0;c<g.width;c++)if(s.heights[c]<g.height){
-    const cell=s.heights[c]*g.width+c;
+  for(let c=0;c<g.columns;c++)if(s.heights[c]<g.rows){
+    const cell=s.heights[c]*g.columns+c;
     s.board[cell]=player;
     const win=g.lines.some(line=>line.every(x=>s.board[x]===player));
     s.board[cell]=-1;
