@@ -8,7 +8,7 @@ const readJson=name=>JSON.parse(fs.readFileSync(path.join(here,name),'utf8'));
 const a0=readJson('A0_EXPLICIT_ASSERTIONS_0_1.json');
 const rounds=[];
 for(let i=1;i<=10;i++)rounds.push(readJson(`ROUND_${String(i).padStart(2,'0')}_0_1.json`));
-const fixed=readJson('ROUND_11_FIXED_POINT_0_1.json');
+const fixed=readJson('ROUND_11_FIXED_POINT_0_1.json');\nconst finalQu=readJson('QU_LEDGER_FINAL_0_3.json');
 
 assert.equal(a0.assertions.length,31);
 assert.equal(a0.assertions.filter(x=>x.ia_eligible).length,23);
@@ -74,6 +74,15 @@ assert.equal(fixed.forbidden_support_audit.discovery_protocol_used,false);
 assert.equal(fixed.forbidden_support_audit.natural_entropic_identity_used,false);
 assert.equal(fixed.forbidden_support_audit.dts_used,false);
 assert.equal(fixed.forbidden_support_audit.wdl_or_nimber_bridge_used,false);
+assert.equal(finalQu.status,'FIXED_POINT_QU_STATE');
+assert.equal(finalQu.fixed_point_round,11);
+assert.equal(finalQu.no_probability_added,true);
+assert.equal(finalQu.no_preferred_open_realization_selected,true);
+assert.equal(finalQu.entries.length,6);
+for(const id of ['QU-SC-001','QU-SC-002','QU-SC-003','QU-SC-004','QU-SC-005','QU-SC-006'])
+  assert.ok(finalQu.entries.some(x=>x.id===id),`missing final QU ${id}`);
+assert.ok(fs.existsSync(path.join(here,'FIXED_POINT_REPORT_0_1.md')));
+
 
 const native=fs.readFileSync(path.join(here,'ISOMAX_STRUCTURAL_CONTROL_CORE020_0_1.isg'),'utf8');
 let par=0,br=0,minPar=0,minBr=0;
