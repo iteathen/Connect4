@@ -228,6 +228,74 @@ and 7x8 share the same one-relation/one-defect structure while their known
 outcomes differ.
 
 
+## Late XOR placement: recursive continuation phase
+
+The sequencing concern that XOR may have been applied too early has now been
+tested directly.
+
+An action-labelled versus action-unlabelled comparison first isolated only 411
+extra labelled distinctions after the direct residual/cofactor quotient. A
+generic permutation-sign falsifier then rejected ordinary current-action parity:
+transporter sign was well-defined exactly in the 38 fibers whose action-slot
+tokens were all distinct, which is generic symmetric-group bookkeeping rather
+than a Connect-Four-specific invariant.
+
+The audit was therefore pushed one level deeper. Requiring the same recursive
+action-unlabelled class **and** the same ordered immediate phase-free action
+profile leaves 65 deeper groups on 4x4 Connect-4, 61 of them binary. Across 79
+changed recursive child pairs:
+
+~~~text
+binary continuation              31
+nonbinary continuation            3
+action transporter               23
+branch/multiplicity erasure      22
+terminal/unknown                  0
+~~~
+
+The 31 binary-continuation edges define relative two-sheet maps
+`delta(e) in GF(2)`. Absolute sheet labels are gauge choices; reconvergent
+path XOR and cycle syndrome are invariant.
+
+The bounded 4x4 carrier contains exactly one genuine topological
+reconvergence/cycle. Its syndrome is zero:
+
+~~~text
+binary phase nodes                61
+binary inheritance edges          31
+delta-1 edges                      6
+topological reconvergences         1
+cycle rank                         1
+nonzero cycle syndromes            0
+~~~
+
+The two routes are:
+
+~~~text
+24 -> 25 -> 7  -> 2    columns 3,0,1
+24 -> 13 -> 14 -> 2    columns 0,3,1
+~~~
+
+so a componentwise phase potential exists on this finite carrier.
+
+Two important falsification controls were retained:
+
+1. 4x4 Connect-3 has 232 binary deeper groups and seven sheet-flipping edges
+   but **no** reconvergent cycle, so the Connect-4 cycle is not forced merely by
+   binary-fiber bookkeeping.
+2. The Connect-4 cycle and zero syndrome survive the existing residual closure
+   stack as the carrier shrinks from 10,507 to 9,090 structural states, so the
+   result is not tied to the raw redundant residual syntax.
+
+The exact bounded conclusion is therefore an **integrable relative GF(2)
+continuation phase under declared 4x4 structural guards**, not a W/D/L law or
+nimber. Only one independent cycle exists, and its action-order diamond shape
+leaves generic transition/cofactor confluence and generic trivial two-sheet
+covering as live alternative explanations.
+
+See
+[RECURSIVE_PHASE_COCYCLE_SYNTHESIS.md](../isograph/discovery/2026-09-29-center-proof-cycle/RECURSIVE_PHASE_COCYCLE_SYNTHESIS.md).
+
 ## Exact XOR law now established in a guarded subproblem
 
 The structural quotient campaign has now produced one exact XOR composition law,
