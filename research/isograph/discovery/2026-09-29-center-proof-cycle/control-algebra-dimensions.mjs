@@ -1650,6 +1650,58 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
   assert.equal(gaugeFlipInvariant,true,
     'cocycle obstruction/path-consistency verdict must survive local sheet gauge flips');
 
+  const obstructionGroupIds=new Set();
+  for(const example of pathAudit.contradictoryExamples){
+    obstructionGroupIds.add(example.source);
+    obstructionGroupIds.add(example.target);
+    for(const parityPaths of example.witnessPathsByParity)
+      for(const path of parityPaths)
+        for(const edge of path){
+          obstructionGroupIds.add(edge.from);
+          obstructionGroupIds.add(edge.to);
+        }
+  }
+  const obstructionLabelledIds=new Set();
+  for(const id of obstructionGroupIds){
+    const row=deeperGroupRecords[id];
+    if(row)for(const labelled of row.labelledClasses)
+      obstructionLabelledIds.add(labelled);
+  }
+  const obstructionRepresentatives=new Map();
+  if(obstructionLabelledIds.size){
+    for(const rec of nodes.values()){
+      if(rec.terminal)continue;
+      const labelled=actionLabelledStateClass.get(rec.key);
+      if(!obstructionLabelledIds.has(labelled)||
+        obstructionRepresentatives.has(labelled))continue;
+      obstructionRepresentatives.set(labelled,{
+        key:rec.key,
+        rank:rec.rank,
+        support:Array.from(rec.heights),
+        p0Residuals:[...rec.r0],
+        p1Residuals:[...rec.r1],
+      });
+      if(obstructionRepresentatives.size===obstructionLabelledIds.size)break;
+    }
+  }
+  const obstructionGroupExamples=[...obstructionGroupIds]
+    .sort((a,b)=>a-b).slice(0,96).map(id=>{
+      const row=deeperGroupRecords[id];
+      assert.ok(row,'obstruction group must resolve');
+      return {
+        id:row.id,
+        rank:row.rank,
+        unlabelledClass:row.unlabelledClass,
+        phaseFreeProfile:row.phaseFreeProfile,
+        labelledClasses:[...row.labelledClasses],
+        recursiveProfiles:[...row.recursiveProfiles],
+        representativeSheets:row.labelledClasses.map(labelled=>({
+          labelledClass:labelled,
+          representative:obstructionRepresentatives.get(labelled)??null,
+        })),
+      };
+    });
+
   const binaryPhaseCocycleAudit={
     basis:'binary deeper-continuation groups after immediate action gauge removal',
     sheetConvention:'sorted recursive action-labelled class ids; absolute 0/1 names are gauge only',
@@ -1723,6 +1775,7 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     contradictoryReconvergenceExamples:pathAudit.contradictoryExamples,
     cycleSyndromeExamples:integrabilityAudit.syndromeExamples,
     nonzeroCycleSyndromeExamples:integrabilityAudit.nonzeroSyndromeExamples,
+    obstructionGroupExamples,
     edgeExamples:binaryInheritanceEdges.slice(0,64),
   };
 
