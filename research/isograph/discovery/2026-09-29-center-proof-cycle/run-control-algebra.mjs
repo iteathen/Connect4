@@ -5,6 +5,7 @@ import {
   analyzeGuardedResponseProjections,
   analyzeFullColumnCancellation,
   analyzeDepthPolynomialAnnihilator,
+  analyzeControlWindowFactorization,
 } from './control-algebra.mjs';
 
 const result={
@@ -18,5 +19,6 @@ const result={
   guardedResponseProjections:analyzeGuardedResponseProjections(),
   fullColumnCancellation:analyzeFullColumnCancellation(),
   depthPolynomialAnnihilator:analyzeDepthPolynomialAnnihilator(),
+  controlWindowFactorization:analyzeControlWindowFactorization(),
 };
 console.log(JSON.stringify(result,null,2));
