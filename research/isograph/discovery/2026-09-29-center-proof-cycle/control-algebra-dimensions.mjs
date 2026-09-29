@@ -872,6 +872,7 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
       exactOnSearchFreeStates:canonicalCollisions===0,
       fallbackExamples,
     };
+  }
 
   // Post-hoc exact W/D/L validation on the direct q-orbit graph.
   const values=new Map(),classValueMask=new Map();
