@@ -37,6 +37,14 @@ const result={
     remainingMoveCapacity:true,
     supportReleaseTurnCapacity:true,
   }),
+  directResidualOrbit4x4OpenCapDominance:analyzeDirectResidualOrbitGraph({
+    width:4,height:4,k:4,
+    nonterminalFrontierBlocker:true,
+    moverFinalCapParity:true,
+    remainingMoveCapacity:true,
+    supportReleaseTurnCapacity:true,
+    opponentOpenCapTerminalDominance:true,
+  }),
   directResidualOrbit4x4ColumnRefinement:analyzeDirectResidualOrbitGraph({
     width:4,height:4,k:4,
     nonterminalFrontierBlocker:true,
