@@ -9,12 +9,19 @@ function popcount(x){
   return n;
 }
 
-function winMasks(width,height,k){
+function winMasks(width,height,k,allowedDirectionFamilies=null){
   assert.ok(Number.isInteger(width)&&width>=k&&k>=2);
   assert.ok(Number.isInteger(height)&&height>=k);
-  const dirs=[[1,0],[0,1],[1,1],[1,-1]],masks=[];
+  const allowed=allowedDirectionFamilies===null?null:new Set(allowedDirectionFamilies),
+    dirs=[['H',1,0],['V',0,1],['D',1,1],['D',1,-1]],masks=[];
+  if(allowed){
+    for(const family of allowed)
+      assert.ok(family==='H'||family==='V'||family==='D',
+        'winning-line direction family must be H, V, or D');
+  }
   for(let row=0;row<height;row++)for(let col=0;col<width;col++)
-    for(const [dc,dr] of dirs){
+    for(const [family,dc,dr] of dirs){
+      if(allowed&&!allowed.has(family))continue;
       const endCol=col+(k-1)*dc,endRow=row+(k-1)*dr;
       if(endCol<0||endCol>=width||endRow<0||endRow>=height)continue;
       let mask=0;
@@ -893,10 +900,10 @@ function applyOpponentOpenCapTerminalDominance(
 }
 
 
-export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontierBlocker=false,nonterminalFrontierBlocker=false,moverFinalCapParity=false,remainingMoveCapacity=false,supportReleaseTurnCapacity=false,opponentOpenCapTerminalDominance=false,measureLocalBranchClosure=true,auditColumnRefinement=false,auditPairColumnRefinement=false,auditBinaryTieStabilizers=false,auditOpponentResidualDeletion=false,auditEarliestMergeParents=false,auditEarliestMergeWitness=false,emitPrimitiveWitnessData=false,emitFullDirectCarrier=false}){
+export function analyzeDirectResidualOrbitGraph({width,height,k,winningLineDirections=null,universalFrontierBlocker=false,nonterminalFrontierBlocker=false,moverFinalCapParity=false,remainingMoveCapacity=false,supportReleaseTurnCapacity=false,opponentOpenCapTerminalDominance=false,measureLocalBranchClosure=true,auditColumnRefinement=false,auditPairColumnRefinement=false,auditBinaryTieStabilizers=false,auditOpponentResidualDeletion=false,auditEarliestMergeParents=false,auditEarliestMergeWitness=false,emitPrimitiveWitnessData=false,emitFullDirectCarrier=false}){
   const cells=width*height;
   assert.ok(cells<=30,'direct residual-orbit harness is intentionally bounded to <=30 cells');
-  const masks=winMasks(width,height,k),
+  const masks=winMasks(width,height,k,winningLineDirections),
     permutationData=columnPermutationData(width,height),
     nodes=new Map(),byRank=Array.from({length:cells+1},()=>[]);
   let literalActionEdges=0,duplicateEquivalentActionEdges=0;
@@ -2865,6 +2872,7 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     outcomeLabelsUsedByProducer:false,
     validationUsesDerivedWdl:true,
     width,height,k,cells,
+    winningLineDirections:winningLineDirections===null?['H','V','D']:[...winningLineDirections],
     columnPermutations:permutationData.length,
     universalFrontierBlocker,
     nonterminalFrontierBlocker,
