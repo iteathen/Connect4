@@ -1,0 +1,38 @@
+name: IsoMax native aggregate witness build
+
+on:
+  push:
+    branches:
+      - research/isomax-core020-ia-closure-20260929
+    paths:
+      - '.github/workflows/isomax-native-aggregate-witness.yml'
+      - 'research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/build-aggregate-witness-native.mjs'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: '26'
+      - name: Build native finite witness relations
+        run: node research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/build-aggregate-witness-native.mjs
+      - name: Commit native witness files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add             research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/AGGREGATE_WITNESS_CORE020_0_1.isg             research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/AGGREGATE_NATURALS_CORE020_0_1.isg
+          if git diff --cached --quiet; then
+            echo "No native witness changes."
+          else
+            git commit -m "research(isomax): freeze native aggregate witness relations"
+            git push origin HEAD:research/isomax-core020-ia-closure-20260929
+          fi
