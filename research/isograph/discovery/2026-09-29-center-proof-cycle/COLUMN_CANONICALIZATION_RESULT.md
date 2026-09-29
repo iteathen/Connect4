@@ -266,12 +266,6 @@ orientation enumeration, and retain an exact fallback for unresolved classes
 larger than two. Tie classes larger than two remain non-abelian symmetric-group
 problems in the general case.
 
-## Non-claims
-
-This result does not prove polynomial generalized Connect Four, polynomial
-structural graph size, a polynomial worst-case canonicalizer, an XOR W/D/L
-formula, or a production-solver optimization.
-
 ## Coupled fallback automorphisms — exact 4x4 audit
 
 The complete 18-state first-order/pair-refinement fallback family was then
@@ -319,9 +313,120 @@ Open questions now include whether:
   refinement often enough to dominate the practical canonicalization cost;
 - the number and size of nonbinary tie classes admit a useful generalized
   bound;
-- affine GF(2) canonical orientation can replace binary tie enumeration while
-  preserving exact residual-state canonicalization.
+- the affine GF(2) canonicalizer can be implemented economically enough to
+  improve large-width runs rather than only their asymptotic representation.
 
 Negative evidence remains important: the second-order local refinement resolved
 none of these states, so any successful generalized rule must represent coupled
 orientation transport rather than merely richer independent column features.
+
+## Exact affine binary-tie canonicalization
+
+The binary stabilizer construction was then extended from symmetry detection
+to exact canonical orientation.
+
+Let `X <= GF(2)^m` be the affine set of pair-flip vectors still compatible
+with canonical choices already made. For each invariant residual-orbit block
+`S_B`, the canonicalizer:
+
+1. projects `X` onto the block's active tie coordinates;
+2. for every explicit `v in S_B`, finds the minimum member of the affine
+   coset `v + proj(X)` by GF(2) row reduction;
+3. tests only translations capable of attaining the minimum first block
+   element, at most one candidate per explicit block vector before
+   deduplication;
+4. selects the lexicographically minimum translated block;
+5. intersects `X` with the affine coset of the block's exact translation
+   stabilizer that preserves that minimum image.
+
+After all blocks are fixed, any remaining free directions are exact state
+stabilizers, so every remaining solution serializes to the same residual state.
+
+Therefore, when every unresolved refinement class has size at most two, exact
+within-class canonical orientation is computed with polynomial work in the
+explicit residual representation and the number of tie pairs. No `2^m`
+orientation sweep is required.
+
+If any refinement class has size greater than two, the implementation falls
+back to the already-qualified refinement-partitioned exhaustive canonicalizer.
+Thus the combined method is exact for every current input while the polynomial
+claim is intentionally guarded to the all-binary-tie case.
+
+The rewritten 4x4 control was qualified against both the full-permutation and
+partitioned canonicalizers. It reproduced all scalar semantics, the complete
+rank frontier, and the complete dynamic-merge-by-rank result.
+
+## Matched 5x4 affine benchmark
+
+The affine method was then run on the same 5x4 Connect-4 control at workflow
+`36557049257`, producer head
+`9d984e498b092fa13b5a289fe6b69d998a188372`.
+
+It exactly reproduced the prior partitioned run:
+
+~~~text
+direct states          289,852
+edges                 1,079,881
+duplicate edges          28,827
+recursive classes       251,222
+W/D/L splits                  0
+root                         draw
+earliest merge rank             9
+complete frontier            equal
+dynamic-merge-by-rank        equal
+~~~
+
+Canonicalization work changed from:
+
+~~~text
+partitioned exhaustive permutation candidates   1,934,011
+affine nonbinary fallback permutation candidates   517,038
+reduction                                           73.27%
+
+binary affine canonicalizations                    928,658
+nonbinary fallback canonicalizations                80,680
+binary share of those calls                         92.01%
+binary block-translation candidates              2,353,268
+maximum block candidates in one call                    34
+~~~
+
+So the structural objective succeeded: most 5x4 canonicalization calls were
+handled without binary orientation enumeration, and exhaustive permutation
+work fell by more than 73%.
+
+The current implementation is **not** a speed optimization on this control:
+
+~~~text
+partitioned elapsed   27.2599 s
+affine elapsed        38.3523 s
+wall-time change        +40.69%
+
+partitioned RSS       283,312,128 bytes
+affine RSS            388,780,032 bytes
+RSS change               +37.23%
+
+partitioned heap       92,294,720 bytes
+affine heap           100,626,544 bytes
+heap change                +9.03%
+~~~
+
+The reason is visible in the diagnostics: the affine implementation replaces
+about 1.42 million exhaustive permutation candidates but performs about
+2.35 million explicit block-translation candidate checks plus repeated GF(2)
+constraint work. Polynomial structure alone does not make the present
+implementation cheaper at width five.
+
+This is important negative evidence. The affine method should not be promoted
+as a runtime optimization and does not yet justify rerunning the 6x4 timeout
+case. The next execution question is whether its block/linear-algebra overhead
+can be reduced or selectively invoked only when it beats the small exact
+partitioned search.
+
+## Non-claims
+
+The guarded polynomial result concerns canonical orientation only when every
+unresolved refinement class has size at most two. It does not bound the number
+of direct structural states, eliminate nonbinary symmetric-group cases, prove
+polynomial generalized Connect Four, derive W/D/L by XOR, or justify production
+solver adoption.
+
