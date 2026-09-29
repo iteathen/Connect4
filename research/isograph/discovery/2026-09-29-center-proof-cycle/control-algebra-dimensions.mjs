@@ -471,6 +471,77 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     stateClass.set(rec.key,id);
   }
 
+  function samePartition(candidate,reference){
+    const aToB=new Map(),bToA=new Map();
+    for(const key of nodes.keys()){
+      const a=candidate.get(key),b=reference.get(key);
+      if(aToB.has(a)&&aToB.get(a)!==b)return false;
+      if(bToA.has(b)&&bToA.get(b)!==a)return false;
+      aToB.set(a,b);bToA.set(b,a);
+    }
+    return true;
+  }
+
+  let localClass=new Map(),localNextId=0;
+  for(let rank=cells;rank>=0;rank--)for(const rec of byRank[rank]){
+    if(rec.terminal){
+      const sig='T:'+rec.rank+':'+rec.kind;
+      let id=localClass.get(sig);
+      if(id===undefined)id=localNextId++;
+      localClass.set(rec.key,id);
+    }else{
+      localClass.set(rec.key,localNextId++);
+    }
+  }
+  // Rebuild round 0 cleanly because terminal signature strings are not state keys.
+  {
+    const terminalIds=new Map(),next=new Map();
+    let id=0;
+    for(let rank=cells;rank>=0;rank--)for(const rec of byRank[rank]){
+      if(rec.terminal){
+        const sig='T:'+rec.rank+':'+rec.kind;
+        let classId=terminalIds.get(sig);
+        if(classId===undefined){classId=id++;terminalIds.set(sig,classId);}
+        next.set(rec.key,classId);
+      }else next.set(rec.key,id++);
+    }
+    localClass=next;localNextId=id;
+  }
+
+  const localBranchClosure=[{
+    round:0,
+    classes:new Set(localClass.values()).size,
+    matchesFull:samePartition(localClass,stateClass),
+  }];
+  let localRoundsToFull=localBranchClosure[0].matchesFull?0:null;
+  for(let round=1;round<=cells&&localRoundsToFull===null;round++){
+    const signatureToId=new Map(),next=new Map();
+    let id=0;
+    for(let rank=cells;rank>=0;rank--)for(const rec of byRank[rank]){
+      let sig;
+      if(rec.terminal)sig='T:'+rec.rank+':'+rec.kind;
+      else{
+        const childIds=rec.children.map(child=>localClass.get(child));
+        assert.ok(childIds.every(x=>x!==undefined));
+        const unique=[...new Set(childIds)].sort((a,b)=>a-b);
+        sig='N:'+rec.rank+':'+(rec.rank&1)+':'+unique.join('.');
+      }
+      let classId=signatureToId.get(sig);
+      if(classId===undefined){classId=id++;signatureToId.set(sig,classId);}
+      next.set(rec.key,classId);
+    }
+    localClass=next;
+    const matchesFull=samePartition(localClass,stateClass);
+    localBranchClosure.push({
+      round,
+      classes:new Set(localClass.values()).size,
+      matchesFull,
+    });
+    if(matchesFull)localRoundsToFull=round;
+  }
+  assert.notEqual(localRoundsToFull,null,
+    'iterated local branch closure must recover full recursive quotient');
+
   // Post-hoc exact W/D/L validation on the direct q-orbit graph.
   const values=new Map(),classValueMask=new Map();
   for(let rank=cells;rank>=0;rank--)for(const rec of byRank[rank]){
@@ -555,6 +626,10 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     earliestDynamicMergeRank,
     earliestDynamicMergeGroups,
     dynamicMergeByRank,
+    localBranchClosure:{
+      roundsToFull:localRoundsToFull,
+      rounds:localBranchClosure,
+    },
     peakOrbitStateFrontier:peakBy(frontier,'states'),
     peakRecursiveClassFrontier:peakBy(frontier,'classes'),
     frontier,
