@@ -72,3 +72,26 @@ test('guard refinement grades the response algebra without outcome labels',()=>{
   assert.equal(base.rank,19);
   assert.equal(base.nullity,1);
 });
+
+
+test('complete-column XOR cancellation survives height parity and exposes K mod 4',()=>{
+  assert.equal(typeof algebra.analyzeFullColumnCancellation,'function');
+  const r=algebra.analyzeFullColumnCancellation();
+  assert.equal(r.inputs,'geometry/rules only');
+  assert.equal(r.outcomeLabelsRead,false);
+  assert.equal(r.dimensionSweep.uniformParityFailures.length,0);
+  assert.equal(r.dimensionSweep.singleDefectIdentityFailures.length,0);
+  assert.deepEqual(r.standardWidth7.map(x=>({
+    height:x.height,pairNullity:x.pairNullity,unmatchedTops:x.unmatchedTops,
+    completedRelationZero:x.completedRelationZero,
+  })),[
+    {height:4,pairNullity:1,unmatchedTops:1,completedRelationZero:true},
+    {height:5,pairNullity:0,unmatchedTops:6,completedRelationZero:true},
+    {height:6,pairNullity:1,unmatchedTops:1,completedRelationZero:true},
+    {height:7,pairNullity:0,unmatchedTops:6,completedRelationZero:true},
+    {height:8,pairNullity:1,unmatchedTops:1,completedRelationZero:true},
+    {height:9,pairNullity:0,unmatchedTops:6,completedRelationZero:true},
+  ]);
+  assert.deepEqual(r.connectKPeriodicity.map(x=>[x.connectK,x.uniformParityCancellation]),
+    [[3,false],[4,true],[5,false],[6,false],[7,false],[8,true]]);
+});
