@@ -1,20 +1,24 @@
 import {performance} from 'node:perf_hooks';
 import {analyzeDirectResidualOrbitGraph} from './control-algebra-dimensions.mjs';
 
+const width=Number(process.env.C4_WIDTH??4),
+  height=Number(process.env.C4_HEIGHT??5),
+  k=Number(process.env.C4_K??4);
 const started=performance.now();
 const result=analyzeDirectResidualOrbitGraph({
-  width:4,
-  height:5,
-  k:4,
+  width,
+  height,
+  k,
   nonterminalFrontierBlocker:true,
   moverFinalCapParity:true,
+  measureLocalBranchClosure:false,
 });
 const elapsedMs=performance.now()-started;
 console.log(JSON.stringify({
   schema:'connect4.direct-residual-growth.v1',
   producerUsesOutcomeLabels:false,
   physicalBoardStatesEnumerated:false,
-  board:'4x5 connect-4',
+  board:`${width}x${height} connect-${k}`,
   elapsedMs,
   memory:process.memoryUsage(),
   result,
