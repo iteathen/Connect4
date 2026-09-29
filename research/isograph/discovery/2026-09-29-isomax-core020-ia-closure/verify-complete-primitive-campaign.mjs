@@ -32,6 +32,7 @@ const width5Permutations=read('WIDTH5_PERMUTATIONS_CORE020_0_1.isg');
 const stateSerialization=read('PRIMITIVE_STATE_SERIALIZATION_CORE020_0_1.isg');
 const residualProducer1=read('RESIDUAL_PRODUCER_CONTROL_CORE020_0_1.isg');
 const residualProducer2=read('RESIDUAL_PRODUCER_CONTROL_CORE020_0_2.isg');
+const residualProducer3=read('RESIDUAL_PRODUCER_CONTROL_CORE020_0_3.isg');
 
 function delimiterAudit(text){
   let par=0,br=0,minPar=0,minBr=0;
@@ -54,6 +55,7 @@ for(const [name,text] of [
   ['producerSchema',producerSchema],
   ['width5Permutations',width5Permutations],['stateSerialization',stateSerialization],
   ['residualProducer1',residualProducer1],['residualProducer2',residualProducer2],
+  ['residualProducer3',residualProducer3],
 ]){
   assert.deepEqual(delimiterAudit(text),{par:0,br:0,minPar:0,minBr:0},name+' delimiter balance');
 }
@@ -89,6 +91,7 @@ for(const [name,text] of [
   ['directProducer',directProducer],['physicalProducer',physicalProducer],
   ['width5Permutations',width5Permutations],['stateSerialization',stateSerialization],
   ['residualProducer1',residualProducer1],['residualProducer2',residualProducer2],
+  ['residualProducer3',residualProducer3],
 ]){
   assert.equal(text.includes('^150021'),false,name+' must not hide unresolved semantics behind QU');
 }
@@ -170,7 +173,7 @@ for(const [name,text] of [
   ['profileControl',profileControl],['gf2Control',gf2Control],
   ['directProducer',directProducer],['physicalProducer',physicalProducer],
   ['width5Permutations',width5Permutations],['stateSerialization',stateSerialization],
-  ['residualProducer2',residualProducer2],
+  ['residualProducer2',residualProducer2],['residualProducer3',residualProducer3],
 ])assertNoFreeVariables(text,name);
 
 assert.equal((width5Permutations.match(/\(\^150010 237000 238\d{3}\)/g)??[]).length,120,
@@ -183,6 +186,8 @@ for(const rel of ['246700','246702','246703','246706','246709','246710'])
   assert.ok(stateSerialization.includes('^150010 '+rel),'missing serialization relation '+rel);
 for(const rel of ['246720','246721','246722','246723','246726','246727','246728','246732','246734','246735','246730'])
   assert.ok(residualProducer2.includes('^150010 '+rel),'missing corrected producer relation '+rel);
+for(const rel of ['246740','246741','246742','246743'])
+  assert.ok(residualProducer3.includes('^150010 '+rel),'missing exact-shape producer relation '+rel);
 
 for(const [root,caseId] of [
   [212024,5899100],[212025,5899101],[212026,5899102],
@@ -190,11 +195,13 @@ for(const [root,caseId] of [
 ]){
   const pos=completeSource.indexOf('^150019 '+root);
   assert.ok(pos>=0,'missing final source root '+root);
-  assert.ok(completeSource.slice(pos,pos+2600).includes('^150010 246730 '+caseId),
+  assert.ok(completeSource.slice(pos,pos+2600).includes('^150010 246743 '+caseId),
     'root '+root+' must require corrected bounded producer '+caseId);
 }
-assert.equal((completeSource.match(/\^150010 246730 /g)??[]).length,6,
-  'exact corrected-producer root bindings');
+assert.equal((completeSource.match(/\^150010 246743 /g)??[]).length,6,
+  'exact final-producer root bindings');
+assert.equal((completeSource.match(/\^150010 246730 /g)??[]).length,0,
+  'no provisional producer root bindings remain');
 
 assert.equal(sourceAdmission.qualified_core_020_semantic_sha256,
   '9a619b552a6ef7719e5b4b5f3a9df4a732ff4377b9bc7b86c385ed5c992b88e7');
@@ -613,5 +620,5 @@ console.log(JSON.stringify({
   response:{pairs:response.responsePairs,rank:response.responsePairRank,augmentedRank:response.rankWithUnmatchedCenter},
   partial2:{distinct:ds.allLegalDistinctDeltas,rank:ds.allLegalDeltaRank,physicalStates:physicalSeen},
   finalNativeRoots:{source:31,implicit:60},
-  boundedResidualProducer:{cases:3,width5Permutations:120,correctedRootBindings:6},
+  boundedResidualProducer:{cases:3,width5Permutations:120,finalRootBindings:6,predicate:246743},
 },null,2));
