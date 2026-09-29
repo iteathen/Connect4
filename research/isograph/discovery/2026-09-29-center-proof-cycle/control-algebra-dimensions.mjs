@@ -440,7 +440,42 @@ export function analyzeDirectResidualOrbitGraph({width,height,k}){
   const frontier=statesByRank.map((states,rank)=>({
       rank,states,classes:classesByRank[rank],
     })),
-    rootRec=nodes.get(rootKey);
+    rootRec=nodes.get(rootKey),
+    orbitIndex=new Map([...nodes.keys()].map((key,index)=>[key,index])),
+    dynamicMergeByRank=[];
+  let earliestDynamicMergeRank=null,earliestDynamicMergeGroups=[];
+  for(let rank=0;rank<=cells;rank++){
+    const groups=new Map();
+    for(const rec of byRank[rank]){
+      const id=stateClass.get(rec.key);
+      let rows=groups.get(id);
+      if(!rows){rows=[];groups.set(id,rows);}
+      rows.push(rec);
+    }
+    const merged=[...groups.entries()].filter(([,rows])=>rows.length>1);
+    dynamicMergeByRank.push({
+      rank,
+      mergedRecursiveClasses:merged.length,
+      orbitExcess:merged.reduce((n,[,rows])=>n+rows.length-1,0),
+      maxOrbitStatesPerRecursiveClass:merged.reduce(
+        (m,[,rows])=>Math.max(m,rows.length),1),
+    });
+    if(earliestDynamicMergeRank===null&&merged.length){
+      earliestDynamicMergeRank=rank;
+      earliestDynamicMergeGroups=merged.slice(0,6).map(([classId,rows])=>({
+        classId,
+        orbitStates:rows.map(rec=>({
+          orbitIndex:orbitIndex.get(rec.key),
+          support:rec.heights?Array.from(rec.heights):null,
+          p0Residuals:rec.r0??null,
+          p1Residuals:rec.r1??null,
+          childOrbitIndices:rec.children.map(key=>orbitIndex.get(key)),
+          childRecursiveClasses:[...new Set(
+            rec.children.map(key=>stateClass.get(key)))].sort((a,b)=>a-b),
+        })),
+      }));
+    }
+  }
 
   return {
     schema:'connect4.direct-residual-orbit-graph.v1',
@@ -461,6 +496,9 @@ export function analyzeDirectResidualOrbitGraph({width,height,k}){
     rootDistinctOrbitChildren:new Set(rootRec.children).size,
     rootDistinctRecursiveChildren:
       new Set(rootRec.children.map(child=>stateClass.get(child))).size,
+    earliestDynamicMergeRank,
+    earliestDynamicMergeGroups,
+    dynamicMergeByRank,
     peakOrbitStateFrontier:peakBy(frontier,'states'),
     peakRecursiveClassFrontier:peakBy(frontier,'classes'),
     frontier,
