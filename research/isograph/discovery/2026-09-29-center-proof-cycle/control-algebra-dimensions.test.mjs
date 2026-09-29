@@ -109,6 +109,51 @@ test('forward structural prefix census reproduces complete rewritten 4x4 orbit f
   assert.ok(prefix.workByRank.some(x=>x.nonbinaryTieCalls>0));
 });
 
+test('move-capacity closure is preserved by compact and prefix producers',()=>{
+  const full=analyzeDirectResidualOrbitGraph({
+    width:4,height:4,k:4,
+    nonterminalFrontierBlocker:true,
+    moverFinalCapParity:true,
+    remainingMoveCapacity:true,
+    measureLocalBranchClosure:false,
+  }),compact=analyzeDirectResidualOrbitGrowthCompact({
+    width:4,height:4,k:4,
+    nonterminalFrontierBlocker:true,
+    moverFinalCapParity:true,
+    remainingMoveCapacity:true,
+    refinedColumnCanonicalization:true,
+  }),prefix=analyzeDirectResidualOrbitPrefix({
+    width:4,height:4,k:4,maxRank:16,
+    nonterminalFrontierBlocker:true,
+    moverFinalCapParity:true,
+    remainingMoveCapacity:true,
+  });
+  for(const key of [
+    'residualOrbitStates',
+    'literalActionEdges',
+    'duplicateEquivalentActionEdges',
+    'recursiveUnlabelledClasses',
+    'wdlSplitClasses',
+    'rootValue',
+    'rootLegalActions',
+    'rootDistinctOrbitChildren',
+    'rootDistinctRecursiveChildren',
+    'earliestDynamicMergeRank',
+  ])assert.equal(compact[key],full[key],key);
+  assert.deepEqual(compact.frontier,full.frontier);
+  assert.deepEqual(compact.dynamicMergeByRank,full.dynamicMergeByRank);
+  assert.deepEqual(
+    prefix.frontier.map(x=>x.states),
+    full.frontier.map(x=>x.states),
+  );
+  assert.equal(prefix.prefixStates,full.residualOrbitStates);
+  assert.equal(prefix.literalActionEdges,full.literalActionEdges);
+  assert.equal(prefix.duplicateEquivalentActionEdges,
+    full.duplicateEquivalentActionEdges);
+  assert.ok(compact.remainingMoveCapacityRemovals>0);
+  assert.ok(prefix.remainingMoveCapacityRemovals>0);
+});
+
 test('compact direct-growth canonicalizers are exactly equivalent on rewritten 4x4 control',()=>{
   const full=analyzeDirectResidualOrbitGraph({
     width:4,height:4,k:4,
