@@ -240,6 +240,122 @@ function auditRefinedColumnCanonicalization(heights,r0,r1,width,height){
   };
 }
 
+
+function pairRefinementColumnSignatures(heights,r0,r1,width,height){
+  const first=refinementColumnSignatures(heights,r0,r1,width,height),
+    requirements=[
+      ...r0.map(mask=>({player:0,mask})),
+      ...r1.map(mask=>({player:1,mask})),
+    ].map(({player,mask})=>{
+      const rowsByCol=Array.from({length:width},()=>[]),global=[];
+      let rest=mask>>>0;
+      while(rest){
+        const low=rest&-rest,bit=31-Math.clz32(low),
+          row=Math.floor(bit/width),col=bit%width;
+        rowsByCol[col].push(row);
+        global.push(row+':'+first.colors[col]);
+        rest=(rest^low)>>>0;
+      }
+      for(const rows of rowsByCol)rows.sort((a,b)=>a-b);
+      global.sort();
+      return {player,rowsByCol,globalSig:global.join(',')};
+    });
+
+  const pairCount=width*width;
+  let pairColors=new Array(pairCount),iterations=0;
+  {
+    const sigs=new Array(pairCount);
+    for(let i=0;i<width;i++)for(let j=0;j<width;j++){
+      const rel=[];
+      for(const req of requirements){
+        const a=req.rowsByCol[i],b=req.rowsByCol[j];
+        if(!a.length&&!b.length)continue;
+        rel.push(
+          req.player+':['+a.join(',')+']:['+b.join(',')+']:['+req.globalSig+']'
+        );
+      }
+      rel.sort();
+      sigs[i*width+j]=
+        (i===j?1:0)+'|'+first.signatures[i]+'|'+first.signatures[j]+'|'+rel.join(';');
+    }
+    const unique=[...new Set(sigs)].sort(),
+      ids=new Map(unique.map((sig,index)=>[sig,index]));
+    pairColors=sigs.map(sig=>ids.get(sig));
+  }
+
+  for(let round=0;round<=width;round++){
+    const sigs=new Array(pairCount);
+    for(let i=0;i<width;i++)for(let j=0;j<width;j++){
+      const links=[];
+      for(let k=0;k<width;k++)
+        links.push(pairColors[i*width+k]+','+pairColors[k*width+j]);
+      links.sort();
+      sigs[i*width+j]=pairColors[i*width+j]+'|'+links.join(';');
+    }
+    const unique=[...new Set(sigs)].sort(),
+      ids=new Map(unique.map((sig,index)=>[sig,index])),
+      next=sigs.map(sig=>ids.get(sig));
+    iterations=round+1;
+    const samePartition=next.every((x,i)=>next.every((y,j)=>
+      (x===y)===(pairColors[i]===pairColors[j])));
+    pairColors=next;
+    if(samePartition)break;
+  }
+
+  const signatures=Array.from({length:width},(_,i)=>{
+    const rel=[];
+    for(let j=0;j<width;j++)
+      rel.push(pairColors[i*width+j]+','+pairColors[j*width+i]);
+    rel.sort();
+    return first.signatures[i]+'|D'+pairColors[i*width+i]+'|'+rel.join(';');
+  });
+  return {
+    signatures,
+    iterations:first.iterations+iterations,
+  };
+}
+
+function auditPairRefinedColumnCanonicalization(heights,r0,r1,width,height){
+  const {signatures,iterations}=pairRefinementColumnSignatures(
+      heights,r0,r1,width,height),
+    groups=new Map();
+  for(let col=0;col<width;col++){
+    let xs=groups.get(signatures[col]);
+    if(!xs){xs=[];groups.set(signatures[col],xs);}
+    xs.push(col);
+  }
+
+  const original=serializeResidualQ(heights,r0,r1,null);
+  let exactTies=true,maxTieClass=1,permutationSearchUpperBound=1;
+  for(const cols of groups.values()){
+    maxTieClass=Math.max(maxTieClass,cols.length);
+    permutationSearchUpperBound*=factorialSmall(cols.length);
+    if(cols.length<2)continue;
+    for(let i=0;i<cols.length&&exactTies;i++)for(let j=i+1;j<cols.length;j++){
+      const order=Array.from({length:width},(_,x)=>x);
+      [order[cols[i]],order[cols[j]]]=[order[cols[j]],order[cols[i]]];
+      const pd=makeColumnPermutation(width,height,order);
+      if(serializeResidualQ(heights,r0,r1,pd)!==original){
+        exactTies=false;break;
+      }
+    }
+  }
+
+  const order=Array.from({length:width},(_,col)=>col).sort((a,b)=>
+      signatures[a].localeCompare(signatures[b])||a-b),
+    pd=makeColumnPermutation(width,height,order),
+    canonicalSignature=serializeResidualQ(heights,r0,r1,pd);
+
+  return {
+    iterations,
+    colorClasses:groups.size,
+    maxTieClass,
+    permutationSearchUpperBound,
+    searchFree:exactTies,
+    canonicalSignature,
+  };
+}
+
 function applyUniversalFrontierBlocker(
   heights,r0,r1,width,height,{nonterminalOnly=false}={}
 ){
@@ -478,7 +594,7 @@ export function analyzeUnlabelledQuotientDimension({width,height,k,auditResidual
 }
 
 
-export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontierBlocker=false,nonterminalFrontierBlocker=false,moverFinalCapParity=false,measureLocalBranchClosure=true,auditColumnRefinement=false}){
+export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontierBlocker=false,nonterminalFrontierBlocker=false,moverFinalCapParity=false,measureLocalBranchClosure=true,auditColumnRefinement=false,auditPairColumnRefinement=false}){
   const cells=width*height;
   assert.ok(cells<=30,'direct residual-orbit harness is intentionally bounded to <=30 cells');
   const masks=winMasks(width,height,k),
@@ -710,6 +826,53 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     };
   }
 
+  let pairColumnRefinementAudit=null;
+  if(auditPairColumnRefinement){
+    let auditedStates=0,searchFreeStates=0,fallbackStates=0,
+      maxIterations=0,maxTieClass=1,maxPermutationSearchUpperBound=1,
+      canonicalCollisions=0;
+    const seenCanonical=new Map(),fallbackExamples=[];
+    for(const rec of nodes.values()){
+      if(rec.terminal)continue;
+      const a=auditPairRefinedColumnCanonicalization(
+        rec.heights,rec.r0,rec.r1,width,height);
+      auditedStates++;
+      maxIterations=Math.max(maxIterations,a.iterations);
+      maxTieClass=Math.max(maxTieClass,a.maxTieClass);
+      maxPermutationSearchUpperBound=Math.max(
+        maxPermutationSearchUpperBound,a.permutationSearchUpperBound);
+      if(a.searchFree){
+        searchFreeStates++;
+        const prior=seenCanonical.get(a.canonicalSignature);
+        if(prior!==undefined&&prior!==rec.key)canonicalCollisions++;
+        else seenCanonical.set(a.canonicalSignature,rec.key);
+      }else{
+        fallbackStates++;
+        if(fallbackExamples.length<32)fallbackExamples.push({
+          support:Array.from(rec.heights),
+          p0Residuals:[...rec.r0],
+          p1Residuals:[...rec.r1],
+          iterations:a.iterations,
+          colorClasses:a.colorClasses,
+          maxTieClass:a.maxTieClass,
+          permutationSearchUpperBound:a.permutationSearchUpperBound,
+        });
+      }
+    }
+    pairColumnRefinementAudit={
+      method:'second-order ordered column-pair refinement + exact tie automorphism check',
+      auditedStates,
+      searchFreeStates,
+      fallbackStates,
+      searchFreeFraction:auditedStates?searchFreeStates/auditedStates:1,
+      maxIterations,
+      maxTieClass,
+      maxPermutationSearchUpperBound,
+      canonicalCollisions,
+      exactOnSearchFreeStates:canonicalCollisions===0,
+      fallbackExamples,
+    };
+
   // Post-hoc exact W/D/L validation on the direct q-orbit graph.
   const values=new Map(),classValueMask=new Map();
   for(let rank=cells;rank>=0;rank--)for(const rec of byRank[rank]){
@@ -782,6 +945,7 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     moverFinalCapParity,
     measureLocalBranchClosure,
     auditColumnRefinement,
+    auditPairColumnRefinement,
     winningLineCount:masks.length,
     residualOrbitStates:nodes.size,
     literalActionEdges,
@@ -797,6 +961,7 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     earliestDynamicMergeGroups,
     dynamicMergeByRank,
     columnRefinementAudit,
+    pairColumnRefinementAudit,
     localBranchClosure:localBranchClosureResult,
     peakOrbitStateFrontier:peakBy(frontier,'states'),
     peakRecursiveClassFrontier:peakBy(frontier,'classes'),
