@@ -171,60 +171,39 @@ static std::vector<int> reflect_moves(const std::vector<int>& v){
     std::vector<int> r=v; for(int& c:r)c=BOARD_WIDTH-1-c; return r;
 }
 
-int main(){
+int main(int argc,char** argv){
     static_assert(BOARD_WIDTH==6 && BOARD_HEIGHT==6);
     Finder f;
     const auto& lines=f.get_lines();
-
     std::unordered_map<std::string,int> bysig;
     for(size_t i=0;i<lines.size();i++) bysig[sig(lines[i])]=(int)i;
-
-    std::vector<int> candidates;
+    std::vector<int> candidates,reps;
     for(size_t i=0;i<lines.size();i++){
         bool top=false; for(auto [r,c]:lines[i].cells) if(r==BOARD_HEIGHT-1) top=true;
         if(top)candidates.push_back((int)i);
     }
-
-    std::cout<<"GEOMETRIC_LINES "<<lines.size()<<"\n";
-    std::cout<<"SUPPORT_CANDIDATES "<<candidates.size()<<"\n";
-
-    std::unordered_map<int,std::vector<int>> witnesses;
-    std::unordered_set<int> unresolved;
-
     for(int id:candidates){
-        if(witnesses.count(id)) continue;
         int mid=bysig.at(sig(lines[id],true));
-        std::vector<int> w;
-        bool ok=f.find(id,w,90.0);
-        std::cout<<"SEARCH line="<<id<<" mirror="<<mid<<" ok="<<ok
-                 <<" timeout="<<f.timeout()<<" dfs_calls="<<f.get_calls()<<"\n";
-        if(!ok){ unresolved.insert(id); unresolved.insert(mid); continue; }
-        if(!f.validate(w,id)){
-            std::cerr<<"VALIDATION_FAILED "<<id<<"\n"; return 3;
-        }
-        witnesses[id]=w;
-        auto rw=reflect_moves(w);
-        if(!f.validate(rw,mid)){
-            std::cerr<<"REFLECTION_VALIDATION_FAILED "<<id<<" "<<mid<<"\n"; return 4;
-        }
-        witnesses[mid]=rw;
+        if(id<=mid) reps.push_back(id);
     }
-
-    std::cout<<"WITNESSED "<<witnesses.size()<<"\n";
-    std::cout<<"UNRESOLVED "<<unresolved.size()<<"\n";
-    for(int id:candidates){
-        const auto& L=lines[id];
-        std::cout<<"LINE "<<id<<" "<<L.kind;
-        for(auto [r,c]:L.cells) std::cout<<" ("<<c+1<<","<<r+1<<")";
-        auto it=witnesses.find(id);
-        if(it==witnesses.end()) std::cout<<" UNRESOLVED";
-        else std::cout<<" WITNESS "<<moves_string(it->second);
-        std::cout<<"\n";
-    }
-
-    if(witnesses.size()==candidates.size()){
-        std::cout<<"EXACT_TERMINAL_LINE_COUNT "<<witnesses.size()<<"\n";
-        return 0;
-    }
-    return 2;
+    if(argc!=2){std::cerr<<"need representative index 0.."<<reps.size()-1<<"\n";return 5;}
+    int ri=std::stoi(argv[1]);
+    if(ri<0||ri>=(int)reps.size())return 6;
+    int id=reps[ri],mid=bysig.at(sig(lines[id],true));
+    std::vector<int> w;
+    bool ok=f.find(id,w,150.0);
+    std::cout<<"REP_INDEX "<<ri<<"\n";
+    std::cout<<"LINE "<<id<<" MIRROR "<<mid<<" KIND "<<lines[id].kind<<"\n";
+    std::cout<<"OK "<<ok<<" TIMEOUT "<<f.timeout()<<" DFS_CALLS "<<f.get_calls()<<"\n";
+    if(!ok) return f.timeout()?2:7;
+    if(!f.validate(w,id)){std::cerr<<"VALIDATION_FAILED\n";return 3;}
+    auto rw=reflect_moves(w);
+    if(!f.validate(rw,mid)){std::cerr<<"REFLECTION_VALIDATION_FAILED\n";return 4;}
+    std::cout<<"WEIGHT "<<(id==mid?1:2)<<"\n";
+    std::cout<<"WITNESS "<<moves_string(w)<<"\n";
+    std::cout<<"REFLECTED "<<moves_string(rw)<<"\n";
+    std::cout<<"CELLS";
+    for(auto [r,col]:lines[id].cells) std::cout<<" ("<<col+1<<","<<r+1<<")";
+    std::cout<<"\n";
+    return 0;
 }
