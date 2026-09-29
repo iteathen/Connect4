@@ -1470,6 +1470,14 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
           contradictory,topological,
           witnessEdgeIdsByParity:row.witnesses.map(list=>
             list.slice(0,2).map(witness=>[...witness])),
+          witnessPathsByParity:row.witnesses.map(list=>
+            list.slice(0,2).map(witness=>witness.map(id=>{
+              const edge=edgeById.get(id);
+              return {
+                id:edge.id,from:edge.from,to:edge.to,
+                column:edge.column,delta:edge.delta,
+              };
+            }))),
         };
         if(examples.length<32)examples.push(example);
         if(contradictory&&contradictoryExamples.length<32)
