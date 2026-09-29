@@ -358,7 +358,7 @@ If, moreover, one can prove from first principles that
 $
 \text{7x6 geometry}+\text{Connect Four rules}
 \vdash
-N=28,
+N=28.
 $
 
 without using the solved perfect-play realization count anywhere in the construction or support of that proof, then the number 28 has acquired an independent admissible derivation for that theorem.
