@@ -123,3 +123,42 @@ The next algebraic question is whether XOR differences between equivalent
 sibling `partial^2` signatures form a low-dimensional or otherwise
 geometry-derived gauge subspace that can be quotiented out without erasing
 strategically meaningful distinctions.
+
+
+## XOR delta-space falsifier
+
+The next test formed the GF(2) span of player-labelled `partial^2` differences
+between sibling optimal moves.
+
+Observed on exhaustive 4x4:
+
+```text
+same-terminal-set optimal sibling pairs      98,702
+different-terminal-set optimal sibling pairs 18,484
+distinct optimal partial2 deltas                 176
+optimal delta-space rank                           22
+```
+
+The same-terminal subset alone already generated all 176 observed optimal
+deltas and the full rank-22 span. Every different-terminal-set optimal sibling
+delta also lay in that span.
+
+A stronger negative control then compared **all legal sibling moves**, not just
+optimal ones:
+
+```text
+all legal sibling pairs                    246,704
+distinct legal partial2 deltas                  176
+legal delta-space rank                           22
+legal deltas outside optimal span                 0
+optimal delta set == legal delta set           true
+```
+
+Disposition: the rank-22 sibling delta space is a geometric move-choice space,
+not a perfect-play selector. It must not be promoted as the latent strategic
+value.
+
+This is still useful: any final control quotient that identifies equivalent
+perfect moves must quotient or otherwise absorb ordinary legal move-coordinate
+differences, but optimality requires additional guarded structure beyond this
+linear `partial^2` move gauge.
