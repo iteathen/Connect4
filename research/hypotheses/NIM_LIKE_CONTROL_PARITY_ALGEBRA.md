@@ -288,10 +288,17 @@ Two important falsification controls were retained:
    result is not tied to the raw redundant residual syntax.
 
 The exact bounded conclusion is therefore an **integrable relative GF(2)
-continuation phase under declared 4x4 structural guards**, not a W/D/L law or
-nimber. Only one independent cycle exists, and its action-order diamond shape
-leaves generic transition/cofactor confluence and generic trivial two-sheet
-covering as live alternative explanations.
+continuation phase under declared finite structural guards**, not a W/D/L law or
+nimber.
+
+The same test has now been extended to 4x5 Connect-4. The larger carrier has
+696 binary groups, 469 binary inheritance edges, 95 sheet-flipping edges and 40
+independent cycle constraints. All 40 cycle syndromes are zero, with 42 genuine
+reconvergent source/target pairs and no contradictory reconvergence.
+
+This substantially weakens the one-small-diamond objection, but generic
+transition/cofactor confluence and generic trivial two-sheet covering remain
+live alternative explanations.
 
 See
 [RECURSIVE_PHASE_COCYCLE_SYNTHESIS.md](../isograph/discovery/2026-09-29-center-proof-cycle/RECURSIVE_PHASE_COCYCLE_SYNTHESIS.md).
