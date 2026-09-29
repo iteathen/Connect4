@@ -71,6 +71,18 @@ const R={
   PARTIAL_FEATURE_ROLE:5899293,
   SET_MEMBER:5899400,
   ENUM_AT:5899401,
+  BASIS_PIVOT:5899410,
+  RESPONSE_COEFF:5899411,
+  RESPONSE_AUG_COEFF:5899412,
+  RESPONSE_AUG_VECTOR:5899413,
+  RESPONSE_FEATURE_FIRST:5899414,
+  RESPONSE_FEATURE_NEXT:5899415,
+  RESPONSE_FEATURE_LAST:5899416,
+  PARTIAL_OPT_COEFF:5899420,
+  PARTIAL_LEGAL_COEFF:5899421,
+  PARTIAL_FEATURE_FIRST:5899422,
+  PARTIAL_FEATURE_NEXT:5899423,
+  PARTIAL_FEATURE_LAST:5899424,
 };
 const CASE={'4x4-c4':5899100,'4x5-c4':5899101,'5x4-c4':5899102,response:5899103,partial2:5899104};
 const SET={
@@ -82,6 +94,7 @@ const SET={
   Q44STATES:5901040,Q44CLASSES:5901041,
   RESP:5901050,RESPDEP:5901051,RESPBASIS:5901052,RESPAUG:5901053,
   P2OPT:5901060,P2LEGAL:5901061,P2OPTBASIS:5901062,P2LEGALBASIS:5901063,
+  RESPAUGINPUT:5901070,
 };
 const BIT0=196900,BIT1=196901;
 const P0=5899300,P1=5899301;
@@ -315,6 +328,20 @@ for(const [label,row,ci] of phaseEntries){
   addSet(SET.Q44CLASSES,[...classSet].sort((a,b)=>a-b));
 }
 
+function decomposeHex(hex,basisRows){
+  let x=BigInt('0x'+(hex||'0'));
+  const byPivot=new Map(basisRows.map(row=>[row.pivot,BigInt('0x'+row.bits)]));
+  const coeff=[];
+  const max=Math.max(-1,...basisRows.map(row=>row.pivot));
+  for(let bit=max;bit>=0;bit--)if((x>>BigInt(bit))&1n){
+    const row=byPivot.get(bit);
+    if(row===undefined)throw new Error('vector not in basis span at pivot '+bit);
+    x^=row;coeff.push(bit);
+  }
+  if(x!==0n)throw new Error('basis decomposition residue');
+  return coeff;
+}
+
 function hexBits(hex){
   const n=BigInt('0x'+(hex||'0'));
   const out=[];
@@ -326,6 +353,10 @@ function hexBits(hex){
 {
   const c=CASE.response,w=data.response.witness;
   const feat=bit=>{const x=6710000+bit;raw.add(x);return x;};
+  const unmatchedVector=6740000;raw.add(unmatchedVector);t(R.RESPONSE_AUG_VECTOR,c,unmatchedVector);
+  t(R.RESPONSE_FEATURE_FIRST,c,feat(0));
+  for(let bit=0;bit<137;bit++)t(R.RESPONSE_FEATURE_NEXT,c,feat(bit),feat(bit+1));
+  t(R.RESPONSE_FEATURE_LAST,c,feat(137));
   for(const v of w.responseVectors){
     const vt=6700000+v.id;raw.add(vt);t(R.RESPONSE_VECTOR,c,vt);
     const m=v.label.match(/^c(\d+):r(\d+)-(\d+)$/);
@@ -337,13 +368,24 @@ function hexBits(hex){
   }
   for(const row of w.pairedBasis){
     const bt=6720000+row.pivot;raw.add(bt);t(R.RESPONSE_BASIS,c,bt);
+    t(R.BASIS_PIVOT,bt,feat(row.pivot));
     for(const b of hexBits(row.bits))t(R.RESPONSE_BASIS_BIT,bt,feat(b));
   }
   for(const row of w.augmentedBasis){
     const bt=6730000+row.pivot;raw.add(bt);t(R.RESPONSE_AUG_BASIS,c,bt);
+    t(R.BASIS_PIVOT,bt,feat(row.pivot));
     for(const b of hexBits(row.bits))t(R.RESPONSE_AUG_BASIS_BIT,bt,feat(b));
   }
   for(const b of hexBits(w.unmatchedCenterVector))t(R.RESPONSE_UNMATCHED_BIT,c,feat(b));
+  for(const v of w.responseVectors){
+    const vt=6700000+v.id;
+    for(const pivot of decomposeHex(v.bits,w.pairedBasis))
+      t(R.RESPONSE_COEFF,vt,6720000+pivot);
+    for(const pivot of decomposeHex(v.bits,w.augmentedBasis))
+      t(R.RESPONSE_AUG_COEFF,vt,6730000+pivot);
+  }
+  for(const pivot of decomposeHex(w.unmatchedCenterVector,w.augmentedBasis))
+    t(R.RESPONSE_AUG_COEFF,unmatchedVector,6730000+pivot);
   t(R.RESPONSE_UNMATCHED_CELL,c,233353);
   for(let bit=0;bit<138;bit++){
     const player=bit<69?P0:P1,line=bit%69;
@@ -353,11 +395,16 @@ function hexBits(hex){
   addSet(SET.RESPDEP,w.responseVectors.filter(v=>w.dependencyLabels.includes(v.label)).map(v=>6700000+v.id));
   addSet(SET.RESPBASIS,w.pairedBasis.map(row=>6720000+row.pivot));
   addSet(SET.RESPAUG,w.augmentedBasis.map(row=>6730000+row.pivot));
+  addSet(SET.RESPAUGINPUT,[...w.responseVectors.map(v=>6700000+v.id),unmatchedVector]);
 }
 
 {
   const c=CASE.partial2,w=data.partial2.witness;
   const all=[...new Set([...w.optimalDistinctDeltas,...w.legalDistinctDeltas])];
+  const pfeat=pos=>6810000+pos;
+  t(R.PARTIAL_FEATURE_FIRST,c,pfeat(0));
+  for(let pos=0;pos<39;pos++)t(R.PARTIAL_FEATURE_NEXT,c,pfeat(pos),pfeat(pos+1));
+  t(R.PARTIAL_FEATURE_LAST,c,pfeat(39));
   const tokByHex=new Map(all.sort((a,b)=>BigInt('0x'+a)<BigInt('0x'+b)?-1:1).map((hex,i)=>[hex,6800000+i]));
   const bit=pos=>{const x=6810000+pos;raw.add(x);return x;};
   for(let pos=0;pos<40;pos++){
@@ -369,11 +416,23 @@ function hexBits(hex){
   for(const hex of w.legalDistinctDeltas)t(R.PARTIAL_LEGAL,c,tokByHex.get(hex));
   for(const row of w.optimalBasis){
     const bt=6820000+row.pivot;raw.add(bt);t(R.PARTIAL_OPT_BASIS,c,bt);
+    t(R.BASIS_PIVOT,bt,bit(row.pivot));
     for(const b of hexBits(row.bits))t(R.PARTIAL_OPT_BASIS_BIT,bt,bit(b));
   }
   for(const row of w.legalBasis){
     const bt=6830000+row.pivot;raw.add(bt);t(R.PARTIAL_LEGAL_BASIS,c,bt);
+    t(R.BASIS_PIVOT,bt,bit(row.pivot));
     for(const b of hexBits(row.bits))t(R.PARTIAL_LEGAL_BASIS_BIT,bt,bit(b));
+  }
+  for(const hex of w.optimalDistinctDeltas){
+    const dt=tokByHex.get(hex);
+    for(const pivot of decomposeHex(hex,w.optimalBasis))
+      t(R.PARTIAL_OPT_COEFF,dt,6820000+pivot);
+  }
+  for(const hex of w.legalDistinctDeltas){
+    const dt=tokByHex.get(hex);
+    for(const pivot of decomposeHex(hex,w.legalBasis))
+      t(R.PARTIAL_LEGAL_COEFF,dt,6830000+pivot);
   }
   addSet(SET.P2OPT,w.optimalDistinctDeltas.map(hex=>tokByHex.get(hex)));
   addSet(SET.P2LEGAL,w.legalDistinctDeltas.map(hex=>tokByHex.get(hex)));
