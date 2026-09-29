@@ -1,0 +1,1096 @@
+{
+  "schema": "isomax.core020.complete_ia_admission.v2",
+  "date_author_local": "2026-09-29",
+  "research_direction": "Joshua Oshiro",
+  "predecessor": "COMPLETE_IA_ADMISSION_0_1.json",
+  "governing_rule": "No generated IA may be omitted because its high-level body is reducible. Every admitted IA has an exact native primitive body.",
+  "native": "COMPLETE_IA_CORE020_0_2.isg",
+  "primitive_dependencies": [
+    "ISOMAX_STRUCTURAL_CONTROL_CORE020_0_2.isg",
+    "LOOP_RECURSION_CORE020_0_1.isg",
+    "COMPLETE_SOURCE_CORE020_0_1.isg",
+    "AGGREGATE_GRAPH_CONTROL_CORE020_0_1.isg",
+    "AGGREGATE_PROFILE_CONTROL_CORE020_0_1.isg",
+    "AGGREGATE_GF2_CONTROL_CORE020_0_1.isg",
+    "DIRECT_RESIDUAL_PRODUCER_CORE020_0_1.isg",
+    "RESIDUAL_PRODUCER_CONTROL_CORE020_0_3.isg",
+    "PARTIAL2_PHYSICAL_PRODUCER_CORE020_0_1.isg"
+  ],
+  "admitted": [
+    {
+      "id": "SC-IA001",
+      "round": 1,
+      "title": "observed transporter-sign projection is non-injective",
+      "body": "On the two shortest 5x4 routes, the two represented full-transporter mappings are extensionally different while both have computed permutation-sign bit 1.",
+      "premises": [
+        "SC-E005",
+        "SC-E006",
+        "SC-E015"
+      ],
+      "rule": "F",
+      "scope": "shortest 5x4 obstruction witness",
+      "native_id": 211001,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA002",
+      "round": 1,
+      "title": "support alone does not determine distinguished source residual membership",
+      "body": "The shared support identity 197600 does not determine the P0 membership bit of residual token 197700 across source sheets 197400 and 197401.",
+      "premises": [
+        "SC-E007",
+        "SC-E009"
+      ],
+      "rule": "F",
+      "scope": "shortest 5x4 obstruction source sheets",
+      "native_id": 211002,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA003",
+      "round": 1,
+      "title": "source quotient is non-injective for represented residual content",
+      "body": "Quotient node 197000 contains at least two fine source sheets with different represented P0 residual-membership content.",
+      "premises": [
+        "SC-E008",
+        "SC-E009",
+        "SC-E010"
+      ],
+      "rule": "Q",
+      "scope": "shortest 5x4 obstruction source quotient",
+      "native_id": 211003,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA004",
+      "round": 1,
+      "title": "target quotient is non-injective for represented residual content",
+      "body": "Quotient node 197002 contains at least two fine final residual states with different represented P0 residual-membership content.",
+      "premises": [
+        "SC-E011",
+        "SC-E012"
+      ],
+      "rule": "Q",
+      "scope": "shortest 5x4 obstruction target quotient",
+      "native_id": 211004,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA005",
+      "round": 1,
+      "title": "quotient endpoints do not determine route phase",
+      "body": "For the shortest 5x4 obstruction, the ordered quotient endpoint pair (197000,197002) is compatible with route phase 0 and route phase 1; route phase is not a function of those quotient endpoints alone.",
+      "premises": [
+        "SC-E004",
+        "SC-E005",
+        "SC-E006"
+      ],
+      "rule": "F",
+      "scope": "shortest 5x4 obstruction routes",
+      "native_id": 211005,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA006",
+      "round": 1,
+      "title": "coarse endpoints do not determine accumulated full transporter",
+      "body": "For the same coarse endpoint pair (197000,197002), the two shortest 5x4 routes carry extensionally different accumulated full-transporter mappings.",
+      "premises": [
+        "SC-E004",
+        "SC-E015"
+      ],
+      "rule": "F",
+      "scope": "shortest 5x4 obstruction routes",
+      "native_id": 211006,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA007",
+      "round": 1,
+      "title": "coarse endpoints do not determine oriented action history",
+      "body": "For the same coarse endpoint pair (197000,197002), the two shortest 5x4 routes carry different ordered source-frame action sequences.",
+      "premises": [
+        "SC-E004",
+        "SC-E016"
+      ],
+      "rule": "F",
+      "scope": "shortest 5x4 obstruction routes",
+      "native_id": 211007,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA008",
+      "round": 1,
+      "title": "binary-tie stabilizer relation is Boolean equality",
+      "body": "For represented Boolean bits x,y, BINARY_TIE_ALLOWED(x,y) holds exactly when x=y.",
+      "premises": [
+        "SC-E001",
+        "SC-E020",
+        "SC-E021"
+      ],
+      "rule": "B",
+      "scope": "guarded all-binary-tie orientation relation represented in packet",
+      "native_id": 211008,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA009",
+      "round": 1,
+      "title": "constant-zero node assignment satisfies the concrete 4x4 reconvergence",
+      "body": "Assigning Boolean 0 to every represented node 197010..197015 satisfies every edge equation in both concrete 4x4 witness routes.",
+      "premises": [
+        "SC-E001",
+        "SC-E017",
+        "SC-E018",
+        "SC-E019"
+      ],
+      "rule": "B",
+      "scope": "explicit 4x4 reconvergence witness only",
+      "native_id": 211009,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA010",
+      "round": 1,
+      "title": "shortest 5x4 closed route difference has odd delta parity",
+      "body": "XORing the four represented edge-delta bits from the two shortest 5x4 routes gives 1.",
+      "premises": [
+        "SC-E001",
+        "SC-E002",
+        "SC-E003"
+      ],
+      "rule": "B",
+      "scope": "shortest 5x4 obstruction witness only",
+      "native_id": 211010,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA011",
+      "round": 1,
+      "title": "concrete 4x4 route difference has zero delta parity",
+      "body": "XORing the six represented edge-delta bits from the two explicit 4x4 routes gives 0.",
+      "premises": [
+        "SC-E001",
+        "SC-E017",
+        "SC-E018"
+      ],
+      "rule": "B",
+      "scope": "explicit 4x4 reconvergence witness only",
+      "native_id": 211011,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA012",
+      "round": 2,
+      "title": "quotient endpoints plus permutation sign still do not determine phase",
+      "body": "For the shortest 5x4 routes, the tuple (source quotient 197000, target quotient 197002, accumulated sign 1) occurs with phase 0 and phase 1; phase is not a function of that tuple.",
+      "premises": [
+        "SC-E004",
+        "SC-E005",
+        "SC-E006",
+        "SC-IA001"
+      ],
+      "rule": "F",
+      "scope": "shortest 5x4 obstruction routes",
+      "native_id": 211012,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA013",
+      "round": 2,
+      "title": "current coarse projection erases both fine residual and route-orientation distinctions",
+      "body": "On the shortest 5x4 obstruction, the current coarse projection merges fine residual-distinct endpoint states while the same coarse endpoint pair is traversed with different full-transporter mappings and different ordered action histories.",
+      "premises": [
+        "SC-IA003",
+        "SC-IA004",
+        "SC-IA006",
+        "SC-IA007"
+      ],
+      "rule": "C",
+      "scope": "shortest 5x4 obstruction witness",
+      "native_id": 211013,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA014",
+      "round": 2,
+      "title": "target quotient cannot reconstruct distinguished exact residual bit",
+      "body": "No single-valued function of target quotient node 197002 alone can reproduce the P0 membership bit for residual token 197700 on both represented final states 197402 and 197403.",
+      "premises": [
+        "SC-IA004"
+      ],
+      "rule": "F",
+      "scope": "shortest 5x4 obstruction target quotient",
+      "native_id": 211014,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA015",
+      "round": 2,
+      "title": "source quotient cannot reconstruct distinguished exact residual bits",
+      "body": "No single-valued function of source quotient node 197000 alone can reproduce the represented P0 membership pattern of residual tokens 197700 and 197701 on both source sheets.",
+      "premises": [
+        "SC-IA003"
+      ],
+      "rule": "F",
+      "scope": "shortest 5x4 obstruction source quotient",
+      "native_id": 211015,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA016",
+      "round": 2,
+      "title": "scalar Boolean consistency is not forced by XOR syntax alone",
+      "body": "The represented Boolean XOR relation admits the concrete 4x4 reconvergence constraint system while the concrete 5x4 obstruction constraint system is inconsistent; scalar consistency depends on the represented incidence/delta constraints rather than following from XOR syntax alone.",
+      "premises": [
+        "SC-E001",
+        "SC-IA009",
+        "SC-E013"
+      ],
+      "rule": "S",
+      "scope": "comparison of the two concrete primitive-supported witness systems only",
+      "native_id": 211016,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA017",
+      "round": 2,
+      "title": "binary-tie XOR law does not imply continuation-phase integrability",
+      "body": "The exact binary-tie relation BINARY_TIE_ALLOWED iff XOR-zero and the exact 5x4 scalar-continuation obstruction coexist in the represented system; therefore binary-tie XOR exactness alone does not imply scalar continuation-phase integrability.",
+      "premises": [
+        "SC-E021",
+        "SC-E013"
+      ],
+      "rule": "S",
+      "scope": "represented binary-tie layer versus represented 5x4 continuation layer",
+      "native_id": 211017,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA018",
+      "round": 2,
+      "title": "residual incidence supplies an intrinsic discriminator absent from the current quotient on the witness",
+      "body": "There exists represented residual-membership structure that distinguishes fine members of both the source and target quotient nodes in the shortest 5x4 obstruction.",
+      "premises": [
+        "SC-IA003",
+        "SC-IA004"
+      ],
+      "rule": "C",
+      "scope": "shortest 5x4 obstruction witness",
+      "native_id": 211018,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA019",
+      "round": 2,
+      "title": "coarse endpoints are insufficient to reconstruct observed transition orientation/history",
+      "body": "The current ordered coarse endpoint pair is insufficient to reconstruct either the observed accumulated full-transporter mapping or the observed ordered source-frame action sequence on the shortest 5x4 routes.",
+      "premises": [
+        "SC-IA006",
+        "SC-IA007"
+      ],
+      "rule": "C",
+      "scope": "shortest 5x4 obstruction routes",
+      "native_id": 211019,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA020",
+      "round": 3,
+      "title": "shortest obstruction forces a model change",
+      "body": "Within one-Boolean-value-per-current-quotient-node semantics, no exact successor model can simultaneously preserve both shortest 5x4 routes, their current shared source/target quotient identifications, and all four current edge-delta constraints while making the phase path-independent. At least one of those load-bearing conditions must change.",
+      "premises": [
+        "SC-E013",
+        "SC-IA005",
+        "SC-IA010"
+      ],
+      "rule": "R",
+      "scope": "shortest 5x4 obstruction under scalar Boolean node-potential semantics",
+      "native_id": 211020,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA021",
+      "round": 3,
+      "title": "state-refinement-only repair must break a shared endpoint identification",
+      "body": "If the two shortest 5x4 routes, their four edge deltas, and one Boolean value per refined node are retained unchanged, any repair achieved solely by state refinement must separate at least one currently shared route endpoint occurrence; retaining both current shared endpoint identifications reproduces the inconsistent constraint system.",
+      "premises": [
+        "SC-E002",
+        "SC-E003",
+        "SC-E004",
+        "SC-E013",
+        "SC-IA020"
+      ],
+      "rule": "R",
+      "scope": "shortest 5x4 obstruction; conditional on state-refinement-only repair",
+      "native_id": 211021,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA022",
+      "round": 3,
+      "title": "unchanged quotient and deltas force departure from scalar node-potential semantics",
+      "body": "If both current shared quotient endpoint identifications and all four shortest-witness edge deltas are retained, the witness cannot be made path-independent by assigning one Boolean phase value to each current quotient node; a successful correction must instead change the phase codomain/edge semantics, refine the quotient, remove an asserted route/edge, or abandon scalar path-independence.",
+      "premises": [
+        "SC-E013",
+        "SC-IA020"
+      ],
+      "rule": "R",
+      "scope": "shortest 5x4 obstruction",
+      "native_id": 211022,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA023",
+      "round": 3,
+      "title": "an erased residual distinction lies directly on the obstructed quotient seam",
+      "body": "The shortest 5x4 scalar obstruction occurs across quotient nodes that merge represented fine states with residual-membership differences; therefore an exact fine residual distinction is present at the same quotient seam where scalar path consistency fails.",
+      "premises": [
+        "SC-E013",
+        "SC-IA003",
+        "SC-IA004",
+        "SC-IA018"
+      ],
+      "rule": "C",
+      "scope": "shortest 5x4 obstruction witness",
+      "native_id": 211023,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA024",
+      "round": 3,
+      "title": "continuation obstruction does not falsify the binary-tie XOR layer",
+      "body": "The represented 5x4 scalar continuation obstruction and the represented binary-tie XOR-zero equivalence are jointly satisfiable because they constrain distinct predicates/carriers; the continuation counterexample does not negate the exact binary-tie relation.",
+      "premises": [
+        "SC-E013",
+        "SC-E021",
+        "SC-IA017"
+      ],
+      "rule": "S",
+      "scope": "packet-local scope separation between continuation and binary-tie layers",
+      "native_id": 211024,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA025",
+      "round": 4,
+      "title": "one represented target residual bit defines a strict local refinement",
+      "body": "Within target quotient node 197002, the predicate 'P0 residual token 197700 has membership bit 1' separates final state 197403 from final state 197402, so adjoining that represented bit to target identity strictly refines this quotient fiber.",
+      "premises": [
+        "SC-E011",
+        "SC-E012",
+        "SC-IA004",
+        "SC-IA014"
+      ],
+      "rule": "Q",
+      "scope": "target fiber of shortest 5x4 obstruction only",
+      "native_id": 211025,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA026",
+      "round": 4,
+      "title": "the residual-bit target refinement repairs the shortest scalar constraint system",
+      "body": "Keep the four shortest-witness edge deltas and one Boolean phase value per refined node, but replace the merged target by two refined targets distinguished by the represented 197700 membership bit. The resulting constraints are satisfiable; exactly two Boolean assignments exist, related by simultaneous complement.",
+      "premises": [
+        "SC-E001",
+        "SC-E002",
+        "SC-E003",
+        "SC-E005",
+        "SC-E006",
+        "SC-E011",
+        "SC-E012",
+        "SC-IA025"
+      ],
+      "rule": "B",
+      "scope": "shortest 5x4 obstruction only; refined target split by represented residual membership",
+      "native_id": 211026,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA027",
+      "round": 4,
+      "title": "full transporter history is not necessary for local repair of the shortest obstruction",
+      "body": "The shortest 5x4 scalar contradiction can be removed while retaining the scalar Boolean codomain and all four edge deltas by refining the target with represented residual-state information; carrying the full accumulated transporter is therefore not necessary to repair this one witness.",
+      "premises": [
+        "SC-IA025",
+        "SC-IA026",
+        "SC-E015"
+      ],
+      "rule": "S",
+      "scope": "shortest 5x4 obstruction only",
+      "native_id": 211027,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA028",
+      "round": 5,
+      "title": "coarse target identification changes scalar constraint satisfiability",
+      "body": "For the shortest 5x4 witness with unchanged four edge deltas, identifying the two residual-distinct final targets as one quotient node yields an unsatisfiable one-bit node-potential system, while retaining them as two targets distinguished by the represented residual bit yields a satisfiable system.",
+      "premises": [
+        "SC-E013",
+        "SC-IA025",
+        "SC-IA026"
+      ],
+      "rule": "C",
+      "scope": "shortest 5x4 obstruction only",
+      "native_id": 211028,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA029",
+      "round": 5,
+      "title": "quotient-level scalar obstruction does not imply obstruction on every refinement",
+      "body": "The shortest 5x4 witness is an explicit model in which scalar Boolean node-potential semantics fails on the current coarse quotient but succeeds on a represented strict refinement; therefore quotient-level scalar obstruction alone does not imply scalar obstruction on every finer state carrier.",
+      "premises": [
+        "SC-IA025",
+        "SC-IA026",
+        "SC-IA028"
+      ],
+      "rule": "S",
+      "scope": "logical non-implication witnessed by the shortest 5x4 obstruction/refinement pair",
+      "native_id": 211029,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA030",
+      "round": 5,
+      "title": "a history-free state-local repair exists for the shortest witness",
+      "body": "There exists a repair of the shortest scalar contradiction that uses only represented endpoint residual-state information to refine the target and does not require accumulated transporter mapping content or ordered source-frame action sequence as part of refined node content.",
+      "premises": [
+        "SC-IA025",
+        "SC-IA026",
+        "SC-IA027"
+      ],
+      "rule": "C",
+      "scope": "shortest 5x4 obstruction only",
+      "native_id": 211030,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA031",
+      "round": 5,
+      "title": "the shortest obstruction is a quotient-sensitive rather than quotient-invariant fact",
+      "body": "Whether the shortest 5x4 edge observations admit a scalar Boolean node potential depends on the declared state-identification relation: the answer is false under the current target merge and true under the represented residual-bit target refinement.",
+      "premises": [
+        "SC-IA028",
+        "SC-IA029"
+      ],
+      "rule": "S",
+      "scope": "shortest 5x4 witness under the two explicitly represented state-identification relations",
+      "native_id": 211031,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA032",
+      "round": 6,
+      "title": "shortest-route phase equals the distinguished final residual bit",
+      "body": "For each of the two shortest 5x4 routes, the observed route phase bit equals the P0 membership bit of residual token 197700 in that route's represented final exact residual state: route A gives 0=0 and route B gives 1=1.",
+      "premises": [
+        "SC-E005",
+        "SC-E006",
+        "SC-E012"
+      ],
+      "rule": "C",
+      "scope": "exactly the two shortest 5x4 routes represented in the packet",
+      "native_id": 211032,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA033",
+      "round": 6,
+      "title": "required target phase difference equals residual-bit difference",
+      "body": "In every satisfying scalar assignment of the residual-bit-refined shortest witness, the two refined target phase values differ by XOR 1, and the two represented target residual-membership bits also differ by XOR 1.",
+      "premises": [
+        "SC-E001",
+        "SC-E012",
+        "SC-IA026"
+      ],
+      "rule": "B",
+      "scope": "shortest 5x4 residual-bit-refined witness",
+      "native_id": 211033,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA034",
+      "round": 6,
+      "title": "the coarse target merge identifies values forced to differ",
+      "body": "The current target quotient merge identifies the two final states even though every satisfying refinement-level scalar assignment requires their target phase values to differ; imposing one shared target phase value is therefore exactly the additional equality that makes the shortest constraint system inconsistent.",
+      "premises": [
+        "SC-E011",
+        "SC-E013",
+        "SC-IA026",
+        "SC-IA033"
+      ],
+      "rule": "R",
+      "scope": "shortest 5x4 obstruction only",
+      "native_id": 211034,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA035",
+      "round": 6,
+      "title": "a local endpoint residual coordinate reproduces route phase",
+      "body": "On the represented two-route shortest-witness family, after refining the target by residual-token-197700 membership, route phase is an endpoint function of that refined residual bit; no route-history variable is needed to distinguish phase 0 from phase 1 for these two routes.",
+      "premises": [
+        "SC-IA025",
+        "SC-IA032",
+        "SC-IA033"
+      ],
+      "rule": "C",
+      "scope": "two-route shortest 5x4 witness only",
+      "native_id": 211035,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA036",
+      "round": 7,
+      "title": "current target quotient erases a locally phase-determining endpoint coordinate",
+      "body": "On the shortest two-route family, target residual-token-197700 membership determines the observed route phase, yet the current target quotient merges the two final states with opposite values of that bit.",
+      "premises": [
+        "SC-E011",
+        "SC-IA025",
+        "SC-IA032",
+        "SC-IA035"
+      ],
+      "rule": "Q",
+      "scope": "shortest two-route 5x4 family only",
+      "native_id": 211036,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA037",
+      "round": 7,
+      "title": "target-only state refinement is sufficient for local satisfiability",
+      "body": "For the shortest 5x4 witness, the source quotient node and both intermediate nodes may remain unchanged; splitting only the merged target by residual-token-197700 membership is sufficient to make the scalar Boolean edge equations satisfiable.",
+      "premises": [
+        "SC-E002",
+        "SC-E003",
+        "SC-IA025",
+        "SC-IA026"
+      ],
+      "rule": "R",
+      "scope": "shortest 5x4 obstruction only",
+      "native_id": 211037,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA038",
+      "round": 7,
+      "title": "refined shortest witness has exactly global-complement gauge freedom",
+      "body": "The residual-bit-refined shortest-witness constraint system has exactly two Boolean node assignments, and one is obtained from the other by complementing every node phase bit.",
+      "premises": [
+        "SC-E001",
+        "SC-IA026"
+      ],
+      "rule": "B",
+      "scope": "shortest 5x4 residual-bit-refined system",
+      "native_id": 211038,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA039",
+      "round": 7,
+      "title": "fixing source phase uniquely fixes the refined shortest witness",
+      "body": "In the residual-bit-refined shortest system, choosing the source node phase bit fixes every intermediate and target phase bit uniquely.",
+      "premises": [
+        "SC-IA038"
+      ],
+      "rule": "B",
+      "scope": "shortest 5x4 residual-bit-refined system",
+      "native_id": 211039,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA040",
+      "round": 7,
+      "title": "refined target potential equals source potential XOR residual bit",
+      "body": "For each shortest route in every satisfying refined assignment, target_phase = source_phase XOR final_P0_residual_197700_membership.",
+      "premises": [
+        "SC-E001",
+        "SC-E012",
+        "SC-IA032",
+        "SC-IA038",
+        "SC-IA039"
+      ],
+      "rule": "B",
+      "scope": "shortest 5x4 residual-bit-refined system",
+      "native_id": 211040,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA041",
+      "round": 7,
+      "title": "final residual bit is an exact local phase correction term",
+      "body": "For both shortest routes, observed_route_phase XOR final_P0_residual_197700_membership = 0.",
+      "premises": [
+        "SC-E001",
+        "SC-IA032"
+      ],
+      "rule": "B",
+      "scope": "exactly the two shortest 5x4 routes",
+      "native_id": 211041,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA042",
+      "round": 8,
+      "title": "endpoint residual correction flattens the shortest route pair",
+      "body": "Define corrected_route_bit = observed_route_phase XOR final_P0_residual_197700_membership for the two shortest routes. The corrected bit is 0 on both routes.",
+      "premises": [
+        "SC-E001",
+        "SC-IA041"
+      ],
+      "rule": "B",
+      "scope": "exactly the two shortest 5x4 routes",
+      "native_id": 211042,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA043",
+      "round": 8,
+      "title": "the shortest obstruction alone does not force a larger phase codomain",
+      "body": "Because the shortest 5x4 contradiction is satisfiable after a strict state refinement while retaining one Boolean phase value per refined node and retaining all four edge deltas, this witness alone does not establish that a higher-dimensional, non-binary, or non-abelian phase codomain is necessary.",
+      "premises": [
+        "SC-IA026",
+        "SC-IA029",
+        "SC-IA037"
+      ],
+      "rule": "S",
+      "scope": "shortest 5x4 obstruction only",
+      "native_id": 211043,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA044",
+      "round": 8,
+      "title": "two refined target identities are locally necessary and sufficient",
+      "body": "Any state-refinement-only scalar repair of the shortest witness must place final states 197402 and 197403 in distinct refined target identities, and the represented residual-bit split provides exactly such two distinct target identities with a satisfying scalar assignment.",
+      "premises": [
+        "SC-IA021",
+        "SC-IA025",
+        "SC-IA026",
+        "SC-IA034"
+      ],
+      "rule": "R",
+      "scope": "shortest 5x4 obstruction; state-refinement-only scalar repairs preserving routes/deltas",
+      "native_id": 211044,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA045",
+      "round": 8,
+      "title": "concrete 4x4 flat witness has exactly two complement-related assignments",
+      "body": "The six-node concrete 4x4 zero-delta reconvergence system has exactly two Boolean node-potential assignments: all nodes 0 and all nodes 1.",
+      "premises": [
+        "SC-E001",
+        "SC-E017",
+        "SC-E018",
+        "SC-E019"
+      ],
+      "rule": "B",
+      "scope": "explicit 4x4 two-route witness only",
+      "native_id": 211045,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA046",
+      "round": 8,
+      "title": "fixing the 4x4 source phase uniquely fixes the concrete flat witness",
+      "body": "In the explicit 4x4 two-route witness, fixing the source node phase uniquely fixes every other represented node phase.",
+      "premises": [
+        "SC-IA045"
+      ],
+      "rule": "B",
+      "scope": "explicit 4x4 two-route witness only",
+      "native_id": 211046,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA047",
+      "round": 8,
+      "title": "local residual refinement restores ordinary global-complement gauge freedom",
+      "body": "Both the explicit flat 4x4 witness and the residual-bit-refined shortest 5x4 witness have exactly two satisfying scalar assignments related by global complement; the local residual refinement removes the contradiction without introducing additional absolute phase choices in that witness.",
+      "premises": [
+        "SC-IA038",
+        "SC-IA045"
+      ],
+      "rule": "C",
+      "scope": "comparison of the two explicitly primitive-supported finite constraint systems",
+      "native_id": 211047,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA048",
+      "round": 9,
+      "title": "relative endpoint phase equals the distinguished residual bit",
+      "body": "For each shortest route in every satisfying residual-bit-refined assignment, target_phase XOR source_phase equals the final P0 residual-token-197700 membership bit.",
+      "premises": [
+        "SC-E001",
+        "SC-IA040"
+      ],
+      "rule": "B",
+      "scope": "shortest 5x4 residual-bit-refined witness",
+      "native_id": 211048,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA049",
+      "round": 9,
+      "title": "the local residual correction is independent of absolute phase gauge",
+      "body": "Simultaneously complementing source and target phase bits leaves target_phase XOR source_phase unchanged; therefore the equality in SC-IA048 is invariant under the only global-complement gauge freedom of the refined shortest witness.",
+      "premises": [
+        "SC-E001",
+        "SC-IA038",
+        "SC-IA048"
+      ],
+      "rule": "B",
+      "scope": "shortest 5x4 residual-bit-refined witness",
+      "native_id": 211049,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA050",
+      "round": 9,
+      "title": "the corrected local relation survives observed transporter/history difference",
+      "body": "The two shortest routes have different full-transporter mappings and different ordered source-frame action sequences, yet both satisfy the same gauge-invariant relation target_phase XOR source_phase = final residual-token-197700 membership; those represented transition/history differences do not prevent this state-local relative relation on the two-route family.",
+      "premises": [
+        "SC-E015",
+        "SC-E016",
+        "SC-IA048",
+        "SC-IA049"
+      ],
+      "rule": "C",
+      "scope": "exactly the two shortest 5x4 routes",
+      "native_id": 211050,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA051",
+      "round": 10,
+      "title": "source residual refinement is not necessary for the shortest local scalar repair",
+      "body": "Although source quotient node 197000 merges represented residual-distinct fine sheets, the shortest scalar constraint system is satisfiable after splitting only the target while leaving source quotient node 197000 unchanged; source-sheet residual refinement is therefore not necessary for this local repair.",
+      "premises": [
+        "SC-IA003",
+        "SC-IA037"
+      ],
+      "rule": "S",
+      "scope": "shortest 5x4 obstruction; state-refinement-only scalar repair",
+      "native_id": 211051,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA052",
+      "round": 10,
+      "title": "shortest-witness state-refinement repair is target-asymmetric",
+      "body": "Under unchanged routes, edge deltas, and scalar Boolean codomain, every state-refinement-only repair of the shortest witness must separate the two fine target states, while at least one satisfying repair leaves the represented source merge unchanged.",
+      "premises": [
+        "SC-IA021",
+        "SC-IA037",
+        "SC-IA044",
+        "SC-IA051"
+      ],
+      "rule": "R",
+      "scope": "shortest 5x4 obstruction only",
+      "native_id": 211052,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA053",
+      "round": 12,
+      "title": "route-A transporter is an odd involution",
+      "body": "The complete mapping 197500 fixes slots 0,1,4 and swaps slots 2 and 3; applying it twice returns every represented slot to itself, and its inversion parity is 1.",
+      "premises": [
+        "SC-E005",
+        "SC-E015"
+      ],
+      "rule": "M",
+      "scope": "shortest 5x4 route-A accumulated transporter",
+      "native_id": 211053,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA054",
+      "round": 12,
+      "title": "route-B transporter is an odd involution",
+      "body": "The complete mapping 197501 fixes slots 2,3,4 and swaps slots 0 and 1; applying it twice returns every represented slot to itself, and its inversion parity is 1.",
+      "premises": [
+        "SC-E006",
+        "SC-E015"
+      ],
+      "rule": "M",
+      "scope": "shortest 5x4 route-B accumulated transporter",
+      "native_id": 211054,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA055",
+      "round": 12,
+      "title": "relative transporter is even",
+      "body": "The definitionally composed transporter 197502 = 197501 after 197500 maps slots as [1,0,3,2,4], has exactly two inversions, and therefore has represented parity bit 0.",
+      "premises": [
+        "SC-IA053",
+        "SC-IA054"
+      ],
+      "rule": "M",
+      "scope": "shortest 5x4 transporter pair",
+      "native_id": 211055,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA056",
+      "round": 12,
+      "title": "route phase difference is odd while relative transporter parity is even",
+      "body": "The two shortest route phases differ by XOR 1, while the exact relative transporter 197502 has parity bit 0.",
+      "premises": [
+        "SC-IA010",
+        "SC-IA055"
+      ],
+      "rule": "B",
+      "scope": "shortest 5x4 two-route witness",
+      "native_id": 211056,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA057",
+      "round": 12,
+      "title": "relative transporter parity cannot explain the shortest phase difference",
+      "body": "On the shortest 5x4 two-route witness, even relative transporter parity coexists with an odd route-phase difference; relative transporter parity alone therefore cannot equal or determine the represented phase difference on this pair.",
+      "premises": [
+        "SC-IA056"
+      ],
+      "rule": "F",
+      "scope": "shortest 5x4 two-route witness",
+      "native_id": 211057,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA058",
+      "round": 12,
+      "title": "oriented action histories share their second action and differ at the first",
+      "body": "The two represented source-frame action sequences are (1,2) and (0,2): their second action slot is the same represented slot 2 and their first action slots differ.",
+      "premises": [
+        "SC-E016"
+      ],
+      "rule": "I",
+      "scope": "shortest 5x4 source-frame action sequences",
+      "native_id": 211058,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA059",
+      "round": 13,
+      "title": "relative transporter is an even involution with two disjoint swaps",
+      "body": "The definitionally composed relative transporter 197502 swaps slots 0 and 1, swaps slots 2 and 3, fixes slot 4, and applying it twice returns every represented slot to itself; its represented parity bit is 0.",
+      "premises": [
+        "SC-IA055"
+      ],
+      "rule": "M",
+      "scope": "shortest 5x4 route-transporter pair",
+      "native_id": 211059,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA060",
+      "round": 13,
+      "title": "absolute sign plus common second action does not determine route phase",
+      "body": "The two shortest routes both have accumulated transporter-sign bit 1 and the same second source-frame action slot 2, yet their computed route-phase bits are 0 and 1; the pair (absolute sign, second action) does not determine route phase on this witness.",
+      "premises": [
+        "SC-IA001",
+        "SC-IA058",
+        "SC-E005",
+        "SC-E006"
+      ],
+      "rule": "F",
+      "scope": "shortest 5x4 two-route witness",
+      "native_id": 211060,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA061",
+      "round": 15,
+      "title": "equal 20-cell bound does not determine cocycle integrability",
+      "body": "The bounded 4x5 and 5x4 structural producers both have 20 occupied-cell ranks, yet the 4x5 full carrier has zero nonzero fundamental-cycle syndromes while the 5x4 full carrier has 25. The common 20-cell bound therefore does not determine cocycle integrability on these two exact cases.",
+      "premises": [
+        "SC-E025",
+        "SC-E026"
+      ],
+      "rule": "F",
+      "scope": "exact bounded 4x5-c4 and 5x4-c4 producer cases only",
+      "native_id": 211061,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA062",
+      "round": 15,
+      "title": "recursive quotient compression coexists with nonvacuous flatness",
+      "body": "On the bounded 4x4 direct residual carrier, at least two distinct structural states share one recursive action-unlabelled class, while the full binary inheritance graph has cycle rank 1 and zero nonzero fundamental-cycle syndromes. Recursive quotient non-injectivity alone therefore does not force a cocycle obstruction.",
+      "premises": [
+        "SC-E024",
+        "SC-E027"
+      ],
+      "rule": "F",
+      "scope": "exact bounded 4x4 direct residual carrier",
+      "native_id": 211062,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA063",
+      "round": 15,
+      "title": "exit-rich deeper continuation coexists with nonvacuous flatness",
+      "body": "The bounded 4x4 deeper carrier has nonempty nonbinary-continuation, action-transporter, and branch/multiplicity-erasure exit classes, while its full binary inheritance graph has cycle rank 1 and zero nonzero fundamental-cycle syndromes. The mere presence of those exit classes is therefore insufficient by itself to force a cocycle obstruction.",
+      "premises": [
+        "SC-E024",
+        "SC-E029"
+      ],
+      "rule": "F",
+      "scope": "exact bounded 4x4 deeper continuation carrier",
+      "native_id": 211063,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    },
+    {
+      "id": "SC-IA064",
+      "round": 15,
+      "title": "full 5x4 obstruction is produced outcome-blind",
+      "body": "The bounded structural phase producer consumes no solved W/D/L labels, yet its complete 5x4 carrier has 25 nonzero fundamental-cycle syndromes and 12 contradictory reconvergences. The full represented 5x4 nonintegrability is therefore present in the outcome-blind structural producer.",
+      "premises": [
+        "SC-E022",
+        "SC-E026"
+      ],
+      "rule": "C",
+      "scope": "exact bounded 5x4-c4 structural producer",
+      "native_id": 211064,
+      "status": "PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION",
+      "exact_body_preserved": true,
+      "native_root_file": "COMPLETE_IA_CORE020_0_2.isg"
+    }
+  ],
+  "count": 64,
+  "completion_gate": "64/64 admitted IA bodies have exact native primitive roots 211001..211064."
+}
