@@ -1,0 +1,88 @@
+{
+  "schema": "isomax.core020.structural_control.strict_ia_round.v2",
+  "round": 1,
+  "date_author_local": "2026-09-29",
+  "status": "STRICT_NATIVE_ADMISSION",
+  "new_assertions": [
+    {
+      "id": "SC-SIA001",
+      "native_id": "210001",
+      "premises": [
+        "SC-E001",
+        "SC-E020",
+        "SC-E021"
+      ],
+      "support_mode": "EXACT",
+      "note": "Native body: allowed-orientation iff Boolean equality."
+    },
+    {
+      "id": "SC-SIA002",
+      "native_id": "210002",
+      "premises": [
+        "SC-E001",
+        "SC-E017",
+        "SC-E018",
+        "SC-E019"
+      ],
+      "support_mode": "EXACT",
+      "note": "Native body: complete solution set of concrete 4x4 zero-delta system."
+    },
+    {
+      "id": "SC-SIA003",
+      "native_id": "210003",
+      "premises": [
+        "SC-E001",
+        "SC-E002",
+        "SC-E003"
+      ],
+      "support_mode": "EXACT",
+      "note": "Native body: complete solution set of target-split 5x4 system."
+    },
+    {
+      "id": "SC-SIA004",
+      "native_id": "210004",
+      "premises": [
+        "SC-E005",
+        "SC-E006",
+        "SC-E012"
+      ],
+      "support_mode": "EXACT",
+      "note": "Native body: route-phase relation equals final residual-bit relation on both shortest routes."
+    },
+    {
+      "id": "SC-SIA005",
+      "native_id": "210005",
+      "premises": [
+        "SC-E001"
+      ],
+      "support_mode": "EXACT",
+      "note": "Native body: XOR invariant under simultaneous complement of both inputs."
+    },
+    {
+      "id": "SC-SIA007",
+      "native_id": "210007",
+      "premises": [
+        "SC-E001",
+        "SC-E002",
+        "SC-E003"
+      ],
+      "support_mode": "EXACT",
+      "note": "Native body: two shortest route phases XOR to 1."
+    },
+    {
+      "id": "SC-SIA008",
+      "native_id": "210008",
+      "premises": [
+        "SC-E001",
+        "SC-E017",
+        "SC-E018"
+      ],
+      "support_mode": "EXACT",
+      "note": "Native body: explicit 4x4 route phases XOR to 0."
+    }
+  ],
+  "support_refinements": [],
+  "qu_refinements": [],
+  "rejected_high_level_body_count": 39,
+  "note": "Predecessor IA prose not represented by a strict native body remains derived view only."
+}
