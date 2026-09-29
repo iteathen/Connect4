@@ -1,0 +1,128 @@
+{
+  "schema": "connect4.isomax.discovery.experimental_warrant.v1",
+  "id": "EW-001",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "purpose": [
+    "DISCRIMINATING",
+    "CHARACTERIZING"
+  ],
+  "objective": "Distinguish structural causes of the exact 4x5-flat versus 5x4-obstructed cocycle contrast without solved W/D/L input.",
+  "anchors": [
+    "SC-E025",
+    "SC-E026",
+    "SC-IA061",
+    "QU-SC-002",
+    "QU-SC-006"
+  ],
+  "parent_clue": "4x5 and 5x4 share 20 occupied-cell ranks but differ sharply in nonzero fundamental-cycle syndromes.",
+  "represented_insufficiency": "The current packet proves the contrast but does not isolate whether frontier blocking, final-cap parity closure, geometry orientation, or their interaction causes it.",
+  "observation_leverage": "A 2x2 ablation over the two already represented producer closures changes one exact structural ingredient at a time on both transposed geometries.",
+  "scope_frontier": {
+    "anchored": [
+      "width/height",
+      "k=4",
+      "nonterminal frontier blocker",
+      "mover final-cap parity",
+      "cycle syndrome census"
+    ],
+    "interaction": [
+      "frontier blocker x final-cap parity",
+      "geometry x closure choice"
+    ],
+    "control": [
+      "4x5 and 5x4 paired cases"
+    ],
+    "deferred": [
+      "remaining-move capacity",
+      "support-release turn capacity",
+      "opponent-open-cap terminal dominance",
+      "larger boards",
+      "different k"
+    ],
+    "excluded": [
+      "solved W/D/L as structural producer input"
+    ],
+    "open": [
+      "unmodeled structural transition features revealed by open observations"
+    ]
+  },
+  "experiments": [
+    {
+      "width": 4,
+      "height": 5,
+      "k": 4,
+      "nonterminalFrontierBlocker": false,
+      "moverFinalCapParity": false
+    },
+    {
+      "width": 4,
+      "height": 5,
+      "k": 4,
+      "nonterminalFrontierBlocker": true,
+      "moverFinalCapParity": false
+    },
+    {
+      "width": 4,
+      "height": 5,
+      "k": 4,
+      "nonterminalFrontierBlocker": false,
+      "moverFinalCapParity": true
+    },
+    {
+      "width": 4,
+      "height": 5,
+      "k": 4,
+      "nonterminalFrontierBlocker": true,
+      "moverFinalCapParity": true
+    },
+    {
+      "width": 5,
+      "height": 4,
+      "k": 4,
+      "nonterminalFrontierBlocker": false,
+      "moverFinalCapParity": false
+    },
+    {
+      "width": 5,
+      "height": 4,
+      "k": 4,
+      "nonterminalFrontierBlocker": true,
+      "moverFinalCapParity": false
+    },
+    {
+      "width": 5,
+      "height": 4,
+      "k": 4,
+      "nonterminalFrontierBlocker": false,
+      "moverFinalCapParity": true
+    },
+    {
+      "width": 5,
+      "height": 4,
+      "k": 4,
+      "nonterminalFrontierBlocker": true,
+      "moverFinalCapParity": true
+    }
+  ],
+  "targeted_observations": [
+    "cycle rank",
+    "zero/nonzero syndrome counts",
+    "contradictory reconvergences",
+    "binary groups",
+    "binary continuation edges",
+    "exit-type counts",
+    "orbit/class counts"
+  ],
+  "open_observation_channel": "Preserve every returned summary field and transition/cycle signature distribution; unexpected distinctions reopen the working model.",
+  "adaptive_evidence_firewall": "Any dimension selected from EW-001 observations requires a fresh follow-up control before confirmatory use.",
+  "prohibited_information_sources": [
+    "solved Connect4 database",
+    "preloaded W/D/L labels in structural producer"
+  ],
+  "valuation": {
+    "objective": "maximum discrimination among the currently live geometry/closure explanations",
+    "validity_first": true,
+    "initial_choice_reason": "2x2 paired ablation reuses existing exact producer dimensions and is cheaper/more interpretable than opening new closure dimensions or board sizes."
+  }
+}

@@ -1,0 +1,1139 @@
+{
+  "schema": "connect4.isomax.full_discovery.core021_ssc.v1",
+  "date_author_local": "2026-09-29",
+  "research_direction": "Joshua Oshiro",
+  "frozen_predecessor_commit": "0aa24ff7fa73516113bc8d62dab0da535a42a012",
+  "governing_stack": {
+    "isograph_main": "b1d0ff114343f2059aec52891ecfa398554d68d5",
+    "core020_sha256": "9a619b552a6ef7719e5b4b5f3a9df4a732ff4377b9bc7b86c385ed5c992b88e7",
+    "core021_sha256": "f76bc94748ab5f970fe6b21ae4734919df241912c7e5e13e07177896e5f01820",
+    "qu01_sha256": "1f1510b41e4351726e4d9e714eb32ece0d5e69f0964255aabd7b4a6e94eee4cc",
+    "nei04_sha256": "6e2f0efb1f4bfbfa55bc2c5597f1ecc5b4d7bb734216543c21ba72089b0aacee",
+    "dp09_sha256": "4d6ed98288863ccd50e9cbccf2e626ff241aded3bd9fb534e0fb74ad147858ea",
+    "dp010_sha256": "108f3998bba90aff6a386335aeb45fde663d4be0b32643a06e01fb039bff61ec",
+    "dts01_sha256": "9d3478f605bc7f673e3dc73f62991a80c50b0eadebe7fbe755689e01452ae4ad",
+    "ei01_sha256": "b94262d7384603072d0e7a2657b84f6c427e7098cea051948702c367a440c666"
+  },
+  "counts": {
+    "source_assertions": 31,
+    "implicit_assertions": 64,
+    "qu_regions": 6,
+    "structural_semantic_items": 12,
+    "total": 113
+  },
+  "items": [
+    {
+      "id": "DISC-SSC-SRC-001",
+      "kind": "SOURCE_ASSERTION",
+      "source_id": "SC-E001",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "The represented Boolean XOR relation has exactly 00->0, 01->1, 10->1, 11->0.",
+      "native_root": 212001,
+      "native_file": "COMPLETE_SOURCE_CORE020_0_1.isg",
+      "scope": "frozen predecessor packet"
+    },
+    {
+      "id": "DISC-SSC-SRC-002",
+      "kind": "SOURCE_ASSERTION",
+      "source_id": "SC-E002",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "Path 197200 consists of edges 197100:197000->197001 delta0 action1 and 197101:197001->197002 delta0 action0.",
+      "native_root": 212002,
+      "native_file": "COMPLETE_SOURCE_CORE020_0_1.isg",
+      "scope": "frozen predecessor packet"
+    },
+    {
+      "id": "DISC-SSC-SRC-003",
+      "kind": "SOURCE_ASSERTION",
+      "source_id": "SC-E003",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "Path 197201 consists of edges 197102:197000->197003 delta0 action0 and 197103:197003->197002 delta1 action0.",
+      "native_root": 212003,
+      "native_file": "COMPLETE_SOURCE_CORE020_0_1.isg",
+      "scope": "frozen predecessor packet"
+    },
+    {
+      "id": "DISC-SSC-SRC-004",
+      "kind": "SOURCE_ASSERTION",
+      "source_id": "SC-E004",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "Paths 197200 and 197201 begin at quotient node 197000 and end at quotient node 197002.",
+      "native_root": 212004,
+      "native_file": "COMPLETE_SOURCE_CORE020_0_1.isg",
+      "scope": "frozen predecessor packet"
+    },
+    {
+      "id": "DISC-SSC-SRC-005",
+      "kind": "SOURCE_ASSERTION",
+      "source_id": "SC-E005",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "Route 197200 has computed phase bit 0; its accumulated transporter has computed sign bit 1 and extensional mapping 197500; its ordered source-frame action sequence is 197510; its final fine state is 197402.",
+      "native_root": 212005,
+      "native_file": "COMPLETE_SOURCE_CORE020_0_1.isg",
+      "scope": "frozen predecessor packet"
+    },
+    {
+      "id": "DISC-SSC-SRC-006",
+      "kind": "SOURCE_ASSERTION",
+      "source_id": "SC-E006",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "Route 197201 has computed phase bit 1; its accumulated transporter has computed sign bit 1 and extensional mapping 197501; its ordered source-frame action sequence is 197511; its final fine state is 197403.",
+      "native_root": 212006,
+      "native_file": "COMPLETE_SOURCE_CORE020_0_1.isg",
+      "scope": "frozen predecessor packet"
+    },
+    {
+      "id": "DISC-SSC-SRC-007",
+      "kind": "SOURCE_ASSERTION",
+      "source_id": "SC-E007",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "Fine source sheets 197400 and 197401 both have support identity 197600.",
+      "native_root": 212007,
+      "native_file": "COMPLETE_SOURCE_CORE020_0_1.isg",
+      "scope": "frozen predecessor packet"
+    },
+    {
+      "id": "DISC-SSC-SRC-008",
+      "kind": "SOURCE_ASSERTION",
+      "source_id": "SC-E008",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "Fine source sheets 197400 and 197401 are both members of quotient node 197000.",
+      "native_root": 212008,
+      "native_file": "COMPLETE_SOURCE_CORE020_0_1.isg",
+      "scope": "frozen predecessor packet"
+    },
+    {
+      "id": "DISC-SSC-SRC-009",
+      "kind": "SOURCE_ASSERTION",
+      "source_id": "SC-E009",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "For P0 residual token 197700, source sheet 197400 has membership bit 1 and source sheet 197401 has membership bit 0.",
+      "native_root": 212009,
+      "native_file": "COMPLETE_SOURCE_CORE020_0_1.isg",
+      "scope": "frozen predecessor packet"
+    },
+    {
+      "id": "DISC-SSC-SRC-010",
+      "kind": "SOURCE_ASSERTION",
+      "source_id": "SC-E010",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "For P0 residual token 197701, source sheet 197400 has membership bit 0 and source sheet 197401 has membership bit 1.",
+      "native_root": 212010,
+      "native_file": "COMPLETE_SOURCE_CORE020_0_1.isg",
+      "scope": "frozen predecessor packet"
+    },
+    {
+      "id": "DISC-SSC-SRC-011",
+      "kind": "SOURCE_ASSERTION",
+      "source_id": "SC-E011",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "Final exact residual states 197402 and 197403 are both members of quotient node 197002.",
+      "native_root": 212011,
+      "native_file": "COMPLETE_SOURCE_CORE020_0_1.isg",
+      "scope": "frozen predecessor packet"
+    },
+    {
+      "id": "DISC-SSC-SRC-012",
+      "kind": "SOURCE_ASSERTION",
+      "source_id": "SC-E012",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "For P0 residual token 197700, final state 197402 has membership bit 0 and final state 197403 has membership bit 1.",
+      "native_root": 212012,
+      "native_file": "COMPLETE_SOURCE_CORE020_0_1.isg",
+      "scope": "frozen predecessor packet"
+    },
+    {
+      "id": "DISC-SSC-SRC-013",
+      "kind": "SOURCE_ASSERTION",
+      "source_id": "SC-E013",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "The shortest represented 5x4 four-edge Boolean node-potential constraint system is unsatisfiable.",
+      "native_root": 212013,
+      "native_file": "COMPLETE_SOURCE_CORE020_0_1.isg",
+      "scope": "frozen predecessor packet"
+    },
+    {
+      "id": "DISC-SSC-SRC-014",
+      "kind": "SOURCE_ASSERTION",
+      "source_id": "SC-E014",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "On the two shortest 5x4 routes the computed accumulated transporter-sign bits are equal while the computed route-phase bits differ; the represented sign projection alone does not determine route phase on this pair.",
+      "native_root": 212014,
+      "native_file": "COMPLETE_SOURCE_CORE020_0_1.isg",
+      "scope": "frozen predecessor packet"
+    },
+    {
+      "id": "DISC-SSC-SRC-015",
+      "kind": "SOURCE_ASSERTION",
+      "source_id": "SC-E015",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "The two shortest 5x4 routes have different accumulated transporter mappings; for example their images of source slot 197300 are different.",
+      "native_root": 212015,
+      "native_file": "COMPLETE_SOURCE_CORE020_0_1.isg",
+      "scope": "frozen predecessor packet"
+    },
+    {
+      "id": "DISC-SSC-SRC-016",
+      "kind": "SOURCE_ASSERTION",
+      "source_id": "SC-E016",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "The two shortest 5x4 routes have different ordered source-frame action sequences: 197510=(197301,197302) and 197511=(197300,197302).",
+      "native_root": 212016,
+      "native_file": "COMPLETE_SOURCE_CORE020_0_1.isg",
+      "scope": "frozen predecessor packet"
+    },
+    {
+      "id": "DISC-SSC-SRC-017",
+      "kind": "SOURCE_ASSERTION",
+      "source_id": "SC-E017",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "Path 197210 is 197010->197011->197012->197013 and each of its three edge delta bits is 0.",
+      "native_root": 212017,
+      "native_file": "COMPLETE_SOURCE_CORE020_0_1.isg",
+      "scope": "frozen predecessor packet"
+    },
+    {
+      "id": "DISC-SSC-SRC-018",
+      "kind": "SOURCE_ASSERTION",
+      "source_id": "SC-E018",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "Path 197211 is 197010->197014->197015->197013 and each of its three edge delta bits is 0.",
+      "native_root": 212018,
+      "native_file": "COMPLETE_SOURCE_CORE020_0_1.isg",
+      "scope": "frozen predecessor packet"
+    },
+    {
+      "id": "DISC-SSC-SRC-019",
+      "kind": "SOURCE_ASSERTION",
+      "source_id": "SC-E019",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "Paths 197210 and 197211 begin at quotient node 197010 and end at quotient node 197013.",
+      "native_root": 212019,
+      "native_file": "COMPLETE_SOURCE_CORE020_0_1.isg",
+      "scope": "frozen predecessor packet"
+    },
+    {
+      "id": "DISC-SSC-SRC-020",
+      "kind": "SOURCE_ASSERTION",
+      "source_id": "SC-E020",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "The represented two-bit allowed-orientation relation contains exactly (0,0) and (1,1).",
+      "native_root": 212020,
+      "native_file": "COMPLETE_SOURCE_CORE020_0_1.isg",
+      "scope": "frozen predecessor packet"
+    },
+    {
+      "id": "DISC-SSC-SRC-021",
+      "kind": "SOURCE_ASSERTION",
+      "source_id": "SC-E021",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "For two represented Boolean orientation bits, allowed-orientation relation membership is equivalent to represented XOR output zero.",
+      "native_root": 212021,
+      "native_file": "COMPLETE_SOURCE_CORE020_0_1.isg",
+      "scope": "frozen predecessor packet"
+    },
+    {
+      "id": "DISC-SSC-SRC-022",
+      "kind": "SOURCE_ASSERTION",
+      "source_id": "SC-E022",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "The structural phase producers represented in this campaign do not use solved W/D/L labels as producer inputs.",
+      "native_root": 212022,
+      "native_file": "COMPLETE_SOURCE_CORE020_0_1.isg",
+      "scope": "frozen predecessor packet"
+    },
+    {
+      "id": "DISC-SSC-SRC-023",
+      "kind": "SOURCE_ASSERTION",
+      "source_id": "SC-E023",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "No source integrated into this packet supplies an exact theorem equating the represented structural phase with W/D/L or a nimber.",
+      "native_root": 212023,
+      "native_file": "COMPLETE_SOURCE_CORE020_0_1.isg",
+      "scope": "frozen predecessor packet"
+    },
+    {
+      "id": "DISC-SSC-SRC-024",
+      "kind": "SOURCE_ASSERTION",
+      "source_id": "SC-E024",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "The pinned 4x4 full carrier reports cycle rank 1 with 1 zero and 0 nonzero independent syndromes.",
+      "native_root": 212024,
+      "native_file": "COMPLETE_SOURCE_CORE020_0_1.isg",
+      "scope": "frozen predecessor packet"
+    },
+    {
+      "id": "DISC-SSC-SRC-025",
+      "kind": "SOURCE_ASSERTION",
+      "source_id": "SC-E025",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "The pinned 4x5 full carrier reports cycle rank 40 with 40 zero and 0 nonzero independent syndromes.",
+      "native_root": 212025,
+      "native_file": "COMPLETE_SOURCE_CORE020_0_1.isg",
+      "scope": "frozen predecessor packet"
+    },
+    {
+      "id": "DISC-SSC-SRC-026",
+      "kind": "SOURCE_ASSERTION",
+      "source_id": "SC-E026",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "The pinned 5x4 full carrier reports cycle rank 644 with 619 zero and 25 nonzero independent syndromes and 12 contradictory reconvergences.",
+      "native_root": 212026,
+      "native_file": "COMPLETE_SOURCE_CORE020_0_1.isg",
+      "scope": "frozen predecessor packet"
+    },
+    {
+      "id": "DISC-SSC-SRC-027",
+      "kind": "SOURCE_ASSERTION",
+      "source_id": "SC-E027",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "The pinned 4x4 direct residual producer reports 10507 structural states and 8242 recursive action-unlabelled classes without physical-board enumeration or solved W/D/L producer labels.",
+      "native_root": 212027,
+      "native_file": "COMPLETE_SOURCE_CORE020_0_1.isg",
+      "scope": "frozen predecessor packet"
+    },
+    {
+      "id": "DISC-SSC-SRC-028",
+      "kind": "SOURCE_ASSERTION",
+      "source_id": "SC-E028",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "On the pinned 4x4 late-action audit, transporter parity is well-defined exactly for the 38 pure-transporter fibers whose four slot tokens are all distinct.",
+      "native_root": 212028,
+      "native_file": "COMPLETE_SOURCE_CORE020_0_1.isg",
+      "scope": "frozen predecessor packet"
+    },
+    {
+      "id": "DISC-SSC-SRC-029",
+      "kind": "SOURCE_ASSERTION",
+      "source_id": "SC-E029",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "The pinned 4x4 deeper carrier has 61 binary groups and 31 binary-continuation child edges, with exits into nonbinary, transporter, and branch-erasure classes.",
+      "native_root": 212029,
+      "native_file": "COMPLETE_SOURCE_CORE020_0_1.isg",
+      "scope": "frozen predecessor packet"
+    },
+    {
+      "id": "DISC-SSC-SRC-030",
+      "kind": "SOURCE_ASSERTION",
+      "source_id": "SC-E030",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "The pinned standard 7x6 single-defect response family reports one exact response-incidence XOR dependency T1 xor T3 xor T5 xor T7 = 0 and an independent unmatched center-top event.",
+      "native_root": 212030,
+      "native_file": "COMPLETE_SOURCE_CORE020_0_1.isg",
+      "scope": "frozen predecessor packet"
+    },
+    {
+      "id": "DISC-SSC-SRC-031",
+      "kind": "SOURCE_ASSERTION",
+      "source_id": "SC-E031",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "The pinned exhaustive 4x4 branch-collapse audit reports the same 176 partial2 sibling deltas and rank-22 span for all legal siblings and optimal siblings.",
+      "native_root": 212031,
+      "native_file": "COMPLETE_SOURCE_CORE020_0_1.isg",
+      "scope": "frozen predecessor packet"
+    },
+    {
+      "id": "DISC-SSC-IA-001",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA001",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "On the two shortest 5x4 routes, the two represented full-transporter mappings are extensionally different while both have computed permutation-sign bit 1.",
+      "native_root": 211001,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "shortest 5x4 obstruction witness"
+    },
+    {
+      "id": "DISC-SSC-IA-002",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA002",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "The shared support identity 197600 does not determine the P0 membership bit of residual token 197700 across source sheets 197400 and 197401.",
+      "native_root": 211002,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "shortest 5x4 obstruction source sheets"
+    },
+    {
+      "id": "DISC-SSC-IA-003",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA003",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "Quotient node 197000 contains at least two fine source sheets with different represented P0 residual-membership content.",
+      "native_root": 211003,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "shortest 5x4 obstruction source quotient"
+    },
+    {
+      "id": "DISC-SSC-IA-004",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA004",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "Quotient node 197002 contains at least two fine final residual states with different represented P0 residual-membership content.",
+      "native_root": 211004,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "shortest 5x4 obstruction target quotient"
+    },
+    {
+      "id": "DISC-SSC-IA-005",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA005",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "For the shortest 5x4 obstruction, the ordered quotient endpoint pair (197000,197002) is compatible with route phase 0 and route phase 1; route phase is not a function of those quotient endpoints alone.",
+      "native_root": 211005,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "shortest 5x4 obstruction routes"
+    },
+    {
+      "id": "DISC-SSC-IA-006",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA006",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "For the same coarse endpoint pair (197000,197002), the two shortest 5x4 routes carry extensionally different accumulated full-transporter mappings.",
+      "native_root": 211006,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "shortest 5x4 obstruction routes"
+    },
+    {
+      "id": "DISC-SSC-IA-007",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA007",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "For the same coarse endpoint pair (197000,197002), the two shortest 5x4 routes carry different ordered source-frame action sequences.",
+      "native_root": 211007,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "shortest 5x4 obstruction routes"
+    },
+    {
+      "id": "DISC-SSC-IA-008",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA008",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "For represented Boolean bits x,y, BINARY_TIE_ALLOWED(x,y) holds exactly when x=y.",
+      "native_root": 211008,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "guarded all-binary-tie orientation relation represented in packet"
+    },
+    {
+      "id": "DISC-SSC-IA-009",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA009",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "Assigning Boolean 0 to every represented node 197010..197015 satisfies every edge equation in both concrete 4x4 witness routes.",
+      "native_root": 211009,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "explicit 4x4 reconvergence witness only"
+    },
+    {
+      "id": "DISC-SSC-IA-010",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA010",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "XORing the four represented edge-delta bits from the two shortest 5x4 routes gives 1.",
+      "native_root": 211010,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "shortest 5x4 obstruction witness only"
+    },
+    {
+      "id": "DISC-SSC-IA-011",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA011",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "XORing the six represented edge-delta bits from the two explicit 4x4 routes gives 0.",
+      "native_root": 211011,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "explicit 4x4 reconvergence witness only"
+    },
+    {
+      "id": "DISC-SSC-IA-012",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA012",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "For the shortest 5x4 routes, the tuple (source quotient 197000, target quotient 197002, accumulated sign 1) occurs with phase 0 and phase 1; phase is not a function of that tuple.",
+      "native_root": 211012,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "shortest 5x4 obstruction routes"
+    },
+    {
+      "id": "DISC-SSC-IA-013",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA013",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "On the shortest 5x4 obstruction, the current coarse projection merges fine residual-distinct endpoint states while the same coarse endpoint pair is traversed with different full-transporter mappings and different ordered action histories.",
+      "native_root": 211013,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "shortest 5x4 obstruction witness"
+    },
+    {
+      "id": "DISC-SSC-IA-014",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA014",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "No single-valued function of target quotient node 197002 alone can reproduce the P0 membership bit for residual token 197700 on both represented final states 197402 and 197403.",
+      "native_root": 211014,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "shortest 5x4 obstruction target quotient"
+    },
+    {
+      "id": "DISC-SSC-IA-015",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA015",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "No single-valued function of source quotient node 197000 alone can reproduce the represented P0 membership pattern of residual tokens 197700 and 197701 on both source sheets.",
+      "native_root": 211015,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "shortest 5x4 obstruction source quotient"
+    },
+    {
+      "id": "DISC-SSC-IA-016",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA016",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "The represented Boolean XOR relation admits the concrete 4x4 reconvergence constraint system while the concrete 5x4 obstruction constraint system is inconsistent; scalar consistency depends on the represented incidence/delta constraints rather than following from XOR syntax alone.",
+      "native_root": 211016,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "comparison of the two concrete primitive-supported witness systems only"
+    },
+    {
+      "id": "DISC-SSC-IA-017",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA017",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "The exact binary-tie relation BINARY_TIE_ALLOWED iff XOR-zero and the exact 5x4 scalar-continuation obstruction coexist in the represented system; therefore binary-tie XOR exactness alone does not imply scalar continuation-phase integrability.",
+      "native_root": 211017,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "represented binary-tie layer versus represented 5x4 continuation layer"
+    },
+    {
+      "id": "DISC-SSC-IA-018",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA018",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "There exists represented residual-membership structure that distinguishes fine members of both the source and target quotient nodes in the shortest 5x4 obstruction.",
+      "native_root": 211018,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "shortest 5x4 obstruction witness"
+    },
+    {
+      "id": "DISC-SSC-IA-019",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA019",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "The current ordered coarse endpoint pair is insufficient to reconstruct either the observed accumulated full-transporter mapping or the observed ordered source-frame action sequence on the shortest 5x4 routes.",
+      "native_root": 211019,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "shortest 5x4 obstruction routes"
+    },
+    {
+      "id": "DISC-SSC-IA-020",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA020",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "Within one-Boolean-value-per-current-quotient-node semantics, no exact successor model can simultaneously preserve both shortest 5x4 routes, their current shared source/target quotient identifications, and all four current edge-delta constraints while making the phase path-independent. At least one of those load-bearing conditions must change.",
+      "native_root": 211020,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "shortest 5x4 obstruction under scalar Boolean node-potential semantics"
+    },
+    {
+      "id": "DISC-SSC-IA-021",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA021",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "If the two shortest 5x4 routes, their four edge deltas, and one Boolean value per refined node are retained unchanged, any repair achieved solely by state refinement must separate at least one currently shared route endpoint occurrence; retaining both current shared endpoint identifications reproduces the inconsistent constraint system.",
+      "native_root": 211021,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "shortest 5x4 obstruction; conditional on state-refinement-only repair"
+    },
+    {
+      "id": "DISC-SSC-IA-022",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA022",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "If both current shared quotient endpoint identifications and all four shortest-witness edge deltas are retained, the witness cannot be made path-independent by assigning one Boolean phase value to each current quotient node; a successful correction must instead change the phase codomain/edge semantics, refine the quotient, remove an asserted route/edge, or abandon scalar path-independence.",
+      "native_root": 211022,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "shortest 5x4 obstruction"
+    },
+    {
+      "id": "DISC-SSC-IA-023",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA023",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "The shortest 5x4 scalar obstruction occurs across quotient nodes that merge represented fine states with residual-membership differences; therefore an exact fine residual distinction is present at the same quotient seam where scalar path consistency fails.",
+      "native_root": 211023,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "shortest 5x4 obstruction witness"
+    },
+    {
+      "id": "DISC-SSC-IA-024",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA024",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "The represented 5x4 scalar continuation obstruction and the represented binary-tie XOR-zero equivalence are jointly satisfiable because they constrain distinct predicates/carriers; the continuation counterexample does not negate the exact binary-tie relation.",
+      "native_root": 211024,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "packet-local scope separation between continuation and binary-tie layers"
+    },
+    {
+      "id": "DISC-SSC-IA-025",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA025",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "Within target quotient node 197002, the predicate 'P0 residual token 197700 has membership bit 1' separates final state 197403 from final state 197402, so adjoining that represented bit to target identity strictly refines this quotient fiber.",
+      "native_root": 211025,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "target fiber of shortest 5x4 obstruction only"
+    },
+    {
+      "id": "DISC-SSC-IA-026",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA026",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "Keep the four shortest-witness edge deltas and one Boolean phase value per refined node, but replace the merged target by two refined targets distinguished by the represented 197700 membership bit. The resulting constraints are satisfiable; exactly two Boolean assignments exist, related by simultaneous complement.",
+      "native_root": 211026,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "shortest 5x4 obstruction only; refined target split by represented residual membership"
+    },
+    {
+      "id": "DISC-SSC-IA-027",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA027",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "The shortest 5x4 scalar contradiction can be removed while retaining the scalar Boolean codomain and all four edge deltas by refining the target with represented residual-state information; carrying the full accumulated transporter is therefore not necessary to repair this one witness.",
+      "native_root": 211027,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "shortest 5x4 obstruction only"
+    },
+    {
+      "id": "DISC-SSC-IA-028",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA028",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "For the shortest 5x4 witness with unchanged four edge deltas, identifying the two residual-distinct final targets as one quotient node yields an unsatisfiable one-bit node-potential system, while retaining them as two targets distinguished by the represented residual bit yields a satisfiable system.",
+      "native_root": 211028,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "shortest 5x4 obstruction only"
+    },
+    {
+      "id": "DISC-SSC-IA-029",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA029",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "The shortest 5x4 witness is an explicit model in which scalar Boolean node-potential semantics fails on the current coarse quotient but succeeds on a represented strict refinement; therefore quotient-level scalar obstruction alone does not imply scalar obstruction on every finer state carrier.",
+      "native_root": 211029,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "logical non-implication witnessed by the shortest 5x4 obstruction/refinement pair"
+    },
+    {
+      "id": "DISC-SSC-IA-030",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA030",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "There exists a repair of the shortest scalar contradiction that uses only represented endpoint residual-state information to refine the target and does not require accumulated transporter mapping content or ordered source-frame action sequence as part of refined node content.",
+      "native_root": 211030,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "shortest 5x4 obstruction only"
+    },
+    {
+      "id": "DISC-SSC-IA-031",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA031",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "Whether the shortest 5x4 edge observations admit a scalar Boolean node potential depends on the declared state-identification relation: the answer is false under the current target merge and true under the represented residual-bit target refinement.",
+      "native_root": 211031,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "shortest 5x4 witness under the two explicitly represented state-identification relations"
+    },
+    {
+      "id": "DISC-SSC-IA-032",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA032",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "For each of the two shortest 5x4 routes, the observed route phase bit equals the P0 membership bit of residual token 197700 in that route's represented final exact residual state: route A gives 0=0 and route B gives 1=1.",
+      "native_root": 211032,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "exactly the two shortest 5x4 routes represented in the packet"
+    },
+    {
+      "id": "DISC-SSC-IA-033",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA033",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "In every satisfying scalar assignment of the residual-bit-refined shortest witness, the two refined target phase values differ by XOR 1, and the two represented target residual-membership bits also differ by XOR 1.",
+      "native_root": 211033,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "shortest 5x4 residual-bit-refined witness"
+    },
+    {
+      "id": "DISC-SSC-IA-034",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA034",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "The current target quotient merge identifies the two final states even though every satisfying refinement-level scalar assignment requires their target phase values to differ; imposing one shared target phase value is therefore exactly the additional equality that makes the shortest constraint system inconsistent.",
+      "native_root": 211034,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "shortest 5x4 obstruction only"
+    },
+    {
+      "id": "DISC-SSC-IA-035",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA035",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "On the represented two-route shortest-witness family, after refining the target by residual-token-197700 membership, route phase is an endpoint function of that refined residual bit; no route-history variable is needed to distinguish phase 0 from phase 1 for these two routes.",
+      "native_root": 211035,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "two-route shortest 5x4 witness only"
+    },
+    {
+      "id": "DISC-SSC-IA-036",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA036",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "On the shortest two-route family, target residual-token-197700 membership determines the observed route phase, yet the current target quotient merges the two final states with opposite values of that bit.",
+      "native_root": 211036,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "shortest two-route 5x4 family only"
+    },
+    {
+      "id": "DISC-SSC-IA-037",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA037",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "For the shortest 5x4 witness, the source quotient node and both intermediate nodes may remain unchanged; splitting only the merged target by residual-token-197700 membership is sufficient to make the scalar Boolean edge equations satisfiable.",
+      "native_root": 211037,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "shortest 5x4 obstruction only"
+    },
+    {
+      "id": "DISC-SSC-IA-038",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA038",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "The residual-bit-refined shortest-witness constraint system has exactly two Boolean node assignments, and one is obtained from the other by complementing every node phase bit.",
+      "native_root": 211038,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "shortest 5x4 residual-bit-refined system"
+    },
+    {
+      "id": "DISC-SSC-IA-039",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA039",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "In the residual-bit-refined shortest system, choosing the source node phase bit fixes every intermediate and target phase bit uniquely.",
+      "native_root": 211039,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "shortest 5x4 residual-bit-refined system"
+    },
+    {
+      "id": "DISC-SSC-IA-040",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA040",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "For each shortest route in every satisfying refined assignment, target_phase = source_phase XOR final_P0_residual_197700_membership.",
+      "native_root": 211040,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "shortest 5x4 residual-bit-refined system"
+    },
+    {
+      "id": "DISC-SSC-IA-041",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA041",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "For both shortest routes, observed_route_phase XOR final_P0_residual_197700_membership = 0.",
+      "native_root": 211041,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "exactly the two shortest 5x4 routes"
+    },
+    {
+      "id": "DISC-SSC-IA-042",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA042",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "Define corrected_route_bit = observed_route_phase XOR final_P0_residual_197700_membership for the two shortest routes. The corrected bit is 0 on both routes.",
+      "native_root": 211042,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "exactly the two shortest 5x4 routes"
+    },
+    {
+      "id": "DISC-SSC-IA-043",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA043",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "Because the shortest 5x4 contradiction is satisfiable after a strict state refinement while retaining one Boolean phase value per refined node and retaining all four edge deltas, this witness alone does not establish that a higher-dimensional, non-binary, or non-abelian phase codomain is necessary.",
+      "native_root": 211043,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "shortest 5x4 obstruction only"
+    },
+    {
+      "id": "DISC-SSC-IA-044",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA044",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "Any state-refinement-only scalar repair of the shortest witness must place final states 197402 and 197403 in distinct refined target identities, and the represented residual-bit split provides exactly such two distinct target identities with a satisfying scalar assignment.",
+      "native_root": 211044,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "shortest 5x4 obstruction; state-refinement-only scalar repairs preserving routes/deltas"
+    },
+    {
+      "id": "DISC-SSC-IA-045",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA045",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "The six-node concrete 4x4 zero-delta reconvergence system has exactly two Boolean node-potential assignments: all nodes 0 and all nodes 1.",
+      "native_root": 211045,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "explicit 4x4 two-route witness only"
+    },
+    {
+      "id": "DISC-SSC-IA-046",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA046",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "In the explicit 4x4 two-route witness, fixing the source node phase uniquely fixes every other represented node phase.",
+      "native_root": 211046,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "explicit 4x4 two-route witness only"
+    },
+    {
+      "id": "DISC-SSC-IA-047",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA047",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "Both the explicit flat 4x4 witness and the residual-bit-refined shortest 5x4 witness have exactly two satisfying scalar assignments related by global complement; the local residual refinement removes the contradiction without introducing additional absolute phase choices in that witness.",
+      "native_root": 211047,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "comparison of the two explicitly primitive-supported finite constraint systems"
+    },
+    {
+      "id": "DISC-SSC-IA-048",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA048",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "For each shortest route in every satisfying residual-bit-refined assignment, target_phase XOR source_phase equals the final P0 residual-token-197700 membership bit.",
+      "native_root": 211048,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "shortest 5x4 residual-bit-refined witness"
+    },
+    {
+      "id": "DISC-SSC-IA-049",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA049",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "Simultaneously complementing source and target phase bits leaves target_phase XOR source_phase unchanged; therefore the equality in SC-IA048 is invariant under the only global-complement gauge freedom of the refined shortest witness.",
+      "native_root": 211049,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "shortest 5x4 residual-bit-refined witness"
+    },
+    {
+      "id": "DISC-SSC-IA-050",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA050",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "The two shortest routes have different full-transporter mappings and different ordered source-frame action sequences, yet both satisfy the same gauge-invariant relation target_phase XOR source_phase = final residual-token-197700 membership; those represented transition/history differences do not prevent this state-local relative relation on the two-route family.",
+      "native_root": 211050,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "exactly the two shortest 5x4 routes"
+    },
+    {
+      "id": "DISC-SSC-IA-051",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA051",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "Although source quotient node 197000 merges represented residual-distinct fine sheets, the shortest scalar constraint system is satisfiable after splitting only the target while leaving source quotient node 197000 unchanged; source-sheet residual refinement is therefore not necessary for this local repair.",
+      "native_root": 211051,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "shortest 5x4 obstruction; state-refinement-only scalar repair"
+    },
+    {
+      "id": "DISC-SSC-IA-052",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA052",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "Under unchanged routes, edge deltas, and scalar Boolean codomain, every state-refinement-only repair of the shortest witness must separate the two fine target states, while at least one satisfying repair leaves the represented source merge unchanged.",
+      "native_root": 211052,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "shortest 5x4 obstruction only"
+    },
+    {
+      "id": "DISC-SSC-IA-053",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA053",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "The complete mapping 197500 fixes slots 0,1,4 and swaps slots 2 and 3; applying it twice returns every represented slot to itself, and its inversion parity is 1.",
+      "native_root": 211053,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "shortest 5x4 route-A accumulated transporter"
+    },
+    {
+      "id": "DISC-SSC-IA-054",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA054",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "The complete mapping 197501 fixes slots 2,3,4 and swaps slots 0 and 1; applying it twice returns every represented slot to itself, and its inversion parity is 1.",
+      "native_root": 211054,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "shortest 5x4 route-B accumulated transporter"
+    },
+    {
+      "id": "DISC-SSC-IA-055",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA055",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "The definitionally composed transporter 197502 = 197501 after 197500 maps slots as [1,0,3,2,4], has exactly two inversions, and therefore has represented parity bit 0.",
+      "native_root": 211055,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "shortest 5x4 transporter pair"
+    },
+    {
+      "id": "DISC-SSC-IA-056",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA056",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "The two shortest route phases differ by XOR 1, while the exact relative transporter 197502 has parity bit 0.",
+      "native_root": 211056,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "shortest 5x4 two-route witness"
+    },
+    {
+      "id": "DISC-SSC-IA-057",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA057",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "On the shortest 5x4 two-route witness, even relative transporter parity coexists with an odd route-phase difference; relative transporter parity alone therefore cannot equal or determine the represented phase difference on this pair.",
+      "native_root": 211057,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "shortest 5x4 two-route witness"
+    },
+    {
+      "id": "DISC-SSC-IA-058",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA058",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "The two represented source-frame action sequences are (1,2) and (0,2): their second action slot is the same represented slot 2 and their first action slots differ.",
+      "native_root": 211058,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "shortest 5x4 source-frame action sequences"
+    },
+    {
+      "id": "DISC-SSC-IA-059",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA059",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "The definitionally composed relative transporter 197502 swaps slots 0 and 1, swaps slots 2 and 3, fixes slot 4, and applying it twice returns every represented slot to itself; its represented parity bit is 0.",
+      "native_root": 211059,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "shortest 5x4 route-transporter pair"
+    },
+    {
+      "id": "DISC-SSC-IA-060",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA060",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "The two shortest routes both have accumulated transporter-sign bit 1 and the same second source-frame action slot 2, yet their computed route-phase bits are 0 and 1; the pair (absolute sign, second action) does not determine route phase on this witness.",
+      "native_root": 211060,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "shortest 5x4 two-route witness"
+    },
+    {
+      "id": "DISC-SSC-IA-061",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA061",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "The bounded 4x5 and 5x4 structural producers both have 20 occupied-cell ranks, yet the 4x5 full carrier has zero nonzero fundamental-cycle syndromes while the 5x4 full carrier has 25. The common 20-cell bound therefore does not determine cocycle integrability on these two exact cases.",
+      "native_root": 211061,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "exact bounded 4x5-c4 and 5x4-c4 producer cases only"
+    },
+    {
+      "id": "DISC-SSC-IA-062",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA062",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "On the bounded 4x4 direct residual carrier, at least two distinct structural states share one recursive action-unlabelled class, while the full binary inheritance graph has cycle rank 1 and zero nonzero fundamental-cycle syndromes. Recursive quotient non-injectivity alone therefore does not force a cocycle obstruction.",
+      "native_root": 211062,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "exact bounded 4x4 direct residual carrier"
+    },
+    {
+      "id": "DISC-SSC-IA-063",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA063",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "The bounded 4x4 deeper carrier has nonempty nonbinary-continuation, action-transporter, and branch/multiplicity-erasure exit classes, while its full binary inheritance graph has cycle rank 1 and zero nonzero fundamental-cycle syndromes. The mere presence of those exit classes is therefore insufficient by itself to force a cocycle obstruction.",
+      "native_root": 211063,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "exact bounded 4x4 deeper continuation carrier"
+    },
+    {
+      "id": "DISC-SSC-IA-064",
+      "kind": "IMPLICIT_ASSERTION",
+      "source_id": "SC-IA064",
+      "closure": "CLOSED_PRIMITIVE",
+      "body": "The bounded structural phase producer consumes no solved W/D/L labels, yet its complete 5x4 carrier has 25 nonzero fundamental-cycle syndromes and 12 contradictory reconvergences. The full represented 5x4 nonintegrability is therefore present in the outcome-blind structural producer.",
+      "native_root": 211064,
+      "native_file": "COMPLETE_IA_CORE020_0_2.isg",
+      "scope": "exact bounded 5x4-c4 structural producer"
+    },
+    {
+      "id": "DISC-SSC-QU-SC-001",
+      "kind": "QU",
+      "source_id": "QU-SC-001",
+      "closure": "CLOSED_WITH_QUALIFIED_QU_BOUNDARY",
+      "body": "minimum intrinsic rule-derived state coordinate needed to explain the 5x4 nonzero phase syndromes",
+      "native_root": null,
+      "native_file": "QU_LEDGER_FINAL_0_6.json",
+      "scope": "qualified unresolved family"
+    },
+    {
+      "id": "DISC-SSC-QU-SC-002",
+      "kind": "QU",
+      "source_id": "QU-SC-002",
+      "closure": "CLOSED_WITH_QUALIFIED_QU_BOUNDARY",
+      "body": "whether scalar integrability is a theorem for width-4 Connect-4 beyond the measured 4x4 and 4x5 carriers",
+      "native_root": null,
+      "native_file": "QU_LEDGER_FINAL_0_6.json",
+      "scope": "qualified unresolved family"
+    },
+    {
+      "id": "DISC-SSC-QU-SC-003",
+      "kind": "QU",
+      "source_id": "QU-SC-003",
+      "closure": "CLOSED_WITH_QUALIFIED_QU_BOUNDARY",
+      "body": "relationship between structural continuation phase and exact W/D/L or a nimber-like game value",
+      "native_root": null,
+      "native_file": "QU_LEDGER_FINAL_0_6.json",
+      "scope": "qualified unresolved family"
+    },
+    {
+      "id": "DISC-SSC-QU-SC-004",
+      "kind": "QU",
+      "source_id": "QU-SC-004",
+      "closure": "CLOSED_WITH_QUALIFIED_QU_BOUNDARY",
+      "body": "whether the load-bearing full-transporter/oriented-history distinction has an intrinsic state representation",
+      "native_root": null,
+      "native_file": "QU_LEDGER_FINAL_0_6.json",
+      "scope": "qualified unresolved family"
+    },
+    {
+      "id": "DISC-SSC-QU-SC-005",
+      "kind": "QU",
+      "source_id": "QU-SC-005",
+      "closure": "CLOSED_WITH_QUALIFIED_QU_BOUNDARY",
+      "body": "minimum corrected algebraic codomain after the 5x4 scalar obstruction",
+      "native_root": null,
+      "native_file": "QU_LEDGER_FINAL_0_6.json",
+      "scope": "qualified unresolved family"
+    },
+    {
+      "id": "DISC-SSC-QU-SC-006",
+      "kind": "QU",
+      "source_id": "QU-SC-006",
+      "closure": "CLOSED_WITH_QUALIFIED_QU_BOUNDARY",
+      "body": "whether the 4x4/4x5 zero-syndrome behavior is explained entirely by generic transition/cofactor confluence",
+      "native_root": null,
+      "native_file": "QU_LEDGER_FINAL_0_6.json",
+      "scope": "qualified unresolved family"
+    },
+    {
+      "id": "DISC-SSC-STRUCT-001",
+      "kind": "STRUCTURAL_SCHEMA",
+      "body": "bounded 4x4/4x5/5x4 residual/cofactor producer semantics",
+      "closure": "CLOSED_SCHEMA",
+      "native_file": "RESIDUAL_PRODUCER_CONTROL_CORE020_0_3.isg",
+      "scope": "frozen predecessor packet"
+    },
+    {
+      "id": "DISC-SSC-STRUCT-002",
+      "kind": "STRUCTURAL_SCHEMA",
+      "body": "4x4 physical legal/terminal/WDL/optimal partial2 producer semantics",
+      "closure": "CLOSED_SCHEMA",
+      "native_file": "PARTIAL2_PHYSICAL_PRODUCER_CORE020_0_1.isg",
+      "scope": "frozen predecessor packet"
+    },
+    {
+      "id": "DISC-SSC-STRUCT-003",
+      "kind": "TRANSITION_SCHEMA",
+      "body": "binary continuation edges, reduction, spanning forest, cycle and contradictory-path semantics",
+      "closure": "CLOSED_SCHEMA",
+      "native_file": "AGGREGATE_GRAPH_CONTROL_CORE020_0_1.isg",
+      "scope": "frozen predecessor packet"
+    },
+    {
+      "id": "DISC-SSC-STRUCT-004",
+      "kind": "PROFILE_SCHEMA",
+      "body": "phase-free profiles, transporter/all-distinct parity and exit classification",
+      "closure": "CLOSED_SCHEMA",
+      "native_file": "AGGREGATE_PROFILE_CONTROL_CORE020_0_1.isg",
+      "scope": "frozen predecessor packet"
+    },
+    {
+      "id": "DISC-SSC-STRUCT-005",
+      "kind": "ALGEBRA_SCHEMA",
+      "body": "response and partial2 GF(2) feature/decomposition/rank semantics",
+      "closure": "CLOSED_SCHEMA",
+      "native_file": "AGGREGATE_GF2_CONTROL_CORE020_0_1.isg",
+      "scope": "frozen predecessor packet"
+    },
+    {
+      "id": "DISC-SSC-STRUCT-006",
+      "kind": "GEOMETRY_SCHEMA",
+      "body": "exact board cells, columns, rows and winning-line generation",
+      "closure": "CLOSED_SCHEMA",
+      "native_file": "BOARD_GEOMETRY_CORE020_0_1.isg",
+      "scope": "frozen predecessor packet"
+    },
+    {
+      "id": "DISC-SSC-STRUCT-007",
+      "kind": "SYMMETRY_SCHEMA",
+      "body": "complete width-4 column-permutation carrier",
+      "closure": "CLOSED_PRIMITIVE",
+      "native_file": "WIDTH4_PERMUTATIONS_CORE020_0_1.isg",
+      "scope": "frozen predecessor packet"
+    },
+    {
+      "id": "DISC-SSC-STRUCT-008",
+      "kind": "SYMMETRY_SCHEMA",
+      "body": "complete width-5 column-permutation carrier",
+      "closure": "CLOSED_PRIMITIVE",
+      "native_file": "WIDTH5_PERMUTATIONS_CORE020_0_1.isg",
+      "scope": "frozen predecessor packet"
+    },
+    {
+      "id": "DISC-SSC-STRUCT-009",
+      "kind": "CONTROL_SCHEMA",
+      "body": "loop and recursion state/guard/step/exit/termination representation",
+      "closure": "CLOSED_SCHEMA",
+      "native_file": "LOOP_RECURSION_CORE020_0_1.isg",
+      "scope": "frozen predecessor packet"
+    },
+    {
+      "id": "DISC-SSC-STRUCT-010",
+      "kind": "SCOPE_FIREWALL",
+      "body": "outcome-blind structural producer input scope and no represented WDL bridge",
+      "closure": "CLOSED_PRIMITIVE",
+      "native_file": "SOURCE_SCOPE_CORE020_0_1.isg",
+      "scope": "frozen predecessor packet"
+    },
+    {
+      "id": "DISC-SSC-STRUCT-011",
+      "kind": "SERIALIZATION_SCHEMA",
+      "body": "exact bounded producer canonical serialization and lexicographic representative selection",
+      "closure": "CLOSED_SCHEMA",
+      "native_file": "PRIMITIVE_STATE_SERIALIZATION_CORE020_0_1.isg",
+      "scope": "frozen predecessor packet"
+    },
+    {
+      "id": "DISC-SSC-STRUCT-012",
+      "kind": "EVIDENCE_SCHEMA",
+      "body": "finite aggregate witness and sharded physical carrier provenance",
+      "closure": "CLOSED_SCHEMA",
+      "native_file": "AGGREGATE_WITNESS_CORE020_0_1.isg",
+      "scope": "frozen predecessor packet"
+    }
+  ],
+  "scope_revision": null,
+  "closure_invalidation": {
+    "predecessor_fixed_point": "COMPLETE_ROUND_16_FIXED_POINT_0_1.json",
+    "reason": "Discovery authority/search profile changed from Core-0.20-only closure campaign to full current integrated Core-0.21 + DP/NEI/DTS/EI stack.",
+    "predecessor_preserved": true,
+    "ia_closure_reopened": true
+  }
+}
