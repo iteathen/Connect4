@@ -1,0 +1,74 @@
+{
+  "schema": "connect4.isomax.discovery.experimental_warrant.v1",
+  "id": "EW-003",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "purpose": [
+    "CHARACTERIZING",
+    "CONSTRUCTIVE_MODEL_DISCOVERY"
+  ],
+  "objective": "Characterize quotient-erased residual information, exact symmetry/tie structure, and earliest recursive-merge anatomy in a flat 4x4 control and obstructed 5x4 carrier.",
+  "anchors": [
+    "SC-IA062",
+    "SC-IA063",
+    "QU-SC-001",
+    "QU-SC-004",
+    "QU-SC-006"
+  ],
+  "represented_insufficiency": "The packet proves quotient compression, flat/obstructed cocycles, and one shortest local residual repair, but does not characterize which erased residuals are continuation-equivalent or why.",
+  "observation_leverage": "Existing exact audit routines can remove one residual at a time, test recursive class preservation, test literal continuation equivalence, analyze release/capacity/terminal-dominance explanations, and expose earliest merge witness depth.",
+  "scope_frontier": {
+    "anchored": [
+      "4x4 flat control",
+      "5x4 obstructed carrier",
+      "residual deletion",
+      "column refinement",
+      "binary tie stabilizers",
+      "earliest recursive merge"
+    ],
+    "interaction": [
+      "residual deletion explanation x quotient merge",
+      "symmetry/tie structure x merge witness"
+    ],
+    "deferred": [
+      "new closure rule activation",
+      "larger boards",
+      "generalized repair"
+    ],
+    "excluded": [
+      "solved W/D/L as producer input"
+    ]
+  },
+  "experiments": [
+    {
+      "label": "4x4",
+      "width": 4,
+      "height": 4,
+      "k": 4,
+      "nonterminalFrontierBlocker": false,
+      "moverFinalCapParity": false
+    },
+    {
+      "label": "5x4",
+      "width": 5,
+      "height": 4,
+      "k": 4,
+      "nonterminalFrontierBlocker": true,
+      "moverFinalCapParity": true
+    }
+  ],
+  "targeted_observations": [
+    "class-preserving residual deletions and explanation categories",
+    "literal continuation equivalence",
+    "earliest merge rank/parent/witness depth",
+    "column-refinement search-free fraction",
+    "pair-column refinement",
+    "binary tie stabilizer dimensions"
+  ],
+  "open_observation_channel": "Preserve unexpected unexplained deletions, nonlocal merge witnesses, or symmetry failures as model-breaking clues.",
+  "adaptive_evidence_firewall": "Any newly selected deletion/closure explanation requires a fresh intervention before it is treated as general.",
+  "prohibited_information_sources": [
+    "solved database",
+    "W/D/L as structural producer input"
+  ]
+}
