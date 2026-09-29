@@ -69,3 +69,19 @@ within that policy. This is bounded research evidence, not a completed winning
 certificate or production optimization. The next obligation is to cover those
 states with compatible response/deadline rules or derive a necessary earlier
 control switch. External board-size outcomes are discovery evidence only.
+
+## Nim-like control-parity algebra lead
+
+The active hypothesis [NIM_LIKE_CONTROL_PARITY_ALGEBRA.md](../hypotheses/NIM_LIKE_CONTROL_PARITY_ALGEBRA.md)
+adds an algebraic discovery route to GSP-004.
+
+The proposal is not that columns carry simple nimbers. The latent value may be
+complex and may depend on geometry, residual obligations, support/control parity,
+shared resources and first-win deadlines. The candidate simplification is that
+compatible control contributions may compose/cancel by XOR or another small
+GF(2)-derived law after the correct guarded representation is found.
+
+Treat XOR as a candidate operation to derive, never as a value premise. A
+rule-only experiment must first establish nontrivial cancellation relations and
+translate them back into explicit geometry. Only an independently proved bridge
+from such algebra into CertifiedObligation may affect W/D/L closure.
