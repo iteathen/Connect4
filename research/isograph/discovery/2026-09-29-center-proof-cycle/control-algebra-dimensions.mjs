@@ -1032,6 +1032,39 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     stateClass.set(rec.key,id);
   }
 
+  const actionLabelledStateClass=new Map(),
+    actionLabelledSignatureClass=new Map(),
+    actionLabelledClassesByRank=Array(cells+1).fill(0);
+  let actionLabelledNextId=0;
+  for(let rank=cells;rank>=0;rank--)for(const rec of byRank[rank]){
+    let signature;
+    if(rec.terminal)signature=rec.key;
+    else{
+      const tokens=[],childIds=rec.children.map(child=>{
+        const id=actionLabelledStateClass.get(child);
+        assert.notEqual(id,undefined,
+          'action-labelled child class must exist at higher rank');
+        return id;
+      });
+      let childIndex=0;
+      for(let col=0;col<width;col++){
+        if(rec.heights[col]>=height)tokens.push('I');
+        else tokens.push('C'+childIds[childIndex++]);
+      }
+      assert.equal(childIndex,childIds.length);
+      signature='L:'+rank+':'+(rank&1)+':'+tokens.join(',');
+    }
+    let id=actionLabelledSignatureClass.get(signature);
+    if(id===undefined){
+      id=actionLabelledNextId++;
+      actionLabelledSignatureClass.set(signature,id);
+      actionLabelledClassesByRank[rank]++;
+    }
+    actionLabelledStateClass.set(rec.key,id);
+  }
+  const earliestActionLabelledMergeRank=statesByRank.findIndex(
+    (states,rank)=>states>actionLabelledClassesByRank[rank]);
+
   let localBranchClosureResult=null;
   if(measureLocalBranchClosure){
     function samePartition(candidate,reference){
@@ -1507,7 +1540,8 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
 
 
   // Post-hoc exact W/D/L validation on the direct q-orbit graph.
-  const values=new Map(),classValueMask=new Map();
+  const values=new Map(),classValueMask=new Map(),
+    actionLabelledClassValueMask=new Map();
   for(let rank=cells;rank>=0;rank--)for(const rec of byRank[rank]){
     let value;
     if(rec.terminal)
@@ -1518,15 +1552,23 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
       value=(rank&1)?Math.min(...childValues):Math.max(...childValues);
     }
     values.set(rec.key,value);
-    const id=stateClass.get(rec.key),bit=value<0?1:value>0?4:2;
+    const id=stateClass.get(rec.key),bit=value<0?1:value>0?4:2,
+      labelledId=actionLabelledStateClass.get(rec.key);
     classValueMask.set(id,(classValueMask.get(id)??0)|bit);
+    actionLabelledClassValueMask.set(
+      labelledId,(actionLabelledClassValueMask.get(labelledId)??0)|bit);
   }
-  let wdlSplitClasses=0;
+  let wdlSplitClasses=0,actionLabelledWdlSplitClasses=0;
   for(const mask of classValueMask.values())
     if((mask&(mask-1))!==0)wdlSplitClasses++;
+  for(const mask of actionLabelledClassValueMask.values())
+    if((mask&(mask-1))!==0)actionLabelledWdlSplitClasses++;
 
   const frontier=statesByRank.map((states,rank)=>({
       rank,states,classes:classesByRank[rank],
+    })),
+    actionLabelledFrontier=statesByRank.map((states,rank)=>({
+      rank,states,classes:actionLabelledClassesByRank[rank],
     })),
     rootRec=nodes.get(rootKey),
     orbitIndex=new Map([...nodes.keys()].map((key,index)=>[key,index])),
@@ -1801,6 +1843,11 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     literalActionEdges,
     duplicateEquivalentActionEdges,
     recursiveUnlabelledClasses:nextId,
+    recursiveActionLabelledClasses:actionLabelledNextId,
+    actionLabelledWdlSplitClasses,
+    earliestActionLabelledMergeRank:
+      earliestActionLabelledMergeRank<0?null:earliestActionLabelledMergeRank,
+    actionLabelledFrontier,
     wdlSplitClasses,
     rootValue:values.get(rootKey),
     rootLegalActions:rootRec.children.length,
