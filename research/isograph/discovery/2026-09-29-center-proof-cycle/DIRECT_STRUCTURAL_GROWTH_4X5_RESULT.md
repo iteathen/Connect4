@@ -3,8 +3,9 @@
 **Status:** bounded rule-only structural growth result  
 **Research direction:** Joshua Oshiro  
 **Branch:** `research/nim-control-parity-algebra-20260929`  
-**Workflow:** `36551642428` — success  
-**Producer head:** `f7bc7b644cf3e3bc7eef26ba6ffd158444cf1f01`  
+**Initial workflow:** `36551642428` — success  
+**Sparse-transporter rerun:** `36551912434` — success  
+**Sparse producer head:** `5b3084095ed4a7e4fabde8da444d832be4df8686`  
 **Solved/outcome labels used by producer:** no  
 **Physical board enumeration:** no
 
@@ -101,18 +102,37 @@ growth   ~10.9x for four additional cells
 This is substantially smaller than a physical-game expansion, but the observed
 state growth does not support a polynomial-size claim.
 
-## Important implementation caveat
+## Canonicalizer correction and rerun
 
-The current column-orbit canonicalizer precomputes one mask-remap table of size
-`2^cells` for each column permutation. On 4x5 this accounts for roughly 100 MB
-of array-buffer memory.
+The initial run used an implementation convenience that precomputed one
+`2^cells` mask-remap table per column permutation. That preprocessing was not
+semantic and was itself exponentially sized.
 
-That table is an implementation convenience, not part of the semantic state
-system. It is itself exponentially sized and must not be used as evidence about
-the intrinsic complexity of the structural representation.
+It has since been replaced by sparse, on-demand residual-mask transport. The
+same 4x5 control was rerun with **identical semantic counts**:
 
-The next growth experiment must first replace it with sparse/on-demand mask
-transport so memory and preprocessing scale with masks actually encountered.
+~~~text
+states             102,815
+edges              325,038
+recursive classes   86,791
+root value             draw
+closure rounds             9
+~~~
+
+but with materially lower implementation cost:
+
+~~~text
+                         dense remap   sparse remap
+elapsed                     16.12 s       12.48 s
+RSS                         ~686 MB       ~319 MB
+heap used                   ~241 MB       ~136 MB
+array buffers               ~101 MB       ~0.14 MB
+~~~
+
+The explicit `2^cells` preprocessing artifact is therefore removed from later
+growth measurements. The remaining state growth belongs to the direct
+structural graph and ordinary object/storage overhead rather than a full-mask
+permutation table.
 
 ## Interpretation
 
