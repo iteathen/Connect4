@@ -1,0 +1,179 @@
+# Residual realizability closure — frontier blockers and final-event cap parity
+
+**Status:** bounded exact controls plus deductive rule derivations  
+**Research direction:** Joshua Oshiro  
+**Branch:** `research/nim-control-parity-algebra-20260929`  
+**Latest tested head:** `933c6b00428d79d79433518e24e734dc6cae41e3`  
+**Workflow:** `36550319915` — success  
+**Production effect:** none
+
+## Context
+
+The direct 4x4 Connect-4 residual-orbit graph begins with 10,507 structural
+states and collapses recursively to 8,242 action-unlabelled classes. The first
+dynamic discrepancies were inspected as candidate implicit assertions rather
+than accepted as opaque minimax coincidences.
+
+Three rule-derived eliminations have now been tested.
+
+## Rule 1 — universal frontier blocker
+
+For mover M, let F be the set of currently legal landing events and let R be
+one residual winning requirement of the opponent.
+
+~~~text
+F subseteq R
+    ->
+R is ordinary-future inert at this node
+~~~
+
+Every legal move by M occupies a cell of R before the opponent can move again.
+Thus every nonterminal successor has R blocked. An immediate mover win also
+terminates before R can matter.
+
+On 4x4 C4:
+
+~~~text
+10,507 -> 10,075 residual-orbit states
+31,669 -> 30,732 literal action edges
+8,242 recursive classes preserved
+~~~
+
+## Rule 2 — nonterminal frontier blocker
+
+The previous guard can be weakened. Let N be only the currently legal moves
+that do not immediately win for the mover.
+
+~~~text
+N subseteq R
+    ->
+R is ordinary-future inert at this node
+~~~
+
+Moves outside R need not be considered if they terminate immediately in a mover
+win. Every surviving nonterminal branch still blocks R.
+
+This stronger rule passed the full current small-board dimension matrix.
+
+On 4x4 C4:
+
+~~~text
+10,075 -> 9,951 residual-orbit states
+30,732 -> 30,473 literal action edges
+8,242 recursive classes preserved
+~~~
+
+Relative to the original 10,507-state graph, 556 states are removed.
+
+## Rule 3 — mover final-event cap parity
+
+Let C be the set of non-full columns and let cap(C) contain the top board cell
+of every column in C. Let R be one residual requirement of the mover.
+
+If all remaining board cells must be filled before R can complete because:
+
+~~~text
+cap(C) subseteq R
+~~~
+
+then completion of R includes the final board placement. With alternating
+no-pass play, if the number of remaining cells is even, the opponent makes
+that final placement.
+
+Therefore:
+
+~~~text
+remaining cells even
+AND cap(C) subseteq mover residual R
+    ->
+R is unrealizable for the mover
+~~~
+
+Proof: completion of R requires every non-full column to reach its top cell.
+The last future board event is consequently a member of R. With an even number
+of remaining events and the mover acting first, that last event belongs to the
+opponent. Hence at least one required cell of R is opponent-owned before R can
+complete.
+
+This rule also passed every board in the current small-dimension matrix.
+
+On 4x4 C4, applied after the nonterminal blocker:
+
+~~~text
+9,951 -> 9,441 residual-orbit states
+30,473 -> 29,351 literal action edges
+8,242 recursive classes preserved
+~~~
+
+## Combined reduction
+
+~~~text
+baseline structural states      10,507
+after three local rules           9,441
+recursive target classes          8,242
+
+baseline excess                   2,265
+remaining excess                  1,199
+explained excess                  1,066
+~~~
+
+The three rules directly account for about 47% of the original static-to-
+recursive state gap on the exhaustive 4x4 C4 control.
+
+The direct structural graph is now about 5.9% as large as the 161,029-state
+physical graph while reproducing the same 8,242 recursive value/control
+classes.
+
+## Earliest remaining dynamic merge
+
+After the three rules, the earliest unexplained merge remains at rank 8, but
+the simple mover-unrealizable top-cap requirements have disappeared.
+
+The remaining examples pair different support structures such as:
+
+~~~text
+[1,1,3,3]
+vs
+[1,1,2,4]
+~~~
+
+with the same recursive child-class set. These are not explained by one fixed
+column permutation or by deleting one universally blocked residual.
+
+This shifts the active seam from local dead-residual removal to branch-local
+action transporter / support-chain equivalence.
+
+## Relation to existing authority
+
+These rules use only support, alternating control, first-win stopping and the
+existing normalized residual-antichain semantics. They do not introduce a
+parallel game ontology.
+
+The final-event rule is a concrete realizability constraint of the type already
+identified as missing in the current authority's open realizability region.
+Promotion into gameplay authority would still require the normal successor
+IsoGraph qualification transaction; this discovery artifact does not perform
+that promotion.
+
+## Relation to XOR/GF(2)
+
+No XOR value theorem follows. The important narrowing is that a substantial
+part of branch-equivalence can be generated by exact local obligation
+elimination before recursive value calculation.
+
+If a GF(2)-like law survives at the final layer, its operands should be sought
+after these realizability and blocker closures rather than among raw physical
+move coordinates.
+
+## Next seam
+
+Analyze the remaining rank-8 pairs as future-support event systems. In
+particular test whether support chains and residual cells can be represented
+relative to their future event depth rather than absolute row/column position,
+and whether two different support-chain decompositions admit the same local
+successor-class multiset under a compact transporter rule.
+
+## Non-claims
+
+This does not establish polynomial generalized Connect Four, a standard-7x6
+closed form, an XOR W/D/L formula, or a production solver optimization.

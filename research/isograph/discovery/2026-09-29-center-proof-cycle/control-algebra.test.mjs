@@ -310,3 +310,31 @@ test('mover-relative action-unlabelled quotient does not require absolute player
   assert.ok(q.actionUnlabelledRelativeNoMoverClasses<=q.actionUnlabelledValueClasses);
   assert.equal(q.actionUnlabelledRelativeNoMoverWdlSplitClasses,0);
 });
+
+
+test('perfect-play action-unlabelled mover-relative quotient collapses further',()=>{
+  const r=algebra.analyzeOptimalBranchCollapse4x4();
+  const q=r.mq2Crosscheck;
+  assert.ok(q.optimalActionUnlabelledRelativeClasses>0);
+  assert.ok(q.optimalActionUnlabelledRelativeClasses<q.actionUnlabelledRelativeNoMoverClasses);
+  assert.equal(q.optimalActionUnlabelledRelativeWdlSplitClasses,0);
+  assert.equal(q.rootOptimalLiteralActions,4);
+  assert.equal(q.rootDistinctOptimalChildClasses,1);
+});
+
+test('unlabeled quotient construction exposes state and class frontier growth',()=>{
+  const r=algebra.analyzeOptimalBranchCollapse4x4();
+  const sum=(xs,key)=>xs.reduce((n,x)=>n+x[key],0);
+  const all=r.structuralQuotients.allLegal;
+  assert.equal(sum(all.frontier,'states'),r.states);
+  assert.equal(sum(all.frontier,'classes'),all.classes);
+  assert.ok(all.successorEdgesProcessed>r.states);
+
+  const q=r.mq2Crosscheck,allMq=q.construction.allLegalUnlabelled,
+    optMq=q.construction.optimalUnlabelled;
+  assert.equal(sum(allMq.frontier,'states'),q.preWinStates);
+  assert.equal(sum(allMq.frontier,'classes'),q.actionUnlabelledRelativeNoMoverClasses);
+  assert.equal(sum(optMq.frontier,'states'),q.preWinStates);
+  assert.equal(sum(optMq.frontier,'classes'),q.optimalActionUnlabelledRelativeClasses);
+  assert.ok(allMq.successorEdgesProcessed>optMq.successorEdgesProcessed);
+});
