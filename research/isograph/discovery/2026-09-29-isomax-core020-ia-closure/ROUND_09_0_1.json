@@ -1,5 +1,5 @@
 {
-  "schema": "isomax.core020.structural_control.implicit_assertion_round.v1",
+  "schema": "isomax.core020.structural_control.implicit_assertion_round.v2",
   "round": 9,
   "date_author_local": "2026-09-29",
   "input": [
@@ -27,7 +27,8 @@
       ],
       "rule": "B",
       "scope": "shortest 5x4 residual-bit-refined witness",
-      "qu_dependencies": [
+      "qu_dependencies": [],
+      "related_qu": [
         "QU-SC-001"
       ]
     },
@@ -45,7 +46,8 @@
       ],
       "rule": "B",
       "scope": "shortest 5x4 residual-bit-refined witness",
-      "qu_dependencies": [
+      "qu_dependencies": [],
+      "related_qu": [
         "QU-SC-001"
       ]
     },
@@ -64,7 +66,8 @@
       ],
       "rule": "C",
       "scope": "exactly the two shortest 5x4 routes",
-      "qu_dependencies": [
+      "qu_dependencies": [],
+      "related_qu": [
         "QU-SC-001",
         "QU-SC-004"
       ]
@@ -107,5 +110,6 @@
       "disposition": "REJECTED_COORDINATE_OVERREACH",
       "qu": "QU-SC-001"
     }
-  ]
+  ],
+  "strict_support_revision": "ISOMAX_STRUCTURAL_CONTROL_CORE020_0_2.isg + A0 v2"
 }
