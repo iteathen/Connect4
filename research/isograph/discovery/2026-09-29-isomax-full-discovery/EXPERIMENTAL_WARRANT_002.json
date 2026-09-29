@@ -1,0 +1,135 @@
+{
+  "schema": "connect4.isomax.discovery.experimental_warrant.v1",
+  "id": "EW-002",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE_FRESH_CONFIRMATION",
+  "purpose": [
+    "DISCRIMINATING",
+    "CHARACTERIZING"
+  ],
+  "objective": "Test whether the gravity-relative orientation of winning-line incidence, rather than cell count or total winning-line count alone, tracks the transposed-board cocycle contrast.",
+  "parent_clue": [
+    "4x4-c4 is flat with horizontal/vertical line counts balanced.",
+    "4x5-c4 and 5x4-c4 have equal 20-cell bounds and equal total length-4 winning-line counts but opposite horizontal-versus-vertical line surplus and different cocycle integrability."
+  ],
+  "adaptive_lineage": "The gravity-orientation dimension was selected from the pre-existing 4x4/4x5/5x4 evidence. These k=3 cases are fresh and were not used to select that dimension.",
+  "scope_frontier": {
+    "anchored": [
+      "transposed board dimensions",
+      "gravity direction",
+      "winning-line orientation",
+      "k=3 fresh control",
+      "frontier/cap closures"
+    ],
+    "control": [
+      "3x3 balanced orientation",
+      "all four frontier/cap settings"
+    ],
+    "deferred": [
+      "larger k=4 boards beyond frozen cases",
+      "different closure families"
+    ],
+    "excluded": [
+      "solved W/D/L as producer input"
+    ]
+  },
+  "experiments": [
+    {
+      "width": 3,
+      "height": 3,
+      "k": 3,
+      "nonterminalFrontierBlocker": false,
+      "moverFinalCapParity": false
+    },
+    {
+      "width": 3,
+      "height": 3,
+      "k": 3,
+      "nonterminalFrontierBlocker": false,
+      "moverFinalCapParity": true
+    },
+    {
+      "width": 3,
+      "height": 3,
+      "k": 3,
+      "nonterminalFrontierBlocker": true,
+      "moverFinalCapParity": false
+    },
+    {
+      "width": 3,
+      "height": 3,
+      "k": 3,
+      "nonterminalFrontierBlocker": true,
+      "moverFinalCapParity": true
+    },
+    {
+      "width": 3,
+      "height": 4,
+      "k": 3,
+      "nonterminalFrontierBlocker": false,
+      "moverFinalCapParity": false
+    },
+    {
+      "width": 3,
+      "height": 4,
+      "k": 3,
+      "nonterminalFrontierBlocker": false,
+      "moverFinalCapParity": true
+    },
+    {
+      "width": 3,
+      "height": 4,
+      "k": 3,
+      "nonterminalFrontierBlocker": true,
+      "moverFinalCapParity": false
+    },
+    {
+      "width": 3,
+      "height": 4,
+      "k": 3,
+      "nonterminalFrontierBlocker": true,
+      "moverFinalCapParity": true
+    },
+    {
+      "width": 4,
+      "height": 3,
+      "k": 3,
+      "nonterminalFrontierBlocker": false,
+      "moverFinalCapParity": false
+    },
+    {
+      "width": 4,
+      "height": 3,
+      "k": 3,
+      "nonterminalFrontierBlocker": false,
+      "moverFinalCapParity": true
+    },
+    {
+      "width": 4,
+      "height": 3,
+      "k": 3,
+      "nonterminalFrontierBlocker": true,
+      "moverFinalCapParity": false
+    },
+    {
+      "width": 4,
+      "height": 3,
+      "k": 3,
+      "nonterminalFrontierBlocker": true,
+      "moverFinalCapParity": true
+    }
+  ],
+  "targeted_observations": [
+    "winning-line orientation counts",
+    "cycle rank",
+    "nonzero syndromes",
+    "contradictory reconvergences",
+    "binary continuation and exit counts"
+  ],
+  "open_observation_channel": "Preserve complete returned summary for every fresh case; failure of the orientation pattern is model-breaking evidence.",
+  "prohibited_information_sources": [
+    "solved database",
+    "W/D/L as structural producer input"
+  ],
+  "confirmation_status": "FRESH_RELATIVE_TO_DIMENSION_SELECTION"
+}
