@@ -1,0 +1,750 @@
+{
+  "schema": "center-prefix.rule-only-partial-proof.v1",
+  "createdAt": "2026-09-29T05:59:21.009Z",
+  "runtime": "v26.7.0",
+  "sourceSha256": "5a1877badaae1c4fa36076bf96cf8a49bd87c19be893fb3d3686b34ba9268bd0",
+  "inputs": [
+    "7x6 connect-four",
+    "gravity",
+    "alternating turns",
+    "first-win stopping",
+    "44",
+    "444",
+    "4444"
+  ],
+  "solvedInputsUsed": false,
+  "scope": "diagnostic bounds, not polynomial construction or production benchmark",
+  "rows": [
+    {
+      "prefix": "44",
+      "depth": 2,
+      "orientation": "absolute P0; actions zero-based",
+      "lo": -1,
+      "hi": 1,
+      "actions": [
+        {
+          "column": 0,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 1,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 2,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 3,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 4,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 5,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 6,
+          "lo": -1,
+          "hi": 1
+        }
+      ],
+      "certifiedOptimal": [],
+      "pairing": {
+        "covered": false,
+        "residualCount": 59,
+        "uncoveredCount": 12,
+        "firstUncovered": [
+          0,
+          1,
+          2
+        ]
+      },
+      "rootLeaf": {
+        "lo": -1,
+        "hi": 1,
+        "rule": "UNKNOWN"
+      },
+      "stats": {
+        "calls": 56,
+        "expanded": 7,
+        "hits": 0,
+        "horizon": 49,
+        "rules": {
+          "UNKNOWN": 56
+        },
+        "byPly": [
+          null,
+          null,
+          null,
+          7,
+          49
+        ],
+        "unique": 56
+      },
+      "diagnosticWallMs": 3.7276000000000025
+    },
+    {
+      "prefix": "44",
+      "depth": 4,
+      "orientation": "absolute P0; actions zero-based",
+      "lo": -1,
+      "hi": 1,
+      "actions": [
+        {
+          "column": 0,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 1,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 2,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 3,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 4,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 5,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 6,
+          "lo": -1,
+          "hi": 1
+        }
+      ],
+      "certifiedOptimal": [],
+      "pairing": {
+        "covered": false,
+        "residualCount": 59,
+        "uncoveredCount": 12,
+        "firstUncovered": [
+          0,
+          1,
+          2
+        ]
+      },
+      "rootLeaf": {
+        "lo": -1,
+        "hi": 1,
+        "rule": "UNKNOWN"
+      },
+      "stats": {
+        "calls": 1960,
+        "expanded": 279,
+        "hits": 591,
+        "horizon": 913,
+        "rules": {
+          "UNKNOWN": 1192,
+          "IMMEDIATE_WIN": 162,
+          "DOUBLE_THREAT": 15
+        },
+        "byPly": [
+          null,
+          null,
+          null,
+          7,
+          49,
+          343,
+          1561
+        ],
+        "unique": 1369
+      },
+      "diagnosticWallMs": 23.3035
+    },
+    {
+      "prefix": "44",
+      "depth": 6,
+      "orientation": "absolute P0; actions zero-based",
+      "lo": -1,
+      "hi": 1,
+      "actions": [
+        {
+          "column": 0,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 1,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 2,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 3,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 4,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 5,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 6,
+          "lo": -1,
+          "hi": 1
+        }
+      ],
+      "certifiedOptimal": [],
+      "pairing": {
+        "covered": false,
+        "residualCount": 59,
+        "uncoveredCount": 12,
+        "firstUncovered": [
+          0,
+          1,
+          2
+        ]
+      },
+      "rootLeaf": {
+        "lo": -1,
+        "hi": 1,
+        "rule": "UNKNOWN"
+      },
+      "stats": {
+        "calls": 33695,
+        "expanded": 4817,
+        "hits": 13738,
+        "horizon": 11222,
+        "rules": {
+          "UNKNOWN": 16039,
+          "IMMEDIATE_WIN": 3662,
+          "DOUBLE_THREAT": 256
+        },
+        "byPly": [
+          null,
+          null,
+          null,
+          7,
+          49,
+          343,
+          1561,
+          6390,
+          25345
+        ],
+        "unique": 19957
+      },
+      "diagnosticWallMs": 213.2219
+    },
+    {
+      "prefix": "444",
+      "depth": 2,
+      "orientation": "absolute P0; actions zero-based",
+      "lo": -1,
+      "hi": 1,
+      "actions": [
+        {
+          "column": 0,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 1,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 2,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 3,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 4,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 5,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 6,
+          "lo": -1,
+          "hi": 1
+        }
+      ],
+      "certifiedOptimal": [],
+      "pairing": {
+        "covered": false,
+        "reason": "ODD_REMAINING_CAPACITY",
+        "odd": [
+          3
+        ]
+      },
+      "rootLeaf": {
+        "lo": -1,
+        "hi": 1,
+        "rule": "UNKNOWN"
+      },
+      "stats": {
+        "calls": 56,
+        "expanded": 7,
+        "hits": 0,
+        "horizon": 49,
+        "rules": {
+          "UNKNOWN": 56
+        },
+        "byPly": [
+          null,
+          null,
+          null,
+          null,
+          7,
+          49
+        ],
+        "unique": 56
+      },
+      "diagnosticWallMs": 0.7633999999999901
+    },
+    {
+      "prefix": "444",
+      "depth": 4,
+      "orientation": "absolute P0; actions zero-based",
+      "lo": -1,
+      "hi": 1,
+      "actions": [
+        {
+          "column": 0,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 1,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 2,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 3,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 4,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 5,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 6,
+          "lo": -1,
+          "hi": 1
+        }
+      ],
+      "certifiedOptimal": [],
+      "pairing": {
+        "covered": false,
+        "reason": "ODD_REMAINING_CAPACITY",
+        "odd": [
+          3
+        ]
+      },
+      "rootLeaf": {
+        "lo": -1,
+        "hi": 1,
+        "rule": "UNKNOWN"
+      },
+      "stats": {
+        "calls": 2064,
+        "expanded": 294,
+        "hits": 651,
+        "horizon": 1083,
+        "rules": {
+          "UNKNOWN": 1377,
+          "DOUBLE_THREAT": 36
+        },
+        "byPly": [
+          null,
+          null,
+          null,
+          null,
+          7,
+          49,
+          343,
+          1665
+        ],
+        "unique": 1413
+      },
+      "diagnosticWallMs": 16.22569999999996
+    },
+    {
+      "prefix": "444",
+      "depth": 6,
+      "orientation": "absolute P0; actions zero-based",
+      "lo": -1,
+      "hi": 1,
+      "actions": [
+        {
+          "column": 0,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 1,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 2,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 3,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 4,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 5,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 6,
+          "lo": -1,
+          "hi": 1
+        }
+      ],
+      "certifiedOptimal": [],
+      "pairing": {
+        "covered": false,
+        "reason": "ODD_REMAINING_CAPACITY",
+        "odd": [
+          3
+        ]
+      },
+      "rootLeaf": {
+        "lo": -1,
+        "hi": 1,
+        "rule": "UNKNOWN"
+      },
+      "stats": {
+        "calls": 34947,
+        "expanded": 5022,
+        "hits": 14359,
+        "horizon": 14058,
+        "rules": {
+          "UNKNOWN": 19080,
+          "DOUBLE_THREAT": 536,
+          "IMMEDIATE_WIN": 972
+        },
+        "byPly": [
+          null,
+          null,
+          null,
+          null,
+          7,
+          49,
+          343,
+          1665,
+          7557,
+          25326
+        ],
+        "unique": 20588
+      },
+      "diagnosticWallMs": 217.00639999999999
+    },
+    {
+      "prefix": "4444",
+      "depth": 2,
+      "orientation": "absolute P0; actions zero-based",
+      "lo": -1,
+      "hi": 1,
+      "actions": [
+        {
+          "column": 0,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 1,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 2,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 3,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 4,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 5,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 6,
+          "lo": -1,
+          "hi": 1
+        }
+      ],
+      "certifiedOptimal": [],
+      "pairing": {
+        "covered": false,
+        "residualCount": 48,
+        "uncoveredCount": 12,
+        "firstUncovered": [
+          0,
+          1,
+          2
+        ]
+      },
+      "rootLeaf": {
+        "lo": -1,
+        "hi": 1,
+        "rule": "UNKNOWN"
+      },
+      "stats": {
+        "calls": 56,
+        "expanded": 7,
+        "hits": 0,
+        "horizon": 49,
+        "rules": {
+          "UNKNOWN": 56
+        },
+        "byPly": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          7,
+          49
+        ],
+        "unique": 56
+      },
+      "diagnosticWallMs": 0.6478999999999928
+    },
+    {
+      "prefix": "4444",
+      "depth": 4,
+      "orientation": "absolute P0; actions zero-based",
+      "lo": -1,
+      "hi": 1,
+      "actions": [
+        {
+          "column": 0,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 1,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 2,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 3,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 4,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 5,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 6,
+          "lo": -1,
+          "hi": 1
+        }
+      ],
+      "certifiedOptimal": [],
+      "pairing": {
+        "covered": false,
+        "residualCount": 48,
+        "uncoveredCount": 12,
+        "firstUncovered": [
+          0,
+          1,
+          2
+        ]
+      },
+      "rootLeaf": {
+        "lo": -1,
+        "hi": 1,
+        "rule": "UNKNOWN"
+      },
+      "stats": {
+        "calls": 1934,
+        "expanded": 278,
+        "hits": 591,
+        "horizon": 888,
+        "rules": {
+          "UNKNOWN": 1166,
+          "IMMEDIATE_WIN": 162,
+          "DOUBLE_THREAT": 15
+        },
+        "byPly": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          7,
+          49,
+          342,
+          1536
+        ],
+        "unique": 1343
+      },
+      "diagnosticWallMs": 14.518099999999947
+    },
+    {
+      "prefix": "4444",
+      "depth": 6,
+      "orientation": "absolute P0; actions zero-based",
+      "lo": -1,
+      "hi": 1,
+      "actions": [
+        {
+          "column": 0,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 1,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 2,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 3,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 4,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 5,
+          "lo": -1,
+          "hi": 1
+        },
+        {
+          "column": 6,
+          "lo": -1,
+          "hi": 1
+        }
+      ],
+      "certifiedOptimal": [],
+      "pairing": {
+        "covered": false,
+        "residualCount": 48,
+        "uncoveredCount": 12,
+        "firstUncovered": [
+          0,
+          1,
+          2
+        ]
+      },
+      "rootLeaf": {
+        "lo": -1,
+        "hi": 1,
+        "rule": "UNKNOWN"
+      },
+      "stats": {
+        "calls": 31669,
+        "expanded": 4614,
+        "hits": 13128,
+        "horizon": 10175,
+        "rules": {
+          "UNKNOWN": 14789,
+          "IMMEDIATE_WIN": 3488,
+          "DOUBLE_THREAT": 264
+        },
+        "byPly": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          7,
+          49,
+          342,
+          1536,
+          6105,
+          23630
+        ],
+        "unique": 18541
+      },
+      "diagnosticWallMs": 178.0951
+    }
+  ]
+}
