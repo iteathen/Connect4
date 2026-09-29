@@ -7,6 +7,7 @@ import {
   analyzeDepthPolynomialAnnihilator,
   analyzeControlWindowFactorization,
   analyzeControlWindowFactorizationRectangles,
+  analyzeExhaustive4x4DerivativeCarrier,
 } from './control-algebra.mjs';
 
 const result={
@@ -22,5 +23,6 @@ const result={
   depthPolynomialAnnihilator:analyzeDepthPolynomialAnnihilator(),
   controlWindowFactorization:analyzeControlWindowFactorization(),
   controlWindowFactorizationRectangles:analyzeControlWindowFactorizationRectangles(),
+  exhaustive4x4DerivativeCarrier:analyzeExhaustive4x4DerivativeCarrier(),
 };
 console.log(JSON.stringify(result,null,2));
