@@ -151,3 +151,19 @@ test('general Connect-K cancellation equals the winning window after removing on
     }
   }
 });
+
+
+test('response-factor law survives rectangular boundary perturbation',()=>{
+  assert.equal(typeof algebra.analyzeControlWindowFactorizationRectangles,'function');
+  const r=algebra.analyzeControlWindowFactorizationRectangles({
+    connectK:[4,8,12,16],margins:[0,1,2,3,5]
+  });
+  assert.equal(r.inputs,'geometry/rules only');
+  assert.equal(r.outcomeLabelsRead,false);
+  assert.equal(r.rows.length,100);
+  assert.deepEqual(r.failures,[]);
+  for(const x of r.rows){
+    assert.equal(x.ungradedCancellation,true);
+    assert.equal(x.depthGcd,x.windowOverFirstDerivative);
+  }
+});
