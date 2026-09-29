@@ -1,0 +1,78 @@
+{
+  "schema": "isomax.core020.structural_control.implicit_assertion_round.v2",
+  "round": 13,
+  "date_author_local": "2026-09-29",
+  "strict_support_revision": "ISOMAX_STRUCTURAL_CONTROL_CORE020_0_2.isg + A0 v2 + INFERENCE_RULES_0_2.json",
+  "input": [
+    "ROUND_12_0_2.json"
+  ],
+  "new_assertions": [
+    {
+      "id": "SC-IA059",
+      "family": "M",
+      "support_mode": "EXACT",
+      "title": "relative transporter is an even involution with two disjoint swaps",
+      "body": "The definitionally composed relative transporter 197502 swaps slots 0 and 1, swaps slots 2 and 3, fixes slot 4, and applying it twice returns every represented slot to itself; its represented parity bit is 0.",
+      "normalized_body": "relative_transporter_is_even_involution_swaps_0_1_and_2_3_fixes_4",
+      "premises": [
+        "SC-IA055"
+      ],
+      "rule": "M",
+      "scope": "shortest 5x4 route-transporter pair",
+      "qu_dependencies": []
+    },
+    {
+      "id": "SC-IA060",
+      "family": "F",
+      "support_mode": "EXACT",
+      "title": "absolute sign plus common second action does not determine route phase",
+      "body": "The two shortest routes both have accumulated transporter-sign bit 1 and the same second source-frame action slot 2, yet their computed route-phase bits are 0 and 1; the pair (absolute sign, second action) does not determine route phase on this witness.",
+      "normalized_body": "absolute_sign_plus_second_action_does_not_determine_shortest_route_phase",
+      "premises": [
+        "SC-IA001",
+        "SC-IA058",
+        "SC-E005",
+        "SC-E006"
+      ],
+      "rule": "F",
+      "scope": "shortest 5x4 two-route witness",
+      "qu_dependencies": [],
+      "related_qu": [
+        "QU-SC-004"
+      ]
+    }
+  ],
+  "support_refinements": [],
+  "qu_refinements": [
+    {
+      "id": "SC-QR012",
+      "target": "QU-SC-004",
+      "rule": "U",
+      "premises": [
+        "SC-IA058",
+        "SC-IA060"
+      ],
+      "add_fixed": [
+        "the two shortest routes share their second source-frame action and absolute transporter parity while their route phases differ"
+      ],
+      "remove_alternatives": [
+        "absolute transporter parity together with the common second source-frame action is sufficient to determine the shortest-route phase"
+      ],
+      "retain_open": [
+        "full non-parity transporter/orientation structure matters on some obstruction components",
+        "a relabeling-invariant endpoint/residual relation subsumes the needed distinction",
+        "other action-history features matter outside the shortest pair"
+      ],
+      "probability_added": false
+    }
+  ],
+  "rejected_candidates": [
+    {
+      "id": "SC-RJ024",
+      "body": "The first differing source-frame action causes the phase difference.",
+      "reason": "The pair differs at the first action, but the represented facts do not prove causal sufficiency.",
+      "disposition": "REJECTED_CAUSAL_OVERREACH",
+      "qu": "QU-SC-004"
+    }
+  ]
+}
