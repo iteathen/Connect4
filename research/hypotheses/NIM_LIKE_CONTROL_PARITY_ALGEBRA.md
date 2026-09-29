@@ -200,22 +200,32 @@ The first goal is to discover a real latent algebra. Game-value consumption
 requires an independently proved bridge from that algebra into guarded
 obligation closure.
 
-## Initial exploratory observations awaiting repository reproduction
+## First repository reproduction
 
-A scratch analysis against the current 7x6 center-boundary artifacts suggested:
+Checked-in rule-only code now reproduces bounded evidence at
+[CONTROL_ALGEBRA_RESULT.md](../isograph/discovery/2026-09-29-center-proof-cycle/CONTROL_ALGEBRA_RESULT.md):
 
-- paired-response contributions projected through ownership-labelled winning-line
-  incidence possess a nontrivial GF(2) relation;
-- the unmatched center-top event appears independent of the ordinary paired
-  response span;
-- simple XOR sums of independent column or mirror-pair values do not explain
-  the boundary;
-- the 2,108 unresolved boundary states appear to admit nontrivial low-degree
-  GF(2) polynomial identities, with support/parity factors corresponding to
-  concrete diagonal-completion geometry.
+- the standard 7x6 single-defect response family has 20 pair generators of
+  GF(2) rank 19;
+- the unique recovered response dependency is the XOR of all three ordinary
+  pairs in columns 1,3,5,7;
+- the unmatched P1 center-top event raises the rank from 19 to 20;
+- the 2,108 unresolved boundary has no nonzero degree-1 or degree-2 vanishing
+  polynomial, exactly two independent degree-3 identities, and 43 identities
+  by degree 4 in the declared 12-bit support encoding;
+- the two cubic identities factor into reflected support-parity gates for
+  center-crossing diagonal completions;
+- degree <= 4 separates all 1,987 immediate-win comparison states from the
+  unresolved family;
+- across widths 4..10 and even heights 4/6/8, every geometrically safe
+  single-defect family has exactly one pair-relation dependency and an
+  independent unmatched top defect.
 
-These are **not qualified findings yet**. They must be reproduced by checked-in
-rule-only code before being promoted even to bounded research evidence.
+This is bounded algebraic evidence, not a value theorem. The post-hoc
+[outcome comparison](../isograph/discovery/2026-09-29-center-proof-cycle/CONTROL_ALGEBRA_OUTCOME_COMPARISON.md)
+also shows that the first GF(2) skeleton is insufficient for W/D/L: 7x4, 7x6
+and 7x8 share the same one-relation/one-defect structure while their known
+outcomes differ.
 
 ## Immediate experiment
 
