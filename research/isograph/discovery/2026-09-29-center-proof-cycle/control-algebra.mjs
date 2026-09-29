@@ -1066,6 +1066,29 @@ export function analyzeOptimalBranchCollapse4x4(){
     }
   }
 
+  let siblingStatesAudited=0,allChildrenSamePartial2=0,childrenSplitAcrossPartial2=0,
+    allChildrenSameTerminalSet=0,childrenSplitAcrossTerminalSet=0,
+    samePartial2DifferentTerminalSetPairs=0,differentPartial2SameTerminalSetPairs=0;
+  for(const rec of memo.values()){
+    const edges=optimalByKey.get(rec.key);
+    if(!edges||edges.length<2)continue;
+    siblingStatesAudited++;
+    const partial2=edges.map(edge=>{
+      const child=memo.get(edge.childKey);
+      return fourByFourPartial2Signature(g,child.p0,child.p1).toString();
+    });
+    const terminalSets=edges.map(edge=>terminalMaskFor(edge.childKey).toString());
+    if(new Set(partial2).size===1)allChildrenSamePartial2++;
+    else childrenSplitAcrossPartial2++;
+    if(new Set(terminalSets).size===1)allChildrenSameTerminalSet++;
+    else childrenSplitAcrossTerminalSet++;
+    for(let i=0;i<edges.length;i++)for(let j=i+1;j<edges.length;j++){
+      const sameP=partial2[i]===partial2[j],sameT=terminalSets[i]===terminalSets[j];
+      if(sameP&&!sameT)samePartial2DifferentTerminalSetPairs++;
+      if(!sameP&&sameT)differentPartial2SameTerminalSetPairs++;
+    }
+  }
+
   const rootTerminalMask=terminalMaskFor(keyOf(0,0));
   return {
     inputs:'4x4 connect-4 rules only',
@@ -1089,5 +1112,14 @@ export function analyzeOptimalBranchCollapse4x4(){
     winningStatesWithMultipleTerminalLines,
     maxTerminalWinningLines,
     exampleBranchCollapse,
+    siblingCarrierAudit:{
+      statesAudited:siblingStatesAudited,
+      allChildrenSamePartial2,
+      childrenSplitAcrossPartial2,
+      allChildrenSameTerminalSet,
+      childrenSplitAcrossTerminalSet,
+      samePartial2DifferentTerminalSetPairs,
+      differentPartial2SameTerminalSetPairs,
+    },
   };
 }
