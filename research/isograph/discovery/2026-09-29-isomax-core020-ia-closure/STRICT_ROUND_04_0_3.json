@@ -1,0 +1,69 @@
+{
+  "schema": "isomax.core020.structural_control.strict_ia_round.v3",
+  "round": 4,
+  "date_author_local": "2026-09-29",
+  "status": "STRICT_NATIVE_ADMISSION_REOPENED_BY_PRIMITIVE_REDUCTION",
+  "predecessor_fixed_point": "STRICT_ROUND_03_FIXED_POINT_0_2.json",
+  "native": "STRICT_IA_CORE020_0_3.isg",
+  "admission": "STRICT_IA_ADMISSION_0_3.json",
+  "new_assertions": [
+    {
+      "id": "SC-SIA009",
+      "native_id": "210009",
+      "premises": [
+        "SC-E005",
+        "SC-E015"
+      ],
+      "support_mode": "EXACT"
+    },
+    {
+      "id": "SC-SIA010",
+      "native_id": "210010",
+      "premises": [
+        "SC-E006",
+        "SC-E015"
+      ],
+      "support_mode": "EXACT"
+    },
+    {
+      "id": "SC-SIA011",
+      "native_id": "210011",
+      "premises": [
+        "SC-SIA009",
+        "SC-SIA010"
+      ],
+      "support_mode": "EXACT"
+    },
+    {
+      "id": "SC-SIA012",
+      "native_id": "210012",
+      "premises": [
+        "SC-SIA007",
+        "SC-SIA011"
+      ],
+      "support_mode": "EXACT"
+    },
+    {
+      "id": "SC-SIA013",
+      "native_id": "210013",
+      "premises": [
+        "SC-E016"
+      ],
+      "support_mode": "EXACT"
+    },
+    {
+      "id": "SC-SIA014",
+      "native_id": "210014",
+      "premises": [
+        "SC-SIA007",
+        "SC-SIA009",
+        "SC-SIA010",
+        "SC-SIA013"
+      ],
+      "support_mode": "EXACT"
+    }
+  ],
+  "support_refinements": [],
+  "qu_refinements": [],
+  "note": "The previous strict fixed point reopened only because deeper primitive reduction exposed native transporter/action-sequence bodies."
+}
