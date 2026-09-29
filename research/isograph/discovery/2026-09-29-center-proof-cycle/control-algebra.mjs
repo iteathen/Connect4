@@ -199,3 +199,57 @@ export function analyzeBoundaryPolynomialAlgebra(){
     outcomeLabelsRead:false,
   };
 }
+
+
+function defectTemplate(g,defectColumn){
+  // State after one P0 token in the defect column, extended by the strict
+  // P1-then-P0 same-column response coloring. This is geometry only.
+  return Array.from({length:g.cells},(_,cell)=>{
+    const row=Math.floor(cell/g.columns),column=cell%g.columns;
+    return column===defectColumn?(row&1):((row&1)^1);
+  });
+}
+
+function analyzeDefectColumn(g,defectColumn){
+  assert.equal(g.rows&1,0,'dimension probe currently requires even height');
+  const template=defectTemplate(g,defectColumn),monochromatic=[0,0];
+  for(const line of g.lines)if(line.every(x=>template[x]===template[line[0]]))
+    monochromatic[template[line[0]]]++;
+  if(monochromatic[0]||monochromatic[1])return null;
+
+  const vectors=[],labels=[];
+  for(let c=0;c<g.columns;c++){
+    const first=c===defectColumn?1:0,
+      last=c===defectColumn?g.rows-3:g.rows-2;
+    for(let h=first;h<=last;h+=2){
+      vectors.push(incidence(g,1,h*g.columns+c)^incidence(g,0,(h+1)*g.columns+c));
+      labels.push(`c${c+1}:r${h+1}-${h+2}`);
+    }
+  }
+  const width=g.lines.length*2,pair=gf2Basis(vectors,width),
+    unmatched=incidence(g,1,(g.rows-1)*g.columns+defectColumn),
+    withUnmatched=gf2Basis([...vectors,unmatched],width).rank;
+  return {
+    column:defectColumn+1,
+    responsePairs:vectors.length,
+    responsePairRank:pair.rank,
+    responseRelationNullity:vectors.length-pair.rank,
+    unmatchedIndependent:withUnmatched===pair.rank+1,
+    rankWithUnmatched:withUnmatched,
+  };
+}
+
+export function analyzeDimensionControlAlgebra({widths=[4,5,6,7,8,9,10],heights=[4,6,8]}={}){
+  const rows=[];
+  for(const width of widths)for(const height of heights){
+    assert.ok(Number.isInteger(width)&&width>=4);
+    assert.ok(Number.isInteger(height)&&height>=4&&!(height&1));
+    const g=geometry(width,height),safeDefects=[];
+    for(let c=0;c<width;c++){
+      const x=analyzeDefectColumn(g,c);
+      if(x)safeDefects.push(x);
+    }
+    rows.push({width,height,lineCount:g.lines.length,safeDefects});
+  }
+  return {inputs:'geometry/rules only',connectK:4,outcomeLabelsRead:false,rows};
+}
