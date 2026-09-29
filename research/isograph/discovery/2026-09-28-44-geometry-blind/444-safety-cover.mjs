@@ -308,19 +308,23 @@ return {
 };
 }
 
-const result=analyzeState(
-  '444 / D1 D2 D3',
-  [[4,1],[4,3]],
-  [[4,2]],
-);
+const cases=[
+  {sequence:'441',name:'441 / D1 A1; P1 D2',p0:[[4,1],[1,1]],p1:[[4,2]]},
+  {sequence:'442',name:'442 / D1 B1; P1 D2',p0:[[4,1],[2,1]],p1:[[4,2]]},
+  {sequence:'443',name:'443 / D1 C1; P1 D2',p0:[[4,1],[3,1]],p1:[[4,2]]},
+  {sequence:'444',name:'444 / D1 D3; P1 D2',p0:[[4,1],[4,3]],p1:[[4,2]]},
+];
+const results=cases.map(c=>({sequence:c.sequence,...analyzeState(c.name,c.p0,c.p1)}));
 console.log(JSON.stringify({
   schema:'connect4.444.p1-safety-certificate-compatibility.v1',
   oracleBoundary:{
     solvedInputsUsed:false,
     inputs:['7x6 geometry','gravity-derived occupancy of 444','qualified CE/V/BI/LI/HI/BC/BF/AE/SPB consequence rules','pairwise compatibility rules'],
   },
-  result,
-  interpretation: result.completeCoverSatisfiable
-    ? 'A complete safety cover exists in this certificate profile; this test does not prove P1 can realize it temporally.'
-    : 'No complete pairwise-compatible P1 safety cover exists in this certificate profile. This is exact for the declared profile but is not yet a global P0-win theorem.',
+  results,
+  discrimination:{
+    completeCoverBySequence:Object.fromEntries(results.map(r=>[r.sequence,r.completeCoverSatisfiable])),
+    uniqueNoCover:results.filter(r=>!r.completeCoverSatisfiable).map(r=>r.sequence),
+  },
+  interpretation:'This compares the same certificate vocabulary across all four reflection-distinct 44x children. It remains profile-relative and consumes no W/D/L labels.',
 },null,2));
