@@ -212,7 +212,7 @@ test('exhaustive optimal policy graph branches and collapses under perfect play'
   assert.ok(r.multiOptimalStates>0);
   assert.ok(r.moverWinningMultiOptimalStates>0);
   assert.ok(r.optimalMergeStates>0);
-  assert.ok(r.optimalTwoPlyDiamonds>0);
+  assert.ok(r.optimalThreePlyDiamonds>0);
   assert.ok(r.winningStatesWithMultipleTerminalLines>0);
   assert.ok(r.maxTerminalWinningLines>1);
   assert.ok(r.exampleBranchCollapse);
