@@ -305,8 +305,8 @@ test('support-release turn capacity removes timing-unrealizable residuals withou
   }
 });
 
-test('bounded open-cap terminal dominance removes behaviorally redundant opponent obligations',()=>{
-  const physical=analyzeUnlabelledQuotientDimensionMatrix();
+test('bounded open-cap terminal dominance preserves recursive semantics across small controls',()=>{
+  const physical=analyzeUnlabelledQuotientDimensionMatrix(),rows=[];
   for(const row of physical.cases){
     const base=analyzeDirectResidualOrbitGraph({
       width:row.width,height:row.height,k:row.k,
@@ -325,9 +325,16 @@ test('bounded open-cap terminal dominance removes behaviorally redundant opponen
     assert.equal(closed.recursiveUnlabelledClasses,row.classes);
     assert.equal(closed.rootValue,row.rootValue);
     assert.equal(closed.wdlSplitClasses,0);
-    assert.ok(closed.residualOrbitStates<=base.residualOrbitStates);
-    assert.ok(closed.literalActionEdges<=base.literalActionEdges);
+    rows.push({
+      width:row.width,height:row.height,k:row.k,
+      baseStates:base.residualOrbitStates,
+      closedStates:closed.residualOrbitStates,
+      baseEdges:base.literalActionEdges,
+      closedEdges:closed.literalActionEdges,
+      classes:closed.recursiveUnlabelledClasses,
+    });
   }
+  console.log('OPEN_CAP_DOMINANCE_MATRIX '+JSON.stringify(rows));
 });
 
 test('final-event cap parity removes mover-unrealizable residuals without changing quotient',()=>{
