@@ -1,0 +1,230 @@
+#include <algorithm>
+#include <array>
+#include <chrono>
+#include <cstdint>
+#include <iostream>
+#include <sstream>
+#include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
+
+#include "solver/position.h"
+#include "solver/settings.h"
+#include "solver/solver.h"
+
+struct Line {
+    std::array<std::pair<int,int>,4> cells; // row,col
+    const char* kind;
+};
+
+static std::vector<Line> make_lines() {
+    std::vector<Line> v;
+    auto add=[&](int r,int c,int dr,int dc,const char* k){
+        Line L{}; L.kind=k;
+        for(int i=0;i<4;i++) L.cells[i]={r+i*dr,c+i*dc};
+        v.push_back(L);
+    };
+    for(int r=0;r<BOARD_HEIGHT;r++) for(int c=0;c<BOARD_WIDTH;c++){
+        if(c+3<BOARD_WIDTH) add(r,c,0,1,"H");
+        if(r+3<BOARD_HEIGHT) add(r,c,1,0,"V");
+        if(c+3<BOARD_WIDTH&&r+3<BOARD_HEIGHT) add(r,c,1,1,"D+");
+        if(c+3<BOARD_WIDTH&&r-3>=0) add(r,c,-1,1,"D-");
+    }
+    return v;
+}
+
+static std::string sig(const Line& L, bool mirror=false) {
+    std::array<int,4> a{};
+    for(int i=0;i<4;i++){
+        int r=L.cells[i].first,c=L.cells[i].second;
+        if(mirror)c=BOARD_WIDTH-1-c;
+        a[i]=r*BOARD_WIDTH+c;
+    }
+    std::sort(a.begin(),a.end());
+    std::ostringstream s;
+    for(int x:a)s<<x<<',';
+    return s.str();
+}
+
+static uint64_t fingerprint(Position& p){
+    uint64_t k=0,m=1;
+    for(int r=0;r<BOARD_HEIGHT;r++) for(int c=0;c<BOARD_WIDTH;c++){
+        int q=p.get_player(r,c);
+        uint64_t d=q==-1?1:(q==1?2:0);
+        k+=d*m; m*=3;
+    }
+    return k;
+}
+
+static bool has_cell(const Line& L,int r,int c){
+    for(auto [rr,cc]:L.cells) if(rr==r&&cc==c) return true;
+    return false;
+}
+
+static int landing_row(Position& p,int col){
+    for(int r=0;r<BOARD_HEIGHT;r++) if(p.get_player(r,col)==0) return r;
+    return -1;
+}
+
+static bool target_possible(Position& p,const Line& L){
+    for(auto [r,c]:L.cells) if(p.get_player(r,c)==-1) return false;
+    return true;
+}
+
+static bool target_complete_for_second(Position& p,const Line& L){
+    for(auto [r,c]:L.cells) if(p.get_player(r,c)!=1) return false;
+    return true;
+}
+
+class Finder {
+public:
+    Finder(): lines(make_lines()) {}
+
+    bool find(int target,std::vector<int>& witness,double seconds){
+        Position root{};
+        dead.clear(); calls=0; timed_out=false;
+        deadline=std::chrono::steady_clock::now()+std::chrono::milliseconds((long long)(seconds*1000));
+        std::vector<int> path;
+        bool ok=dfs(root,target,path);
+        if(ok) witness=path;
+        return ok;
+    }
+
+    bool validate(const std::vector<int>& path,int target){
+        Position p{};
+        for(size_t ply=0;ply<path.size();ply++){
+            if(p.is_game_over()) return false;
+            int best=solver.solve(p), col=path[ply];
+            if(!p.is_move_valid(col)) return false;
+            board before=p.move(col);
+            int mv=-solver.solve(p,-best,-best+1);
+            if(mv<best){ p.unmove(before); return false; }
+            if(ply+1<path.size() && p.is_game_over()){ p.unmove(before); return false; }
+        }
+        return path.size()==(size_t)(BOARD_WIDTH*BOARD_HEIGHT)
+            && p.is_game_over() && !p.is_draw()
+            && target_complete_for_second(p,lines[target]);
+    }
+
+    const std::vector<Line>& get_lines() const { return lines; }
+    uint64_t get_calls() const { return calls; }
+    bool timeout() const { return timed_out; }
+
+private:
+    bool dfs(Position& p,int target,std::vector<int>& path){
+        if((++calls & 1023)==0 && std::chrono::steady_clock::now()>deadline){
+            timed_out=true; return false;
+        }
+        const Line& L=lines[target];
+        if(!target_possible(p,L)) return false;
+        if(p.is_game_over()){
+            if(p.num_moves()==BOARD_WIDTH*BOARD_HEIGHT && target_complete_for_second(p,L)) return true;
+            return false;
+        }
+
+        uint64_t key=fingerprint(p);
+        if(dead.count(key)) return false;
+
+        int best=solver.solve(p);
+        struct M{int c,r,prio;};
+        std::vector<M> ms;
+        bool first=(p.num_moves()%2)==0;
+        for(int c=0;c<BOARD_WIDTH;c++) if(p.is_move_valid(c)){
+            int r=landing_row(p,c);
+            if(first && has_cell(L,r,c)) continue; // target would be poisoned
+            int prio=0;
+            if(!first && has_cell(L,r,c)) prio=2;
+            else if(first && !has_cell(L,r,c)) prio=1;
+            ms.push_back({c,r,prio});
+        }
+        std::stable_sort(ms.begin(),ms.end(),[](const M&a,const M&b){return a.prio>b.prio;});
+
+        for(auto m:ms){
+            board before=p.move(m.c);
+            if(!target_possible(p,L)){p.unmove(before);continue;}
+            int mv=-solver.solve(p,-best,-best+1);
+            if(mv>=best){
+                path.push_back(m.c);
+                if(dfs(p,target,path)) { p.unmove(before); return true; }
+                path.pop_back();
+                if(timed_out){p.unmove(before);return false;}
+            }
+            p.unmove(before);
+        }
+        dead.insert(key);
+        return false;
+    }
+
+    Solver solver;
+    std::vector<Line> lines;
+    std::unordered_set<uint64_t> dead;
+    std::chrono::steady_clock::time_point deadline;
+    uint64_t calls=0;
+    bool timed_out=false;
+};
+
+static std::string moves_string(const std::vector<int>& v){
+    std::string s; for(int c:v)s.push_back(char('0'+c)); return s;
+}
+static std::vector<int> reflect_moves(const std::vector<int>& v){
+    std::vector<int> r=v; for(int& c:r)c=BOARD_WIDTH-1-c; return r;
+}
+
+int main(){
+    static_assert(BOARD_WIDTH==6 && BOARD_HEIGHT==6);
+    Finder f;
+    const auto& lines=f.get_lines();
+
+    std::unordered_map<std::string,int> bysig;
+    for(size_t i=0;i<lines.size();i++) bysig[sig(lines[i])]=(int)i;
+
+    std::vector<int> candidates;
+    for(size_t i=0;i<lines.size();i++){
+        bool top=false; for(auto [r,c]:lines[i].cells) if(r==BOARD_HEIGHT-1) top=true;
+        if(top)candidates.push_back((int)i);
+    }
+
+    std::cout<<"GEOMETRIC_LINES "<<lines.size()<<"\n";
+    std::cout<<"SUPPORT_CANDIDATES "<<candidates.size()<<"\n";
+
+    std::unordered_map<int,std::vector<int>> witnesses;
+    std::unordered_set<int> unresolved;
+
+    for(int id:candidates){
+        if(witnesses.count(id)) continue;
+        int mid=bysig.at(sig(lines[id],true));
+        std::vector<int> w;
+        bool ok=f.find(id,w,90.0);
+        std::cout<<"SEARCH line="<<id<<" mirror="<<mid<<" ok="<<ok
+                 <<" timeout="<<f.timeout()<<" dfs_calls="<<f.get_calls()<<"\n";
+        if(!ok){ unresolved.insert(id); unresolved.insert(mid); continue; }
+        if(!f.validate(w,id)){
+            std::cerr<<"VALIDATION_FAILED "<<id<<"\n"; return 3;
+        }
+        witnesses[id]=w;
+        auto rw=reflect_moves(w);
+        if(!f.validate(rw,mid)){
+            std::cerr<<"REFLECTION_VALIDATION_FAILED "<<id<<" "<<mid<<"\n"; return 4;
+        }
+        witnesses[mid]=rw;
+    }
+
+    std::cout<<"WITNESSED "<<witnesses.size()<<"\n";
+    std::cout<<"UNRESOLVED "<<unresolved.size()<<"\n";
+    for(int id:candidates){
+        const auto& L=lines[id];
+        std::cout<<"LINE "<<id<<" "<<L.kind;
+        for(auto [r,c]:L.cells) std::cout<<" ("<<c+1<<","<<r+1<<")";
+        auto it=witnesses.find(id);
+        if(it==witnesses.end()) std::cout<<" UNRESOLVED";
+        else std::cout<<" WITNESS "<<moves_string(it->second);
+        std::cout<<"\n";
+    }
+
+    if(witnesses.size()==candidates.size()){
+        std::cout<<"EXACT_TERMINAL_LINE_COUNT "<<witnesses.size()<<"\n";
+        return 0;
+    }
+    return 2;
+}
