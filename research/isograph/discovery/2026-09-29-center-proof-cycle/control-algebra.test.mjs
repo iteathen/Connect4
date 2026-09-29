@@ -310,3 +310,14 @@ test('mover-relative action-unlabelled quotient does not require absolute player
   assert.ok(q.actionUnlabelledRelativeNoMoverClasses<=q.actionUnlabelledValueClasses);
   assert.equal(q.actionUnlabelledRelativeNoMoverWdlSplitClasses,0);
 });
+
+
+test('perfect-play action-unlabelled mover-relative quotient collapses further',()=>{
+  const r=algebra.analyzeOptimalBranchCollapse4x4();
+  const q=r.mq2Crosscheck;
+  assert.ok(q.optimalActionUnlabelledRelativeClasses>0);
+  assert.ok(q.optimalActionUnlabelledRelativeClasses<q.actionUnlabelledRelativeNoMoverClasses);
+  assert.equal(q.optimalActionUnlabelledRelativeWdlSplitClasses,0);
+  assert.equal(q.rootOptimalLiteralActions,4);
+  assert.equal(q.rootDistinctOptimalChildClasses,1);
+});
