@@ -15,6 +15,8 @@ const r5 = json('STRICT_ROUND_05_FIXED_POINT_0_3.json');
 const qu = json('QU_LEDGER_STRICT_0_4.json');
 const source = json('SOURCE_MANIFEST_STRICT_0_2.json');
 const ledger = json('PRIMITIVE_CLOSURE_LEDGER_STRICT_0_4.json');
+const scopeLedger = json('PRIMITIVE_CLOSURE_LEDGER_0_2.json');
+const sourceMap = json('DERIVED_VIEW_MAP_0_1.json');
 const kernel = read('ISOMAX_STRUCTURAL_CONTROL_CORE020_0_2.isg');
 const iaNative = read('STRICT_IA_CORE020_0_3.isg');
 
@@ -180,6 +182,21 @@ assert.equal(qu.no_preferred_open_realization_selected,true);
 assert.equal(qu.exact_refinements_from_strict_rounds,0);
 
 assert.equal(ledger.strict_ia_bodies.length,14);
+
+for (const id of ['P2-035','P2-036','P2-037','P2-038','P2-039','P2-040','P2-041','P2-042']) {
+  const row=scopeLedger.entries.find(x=>x.id===id);
+  assert.ok(row,'missing aggregate source boundary '+id);
+  assert.equal(row.status,'OUTSIDE_STRICT_NATIVE_SCOPE__SOURCE_REFERENCE_ONLY');
+  assert.equal(row.load_bearing_for_ia,false);
+  assert.equal(row.qualification,'NOT_A_CORE020_DERIVED_SEMANTIC_VIEW_IN_THIS_PACKET');
+}
+for (const view of sourceMap.views??[]) {
+  if (view.load_bearing_for_new_ia===false) {
+    assert.equal(view.classification,'EXTERNAL_SOURCE_REFERENCE_ONLY');
+    assert.equal(view.semantic_admission,'OUTSIDE_STRICT_NATIVE_RENDERING_SCOPE');
+  }
+}
+
 assert.equal(ledger.predecessor_views.predecessor_high_level_ias,60);
 assert.equal(ledger.predecessor_views.disposition,'NOT_PRIMITIVE_AUTHORITY');
 assert.equal(ledger.fixed_point.admitted_native_ias,14);
