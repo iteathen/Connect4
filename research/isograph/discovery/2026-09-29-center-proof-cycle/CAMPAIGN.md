@@ -7,7 +7,7 @@ Strategy owner: GSP-004 guarded obligation closure.
 Current focus correction: [limited-information proof objective](LIMITED_INFORMATION_OBJECTIVE.md).
 It supersedes further full-solve timing expansion as the immediate next task.
 
-Latest research checkpoint: [dimension/parity and shared center-boundary obligation](PARITY_DIMENSION_RESULT.md).
+Latest research checkpoints: [dimension/parity and shared center-boundary obligation](PARITY_DIMENSION_RESULT.md) and [first bounded control-algebra result](CONTROL_ALGEBRA_RESULT.md).
 
 Active algebraic hypothesis: [nim-like control-parity algebra](../../../hypotheses/NIM_LIKE_CONTROL_PARITY_ALGEBRA.md). The latent value may be complex; only its possible composition/cancellation law is conjectured to be XOR/GF(2)-like.
 
@@ -116,3 +116,21 @@ Commit the plan before probes, then controls/raw observations, then disposition.
 Keep canonical findings here and implementation/economics in JSMinSys. Stop a
 failed candidate rather than tuning to prior solved labels. This initial pass
 starts the campaign; it does not promise a polynomial proof exists.
+
+
+## P4 first disposition
+
+P4 reproduced a nontrivial GF(2) response quotient without solved outcomes:
+20 pair generators -> rank 19 on standard 7x6, with the unmatched center-top
+event outside that span. The 2,108-state boundary first develops nonzero
+vanishing identities at degree 3 and is completely separated from all 1,987
+immediate-win comparison states by degree <= 4.
+
+Blind width/height perturbation retained one pair dependency and one independent
+unmatched defect in every safe single-defect family tested. Post-hoc outcome
+comparison shows this skeleton is not itself W/D/L-complete.
+
+Disposition: **retain as a structural lead and refine, do not implement.** The
+next proof experiment must add support/deadline/resource/intervention variables
+to the algebra and test whether the refined latent control object continues to
+compose by XOR.
