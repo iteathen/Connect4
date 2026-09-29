@@ -285,3 +285,18 @@ test('unlabeled successor quotients expose branch-equivalent control classes',()
   assert.ok(q.allLegal.rootDistinctChildClasses>=1&&q.allLegal.rootDistinctChildClasses<=4);
   assert.ok(q.optimal.rootDistinctChildClasses>=1&&q.optimal.rootDistinctChildClasses<=4);
 });
+
+
+test('4x4 action-labelled MQ2 is reproduced before erasing literal move labels',()=>{
+  const r=algebra.analyzeOptimalBranchCollapse4x4();
+  const q=r.mq2Crosscheck;
+  assert.ok(q);
+  assert.equal(q.preWinStates,139625);
+  assert.equal(q.actionLabelledBehaviorClasses,27424);
+  assert.equal(q.actionLabelledWdlSplitClasses,0);
+  assert.ok(q.actionUnlabelledValueClasses>0);
+  assert.ok(q.actionUnlabelledValueClasses<q.actionLabelledBehaviorClasses);
+  assert.equal(q.actionUnlabelledWdlSplitClasses,0);
+  assert.equal(q.rootLiteralActions,4);
+  assert.ok(q.rootDistinctUnlabelledActionClasses>=1&&q.rootDistinctUnlabelledActionClasses<=4);
+});
