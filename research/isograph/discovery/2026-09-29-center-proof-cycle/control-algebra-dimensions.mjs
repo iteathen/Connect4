@@ -118,6 +118,20 @@ function canonicalResidualQState(heights,r0,r1,permutationData){
   return {signature:best,heights:bestHeights,r0:bestR0,r1:bestR1};
 }
 
+function applyUniversalFrontierBlocker(heights,r0,r1,width,height){
+  const rank=Array.from(heights).reduce((a,b)=>a+b,0);
+  let frontier=0;
+  for(let col=0;col<width;col++)if(heights[col]<height)
+    frontier|=1<<(heights[col]*width+col);
+  if(frontier===0)return {r0,r1,removed:0};
+  if(rank&1){
+    const next=r0.filter(requirement=>(requirement&frontier)!==frontier);
+    return {r0:next,r1,removed:r0.length-next.length};
+  }
+  const next=r1.filter(requirement=>(requirement&frontier)!==frontier);
+  return {r0,r1:next,removed:r1.length-next.length};
+}
+
 export function analyzeUnlabelledQuotientDimension({width,height,k,auditResidualOrbit=false}){
   const cells=width*height;
   assert.ok(cells<=20,'Number-key research harness is intentionally bounded to <=20 cells');
@@ -320,7 +334,7 @@ export function analyzeUnlabelledQuotientDimension({width,height,k,auditResidual
 }
 
 
-export function analyzeDirectResidualOrbitGraph({width,height,k}){
+export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontierBlocker=false}){
   const cells=width*height;
   assert.ok(cells<=20,'direct residual-orbit harness is intentionally bounded to <=20 cells');
   const masks=winMasks(width,height,k),span=2**cells,
@@ -377,8 +391,12 @@ export function analyzeDirectResidualOrbitGraph({width,height,k}){
             opponentNormalized=normalizeMaskAntichain(opponentNext),
             r0=mover?opponentNormalized:ownNormalized,
             r1=mover?ownNormalized:opponentNormalized,
+            closed=universalFrontierBlocker?
+              applyUniversalFrontierBlocker(
+                nextHeights,r0,r1,width,height):
+              {r0,r1,removed:0},
             canonical=canonicalResidualQState(
-              nextHeights,r0,r1,permutationData);
+              nextHeights,closed.r0,closed.r1,permutationData);
           childKey=visit(canonical);
         }
       }
@@ -390,8 +408,13 @@ export function analyzeDirectResidualOrbitGraph({width,height,k}){
   }
 
   const initialResidual=normalizeMaskAntichain(masks),
+    rootHeights=new Uint8Array(width),
+    rootClosed=universalFrontierBlocker?
+      applyUniversalFrontierBlocker(
+        rootHeights,initialResidual,initialResidual,width,height):
+      {r0:initialResidual,r1:initialResidual,removed:0},
     root=canonicalResidualQState(
-      new Uint8Array(width),initialResidual,initialResidual,permutationData),
+      rootHeights,rootClosed.r0,rootClosed.r1,permutationData),
     rootKey=visit(root);
 
   const stateClass=new Map(),signatureClass=new Map(),
@@ -485,6 +508,7 @@ export function analyzeDirectResidualOrbitGraph({width,height,k}){
     validationUsesDerivedWdl:true,
     width,height,k,cells,
     columnPermutations:permutationData.length,
+    universalFrontierBlocker,
     winningLineCount:masks.length,
     residualOrbitStates:nodes.size,
     literalActionEdges,
