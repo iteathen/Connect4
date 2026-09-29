@@ -78,6 +78,25 @@ test('direct residual orbit producer reproduces recursive quotient across small 
   }
 });
 
+test('final-event cap parity removes mover-unrealizable residuals without changing quotient',()=>{
+  const physical=analyzeUnlabelledQuotientDimensionMatrix();
+  for(const row of physical.cases){
+    const base=analyzeDirectResidualOrbitGraph({
+      width:row.width,height:row.height,k:row.k,
+      nonterminalFrontierBlocker:true,
+    }),closed=analyzeDirectResidualOrbitGraph({
+      width:row.width,height:row.height,k:row.k,
+      nonterminalFrontierBlocker:true,
+      moverFinalCapParity:true,
+    });
+    assert.equal(closed.recursiveUnlabelledClasses,row.classes);
+    assert.equal(closed.rootValue,row.rootValue);
+    assert.equal(closed.wdlSplitClasses,0);
+    assert.ok(closed.residualOrbitStates<=base.residualOrbitStates);
+    assert.ok(closed.literalActionEdges<=base.literalActionEdges);
+  }
+});
+
 test('nonterminal frontier blocker strengthens universal blocker without changing quotient',()=>{
   const physical=analyzeUnlabelledQuotientDimensionMatrix();
   for(const row of physical.cases){
