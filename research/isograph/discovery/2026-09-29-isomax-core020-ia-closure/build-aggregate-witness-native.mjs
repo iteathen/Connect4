@@ -672,3 +672,130 @@ console.log(JSON.stringify({
     closures:phaseEntries.map(([label,row])=>[label,row.witness.binaryPhase.reducedEdges.length]),
   },
 },null,2));
+
+
+// Physical 4x4 game/value/partial2 witness is intentionally sharded so every
+// durable GitHub artifact remains below the repository file-size limit.
+const PRODUCER_REL={
+  PHYS_STATE:5899460,
+  PHYS_ROOT:5899461,
+  PHYS_P0_MASK:5899462,
+  PHYS_P1_MASK:5899463,
+  PHYS_VALUE:5899464,
+  PHYS_TERMINAL:5899465,
+  PHYS_WINNER:5899466,
+  PHYS_LEGAL_EDGE:5899467,
+  PHYS_OPT_EDGE:5899468,
+  PHYS_PARTIAL_VECTOR:5899469,
+  PHYS_PARTIAL_BIT:5899470,
+  MASK16:5899471,
+};
+const PRODUCER_CARRIER={
+  STATE:5899480,
+  MASK:5899481,
+  PARTIAL_VECTOR:5899482,
+  VALUE:5899483,
+};
+const DRAW=5899304,NEG=5899310,ZERO=5899311,POS=5899312;
+const valueTok=v=>v<0?NEG:v>0?POS:ZERO;
+const maskTok16=v=>19000000+(v>>>0);
+
+const physicalFiles=fs.readdirSync(here)
+  .filter(name=>/^PARTIAL2_PHYSICAL_CARRIER_0_1_\d\d\.json$/.test(name))
+  .sort();
+const physicalShards=physicalFiles.map(name=>
+  JSON.parse(fs.readFileSync(new URL('./'+name,here),'utf8')));
+const physicalRows=physicalShards.flatMap(shard=>shard.rows);
+if(physicalRows.length!==161029)
+  throw new Error('unexpected physical carrier size '+physicalRows.length);
+const physicalByKey=new Map();
+let globalIndex=0;
+for(const shard of physicalShards)for(const row of shard.rows){
+  const expected=shard.start_index+(globalIndex-shard.start_index);
+  const st=6900000+globalIndex++;
+  if(physicalByKey.has(row.key))throw new Error('duplicate physical key '+row.key);
+  physicalByKey.set(row.key,st);
+}
+if(!physicalByKey.has(0))throw new Error('missing empty physical root');
+
+const partialHex=[...new Set(physicalRows.map(row=>row.partial2))]
+  .sort((a,b)=>BigInt('0x'+a)<BigInt('0x'+b)?-1:BigInt('0x'+a)>BigInt('0x'+b)?1:0);
+const partialTok=new Map(partialHex.map((hex,i)=>[hex,20000000+i]));
+
+let schema='[\n  (^0 [ ^150010 ^150013 ^150014 ^150024 ])\n]\n\n[\n';
+for(const id of Object.values(PRODUCER_REL))schema+='  (^150014 '+id+')\n';
+for(const id of Object.values(PRODUCER_CARRIER))schema+='  (^150013 '+id+')\n';
+for(const id of [DRAW,NEG,ZERO,POS])schema+='  (^150014 '+id+')\n';
+schema+=
+  '  (^150010 '+PRODUCER_CARRIER.VALUE+' '+NEG+')\n'+
+  '  (^150010 '+PRODUCER_CARRIER.VALUE+' '+ZERO+')\n'+
+  '  (^150010 '+PRODUCER_CARRIER.VALUE+' '+POS+')\n'+
+  ']\n';
+fs.writeFileSync(new URL('./PRODUCER_WITNESS_SCHEMA_CORE020_0_1.isg',here),schema);
+
+let masks='[\n  (^0 [ ^150010 ^150014 ^150024 ])\n]\n\n[\n';
+for(let value=0;value<65536;value++){
+  const mt=maskTok16(value);
+  masks+='  (^150014 '+mt+')\n';
+  masks+='  (^150010 '+PRODUCER_CARRIER.MASK+' '+mt+')\n';
+  for(let bit=0;bit<16;bit++)if((value>>>bit)&1)
+    masks+='  (^150024 '+R.MASK_CELL+' '+mt+' '+(233000+Math.floor(bit/4)*10+(bit%4))+')\n';
+}
+masks+=']\n';
+fs.writeFileSync(new URL('./MASK16_CORE020_0_1.isg',here),masks);
+
+let vectors='[\n  (^0 [ ^150010 ^150014 ^150024 ])\n]\n\n[\n';
+for(const hex of partialHex){
+  const vt=partialTok.get(hex);
+  vectors+='  (^150014 '+vt+')\n';
+  vectors+='  (^150010 '+PRODUCER_CARRIER.PARTIAL_VECTOR+' '+vt+')\n';
+  for(const pos of hexBits(hex))
+    vectors+='  (^150024 '+PRODUCER_REL.PHYS_PARTIAL_BIT+' '+vt+' '+(6810000+pos)+')\n';
+}
+vectors+=']\n';
+fs.writeFileSync(new URL('./PARTIAL2_VECTOR_WITNESS_CORE020_0_1.isg',here),vectors);
+
+for(const shard of physicalShards){
+  let out='[\n  (^0 [ ^150010 ^150014 ^150024 ])\n]\n\n[\n';
+  for(let local=0;local<shard.rows.length;local++){
+    const global=shard.start_index+local,row=shard.rows[local],st=6900000+global;
+    if(physicalByKey.get(row.key)!==st)
+      throw new Error('physical key/token mismatch '+row.key);
+    out+='  (^150014 '+st+')\n';
+    out+='  (^150010 '+PRODUCER_CARRIER.STATE+' '+st+')\n';
+    out+='  (^150024 '+PRODUCER_REL.PHYS_STATE+' '+CASE.partial2+' '+st+')\n';
+    if(row.key===0)out+='  (^150024 '+PRODUCER_REL.PHYS_ROOT+' '+CASE.partial2+' '+st+')\n';
+    out+='  (^150024 '+R.STATE_RANK+' '+CASE.partial2+' '+st+' '+nat(row.rank)+')\n';
+    out+='  (^150024 '+PRODUCER_REL.PHYS_P0_MASK+' '+st+' '+maskTok16(row.p0)+')\n';
+    out+='  (^150024 '+PRODUCER_REL.PHYS_P1_MASK+' '+st+' '+maskTok16(row.p1)+')\n';
+    out+='  (^150024 '+PRODUCER_REL.PHYS_VALUE+' '+st+' '+valueTok(row.value)+')\n';
+    if(row.terminal){
+      out+='  (^150024 '+PRODUCER_REL.PHYS_TERMINAL+' '+st+')\n';
+      if(row.winner===0)out+='  (^150024 '+PRODUCER_REL.PHYS_WINNER+' '+st+' '+P0+')\n';
+      else if(row.winner===1)out+='  (^150024 '+PRODUCER_REL.PHYS_WINNER+' '+st+' '+P1+')\n';
+      else out+='  (^150024 '+PRODUCER_REL.PHYS_WINNER+' '+st+' '+DRAW+')\n';
+    }
+    for(const edge of row.legalChildren){
+      const child=physicalByKey.get(edge.childKey);
+      if(child===undefined)throw new Error('missing physical legal child '+edge.childKey);
+      out+='  (^150024 '+PRODUCER_REL.PHYS_LEGAL_EDGE+' '+st+' '+(231000+edge.column)+' '+child+')\n';
+    }
+    for(const edge of row.optimalChildren){
+      const child=physicalByKey.get(edge.childKey);
+      if(child===undefined)throw new Error('missing physical optimal child '+edge.childKey);
+      out+='  (^150024 '+PRODUCER_REL.PHYS_OPT_EDGE+' '+st+' '+(231000+edge.column)+' '+child+')\n';
+    }
+    out+='  (^150024 '+PRODUCER_REL.PHYS_PARTIAL_VECTOR+' '+st+' '+partialTok.get(row.partial2)+')\n';
+  }
+  out+=']\n';
+  const suffix=String(shard.shard_index).padStart(2,'0');
+  fs.writeFileSync(new URL('./PARTIAL2_PHYSICAL_WITNESS_CORE020_0_1_'+suffix+'.isg',here),out);
+}
+
+console.log(JSON.stringify({
+  status:'WROTE_PRODUCER_NATIVE_SHARDS',
+  physicalStates:physicalRows.length,
+  physicalShards:physicalShards.length,
+  partialVectors:partialHex.length,
+  maskCarrier:65536,
+},null,2));

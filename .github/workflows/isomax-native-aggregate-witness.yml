@@ -7,6 +7,8 @@ on:
     paths:
       - '.github/workflows/isomax-native-aggregate-witness.yml'
       - 'research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/build-aggregate-witness-native.mjs'
+      - 'research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/AGGREGATE_WITNESS_DATA_0_1.json'
+      - 'research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/PARTIAL2_PHYSICAL_CARRIER_0_1_*.json'
   workflow_dispatch:
 
 permissions:
@@ -15,7 +17,7 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
@@ -29,7 +31,13 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add             research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/AGGREGATE_WITNESS_CORE020_0_1.isg             research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/AGGREGATE_NATURALS_CORE020_0_1.isg
+          git add \
+            research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/AGGREGATE_WITNESS_CORE020_0_1.isg \
+            research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/AGGREGATE_NATURALS_CORE020_0_1.isg \
+            research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/PRODUCER_WITNESS_SCHEMA_CORE020_0_1.isg \
+            research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/MASK16_CORE020_0_1.isg \
+            research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/PARTIAL2_VECTOR_WITNESS_CORE020_0_1.isg \
+            research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/PARTIAL2_PHYSICAL_WITNESS_CORE020_0_1_*.isg
           if git diff --cached --quiet; then
             echo "No native witness changes."
           else
