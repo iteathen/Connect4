@@ -104,10 +104,10 @@ public:
             if(ply+1<path.size() && p.is_game_over()){std::cerr<<"FAIL terminal-at ply "<<(ply+1)<<"\\n";p.unmove(before);return false;}
         }
         bool len=path.size()==(size_t)(BOARD_WIDTH*BOARD_HEIGHT);
-        bool over=p.is_game_over(), draw=p.is_draw(), targetok=target_complete_for_second(p,lines[target]);
-        if(!(len&&over&&!draw&&targetok))
-            std::cerr<<"FAIL final len="<<len<<" over="<<over<<" draw="<<draw<<" target="<<targetok<<" moves="<<p.num_moves()<<"\\n";
-        return len&&over&&!draw&&targetok;
+        bool over=p.is_game_over(), secondWon=p.has_opponent_won(), targetok=target_complete_for_second(p,lines[target]);
+        if(!(len&&over&&secondWon&&targetok))
+            std::cerr<<"FAIL final len="<<len<<" over="<<over<<" secondWon="<<secondWon<<" target="<<targetok<<" moves="<<p.num_moves()<<"\\n";
+        return len&&over&&secondWon&&targetok;
     }
 
     const std::vector<Line>& get_lines() const { return lines; }
