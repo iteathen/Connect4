@@ -626,3 +626,36 @@ export function analyzeControlWindowFactorization({minK=3,maxK=32}={}){
   }
   return {inputs:'geometry/rules only',outcomeLabelsRead:false,minK,maxK,rows,mismatches};
 }
+
+
+export function analyzeControlWindowFactorizationRectangles({
+  connectK=[4,8,12,16],margins=[0,1,2,3,5]
+}={}){
+  const rows=[],failures=[],firstDerivative=0b11n;
+  for(const k of connectK){
+    assert.ok(Number.isInteger(k)&&k>=2);
+    const window=windowPolynomial(k),
+      division=polynomialDivmod(window,firstDerivative);
+    assert.equal(division.r,0n,'declared rectangular probe requires even Connect-K');
+    for(const wm of margins)for(const hm of margins){
+      assert.ok(Number.isInteger(wm)&&wm>=0&&Number.isInteger(hm)&&hm>=0);
+      const width=k+wm,height=k+hm,g=connectKGeometry(width,height,k);
+      let ungradedCancellation=true;
+      for(let phase=0;phase<2;phase++)for(let parity=0;parity<2;parity++)
+        ungradedCancellation=ungradedCancellation&&
+          parityClassContribution(g,phase,parity)===0n;
+      const polys=depthResidualPolynomials(g,1,0);
+      let depthGcd=0n;for(const p of polys)depthGcd=polynomialGcd(depthGcd,p);
+      const row={
+        connectK:k,width,height,widthMargin:wm,heightMargin:hm,
+        ungradedCancellation,
+        depthGcd:polynomialText(depthGcd),
+        windowOverFirstDerivative:polynomialText(division.q),
+      };
+      rows.push(row);
+      if(!ungradedCancellation||depthGcd!==division.q)
+        failures.push(row);
+    }
+  }
+  return {inputs:'geometry/rules only',outcomeLabelsRead:false,rows,failures};
+}
