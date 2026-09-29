@@ -1,0 +1,98 @@
+{
+  "schema": "connect4.isomax.discovery.k_role_fixed_geometry.v1",
+  "date_author_local": "2026-09-29",
+  "warrant": "EW-005",
+  "rows": [
+    {
+      "width": 4,
+      "height": 5,
+      "k": 3,
+      "cells": 20,
+      "winningLineCount": 34,
+      "states": 34222,
+      "classes": 14201,
+      "binaryGroups": 935,
+      "binaryEdges": 606,
+      "cycleRank": 27,
+      "zero": 27,
+      "nonzero": 0,
+      "contradictions": 0,
+      "globalPhasePotentialExists": true,
+      "gaugeFlipInvariant": true,
+      "exits": {
+        "nonbinaryContinuation": 240,
+        "actionTransporter": 274,
+        "branchOrMultiplicityErasure": 153,
+        "terminalOrUnknown": 0
+      },
+      "outcomeLabelsUsedByProducer": false
+    },
+    {
+      "width": 5,
+      "height": 4,
+      "k": 3,
+      "cells": 20,
+      "winningLineCount": 34,
+      "states": 108293,
+      "classes": 50682,
+      "binaryGroups": 4484,
+      "binaryEdges": 3474,
+      "cycleRank": 451,
+      "zero": 428,
+      "nonzero": 23,
+      "contradictions": 18,
+      "globalPhasePotentialExists": false,
+      "gaugeFlipInvariant": true,
+      "exits": {
+        "nonbinaryContinuation": 2271,
+        "actionTransporter": 1259,
+        "branchOrMultiplicityErasure": 478,
+        "terminalOrUnknown": 0
+      },
+      "outcomeLabelsUsedByProducer": false
+    }
+  ],
+  "frozen": {
+    "c45k4": {
+      "cycleRank": 40,
+      "zero": 40,
+      "nonzero": 0,
+      "contradictions": 0
+    },
+    "c54k4": {
+      "cycleRank": 644,
+      "zero": 619,
+      "nonzero": 25,
+      "contradictions": 12
+    }
+  },
+  "contrasts": {
+    "c45": {
+      "k3": {
+        "cycleRank": 27,
+        "nonzero": 0,
+        "contradictions": 0
+      },
+      "k4": {
+        "cycleRank": 40,
+        "zero": 40,
+        "nonzero": 0,
+        "contradictions": 0
+      }
+    },
+    "c54": {
+      "k3": {
+        "cycleRank": 451,
+        "nonzero": 23,
+        "contradictions": 18
+      },
+      "k4": {
+        "cycleRank": 644,
+        "zero": 619,
+        "nonzero": 25,
+        "contradictions": 12
+      }
+    }
+  },
+  "interpretation_guard": "Adaptive finite-case discrimination only; no universal k threshold is claimed."
+}
