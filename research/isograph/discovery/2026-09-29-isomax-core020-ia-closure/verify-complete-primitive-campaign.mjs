@@ -28,6 +28,7 @@ const gf2Control=read('AGGREGATE_GF2_CONTROL_CORE020_0_1.isg');
 const directProducer=read('DIRECT_RESIDUAL_PRODUCER_CORE020_0_1.isg');
 const physicalProducer=read('PARTIAL2_PHYSICAL_PRODUCER_CORE020_0_1.isg');
 const producerSchema=read('PRODUCER_WITNESS_SCHEMA_CORE020_0_1.isg');
+const width4Permutations=read('WIDTH4_PERMUTATIONS_CORE020_0_1.isg');
 const width5Permutations=read('WIDTH5_PERMUTATIONS_CORE020_0_1.isg');
 const stateSerialization=read('PRIMITIVE_STATE_SERIALIZATION_CORE020_0_1.isg');
 const residualProducer1=read('RESIDUAL_PRODUCER_CONTROL_CORE020_0_1.isg');
@@ -55,7 +56,7 @@ for(const [name,text] of [
   ['profileControl',profileControl],['gf2Control',gf2Control],
   ['directProducer',directProducer],['physicalProducer',physicalProducer],
   ['producerSchema',producerSchema],
-  ['width5Permutations',width5Permutations],['stateSerialization',stateSerialization],
+  ['width4Permutations',width4Permutations],['width5Permutations',width5Permutations],['stateSerialization',stateSerialization],
   ['residualProducer1',residualProducer1],['residualProducer2',residualProducer2],
   ['residualProducer3',residualProducer3],
 ]){
@@ -91,7 +92,7 @@ for(const [name,text] of [
   ['completeSource',completeSource],['completeIa',completeIa],['graphControl',graphControl],
   ['profileControl',profileControl],['gf2Control',gf2Control],
   ['directProducer',directProducer],['physicalProducer',physicalProducer],
-  ['width5Permutations',width5Permutations],['stateSerialization',stateSerialization],
+  ['width4Permutations',width4Permutations],['width5Permutations',width5Permutations],['stateSerialization',stateSerialization],
   ['residualProducer1',residualProducer1],['residualProducer2',residualProducer2],
   ['residualProducer3',residualProducer3],
 ]){
@@ -179,8 +180,8 @@ for(const [name,text] of [
   ['completeSource',completeSource],['graphControl',graphControl],
   ['profileControl',profileControl],['gf2Control',gf2Control],
   ['directProducer',directProducer],['physicalProducer',physicalProducer],
-  ['width5Permutations',width5Permutations],['stateSerialization',stateSerialization],
-  ['residualProducer2',residualProducer2],['residualProducer3',residualProducer3],
+  ['width4Permutations',width4Permutations],['width5Permutations',width5Permutations],['stateSerialization',stateSerialization],
+  ['residualProducer1',residualProducer1],['residualProducer2',residualProducer2],['residualProducer3',residualProducer3],
 ])assertNoFreeVariables(text,name);
 
 assert.equal((width5Permutations.match(/\(\^150010 237000 238\d{3}\)/g)??[]).length,120,
