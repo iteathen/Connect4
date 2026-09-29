@@ -992,15 +992,79 @@ function canonicalResidualQStateCompact(heights,r0,r1,permutationData){
   return {signature:best,heights:bestHeights,r0:bestR0,r1:bestR1};
 }
 
+
+function permutationsOfValues(values){
+  if(values.length<2)return [[...values]];
+  const out=[],a=[...values];
+  function visit(i){
+    if(i===a.length){out.push([...a]);return;}
+    for(let j=i;j<a.length;j++){
+      [a[i],a[j]]=[a[j],a[i]];
+      visit(i+1);
+      [a[i],a[j]]=[a[j],a[i]];
+    }
+  }
+  visit(0);
+  return out;
+}
+
+function canonicalResidualQStateRefinedCompact(heights,r0,r1,width,height){
+  const {signatures}=refinementColumnSignatures(heights,r0,r1,width,height),
+    grouped=new Map();
+  for(let col=0;col<width;col++){
+    let cols=grouped.get(signatures[col]);
+    if(!cols){cols=[];grouped.set(signatures[col],cols);}
+    cols.push(col);
+  }
+  const groups=[...grouped.entries()]
+    .sort((a,b)=>a[0].localeCompare(b[0]))
+    .map(([,cols])=>permutationsOfValues(cols));
+  let candidatePermutations=1;
+  for(const group of groups)candidatePermutations*=group.length;
+
+  let best=null,bestHeights=null,bestR0=null,bestR1=null;
+  function consider(order){
+    const pd=makeColumnPermutation(width,height,order),
+      {perm}=pd,h=new Uint8Array(width);
+    for(let oldCol=0;oldCol<width;oldCol++)
+      h[perm[oldCol]]=heights[oldCol];
+    const a=r0.map(mask=>permuteMask(mask,pd)).sort((x,y)=>x-y),
+      b=r1.map(mask=>permuteMask(mask,pd)).sort((x,y)=>x-y),
+      signature=Array.from(h).join(',')+'|'+
+        a.map(x=>(x>>>0).toString(36)).join('.')+'|'+
+        b.map(x=>(x>>>0).toString(36)).join('.');
+    if(best===null||signature<best){
+      best=signature;
+      bestHeights=h;
+      bestR0=a;
+      bestR1=b;
+    }
+  }
+  function expand(groupIndex,order){
+    if(groupIndex===groups.length){consider(order);return;}
+    for(const groupOrder of groups[groupIndex])
+      expand(groupIndex+1,order.concat(groupOrder));
+  }
+  expand(0,[]);
+  return {
+    signature:best,
+    heights:bestHeights,
+    r0:bestR0,
+    r1:bestR1,
+    candidatePermutations,
+  };
+}
+
 export function analyzeDirectResidualOrbitGrowthCompact({
   width,height,k,
   nonterminalFrontierBlocker=true,
   moverFinalCapParity=true,
+  refinedColumnCanonicalization=false,
 }){
   const cells=width*height;
   assert.ok(cells<=30,'compact direct-growth harness is intentionally bounded to <=30 cells');
   const masks=winMasks(width,height,k),
-    permutationData=columnPermutationData(width,height),
+    permutationData=refinedColumnCanonicalization?null:columnPermutationData(width,height),
     memo=new Map(),classSignatureToId=new Map(),
     statesByRank=Array(cells+1).fill(0),
     classesByRank=Array(cells+1).fill(0),
@@ -1010,11 +1074,25 @@ export function analyzeDirectResidualOrbitGrowthCompact({
     classValueMask=[],classOrbitCount=[];
   let nextClassId=0,literalActionEdges=0,duplicateEquivalentActionEdges=0,
     earliestDynamicMergeRank=null,rootLegalActions=0,
-    rootDistinctOrbitChildren=0,rootDistinctRecursiveChildren=0;
+    rootDistinctOrbitChildren=0,rootDistinctRecursiveChildren=0,
+    canonicalPermutationCandidates=0,maxCanonicalPermutationCandidates=0;
 
   const pack=(classId,value)=>classId*3+(value+1),
     unpackClass=packed=>Math.floor(packed/3),
     unpackValue=packed=>(packed%3)-1;
+
+  function canonicalize(heights,r0,r1){
+    const out=refinedColumnCanonicalization?
+      canonicalResidualQStateRefinedCompact(heights,r0,r1,width,height):
+      {
+        ...canonicalResidualQStateCompact(heights,r0,r1,permutationData),
+        candidatePermutations:permutationData.length,
+      };
+    canonicalPermutationCandidates+=out.candidatePermutations;
+    maxCanonicalPermutationCandidates=Math.max(
+      maxCanonicalPermutationCandidates,out.candidatePermutations);
+    return out;
+  }
 
   function internClass(rank,signature,value){
     let id=classSignatureToId.get(signature);
@@ -1091,8 +1169,8 @@ export function analyzeDirectResidualOrbitGrowthCompact({
               applyMoverFinalCapParity(
                 nextHeights,blocked.r0,blocked.r1,width,height):
               blocked,
-            canonical=canonicalResidualQStateCompact(
-              nextHeights,closed.r0,closed.r1,permutationData);
+            canonical=canonicalize(
+              nextHeights,closed.r0,closed.r1);
           child=visit(canonical);
         }
       }
@@ -1130,8 +1208,8 @@ export function analyzeDirectResidualOrbitGrowthCompact({
       applyMoverFinalCapParity(
         rootHeights,rootBlocked.r0,rootBlocked.r1,width,height):
       rootBlocked,
-    root=canonicalResidualQStateCompact(
-      rootHeights,rootClosed.r0,rootClosed.r1,permutationData),
+    root=canonicalize(
+      rootHeights,rootClosed.r0,rootClosed.r1),
     rootResult=visit(root);
 
   let wdlSplitClasses=0;
@@ -1156,7 +1234,13 @@ export function analyzeDirectResidualOrbitGrowthCompact({
     validationUsesDerivedWdl:true,
     fullGraphObjectsRetained:false,
     width,height,k,cells,
-    columnPermutations:permutationData.length,
+    canonicalization:refinedColumnCanonicalization?
+      'refinement-partitioned exact tie search':
+      'full column permutation search',
+    columnPermutations:permutationData?.length??null,
+    canonicalPermutationCandidates,
+    maxCanonicalPermutationCandidates,
+    refinedColumnCanonicalization,
     nonterminalFrontierBlocker,
     moverFinalCapParity,
     winningLineCount:masks.length,
