@@ -794,7 +794,7 @@ export function analyzeUnlabelledQuotientDimension({width,height,k,auditResidual
 }
 
 
-export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontierBlocker=false,nonterminalFrontierBlocker=false,moverFinalCapParity=false,measureLocalBranchClosure=true,auditColumnRefinement=false,auditPairColumnRefinement=false,auditBinaryTieStabilizers=false}){
+export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontierBlocker=false,nonterminalFrontierBlocker=false,moverFinalCapParity=false,measureLocalBranchClosure=true,auditColumnRefinement=false,auditPairColumnRefinement=false,auditBinaryTieStabilizers=false,auditOpponentResidualDeletion=false}){
   const cells=width*height;
   assert.ok(cells<=30,'direct residual-orbit harness is intentionally bounded to <=30 cells');
   const masks=winMasks(width,height,k),
@@ -1104,6 +1104,99 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     };
   }
 
+  let opponentResidualDeletionAudit=null;
+  if(auditOpponentResidualDeletion){
+    const rows=[],byRankAudit=Array.from({length:cells+1},(_,rank)=>({
+      rank,
+      testedDeletions:0,
+      reachableDeletionStates:0,
+      classPreservingDeletions:0,
+    }));
+    const bitCount=mask=>{
+      let n=0;
+      for(let v=mask>>>0;v;v=(v&(v-1))>>>0)n++;
+      return n;
+    };
+    for(const rec of nodes.values()){
+      if(rec.terminal)continue;
+      const rank=rec.rank,mover=rank&1,
+        opponent=mover?rec.r0:rec.r1,
+        own=mover?rec.r1:rec.r0,
+        frontierCells=[],
+        capCells=[];
+      let frontierMask=0,capMask=0;
+      for(let col=0;col<width;col++)if(rec.heights[col]<height){
+        const frontierBit=1<<(rec.heights[col]*width+col),
+          capBit=1<<((height-1)*width+col);
+        frontierMask|=frontierBit;
+        capMask|=capBit;
+        frontierCells.push(frontierBit>>>0);
+        capCells.push(capBit>>>0);
+      }
+      frontierMask>>>=0;capMask>>>=0;
+
+      for(let i=0;i<opponent.length;i++){
+        const removed=opponent[i]>>>0,
+          opponentNext=opponent.filter((_,j)=>j!==i),
+          r0=mover?opponentNext:own,
+          r1=mover?own:opponentNext,
+          canonical=canonicalResidualQState(
+            rec.heights,r0,r1,permutationData),
+          candidateKey='Q:'+canonical.signature,
+          candidate=nodes.get(candidateKey),
+          audit=byRankAudit[rank];
+        audit.testedDeletions++;
+        if(!candidate)continue;
+        audit.reachableDeletionStates++;
+        const sameClass=stateClass.get(candidateKey)===stateClass.get(rec.key);
+        if(!sameClass)continue;
+        audit.classPreservingDeletions++;
+
+        const depths=[];
+        let rest=removed;
+        while(rest){
+          const low=rest&-rest,bit=31-Math.clz32(low),
+            row=Math.floor(bit/width),col=bit%width;
+          depths.push(row-rec.heights[col]+1);
+          rest=(rest^low)>>>0;
+        }
+        depths.sort((a,b)=>a-b);
+        rows.push({
+          rank,
+          support:Array.from(rec.heights),
+          mover,
+          removedResidual:removed,
+          removedResidualSize:bitCount(removed),
+          removedFrontierHits:bitCount(removed&frontierMask),
+          removedCapHits:bitCount(removed&capMask),
+          equalsOpenCaps:removed===capMask,
+          containsAllOpenCaps:(removed&capMask)===capMask,
+          frontierSubsetOfResidual:(frontierMask&removed)===frontierMask,
+          supportDepths:depths,
+          sourceP0Residuals:[...rec.r0],
+          sourceP1Residuals:[...rec.r1],
+          targetP0Residuals:[...canonical.r0],
+          targetP1Residuals:[...canonical.r1],
+          sourceClass:stateClass.get(rec.key),
+          targetClass:stateClass.get(candidateKey),
+        });
+      }
+    }
+    opponentResidualDeletionAudit={
+      testedDeletions:byRankAudit.reduce((n,x)=>n+x.testedDeletions,0),
+      reachableDeletionStates:
+        byRankAudit.reduce((n,x)=>n+x.reachableDeletionStates,0),
+      classPreservingDeletions:
+        byRankAudit.reduce((n,x)=>n+x.classPreservingDeletions,0),
+      exactOpenCapDeletions:rows.filter(x=>x.equalsOpenCaps).length,
+      containsAllOpenCapsDeletions:
+        rows.filter(x=>x.containsAllOpenCaps).length,
+      byRank:byRankAudit,
+      examples:rows.slice(0,128),
+    };
+  }
+
+
   // Post-hoc exact W/D/L validation on the direct q-orbit graph.
   const values=new Map(),classValueMask=new Map();
   for(let rank=cells;rank>=0;rank--)for(const rec of byRank[rank]){
@@ -1178,6 +1271,7 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     auditColumnRefinement,
     auditPairColumnRefinement,
     auditBinaryTieStabilizers,
+    auditOpponentResidualDeletion,
     winningLineCount:masks.length,
     residualOrbitStates:nodes.size,
     literalActionEdges,
@@ -1195,6 +1289,7 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     columnRefinementAudit,
     pairColumnRefinementAudit,
     binaryTieStabilizerAudit,
+    opponentResidualDeletionAudit,
     localBranchClosure:localBranchClosureResult,
     peakOrbitStateFrontier:peakBy(frontier,'states'),
     peakRecursiveClassFrontier:peakBy(frontier,'classes'),
