@@ -61,6 +61,32 @@ const phase5x4=phaseCase('5x4-c4',{
 const response=analyzeStandardCenterControlAlgebra({emitPrimitiveWitnessData:true});
 const branch=analyzeOptimalBranchCollapse4x4({emitPrimitiveWitnessData:true});
 
+const physicalCarrier=branch.primitiveWitnessData?.physicalCarrier??[];
+const {physicalCarrier:_discardPhysicalCarrier,...partialWitness}=
+  branch.primitiveWitnessData??{};
+
+const shardSize=40000;
+const shardPrefix='PARTIAL2_PHYSICAL_CARRIER_0_1_';
+for(const name of fs.readdirSync(new URL('.',import.meta.url)))
+  if(name.startsWith(shardPrefix)&&name.endsWith('.json'))
+    fs.unlinkSync(new URL('./'+name,import.meta.url));
+
+const shards=[];
+for(let start=0,index=0;start<physicalCarrier.length;start+=shardSize,index++){
+  const rows=physicalCarrier.slice(start,Math.min(start+shardSize,physicalCarrier.length));
+  const file=shardPrefix+String(index).padStart(2,'0')+'.json';
+  fs.writeFileSync(new URL('./'+file,import.meta.url),JSON.stringify({
+    schema:'isomax.core020.partial2_physical_carrier_shard.v1',
+    date_author_local:'2026-09-29',
+    research_direction:'Joshua Oshiro',
+    shard_index:index,
+    start_index:start,
+    count:rows.length,
+    rows,
+  },null,2)+'\n');
+  shards.push({file,start_index:start,count:rows.length});
+}
+
 const out={
   schema:'isomax.core020.aggregate_primitive_witness.v1',
   date_author_local:'2026-09-29',
@@ -93,7 +119,13 @@ const out={
       optimalDeltaSetEqualsLegal:branch.equivalentSiblingDeltaSpace.optimalDeltaSetEqualsLegal,
       legalDeltasOutsideOptimalSpan:branch.equivalentSiblingDeltaSpace.legalDeltasOutsideOptimalSpan,
     },
-    witness:branch.primitiveWitnessData,
+    witness:partialWitness,
+    physicalCarrier:{
+      schema:'isomax.core020.partial2_physical_carrier_shards.v1',
+      rows:physicalCarrier.length,
+      shard_size:shardSize,
+      shards,
+    },
   },
 };
 
@@ -109,4 +141,5 @@ console.log(JSON.stringify({
   },
   response:out.response.summary,
   partial2:out.partial2.summary,
+  physicalCarrier:{rows:physicalCarrier.length,shards},
 },null,2));

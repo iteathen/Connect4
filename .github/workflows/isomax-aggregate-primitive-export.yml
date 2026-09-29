@@ -17,7 +17,7 @@ permissions:
 jobs:
   export:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
@@ -31,7 +31,9 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/AGGREGATE_WITNESS_DATA_0_1.json
+          git add \
+            research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/AGGREGATE_WITNESS_DATA_0_1.json \
+            research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/PARTIAL2_PHYSICAL_CARRIER_0_1_*.json
           if git diff --cached --quiet; then
             echo "No generated witness changes."
           else
