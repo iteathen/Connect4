@@ -94,8 +94,13 @@ test('compact direct-growth canonicalizers are exactly equivalent on rewritten 4
     nonterminalFrontierBlocker:true,
     moverFinalCapParity:true,
     refinedColumnCanonicalization:true,
+  }),linear=analyzeDirectResidualOrbitGrowthCompact({
+    width:4,height:4,k:4,
+    nonterminalFrontierBlocker:true,
+    moverFinalCapParity:true,
+    binaryTieLinearCanonicalization:true,
   });
-  for(const candidate of [compact,refined]){
+  for(const candidate of [compact,refined,linear]){
     for(const key of [
       'residualOrbitStates',
       'literalActionEdges',
@@ -117,6 +122,11 @@ test('compact direct-growth canonicalizers are exactly equivalent on rewritten 4
     compact.maxCanonicalPermutationCandidates);
   assert.ok(refined.canonicalPermutationCandidates<
     compact.canonicalPermutationCandidates);
+  assert.equal(linear.binaryTieLinearCanonicalization,true);
+  assert.ok(linear.binaryLinearCanonicalizations>0);
+  assert.ok(linear.binaryLinearTranslationCandidates>0);
+  assert.ok(linear.canonicalPermutationCandidates<=
+    refined.canonicalPermutationCandidates);
 });
 
 test('column refinements are exact wherever they certify search-free canonicalization',()=>{
