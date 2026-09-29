@@ -1,0 +1,272 @@
+{
+  "schema": "isomax.core020.structural_control.primitive_closure_ledger.v2",
+  "date_author_local": "2026-09-29",
+  "research_direction": "Joshua Oshiro",
+  "strict_native_kernel": "ISOMAX_STRUCTURAL_CONTROL_CORE020_0_2.isg",
+  "predecessor_kernel": "ISOMAX_STRUCTURAL_CONTROL_CORE020_0_1.isg",
+  "governing_rule": "If definitionally reducible, it is not an admissible authoritative leaf.",
+  "entries": [
+    {
+      "id": "P2-001",
+      "node": "packet-local Boolean carrier",
+      "status": "CLOSED_PRIMITIVE",
+      "support": "196010 with exact members 196900,196901"
+    },
+    {
+      "id": "P2-002",
+      "node": "Boolean XOR",
+      "status": "CLOSED_PRIMITIVE",
+      "support": "196100 exact four-tuple extension"
+    },
+    {
+      "id": "P2-003",
+      "node": "finite node carrier used by concrete witnesses",
+      "status": "CLOSED_PRIMITIVE",
+      "support": "196000 direct carrier membership applications"
+    },
+    {
+      "id": "P2-004",
+      "node": "finite edge carrier",
+      "status": "CLOSED_PRIMITIVE",
+      "support": "196001 direct carrier membership applications"
+    },
+    {
+      "id": "P2-005",
+      "node": "finite path carrier",
+      "status": "CLOSED_PRIMITIVE",
+      "support": "196002 direct carrier membership applications"
+    },
+    {
+      "id": "P2-006",
+      "node": "finite action-slot carrier",
+      "status": "CLOSED_PRIMITIVE",
+      "support": "196003 direct carrier membership applications"
+    },
+    {
+      "id": "P2-007",
+      "node": "finite transporter carrier",
+      "status": "CLOSED_PRIMITIVE",
+      "support": "196007 direct carrier membership applications"
+    },
+    {
+      "id": "P2-008",
+      "node": "finite unordered/ordered slot-pair carrier for inversion audit",
+      "status": "CLOSED_PRIMITIVE",
+      "support": "196011 direct carrier membership applications"
+    },
+    {
+      "id": "P2-009",
+      "node": "edge incidence",
+      "status": "RAW_EXTENSION",
+      "support": "196101 complete concrete witness tuples"
+    },
+    {
+      "id": "P2-010",
+      "node": "two-edge path incidence",
+      "status": "RAW_EXTENSION",
+      "support": "196102 complete concrete witness tuples"
+    },
+    {
+      "id": "P2-011",
+      "node": "three-edge path incidence",
+      "status": "RAW_EXTENSION",
+      "support": "196103 complete concrete witness tuples"
+    },
+    {
+      "id": "P2-012",
+      "node": "two-edge accumulated phase",
+      "status": "CLOSED_PRIMITIVE",
+      "support": "196104 IFF over path/edge incidence and 196100 XOR"
+    },
+    {
+      "id": "P2-013",
+      "node": "three-edge accumulated phase",
+      "status": "CLOSED_PRIMITIVE",
+      "support": "196105 IFF over path/edge incidence and iterated 196100 XOR"
+    },
+    {
+      "id": "P2-014",
+      "node": "route-to-transporter/action-sequence/final-state observation",
+      "status": "RAW_EXTENSION",
+      "support": "196106; phase and sign deliberately removed because reducible"
+    },
+    {
+      "id": "P2-015",
+      "node": "source support coincidence",
+      "status": "RAW_EXTENSION",
+      "support": "196107; only shared referent incidence is load-bearing"
+    },
+    {
+      "id": "P2-016",
+      "node": "residual-membership bit observations",
+      "status": "RAW_EXTENSION",
+      "support": "196108; residual token internals are irrelevant to the local bit claims"
+    },
+    {
+      "id": "P2-017",
+      "node": "two-bit allowed-orientation relation",
+      "status": "RAW_EXTENSION",
+      "support": "196109 exact two tuples"
+    },
+    {
+      "id": "P2-018",
+      "node": "XOR-zero relation",
+      "status": "CLOSED_PRIMITIVE",
+      "support": "196110 IFF 196100 output=196900"
+    },
+    {
+      "id": "P2-019",
+      "node": "fine-to-coarse projection incidence",
+      "status": "RAW_EXTENSION",
+      "support": "196111; high-level quotient terminology is derived view only"
+    },
+    {
+      "id": "P2-020",
+      "node": "path-to-board-control provenance incidence",
+      "status": "RAW_EXTENSION",
+      "support": "196112"
+    },
+    {
+      "id": "P2-021",
+      "node": "full transporter content",
+      "status": "RAW_EXTENSION",
+      "support": "196113 complete 5-slot maps for both transporters"
+    },
+    {
+      "id": "P2-022",
+      "node": "slot order",
+      "status": "RAW_EXTENSION",
+      "support": "196114 complete strict order on five represented slots"
+    },
+    {
+      "id": "P2-023",
+      "node": "ten slot-pair identities",
+      "status": "RAW_EXTENSION",
+      "support": "196115 complete i<j pair extension"
+    },
+    {
+      "id": "P2-024",
+      "node": "transporter inversion bit",
+      "status": "CLOSED_PRIMITIVE",
+      "support": "196116 IFF over pair/map/order plus local Boolean equality"
+    },
+    {
+      "id": "P2-025",
+      "node": "accumulated transporter sign",
+      "status": "CLOSED_PRIMITIVE",
+      "support": "196117 IFF over all ten inversion bits and iterated 196100 XOR"
+    },
+    {
+      "id": "P2-026",
+      "node": "source-frame action sequence content",
+      "status": "RAW_EXTENSION",
+      "support": "196118 ordered two-slot tuples"
+    },
+    {
+      "id": "P2-027",
+      "node": "shortest 5x4 unsatisfiable scalar system",
+      "status": "CLOSED_PRIMITIVE",
+      "support": "native NOT EXISTS over four Boolean variables and four 196100 equations"
+    },
+    {
+      "id": "P2-028",
+      "node": "concrete 4x4 satisfiable flat system",
+      "status": "CLOSED_PRIMITIVE",
+      "support": "native EXISTS over six Boolean variables and six 196100 zero-delta equations"
+    },
+    {
+      "id": "P2-029",
+      "node": "generalized intrinsic correction",
+      "status": "QU_UNEXPANDED",
+      "support": "native ^150021 token 199000; detailed QU-SC-001 is sidecar semantics, not exact IA support"
+    },
+    {
+      "id": "P2-030",
+      "node": "width-4 generalized theorem",
+      "status": "QU_UNEXPANDED",
+      "support": "native ^150021 token 199001"
+    },
+    {
+      "id": "P2-031",
+      "node": "W/D/L or nimber bridge",
+      "status": "QU_UNEXPANDED",
+      "support": "native ^150021 token 199002"
+    },
+    {
+      "id": "P2-032",
+      "node": "transition-orientation requirement outside shortest witness",
+      "status": "QU_UNEXPANDED",
+      "support": "native ^150021 token 199003"
+    },
+    {
+      "id": "P2-033",
+      "node": "corrected global phase codomain",
+      "status": "QU_UNEXPANDED",
+      "support": "native ^150021 token 199004"
+    },
+    {
+      "id": "P2-034",
+      "node": "generic-confluence explanation",
+      "status": "QU_UNEXPANDED",
+      "support": "native ^150021 token 199005"
+    },
+    {
+      "id": "P2-035",
+      "node": "full 4x4 cocycle census",
+      "status": "DERIVED_VIEW_NOT_PRIMITIVE_LEAF",
+      "load_bearing_for_ia": false,
+      "source": "PHASE_COCYCLE_RESULT.md"
+    },
+    {
+      "id": "P2-036",
+      "node": "full 4x5 cocycle census",
+      "status": "DERIVED_VIEW_NOT_PRIMITIVE_LEAF",
+      "load_bearing_for_ia": false,
+      "source": "PHASE_COCYCLE_4X5_RESULT.md"
+    },
+    {
+      "id": "P2-037",
+      "node": "full 5x4 cocycle census",
+      "status": "DERIVED_VIEW_NOT_PRIMITIVE_LEAF",
+      "load_bearing_for_ia": false,
+      "source": "PHASE_COCYCLE_5X4_RESULT.md"
+    },
+    {
+      "id": "P2-038",
+      "node": "direct residual-orbit aggregate counts",
+      "status": "DERIVED_VIEW_NOT_PRIMITIVE_LEAF",
+      "load_bearing_for_ia": false,
+      "source": "DIRECT_RESIDUAL_ORBIT_GRAPH_RESULT.md"
+    },
+    {
+      "id": "P2-039",
+      "node": "generic current-action parity full audit",
+      "status": "DERIVED_VIEW_NOT_PRIMITIVE_LEAF",
+      "load_bearing_for_ia": false,
+      "source": "LATE_ACTION_PARITY_RESULT.md"
+    },
+    {
+      "id": "P2-040",
+      "node": "deeper continuation aggregate census",
+      "status": "DERIVED_VIEW_NOT_PRIMITIVE_LEAF",
+      "load_bearing_for_ia": false,
+      "source": "DEEPER_CONTINUATION_PHASE_RESULT.md"
+    },
+    {
+      "id": "P2-041",
+      "node": "response-incidence rank/nullity and polynomial census",
+      "status": "DERIVED_VIEW_NOT_PRIMITIVE_LEAF",
+      "load_bearing_for_ia": false,
+      "source": "CONTROL_ALGEBRA_RESULT.md"
+    },
+    {
+      "id": "P2-042",
+      "node": "perfect-play branch/delta aggregate controls",
+      "status": "DERIVED_VIEW_NOT_PRIMITIVE_LEAF",
+      "load_bearing_for_ia": false,
+      "source": "BRANCH_COLLAPSE_RESULT.md"
+    }
+  ],
+  "exact_ia_support_scope": "Every exact IA premise is dependency-closed to P2-001..P2-028 or another exact IA whose own support closes there.",
+  "nonclaim": "The aggregate derived source views P2-035..P2-042 are integrated as provenance/navigation only and do not qualify as primitive semantic leaves in this compact packet."
+}
