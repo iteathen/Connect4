@@ -356,6 +356,206 @@ function auditPairRefinedColumnCanonicalization(heights,r0,r1,width,height){
   };
 }
 
+
+function gf2ParitySmall(x){
+  let p=0;
+  for(let v=x>>>0;v;v=(v&(v-1))>>>0)p^=1;
+  return p;
+}
+
+function gf2RowBasisSmall(rows,width){
+  const basis=new Array(width).fill(0);
+  for(const row0 of rows){
+    let row=row0>>>0;
+    for(let bit=width-1;bit>=0;bit--)if((row>>>bit)&1){
+      if(basis[bit])row=(row^basis[bit])>>>0;
+      else{basis[bit]=row;break;}
+    }
+  }
+  return basis.filter(Boolean);
+}
+
+function gf2InSpanSmall(row0,basis,width){
+  let row=row0>>>0;
+  const pivots=new Array(width).fill(0);
+  for(const b of basis){
+    const bit=31-Math.clz32(b);
+    pivots[bit]=b;
+  }
+  for(let bit=width-1;bit>=0;bit--)if((row>>>bit)&1){
+    if(!pivots[bit])return false;
+    row=(row^pivots[bit])>>>0;
+  }
+  return true;
+}
+
+function gf2NullspaceBasisSmall(rows,width){
+  const matrix=[...new Set(rows.map(x=>x>>>0).filter(Boolean))],
+    pivots=[];
+  let r=0;
+  for(let col=0;col<width&&r<matrix.length;col++){
+    let pivot=r;
+    while(pivot<matrix.length&&!((matrix[pivot]>>>col)&1))pivot++;
+    if(pivot===matrix.length)continue;
+    [matrix[r],matrix[pivot]]=[matrix[pivot],matrix[r]];
+    for(let i=0;i<matrix.length;i++)if(i!==r&&((matrix[i]>>>col)&1))
+      matrix[i]=(matrix[i]^matrix[r])>>>0;
+    pivots.push(col);
+    r++;
+  }
+  matrix.length=r;
+  const pivotSet=new Set(pivots),out=[];
+  for(let free=0;free<width;free++)if(!pivotSet.has(free)){
+    let x=(1<<free)>>>0;
+    for(let i=0;i<pivots.length;i++)
+      if(gf2ParitySmall(matrix[i]&x))x|=1<<pivots[i];
+    out.push(x>>>0);
+  }
+  return gf2RowBasisSmall(out,width);
+}
+
+function binaryTieStateEncoding(heights,r0,r1,width,height){
+  const {signatures}=refinementColumnSignatures(heights,r0,r1,width,height),
+    entries=[...new Set(signatures)].sort().map(signature=>({
+      signature,
+      cols:Array.from({length:width},(_,c)=>c)
+        .filter(c=>signatures[c]===signature),
+    }));
+  if(entries.some(x=>x.cols.length>2))
+    return {binary:false,entries,pairCount:0,blocks:[]};
+  const pairEntries=entries.filter(x=>x.cols.length===2);
+  if(!pairEntries.length)
+    return {binary:true,entries,pairCount:0,blocks:[]};
+  const pairIndex=new Map(pairEntries.map((x,i)=>[x.signature,i])),
+    rowPattern=(mask,col)=>{
+      let p=0;
+      for(let row=0;row<height;row++)
+        if(mask&(1<<(row*width+col)))p|=1<<row;
+      return p;
+    },
+    blocks=new Map();
+
+  for(const [player,requirements] of [[0,r0],[1,r1]])
+    for(const mask of requirements){
+      let activeMask=0,orientation=0;
+      const parts=[];
+      for(const entry of entries){
+        if(entry.cols.length===1){
+          const p=rowPattern(mask,entry.cols[0]);
+          parts.push('S:'+entry.signature+':'+p);
+        }else{
+          const [ca,cb]=entry.cols,
+            a=rowPattern(mask,ca),b=rowPattern(mask,cb),
+            lo=Math.min(a,b),hi=Math.max(a,b),
+            pi=pairIndex.get(entry.signature);
+          parts.push('P:'+entry.signature+':'+lo+','+hi);
+          if(a!==b){
+            activeMask|=1<<pi;
+            if(a>b)orientation|=1<<pi;
+          }
+        }
+      }
+      const key=player+'|'+parts.join('|');
+      let block=blocks.get(key);
+      if(!block){
+        block={key,activeMask:activeMask>>>0,vectors:new Set()};
+        blocks.set(key,block);
+      }
+      assert.equal(block.activeMask,activeMask>>>0,
+        'requirements in one binary orientation orbit must share active coordinates');
+      block.vectors.add((orientation&activeMask)>>>0);
+    }
+  return {
+    binary:true,
+    entries,
+    pairCount:pairEntries.length,
+    blocks:[...blocks.values()].map(block=>({
+      key:block.key,
+      activeMask:block.activeMask,
+      vectors:[...block.vectors].sort((a,b)=>a-b),
+    })).sort((a,b)=>a.key.localeCompare(b.key)),
+  };
+}
+
+function deriveBinaryTieStabilizer(encoding){
+  const m=encoding.pairCount;
+  if(!encoding.binary)return null;
+  if(m===0)return {pairCount:0,basis:[],parityChecks:[],dimension:0};
+  const allMask=((1<<m)-1)>>>0,constraints=[];
+  for(const block of encoding.blocks){
+    const values=block.vectors,set=new Set(values),
+      t0=values[0]??0,valid=[];
+    for(const t of values){
+      const h=((t^t0)&block.activeMask)>>>0;
+      if(values.every(q=>set.has((q^h)>>>0)))valid.push(h);
+    }
+    const blockBasis=gf2RowBasisSmall(valid,m);
+    for(let bit=0;bit<m;bit++)if(!((block.activeMask>>>bit)&1))
+      blockBasis.push((1<<bit)>>>0);
+    const normalizedBasis=gf2RowBasisSmall(blockBasis,m),
+      parityChecks=gf2NullspaceBasisSmall(normalizedBasis,m);
+    constraints.push(...parityChecks);
+  }
+  const parityChecks=gf2RowBasisSmall(constraints,m),
+    basis=gf2NullspaceBasisSmall(parityChecks,m);
+  return {pairCount:m,basis,parityChecks,dimension:basis.length,allMask};
+}
+
+function exactBinaryTieAutomorphisms(
+  heights,r0,r1,width,height,encoding,permutationData
+){
+  if(!encoding?.binary)return null;
+  const entries=encoding.entries,original=serializeResidualQ(heights,r0,r1,null),
+    vectors=[],unrepresented=[];
+  for(const pd of permutationData){
+    if(serializeResidualQ(heights,r0,r1,pd)!==original)continue;
+    let vector=0,pair=0,valid=true;
+    for(const entry of entries){
+      const cols=entry.cols;
+      if(cols.length===1){
+        if(pd.perm[cols[0]]!==cols[0]){valid=false;break;}
+      }else{
+        const [a,b]=cols,pa=pd.perm[a],pb=pd.perm[b];
+        if(pa===a&&pb===b){}
+        else if(pa===b&&pb===a)vector|=1<<pair;
+        else{valid=false;break;}
+        pair++;
+      }
+    }
+    if(valid)vectors.push(vector>>>0);
+    else unrepresented.push(Array.from(pd.perm));
+  }
+  return {
+    vectors:[...new Set(vectors)].sort((a,b)=>a-b),
+    unrepresented,
+  };
+}
+
+function auditConstructiveBinaryTieStabilizer(
+  heights,r0,r1,width,height,permutationData
+){
+  const encoding=binaryTieStateEncoding(heights,r0,r1,width,height);
+  if(!encoding.binary||encoding.pairCount===0)return null;
+  const derived=deriveBinaryTieStabilizer(encoding),
+    exact=exactBinaryTieAutomorphisms(
+      heights,r0,r1,width,height,encoding,permutationData);
+  const allExactInDerived=
+    exact.unrepresented.length===0&&
+    exact.vectors.every(v=>gf2InSpanSmall(
+      v,derived.basis,derived.pairCount));
+  return {
+    pairCount:derived.pairCount,
+    dimension:derived.dimension,
+    basis:derived.basis,
+    parityChecks:derived.parityChecks,
+    exactVectors:exact.vectors,
+    exactUnrepresented:exact.unrepresented.length,
+    constructiveMatchesExact:
+      allExactInDerived&&
+      exact.vectors.length===2**derived.dimension,
+  };
+}
+
 function applyUniversalFrontierBlocker(
   heights,r0,r1,width,height,{nonterminalOnly=false}={}
 ){
@@ -594,7 +794,106 @@ export function analyzeUnlabelledQuotientDimension({width,height,k,auditResidual
 }
 
 
-export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontierBlocker=false,nonterminalFrontierBlocker=false,moverFinalCapParity=false,measureLocalBranchClosure=true,auditColumnRefinement=false,auditPairColumnRefinement=false}){
+function analyzeOpenCapTerminalDominanceProof(
+  heights,r0,r1,width,height,removedOwner,removed,{maxRemaining=12}={}
+){
+  const cells=width*height,
+    rank=Array.from(heights).reduce((a,b)=>a+b,0),
+    remaining=cells-rank;
+  if(remaining>maxRemaining)return null;
+
+  const h=new Uint8Array(heights),
+    futureOwner=new Int8Array(cells).fill(-1),
+    futurePly=new Int8Array(cells);
+  let conditionedSchedules=0,coveredSchedules=0,uncoveredSchedules=0;
+
+  function completionPly(requirement,player){
+    let rest=requirement>>>0,maxPly=0;
+    while(rest){
+      const low=rest&-rest,bit=31-Math.clz32(low);
+      if(futureOwner[bit]!==player)return null;
+      maxPly=Math.max(maxPly,futurePly[bit]);
+      rest=(rest^low)>>>0;
+    }
+    return maxPly;
+  }
+
+  function visit(depth){
+    if(depth===remaining){
+      conditionedSchedules++;
+      const removedCompletion=completionPly(removed,removedOwner);
+      assert.notEqual(removedCompletion,null,
+        'conditioned open-cap schedule must complete audited residual');
+      let covered=false;
+      for(const [player,requirements] of [[0,r0],[1,r1]]){
+        for(const requirement of requirements){
+          if(player===removedOwner&&requirement===removed)continue;
+          const t=completionPly(requirement,player);
+          if(t!==null&&t<=removedCompletion){covered=true;break;}
+        }
+        if(covered)break;
+      }
+      if(covered)coveredSchedules++;
+      else uncoveredSchedules++;
+      return;
+    }
+
+    const player=(rank+depth)&1;
+    for(let col=0;col<width;col++)if(h[col]<height){
+      const row=h[col],bitIndex=row*width+col,bit=1<<bitIndex;
+      if((removed&bit)&&player!==removedOwner)continue;
+      h[col]++;
+      futureOwner[bitIndex]=player;
+      futurePly[bitIndex]=depth+1;
+      visit(depth+1);
+      futurePly[bitIndex]=0;
+      futureOwner[bitIndex]=-1;
+      h[col]--;
+    }
+  }
+
+  visit(0);
+  return {
+    conditionedSchedules,
+    coveredSchedules,
+    uncoveredSchedules,
+    unrealizable:conditionedSchedules===0,
+    terminalDominated:
+      conditionedSchedules>0&&uncoveredSchedules===0,
+  };
+}
+
+function applyOpponentOpenCapTerminalDominance(
+  heights,r0,r1,width,height,{maxRemaining=12}={}
+){
+  const rank=Array.from(heights).reduce((a,b)=>a+b,0),
+    mover=rank&1,
+    opponentPlayer=1-mover;
+  let capMask=0;
+  for(let col=0;col<width;col++)if(heights[col]<height)
+    capMask|=1<<((height-1)*width+col);
+  capMask>>>=0;
+  if(capMask===0)return {r0,r1,removed:0,proof:null};
+
+  const opponent=opponentPlayer?r1:r0;
+  if(!opponent.includes(capMask))
+    return {r0,r1,removed:0,proof:null};
+
+  const proof=analyzeOpenCapTerminalDominanceProof(
+    heights,r0,r1,width,height,opponentPlayer,capMask,{maxRemaining});
+  if(!proof||!(proof.unrealizable||proof.terminalDominated))
+    return {r0,r1,removed:0,proof};
+
+  if(opponentPlayer){
+    const next=r1.filter(requirement=>requirement!==capMask);
+    return {r0,r1:next,removed:r1.length-next.length,proof};
+  }
+  const next=r0.filter(requirement=>requirement!==capMask);
+  return {r0:next,r1,removed:r0.length-next.length,proof};
+}
+
+
+export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontierBlocker=false,nonterminalFrontierBlocker=false,moverFinalCapParity=false,remainingMoveCapacity=false,supportReleaseTurnCapacity=false,opponentOpenCapTerminalDominance=false,measureLocalBranchClosure=true,auditColumnRefinement=false,auditPairColumnRefinement=false,auditBinaryTieStabilizers=false,auditOpponentResidualDeletion=false,auditEarliestMergeParents=false,auditEarliestMergeWitness=false}){
   const cells=width*height;
   assert.ok(cells<=30,'direct residual-orbit harness is intentionally bounded to <=30 cells');
   const masks=winMasks(width,height,k),
@@ -659,8 +958,20 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
               applyMoverFinalCapParity(
                 nextHeights,blocked.r0,blocked.r1,width,height):
               blocked,
+            capacityClosed=remainingMoveCapacity?
+              applyRemainingMoveCapacity(
+                nextHeights,closed.r0,closed.r1,width,height):
+              closed,
+            releaseClosed=supportReleaseTurnCapacity?
+              applySupportReleaseTurnCapacity(
+                nextHeights,capacityClosed.r0,capacityClosed.r1,width,height):
+              capacityClosed,
+            dominanceClosed=opponentOpenCapTerminalDominance?
+              applyOpponentOpenCapTerminalDominance(
+                nextHeights,releaseClosed.r0,releaseClosed.r1,width,height):
+              releaseClosed,
             canonical=canonicalResidualQState(
-              nextHeights,closed.r0,closed.r1,permutationData);
+              nextHeights,dominanceClosed.r0,dominanceClosed.r1,permutationData);
           childKey=visit(canonical);
         }
       }
@@ -681,8 +992,20 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
       applyMoverFinalCapParity(
         rootHeights,rootBlocked.r0,rootBlocked.r1,width,height):
       rootBlocked,
+    rootCapacityClosed=remainingMoveCapacity?
+      applyRemainingMoveCapacity(
+        rootHeights,rootClosed.r0,rootClosed.r1,width,height):
+      rootClosed,
+    rootReleaseClosed=supportReleaseTurnCapacity?
+      applySupportReleaseTurnCapacity(
+        rootHeights,rootCapacityClosed.r0,rootCapacityClosed.r1,width,height):
+      rootCapacityClosed,
+    rootDominanceClosed=opponentOpenCapTerminalDominance?
+      applyOpponentOpenCapTerminalDominance(
+        rootHeights,rootReleaseClosed.r0,rootReleaseClosed.r1,width,height):
+      rootReleaseClosed,
     root=canonicalResidualQState(
-      rootHeights,rootClosed.r0,rootClosed.r1,permutationData),
+      rootHeights,rootDominanceClosed.r0,rootDominanceClosed.r1,permutationData),
     rootKey=visit(root);
 
   const stateClass=new Map(),signatureClass=new Map(),
@@ -708,6 +1031,1050 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     }
     stateClass.set(rec.key,id);
   }
+
+  const actionLabelledStateClass=new Map(),
+    actionLabelledSignatureClass=new Map(),
+    actionLabelledClassesByRank=Array(cells+1).fill(0);
+  let actionLabelledNextId=0;
+  for(let rank=cells;rank>=0;rank--)for(const rec of byRank[rank]){
+    let signature;
+    if(rec.terminal)signature=rec.key;
+    else{
+      const tokens=[],childIds=rec.children.map(child=>{
+        const id=actionLabelledStateClass.get(child);
+        assert.notEqual(id,undefined,
+          'action-labelled child class must exist at higher rank');
+        return id;
+      });
+      let childIndex=0;
+      for(let col=0;col<width;col++){
+        if(rec.heights[col]>=height)tokens.push('I');
+        else tokens.push('C'+childIds[childIndex++]);
+      }
+      assert.equal(childIndex,childIds.length);
+      signature='L:'+rank+':'+(rank&1)+':'+tokens.join(',');
+    }
+    let id=actionLabelledSignatureClass.get(signature);
+    if(id===undefined){
+      id=actionLabelledNextId++;
+      actionLabelledSignatureClass.set(signature,id);
+      actionLabelledClassesByRank[rank]++;
+    }
+    actionLabelledStateClass.set(rec.key,id);
+  }
+  const earliestActionLabelledMergeRank=statesByRank.findIndex(
+    (states,rank)=>states>actionLabelledClassesByRank[rank]);
+
+  // Late-action phase audit.  First freeze the recursively derived
+  // action-unlabelled child classes, then ask what remains in the labelled
+  // fibers.  This deliberately tests parity after continuation semantics
+  // rather than applying XOR to raw move coordinates.
+  const labelledToUnlabelled=new Map(),
+    unlabelledToLabelled=new Map(),
+    labelledActionProfiles=new Map(),
+    labelledRecursiveProfiles=new Map(),
+    unlabelledClassRank=new Map();
+  for(const rec of nodes.values()){
+    const unlabelled=stateClass.get(rec.key),
+      labelled=actionLabelledStateClass.get(rec.key);
+    assert.notEqual(unlabelled,undefined);
+    assert.notEqual(labelled,undefined);
+    const prior=labelledToUnlabelled.get(labelled);
+    if(prior===undefined)labelledToUnlabelled.set(labelled,unlabelled);
+    else assert.equal(prior,unlabelled,
+      'action-labelled class must refine one action-unlabelled class');
+    let labels=unlabelledToLabelled.get(unlabelled);
+    if(!labels){labels=new Set();unlabelledToLabelled.set(unlabelled,labels);}
+    labels.add(labelled);
+    const priorRank=unlabelledClassRank.get(unlabelled);
+    if(priorRank===undefined)unlabelledClassRank.set(unlabelled,rec.rank);
+    else assert.equal(priorRank,rec.rank);
+
+    if(!rec.terminal){
+      const tokens=[],childIds=rec.children.map(child=>{
+        const id=stateClass.get(child);
+        assert.notEqual(id,undefined);
+        return id;
+      });
+      let childIndex=0;
+      for(let col=0;col<width;col++){
+        if(rec.heights[col]>=height)tokens.push('I');
+        else tokens.push('C'+childIds[childIndex++]);
+      }
+      assert.equal(childIndex,childIds.length);
+      const profile=tokens.join(','),
+        recursiveTokens=[],labelledChildIds=rec.children.map(child=>{
+          const id=actionLabelledStateClass.get(child);
+          assert.notEqual(id,undefined);
+          return id;
+        });
+      childIndex=0;
+      for(let col=0;col<width;col++){
+        if(rec.heights[col]>=height)recursiveTokens.push('I');
+        else recursiveTokens.push('L'+labelledChildIds[childIndex++]);
+      }
+      assert.equal(childIndex,labelledChildIds.length);
+      const recursiveProfile=recursiveTokens.join(',');
+      const priorProfile=labelledActionProfiles.get(labelled);
+      if(priorProfile===undefined){
+        labelledActionProfiles.set(labelled,profile);
+        labelledRecursiveProfiles.set(labelled,recursiveProfile);
+      }else{
+        assert.equal(priorProfile,profile,
+          'labelled class must have one phase-free immediate action profile');
+        assert.equal(labelledRecursiveProfiles.get(labelled),recursiveProfile,
+          'labelled class must have one recursive labelled action profile');
+      }
+    }
+  }
+
+  const permutationParity=perm=>{
+      let parity=0;
+      for(let i=0;i<perm.length;i++)for(let j=i+1;j<perm.length;j++)
+        if(perm[i]>perm[j])parity^=1;
+      return parity;
+    },
+    moveProfile=(profile,pd)=>{
+      const source=profile.split(','),target=Array(width);
+      for(let oldCol=0;oldCol<width;oldCol++)
+        target[pd.perm[oldCol]]=source[oldCol];
+      return target.join(',');
+    },
+    multisetProfile=profile=>profile.split(',').sort().join(',');
+
+  const actionLabelledFiberHistogram=new Map(),
+    actionLabelledSplitByRank=Array.from({length:cells+1},(_,rank)=>({
+      rank,splitUnlabelledClasses:0,labelledClassExcess:0,
+      pureTransporterFibers:0,exactBinaryParityFibers:0,
+    })),
+    actionLabelledFiberExamples=[];
+  let splitUnlabelledClasses=0,labelledClassExcess=0,maxLabelledFiberSize=1,
+    pureTransporterFibers=0,multiplicityErasureFibers=0,
+    binarySplitFibers=0,powerOfTwoSplitFibers=0,
+    pureTransporterDistinctSlotFibers=0,
+    parityWellDefinedFibers=0,exactBinaryParityFibers=0,
+    parityAmbiguousFibers=0,binaryDistinctSameParityFibers=0;
+
+  for(const [unlabelled,labelsSet] of unlabelledToLabelled){
+    const labels=[...labelsSet].sort((a,b)=>a-b),size=labels.length;
+    actionLabelledFiberHistogram.set(
+      size,(actionLabelledFiberHistogram.get(size)??0)+1);
+    maxLabelledFiberSize=Math.max(maxLabelledFiberSize,size);
+    if(size<=1)continue;
+    splitUnlabelledClasses++;
+    labelledClassExcess+=size-1;
+    if(size===2)binarySplitFibers++;
+    if((size&(size-1))===0)powerOfTwoSplitFibers++;
+    const rank=unlabelledClassRank.get(unlabelled),
+      rankRow=actionLabelledSplitByRank[rank];
+    rankRow.splitUnlabelledClasses++;
+    rankRow.labelledClassExcess+=size-1;
+
+    const profiles=labels.map(id=>labelledActionProfiles.get(id));
+    assert.ok(profiles.every(x=>x!==undefined),
+      'split action-labelled fiber must be nonterminal');
+    const multisets=new Set(profiles.map(multisetProfile)),
+      pureTransporter=multisets.size===1;
+    if(pureTransporter){
+      pureTransporterFibers++;
+      rankRow.pureTransporterFibers++;
+    }else multiplicityErasureFibers++;
+
+    let parityWellDefined=false,exactBinaryParity=false,paritySets=[];
+    const allSlotsDistinct=pureTransporter&&
+      new Set(profiles[0].split(',')).size===width;
+    if(pureTransporter){
+      if(allSlotsDistinct)pureTransporterDistinctSlotFibers++;
+      const base=profiles[0];
+      paritySets=profiles.map(profile=>{
+        const set=new Set();
+        for(const pd of permutationData)
+          if(moveProfile(profile,pd)===base)
+            set.add(permutationParity(pd.perm));
+        assert.ok(set.size>0,'pure transporter profile needs a transporter');
+        return [...set].sort((a,b)=>a-b);
+      });
+      parityWellDefined=paritySets.every(set=>set.length===1);
+      assert.equal(
+        parityWellDefined,allSlotsDistinct,
+        'full action-permutation sign is well-defined iff slot tokens are distinct');
+      if(parityWellDefined){
+        parityWellDefinedFibers++;
+        exactBinaryParity=size===2&&
+          paritySets[0][0]!==paritySets[1][0];
+        if(exactBinaryParity){
+          exactBinaryParityFibers++;
+          rankRow.exactBinaryParityFibers++;
+        }else if(size===2)binaryDistinctSameParityFibers++;
+      }else parityAmbiguousFibers++;
+    }
+
+    if(actionLabelledFiberExamples.length<128)
+      actionLabelledFiberExamples.push({
+        rank,unlabelledClass:unlabelled,labelledClasses:labels,
+        fiberSize:size,profiles,
+        pureTransporter,allSlotsDistinct,
+        parityWellDefined,paritySets,exactBinaryParity,
+      });
+  }
+  assert.equal(
+    labelledClassExcess,actionLabelledNextId-nextId,
+    'labelled fiber excess must equal labelled-minus-unlabelled class count');
+
+  const deeperProfileGroupHistogram=new Map(),
+    deeperProfileByRank=Array.from({length:cells+1},(_,rank)=>({
+      rank,groups:0,labelledClassExcess:0,binaryGroups:0,
+    })),
+    deeperGroupRecords=[],deeperProfileExamples=[];
+  let deeperProfileSplitUnlabelledFibers=0,deeperProfileGroups=0,
+    deeperProfileLabelledExcess=0,deeperProfileBinaryGroups=0,
+    deeperProfilePowerOfTwoGroups=0,maxDeeperProfileGroupSize=1,
+    binaryChangedSlotHistogram=new Map();
+
+  for(const [unlabelled,labelsSet] of unlabelledToLabelled){
+    if(labelsSet.size<=1)continue;
+    const byProfile=new Map();
+    for(const labelled of labelsSet){
+      const profile=labelledActionProfiles.get(labelled);
+      if(profile===undefined)continue;
+      let ids=byProfile.get(profile);
+      if(!ids){ids=[];byProfile.set(profile,ids);}
+      ids.push(labelled);
+    }
+    const splitGroups=[...byProfile.entries()].filter(([,ids])=>ids.length>1);
+    if(!splitGroups.length)continue;
+    deeperProfileSplitUnlabelledFibers++;
+    const rank=unlabelledClassRank.get(unlabelled),
+      rankRow=deeperProfileByRank[rank];
+    for(const [profile,ids0] of splitGroups){
+      const ids=[...ids0].sort((a,b)=>a-b),size=ids.length,
+        record={
+          id:deeperGroupRecords.length,rank,unlabelledClass:unlabelled,
+          phaseFreeProfile:profile,labelledClasses:ids,
+          recursiveProfiles:ids.map(id=>labelledRecursiveProfiles.get(id)),
+        };
+      deeperGroupRecords.push(record);
+      deeperProfileGroups++;
+      deeperProfileLabelledExcess+=size-1;
+      maxDeeperProfileGroupSize=Math.max(maxDeeperProfileGroupSize,size);
+      deeperProfileGroupHistogram.set(
+        size,(deeperProfileGroupHistogram.get(size)??0)+1);
+      rankRow.groups++;
+      rankRow.labelledClassExcess+=size-1;
+      if(size===2){
+        deeperProfileBinaryGroups++;
+        rankRow.binaryGroups++;
+        const a=record.recursiveProfiles[0].split(','),
+          b=record.recursiveProfiles[1].split(',');
+        assert.equal(a.length,b.length);
+        let changed=0;
+        for(let i=0;i<a.length;i++)if(a[i]!==b[i])changed++;
+        binaryChangedSlotHistogram.set(
+          changed,(binaryChangedSlotHistogram.get(changed)??0)+1);
+      }
+      if((size&(size-1))===0)deeperProfilePowerOfTwoGroups++;
+    }
+  }
+
+  const deeperGroupByKey=new Map(deeperGroupRecords.map(row=>[
+      row.unlabelledClass+'|'+row.phaseFreeProfile,row,
+    ])),
+    changedChildTypeHistogram=new Map(),
+    binaryContinuationEdgeCountHistogram=new Map(),
+    binaryPropagationRecords=[];
+  let changedChildPairs=0,binaryContinuationEdges=0,
+    nonbinaryContinuationEdges=0,childTransporterEdges=0,
+    childBranchErasureEdges=0,childTerminalOrUnknownEdges=0;
+
+  for(const row of deeperGroupRecords){
+    if(row.labelledClasses.length!==2)continue;
+    const a=row.recursiveProfiles[0].split(','),
+      b=row.recursiveProfiles[1].split(',');
+    let binaryEdges=0;
+    const changed=[];
+    for(let col=0;col<a.length;col++){
+      if(a[col]===b[col])continue;
+      assert.ok(a[col].startsWith('L')&&b[col].startsWith('L'),
+        'deeper binary difference must compare live child classes');
+      changedChildPairs++;
+      const left=Number(a[col].slice(1)),right=Number(b[col].slice(1)),
+        leftUnlabelled=labelledToUnlabelled.get(left),
+        rightUnlabelled=labelledToUnlabelled.get(right);
+      assert.equal(leftUnlabelled,rightUnlabelled,
+        'phase-free-identical parent slot must preserve child unlabelled class');
+      const leftProfile=labelledActionProfiles.get(left),
+        rightProfile=labelledActionProfiles.get(right);
+      let type,targetGroup=null;
+      if(leftProfile===undefined||rightProfile===undefined){
+        type='terminal-or-unknown';
+        childTerminalOrUnknownEdges++;
+      }else if(leftProfile===rightProfile){
+        targetGroup=deeperGroupByKey.get(
+          leftUnlabelled+'|'+leftProfile)??null;
+        assert.ok(targetGroup,
+          'same-profile changed child pair must belong to deeper group');
+        assert.ok(targetGroup.labelledClasses.includes(left)&&
+          targetGroup.labelledClasses.includes(right));
+        if(targetGroup.labelledClasses.length===2){
+          type='binary-continuation';
+          binaryContinuationEdges++;
+          binaryEdges++;
+        }else{
+          type='nonbinary-continuation';
+          nonbinaryContinuationEdges++;
+        }
+      }else if(multisetProfile(leftProfile)===multisetProfile(rightProfile)){
+        type='child-transporter';
+        childTransporterEdges++;
+      }else{
+        type='child-branch-erasure';
+        childBranchErasureEdges++;
+      }
+      changedChildTypeHistogram.set(
+        type,(changedChildTypeHistogram.get(type)??0)+1);
+      changed.push({
+        column:col,left,right,childUnlabelledClass:leftUnlabelled,
+        leftPhaseFreeProfile:leftProfile??null,
+        rightPhaseFreeProfile:rightProfile??null,
+        type,targetGroupId:targetGroup?.id??null,
+      });
+    }
+    binaryContinuationEdgeCountHistogram.set(
+      binaryEdges,(binaryContinuationEdgeCountHistogram.get(binaryEdges)??0)+1);
+    binaryPropagationRecords.push({
+        groupId:row.id,rank:row.rank,
+        unlabelledClass:row.unlabelledClass,
+        phaseFreeProfile:row.phaseFreeProfile,
+        labelledClasses:row.labelledClasses,
+        changed,
+      });
+  }
+
+  assert.equal(
+    changedChildPairs,
+    [...binaryChangedSlotHistogram.entries()].reduce((n,[slots,count])=>
+      n+slots*count,0),
+    'changed child classifications must cover every binary changed slot');
+
+  const binaryGroupRows=deeperGroupRecords.filter(
+      row=>row.labelledClasses.length===2),
+    binaryGroupIds=binaryGroupRows.map(row=>row.id),
+    binaryGroupRank=new Map(binaryGroupRows.map(row=>[row.id,row.rank])),
+    binaryInheritanceEdges=[];
+
+  for(const parent of binaryPropagationRecords){
+    const parentGroup=deeperGroupRecords[parent.groupId];
+    assert.equal(parentGroup.labelledClasses.length,2);
+    for(const child of parent.changed){
+      if(child.type!=='binary-continuation')continue;
+      const targetGroup=deeperGroupRecords[child.targetGroupId];
+      assert.equal(targetGroup.labelledClasses.length,2);
+      assert.equal(targetGroup.rank,parentGroup.rank+1,
+        'binary continuation must advance exactly one legal action rank');
+      const targetSheet0=targetGroup.labelledClasses.indexOf(child.left),
+        targetSheet1=targetGroup.labelledClasses.indexOf(child.right);
+      assert.ok(targetSheet0>=0&&targetSheet1>=0,
+        'binary continuation children must lie on target sheets');
+      assert.notEqual(targetSheet0,targetSheet1,
+        'binary continuation must map the two parent sheets bijectively');
+      assert.equal(targetSheet1,targetSheet0^1,
+        'binary target sheet map must be a Z2 permutation');
+      binaryInheritanceEdges.push({
+        id:binaryInheritanceEdges.length,
+        from:parent.groupId,
+        to:child.targetGroupId,
+        column:child.column,
+        parentRank:parentGroup.rank,
+        targetRank:targetGroup.rank,
+        delta:targetSheet0,
+        parentLabelledClasses:[...parentGroup.labelledClasses],
+        targetLabelledClasses:[...targetGroup.labelledClasses],
+        mappedTargetSheets:[targetSheet0,targetSheet1],
+      });
+    }
+  }
+  assert.equal(binaryInheritanceEdges.length,binaryContinuationEdges,
+    'cocycle carrier must contain every binary continuation edge');
+
+  function auditPhasePaths(edgeRows){
+    const outgoing=new Map(binaryGroupIds.map(id=>[id,[]]));
+    for(const edge of edgeRows)outgoing.get(edge.from).push(edge);
+    for(const rows of outgoing.values())rows.sort((a,b)=>
+      a.to-b.to||a.delta-b.delta||a.id-b.id);
+    const ordered=[...binaryGroupIds].sort((a,b)=>
+      binaryGroupRank.get(a)-binaryGroupRank.get(b)||a-b),
+      edgeById=new Map(edgeRows.map(edge=>[edge.id,edge]));
+    let reconvergentPairs=0,pathIndependentReconvergences=0,
+      contradictoryReconvergences=0,topologicalReconvergences=0,
+      maxPathMultiplicity=1;
+    const examples=[],contradictoryExamples=[];
+
+    for(const source of ordered){
+      const stats=new Map(),start={
+        counts:[1,0],
+        min:[0,Infinity],
+        max:[0,-Infinity],
+        witnesses:[[[]],[]],
+      };
+      stats.set(source,start);
+      for(const node of ordered){
+        const current=stats.get(node);
+        if(!current)continue;
+        for(const edge of outgoing.get(node)){
+          let target=stats.get(edge.to);
+          if(!target){
+            target={
+              counts:[0,0],
+              min:[Infinity,Infinity],
+              max:[-Infinity,-Infinity],
+              witnesses:[[],[]],
+            };
+            stats.set(edge.to,target);
+          }
+          for(let parity=0;parity<2;parity++){
+            if(current.counts[parity]===0)continue;
+            const nextParity=parity^edge.delta;
+            target.counts[nextParity]+=current.counts[parity];
+            target.min[nextParity]=Math.min(
+              target.min[nextParity],current.min[parity]+1);
+            target.max[nextParity]=Math.max(
+              target.max[nextParity],current.max[parity]+1);
+            for(const witness of current.witnesses[parity]){
+              if(target.witnesses[nextParity].length>=4)break;
+              target.witnesses[nextParity].push([...witness,edge.id]);
+            }
+          }
+        }
+      }
+
+      for(const [target,row] of stats){
+        if(target===source)continue;
+        const multiplicity=row.counts[0]+row.counts[1];
+        if(multiplicity<=1)continue;
+        reconvergentPairs++;
+        maxPathMultiplicity=Math.max(maxPathMultiplicity,multiplicity);
+        const contradictory=row.counts[0]>0&&row.counts[1]>0;
+        if(contradictory)contradictoryReconvergences++;
+        else pathIndependentReconvergences++;
+        const witnesses=[...row.witnesses[0],...row.witnesses[1]],
+          routeSignatures=new Set(witnesses.map(witness=>[
+            source,...witness.map(id=>edgeById.get(id).to),
+          ].join('>'))),
+          topological=routeSignatures.size>1;
+        if(topological)topologicalReconvergences++;
+        const example={
+          source,target,multiplicity,
+          parityPathCounts:[...row.counts],
+          minPathEdges:Math.min(...row.min.filter(Number.isFinite)),
+          maxPathEdges:Math.max(...row.max.filter(Number.isFinite)),
+          contradictory,topological,
+          witnessEdgeIdsByParity:row.witnesses.map(list=>
+            list.slice(0,2).map(witness=>[...witness])),
+          witnessPathsByParity:row.witnesses.map(list=>
+            list.slice(0,2).map(witness=>witness.map(id=>{
+              const edge=edgeById.get(id);
+              return {
+                id:edge.id,from:edge.from,to:edge.to,
+                column:edge.column,delta:edge.delta,
+              };
+            }))),
+        };
+        if(examples.length<32)examples.push(example);
+        if(contradictory&&contradictoryExamples.length<32)
+          contradictoryExamples.push(example);
+      }
+    }
+
+    return {
+      reconvergentPairs,
+      pathIndependentReconvergences,
+      contradictoryReconvergences,
+      topologicalReconvergences,
+      maxPathMultiplicity,
+      examples,
+      contradictoryExamples,
+    };
+  }
+
+  function auditPhaseIntegrability(edgeRows){
+    const parent=new Map(binaryGroupIds.map(id=>[id,id])),
+      parityToParent=new Map(binaryGroupIds.map(id=>[id,0])),
+      size=new Map(binaryGroupIds.map(id=>[id,1]));
+    function find(id){
+      const p=parent.get(id);
+      if(p===id)return [id,0];
+      const [root,up]=find(p),parity=parityToParent.get(id)^up;
+      parent.set(id,root);
+      parityToParent.set(id,parity);
+      return [root,parity];
+    }
+    let zeroCycleSyndromes=0,nonzeroCycleSyndromes=0;
+    const syndromeExamples=[],nonzeroSyndromeExamples=[];
+    for(const edge of edgeRows){
+      let [rootA,phaseA]=find(edge.from),
+        [rootB,phaseB]=find(edge.to);
+      if(rootA===rootB){
+        const syndrome=phaseA^phaseB^edge.delta;
+        if(syndrome===0)zeroCycleSyndromes++;
+        else nonzeroCycleSyndromes++;
+        const example={
+          closingEdgeId:edge.id,from:edge.from,to:edge.to,
+          delta:edge.delta,syndrome,
+        };
+        if(syndromeExamples.length<32)syndromeExamples.push(example);
+        if(syndrome!==0&&nonzeroSyndromeExamples.length<32)
+          nonzeroSyndromeExamples.push(example);
+        continue;
+      }
+      const bridge=phaseA^phaseB^edge.delta;
+      if(size.get(rootA)<size.get(rootB)){
+        parent.set(rootA,rootB);
+        parityToParent.set(rootA,bridge);
+        size.set(rootB,size.get(rootA)+size.get(rootB));
+      }else{
+        parent.set(rootB,rootA);
+        parityToParent.set(rootB,bridge);
+        size.set(rootA,size.get(rootA)+size.get(rootB));
+      }
+    }
+    const componentRoots=new Set(binaryGroupIds.map(id=>find(id)[0])),
+      activeIds=new Set(edgeRows.flatMap(edge=>[edge.from,edge.to])),
+      activeRoots=new Set([...activeIds].map(id=>find(id)[0])),
+      cycleRank=edgeRows.length-activeIds.size+activeRoots.size;
+    assert.equal(
+      zeroCycleSyndromes+nonzeroCycleSyndromes,cycleRank,
+      'fundamental cycle closures must equal binary inheritance cycle rank');
+    return {
+      cycleRank,
+      weakComponents:componentRoots.size,
+      activeWeakComponents:activeRoots.size,
+      zeroCycleSyndromes,
+      nonzeroCycleSyndromes,
+      globalPhasePotentialExists:nonzeroCycleSyndromes===0,
+      syndromeExamples,
+      nonzeroSyndromeExamples,
+    };
+  }
+
+  const pairRows=new Map();
+  for(const edge of binaryInheritanceEdges){
+    const key=edge.from+'>'+edge.to;
+    let rows=pairRows.get(key);
+    if(!rows){rows=[];pairRows.set(key,rows);}
+    rows.push(edge);
+  }
+  const parallelPairs=[...pairRows.entries()].filter(([,rows])=>rows.length>1),
+    conflictingParallelPairs=parallelPairs.filter(([,rows])=>
+      new Set(rows.map(row=>row.delta)).size>1),
+    uniqueByMap=new Map();
+  for(const edge of binaryInheritanceEdges){
+    const key=edge.from+'>'+edge.to+'|'+edge.delta;
+    if(!uniqueByMap.has(key))uniqueByMap.set(key,edge);
+  }
+  const reducedEdges=[...uniqueByMap.values()],
+    simpleEdges=[...pairRows.values()].map(rows=>rows[0]),
+    outgoingTargets=new Map(binaryGroupIds.map(id=>[id,new Set()])),
+    incomingSources=new Map(binaryGroupIds.map(id=>[id,new Set()])),
+    weakAdj=new Map(binaryGroupIds.map(id=>[id,new Set()]));
+  for(const edge of simpleEdges){
+    outgoingTargets.get(edge.from).add(edge.to);
+    incomingSources.get(edge.to).add(edge.from);
+    weakAdj.get(edge.from).add(edge.to);
+    weakAdj.get(edge.to).add(edge.from);
+  }
+
+  const weakComponentSizes=[],seenWeak=new Set();
+  for(const start of binaryGroupIds){
+    if(seenWeak.has(start))continue;
+    const stack=[start];
+    seenWeak.add(start);
+    let n=0;
+    while(stack.length){
+      const id=stack.pop();
+      n++;
+      for(const next of weakAdj.get(id))if(!seenWeak.has(next)){
+        seenWeak.add(next);
+        stack.push(next);
+      }
+    }
+    weakComponentSizes.push(n);
+  }
+  weakComponentSizes.sort((a,b)=>b-a);
+
+  const activeBinaryIds=binaryGroupIds.filter(id=>
+      outgoingTargets.get(id).size||incomingSources.get(id).size),
+    sourceIds=activeBinaryIds.filter(id=>incomingSources.get(id).size===0),
+    sinkIds=activeBinaryIds.filter(id=>outgoingTargets.get(id).size===0),
+    chainMemo=new Map();
+  function chainBounds(id){
+    const prior=chainMemo.get(id);
+    if(prior)return prior;
+    const targets=[...outgoingTargets.get(id)];
+    if(!targets.length){
+      const leaf={min:0,max:0};
+      chainMemo.set(id,leaf);
+      return leaf;
+    }
+    const children=targets.map(chainBounds),result={
+      min:1+Math.min(...children.map(x=>x.min)),
+      max:1+Math.max(...children.map(x=>x.max)),
+    };
+    chainMemo.set(id,result);
+    return result;
+  }
+  const sourceChainBounds=sourceIds.map(id=>({id,...chainBounds(id)})),
+    shortestInheritedChainEdges=sourceChainBounds.length?
+      Math.min(...sourceChainBounds.map(x=>x.min)):0,
+    longestInheritedChainEdges=sourceChainBounds.length?
+      Math.max(...sourceChainBounds.map(x=>x.max)):0;
+
+  const pathAudit=auditPhasePaths(reducedEdges),
+    integrabilityAudit=auditPhaseIntegrability(reducedEdges),
+    gaugeFlippedEdges=reducedEdges.map(edge=>({
+      ...edge,
+      delta:edge.delta^(edge.from&1)^(edge.to&1),
+    })),
+    flippedPathAudit=auditPhasePaths(gaugeFlippedEdges),
+    flippedIntegrabilityAudit=auditPhaseIntegrability(gaugeFlippedEdges),
+    gaugeFlipInvariant=
+      pathAudit.reconvergentPairs===flippedPathAudit.reconvergentPairs&&
+      pathAudit.pathIndependentReconvergences===
+        flippedPathAudit.pathIndependentReconvergences&&
+      pathAudit.contradictoryReconvergences===
+        flippedPathAudit.contradictoryReconvergences&&
+      integrabilityAudit.cycleRank===flippedIntegrabilityAudit.cycleRank&&
+      integrabilityAudit.nonzeroCycleSyndromes===
+        flippedIntegrabilityAudit.nonzeroCycleSyndromes&&
+      integrabilityAudit.globalPhasePotentialExists===
+        flippedIntegrabilityAudit.globalPhasePotentialExists;
+  assert.equal(gaugeFlipInvariant,true,
+    'cocycle obstruction/path-consistency verdict must survive local sheet gauge flips');
+
+  const obstructionGroupIds=new Set();
+  for(const example of pathAudit.contradictoryExamples){
+    obstructionGroupIds.add(example.source);
+    obstructionGroupIds.add(example.target);
+    for(const parityPaths of example.witnessPathsByParity)
+      for(const path of parityPaths)
+        for(const edge of path){
+          obstructionGroupIds.add(edge.from);
+          obstructionGroupIds.add(edge.to);
+        }
+  }
+  const obstructionLabelledIds=new Set();
+  for(const id of obstructionGroupIds){
+    const row=deeperGroupRecords[id];
+    if(row)for(const labelled of row.labelledClasses)
+      obstructionLabelledIds.add(labelled);
+  }
+  const obstructionRepresentatives=new Map();
+  if(obstructionLabelledIds.size){
+    for(const rec of nodes.values()){
+      if(rec.terminal)continue;
+      const labelled=actionLabelledStateClass.get(rec.key);
+      if(!obstructionLabelledIds.has(labelled)||
+        obstructionRepresentatives.has(labelled))continue;
+      obstructionRepresentatives.set(labelled,{
+        key:rec.key,
+        rank:rec.rank,
+        support:Array.from(rec.heights),
+        p0Residuals:[...rec.r0],
+        p1Residuals:[...rec.r1],
+      });
+      if(obstructionRepresentatives.size===obstructionLabelledIds.size)break;
+    }
+  }
+  const obstructionGroupExamples=[...obstructionGroupIds]
+    .sort((a,b)=>a-b).slice(0,96).map(id=>{
+      const row=deeperGroupRecords[id];
+      assert.ok(row,'obstruction group must resolve');
+      return {
+        id:row.id,
+        rank:row.rank,
+        unlabelledClass:row.unlabelledClass,
+        phaseFreeProfile:row.phaseFreeProfile,
+        labelledClasses:[...row.labelledClasses],
+        recursiveProfiles:[...row.recursiveProfiles],
+        representativeSheets:row.labelledClasses.map(labelled=>({
+          labelledClass:labelled,
+          representative:obstructionRepresentatives.get(labelled)??null,
+        })),
+      };
+    });
+
+  const shortestContradiction=[...pathAudit.contradictoryExamples]
+    .sort((a,b)=>a.minPathEdges-b.minPathEdges||
+      a.maxPathEdges-b.maxPathEdges||a.source-b.source||a.target-b.target)[0]??null;
+
+  function inversePermutation(perm){
+    const out=new Array(perm.length);
+    for(let i=0;i<perm.length;i++)out[perm[i]]=i;
+    return out;
+  }
+  function composePermutation(first,second){
+    // first maps source -> current; second maps current -> next.
+    return first.map(x=>second[x]);
+  }
+  function permutationKey(perm){return perm.join(',');}
+  function childKeyAtColumn(rec,column){
+    assert.ok(!rec.terminal&&rec.heights[column]<height);
+    let index=0;
+    for(let col=0;col<width;col++)if(rec.heights[col]<height){
+      if(col===column)return rec.children[index];
+      index++;
+    }
+    assert.fail('playable column must resolve to one stored child');
+  }
+  function rawChildBeforeCanonicalization(rec,column){
+    assert.ok(!rec.terminal&&rec.heights[column]<height);
+    const rank=rec.rank,mover=rank&1,
+      cell=rec.heights[column]*width+column,bit=1<<cell,
+      own=mover?rec.r1:rec.r0,
+      opponent=mover?rec.r0:rec.r1,
+      ownNext=[];
+    let wins=false;
+    for(const requirement of own){
+      if(requirement&bit){
+        const residual=requirement&~bit;
+        if(residual===0){wins=true;break;}
+        ownNext.push(residual);
+      }else ownNext.push(requirement);
+    }
+    assert.equal(wins,false,
+      'binary continuation transporter audit must remain nonterminal');
+    const nextHeights=new Uint8Array(rec.heights);
+    nextHeights[column]++;
+    assert.ok(rank+1<cells,
+      'binary continuation transporter audit must precede board exhaustion');
+    const opponentNext=opponent.filter(requirement=>(requirement&bit)===0),
+      ownNormalized=normalizeMaskAntichain(ownNext),
+      opponentNormalized=normalizeMaskAntichain(opponentNext),
+      r0=mover?opponentNormalized:ownNormalized,
+      r1=mover?ownNormalized:opponentNormalized,
+      blocked=(universalFrontierBlocker||nonterminalFrontierBlocker)?
+        applyUniversalFrontierBlocker(
+          nextHeights,r0,r1,width,height,
+          {nonterminalOnly:nonterminalFrontierBlocker}):
+        {r0,r1,removed:0},
+      closed=moverFinalCapParity?
+        applyMoverFinalCapParity(
+          nextHeights,blocked.r0,blocked.r1,width,height):
+        blocked,
+      capacityClosed=remainingMoveCapacity?
+        applyRemainingMoveCapacity(
+          nextHeights,closed.r0,closed.r1,width,height):
+        closed,
+      releaseClosed=supportReleaseTurnCapacity?
+        applySupportReleaseTurnCapacity(
+          nextHeights,capacityClosed.r0,capacityClosed.r1,width,height):
+        capacityClosed,
+      dominanceClosed=opponentOpenCapTerminalDominance?
+        applyOpponentOpenCapTerminalDominance(
+          nextHeights,releaseClosed.r0,releaseClosed.r1,width,height):
+        releaseClosed;
+    return {
+      heights:nextHeights,
+      r0:dominanceClosed.r0,
+      r1:dominanceClosed.r1,
+    };
+  }
+  function canonicalTransporters(raw,expectedChildKey){
+    let best=null;
+    const rows=[];
+    for(const pd of permutationData){
+      const signature=serializeResidualQ(
+        raw.heights,raw.r0,raw.r1,pd);
+      if(best===null||signature<best){
+        best=signature;
+        rows.length=0;
+        rows.push(pd);
+      }else if(signature===best)rows.push(pd);
+    }
+    assert.equal('Q:'+best,expectedChildKey,
+      'transporter audit must reproduce stored canonical child');
+    const permutations=rows.map(pd=>Array.from(pd.perm)),
+      paritySet=[...new Set(permutations.map(permutationParity))]
+        .sort((a,b)=>a-b);
+    return {
+      count:permutations.length,
+      paritySet,
+      permutations,
+    };
+  }
+  function traceContradictionRoute(sourceGroupId,startSheet,edgePath){
+    const sourceGroup=deeperGroupRecords[sourceGroupId],
+      startLabelled=sourceGroup.labelledClasses[startSheet],
+      representative=obstructionRepresentatives.get(startLabelled);
+    assert.ok(representative,
+      'contradiction transporter audit needs source representative');
+    let rec=nodes.get(representative.key),
+      currentSheet=startSheet,
+      accumulatedDelta=0,
+      histories=[{
+        totalPermutation:Array.from({length:width},(_,i)=>i),
+        sourceActions:[],
+      }],
+      steps=[];
+    assert.equal(actionLabelledStateClass.get(rec.key),startLabelled);
+
+    for(const edge of edgePath){
+      const currentGroup=deeperGroupRecords[edge.from],
+        targetGroup=deeperGroupRecords[edge.to],
+        currentLabelled=actionLabelledStateClass.get(rec.key);
+      assert.equal(currentGroup.labelledClasses[currentSheet],currentLabelled,
+        'route trace must enter edge on expected parent sheet');
+      const childKey=childKeyAtColumn(rec,edge.column),
+        childRec=nodes.get(childKey);
+      assert.ok(childRec&&!childRec.terminal,
+        'binary continuation route must have structural child');
+      const raw=rawChildBeforeCanonicalization(rec,edge.column),
+        transport=canonicalTransporters(raw,childKey),
+        childLabelled=actionLabelledStateClass.get(childKey),
+        childSheet=targetGroup.labelledClasses.indexOf(childLabelled);
+      assert.ok(childSheet>=0,
+        'traced child must lie in target binary group');
+      assert.equal(childSheet,currentSheet^edge.delta,
+        'traced concrete state must realize the class-level delta');
+
+      const nextHistories=new Map();
+      for(const history of histories){
+        const inverse=inversePermutation(history.totalPermutation),
+          sourceAction=inverse[edge.column];
+        for(const permutation of transport.permutations){
+          const totalPermutation=composePermutation(
+            history.totalPermutation,permutation),
+            row={
+              totalPermutation,
+              sourceActions:[...history.sourceActions,sourceAction],
+            },
+            key=permutationKey(totalPermutation)+'|'+row.sourceActions.join(',');
+          if(!nextHistories.has(key))nextHistories.set(key,row);
+        }
+      }
+      histories=[...nextHistories.values()];
+      accumulatedDelta^=edge.delta;
+      steps.push({
+        edgeId:edge.id,
+        from:edge.from,
+        to:edge.to,
+        column:edge.column,
+        delta:edge.delta,
+        parentStateKey:rec.key,
+        childStateKey:childKey,
+        parentLabelledClass:currentLabelled,
+        childLabelledClass:childLabelled,
+        parentSheet:currentSheet,
+        childSheet,
+        canonicalizerCount:transport.count,
+        canonicalizerParitySet:transport.paritySet,
+        canonicalizerPermutations:transport.permutations,
+        historyCountAfterStep:histories.length,
+      });
+      rec=childRec;
+      currentSheet=childSheet;
+    }
+
+    return {
+      startSheet,
+      startLabelledClass:startLabelled,
+      accumulatedDelta,
+      finalStateKey:rec.key,
+      finalLabelledClass:actionLabelledStateClass.get(rec.key),
+      finalSheet:currentSheet,
+      expectedFinalSheet:startSheet^accumulatedDelta,
+      totalTransporterCount:new Set(
+        histories.map(row=>permutationKey(row.totalPermutation))).size,
+      totalTransporterParitySet:[...new Set(histories.map(row=>
+        permutationParity(row.totalPermutation)))].sort((a,b)=>a-b),
+      totalTransporters:[...new Map(histories.map(row=>[
+        permutationKey(row.totalPermutation),row.totalPermutation,
+      ])).values()],
+      sourceActionSequences:[...new Set(histories.map(row=>
+        row.sourceActions.join(',')))].sort(),
+      steps,
+    };
+  }
+
+  let shortestContradictionTransporterAudit=null;
+  if(shortestContradiction){
+    const parityPaths=shortestContradiction.witnessPathsByParity,
+      routeRows=[];
+    for(let parity=0;parity<2;parity++){
+      const path=parityPaths[parity]?.[0]??null;
+      if(!path)continue;
+      for(let startSheet=0;startSheet<2;startSheet++)
+        routeRows.push({
+          pathParity:parity,
+          trace:traceContradictionRoute(
+            shortestContradiction.source,startSheet,path),
+        });
+    }
+    const byStartSheet=[];
+    for(let startSheet=0;startSheet<2;startSheet++){
+      const rows=routeRows.filter(row=>row.trace.startSheet===startSheet),
+        parity0=rows.find(row=>row.pathParity===0)?.trace??null,
+        parity1=rows.find(row=>row.pathParity===1)?.trace??null;
+      if(parity0&&parity1){
+        const actions0=new Set(parity0.sourceActionSequences),
+          actions1=new Set(parity1.sourceActionSequences),
+          transport0=new Set(parity0.totalTransporters.map(permutationKey)),
+          transport1=new Set(parity1.totalTransporters.map(permutationKey));
+        byStartSheet.push({
+          startSheet,
+          sameExactFinalState:
+            parity0.finalStateKey===parity1.finalStateKey,
+          sameFinalLabelledClass:
+            parity0.finalLabelledClass===parity1.finalLabelledClass,
+          sameFinalSheet:parity0.finalSheet===parity1.finalSheet,
+          sourceActionSequenceIntersection:
+            [...actions0].filter(x=>actions1.has(x)).sort(),
+          totalTransporterIntersection:
+            [...transport0].filter(x=>transport1.has(x)).sort(),
+        });
+      }
+    }
+    shortestContradictionTransporterAudit={
+      source:shortestContradiction.source,
+      target:shortestContradiction.target,
+      minPathEdges:shortestContradiction.minPathEdges,
+      routeRows,
+      byStartSheet,
+      interpretation:
+        'exact canonicalization transporter sets for the shortest contradictory cocycle witness',
+    };
+  }
+
+  const binaryPhaseCocycleAudit={
+    basis:'binary deeper-continuation groups after immediate action gauge removal',
+    sheetConvention:'sorted recursive action-labelled class ids; absolute 0/1 names are gauge only',
+    edgeDelta:'target sheet reached from parent local sheet 0',
+    outcomeLabelsUsed:false,
+    binaryPhaseNodes:binaryGroupIds.length,
+    activeBinaryPhaseNodes:activeBinaryIds.length,
+    isolatedBinaryPhaseNodes:binaryGroupIds.length-activeBinaryIds.length,
+    inheritanceEdges:binaryInheritanceEdges.length,
+    reducedInheritanceEdges:reducedEdges.length,
+    deltaHistogram:{
+      0:binaryInheritanceEdges.filter(edge=>edge.delta===0).length,
+      1:binaryInheritanceEdges.filter(edge=>edge.delta===1).length,
+    },
+    distinctDirectedPairs:pairRows.size,
+    duplicateSameMapEdges:binaryInheritanceEdges.length-reducedEdges.length,
+    parallelDirectedPairs:parallelPairs.length,
+    conflictingParallelPairs:conflictingParallelPairs.length,
+    edgeMapsBijective:true,
+    rankGradedDAG:binaryInheritanceEdges.every(edge=>
+      edge.targetRank===edge.parentRank+1),
+    weakComponents:weakComponentSizes.length,
+    activeWeakComponents:integrabilityAudit.activeWeakComponents,
+    weakComponentSizes,
+    branchingPoints:binaryGroupIds.filter(id=>
+      outgoingTargets.get(id).size>1).length,
+    joiningPoints:binaryGroupIds.filter(id=>
+      incomingSources.get(id).size>1).length,
+    sourceNodes:sourceIds.length,
+    sinkNodes:sinkIds.length,
+    shortestInheritedChainEdges,
+    longestInheritedChainEdges,
+    reconvergentPairs:pathAudit.reconvergentPairs,
+    topologicalReconvergences:pathAudit.topologicalReconvergences,
+    pathIndependentReconvergences:pathAudit.pathIndependentReconvergences,
+    contradictoryReconvergences:pathAudit.contradictoryReconvergences,
+    maxPathMultiplicity:pathAudit.maxPathMultiplicity,
+    cycleRank:integrabilityAudit.cycleRank,
+    zeroCycleSyndromes:integrabilityAudit.zeroCycleSyndromes,
+    nonzeroCycleSyndromes:integrabilityAudit.nonzeroCycleSyndromes,
+    globalPhasePotentialExists:integrabilityAudit.globalPhasePotentialExists,
+    nonvacuousPathIndependence:
+      pathAudit.topologicalReconvergences>0&&
+      pathAudit.contradictoryReconvergences===0,
+    uniquePathVacuity:
+      pathAudit.reconvergentPairs===0&&integrabilityAudit.cycleRank===0,
+    gaugeFlipInvariant,
+    genericTwoSheetCoverNotExcluded:true,
+    exits:{
+      nonbinaryContinuation:nonbinaryContinuationEdges,
+      actionTransporter:childTransporterEdges,
+      branchOrMultiplicityErasure:childBranchErasureEdges,
+      terminalOrUnknown:childTerminalOrUnknownEdges,
+    },
+    branchingNodeIds:binaryGroupIds.filter(id=>
+      outgoingTargets.get(id).size>1).slice(0,32),
+    joiningNodeIds:binaryGroupIds.filter(id=>
+      incomingSources.get(id).size>1).slice(0,32),
+    parallelPairExamples:parallelPairs.slice(0,32).map(([key,rows])=>({
+      key,edgeIds:rows.map(row=>row.id),
+      deltas:rows.map(row=>row.delta),
+      columns:rows.map(row=>row.column),
+    })),
+    conflictingParallelExamples:conflictingParallelPairs.slice(0,32)
+      .map(([key,rows])=>({
+        key,edgeIds:rows.map(row=>row.id),
+        deltas:rows.map(row=>row.delta),
+        columns:rows.map(row=>row.column),
+      })),
+    reconvergenceExamples:pathAudit.examples,
+    contradictoryReconvergenceExamples:pathAudit.contradictoryExamples,
+    cycleSyndromeExamples:integrabilityAudit.syndromeExamples,
+    nonzeroCycleSyndromeExamples:integrabilityAudit.nonzeroSyndromeExamples,
+    obstructionGroupExamples,
+    shortestContradictionTransporterAudit,
+    edgeExamples:binaryInheritanceEdges.slice(0,64),
+  };
+
+  const deeperContinuationPhaseAudit={
+    basis:'same action-unlabelled class + identical immediate phase-free action profile',
+    interpretation:'recursive labelled distinctions after current-node action permutation is removed',
+    splitUnlabelledFibers:deeperProfileSplitUnlabelledFibers,
+    groups:deeperProfileGroups,
+    labelledClassExcess:deeperProfileLabelledExcess,
+    maxGroupSize:maxDeeperProfileGroupSize,
+    groupSizeHistogram:Object.fromEntries(
+      [...deeperProfileGroupHistogram.entries()].sort((a,b)=>a[0]-b[0])),
+    binaryGroups:deeperProfileBinaryGroups,
+    powerOfTwoGroups:deeperProfilePowerOfTwoGroups,
+    binaryChangedSlotHistogram:Object.fromEntries(
+      [...binaryChangedSlotHistogram.entries()].sort((a,b)=>a[0]-b[0])),
+    changedChildPairs,
+    changedChildTypeHistogram:Object.fromEntries(
+      [...changedChildTypeHistogram.entries()].sort()),
+    binaryContinuationEdges,
+    nonbinaryContinuationEdges,
+    childTransporterEdges,
+    childBranchErasureEdges,
+    childTerminalOrUnknownEdges,
+    binaryContinuationEdgeCountHistogram:Object.fromEntries(
+      [...binaryContinuationEdgeCountHistogram.entries()].sort((a,b)=>a[0]-b[0])),
+    byRank:deeperProfileByRank,
+    examples:deeperGroupRecords.slice(0,128),
+    propagationExamples:binaryPropagationRecords.slice(0,128),
+    binaryPhaseCocycleAudit,
+  };
+
+  const lateActionParityAudit={
+    basis:'recursive action-labelled classes over frozen action-unlabelled child semantics',
+    interpretation:'tests action-slot phase only after residual/cofactor and continuation quotienting',
+    totalUnlabelledClasses:nextId,
+    totalActionLabelledClasses:actionLabelledNextId,
+    splitUnlabelledClasses,
+    labelledClassExcess,
+    maxLabelledFiberSize,
+    fiberSizeHistogram:Object.fromEntries(
+      [...actionLabelledFiberHistogram.entries()].sort((a,b)=>a[0]-b[0])),
+    binarySplitFibers,
+    powerOfTwoSplitFibers,
+    pureTransporterFibers,
+    multiplicityErasureFibers,
+    pureTransporterDistinctSlotFibers,
+    parityWellDefinedFibers,
+    parityWellDefinedExactlyDistinctSlots:
+      parityWellDefinedFibers===pureTransporterDistinctSlotFibers,
+    exactBinaryParityFibers,
+    binaryDistinctSameParityFibers,
+    parityAmbiguousFibers,
+    byRank:actionLabelledSplitByRank,
+    examples:actionLabelledFiberExamples,
+  };
 
   let localBranchClosureResult=null;
   if(measureLocalBranchClosure){
@@ -874,8 +2241,318 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     };
   }
 
+
+  let binaryTieStabilizerAudit=null;
+  if(auditBinaryTieStabilizers){
+    const rows=[];
+    for(const rec of nodes.values()){
+      if(rec.terminal)continue;
+      const refinement=auditRefinedColumnCanonicalization(
+        rec.heights,rec.r0,rec.r1,width,height);
+      if(refinement.searchFree)continue;
+      const row=auditConstructiveBinaryTieStabilizer(
+        rec.heights,rec.r0,rec.r1,width,height,permutationData);
+      if(row)rows.push({
+        support:Array.from(rec.heights),
+        ...row,
+      });
+    }
+    binaryTieStabilizerAudit={
+      fallbackStates:rows.length,
+      constructiveMatchesExact:
+        rows.every(row=>row.constructiveMatchesExact),
+      pairCounts:[...new Set(rows.map(row=>row.pairCount))].sort((a,b)=>a-b),
+      dimensions:[...new Set(rows.map(row=>row.dimension))].sort((a,b)=>a-b),
+      parityCheckSets:[...new Set(rows.map(row=>
+        row.parityChecks.join(',')))].sort(),
+      exactVectorSets:[...new Set(rows.map(row=>
+        row.exactVectors.join(',')))].sort(),
+      rows,
+    };
+  }
+
+  function auditOpenCapTerminalDominance(rec,removed,removedOwner){
+    const rank=rec.rank,remaining=cells-rank;
+    if(remaining>12)return null;
+    const heights=new Uint8Array(rec.heights),
+      futureOwner=new Int8Array(cells).fill(-1),
+      futurePly=new Int8Array(cells),
+      coverCounts=new Map();
+    let conditionedSchedules=0,coveredSchedules=0,
+      uncoveredSchedules=0,minRemovedCompletionPly=null,maxRemovedCompletionPly=null;
+
+    function completionPly(requirement,player){
+      let rest=requirement>>>0,maxPly=0;
+      while(rest){
+        const low=rest&-rest,bit=31-Math.clz32(low);
+        if(futureOwner[bit]!==player)return null;
+        maxPly=Math.max(maxPly,futurePly[bit]);
+        rest=(rest^low)>>>0;
+      }
+      return maxPly;
+    }
+
+    function visit(depth){
+      if(depth===remaining){
+        conditionedSchedules++;
+        const removedCompletion=completionPly(removed,removedOwner);
+        assert.notEqual(removedCompletion,null,
+          'conditioned open-cap schedule must complete the audited residual');
+        minRemovedCompletionPly=minRemovedCompletionPly===null?
+          removedCompletion:Math.min(minRemovedCompletionPly,removedCompletion);
+        maxRemovedCompletionPly=maxRemovedCompletionPly===null?
+          removedCompletion:Math.max(maxRemovedCompletionPly,removedCompletion);
+
+        let covered=false,earliest=Infinity,earliestRows=[];
+        for(const [player,requirements] of [[0,rec.r0],[1,rec.r1]]){
+          for(const requirement of requirements){
+            if(player===removedOwner&&requirement===removed)continue;
+            const t=completionPly(requirement,player);
+            if(t===null||t>removedCompletion)continue;
+            if(t<earliest){earliest=t;earliestRows=[];}
+            if(t===earliest)earliestRows.push({player,requirement,t});
+            covered=true;
+          }
+        }
+        if(covered){
+          coveredSchedules++;
+          for(const row of earliestRows){
+            const key=row.player+':'+row.requirement+':'+row.t;
+            coverCounts.set(key,(coverCounts.get(key)??0)+1);
+          }
+        }else uncoveredSchedules++;
+        return;
+      }
+
+      const player=(rank+depth)&1;
+      for(let col=0;col<width;col++)if(heights[col]<height){
+        const row=heights[col],bitIndex=row*width+col,bit=1<<bitIndex;
+        if((removed&bit)&&player!==removedOwner)continue;
+        heights[col]++;
+        futureOwner[bitIndex]=player;
+        futurePly[bitIndex]=depth+1;
+        visit(depth+1);
+        futurePly[bitIndex]=0;
+        futureOwner[bitIndex]=-1;
+        heights[col]--;
+      }
+    }
+    visit(0);
+    return {
+      conditionedSchedules,
+      coveredSchedules,
+      uncoveredSchedules,
+      terminalDominated:
+        conditionedSchedules>0&&uncoveredSchedules===0,
+      minRemovedCompletionPly,
+      maxRemovedCompletionPly,
+      coverCounts:Object.fromEntries(
+        [...coverCounts.entries()].sort((a,b)=>a[0].localeCompare(b[0]))),
+    };
+  }
+
+  const literalContinuationMemo=new Map();
+  function rawLiteralStep(heights,r0,r1,col){
+    const rank=Array.from(heights).reduce((a,b)=>a+b,0),
+      mover=rank&1;
+    if(heights[col]>=height)return null;
+    const bit=1<<(heights[col]*width+col),
+      own=mover?r1:r0,
+      opponent=mover?r0:r1,
+      ownNext=[];
+    let wins=false;
+    for(const requirement of own){
+      if(requirement&bit){
+        const residual=requirement&~bit;
+        if(residual===0){wins=true;break;}
+        ownNext.push(residual);
+      }else ownNext.push(requirement);
+    }
+    if(wins)return {terminal:true,kind:mover?'P1':'P0'};
+    const nextHeights=new Uint8Array(heights);
+    nextHeights[col]++;
+    if(rank+1===cells)return {terminal:true,kind:'D'};
+    const opponentNext=opponent.filter(
+        requirement=>(requirement&bit)===0),
+      ownNormalized=normalizeMaskAntichain(ownNext),
+      opponentNormalized=normalizeMaskAntichain(opponentNext);
+    return mover?
+      {terminal:false,heights:nextHeights,r0:opponentNormalized,r1:ownNormalized}:
+      {terminal:false,heights:nextHeights,r0:ownNormalized,r1:opponentNormalized};
+  }
+  function literalContinuationEquivalent(a,b){
+    const key=serializeResidualQ(a.heights,a.r0,a.r1,null)+'||'+
+      serializeResidualQ(b.heights,b.r0,b.r1,null),
+      known=literalContinuationMemo.get(key);
+    if(known!==undefined)return known;
+    assert.deepEqual(Array.from(a.heights),Array.from(b.heights),
+      'literal continuation comparison requires identical support');
+    for(let col=0;col<width;col++)if(a.heights[col]<height){
+      const x=rawLiteralStep(a.heights,a.r0,a.r1,col),
+        y=rawLiteralStep(b.heights,b.r0,b.r1,col);
+      if(x.terminal||y.terminal){
+        if(!(x.terminal&&y.terminal&&x.kind===y.kind)){
+          literalContinuationMemo.set(key,false);
+          return false;
+        }
+      }else if(!literalContinuationEquivalent(x,y)){
+        literalContinuationMemo.set(key,false);
+        return false;
+      }
+    }
+    literalContinuationMemo.set(key,true);
+    return true;
+  }
+
+  let opponentResidualDeletionAudit=null;
+  if(auditOpponentResidualDeletion){
+    const rows=[],byRankAudit=Array.from({length:cells+1},(_,rank)=>({
+      rank,
+      testedDeletions:0,
+      reachableDeletionStates:0,
+      classPreservingDeletions:0,
+    }));
+    const bitCount=mask=>{
+      let n=0;
+      for(let v=mask>>>0;v;v=(v&(v-1))>>>0)n++;
+      return n;
+    };
+    for(const rec of nodes.values()){
+      if(rec.terminal)continue;
+      const rank=rec.rank,mover=rank&1,
+        opponent=mover?rec.r0:rec.r1,
+        own=mover?rec.r1:rec.r0,
+        frontierCells=[],
+        capCells=[];
+      let frontierMask=0,capMask=0;
+      for(let col=0;col<width;col++)if(rec.heights[col]<height){
+        const frontierBit=1<<(rec.heights[col]*width+col),
+          capBit=1<<((height-1)*width+col);
+        frontierMask|=frontierBit;
+        capMask|=capBit;
+        frontierCells.push(frontierBit>>>0);
+        capCells.push(capBit>>>0);
+      }
+      frontierMask>>>=0;capMask>>>=0;
+
+      for(let i=0;i<opponent.length;i++){
+        const removed=opponent[i]>>>0,
+          opponentNext=opponent.filter((_,j)=>j!==i),
+          r0=mover?opponentNext:own,
+          r1=mover?own:opponentNext,
+          canonical=canonicalResidualQState(
+            rec.heights,r0,r1,permutationData),
+          candidateKey='Q:'+canonical.signature,
+          candidate=nodes.get(candidateKey),
+          audit=byRankAudit[rank];
+        audit.testedDeletions++;
+        if(!candidate)continue;
+        audit.reachableDeletionStates++;
+        const sameClass=stateClass.get(candidateKey)===stateClass.get(rec.key);
+        if(!sameClass)continue;
+        audit.classPreservingDeletions++;
+
+        const depths=[],
+          removedResidualSize=bitCount(removed),
+          remaining=cells-rank,
+          opponentPlayer=1-mover,
+          opponentMoves=Math.floor(remaining/2),
+          moveCapacityImpossible=removedResidualSize>opponentMoves,
+          supportReleaseImpossible=!residualFitsSupportReleaseTurns(
+            removed,rec.heights,width,height,opponentPlayer);
+        let rest=removed;
+        while(rest){
+          const low=rest&-rest,bit=31-Math.clz32(low),
+            row=Math.floor(bit/width),col=bit%width;
+          depths.push(row-rec.heights[col]+1);
+          rest=(rest^low)>>>0;
+        }
+        depths.sort((a,b)=>a-b);
+        const literalEquivalent=literalContinuationEquivalent(
+          {heights:rec.heights,r0:rec.r0,r1:rec.r1},
+          {heights:rec.heights,r0,r1}),
+          openCapTerminalDominance=removed===capMask?
+            auditOpenCapTerminalDominance(
+              rec,removed,opponentPlayer):null;
+        rows.push({
+          rank,
+          support:Array.from(rec.heights),
+          mover,
+          removedResidual:removed,
+          removedResidualSize,
+          opponentMoves,
+          moveCapacityImpossible,
+          supportReleaseImpossible,
+          literalContinuationEquivalent:literalEquivalent,
+          openCapTerminalDominance,
+          removedFrontierHits:bitCount(removed&frontierMask),
+          removedCapHits:bitCount(removed&capMask),
+          equalsOpenCaps:removed===capMask,
+          containsAllOpenCaps:(removed&capMask)===capMask,
+          frontierSubsetOfResidual:(frontierMask&removed)===frontierMask,
+          supportDepths:depths,
+          sourceP0Residuals:[...rec.r0],
+          sourceP1Residuals:[...rec.r1],
+          targetP0Residuals:[...canonical.r0],
+          targetP1Residuals:[...canonical.r1],
+          sourceClass:stateClass.get(rec.key),
+          targetClass:stateClass.get(candidateKey),
+        });
+      }
+    }
+    const earliestClassPreservingRank=rows.length?
+      Math.min(...rows.map(x=>x.rank)):null,
+      earliestRows=earliestClassPreservingRank===null?[]:
+        rows.filter(x=>x.rank===earliestClassPreservingRank);
+    opponentResidualDeletionAudit={
+      testedDeletions:byRankAudit.reduce((n,x)=>n+x.testedDeletions,0),
+      reachableDeletionStates:
+        byRankAudit.reduce((n,x)=>n+x.reachableDeletionStates,0),
+      classPreservingDeletions:
+        byRankAudit.reduce((n,x)=>n+x.classPreservingDeletions,0),
+      exactOpenCapDeletions:rows.filter(x=>x.equalsOpenCaps).length,
+      exactOpenCapSupportReleaseExplained:
+        rows.filter(x=>x.equalsOpenCaps&&x.supportReleaseImpossible).length,
+      exactOpenCapUnexplained:
+        rows.filter(x=>x.equalsOpenCaps&&!x.supportReleaseImpossible).length,
+      literalContinuationEquivalentDeletions:
+        rows.filter(x=>x.literalContinuationEquivalent).length,
+      exactOpenCapLiteralEquivalent:
+        rows.filter(x=>x.equalsOpenCaps&&x.literalContinuationEquivalent).length,
+      exactOpenCapUnexplainedLiteralEquivalent:
+        rows.filter(x=>x.equalsOpenCaps&&!x.supportReleaseImpossible&&
+          x.literalContinuationEquivalent).length,
+      exactOpenCapTerminalDominated:
+        rows.filter(x=>x.equalsOpenCaps&&
+          x.openCapTerminalDominance?.terminalDominated).length,
+      exactOpenCapUnexplainedTerminalDominated:
+        rows.filter(x=>x.equalsOpenCaps&&!x.supportReleaseImpossible&&
+          x.openCapTerminalDominance?.terminalDominated).length,
+      exactOpenCapConditionedSchedules:
+        rows.filter(x=>x.equalsOpenCaps).reduce(
+          (n,x)=>n+(x.openCapTerminalDominance?.conditionedSchedules??0),0),
+      exactOpenCapUncoveredSchedules:
+        rows.filter(x=>x.equalsOpenCaps).reduce(
+          (n,x)=>n+(x.openCapTerminalDominance?.uncoveredSchedules??0),0),
+      containsAllOpenCapsDeletions:
+        rows.filter(x=>x.containsAllOpenCaps).length,
+      moveCapacityExplainedDeletions:
+        rows.filter(x=>x.moveCapacityImpossible).length,
+      supportReleaseExplainedDeletions:
+        rows.filter(x=>x.supportReleaseImpossible).length,
+      unexplainedAfterSupportRelease:
+        rows.filter(x=>!x.supportReleaseImpossible).length,
+      earliestClassPreservingRank,
+      earliestExamples:earliestRows,
+      byRank:byRankAudit,
+      examples:rows.slice(0,128),
+    };
+  }
+
+
   // Post-hoc exact W/D/L validation on the direct q-orbit graph.
-  const values=new Map(),classValueMask=new Map();
+  const values=new Map(),classValueMask=new Map(),
+    actionLabelledClassValueMask=new Map();
   for(let rank=cells;rank>=0;rank--)for(const rec of byRank[rank]){
     let value;
     if(rec.terminal)
@@ -886,20 +2563,29 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
       value=(rank&1)?Math.min(...childValues):Math.max(...childValues);
     }
     values.set(rec.key,value);
-    const id=stateClass.get(rec.key),bit=value<0?1:value>0?4:2;
+    const id=stateClass.get(rec.key),bit=value<0?1:value>0?4:2,
+      labelledId=actionLabelledStateClass.get(rec.key);
     classValueMask.set(id,(classValueMask.get(id)??0)|bit);
+    actionLabelledClassValueMask.set(
+      labelledId,(actionLabelledClassValueMask.get(labelledId)??0)|bit);
   }
-  let wdlSplitClasses=0;
+  let wdlSplitClasses=0,actionLabelledWdlSplitClasses=0;
   for(const mask of classValueMask.values())
     if((mask&(mask-1))!==0)wdlSplitClasses++;
+  for(const mask of actionLabelledClassValueMask.values())
+    if((mask&(mask-1))!==0)actionLabelledWdlSplitClasses++;
 
   const frontier=statesByRank.map((states,rank)=>({
       rank,states,classes:classesByRank[rank],
     })),
+    actionLabelledFrontier=statesByRank.map((states,rank)=>({
+      rank,states,classes:actionLabelledClassesByRank[rank],
+    })),
     rootRec=nodes.get(rootKey),
     orbitIndex=new Map([...nodes.keys()].map((key,index)=>[key,index])),
     dynamicMergeByRank=[];
-  let earliestDynamicMergeRank=null,earliestDynamicMergeGroups=[];
+  let earliestDynamicMergeRank=null,earliestDynamicMergeGroups=[],
+    earliestDynamicMergeRows=[];
   for(let rank=0;rank<=cells;rank++){
     const groups=new Map();
     for(const rec of byRank[rank]){
@@ -918,7 +2604,8 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     });
     if(earliestDynamicMergeRank===null&&merged.length){
       earliestDynamicMergeRank=rank;
-      earliestDynamicMergeGroups=merged.slice(0,64).map(([classId,rows])=>({
+      earliestDynamicMergeRows=merged.slice(0,64);
+      earliestDynamicMergeGroups=earliestDynamicMergeRows.map(([classId,rows])=>({
         classId,
         orbitStates:rows.map(rec=>({
           orbitIndex:orbitIndex.get(rec.key),
@@ -933,6 +2620,214 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     }
   }
 
+
+  let earliestDynamicMergeParentAudit=null;
+  if(auditEarliestMergeParents&&earliestDynamicMergeRows.length){
+    const parentsByChild=new Map();
+    for(const parent of nodes.values()){
+      if(parent.terminal)continue;
+      const legalColumns=[];
+      for(let col=0;col<width;col++)
+        if(parent.heights[col]<height)legalColumns.push(col);
+      assert.equal(legalColumns.length,parent.children.length);
+      const columnsByChild=new Map();
+      parent.children.forEach((child,index)=>{
+        let cols=columnsByChild.get(child);
+        if(!cols){cols=[];columnsByChild.set(child,cols);}
+        cols.push(legalColumns[index]);
+      });
+      for(const [child,columns] of columnsByChild){
+        let rows=parentsByChild.get(child);
+        if(!rows){rows=[];parentsByChild.set(child,rows);}
+        rows.push({parent,columns});
+      }
+    }
+
+    const groups=earliestDynamicMergeRows.map(([classId,rows])=>{
+      const childKeys=rows.map(rec=>rec.key),
+        parentEntries=childKeys.map(key=>parentsByChild.get(key)??[]),
+        parentMaps=parentEntries.map(entries=>new Map(
+          entries.map(entry=>[entry.parent.key,entry]))),
+        parentClassMaps=parentEntries.map(entries=>{
+          const map=new Map();
+          for(const entry of entries){
+            const parentClass=stateClass.get(entry.parent.key);
+            let xs=map.get(parentClass);
+            if(!xs){xs=[];map.set(parentClass,xs);}
+            xs.push(entry);
+          }
+          return map;
+        }),
+        commonParentKeys=parentMaps.length?
+          [...parentMaps[0].keys()].filter(key=>
+            parentMaps.every(map=>map.has(key))):[],
+        commonParentClasses=parentClassMaps.length?
+          [...parentClassMaps[0].keys()].filter(parentClass=>
+            parentClassMaps.every(map=>map.has(parentClass))):[];
+      return {
+        classId,
+        childOrbitIndices:rows.map(rec=>orbitIndex.get(rec.key)),
+        commonParents:commonParentKeys.map(key=>{
+          const parent=parentMaps[0].get(key).parent;
+          return {
+            parentOrbitIndex:orbitIndex.get(key),
+            parentRank:parent.rank,
+            parentClass:stateClass.get(key),
+            parentSupport:Array.from(parent.heights),
+            parentP0Residuals:[...parent.r0],
+            parentP1Residuals:[...parent.r1],
+            actionColumns:parentMaps.map(map=>map.get(key).columns),
+          };
+        }),
+        commonParentClasses:commonParentClasses.map(parentClass=>({
+          parentClass,
+          perChild:parentClassMaps.map(map=>
+            map.get(parentClass).map(entry=>({
+              parentOrbitIndex:orbitIndex.get(entry.parent.key),
+              parentRank:entry.parent.rank,
+              parentSupport:Array.from(entry.parent.heights),
+              parentP0Residuals:[...entry.parent.r0],
+              parentP1Residuals:[...entry.parent.r1],
+              actionColumns:entry.columns,
+            }))),
+        })),
+      };
+    });
+    earliestDynamicMergeParentAudit={
+      groups:groups.length,
+      groupsWithCommonParent:
+        groups.filter(group=>group.commonParents.length>0).length,
+      groupsWithoutCommonParent:
+        groups.filter(group=>group.commonParents.length===0).length,
+      totalCommonParents:groups.reduce(
+        (n,group)=>n+group.commonParents.length,0),
+      groupsWithCommonParentClass:
+        groups.filter(group=>group.commonParentClasses.length>0).length,
+      groupsWithoutCommonParentClass:
+        groups.filter(group=>group.commonParentClasses.length===0).length,
+      totalCommonParentClasses:groups.reduce(
+        (n,group)=>n+group.commonParentClasses.length,0),
+      rows:groups,
+    };
+  }
+
+
+
+  let earliestDynamicMergeWitnessAudit=null;
+  if(auditEarliestMergeWitness&&earliestDynamicMergeRows.length){
+    const witnessMemo=new Map();
+    function witnessDistance(aKey,bKey){
+      if(aKey===bKey)return 0;
+      const pairKey=aKey<bKey?aKey+'||'+bKey:bKey+'||'+aKey,
+        known=witnessMemo.get(pairKey);
+      if(known!==undefined)return known;
+      const a=nodes.get(aKey),b=nodes.get(bKey);
+      assert.ok(a&&b,'witness states must exist');
+      assert.equal(stateClass.get(aKey),stateClass.get(bKey),
+        'witness pair must share recursive class');
+      assert.equal(a.rank,b.rank,'witness pair must share rank');
+      assert.ok(!a.terminal&&!b.terminal,
+        'distinct terminal states cannot share one recursive class');
+
+      const byClass=rec=>{
+        const map=new Map();
+        for(const child of rec.children){
+          const id=stateClass.get(child);
+          let xs=map.get(id);
+          if(!xs){xs=[];map.set(id,xs);}
+          if(!xs.includes(child))xs.push(child);
+        }
+        return map;
+      },am=byClass(a),bm=byClass(b);
+      assert.deepEqual([...am.keys()].sort((x,y)=>x-y),
+        [...bm.keys()].sort((x,y)=>x-y));
+
+      let worst=0;
+      for(const [id,as] of am){
+        const bs=bm.get(id);
+        let best=Infinity;
+        for(const ak of as)for(const bk of bs)
+          best=Math.min(best,witnessDistance(ak,bk));
+        assert.ok(Number.isFinite(best));
+        worst=Math.max(worst,best);
+      }
+      const out=1+worst;
+      witnessMemo.set(pairKey,out);
+      return out;
+    }
+
+    function directOverlapStats(a,b){
+      const group=rec=>{
+        const map=new Map();
+        for(const child of rec.children){
+          const id=stateClass.get(child);
+          let xs=map.get(id);
+          if(!xs){xs=new Set();map.set(id,xs);}
+          xs.add(child);
+        }
+        return map;
+      },am=group(a),bm=group(b);
+      let classesWithExactSharedChild=0,classesRequiringTransport=0,
+        sharedLiteralChildStates=0;
+      const classRows=[];
+      for(const [id,as] of am){
+        const bs=bm.get(id),shared=[...as].filter(k=>bs.has(k));
+        sharedLiteralChildStates+=shared.length;
+        if(shared.length)classesWithExactSharedChild++;
+        else classesRequiringTransport++;
+        classRows.push({
+          childClass:id,
+          aDistinctChildren:as.size,
+          bDistinctChildren:bs.size,
+          sharedLiteralChildren:shared.length,
+          requiresTransport:shared.length===0,
+        });
+      }
+      return {
+        childClasses:am.size,
+        classesWithExactSharedChild,
+        classesRequiringTransport,
+        sharedLiteralChildStates,
+        classRows,
+      };
+    }
+
+    const rows=[];
+    for(const [classId,groupRows] of earliestDynamicMergeRows){
+      for(let i=0;i<groupRows.length;i++)for(let j=i+1;j<groupRows.length;j++){
+        const a=groupRows[i],b=groupRows[j],
+          overlap=directOverlapStats(a,b);
+        rows.push({
+          classId,
+          aOrbitIndex:orbitIndex.get(a.key),
+          bOrbitIndex:orbitIndex.get(b.key),
+          rank:a.rank,
+          witnessDepth:witnessDistance(a.key,b.key),
+          sameSupport:Array.from(a.heights).every(
+            (x,k)=>x===b.heights[k]),
+          sameP0Residuals:
+            JSON.stringify(a.r0)===JSON.stringify(b.r0),
+          sameP1Residuals:
+            JSON.stringify(a.r1)===JSON.stringify(b.r1),
+          ...overlap,
+        });
+      }
+    }
+    earliestDynamicMergeWitnessAudit={
+      pairs:rows.length,
+      minWitnessDepth:Math.min(...rows.map(x=>x.witnessDepth)),
+      maxWitnessDepth:Math.max(...rows.map(x=>x.witnessDepth)),
+      allSameP0Residuals:rows.every(x=>x.sameP0Residuals),
+      pairsWithSameSupport:rows.filter(x=>x.sameSupport).length,
+      pairsWithAnyExactSharedChildClass:
+        rows.filter(x=>x.classesWithExactSharedChild>0).length,
+      pairsRequiringTransportInEveryChildClass:
+        rows.filter(x=>x.classesRequiringTransport===x.childClasses).length,
+      rows,
+    };
+  }
+
+
   return {
     schema:'connect4.direct-residual-orbit-graph.v1',
     inputs:'root geometry + residual-antichain cofactor rules + support + action relabeling',
@@ -944,14 +2839,28 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     universalFrontierBlocker,
     nonterminalFrontierBlocker,
     moverFinalCapParity,
+    remainingMoveCapacity,
+    supportReleaseTurnCapacity,
+    opponentOpenCapTerminalDominance,
     measureLocalBranchClosure,
     auditColumnRefinement,
     auditPairColumnRefinement,
+    auditBinaryTieStabilizers,
+    auditOpponentResidualDeletion,
+    auditEarliestMergeParents,
+    auditEarliestMergeWitness,
     winningLineCount:masks.length,
     residualOrbitStates:nodes.size,
     literalActionEdges,
     duplicateEquivalentActionEdges,
     recursiveUnlabelledClasses:nextId,
+    recursiveActionLabelledClasses:actionLabelledNextId,
+    actionLabelledWdlSplitClasses,
+    earliestActionLabelledMergeRank:
+      earliestActionLabelledMergeRank<0?null:earliestActionLabelledMergeRank,
+    actionLabelledFrontier,
+    lateActionParityAudit,
+    deeperContinuationPhaseAudit,
     wdlSplitClasses,
     rootValue:values.get(rootKey),
     rootLegalActions:rootRec.children.length,
@@ -960,9 +2869,13 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
       new Set(rootRec.children.map(child=>stateClass.get(child))).size,
     earliestDynamicMergeRank,
     earliestDynamicMergeGroups,
+    earliestDynamicMergeParentAudit,
+    earliestDynamicMergeWitnessAudit,
     dynamicMergeByRank,
     columnRefinementAudit,
     pairColumnRefinementAudit,
+    binaryTieStabilizerAudit,
+    opponentResidualDeletionAudit,
     localBranchClosure:localBranchClosureResult,
     peakOrbitStateFrontier:peakBy(frontier,'states'),
     peakRecursiveClassFrontier:peakBy(frontier,'classes'),
@@ -970,6 +2883,73 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
   };
 }
 
+
+
+function applyRemainingMoveCapacity(heights,r0,r1,width,height){
+  const rank=Array.from(heights).reduce((a,b)=>a+b,0),
+    remaining=width*height-rank,
+    mover=rank&1,
+    moverMoves=Math.ceil(remaining/2),
+    opponentMoves=Math.floor(remaining/2),
+    p0Moves=mover===0?moverMoves:opponentMoves,
+    p1Moves=mover===1?moverMoves:opponentMoves,
+    popcount=mask=>{
+      let n=0;
+      for(let v=mask>>>0;v;v=(v&(v-1))>>>0)n++;
+      return n;
+    },
+    next0=r0.filter(requirement=>popcount(requirement)<=p0Moves),
+    next1=r1.filter(requirement=>popcount(requirement)<=p1Moves);
+  return {
+    r0:next0,
+    r1:next1,
+    removed:(r0.length-next0.length)+(r1.length-next1.length),
+    p0Moves,
+    p1Moves,
+  };
+}
+
+
+function residualFitsSupportReleaseTurns(
+  requirement,heights,width,height,player
+){
+  const rank=Array.from(heights).reduce((a,b)=>a+b,0),
+    remaining=width*height-rank,
+    mover=rank&1,
+    releases=[];
+  let rest=requirement>>>0;
+  while(rest){
+    const low=rest&-rest,bit=31-Math.clz32(low),
+      row=Math.floor(bit/width),col=bit%width,
+      release=row-heights[col]+1;
+    assert.ok(release>0,
+      'residual requirements must refer only to future cells');
+    releases.push(release);
+    rest=(rest^low)>>>0;
+  }
+  releases.sort((a,b)=>a-b);
+  let slot=player===mover?1:2;
+  for(const release of releases){
+    while(slot<release)slot+=2;
+    if(slot>remaining)return false;
+    slot+=2;
+  }
+  return true;
+}
+
+function applySupportReleaseTurnCapacity(heights,r0,r1,width,height){
+  const next0=r0.filter(requirement=>
+      residualFitsSupportReleaseTurns(
+        requirement,heights,width,height,0)),
+    next1=r1.filter(requirement=>
+      residualFitsSupportReleaseTurns(
+        requirement,heights,width,height,1));
+  return {
+    r0:next0,
+    r1:next1,
+    removed:(r0.length-next0.length)+(r1.length-next1.length),
+  };
+}
 
 function canonicalResidualQStateCompact(heights,r0,r1,permutationData){
   let best=null,bestHeights=null,bestR0=null,bestR1=null;
@@ -1008,6 +2988,159 @@ function permutationsOfValues(values){
   return out;
 }
 
+
+function gf2SolveAffineSmall(rows,rhs,width){
+  const matrix=rows.map((mask,i)=>({
+      mask:mask>>>0,
+      rhs:(rhs[i]??0)&1,
+    })),pivots=[];
+  let r=0;
+  for(let col=0;col<width&&r<matrix.length;col++){
+    let pivot=r;
+    while(pivot<matrix.length&&!((matrix[pivot].mask>>>col)&1))pivot++;
+    if(pivot===matrix.length)continue;
+    [matrix[r],matrix[pivot]]=[matrix[pivot],matrix[r]];
+    for(let i=0;i<matrix.length;i++)if(i!==r&&((matrix[i].mask>>>col)&1)){
+      matrix[i].mask=(matrix[i].mask^matrix[r].mask)>>>0;
+      matrix[i].rhs^=matrix[r].rhs;
+    }
+    pivots.push(col);
+    r++;
+  }
+  for(let i=r;i<matrix.length;i++)
+    if(matrix[i].mask===0&&matrix[i].rhs)
+      return {consistent:false,particular:0,basis:[]};
+  let particular=0;
+  for(let i=0;i<r;i++)if(matrix[i].rhs)
+    particular|=1<<pivots[i];
+  return {
+    consistent:true,
+    particular:particular>>>0,
+    basis:gf2NullspaceBasisSmall(rows,width),
+  };
+}
+
+function gf2MinAffineCosetSmall(offset,basis,width){
+  let out=offset>>>0;
+  const pivots=new Array(width).fill(0);
+  for(const row of gf2RowBasisSmall(basis,width)){
+    const bit=31-Math.clz32(row);
+    pivots[bit]=row;
+  }
+  for(let bit=width-1;bit>=0;bit--)
+    if(((out>>>bit)&1)&&pivots[bit])out=(out^pivots[bit])>>>0;
+  return out;
+}
+
+function compareNumberArraysLex(a,b){
+  const n=Math.min(a.length,b.length);
+  for(let i=0;i<n;i++)if(a[i]!==b[i])return a[i]-b[i];
+  return a.length-b.length;
+}
+
+function canonicalBinaryTieOrientation(encoding){
+  const m=encoding.pairCount;
+  if(!encoding.binary)return null;
+  if(m===0)return {
+    orientation:0,
+    candidateTranslations:0,
+    remainingDimension:0,
+  };
+  const rows=[],rhs=[];
+  let candidateTranslations=0;
+  for(const block of encoding.blocks){
+    const solution=gf2SolveAffineSmall(rows,rhs,m);
+    assert.equal(solution.consistent,true,
+      'binary tie canonicalization constraints must remain satisfiable');
+    const active=block.activeMask>>>0,
+      projectedBasis=gf2RowBasisSmall(
+        solution.basis.map(x=>(x&active)>>>0).filter(Boolean),m),
+      p0=(solution.particular&active)>>>0,
+      candidateHs=new Set();
+    let bestFirst=null;
+    for(const v of block.vectors){
+      const y=gf2MinAffineCosetSmall(
+        ((v^p0)&active)>>>0,projectedBasis,m);
+      if(bestFirst===null||y<bestFirst){
+        bestFirst=y;
+        candidateHs.clear();
+      }
+      if(y===bestFirst)candidateHs.add(((v^y)&active)>>>0);
+    }
+
+    let bestImage=null,bestH=0;
+    for(const h of candidateHs){
+      candidateTranslations++;
+      const image=block.vectors
+        .map(v=>((v^h)&active)>>>0)
+        .sort((a,b)=>a-b);
+      if(bestImage===null||compareNumberArraysLex(image,bestImage)<0||
+          (compareNumberArraysLex(image,bestImage)===0&&h<bestH)){
+        bestImage=image;
+        bestH=h;
+      }
+    }
+    assert.notEqual(bestImage,null,
+      'binary tie block must have a canonical translated image');
+
+    const stabilizer=deriveBinaryTieStabilizer({
+      binary:true,
+      pairCount:m,
+      blocks:[block],
+    });
+    for(const check of stabilizer.parityChecks){
+      rows.push(check>>>0);
+      rhs.push(gf2ParitySmall(check&bestH));
+    }
+  }
+  const final=gf2SolveAffineSmall(rows,rhs,m);
+  assert.equal(final.consistent,true,
+    'binary tie canonical orientation must remain satisfiable');
+  return {
+    orientation:final.particular>>>0,
+    candidateTranslations,
+    remainingDimension:final.basis.length,
+  };
+}
+
+function canonicalResidualQStateBinaryLinearCompact(heights,r0,r1,width,height){
+  const encoding=binaryTieStateEncoding(heights,r0,r1,width,height);
+  if(!encoding.binary)return null;
+  const linear=canonicalBinaryTieOrientation(encoding),
+    order=[];
+  let pair=0;
+  for(const entry of encoding.entries){
+    if(entry.cols.length===1){
+      order.push(entry.cols[0]);
+    }else{
+      const [a,b]=entry.cols;
+      if((linear.orientation>>>pair)&1)order.push(b,a);
+      else order.push(a,b);
+      pair++;
+    }
+  }
+  const pd=makeColumnPermutation(width,height,order),
+    {perm}=pd,h=new Uint8Array(width);
+  for(let oldCol=0;oldCol<width;oldCol++)
+    h[perm[oldCol]]=heights[oldCol];
+  const a=r0.map(mask=>permuteMask(mask,pd)).sort((x,y)=>x-y),
+    b=r1.map(mask=>permuteMask(mask,pd)).sort((x,y)=>x-y),
+    signature=Array.from(h).join(',')+'|'+
+      a.map(x=>(x>>>0).toString(36)).join('.')+'|'+
+      b.map(x=>(x>>>0).toString(36)).join('.');
+  return {
+    signature,
+    heights:h,
+    r0:a,
+    r1:b,
+    candidatePermutations:0,
+    binaryLinear:true,
+    linearTranslationCandidates:linear.candidateTranslations,
+    remainingOrientationDimension:linear.remainingDimension,
+  };
+}
+
+
 function canonicalResidualQStateRefinedCompact(heights,r0,r1,width,height){
   const {signatures}=refinementColumnSignatures(heights,r0,r1,width,height),
     grouped=new Map();
@@ -1016,9 +3149,13 @@ function canonicalResidualQStateRefinedCompact(heights,r0,r1,width,height){
     if(!cols){cols=[];grouped.set(signatures[col],cols);}
     cols.push(col);
   }
-  const groups=[...grouped.entries()]
-    .sort((a,b)=>a[0].localeCompare(b[0]))
-    .map(([,cols])=>permutationsOfValues(cols));
+  const groupEntries=[...grouped.entries()]
+      .sort((a,b)=>a[0].localeCompare(b[0])),
+    tieClassSizes=groupEntries
+      .map(([,cols])=>cols.length)
+      .filter(n=>n>1)
+      .sort((a,b)=>b-a),
+    groups=groupEntries.map(([,cols])=>permutationsOfValues(cols));
   let candidatePermutations=1;
   for(const group of groups)candidatePermutations*=group.length;
 
@@ -1052,6 +3189,7 @@ function canonicalResidualQStateRefinedCompact(heights,r0,r1,width,height){
     r0:bestR0,
     r1:bestR1,
     candidatePermutations,
+    tieClassSizes,
   };
 }
 
@@ -1059,12 +3197,15 @@ export function analyzeDirectResidualOrbitGrowthCompact({
   width,height,k,
   nonterminalFrontierBlocker=true,
   moverFinalCapParity=true,
+  remainingMoveCapacity=false,
   refinedColumnCanonicalization=false,
+  binaryTieLinearCanonicalization=false,
 }){
   const cells=width*height;
   assert.ok(cells<=30,'compact direct-growth harness is intentionally bounded to <=30 cells');
   const masks=winMasks(width,height,k),
-    permutationData=refinedColumnCanonicalization?null:columnPermutationData(width,height),
+    permutationData=(refinedColumnCanonicalization||binaryTieLinearCanonicalization)?
+      null:columnPermutationData(width,height),
     memo=new Map(),classSignatureToId=new Map(),
     statesByRank=Array(cells+1).fill(0),
     classesByRank=Array(cells+1).fill(0),
@@ -1075,19 +3216,39 @@ export function analyzeDirectResidualOrbitGrowthCompact({
   let nextClassId=0,literalActionEdges=0,duplicateEquivalentActionEdges=0,
     earliestDynamicMergeRank=null,rootLegalActions=0,
     rootDistinctOrbitChildren=0,rootDistinctRecursiveChildren=0,
-    canonicalPermutationCandidates=0,maxCanonicalPermutationCandidates=0;
+    canonicalPermutationCandidates=0,maxCanonicalPermutationCandidates=0,
+    binaryLinearCanonicalizations=0,binaryLinearFallbackCanonicalizations=0,
+    binaryLinearTranslationCandidates=0,maxBinaryLinearTranslationCandidates=0,
+    remainingMoveCapacityRemovals=0;
 
   const pack=(classId,value)=>classId*3+(value+1),
     unpackClass=packed=>Math.floor(packed/3),
     unpackValue=packed=>(packed%3)-1;
 
   function canonicalize(heights,r0,r1){
-    const out=refinedColumnCanonicalization?
-      canonicalResidualQStateRefinedCompact(heights,r0,r1,width,height):
-      {
+    let out;
+    if(binaryTieLinearCanonicalization){
+      out=canonicalResidualQStateBinaryLinearCompact(
+        heights,r0,r1,width,height);
+      if(out){
+        binaryLinearCanonicalizations++;
+        binaryLinearTranslationCandidates+=out.linearTranslationCandidates;
+        maxBinaryLinearTranslationCandidates=Math.max(
+          maxBinaryLinearTranslationCandidates,out.linearTranslationCandidates);
+      }else{
+        binaryLinearFallbackCanonicalizations++;
+        out=canonicalResidualQStateRefinedCompact(
+          heights,r0,r1,width,height);
+      }
+    }else if(refinedColumnCanonicalization){
+      out=canonicalResidualQStateRefinedCompact(
+        heights,r0,r1,width,height);
+    }else{
+      out={
         ...canonicalResidualQStateCompact(heights,r0,r1,permutationData),
         candidatePermutations:permutationData.length,
       };
+    }
     canonicalPermutationCandidates+=out.candidatePermutations;
     maxCanonicalPermutationCandidates=Math.max(
       maxCanonicalPermutationCandidates,out.candidatePermutations);
@@ -1169,8 +3330,13 @@ export function analyzeDirectResidualOrbitGrowthCompact({
               applyMoverFinalCapParity(
                 nextHeights,blocked.r0,blocked.r1,width,height):
               blocked,
+            capacity=remainingMoveCapacity?
+              applyRemainingMoveCapacity(
+                nextHeights,closed.r0,closed.r1,width,height):
+              {r0:closed.r0,r1:closed.r1,removed:0},
             canonical=canonicalize(
-              nextHeights,closed.r0,closed.r1);
+              nextHeights,capacity.r0,capacity.r1);
+          remainingMoveCapacityRemovals+=capacity.removed;
           child=visit(canonical);
         }
       }
@@ -1208,9 +3374,14 @@ export function analyzeDirectResidualOrbitGrowthCompact({
       applyMoverFinalCapParity(
         rootHeights,rootBlocked.r0,rootBlocked.r1,width,height):
       rootBlocked,
+    rootCapacity=remainingMoveCapacity?
+      applyRemainingMoveCapacity(
+        rootHeights,rootClosed.r0,rootClosed.r1,width,height):
+      {r0:rootClosed.r0,r1:rootClosed.r1,removed:0},
     root=canonicalize(
-      rootHeights,rootClosed.r0,rootClosed.r1),
+      rootHeights,rootCapacity.r0,rootCapacity.r1),
     rootResult=visit(root);
+  remainingMoveCapacityRemovals+=rootCapacity.removed;
 
   let wdlSplitClasses=0;
   for(const mask of classValueMask)
@@ -1234,15 +3405,24 @@ export function analyzeDirectResidualOrbitGrowthCompact({
     validationUsesDerivedWdl:true,
     fullGraphObjectsRetained:false,
     width,height,k,cells,
-    canonicalization:refinedColumnCanonicalization?
-      'refinement-partitioned exact tie search':
-      'full column permutation search',
+    canonicalization:binaryTieLinearCanonicalization?
+      'GF(2) binary-tie affine canonicalization + exact nonbinary fallback':
+      refinedColumnCanonicalization?
+        'refinement-partitioned exact tie search':
+        'full column permutation search',
     columnPermutations:permutationData?.length??null,
     canonicalPermutationCandidates,
     maxCanonicalPermutationCandidates,
     refinedColumnCanonicalization,
+    binaryTieLinearCanonicalization,
+    binaryLinearCanonicalizations,
+    binaryLinearFallbackCanonicalizations,
+    binaryLinearTranslationCandidates,
+    maxBinaryLinearTranslationCandidates,
     nonterminalFrontierBlocker,
     moverFinalCapParity,
+    remainingMoveCapacity,
+    remainingMoveCapacityRemovals,
     winningLineCount:masks.length,
     residualOrbitStates:memo.size,
     literalActionEdges,
@@ -1260,6 +3440,223 @@ export function analyzeDirectResidualOrbitGrowthCompact({
     frontier,
   };
 }
+
+
+export function analyzeDirectResidualOrbitPrefix({
+  width,height,k,maxRank,
+  nonterminalFrontierBlocker=true,
+  moverFinalCapParity=true,
+  remainingMoveCapacity=false,
+}){
+  const cells=width*height;
+  assert.ok(cells<=30,
+    'direct residual-orbit prefix harness is intentionally bounded to <=30 cells');
+  assert.ok(Number.isInteger(maxRank)&&maxRank>=0&&maxRank<=cells,
+    'maxRank must be an integer within the board rank range');
+
+  const masks=winMasks(width,height,k),
+    workByRank=Array.from({length:maxRank},(_,rank)=>({
+      rank,
+      literalActionEdges:0,
+      duplicateEquivalentActionEdges:0,
+      canonicalizationCalls:0,
+      canonicalPermutationCandidates:0,
+      maxCanonicalPermutationCandidates:0,
+      noTieCalls:0,
+      binaryTieCalls:0,
+      nonbinaryTieCalls:0,
+      tieProfileCalls:{},
+      remainingMoveCapacityRemovals:0,
+      producedDistinctStates:0,
+    }));
+
+  function recordCanonicalization(rank,out){
+    if(rank<0||rank>=workByRank.length)return;
+    const row=workByRank[rank],
+      sizes=out.tieClassSizes??[],
+      profile=sizes.length?sizes.join('x'):'none';
+    row.canonicalizationCalls++;
+    row.canonicalPermutationCandidates+=out.candidatePermutations;
+    row.maxCanonicalPermutationCandidates=Math.max(
+      row.maxCanonicalPermutationCandidates,out.candidatePermutations);
+    row.tieProfileCalls[profile]=(row.tieProfileCalls[profile]??0)+1;
+    if(!sizes.length)row.noTieCalls++;
+    else if(sizes.every(n=>n===2))row.binaryTieCalls++;
+    else row.nonbinaryTieCalls++;
+  }
+
+  function canonicalize(heights,r0,r1,rank){
+    const out=canonicalResidualQStateRefinedCompact(
+      heights,r0,r1,width,height);
+    recordCanonicalization(rank,out);
+    return out;
+  }
+
+  const initialResidual=normalizeMaskAntichain(masks),
+    rootHeights=new Uint8Array(width),
+    rootBlocked=nonterminalFrontierBlocker?
+      applyUniversalFrontierBlocker(
+        rootHeights,initialResidual,initialResidual,width,height,
+        {nonterminalOnly:true}):
+      {r0:initialResidual,r1:initialResidual,removed:0},
+    rootClosed=moverFinalCapParity?
+      applyMoverFinalCapParity(
+        rootHeights,rootBlocked.r0,rootBlocked.r1,width,height):
+      rootBlocked,
+    rootCapacity=remainingMoveCapacity?
+      applyRemainingMoveCapacity(
+        rootHeights,rootClosed.r0,rootClosed.r1,width,height):
+      {r0:rootClosed.r0,r1:rootClosed.r1,removed:0},
+    root=canonicalResidualQStateRefinedCompact(
+      rootHeights,rootCapacity.r0,rootCapacity.r1,width,height),
+    rootKey='Q:'+root.signature,
+    rootCanonicalization={
+      candidatePermutations:root.candidatePermutations,
+      tieClassSizes:root.tieClassSizes,
+    },
+    frontier=[];
+
+  let current=new Map([[rootKey,{
+    key:rootKey,
+    terminal:false,
+    heights:root.heights,
+    r0:root.r0,
+    r1:root.r1,
+  }]]);
+
+  for(let rank=0;rank<=maxRank;rank++){
+    let terminalStates=0,totalResidualRequirements=0,
+      maxResidualRequirements=0,maxP0Residuals=0,maxP1Residuals=0;
+    for(const rec of current.values()){
+      if(rec.terminal){terminalStates++;continue;}
+      const n0=rec.r0.length,n1=rec.r1.length,n=n0+n1;
+      totalResidualRequirements+=n;
+      maxResidualRequirements=Math.max(maxResidualRequirements,n);
+      maxP0Residuals=Math.max(maxP0Residuals,n0);
+      maxP1Residuals=Math.max(maxP1Residuals,n1);
+    }
+    const nonterminalStates=current.size-terminalStates;
+    frontier.push({
+      rank,
+      states:current.size,
+      nonterminalStates,
+      terminalStates,
+      totalResidualRequirements,
+      averageResidualRequirements:nonterminalStates?
+        totalResidualRequirements/nonterminalStates:0,
+      maxResidualRequirements,
+      maxP0Residuals,
+      maxP1Residuals,
+    });
+    if(rank===maxRank)break;
+
+    const next=new Map(),row=workByRank[rank];
+    for(const rec of current.values()){
+      if(rec.terminal)continue;
+      const mover=rank&1,childKeys=[],
+        own=mover?rec.r1:rec.r0,
+        opponent=mover?rec.r0:rec.r1;
+
+      for(let col=0;col<width;col++)if(rec.heights[col]<height){
+        row.literalActionEdges++;
+        const cell=rec.heights[col]*width+col,bit=1<<cell,
+          ownNext=[];
+        let wins=false;
+        for(const requirement of own){
+          if(requirement&bit){
+            const residual=requirement&~bit;
+            if(residual===0){wins=true;break;}
+            ownNext.push(residual);
+          }else ownNext.push(requirement);
+        }
+
+        let childKey,childRec;
+        if(wins){
+          const kind=mover?'P1':'P0';
+          childKey='T:'+(rank+1)+':'+kind;
+          childRec={key:childKey,terminal:true,kind};
+        }else{
+          const nextHeights=new Uint8Array(rec.heights);
+          nextHeights[col]++;
+          if(rank+1===cells){
+            childKey='T:'+(rank+1)+':D';
+            childRec={key:childKey,terminal:true,kind:'D'};
+          }else{
+            const opponentNext=opponent.filter(
+                requirement=>(requirement&bit)===0),
+              ownNormalized=normalizeMaskAntichain(ownNext),
+              opponentNormalized=normalizeMaskAntichain(opponentNext),
+              r0=mover?opponentNormalized:ownNormalized,
+              r1=mover?ownNormalized:opponentNormalized,
+              blocked=nonterminalFrontierBlocker?
+                applyUniversalFrontierBlocker(
+                  nextHeights,r0,r1,width,height,{nonterminalOnly:true}):
+                {r0,r1,removed:0},
+              closed=moverFinalCapParity?
+                applyMoverFinalCapParity(
+                  nextHeights,blocked.r0,blocked.r1,width,height):
+                blocked,
+              capacity=remainingMoveCapacity?
+                applyRemainingMoveCapacity(
+                  nextHeights,closed.r0,closed.r1,width,height):
+                {r0:closed.r0,r1:closed.r1,removed:0},
+              canonical=canonicalize(
+                nextHeights,capacity.r0,capacity.r1,rank);
+            row.remainingMoveCapacityRemovals+=capacity.removed;
+            childKey='Q:'+canonical.signature;
+            childRec={
+              key:childKey,
+              terminal:false,
+              heights:canonical.heights,
+              r0:canonical.r0,
+              r1:canonical.r1,
+            };
+          }
+        }
+        childKeys.push(childKey);
+        if(!next.has(childKey))next.set(childKey,childRec);
+      }
+      row.duplicateEquivalentActionEdges+=
+        childKeys.length-new Set(childKeys).size;
+    }
+    row.producedDistinctStates=next.size;
+    current=next;
+  }
+
+  return {
+    schema:'connect4.direct-residual-orbit-prefix.v1',
+    inputs:'root geometry + residual-antichain cofactor rules + support + action relabeling',
+    physicalBoardStatesEnumerated:false,
+    outcomeLabelsUsedByProducer:false,
+    width,height,k,cells,maxRank,
+    canonicalization:'refinement-partitioned exact tie search',
+    nonterminalFrontierBlocker,
+    moverFinalCapParity,
+    remainingMoveCapacity,
+    remainingMoveCapacityRemovals:
+      rootCapacity.removed+workByRank.reduce(
+        (n,x)=>n+x.remainingMoveCapacityRemovals,0),
+    winningLineCount:masks.length,
+    rootCanonicalization,
+    prefixStates:frontier.reduce((n,x)=>n+x.states,0),
+    literalActionEdges:workByRank.reduce(
+      (n,x)=>n+x.literalActionEdges,0),
+    duplicateEquivalentActionEdges:workByRank.reduce(
+      (n,x)=>n+x.duplicateEquivalentActionEdges,0),
+    canonicalizationCalls:workByRank.reduce(
+      (n,x)=>n+x.canonicalizationCalls,0),
+    canonicalPermutationCandidates:workByRank.reduce(
+      (n,x)=>n+x.canonicalPermutationCandidates,0),
+    maxCanonicalPermutationCandidates:Math.max(
+      root.candidatePermutations,
+      ...workByRank.map(x=>x.maxCanonicalPermutationCandidates)),
+    nonbinaryTieCalls:workByRank.reduce(
+      (n,x)=>n+x.nonbinaryTieCalls,0),
+    frontier,
+    workByRank,
+  };
+}
+
 
 export function analyzeUnlabelledQuotientDimensionMatrix({
   cases=[
