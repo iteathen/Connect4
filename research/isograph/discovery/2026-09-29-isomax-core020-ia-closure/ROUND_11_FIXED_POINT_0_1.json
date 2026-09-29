@@ -1,0 +1,66 @@
+{
+  "schema": "isomax.core020.structural_control.implicit_assertion_fixed_point_pass.v1",
+  "round": 11,
+  "date_author_local": "2026-09-29",
+  "status": "OPERATIONAL_FIXED_POINT",
+  "input": {
+    "explicit_assertions": 31,
+    "ia_eligible_explicit_assertions": 23,
+    "prior_admitted_implicit_assertions": 52,
+    "prior_support_refinements": 2,
+    "prior_qu_refinements": 10
+  },
+  "new_assertions": 0,
+  "support_refinements": 0,
+  "qu_refinements": 0,
+  "family_results": {
+    "B": {
+      "new_assertions": 0,
+      "disposition": "SATURATED_FOR_RENDERED_FINITE_BOOLEAN_SYSTEMS",
+      "note": "The packet already contains the material Boolean consequences for the concrete 5x4 contradiction, its target-residual refinement, the 4x4 flat witness, solution multiplicity, global-complement gauge, and the gauge-invariant relative residual equation. Further truth-table consequences normalize to these assertions or non-material syntactic variants."
+    },
+    "I": {
+      "new_assertions": 0,
+      "disposition": "SATURATED_FOR_RENDERED_INCIDENCES",
+      "note": "All material conjunctions of the represented path, quotient-membership, support, residual-membership, transporter, sign, action-history, and board incidences are already consumed by admitted assertions. The packet contains no additional primitive fine-state incidences from the other obstruction cycles."
+    },
+    "F": {
+      "new_assertions": 0,
+      "disposition": "SATURATED_FOR_DECLARED_PROJECTIONS",
+      "note": "Non-determination by support alone, quotient endpoints alone, quotient endpoints plus sign, and endpoint reconstruction of transporter/action history are represented. Stronger generalized non-determination claims require unrendered carrier-wide data and remain outside exact closure."
+    },
+    "Q": {
+      "new_assertions": 0,
+      "disposition": "SATURATED_FOR_RENDERED_QUOTIENT_WITNESS",
+      "note": "Source and target non-injectivity for represented residual content, the strict target residual-bit refinement, and the target-only local repair are already represented. No further primitive-expanded quotient fiber is present."
+    },
+    "C": {
+      "new_assertions": 0,
+      "disposition": "SATURATED_UNDER_NORMALIZED_CROSS_SUPPORT_COMPOSITION",
+      "note": "Cross-composition already yields the local residual discriminator, the endpoint correction law, the gauge-invariant relative relation, transporter/history survival, and target/source repair asymmetry. Further compositions restate existing normalized bodies."
+    },
+    "R": {
+      "new_assertions": 0,
+      "disposition": "SATURATED_FOR_CURRENT_REPAIR_OBLIGATIONS",
+      "note": "The concrete inconsistency forces change; target separation is necessary for state-refinement-only repair; a two-target residual split is sufficient; source separation is not necessary. Any claim about all 25 nonzero syndromes requires structure not primitive-expanded in this packet."
+    },
+    "U": {
+      "new_assertions": 0,
+      "disposition": "SATURATED_WITH_QU_PRESERVED",
+      "note": "Exact exclusions have narrowed support-only, sign-only, unchanged-quotient scalar, and shortest-witness codomain alternatives. Further restriction would choose among still-admissible intrinsic residual, guarded scalar, higher-dimensional, non-binary, transition-orientation, or no-uniform-law possibilities without exact support."
+    },
+    "S": {
+      "new_assertions": 0,
+      "disposition": "SATURATED_FOR_CURRENT_SCOPE_FIREWALLS",
+      "note": "The packet already separates binary-tie XOR from continuation phase, coarse-quotient obstruction from refined-carrier obstruction, one-witness scalar repair from complete-carrier algebra, and structural phase from W/D/L/nimber semantics. Further scope restatements normalize to existing assertions/nonclaims."
+    }
+  },
+  "forbidden_support_audit": {
+    "discovery_protocol_used": false,
+    "natural_entropic_identity_used": false,
+    "dts_used": false,
+    "wdl_or_nimber_bridge_used": false
+  },
+  "stop_rule": "A complete pass over B,I,F,Q,C,R,U,S added zero distinct material normalized assertion bodies, zero material support refinements, and zero QU refinements.",
+  "completeness_claim": "OPERATIONAL_ONLY__FROZEN_PACKET__NOT_UNIVERSAL_LOGICAL_COMPLETENESS"
+}
