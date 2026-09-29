@@ -1,0 +1,501 @@
+{
+  "schema": "isomax.core020.structural_control.strict_ia_admission.v2",
+  "date_author_local": "2026-09-29",
+  "research_direction": "Joshua Oshiro",
+  "governing_rule": "An exact IA body must itself have a native primitive expansion; primitive premises alone are insufficient.",
+  "strict_native_file": "STRICT_IA_CORE020_0_2.isg",
+  "admitted": [
+    {
+      "id": "SC-SIA001",
+      "native_id": "210001",
+      "body": "For all packet-local Boolean values x,y, represented allowed-orientation membership holds iff x=y.",
+      "support": [
+        "SC-E001",
+        "SC-E020",
+        "SC-E021"
+      ],
+      "predecessor_views": [
+        "SC-IA008"
+      ]
+    },
+    {
+      "id": "SC-SIA002",
+      "native_id": "210002",
+      "body": "The concrete six-variable 4x4 zero-delta system holds iff all six Boolean variables are 0 or all six are 1.",
+      "support": [
+        "SC-E001",
+        "SC-E017",
+        "SC-E018",
+        "SC-E019"
+      ],
+      "predecessor_views": [
+        "SC-IA009",
+        "SC-IA045",
+        "SC-IA046"
+      ]
+    },
+    {
+      "id": "SC-SIA003",
+      "native_id": "210003",
+      "body": "The target-split five-variable 5x4 Boolean system holds iff the assignment is 00001 or 11110.",
+      "support": [
+        "SC-E001",
+        "SC-E002",
+        "SC-E003"
+      ],
+      "predecessor_views": [
+        "SC-IA026",
+        "SC-IA038",
+        "SC-IA039"
+      ]
+    },
+    {
+      "id": "SC-SIA004",
+      "native_id": "210004",
+      "body": "On each of the two shortest 5x4 routes, the route phase relation equals the final-state P0 residual-token-197700 membership-bit relation.",
+      "support": [
+        "SC-E005",
+        "SC-E006",
+        "SC-E012"
+      ],
+      "predecessor_views": [
+        "SC-IA032",
+        "SC-IA041",
+        "SC-IA042"
+      ]
+    },
+    {
+      "id": "SC-SIA005",
+      "native_id": "210005",
+      "body": "Boolean XOR output is invariant when both inputs are simultaneously complemented.",
+      "support": [
+        "SC-E001"
+      ],
+      "predecessor_views": [
+        "SC-IA049"
+      ]
+    },
+    {
+      "id": "SC-SIA006",
+      "native_id": "210006",
+      "body": "Every satisfying target-split 5x4 assignment has target/source XOR equal to the represented final residual bit on each route.",
+      "support": [
+        "SC-SIA003",
+        "SC-E012",
+        "SC-E001"
+      ],
+      "predecessor_views": [
+        "SC-IA040",
+        "SC-IA048"
+      ]
+    },
+    {
+      "id": "SC-SIA007",
+      "native_id": "210007",
+      "body": "The two shortest 5x4 route phase bits XOR to 1.",
+      "support": [
+        "SC-E001",
+        "SC-E002",
+        "SC-E003"
+      ],
+      "predecessor_views": [
+        "SC-IA010"
+      ]
+    },
+    {
+      "id": "SC-SIA008",
+      "native_id": "210008",
+      "body": "The two explicit 4x4 route phase bits XOR to 0.",
+      "support": [
+        "SC-E001",
+        "SC-E017",
+        "SC-E018"
+      ],
+      "predecessor_views": [
+        "SC-IA011"
+      ]
+    }
+  ],
+  "predecessor_dispositions": [
+    {
+      "id": "SC-IA001",
+      "round": 1,
+      "title": "observed transporter-sign projection is non-injective",
+      "disposition": "DERIVED_VIEW_NOT_PRIMITIVE_ASSERTION",
+      "note": "Preserved as explanatory reasoning only. Its high-level body introduces semantics not natively expanded in the predecessor packet."
+    },
+    {
+      "id": "SC-IA002",
+      "round": 1,
+      "title": "support alone does not determine distinguished source residual membership",
+      "disposition": "DERIVED_VIEW_NOT_PRIMITIVE_ASSERTION",
+      "note": "Preserved as explanatory reasoning only. Its high-level body introduces semantics not natively expanded in the predecessor packet."
+    },
+    {
+      "id": "SC-IA003",
+      "round": 1,
+      "title": "source quotient is non-injective for represented residual content",
+      "disposition": "DERIVED_VIEW_NOT_PRIMITIVE_ASSERTION",
+      "note": "Preserved as explanatory reasoning only. Its high-level body introduces semantics not natively expanded in the predecessor packet."
+    },
+    {
+      "id": "SC-IA004",
+      "round": 1,
+      "title": "target quotient is non-injective for represented residual content",
+      "disposition": "DERIVED_VIEW_NOT_PRIMITIVE_ASSERTION",
+      "note": "Preserved as explanatory reasoning only. Its high-level body introduces semantics not natively expanded in the predecessor packet."
+    },
+    {
+      "id": "SC-IA005",
+      "round": 1,
+      "title": "quotient endpoints do not determine route phase",
+      "disposition": "DERIVED_VIEW_NOT_PRIMITIVE_ASSERTION",
+      "note": "Preserved as explanatory reasoning only. Its high-level body introduces semantics not natively expanded in the predecessor packet."
+    },
+    {
+      "id": "SC-IA006",
+      "round": 1,
+      "title": "coarse endpoints do not determine accumulated full transporter",
+      "disposition": "DERIVED_VIEW_NOT_PRIMITIVE_ASSERTION",
+      "note": "Preserved as explanatory reasoning only. Its high-level body introduces semantics not natively expanded in the predecessor packet."
+    },
+    {
+      "id": "SC-IA007",
+      "round": 1,
+      "title": "coarse endpoints do not determine oriented action history",
+      "disposition": "DERIVED_VIEW_NOT_PRIMITIVE_ASSERTION",
+      "note": "Preserved as explanatory reasoning only. Its high-level body introduces semantics not natively expanded in the predecessor packet."
+    },
+    {
+      "id": "SC-IA008",
+      "round": 1,
+      "title": "binary-tie stabilizer relation is Boolean equality",
+      "disposition": "SUPERSEDED_BY_STRICT_NATIVE_ASSERTION",
+      "strict_native_id": "210001",
+      "note": "The material primitive content is represented natively; high-level predecessor wording is a derived view."
+    },
+    {
+      "id": "SC-IA009",
+      "round": 1,
+      "title": "constant-zero node assignment satisfies the concrete 4x4 reconvergence",
+      "disposition": "SUPERSEDED_BY_STRICT_NATIVE_ASSERTION",
+      "strict_native_id": "210002",
+      "note": "The material primitive content is represented natively; high-level predecessor wording is a derived view."
+    },
+    {
+      "id": "SC-IA010",
+      "round": 1,
+      "title": "shortest 5x4 closed route difference has odd delta parity",
+      "disposition": "SUPERSEDED_BY_STRICT_NATIVE_ASSERTION",
+      "strict_native_id": "210007",
+      "note": "The material primitive content is represented natively; high-level predecessor wording is a derived view."
+    },
+    {
+      "id": "SC-IA011",
+      "round": 1,
+      "title": "concrete 4x4 route difference has zero delta parity",
+      "disposition": "SUPERSEDED_BY_STRICT_NATIVE_ASSERTION",
+      "strict_native_id": "210008",
+      "note": "The material primitive content is represented natively; high-level predecessor wording is a derived view."
+    },
+    {
+      "id": "SC-IA012",
+      "round": 2,
+      "title": "quotient endpoints plus permutation sign still do not determine phase",
+      "disposition": "DERIVED_VIEW_NOT_PRIMITIVE_ASSERTION",
+      "note": "Preserved as explanatory reasoning only. Its high-level body introduces semantics not natively expanded in the predecessor packet."
+    },
+    {
+      "id": "SC-IA013",
+      "round": 2,
+      "title": "current coarse projection erases both fine residual and route-orientation distinctions",
+      "disposition": "DERIVED_VIEW_NOT_PRIMITIVE_ASSERTION",
+      "note": "Preserved as explanatory reasoning only. Its high-level body introduces semantics not natively expanded in the predecessor packet."
+    },
+    {
+      "id": "SC-IA014",
+      "round": 2,
+      "title": "target quotient cannot reconstruct distinguished exact residual bit",
+      "disposition": "DERIVED_VIEW_NOT_PRIMITIVE_ASSERTION",
+      "note": "Preserved as explanatory reasoning only. Its high-level body introduces semantics not natively expanded in the predecessor packet."
+    },
+    {
+      "id": "SC-IA015",
+      "round": 2,
+      "title": "source quotient cannot reconstruct distinguished exact residual bits",
+      "disposition": "DERIVED_VIEW_NOT_PRIMITIVE_ASSERTION",
+      "note": "Preserved as explanatory reasoning only. Its high-level body introduces semantics not natively expanded in the predecessor packet."
+    },
+    {
+      "id": "SC-IA016",
+      "round": 2,
+      "title": "scalar Boolean consistency is not forced by XOR syntax alone",
+      "disposition": "DERIVED_VIEW_NOT_PRIMITIVE_ASSERTION",
+      "note": "Preserved as explanatory reasoning only. Its high-level body introduces semantics not natively expanded in the predecessor packet."
+    },
+    {
+      "id": "SC-IA017",
+      "round": 2,
+      "title": "binary-tie XOR law does not imply continuation-phase integrability",
+      "disposition": "DERIVED_VIEW_NOT_PRIMITIVE_ASSERTION",
+      "note": "Preserved as explanatory reasoning only. Its high-level body introduces semantics not natively expanded in the predecessor packet."
+    },
+    {
+      "id": "SC-IA018",
+      "round": 2,
+      "title": "residual incidence supplies an intrinsic discriminator absent from the current quotient on the witness",
+      "disposition": "DERIVED_VIEW_NOT_PRIMITIVE_ASSERTION",
+      "note": "Preserved as explanatory reasoning only. Its high-level body introduces semantics not natively expanded in the predecessor packet."
+    },
+    {
+      "id": "SC-IA019",
+      "round": 2,
+      "title": "coarse endpoints are insufficient to reconstruct observed transition orientation/history",
+      "disposition": "DERIVED_VIEW_NOT_PRIMITIVE_ASSERTION",
+      "note": "Preserved as explanatory reasoning only. Its high-level body introduces semantics not natively expanded in the predecessor packet."
+    },
+    {
+      "id": "SC-IA020",
+      "round": 3,
+      "title": "shortest obstruction forces a model change",
+      "disposition": "DERIVED_VIEW_NOT_PRIMITIVE_ASSERTION",
+      "note": "Preserved as explanatory reasoning only. Its high-level body introduces semantics not natively expanded in the predecessor packet."
+    },
+    {
+      "id": "SC-IA021",
+      "round": 3,
+      "title": "state-refinement-only repair must break a shared endpoint identification",
+      "disposition": "DERIVED_VIEW_NOT_PRIMITIVE_ASSERTION",
+      "note": "Preserved as explanatory reasoning only. Its high-level body introduces semantics not natively expanded in the predecessor packet."
+    },
+    {
+      "id": "SC-IA022",
+      "round": 3,
+      "title": "unchanged quotient and deltas force departure from scalar node-potential semantics",
+      "disposition": "DERIVED_VIEW_NOT_PRIMITIVE_ASSERTION",
+      "note": "Preserved as explanatory reasoning only. Its high-level body introduces semantics not natively expanded in the predecessor packet."
+    },
+    {
+      "id": "SC-IA023",
+      "round": 3,
+      "title": "an erased residual distinction lies directly on the obstructed quotient seam",
+      "disposition": "DERIVED_VIEW_NOT_PRIMITIVE_ASSERTION",
+      "note": "Preserved as explanatory reasoning only. Its high-level body introduces semantics not natively expanded in the predecessor packet."
+    },
+    {
+      "id": "SC-IA024",
+      "round": 3,
+      "title": "continuation obstruction does not falsify the binary-tie XOR layer",
+      "disposition": "DERIVED_VIEW_NOT_PRIMITIVE_ASSERTION",
+      "note": "Preserved as explanatory reasoning only. Its high-level body introduces semantics not natively expanded in the predecessor packet."
+    },
+    {
+      "id": "SC-IA025",
+      "round": 4,
+      "title": "one represented target residual bit defines a strict local refinement",
+      "disposition": "DERIVED_VIEW_NOT_PRIMITIVE_ASSERTION",
+      "note": "Preserved as explanatory reasoning only. Its high-level body introduces semantics not natively expanded in the predecessor packet."
+    },
+    {
+      "id": "SC-IA026",
+      "round": 4,
+      "title": "the residual-bit target refinement repairs the shortest scalar constraint system",
+      "disposition": "SUPERSEDED_BY_STRICT_NATIVE_ASSERTION",
+      "strict_native_id": "210003",
+      "note": "The material primitive content is represented natively; high-level predecessor wording is a derived view."
+    },
+    {
+      "id": "SC-IA027",
+      "round": 4,
+      "title": "full transporter history is not necessary for local repair of the shortest obstruction",
+      "disposition": "DERIVED_VIEW_NOT_PRIMITIVE_ASSERTION",
+      "note": "Preserved as explanatory reasoning only. Its high-level body introduces semantics not natively expanded in the predecessor packet."
+    },
+    {
+      "id": "SC-IA028",
+      "round": 5,
+      "title": "coarse target identification changes scalar constraint satisfiability",
+      "disposition": "DERIVED_VIEW_NOT_PRIMITIVE_ASSERTION",
+      "note": "Preserved as explanatory reasoning only. Its high-level body introduces semantics not natively expanded in the predecessor packet."
+    },
+    {
+      "id": "SC-IA029",
+      "round": 5,
+      "title": "quotient-level scalar obstruction does not imply obstruction on every refinement",
+      "disposition": "DERIVED_VIEW_NOT_PRIMITIVE_ASSERTION",
+      "note": "Preserved as explanatory reasoning only. Its high-level body introduces semantics not natively expanded in the predecessor packet."
+    },
+    {
+      "id": "SC-IA030",
+      "round": 5,
+      "title": "a history-free state-local repair exists for the shortest witness",
+      "disposition": "DERIVED_VIEW_NOT_PRIMITIVE_ASSERTION",
+      "note": "Preserved as explanatory reasoning only. Its high-level body introduces semantics not natively expanded in the predecessor packet."
+    },
+    {
+      "id": "SC-IA031",
+      "round": 5,
+      "title": "the shortest obstruction is a quotient-sensitive rather than quotient-invariant fact",
+      "disposition": "DERIVED_VIEW_NOT_PRIMITIVE_ASSERTION",
+      "note": "Preserved as explanatory reasoning only. Its high-level body introduces semantics not natively expanded in the predecessor packet."
+    },
+    {
+      "id": "SC-IA032",
+      "round": 6,
+      "title": "shortest-route phase equals the distinguished final residual bit",
+      "disposition": "SUPERSEDED_BY_STRICT_NATIVE_ASSERTION",
+      "strict_native_id": "210004",
+      "note": "The material primitive content is represented natively; high-level predecessor wording is a derived view."
+    },
+    {
+      "id": "SC-IA033",
+      "round": 6,
+      "title": "required target phase difference equals residual-bit difference",
+      "disposition": "DERIVED_VIEW_NOT_PRIMITIVE_ASSERTION",
+      "note": "Preserved as explanatory reasoning only. Its high-level body introduces semantics not natively expanded in the predecessor packet."
+    },
+    {
+      "id": "SC-IA034",
+      "round": 6,
+      "title": "the coarse target merge identifies values forced to differ",
+      "disposition": "DERIVED_VIEW_NOT_PRIMITIVE_ASSERTION",
+      "note": "Preserved as explanatory reasoning only. Its high-level body introduces semantics not natively expanded in the predecessor packet."
+    },
+    {
+      "id": "SC-IA035",
+      "round": 6,
+      "title": "a local endpoint residual coordinate reproduces route phase",
+      "disposition": "DERIVED_VIEW_NOT_PRIMITIVE_ASSERTION",
+      "note": "Preserved as explanatory reasoning only. Its high-level body introduces semantics not natively expanded in the predecessor packet."
+    },
+    {
+      "id": "SC-IA036",
+      "round": 7,
+      "title": "current target quotient erases a locally phase-determining endpoint coordinate",
+      "disposition": "DERIVED_VIEW_NOT_PRIMITIVE_ASSERTION",
+      "note": "Preserved as explanatory reasoning only. Its high-level body introduces semantics not natively expanded in the predecessor packet."
+    },
+    {
+      "id": "SC-IA037",
+      "round": 7,
+      "title": "target-only state refinement is sufficient for local satisfiability",
+      "disposition": "DERIVED_VIEW_NOT_PRIMITIVE_ASSERTION",
+      "note": "Preserved as explanatory reasoning only. Its high-level body introduces semantics not natively expanded in the predecessor packet."
+    },
+    {
+      "id": "SC-IA038",
+      "round": 7,
+      "title": "refined shortest witness has exactly global-complement gauge freedom",
+      "disposition": "SUPERSEDED_BY_STRICT_NATIVE_ASSERTION",
+      "strict_native_id": "210003",
+      "note": "The material primitive content is represented natively; high-level predecessor wording is a derived view."
+    },
+    {
+      "id": "SC-IA039",
+      "round": 7,
+      "title": "fixing source phase uniquely fixes the refined shortest witness",
+      "disposition": "DERIVED_VIEW_NOT_PRIMITIVE_ASSERTION",
+      "note": "Preserved as explanatory reasoning only. Its high-level body introduces semantics not natively expanded in the predecessor packet."
+    },
+    {
+      "id": "SC-IA040",
+      "round": 7,
+      "title": "refined target potential equals source potential XOR residual bit",
+      "disposition": "SUPERSEDED_BY_STRICT_NATIVE_ASSERTION",
+      "strict_native_id": "210006",
+      "note": "The material primitive content is represented natively; high-level predecessor wording is a derived view."
+    },
+    {
+      "id": "SC-IA041",
+      "round": 7,
+      "title": "final residual bit is an exact local phase correction term",
+      "disposition": "SUPERSEDED_BY_STRICT_NATIVE_ASSERTION",
+      "strict_native_id": "210004",
+      "note": "The material primitive content is represented natively; high-level predecessor wording is a derived view."
+    },
+    {
+      "id": "SC-IA042",
+      "round": 8,
+      "title": "endpoint residual correction flattens the shortest route pair",
+      "disposition": "SUPERSEDED_BY_STRICT_NATIVE_ASSERTION",
+      "strict_native_id": "210004",
+      "note": "The material primitive content is represented natively; high-level predecessor wording is a derived view."
+    },
+    {
+      "id": "SC-IA043",
+      "round": 8,
+      "title": "the shortest obstruction alone does not force a larger phase codomain",
+      "disposition": "DERIVED_VIEW_NOT_PRIMITIVE_ASSERTION",
+      "note": "Preserved as explanatory reasoning only. Its high-level body introduces semantics not natively expanded in the predecessor packet."
+    },
+    {
+      "id": "SC-IA044",
+      "round": 8,
+      "title": "two refined target identities are locally necessary and sufficient",
+      "disposition": "DERIVED_VIEW_NOT_PRIMITIVE_ASSERTION",
+      "note": "Preserved as explanatory reasoning only. Its high-level body introduces semantics not natively expanded in the predecessor packet."
+    },
+    {
+      "id": "SC-IA045",
+      "round": 8,
+      "title": "concrete 4x4 flat witness has exactly two complement-related assignments",
+      "disposition": "SUPERSEDED_BY_STRICT_NATIVE_ASSERTION",
+      "strict_native_id": "210002",
+      "note": "The material primitive content is represented natively; high-level predecessor wording is a derived view."
+    },
+    {
+      "id": "SC-IA046",
+      "round": 8,
+      "title": "fixing the 4x4 source phase uniquely fixes the concrete flat witness",
+      "disposition": "DERIVED_VIEW_NOT_PRIMITIVE_ASSERTION",
+      "note": "Preserved as explanatory reasoning only. Its high-level body introduces semantics not natively expanded in the predecessor packet."
+    },
+    {
+      "id": "SC-IA047",
+      "round": 8,
+      "title": "local residual refinement restores ordinary global-complement gauge freedom",
+      "disposition": "DERIVED_VIEW_NOT_PRIMITIVE_ASSERTION",
+      "note": "Preserved as explanatory reasoning only. Its high-level body introduces semantics not natively expanded in the predecessor packet."
+    },
+    {
+      "id": "SC-IA048",
+      "round": 9,
+      "title": "relative endpoint phase equals the distinguished residual bit",
+      "disposition": "SUPERSEDED_BY_STRICT_NATIVE_ASSERTION",
+      "strict_native_id": "210006",
+      "note": "The material primitive content is represented natively; high-level predecessor wording is a derived view."
+    },
+    {
+      "id": "SC-IA049",
+      "round": 9,
+      "title": "the local residual correction is independent of absolute phase gauge",
+      "disposition": "SUPERSEDED_BY_STRICT_NATIVE_ASSERTION",
+      "strict_native_id": "210005",
+      "note": "The material primitive content is represented natively; high-level predecessor wording is a derived view."
+    },
+    {
+      "id": "SC-IA050",
+      "round": 9,
+      "title": "the corrected local relation survives observed transporter/history difference",
+      "disposition": "DERIVED_VIEW_NOT_PRIMITIVE_ASSERTION",
+      "note": "Preserved as explanatory reasoning only. Its high-level body introduces semantics not natively expanded in the predecessor packet."
+    },
+    {
+      "id": "SC-IA051",
+      "round": 10,
+      "title": "source residual refinement is not necessary for the shortest local scalar repair",
+      "disposition": "DERIVED_VIEW_NOT_PRIMITIVE_ASSERTION",
+      "note": "Preserved as explanatory reasoning only. Its high-level body introduces semantics not natively expanded in the predecessor packet."
+    },
+    {
+      "id": "SC-IA052",
+      "round": 10,
+      "title": "shortest-witness state-refinement repair is target-asymmetric",
+      "disposition": "DERIVED_VIEW_NOT_PRIMITIVE_ASSERTION",
+      "note": "Preserved as explanatory reasoning only. Its high-level body introduces semantics not natively expanded in the predecessor packet."
+    }
+  ],
+  "predecessor_exact_ia_count_superseded": 52,
+  "strict_admitted_ia_count": 8,
+  "nonclaim": "This disposition does not assert that every predecessor explanatory sentence is false; it removes primitive-authority status from bodies whose exact semantics were not natively reduced."
+}
