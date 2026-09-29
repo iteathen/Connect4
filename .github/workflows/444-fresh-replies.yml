@@ -1,0 +1,50 @@
+name: Fresh rule-only 444 reply classes
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/44-geometry-blind-20260928
+    paths:
+      - "research/isograph/discovery/2026-09-28-44-geometry-blind/fresh-444-reply.mjs"
+      - ".github/workflows/444-fresh-replies.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  solve:
+    strategy:
+      fail-fast: false
+      matrix:
+        sequence: ["4441","4442","4443","4444"]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          path: connect4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          repository: iteathen/JSMinSys
+          ref: 6bbba7c71c60afb1018a22b6d5c03f495f5d2c9e
+          path: connect4/jsminsys
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: "26.7.0"
+      - name: Guard solved-data boundary
+        working-directory: connect4
+        run: |
+          set -euo pipefail
+          ! grep -E "solved-actions|openingbook|bdd_w7_h6|solution_w7_h6|ExactConnect4Oracle|reference/oracles" research/isograph/discovery/2026-09-28-44-geometry-blind/fresh-444-reply.mjs
+      - name: Solve reply class
+        working-directory: connect4
+        env:
+          SEQUENCE: ${{ matrix.sequence }}
+        run: node research/isograph/discovery/2026-09-28-44-geometry-blind/fresh-444-reply.mjs > result-${{ matrix.sequence }}.json
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        if: always()
+        with:
+          name: connect4-${{ matrix.sequence }}-fresh
+          path: connect4/result-${{ matrix.sequence }}.json
+          if-no-files-found: warn
