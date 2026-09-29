@@ -30,6 +30,7 @@ const result={
     moverFinalCapParity:true,
     auditColumnRefinement:true,
     auditPairColumnRefinement:true,
+    auditOpponentResidualDeletion:true,
   }),
   directMatrix:matrix.cases.map(row=>analyzeDirectResidualOrbitGraph({
     width:row.width,height:row.height,k:row.k,
