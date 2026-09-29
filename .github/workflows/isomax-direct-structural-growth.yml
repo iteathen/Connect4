@@ -7,7 +7,6 @@ on:
     paths:
       - '.github/workflows/isomax-direct-structural-growth.yml'
       - 'research/isograph/discovery/2026-09-29-center-proof-cycle/run-direct-residual-growth.mjs'
-      - 'research/isograph/discovery/2026-09-29-center-proof-cycle/control-algebra-dimensions.mjs'
   workflow_dispatch:
 
 permissions:
@@ -22,7 +21,11 @@ jobs:
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
         with:
           node-version: '26'
-      - name: 4x5 direct residual growth
+      - name: Direct residual growth
+        env:
+          C4_WIDTH: '4'
+          C4_HEIGHT: '6'
+          C4_K: '4'
         run: node --max-old-space-size=4096 research/isograph/discovery/2026-09-29-center-proof-cycle/run-direct-residual-growth.mjs
       - name: Research integrity
         run: node tools/verify-research-integrity.mjs
