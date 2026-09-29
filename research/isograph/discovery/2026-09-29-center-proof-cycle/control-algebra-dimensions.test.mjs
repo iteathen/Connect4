@@ -78,6 +78,23 @@ test('direct residual orbit producer reproduces recursive quotient across small 
   }
 });
 
+test('universal frontier blocker preserves direct quotient across small dimensions',()=>{
+  const physical=analyzeUnlabelledQuotientDimensionMatrix();
+  for(const row of physical.cases){
+    const base=analyzeDirectResidualOrbitGraph({
+      width:row.width,height:row.height,k:row.k,
+    }),closed=analyzeDirectResidualOrbitGraph({
+      width:row.width,height:row.height,k:row.k,
+      universalFrontierBlocker:true,
+    });
+    assert.equal(closed.recursiveUnlabelledClasses,row.classes);
+    assert.equal(closed.rootValue,row.rootValue);
+    assert.equal(closed.wdlSplitClasses,0);
+    assert.ok(closed.residualOrbitStates<=base.residualOrbitStates);
+    assert.ok(closed.literalActionEdges<=base.literalActionEdges);
+  }
+});
+
 test('gravity makes width-height perturbation an explicit control rather than a transpose assumption',()=>{
   const a=analyzeUnlabelledQuotientDimension({width:4,height:3,k:3});
   const b=analyzeUnlabelledQuotientDimension({width:3,height:4,k:3});
