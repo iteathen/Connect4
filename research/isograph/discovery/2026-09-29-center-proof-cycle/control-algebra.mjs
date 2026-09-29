@@ -659,3 +659,99 @@ export function analyzeControlWindowFactorizationRectangles({
   }
   return {inputs:'geometry/rules only',outcomeLabelsRead:false,rows,failures};
 }
+
+
+function fourByFourWinMasks(){
+  const g=geometry(4,4);
+  assert.equal(g.lines.length,10);
+  return {g,masks:g.lines.map(line=>line.reduce((m,cell)=>m|(1<<cell),0))};
+}
+
+function fourByFourSupportPack(p0,p1){
+  const occ=p0|p1;let pack=0;
+  for(let c=0;c<4;c++){
+    let h=0;
+    while(h<4&&(occ&(1<<(h*4+c))))h++;
+    for(let r=h;r<4;r++)assert.equal(occ&(1<<(r*4+c)),0,'reachable board support hole');
+    pack|=h<<(3*c);
+  }
+  return pack;
+}
+
+function fourByFourPartial2Signature(g,p0,p1){
+  let out=0n,shift=0n;
+  for(const bits of [p0,p1])for(const line of g.lines){
+    const b0=(bits>>>line[0])&1,b1=(bits>>>line[1])&1,
+      b2=(bits>>>line[2])&1,b3=(bits>>>line[3])&1;
+    if(b0^b2)out|=1n<<shift;
+    shift++;
+    if(b1^b3)out|=1n<<shift;
+    shift++;
+  }
+  return out;
+}
+
+export function analyzeExhaustive4x4DerivativeCarrier(){
+  const {g,masks}=fourByFourWinMasks(),memo=new Map();
+  const won=(bits)=>masks.some(mask=>(bits&mask)===mask);
+  const keyOf=(p0,p1)=>p0*65536+p1;
+
+  function solve(p0,p1,heights,rank){
+    const key=keyOf(p0,p1),known=memo.get(key);
+    if(known)return known.value;
+    let value;
+    if(won(p0))value=1;
+    else if(won(p1))value=-1;
+    else if(rank===16)value=0;
+    else{
+      value=(rank&1)?1:-1;
+      for(let col=0;col<4;col++)if(heights[col]<4){
+        const cell=heights[col]*4+col,bit=1<<cell;
+        heights[col]++;
+        const child=(rank&1)?
+          solve(p0,p1|bit,heights,rank+1):
+          solve(p0|bit,p1,heights,rank+1);
+        heights[col]--;
+        value=(rank&1)?Math.min(value,child):Math.max(value,child);
+      }
+    }
+    memo.set(key,{p0,p1,value});
+    return value;
+  }
+
+  solve(0,0,new Uint8Array(4),0);
+
+  const classes=new Map(),wdlCounts={loss:0,draw:0,win:0};
+  for(const rec of memo.values()){
+    if(rec.value<0)wdlCounts.loss++;else if(rec.value>0)wdlCounts.win++;else wdlCounts.draw++;
+    const support=fourByFourSupportPack(rec.p0,rec.p1),
+      derivative=fourByFourPartial2Signature(g,rec.p0,rec.p1),
+      key=`${support}:${derivative}`,
+      bit=rec.value<0?1:rec.value>0?4:2,
+      prior=classes.get(key);
+    if(prior){prior.mask|=bit;prior.states++;if(prior.examples[rec.value]===undefined)prior.examples[rec.value]=keyOf(rec.p0,rec.p1);}
+    else classes.set(key,{mask:bit,states:1,examples:{[rec.value]:keyOf(rec.p0,rec.p1)}});
+  }
+
+  let splitClasses=0,splitStates=0,maxClassSize=0,firstSplit=null;
+  for(const [signature,x] of classes){
+    maxClassSize=Math.max(maxClassSize,x.states);
+    if((x.mask&(x.mask-1))!==0){
+      splitClasses++;splitStates+=x.states;
+      if(!firstSplit)firstSplit={signature,states:x.states,wdlMask:x.mask,examples:x.examples};
+    }
+  }
+
+  return {
+    inputs:'4x4 connect-4 rules only',
+    solvedInputsUsed:false,
+    carrier:'support + player-labelled line partial^2',
+    states:memo.size,
+    wdlCounts,
+    classes:classes.size,
+    splitClasses,
+    splitStates,
+    maxClassSize,
+    firstSplit,
+  };
+}
