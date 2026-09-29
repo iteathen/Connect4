@@ -1168,7 +1168,14 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
         if(!sameClass)continue;
         audit.classPreservingDeletions++;
 
-        const depths=[];
+        const depths=[],
+          removedResidualSize=bitCount(removed),
+          remaining=cells-rank,
+          opponentPlayer=1-mover,
+          opponentMoves=Math.floor(remaining/2),
+          moveCapacityImpossible=removedResidualSize>opponentMoves,
+          supportReleaseImpossible=!residualFitsSupportReleaseTurns(
+            removed,rec.heights,width,height,opponentPlayer);
         let rest=removed;
         while(rest){
           const low=rest&-rest,bit=31-Math.clz32(low),
@@ -1182,7 +1189,10 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
           support:Array.from(rec.heights),
           mover,
           removedResidual:removed,
-          removedResidualSize:bitCount(removed),
+          removedResidualSize,
+          opponentMoves,
+          moveCapacityImpossible,
+          supportReleaseImpossible,
           removedFrontierHits:bitCount(removed&frontierMask),
           removedCapHits:bitCount(removed&capMask),
           equalsOpenCaps:removed===capMask,
@@ -1207,6 +1217,12 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
       exactOpenCapDeletions:rows.filter(x=>x.equalsOpenCaps).length,
       containsAllOpenCapsDeletions:
         rows.filter(x=>x.containsAllOpenCaps).length,
+      moveCapacityExplainedDeletions:
+        rows.filter(x=>x.moveCapacityImpossible).length,
+      supportReleaseExplainedDeletions:
+        rows.filter(x=>x.supportReleaseImpossible).length,
+      unexplainedAfterSupportRelease:
+        rows.filter(x=>!x.supportReleaseImpossible).length,
       byRank:byRankAudit,
       examples:rows.slice(0,128),
     };
