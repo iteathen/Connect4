@@ -98,5 +98,7 @@ console.log(JSON.stringify({
     cycleSyndromeExamples:cocycle.cycleSyndromeExamples,
     nonzeroCycleSyndromeExamples:cocycle.nonzeroCycleSyndromeExamples,
     obstructionGroupExamples:cocycle.obstructionGroupExamples,
+    shortestContradictionTransporterAudit:
+      cocycle.shortestContradictionTransporterAudit,
   },
 },null,2));
