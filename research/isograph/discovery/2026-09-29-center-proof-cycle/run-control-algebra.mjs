@@ -8,6 +8,7 @@ import {
   analyzeControlWindowFactorization,
   analyzeControlWindowFactorizationRectangles,
   analyzeExhaustive4x4DerivativeCarrier,
+  analyzeOptimalBranchCollapse4x4,
 } from './control-algebra.mjs';
 
 const result={
@@ -24,5 +25,6 @@ const result={
   controlWindowFactorization:analyzeControlWindowFactorization(),
   controlWindowFactorizationRectangles:analyzeControlWindowFactorizationRectangles(),
   exhaustive4x4DerivativeCarrier:analyzeExhaustive4x4DerivativeCarrier(),
+  optimalBranchCollapse4x4:analyzeOptimalBranchCollapse4x4(),
 };
 console.log(JSON.stringify(result,null,2));
