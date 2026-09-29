@@ -474,3 +474,88 @@ export function analyzeFullColumnCancellation(){
     connectKPeriodicity,
   };
 }
+
+
+function polynomialDegree(p){
+  let d=-1;for(let q=p;q;q>>=1n)d++;return d;
+}
+
+function polynomialMod(a,b){
+  const db=polynomialDegree(b);
+  while(a&&polynomialDegree(a)>=db)
+    a^=b<<BigInt(polynomialDegree(a)-db);
+  return a;
+}
+
+function polynomialGcd(a,b){
+  while(b){const r=polynomialMod(a,b);a=b;b=r;}
+  return a;
+}
+
+function polynomialText(p){
+  if(!p)return '0';
+  const terms=[];
+  for(let i=0;p>>BigInt(i);i++)if((p>>BigInt(i))&1n)
+    terms.push(i===0?'1':i===1?'x':`x^${i}`);
+  return terms.join('+');
+}
+
+function standardDepthRelationPolynomials(){
+  const {g,fragments}=standardResponseFragments(),
+    relation=new Set([
+      'c1:r1-2','c1:r3-4','c1:r5-6',
+      'c3:r1-2','c3:r3-4','c3:r5-6',
+      'c5:r1-2','c5:r3-4','c5:r5-6',
+      'c7:r1-2','c7:r3-4','c7:r5-6',
+    ]),
+    byCoordinate=new Map();
+  for(const fragment of fragments)if(relation.has(fragment.label))
+    for(const token of fragment.tokens)for(let li=0;li<g.lines.length;li++)
+      if(g.lines[li].includes(token.cell)){
+        const key=`${token.player}:${li}`,
+          prior=byCoordinate.get(key)??0n;
+        byCoordinate.set(key,prior^(1n<<BigInt(token.supportDepth)));
+      }
+  const nonzero=[...new Set([...byCoordinate.values()].filter(Boolean).map(String))]
+    .map(BigInt).sort((a,b)=>a<b?-1:a>b?1:0);
+  let gcd=0n;for(const p of nonzero)gcd=polynomialGcd(gcd,p);
+  return {nonzero,gcd};
+}
+
+function depthResidualPolynomials(g,phase,columnParity){
+  const byCoordinate=new Map();
+  for(let c=0;c<g.columns;c++)if((c&1)===columnParity)
+    for(let row=0;row<g.rows;row++){
+      const player=(row&1)^phase,cell=row*g.columns+c;
+      for(let li=0;li<g.lines.length;li++)if(g.lines[li].includes(cell)){
+        const key=`${player}:${li}`,
+          prior=byCoordinate.get(key)??0n;
+        byCoordinate.set(key,prior^(1n<<BigInt(row)));
+      }
+    }
+  return [...byCoordinate.values()].filter(Boolean);
+}
+
+export function analyzeDepthPolynomialAnnihilator(){
+  const standard=standardDepthRelationPolynomials(),connectK=[];
+  for(let k=3;k<=12;k++){
+    const g=connectKGeometry(k+4,k+4,k);
+    let ungradedCancellation=true;
+    for(let phase=0;phase<2;phase++)for(let parity=0;parity<2;parity++)
+      ungradedCancellation=ungradedCancellation&&parityClassContribution(g,phase,parity)===0n;
+    const polys=depthResidualPolynomials(g,1,0);
+    let gcd=0n;for(const p of polys)gcd=polynomialGcd(gcd,p);
+    connectK.push({connectK:k,ungradedCancellation,depthGcd:polynomialText(gcd)});
+  }
+  return {
+    inputs:'geometry/rules only',
+    outcomeLabelsRead:false,
+    standard7x6:{
+      nonzeroRelationPolynomials:standard.nonzero.map(polynomialText),
+      gcd:polynomialText(standard.gcd),
+      existingOperator:'partial^2',
+      canonicalIdentity:'1+x^2=(1+x)^2',
+    },
+    connectK,
+  };
+}
