@@ -1,0 +1,112 @@
+{
+  "schema": "connect4.nim-like-control-algebra.bounded-result.v1",
+  "date": "2026-09-29",
+  "status": "BOUNDED_RULE_ONLY_EVIDENCE",
+  "researchDirection": "Joshua Oshiro",
+  "branch": "research/nim-control-parity-algebra-20260929",
+  "workflowRun": 36536738584,
+  "head": "4ae1a1fca42cb30f1746c29c00616157b916ae6d",
+  "inputs": "geometry/rules only; no solved W/D/L labels",
+  "standard7x6": {
+    "lineCount": 69,
+    "responsePairs": 20,
+    "responsePairRank": 19,
+    "responseRelationNullity": 1,
+    "unmatchedCenterIndependent": true,
+    "rankWithUnmatchedCenter": 20,
+    "dependency": "all three response pairs in one-based columns 1,3,5,7 XOR to zero"
+  },
+  "boundary7x6": {
+    "unresolvedStates": 2108,
+    "immediateWinStates": 1987,
+    "identitySpaces": [
+      {
+        "degree": 1,
+        "monomials": 13,
+        "rank": 13,
+        "nullity": 0,
+        "separatedImmediateWins": 0
+      },
+      {
+        "degree": 2,
+        "monomials": 79,
+        "rank": 79,
+        "nullity": 0,
+        "separatedImmediateWins": 0
+      },
+      {
+        "degree": 3,
+        "monomials": 299,
+        "rank": 297,
+        "nullity": 2,
+        "separatedImmediateWins": 768
+      },
+      {
+        "degree": 4,
+        "monomials": 794,
+        "rank": 751,
+        "nullity": 43,
+        "separatedImmediateWins": 1987
+      }
+    ],
+    "cubicFactors": [
+      "c3H*c5H*(1 xor c2L)",
+      "c3H*c5H*(1 xor c6L)"
+    ],
+    "cubicUnionImmediateWins": 768
+  },
+  "dimensionPerturbation": {
+    "connectK": 4,
+    "widths": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "evenHeights": [
+      4,
+      6,
+      8
+    ],
+    "outcomeLabelsRead": false,
+    "safeDefectColumnsByWidth": {
+      "4": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "5": [
+        2,
+        3,
+        4
+      ],
+      "6": [
+        3,
+        4
+      ],
+      "7": [
+        4
+      ],
+      "8": [],
+      "9": [],
+      "10": []
+    },
+    "observations": [
+      "Safe-defect column set was unchanged across tested heights 4,6,8.",
+      "Every tested safe defect had response-relation nullity exactly 1.",
+      "Every tested safe defect had an unmatched top event independent of the paired-response span.",
+      "Across the tested safe cases responsePairs = W*H/2 - 1 and responsePairRank = responsePairs - 1.",
+      "The tested safe-defect count fits max(0, 8-W), but this is not yet promoted as an unbounded theorem."
+    ]
+  },
+  "nonClaims": [
+    "This does not prove W/D/L is an XOR value.",
+    "This does not prove ordinary Sprague-Grundy decomposition.",
+    "The degree-4 boundary characterization is a bounded immediate-win geometry result, not a perfect-play value theorem.",
+    "No production solver change is authorized."
+  ]
+}
