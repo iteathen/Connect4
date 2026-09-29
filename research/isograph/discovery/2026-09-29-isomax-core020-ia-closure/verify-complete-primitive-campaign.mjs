@@ -36,6 +36,9 @@ const residualProducer2=read('RESIDUAL_PRODUCER_CONTROL_CORE020_0_2.isg');
 const residualProducer3=read('RESIDUAL_PRODUCER_CONTROL_CORE020_0_3.isg');
 const round15=json('ROUND_15_COMPLETE_0_1.json');
 const quRound15=json('QU_LEDGER_ROUND15_0_5.json');
+const round16=json('COMPLETE_ROUND_16_FIXED_POINT_0_1.json');
+const quFinal=json('QU_LEDGER_FINAL_0_6.json');
+const fixedPointReport=read('FIXED_POINT_REPORT_0_4_COMPLETE_PRIMITIVE.md');
 
 function delimiterAudit(text){
   let par=0,br=0,minPar=0,minBr=0;
@@ -110,6 +113,39 @@ assert.equal(round15.qu_refinements.length,5);
 assert.deepEqual(round15.new_assertions.map(x=>x.id),['SC-IA061','SC-IA062','SC-IA063','SC-IA064']);
 assert.equal(quRound15.entries.length,6);
 assert.equal(quRound15.no_probability_added,true);
+assert.equal(round16.round,16);
+assert.equal(round16.status,'COMPLETE_PRIMITIVE_OPERATIONAL_FIXED_POINT');
+assert.equal(round16.input.source_assertions,31);
+assert.equal(round16.input.admitted_implicit_assertions,64);
+assert.equal(round16.input.total_assertion_bodies,95);
+assert.deepEqual(round16.new_assertions,[]);
+assert.deepEqual(round16.support_refinements,[]);
+assert.deepEqual(round16.qu_refinements,[]);
+assert.equal(round16.stop_rule_result.new_normalized_assertions,0);
+assert.equal(round16.stop_rule_result.support_refinements,0);
+assert.equal(round16.stop_rule_result.qu_refinements,0);
+assert.equal(round16.stop_rule_result.result,'FIXED_POINT_REACHED');
+assert.equal(round16.primitive_closure.omitted_assertions,0);
+assert.equal(round16.primitive_closure.reducible_authoritative_leaves,0);
+assert.equal(round16.primitive_closure.unresolved_termination_qu,0);
+assert.equal(round16.forbidden_support_audit.discovery_protocol_used,false);
+assert.equal(round16.forbidden_support_audit.natural_entropic_identity_used,false);
+assert.equal(round16.forbidden_support_audit.dts_used,false);
+assert.equal(round16.forbidden_support_audit.experimental_inquiry_used,false);
+assert.equal(round16.forbidden_support_audit.production_isomax_modified,false);
+assert.equal(round16.forbidden_support_audit.bsfp_modified,false);
+assert.equal(round16.forbidden_support_audit.external_solved_wdl_used_by_structural_producer,false);
+
+assert.equal(quFinal.status,'COMPLETE_PRIMITIVE_FIXED_POINT_QU_STATE');
+assert.equal(quFinal.fixed_point_round,16);
+assert.equal(quFinal.pending,null);
+assert.equal(quFinal.no_probability_added,true);
+assert.equal(quFinal.no_preferred_open_realization_selected,true);
+assert.deepEqual(quFinal.entries,quRound15.entries);
+assert.ok(quFinal.stop_disposition.includes('zero assertions'));
+assert.ok(fixedPointReport.includes('COMPLETE FROZEN-PACKET OPERATIONAL FIXED POINT'));
+assert.ok(fixedPointReport.includes('**PAUSE.**'));
+
 
 assert.equal(obligation.counts?.frozen_source_assertions??31,31);
 assert.equal(obligation.counts?.implicit_assertions??64,64);
@@ -127,6 +163,14 @@ for(let i=0;i<64;i++){
   assert.equal(x.current_disposition,'PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION',x.id);
   assert.equal(x.native_root,211001+i,x.id);
 }
+assert.equal(obligation.fixed_point.round,16);
+assert.equal(obligation.fixed_point.source_assertions,31);
+assert.equal(obligation.fixed_point.implicit_assertions,64);
+assert.equal(obligation.fixed_point.total_assertion_bodies,95);
+assert.equal(obligation.fixed_point.new_assertions,0);
+assert.equal(obligation.fixed_point.support_refinements,0);
+assert.equal(obligation.fixed_point.qu_refinements,0);
+assert.equal(obligation.fixed_point.result,'FIXED_POINT_REACHED');
 
 
 function parseIsg(text,name){
@@ -637,7 +681,7 @@ for(const d of setValues(5901061))assert.equal(xorSelected(plc.get(d)??[],plb),p
 for(const b of setValues(5901063))assert.equal(xorSelected(pls.get(b)??[],pd),plb.get(b)??0n);
 
 console.log(JSON.stringify({
-  status:'COMPLETE_PRIMITIVE_SOURCE_GATE_PASS',
+  status:'COMPLETE_PRIMITIVE_FIXED_POINT_PASS',
   sourceAssertions:31,
   admittedImplicitAssertions:64,
   phase:{
