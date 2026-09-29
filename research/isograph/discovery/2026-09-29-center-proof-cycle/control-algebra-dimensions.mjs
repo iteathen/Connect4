@@ -1132,8 +1132,9 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
   let splitUnlabelledClasses=0,labelledClassExcess=0,maxLabelledFiberSize=1,
     pureTransporterFibers=0,multiplicityErasureFibers=0,
     binarySplitFibers=0,powerOfTwoSplitFibers=0,
+    pureTransporterDistinctSlotFibers=0,
     parityWellDefinedFibers=0,exactBinaryParityFibers=0,
-    parityAmbiguousFibers=0;
+    parityAmbiguousFibers=0,binaryDistinctSameParityFibers=0;
 
   for(const [unlabelled,labelsSet] of unlabelledToLabelled){
     const labels=[...labelsSet].sort((a,b)=>a-b),size=labels.length;
@@ -1161,7 +1162,10 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     }else multiplicityErasureFibers++;
 
     let parityWellDefined=false,exactBinaryParity=false,paritySets=[];
+    const allSlotsDistinct=pureTransporter&&
+      new Set(profiles[0].split(',')).size===width;
     if(pureTransporter){
+      if(allSlotsDistinct)pureTransporterDistinctSlotFibers++;
       const base=profiles[0];
       paritySets=profiles.map(profile=>{
         const set=new Set();
@@ -1172,6 +1176,9 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
         return [...set].sort((a,b)=>a-b);
       });
       parityWellDefined=paritySets.every(set=>set.length===1);
+      assert.equal(
+        parityWellDefined,allSlotsDistinct,
+        'full action-permutation sign is well-defined iff slot tokens are distinct');
       if(parityWellDefined){
         parityWellDefinedFibers++;
         exactBinaryParity=size===2&&
@@ -1179,7 +1186,7 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
         if(exactBinaryParity){
           exactBinaryParityFibers++;
           rankRow.exactBinaryParityFibers++;
-        }
+        }else if(size===2)binaryDistinctSameParityFibers++;
       }else parityAmbiguousFibers++;
     }
 
@@ -1187,7 +1194,8 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
       actionLabelledFiberExamples.push({
         rank,unlabelledClass:unlabelled,labelledClasses:labels,
         fiberSize:size,profiles,
-        pureTransporter,parityWellDefined,paritySets,exactBinaryParity,
+        pureTransporter,allSlotsDistinct,
+        parityWellDefined,paritySets,exactBinaryParity,
       });
   }
   assert.equal(
@@ -1208,8 +1216,12 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     powerOfTwoSplitFibers,
     pureTransporterFibers,
     multiplicityErasureFibers,
+    pureTransporterDistinctSlotFibers,
     parityWellDefinedFibers,
+    parityWellDefinedExactlyDistinctSlots:
+      parityWellDefinedFibers===pureTransporterDistinctSlotFibers,
     exactBinaryParityFibers,
+    binaryDistinctSameParityFibers,
     parityAmbiguousFibers,
     byRank:actionLabelledSplitByRank,
     examples:actionLabelledFiberExamples,
