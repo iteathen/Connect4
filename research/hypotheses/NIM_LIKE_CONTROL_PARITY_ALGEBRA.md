@@ -265,26 +265,67 @@ x_1 xor x_2 = 0
 This is a derived XOR law for **coupled residual-state orientation symmetry**.
 It is not an XOR W/D/L law and does not identify the full latent control value.
 
-The next algebraic question is constructive: can the parity-check constraints
-for binary tie classes be derived directly from support/residual incidence in
-polynomial work, without enumerating all `2^m` orientations? Tie classes larger
-than two remain a separate non-abelian canonicalization problem.
+That constructive question is now closed under the binary-tie guard.
+
+The residual-incidence producer derives the exact stabilizer by grouping
+requirements into orbit-invariant orientation blocks and intersecting their
+translation stabilizers with GF(2) elimination. On all 18 audited 4x4
+fallbacks it independently reconstructs the exact `{00,11}` automorphism set.
+
+The same structure has also been extended to exact **canonical orientation**.
+When every unresolved refinement class has size at most two, an affine
+GF(2) canonicalizer selects a canonical orientation without enumerating all
+`2^m` pair-flip assignments. It is exact on the qualified 4x4 control and
+reproduces the complete 5x4 structural graph, frontier and recursive quotient.
+
+The 5x4 benchmark also supplies important negative evidence:
+
+~~~text
+partitioned exact canonicalizer  27.2599 s
+affine GF(2) canonicalizer       38.3523 s
+wall-time change                   +40.69%
+~~~
+
+Although exhaustive permutation candidates fell by about 73.27%, the current
+affine implementation performs enough block-translation and GF(2) work to be
+slower at width five. Thus:
+
+~~~text
+polynomial guarded representation
+!=
+current runtime improvement
+~~~
+
+and the exact XOR law should not be promoted as a solver optimization.
+
+Tie classes larger than two remain a separate non-abelian canonicalization
+problem. More importantly, the 6x4 partitioned growth probe reached the
+ten-minute workflow wall without emitting a final graph, so total structural
+graph growth remains the dominant unresolved complexity question.
 
 See
-[the exact column-canonicalization result](../isograph/discovery/2026-09-29-center-proof-cycle/COLUMN_CANONICALIZATION_RESULT.md).
+[the exact column-canonicalization result](../isograph/discovery/2026-09-29-center-proof-cycle/COLUMN_CANONICALIZATION_RESULT.md)
+and the
+[6x4 timeout wall](../isograph/discovery/2026-09-29-center-proof-cycle/DIRECT_STRUCTURAL_GROWTH_6X4_WALL.md).
 
 ## Immediate experiment
 
-Build a cold, rule-only experiment with no solver or solved-outcome imports.
+Keep the producer blind to solved outcomes and separate structural complexity
+from canonicalization complexity.
 
-1. reproduce the 7x6 response-transition relation space;
-2. recover exact GF(2) dependencies and unmatched-defect rank;
-3. recover the lowest-degree polynomial identities of the 2,108 unresolved
-   boundary;
-4. decode the simplest factors back into explicit winning-line geometry;
-5. perturb width/height while keeping K=4 and derive the same structural
-   quantities without consulting board outcomes;
-6. preserve negative results as aggressively as positive ones.
+1. measure a bounded 6x4 structural prefix by rank rather than repeating the
+   timed-out full run;
+2. record refinement tie-class histograms, exact partitioned-candidate work,
+   residual-state frontier growth and transition counts by rank;
+3. determine whether the 6x4 wall is dominated by state growth, nonbinary
+   canonicalization, residual processing, or ordinary map/object overhead;
+4. retain affine GF(2) canonicalization as an exact guarded construction, but
+   invoke it experimentally only where its predicted work can beat the small
+   exact partitioned search;
+5. investigate whether larger unresolved tie classes admit their own compact
+   exact group/constraint representation;
+6. continue searching for a proved bridge from structural algebra into guarded
+   obligation/deadline closure before making any W/D/L claim.
 
 No production solver changes follow from this experiment.
 
