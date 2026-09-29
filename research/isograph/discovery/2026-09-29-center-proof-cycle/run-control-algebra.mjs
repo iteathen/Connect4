@@ -4,6 +4,7 @@ import {
   analyzeDimensionControlAlgebra,
   analyzeGuardedResponseProjections,
   analyzeFullColumnCancellation,
+  analyzeDepthPolynomialAnnihilator,
 } from './control-algebra.mjs';
 
 const result={
@@ -16,5 +17,6 @@ const result={
   dimensions:analyzeDimensionControlAlgebra(),
   guardedResponseProjections:analyzeGuardedResponseProjections(),
   fullColumnCancellation:analyzeFullColumnCancellation(),
+  depthPolynomialAnnihilator:analyzeDepthPolynomialAnnihilator(),
 };
 console.log(JSON.stringify(result,null,2));
