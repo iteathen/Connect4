@@ -49,6 +49,36 @@ test('direct residual orbit graph reproduces the recursive 4x4 quotient without 
   assert.equal(closed.wdlSplitClasses,0);
 });
 
+test('binary deeper continuation phase exposes a gauge-invariant GF2 cocycle audit',()=>{
+  const r=analyzeDirectResidualOrbitGraph({width:4,height:4,k:4}),
+    a=r.deeperContinuationPhaseAudit,
+    c=a.binaryPhaseCocycleAudit;
+  assert.equal(r.outcomeLabelsUsedByProducer,false);
+  assert.equal(a.binaryGroups,61);
+  assert.equal(a.binaryContinuationEdges,31);
+  assert.ok(c);
+  assert.equal(c.outcomeLabelsUsed,false);
+  assert.equal(c.binaryPhaseNodes,61);
+  assert.equal(c.inheritanceEdges,31);
+  assert.equal(c.edgeMapsBijective,true);
+  assert.equal(c.rankGradedDAG,true);
+  assert.equal(c.gaugeFlipInvariant,true);
+  assert.equal(
+    c.zeroCycleSyndromes+c.nonzeroCycleSyndromes,
+    c.cycleRank,
+  );
+  assert.equal(
+    c.pathIndependentReconvergences+c.contradictoryReconvergences,
+    c.reconvergentPairs,
+  );
+  assert.deepEqual(c.exits,{
+    nonbinaryContinuation:3,
+    actionTransporter:23,
+    branchOrMultiplicityErasure:22,
+    terminalOrUnknown:0,
+  });
+});
+
 test('cross-dimension rule-only quotients remain WDL-homogeneous under post-hoc validation',()=>{
   const r=analyzeUnlabelledQuotientDimensionMatrix();
   assert.equal(r.producerUsesOutcomeLabels,false);
