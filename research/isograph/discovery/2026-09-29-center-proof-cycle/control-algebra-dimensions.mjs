@@ -1072,6 +1072,7 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
   const labelledToUnlabelled=new Map(),
     unlabelledToLabelled=new Map(),
     labelledActionProfiles=new Map(),
+    labelledRecursiveProfiles=new Map(),
     unlabelledClassRank=new Map();
   for(const rec of nodes.values()){
     const unlabelled=stateClass.get(rec.key),
@@ -1101,11 +1102,29 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
         else tokens.push('C'+childIds[childIndex++]);
       }
       assert.equal(childIndex,childIds.length);
-      const profile=tokens.join(',');
+      const profile=tokens.join(','),
+        recursiveTokens=[],labelledChildIds=rec.children.map(child=>{
+          const id=actionLabelledStateClass.get(child);
+          assert.notEqual(id,undefined);
+          return id;
+        });
+      childIndex=0;
+      for(let col=0;col<width;col++){
+        if(rec.heights[col]>=height)recursiveTokens.push('I');
+        else recursiveTokens.push('L'+labelledChildIds[childIndex++]);
+      }
+      assert.equal(childIndex,labelledChildIds.length);
+      const recursiveProfile=recursiveTokens.join(',');
       const priorProfile=labelledActionProfiles.get(labelled);
-      if(priorProfile===undefined)labelledActionProfiles.set(labelled,profile);
-      else assert.equal(priorProfile,profile,
-        'labelled class must have one phase-free immediate action profile');
+      if(priorProfile===undefined){
+        labelledActionProfiles.set(labelled,profile);
+        labelledRecursiveProfiles.set(labelled,recursiveProfile);
+      }else{
+        assert.equal(priorProfile,profile,
+          'labelled class must have one phase-free immediate action profile');
+        assert.equal(labelledRecursiveProfiles.get(labelled),recursiveProfile,
+          'labelled class must have one recursive labelled action profile');
+      }
     }
   }
 
@@ -1201,6 +1220,79 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
   assert.equal(
     labelledClassExcess,actionLabelledNextId-nextId,
     'labelled fiber excess must equal labelled-minus-unlabelled class count');
+
+  const deeperProfileGroupHistogram=new Map(),
+    deeperProfileByRank=Array.from({length:cells+1},(_,rank)=>({
+      rank,groups:0,labelledClassExcess:0,binaryGroups:0,
+    })),
+    deeperProfileExamples=[];
+  let deeperProfileSplitUnlabelledFibers=0,deeperProfileGroups=0,
+    deeperProfileLabelledExcess=0,deeperProfileBinaryGroups=0,
+    deeperProfilePowerOfTwoGroups=0,maxDeeperProfileGroupSize=1,
+    binaryChangedSlotHistogram=new Map();
+
+  for(const [unlabelled,labelsSet] of unlabelledToLabelled){
+    if(labelsSet.size<=1)continue;
+    const byProfile=new Map();
+    for(const labelled of labelsSet){
+      const profile=labelledActionProfiles.get(labelled);
+      if(profile===undefined)continue;
+      let ids=byProfile.get(profile);
+      if(!ids){ids=[];byProfile.set(profile,ids);}
+      ids.push(labelled);
+    }
+    const splitGroups=[...byProfile.entries()].filter(([,ids])=>ids.length>1);
+    if(!splitGroups.length)continue;
+    deeperProfileSplitUnlabelledFibers++;
+    const rank=unlabelledClassRank.get(unlabelled),
+      rankRow=deeperProfileByRank[rank];
+    for(const [profile,ids0] of splitGroups){
+      const ids=[...ids0].sort((a,b)=>a-b),size=ids.length;
+      deeperProfileGroups++;
+      deeperProfileLabelledExcess+=size-1;
+      maxDeeperProfileGroupSize=Math.max(maxDeeperProfileGroupSize,size);
+      deeperProfileGroupHistogram.set(
+        size,(deeperProfileGroupHistogram.get(size)??0)+1);
+      rankRow.groups++;
+      rankRow.labelledClassExcess+=size-1;
+      if(size===2){
+        deeperProfileBinaryGroups++;
+        rankRow.binaryGroups++;
+        const a=labelledRecursiveProfiles.get(ids[0]).split(','),
+          b=labelledRecursiveProfiles.get(ids[1]).split(',');
+        assert.equal(a.length,b.length);
+        let changed=0;
+        for(let i=0;i<a.length;i++)if(a[i]!==b[i])changed++;
+        binaryChangedSlotHistogram.set(
+          changed,(binaryChangedSlotHistogram.get(changed)??0)+1);
+      }
+      if((size&(size-1))===0)deeperProfilePowerOfTwoGroups++;
+
+      if(deeperProfileExamples.length<128)
+        deeperProfileExamples.push({
+          rank,unlabelledClass:unlabelled,phaseFreeProfile:profile,
+          labelledClasses:ids,
+          recursiveProfiles:ids.map(id=>labelledRecursiveProfiles.get(id)),
+        });
+    }
+  }
+
+  const deeperContinuationPhaseAudit={
+    basis:'same action-unlabelled class + identical immediate phase-free action profile',
+    interpretation:'recursive labelled distinctions after current-node action permutation is removed',
+    splitUnlabelledFibers:deeperProfileSplitUnlabelledFibers,
+    groups:deeperProfileGroups,
+    labelledClassExcess:deeperProfileLabelledExcess,
+    maxGroupSize:maxDeeperProfileGroupSize,
+    groupSizeHistogram:Object.fromEntries(
+      [...deeperProfileGroupHistogram.entries()].sort((a,b)=>a[0]-b[0])),
+    binaryGroups:deeperProfileBinaryGroups,
+    powerOfTwoGroups:deeperProfilePowerOfTwoGroups,
+    binaryChangedSlotHistogram:Object.fromEntries(
+      [...binaryChangedSlotHistogram.entries()].sort((a,b)=>a[0]-b[0])),
+    byRank:deeperProfileByRank,
+    examples:deeperProfileExamples,
+  };
 
   const lateActionParityAudit={
     basis:'recursive action-labelled classes over frozen action-unlabelled child semantics',
@@ -2011,6 +2103,7 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
       earliestActionLabelledMergeRank<0?null:earliestActionLabelledMergeRank,
     actionLabelledFrontier,
     lateActionParityAudit,
+    deeperContinuationPhaseAudit,
     wdlSplitClasses,
     rootValue:values.get(rootKey),
     rootLegalActions:rootRec.children.length,
