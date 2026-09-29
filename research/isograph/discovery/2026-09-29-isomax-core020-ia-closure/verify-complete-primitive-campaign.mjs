@@ -14,12 +14,12 @@ const read=name=>fs.readFileSync(path.join(here,name),'utf8');
 const json=name=>JSON.parse(read(name));
 
 const sourceAdmission=json('COMPLETE_SOURCE_ADMISSION_0_1.json');
-const iaAdmission=json('COMPLETE_IA_ADMISSION_0_1.json');
+const iaAdmission=json('COMPLETE_IA_ADMISSION_0_2.json');
 const obligation=json('COMPLETE_PRIMITIVE_OBLIGATION_0_1.json');
 const sourceScope=read('SOURCE_SCOPE_CORE020_0_1.isg');
 const aggregateControl=read('AGGREGATE_CONTROL_CORE020_0_2.isg');
 const aggregateWitness=read('AGGREGATE_WITNESS_CORE020_0_1.isg');
-const completeIa=read('COMPLETE_IA_CORE020_0_1.isg');
+const completeIa=read('COMPLETE_IA_CORE020_0_2.isg');
 const loopControl=read('LOOP_RECURSION_CORE020_0_1.isg');
 const completeSource=read('COMPLETE_SOURCE_CORE020_0_1.isg');
 const graphControl=read('AGGREGATE_GRAPH_CONTROL_CORE020_0_1.isg');
@@ -33,6 +33,8 @@ const stateSerialization=read('PRIMITIVE_STATE_SERIALIZATION_CORE020_0_1.isg');
 const residualProducer1=read('RESIDUAL_PRODUCER_CONTROL_CORE020_0_1.isg');
 const residualProducer2=read('RESIDUAL_PRODUCER_CONTROL_CORE020_0_2.isg');
 const residualProducer3=read('RESIDUAL_PRODUCER_CONTROL_CORE020_0_3.isg');
+const round15=json('ROUND_15_COMPLETE_0_1.json');
+const quRound15=json('QU_LEDGER_ROUND15_0_5.json');
 
 function delimiterAudit(text){
   let par=0,br=0,minPar=0,minBr=0;
@@ -86,7 +88,7 @@ assert.ok(directProducer.includes('^150010 246429'),'missing direct producer clo
 assert.ok(physicalProducer.includes('^150010 246517'),'missing physical producer closure');
 
 for(const [name,text] of [
-  ['completeSource',completeSource],['graphControl',graphControl],
+  ['completeSource',completeSource],['completeIa',completeIa],['graphControl',graphControl],
   ['profileControl',profileControl],['gf2Control',gf2Control],
   ['directProducer',directProducer],['physicalProducer',physicalProducer],
   ['width5Permutations',width5Permutations],['stateSerialization',stateSerialization],
@@ -96,25 +98,30 @@ for(const [name,text] of [
   assert.equal(text.includes('^150021'),false,name+' must not hide unresolved semantics behind QU');
 }
 
-assert.equal(iaAdmission.count,60);
-assert.equal(iaAdmission.admitted.length,60);
+assert.equal(iaAdmission.count,64);
+assert.equal(iaAdmission.admitted.length,64);
 for(const a of iaAdmission.admitted)
   assert.equal(a.status,'PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION',a.id);
-for(let id=211001;id<=211060;id++)
+for(let id=211001;id<=211064;id++)
   assert.ok(completeIa.includes('^150019 '+id),'missing complete IA root '+id);
+assert.equal(round15.new_assertions.length,4);
+assert.equal(round15.qu_refinements.length,5);
+assert.deepEqual(round15.new_assertions.map(x=>x.id),['SC-IA061','SC-IA062','SC-IA063','SC-IA064']);
+assert.equal(quRound15.entries.length,6);
+assert.equal(quRound15.no_probability_added,true);
 
 assert.equal(obligation.counts?.frozen_source_assertions??31,31);
-assert.equal(obligation.counts?.generated_implicit_assertions??60,60);
+assert.equal(obligation.counts?.implicit_assertions??64,64);
 for(const x of obligation.source_assertions)assert.equal(x.may_be_omitted,false,x.id);
 for(const x of obligation.implicit_assertions)assert.equal(x.may_be_omitted,false,x.id);
 assert.equal(obligation.source_assertions.length,31);
-assert.equal(obligation.implicit_assertions.length,60);
+assert.equal(obligation.implicit_assertions.length,64);
 for(let i=0;i<31;i++){
   const x=obligation.source_assertions[i];
   assert.equal(x.current_status,'PRIMITIVE_EXPANDED_ASSERTION',x.id);
   assert.equal(x.native_root,212001+i,x.id);
 }
-for(let i=0;i<60;i++){
+for(let i=0;i<64;i++){
   const x=obligation.implicit_assertions[i];
   assert.equal(x.current_disposition,'PRIMITIVE_EXPANDED_IMPLICIT_ASSERTION',x.id);
   assert.equal(x.native_root,211001+i,x.id);
@@ -301,6 +308,27 @@ assert.equal(ds.allOptimalDeltaRank,22);
 assert.equal(ds.allLegalDeltaRank,22);
 assert.equal(ds.optimalDeltaSetEqualsLegal,true);
 assert.equal(ds.legalDeltasOutsideOptimalSpan,0);
+
+assert.equal(p45.cells,20);
+assert.equal(p54.cells,20);
+assert.equal(p45.deeperContinuationPhaseAudit.binaryPhaseCocycleAudit.nonzeroCycleSyndromes,0);
+assert.equal(p54.deeperContinuationPhaseAudit.binaryPhaseCocycleAudit.nonzeroCycleSyndromes,25);
+
+const directClassSeen=new Map();
+let directDuplicate=null;
+for(const row of p44.primitiveWitnessData.directCarrier){
+  const prior=directClassSeen.get(row.recursiveUnlabelledClass);
+  if(prior&&prior.key!==row.key){directDuplicate=[prior,row];break;}
+  directClassSeen.set(row.recursiveUnlabelledClass,row);
+}
+assert.ok(directDuplicate,'SC-IA062 requires distinct direct states in one recursive class');
+assert.equal(p44.deeperContinuationPhaseAudit.binaryPhaseCocycleAudit.cycleRank,1);
+assert.equal(p44.deeperContinuationPhaseAudit.binaryPhaseCocycleAudit.nonzeroCycleSyndromes,0);
+assert.ok(p44.deeperContinuationPhaseAudit.nonbinaryContinuationEdges>0);
+assert.ok(p44.deeperContinuationPhaseAudit.childTransporterEdges>0);
+assert.ok(p44.deeperContinuationPhaseAudit.childBranchErasureEdges>0);
+assert.equal(p54.outcomeLabelsUsedByProducer,false);
+assert.equal(p54.deeperContinuationPhaseAudit.binaryPhaseCocycleAudit.contradictoryReconvergences,12);
 
 const wanted=new Set([
   5899200,5899202,5899206,5899207,5899211,5899212,5899221,5899222,5899223,5899224,5899225,
@@ -610,7 +638,7 @@ for(const b of setValues(5901063))assert.equal(xorSelected(pls.get(b)??[],pd),pl
 console.log(JSON.stringify({
   status:'COMPLETE_PRIMITIVE_SOURCE_GATE_PASS',
   sourceAssertions:31,
-  admittedImplicitAssertions:60,
+  admittedImplicitAssertions:64,
   phase:{
     '4x4':phaseSummary(p44),
     '4x5':phaseSummary(p45),
@@ -619,6 +647,6 @@ console.log(JSON.stringify({
   direct4x4:{states:p44.residualOrbitStates,classes:p44.recursiveUnlabelledClasses},
   response:{pairs:response.responsePairs,rank:response.responsePairRank,augmentedRank:response.rankWithUnmatchedCenter},
   partial2:{distinct:ds.allLegalDistinctDeltas,rank:ds.allLegalDeltaRank,physicalStates:physicalSeen},
-  finalNativeRoots:{source:31,implicit:60},
+  finalNativeRoots:{source:31,implicit:64},
   boundedResidualProducer:{cases:3,width5Permutations:120,finalRootBindings:6,predicate:246743},
 },null,2));
