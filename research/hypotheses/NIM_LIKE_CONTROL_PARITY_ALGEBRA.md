@@ -293,6 +293,6 @@ No production solver changes follow from this experiment.
 
 The current bounded research synthesis is published on this research branch as:
 
-[C = NC? Control-Parity Algebra, Branch Collapse, and a Structural Research Program for Generalized Connect Four](../publications/2026-09-29/C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_2.md)
+[C = NC? Control-Parity Algebra, Branch Collapse, and a Structural Research Program for Generalized Connect Four](../publications/2026-09-29/C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_3.md)
 
 Author: Joshua Oshiro. The paper discloses AI-agent assistance and explicitly states that the AI agent was not responsible for the core conceptual findings or research direction.
