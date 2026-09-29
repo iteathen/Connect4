@@ -2609,7 +2609,7 @@ to
 construct new observations in a partly unknown experimental space.
 ~~~
 
-### 13.1 Experimental Warrant proposal
+### 15.1 Experimental Warrant proposal
 
 The resulting IsoGraph proposal separates two responsibilities [25].
 
