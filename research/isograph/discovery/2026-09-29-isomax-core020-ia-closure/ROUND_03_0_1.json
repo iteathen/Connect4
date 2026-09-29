@@ -1,0 +1,176 @@
+{
+  "schema": "isomax.core020.structural_control.implicit_assertion_round.v1",
+  "round": 3,
+  "date_author_local": "2026-09-29",
+  "input": [
+    "A0_EXPLICIT_ASSERTIONS_0_1.json",
+    "ROUND_01_0_1.json",
+    "ROUND_02_0_1.json"
+  ],
+  "new_assertions": [
+    {
+      "id": "SC-IA020",
+      "family": "R",
+      "support_mode": "EXACT",
+      "title": "shortest obstruction forces a model change",
+      "body": "Within one-Boolean-value-per-current-quotient-node semantics, no exact successor model can simultaneously preserve both shortest 5x4 routes, their current shared source/target quotient identifications, and all four current edge-delta constraints while making the phase path-independent. At least one of those load-bearing conditions must change.",
+      "normalized_body": "5x4_shortest_obstruction_requires_change_to_route_or_quotient_or_delta_or_scalar_path_independence",
+      "premises": [
+        "SC-E013",
+        "SC-IA005",
+        "SC-IA010"
+      ],
+      "rule": "R",
+      "scope": "shortest 5x4 obstruction under scalar Boolean node-potential semantics",
+      "qu_dependencies": [
+        "QU-SC-001",
+        "QU-SC-005"
+      ]
+    },
+    {
+      "id": "SC-IA021",
+      "family": "R",
+      "support_mode": "EXACT",
+      "title": "state-refinement-only repair must break a shared endpoint identification",
+      "body": "If the two shortest 5x4 routes, their four edge deltas, and one Boolean value per refined node are retained unchanged, any repair achieved solely by state refinement must separate at least one currently shared route endpoint occurrence; retaining both current shared endpoint identifications reproduces the inconsistent constraint system.",
+      "normalized_body": "state_refinement_only_scalar_repair_must_break_shared_endpoint_identification_on_witness",
+      "premises": [
+        "SC-E002",
+        "SC-E003",
+        "SC-E004",
+        "SC-E013",
+        "SC-IA020"
+      ],
+      "rule": "R",
+      "scope": "shortest 5x4 obstruction; conditional on state-refinement-only repair",
+      "qu_dependencies": [
+        "QU-SC-001"
+      ]
+    },
+    {
+      "id": "SC-IA022",
+      "family": "R",
+      "support_mode": "EXACT",
+      "title": "unchanged quotient and deltas force departure from scalar node-potential semantics",
+      "body": "If both current shared quotient endpoint identifications and all four shortest-witness edge deltas are retained, the witness cannot be made path-independent by assigning one Boolean phase value to each current quotient node; a successful correction must instead change the phase codomain/edge semantics, refine the quotient, remove an asserted route/edge, or abandon scalar path-independence.",
+      "normalized_body": "unchanged_current_quotient_and_deltas_preclude_one_bit_path_independent_node_phase_on_witness",
+      "premises": [
+        "SC-E013",
+        "SC-IA020"
+      ],
+      "rule": "R",
+      "scope": "shortest 5x4 obstruction",
+      "qu_dependencies": [
+        "QU-SC-001",
+        "QU-SC-005"
+      ]
+    },
+    {
+      "id": "SC-IA023",
+      "family": "C",
+      "support_mode": "EXACT",
+      "title": "an erased residual distinction lies directly on the obstructed quotient seam",
+      "body": "The shortest 5x4 scalar obstruction occurs across quotient nodes that merge represented fine states with residual-membership differences; therefore an exact fine residual distinction is present at the same quotient seam where scalar path consistency fails.",
+      "normalized_body": "represented_residual_distinction_present_at_same_quotient_seam_as_shortest_scalar_obstruction",
+      "premises": [
+        "SC-E013",
+        "SC-IA003",
+        "SC-IA004",
+        "SC-IA018"
+      ],
+      "rule": "C",
+      "scope": "shortest 5x4 obstruction witness",
+      "qu_dependencies": [
+        "QU-SC-001"
+      ],
+      "note": "Presence at the seam is exact; causal sufficiency is not asserted."
+    },
+    {
+      "id": "SC-IA024",
+      "family": "S",
+      "support_mode": "EXACT",
+      "title": "continuation obstruction does not falsify the binary-tie XOR layer",
+      "body": "The represented 5x4 scalar continuation obstruction and the represented binary-tie XOR-zero equivalence are jointly satisfiable because they constrain distinct predicates/carriers; the continuation counterexample does not negate the exact binary-tie relation.",
+      "normalized_body": "5x4_continuation_scalar_obstruction_does_not_negate_binary_tie_xor_relation",
+      "premises": [
+        "SC-E013",
+        "SC-E021",
+        "SC-IA017"
+      ],
+      "rule": "S",
+      "scope": "packet-local scope separation between continuation and binary-tie layers",
+      "qu_dependencies": []
+    }
+  ],
+  "support_refinements": [],
+  "qu_refinements": [
+    {
+      "id": "SC-QR001",
+      "target": "QU-SC-001",
+      "rule": "U",
+      "premises": [
+        "SC-IA002",
+        "SC-IA012",
+        "SC-IA018",
+        "SC-IA020"
+      ],
+      "remove_alternatives": [
+        "support identity alone is sufficient to recover the missing source-sheet distinction",
+        "accumulated permutation sign alone is sufficient to recover the contradictory route phase",
+        "the current quotient endpoints alone determine the contradictory route phase"
+      ],
+      "retain_open": [
+        "intrinsic residual/incidence coordinate or relation",
+        "other rule-derived realizability/deadline coordinate beyond support identity alone",
+        "higher-dimensional Boolean phase",
+        "non-binary/non-abelian phase",
+        "geometry-guarded scope with no uniform generalized lift"
+      ],
+      "probability_added": false
+    },
+    {
+      "id": "SC-QR002",
+      "target": "QU-SC-005",
+      "rule": "U",
+      "premises": [
+        "SC-E013",
+        "SC-IA020",
+        "SC-IA022"
+      ],
+      "remove_alternatives": [
+        "one scalar Boolean coordinate on the unchanged current 5x4 quotient with unchanged edge deltas"
+      ],
+      "retain_open": [
+        "multiple Boolean coordinates",
+        "guarded/scoped scalar coordinates on a refined carrier",
+        "non-binary finite carrier",
+        "non-commutative transition object",
+        "no uniform algebraic phase object"
+      ],
+      "probability_added": false
+    }
+  ],
+  "rejected_candidates": [
+    {
+      "id": "SC-RJ005",
+      "body": "The erased residual distinction causes the nonzero syndrome.",
+      "reason": "The exact support establishes co-location of the distinction and obstruction, not causal necessity or sufficiency.",
+      "disposition": "REJECTED_CAUSAL_OVERREACH",
+      "qu": "QU-SC-001"
+    },
+    {
+      "id": "SC-RJ006",
+      "body": "The corrected phase must be GF(2)^2.",
+      "reason": "One Boolean coordinate is insufficient, but no represented lower bound or closure theorem selects dimension two.",
+      "disposition": "REJECTED_UNSUPPORTED_CODOMAIN_CHOICE",
+      "qu": "QU-SC-005"
+    },
+    {
+      "id": "SC-RJ007",
+      "body": "Width four is the exact guard for scalar integrability.",
+      "reason": "Only 4x4 and 4x5 are measured positive controls; a width-4 family theorem remains QU-SC-002.",
+      "disposition": "REJECTED_SCOPE_WIDENING",
+      "qu": "QU-SC-002"
+    }
+  ]
+}
