@@ -77,7 +77,9 @@ static bool target_complete_for_second(Position& p,const Line& L){
     return true;
 }
 
-static std::string moves_string(const std::vector<int>& v);\n\nclass Finder {
+static std::string moves_string(const std::vector<int>& v);
+
+class Finder {
 public:
     Finder(): lines(make_lines()) {}
 
