@@ -1,0 +1,24 @@
+{
+  "schema": "isomax.core020.structural_control.strict_ia_round.v2",
+  "round": 2,
+  "date_author_local": "2026-09-29",
+  "status": "STRICT_NATIVE_ADMISSION",
+  "input": [
+    "STRICT_ROUND_01_0_2.json"
+  ],
+  "new_assertions": [
+    {
+      "id": "SC-SIA006",
+      "native_id": "210006",
+      "premises": [
+        "SC-SIA003",
+        "SC-E012",
+        "SC-E001"
+      ],
+      "support_mode": "EXACT",
+      "note": "Native body: every target-split satisfying assignment has relative target/source XOR equal to the exact final residual bit on each route."
+    }
+  ],
+  "support_refinements": [],
+  "qu_refinements": []
+}
