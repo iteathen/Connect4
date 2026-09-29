@@ -252,3 +252,19 @@ test('equivalent optimal sibling deltas define a GF2 gauge candidate',()=>{
   assert.ok(g.differentTerminalPairsCollapsedBySpan>=0);
   assert.ok(g.allOptimalDeltaRank>=g.sameTerminalDeltaRank);
 });
+
+
+test('optimal sibling GF2 gauge is compared against all legal move-choice deltas',()=>{
+  const r=algebra.analyzeOptimalBranchCollapse4x4();
+  const g=r.equivalentSiblingDeltaSpace;
+  assert.ok(g);
+  assert.ok(g.allLegalSiblingPairs>g.sameTerminalPairs);
+  assert.ok(g.allLegalDistinctDeltas>=g.allOptimalDistinctDeltas);
+  assert.ok(g.allLegalDeltaRank>=g.allOptimalDeltaRank);
+  assert.ok(g.legalDeltasOutsideOptimalSpan>=0);
+  assert.equal(
+    g.optimalDeltaSetEqualsLegal,
+    g.legalDeltasOutsideOptimalSpan===0 &&
+      g.allLegalDistinctDeltas===g.allOptimalDistinctDeltas
+  );
+});
