@@ -1208,6 +1208,10 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
         });
       }
     }
+    const earliestClassPreservingRank=rows.length?
+      Math.min(...rows.map(x=>x.rank)):null,
+      earliestRows=earliestClassPreservingRank===null?[]:
+        rows.filter(x=>x.rank===earliestClassPreservingRank);
     opponentResidualDeletionAudit={
       testedDeletions:byRankAudit.reduce((n,x)=>n+x.testedDeletions,0),
       reachableDeletionStates:
@@ -1215,6 +1219,10 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
       classPreservingDeletions:
         byRankAudit.reduce((n,x)=>n+x.classPreservingDeletions,0),
       exactOpenCapDeletions:rows.filter(x=>x.equalsOpenCaps).length,
+      exactOpenCapSupportReleaseExplained:
+        rows.filter(x=>x.equalsOpenCaps&&x.supportReleaseImpossible).length,
+      exactOpenCapUnexplained:
+        rows.filter(x=>x.equalsOpenCaps&&!x.supportReleaseImpossible).length,
       containsAllOpenCapsDeletions:
         rows.filter(x=>x.containsAllOpenCaps).length,
       moveCapacityExplainedDeletions:
@@ -1223,6 +1231,8 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
         rows.filter(x=>x.supportReleaseImpossible).length,
       unexplainedAfterSupportRelease:
         rows.filter(x=>!x.supportReleaseImpossible).length,
+      earliestClassPreservingRank,
+      earliestExamples:earliestRows,
       byRank:byRankAudit,
       examples:rows.slice(0,128),
     };
