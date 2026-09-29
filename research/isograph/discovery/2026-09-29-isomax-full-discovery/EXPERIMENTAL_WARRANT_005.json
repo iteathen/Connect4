@@ -1,0 +1,50 @@
+{
+  "schema": "connect4.isomax.discovery.experimental_warrant.v1",
+  "id": "EW-005",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE_ADAPTIVE_DISCRIMINATION",
+  "purpose": [
+    "DISCRIMINATING"
+  ],
+  "anchors": [
+    "EW-004",
+    "SC-E025",
+    "SC-E026"
+  ],
+  "parent_clue": "5x3 k=3 has nonvacuous but flat cocycles, while frozen 5x4 k=4 is obstructed; height/cells and k changed together.",
+  "objective": "Hold 4x5/5x4 geometry and standard frontier+cap closures fixed while changing connect length from k=4 to k=3.",
+  "experiments": [
+    {
+      "label": "4x5-k3",
+      "width": 4,
+      "height": 5,
+      "k": 3,
+      "nonterminalFrontierBlocker": true,
+      "moverFinalCapParity": true
+    },
+    {
+      "label": "5x4-k3",
+      "width": 5,
+      "height": 4,
+      "k": 3,
+      "nonterminalFrontierBlocker": true,
+      "moverFinalCapParity": true
+    }
+  ],
+  "controls": [
+    {
+      "label": "4x5-k4-frozen",
+      "source": "SC-E025"
+    },
+    {
+      "label": "5x4-k4-frozen",
+      "source": "SC-E026"
+    }
+  ],
+  "coverage_rule": "A result separates k within these two exact geometries only; it does not establish a universal k threshold.",
+  "adaptive_evidence_firewall": "Cases selected after EW-004; exploratory evidence remains labeled adaptive.",
+  "prohibited_information_sources": [
+    "solved database",
+    "W/D/L as structural producer input"
+  ]
+}
