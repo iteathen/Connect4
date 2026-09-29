@@ -163,3 +163,49 @@ This result does not close the residual/action-orbit graph, prove polynomial
 state growth, provide an XOR W/D/L formula, or promote a production solver
 change. It leaves 1,079 excess 4x4 structural states and the earliest unexplained
 dynamic merges at rank 8.
+
+## 6x4 rank-12 scale control
+
+The exact closure was then enabled on the same 6x4 rank-12 prefix used for the
+structural-growth measurement.
+
+Workflow: 36574445551 — success.
+
+Result:
+
+~~~text
+remaining-move-capacity removals   0
+
+prefix states              1,245,671  (unchanged)
+rank-12 frontier             628,961  (unchanged)
+literal edges              3,228,589  (unchanged)
+canonicalization calls     3,122,715  (unchanged)
+~~~
+
+Therefore the closure has **no semantic effect through rank 12 on 6x4
+Connect-4**.
+
+This is useful negative evidence. The rule is exact and removes late-game
+states on 4x4, but the 6x4 width-growth wall develops before simple remaining
+move count becomes constraining.
+
+Matched execution also became slower:
+
+~~~text
+rank-12 baseline elapsed       125.6285 s
+move-capacity elapsed          175.4696 s
+change                         +39.68%
+~~~
+
+Because it performed no deletions in the measured prefix, enabling this check
+unconditionally is not justified as a scale optimization. Later experiments
+should either invoke it only near ranks where it can become active or treat it
+as a semantic closure rather than a hot-path mechanism.
+
+This strengthens the distinction:
+
+~~~text
+exact late realizability rule
+!=
+early structural-growth reduction
+~~~
