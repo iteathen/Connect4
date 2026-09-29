@@ -1,0 +1,78 @@
+name: Perfect-play terminal line enumeration
+
+on:
+  push:
+    branches:
+      - experiment/perfect-play-terminal-lines-width6
+    paths:
+      - '.github/workflows/perfect-play-terminal-lines.yml'
+  workflow_dispatch:
+
+jobs:
+  enumerate:
+    strategy:
+      fail-fast: false
+      matrix:
+        board:
+          - '6x5'
+          - '6x6'
+          - '7x6'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+
+    steps:
+      - name: Checkout experiment
+        uses: actions/checkout@v4
+
+      - name: Prepare exact solver
+        shell: bash
+        run: |
+          set -euxo pipefail
+          git clone --depth 1 https://github.com/ChristopheSteininger/c4.git /tmp/c4
+          cd /tmp/c4
+
+          case '\${{ matrix.board }}' in
+            6x5) W=6; H=5 ;;
+            6x6) W=6; H=6 ;;
+            7x6) W=7; H=6 ;;
+            *) exit 2 ;;
+          esac
+
+          python3 - "$W" "$H" <<'PY'
+          from pathlib import Path
+          import re, sys
+
+          w, h = map(int, sys.argv[1:])
+          p = Path("src/solver/settings.h")
+          s = p.read_text()
+          s = re.sub(r"inline constexpr int BOARD_WIDTH = \d+;", f"inline constexpr int BOARD_WIDTH = {w};", s)
+          s = re.sub(r"inline constexpr int BOARD_HEIGHT = \d+;", f"inline constexpr int BOARD_HEIGHT = {h};", s)
+          s = re.sub(r"inline constexpr int NUM_THREADS = \d+;", "inline constexpr int NUM_THREADS = 2;", s)
+          s = re.sub(r"inline constexpr bool LOAD_BOOK_FILE = (true|false);", "inline constexpr bool LOAD_BOOK_FILE = false;", s)
+          s = re.sub(r"inline constexpr bool LOAD_TABLE_FILE = (true|false);", "inline constexpr bool LOAD_TABLE_FILE = false;", s)
+          s = re.sub(r"inline constexpr bool UPDATE_TABLE_FILE = (true|false);", "inline constexpr bool UPDATE_TABLE_FILE = false;", s)
+          p.write_text(s)
+          PY
+
+          cp "$GITHUB_WORKSPACE/research/experiments/2026-09-28-width6-perfect-play-lines/enumerate.cpp" enum.cpp
+          cat >> CMakeLists.txt <<'CMAKE'
+          add_executable(enumerate "\${CMAKE_SOURCE_DIR}/enum.cpp")
+          target_link_libraries(enumerate PRIVATE solver)
+          CMAKE
+
+          cmake -S . -B build -DMODE=OPTIMISE -DCMAKE_CXX_COMPILER=clang++
+          cmake --build build --target enumerate -j2
+
+      - name: Enumerate exact strong-perfect-play terminal lines
+        shell: bash
+        run: |
+          set -euxo pipefail
+          cd /tmp/c4
+          /usr/bin/time -v ./build/enumerate 2>&1 | tee "$GITHUB_WORKSPACE/result-\${{ matrix.board }}.txt"
+
+      - name: Upload result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perfect-play-lines-\${{ matrix.board }}
+          path: result-\${{ matrix.board }}.txt
