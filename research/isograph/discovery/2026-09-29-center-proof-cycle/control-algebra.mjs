@@ -755,3 +755,263 @@ export function analyzeExhaustive4x4DerivativeCarrier(){
     firstSplit,
   };
 }
+
+
+function connect4LineMasks(g){
+  return g.lines.map(line=>{
+    let mask=0n;for(const cell of line)mask|=1n<<BigInt(cell);return mask;
+  });
+}
+
+function bitsWin(bits,masks){
+  for(const mask of masks)if((bits&mask)===mask)return true;
+  return false;
+}
+
+function boundaryStateFromKey(key){
+  const heights=key.split(',').map(Number);let p0=0n,p1=0n,rank=0;
+  for(let c=0;c<7;c++)for(let r=0;r<heights[c];r++){
+    const cell=r*7+c,player=(r&1)^(c===3?0:1);
+    if(player)p1|=1n<<BigInt(cell);else p0|=1n<<BigInt(cell);
+    rank++;
+  }
+  return {heights,p0,p1,rank};
+}
+
+function macroMove(state,column,player){
+  if(state.heights[column]>=6)return null;
+  const heights=state.heights.slice(),cell=heights[column]*7+column;
+  heights[column]++;
+  return {
+    heights,
+    p0:player?state.p0:state.p0|(1n<<BigInt(cell)),
+    p1:player?state.p1|(1n<<BigInt(cell)):state.p1,
+    rank:state.rank+1,
+  };
+}
+
+function macroImmediate(state,player,masks){
+  for(let c=0;c<7;c++)if(state.heights[c]<6){
+    const child=macroMove(state,c,player);
+    if(bitsWin(player?child.p1:child.p0,masks))return true;
+  }
+  return false;
+}
+
+function strictFollowupSafe(state,masks){
+  let p1=state.p1;
+  for(let c=0;c<7;c++)for(let r=state.heights[c];r<6;r++)
+    if(((r-state.heights[c])&1)===0)p1|=1n<<BigInt(r*7+c);
+  return !bitsWin(p1,masks);
+}
+
+function forcedTwoMoveDraw(state,masks){
+  const legal=[];for(let c=0;c<7;c++)if(state.heights[c]<6)legal.push(c);
+  if(state.rank!==40||legal.length!==1||state.heights[legal[0]]!==4)return false;
+  const a=macroMove(state,legal[0],0);
+  if(bitsWin(a.p0,masks))return false;
+  const b=macroMove(a,legal[0],1);
+  return b.rank===42&&!bitsWin(b.p1,masks)&&!bitsWin(b.p0,masks);
+}
+
+export function analyzeGuardedBoundaryMacroPolicy(){
+  const g=geometry(7,6),masks=connect4LineMasks(g),
+    keys=opportunisticFollowup(1).unknownKeys,
+    boundaryMemo=new Map(),followMemo=new Map();
+  let boundaryCalls=0,followCalls=0;
+
+  const stateKey=s=>`${s.p0.toString(16)}:${s.p1.toString(16)}`;
+
+  function boundaryWin(state){
+    boundaryCalls++;const key=stateKey(state),cached=boundaryMemo.get(key);
+    if(cached!==undefined)return cached;
+    for(let free=0;free<7;free++)if(state.heights[free]<6){
+      const afterFree=macroMove(state,free,0);
+      if(bitsWin(afterFree.p0,masks)){boundaryMemo.set(key,true);return true;}
+      let universal=true;
+      for(let attack=0;attack<7&&universal;attack++)if(afterFree.heights[attack]<6){
+        const afterAttack=macroMove(afterFree,attack,1);
+        if(bitsWin(afterAttack.p1,masks)||afterAttack.rank===42){
+          universal=false;break;
+        }
+        if(macroImmediate(afterAttack,0,masks))continue;
+        let responseExists=false;
+        for(let response=0;response<7&&!responseExists;response++)
+          if(afterAttack.heights[response]<6){
+            const afterResponse=macroMove(afterAttack,response,0);
+            if(bitsWin(afterResponse.p0,masks))responseExists=true;
+            else if(strictFollowupSafe(afterResponse,masks)&&followWin(afterResponse))
+              responseExists=true;
+          }
+        if(!responseExists)universal=false;
+      }
+      if(universal){boundaryMemo.set(key,true);return true;}
+    }
+    boundaryMemo.set(key,false);return false;
+  }
+
+  function followWin(state){
+    followCalls++;const key=stateKey(state),cached=followMemo.get(key);
+    if(cached!==undefined)return cached;
+    for(let attack=0;attack<7;attack++)if(state.heights[attack]<6){
+      const afterAttack=macroMove(state,attack,1);
+      if(bitsWin(afterAttack.p1,masks)||afterAttack.rank===42){
+        followMemo.set(key,false);return false;
+      }
+      if(macroImmediate(afterAttack,0,masks))continue;
+      if(afterAttack.heights[attack]===6){
+        if(!boundaryWin(afterAttack)){followMemo.set(key,false);return false;}
+      }else{
+        const afterFollow=macroMove(afterAttack,attack,0);
+        if(bitsWin(afterFollow.p0,masks))continue;
+        if(!followWin(afterFollow)){followMemo.set(key,false);return false;}
+      }
+    }
+    followMemo.set(key,true);return true;
+  }
+
+  const certifiedCodes=[],uncertifiedCodes=[],terminalDrawTraps=[],byRank={};
+  for(const key of keys){
+    const state=boundaryStateFromKey(key),certified=boundaryWin(state),
+      code=pairCodeFromHeights(state.heights);
+    (certified?certifiedCodes:uncertifiedCodes).push(code);
+    const row=byRank[state.rank]??={total:0,certified:0};
+    row.total++;if(certified)row.certified++;byRank[state.rank]=row;
+    if(!certified&&forcedTwoMoveDraw(state,masks))terminalDrawTraps.push(key);
+  }
+
+  const polynomialSeparation=[];
+  for(let degree=1;degree<=6;degree++){
+    const ms=monomials(degree),
+      b=gf2Basis(uncertifiedCodes.map(code=>evaluationRow(code,ms)),ms.length);
+    let separated=0;
+    for(const code of certifiedCodes)
+      if(!gf2InSpan(evaluationRow(code,ms),b.basis,ms.length))separated++;
+    polynomialSeparation.push({
+      degree,monomials:ms.length,uncertifiedRank:b.rank,
+      vanishingNullity:ms.length-b.rank,certifiedWinsSeparated:separated,
+    });
+  }
+
+  terminalDrawTraps.sort();
+  return {
+    inputs:'geometry/rules/restricted policy only',
+    outcomeLabelsRead:false,
+    policy:'boundary free move -> immediate win or guarded transport -> opportunistic strict followup',
+    boundaryStates:keys.length,
+    certifiedP0Wins:certifiedCodes.length,
+    uncertifiedStates:uncertifiedCodes.length,
+    terminalDrawTraps,
+    byRank,
+    polynomialSeparation,
+    search:{boundaryStatesMemoized:boundaryMemo.size,followStatesMemoized:followMemo.size,boundaryCalls,followCalls},
+  };
+}
+
+function popcount16(x){
+  x-=((x>>>1)&0x5555);
+  x=(x&0x3333)+((x>>>2)&0x3333);
+  x=(x+(x>>>4))&0x0f0f;
+  return (x+(x>>>8))&0x1f;
+}
+
+function unpackSupport4(code){
+  const h=new Uint8Array(4);
+  for(let c=0;c<4;c++){h[c]=code%5;code=Math.floor(code/5);}
+  return h;
+}
+
+function terminalWdl4(p0,p1,lineMasks){
+  for(const mask of lineMasks){
+    const m=Number(mask);
+    if((p0&m)===m)return 1;
+    if((p1&m)===m)return -1;
+  }
+  return null;
+}
+
+function linePartial2Signature4(p0,p1,lines){
+  let out=0n,shift=0n;
+  for(const line of lines){
+    for(const bits of [p0,p1]){
+      const b0=(bits>>>line[0])&1,b1=(bits>>>line[1])&1,
+        b2=(bits>>>line[2])&1,b3=(bits>>>line[3])&1;
+      out|=BigInt(b0^b2)<<shift;shift++;
+      out|=BigInt(b1^b3)<<shift;shift++;
+    }
+  }
+  return out;
+}
+
+export function analyzeExhaustive4x4DerivativeCarrier(){
+  const g=geometry(4,4),lineMasks=connect4LineMasks(g),
+    p0s=[],p1s=[],supports=[],ranks=[],ids=new Map(),
+    powers=[1,5,25,125];
+
+  function add(p0,p1,support,rank){
+    const key=(BigInt(p0)<<16n)|BigInt(p1);
+    const prior=ids.get(key);if(prior!==undefined)return prior;
+    const id=p0s.length;ids.set(key,id);
+    p0s.push(p0);p1s.push(p1);supports.push(support);ranks.push(rank);
+    return id;
+  }
+
+  add(0,0,0,0);
+  for(let id=0;id<p0s.length;id++){
+    const p0=p0s[id],p1=p1s[id],rank=ranks[id],
+      terminal=terminalWdl4(p0,p1,lineMasks);
+    if(terminal!==null||rank===16)continue;
+    const heights=unpackSupport4(supports[id]),player=rank&1;
+    for(let c=0;c<4;c++)if(heights[c]<4){
+      const cell=heights[c]*4+c,bit=1<<cell,
+        np0=player?p0:(p0|bit),np1=player?(p1|bit):p1;
+      add(np0,np1,supports[id]+powers[c],rank+1);
+    }
+  }
+
+  assert.equal(p0s.length,161029,'unexpected complete reachable 4x4 state count');
+
+  const values=new Int8Array(p0s.length),wdlCounts={loss:0,draw:0,win:0};
+  for(let id=p0s.length-1;id>=0;id--){
+    const p0=p0s[id],p1=p1s[id],rank=ranks[id],
+      terminal=terminalWdl4(p0,p1,lineMasks);
+    let value;
+    if(terminal!==null)value=terminal;
+    else if(rank===16)value=0;
+    else{
+      const heights=unpackSupport4(supports[id]),player=rank&1;
+      value=player?1:-1;
+      for(let c=0;c<4;c++)if(heights[c]<4){
+        const cell=heights[c]*4+c,bit=1<<cell,
+          np0=player?p0:(p0|bit),np1=player?(p1|bit):p1,
+          child=ids.get((BigInt(np0)<<16n)|BigInt(np1));
+        assert.notEqual(child,undefined);
+        const cv=values[child];
+        value=player?Math.min(value,cv):Math.max(value,cv);
+      }
+    }
+    values[id]=value;
+    if(value<0)wdlCounts.loss++;else if(value>0)wdlCounts.win++;else wdlCounts.draw++;
+  }
+
+  const classes=new Map();
+  for(let id=0;id<p0s.length;id++){
+    const signature=linePartial2Signature4(p0s[id],p1s[id],g.lines),
+      key=(BigInt(supports[id])<<BigInt(g.lines.length*4))|signature,
+      valueBit=values[id]<0?1:values[id]>0?4:2;
+    classes.set(key,(classes.get(key)??0)|valueBit);
+  }
+  let splitClasses=0;
+  for(const mask of classes.values())if(mask&(mask-1))splitClasses++;
+
+  return {
+    inputs:'4x4 connect-4 rules only',
+    solvedInputsUsed:false,
+    states:p0s.length,
+    lines:g.lines.length,
+    carrier:'support + player-labelled line partial^2',
+    classes:classes.size,
+    splitClasses,
+    wdlCounts,
+  };
+}
