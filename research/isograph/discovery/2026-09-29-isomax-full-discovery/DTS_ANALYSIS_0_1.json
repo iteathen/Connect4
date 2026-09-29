@@ -1,0 +1,255 @@
+{
+  "schema": "connect4.isomax.discovery.dts_analysis.v1",
+  "comparison_view": "transition boundary = binary deeper group; transition = one reduced binary-continuation edge",
+  "exact_roles": [
+    "source/target binary group",
+    "parent/target rank",
+    "action column",
+    "sheet delta",
+    "incoming/outgoing graph incidence",
+    "ordered path membership"
+  ],
+  "projected_roles": [
+    "full residual cofactor delta unless explicitly present in obstruction representatives"
+  ],
+  "qu_roles": [
+    "none invented; unresolved mechanism identity remains outside TI claim"
+  ],
+  "cycle_family": {
+    "total": 685,
+    "nonzero": 25,
+    "zero": 660,
+    "structural_feature_histograms": {
+      "zero": {
+        "parentRank": {
+          "9": 2,
+          "10": 10,
+          "11": 66,
+          "12": 151,
+          "13": 259,
+          "14": 145,
+          "15": 27
+        },
+        "pathLength": {
+          "3": 39,
+          "5": 203,
+          "7": 98,
+          "9": 90,
+          "11": 58,
+          "13": 38,
+          "15": 40,
+          "17": 24,
+          "19": 20,
+          "21": 16,
+          "23": 5,
+          "25": 8,
+          "27": 4,
+          "29": 9,
+          "31": 4,
+          "35": 2,
+          "37": 2
+        },
+        "distinctColumns": {
+          "2": 122,
+          "3": 301,
+          "4": 196,
+          "5": 41
+        },
+        "fromOutDegree": {
+          "1": 112,
+          "2": 402,
+          "3": 128,
+          "4": 18
+        },
+        "toInDegree": {
+          "1": 171,
+          "2": 138,
+          "3": 90,
+          "4": 66,
+          "5": 48,
+          "6": 30,
+          "7": 15,
+          "8": 19,
+          "9": 6,
+          "10": 7,
+          "11": 12,
+          "12": 3,
+          "13": 36,
+          "15": 12,
+          "17": 1,
+          "19": 1,
+          "20": 5
+        }
+      },
+      "nonzero": {
+        "parentRank": {
+          "10": 1,
+          "11": 8,
+          "12": 7,
+          "13": 7,
+          "14": 2
+        },
+        "pathLength": {
+          "3": 1,
+          "5": 1,
+          "7": 2,
+          "9": 2,
+          "11": 1,
+          "13": 1,
+          "15": 4,
+          "17": 2,
+          "19": 1,
+          "21": 1,
+          "23": 3,
+          "25": 2,
+          "27": 1,
+          "31": 1,
+          "35": 1,
+          "39": 1
+        },
+        "distinctColumns": {
+          "2": 3,
+          "3": 2,
+          "4": 11,
+          "5": 9
+        },
+        "fromOutDegree": {
+          "2": 15,
+          "3": 7,
+          "4": 3
+        },
+        "toInDegree": {
+          "1": 7,
+          "2": 8,
+          "3": 3,
+          "5": 3,
+          "8": 2,
+          "11": 2
+        }
+      }
+    },
+    "finite_structural_discriminator_search": {
+      "candidate_features": [
+        "parentRank",
+        "closingColumn",
+        "pathLength",
+        "cycleLengthParity",
+        "distinctColumns",
+        "repeatedColumn",
+        "fromOutDegree",
+        "toInDegree"
+      ],
+      "excluded_as_tautological": [
+        "syndrome",
+        "delta1Count",
+        "delta1Parity"
+      ],
+      "maximum_subset_size_tested": 3,
+      "minimal_perfect_discriminators": []
+    }
+  },
+  "shortest_5x4_contradiction": {
+    "label": "5x4",
+    "source": 3260,
+    "target": 574,
+    "sourceRank": 12,
+    "targetRank": 14,
+    "parity0Edges": 2,
+    "parity1Edges": 2,
+    "totalTraversals": 4,
+    "maxRouteEdges": 2,
+    "distinctEdges": 4,
+    "parity0Path": [
+      {
+        "id": 2457,
+        "from": 3260,
+        "to": 1857,
+        "column": 1,
+        "parentRank": 12,
+        "targetRank": 13,
+        "delta": 0,
+        "parentLabelledClasses": [
+          92634,
+          92670
+        ],
+        "targetLabelledClasses": [
+          33800,
+          46247
+        ],
+        "mappedTargetSheets": [
+          0,
+          1
+        ]
+      },
+      {
+        "id": 1189,
+        "from": 1857,
+        "to": 574,
+        "column": 0,
+        "parentRank": 13,
+        "targetRank": 14,
+        "delta": 0,
+        "parentLabelledClasses": [
+          33800,
+          46247
+        ],
+        "targetLabelledClasses": [
+          7381,
+          17251
+        ],
+        "mappedTargetSheets": [
+          0,
+          1
+        ]
+      }
+    ],
+    "parity1Path": [
+      {
+        "id": 2456,
+        "from": 3260,
+        "to": 3255,
+        "column": 0,
+        "parentRank": 12,
+        "targetRank": 13,
+        "delta": 0,
+        "parentLabelledClasses": [
+          92634,
+          92670
+        ],
+        "targetLabelledClasses": [
+          46160,
+          46246
+        ],
+        "mappedTargetSheets": [
+          0,
+          1
+        ]
+      },
+      {
+        "id": 2448,
+        "from": 3255,
+        "to": 574,
+        "column": 0,
+        "parentRank": 13,
+        "targetRank": 14,
+        "delta": 1,
+        "parentLabelledClasses": [
+          46160,
+          46246
+        ],
+        "targetLabelledClasses": [
+          7381,
+          17251
+        ],
+        "mappedTargetSheets": [
+          1,
+          0
+        ]
+      }
+    ]
+  },
+  "ti_disposition": {
+    "flat4x4_vs_shortest5x4": "CANDIDATE_ONLY__same coarse reconvergence role does not establish TI; delta/path anatomy differs and identity is separate",
+    "zero_vs_nonzero_cycle": "CANDIDATE_FAMILY__structural signatures are discovery filters only; no base-DTS invariant signature is assumed"
+  }
+}
