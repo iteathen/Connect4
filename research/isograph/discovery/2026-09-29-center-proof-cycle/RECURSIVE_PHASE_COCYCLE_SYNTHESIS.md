@@ -238,11 +238,72 @@ This remains a bounded structural result. Generic two-sheet transition-cover
 integrability and generic transition/cofactor confluence remain active
 alternative explanations.
 
-## 7. Exact bounded conclusion
+## 7. 5x4 width-perturbation falsifier
+
+The width-perturbed 5x4 Connect-4 carrier was tested with the same
+outcome-blind structural rules and the same closure settings.
+
+Workflow `36607300107`, job `109539467036`, succeeded.
+
+The carrier contains:
+
+```text
+residual-orbit states                 289,852
+recursive action-unlabelled classes   251,222
+recursive action-labelled classes     262,713
+
+binary deeper groups                    4,464
+binary continuation edges               4,221
+delta-1 edges                            1,117
+```
+
+After collapsing duplicate same-map parallel edges:
+
+```text
+reduced inheritance edges             4,026
+active binary phase nodes             3,665
+active weak components                  283
+branching points                         932
+joining points                           899
+
+reconvergent source/target pairs         568
+path-independent reconvergences          556
+contradictory reconvergences              12
+
+cycle rank                               644
+zero cycle syndromes                     619
+nonzero cycle syndromes                   25
+```
+
+Therefore the scalar GF(2) phase potential is **not globally integrable** on
+the 5x4 carrier.
+
+A direct contradictory witness is:
+
+```text
+3260 -> 1857 -> 574    delta 0 xor 0 = 0
+3260 -> 3255 -> 574    delta 0 xor 1 = 1
+```
+
+Both paths begin and end at the same binary phase objects but demand opposite
+relative phase. The obstruction is gauge-invariant.
+
+This sharply narrows the positive result:
+
+```text
+4x4 Connect-4   cycle rank   1   nonzero syndromes  0
+4x5 Connect-4   cycle rank  40   nonzero syndromes  0
+5x4 Connect-4   cycle rank 644   nonzero syndromes 25
+```
+
+Thus width-4 integrability is an exact bounded phenomenon, but the current
+scalar phase carrier is not a generalized Connect-4 law.
+
+## 8. Exact bounded conclusion
 
 The strongest justified statement is:
 
-> Under the declared outcome-blind 4x4 structural guards, the recursively reduced binary continuation residue carries an exact integrable relative GF(2) phase on its inheritance graph; its single independent cycle has zero syndrome, and this cycle survives the current residual-closure representations.
+> Under the declared outcome-blind width-4 structural guards tested at 4x4 and 4x5, the recursively reduced binary continuation residue is integrable over GF(2). The same scalar carrier is obstructed on 5x4 by explicit nonzero cycle syndromes.
 
 This is a finite structural theorem about the declared carrier.
 
@@ -256,21 +317,24 @@ a polynomial construction
 a globally closed binary dynamics theorem
 ```
 
-## 8. Remaining falsifiers and next step
+## 9. Remaining falsifiers and next step
 
-The 4x5 carrier now supplies forty independent zero-syndrome cycles, so the
-immediate small-sample objection is materially weaker.
+The 5x4 control supplies the decisive negative case: the present scalar
+phase carrier is not globally flat.
 
-The strongest remaining falsifier is explanatory rather than merely
-enumerative: determine whether these cycles are forced by generic
-transition/cofactor confluence or whether the phase survives reconvergences
-that cannot be reduced to local action-order commutation.
+The next question is what extra rule-derived structure, if any, resolves the
+25 obstructions. Candidate explanations include:
 
-In parallel, a width-perturbed same-rule carrier such as 5x4 Connect-4 would
-test whether the integrability depends on the narrow four-column geometry.
+- a missing realizability/support/deadline coordinate;
+- lost orientation/transport information;
+- a higher-dimensional GF(2) phase;
+- a non-abelian continuation phase;
+- or a genuinely width-4-specific law.
 
-Any nonzero syndrome remains a direct falsifier of the present scalar phase
-carrier or evidence that another structural variable is missing.
+The immediate next step is to inspect the explicit contradictory 5x4
+reconvergences and determine the smallest additional structural variable that
+separates their opposite accumulated phases. No outcome labels may be used to
+choose that variable.
 
 ## Provenance
 
