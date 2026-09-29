@@ -1,0 +1,123 @@
+{
+  "schema": "isomax.core020.structural_control.implicit_assertion_round.v1",
+  "round": 5,
+  "date_author_local": "2026-09-29",
+  "input": [
+    "A0_EXPLICIT_ASSERTIONS_0_1.json",
+    "ROUND_01_0_1.json",
+    "ROUND_02_0_1.json",
+    "ROUND_03_0_1.json",
+    "ROUND_04_0_1.json"
+  ],
+  "new_assertions": [
+    {
+      "id": "SC-IA028",
+      "family": "C",
+      "support_mode": "EXACT",
+      "title": "coarse target identification changes scalar constraint satisfiability",
+      "body": "For the shortest 5x4 witness with unchanged four edge deltas, identifying the two residual-distinct final targets as one quotient node yields an unsatisfiable one-bit node-potential system, while retaining them as two targets distinguished by the represented residual bit yields a satisfiable system.",
+      "normalized_body": "shortest_5x4_target_quotient_merge_changes_scalar_constraint_satisfiability",
+      "premises": [
+        "SC-E013",
+        "SC-IA025",
+        "SC-IA026"
+      ],
+      "rule": "C",
+      "scope": "shortest 5x4 obstruction only",
+      "qu_dependencies": [
+        "QU-SC-001",
+        "QU-SC-005"
+      ]
+    },
+    {
+      "id": "SC-IA029",
+      "family": "S",
+      "support_mode": "EXACT",
+      "title": "quotient-level scalar obstruction does not imply obstruction on every refinement",
+      "body": "The shortest 5x4 witness is an explicit model in which scalar Boolean node-potential semantics fails on the current coarse quotient but succeeds on a represented strict refinement; therefore quotient-level scalar obstruction alone does not imply scalar obstruction on every finer state carrier.",
+      "normalized_body": "scalar_obstruction_on_coarse_quotient_does_not_imply_obstruction_on_every_refinement",
+      "premises": [
+        "SC-IA025",
+        "SC-IA026",
+        "SC-IA028"
+      ],
+      "rule": "S",
+      "scope": "logical non-implication witnessed by the shortest 5x4 obstruction/refinement pair",
+      "qu_dependencies": [
+        "QU-SC-005"
+      ]
+    },
+    {
+      "id": "SC-IA030",
+      "family": "C",
+      "support_mode": "EXACT",
+      "title": "a history-free state-local repair exists for the shortest witness",
+      "body": "There exists a repair of the shortest scalar contradiction that uses only represented endpoint residual-state information to refine the target and does not require accumulated transporter identity or source-frame action history as part of the refined node identity.",
+      "normalized_body": "history_free_state_local_residual_refinement_exists_for_shortest_5x4_witness",
+      "premises": [
+        "SC-IA025",
+        "SC-IA026",
+        "SC-IA027"
+      ],
+      "rule": "C",
+      "scope": "shortest 5x4 obstruction only",
+      "qu_dependencies": [
+        "QU-SC-004"
+      ]
+    },
+    {
+      "id": "SC-IA031",
+      "family": "S",
+      "support_mode": "EXACT",
+      "title": "the shortest obstruction is a quotient-sensitive rather than quotient-invariant fact",
+      "body": "Whether the shortest 5x4 edge observations admit a scalar Boolean node potential depends on the declared state-identification relation: the answer is false under the current target merge and true under the represented residual-bit target refinement.",
+      "normalized_body": "shortest_5x4_scalar_potential_existence_depends_on_declared_state_identification",
+      "premises": [
+        "SC-IA028",
+        "SC-IA029"
+      ],
+      "rule": "S",
+      "scope": "shortest 5x4 witness under the two explicitly represented state-identification relations",
+      "qu_dependencies": [
+        "QU-SC-001"
+      ]
+    }
+  ],
+  "support_refinements": [],
+  "qu_refinements": [
+    {
+      "id": "SC-QR005",
+      "target": "QU-SC-005",
+      "rule": "U",
+      "premises": [
+        "SC-IA026",
+        "SC-IA029"
+      ],
+      "add_fixed": [
+        "one scalar Boolean coordinate is locally sufficient after a strict residual-state refinement of the shortest witness"
+      ],
+      "retain_open": [
+        "whether a scalar Boolean phase exists after a principled refinement of the complete 5x4 carrier",
+        "whether more than one Boolean coordinate is required for other obstructions",
+        "whether a non-binary/non-abelian carrier is required globally"
+      ],
+      "probability_added": false
+    }
+  ],
+  "rejected_candidates": [
+    {
+      "id": "SC-RJ010",
+      "body": "All 25 5x4 nonzero syndromes are quotient artifacts repaired by one residual bit.",
+      "reason": "Only one concrete obstruction has been closed under the one-bit refinement.",
+      "disposition": "REJECTED_SCOPE_WIDENING",
+      "qu": "QU-SC-001"
+    },
+    {
+      "id": "SC-RJ011",
+      "body": "The complete corrected 5x4 carrier is scalar-integrable.",
+      "reason": "No complete refined-carrier construction or all-cycle proof is represented.",
+      "disposition": "REJECTED_AS_UNSUPPORTED_EXACT_IA",
+      "qu": "QU-SC-005"
+    }
+  ]
+}
