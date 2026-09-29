@@ -228,6 +228,62 @@ and 7x8 share the same one-relation/one-defect structure while their known
 outcomes differ.
 
 
+## XOR placement refinement
+
+A later action-phase audit tested the owner's sequencing concern directly:
+XOR/parity may belong **after** residual/cofactor and continuation semantics,
+rather than on raw response or move coordinates.
+
+The direct 4x4 residual-orbit carrier has:
+
+```text
+10,507 residual-orbit states
+ 8,653 recursive action-labelled classes
+ 8,242 recursive action-unlabelled classes
+```
+
+Only 300 action-unlabelled classes split into multiple action-labelled
+subclasses. Of those, 80 are pure current-node action transporters.
+
+A first sign/parity probe found 38 fibers with well-defined transporter parity
+and 26 binary fibers whose two realizations have opposite parity. That apparent
+positive result was then subjected to a generic-group falsifier.
+
+For a token profile under the full column permutation group, transporter sign is
+well-defined exactly when every slot token is distinct. Repeated tokens admit an
+odd stabilizer swap; distinct tokens have a unique transporter. The audit found
+exactly:
+
+```text
+pure-transporter fibers with all slots distinct   38
+fibers with well-defined permutation parity       38
+```
+
+with equality asserted over the whole bounded control.
+
+Therefore the observed late permutation sign is generic labeling algebra, not
+yet a Connect-Four-specific control invariant. This is retained negative
+evidence.
+
+The sequencing hypothesis remains open but is now narrower:
+
+```text
+geometry/support
+-> residual/cofactor normalization
+-> realizability/deadline/first-win consequences
+-> continuation semantics
+-> quotient generic action-label gauge
+-> only then test for intrinsic residual phase / XOR
+```
+
+The next target is a deeper recursive phase: multiple action-labelled
+continuation classes that share both the same action-unlabelled class **and the
+same immediate phase-free action profile**. Any binary law there cannot be
+explained merely by permuting the current action slots.
+
+See
+[LATE_ACTION_PARITY_RESULT.md](../isograph/discovery/2026-09-29-center-proof-cycle/LATE_ACTION_PARITY_RESULT.md).
+
 ## Exact XOR law now established in a guarded subproblem
 
 The structural quotient campaign has now produced one exact XOR composition law,
