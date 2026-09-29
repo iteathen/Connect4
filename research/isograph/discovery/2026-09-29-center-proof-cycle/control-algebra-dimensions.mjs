@@ -1644,6 +1644,10 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     isolatedBinaryPhaseNodes:binaryGroupIds.length-activeBinaryIds.length,
     inheritanceEdges:binaryInheritanceEdges.length,
     reducedInheritanceEdges:reducedEdges.length,
+    deltaHistogram:{
+      0:binaryInheritanceEdges.filter(edge=>edge.delta===0).length,
+      1:binaryInheritanceEdges.filter(edge=>edge.delta===1).length,
+    },
     distinctDirectedPairs:pairRows.size,
     duplicateSameMapEdges:binaryInheritanceEdges.length-reducedEdges.length,
     parallelDirectedPairs:parallelPairs.length,
@@ -1652,6 +1656,7 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     rankGradedDAG:binaryInheritanceEdges.every(edge=>
       edge.targetRank===edge.parentRank+1),
     weakComponents:weakComponentSizes.length,
+    activeWeakComponents:integrabilityAudit.activeWeakComponents,
     weakComponentSizes,
     branchingPoints:binaryGroupIds.filter(id=>
       outgoingTargets.get(id).size>1).length,
