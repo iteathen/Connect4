@@ -1757,13 +1757,28 @@ export function analyzeDirectResidualOrbitPrefix({
   }]]);
 
   for(let rank=0;rank<=maxRank;rank++){
-    let terminalStates=0;
-    for(const rec of current.values())if(rec.terminal)terminalStates++;
+    let terminalStates=0,totalResidualRequirements=0,
+      maxResidualRequirements=0,maxP0Residuals=0,maxP1Residuals=0;
+    for(const rec of current.values()){
+      if(rec.terminal){terminalStates++;continue;}
+      const n0=rec.r0.length,n1=rec.r1.length,n=n0+n1;
+      totalResidualRequirements+=n;
+      maxResidualRequirements=Math.max(maxResidualRequirements,n);
+      maxP0Residuals=Math.max(maxP0Residuals,n0);
+      maxP1Residuals=Math.max(maxP1Residuals,n1);
+    }
+    const nonterminalStates=current.size-terminalStates;
     frontier.push({
       rank,
       states:current.size,
-      nonterminalStates:current.size-terminalStates,
+      nonterminalStates,
       terminalStates,
+      totalResidualRequirements,
+      averageResidualRequirements:nonterminalStates?
+        totalResidualRequirements/nonterminalStates:0,
+      maxResidualRequirements,
+      maxP0Residuals,
+      maxP1Residuals,
     });
     if(rank===maxRank)break;
 
