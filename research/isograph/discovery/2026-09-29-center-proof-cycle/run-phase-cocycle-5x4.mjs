@@ -97,5 +97,6 @@ console.log(JSON.stringify({
       cocycle.contradictoryReconvergenceExamples,
     cycleSyndromeExamples:cocycle.cycleSyndromeExamples,
     nonzeroCycleSyndromeExamples:cocycle.nonzeroCycleSyndromeExamples,
+    obstructionGroupExamples:cocycle.obstructionGroupExamples,
   },
 },null,2));
