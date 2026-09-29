@@ -3,8 +3,8 @@
 **Status:** bounded exact research evidence  
 **Research direction:** Joshua Oshiro  
 **Branch:** `research/nim-control-parity-algebra-20260929`  
-**Tested head:** `451940802e3e4b05422b55b64092cbd313dffd99`  
-**Workflow:** `36546339998` — success  
+**Tested head:** `89da39a23df10b61923d3d4d9c06256b2b50dc28`  
+**Workflow:** `36546690005` — success  
 **Scope:** 4x4 Connect-4 exhaustive control only
 
 ## Question
@@ -128,9 +128,82 @@ value-homogeneous recursive fixed point
 polynomial generalized Connect Four solution
 ```
 
-The next complexity experiment must measure per-rank state/frontier growth,
-successor edges processed, and quotient-class growth, then repeat on additional
-small board dimensions.
+The construction accounting is now explicit:
+
+```text
+all-legal physical states                 161,029
+all-legal successor edges processed       304,574
+all-legal quotient classes                  8,242
+overall state/class ratio                    19.54
+
+optimal successor edges processed         219,010
+optimal structural quotient classes         1,130
+```
+
+The all-legal physical-state frontier peaks later than the quotient-class
+frontier:
+
+```text
+peak quotient frontier: rank 9   9,276 states / 2,015 classes
+peak state frontier:    rank 13 28,922 states /    25 classes
+```
+
+Complete all-legal rank profile:
+
+| Rank | States | Classes |
+|---:|---:|---:|
+| 0 | 1 | 1 |
+| 1 | 4 | 2 |
+| 2 | 16 | 8 |
+| 3 | 52 | 26 |
+| 4 | 160 | 82 |
+| 5 | 436 | 218 |
+| 6 | 1,128 | 552 |
+| 7 | 2,512 | 1,089 |
+| 8 | 5,084 | 1,721 |
+| 9 | 9,276 | 2,015 |
+| 10 | 14,788 | 1,559 |
+| 11 | 21,720 | 777 |
+| 12 | 26,698 | 155 |
+| 13 | 28,922 | 25 |
+| 14 | 24,912 | 7 |
+| 15 | 18,076 | 3 |
+| 16 | 7,244 | 2 |
+
+This is real semantic compression, especially in the late frontier, but the
+producer still pays for the 161,029 states and 304,574 successor edges. The
+current method is therefore linear in the already-materialized finite game
+graph, not polynomial in board dimensions.
+
+## Why zero W/D/L splits are expected
+
+For the all-legal recursive quotient, W/D/L homogeneity follows by backward
+induction from the quotient definition:
+
+1. terminal classes preserve terminal type;
+2. a nonterminal class preserves the mover and the set of child classes;
+3. by induction each child class has one exact W/D/L value;
+4. minimax depends only on the mover and the set of child values; duplicate
+   equivalent actions do not change min/max.
+
+Therefore the observed zero split count is not independent evidence that a new
+Connect Four value law has been discovered. It is a general consequence of this
+bisimulation-like recursive construction on a finite acyclic game graph.
+
+What remains Connect-Four-specific and empirically informative is the **amount
+and shape of compression** and whether the same equivalence can be derived from
+geometry, support, obligations, resources and deadlines without enumerating the
+graph.
+
+The optimal-continuation quotient is even less suitable as a producer because
+exact optimal edges are selected using minimax values first. It is retained as
+a perfect-play semantic control: it specifies the branch equivalence that a
+rule-derived closed form would need to recover, but it cannot serve as the
+closed form itself.
+
+The next experiment is cross-dimension growth: repeat the rule-only producer on
+additional small boards while measuring physical states, successor edges,
+quotient classes and frontier peaks.
 
 ## Research consequence
 
