@@ -339,7 +339,6 @@ for(const row of tuples)out+='[(^150024 '+row.join(' ')+')]\n';
 fs.writeFileSync(new URL('./AGGREGATE_WITNESS_CORE020_0_1.isg',here),out);
 
 const MAX=10507;
-const nat=n=>n===0?7001:5000000+n;
 let nums='[\n  (^0 [ ^150010 ^150014 ^150015 ^150016 ])\n]\n\n[\n';
 for(let n=1;n<=MAX;n++){
   nums+='  (^150014 '+nat(n)+')\n';
