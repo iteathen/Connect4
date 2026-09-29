@@ -118,13 +118,19 @@ function canonicalResidualQState(heights,r0,r1,permutationData){
   return {signature:best,heights:bestHeights,r0:bestR0,r1:bestR1};
 }
 
-function applyUniversalFrontierBlocker(heights,r0,r1,width,height){
-  const rank=Array.from(heights).reduce((a,b)=>a+b,0);
+function applyUniversalFrontierBlocker(
+  heights,r0,r1,width,height,{nonterminalOnly=false}={}
+){
+  const rank=Array.from(heights).reduce((a,b)=>a+b,0),
+    mover=rank&1,own=mover?r1:r0;
   let frontier=0;
-  for(let col=0;col<width;col++)if(heights[col]<height)
-    frontier|=1<<(heights[col]*width+col);
-  if(frontier===0)return {r0,r1,removed:0};
-  if(rank&1){
+  for(let col=0;col<width;col++)if(heights[col]<height){
+    const bit=1<<(heights[col]*width+col),
+      immediateWin=own.some(requirement=>requirement===bit);
+    if(!nonterminalOnly||!immediateWin)frontier|=bit;
+  }
+  if(!nonterminalOnly&&frontier===0)return {r0,r1,removed:0};
+  if(mover){
     const next=r0.filter(requirement=>(requirement&frontier)!==frontier);
     return {r0:next,r1,removed:r0.length-next.length};
   }
@@ -334,7 +340,7 @@ export function analyzeUnlabelledQuotientDimension({width,height,k,auditResidual
 }
 
 
-export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontierBlocker=false}){
+export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontierBlocker=false,nonterminalFrontierBlocker=false}){
   const cells=width*height;
   assert.ok(cells<=20,'direct residual-orbit harness is intentionally bounded to <=20 cells');
   const masks=winMasks(width,height,k),span=2**cells,
@@ -391,9 +397,9 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
             opponentNormalized=normalizeMaskAntichain(opponentNext),
             r0=mover?opponentNormalized:ownNormalized,
             r1=mover?ownNormalized:opponentNormalized,
-            closed=universalFrontierBlocker?
+            closed=(universalFrontierBlocker||nonterminalFrontierBlocker)?
               applyUniversalFrontierBlocker(
-                nextHeights,r0,r1,width,height):
+                nextHeights,r0,r1,width,height,{nonterminalOnly:nonterminalFrontierBlocker}):
               {r0,r1,removed:0},
             canonical=canonicalResidualQState(
               nextHeights,closed.r0,closed.r1,permutationData);
@@ -409,9 +415,9 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
 
   const initialResidual=normalizeMaskAntichain(masks),
     rootHeights=new Uint8Array(width),
-    rootClosed=universalFrontierBlocker?
+    rootClosed=(universalFrontierBlocker||nonterminalFrontierBlocker)?
       applyUniversalFrontierBlocker(
-        rootHeights,initialResidual,initialResidual,width,height):
+        rootHeights,initialResidual,initialResidual,width,height,{nonterminalOnly:nonterminalFrontierBlocker}):
       {r0:initialResidual,r1:initialResidual,removed:0},
     root=canonicalResidualQState(
       rootHeights,rootClosed.r0,rootClosed.r1,permutationData),
@@ -509,6 +515,7 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     width,height,k,cells,
     columnPermutations:permutationData.length,
     universalFrontierBlocker,
+    nonterminalFrontierBlocker,
     winningLineCount:masks.length,
     residualOrbitStates:nodes.size,
     literalActionEdges,
