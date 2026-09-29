@@ -227,6 +227,52 @@ also shows that the first GF(2) skeleton is insufficient for W/D/L: 7x4, 7x6
 and 7x8 share the same one-relation/one-defect structure while their known
 outcomes differ.
 
+
+## Exact XOR law now established in a guarded subproblem
+
+The structural quotient campaign has now produced one exact XOR composition law,
+but only at a narrower layer than game value.
+
+After support/residual incidence refinement, the complete 18-state unresolved
+4x4 canonicalization family consists of two unresolved two-column orientation
+classes. Exhaustive permutation auditing shows that every state has exactly two
+state-preserving within-class permutations:
+
+~~~text
+identity
+simultaneous flip of both pairs
+~~~
+
+while either pair flip alone changes the state.
+
+More generally, whenever all unresolved refinement classes have size two,
+assigning one flip bit to each class makes the within-class permutation group
+
+~~~text
+GF(2)^m
+~~~
+
+under composition. The exact state stabilizer is therefore a vector subspace
+`H_s <= GF(2)^m`, equivalently the kernel of some binary parity-check matrix.
+
+For the audited 18-state family:
+
+~~~text
+H_s = {(0,0),(1,1)}
+x_1 xor x_2 = 0
+~~~
+
+This is a derived XOR law for **coupled residual-state orientation symmetry**.
+It is not an XOR W/D/L law and does not identify the full latent control value.
+
+The next algebraic question is constructive: can the parity-check constraints
+for binary tie classes be derived directly from support/residual incidence in
+polynomial work, without enumerating all `2^m` orientations? Tie classes larger
+than two remain a separate non-abelian canonicalization problem.
+
+See
+[the exact column-canonicalization result](../isograph/discovery/2026-09-29-center-proof-cycle/COLUMN_CANONICALIZATION_RESULT.md).
+
 ## Immediate experiment
 
 Build a cold, rule-only experiment with no solver or solved-outcome imports.
@@ -247,6 +293,6 @@ No production solver changes follow from this experiment.
 
 The current bounded research synthesis is published on this research branch as:
 
-[C = NC? Control-Parity Algebra, Branch Collapse, and a Structural Research Program for Generalized Connect Four](../publications/2026-09-29/C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_2.md)
+[C = NC? Control-Parity Algebra, Branch Collapse, and a Structural Research Program for Generalized Connect Four](../publications/2026-09-29/C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_1.md)
 
 Author: Joshua Oshiro. The paper discloses AI-agent assistance and explicitly states that the AI agent was not responsible for the core conceptual findings or research direction.
