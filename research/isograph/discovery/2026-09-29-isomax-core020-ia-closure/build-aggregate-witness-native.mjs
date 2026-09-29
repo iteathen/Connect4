@@ -98,6 +98,7 @@ const R={
   PARTIAL_OPT_BASIS_SOURCE_COEFF:5899452,
   PARTIAL_LEGAL_BASIS_SOURCE_COEFF:5899453,
   RESPONSE_DEP_COEFF_PARITY:5899454,
+  TERMINAL_KIND_ROLE:5899455,
 };
 const CASE={'4x4-c4':5899100,'4x5-c4':5899101,'5x4-c4':5899102,response:5899103,partial2:5899104};
 const SET={
@@ -474,6 +475,9 @@ for(const [label,row,ci] of phaseEntries){
     const cl=uclassTok(0,row.recursiveUnlabelledClass);classSet.add(cl);
     t(R.DIRECT_STATE_CLASS,c,st,cl);
   });
+  raw.add(5899304);
+  for(const [kind,role] of [['P0',P0],['P1',P1],['D',5899304]])
+    if(kinds.has(kind))t(R.TERMINAL_KIND_ROLE,c,kinds.get(kind),role);
   for(const cl of [...classSet].sort((a,b)=>a-b))t(R.DIRECT_CLASS,c,cl);
   addSet(SET.Q44STATES,rows.map((_,i)=>6500000+i));
   addSet(SET.Q44CLASSES,[...classSet].sort((a,b)=>a-b));
