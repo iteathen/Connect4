@@ -1208,6 +1208,95 @@ export function analyzeOptimalBranchCollapse4x4(){
     optimal:buildUnlabeledQuotient(true),
   };
 
+  function buildMq2StyleQuotient(actionLabelled){
+    const stateClass=new Map(),signatureClass=new Map(),classWdlMask=new Map(),
+      classSize=new Map();
+    let nextId=0,preWinStates=0,wdlSplitClasses=0;
+
+    for(let rank=16;rank>=0;rank--)for(const rec of byRank[rank]){
+      // MQ2 stores states only until before a completed winning move.
+      // A full-board non-winning draw remains a state at rank 16.
+      if(rec.winner!==null)continue;
+      preWinStates++;
+      const heights=heightVector(rec.p0,rec.p1),tokens=[];
+      for(let col=0;col<4;col++){
+        if(heights[col]>=4){
+          if(actionLabelled)tokens.push('I');
+          continue;
+        }
+        const cell=heights[col]*4+col,bit=1<<cell,
+          childKey=(rec.rank&1)?keyOf(rec.p0,rec.p1|bit):keyOf(rec.p0|bit,rec.p1),
+          child=memo.get(childKey);
+        assert.ok(child,'MQ2 crosscheck child must exist');
+        let token;
+        if(child.winner!==null){
+          const terminalScore=Math.trunc((17-rank)/2);
+          token=`T${terminalScore}`;
+        }else{
+          const childClass=stateClass.get(childKey);
+          assert.notEqual(childClass,undefined,'MQ2 child class must be assigned bottom-up');
+          token=`C${childClass}`;
+        }
+        if(actionLabelled)tokens.push(token);
+        else tokens.push(token);
+      }
+
+      let signature;
+      if(actionLabelled){
+        // Preserve the four literal columns exactly as MQ2 does.
+        signature=tokens.join('|');
+      }else{
+        // Erase literal column identity and duplicate equivalent choices,
+        // but preserve which player is choosing.
+        const unique=[...new Set(tokens)].sort();
+        signature=`U:${rank&1}:${unique.join('|')}`;
+      }
+
+      let id=signatureClass.get(signature);
+      if(id===undefined){id=nextId++;signatureClass.set(signature,id);}
+      stateClass.set(rec.key,id);
+      const bit=rec.value<0?1:rec.value>0?4:2;
+      classWdlMask.set(id,(classWdlMask.get(id)??0)|bit);
+      classSize.set(id,(classSize.get(id)??0)+1);
+    }
+
+    let wdlSplitStates=0;
+    for(const [id,mask] of classWdlMask)if((mask&(mask-1))!==0){
+      wdlSplitClasses++;wdlSplitStates+=classSize.get(id)??0;
+    }
+
+    const root=memo.get(keyOf(0,0)),heights=heightVector(root.p0,root.p1),
+      rootChildClasses=[];
+    for(let col=0;col<4;col++)if(heights[col]<4){
+      const cell=heights[col]*4+col,bit=1<<cell,
+        childKey=keyOf(root.p0|bit,root.p1),
+        child=memo.get(childKey);
+      assert.equal(child.winner,null);
+      rootChildClasses.push(stateClass.get(childKey));
+    }
+
+    return {
+      preWinStates,
+      classes:nextId,
+      wdlSplitClasses,
+      wdlSplitStates,
+      rootLiteralActions:rootChildClasses.length,
+      rootDistinctChildClasses:new Set(rootChildClasses).size,
+    };
+  }
+
+  const mq2Labelled=buildMq2StyleQuotient(true),
+    mq2Unlabelled=buildMq2StyleQuotient(false),
+    mq2Crosscheck={
+      preWinStates:mq2Labelled.preWinStates,
+      actionLabelledBehaviorClasses:mq2Labelled.classes,
+      actionLabelledWdlSplitClasses:mq2Labelled.wdlSplitClasses,
+      actionUnlabelledValueClasses:mq2Unlabelled.classes,
+      actionUnlabelledWdlSplitClasses:mq2Unlabelled.wdlSplitClasses,
+      rootLiteralActions:mq2Unlabelled.rootLiteralActions,
+      rootDistinctUnlabelledActionClasses:mq2Unlabelled.rootDistinctChildClasses,
+    };
+
   const rootTerminalMask=terminalMaskFor(keyOf(0,0));
   return {
     inputs:'4x4 connect-4 rules only',
@@ -1256,5 +1345,6 @@ export function analyzeOptimalBranchCollapse4x4(){
       optimalDeltaSetEqualsLegal,
     },
     structuralQuotients,
+    mq2Crosscheck,
   };
 }
