@@ -101,3 +101,59 @@ equal line count do not determine structural graph size.
 
 This result does not establish polynomial width growth, a general complexity
 bound, an XOR W/D/L formula, or production-solver applicability.
+
+
+## Partitioned exact canonicalization control
+
+After the refinement-partitioned exact canonicalizer was qualified on 4x4, the
+same 5x4 structural run was repeated at producer head
+`2ac1df168ee935c6f4866eae16224bf93118a318`, workflow
+`36554956756`.
+
+It reproduced every semantic count and the complete rank frontier exactly:
+
+~~~text
+direct states       289,852
+edges              1,079,881
+duplicate edges       28,827
+recursive classes    251,222
+W/D/L splits               0
+root value              draw
+earliest merge rank         9
+~~~
+
+Canonicalization diagnostics:
+
+~~~text
+method                            refinement-partitioned exact tie search
+total permutation candidates     1,934,011
+maximum candidates for one state        24
+~~~
+
+Matched GitHub-hosted runtime:
+
+~~~text
+full 120-permutation canonicalizer   208.76 s
+partitioned exact canonicalizer       27.26 s
+speedup                                7.66x
+wall-time reduction                   86.94%
+~~~
+
+Memory was not reduced in this run:
+
+~~~text
+baseline RSS        ~213.5 MB
+partitioned RSS     ~283.3 MB
+baseline heap used   ~90.8 MB
+partitioned heap     ~92.3 MB
+~~~
+
+The runtime gain is therefore attributable to reduced canonicalization work,
+not a smaller semantic graph. The method remains exact because refinement fixes
+the order of distinguishable column-color classes and exhaustive search is
+retained inside unresolved tie classes.
+
+This is not yet a polynomial canonicalization theorem: a large unresolved tie
+class can still require factorial search. The bounded result shows that the
+factorial search space is highly avoidable on this control, not that it is
+eliminated in the generalized worst case.
