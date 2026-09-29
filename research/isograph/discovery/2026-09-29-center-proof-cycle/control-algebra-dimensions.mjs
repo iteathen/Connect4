@@ -127,6 +127,235 @@ function canonicalResidualQState(heights,r0,r1,permutationData){
   return {signature:best,heights:bestHeights,r0:bestR0,r1:bestR1};
 }
 
+
+function factorialSmall(n){
+  let out=1;
+  for(let i=2;i<=n;i++)out*=i;
+  return out;
+}
+
+function refinementColumnSignatures(heights,r0,r1,width,height){
+  let colors=Array.from(heights),iterations=0,signatures=[];
+  const requirements=[
+    ...r0.map(mask=>({player:0,mask})),
+    ...r1.map(mask=>({player:1,mask})),
+  ];
+
+  for(let round=0;round<=width+height+requirements.length;round++){
+    const contributions=Array.from({length:width},()=>[]);
+    for(const {player,mask} of requirements){
+      const cells=[];
+      let rest=mask>>>0;
+      while(rest){
+        const low=rest&-rest,bit=31-Math.clz32(low),
+          row=Math.floor(bit/width),col=bit%width;
+        cells.push({row,col,color:colors[col]});
+        rest=(rest^low)>>>0;
+      }
+      const reqSig=cells.map(x=>`${x.row}:${x.color}`).sort().join(',');
+      for(const x of cells)
+        contributions[x.col].push(`${player}:${x.row}:[${reqSig}]`);
+    }
+    signatures=Array.from({length:width},(_,col)=>
+      `${heights[col]}|${contributions[col].sort().join(';')}`);
+    const unique=[...new Set(signatures)].sort(),
+      ids=new Map(unique.map((sig,index)=>[sig,index])),
+      next=signatures.map(sig=>ids.get(sig));
+    iterations=round+1;
+    if(next.every((x,i)=>x===colors[i]))break;
+    const samePartition=next.every((x,i)=>next.every((y,j)=>
+      (x===y)===(colors[i]===colors[j])));
+    colors=next;
+    if(samePartition){
+      // The partition is stable even if canonical numeric labels were renumbered.
+      // Recompute once with the canonical labels and stop.
+      const c2=Array.from({length:width},()=>[]);
+      for(const {player,mask} of requirements){
+        const cells=[];
+        let rest=mask>>>0;
+        while(rest){
+          const low=rest&-rest,bit=31-Math.clz32(low),
+            row=Math.floor(bit/width),col=bit%width;
+          cells.push({row,col,color:colors[col]});
+          rest=(rest^low)>>>0;
+        }
+        const reqSig=cells.map(x=>`${x.row}:${x.color}`).sort().join(',');
+        for(const x of cells)c2[x.col].push(`${player}:${x.row}:[${reqSig}]`);
+      }
+      signatures=Array.from({length:width},(_,col)=>
+        `${heights[col]}|${c2[col].sort().join(';')}`);
+      break;
+    }
+  }
+  return {colors,signatures,iterations};
+}
+
+function makeColumnPermutation(width,height,order){
+  const perm=new Uint8Array(width);
+  for(let newCol=0;newCol<width;newCol++)perm[order[newCol]]=newCol;
+  const cellMap=new Uint8Array(width*height);
+  for(let row=0;row<height;row++)for(let oldCol=0;oldCol<width;oldCol++)
+    cellMap[row*width+oldCol]=row*width+perm[oldCol];
+  return {perm,cellMap,maskCache:new Map([[0,0]])};
+}
+
+function auditRefinedColumnCanonicalization(heights,r0,r1,width,height){
+  const {signatures,iterations}=refinementColumnSignatures(
+      heights,r0,r1,width,height),
+    groups=new Map();
+  for(let col=0;col<width;col++){
+    let xs=groups.get(signatures[col]);
+    if(!xs){xs=[];groups.set(signatures[col],xs);}
+    xs.push(col);
+  }
+
+  const original=serializeResidualQ(heights,r0,r1,null);
+  let exactTies=true,maxTieClass=1,permutationSearchUpperBound=1;
+  for(const cols of groups.values()){
+    maxTieClass=Math.max(maxTieClass,cols.length);
+    permutationSearchUpperBound*=factorialSmall(cols.length);
+    if(cols.length<2)continue;
+    for(let i=0;i<cols.length&&exactTies;i++)for(let j=i+1;j<cols.length;j++){
+      const order=Array.from({length:width},(_,x)=>x);
+      [order[cols[i]],order[cols[j]]]=[order[cols[j]],order[cols[i]]];
+      const pd=makeColumnPermutation(width,height,order);
+      if(serializeResidualQ(heights,r0,r1,pd)!==original){
+        exactTies=false;break;
+      }
+    }
+  }
+
+  const order=Array.from({length:width},(_,col)=>col).sort((a,b)=>
+    signatures[a].localeCompare(signatures[b])||a-b),
+    pd=makeColumnPermutation(width,height,order),
+    canonicalSignature=serializeResidualQ(heights,r0,r1,pd);
+
+  return {
+    iterations,
+    colorClasses:groups.size,
+    maxTieClass,
+    permutationSearchUpperBound,
+    searchFree:exactTies,
+    canonicalSignature,
+  };
+}
+
+
+function pairRefinementColumnSignatures(heights,r0,r1,width,height){
+  const first=refinementColumnSignatures(heights,r0,r1,width,height),
+    requirements=[
+      ...r0.map(mask=>({player:0,mask})),
+      ...r1.map(mask=>({player:1,mask})),
+    ].map(({player,mask})=>{
+      const rowsByCol=Array.from({length:width},()=>[]),global=[];
+      let rest=mask>>>0;
+      while(rest){
+        const low=rest&-rest,bit=31-Math.clz32(low),
+          row=Math.floor(bit/width),col=bit%width;
+        rowsByCol[col].push(row);
+        global.push(row+':'+first.colors[col]);
+        rest=(rest^low)>>>0;
+      }
+      for(const rows of rowsByCol)rows.sort((a,b)=>a-b);
+      global.sort();
+      return {player,rowsByCol,globalSig:global.join(',')};
+    });
+
+  const pairCount=width*width;
+  let pairColors=new Array(pairCount),iterations=0;
+  {
+    const sigs=new Array(pairCount);
+    for(let i=0;i<width;i++)for(let j=0;j<width;j++){
+      const rel=[];
+      for(const req of requirements){
+        const a=req.rowsByCol[i],b=req.rowsByCol[j];
+        if(!a.length&&!b.length)continue;
+        rel.push(
+          req.player+':['+a.join(',')+']:['+b.join(',')+']:['+req.globalSig+']'
+        );
+      }
+      rel.sort();
+      sigs[i*width+j]=
+        (i===j?1:0)+'|'+first.signatures[i]+'|'+first.signatures[j]+'|'+rel.join(';');
+    }
+    const unique=[...new Set(sigs)].sort(),
+      ids=new Map(unique.map((sig,index)=>[sig,index]));
+    pairColors=sigs.map(sig=>ids.get(sig));
+  }
+
+  for(let round=0;round<=width;round++){
+    const sigs=new Array(pairCount);
+    for(let i=0;i<width;i++)for(let j=0;j<width;j++){
+      const links=[];
+      for(let k=0;k<width;k++)
+        links.push(pairColors[i*width+k]+','+pairColors[k*width+j]);
+      links.sort();
+      sigs[i*width+j]=pairColors[i*width+j]+'|'+links.join(';');
+    }
+    const unique=[...new Set(sigs)].sort(),
+      ids=new Map(unique.map((sig,index)=>[sig,index])),
+      next=sigs.map(sig=>ids.get(sig));
+    iterations=round+1;
+    const samePartition=next.every((x,i)=>next.every((y,j)=>
+      (x===y)===(pairColors[i]===pairColors[j])));
+    pairColors=next;
+    if(samePartition)break;
+  }
+
+  const signatures=Array.from({length:width},(_,i)=>{
+    const rel=[];
+    for(let j=0;j<width;j++)
+      rel.push(pairColors[i*width+j]+','+pairColors[j*width+i]);
+    rel.sort();
+    return first.signatures[i]+'|D'+pairColors[i*width+i]+'|'+rel.join(';');
+  });
+  return {
+    signatures,
+    iterations:first.iterations+iterations,
+  };
+}
+
+function auditPairRefinedColumnCanonicalization(heights,r0,r1,width,height){
+  const {signatures,iterations}=pairRefinementColumnSignatures(
+      heights,r0,r1,width,height),
+    groups=new Map();
+  for(let col=0;col<width;col++){
+    let xs=groups.get(signatures[col]);
+    if(!xs){xs=[];groups.set(signatures[col],xs);}
+    xs.push(col);
+  }
+
+  const original=serializeResidualQ(heights,r0,r1,null);
+  let exactTies=true,maxTieClass=1,permutationSearchUpperBound=1;
+  for(const cols of groups.values()){
+    maxTieClass=Math.max(maxTieClass,cols.length);
+    permutationSearchUpperBound*=factorialSmall(cols.length);
+    if(cols.length<2)continue;
+    for(let i=0;i<cols.length&&exactTies;i++)for(let j=i+1;j<cols.length;j++){
+      const order=Array.from({length:width},(_,x)=>x);
+      [order[cols[i]],order[cols[j]]]=[order[cols[j]],order[cols[i]]];
+      const pd=makeColumnPermutation(width,height,order);
+      if(serializeResidualQ(heights,r0,r1,pd)!==original){
+        exactTies=false;break;
+      }
+    }
+  }
+
+  const order=Array.from({length:width},(_,col)=>col).sort((a,b)=>
+      signatures[a].localeCompare(signatures[b])||a-b),
+    pd=makeColumnPermutation(width,height,order),
+    canonicalSignature=serializeResidualQ(heights,r0,r1,pd);
+
+  return {
+    iterations,
+    colorClasses:groups.size,
+    maxTieClass,
+    permutationSearchUpperBound,
+    searchFree:exactTies,
+    canonicalSignature,
+  };
+}
+
 function applyUniversalFrontierBlocker(
   heights,r0,r1,width,height,{nonterminalOnly=false}={}
 ){
@@ -365,7 +594,7 @@ export function analyzeUnlabelledQuotientDimension({width,height,k,auditResidual
 }
 
 
-export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontierBlocker=false,nonterminalFrontierBlocker=false,moverFinalCapParity=false,measureLocalBranchClosure=true}){
+export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontierBlocker=false,nonterminalFrontierBlocker=false,moverFinalCapParity=false,measureLocalBranchClosure=true,auditColumnRefinement=false,auditPairColumnRefinement=false}){
   const cells=width*height;
   assert.ok(cells<=30,'direct residual-orbit harness is intentionally bounded to <=30 cells');
   const masks=winMasks(width,height,k),
@@ -549,6 +778,102 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     };
   }
 
+  let columnRefinementAudit=null;
+  if(auditColumnRefinement){
+    let auditedStates=0,searchFreeStates=0,fallbackStates=0,
+      maxIterations=0,maxTieClass=1,maxPermutationSearchUpperBound=1,
+      canonicalCollisions=0;
+    const seenCanonical=new Map(),fallbackExamples=[];
+    for(const rec of nodes.values()){
+      if(rec.terminal)continue;
+      const a=auditRefinedColumnCanonicalization(
+        rec.heights,rec.r0,rec.r1,width,height);
+      auditedStates++;
+      maxIterations=Math.max(maxIterations,a.iterations);
+      maxTieClass=Math.max(maxTieClass,a.maxTieClass);
+      maxPermutationSearchUpperBound=Math.max(
+        maxPermutationSearchUpperBound,a.permutationSearchUpperBound);
+      if(a.searchFree){
+        searchFreeStates++;
+        const prior=seenCanonical.get(a.canonicalSignature);
+        if(prior!==undefined&&prior!==rec.key)canonicalCollisions++;
+        else seenCanonical.set(a.canonicalSignature,rec.key);
+      }else{
+        fallbackStates++;
+        if(fallbackExamples.length<32)fallbackExamples.push({
+          support:Array.from(rec.heights),
+          p0Residuals:[...rec.r0],
+          p1Residuals:[...rec.r1],
+          iterations:a.iterations,
+          colorClasses:a.colorClasses,
+          maxTieClass:a.maxTieClass,
+          permutationSearchUpperBound:a.permutationSearchUpperBound,
+        });
+      }
+    }
+    columnRefinementAudit={
+      method:'iterated column incidence color refinement + exact tie automorphism check',
+      auditedStates,
+      searchFreeStates,
+      fallbackStates,
+      searchFreeFraction:auditedStates?searchFreeStates/auditedStates:1,
+      maxIterations,
+      maxTieClass,
+      maxPermutationSearchUpperBound,
+      canonicalCollisions,
+      exactOnSearchFreeStates:canonicalCollisions===0,
+      fallbackExamples,
+    };
+  }
+
+  let pairColumnRefinementAudit=null;
+  if(auditPairColumnRefinement){
+    let auditedStates=0,searchFreeStates=0,fallbackStates=0,
+      maxIterations=0,maxTieClass=1,maxPermutationSearchUpperBound=1,
+      canonicalCollisions=0;
+    const seenCanonical=new Map(),fallbackExamples=[];
+    for(const rec of nodes.values()){
+      if(rec.terminal)continue;
+      const a=auditPairRefinedColumnCanonicalization(
+        rec.heights,rec.r0,rec.r1,width,height);
+      auditedStates++;
+      maxIterations=Math.max(maxIterations,a.iterations);
+      maxTieClass=Math.max(maxTieClass,a.maxTieClass);
+      maxPermutationSearchUpperBound=Math.max(
+        maxPermutationSearchUpperBound,a.permutationSearchUpperBound);
+      if(a.searchFree){
+        searchFreeStates++;
+        const prior=seenCanonical.get(a.canonicalSignature);
+        if(prior!==undefined&&prior!==rec.key)canonicalCollisions++;
+        else seenCanonical.set(a.canonicalSignature,rec.key);
+      }else{
+        fallbackStates++;
+        if(fallbackExamples.length<32)fallbackExamples.push({
+          support:Array.from(rec.heights),
+          p0Residuals:[...rec.r0],
+          p1Residuals:[...rec.r1],
+          iterations:a.iterations,
+          colorClasses:a.colorClasses,
+          maxTieClass:a.maxTieClass,
+          permutationSearchUpperBound:a.permutationSearchUpperBound,
+        });
+      }
+    }
+    pairColumnRefinementAudit={
+      method:'second-order ordered column-pair refinement + exact tie automorphism check',
+      auditedStates,
+      searchFreeStates,
+      fallbackStates,
+      searchFreeFraction:auditedStates?searchFreeStates/auditedStates:1,
+      maxIterations,
+      maxTieClass,
+      maxPermutationSearchUpperBound,
+      canonicalCollisions,
+      exactOnSearchFreeStates:canonicalCollisions===0,
+      fallbackExamples,
+    };
+  }
+
   // Post-hoc exact W/D/L validation on the direct q-orbit graph.
   const values=new Map(),classValueMask=new Map();
   for(let rank=cells;rank>=0;rank--)for(const rec of byRank[rank]){
@@ -620,6 +945,8 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     nonterminalFrontierBlocker,
     moverFinalCapParity,
     measureLocalBranchClosure,
+    auditColumnRefinement,
+    auditPairColumnRefinement,
     winningLineCount:masks.length,
     residualOrbitStates:nodes.size,
     literalActionEdges,
@@ -634,7 +961,300 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     earliestDynamicMergeRank,
     earliestDynamicMergeGroups,
     dynamicMergeByRank,
+    columnRefinementAudit,
+    pairColumnRefinementAudit,
     localBranchClosure:localBranchClosureResult,
+    peakOrbitStateFrontier:peakBy(frontier,'states'),
+    peakRecursiveClassFrontier:peakBy(frontier,'classes'),
+    frontier,
+  };
+}
+
+
+function canonicalResidualQStateCompact(heights,r0,r1,permutationData){
+  let best=null,bestHeights=null,bestR0=null,bestR1=null;
+  for(const pd of permutationData){
+    const {perm}=pd,h=new Uint8Array(heights.length);
+    for(let oldCol=0;oldCol<heights.length;oldCol++)
+      h[perm[oldCol]]=heights[oldCol];
+    const a=r0.map(mask=>permuteMask(mask,pd)).sort((x,y)=>x-y),
+      b=r1.map(mask=>permuteMask(mask,pd)).sort((x,y)=>x-y),
+      signature=Array.from(h).join(',')+'|'+
+        a.map(x=>(x>>>0).toString(36)).join('.')+'|'+
+        b.map(x=>(x>>>0).toString(36)).join('.');
+    if(best===null||signature<best){
+      best=signature;
+      bestHeights=h;
+      bestR0=a;
+      bestR1=b;
+    }
+  }
+  return {signature:best,heights:bestHeights,r0:bestR0,r1:bestR1};
+}
+
+
+function permutationsOfValues(values){
+  if(values.length<2)return [[...values]];
+  const out=[],a=[...values];
+  function visit(i){
+    if(i===a.length){out.push([...a]);return;}
+    for(let j=i;j<a.length;j++){
+      [a[i],a[j]]=[a[j],a[i]];
+      visit(i+1);
+      [a[i],a[j]]=[a[j],a[i]];
+    }
+  }
+  visit(0);
+  return out;
+}
+
+function canonicalResidualQStateRefinedCompact(heights,r0,r1,width,height){
+  const {signatures}=refinementColumnSignatures(heights,r0,r1,width,height),
+    grouped=new Map();
+  for(let col=0;col<width;col++){
+    let cols=grouped.get(signatures[col]);
+    if(!cols){cols=[];grouped.set(signatures[col],cols);}
+    cols.push(col);
+  }
+  const groups=[...grouped.entries()]
+    .sort((a,b)=>a[0].localeCompare(b[0]))
+    .map(([,cols])=>permutationsOfValues(cols));
+  let candidatePermutations=1;
+  for(const group of groups)candidatePermutations*=group.length;
+
+  let best=null,bestHeights=null,bestR0=null,bestR1=null;
+  function consider(order){
+    const pd=makeColumnPermutation(width,height,order),
+      {perm}=pd,h=new Uint8Array(width);
+    for(let oldCol=0;oldCol<width;oldCol++)
+      h[perm[oldCol]]=heights[oldCol];
+    const a=r0.map(mask=>permuteMask(mask,pd)).sort((x,y)=>x-y),
+      b=r1.map(mask=>permuteMask(mask,pd)).sort((x,y)=>x-y),
+      signature=Array.from(h).join(',')+'|'+
+        a.map(x=>(x>>>0).toString(36)).join('.')+'|'+
+        b.map(x=>(x>>>0).toString(36)).join('.');
+    if(best===null||signature<best){
+      best=signature;
+      bestHeights=h;
+      bestR0=a;
+      bestR1=b;
+    }
+  }
+  function expand(groupIndex,order){
+    if(groupIndex===groups.length){consider(order);return;}
+    for(const groupOrder of groups[groupIndex])
+      expand(groupIndex+1,order.concat(groupOrder));
+  }
+  expand(0,[]);
+  return {
+    signature:best,
+    heights:bestHeights,
+    r0:bestR0,
+    r1:bestR1,
+    candidatePermutations,
+  };
+}
+
+export function analyzeDirectResidualOrbitGrowthCompact({
+  width,height,k,
+  nonterminalFrontierBlocker=true,
+  moverFinalCapParity=true,
+  refinedColumnCanonicalization=false,
+}){
+  const cells=width*height;
+  assert.ok(cells<=30,'compact direct-growth harness is intentionally bounded to <=30 cells');
+  const masks=winMasks(width,height,k),
+    permutationData=refinedColumnCanonicalization?null:columnPermutationData(width,height),
+    memo=new Map(),classSignatureToId=new Map(),
+    statesByRank=Array(cells+1).fill(0),
+    classesByRank=Array(cells+1).fill(0),
+    mergedClassesByRank=Array(cells+1).fill(0),
+    orbitExcessByRank=Array(cells+1).fill(0),
+    maxOrbitStatesPerClassByRank=Array(cells+1).fill(1),
+    classValueMask=[],classOrbitCount=[];
+  let nextClassId=0,literalActionEdges=0,duplicateEquivalentActionEdges=0,
+    earliestDynamicMergeRank=null,rootLegalActions=0,
+    rootDistinctOrbitChildren=0,rootDistinctRecursiveChildren=0,
+    canonicalPermutationCandidates=0,maxCanonicalPermutationCandidates=0;
+
+  const pack=(classId,value)=>classId*3+(value+1),
+    unpackClass=packed=>Math.floor(packed/3),
+    unpackValue=packed=>(packed%3)-1;
+
+  function canonicalize(heights,r0,r1){
+    const out=refinedColumnCanonicalization?
+      canonicalResidualQStateRefinedCompact(heights,r0,r1,width,height):
+      {
+        ...canonicalResidualQStateCompact(heights,r0,r1,permutationData),
+        candidatePermutations:permutationData.length,
+      };
+    canonicalPermutationCandidates+=out.candidatePermutations;
+    maxCanonicalPermutationCandidates=Math.max(
+      maxCanonicalPermutationCandidates,out.candidatePermutations);
+    return out;
+  }
+
+  function internClass(rank,signature,value){
+    let id=classSignatureToId.get(signature);
+    if(id===undefined){
+      id=nextClassId++;
+      classSignatureToId.set(signature,id);
+      classesByRank[rank]++;
+    }
+    const bit=value<0?1:value>0?4:2;
+    classValueMask[id]=(classValueMask[id]??0)|bit;
+    const count=(classOrbitCount[id]??0)+1;
+    classOrbitCount[id]=count;
+    if(count===2){
+      mergedClassesByRank[rank]++;
+      if(earliestDynamicMergeRank===null||rank<earliestDynamicMergeRank)
+        earliestDynamicMergeRank=rank;
+    }
+    if(count>1)orbitExcessByRank[rank]++;
+    if(count>maxOrbitStatesPerClassByRank[rank])
+      maxOrbitStatesPerClassByRank[rank]=count;
+    return id;
+  }
+
+  function visitTerminal(rank,kind){
+    const key='T:'+rank+':'+kind;
+    if(memo.has(key))return {key,packed:memo.get(key)};
+    statesByRank[rank]++;
+    const value=kind==='P0'?1:kind==='P1'?-1:0,
+      classId=internClass(rank,key,value),
+      packed=pack(classId,value);
+    memo.set(key,packed);
+    return {key,packed};
+  }
+
+  function visit(state){
+    const key='Q:'+state.signature;
+    if(memo.has(key))return {key,packed:memo.get(key)};
+    const rank=Array.from(state.heights).reduce((a,b)=>a+b,0),
+      mover=rank&1,childKeys=[],childClasses=[],childValues=[];
+
+    for(let col=0;col<width;col++)if(state.heights[col]<height){
+      literalActionEdges++;
+      const cell=state.heights[col]*width+col,bit=1<<cell,
+        own=mover?state.r1:state.r0,opponent=mover?state.r0:state.r1,
+        ownNext=[];
+      let wins=false;
+      for(const requirement of own){
+        if(requirement&bit){
+          const residual=requirement&~bit;
+          if(residual===0){wins=true;break;}
+          ownNext.push(residual);
+        }else ownNext.push(requirement);
+      }
+
+      let child;
+      if(wins){
+        child=visitTerminal(rank+1,mover?'P1':'P0');
+      }else{
+        const nextHeights=new Uint8Array(state.heights);
+        nextHeights[col]++;
+        if(rank+1===cells){
+          child=visitTerminal(rank+1,'D');
+        }else{
+          const opponentNext=opponent.filter(requirement=>(requirement&bit)===0),
+            ownNormalized=normalizeMaskAntichain(ownNext),
+            opponentNormalized=normalizeMaskAntichain(opponentNext),
+            r0=mover?opponentNormalized:ownNormalized,
+            r1=mover?ownNormalized:opponentNormalized,
+            blocked=nonterminalFrontierBlocker?
+              applyUniversalFrontierBlocker(
+                nextHeights,r0,r1,width,height,{nonterminalOnly:true}):
+              {r0,r1,removed:0},
+            closed=moverFinalCapParity?
+              applyMoverFinalCapParity(
+                nextHeights,blocked.r0,blocked.r1,width,height):
+              blocked,
+            canonical=canonicalize(
+              nextHeights,closed.r0,closed.r1);
+          child=visit(canonical);
+        }
+      }
+      childKeys.push(child.key);
+      childClasses.push(unpackClass(child.packed));
+      childValues.push(unpackValue(child.packed));
+    }
+
+    duplicateEquivalentActionEdges+=
+      childKeys.length-new Set(childKeys).size;
+    const uniqueClasses=[...new Set(childClasses)].sort((a,b)=>a-b),
+      classSignature='N:'+rank+':'+mover+':'+
+        uniqueClasses.map(x=>x.toString(36)).join('.'),
+      value=mover?Math.min(...childValues):Math.max(...childValues);
+    statesByRank[rank]++;
+    const classId=internClass(rank,classSignature,value),
+      packed=pack(classId,value);
+    memo.set(key,packed);
+
+    if(rank===0){
+      rootLegalActions=childKeys.length;
+      rootDistinctOrbitChildren=new Set(childKeys).size;
+      rootDistinctRecursiveChildren=uniqueClasses.length;
+    }
+    return {key,packed};
+  }
+
+  const initialResidual=normalizeMaskAntichain(masks),
+    rootHeights=new Uint8Array(width),
+    rootBlocked=nonterminalFrontierBlocker?
+      applyUniversalFrontierBlocker(
+        rootHeights,initialResidual,initialResidual,width,height,{nonterminalOnly:true}):
+      {r0:initialResidual,r1:initialResidual,removed:0},
+    rootClosed=moverFinalCapParity?
+      applyMoverFinalCapParity(
+        rootHeights,rootBlocked.r0,rootBlocked.r1,width,height):
+      rootBlocked,
+    root=canonicalize(
+      rootHeights,rootClosed.r0,rootClosed.r1),
+    rootResult=visit(root);
+
+  let wdlSplitClasses=0;
+  for(const mask of classValueMask)
+    if(mask!==undefined&&(mask&(mask-1))!==0)wdlSplitClasses++;
+
+  const frontier=statesByRank.map((states,rank)=>({
+      rank,states,classes:classesByRank[rank],
+    })),
+    dynamicMergeByRank=statesByRank.map((_,rank)=>({
+      rank,
+      mergedRecursiveClasses:mergedClassesByRank[rank],
+      orbitExcess:orbitExcessByRank[rank],
+      maxOrbitStatesPerRecursiveClass:maxOrbitStatesPerClassByRank[rank],
+    }));
+
+  return {
+    schema:'connect4.direct-residual-orbit-growth-compact.v1',
+    inputs:'root geometry + residual-antichain cofactor rules + support + action relabeling',
+    physicalBoardStatesEnumerated:false,
+    outcomeLabelsUsedByProducer:false,
+    validationUsesDerivedWdl:true,
+    fullGraphObjectsRetained:false,
+    width,height,k,cells,
+    canonicalization:refinedColumnCanonicalization?
+      'refinement-partitioned exact tie search':
+      'full column permutation search',
+    columnPermutations:permutationData?.length??null,
+    canonicalPermutationCandidates,
+    maxCanonicalPermutationCandidates,
+    refinedColumnCanonicalization,
+    nonterminalFrontierBlocker,
+    moverFinalCapParity,
+    winningLineCount:masks.length,
+    residualOrbitStates:memo.size,
+    literalActionEdges,
+    duplicateEquivalentActionEdges,
+    recursiveUnlabelledClasses:nextClassId,
+    wdlSplitClasses,
+    rootValue:unpackValue(rootResult.packed),
+    rootLegalActions,
+    rootDistinctOrbitChildren,
+    rootDistinctRecursiveChildren,
+    earliestDynamicMergeRank,
+    dynamicMergeByRank,
     peakOrbitStateFrontier:peakBy(frontier,'states'),
     peakRecursiveClassFrontier:peakBy(frontier,'classes'),
     frontier,
