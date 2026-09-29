@@ -219,3 +219,22 @@ test('exhaustive optimal policy graph branches and collapses under perfect play'
   assert.ok(r.exampleBranchCollapse.optimalMoves.length>1);
   assert.ok(r.exampleBranchCollapse.terminalWinningLines.length>1);
 });
+
+
+test('optimal sibling moves are compared under partial2 and terminal-realization quotients',()=>{
+  const r=algebra.analyzeOptimalBranchCollapse4x4();
+  assert.equal(r.multiOptimalStates,56763);
+  assert.ok(r.siblingCarrierAudit);
+  const a=r.siblingCarrierAudit;
+  assert.equal(a.statesAudited,r.multiOptimalStates);
+  assert.equal(
+    a.allChildrenSamePartial2+a.childrenSplitAcrossPartial2,
+    a.statesAudited
+  );
+  assert.equal(
+    a.allChildrenSameTerminalSet+a.childrenSplitAcrossTerminalSet,
+    a.statesAudited
+  );
+  assert.ok(a.samePartial2DifferentTerminalSetPairs>=0);
+  assert.ok(a.differentPartial2SameTerminalSetPairs>=0);
+});
