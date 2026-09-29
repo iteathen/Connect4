@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
+  analyzeDirectResidualOrbitGraph,
   analyzeUnlabelledQuotientDimension,
   analyzeUnlabelledQuotientDimensionMatrix,
 } from './control-algebra-dimensions.mjs';
@@ -21,6 +22,18 @@ test('generic rule-only quotient reproduces exhaustive 4x4 connect-4 control',()
   assert.ok(r.residualOrbitAudit.orientationSensitiveClasses>=
     r.residualOrbitAudit.columnOrbitClasses);
   assert.ok(r.residualOrbitAudit.columnOrbitClasses>=r.classes);
+});
+
+test('direct residual orbit graph reproduces the recursive 4x4 quotient without physical-board enumeration',()=>{
+  const r=analyzeDirectResidualOrbitGraph({width:4,height:4,k:4});
+  assert.equal(r.physicalBoardStatesEnumerated,false);
+  assert.equal(r.outcomeLabelsUsedByProducer,false);
+  assert.equal(r.residualOrbitStates,10507);
+  assert.equal(r.recursiveUnlabelledClasses,8242);
+  assert.equal(r.wdlSplitClasses,0);
+  assert.equal(r.rootValue,0);
+  assert.equal(r.rootLegalActions,4);
+  assert.equal(r.rootDistinctRecursiveChildren,2);
 });
 
 test('cross-dimension rule-only quotients remain WDL-homogeneous under post-hoc validation',()=>{
