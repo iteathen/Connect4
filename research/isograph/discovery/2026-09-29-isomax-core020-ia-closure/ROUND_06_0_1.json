@@ -1,5 +1,5 @@
 {
-  "schema": "isomax.core020.structural_control.implicit_assertion_round.v1",
+  "schema": "isomax.core020.structural_control.implicit_assertion_round.v2",
   "round": 6,
   "date_author_local": "2026-09-29",
   "input": [
@@ -25,10 +25,11 @@
       ],
       "rule": "C",
       "scope": "exactly the two shortest 5x4 routes represented in the packet",
-      "qu_dependencies": [
+      "qu_dependencies": [],
+      "note": "No extension to other routes or a coordinate-free mask identity is asserted.",
+      "related_qu": [
         "QU-SC-001"
-      ],
-      "note": "No extension to other routes or a coordinate-free mask identity is asserted."
+      ]
     },
     {
       "id": "SC-IA033",
@@ -44,7 +45,8 @@
       ],
       "rule": "B",
       "scope": "shortest 5x4 residual-bit-refined witness",
-      "qu_dependencies": [
+      "qu_dependencies": [],
+      "related_qu": [
         "QU-SC-001"
       ]
     },
@@ -63,7 +65,8 @@
       ],
       "rule": "R",
       "scope": "shortest 5x4 obstruction only",
-      "qu_dependencies": [
+      "qu_dependencies": [],
+      "related_qu": [
         "QU-SC-001"
       ]
     },
@@ -81,7 +84,8 @@
       ],
       "rule": "C",
       "scope": "two-route shortest 5x4 witness only",
-      "qu_dependencies": [
+      "qu_dependencies": [],
+      "related_qu": [
         "QU-SC-001",
         "QU-SC-004"
       ]
@@ -125,5 +129,6 @@
       "disposition": "REJECTED_AS_UNSUPPORTED_EXACT_IA",
       "qu": "QU-SC-001"
     }
-  ]
+  ],
+  "strict_support_revision": "ISOMAX_STRUCTURAL_CONTROL_CORE020_0_2.isg + A0 v2"
 }
