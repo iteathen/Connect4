@@ -1377,7 +1377,28 @@ export function analyzeOptimalBranchCollapse4x4({emitPrimitiveWitnessData=false}
       },
     };
 
-  const rootTerminalMask=terminalMaskFor(keyOf(0,0));
+  const rootTerminalMask=terminalMaskFor(keyOf(0,0)),
+    physicalCarrier=emitPrimitiveWitnessData?[...memo.values()].map(rec=>{
+      const heights=heightVector(rec.p0,rec.p1),legalChildren=[];
+      if(!rec.terminal)for(let col=0;col<4;col++)if(heights[col]<4){
+        const cell=heights[col]*4+col,bit=1<<cell,
+          childKey=(rec.rank&1)?keyOf(rec.p0,rec.p1|bit):keyOf(rec.p0|bit,rec.p1);
+        assert.ok(memo.has(childKey),'primitive physical carrier child must exist');
+        legalChildren.push({column:col,childKey});
+      }
+      return {
+        key:rec.key,
+        p0:rec.p0,
+        p1:rec.p1,
+        rank:rec.rank,
+        value:rec.value,
+        terminal:rec.terminal,
+        winner:rec.winner,
+        legalChildren,
+        optimalChildren:(optimalByKey.get(rec.key)??[]).map(e=>({...e})),
+        partial2:fourByFourPartial2Signature(g,rec.p0,rec.p1).toString(16),
+      };
+    }):null;
   return {
     inputs:'4x4 connect-4 rules only',
     solvedInputsUsed:false,
@@ -1427,6 +1448,7 @@ export function analyzeOptimalBranchCollapse4x4({emitPrimitiveWitnessData=false}
     structuralQuotients,
     mq2Crosscheck,
     primitiveWitnessData:emitPrimitiveWitnessData?{
+      physicalCarrier,
       optimalDistinctDeltas:allUnique.map(x=>x.toString(16)),
       legalDistinctDeltas:allLegalUnique.map(x=>x.toString(16)),
       optimalBasis:allBasis.basis
