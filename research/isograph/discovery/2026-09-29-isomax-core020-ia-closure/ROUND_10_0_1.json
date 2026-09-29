@@ -1,0 +1,92 @@
+{
+  "schema": "isomax.core020.structural_control.implicit_assertion_round.v1",
+  "round": 10,
+  "date_author_local": "2026-09-29",
+  "input": [
+    "A0_EXPLICIT_ASSERTIONS_0_1.json",
+    "ROUND_01_0_1.json",
+    "ROUND_02_0_1.json",
+    "ROUND_03_0_1.json",
+    "ROUND_04_0_1.json",
+    "ROUND_05_0_1.json",
+    "ROUND_06_0_1.json",
+    "ROUND_07_0_1.json",
+    "ROUND_08_0_1.json",
+    "ROUND_09_0_1.json"
+  ],
+  "new_assertions": [
+    {
+      "id": "SC-IA051",
+      "family": "S",
+      "support_mode": "EXACT",
+      "title": "source residual refinement is not necessary for the shortest local scalar repair",
+      "body": "Although source quotient node 197000 merges represented residual-distinct fine sheets, the shortest scalar constraint system is satisfiable after splitting only the target while leaving source quotient node 197000 unchanged; source-sheet residual refinement is therefore not necessary for this local repair.",
+      "normalized_body": "source_residual_refinement_not_necessary_for_shortest_local_scalar_repair",
+      "premises": [
+        "SC-IA003",
+        "SC-IA037"
+      ],
+      "rule": "S",
+      "scope": "shortest 5x4 obstruction; state-refinement-only scalar repair",
+      "qu_dependencies": [
+        "QU-SC-001"
+      ]
+    },
+    {
+      "id": "SC-IA052",
+      "family": "R",
+      "support_mode": "EXACT",
+      "title": "shortest-witness state-refinement repair is target-asymmetric",
+      "body": "Under unchanged routes, edge deltas, and scalar Boolean codomain, every state-refinement-only repair of the shortest witness must separate the two fine target states, while at least one satisfying repair leaves the represented source merge unchanged.",
+      "normalized_body": "shortest_state_refinement_scalar_repair_requires_target_separation_but_not_source_separation",
+      "premises": [
+        "SC-IA021",
+        "SC-IA037",
+        "SC-IA044",
+        "SC-IA051"
+      ],
+      "rule": "R",
+      "scope": "shortest 5x4 obstruction only",
+      "qu_dependencies": [
+        "QU-SC-001"
+      ]
+    }
+  ],
+  "support_refinements": [],
+  "qu_refinements": [
+    {
+      "id": "SC-QR010",
+      "target": "QU-SC-001",
+      "rule": "U",
+      "premises": [
+        "SC-IA051",
+        "SC-IA052"
+      ],
+      "add_fixed": [
+        "for the shortest witness, a target residual-state distinction is necessary for state-refinement-only scalar repair whereas source-sheet refinement is not necessary"
+      ],
+      "retain_open": [
+        "whether this target-side asymmetry persists across the other 5x4 obstructions",
+        "which relabeling-invariant target residual/incidence predicate captures the required separation",
+        "whether some other obstruction requires source or transition refinement as well"
+      ],
+      "probability_added": false
+    }
+  ],
+  "rejected_candidates": [
+    {
+      "id": "SC-RJ020",
+      "body": "Source residual structure is irrelevant to the generalized phase.",
+      "reason": "Only non-necessity for the shortest local repair is established; source structure may remain load-bearing elsewhere.",
+      "disposition": "REJECTED_SCOPE_WIDENING",
+      "qu": "QU-SC-001"
+    },
+    {
+      "id": "SC-RJ021",
+      "body": "Every obstruction can be repaired by target-only refinement.",
+      "reason": "Only one primitive-expanded contradictory pair has been subjected to this necessity/sufficiency analysis.",
+      "disposition": "REJECTED_SCOPE_WIDENING",
+      "qu": "QU-SC-001"
+    }
+  ]
+}
