@@ -93,18 +93,21 @@ public:
 
     bool validate(const std::vector<int>& path,int target){
         Position p{};
+        std::cerr<<"VALIDATE target="<<target<<" length="<<path.size()<<" path="<<moves_string(path)<<"\\n";
         for(size_t ply=0;ply<path.size();ply++){
-            if(p.is_game_over()) return false;
+            if(p.is_game_over()){std::cerr<<"FAIL early-gameover before ply "<<(ply+1)<<"\\n";return false;}
             int best=solver.solve(p), col=path[ply];
-            if(!p.is_move_valid(col)) return false;
+            if(!p.is_move_valid(col)){std::cerr<<"FAIL illegal ply "<<(ply+1)<<" col "<<col<<"\\n";return false;}
             board before=p.move(col);
             int mv=-solver.solve(p,-best,-best+1);
-            if(mv<best){ p.unmove(before); return false; }
-            if(ply+1<path.size() && p.is_game_over()){ p.unmove(before); return false; }
+            if(mv<best){std::cerr<<"FAIL nonoptimal ply "<<(ply+1)<<" best "<<best<<" mv "<<mv<<"\\n";p.unmove(before);return false;}
+            if(ply+1<path.size() && p.is_game_over()){std::cerr<<"FAIL terminal-at ply "<<(ply+1)<<"\\n";p.unmove(before);return false;}
         }
-        return path.size()==(size_t)(BOARD_WIDTH*BOARD_HEIGHT)
-            && p.is_game_over() && !p.is_draw()
-            && target_complete_for_second(p,lines[target]);
+        bool len=path.size()==(size_t)(BOARD_WIDTH*BOARD_HEIGHT);
+        bool over=p.is_game_over(), draw=p.is_draw(), targetok=target_complete_for_second(p,lines[target]);
+        if(!(len&&over&&!draw&&targetok))
+            std::cerr<<"FAIL final len="<<len<<" over="<<over<<" draw="<<draw<<" target="<<targetok<<" moves="<<p.num_moves()<<"\\n";
+        return len&&over&&!draw&&targetok;
     }
 
     const std::vector<Line>& get_lines() const { return lines; }
