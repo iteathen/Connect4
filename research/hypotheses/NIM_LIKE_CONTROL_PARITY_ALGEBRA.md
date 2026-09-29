@@ -287,18 +287,37 @@ Two important falsification controls were retained:
    stack as the carrier shrinks from 10,507 to 9,090 structural states, so the
    result is not tied to the raw redundant residual syntax.
 
-The exact bounded conclusion is therefore an **integrable relative GF(2)
-continuation phase under declared finite structural guards**, not a W/D/L law or
-nimber.
+The exact positive conclusion is therefore an **integrable relative GF(2)
+continuation phase on the tested width-4 carriers**, not a W/D/L law or nimber.
 
-The same test has now been extended to 4x5 Connect-4. The larger carrier has
-696 binary groups, 469 binary inheritance edges, 95 sheet-flipping edges and 40
-independent cycle constraints. All 40 cycle syndromes are zero, with 42 genuine
-reconvergent source/target pairs and no contradictory reconvergence.
+The same test on 4x5 Connect-4 produced 696 binary groups, 469 binary
+inheritance edges, 95 sheet-flipping edges and 40 independent cycle
+constraints. All 40 syndromes were zero.
 
-This substantially weakens the one-small-diamond objection, but generic
-transition/cofactor confluence and generic trivial two-sheet covering remain
-live alternative explanations.
+The decisive width perturbation is negative. On 5x4 Connect-4 the corresponding
+carrier has 4,464 binary groups and 4,221 binary inheritance edges. After
+duplicate same-map edges are removed, its cycle rank is 644:
+
+~~~text
+zero cycle syndromes       619
+nonzero cycle syndromes     25
+contradictory reconvergences 12
+~~~
+
+A minimal direct witness is:
+
+~~~text
+3260 -> 1857 -> 574    accumulated XOR 0
+3260 -> 3255 -> 574    accumulated XOR 1
+~~~
+
+Therefore the present scalar phase carrier is **not** a generalized
+Connect-Four GF(2) potential. Either width-4 has a special exact law, or the
+5x4 carrier exposes missing structural coordinates / a higher-dimensional or
+non-abelian phase.
+
+The next phase research must explain the 5x4 obstructions rather than
+normalizing them away.
 
 See
 [RECURSIVE_PHASE_COCYCLE_SYNTHESIS.md](../isograph/discovery/2026-09-29-center-proof-cycle/RECURSIVE_PHASE_COCYCLE_SYNTHESIS.md).
