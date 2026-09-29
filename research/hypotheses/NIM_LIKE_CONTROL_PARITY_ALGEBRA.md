@@ -241,3 +241,12 @@ Build a cold, rule-only experiment with no solver or solved-outcome imports.
 6. preserve negative results as aggressively as positive ones.
 
 No production solver changes follow from this experiment.
+
+
+## Research publication
+
+The current bounded research synthesis is published on this research branch as:
+
+[C = NC? Control-Parity Algebra, Branch Collapse, and a Structural Research Program for Generalized Connect Four](../publications/2026-09-29/C_EQUALS_NC_CONTROL_PARITY_ALGEBRA_0_1.md)
+
+Author: Joshua Oshiro. The paper discloses AI-agent assistance and explicitly states that the AI agent was not responsible for the core conceptual findings or research direction.
