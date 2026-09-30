@@ -10,6 +10,8 @@ on:
       - 'research/isograph/discovery/2026-09-29-isomax-late-xor-components/ooo-sign-channel-coupling-lib.test.mjs'
       - 'research/isograph/discovery/2026-09-29-isomax-late-xor-components/run-ooo-sign-channel-coupling.mjs'
       - 'research/isograph/discovery/2026-09-29-isomax-late-xor-components/verify-ooo-sign-channel-coupling.mjs'
+      - 'research/isograph/discovery/2026-09-29-isomax-late-xor-components/ooo-grid-freeze-lib.mjs'
+      - 'research/isograph/discovery/2026-09-29-isomax-late-xor-components/ooo-grid-freeze-lib.test.mjs'
   workflow_dispatch:
 
 concurrency:
@@ -31,7 +33,7 @@ jobs:
       - name: Check RS-077 runner syntax
         run: node --check research/isograph/discovery/2026-09-29-isomax-late-xor-components/run-ooo-sign-channel-coupling.mjs
       - name: Test sign-channel coupling semantics
-        run: node --test research/isograph/discovery/2026-09-29-isomax-late-xor-components/ooo-sign-channel-coupling-lib.test.mjs
+        run: node --test research/isograph/discovery/2026-09-29-isomax-late-xor-components/ooo-sign-channel-coupling-lib.test.mjs research/isograph/discovery/2026-09-29-isomax-late-xor-components/ooo-grid-freeze-lib.test.mjs
       - name: Run sign-channel coupling grid
         run: node --max-old-space-size=6144 research/isograph/discovery/2026-09-29-isomax-late-xor-components/run-ooo-sign-channel-coupling.mjs
       - name: Verify sign-channel coupling result
@@ -44,9 +46,22 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           out1=research/isograph/discovery/2026-09-29-isomax-late-xor-components/OOO_SIGN_CHANNEL_COUPLING_0_1.json
           out2=research/isograph/discovery/2026-09-29-isomax-late-xor-components/OOO_SIGN_CHANNEL_COUPLING_RESULT_VERIFY_0_1.json
+          old_stash=$(git rev-parse -q --verify refs/stash || true)
           git stash push --include-untracked -m rs077-generated -- "$out1" "$out2"
+          new_stash=$(git rev-parse -q --verify refs/stash || true)
           git pull --rebase origin experiment/isomax-late-xor-components-20260929
-          git stash pop
+          # A concurrent producer change invalidates this run's evidence.
+          # Do not attach old results to a newer experiment implementation.
+          git diff --exit-code "$GITHUB_SHA" HEAD -- \
+            ':(glob)research/isograph/discovery/2026-09-29-isomax-late-xor-components/*.mjs' \
+            research/isograph/discovery/2026-09-29-isomax-late-xor-components/EXPERIMENTAL_WARRANT_RS_077.json
+          if [ "$old_stash" != "$new_stash" ]; then
+            git stash pop
+          fi
+          # Recheck the synchronized tree before any evidence publication.
+          node --test research/isograph/discovery/2026-09-29-isomax-late-xor-components/ooo-sign-channel-coupling-lib.test.mjs research/isograph/discovery/2026-09-29-isomax-late-xor-components/ooo-grid-freeze-lib.test.mjs
+          node research/isograph/discovery/2026-09-29-isomax-late-xor-components/verify-ooo-sign-channel-coupling.mjs
+          node tools/verify-research-integrity.mjs
           git add "$out1" "$out2"
           if git diff --cached --quiet; then
             echo "No generated changes."
