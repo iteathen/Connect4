@@ -1,0 +1,30 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.late_xor_components_holdout.v1",
+  "id": "EW-RS-012",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE_FRESH_CROSS_CASE",
+  "parent": "EW-RS-011",
+  "frozen_component_definition": "post-RFG residual-incidence connected components with support/owner-labelled permutation-canonical types",
+  "objective": "Test whether the exact component-multiset factorization and the self-cancelling MOD2/XOR hypothesis transfer across fresh small geometries/connect lengths.",
+  "cases": [
+    "3x3-k3",
+    "3x4-k3",
+    "4x3-k3",
+    "4x4-k3",
+    "4x4-k4 control"
+  ],
+  "nearby_algebra": [
+    "multiplicity mod 3",
+    "multiplicity mod 4"
+  ],
+  "anti_circularity": [
+    "component extractor is unchanged from EW-RS-011",
+    "candidate keys use no value/future labels",
+    "value labels are derived only after candidate keys are frozen"
+  ],
+  "falsifiers": [
+    "MULTI failure falsifies the frozen component decomposition for the failed semantic target.",
+    "MOD2_P failure is a direct self-cancellation/XOR falsifier for the frozen components in that case.",
+    "Different behavior across cases must be explained by structural coverage such as available component multiplicities, not patched by adding case labels."
+  ]
+}
