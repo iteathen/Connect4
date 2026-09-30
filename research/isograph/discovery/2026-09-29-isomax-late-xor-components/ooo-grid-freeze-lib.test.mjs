@@ -1,6 +1,51 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {freezeGridThenReplay} from './ooo-grid-freeze-lib.mjs';
+import {readFileSync} from 'node:fs';
+import {FAMILY_SATURATION_GRID} from './ooo-six-bucket-family-saturation-lib.mjs';
+
+// Exercise the actual nested RS-076 implementation without recomputing its
+// expensive upstream game corpus. Scalar getters are a read barrier, including
+// the earlier control's exactness flag.
+function runActualFamilyAudit({failLast=false}={}){
+  const source=readFileSync(new URL('./run-ooo-sign-channel-coupling.mjs',import.meta.url),'utf8');
+  const start=source.indexOf('function oooSixBucketFamilySaturationAudit(){');
+  const end=source.indexOf('const sixBucketFamilySaturation=oooSixBucketFamilySaturationAudit();',start);
+  assert.ok(start>=0&&end>start);
+  let preparedCount=0,scalarReads=0,frozenCount=0;
+  const dependency={oooResidue:[0],sourceSignature:'toy',dependencyIndex:0,
+    get scalarCode(){scalarReads++;assert.equal(preparedCount,64);assert.equal(frozenCount,64);return 1;}};
+  const control={mode:'BUCKET_CLIP3',imageRank:1,
+    get exactScalarFactorization(){scalarReads++;assert.equal(preparedCount,64);assert.equal(frozenCount,64);return true;}};
+  const key=()=>{preparedCount++;if(failLast&&preparedCount===64)throw new Error('last structure failed');return 'toy';};
+  const freeze=(grid,prepare,replay)=>freezeGridThenReplay(grid,prepare,state=>{
+    if(frozenCount===0)frozenCount=64;
+    for(const field of ['featureKeys','structuralRows','basisDependencyIndices'])assert.ok(Object.isFrozen(state[field]));
+    return replay(state);
+  });
+  const args={assert,descriptorIds:new Map([['w1|cap=1|r0=0:0|r1=',0]]),
+    tripleKeys:[20202],pairBase:100,matchedDependencyQuotient:{dependencies:[dependency],scalarDependencyImageDimension:1},
+    sixBucketCountQuotient:{audits:[control]},FAMILY_SATURATION_GRID,
+    familySaturationTriangleKey:key,xorRow:(a,b)=>a.filter(x=>!b.includes(x)).concat(b.filter(x=>!a.includes(x))).sort((a,b)=>a-b),
+    freezeGridThenReplay:freeze};
+  const invoke=new Function(...Object.keys(args),source.slice(start,end)+'return oooSixBucketFamilySaturationAudit();');
+  try{return {result:invoke(...Object.values(args)),preparedCount,scalarReads};}
+  catch(error){error.scalarReads=scalarReads;throw error;}
+}
+
+test('actual RS-076 prepares and freezes all 64 structures before scalar or control reads',()=>{
+  const out=runActualFamilyAudit();
+  assert.equal(out.result.audits.length,64);
+  assert.ok(out.scalarReads>0);
+});
+
+test('actual RS-076 late preparation failure cannot read any scalar',()=>{
+  assert.throws(()=>runActualFamilyAudit({failLast:true}),error=>{
+    assert.match(error.message,/last structure failed/);
+    assert.equal(error.scalarReads,0);
+    return true;
+  });
+});
 
 test('a late structural failure prevents every scalar replay',()=>{
   let scalarReads=0;

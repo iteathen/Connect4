@@ -2191,7 +2191,7 @@ function auditCase(W,H,K,captureStructure=null){
         return nz.length===0?0:nz.length===1?1:2;
       }
 
-      function auditCandidate(candidate){
+      function prepareCandidate(candidate){
         const tripleCandidateKey=new Map(),keySet=new Set();
         for(const [ti,vertices] of tripleVertices){
           const key=familySaturationTriangleKey(vertices,candidate);
@@ -2226,7 +2226,7 @@ function auditCase(W,H,K,captureStructure=null){
         }
 
         const clip3=sixBucketCountQuotient.audits.find(x=>x.mode==='BUCKET_CLIP3');
-        assert.ok(clip3&&clip3.exactScalarFactorization,'EW-RS-076 uniform CLIP3 control missing');
+        assert.ok(clip3,'EW-RS-076 uniform CLIP3 structural control missing');
         const imageRank=structuralPivots.size;
         const rankDifferenceVsUniformClip3=imageRank-clip3.imageRank;
         const factorsThroughUniformClip3=['C','D','A'].every(k=>
@@ -2238,6 +2238,15 @@ function auditCase(W,H,K,captureStructure=null){
         if(factorsThroughUniformClip3)
           assert.ok(kernelDimensionRelativeToClip3>=0,'EW-RS-076 comparable family grid rank exceeds uniform CLIP3 rank');
 
+        return {candidate:{...candidate},featureKeys,structuralRows,basisDependencyIndices,
+          imageRank,rankDifferenceVsUniformClip3,factorsThroughUniformClip3,kernelDimensionRelativeToClip3};
+      }
+
+      function replayCandidate(prepared){
+        const {candidate,featureKeys,structuralRows,basisDependencyIndices,
+          imageRank,rankDifferenceVsUniformClip3,factorsThroughUniformClip3,kernelDimensionRelativeToClip3}=prepared;
+        assert.ok(sixBucketCountQuotient.audits.find(x=>x.mode==='BUCKET_CLIP3')?.exactScalarFactorization,
+          'EW-RS-076 uniform CLIP3 scalar control failure');
         const equationPivots=new Map();
         let contradictions=0,zeroStructuralNonzeroScalar=0,firstContradiction=null;
         for(let i=0;i<structuralRows.length;i++){
@@ -2289,7 +2298,7 @@ function auditCase(W,H,K,captureStructure=null){
       return {
         familyModes:['PRESENCE','ZOE','CLIP2','CLIP3'],
         grid:FAMILY_SATURATION_GRID.map(x=>({...x})),
-        audits:FAMILY_SATURATION_GRID.map(auditCandidate)
+        audits:freezeGridThenReplay(FAMILY_SATURATION_GRID,prepareCandidate,replayCandidate)
       };
     }
 
