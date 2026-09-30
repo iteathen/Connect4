@@ -1,0 +1,80 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.rank_conditioned_component_phase.v1",
+  "id": "EW-RS-018",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "parent": "EW-RS-017",
+  "objective": "Determine whether the surviving 5x3-k3 MOD2_P_TACTICAL2 value collisions are component-algebra failures or aliases created by retaining only turn parity while discarding admissible current-rank phase.",
+  "trigger": {
+    "case": "5x3-k3",
+    "mixed_value_groups": 2,
+    "shared_structural_delta": "-2 x T09412 +2 x T07343",
+    "T09412": "width-1 canonical component 1|6|",
+    "T07343": "width-1 canonical component 0|4|7",
+    "observed_rank_effect": "the paired substitution changes total rank by 2 while preserving turn parity"
+  },
+  "frozen_from_prior": [
+    "post-RFG residual-incidence connected-component extractor",
+    "support/owner-labelled canonical component type",
+    "component multiplicity parity",
+    "T2 evaluator short circuit: W immediate win, L2 universal one-move release loss, O unresolved",
+    "exact value labels remain downstream qualification targets only"
+  ],
+  "candidate_distinctions": [
+    {
+      "id": "RANK_EXACT",
+      "definition": "append exact current rank to MOD2 component parity + T2",
+      "role": "admissible upper-bound test for rank-phase aliasing"
+    },
+    {
+      "id": "RANK_MOD3",
+      "definition": "append current rank modulo 3 while retaining existing turn parity p",
+      "equivalent_phase": "rank modulo 6",
+      "role": "smaller candidate suggested by prior MOD3 multiplicity QV success"
+    },
+    {
+      "id": "RANK_MOD4",
+      "definition": "append current rank modulo 4",
+      "role": "nearby falsification control; must not be promoted merely for being small"
+    },
+    {
+      "id": "RANK_EXACT_NO_T2",
+      "definition": "exact rank + MOD2 component parity without T2",
+      "role": "tests whether rank alone explains the earlier failures"
+    }
+  ],
+  "derivation_cases": [
+    "3x3-k3",
+    "3x4-k3",
+    "4x3-k3",
+    "4x4-k4",
+    "4x4-k3",
+    "3x5-k3",
+    "5x3-k3"
+  ],
+  "fresh_holdouts": [
+    "3x6-k3"
+  ],
+  "targets": [
+    "Q-V primary",
+    "Q-F component-transport diagnostic",
+    "mixed-group rank-profile audit"
+  ],
+  "anti_circularity": [
+    "No component type or tactical rule is changed after observing values.",
+    "Rank is a governing-objective admissible current-rank fact, not an outcome-derived feature.",
+    "The fresh 3x6-k3 carrier does not contribute to candidate definition.",
+    "All structural keys are frozen before exact values are derived."
+  ],
+  "falsifiers": [
+    "Any same-exact-rank mixed-value group under MOD2+T2 rejects pure rank-phase aliasing as a complete explanation in that case.",
+    "Any fresh RANK_EXACT mixed-value group rejects exact-rank-conditioned MOD2+T2 QV sufficiency on that holdout.",
+    "RANK_MOD3 failure with RANK_EXACT success shows the six-phase compression is too small.",
+    "RANK_EXACT_NO_T2 failure shows rank is complementary to, not a replacement for, tactical reduction."
+  ],
+  "nonclaims": [
+    "A finite pass does not prove standard-7x6 sufficiency.",
+    "A rank-conditioned pass does not prove literal Nim heaps or universal XOR.",
+    "MOD3 multiplicity success is not interpreted as a ternary algebra unless phase-preservation alternatives are excluded."
+  ]
+}
