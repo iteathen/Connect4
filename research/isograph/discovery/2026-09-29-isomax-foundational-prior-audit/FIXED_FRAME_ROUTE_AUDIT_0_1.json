@@ -1,0 +1,111 @@
+{
+  "schema": "connect4.isomax.foundational_prior_audit.fixed_frame_routes.v1",
+  "date_author_local": "2026-09-29",
+  "rows": [
+    {
+      "startSheet": 0,
+      "source": "Q:1,1,3,3,4|96.3072.33824|67648.132160.264224.360448",
+      "routeAActions": [
+        0,
+        1,
+        1
+      ],
+      "routeBActions": [
+        1,
+        0,
+        0
+      ],
+      "routeAStates": [
+        "Q:1,1,3,3,4|96.3072.33824|67648.132160.264224.360448",
+        "Q:2,1,3,3,4|64.3072.33792|67648.132160.360448",
+        "Q:2,2,3,3,4|3072.33792|67584.132096.360448",
+        "Q:2,3,3,3,4|1024|132096.360448"
+      ],
+      "routeBStates": [
+        "Q:1,1,3,3,4|96.3072.33824|67648.132160.264224.360448",
+        "Q:1,2,3,3,4|32.3072|264224.360448",
+        "Q:2,2,3,3,4|3072|264192.360448",
+        "Q:3,2,3,3,4|2048|264192.360448"
+      ],
+      "rawEndpointExactEqual": false,
+      "rawEndpointOrbitEqual": false,
+      "orbitTransporter": null,
+      "rawEndpointLiteralFutureEqual": false,
+      "rawEndpointLiteralFutureHashes": [
+        "3fed3725f9ff188ddad10483a26daa0ef88c3f348edabe109d3f4f5dac07d3c1",
+        "bc262228a5a7f74aa34944433b81796f40b3fda5206b26294ff0a85a63901847"
+      ],
+      "canonicalEndpoints": [
+        "Q:2,3,3,3,4|1024|132096.360448",
+        "Q:2,3,3,3,4|1024|132096.229376"
+      ],
+      "canonicalEndpointEqual": false,
+      "expectedStoredCanonicalEndpoints": [
+        "Q:2,3,3,3,4|1024|132096.360448",
+        "Q:2,3,3,3,4|1024|132096.229376"
+      ],
+      "routeACanonicalMatchesStored": true,
+      "routeBCanonicalMatchesStored": true,
+      "canonicalizerCounts": [
+        2,
+        1
+      ]
+    },
+    {
+      "startSheet": 1,
+      "source": "Q:1,1,3,3,4|96.3072.33824|67648.132160.229376.264224",
+      "routeAActions": [
+        0,
+        1,
+        1
+      ],
+      "routeBActions": [
+        1,
+        0,
+        0
+      ],
+      "routeAStates": [
+        "Q:1,1,3,3,4|96.3072.33824|67648.132160.229376.264224",
+        "Q:2,1,3,3,4|64.3072.33792|67648.132160.229376",
+        "Q:2,2,3,3,4|3072.33792|67584.132096.229376",
+        "Q:2,3,3,3,4|1024|132096.229376"
+      ],
+      "routeBStates": [
+        "Q:1,1,3,3,4|96.3072.33824|67648.132160.229376.264224",
+        "Q:1,2,3,3,4|32.3072|229376.264224",
+        "Q:2,2,3,3,4|3072|229376.264192",
+        "Q:3,2,3,3,4|2048|229376.264192"
+      ],
+      "rawEndpointExactEqual": false,
+      "rawEndpointOrbitEqual": false,
+      "orbitTransporter": null,
+      "rawEndpointLiteralFutureEqual": false,
+      "rawEndpointLiteralFutureHashes": [
+        "3fed3725f9ff188ddad10483a26daa0ef88c3f348edabe109d3f4f5dac07d3c1",
+        "bc262228a5a7f74aa34944433b81796f40b3fda5206b26294ff0a85a63901847"
+      ],
+      "canonicalEndpoints": [
+        "Q:2,3,3,3,4|1024|132096.229376",
+        "Q:2,3,3,3,4|1024|132096.360448"
+      ],
+      "canonicalEndpointEqual": false,
+      "expectedStoredCanonicalEndpoints": [
+        "Q:2,3,3,3,4|1024|132096.229376",
+        "Q:2,3,3,3,4|1024|132096.360448"
+      ],
+      "routeACanonicalMatchesStored": true,
+      "routeBCanonicalMatchesStored": true,
+      "canonicalizerCounts": [
+        1,
+        2
+      ]
+    }
+  ],
+  "findings": {
+    "exactRawReconvergenceForBothSheets": false,
+    "orbitRawReconvergenceForBothSheets": false,
+    "literalFutureReconvergenceForBothSheets": false,
+    "canonicalizationReproducesStoredEndpoints": true,
+    "interpretation": "source-frame routes are compared before per-step canonicalization; this separates physical/fixed-coordinate path behavior from canonical-frame sheet bookkeeping"
+  }
+}
