@@ -1,0 +1,590 @@
+{
+  "schema": "connect4.isomax.same_rank_xor_contradiction_certificate.v1",
+  "date_author_local": "2026-09-29",
+  "warrant": "EW-RS-029",
+  "frozenComponentDefinition": "post-RFG residual-incidence connected components with support/owner-labelled canonical component type",
+  "frozenTacticalReduction": "direct rank-local T2 = W immediate win; L2 universal one-move release loss; O unresolved",
+  "frozenEvaluatorModel": "on T2-O states, code(U)=b_G,r XOR XOR_{odd C} g_G,r(C), with independent GF(2)^2 component values at exact rank",
+  "case": {
+    "label": "5x3-k3",
+    "width": 5,
+    "height": 3,
+    "k": 3,
+    "physicalStates": 70914,
+    "nonterminalStates": 40659,
+    "componentTypes": 9441,
+    "equations": 7255,
+    "activeVariables": 3291,
+    "pivotRank": 3223,
+    "activeNullity": 68,
+    "contradictions": 18,
+    "outcomeHistogram": {
+      "loss": 2573,
+      "draw": 469,
+      "win": 4213
+    },
+    "certificateCount": 18,
+    "certificateSizeHistogram": {
+      "4": 12,
+      "6": 2,
+      "8": 4
+    },
+    "minimumCertificate": {
+      "reducedRhs": 1,
+      "certificateSize": 4,
+      "rank": 9,
+      "equationIndices": [
+        1361,
+        1379,
+        2732,
+        4530
+      ],
+      "outcomeCodeXor": 1,
+      "lhsCancels": true,
+      "offsetCancels": true,
+      "componentParityCancels": true,
+      "rows": [
+        {
+          "equationIndex": 1361,
+          "key": "4249:8484",
+          "rank": 9,
+          "mover": 1,
+          "h": [
+            2,
+            0,
+            3,
+            3,
+            1
+          ],
+          "a": 4249,
+          "b": 8484,
+          "relativeOutcome": "win",
+          "code": 2,
+          "oddComponents": [
+            {
+              "type": "T07229",
+              "canonicalType": "0,2|4.16|21.36",
+              "width": 2,
+              "columns": [
+                [
+                  0,
+                  1
+                ]
+              ]
+            },
+            {
+              "type": "T09415",
+              "canonicalType": "1|6|4",
+              "width": 1,
+              "columns": [
+                [
+                  4
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "equationIndex": 1379,
+          "key": "20617:564",
+          "rank": 9,
+          "mover": 1,
+          "h": [
+            2,
+            0,
+            3,
+            1,
+            3
+          ],
+          "a": 20617,
+          "b": 564,
+          "relativeOutcome": "win",
+          "code": 2,
+          "oddComponents": [
+            {
+              "type": "T07229",
+              "canonicalType": "0,2|4.16|21.36",
+              "width": 2,
+              "columns": [
+                [
+                  0,
+                  1
+                ]
+              ]
+            },
+            {
+              "type": "T09407",
+              "canonicalType": "1|4|",
+              "width": 1,
+              "columns": [
+                [
+                  3
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "equationIndex": 2732,
+          "key": "4235:2372",
+          "rank": 9,
+          "mover": 1,
+          "h": [
+            1,
+            3,
+            3,
+            2,
+            0
+          ],
+          "a": 4235,
+          "b": 2372,
+          "relativeOutcome": "draw",
+          "code": 1,
+          "oddComponents": [
+            {
+              "type": "T07351",
+              "canonicalType": "0|7|4",
+              "width": 1,
+              "columns": [
+                [
+                  4
+                ]
+              ]
+            },
+            {
+              "type": "T09415",
+              "canonicalType": "1|6|4",
+              "width": 1,
+              "columns": [
+                [
+                  0
+                ]
+              ]
+            },
+            {
+              "type": "T09436",
+              "canonicalType": "2|4|",
+              "width": 1,
+              "columns": [
+                [
+                  3
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "equationIndex": 4530,
+          "key": "5258:293",
+          "rank": 9,
+          "mover": 1,
+          "h": [
+            3,
+            1,
+            3,
+            2,
+            0
+          ],
+          "a": 5258,
+          "b": 293,
+          "relativeOutcome": "loss",
+          "code": 0,
+          "oddComponents": [
+            {
+              "type": "T07351",
+              "canonicalType": "0|7|4",
+              "width": 1,
+              "columns": [
+                [
+                  4
+                ]
+              ]
+            },
+            {
+              "type": "T09407",
+              "canonicalType": "1|4|",
+              "width": 1,
+              "columns": [
+                [
+                  1
+                ]
+              ]
+            },
+            {
+              "type": "T09436",
+              "canonicalType": "2|4|",
+              "width": 1,
+              "columns": [
+                [
+                  3
+                ]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "certificateSummaries": [
+      {
+        "rank": 9,
+        "certificateSize": 4,
+        "reducedRhs": 1,
+        "equationIndices": [
+          1361,
+          1379,
+          2732,
+          4530
+        ],
+        "stateKeys": [
+          "4249:8484",
+          "20617:564",
+          "4235:2372",
+          "5258:293"
+        ]
+      },
+      {
+        "rank": 9,
+        "certificateSize": 4,
+        "reducedRhs": 1,
+        "equationIndices": [
+          1361,
+          1379,
+          2732,
+          5015
+        ],
+        "stateKeys": [
+          "4249:8484",
+          "20617:564",
+          "4235:2372",
+          "20618:596"
+        ]
+      },
+      {
+        "rank": 10,
+        "certificateSize": 4,
+        "reducedRhs": 3,
+        "equationIndices": [
+          2146,
+          2195,
+          2270,
+          5668
+        ],
+        "stateKeys": [
+          "2373:4250",
+          "18501:4754",
+          "2197:4426",
+          "9508:4249"
+        ]
+      },
+      {
+        "rank": 10,
+        "certificateSize": 4,
+        "reducedRhs": 3,
+        "equationIndices": [
+          2146,
+          2195,
+          2270,
+          6035
+        ],
+        "stateKeys": [
+          "2373:4250",
+          "18501:4754",
+          "2197:4426",
+          "19012:4243"
+        ]
+      },
+      {
+        "rank": 10,
+        "certificateSize": 4,
+        "reducedRhs": 1,
+        "equationIndices": [
+          58,
+          112,
+          929,
+          1017
+        ],
+        "stateKeys": [
+          "1609:310",
+          "1173:4202",
+          "589:1330",
+          "2197:4202"
+        ]
+      },
+      {
+        "rank": 10,
+        "certificateSize": 4,
+        "reducedRhs": 1,
+        "equationIndices": [
+          58,
+          112,
+          929,
+          2365
+        ],
+        "stateKeys": [
+          "1609:310",
+          "1173:4202",
+          "589:1330",
+          "8341:4874"
+        ]
+      },
+      {
+        "rank": 10,
+        "certificateSize": 4,
+        "reducedRhs": 2,
+        "equationIndices": [
+          58,
+          117,
+          929,
+          1023
+        ],
+        "stateKeys": [
+          "1609:310",
+          "1413:4202",
+          "589:1330",
+          "2437:4202"
+        ]
+      },
+      {
+        "rank": 10,
+        "certificateSize": 4,
+        "reducedRhs": 2,
+        "equationIndices": [
+          58,
+          117,
+          929,
+          6157
+        ],
+        "stateKeys": [
+          "1609:310",
+          "1413:4202",
+          "589:1330",
+          "8404:4874"
+        ]
+      },
+      {
+        "rank": 10,
+        "certificateSize": 4,
+        "reducedRhs": 2,
+        "equationIndices": [
+          58,
+          929,
+          1675,
+          1703
+        ],
+        "stateKeys": [
+          "1609:310",
+          "589:1330",
+          "2153:1810",
+          "16489:1810"
+        ]
+      },
+      {
+        "rank": 10,
+        "certificateSize": 4,
+        "reducedRhs": 2,
+        "equationIndices": [
+          58,
+          929,
+          1675,
+          4691
+        ],
+        "stateKeys": [
+          "1609:310",
+          "589:1330",
+          "2153:1810",
+          "1810:16489"
+        ]
+      },
+      {
+        "rank": 11,
+        "certificateSize": 4,
+        "reducedRhs": 1,
+        "equationIndices": [
+          84,
+          100,
+          3338,
+          3933
+        ],
+        "stateKeys": [
+          "3461:4202",
+          "3461:8298",
+          "4714:1173",
+          "4714:2197"
+        ]
+      },
+      {
+        "rank": 11,
+        "certificateSize": 4,
+        "reducedRhs": 1,
+        "equationIndices": [
+          84,
+          100,
+          3338,
+          3982
+        ],
+        "stateKeys": [
+          "3461:4202",
+          "3461:8298",
+          "4714:1173",
+          "4906:8341"
+        ]
+      },
+      {
+        "rank": 10,
+        "certificateSize": 6,
+        "reducedRhs": 3,
+        "equationIndices": [
+          1803,
+          1820,
+          2195,
+          2270,
+          2287,
+          2308
+        ],
+        "stateKeys": [
+          "309:5258",
+          "8485:5258",
+          "18501:4754",
+          "2197:4426",
+          "10501:4298",
+          "18949:4306"
+        ]
+      },
+      {
+        "rank": 10,
+        "certificateSize": 6,
+        "reducedRhs": 3,
+        "equationIndices": [
+          1803,
+          1820,
+          2195,
+          2270,
+          2287,
+          5677
+        ],
+        "stateKeys": [
+          "309:5258",
+          "8485:5258",
+          "18501:4754",
+          "2197:4426",
+          "10501:4298",
+          "9268:4489"
+        ]
+      },
+      {
+        "rank": 10,
+        "certificateSize": 8,
+        "reducedRhs": 3,
+        "equationIndices": [
+          2207,
+          2263,
+          2270,
+          2723,
+          2776,
+          3881,
+          4397,
+          4432
+        ],
+        "stateKeys": [
+          "2629:20626",
+          "6661:16594",
+          "2197:4426",
+          "4235:2644",
+          "20611:2644",
+          "5162:8581",
+          "12362:2437",
+          "21058:2197"
+        ]
+      },
+      {
+        "rank": 10,
+        "certificateSize": 8,
+        "reducedRhs": 3,
+        "equationIndices": [
+          2207,
+          2263,
+          2270,
+          2723,
+          2776,
+          3881,
+          4397,
+          6547
+        ],
+        "stateKeys": [
+          "2629:20626",
+          "6661:16594",
+          "2197:4426",
+          "4235:2644",
+          "20611:2644",
+          "5162:8581",
+          "12362:2437",
+          "5416:8341"
+        ]
+      },
+      {
+        "rank": 10,
+        "certificateSize": 8,
+        "reducedRhs": 3,
+        "equationIndices": [
+          439,
+          1041,
+          1675,
+          1803,
+          2207,
+          2270,
+          3881,
+          5655
+        ],
+        "stateKeys": [
+          "5257:8500",
+          "8581:4202",
+          "2153:1810",
+          "309:5258",
+          "2629:20626",
+          "2197:4426",
+          "5162:8581",
+          "13348:409"
+        ]
+      },
+      {
+        "rank": 10,
+        "certificateSize": 8,
+        "reducedRhs": 3,
+        "equationIndices": [
+          439,
+          1041,
+          1675,
+          1803,
+          2207,
+          2270,
+          3881,
+          6363
+        ],
+        "stateKeys": [
+          "5257:8500",
+          "8581:4202",
+          "2153:1810",
+          "309:5258",
+          "2629:20626",
+          "2197:4426",
+          "5162:8581",
+          "23044:211"
+        ]
+      }
+    ]
+  },
+  "mechanicalChecks": {
+    "sameExactRank": true,
+    "allComponentCoefficientsCancel": true,
+    "exactRankOffsetCancels": true,
+    "outcomeCodeXorNonzero": true,
+    "twoEquationCertificateAbsent": true
+  },
+  "interpretationGuard": [
+    "This is a dependency certificate for failure of independent exact-rank affine GF(2)^2 component valuation, not a Q-V collision.",
+    "The frozen exact-rank component-parity plus T2 representation remains scalar-sufficient in this bounded carrier.",
+    "A certificate of size four is a GF(2) rectangle/nonlinearity witness; a larger certificate is still a valid nonadditivity witness and is not silently called pairwise.",
+    "No interaction feature is promoted by this extraction alone.",
+    "No standard-7x6 claim follows."
+  ]
+}
