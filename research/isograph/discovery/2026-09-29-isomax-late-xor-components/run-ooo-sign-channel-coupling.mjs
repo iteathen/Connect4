@@ -7,6 +7,7 @@ import {ownerQuotientTriangleKey} from './ooo-pair-delta-owner-lib.mjs';
 import {COUNT_MODES,sixBucketTriangleKey} from './ooo-six-bucket-count-lib.mjs';
 import {FAMILY_SATURATION_GRID,familySaturationTriangleKey} from './ooo-six-bucket-family-saturation-lib.mjs';
 import {SIGN_CHANNEL_GRID,signChannelTriangleKey} from './ooo-sign-channel-coupling-lib.mjs';
+import {freezeGridThenReplay} from './ooo-grid-freeze-lib.mjs';
 
 function auditCase(W,H,K){
   const N=W*H;
@@ -2356,7 +2357,7 @@ function auditCase(W,H,K){
         return nz.length===0?0:nz.length===1?1:2;
       }
 
-      function auditCandidate(candidate){
+      function prepareCandidate(candidate){
         const tripleCandidateKey=new Map(),keySet=new Set();
         for(const [ti,vertices] of tripleVertices){
           const key=signChannelTriangleKey(vertices,candidate);
@@ -2393,11 +2394,21 @@ function auditCase(W,H,K){
         const separated=sixBucketFamilySaturation.audits.find(
           x=>x.key==='C=PRESENCE|D=CLIP3|A=CLIP2'
         );
-        assert.ok(separated&&separated.exactScalarFactorization,'EW-RS-077 selected separated control missing');
+        assert.ok(separated,'EW-RS-077 selected separated structural control missing');
         const imageRank=structuralPivots.size;
         const kernelDimensionRelativeToSeparated=separated.imageRank-imageRank;
         assert.ok(kernelDimensionRelativeToSeparated>=0,'EW-RS-077 coupling rank exceeds separated control');
 
+        return {candidate:{...candidate},featureKeys,structuralRows,basisDependencyIndices,
+          imageRank,kernelDimensionRelativeToSeparated};
+      }
+
+      function replayCandidate(prepared){
+        const {candidate,featureKeys,structuralRows,basisDependencyIndices,
+          imageRank,kernelDimensionRelativeToSeparated}=prepared;
+        assert.ok(sixBucketFamilySaturation.audits.find(
+          x=>x.key==='C=PRESENCE|D=CLIP3|A=CLIP2'
+        )?.exactScalarFactorization,'EW-RS-077 selected separated scalar control failure');
         const equationPivots=new Map();
         let contradictions=0,zeroStructuralNonzeroScalar=0,firstContradiction=null;
         for(let i=0;i<structuralRows.length;i++){
@@ -2447,7 +2458,7 @@ function auditCase(W,H,K){
       return {
         modes:['TOTAL','SIGNED_NET','ABS_NET','UNORDERED_PAIR','SEPARATED'],
         grid:SIGN_CHANNEL_GRID.map(x=>({...x})),
-        audits:SIGN_CHANNEL_GRID.map(auditCandidate)
+        audits:freezeGridThenReplay(SIGN_CHANNEL_GRID,prepareCandidate,replayCandidate)
       };
     }
 
