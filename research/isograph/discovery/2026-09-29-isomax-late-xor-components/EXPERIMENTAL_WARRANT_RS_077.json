@@ -2,7 +2,7 @@
   "schema": "connect4.isomax.experimental_warrant.sign_channel_coupling.v1",
   "id": "EW-RS-077",
   "date_author_local": "2026-09-30",
-  "status": "ACTIVE",
+  "status": "ACTIVE__SATURATION_AWARE_ARITHMETIC_REPAIRED_BEFORE_SCALAR_REPLAY",
   "parent": "EW-RS-076",
   "objective": "Determine the minimal structural coupling of plus/minus channels within the selected C=PRESENCE, D=CLIP3, A=CLIP2 exchange carrier, without dropping one sign channel or selecting family-specific exceptions from scalar outcomes.",
   "cases": [
@@ -38,23 +38,23 @@
   "couplingModes": [
     {
       "name": "TOTAL",
-      "definition": "Retain x+ + x- only; discard direction and within-family imbalance."
+      "definition": "Retain the exact abstract sum-set induced by the two saturated channel symbols. Each source symbol denotes its full exact-count set (C: 0 or 1+; D: 0,1,2,3+; A: 0,1,2+); TOTAL is represented canonically by the interval image of x+ + x-. No saturation label is treated as an exact tail count."
     },
     {
       "name": "SIGNED_NET",
-      "definition": "Retain x+ - x- as a signed integer; preserve net direction but allow opposite changes to cancel."
+      "definition": "Retain the exact abstract difference-set induced by the two saturated channel symbols, represented canonically by the interval image of x+ - x-. This preserves only net-direction information justified by the frozen saturated source and never interprets 1+,2+,3+ as exact integers."
     },
     {
       "name": "ABS_NET",
-      "definition": "Retain |x+ - x-|; discard direction but preserve imbalance magnitude."
+      "definition": "Retain the exact abstract absolute-difference set induced by the two saturated channel symbols, represented canonically by the interval image of |x+ - x-|."
     },
     {
       "name": "UNORDERED_PAIR",
-      "definition": "Retain sorted multiset {x+,x-}; discard which channel is plus while preserving both saturated values."
+      "definition": "Retain the sorted multiset of the two saturated source symbols; discard which channel is plus while preserving both source categories."
     },
     {
       "name": "SEPARATED",
-      "definition": "Retain ordered pair (x+,x-) exactly; reconstruction control."
+      "definition": "Retain the ordered pair of the two saturated source symbols exactly; reconstruction control."
     }
   ],
   "candidateGrid": {
@@ -96,6 +96,7 @@
   ],
   "antiCircularity": [
     "The five coupling modes, three families, complete 125-point grid, and partial order are frozen before scalar inspection.",
+    "Arithmetic couplings are defined on the saturated source categories by exact abstract interval/set images; saturated tails are never substituted by their lower-bound numeral as if exact.",
     "No one-sided channel deletion, sign-specific exception, or outcome-selected coupling is permitted.",
     "The selected EW-RS-076 family saturation and EW-RS-065 matched dependencies are unchanged.",
     "EW-RS-059 PRIMARY 3x6-k4 and BACKUP 5x3-k4 remain sealed."
@@ -111,5 +112,16 @@
     "Plus/minus labels refer to signed structural exchange direction under the frozen pair orientation, not player identity.",
     "A family-level coupling result does not imply upstream game-state sign symmetry.",
     "No Q-A/Q-F, standard-7x6, universal theorem, or center-opening proof follows."
-  ]
+  ],
+  "structuralRepair": {
+    "timing": "before any EW-RS-077 scalar replay or evidence publication",
+    "issue": "The initial draft/test treated saturated labels 1+, 2+, and 3+ as exact integers when forming TOTAL/SIGNED_NET/ABS_NET, which was not a function of the frozen EW-RS-076 information.",
+    "repair": "Interpret each saturated symbol as its exact set of possible underlying counts and compute arithmetic couplings by interval/set image. This keeps every RS-077 candidate a deterministic quotient of the selected EW-RS-076 carrier.",
+    "examples": [
+      "C presence pair (1+,1+) has SIGNED_NET interval [-inf,+inf], not exact 0.",
+      "D pair (3+,1) has SIGNED_NET interval [2,+inf], not exact 2.",
+      "A pair (2+,1) has TOTAL interval [3,+inf], not exact 3."
+    ],
+    "outcomeIndependent": true
+  }
 }
