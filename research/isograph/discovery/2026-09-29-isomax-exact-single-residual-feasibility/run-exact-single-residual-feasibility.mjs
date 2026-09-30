@@ -186,7 +186,7 @@ const out={
   scope:'complete physical 4x4 connect-4 first-win carrier',
   operator:{
     id:'X',
-    definition:'delete a player residual iff no gravity-respecting support-lattice path exists on which every required cell is occupied on that player\\'s turns',
+    definition:'delete a player residual iff no gravity-respecting support-lattice path exists on which every required cell is occupied on that player's turns',
     stateSpace:'support vectors only; no opponent goals, no terminal/value lookahead',
     rankLocal:true,
     futureTreeUsed:false,
