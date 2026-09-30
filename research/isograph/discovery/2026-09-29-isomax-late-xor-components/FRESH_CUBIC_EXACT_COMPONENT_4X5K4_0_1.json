@@ -1,0 +1,170 @@
+{
+  "schema": "connect4.isomax.fresh_cubic_exact_component_4x5k4.v1",
+  "date_author_local": "2026-09-29",
+  "warrant": "EW-RS-044",
+  "target": "4x5-k4",
+  "frozenComponentDefinition": "post-RFG residual-incidence connected components with support/owner-labelled canonical component type",
+  "frozenTacticalReduction": "direct rank-local T2 = W immediate win; L2 universal one-move release loss; O unresolved",
+  "frozenCoordinate": "exact-rank offset plus exact component-type multiplicity parity",
+  "polynomialFamily": "all observed square-free component-parity monomials through the declared degree",
+  "case": {
+    "label": "4x5-k4",
+    "width": 4,
+    "height": 5,
+    "k": 4,
+    "physicalStates": 1706255,
+    "nonterminalStates": 1348441,
+    "componentTypes": 90223,
+    "tactical2Counts": {
+      "W": 348191,
+      "L2": 66275,
+      "O": 933975
+    },
+    "polynomial": {
+      "DEGREE1": {
+        "degree": 1,
+        "consistent": false,
+        "equations": 933975,
+        "activeVariables": 77544,
+        "variableFamilyCounts": {
+          "offset": 20,
+          "linear": 77524,
+          "quadratic": 0,
+          "cubic": 0
+        },
+        "pivotRank": 77499,
+        "activeNullity": 45,
+        "contradictions": 23918,
+        "firstContradiction": {
+          "key": "90537:136790",
+          "rank": 16,
+          "h": [
+            5,
+            5,
+            4,
+            2
+          ],
+          "oddTypes": [
+            "T88094",
+            "T90220"
+          ],
+          "relativeOutcome": "draw",
+          "code": 1,
+          "reducedRhs": 1
+        },
+        "outcomeHistogram": {
+          "loss": 97224,
+          "draw": 675341,
+          "win": 161410
+        },
+        "codeGauge": {
+          "loss": "00",
+          "draw": "01",
+          "win": "10"
+        }
+      },
+      "DEGREE2": {
+        "degree": 2,
+        "consistent": false,
+        "equations": 933975,
+        "activeVariables": 127355,
+        "variableFamilyCounts": {
+          "offset": 20,
+          "linear": 77524,
+          "quadratic": 49811,
+          "cubic": 0
+        },
+        "pivotRank": 79742,
+        "activeNullity": 47613,
+        "contradictions": 12,
+        "firstContradiction": {
+          "key": "83113:4438",
+          "rank": 13,
+          "h": [
+            5,
+            2,
+            4,
+            2
+          ],
+          "oddTypes": [
+            "T90220",
+            "T90222"
+          ],
+          "relativeOutcome": "loss",
+          "code": 0,
+          "reducedRhs": 1
+        },
+        "outcomeHistogram": {
+          "loss": 97224,
+          "draw": 675341,
+          "win": 161410
+        },
+        "codeGauge": {
+          "loss": "00",
+          "draw": "01",
+          "win": "10"
+        }
+      },
+      "DEGREE3": {
+        "degree": 3,
+        "consistent": false,
+        "equations": 933975,
+        "activeVariables": 135841,
+        "variableFamilyCounts": {
+          "offset": 20,
+          "linear": 77524,
+          "quadratic": 49811,
+          "cubic": 8486
+        },
+        "pivotRank": 79812,
+        "activeNullity": 56029,
+        "contradictions": 12,
+        "firstContradiction": {
+          "key": "83113:4438",
+          "rank": 13,
+          "h": [
+            5,
+            2,
+            4,
+            2
+          ],
+          "oddTypes": [
+            "T90220",
+            "T90222"
+          ],
+          "relativeOutcome": "loss",
+          "code": 0,
+          "reducedRhs": 1
+        },
+        "outcomeHistogram": {
+          "loss": 97224,
+          "draw": 675341,
+          "win": 161410
+        },
+        "codeGauge": {
+          "loss": "00",
+          "draw": "01",
+          "win": "10"
+        }
+      }
+    }
+  },
+  "mechanicalChecks": {
+    "degree1RegressionMatched": true,
+    "degree2RegressionMatched": true,
+    "cubicFeaturesOutcomeIndependent": true,
+    "exactComponentCoordinatesFrozen": true
+  },
+  "disposition": {
+    "degree2Rejected": true,
+    "degree3Exact": false,
+    "degree3Rejected": true
+  },
+  "interpretationGuard": [
+    "DEGREE3 mechanically adds every observed exact-rank triple product of distinct odd exact component-type parity bits.",
+    "No cubic term is outcome-selected.",
+    "A zero-contradiction result establishes finite 4x5-k4 cubic sufficiency only; it does not prove universal cubic sufficiency.",
+    "A nonzero result is a cubic falsifier and must be frozen before degree-4 escalation.",
+    "No standard-7x6 claim follows."
+  ]
+}
