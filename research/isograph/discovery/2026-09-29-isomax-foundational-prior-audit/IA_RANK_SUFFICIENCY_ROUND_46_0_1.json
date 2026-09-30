@@ -1,0 +1,55 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_round.v1",
+  "round": 46,
+  "date_author_local": "2026-09-30",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_45_FIXED_POINT_0_1.json",
+    "RANK_SUFFICIENCY_ZOE_STRUCTURAL_AGGREGATION_INTEGRATION_0_1.json"
+  ],
+  "reopened_reason": "Direct ZOE aggregation by the frozen interaction descriptors fails because whole component identity also carries base/support information that the interaction-only quotient intentionally discarded.",
+  "new_assertions": [
+    {
+      "id": "RS-IA149",
+      "family": "Q",
+      "body": "A coordinate can be sufficient for interaction terms while being insufficient as a whole component identity; quotient validity is role-specific."
+    },
+    {
+      "id": "RS-IA150",
+      "family": "M",
+      "body": "The first direct-aggregation failures preserve frontier-relative incidence while changing support height or remaining local capacity, identifying capacity as a missing base coordinate."
+    },
+    {
+      "id": "RS-IA151",
+      "family": "R",
+      "body": "Capacity augmentation is independently motivated by the earlier CAP6_REL_INC structural-span result and is therefore not an outcome-selected arbitrary repair."
+    },
+    {
+      "id": "RS-IA152",
+      "family": "D",
+      "body": "The next descriptor ladder should hold REL_INC fixed and vary only the capacity grade, separating the necessity of capacity from finer topology questions."
+    },
+    {
+      "id": "RS-IA153",
+      "family": "F",
+      "body": "A capacity grade is rejected on any carrier with a mixed scalar class after descriptor aggregation and ZOE count classification; exact-type ZOE remains the control."
+    }
+  ],
+  "qu_refinements": [
+    {
+      "id": "RS-QR045",
+      "target": "QU-RS-004",
+      "add_fixed": [
+        "direct REL_INC-ZOE and TOPO_RPAR-ZOE aggregation fail Q-V on every demanding carrier tested",
+        "interaction-coordinate sufficiency does not imply whole-component identity sufficiency",
+        "aggregation failures expose support-height / remaining-capacity distinctions omitted by REL_INC"
+      ],
+      "retain_open": [
+        "coarsest capacity grade augmenting REL_INC",
+        "minimal whole-component structural identity under ZOE counts",
+        "closed-form scalar evaluator",
+        "standard-7x6 qualification"
+      ]
+    }
+  ],
+  "stop_status": "REOPENED__CAPACITY_AUGMENTED_REL_INC_NEXT"
+}
