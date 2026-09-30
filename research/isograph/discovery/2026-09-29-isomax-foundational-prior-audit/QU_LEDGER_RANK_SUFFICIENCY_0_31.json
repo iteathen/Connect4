@@ -1,7 +1,7 @@
 {
   "schema": "connect4.isomax.rank_sufficiency.qu_ledger.v31",
   "date_author_local": "2026-09-30",
-  "status": "SIGN_CHANNEL_FRONTIER_FIXED__JOINT_DA_CIRCUIT_OPEN",
+  "status": "SIGN_CHANNEL_EQUIVALENCE_FRONTIER_FIXED__JOINT_DA_CIRCUIT_OPEN",
   "regions": [
     {
       "id": "QU-RS-001",
@@ -180,12 +180,16 @@
         "C can be reduced to presence while retaining common scalar exactness",
         "A can be reduced to CLIP2 but not to PRESENCE or ZOE on 4x5-k4",
         "all 64 family-saturation candidates are scalar-exact on 6x3-k3 and 6x3-k4; 4x5-k4 alone determines the common family MSS",
-        "EW-RS-077 freezes 65 common-exact sign-channel coupling grid points and 12 formal Pareto-minimal points",
         "C sign direction is common-redundant: every common-exact D/A pairing is exact under all five C coupling modes",
         "D/A sign direction is jointly necessary but relocatable: every common-exact point retains SIGNED_NET or SEPARATED in at least one of D or A",
-        "the four D/A Pareto minima are TOTAL+SIGNED_NET, SIGNED_NET+TOTAL, ABS_NET+SEPARATED, and SEPARATED+ABS_NET",
         "6x3-k4 accepts exactly the 65 common-exact sign-coupling candidates and therefore determines the current cross-carrier RS-077 exact set",
-        "arithmetic coupling of saturated 1+,2+,3+ symbols is interval-valued and may not reinterpret those symbols as exact integers"
+        "arithmetic coupling of saturated 1+,2+,3+ symbols is interval-valued and may not reinterpret those symbols as exact integers",
+        "EW-RS-077 freezes 65 common-exact sign-channel coupling grid points; mechanical family-partition refinement yields 15 Pareto mode-label points collapsing to four structural equivalence classes",
+        "C sign direction is common-redundant: its coarsest exact realized partition is active-sign-support cardinality 0/1/2, represented equivalently by TOTAL, ABS_NET, or UNORDERED_PAIR",
+        "the four partition-level D/A Pareto classes are TOTAL+SIGNED_NET, SIGNED_NET+TOTAL/UNORDERED, ABS_NET+SEPARATED, and SEPARATED+ABS_NET",
+        "A TOTAL and UNORDERED_PAIR are partition-equivalent on the frozen A alphabet, while D has no mode equivalences",
+        "arithmetic coupling of saturated 1+,2+,3+ symbols is interval/set-valued and may not reinterpret those symbols as exact integers",
+        "RS-077 information containment is derived exhaustively from the frozen source alphabets and coupling maps without scalar outcomes"
       ],
       "open": [
         "standard-7x6 qualification",
@@ -220,11 +224,11 @@
         "family-specific saturation of C versus D versus A",
         "which semantic family requires count 2 versus 3+ distinction",
         "small circuit functional after family-specific saturation",
-        "plus/minus channel quotient within the selected C/D/A family saturation law",
-        "small circuit relation on the compressed sign-channel pair state",
         "joint D/A circuit quotient below the four frozen Pareto pairings",
         "common finite relation, if any, shared by the four D/A Pareto carriers",
-        "closed scalar syndrome after the joint D/A circuit quotient is frozen"
+        "closed scalar syndrome after the joint D/A circuit quotient is frozen",
+        "outcome-independent joint D/A circuit quotient below the four partition-level Pareto classes",
+        "common finite relation, if any, shared by all four D/A Pareto carriers"
       ]
     },
     {
@@ -349,12 +353,15 @@
         "ZOE is not a universal count law across layers: it is exact for component multiplicity but inexact for six-bucket exchange counts on 4x5-k4",
         "the preferred common late composition pair state now uses only C+/C- presence, D+/D- counts clipped at 3+, and A+/A- counts clipped at 2+",
         "the 3+ saturation requirement is localized to the D depth-change family within the frozen family partition",
-        "the RS-077 common sign-channel set contains 65 of 125 candidates with 12 formal Pareto minima",
         "C coupling choice factors out of the common exactness condition; the remaining constraint is joint across D and A",
         "D/A directional information is required jointly but is not anchored to one family",
-        "the D/A Pareto mode-pair frontier is closed under swapping the mode assignments between D and A",
         "horizontal-only 6x3-k4, not mixed-orientation 4x5-k4, is the limiting carrier for the current sign-channel quotient",
-        "on the C presence alphabet, TOTAL, ABS_NET, and UNORDERED_PAIR induce the same three structural classes while SIGNED_NET and SEPARATED induce the same four ordered classes"
+        "on the C presence alphabet, TOTAL, ABS_NET, and UNORDERED_PAIR induce the same three structural classes while SIGNED_NET and SEPARATED induce the same four ordered classes",
+        "the RS-077 common sign-channel set contains 65 of 125 candidates; the mechanically corrected Pareto set has 15 mode-label points in four partition-equivalence classes",
+        "C coupling mode factors out of common exactness and reduces canonically to active-sign-support cardinality 0/1/2",
+        "the four structural D/A Pareto classes are TOTAL+SIGNED_NET, SIGNED_NET+TOTAL/UNORDERED, ABS_NET+SEPARATED, and SEPARATED+ABS_NET",
+        "on the C presence alphabet TOTAL, ABS_NET, and UNORDERED_PAIR induce one three-class partition while SIGNED_NET and SEPARATED induce one finer four-class partition",
+        "on the A alphabet TOTAL and UNORDERED_PAIR are partition aliases; Pareto mode labels must therefore be quotiented before interpreting distinct laws"
       ],
       "open": [
         "decomposition independence after contextual ZOE valuation",
@@ -377,9 +384,9 @@
         "native composition law after owner-channel quotient of the roleless/depthless signed-parity carrier",
         "native composition law on six-bucket pair signatures",
         "native composition law on family-specifically saturated C/D/A bucket pairs",
-        "native joint D/A circuit law below the four Pareto mode pairs",
-        "whether the four D/A Pareto carriers factor through one outcome-independent canonical finite relation",
-        "small circuit functional after C sign-support cardinality canonicalization"
+        "native joint D/A circuit law below the four partition-level Pareto classes",
+        "whether those four D/A carriers factor through one outcome-independent canonical finite relation",
+        "small circuit functional after canonical C active-sign-support reduction"
       ],
       "status": "OPEN"
     },
@@ -470,7 +477,8 @@
         "EW-RS-059 formula holdouts remain sealed after six-bucket count compression",
         "EW-RS-076 is a family-specific count-algebra compression and leaves EW-RS-059 formula holdouts sealed",
         "EW-RS-077 freezes a structural sign-channel frontier but does not freeze scalar coefficients or authorize EW-RS-059 access",
-        "the sign-channel frontier can remove structural rank while preserving scalar image dimension: down to rank 250 on 4x5-k4 and 13 on 6x3-k4 among Pareto-minimal candidates"
+        "the four partition-level Pareto classes preserve scalar image dimensions 1,2,2; their representatives have ranks 72, 250-252, and 13 on 6x3-k3, 4x5-k4, and 6x3-k4 respectively",
+        "the RS-077 classifier repair is outcome-independent and leaves all scalar audits, exact-grid membership, ranks, and contradiction counts unchanged"
       ],
       "open": [
         "standard-7x6 qualification",
