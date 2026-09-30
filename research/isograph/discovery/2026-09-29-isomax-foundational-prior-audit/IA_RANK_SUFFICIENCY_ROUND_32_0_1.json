@@ -1,0 +1,58 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_round.v1",
+  "round": 32,
+  "date_author_local": "2026-09-29",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_31_FIXED_POINT_0_1.json",
+    "RANK_SUFFICIENCY_FRESH_QUADRATIC_HOLDOUT_INTEGRATION_0_1.json"
+  ],
+  "reopened_reason": "the predeclared wider 6x3-k3 holdout independently falsifies degree one and passes the same frozen degree-2 decoder class",
+  "new_assertions": [
+    {
+      "id": "RS-IA109",
+      "family": "C",
+      "body": "The quadratic result transfers beyond the two carriers that generated the hypothesis: fresh wider 6x3-k3 has 520 affine contradictions and zero quadratic contradictions."
+    },
+    {
+      "id": "RS-IA110",
+      "family": "M",
+      "body": "The live bounded D_G hypothesis is no longer independent component XOR; it is an exact-rank quadratic GF(2)^2 interaction model over the post-RFG component-parity quotient on the tested T2-O carriers."
+    },
+    {
+      "id": "RS-IA111",
+      "family": "R",
+      "body": "Interaction order and interaction dimension are distinct. Degree two may be sufficient while the raw set of pair variables is massively redundant."
+    },
+    {
+      "id": "RS-IA112",
+      "family": "F",
+      "body": "On fresh 6x3 the full pair expansion adds 11,286 variables but increases matrix rank only 472, exposing a much smaller second-order information subspace than the syntactic pair catalog."
+    },
+    {
+      "id": "RS-IA113",
+      "family": "Q",
+      "body": "The next simplification pressure belongs primarily on D rather than Q: seek a structural basis for the quadratic interaction subspace while preserving the scalar-sufficient quotient."
+    },
+    {
+      "id": "RS-IA114",
+      "family": "S",
+      "body": "Escalation to cubic terms is currently unwarranted. No tested carrier has a surviving degree-2 contradiction."
+    }
+  ],
+  "qu_refinements": [
+    {
+      "id": "RS-QR037",
+      "target": "QU-RS-010",
+      "add_fixed": [
+        "fresh 6x3-k3 has 520 degree-1 contradictions and zero degree-2 contradictions",
+        "degree two is now positive on both derivation falsifier carriers and one predeclared wider holdout"
+      ],
+      "retain_open": [
+        "low-dimensional interaction basis",
+        "rank-local structural generator for the quadratic subspace",
+        "additional fresh geometry and standard-7x6 qualification"
+      ]
+    }
+  ],
+  "stop_status": "REOPENED__INTERACTION_SUBSPACE_NEXT"
+}
