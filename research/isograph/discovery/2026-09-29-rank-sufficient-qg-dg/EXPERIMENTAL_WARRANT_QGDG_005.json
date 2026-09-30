@@ -1,0 +1,35 @@
+{
+  "schema": "connect4.rank_sufficient_qg_dg.experimental_warrant.v1",
+  "id": "QGDG-EW-005",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "parent_findings": [
+    "QGDG-F020",
+    "QGDG-F021",
+    "QGDG-F022"
+  ],
+  "purpose": [
+    "AMBIGUITY_ANATOMY",
+    "REALIZABILITY_FALSIFIER",
+    "DIRECT_RULE_DISCOVERY"
+  ],
+  "objective": "Classify every residual token responsible for bounded Q_DIRECT_LOCAL_NORMAL transition-congruence failure and test whether it is exactly realizable by its owner under gravity/alternating-turn column precedence.",
+  "scope": [
+    "4x4-k4",
+    "4x4-k3"
+  ],
+  "validator": {
+    "exact_isolated_schedule": "Existence of a legal column-choice interleaving, ignoring wins and other residual objectives, in which the named player owns every cell of the residual while respecting gravity and alternating turns.",
+    "role": "validation/discovery oracle only; not adopted as Q construction rule",
+    "distinction": "stronger than current support-release lower-bound matching because it enforces ownership of all prerequisite column cells induced by the actual interleaving"
+  },
+  "targeted_observations": [
+    "all residual symmetric differences between alternative normalized children",
+    "existing support-release feasibility",
+    "exact isolated schedule feasibility",
+    "all-open-cap status",
+    "owner relative to side to move"
+  ],
+  "falsification_rule": "If a congruence-splitting residual is exactly schedule-realizable, isolated realizability alone cannot explain all representation ambiguity.",
+  "construction_firewall": "Future/value labels do not enter the exact scheduling predicate; game wins/outcomes are ignored. The scheduling search is an analysis oracle, not a proposed final rank-local Q definition."
+}
