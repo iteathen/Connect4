@@ -1,0 +1,139 @@
+{
+  "schema": "connect4.isomax.foundational_prior_audit.lego_inventory.v1",
+  "date_author_local": "2026-09-29",
+  "hard_legos": [
+    {
+      "id": "H01",
+      "statement": "The physical 5x4 k4 winning-line set has 17 lines: 8 horizontal, 5 vertical, 4 diagonal.",
+      "evidence": "GEOMETRY_COVARIANCE_AUDIT_0_1.json"
+    },
+    {
+      "id": "H02",
+      "statement": "Only identity and horizontal reflection among the 120 column permutations preserve the fixed physical 5x4 winning-line hypergraph.",
+      "evidence": "GEOMETRY_COVARIANCE_AUDIT_0_1.json"
+    },
+    {
+      "id": "H03",
+      "statement": "The witness uses nonphysical canonicalizers: 10 of 14 canonicalizer uses are not fixed-board automorphisms.",
+      "evidence": "GEOMETRY_COVARIANCE_AUDIT_0_1.json"
+    },
+    {
+      "id": "H04",
+      "statement": "All 12 displayed witness canonical states contain at least one transported residual that is not a subset of any physical winning line in that displayed frame.",
+      "evidence": "GEOMETRY_COVARIANCE_AUDIT_0_1.json"
+    },
+    {
+      "id": "H05",
+      "statement": "Every one of the six stored two-sheet witness groups contains two exact states in distinct arbitrary-column residual orbits.",
+      "evidence": "WITNESS_PRIOR_AUDIT_0_1.json"
+    },
+    {
+      "id": "H06",
+      "statement": "Every one of those six exact sheet pairs has identical complete literal-action future behavior in its canonical frame under the audited pruned transition semantics.",
+      "evidence": "WITNESS_PRIOR_AUDIT_0_1.json"
+    },
+    {
+      "id": "H07",
+      "statement": "Therefore all six stored binary fibers collapse to one class at literal-future behavior resolution; the local witness has no two-sheet carrier at that resolution.",
+      "evidence": "TRANSPORTER_AWARE_RECONSTRUCTION_0_1.json"
+    },
+    {
+      "id": "H08",
+      "statement": "In one common source frame, Route A and Route B endpoints are exact/orbit/literal-future distinct but become literal-future equivalent under an explicit global action relabeling.",
+      "evidence": "FIXED_FRAME_ROUTE_AUDIT_0_1.json"
+    },
+    {
+      "id": "H09",
+      "statement": "The stored edge on which delta=1 appears is gauge-dependent; an independent exact-state sheet gauge moves the flip from edge 2710 to edge 2724 while preserving odd total route difference.",
+      "evidence": "WITNESS_PRIOR_AUDIT_0_1.json"
+    },
+    {
+      "id": "H10",
+      "statement": "The six exact witness transitions, canonicalizer sets, permutation parity sets, source-frame action sequences and accumulated transporter parity sets replay independently.",
+      "evidence": "WITNESS_PRIOR_AUDIT_0_1.json"
+    },
+    {
+      "id": "H11",
+      "statement": "Support-release/turn-capacity agrees with exhaustive isolated alternating-turn/gravity feasibility on all 56 residual occurrences in the witness states; this is not full-game realizability.",
+      "evidence": "CLOSURE_PRIOR_AUDIT_0_1.json"
+    },
+    {
+      "id": "H12",
+      "statement": "On the declared repaired 5x4 representation graph the Z2 edge cochain is non-exact, with cycle rank 542 and exactly one directed opposite-parity reconvergent source-target pair.",
+      "evidence": "CARRIER_PRIOR_AUDIT_0_1.json"
+    },
+    {
+      "id": "H13",
+      "statement": "The count of nonzero fundamental-basis cycles is not invariant: tested spanning orders yield 22, 28, 32, 35, or 115. Non-exactness, not the count 22, is the invariant scalar conclusion.",
+      "evidence": "CARRIER_PRIOR_AUDIT_0_1.json"
+    },
+    {
+      "id": "H14",
+      "statement": "The flat 4x5 repaired carrier is independently exact for every tested basis order and has cycle rank 40.",
+      "evidence": "CARRIER_PRIOR_AUDIT_0_1.json"
+    },
+    {
+      "id": "H15",
+      "statement": "The recursive canonical-frame action-token construction omits the child canonicalizing transporter when recursively aligning action labels.",
+      "evidence": "REPRESENTATION_SEMANTICS_AUDIT_0_1.json"
+    },
+    {
+      "id": "H16",
+      "statement": "Static transpose, k, closure, deep merge, coarse-cycle descriptors and single-residual realizability were already falsified as complete explanations before this audit.",
+      "evidence": "pre-audit discovery corpus"
+    }
+  ],
+  "soft_legos": [
+    {
+      "id": "S01",
+      "statement": "The observed non-exact cochain may be discrete holonomy of changing canonical coordinate frames rather than a game-state invariant."
+    },
+    {
+      "id": "S02",
+      "statement": "Omitted transporter alignment may be sufficient to generate the stored binary sheet distinctions."
+    },
+    {
+      "id": "S03",
+      "statement": "A transporter-complete quotient could still possess a different nontrivial holonomy; the witness-level collapse does not rule this out globally."
+    },
+    {
+      "id": "S04",
+      "statement": "Gravity-relative order may remain relevant after correct transport, but current evidence no longer licenses treating it as the cause of the audited Z2 anomaly."
+    },
+    {
+      "id": "S05",
+      "statement": "Residual-incidence/cap-hole motifs may describe representation-fiber structure rather than intrinsic physical Connect4 state."
+    },
+    {
+      "id": "S06",
+      "statement": "The quotient may be too coarse for one question and simultaneously too fine for another: it erases exact residual state while retaining frame-dependent action-token distinctions."
+    }
+  ],
+  "missing_legos": [
+    {
+      "id": "M01",
+      "statement": "Edge transporter retained as first-class data in the recursive action-labelled/future signature."
+    },
+    {
+      "id": "M02",
+      "statement": "A full-carrier partition by transporter-aware complete future behavior."
+    },
+    {
+      "id": "M03",
+      "statement": "Accumulated root-to-state transporter/provenance mapping each canonical residual hyperedge back to a physical Connect4 frame."
+    },
+    {
+      "id": "M04",
+      "statement": "An explicit identity theory for when two abstract residual states related by arbitrary action relabeling count as the same object for the target theorem."
+    },
+    {
+      "id": "M05",
+      "statement": "A physically restricted quotient using only actual board automorphisms (identity/reflection) for comparison with the arbitrary-column abstract quotient."
+    },
+    {
+      "id": "M06",
+      "statement": "A qualified bridge, if any, from representation/groupoid holonomy to game value, proof identity, or solver-relevant structure."
+    }
+  ],
+  "inventory_conclusion": "The Lego inventory no longer points first to a mysterious local game transition. It points first to a quotient-with-changing-frames problem: exact states are transported into independently canonicalized abstract frames, the recursive labelled signature omits the transporter, and the resulting representation graph carries a non-exact Z2 cochain."
+}

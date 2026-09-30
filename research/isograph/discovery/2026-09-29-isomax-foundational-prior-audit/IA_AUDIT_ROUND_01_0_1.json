@@ -1,0 +1,185 @@
+{
+  "schema": "connect4.isomax.foundational_prior_audit.ia_round.v1",
+  "round": 1,
+  "date_author_local": "2026-09-29",
+  "input": [
+    "WITNESS_PRIOR_AUDIT_0_1.json",
+    "FIXED_FRAME_ROUTE_AUDIT_0_1.json",
+    "TRANSPORTER_AWARE_RECONSTRUCTION_0_1.json",
+    "GEOMETRY_COVARIANCE_AUDIT_0_1.json",
+    "CLOSURE_PRIOR_AUDIT_0_1.json",
+    "CARRIER_PRIOR_AUDIT_0_1.json",
+    "REPRESENTATION_SEMANTICS_AUDIT_0_1.json",
+    "IDENTITY_QU_NEI_AUDIT_0_1.json"
+  ],
+  "new_assertions": [
+    {
+      "id": "AUD-IA001",
+      "family": "B",
+      "title": "edge-local flip position is gauge-dependent",
+      "body": "The repair-surviving route pair has odd relative sheet parity in both the stored gauge and an independently reconstructed exact-state lexicographic gauge, but the unique delta-1 edge moves from stored edge 2710 to edge 2724. Therefore no particular edge position is an invariant location of the oddness.",
+      "premises": [
+        "WITNESS_PRIOR_AUDIT_0_1"
+      ],
+      "scope": "repair-surviving 3+3 witness"
+    },
+    {
+      "id": "AUD-IA002",
+      "family": "F",
+      "title": "nonzero fundamental-basis cycle count is basis-dependent",
+      "body": "On the same repaired 5x4 representation carrier, seven valid deterministic spanning orders yield nonzero fundamental-basis syndrome counts 22, 28, 32, 35, or 115 while preserving non-exactness. Therefore the count is not an intrinsic obstruction magnitude.",
+      "premises": [
+        "CARRIER_PRIOR_AUDIT_0_1"
+      ],
+      "scope": "repaired 5x4 representation carrier"
+    },
+    {
+      "id": "AUD-IA003",
+      "family": "Q",
+      "title": "stored labelled-sheet distinction is not literal-future distinction",
+      "body": "All six stored binary sheet pairs in the witness have distinct recursive canonical-frame action-token class IDs but identical complete no-canonicalization literal-action future trees. Thus stored class distinction does not imply distinct literal future behavior.",
+      "premises": [
+        "WITNESS_PRIOR_AUDIT_0_1",
+        "REPRESENTATION_SEMANTICS_AUDIT_0_1"
+      ],
+      "scope": "all six groups of repair-surviving witness"
+    },
+    {
+      "id": "AUD-IA004",
+      "family": "R",
+      "title": "witness binary fiber collapses at behavior resolution",
+      "body": "Replacing stored sheet identity by independently computed complete literal-action future behavior collapses each of the six two-sheet witness fibers to one class, leaving no two-sheet carrier on which the stored witness deltas can act.",
+      "premises": [
+        "AUD-IA003",
+        "TRANSPORTER_AWARE_RECONSTRUCTION_0_1"
+      ],
+      "scope": "repair-surviving witness"
+    },
+    {
+      "id": "AUD-IA005",
+      "family": "C",
+      "title": "canonical slots are not fixed physical columns",
+      "body": "Only identity and horizontal reflection preserve the fixed 5x4 Connect4 winning-line hypergraph, yet 10 of 14 witness canonicalizer uses employ other column permutations and every displayed witness state contains at least one residual not lying on a physical winning line in that displayed frame. Therefore a canonical slot is a local abstract action slot unless a transporter maps it back to a physical frame.",
+      "premises": [
+        "GEOMETRY_COVARIANCE_AUDIT_0_1"
+      ],
+      "scope": "audited witness canonical frames"
+    },
+    {
+      "id": "AUD-IA006",
+      "family": "I",
+      "title": "route endpoint reconvergence is relation-dependent",
+      "body": "In one common source frame the two routes end at different exact states in different arbitrary-column residual orbits with different literal-action future trees, but a global action relabeling makes their future trees coincide and their action-unlabelled multiset/set futures coincide. Hence reconvergence is true only under a named behavioral/action-relabel relation, not unqualified equality.",
+      "premises": [
+        "FIXED_FRAME_ROUTE_AUDIT_0_1"
+      ],
+      "scope": "both start-sheet realizations of surviving witness"
+    },
+    {
+      "id": "AUD-IA007",
+      "family": "B",
+      "title": "support-release closure has narrower exact meaning",
+      "body": "For all 56 residual occurrences in witness states, support-release/turn-capacity agrees with exhaustive alternating-turn/gravity feasibility of each residual considered in isolation; this does not establish full-game realizability with first-win stopping or competing residuals.",
+      "premises": [
+        "CLOSURE_PRIOR_AUDIT_0_1"
+      ],
+      "scope": "repair-surviving witness residual occurrences"
+    },
+    {
+      "id": "AUD-IA008",
+      "family": "S",
+      "title": "representation-graph non-exactness survives independent recomputation",
+      "body": "Independent component, cycle-rank, potential-consistency, parity-reachability and gauge checks reproduce cycle rank 542, non-exactness, and the unique directed opposite-parity source-target pair on the repaired 5x4 edge carrier. Thus the representation-graph obstruction is not explained by a simple arithmetic, cycle-enumeration, or parity-convention error.",
+      "premises": [
+        "CARRIER_PRIOR_AUDIT_0_1"
+      ],
+      "scope": "declared repaired 5x4 representation graph"
+    }
+  ],
+  "support_refinements": [
+    {
+      "target": "term:action-labelled class",
+      "refinement": "Use 'recursive canonical-frame action-token class' for the audited implementation unless transporter-aware recursive label alignment is explicitly included."
+    },
+    {
+      "target": "term:reconvergence",
+      "refinement": "Always name the relation: exact state, physical symmetry, arbitrary-column orbit, fixed-frame literal future, global-action-transporter future, multiset/set future, or stored base quotient."
+    },
+    {
+      "target": "term:obstructed",
+      "refinement": "By default in this campaign, mean 'non-exact Z2 cochain on the declared representation carrier'; do not silently upgrade to physical/game-state obstruction."
+    },
+    {
+      "target": "term:nonzero syndrome count",
+      "refinement": "Attach the chosen fundamental-cycle basis/order. Treat existence/non-exactness as invariant; treat the count as basis-relative."
+    }
+  ],
+  "qu_refinements": [
+    {
+      "id": "AUD-QR001",
+      "target": "QU-SC-001",
+      "add_fixed": [
+        "the currently audited repair-surviving binary sheets collapse under complete literal-future behavior",
+        "the previous local residual-coordinate search was performed on a representation-relative two-sheet carrier"
+      ],
+      "retain_open": [
+        "whether a transporter-aware full carrier retains any semantic fiber requiring residual refinement",
+        "whether a physical-frame residual coordinate exists after corrected quotienting"
+      ]
+    },
+    {
+      "id": "AUD-QR002",
+      "target": "QU-SC-004",
+      "add_fixed": [
+        "transporter alignment is load-bearing for interpreting action labels across independently canonicalized states",
+        "the audited edge carrying delta=1 is not gauge-invariant"
+      ],
+      "retain_open": [
+        "whether transporter-complete groupoid holonomy survives globally",
+        "whether any intrinsic path-history variable remains after corrected label alignment"
+      ]
+    },
+    {
+      "id": "AUD-QR003",
+      "target": "QU-SC-005",
+      "add_fixed": [
+        "the codomain question on the current two-sheet witness is subordinate to fixing the semantic carrier because the witness fiber collapses at literal-future resolution"
+      ],
+      "retain_open": [
+        "codomain required by any transporter-aware corrected carrier"
+      ]
+    },
+    {
+      "id": "AUD-QR004",
+      "target": "QU-SC-006",
+      "add_fixed": [
+        "flat/non-exact results currently refer to the canonical-frame representation cocycle; arbitrary canonical frames are not fixed physical geometry"
+      ],
+      "retain_open": [
+        "whether a physically restricted/transporter-aware carrier has an analogous width-dependent exactness theorem"
+      ]
+    }
+  ],
+  "rejected_candidates": [
+    {
+      "id": "AUD-RJ001",
+      "candidate": "The middle B edge intrinsically causes the flip.",
+      "reason": "delta-1 location moves under a valid node-sheet gauge."
+    },
+    {
+      "id": "AUD-RJ002",
+      "candidate": "There are exactly 22 independent obstruction cycles.",
+      "reason": "22 is one basis-relative nonzero fundamental-cycle count; tested bases give multiple counts."
+    },
+    {
+      "id": "AUD-RJ003",
+      "candidate": "Different stored action-labelled classes prove different literal future behavior.",
+      "reason": "all six witness pairs are counterexamples."
+    },
+    {
+      "id": "AUD-RJ004",
+      "candidate": "Canonical-frame residual masks/columns can be read directly as physical Connect4 geometry.",
+      "reason": "canonicalizers are usually nonphysical and displayed residuals need not lie on physical lines."
+    }
+  ]
+}
