@@ -1,0 +1,299 @@
+{
+  "schema": "connect4.isomax.support_xor_parity_holdout.v1",
+  "date_author_local": "2026-09-29",
+  "warrant": "EW-RS-010",
+  "frozenCandidate": "X_h = XOR integer column heights; p = stone-count parity = low bit of X_h",
+  "cases": [
+    {
+      "width": 3,
+      "height": 3,
+      "k": 3,
+      "physicalStates": 694,
+      "nonterminalStates": 505,
+      "parityLowBitIdentity": true,
+      "splits": [
+        {
+          "id": "P",
+          "futureClasses": 312,
+          "qoClasses": 396,
+          "pairs": 312,
+          "fragmented": 0,
+          "maxVariants": 1,
+          "eliminableQoDistinctions": 84
+        },
+        {
+          "id": "XH",
+          "futureClasses": 312,
+          "qoClasses": 396,
+          "pairs": 312,
+          "fragmented": 0,
+          "maxVariants": 1,
+          "eliminableQoDistinctions": 84
+        },
+        {
+          "id": "THRESH",
+          "futureClasses": 312,
+          "qoClasses": 396,
+          "pairs": 312,
+          "fragmented": 0,
+          "maxVariants": 1,
+          "eliminableQoDistinctions": 84
+        },
+        {
+          "id": "SUM_MOD4",
+          "futureClasses": 312,
+          "qoClasses": 396,
+          "pairs": 312,
+          "fragmented": 0,
+          "maxVariants": 1,
+          "eliminableQoDistinctions": 84
+        },
+        {
+          "id": "E2_MOD4",
+          "futureClasses": 312,
+          "qoClasses": 396,
+          "pairs": 312,
+          "fragmented": 0,
+          "maxVariants": 1,
+          "eliminableQoDistinctions": 84
+        },
+        {
+          "id": "MULTISET",
+          "futureClasses": 312,
+          "qoClasses": 396,
+          "pairs": 312,
+          "fragmented": 0,
+          "maxVariants": 1,
+          "eliminableQoDistinctions": 84
+        }
+      ],
+      "X_hUpdateAmbiguousGroups": 12,
+      "X_hRuleAmbiguity": {
+        "R": 43,
+        "F": 44,
+        "G": 15,
+        "X_feas": 50
+      }
+    },
+    {
+      "width": 3,
+      "height": 4,
+      "k": 3,
+      "physicalStates": 2715,
+      "nonterminalStates": 1801,
+      "parityLowBitIdentity": true,
+      "splits": [
+        {
+          "id": "P",
+          "futureClasses": 1007,
+          "qoClasses": 1393,
+          "pairs": 1007,
+          "fragmented": 0,
+          "maxVariants": 1,
+          "eliminableQoDistinctions": 386
+        },
+        {
+          "id": "XH",
+          "futureClasses": 1007,
+          "qoClasses": 1393,
+          "pairs": 1010,
+          "fragmented": 3,
+          "maxVariants": 2,
+          "eliminableQoDistinctions": 383
+        },
+        {
+          "id": "THRESH",
+          "futureClasses": 1007,
+          "qoClasses": 1393,
+          "pairs": 1013,
+          "fragmented": 6,
+          "maxVariants": 2,
+          "eliminableQoDistinctions": 380
+        },
+        {
+          "id": "SUM_MOD4",
+          "futureClasses": 1007,
+          "qoClasses": 1393,
+          "pairs": 1007,
+          "fragmented": 0,
+          "maxVariants": 1,
+          "eliminableQoDistinctions": 386
+        },
+        {
+          "id": "E2_MOD4",
+          "futureClasses": 1007,
+          "qoClasses": 1393,
+          "pairs": 1013,
+          "fragmented": 6,
+          "maxVariants": 2,
+          "eliminableQoDistinctions": 380
+        },
+        {
+          "id": "MULTISET",
+          "futureClasses": 1007,
+          "qoClasses": 1393,
+          "pairs": 1013,
+          "fragmented": 6,
+          "maxVariants": 2,
+          "eliminableQoDistinctions": 380
+        }
+      ],
+      "X_hUpdateAmbiguousGroups": 24,
+      "X_hRuleAmbiguity": {
+        "R": 57,
+        "F": 148,
+        "G": 17,
+        "X_feas": 80
+      }
+    },
+    {
+      "width": 4,
+      "height": 3,
+      "k": 3,
+      "physicalStates": 7157,
+      "nonterminalStates": 4631,
+      "parityLowBitIdentity": true,
+      "splits": [
+        {
+          "id": "P",
+          "futureClasses": 2933,
+          "qoClasses": 3734,
+          "pairs": 2933,
+          "fragmented": 0,
+          "maxVariants": 1,
+          "eliminableQoDistinctions": 801
+        },
+        {
+          "id": "XH",
+          "futureClasses": 2933,
+          "qoClasses": 3734,
+          "pairs": 2938,
+          "fragmented": 5,
+          "maxVariants": 2,
+          "eliminableQoDistinctions": 796
+        },
+        {
+          "id": "THRESH",
+          "futureClasses": 2933,
+          "qoClasses": 3734,
+          "pairs": 2938,
+          "fragmented": 5,
+          "maxVariants": 2,
+          "eliminableQoDistinctions": 796
+        },
+        {
+          "id": "SUM_MOD4",
+          "futureClasses": 2933,
+          "qoClasses": 3734,
+          "pairs": 2933,
+          "fragmented": 0,
+          "maxVariants": 1,
+          "eliminableQoDistinctions": 801
+        },
+        {
+          "id": "E2_MOD4",
+          "futureClasses": 2933,
+          "qoClasses": 3734,
+          "pairs": 2938,
+          "fragmented": 5,
+          "maxVariants": 2,
+          "eliminableQoDistinctions": 796
+        },
+        {
+          "id": "MULTISET",
+          "futureClasses": 2933,
+          "qoClasses": 3734,
+          "pairs": 2938,
+          "fragmented": 5,
+          "maxVariants": 2,
+          "eliminableQoDistinctions": 796
+        }
+      ],
+      "X_hUpdateAmbiguousGroups": 16,
+      "X_hRuleAmbiguity": {
+        "R": 82,
+        "F": 159,
+        "G": 46,
+        "X_feas": 123
+      }
+    },
+    {
+      "width": 4,
+      "height": 4,
+      "k": 3,
+      "physicalStates": 41750,
+      "nonterminalStates": 23930,
+      "parityLowBitIdentity": true,
+      "splits": [
+        {
+          "id": "P",
+          "futureClasses": 12520,
+          "qoClasses": 18874,
+          "pairs": 12520,
+          "fragmented": 0,
+          "maxVariants": 1,
+          "eliminableQoDistinctions": 6354
+        },
+        {
+          "id": "XH",
+          "futureClasses": 12520,
+          "qoClasses": 18874,
+          "pairs": 12551,
+          "fragmented": 31,
+          "maxVariants": 2,
+          "eliminableQoDistinctions": 6323
+        },
+        {
+          "id": "THRESH",
+          "futureClasses": 12520,
+          "qoClasses": 18874,
+          "pairs": 12576,
+          "fragmented": 49,
+          "maxVariants": 3,
+          "eliminableQoDistinctions": 6298
+        },
+        {
+          "id": "SUM_MOD4",
+          "futureClasses": 12520,
+          "qoClasses": 18874,
+          "pairs": 12520,
+          "fragmented": 0,
+          "maxVariants": 1,
+          "eliminableQoDistinctions": 6354
+        },
+        {
+          "id": "E2_MOD4",
+          "futureClasses": 12520,
+          "qoClasses": 18874,
+          "pairs": 12576,
+          "fragmented": 49,
+          "maxVariants": 3,
+          "eliminableQoDistinctions": 6298
+        },
+        {
+          "id": "MULTISET",
+          "futureClasses": 12520,
+          "qoClasses": 18874,
+          "pairs": 12576,
+          "fragmented": 49,
+          "maxVariants": 3,
+          "eliminableQoDistinctions": 6298
+        }
+      ],
+      "X_hUpdateAmbiguousGroups": 32,
+      "X_hRuleAmbiguity": {
+        "R": 100,
+        "F": 510,
+        "G": 20,
+        "X_feas": 165
+      }
+    }
+  ],
+  "result": {
+    "X_hConstantWithinFutureEveryCase": false,
+    "parityRedundantEveryCase": true,
+    "X_hRecursivelyClosedEveryCase": false,
+    "X_hPredictsAllRFGXfeasEveryCase": false
+  },
+  "interpretationGuard": "Fresh bounded holdouts with no solved database. Exact future classes are validation/oracle only, not definitions of X_h."
+}
