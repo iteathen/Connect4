@@ -1,0 +1,1283 @@
+{
+  "schema": "connect4.rank_sufficient_qg_dg.ambiguity_realizability.v1",
+  "date_author_local": "2026-09-29",
+  "warrant": "QGDG-EW-005",
+  "cases": [
+    {
+      "label": "4x4-k4",
+      "width": 4,
+      "height": 4,
+      "k": 4,
+      "congruenceFailures": 806,
+      "differenceOccurrences": 806,
+      "uniqueResidualContexts": 56,
+      "classification": {
+        "simpleReleaseTrue": 56,
+        "exactScheduleTrue": 0,
+        "simpleTrueExactFalse": 56,
+        "allOpenCaps": 56,
+        "opponentOwned": 56,
+        "moverOwned": 0
+      },
+      "patterns": {
+        "OPPONENT|simpleY|exactN|capsY|2": 34,
+        "OPPONENT|simpleY|exactN|capsY|3": 22
+      },
+      "examples": [
+        {
+          "parentNormal": "4,4,2,0|3072|128.17408",
+          "col": 2,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "B_ONLY",
+          "mask": 49152,
+          "size": 2,
+          "support": [
+            4,
+            4,
+            3,
+            0
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "4,4,2,0|3072|128.17408",
+          "col": 3,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "B_ONLY",
+          "mask": 49152,
+          "size": 2,
+          "support": [
+            4,
+            4,
+            2,
+            1
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "4,4,1,1|3072|17472.34944",
+          "col": 3,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "B_ONLY",
+          "mask": 49152,
+          "size": 2,
+          "support": [
+            4,
+            4,
+            1,
+            2
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "4,4,0,2|3072|64.34816",
+          "col": 3,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "B_ONLY",
+          "mask": 49152,
+          "size": 2,
+          "support": [
+            4,
+            4,
+            0,
+            3
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "4,3,3,0|8|",
+          "col": 2,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "B_ONLY",
+          "mask": 40960,
+          "size": 2,
+          "support": [
+            4,
+            3,
+            4,
+            0
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "4,3,0,3|4|64",
+          "col": 3,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "B_ONLY",
+          "mask": 24576,
+          "size": 2,
+          "support": [
+            4,
+            3,
+            0,
+            4
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "4,2,3,1|8704.34944|16384",
+          "col": 2,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "B_ONLY",
+          "mask": 40960,
+          "size": 2,
+          "support": [
+            4,
+            2,
+            4,
+            1
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "4,1,4,1|8736|34944",
+          "col": 3,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "B_ONLY",
+          "mask": 40960,
+          "size": 2,
+          "support": [
+            4,
+            1,
+            4,
+            2
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "4,0,4,2|2|32",
+          "col": 3,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "B_ONLY",
+          "mask": 40960,
+          "size": 2,
+          "support": [
+            4,
+            0,
+            4,
+            3
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "4,0,3,3|2.32800|32",
+          "col": 3,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "B_ONLY",
+          "mask": 24576,
+          "size": 2,
+          "support": [
+            4,
+            0,
+            3,
+            4
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "4,2,0,4||8704",
+          "col": 2,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "B_ONLY",
+          "mask": 24576,
+          "size": 2,
+          "support": [
+            4,
+            2,
+            1,
+            4
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "4,1,1,4|1056|8736.17472",
+          "col": 2,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "B_ONLY",
+          "mask": 24576,
+          "size": 2,
+          "support": [
+            4,
+            1,
+            2,
+            4
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "3,4,3,0||16384",
+          "col": 2,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "A_ONLY",
+          "mask": 36864,
+          "size": 2,
+          "support": [
+            3,
+            4,
+            4,
+            0
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "3,4,0,3|33792|32768",
+          "col": 3,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "A_ONLY",
+          "mask": 20480,
+          "size": 2,
+          "support": [
+            3,
+            4,
+            0,
+            4
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "3,0,4,3|32800|32768",
+          "col": 3,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "A_ONLY",
+          "mask": 12288,
+          "size": 2,
+          "support": [
+            3,
+            0,
+            4,
+            4
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "2,4,4,0||2304",
+          "col": 3,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "B_ONLY",
+          "mask": 36864,
+          "size": 2,
+          "support": [
+            2,
+            4,
+            4,
+            1
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "2,1,4,3|8736.32800|32768",
+          "col": 3,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "A_ONLY",
+          "mask": 12288,
+          "size": 2,
+          "support": [
+            2,
+            1,
+            4,
+            4
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "2,4,0,4||4160",
+          "col": 2,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "B_ONLY",
+          "mask": 20480,
+          "size": 2,
+          "support": [
+            2,
+            4,
+            1,
+            4
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "1,4,4,1|144.4368|2304.34944",
+          "col": 3,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "A_ONLY",
+          "mask": 36864,
+          "size": 2,
+          "support": [
+            1,
+            4,
+            4,
+            2
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "1,4,1,4|4368|17472",
+          "col": 2,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "B_ONLY",
+          "mask": 20480,
+          "size": 2,
+          "support": [
+            1,
+            4,
+            2,
+            4
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "1,4,2,1|4368.33792|3328.4096.34944",
+          "col": 0,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "A_ONLY",
+          "mask": 53248,
+          "size": 3,
+          "support": [
+            2,
+            4,
+            2,
+            1
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "1,4,2,1|4368.33792|3328.4096.34944",
+          "col": 3,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "A_ONLY",
+          "mask": 53248,
+          "size": 3,
+          "support": [
+            1,
+            4,
+            2,
+            2
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "1,4,3,0|4368.34952|16384.34952",
+          "col": 0,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "A_ONLY",
+          "mask": 53248,
+          "size": 3,
+          "support": [
+            2,
+            4,
+            3,
+            0
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "1,4,3,0|4368.34952|16384.34952",
+          "col": 2,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "A_ONLY",
+          "mask": 36864,
+          "size": 2,
+          "support": [
+            1,
+            4,
+            4,
+            0
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "1,4,3,0|4368.34952|16384.34952",
+          "col": 3,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "A_ONLY",
+          "mask": 53248,
+          "size": 3,
+          "support": [
+            1,
+            4,
+            3,
+            1
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "1,2,3,4|4368|16384",
+          "col": 2,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "B_ONLY",
+          "mask": 12288,
+          "size": 2,
+          "support": [
+            1,
+            2,
+            4,
+            4
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "1,4,0,3|4368.17476.33792|17476.32768",
+          "col": 0,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "A_ONLY",
+          "mask": 53248,
+          "size": 3,
+          "support": [
+            2,
+            4,
+            0,
+            3
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "1,4,0,3|4368.17476.33792|17476.32768",
+          "col": 2,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "A_ONLY",
+          "mask": 53248,
+          "size": 3,
+          "support": [
+            1,
+            4,
+            1,
+            3
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "1,4,0,3|4368.17476.33792|17476.32768",
+          "col": 3,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "A_ONLY",
+          "mask": 20480,
+          "size": 2,
+          "support": [
+            1,
+            4,
+            0,
+            4
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "1,3,4,0|4368.34952|8192.34952",
+          "col": 0,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "B_ONLY",
+          "mask": 45056,
+          "size": 3,
+          "support": [
+            2,
+            3,
+            4,
+            0
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "1,3,4,0|4368.34952|8192.34952",
+          "col": 3,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "B_ONLY",
+          "mask": 45056,
+          "size": 3,
+          "support": [
+            1,
+            3,
+            4,
+            1
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "1,0,4,3|4368.8738.32800|8738.32768",
+          "col": 0,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "A_ONLY",
+          "mask": 45056,
+          "size": 3,
+          "support": [
+            2,
+            0,
+            4,
+            3
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "1,0,4,3|4368.8738.32800|8738.32768",
+          "col": 1,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "A_ONLY",
+          "mask": 45056,
+          "size": 3,
+          "support": [
+            1,
+            1,
+            4,
+            3
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "1,0,4,3|4368.8738.32800|8738.32768",
+          "col": 3,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "A_ONLY",
+          "mask": 12288,
+          "size": 2,
+          "support": [
+            1,
+            0,
+            4,
+            4
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "2,2,4,0|4616.34952|2816.32768",
+          "col": 0,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "A_ONLY",
+          "mask": 45056,
+          "size": 3,
+          "support": [
+            3,
+            2,
+            4,
+            0
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "2,2,4,0|4616.34952|2816.32768",
+          "col": 3,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "A_ONLY",
+          "mask": 45056,
+          "size": 3,
+          "support": [
+            2,
+            2,
+            4,
+            1
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "3,4,1,0|4168.17472.34952|4096.34952",
+          "col": 0,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "B_ONLY",
+          "mask": 49152,
+          "size": 2,
+          "support": [
+            4,
+            4,
+            1,
+            0
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "3,4,1,0|4168.17472.34952|4096.34952",
+          "col": 2,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "B_ONLY",
+          "mask": 53248,
+          "size": 3,
+          "support": [
+            3,
+            4,
+            2,
+            0
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "3,4,1,0|4168.17472.34952|4096.34952",
+          "col": 3,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "B_ONLY",
+          "mask": 53248,
+          "size": 3,
+          "support": [
+            3,
+            4,
+            1,
+            1
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "3,4,0,1|4160.17476.34944|4096.17476",
+          "col": 0,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "B_ONLY",
+          "mask": 49152,
+          "size": 2,
+          "support": [
+            4,
+            4,
+            0,
+            1
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "3,4,0,1|4160.17476.34944|4096.17476",
+          "col": 3,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "B_ONLY",
+          "mask": 53248,
+          "size": 3,
+          "support": [
+            3,
+            4,
+            0,
+            2
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "3,1,4,0|4616.8736.34952|4096.34952",
+          "col": 0,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "B_ONLY",
+          "mask": 40960,
+          "size": 2,
+          "support": [
+            4,
+            1,
+            4,
+            0
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "3,1,4,0|4616.8736.34952|4096.34952",
+          "col": 3,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "B_ONLY",
+          "mask": 45056,
+          "size": 3,
+          "support": [
+            3,
+            1,
+            4,
+            1
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "1,2,4,1|4608.34944|2816.4368.32768",
+          "col": 3,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "B_ONLY",
+          "mask": 45056,
+          "size": 3,
+          "support": [
+            1,
+            2,
+            4,
+            2
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "0,4,4,2|2304|16.34816",
+          "col": 3,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "B_ONLY",
+          "mask": 36864,
+          "size": 2,
+          "support": [
+            0,
+            4,
+            4,
+            3
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "0,4,3,3|1|16",
+          "col": 3,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "B_ONLY",
+          "mask": 20480,
+          "size": 2,
+          "support": [
+            0,
+            4,
+            3,
+            4
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "0,3,4,3||32768",
+          "col": 3,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "A_ONLY",
+          "mask": 12288,
+          "size": 2,
+          "support": [
+            0,
+            3,
+            4,
+            4
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "0,4,3,1|4369.32769|4096.34944",
+          "col": 2,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "A_ONLY",
+          "mask": 36864,
+          "size": 2,
+          "support": [
+            0,
+            4,
+            4,
+            1
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "0,4,3,1|4369.32769|4096.34944",
+          "col": 3,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "A_ONLY",
+          "mask": 53248,
+          "size": 3,
+          "support": [
+            0,
+            4,
+            3,
+            2
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "0,3,4,1|4369.32769|4096.34944",
+          "col": 3,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "A_ONLY",
+          "mask": 45056,
+          "size": 3,
+          "support": [
+            0,
+            3,
+            4,
+            2
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "0,1,4,3|4369.8736.32801|4369.32768",
+          "col": 1,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "A_ONLY",
+          "mask": 45056,
+          "size": 3,
+          "support": [
+            0,
+            2,
+            4,
+            3
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "0,1,4,3|4369.8736.32801|4369.32768",
+          "col": 3,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "A_ONLY",
+          "mask": 12288,
+          "size": 2,
+          "support": [
+            0,
+            1,
+            4,
+            4
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "0,4,2,2|4369.33793|3328.4096",
+          "col": 3,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "B_ONLY",
+          "mask": 53248,
+          "size": 3,
+          "support": [
+            0,
+            4,
+            2,
+            3
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "0,4,1,3|4369.17472.33793|4369.32768",
+          "col": 3,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "B_ONLY",
+          "mask": 20480,
+          "size": 2,
+          "support": [
+            0,
+            4,
+            1,
+            4
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "3,0,4,1|4608.8738.34944|4096.8738",
+          "col": 0,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "B_ONLY",
+          "mask": 40960,
+          "size": 2,
+          "support": [
+            4,
+            0,
+            4,
+            1
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "3,0,4,1|4608.8738.34944|4096.8738",
+          "col": 3,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "B_ONLY",
+          "mask": 45056,
+          "size": 3,
+          "support": [
+            3,
+            0,
+            4,
+            2
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        }
+      ]
+    },
+    {
+      "label": "4x4-k3",
+      "width": 4,
+      "height": 4,
+      "k": 3,
+      "congruenceFailures": 30,
+      "differenceOccurrences": 30,
+      "uniqueResidualContexts": 12,
+      "classification": {
+        "simpleReleaseTrue": 12,
+        "exactScheduleTrue": 0,
+        "simpleTrueExactFalse": 12,
+        "allOpenCaps": 12,
+        "opponentOwned": 12,
+        "moverOwned": 0
+      },
+      "patterns": {
+        "OPPONENT|simpleY|exactN|capsY|2": 12
+      },
+      "examples": [
+        {
+          "parentNormal": "4,2,0,4|4.64.1536|64.1024.24576",
+          "col": 1,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "B_ONLY",
+          "mask": 24576,
+          "size": 2,
+          "support": [
+            4,
+            3,
+            0,
+            4
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "4,1,1,4|64.544.1056.1536|576.1088.9216.16896.24576",
+          "col": 1,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "B_ONLY",
+          "mask": 24576,
+          "size": 2,
+          "support": [
+            4,
+            2,
+            1,
+            4
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "4,1,1,4|32.576.1088.1536|544.1056.9216.16896.24576",
+          "col": 2,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "B_ONLY",
+          "mask": 24576,
+          "size": 2,
+          "support": [
+            4,
+            1,
+            2,
+            4
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "4,0,4,2|2.32.512|32.512.8192",
+          "col": 3,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "B_ONLY",
+          "mask": 40960,
+          "size": 2,
+          "support": [
+            4,
+            0,
+            4,
+            3
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "4,0,2,4|2.32.1536|32.512.24576",
+          "col": 2,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "B_ONLY",
+          "mask": 24576,
+          "size": 2,
+          "support": [
+            4,
+            0,
+            3,
+            4
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "4,0,0,4|6.36.66.546.576.1056.1092.1536.8736.17472|96.546.576.1056.1092.8736.9216.16896.17472.24576",
+          "col": 1,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "B_ONLY",
+          "mask": 24576,
+          "size": 2,
+          "support": [
+            4,
+            1,
+            0,
+            4
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "4,0,0,4|6.36.66.546.576.1056.1092.1536.8736.17472|96.546.576.1056.1092.8736.9216.16896.17472.24576",
+          "col": 2,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "B_ONLY",
+          "mask": 24576,
+          "size": 2,
+          "support": [
+            4,
+            0,
+            1,
+            4
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "4,2,4,0|512.2184|512.8320.32768",
+          "col": 3,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "B_ONLY",
+          "mask": 40960,
+          "size": 2,
+          "support": [
+            4,
+            2,
+            4,
+            1
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "2,4,0,4|4.64.1024|64.1024.16384",
+          "col": 0,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "B_ONLY",
+          "mask": 20480,
+          "size": 2,
+          "support": [
+            3,
+            4,
+            0,
+            4
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "2,4,0,4|64.260.1024|64.1024.4352.16384",
+          "col": 2,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "A_ONLY",
+          "mask": 20480,
+          "size": 2,
+          "support": [
+            2,
+            4,
+            1,
+            4
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "4,0,4,2|32.512.2050|32.512.8192.34816",
+          "col": 1,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "A_ONLY",
+          "mask": 40960,
+          "size": 2,
+          "support": [
+            4,
+            1,
+            4,
+            2
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        },
+        {
+          "parentNormal": "0,4,2,4|273.1024|1024.4096.16400",
+          "col": 0,
+          "player": 0,
+          "relativeToMover": "OPPONENT",
+          "side": "B_ONLY",
+          "mask": 20480,
+          "size": 2,
+          "support": [
+            1,
+            4,
+            2,
+            4
+          ],
+          "simpleRelease": true,
+          "exactSchedule": false,
+          "allOpenCaps": true
+        }
+      ]
+    }
+  ],
+  "crossCase": {
+    "uniqueContexts": 68,
+    "exactScheduleTrue": 0,
+    "simpleTrueExactFalse": 68,
+    "allOpenCaps": 68
+  },
+  "interpretation_guard": "Exact isolated schedule is a structural analysis oracle that ignores wins/other residual objectives. It is not adopted as the final Q rule and its current DP implementation does not satisfy the desired direct-construction standard by itself."
+}
