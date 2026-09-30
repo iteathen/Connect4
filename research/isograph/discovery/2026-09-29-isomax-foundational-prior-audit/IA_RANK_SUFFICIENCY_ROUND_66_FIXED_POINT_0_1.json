@@ -1,0 +1,31 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_fixed_point.v1",
+  "round": 66,
+  "date_author_local": "2026-09-30",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_65_0_1.json",
+    "RANK_SUFFICIENCY_OOO_MOTIF_HYPERGRAPH_BOUNDARY_INTEGRATION_0_1.json"
+  ],
+  "recursive_generation": {
+    "families_checked": [
+      "vertex-boundary scalar sufficiency",
+      "pair-boundary scalar sufficiency",
+      "combined lower-order boundary sufficiency",
+      "triple-motif reconstruction control",
+      "representation-scoped triadicity",
+      "circuit/exchange alternatives",
+      "formula-holdout anti-circularity"
+    ],
+    "new_assertions": []
+  },
+  "fixed_point": true,
+  "reason": "The ordinary lower-order boundary ladder is exhausted and rejected. No further exact compression follows without introducing a new mechanically defined triple-level circuit/exchange/orientation invariant; selecting triple motifs by scalar residue would violate the discovery firewall.",
+  "next_evidence_boundaries": [
+    "preserve WIDTH_CAPMASK_OWNER_DEPTH_HISTOGRAMS triple motifs as the current common cubic scalar carrier",
+    "define any circuit/exchange/orientation candidate entirely from motif structure before scalar evaluation",
+    "freeze candidate family and ordering before execution",
+    "do not fit individual triple-motif coefficients yet",
+    "EW-RS-059 PRIMARY 3x6-k4 and BACKUP 5x3-k4 remain sealed"
+  ],
+  "stop_status": "FIXED_POINT__TRIPLE_CIRCUIT_DISCOVERY_NEXT"
+}
