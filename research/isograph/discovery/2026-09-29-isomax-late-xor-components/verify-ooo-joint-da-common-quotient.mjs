@@ -6,8 +6,9 @@ const base=new URL('.',import.meta.url);
 const result=JSON.parse(fs.readFileSync(new URL('OOO_JOINT_DA_COMMON_QUOTIENT_0_1.json',base)));
 assert.equal(result.warrant,'EW-RS-078');
 assert.equal(result.scalarAccess,false);
+assert.equal(result.inputHashEncoding,'UTF8_LF');
 for(const [f,hash] of Object.entries(result.inputSha256))
-  assert.equal(createHash('sha256').update(fs.readFileSync(new URL(f,base))).digest('hex'),hash);
+  assert.equal(createHash('sha256').update(fs.readFileSync(new URL(f,base),'utf8').replace(/\r\n/g,'\n')).digest('hex'),hash);
 assert.deepEqual(result.domains.map(x=>x.domain),['CARTESIAN','OWNER_COUNT_REALIZABLE']);
 const modes=[['TOTAL','SIGNED_NET'],['SIGNED_NET','TOTAL'],['ABS_NET','SEPARATED'],['SEPARATED','ABS_NET']];
 const summaries=[];

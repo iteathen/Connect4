@@ -29,7 +29,8 @@ const domains=['CARTESIAN','OWNER_COUNT_REALIZABLE'].map(domain=>{
 });
 const out={schema:'connect4.isomax.joint_da_common_quotient.v1',warrant:'EW-RS-078',
   sourceCommit:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),
-  inputSha256:Object.fromEntries(inputs.map(f=>[f,sha256(fs.readFileSync(new URL(f,base)))])),
+  inputHashEncoding:'UTF8_LF',
+  inputSha256:Object.fromEntries(inputs.map(f=>[f,sha256(fs.readFileSync(new URL(f,base),'utf8').replace(/\r\n/g,'\n'))])),
   scalarAccess:false,domains,
   holdouts:{primary:'3x6-k4',backup:'5x3-k4',sealed:true}};
 fs.writeFileSync(new URL('OOO_JOINT_DA_COMMON_QUOTIENT_0_1.json',base),JSON.stringify(out,null,2)+'\n');
