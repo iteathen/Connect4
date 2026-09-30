@@ -1,0 +1,27 @@
+{
+  "schema":"connect4.isomax.revalidation.draw_marginal_presence_warrant.v1",
+  "id":"REVAL-LEGO-DRAW-002",
+  "date":"2026-09-30",
+  "status":"FROZEN_BEFORE_TRAINED_SCALAR_REPLAY",
+  "canonicalResearchOwner":"research/semantic-quotient",
+  "parent":"REVAL-LEGO-DRAW-001",
+  "objective":"Test whether the surviving scalar mask1 character is a zero/nonzero (presence) circuit of one primitive marginal resource field after the exact triangle-parity cancellation of raw count parity.",
+  "source":"EW-RS-093 COV_0 marginal triangle records. Fields are T_i and |N_i| for channels C,Z0,P0,Z1,P1.",
+  "fields":["T_C","T_Z0","T_P0","T_Z1","T_P1","A_C","A_Z0","A_P0","A_Z1","A_P1"],
+  "candidateFamily":"For one selected field F, form three edge bits b1,b2,b3=[F>0]. Compute e1=b1 xor b2 xor b3, e2=b1b2 xor b1b3 xor b2b3, e3=b1b2b3. Test all7 nonzero XOR combinations of e1,e2,e3 for each of the10 fields, for70 candidates total.",
+  "candidateColumn":"A triangle contributes f(b1,b2,b3); a dependency value is XOR across its frozen OOO triangle residue.",
+  "procedure":[
+    "Prepare all70 structural columns before reading scalar codes.",
+    "Replay only scalar mask1 on all462 trained dependencies.",
+    "Report every exact candidate and realized-column equivalence classes.",
+    "If none pass, presence of any single marginal field is insufficient and the search must move to joint field association, not arbitrary fitted coefficients."
+  ],
+  "guards":[
+    "Permutation-invariant across triangle edges.",
+    "No sign-correlation, geometry tag, motif ID or state exception.",
+    "No sealed-holdout access or RS096 continuation."
+  ],
+  "sealedFormulaHoldouts":["3x6-k4","5x3-k4"],
+  "rs096":"HOLD",
+  "authorityEffect":"NONE"
+}
