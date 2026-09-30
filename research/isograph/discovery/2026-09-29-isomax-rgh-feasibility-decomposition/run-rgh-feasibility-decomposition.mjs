@@ -54,7 +54,20 @@ function audit({W,H,K,label,role}){
    const km=new Map(nts.map(n=>[n.key,key(candidate(q(n)))])),groups=new Map();for(const n of nts){const k=km.get(n.key);let a=groups.get(k);if(!a){a=[];groups.set(k,a);}a.push(n);}
    let pass=true,fail=null;for(const[k,a]of groups){let s0=null,id0=null;for(const n of a){const slots=Array(W).fill('I');for(const ch of n.ch){const y=nodes.get(ch.key);slots[ch.c]=y.t?'T:'+(y.w===0?'P0':y.w===1?'P1':'D'):'N:'+km.get(y.key);}const s=slots.join('|');if(s0===null){s0=s;id0=n.key;}else if(s!==s0){pass=false;fail={key:k,a:id0,b:n.key,aInterface:s0,bInterface:s};break;}}if(!pass)break;}return{classes:groups.size,QF:pass,fail};}
  const candidates={E1:qf(E1),RGH:qf(x=>seq(x,'RGH')),FE1:qf(x=>F(E1(x))),RFGH:qf(x=>seq(x,'RFGH'))};
- return{label,role,width:W,height:H,k:K,physicalStates:nodes.size,nonterminalStates:nts.length,checks:{e1RghMismatch,fe1RfgHMismatch,hOwnerSimplificationMismatch,rDeletedButE1Kept,gDeletedButE1Kept,hDeletedButE1Kept},candidates,feasibilityCache:cache.size,examples};
+ function partition(fn){const m=new Map();for(const n of nts)m.set(n.key,key(fn(q(n))));return m;}
+ function samePartition(a,b){
+   const ab=new Map(),ba=new Map();let mismatches=0;const examples=[];
+   for(const n of nts){const ka=a.get(n.key),kb=b.get(n.key);
+     if(ab.has(ka)&&ab.get(ka)!==kb){mismatches++;if(examples.length<8)examples.push({state:n.key,side:'A_TO_B',ka,kb,prior:ab.get(ka)});}
+     else ab.set(ka,kb);
+     if(ba.has(kb)&&ba.get(kb)!==ka){mismatches++;if(examples.length<8)examples.push({state:n.key,side:'B_TO_A',ka,kb,prior:ba.get(kb)});}
+     else ba.set(kb,ka);
+   }
+   return{same:mismatches===0,mismatches,aClasses:ab.size,bClasses:ba.size,examples};
+ }
+ const pE1=partition(E1),pRGH=partition(x=>seq(x,'RGH')),pFE1=partition(x=>F(E1(x))),pRFGH=partition(x=>seq(x,'RFGH'));
+ const partitionEquivalence={E1_vs_RGH:samePartition(pE1,pRGH),FE1_vs_RFGH:samePartition(pFE1,pRFGH)};
+ return{label,role,width:W,height:H,k:K,physicalStates:nodes.size,nonterminalStates:nts.length,checks:{e1RghMismatch,fe1RfgHMismatch,hOwnerSimplificationMismatch,rDeletedButE1Kept,gDeletedButE1Kept,hDeletedButE1Kept},candidates,partitionEquivalence,feasibilityCache:cache.size,examples};
 }
 
 const cases=CASES.map(audit);
@@ -67,8 +80,10 @@ const out={
    F_E1_equals_RFGH_every_case:cases.every(c=>c.checks.fe1RfgHMismatch===0),
    H_owner_formula_simplifies_every_case:cases.every(c=>c.checks.hOwnerSimplificationMismatch===0),
    allRepresentationsQF:cases.every(c=>Object.values(c.candidates).every(x=>x.QF)),
+   E1_RGH_same_partition_every_case:cases.every(c=>c.partitionEquivalence.E1_vs_RGH.same),
+   FE1_RFGH_same_partition_every_case:cases.every(c=>c.partitionEquivalence.FE1_vs_RFGH.same),
  },
  interpretationGuard:'Complete bounded exact evidence only. Equality with E1 is a structural decomposition result over tested cases; general symbolic proof and standard-7x6 qualification remain separate.'
 };
 fs.writeFileSync(new URL('./RGH_FEASIBILITY_DECOMPOSITION_0_1.json',import.meta.url),JSON.stringify(out,null,2)+'\n');
-console.log(JSON.stringify({status:'RGH_FEASIBILITY_DECOMPOSITION_COMPLETE',result:out.result,cases:cases.map(c=>({label:c.label,checks:c.checks,candidates:c.candidates}))},null,2));
+console.log(JSON.stringify({status:'RGH_FEASIBILITY_DECOMPOSITION_COMPLETE',result:out.result,cases:cases.map(c=>({label:c.label,checks:c.checks,candidates:c.candidates,partitions:c.partitionEquivalence}))},null,2));
