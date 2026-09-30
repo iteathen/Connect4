@@ -1,0 +1,25 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_fixed_point.v1",
+  "round": 39,
+  "date_author_local": "2026-09-29",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_38_0_1.json",
+    "RANK_SUFFICIENCY_SYNDROME_TOPOLOGY_INTEGRATION_0_1.json"
+  ],
+  "recursive_generation": {
+    "families_checked": [
+      "sparse syndrome support",
+      "phase/topology separation",
+      "release timing",
+      "geometry-specific scalar quotients"
+    ],
+    "new_assertions": []
+  },
+  "fixed_point": true,
+  "reason": "EW-RS-041 localizes the next uncertainty to a predeclared release-timing quotient. Further IA requires qualification of TOPO_RPAR or another independently motivated release-semantic coordinate.",
+  "next_evidence_boundaries": [
+    "TOPO_RPAR qualification",
+    "fresh non-affine holdout after a common compact coordinate is frozen"
+  ],
+  "stop_status": "FIXED_POINT__RELEASE_PARITY_NEXT"
+}
