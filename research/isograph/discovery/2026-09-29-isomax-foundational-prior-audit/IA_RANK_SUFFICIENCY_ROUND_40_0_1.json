@@ -1,0 +1,54 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_round.v1",
+  "round": 40,
+  "date_author_local": "2026-09-29",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_39_FIXED_POINT_0_1.json",
+    "RANK_SUFFICIENCY_RELEASE_PARITY_TOPOLOGY_INTEGRATION_0_1.json"
+  ],
+  "reopened_reason": "EW-RS-042 identifies a common scalar-exact release-semantic coordinate below exact relative-delay incidence.",
+  "new_assertions": [
+    {
+      "id": "RS-IA132",
+      "family": "M",
+      "body": "For the tested scalar interaction law, release time enters through a three-label semantic partition: immediately available F, delayed odd O, and delayed even E."
+    },
+    {
+      "id": "RS-IA133",
+      "family": "R",
+      "body": "The distinction d=0 versus positive even depth is load-bearing on 4x4; ordinary delay parity alone collapses these and fails."
+    },
+    {
+      "id": "RS-IA134",
+      "family": "Q",
+      "body": "Exact positive delay magnitude beyond parity is scalar-redundant under TOPO_RPAR across all current demanding carriers."
+    },
+    {
+      "id": "RS-IA135",
+      "family": "C",
+      "body": "TOPO_RPAR is a candidate common Q-V interaction coordinate even where it does not preserve the full structural degree-2 span."
+    },
+    {
+      "id": "RS-IA136",
+      "family": "F",
+      "body": "The next falsifier must be a fresh carrier that actually requires interaction; affine-control fresh cases cannot establish the necessity or sufficiency of the release-parity correction law."
+    }
+  ],
+  "qu_refinements": [
+    {
+      "id": "RS-QR042",
+      "target": "QU-RS-004",
+      "add_fixed": [
+        "TOPO_RPAR is scalar-exact on all three demanding carriers",
+        "frontier status plus positive-depth parity is sufficient on the tested corpus"
+      ],
+      "retain_open": [
+        "fresh non-affine qualification",
+        "two explicit TOPO_RPAR syndrome formulas",
+        "phase grading",
+        "standard-7x6 qualification"
+      ]
+    }
+  ],
+  "stop_status": "REOPENED__FRESH_NONAFFINE_RELEASE_PARITY_NEXT"
+}
