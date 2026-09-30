@@ -1,0 +1,846 @@
+{
+  "schema": "connect4.isomax.three_state_count_quotient_transfer.v1",
+  "date_author_local": "2026-09-29",
+  "warrant": "EW-RS-048",
+  "frozenCandidate": "ZOE = omit zero counts; label every present exact component type O for positive odd multiplicity and E for positive even multiplicity",
+  "frozenDomain": "direct T2-O",
+  "frozenComponentDefinition": "post-RFG residual-incidence connected components with support/owner-labelled canonical component type",
+  "cases": [
+    {
+      "label": "5x3-k3",
+      "width": 5,
+      "height": 3,
+      "k": 3,
+      "physicalStates": 70914,
+      "nonterminalStates": 40659,
+      "componentTypes": 9441,
+      "tactical2Counts": {
+        "W": 28001,
+        "L2": 5403,
+        "O": 7255
+      },
+      "audits": [
+        {
+          "mode": "PRESENCE",
+          "statesAudited": 7255,
+          "classes": 3257,
+          "mixedValueClasses": 1,
+          "QV": false,
+          "firstMixedValueWitness": {
+            "mode": "PRESENCE",
+            "key": "T07323:P,T09438:P,T09440:P",
+            "rank": 11,
+            "a": "19977:370",
+            "b": "16489:1810",
+            "aOutcome": "win",
+            "bOutcome": "loss",
+            "aCode": 2,
+            "bCode": 0,
+            "multiplicityDifferenceL1": 2,
+            "parityPairUnits": null,
+            "aCounts": [
+              {
+                "type": "T07323",
+                "canonicalType": "0|2.4|2.4",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T09438",
+                "canonicalType": "2||",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T09440",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 3
+              }
+            ],
+            "bCounts": [
+              {
+                "type": "T07323",
+                "canonicalType": "0|2.4|2.4",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T09438",
+                "canonicalType": "2||",
+                "width": 1,
+                "count": 2
+              },
+              {
+                "type": "T09440",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 2
+              }
+            ],
+            "delta": [
+              {
+                "type": "T09438",
+                "canonicalType": "2||",
+                "width": 1,
+                "delta": 1
+              },
+              {
+                "type": "T09440",
+                "canonicalType": "3||",
+                "width": 1,
+                "delta": -1
+              }
+            ]
+          },
+          "minimumMultiplicityDifferenceWitness": {
+            "mode": "PRESENCE",
+            "key": "T07323:P,T09438:P,T09440:P",
+            "rank": 11,
+            "a": "19977:370",
+            "b": "16489:1810",
+            "aOutcome": "win",
+            "bOutcome": "loss",
+            "aCode": 2,
+            "bCode": 0,
+            "multiplicityDifferenceL1": 2,
+            "parityPairUnits": null,
+            "aCounts": [
+              {
+                "type": "T07323",
+                "canonicalType": "0|2.4|2.4",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T09438",
+                "canonicalType": "2||",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T09440",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 3
+              }
+            ],
+            "bCounts": [
+              {
+                "type": "T07323",
+                "canonicalType": "0|2.4|2.4",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T09438",
+                "canonicalType": "2||",
+                "width": 1,
+                "count": 2
+              },
+              {
+                "type": "T09440",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 2
+              }
+            ],
+            "delta": [
+              {
+                "type": "T09438",
+                "canonicalType": "2||",
+                "width": 1,
+                "delta": 1
+              },
+              {
+                "type": "T09440",
+                "canonicalType": "3||",
+                "width": 1,
+                "delta": -1
+              }
+            ]
+          }
+        },
+        {
+          "mode": "M2",
+          "statesAudited": 7255,
+          "classes": 3254,
+          "mixedValueClasses": 2,
+          "QV": false,
+          "firstMixedValueWitness": {
+            "mode": "M2",
+            "key": "T09439:1",
+            "rank": 10,
+            "a": "2197:4426",
+            "b": "2372:4234",
+            "aOutcome": "draw",
+            "bOutcome": "win",
+            "aCode": 1,
+            "bCode": 2,
+            "multiplicityDifferenceL1": 4,
+            "parityPairUnits": 2,
+            "aCounts": [
+              {
+                "type": "T09412",
+                "canonicalType": "1|6|",
+                "width": 1,
+                "count": 2
+              },
+              {
+                "type": "T09439",
+                "canonicalType": "2||4",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T09440",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 2
+              }
+            ],
+            "bCounts": [
+              {
+                "type": "T07343",
+                "canonicalType": "0|4|7",
+                "width": 1,
+                "count": 2
+              },
+              {
+                "type": "T09439",
+                "canonicalType": "2||4",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T09440",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 2
+              }
+            ],
+            "delta": [
+              {
+                "type": "T07343",
+                "canonicalType": "0|4|7",
+                "width": 1,
+                "delta": 2
+              },
+              {
+                "type": "T09412",
+                "canonicalType": "1|6|",
+                "width": 1,
+                "delta": -2
+              }
+            ]
+          },
+          "minimumMultiplicityDifferenceWitness": {
+            "mode": "M2",
+            "key": "T09439:1",
+            "rank": 10,
+            "a": "2197:4426",
+            "b": "2372:4234",
+            "aOutcome": "draw",
+            "bOutcome": "win",
+            "aCode": 1,
+            "bCode": 2,
+            "multiplicityDifferenceL1": 4,
+            "parityPairUnits": 2,
+            "aCounts": [
+              {
+                "type": "T09412",
+                "canonicalType": "1|6|",
+                "width": 1,
+                "count": 2
+              },
+              {
+                "type": "T09439",
+                "canonicalType": "2||4",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T09440",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 2
+              }
+            ],
+            "bCounts": [
+              {
+                "type": "T07343",
+                "canonicalType": "0|4|7",
+                "width": 1,
+                "count": 2
+              },
+              {
+                "type": "T09439",
+                "canonicalType": "2||4",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T09440",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 2
+              }
+            ],
+            "delta": [
+              {
+                "type": "T07343",
+                "canonicalType": "0|4|7",
+                "width": 1,
+                "delta": 2
+              },
+              {
+                "type": "T09412",
+                "canonicalType": "1|6|",
+                "width": 1,
+                "delta": -2
+              }
+            ]
+          }
+        },
+        {
+          "mode": "ZOE",
+          "statesAudited": 7255,
+          "classes": 3262,
+          "mixedValueClasses": 0,
+          "QV": true,
+          "firstMixedValueWitness": null,
+          "minimumMultiplicityDifferenceWitness": null
+        },
+        {
+          "mode": "ZOE_R3",
+          "statesAudited": 7255,
+          "classes": 3262,
+          "mixedValueClasses": 0,
+          "QV": true,
+          "firstMixedValueWitness": null,
+          "minimumMultiplicityDifferenceWitness": null
+        },
+        {
+          "mode": "MULTI",
+          "statesAudited": 7255,
+          "classes": 3262,
+          "mixedValueClasses": 0,
+          "QV": true,
+          "firstMixedValueWitness": null,
+          "minimumMultiplicityDifferenceWitness": null
+        }
+      ],
+      "minimumParitySeparators": {
+        "witness": {
+          "a": "2197:4426",
+          "b": "2372:4234",
+          "rankA": 10,
+          "rankB": 8,
+          "multiplicityDifferenceL1": 4
+        },
+        "PRESENCE": true,
+        "ZOE": true,
+        "ZOE_R3": true,
+        "MULTI": true
+      },
+      "disposition": {
+        "PRESENCE_QV": false,
+        "M2_QV": false,
+        "ZOE_QV": true,
+        "ZOE_R3_QV": true,
+        "MULTI_QV": true,
+        "ZOE_partitionEquivalentToFullMultiplicity": true,
+        "ZOE_R3_partitionEquivalentToFullMultiplicity": true
+      }
+    },
+    {
+      "label": "4x4-k4",
+      "width": 4,
+      "height": 4,
+      "k": 4,
+      "physicalStates": 161029,
+      "nonterminalStates": 134289,
+      "componentTypes": 7757,
+      "tactical2Counts": {
+        "W": 24685,
+        "L2": 4154,
+        "O": 105450
+      },
+      "audits": [
+        {
+          "mode": "PRESENCE",
+          "statesAudited": 105450,
+          "classes": 8011,
+          "mixedValueClasses": 12,
+          "QV": false,
+          "firstMixedValueWitness": {
+            "mode": "PRESENCE",
+            "key": "T03670:P,T07754:P,T07756:P",
+            "rank": 11,
+            "a": "10627:4664",
+            "b": "4869:1138",
+            "aOutcome": "win",
+            "bOutcome": "loss",
+            "aCode": 2,
+            "bCode": 0,
+            "multiplicityDifferenceL1": 2,
+            "parityPairUnits": null,
+            "aCounts": [
+              {
+                "type": "T03670",
+                "canonicalType": "0||2",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T07754",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T07756",
+                "canonicalType": "4||",
+                "width": 1,
+                "count": 2
+              }
+            ],
+            "bCounts": [
+              {
+                "type": "T03670",
+                "canonicalType": "0||2",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T07754",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 2
+              },
+              {
+                "type": "T07756",
+                "canonicalType": "4||",
+                "width": 1,
+                "count": 1
+              }
+            ],
+            "delta": [
+              {
+                "type": "T07754",
+                "canonicalType": "3||",
+                "width": 1,
+                "delta": 1
+              },
+              {
+                "type": "T07756",
+                "canonicalType": "4||",
+                "width": 1,
+                "delta": -1
+              }
+            ]
+          },
+          "minimumMultiplicityDifferenceWitness": {
+            "mode": "PRESENCE",
+            "key": "T03651:P,T07754:P,T07756:P",
+            "rank": 10,
+            "a": "4873:2226",
+            "b": "13065:2226",
+            "aOutcome": "loss",
+            "bOutcome": "win",
+            "aCode": 0,
+            "bCode": 2,
+            "multiplicityDifferenceL1": 2,
+            "parityPairUnits": null,
+            "aCounts": [
+              {
+                "type": "T03651",
+                "canonicalType": "0|2|2",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T07754",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 2
+              },
+              {
+                "type": "T07756",
+                "canonicalType": "4||",
+                "width": 1,
+                "count": 1
+              }
+            ],
+            "bCounts": [
+              {
+                "type": "T03651",
+                "canonicalType": "0|2|2",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T07754",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T07756",
+                "canonicalType": "4||",
+                "width": 1,
+                "count": 2
+              }
+            ],
+            "delta": [
+              {
+                "type": "T07754",
+                "canonicalType": "3||",
+                "width": 1,
+                "delta": -1
+              },
+              {
+                "type": "T07756",
+                "canonicalType": "4||",
+                "width": 1,
+                "delta": 1
+              }
+            ]
+          }
+        },
+        {
+          "mode": "M2",
+          "statesAudited": 105450,
+          "classes": 7931,
+          "mixedValueClasses": 0,
+          "QV": true,
+          "firstMixedValueWitness": null,
+          "minimumMultiplicityDifferenceWitness": null
+        },
+        {
+          "mode": "ZOE",
+          "statesAudited": 105450,
+          "classes": 8050,
+          "mixedValueClasses": 0,
+          "QV": true,
+          "firstMixedValueWitness": null,
+          "minimumMultiplicityDifferenceWitness": null
+        },
+        {
+          "mode": "ZOE_R3",
+          "statesAudited": 105450,
+          "classes": 8052,
+          "mixedValueClasses": 0,
+          "QV": true,
+          "firstMixedValueWitness": null,
+          "minimumMultiplicityDifferenceWitness": null
+        },
+        {
+          "mode": "MULTI",
+          "statesAudited": 105450,
+          "classes": 8052,
+          "mixedValueClasses": 0,
+          "QV": true,
+          "firstMixedValueWitness": null,
+          "minimumMultiplicityDifferenceWitness": null
+        }
+      ],
+      "minimumParitySeparators": null,
+      "disposition": {
+        "PRESENCE_QV": false,
+        "M2_QV": true,
+        "ZOE_QV": true,
+        "ZOE_R3_QV": true,
+        "MULTI_QV": true,
+        "ZOE_partitionEquivalentToFullMultiplicity": false,
+        "ZOE_R3_partitionEquivalentToFullMultiplicity": true
+      }
+    },
+    {
+      "label": "6x3-k3",
+      "width": 6,
+      "height": 3,
+      "k": 3,
+      "physicalStates": 692970,
+      "nonterminalStates": 353581,
+      "componentTypes": 72195,
+      "tactical2Counts": {
+        "W": 277244,
+        "L2": 39768,
+        "O": 36569
+      },
+      "audits": [
+        {
+          "mode": "PRESENCE",
+          "statesAudited": 36569,
+          "classes": 16731,
+          "mixedValueClasses": 1,
+          "QV": false,
+          "firstMixedValueWitness": {
+            "mode": "PRESENCE",
+            "key": "T61377:P,T72192:P,T72194:P",
+            "rank": 14,
+            "a": "48137:131826",
+            "b": "67817:136722",
+            "aOutcome": "win",
+            "bOutcome": "loss",
+            "aCode": 2,
+            "bCode": 0,
+            "multiplicityDifferenceL1": 2,
+            "parityPairUnits": null,
+            "aCounts": [
+              {
+                "type": "T61377",
+                "canonicalType": "0|2.4|2.4",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T72192",
+                "canonicalType": "2||",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T72194",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 4
+              }
+            ],
+            "bCounts": [
+              {
+                "type": "T61377",
+                "canonicalType": "0|2.4|2.4",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T72192",
+                "canonicalType": "2||",
+                "width": 1,
+                "count": 2
+              },
+              {
+                "type": "T72194",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 3
+              }
+            ],
+            "delta": [
+              {
+                "type": "T72192",
+                "canonicalType": "2||",
+                "width": 1,
+                "delta": 1
+              },
+              {
+                "type": "T72194",
+                "canonicalType": "3||",
+                "width": 1,
+                "delta": -1
+              }
+            ]
+          },
+          "minimumMultiplicityDifferenceWitness": {
+            "mode": "PRESENCE",
+            "key": "T61377:P,T72192:P,T72194:P",
+            "rank": 14,
+            "a": "48137:131826",
+            "b": "67817:136722",
+            "aOutcome": "win",
+            "bOutcome": "loss",
+            "aCode": 2,
+            "bCode": 0,
+            "multiplicityDifferenceL1": 2,
+            "parityPairUnits": null,
+            "aCounts": [
+              {
+                "type": "T61377",
+                "canonicalType": "0|2.4|2.4",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T72192",
+                "canonicalType": "2||",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T72194",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 4
+              }
+            ],
+            "bCounts": [
+              {
+                "type": "T61377",
+                "canonicalType": "0|2.4|2.4",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T72192",
+                "canonicalType": "2||",
+                "width": 1,
+                "count": 2
+              },
+              {
+                "type": "T72194",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 3
+              }
+            ],
+            "delta": [
+              {
+                "type": "T72192",
+                "canonicalType": "2||",
+                "width": 1,
+                "delta": 1
+              },
+              {
+                "type": "T72194",
+                "canonicalType": "3||",
+                "width": 1,
+                "delta": -1
+              }
+            ]
+          }
+        },
+        {
+          "mode": "M2",
+          "statesAudited": 36569,
+          "classes": 16733,
+          "mixedValueClasses": 0,
+          "QV": true,
+          "firstMixedValueWitness": null,
+          "minimumMultiplicityDifferenceWitness": null
+        },
+        {
+          "mode": "ZOE",
+          "statesAudited": 36569,
+          "classes": 16735,
+          "mixedValueClasses": 0,
+          "QV": true,
+          "firstMixedValueWitness": null,
+          "minimumMultiplicityDifferenceWitness": null
+        },
+        {
+          "mode": "ZOE_R3",
+          "statesAudited": 36569,
+          "classes": 16735,
+          "mixedValueClasses": 0,
+          "QV": true,
+          "firstMixedValueWitness": null,
+          "minimumMultiplicityDifferenceWitness": null
+        },
+        {
+          "mode": "MULTI",
+          "statesAudited": 36569,
+          "classes": 16735,
+          "mixedValueClasses": 0,
+          "QV": true,
+          "firstMixedValueWitness": null,
+          "minimumMultiplicityDifferenceWitness": null
+        }
+      ],
+      "minimumParitySeparators": null,
+      "disposition": {
+        "PRESENCE_QV": false,
+        "M2_QV": true,
+        "ZOE_QV": true,
+        "ZOE_R3_QV": true,
+        "MULTI_QV": true,
+        "ZOE_partitionEquivalentToFullMultiplicity": true,
+        "ZOE_R3_partitionEquivalentToFullMultiplicity": true
+      }
+    },
+    {
+      "label": "3x7-k3",
+      "width": 3,
+      "height": 7,
+      "k": 3,
+      "physicalStates": 71181,
+      "nonterminalStates": 42013,
+      "componentTypes": 10796,
+      "tactical2Counts": {
+        "W": 26431,
+        "L2": 4719,
+        "O": 10863
+      },
+      "audits": [
+        {
+          "mode": "PRESENCE",
+          "statesAudited": 10863,
+          "classes": 3666,
+          "mixedValueClasses": 0,
+          "QV": true,
+          "firstMixedValueWitness": null,
+          "minimumMultiplicityDifferenceWitness": null
+        },
+        {
+          "mode": "M2",
+          "statesAudited": 10863,
+          "classes": 3667,
+          "mixedValueClasses": 0,
+          "QV": true,
+          "firstMixedValueWitness": null,
+          "minimumMultiplicityDifferenceWitness": null
+        },
+        {
+          "mode": "ZOE",
+          "statesAudited": 10863,
+          "classes": 3667,
+          "mixedValueClasses": 0,
+          "QV": true,
+          "firstMixedValueWitness": null,
+          "minimumMultiplicityDifferenceWitness": null
+        },
+        {
+          "mode": "ZOE_R3",
+          "statesAudited": 10863,
+          "classes": 3667,
+          "mixedValueClasses": 0,
+          "QV": true,
+          "firstMixedValueWitness": null,
+          "minimumMultiplicityDifferenceWitness": null
+        },
+        {
+          "mode": "MULTI",
+          "statesAudited": 10863,
+          "classes": 3667,
+          "mixedValueClasses": 0,
+          "QV": true,
+          "firstMixedValueWitness": null,
+          "minimumMultiplicityDifferenceWitness": null
+        }
+      ],
+      "minimumParitySeparators": null,
+      "disposition": {
+        "PRESENCE_QV": true,
+        "M2_QV": true,
+        "ZOE_QV": true,
+        "ZOE_R3_QV": true,
+        "MULTI_QV": true,
+        "ZOE_partitionEquivalentToFullMultiplicity": true,
+        "ZOE_R3_partitionEquivalentToFullMultiplicity": true
+      }
+    }
+  ],
+  "mechanicalChecks": {
+    "candidateFrozenFromEWRS047": true,
+    "keysOutcomeIndependent": true,
+    "T2ORetained": true,
+    "fullMultiplicityControlsExact": true
+  },
+  "interpretationGuard": [
+    "ZOE is transferred unchanged across every case.",
+    "3x7-k3 is an affine-control geometry for scalar interaction and cannot establish necessity of ZOE.",
+    "A ZOE pass is bounded finite evidence only.",
+    "No standard-7x6 claim follows."
+  ]
+}
