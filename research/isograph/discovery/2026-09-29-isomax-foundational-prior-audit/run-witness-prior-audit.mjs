@@ -93,5 +93,5 @@ const out={schema:'connect4.isomax.foundational_prior_audit.witness.v1',date_aut
  labelAudit:labels,
  disposition:{parityAnomalyReproduced:(pa^pb)===1,exactEndpointReconvergence:target.exact,orbitEndpointReconvergence:target.orbit,literalFutureReconvergence:target.literal,multisetFutureReconvergence:target.multiset,setFutureReconvergence:target.set,status:'WITNESS_LEVEL_COMPLETE__CARRIER_LEVEL_PENDING'}
 };
-fs.writeFileSync(new URL('./WITNESS_PRIOR_AUDIT_0_1.json',import.meta.url),JSON.stringify(out,null,2)+'\\n');
+fs.writeFileSync(new URL('./WITNESS_PRIOR_AUDIT_0_1.json',import.meta.url),JSON.stringify(out,null,2)+'\n');
 console.log(JSON.stringify({status:'FOUNDATIONAL_WITNESS_AUDIT_COMPLETE',endpoint:out.endpointIdentity,parity:out.independentSheetGauge,disposition:out.disposition},null,2));
