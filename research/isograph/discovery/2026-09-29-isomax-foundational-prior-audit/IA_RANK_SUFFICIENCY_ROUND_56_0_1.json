@@ -1,0 +1,56 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_round.v1",
+  "round": 56,
+  "date_author_local": "2026-09-30",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_55_FIXED_POINT_0_1.json",
+    "RANK_SUFFICIENCY_REPAIRED_CUBIC_DECODER_INTEGRATION_0_1.json"
+  ],
+  "reopened_reason": "The repaired scalar coordinate now has an exact bounded degree-3 realization on every carrier where complete degree 2 still failed.",
+  "new_assertions": [
+    {
+      "id": "RS-IA169",
+      "family": "M",
+      "body": "The repaired-coordinate scalar law can require cubic interaction even though its output correction quotient has only two dimensions."
+    },
+    {
+      "id": "RS-IA170",
+      "family": "Q",
+      "body": "Raw cubic catalog size is not the relevant structural complexity measure; the load-bearing object is the cubic quotient modulo lower-degree span."
+    },
+    {
+      "id": "RS-IA171",
+      "family": "D",
+      "body": "Before selecting any syndrome formula, cubic columns must be reduced outcome-independently modulo degree two and scalar target directions measured inside that quotient."
+    },
+    {
+      "id": "RS-IA172",
+      "family": "F",
+      "body": "Formula holdouts must be reserved before any coefficient gauge, motif selection, or syndrome formula is chosen from the cubic quotient."
+    },
+    {
+      "id": "RS-IA173",
+      "family": "C",
+      "body": "The cubic pivot set is only a basis gauge; invariant claims must be made about quotient rank, target dimension, and formula behavior under frozen structural definitions."
+    }
+  ],
+  "qu_refinements": [
+    {
+      "id": "RS-QR049",
+      "target": "QU-RS-004",
+      "add_fixed": [
+        "complete repaired-coordinate cubic expansion is exact on 6x3-k3, 4x5-k4, and 6x3-k4",
+        "cubic rank gains beyond degree two are 75, 371, and 16 respectively",
+        "the scalar target remains two-dimensional despite cubic structural realization"
+      ],
+      "retain_open": [
+        "outcome-independent cubic quotient basis",
+        "value-relevant two-dimensional target subspace inside the cubic span",
+        "closed-form scalar syndrome formulas",
+        "formula holdout qualification",
+        "standard-7x6 qualification"
+      ]
+    }
+  ],
+  "stop_status": "REOPENED__CUBIC_QUOTIENT_TARGET_REDUCTION_NEXT"
+}
