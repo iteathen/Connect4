@@ -1,0 +1,165 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.relative_incidence_integration.v1",
+  "date_author_local": "2026-09-29",
+  "research_direction": "Joshua Oshiro",
+  "status": "FRONTIER_RELATIVE_INTERACTION_COORDINATE_FRESH_QUALIFIED",
+  "evidence": [
+    {
+      "id": "QBASIS",
+      "branch": "experiment/isomax-late-xor-components-20260929",
+      "commit": "c2dd25c8b5c947cbbfd6a7e47babe5acff4c87d5",
+      "file": "QUADRATIC_INTERACTION_BASIS_0_1.json",
+      "warrant": "EW-RS-034"
+    },
+    {
+      "id": "DESC",
+      "branch": "experiment/isomax-late-xor-components-20260929",
+      "commit": "3871fab8216ef99d37e11dd6f3e3cf29d1dc8c4c",
+      "file": "QUADRATIC_STRUCTURAL_DESCRIPTOR_LADDER_0_1.json",
+      "warrant": "EW-RS-035"
+    },
+    {
+      "id": "REL",
+      "branch": "experiment/isomax-late-xor-components-20260929",
+      "commit": "be66c456a6068dcd41e092e044938242b9462796",
+      "file": "QUADRATIC_RELATIVE_INCIDENCE_LADDER_0_1.json",
+      "warrant": "EW-RS-036"
+    },
+    {
+      "id": "FRESH37",
+      "branch": "experiment/isomax-late-xor-components-20260929",
+      "commit": "4ca5496212c9d0cf97a1abafcd7558f4cf73c2d0",
+      "file": "FRESH_RELATIVE_INCIDENCE_HOLDOUT_3X7K3_0_1.json",
+      "warrant": "EW-RS-037"
+    }
+  ],
+  "definitions": {
+    "REL_INC": "For a post-RFG component, replace each residual cell's absolute row by its gravity depth above that column's current frontier; preserve residual hyperedge identity, owner, shared-column incidence, and canonicalize under local column permutations.",
+    "CAP6_REL_INC": "REL_INC plus the component's remaining local capacity modulo 6."
+  },
+  "interaction_basis": {
+    "5x3-k3": {
+      "exact_pair_catalog": 2104,
+      "quadratic_rank_gain": 37,
+      "quotient_basis": 37
+    },
+    "4x4-k4": {
+      "exact_pair_catalog": 5232,
+      "quadratic_rank_gain": 422,
+      "quotient_basis": 422
+    },
+    "6x3-k3": {
+      "exact_pair_catalog": 11286,
+      "quadratic_rank_gain": 472,
+      "quotient_basis": 472
+    }
+  },
+  "descriptor_results": {
+    "5x3-k3": {
+      "REL_INC": {
+        "structural_rank_gain": 37,
+        "full_span": true,
+        "scalar_contradictions": 0
+      },
+      "CAP6_REL_INC": {
+        "structural_rank_gain": 37,
+        "full_span": true,
+        "scalar_contradictions": 0
+      }
+    },
+    "4x4-k4": {
+      "REL_INC": {
+        "structural_rank_gain": 295,
+        "full_span": false,
+        "full_span_target": 422,
+        "scalar_contradictions": 0
+      },
+      "CAP6_REL_INC": {
+        "structural_rank_gain": 422,
+        "full_span": true,
+        "scalar_contradictions": 0
+      }
+    },
+    "6x3-k3": {
+      "REL_INC": {
+        "structural_rank_gain": 472,
+        "full_span": true,
+        "scalar_contradictions": 0
+      },
+      "CAP6_REL_INC": {
+        "structural_rank_gain": 472,
+        "full_span": true,
+        "scalar_contradictions": 0
+      }
+    },
+    "3x7-k3_fresh": {
+      "degree1_contradictions": 0,
+      "full_quadratic_rank_gain": 6,
+      "REL_INC": {
+        "structural_rank_gain": 6,
+        "full_span": true,
+        "scalar_contradictions": 0
+      },
+      "CAP6_REL_INC": {
+        "structural_rank_gain": 6,
+        "full_span": true,
+        "scalar_contradictions": 0
+      }
+    }
+  },
+  "findings": [
+    {
+      "id": "RS-F137",
+      "status": "EXACT_STRUCTURAL_BASIS_COMPRESSION",
+      "statement": "Outcome-independent GF(2) elimination reduces the raw exact pair catalogs to 37, 422, and 472 genuinely new quadratic directions on 5x3-k3, 4x4-k4, and fresh 6x3-k3 respectively, with exact scalar decoding preserved."
+    },
+    {
+      "id": "RS-F138",
+      "status": "FRONTIER_RELATIVE_TIMING_GENERATOR",
+      "statement": "The DELAY descriptor alone spans the full observed quadratic interaction subspace on 5x3-k3 and 6x3-k3, showing that absolute component identity is unnecessary there once residual release depths are retained."
+    },
+    {
+      "id": "RS-F139",
+      "status": "INCIDENCE_CORRELATION_LOAD_BEARING",
+      "statement": "On 4x4-k4, DELAY captures 398 of 422 interaction dimensions and leaves 94 scalar contradictions; adding the sorted height multiset changes nothing. The missing information is therefore not raw elevation but residual/column incidence correlation."
+    },
+    {
+      "id": "RS-F140",
+      "status": "QV_SPECIFIC_RELATIVE_INCIDENCE",
+      "statement": "REL_INC has zero scalar contradictions on 5x3-k3, 4x4-k4, and 6x3-k3. On 4x4-k4 it spans only 295 of 422 full structural interaction dimensions, proving that scalar-exact interaction coordinates can be strictly coarser than the full observed degree-2 structural feature space."
+    },
+    {
+      "id": "RS-F141",
+      "status": "FULL_STRUCTURAL_GENERATOR",
+      "statement": "CAP6_REL_INC restores the complete observed quadratic interaction span on all three demanding carriers with zero scalar contradictions, giving an outcome-independent geometry-derived generator for the tested degree-2 interaction space."
+    },
+    {
+      "id": "RS-F142",
+      "status": "FRESH_TALL_HOLDOUT",
+      "statement": "Frozen REL_INC transfers unchanged to complete fresh 3x7-k3 and spans all six observed quadratic interaction dimensions with zero scalar contradictions."
+    },
+    {
+      "id": "RS-F143",
+      "status": "FRESH_HOLDOUT_LIMITATION",
+      "statement": "The fresh 3x7-k3 carrier has zero degree-1 contradictions, so it qualifies structural transfer of REL_INC but does not independently establish that quadratic terms are value-necessary on that geometry."
+    },
+    {
+      "id": "RS-F144",
+      "status": "Q_D_SEPARATION_SHARPENED",
+      "statement": "The tested scalar evaluator does not require the full structural interaction space: REL_INC is Q-V sufficient where CAP6_REL_INC is needed to reproduce every observed degree-2 structural direction on 4x4-k4."
+    },
+    {
+      "id": "RS-F145",
+      "status": "NEXT_FORMULA_BOUNDARY",
+      "statement": "The next evaluator question is no longer whether arbitrary pair identities are needed; it is whether the exact-rank dependence and fitted GF(2)^2 coefficients can be reduced to a phase-graded quadratic law over REL_INC pair classes."
+    }
+  ],
+  "nonclaims": [
+    "REL_INC is not proved minimal.",
+    "REL_INC is not proved Q-A or Q-F sufficient.",
+    "3x7-k3 does not prove quadratic necessity because degree one is already scalar-consistent there.",
+    "No standard-7x6 theorem follows.",
+    "No closed-form coefficient law has yet been derived."
+  ],
+  "next_question": "Can exact-rank quadratic GF(2)^2 decoding be replaced by a phase-graded (rank mod 3 plus mover parity / mod 6) quadratic law over frozen REL_INC pair classes?"
+}
