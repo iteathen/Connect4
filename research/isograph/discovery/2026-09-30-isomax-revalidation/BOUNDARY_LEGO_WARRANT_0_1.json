@@ -1,0 +1,38 @@
+{
+  "schema":"connect4.isomax.revalidation.boundary_lego_warrant.v1",
+  "id":"REVAL-LEGO-BOUNDARY-001",
+  "date":"2026-09-30",
+  "status":"FROZEN_BEFORE_TRAINED_SCALAR_REPLAY",
+  "canonicalResearchOwner":"research/semantic-quotient",
+  "sourceHead":"69de84e4605ff13327476d96f4d7a786b5b0e3dd",
+  "objective":"Determine the smallest predeclared frontier-contact summary that repairs the first pooled failure when added to ROLELESS_DEPTHLESS_OWNER_SEPARATED, while preserving owner-separated depthless counts.",
+  "source":"RS085 SIGNED_PARITY|ZERO_VS_POSITIVE pair/triangle keys, deterministically projected back to the RS083 roleless/depthless owner-separated base plus a boundary tag.",
+  "candidates":[
+    {"id":"DEPTHLESS_CONTROL","definition":"project ZERO/POS counts to owner-separated depthless counts; no boundary tag"},
+    {"id":"TRIANGLE_ANY_ZERO","definition":"depthless triangle plus one Boolean saying any of its three pair records contains a ZERO-depth D token"},
+    {"id":"TRIANGLE_ZERO_PAIR_COUNT","definition":"depthless triangle plus the number 0..3 of pair records containing any ZERO-depth D token"},
+    {"id":"PAIR_ANY_ZERO","definition":"for each pair, append one Boolean saying that pair contains any ZERO-depth D token, then sort the three tagged pair records"},
+    {"id":"PAIR_ZERO_TOTAL","definition":"for each pair, append the exact total number of ZERO-depth D tokens across owners/signs"},
+    {"id":"PAIR_ZERO_PARITY","definition":"for each pair, append parity of the total ZERO-depth D-token count"},
+    {"id":"PAIR_ZERO_SIGNED_COUNTS","definition":"for each pair, append exact ZERO-depth plus-count and minus-count merged across owners"},
+    {"id":"PAIR_ZERO_OWNER_PRESENCE","definition":"for each pair, append two Booleans indicating whether owner0 and owner1 have any ZERO-depth D token"},
+    {"id":"PAIR_ZERO_OWNER_SEPARATED","definition":"for each pair, append exact ZERO-depth counts D0+,D0-,D1+,D1-"},
+    {"id":"FULL_ZERO_VS_POSITIVE","definition":"unchanged RS085 SIGNED_PARITY|ZERO_VS_POSITIVE reconstruction control"}
+  ],
+  "procedure":[
+    "Verify the DEPTHLESS_CONTROL projection reproduces all 462 published ROLELESS_DEPTHLESS_OWNER_SEPARATED rows exactly up to deterministic feature renaming.",
+    "Prepare every candidate feature catalog, row, rank and kernel before scalar replay.",
+    "Replay the pinned 462 scalar codes and report all exact candidates.",
+    "Use the declared information relation only where mechanically provable; do not infer semantic minimality from rank alone.",
+    "Report the fixed rows315/455 equality at every candidate."
+  ],
+  "guards":[
+    "No geometry labels or outcome-selected exceptions.",
+    "Boundary means exact frontier-relative depth zero, not physical row zero.",
+    "PAIR candidates preserve association between the frontier tag and the depthless pair record; TRIANGLE candidates intentionally forget that association.",
+    "No coefficient fitting, sealed holdout access, or RS096 continuation."
+  ],
+  "sealedFormulaHoldouts":["3x6-k4","5x3-k4"],
+  "rs096":"HOLD",
+  "authorityEffect":"NONE"
+}
