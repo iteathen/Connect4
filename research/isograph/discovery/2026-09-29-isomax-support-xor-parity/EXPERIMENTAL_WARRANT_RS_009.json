@@ -1,0 +1,29 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.support_xor_parity.v1",
+  "id": "EW-RS-009",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "lineage": "reopens prior Nim/control-parity XOR work under the new rank-sufficient Q_G,D_G objective",
+  "hypothesis": "X_h = XOR column heights, with stone parity p, may derive or compress currently separate safe-forgetting/support rules",
+  "correction": "p is stone-count parity, not full rank; audit must also check whether p is algebraically redundant with X_h",
+  "counterfactuals": [
+    "same X_h,p and same residual object but different R/F/G/X_feas decision",
+    "same X_h,p but different future/action/value semantics",
+    "same X_h,p and action but different next X_h"
+  ],
+  "alternatives": [
+    "parity alone",
+    "threshold-descriptor XOR",
+    "height-count parity spectrum",
+    "sum mod 4",
+    "elementary symmetric e2 mod 4",
+    "support multiset",
+    "X_h plus nonfull count"
+  ],
+  "anti_circularity": [
+    "all descriptors frozen before value derivation",
+    "no solved database",
+    "future classes used only as validation/oracle",
+    "prior XOR results treated as lineage, not proof"
+  ]
+}
