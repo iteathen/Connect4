@@ -1,0 +1,41 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.scalar_interaction_syndrome_dimension.v1",
+  "id": "EW-RS-038",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "parent": "EW-RS-037",
+  "objective": "Measure the value-specific dimension of the W/D/L interaction correction modulo the exact-rank affine component span, with frozen REL_INC used only as the independently qualified structural interaction carrier.",
+  "cases": [
+    "5x3-k3",
+    "4x4-k4",
+    "6x3-k3",
+    "3x7-k3"
+  ],
+  "key_observation": "The structural quadratic quotient can have many dimensions, but the scalar target has only two GF(2) output bits. Its image modulo the affine feature span can therefore require at most two independent interaction syndromes.",
+  "frozen_from_prior": [
+    "post-RFG component parity",
+    "direct rank-local T2",
+    "exact-rank affine component coordinates",
+    "REL_INC pair coordinate from EW-RS-036",
+    "fresh 3x7 qualification from EW-RS-037",
+    "outcome gauge loss=00, draw=01, win=10"
+  ],
+  "measurements": [
+    "whether the low outcome bit is already affine",
+    "whether the high outcome bit is already affine",
+    "joint rank gain of both target bits modulo the affine feature span",
+    "whether frozen REL_INC spans the complete target"
+  ],
+  "anti_circularity": [
+    "REL_INC is frozen before the target-rank measurement.",
+    "No structural feature is selected or refined using W/D/L labels.",
+    "Outcome labels enter only as two target columns whose quotient dimension is measured."
+  ],
+  "falsifiers": [
+    "If frozen REL_INC does not span the target on a previously qualified carrier, the implementation is inconsistent with EW-RS-036/037.",
+    "A target quotient dimension greater than two is mechanically impossible for the two-bit encoding and invalidates the rank harness."
+  ],
+  "next_if_dimension_one": "Derive one canonical interaction syndrome as an outcome-independent GF(2) function of REL_INC pair incidence, freeze it, and qualify it on a fresh holdout.",
+  "next_if_dimension_two": "Derive two canonical interaction syndromes separately and test whether they admit structural interpretations.",
+  "next_if_zero": "Treat that carrier as an affine control; do not infer absence of structural quadratic directions from scalar redundancy alone."
+}
