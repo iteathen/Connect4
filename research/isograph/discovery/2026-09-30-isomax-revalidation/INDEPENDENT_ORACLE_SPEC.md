@@ -51,9 +51,10 @@ bounded research model into standard-board or unbounded authority.
 
 The decomposition prose says F applies absorption to the mover's family. The
 reference `run-ooo-sign-channel-coupling.mjs` removes opponent residuals. This
-oracle freezes the explicit reference transformation described above, pending
-owner disposition. Qualification: PROSE_IMPLEMENTATION_REFERENT_MISMATCH_OPEN.
-Discovery: NO_NEW_DISCOVERY_REQUESTED. No source prose is silently repaired.
+oracle freezes the explicit reference transformation described above.
+`SEMANTIC_ERRATA_0_1.md` resolves the wording: every nonwinning frontier move
+blocks such an opponent residual. Qualification: PROSE_ERRATUM_RECORDED.
+Discovery: NO_NEW_DISCOVERY_REQUESTED. Historical source bytes remain intact.
 
 This is separate code with no imports from the legacy research harness. The
 author read its serialization and frozen R/F/G/T2 definitions to define the

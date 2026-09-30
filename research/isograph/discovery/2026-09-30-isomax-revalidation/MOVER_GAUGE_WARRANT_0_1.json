@@ -1,0 +1,20 @@
+{
+  "schema": "isomax-mover-gauge-revalidation-0.1",
+  "status": "FROZEN_DESIGN_BEFORE_REPLAY",
+  "canonicalResearchOwner": "research/semantic-quotient",
+  "cases": ["6x3-k3", "4x5-k4", "6x3-k4"],
+  "gauges": ["OWNER_SWAPPED_CANONICAL", "MOVER_CANONICAL"],
+  "features": ["FULL_EDGE_REVERSAL_ORBIT", "CSTAR_8", "CSTAR_2"],
+  "controls": "Full OOO dependency image sufficiency per carrier in each new gauge.",
+  "domain": "Reconstruct the degree<=2 kernel and full OOO image from independent whole-state ROLE_CAPPAR/ZOE signatures in each gauge. Do not assume the old 462 dependency basis transports through a state-dependent change of coordinates.",
+  "definition": {
+    "ownerSwap": "Swap owner residual families at exact descriptor level, then recanonicalize all role permutations with attached capacity parity. This differs from swapping already-compressed depth histograms.",
+    "mover": "Apply that descriptor swap to every component exactly when the state's mover is owner1. Mover becomes owner0.",
+    "descent": "Remaining-capacity parity is XOR of capacity parity over odd-multiplicity descriptors. Mover parity equals (W*H mod2) XOR remaining parity. Check this against source-state rank before interpreting results. The geometry cell-count parity is explicit legitimate rule context.",
+    "endpoint": "Use the frozen full edge reversal orbit or its capacity-star quotient; no lexicographic endpoint sign is interpreted physically."
+  },
+  "freeze": "Commit all per-gauge structural snapshots, candidate catalogs and dependency rows before new scalar replay. Replay known training outcomes only, with class-purity and kernel checks; preserve explicit contradiction certificates.",
+  "limits": "This is trained-data gauge revalidation, not fresh OOO qualification or a universal formula. A gauge-dependent failure is representation-relative evidence, not a game-theoretic obstruction.",
+  "sealedFormulaHoldouts": ["3x6-k4", "5x3-k4"],
+  "rs096": "HOLD"
+}
