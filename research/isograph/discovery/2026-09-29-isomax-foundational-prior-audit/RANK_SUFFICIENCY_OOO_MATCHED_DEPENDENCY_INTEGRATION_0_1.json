@@ -1,0 +1,146 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ooo_matched_dependency_integration.v1",
+  "date_author_local": "2026-09-30",
+  "research_direction": "Joshua Oshiro",
+  "status": "OOO_DUAL_QUOTIENT_FACTORIZATION_ESTABLISHED__FORMULA_OPEN",
+  "evidence": {
+    "branch": "experiment/isomax-late-xor-components-20260929",
+    "thirdDifferenceCubes": {
+      "commit": "e8c1dba19f51834996df80d3ee7ea648ecd97929",
+      "file": "OOO_THIRD_DIFFERENCE_CUBES_0_1.json",
+      "warrant": "EW-RS-063"
+    },
+    "presenceFiberGeometry": {
+      "commit": "962fba9bf5711927652de4be127f4c782104dcdf",
+      "file": "OOO_PRESENCE_FIBER_GEOMETRY_0_1.json",
+      "warrant": "EW-RS-064"
+    },
+    "matchedDependencyQuotient": {
+      "commit": "609e9422b052bbda41519e1b5338dab09a744328",
+      "file": "MATCHED_DEGREE2_DEPENDENCY_QUOTIENT_0_1.json",
+      "warrant": "EW-RS-065",
+      "workflowRun": 36733023614,
+      "workflowConclusion": "success",
+      "researchIntegrity": "success"
+    }
+  },
+  "third_difference_disposition": {
+    "complete_coordinate_cubes": {
+      "6x3-k3": 0,
+      "4x5-k4": 0,
+      "6x3-k4": 0
+    },
+    "statement": "No complete axis-aligned three-oddness E/O cube exists inside the observed repaired structural class carriers, so the naive eight-corner third-difference construction is structurally non-discriminating rather than evidence against cubic interaction."
+  },
+  "presence_fiber_geometry": {
+    "6x3-k3": {
+      "structuralClasses": 16732,
+      "presenceFibers": 16728,
+      "maxPresenceSize": 5,
+      "maxAffineDimension": 1,
+      "completeCoordinateFibers": 0,
+      "widthOnlyFibers": 2,
+      "additionalLinearConstraintFibers": 16726
+    },
+    "4x5-k4": {
+      "structuralClasses": 79309,
+      "presenceFibers": 79185,
+      "maxPresenceSize": 4,
+      "maxAffineDimension": 2,
+      "completeCoordinateFibers": 0,
+      "widthOnlyFibers": 18,
+      "additionalLinearConstraintFibers": 79167
+    },
+    "6x3-k4": {
+      "structuralClasses": 17550,
+      "presenceFibers": 17465,
+      "maxPresenceSize": 4,
+      "maxAffineDimension": 2,
+      "completeCoordinateFibers": 0,
+      "widthOnlyFibers": 20,
+      "additionalLinearConstraintFibers": 17445
+    }
+  },
+  "matched_dependency_quotient": {
+    "6x3-k3": {
+      "degree2RowRank": 16657,
+      "leftNullity": 75,
+      "oooResidueRank": 75,
+      "oooKernelDimension": 0,
+      "scalarDependencyImageDimension": 1,
+      "scalarDependencyImageDimensionOnOooBasis": 1,
+      "zeroResidueNonzeroScalar": 0,
+      "scalarCodeHistogram": {
+        "0": 43,
+        "1": 0,
+        "2": 32,
+        "3": 0
+      }
+    },
+    "4x5-k4": {
+      "degree2RowRank": 78938,
+      "leftNullity": 371,
+      "oooResidueRank": 294,
+      "oooKernelDimension": 77,
+      "scalarDependencyImageDimension": 2,
+      "scalarDependencyImageDimensionOnOooBasis": 2,
+      "zeroResidueNonzeroScalar": 0,
+      "scalarCodeHistogram": {
+        "0": 349,
+        "1": 0,
+        "2": 21,
+        "3": 1
+      }
+    },
+    "6x3-k4": {
+      "degree2RowRank": 17534,
+      "leftNullity": 16,
+      "oooResidueRank": 16,
+      "oooKernelDimension": 0,
+      "scalarDependencyImageDimension": 2,
+      "scalarDependencyImageDimensionOnOooBasis": 2,
+      "zeroResidueNonzeroScalar": 0,
+      "scalarCodeHistogram": {
+        "0": 8,
+        "1": 1,
+        "2": 7,
+        "3": 0
+      }
+    }
+  },
+  "findings": [
+    {
+      "id": "RS-F198",
+      "status": "NAIVE_AXIS_CUBES_UNREACHABLE",
+      "statement": "The observed repaired-coordinate carriers contain no complete axis-aligned E/O 3-cubes at fixed descriptor presence, so direct third finite differences cannot expose the cubic law without matched realizable relations."
+    },
+    {
+      "id": "RS-F199",
+      "status": "ODDNESS_MANIFOLD_THIN",
+      "statement": "Fixed-presence oddness states occupy thin affine/non-coordinate fibers with additional linear constraints beyond width parity on almost every observed fiber; arbitrary independent toggling of three oddness coordinates is not a lawful local model of the reachable quotient."
+    },
+    {
+      "id": "RS-F200",
+      "status": "OOO_DUAL_RANK_CONFIRMED",
+      "statement": "The image of the deterministic degree<=2 left-kernel under the complete OOO map has ranks 75, 294, and 16, exactly reproducing the independently measured oddness-only cubic rank gains on 6x3-k3, 4x5-k4, and 6x3-k4."
+    },
+    {
+      "id": "RS-F201",
+      "status": "SCALAR_FACTORS_THROUGH_OOO",
+      "statement": "The scalar dependency residue factors through the OOO structural residue quotient on all three hard carriers: every zero OOO residue has zero scalar residue, and a structurally selected OOO-residue basis preserves scalar image dimensions 1, 2, and 2."
+    },
+    {
+      "id": "RS-F202",
+      "status": "PRESENCE_CUBIC_KERNEL_VALUE_NULL",
+      "statement": "On 4x5-k4 the 371-dimensional full cubic correction space decomposes into a 294-dimensional OOO image plus a 77-dimensional kernel invisible to OOO. This 77-dimensional kernel matches the earlier 77 presence-containing cubic quotient directions and is scalar-null under the OOO-exact decoder."
+    }
+  ],
+  "nonclaims": [
+    "Individual matched dependencies are deterministic basis representatives, not canonical minimal circuits.",
+    "Individual OOO triples or coefficients are not promoted as invariant syndrome terms.",
+    "The 77-dimensional kernel statement is a quotient-dimension identity in the tested 4x5-k4 structural matrix, not a universal theorem.",
+    "EW-RS-059 PRIMARY 3x6-k4 and BACKUP 5x3-k4 remain sealed.",
+    "No Q-A/Q-F, standard-7x6 sufficiency, universal cubic sufficiency, or center-opening proof follows."
+  ],
+  "next_question": "Which mechanically defined descriptor-motif functionals on the OOO residue quotient span the scalar dependency image without selecting individual descriptor triples by outcome?"
+}
