@@ -1,0 +1,32 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_fixed_point.v1",
+  "round": 77,
+  "date_author_local": "2026-09-30",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_76_0_1.json",
+    "RANK_SUFFICIENCY_SIGNED_EXCHANGE_ROLE_DEPTH_QUOTIENT_INTEGRATION_0_1.json"
+  ],
+  "recursive_generation": {
+    "families_checked": [
+      "capacity role-index removal",
+      "exact-depth removal",
+      "depth-parity removal",
+      "SIGN versus SIGNED_PARITY timing distinctions",
+      "owner-separated D0/D1 channels",
+      "4x5-k4 index-null structural subspace",
+      "formula-holdout anti-circularity"
+    ],
+    "new_assertions": []
+  },
+  "fixed_point": true,
+  "reason": "EW-RS-073 fixes the common role/depth MSS but does not determine whether owner separation is necessary or how the resulting exchange image realizes the scalar syndromes. Further exact deductions require a new frozen owner-channel quotient or circuit experiment.",
+  "next_evidence_boundaries": [
+    "use SIGNED_PARITY + C_ROLELESS + D_DEPTHLESS as the preferred common compressed carrier",
+    "freeze owner-channel maps before scalar replay",
+    "test D0/D1 merged, symmetric, and owner-relative alternatives without individual token selection",
+    "preserve the full owner-separated carrier as reconstruction control",
+    "do not fit scalar coefficients before the structural owner quotient is frozen",
+    "EW-RS-059 PRIMARY 3x6-k4 and BACKUP 5x3-k4 remain sealed"
+  ],
+  "stop_status": "FIXED_POINT__OWNER_CHANNEL_STRUCTURAL_QUOTIENT_NEXT"
+}
