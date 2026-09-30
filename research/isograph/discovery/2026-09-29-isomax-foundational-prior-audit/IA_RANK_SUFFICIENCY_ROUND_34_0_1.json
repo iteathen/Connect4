@@ -1,0 +1,72 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_round.v1",
+  "round": 34,
+  "date_author_local": "2026-09-29",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_33_FIXED_POINT_0_1.json",
+    "RANK_SUFFICIENCY_RELATIVE_INCIDENCE_INTEGRATION_0_1.json"
+  ],
+  "reopened_reason": "EW-RS-034 through EW-RS-037 identify a geometry-derived frontier-relative interaction coordinate and separate scalar sufficiency from full structural-span sufficiency.",
+  "new_assertions": [
+    {
+      "id": "RS-IA115",
+      "family": "R",
+      "body": "Quadratic interaction dimension is an invariant of the structural incidence matrix modulo affine columns; individual pivot pair IDs are coordinate choices, not the interaction law itself."
+    },
+    {
+      "id": "RS-IA116",
+      "family": "M",
+      "body": "Frontier-relative residual timing and incidence, rather than absolute component elevation, carry the tested second-order coupling information."
+    },
+    {
+      "id": "RS-IA117",
+      "family": "Q",
+      "body": "A value-specific interaction quotient may be strictly coarser than the full structural degree-2 feature space: 4x4-k4 REL_INC is scalar-exact while omitting 127 structural interaction dimensions relative to CAP6_REL_INC."
+    },
+    {
+      "id": "RS-IA118",
+      "family": "S",
+      "body": "CAP6_REL_INC is currently the smallest tested descriptor family that reproduces the full observed interaction span across all three demanding carriers; REL_INC is the smaller scalar-evaluator candidate."
+    },
+    {
+      "id": "RS-IA119",
+      "family": "C",
+      "body": "Frozen REL_INC transfers to fresh tall 3x7-k3 with zero scalar contradictions and full observed interaction-span recovery, but that carrier does not require degree two for scalar decoding."
+    },
+    {
+      "id": "RS-IA120",
+      "family": "F",
+      "body": "The remaining evaluator complexity has shifted from discovering pair existence to deriving phase grading and coefficient valuation on frontier-relative interaction classes."
+    }
+  ],
+  "qu_refinements": [
+    {
+      "id": "RS-QR038",
+      "target": "QU-RS-004",
+      "add_fixed": [
+        "outcome-independent interaction-basis dimensions are 37, 422, and 472 on 5x3-k3, 4x4-k4, and 6x3-k3",
+        "REL_INC is scalar-exact on all three demanding carriers and fresh 3x7-k3",
+        "CAP6_REL_INC spans the full observed degree-2 interaction space on all three demanding carriers"
+      ],
+      "retain_open": [
+        "phase-graded quadratic evaluator form",
+        "closed-form GF(2)^2 coefficient law",
+        "standard-7x6 qualification"
+      ]
+    },
+    {
+      "id": "RS-QR039",
+      "target": "QU-RS-008",
+      "add_fixed": [
+        "frontier-relative residual incidence is a concrete structural interaction coordinate",
+        "scalar-exact interaction coordinates can be coarser than the complete degree-2 structural span"
+      ],
+      "retain_open": [
+        "minimal Q-V interaction generator",
+        "decomposition independence after contextual valuation",
+        "universal phase/interaction law"
+      ]
+    }
+  ],
+  "stop_status": "REOPENED__PHASE_GRADED_QUADRATIC_NEXT"
+}
