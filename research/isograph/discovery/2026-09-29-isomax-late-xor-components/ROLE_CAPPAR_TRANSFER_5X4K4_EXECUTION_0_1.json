@@ -1,0 +1,28 @@
+{
+  "schema": "connect4.isomax.execution_observation.role_cappar_transfer_5x4k4.v1",
+  "date_author_local": "2026-09-30",
+  "warrant": "EW-RS-055",
+  "run": {
+    "workflow": "IsoMax role-capacity transfer 5x4-k4",
+    "run_id": 36684421659,
+    "head_sha": "26dd4d5c85fa9742d91637ae1c5bad07e030f173",
+    "geometry": "5x4-k4",
+    "node_heap_mb": 6144
+  },
+  "observation": {
+    "stage": "Transfer frozen role-capacity descriptor to 5x4-k4",
+    "result": "RESOURCE_FAILURE",
+    "exit_code": 134,
+    "failure": "JavaScript heap out of memory",
+    "evidence": "V8 reported CALL_AND_RETRY_LAST allocation failure before a qualification artifact was emitted."
+  },
+  "qualification_disposition": "INCOMPLETE_RESOURCE_FAILURE",
+  "discovery_disposition": "NO_ROLE_CAPPAR_SEMANTIC_FALSIFIER_OBSERVED",
+  "candidate_disposition": "ROLE_CAPPAR_REL_INC_ZOE_UNCHANGED_AND_FROZEN",
+  "antiCircularity": [
+    "No 5x4 role-capacity transfer qualification artifact was produced.",
+    "No descriptor, count state, capacity bit, role alignment, phase, or coefficient is changed in response to the resource failure.",
+    "The corrected EW-RS-055 transfer semantics remain in force."
+  ],
+  "next_action": "Retain 5x4 as unresolved non-affine transfer evidence and prioritize the already-running outcome-blind fresh 6x3-k4 qualification. Revisit 5x4 only with execution-only memory reduction if still needed after the fresh result."
+}
