@@ -1,0 +1,542 @@
+{
+  "schema": "connect4.rank_sufficient_qg_dg.qo_redundancy_audit.v1",
+  "date_author_local": "2026-09-29",
+  "warrant": "QGDG-EW-002",
+  "cases": [
+    {
+      "label": "4x4-k4",
+      "width": 4,
+      "height": 4,
+      "k": 4,
+      "physicalStates": 161029,
+      "qRepresentations": 34097,
+      "futureClasses": 27429,
+      "redundancy": {
+        "redundantFutureClasses": 4107,
+        "sameSupportRedundantClasses": 4105,
+        "sameSupportPairsChecked": 12491,
+        "minExamples": [
+          {
+            "score": 1,
+            "future": 11,
+            "diff": {
+              "support": 0,
+              "r0": 0,
+              "r1": 1
+            },
+            "qA": "4,4,4,0|8|8.128",
+            "qB": "4,4,4,0|8|128",
+            "value": 1,
+            "changed": [
+              {
+                "side": "A_only",
+                "mask": 8,
+                "p": 1,
+                "size": 1,
+                "remainingMoves": 2,
+                "remainingCapacity": true,
+                "releaseFeasible": true,
+                "isAllOpenCaps": false,
+                "cells": [
+                  {
+                    "bit": 3,
+                    "col": 3,
+                    "row": 0,
+                    "release": 1
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "closureErasePairCounts": {
+          "REMAINING": 1892,
+          "RELEASE": 2286,
+          "FRONTIER": 1666,
+          "FINALCAP": 1148,
+          "FRONTIER_CAP": 3407,
+          "ALL_LOCAL": 5367
+        }
+      },
+      "compressionCensus": {
+        "QO": {
+          "groups": 34097,
+          "futureSufficient": true,
+          "valueSufficient": true,
+          "futureCollisionGroups": 0,
+          "valueCollisionGroups": 0,
+          "futureExamples": [],
+          "valueExamples": []
+        },
+        "REMAINING": {
+          "groups": 32523,
+          "futureSufficient": true,
+          "valueSufficient": true,
+          "futureCollisionGroups": 0,
+          "valueCollisionGroups": 0,
+          "futureExamples": [],
+          "valueExamples": []
+        },
+        "RELEASE": {
+          "groups": 32217,
+          "futureSufficient": true,
+          "valueSufficient": true,
+          "futureCollisionGroups": 0,
+          "valueCollisionGroups": 0,
+          "futureExamples": [],
+          "valueExamples": []
+        },
+        "FRONTIER": {
+          "groups": 32791,
+          "futureSufficient": true,
+          "valueSufficient": true,
+          "futureCollisionGroups": 0,
+          "valueCollisionGroups": 0,
+          "futureExamples": [],
+          "valueExamples": []
+        },
+        "FINALCAP": {
+          "groups": 32961,
+          "futureSufficient": true,
+          "valueSufficient": true,
+          "futureCollisionGroups": 0,
+          "valueCollisionGroups": 0,
+          "futureExamples": [],
+          "valueExamples": []
+        },
+        "FRONTIER_CAP": {
+          "groups": 31693,
+          "futureSufficient": true,
+          "valueSufficient": true,
+          "futureCollisionGroups": 0,
+          "valueCollisionGroups": 0,
+          "futureExamples": [],
+          "valueExamples": []
+        },
+        "ALL_LOCAL": {
+          "groups": 30745,
+          "futureSufficient": true,
+          "valueSufficient": true,
+          "futureCollisionGroups": 0,
+          "valueCollisionGroups": 0,
+          "futureExamples": [],
+          "valueExamples": []
+        }
+      }
+    },
+    {
+      "label": "4x4-k3",
+      "width": 4,
+      "height": 4,
+      "k": 3,
+      "physicalStates": 41750,
+      "qRepresentations": 18877,
+      "futureClasses": 12201,
+      "redundancy": {
+        "redundantFutureClasses": 1980,
+        "sameSupportRedundantClasses": 1927,
+        "sameSupportPairsChecked": 31792,
+        "minExamples": [
+          {
+            "score": 1,
+            "future": 71,
+            "diff": {
+              "support": 0,
+              "r0": 1,
+              "r1": 0
+            },
+            "qA": "4,4,1,2|64.1024.34816.49152|64.3072.16384",
+            "qB": "4,4,1,2|64.1024.34816|64.3072.16384",
+            "value": -1,
+            "changed": [
+              {
+                "side": "A_only",
+                "mask": 49152,
+                "p": 0,
+                "size": 2,
+                "remainingMoves": 2,
+                "remainingCapacity": true,
+                "releaseFeasible": true,
+                "isAllOpenCaps": true,
+                "cells": [
+                  {
+                    "bit": 15,
+                    "col": 3,
+                    "row": 3,
+                    "release": 2
+                  },
+                  {
+                    "bit": 14,
+                    "col": 2,
+                    "row": 3,
+                    "release": 3
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "closureErasePairCounts": {
+          "REMAINING": 20,
+          "RELEASE": 120,
+          "FRONTIER": 1918,
+          "FINALCAP": 152,
+          "FRONTIER_CAP": 2708,
+          "ALL_LOCAL": 2722
+        }
+      },
+      "compressionCensus": {
+        "QO": {
+          "groups": 18877,
+          "futureSufficient": true,
+          "valueSufficient": true,
+          "futureCollisionGroups": 0,
+          "valueCollisionGroups": 0,
+          "futureExamples": [],
+          "valueExamples": []
+        },
+        "REMAINING": {
+          "groups": 18857,
+          "futureSufficient": true,
+          "valueSufficient": true,
+          "futureCollisionGroups": 0,
+          "valueCollisionGroups": 0,
+          "futureExamples": [],
+          "valueExamples": []
+        },
+        "RELEASE": {
+          "groups": 18757,
+          "futureSufficient": true,
+          "valueSufficient": true,
+          "futureCollisionGroups": 0,
+          "valueCollisionGroups": 0,
+          "futureExamples": [],
+          "valueExamples": []
+        },
+        "FRONTIER": {
+          "groups": 17866,
+          "futureSufficient": true,
+          "valueSufficient": true,
+          "futureCollisionGroups": 0,
+          "valueCollisionGroups": 0,
+          "futureExamples": [],
+          "valueExamples": []
+        },
+        "FINALCAP": {
+          "groups": 18725,
+          "futureSufficient": true,
+          "valueSufficient": true,
+          "futureCollisionGroups": 0,
+          "valueCollisionGroups": 0,
+          "futureExamples": [],
+          "valueExamples": []
+        },
+        "FRONTIER_CAP": {
+          "groups": 17731,
+          "futureSufficient": true,
+          "valueSufficient": true,
+          "futureCollisionGroups": 0,
+          "valueCollisionGroups": 0,
+          "futureExamples": [],
+          "valueExamples": []
+        },
+        "ALL_LOCAL": {
+          "groups": 17725,
+          "futureSufficient": true,
+          "valueSufficient": true,
+          "futureCollisionGroups": 0,
+          "valueCollisionGroups": 0,
+          "futureExamples": [],
+          "valueExamples": []
+        }
+      }
+    },
+    {
+      "label": "3x4-k3",
+      "width": 3,
+      "height": 4,
+      "k": 3,
+      "physicalStates": 2715,
+      "qRepresentations": 1396,
+      "futureClasses": 980,
+      "redundancy": {
+        "redundantFutureClasses": 153,
+        "sameSupportRedundantClasses": 150,
+        "sameSupportPairsChecked": 950,
+        "minExamples": [
+          {
+            "score": 1,
+            "future": 9,
+            "diff": {
+              "support": 0,
+              "r0": 0,
+              "r1": 1
+            },
+            "qA": "4,4,2|256|2048",
+            "qB": "4,4,2|256|256.2048",
+            "value": 1,
+            "changed": [
+              {
+                "side": "B_only",
+                "mask": 256,
+                "p": 1,
+                "size": 1,
+                "remainingMoves": 1,
+                "remainingCapacity": true,
+                "releaseFeasible": true,
+                "isAllOpenCaps": false,
+                "cells": [
+                  {
+                    "bit": 8,
+                    "col": 2,
+                    "row": 2,
+                    "release": 1
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "closureErasePairCounts": {
+          "REMAINING": 20,
+          "RELEASE": 53,
+          "FRONTIER": 157,
+          "FINALCAP": 23,
+          "FRONTIER_CAP": 244,
+          "ALL_LOCAL": 262
+        }
+      },
+      "compressionCensus": {
+        "QO": {
+          "groups": 1396,
+          "futureSufficient": true,
+          "valueSufficient": true,
+          "futureCollisionGroups": 0,
+          "valueCollisionGroups": 0,
+          "futureExamples": [],
+          "valueExamples": []
+        },
+        "REMAINING": {
+          "groups": 1376,
+          "futureSufficient": true,
+          "valueSufficient": true,
+          "futureCollisionGroups": 0,
+          "valueCollisionGroups": 0,
+          "futureExamples": [],
+          "valueExamples": []
+        },
+        "RELEASE": {
+          "groups": 1345,
+          "futureSufficient": true,
+          "valueSufficient": true,
+          "futureCollisionGroups": 0,
+          "valueCollisionGroups": 0,
+          "futureExamples": [],
+          "valueExamples": []
+        },
+        "FRONTIER": {
+          "groups": 1293,
+          "futureSufficient": true,
+          "valueSufficient": true,
+          "futureCollisionGroups": 0,
+          "valueCollisionGroups": 0,
+          "futureExamples": [],
+          "valueExamples": []
+        },
+        "FINALCAP": {
+          "groups": 1375,
+          "futureSufficient": true,
+          "valueSufficient": true,
+          "futureCollisionGroups": 0,
+          "valueCollisionGroups": 0,
+          "futureExamples": [],
+          "valueExamples": []
+        },
+        "FRONTIER_CAP": {
+          "groups": 1258,
+          "futureSufficient": true,
+          "valueSufficient": true,
+          "futureCollisionGroups": 0,
+          "valueCollisionGroups": 0,
+          "futureExamples": [],
+          "valueExamples": []
+        },
+        "ALL_LOCAL": {
+          "groups": 1245,
+          "futureSufficient": true,
+          "valueSufficient": true,
+          "futureCollisionGroups": 0,
+          "valueCollisionGroups": 0,
+          "futureExamples": [],
+          "valueExamples": []
+        }
+      }
+    },
+    {
+      "label": "4x3-k3",
+      "width": 4,
+      "height": 3,
+      "k": 3,
+      "physicalStates": 7157,
+      "qRepresentations": 3737,
+      "futureClasses": 2897,
+      "redundancy": {
+        "redundantFutureClasses": 337,
+        "sameSupportRedundantClasses": 328,
+        "sameSupportPairsChecked": 2170,
+        "minExamples": [
+          {
+            "score": 1,
+            "future": 11,
+            "diff": {
+              "support": 0,
+              "r0": 1,
+              "r1": 0
+            },
+            "qA": "3,3,3,1|128|2048",
+            "qB": "3,3,3,1|128.2048|2048",
+            "value": 1,
+            "changed": [
+              {
+                "side": "B_only",
+                "mask": 2048,
+                "p": 0,
+                "size": 1,
+                "remainingMoves": 1,
+                "remainingCapacity": true,
+                "releaseFeasible": false,
+                "isAllOpenCaps": true,
+                "cells": [
+                  {
+                    "bit": 11,
+                    "col": 3,
+                    "row": 2,
+                    "release": 2
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "closureErasePairCounts": {
+          "REMAINING": 50,
+          "RELEASE": 118,
+          "FRONTIER": 314,
+          "FINALCAP": 54,
+          "FRONTIER_CAP": 450,
+          "ALL_LOCAL": 486
+        }
+      },
+      "compressionCensus": {
+        "QO": {
+          "groups": 3737,
+          "futureSufficient": true,
+          "valueSufficient": true,
+          "futureCollisionGroups": 0,
+          "valueCollisionGroups": 0,
+          "futureExamples": [],
+          "valueExamples": []
+        },
+        "REMAINING": {
+          "groups": 3689,
+          "futureSufficient": true,
+          "valueSufficient": true,
+          "futureCollisionGroups": 0,
+          "valueCollisionGroups": 0,
+          "futureExamples": [],
+          "valueExamples": []
+        },
+        "RELEASE": {
+          "groups": 3635,
+          "futureSufficient": true,
+          "valueSufficient": true,
+          "futureCollisionGroups": 0,
+          "valueCollisionGroups": 0,
+          "futureExamples": [],
+          "valueExamples": []
+        },
+        "FRONTIER": {
+          "groups": 3509,
+          "futureSufficient": true,
+          "valueSufficient": true,
+          "futureCollisionGroups": 0,
+          "valueCollisionGroups": 0,
+          "futureExamples": [],
+          "valueExamples": []
+        },
+        "FINALCAP": {
+          "groups": 3689,
+          "futureSufficient": true,
+          "valueSufficient": true,
+          "futureCollisionGroups": 0,
+          "valueCollisionGroups": 0,
+          "futureExamples": [],
+          "valueExamples": []
+        },
+        "FRONTIER_CAP": {
+          "groups": 3473,
+          "futureSufficient": true,
+          "valueSufficient": true,
+          "futureCollisionGroups": 0,
+          "valueCollisionGroups": 0,
+          "futureExamples": [],
+          "valueExamples": []
+        },
+        "ALL_LOCAL": {
+          "groups": 3451,
+          "futureSufficient": true,
+          "valueSufficient": true,
+          "futureCollisionGroups": 0,
+          "valueCollisionGroups": 0,
+          "futureExamples": [],
+          "valueExamples": []
+        }
+      }
+    }
+  ],
+  "crossCase": {
+    "QO": {
+      "futureAll": true,
+      "valueAll": true,
+      "failedFuture": [],
+      "failedValue": []
+    },
+    "REMAINING": {
+      "futureAll": true,
+      "valueAll": true,
+      "failedFuture": [],
+      "failedValue": []
+    },
+    "RELEASE": {
+      "futureAll": true,
+      "valueAll": true,
+      "failedFuture": [],
+      "failedValue": []
+    },
+    "FRONTIER": {
+      "futureAll": true,
+      "valueAll": true,
+      "failedFuture": [],
+      "failedValue": []
+    },
+    "FINALCAP": {
+      "futureAll": true,
+      "valueAll": true,
+      "failedFuture": [],
+      "failedValue": []
+    },
+    "FRONTIER_CAP": {
+      "futureAll": true,
+      "valueAll": true,
+      "failedFuture": [],
+      "failedValue": []
+    },
+    "ALL_LOCAL": {
+      "futureAll": true,
+      "valueAll": true,
+      "failedFuture": [],
+      "failedValue": []
+    }
+  },
+  "interpretation_guard": "Closures are current-rank candidate compressions. Finite positive sufficiency is scoped; redundancy pairs are discovered by future equivalence but closure rules themselves are predeclared and future-blind."
+}
