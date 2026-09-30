@@ -1,0 +1,35 @@
+{
+  "schema": "connect4.isomax.rank_sufficient_baseline_qd.v1",
+  "date_author_local": "2026-09-29",
+  "scope": "standard 7x6 ordinary semantics under qualified Connect4 authority 1.2",
+  "status": "EXACT_BASELINE_PAIR__MINIMALITY_OPEN",
+  "Q": {
+    "name": "q_o",
+    "definition": "oriented support + normalized P0 residual antichain + normalized P1 residual antichain",
+    "rank_local": true,
+    "future_search_required_to_define": false,
+    "exact_sufficiency": "complete literal-action-labelled ordinary future game",
+    "minimality": "OPEN"
+  },
+  "F": {
+    "exact": true,
+    "statement": "one-move terminal result and successor q_o are exact functions of current q_o, literal action and G"
+  },
+  "D": {
+    "baseline_form": "rank-well-founded Bellman evaluation over q_o successors",
+    "exact": true,
+    "direct_noniterative": false,
+    "necessity_or_minimality": "NOT_CLAIMED"
+  },
+  "q_r": {
+    "role": "qualified transporter-aware horizontal-reflection compression",
+    "significance": "exact compression below oriented q_o is possible when transport is explicit"
+  },
+  "open": [
+    "minimal Q-V",
+    "minimal Q-A",
+    "minimal Q-F",
+    "direct/closed-form D",
+    "simpler hybrid Q,D pair"
+  ]
+}

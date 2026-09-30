@@ -1,0 +1,68 @@
+{
+  "schema": "connect4.isomax.rank_local_representation_admissibility.v1",
+  "date_author_local": "2026-09-29",
+  "rows": [
+    {
+      "name": "full current position",
+      "rank_local": true,
+      "admissible": true,
+      "role": "trivial sufficient upper bound"
+    },
+    {
+      "name": "q_o",
+      "rank_local": true,
+      "admissible": true,
+      "role": "qualified Q-F upper bound; minimality open"
+    },
+    {
+      "name": "q_r",
+      "rank_local": true,
+      "admissible": true,
+      "role": "qualified transporter-relative compression; minimality open"
+    },
+    {
+      "name": "bottom-up recursive action-unlabelled class",
+      "rank_local": false,
+      "admissible": false,
+      "role": "future-derived compression oracle"
+    },
+    {
+      "name": "recursive canonical-frame action-token class",
+      "rank_local": false,
+      "admissible": false,
+      "role": "future-derived representation diagnostic; transporter omission falsified semantic reading"
+    },
+    {
+      "name": "cocycle sheet bit",
+      "rank_local": false,
+      "admissible": false,
+      "role": "representation-graph diagnostic; audited witness fiber collapses at literal-future resolution"
+    }
+  ],
+  "direct_channel": [
+    "exact invariants",
+    "finite algebras",
+    "factorization",
+    "semiring/polynomial forms",
+    "GF(2)/module structure",
+    "matrix/tensor structure",
+    "canonical forms",
+    "small sufficient coordinates",
+    "direct geometry-to-value identities"
+  ],
+  "recursive_channel": [
+    "safe deletion",
+    "finite-state closure",
+    "exact rewrites",
+    "transporter-aware canonicalization",
+    "compositional interfaces",
+    "obligation maintenance",
+    "history-irrelevance proofs"
+  ],
+  "next_questions": [
+    "Can any future-derived equivalence be recognized rank-locally from G and current state?",
+    "What exact coordinates can be removed below q_o while preserving Q-V, Q-A, or Q-F?",
+    "Can a recursively maintained Q admit direct D?",
+    "Can RBA exact algebraic structure factor D through a smaller rank-local Q?"
+  ]
+}

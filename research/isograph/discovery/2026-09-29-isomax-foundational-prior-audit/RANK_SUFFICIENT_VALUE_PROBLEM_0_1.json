@@ -1,0 +1,44 @@
+{
+  "schema": "connect4.isomax.rank_sufficient_value_problem.v1",
+  "date_author_local": "2026-09-29",
+  "research_direction": "Joshua Oshiro",
+  "status": "GOVERNING_DISCOVERY_OBJECTIVE",
+  "equation": "V_G(P)=D_G(Q_G(P))",
+  "objective": "Find a minimal rank-sufficient Q_G(P) and exact D_G without assuming computational form.",
+  "rank_local": {
+    "allowed": [
+      "persistent G",
+      "complete current position",
+      "rank/turn",
+      "current-rank exact derivations",
+      "relevant compressed prior-rank information"
+    ],
+    "forbidden": [
+      "hypothetical future ranks",
+      "ordinary future-tree exploration merely to define Q",
+      "irrelevant history"
+    ]
+  },
+  "sufficiency_targets": [
+    {
+      "id": "Q-V",
+      "condition": "Q(P)=Q(P') => V(P)=V(P')"
+    },
+    {
+      "id": "Q-A",
+      "condition": "Q equality preserves exact legal decision/action-value semantics under declared transport"
+    },
+    {
+      "id": "Q-F",
+      "condition": "Q equality preserves complete ordinary future behavior under declared action relation"
+    }
+  ],
+  "form_neutrality": {
+    "direct": true,
+    "recursive": true,
+    "hybrid": true
+  },
+  "minimality_order": "Q1 <= Q2 iff an exact rank-local h satisfies Q1(P)=h(Q2(P),G) in scope",
+  "predecessor_fixed_point_preserved": true,
+  "fixed_point_reopened": true
+}
