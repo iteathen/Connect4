@@ -1,0 +1,57 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.component_multiplicity_algebra.v1",
+  "id": "EW-RS-015",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "parent": [
+    "EW-RS-011",
+    "EW-RS-012",
+    "EW-RS-014"
+  ],
+  "objective": "Determine whether repeated reduced components obey idempotent or saturating composition rather than XOR self-cancellation.",
+  "frozen_component_definition": "post-RFG residual-incidence connected components",
+  "candidates": [
+    {
+      "id": "PRESENCE_P",
+      "law": "C+C=C",
+      "meaning": "component presence set + stone parity"
+    },
+    {
+      "id": "SAT2_P",
+      "law": "multiplicity saturates at 2"
+    },
+    {
+      "id": "SAT3_P",
+      "law": "multiplicity saturates at 3"
+    },
+    {
+      "id": "MOD2_P",
+      "law": "C+C=0",
+      "role": "XOR/self-cancellation control"
+    },
+    {
+      "id": "MOD3_P",
+      "law": "period 3",
+      "role": "nearby finite-group control"
+    },
+    {
+      "id": "MOD4_P",
+      "law": "period 4",
+      "role": "nearby finite-group control"
+    }
+  ],
+  "anti_circularity": [
+    "all multiplicity reductions are frozen algebraic maps of the structural component multiset",
+    "no value/future labels define candidate keys",
+    "same frozen components and cross-case controls as EW-RS-012"
+  ],
+  "targets": [
+    "Q-F",
+    "Q-V"
+  ],
+  "interpretation": [
+    "Presence success would support an idempotent semilattice-like quotient.",
+    "SAT2/SAT3 success with presence failure would support finite saturating multiplicity rather than group cancellation.",
+    "A failure does not reject later/finer component transformations."
+  ]
+}
