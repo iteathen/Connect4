@@ -1,0 +1,144 @@
+{
+  "schema": "connect4.isomax.discovery.cap_hole_channel_partition.v1",
+  "date_author_local": "2026-09-29",
+  "warrant": "EW-019",
+  "rows": [
+    {
+      "label": "5x4-k3-H",
+      "width": 5,
+      "height": 4,
+      "k": 3,
+      "directions": [
+        "H"
+      ],
+      "states": 85005,
+      "classes": 72876,
+      "cycleRank": 66,
+      "zero": 64,
+      "nonzero": 2,
+      "contradictions": 4,
+      "motifGroups": 135,
+      "testedPairs": 1114,
+      "cycleCoverage": {
+        "fundamentalCycles": 66,
+        "zeroCycles": 64,
+        "zeroCyclesWithMotif": 4,
+        "zeroCyclesWithoutMotif": 60,
+        "nonzeroCycles": 2,
+        "nonzeroCyclesWithMotif": 2,
+        "nonzeroCyclesWithoutMotif": 0,
+        "allObservedNonzeroCyclesContainMotif": true,
+        "noObservedZeroCycleContainsMotif": false
+      },
+      "contradictionCoverage": {
+        "contradictions": 4,
+        "withMotif": 4,
+        "withoutMotif": 0,
+        "allObservedContradictionsContainMotif": true
+      },
+      "outcomeLabelsUsedByProducer": false
+    },
+    {
+      "label": "5x4-k3-VD",
+      "width": 5,
+      "height": 4,
+      "k": 3,
+      "directions": [
+        "V",
+        "D"
+      ],
+      "states": 142259,
+      "classes": 106654,
+      "cycleRank": 163,
+      "zero": 153,
+      "nonzero": 10,
+      "contradictions": 1,
+      "motifGroups": 1,
+      "testedPairs": 9669,
+      "cycleCoverage": {
+        "fundamentalCycles": 163,
+        "zeroCycles": 153,
+        "zeroCyclesWithMotif": 0,
+        "zeroCyclesWithoutMotif": 153,
+        "nonzeroCycles": 10,
+        "nonzeroCyclesWithMotif": 0,
+        "nonzeroCyclesWithoutMotif": 10,
+        "allObservedNonzeroCyclesContainMotif": false,
+        "noObservedZeroCycleContainsMotif": true
+      },
+      "contradictionCoverage": {
+        "contradictions": 1,
+        "withMotif": 0,
+        "withoutMotif": 1,
+        "allObservedContradictionsContainMotif": false
+      },
+      "outcomeLabelsUsedByProducer": false
+    },
+    {
+      "label": "5x4-k4-HD",
+      "width": 5,
+      "height": 4,
+      "k": 4,
+      "directions": [
+        "H",
+        "D"
+      ],
+      "states": 157055,
+      "classes": 141096,
+      "cycleRank": 146,
+      "zero": 142,
+      "nonzero": 4,
+      "contradictions": 14,
+      "motifGroups": 246,
+      "testedPairs": 3783,
+      "cycleCoverage": {
+        "fundamentalCycles": 146,
+        "zeroCycles": 142,
+        "zeroCyclesWithMotif": 80,
+        "zeroCyclesWithoutMotif": 62,
+        "nonzeroCycles": 4,
+        "nonzeroCyclesWithMotif": 4,
+        "nonzeroCyclesWithoutMotif": 0,
+        "allObservedNonzeroCyclesContainMotif": true,
+        "noObservedZeroCycleContainsMotif": false
+      },
+      "contradictionCoverage": {
+        "contradictions": 14,
+        "withMotif": 14,
+        "withoutMotif": 0,
+        "allObservedContradictionsContainMotif": true
+      },
+      "outcomeLabelsUsedByProducer": false
+    }
+  ],
+  "channelSummary": {
+    "5x4-k3-H": {
+      "nonzero": 2,
+      "nonzeroWithMotif": 2,
+      "nonzeroWithoutMotif": 0,
+      "zeroWithMotif": 4,
+      "contradictions": 4,
+      "contradictionsWithMotif": 4,
+      "contradictionsWithoutMotif": 0
+    },
+    "5x4-k3-VD": {
+      "nonzero": 10,
+      "nonzeroWithMotif": 0,
+      "nonzeroWithoutMotif": 10,
+      "zeroWithMotif": 0,
+      "contradictions": 1,
+      "contradictionsWithMotif": 0,
+      "contradictionsWithoutMotif": 1
+    },
+    "5x4-k4-HD": {
+      "nonzero": 4,
+      "nonzeroWithMotif": 4,
+      "nonzeroWithoutMotif": 0,
+      "zeroWithMotif": 80,
+      "contradictions": 14,
+      "contradictionsWithMotif": 14,
+      "contradictionsWithoutMotif": 0
+    }
+  },
+  "interpretation_guard": "Counterfactual line-family channels only. Coverage patterns characterize these fixed producer interventions and are not standard-game theorems."
+}
