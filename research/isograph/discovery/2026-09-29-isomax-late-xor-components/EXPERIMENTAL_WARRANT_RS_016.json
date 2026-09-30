@@ -1,0 +1,24 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.late_xor_two_ply_tactical.v1",
+  "id": "EW-RS-016",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "parent": "EW-RS-014",
+  "objective": "Test component parity only after an exact evaluator short-circuit for current immediate wins and positions where every legal nonwinning move leaves an immediate opponent win.",
+  "exactness_scope": {
+    "W": "current mover has an immediate winning action",
+    "L2": "current mover has no immediate win and every legal action either is nonterminal with an immediate opponent win next; terminal draw/current win prevents L2",
+    "O": "unresolved"
+  },
+  "classification": "evaluator preprocessing, not a claim that Q itself may inspect arbitrary future ranks",
+  "anti_circularity": [
+    "Only current q_o plus its exact one-step transition is used.",
+    "No solved value or future-equivalence class defines W/L2/O.",
+    "Post-RFG components and parity valuation remain frozen."
+  ],
+  "targets": [
+    "Q-V primary",
+    "Q-F diagnostic"
+  ],
+  "stopping_rule": "If T2 makes MOD2 parity Q-V sufficient across all frozen cases, record a bounded hybrid evaluator candidate. If not, inspect the next exact counterexample before adding machinery."
+}
