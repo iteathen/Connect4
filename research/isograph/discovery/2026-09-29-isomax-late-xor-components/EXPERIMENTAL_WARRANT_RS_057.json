@@ -1,0 +1,71 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.repaired_coordinate_decoder_dimension.v1",
+  "id": "EW-RS-057",
+  "date_author_local": "2026-09-30",
+  "status": "ACTIVE",
+  "parent": "EW-RS-056",
+  "objective": "Measure the scalar decoder complexity inside the frozen ROLE_CAPPAR_REL_INC_ZOE coordinate, starting with its canonical binary ZOE encoding and testing affine versus complete observed degree-2 GF(2) decoding.",
+  "cases": [
+    "5x3-k3",
+    "4x4-k4",
+    "6x3-k3",
+    "4x5-k4",
+    "6x3-k4"
+  ],
+  "frozenCoordinate": {
+    "identity": "ROLE_CAPPAR_REL_INC = jointly canonicalized frontier-relative residual incidence with one remaining-capacity parity bit H-h_c mod 2 attached to each local incidence column role",
+    "countState": "ZOE after identity aggregation",
+    "binaryEncoding": {
+      "P_d": "1 iff aggregate multiplicity n_d > 0",
+      "O_d": "n_d mod 2",
+      "states": {
+        "zero": [0,0],
+        "positive_even": [1,0],
+        "positive_odd": [1,1]
+      }
+    },
+    "rankGrade": "none"
+  },
+  "decoderModels": [
+    {
+      "name": "AFFINE_PO",
+      "features": "global offset plus every observed P_d and O_d binary coordinate"
+    },
+    {
+      "name": "DEGREE2_PO",
+      "features": "AFFINE_PO plus every observed square-free product of two distinct active P/O binary coordinates"
+    }
+  ],
+  "outcomeCode": {
+    "loss": "00",
+    "draw": "01",
+    "win": "10"
+  },
+  "measurement": [
+    "rank of the affine structural feature span",
+    "dimension added by outcome bit y0 beyond the affine span",
+    "dimension added by outcome bit y1 beyond the affine span",
+    "joint scalar target dimension dim(span(A,y0,y1)/span(A))",
+    "degree-2 contradiction count and rank gain over affine",
+    "degree-2 structural pair catalog and outcome-independent rank compression"
+  ],
+  "executionCompression": "Because ROLE_CAPPAR classes are already Q-V qualified, collapse duplicate structural class rows before decoder linear algebra while mechanically verifying scalar purity.",
+  "antiCircularity": [
+    "P/O is the exact canonical binary representation of the already-frozen three-state ZOE count state and is not selected from outcomes.",
+    "ROLE_CAPPAR identity was frozen and fresh-qualified before this experiment.",
+    "All degree-2 products are generated mechanically from observed active P/O coordinates; no pair is selected by W/D/L labels.",
+    "Solved outcomes are used only as GF(2)^2 right-hand sides and target-dimension columns."
+  ],
+  "falsifiers": [
+    "Any mixed scalar outcome inside a ROLE_CAPPAR class invalidates the structural control.",
+    "Any DEGREE2_PO contradiction rejects quadratic sufficiency over the repaired P/O coordinate on that carrier.",
+    "A nonzero affine target dimension rejects a purely affine P/O decoder on that carrier.",
+    "A zero degree-2 contradiction establishes only finite existence, not a closed-form or universal decoder."
+  ],
+  "nextIfDegree2CommonSuccess": "Reduce the quadratic P/O interaction space outcome-independently and search for a small structural syndrome family, reserving a new outcome-blind carrier before final formula selection.",
+  "nextIfDegree2Fails": "Freeze the contradiction family and determine whether the obstruction is another coordinate collision or genuinely higher-order interaction before degree escalation.",
+  "interpretationGuards": [
+    "6x3-k4 is no longer a formula holdout once used in this decoder-dimension analysis; a later selected formula requires a different predeclared fresh carrier.",
+    "No standard-7x6, Q-A, or Q-F claim follows."
+  ]
+}
