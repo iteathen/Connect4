@@ -1,0 +1,28 @@
+{
+  "schema":"connect4.isomax.revalidation.draw_marginal_pair_presence_warrant.v1",
+  "id":"REVAL-LEGO-DRAW-003",
+  "date":"2026-09-30",
+  "status":"FROZEN_BEFORE_TRAINED_SCALAR_REPLAY",
+  "canonicalResearchOwner":"research/semantic-quotient",
+  "parent":"REVAL-LEGO-DRAW-002",
+  "objective":"Test whether the surviving scalar mask1 character is carried by pairwise attachment/co-presence between primitive marginal resource fields on the same exchange edge.",
+  "source":"EW-RS-093 COV_0 marginal triangle records.",
+  "fields":["T_C","T_Z0","T_P0","T_Z1","T_P1","A_C","A_Z0","A_P0","A_Z1","A_P1"],
+  "edgeRelation":"For each unordered pair of distinct fields (F,G), edge bit r=1 iff F>0 and G>0 on that pair record.",
+  "triangleCircuits":"For the three edge bits r1,r2,r3, compute e1,e2,e3 and test all7 nonzero XOR combinations.",
+  "candidateCount":315,
+  "procedure":[
+    "Prepare all315 structural columns before scalar access.",
+    "Replay only scalar mask1 on all462 dependencies.",
+    "Report every exact candidate and realized-column equivalence classes.",
+    "If none pass, no single pairwise co-presence relation among the primitive marginals supplies the draw syndrome."
+  ],
+  "guards":[
+    "No sign correlation, motif ID, geometry tag or outcome-selected exception.",
+    "Permutation-invariant across triangle edges.",
+    "No sealed-holdout access or RS096 continuation."
+  ],
+  "sealedFormulaHoldouts":["3x6-k4","5x3-k4"],
+  "rs096":"HOLD",
+  "authorityEffect":"NONE"
+}
