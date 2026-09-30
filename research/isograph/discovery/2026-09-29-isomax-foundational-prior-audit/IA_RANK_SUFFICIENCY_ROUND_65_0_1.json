@@ -1,0 +1,54 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_round.v1",
+  "round": 65,
+  "date_author_local": "2026-09-30",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_64_FIXED_POINT_0_1.json",
+    "RANK_SUFFICIENCY_OOO_MOTIF_HYPERGRAPH_BOUNDARY_INTEGRATION_0_1.json"
+  ],
+  "reopened_reason": "EW-RS-068 tests whether the common exact OOO triple-motif scalar carrier descends to ordinary vertex or pair hypergraph boundary data.",
+  "new_assertions": [
+    {
+      "id": "RS-IA197",
+      "family": "M",
+      "body": "Within the frozen EW-RS-067 vertex identity, vertex parity, pair parity, and their direct sum each lose scalar information on all three hard carriers; complete triple-motif identity is load-bearing in the declared linear boundary ladder."
+    },
+    {
+      "id": "RS-IA198",
+      "family": "Q",
+      "body": "The selected motif functional is not the boundary of a lower-order GF(2) vertex/edge cochain under the tested operators. Scalar equivalence classes distinguish some triple configurations with identical lower-order boundary data."
+    },
+    {
+      "id": "RS-IA199",
+      "family": "D",
+      "body": "The surviving triadic requirement is representation-scoped: it is exact relative to the selected motif vertex identity and linear boundary family, not a proof that Connect Four has an intrinsic universal three-body interaction."
+    },
+    {
+      "id": "RS-IA200",
+      "family": "R",
+      "body": "Further compression should therefore target mechanically generated circuit, exchange, orientation, or other triple-level invariants rather than repeatedly projecting to unordered lower-order marginals."
+    },
+    {
+      "id": "RS-IA201",
+      "family": "F",
+      "body": "EW-RS-059 remains sealed because no closed triple-level syndrome rule or coefficients have been frozen."
+    }
+  ],
+  "qu_refinements": [
+    {
+      "id": "RS-QR054",
+      "target": "QU-RS-004",
+      "add_fixed": [
+        "selected OOO motif scalar residues do not factor through descriptor-summary vertex parity, unordered pair parity, or their direct sum on any of the three hard carriers",
+        "complete triple-motif parity remains exact under the EW-RS-068 reconstruction control"
+      ],
+      "retain_open": [
+        "mechanically generated triple-level circuit/exchange/orientation invariants",
+        "closed two-syndrome law without outcome-selected triple coefficients",
+        "formula freeze before EW-RS-059 unsealing",
+        "standard-7x6 qualification"
+      ]
+    }
+  ],
+  "stop_status": "REOPENED__TRIPLE_LEVEL_CIRCUIT_INVARIANT_NEXT"
+}
