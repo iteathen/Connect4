@@ -1,0 +1,343 @@
+{
+  "schema": "connect4.isomax.simple_bilinear_syndrome_bank.v1",
+  "date_author_local": "2026-09-29",
+  "warrant": "EW-RS-040",
+  "frozenRepresentation": "post-RFG component parity + direct T2 + exact-rank affine component coordinates",
+  "candidateBank": {
+    "componentBinaryFeatures": [
+      "ONE",
+      "WIDTH1",
+      "CAP1",
+      "CAP2",
+      "R0_N",
+      "R1_N",
+      "R0_CELLS",
+      "R1_CELLS",
+      "R0_MULTI",
+      "R1_MULTI",
+      "R0_FRONT_EDGE",
+      "R1_FRONT_EDGE",
+      "R0_ODD_DELAY",
+      "R1_ODD_DELAY",
+      "R0_MAX_ODD",
+      "R1_MAX_ODD",
+      "R0_FRONT_COL",
+      "R1_FRONT_COL",
+      "R0_TOUCH_COL",
+      "R1_TOUCH_COL",
+      "BOTH_TOUCH_COL",
+      "BOTH_FRONT_COL",
+      "R0_D0",
+      "R1_D0",
+      "R0_D1",
+      "R1_D1",
+      "R0_D2P",
+      "R1_D2P"
+    ],
+    "pairConstruction": "For each unordered pair of odd component types, XOR the symmetric products of active binary component features; aggregate identical pair-feature keys mod 2.",
+    "phaseModes": [
+      "GLOBAL",
+      "R3",
+      "R6",
+      "EXACT"
+    ]
+  },
+  "cases": [
+    {
+      "label": "5x3-k3",
+      "width": 5,
+      "height": 3,
+      "k": 3,
+      "physicalStates": 70914,
+      "nonterminalStates": 40659,
+      "tactical2Counts": {
+        "W": 28001,
+        "L2": 5403,
+        "O": 7255
+      },
+      "degree1Contradictions": 18,
+      "targetSyndromeDimension": 2,
+      "simpleSyndromeBank": [
+        {
+          "phaseMode": "GLOBAL",
+          "componentBinaryFeatures": 28,
+          "symmetricBilinearFeatureUpperBound": 406,
+          "activeVariables": 3693,
+          "activeSyndromeVariables": 402,
+          "pivotRank": 3259,
+          "contradictions": 0,
+          "exact": true,
+          "firstContradiction": null
+        },
+        {
+          "phaseMode": "R3",
+          "componentBinaryFeatures": 28,
+          "symmetricBilinearFeatureUpperBound": 406,
+          "activeVariables": 4495,
+          "activeSyndromeVariables": 1204,
+          "pivotRank": 3259,
+          "contradictions": 0,
+          "exact": true,
+          "firstContradiction": null
+        },
+        {
+          "phaseMode": "R6",
+          "componentBinaryFeatures": 28,
+          "symmetricBilinearFeatureUpperBound": 406,
+          "activeVariables": 5651,
+          "activeSyndromeVariables": 2360,
+          "pivotRank": 3259,
+          "contradictions": 0,
+          "exact": true,
+          "firstContradiction": null
+        },
+        {
+          "phaseMode": "EXACT",
+          "componentBinaryFeatures": 28,
+          "symmetricBilinearFeatureUpperBound": 406,
+          "activeVariables": 6075,
+          "activeSyndromeVariables": 2784,
+          "pivotRank": 3259,
+          "contradictions": 0,
+          "exact": true,
+          "firstContradiction": null
+        }
+      ]
+    },
+    {
+      "label": "4x4-k4",
+      "width": 4,
+      "height": 4,
+      "k": 4,
+      "physicalStates": 161029,
+      "nonterminalStates": 134289,
+      "tactical2Counts": {
+        "W": 24685,
+        "L2": 4154,
+        "O": 105450
+      },
+      "degree1Contradictions": 168,
+      "targetSyndromeDimension": 2,
+      "simpleSyndromeBank": [
+        {
+          "phaseMode": "GLOBAL",
+          "componentBinaryFeatures": 28,
+          "symmetricBilinearFeatureUpperBound": 406,
+          "activeVariables": 8041,
+          "activeSyndromeVariables": 403,
+          "pivotRank": 7738,
+          "contradictions": 102,
+          "exact": false,
+          "firstContradiction": {
+            "key": "35201:570",
+            "rank": 10,
+            "relativeOutcome": 0,
+            "reducedRhs": 1
+          }
+        },
+        {
+          "phaseMode": "R3",
+          "componentBinaryFeatures": 28,
+          "symmetricBilinearFeatureUpperBound": 406,
+          "activeVariables": 8828,
+          "activeSyndromeVariables": 1190,
+          "pivotRank": 7855,
+          "contradictions": 96,
+          "exact": false,
+          "firstContradiction": {
+            "key": "35201:570",
+            "rank": 10,
+            "relativeOutcome": 0,
+            "reducedRhs": 1
+          }
+        },
+        {
+          "phaseMode": "R6",
+          "componentBinaryFeatures": 28,
+          "symmetricBilinearFeatureUpperBound": 406,
+          "activeVariables": 9681,
+          "activeSyndromeVariables": 2043,
+          "pivotRank": 7857,
+          "contradictions": 96,
+          "exact": false,
+          "firstContradiction": {
+            "key": "35201:570",
+            "rank": 10,
+            "relativeOutcome": 0,
+            "reducedRhs": 1
+          }
+        },
+        {
+          "phaseMode": "EXACT",
+          "componentBinaryFeatures": 28,
+          "symmetricBilinearFeatureUpperBound": 406,
+          "activeVariables": 10076,
+          "activeSyndromeVariables": 2438,
+          "pivotRank": 7857,
+          "contradictions": 96,
+          "exact": false,
+          "firstContradiction": {
+            "key": "35201:570",
+            "rank": 10,
+            "relativeOutcome": 0,
+            "reducedRhs": 1
+          }
+        }
+      ]
+    },
+    {
+      "label": "6x3-k3",
+      "width": 6,
+      "height": 3,
+      "k": 3,
+      "physicalStates": 692970,
+      "nonterminalStates": 353581,
+      "tactical2Counts": {
+        "W": 277244,
+        "L2": 39768,
+        "O": 36569
+      },
+      "degree1Contradictions": 520,
+      "targetSyndromeDimension": 2,
+      "simpleSyndromeBank": [
+        {
+          "phaseMode": "GLOBAL",
+          "componentBinaryFeatures": 28,
+          "symmetricBilinearFeatureUpperBound": 406,
+          "activeVariables": 16791,
+          "activeSyndromeVariables": 403,
+          "pivotRank": 16515,
+          "contradictions": 368,
+          "exact": false,
+          "firstContradiction": {
+            "key": "43285:17130",
+            "rank": 14,
+            "relativeOutcome": 1,
+            "reducedRhs": 2
+          }
+        },
+        {
+          "phaseMode": "R3",
+          "componentBinaryFeatures": 28,
+          "symmetricBilinearFeatureUpperBound": 406,
+          "activeVariables": 17597,
+          "activeSyndromeVariables": 1209,
+          "pivotRank": 16723,
+          "contradictions": 4,
+          "exact": false,
+          "firstContradiction": {
+            "key": "149706:8997",
+            "rank": 13,
+            "relativeOutcome": 0,
+            "reducedRhs": 2
+          }
+        },
+        {
+          "phaseMode": "R6",
+          "componentBinaryFeatures": 28,
+          "symmetricBilinearFeatureUpperBound": 406,
+          "activeVariables": 18802,
+          "activeSyndromeVariables": 2414,
+          "pivotRank": 16723,
+          "contradictions": 4,
+          "exact": false,
+          "firstContradiction": {
+            "key": "149706:8997",
+            "rank": 13,
+            "relativeOutcome": 0,
+            "reducedRhs": 2
+          }
+        },
+        {
+          "phaseMode": "EXACT",
+          "componentBinaryFeatures": 28,
+          "symmetricBilinearFeatureUpperBound": 406,
+          "activeVariables": 20405,
+          "activeSyndromeVariables": 4017,
+          "pivotRank": 16723,
+          "contradictions": 4,
+          "exact": false,
+          "firstContradiction": {
+            "key": "149706:8997",
+            "rank": 13,
+            "relativeOutcome": 0,
+            "reducedRhs": 2
+          }
+        }
+      ]
+    },
+    {
+      "label": "3x7-k3",
+      "width": 3,
+      "height": 7,
+      "k": 3,
+      "physicalStates": 71181,
+      "nonterminalStates": 42013,
+      "tactical2Counts": {
+        "W": 26431,
+        "L2": 4719,
+        "O": 10863
+      },
+      "degree1Contradictions": 0,
+      "targetSyndromeDimension": 0,
+      "simpleSyndromeBank": [
+        {
+          "phaseMode": "GLOBAL",
+          "componentBinaryFeatures": 28,
+          "symmetricBilinearFeatureUpperBound": 406,
+          "activeVariables": 4009,
+          "activeSyndromeVariables": 302,
+          "pivotRank": 3667,
+          "contradictions": 0,
+          "exact": true,
+          "firstContradiction": null
+        },
+        {
+          "phaseMode": "R3",
+          "componentBinaryFeatures": 28,
+          "symmetricBilinearFeatureUpperBound": 406,
+          "activeVariables": 4561,
+          "activeSyndromeVariables": 854,
+          "pivotRank": 3667,
+          "contradictions": 0,
+          "exact": true,
+          "firstContradiction": null
+        },
+        {
+          "phaseMode": "R6",
+          "componentBinaryFeatures": 28,
+          "symmetricBilinearFeatureUpperBound": 406,
+          "activeVariables": 4863,
+          "activeSyndromeVariables": 1156,
+          "pivotRank": 3667,
+          "contradictions": 0,
+          "exact": true,
+          "firstContradiction": null
+        },
+        {
+          "phaseMode": "EXACT",
+          "componentBinaryFeatures": 28,
+          "symmetricBilinearFeatureUpperBound": 406,
+          "activeVariables": 5460,
+          "activeSyndromeVariables": 1753,
+          "pivotRank": 3667,
+          "contradictions": 0,
+          "exact": true,
+          "firstContradiction": null
+        }
+      ]
+    }
+  ],
+  "mechanicalChecks": {
+    "featureDefinitionsOutcomeIndependent": true,
+    "exactAffineCoordinatesFrozen": true,
+    "candidateBankFrozenBeforeOutcomeQualification": true
+  },
+  "interpretationGuard": [
+    "The candidate bank is generated solely from current component width, capacity, residual counts, frontier-relative delays, and column-incidence parities.",
+    "Outcome labels do not define the binary component features or phase modes.",
+    "Passing a phase mode establishes existence of a compact bilinear syndrome decoder over that frozen bank; it does not yet establish coefficient transfer across geometries.",
+    "Failure rejects only this simple binary-feature bank, not REL_INC or quadratic GF(2) generally.",
+    "No standard-7x6 claim follows."
+  ]
+}
