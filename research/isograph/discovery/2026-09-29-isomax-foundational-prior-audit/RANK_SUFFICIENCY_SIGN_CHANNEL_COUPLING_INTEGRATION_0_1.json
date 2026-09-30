@@ -2,170 +2,197 @@
   "schema": "connect4.isomax.rank_sufficiency.sign_channel_coupling_integration.v1",
   "date_author_local": "2026-09-30",
   "research_direction": "Joshua Oshiro",
-  "status": "TWELVE_PARETO_MINIMA__C_DIRECTION_REDUNDANT__D_A_DIRECTION_JOINTLY_NECESSARY",
+  "status": "FOUR_PARETO_EQUIVALENCE_CLASSES__C_DIRECTION_REDUNDANT__JOINT_DA_DIRECTION_REQUIRED",
   "evidence": {
     "branch": "experiment/isomax-late-xor-components-20260929",
     "resultFile": "OOO_SIGN_CHANNEL_COUPLING_0_1.json",
     "verificationFile": "OOO_SIGN_CHANNEL_COUPLING_RESULT_VERIFY_0_1.json",
     "warrant": "EW-RS-077",
-    "authoritativeEvidenceCommit": "0d12fee20fe3d8df3a6bcb1b91d750982a0085c3",
-    "staleEvidenceExplicitlyExcluded": "97e5e7642b8b5fc219fba6eb20ea2458c7ca7011",
-    "staleEvidenceReason": "Produced from a pre-repair workflow checkout and quarantined/removed before the synchronized rerun.",
-    "publicationRaceFixCommit": "2170dc0b9e7a4951cc2354d2c4ea4c5a3afb4635",
-    "scientificGates": {
-      "syntax": "success_by_publication_order",
-      "couplingSemantics": "success_by_publication_order",
-      "audit": "success_by_publication_order",
-      "resultVerification": "success_by_publication_order",
-      "researchIntegrity": "success_by_publication_order"
+    "rawScalarEvidenceCommit": "0d12fee20fe3d8df3a6bcb1b91d750982a0085c3",
+    "correctedClassificationCommit": "35c21163d19aa51cf569a7ee17c267c1009193a4",
+    "correctedClassificationWorkflowRun": 36760754033,
+    "correctedClassificationGates": {
+      "mechanicalOrderTests": "success",
+      "resultReverification": "success",
+      "researchIntegrity": "success",
+      "publication": "success"
+    },
+    "obsoletePreRepairPublication": "97e5e7642b8b5fc219fba6eb20ea2458c7ca7011",
+    "classificationRepair": {
+      "outcomeIndependent": true,
+      "scalarAuditChanged": false,
+      "exactGridChanged": false
     }
   },
   "frozenSourceCarrier": "SIGNED_PARITY + C_ROLELESS + D_DEPTHLESS + D_SYMMETRIC_MARGINALS + C=PRESENCE + D=CLIP3 + A=CLIP2",
-  "couplingModes": [
-    "TOTAL",
-    "SIGNED_NET",
-    "ABS_NET",
-    "UNORDERED_PAIR",
-    "SEPARATED"
-  ],
-  "correctedSaturationSemantics": "Arithmetic TOTAL/NET maps act on the interval denoted by each saturated source symbol; 1+ / 2+ / 3+ are not reinterpreted as exact counts.",
-  "commonExact": {
-    "count": 65,
-    "factorization": "all five C coupling modes x thirteen common-exact D/A coupling pairs",
-    "dAPairs": [
-      "D=TOTAL|A=SIGNED_NET",
-      "D=TOTAL|A=SEPARATED",
-      "D=SIGNED_NET|A=TOTAL",
-      "D=SIGNED_NET|A=UNORDERED_PAIR",
-      "D=SIGNED_NET|A=SEPARATED",
-      "D=ABS_NET|A=SEPARATED",
-      "D=UNORDERED_PAIR|A=SIGNED_NET",
-      "D=UNORDERED_PAIR|A=SEPARATED",
-      "D=SEPARATED|A=TOTAL",
-      "D=SEPARATED|A=SIGNED_NET",
-      "D=SEPARATED|A=ABS_NET",
-      "D=SEPARATED|A=UNORDERED_PAIR",
-      "D=SEPARATED|A=SEPARATED"
-    ]
-  },
-  "paretoMinimalCommonExact": {
-    "count": 12,
-    "cModes": [
-      "TOTAL",
-      "SIGNED_NET",
-      "ABS_NET"
-    ],
-    "dAPairs": [
-      "D=TOTAL|A=SIGNED_NET",
-      "D=SIGNED_NET|A=TOTAL",
-      "D=ABS_NET|A=SEPARATED",
-      "D=SEPARATED|A=ABS_NET"
-    ],
-    "cartesianProduct": true,
-    "candidates": [
-      "C=TOTAL|D=TOTAL|A=SIGNED_NET",
-      "C=TOTAL|D=SIGNED_NET|A=TOTAL",
-      "C=TOTAL|D=ABS_NET|A=SEPARATED",
-      "C=TOTAL|D=SEPARATED|A=ABS_NET",
-      "C=SIGNED_NET|D=TOTAL|A=SIGNED_NET",
-      "C=SIGNED_NET|D=SIGNED_NET|A=TOTAL",
-      "C=SIGNED_NET|D=ABS_NET|A=SEPARATED",
-      "C=SIGNED_NET|D=SEPARATED|A=ABS_NET",
-      "C=ABS_NET|D=TOTAL|A=SIGNED_NET",
-      "C=ABS_NET|D=SIGNED_NET|A=TOTAL",
-      "C=ABS_NET|D=ABS_NET|A=SEPARATED",
-      "C=ABS_NET|D=SEPARATED|A=ABS_NET"
-    ]
-  },
-  "results": {
-    "6x3-k3": {
-      "exactCandidateCount": 125,
-      "separatedControlRank": 72,
-      "paretoRankSet": [
-        72
+  "correctedInformationOrder": {
+    "derivation": "Exhaustive partition refinement over each frozen family source alphabet.",
+    "C": {
+      "equivalenceClasses": [
+        [
+          "TOTAL",
+          "ABS_NET",
+          "UNORDERED_PAIR"
+        ],
+        [
+          "SIGNED_NET",
+          "SEPARATED"
+        ]
       ],
-      "scalarImageDimension": 1
+      "strict": "{TOTAL,ABS_NET,UNORDERED_PAIR} < {SIGNED_NET,SEPARATED}"
     },
-    "4x5-k4": {
-      "exactCandidateCount": 80,
-      "separatedControlRank": 252,
-      "paretoRankSet": [
-        250,
-        251,
-        252
+    "D": {
+      "equivalenceClasses": [],
+      "strict": [
+        "TOTAL < UNORDERED_PAIR < SEPARATED",
+        "ABS_NET < SIGNED_NET < SEPARATED",
+        "ABS_NET < UNORDERED_PAIR"
       ],
-      "minimumParetoRank": 250,
-      "scalarImageDimension": 2
+      "incomparable": [
+        "TOTAL versus ABS_NET",
+        "TOTAL versus SIGNED_NET",
+        "SIGNED_NET versus UNORDERED_PAIR"
+      ]
     },
-    "6x3-k4": {
-      "exactCandidateCount": 65,
-      "separatedControlRank": 14,
-      "paretoRankSet": [
-        13,
-        14
+    "A": {
+      "equivalenceClasses": [
+        [
+          "TOTAL",
+          "UNORDERED_PAIR"
+        ]
       ],
-      "minimumParetoRank": 13,
-      "scalarImageDimension": 2,
-      "determinesCommonExactSet": true
+      "strict": [
+        "ABS_NET < TOTAL = UNORDERED_PAIR < SEPARATED",
+        "ABS_NET < SIGNED_NET < SEPARATED"
+      ],
+      "incomparable": [
+        "SIGNED_NET versus TOTAL/UNORDERED_PAIR"
+      ]
     }
+  },
+  "commonExact": {
+    "candidateCount": 65,
+    "perCarrierExactCounts": {
+      "6x3-k3": 125,
+      "4x5-k4": 80,
+      "6x3-k4": 65
+    },
+    "limitingCarrier": "6x3-k4",
+    "cFactorization": "Every common-exact D/A pair is exact for all five formal C modes.",
+    "dAExactPairCount": 13
+  },
+  "pareto": {
+    "formalModeLabelCount": 15,
+    "partitionEquivalenceClassCount": 4,
+    "classes": [
+      {
+        "id": "PMEC-01",
+        "canonical": "C=SIGN_SUPPORT_CARDINALITY|D=TOTAL|A=SIGNED_NET",
+        "verifierRepresentative": "C=TOTAL|D=TOTAL|A=SIGNED_NET",
+        "labelMembers": 3,
+        "ranks": {
+          "6x3-k3": 72,
+          "4x5-k4": 250,
+          "6x3-k4": 13
+        }
+      },
+      {
+        "id": "PMEC-02",
+        "canonical": "C=SIGN_SUPPORT_CARDINALITY|D=SIGNED_NET|A=TOTAL_OR_UNORDERED",
+        "verifierRepresentative": "C=TOTAL|D=SIGNED_NET|A=TOTAL",
+        "labelMembers": 6,
+        "ranks": {
+          "6x3-k3": 72,
+          "4x5-k4": 251,
+          "6x3-k4": 13
+        }
+      },
+      {
+        "id": "PMEC-03",
+        "canonical": "C=SIGN_SUPPORT_CARDINALITY|D=ABS_NET|A=SEPARATED",
+        "verifierRepresentative": "C=TOTAL|D=ABS_NET|A=SEPARATED",
+        "labelMembers": 3,
+        "ranks": {
+          "6x3-k3": 72,
+          "4x5-k4": 250,
+          "6x3-k4": 13
+        }
+      },
+      {
+        "id": "PMEC-04",
+        "canonical": "C=SIGN_SUPPORT_CARDINALITY|D=SEPARATED|A=ABS_NET",
+        "verifierRepresentative": "C=TOTAL|D=SEPARATED|A=ABS_NET",
+        "labelMembers": 3,
+        "ranks": {
+          "6x3-k3": 72,
+          "4x5-k4": 252,
+          "6x3-k4": 13
+        }
+      }
+    ]
   },
   "findings": [
     {
       "id": "RS-F261",
       "status": "CAPACITY_SIGN_DIRECTION_REDUNDANT",
-      "statement": "Within the frozen RS-077 grid, every common-exact D/A pairing is exact under all five C coupling modes. C plus/minus direction is therefore not load-bearing for the bounded common scalar carrier."
+      "statement": "C direction is not load-bearing in the bounded common scalar carrier. The coarsest realized C partition is the three-class active-sign-support cardinality {0,1,2}, represented equivalently by TOTAL, ABS_NET, or UNORDERED_PAIR."
     },
     {
       "id": "RS-F262",
       "status": "D_A_DIRECTION_RELOCATABLE",
-      "statement": "No single one of D or A must always retain directional sign information. Common-exact candidates exist with D direction discarded and A direction retained, and with A direction discarded and D direction retained."
+      "statement": "Directional information is not anchored to D or A individually. Exact Pareto classes exist with D direction discarded and A directional, and with A direction discarded and D directional."
     },
     {
       "id": "RS-F263",
       "status": "D_A_DIRECTION_JOINTLY_NECESSARY",
-      "statement": "Every common-exact RS-077 candidate retains an orientation-sensitive coupling, SIGNED_NET or SEPARATED, in at least one of D or A. No common-exact candidate discards sign direction in both families simultaneously."
+      "statement": "Every common-exact RS-077 candidate retains an orientation-sensitive coupling, SIGNED_NET or SEPARATED, in at least one of D or A. No common-exact candidate discards direction in both families."
     },
     {
       "id": "RS-F264",
-      "status": "FOUR_D_A_PARETO_FRONTIERS",
-      "statement": "After the frozen partial order, the D/A Pareto frontier has four incomparable minima: TOTAL+SIGNED_NET, SIGNED_NET+TOTAL, ABS_NET+SEPARATED, and SEPARATED+ABS_NET."
+      "status": "FOUR_PARTITION_LEVEL_PARETO_CLASSES",
+      "statement": "After mechanically quotienting mode aliases by their realized family partitions, the common Pareto frontier has four classes: D TOTAL/A SIGNED_NET; D SIGNED_NET/A TOTAL-or-UNORDERED; D ABS_NET/A SEPARATED; D SEPARATED/A ABS_NET."
     },
     {
       "id": "RS-F265",
-      "status": "C_MODE_FACTORS_FROM_D_A_FRONTIER",
-      "statement": "The twelve full Pareto minima factor as three incomparable minimal C modes {TOTAL,SIGNED_NET,ABS_NET} times the four D/A Pareto minima; no unique common winner is selected."
+      "status": "MODE_LABEL_PARETO_COUNT_FIFTEEN",
+      "statement": "The verifier reports fifteen Pareto-minimal mode-label points, but they collapse outcome-independently to four partition-equivalence classes because C has a three-way mode alias and A has TOTAL=UNORDERED_PAIR."
     },
     {
       "id": "RS-F266",
       "status": "HORIZONTAL_ONLY_CARRIER_SELECTS_COMMON_SIGN_QUOTIENT",
-      "statement": "6x3-k3 accepts all 125 coupling candidates and 4x5-k4 accepts 80, while horizontal-only 6x3-k4 accepts exactly the 65 common-exact candidates. Thus 6x3-k4 determines the present cross-carrier sign-coupling set."
+      "statement": "6x3-k3 accepts all 125 coupling candidates, 4x5-k4 accepts 80, and horizontal-only 6x3-k4 accepts exactly the 65 common-exact candidates; 6x3-k4 therefore determines the present transfer set."
     },
     {
       "id": "RS-F267",
       "status": "SIGN_COUPLING_REMOVES_VALUE_NULL_DIRECTIONS",
-      "statement": "Pareto-minimal sign coupling can reduce the 4x5-k4 structural image from rank 252 to 250 and the 6x3-k4 image from 14 to 13 while preserving scalar image dimensions 2 and 2."
+      "statement": "All four Pareto equivalence classes preserve scalar image dimensions 1,2,2. Their representatives reduce 6x3-k4 structural rank from 14 to 13 and can reduce 4x5-k4 rank from 252 to 250."
     },
     {
       "id": "RS-F268",
       "status": "SATURATION_AWARE_ARITHMETIC_REQUIRED",
-      "statement": "TOTAL, SIGNED_NET, and ABS_NET must operate on the intervals represented by saturated symbols. Treating 1+, 2+, or 3+ as exact integers is not a valid quotient of the frozen RS-076 carrier."
+      "statement": "TOTAL, SIGNED_NET, and ABS_NET act on the exact sets represented by saturated source categories. Replacing 1+,2+,3+ by their lower-bound numerals is not a valid quotient of EW-RS-076."
+    },
+    {
+      "id": "RS-F269",
+      "status": "PARETO_ORDER_MECHANICALLY_DERIVED",
+      "statement": "RS-077 information containment is now derived exhaustively from the frozen finite source alphabets and coupling maps; no scalar outcome is used to define or repair the Pareto order."
     }
   ],
   "dpMss": {
-    "capacityFamilyC": "SIGN_DIRECTION_NOT_REQUIRED__NO_SINGLE_INCOMPARABLE_MODE_SELECTED",
-    "depthOwnerJointFrontier": [
+    "capacityFamilyC": "ACTIVE_SIGN_SUPPORT_CARDINALITY_0_1_2",
+    "jointDAFrontier": [
       "D=TOTAL|A=SIGNED_NET",
-      "D=SIGNED_NET|A=TOTAL",
+      "D=SIGNED_NET|A=TOTAL_OR_UNORDERED",
       "D=ABS_NET|A=SEPARATED",
       "D=SEPARATED|A=ABS_NET"
     ],
     "jointDirectionRequirement": "AT_LEAST_ONE_OF_D_OR_A_RETAINS_DIRECTION",
-    "selectedPairState": "NO_SINGLE_SELECTED_REALIZATION__FREEZE_ALL_TWELVE_PARETO_MINIMA"
+    "selectedPairState": "NO_SINGLE_WINNER__FREEZE_ALL_FOUR_PARTITION_EQUIVALENCE_CLASSES"
   },
-  "nextQuestion": "Can a small outcome-independent joint D/A circuit or canonical finite-pair relation factor all four D/A Pareto minima while preserving the scalar image, with C treated only through a structurally frozen member of its Pareto class?",
+  "nextQuestion": "Can an outcome-independent joint D/A circuit or finite relation factor all four frozen Pareto equivalence classes to a common native carrier while preserving the scalar image?",
   "nonclaims": [
-    "The twelve Pareto minima are minimal only under the frozen RS-077 coupling grid and information partial order.",
-    "No unique winner is selected among incomparable coupling modes.",
+    "The four Pareto equivalence classes are minimal only under the frozen EW-RS-077 coupling maps and mechanically derived information order.",
+    "No unique realization is selected among the four incomparable D/A classes.",
     "Joint D/A directional necessity does not imply either D or A direction is individually necessary.",
     "No scalar coefficient or closed syndrome is frozen.",
     "EW-RS-059 PRIMARY 3x6-k4 and BACKUP 5x3-k4 remain sealed.",
