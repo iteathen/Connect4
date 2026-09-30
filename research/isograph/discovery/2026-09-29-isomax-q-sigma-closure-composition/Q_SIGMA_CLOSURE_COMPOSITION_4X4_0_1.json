@@ -1,0 +1,894 @@
+{
+  "schema": "connect4.isomax.q_sigma_closure_composition_4x4.v1",
+  "date_author_local": "2026-09-29",
+  "scope": "complete 4x4 first-win physical carrier",
+  "method": {
+    "candidates": "all 16 distinct-order sequences over R=remaining-capacity, S=support-release/turn-capacity, F=frontier, each with and without full S4 orbit canonicalization",
+    "candidateDefinitionsUseValues": false,
+    "valuesDerivedOnlyAfterCandidateDefinition": true,
+    "orbitSemantics": "canonical action slots use current-to-orbit transporter"
+  },
+  "primitiveCovariance": [
+    {
+      "op": "R",
+      "checks": 818256,
+      "mismatch": null,
+      "covariant": true
+    },
+    {
+      "op": "S",
+      "checks": 818256,
+      "mismatch": null,
+      "covariant": true
+    },
+    {
+      "op": "F",
+      "checks": 818256,
+      "mismatch": null,
+      "covariant": true
+    }
+  ],
+  "rows": [
+    {
+      "id": "DIRECT_ID",
+      "sequence": [],
+      "orbit": false,
+      "classes": 34094,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "id": "SIGMA_ID",
+      "sequence": [],
+      "orbit": true,
+      "classes": 10496,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "id": "DIRECT_R",
+      "sequence": [
+        "R"
+      ],
+      "orbit": false,
+      "classes": 32520,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "id": "SIGMA_R",
+      "sequence": [
+        "R"
+      ],
+      "orbit": true,
+      "classes": 10198,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "id": "DIRECT_S",
+      "sequence": [
+        "S"
+      ],
+      "orbit": false,
+      "classes": 32214,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "id": "SIGMA_S",
+      "sequence": [
+        "S"
+      ],
+      "orbit": true,
+      "classes": 10106,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "id": "DIRECT_F",
+      "sequence": [
+        "F"
+      ],
+      "orbit": false,
+      "classes": 32788,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "id": "SIGMA_F",
+      "sequence": [
+        "F"
+      ],
+      "orbit": true,
+      "classes": 9940,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "id": "DIRECT_RS",
+      "sequence": [
+        "R",
+        "S"
+      ],
+      "orbit": false,
+      "classes": 32214,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "id": "SIGMA_RS",
+      "sequence": [
+        "R",
+        "S"
+      ],
+      "orbit": true,
+      "classes": 10106,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "id": "DIRECT_RF",
+      "sequence": [
+        "R",
+        "F"
+      ],
+      "orbit": false,
+      "classes": 31581,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "id": "SIGMA_RF",
+      "sequence": [
+        "R",
+        "F"
+      ],
+      "orbit": true,
+      "classes": 9734,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "id": "DIRECT_SR",
+      "sequence": [
+        "S",
+        "R"
+      ],
+      "orbit": false,
+      "classes": 32214,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "id": "SIGMA_SR",
+      "sequence": [
+        "S",
+        "R"
+      ],
+      "orbit": true,
+      "classes": 10106,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "id": "DIRECT_SF",
+      "sequence": [
+        "S",
+        "F"
+      ],
+      "orbit": false,
+      "classes": 31389,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "id": "SIGMA_SF",
+      "sequence": [
+        "S",
+        "F"
+      ],
+      "orbit": true,
+      "classes": 9676,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "id": "DIRECT_FR",
+      "sequence": [
+        "F",
+        "R"
+      ],
+      "orbit": false,
+      "classes": 31581,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "id": "SIGMA_FR",
+      "sequence": [
+        "F",
+        "R"
+      ],
+      "orbit": true,
+      "classes": 9734,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "id": "DIRECT_FS",
+      "sequence": [
+        "F",
+        "S"
+      ],
+      "orbit": false,
+      "classes": 31389,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "id": "SIGMA_FS",
+      "sequence": [
+        "F",
+        "S"
+      ],
+      "orbit": true,
+      "classes": 9676,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "id": "DIRECT_RSF",
+      "sequence": [
+        "R",
+        "S",
+        "F"
+      ],
+      "orbit": false,
+      "classes": 31389,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "id": "SIGMA_RSF",
+      "sequence": [
+        "R",
+        "S",
+        "F"
+      ],
+      "orbit": true,
+      "classes": 9676,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "id": "DIRECT_RFS",
+      "sequence": [
+        "R",
+        "F",
+        "S"
+      ],
+      "orbit": false,
+      "classes": 31389,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "id": "SIGMA_RFS",
+      "sequence": [
+        "R",
+        "F",
+        "S"
+      ],
+      "orbit": true,
+      "classes": 9676,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "id": "DIRECT_SRF",
+      "sequence": [
+        "S",
+        "R",
+        "F"
+      ],
+      "orbit": false,
+      "classes": 31389,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "id": "SIGMA_SRF",
+      "sequence": [
+        "S",
+        "R",
+        "F"
+      ],
+      "orbit": true,
+      "classes": 9676,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "id": "DIRECT_SFR",
+      "sequence": [
+        "S",
+        "F",
+        "R"
+      ],
+      "orbit": false,
+      "classes": 31389,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "id": "SIGMA_SFR",
+      "sequence": [
+        "S",
+        "F",
+        "R"
+      ],
+      "orbit": true,
+      "classes": 9676,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "id": "DIRECT_FRS",
+      "sequence": [
+        "F",
+        "R",
+        "S"
+      ],
+      "orbit": false,
+      "classes": 31389,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "id": "SIGMA_FRS",
+      "sequence": [
+        "F",
+        "R",
+        "S"
+      ],
+      "orbit": true,
+      "classes": 9676,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "id": "DIRECT_FSR",
+      "sequence": [
+        "F",
+        "S",
+        "R"
+      ],
+      "orbit": false,
+      "classes": 31389,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "id": "SIGMA_FSR",
+      "sequence": [
+        "F",
+        "S",
+        "R"
+      ],
+      "orbit": true,
+      "classes": 9676,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    }
+  ],
+  "minima": {
+    "QF": [
+      {
+        "id": "SIGMA_FRS",
+        "sequence": [
+          "F",
+          "R",
+          "S"
+        ],
+        "orbit": true,
+        "classes": 9676
+      },
+      {
+        "id": "SIGMA_FS",
+        "sequence": [
+          "F",
+          "S"
+        ],
+        "orbit": true,
+        "classes": 9676
+      },
+      {
+        "id": "SIGMA_FSR",
+        "sequence": [
+          "F",
+          "S",
+          "R"
+        ],
+        "orbit": true,
+        "classes": 9676
+      },
+      {
+        "id": "SIGMA_RFS",
+        "sequence": [
+          "R",
+          "F",
+          "S"
+        ],
+        "orbit": true,
+        "classes": 9676
+      },
+      {
+        "id": "SIGMA_RSF",
+        "sequence": [
+          "R",
+          "S",
+          "F"
+        ],
+        "orbit": true,
+        "classes": 9676
+      },
+      {
+        "id": "SIGMA_SF",
+        "sequence": [
+          "S",
+          "F"
+        ],
+        "orbit": true,
+        "classes": 9676
+      },
+      {
+        "id": "SIGMA_SFR",
+        "sequence": [
+          "S",
+          "F",
+          "R"
+        ],
+        "orbit": true,
+        "classes": 9676
+      },
+      {
+        "id": "SIGMA_SRF",
+        "sequence": [
+          "S",
+          "R",
+          "F"
+        ],
+        "orbit": true,
+        "classes": 9676
+      }
+    ],
+    "QA": [
+      {
+        "id": "SIGMA_FRS",
+        "sequence": [
+          "F",
+          "R",
+          "S"
+        ],
+        "orbit": true,
+        "classes": 9676
+      },
+      {
+        "id": "SIGMA_FS",
+        "sequence": [
+          "F",
+          "S"
+        ],
+        "orbit": true,
+        "classes": 9676
+      },
+      {
+        "id": "SIGMA_FSR",
+        "sequence": [
+          "F",
+          "S",
+          "R"
+        ],
+        "orbit": true,
+        "classes": 9676
+      },
+      {
+        "id": "SIGMA_RFS",
+        "sequence": [
+          "R",
+          "F",
+          "S"
+        ],
+        "orbit": true,
+        "classes": 9676
+      },
+      {
+        "id": "SIGMA_RSF",
+        "sequence": [
+          "R",
+          "S",
+          "F"
+        ],
+        "orbit": true,
+        "classes": 9676
+      },
+      {
+        "id": "SIGMA_SF",
+        "sequence": [
+          "S",
+          "F"
+        ],
+        "orbit": true,
+        "classes": 9676
+      },
+      {
+        "id": "SIGMA_SFR",
+        "sequence": [
+          "S",
+          "F",
+          "R"
+        ],
+        "orbit": true,
+        "classes": 9676
+      },
+      {
+        "id": "SIGMA_SRF",
+        "sequence": [
+          "S",
+          "R",
+          "F"
+        ],
+        "orbit": true,
+        "classes": 9676
+      }
+    ],
+    "QV": [
+      {
+        "id": "SIGMA_FRS",
+        "sequence": [
+          "F",
+          "R",
+          "S"
+        ],
+        "orbit": true,
+        "classes": 9676
+      },
+      {
+        "id": "SIGMA_FS",
+        "sequence": [
+          "F",
+          "S"
+        ],
+        "orbit": true,
+        "classes": 9676
+      },
+      {
+        "id": "SIGMA_FSR",
+        "sequence": [
+          "F",
+          "S",
+          "R"
+        ],
+        "orbit": true,
+        "classes": 9676
+      },
+      {
+        "id": "SIGMA_RFS",
+        "sequence": [
+          "R",
+          "F",
+          "S"
+        ],
+        "orbit": true,
+        "classes": 9676
+      },
+      {
+        "id": "SIGMA_RSF",
+        "sequence": [
+          "R",
+          "S",
+          "F"
+        ],
+        "orbit": true,
+        "classes": 9676
+      },
+      {
+        "id": "SIGMA_SF",
+        "sequence": [
+          "S",
+          "F"
+        ],
+        "orbit": true,
+        "classes": 9676
+      },
+      {
+        "id": "SIGMA_SFR",
+        "sequence": [
+          "S",
+          "F",
+          "R"
+        ],
+        "orbit": true,
+        "classes": 9676
+      },
+      {
+        "id": "SIGMA_SRF",
+        "sequence": [
+          "S",
+          "R",
+          "F"
+        ],
+        "orbit": true,
+        "classes": 9676
+      }
+    ]
+  },
+  "best": {
+    "QF": {
+      "id": "SIGMA_FRS",
+      "sequence": [
+        "F",
+        "R",
+        "S"
+      ],
+      "orbit": true,
+      "classes": 9676,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    "QA": {
+      "id": "SIGMA_FRS",
+      "sequence": [
+        "F",
+        "R",
+        "S"
+      ],
+      "orbit": true,
+      "classes": 9676,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    "QV": {
+      "id": "SIGMA_FRS",
+      "sequence": [
+        "F",
+        "R",
+        "S"
+      ],
+      "orbit": true,
+      "classes": 9676,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    }
+  },
+  "orderSensitivity": {
+    "threeOpRows": [
+      {
+        "id": "DIRECT_RSF",
+        "classes": 31389,
+        "QF": true,
+        "QA": true,
+        "QV": true
+      },
+      {
+        "id": "SIGMA_RSF",
+        "classes": 9676,
+        "QF": true,
+        "QA": true,
+        "QV": true
+      },
+      {
+        "id": "DIRECT_RFS",
+        "classes": 31389,
+        "QF": true,
+        "QA": true,
+        "QV": true
+      },
+      {
+        "id": "SIGMA_RFS",
+        "classes": 9676,
+        "QF": true,
+        "QA": true,
+        "QV": true
+      },
+      {
+        "id": "DIRECT_SRF",
+        "classes": 31389,
+        "QF": true,
+        "QA": true,
+        "QV": true
+      },
+      {
+        "id": "SIGMA_SRF",
+        "classes": 9676,
+        "QF": true,
+        "QA": true,
+        "QV": true
+      },
+      {
+        "id": "DIRECT_SFR",
+        "classes": 31389,
+        "QF": true,
+        "QA": true,
+        "QV": true
+      },
+      {
+        "id": "SIGMA_SFR",
+        "classes": 9676,
+        "QF": true,
+        "QA": true,
+        "QV": true
+      },
+      {
+        "id": "DIRECT_FRS",
+        "classes": 31389,
+        "QF": true,
+        "QA": true,
+        "QV": true
+      },
+      {
+        "id": "SIGMA_FRS",
+        "classes": 9676,
+        "QF": true,
+        "QA": true,
+        "QV": true
+      },
+      {
+        "id": "DIRECT_FSR",
+        "classes": 31389,
+        "QF": true,
+        "QA": true,
+        "QV": true
+      },
+      {
+        "id": "SIGMA_FSR",
+        "classes": 9676,
+        "QF": true,
+        "QA": true,
+        "QV": true
+      }
+    ]
+  },
+  "interpretationGuard": "Finite exact 4x4 evidence only. Closure covariance under S4 and bounded congruence do not by themselves prove standard-7x6 closure sufficiency."
+}
