@@ -1,0 +1,162 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency_vs_recursive_closure_4x4.v1",
+  "date_author_local": "2026-09-29",
+  "scope": "complete physical 4x4 connect-4 first-win carrier",
+  "counts": {
+    "physical": 161029,
+    "nonterminal": 134289,
+    "futureBehaviorClasses": 27452
+  },
+  "definitions": {
+    "futureBehaviorSufficient": "same direct candidate key implies same complete literal-action-labelled physical future-game class",
+    "recursivelyClosedUnderDirectRecomputation": "same direct candidate key implies identical per-literal-action terminal/candidate-successor interface when the candidate is recomputed from each physical child",
+    "note": "recursive closure is sufficient for a state update F(Q,a), but is strictly stronger than rank sufficiency itself"
+  },
+  "rows": [
+    {
+      "id": "QO",
+      "seq": "",
+      "classes": 34094,
+      "futureBehaviorSufficient": true,
+      "recursivelyClosedUnderDirectRecomputation": true,
+      "literalActionValueSufficient": true,
+      "scalarValueSufficient": true,
+      "firstFutureFailure": null,
+      "firstClosureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "id": "R",
+      "seq": "R",
+      "classes": 32214,
+      "futureBehaviorSufficient": true,
+      "recursivelyClosedUnderDirectRecomputation": true,
+      "literalActionValueSufficient": true,
+      "scalarValueSufficient": true,
+      "firstFutureFailure": null,
+      "firstClosureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "id": "F",
+      "seq": "F",
+      "classes": 32788,
+      "futureBehaviorSufficient": true,
+      "recursivelyClosedUnderDirectRecomputation": true,
+      "literalActionValueSufficient": true,
+      "scalarValueSufficient": true,
+      "firstFutureFailure": null,
+      "firstClosureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "id": "RF",
+      "seq": "RF",
+      "classes": 31389,
+      "futureBehaviorSufficient": true,
+      "recursivelyClosedUnderDirectRecomputation": true,
+      "literalActionValueSufficient": true,
+      "scalarValueSufficient": true,
+      "firstFutureFailure": null,
+      "firstClosureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "id": "C",
+      "seq": "C",
+      "classes": 32958,
+      "futureBehaviorSufficient": true,
+      "recursivelyClosedUnderDirectRecomputation": false,
+      "literalActionValueSufficient": true,
+      "scalarValueSufficient": true,
+      "firstFutureFailure": null,
+      "firstClosureFailure": {
+        "candidateKey": "4,4,4,2||34816",
+        "aState": "17223:13496",
+        "bState": "9571:21148",
+        "aInterface": "I|I|I|N:4,4,4,3||",
+        "bInterface": "I|I|I|N:4,4,4,3|32768|"
+      },
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "id": "RC",
+      "seq": "RC",
+      "classes": 31605,
+      "futureBehaviorSufficient": true,
+      "recursivelyClosedUnderDirectRecomputation": false,
+      "literalActionValueSufficient": true,
+      "scalarValueSufficient": true,
+      "firstFutureFailure": null,
+      "firstClosureFailure": {
+        "candidateKey": "4,4,2,0|3072|128.17408",
+        "aState": "8963:4212",
+        "bState": "13057:118",
+        "aInterface": "I|I|N:4,4,3,0|2048|128|N:4,4,2,1|3072|128.17408",
+        "bInterface": "I|I|N:4,4,3,0|2048.49152|128|N:4,4,2,1|3072.49152|128.17408"
+      },
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "id": "FC",
+      "seq": "FC",
+      "classes": 31690,
+      "futureBehaviorSufficient": true,
+      "recursivelyClosedUnderDirectRecomputation": false,
+      "literalActionValueSufficient": true,
+      "scalarValueSufficient": true,
+      "firstFutureFailure": null,
+      "firstClosureFailure": {
+        "candidateKey": "4,4,2,0|3072.34952|128.17408",
+        "aState": "8963:4212",
+        "bState": "13057:118",
+        "aInterface": "I|I|N:4,4,3,0|2048|128|N:4,4,2,1|34944|128.17408",
+        "bInterface": "I|I|N:4,4,3,0|2048.49152|128|N:4,4,2,1|34944.49152|128.17408"
+      },
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "id": "RFC",
+      "seq": "RFC",
+      "classes": 30742,
+      "futureBehaviorSufficient": true,
+      "recursivelyClosedUnderDirectRecomputation": false,
+      "literalActionValueSufficient": true,
+      "scalarValueSufficient": true,
+      "firstFutureFailure": null,
+      "firstClosureFailure": {
+        "candidateKey": "4,4,2,0|3072|128.17408",
+        "aState": "8963:4212",
+        "bState": "13057:118",
+        "aInterface": "I|I|N:4,4,3,0|2048|128|N:4,4,2,1||128.17408",
+        "bInterface": "I|I|N:4,4,3,0|2048.49152|128|N:4,4,2,1|49152|128.17408"
+      },
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    }
+  ],
+  "result": {
+    "futureSufficientButNotClosed": [
+      "C",
+      "RC",
+      "FC",
+      "RFC"
+    ],
+    "futureAndClosed": [
+      "QO",
+      "R",
+      "F",
+      "RF"
+    ],
+    "actionValueButNotFuture": [],
+    "valueButNotFuture": []
+  },
+  "interpretationGuard": "Finite exact 4x4 result. This audit corrects terminology if direct semantic sufficiency and recursive representational closure diverge; no standard-7x6 theorem follows automatically."
+}
