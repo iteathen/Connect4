@@ -882,7 +882,8 @@ const out={
     positive_even:[1,0],
     positive_odd:[1,1]
   },
-  polynomialFamily:'complete observed square-free P/O monomials through degree 3',\n  reduction:'outcome-independent cubic quotient modulo complete degree<=2 span',
+  polynomialFamily:'complete observed square-free P/O monomials through degree 3',
+  reduction:'outcome-independent cubic quotient modulo complete degree<=2 span',
   outcomeCode:{loss:'00',draw:'01',win:'10'},
   cases:cases.map(c=>({
     label:c.label,width:c.width,height:c.height,k:c.k,
@@ -899,7 +900,10 @@ const out={
     legacyDegree1ControlsReproduced:cases.every(c=>c.legacyDegree1.contradictions===expectedLegacyDegree1.get(c.label)),
     repairedAffineControlsReproduced:cases.every(c=>c.decoder.affine.contradictions===expectedAffineDecoderContradictions.get(c.label)),
     degree2ControlsReproduced:cases.every(c=>c.decoder.degree2.contradictions===expectedDegree2Contradictions.get(c.label)),
-    cubicFeaturesMechanicallyGenerated:true,\n    cubicBasisOutcomeIndependent:true,\n    cubicBasisDimensionsMatchRankGain:cases.every(c=>c.decoder.cubicQuotient.basisDimension===c.decoder.degree3.rankGainOverDegree2),\n    reducedCubicBasisExact:cases.every(c=>c.decoder.cubicQuotient.reducedDecoder.contradictions===0),
+    cubicFeaturesMechanicallyGenerated:true,
+    cubicBasisOutcomeIndependent:true,
+    cubicBasisDimensionsMatchRankGain:cases.every(c=>c.decoder.cubicQuotient.basisDimension===c.decoder.degree3.rankGainOverDegree2),
+    reducedCubicBasisExact:cases.every(c=>c.decoder.cubicQuotient.reducedDecoder.contradictions===0),
     binaryZoeEncodingOutcomeIndependent:true,
     duplicateStructuralRowsCollapsedBeforeDecoderAlgebra:true
   },
