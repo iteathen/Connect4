@@ -692,3 +692,91 @@ Disposition:
 The mover-relative vocabulary remains an exact optional gauge, but it is not preferred as a decoder simplification under the current evidence.
 
 This narrows QU-OOO-04 away from an explanation based solely on absolute-owner coordinate choice.
+
+
+---
+
+# 17. Why the direct 3-cube must fail on the current carriers
+
+The zero complete-cube result of EW-RS-063 is not merely an empirical sparsity observation.
+
+For the current carriers \(W\in\{4,6\}\), a complete axis-aligned cube varying three descriptor E/O states independently is structurally impossible.
+
+For any varied descriptor d:
+
+- if \(w_d\) is odd, toggling \(O_d\) alone violates
+  \[
+  \bigoplus_{w_i\text{ odd}}O_i=W\bmod2
+  \]
+  on one of the two corners;
+- therefore every independently toggled descriptor in a valid full coordinate cube would have to have even width.
+
+But every positive even width is at least 2.
+
+At the all-E corner, each of three present even-width descriptors has multiplicity at least 2, requiring at least
+
+\[
+2(2+2+2)=12
+\]
+
+physical columns.
+
+Since the current discovery carriers have width at most 6, this is impossible.
+
+Therefore:
+
+\[
+\boxed{
+\text{complete axis-aligned OOO cubes cannot exist on the current discovery carriers.}
+}
+\]
+
+EW-RS-063 correctly returned zero complete cubes on all three cases, but the deeper explanation is the exact width-budget law.
+
+The direct coordinate-cube method is therefore closed as non-discriminating for this scope.
+
+## 17.1 Correct replacement: constrained/tangent derivatives
+
+The oddness state space lies on the affine parity fiber
+
+\[
+\langle w\bmod2,O\rangle=W\bmod2.
+\]
+
+The admissible mod-2 tangent directions v satisfy
+
+\[
+\langle w\bmod2,v\rangle=0.
+\]
+
+Primitive parity-preserving directions include:
+
+- toggling two odd-width descriptor oddness bits together;
+- toggling one even-width descriptor oddness bit;
+- combinations of these.
+
+The correct analogue of a third derivative is therefore not
+
+\[
+\Delta_a\Delta_b\Delta_c,
+\]
+
+but a derivative along three **constraint-preserving directions**
+
+\[
+\Delta_{v_1}\Delta_{v_2}\Delta_{v_3}
+\]
+
+for which all eight translated structural states actually exist in the same fixed-presence fiber.
+
+Such a constrained parallelepiped can measure high-order structure intrinsic to the reachable manifold rather than to the ambient Boolean cube.
+
+This motivates the next DTS/DP object:
+
+\[
+\boxed{
+\text{OOO interaction on the tangent/circuit space of the weighted ZOE manifold.}
+}
+\]
+
+The currently running EW-RS-064 affine-fiber audit is intended to identify that tangent space and any additional parity constraints beyond board width.
