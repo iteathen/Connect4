@@ -1,0 +1,73 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_round.v1",
+  "round": 36,
+  "date_author_local": "2026-09-29",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_35_FIXED_POINT_0_1.json",
+    "RANK_SUFFICIENCY_SCALAR_INTERACTION_SYNDROME_INTEGRATION_0_1.json"
+  ],
+  "reopened_reason": "EW-RS-038 collapses the scalar value-relevant interaction target to two GF(2) dimensions on every demanding carrier.",
+  "new_assertions": [
+    {
+      "id": "RS-IA121",
+      "family": "M",
+      "body": "The full quadratic feature space is not the scalar evaluator state. The scalar correction quotient has dimension two on each demanding carrier despite structural interaction dimensions ranging from 37 to 472."
+    },
+    {
+      "id": "RS-IA122",
+      "family": "Q",
+      "body": "The natural next D_G factorization is affine component contribution plus a two-bit interaction syndrome, not affine contribution plus the entire pair-feature basis."
+    },
+    {
+      "id": "RS-IA123",
+      "family": "R",
+      "body": "Both outcome-code bits are separately non-affine on every demanding carrier, so a one-bit correction cannot represent the frozen two-bit outcome gauge without additional nonlinear decoding."
+    },
+    {
+      "id": "RS-IA124",
+      "family": "C",
+      "body": "REL_INC contains enough structural information to realize the complete two-bit scalar correction target across all current demanding carriers."
+    },
+    {
+      "id": "RS-IA125",
+      "family": "F",
+      "body": "Fresh 3x7 demonstrates that structural quadratic directions may be completely scalar-redundant; structural rank gain must not be conflated with value complexity."
+    },
+    {
+      "id": "RS-IA126",
+      "family": "S",
+      "body": "The next discovery pressure is to identify two frozen outcome-independent syndrome formulas and then qualify them on a fresh carrier where affine decoding fails."
+    }
+  ],
+  "qu_refinements": [
+    {
+      "id": "RS-QR040",
+      "target": "QU-RS-004",
+      "add_fixed": [
+        "the scalar interaction target has GF(2) dimension two on 5x3-k3, 4x4-k4, and 6x3-k3",
+        "frozen REL_INC spans both scalar correction bits on all three demanding carriers",
+        "fresh 3x7-k3 has scalar interaction target dimension zero despite six structural quadratic dimensions"
+      ],
+      "retain_open": [
+        "two explicit structural interaction syndrome formulas",
+        "phase grading of the syndrome formulas",
+        "fresh non-affine holdout qualification",
+        "standard-7x6 qualification"
+      ]
+    },
+    {
+      "id": "RS-QR041",
+      "target": "QU-RS-010",
+      "add_fixed": [
+        "both low and high outcome-code bits are non-affine and each contributes one scalar interaction dimension on all demanding carriers",
+        "the joint scalar correction quotient is exactly two-dimensional on those carriers"
+      ],
+      "retain_open": [
+        "canonical syndrome realization",
+        "rank-mod-3 / mod-6 phase compression",
+        "closed-form scalar decoder"
+      ]
+    }
+  ],
+  "stop_status": "REOPENED__TWO_SYNDROME_FORMULAS_NEXT"
+}
