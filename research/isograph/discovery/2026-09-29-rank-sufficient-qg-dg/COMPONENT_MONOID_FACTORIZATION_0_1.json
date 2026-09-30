@@ -1,0 +1,39 @@
+{
+  "schema": "connect4.rank_sufficient_qg_dg.component_monoid_factorization.v1",
+  "date_author_local": "2026-09-29",
+  "research_direction": "Joshua Oshiro",
+  "status": "EXACT_REPRESENTATION_THEOREM_CANDIDATE__SEMANTIC_SCOPE_INHERITED",
+  "representation": {
+    "state": "support-height-labelled, owner-labelled residual hypergraph on columns",
+    "quotient": "full S_W column-relabel orbit",
+    "theorem": "orbit class is equivalent to multiset of connected-component isomorphism classes",
+    "inverse": "disjoint union reconstructs the orbit class"
+  },
+  "algebra": {
+    "carrier": "finite component multisets",
+    "operation": "multiset union",
+    "associative": true,
+    "commutative": true,
+    "identity": true,
+    "self_cancelling": false
+  },
+  "bounded_4x4": {
+    "direct_RFG_classes": 30046,
+    "q_SigmaRFG_classes": 9308,
+    "component_multiset_classes": 9308,
+    "QF": true,
+    "QA": true,
+    "QV": true,
+    "evidence_branch": "experiment/isomax-late-xor-components-20260929",
+    "evidence_commit": "99d070d21dfc02ade33f32849a920a94bd853b7a",
+    "evidence_file": "LATE_XOR_COMPONENTS_4X4_0_1.json"
+  },
+  "xor": {
+    "interpretation": "further quotient of component multiset monoid",
+    "exponent2_test": "component-type multiplicity parity",
+    "bounded_4x4_QV": false,
+    "disposition": "reject 2C=0 as a universal law for the frozen post-RFG component types; later/different component valuations remain open"
+  },
+  "caveat": "Residual-incidence disconnectedness does not imply independent subgames because components share global turn/resource/first-win semantics.",
+  "next_question": "Which exact semantic congruence of the component multiset monoid yields the smallest Q-F/Q-A/Q-V representation, and what algebra does that quotient carry?"
+}
