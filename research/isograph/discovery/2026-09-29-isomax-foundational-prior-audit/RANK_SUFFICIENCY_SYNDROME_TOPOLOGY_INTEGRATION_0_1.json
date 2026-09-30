@@ -1,0 +1,78 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.syndrome_topology_integration.v1",
+  "date_author_local": "2026-09-29",
+  "research_direction": "Joshua Oshiro",
+  "status": "SPARSE_SYNDROME_FIT__SIMPLE_BANK_REJECTED__EXACT_RELEASE_DELAY_LOAD_BEARING",
+  "evidence": [
+    {
+      "id": "FIT",
+      "branch": "experiment/isomax-late-xor-components-20260929",
+      "commit": "2012dbb4c9667f3812484f0daa89f583f88bb2d1",
+      "file": "CANONICAL_SCALAR_SYNDROME_EXTRACTION_0_1.json",
+      "warrant": "EW-RS-039"
+    },
+    {
+      "id": "BANK",
+      "branch": "experiment/isomax-late-xor-components-20260929",
+      "commit": "8c35d7a8cc444a8c4a8d4b85603c77aabe4db48c",
+      "file": "SIMPLE_BILINEAR_SYNDROME_BANK_0_1.json",
+      "warrant": "EW-RS-040"
+    },
+    {
+      "id": "TOPO",
+      "branch": "experiment/isomax-late-xor-components-20260929",
+      "commit": "a986fa91424a89ee6547b8e1c084ef39efea747e",
+      "file": "QUADRATIC_TOPOLOGY_DELAY_LADDER_0_1.json",
+      "warrant": "EW-RS-041"
+    }
+  ],
+  "findings": [
+    {
+      "id": "RS-F152",
+      "status": "SPARSE_CANONICAL_FITTED_SUPPORT",
+      "statement": "In a deterministic affine-priority REL_INC gauge, the two scalar target bits require only 7/7 pair coefficients on 5x3-k3, 30/6 on 4x4-k4, and 71/127 on 6x3-k3; affine-control 3x7-k3 requires zero pair coefficients. These supports are fitted coordinate representatives, not structural laws."
+    },
+    {
+      "id": "RS-F153",
+      "status": "SIMPLE_BILINEAR_BANK_PARTIAL",
+      "statement": "A frozen 28-bit component-summary bilinear bank is globally exact on 5x3-k3 but remains inexact on 4x4-k4 and 6x3-k3 even with exact-rank coefficient grading."
+    },
+    {
+      "id": "RS-F154",
+      "status": "R3_PHASE_LOAD_BEARING_BUT_NOT_SUFFICIENT",
+      "statement": "On 6x3-k3, grading the simple bilinear bank by rank mod 3 reduces scalar contradictions from 368 to 4; rank mod 6 and exact rank leave the same four contradictions. Thus the three-phase coordinate is load-bearing there, while finer rank phase is not the missing information."
+    },
+    {
+      "id": "RS-F155",
+      "status": "PHASE_NOT_PRIMARY_4X4_OBSTRUCTION",
+      "statement": "On 4x4-k4, the simple bilinear bank retains 96 contradictions under rank-mod-3, rank-mod-6, and exact-rank grading. Missing internal topology, not finer phase, is the dominant obstruction."
+    },
+    {
+      "id": "RS-F156",
+      "status": "TOPOLOGY_DELAY_LADDER",
+      "statement": "Residual/column topology alone is scalar-exact on 5x3-k3 but not 4x4-k4 or 6x3-k3; progressively restoring frontier-relative delay information monotonically reduces the remaining scalar contradictions."
+    },
+    {
+      "id": "RS-F157",
+      "status": "DELAY_PARITY_SUFFICIENT_6X3",
+      "statement": "On 6x3-k3, topology plus residual-cell delay parity is scalar-exact with zero contradictions, although it omits two structural interaction dimensions relative to the full degree-2 span."
+    },
+    {
+      "id": "RS-F158",
+      "status": "EXACT_RELATIVE_DELAY_LOAD_BEARING_4X4",
+      "statement": "On 4x4-k4, topology plus frontier/not-frontier leaves 38 contradictions, topology plus delay parity leaves 16, and topology plus 0/1/2+ delay buckets leaves 12. Exact frontier-relative delay is the first tested topology-delay coordinate with zero contradictions."
+    },
+    {
+      "id": "RS-F159",
+      "status": "COMMON_COORDINATE_BOUNDARY",
+      "statement": "Across 5x3-k3, 4x4-k4, and 6x3-k3, full REL_INC remains the current common scalar-exact pair coordinate; geometry-specific coarser quotients exist but do not yet yield one universal compact timing label."
+    }
+  ],
+  "nonclaims": [
+    "The canonical fitted pair supports are not promoted as structural syndrome formulas.",
+    "Rank mod 3 is not yet proven sufficient for the final topology-aware syndrome law.",
+    "Exact relative delay may still admit a different structural quotient not present in EW-RS-041.",
+    "No standard-7x6 claim follows."
+  ],
+  "next_question": "Does the predeclared F/O/E release-parity topology candidate retain exact scalar value across all demanding carriers, especially 4x4-k4?"
+}
