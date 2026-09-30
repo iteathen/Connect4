@@ -1,0 +1,31 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_fixed_point.v1",
+  "round": 79,
+  "date_author_local": "2026-09-30",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_78_0_1.json",
+    "RANK_SUFFICIENCY_SIGNED_EXCHANGE_OWNER_QUOTIENT_INTEGRATION_0_1.json"
+  ],
+  "recursive_generation": {
+    "families_checked": [
+      "absolute owner-label removal",
+      "merged-owner falsifier on 4x5-k4",
+      "owner-swap invariant marginals",
+      "six-bucket pair signature",
+      "count saturation/parity candidates",
+      "formula-holdout anti-circularity"
+    ],
+    "new_assertions": []
+  },
+  "fixed_point": true,
+  "reason": "EW-RS-074 fixes the owner-channel quotient but does not determine the minimal algebra of the remaining six bucket counts. Further exact deductions require a new frozen count-algebra experiment.",
+  "next_evidence_boundaries": [
+    "use SIGNED_PARITY + C_ROLELESS + D_DEPTHLESS + D_SYMMETRIC_MARGINALS as the preferred common carrier",
+    "freeze bucket transforms before scalar replay",
+    "test zero/nonzero, parity, ZOE, clipped counts, and exact counts on C+,C-,D+,D-,A+,A-",
+    "preserve the exact six-count carrier as reconstruction control",
+    "do not fit bucket coefficients before the count quotient is frozen",
+    "EW-RS-059 PRIMARY 3x6-k4 and BACKUP 5x3-k4 remain sealed"
+  ],
+  "stop_status": "FIXED_POINT__SIX_BUCKET_COUNT_QUOTIENT_NEXT"
+}
