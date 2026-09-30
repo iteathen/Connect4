@@ -1,0 +1,54 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.repaired_decoder_dimension_integration.v1",
+  "date_author_local": "2026-09-30",
+  "research_direction": "Joshua Oshiro",
+  "status": "REPAIRED_COORDINATE_TARGET_DIMENSION_TWO__QUADRATIC_PARTIAL",
+  "evidence": {
+    "branch": "experiment/isomax-late-xor-components-20260929",
+    "commit": "91a2a5610769611d35cab09169470f598b8f5859",
+    "file": "REPAIRED_COORDINATE_DECODER_DIMENSION_0_1.json",
+    "warrant": "EW-RS-057"
+  },
+  "frozenCoordinate": {
+    "identity": "ROLE_CAPPAR_REL_INC",
+    "count_state": "ZOE",
+    "binary_encoding": "P_d=[n_d>0], O_d=n_d mod 2",
+    "rank_grade": "none"
+  },
+  "results": {
+    "5x3-k3": {"classes":3259,"affine_contradictions":177,"y0_gain":1,"y1_gain":1,"joint_target_dimension":2,"degree2_rank_gain":277,"degree2_contradictions":0},
+    "4x4-k4": {"classes":7894,"affine_contradictions":298,"y0_gain":1,"y1_gain":1,"joint_target_dimension":2,"degree2_rank_gain":730,"degree2_contradictions":0},
+    "6x3-k3": {"classes":16732,"affine_contradictions":1454,"y0_gain":1,"y1_gain":1,"joint_target_dimension":2,"degree2_rank_gain":2038,"degree2_contradictions":24},
+    "4x5-k4": {"classes":79309,"affine_contradictions":2918,"y0_gain":1,"y1_gain":1,"joint_target_dimension":2,"degree2_rank_gain":5337,"degree2_contradictions":24},
+    "6x3-k4": {"classes":17550,"affine_contradictions":459,"y0_gain":1,"y1_gain":1,"joint_target_dimension":2,"degree2_rank_gain":1071,"degree2_contradictions":5}
+  },
+  "findings": [
+    {
+      "id": "RS-F181",
+      "status": "SCALAR_TARGET_DIMENSION_TWO_REPAIRED",
+      "statement": "After repairing both count state and component structural identity, each GF(2) outcome bit still adds exactly one dimension beyond the affine repaired-coordinate span and the joint scalar target dimension is exactly two on all five tested carriers."
+    },
+    {
+      "id": "RS-F182",
+      "status": "AFFINE_REPAIRED_COORDINATE_REJECTED",
+      "statement": "The canonical P/O binary encoding of ROLE_CAPPAR+ZOE is not affine-sufficient on any demanding tested carrier."
+    },
+    {
+      "id": "RS-F183",
+      "status": "QUADRATIC_REPAIRED_COORDINATE_PARTIAL",
+      "statement": "Complete observed square-free degree-2 P/O expansion is exact on 5x3-k3 and 4x4-k4 but leaves 24, 24, and 5 contradictions on 6x3-k3, 4x5-k4, and 6x3-k4 respectively."
+    },
+    {
+      "id": "RS-F184",
+      "status": "OUTPUT_DIMENSION_DISTINCT_FROM_STRUCTURAL_DEGREE",
+      "statement": "The scalar output correction remaining two-dimensional does not imply quadratic structural realizability; output dimension and polynomial interaction degree are distinct properties."
+    }
+  ],
+  "nonclaims": [
+    "The two scalar target dimensions are not yet identified with a closed-form pair of structural syndrome formulas.",
+    "Degree 3 is not yet known sufficient.",
+    "No universal polynomial-degree theorem follows.",
+    "No Q-A/Q-F or standard-7x6 claim follows."
+  ],
+  "next_question": "Do all mechanically generated square-free cubic P/O interactions eliminate the frozen degree-2 contradictions on 6x3-k3, 4x5-k4, and 6x3-k4?"
+}
