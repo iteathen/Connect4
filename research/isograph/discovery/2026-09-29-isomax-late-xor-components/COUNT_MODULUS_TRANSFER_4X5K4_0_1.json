@@ -1,0 +1,463 @@
+{
+  "schema": "connect4.isomax.count_modulus_transfer_4x5k4.v1",
+  "date_author_local": "2026-09-29",
+  "warrant": "EW-RS-046",
+  "target": "4x5-k4",
+  "frozenDomain": "T2-O",
+  "frozenComponentDefinition": "post-RFG residual-incidence connected components with support/owner-labelled canonical component type",
+  "cases": [
+    {
+      "label": "4x5-k4",
+      "width": 4,
+      "height": 5,
+      "k": 4,
+      "physicalStates": 1706255,
+      "nonterminalStates": 1348441,
+      "componentTypes": 90223,
+      "tactical2Counts": {
+        "W": 348191,
+        "L2": 66275,
+        "O": 933975
+      },
+      "audits": [
+        {
+          "mode": "M2",
+          "statesAudited": 933975,
+          "classes": 79459,
+          "mixedValueClasses": 3,
+          "QV": false,
+          "firstMixedValueWitness": {
+            "mode": "M2",
+            "key": "T90220:1,T90222:1",
+            "rank": 19,
+            "a": "601389:185042",
+            "b": "83113:4438",
+            "aOutcome": "draw",
+            "bOutcome": "loss",
+            "aCode": 1,
+            "bCode": 0,
+            "multiplicityDifferenceL1": 4,
+            "parityPairUnits": 2,
+            "aCounts": [
+              {
+                "type": "T90220",
+                "canonicalType": "4||",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T90222",
+                "canonicalType": "5||",
+                "width": 1,
+                "count": 3
+              }
+            ],
+            "bCounts": [
+              {
+                "type": "T88134",
+                "canonicalType": "2|8|",
+                "width": 1,
+                "count": 2
+              },
+              {
+                "type": "T90220",
+                "canonicalType": "4||",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T90222",
+                "canonicalType": "5||",
+                "width": 1,
+                "count": 1
+              }
+            ],
+            "delta": [
+              {
+                "type": "T88134",
+                "canonicalType": "2|8|",
+                "width": 1,
+                "delta": 2
+              },
+              {
+                "type": "T90222",
+                "canonicalType": "5||",
+                "width": 1,
+                "delta": -2
+              }
+            ]
+          },
+          "minimumMultiplicityDifferenceWitness": {
+            "mode": "M2",
+            "key": "",
+            "rank": 18,
+            "a": "92461:169682",
+            "b": "83113:266582",
+            "aOutcome": "draw",
+            "bOutcome": "win",
+            "aCode": 1,
+            "bCode": 2,
+            "multiplicityDifferenceL1": 4,
+            "parityPairUnits": 2,
+            "aCounts": [
+              {
+                "type": "T90220",
+                "canonicalType": "4||",
+                "width": 1,
+                "count": 2
+              },
+              {
+                "type": "T90222",
+                "canonicalType": "5||",
+                "width": 1,
+                "count": 2
+              }
+            ],
+            "bCounts": [
+              {
+                "type": "T88134",
+                "canonicalType": "2|8|",
+                "width": 1,
+                "count": 2
+              },
+              {
+                "type": "T90222",
+                "canonicalType": "5||",
+                "width": 1,
+                "count": 2
+              }
+            ],
+            "delta": [
+              {
+                "type": "T88134",
+                "canonicalType": "2|8|",
+                "width": 1,
+                "delta": 2
+              },
+              {
+                "type": "T90220",
+                "canonicalType": "4||",
+                "width": 1,
+                "delta": -2
+              }
+            ]
+          }
+        },
+        {
+          "mode": "M2_R3",
+          "statesAudited": 933975,
+          "classes": 79806,
+          "mixedValueClasses": 3,
+          "QV": false,
+          "firstMixedValueWitness": {
+            "mode": "M2_R3",
+            "key": "R31|T90220:1,T90222:1",
+            "rank": 19,
+            "a": "601389:185042",
+            "b": "83113:4438",
+            "aOutcome": "draw",
+            "bOutcome": "loss",
+            "aCode": 1,
+            "bCode": 0,
+            "multiplicityDifferenceL1": 4,
+            "parityPairUnits": 2,
+            "aCounts": [
+              {
+                "type": "T90220",
+                "canonicalType": "4||",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T90222",
+                "canonicalType": "5||",
+                "width": 1,
+                "count": 3
+              }
+            ],
+            "bCounts": [
+              {
+                "type": "T88134",
+                "canonicalType": "2|8|",
+                "width": 1,
+                "count": 2
+              },
+              {
+                "type": "T90220",
+                "canonicalType": "4||",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T90222",
+                "canonicalType": "5||",
+                "width": 1,
+                "count": 1
+              }
+            ],
+            "delta": [
+              {
+                "type": "T88134",
+                "canonicalType": "2|8|",
+                "width": 1,
+                "delta": 2
+              },
+              {
+                "type": "T90222",
+                "canonicalType": "5||",
+                "width": 1,
+                "delta": -2
+              }
+            ]
+          },
+          "minimumMultiplicityDifferenceWitness": {
+            "mode": "M2_R3",
+            "key": "R31|T90218:1,T90222:1",
+            "rank": 13,
+            "a": "83019:4532",
+            "b": "83169:4382",
+            "aOutcome": "draw",
+            "bOutcome": "loss",
+            "aCode": 1,
+            "bCode": 0,
+            "multiplicityDifferenceL1": 4,
+            "parityPairUnits": 2,
+            "aCounts": [
+              {
+                "type": "T88147",
+                "canonicalType": "2||28",
+                "width": 1,
+                "count": 2
+              },
+              {
+                "type": "T90218",
+                "canonicalType": "4|16|",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T90222",
+                "canonicalType": "5||",
+                "width": 1,
+                "count": 1
+              }
+            ],
+            "bCounts": [
+              {
+                "type": "T88134",
+                "canonicalType": "2|8|",
+                "width": 1,
+                "count": 2
+              },
+              {
+                "type": "T90218",
+                "canonicalType": "4|16|",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T90222",
+                "canonicalType": "5||",
+                "width": 1,
+                "count": 1
+              }
+            ],
+            "delta": [
+              {
+                "type": "T88134",
+                "canonicalType": "2|8|",
+                "width": 1,
+                "delta": 2
+              },
+              {
+                "type": "T88147",
+                "canonicalType": "2||28",
+                "width": 1,
+                "delta": -2
+              }
+            ]
+          }
+        },
+        {
+          "mode": "M3",
+          "statesAudited": 933975,
+          "classes": 79839,
+          "mixedValueClasses": 6,
+          "QV": false,
+          "firstMixedValueWitness": {
+            "mode": "M3",
+            "key": "T88145:1",
+            "rank": 17,
+            "a": "467301:22170",
+            "b": "9543:21176",
+            "aOutcome": "win",
+            "bOutcome": "loss",
+            "aCode": 2,
+            "bCode": 0,
+            "multiplicityDifferenceL1": 6,
+            "parityPairUnits": null,
+            "aCounts": [
+              {
+                "type": "T88145",
+                "canonicalType": "2||12.16",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T90222",
+                "canonicalType": "5||",
+                "width": 1,
+                "count": 3
+              }
+            ],
+            "bCounts": [
+              {
+                "type": "T88145",
+                "canonicalType": "2||12.16",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T90220",
+                "canonicalType": "4||",
+                "width": 1,
+                "count": 3
+              }
+            ],
+            "delta": [
+              {
+                "type": "T90220",
+                "canonicalType": "4||",
+                "width": 1,
+                "delta": 3
+              },
+              {
+                "type": "T90222",
+                "canonicalType": "5||",
+                "width": 1,
+                "delta": -3
+              }
+            ]
+          },
+          "minimumMultiplicityDifferenceWitness": {
+            "mode": "M3",
+            "key": "T26040:1",
+            "rank": 15,
+            "a": "329061:160274",
+            "b": "1379:29204",
+            "aOutcome": "loss",
+            "bOutcome": "win",
+            "aCode": 0,
+            "bCode": 2,
+            "multiplicityDifferenceL1": 6,
+            "parityPairUnits": null,
+            "aCounts": [
+              {
+                "type": "T26040",
+                "canonicalType": "0|8|8.16",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T90222",
+                "canonicalType": "5||",
+                "width": 1,
+                "count": 3
+              }
+            ],
+            "bCounts": [
+              {
+                "type": "T26040",
+                "canonicalType": "0|8|8.16",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T90220",
+                "canonicalType": "4||",
+                "width": 1,
+                "count": 3
+              }
+            ],
+            "delta": [
+              {
+                "type": "T90220",
+                "canonicalType": "4||",
+                "width": 1,
+                "delta": 3
+              },
+              {
+                "type": "T90222",
+                "canonicalType": "5||",
+                "width": 1,
+                "delta": -3
+              }
+            ]
+          }
+        },
+        {
+          "mode": "M4",
+          "statesAudited": 933975,
+          "classes": 79850,
+          "mixedValueClasses": 0,
+          "QV": true,
+          "firstMixedValueWitness": null,
+          "minimumMultiplicityDifferenceWitness": null
+        },
+        {
+          "mode": "M6",
+          "statesAudited": 933975,
+          "classes": 79850,
+          "mixedValueClasses": 0,
+          "QV": true,
+          "firstMixedValueWitness": null,
+          "minimumMultiplicityDifferenceWitness": null
+        },
+        {
+          "mode": "MULTI",
+          "statesAudited": 933975,
+          "classes": 79850,
+          "mixedValueClasses": 0,
+          "QV": true,
+          "firstMixedValueWitness": null,
+          "minimumMultiplicityDifferenceWitness": null
+        }
+      ],
+      "minimumParitySeparators": {
+        "witness": {
+          "a": "92461:169682",
+          "b": "83113:266582",
+          "rankA": 18,
+          "rankB": 14,
+          "multiplicityDifferenceL1": 4
+        },
+        "M2_R3": true,
+        "M3": true,
+        "M4": true,
+        "M6": true,
+        "MULTI": true
+      }
+    }
+  ],
+  "mechanicalChecks": {
+    "keysOutcomeIndependent": true,
+    "exactRankNotSuppliedSeparately": true,
+    "T2ORetained": true,
+    "sameRankParityCollisionSurvivesM2R3": true,
+    "allPredeclaredModesEmitted": true
+  },
+  "disposition": {
+    "M2_QV": false,
+    "M2_R3_QV": false,
+    "M3_QV": false,
+    "M4_QV": true,
+    "M6_QV": true,
+    "MULTI_QV": true
+  },
+  "interpretationGuard": [
+    "M2_R3 failure distinguishes per-component count residue from a merely global rank-phase correction.",
+    "A passing M3/M4/M6 key is finite 4x5-k4 evidence only.",
+    "Because component multiplicities modulo m determine rank modulo m, M3/M4/M6 include their corresponding global phase implicitly.",
+    "No standard-7x6 claim follows."
+  ]
+}
