@@ -1,0 +1,28 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_fixed_point.v1",
+  "round": 45,
+  "date_author_local": "2026-09-29",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_44_0_1.json",
+    "RANK_SUFFICIENCY_ZOE_COUNT_QUOTIENT_INTEGRATION_0_1.json"
+  ],
+  "recursive_generation": {
+    "families_checked": [
+      "zero versus positive-even count semantics",
+      "phase redundancy after count repair",
+      "strict Q-V compression below full multiplicity",
+      "component identity compression",
+      "fresh-holdout discipline"
+    ],
+    "new_assertions": []
+  },
+  "fixed_point": true,
+  "reason": "The current evidence supports ZOE as a common bounded scalar count coordinate but does not identify which exact component distinctions can be forgotten after count repair.",
+  "next_evidence_boundaries": [
+    "freeze descriptor-aggregated ZOE candidates before outcome qualification",
+    "compare TOPO_RPAR-ZOE and REL_INC-ZOE against exact-type ZOE",
+    "retain full exact-type ZOE as the scalar control",
+    "fresh holdout only after a common descriptor aggregation survives the demanding derivation carriers"
+  ],
+  "stop_status": "FIXED_POINT__STRUCTURAL_ZOE_AGGREGATION_NEXT"
+}
