@@ -1,0 +1,14 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.forced_column_parity.v1",
+  "id": "EW-RS-007",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "clue": "All 1,306 oracle-only residual deletions on complete 4x4 are singleton residuals in states with exactly one nonfull column, and every one has wrong forced owner parity.",
+  "rule": "When exactly one column is nonfull, delete any residual containing a cell whose forced owner under the unique remaining column sequence differs from the residual owner.",
+  "objective": "Test H as a rank-local Q-F-safe rule, its commutation with R/F/G, and whether RFGH exactly reproduces the F+exact-feasibility oracle representation on all complete-4x4 physical q_o states.",
+  "anti_circularity": [
+    "H uses only current support, rank parity, residual cells and G",
+    "future oracle E is used only for validation after H is frozen",
+    "no solved values define H"
+  ]
+}
