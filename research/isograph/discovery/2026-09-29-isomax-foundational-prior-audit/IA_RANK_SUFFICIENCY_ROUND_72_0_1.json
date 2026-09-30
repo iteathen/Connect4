@@ -1,0 +1,61 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_round.v1",
+  "round": 72,
+  "date_author_local": "2026-09-30",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_71_FIXED_POINT_0_1.json",
+    "RANK_SUFFICIENCY_PAIR_DELTA_COORDINATE_INTEGRATION_0_1.json"
+  ],
+  "reopened_reason": "EW-RS-070 determines which support/sign/parity/magnitude information inside the common exact pair-delta exchange carrier remains scalar-sufficient.",
+  "new_assertions": [
+    {
+      "id": "RS-IA222",
+      "family": "M",
+      "body": "Exact pair-delta magnitude is not required by the current common Q-V realization: changed token-coordinate identity plus delta sign is scalar-exact on all three hard carriers."
+    },
+    {
+      "id": "RS-IA223",
+      "family": "F",
+      "body": "On 4x5-k4, support-only, parity-only, and unsigned absolute-magnitude delta triangles all leave nine contradictions while sign-only is exact; exchange direction is therefore load-bearing on this carrier."
+    },
+    {
+      "id": "RS-IA224",
+      "family": "Q",
+      "body": "Signed parity is an independent common-exact realization with ranks 73,282,14 and omits even-magnitude delta coordinates entirely. Thus even-magnitude direction is not universally required by every exact common realization."
+    },
+    {
+      "id": "RS-IA225",
+      "family": "D",
+      "body": "The frozen EW-RS-070 selection order chooses DELTA_SIGN_TRIANGLE first, but structural-rank valuation does not totally order sign and signed-parity candidates: sign is lower rank on 6x3-k3 while signed parity is lower rank on 4x5-k4 and 6x3-k4."
+    },
+    {
+      "id": "RS-IA226",
+      "family": "R",
+      "body": "The common scalar carrier is now explicitly orientation-independent and directional: the next MSS axis is which token families W, C_i, D0_d, D1_d need signed exchange information, not exact magnitude or H/V/D provenance."
+    },
+    {
+      "id": "RS-IA227",
+      "family": "F",
+      "body": "EW-RS-059 formula holdouts remain sealed; RS-070 supplies a coordinate compression, not a frozen closed syndrome formula."
+    }
+  ],
+  "qu_refinements": [
+    {
+      "id": "RS-QR058",
+      "target": "QU-RS-004",
+      "add_fixed": [
+        "DELTA_SIGN_TRIANGLE is the first common passing EW-RS-070 rung and is scalar-exact on 6x3-k3, 4x5-k4, and 6x3-k4",
+        "exact signed magnitude is redundant in that common realization",
+        "4x5-k4 requires directional information under the frozen ladder because support-only, parity-only, and unsigned magnitude each leave nine contradictions",
+        "DELTA_SIGNED_PARITY_TRIANGLE is also common-exact with ranks 73,282,14"
+      ],
+      "retain_open": [
+        "minimal signed token families W/C_i/D0_d/D1_d",
+        "role/depth-index compression inside the signed exchange carrier",
+        "closed scalar syndrome before EW-RS-059 unsealing",
+        "standard-7x6 qualification"
+      ]
+    }
+  ],
+  "stop_status": "REOPENED__SIGNED_EXCHANGE_TOKEN_FAMILY_NEXT"
+}
