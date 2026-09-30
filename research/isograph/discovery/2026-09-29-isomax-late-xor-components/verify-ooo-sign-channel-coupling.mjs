@@ -1,5 +1,11 @@
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
+import {
+  signChannelModeNoFiner,
+  signChannelModeEquivalent,
+  signChannelCandidateEquivalent,
+  signChannelCandidateStrictlyCoarser
+} from './ooo-sign-channel-coupling-lib.mjs';
 
 const base=new URL('.',import.meta.url);
 const result=JSON.parse(fs.readFileSync(new URL('./OOO_SIGN_CHANNEL_COUPLING_0_1.json',base),'utf8'));
@@ -17,18 +23,6 @@ const expectedControlRank=new Map([
 function key(c){return 'C='+c.C+'|D='+c.D+'|A='+c.A;}
 const grid=[];
 for(const C of modes)for(const D of modes)for(const A of modes)grid.push({C,D,A,key:key({C,D,A})});
-
-function noFiner(a,b){
-  if(a===b)return true;
-  if((a==='TOTAL'||a==='ABS_NET')&&(b==='UNORDERED_PAIR'||b==='SEPARATED'))return true;
-  if(a==='UNORDERED_PAIR'&&b==='SEPARATED')return true;
-  if(a==='SIGNED_NET'&&b==='SEPARATED')return true;
-  return false;
-}
-function strictlyCoarser(a,b){
-  return ['C','D','A'].every(k=>noFiner(a[k],b[k])) &&
-    ['C','D','A'].some(k=>a[k]!==b[k]);
-}
 
 const caseSummary={};
 for(const c of result.cases){
@@ -57,7 +51,35 @@ for(const c of result.cases){
 const commonExact=grid.filter(g=>result.cases.every(c=>
   c.decoder.oooSignChannelCoupling.audits.find(x=>x.key===g.key)?.exactScalarFactorization===true
 ));
-const pareto=commonExact.filter(x=>!commonExact.some(y=>strictlyCoarser(y,x)));
+const pareto=commonExact.filter(x=>!commonExact.some(y=>
+  y.key!==x.key&&signChannelCandidateStrictlyCoarser(y,x)
+));
+
+const paretoEquivalenceClasses=[];
+for(const candidate of pareto){
+  let cls=paretoEquivalenceClasses.find(x=>
+    signChannelCandidateEquivalent(x.representativeCandidate,candidate)
+  );
+  if(!cls){
+    cls={representativeCandidate:candidate,members:[]};
+    paretoEquivalenceClasses.push(cls);
+  }
+  cls.members.push(candidate);
+}
+
+function familyInformationOrder(family){
+  const equivalences=[],strictContainments=[];
+  for(let i=0;i<modes.length;i++)for(let j=i+1;j<modes.length;j++){
+    const a=modes[i],b=modes[j];
+    if(signChannelModeEquivalent(family,a,b)){
+      equivalences.push([a,b]);
+      continue;
+    }
+    if(signChannelModeNoFiner(family,a,b))strictContainments.push([a,b]);
+    if(signChannelModeNoFiner(family,b,a))strictContainments.push([b,a]);
+  }
+  return {equivalences,strictContainments};
+}
 
 const familyWithoutSeparated={};
 for(const fam of ['C','D','A'])
@@ -75,7 +97,24 @@ const out={
   common:{
     exactGrid:commonExact.map(key),
     paretoMinimalExact:pareto.map(key),
+    paretoMinimalEquivalenceClasses:paretoEquivalenceClasses.map((cls,index)=>({
+      id:'PMEC-'+String(index+1).padStart(2,'0'),
+      representative:key(cls.representativeCandidate),
+      members:cls.members.map(key)
+    })),
     familyWithoutSeparated
+  },
+  informationOrder:{
+    derivation:'exhaustive partition refinement over each frozen RS-076 family alphabet',
+    C:familyInformationOrder('C'),
+    D:familyInformationOrder('D'),
+    A:familyInformationOrder('A')
+  },
+  classificationRepair:{
+    status:'OUTCOME_INDEPENDENT_STRUCTURAL_CORRECTION',
+    scalarAuditChanged:false,
+    exactGridChanged:false,
+    note:'The original handwritten RS-077 partial order omitted family-specific equivalences and containments. Pareto classification is recomputed mechanically from the frozen coupling maps and source alphabets.'
   },
   holdouts:{primary:'3x6-k4',backup:'5x3-k4',sealed:true}
 };
