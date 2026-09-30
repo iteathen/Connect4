@@ -1,0 +1,30 @@
+{
+  "schema": "connect4.rank_sufficient_qg_dg.experimental_warrant.v1",
+  "id": "QGDG-EW-004",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "parent_findings": [
+    "QGDG-F016",
+    "QGDG-F017",
+    "QGDG-F018"
+  ],
+  "purpose": [
+    "TRANSITION_CONGRUENCE",
+    "RECURSIVE_REALIZABILITY_FALSIFIER"
+  ],
+  "objective": "Test whether equality of the bounded direct local normal form is a literal-action transition congruence: equal normalized parents must map under each literal move to one identical normalized child/terminal token.",
+  "distinction": "This tests existence of an abstract exact F_G on Q_DIRECT_LOCAL_NORMAL. It is stronger and different from testing the inherited q_o cofactor formula.",
+  "cases": [
+    "4x4-k4",
+    "4x4-k3",
+    "3x4-k3",
+    "4x3-k3"
+  ],
+  "tests": [
+    "same normalized parent implies same legal literal actions",
+    "same normalized parent + same literal action implies same terminal token or identical normalized child",
+    "if normalized child differs, check whether child complete-future class nevertheless agrees"
+  ],
+  "falsification_rule": "Any normalized-parent/action fiber with more than one normalized child/terminal result falsifies exact self-update F_G(Q,m,G)=Q' for this representation.",
+  "construction_firewall": "Complete future classes are used only to classify any congruence failure after it is found."
+}
