@@ -1,0 +1,32 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.component_sat2_holdout.v1",
+  "id": "EW-RS-018",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE_FRESH_HOLDOUT",
+  "parent_evidence": [
+    "COMPONENT_MULTIPLICITY_ALGEBRA_0_1.json",
+    "LATE_XOR_TWO_PLY_FRESH_HOLDOUT_0_1.json"
+  ],
+  "frozen_component_definition": "post-RFG residual-incidence connected components with support/owner-labelled canonical component type",
+  "frozen_reduction_law": "per component type retain multiplicity min(count,2), plus stone-count parity already implicit in support/rank",
+  "objective": "Freshly falsify or confirm the saturating-2 multiplicity law on 3x5-k3 and 5x3-k3, which were not used in the original SAT2 discovery.",
+  "comparisons": [
+    "exact multiset",
+    "presence/idempotence",
+    "SAT2",
+    "SAT3",
+    "MOD2/XOR",
+    "MOD3",
+    "MOD4"
+  ],
+  "anti_circularity": [
+    "component extractor unchanged from prior experiment",
+    "SAT2 cap fixed before observing holdout results",
+    "no value labels in representation construction",
+    "no geometry-specific patching after result"
+  ],
+  "interpretation": [
+    "SAT2 success supports a finite commutative non-group reduction stage before any possible later valuation/XOR composition.",
+    "SAT2 failure identifies multiplicity information that remains irreducible and does not by itself falsify a later XOR valuation on further-reduced objects."
+  ]
+}
