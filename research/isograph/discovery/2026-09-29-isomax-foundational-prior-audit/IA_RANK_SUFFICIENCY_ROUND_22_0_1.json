@@ -1,0 +1,59 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_round.v1",
+  "round": 22,
+  "date_author_local": "2026-09-29",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_21_FIXED_POINT_0_1.json",
+    "RANK_SUFFICIENCY_EXACT_RANK_GRADED_XOR_INTEGRATION_0_1.json"
+  ],
+  "reopened_reason": "exact-rank grading resolves the 4x4-k3 affine contradiction but leaves fixed-rank falsifiers in 4x4-k4 and 5x3-k3",
+  "new_assertions": [
+    {
+      "id": "RS-IA081",
+      "family": "M",
+      "body": "4x4-k3 exhibits a genuine Q/D tradeoff: rank mod 3 is sufficient for scalar equivalence, while exact rank supports a simpler independent affine XOR evaluator."
+    },
+    {
+      "id": "RS-IA082",
+      "family": "C",
+      "body": "The remaining 4x4-k4 and 5x3-k3 contradictions survive even when component values are indexed by exact rank, so they are not cross-rank aliases."
+    },
+    {
+      "id": "RS-IA083",
+      "family": "R",
+      "body": "Any contradiction under exact-rank-disjoint valuation blocks is necessarily a same-exact-rank dependency; the next missing distinction lies within the component/context structure of that rank."
+    },
+    {
+      "id": "RS-IA084",
+      "family": "F",
+      "body": "Q-V sufficiency of (M2,r mod 3,T2) does not imply an additive evaluator on that quotient; evaluator simplicity may require retaining an otherwise value-redundant rank coordinate."
+    },
+    {
+      "id": "RS-IA085",
+      "family": "Q",
+      "body": "The objective now has an explicit Pareto shape: coarser Q versus simpler D. No single representation should be called minimal without stating which combined cost is being minimized."
+    },
+    {
+      "id": "RS-IA086",
+      "family": "S",
+      "body": "Interaction terms are still not justified generically; the smaller 5x3-k3 exact-rank failure should first yield an explicit dependency certificate."
+    }
+  ],
+  "qu_refinements": [
+    {
+      "id": "RS-QR032",
+      "target": "QU-RS-010",
+      "add_fixed": [
+        "exact-rank-graded GF(2)^2 valuation passes six of eight complete carriers",
+        "exact rank resolves the two 4x4-k3 rank-mod-3-graded contradictions",
+        "4x4-k4 retains 168 and 5x3-k3 retains 18 exact-rank-graded contradictions"
+      ],
+      "retain_open": [
+        "same-exact-rank 5x3 contradiction certificate",
+        "smallest component/context interaction resolving that certificate",
+        "Pareto-optimal Q/D tradeoff on larger carriers"
+      ]
+    }
+  ],
+  "stop_status": "REOPENED__SAME_EXACT_RANK_CERTIFICATE_PENDING"
+}
