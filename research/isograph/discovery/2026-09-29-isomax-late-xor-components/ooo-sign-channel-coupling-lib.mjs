@@ -125,6 +125,14 @@ export function signChannelModeEquivalent(family,aMode,bMode){
     signChannelModeNoFiner(family,bMode,aMode);
 }
 
+export function signChannelCandidateEquivalent(a,b){
+  for(const family of ['C','D','A']){
+    assert.ok(a&&b,'sign-channel candidates are required');
+    if(!signChannelModeEquivalent(family,a[family],b[family]))return false;
+  }
+  return true;
+}
+
 export function signChannelCandidateStrictlyCoarser(a,b){
   let strict=false;
   for(const family of ['C','D','A']){
