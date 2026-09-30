@@ -38,6 +38,8 @@ jobs:
           node -e "JSON.parse(require('fs').readFileSync('research/isograph/discovery/2026-09-29-isomax-foundational-prior-audit/CLOSURE_PRIOR_AUDIT_0_1.json','utf8'))"
           node -e "JSON.parse(require('fs').readFileSync('research/isograph/discovery/2026-09-29-isomax-foundational-prior-audit/TRANSPORTER_AWARE_RECONSTRUCTION_0_1.json','utf8'))"
           node -e "JSON.parse(require('fs').readFileSync('research/isograph/discovery/2026-09-29-isomax-foundational-prior-audit/GEOMETRY_COVARIANCE_AUDIT_0_1.json','utf8'))"
+      - name: Verify pinned joint D/A structural integration
+        run: node research/isograph/discovery/2026-09-29-isomax-foundational-prior-audit/verify-joint-da-common-quotient-integration.mjs
       - name: Research integrity
         run: node tools/verify-research-integrity.mjs
       - name: Commit witness audit evidence
