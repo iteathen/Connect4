@@ -1,0 +1,570 @@
+{
+  "schema": "connect4.isomax.qa_qv_compression_4x4.v1",
+  "date_author_local": "2026-09-29",
+  "scope": "complete physical 4x4 connect-4 first-win carrier",
+  "transforms": {
+    "R": "support-release/turn capacity",
+    "F": "nonterminal frontier blocker",
+    "C": "mover final-cap parity deletion"
+  },
+  "methodology": {
+    "candidateDefinitionsUseValues": false,
+    "valueLabelsDerivedAfterStructuralKeys": true,
+    "solvedDatabaseUsed": false
+  },
+  "algebra": {
+    "idempotent": {
+      "R": true,
+      "F": true,
+      "C": true
+    },
+    "pairwiseCommutation": {
+      "RF": true,
+      "RC": true,
+      "FC": true
+    }
+  },
+  "direct": [
+    {
+      "seq": "QO",
+      "classes": 34094,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "R",
+      "classes": 32214,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "F",
+      "classes": 32788,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "C",
+      "classes": 32958,
+      "QF": false,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": {
+        "key": "4,4,4,2||34816",
+        "a": "17223:13496",
+        "b": "9571:21148",
+        "aInterface": "I|I|I|N:4,4,4,3||",
+        "bInterface": "I|I|I|N:4,4,4,3|32768|"
+      },
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "RF",
+      "classes": 31389,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "FR",
+      "classes": 31389,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "RC",
+      "classes": 31605,
+      "QF": false,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": {
+        "key": "4,4,2,0|3072|128.17408",
+        "a": "8963:4212",
+        "b": "13057:118",
+        "aInterface": "I|I|N:4,4,3,0|2048|128|N:4,4,2,1|3072|128.17408",
+        "bInterface": "I|I|N:4,4,3,0|2048.49152|128|N:4,4,2,1|3072.49152|128.17408"
+      },
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "CR",
+      "classes": 31605,
+      "QF": false,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": {
+        "key": "4,4,2,0|3072|128.17408",
+        "a": "8963:4212",
+        "b": "13057:118",
+        "aInterface": "I|I|N:4,4,3,0|2048|128|N:4,4,2,1|3072|128.17408",
+        "bInterface": "I|I|N:4,4,3,0|2048.49152|128|N:4,4,2,1|3072.49152|128.17408"
+      },
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "FC",
+      "classes": 31690,
+      "QF": false,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": {
+        "key": "4,4,2,0|3072.34952|128.17408",
+        "a": "8963:4212",
+        "b": "13057:118",
+        "aInterface": "I|I|N:4,4,3,0|2048|128|N:4,4,2,1|34944|128.17408",
+        "bInterface": "I|I|N:4,4,3,0|2048.49152|128|N:4,4,2,1|34944.49152|128.17408"
+      },
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "CF",
+      "classes": 31690,
+      "QF": false,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": {
+        "key": "4,4,2,0|3072.34952|128.17408",
+        "a": "8963:4212",
+        "b": "13057:118",
+        "aInterface": "I|I|N:4,4,3,0|2048|128|N:4,4,2,1|34944|128.17408",
+        "bInterface": "I|I|N:4,4,3,0|2048.49152|128|N:4,4,2,1|34944.49152|128.17408"
+      },
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "RFC",
+      "classes": 30742,
+      "QF": false,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": {
+        "key": "4,4,2,0|3072|128.17408",
+        "a": "8963:4212",
+        "b": "13057:118",
+        "aInterface": "I|I|N:4,4,3,0|2048|128|N:4,4,2,1||128.17408",
+        "bInterface": "I|I|N:4,4,3,0|2048.49152|128|N:4,4,2,1|49152|128.17408"
+      },
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "RCF",
+      "classes": 30742,
+      "QF": false,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": {
+        "key": "4,4,2,0|3072|128.17408",
+        "a": "8963:4212",
+        "b": "13057:118",
+        "aInterface": "I|I|N:4,4,3,0|2048|128|N:4,4,2,1||128.17408",
+        "bInterface": "I|I|N:4,4,3,0|2048.49152|128|N:4,4,2,1|49152|128.17408"
+      },
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "FRC",
+      "classes": 30742,
+      "QF": false,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": {
+        "key": "4,4,2,0|3072|128.17408",
+        "a": "8963:4212",
+        "b": "13057:118",
+        "aInterface": "I|I|N:4,4,3,0|2048|128|N:4,4,2,1||128.17408",
+        "bInterface": "I|I|N:4,4,3,0|2048.49152|128|N:4,4,2,1|49152|128.17408"
+      },
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "FCR",
+      "classes": 30742,
+      "QF": false,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": {
+        "key": "4,4,2,0|3072|128.17408",
+        "a": "8963:4212",
+        "b": "13057:118",
+        "aInterface": "I|I|N:4,4,3,0|2048|128|N:4,4,2,1||128.17408",
+        "bInterface": "I|I|N:4,4,3,0|2048.49152|128|N:4,4,2,1|49152|128.17408"
+      },
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "CRF",
+      "classes": 30742,
+      "QF": false,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": {
+        "key": "4,4,2,0|3072|128.17408",
+        "a": "8963:4212",
+        "b": "13057:118",
+        "aInterface": "I|I|N:4,4,3,0|2048|128|N:4,4,2,1||128.17408",
+        "bInterface": "I|I|N:4,4,3,0|2048.49152|128|N:4,4,2,1|49152|128.17408"
+      },
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "CFR",
+      "classes": 30742,
+      "QF": false,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": {
+        "key": "4,4,2,0|3072|128.17408",
+        "a": "8963:4212",
+        "b": "13057:118",
+        "aInterface": "I|I|N:4,4,3,0|2048|128|N:4,4,2,1||128.17408",
+        "bInterface": "I|I|N:4,4,3,0|2048.49152|128|N:4,4,2,1|49152|128.17408"
+      },
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    }
+  ],
+  "orbit": [
+    {
+      "seq": "QO",
+      "classes": 10496,
+      "QF_transported": true,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "R",
+      "classes": 10106,
+      "QF_transported": true,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "F",
+      "classes": 9940,
+      "QF_transported": true,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "C",
+      "classes": 10209,
+      "QF_transported": false,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": {
+        "key": "2,4,4,4||4352",
+        "a": "17223:13496",
+        "b": "9571:21148",
+        "aInterface": "N:3,4,4,4|||I|I|I",
+        "bInterface": "N:3,4,4,4|4096||I|I|I"
+      },
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "RF",
+      "classes": 9676,
+      "QF_transported": true,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "FR",
+      "classes": 9676,
+      "QF_transported": true,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "RC",
+      "classes": 9940,
+      "QF_transported": false,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": {
+        "key": "0,2,4,4|768|16.8704",
+        "a": "8963:4212",
+        "b": "13057:118",
+        "aInterface": "N:1,2,4,4|768|16.8704|N:0,3,4,4|256|16|I|I",
+        "bInterface": "N:1,2,4,4|768.12288|16.8704|N:0,3,4,4|256.12288|16|I|I"
+      },
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "CR",
+      "classes": 9940,
+      "QF_transported": false,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": {
+        "key": "0,2,4,4|768|16.8704",
+        "a": "8963:4212",
+        "b": "13057:118",
+        "aInterface": "N:1,2,4,4|768|16.8704|N:0,3,4,4|256|16|I|I",
+        "bInterface": "N:1,2,4,4|768.12288|16.8704|N:0,3,4,4|256.12288|16|I|I"
+      },
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "FC",
+      "classes": 9678,
+      "QF_transported": false,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": {
+        "key": "0,2,4,4|768.4369|16.8704",
+        "a": "8963:4212",
+        "b": "13057:118",
+        "aInterface": "N:1,2,4,4|4368|16.8704|N:0,3,4,4|256|16|I|I",
+        "bInterface": "N:1,2,4,4|4368.12288|16.8704|N:0,3,4,4|256.12288|16|I|I"
+      },
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "CF",
+      "classes": 9678,
+      "QF_transported": false,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": {
+        "key": "0,2,4,4|768.4369|16.8704",
+        "a": "8963:4212",
+        "b": "13057:118",
+        "aInterface": "N:1,2,4,4|4368|16.8704|N:0,3,4,4|256|16|I|I",
+        "bInterface": "N:1,2,4,4|4368.12288|16.8704|N:0,3,4,4|256.12288|16|I|I"
+      },
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "RFC",
+      "classes": 9508,
+      "QF_transported": false,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": {
+        "key": "0,2,4,4|768|16.8704",
+        "a": "8963:4212",
+        "b": "13057:118",
+        "aInterface": "N:1,2,4,4||16.8704|N:0,3,4,4|256|16|I|I",
+        "bInterface": "N:1,2,4,4|12288|16.8704|N:0,3,4,4|256.12288|16|I|I"
+      },
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "RCF",
+      "classes": 9508,
+      "QF_transported": false,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": {
+        "key": "0,2,4,4|768|16.8704",
+        "a": "8963:4212",
+        "b": "13057:118",
+        "aInterface": "N:1,2,4,4||16.8704|N:0,3,4,4|256|16|I|I",
+        "bInterface": "N:1,2,4,4|12288|16.8704|N:0,3,4,4|256.12288|16|I|I"
+      },
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "FRC",
+      "classes": 9508,
+      "QF_transported": false,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": {
+        "key": "0,2,4,4|768|16.8704",
+        "a": "8963:4212",
+        "b": "13057:118",
+        "aInterface": "N:1,2,4,4||16.8704|N:0,3,4,4|256|16|I|I",
+        "bInterface": "N:1,2,4,4|12288|16.8704|N:0,3,4,4|256.12288|16|I|I"
+      },
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "FCR",
+      "classes": 9508,
+      "QF_transported": false,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": {
+        "key": "0,2,4,4|768|16.8704",
+        "a": "8963:4212",
+        "b": "13057:118",
+        "aInterface": "N:1,2,4,4||16.8704|N:0,3,4,4|256|16|I|I",
+        "bInterface": "N:1,2,4,4|12288|16.8704|N:0,3,4,4|256.12288|16|I|I"
+      },
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "CRF",
+      "classes": 9508,
+      "QF_transported": false,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": {
+        "key": "0,2,4,4|768|16.8704",
+        "a": "8963:4212",
+        "b": "13057:118",
+        "aInterface": "N:1,2,4,4||16.8704|N:0,3,4,4|256|16|I|I",
+        "bInterface": "N:1,2,4,4|12288|16.8704|N:0,3,4,4|256.12288|16|I|I"
+      },
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "CFR",
+      "classes": 9508,
+      "QF_transported": false,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": {
+        "key": "0,2,4,4|768|16.8704",
+        "a": "8963:4212",
+        "b": "13057:118",
+        "aInterface": "N:1,2,4,4||16.8704|N:0,3,4,4|256|16|I|I",
+        "bInterface": "N:1,2,4,4|12288|16.8704|N:0,3,4,4|256.12288|16|I|I"
+      },
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    }
+  ],
+  "minima": {
+    "directQF": {
+      "seq": "RF",
+      "classes": 31389,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    "directQA": {
+      "seq": "RFC",
+      "classes": 30742,
+      "QF": false,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": {
+        "key": "4,4,2,0|3072|128.17408",
+        "a": "8963:4212",
+        "b": "13057:118",
+        "aInterface": "I|I|N:4,4,3,0|2048|128|N:4,4,2,1||128.17408",
+        "bInterface": "I|I|N:4,4,3,0|2048.49152|128|N:4,4,2,1|49152|128.17408"
+      },
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    "directQV": {
+      "seq": "RFC",
+      "classes": 30742,
+      "QF": false,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": {
+        "key": "4,4,2,0|3072|128.17408",
+        "a": "8963:4212",
+        "b": "13057:118",
+        "aInterface": "I|I|N:4,4,3,0|2048|128|N:4,4,2,1||128.17408",
+        "bInterface": "I|I|N:4,4,3,0|2048.49152|128|N:4,4,2,1|49152|128.17408"
+      },
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    "orbitQF": {
+      "seq": "RF",
+      "classes": 9676,
+      "QF_transported": true,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    "orbitQA": {
+      "seq": "RFC",
+      "classes": 9508,
+      "QF_transported": false,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": {
+        "key": "0,2,4,4|768|16.8704",
+        "a": "8963:4212",
+        "b": "13057:118",
+        "aInterface": "N:1,2,4,4||16.8704|N:0,3,4,4|256|16|I|I",
+        "bInterface": "N:1,2,4,4|12288|16.8704|N:0,3,4,4|256.12288|16|I|I"
+      },
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    "orbitQV": {
+      "seq": "RFC",
+      "classes": 9508,
+      "QF_transported": false,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": {
+        "key": "0,2,4,4|768|16.8704",
+        "a": "8963:4212",
+        "b": "13057:118",
+        "aInterface": "N:1,2,4,4||16.8704|N:0,3,4,4|256|16|I|I",
+        "bInterface": "N:1,2,4,4|12288|16.8704|N:0,3,4,4|256.12288|16|I|I"
+      },
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    }
+  },
+  "interpretationGuard": "Exact finite 4x4 evidence. Q-A/Q-V sufficiency does not imply Q-F transition congruence, and no standard-7x6 theorem follows without qualification."
+}
