@@ -893,7 +893,7 @@ function applyOpponentOpenCapTerminalDominance(
 }
 
 
-export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontierBlocker=false,nonterminalFrontierBlocker=false,moverFinalCapParity=false,remainingMoveCapacity=false,supportReleaseTurnCapacity=false,opponentOpenCapTerminalDominance=false,measureLocalBranchClosure=true,auditColumnRefinement=false,auditPairColumnRefinement=false,auditBinaryTieStabilizers=false,auditOpponentResidualDeletion=false,auditEarliestMergeParents=false,auditEarliestMergeWitness=false,emitPrimitiveWitnessData=false,emitFullDirectCarrier=false}){
+export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontierBlocker=false,nonterminalFrontierBlocker=false,moverFinalCapParity=false,remainingMoveCapacity=false,supportReleaseTurnCapacity=false,opponentOpenCapTerminalDominance=false,measureLocalBranchClosure=true,auditColumnRefinement=false,auditPairColumnRefinement=false,auditBinaryTieStabilizers=false,auditOpponentResidualDeletion=false,auditEarliestMergeParents=false,auditEarliestMergeWitness=false,auditCapHoleOrientation=false,emitPrimitiveWitnessData=false,emitFullDirectCarrier=false}){
   const cells=width*height;
   assert.ok(cells<=30,'direct residual-orbit harness is intentionally bounded to <=30 cells');
   const masks=winMasks(width,height,k),
@@ -1410,7 +1410,7 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     let reconvergentPairs=0,pathIndependentReconvergences=0,
       contradictoryReconvergences=0,topologicalReconvergences=0,
       maxPathMultiplicity=1;
-    const examples=[],contradictoryExamples=[];
+    const examples=[],contradictoryExamples=[],allExamples=[];
 
     for(const source of ordered){
       const stats=new Map(),start={
@@ -1482,6 +1482,7 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
               };
             }))),
         };
+        allExamples.push(example);
         if(examples.length<32)examples.push(example);
         if(contradictory&&contradictoryExamples.length<32)
           contradictoryExamples.push(example);
@@ -1496,6 +1497,7 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
       maxPathMultiplicity,
       examples,
       contradictoryExamples,
+      allExamples,
     };
   }
 
@@ -1804,10 +1806,13 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
       permutations,
     };
   }
-  function traceContradictionRoute(sourceGroupId,startSheet,edgePath){
+  function traceContradictionRoute(
+    sourceGroupId,startSheet,edgePath,
+    representativeMap=obstructionRepresentatives
+  ){
     const sourceGroup=deeperGroupRecords[sourceGroupId],
       startLabelled=sourceGroup.labelledClasses[startSheet],
-      representative=obstructionRepresentatives.get(startLabelled);
+      representative=representativeMap.get(startLabelled);
     assert.ok(representative,
       'contradiction transporter audit needs source representative');
     let rec=nodes.get(representative.key),
@@ -1947,6 +1952,197 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     };
   }
 
+  let capHoleOrientationAudit=null;
+  if(auditCapHoleOrientation){
+    const binaryLabelledIds=new Set(
+        binaryGroupRows.flatMap(row=>row.labelledClasses)),
+      binaryRepresentatives=new Map();
+    for(const rec of nodes.values()){
+      if(rec.terminal)continue;
+      const labelled=actionLabelledStateClass.get(rec.key);
+      if(!binaryLabelledIds.has(labelled)||
+          binaryRepresentatives.has(labelled))continue;
+      binaryRepresentatives.set(labelled,{
+        key:rec.key,
+        rank:rec.rank,
+        support:Array.from(rec.heights),
+        p0Residuals:[...rec.r0],
+        p1Residuals:[...rec.r1],
+      });
+      if(binaryRepresentatives.size===binaryLabelledIds.size)break;
+    }
+    assert.equal(binaryRepresentatives.size,binaryLabelledIds.size,
+      'cap-hole audit requires one exact representative per binary labelled class');
+
+    const bitCount=mask=>{
+      let n=0;
+      for(let v=mask>>>0;v;v=(v&(v-1))>>>0)n++;
+      return n;
+    };
+    function capHoleFeatureFromState(heights,r0,r1,rank){
+      let capMask=0;
+      for(let col=0;col<width;col++)if(heights[col]<height)
+        capMask|=1<<((height-1)*width+col);
+      capMask>>>=0;
+      const capCount=bitCount(capMask),mover=rank&1,
+        own=mover?r1:r0,opponent=mover?r0:r1,
+        rows=[];
+      if(capCount<2)return {
+        rank,mover,capMask,capCount,holeResiduals:rows,bit:null,
+      };
+      for(let i=0;i<own.length;i++){
+        const residual=own[i]>>>0;
+        if((residual&~capMask)!==0||bitCount(residual)!==capCount-1)continue;
+        const hole=(capMask&~residual)>>>0;
+        if(bitCount(hole)!==1)continue;
+        let sameOwnerIncidence=0,opponentIncidence=0;
+        for(let j=0;j<own.length;j++)if(j!==i&&(own[j]&hole))
+          sameOwnerIncidence++;
+        for(const other of opponent)if(other&hole)opponentIncidence++;
+        rows.push({
+          residual,hole,
+          sameOwnerIncidence,
+          opponentIncidence,
+          selfIncident:sameOwnerIncidence>0,
+          opponentIncident:opponentIncidence>0,
+        });
+      }
+      rows.sort((a,b)=>
+        a.selfIncident-b.selfIncident||
+        a.opponentIncident-b.opponentIncident||
+        a.sameOwnerIncidence-b.sameOwnerIncidence||
+        a.opponentIncidence-b.opponentIncidence||
+        a.residual-b.residual);
+      return {
+        rank,mover,capMask,capCount,holeResiduals:rows,
+        bit:rows.length===1?(rows[0].selfIncident?1:0):null,
+      };
+    }
+    function capHoleFeature(rec){
+      return capHoleFeatureFromState(rec.heights,rec.r0,rec.r1,rec.rank);
+    }
+    function assertCapHoleCovariance(rec,expectedBit){
+      if(expectedBit===null)return;
+      for(const pd of permutationData){
+        const h=new Uint8Array(width);
+        for(let oldCol=0;oldCol<width;oldCol++)
+          h[pd.perm[oldCol]]=rec.heights[oldCol];
+        const r0=rec.r0.map(mask=>permuteMask(mask,pd)),
+          r1=rec.r1.map(mask=>permuteMask(mask,pd)),
+          feature=capHoleFeatureFromState(h,r0,r1,rec.rank);
+        assert.equal(feature.bit,expectedBit,
+          'cap-hole incidence bit must be column-relabeling invariant');
+      }
+    }
+    function selectedRoutePair(example){
+      if(example.contradictory){
+        const a=example.witnessPathsByParity[0]?.[0]??null,
+          b=example.witnessPathsByParity[1]?.[0]??null;
+        return a&&b?[
+          {parity:0,path:a},
+          {parity:1,path:b},
+        ]:null;
+      }
+      for(let parity=0;parity<2;parity++){
+        const rows=example.witnessPathsByParity[parity]??[];
+        if(rows.length>=2)return [
+          {parity,path:rows[0]},
+          {parity,path:rows[1]},
+        ];
+      }
+      return null;
+    }
+
+    let routePairsAudited=0,definedPairs=0,consistentPairs=0,
+      inconsistentPairs=0,contradictoryPairs=0,
+      contradictoryDefinedPairs=0,contradictoryConsistentPairs=0,
+      flatPairs=0,flatDefinedPairs=0,flatConsistentPairs=0;
+    const definedExamples=[],inconsistentExamples=[];
+
+    for(const example of pathAudit.allExamples){
+      const pair=selectedRoutePair(example);
+      if(!pair)continue;
+      for(let startSheet=0;startSheet<2;startSheet++){
+        routePairsAudited++;
+        if(example.contradictory)contradictoryPairs++;
+        else flatPairs++;
+        const traced=pair.map(row=>({
+          parity:row.parity,
+          trace:traceContradictionRoute(
+            example.source,startSheet,row.path,binaryRepresentatives),
+        }));
+        const endpoints=traced.map(row=>{
+          const rec=nodes.get(row.trace.finalStateKey);
+          assert.ok(rec&&!rec.terminal);
+          const feature=capHoleFeature(rec);
+          assertCapHoleCovariance(rec,feature.bit);
+          return {
+            parity:row.parity,
+            finalStateKey:row.trace.finalStateKey,
+            finalLabelledClass:row.trace.finalLabelledClass,
+            finalSheet:row.trace.finalSheet,
+            feature,
+          };
+        });
+        const defined=endpoints.every(row=>row.feature.bit!==null);
+        if(!defined)continue;
+        definedPairs++;
+        if(example.contradictory)contradictoryDefinedPairs++;
+        else flatDefinedPairs++;
+        const parityDifference=endpoints[0].parity^endpoints[1].parity,
+          featureDifference=endpoints[0].feature.bit^endpoints[1].feature.bit,
+          consistent=parityDifference===featureDifference,
+          row={
+            source:example.source,target:example.target,startSheet,
+            contradictory:example.contradictory,
+            routeParities:endpoints.map(x=>x.parity),
+            parityDifference,featureDifference,consistent,endpoints,
+          };
+        if(consistent){
+          consistentPairs++;
+          if(example.contradictory)contradictoryConsistentPairs++;
+          else flatConsistentPairs++;
+        }else{
+          inconsistentPairs++;
+          if(inconsistentExamples.length<32)inconsistentExamples.push(row);
+        }
+        if(definedExamples.length<64)definedExamples.push(row);
+      }
+    }
+
+    const shortestRows=shortestContradictionTransporterAudit?
+      shortestContradictionTransporterAudit.routeRows.map(row=>{
+        const rec=nodes.get(row.trace.finalStateKey),
+          feature=capHoleFeature(rec);
+        assertCapHoleCovariance(rec,feature.bit);
+        return {
+          pathParity:row.pathParity,
+          startSheet:row.trace.startSheet,
+          finalStateKey:row.trace.finalStateKey,
+          finalLabelledClass:row.trace.finalLabelledClass,
+          feature,
+        };
+      }):[];
+
+    capHoleOrientationAudit={
+      definition:{
+        carrier:'mover residuals at an exact canonical state',
+        capSet:'top-row cap cell of every non-full column',
+        holeResidual:'mover residual equal to capSet with exactly one cap removed',
+        bit:'defined only when exactly one holeResidual exists; 1 iff the missing cap is incident to another mover residual, else 0',
+        covariance:'all audited defined endpoints verified under every column permutation',
+      },
+      routePairsAudited,definedPairs,consistentPairs,inconsistentPairs,
+      coverage:routePairsAudited?definedPairs/routePairsAudited:0,
+      contradictoryPairs,contradictoryDefinedPairs,
+      contradictoryConsistentPairs,
+      flatPairs,flatDefinedPairs,flatConsistentPairs,
+      shortestContradictionRows:shortestRows,
+      definedExamples,
+      inconsistentExamples,
+    };
+  }
+
   const binaryPhaseCocycleAudit={
     basis:'binary deeper-continuation groups after immediate action gauge removal',
     sheetConvention:'sorted recursive action-labelled class ids; absolute 0/1 names are gauge only',
@@ -2022,6 +2218,7 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     nonzeroCycleSyndromeExamples:integrabilityAudit.nonzeroSyndromeExamples,
     obstructionGroupExamples,
     shortestContradictionTransporterAudit,
+    capHoleOrientationAudit,
     edgeExamples:binaryInheritanceEdges.slice(0,64),
   };
 
@@ -2879,6 +3076,7 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     auditOpponentResidualDeletion,
     auditEarliestMergeParents,
     auditEarliestMergeWitness,
+    auditCapHoleOrientation,
     winningLineCount:masks.length,
     residualOrbitStates:nodes.size,
     literalActionEdges,
