@@ -1,0 +1,48 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.role_cappar_rel_inc_zoe_fresh_5x4k4.v1",
+  "id": "EW-RS-055",
+  "date_author_local": "2026-09-30",
+  "status": "ACTIVE",
+  "parent": "EW-RS-054",
+  "objective": "Qualify the frozen coarsest passing role-aligned structural identity ROLE_CAPPAR_REL_INC_ZOE unchanged on predeclared fresh non-affine 5x4-k4.",
+  "case": "5x4-k4",
+  "freshness": [
+    "5x4-k4 was not used to derive the ROLE_CAPPAR_REL_INC descriptor or select its capacity grade.",
+    "5x4-k4 is independently known from EW-RS-050 to be non-affine under exact-rank component parity, with 16,550 DEGREE1 contradictions.",
+    "The descriptor and selection order were frozen under EW-RS-054 before this holdout."
+  ],
+  "frozenCandidate": {
+    "name": "ROLE_CAPPAR_REL_INC_ZOE",
+    "definition": "For each exact post-RFG component, jointly canonicalize REL_INC with one bit H-h_c mod 2 attached to each local incidence column role. Aggregate multiplicities over equal descriptors; omit zero totals; emit O for positive odd total multiplicity and E for positive even total multiplicity.",
+    "rankGrade": "none",
+    "changesAllowedDuringHoldout": false
+  },
+  "controls": [
+    "EXACT_ZOE exact-type ZOE",
+    "ROLE_CAP3_REL_INC_ZOE finer three-state aligned-capacity descriptor",
+    "ROLE_CAP_EXACT_REL_INC_ZOE reconstruction control",
+    "MULTI full exact component multiplicity",
+    "DEGREE1 exact-rank affine component-parity model"
+  ],
+  "antiCircularity": [
+    "The 5x4-k4 carrier is fixed before ROLE_CAPPAR qualification on that carrier.",
+    "The candidate descriptor is copied unchanged from EW-RS-054.",
+    "No 5x4-k4 W/D/L label may select a capacity bit, column role, component merge, phase grade, or coefficient.",
+    "Solved outcomes are consulted only after structural keys are generated."
+  ],
+  "falsifiers": [
+    "Any mixed ROLE_CAPPAR_REL_INC_ZOE scalar class rejects the selected descriptor on 5x4-k4.",
+    "Any mixed ROLE_CAP_EXACT_REL_INC_ZOE class indicates a mechanical reconstruction/harness defect rather than a semantic falsifier.",
+    "EXACT_ZOE and MULTI must remain Q-V exact.",
+    "DEGREE1 must reproduce a nonzero contradiction count for the result to retain fresh non-affine significance."
+  ],
+  "resourceGuard": "Reuse the memory-bounded 5x4 execution path that already qualified EW-RS-050; execution storage may be optimized but the frozen semantic candidate and controls may not change.",
+  "successCriterion": "ROLE_CAPPAR_REL_INC_ZOE has zero mixed scalar classes, exact controls pass, and DEGREE1 remains non-affine.",
+  "nextIfSuccess": "Integrate ROLE_CAPPAR_REL_INC_ZOE as the current bounded structural identity compression under ZOE counts, then characterize its scalar decoder without reverting to exact component IDs.",
+  "nextIfFail": "Freeze the minimum fresh collision and compare ROLE_CAP3 and ROLE_CAP_EXACT controls before adding any unrelated feature.",
+  "interpretationGuards": [
+    "Passing establishes bounded Q-V sufficiency only.",
+    "Fresh qualification does not prove minimality or standard-7x6 sufficiency.",
+    "No Q-A/Q-F claim follows."
+  ]
+}
