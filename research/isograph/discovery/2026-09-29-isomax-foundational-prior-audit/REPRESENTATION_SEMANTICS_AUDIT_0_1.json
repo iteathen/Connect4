@@ -1,0 +1,113 @@
+{
+  "schema": "connect4.isomax.foundational_prior_audit.representation_semantics.v1",
+  "date_author_local": "2026-09-29",
+  "source": {
+    "path": "research/isograph/discovery/2026-09-29-center-proof-cycle/control-algebra-dimensions.mjs",
+    "audit_branch": "research/isomax-foundational-prior-audit-20260929"
+  },
+  "observed_construction": [
+    {
+      "stage": "state canonicalization",
+      "fact": "Every nonterminal child is transformed by canonicalResidualQState over all column permutations before its child key is stored.",
+      "intrinsic": false,
+      "note": "The representative choice is a coordinate gauge over an unlabeled-column orbit."
+    },
+    {
+      "stage": "stored transition",
+      "fact": "rec.children stores only the canonical child key; the canonicalizing permutation/transporter is not stored in the recursive transition record used to build classes.",
+      "intrinsic": false,
+      "consequence": "A later recursive class cannot reconstruct one globally fixed action coordinate system from rec.children alone."
+    },
+    {
+      "stage": "action-unlabelled recursive quotient",
+      "fact": "The unlabelled signature is rank + mover + sorted unique set of child class IDs.",
+      "intrinsic": "relative to declared quotient",
+      "erased": [
+        "literal action identity",
+        "child multiplicity",
+        "canonical transporter"
+      ]
+    },
+    {
+      "stage": "so-called action-labelled recursive class",
+      "fact": "The signature assigns current canonical column positions to action-labelled child class IDs, but each child class was computed in that child's independently canonicalized coordinate frame.",
+      "intrinsic": false,
+      "missing": "No edge transporter is composed into the recursive labelled signature to align child action labels with the parent's coordinate frame."
+    },
+    {
+      "stage": "binary sheet carrier",
+      "fact": "Sheets are pairs of distinct recursive canonical-frame labelled classes inside one unlabelled class with the same immediate phase-free profile.",
+      "intrinsic": "relative to this representation/quotient only",
+      "gauge": "Sheet 0/1 is assigned by sorted numeric class IDs."
+    },
+    {
+      "stage": "edge delta",
+      "fact": "delta records which target sheet is reached from local parent sheet 0.",
+      "intrinsic": false,
+      "invariant_remainder": "XOR difference between two routes with the same declared base endpoints survives node-local sheet gauge changes."
+    }
+  ],
+  "independent_witness_evidence": {
+    "source": "WITNESS_PRIOR_AUDIT_0_1.json + FIXED_FRAME_ROUTE_AUDIT_0_1.json",
+    "all_six_sheet_pairs_exactly_distinct": true,
+    "all_six_sheet_pairs_column_orbit_distinct": true,
+    "all_six_sheet_pairs_fixed_canonical_frame_literal_future_equal": true,
+    "stored_labelled_class_ids_distinct": true,
+    "route_endpoints_in_one_common_source_frame_literal_future_equal": false,
+    "route_endpoints_in_one_common_source_frame_global_action_permutation_future_equal": true,
+    "edge_flip_location_moves_under_independent_sheet_gauge": true,
+    "route_parity_difference_survives_gauge": true
+  },
+  "identity_dispositions": [
+    {
+      "query": "same exact residual state?",
+      "result": "DISTINCT",
+      "evidence_type": "exact representation equality"
+    },
+    {
+      "query": "same arbitrary-column residual orbit?",
+      "result": "DISTINCT",
+      "evidence_type": "exhaustive 120-permutation orbit test"
+    },
+    {
+      "query": "same fixed-coordinate literal future behavior for each canonical sheet pair?",
+      "result": "SAME_IN_EXPERIMENTAL_PRUNED_TRANSITION_MODEL",
+      "evidence_type": "complete finite no-canonicalization future-tree equality"
+    },
+    {
+      "query": "same fixed-source-frame literal future behavior for Route A vs Route B endpoints?",
+      "result": "DISTINCT",
+      "evidence_type": "complete finite future-tree inequality"
+    },
+    {
+      "query": "same future behavior up to one global action transporter for Route A vs Route B endpoints?",
+      "result": "SAME_IN_EXPERIMENTAL_PRUNED_TRANSITION_MODEL",
+      "evidence_type": "exhaustive 120 action-permutation future-tree test"
+    },
+    {
+      "query": "NEI SAME as physical state / q_o / proof object?",
+      "result": "INCOMPLETE",
+      "reason": "The experimental pruned carrier and arbitrary-column transporter relation are not the qualified q_o/q_r identity query of Connect4 authority 1.2."
+    }
+  ],
+  "label_corrections": [
+    {
+      "old": "recursive action-labelled class",
+      "stronger_safe_label": "recursive canonical-frame action-token class",
+      "reason": "Transporters between independently canonicalized child frames are omitted from recursive label alignment."
+    },
+    {
+      "old": "same target object",
+      "stronger_safe_label": "same declared coarse unlabelled base group; route endpoints are distinct exact states and distinct residual orbits, but are future-equivalent under an explicit global action transporter in the tested pruned model",
+      "reason": "Identity depends on resolution and transporter."
+    },
+    {
+      "old": "middle transition has the flip",
+      "stronger_safe_label": "the route pair has odd relative sheet holonomy in the chosen two-sheet cover; the edge on which delta=1 appears is gauge-dependent",
+      "reason": "Independent sheet gauge moves the flip from edge 2710 to edge 2724."
+    }
+  ],
+  "current_strongest_conclusion": "The Z2 obstruction is internally reproducible on the declared canonical-frame two-sheet carrier, but the current evidence does not license interpreting it as an intrinsic physical-state or literal-action future-behavior contradiction. It is consistent with holonomy introduced by quotienting/canonicalization while omitting load-bearing transporter alignment.",
+  "falsifier_status": "STRONGER_INTRINSIC_OBSTRUCTION_INTERPRETATION_FALSIFIED__QUOTIENT_RELATIVE_GRAPH_OBSTRUCTION_SURVIVES",
+  "next_required_audit": "carrier-level graph exactness/basis audit plus transporter-aware reconstruction"
+}
