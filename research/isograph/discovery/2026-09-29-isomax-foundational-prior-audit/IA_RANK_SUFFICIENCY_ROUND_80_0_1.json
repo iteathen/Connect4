@@ -1,0 +1,68 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_round.v1",
+  "round": 80,
+  "date_author_local": "2026-09-30",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_79_FIXED_POINT_0_1.json",
+    "RANK_SUFFICIENCY_SIX_BUCKET_COUNT_QUOTIENT_INTEGRATION_0_1.json"
+  ],
+  "reopened_reason": "EW-RS-075 freezes a uniform count-algebra ladder on the six owner-symmetric exchange buckets C+,C-,D+,D-,A+,A- and identifies clip-at-3 as the first common exact saturation.",
+  "new_assertions": [
+    {
+      "id": "RS-IA248",
+      "family": "M",
+      "body": "Exact count magnitude above three is not load-bearing in the declared common scalar carrier: uniform BUCKET_CLIP3 is exact on all three hard carriers."
+    },
+    {
+      "id": "RS-IA249",
+      "family": "F",
+      "body": "4x5-k4 localizes the remaining count nonlinearity: presence, parity, ZOE, and clip-at-2 are all insufficient there, while clip-at-3 is exact."
+    },
+    {
+      "id": "RS-IA250",
+      "family": "Q",
+      "body": "The distinction count=2 versus count>=3 is structurally load-bearing somewhere in the six-bucket carrier because clip-at-2 leaves fourteen 4x5-k4 contradictions and clip-at-3 removes them."
+    },
+    {
+      "id": "RS-IA251",
+      "family": "N",
+      "body": "The upstream component-multiplicity ZOE law does not transfer unchanged to the late exchange-bucket layer: BUCKET_ZOE leaves forty-seven contradictions on 4x5-k4."
+    },
+    {
+      "id": "RS-IA252",
+      "family": "V",
+      "body": "On 4x5-k4 clip-at-3 has rank 253 versus exact-count rank 254 with the same two-dimensional scalar image; the exact count tail contributes one structural but value-null direction."
+    },
+    {
+      "id": "RS-IA253",
+      "family": "R",
+      "body": "The next lawful MSS axis is bucket-family-specific saturation: hold the six semantic buckets fixed and freeze which of C, D, and A use presence/ZOE/clip2/clip3 before scalar replay."
+    },
+    {
+      "id": "RS-IA254",
+      "family": "F",
+      "body": "EW-RS-059 remains sealed because a six-bucket saturation carrier is not yet a closed two-syndrome decoder."
+    }
+  ],
+  "qu_refinements": [
+    {
+      "id": "RS-QR062",
+      "target": "QU-RS-004",
+      "add_fixed": [
+        "uniform clip-at-3 on C+,C-,D+,D-,A+,A- is common scalar-exact",
+        "uniform clip-at-2 fails 4x5-k4 with fourteen contradictions",
+        "BUCKET_ZOE fails 4x5-k4 with forty-seven contradictions",
+        "bucket parity is inexact on all three hard carriers",
+        "exact counts above 3+ are common-redundant in the tested scalar carrier"
+      ],
+      "retain_open": [
+        "which bucket families C,D,A require the 3+ state",
+        "whether some families can use clip2/ZOE/presence while others retain clip3",
+        "native circuit law after family-specific saturation",
+        "closed scalar syndrome before EW-RS-059 unsealing",
+        "standard-7x6 qualification"
+      ]
+    }
+  ],
+  "stop_status": "REOPENED__BUCKET_FAMILY_SATURATION_NEXT"
+}
