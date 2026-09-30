@@ -1,0 +1,21 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.final_mover_cap_closure.v1",
+  "id": "EW-RS-005",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "clue": "The turn-restricted final-cap deletion C preserves Q-A/Q-V but fails Q-F because deleted residual information can reappear when C is recomputed at the next rank.",
+  "candidate": "G deletes, at every rank, any residual owned by the player who cannot make the final board move when that residual contains every currently open top cap.",
+  "proof_shape": [
+    "completing every current top cap fills every currently nonfull column and therefore fills the board",
+    "the final occupied cell is one of those caps and is owned by the fixed final-board mover",
+    "the other player therefore cannot complete a residual containing every current cap",
+    "after any surviving move, a descendant of such a residual still contains every new open cap, so deadness is hereditary"
+  ],
+  "objective": "Test whether G restores Q-F congruence and composes with R,F and full column orbiting to reach or beat the 9,508 Q-A/Q-V class count.",
+  "anti_circularity": [
+    "current-rank support/residual structure only",
+    "no value used in G",
+    "values derived only after candidate keys",
+    "no solved database"
+  ]
+}
