@@ -1,0 +1,165 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.signed_exchange_role_depth_quotient_integration.v1",
+  "date_author_local": "2026-09-30",
+  "research_direction": "Joshua Oshiro",
+  "status": "ROLELESS_DEPTHLESS_SIGNED_PARITY_COMMON_MSS__OWNER_SEPARATION_REMAINS",
+  "evidence": {
+    "branch": "experiment/isomax-late-xor-components-20260929",
+    "commit": "df50a783bcb2e443fd823adc4bf698767c181883",
+    "file": "OOO_SIGNED_EXCHANGE_ROLE_DEPTH_QUOTIENT_0_1.json",
+    "resultVerification": "OOO_SIGNED_EXCHANGE_ROLE_DEPTH_QUOTIENT_RESULT_VERIFY_0_1.json",
+    "warrant": "EW-RS-073",
+    "workflowRun": 36751987454,
+    "workflowConclusion": "success",
+    "researchIntegrity": "success"
+  },
+  "inheritedCommonFamilySupport": [
+    "C",
+    "D0",
+    "D1"
+  ],
+  "commonMinimalGrid": {
+    "SIGN": "C_ROLELESS+D_DEPTH_PARITY",
+    "SIGNED_PARITY": "C_ROLELESS+D_DEPTHLESS"
+  },
+  "selectedMssDirection": {
+    "encoding": "SIGNED_PARITY",
+    "capacityIndex": "C_ROLELESS",
+    "depthIndex": "D_DEPTHLESS",
+    "statement": "For the current common exact signed-parity realization, canonical capacity-role indices and exact/depth-parity indices are unnecessary. The carrier retains owner separation and signed counts of odd-magnitude changed coordinates in C, D0, and D1."
+  },
+  "results": {
+    "6x3-k3": {
+      "scalarImageDimension": 1,
+      "sign": {
+        "rolelessDepthless": {
+          "rank": 69,
+          "contradictions": 1,
+          "exact": false
+        },
+        "rolelessDepthParity": {
+          "rank": 70,
+          "contradictions": 0,
+          "exact": true
+        }
+      },
+      "signedParity": {
+        "rolelessDepthless": {
+          "rank": 73,
+          "contradictions": 0,
+          "exact": true
+        },
+        "exactRoleExactDepth": {
+          "rank": 73,
+          "contradictions": 0,
+          "exact": true
+        }
+      }
+    },
+    "4x5-k4": {
+      "scalarImageDimension": 2,
+      "sign": {
+        "rolelessDepthless": {
+          "rank": 264,
+          "contradictions": 0,
+          "exact": true
+        },
+        "exactRoleExactDepth": {
+          "rank": 283,
+          "contradictions": 0,
+          "exact": true
+        }
+      },
+      "signedParity": {
+        "rolelessDepthless": {
+          "rank": 262,
+          "contradictions": 0,
+          "exact": true
+        },
+        "exactRoleExactDepth": {
+          "rank": 282,
+          "contradictions": 0,
+          "exact": true
+        }
+      }
+    },
+    "6x3-k4": {
+      "scalarImageDimension": 2,
+      "sign": {
+        "rolelessDepthless": {
+          "rank": 16,
+          "contradictions": 0,
+          "exact": true
+        },
+        "exactRoleExactDepth": {
+          "rank": 16,
+          "contradictions": 0,
+          "exact": true
+        }
+      },
+      "signedParity": {
+        "rolelessDepthless": {
+          "rank": 14,
+          "contradictions": 0,
+          "exact": true
+        },
+        "exactRoleExactDepth": {
+          "rank": 14,
+          "contradictions": 0,
+          "exact": true
+        }
+      }
+    }
+  },
+  "findings": [
+    {
+      "id": "RS-F238",
+      "status": "CAPACITY_ROLE_INDEX_REDUNDANT",
+      "statement": "C_ROLELESS is present in the inclusion-minimal common exact grid point for both SIGN and SIGNED_PARITY. Exact canonical role index i on C:i is therefore unnecessary in the tested common scalar exchange realization."
+    },
+    {
+      "id": "RS-F239",
+      "status": "DEPTH_INDEX_REMOVABLE_UNDER_SIGNED_PARITY",
+      "statement": "Under SIGNED_PARITY, D_DEPTHLESS is common-exact on all three hard carriers. Exact frontier-relative depth and depth parity can both be removed while retaining D0/D1 owner separation and signed counts."
+    },
+    {
+      "id": "RS-F240",
+      "status": "SIGN_NEEDS_DEPTH_PARITY_ON_6X3K3",
+      "statement": "Under SIGN, C_ROLELESS+D_DEPTHLESS loses one structural direction and leaves one scalar contradiction on 6x3-k3; depth parity restores exactness. This distinction disappears under SIGNED_PARITY."
+    },
+    {
+      "id": "RS-F241",
+      "status": "SIGNED_PARITY_ROLELESS_DEPTHLESS_COMMON",
+      "statement": "The current smallest frozen common role/depth grid point is SIGNED_PARITY with roleless capacity changes plus depthless owner-separated D0/D1 changes."
+    },
+    {
+      "id": "RS-F242",
+      "status": "FOUR_BY_FIVE_LARGE_INDEX_KERNEL",
+      "statement": "On 4x5-k4, SIGNED_PARITY C_ROLELESS+D_DEPTHLESS has rank 262 versus full C+D0+D1 signed-parity rank 282, removing twenty structural directions while preserving the two-dimensional scalar image."
+    },
+    {
+      "id": "RS-F243",
+      "status": "OWNER_SEPARATION_NEXT_LOAD_BEARING_QUESTION",
+      "statement": "After deleting W, capacity role indices, and depth indices, owner separation D0 versus D1 is the major remaining named coordinate distinction in the common signed-parity exchange carrier and is the next lawful MSS target."
+    }
+  ],
+  "dpMss": {
+    "W": "REMOVED_BY_EW_RS_072",
+    "capacityFamilyC": "RETAIN",
+    "capacityRoleIndex": "REMOVE",
+    "owner0DepthFamilyD0": "RETAIN",
+    "owner1DepthFamilyD1": "RETAIN",
+    "exactDepthIndex": "REMOVE_UNDER_SIGNED_PARITY",
+    "depthParity": "REMOVE_UNDER_SIGNED_PARITY",
+    "ownerSeparation": "OPEN",
+    "preferredCurrentCarrier": "SIGNED_PARITY + C_ROLELESS + D_DEPTHLESS"
+  },
+  "nextQuestion": "Can D0 and D1 be merged or reduced to symmetric/antisymmetric owner-channel combinations inside the roleless/depthless SIGNED_PARITY exchange carrier, and can the resulting structural image be reduced to the two scalar syndromes?",
+  "nonclaims": [
+    "Roleless/depthless SIGNED_PARITY is not proved globally minimal outside the frozen EW-RS-073 grid.",
+    "D0 and D1 are not yet shown individually necessary or mergeable.",
+    "No individual exchange key or scalar coefficient is promoted as invariant.",
+    "EW-RS-059 PRIMARY 3x6-k4 and BACKUP 5x3-k4 remain sealed.",
+    "No Q-A/Q-F, standard-7x6, universal theorem, or center-opening proof follows."
+  ]
+}
