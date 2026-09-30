@@ -1,0 +1,61 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_round.v1",
+  "round": 42,
+  "date_author_local": "2026-09-29",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_41_FIXED_POINT_0_1.json",
+    "RANK_SUFFICIENCY_PARITY_CEILING_INTEGRATION_0_1.json"
+  ],
+  "reopened_reason": "The fresh 4x5-k4 holdout fires an all-degree falsifier for the exact-rank component-parity coordinate while preserving full component multiplicity Q-V exactness.",
+  "new_assertions": [
+    {
+      "id": "RS-IA137",
+      "family": "F",
+      "body": "A direct collision in the complete frozen coordinate is stronger than failure of any finite polynomial degree over that coordinate; degree escalation cannot restore information that the coordinate has already identified."
+    },
+    {
+      "id": "RS-IA138",
+      "family": "M",
+      "body": "The 4x5-k4 obstruction is count-theoretic before it is higher-order: parity erases a pair substitution because multiplicity two maps to zero."
+    },
+    {
+      "id": "RS-IA139",
+      "family": "Q",
+      "body": "Full exact component multiplicity remaining Q-V exact while parity fails isolates a quotient boundary inside component counts rather than a failure of the component multiset representation."
+    },
+    {
+      "id": "RS-IA140",
+      "family": "R",
+      "body": "The minimum parity collision changes two copies of one component type into two copies of another at the same exact rank; any repaired count quotient must distinguish that even-positive mass from zero."
+    },
+    {
+      "id": "RS-IA141",
+      "family": "C",
+      "body": "Modulo-3, modulo-4, and modulo-6 exactness on 4x5-k4 are finite count-residue sufficiency controls, not evidence that any one modulus is universally canonical."
+    },
+    {
+      "id": "RS-IA142",
+      "family": "D",
+      "body": "The next compression search should refine multiplicity parity minimally by preserving whether an even count is zero or positive before introducing a larger generic modulus."
+    }
+  ],
+  "qu_refinements": [
+    {
+      "id": "RS-QR043",
+      "target": "QU-RS-004",
+      "add_fixed": [
+        "fresh 4x5-k4 falsifies exact-component degree-2 sufficiency with 12 contradictions",
+        "degree 3 leaves the same 12 contradictions",
+        "exact-rank component parity has three mixed scalar classes, proving an all-degree ceiling for that coordinate",
+        "full multiplicity and count residues mod 3, 4, and 6 are Q-V exact on 4x5-k4"
+      ],
+      "retain_open": [
+        "minimal count refinement above parity",
+        "structural explanation of the pair-count substitution",
+        "compressed scalar evaluator after count repair",
+        "standard-7x6 qualification"
+      ]
+    }
+  ],
+  "stop_status": "REOPENED__MINIMAL_COUNT_REFINEMENT_NEXT"
+}
