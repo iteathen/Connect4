@@ -1,0 +1,69 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_round.v1",
+  "round": 18,
+  "date_author_local": "2026-09-29",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_17_FIXED_POINT_0_1.json",
+    "RANK_SUFFICIENCY_PHASE_GRADED_XOR_INTEGRATION_0_1.json"
+  ],
+  "reopened_reason": "phase grading converts five affine XOR falsifiers into exact finite positives while leaving three same-phase contradictions",
+  "new_assertions": [
+    {
+      "id": "RS-IA069",
+      "family": "M",
+      "body": "Scheduler grading is load-bearing at the component-value level: g_r3(C) yields exact GF(2)^2 affine valuation on five complete carriers where phase-independent g(C) fails."
+    },
+    {
+      "id": "RS-IA070",
+      "family": "C",
+      "body": "The remaining 4x4-k4, 4x4-k3 and 5x3-k3 contradictions occur after fixing rank grade, so global phase alone cannot explain them."
+    },
+    {
+      "id": "RS-IA071",
+      "family": "F",
+      "body": "The 4x4-k3 failure is a near-minimal clue with only two contradiction rows; its exact dependency should be recovered before adding a generic interaction basis."
+    },
+    {
+      "id": "RS-IA072",
+      "family": "R",
+      "body": "A contradiction certificate whose component coefficients cancel inside one phase but whose outcome code does not is direct evidence against independent linear valuation for that witness family."
+    },
+    {
+      "id": "RS-IA073",
+      "family": "Q",
+      "body": "No monotone geometry threshold is yet supported: 4x3 and 3x6 pass while 4x4 and 5x3 fail."
+    },
+    {
+      "id": "RS-IA074",
+      "family": "S",
+      "body": "The next admissible model refinement must be driven by the exact same-phase dependency certificate, not by an arbitrary quadratic feature sweep."
+    }
+  ],
+  "qu_refinements": [
+    {
+      "id": "RS-QR029",
+      "target": "QU-RS-010",
+      "add_fixed": [
+        "phase-graded GF(2)^2 component valuation is exact on five complete carriers",
+        "phase-graded valuation fails on 4x4-k4, 4x4-k3 and 5x3-k3",
+        "4x4-k3 has only two remaining contradiction rows"
+      ],
+      "retain_open": [
+        "explicit same-phase contradiction certificate",
+        "smallest interaction/nonlinearity needed by that certificate"
+      ]
+    },
+    {
+      "id": "RS-QR030",
+      "target": "QU-RS-008",
+      "add_fixed": [
+        "rank phase can grade component values successfully in five carriers but does not universally restore independent XOR valuation"
+      ],
+      "retain_open": [
+        "certificate-driven higher-order algebra",
+        "non-XOR finite algebra alternatives"
+      ]
+    }
+  ],
+  "stop_status": "REOPENED__SAME_PHASE_CERTIFICATE_PENDING"
+}
