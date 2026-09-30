@@ -1,0 +1,63 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_round.v1",
+  "round": 5,
+  "date_author_local": "2026-09-29",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_04_0_1.json",
+    "RANK_SUFFICIENCY_FINAL_MOVER_CAP_INTEGRATION_0_1.json"
+  ],
+  "new_assertions": [
+    {
+      "id": "RS-IA021",
+      "family": "R",
+      "body": "The turn-restricted final-cap rule C is a non-hereditary slice of a stronger direct rank-local rule G based on the fixed final-board mover."
+    },
+    {
+      "id": "RS-IA022",
+      "family": "C",
+      "body": "A non-final-player residual containing every current open top cap is permanently dead because completing all those caps fills the board and the final cap is owned by the other player."
+    },
+    {
+      "id": "RS-IA023",
+      "family": "F",
+      "body": "On complete 4x4, replacing C with hereditary G removes the previous Q-F/Q-A gap and yields a smaller exact Q-F representation."
+    },
+    {
+      "id": "RS-IA024",
+      "family": "M",
+      "body": "The smallest tested transporter-aware complete-4x4 Q-F/Q-A/Q-V representation is now q_SigmaRFG with 9,308 classes."
+    },
+    {
+      "id": "RS-IA025",
+      "family": "S",
+      "body": "G and RFG survive complete odd-cell and even-cell controls, so the rule is not an artifact of the 4x4 final-player parity convention."
+    }
+  ],
+  "qu_refinements": [
+    {
+      "id": "RS-QR009",
+      "target": "QU-RS-002",
+      "add_fixed": [
+        "q_SigmaRFG has 9,308 exact transporter-aware Q-F classes on complete 4x4",
+        "G/RFG proof obligations pass complete 3x3-k3, 3x4-k3, 4x3-k3 and 4x4-k4 controls"
+      ],
+      "retain_open": [
+        "standard-7x6 proof/qualification",
+        "minimal Q-F below q_SigmaRFG",
+        "additional hereditary dead-information operators"
+      ]
+    },
+    {
+      "id": "RS-QR010",
+      "target": "QU-RS-003",
+      "add_fixed": [
+        "the prior observed Q-A/Q-V advantage from C was eliminated by strengthening C to the hereditary current-rank rule G"
+      ],
+      "retain_open": [
+        "whether Q-A/Q-V can still be strictly smaller than the new q_SigmaRFG using other rank-local rules",
+        "general Q-V-only compression laws"
+      ]
+    }
+  ],
+  "stop_status": "OPEN__STANDARD7X6_QUALIFICATION_AND_FURTHER_SAFE_FORGETTING_SEARCH_REMAIN"
+}

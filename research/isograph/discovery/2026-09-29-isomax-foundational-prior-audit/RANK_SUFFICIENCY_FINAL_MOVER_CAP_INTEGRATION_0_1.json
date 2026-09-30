@@ -1,0 +1,72 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.final_mover_cap_integration.v1",
+  "date_author_local": "2026-09-29",
+  "evidence": [
+    {
+      "id": "G-4X4",
+      "branch": "experiment/isomax-final-mover-cap-closure-20260929",
+      "commit": "81ace30f355e6352d116564ad660e9ec79603723",
+      "file": "FINAL_MOVER_CAP_CLOSURE_4X4_0_1.json"
+    },
+    {
+      "id": "G-CROSS",
+      "branch": "experiment/isomax-final-mover-cap-closure-20260929",
+      "commit": "91d9b39ea1118ea84e5d9324bcfa5f075f3d1c6c",
+      "file": "FINAL_MOVER_CAP_CROSS_CASE_0_1.json"
+    }
+  ],
+  "operator": {
+    "id": "G",
+    "name": "hereditary final-mover cap closure",
+    "finalBoardMover": "f=(W*H-1) mod 2",
+    "rule": "delete from player 1-f every residual containing every currently open top cap",
+    "rankLocal": true,
+    "futureSearchRequired": false,
+    "solvedValueUsed": false
+  },
+  "proof_candidate": [
+    "occupying every current open top cap fills every currently nonfull column and therefore fills the board",
+    "the last such occupation is the final board move and belongs to f",
+    "player 1-f therefore cannot complete a residual containing every current cap",
+    "a surviving descendant of such a residual continues to contain every new open cap, so deadness is hereditary",
+    "G-deleted residuals cannot create a terminal token",
+    "strict supersets hidden by antichain normalization are dead for the same reason",
+    "G is column-permutation covariant because the open-cap set transports bijectively and f is unchanged"
+  ],
+  "exact_finite": [
+    {
+      "id": "RS-F021",
+      "statement": "On complete 4x4, G alone is a literal Q-F transition congruence with 31,794 classes, and all tested R/F/G compositions are Q-F/QA/QV exact.",
+      "status": "EXACT_FINITE"
+    },
+    {
+      "id": "RS-F022",
+      "statement": "On complete 4x4, RFG is the smallest tested direct Q-F representation with 30,046 classes.",
+      "status": "EXACT_FINITE"
+    },
+    {
+      "id": "RS-F023",
+      "statement": "On complete 4x4, Sigma(RFG) is the smallest tested transporter-aware Q-F representation with 9,308 classes.",
+      "status": "EXACT_FINITE"
+    },
+    {
+      "id": "RS-F024",
+      "statement": "The new 9,308-class Q-F candidate is strictly smaller than the prior 9,508-class Q-A/Q-V candidate based on the turn-restricted final-cap rule C.",
+      "status": "EXACT_FINITE"
+    },
+    {
+      "id": "RS-F025",
+      "statement": "Complete 3x3-k3, 3x4-k3, 4x3-k3 and 4x4-k4 controls all independently verify G and RFG transition factorization, G idempotence, RG/FG commutation, column covariance and transported factorization.",
+      "status": "EXACT_FINITE_CROSS_CASE"
+    }
+  ],
+  "interpretation": [
+    "The earlier Q-F versus Q-A/Q-V gap was not fundamental in the tested carrier; it exposed that C was a non-hereditary slice of a stronger rank-local dead-information rule.",
+    "The new G operator is a direct current-rank structural recognizer, not a carried history bit.",
+    "The current leading tested Q-F/Q-A/Q-V representation is q_SigmaRFG.",
+    "No minimality claim is licensed.",
+    "Standard-7x6 semantic qualification remains open."
+  ],
+  "current_candidate": "q_SigmaRFG=[G(F(R(q_o)))]_{S_W}",
+  "status": "GENERAL_DEDUCTIVE_CANDIDATE_STRONGLY_SUPPORTED__STANDARD7X6_QUALIFICATION_PENDING"
+}
