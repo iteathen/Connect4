@@ -1,0 +1,1342 @@
+{
+  "schema": "connect4.isomax.zoe_structural_aggregation.v1",
+  "date_author_local": "2026-09-29",
+  "warrant": "EW-RS-051",
+  "frozenCountState": "ZOE = zero omitted, positive odd O, positive even E after identity aggregation",
+  "frozenDescriptorCandidates": {
+    "EXACT_ZOE": "exact canonical component identity",
+    "REL_INC_ZOE": "aggregate exact component multiplicities by frozen exact frontier-relative residual incidence, then ZOE",
+    "TOPO_RPAR_ZOE": "aggregate exact component multiplicities by frozen residual/column topology with F/O/E release labels, then ZOE"
+  },
+  "cases": [
+    {
+      "label": "5x3-k3",
+      "width": 5,
+      "height": 3,
+      "k": 3,
+      "physicalStates": 70914,
+      "nonterminalStates": 40659,
+      "componentTypes": 9441,
+      "tactical2Counts": {
+        "W": 28001,
+        "L2": 5403,
+        "O": 7255
+      },
+      "audits": [
+        {
+          "mode": "EXACT_ZOE",
+          "statesAudited": 7255,
+          "classes": 3262,
+          "mixedValueClasses": 0,
+          "QV": true,
+          "firstMixedValueWitness": null,
+          "minimumMultiplicityDifferenceWitness": null
+        },
+        {
+          "mode": "REL_INC_ZOE",
+          "statesAudited": 7255,
+          "classes": 3238,
+          "mixedValueClasses": 11,
+          "QV": false,
+          "firstMixedValueWitness": {
+            "mode": "REL_INC_ZOE",
+            "key": "[\"w1|r0=1:0;2:0|r1=\",\"O\"]||[\"w1|r0=|r1=\",\"E\"]",
+            "rank": 11,
+            "a": "3461:4202",
+            "b": "3461:12394",
+            "aOutcome": "loss",
+            "bOutcome": "win",
+            "aCode": 0,
+            "bCode": 2,
+            "multiplicityDifferenceL1": 2,
+            "parityPairUnits": null,
+            "aCounts": [
+              {
+                "type": "T07317",
+                "canonicalType": "0|2.4|",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T09438",
+                "canonicalType": "2||",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T09440",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 3
+              }
+            ],
+            "bCounts": [
+              {
+                "type": "T07317",
+                "canonicalType": "0|2.4|",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T09440",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 4
+              }
+            ],
+            "delta": [
+              {
+                "type": "T09438",
+                "canonicalType": "2||",
+                "width": 1,
+                "delta": -1
+              },
+              {
+                "type": "T09440",
+                "canonicalType": "3||",
+                "width": 1,
+                "delta": 1
+              }
+            ]
+          },
+          "minimumMultiplicityDifferenceWitness": {
+            "mode": "REL_INC_ZOE",
+            "key": "[\"w1|r0=1:0;2:0|r1=\",\"O\"]||[\"w1|r0=|r1=\",\"E\"]",
+            "rank": 11,
+            "a": "3461:4202",
+            "b": "3461:12394",
+            "aOutcome": "loss",
+            "bOutcome": "win",
+            "aCode": 0,
+            "bCode": 2,
+            "multiplicityDifferenceL1": 2,
+            "parityPairUnits": null,
+            "aCounts": [
+              {
+                "type": "T07317",
+                "canonicalType": "0|2.4|",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T09438",
+                "canonicalType": "2||",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T09440",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 3
+              }
+            ],
+            "bCounts": [
+              {
+                "type": "T07317",
+                "canonicalType": "0|2.4|",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T09440",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 4
+              }
+            ],
+            "delta": [
+              {
+                "type": "T09438",
+                "canonicalType": "2||",
+                "width": 1,
+                "delta": -1
+              },
+              {
+                "type": "T09440",
+                "canonicalType": "3||",
+                "width": 1,
+                "delta": 1
+              }
+            ]
+          }
+        },
+        {
+          "mode": "TOPO_RPAR_ZOE",
+          "statesAudited": 7255,
+          "classes": 3238,
+          "mixedValueClasses": 11,
+          "QV": false,
+          "firstMixedValueWitness": {
+            "mode": "TOPO_RPAR_ZOE",
+            "key": "[\"w1|r0=E:0;O:0|r1=\",\"O\"]||[\"w1|r0=|r1=\",\"E\"]",
+            "rank": 11,
+            "a": "3461:4202",
+            "b": "3461:12394",
+            "aOutcome": "loss",
+            "bOutcome": "win",
+            "aCode": 0,
+            "bCode": 2,
+            "multiplicityDifferenceL1": 2,
+            "parityPairUnits": null,
+            "aCounts": [
+              {
+                "type": "T07317",
+                "canonicalType": "0|2.4|",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T09438",
+                "canonicalType": "2||",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T09440",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 3
+              }
+            ],
+            "bCounts": [
+              {
+                "type": "T07317",
+                "canonicalType": "0|2.4|",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T09440",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 4
+              }
+            ],
+            "delta": [
+              {
+                "type": "T09438",
+                "canonicalType": "2||",
+                "width": 1,
+                "delta": -1
+              },
+              {
+                "type": "T09440",
+                "canonicalType": "3||",
+                "width": 1,
+                "delta": 1
+              }
+            ]
+          },
+          "minimumMultiplicityDifferenceWitness": {
+            "mode": "TOPO_RPAR_ZOE",
+            "key": "[\"w1|r0=E:0;O:0|r1=\",\"O\"]||[\"w1|r0=|r1=\",\"E\"]",
+            "rank": 11,
+            "a": "3461:4202",
+            "b": "3461:12394",
+            "aOutcome": "loss",
+            "bOutcome": "win",
+            "aCode": 0,
+            "bCode": 2,
+            "multiplicityDifferenceL1": 2,
+            "parityPairUnits": null,
+            "aCounts": [
+              {
+                "type": "T07317",
+                "canonicalType": "0|2.4|",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T09438",
+                "canonicalType": "2||",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T09440",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 3
+              }
+            ],
+            "bCounts": [
+              {
+                "type": "T07317",
+                "canonicalType": "0|2.4|",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T09440",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 4
+              }
+            ],
+            "delta": [
+              {
+                "type": "T09438",
+                "canonicalType": "2||",
+                "width": 1,
+                "delta": -1
+              },
+              {
+                "type": "T09440",
+                "canonicalType": "3||",
+                "width": 1,
+                "delta": 1
+              }
+            ]
+          }
+        },
+        {
+          "mode": "MULTI",
+          "statesAudited": 7255,
+          "classes": 3262,
+          "mixedValueClasses": 0,
+          "QV": true,
+          "firstMixedValueWitness": null,
+          "minimumMultiplicityDifferenceWitness": null
+        }
+      ],
+      "disposition": {
+        "EXACT_ZOE_QV": true,
+        "REL_INC_ZOE_QV": false,
+        "TOPO_RPAR_ZOE_QV": false,
+        "MULTI_QV": true,
+        "REL_INC_ZOE_classes": 3238,
+        "TOPO_RPAR_ZOE_classes": 3238,
+        "EXACT_ZOE_classes": 3262,
+        "MULTI_classes": 3262
+      }
+    },
+    {
+      "label": "4x4-k4",
+      "width": 4,
+      "height": 4,
+      "k": 4,
+      "physicalStates": 161029,
+      "nonterminalStates": 134289,
+      "componentTypes": 7757,
+      "tactical2Counts": {
+        "W": 24685,
+        "L2": 4154,
+        "O": 105450
+      },
+      "audits": [
+        {
+          "mode": "EXACT_ZOE",
+          "statesAudited": 105450,
+          "classes": 8050,
+          "mixedValueClasses": 0,
+          "QV": true,
+          "firstMixedValueWitness": null,
+          "minimumMultiplicityDifferenceWitness": null
+        },
+        {
+          "mode": "REL_INC_ZOE",
+          "statesAudited": 105450,
+          "classes": 7235,
+          "mixedValueClasses": 239,
+          "QV": false,
+          "firstMixedValueWitness": {
+            "mode": "REL_INC_ZOE",
+            "key": "[\"w1|r0=1:0|r1=\",\"O\"]||[\"w1|r0=|r1=\",\"O\"]",
+            "rank": 13,
+            "a": "9515:4820",
+            "b": "33067:6804",
+            "aOutcome": "draw",
+            "bOutcome": "win",
+            "aCode": 1,
+            "bCode": 2,
+            "multiplicityDifferenceL1": 2,
+            "parityPairUnits": null,
+            "aCounts": [
+              {
+                "type": "T07745",
+                "canonicalType": "2|8|",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T07754",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T07756",
+                "canonicalType": "4||",
+                "width": 1,
+                "count": 2
+              }
+            ],
+            "bCounts": [
+              {
+                "type": "T07154",
+                "canonicalType": "1|4|",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T07754",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T07756",
+                "canonicalType": "4||",
+                "width": 1,
+                "count": 2
+              }
+            ],
+            "delta": [
+              {
+                "type": "T07154",
+                "canonicalType": "1|4|",
+                "width": 1,
+                "delta": 1
+              },
+              {
+                "type": "T07745",
+                "canonicalType": "2|8|",
+                "width": 1,
+                "delta": -1
+              }
+            ]
+          },
+          "minimumMultiplicityDifferenceWitness": {
+            "mode": "REL_INC_ZOE",
+            "key": "[\"w1|r0=0:0,1:0,2:0|r1=\",\"O\"]||[\"w1|r0=1:0|r1=\",\"O\"]||[\"w1|r0=|r1=\",\"E\"]",
+            "rank": 10,
+            "a": "9257:710",
+            "b": "33317:2186",
+            "aOutcome": "draw",
+            "bOutcome": "loss",
+            "aCode": 1,
+            "bCode": 0,
+            "multiplicityDifferenceL1": 2,
+            "parityPairUnits": null,
+            "aCounts": [
+              {
+                "type": "T07134",
+                "canonicalType": "1|14|",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T07745",
+                "canonicalType": "2|8|",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T07754",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T07756",
+                "canonicalType": "4||",
+                "width": 1,
+                "count": 1
+              }
+            ],
+            "bCounts": [
+              {
+                "type": "T07134",
+                "canonicalType": "1|14|",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T07154",
+                "canonicalType": "1|4|",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T07754",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T07756",
+                "canonicalType": "4||",
+                "width": 1,
+                "count": 1
+              }
+            ],
+            "delta": [
+              {
+                "type": "T07154",
+                "canonicalType": "1|4|",
+                "width": 1,
+                "delta": 1
+              },
+              {
+                "type": "T07745",
+                "canonicalType": "2|8|",
+                "width": 1,
+                "delta": -1
+              }
+            ]
+          }
+        },
+        {
+          "mode": "TOPO_RPAR_ZOE",
+          "statesAudited": 105450,
+          "classes": 7085,
+          "mixedValueClasses": 258,
+          "QV": false,
+          "firstMixedValueWitness": {
+            "mode": "TOPO_RPAR_ZOE",
+            "key": "[\"w1|r0=O:0|r1=\",\"O\"]||[\"w1|r0=|r1=\",\"O\"]",
+            "rank": 13,
+            "a": "9515:4820",
+            "b": "33067:6804",
+            "aOutcome": "draw",
+            "bOutcome": "win",
+            "aCode": 1,
+            "bCode": 2,
+            "multiplicityDifferenceL1": 2,
+            "parityPairUnits": null,
+            "aCounts": [
+              {
+                "type": "T07745",
+                "canonicalType": "2|8|",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T07754",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T07756",
+                "canonicalType": "4||",
+                "width": 1,
+                "count": 2
+              }
+            ],
+            "bCounts": [
+              {
+                "type": "T07154",
+                "canonicalType": "1|4|",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T07754",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T07756",
+                "canonicalType": "4||",
+                "width": 1,
+                "count": 2
+              }
+            ],
+            "delta": [
+              {
+                "type": "T07154",
+                "canonicalType": "1|4|",
+                "width": 1,
+                "delta": 1
+              },
+              {
+                "type": "T07745",
+                "canonicalType": "2|8|",
+                "width": 1,
+                "delta": -1
+              }
+            ]
+          },
+          "minimumMultiplicityDifferenceWitness": {
+            "mode": "TOPO_RPAR_ZOE",
+            "key": "[\"w1|r0=E:0,F:0,O:0|r1=\",\"O\"]||[\"w1|r0=O:0|r1=\",\"O\"]||[\"w1|r0=|r1=\",\"E\"]",
+            "rank": 10,
+            "a": "9257:710",
+            "b": "33317:2186",
+            "aOutcome": "draw",
+            "bOutcome": "loss",
+            "aCode": 1,
+            "bCode": 0,
+            "multiplicityDifferenceL1": 2,
+            "parityPairUnits": null,
+            "aCounts": [
+              {
+                "type": "T07134",
+                "canonicalType": "1|14|",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T07745",
+                "canonicalType": "2|8|",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T07754",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T07756",
+                "canonicalType": "4||",
+                "width": 1,
+                "count": 1
+              }
+            ],
+            "bCounts": [
+              {
+                "type": "T07134",
+                "canonicalType": "1|14|",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T07154",
+                "canonicalType": "1|4|",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T07754",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T07756",
+                "canonicalType": "4||",
+                "width": 1,
+                "count": 1
+              }
+            ],
+            "delta": [
+              {
+                "type": "T07154",
+                "canonicalType": "1|4|",
+                "width": 1,
+                "delta": 1
+              },
+              {
+                "type": "T07745",
+                "canonicalType": "2|8|",
+                "width": 1,
+                "delta": -1
+              }
+            ]
+          }
+        },
+        {
+          "mode": "MULTI",
+          "statesAudited": 105450,
+          "classes": 8052,
+          "mixedValueClasses": 0,
+          "QV": true,
+          "firstMixedValueWitness": null,
+          "minimumMultiplicityDifferenceWitness": null
+        }
+      ],
+      "disposition": {
+        "EXACT_ZOE_QV": true,
+        "REL_INC_ZOE_QV": false,
+        "TOPO_RPAR_ZOE_QV": false,
+        "MULTI_QV": true,
+        "REL_INC_ZOE_classes": 7235,
+        "TOPO_RPAR_ZOE_classes": 7085,
+        "EXACT_ZOE_classes": 8050,
+        "MULTI_classes": 8052
+      }
+    },
+    {
+      "label": "6x3-k3",
+      "width": 6,
+      "height": 3,
+      "k": 3,
+      "physicalStates": 692970,
+      "nonterminalStates": 353581,
+      "componentTypes": 72195,
+      "tactical2Counts": {
+        "W": 277244,
+        "L2": 39768,
+        "O": 36569
+      },
+      "audits": [
+        {
+          "mode": "EXACT_ZOE",
+          "statesAudited": 36569,
+          "classes": 16735,
+          "mixedValueClasses": 0,
+          "QV": true,
+          "firstMixedValueWitness": null,
+          "minimumMultiplicityDifferenceWitness": null
+        },
+        {
+          "mode": "REL_INC_ZOE",
+          "statesAudited": 36569,
+          "classes": 16627,
+          "mixedValueClasses": 53,
+          "QV": false,
+          "firstMixedValueWitness": {
+            "mode": "REL_INC_ZOE",
+            "key": "[\"w1|r0=|r1=\",\"O\"]||[\"w1|r0=|r1=1:0\",\"O\"]",
+            "rank": 15,
+            "a": "102809:26182",
+            "b": "39321:25190",
+            "aOutcome": "draw",
+            "bOutcome": "win",
+            "aCode": 1,
+            "bCode": 2,
+            "multiplicityDifferenceL1": 4,
+            "parityPairUnits": null,
+            "aCounts": [
+              {
+                "type": "T61412",
+                "canonicalType": "0||2",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T72194",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 5
+              }
+            ],
+            "bCounts": [
+              {
+                "type": "T72169",
+                "canonicalType": "1||4",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T72192",
+                "canonicalType": "2||",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T72194",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 4
+              }
+            ],
+            "delta": [
+              {
+                "type": "T61412",
+                "canonicalType": "0||2",
+                "width": 1,
+                "delta": -1
+              },
+              {
+                "type": "T72169",
+                "canonicalType": "1||4",
+                "width": 1,
+                "delta": 1
+              },
+              {
+                "type": "T72192",
+                "canonicalType": "2||",
+                "width": 1,
+                "delta": 1
+              },
+              {
+                "type": "T72194",
+                "canonicalType": "3||",
+                "width": 1,
+                "delta": -1
+              }
+            ]
+          },
+          "minimumMultiplicityDifferenceWitness": {
+            "mode": "REL_INC_ZOE",
+            "key": "[\"w1|r0=0:0,1:0|r1=1:0\",\"O\"]||[\"w1|r0=1:0;2:0|r1=1:0;2:0\",\"O\"]||[\"w1|r0=|r1=\",\"E\"]",
+            "rank": 13,
+            "a": "213267:11428",
+            "b": "147731:11428",
+            "aOutcome": "loss",
+            "bOutcome": "win",
+            "aCode": 0,
+            "bCode": 2,
+            "multiplicityDifferenceL1": 2,
+            "parityPairUnits": null,
+            "aCounts": [
+              {
+                "type": "T61377",
+                "canonicalType": "0|2.4|2.4",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T72165",
+                "canonicalType": "1|6|4",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T72194",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 4
+              }
+            ],
+            "bCounts": [
+              {
+                "type": "T61377",
+                "canonicalType": "0|2.4|2.4",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T72165",
+                "canonicalType": "1|6|4",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T72192",
+                "canonicalType": "2||",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T72194",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 3
+              }
+            ],
+            "delta": [
+              {
+                "type": "T72192",
+                "canonicalType": "2||",
+                "width": 1,
+                "delta": 1
+              },
+              {
+                "type": "T72194",
+                "canonicalType": "3||",
+                "width": 1,
+                "delta": -1
+              }
+            ]
+          }
+        },
+        {
+          "mode": "TOPO_RPAR_ZOE",
+          "statesAudited": 36569,
+          "classes": 16627,
+          "mixedValueClasses": 53,
+          "QV": false,
+          "firstMixedValueWitness": {
+            "mode": "TOPO_RPAR_ZOE",
+            "key": "[\"w1|r0=|r1=\",\"O\"]||[\"w1|r0=|r1=O:0\",\"O\"]",
+            "rank": 15,
+            "a": "102809:26182",
+            "b": "39321:25190",
+            "aOutcome": "draw",
+            "bOutcome": "win",
+            "aCode": 1,
+            "bCode": 2,
+            "multiplicityDifferenceL1": 4,
+            "parityPairUnits": null,
+            "aCounts": [
+              {
+                "type": "T61412",
+                "canonicalType": "0||2",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T72194",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 5
+              }
+            ],
+            "bCounts": [
+              {
+                "type": "T72169",
+                "canonicalType": "1||4",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T72192",
+                "canonicalType": "2||",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T72194",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 4
+              }
+            ],
+            "delta": [
+              {
+                "type": "T61412",
+                "canonicalType": "0||2",
+                "width": 1,
+                "delta": -1
+              },
+              {
+                "type": "T72169",
+                "canonicalType": "1||4",
+                "width": 1,
+                "delta": 1
+              },
+              {
+                "type": "T72192",
+                "canonicalType": "2||",
+                "width": 1,
+                "delta": 1
+              },
+              {
+                "type": "T72194",
+                "canonicalType": "3||",
+                "width": 1,
+                "delta": -1
+              }
+            ]
+          },
+          "minimumMultiplicityDifferenceWitness": {
+            "mode": "TOPO_RPAR_ZOE",
+            "key": "[\"w1|r0=E:0;O:0|r1=E:0\",\"O\"]||[\"w1|r0=E:0;O:0|r1=E:0;O:0\",\"O\"]||[\"w1|r0=|r1=\",\"E\"]",
+            "rank": 12,
+            "a": "13833:98514",
+            "b": "1737:102418",
+            "aOutcome": "win",
+            "bOutcome": "loss",
+            "aCode": 2,
+            "bCode": 0,
+            "multiplicityDifferenceL1": 2,
+            "parityPairUnits": null,
+            "aCounts": [
+              {
+                "type": "T61377",
+                "canonicalType": "0|2.4|2.4",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T61378",
+                "canonicalType": "0|2.4|4",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T72194",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 4
+              }
+            ],
+            "bCounts": [
+              {
+                "type": "T61377",
+                "canonicalType": "0|2.4|2.4",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T61378",
+                "canonicalType": "0|2.4|4",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T72192",
+                "canonicalType": "2||",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T72194",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 3
+              }
+            ],
+            "delta": [
+              {
+                "type": "T72192",
+                "canonicalType": "2||",
+                "width": 1,
+                "delta": 1
+              },
+              {
+                "type": "T72194",
+                "canonicalType": "3||",
+                "width": 1,
+                "delta": -1
+              }
+            ]
+          }
+        },
+        {
+          "mode": "MULTI",
+          "statesAudited": 36569,
+          "classes": 16735,
+          "mixedValueClasses": 0,
+          "QV": true,
+          "firstMixedValueWitness": null,
+          "minimumMultiplicityDifferenceWitness": null
+        }
+      ],
+      "disposition": {
+        "EXACT_ZOE_QV": true,
+        "REL_INC_ZOE_QV": false,
+        "TOPO_RPAR_ZOE_QV": false,
+        "MULTI_QV": true,
+        "REL_INC_ZOE_classes": 16627,
+        "TOPO_RPAR_ZOE_classes": 16627,
+        "EXACT_ZOE_classes": 16735,
+        "MULTI_classes": 16735
+      }
+    },
+    {
+      "label": "4x5-k4",
+      "width": 4,
+      "height": 5,
+      "k": 4,
+      "physicalStates": 1706255,
+      "nonterminalStates": 1348441,
+      "componentTypes": 90223,
+      "tactical2Counts": {
+        "W": 348191,
+        "L2": 66275,
+        "O": 933975
+      },
+      "audits": [
+        {
+          "mode": "EXACT_ZOE",
+          "statesAudited": 933975,
+          "classes": 79848,
+          "mixedValueClasses": 0,
+          "QV": true,
+          "firstMixedValueWitness": null,
+          "minimumMultiplicityDifferenceWitness": null
+        },
+        {
+          "mode": "REL_INC_ZOE",
+          "statesAudited": 933975,
+          "classes": 73557,
+          "mixedValueClasses": 2253,
+          "QV": false,
+          "firstMixedValueWitness": {
+            "mode": "REL_INC_ZOE",
+            "key": "[\"w1|r0=|r1=\",\"O\"]||[\"w1|r0=|r1=2:0\",\"O\"]",
+            "rank": 17,
+            "a": "336301:153170",
+            "b": "74213:153114",
+            "aOutcome": "win",
+            "bOutcome": "loss",
+            "aCode": 2,
+            "bCode": 0,
+            "multiplicityDifferenceL1": 2,
+            "parityPairUnits": null,
+            "aCounts": [
+              {
+                "type": "T88146",
+                "canonicalType": "2||16",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T90222",
+                "canonicalType": "5||",
+                "width": 1,
+                "count": 3
+              }
+            ],
+            "bCounts": [
+              {
+                "type": "T88146",
+                "canonicalType": "2||16",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T90220",
+                "canonicalType": "4||",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T90222",
+                "canonicalType": "5||",
+                "width": 1,
+                "count": 2
+              }
+            ],
+            "delta": [
+              {
+                "type": "T90220",
+                "canonicalType": "4||",
+                "width": 1,
+                "delta": 1
+              },
+              {
+                "type": "T90222",
+                "canonicalType": "5||",
+                "width": 1,
+                "delta": -1
+              }
+            ]
+          },
+          "minimumMultiplicityDifferenceWitness": {
+            "mode": "REL_INC_ZOE",
+            "key": "[\"w1|r0=0:0,1:0,2:0|r1=\",\"O\"]||[\"w1|r0=0:0,1:0,2:0|r1=1:0\",\"O\"]||[\"w1|r0=|r1=\",\"E\"]",
+            "rank": 13,
+            "a": "82311:267352",
+            "b": "131798:287785",
+            "aOutcome": "win",
+            "bOutcome": "draw",
+            "aCode": 2,
+            "bCode": 1,
+            "multiplicityDifferenceL1": 2,
+            "parityPairUnits": null,
+            "aCounts": [
+              {
+                "type": "T63083",
+                "canonicalType": "1|14|4",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T88106",
+                "canonicalType": "2|28|",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T90222",
+                "canonicalType": "5||",
+                "width": 1,
+                "count": 2
+              }
+            ],
+            "bCounts": [
+              {
+                "type": "T88106",
+                "canonicalType": "2|28|",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T88111",
+                "canonicalType": "2|28|8",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T90222",
+                "canonicalType": "5||",
+                "width": 1,
+                "count": 2
+              }
+            ],
+            "delta": [
+              {
+                "type": "T63083",
+                "canonicalType": "1|14|4",
+                "width": 1,
+                "delta": -1
+              },
+              {
+                "type": "T88111",
+                "canonicalType": "2|28|8",
+                "width": 1,
+                "delta": 1
+              }
+            ]
+          }
+        },
+        {
+          "mode": "TOPO_RPAR_ZOE",
+          "statesAudited": 933975,
+          "classes": 70222,
+          "mixedValueClasses": 2508,
+          "QV": false,
+          "firstMixedValueWitness": {
+            "mode": "TOPO_RPAR_ZOE",
+            "key": "[\"w1|r0=|r1=\",\"O\"]||[\"w1|r0=|r1=E:0\",\"O\"]",
+            "rank": 17,
+            "a": "336301:153170",
+            "b": "74213:153114",
+            "aOutcome": "win",
+            "bOutcome": "loss",
+            "aCode": 2,
+            "bCode": 0,
+            "multiplicityDifferenceL1": 2,
+            "parityPairUnits": null,
+            "aCounts": [
+              {
+                "type": "T88146",
+                "canonicalType": "2||16",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T90222",
+                "canonicalType": "5||",
+                "width": 1,
+                "count": 3
+              }
+            ],
+            "bCounts": [
+              {
+                "type": "T88146",
+                "canonicalType": "2||16",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T90220",
+                "canonicalType": "4||",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T90222",
+                "canonicalType": "5||",
+                "width": 1,
+                "count": 2
+              }
+            ],
+            "delta": [
+              {
+                "type": "T90220",
+                "canonicalType": "4||",
+                "width": 1,
+                "delta": 1
+              },
+              {
+                "type": "T90222",
+                "canonicalType": "5||",
+                "width": 1,
+                "delta": -1
+              }
+            ]
+          },
+          "minimumMultiplicityDifferenceWitness": {
+            "mode": "TOPO_RPAR_ZOE",
+            "key": "[\"w1|r0=E:0,F:0,O:0|r1=\",\"O\"]||[\"w1|r0=E:0,F:0,O:0|r1=O:0\",\"O\"]||[\"w1|r0=|r1=\",\"E\"]",
+            "rank": 13,
+            "a": "82311:267352",
+            "b": "131798:287785",
+            "aOutcome": "win",
+            "bOutcome": "draw",
+            "aCode": 2,
+            "bCode": 1,
+            "multiplicityDifferenceL1": 2,
+            "parityPairUnits": null,
+            "aCounts": [
+              {
+                "type": "T63083",
+                "canonicalType": "1|14|4",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T88106",
+                "canonicalType": "2|28|",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T90222",
+                "canonicalType": "5||",
+                "width": 1,
+                "count": 2
+              }
+            ],
+            "bCounts": [
+              {
+                "type": "T88106",
+                "canonicalType": "2|28|",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T88111",
+                "canonicalType": "2|28|8",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T90222",
+                "canonicalType": "5||",
+                "width": 1,
+                "count": 2
+              }
+            ],
+            "delta": [
+              {
+                "type": "T63083",
+                "canonicalType": "1|14|4",
+                "width": 1,
+                "delta": -1
+              },
+              {
+                "type": "T88111",
+                "canonicalType": "2|28|8",
+                "width": 1,
+                "delta": 1
+              }
+            ]
+          }
+        },
+        {
+          "mode": "MULTI",
+          "statesAudited": 933975,
+          "classes": 79850,
+          "mixedValueClasses": 0,
+          "QV": true,
+          "firstMixedValueWitness": null,
+          "minimumMultiplicityDifferenceWitness": null
+        }
+      ],
+      "disposition": {
+        "EXACT_ZOE_QV": true,
+        "REL_INC_ZOE_QV": false,
+        "TOPO_RPAR_ZOE_QV": false,
+        "MULTI_QV": true,
+        "REL_INC_ZOE_classes": 73557,
+        "TOPO_RPAR_ZOE_classes": 70222,
+        "EXACT_ZOE_classes": 79848,
+        "MULTI_classes": 79850
+      }
+    }
+  ],
+  "mechanicalChecks": {
+    "candidateFrozenBeforeQualification": true,
+    "descriptorsOutcomeIndependent": true,
+    "countAggregationBeforeZoeClassification": true,
+    "exactZoeControlsExact": true,
+    "fullMultiplicityControlsExact": true
+  },
+  "interpretationGuard": [
+    "Counts are summed over descriptor-equivalent exact components before the frozen Z/O/E state is assigned.",
+    "A passing descriptor aggregation is a bounded Q-V result only and may discard Q-A/Q-F-relevant structure.",
+    "Failure of a descriptor aggregation does not invalidate exact-type ZOE.",
+    "No standard-7x6 or universal descriptor theorem follows."
+  ]
+}
