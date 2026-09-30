@@ -77,7 +77,7 @@ for(const required of [
   '- V -> V',
   '- D+ -> D-',
   '- D- -> D+',
-  'duplicate residual masks',
+  'for equal nonempty residual masks',
   'strict-superset absorption'
 ]){
   assert.ok(spec.toLowerCase().includes(required.toLowerCase()),'spec missing '+required);
