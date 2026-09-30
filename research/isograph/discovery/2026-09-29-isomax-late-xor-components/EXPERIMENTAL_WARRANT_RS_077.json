@@ -1,0 +1,115 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.sign_channel_coupling.v1",
+  "id": "EW-RS-077",
+  "date_author_local": "2026-09-30",
+  "status": "ACTIVE",
+  "parent": "EW-RS-076",
+  "objective": "Determine the minimal structural coupling of plus/minus channels within the selected C=PRESENCE, D=CLIP3, A=CLIP2 exchange carrier, without dropping one sign channel or selecting family-specific exceptions from scalar outcomes.",
+  "cases": [
+    "6x3-k3",
+    "4x5-k4",
+    "6x3-k4"
+  ],
+  "sealedFormulaHoldouts": {
+    "primary": "3x6-k4",
+    "backup": "5x3-k4",
+    "outcomesMayBeAccessed": false
+  },
+  "frozenCarrier": {
+    "encoding": "SIGNED_PARITY",
+    "ownerMode": "D_SYMMETRIC_MARGINALS",
+    "familySaturation": {
+      "C": "PRESENCE",
+      "D": "CLIP3",
+      "A": "CLIP2"
+    },
+    "pairFamilies": {
+      "C": "ordered nonnegative pair (C+,C-) with each entry in {0,1}",
+      "D": "ordered nonnegative pair (D+,D-) with each entry in {0,1,2,3+}",
+      "A": "ordered nonnegative pair (A+,A-) with each entry in {0,1,2+}"
+    },
+    "controlRanks": {
+      "6x3-k3": 72,
+      "4x5-k4": 252,
+      "6x3-k4": 14
+    },
+    "source": "EW-RS-076 unique Pareto-minimal common carrier"
+  },
+  "couplingModes": [
+    {
+      "name": "TOTAL",
+      "definition": "Retain x+ + x- only; discard direction and within-family imbalance."
+    },
+    {
+      "name": "SIGNED_NET",
+      "definition": "Retain x+ - x- as a signed integer; preserve net direction but allow opposite changes to cancel."
+    },
+    {
+      "name": "ABS_NET",
+      "definition": "Retain |x+ - x-|; discard direction but preserve imbalance magnitude."
+    },
+    {
+      "name": "UNORDERED_PAIR",
+      "definition": "Retain sorted multiset {x+,x-}; discard which channel is plus while preserving both saturated values."
+    },
+    {
+      "name": "SEPARATED",
+      "definition": "Retain ordered pair (x+,x-) exactly; reconstruction control."
+    }
+  ],
+  "candidateGrid": {
+    "construction": "Complete Cartesian product of the five frozen coupling modes independently assigned to C,D,A.",
+    "size": 125,
+    "keyOrder": [
+      "C",
+      "D",
+      "A"
+    ]
+  },
+  "partialOrder": {
+    "familyOrder": [
+      "TOTAL < UNORDERED_PAIR < SEPARATED",
+      "ABS_NET < UNORDERED_PAIR < SEPARATED",
+      "SIGNED_NET < SEPARATED",
+      "TOTAL, ABS_NET, and SIGNED_NET are pairwise incomparable",
+      "UNORDERED_PAIR and SIGNED_NET are incomparable"
+    ],
+    "dominance": "Candidate X is strictly coarser than Y only when every family mode in X is no finer than the corresponding mode in Y under the frozen familyOrder, with at least one strict relation.",
+    "output": "Report all Pareto-minimal common-exact grid points; do not impose a total order on incomparable couplings."
+  },
+  "structuralProcedure": [
+    "Start from each frozen EW-RS-076 selected pair signature C+/C- presence, D+/D- CLIP3, A+/A- CLIP2.",
+    "Apply the chosen coupling mode independently to the C pair, D pair, and A pair.",
+    "Form each OOO triple key as the sorted multiset of its three transformed pair signatures.",
+    "Generate all 125 feature catalogs, matched-dependency rows, and structural bases before scalar replay.",
+    "Replay scalar residues only after the complete structural grid is frozen."
+  ],
+  "measurements": [
+    "feature-key count",
+    "structural image rank",
+    "zero-structural-residue/nonzero-scalar count",
+    "scalar contradictions",
+    "scalar image dimension",
+    "common-exact grid points",
+    "Pareto-minimal common-exact grid points",
+    "which families can discard plus/minus orientation"
+  ],
+  "antiCircularity": [
+    "The five coupling modes, three families, complete 125-point grid, and partial order are frozen before scalar inspection.",
+    "No one-sided channel deletion, sign-specific exception, or outcome-selected coupling is permitted.",
+    "The selected EW-RS-076 family saturation and EW-RS-065 matched dependencies are unchanged.",
+    "EW-RS-059 PRIMARY 3x6-k4 and BACKUP 5x3-k4 remain sealed."
+  ],
+  "falsifiers": [
+    "C=SEPARATED,D=SEPARATED,A=SEPARATED must reproduce EW-RS-076 selected ranks 72,252,14 with zero contradictions.",
+    "Any structurally zero candidate residue with nonzero scalar residue is insufficient.",
+    "No post-hoc sign-channel rescue is allowed."
+  ],
+  "nextIfCoupledPasses": "Freeze every Pareto-minimal common sign-channel quotient and test small algebraic/circuit functionals on its finite pair alphabet.",
+  "nextIfSeparatedRequired": "Retain separated channels where required and move directly to outcome-independent circuit reduction without sign-specific coefficient fitting.",
+  "interpretationGuards": [
+    "Plus/minus labels refer to signed structural exchange direction under the frozen pair orientation, not player identity.",
+    "A family-level coupling result does not imply upstream game-state sign symmetry.",
+    "No Q-A/Q-F, standard-7x6, universal theorem, or center-opening proof follows."
+  ]
+}
