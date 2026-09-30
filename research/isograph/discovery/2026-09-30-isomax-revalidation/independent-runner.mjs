@@ -5,6 +5,7 @@ import {createHash} from 'node:crypto';
 import {execFileSync} from 'node:child_process';
 import {gzipSync,gunzipSync} from 'node:zlib';
 import {assertCarrier,createOracle,dependencyImage} from './independent-oracle.mjs';
+import {renameCheckpoint} from './independent-io.mjs';
 
 const here=path.dirname(fileURLToPath(import.meta.url));
 const label=process.argv[2];
@@ -13,9 +14,9 @@ if(!match)throw new Error('Usage: node --max-old-space-size=6144 independent-run
 const [W,H,K]=match.slice(1).map(Number);assertCarrier(W,H,K);
 const target=path.join(here,`independent-${label}`);fs.mkdirSync(target,{recursive:true});
 const digest=bytes=>createHash('sha256').update(bytes).digest('hex');
-const atomic=(file,data)=>{fs.writeFileSync(file+'.partial',data);fs.renameSync(file+'.partial',file);};
+const atomic=(file,data)=>{fs.writeFileSync(file+'.partial',data);renameCheckpoint(file+'.partial',file);};
 const json=(file,data)=>atomic(file,JSON.stringify(data,null,2)+'\n');
-const sourceFiles=['independent-oracle.mjs','independent-runner.mjs'];
+const sourceFiles=['independent-oracle.mjs','independent-runner.mjs','independent-io.mjs'];
 const config={schema:1,label,W,H,K,shardSize:10000,node:process.version,sources:Object.fromEntries(sourceFiles.map(f=>[f,digest(fs.readFileSync(path.join(here,f)))]))};
 const configHash=digest(JSON.stringify(config));
 const configFile=path.join(target,'independent-config.json');
