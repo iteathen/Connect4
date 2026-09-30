@@ -43,5 +43,6 @@ jobs:
             echo "No generated carrier audit changes."
           else
             git commit -m "research(isomax): freeze independent carrier prior audit"
+            git pull --rebase origin research/isomax-foundational-prior-audit-20260929
             git push origin HEAD:research/isomax-foundational-prior-audit-20260929
           fi
