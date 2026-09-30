@@ -1,0 +1,21 @@
+{
+  "schema": "connect4.isomax.qualification.q_sigma_rf.v1",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE_INDEPENDENT_REVIEW",
+  "candidate": "q_SigmaRF=[F(R(q_o))]_{S_W}",
+  "proof_obligations": [
+    "q_o transition S_W equivariance",
+    "R permanent-safe deletion",
+    "F universal one-step-safe deletion",
+    "R/F commutation",
+    "R/F S_W covariance",
+    "transition factorization through RF"
+  ],
+  "finite_controls": [
+    "3x3 k3",
+    "3x4 k3",
+    "4x3 k3",
+    "4x4 k4"
+  ],
+  "authority_effect": "none until standard-7x6 semantic qualification/promotion"
+}
