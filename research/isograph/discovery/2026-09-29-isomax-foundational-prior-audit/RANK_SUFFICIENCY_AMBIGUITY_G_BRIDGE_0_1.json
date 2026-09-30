@@ -1,0 +1,54 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ambiguity_g_bridge.v1",
+  "date_author_local": "2026-09-29",
+  "evidence": [
+    {
+      "id": "AMB",
+      "branch": "research/rank-sufficient-qg-dg-20260929",
+      "commit": "f1fa5f68c7e803d82ec005f868888a28923aa55d",
+      "file": "AMBIGUITY_REALIZABILITY_0_1.json"
+    },
+    {
+      "id": "G",
+      "branch": "research/isomax-foundational-prior-audit-20260929",
+      "commit": "61d234c38ed955e77a8f9895e03d110d1d15a05e",
+      "file": "RANK_SUFFICIENCY_FINAL_MOVER_CAP_INTEGRATION_0_1.json"
+    },
+    {
+      "id": "XP",
+      "branch": "experiment/isomax-xor-parity-lens-20260929",
+      "commit": "f598363a5a965dc6aae9da672020a63de9869d75",
+      "file": "XOR_PARITY_LENS_0_1.json"
+    }
+  ],
+  "derivation": [
+    "The old M/R/F/C transition-congruence audit reports 806 failures on 4x4-k4 and 30 on 4x4-k3.",
+    "Every one of those 836 failures is a future-equivalent representation split with zero terminal disagreement.",
+    "The ambiguity-realizability audit reduces all 836 occurrences to 68 unique differing residual contexts.",
+    "All 68 contexts are player-0/opponent-owned residuals containing every current open cap; all are exact support-schedule infeasible.",
+    "For a 4x4 board, the fixed final board mover is f=(16-1) mod 2 = 1.",
+    "G deletes from player 0 every residual containing every current open cap.",
+    "Therefore G deletes every residual token responsible for the 836 old representation splits.",
+    "The later RFG complete-4x4 audits are transition-congruent, consistent with this exact bridge.",
+    "The XOR audit independently shows parent and child support, hence X_h and p, are constant across every one of the 836 failure fibers."
+  ],
+  "findings": [
+    {
+      "id": "RS-F052",
+      "statement": "Hereditary G exactly covers the residual-difference family responsible for all 836 old M/R/F/C transition-congruence failures on 4x4-k4/k3.",
+      "status": "DEDUCTIVE_FROM_FROZEN_FINITE_EVIDENCE"
+    },
+    {
+      "id": "RS-F053",
+      "statement": "The 836 ambiguity family is therefore explained by a missed hereditary final-mover deadness rule, not by a missing support/XOR coordinate.",
+      "status": "DERIVED_INTERPRETATION"
+    },
+    {
+      "id": "RS-F054",
+      "statement": "The same evidence simultaneously falsifies XOR as an ambiguity resolver: X_h,p are identical across each failure fiber because complete support is identical.",
+      "status": "EXACT_FINITE"
+    }
+  ],
+  "scope": "complete 4x4-k4 and 4x4-k3 old-normal-form ambiguity family only",
+  "nonclaim": "This does not establish that every future representation ambiguity on larger boards is a G-type all-open-cap case."
+}
