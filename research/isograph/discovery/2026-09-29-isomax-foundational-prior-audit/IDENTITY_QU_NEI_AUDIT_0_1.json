@@ -1,0 +1,216 @@
+{
+  "schema": "connect4.isomax.foundational_prior_audit.identity_qu_nei.v1",
+  "date_author_local": "2026-09-29",
+  "research_direction": "Joshua Oshiro",
+  "authority_context": {
+    "connect4": "qualified Connect4 logic authority 1.2",
+    "nei": "NEI 0.4",
+    "qu": "QU 0.1",
+    "dts": "DTS 0.1",
+    "warning": "The bounded pruned residual carrier is an experimental abstract transition model. Its arbitrary-column equivalence is not automatically the qualified physical/reflection identity of Connect4 authority 1.2."
+  },
+  "relation_ledger": [
+    {
+      "id": "ID-R001",
+      "query": "Are the two target-sheet representatives the same exact residual state?",
+      "result": "NO",
+      "authority": "exact serialized support + player-owned residual sets",
+      "evidence": "WITNESS_PRIOR_AUDIT_0_1.json",
+      "intrinsic": "relative to exact experimental state representation"
+    },
+    {
+      "id": "ID-R002",
+      "query": "Are the two target-sheet representatives in the same arbitrary-column residual orbit?",
+      "result": "NO",
+      "authority": "exhaustive 120-column-permutation test",
+      "evidence": "WITNESS_PRIOR_AUDIT_0_1.json",
+      "note": "Therefore they are also not equal under the smaller physical board automorphism group {identity, reflection}."
+    },
+    {
+      "id": "ID-R003",
+      "query": "Do the two canonical target-sheet representatives have the same complete literal-action future in their displayed canonical coordinate frame?",
+      "result": "YES_WITHIN_EXPERIMENTAL_PRUNED_MODEL",
+      "authority": "complete no-canonicalization recursive future-tree equality",
+      "evidence": "WITNESS_PRIOR_AUDIT_0_1.json",
+      "scope": "bounded residual transition semantics with the declared closures"
+    },
+    {
+      "id": "ID-R004",
+      "query": "Do the two routes reconverge to the same exact or literal-future endpoint in one common source coordinate frame?",
+      "result": "NO",
+      "authority": "fixed-frame route replay",
+      "evidence": "FIXED_FRAME_ROUTE_AUDIT_0_1.json"
+    },
+    {
+      "id": "ID-R005",
+      "query": "Are the two fixed-frame route endpoints literal-future equivalent after one explicit global action relabeling?",
+      "result": "YES_WITHIN_EXPERIMENTAL_PRUNED_MODEL",
+      "authority": "exhaustive 120 global action permutations",
+      "evidence": "FIXED_FRAME_ROUTE_AUDIT_0_1.json",
+      "transporter_witnesses": [
+        [
+          1,
+          0,
+          3,
+          2,
+          4
+        ],
+        [
+          1,
+          2,
+          3,
+          0,
+          4
+        ]
+      ],
+      "note": "These transporters are not asserted to be physical Connect4 board symmetries."
+    },
+    {
+      "id": "ID-R006",
+      "query": "Do the six stored binary sheet pairs distinguish complete literal-action future behaviors?",
+      "result": "NO",
+      "authority": "complete future-tree audit on every witness sheet pair",
+      "evidence": "TRANSPORTER_AWARE_RECONSTRUCTION_0_1.json",
+      "consequence": "All six stored two-sheet fibers collapse to one literal-future class at witness resolution."
+    },
+    {
+      "id": "ID-R007",
+      "query": "Is the stored action-labelled class a proved literal-action-labelled future-behavior class?",
+      "result": "NO",
+      "authority": "source construction + witness counterexample",
+      "evidence": [
+        "REPRESENTATION_SEMANTICS_AUDIT_0_1.json",
+        "WITNESS_PRIOR_AUDIT_0_1.json"
+      ],
+      "reason": "Child states are independently canonicalized, but the edge transporter is omitted from recursive action-label alignment."
+    },
+    {
+      "id": "ID-R008",
+      "query": "Is the stored unlabelled base-group reconvergence real?",
+      "result": "YES_ONLY_UNDER_THE_DECLARED_COARSE_RELATION",
+      "authority": "stored recursive distinct-child-set quotient independently mirrored by set-future equality",
+      "evidence": [
+        "WITNESS_PRIOR_AUDIT_0_1.json",
+        "CARRIER_PRIOR_AUDIT_0_1.json"
+      ],
+      "note": "It is not exact-state reconvergence and must not be called same object without naming the relation."
+    },
+    {
+      "id": "ID-R009",
+      "query": "Is the odd route-parity difference real on the declared two-sheet representation graph?",
+      "result": "YES",
+      "authority": "independent sheet gauge + carrier potential solve",
+      "evidence": [
+        "WITNESS_PRIOR_AUDIT_0_1.json",
+        "CARRIER_PRIOR_AUDIT_0_1.json"
+      ],
+      "note": "Which individual edge carries delta=1 is gauge-dependent."
+    }
+  ],
+  "nei_queries": [
+    {
+      "id": "NEI-AUDIT-001",
+      "subjects": [
+        "the two exact target-sheet states"
+      ],
+      "question": "Are they naturally/domain-identically the same Connect4 state/object?",
+      "result": "INCOMPLETE",
+      "fixed": [
+        "exact representations differ",
+        "arbitrary-column residual orbits differ",
+        "complete experimental future behavior agrees in each canonical frame",
+        "current qualified identity authority does not identify arbitrary-column experimental future equivalence with physical-state identity"
+      ],
+      "guard": "Do not infer SAME from behavior correspondence or DISTINCT from representation inequality without an independently qualified natural-identity model."
+    },
+    {
+      "id": "NEI-AUDIT-002",
+      "subjects": [
+        "fixed-frame Route A endpoint",
+        "fixed-frame Route B endpoint"
+      ],
+      "question": "Are they naturally/domain-identically the same transition endpoint?",
+      "result": "INCOMPLETE",
+      "fixed": [
+        "exact and raw literal future representations differ",
+        "a global action relabeling yields complete future-behavior correspondence",
+        "that action relabeling is not established as a physical board automorphism"
+      ]
+    },
+    {
+      "id": "NEI-AUDIT-003",
+      "subjects": [
+        "stored binary sheet 0",
+        "stored binary sheet 1"
+      ],
+      "question": "Are they naturally distinct semantic sheets of future behavior?",
+      "result": "INCOMPLETE_WITH_STRONG_NEGATIVE_EVIDENCE_FOR_BEHAVIORAL_DISTINCTNESS",
+      "fixed": [
+        "all six witness sheet pairs have identical complete literal-action future trees",
+        "stored class IDs remain different",
+        "the difference arises in a recursive canonical-frame action-token construction lacking transporter alignment"
+      ]
+    }
+  ],
+  "qu_regions": [
+    {
+      "id": "QU-AUDIT-001",
+      "subject": "global transporter-aware reconstruction of the full bounded carrier",
+      "fixed": [
+        "the repair-surviving witness collapses all six stored binary sheet pairs under complete literal-future behavior",
+        "the current full representation graph remains non-exact before such collapse"
+      ],
+      "open": [
+        "whether every non-exact component of the full carrier disappears under a transporter-aware behavior partition",
+        "whether any transporter-aware binary or higher fiber survives elsewhere"
+      ],
+      "status": "OPEN"
+    },
+    {
+      "id": "QU-AUDIT-002",
+      "subject": "physical meaning of arbitrary-column canonical frames",
+      "fixed": [
+        "5x4 k4 physical column automorphism group has exactly identity and reflection",
+        "10 of 14 witness canonicalizer uses are not physical board automorphisms",
+        "every audited displayed witness state contains at least one residual not lying on a physical winning line in that displayed frame"
+      ],
+      "open": [
+        "root-to-witness accumulated transporter provenance",
+        "whether a globally physical-frame reconstruction retains any analogous holonomy"
+      ],
+      "status": "OPEN"
+    },
+    {
+      "id": "QU-AUDIT-003",
+      "subject": "semantic status of the non-exact Z2 cochain",
+      "fixed": [
+        "non-exactness is independently reproduced on the declared representation graph",
+        "the source-order count 22 of nonzero fundamental-basis cycles is basis-dependent",
+        "the unique directed opposite-parity reconvergence is independently reproduced",
+        "the witness two-sheet fiber collapses at literal-future behavior resolution"
+      ],
+      "open": [
+        "whether the cochain is best interpreted as coordinate-frame/groupoid holonomy",
+        "whether a transporter-complete quotient has a nontrivial cohomological obstruction",
+        "whether any such obstruction correlates with a game-theoretic invariant"
+      ],
+      "status": "OPEN"
+    },
+    {
+      "id": "QU-AUDIT-004",
+      "subject": "relation between current cap-hole motifs and intrinsic Connect4 structure",
+      "fixed": [
+        "the motif is relabeling-covariant inside the abstract residual-hypergraph representation",
+        "canonical residual masks are not generally geometric residuals in the displayed physical board frame",
+        "the stronger scalar endpoint bit has flat same-parity counterexamples"
+      ],
+      "open": [
+        "whether an accumulated-transporter physical-frame form of the motif exists",
+        "whether the motif survives transporter-aware class collapse"
+      ],
+      "status": "OPEN"
+    }
+  ],
+  "strongest_current_identity_statement": "The repair-surviving two routes reconverge only after a declared coarse behavioral/action-relabel equivalence. They do not reconverge as exact residual states or as fixed-frame literal futures. The current evidence supports a representation-relative quotient/groupoid relation, not an unqualified SAME-object claim.",
+  "stop_rule": "Do not pursue the old odd-edge mechanism unless a transporter-aware full-carrier reconstruction re-establishes a load-bearing semantic fiber."
+}
