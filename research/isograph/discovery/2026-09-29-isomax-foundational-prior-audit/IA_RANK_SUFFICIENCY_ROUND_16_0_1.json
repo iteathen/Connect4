@@ -1,0 +1,69 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_round.v1",
+  "round": 16,
+  "date_author_local": "2026-09-29",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_15_FIXED_POINT_0_1.json",
+    "RANK_SUFFICIENCY_AFFINE_XOR_INTEGRATION_0_1.json"
+  ],
+  "reopened_reason": "the first direct T2-O component valuation law is falsified on every tested carrier",
+  "new_assertions": [
+    {
+      "id": "RS-IA063",
+      "family": "M",
+      "body": "The exact T2-O scalar decoder is not a fixed per-component GF(2)^2 affine sum plus rank-phase offsets on any tested carrier."
+    },
+    {
+      "id": "RS-IA064",
+      "family": "F",
+      "body": "The affine failure is not an unconstrained-fit artifact: the linear systems have only one or two active degrees of freedom after elimination and still contain contradiction rows."
+    },
+    {
+      "id": "RS-IA065",
+      "family": "C",
+      "body": "Global rank-phase offsets do not absorb the remaining component-context dependence; if a linear component valuation exists, the scheduler grade must act on component values themselves or on higher-order interactions."
+    },
+    {
+      "id": "RS-IA066",
+      "family": "R",
+      "body": "The scheduler-graded component monoid suggests the next minimal relaxation g(C)->g_r3(C), preserving XOR composition within a fixed phase while allowing the grade to change valuation coordinates."
+    },
+    {
+      "id": "RS-IA067",
+      "family": "Q",
+      "body": "Failure of phase-graded linear valuation would isolate the obstruction below global phase and force nonlinear decoder or interacting-component semantics within a fixed rank grade."
+    },
+    {
+      "id": "RS-IA068",
+      "family": "S",
+      "body": "The exact bounded Q-V quotient (M2,r mod 3,T2) remains valid despite failure of a simple affine decoder; representation sufficiency and evaluator simplicity are distinct discovery problems."
+    }
+  ],
+  "qu_refinements": [
+    {
+      "id": "RS-QR027",
+      "target": "QU-RS-010",
+      "add_fixed": [
+        "fixed per-component GF(2)^2 affine outcome code fails on all eight T2-O carriers with or without rank-mod-3 offsets"
+      ],
+      "retain_open": [
+        "rank-phase-graded component valuation g_r3(C)",
+        "nonlinear polynomial decoder",
+        "higher-order component interactions"
+      ]
+    },
+    {
+      "id": "RS-QR028",
+      "target": "QU-RS-008",
+      "add_fixed": [
+        "the simplest stable independent-component XOR valuation is rejected in all eight tested T2-O carriers"
+      ],
+      "retain_open": [
+        "phase-graded XOR valuation",
+        "arbitrary decoder on the exact parity quotient",
+        "other finite algebras"
+      ]
+    }
+  ],
+  "stop_status": "REOPENED__PHASE_GRADED_VALUATION_PENDING"
+}
