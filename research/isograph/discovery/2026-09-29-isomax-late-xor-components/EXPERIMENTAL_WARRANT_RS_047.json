@@ -1,0 +1,43 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.three_state_count_quotient.v1",
+  "id": "EW-RS-047",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "parent": "EW-RS-046",
+  "objective": "Test the smallest natural per-component count refinement suggested by the complementary 4x5-k4 M2 and M3 failures: distinguish zero multiplicity, positive odd multiplicity, and positive even multiplicity while discarding exact positive magnitude.",
+  "case": "4x5-k4",
+  "domain": "T2-O only",
+  "candidate": {
+    "name": "ZOE",
+    "definition": "For each exact canonical component type T, emit no symbol when n_T=0, O when n_T>0 is odd, and E when n_T>0 is even.",
+    "equivalent_information": "component presence plus multiplicity parity",
+    "motivation": [
+      "EW-RS-045 shows M2 erases scalar-load-bearing two-copy substitutions because n=2 collapses to zero.",
+      "EW-RS-046 shows M3 erases scalar-load-bearing three-copy substitutions because n=3 collapses to zero.",
+      "ZOE preserves whether a component type is present and the parity of its positive multiplicity while still identifying 1 with 3 and 2 with 4."
+    ]
+  },
+  "frozenKeys": [
+    "PRESENCE = exact component type support only, ignoring multiplicity",
+    "M2 = multiplicity parity control",
+    "ZOE = zero / positive-odd / positive-even per component type",
+    "ZOE_R3 = ZOE plus global rank modulo 3",
+    "ZOE_EXACT = ZOE plus exact rank",
+    "M4 = multiplicities modulo 4 control",
+    "M6 = multiplicities modulo 6 control",
+    "MULTI = full multiplicity control"
+  ],
+  "antiCircularity": [
+    "ZOE is defined before outcome qualification from the two already-frozen count-erasure mechanisms, not from individual W/D/L labels.",
+    "Every key depends only on current-rank exact component identities, multiplicities, and the explicitly declared rank grade.",
+    "Solved outcomes are used only to test class purity after key construction."
+  ],
+  "falsifiers": [
+    "Any mixed scalar-value ZOE class rejects ungraded ZOE on 4x5-k4.",
+    "Any mixed ZOE_EXACT class proves that zero/odd/positive-even count information is insufficient even with exact rank.",
+    "M4, M6, and MULTI must reproduce their EW-RS-046 Q-V-exact controls or the harness is invalid."
+  ],
+  "nextIfZoePasses": "Freeze ZOE as the leading count quotient and transfer it unchanged to the prior demanding carriers before re-deriving a compact scalar interaction law.",
+  "nextIfOnlyGradedZoePasses": "Freeze the smallest passing rank grade with ZOE, then transfer that combined coordinate unchanged to prior demanding carriers.",
+  "nextIfZoeExactFails": "Preserve the falsifier and test the next count-magnitude distinction; do not return to higher polynomial degree over parity."
+}
