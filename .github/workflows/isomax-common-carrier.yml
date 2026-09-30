@@ -18,7 +18,7 @@ jobs:
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
         with: {node-version: '26'}
       - name: Semantic tests
-        run: node --test research/isograph/discovery/2026-09-29-isomax-late-xor-components/ooo-{grid-freeze,sign-channel-coupling,joint-da-common-quotient,joint-da-scalar,common-carrier-level,contextual-triangle,support-context,pooled-lineage,pooled-role-depth,pooled-depth-index,pooled-frontier,pooled-owner-correlation,pooled-owner-coherence,pooled-stratum-summary,pooled-native-domain,pooled-endpoint-gauge,pooled-sign-correlation,pooled-capacity-star}-lib.test.mjs
+        run: node --test research/isograph/discovery/2026-09-29-isomax-late-xor-components/ooo-{grid-freeze,sign-channel-coupling,joint-da-common-quotient,joint-da-scalar,common-carrier-level,contextual-triangle,support-context,pooled-lineage,pooled-role-depth,pooled-depth-index,pooled-frontier,pooled-owner-correlation,pooled-owner-coherence,pooled-stratum-summary,pooled-native-domain,pooled-endpoint-gauge,pooled-sign-correlation,pooled-capacity-star,pooled-relation-circuit}-lib.test.mjs
       - name: Verify committed structural and scalar evidence
         run: |
           base=research/isograph/discovery/2026-09-29-isomax-late-xor-components
@@ -41,6 +41,7 @@ jobs:
           node "$base/verify-ooo-pooled-endpoint-gauge.mjs"
           node "$base/verify-ooo-pooled-sign-correlation.mjs"
           node "$base/verify-ooo-pooled-capacity-star.mjs"
+          node "$base/verify-ooo-pooled-relation-circuit.mjs"
           git diff --exit-code -- "$base"
       - name: Research integrity
         run: node tools/verify-research-integrity.mjs
