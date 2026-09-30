@@ -23,6 +23,8 @@ jobs:
         with: {node-version: '26'}
       - name: Run independent witness prior audit
         run: node research/isograph/discovery/2026-09-29-isomax-foundational-prior-audit/run-witness-prior-audit.mjs
+      - name: Validate generated audit JSON
+        run: node -e "JSON.parse(require('fs').readFileSync('research/isograph/discovery/2026-09-29-isomax-foundational-prior-audit/WITNESS_PRIOR_AUDIT_0_1.json','utf8'))"
       - name: Research integrity
         run: node tools/verify-research-integrity.mjs
       - name: Commit witness audit evidence
