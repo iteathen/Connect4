@@ -1,0 +1,226 @@
+{
+  "schema": "connect4.isomax.exact_single_residual_feasibility_holdout.v1",
+  "date_author_local": "2026-09-29",
+  "warrant": "EW-RS-008",
+  "candidateFrozenFrom": "EXACT_SINGLE_RESIDUAL_FEASIBILITY_4X4_0_1.json",
+  "cases": [
+    {
+      "width": 3,
+      "height": 3,
+      "k": 3,
+      "physicalStates": 694,
+      "nonterminalStates": 505,
+      "feasibilityCache": 966,
+      "obligations": {
+        "RDeletedButXKept": 0,
+        "GDeletedButXKept": 0,
+        "idempotenceFail": 0,
+        "commuteFail": 0,
+        "factorXFail": 0,
+        "factorXFFail": 0,
+        "covarianceChecks": 3030,
+        "covarianceFail": 0
+      },
+      "direct": [
+        {
+          "id": "QO",
+          "classes": 396,
+          "QF": true,
+          "fail": null
+        },
+        {
+          "id": "RFG",
+          "classes": 330,
+          "QF": true,
+          "fail": null
+        },
+        {
+          "id": "X",
+          "classes": 337,
+          "QF": true,
+          "fail": null
+        },
+        {
+          "id": "XF",
+          "classes": 325,
+          "QF": true,
+          "fail": null
+        }
+      ],
+      "orbit": {
+        "QO": 191,
+        "RFG": 152,
+        "X": 154,
+        "XF": 149
+      }
+    },
+    {
+      "width": 3,
+      "height": 4,
+      "k": 3,
+      "physicalStates": 2715,
+      "nonterminalStates": 1801,
+      "feasibilityCache": 3341,
+      "obligations": {
+        "RDeletedButXKept": 0,
+        "GDeletedButXKept": 0,
+        "idempotenceFail": 0,
+        "commuteFail": 0,
+        "factorXFail": 0,
+        "factorXFFail": 0,
+        "covarianceChecks": 10806,
+        "covarianceFail": 0
+      },
+      "direct": [
+        {
+          "id": "QO",
+          "classes": 1393,
+          "QF": true,
+          "fail": null
+        },
+        {
+          "id": "RFG",
+          "classes": 1242,
+          "QF": true,
+          "fail": null
+        },
+        {
+          "id": "X",
+          "classes": 1272,
+          "QF": true,
+          "fail": null
+        },
+        {
+          "id": "XF",
+          "classes": 1206,
+          "QF": true,
+          "fail": null
+        }
+      ],
+      "orbit": {
+        "QO": 681,
+        "RFG": 587,
+        "X": 607,
+        "XF": 566
+      }
+    },
+    {
+      "width": 4,
+      "height": 3,
+      "k": 3,
+      "physicalStates": 7157,
+      "nonterminalStates": 4631,
+      "feasibilityCache": 10132,
+      "obligations": {
+        "RDeletedButXKept": 0,
+        "GDeletedButXKept": 0,
+        "idempotenceFail": 0,
+        "commuteFail": 0,
+        "factorXFail": 0,
+        "factorXFFail": 0,
+        "covarianceChecks": 111144,
+        "covarianceFail": 0
+      },
+      "direct": [
+        {
+          "id": "QO",
+          "classes": 3734,
+          "QF": true,
+          "fail": null
+        },
+        {
+          "id": "RFG",
+          "classes": 3448,
+          "QF": true,
+          "fail": null
+        },
+        {
+          "id": "X",
+          "classes": 3568,
+          "QF": true,
+          "fail": null
+        },
+        {
+          "id": "XF",
+          "classes": 3430,
+          "QF": true,
+          "fail": null
+        }
+      ],
+      "orbit": {
+        "QO": 1647,
+        "RFG": 1466,
+        "X": 1554,
+        "XF": 1460
+      }
+    },
+    {
+      "width": 4,
+      "height": 4,
+      "k": 3,
+      "physicalStates": 41750,
+      "nonterminalStates": 23930,
+      "feasibilityCache": 43008,
+      "obligations": {
+        "RDeletedButXKept": 0,
+        "GDeletedButXKept": 0,
+        "idempotenceFail": 0,
+        "commuteFail": 0,
+        "factorXFail": 0,
+        "factorXFFail": 0,
+        "covarianceChecks": 574320,
+        "covarianceFail": 0
+      },
+      "direct": [
+        {
+          "id": "QO",
+          "classes": 18874,
+          "QF": true,
+          "fail": null
+        },
+        {
+          "id": "RFG",
+          "classes": 17680,
+          "QF": true,
+          "fail": null
+        },
+        {
+          "id": "X",
+          "classes": 18464,
+          "QF": true,
+          "fail": null
+        },
+        {
+          "id": "XF",
+          "classes": 17628,
+          "QF": true,
+          "fail": null
+        }
+      ],
+      "orbit": {
+        "QO": 8885,
+        "RFG": 8134,
+        "X": 8614,
+        "XF": 8111
+      }
+    }
+  ],
+  "result": {
+    "allXQF": true,
+    "allXFQF": true,
+    "allAlgebraObligationsPass": true,
+    "XFBeatsRFGDirectCases": [
+      "3x3k3",
+      "3x4k3",
+      "4x3k3",
+      "4x4k3"
+    ],
+    "XFBeatsRFGOrbitCases": [
+      "3x3k3",
+      "3x4k3",
+      "4x3k3",
+      "4x4k3"
+    ]
+  },
+  "interpretationGuard": "Fresh bounded controls only. Support-lattice feasibility is outcome-blind and single-residual; general proof/standard-7x6 qualification remain separate."
+}
