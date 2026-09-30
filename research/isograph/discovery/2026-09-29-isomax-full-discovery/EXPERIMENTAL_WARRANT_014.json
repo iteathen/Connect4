@@ -1,0 +1,35 @@
+{
+  "schema": "connect4.isomax.discovery.experimental_warrant.v1",
+  "id": "EW-014",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE_REPAIR_SURVIVOR",
+  "purpose": [
+    "CHARACTERIZING",
+    "CLUE_PRESERVING_REPAIR"
+  ],
+  "parent_warrant": "EW-012",
+  "parent_clue": "5x4 k4 support-release/turn pruning reduces 12 contradictory reconvergences to exactly 1 while preserving nonintegrability.",
+  "objective": "Identify and characterize the one contradiction that survives exact support-release/turn realizability pruning.",
+  "rationale": "DP 0.8 requires distinguishing what disappears from what survives a repair; the survivor is the minimum next observation because it is the remaining robust obstruction.",
+  "experiment": {
+    "width": 5,
+    "height": 4,
+    "k": 4,
+    "nonterminalFrontierBlocker": true,
+    "moverFinalCapParity": true,
+    "supportReleaseTurnCapacity": true
+  },
+  "targeted_observations": [
+    "surviving contradiction source/target",
+    "route lengths",
+    "edge deltas",
+    "source-action sequences",
+    "canonical transporters",
+    "representative residual states"
+  ],
+  "open_observation_channel": "Preserve if the survivor differs from the predecessor global MSS witness or exposes a new residual token/transition role.",
+  "prohibited_information_sources": [
+    "solved database",
+    "W/D/L as structural producer input"
+  ]
+}
