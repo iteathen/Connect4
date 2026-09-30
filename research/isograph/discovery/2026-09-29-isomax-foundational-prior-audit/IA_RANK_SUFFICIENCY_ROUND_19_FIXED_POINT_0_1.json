@@ -1,0 +1,27 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_fixed_point.v1",
+  "round": 19,
+  "date_author_local": "2026-09-29",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_18_0_1.json",
+    "RANK_SUFFICIENCY_PHASE_GRADED_XOR_INTEGRATION_0_1.json"
+  ],
+  "recursive_generation": {
+    "families_checked": [
+      "scheduler-graded valuation",
+      "same-phase linear contradiction",
+      "geometry dependence",
+      "interaction restraint",
+      "late XOR"
+    ],
+    "new_assertions": []
+  },
+  "fixed_point": true,
+  "reason": "The phase-graded result is exhausted at RS-IA069 through RS-IA074. Further structural claims require an explicit contradiction dependency certificate.",
+  "next_evidence_boundaries": [
+    "4x4-k3 contradiction certificate",
+    "certificate structural interpretation",
+    "only then higher-order interaction test"
+  ],
+  "stop_status": "FIXED_POINT__CERTIFICATE_NEXT"
+}
