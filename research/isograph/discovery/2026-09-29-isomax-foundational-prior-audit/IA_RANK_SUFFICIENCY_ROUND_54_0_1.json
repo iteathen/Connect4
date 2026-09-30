@@ -1,0 +1,61 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_round.v1",
+  "round": 54,
+  "date_author_local": "2026-09-30",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_53_FIXED_POINT_0_1.json",
+    "RANK_SUFFICIENCY_ROLE_CAPPAR_FRESH_INTEGRATION_0_1.json"
+  ],
+  "reopened_reason": "The selected role-aligned capacity-parity/ZOE identity now passes a genuinely outcome-blind fresh non-affine carrier, satisfying the decoder-discovery gate left open at round 53.",
+  "new_assertions": [
+    {
+      "id": "RS-IA163",
+      "family": "Q",
+      "body": "The current tested scalar coordinate is count-aware and role-aware: ZOE count state is attached to a component identity built from frontier-relative residual incidence plus support-capacity parity aligned to incidence column roles."
+    },
+    {
+      "id": "RS-IA164",
+      "family": "M",
+      "body": "Support height matters to scalar value through its relation to residual role, not merely through total or unordered capacity; one aligned parity bit per local column is sufficient on the current derivation corpus and fresh 6x3-k4."
+    },
+    {
+      "id": "RS-IA165",
+      "family": "C",
+      "body": "The fresh 6x3-k4 result is a strict Q-V compression: ROLE_CAPPAR merges exact-type ZOE classes while preserving scalar purity on a carrier where the affine parity model fails."
+    },
+    {
+      "id": "RS-IA166",
+      "family": "R",
+      "body": "The earlier two-syndrome result was conditional on a binary component-parity coordinate that is now known to be information-incomplete on 4x5-k4; decoder discovery must therefore be re-derived in the repaired ROLE_CAPPAR+ZOE coordinate rather than transplanted unchanged."
+    },
+    {
+      "id": "RS-IA167",
+      "family": "D",
+      "body": "Decoder discovery should first measure the value target dimension relative to the frozen ROLE_CAPPAR+ZOE coordinate and simple structural projections before fitting any coefficients."
+    },
+    {
+      "id": "RS-IA168",
+      "family": "F",
+      "body": "A decoder candidate must be frozen structurally before outcome qualification and tested on at least one carrier not used to choose its formula; exact class lookup is a control, not a final law."
+    }
+  ],
+  "qu_refinements": [
+    {
+      "id": "RS-QR048",
+      "target": "QU-RS-004",
+      "add_fixed": [
+        "ROLE_CAPPAR_REL_INC_ZOE is Q-V exact on all demanding derivation carriers",
+        "fresh outcome-blind non-affine 6x3-k4 has 3,543 degree-1 contradictions and zero ROLE_CAPPAR mixed scalar classes",
+        "fresh 6x3-k4 ROLE_CAPPAR compresses 18,418 exact-type ZOE classes to 17,550 scalar-pure classes",
+        "exact role-aligned capacity plus REL_INC reproduces the exact-type ZOE partition boundary"
+      ],
+      "retain_open": [
+        "minimality of ROLE_CAPPAR_REL_INC_ZOE",
+        "value target dimension in the repaired coordinate",
+        "closed-form scalar decoder without exact component IDs",
+        "standard-7x6 qualification"
+      ]
+    }
+  ],
+  "stop_status": "REOPENED__REPAIRED_COORDINATE_DECODER_DISCOVERY"
+}
