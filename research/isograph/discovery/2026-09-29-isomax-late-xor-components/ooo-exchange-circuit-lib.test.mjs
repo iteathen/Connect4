@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {
   parseSelectedVertex,
   exactPairDelta,
+  compressedPairDelta,
   pairNormProfile,
   exchangeCircuitKey
 } from './ooo-exchange-circuit-lib.mjs';
@@ -66,5 +67,26 @@ test('base-free exchange forgets a common additive token translation',()=>{
   assert.equal(
     exchangeCircuitKey(X,'BASEFREE_TWO_LEG_EXCHANGE'),
     exchangeCircuitKey(Y,'BASEFREE_TWO_LEG_EXCHANGE')
+  );
+});
+
+
+test('pair-delta compression separates support sign parity and magnitude',()=>{
+  const D='w1|cap=1|dh0=0:3|dh1=';
+  assert.equal(compressedPairDelta(A,D,'SUPPORT'),'D0:0');
+  assert.equal(compressedPairDelta(A,D,'PARITY'),'0');
+  assert.equal(compressedPairDelta(A,D,'SIGN'),'D0:0:+');
+  assert.equal(compressedPairDelta(A,D,'ABS_MAG'),'D0:0=2');
+  assert.equal(compressedPairDelta(A,D,'SIGNED_PARITY'),'0');
+  assert.equal(compressedPairDelta(A,D,'SIGNED_CLIPPED_MAG'),'D0:0=+2+');
+  assert.equal(compressedPairDelta(A,D,'EXACT'),'D0:0=2');
+});
+
+test('compressed pair signatures are endpoint-order invariant',()=>{
+  const modes=['SUPPORT','PARITY','SIGN','ABS_MAG','SIGNED_PARITY','SIGNED_CLIPPED_MAG','EXACT'];
+  for(const mode of modes)assert.equal(
+    compressedPairDelta(A,B,mode),
+    compressedPairDelta(B,A,mode),
+    mode
   );
 });
