@@ -1,0 +1,65 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.affine_xor_integration.v1",
+  "date_author_local": "2026-09-29",
+  "research_direction": "Joshua Oshiro",
+  "status": "SIMPLE_AFFINE_COMPONENT_XOR_REJECTED_IN_ALL_TESTED_T2O_CARRIERS",
+  "evidence": [
+    {
+      "id": "AFF2",
+      "branch": "experiment/isomax-late-xor-components-20260929",
+      "commit": "e5e509a46369633391849f3ea0a608ea5fd8445c",
+      "file": "PHASE_FACTORED_AFFINE_XOR_0_1.json",
+      "warrant": "EW-RS-025"
+    },
+    {
+      "id": "PHASEQV",
+      "branch": "experiment/isomax-late-xor-components-20260929",
+      "commit": "add16a19e701605716a7b1fbb3d7fc99757ac9ed",
+      "file": "RANK_CONDITIONED_COMPONENT_PHASE_0_1.json"
+    }
+  ],
+  "tested_law": "On T2-O states, relative outcome code in GF(2)^2 equals a rank-phase offset XOR the fixed per-component values of all odd-multiplicity component types.",
+  "findings": [
+    {
+      "id": "RS-F083",
+      "status": "EXACT_FINITE_CROSS_CASE_FALSIFIER",
+      "statement": "The direct two-bit affine XOR outcome code is inconsistent on every one of the eight complete T2-O carriers. This remains true when one independent affine offset is supplied for each rank-mod-3 phase."
+    },
+    {
+      "id": "RS-F084",
+      "status": "EXACT_FINITE_NEGATIVE",
+      "statement": "A global no-phase affine valuation also fails on every carrier. Rank-mod-3 offsets reduce the contradiction count in some geometries but do not eliminate contradictions in any geometry."
+    },
+    {
+      "id": "RS-F085",
+      "status": "EXACT_FINITE_LINEAR_ALGEBRA",
+      "statement": "The failed systems are strongly constrained rather than merely underdetermined: after elimination, active nullity is only 1 or 2 in every tested carrier, yet nonzero contradiction rows remain (from 6 contradictions on 3x3-k3 up to 3,160 on 4x4-k4)."
+    },
+    {
+      "id": "RS-F086",
+      "status": "INTERPRETATION_GUARD",
+      "statement": "This rejects the simplest stable per-component GF(2)^2 affine valuation with phase offsets. It does not reject the already-qualified parity-based Q-V quotient, an arbitrary decoder on that quotient, phase-dependent component valuations, higher-order component interactions, or a different finite algebra."
+    },
+    {
+      "id": "RS-F087",
+      "status": "MODEL_SHAPE_REFINEMENT",
+      "statement": "Because the component carrier is scheduler-graded, the next linear test should allow the component valuation itself to depend on the rank phase, g_{G,r3}(C), rather than changing only a global phase offset. If that also fails, independent linear component valuation is rejected within fixed phase."
+    },
+    {
+      "id": "RS-F088",
+      "status": "PRESERVED_POSITIVE",
+      "statement": "The negative affine result does not alter Q-V sufficiency of (M2, rank mod 3, T2): a finite exact decoder exists on the tested carriers by the prior collision audit, but that decoder is not this simplest affine XOR code."
+    }
+  ],
+  "contradiction_counts_rank_mod3_phase": [
+    {"case":"3x3-k3","contradictions":6},
+    {"case":"3x4-k3","contradictions":8},
+    {"case":"4x3-k3","contradictions":26},
+    {"case":"4x4-k4","contradictions":3160},
+    {"case":"4x4-k3","contradictions":62},
+    {"case":"3x5-k3","contradictions":32},
+    {"case":"5x3-k3","contradictions":382},
+    {"case":"3x6-k3","contradictions":48}
+  ],
+  "next_question": "Does the T2-O Q-V map become affine XOR when component values are graded by rank mod 3, or do same-phase contradictions force nonlinear/interacting component valuation?"
+}
