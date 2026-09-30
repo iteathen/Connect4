@@ -1,0 +1,25 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_fixed_point.v1",
+  "round": 21,
+  "date_author_local": "2026-09-29",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_20_0_1.json",
+    "RANK_SUFFICIENCY_GRADED_XOR_CERTIFICATE_INTEGRATION_0_1.json"
+  ],
+  "recursive_generation": {
+    "families_checked": [
+      "certificate rectangle",
+      "exact-rank grade",
+      "Q/D tradeoff",
+      "interaction restraint"
+    ],
+    "new_assertions": []
+  },
+  "fixed_point": true,
+  "reason": "The certificate implications are exhausted at RS-IA075 through RS-IA080. The next distinction requires the exact-rank-graded valuation test.",
+  "next_evidence_boundaries": [
+    "exact-rank-graded GF(2)^2 valuation",
+    "same-exact-rank contradiction if any"
+  ],
+  "stop_status": "FIXED_POINT__EXACT_RANK_TEST_NEXT"
+}
