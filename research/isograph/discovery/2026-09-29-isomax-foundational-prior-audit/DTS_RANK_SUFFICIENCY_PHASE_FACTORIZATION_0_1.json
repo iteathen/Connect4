@@ -1,0 +1,50 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.dts_phase_factorization.v1",
+  "date_author_local": "2026-09-29",
+  "transition_anatomy": {
+    "K": [
+      "component-type multiplicity parity M2",
+      "rank phase r mod 3",
+      "direct singleton-frontier tactical category T2",
+      "persistent geometry/rules G"
+    ],
+    "delta_minus": [
+      "R/F/G safe-forgetting deletions",
+      "pair cancellation in the parity projection"
+    ],
+    "delta_plus": [
+      "moved-component cofactor progress",
+      "rank phase increment r3 -> (r3+1) mod 3",
+      "frontier advance in the moved column"
+    ],
+    "delta_tilde": [
+      "scheduler-induced reduced-component type changes",
+      "T2 category changes under singleton-frontier update"
+    ],
+    "B": [
+      "rank-phase boundary",
+      "component/scheduler boundary",
+      "singleton tactical-frontier boundary",
+      "Q-V versus Q-A/Q-F semantic boundary"
+    ],
+    "O": [
+      "apply exact local move and global scheduler update",
+      "renormalize R/F/G components",
+      "update rank mod 3",
+      "derive T2 directly from the current singleton frontier",
+      "project component multiplicities mod 2 for the bounded Q-V candidate"
+    ],
+    "E": [
+      "EW-RS-018 rank-conditioned component phase",
+      "EW-RS-022 rank-local T2 derivation"
+    ],
+    "Q": [
+      "Q-A status of the phase-factored key",
+      "generalization beyond eight bounded carriers",
+      "stable component valuation after phase factorization",
+      "late XOR/finite-algebra law"
+    ]
+  },
+  "strongest_statement": "The tested scalar quotient is scheduler-graded: pair cancellation is not context-free, but rank mod 3 plus direct tactical-frontier status is sufficient context for component-count parity to preserve Q-V across the eight complete controls.",
+  "nonclaim": "No transition-congruent Q-F quotient or XOR evaluator is promoted."
+}
