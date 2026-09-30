@@ -1,0 +1,76 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.role_aligned_capacity_zoe_integration.v1",
+  "date_author_local": "2026-09-30",
+  "research_direction": "Joshua Oshiro",
+  "status": "ROLE_ALIGNED_CAPACITY_PARITY_COMMON_DERIVATION_CANDIDATE",
+  "evidence": {
+    "branch": "experiment/isomax-late-xor-components-20260929",
+    "commit": "5760780af89ad8e3cec515472a7e59321ef6e502",
+    "file": "ROLE_ALIGNED_CAPACITY_REL_INC_ZOE_0_1.json",
+    "warrant": "EW-RS-054"
+  },
+  "selected_candidate": {
+    "name": "ROLE_CAPPAR_REL_INC_ZOE",
+    "definition": "Jointly canonicalize exact REL_INC residual incidence with one bit per local column equal to remaining-capacity parity (H-h_c mod 2); aggregate component multiplicities over equal descriptors; then apply ZOE to the aggregate count.",
+    "selection_basis": "It is the coarsest candidate in the predeclared ladder and has zero mixed scalar classes on every derivation carrier."
+  },
+  "results": {
+    "5x3-k3": {
+      "ROLE_CAPPAR_classes": 3259,
+      "ROLE_CAPPAR_mixed": 0,
+      "ROLE_CAP3_classes": 3260,
+      "ROLE_CAP_EXACT_classes": 3262,
+      "EXACT_ZOE_classes": 3262
+    },
+    "4x4-k4": {
+      "ROLE_CAPPAR_classes": 7894,
+      "ROLE_CAPPAR_mixed": 0,
+      "ROLE_CAP3_classes": 7969,
+      "ROLE_CAP_EXACT_classes": 8050,
+      "EXACT_ZOE_classes": 8050
+    },
+    "6x3-k3": {
+      "ROLE_CAPPAR_classes": 16732,
+      "ROLE_CAPPAR_mixed": 0,
+      "ROLE_CAP3_classes": 16733,
+      "ROLE_CAP_EXACT_classes": 16735,
+      "EXACT_ZOE_classes": 16735
+    },
+    "4x5-k4": {
+      "ROLE_CAPPAR_classes": 79309,
+      "ROLE_CAPPAR_mixed": 0,
+      "ROLE_CAP3_classes": 79638,
+      "ROLE_CAP_EXACT_classes": 79848,
+      "EXACT_ZOE_classes": 79848
+    }
+  },
+  "findings": [
+    {
+      "id": "RS-F187",
+      "status": "ROLE_ALIGNMENT_LOAD_BEARING",
+      "statement": "Attaching a capacity label to the same canonical column role as REL_INC closes the residual scalar collisions left by the unordered exact capacity profile on all four demanding derivation carriers."
+    },
+    {
+      "id": "RS-F188",
+      "status": "CAPACITY_PARITY_SUFFICIENT_ON_DERIVATION_CORPUS",
+      "statement": "One role-aligned remaining-capacity parity bit per local column is sufficient; the finer zero/positive-odd/positive-even and exact capacity labels are not required for Q-V exactness on the derivation corpus."
+    },
+    {
+      "id": "RS-F189",
+      "status": "STRICT_WHOLE_IDENTITY_COMPRESSION",
+      "statement": "ROLE_CAPPAR_REL_INC_ZOE is strictly coarser than exact-type ZOE while preserving Q-V on every demanding derivation carrier."
+    },
+    {
+      "id": "RS-F190",
+      "status": "EXACT_RECONSTRUCTION_CONTROL_VALIDATED",
+      "statement": "Exact role-aligned capacity plus REL_INC reproduces the exact-type ZOE class count and scalar purity on every derivation carrier, validating the joint canonicalization as a reconstruction of exact component geometry up to the same local isomorphism."
+    }
+  ],
+  "nonclaims": [
+    "ROLE_CAPPAR_REL_INC_ZOE is not yet fresh-qualified on 5x4-k4.",
+    "The role-aligned parity descriptor is not proved minimal among all whole-component structural identities.",
+    "Q-A and Q-F are not established.",
+    "No standard-7x6 theorem follows."
+  ],
+  "next_question": "Does frozen ROLE_CAPPAR_REL_INC_ZOE remain Q-V exact on predeclared fresh non-affine 5x4-k4?"
+}
