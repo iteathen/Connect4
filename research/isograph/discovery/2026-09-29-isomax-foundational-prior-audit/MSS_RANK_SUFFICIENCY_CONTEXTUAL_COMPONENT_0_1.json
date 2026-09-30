@@ -1,0 +1,37 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.mss_contextual_component.v1",
+  "date_author_local": "2026-09-29",
+  "results": [
+    {
+      "id": "MSS-RS-001",
+      "target": "R global context",
+      "support": "remaining P0/P1 move-slot budgets",
+      "status": "EXACT_SUFFICIENT__MINIMALITY_OPEN"
+    },
+    {
+      "id": "MSS-RS-002",
+      "target": "F external coupling",
+      "support": "number of components with nonempty local blocked-frontier set capped at 2",
+      "status": "EXACT_SUFFICIENT__THREE_CATEGORY_CONTEXT"
+    },
+    {
+      "id": "MSS-RS-003",
+      "target": "G external coupling",
+      "support": "number of components with open columns capped at 2",
+      "status": "EXACT_SUFFICIENT"
+    },
+    {
+      "id": "MSS-RS-004",
+      "target": "H external coupling",
+      "support": "global open-column count capped at 2",
+      "status": "EXACT_SUFFICIENT"
+    },
+    {
+      "id": "MSS-RS-005",
+      "target": "observed Q-V/Q-A/Q-F multiplicity separation",
+      "support": "single 5x3-k3 SAT2 collision class",
+      "status": "MINIMUM_OBSERVED_NONTRIVIAL_MERGE"
+    }
+  ],
+  "valuation": "Prefer contextual congruence discovery next; do not add pairwise fill-in machinery unless scheduler factorization fails outside current scope."
+}

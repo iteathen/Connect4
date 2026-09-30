@@ -1,0 +1,96 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.contextual_component_integration.v1",
+  "date_author_local": "2026-09-29",
+  "research_direction": "Joshua Oshiro",
+  "evidence": [
+    {
+      "id": "SAT2H",
+      "branch": "experiment/isomax-component-sat2-holdout-20260929",
+      "commit": "436666c9d1d5537acafdbff16dc826cce3a5837e",
+      "file": "COMPONENT_SAT2_FRESH_HOLDOUT_0_1.json"
+    },
+    {
+      "id": "SAT2QA",
+      "branch": "experiment/isomax-component-sat2-qa-20260929",
+      "commit": "ff5d8dde0247ccf844daba16d03ee77ef356e9e1",
+      "file": "COMPONENT_MULTIPLICITY_QA_AUDIT_0_1.json"
+    },
+    {
+      "id": "INDUCED",
+      "branch": "experiment/isomax-induced-interaction-audit-20260929",
+      "commit": "9ccad3f050d8674568e983854c2b07ca4885227c",
+      "file": "INDUCED_INTERACTION_AUDIT_0_1.json"
+    },
+    {
+      "id": "SCHED",
+      "branch": "experiment/isomax-component-scheduler-factorization-20260929",
+      "commit": "9db2a617b9f38b34ea656cbd73034935d70e1a04",
+      "file": "COMPONENT_SCHEDULER_FACTORIZATION_0_1.json"
+    },
+    {
+      "id": "CMON",
+      "branch": "research/rank-sufficient-qg-dg-20260929",
+      "commit": "19248d4ee24b81cf4d0e77ab9ebbd279100b2f5a",
+      "file": "COMPONENT_MONOID_FACTORIZATION_0_1.json"
+    }
+  ],
+  "findings": [
+    {
+      "id": "RS-F055",
+      "status": "EXACT_FINITE_CROSS_CASE",
+      "statement": "Across all seven complete tested carriers, unreduced q_o residual-incidence components have zero remote effects: a move in one component does not change any disjoint component's exact fixed-frame component state."
+    },
+    {
+      "id": "RS-F056",
+      "status": "EXACT_FINITE_CROSS_CASE",
+      "statement": "R/F/G safe forgetting splits residual-incidence connectivity in every tested geometry. In each case, some deleted residuals span two or more post-reduction components; a single deleted residual can connect as many as four post-RFG components on 4x4-k4."
+    },
+    {
+      "id": "RS-F057",
+      "status": "EXACT_FINITE_CROSS_CASE",
+      "statement": "After R is applied, moves can change disjoint components; RF, RFG and RFGH retain or increase such remote effects. The cross-component dependence is induced by global reduction semantics rather than present in raw q_o component dynamics."
+    },
+    {
+      "id": "RS-F058",
+      "status": "EXACT_FINITE_CROSS_CASE",
+      "statement": "Despite deleted bridge residuals and remote effects, monolithic R/F/G/H are reproduced with zero mismatches on all seven complete carriers by componentwise transforms plus a small global scheduler/boundary context."
+    },
+    {
+      "id": "RS-F059",
+      "status": "EXACT_FINITE_CROSS_CASE",
+      "statement": "A sufficient scheduler for the tested R/F/G/H factorization is: R -> global remaining P0/P1 move slots; F -> number of components with nonempty local blocked-frontier set capped at 2; G -> number of components with open columns capped at 2; H -> global open-column count capped at 2."
+    },
+    {
+      "id": "RS-F060",
+      "status": "EXACT_FINITE_WITH_ONE_NONTRIVIAL_MERGE",
+      "statement": "The frozen SAT2 component-multiplicity quotient is Q-V exact on all seven complete carriers. Its only observed nontrivial class reduction among those seven occurs on 5x3-k3, where full component multiset has 13,421 classes and SAT2 has 13,420."
+    },
+    {
+      "id": "RS-F061",
+      "status": "EXACT_FINITE_STRICT_SUFFICIENCY_SPLIT",
+      "statement": "That nontrivial 5x3-k3 SAT2 merge preserves scalar value but not transported action values or complete future behavior. Thus the tested corpus contains an exact Q-V merge that is not Q-A and not Q-F."
+    },
+    {
+      "id": "RS-F062",
+      "status": "EXACT_FINITE_CROSS_CASE_FALSIFIER",
+      "statement": "Component multiplicity parity (MOD2/XOR self-cancellation) fails Q-V and Q-A on every one of the seven complete tested carriers for the frozen post-RFG component definition. This rejects exponent-2 composition only at this component stage, not after a later quotient or valuation."
+    },
+    {
+      "id": "RS-F063",
+      "status": "NEGATIVE_INTERPRETATION_GUARD",
+      "statement": "SAT3 is Q-F/Q-A/Q-V exact on the seven tested carriers but creates no observed class reduction relative to the full component multiset in those cases; it is therefore not yet evidence of a nontrivial count>=3 saturation law."
+    },
+    {
+      "id": "RS-F064",
+      "status": "GENERAL_DEDUCTIVE_CANDIDATE_WITH_BOUNDED_EXHAUSTIVE_SUPPORT",
+      "statement": "The reduction frontier has the shape of a scheduler-graded/contextual component monoid: component-local state is combined commutatively, while a small global scheduler acts on every component during normalization. Deleted residual bridges need not be restored wholesale to reproduce R/F/G/H."
+    }
+  ],
+  "current_object": {
+    "representation": "(global scheduler/context, multiset of reduced component types)",
+    "qv_candidate": "contextual component quotient with at least the observed SAT2 value merge admissible",
+    "qa_qf_candidate": "finer contextual component quotient; the observed SAT2 merge is forbidden",
+    "xor_status": "late-stage only; fixed post-RFG component parity rejected, later contextual quotient still open"
+  },
+  "next_question": "Compute contextual indistinguishability/congruence of reduced components under the scheduler before assigning component values or retesting XOR."
+}
