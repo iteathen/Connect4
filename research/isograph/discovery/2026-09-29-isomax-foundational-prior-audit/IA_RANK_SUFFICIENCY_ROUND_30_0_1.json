@@ -1,0 +1,54 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_round.v1",
+  "round": 30,
+  "date_author_local": "2026-09-29",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_29_FIXED_POINT_0_1.json",
+    "RANK_SUFFICIENCY_QUADRATIC_XOR_4X4K4_INTEGRATION_0_1.json"
+  ],
+  "reopened_reason": "the same frozen degree-2 evaluator class now removes the independent exact-rank affine obstructions in both 5x3-k3 and 4x4-k4",
+  "new_assertions": [
+    {
+      "id": "RS-IA104",
+      "family": "C",
+      "body": "Quadratic absorption is not confined to the 5x3 rectangle family: the identical structural degree-2 construction also removes all 168 4x4-k4 affine contradictions."
+    },
+    {
+      "id": "RS-IA105",
+      "family": "M",
+      "body": "Across every presently tested exact-rank affine-failure carrier, no third-order obstruction is required by the evidence; degree two is the first cross-carrier upper-bound candidate."
+    },
+    {
+      "id": "RS-IA106",
+      "family": "F",
+      "body": "The repeated success of changing D while holding Q fixed strengthens the Q/D separation: current negative evidence no longer warrants refining the tested scalar quotient to repair these failures."
+    },
+    {
+      "id": "RS-IA107",
+      "family": "R",
+      "body": "Large quadratic nullity in both carriers blocks interpretation of the solved coefficients as canonical component-pair values. Transfer of existence is stronger than valuation identifiability."
+    },
+    {
+      "id": "RS-IA108",
+      "family": "S",
+      "body": "A fresh wider holdout must precede sparse fitting: minimizing against the same two carriers that generated the quadratic hypothesis would risk converting explanatory fitting into apparent structure."
+    }
+  ],
+  "qu_refinements": [
+    {
+      "id": "RS-QR036",
+      "target": "QU-RS-010",
+      "add_fixed": [
+        "the identical exact-rank degree-2 model class has zero contradictions on both known affine-failure carriers 5x3-k3 and 4x4-k4",
+        "degree-1 controls reproduce 18 and 168 contradictions respectively"
+      ],
+      "retain_open": [
+        "fresh wider-geometry quadratic holdout",
+        "sparse interaction basis after holdout",
+        "closed-form structural pair law",
+        "standard-7x6 qualification"
+      ]
+    }
+  ],
+  "stop_status": "REOPENED__FRESH_QUADRATIC_HOLDOUT_PENDING"
+}
