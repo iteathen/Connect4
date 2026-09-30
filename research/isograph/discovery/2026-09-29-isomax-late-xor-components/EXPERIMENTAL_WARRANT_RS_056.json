@@ -1,0 +1,51 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.role_cappar_rel_inc_zoe_fresh_6x3k4.v1",
+  "id": "EW-RS-056",
+  "date_author_local": "2026-09-30",
+  "status": "ACTIVE",
+  "parent": "EW-RS-055",
+  "objective": "Qualify frozen ROLE_CAPPAR_REL_INC_ZOE unchanged on outcome-blind fresh 6x3-k4 and determine independently whether the carrier is non-affine.",
+  "case": "6x3-k4",
+  "freshness": {
+    "outcomeBlindFresh": true,
+    "priorLateStageUseFound": false,
+    "selectionBasis": [
+      "same 18-cell resource scale as previously tractable 6x3-k3",
+      "different k changes the residual-line geometry without changing board shape",
+      "selected before any 6x3-k4 scalar qualification was inspected"
+    ]
+  },
+  "frozenCandidate": {
+    "name": "ROLE_CAPPAR_REL_INC_ZOE",
+    "source": "EW-RS-054 / ROLE_ALIGNED_CAPACITY_REL_INC_ZOE_0_1.json",
+    "definition": "For each exact post-RFG component, jointly canonicalize REL_INC with one bit H-h_c mod 2 attached to each local incidence column role; aggregate equal descriptors; classify aggregate multiplicity by ZOE.",
+    "changesAllowed": false
+  },
+  "controls": [
+    "EXACT_ZOE exact-type ZOE",
+    "ROLE_CAP3_REL_INC_ZOE",
+    "ROLE_CAP_EXACT_REL_INC_ZOE reconstruction control",
+    "MULTI full exact component multiplicity",
+    "DEGREE1 exact-rank affine GF(2)^2 exact-component-parity model"
+  ],
+  "antiCircularity": [
+    "6x3-k4 is frozen before its solved outcomes are inspected in this campaign.",
+    "ROLE_CAPPAR and the candidate ordering were frozen under EW-RS-054 before this carrier was selected.",
+    "No 6x3-k4 W/D/L label may alter the descriptor, capacity bit, column role, merge rule, phase, or coefficient.",
+    "Solved outcomes are used only after structural keys are generated."
+  ],
+  "falsifiers": [
+    "Any mixed ROLE_CAPPAR_REL_INC_ZOE class rejects the frozen candidate on 6x3-k4.",
+    "ROLE_CAP_EXACT_REL_INC_ZOE must remain scalar-exact as a reconstruction control.",
+    "EXACT_ZOE and MULTI must remain Q-V exact.",
+    "If DEGREE1 has zero contradictions, the carrier is a fresh affine transfer control rather than fresh non-affine evidence."
+  ],
+  "successCriterion": "ROLE_CAPPAR has zero mixed scalar classes and all exact controls pass; fresh non-affine significance additionally requires DEGREE1 contradictions > 0.",
+  "nextIfFreshNonAffineSuccess": "Integrate the fresh qualification and proceed to scalar decoder discovery directly in the compressed role-capacity/ZOE coordinate.",
+  "nextIfAffine": "Retain the fresh transfer result and predeclare another non-affine carrier without modifying ROLE_CAPPAR.",
+  "nextIfFail": "Freeze the minimum collision and compare ROLE_CAP3 and ROLE_CAP_EXACT before any new feature is introduced.",
+  "interpretationGuards": [
+    "Passing is finite Q-V evidence only.",
+    "No Q-A/Q-F, minimality, standard-7x6, or universal theorem follows."
+  ]
+}
