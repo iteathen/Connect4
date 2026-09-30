@@ -663,3 +663,32 @@ Required tests:
 - whether the scalar residual simplifies after quotienting the oddness coordinate ring by those constraints.
 
 No such stronger conclusion is admitted yet.
+
+
+---
+
+# 16. Owner-gauge negative control — EW-RS-062
+
+Mover-relative owner normalization is an exact recoding of the repaired signature: absolute P0/P1 residual channels are relabelled mover/opponent using rank parity, which is itself reconstructible from the repaired coordinate.
+
+The recoding preserved the structural partition and cubic exactness, but it did not simplify the high-order remainder consistently.
+
+| carrier | absolute degree-2 contradictions | mover-relative degree-2 contradictions | mover-relative OOO cubic contradictions |
+|---|---:|---:|---:|
+| 6x3-k3 | 24 | 71 | 0 |
+| 4x5-k4 | 24 | 31 | 0 |
+| 6x3-k4 | 5 | 16 | 0 |
+
+Mover-relative affine contradiction counts were 1,272, 2,861, and 537 respectively; cubic rank gains over degree 2 became 119, 457, and 51.
+
+Disposition:
+
+\[
+\boxed{
+\text{absolute owner naming is not the source of the OOO remainder.}
+}
+\]
+
+The mover-relative vocabulary remains an exact optional gauge, but it is not preferred as a decoder simplification under the current evidence.
+
+This narrows QU-OOO-04 away from an explanation based solely on absolute-owner coordinate choice.
