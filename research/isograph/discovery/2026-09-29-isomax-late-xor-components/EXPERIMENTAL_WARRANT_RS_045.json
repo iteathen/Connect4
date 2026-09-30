@@ -1,0 +1,61 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.parity_all_degree_ceiling.v1",
+  "id": "EW-RS-045",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "parent": "EW-RS-044",
+  "objective": "Determine whether the persistent 4x5-k4 degree-2/degree-3 contradictions arise because exact component multiplicity parity itself has already identified scalar-distinct T2-O states, which would make every polynomial degree over the frozen binary component-parity coordinates insufficient.",
+  "case": "4x5-k4",
+  "frozenRepresentation": [
+    "q_o rank-local reduction",
+    "RFG and hereditary G",
+    "post-RFG residual-incidence connected components",
+    "direct rank-local T2 with audit restricted to T2-O",
+    "exact canonical component identities",
+    "exact rank"
+  ],
+  "structuralKeys": [
+    {
+      "name": "EXACT_RANK_PARITY",
+      "definition": "exact rank plus the complete set of canonical component types whose multiplicity is odd"
+    },
+    {
+      "name": "EXACT_RANK_MULTIPLICITY",
+      "definition": "exact rank plus the complete canonical component-type multiplicity multiset"
+    },
+    {
+      "name": "EXACT_RANK_MOD3",
+      "definition": "exact rank plus every canonical component multiplicity modulo 3"
+    },
+    {
+      "name": "EXACT_RANK_MOD4",
+      "definition": "exact rank plus every canonical component multiplicity modulo 4"
+    },
+    {
+      "name": "EXACT_RANK_MOD6",
+      "definition": "exact rank plus every canonical component multiplicity modulo 6"
+    }
+  ],
+  "antiCircularity": [
+    "Every quotient key is declared before this audit is run.",
+    "Keys depend only on current-rank exact component identities, multiplicities, and rank.",
+    "Solved outcomes are consulted only to test whether a frozen structural class mixes scalar values.",
+    "No component type, modulus, or feature is selected from the identities of contradictory W/D/L rows."
+  ],
+  "falsifiersAndInterpretation": [
+    "If EXACT_RANK_PARITY contains a mixed scalar-value class, then no function of exact rank and the frozen binary parity vector alone can be Q-V exact on 4x5-k4; in particular no higher square-free GF(2) polynomial degree can repair it.",
+    "If EXACT_RANK_PARITY is Q-V exact, polynomial degree above 3 remains a live explanation for the EW-RS-044 contradictions.",
+    "If EXACT_RANK_MULTIPLICITY is Q-V exact while parity is not, the obstruction is loss under count reduction rather than failure of the exact component multiset.",
+    "If EXACT_RANK_MULTIPLICITY also mixes scalar values, the current independent component multiset representation is itself Q-V insufficient on the holdout."
+  ],
+  "evidenceToExtract": [
+    "class counts and mixed-value-class counts for every frozen key",
+    "first mixed-value witness for every failing key",
+    "minimum multiplicity-difference witness among parity collisions",
+    "whether the minimum parity collision is same exact rank by construction",
+    "which predeclared count moduli separate the minimum witness"
+  ],
+  "nextIfParityCollision": "Freeze the collision as an all-degree parity-coordinate falsifier. If full multiplicity remains exact, characterize the smallest count information lost by parity before introducing any new topology coordinate.",
+  "nextIfNoParityCollision": "Preserve cubic failure and test the next polynomial degree or extract a degree-3 contradiction certificate before escalation.",
+  "nextIfMultiplicityCollision": "Freeze the component-multiset falsifier and inspect cross-component scheduler/topology context rather than increasing polynomial degree over independent component coordinates."
+}
