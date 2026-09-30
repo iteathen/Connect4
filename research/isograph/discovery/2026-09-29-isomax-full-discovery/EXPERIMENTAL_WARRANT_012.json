@@ -1,0 +1,70 @@
+{
+  "schema": "connect4.isomax.discovery.experimental_warrant.v1",
+  "id": "EW-012",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE_GRAVITY_REALIZABILITY",
+  "purpose": [
+    "DISCRIMINATING",
+    "CHARACTERIZING"
+  ],
+  "parent_gap": "DISC-GAP-001",
+  "anchors": [
+    "DISC-F001",
+    "DISC-F005",
+    "DISC-F006",
+    "DISC-F008",
+    "EW-011"
+  ],
+  "objective": "Test whether cocycle frustration depends on residual requirements that are unrealizable under remaining-move capacity or exact gravity-release/turn schedules.",
+  "rationale": [
+    "EW-011 shows line-family labels do not transfer as a universal mechanism across k.",
+    "4x5/5x4 asymmetry persists at k=3 and k=4.",
+    "Existing structural audits expose residual deletions not explained by simpler support-release bookkeeping.",
+    "The bounded producer already contains exact remainingMoveCapacity and supportReleaseTurnCapacity closures, so this is a minimum-causal intervention rather than new machinery."
+  ],
+  "cases": [
+    {
+      "label": "4x5-k4",
+      "width": 4,
+      "height": 5,
+      "k": 4
+    },
+    {
+      "label": "5x4-k4",
+      "width": 5,
+      "height": 4,
+      "k": 4
+    },
+    {
+      "label": "4x5-k3",
+      "width": 4,
+      "height": 5,
+      "k": 3
+    },
+    {
+      "label": "5x4-k3",
+      "width": 5,
+      "height": 4,
+      "k": 3
+    }
+  ],
+  "interventions": [
+    "remainingMoveCapacity",
+    "supportReleaseTurnCapacity"
+  ],
+  "controls": "standard nonterminalFrontierBlocker=true + moverFinalCapParity=true baselines already frozen",
+  "targeted_observations": [
+    "cycle rank",
+    "zero/nonzero syndrome count",
+    "contradictory reconvergences",
+    "binary groups/edges",
+    "state/class counts"
+  ],
+  "open_observation_channel": "Any topology/classification change, new flat/obstructed transition, or asymmetry reversal is model-breaking evidence.",
+  "negative_coverage_rule": "No change means only these exact closures are not required for the tested obstruction; it does not prove gravity/support timing irrelevant in general.",
+  "adaptive_evidence_firewall": "Selected after EW-011; any surviving finer schedule feature remains a new candidate, not confirmation.",
+  "prohibited_information_sources": [
+    "solved database",
+    "W/D/L as structural producer input"
+  ]
+}
