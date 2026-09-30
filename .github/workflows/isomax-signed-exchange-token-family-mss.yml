@@ -1,0 +1,52 @@
+name: IsoMax signed exchange token-family MSS
+
+on:
+  push:
+    branches:
+      - experiment/isomax-late-xor-components-20260929
+    paths:
+      - '.github/workflows/isomax-signed-exchange-token-family-mss.yml'
+      - 'research/isograph/discovery/2026-09-29-isomax-late-xor-components/ooo-pair-delta-family-lib.mjs'
+      - 'research/isograph/discovery/2026-09-29-isomax-late-xor-components/ooo-pair-delta-family-lib.test.mjs'
+      - 'research/isograph/discovery/2026-09-29-isomax-late-xor-components/run-ooo-signed-exchange-token-family-mss.mjs'
+      - 'research/isograph/discovery/2026-09-29-isomax-late-xor-components/verify-ooo-signed-exchange-token-family-mss.mjs'
+  workflow_dispatch:
+
+concurrency:
+  group: isomax-signed-exchange-token-family-mss
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with: {fetch-depth: 0}
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with: {node-version: '26'}
+      - name: Check RS-072 runner syntax
+        run: node --check research/isograph/discovery/2026-09-29-isomax-late-xor-components/run-ooo-signed-exchange-token-family-mss.mjs
+      - name: Test signed exchange family semantics
+        run: node --test research/isograph/discovery/2026-09-29-isomax-late-xor-components/ooo-pair-delta-family-lib.test.mjs
+      - name: Run signed exchange token-family MSS
+        run: node --max-old-space-size=6144 research/isograph/discovery/2026-09-29-isomax-late-xor-components/run-ooo-signed-exchange-token-family-mss.mjs
+      - name: Verify signed exchange family result
+        run: node research/isograph/discovery/2026-09-29-isomax-late-xor-components/verify-ooo-signed-exchange-token-family-mss.mjs
+      - name: Research integrity
+        run: node tools/verify-research-integrity.mjs
+      - name: Commit signed exchange family evidence
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add             research/isograph/discovery/2026-09-29-isomax-late-xor-components/OOO_SIGNED_EXCHANGE_TOKEN_FAMILY_MSS_0_1.json             research/isograph/discovery/2026-09-29-isomax-late-xor-components/OOO_SIGNED_EXCHANGE_TOKEN_FAMILY_MSS_RESULT_VERIFY_0_1.json
+          if git diff --cached --quiet; then
+            echo "No generated changes."
+          else
+            git commit -m "research(isomax): freeze signed exchange token-family MSS"
+            git pull --rebase origin experiment/isomax-late-xor-components-20260929
+            git push origin HEAD:experiment/isomax-late-xor-components-20260929
+          fi
