@@ -1,0 +1,1148 @@
+{
+  "schema": "connect4.isomax.phase_graded_xor_certificate.v1",
+  "date_author_local": "2026-09-29",
+  "warrant": "EW-RS-027",
+  "frozenComponentDefinition": "post-RFG residual-incidence connected components with support/owner-labelled canonical component type",
+  "frozenTacticalReduction": "T2 = W immediate win; L2 universal one-move release loss; O unresolved",
+  "derivationCases": [
+    {
+      "label": "4x4-k3",
+      "width": 4,
+      "height": 4,
+      "k": 3,
+      "physicalStates": 41750,
+      "nonterminalStates": 23930,
+      "componentTypes": 7123,
+      "tactical2Counts": {
+        "W": 16100,
+        "L2": 3477,
+        "O": 4353
+      },
+      "affineXor": {
+        "NO_PHASE": {
+          "phaseMode": "CONST",
+          "consistent": false,
+          "equations": 4353,
+          "componentTypes": 7123,
+          "activeVariables": 1877,
+          "pivotRank": 1875,
+          "activeNullity": 2,
+          "contradictions": 88,
+          "firstContradiction": {
+            "key": "16739:5652",
+            "rank": 11,
+            "rankMod3": 2,
+            "relativeOutcome": "win",
+            "code": 2,
+            "oddTypes": [
+              "T03531"
+            ],
+            "reducedRhs": 2
+          },
+          "outcomeHistogram": {
+            "loss": 1526,
+            "draw": 322,
+            "win": 2505
+          },
+          "certificates": [],
+          "codeGauge": {
+            "loss": "00",
+            "draw": "01",
+            "win": "10"
+          }
+        },
+        "RANK_MOD3_PHASE": {
+          "phaseMode": "R3",
+          "consistent": false,
+          "equations": 4353,
+          "componentTypes": 7123,
+          "activeVariables": 1879,
+          "pivotRank": 1877,
+          "activeNullity": 2,
+          "contradictions": 62,
+          "firstContradiction": {
+            "key": "2409:662",
+            "rank": 11,
+            "rankMod3": 2,
+            "relativeOutcome": "win",
+            "code": 2,
+            "oddTypes": [
+              "T07072"
+            ],
+            "reducedRhs": 2
+          },
+          "outcomeHistogram": {
+            "loss": 1526,
+            "draw": 322,
+            "win": 2505
+          },
+          "certificates": [],
+          "codeGauge": {
+            "loss": "00",
+            "draw": "01",
+            "win": "10"
+          }
+        },
+        "PHASE_GRADED": {
+          "phaseMode": "GRADED_R3",
+          "consistent": false,
+          "equations": 4353,
+          "componentTypes": 7123,
+          "activeVariables": 1950,
+          "pivotRank": 1925,
+          "activeNullity": 25,
+          "contradictions": 2,
+          "firstContradiction": {
+            "key": "1603:24612",
+            "rank": 9,
+            "rankMod3": 0,
+            "relativeOutcome": "loss",
+            "code": 0,
+            "oddTypes": [
+              "T03602",
+              "T06485"
+            ],
+            "reducedRhs": 2
+          },
+          "outcomeHistogram": {
+            "loss": 1526,
+            "draw": 322,
+            "win": 2505
+          },
+          "certificates": [
+            {
+              "ordinal": 1,
+              "supportSize": 4,
+              "phases": [
+                0
+              ],
+              "sameRankMod3": true,
+              "phaseOffsetCancels": true,
+              "componentIncidenceParityZero": true,
+              "oddIncidence": [],
+              "rhsXor": 2,
+              "reducedRhs": 2,
+              "equations": [
+                {
+                  "index": 225,
+                  "key": "20809:3222",
+                  "rank": 12,
+                  "rankMod3": 0,
+                  "relativeOutcome": "win",
+                  "code": 2,
+                  "oddTypes": [
+                    "T06485",
+                    "T07121"
+                  ]
+                },
+                {
+                  "index": 1793,
+                  "key": "8899:19500",
+                  "rank": 12,
+                  "rankMod3": 0,
+                  "relativeOutcome": "draw",
+                  "code": 1,
+                  "oddTypes": [
+                    "T06500",
+                    "T07121"
+                  ]
+                },
+                {
+                  "index": 1821,
+                  "key": "8771:17444",
+                  "rank": 9,
+                  "rankMod3": 0,
+                  "relativeOutcome": "draw",
+                  "code": 1,
+                  "oddTypes": [
+                    "T03602",
+                    "T06500"
+                  ]
+                },
+                {
+                  "index": 2942,
+                  "key": "1603:24612",
+                  "rank": 9,
+                  "rankMod3": 0,
+                  "relativeOutcome": "loss",
+                  "code": 0,
+                  "oddTypes": [
+                    "T03602",
+                    "T06485"
+                  ]
+                }
+              ]
+            },
+            {
+              "ordinal": 2,
+              "supportSize": 4,
+              "phases": [
+                0
+              ],
+              "sameRankMod3": true,
+              "phaseOffsetCancels": true,
+              "componentIncidenceParityZero": true,
+              "oddIncidence": [],
+              "rhsXor": 2,
+              "reducedRhs": 2,
+              "equations": [
+                {
+                  "index": 225,
+                  "key": "20809:3222",
+                  "rank": 12,
+                  "rankMod3": 0,
+                  "relativeOutcome": "win",
+                  "code": 2,
+                  "oddTypes": [
+                    "T06485",
+                    "T07121"
+                  ]
+                },
+                {
+                  "index": 1793,
+                  "key": "8899:19500",
+                  "rank": 12,
+                  "rankMod3": 0,
+                  "relativeOutcome": "draw",
+                  "code": 1,
+                  "oddTypes": [
+                    "T06500",
+                    "T07121"
+                  ]
+                },
+                {
+                  "index": 1821,
+                  "key": "8771:17444",
+                  "rank": 9,
+                  "rankMod3": 0,
+                  "relativeOutcome": "draw",
+                  "code": 1,
+                  "oddTypes": [
+                    "T03602",
+                    "T06500"
+                  ]
+                },
+                {
+                  "index": 3790,
+                  "key": "1580:24642",
+                  "rank": 9,
+                  "rankMod3": 0,
+                  "relativeOutcome": "loss",
+                  "code": 0,
+                  "oddTypes": [
+                    "T03602",
+                    "T06485"
+                  ]
+                }
+              ]
+            }
+          ],
+          "codeGauge": {
+            "loss": "00",
+            "draw": "01",
+            "win": "10"
+          }
+        }
+      },
+      "results": [
+        {
+          "id": "MULTI",
+          "classes": 8134,
+          "QF_component_transport": true,
+          "QV": true,
+          "mixedValueGroups": 0,
+          "sameExactRankMixedValueGroups": 0,
+          "minPairUnits": null,
+          "firstFutureFailure": null,
+          "firstValueFailure": null,
+          "rankProfiles": [],
+          "pairExamples": []
+        },
+        {
+          "id": "MOD2_P",
+          "classes": 8084,
+          "QF_component_transport": false,
+          "QV": false,
+          "mixedValueGroups": 6,
+          "sameExactRankMixedValueGroups": 2,
+          "minPairUnits": 2,
+          "firstFutureFailure": {
+            "key": "0|1*0|1.2.4|||1*4||",
+            "a": "2827:45232",
+            "b": "102:8721",
+            "aInterface": "m0|0|1.2.4|=>T:P0",
+            "bInterface": "m0|0|1.2.4|=>T:P0||m0|2|4|=>T:P0||m0|2|4|=>T:P0"
+          },
+          "firstValueFailure": {
+            "key": "0|1*3||||1*3||8",
+            "a": "9155:7228",
+            "b": "725:3370",
+            "aValue": 0,
+            "bValue": 1
+          },
+          "rankProfiles": [
+            {
+              "key": "0|1*3||||1*3||8",
+              "ranks": [
+                {
+                  "rank": 12,
+                  "values": [
+                    1
+                  ]
+                },
+                {
+                  "rank": 14,
+                  "values": [
+                    0
+                  ]
+                }
+              ]
+            },
+            {
+              "key": "1|1*3||||1*4||",
+              "ranks": [
+                {
+                  "rank": 11,
+                  "values": [
+                    -1
+                  ]
+                },
+                {
+                  "rank": 13,
+                  "values": [
+                    -1,
+                    1
+                  ]
+                },
+                {
+                  "rank": 15,
+                  "values": [
+                    0
+                  ]
+                }
+              ]
+            },
+            {
+              "key": "0|",
+              "ranks": [
+                {
+                  "rank": 8,
+                  "values": [
+                    1
+                  ]
+                },
+                {
+                  "rank": 10,
+                  "values": [
+                    1
+                  ]
+                },
+                {
+                  "rank": 12,
+                  "values": [
+                    -1,
+                    1
+                  ]
+                },
+                {
+                  "rank": 14,
+                  "values": [
+                    -1,
+                    0,
+                    1
+                  ]
+                }
+              ]
+            },
+            {
+              "key": "0|1*2||||1*4||",
+              "ranks": [
+                {
+                  "rank": 12,
+                  "values": [
+                    1
+                  ]
+                },
+                {
+                  "rank": 14,
+                  "values": [
+                    0
+                  ]
+                }
+              ]
+            },
+            {
+              "key": "1|1*1||6.8||1*4||",
+              "ranks": [
+                {
+                  "rank": 11,
+                  "values": [
+                    1
+                  ]
+                },
+                {
+                  "rank": 13,
+                  "values": [
+                    -1
+                  ]
+                }
+              ]
+            },
+            {
+              "key": "0|1*2||8||1*4||",
+              "ranks": [
+                {
+                  "rank": 12,
+                  "values": [
+                    1
+                  ]
+                },
+                {
+                  "rank": 14,
+                  "values": [
+                    -1
+                  ]
+                }
+              ]
+            }
+          ],
+          "pairExamples": [
+            {
+              "key": "0|1*3||||1*3||8",
+              "a": "9155:7228",
+              "b": "725:3370",
+              "aRank": 14,
+              "bRank": 12,
+              "rankDelta": -2,
+              "sameExactRank": false,
+              "aValue": 0,
+              "bValue": 1,
+              "aCounts": [
+                {
+                  "type": "T07120",
+                  "canonicalType": "3||",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07121",
+                  "canonicalType": "3||8",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07122",
+                  "canonicalType": "4||",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T07120",
+                  "canonicalType": "3||",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07121",
+                  "canonicalType": "3||8",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07118",
+                  "canonicalType": "3|8|",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T07122",
+                  "canonicalType": "4||",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T07118",
+                  "canonicalType": "3|8|",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "1|1*3||||1*4||",
+              "a": "41923:7228",
+              "b": "1483:6708",
+              "aRank": 15,
+              "bRank": 13,
+              "rankDelta": -2,
+              "sameExactRank": false,
+              "aValue": 0,
+              "bValue": -1,
+              "aCounts": [
+                {
+                  "type": "T07120",
+                  "canonicalType": "3||",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07122",
+                  "canonicalType": "4||",
+                  "width": 1,
+                  "count": 3
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T07120",
+                  "canonicalType": "3||",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07119",
+                  "canonicalType": "3|8|8",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T07122",
+                  "canonicalType": "4||",
+                  "width": 1,
+                  "count": 1
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T07122",
+                  "canonicalType": "4||",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T07119",
+                  "canonicalType": "3|8|8",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "0|",
+              "a": "9027:4284",
+              "b": "33731:7228",
+              "aRank": 12,
+              "bRank": 14,
+              "rankDelta": 2,
+              "sameExactRank": false,
+              "aValue": 1,
+              "bValue": 0,
+              "aCounts": [
+                {
+                  "type": "T07095",
+                  "canonicalType": "2|4|",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T07122",
+                  "canonicalType": "4||",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T07120",
+                  "canonicalType": "3||",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T07122",
+                  "canonicalType": "4||",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T07095",
+                  "canonicalType": "2|4|",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T07120",
+                  "canonicalType": "3||",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "0|1*2||||1*4||",
+              "a": "49603:7228",
+              "b": "1227:35380",
+              "aRank": 14,
+              "bRank": 12,
+              "rankDelta": -2,
+              "sameExactRank": false,
+              "aValue": 0,
+              "bValue": 1,
+              "aCounts": [
+                {
+                  "type": "T07105",
+                  "canonicalType": "2||",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07122",
+                  "canonicalType": "4||",
+                  "width": 1,
+                  "count": 3
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T07105",
+                  "canonicalType": "2||",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07119",
+                  "canonicalType": "3|8|8",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T07122",
+                  "canonicalType": "4||",
+                  "width": 1,
+                  "count": 1
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T07122",
+                  "canonicalType": "4||",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T07119",
+                  "canonicalType": "3|8|8",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "1|1*1||6.8||1*4||",
+              "a": "25413:5178",
+              "b": "8789:1322",
+              "aRank": 13,
+              "bRank": 11,
+              "rankDelta": -2,
+              "sameExactRank": false,
+              "aValue": -1,
+              "bValue": 1,
+              "aCounts": [
+                {
+                  "type": "T06525",
+                  "canonicalType": "1||6.8",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07122",
+                  "canonicalType": "4||",
+                  "width": 1,
+                  "count": 3
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T06525",
+                  "canonicalType": "1||6.8",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07118",
+                  "canonicalType": "3|8|",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T07122",
+                  "canonicalType": "4||",
+                  "width": 1,
+                  "count": 1
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T07122",
+                  "canonicalType": "4||",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T07118",
+                  "canonicalType": "3|8|",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "0|1*2||8||1*4||",
+              "a": "25413:5306",
+              "b": "8789:1450",
+              "aRank": 14,
+              "bRank": 12,
+              "rankDelta": -2,
+              "sameExactRank": false,
+              "aValue": -1,
+              "bValue": 1,
+              "aCounts": [
+                {
+                  "type": "T07109",
+                  "canonicalType": "2||8",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07122",
+                  "canonicalType": "4||",
+                  "width": 1,
+                  "count": 3
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T07109",
+                  "canonicalType": "2||8",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07118",
+                  "canonicalType": "3|8|",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T07122",
+                  "canonicalType": "4||",
+                  "width": 1,
+                  "count": 1
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T07122",
+                  "canonicalType": "4||",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T07118",
+                  "canonicalType": "3|8|",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            }
+          ]
+        },
+        {
+          "id": "MOD2_P_TACTICAL2",
+          "classes": 8092,
+          "QF_component_transport": false,
+          "QV": true,
+          "mixedValueGroups": 0,
+          "sameExactRankMixedValueGroups": 0,
+          "minPairUnits": null,
+          "firstFutureFailure": {
+            "key": "0|1*0|1.2.4|||1*4|||T2W",
+            "a": "2827:45232",
+            "b": "102:8721",
+            "aInterface": "m0|0|1.2.4|=>T:P0",
+            "bInterface": "m0|0|1.2.4|=>T:P0||m0|2|4|=>T:P0||m0|2|4|=>T:P0"
+          },
+          "firstValueFailure": null,
+          "rankProfiles": [],
+          "pairExamples": []
+        },
+        {
+          "id": "MOD2_RANK",
+          "classes": 8115,
+          "QF_component_transport": false,
+          "QV": false,
+          "mixedValueGroups": 3,
+          "sameExactRankMixedValueGroups": 3,
+          "minPairUnits": 2,
+          "firstFutureFailure": {
+            "key": "12|",
+            "a": "9027:4284",
+            "b": "2409:1686",
+            "aInterface": "m0|2|4|=>T:P0||m0|2|4|=>T:P0",
+            "bInterface": "m0|3||8=>N:13|1*3||8||1*4||||m0|3||8=>N:13|1*3||8||1*4||||m0|3||=>N:13|1*3||||1*4||||m0|3||=>N:13|1*3||||1*4||"
+          },
+          "firstValueFailure": {
+            "key": "12|",
+            "a": "9027:4284",
+            "b": "2409:1686",
+            "aValue": 1,
+            "bValue": -1
+          },
+          "rankProfiles": [
+            {
+              "key": "12|",
+              "ranks": [
+                {
+                  "rank": 12,
+                  "values": [
+                    -1,
+                    1
+                  ]
+                }
+              ]
+            },
+            {
+              "key": "14|",
+              "ranks": [
+                {
+                  "rank": 14,
+                  "values": [
+                    -1,
+                    0,
+                    1
+                  ]
+                }
+              ]
+            },
+            {
+              "key": "13|1*3||||1*4||",
+              "ranks": [
+                {
+                  "rank": 13,
+                  "values": [
+                    -1,
+                    1
+                  ]
+                }
+              ]
+            }
+          ],
+          "pairExamples": [
+            {
+              "key": "12|",
+              "a": "9027:4284",
+              "b": "2409:1686",
+              "aRank": 12,
+              "bRank": 12,
+              "rankDelta": 0,
+              "sameExactRank": true,
+              "aValue": 1,
+              "bValue": -1,
+              "aCounts": [
+                {
+                  "type": "T07095",
+                  "canonicalType": "2|4|",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T07122",
+                  "canonicalType": "4||",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T07120",
+                  "canonicalType": "3||",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T07121",
+                  "canonicalType": "3||8",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T07095",
+                  "canonicalType": "2|4|",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T07122",
+                  "canonicalType": "4||",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T07120",
+                  "canonicalType": "3||",
+                  "width": 1,
+                  "delta": 2
+                },
+                {
+                  "type": "T07121",
+                  "canonicalType": "3||8",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 4
+            },
+            {
+              "key": "14|",
+              "a": "33731:7228",
+              "b": "1483:39476",
+              "aRank": 14,
+              "bRank": 14,
+              "rankDelta": 0,
+              "sameExactRank": true,
+              "aValue": 0,
+              "bValue": 1,
+              "aCounts": [
+                {
+                  "type": "T07120",
+                  "canonicalType": "3||",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T07122",
+                  "canonicalType": "4||",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T07118",
+                  "canonicalType": "3|8|",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T07122",
+                  "canonicalType": "4||",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T07120",
+                  "canonicalType": "3||",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T07118",
+                  "canonicalType": "3|8|",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "13|1*3||||1*4||",
+              "a": "1483:6708",
+              "b": "33493:3370",
+              "aRank": 13,
+              "bRank": 13,
+              "rankDelta": 0,
+              "sameExactRank": true,
+              "aValue": -1,
+              "bValue": 1,
+              "aCounts": [
+                {
+                  "type": "T07120",
+                  "canonicalType": "3||",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07119",
+                  "canonicalType": "3|8|8",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T07122",
+                  "canonicalType": "4||",
+                  "width": 1,
+                  "count": 1
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T07120",
+                  "canonicalType": "3||",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07118",
+                  "canonicalType": "3|8|",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T07122",
+                  "canonicalType": "4||",
+                  "width": 1,
+                  "count": 1
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T07119",
+                  "canonicalType": "3|8|8",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T07118",
+                  "canonicalType": "3|8|",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            }
+          ]
+        },
+        {
+          "id": "MOD2_RANK_TACTICAL2",
+          "classes": 8119,
+          "QF_component_transport": false,
+          "QV": true,
+          "mixedValueGroups": 0,
+          "sameExactRankMixedValueGroups": 0,
+          "minPairUnits": null,
+          "firstFutureFailure": {
+            "key": "12||T2W",
+            "a": "9027:4284",
+            "b": "1475:2620",
+            "aInterface": "m0|2|4|=>T:P0||m0|2|4|=>T:P0",
+            "bInterface": "m0|3|8|8=>T:P0||m0|3|8|8=>T:P0||m0|3||=>N:13|1*3||||1*4|||T2W||m0|3||=>N:13|1*3||||1*4|||T2W"
+          },
+          "firstValueFailure": null,
+          "rankProfiles": [],
+          "pairExamples": []
+        },
+        {
+          "id": "MOD2_R3_TACTICAL2",
+          "classes": 8117,
+          "QF_component_transport": false,
+          "QV": true,
+          "mixedValueGroups": 0,
+          "sameExactRankMixedValueGroups": 0,
+          "minPairUnits": null,
+          "firstFutureFailure": {
+            "key": "0|R32|1*2|4|||1*4|||T2W",
+            "a": "25411:5308",
+            "b": "105:8710",
+            "aInterface": "m0|2|4|=>T:P0",
+            "bInterface": "m0|1|2|=>T:P0||m0|1|2|=>T:P0||m0|2|4|=>T:P0"
+          },
+          "firstValueFailure": null,
+          "rankProfiles": [],
+          "pairExamples": []
+        },
+        {
+          "id": "MOD2_R4_TACTICAL2",
+          "classes": 8110,
+          "QF_component_transport": false,
+          "QV": true,
+          "mixedValueGroups": 0,
+          "sameExactRankMixedValueGroups": 0,
+          "minPairUnits": null,
+          "firstFutureFailure": {
+            "key": "R40|1*0|1.2.4|||1*4|||T2W",
+            "a": "2827:45232",
+            "b": "102:8721",
+            "aInterface": "m0|0|1.2.4|=>T:P0",
+            "bInterface": "m0|0|1.2.4|=>T:P0||m0|2|4|=>T:P0||m0|2|4|=>T:P0"
+          },
+          "firstValueFailure": null,
+          "rankProfiles": [],
+          "pairExamples": []
+        }
+      ]
+    }
+  ],
+  "freshCases": [],
+  "affineXorCrossCase": {
+    "noPhaseConsistentAll": false,
+    "rankMod3PhaseConsistentAll": false,
+    "phaseGradedConsistentAll": false,
+    "noPhaseFailures": [
+      "4x4-k3"
+    ],
+    "rankMod3PhaseFailures": [
+      "4x4-k3"
+    ],
+    "phaseGradedFailures": [
+      "4x4-k3"
+    ]
+  },
+  "crossCase": {
+    "exactRankT2QVAll": true,
+    "rankMod3T2QVAll": true,
+    "rankMod4T2QVAll": true,
+    "exactRankNoT2QVAll": false,
+    "baselineT2SameExactRankMixedAllZero": true,
+    "baselineT2Failures": [],
+    "exactRankT2Failures": [],
+    "rankMod3T2Failures": [],
+    "rankMod4T2Failures": [],
+    "exactRankNoT2Failures": [
+      "4x4-k3"
+    ]
+  },
+  "affineInterpretationGuard": [
+    "The affine system is solved only on T2-O states; W/L2 already have direct scalar values.",
+    "Relative outcome is current-mover win/draw/loss, removing fixed player-label asymmetry.",
+    "Each geometry has its own g_G(C), as permitted by persistent G.",
+    "NO_PHASE includes one global affine offset; RANK_MOD3_PHASE includes one offset for each r mod 3 class.",
+    "PHASE_GRADED additionally gives each component type an independent valuation in each r mod 3 grade, while preserving XOR composition within a grade.",
+    "Consistency proves only existence of a finite affine XOR coding on the complete bounded carrier, not a structural closed-form valuation.",
+    "Inconsistency rejects this simplest GF(2)^2 outcome-code law but not every XOR-like decoder or finite algebra."
+  ],
+  "interpretationGuard": [
+    "Current rank is explicitly admissible under the governing rank-local objective; it is tested here as global phase context, not as a new component valuation.",
+    "Exact-rank success can only localize prior failures to cross-rank aliasing after the frozen T2 reduction; it does not prove pair cancellation inside a fixed rank.",
+    "RANK_MOD3 retains existing turn parity, so its combined phase is rank modulo 6.",
+    "RANK_MOD4 is a falsification control and is not preferred by size if it fails.",
+    "RANK_EXACT_NO_T2 tests complementarity: rank must not be credited with tactical distinctions supplied only by T2.",
+    "The 3x6-k3 carrier is a fresh holdout and contributes no rule definitions.",
+    "No standard-7x6 theorem, nimber interpretation, or universal XOR claim follows from bounded passes."
+  ]
+}
