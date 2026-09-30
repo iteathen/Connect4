@@ -1,0 +1,55 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_round.v1",
+  "round": 48,
+  "date_author_local": "2026-09-30",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_47_FIXED_POINT_0_1.json",
+    "RANK_SUFFICIENCY_CAPACITY_REL_INC_ZOE_INTEGRATION_0_1.json"
+  ],
+  "reopened_reason": "Exact total local capacity repairs some carriers but fails 4x4-k4 and 4x5-k4; the surviving collisions preserve total capacity while changing its distribution across local columns.",
+  "new_assertions": [
+    {
+      "id": "RS-IA154",
+      "family": "M",
+      "body": "For multi-column components, total remaining capacity is weaker than the local capacity profile; equal sums can hide distinct support distributions."
+    },
+    {
+      "id": "RS-IA155",
+      "family": "F",
+      "body": "Because exact total capacity fails, no finer modulus of that same scalar total can repair the surviving 4x4/4x5 collisions."
+    },
+    {
+      "id": "RS-IA156",
+      "family": "R",
+      "body": "The observed surviving substitutions preserve REL_INC, width, and total capacity but change the multiset of per-column capacities, making that multiset the next outcome-independent structural distinction."
+    },
+    {
+      "id": "RS-IA157",
+      "family": "Q",
+      "body": "REL_INC plus an unordered column-capacity multiset is strictly between total-capacity REL_INC and a role-aligned height/capacity labeling; it can test whether capacity-to-incidence alignment is actually load-bearing."
+    },
+    {
+      "id": "RS-IA158",
+      "family": "D",
+      "body": "Do not attach capacities to specific incidence roles until the unaligned capacity-profile quotient is falsified."
+    }
+  ],
+  "qu_refinements": [
+    {
+      "id": "RS-QR046",
+      "target": "QU-RS-004",
+      "add_fixed": [
+        "CAP6_REL_INC_ZOE and exact-total-capacity REL_INC-ZOE are Q-V exact on 5x3-k3 and 6x3-k3",
+        "both remain Q-V inexact on 4x4-k4 and 4x5-k4",
+        "exact total capacity failure localizes the surviving distinction to capacity distribution rather than total-capacity modulus"
+      ],
+      "retain_open": [
+        "unordered per-column capacity profile plus REL_INC",
+        "whether capacity-to-incidence role alignment is load-bearing",
+        "minimal whole-component structural identity under ZOE counts",
+        "standard-7x6 qualification"
+      ]
+    }
+  ],
+  "stop_status": "REOPENED__CAPACITY_PROFILE_REL_INC_NEXT"
+}
