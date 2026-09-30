@@ -1,0 +1,42 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.contextual_common_carrier.v1",
+  "id": "EW-RS-081",
+  "status": "FROZEN_BEFORE_CONTEXT_SCALAR_REPLAY",
+  "parent": "EW-RS-080",
+  "objective": "Separate cross-geometry equality paths from within-geometry triangle/dependency noncommutation and quantify the structural defect of triangle-level common factorization.",
+  "researchOwner": "research/semantic-quotient",
+  "hypothesis": "A pooled triangle equality graph can introduce paths through triangles absent from a given carrier. Even without such paths, a pointwise triangle quotient may kill additional realizable dependency combinations beyond the sum of the four PMEC kernels.",
+  "candidates": [
+    {
+      "id": "LOCAL_TRIANGLE_COMMON",
+      "definition": "For each declared carrier independently, form the finest common partition of the four PMEC triangle keys on exactly that carrier's observed structural triple catalog. The domain is selected by structural occurrence, not by value or failure."
+    },
+    {
+      "id": "POOLED_TRIANGLE_DEFECT",
+      "definition": "Let K be the four-PMEC kernel sum from RS080 and L the kernel of its pooled common-triangle map. Verify K subset L and freeze a lexicographically constructed basis for L/K by reducing an outcome-independent basis of L modulo canonical K and selecting independent remainder rows."
+    },
+    {
+      "id": "LOCAL_TRIANGLE_DEFECT",
+      "definition": "Construct L_local/K identically for the local common-triangle map. Compare dimensions, generators and scalar restrictions after all bases are frozen."
+    }
+  ],
+  "procedure": [
+    "Read only RS079/RS080 structural snapshots for preparation.",
+    "Build all local catalogs, equality components, dependency maps and bases plus both structural defect bases for all three carriers.",
+    "Commit complete structural evidence before replay.",
+    "Replay only aligned pinned RS077 scalar codes. Publish scalar image dimension on each defect and XOR dependency certificates. Verify with independent BigInt rank/span calculations.",
+    "If local and pooled defects agree, reject cross-geometry contamination as the explanation; investigate incidence/context rather than an outcome-selected domain split."
+  ],
+  "scope": "The local candidate is a diagnostic of structural domain dependence, not a new geometry-specific value exception or a common closed formula.",
+  "holdouts": {
+    "primary": "3x6-k4",
+    "backup": "5x3-k4",
+    "sealed": true
+  },
+  "nonclaims": [
+    "closed scalar law",
+    "full triangle realizability",
+    "Q_F/Q_A",
+    "standard7x6 or universal transfer"
+  ]
+}
