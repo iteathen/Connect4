@@ -427,7 +427,6 @@ function auditCase(W,H,K){
       activeNullity:ordered.length-pivots.size,
       contradictions,
       firstContradiction,
-      thirdDifferenceCubes,
       codeGauge:{loss:'00',draw:'01',win:'10'}
     };
   }
@@ -755,6 +754,7 @@ function auditCase(W,H,K){
         contradictions:degree3.contradictions,
         firstContradiction:degree3.firstContradiction
       },
+      thirdDifferenceCubes,
       codeGauge:{loss:'00',draw:'01',win:'10'}
     };
   }
