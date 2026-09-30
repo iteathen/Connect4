@@ -1,0 +1,159 @@
+{
+  "schema": "connect4.isomax.forced_column_parity_4x4.v1",
+  "date_author_local": "2026-09-29",
+  "scope": "complete physical 4x4 connect-4 first-win carrier",
+  "transforms": {
+    "R": "support-release/turn capacity",
+    "F": "nonterminal frontier blocker",
+    "G": "hereditary final-mover cap closure",
+    "H": "sole-open-column forced ownership parity"
+  },
+  "methodology": {
+    "candidateDefinitionsUseValues": false,
+    "valueLabelsDerivedAfterStructuralKeys": true,
+    "solvedDatabaseUsed": false,
+    "oracleEUsedOnlyForPostHocEqualityCheck": true
+  },
+  "algebra": {
+    "H_idempotent": true,
+    "pairwiseCommutation": {
+      "RH": true,
+      "FH": true,
+      "GH": true
+    }
+  },
+  "direct": [
+    {
+      "seq": "QO",
+      "classes": 34094,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "RFG",
+      "classes": 30046,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "H",
+      "classes": 33804,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "RFGH",
+      "classes": 29986,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "HRFG",
+      "classes": 29986,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    }
+  ],
+  "orbit": [
+    {
+      "seq": "QO",
+      "classes": 10496,
+      "QF_transported": true,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "RFG",
+      "classes": 9308,
+      "QF_transported": true,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "H",
+      "classes": 10393,
+      "QF_transported": true,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "RFGH",
+      "classes": 9286,
+      "QF_transported": true,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "HRFG",
+      "classes": 9286,
+      "QF_transported": true,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    }
+  ],
+  "minima": {
+    "directQF": {
+      "seq": "RFGH",
+      "classes": 29986,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    "orbitQF": {
+      "seq": "RFGH",
+      "classes": 9286,
+      "QF_transported": true,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    }
+  },
+  "oracleComparison": {
+    "states": 134289,
+    "equality": 134289,
+    "mismatches": 0,
+    "mismatchExamples": [],
+    "oracleMemoEntries": 10081
+  },
+  "interpretationGuard": "H is rank-local; E is a future-schedule discovery oracle and is not admissible as final Q. Equality with F(E(q)) is validation only."
+}
