@@ -1,0 +1,45 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.quadratic_topology_delay_ladder.v1",
+  "id": "EW-RS-041",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "parent": "EW-RS-040",
+  "objective": "Factor frozen REL_INC into residual/column incidence topology and progressively finer frontier-relative delay labels to identify the smallest topology-aware quadratic coordinate that preserves scalar exactness.",
+  "cases": [
+    "5x3-k3",
+    "4x4-k4",
+    "6x3-k3"
+  ],
+  "motivation": [
+    "EW-RS-040 shows simple scalar component parities are insufficient on 4x4-k4 and 6x3-k3 even under exact-rank grading.",
+    "EW-RS-036 shows REL_INC is scalar-exact on all demanding carriers.",
+    "Therefore the missing information lies in internal residual/column incidence topology and its correlation with gravity delay."
+  ],
+  "descriptor_ladder": [
+    "TOPO: canonical residual/column hypergraph, delay erased",
+    "TOPO_D0: topology plus frontier/not-frontier bit per residual cell",
+    "TOPO_DPAR: topology plus delay parity per residual cell",
+    "TOPO_D012: topology plus delay bucket 0,1,>=2 per residual cell",
+    "REL_INC_EXACT: topology plus exact relative delay per residual cell",
+    "REL_INC and EXACT controls"
+  ],
+  "frozen_from_prior": [
+    "post-RFG component parity",
+    "direct rank-local T2",
+    "exact-rank affine component coordinates",
+    "quadratic pair semantics",
+    "REL_INC scalar sufficiency"
+  ],
+  "anti_circularity": [
+    "Every topology/delay descriptor is declared before outcome qualification.",
+    "Descriptors depend only on current RFG residual incidence and gravity depth.",
+    "No W/D/L label selects a topology feature or delay bucket."
+  ],
+  "falsifiers": [
+    "Any scalar contradiction rejects that descriptor on that carrier.",
+    "REL_INC_EXACT must agree with the established REL_INC scalar result; disagreement invalidates the harness.",
+    "A descriptor may be scalar-exact without spanning the full structural quadratic space; those claims remain separate."
+  ],
+  "next_if_success": "Freeze the coarsest descriptor scalar-exact on all demanding carriers, then derive the two syndrome coefficients in that coordinate and qualify them on a fresh non-affine holdout.",
+  "next_if_fail": "Retain exact REL_INC and search for a compact topology invariant only inside the fitted pair-support classes; do not reintroduce absolute board height."
+}
