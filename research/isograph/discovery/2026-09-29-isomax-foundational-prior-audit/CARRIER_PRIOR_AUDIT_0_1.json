@@ -1,0 +1,255 @@
+{
+  "schema": "connect4.isomax.foundational_prior_audit.carrier.v1",
+  "date_author_local": "2026-09-29",
+  "method": {
+    "rawCarrier": "existing producer edge list only",
+    "independentChecks": [
+      "undirected component/cycle-rank reconstruction",
+      "potential-consistency constraint solve",
+      "union-find parity fundamental-cycle audit under seven deterministic edge orders",
+      "rank-DAG parity reachability / contradictory source-target enumeration",
+      "minimum opposite-parity path-pair search",
+      "node-gauge flip invariance"
+    ]
+  },
+  "cases": [
+    {
+      "label": "4x5-k4-release-flat",
+      "sourceSummary": {
+        "residualOrbitStates": 102536,
+        "recursiveUnlabelledClasses": 86791,
+        "recursiveActionLabelledClasses": 89642,
+        "binaryGroups": 696,
+        "reducedEdges": 448,
+        "cycleRank": 40,
+        "zeroCycleSyndromes": 40,
+        "nonzeroCycleSyndromes": 0,
+        "contradictoryReconvergences": 0,
+        "globalPhasePotentialExists": true
+      },
+      "independent": {
+        "nodesTotal": 696,
+        "activeNodes": 498,
+        "edges": 448,
+        "activeComponents": 90,
+        "cycleRank": 40,
+        "exactPotentialExists": true,
+        "conflictEdgeIds": [],
+        "scalarCycleFunctionalImageRank": 0,
+        "reconvergentPairs": 42,
+        "contradictoryPairs": 0,
+        "minimumContradiction": null,
+        "minimumScoreMultiplicity": 0,
+        "basisByOrder": {
+          "source": {
+            "zero": 40,
+            "nonzero": 0,
+            "closures": 40
+          },
+          "reverse": {
+            "zero": 40,
+            "nonzero": 0,
+            "closures": 40
+          },
+          "fromTo": {
+            "zero": 40,
+            "nonzero": 0,
+            "closures": 40
+          },
+          "toFrom": {
+            "zero": 40,
+            "nonzero": 0,
+            "closures": 40
+          },
+          "delta0First": {
+            "zero": 40,
+            "nonzero": 0,
+            "closures": 40
+          },
+          "delta1First": {
+            "zero": 40,
+            "nonzero": 0,
+            "closures": 40
+          },
+          "column": {
+            "zero": 40,
+            "nonzero": 0,
+            "closures": 40
+          }
+        },
+        "basisNonzeroValues": [
+          0
+        ],
+        "basisCountVariesAcrossTestedOrders": false,
+        "gaugeCheck": {
+          "exactPotentialExists": true,
+          "basisSource": {
+            "zero": 40,
+            "nonzero": 0,
+            "closures": 40
+          },
+          "exactnessInvariant": true,
+          "sourceBasisSyndromeCountsInvariant": true
+        }
+      },
+      "comparisons": {
+        "cycleRankMatches": true,
+        "sourceOrderBasisMatches": true,
+        "contradictionCountMatches": true,
+        "integrabilityMatches": true
+      }
+    },
+    {
+      "label": "5x4-k4-release-obstructed",
+      "sourceSummary": {
+        "residualOrbitStates": 287920,
+        "recursiveUnlabelledClasses": 251222,
+        "recursiveActionLabelledClasses": 261853,
+        "binaryGroups": 4176,
+        "reducedEdges": 3693,
+        "cycleRank": 542,
+        "zeroCycleSyndromes": 520,
+        "nonzeroCycleSyndromes": 22,
+        "contradictoryReconvergences": 1,
+        "globalPhasePotentialExists": false
+      },
+      "independent": {
+        "nodesTotal": 4176,
+        "activeNodes": 3450,
+        "edges": 3693,
+        "activeComponents": 299,
+        "cycleRank": 542,
+        "exactPotentialExists": false,
+        "conflictEdgeIds": [
+          28,
+          320,
+          564,
+          651,
+          963,
+          1039,
+          1098,
+          1147,
+          1157,
+          1679,
+          1684,
+          1688,
+          1720,
+          1745,
+          1890,
+          1996,
+          2060,
+          2064,
+          2106,
+          2109,
+          2121,
+          2383,
+          2400,
+          2409,
+          2577,
+          2723,
+          2961,
+          3000,
+          3003,
+          3196,
+          3531
+        ],
+        "scalarCycleFunctionalImageRank": 1,
+        "reconvergentPairs": 465,
+        "contradictoryPairs": 1,
+        "minimumContradiction": {
+          "source": 3483,
+          "target": 153,
+          "distances": [
+            3,
+            3
+          ],
+          "score": [
+            6,
+            3
+          ],
+          "paths": [
+            [
+              2723,
+              2255,
+              59
+            ],
+            [
+              2724,
+              2710,
+              350
+            ]
+          ]
+        },
+        "minimumScoreMultiplicity": 1,
+        "basisByOrder": {
+          "source": {
+            "zero": 520,
+            "nonzero": 22,
+            "closures": 542
+          },
+          "reverse": {
+            "zero": 507,
+            "nonzero": 35,
+            "closures": 542
+          },
+          "fromTo": {
+            "zero": 514,
+            "nonzero": 28,
+            "closures": 542
+          },
+          "toFrom": {
+            "zero": 510,
+            "nonzero": 32,
+            "closures": 542
+          },
+          "delta0First": {
+            "zero": 427,
+            "nonzero": 115,
+            "closures": 542
+          },
+          "delta1First": {
+            "zero": 507,
+            "nonzero": 35,
+            "closures": 542
+          },
+          "column": {
+            "zero": 514,
+            "nonzero": 28,
+            "closures": 542
+          }
+        },
+        "basisNonzeroValues": [
+          22,
+          28,
+          32,
+          35,
+          115
+        ],
+        "basisCountVariesAcrossTestedOrders": true,
+        "gaugeCheck": {
+          "exactPotentialExists": false,
+          "basisSource": {
+            "zero": 520,
+            "nonzero": 22,
+            "closures": 542
+          },
+          "exactnessInvariant": true,
+          "sourceBasisSyndromeCountsInvariant": true
+        }
+      },
+      "comparisons": {
+        "cycleRankMatches": true,
+        "sourceOrderBasisMatches": true,
+        "contradictionCountMatches": true,
+        "integrabilityMatches": true
+      }
+    }
+  ],
+  "labelConsequences": {
+    "fundamentalNonzeroCount": "BASIS_DEPENDENT_DIAGNOSTIC__DO_NOT_TREAT_AS_INTRINSIC_MAGNITUDE",
+    "obstructed": "INTRINSIC_TO_DECLARED_EDGE_COCYCLE_IFF_NO_GLOBAL_Z2_POTENTIAL",
+    "cycleRank": "GRAPH_INVARIANT_OF_DECLARED_ACTIVE_CARRIER",
+    "contradictoryReconvergenceCount": "DIRECTED_DECLARED_CARRIER_PROPERTY",
+    "scalarObstructionDimension": "for a single Z2-valued edge cochain, the image on cycle space has dimension 0 if exact and 1 if non-exact; counts of nonzero basis cycles are not obstruction dimension"
+  }
+}
