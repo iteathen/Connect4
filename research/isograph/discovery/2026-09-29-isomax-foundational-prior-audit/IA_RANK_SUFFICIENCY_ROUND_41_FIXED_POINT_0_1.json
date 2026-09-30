@@ -1,0 +1,25 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_fixed_point.v1",
+  "round": 41,
+  "date_author_local": "2026-09-29",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_40_0_1.json",
+    "RANK_SUFFICIENCY_RELEASE_PARITY_TOPOLOGY_INTEGRATION_0_1.json"
+  ],
+  "recursive_generation": {
+    "families_checked": [
+      "release timing semantics",
+      "scalar-versus-structural quotient",
+      "fresh falsifier design",
+      "phase interaction"
+    ],
+    "new_assertions": []
+  },
+  "fixed_point": true,
+  "reason": "The current corpus supports TOPO_RPAR, but promotion requires a fresh non-affine holdout fixed before value inspection.",
+  "next_evidence_boundaries": [
+    "fresh non-affine TOPO_RPAR holdout",
+    "two-syndrome coefficient derivation only after successful fresh transfer"
+  ],
+  "stop_status": "FIXED_POINT__FRESH_NONAFFINE_RELEASE_PARITY_NEXT"
+}
