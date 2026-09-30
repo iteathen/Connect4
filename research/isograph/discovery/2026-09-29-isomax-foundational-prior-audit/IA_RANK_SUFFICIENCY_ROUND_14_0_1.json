@@ -1,0 +1,79 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_round.v1",
+  "round": 14,
+  "date_author_local": "2026-09-29",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_13_FIXED_POINT_0_1.json",
+    "RANK_SUFFICIENCY_PHASE_QA_INTEGRATION_0_1.json"
+  ],
+  "reopened_reason": "transporter-aware Q-A qualification establishes a broad strict separation from the phase-factored Q-V quotient",
+  "new_assertions": [
+    {
+      "id": "RS-IA057",
+      "family": "F",
+      "body": "The phase-factored component-parity carrier is strictly scalar in the tested corpus: it is Q-V exact on eight carriers but Q-A-inexact on every carrier where it makes a nontrivial merge."
+    },
+    {
+      "id": "RS-IA058",
+      "family": "R",
+      "body": "Exact rank does not restore Q-A after parity reduction; the discarded action information is component/action multiplicity and type structure rather than a missing global rank phase."
+    },
+    {
+      "id": "RS-IA059",
+      "family": "S",
+      "body": "T2-W and T2-L2 are scalar absorbing categories whose exact values follow directly from mover identity, so action multiplicity can be safely forgotten for Q-V while remaining load-bearing for Q-A."
+    },
+    {
+      "id": "RS-IA060",
+      "family": "C",
+      "body": "Q-A collisions also occur inside T2-O, so the strict Q-V/Q-A separation is not merely an artifact of terminal tactical short-circuit states."
+    },
+    {
+      "id": "RS-IA061",
+      "family": "M",
+      "body": "The scalar evaluator-discovery frontier should condition on T2-O and seek a valuation of the phase-factored parity carrier there; restoring Q-A distinctions would defeat the Q-V minimality objective."
+    },
+    {
+      "id": "RS-IA062",
+      "family": "Q",
+      "body": "Q-A and Q-V now require separate minimization tracks: a finer action carrier can coexist with a smaller scalar carrier and a direct D_G."
+    }
+  ],
+  "qu_refinements": [
+    {
+      "id": "RS-QR024",
+      "target": "QU-RS-003",
+      "add_fixed": [
+        "phase-factored component parity is Q-V exact on eight complete carriers but Q-A exact only on 3x3-k3",
+        "all seven carriers with nontrivial phase-factored class reduction fail Q-A"
+      ],
+      "retain_open": [
+        "coarsest Q-A contextual quotient",
+        "minimal Q-V carrier on unresolved T2-O states"
+      ]
+    },
+    {
+      "id": "RS-QR025",
+      "target": "QU-RS-004",
+      "add_fixed": [
+        "T2-W/L2 have direct scalar values from mover identity",
+        "the unresolved evaluator problem can be restricted to T2-O after the direct tactical short circuit"
+      ],
+      "retain_open": [
+        "direct D_G on T2-O",
+        "phase-factored component valuation/composition"
+      ]
+    },
+    {
+      "id": "RS-QR026",
+      "target": "QU-RS-006",
+      "add_fixed": [
+        "exact rank does not repair phase-factored Q-A on seven carriers"
+      ],
+      "retain_open": [
+        "finer action-interface context distinct from scalar phase context"
+      ]
+    }
+  ],
+  "stop_status": "REOPENED__T2O_SCALAR_VALUATION_AND_QA_SPLIT_PENDING"
+}
