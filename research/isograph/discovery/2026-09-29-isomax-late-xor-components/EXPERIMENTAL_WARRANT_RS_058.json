@@ -1,0 +1,47 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.repaired_coordinate_cubic_decoder.v1",
+  "id": "EW-RS-058",
+  "date_author_local": "2026-09-30",
+  "status": "ACTIVE",
+  "parent": "EW-RS-057",
+  "objective": "Test whether complete observed degree-3 GF(2) decoding over the frozen ROLE_CAPPAR+ZOE P/O bits resolves every degree-2 contradiction on the three demanding repaired-coordinate carriers.",
+  "cases": [
+    "6x3-k3",
+    "4x5-k4",
+    "6x3-k4"
+  ],
+  "frozenCoordinate": {
+    "identity": "ROLE_CAPPAR_REL_INC",
+    "countState": "ZOE",
+    "binaryEncoding": "P_d=[n_d>0], O_d=n_d mod 2",
+    "rankGrade": "none"
+  },
+  "candidate": {
+    "name": "DEGREE3_PO",
+    "formulaClass": "global affine P/O terms plus every observed square-free product of two and three distinct active P/O bits",
+    "featureGeneration": "mechanical from repaired structural class rows before outcome qualification",
+    "outcomeIndependent": true
+  },
+  "controls": {
+    "6x3-k3": {"affineContradictions": 1454, "degree2Contradictions": 24},
+    "4x5-k4": {"affineContradictions": 2918, "degree2Contradictions": 24},
+    "6x3-k4": {"affineContradictions": 459, "degree2Contradictions": 5}
+  },
+  "antiCircularity": [
+    "The repaired P/O coordinate was frozen and independently qualified before decoder fitting.",
+    "Degree 3 is the next complete multilinear degree after the frozen degree-2 falsifier.",
+    "Every observed triple of distinct active P/O bits is admitted mechanically; no triple is selected using W/D/L labels.",
+    "Duplicate ROLE_CAPPAR structural classes are collapsed only after scalar-purity verification."
+  ],
+  "falsifiers": [
+    "Affine and degree-2 contradiction counts must reproduce the frozen EW-RS-057 controls.",
+    "Any degree-3 contradiction rejects cubic sufficiency over the repaired coordinate on that carrier.",
+    "A zero degree-3 contradiction count establishes finite decoder existence only, not a universal or closed-form law."
+  ],
+  "nextIfCommonSuccess": "Reduce the cubic interaction space outcome-independently and isolate the value-relevant two-bit target subspace before selecting any final syndrome formula; predeclare a new formula holdout first.",
+  "nextIfFail": "Freeze the cubic contradiction family and characterize its minimum certificate before testing degree 4.",
+  "interpretationGuards": [
+    "The two-bit target-dimension observation is retained as a scalar-output invariant even if the structural polynomial degree rises.",
+    "No Q-A/Q-F or standard-7x6 claim follows."
+  ]
+}
