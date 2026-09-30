@@ -1,0 +1,181 @@
+{
+  "schema": "connect4.isomax.direct_sufficiency_holdout.v1",
+  "date_author_local": "2026-09-29",
+  "warrant": "EW-RS-006",
+  "candidateFrozenFrom": "complete 4x4 k4 EW-RS-005 result",
+  "cases": [
+    {
+      "width": 3,
+      "height": 3,
+      "k": 3,
+      "physicalStates": 694,
+      "nonterminalStates": 505,
+      "futureBehaviorClasses": 315,
+      "rows": [
+        {
+          "id": "QO",
+          "classes": 396,
+          "futureBehaviorSufficient": true,
+          "recursiveClosure": true,
+          "firstFutureFailure": null,
+          "firstClosureFailure": null
+        },
+        {
+          "id": "C",
+          "classes": 370,
+          "futureBehaviorSufficient": true,
+          "recursiveClosure": false,
+          "firstFutureFailure": null,
+          "firstClosureFailure": {
+            "key": "3,3,1|256|",
+            "a": "209:14",
+            "b": "149:74",
+            "aInterface": "I|I|N:3,3,2|256|256",
+            "bInterface": "I|I|N:3,3,2|256|"
+          }
+        },
+        {
+          "id": "RFC",
+          "classes": 330,
+          "futureBehaviorSufficient": true,
+          "recursiveClosure": true,
+          "firstFutureFailure": null,
+          "firstClosureFailure": null
+        }
+      ]
+    },
+    {
+      "width": 3,
+      "height": 4,
+      "k": 3,
+      "physicalStates": 2715,
+      "nonterminalStates": 1801,
+      "futureBehaviorClasses": 1010,
+      "rows": [
+        {
+          "id": "QO",
+          "classes": 1393,
+          "futureBehaviorSufficient": true,
+          "recursiveClosure": true,
+          "firstFutureFailure": null,
+          "firstClosureFailure": null
+        },
+        {
+          "id": "C",
+          "classes": 1372,
+          "futureBehaviorSufficient": true,
+          "recursiveClosure": false,
+          "firstFutureFailure": null,
+          "firstClosureFailure": {
+            "key": "4,3,3||2048",
+            "a": "115:908",
+            "b": "625:398",
+            "aInterface": "I|N:4,4,3||2048|N:4,3,4||",
+            "bInterface": "I|N:4,4,3|2048|2048|N:4,3,4|1024|"
+          }
+        },
+        {
+          "id": "RFC",
+          "classes": 1242,
+          "futureBehaviorSufficient": true,
+          "recursiveClosure": true,
+          "firstFutureFailure": null,
+          "firstClosureFailure": null
+        }
+      ]
+    },
+    {
+      "width": 4,
+      "height": 3,
+      "k": 3,
+      "physicalStates": 7157,
+      "nonterminalStates": 4631,
+      "futureBehaviorClasses": 2936,
+      "rows": [
+        {
+          "id": "QO",
+          "classes": 3734,
+          "futureBehaviorSufficient": true,
+          "recursiveClosure": true,
+          "firstFutureFailure": null,
+          "firstClosureFailure": null
+        },
+        {
+          "id": "C",
+          "classes": 3686,
+          "futureBehaviorSufficient": true,
+          "recursiveClosure": false,
+          "firstFutureFailure": null,
+          "firstClosureFailure": {
+            "key": "3,3,3,1||2176",
+            "a": "837:1082",
+            "b": "835:1084",
+            "aInterface": "I|I|I|N:3,3,3,2||",
+            "bInterface": "I|I|I|N:3,3,3,2|2048|"
+          }
+        },
+        {
+          "id": "RFC",
+          "classes": 3448,
+          "futureBehaviorSufficient": true,
+          "recursiveClosure": true,
+          "firstFutureFailure": null,
+          "firstClosureFailure": null
+        }
+      ]
+    },
+    {
+      "width": 4,
+      "height": 4,
+      "k": 3,
+      "physicalStates": 41750,
+      "nonterminalStates": 23930,
+      "futureBehaviorClasses": 12523,
+      "rows": [
+        {
+          "id": "QO",
+          "classes": 18874,
+          "futureBehaviorSufficient": true,
+          "recursiveClosure": true,
+          "firstFutureFailure": null,
+          "firstClosureFailure": null
+        },
+        {
+          "id": "C",
+          "classes": 18722,
+          "futureBehaviorSufficient": true,
+          "recursiveClosure": false,
+          "firstFutureFailure": null,
+          "firstClosureFailure": {
+            "key": "4,4,1,3|64.1024|64.1024.16384",
+            "a": "2827:12468",
+            "b": "8611:6684",
+            "aInterface": "I|I|T:P0|N:4,4,1,4|64.1024|64.1024.16384",
+            "bInterface": "I|I|T:P0|N:4,4,1,4|64.1024.16384|64.1024.16384"
+          }
+        },
+        {
+          "id": "RFC",
+          "classes": 17722,
+          "futureBehaviorSufficient": true,
+          "recursiveClosure": false,
+          "firstFutureFailure": null,
+          "firstClosureFailure": {
+            "key": "4,2,0,4|4.64.1536|64.1024.24576",
+            "a": "2315:37040",
+            "b": "6403:32952",
+            "aInterface": "I|N:4,3,0,4|4.64.1024|64.1024.24576|T:P0|I",
+            "bInterface": "I|N:4,3,0,4|4.64.1024.24576|64.1024.24576|T:P0|I"
+          }
+        }
+      ]
+    }
+  ],
+  "result": {
+    "C_futureSufficientEveryCase": true,
+    "RFC_futureSufficientEveryCase": true,
+    "C_recursiveClosureEveryCase": false,
+    "RFC_recursiveClosureEveryCase": false
+  },
+  "interpretationGuard": "Fresh bounded structural holdouts. They distinguish semantic future sufficiency from recursive representational closure; no standard-7x6 theorem is promoted."
+}
