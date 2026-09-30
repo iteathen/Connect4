@@ -1,0 +1,30 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_fixed_point.v1",
+  "round": 13,
+  "date_author_local": "2026-09-29",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_12_0_1.json",
+    "RANK_SUFFICIENCY_PHASE_FACTORIZATION_INTEGRATION_0_1.json"
+  ],
+  "recursive_generation": {
+    "families_checked": [
+      "component/context decomposition",
+      "rank-phase projection",
+      "safe forgetting",
+      "tactical singleton frontier",
+      "Q-F/Q-A/Q-V separation",
+      "late composition algebra",
+      "836 ambiguity correspondence"
+    ],
+    "new_assertions": []
+  },
+  "fixed_point": true,
+  "reason": "All native consequences of the rank-conditioned parity and direct-T2 evidence are represented by RS-IA051 through RS-IA056. Further assertions require new Q-A evidence, a fresh geometry falsifier, a general RFG/T2 proof, or an explicit component valuation/composition experiment.",
+  "next_evidence_boundaries": [
+    "Q-A audit of the phase-factored Q-V key",
+    "fresh wider-geometry phase qualification",
+    "symbolic RFG preservation proof for singleton-frontier T2",
+    "stable component valuation or direct D_G on the contextual quotient"
+  ],
+  "stop_status": "FIXED_POINT__PHASE_FACTORIZATION_INTEGRATED"
+}
