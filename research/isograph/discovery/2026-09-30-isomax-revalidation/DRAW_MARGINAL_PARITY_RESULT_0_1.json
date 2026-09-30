@@ -1,0 +1,22 @@
+{
+  "schema": "connect4.isomax.revalidation.draw_marginal_parity_result.v1",
+  "warrant": "REVAL-LEGO-DRAW-001",
+  "status": "FALSIFIED_SIMPLE_MARGINAL_PARITY_FAMILY",
+  "candidateCount": 2047,
+  "realizedColumnClasses": 2,
+  "passingCount": 0,
+  "structuralIdentity": {
+    "featureCount": 635,
+    "statement": "For every COV_0 triangle feature, parity of the three-edge sum is identically zero for each of T_C,T_Z0,T_P0,T_Z1,T_P1,A_C,A_Z0,A_P0,A_Z1,A_P1.",
+    "consequence": "All ten primitive marginal parity columns vanish identically. The only nonzero primitive column in the 11-bit family is ONE_PER_TRIANGLE parity.",
+    "explanation": "For a fixed exchange coordinate over three vertices, pairwise difference support has even degree around a triangle; additionally |p-m| congruent p+m mod2. This is a triangle handshaking/parity conservation law."
+  },
+  "interpretation": "The surviving low scalar character is not any GF(2) linear conservation parity of the primitive marginal totals/absolute imbalances.",
+  "holdouts": {
+    "primary": "3x6-k4",
+    "backup": "5x3-k4",
+    "sealed": true
+  },
+  "rs096": "HOLD",
+  "authorityEffect": "NONE"
+}
