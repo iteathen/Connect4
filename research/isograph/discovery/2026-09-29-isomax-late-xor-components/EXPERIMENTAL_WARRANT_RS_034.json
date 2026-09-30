@@ -1,0 +1,44 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.quadratic_interaction_basis.v1",
+  "id": "EW-RS-034",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "parent": "EW-RS-033",
+  "objective": "Replace the syntactic catalog of exact-rank quadratic pair features by a canonical structural basis for the degree-2 column space modulo the affine degree-1 columns.",
+  "cases": [
+    "5x3-k3",
+    "4x4-k4",
+    "6x3-k3"
+  ],
+  "frozen_from_prior": [
+    "post-RFG component parity",
+    "direct rank-local T2",
+    "exact-rank grading",
+    "degree-2 feature definition as all observed rank-specific pair products"
+  ],
+  "basis_rule": [
+    "Construct the degree-2 incidence matrix without outcome labels.",
+    "Order columns so affine/linear columns have pivot priority over quadratic columns.",
+    "Perform deterministic GF(2) elimination.",
+    "Retain exactly the quadratic pivot columns that extend the affine column span.",
+    "Verify their count equals rank(DEGREE2)-rank(DEGREE1).",
+    "Then use outcomes only to verify that all affine columns plus this structural quadratic quotient basis preserve exact decoder consistency."
+  ],
+  "targets": [
+    "quadratic catalog size",
+    "quadratic quotient-basis size",
+    "basis count by exact rank",
+    "compression ratio",
+    "reduced-model exactness"
+  ],
+  "anti_circularity": [
+    "Outcome labels do not select the interaction basis.",
+    "The basis spans the full observed degree-2 structural feature space modulo degree one, not merely a fitted subset for W/D/L.",
+    "The three case definitions and basis ordering are frozen before qualification."
+  ],
+  "falsifiers": [
+    "If quadratic pivot count differs from rank(DEGREE2)-rank(DEGREE1), the proposed basis extraction is mechanically invalid.",
+    "If the reduced structural basis loses decoder consistency, the extraction is invalid.",
+    "A small quotient basis does not yet prove a closed-form invariant or minimal value-specific pair set."
+  ]
+}
