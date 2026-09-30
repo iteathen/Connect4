@@ -1,0 +1,65 @@
+{
+  "schema": "connect4.rank_sufficient_qg_dg.campaign.v1",
+  "date_author_local": "2026-09-29",
+  "research_direction": "Joshua Oshiro",
+  "status": "ACTIVE_REOPENED_DISCOVERY_PROFILE",
+  "branch": "research/rank-sufficient-qg-dg-20260929",
+  "predecessors": {
+    "discovery_fixed_point": "0efdc5e3aa9a3d5179adfc42203a123231f75328",
+    "foundational_audit_fixed_point": "970e22bf12c33c2a274ba337ccae5a1f677aa9c8"
+  },
+  "target": {
+    "equation": "V_G(P)=D_G(Q_G(P))",
+    "objective": "Find a minimal rank-sufficient Q_G(P) and exact D_G without assuming either internal computational form."
+  },
+  "sufficiency_levels": {
+    "future_behavior": "QF equality implies interchangeability for declared complete continuation semantics.",
+    "scalar_value": "QV equality implies exact scalar game-theoretic value equality.",
+    "proof_certificate": "QP preserves all additional proof premises required by guarded/certificate semantics."
+  },
+  "information_order": {
+    "definition": "Q1 <= Q2 iff Q1 is computable from Q2, modulo lossless recoding.",
+    "multiple_incomparable_minima_allowed": true,
+    "no_byte_size_proxy": true
+  },
+  "exact_upper_bounds": {
+    "standard_7x6_qo": {
+      "representation": "orientation-sensitive support + normalized P0 residual antichain + normalized P1 residual antichain",
+      "rank_local": true,
+      "qualified_future_behavior_sufficient": true,
+      "minimality": "OPEN"
+    },
+    "standard_7x6_qr": {
+      "representation": "horizontal-reflection orbit quotient of q_o with explicit action transporter",
+      "rank_local": true,
+      "qualified_scalar_value_sufficient": true,
+      "future_correspondence": "exact up to identity/reflection action transport",
+      "minimality": "OPEN"
+    }
+  },
+  "channels": {
+    "direct_algebraic": {
+      "status": "OPEN",
+      "assumed_form": null
+    },
+    "rank_local_recursive": {
+      "status": "OPEN",
+      "assumed_form": null
+    }
+  },
+  "construction_firewall": {
+    "future_tree_required_to_define_Q": false,
+    "solved_wdl_as_Q_input": false,
+    "future_behavior_and_wdl_allowed_as_posthoc_validation": true
+  },
+  "closure_reopened": {
+    "reason": "objective/search profile changed",
+    "predecessor_fixed_points_preserved": true,
+    "dp": true,
+    "ia": true,
+    "qu": true,
+    "nei": true,
+    "dts": true,
+    "experimental_inquiry": true
+  }
+}
