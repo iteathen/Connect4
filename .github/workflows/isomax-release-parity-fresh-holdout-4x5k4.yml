@@ -22,7 +22,7 @@ jobs:
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
         with: {node-version: '26'}
       - name: Qualify frozen release-parity topology on fresh 4x5-k4
-        run: node research/isograph/discovery/2026-09-29-isomax-late-xor-components/run-release-parity-fresh-holdout-4x5k4.mjs
+        run: node --max-old-space-size=6144 research/isograph/discovery/2026-09-29-isomax-late-xor-components/run-release-parity-fresh-holdout-4x5k4.mjs
       - name: Research integrity
         run: node tools/verify-research-integrity.mjs
       - name: Commit fresh holdout evidence
