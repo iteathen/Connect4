@@ -1,0 +1,27 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_fixed_point.v1",
+  "round": 35,
+  "date_author_local": "2026-09-29",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_34_0_1.json",
+    "RANK_SUFFICIENCY_RELATIVE_INCIDENCE_INTEGRATION_0_1.json"
+  ],
+  "recursive_generation": {
+    "families_checked": [
+      "interaction-subspace invariance",
+      "frontier-relative timing",
+      "residual incidence",
+      "Q-V versus structural-span separation",
+      "fresh transfer",
+      "phase compression"
+    ],
+    "new_assertions": []
+  },
+  "fixed_point": true,
+  "reason": "Current evidence identifies a structural interaction coordinate but does not yet determine whether exact rank is necessary for the quadratic coefficient law. Further IA requires phase-graded quadratic qualification.",
+  "next_evidence_boundaries": [
+    "rank-mod-3 / mod-6 graded quadratic REL_INC evaluator",
+    "closed-form or transferable coefficient law on REL_INC pair classes"
+  ],
+  "stop_status": "FIXED_POINT__PHASE_GRADED_QUADRATIC_NEXT"
+}
