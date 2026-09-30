@@ -21,7 +21,7 @@ for(const C of modes)for(const D of modes)for(const A of modes)expectedGrid.push
 
 function noFiner(a,b){
   if(a===b)return true;
-  if(a==='PRESENCE'&&(b==='CLIP2'||b==='CLIP3'))return true;
+  if(a==='PRESENCE'&&(b==='ZOE'||b==='CLIP2'||b==='CLIP3'))return true;
   if(a==='CLIP2'&&b==='CLIP3')return true;
   return false;
 }
