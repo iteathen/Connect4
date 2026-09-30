@@ -1,0 +1,128 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.signed_exchange_role_depth_index.v1",
+  "id": "EW-RS-073",
+  "date_author_local": "2026-09-30",
+  "status": "ACTIVE",
+  "parent": "EW-RS-072",
+  "objective": "Determine how much exact canonical role and exact frontier-relative depth indexing remains necessary inside the common C+D0+D1 signed exchange MSS, without changing family membership or selecting individual coordinates by outcome.",
+  "cases": [
+    "6x3-k3",
+    "4x5-k4",
+    "6x3-k4"
+  ],
+  "sealedFormulaHoldouts": {
+    "primary": "3x6-k4",
+    "backup": "5x3-k4",
+    "outcomesMayBeAccessed": false
+  },
+  "frozenCarrier": {
+    "families": [
+      "C",
+      "D0",
+      "D1"
+    ],
+    "pairOrientation": "lexicographic endpoint orientation inherited from EW-RS-069",
+    "encodings": [
+      "SIGN",
+      "SIGNED_PARITY"
+    ],
+    "signControlRanks": {
+      "6x3-k3": 70,
+      "4x5-k4": 283,
+      "6x3-k4": 16
+    },
+    "signedParityControlRanks": {
+      "6x3-k3": 73,
+      "4x5-k4": 282,
+      "6x3-k4": 14
+    }
+  },
+  "capacityIndexModes": [
+    {
+      "name": "C_ROLELESS",
+      "definition": "Discard canonical role index i from every C:i signed token; retain separate counts of positive and negative changed C coordinates."
+    },
+    {
+      "name": "C_EXACT_ROLE",
+      "definition": "Retain exact canonical role index i and sign for every changed C:i coordinate."
+    }
+  ],
+  "depthIndexModes": [
+    {
+      "name": "D_DEPTHLESS",
+      "definition": "Within each owner channel D0/D1, discard depth d and retain separate counts of positive and negative changed depth coordinates."
+    },
+    {
+      "name": "D_DEPTH_PARITY",
+      "definition": "Within each owner channel retain depth parity d mod 2 and sign, with counts per owner/parity/sign bucket."
+    },
+    {
+      "name": "D_EXACT_DEPTH",
+      "definition": "Retain exact depth d and sign for every changed D0:d/D1:d coordinate."
+    }
+  ],
+  "candidateGrid": [
+    [
+      "C_ROLELESS",
+      "D_DEPTHLESS"
+    ],
+    [
+      "C_ROLELESS",
+      "D_DEPTH_PARITY"
+    ],
+    [
+      "C_ROLELESS",
+      "D_EXACT_DEPTH"
+    ],
+    [
+      "C_EXACT_ROLE",
+      "D_DEPTHLESS"
+    ],
+    [
+      "C_EXACT_ROLE",
+      "D_DEPTH_PARITY"
+    ],
+    [
+      "C_EXACT_ROLE",
+      "D_EXACT_DEPTH"
+    ]
+  ],
+  "structuralProcedure": [
+    "Start from the frozen RS-072 C+D0+D1 pair signatures for SIGN and SIGNED_PARITY.",
+    "For C_ROLELESS, quotient only the C:i index while preserving the number and direction of changed capacity coordinates.",
+    "For D_DEPTHLESS or D_DEPTH_PARITY, quotient only exact depth indices while preserving owner separation and signed changed-coordinate counts.",
+    "Form each OOO triple key as the sorted multiset of its three transformed pair signatures.",
+    "Freeze candidate feature catalogs, dependency rows, and structural bases before scalar replay."
+  ],
+  "selectionAndMss": {
+    "partialOrder": "C_ROLELESS < C_EXACT_ROLE and D_DEPTHLESS < D_DEPTH_PARITY < D_EXACT_DEPTH",
+    "output": "Report all inclusion/minimal grid points exact on every carrier for each encoding; do not force a total order across incomparable gauges."
+  },
+  "measurements": [
+    "candidate feature-key count",
+    "image rank and kernel relative to full C+D0+D1 control",
+    "zero-structural-residue/nonzero-scalar count",
+    "scalar contradictions",
+    "scalar image dimension",
+    "minimal common role/depth grid points"
+  ],
+  "antiCircularity": [
+    "Both encodings, both capacity-index modes, all three depth-index modes, and the six candidate grid points are frozen before scalar inspection.",
+    "No individual role i, depth d, owner exception, or bucket split is selected using W/D/L.",
+    "Owner separation D0 versus D1 remains fixed in this experiment.",
+    "EW-RS-065 matched dependencies and the RS-069 pair orientation remain unchanged.",
+    "EW-RS-059 holdouts remain sealed."
+  ],
+  "falsifiers": [
+    "C_EXACT_ROLE+D_EXACT_DEPTH must reproduce the RS-072 C+D0+D1 control ranks for each encoding.",
+    "Any candidate with structurally zero residue and nonzero scalar residue is insufficient.",
+    "No post-hoc role/depth exception is allowed."
+  ],
+  "nextIfCompressedPasses": "Freeze the minimal common role/depth quotient and then test owner-channel merging and small circuit functionals inside that quotient.",
+  "nextIfExactIndicesRequired": "Retain exact indices and move directly to outcome-independent basis/circuit reduction without coordinate-specific deletion.",
+  "interpretationGuards": [
+    "Role/depth index sufficiency is bounded Q-V evidence on the declared carriers.",
+    "Canonical role index is a descriptor-canonical coordinate, not a physical global column index.",
+    "No Q-A/Q-F, standard-7x6, universal theorem, or center-opening proof follows."
+  ]
+}
