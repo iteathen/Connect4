@@ -1,0 +1,4213 @@
+{
+  "schema": "connect4.isomax.discovery.cap_hole_orientation.v1",
+  "date_author_local": "2026-09-29",
+  "warrant": "EW-015",
+  "rows": [
+    {
+      "label": "4x5-k4-release",
+      "width": 4,
+      "height": 5,
+      "k": 4,
+      "states": 102536,
+      "classes": 86791,
+      "cycleRank": 40,
+      "nonzero": 0,
+      "contradictions": 0,
+      "globalPhasePotentialExists": true,
+      "audit": {
+        "definition": {
+          "carrier": "mover residuals at an exact canonical state",
+          "capSet": "top-row cap cell of every non-full column",
+          "holeResidual": "mover residual equal to capSet with exactly one cap removed",
+          "bit": "defined only when exactly one holeResidual exists; 1 iff the missing cap is incident to another mover residual, else 0",
+          "covariance": "all audited defined endpoints verified under every column permutation"
+        },
+        "routePairsAudited": 84,
+        "definedPairs": 0,
+        "consistentPairs": 0,
+        "inconsistentPairs": 0,
+        "coverage": 0,
+        "contradictoryPairs": 0,
+        "contradictoryDefinedPairs": 0,
+        "contradictoryConsistentPairs": 0,
+        "flatPairs": 84,
+        "flatDefinedPairs": 0,
+        "flatConsistentPairs": 0,
+        "shortestContradictionRows": [],
+        "definedExamples": [],
+        "inconsistentExamples": []
+      },
+      "outcomeLabelsUsedByProducer": false
+    },
+    {
+      "label": "5x4-k4-release",
+      "width": 5,
+      "height": 4,
+      "k": 4,
+      "states": 287920,
+      "classes": 251222,
+      "cycleRank": 542,
+      "nonzero": 22,
+      "contradictions": 1,
+      "globalPhasePotentialExists": false,
+      "audit": {
+        "definition": {
+          "carrier": "mover residuals at an exact canonical state",
+          "capSet": "top-row cap cell of every non-full column",
+          "holeResidual": "mover residual equal to capSet with exactly one cap removed",
+          "bit": "defined only when exactly one holeResidual exists; 1 iff the missing cap is incident to another mover residual, else 0",
+          "covariance": "all audited defined endpoints verified under every column permutation"
+        },
+        "routePairsAudited": 930,
+        "definedPairs": 162,
+        "consistentPairs": 160,
+        "inconsistentPairs": 2,
+        "coverage": 0.17419354838709677,
+        "contradictoryPairs": 2,
+        "contradictoryDefinedPairs": 2,
+        "contradictoryConsistentPairs": 2,
+        "flatPairs": 928,
+        "flatDefinedPairs": 160,
+        "flatConsistentPairs": 158,
+        "shortestContradictionRows": [
+          {
+            "pathParity": 0,
+            "startSheet": 0,
+            "finalStateKey": "Q:2,3,3,3,4|1024|132096.360448",
+            "finalLabelledClass": 876,
+            "feature": {
+              "rank": 15,
+              "mover": 1,
+              "capMask": 491520,
+              "capCount": 4,
+              "holeResiduals": [
+                {
+                  "residual": 360448,
+                  "hole": 131072,
+                  "sameOwnerIncidence": 1,
+                  "opponentIncidence": 0,
+                  "selfIncident": true,
+                  "opponentIncident": false
+                }
+              ],
+              "bit": 1
+            }
+          },
+          {
+            "pathParity": 0,
+            "startSheet": 1,
+            "finalStateKey": "Q:2,3,3,3,4|1024|132096.229376",
+            "finalLabelledClass": 1812,
+            "feature": {
+              "rank": 15,
+              "mover": 1,
+              "capMask": 491520,
+              "capCount": 4,
+              "holeResiduals": [
+                {
+                  "residual": 229376,
+                  "hole": 262144,
+                  "sameOwnerIncidence": 0,
+                  "opponentIncidence": 0,
+                  "selfIncident": false,
+                  "opponentIncident": false
+                }
+              ],
+              "bit": 0
+            }
+          },
+          {
+            "pathParity": 1,
+            "startSheet": 0,
+            "finalStateKey": "Q:2,3,3,3,4|1024|132096.229376",
+            "finalLabelledClass": 1812,
+            "feature": {
+              "rank": 15,
+              "mover": 1,
+              "capMask": 491520,
+              "capCount": 4,
+              "holeResiduals": [
+                {
+                  "residual": 229376,
+                  "hole": 262144,
+                  "sameOwnerIncidence": 0,
+                  "opponentIncidence": 0,
+                  "selfIncident": false,
+                  "opponentIncident": false
+                }
+              ],
+              "bit": 0
+            }
+          },
+          {
+            "pathParity": 1,
+            "startSheet": 1,
+            "finalStateKey": "Q:2,3,3,3,4|1024|132096.360448",
+            "finalLabelledClass": 876,
+            "feature": {
+              "rank": 15,
+              "mover": 1,
+              "capMask": 491520,
+              "capCount": 4,
+              "holeResiduals": [
+                {
+                  "residual": 360448,
+                  "hole": 131072,
+                  "sameOwnerIncidence": 1,
+                  "opponentIncidence": 0,
+                  "selfIncident": true,
+                  "opponentIncident": false
+                }
+              ],
+              "bit": 1
+            }
+          }
+        ],
+        "definedExamples": [
+          {
+            "source": 3188,
+            "target": 548,
+            "startSheet": 1,
+            "contradictory": false,
+            "routeParities": [
+              0,
+              0
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,2,3,3,4|1024.67584.229376|3072.133120",
+                "finalLabelledClass": 24014,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 229376,
+                      "hole": 262144,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 0,
+                      "selfIncident": false,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 0
+                }
+              },
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,2,3,3,4|1024.67584.229376|3072.133120",
+                "finalLabelledClass": 24014,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 229376,
+                      "hole": 262144,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 0,
+                      "selfIncident": false,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 0
+                }
+              }
+            ]
+          },
+          {
+            "source": 3188,
+            "target": 1680,
+            "startSheet": 1,
+            "contradictory": false,
+            "routeParities": [
+              1,
+              1
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 1,
+                "finalStateKey": "Q:1,3,3,3,4|32.1024.229376|1024.131104",
+                "finalLabelledClass": 11004,
+                "finalSheet": 0,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 229376,
+                      "hole": 262144,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 0,
+                      "selfIncident": false,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 0
+                }
+              },
+              {
+                "parity": 1,
+                "finalStateKey": "Q:1,3,3,3,4|32.1024.229376|1024.131104",
+                "finalLabelledClass": 11004,
+                "finalSheet": 0,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 229376,
+                      "hole": 262144,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 0,
+                      "selfIncident": false,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 0
+                }
+              }
+            ]
+          },
+          {
+            "source": 3319,
+            "target": 212,
+            "startSheet": 0,
+            "contradictory": false,
+            "routeParities": [
+              1,
+              1
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 1,
+                "finalStateKey": "Q:1,2,3,4,4|2048.33824.196608|2048.32768",
+                "finalLabelledClass": 7042,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 196608,
+                      "hole": 32768,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 1,
+                      "selfIncident": true,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 1
+                }
+              },
+              {
+                "parity": 1,
+                "finalStateKey": "Q:1,2,3,4,4|2048.33824.196608|2048.32768",
+                "finalLabelledClass": 7042,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 196608,
+                      "hole": 32768,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 1,
+                      "selfIncident": true,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 1
+                }
+              }
+            ]
+          },
+          {
+            "source": 3319,
+            "target": 571,
+            "startSheet": 0,
+            "contradictory": false,
+            "routeParities": [
+              0,
+              0
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,2,2,4,4|1024.135168.163840|5120.69632",
+                "finalLabelledClass": 7434,
+                "finalSheet": 0,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 163840,
+                      "hole": 65536,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 1,
+                      "selfIncident": false,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 0
+                }
+              },
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,2,2,4,4|1024.135168.163840|5120.69632",
+                "finalLabelledClass": 7434,
+                "finalSheet": 0,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 163840,
+                      "hole": 65536,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 1,
+                      "selfIncident": false,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 0
+                }
+              }
+            ]
+          },
+          {
+            "source": 3319,
+            "target": 308,
+            "startSheet": 0,
+            "contradictory": false,
+            "routeParities": [
+              0,
+              0
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,2,3,3,4|33792.133120.458752|2048.32768.131072",
+                "finalLabelledClass": 6841,
+                "finalSheet": 0,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 458752,
+                      "hole": 32768,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 1,
+                      "selfIncident": true,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 1
+                }
+              },
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,2,3,3,4|33792.133120.458752|2048.32768.131072",
+                "finalLabelledClass": 6841,
+                "finalSheet": 0,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 458752,
+                      "hole": 32768,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 1,
+                      "selfIncident": true,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 1
+                }
+              }
+            ]
+          },
+          {
+            "source": 3319,
+            "target": 1352,
+            "startSheet": 0,
+            "contradictory": false,
+            "routeParities": [
+              1,
+              1
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 1,
+                "finalStateKey": "Q:1,2,3,4,4|1024.163840|1024.65568",
+                "finalLabelledClass": 9769,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 163840,
+                      "hole": 65536,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 1,
+                      "selfIncident": false,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 0
+                }
+              },
+              {
+                "parity": 1,
+                "finalStateKey": "Q:1,2,3,4,4|1024.163840|1024.65568",
+                "finalLabelledClass": 9769,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 163840,
+                      "hole": 65536,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 1,
+                      "selfIncident": false,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 0
+                }
+              }
+            ]
+          },
+          {
+            "source": 3996,
+            "target": 1045,
+            "startSheet": 0,
+            "contradictory": false,
+            "routeParities": [
+              1,
+              1
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 1,
+                "finalStateKey": "Q:2,2,3,3,4|33792.133120.229376|3072.67584",
+                "finalLabelledClass": 14645,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 229376,
+                      "hole": 262144,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 0,
+                      "selfIncident": false,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 0
+                }
+              },
+              {
+                "parity": 1,
+                "finalStateKey": "Q:2,2,3,3,4|33792.133120.229376|3072.67584",
+                "finalLabelledClass": 14645,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 229376,
+                      "hole": 262144,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 0,
+                      "selfIncident": false,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 0
+                }
+              }
+            ]
+          },
+          {
+            "source": 3996,
+            "target": 1563,
+            "startSheet": 0,
+            "contradictory": false,
+            "routeParities": [
+              1,
+              1
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 1,
+                "finalStateKey": "Q:1,3,3,3,4|132096.229376|1024",
+                "finalLabelledClass": 16677,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 229376,
+                      "hole": 262144,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 0,
+                      "selfIncident": false,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 0
+                }
+              },
+              {
+                "parity": 1,
+                "finalStateKey": "Q:1,3,3,3,4|132096.229376|1024",
+                "finalLabelledClass": 16677,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 229376,
+                      "hole": 262144,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 0,
+                      "selfIncident": false,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 0
+                }
+              }
+            ]
+          },
+          {
+            "source": 4322,
+            "target": 1045,
+            "startSheet": 0,
+            "contradictory": false,
+            "routeParities": [
+              1,
+              1
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 1,
+                "finalStateKey": "Q:2,2,3,3,4|33792.133120.229376|3072.67584",
+                "finalLabelledClass": 14645,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 229376,
+                      "hole": 262144,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 0,
+                      "selfIncident": false,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 0
+                }
+              },
+              {
+                "parity": 1,
+                "finalStateKey": "Q:2,2,3,3,4|33792.133120.229376|3072.67584",
+                "finalLabelledClass": 14645,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 229376,
+                      "hole": 262144,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 0,
+                      "selfIncident": false,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 0
+                }
+              }
+            ]
+          },
+          {
+            "source": 4322,
+            "target": 1563,
+            "startSheet": 0,
+            "contradictory": false,
+            "routeParities": [
+              1,
+              1
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 1,
+                "finalStateKey": "Q:1,3,3,3,4|132096.229376|1024",
+                "finalLabelledClass": 16677,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 229376,
+                      "hole": 262144,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 0,
+                      "selfIncident": false,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 0
+                }
+              },
+              {
+                "parity": 1,
+                "finalStateKey": "Q:1,3,3,3,4|132096.229376|1024",
+                "finalLabelledClass": 16677,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 229376,
+                      "hole": 262144,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 0,
+                      "selfIncident": false,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 0
+                }
+              }
+            ]
+          },
+          {
+            "source": 1812,
+            "target": 548,
+            "startSheet": 1,
+            "contradictory": false,
+            "routeParities": [
+              0,
+              0
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,2,3,3,4|1024.67584.229376|3072.133120",
+                "finalLabelledClass": 24014,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 229376,
+                      "hole": 262144,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 0,
+                      "selfIncident": false,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 0
+                }
+              },
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,2,3,3,4|1024.67584.229376|3072.133120",
+                "finalLabelledClass": 24014,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 229376,
+                      "hole": 262144,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 0,
+                      "selfIncident": false,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 0
+                }
+              }
+            ]
+          },
+          {
+            "source": 1912,
+            "target": 137,
+            "startSheet": 1,
+            "contradictory": false,
+            "routeParities": [
+              0,
+              0
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,3,3,3,4|33792.131072|32768.458752",
+                "finalLabelledClass": 891,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 15,
+                  "mover": 1,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 458752,
+                      "hole": 32768,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 1,
+                      "selfIncident": true,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 1
+                }
+              },
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,3,3,3,4|33792.131072|32768.458752",
+                "finalLabelledClass": 891,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 15,
+                  "mover": 1,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 458752,
+                      "hole": 32768,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 1,
+                      "selfIncident": true,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 1
+                }
+              }
+            ]
+          },
+          {
+            "source": 1950,
+            "target": 63,
+            "startSheet": 1,
+            "contradictory": false,
+            "routeParities": [
+              0,
+              0
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,3,3,3,4|131072.262144|131072.360448",
+                "finalLabelledClass": 2787,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 15,
+                  "mover": 1,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 360448,
+                      "hole": 131072,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 1,
+                      "selfIncident": true,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 1
+                }
+              },
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,3,3,3,4|131072.262144|131072.360448",
+                "finalLabelledClass": 2787,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 15,
+                  "mover": 1,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 360448,
+                      "hole": 131072,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 1,
+                      "selfIncident": true,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 1
+                }
+              }
+            ]
+          },
+          {
+            "source": 1950,
+            "target": 140,
+            "startSheet": 1,
+            "contradictory": false,
+            "routeParities": [
+              0,
+              0
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,3,3,3,4|32768.131072|33792.131072.360448",
+                "finalLabelledClass": 893,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 15,
+                  "mover": 1,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 360448,
+                      "hole": 131072,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 1,
+                      "selfIncident": true,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 1
+                }
+              },
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,3,3,3,4|32768.131072|33792.131072.360448",
+                "finalLabelledClass": 893,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 15,
+                  "mover": 1,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 360448,
+                      "hole": 131072,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 1,
+                      "selfIncident": true,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 1
+                }
+              }
+            ]
+          },
+          {
+            "source": 1950,
+            "target": 1238,
+            "startSheet": 1,
+            "contradictory": false,
+            "routeParities": [
+              0,
+              0
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,3,3,3,4|32768.131072|131072.360448",
+                "finalLabelledClass": 4705,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 15,
+                  "mover": 1,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 360448,
+                      "hole": 131072,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 1,
+                      "selfIncident": true,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 1
+                }
+              },
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,3,3,3,4|32768.131072|131072.360448",
+                "finalLabelledClass": 4705,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 15,
+                  "mover": 1,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 360448,
+                      "hole": 131072,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 1,
+                      "selfIncident": true,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 1
+                }
+              }
+            ]
+          },
+          {
+            "source": 1950,
+            "target": 1239,
+            "startSheet": 1,
+            "contradictory": false,
+            "routeParities": [
+              0,
+              0
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,2,3,4,4|32768.131072|98304.131072",
+                "finalLabelledClass": 4712,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 15,
+                  "mover": 1,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 98304,
+                      "hole": 131072,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 1,
+                      "selfIncident": true,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 1
+                }
+              },
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,2,3,4,4|32768.131072|98304.131072",
+                "finalLabelledClass": 4712,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 15,
+                  "mover": 1,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 98304,
+                      "hole": 131072,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 1,
+                      "selfIncident": true,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 1
+                }
+              }
+            ]
+          },
+          {
+            "source": 1950,
+            "target": 21,
+            "startSheet": 1,
+            "contradictory": false,
+            "routeParities": [
+              0,
+              0
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,3,3,3,4|131072.262144|33792.131072.360448",
+                "finalLabelledClass": 890,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 15,
+                  "mover": 1,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 360448,
+                      "hole": 131072,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 1,
+                      "selfIncident": true,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 1
+                }
+              },
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,3,3,3,4|131072.262144|33792.131072.360448",
+                "finalLabelledClass": 890,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 15,
+                  "mover": 1,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 360448,
+                      "hole": 131072,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 1,
+                      "selfIncident": true,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 1
+                }
+              }
+            ]
+          },
+          {
+            "source": 1953,
+            "target": 1043,
+            "startSheet": 0,
+            "contradictory": false,
+            "routeParities": [
+              0,
+              0
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,2,3,3,4|1024.67584.229376|3072.33792.133120",
+                "finalLabelledClass": 8942,
+                "finalSheet": 0,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 229376,
+                      "hole": 262144,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 0,
+                      "selfIncident": false,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 0
+                }
+              },
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,2,3,3,4|1024.67584.229376|3072.33792.133120",
+                "finalLabelledClass": 8942,
+                "finalSheet": 0,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 229376,
+                      "hole": 262144,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 0,
+                      "selfIncident": false,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 0
+                }
+              }
+            ]
+          },
+          {
+            "source": 2040,
+            "target": 1680,
+            "startSheet": 0,
+            "contradictory": false,
+            "routeParities": [
+              0,
+              0
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 0,
+                "finalStateKey": "Q:1,3,3,3,4|32.1024.229376|1024.131104",
+                "finalLabelledClass": 11004,
+                "finalSheet": 0,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 229376,
+                      "hole": 262144,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 0,
+                      "selfIncident": false,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 0
+                }
+              },
+              {
+                "parity": 0,
+                "finalStateKey": "Q:1,3,3,3,4|32.1024.229376|1024.131104",
+                "finalLabelledClass": 11004,
+                "finalSheet": 0,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 229376,
+                      "hole": 262144,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 0,
+                      "selfIncident": false,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 0
+                }
+              }
+            ]
+          },
+          {
+            "source": 2068,
+            "target": 1171,
+            "startSheet": 0,
+            "contradictory": false,
+            "routeParities": [
+              1,
+              1
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 1,
+                "finalStateKey": "Q:2,2,3,4,4|32768.67584.132096|33792.98304.131072",
+                "finalLabelledClass": 2569,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 15,
+                  "mover": 1,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 98304,
+                      "hole": 131072,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 1,
+                      "selfIncident": true,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 1
+                }
+              },
+              {
+                "parity": 1,
+                "finalStateKey": "Q:2,2,3,4,4|32768.67584.132096|33792.98304.131072",
+                "finalLabelledClass": 2569,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 15,
+                  "mover": 1,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 98304,
+                      "hole": 131072,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 1,
+                      "selfIncident": true,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 1
+                }
+              }
+            ]
+          },
+          {
+            "source": 2072,
+            "target": 63,
+            "startSheet": 1,
+            "contradictory": false,
+            "routeParities": [
+              0,
+              0
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,3,3,3,4|131072.262144|131072.360448",
+                "finalLabelledClass": 2787,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 15,
+                  "mover": 1,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 360448,
+                      "hole": 131072,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 1,
+                      "selfIncident": true,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 1
+                }
+              },
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,3,3,3,4|131072.262144|131072.360448",
+                "finalLabelledClass": 2787,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 15,
+                  "mover": 1,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 360448,
+                      "hole": 131072,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 1,
+                      "selfIncident": true,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 1
+                }
+              }
+            ]
+          },
+          {
+            "source": 2072,
+            "target": 140,
+            "startSheet": 1,
+            "contradictory": false,
+            "routeParities": [
+              0,
+              0
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,3,3,3,4|32768.131072|33792.131072.360448",
+                "finalLabelledClass": 893,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 15,
+                  "mover": 1,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 360448,
+                      "hole": 131072,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 1,
+                      "selfIncident": true,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 1
+                }
+              },
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,3,3,3,4|32768.131072|33792.131072.360448",
+                "finalLabelledClass": 893,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 15,
+                  "mover": 1,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 360448,
+                      "hole": 131072,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 1,
+                      "selfIncident": true,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 1
+                }
+              }
+            ]
+          },
+          {
+            "source": 2078,
+            "target": 63,
+            "startSheet": 1,
+            "contradictory": false,
+            "routeParities": [
+              0,
+              0
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,3,3,3,4|131072.262144|131072.360448",
+                "finalLabelledClass": 2787,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 15,
+                  "mover": 1,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 360448,
+                      "hole": 131072,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 1,
+                      "selfIncident": true,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 1
+                }
+              },
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,3,3,3,4|131072.262144|131072.360448",
+                "finalLabelledClass": 2787,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 15,
+                  "mover": 1,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 360448,
+                      "hole": 131072,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 1,
+                      "selfIncident": true,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 1
+                }
+              }
+            ]
+          },
+          {
+            "source": 2078,
+            "target": 140,
+            "startSheet": 1,
+            "contradictory": false,
+            "routeParities": [
+              0,
+              0
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,3,3,3,4|32768.131072|33792.131072.360448",
+                "finalLabelledClass": 893,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 15,
+                  "mover": 1,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 360448,
+                      "hole": 131072,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 1,
+                      "selfIncident": true,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 1
+                }
+              },
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,3,3,3,4|32768.131072|33792.131072.360448",
+                "finalLabelledClass": 893,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 15,
+                  "mover": 1,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 360448,
+                      "hole": 131072,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 1,
+                      "selfIncident": true,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 1
+                }
+              }
+            ]
+          },
+          {
+            "source": 2078,
+            "target": 1238,
+            "startSheet": 1,
+            "contradictory": false,
+            "routeParities": [
+              0,
+              0
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,3,3,3,4|32768.131072|131072.360448",
+                "finalLabelledClass": 4705,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 15,
+                  "mover": 1,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 360448,
+                      "hole": 131072,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 1,
+                      "selfIncident": true,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 1
+                }
+              },
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,3,3,3,4|32768.131072|131072.360448",
+                "finalLabelledClass": 4705,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 15,
+                  "mover": 1,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 360448,
+                      "hole": 131072,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 1,
+                      "selfIncident": true,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 1
+                }
+              }
+            ]
+          },
+          {
+            "source": 2078,
+            "target": 1239,
+            "startSheet": 1,
+            "contradictory": false,
+            "routeParities": [
+              0,
+              0
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,2,3,4,4|32768.131072|98304.131072",
+                "finalLabelledClass": 4712,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 15,
+                  "mover": 1,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 98304,
+                      "hole": 131072,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 1,
+                      "selfIncident": true,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 1
+                }
+              },
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,2,3,4,4|32768.131072|98304.131072",
+                "finalLabelledClass": 4712,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 15,
+                  "mover": 1,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 98304,
+                      "hole": 131072,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 1,
+                      "selfIncident": true,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 1
+                }
+              }
+            ]
+          },
+          {
+            "source": 2569,
+            "target": 1896,
+            "startSheet": 1,
+            "contradictory": false,
+            "routeParities": [
+              0,
+              0
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,2,3,4,4|3072.32768.67584.131072|98304.133120",
+                "finalLabelledClass": 4887,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 15,
+                  "mover": 1,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 98304,
+                      "hole": 131072,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 1,
+                      "selfIncident": true,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 1
+                }
+              },
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,2,3,4,4|3072.32768.67584.131072|98304.133120",
+                "finalLabelledClass": 4887,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 15,
+                  "mover": 1,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 98304,
+                      "hole": 131072,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 1,
+                      "selfIncident": true,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 1
+                }
+              }
+            ]
+          },
+          {
+            "source": 2700,
+            "target": 1076,
+            "startSheet": 0,
+            "contradictory": false,
+            "routeParities": [
+              0,
+              0
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 0,
+                "finalStateKey": "Q:1,3,3,3,4|131072.360448|1024.262144",
+                "finalLabelledClass": 9000,
+                "finalSheet": 0,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 360448,
+                      "hole": 131072,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 0,
+                      "selfIncident": true,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 1
+                }
+              },
+              {
+                "parity": 0,
+                "finalStateKey": "Q:1,3,3,3,4|131072.360448|1024.262144",
+                "finalLabelledClass": 9000,
+                "finalSheet": 0,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 360448,
+                      "hole": 131072,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 0,
+                      "selfIncident": true,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 1
+                }
+              }
+            ]
+          },
+          {
+            "source": 2730,
+            "target": 2627,
+            "startSheet": 0,
+            "contradictory": false,
+            "routeParities": [
+              1,
+              1
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 1,
+                "finalStateKey": "Q:1,2,3,4,4|2080.33824.98304|32.3072.132096",
+                "finalLabelledClass": 15962,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 98304,
+                      "hole": 131072,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 1,
+                      "selfIncident": false,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 0
+                }
+              },
+              {
+                "parity": 1,
+                "finalStateKey": "Q:1,2,3,4,4|2080.33824.98304|32.3072.132096",
+                "finalLabelledClass": 15962,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 98304,
+                      "hole": 131072,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 1,
+                      "selfIncident": false,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 0
+                }
+              }
+            ]
+          },
+          {
+            "source": 2732,
+            "target": 212,
+            "startSheet": 0,
+            "contradictory": false,
+            "routeParities": [
+              1,
+              1
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 1,
+                "finalStateKey": "Q:1,2,3,4,4|2048.33824.196608|2048.32768",
+                "finalLabelledClass": 7042,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 196608,
+                      "hole": 32768,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 1,
+                      "selfIncident": true,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 1
+                }
+              },
+              {
+                "parity": 1,
+                "finalStateKey": "Q:1,2,3,4,4|2048.33824.196608|2048.32768",
+                "finalLabelledClass": 7042,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 196608,
+                      "hole": 32768,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 1,
+                      "selfIncident": true,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 1
+                }
+              }
+            ]
+          },
+          {
+            "source": 2732,
+            "target": 571,
+            "startSheet": 0,
+            "contradictory": false,
+            "routeParities": [
+              0,
+              0
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,2,2,4,4|1024.135168.163840|5120.69632",
+                "finalLabelledClass": 7434,
+                "finalSheet": 0,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 163840,
+                      "hole": 65536,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 1,
+                      "selfIncident": false,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 0
+                }
+              },
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,2,2,4,4|1024.135168.163840|5120.69632",
+                "finalLabelledClass": 7434,
+                "finalSheet": 0,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 163840,
+                      "hole": 65536,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 1,
+                      "selfIncident": false,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 0
+                }
+              }
+            ]
+          },
+          {
+            "source": 2732,
+            "target": 308,
+            "startSheet": 0,
+            "contradictory": false,
+            "routeParities": [
+              0,
+              0
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,2,3,3,4|33792.133120.458752|2048.32768.131072",
+                "finalLabelledClass": 6841,
+                "finalSheet": 0,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 458752,
+                      "hole": 32768,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 1,
+                      "selfIncident": true,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 1
+                }
+              },
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,2,3,3,4|33792.133120.458752|2048.32768.131072",
+                "finalLabelledClass": 6841,
+                "finalSheet": 0,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 458752,
+                      "hole": 32768,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 1,
+                      "selfIncident": true,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 1
+                }
+              }
+            ]
+          },
+          {
+            "source": 2732,
+            "target": 1352,
+            "startSheet": 0,
+            "contradictory": false,
+            "routeParities": [
+              1,
+              1
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 1,
+                "finalStateKey": "Q:1,2,3,4,4|1024.163840|1024.65568",
+                "finalLabelledClass": 9769,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 163840,
+                      "hole": 65536,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 1,
+                      "selfIncident": false,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 0
+                }
+              },
+              {
+                "parity": 1,
+                "finalStateKey": "Q:1,2,3,4,4|1024.163840|1024.65568",
+                "finalLabelledClass": 9769,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 163840,
+                      "hole": 65536,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 1,
+                      "selfIncident": false,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 0
+                }
+              }
+            ]
+          },
+          {
+            "source": 2739,
+            "target": 1076,
+            "startSheet": 1,
+            "contradictory": false,
+            "routeParities": [
+              1,
+              1
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 1,
+                "finalStateKey": "Q:1,3,3,3,4|131072.360448|1024.262144",
+                "finalLabelledClass": 9000,
+                "finalSheet": 0,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 360448,
+                      "hole": 131072,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 0,
+                      "selfIncident": true,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 1
+                }
+              },
+              {
+                "parity": 1,
+                "finalStateKey": "Q:1,3,3,3,4|131072.360448|1024.262144",
+                "finalLabelledClass": 9000,
+                "finalSheet": 0,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 360448,
+                      "hole": 131072,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 0,
+                      "selfIncident": true,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 1
+                }
+              }
+            ]
+          },
+          {
+            "source": 2760,
+            "target": 1080,
+            "startSheet": 1,
+            "contradictory": false,
+            "routeParities": [
+              1,
+              1
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 1,
+                "finalStateKey": "Q:1,3,3,3,4|131072.360448|1024.65536.262144",
+                "finalLabelledClass": 9003,
+                "finalSheet": 0,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 360448,
+                      "hole": 131072,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 0,
+                      "selfIncident": true,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 1
+                }
+              },
+              {
+                "parity": 1,
+                "finalStateKey": "Q:1,3,3,3,4|131072.360448|1024.65536.262144",
+                "finalLabelledClass": 9003,
+                "finalSheet": 0,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 360448,
+                      "hole": 131072,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 0,
+                      "selfIncident": true,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 1
+                }
+              }
+            ]
+          },
+          {
+            "source": 2834,
+            "target": 1045,
+            "startSheet": 0,
+            "contradictory": false,
+            "routeParities": [
+              0,
+              0
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,2,3,3,4|33792.133120.360448|3072.67584",
+                "finalLabelledClass": 8943,
+                "finalSheet": 0,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 360448,
+                      "hole": 131072,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 0,
+                      "selfIncident": true,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 1
+                }
+              },
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,2,3,3,4|33792.133120.360448|3072.67584",
+                "finalLabelledClass": 8943,
+                "finalSheet": 0,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 360448,
+                      "hole": 131072,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 0,
+                      "selfIncident": true,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 1
+                }
+              }
+            ]
+          },
+          {
+            "source": 2834,
+            "target": 1045,
+            "startSheet": 1,
+            "contradictory": false,
+            "routeParities": [
+              0,
+              0
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,2,3,3,4|33792.133120.229376|3072.67584",
+                "finalLabelledClass": 14645,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 229376,
+                      "hole": 262144,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 0,
+                      "selfIncident": false,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 0
+                }
+              },
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,2,3,3,4|33792.133120.229376|3072.67584",
+                "finalLabelledClass": 14645,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 229376,
+                      "hole": 262144,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 0,
+                      "selfIncident": false,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 0
+                }
+              }
+            ]
+          },
+          {
+            "source": 2834,
+            "target": 1523,
+            "startSheet": 0,
+            "contradictory": false,
+            "routeParities": [
+              1,
+              1
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 1,
+                "finalStateKey": "Q:2,2,3,3,4|132096.229376|3072",
+                "finalLabelledClass": 10303,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 229376,
+                      "hole": 262144,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 0,
+                      "selfIncident": false,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 0
+                }
+              },
+              {
+                "parity": 1,
+                "finalStateKey": "Q:2,2,3,3,4|132096.229376|3072",
+                "finalLabelledClass": 10303,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 229376,
+                      "hole": 262144,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 0,
+                      "selfIncident": false,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 0
+                }
+              }
+            ]
+          },
+          {
+            "source": 2834,
+            "target": 1523,
+            "startSheet": 1,
+            "contradictory": false,
+            "routeParities": [
+              1,
+              1
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 1,
+                "finalStateKey": "Q:2,2,3,3,4|132096.360448|3072",
+                "finalLabelledClass": 10248,
+                "finalSheet": 0,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 360448,
+                      "hole": 131072,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 0,
+                      "selfIncident": true,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 1
+                }
+              },
+              {
+                "parity": 1,
+                "finalStateKey": "Q:2,2,3,3,4|132096.360448|3072",
+                "finalLabelledClass": 10248,
+                "finalSheet": 0,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 360448,
+                      "hole": 131072,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 0,
+                      "selfIncident": true,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 1
+                }
+              }
+            ]
+          },
+          {
+            "source": 3185,
+            "target": 1680,
+            "startSheet": 1,
+            "contradictory": false,
+            "routeParities": [
+              1,
+              1
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 1,
+                "finalStateKey": "Q:1,3,3,3,4|32.1024.229376|1024.131104",
+                "finalLabelledClass": 11004,
+                "finalSheet": 0,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 229376,
+                      "hole": 262144,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 0,
+                      "selfIncident": false,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 0
+                }
+              },
+              {
+                "parity": 1,
+                "finalStateKey": "Q:1,3,3,3,4|32.1024.229376|1024.131104",
+                "finalLabelledClass": 11004,
+                "finalSheet": 0,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 229376,
+                      "hole": 262144,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 0,
+                      "selfIncident": false,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 0
+                }
+              }
+            ]
+          },
+          {
+            "source": 3208,
+            "target": 1352,
+            "startSheet": 0,
+            "contradictory": false,
+            "routeParities": [
+              1,
+              1
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 1,
+                "finalStateKey": "Q:1,2,3,4,4|1024.163840|1024.65568",
+                "finalLabelledClass": 9769,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 163840,
+                      "hole": 65536,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 1,
+                      "selfIncident": false,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 0
+                }
+              },
+              {
+                "parity": 1,
+                "finalStateKey": "Q:1,2,3,4,4|1024.163840|1024.65568",
+                "finalLabelledClass": 9769,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 163840,
+                      "hole": 65536,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 1,
+                      "selfIncident": false,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 0
+                }
+              }
+            ]
+          },
+          {
+            "source": 3239,
+            "target": 45,
+            "startSheet": 0,
+            "contradictory": false,
+            "routeParities": [
+              0,
+              0
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,3,3,3,4|1024.32768.131072|33792.229376.262144",
+                "finalLabelledClass": 797,
+                "finalSheet": 0,
+                "feature": {
+                  "rank": 15,
+                  "mover": 1,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 229376,
+                      "hole": 262144,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 0,
+                      "selfIncident": true,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 1
+                }
+              },
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,3,3,3,4|1024.32768.131072|33792.229376.262144",
+                "finalLabelledClass": 797,
+                "finalSheet": 0,
+                "feature": {
+                  "rank": 15,
+                  "mover": 1,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 229376,
+                      "hole": 262144,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 0,
+                      "selfIncident": true,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 1
+                }
+              }
+            ]
+          },
+          {
+            "source": 3239,
+            "target": 775,
+            "startSheet": 0,
+            "contradictory": false,
+            "routeParities": [
+              1,
+              1
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 1,
+                "finalStateKey": "Q:1,3,3,4,4|1024.131104|1024.98304.131072",
+                "finalLabelledClass": 2679,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 15,
+                  "mover": 1,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 98304,
+                      "hole": 131072,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 1,
+                      "selfIncident": true,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 1
+                }
+              },
+              {
+                "parity": 1,
+                "finalStateKey": "Q:1,3,3,4,4|1024.131104|1024.98304.131072",
+                "finalLabelledClass": 2679,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 15,
+                  "mover": 1,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 98304,
+                      "hole": 131072,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 1,
+                      "selfIncident": true,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 1
+                }
+              }
+            ]
+          },
+          {
+            "source": 3315,
+            "target": 1347,
+            "startSheet": 1,
+            "contradictory": false,
+            "routeParities": [
+              0,
+              0
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 0,
+                "finalStateKey": "Q:1,3,3,3,4|1024.229376|1024.32768.131104",
+                "finalLabelledClass": 10335,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 229376,
+                      "hole": 262144,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 0,
+                      "selfIncident": false,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 0
+                }
+              },
+              {
+                "parity": 0,
+                "finalStateKey": "Q:1,3,3,3,4|1024.229376|1024.32768.131104",
+                "finalLabelledClass": 10335,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 229376,
+                      "hole": 262144,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 0,
+                      "selfIncident": false,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 0
+                }
+              }
+            ]
+          },
+          {
+            "source": 3329,
+            "target": 1352,
+            "startSheet": 1,
+            "contradictory": false,
+            "routeParities": [
+              0,
+              0
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 0,
+                "finalStateKey": "Q:1,2,3,4,4|1024.163840|1024.65568",
+                "finalLabelledClass": 9769,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 163840,
+                      "hole": 65536,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 1,
+                      "selfIncident": false,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 0
+                }
+              },
+              {
+                "parity": 0,
+                "finalStateKey": "Q:1,2,3,4,4|1024.163840|1024.65568",
+                "finalLabelledClass": 9769,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 163840,
+                      "hole": 65536,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 1,
+                      "selfIncident": false,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 0
+                }
+              }
+            ]
+          },
+          {
+            "source": 3430,
+            "target": 642,
+            "startSheet": 1,
+            "contradictory": false,
+            "routeParities": [
+              1,
+              1
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 1,
+                "finalStateKey": "Q:2,2,3,3,4|132096.425984|1024.65536",
+                "finalLabelledClass": 7674,
+                "finalSheet": 0,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 425984,
+                      "hole": 65536,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 1,
+                      "selfIncident": false,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 0
+                }
+              },
+              {
+                "parity": 1,
+                "finalStateKey": "Q:2,2,3,3,4|132096.425984|1024.65536",
+                "finalLabelledClass": 7674,
+                "finalSheet": 0,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 425984,
+                      "hole": 65536,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 1,
+                      "selfIncident": false,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 0
+                }
+              }
+            ]
+          },
+          {
+            "source": 3430,
+            "target": 1808,
+            "startSheet": 1,
+            "contradictory": false,
+            "routeParities": [
+              0,
+              0
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 0,
+                "finalStateKey": "Q:1,2,3,4,4|32.1024.163840|1024.65568.67584",
+                "finalLabelledClass": 18186,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 163840,
+                      "hole": 65536,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 2,
+                      "selfIncident": false,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 0
+                }
+              },
+              {
+                "parity": 0,
+                "finalStateKey": "Q:1,2,3,4,4|32.1024.163840|1024.65568.67584",
+                "finalLabelledClass": 18186,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 163840,
+                      "hole": 65536,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 2,
+                      "selfIncident": false,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 0
+                }
+              }
+            ]
+          },
+          {
+            "source": 3446,
+            "target": 212,
+            "startSheet": 1,
+            "contradictory": false,
+            "routeParities": [
+              0,
+              0
+            ],
+            "parityDifference": 0,
+            "featureDifference": 1,
+            "consistent": false,
+            "endpoints": [
+              {
+                "parity": 0,
+                "finalStateKey": "Q:1,2,3,4,4|2048.33824.196608|2048.32768",
+                "finalLabelledClass": 7042,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 196608,
+                      "hole": 32768,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 1,
+                      "selfIncident": true,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 1
+                }
+              },
+              {
+                "parity": 0,
+                "finalStateKey": "Q:1,2,3,4,4|2048.196608|2048.32768",
+                "finalLabelledClass": 7042,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 196608,
+                      "hole": 32768,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 1,
+                      "selfIncident": false,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 0
+                }
+              }
+            ]
+          },
+          {
+            "source": 3446,
+            "target": 1352,
+            "startSheet": 1,
+            "contradictory": false,
+            "routeParities": [
+              0,
+              0
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 0,
+                "finalStateKey": "Q:1,2,3,4,4|1024.163840|1024.65568",
+                "finalLabelledClass": 9769,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 163840,
+                      "hole": 65536,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 1,
+                      "selfIncident": false,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 0
+                }
+              },
+              {
+                "parity": 0,
+                "finalStateKey": "Q:1,2,3,4,4|1024.163840|1024.65568",
+                "finalLabelledClass": 9769,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 163840,
+                      "hole": 65536,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 1,
+                      "selfIncident": false,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 0
+                }
+              }
+            ]
+          },
+          {
+            "source": 3459,
+            "target": 212,
+            "startSheet": 1,
+            "contradictory": false,
+            "routeParities": [
+              0,
+              0
+            ],
+            "parityDifference": 0,
+            "featureDifference": 1,
+            "consistent": false,
+            "endpoints": [
+              {
+                "parity": 0,
+                "finalStateKey": "Q:1,2,3,4,4|2048.33824.196608|2048.32768",
+                "finalLabelledClass": 7042,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 196608,
+                      "hole": 32768,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 1,
+                      "selfIncident": true,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 1
+                }
+              },
+              {
+                "parity": 0,
+                "finalStateKey": "Q:1,2,3,4,4|2048.196608|2048.32768",
+                "finalLabelledClass": 7042,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 196608,
+                      "hole": 32768,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 1,
+                      "selfIncident": false,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 0
+                }
+              }
+            ]
+          },
+          {
+            "source": 3484,
+            "target": 42,
+            "startSheet": 1,
+            "contradictory": false,
+            "routeParities": [
+              0,
+              0
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,2,3,4,4|1024|1024.67584.163840",
+                "finalLabelledClass": 843,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 15,
+                  "mover": 1,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 163840,
+                      "hole": 65536,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 0,
+                      "selfIncident": true,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 1
+                }
+              },
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,2,3,4,4|1024|1024.67584.163840",
+                "finalLabelledClass": 843,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 15,
+                  "mover": 1,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 163840,
+                      "hole": 65536,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 0,
+                      "selfIncident": true,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 1
+                }
+              }
+            ]
+          },
+          {
+            "source": 3501,
+            "target": 42,
+            "startSheet": 0,
+            "contradictory": false,
+            "routeParities": [
+              1,
+              1
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 1,
+                "finalStateKey": "Q:2,2,3,4,4|1024|1024.67584.163840",
+                "finalLabelledClass": 843,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 15,
+                  "mover": 1,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 163840,
+                      "hole": 65536,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 0,
+                      "selfIncident": true,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 1
+                }
+              },
+              {
+                "parity": 1,
+                "finalStateKey": "Q:2,2,3,4,4|1024|1024.67584.163840",
+                "finalLabelledClass": 843,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 15,
+                  "mover": 1,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 163840,
+                      "hole": 65536,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 0,
+                      "selfIncident": true,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 1
+                }
+              }
+            ]
+          },
+          {
+            "source": 3997,
+            "target": 1045,
+            "startSheet": 0,
+            "contradictory": false,
+            "routeParities": [
+              1,
+              1
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 1,
+                "finalStateKey": "Q:2,2,3,3,4|33792.133120.229376|3072.67584",
+                "finalLabelledClass": 14645,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 229376,
+                      "hole": 262144,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 0,
+                      "selfIncident": false,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 0
+                }
+              },
+              {
+                "parity": 1,
+                "finalStateKey": "Q:2,2,3,3,4|33792.133120.229376|3072.67584",
+                "finalLabelledClass": 14645,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 229376,
+                      "hole": 262144,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 0,
+                      "selfIncident": false,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 0
+                }
+              }
+            ]
+          },
+          {
+            "source": 3997,
+            "target": 1563,
+            "startSheet": 0,
+            "contradictory": false,
+            "routeParities": [
+              1,
+              1
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 1,
+                "finalStateKey": "Q:1,3,3,3,4|132096.229376|1024",
+                "finalLabelledClass": 16677,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 229376,
+                      "hole": 262144,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 0,
+                      "selfIncident": false,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 0
+                }
+              },
+              {
+                "parity": 1,
+                "finalStateKey": "Q:1,3,3,3,4|132096.229376|1024",
+                "finalLabelledClass": 16677,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 229376,
+                      "hole": 262144,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 0,
+                      "selfIncident": false,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 0
+                }
+              }
+            ]
+          },
+          {
+            "source": 4049,
+            "target": 54,
+            "startSheet": 0,
+            "contradictory": false,
+            "routeParities": [
+              0,
+              0
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,3,3,3,4|1024.131072|229376.262144",
+                "finalLabelledClass": 806,
+                "finalSheet": 0,
+                "feature": {
+                  "rank": 15,
+                  "mover": 1,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 229376,
+                      "hole": 262144,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 0,
+                      "selfIncident": true,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 1
+                }
+              },
+              {
+                "parity": 0,
+                "finalStateKey": "Q:2,3,3,3,4|1024.131072|229376.262144",
+                "finalLabelledClass": 806,
+                "finalSheet": 0,
+                "feature": {
+                  "rank": 15,
+                  "mover": 1,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 229376,
+                      "hole": 262144,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 0,
+                      "selfIncident": true,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 1
+                }
+              }
+            ]
+          },
+          {
+            "source": 4163,
+            "target": 778,
+            "startSheet": 0,
+            "contradictory": false,
+            "routeParities": [
+              0,
+              0
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 0,
+                "finalStateKey": "Q:1,2,3,4,4|1024.163840|1024.67584",
+                "finalLabelledClass": 8160,
+                "finalSheet": 0,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 163840,
+                      "hole": 65536,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 1,
+                      "selfIncident": false,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 0
+                }
+              },
+              {
+                "parity": 0,
+                "finalStateKey": "Q:1,2,3,4,4|1024.163840|1024.67584",
+                "finalLabelledClass": 8160,
+                "finalSheet": 0,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 163840,
+                      "hole": 65536,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 1,
+                      "selfIncident": false,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 0
+                }
+              }
+            ]
+          },
+          {
+            "source": 4252,
+            "target": 1173,
+            "startSheet": 0,
+            "contradictory": false,
+            "routeParities": [
+              1,
+              1
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 1,
+                "finalStateKey": "Q:1,2,3,4,4|32.1024.67584.163840|1024",
+                "finalLabelledClass": 18766,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 163840,
+                      "hole": 65536,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 0,
+                      "selfIncident": true,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 1
+                }
+              },
+              {
+                "parity": 1,
+                "finalStateKey": "Q:1,2,3,4,4|32.1024.67584.163840|1024",
+                "finalLabelledClass": 18766,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 163840,
+                      "hole": 65536,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 0,
+                      "selfIncident": true,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 1
+                }
+              }
+            ]
+          },
+          {
+            "source": 4276,
+            "target": 2323,
+            "startSheet": 1,
+            "contradictory": false,
+            "routeParities": [
+              1,
+              1
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 1,
+                "finalStateKey": "Q:1,3,3,3,4|33824.131072.360448|1024.65536.262176",
+                "finalLabelledClass": 14140,
+                "finalSheet": 0,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 360448,
+                      "hole": 131072,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 0,
+                      "selfIncident": true,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 1
+                }
+              },
+              {
+                "parity": 1,
+                "finalStateKey": "Q:1,3,3,3,4|33824.131072.360448|1024.65536.262176",
+                "finalLabelledClass": 14140,
+                "finalSheet": 0,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 360448,
+                      "hole": 131072,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 0,
+                      "selfIncident": true,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 1
+                }
+              }
+            ]
+          },
+          {
+            "source": 4276,
+            "target": 1238,
+            "startSheet": 0,
+            "contradictory": false,
+            "routeParities": [
+              1,
+              1
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 1,
+                "finalStateKey": "Q:2,3,3,3,4|32768.131072|131072.360448",
+                "finalLabelledClass": 4705,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 15,
+                  "mover": 1,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 360448,
+                      "hole": 131072,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 1,
+                      "selfIncident": true,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 1
+                }
+              },
+              {
+                "parity": 1,
+                "finalStateKey": "Q:2,3,3,3,4|32768.131072|131072.360448",
+                "finalLabelledClass": 4705,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 15,
+                  "mover": 1,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 360448,
+                      "hole": 131072,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 1,
+                      "selfIncident": true,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 1
+                }
+              }
+            ]
+          },
+          {
+            "source": 4321,
+            "target": 2346,
+            "startSheet": 0,
+            "contradictory": false,
+            "routeParities": [
+              1,
+              1
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 1,
+                "finalStateKey": "Q:1,3,3,3,4|131104.360448|32",
+                "finalLabelledClass": 17363,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 360448,
+                      "hole": 131072,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 0,
+                      "selfIncident": true,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 1
+                }
+              },
+              {
+                "parity": 1,
+                "finalStateKey": "Q:1,3,3,3,4|131104.360448|32",
+                "finalLabelledClass": 17363,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 360448,
+                      "hole": 131072,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 0,
+                      "selfIncident": true,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 1
+                }
+              }
+            ]
+          },
+          {
+            "source": 4321,
+            "target": 2346,
+            "startSheet": 1,
+            "contradictory": false,
+            "routeParities": [
+              1,
+              1
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 1,
+                "finalStateKey": "Q:1,3,3,3,4|131104.229376|32",
+                "finalLabelledClass": 14359,
+                "finalSheet": 0,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 229376,
+                      "hole": 262144,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 0,
+                      "selfIncident": false,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 0
+                }
+              },
+              {
+                "parity": 1,
+                "finalStateKey": "Q:1,3,3,3,4|131104.229376|32",
+                "finalLabelledClass": 14359,
+                "finalSheet": 0,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 229376,
+                      "hole": 262144,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 0,
+                      "selfIncident": false,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 0
+                }
+              }
+            ]
+          },
+          {
+            "source": 4323,
+            "target": 1563,
+            "startSheet": 0,
+            "contradictory": false,
+            "routeParities": [
+              1,
+              1
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 1,
+                "finalStateKey": "Q:1,3,3,3,4|132096.229376|1024",
+                "finalLabelledClass": 16677,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 229376,
+                      "hole": 262144,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 0,
+                      "selfIncident": false,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 0
+                }
+              },
+              {
+                "parity": 1,
+                "finalStateKey": "Q:1,3,3,3,4|132096.229376|1024",
+                "finalLabelledClass": 16677,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 491520,
+                  "capCount": 4,
+                  "holeResiduals": [
+                    {
+                      "residual": 229376,
+                      "hole": 262144,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 0,
+                      "selfIncident": false,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 0
+                }
+              }
+            ]
+          },
+          {
+            "source": 4327,
+            "target": 2775,
+            "startSheet": 0,
+            "contradictory": false,
+            "routeParities": [
+              1,
+              1
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 1,
+                "finalStateKey": "Q:1,2,3,4,4|98304.133152|32.3072",
+                "finalLabelledClass": 22451,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 98304,
+                      "hole": 131072,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 0,
+                      "selfIncident": true,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 1
+                }
+              },
+              {
+                "parity": 1,
+                "finalStateKey": "Q:1,2,3,4,4|98304.133152|32.3072",
+                "finalLabelledClass": 22451,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 98304,
+                      "hole": 131072,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 0,
+                      "selfIncident": true,
+                      "opponentIncident": false
+                    }
+                  ],
+                  "bit": 1
+                }
+              }
+            ]
+          },
+          {
+            "source": 4334,
+            "target": 2784,
+            "startSheet": 1,
+            "contradictory": false,
+            "routeParities": [
+              0,
+              0
+            ],
+            "parityDifference": 0,
+            "featureDifference": 0,
+            "consistent": true,
+            "endpoints": [
+              {
+                "parity": 0,
+                "finalStateKey": "Q:1,2,3,4,4|163840|32.1024.65536",
+                "finalLabelledClass": 16432,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 163840,
+                      "hole": 65536,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 1,
+                      "selfIncident": false,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 0
+                }
+              },
+              {
+                "parity": 0,
+                "finalStateKey": "Q:1,2,3,4,4|163840|32.1024.65536",
+                "finalLabelledClass": 16432,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 163840,
+                      "hole": 65536,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 1,
+                      "selfIncident": false,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 0
+                }
+              }
+            ]
+          }
+        ],
+        "inconsistentExamples": [
+          {
+            "source": 3446,
+            "target": 212,
+            "startSheet": 1,
+            "contradictory": false,
+            "routeParities": [
+              0,
+              0
+            ],
+            "parityDifference": 0,
+            "featureDifference": 1,
+            "consistent": false,
+            "endpoints": [
+              {
+                "parity": 0,
+                "finalStateKey": "Q:1,2,3,4,4|2048.33824.196608|2048.32768",
+                "finalLabelledClass": 7042,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 196608,
+                      "hole": 32768,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 1,
+                      "selfIncident": true,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 1
+                }
+              },
+              {
+                "parity": 0,
+                "finalStateKey": "Q:1,2,3,4,4|2048.196608|2048.32768",
+                "finalLabelledClass": 7042,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 196608,
+                      "hole": 32768,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 1,
+                      "selfIncident": false,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 0
+                }
+              }
+            ]
+          },
+          {
+            "source": 3459,
+            "target": 212,
+            "startSheet": 1,
+            "contradictory": false,
+            "routeParities": [
+              0,
+              0
+            ],
+            "parityDifference": 0,
+            "featureDifference": 1,
+            "consistent": false,
+            "endpoints": [
+              {
+                "parity": 0,
+                "finalStateKey": "Q:1,2,3,4,4|2048.33824.196608|2048.32768",
+                "finalLabelledClass": 7042,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 196608,
+                      "hole": 32768,
+                      "sameOwnerIncidence": 1,
+                      "opponentIncidence": 1,
+                      "selfIncident": true,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 1
+                }
+              },
+              {
+                "parity": 0,
+                "finalStateKey": "Q:1,2,3,4,4|2048.196608|2048.32768",
+                "finalLabelledClass": 7042,
+                "finalSheet": 1,
+                "feature": {
+                  "rank": 14,
+                  "mover": 0,
+                  "capMask": 229376,
+                  "capCount": 3,
+                  "holeResiduals": [
+                    {
+                      "residual": 196608,
+                      "hole": 32768,
+                      "sameOwnerIncidence": 0,
+                      "opponentIncidence": 1,
+                      "selfIncident": false,
+                      "opponentIncident": true
+                    }
+                  ],
+                  "bit": 0
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "outcomeLabelsUsedByProducer": false
+    }
+  ],
+  "summary": {
+    "robustContradictionPresent": true,
+    "robustContradictoryDefinedPairs": 2,
+    "robustContradictoryConsistentPairs": 2,
+    "flatContradictions": 0,
+    "flatDefinedPairs": 0,
+    "flatConsistentPairs": 0,
+    "flatInconsistentPairs": 0,
+    "candidateCoversAllRobustStartSheets": true,
+    "candidateMatchesAllDefinedRobustStartSheets": true,
+    "flatControlHasNoDefinedInconsistency": true
+  },
+  "interpretation_guard": "A successful finite audit establishes only a relabeling-covariant local endpoint correction on covered reconvergences. It is not a complete corrected-carrier theorem unless coverage and closure are separately established."
+}
