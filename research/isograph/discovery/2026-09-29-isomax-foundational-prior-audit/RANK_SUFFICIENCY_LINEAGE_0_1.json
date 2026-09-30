@@ -1,0 +1,25 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.lineage_normalization.v1",
+  "date_author_local": "2026-09-29",
+  "sources": [
+    {
+      "id": "HIST-RA-20260909",
+      "ref": "archive/restructure-2026-09/research--residual-automorphisms-2026-09-09",
+      "commit": "5f84cb526c43d9b5ce4112ded3d8f05fbe1faa3d",
+      "result": "Exact residual-state transposition stabilizers can identify interchangeable legal moves. Prototype tested only transpositions that leave support and both residual antichains unchanged; it explicitly did not discover arbitrary larger-cycle symmetries.",
+      "relation_to_current": "PRECURSOR__STABILIZER_NOT_ORBIT_QUOTIENT",
+      "current_distinction": "q_Sigma identifies different q_o states related by arbitrary full-column permutation and transports actions; it does not require the permutation to stabilize the current q_o state."
+    },
+    {
+      "id": "HIST-LINE-20260910",
+      "ref": "archive/restructure-2026-09/research--identified-winline-quotient-test-2",
+      "commit": "900cfa804fb0b06e524d2642c4feb845a9993077",
+      "result": "Candidate rank-local state (support,H0,H1) where H0/H1 are physical winning-line hit masks; direct line-incidence OR updates and exact transition/bisimulation argument.",
+      "relation_to_current": "DIRECT_STRUCTURAL_SUPERREPRESENTATION_OF_QO",
+      "derivation": "Given support S and hit masks, P0 viable lines are L\\H1 and P1 viable lines L\\H0; subtract occupied support cells from each viable line and antichain-normalize to derive q_o. Therefore q_o <= Q_hit in the rank-local information order.",
+      "strict_finite_evidence": "Historical complete 4x4: Q_hit=42,168 signatures; current complete 4x4 q_o=34,094 classes. Thus Q_hit is strictly finer on this control.",
+      "current_role": "Useful direct algebra/evaluator factorization and provenance-preserving representation, but not a minimal-Q candidate relative to q_o."
+    }
+  ],
+  "novelty_guard": "Do not describe residual symmetry or line-hit representation as newly invented. Current potentially new content is the full transported S_W orbit quotient of q_o, its symbolic equivariance theorem candidate, and its composition with rank-local safe-forgetting operators."
+}

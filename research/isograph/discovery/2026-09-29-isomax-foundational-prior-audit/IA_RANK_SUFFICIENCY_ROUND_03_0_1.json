@@ -1,0 +1,58 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_round.v1",
+  "round": 3,
+  "date_author_local": "2026-09-29",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_02_0_1.json",
+    "RANK_SUFFICIENCY_CROSS_CASE_INTEGRATION_0_1.json",
+    "RANK_SUFFICIENCY_LINEAGE_0_1.json"
+  ],
+  "new_assertions": [
+    {
+      "id": "RS-IA012",
+      "family": "F",
+      "body": "The frozen q_RF, q_Sigma and q_SigmaRF candidates survive four fresh k3 geometry controls, including both 3-wide and 4-wide boards, without transition-congruence failure."
+    },
+    {
+      "id": "RS-IA013",
+      "family": "C",
+      "body": "Across all fresh controls, applying both safe forgetting and transported column orbiting gives fewer Q-F classes than either operation alone."
+    },
+    {
+      "id": "RS-IA014",
+      "family": "S",
+      "body": "Historical residual transposition automorphisms are stabilizer evidence, while q_Sigma is an orbit-quotient candidate; these are related but nonidentical symmetry constructions."
+    },
+    {
+      "id": "RS-IA015",
+      "family": "R",
+      "body": "The identified-line hit-mask state rank-locally determines q_o, so it is an exact superrepresentation of q_o rather than evidence that q_o lacks line-identity information needed for ordinary future behavior."
+    }
+  ],
+  "support_refinements": [],
+  "qu_refinements": [
+    {
+      "id": "RS-QR005",
+      "target": "QU-RS-001",
+      "add_fixed": [
+        "q_Sigma equivariance survives four predeclared fresh k3 cases"
+      ],
+      "retain_open": [
+        "general standard-7x6 qualification",
+        "minimality"
+      ]
+    },
+    {
+      "id": "RS-QR006",
+      "target": "QU-RS-002",
+      "add_fixed": [
+        "q_SigmaRF is strictly smaller than q_o, q_RF and q_Sigma in all four fresh controls"
+      ],
+      "retain_open": [
+        "general proof",
+        "additional safe coordinates"
+      ]
+    }
+  ],
+  "stop_status": "OPEN__STANDARD7X6_AND_GENERAL_PROOF_QUALIFICATION_REMAIN"
+}

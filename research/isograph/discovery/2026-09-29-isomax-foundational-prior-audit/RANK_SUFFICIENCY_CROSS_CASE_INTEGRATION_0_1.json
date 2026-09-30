@@ -1,0 +1,50 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.cross_case_integration.v1",
+  "date_author_local": "2026-09-29",
+  "evidence": {
+    "branch": "experiment/isomax-rank-local-compression-20260929",
+    "commit": "d42251c160405a44f8bb1234016bc4e0fee8b387",
+    "file": "RANK_LOCAL_CROSS_CASE_HOLDOUT_0_1.json"
+  },
+  "frozen_before_holdout": [
+    "q_RF",
+    "q_Sigma",
+    "q_SigmaRF"
+  ],
+  "cases": [
+    {
+      "case": "3x3 k3",
+      "q_o": 396,
+      "q_RF": 332,
+      "q_Sigma": 191,
+      "q_SigmaRF": 154,
+      "equivariance_checks": 5796
+    },
+    {
+      "case": "3x4 k3",
+      "q_o": 1393,
+      "q_RF": 1254,
+      "q_Sigma": 681,
+      "q_SigmaRF": 593,
+      "equivariance_checks": 22284
+    },
+    {
+      "case": "4x3 k3",
+      "q_o": 3734,
+      "q_RF": 3454,
+      "q_Sigma": 1647,
+      "q_SigmaRF": 1474,
+      "equivariance_checks": 283632
+    },
+    {
+      "case": "4x4 k3",
+      "q_o": 18874,
+      "q_RF": 17799,
+      "q_Sigma": 8885,
+      "q_SigmaRF": 8222,
+      "equivariance_checks": 1578144
+    }
+  ],
+  "result": "All four fresh cases preserve direct Q-F under q_RF, transporter-aware Q-F under q_Sigma and q_SigmaRF, and direct column-permutation transition equivariance with zero mismatches.",
+  "scope": "fresh bounded cases only; supports general proof candidates without promoting them"
+}
