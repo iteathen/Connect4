@@ -1,0 +1,210 @@
+{
+  "schema": "connect4.isomax.rank_local_t2_derivation.v1",
+  "date_author_local": "2026-09-29",
+  "warrant": "EW-RS-022",
+  "reference": "frozen child-derived T2 from EW-RS-016/EW-RS-018",
+  "directLaw": {
+    "W": "current-mover singleton residual intersects current legal frontier",
+    "frontierUpdate": "a move replaces the moved column frontier cell by the next cell above, if any; other frontier cells are unchanged",
+    "opponentRelease": "opponent has an immediate reply iff its current singleton-residual cells intersect the updated frontier",
+    "L2": "every legal move releases or preserves an immediate opponent reply",
+    "O": "otherwise"
+  },
+  "cases": [
+    {
+      "label": "3x3-k3",
+      "width": 3,
+      "height": 3,
+      "k": 3,
+      "physicalStates": 694,
+      "nonterminalStates": 505,
+      "referenceCounts": {
+        "W": 193,
+        "L2": 61,
+        "O": 251
+      },
+      "QO_DIRECT": {
+        "mismatches": 0,
+        "exact": true,
+        "firstMismatch": null
+      },
+      "RFG_DIRECT": {
+        "mismatches": 0,
+        "exact": true,
+        "firstMismatch": null
+      }
+    },
+    {
+      "label": "3x4-k3",
+      "width": 3,
+      "height": 4,
+      "k": 3,
+      "physicalStates": 2715,
+      "nonterminalStates": 1801,
+      "referenceCounts": {
+        "W": 874,
+        "L2": 229,
+        "O": 698
+      },
+      "QO_DIRECT": {
+        "mismatches": 0,
+        "exact": true,
+        "firstMismatch": null
+      },
+      "RFG_DIRECT": {
+        "mismatches": 0,
+        "exact": true,
+        "firstMismatch": null
+      }
+    },
+    {
+      "label": "4x3-k3",
+      "width": 4,
+      "height": 3,
+      "k": 3,
+      "physicalStates": 7157,
+      "nonterminalStates": 4631,
+      "referenceCounts": {
+        "W": 2570,
+        "L2": 643,
+        "O": 1418
+      },
+      "QO_DIRECT": {
+        "mismatches": 0,
+        "exact": true,
+        "firstMismatch": null
+      },
+      "RFG_DIRECT": {
+        "mismatches": 0,
+        "exact": true,
+        "firstMismatch": null
+      }
+    },
+    {
+      "label": "4x4-k4",
+      "width": 4,
+      "height": 4,
+      "k": 4,
+      "physicalStates": 161029,
+      "nonterminalStates": 134289,
+      "referenceCounts": {
+        "W": 24685,
+        "L2": 4154,
+        "O": 105450
+      },
+      "QO_DIRECT": {
+        "mismatches": 0,
+        "exact": true,
+        "firstMismatch": null
+      },
+      "RFG_DIRECT": {
+        "mismatches": 0,
+        "exact": true,
+        "firstMismatch": null
+      }
+    },
+    {
+      "label": "4x4-k3",
+      "width": 4,
+      "height": 4,
+      "k": 3,
+      "physicalStates": 41750,
+      "nonterminalStates": 23930,
+      "referenceCounts": {
+        "W": 16100,
+        "L2": 3477,
+        "O": 4353
+      },
+      "QO_DIRECT": {
+        "mismatches": 0,
+        "exact": true,
+        "firstMismatch": null
+      },
+      "RFG_DIRECT": {
+        "mismatches": 0,
+        "exact": true,
+        "firstMismatch": null
+      }
+    },
+    {
+      "label": "3x5-k3",
+      "width": 3,
+      "height": 5,
+      "k": 3,
+      "physicalStates": 8789,
+      "nonterminalStates": 5497,
+      "referenceCounts": {
+        "W": 3074,
+        "L2": 644,
+        "O": 1779
+      },
+      "QO_DIRECT": {
+        "mismatches": 0,
+        "exact": true,
+        "firstMismatch": null
+      },
+      "RFG_DIRECT": {
+        "mismatches": 0,
+        "exact": true,
+        "firstMismatch": null
+      }
+    },
+    {
+      "label": "5x3-k3",
+      "width": 5,
+      "height": 3,
+      "k": 3,
+      "physicalStates": 70914,
+      "nonterminalStates": 40659,
+      "referenceCounts": {
+        "W": 28001,
+        "L2": 5403,
+        "O": 7255
+      },
+      "QO_DIRECT": {
+        "mismatches": 0,
+        "exact": true,
+        "firstMismatch": null
+      },
+      "RFG_DIRECT": {
+        "mismatches": 0,
+        "exact": true,
+        "firstMismatch": null
+      }
+    },
+    {
+      "label": "3x6-k3",
+      "width": 3,
+      "height": 6,
+      "k": 3,
+      "physicalStates": 25753,
+      "nonterminalStates": 15605,
+      "referenceCounts": {
+        "W": 9311,
+        "L2": 1799,
+        "O": 4495
+      },
+      "QO_DIRECT": {
+        "mismatches": 0,
+        "exact": true,
+        "firstMismatch": null
+      },
+      "RFG_DIRECT": {
+        "mismatches": 0,
+        "exact": true,
+        "firstMismatch": null
+      }
+    }
+  ],
+  "crossCase": {
+    "qoDirectExactAll": true,
+    "rfgDirectExactAll": true,
+    "qoMismatchTotal": 0,
+    "rfgMismatchTotal": 0
+  },
+  "interpretationGuard": [
+    "QO_DIRECT uses only current support, current residual singleton cells and mover/rank; it does not inspect child states.",
+    "RFG_DIRECT asks whether the same fact survives the existing R/F/G safe-forgetting representation.",
+    "Equality to T2 does not by itself establish Q-V sufficiency or standard-7x6 qualification."
+  ]
+}
