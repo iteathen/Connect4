@@ -1,0 +1,68 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.repaired_cubic_quotient_target.v1",
+  "id": "EW-RS-060",
+  "date_author_local": "2026-09-30",
+  "status": "ACTIVE",
+  "parent": "EW-RS-059",
+  "objective": "Reduce the complete repaired-coordinate cubic interaction space outcome-independently modulo degree two, measure the scalar target dimension relative to degree two, and express the two outcome targets in a deterministic cubic quotient basis without selecting a final decoder formula.",
+  "cases": [
+    "6x3-k3",
+    "4x5-k4",
+    "6x3-k4"
+  ],
+  "frozenCoordinate": {
+    "identity": "ROLE_CAPPAR_REL_INC",
+    "countState": "ZOE",
+    "binaryEncoding": "P_d=[n_d>0], O_d=n_d mod 2",
+    "rankGrade": "none"
+  },
+  "frozenPolynomialFamily": {
+    "degree2": "affine P/O plus every observed square-free pair of distinct active P/O bits",
+    "degree3": "degree2 plus every observed square-free triple of distinct active P/O bits"
+  },
+  "outcomeIndependentReduction": {
+    "method": "Deterministic GF(2) column-priority elimination with all degree<=2 columns given pivot priority over cubic columns.",
+    "invariant": "The number of retained cubic directions equals rank(DEGREE3)-rank(DEGREE2); individual retained triples are a gauge choice.",
+    "expectedRankGainsFromEWRS058": {
+      "6x3-k3": 75,
+      "4x5-k4": 371,
+      "6x3-k4": 16
+    }
+  },
+  "scalarTargetMeasurement": [
+    "rank gain of y0 beyond the complete degree-2 span",
+    "rank gain of y1 beyond the complete degree-2 span",
+    "joint target dimension dim(span(DEGREE2,y0,y1)/span(DEGREE2))",
+    "exactness of DEGREE2 plus the outcome-independent cubic quotient basis"
+  ],
+  "discoveryGauge": {
+    "allowed": true,
+    "purpose": "After the cubic basis is frozen outcome-independently, solve y0/y1 in a deterministic zero-free-variable gauge and record which basis directions carry each target for motif discovery.",
+    "notInvariant": true,
+    "notFinalFormula": true
+  },
+  "formulaHoldoutSeal": {
+    "warrant": "EW-RS-059",
+    "sealedCases": ["3x6-k4","5x3-k4"],
+    "outcomesMayBeInspected": false
+  },
+  "antiCircularity": [
+    "Cubic basis selection uses only structural feature rows and degree ordering, never W/D/L labels.",
+    "Outcome columns are introduced only after the cubic quotient basis is frozen.",
+    "The deterministic target-coordinate gauge is explicitly outcome-fitted discovery evidence and may not be published as an invariant final formula.",
+    "No sealed EW-RS-059 holdout is solved or sampled during this experiment."
+  ],
+  "falsifiers": [
+    "Any mismatch with the frozen degree-2 or degree-3 contradiction/rank-gain controls invalidates the run.",
+    "Any contradiction using degree two plus the reduced cubic quotient basis invalidates the basis reduction.",
+    "A joint target dimension greater than two rejects the retained two-output-direction hypothesis relative to degree two.",
+    "Failure to represent either target bit inside the reduced cubic basis indicates a reduction or harness error because full degree 3 is already exact."
+  ],
+  "nextIfTwoDimensional": "Analyze the deterministic target-support cubic motifs across carriers and freeze an outcome-independent structural syndrome candidate before unsealing PRIMARY 3x6-k4.",
+  "nextIfNotTwoDimensional": "Freeze the target-dimension result and revise the syndrome hypothesis before any formula selection.",
+  "interpretationGuards": [
+    "Basis triple identities and fitted target supports are gauge-dependent discovery objects.",
+    "Invariant claims are quotient rank, target dimension, exactness, and later holdout behavior.",
+    "No Q-A/Q-F, standard-7x6, or universal theorem follows."
+  ]
+}
