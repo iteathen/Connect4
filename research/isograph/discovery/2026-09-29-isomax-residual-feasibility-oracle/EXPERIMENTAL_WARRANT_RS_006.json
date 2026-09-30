@@ -1,0 +1,10 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.residual_feasibility_oracle.v1",
+  "id": "EW-RS-006",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE_DISCOVERY_ORACLE",
+  "objective": "Compare the current closed rank-local RFG deletion rules with exact isolated single-residual schedule feasibility on complete 4x4.",
+  "oracleAdmissibility": "NOT_ADMISSIBLE_AS_FINAL_Q because it explores hypothetical future support schedules.",
+  "intendedUse": "If E deletes more than RFG, inspect the first exact gaps to derive new current-rank structural rules. If E equals RFG, treat that as evidence that RFG captures exact isolated residual feasibility in this control.",
+  "noSolvedValueUsed": true
+}
