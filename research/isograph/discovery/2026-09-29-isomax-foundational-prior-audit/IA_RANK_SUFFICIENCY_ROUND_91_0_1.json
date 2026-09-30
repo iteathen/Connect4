@@ -1,0 +1,76 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_round.v1",
+  "round": 91,
+  "date_author_local": "2026-09-30",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_90_FIXED_POINT_0_1.json",
+    "RANK_SUFFICIENCY_ENDPOINT_SIGN_INTEGRATION_0_1.json"
+  ],
+  "reopened_reason": "RS092 falsifies the owner0 endpoint-order explanation; RS093 identifies native relative-sign invariants and a minimal capacity star.",
+  "new_assertions": [
+    {
+      "id": "RS-IA300",
+      "family": "D",
+      "source": "RS-F290",
+      "body": "All5 RS092 endpoint gauges are pooled exact. Owner0-first and anonymous ordering have rank353; owner1-first, prefix/tie and full edge-reversal quotient rank351. The successful native repair does not require the owner0-first lexicographic endpoint convention."
+    },
+    {
+      "id": "RS-IA301",
+      "family": "M",
+      "source": "RS-F291",
+      "body": "The rank351 full endpoint-reversal map and rank351 RS090 common-triangle map have different111-dimensional kernels; their sum has dimension113. Their finest common linear quotient therefore has rank349. Equal ranks do not imply equal information."
+    },
+    {
+      "id": "RS-IA302",
+      "family": "R",
+      "source": "RS-F292",
+      "body": "For5 exact plus/minus count channels, reversal fixes totals T and negates all signed imbalances N. T, absolute N and complete pairwise sign correlations reconstruct the common reversal orbit, including zero coordinates. This is a native algebraic invariant, not an empirical catalog definition."
+    },
+    {
+      "id": "RS-IA303",
+      "family": "F",
+      "source": "RS-F293",
+      "body": "In the16-subset RS093 grid, exactly the8 subsets containing CAPACITY_DEPTH pass; the unique minimal family is its4-edge capacity star, rank350. All subsets without it have18 contradictions and preserve only the matched-dependency draw character. The full reversal control has rank351."
+    },
+    {
+      "id": "RS-IA304",
+      "family": "Q",
+      "source": "RS-F294",
+      "body": "The capacity star recovers the full reversal orbit when N_C is nonzero. When N_C is zero it retains only unordered plus/minus depth counts. This structurally defined forgetting is sufficient on the corpus, but does not imply zero scalar contribution on balanced pairs or prove all4 star edges individually necessary."
+    },
+    {
+      "id": "RS-IA305",
+      "family": "R",
+      "body": "The globally defined reversal quotient avoids reliance on an observed-domain class catalog, but retains owner channels. It neither contradicts nor removes the earlier owner-swap closure obstruction."
+    },
+    {
+      "id": "RS-IA306",
+      "family": "Q",
+      "body": "Minimality of the capacity star among4 edge families does not establish minimality among its4 individual edges. The next full edge-subset grid must be frozen before replay."
+    }
+  ],
+  "qu_refinements": [
+    {
+      "id": "RS-QR068",
+      "target": [
+        "QU-RS-004",
+        "QU-RS-008",
+        "QU-RS-010"
+      ],
+      "add_fixed": [
+        "All5 RS092 endpoint gauges are pooled exact. Owner0-first and anonymous ordering have rank353; owner1-first, prefix/tie and full edge-reversal quotient rank351. The successful native repair does not require the owner0-first lexicographic endpoint convention.",
+        "The rank351 full endpoint-reversal map and rank351 RS090 common-triangle map have different111-dimensional kernels; their sum has dimension113. Their finest common linear quotient therefore has rank349. Equal ranks do not imply equal information.",
+        "For5 exact plus/minus count channels, reversal fixes totals T and negates all signed imbalances N. T, absolute N and complete pairwise sign correlations reconstruct the common reversal orbit, including zero coordinates. This is a native algebraic invariant, not an empirical catalog definition.",
+        "In the16-subset RS093 grid, exactly the8 subsets containing CAPACITY_DEPTH pass; the unique minimal family is its4-edge capacity star, rank350. All subsets without it have18 contradictions and preserve only the matched-dependency draw character. The full reversal control has rank351.",
+        "The capacity star recovers the full reversal orbit when N_C is nonzero. When N_C is zero it retains only unordered plus/minus depth counts. This structurally defined forgetting is sufficient on the corpus, but does not imply zero scalar contribution on balanced pairs or prove all4 star edges individually necessary.",
+        "The globally defined reversal quotient avoids reliance on an observed-domain class catalog, but retains owner channels. It neither contradicts nor removes the earlier owner-swap closure obstruction.",
+        "Minimality of the capacity star among4 edge families does not establish minimality among its4 individual edges. The next full edge-subset grid must be frozen before replay."
+      ],
+      "retain_open": [
+        "All16 individual-edge subsets of the4 capacity-to-depth links, keeping T and absN fixed and retaining the full star reconstruction control.",
+        "Closed scalar functionals on the native invariant carrier."
+      ]
+    }
+  ],
+  "stop_status": "REOPENED__CAPACITY_STAR_LINKS_OPEN"
+}
