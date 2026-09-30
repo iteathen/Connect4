@@ -1,0 +1,47 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.repaired_cubic_decoder_integration.v1",
+  "date_author_local": "2026-09-30",
+  "research_direction": "Joshua Oshiro",
+  "status": "REPAIRED_COORDINATE_CUBIC_EXISTENCE",
+  "evidence": {
+    "branch": "experiment/isomax-late-xor-components-20260929",
+    "commit": "f5424e6d390d59345b70bf0c2e6ae3d94bb313a3",
+    "file": "REPAIRED_COORDINATE_CUBIC_DECODER_0_1.json",
+    "warrant": "EW-RS-058"
+  },
+  "frozenCoordinate": {
+    "identity": "ROLE_CAPPAR_REL_INC",
+    "count_state": "ZOE",
+    "binary_encoding": "P_d=[n_d>0], O_d=n_d mod 2",
+    "rank_grade": "none"
+  },
+  "results": {
+    "6x3-k3": {"degree2_contradictions":24,"cubic_catalog":64991,"degree3_rank_gain_over_degree2":75,"degree3_contradictions":0},
+    "4x5-k4": {"degree2_contradictions":24,"cubic_catalog":263021,"degree3_rank_gain_over_degree2":371,"degree3_contradictions":0},
+    "6x3-k4": {"degree2_contradictions":5,"cubic_catalog":52467,"degree3_rank_gain_over_degree2":16,"degree3_contradictions":0}
+  },
+  "findings": [
+    {
+      "id": "RS-F185",
+      "status": "CUBIC_REPAIRED_COORDINATE_SUFFICIENCY",
+      "statement": "Complete observed square-free degree-3 expansion over the frozen ROLE_CAPPAR+ZOE P/O coordinate eliminates every frozen degree-2 contradiction on 6x3-k3, 4x5-k4, and 6x3-k4."
+    },
+    {
+      "id": "RS-F186",
+      "status": "SMALL_CUBIC_QUOTIENT_GAIN",
+      "statement": "Although the raw cubic catalogs contain tens to hundreds of thousands of triples, only 75, 371, and 16 additional matrix-rank directions beyond degree 2 are observed on the three hard repaired-coordinate carriers."
+    },
+    {
+      "id": "RS-F187",
+      "status": "OUTPUT_DIMENSION_VS_DEGREE_SEPARATION",
+      "statement": "The scalar target remains two-dimensional while the structural polynomial realization requires degree 3 on the hard repaired-coordinate carriers; output dimension and interaction degree are distinct invariants."
+    }
+  ],
+  "nonclaims": [
+    "Degree 3 is not proved universally sufficient.",
+    "The cubic pivot monomials are not invariant syndrome formulas.",
+    "No final coefficient gauge or closed-form decoder has been selected.",
+    "No Q-A/Q-F or standard-7x6 claim follows."
+  ],
+  "next_question": "What is the outcome-independent cubic quotient basis modulo degree 2, and which two target directions inside its span carry the scalar output?"
+}
