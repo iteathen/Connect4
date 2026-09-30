@@ -1,0 +1,120 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.signed_exchange_owner_quotient_integration.v1",
+  "date_author_local": "2026-09-30",
+  "research_direction": "Joshua Oshiro",
+  "status": "ABSOLUTE_OWNER_LABEL_REMOVED__OWNER_IMBALANCE_RETAINED",
+  "evidence": {
+    "branch": "experiment/isomax-late-xor-components-20260929",
+    "commit": "94b040c17f2d70065fcbe26d8fabbf512a4bc12b",
+    "file": "OOO_SIGNED_EXCHANGE_OWNER_QUOTIENT_0_1.json",
+    "resultVerification": "OOO_SIGNED_EXCHANGE_OWNER_QUOTIENT_RESULT_VERIFY_0_1.json",
+    "warrant": "EW-RS-074",
+    "workflowRun": 36753333110,
+    "workflowConclusion": "success",
+    "researchIntegrity": "success"
+  },
+  "frozenSourceCarrier": "SIGNED_PARITY + C_ROLELESS + D_DEPTHLESS",
+  "selectedCommonMode": "D_SYMMETRIC_MARGINALS",
+  "selectedDefinition": "Retain C+,C- unchanged; for D retain total D+,D- and absolute owner-channel imbalances |D0+-D1+|, |D0--D1-|, while discarding which absolute owner carries each imbalance.",
+  "results": {
+    "6x3-k3": {
+      "controlRank": 73,
+      "scalarImageDimension": 1,
+      "merged": {
+        "rank": 73,
+        "contradictions": 0,
+        "exact": true
+      },
+      "symmetricMarginals": {
+        "rank": 73,
+        "contradictions": 0,
+        "exact": true
+      },
+      "unorderedChannels": {
+        "rank": 73,
+        "contradictions": 0,
+        "exact": true
+      }
+    },
+    "4x5-k4": {
+      "controlRank": 262,
+      "scalarImageDimension": 2,
+      "merged": {
+        "rank": 235,
+        "contradictions": 8,
+        "exact": false
+      },
+      "symmetricMarginals": {
+        "rank": 254,
+        "contradictions": 0,
+        "exact": true
+      },
+      "unorderedChannels": {
+        "rank": 255,
+        "contradictions": 0,
+        "exact": true
+      }
+    },
+    "6x3-k4": {
+      "controlRank": 14,
+      "scalarImageDimension": 2,
+      "merged": {
+        "rank": 14,
+        "contradictions": 0,
+        "exact": true
+      },
+      "symmetricMarginals": {
+        "rank": 14,
+        "contradictions": 0,
+        "exact": true
+      },
+      "unorderedChannels": {
+        "rank": 14,
+        "contradictions": 0,
+        "exact": true
+      }
+    }
+  },
+  "findings": [
+    {
+      "id": "RS-F244",
+      "status": "ABSOLUTE_OWNER_LABEL_REDUNDANT",
+      "statement": "The first common exact owner quotient is D_SYMMETRIC_MARGINALS, so absolute owner identity D0 versus D1 is not required by the tested scalar exchange law."
+    },
+    {
+      "id": "RS-F245",
+      "status": "FULL_OWNER_MERGE_TOO_COARSE_ON_4X5",
+      "statement": "D_MERGED loses 27 structural directions and leaves eight scalar contradictions on 4x5-k4. Some owner-channel asymmetry remains load-bearing there."
+    },
+    {
+      "id": "RS-F246",
+      "status": "OWNER_IMBALANCE_SUFFICIENT",
+      "statement": "On 4x5-k4, adding absolute positive/negative owner-channel imbalances to merged D totals restores exactness at rank 254, eight below the separated-owner control rank 262."
+    },
+    {
+      "id": "RS-F247",
+      "status": "OWNER_SWAP_SYMMETRY",
+      "statement": "The tested scalar carrier is invariant to global swapping of the two absolute owner labels once D totals and absolute per-sign channel imbalances are retained."
+    },
+    {
+      "id": "RS-F248",
+      "status": "HARD_CARRIER_LOCALIZES_OWNER_INFORMATION",
+      "statement": "6x3-k3 and 6x3-k4 need no owner-channel distinction at all under the frozen carrier; 4x5-k4 alone forces the symmetric imbalance refinement."
+    }
+  ],
+  "dpMss": {
+    "absoluteOwnerLabel": "REMOVE",
+    "mergedDCounts": "INSUFFICIENT_COMMONLY",
+    "absoluteOwnerImbalanceBySign": "RETAIN_IN_SELECTED_COMMON_QUOTIENT",
+    "withinChannelPlusMinusPairing": "NOT_REQUIRED_BY_SELECTED_COMMON_MODE",
+    "selectedCarrier": "C+,C-,D+,D-,A+,A- under SIGNED_PARITY exchange triangle"
+  },
+  "nextQuestion": "Can the remaining six nonnegative pair buckets C+,C-,D+,D-,A+,A- be reduced by presence/parity/ZOE/count-saturation or a small circuit invariant without losing the scalar image?",
+  "nonclaims": [
+    "D_SYMMETRIC_MARGINALS is selected only within the frozen EW-RS-074 ladder.",
+    "Absolute owner labels remain part of the underlying game/state semantics; only this late scalar exchange carrier quotients them.",
+    "No individual bucket coefficient is promoted as invariant.",
+    "EW-RS-059 PRIMARY 3x6-k4 and BACKUP 5x3-k4 remain sealed.",
+    "No Q-A/Q-F, standard-7x6, universal theorem, or center-opening proof follows."
+  ]
+}
