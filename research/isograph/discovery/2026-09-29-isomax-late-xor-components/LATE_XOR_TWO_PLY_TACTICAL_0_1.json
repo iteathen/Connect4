@@ -1,0 +1,3084 @@
+{
+  "schema": "connect4.isomax.late_xor_two_ply_tactical_reduction.v1",
+  "date_author_local": "2026-09-29",
+  "warrant": "EW-RS-016",
+  "frozenComponentDefinition": "post-RFG residual-incidence connected components with support/owner-labelled canonical component type",
+  "addedReduction": "evaluator short-circuit T2: current-mover immediate win resolves W; otherwise if every legal nonwinning move leaves an immediate opponent win, resolve forced loss L2; else O",
+  "cases": [
+    {
+      "label": "3x3-k3",
+      "width": 3,
+      "height": 3,
+      "k": 3,
+      "physicalStates": 694,
+      "nonterminalStates": 505,
+      "componentTypes": 118,
+      "componentHistogram": {
+        "1": 59,
+        "2": 121,
+        "3": 325
+      },
+      "componentMultiplicityHistogram": {
+        "1": 922,
+        "2": 177
+      },
+      "maxComponents": 3,
+      "maxSameTypeMultiplicity": 2,
+      "immediateWinStates": 193,
+      "tacticalCounts": {
+        "W": 193,
+        "L": 32,
+        "O": 280
+      },
+      "tactical2Counts": {
+        "W": 193,
+        "L2": 61,
+        "O": 251
+      },
+      "results": [
+        {
+          "id": "MULTI",
+          "classes": 152,
+          "QF_component_transport": true,
+          "QV": true,
+          "mixedValueGroups": 0,
+          "minPairUnits": null,
+          "firstFutureFailure": null,
+          "firstValueFailure": null,
+          "pairExamples": []
+        },
+        {
+          "id": "MOD2_P",
+          "classes": 146,
+          "QF_component_transport": false,
+          "QV": false,
+          "mixedValueGroups": 2,
+          "minPairUnits": 2,
+          "firstFutureFailure": {
+            "key": "0|1*2|4|",
+            "a": "209:46",
+            "b": "49:14",
+            "aInterface": "m0|2|4|=>T:P0",
+            "bInterface": "m0|2|4|=>T:P0||m0|2||=>N:1|1*2||||1*2|4|||1*3||||m0|2||=>N:1|1*2||||1*2|4|||1*3||"
+          },
+          "firstValueFailure": {
+            "key": "0|1*2||",
+            "a": "113:270",
+            "b": "21:42",
+            "aValue": 0,
+            "bValue": 1
+          },
+          "pairExamples": [
+            {
+              "key": "0|1*2||",
+              "a": "113:270",
+              "b": "21:42",
+              "aValue": 0,
+              "bValue": 1,
+              "aCounts": [
+                {
+                  "type": "T00115",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T00117",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T00115",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T00113",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T00117",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T00113",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "1|1*3||",
+              "a": "99:28",
+              "b": "51:76",
+              "aValue": 0,
+              "bValue": 1,
+              "aCounts": [
+                {
+                  "type": "T00115",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T00117",
+                  "width": 1,
+                  "count": 1
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T00113",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T00117",
+                  "width": 1,
+                  "count": 1
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T00115",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T00113",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            }
+          ]
+        },
+        {
+          "id": "MOD2_P_WIN",
+          "classes": 148,
+          "QF_component_transport": false,
+          "QV": false,
+          "mixedValueGroups": 2,
+          "minPairUnits": 2,
+          "firstFutureFailure": {
+            "key": "0|1*2|4||W1",
+            "a": "209:46",
+            "b": "49:14",
+            "aInterface": "m0|2|4|=>T:P0",
+            "bInterface": "m0|2|4|=>T:P0||m0|2||=>N:1|1*2||||1*2|4|||1*3|||W0||m0|2||=>N:1|1*2||||1*2|4|||1*3|||W0"
+          },
+          "firstValueFailure": {
+            "key": "0|1*2|||W0",
+            "a": "113:270",
+            "b": "42:21",
+            "aValue": 0,
+            "bValue": -1
+          },
+          "pairExamples": [
+            {
+              "key": "0|1*2|||W0",
+              "a": "113:270",
+              "b": "42:21",
+              "aValue": 0,
+              "bValue": -1,
+              "aCounts": [
+                {
+                  "type": "T00115",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T00117",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T00115",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T00116",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T00117",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T00116",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "1|1*3|||W0",
+              "a": "99:28",
+              "b": "51:76",
+              "aValue": 0,
+              "bValue": 1,
+              "aCounts": [
+                {
+                  "type": "T00115",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T00117",
+                  "width": 1,
+                  "count": 1
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T00113",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T00117",
+                  "width": 1,
+                  "count": 1
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T00115",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T00113",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            }
+          ]
+        },
+        {
+          "id": "MOD2_P_TACTICAL",
+          "classes": 150,
+          "QF_component_transport": false,
+          "QV": false,
+          "mixedValueGroups": 1,
+          "minPairUnits": 2,
+          "firstFutureFailure": {
+            "key": "0|1*2|4||TW",
+            "a": "209:46",
+            "b": "49:14",
+            "aInterface": "m0|2|4|=>T:P0",
+            "bInterface": "m0|2|4|=>T:P0||m0|2||=>N:1|1*2||||1*2|4|||1*3|||TO||m0|2||=>N:1|1*2||||1*2|4|||1*3|||TO"
+          },
+          "firstValueFailure": {
+            "key": "1|1*3|||TO",
+            "a": "99:28",
+            "b": "21:130",
+            "aValue": 0,
+            "bValue": 1
+          },
+          "pairExamples": [
+            {
+              "key": "1|1*3|||TO",
+              "a": "99:28",
+              "b": "21:130",
+              "aValue": 0,
+              "bValue": 1,
+              "aCounts": [
+                {
+                  "type": "T00115",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T00117",
+                  "width": 1,
+                  "count": 1
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T00106",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T00117",
+                  "width": 1,
+                  "count": 1
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T00115",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T00106",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            }
+          ]
+        },
+        {
+          "id": "MOD2_P_TACTICAL2",
+          "classes": 150,
+          "QF_component_transport": false,
+          "QV": true,
+          "mixedValueGroups": 0,
+          "minPairUnits": null,
+          "firstFutureFailure": {
+            "key": "0|1*2|4||T2W",
+            "a": "209:46",
+            "b": "49:14",
+            "aInterface": "m0|2|4|=>T:P0",
+            "bInterface": "m0|2|4|=>T:P0||m0|2||=>N:1|1*2||||1*2|4|||1*3|||T2O||m0|2||=>N:1|1*2||||1*2|4|||1*3|||T2O"
+          },
+          "firstValueFailure": null,
+          "pairExamples": []
+        },
+        {
+          "id": "MOD3_P",
+          "classes": 152,
+          "QF_component_transport": true,
+          "QV": true,
+          "mixedValueGroups": 0,
+          "minPairUnits": null,
+          "firstFutureFailure": null,
+          "firstValueFailure": null,
+          "pairExamples": []
+        },
+        {
+          "id": "MOD4_P",
+          "classes": 152,
+          "QF_component_transport": true,
+          "QV": true,
+          "mixedValueGroups": 0,
+          "minPairUnits": null,
+          "firstFutureFailure": null,
+          "firstValueFailure": null,
+          "pairExamples": []
+        }
+      ]
+    },
+    {
+      "label": "3x4-k3",
+      "width": 3,
+      "height": 4,
+      "k": 3,
+      "physicalStates": 2715,
+      "nonterminalStates": 1801,
+      "componentTypes": 510,
+      "componentHistogram": {
+        "1": 383,
+        "2": 542,
+        "3": 876
+      },
+      "componentMultiplicityHistogram": {
+        "1": 3159,
+        "2": 468
+      },
+      "maxComponents": 3,
+      "maxSameTypeMultiplicity": 2,
+      "immediateWinStates": 874,
+      "tacticalCounts": {
+        "W": 874,
+        "L": 126,
+        "O": 801
+      },
+      "tactical2Counts": {
+        "W": 874,
+        "L2": 229,
+        "O": 698
+      },
+      "results": [
+        {
+          "id": "MULTI",
+          "classes": 587,
+          "QF_component_transport": true,
+          "QV": true,
+          "mixedValueGroups": 0,
+          "minPairUnits": null,
+          "firstFutureFailure": null,
+          "firstValueFailure": null,
+          "pairExamples": []
+        },
+        {
+          "id": "MOD2_P",
+          "classes": 580,
+          "QF_component_transport": false,
+          "QV": false,
+          "mixedValueGroups": 2,
+          "minPairUnits": 2,
+          "firstFutureFailure": {
+            "key": "0|1*2|4|",
+            "a": "227:1564",
+            "b": "177:78",
+            "aInterface": "m0|2|4|=>T:P0",
+            "bInterface": "m0|2|4|=>T:P0||m0|3|8|=>T:P0||m0|3|8|=>T:P0"
+          },
+          "firstValueFailure": {
+            "key": "0|1*4||",
+            "a": "227:796",
+            "b": "83:556",
+            "aValue": 0,
+            "bValue": 1
+          },
+          "pairExamples": [
+            {
+              "key": "0|1*4||",
+              "a": "227:796",
+              "b": "83:556",
+              "aValue": 0,
+              "bValue": 1,
+              "aCounts": [
+                {
+                  "type": "T00507",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T00509",
+                  "width": 1,
+                  "count": 1
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T00492",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T00509",
+                  "width": 1,
+                  "count": 1
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T00507",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T00492",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "1|1*3||",
+              "a": "1251:796",
+              "b": "241:270",
+              "aValue": 0,
+              "bValue": 1,
+              "aCounts": [
+                {
+                  "type": "T00507",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T00509",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T00507",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T00505",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T00509",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T00505",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            }
+          ]
+        },
+        {
+          "id": "MOD2_P_WIN",
+          "classes": 581,
+          "QF_component_transport": false,
+          "QV": false,
+          "mixedValueGroups": 2,
+          "minPairUnits": 2,
+          "firstFutureFailure": {
+            "key": "0|1*2|4||W1",
+            "a": "227:1564",
+            "b": "177:78",
+            "aInterface": "m0|2|4|=>T:P0",
+            "bInterface": "m0|2|4|=>T:P0||m0|3|8|=>T:P0||m0|3|8|=>T:P0"
+          },
+          "firstValueFailure": {
+            "key": "0|1*4|||W0",
+            "a": "227:796",
+            "b": "611:412",
+            "aValue": 0,
+            "bValue": -1
+          },
+          "pairExamples": [
+            {
+              "key": "0|1*4|||W0",
+              "a": "227:796",
+              "b": "611:412",
+              "aValue": 0,
+              "bValue": -1,
+              "aCounts": [
+                {
+                  "type": "T00507",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T00509",
+                  "width": 1,
+                  "count": 1
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T00508",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T00509",
+                  "width": 1,
+                  "count": 1
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T00507",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T00508",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "1|1*3|||W0",
+              "a": "1251:796",
+              "b": "241:270",
+              "aValue": 0,
+              "bValue": 1,
+              "aCounts": [
+                {
+                  "type": "T00507",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T00509",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T00507",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T00505",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T00509",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T00505",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            }
+          ]
+        },
+        {
+          "id": "MOD2_P_TACTICAL",
+          "classes": 583,
+          "QF_component_transport": false,
+          "QV": true,
+          "mixedValueGroups": 0,
+          "minPairUnits": null,
+          "firstFutureFailure": {
+            "key": "0|1*2|4||TW",
+            "a": "227:1564",
+            "b": "177:78",
+            "aInterface": "m0|2|4|=>T:P0",
+            "bInterface": "m0|2|4|=>T:P0||m0|3|8|=>T:P0||m0|3|8|=>T:P0"
+          },
+          "firstValueFailure": null,
+          "pairExamples": []
+        },
+        {
+          "id": "MOD2_P_TACTICAL2",
+          "classes": 583,
+          "QF_component_transport": false,
+          "QV": true,
+          "mixedValueGroups": 0,
+          "minPairUnits": null,
+          "firstFutureFailure": {
+            "key": "0|1*2|4||T2W",
+            "a": "227:1564",
+            "b": "177:78",
+            "aInterface": "m0|2|4|=>T:P0",
+            "bInterface": "m0|2|4|=>T:P0||m0|3|8|=>T:P0||m0|3|8|=>T:P0"
+          },
+          "firstValueFailure": null,
+          "pairExamples": []
+        },
+        {
+          "id": "MOD3_P",
+          "classes": 587,
+          "QF_component_transport": true,
+          "QV": true,
+          "mixedValueGroups": 0,
+          "minPairUnits": null,
+          "firstFutureFailure": null,
+          "firstValueFailure": null,
+          "pairExamples": []
+        },
+        {
+          "id": "MOD4_P",
+          "classes": 587,
+          "QF_component_transport": true,
+          "QV": true,
+          "mixedValueGroups": 0,
+          "minPairUnits": null,
+          "firstFutureFailure": null,
+          "firstValueFailure": null,
+          "pairExamples": []
+        }
+      ]
+    },
+    {
+      "label": "4x3-k3",
+      "width": 4,
+      "height": 3,
+      "k": 3,
+      "physicalStates": 7157,
+      "nonterminalStates": 4631,
+      "componentTypes": 1156,
+      "componentHistogram": {
+        "1": 435,
+        "2": 1078,
+        "3": 1151,
+        "4": 1967
+      },
+      "componentMultiplicityHistogram": {
+        "1": 8380,
+        "2": 1993,
+        "3": 514,
+        "4": 1
+      },
+      "maxComponents": 4,
+      "maxSameTypeMultiplicity": 4,
+      "immediateWinStates": 2570,
+      "tacticalCounts": {
+        "W": 2570,
+        "L": 391,
+        "O": 1670
+      },
+      "tactical2Counts": {
+        "W": 2570,
+        "L2": 643,
+        "O": 1418
+      },
+      "results": [
+        {
+          "id": "MULTI",
+          "classes": 1466,
+          "QF_component_transport": true,
+          "QV": true,
+          "mixedValueGroups": 0,
+          "minPairUnits": null,
+          "firstFutureFailure": null,
+          "firstValueFailure": null,
+          "pairExamples": []
+        },
+        {
+          "id": "MOD2_P",
+          "classes": 1430,
+          "QF_component_transport": false,
+          "QV": false,
+          "mixedValueGroups": 9,
+          "minPairUnits": 2,
+          "firstFutureFailure": {
+            "key": "0|1*1|2|||1*3||",
+            "a": "361:1558",
+            "b": "101:538",
+            "aInterface": "m0|1|2|=>T:P0",
+            "bInterface": "m0|1|2|=>T:P0||m0|2|4|=>T:P0||m0|2|4|=>T:P0"
+          },
+          "firstValueFailure": {
+            "key": "1|1*2||||1*3||",
+            "a": "2409:662",
+            "b": "425:86",
+            "aValue": 0,
+            "bValue": -1
+          },
+          "pairExamples": [
+            {
+              "key": "1|1*2||||1*3||",
+              "a": "2409:662",
+              "b": "425:86",
+              "aValue": 0,
+              "bValue": -1,
+              "aCounts": [
+                {
+                  "type": "T01153",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T01155",
+                  "width": 1,
+                  "count": 3
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T01153",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T01152",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T01155",
+                  "width": 1,
+                  "count": 1
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T01155",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T01152",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "0|",
+              "a": "425:598",
+              "b": "451:2108",
+              "aValue": 1,
+              "bValue": 0,
+              "aCounts": [
+                {
+                  "type": "T01151",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T01155",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T01153",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T01155",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T01151",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T01153",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "0|1*1||||1*3||",
+              "a": "2345:662",
+              "b": "291:92",
+              "aValue": 0,
+              "bValue": 1,
+              "aCounts": [
+                {
+                  "type": "T01137",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T01155",
+                  "width": 1,
+                  "count": 3
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T01137",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T01152",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T01155",
+                  "width": 1,
+                  "count": 1
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T01155",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T01152",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "1|1*1||6||1*2|4|",
+              "a": "837:58",
+              "b": "51:76",
+              "aValue": 0,
+              "bValue": -1,
+              "aCounts": [
+                {
+                  "type": "T01141",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T01151",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T01155",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T01141",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T01151",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T01152",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T01155",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T01152",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "0|1*2||||1*2||4",
+              "a": "453:1082",
+              "b": "75:180",
+              "aValue": 0,
+              "bValue": 1,
+              "aCounts": [
+                {
+                  "type": "T01153",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T01154",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T01155",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T01153",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T01154",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T01151",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T01155",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T01151",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "0|1*1||4||1*3||",
+              "a": "331:1588",
+              "b": "549:90",
+              "aValue": -1,
+              "bValue": 1,
+              "aCounts": [
+                {
+                  "type": "T01140",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T01155",
+                  "width": 1,
+                  "count": 3
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T01140",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T01151",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T01155",
+                  "width": 1,
+                  "count": 1
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T01155",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T01151",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "1|1*0||4||1*3||",
+              "a": "2125:1424",
+              "b": "549:82",
+              "aValue": -1,
+              "bValue": 1,
+              "aCounts": [
+                {
+                  "type": "T00769",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T01155",
+                  "width": 1,
+                  "count": 3
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T00769",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T01151",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T01155",
+                  "width": 1,
+                  "count": 1
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T01155",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T01151",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "1|1*1|4|||1*2|4|",
+              "a": "2597:154",
+              "b": "165:74",
+              "aValue": 0,
+              "bValue": -1,
+              "aCounts": [
+                {
+                  "type": "T01128",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T01151",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T01155",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T01128",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T01154",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T01151",
+                  "width": 1,
+                  "count": 1
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T01155",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T01154",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "0|1*1||6||1*1|6|",
+              "a": "581:1066",
+              "b": "35:76",
+              "aValue": 0,
+              "bValue": 1,
+              "aCounts": [
+                {
+                  "type": "T01141",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T01133",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T01155",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T01141",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T01133",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T01152",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T01155",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T01152",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            }
+          ]
+        },
+        {
+          "id": "MOD2_P_WIN",
+          "classes": 1438,
+          "QF_component_transport": false,
+          "QV": false,
+          "mixedValueGroups": 3,
+          "minPairUnits": 2,
+          "firstFutureFailure": {
+            "key": "0|1*1|2|||1*3|||W1",
+            "a": "361:1558",
+            "b": "101:538",
+            "aInterface": "m0|1|2|=>T:P0",
+            "bInterface": "m0|1|2|=>T:P0||m0|2|4|=>T:P0||m0|2|4|=>T:P0"
+          },
+          "firstValueFailure": {
+            "key": "1|1*2||||1*3|||W0",
+            "a": "2409:662",
+            "b": "361:150",
+            "aValue": 0,
+            "bValue": 1
+          },
+          "pairExamples": [
+            {
+              "key": "1|1*2||||1*3|||W0",
+              "a": "2409:662",
+              "b": "361:150",
+              "aValue": 0,
+              "bValue": 1,
+              "aCounts": [
+                {
+                  "type": "T01153",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T01155",
+                  "width": 1,
+                  "count": 3
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T01153",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T01151",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T01155",
+                  "width": 1,
+                  "count": 1
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T01155",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T01151",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "0||W0",
+              "a": "451:2108",
+              "b": "203:2612",
+              "aValue": 0,
+              "bValue": -1,
+              "aCounts": [
+                {
+                  "type": "T01153",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T01155",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T01154",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T01155",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T01153",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T01154",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "1|1*0||4||1*3|||W0",
+              "a": "2125:1424",
+              "b": "549:82",
+              "aValue": -1,
+              "bValue": 1,
+              "aCounts": [
+                {
+                  "type": "T00769",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T01155",
+                  "width": 1,
+                  "count": 3
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T00769",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T01151",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T01155",
+                  "width": 1,
+                  "count": 1
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T01155",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T01151",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            }
+          ]
+        },
+        {
+          "id": "MOD2_P_TACTICAL",
+          "classes": 1441,
+          "QF_component_transport": false,
+          "QV": true,
+          "mixedValueGroups": 0,
+          "minPairUnits": null,
+          "firstFutureFailure": {
+            "key": "0|1*1|2|||1*3|||TW",
+            "a": "361:1558",
+            "b": "101:538",
+            "aInterface": "m0|1|2|=>T:P0",
+            "bInterface": "m0|1|2|=>T:P0||m0|2|4|=>T:P0||m0|2|4|=>T:P0"
+          },
+          "firstValueFailure": null,
+          "pairExamples": []
+        },
+        {
+          "id": "MOD2_P_TACTICAL2",
+          "classes": 1441,
+          "QF_component_transport": false,
+          "QV": true,
+          "mixedValueGroups": 0,
+          "minPairUnits": null,
+          "firstFutureFailure": {
+            "key": "0|1*1|2|||1*3|||T2W",
+            "a": "361:1558",
+            "b": "101:538",
+            "aInterface": "m0|1|2|=>T:P0",
+            "bInterface": "m0|1|2|=>T:P0||m0|2|4|=>T:P0||m0|2|4|=>T:P0"
+          },
+          "firstValueFailure": null,
+          "pairExamples": []
+        },
+        {
+          "id": "MOD3_P",
+          "classes": 1466,
+          "QF_component_transport": true,
+          "QV": true,
+          "mixedValueGroups": 0,
+          "minPairUnits": null,
+          "firstFutureFailure": null,
+          "firstValueFailure": null,
+          "pairExamples": []
+        },
+        {
+          "id": "MOD4_P",
+          "classes": 1466,
+          "QF_component_transport": true,
+          "QV": true,
+          "mixedValueGroups": 0,
+          "minPairUnits": null,
+          "firstFutureFailure": null,
+          "firstValueFailure": null,
+          "pairExamples": []
+        }
+      ]
+    },
+    {
+      "label": "4x4-k3",
+      "width": 4,
+      "height": 4,
+      "k": 3,
+      "physicalStates": 41750,
+      "nonterminalStates": 23930,
+      "componentTypes": 7123,
+      "componentHistogram": {
+        "1": 4257,
+        "2": 7238,
+        "3": 5919,
+        "4": 6516
+      },
+      "componentMultiplicityHistogram": {
+        "1": 41660,
+        "2": 7933,
+        "3": 1676
+      },
+      "maxComponents": 4,
+      "maxSameTypeMultiplicity": 3,
+      "immediateWinStates": 16100,
+      "tacticalCounts": {
+        "W": 16100,
+        "L": 1925,
+        "O": 5905
+      },
+      "tactical2Counts": {
+        "W": 16100,
+        "L2": 3477,
+        "O": 4353
+      },
+      "results": [
+        {
+          "id": "MULTI",
+          "classes": 8134,
+          "QF_component_transport": true,
+          "QV": true,
+          "mixedValueGroups": 0,
+          "minPairUnits": null,
+          "firstFutureFailure": null,
+          "firstValueFailure": null,
+          "pairExamples": []
+        },
+        {
+          "id": "MOD2_P",
+          "classes": 8084,
+          "QF_component_transport": false,
+          "QV": false,
+          "mixedValueGroups": 6,
+          "minPairUnits": 2,
+          "firstFutureFailure": {
+            "key": "0|1*0|1.2.4|||1*4||",
+            "a": "2827:45232",
+            "b": "102:8721",
+            "aInterface": "m0|0|1.2.4|=>T:P0",
+            "bInterface": "m0|0|1.2.4|=>T:P0||m0|2|4|=>T:P0||m0|2|4|=>T:P0"
+          },
+          "firstValueFailure": {
+            "key": "0|1*3||||1*3||8",
+            "a": "9155:7228",
+            "b": "725:3370",
+            "aValue": 0,
+            "bValue": 1
+          },
+          "pairExamples": [
+            {
+              "key": "0|1*3||||1*3||8",
+              "a": "9155:7228",
+              "b": "725:3370",
+              "aValue": 0,
+              "bValue": 1,
+              "aCounts": [
+                {
+                  "type": "T07120",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07121",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07122",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T07120",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07121",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07118",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T07122",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T07118",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "1|1*3||||1*4||",
+              "a": "41923:7228",
+              "b": "1483:6708",
+              "aValue": 0,
+              "bValue": -1,
+              "aCounts": [
+                {
+                  "type": "T07120",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07122",
+                  "width": 1,
+                  "count": 3
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T07120",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07119",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T07122",
+                  "width": 1,
+                  "count": 1
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T07122",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T07119",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "0|",
+              "a": "9027:4284",
+              "b": "33731:7228",
+              "aValue": 1,
+              "bValue": 0,
+              "aCounts": [
+                {
+                  "type": "T07095",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T07122",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T07120",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T07122",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T07095",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T07120",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "0|1*2||||1*4||",
+              "a": "49603:7228",
+              "b": "1227:35380",
+              "aValue": 0,
+              "bValue": 1,
+              "aCounts": [
+                {
+                  "type": "T07105",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07122",
+                  "width": 1,
+                  "count": 3
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T07105",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07119",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T07122",
+                  "width": 1,
+                  "count": 1
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T07122",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T07119",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "1|1*1||6.8||1*4||",
+              "a": "25413:5178",
+              "b": "8789:1322",
+              "aValue": -1,
+              "bValue": 1,
+              "aCounts": [
+                {
+                  "type": "T06525",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07122",
+                  "width": 1,
+                  "count": 3
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T06525",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07118",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T07122",
+                  "width": 1,
+                  "count": 1
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T07122",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T07118",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "0|1*2||8||1*4||",
+              "a": "25413:5306",
+              "b": "8789:1450",
+              "aValue": -1,
+              "bValue": 1,
+              "aCounts": [
+                {
+                  "type": "T07109",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07122",
+                  "width": 1,
+                  "count": 3
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T07109",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07118",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T07122",
+                  "width": 1,
+                  "count": 1
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T07122",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T07118",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            }
+          ]
+        },
+        {
+          "id": "MOD2_P_WIN",
+          "classes": 8089,
+          "QF_component_transport": false,
+          "QV": false,
+          "mixedValueGroups": 3,
+          "minPairUnits": 2,
+          "firstFutureFailure": {
+            "key": "0|1*0|1.2.4|||1*4|||W1",
+            "a": "2827:45232",
+            "b": "102:8721",
+            "aInterface": "m0|0|1.2.4|=>T:P0",
+            "bInterface": "m0|0|1.2.4|=>T:P0||m0|2|4|=>T:P0||m0|2|4|=>T:P0"
+          },
+          "firstValueFailure": {
+            "key": "1|1*3||||1*4|||W0",
+            "a": "41923:7228",
+            "b": "33493:3370",
+            "aValue": 0,
+            "bValue": 1
+          },
+          "pairExamples": [
+            {
+              "key": "1|1*3||||1*4|||W0",
+              "a": "41923:7228",
+              "b": "33493:3370",
+              "aValue": 0,
+              "bValue": 1,
+              "aCounts": [
+                {
+                  "type": "T07120",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07122",
+                  "width": 1,
+                  "count": 3
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T07120",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07118",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T07122",
+                  "width": 1,
+                  "count": 1
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T07122",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T07118",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "0||W0",
+              "a": "33731:7228",
+              "b": "35177:5782",
+              "aValue": 0,
+              "bValue": -1,
+              "aCounts": [
+                {
+                  "type": "T07120",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T07122",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T07121",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T07122",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T07120",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T07121",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "1|1*1||6.8||1*4|||W0",
+              "a": "25413:5178",
+              "b": "8789:1322",
+              "aValue": -1,
+              "bValue": 1,
+              "aCounts": [
+                {
+                  "type": "T06525",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07122",
+                  "width": 1,
+                  "count": 3
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T06525",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07118",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T07122",
+                  "width": 1,
+                  "count": 1
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T07122",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T07118",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            }
+          ]
+        },
+        {
+          "id": "MOD2_P_TACTICAL",
+          "classes": 8092,
+          "QF_component_transport": false,
+          "QV": true,
+          "mixedValueGroups": 0,
+          "minPairUnits": null,
+          "firstFutureFailure": {
+            "key": "0|1*0|1.2.4|||1*4|||TW",
+            "a": "2827:45232",
+            "b": "102:8721",
+            "aInterface": "m0|0|1.2.4|=>T:P0",
+            "bInterface": "m0|0|1.2.4|=>T:P0||m0|2|4|=>T:P0||m0|2|4|=>T:P0"
+          },
+          "firstValueFailure": null,
+          "pairExamples": []
+        },
+        {
+          "id": "MOD2_P_TACTICAL2",
+          "classes": 8092,
+          "QF_component_transport": false,
+          "QV": true,
+          "mixedValueGroups": 0,
+          "minPairUnits": null,
+          "firstFutureFailure": {
+            "key": "0|1*0|1.2.4|||1*4|||T2W",
+            "a": "2827:45232",
+            "b": "102:8721",
+            "aInterface": "m0|0|1.2.4|=>T:P0",
+            "bInterface": "m0|0|1.2.4|=>T:P0||m0|2|4|=>T:P0||m0|2|4|=>T:P0"
+          },
+          "firstValueFailure": null,
+          "pairExamples": []
+        },
+        {
+          "id": "MOD3_P",
+          "classes": 8134,
+          "QF_component_transport": true,
+          "QV": true,
+          "mixedValueGroups": 0,
+          "minPairUnits": null,
+          "firstFutureFailure": null,
+          "firstValueFailure": null,
+          "pairExamples": []
+        },
+        {
+          "id": "MOD4_P",
+          "classes": 8134,
+          "QF_component_transport": true,
+          "QV": true,
+          "mixedValueGroups": 0,
+          "minPairUnits": null,
+          "firstFutureFailure": null,
+          "firstValueFailure": null,
+          "pairExamples": []
+        }
+      ]
+    },
+    {
+      "label": "4x4-k4",
+      "width": 4,
+      "height": 4,
+      "k": 4,
+      "physicalStates": 161029,
+      "nonterminalStates": 134289,
+      "componentTypes": 7757,
+      "componentHistogram": {
+        "1": 6513,
+        "2": 16394,
+        "3": 23474,
+        "4": 87908
+      },
+      "componentMultiplicityHistogram": {
+        "1": 224715,
+        "2": 70920,
+        "3": 31328,
+        "4": 204
+      },
+      "maxComponents": 4,
+      "maxSameTypeMultiplicity": 4,
+      "immediateWinStates": 24685,
+      "tacticalCounts": {
+        "W": 24685,
+        "L": 1746,
+        "O": 107858
+      },
+      "tactical2Counts": {
+        "W": 24685,
+        "L2": 4154,
+        "O": 105450
+      },
+      "results": [
+        {
+          "id": "MULTI",
+          "classes": 9308,
+          "QF_component_transport": true,
+          "QV": true,
+          "mixedValueGroups": 0,
+          "minPairUnits": null,
+          "firstFutureFailure": null,
+          "firstValueFailure": null,
+          "pairExamples": []
+        },
+        {
+          "id": "MOD2_P",
+          "classes": 9117,
+          "QF_component_transport": false,
+          "QV": false,
+          "mixedValueGroups": 8,
+          "minPairUnits": 2,
+          "firstFutureFailure": {
+            "key": "1|1*1||2||1*4||",
+            "a": "18183:12408",
+            "b": "4877:1138",
+            "aInterface": "m0|1||2=>T:P1",
+            "bInterface": "m0|1||2=>T:P1||m0|3||=>N:0|1*1||2||1*3||||m0|3||=>N:0|1*1||2||1*3||"
+          },
+          "firstValueFailure": {
+            "key": "0|",
+            "a": "1927:14456",
+            "b": "1955:22620",
+            "aValue": 0,
+            "bValue": 1
+          },
+          "pairExamples": [
+            {
+              "key": "0|",
+              "a": "1927:14456",
+              "b": "1955:22620",
+              "aValue": 0,
+              "bValue": 1,
+              "aCounts": [
+                {
+                  "type": "T07754",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T07756",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T07752",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T07756",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T07754",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T07752",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "1|1*3||||1*4||",
+              "a": "18311:14456",
+              "b": "1955:6236",
+              "aValue": 0,
+              "bValue": 1,
+              "aCounts": [
+                {
+                  "type": "T07754",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07756",
+                  "width": 1,
+                  "count": 3
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T07754",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07752",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T07756",
+                  "width": 1,
+                  "count": 1
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T07756",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T07752",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "0|1*2||||1*4||",
+              "a": "17223:13496",
+              "b": "17797:634",
+              "aValue": 0,
+              "bValue": -1,
+              "aCounts": [
+                {
+                  "type": "T07747",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07756",
+                  "width": 1,
+                  "count": 3
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T07747",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07755",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T07756",
+                  "width": 1,
+                  "count": 1
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T07756",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T07755",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "1|1*2|4|||1*3||",
+              "a": "10115:4220",
+              "b": "3619:220",
+              "aValue": 0,
+              "bValue": 1,
+              "aCounts": [
+                {
+                  "type": "T07742",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07754",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07756",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T07742",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07754",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07752",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T07756",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T07752",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "1|1*2||||1*3||",
+              "a": "9155:5180",
+              "b": "619:1428",
+              "aValue": 0,
+              "bValue": 1,
+              "aCounts": [
+                {
+                  "type": "T07747",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07754",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07756",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T07747",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07754",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07752",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T07756",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T07752",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "1|1*3|8|||1*4||",
+              "a": "3399:4792",
+              "b": "1643:18836",
+              "aValue": 0,
+              "bValue": 1,
+              "aCounts": [
+                {
+                  "type": "T07754",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T07752",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07756",
+                  "width": 1,
+                  "count": 1
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T07752",
+                  "width": 1,
+                  "count": 3
+                },
+                {
+                  "type": "T07756",
+                  "width": 1,
+                  "count": 1
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T07754",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T07752",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "0|1*2||4||1*4||",
+              "a": "1415:6264",
+              "b": "8371:1868",
+              "aValue": 0,
+              "bValue": -1,
+              "aCounts": [
+                {
+                  "type": "T07749",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07754",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T07756",
+                  "width": 1,
+                  "count": 1
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T07749",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07755",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T07756",
+                  "width": 1,
+                  "count": 1
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T07754",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T07755",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "1|1*2,3|144|",
+              "a": "2349:722",
+              "b": "619:2452",
+              "aValue": 0,
+              "bValue": 1,
+              "aCounts": [
+                {
+                  "type": "T07698",
+                  "width": 2,
+                  "count": 1
+                },
+                {
+                  "type": "T07754",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T07698",
+                  "width": 2,
+                  "count": 1
+                },
+                {
+                  "type": "T07752",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T07754",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T07752",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            }
+          ]
+        },
+        {
+          "id": "MOD2_P_WIN",
+          "classes": 9120,
+          "QF_component_transport": false,
+          "QV": false,
+          "mixedValueGroups": 8,
+          "minPairUnits": 2,
+          "firstFutureFailure": {
+            "key": "1|1*1||2||1*4|||W1",
+            "a": "18183:12408",
+            "b": "4877:1138",
+            "aInterface": "m0|1||2=>T:P1",
+            "bInterface": "m0|1||2=>T:P1||m0|3||=>N:0|1*1||2||1*3|||W0||m0|3||=>N:0|1*1||2||1*3|||W0"
+          },
+          "firstValueFailure": {
+            "key": "0||W0",
+            "a": "1927:14456",
+            "b": "43425:1630",
+            "aValue": 0,
+            "bValue": -1
+          },
+          "pairExamples": [
+            {
+              "key": "0||W0",
+              "a": "1927:14456",
+              "b": "43425:1630",
+              "aValue": 0,
+              "bValue": -1,
+              "aCounts": [
+                {
+                  "type": "T07754",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T07756",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T07755",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T07756",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T07754",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T07755",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "1|1*3||||1*4|||W0",
+              "a": "18311:14456",
+              "b": "1955:6236",
+              "aValue": 0,
+              "bValue": 1,
+              "aCounts": [
+                {
+                  "type": "T07754",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07756",
+                  "width": 1,
+                  "count": 3
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T07754",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07752",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T07756",
+                  "width": 1,
+                  "count": 1
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T07756",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T07752",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "0|1*2||||1*4|||W0",
+              "a": "17223:13496",
+              "b": "17797:634",
+              "aValue": 0,
+              "bValue": -1,
+              "aCounts": [
+                {
+                  "type": "T07747",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07756",
+                  "width": 1,
+                  "count": 3
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T07747",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07755",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T07756",
+                  "width": 1,
+                  "count": 1
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T07756",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T07755",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "1|1*2|4|||1*3|||W0",
+              "a": "10115:4220",
+              "b": "3619:220",
+              "aValue": 0,
+              "bValue": 1,
+              "aCounts": [
+                {
+                  "type": "T07742",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07754",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07756",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T07742",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07754",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07752",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T07756",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T07752",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "1|1*2||||1*3|||W0",
+              "a": "9155:5180",
+              "b": "619:1428",
+              "aValue": 0,
+              "bValue": 1,
+              "aCounts": [
+                {
+                  "type": "T07747",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07754",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07756",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T07747",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07754",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07752",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T07756",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T07752",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "1|1*3|8|||1*4|||W0",
+              "a": "3399:4792",
+              "b": "1643:18836",
+              "aValue": 0,
+              "bValue": 1,
+              "aCounts": [
+                {
+                  "type": "T07754",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T07752",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07756",
+                  "width": 1,
+                  "count": 1
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T07752",
+                  "width": 1,
+                  "count": 3
+                },
+                {
+                  "type": "T07756",
+                  "width": 1,
+                  "count": 1
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T07754",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T07752",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "0|1*2||4||1*4|||W0",
+              "a": "1415:6264",
+              "b": "8371:1868",
+              "aValue": 0,
+              "bValue": -1,
+              "aCounts": [
+                {
+                  "type": "T07749",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07754",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T07756",
+                  "width": 1,
+                  "count": 1
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T07749",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T07755",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T07756",
+                  "width": 1,
+                  "count": 1
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T07754",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T07755",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "1|1*2,3|144||W0",
+              "a": "2349:722",
+              "b": "619:2452",
+              "aValue": 0,
+              "bValue": 1,
+              "aCounts": [
+                {
+                  "type": "T07698",
+                  "width": 2,
+                  "count": 1
+                },
+                {
+                  "type": "T07754",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T07698",
+                  "width": 2,
+                  "count": 1
+                },
+                {
+                  "type": "T07752",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T07754",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T07752",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            }
+          ]
+        },
+        {
+          "id": "MOD2_P_TACTICAL",
+          "classes": 9128,
+          "QF_component_transport": false,
+          "QV": true,
+          "mixedValueGroups": 0,
+          "minPairUnits": null,
+          "firstFutureFailure": {
+            "key": "1|1*1||2||1*4|||TW",
+            "a": "18183:12408",
+            "b": "4877:1138",
+            "aInterface": "m0|1||2=>T:P1",
+            "bInterface": "m0|1||2=>T:P1||m0|3||=>N:0|1*1||2||1*3|||TO||m0|3||=>N:0|1*1||2||1*3|||TO"
+          },
+          "firstValueFailure": null,
+          "pairExamples": []
+        },
+        {
+          "id": "MOD2_P_TACTICAL2",
+          "classes": 9134,
+          "QF_component_transport": false,
+          "QV": true,
+          "mixedValueGroups": 0,
+          "minPairUnits": null,
+          "firstFutureFailure": {
+            "key": "1|1*1||2||1*4|||T2W",
+            "a": "18183:12408",
+            "b": "4877:1138",
+            "aInterface": "m0|1||2=>T:P1",
+            "bInterface": "m0|1||2=>T:P1||m0|3||=>N:0|1*1||2||1*3|||T2O||m0|3||=>N:0|1*1||2||1*3|||T2O"
+          },
+          "firstValueFailure": null,
+          "pairExamples": []
+        },
+        {
+          "id": "MOD3_P",
+          "classes": 9307,
+          "QF_component_transport": false,
+          "QV": false,
+          "mixedValueGroups": 1,
+          "minPairUnits": 3,
+          "firstFutureFailure": {
+            "key": "1|1*4||",
+            "a": "2891:5300",
+            "b": "1643:18836",
+            "aInterface": "m0|3||=>N:0|2*3||||2*4||||m0|3||=>N:0|2*3||||2*4||||m0|3||=>N:0|2*3||||2*4||",
+            "bInterface": "m0|3|8|=>N:0|2*3|8|||2*4||||m0|3|8|=>N:0|2*3|8|||2*4||||m0|3|8|=>N:0|2*3|8|||2*4||"
+          },
+          "firstValueFailure": {
+            "key": "1|1*4||",
+            "a": "2891:5300",
+            "b": "1643:18836",
+            "aValue": 0,
+            "bValue": 1
+          },
+          "pairExamples": [
+            {
+              "key": "1|1*4||",
+              "a": "2891:5300",
+              "b": "1643:18836",
+              "aValue": 0,
+              "bValue": 1,
+              "aCounts": [
+                {
+                  "type": "T07754",
+                  "width": 1,
+                  "count": 3
+                },
+                {
+                  "type": "T07756",
+                  "width": 1,
+                  "count": 1
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T07752",
+                  "width": 1,
+                  "count": 3
+                },
+                {
+                  "type": "T07756",
+                  "width": 1,
+                  "count": 1
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T07754",
+                  "width": 1,
+                  "delta": -3
+                },
+                {
+                  "type": "T07752",
+                  "width": 1,
+                  "delta": 3
+                }
+              ],
+              "pairUnits": 3
+            }
+          ]
+        },
+        {
+          "id": "MOD4_P",
+          "classes": 9308,
+          "QF_component_transport": true,
+          "QV": true,
+          "mixedValueGroups": 0,
+          "minPairUnits": null,
+          "firstFutureFailure": null,
+          "firstValueFailure": null,
+          "pairExamples": []
+        }
+      ]
+    }
+  ],
+  "crossCase": {
+    "multisetQFAll": true,
+    "multisetQVAll": true,
+    "parityQVAll": false,
+    "parityPlusImmediateWinQVAll": false,
+    "parityPlusTacticalQVAll": false,
+    "parityPlusTactical2QVAll": true,
+    "parityPlusImmediateWinQFAll": false,
+    "mod3QVAll": false,
+    "parityFailures": [
+      "3x3-k3",
+      "3x4-k3",
+      "4x3-k3",
+      "4x4-k3",
+      "4x4-k4"
+    ],
+    "parityPlusImmediateWinFailures": [
+      "3x3-k3",
+      "3x4-k3",
+      "4x3-k3",
+      "4x4-k3",
+      "4x4-k4"
+    ],
+    "parityPlusTacticalFailures": [
+      "3x3-k3"
+    ],
+    "parityPlusTactical2Failures": [],
+    "mod3Failures": [
+      "4x4-k4"
+    ]
+  },
+  "interpretationGuard": [
+    "Component definition was frozen from 4x4-k4 before observing these cross-case component results.",
+    "MOD2_P failure rejects self-cancelling XOR only before the tested exact terminal-opportunity extraction.",
+    "MOD2_P_WIN records the failed immediate-win-only reduction.",
+    "MOD2_P_TACTICAL records the double-immediate-threat reduction.",
+    "MOD2_P_TACTICAL2 adds an exact evaluator short-circuit for positions where every legal nonwinning move gives the opponent an immediate win next.",
+    "Cross-case variation is evidence about when multiplicity becomes load-bearing, not permission to patch the valuation by geometry-specific labels."
+  ]
+}
