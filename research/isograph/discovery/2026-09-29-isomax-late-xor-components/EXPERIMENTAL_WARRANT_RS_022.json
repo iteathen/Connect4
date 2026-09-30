@@ -1,0 +1,53 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.rank_local_t2.v1",
+  "id": "EW-RS-022",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "parents": [
+    "EW-RS-018",
+    "EW-RS-021"
+  ],
+  "objective": "Determine whether the frozen T2 tactical reducer can be recognized directly from current-rank support and residual-singleton structure, eliminating ordinary child-state exploration from the candidate Q-V phase factorization.",
+  "frozen_t2_reference": "W if current mover has an immediate win; otherwise L2 if every legal nonwinning move leaves an immediate opponent win; otherwise O.",
+  "candidate_direct_law": [
+    "Let F be the current legal placement frontier, one open cell per nonfull column.",
+    "W iff a current-mover singleton residual lies in F.",
+    "Otherwise, for a legal move in column c replace that column's frontier cell by the next cell above it, if any, leaving all other frontier cells unchanged.",
+    "The move releases an immediate opponent win iff the resulting frontier intersects the opponent's current singleton-residual cells.",
+    "L2 iff every legal move has that intersection; otherwise O."
+  ],
+  "tests": [
+    {
+      "id": "QO_DIRECT",
+      "question": "Does the direct current-rank law equal child-derived T2 using exact q_o residuals?"
+    },
+    {
+      "id": "RFG_DIRECT",
+      "question": "Does the same direct law remain exact after the frozen R/F/G safe-forgetting reduction?"
+    }
+  ],
+  "cases": [
+    "3x3-k3",
+    "3x4-k3",
+    "4x3-k3",
+    "4x4-k4",
+    "4x4-k3",
+    "3x5-k3",
+    "5x3-k3",
+    "3x6-k3"
+  ],
+  "anti_circularity": [
+    "The direct law uses only current support, current residual singleton cells, and mover/rank.",
+    "It does not inspect generated child positions.",
+    "The child-derived T2 implementation is used only as an equality oracle after the direct law is frozen.",
+    "No W/D/L value labels participate in the direct law."
+  ],
+  "falsifiers": [
+    "Any QO_DIRECT mismatch falsifies the proposed rank-local T2 characterization.",
+    "Any RFG_DIRECT mismatch shows that safe forgetting removed tactical singleton information needed by this direct reducer, even if QO_DIRECT passes."
+  ],
+  "nonclaims": [
+    "A pass establishes recognition of this bounded T2 reducer, not sufficiency of T2 for exact value by itself.",
+    "A pass does not establish standard-7x6 qualification."
+  ]
+}
