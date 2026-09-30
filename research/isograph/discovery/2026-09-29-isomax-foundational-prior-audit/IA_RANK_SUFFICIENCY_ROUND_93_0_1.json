@@ -1,0 +1,55 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_round.v1",
+  "round": 93,
+  "date_author_local": "2026-09-30",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_92_FIXED_POINT_0_1.json",
+    "RANK_SUFFICIENCY_CAPACITY_STAR_LINK_INTEGRATION_0_1.json"
+  ],
+  "reopened_reason": "RS094 isolates one sufficient individual star link.",
+  "new_assertions": [
+    {
+      "id": "RS-IA307",
+      "family": "F",
+      "source": "RS-F295",
+      "body": "RS094 freezes all16 individual capacity-star edge subsets. Exactly masks8–15 pass. The unique minimal subset is capacity versus positive-depth owner1 sign correlation, pooled rank342, with individual ranks71/260/13. Full-star rank350 reconstructs."
+    },
+    {
+      "id": "RS-IA308",
+      "family": "M",
+      "source": "RS-F296",
+      "body": "Given T_i and |N_i|, the zero/nonzero status of sign(N_C)*sign(N_P1) is known. The remaining correlation information is one Boolean per pair. This does not establish a one-bit scalar correction: the qualified assembly still uses one-hot sorted triangle labels."
+    },
+    {
+      "id": "RS-IA309",
+      "family": "Q",
+      "source": "RS-F297",
+      "body": "Owner1 denotes the fixed r1 residual source channel, not automatically the mover or opponent. The selected link has bounded grid minimality only; no universal player preference or closed scalar formula follows."
+    },
+    {
+      "id": "RS-IA310",
+      "family": "R",
+      "body": "A pair relation can be informationally one bit while its association to3 different marginal pair records remains load-bearing. Replacing paired labels with a symmetric aggregate is a new structural hypothesis and needs its own qualification."
+    }
+  ],
+  "qu_refinements": [
+    {
+      "id": "RS-QR069",
+      "target": [
+        "QU-RS-004",
+        "QU-RS-008",
+        "QU-RS-010"
+      ],
+      "add_fixed": [
+        "RS094 freezes all16 individual capacity-star edge subsets. Exactly masks8–15 pass. The unique minimal subset is capacity versus positive-depth owner1 sign correlation, pooled rank342, with individual ranks71/260/13. Full-star rank350 reconstructs.",
+        "Given T_i and |N_i|, the zero/nonzero status of sign(N_C)*sign(N_P1) is known. The remaining correlation information is one Boolean per pair. This does not establish a one-bit scalar correction: the qualified assembly still uses one-hot sorted triangle labels.",
+        "Owner1 denotes the fixed r1 residual source channel, not automatically the mover or opponent. The selected link has bounded grid minimality only; no universal player preference or closed scalar formula follows.",
+        "A pair relation can be informationally one bit while its association to3 different marginal pair records remains load-bearing. Replacing paired labels with a symmetric aggregate is a new structural hypothesis and needs its own qualification."
+      ],
+      "retain_open": [
+        "Elementary symmetric GF(2) circuits e1,e2,e3 of3 pair-correlation Boolean bits; positive and negative encodings; all8 degree subsets, with and without the fixed marginal triangle carrier, constant feature included."
+      ]
+    }
+  ],
+  "stop_status": "REOPENED__SYMMETRIC_TRIANGLE_CIRCUITS_NEXT"
+}

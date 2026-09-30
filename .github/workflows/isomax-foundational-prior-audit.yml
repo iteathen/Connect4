@@ -44,6 +44,8 @@ jobs:
         run: node research/isograph/discovery/2026-09-29-isomax-foundational-prior-audit/verify-pooled-native-campaign-integration.mjs
       - name: Verify endpoint and sign invariant integration
         run: node research/isograph/discovery/2026-09-29-isomax-foundational-prior-audit/verify-endpoint-sign-integration.mjs
+      - name: Verify capacity star link integration
+        run: node research/isograph/discovery/2026-09-29-isomax-foundational-prior-audit/verify-capacity-star-link-integration.mjs
       - name: Research integrity
         run: node tools/verify-research-integrity.mjs
       - name: Commit witness audit evidence
