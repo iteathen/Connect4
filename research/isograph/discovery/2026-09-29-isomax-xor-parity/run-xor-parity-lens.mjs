@@ -75,8 +75,7 @@ function analyze({width:W,height:H,k:K,label,role}){
    for(const [k,a] of groups){
      const f0=future.get(a[0].key),av0=JSON.stringify(actionValue.get(a[0].key)),v0=value.get(a[0].key);
      for(let i=1;i<a.length;i++){const x=a[i];if(qf&&future.get(x.key)!==f0){qf=false;ff={key:k,a:a[0].key,b:x.key,aFuture:f0,bFuture:future.get(x.key)};}const av=JSON.stringify(actionValue.get(x.key));if(qa&&av!==av0){qa=false;af={key:k,a:a[0].key,b:x.key};}if(qv&&value.get(x.key)!==v0){qv=false;vf={key:k,a:a[0].key,b:x.key,aValue:v0,bValue:value.get(x.key)};}}
-     const legal=a[0].ch.map(z=>z.c).sort((u,v)=>u-v);
-     for(const col of legal){let o0=null;for(const x of a){const e=x.ch.find(z=>z.c===col),y=nodes.get(e.key),o=y.t?'T:'+(y.w===0?'P0':y.w===1?'P1':'D'):'N:'+m.get(y.key);if(o0===null)o0=o;else if(closed&&o!==o0){closed=false;cf={key:k,col,a:a[0].key,b:x.key,aOutcome:o0,bOutcome:o};break;}}}
+     for(let col=0;col<W;col++){let o0=null;for(const x of a){const e=x.ch.find(z=>z.c===col);let o='I';if(e){const y=nodes.get(e.key);o=y.t?'T:'+(y.w===0?'P0':y.w===1?'P1':'D'):'N:'+m.get(y.key);}if(o0===null)o0=o;else if(closed&&o!==o0){closed=false;cf={key:k,col,a:a[0].key,b:x.key,aOutcome:o0,bOutcome:o};break;}}}
    }
    return{id,classes:groups.size,futureSufficient:qf,recursiveClosure:closed,actionValueSufficient:qa,scalarValueSufficient:qv,firstFutureFailure:ff,firstClosureFailure:cf,firstActionFailure:af,firstValueFailure:vf};
  }
