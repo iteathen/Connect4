@@ -1,0 +1,1437 @@
+{
+  "schema": "connect4.isomax.foundational_prior_audit.witness.v1",
+  "date_author_local": "2026-09-29",
+  "geometry": {
+    "width": 5,
+    "height": 4,
+    "k": 4,
+    "cells": 20,
+    "lineCounts": {
+      "H": 8,
+      "V": 5,
+      "D": 4,
+      "total": 17
+    }
+  },
+  "stateAudit": [
+    {
+      "key": "Q:1,1,3,3,4|96.3072.33824|67648.132160.229376.264224",
+      "rank": 12,
+      "mover": 0,
+      "residuals": 7,
+      "futureCellViolations": [],
+      "lexCanonical": true,
+      "numericCanonicalHash": "7ebb6f030d7875e28458f3309a9a4c0f8c13023ee39aeb3954494a8a8b26adcc"
+    },
+    {
+      "key": "Q:1,1,3,3,4|96.3072.33824|67648.132160.264224.360448",
+      "rank": 12,
+      "mover": 0,
+      "residuals": 7,
+      "futureCellViolations": [],
+      "lexCanonical": true,
+      "numericCanonicalHash": "2d8fbb8d50e3ee2fda90863d16a9a4d87fe0efc68014ef79c471920eb561b444"
+    },
+    {
+      "key": "Q:1,2,3,3,4|32.3072.67584|33824.133152.229376",
+      "rank": 13,
+      "mover": 1,
+      "residuals": 6,
+      "futureCellViolations": [],
+      "lexCanonical": true,
+      "numericCanonicalHash": "ab5b9b174e65497d989b358654a5cb77243f6f43820096a26bf32f890cb8381e"
+    },
+    {
+      "key": "Q:1,2,3,3,4|32.3072.67584|33824.133152.360448",
+      "rank": 13,
+      "mover": 1,
+      "residuals": 6,
+      "futureCellViolations": [],
+      "lexCanonical": true,
+      "numericCanonicalHash": "6e9108c5d6696b9ce5380e3c1159bc5fca7706fa19f961a6e7761dda3d4c3182"
+    },
+    {
+      "key": "Q:1,2,3,3,4|32.3072|133152.229376",
+      "rank": 13,
+      "mover": 1,
+      "residuals": 4,
+      "futureCellViolations": [],
+      "lexCanonical": true,
+      "numericCanonicalHash": "cc78f81122a59f457120c764b54c9574cb02d207676d5abf177a478802fb14f4"
+    },
+    {
+      "key": "Q:1,2,3,3,4|32.3072|133152.360448",
+      "rank": 13,
+      "mover": 1,
+      "residuals": 4,
+      "futureCellViolations": [],
+      "lexCanonical": true,
+      "numericCanonicalHash": "443b0b636472145b4b2e0194644e06f7a6feeb46a8e1b38503b2c96487932789"
+    },
+    {
+      "key": "Q:2,2,3,3,4|3072.33792|67584.132096.229376",
+      "rank": 14,
+      "mover": 0,
+      "residuals": 5,
+      "futureCellViolations": [],
+      "lexCanonical": true,
+      "numericCanonicalHash": "6505798499da989cd331d8c8af3bfc3520aad1e097bee538134f559bd1d02506"
+    },
+    {
+      "key": "Q:2,2,3,3,4|3072.33792|67584.132096.360448",
+      "rank": 14,
+      "mover": 0,
+      "residuals": 5,
+      "futureCellViolations": [],
+      "lexCanonical": true,
+      "numericCanonicalHash": "8af26ab87e2cf58a8900ea047261b25554ce88ec51d1bf1bf61dff4c453b1ba1"
+    },
+    {
+      "key": "Q:2,2,3,3,4|3072|132096.229376",
+      "rank": 14,
+      "mover": 0,
+      "residuals": 3,
+      "futureCellViolations": [],
+      "lexCanonical": true,
+      "numericCanonicalHash": "8463c416056dccec4695330340f8082d97697e11754f8c22a86d342e680df843"
+    },
+    {
+      "key": "Q:2,2,3,3,4|3072|132096.360448",
+      "rank": 14,
+      "mover": 0,
+      "residuals": 3,
+      "futureCellViolations": [],
+      "lexCanonical": true,
+      "numericCanonicalHash": "1631170667e2f6ec2be7e3a4423bfff708135239bb845563d0b3ab4330a65a82"
+    },
+    {
+      "key": "Q:2,3,3,3,4|1024|132096.229376",
+      "rank": 15,
+      "mover": 1,
+      "residuals": 3,
+      "futureCellViolations": [],
+      "lexCanonical": true,
+      "numericCanonicalHash": "efbf7ac198dc4c9eeb8fb68f53b74fccefe3c040a1651cbbf7edf4098ec72f78"
+    },
+    {
+      "key": "Q:2,3,3,3,4|1024|132096.360448",
+      "rank": 15,
+      "mover": 1,
+      "residuals": 3,
+      "futureCellViolations": [],
+      "lexCanonical": true,
+      "numericCanonicalHash": "97040f5324154633fda24339e18c885a8a89980c30a7e523729240055635939e"
+    }
+  ],
+  "closureAudit": {
+    "rows": [
+      {
+        "state": "Q:1,1,3,3,4|96.3072.33824|67648.132160.264224.360448",
+        "p": 0,
+        "m": 96,
+        "releaseDepths": [
+          1,
+          1
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:1,1,3,3,4|96.3072.33824|67648.132160.264224.360448",
+        "p": 0,
+        "m": 3072,
+        "releaseDepths": [
+          2,
+          2
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:1,1,3,3,4|96.3072.33824|67648.132160.264224.360448",
+        "p": 0,
+        "m": 33824,
+        "releaseDepths": [
+          1,
+          2,
+          3
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:1,1,3,3,4|96.3072.33824|67648.132160.264224.360448",
+        "p": 1,
+        "m": 67648,
+        "releaseDepths": [
+          1,
+          2,
+          3
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:1,1,3,3,4|96.3072.33824|67648.132160.264224.360448",
+        "p": 1,
+        "m": 132160,
+        "releaseDepths": [
+          1,
+          1,
+          2
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:1,1,3,3,4|96.3072.33824|67648.132160.264224.360448",
+        "p": 1,
+        "m": 264224,
+        "releaseDepths": [
+          1,
+          1,
+          2
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:1,1,3,3,4|96.3072.33824|67648.132160.264224.360448",
+        "p": 1,
+        "m": 360448,
+        "releaseDepths": [
+          1,
+          3,
+          3
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:1,2,3,3,4|32.3072.67584|33824.133152.360448",
+        "p": 0,
+        "m": 32,
+        "releaseDepths": [
+          1
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:1,2,3,3,4|32.3072.67584|33824.133152.360448",
+        "p": 0,
+        "m": 3072,
+        "releaseDepths": [
+          1,
+          2
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:1,2,3,3,4|32.3072.67584|33824.133152.360448",
+        "p": 0,
+        "m": 67584,
+        "releaseDepths": [
+          1,
+          2
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:1,2,3,3,4|32.3072.67584|33824.133152.360448",
+        "p": 1,
+        "m": 33824,
+        "releaseDepths": [
+          1,
+          2,
+          3
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:1,2,3,3,4|32.3072.67584|33824.133152.360448",
+        "p": 1,
+        "m": 133152,
+        "releaseDepths": [
+          1,
+          1,
+          1
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:1,2,3,3,4|32.3072.67584|33824.133152.360448",
+        "p": 1,
+        "m": 360448,
+        "releaseDepths": [
+          1,
+          2,
+          3
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:2,2,3,3,4|3072.33792|67584.132096.360448",
+        "p": 0,
+        "m": 3072,
+        "releaseDepths": [
+          1,
+          1
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:2,2,3,3,4|3072.33792|67584.132096.360448",
+        "p": 0,
+        "m": 33792,
+        "releaseDepths": [
+          1,
+          2
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:2,2,3,3,4|3072.33792|67584.132096.360448",
+        "p": 1,
+        "m": 67584,
+        "releaseDepths": [
+          1,
+          2
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:2,2,3,3,4|3072.33792|67584.132096.360448",
+        "p": 1,
+        "m": 132096,
+        "releaseDepths": [
+          1,
+          1
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:2,2,3,3,4|3072.33792|67584.132096.360448",
+        "p": 1,
+        "m": 360448,
+        "releaseDepths": [
+          1,
+          2,
+          2
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:2,3,3,3,4|1024|132096.360448",
+        "p": 0,
+        "m": 1024,
+        "releaseDepths": [
+          1
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:2,3,3,3,4|1024|132096.360448",
+        "p": 1,
+        "m": 132096,
+        "releaseDepths": [
+          1,
+          1
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:2,3,3,3,4|1024|132096.360448",
+        "p": 1,
+        "m": 360448,
+        "releaseDepths": [
+          1,
+          1,
+          2
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:1,1,3,3,4|96.3072.33824|67648.132160.229376.264224",
+        "p": 0,
+        "m": 96,
+        "releaseDepths": [
+          1,
+          1
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:1,1,3,3,4|96.3072.33824|67648.132160.229376.264224",
+        "p": 0,
+        "m": 3072,
+        "releaseDepths": [
+          2,
+          2
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:1,1,3,3,4|96.3072.33824|67648.132160.229376.264224",
+        "p": 0,
+        "m": 33824,
+        "releaseDepths": [
+          1,
+          2,
+          3
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:1,1,3,3,4|96.3072.33824|67648.132160.229376.264224",
+        "p": 1,
+        "m": 67648,
+        "releaseDepths": [
+          1,
+          2,
+          3
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:1,1,3,3,4|96.3072.33824|67648.132160.229376.264224",
+        "p": 1,
+        "m": 132160,
+        "releaseDepths": [
+          1,
+          1,
+          2
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:1,1,3,3,4|96.3072.33824|67648.132160.229376.264224",
+        "p": 1,
+        "m": 229376,
+        "releaseDepths": [
+          1,
+          3,
+          3
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:1,1,3,3,4|96.3072.33824|67648.132160.229376.264224",
+        "p": 1,
+        "m": 264224,
+        "releaseDepths": [
+          1,
+          1,
+          2
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:1,2,3,3,4|32.3072.67584|33824.133152.229376",
+        "p": 0,
+        "m": 32,
+        "releaseDepths": [
+          1
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:1,2,3,3,4|32.3072.67584|33824.133152.229376",
+        "p": 0,
+        "m": 3072,
+        "releaseDepths": [
+          1,
+          2
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:1,2,3,3,4|32.3072.67584|33824.133152.229376",
+        "p": 0,
+        "m": 67584,
+        "releaseDepths": [
+          1,
+          2
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:1,2,3,3,4|32.3072.67584|33824.133152.229376",
+        "p": 1,
+        "m": 33824,
+        "releaseDepths": [
+          1,
+          2,
+          3
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:1,2,3,3,4|32.3072.67584|33824.133152.229376",
+        "p": 1,
+        "m": 133152,
+        "releaseDepths": [
+          1,
+          1,
+          1
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:1,2,3,3,4|32.3072.67584|33824.133152.229376",
+        "p": 1,
+        "m": 229376,
+        "releaseDepths": [
+          1,
+          2,
+          3
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:2,2,3,3,4|3072.33792|67584.132096.229376",
+        "p": 0,
+        "m": 3072,
+        "releaseDepths": [
+          1,
+          1
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:2,2,3,3,4|3072.33792|67584.132096.229376",
+        "p": 0,
+        "m": 33792,
+        "releaseDepths": [
+          1,
+          2
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:2,2,3,3,4|3072.33792|67584.132096.229376",
+        "p": 1,
+        "m": 67584,
+        "releaseDepths": [
+          1,
+          2
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:2,2,3,3,4|3072.33792|67584.132096.229376",
+        "p": 1,
+        "m": 132096,
+        "releaseDepths": [
+          1,
+          1
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:2,2,3,3,4|3072.33792|67584.132096.229376",
+        "p": 1,
+        "m": 229376,
+        "releaseDepths": [
+          1,
+          2,
+          2
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:2,3,3,3,4|1024|132096.229376",
+        "p": 0,
+        "m": 1024,
+        "releaseDepths": [
+          1
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:2,3,3,3,4|1024|132096.229376",
+        "p": 1,
+        "m": 132096,
+        "releaseDepths": [
+          1,
+          1
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:2,3,3,3,4|1024|132096.229376",
+        "p": 1,
+        "m": 229376,
+        "releaseDepths": [
+          1,
+          1,
+          2
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:1,2,3,3,4|32.3072|133152.229376",
+        "p": 0,
+        "m": 32,
+        "releaseDepths": [
+          1
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:1,2,3,3,4|32.3072|133152.229376",
+        "p": 0,
+        "m": 3072,
+        "releaseDepths": [
+          1,
+          2
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:1,2,3,3,4|32.3072|133152.229376",
+        "p": 1,
+        "m": 133152,
+        "releaseDepths": [
+          1,
+          1,
+          1
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:1,2,3,3,4|32.3072|133152.229376",
+        "p": 1,
+        "m": 229376,
+        "releaseDepths": [
+          1,
+          2,
+          3
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:2,2,3,3,4|3072|132096.229376",
+        "p": 0,
+        "m": 3072,
+        "releaseDepths": [
+          1,
+          1
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:2,2,3,3,4|3072|132096.229376",
+        "p": 1,
+        "m": 132096,
+        "releaseDepths": [
+          1,
+          1
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:2,2,3,3,4|3072|132096.229376",
+        "p": 1,
+        "m": 229376,
+        "releaseDepths": [
+          1,
+          2,
+          2
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:1,2,3,3,4|32.3072|133152.360448",
+        "p": 0,
+        "m": 32,
+        "releaseDepths": [
+          1
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:1,2,3,3,4|32.3072|133152.360448",
+        "p": 0,
+        "m": 3072,
+        "releaseDepths": [
+          1,
+          2
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:1,2,3,3,4|32.3072|133152.360448",
+        "p": 1,
+        "m": 133152,
+        "releaseDepths": [
+          1,
+          1,
+          1
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:1,2,3,3,4|32.3072|133152.360448",
+        "p": 1,
+        "m": 360448,
+        "releaseDepths": [
+          1,
+          2,
+          3
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:2,2,3,3,4|3072|132096.360448",
+        "p": 0,
+        "m": 3072,
+        "releaseDepths": [
+          1,
+          1
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:2,2,3,3,4|3072|132096.360448",
+        "p": 1,
+        "m": 132096,
+        "releaseDepths": [
+          1,
+          1
+        ],
+        "greedy": true,
+        "matching": true
+      },
+      {
+        "state": "Q:2,2,3,3,4|3072|132096.360448",
+        "p": 1,
+        "m": 360448,
+        "releaseDepths": [
+          1,
+          2,
+          2
+        ],
+        "greedy": true,
+        "matching": true
+      }
+    ],
+    "greedyEqualsIndependentMatching": true,
+    "semanticLimit": "per-residual turn-slot feasibility, not full-game realizability"
+  },
+  "transitionReplay": {
+    "allSixSheetTransitionsReproduced": true,
+    "steps": [
+      {
+        "pathParity": 0,
+        "startSheet": 0,
+        "edgeId": 2723,
+        "from": 3483,
+        "to": 3008,
+        "column": 0,
+        "delta": 0,
+        "childMatches": true,
+        "canonicalizers": [
+          "1,0,2,3,4"
+        ],
+        "paritySet": [
+          1
+        ],
+        "stages": {
+          "raw": "2,1,3,3,4|64.3072.33792|67648.132160.360448",
+          "frontier": "2,1,3,3,4|64.3072.33792|67648.132160.360448",
+          "cap": "2,1,3,3,4|64.3072.33792|67648.132160.360448",
+          "release": "2,1,3,3,4|64.3072.33792|67648.132160.360448"
+        }
+      },
+      {
+        "pathParity": 0,
+        "startSheet": 0,
+        "edgeId": 2255,
+        "from": 3008,
+        "to": 152,
+        "column": 0,
+        "delta": 0,
+        "childMatches": true,
+        "canonicalizers": [
+          "1,0,2,3,4"
+        ],
+        "paritySet": [
+          1
+        ],
+        "stages": {
+          "raw": "2,2,3,3,4|3072.67584|33792.133120.360448",
+          "frontier": "2,2,3,3,4|3072.67584|33792.133120.360448",
+          "cap": "2,2,3,3,4|3072.67584|33792.133120.360448",
+          "release": "2,2,3,3,4|3072.67584|33792.133120.360448"
+        }
+      },
+      {
+        "pathParity": 0,
+        "startSheet": 0,
+        "edgeId": 59,
+        "from": 152,
+        "to": 153,
+        "column": 1,
+        "delta": 0,
+        "childMatches": true,
+        "canonicalizers": [
+          "0,1,2,3,4",
+          "0,3,2,1,4"
+        ],
+        "paritySet": [
+          0,
+          1
+        ],
+        "stages": {
+          "raw": "2,3,3,3,4|1024|132096.360448",
+          "frontier": "2,3,3,3,4|1024|132096.360448",
+          "cap": "2,3,3,3,4|1024|132096.360448",
+          "release": "2,3,3,3,4|1024|132096.360448"
+        }
+      },
+      {
+        "pathParity": 0,
+        "startSheet": 1,
+        "edgeId": 2723,
+        "from": 3483,
+        "to": 3008,
+        "column": 0,
+        "delta": 0,
+        "childMatches": true,
+        "canonicalizers": [
+          "1,0,2,3,4"
+        ],
+        "paritySet": [
+          1
+        ],
+        "stages": {
+          "raw": "2,1,3,3,4|64.3072.33792|67648.132160.229376",
+          "frontier": "2,1,3,3,4|64.3072.33792|67648.132160.229376",
+          "cap": "2,1,3,3,4|64.3072.33792|67648.132160.229376",
+          "release": "2,1,3,3,4|64.3072.33792|67648.132160.229376"
+        }
+      },
+      {
+        "pathParity": 0,
+        "startSheet": 1,
+        "edgeId": 2255,
+        "from": 3008,
+        "to": 152,
+        "column": 0,
+        "delta": 0,
+        "childMatches": true,
+        "canonicalizers": [
+          "1,0,2,3,4"
+        ],
+        "paritySet": [
+          1
+        ],
+        "stages": {
+          "raw": "2,2,3,3,4|3072.67584|33792.133120.229376",
+          "frontier": "2,2,3,3,4|3072.67584|33792.133120.229376",
+          "cap": "2,2,3,3,4|3072.67584|33792.133120.229376",
+          "release": "2,2,3,3,4|3072.67584|33792.133120.229376"
+        }
+      },
+      {
+        "pathParity": 0,
+        "startSheet": 1,
+        "edgeId": 59,
+        "from": 152,
+        "to": 153,
+        "column": 1,
+        "delta": 0,
+        "childMatches": true,
+        "canonicalizers": [
+          "0,1,2,3,4"
+        ],
+        "paritySet": [
+          0
+        ],
+        "stages": {
+          "raw": "2,3,3,3,4|1024|132096.229376",
+          "frontier": "2,3,3,3,4|1024|132096.229376",
+          "cap": "2,3,3,3,4|1024|132096.229376",
+          "release": "2,3,3,3,4|1024|132096.229376"
+        }
+      },
+      {
+        "pathParity": 1,
+        "startSheet": 0,
+        "edgeId": 2724,
+        "from": 3483,
+        "to": 3463,
+        "column": 1,
+        "delta": 0,
+        "childMatches": true,
+        "canonicalizers": [
+          "0,1,3,2,4"
+        ],
+        "paritySet": [
+          1
+        ],
+        "stages": {
+          "raw": "1,2,3,3,4|32.3072|264224.360448",
+          "frontier": "1,2,3,3,4|32.3072|264224.360448",
+          "cap": "1,2,3,3,4|32.3072|264224.360448",
+          "release": "1,2,3,3,4|32.3072|264224.360448"
+        }
+      },
+      {
+        "pathParity": 1,
+        "startSheet": 0,
+        "edgeId": 2710,
+        "from": 3463,
+        "to": 698,
+        "column": 0,
+        "delta": 1,
+        "childMatches": true,
+        "canonicalizers": [
+          "1,0,2,3,4"
+        ],
+        "paritySet": [
+          1
+        ],
+        "stages": {
+          "raw": "2,2,3,3,4|3072|133120.229376",
+          "frontier": "2,2,3,3,4|3072|133120.229376",
+          "cap": "2,2,3,3,4|3072|133120.229376",
+          "release": "2,2,3,3,4|3072|133120.229376"
+        }
+      },
+      {
+        "pathParity": 1,
+        "startSheet": 0,
+        "edgeId": 350,
+        "from": 698,
+        "to": 153,
+        "column": 1,
+        "delta": 0,
+        "childMatches": true,
+        "canonicalizers": [
+          "0,1,2,3,4"
+        ],
+        "paritySet": [
+          0
+        ],
+        "stages": {
+          "raw": "2,3,3,3,4|1024|132096.229376",
+          "frontier": "2,3,3,3,4|1024|132096.229376",
+          "cap": "2,3,3,3,4|1024|132096.229376",
+          "release": "2,3,3,3,4|1024|132096.229376"
+        }
+      },
+      {
+        "pathParity": 1,
+        "startSheet": 1,
+        "edgeId": 2724,
+        "from": 3483,
+        "to": 3463,
+        "column": 1,
+        "delta": 0,
+        "childMatches": true,
+        "canonicalizers": [
+          "0,1,3,2,4"
+        ],
+        "paritySet": [
+          1
+        ],
+        "stages": {
+          "raw": "1,2,3,3,4|32.3072|229376.264224",
+          "frontier": "1,2,3,3,4|32.3072|229376.264224",
+          "cap": "1,2,3,3,4|32.3072|229376.264224",
+          "release": "1,2,3,3,4|32.3072|229376.264224"
+        }
+      },
+      {
+        "pathParity": 1,
+        "startSheet": 1,
+        "edgeId": 2710,
+        "from": 3463,
+        "to": 698,
+        "column": 0,
+        "delta": 1,
+        "childMatches": true,
+        "canonicalizers": [
+          "1,0,2,3,4"
+        ],
+        "paritySet": [
+          1
+        ],
+        "stages": {
+          "raw": "2,2,3,3,4|3072|133120.360448",
+          "frontier": "2,2,3,3,4|3072|133120.360448",
+          "cap": "2,2,3,3,4|3072|133120.360448",
+          "release": "2,2,3,3,4|3072|133120.360448"
+        }
+      },
+      {
+        "pathParity": 1,
+        "startSheet": 1,
+        "edgeId": 350,
+        "from": 698,
+        "to": 153,
+        "column": 1,
+        "delta": 0,
+        "childMatches": true,
+        "canonicalizers": [
+          "0,1,2,3,4",
+          "0,3,2,1,4"
+        ],
+        "paritySet": [
+          0,
+          1
+        ],
+        "stages": {
+          "raw": "2,3,3,3,4|1024|132096.360448",
+          "frontier": "2,3,3,3,4|1024|132096.360448",
+          "cap": "2,3,3,3,4|1024|132096.360448",
+          "release": "2,3,3,3,4|1024|132096.360448"
+        }
+      }
+    ]
+  },
+  "permutationAudit": {
+    "count": 120,
+    "inversionParityEqualsCycleParity": true,
+    "canonicalizerSetsReproduced": true
+  },
+  "groupResolution": [
+    {
+      "group": 152,
+      "a": "Q:2,2,3,3,4|3072.33792|67584.132096.229376",
+      "b": "Q:2,2,3,3,4|3072.33792|67584.132096.360448",
+      "exact": false,
+      "orbit": false,
+      "numericCanonicalEqual": false,
+      "literal": true,
+      "multiset": true,
+      "set": true,
+      "hashes": {
+        "aLiteral": "0cf665ef14fe9e514ed122c1690a33d262ce50971f51ae5655361b3fa786c12b",
+        "bLiteral": "0cf665ef14fe9e514ed122c1690a33d262ce50971f51ae5655361b3fa786c12b",
+        "aMulti": "096261d14d66fffcf07ded61cb216a0f0ccdb7eae1405e0c5ee288a62d81fa47",
+        "bMulti": "096261d14d66fffcf07ded61cb216a0f0ccdb7eae1405e0c5ee288a62d81fa47",
+        "aSet": "2047d74ca5cf0c214ad923841e45340b2ab78535fa16535f32d4f534cd54ef89",
+        "bSet": "2047d74ca5cf0c214ad923841e45340b2ab78535fa16535f32d4f534cd54ef89"
+      }
+    },
+    {
+      "group": 153,
+      "a": "Q:2,3,3,3,4|1024|132096.229376",
+      "b": "Q:2,3,3,3,4|1024|132096.360448",
+      "exact": false,
+      "orbit": false,
+      "numericCanonicalEqual": false,
+      "literal": true,
+      "multiset": true,
+      "set": true,
+      "hashes": {
+        "aLiteral": "3fed3725f9ff188ddad10483a26daa0ef88c3f348edabe109d3f4f5dac07d3c1",
+        "bLiteral": "3fed3725f9ff188ddad10483a26daa0ef88c3f348edabe109d3f4f5dac07d3c1",
+        "aMulti": "95917bc198963f450fb050cd655a106ece439d64fa57058467eaac51f7713ee0",
+        "bMulti": "95917bc198963f450fb050cd655a106ece439d64fa57058467eaac51f7713ee0",
+        "aSet": "8c6ad13938c25bb98ff6ea8077a34b5eec6fb605f354c48578ee307f5bc64986",
+        "bSet": "8c6ad13938c25bb98ff6ea8077a34b5eec6fb605f354c48578ee307f5bc64986"
+      }
+    },
+    {
+      "group": 698,
+      "a": "Q:2,2,3,3,4|3072|132096.229376",
+      "b": "Q:2,2,3,3,4|3072|132096.360448",
+      "exact": false,
+      "orbit": false,
+      "numericCanonicalEqual": false,
+      "literal": true,
+      "multiset": true,
+      "set": true,
+      "hashes": {
+        "aLiteral": "2153c495f128c2a170b1aeab91e4ad77e614e78aeb347ebf0ca00be63b0b8b63",
+        "bLiteral": "2153c495f128c2a170b1aeab91e4ad77e614e78aeb347ebf0ca00be63b0b8b63",
+        "aMulti": "5a22ca23a4d13328a7c8ecdeeb6c4fc7ea0ae465a9325ee49e4b6cfd73f27b72",
+        "bMulti": "5a22ca23a4d13328a7c8ecdeeb6c4fc7ea0ae465a9325ee49e4b6cfd73f27b72",
+        "aSet": "731ba8d16ce11048c2fada0850289c87551c98923091d27526264cabb1eb521b",
+        "bSet": "731ba8d16ce11048c2fada0850289c87551c98923091d27526264cabb1eb521b"
+      }
+    },
+    {
+      "group": 3008,
+      "a": "Q:1,2,3,3,4|32.3072.67584|33824.133152.229376",
+      "b": "Q:1,2,3,3,4|32.3072.67584|33824.133152.360448",
+      "exact": false,
+      "orbit": false,
+      "numericCanonicalEqual": false,
+      "literal": true,
+      "multiset": true,
+      "set": true,
+      "hashes": {
+        "aLiteral": "7a965ab623fae2e418a18417c85f866929dbcedc773aec08dcf51ec53aeb2793",
+        "bLiteral": "7a965ab623fae2e418a18417c85f866929dbcedc773aec08dcf51ec53aeb2793",
+        "aMulti": "a954b593feb2479464a54a4ea319173da5d6b6d8ddec6a62d7a8df69646d1d7e",
+        "bMulti": "a954b593feb2479464a54a4ea319173da5d6b6d8ddec6a62d7a8df69646d1d7e",
+        "aSet": "0d2b7af709b974963f86f5f101348cff3c44b99b88938d07c66a25b3bddee9fd",
+        "bSet": "0d2b7af709b974963f86f5f101348cff3c44b99b88938d07c66a25b3bddee9fd"
+      }
+    },
+    {
+      "group": 3463,
+      "a": "Q:1,2,3,3,4|32.3072|133152.229376",
+      "b": "Q:1,2,3,3,4|32.3072|133152.360448",
+      "exact": false,
+      "orbit": false,
+      "numericCanonicalEqual": false,
+      "literal": true,
+      "multiset": true,
+      "set": true,
+      "hashes": {
+        "aLiteral": "45ef5b4a2f31c04a357553d451907016f7f1d34a13560e989dac9598ff387113",
+        "bLiteral": "45ef5b4a2f31c04a357553d451907016f7f1d34a13560e989dac9598ff387113",
+        "aMulti": "b9372ab40e68671a3d937357c6c68b86fa1b0ef471aa067ba0a0ef261a4fa7d3",
+        "bMulti": "b9372ab40e68671a3d937357c6c68b86fa1b0ef471aa067ba0a0ef261a4fa7d3",
+        "aSet": "cb3db11fe11df68f9d065052ca6631a37ed3f60dd79d8b71a1a4ba3b59e66b8f",
+        "bSet": "cb3db11fe11df68f9d065052ca6631a37ed3f60dd79d8b71a1a4ba3b59e66b8f"
+      }
+    },
+    {
+      "group": 3483,
+      "a": "Q:1,1,3,3,4|96.3072.33824|67648.132160.229376.264224",
+      "b": "Q:1,1,3,3,4|96.3072.33824|67648.132160.264224.360448",
+      "exact": false,
+      "orbit": false,
+      "numericCanonicalEqual": false,
+      "literal": true,
+      "multiset": true,
+      "set": true,
+      "hashes": {
+        "aLiteral": "181d7d565698e0ac3b8eeffaddf8c2e581ab009c14740cf7287670e8928f5ae1",
+        "bLiteral": "181d7d565698e0ac3b8eeffaddf8c2e581ab009c14740cf7287670e8928f5ae1",
+        "aMulti": "cb243aa4ea4ceceaf22c6f25525c652972347c7f6052b776f1d176dc5c13bd39",
+        "bMulti": "cb243aa4ea4ceceaf22c6f25525c652972347c7f6052b776f1d176dc5c13bd39",
+        "aSet": "844d1f9954749cf38969315ab520e680ec08513775e91148dffc856144d9bc8f",
+        "bSet": "844d1f9954749cf38969315ab520e680ec08513775e91148dffc856144d9bc8f"
+      }
+    }
+  ],
+  "independentSheetGauge": {
+    "gauge": "lex exact-state key",
+    "edges": [
+      {
+        "id": 2723,
+        "from": 3483,
+        "to": 3008,
+        "stored": 0,
+        "m": [
+          {
+            "a": "Q:1,1,3,3,4|96.3072.33824|67648.132160.264224.360448",
+            "b": "Q:1,2,3,3,4|32.3072.67584|33824.133152.360448"
+          },
+          {
+            "a": "Q:1,1,3,3,4|96.3072.33824|67648.132160.229376.264224",
+            "b": "Q:1,2,3,3,4|32.3072.67584|33824.133152.229376"
+          }
+        ],
+        "targetIndices": [
+          0,
+          1
+        ],
+        "independent": 0
+      },
+      {
+        "id": 2255,
+        "from": 3008,
+        "to": 152,
+        "stored": 0,
+        "m": [
+          {
+            "a": "Q:1,2,3,3,4|32.3072.67584|33824.133152.360448",
+            "b": "Q:2,2,3,3,4|3072.33792|67584.132096.360448"
+          },
+          {
+            "a": "Q:1,2,3,3,4|32.3072.67584|33824.133152.229376",
+            "b": "Q:2,2,3,3,4|3072.33792|67584.132096.229376"
+          }
+        ],
+        "targetIndices": [
+          0,
+          1
+        ],
+        "independent": 0
+      },
+      {
+        "id": 59,
+        "from": 152,
+        "to": 153,
+        "stored": 0,
+        "m": [
+          {
+            "a": "Q:2,2,3,3,4|3072.33792|67584.132096.360448",
+            "b": "Q:2,3,3,3,4|1024|132096.360448"
+          },
+          {
+            "a": "Q:2,2,3,3,4|3072.33792|67584.132096.229376",
+            "b": "Q:2,3,3,3,4|1024|132096.229376"
+          }
+        ],
+        "targetIndices": [
+          0,
+          1
+        ],
+        "independent": 0
+      },
+      {
+        "id": 2724,
+        "from": 3483,
+        "to": 3463,
+        "stored": 0,
+        "m": [
+          {
+            "a": "Q:1,1,3,3,4|96.3072.33824|67648.132160.264224.360448",
+            "b": "Q:1,2,3,3,4|32.3072|133152.229376"
+          },
+          {
+            "a": "Q:1,1,3,3,4|96.3072.33824|67648.132160.229376.264224",
+            "b": "Q:1,2,3,3,4|32.3072|133152.360448"
+          }
+        ],
+        "targetIndices": [
+          1,
+          0
+        ],
+        "independent": 1
+      },
+      {
+        "id": 2710,
+        "from": 3463,
+        "to": 698,
+        "stored": 1,
+        "m": [
+          {
+            "a": "Q:1,2,3,3,4|32.3072|133152.229376",
+            "b": "Q:2,2,3,3,4|3072|132096.229376"
+          },
+          {
+            "a": "Q:1,2,3,3,4|32.3072|133152.360448",
+            "b": "Q:2,2,3,3,4|3072|132096.360448"
+          }
+        ],
+        "targetIndices": [
+          0,
+          1
+        ],
+        "independent": 0
+      },
+      {
+        "id": 350,
+        "from": 698,
+        "to": 153,
+        "stored": 0,
+        "m": [
+          {
+            "a": "Q:2,2,3,3,4|3072|132096.229376",
+            "b": "Q:2,3,3,3,4|1024|132096.229376"
+          },
+          {
+            "a": "Q:2,2,3,3,4|3072|132096.360448",
+            "b": "Q:2,3,3,3,4|1024|132096.360448"
+          }
+        ],
+        "targetIndices": [
+          0,
+          1
+        ],
+        "independent": 0
+      }
+    ],
+    "routeA": {
+      "ids": [
+        2723,
+        2255,
+        59
+      ],
+      "stored": 0,
+      "independent": 0
+    },
+    "routeB": {
+      "ids": [
+        2724,
+        2710,
+        350
+      ],
+      "stored": 1,
+      "independent": 1
+    },
+    "storedDifference": 1,
+    "independentDifference": 1,
+    "gaugeInvariantDifference": true
+  },
+  "transporterAudit": [
+    {
+      "pathParity": 0,
+      "startSheet": 0,
+      "actions": [
+        "0,1,1"
+      ],
+      "totalParitySet": [
+        0,
+        1
+      ]
+    },
+    {
+      "pathParity": 0,
+      "startSheet": 1,
+      "actions": [
+        "0,1,1"
+      ],
+      "totalParitySet": [
+        0
+      ]
+    },
+    {
+      "pathParity": 1,
+      "startSheet": 0,
+      "actions": [
+        "1,0,0"
+      ],
+      "totalParitySet": [
+        0
+      ]
+    },
+    {
+      "pathParity": 1,
+      "startSheet": 1,
+      "actions": [
+        "1,0,0"
+      ],
+      "totalParitySet": [
+        0,
+        1
+      ]
+    }
+  ],
+  "endpointIdentity": {
+    "group": 153,
+    "a": "Q:2,3,3,3,4|1024|132096.229376",
+    "b": "Q:2,3,3,3,4|1024|132096.360448",
+    "exact": false,
+    "orbit": false,
+    "numericCanonicalEqual": false,
+    "literal": true,
+    "multiset": true,
+    "set": true,
+    "hashes": {
+      "aLiteral": "3fed3725f9ff188ddad10483a26daa0ef88c3f348edabe109d3f4f5dac07d3c1",
+      "bLiteral": "3fed3725f9ff188ddad10483a26daa0ef88c3f348edabe109d3f4f5dac07d3c1",
+      "aMulti": "95917bc198963f450fb050cd655a106ece439d64fa57058467eaac51f7713ee0",
+      "bMulti": "95917bc198963f450fb050cd655a106ece439d64fa57058467eaac51f7713ee0",
+      "aSet": "8c6ad13938c25bb98ff6ea8077a34b5eec6fb605f354c48578ee307f5bc64986",
+      "bSet": "8c6ad13938c25bb98ff6ea8077a34b5eec6fb605f354c48578ee307f5bc64986"
+    }
+  },
+  "labelAudit": [
+    {
+      "label": "same exact state",
+      "status": "FALSE"
+    },
+    {
+      "label": "same column-orbit object",
+      "status": "FALSE"
+    },
+    {
+      "label": "same literal future behavior",
+      "status": "SUPPORTED"
+    },
+    {
+      "label": "same action-unlabelled multiset future",
+      "status": "SUPPORTED"
+    },
+    {
+      "label": "same action-unlabelled set future",
+      "status": "SUPPORTED"
+    },
+    {
+      "label": "reconvergence",
+      "status": "RESOLUTION_DEPENDENT",
+      "note": "stored same unlabelled base group; exact endpoints are distinct"
+    },
+    {
+      "label": "sheet",
+      "status": "QUOTIENT_RELATIVE",
+      "note": "two finer states/classes above one coarse group; numeric 0/1 is gauge"
+    },
+    {
+      "label": "delta",
+      "status": "GAUGE_RELATIVE_EDGE_LABEL",
+      "note": "route parity difference is gauge invariant"
+    },
+    {
+      "label": "canonical transporter",
+      "status": "NONUNIQUE_ON_SOME_STEPS"
+    },
+    {
+      "label": "residual",
+      "status": "TRANSPORTED_FUTURE_REQUIREMENT",
+      "note": "canonical-frame mask need not be interpreted as a straight physical line without transporter ancestry"
+    },
+    {
+      "label": "obstructed",
+      "status": "COARSE_QUOTIENT_COCYCLE_PROPERTY",
+      "note": "not by itself an intrinsic physical/q_o contradiction"
+    }
+  ],
+  "disposition": {
+    "parityAnomalyReproduced": true,
+    "exactEndpointReconvergence": false,
+    "orbitEndpointReconvergence": false,
+    "literalFutureReconvergence": true,
+    "multisetFutureReconvergence": true,
+    "setFutureReconvergence": true,
+    "status": "WITNESS_LEVEL_COMPLETE__CARRIER_LEVEL_PENDING"
+  }
+}\n
