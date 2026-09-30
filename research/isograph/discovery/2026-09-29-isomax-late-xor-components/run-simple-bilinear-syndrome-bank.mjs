@@ -1177,7 +1177,15 @@ const out={
   warrant:'EW-RS-040',
   frozenRepresentation:'post-RFG component parity + direct T2 + exact-rank affine component coordinates',
   candidateBank:{
-    componentBinaryFeatures:simpleFeatureNames,
+    componentBinaryFeatures:[
+      'ONE','WIDTH1','CAP1','CAP2',
+      'R0_N','R1_N','R0_CELLS','R1_CELLS',
+      'R0_MULTI','R1_MULTI','R0_FRONT_EDGE','R1_FRONT_EDGE',
+      'R0_ODD_DELAY','R1_ODD_DELAY','R0_MAX_ODD','R1_MAX_ODD',
+      'R0_FRONT_COL','R1_FRONT_COL','R0_TOUCH_COL','R1_TOUCH_COL',
+      'BOTH_TOUCH_COL','BOTH_FRONT_COL',
+      'R0_D0','R1_D0','R0_D1','R1_D1','R0_D2P','R1_D2P'
+    ],
     pairConstruction:'For each unordered pair of odd component types, XOR the symmetric products of active binary component features; aggregate identical pair-feature keys mod 2.',
     phaseModes:['GLOBAL','R3','R6','EXACT']
   },
