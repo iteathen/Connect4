@@ -1,0 +1,47 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.zoe_structural_aggregation_integration.v1",
+  "date_author_local": "2026-09-30",
+  "research_direction": "Joshua Oshiro",
+  "status": "DIRECT_INTERACTION_DESCRIPTOR_AGGREGATION_REJECTED",
+  "evidence": {
+    "branch": "experiment/isomax-late-xor-components-20260929",
+    "commit": "1c62bf179b87a0a46918785c9f396323e5de74cd",
+    "file": "ZOE_STRUCTURAL_AGGREGATION_0_1.json",
+    "warrant": "EW-RS-051"
+  },
+  "results": {
+    "5x3-k3": {"REL_INC_ZOE_mixed": 11, "TOPO_RPAR_ZOE_mixed": 11, "EXACT_ZOE_mixed": 0},
+    "4x4-k4": {"REL_INC_ZOE_mixed": 239, "TOPO_RPAR_ZOE_mixed": 258, "EXACT_ZOE_mixed": 0},
+    "6x3-k3": {"REL_INC_ZOE_mixed": 53, "TOPO_RPAR_ZOE_mixed": 53, "EXACT_ZOE_mixed": 0},
+    "4x5-k4": {"REL_INC_ZOE_mixed": 2253, "TOPO_RPAR_ZOE_mixed": 2508, "EXACT_ZOE_mixed": 0}
+  },
+  "findings": [
+    {
+      "id": "RS-F176",
+      "status": "WHOLE_IDENTITY_AGGREGATION_REJECTED",
+      "statement": "Summing component counts directly over REL_INC or TOPO_RPAR classes before ZOE classification is Q-V inexact on every demanding carrier tested."
+    },
+    {
+      "id": "RS-F177",
+      "status": "INTERACTION_VERSUS_BASE_IDENTITY_SEPARATION",
+      "statement": "REL_INC/TOPO_RPAR scalar-exactness in the earlier quadratic experiments does not make them whole component identities: those experiments retained exact component identity in the affine/base coordinate and compressed only interaction terms."
+    },
+    {
+      "id": "RS-F178",
+      "status": "CAPACITY_LEAD",
+      "statement": "The first aggregation collisions repeatedly merge exact component types with the same frontier-relative incidence pattern but different support height / remaining local capacity."
+    },
+    {
+      "id": "RS-F179",
+      "status": "PRIOR_CAP6_RELEVANCE",
+      "statement": "The independently established CAP6_REL_INC result, which recovered the complete observed quadratic structural interaction span on the earlier demanding carriers, supplies a pre-existing structural reason to test capacity-augmented REL_INC identities."
+    }
+  ],
+  "interpretation_guard": [
+    "This rejects direct descriptor aggregation as a complete component identity; it does not reject REL_INC or TOPO_RPAR as interaction coordinates.",
+    "Failure witnesses may motivate structural candidates, but the next capacity ladder must be frozen before qualification.",
+    "No absolute board elevation is reintroduced merely because frontier-relative incidence alone is insufficient as whole identity.",
+    "No standard-7x6 theorem follows."
+  ],
+  "next_question": "What is the coarsest capacity grade that, when paired with REL_INC before ZOE aggregation, preserves Q-V across the demanding carriers?"
+}
