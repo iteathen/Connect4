@@ -447,7 +447,7 @@
     }
   ],
   "recommendedNext": [
-    "interpret EW-RS-060 using quotient dimensions and motif classes, not fitted basis coefficients",
+    "reduce the oddness-only OOO interaction space outcome-independently and search for a structural rule over descriptor motifs",
     "search decoder directly over native ternary ZOE with P/O absorption enforced",
     "test phase-aware depth reductions on already-open discovery carriers",
     "test whether T2 is semantically removable from the scalar key on already-open carriers",
@@ -465,5 +465,41 @@
     "phase-anchored residual incidence",
     "zero-aware parity count monoid (OR,XOR)",
     "unresolved compact scalar decoder"
-  ]
+  ],
+  "postDecompositionEvidence": {
+    "warrant": "EW-RS-061",
+    "kind": "ORACLE_MOTIVATED_DISCOVERY_CORPUS_EVIDENCE_NOT_INDEPENDENT_QUALIFICATION",
+    "candidate": "complete affine P/O + complete degree2 P/O + all observed OOO triples; no presence-containing cubic terms",
+    "cases": {
+      "6x3-k3": {
+        "fullCubicCatalog": 64991,
+        "oddnessOnlyCubicCatalog": 1753,
+        "rankGainOverDegree2": 75,
+        "contradictions": 0
+      },
+      "4x5-k4": {
+        "fullCubicCatalog": 263021,
+        "oddnessOnlyCubicCatalog": 7485,
+        "rankGainOverDegree2": 294,
+        "contradictions": 0,
+        "fullCubicQuotientDimension": 371,
+        "oooBasisDirections": 294,
+        "oopBasisDirections": 77
+      },
+      "6x3-k4": {
+        "fullCubicCatalog": 52467,
+        "oddnessOnlyCubicCatalog": 501,
+        "rankGainOverDegree2": 16,
+        "contradictions": 0
+      }
+    },
+    "interpretation": [
+      "presence-containing cubic terms are scalar-redundant on all three hard discovery carriers when complete lower-degree P/O terms are retained",
+      "the observed highest-degree scalar correction is oddness-only",
+      "this aligns with the native ZOE split: presence by OR, oddness by XOR",
+      "individual OOO triples and fitted coefficients are not invariant final formula terms",
+      "EW-RS-059 formula holdouts remain sealed"
+    ],
+    "nextQuestion": "What outcome-independent structural rule selects or composes the required OOO oddness interactions?"
+  }
 }
