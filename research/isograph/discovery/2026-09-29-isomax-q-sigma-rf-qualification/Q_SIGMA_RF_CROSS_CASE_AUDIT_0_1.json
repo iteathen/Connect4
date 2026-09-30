@@ -1,0 +1,134 @@
+{
+  "schema": "connect4.isomax.q_sigma_rf_cross_case_qualification.v1",
+  "date_author_local": "2026-09-29",
+  "cases": [
+    {
+      "width": 3,
+      "height": 3,
+      "k": 3,
+      "physicalStates": 694,
+      "nonterminalStates": 505,
+      "qClasses": 396,
+      "permutations": 6,
+      "checks": {
+        "physicalTransitionChecks": 966,
+        "rfFactorChecks": 966,
+        "equivarianceChecks": 7128,
+        "transportedRFFactorChecks": 7128,
+        "rCovarianceChecks": 2376,
+        "fCovarianceChecks": 2376,
+        "rfCovarianceChecks": 2376
+      },
+      "results": {
+        "physicalQTransitionMatches": true,
+        "R_idempotent": true,
+        "F_idempotent": true,
+        "RF_commutes": true,
+        "R_absorbs_M": true,
+        "R_covariant": true,
+        "F_covariant": true,
+        "RF_covariant": true,
+        "T_column_equivariant": true,
+        "RF_transition_factorization": true,
+        "transported_RF_transition_factorization": true
+      }
+    },
+    {
+      "width": 3,
+      "height": 4,
+      "k": 3,
+      "physicalStates": 2715,
+      "nonterminalStates": 1801,
+      "qClasses": 1393,
+      "permutations": 6,
+      "checks": {
+        "physicalTransitionChecks": 3714,
+        "rfFactorChecks": 3714,
+        "equivarianceChecks": 25074,
+        "transportedRFFactorChecks": 25074,
+        "rCovarianceChecks": 8358,
+        "fCovarianceChecks": 8358,
+        "rfCovarianceChecks": 8358
+      },
+      "results": {
+        "physicalQTransitionMatches": true,
+        "R_idempotent": true,
+        "F_idempotent": true,
+        "RF_commutes": true,
+        "R_absorbs_M": true,
+        "R_covariant": true,
+        "F_covariant": true,
+        "RF_covariant": true,
+        "T_column_equivariant": true,
+        "RF_transition_factorization": true,
+        "transported_RF_transition_factorization": true
+      }
+    },
+    {
+      "width": 4,
+      "height": 3,
+      "k": 3,
+      "physicalStates": 7157,
+      "nonterminalStates": 4631,
+      "qClasses": 3734,
+      "permutations": 24,
+      "checks": {
+        "physicalTransitionChecks": 11818,
+        "rfFactorChecks": 11818,
+        "equivarianceChecks": 358464,
+        "transportedRFFactorChecks": 358464,
+        "rCovarianceChecks": 89616,
+        "fCovarianceChecks": 89616,
+        "rfCovarianceChecks": 89616
+      },
+      "results": {
+        "physicalQTransitionMatches": true,
+        "R_idempotent": true,
+        "F_idempotent": true,
+        "RF_commutes": true,
+        "R_absorbs_M": true,
+        "R_covariant": true,
+        "F_covariant": true,
+        "RF_covariant": true,
+        "T_column_equivariant": true,
+        "RF_transition_factorization": true,
+        "transported_RF_transition_factorization": true
+      }
+    },
+    {
+      "width": 4,
+      "height": 4,
+      "k": 4,
+      "physicalStates": 161029,
+      "nonterminalStates": 134289,
+      "qClasses": 34094,
+      "permutations": 24,
+      "checks": {
+        "physicalTransitionChecks": 304574,
+        "rfFactorChecks": 304574,
+        "equivarianceChecks": 3273024,
+        "transportedRFFactorChecks": 3273024,
+        "rCovarianceChecks": 818256,
+        "fCovarianceChecks": 818256,
+        "rfCovarianceChecks": 818256
+      },
+      "results": {
+        "physicalQTransitionMatches": true,
+        "R_idempotent": true,
+        "F_idempotent": true,
+        "RF_commutes": true,
+        "R_absorbs_M": true,
+        "R_covariant": true,
+        "F_covariant": true,
+        "RF_covariant": true,
+        "T_column_equivariant": true,
+        "RF_transition_factorization": true,
+        "transported_RF_transition_factorization": true
+      }
+    }
+  ],
+  "result": "ALL_CROSS_CASE_PROOF_OBLIGATION_CONTROLS_PASS",
+  "theoremScopeCandidate": "finite gravity Connect-K q-style transition algebra under normalized residual-antichain semantics",
+  "qualificationBoundary": "These exhaustive bounded controls validate the independent implementation of the symbolic proof obligations. Standard-7x6 authority promotion still requires semantic review of the general proof and identity/action-transporter scope.",
+  "noSolvedValueUsed": true
+}
