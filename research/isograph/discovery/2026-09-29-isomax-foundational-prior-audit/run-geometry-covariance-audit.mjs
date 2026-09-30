@@ -44,7 +44,7 @@ const out={
    physicalBoardAutomorphisms:physicalAutomorphisms,
    physicalBoardAutomorphismCount:physicalAutomorphisms.length,
    witnessCanonicalizerUses:canonicalizers.length,
-   uniqueWitnessCanonicalizers,
+   uniqueWitnessCanonicalizers:uniqueCanonicalizers,
    nonPhysicalCanonicalizerUses:canonicalizers.filter(x=>!x.isPhysicalBoardAutomorphism).length,
    examples:canonicalizers
  },
