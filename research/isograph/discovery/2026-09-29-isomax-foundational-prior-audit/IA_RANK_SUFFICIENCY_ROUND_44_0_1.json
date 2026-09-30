@@ -1,0 +1,61 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_round.v1",
+  "round": 44,
+  "date_author_local": "2026-09-29",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_43_FIXED_POINT_0_1.json",
+    "RANK_SUFFICIENCY_ZOE_COUNT_QUOTIENT_INTEGRATION_0_1.json"
+  ],
+  "reopened_reason": "The zero/odd/positive-even count refinement requested by round 43 is now Q-V exact across the transfer corpus and a predeclared fresh non-affine 5x4-k4 holdout.",
+  "new_assertions": [
+    {
+      "id": "RS-IA143",
+      "family": "M",
+      "body": "For the tested count quotient, zero multiplicity and positive-even multiplicity are semantically distinct scalar states even though both are parity zero."
+    },
+    {
+      "id": "RS-IA144",
+      "family": "Q",
+      "body": "Exact positive-even magnitude is not required by the tested Q-V quotient: ZOE retains only presence plus positive-count parity and remains scalar-exact on all tested carriers."
+    },
+    {
+      "id": "RS-IA145",
+      "family": "C",
+      "body": "ZOE can be strictly coarser than full component multiplicity while preserving Q-V, so the repaired count coordinate is not merely a disguised full multiset on every demanding carrier."
+    },
+    {
+      "id": "RS-IA146",
+      "family": "R",
+      "body": "Ungraded ZOE passes fresh non-affine 5x4-k4, so global rank phase is not inherently required to repair the parity collision once zero and positive-even counts are separated."
+    },
+    {
+      "id": "RS-IA147",
+      "family": "D",
+      "body": "The next compression seam is component identity rather than count state: aggregate the frozen ZOE count states over outcome-independent frontier-relative structural descriptors and test scalar purity."
+    },
+    {
+      "id": "RS-IA148",
+      "family": "F",
+      "body": "Any descriptor-aggregated ZOE candidate must preserve the exact-type ZOE control and use a fresh holdout only after the descriptor aggregation rule is frozen."
+    }
+  ],
+  "qu_refinements": [
+    {
+      "id": "RS-QR044",
+      "target": "QU-RS-004",
+      "add_fixed": [
+        "ZOE distinguishes zero, positive odd, and positive even component multiplicity",
+        "ungraded ZOE is Q-V exact on all tested transfer carriers",
+        "fresh non-affine 5x4-k4 has 16,550 degree-1 contradictions but zero ZOE mixed-value classes",
+        "ZOE is strictly coarser than full multiplicity on 4x4-k4, 4x5-k4, and 5x4-k4"
+      ],
+      "retain_open": [
+        "minimality of ZOE",
+        "structural compression of exact component identities under ZOE counts",
+        "closed-form scalar evaluator in the repaired count coordinate",
+        "standard-7x6 qualification"
+      ]
+    }
+  ],
+  "stop_status": "REOPENED__STRUCTURAL_ZOE_AGGREGATION_NEXT"
+}
