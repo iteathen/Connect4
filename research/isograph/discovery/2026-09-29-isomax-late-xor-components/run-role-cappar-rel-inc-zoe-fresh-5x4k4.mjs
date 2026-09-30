@@ -544,7 +544,7 @@ assert.equal(byMode.ROLE_CAP_EXACT_REL_INC_ZOE.QV,true,'exact role-aligned capac
 assert.equal(byMode.ROLE_CAP_EXACT_REL_INC_ZOE.classes,byMode.EXACT_ZOE.classes,'exact role-aligned capacity partition must match exact-type ZOE on this holdout');
 
 const out={
-  schema:'connect4.isomax.role_cappar_rel_inc_zoe_fresh_5x4k4.v1',
+  schema:'connect4.isomax.role_cappar_rel_inc_zoe_transfer_5x4k4.v1',
   date_author_local:'2026-09-30',
   warrant:'EW-RS-055',
   target:'5x4-k4',
@@ -561,7 +561,8 @@ const out={
     audits:caseResult.audits
   },
   mechanicalChecks:{
-    freshCarrierPredeclared:true,
+    outcomeBlindFresh:false,
+    heldOutFromDescriptorDerivation:true,
     candidateFrozenFromEWRS054:true,
     keysOutcomeIndependent:true,
     roleCapacityJointlyCanonicalized:true,
@@ -586,24 +587,24 @@ const out={
     roleCapExactClasses:byMode.ROLE_CAP_EXACT_REL_INC_ZOE.classes,
     multiClasses:byMode.MULTI.classes,
     degree1Contradictions:caseResult.degree1.contradictions,
-    freshNonAffine:caseResult.degree1.contradictions>0,
-    freshRoleCapparNonAffineSuccess:byMode.ROLE_CAPPAR_REL_INC_ZOE.QV&&caseResult.degree1.contradictions>0
+    nonAffineTransferCarrier:caseResult.degree1.contradictions>0,
+    roleCapparNonAffineTransferSuccess:byMode.ROLE_CAPPAR_REL_INC_ZOE.QV&&caseResult.degree1.contradictions>0
   },
   interpretationGuard:[
-    'ROLE_CAPPAR_REL_INC_ZOE was frozen before this holdout under EW-RS-054 and selected by the predeclared coarsest-passing rule.',
-    'The 5x4-k4 carrier was not used to select the descriptor and independently has a non-affine DEGREE1 control.',
-    'Passing establishes bounded Q-V sufficiency only and does not prove minimality.',
+    'ROLE_CAPPAR_REL_INC_ZOE was frozen before this transfer under EW-RS-054 and selected by the predeclared coarsest-passing rule.',
+    '5x4-k4 was held out from descriptor derivation but its solved outcomes were already observed under EW-RS-050, so this is not outcome-blind fresh evidence.',
+    'Passing establishes bounded non-affine Q-V transfer evidence only and does not prove minimality.',
     'No Q-A/Q-F or standard-7x6 claim follows.'
   ]
 };
 
 fs.writeFileSync(
-  new URL('./ROLE_CAPPAR_REL_INC_ZOE_FRESH_5X4K4_0_1.json',import.meta.url),
+  new URL('./ROLE_CAPPAR_REL_INC_ZOE_TRANSFER_5X4K4_0_1.json',import.meta.url),
   JSON.stringify(out,null,2)+'\n'
 );
 
 console.log(JSON.stringify({
-  status:'ROLE_CAPPAR_REL_INC_ZOE_FRESH_5X4K4_COMPLETE',
+  status:'ROLE_CAPPAR_REL_INC_ZOE_TRANSFER_5X4K4_COMPLETE',
   target:out.target,
   physicalStates:out.case.physicalStates,
   tactical2O:out.case.tactical2Counts.O,
