@@ -1,0 +1,29 @@
+{
+  "schema": "connect4.isomax.execution_observation.release_parity_fresh_holdout.v1",
+  "date_author_local": "2026-09-29",
+  "warrant": "EW-RS-043",
+  "run": {
+    "workflow": "IsoMax release-parity fresh holdout 4x5-k4",
+    "run_id": 36678115127,
+    "head_sha": "a6d6ec16f3bc509679342952d3736a67ea3d75ed",
+    "job_id": 109767448870,
+    "geometry": "4x5-k4"
+  },
+  "observation": {
+    "stage": "Qualify frozen release-parity topology on fresh 4x5-k4",
+    "result": "RESOURCE_FAILURE",
+    "exit_code": 134,
+    "failure": "JavaScript heap out of memory",
+    "last_reported_heap_mb": 4062,
+    "evidence": "V8 reported ineffective mark-compacts near the default heap limit before the harness emitted any qualification result."
+  },
+  "qualification_disposition": "INCOMPLETE_RESOURCE_FAILURE",
+  "discovery_disposition": "NO_SEMANTIC_FALSIFIER_OBSERVED",
+  "candidate_disposition": "UNCHANGED_AND_STILL_FROZEN",
+  "anti_circularity": [
+    "No 4x5-k4 qualification artifact was produced.",
+    "No W/D/L-derived feature change is made in response to this failure.",
+    "The predeclared 4x5-k4 geometry and frozen TOPO_RPAR definition are retained unchanged."
+  ],
+  "next_action": "Retry the identical harness with a larger Node heap allowance on the same GitHub runner class. If resource failure persists, optimize storage/execution without altering the frozen semantic candidate or holdout geometry."
+}
