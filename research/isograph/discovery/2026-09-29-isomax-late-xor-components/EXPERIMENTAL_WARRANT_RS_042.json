@@ -1,0 +1,52 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.release_parity_topology.v1",
+  "id": "EW-RS-042",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "parent": "EW-RS-041",
+  "objective": "Test whether the remaining scalar interaction information is captured by residual/column incidence topology with only immediate-frontier status and positive release-depth parity.",
+  "cases": [
+    "5x3-k3",
+    "4x4-k4",
+    "6x3-k3"
+  ],
+  "candidate": {
+    "name": "TOPO_RPAR",
+    "definition": "Canonical owner-preserving residual/column incidence hypergraph with each residual cell labeled F when depth=0, O when depth is positive odd, and E when depth is positive even.",
+    "structural_motivation": [
+      "Depth 0 is uniquely immediately playable under gravity.",
+      "For delayed cells, release-depth parity is the minimal turn-parity signal suggested by EW-RS-041.",
+      "EW-RS-041 shows TOPO_DPAR is already scalar-exact on 6x3-k3 while TOPO_D012 leaves only 12 scalar contradictions on 4x4-k4.",
+      "On 4x4-k4, TOPO_D012 loses only the distinction between depths 2 and 3; TOPO_RPAR restores that distinction while deliberately continuing to merge depths 1 and 3."
+    ]
+  },
+  "frozen_from_prior": [
+    "post-RFG component parity",
+    "direct rank-local T2",
+    "exact-rank affine component coordinates",
+    "quadratic pair semantics",
+    "REL_INC scalar sufficiency",
+    "EW-RS-041 topology-delay ladder evidence"
+  ],
+  "controls": [
+    "TOPO",
+    "TOPO_D0",
+    "TOPO_DPAR",
+    "TOPO_D012",
+    "REL_INC_EXACT",
+    "REL_INC",
+    "EXACT"
+  ],
+  "anti_circularity": [
+    "TOPO_RPAR is fixed before outcome qualification.",
+    "Its labels depend only on current frontier-relative gravity depth and residual incidence.",
+    "No W/D/L label, fitted coefficient, contradiction key, or oracle outcome selects the candidate."
+  ],
+  "falsifiers": [
+    "Any scalar contradiction rejects TOPO_RPAR on that carrier.",
+    "REL_INC_EXACT and REL_INC must remain scalar-exact controls.",
+    "Exact component identity must reproduce the full observed degree-2 structural rank."
+  ],
+  "next_if_success": "Freeze TOPO_RPAR as the current compact scalar interaction coordinate, then qualify the unchanged coordinate on a predeclared fresh non-affine holdout before attempting direct two-syndrome coefficient derivation.",
+  "next_if_fail": "Preserve the exact contradiction family and test the next structurally motivated refinement inside release timing/topology; do not add outcome-selected arbitrary features."
+}
