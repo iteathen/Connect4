@@ -1,0 +1,29 @@
+{
+  "schema": "connect4.isomax.qo_column_permutation_equivariance_4x4.v1",
+  "date_author_local": "2026-09-29",
+  "scope": "complete physical 4x4 connect-4 first-win carrier plus abstract transported q_o states generated from it",
+  "group": {
+    "name": "S_4",
+    "size": 24,
+    "action": "permute columns in support and every residual cell; action c transports to p(c)"
+  },
+  "controls": {
+    "physicalStates": 161029,
+    "physicalControlChecks": 304574,
+    "legalTransportChecks": 12891744,
+    "equivarianceChecks": 7309776,
+    "mismatches": 0,
+    "orbitClasses": 10496
+  },
+  "result": "EXACT_FINITE_EQUIVARIANCE",
+  "equation": "T(p·q,p(c)) = p·T(q,c), with identical terminal token when terminal",
+  "consequences": [
+    "column permutation preserves rank and legal-action structure of the abstract q_o transition algebra",
+    "terminal tokens are preserved",
+    "nonterminal successors commute exactly with the permutation action",
+    "the S_4 orbit quotient is a rank-local transporter-aware future-game quotient on this complete bounded carrier",
+    "this is an automorphism of the compiled q_o transition algebra, not a claim that every column permutation is a physical board automorphism"
+  ],
+  "noSolvedValueUsed": true,
+  "interpretationGuard": "Finite 4x4 confirmation of an algebraic equivariance law. Generalization requires a symbolic proof from the qualified q_o transition contract and fresh qualification before changing Connect4 authority."
+}
