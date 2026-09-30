@@ -1,0 +1,40 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.zoe_fresh_holdout_4x5k3.v1",
+  "id": "EW-RS-049",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "parent": "EW-RS-048",
+  "objective": "Qualify the frozen ungraded ZOE count quotient unchanged on complete fresh 4x5-k3 and determine independently whether the holdout is non-affine under the established exact-rank degree-1 GF(2)^2 component-parity model.",
+  "case": "4x5-k3",
+  "freshness": [
+    "4x5-k3 has not been used by the late-stage ZOE/parity derivation campaign",
+    "the geometry is selected before its scalar qualification is observed",
+    "it preserves width-4 vertical/diagonal structure while changing k from the 4x5-k4 derivation carrier"
+  ],
+  "frozenCandidate": {
+    "name": "ZOE",
+    "definition": "For each exact canonical post-RFG component type T: omit T when n_T=0, emit O when n_T>0 is odd, and emit E when n_T>0 is even.",
+    "rankGrade": "none"
+  },
+  "controls": [
+    "PRESENCE",
+    "M2",
+    "ZOE_R3",
+    "full multiplicity",
+    "exact-rank degree-1 GF(2)^2 affine component-parity model"
+  ],
+  "antiCircularity": [
+    "ZOE is frozen unchanged from EW-RS-047/048 before this holdout.",
+    "No component type or count distinction is selected from 4x5-k3 outcomes.",
+    "The degree-1 model mechanically includes exact-rank offset and every observed exact component-parity variable before consulting outcome right-hand sides."
+  ],
+  "falsifiers": [
+    "Any mixed scalar-value ZOE class rejects ZOE transfer on 4x5-k3.",
+    "Full multiplicity must remain Q-V exact or the component multiset carrier itself fails.",
+    "If degree-1 contradictions equal zero, the case is an affine control and does not qualify as the requested fresh non-affine holdout."
+  ],
+  "successCriterion": "ZOE has zero scalar collisions and the exact-rank degree-1 model has at least one contradiction.",
+  "nextIfSuccess": "Freeze ZOE as the leading bounded scalar count quotient, integrate the parity/quadratic falsifier sequence into the foundational QU/IA audit, and begin decoder discovery directly over ZOE.",
+  "nextIfAffineControl": "Retain the transfer result but select another predeclared fresh geometry for non-affine qualification.",
+  "nextIfZoeFails": "Freeze the minimum ZOE collision and compare ZOE_R3/full multiplicity before adding count magnitude."
+}
