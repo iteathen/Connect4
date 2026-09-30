@@ -41,7 +41,7 @@ function analyze({width:W,height:H,k:K,label}){
  function counts(h){const rank=h.reduce((a,b)=>a+b,0),rem=N-rank,m=rank&1,mm=Math.ceil(rem/2),oo=Math.floor(rem/2);return {rank,rem,m,p0:m?oo:mm,p1:m?mm:oo};}
  function remaining(q){if(q.terminal)return q;const c=counts(q.h);return {...q,r0:q.r0.filter(m=>pc(m)<=c.p0),r1:q.r1.filter(m=>pc(m)<=c.p1)};}
  function feasible(mask,h,p){const c=counts(h),rs=bitCells(mask).map(x=>x.row-h[x.col]+1).sort((a,b)=>a-b);if(rs.some(x=>x<=0))return false;let slot=p===c.m?1:2;for(const r of rs){while(slot<r)slot+=2;if(slot>c.rem)return false;slot+=2;}return true;}
- function release(q){if(q.terminal)return q;return {...q,r0:q.r0.filter(m=>feasible(m,q.h,0)),r1:q.r1.filter(m=>feasible(m,q.h,1)});}
+ function release(q){if(q.terminal)return q;return {...q,r0:q.r0.filter(m=>feasible(m,q.h,0)),r1:q.r1.filter(m=>feasible(m,q.h,1))};}
  function frontier(q){if(q.terminal)return q;const c=counts(q.h),own=c.m?q.r1:q.r0;let F=0;for(let col=0;col<W;col++)if(q.h[col]<H){const b=1<<(q.h[col]*W+col),immediate=own.some(r=>r===b);if(!immediate)F|=b;}if(c.m)return {...q,r0:q.r0.filter(r=>(r&F)!==F)};return {...q,r1:q.r1.filter(r=>(r&F)!==F)};}
  function finalcap(q){if(q.terminal)return q;const c=counts(q.h);if(c.rem<=0||(c.rem&1))return q;let C=0;for(let col=0;col<W;col++)if(q.h[col]<H)C|=1<<((H-1)*W+col);if(c.m)return {...q,r1:q.r1.filter(r=>(r&C)!==C)};return {...q,r0:q.r0.filter(r=>(r&C)!==C)};}
  function apply(q,id){if(id==='QO')return q;if(id==='REMAINING')return remaining(q);if(id==='RELEASE')return release(q);if(id==='FRONTIER')return frontier(q);if(id==='FINALCAP')return finalcap(q);if(id==='FRONTIER_CAP')return finalcap(frontier(q));if(id==='ALL_LOCAL')return finalcap(frontier(release(q)));throw new Error(id);}
