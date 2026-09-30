@@ -1,0 +1,139 @@
+{
+  "schema": "connect4.isomax.role_cappar_rel_inc_zoe_fresh_6x3k4.v1",
+  "date_author_local": "2026-09-30",
+  "warrant": "EW-RS-055",
+  "target": "6x3-k4",
+  "frozenCandidate": "ROLE_CAPPAR_REL_INC_ZOE = jointly canonicalized REL_INC with per-column remaining-capacity parity attached to each local incidence role, followed by ZOE count aggregation",
+  "frozenDomain": "direct T2-O",
+  "frozenComponentDefinition": "post-RFG residual-incidence connected components with support/owner-labelled canonical component type",
+  "case": {
+    "label": "6x3-k4",
+    "width": 6,
+    "height": 3,
+    "k": 4,
+    "physicalStates": 2087325,
+    "nonterminalStates": 1914210,
+    "componentTypes": 16460,
+    "tactical2Counts": {
+      "W": 227321,
+      "L2": 25450,
+      "O": 1661439
+    },
+    "degree1": {
+      "model": "exact-rank affine GF(2)^2 over exact component multiplicity parity",
+      "equations": 1661439,
+      "activeVariables": 17731,
+      "pivotRank": 17696,
+      "activeNullity": 35,
+      "contradictions": 3543,
+      "firstContradiction": {
+        "key": "6187:148292",
+        "rank": 12,
+        "h": [
+          3,
+          1,
+          3,
+          2,
+          0,
+          3
+        ],
+        "oddTypes": [
+          "T15265",
+          "T16443",
+          "T16459"
+        ],
+        "relativeOutcome": "loss",
+        "code": 0,
+        "reducedRhs": 1
+      },
+      "codeGauge": {
+        "loss": "00",
+        "draw": "01",
+        "win": "10"
+      }
+    },
+    "audits": [
+      {
+        "mode": "EXACT_ZOE",
+        "statesAudited": 1661439,
+        "classes": 18418,
+        "mixedValueClasses": 0,
+        "QV": true,
+        "firstMixedValueWitness": null,
+        "minimumMultiplicityDifferenceWitness": null
+      },
+      {
+        "mode": "ROLE_CAPPAR_REL_INC_ZOE",
+        "statesAudited": 1661439,
+        "classes": 17550,
+        "mixedValueClasses": 0,
+        "QV": true,
+        "firstMixedValueWitness": null,
+        "minimumMultiplicityDifferenceWitness": null
+      },
+      {
+        "mode": "ROLE_CAP3_REL_INC_ZOE",
+        "statesAudited": 1661439,
+        "classes": 17965,
+        "mixedValueClasses": 0,
+        "QV": true,
+        "firstMixedValueWitness": null,
+        "minimumMultiplicityDifferenceWitness": null
+      },
+      {
+        "mode": "ROLE_CAP_EXACT_REL_INC_ZOE",
+        "statesAudited": 1661439,
+        "classes": 18418,
+        "mixedValueClasses": 0,
+        "QV": true,
+        "firstMixedValueWitness": null,
+        "minimumMultiplicityDifferenceWitness": null
+      },
+      {
+        "mode": "MULTI",
+        "statesAudited": 1661439,
+        "classes": 18437,
+        "mixedValueClasses": 0,
+        "QV": true,
+        "firstMixedValueWitness": null,
+        "minimumMultiplicityDifferenceWitness": null
+      }
+    ]
+  },
+  "mechanicalChecks": {
+    "outcomeBlindFresh": true,
+    "freshCarrierPredeclared": true,
+    "candidateFrozenFromEWRS054": true,
+    "keysOutcomeIndependent": true,
+    "roleCapacityJointlyCanonicalized": true,
+    "noRankGrade": true,
+    "T2ORetained": true,
+    "exactZoeControlExact": true,
+    "exactRoleCapacityControlExact": true,
+    "exactRoleCapacityPartitionMatchesExactZoe": true,
+    "fullMultiplicityControlExact": true,
+    "degree1ModelMechanicallyGenerated": true,
+    "componentRepresentationsMaterializedOnlyForT2O": true
+  },
+  "disposition": {
+    "EXACT_ZOE_QV": true,
+    "ROLE_CAPPAR_REL_INC_ZOE_QV": true,
+    "ROLE_CAP3_REL_INC_ZOE_QV": true,
+    "ROLE_CAP_EXACT_REL_INC_ZOE_QV": true,
+    "MULTI_QV": true,
+    "exactZoeClasses": 18418,
+    "roleCapparClasses": 17550,
+    "roleCap3Classes": 17965,
+    "roleCapExactClasses": 18418,
+    "multiClasses": 18437,
+    "degree1Contradictions": 3543,
+    "freshNonAffine": true,
+    "freshRoleCapparNonAffineSuccess": true
+  },
+  "interpretationGuard": [
+    "ROLE_CAPPAR_REL_INC_ZOE was frozen under EW-RS-054 before 6x3-k4 scalar qualification and selected by the predeclared coarsest-passing rule.",
+    "6x3-k4 was predeclared outcome-blind under EW-RS-056 and was not found in prior late-stage qualification evidence before the warrant.",
+    "Passing establishes bounded fresh Q-V evidence only; non-affine significance additionally requires DEGREE1 contradictions greater than zero.",
+    "No Q-A/Q-F or standard-7x6 claim follows."
+  ]
+}
