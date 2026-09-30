@@ -1,0 +1,110 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.ooo_descriptor_motif_functional_ladder.v1",
+  "id": "EW-RS-067",
+  "date_author_local": "2026-09-30",
+  "status": "ACTIVE",
+  "parent": "EW-RS-066",
+  "objective": "Test whether the scalar image on the realizable OOO dependency-residue quotient factors through a compact mechanically generated structural motif classification of OOO triples, using a frozen coarsest-first ladder before any scalar coefficient or holdout inspection.",
+  "cases": [
+    "6x3-k3",
+    "4x5-k4",
+    "6x3-k4"
+  ],
+  "frozenCoordinate": {
+    "identity": "ROLE_CAPPAR_REL_INC",
+    "countState": "ZOE",
+    "ownerGauge": "absolute r0/r1",
+    "depth": "exact frontier-relative depth retained by EW-RS-066",
+    "rankGrade": "none"
+  },
+  "dependencyCarrier": {
+    "source": "EW-RS-065 deterministic matched degree<=2 left-kernel dependencies",
+    "cubicResidue": "complete OOO triple residue",
+    "invariantDimensions": {
+      "6x3-k3": {
+        "oooResidueRank": 75,
+        "scalarImageDimension": 1
+      },
+      "4x5-k4": {
+        "oooResidueRank": 294,
+        "scalarImageDimension": 2
+      },
+      "6x3-k4": {
+        "oooResidueRank": 16,
+        "scalarImageDimension": 2
+      }
+    }
+  },
+  "motifLadder": [
+    {
+      "name": "WIDTH",
+      "descriptorSummary": "component width only"
+    },
+    {
+      "name": "WIDTH_CAPXOR",
+      "descriptorSummary": "component width plus XOR checksum of the role-attached capacity-parity bits"
+    },
+    {
+      "name": "WIDTH_CAPMASK",
+      "descriptorSummary": "component width plus the exact canonical role-capacity-parity vector"
+    },
+    {
+      "name": "WIDTH_CAPMASK_OWNER_MASK_COUNTS",
+      "descriptorSummary": "WIDTH_CAPMASK plus exact counts of residual masks in absolute owner channels r0 and r1"
+    },
+    {
+      "name": "WIDTH_CAPMASK_OWNER_MASK_SIZE_PROFILES",
+      "descriptorSummary": "previous fields plus owner-separated sorted multisets of residual-mask cardinalities"
+    },
+    {
+      "name": "WIDTH_CAPMASK_OWNER_DEPTH_HISTOGRAMS",
+      "descriptorSummary": "previous width/cap fields plus owner-separated exact histograms of residual-cell frontier-relative depths, while discarding role index and mask grouping"
+    },
+    {
+      "name": "WIDTH_CAPMASK_OWNER_MASK_DEPTH_PROFILES",
+      "descriptorSummary": "previous width/cap fields plus owner-separated sorted multisets of per-mask sorted relative-depth multisets, while discarding role indices"
+    },
+    {
+      "name": "FULL_DESCRIPTOR",
+      "descriptorSummary": "the complete frozen ROLE_CAPPAR_REL_INC descriptor string; reconstruction control"
+    }
+  ],
+  "tripleFunctional": {
+    "motifKey": "sorted multiset of the three descriptor summaries for each O_a O_b O_c structural triple",
+    "dependencyFeature": "for each motif key, parity of the number of OOO residue triples in the matched dependency carrying that key",
+    "algebra": "GF(2)",
+    "selectionOrder": "motifLadder order above; select the coarsest family with zero scalar contradictions on every declared carrier"
+  },
+  "structuralMeasurements": [
+    "number of motif keys",
+    "rank of the motif-parity map on the frozen OOO dependency residues",
+    "kernel dimension relative to the OOO residue image",
+    "whether zero motif residue always implies zero scalar residue"
+  ],
+  "scalarMeasurementsAfterStructuralFreeze": [
+    "GF(2)^2 scalar contradiction count on the deterministic matched dependency basis",
+    "scalar image dimension",
+    "scalar image dimension after restricting to a structurally independent motif-residue basis"
+  ],
+  "antiCircularity": [
+    "The complete motif ladder and all descriptor-summary definitions are frozen before any scalar qualification result is inspected.",
+    "Motif keys are generated only from frozen descriptor strings and OOO triple identities; W/D/L labels do not influence any grouping.",
+    "The matched dependency basis and OOO residues are inherited unchanged from EW-RS-065.",
+    "The FULL_DESCRIPTOR rung is a reconstruction control, not evidence of compactness.",
+    "No individual motif key is selected, removed, split, or merged using scalar residues.",
+    "EW-RS-059 PRIMARY 3x6-k4 and BACKUP 5x3-k4 remain sealed."
+  ],
+  "falsifiers": [
+    "FULL_DESCRIPTOR must reproduce the EW-RS-065 scalar factorization and target dimensions; failure invalidates the motif harness.",
+    "Any candidate with a structurally zero motif residue but nonzero scalar residue is insufficient.",
+    "A candidate is selected only if it has zero scalar contradictions on all three declared carriers.",
+    "No post-hoc outcome-driven exception or descriptor split is allowed."
+  ],
+  "nextIfCommonCandidatePasses": "Freeze the coarsest passing motif functional family and reduce its scalar image outcome-independently before fitting any closed syndrome coefficients; keep EW-RS-059 sealed.",
+  "nextIfOnlyFullDescriptorPasses": "Record failure of the coarse motif ladder and move to mechanically generated DTS/exchange or minimal-circuit descriptors on the matched dependency carrier without outcome-selected motif refinement.",
+  "interpretationGuards": [
+    "Passing one-hot motif parity does not by itself establish a closed arithmetic formula or universal law.",
+    "Motif-map rank and scalar factorization are invariant; individual deterministic basis rows remain gauge representatives.",
+    "No Q-A/Q-F, universal cubic sufficiency, standard-7x6 qualification, or center-opening proof follows."
+  ]
+}
