@@ -1,0 +1,300 @@
+{
+  "schema": "connect4.isomax.discovery.cap_hole_orientation_audit.v1",
+  "date_author_local": "2026-09-29",
+  "warrant": "EW-015",
+  "motif_definition": {
+    "support": "same exact height vector across the two compared sheet states",
+    "residual_difference": "every residual present on only one sheet is an exact one-hole subset of the current open-cap set",
+    "orientation": "the two sheets choose disjoint holes from one two-column hole pair",
+    "covariance": "hole columns are carried by column relabeling; raw residual mask numbers are not used as semantic identity",
+    "support_height_relation": "recorded but not required; the first EW-015 attempt was falsified because the predecessor source hole pair has unequal heights"
+  },
+  "positive": [
+    {
+      "name": "predecessor-minimum",
+      "source": {
+        "motif": true,
+        "heights": [
+          2,
+          2,
+          2,
+          3,
+          3
+        ],
+        "capMask": 1015808,
+        "onlyA": [
+          "0:884736",
+          "1:884736"
+        ],
+        "onlyB": [
+          "0:753664",
+          "1:753664"
+        ],
+        "diffA": [
+          {
+            "player": 0,
+            "residual": 884736,
+            "holeBit": 17,
+            "holeColumn": 2
+          },
+          {
+            "player": 1,
+            "residual": 884736,
+            "holeBit": 17,
+            "holeColumn": 2
+          }
+        ],
+        "diffB": [
+          {
+            "player": 0,
+            "residual": 753664,
+            "holeBit": 18,
+            "holeColumn": 3
+          },
+          {
+            "player": 1,
+            "residual": 753664,
+            "holeBit": 18,
+            "holeColumn": 3
+          }
+        ],
+        "holeColumnsA": [
+          2
+        ],
+        "holeColumnsB": [
+          3
+        ],
+        "holePair": [
+          2,
+          3
+        ],
+        "heightPair": [
+          2,
+          3
+        ],
+        "equalHeight": false,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      "target": {
+        "motif": true,
+        "heights": [
+          2,
+          3,
+          3,
+          3,
+          3
+        ],
+        "capMask": 1015808,
+        "onlyA": [
+          "1:753664"
+        ],
+        "onlyB": [
+          "0:884736",
+          "1:884736"
+        ],
+        "diffA": [
+          {
+            "player": 1,
+            "residual": 753664,
+            "holeBit": 18,
+            "holeColumn": 3
+          }
+        ],
+        "diffB": [
+          {
+            "player": 0,
+            "residual": 884736,
+            "holeBit": 17,
+            "holeColumn": 2
+          },
+          {
+            "player": 1,
+            "residual": 884736,
+            "holeBit": 17,
+            "holeColumn": 2
+          }
+        ],
+        "holeColumnsA": [
+          3
+        ],
+        "holeColumnsB": [
+          2
+        ],
+        "holePair": [
+          2,
+          3
+        ],
+        "heightPair": [
+          3,
+          3
+        ],
+        "equalHeight": true,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      "sharedHolePair": [
+        2,
+        3
+      ]
+    },
+    {
+      "name": "support-release-survivor",
+      "source": {
+        "motif": true,
+        "heights": [
+          1,
+          1,
+          3,
+          3,
+          4
+        ],
+        "capMask": 491520,
+        "onlyA": [
+          "1:360448"
+        ],
+        "onlyB": [
+          "1:229376"
+        ],
+        "diffA": [
+          {
+            "player": 1,
+            "residual": 360448,
+            "holeBit": 17,
+            "holeColumn": 2
+          }
+        ],
+        "diffB": [
+          {
+            "player": 1,
+            "residual": 229376,
+            "holeBit": 18,
+            "holeColumn": 3
+          }
+        ],
+        "holeColumnsA": [
+          2
+        ],
+        "holeColumnsB": [
+          3
+        ],
+        "holePair": [
+          2,
+          3
+        ],
+        "heightPair": [
+          3,
+          3
+        ],
+        "equalHeight": true,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      "target": {
+        "motif": true,
+        "heights": [
+          2,
+          3,
+          3,
+          3,
+          4
+        ],
+        "capMask": 491520,
+        "onlyA": [
+          "1:360448"
+        ],
+        "onlyB": [
+          "1:229376"
+        ],
+        "diffA": [
+          {
+            "player": 1,
+            "residual": 360448,
+            "holeBit": 17,
+            "holeColumn": 2
+          }
+        ],
+        "diffB": [
+          {
+            "player": 1,
+            "residual": 229376,
+            "holeBit": 18,
+            "holeColumn": 3
+          }
+        ],
+        "holeColumnsA": [
+          2
+        ],
+        "holeColumnsB": [
+          3
+        ],
+        "holePair": [
+          2,
+          3
+        ],
+        "heightPair": [
+          3,
+          3
+        ],
+        "equalHeight": true,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      "sharedHolePair": [
+        2,
+        3
+      ]
+    }
+  ],
+  "flatControls": [
+    {
+      "label": "4x5-k4-flat",
+      "width": 4,
+      "height": 5,
+      "k": 4,
+      "summary": {
+        "states": 102815,
+        "classes": 86791,
+        "binaryGroups": 696,
+        "cycleRank": 40,
+        "nonzero": 0,
+        "contradictions": 0
+      },
+      "groupsWithSharedSupport": 624,
+      "testedPairs": 3714,
+      "motifGroups": 0,
+      "cycleGroups": 120,
+      "cycleMotifGroups": 0,
+      "undirectedCycleEdges": 156,
+      "bridgeCount": 292,
+      "examples": [],
+      "cycleExamples": []
+    },
+    {
+      "label": "5x3-k3-flat",
+      "width": 5,
+      "height": 3,
+      "k": 3,
+      "summary": {
+        "states": 13572,
+        "classes": 8599,
+        "binaryGroups": 310,
+        "cycleRank": 1,
+        "nonzero": 0,
+        "contradictions": 0
+      },
+      "groupsWithSharedSupport": 272,
+      "testedPairs": 2113,
+      "motifGroups": 0,
+      "cycleGroups": 6,
+      "cycleMotifGroups": 0,
+      "undirectedCycleEdges": 6,
+      "bridgeCount": 98,
+      "examples": [],
+      "cycleExamples": []
+    }
+  ],
+  "result": "MOTIF_SURVIVES_TESTED_FLAT_CYCLE_CONTROLS",
+  "flatCycleCounterexamples": 0,
+  "interpretation_guard": "No tested flat cycle-supporting group exhibited the motif, but finite absence is only a sharpened candidate; it is not proof of sufficiency or necessity."
+}
