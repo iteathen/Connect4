@@ -1,0 +1,20 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.support_xor_parity_holdout.v1",
+  "id": "EW-RS-010",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE_FRESH_HOLDOUT",
+  "frozen_candidate": "raw integer column-height XOR X_h; p=stone parity",
+  "cases": [
+    "3x3 k3",
+    "3x4 k3",
+    "4x3 k3",
+    "4x4 k3"
+  ],
+  "target": "test the unexpected 4x4-k4 result that X_h is constant inside complete literal future-behavior classes while remaining insufficient and non-recursively-closed",
+  "falsifiers": [
+    "any future class containing multiple X_h values",
+    "p != low bit of X_h",
+    "all safe-forgetting decisions becoming functions of X_h despite 4x4-k4 counterexamples"
+  ],
+  "noSolvedDatabase": true
+}
