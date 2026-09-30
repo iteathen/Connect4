@@ -14,6 +14,7 @@ on:
       - 'research/isograph/discovery/2026-09-29-isomax-late-xor-components/ooo-orientation-provenance-lib.test.mjs'
       - 'research/isograph/discovery/2026-09-29-isomax-late-xor-components/verify-ooo-orientation-provenance.mjs'
       - 'research/isograph/discovery/2026-09-29-isomax-late-xor-components/run-ooo-orientation-provenance.mjs'
+      - 'research/isograph/discovery/2026-09-29-isomax-late-xor-components/verify-ooo-orientation-result.mjs'
   workflow_dispatch:
 
 permissions:
@@ -34,6 +35,8 @@ jobs:
         run: node research/isograph/discovery/2026-09-29-isomax-late-xor-components/verify-ooo-orientation-provenance.mjs
       - name: Run OOO orientation provenance audit
         run: node --max-old-space-size=6144 research/isograph/discovery/2026-09-29-isomax-late-xor-components/run-ooo-orientation-provenance.mjs
+      - name: Verify OOO orientation result
+        run: node research/isograph/discovery/2026-09-29-isomax-late-xor-components/verify-ooo-orientation-result.mjs
       - name: Research integrity
         run: node tools/verify-research-integrity.mjs
       - name: Commit orientation evidence
@@ -42,7 +45,8 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add \
             research/isograph/discovery/2026-09-29-isomax-late-xor-components/OOO_ORIENTATION_PROVENANCE_SPEC_VERIFY_0_1.json \
-            research/isograph/discovery/2026-09-29-isomax-late-xor-components/OOO_ORIENTATION_PROVENANCE_0_1.json
+            research/isograph/discovery/2026-09-29-isomax-late-xor-components/OOO_ORIENTATION_PROVENANCE_0_1.json \
+            research/isograph/discovery/2026-09-29-isomax-late-xor-components/OOO_ORIENTATION_PROVENANCE_RESULT_VERIFY_0_1.json
           if git diff --cached --quiet; then
             echo "No generated changes."
           else
