@@ -1,0 +1,38 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.owner_coherence.v1",
+  "id": "EW-RS-088",
+  "status": "FROZEN_BEFORE_OWNER_COHERENCE_REPLAY",
+  "parent": "EW-RS-087",
+  "objective": "Separate independent edge owner normalization from coherent triangle normalization, and distinguish formal channel exchange from vertex-regenerated endpoint orientation.",
+  "researchOwner": "research/semantic-quotient",
+  "source": "RS079 committed selected vertices; SIGNED_PARITY roleless C and owner-separated zero/bulk D token counts.",
+  "candidateGrid": [
+    "OWNER_SEPARATED",
+    "PAIR_FORMAL_SWAP",
+    "TRIANGLE_FORMAL_SWAP",
+    "PAIR_VERTEX_SWAP",
+    "TRIANGLE_VERTEX_SWAP"
+  ],
+  "maps": {
+    "OWNER_SEPARATED": "RS087 ordered-owner triangle control.",
+    "PAIR_FORMAL_SWAP": "Minimize each oriented pair record under owner-vector exchange; sort the3 resulting records.",
+    "TRIANGLE_FORMAL_SWAP": "Build sorted3-pair records with ordered owners; exchange owners in all3 records together and take lexicographic minimum of the2 triangle strings.",
+    "PAIR_VERTEX_SWAP": "For each pair exchange dh0/dh1 in both full selected vertices, regenerate endpoint ordering and compressed signs, and take the minimum of original and swapped pair key; sort3 keys.",
+    "TRIANGLE_VERTEX_SWAP": "Exchange dh0/dh1 simultaneously in all3 full selected vertices, regenerate the full sorted triangle key, then take minimum of original/swapped triangle keys."
+  },
+  "procedure": [
+    "Test formal triangle orbit semantics and endpoint-permutation invariance; test vertex-regenerated owner invariance.",
+    "Freeze all5 pooled catalogs, rows, bases and complete kernels; commit before scalar replay.",
+    "Replay all3 fixed scalar characters and existing owner-separated baseline using pinned RS077 dependencies."
+  ],
+  "guards": [
+    "Formal owner exchange on already-oriented records is not asserted to equal vertex owner exchange.",
+    "Vertex-normalized maps are maps from full selected triangles; not assumed deterministic quotients of the compressed ordered-owner carrier.",
+    "No claims about physical game symmetry, universal law, fitted coefficients, or minimality outside this grid."
+  ],
+  "holdouts": {
+    "primary": "3x6-k4",
+    "backup": "5x3-k4",
+    "sealed": true
+  }
+}
