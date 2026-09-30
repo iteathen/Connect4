@@ -1,0 +1,124 @@
+{
+  "schema": "connect4.isomax.revalidation.two_primitive_mixed_scalar_annotation.v1",
+  "warrant": "REVAL-LEGO-MIXED-001",
+  "structureCommit": "dcb9551af8cd24efc0f4f03fb7f2b6dede5a4748",
+  "status": "PASS_SCALAR_CHARACTER_ANNOTATED",
+  "basis": {
+    "x": "DMERGED|NEG|1",
+    "y": "DMERGED|POS|1",
+    "columns": [
+      "B*x",
+      "B*y",
+      "B*(x AND y)"
+    ]
+  },
+  "directKernelDimension": 113,
+  "scalarCodesOnDirectKernelHistogram": [
+    {
+      "code": 0,
+      "count": 112
+    },
+    {
+      "code": 1,
+      "count": 0
+    },
+    {
+      "code": 2,
+      "count": 1
+    },
+    {
+      "code": 3,
+      "count": 0
+    }
+  ],
+  "lowBitNonzeroCount": 0,
+  "allNonzeroLinearCharacters": [
+    {
+      "mask": 1,
+      "coefficients": {
+        "Bx": true,
+        "By": false,
+        "Bxy": false
+      },
+      "mismatches": 2
+    },
+    {
+      "mask": 2,
+      "coefficients": {
+        "Bx": false,
+        "By": true,
+        "Bxy": false
+      },
+      "mismatches": 0
+    },
+    {
+      "mask": 3,
+      "coefficients": {
+        "Bx": true,
+        "By": true,
+        "Bxy": false
+      },
+      "mismatches": 3
+    },
+    {
+      "mask": 4,
+      "coefficients": {
+        "Bx": false,
+        "By": false,
+        "Bxy": true
+      },
+      "mismatches": 2
+    },
+    {
+      "mask": 5,
+      "coefficients": {
+        "Bx": true,
+        "By": false,
+        "Bxy": true
+      },
+      "mismatches": 1
+    },
+    {
+      "mask": 6,
+      "coefficients": {
+        "Bx": false,
+        "By": true,
+        "Bxy": true
+      },
+      "mismatches": 1
+    },
+    {
+      "mask": 7,
+      "coefficients": {
+        "Bx": true,
+        "By": true,
+        "Bxy": true
+      },
+      "mismatches": 2
+    }
+  ],
+  "exactHighBitCharacters": [
+    {
+      "mask": 2,
+      "coefficients": {
+        "Bx": false,
+        "By": true,
+        "Bxy": false
+      },
+      "mismatches": 0
+    }
+  ],
+  "interpretation": [
+    "The direct carrier already preserves the low scalar character on its kernel; only the high bit requires the 3D boundary-association quotient.",
+    "In this simple owner-merged Boolean basis the unique high-bit character is By alone.",
+    "Bx and Bxy are structurally real quotient directions but scalar-null for the high character on the trained dependency kernel.",
+    "The mixed-product direction is required to span the full structural quotient but is not itself value-bearing in this scalar gauge."
+  ],
+  "holdouts": {
+    "primary": "3x6-k4",
+    "backup": "5x3-k4",
+    "sealed": true
+  },
+  "rs096": "HOLD",
+  "authorityEffect": "NONE"
+}
