@@ -225,5 +225,5 @@ const out={
   },
   interpretationGuard:'Finite 4x4 exact evidence. Passing candidates are bounded exact controls, not unbounded or standard-7x6 theorems. Failed candidates provide exact counterexamples to the scoped compression.'
 };
-fs.writeFileSync(new URL('./RANK_LOCAL_COMPRESSION_4X4_0_1.json',import.meta.url),JSON.stringify(out,null,2)+'\\n');
+fs.writeFileSync(new URL('./RANK_LOCAL_COMPRESSION_4X4_0_1.json',import.meta.url),JSON.stringify(out,null,2)+'\n');
 console.log(JSON.stringify({status:'RANK_LOCAL_COMPRESSION_4X4_COMPLETE',counts:out.counts,conclusions:out.conclusions,direct:results.map(x=>({id:x.id,classes:x.classes,QF:x.QF_literal_transition_congruence,QA:x.QA_literal_action_value_sufficiency,QV:x.QV_value_sufficiency}))},null,2));
