@@ -84,6 +84,11 @@
       "id": "QU-OOO-05",
       "subject": "whether the OOO remainder is a lower-complexity law on the weighted ZOE width fiber rather than intrinsic cubic interaction",
       "status": "OPEN"
+    },
+    {
+      "id": "QU-OOO-06",
+      "subject": "primitive exchange/circuit generators of the reachable repaired ZOE signature manifold",
+      "status": "OPEN"
     }
   ],
   "basisDependentLeads": {
@@ -114,10 +119,9 @@
     "guard": "deterministic quotient basis membership and fitted supports are gauge-dependent"
   },
   "experiment": {
-    "warrant": "EW-RS-063",
-    "method": "enumerate every complete fixed-presence E/O 3-cube in discovery carriers and measure eight-corner scalar XOR",
-    "falsifier": "same triple with different third-difference code across contexts",
-    "status": "RUNNING_REBASE_SAFE_RERUN_AFTER_ZERO_CUBE_EXECUTION"
+    "warrant": "EW-RS-064",
+    "status": "FROZEN",
+    "next": "construct outcome-independent minimal exchange/circuit graph before any formula holdout"
   },
   "exactWidthConservation": {
     "integerLaw": "sum_d width_d * n_d = W",
@@ -130,5 +134,71 @@
     ],
     "cubicQuotientRelation": "for any distinct a,b, XOR_{d odd-width, d not a,b} [O_a O_b O_d] = 0 modulo degree<=2",
     "status": "DEDUCTIVE_EXACT_OUTCOME_INDEPENDENT"
+  },
+  "presenceFiberGeometry": {
+    "warrant": "EW-RS-064",
+    "status": "FROZEN",
+    "resultCommit": "962fba9bf5711927652de4be127f4c782104dcdf",
+    "cases": {
+      "6x3-k3": {
+        "structuralClasses": 16732,
+        "fibers": 16728,
+        "stateCountHistogram": {
+          "1": 16724,
+          "2": 4
+        },
+        "maxAffineDimension": 1,
+        "completeCoordinateFibers": 0,
+        "completeAffineSubspaceFibers": 16728,
+        "incompleteAffineSubspaceFibers": 0,
+        "widthOnlyConstraintFibers": 2,
+        "additionalLinearConstraintFibers": 16726,
+        "zeroSlackClasses": 13047,
+        "totalClasses": 16732
+      },
+      "4x5-k4": {
+        "structuralClasses": 79309,
+        "fibers": 79185,
+        "stateCountHistogram": {
+          "1": 79068,
+          "2": 110,
+          "3": 7
+        },
+        "maxAffineDimension": 2,
+        "completeCoordinateFibers": 0,
+        "completeAffineSubspaceFibers": 79178,
+        "incompleteAffineSubspaceFibers": 7,
+        "widthOnlyConstraintFibers": 18,
+        "additionalLinearConstraintFibers": 79167,
+        "zeroSlackClasses": 79093,
+        "totalClasses": 79309
+      },
+      "6x3-k4": {
+        "structuralClasses": 17550,
+        "fibers": 17465,
+        "stateCountHistogram": {
+          "1": 17390,
+          "2": 67,
+          "3": 6,
+          "4": 2
+        },
+        "maxAffineDimension": 2,
+        "completeCoordinateFibers": 0,
+        "completeAffineSubspaceFibers": 17459,
+        "incompleteAffineSubspaceFibers": 6,
+        "widthOnlyConstraintFibers": 20,
+        "additionalLinearConstraintFibers": 17445,
+        "zeroSlackClasses": 15549,
+        "totalClasses": 17550
+      }
+    },
+    "interpretation": [
+      "no fixed-presence fiber is a complete coordinate cube",
+      "almost every fixed-presence fiber is a singleton oddness state",
+      "width parity is exact but almost never the only local affine constraint",
+      "additional local constraints are not automatically universal laws because most fibers are singletons",
+      "OOO cubic structure is better interpreted as a realization on a thin weighted ZOE manifold than as free independent three-body Boolean interaction"
+    ],
+    "revisedTarget": "primitive generators / minimal exchanges / circuits of the reachable repaired ZOE manifold and scalar variation along them"
   }
 }
