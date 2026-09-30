@@ -1,0 +1,45 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.phase_q_a.v1",
+  "id": "EW-RS-024",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "parents": [
+    "EW-RS-018",
+    "EW-RS-022"
+  ],
+  "objective": "Qualify transporter-aware action-value sufficiency separately from scalar Q-V and full Q-F for the phase-factored component-parity candidate.",
+  "frozen_candidate": "post-RFG component-type multiplicity parity + current rank mod 3 + direct T2 W/L2/O",
+  "frozen_component_definition": "post-RFG residual-incidence connected components with support/owner-labelled canonical component type and canonical per-column action roles",
+  "action_semantics": "For each legal action, compare the canonical parent-component action role paired with the exact scalar value of the resulting child. Equality is multiset equality, so duplicate equivalent actions remain semantically visible.",
+  "cases": [
+    "3x3-k3",
+    "3x4-k3",
+    "4x3-k3",
+    "4x4-k4",
+    "4x4-k3",
+    "3x5-k3",
+    "5x3-k3",
+    "3x6-k3"
+  ],
+  "controls": [
+    "full component multiplicity MULTI",
+    "component parity + T2 without rank-mod-3 phase",
+    "component parity + exact rank + T2",
+    "component parity + rank mod 4 + T2"
+  ],
+  "targets": [
+    "Q-A primary",
+    "Q-V retained",
+    "Q-F diagnostic"
+  ],
+  "anti_circularity": [
+    "Structural keys and action roles are frozen before exact values are derived.",
+    "Exact child values are used only as the Q-A qualification target.",
+    "No action-value label is used to define the representation or component type.",
+    "Direct T2 semantics were independently qualified by EW-RS-022."
+  ],
+  "falsifiers": [
+    "Any mixed transporter-aware action-value signature inside the phase-factored key rejects Q-A even if Q-V remains exact.",
+    "A Q-A pass supports only the tested finite carriers and does not establish Q-F or standard-7x6 sufficiency."
+  ]
+}
