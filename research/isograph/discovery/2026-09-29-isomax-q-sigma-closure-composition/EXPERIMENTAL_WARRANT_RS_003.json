@@ -1,0 +1,19 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.q_sigma_closure_composition.v1",
+  "id": "EW-RS-003",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "objective": "Find the smallest tested rank-local 4x4 Q-F/Q-A/Q-V representation obtainable by composing the three exact-finite Q-F-safe residual deletions with the S4 orbit quotient, while measuring order sensitivity.",
+  "candidate_space": "all distinct-operation sequences over remaining-capacity, support-release/turn-capacity and frontier, with/without S4 orbit",
+  "anti_circularity": [
+    "all keys use current-rank support/residual structure only",
+    "candidate definitions fixed before value derivation",
+    "no future-derived quotient classes",
+    "no solved database"
+  ],
+  "falsifiers": [
+    "closure not S4-covariant",
+    "composition loses bounded Q-F",
+    "order changes correctness or class count"
+  ]
+}
