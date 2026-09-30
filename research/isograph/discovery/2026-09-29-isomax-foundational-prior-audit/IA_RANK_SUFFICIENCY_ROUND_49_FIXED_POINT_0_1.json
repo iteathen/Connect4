@@ -1,0 +1,26 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_fixed_point.v1",
+  "round": 49,
+  "date_author_local": "2026-09-30",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_48_0_1.json",
+    "RANK_SUFFICIENCY_CAPACITY_REL_INC_ZOE_INTEGRATION_0_1.json"
+  ],
+  "recursive_generation": {
+    "families_checked": [
+      "scalar total versus capacity distribution",
+      "unordered profile versus role alignment",
+      "REL_INC base-coordinate completion",
+      "minimal identity refinement"
+    ],
+    "new_assertions": []
+  },
+  "fixed_point": true,
+  "reason": "The next unresolved bit is whether only the multiset of local capacities matters or whether those capacities must be aligned with specific residual-incidence column roles.",
+  "next_evidence_boundaries": [
+    "freeze CAPHIST_REL_INC_ZOE as REL_INC plus the sorted multiset of exact per-column remaining capacities",
+    "retain exact-total-capacity REL_INC-ZOE and exact-type ZOE as controls",
+    "only if CAPHIST fails, test a jointly canonicalized capacity-to-incidence role labeling"
+  ],
+  "stop_status": "FIXED_POINT__CAPACITY_PROFILE_REL_INC_NEXT"
+}
