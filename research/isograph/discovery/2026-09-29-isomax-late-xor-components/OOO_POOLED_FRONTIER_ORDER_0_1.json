@@ -1,0 +1,145 @@
+{
+  "schema": "connect4.isomax.frontier_tag_order.v1",
+  "warrant": "EW-RS-086",
+  "status": "PASS",
+  "sourceStates": [
+    [
+      -1,
+      -1
+    ],
+    [
+      -1,
+      0
+    ],
+    [
+      -1,
+      1
+    ],
+    [
+      0,
+      -1
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      1
+    ],
+    [
+      1,
+      -1
+    ],
+    [
+      1,
+      0
+    ],
+    [
+      1,
+      1
+    ]
+  ],
+  "order": [
+    {
+      "coarse": "NONE",
+      "noFinerThan": [
+        "NONE",
+        "ANY",
+        "TOTAL",
+        "ABS_NET",
+        "UNORDERED",
+        "SIGNED_COUNTS",
+        "OWNER_SEPARATED"
+      ]
+    },
+    {
+      "coarse": "ANY",
+      "noFinerThan": [
+        "ANY",
+        "TOTAL",
+        "UNORDERED",
+        "SIGNED_COUNTS",
+        "OWNER_SEPARATED"
+      ]
+    },
+    {
+      "coarse": "TOTAL",
+      "noFinerThan": [
+        "TOTAL",
+        "UNORDERED",
+        "SIGNED_COUNTS",
+        "OWNER_SEPARATED"
+      ]
+    },
+    {
+      "coarse": "ABS_NET",
+      "noFinerThan": [
+        "ABS_NET",
+        "UNORDERED",
+        "SIGNED_COUNTS",
+        "OWNER_SEPARATED"
+      ]
+    },
+    {
+      "coarse": "UNORDERED",
+      "noFinerThan": [
+        "UNORDERED",
+        "SIGNED_COUNTS",
+        "OWNER_SEPARATED"
+      ]
+    },
+    {
+      "coarse": "SIGNED_COUNTS",
+      "noFinerThan": [
+        "SIGNED_COUNTS",
+        "OWNER_SEPARATED"
+      ]
+    },
+    {
+      "coarse": "OWNER_SEPARATED",
+      "noFinerThan": [
+        "OWNER_SEPARATED"
+      ]
+    }
+  ],
+  "minima": [
+    {
+      "base": "PMEC-01",
+      "passing": [],
+      "minimal": []
+    },
+    {
+      "base": "PMEC-02",
+      "passing": [],
+      "minimal": []
+    },
+    {
+      "base": "PMEC-03",
+      "passing": [
+        "OWNER_SEPARATED"
+      ],
+      "minimal": [
+        "OWNER_SEPARATED"
+      ]
+    },
+    {
+      "base": "PMEC-04",
+      "passing": [
+        "OWNER_SEPARATED"
+      ],
+      "minimal": [
+        "OWNER_SEPARATED"
+      ]
+    },
+    {
+      "base": "SEPARATED_RECONSTRUCTION",
+      "passing": [
+        "OWNER_SEPARATED"
+      ],
+      "minimal": [
+        "OWNER_SEPARATED"
+      ]
+    }
+  ]
+}
