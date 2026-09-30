@@ -1,0 +1,303 @@
+{
+  "schema": "connect4.isomax.full_discovery.findings.v3",
+  "date_author_local": "2026-09-29",
+  "status": "INTERIM__EW014_PENDING",
+  "evidence_provenance": [
+    {
+      "id": "P1",
+      "branch": "research/isomax-full-isograph-discovery-20260929",
+      "commit": "2683e701919d65eb4834402896501e4c2dd9c892",
+      "files": [
+        "PHASE1_OBSERVATIONS_0_1.json",
+        "DTS_ANALYSIS_0_1.json",
+        "MSS_ANALYSIS_0_1.json",
+        "CYCLE_FEATURES_0_1.json",
+        "CONTRADICTION_MSS_ALL_0_1.json"
+      ]
+    },
+    {
+      "id": "K3A",
+      "branch": "experiment/isomax-discovery-k3-transpose-20260929",
+      "commit": "c95c0379d682f90f37fb22e08bdcdf4747eeebc1",
+      "file": "K3_TRANSPOSE_ADAPTIVE_0_1.json"
+    },
+    {
+      "id": "KROLE",
+      "branch": "experiment/isomax-discovery-k3-transpose-20260929",
+      "commit": "7837224a4601d15a2602ba9b6de515788e07f818",
+      "file": "K_ROLE_FIXED_GEOMETRY_0_1.json"
+    },
+    {
+      "id": "K2",
+      "branch": "experiment/isomax-discovery-k3-transpose-20260929",
+      "commit": "9fcbfb3bd9922eba85970062af0c3ac6441263fb",
+      "file": "K2_SPECIAL_CASE_CONTROL_0_1.json"
+    },
+    {
+      "id": "SA",
+      "branch": "experiment/isomax-discovery-structural-audits-20260929",
+      "commit": "0e7bb0e04e750b1580de138ff0475fea9b949e6e",
+      "file": "STRUCTURAL_AUDIT_OBSERVATIONS_0_1.json"
+    },
+    {
+      "id": "SA45",
+      "branch": "experiment/isomax-discovery-structural-audits-20260929",
+      "commit": "7e675fa31947e8ad998bb32fbc57314d06be5e9b",
+      "file": "STRUCTURAL_AUDIT_4X5_CONTROL_0_1.json"
+    },
+    {
+      "id": "LF4",
+      "branch": "experiment/isomax-discovery-line-family-20260929",
+      "commit": "33b3f2bfff71638f0766b457492e041acb2b1368",
+      "file": "LINE_FAMILY_INTERVENTION_0_1.json"
+    },
+    {
+      "id": "CAP",
+      "branch": "experiment/isomax-discovery-residual-closures-20260929",
+      "commit": "54f7b6cd3a869f6cb896236fed5ebb6bda97c34f",
+      "file": "OPEN_CAP_PRUNING_0_1.json"
+    },
+    {
+      "id": "MOTIF",
+      "branch": "experiment/isomax-discovery-cycle-motif-confirmation-20260929",
+      "commit": "b760c39ce6d94b1500fb8acf6d0d29bc76b2bb1a",
+      "file": "CYCLE_MOTIF_CONFIRMATION_0_1.json"
+    },
+    {
+      "id": "LF3",
+      "branch": "experiment/isomax-discovery-line-family-k3-confirmation-20260929",
+      "commit": "fc22d5a57db73851a54da2a8a97cf9101b7b7313",
+      "file": "LINE_FAMILY_K3_CONFIRMATION_0_1.json"
+    },
+    {
+      "id": "TRANSPOSE",
+      "branch": "experiment/isomax-discovery-transpose-hypergraph-20260929",
+      "commit": "f2134c4fa7c62770d7ff2f80d53a93a935f5e046",
+      "file": "TRANSPOSE_HYPERGRAPH_AUDIT_0_1.json"
+    },
+    {
+      "id": "GRAVITY_REALIZABILITY",
+      "branch": "experiment/isomax-discovery-residual-closures-20260929",
+      "commit": "01e3d6a0d1f58ed61817f38ed6a25944faea9597",
+      "file": "GRAVITY_REALIZABILITY_CLOSURES_0_1.json"
+    }
+  ],
+  "findings": [
+    {
+      "id": "DISC-F001",
+      "kind": "FACTORING",
+      "statement": "Within tested 4x5/5x4 geometries, cycle opportunity and cocycle frustration are separate structural layers: k=2 has no fundamental cycles; k=3 and k=4 have cycles, but 4x5 remains flat while 5x4 is frustrated.",
+      "evidence": [
+        "K2",
+        "KROLE",
+        "P1"
+      ],
+      "scope": "tested k=2,3,4 4x5/5x4 standard closures only"
+    },
+    {
+      "id": "DISC-F002",
+      "kind": "FINITE_PHASE_BOUNDARY",
+      "statement": "In the tested k=3 neighborhood {4x4,5x3,4x5,5x4}, only 5x4 has nonzero fundamental-cycle syndrome. Width 5 alone and height 4 alone are each insufficient within this finite neighborhood; their conjunction selects the sole obstructed case.",
+      "evidence": [
+        "K3A",
+        "KROLE"
+      ],
+      "scope": "four exact k=3 board cases"
+    },
+    {
+      "id": "DISC-F003",
+      "kind": "CLOSURE_INVARIANCE",
+      "statement": "Mover final-cap parity pruning changes raw residual-state counts but leaves recursive unlabelled classes, action-labelled classes, deeper-group structure, cycle rank and syndrome census unchanged at each fixed frontier setting for both 4x5 and 5x4 k=4.",
+      "evidence": [
+        "P1"
+      ],
+      "scope": "2x2 frontier/cap ablation on exact k=4 transposed cases"
+    },
+    {
+      "id": "DISC-F004",
+      "kind": "CAUSAL_MODIFIER",
+      "statement": "The nonterminal frontier blocker changes binary-cycle topology and reduces 5x4 nonzero fundamental syndromes from 79 to 25, but does not change the flat/obstructed classification of either 4x5 or 5x4.",
+      "evidence": [
+        "P1"
+      ],
+      "scope": "exact k=4 4x5/5x4 frontier ablation"
+    },
+    {
+      "id": "DISC-F005",
+      "kind": "COUNTERFACTUAL_MINIMUM_SUPPORT",
+      "statement": "In the k=4 line-family intervention, H+D is the unique minimum winning-line-family subset that produces any 5x4 nonzero syndrome; H, V, D, H+V and V+D are flat. Vertical lines are not necessary. The same H+D subset is flat in 4x5.",
+      "evidence": [
+        "LF4"
+      ],
+      "scope": "counterfactual residual producer; not standard Connect-Four rule theorem"
+    },
+    {
+      "id": "DISC-F006",
+      "kind": "REPAIR_INVARIANCE",
+      "statement": "Activating opponent-open-cap terminal-dominance pruning changes raw state carriers but leaves cycle rank, nonzero syndrome count and contradictory-reconvergence count exactly unchanged for both standard 4x5 and 5x4 k=4.",
+      "evidence": [
+        "CAP"
+      ],
+      "scope": "research pruning intervention"
+    },
+    {
+      "id": "DISC-F007",
+      "kind": "FALSIFIED_MECHANISM",
+      "statement": "Deep, transport-only recursive quotient merging is not sufficient for cocycle obstruction: flat 4x5 has earliest rank-9 merges requiring depth 4-9 and transport in every child class, comparable to obstructed 5x4 depth 7-9.",
+      "evidence": [
+        "SA",
+        "SA45"
+      ],
+      "scope": "exact audited 4x5/5x4 k=4 carriers"
+    },
+    {
+      "id": "DISC-F008",
+      "kind": "RESIDUAL_CLUE",
+      "statement": "Among exact open-cap class-preserving deletions not explained by support-release timing, all 2861 in flat 4x5 are terminal-dominated, while only 2299 of 3755 in obstructed 5x4 are. This coverage gap is a clue but is not causally sufficient because terminal-dominance pruning leaves the cocycle unchanged.",
+      "evidence": [
+        "SA",
+        "SA45",
+        "CAP"
+      ],
+      "scope": "audited standard k=4 cases plus pruning intervention"
+    },
+    {
+      "id": "DISC-F009",
+      "kind": "MSS",
+      "statement": "The unique minimum contradictory 5x4 source-target witness under (total traversals, max route length, distinct edges) uses four distinct transitions: two length-2 routes with opposite parity.",
+      "evidence": [
+        "P1"
+      ],
+      "scope": "complete reduced 5x4 binary inheritance DAG"
+    },
+    {
+      "id": "DISC-F010",
+      "kind": "NEGATIVE_CLASSIFIER",
+      "statement": "Even the full eight-feature coarse cycle signature (parent rank, closing column, path length, length parity, distinct-column count, repeat flag, source out-degree, target in-degree) does not determine syndrome; an exact zero/nonzero matched-signature pair exists.",
+      "evidence": [
+        "P1"
+      ],
+      "scope": "685 k=4 fundamental cycles"
+    },
+    {
+      "id": "DISC-F011",
+      "kind": "MOTIF_CANDIDATE_INCOMPLETE",
+      "statement": "Parent rank plus the full first-occurrence-relabelled action-column word is a perfect finite classifier on the k=4 685-cycle family, but the k=3 holdout does not confirm frustrated-cycle transfer: all 23 holdout nonzero cycles use previously unseen keys; 68 seen keys are all zero and predicted correctly.",
+      "evidence": [
+        "P1",
+        "MOTIF"
+      ],
+      "scope": "k=4 training plus k=3 4x5/5x4 holdout"
+    },
+    {
+      "id": "DISC-F012",
+      "kind": "REPRESENTATION_REDUNDANCY",
+      "statement": "Refinement and binary-linear canonicalization reduce permutation-candidate enumeration by orders of magnitude while preserving state count, recursive class count, root value and earliest merge rank in both 4x5 and 5x4 controls.",
+      "evidence": [
+        "P1"
+      ],
+      "scope": "compact bounded producer representation controls"
+    },
+    {
+      "id": "DISC-F013",
+      "kind": "FRESH_FALSIFICATION",
+      "statement": "The k=4 minimum-family rule does not transfer to k=3. On 5x4 k=3, H alone is already obstructed (2 nonzero syndromes), V+D is also obstructed (10), while V and D individually are flat. Thus the inclusion-minimal obstructing family sets are {H} and {V,D}, not {H,D}.",
+      "evidence": [
+        "LF3"
+      ],
+      "scope": "fresh 5x4 k=3 line-family intervention"
+    },
+    {
+      "id": "DISC-F014",
+      "kind": "GEOMETRY_SPECIFIC_NONDETERMINATION",
+      "statement": "Every tested 4x5 k=3 line-family subset remains flat, including the exact transpose counterparts of obstructed 5x4 subsets. Therefore line-family membership by itself does not determine cocycle frustration even at fixed k.",
+      "evidence": [
+        "LF3"
+      ],
+      "scope": "all seven H/V/D family subsets on 4x5 and 5x4 k=3"
+    },
+    {
+      "id": "DISC-F015",
+      "kind": "STATIC_ISOMORPHISM_DYNAMIC_SPLIT",
+      "statement": "Selected obstructed 5x4 line systems and flat 4x5 counterparts are exact coordinate-transpose isomorphs of the static winning-line hypergraph, with identical cell-incidence degree and line-intersection multisets. Their cocycle classifications nevertheless differ, so static winning-line incidence up to transpose does not determine the dynamic residual cocycle.",
+      "evidence": [
+        "LF4",
+        "LF3",
+        "TRANSPOSE"
+      ],
+      "scope": "T-K4-HD, T-K3-H, T-K3-HV and T-K3-VD exact transpose pairs"
+    },
+    {
+      "id": "DISC-F016",
+      "kind": "GRAVITY_RELATIVE_SYMMETRY_BREAK",
+      "statement": "Within the tested transpose pairs, coordinate transpose is a symmetry of the static winning-line system but not of the gravity/support transition system. A load-bearing differentiator must therefore include gravity-relative transition semantics rather than only the static line hypergraph.",
+      "evidence": [
+        "TRANSPOSE",
+        "LF4",
+        "LF3"
+      ],
+      "scope": "selected exact k=3/k=4 transpose pairs under standard downward gravity"
+    },
+    {
+      "id": "DISC-F017",
+      "kind": "NONMONOTONE_MAGNITUDE",
+      "statement": "For 5x4 k=3, nonzero-syndrome count is not monotone under adding winning-line families: H gives 2, H+V 43, H+D 6, V+D 10, and H+V+D 23. Family addition can increase or decrease frustration magnitude even though all tested supersets of an obstructing minimum remain obstructed.",
+      "evidence": [
+        "LF3"
+      ],
+      "scope": "seven H/V/D subsets on 5x4 k=3"
+    },
+    {
+      "id": "DISC-F018",
+      "kind": "REALIZABILITY_INSUFFICIENT",
+      "statement": "Exact remaining-move-capacity and gravity support-release/turn-capacity pruning do not remove the 5x4 obstruction. At k=4 both reduce the carrier and shrink the cocycle from 644 cycles / 25 nonzero / 12 contradictions to 542 / 22 / 1, but global phase remains nonintegrable. At k=3 the cocycle census remains exactly 451 / 23 / 18.",
+      "evidence": [
+        "GRAVITY_REALIZABILITY"
+      ],
+      "scope": "standard 4x5/5x4 k3/k4 producer with frontier+cap closures"
+    },
+    {
+      "id": "DISC-F019",
+      "kind": "CLOSURE_REDUNDANCY_AT_QUOTIENT",
+      "statement": "In every tested 4x5/5x4 k3/k4 case, remaining-move-capacity and support-release/turn-capacity closures produce identical recursive/action-labelled class counts and identical binary cocycle summaries, even when their raw residual-orbit state counts differ. The finer release filter adds no cocycle distinction beyond remaining capacity in this scope.",
+      "evidence": [
+        "GRAVITY_REALIZABILITY"
+      ],
+      "scope": "eight exact closure interventions"
+    },
+    {
+      "id": "DISC-F020",
+      "kind": "NARROWED_MECHANISM",
+      "statement": "Static line-hypergraph incidence plus individual residual realizability under remaining-move and support-release/turn constraints are jointly insufficient to explain the flat/frustrated transpose split. The unresolved differentiator must lie in other gravity-relative transition structure, such as interaction/order among realizable continuations, not merely static incidence or single-residual feasibility.",
+      "evidence": [
+        "TRANSPOSE",
+        "GRAVITY_REALIZABILITY",
+        "LF3",
+        "LF4"
+      ],
+      "scope": "tested transpose pairs and exact realizability closures"
+    }
+  ],
+  "live_gap": {
+    "id": "DISC-GAP-001",
+    "statement": "Which gravity-relative interaction/order feature of realizable continuations produces the one robust 5x4 k4 contradiction and the k3 obstruction family remains unresolved.",
+    "fixed_by_latest": [
+      "static winning-line hypergraph up to transpose is insufficient",
+      "line-family labels do not transfer as a universal rule across k",
+      "remaining-move capacity is insufficient",
+      "support-release/turn feasibility is insufficient",
+      "support-release filtering adds no cocycle distinction beyond remaining capacity in the tested cases",
+      "5x4 k4 nevertheless retains exactly one contradictory reconvergence after the stronger closure"
+    ],
+    "anti_circularity": [
+      "do not use syndrome/delta parity itself as explanatory coordinate",
+      "do not import W/D/L",
+      "do not infer transition identity from static transpose isomorphism",
+      "do not treat a pruned-away contradiction as explanation of the surviving one"
+    ],
+    "pending_evidence": [
+      "EW-014 characterization of the one support-release-surviving contradiction"
+    ]
+  },
+  "revision_of": "DISCOVERY_FINDINGS_0_2.json"
+}
