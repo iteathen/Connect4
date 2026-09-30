@@ -1,0 +1,522 @@
+{
+  "schema": "connect4.isomax.rank_local_compression_4x4.v1",
+  "date_author_local": "2026-09-29",
+  "scope": "complete physical 4x4 connect-4 first-win carrier",
+  "methodology": {
+    "structuralProducerUsesSolvedValues": false,
+    "candidateKeysFrozenBeforeValueDerivation": true,
+    "QFTest": "same candidate key must have identical literal terminal/candidate-successor interface",
+    "QATest": "post-freeze exact derived action-value vector homogeneity",
+    "QVTest": "post-freeze exact derived scalar value homogeneity",
+    "valueSource": "derived internally by backward rank recursion on enumerated physical carrier; no solved database"
+  },
+  "counts": {
+    "physicalStates": 161029,
+    "nonterminalStates": 134289,
+    "winningLines": 10,
+    "qoClasses": 34094
+  },
+  "directCandidates": [
+    {
+      "id": "QO",
+      "description": "full q_o",
+      "rankLocal": true,
+      "futureSearchUsedToDefine": false,
+      "classes": 34094,
+      "compressionVsPhysical": 3.9387868833225785,
+      "QF_literal_transition_congruence": true,
+      "QA_literal_action_value_sufficiency": true,
+      "QV_value_sufficiency": true,
+      "firstFutureFailure": null,
+      "firstActionValueFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "id": "SUPPORT_ONLY",
+      "description": "support heights only",
+      "rankLocal": true,
+      "futureSearchUsedToDefine": false,
+      "classes": 624,
+      "compressionVsPhysical": 215.20673076923077,
+      "QF_literal_transition_congruence": false,
+      "QA_literal_action_value_sufficiency": false,
+      "QV_value_sufficiency": false,
+      "firstFutureFailure": {
+        "candidateKey": "4,4,2,0",
+        "aState": "775:12400",
+        "bState": "8963:4212",
+        "aInterface": "I|I|N:4,4,3,0|T:P0",
+        "bInterface": "I|I|N:4,4,3,0|N:4,4,2,1"
+      },
+      "firstActionValueFailure": {
+        "candidateKey": "4,1,0,0",
+        "aState": "259:4112",
+        "bState": "4353:18",
+        "aActionValues": [
+          "I",
+          0,
+          0,
+          0
+        ],
+        "bActionValues": [
+          "I",
+          -1,
+          0,
+          0
+        ]
+      },
+      "firstValueFailure": {
+        "candidateKey": "4,1,0,0",
+        "aState": "259:4112",
+        "bState": "4353:18",
+        "aValue": 0,
+        "bValue": -1
+      }
+    },
+    {
+      "id": "RESIDUALS_PLUS_RANK",
+      "description": "owned exact residuals + rank, no support vector",
+      "rankLocal": true,
+      "futureSearchUsedToDefine": false,
+      "classes": 31964,
+      "compressionVsPhysical": 4.2012576648729825,
+      "QF_literal_transition_congruence": false,
+      "QA_literal_action_value_sufficiency": false,
+      "QV_value_sufficiency": false,
+      "firstFutureFailure": {
+        "candidateKey": "15||",
+        "aState": "18311:14456",
+        "bState": "34695:14456",
+        "aInterface": "I|I|I|T:D",
+        "bInterface": "I|I|T:D|I"
+      },
+      "firstActionValueFailure": {
+        "candidateKey": "15||",
+        "aState": "18311:14456",
+        "bState": "34695:14456",
+        "aActionValues": [
+          "I",
+          "I",
+          "I",
+          0
+        ],
+        "bActionValues": [
+          "I",
+          "I",
+          0,
+          "I"
+        ]
+      },
+      "firstValueFailure": {
+        "candidateKey": "14||32768",
+        "aState": "967:29752",
+        "bState": "10051:6332",
+        "aValue": -1,
+        "bValue": 0
+      }
+    },
+    {
+      "id": "SUPPORT_COUNTS",
+      "description": "support + owned residual counts",
+      "rankLocal": true,
+      "futureSearchUsedToDefine": false,
+      "classes": 5288,
+      "compressionVsPhysical": 25.395045385779124,
+      "QF_literal_transition_congruence": false,
+      "QA_literal_action_value_sufficiency": false,
+      "QV_value_sufficiency": false,
+      "firstFutureFailure": {
+        "candidateKey": "4,2,0,0|4|5",
+        "aState": "259:4144",
+        "bState": "49:4354",
+        "aInterface": "I|N:4,3,0,0|4|4|N:4,2,1,0|3|4|N:4,2,0,1|3|3",
+        "bInterface": "I|N:4,3,0,0|4|3|N:4,2,1,0|4|4|N:4,2,0,1|4|3"
+      },
+      "firstActionValueFailure": {
+        "candidateKey": "4,2,0,0|4|5",
+        "aState": "259:4144",
+        "bState": "49:4354",
+        "aActionValues": [
+          "I",
+          0,
+          0,
+          0
+        ],
+        "bActionValues": [
+          "I",
+          -1,
+          -1,
+          -1
+        ]
+      },
+      "firstValueFailure": {
+        "candidateKey": "4,2,0,0|4|5",
+        "aState": "259:4144",
+        "bState": "49:4354",
+        "aValue": 0,
+        "bValue": -1
+      }
+    },
+    {
+      "id": "SUPPORT_SIZE_HIST",
+      "description": "support + owned residual size histograms",
+      "rankLocal": true,
+      "futureSearchUsedToDefine": false,
+      "classes": 14268,
+      "compressionVsPhysical": 9.411900756938604,
+      "QF_literal_transition_congruence": false,
+      "QA_literal_action_value_sufficiency": false,
+      "QV_value_sufficiency": false,
+      "firstFutureFailure": {
+        "candidateKey": "4,4,0,0|0,0,2,0,2|0,0,2,0,2",
+        "aState": "771:12336",
+        "bState": "8227:4880",
+        "aInterface": "I|I|N:4,4,1,0|0,1,1,1,0|0,0,2,0,1|N:4,4,0,1|0,1,1,1,0|0,0,2,0,1",
+        "bInterface": "I|I|N:4,4,1,0|0,1,1,1,0|0,0,2,0,1|N:4,4,0,1|0,1,1,1,0|0,0,1,0,1"
+      },
+      "firstActionValueFailure": {
+        "candidateKey": "4,4,0,0|0,0,2,0,2|0,0,2,0,2",
+        "aState": "771:12336",
+        "bState": "305:12802",
+        "aActionValues": [
+          "I",
+          "I",
+          0,
+          0
+        ],
+        "bActionValues": [
+          "I",
+          "I",
+          -1,
+          -1
+        ]
+      },
+      "firstValueFailure": {
+        "candidateKey": "4,4,0,0|0,0,2,0,2|0,0,2,0,2",
+        "aState": "771:12336",
+        "bState": "305:12802",
+        "aValue": 0,
+        "bValue": -1
+      }
+    },
+    {
+      "id": "SUPPORT_INCIDENCE",
+      "description": "support + per-cell owned residual incidence counts",
+      "rankLocal": true,
+      "futureSearchUsedToDefine": false,
+      "classes": 33828,
+      "compressionVsPhysical": 3.9697587797091165,
+      "QF_literal_transition_congruence": false,
+      "QA_literal_action_value_sufficiency": false,
+      "QV_value_sufficiency": false,
+      "firstFutureFailure": {
+        "candidateKey": "4,4,3,3|0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1",
+        "aState": "1927:14456",
+        "bState": "9114:7269",
+        "aInterface": "I|I|N:4,4,4,3|0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0|N:4,4,3,4|0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
+        "bInterface": "I|I|N:4,4,4,3|0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1|N:4,4,3,4|0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0"
+      },
+      "firstActionValueFailure": {
+        "candidateKey": "4,4,3,3|0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1",
+        "aState": "1927:14456",
+        "bState": "9114:7269",
+        "aActionValues": [
+          "I",
+          "I",
+          0,
+          0
+        ],
+        "bActionValues": [
+          "I",
+          "I",
+          -1,
+          -1
+        ]
+      },
+      "firstValueFailure": {
+        "candidateKey": "4,4,3,3|0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1",
+        "aState": "1927:14456",
+        "bState": "9114:7269",
+        "aValue": 0,
+        "bValue": -1
+      }
+    },
+    {
+      "id": "SUPPORT_INCIDENCE_HIST",
+      "description": "support + incidence counts + residual size histograms",
+      "rankLocal": true,
+      "futureSearchUsedToDefine": false,
+      "classes": 34028,
+      "compressionVsPhysical": 3.9464264723169156,
+      "QF_literal_transition_congruence": false,
+      "QA_literal_action_value_sufficiency": false,
+      "QV_value_sufficiency": false,
+      "firstFutureFailure": {
+        "candidateKey": "4,2,4,3|0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,1|0,1,0,0,0|0,1,1,0,0",
+        "aState": "3463:20600",
+        "bState": "6492:17571",
+        "aInterface": "I|T:P1|I|N:4,2,4,4|0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0|0,1,0,0,0|0,2,0,0,0",
+        "bInterface": "I|N:4,3,4,3|0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1|0,0,0,0,0|0,2,0,0,0|I|T:P1"
+      },
+      "firstActionValueFailure": {
+        "candidateKey": "4,2,4,3|0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,1|0,1,0,0,0|0,1,1,0,0",
+        "aState": "3463:20600",
+        "bState": "6492:17571",
+        "aActionValues": [
+          "I",
+          -1,
+          "I",
+          1
+        ],
+        "bActionValues": [
+          "I",
+          -1,
+          "I",
+          -1
+        ]
+      },
+      "firstValueFailure": {
+        "candidateKey": "4,4,2,2|0,0,0,0,0,0,0,0,0,0,2,1,0,0,1,2|0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,1|0,0,3,0,0|0,0,2,0,0",
+        "aState": "13089:222",
+        "bState": "237:13074",
+        "aValue": 1,
+        "bValue": -1
+      }
+    },
+    {
+      "id": "SUPPORT_XOR_OR_HIST",
+      "description": "support + XOR/OR/count/size-hist summaries by owner",
+      "rankLocal": true,
+      "futureSearchUsedToDefine": false,
+      "classes": 34026,
+      "compressionVsPhysical": 3.946658437665315,
+      "QF_literal_transition_congruence": false,
+      "QA_literal_action_value_sufficiency": false,
+      "QV_value_sufficiency": false,
+      "firstFutureFailure": {
+        "candidateKey": "4,2,4,3|512:512:1:0,1,0,0,0|41472:41472:2:0,1,1,0,0",
+        "aState": "3463:20600",
+        "bState": "6492:17571",
+        "aInterface": "I|T:P1|I|N:4,2,4,4|512:512:1:0,1,0,0,0|8704:8704:2:0,2,0,0,0",
+        "bInterface": "I|N:4,3,4,3|0:0:0:0,0,0,0,0|40960:40960:2:0,2,0,0,0|I|T:P1"
+      },
+      "firstActionValueFailure": {
+        "candidateKey": "4,2,4,3|512:512:1:0,1,0,0,0|41472:41472:2:0,1,1,0,0",
+        "aState": "3463:20600",
+        "bState": "6492:17571",
+        "aActionValues": [
+          "I",
+          -1,
+          "I",
+          1
+        ],
+        "bActionValues": [
+          "I",
+          -1,
+          "I",
+          -1
+        ]
+      },
+      "firstValueFailure": {
+        "candidateKey": "4,4,2,2|18432:52224:3:0,0,3,0,0|52224:52224:2:0,0,2,0,0",
+        "aState": "13089:222",
+        "bState": "237:13074",
+        "aValue": 1,
+        "bValue": -1
+      }
+    },
+    {
+      "id": "SUPPORT_UNOWNED_EXACT",
+      "description": "support + exact residual union with ownership erased",
+      "rankLocal": true,
+      "futureSearchUsedToDefine": false,
+      "classes": 13974,
+      "compressionVsPhysical": 9.609918419922714,
+      "QF_literal_transition_congruence": false,
+      "QA_literal_action_value_sufficiency": false,
+      "QV_value_sufficiency": false,
+      "firstFutureFailure": {
+        "candidateKey": "4,1,0,0|12.224.584.3584.8736.17476.33824.34952.57344",
+        "aState": "259:4112",
+        "bState": "4099:272",
+        "aInterface": "I|N:4,2,0,0|12.192.584.3584.17476.34952.57344|N:4,1,1,0|224.584.3584.8736.17472.33824.34952.57344|N:4,1,0,1|224.576.3584.8736.17476.33824.34944.57344",
+        "bInterface": "I|N:4,2,0,0|12.192.584.3584.17476.34952.57344|N:4,1,1,0|224.584.3584.8736.17472.33824.34952.57344|N:4,1,0,1|224.3584.8736.17476.33824.34944.57344"
+      },
+      "firstActionValueFailure": {
+        "candidateKey": "4,4,3,1|128.2048.49152",
+        "aState": "1799:12408",
+        "bState": "12401:1806",
+        "aActionValues": [
+          "I",
+          "I",
+          -1,
+          0
+        ],
+        "bActionValues": [
+          "I",
+          "I",
+          0,
+          1
+        ]
+      },
+      "firstValueFailure": {
+        "candidateKey": "4,4,3,1|128.2048.49152",
+        "aState": "1799:12408",
+        "bState": "12401:1806",
+        "aValue": 0,
+        "bValue": 1
+      }
+    },
+    {
+      "id": "Q_REMAINING",
+      "description": "support + exact owned residuals after remaining-move capacity",
+      "rankLocal": true,
+      "futureSearchUsedToDefine": false,
+      "classes": 32520,
+      "compressionVsPhysical": 4.129428044280443,
+      "QF_literal_transition_congruence": true,
+      "QA_literal_action_value_sufficiency": true,
+      "QV_value_sufficiency": true,
+      "firstFutureFailure": null,
+      "firstActionValueFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "id": "Q_RELEASE",
+      "description": "support + exact owned residuals after support-release/turn capacity",
+      "rankLocal": true,
+      "futureSearchUsedToDefine": false,
+      "classes": 32214,
+      "compressionVsPhysical": 4.168653380517787,
+      "QF_literal_transition_congruence": true,
+      "QA_literal_action_value_sufficiency": true,
+      "QV_value_sufficiency": true,
+      "firstFutureFailure": null,
+      "firstActionValueFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "id": "Q_FRONTIER",
+      "description": "support + exact owned residuals after nonterminal frontier blocker",
+      "rankLocal": true,
+      "futureSearchUsedToDefine": false,
+      "classes": 32788,
+      "compressionVsPhysical": 4.0956752470416005,
+      "QF_literal_transition_congruence": true,
+      "QA_literal_action_value_sufficiency": true,
+      "QV_value_sufficiency": true,
+      "firstFutureFailure": null,
+      "firstActionValueFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "id": "Q_FINAL_CAP",
+      "description": "support + exact owned residuals after mover final-cap parity closure",
+      "rankLocal": true,
+      "futureSearchUsedToDefine": false,
+      "classes": 32958,
+      "compressionVsPhysical": 4.074549426542872,
+      "QF_literal_transition_congruence": false,
+      "QA_literal_action_value_sufficiency": true,
+      "QV_value_sufficiency": true,
+      "firstFutureFailure": {
+        "candidateKey": "4,4,4,2||34816",
+        "aState": "17223:13496",
+        "bState": "9571:21148",
+        "aInterface": "I|I|I|N:4,4,4,3||",
+        "bInterface": "I|I|I|N:4,4,4,3|32768|"
+      },
+      "firstActionValueFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "id": "Q_ALL_CLOSURES",
+      "description": "support + exact owned residuals after frontier+final-cap+release",
+      "rankLocal": true,
+      "futureSearchUsedToDefine": false,
+      "classes": 30742,
+      "compressionVsPhysical": 4.368258408691692,
+      "QF_literal_transition_congruence": false,
+      "QA_literal_action_value_sufficiency": true,
+      "QV_value_sufficiency": true,
+      "firstFutureFailure": {
+        "candidateKey": "4,4,2,0|3072|128.17408",
+        "aState": "8963:4212",
+        "bState": "13057:118",
+        "aInterface": "I|I|N:4,4,3,0|2048|128|N:4,4,2,1||128.17408",
+        "bInterface": "I|I|N:4,4,3,0|2048.49152|128|N:4,4,2,1|49152|128.17408"
+      },
+      "firstActionValueFailure": null,
+      "firstValueFailure": null
+    }
+  ],
+  "transporterCandidates": [
+    {
+      "id": "Q_R_REFLECTION",
+      "classes": 17113,
+      "QF_transporter_congruence": true,
+      "QA_transported_action_values": true,
+      "QA_literal_action_values": false,
+      "QV_value_sufficiency": true,
+      "firstFutureFailure": null,
+      "firstTransportedActionFailure": null,
+      "firstLiteralActionFailure": {
+        "key": "0,0,0,4|7.1792.4369.4672.8738.17476|112.1057.4369.8738.17476.28672",
+        "a": "257:4112",
+        "b": "2056:32896"
+      },
+      "firstValueFailure": null
+    },
+    {
+      "id": "Q_ANY_COLUMN_ORBIT",
+      "classes": 10496,
+      "QF_transporter_congruence": true,
+      "QA_transported_action_values": true,
+      "QA_literal_action_values": false,
+      "QV_value_sufficiency": true,
+      "firstFutureFailure": null,
+      "firstTransportedActionFailure": null,
+      "firstLiteralActionFailure": {
+        "key": "0,0,0,4|7.1792.4369.4672.8738.17476|112.1057.4369.8738.17476.28672",
+        "a": "257:4112",
+        "b": "2056:32896"
+      },
+      "firstValueFailure": null
+    }
+  ],
+  "conclusions": {
+    "passingQF": [
+      "QO",
+      "Q_REMAINING",
+      "Q_RELEASE",
+      "Q_FRONTIER"
+    ],
+    "passingQA": [
+      "QO",
+      "Q_REMAINING",
+      "Q_RELEASE",
+      "Q_FRONTIER",
+      "Q_FINAL_CAP",
+      "Q_ALL_CLOSURES"
+    ],
+    "passingQV": [
+      "QO",
+      "Q_REMAINING",
+      "Q_RELEASE",
+      "Q_FRONTIER",
+      "Q_FINAL_CAP",
+      "Q_ALL_CLOSURES"
+    ],
+    "reflection": {
+      "QF": true,
+      "QA": true,
+      "QV": true
+    },
+    "arbitraryColumnOrbit": {
+      "QF": true,
+      "QA": true,
+      "QV": true
+    }
+  },
+  "interpretationGuard": "Finite 4x4 exact evidence. Passing candidates are bounded exact controls, not unbounded or standard-7x6 theorems. Failed candidates provide exact counterexamples to the scoped compression."
+}\n
