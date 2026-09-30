@@ -1,0 +1,47 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.xor_parity_lens.v1",
+  "id": "EW-RS-XP-001",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "objective": "Test column-height XOR plus stone-count parity as a rank-local structural coordinate, derivational lens for R/F/G/H safe forgetting, ambiguity classifier, and QF/QA/QV candidate without assuming it is fundamental.",
+  "frozen_candidate": {
+    "X": "bitwise XOR of current column heights",
+    "p": "sum of current column heights mod 2",
+    "relation_to_test": "p may be redundant with the least-significant bit of X; test and record rather than treating the pair as independent"
+  },
+  "questions": [
+    "Does X,p determine or materially simplify M/R/F/G/H deletion decisions?",
+    "Can X,p resolve any of the 836 previously observed same-future transition-representation splits?",
+    "Is X,p sufficient for QF, QA, or QV on any complete bounded case?",
+    "Does adding X,p refine q_SigmaRFG or is it already derivable from retained support?",
+    "What neighboring symmetric support reductions outperform or falsify the XOR hypothesis?",
+    "What part of X,p is recursively maintainable from a move?"
+  ],
+  "alternatives": [
+    "parity alone",
+    "rank mod 3/4",
+    "exact rank",
+    "support-height multiset",
+    "elementary symmetric support invariants",
+    "power-sum support invariants",
+    "XOR of squared heights",
+    "XOR of one-hot height descriptors",
+    "column-height parity mask",
+    "open-column mask",
+    "exact owned residuals combined with reduced support descriptors"
+  ],
+  "anti_circularity": [
+    "candidate keys use current position/G only",
+    "solved values/future classes are derived only after candidate definitions are frozen",
+    "future-derived quotient classes are evaluation oracles, never candidate definitions",
+    "the 836 ambiguity target is reproduced independently from the old M/R/F/C normal form"
+  ],
+  "holdouts": [
+    "3x3-k3",
+    "3x4-k3",
+    "4x3-k3",
+    "4x4-k3"
+  ],
+  "exploratory": "4x4-k4",
+  "no_solver_changes": true
+}
