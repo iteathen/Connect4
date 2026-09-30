@@ -590,7 +590,7 @@ const out={
     'Each geometry has its own g_G(C), as permitted by persistent G.',
     'NO_PHASE includes one global affine offset; RANK_MOD3_PHASE includes one offset for each r mod 3 class.',
     'PHASE_GRADED additionally gives each component type an independent valuation in each r mod 3 grade, while preserving XOR composition within a grade.',
-    'EXACT_RANK_GRADED gives each component type an independent valuation at each exact rank; it changes only the scheduler grade and preserves the same XOR model.'
+    'EXACT_RANK_GRADED gives each component type an independent valuation at each exact rank; it changes only the scheduler grade and preserves the same XOR model.',
     'Consistency proves only existence of a finite affine XOR coding on the complete bounded carrier, not a structural closed-form valuation.',
     'Inconsistency rejects this simplest GF(2)^2 outcome-code law but not every XOR-like decoder or finite algebra.'
   ],
