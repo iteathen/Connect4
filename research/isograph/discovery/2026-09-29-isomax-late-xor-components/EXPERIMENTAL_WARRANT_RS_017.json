@@ -1,0 +1,32 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.late_xor_two_ply_fresh_holdout.v1",
+  "id": "EW-RS-017",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE_FRESH_HOLDOUT",
+  "parent": "EW-RS-016",
+  "objective": "Freshly test the frozen post-RFG component parity plus exact W/L2 tactical evaluator on 3x5-k3 and 5x3-k3.",
+  "frozen_from_prior": [
+    "post-RFG residual-incidence component extractor",
+    "component-type multiplicity parity valuation",
+    "stone-count parity p",
+    "W immediate-current-mover-win rule",
+    "L2 universal one-move release-loss rule"
+  ],
+  "fresh_cases": [
+    "3x5-k3",
+    "5x3-k3"
+  ],
+  "targets": [
+    "Q-V primary",
+    "Q-F diagnostic"
+  ],
+  "anti_circularity": [
+    "Neither fresh carrier contributed to the component or T2 definitions.",
+    "No solved database or future-class labels define the structural key.",
+    "Exact values are derived only after keys are frozen."
+  ],
+  "falsifiers": [
+    "Any fresh MOD2_P_TACTICAL2 mixed-value group rejects the current bounded late-XOR candidate.",
+    "A pass supports only the tested finite domains; valuation minimization and standard-7x6 qualification remain open."
+  ]
+}
