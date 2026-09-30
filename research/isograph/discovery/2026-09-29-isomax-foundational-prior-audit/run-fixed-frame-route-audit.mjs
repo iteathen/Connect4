@@ -20,7 +20,23 @@ function cap(s){const r=rank(s),rem=N-r;if(rem<=0||(rem&1))return s;let C=0;for(
 function release(s){return {...s,r0:s.r0.filter(x=>relok(x,s.heights,0)),r1:s.r1.filter(x=>relok(x,s.heights,1))};}
 function move(s,c){assert.ok(s.heights[c]<H);const r=rank(s),m=r&1,b=1<<(s.heights[c]*W+c),own=m?s.r1:s.r0,opp=m?s.r0:s.r1,nx=[];let win=false;for(const q of own){if(q&b){const z=(q&~b)>>>0;if(!z){win=true;break;}nx.push(z);}else nx.push(q);}if(win)return {terminal:true,kind:m?'P1':'P0'};const h=[...s.heights];h[c]++;if(r+1===N)return {terminal:true,kind:'D'};const on=norm(nx),op=norm(opp.filter(q=>(q&b)===0));let z=m?{heights:h,r0:op,r1:on}:{heights:h,r0:on,r1:op};z=frontier(z);z=cap(z);z=release(z);return {terminal:false,state:z};}
 function replay(s,actions){const states=[key(s)];for(const c of actions){const z=move(s,c);assert.equal(z.terminal,false,'witness route unexpectedly terminal');s=z.state;states.push(key(s));}return {state:s,states};}
-function future(s){const M=new Map;function f(q){const k=key(q);if(M.has(k))return M.get(k);const a=[];for(let c=0;c<W;c++){if(q.heights[c]>=H){a.push('I');continue;}const z=move(q,c);a.push(z.terminal?'T'+z.kind:f(z.state));}const o='N'+rank(q)+'['+a.join('|')+']';M.set(k,o);return o;}return f(s);}
+function future(s){
+  const M=new Map;
+  function f(q){
+    const k=key(q);if(M.has(k))return M.get(k);
+    const lit=[],multi=[],set=[];
+    for(let c=0;c<W;c++){
+      if(q.heights[c]>=H){lit.push('I');continue;}
+      const z=move(q,c);
+      const y=z.terminal?{l:'T'+z.kind,m:'T'+z.kind,s:'T'+z.kind}:f(z.state);
+      lit.push(y.l);multi.push(y.m);set.push(y.s);
+    }
+    multi.sort();
+    const o={l:'N'+rank(q)+'['+lit.join('|')+']',m:'N'+rank(q)+'['+multi.join('|')+']',s:'N'+rank(q)+'['+[...new Set(set)].sort().join('|')+']'};
+    M.set(k,o);return o;
+  }
+  return f(s);
+}
 
 const rows=[];
 for(const startSheet of [0,1]){
@@ -33,15 +49,22 @@ for(const startSheet of [0,1]){
     b=r1.sourceActionSequences[0].split(',').map(Number),
     A=replay(source0,a),B=replay(source0,b),
     p=orbit(A.state,B.state),ca=canon(A.state),cb=canon(B.state),
-    fa=future(A.state),fb=future(B.state);
+    fa=future(A.state),fb=future(B.state),
+    globalFutureTransporters=P.filter(p0=>future(ps(A.state,p0)).l===fb.l);
   rows.push({
     startSheet,source:'Q:'+key(source0),routeAActions:a,routeBActions:b,
     routeAStates:A.states.map(x=>'Q:'+x),routeBStates:B.states.map(x=>'Q:'+x),
     rawEndpointExactEqual:key(A.state)===key(B.state),
     rawEndpointOrbitEqual:!!p,
     orbitTransporter:p,
-    rawEndpointLiteralFutureEqual:fa===fb,
-    rawEndpointLiteralFutureHashes:[sha(fa),sha(fb)],
+    rawEndpointLiteralFutureEqual:fa.l===fb.l,
+    rawEndpointMultisetFutureEqual:fa.m===fb.m,
+    rawEndpointSetFutureEqual:fa.s===fb.s,
+    globalActionPermutationFutureEqual:globalFutureTransporters.length>0,
+    globalActionPermutationFutureTransporters:globalFutureTransporters,
+    rawEndpointLiteralFutureHashes:[sha(fa.l),sha(fb.l)],
+    rawEndpointMultisetFutureHashes:[sha(fa.m),sha(fb.m)],
+    rawEndpointSetFutureHashes:[sha(fa.s),sha(fb.s)],
     canonicalEndpoints:['Q:'+ca.key,'Q:'+cb.key],
     canonicalEndpointEqual:ca.key===cb.key,
     expectedStoredCanonicalEndpoints:[r0.finalStateKey,r1.finalStateKey],
@@ -58,6 +81,9 @@ const result={
    exactRawReconvergenceForBothSheets:rows.every(x=>x.rawEndpointExactEqual),
    orbitRawReconvergenceForBothSheets:rows.every(x=>x.rawEndpointOrbitEqual),
    literalFutureReconvergenceForBothSheets:rows.every(x=>x.rawEndpointLiteralFutureEqual),
+   multisetFutureReconvergenceForBothSheets:rows.every(x=>x.rawEndpointMultisetFutureEqual),
+   setFutureReconvergenceForBothSheets:rows.every(x=>x.rawEndpointSetFutureEqual),
+   globalActionPermutationFutureReconvergenceForBothSheets:rows.every(x=>x.globalActionPermutationFutureEqual),
    canonicalizationReproducesStoredEndpoints:rows.every(x=>x.routeACanonicalMatchesStored&&x.routeBCanonicalMatchesStored),
    interpretation:'source-frame routes are compared before per-step canonicalization; this separates physical/fixed-coordinate path behavior from canonical-frame sheet bookkeeping'
  }
