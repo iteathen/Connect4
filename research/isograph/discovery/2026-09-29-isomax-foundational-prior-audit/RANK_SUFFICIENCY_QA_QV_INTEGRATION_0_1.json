@@ -1,0 +1,50 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.qa_qv_integration.v1",
+  "date_author_local": "2026-09-29",
+  "evidence": {
+    "branch": "experiment/isomax-qa-qv-compression-20260929",
+    "commit": "67cb95b41b39209189f95de24ddf8c86c98a33e2",
+    "file": "research/isograph/discovery/2026-09-29-isomax-qa-qv-compression/QA_QV_COMPRESSION_4X4_0_1.json"
+  },
+  "scope": "complete physical 4x4 first-win carrier",
+  "transforms": {
+    "R": "support-release/turn-capacity",
+    "F": "nonterminal frontier blocker",
+    "C": "mover final-cap parity deletion",
+    "Sigma": "full transported column orbit"
+  },
+  "exact_finite": [
+    {
+      "id": "RS-F016",
+      "statement": "R, F and C are each idempotent and pairwise commute on complete 4x4.",
+      "status": "EXACT_FINITE"
+    },
+    {
+      "id": "RS-F017",
+      "statement": "C is not Q-F safe on complete 4x4, alone or in the tested RF compositions, but all tested C-containing candidates preserve exact literal/transported action values and scalar values.",
+      "status": "EXACT_FINITE"
+    },
+    {
+      "id": "RS-F018",
+      "statement": "The smallest tested direct Q-A/Q-V candidate is RFC with 30,742 classes; it is not Q-F congruent.",
+      "status": "EXACT_FINITE"
+    },
+    {
+      "id": "RS-F019",
+      "statement": "The smallest tested transporter-aware Q-A/Q-V candidate is Sigma(RFC) with 9,508 classes; it is not Q-F congruent.",
+      "status": "EXACT_FINITE"
+    },
+    {
+      "id": "RS-F020",
+      "statement": "On complete 4x4, the tested Q-A/Q-V target is strictly coarser than the tested Q-F target: 9,508 orbit classes versus 9,676.",
+      "status": "EXACT_FINITE"
+    }
+  ],
+  "interpretation": [
+    "Q-A/Q-V minimality and Q-F minimality are demonstrably different optimization problems on the bounded carrier.",
+    "A representation may discard distinctions needed to predict the full successor representation while still preserving every exact action value and scalar value.",
+    "The evaluator D need not factor through a Q-F transition congruence if the target is only exact value/action value.",
+    "No standard-7x6 theorem follows yet."
+  ],
+  "status": "OPEN_FOR_GENERAL_QA_QV_THEORY"
+}
