@@ -1,0 +1,57 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_round.v1",
+  "round": 20,
+  "date_author_local": "2026-09-29",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_19_FIXED_POINT_0_1.json",
+    "RANK_SUFFICIENCY_GRADED_XOR_CERTIFICATE_INTEGRATION_0_1.json"
+  ],
+  "reopened_reason": "the exact phase-graded contradiction certificate exposes an exact-rank split inside a rank-mod-3 dependency rectangle",
+  "new_assertions": [
+    {
+      "id": "RS-IA075",
+      "family": "C",
+      "body": "The 4x4-k3 contradiction is a four-state substitution rectangle whose component incidences cancel but whose outcome code does not; independent component value is context-dependent under r mod 3 grading."
+    },
+    {
+      "id": "RS-IA076",
+      "family": "R",
+      "body": "The rectangle separates exact ranks 12 and 9 while holding r mod 3 fixed, making exact rank the smallest presently visible contextual refinement suggested by the witness."
+    },
+    {
+      "id": "RS-IA077",
+      "family": "M",
+      "body": "Representation minimality and evaluator simplicity can trade off: the coarser r mod 3 Q-V quotient may need nonlinear D_G while a finer exact-rank quotient may admit linear XOR valuation."
+    },
+    {
+      "id": "RS-IA078",
+      "family": "F",
+      "body": "The duplicated loss corner with the same parity signature shows the certificate is structural at the tested quotient level rather than a one-position anomaly."
+    },
+    {
+      "id": "RS-IA079",
+      "family": "Q",
+      "body": "Pairwise interaction is not yet forced because the current contradiction spans two exact ranks; exact-rank grading must be falsified before interaction terms are justified."
+    },
+    {
+      "id": "RS-IA080",
+      "family": "S",
+      "body": "The next experiment should change only the valuation grade from r mod 3 to exact rank, retaining T2-O, component parity, GF(2)^2 codes and XOR composition."
+    }
+  ],
+  "qu_refinements": [
+    {
+      "id": "RS-QR031",
+      "target": "QU-RS-010",
+      "add_fixed": [
+        "4x4-k3 rank-mod-3 graded failure has a four-equation exact certificate spanning exact ranks 12 and 9",
+        "the same component substitution changes relative value in opposite directions across two companion contexts"
+      ],
+      "retain_open": [
+        "exact-rank-graded independent XOR valuation",
+        "pairwise interaction only if exact-rank grading fails"
+      ]
+    }
+  ],
+  "stop_status": "REOPENED__EXACT_RANK_GRADED_VALUATION_PENDING"
+}
