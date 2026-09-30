@@ -1,0 +1,73 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.quadratic_xor_4x4k4_integration.v1",
+  "date_author_local": "2026-09-29",
+  "research_direction": "Joshua Oshiro",
+  "status": "EXACT_FINITE_QUADRATIC_TRANSFER_POSITIVE",
+  "evidence": [
+    {
+      "id": "ERQX44",
+      "branch": "experiment/isomax-late-xor-components-20260929",
+      "commit": "480b735266b0e583ed70f289237104cb7a0ef701",
+      "file": "EXACT_RANK_QUADRATIC_XOR_4X4K4_0_1.json",
+      "warrant": "EW-RS-032"
+    },
+    {
+      "id": "ERQX53",
+      "branch": "experiment/isomax-late-xor-components-20260929",
+      "commit": "5db78c1f9070236b4844a6cb32677b505e43c789",
+      "file": "EXACT_RANK_QUADRATIC_XOR_0_1.json",
+      "warrant": "EW-RS-031"
+    }
+  ],
+  "findings": [
+    {
+      "id": "RS-F125",
+      "status": "EXACT_FINITE_TRANSFER_POSITIVE",
+      "statement": "The identical exact-rank degree-2 GF(2)^2 model class is consistent on complete 4x4-k4: 105,450 T2-O equations and zero contradictions."
+    },
+    {
+      "id": "RS-F126",
+      "status": "MECHANICAL_CONTROL",
+      "statement": "The 4x4-k4 degree-1 submodel reproduces exactly the prior 168 contradictions before pair interactions are enabled, preserving the frozen producer and falsifier."
+    },
+    {
+      "id": "RS-F127",
+      "status": "CROSS_CARRIER_SYNTHESIS",
+      "statement": "Both carriers that falsified independent exact-rank component valuation, 5x3-k3 and 4x4-k4, become consistent under the same structurally defined degree-2 extension while Q remains unchanged."
+    },
+    {
+      "id": "RS-F128",
+      "status": "DEGREE_BOUND_CANDIDATE",
+      "statement": "The current bounded evidence supports polynomial degree <=2 as a cross-carrier candidate for D_G on the frozen T2-O exact-rank component-parity quotient. It does not yet establish a general theorem or minimal pair basis."
+    },
+    {
+      "id": "RS-F129",
+      "status": "COMPLEXITY_GUARD",
+      "statement": "The 4x4-k4 degree-2 existence system is again highly underdetermined: 5,232 observed quadratic variables and active nullity 4,843. Full pair expansion is therefore an existence probe, not the desired simple final evaluator."
+    },
+    {
+      "id": "RS-F130",
+      "status": "NEXT_HOLDOUT_BOUNDARY",
+      "statement": "Because degree two now passes both known exact-rank affine-failure carriers, the next valid step is a fresh geometry holdout chosen before observing its degree-2 outcome, followed by sparse interaction minimization only if transfer survives."
+    }
+  ],
+  "cross_carrier": {
+    "5x3-k3": {
+      "degree1_contradictions": 18,
+      "degree2_contradictions": 0,
+      "degree2_quadratic_variables": 2104
+    },
+    "4x4-k4": {
+      "degree1_contradictions": 168,
+      "degree2_contradictions": 0,
+      "degree2_quadratic_variables": 5232
+    }
+  },
+  "nonclaims": [
+    "No general quadratic theorem is promoted.",
+    "No sparse or canonical pair valuation has been identified.",
+    "No standard-7x6 qualification follows.",
+    "The result does not imply the degree-2 coefficient solution is unique."
+  ],
+  "next_question": "Does the frozen exact-rank degree-2 model class survive a fresh wider geometry that contributed neither to the component/T2 definition nor to the quadratic hypothesis?"
+}
