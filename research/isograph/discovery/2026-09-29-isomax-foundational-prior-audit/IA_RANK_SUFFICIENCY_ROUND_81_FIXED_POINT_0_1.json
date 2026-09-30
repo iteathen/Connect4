@@ -1,0 +1,30 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_fixed_point.v1",
+  "round": 81,
+  "date_author_local": "2026-09-30",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_80_0_1.json",
+    "RANK_SUFFICIENCY_SIX_BUCKET_COUNT_QUOTIENT_INTEGRATION_0_1.json"
+  ],
+  "recursive_generation": {
+    "families_checked": [
+      "presence versus parity versus ZOE versus clipped-count saturation",
+      "clip2 versus clip3 load-bearing distinction",
+      "exact-count tail redundancy",
+      "bucket-family-specific saturation",
+      "formula-holdout anti-circularity"
+    ],
+    "new_assertions": []
+  },
+  "fixed_point": true,
+  "reason": "EW-RS-075 fixes the common uniform count saturation but does not localize which semantic bucket families require the 3+ state. Further exact deductions require a frozen family-specific saturation experiment.",
+  "next_evidence_boundaries": [
+    "use the owner-symmetric six-bucket carrier C+,C-,D+,D-,A+,A-",
+    "freeze family-specific transforms for C, D, and A before scalar replay",
+    "retain uniform clip3 as the common exact reconstruction control",
+    "do not select individual plus/minus buckets or thresholds from outcomes",
+    "do not fit scalar coefficients yet",
+    "EW-RS-059 PRIMARY 3x6-k4 and BACKUP 5x3-k4 remain sealed"
+  ],
+  "stop_status": "FIXED_POINT__FAMILY_SPECIFIC_SATURATION_NEXT"
+}
