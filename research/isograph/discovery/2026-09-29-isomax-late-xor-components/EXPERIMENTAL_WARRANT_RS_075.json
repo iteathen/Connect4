@@ -1,0 +1,101 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.signed_exchange_six_bucket_count_quotient.v1",
+  "id": "EW-RS-075",
+  "date_author_local": "2026-09-30",
+  "status": "ACTIVE",
+  "parent": "EW-RS-074",
+  "objective": "Determine the coarsest uniform count algebra sufficient on the six remaining nonnegative pair buckets C+,C-,D+,D-,A+,A- of the common owner-symmetric signed-parity exchange carrier.",
+  "cases": [
+    "6x3-k3",
+    "4x5-k4",
+    "6x3-k4"
+  ],
+  "sealedFormulaHoldouts": {
+    "primary": "3x6-k4",
+    "backup": "5x3-k4",
+    "outcomesMayBeAccessed": false
+  },
+  "frozenCarrier": {
+    "encoding": "SIGNED_PARITY",
+    "capacity": "C_ROLELESS",
+    "depth": "D_DEPTHLESS",
+    "ownerMode": "D_SYMMETRIC_MARGINALS",
+    "pairBuckets": [
+      "C+",
+      "C-",
+      "D+",
+      "D-",
+      "A+",
+      "A-"
+    ],
+    "controlRanks": {
+      "6x3-k3": 73,
+      "4x5-k4": 254,
+      "6x3-k4": 14
+    },
+    "source": "EW-RS-074"
+  },
+  "countModes": [
+    {
+      "name": "BUCKET_PRESENCE",
+      "definition": "For every bucket n retain only [n>0]."
+    },
+    {
+      "name": "BUCKET_PARITY",
+      "definition": "For every bucket n retain n mod 2."
+    },
+    {
+      "name": "BUCKET_ZOE",
+      "definition": "For every bucket retain Z if n=0, O if n>0 is odd, E if n>0 is even."
+    },
+    {
+      "name": "BUCKET_CLIP2",
+      "definition": "For every bucket retain min(n,2), interpreted as 0,1,2+."
+    },
+    {
+      "name": "BUCKET_CLIP3",
+      "definition": "For every bucket retain min(n,3), interpreted as 0,1,2,3+."
+    },
+    {
+      "name": "BUCKET_EXACT",
+      "definition": "Retain all six exact nonnegative bucket counts; reconstruction control."
+    }
+  ],
+  "structuralProcedure": [
+    "Start from each frozen EW-RS-074 D_SYMMETRIC_MARGINALS pair signature.",
+    "Apply one declared count transform independently and uniformly to all six buckets.",
+    "Form each OOO triple key as the sorted multiset of its three transformed pair signatures.",
+    "Freeze candidate feature catalogs, matched-dependency rows, and structural bases before scalar replay."
+  ],
+  "valuation": {
+    "noForcedTotalOrder": "PRESENCE and PARITY are incomparable projections; ZOE, clipped counts, and exact counts are compared by measured structural image and scalar sufficiency rather than assumed ordering.",
+    "preferredEvidence": "Report every common-exact mode, structural image rank, and failures; do not outcome-select bucket-specific exceptions."
+  },
+  "measurements": [
+    "feature-key count",
+    "structural image rank",
+    "kernel dimension relative to BUCKET_EXACT",
+    "zero-structural-residue/nonzero-scalar count",
+    "scalar contradiction count",
+    "scalar image dimension",
+    "common exact count modes"
+  ],
+  "antiCircularity": [
+    "The six buckets, six count modes, and uniform-transform rule are frozen before scalar inspection.",
+    "No bucket-specific transform, threshold, or exception is selected using W/D/L.",
+    "The EW-RS-074 owner quotient and EW-RS-065 matched dependencies are unchanged.",
+    "EW-RS-059 PRIMARY 3x6-k4 and BACKUP 5x3-k4 remain sealed."
+  ],
+  "falsifiers": [
+    "BUCKET_EXACT must reproduce EW-RS-074 D_SYMMETRIC_MARGINALS ranks 73,254,14 with zero contradictions.",
+    "Any candidate with zero structural residue and nonzero scalar residue is insufficient.",
+    "No post-hoc bucket-specific rescue is allowed."
+  ],
+  "nextIfCoarseCountPasses": "Freeze the coarsest/common exact count algebra and test whether C/D/A bucket families or plus/minus channels can be merged into a smaller circuit representation.",
+  "nextIfExactRequired": "Retain exact six counts and move to outcome-independent circuit/basis reduction over the six-bucket triangle.",
+  "interpretationGuards": [
+    "This count quotient concerns late-stage exchange buckets, not the upstream ZOE multiplicity coordinate.",
+    "A passing ZOE-like count law here does not imply the same algebra is universal for other count layers.",
+    "No Q-A/Q-F, standard-7x6, universal theorem, or center-opening proof follows."
+  ]
+}
