@@ -2,41 +2,53 @@
   "schema": "connect4.isomax.discovery.experimental_warrant.v1",
   "id": "EW-015",
   "date_author_local": "2026-09-29",
-  "status": "ACTIVE_TERMINAL_DISCRIMINATION",
+  "status": "ACTIVE_RELABELING_COVARIANT_ENDPOINT_AUDIT",
   "purpose": [
     "DISCRIMINATING",
-    "CHARACTERIZING"
+    "CHARACTERIZING",
+    "CONSTRUCTIVE_MODEL_DISCOVERY"
   ],
   "parent_gap": "DISC-GAP-001",
-  "anchors": [
-    "DISC-F023",
-    "QU-SC-001",
-    "QU-SC-004"
+  "parent_evidence": [
+    "SURVIVING_OBSTRUCTION_0_1.json",
+    "DISCOVERY_FINDINGS_0_4.json"
   ],
-  "objective": "Test whether two independent 5x4 contradiction families share a relabeling-covariant residual motif: an orientation between two equal-height open-cap holes, and whether the same motif occurs on cycle-supporting binary groups in flat controls.",
-  "rationale": [
-    "The predecessor minimum contradiction and the support-release-surviving contradiction use different literal residual masks, so a literal-token law is excluded.",
-    "In both frozen representative families the varying residuals appear to be one-hole subsets of the current open-cap set.",
-    "A two-hole orientation can be described covariantly under column relabeling as an unordered equal-height hole pair plus sheet-specific choice, avoiding raw-mask identity as authority.",
-    "Flat nonvacuous controls can falsify sufficiency without importing solved outcomes."
-  ],
-  "positive_families": [
-    "predecessor 5x4 k4 two-step minimum witness",
-    "support-release-surviving 5x4 k4 three-step witness"
-  ],
-  "flat_controls": [
-    "4x5 k4 standard closures",
-    "5x3 k3 standard closures"
+  "objective": "Test a relabeling-invariant endpoint residual-incidence bit suggested by the unique support-release-surviving 5x4 k4 contradiction, with complete stored reconvergence coverage and flat 4x5 control.",
+  "candidate": {
+    "carrier": "exact endpoint state, mover-relative residual family",
+    "cap_set": "top-row cap cell of every non-full column",
+    "hole_residual": "a mover residual equal to the cap set with exactly one cap omitted",
+    "bit": "when exactly one such residual exists, 1 iff its omitted cap is incident to another mover residual; otherwise undefined",
+    "rationale": "the two opposite-parity robust routes terminate in exact states with one cap-hole residual each, and the omitted cap has opposite incidence to the other surviving mover residual",
+    "covariance": "defined only through support/residual incidence and therefore testable under arbitrary column relabeling"
+  },
+  "controls": [
+    {
+      "label": "5x4-k4-release",
+      "role": "obstructed repair-surviving target",
+      "expected_for_discovery_only": "candidate should at least separate the known robust route endpoints if the derivation was correct"
+    },
+    {
+      "label": "4x5-k4-release",
+      "role": "flat nonvacuous control",
+      "expected_for_discovery_only": "same-parity flat reconvergences must not be silently assumed consistent; measure directly"
+    }
   ],
   "targeted_observations": [
-    "exact same-support sheet-pair residual symmetric differences",
-    "whether all varying residuals are one-hole subsets of the open-cap set",
-    "whether the two hole columns form an equal-height pair",
-    "count of such motifs across all binary groups in flat controls",
-    "count of such motifs on flat-control groups incident to undirected binary-cycle edges"
+    "defined endpoint-pair coverage",
+    "parity-difference versus endpoint-bit-difference consistency",
+    "contradictory-pair consistency",
+    "flat-pair consistency/falsifiers",
+    "column-permutation covariance on every audited defined endpoint"
   ],
-  "open_observation_channel": "Preserve flat cycle-supporting counterexamples as a falsifier; preserve absence as only a finite surviving candidate, not proof.",
-  "anti_circularity": "The motif definition uses support heights and residual incidence only; it does not inspect syndrome/delta parity when classifying a state pair.",
+  "open_observation_channel": "Preserve any flat-control inconsistency, undefined robust endpoint, or alternative cap-hole pattern as a model-breaking observation.",
+  "anti_circularity": [
+    "candidate definition fixed before running the flat 4x5 control",
+    "syndrome is not used to compute the endpoint bit",
+    "raw mask numbers are not part of the definition",
+    "undefined states remain undefined rather than being assigned a convenient bit"
+  ],
+  "stopping_rule": "If the candidate fails on the robust witness or produces flat-control inconsistencies, reject/narrow it. If it fits but has low coverage, retain it only as a local mechanism clue rather than a complete corrected carrier.",
   "prohibited_information_sources": [
     "solved database",
     "W/D/L as structural producer input"
