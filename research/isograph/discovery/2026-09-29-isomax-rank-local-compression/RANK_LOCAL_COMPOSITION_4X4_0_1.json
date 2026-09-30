@@ -1,0 +1,233 @@
+{
+  "schema": "connect4.isomax.rank_local_composition_4x4.v1",
+  "date_author_local": "2026-09-29",
+  "scope": "complete physical 4x4 connect-4 first-win carrier",
+  "transforms": {
+    "M": "remaining-move capacity",
+    "R": "support-release/turn capacity",
+    "F": "nonterminal frontier blocker"
+  },
+  "algebra": {
+    "idempotent": {
+      "M": true,
+      "R": true,
+      "F": true
+    },
+    "pairwiseCommutation": {
+      "MR": true,
+      "MF": true,
+      "RF": true
+    }
+  },
+  "direct": [
+    {
+      "seq": "QO",
+      "classes": 34094,
+      "QF": true,
+      "firstFailure": null
+    },
+    {
+      "seq": "M",
+      "classes": 32520,
+      "QF": true,
+      "firstFailure": null
+    },
+    {
+      "seq": "R",
+      "classes": 32214,
+      "QF": true,
+      "firstFailure": null
+    },
+    {
+      "seq": "F",
+      "classes": 32788,
+      "QF": true,
+      "firstFailure": null
+    },
+    {
+      "seq": "MR",
+      "classes": 32214,
+      "QF": true,
+      "firstFailure": null
+    },
+    {
+      "seq": "RM",
+      "classes": 32214,
+      "QF": true,
+      "firstFailure": null
+    },
+    {
+      "seq": "MF",
+      "classes": 31581,
+      "QF": true,
+      "firstFailure": null
+    },
+    {
+      "seq": "FM",
+      "classes": 31581,
+      "QF": true,
+      "firstFailure": null
+    },
+    {
+      "seq": "RF",
+      "classes": 31389,
+      "QF": true,
+      "firstFailure": null
+    },
+    {
+      "seq": "FR",
+      "classes": 31389,
+      "QF": true,
+      "firstFailure": null
+    },
+    {
+      "seq": "MRF",
+      "classes": 31389,
+      "QF": true,
+      "firstFailure": null
+    },
+    {
+      "seq": "MFR",
+      "classes": 31389,
+      "QF": true,
+      "firstFailure": null
+    },
+    {
+      "seq": "RMF",
+      "classes": 31389,
+      "QF": true,
+      "firstFailure": null
+    },
+    {
+      "seq": "RFM",
+      "classes": 31389,
+      "QF": true,
+      "firstFailure": null
+    },
+    {
+      "seq": "FMR",
+      "classes": 31389,
+      "QF": true,
+      "firstFailure": null
+    },
+    {
+      "seq": "FRM",
+      "classes": 31389,
+      "QF": true,
+      "firstFailure": null
+    }
+  ],
+  "orbit": [
+    {
+      "seq": "QO",
+      "classes": 10496,
+      "QF_transported": true,
+      "firstFailure": null
+    },
+    {
+      "seq": "M",
+      "classes": 10198,
+      "QF_transported": true,
+      "firstFailure": null
+    },
+    {
+      "seq": "R",
+      "classes": 10106,
+      "QF_transported": true,
+      "firstFailure": null
+    },
+    {
+      "seq": "F",
+      "classes": 9940,
+      "QF_transported": true,
+      "firstFailure": null
+    },
+    {
+      "seq": "MR",
+      "classes": 10106,
+      "QF_transported": true,
+      "firstFailure": null
+    },
+    {
+      "seq": "RM",
+      "classes": 10106,
+      "QF_transported": true,
+      "firstFailure": null
+    },
+    {
+      "seq": "MF",
+      "classes": 9734,
+      "QF_transported": true,
+      "firstFailure": null
+    },
+    {
+      "seq": "FM",
+      "classes": 9734,
+      "QF_transported": true,
+      "firstFailure": null
+    },
+    {
+      "seq": "RF",
+      "classes": 9676,
+      "QF_transported": true,
+      "firstFailure": null
+    },
+    {
+      "seq": "FR",
+      "classes": 9676,
+      "QF_transported": true,
+      "firstFailure": null
+    },
+    {
+      "seq": "MRF",
+      "classes": 9676,
+      "QF_transported": true,
+      "firstFailure": null
+    },
+    {
+      "seq": "MFR",
+      "classes": 9676,
+      "QF_transported": true,
+      "firstFailure": null
+    },
+    {
+      "seq": "RMF",
+      "classes": 9676,
+      "QF_transported": true,
+      "firstFailure": null
+    },
+    {
+      "seq": "RFM",
+      "classes": 9676,
+      "QF_transported": true,
+      "firstFailure": null
+    },
+    {
+      "seq": "FMR",
+      "classes": 9676,
+      "QF_transported": true,
+      "firstFailure": null
+    },
+    {
+      "seq": "FRM",
+      "classes": 9676,
+      "QF_transported": true,
+      "firstFailure": null
+    }
+  ],
+  "minima": {
+    "directQF": {
+      "seq": "RF",
+      "classes": 31389,
+      "QF": true,
+      "firstFailure": null
+    },
+    "transporterOrbitQF": {
+      "seq": "RF",
+      "classes": 9676,
+      "QF_transported": true,
+      "firstFailure": null
+    }
+  },
+  "interpretationGuard": "Exact finite 4x4 transition-congruence evidence only. Sequence order is part of each tested rank-local representation."
+}
