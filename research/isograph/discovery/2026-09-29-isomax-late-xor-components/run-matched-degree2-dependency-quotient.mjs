@@ -479,7 +479,7 @@ function auditCase(W,H,K){
 
     assert.equal(mixedClasses,0,'ROLE_CAPPAR structural classes must remain scalar-pure');
 
-    const rows=[...classRows.values()].sort((a,b)=>a.sig.localeCompare(b.sig));
+    const rows=[...classRows.values()];
     const active=[...activeRaw].sort((a,b)=>a-b);
     const affineIndex=new Map(active.map((v,i)=>[v,i]));
     const affineCount=active.length;
@@ -613,6 +613,8 @@ function auditCase(W,H,K){
      * frozen structurally first.  Scalar codes are replayed only afterward.
      */
     function matchedDegree2DependencyQuotient(){
+      const dependencyRows=[...rows].sort((a,b)=>a.sig.localeCompare(b.sig));
+
       function oooRow(rec){
         const out=[];
         const bs=rec.raw.filter(v=>v!==0&&(v&1)===0);
@@ -633,8 +635,8 @@ function auditCase(W,H,K){
       const pivotOrder=[];
       const dependencies=[];
 
-      for(let rowIndex=0;rowIndex<rows.length;rowIndex++){
-        let lower=degree2Row(rows[rowIndex]);
+      for(let rowIndex=0;rowIndex<dependencyRows.length;rowIndex++){
+        let lower=degree2Row(dependencyRows[rowIndex]);
         const pivotTrace=[];
 
         while(lower.length){
@@ -656,14 +658,14 @@ function auditCase(W,H,K){
         if(lower!==null&&lower.length===0){
           dependencies.push({
             sourceRowIndex:rowIndex,
-            sourceSignature:rows[rowIndex].sig,
+            sourceSignature:dependencyRows[rowIndex].sig,
             pivotTrace:[...pivotTrace]
           });
         }
       }
 
       assert.equal(lowerPivots.size,degree2.pivotRank,'EW-RS-065 degree<=2 structural row rank drift');
-      assert.equal(dependencies.length,rows.length-degree2.pivotRank,'EW-RS-065 left-nullity mismatch');
+      assert.equal(dependencies.length,dependencyRows.length-degree2.pivotRank,'EW-RS-065 left-nullity mismatch');
 
       /*
        * Compute only the pivot closure needed by the frozen dependencies.
@@ -685,7 +687,7 @@ function auditCase(W,H,K){
       for(const p of pivotOrder){
         if(!neededPivots.has(p))continue;
         const pr=lowerPivots.get(p);
-        let z=oooRow(rows[pr.sourceRowIndex]);
+        let z=oooRow(dependencyRows[pr.sourceRowIndex]);
         for(const q of pr.pivotTrace){
           const qz=pivotOoo.get(q);
           assert.ok(qz,'EW-RS-065 OOO pivot closure/order drift');
@@ -695,7 +697,7 @@ function auditCase(W,H,K){
       }
 
       for(const dep of dependencies){
-        let z=oooRow(rows[dep.sourceRowIndex]);
+        let z=oooRow(dependencyRows[dep.sourceRowIndex]);
         for(const p of dep.pivotTrace){
           const pz=pivotOoo.get(p);
           assert.ok(pz,'EW-RS-065 missing OOO pivot residue');
@@ -739,7 +741,7 @@ function auditCase(W,H,K){
       for(const p of pivotOrder){
         if(!neededPivots.has(p))continue;
         const pr=lowerPivots.get(p);
-        let code=rows[pr.sourceRowIndex].code;
+        let code=dependencyRows[pr.sourceRowIndex].code;
         for(const q of pr.pivotTrace){
           const qc=pivotScalar.get(q);
           assert.notEqual(qc,undefined,'EW-RS-065 scalar pivot closure/order drift');
@@ -749,7 +751,7 @@ function auditCase(W,H,K){
       }
 
       const scalarCodes=dependencies.map(dep=>{
-        let code=rows[dep.sourceRowIndex].code;
+        let code=dependencyRows[dep.sourceRowIndex].code;
         for(const p of dep.pivotTrace){
           const pc=pivotScalar.get(p);
           assert.notEqual(pc,undefined,'EW-RS-065 missing scalar pivot residue');
