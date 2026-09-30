@@ -1,0 +1,23 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+import {createHash} from 'node:crypto';
+import {execFileSync} from 'node:child_process';
+import {replayRows} from './ooo-joint-da-scalar-lib.mjs';
+const base=new URL('.',import.meta.url),dir='research/isograph/discovery/2026-09-29-isomax-late-xor-components/';
+const read=f=>fs.readFileSync(new URL(f,base),'utf8').replace(/\r\n/g,'\n'),hash=s=>createHash('sha256').update(s).digest('hex');
+const git=args=>execFileSync('git',args,{encoding:'utf8',maxBuffer:16*1024*1024});
+const text=read('OOO_COMMON_CARRIER_LEVEL_STRUCTURE_0_1.json'),s=JSON.parse(text);
+assert.equal(text,git(['show','HEAD:'+dir+'OOO_COMMON_CARRIER_LEVEL_STRUCTURE_0_1.json']));
+for(const [f,h] of Object.entries(s.inputSha256))assert.equal(hash(read(f)),h);
+const sourceText=read('OOO_JOINT_DA_SCALAR_STRUCTURE_0_1.json');assert.equal(hash(sourceText),s.sourceStructureSha256);
+const source=JSON.parse(sourceText),sourceEvidenceCommit='a4c4c3731f580a27ba7420cc63f0188b340923a3';
+const pinned=JSON.parse(git(['show',sourceEvidenceCommit+':'+dir+'OOO_SIGN_CHANNEL_COUPLING_0_1.json']));
+const cases=s.cases.map((c,i)=>{
+ const deps=pinned.cases.find(x=>x.label===c.label).decoder.matchedDegree2DependencyQuotient.dependencies;
+ assert.deepEqual(source.cases[i].source.dependencies,deps.map(d=>({dependencyIndex:d.dependencyIndex,sourceSignature:d.sourceSignature,oooResidue:d.oooResidue})));
+ const scalarCodes=deps.map(d=>d.scalarCode);
+ return {label:c.label,scalarCodes,audits:c.candidates.map(p=>({id:p.id,imageRank:p.imageRank,...replayRows(p,scalarCodes)}))};
+});
+const out={schema:'connect4.isomax.common_carrier_level_result.v1',warrant:'EW-RS-080',structureCommit:git(['rev-parse','HEAD']).trim(),structureSha256:hash(text),sourceEvidenceCommit,cases,holdouts:s.holdouts};
+fs.writeFileSync(new URL('OOO_COMMON_CARRIER_LEVEL_0_1.json',base),JSON.stringify(out,null,2)+'\n');
+console.log(JSON.stringify(cases,null,2));
