@@ -1,0 +1,1225 @@
+{
+  "schema": "connect4.isomax.role_cappar_depth_compression.v1",
+  "date_author_local": "2026-09-30",
+  "warrant": "EW-RS-066",
+  "frozenCountState": "ZOE = zero omitted, positive odd O, positive even E after identity aggregation",
+  "frozenRoleState": "remaining-capacity parity attached to each REL_INC column role inside the same local-permutation canonicalization",
+  "candidateOrder": [
+    "ROLE_CAPPAR_FRONTIER_REL_INC_ZOE",
+    "ROLE_CAPPAR_RPAR_REL_INC_ZOE",
+    "ROLE_CAPPAR_REL_INC_ZOE"
+  ],
+  "selectedMode": "ROLE_CAPPAR_REL_INC_ZOE",
+  "candidates": {
+    "ROLE_CAPPAR_FRONTIER_REL_INC_ZOE": "role-capacity parity plus residual owner/mask/column incidence with F=depth0 and P=positive depth",
+    "ROLE_CAPPAR_RPAR_REL_INC_ZOE": "role-capacity parity plus residual owner/mask/column incidence with F=depth0, O=positive odd depth, E=positive even depth",
+    "ROLE_CAPPAR_REL_INC_ZOE": "current exact frontier-relative depth control"
+  },
+  "cases": [
+    {
+      "label": "5x3-k3",
+      "width": 5,
+      "height": 3,
+      "k": 3,
+      "physicalStates": 70914,
+      "nonterminalStates": 40659,
+      "componentTypes": 9441,
+      "tactical2Counts": {
+        "W": 28001,
+        "L2": 5403,
+        "O": 7255
+      },
+      "audits": [
+        {
+          "mode": "EXACT_ZOE",
+          "statesAudited": 7255,
+          "classes": 3262,
+          "mixedValueClasses": 0,
+          "QV": true,
+          "firstMixedValueWitness": null,
+          "minimumMultiplicityDifferenceWitness": null
+        },
+        {
+          "mode": "ROLE_CAPPAR_FRONTIER_REL_INC_ZOE",
+          "statesAudited": 7255,
+          "classes": 3215,
+          "mixedValueClasses": 13,
+          "QV": false,
+          "firstMixedValueWitness": {
+            "mode": "ROLE_CAPPAR_FRONTIER_REL_INC_ZOE",
+            "key": "[\"w1|cap=0|r0=|r1=\",\"O\"]||[\"w2|cap=1.1|r0=F:0;P:0|r1=F:0,F:1;P:0\",\"O\"]",
+            "rank": 11,
+            "a": "9801:2354",
+            "b": "9305:2850",
+            "aOutcome": "loss",
+            "bOutcome": "win",
+            "aCode": 0,
+            "bCode": 2,
+            "multiplicityDifferenceL1": 2,
+            "parityPairUnits": null,
+            "aCounts": [
+              {
+                "type": "T07043",
+                "canonicalType": "0,2|1.16|16.33",
+                "width": 2,
+                "count": 1
+              },
+              {
+                "type": "T09440",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 3
+              }
+            ],
+            "bCounts": [
+              {
+                "type": "T07049",
+                "canonicalType": "0,2|1.16|4.33",
+                "width": 2,
+                "count": 1
+              },
+              {
+                "type": "T09440",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 3
+              }
+            ],
+            "delta": [
+              {
+                "type": "T07043",
+                "canonicalType": "0,2|1.16|16.33",
+                "width": 2,
+                "delta": -1
+              },
+              {
+                "type": "T07049",
+                "canonicalType": "0,2|1.16|4.33",
+                "width": 2,
+                "delta": 1
+              }
+            ]
+          },
+          "minimumMultiplicityDifferenceWitness": {
+            "mode": "ROLE_CAPPAR_FRONTIER_REL_INC_ZOE",
+            "key": "[\"w1|cap=0|r0=|r1=\",\"E\"]||[\"w1|cap=1|r0=P:0|r1=\",\"O\"]",
+            "rank": 12,
+            "a": "17617:6694",
+            "b": "17555:6756",
+            "aOutcome": "draw",
+            "bOutcome": "win",
+            "aCode": 1,
+            "bCode": 2,
+            "multiplicityDifferenceL1": 2,
+            "parityPairUnits": null,
+            "aCounts": [
+              {
+                "type": "T07326",
+                "canonicalType": "0|2|",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T09440",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 4
+              }
+            ],
+            "bCounts": [
+              {
+                "type": "T07335",
+                "canonicalType": "0|4|",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T09440",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 4
+              }
+            ],
+            "delta": [
+              {
+                "type": "T07326",
+                "canonicalType": "0|2|",
+                "width": 1,
+                "delta": -1
+              },
+              {
+                "type": "T07335",
+                "canonicalType": "0|4|",
+                "width": 1,
+                "delta": 1
+              }
+            ]
+          }
+        },
+        {
+          "mode": "ROLE_CAPPAR_RPAR_REL_INC_ZOE",
+          "statesAudited": 7255,
+          "classes": 3259,
+          "mixedValueClasses": 0,
+          "QV": true,
+          "firstMixedValueWitness": null,
+          "minimumMultiplicityDifferenceWitness": null
+        },
+        {
+          "mode": "ROLE_CAPPAR_REL_INC_ZOE",
+          "statesAudited": 7255,
+          "classes": 3259,
+          "mixedValueClasses": 0,
+          "QV": true,
+          "firstMixedValueWitness": null,
+          "minimumMultiplicityDifferenceWitness": null
+        },
+        {
+          "mode": "MULTI",
+          "statesAudited": 7255,
+          "classes": 3262,
+          "mixedValueClasses": 0,
+          "QV": true,
+          "firstMixedValueWitness": null,
+          "minimumMultiplicityDifferenceWitness": null
+        }
+      ],
+      "disposition": {
+        "FRONTIER_QV": false,
+        "RPAR_QV": true,
+        "EXACT_DEPTH_QV": true,
+        "FRONTIER_classes": 3215,
+        "RPAR_classes": 3259,
+        "EXACT_DEPTH_classes": 3259
+      }
+    },
+    {
+      "label": "4x4-k4",
+      "width": 4,
+      "height": 4,
+      "k": 4,
+      "physicalStates": 161029,
+      "nonterminalStates": 134289,
+      "componentTypes": 7757,
+      "tactical2Counts": {
+        "W": 24685,
+        "L2": 4154,
+        "O": 105450
+      },
+      "audits": [
+        {
+          "mode": "EXACT_ZOE",
+          "statesAudited": 105450,
+          "classes": 8050,
+          "mixedValueClasses": 0,
+          "QV": true,
+          "firstMixedValueWitness": null,
+          "minimumMultiplicityDifferenceWitness": null
+        },
+        {
+          "mode": "ROLE_CAPPAR_FRONTIER_REL_INC_ZOE",
+          "statesAudited": 105450,
+          "classes": 6907,
+          "mixedValueClasses": 421,
+          "QV": false,
+          "firstMixedValueWitness": {
+            "mode": "ROLE_CAPPAR_FRONTIER_REL_INC_ZOE",
+            "key": "[\"w1|cap=0|r0=|r1=\",\"O\"]||[\"w3|cap=0.0.1|r0=F:0,P:1|r1=F:1,P:1,P:1,P:1;F:2,P:0,P:1\",\"O\"]",
+            "rank": 9,
+            "a": "835:4148",
+            "b": "355:4628",
+            "aOutcome": "draw",
+            "bOutcome": "win",
+            "aCode": 1,
+            "bCode": 2,
+            "multiplicityDifferenceL1": 2,
+            "parityPairUnits": null,
+            "aCounts": [
+              {
+                "type": "T02834",
+                "canonicalType": "0,2,3|192|585.3584",
+                "width": 3,
+                "count": 1
+              },
+              {
+                "type": "T07756",
+                "canonicalType": "4||",
+                "width": 1,
+                "count": 1
+              }
+            ],
+            "bCounts": [
+              {
+                "type": "T02913",
+                "canonicalType": "0,2,3|640|585.3584",
+                "width": 3,
+                "count": 1
+              },
+              {
+                "type": "T07756",
+                "canonicalType": "4||",
+                "width": 1,
+                "count": 1
+              }
+            ],
+            "delta": [
+              {
+                "type": "T02834",
+                "canonicalType": "0,2,3|192|585.3584",
+                "width": 3,
+                "delta": -1
+              },
+              {
+                "type": "T02913",
+                "canonicalType": "0,2,3|640|585.3584",
+                "width": 3,
+                "delta": 1
+              }
+            ]
+          },
+          "minimumMultiplicityDifferenceWitness": {
+            "mode": "ROLE_CAPPAR_FRONTIER_REL_INC_ZOE",
+            "key": "[\"w1|cap=0|r0=F:0,P:0|r1=\",\"O\"]||[\"w1|cap=0|r0=P:0|r1=\",\"O\"]||[\"w1|cap=0|r0=|r1=\",\"E\"]",
+            "rank": 10,
+            "a": "5155:16724",
+            "b": "33329:10378",
+            "aOutcome": "draw",
+            "bOutcome": "win",
+            "aCode": 1,
+            "bCode": 2,
+            "multiplicityDifferenceL1": 2,
+            "parityPairUnits": null,
+            "aCounts": [
+              {
+                "type": "T03664",
+                "canonicalType": "0|8|",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T07736",
+                "canonicalType": "2|12|",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T07756",
+                "canonicalType": "4||",
+                "width": 1,
+                "count": 2
+              }
+            ],
+            "bCounts": [
+              {
+                "type": "T03657",
+                "canonicalType": "0|4|",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T07736",
+                "canonicalType": "2|12|",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T07756",
+                "canonicalType": "4||",
+                "width": 1,
+                "count": 2
+              }
+            ],
+            "delta": [
+              {
+                "type": "T03657",
+                "canonicalType": "0|4|",
+                "width": 1,
+                "delta": 1
+              },
+              {
+                "type": "T03664",
+                "canonicalType": "0|8|",
+                "width": 1,
+                "delta": -1
+              }
+            ]
+          }
+        },
+        {
+          "mode": "ROLE_CAPPAR_RPAR_REL_INC_ZOE",
+          "statesAudited": 105450,
+          "classes": 7760,
+          "mixedValueClasses": 20,
+          "QV": false,
+          "firstMixedValueWitness": {
+            "mode": "ROLE_CAPPAR_RPAR_REL_INC_ZOE",
+            "key": "[\"w1|cap=0|r0=|r1=\",\"E\"]||[\"w2|cap=0.1|r0=E:0|r1=F:1,O:0\",\"O\"]",
+            "rank": 11,
+            "a": "1859:12340",
+            "b": "41377:2586",
+            "aOutcome": "loss",
+            "bOutcome": "win",
+            "aCode": 0,
+            "bCode": 2,
+            "multiplicityDifferenceL1": 2,
+            "parityPairUnits": null,
+            "aCounts": [
+              {
+                "type": "T03565",
+                "canonicalType": "0,3|16|192",
+                "width": 2,
+                "count": 1
+              },
+              {
+                "type": "T07756",
+                "canonicalType": "4||",
+                "width": 1,
+                "count": 2
+              }
+            ],
+            "bCounts": [
+              {
+                "type": "T03560",
+                "canonicalType": "0,3|16|132",
+                "width": 2,
+                "count": 1
+              },
+              {
+                "type": "T07756",
+                "canonicalType": "4||",
+                "width": 1,
+                "count": 2
+              }
+            ],
+            "delta": [
+              {
+                "type": "T03560",
+                "canonicalType": "0,3|16|132",
+                "width": 2,
+                "delta": 1
+              },
+              {
+                "type": "T03565",
+                "canonicalType": "0,3|16|192",
+                "width": 2,
+                "delta": -1
+              }
+            ]
+          },
+          "minimumMultiplicityDifferenceWitness": {
+            "mode": "ROLE_CAPPAR_RPAR_REL_INC_ZOE",
+            "key": "[\"w1|cap=0|r0=F:0|r1=O:0\",\"O\"]||[\"w1|cap=0|r0=|r1=\",\"E\"]||[\"w1|cap=1|r0=|r1=\",\"O\"]",
+            "rank": 11,
+            "a": "8967:5232",
+            "b": "12882:1317",
+            "aOutcome": "draw",
+            "bOutcome": "win",
+            "aCode": 1,
+            "bCode": 2,
+            "multiplicityDifferenceL1": 2,
+            "parityPairUnits": null,
+            "aCounts": [
+              {
+                "type": "T03641",
+                "canonicalType": "0|1|2",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T07754",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T07756",
+                "canonicalType": "4||",
+                "width": 1,
+                "count": 2
+              }
+            ],
+            "bCounts": [
+              {
+                "type": "T03643",
+                "canonicalType": "0|1|8",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T07754",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T07756",
+                "canonicalType": "4||",
+                "width": 1,
+                "count": 2
+              }
+            ],
+            "delta": [
+              {
+                "type": "T03641",
+                "canonicalType": "0|1|2",
+                "width": 1,
+                "delta": -1
+              },
+              {
+                "type": "T03643",
+                "canonicalType": "0|1|8",
+                "width": 1,
+                "delta": 1
+              }
+            ]
+          }
+        },
+        {
+          "mode": "ROLE_CAPPAR_REL_INC_ZOE",
+          "statesAudited": 105450,
+          "classes": 7894,
+          "mixedValueClasses": 0,
+          "QV": true,
+          "firstMixedValueWitness": null,
+          "minimumMultiplicityDifferenceWitness": null
+        },
+        {
+          "mode": "MULTI",
+          "statesAudited": 105450,
+          "classes": 8052,
+          "mixedValueClasses": 0,
+          "QV": true,
+          "firstMixedValueWitness": null,
+          "minimumMultiplicityDifferenceWitness": null
+        }
+      ],
+      "disposition": {
+        "FRONTIER_QV": false,
+        "RPAR_QV": false,
+        "EXACT_DEPTH_QV": true,
+        "FRONTIER_classes": 6907,
+        "RPAR_classes": 7760,
+        "EXACT_DEPTH_classes": 7894
+      }
+    },
+    {
+      "label": "6x3-k3",
+      "width": 6,
+      "height": 3,
+      "k": 3,
+      "physicalStates": 692970,
+      "nonterminalStates": 353581,
+      "componentTypes": 72195,
+      "tactical2Counts": {
+        "W": 277244,
+        "L2": 39768,
+        "O": 36569
+      },
+      "audits": [
+        {
+          "mode": "EXACT_ZOE",
+          "statesAudited": 36569,
+          "classes": 16735,
+          "mixedValueClasses": 0,
+          "QV": true,
+          "firstMixedValueWitness": null,
+          "minimumMultiplicityDifferenceWitness": null
+        },
+        {
+          "mode": "ROLE_CAPPAR_FRONTIER_REL_INC_ZOE",
+          "statesAudited": 36569,
+          "classes": 16601,
+          "mixedValueClasses": 32,
+          "QV": false,
+          "firstMixedValueWitness": {
+            "mode": "ROLE_CAPPAR_FRONTIER_REL_INC_ZOE",
+            "key": "[\"w1|cap=0|r0=|r1=\",\"O\"]||[\"w1|cap=1|r0=|r1=P:0\",\"O\"]",
+            "rank": 15,
+            "a": "102809:26182",
+            "b": "105609:139890",
+            "aOutcome": "draw",
+            "bOutcome": "win",
+            "aCode": 1,
+            "bCode": 2,
+            "multiplicityDifferenceL1": 2,
+            "parityPairUnits": null,
+            "aCounts": [
+              {
+                "type": "T61412",
+                "canonicalType": "0||2",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T72194",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 5
+              }
+            ],
+            "bCounts": [
+              {
+                "type": "T61414",
+                "canonicalType": "0||4",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T72194",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 5
+              }
+            ],
+            "delta": [
+              {
+                "type": "T61412",
+                "canonicalType": "0||2",
+                "width": 1,
+                "delta": -1
+              },
+              {
+                "type": "T61414",
+                "canonicalType": "0||4",
+                "width": 1,
+                "delta": 1
+              }
+            ]
+          },
+          "minimumMultiplicityDifferenceWitness": {
+            "mode": "ROLE_CAPPAR_FRONTIER_REL_INC_ZOE",
+            "key": "[\"w1|cap=0|r0=F:0|r1=F:0,P:0\",\"O\"]||[\"w1|cap=0|r0=|r1=\",\"E\"]||[\"w1|cap=1|r0=P:0|r1=P:0;P:0\",\"O\"]",
+            "rank": 13,
+            "a": "102677:17994",
+            "b": "149898:41509",
+            "aOutcome": "win",
+            "bOutcome": "loss",
+            "aCode": 2,
+            "bCode": 0,
+            "multiplicityDifferenceL1": 2,
+            "parityPairUnits": null,
+            "aCounts": [
+              {
+                "type": "T61395",
+                "canonicalType": "0|4|2.4",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T72156",
+                "canonicalType": "1|2|6",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T72194",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 4
+              }
+            ],
+            "bCounts": [
+              {
+                "type": "T61386",
+                "canonicalType": "0|2|2.4",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T72156",
+                "canonicalType": "1|2|6",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T72194",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 4
+              }
+            ],
+            "delta": [
+              {
+                "type": "T61386",
+                "canonicalType": "0|2|2.4",
+                "width": 1,
+                "delta": 1
+              },
+              {
+                "type": "T61395",
+                "canonicalType": "0|4|2.4",
+                "width": 1,
+                "delta": -1
+              }
+            ]
+          }
+        },
+        {
+          "mode": "ROLE_CAPPAR_RPAR_REL_INC_ZOE",
+          "statesAudited": 36569,
+          "classes": 16732,
+          "mixedValueClasses": 0,
+          "QV": true,
+          "firstMixedValueWitness": null,
+          "minimumMultiplicityDifferenceWitness": null
+        },
+        {
+          "mode": "ROLE_CAPPAR_REL_INC_ZOE",
+          "statesAudited": 36569,
+          "classes": 16732,
+          "mixedValueClasses": 0,
+          "QV": true,
+          "firstMixedValueWitness": null,
+          "minimumMultiplicityDifferenceWitness": null
+        },
+        {
+          "mode": "MULTI",
+          "statesAudited": 36569,
+          "classes": 16735,
+          "mixedValueClasses": 0,
+          "QV": true,
+          "firstMixedValueWitness": null,
+          "minimumMultiplicityDifferenceWitness": null
+        }
+      ],
+      "disposition": {
+        "FRONTIER_QV": false,
+        "RPAR_QV": true,
+        "EXACT_DEPTH_QV": true,
+        "FRONTIER_classes": 16601,
+        "RPAR_classes": 16732,
+        "EXACT_DEPTH_classes": 16732
+      }
+    },
+    {
+      "label": "4x5-k4",
+      "width": 4,
+      "height": 5,
+      "k": 4,
+      "physicalStates": 1706255,
+      "nonterminalStates": 1348441,
+      "componentTypes": 90223,
+      "tactical2Counts": {
+        "W": 348191,
+        "L2": 66275,
+        "O": 933975
+      },
+      "audits": [
+        {
+          "mode": "EXACT_ZOE",
+          "statesAudited": 933975,
+          "classes": 79848,
+          "mixedValueClasses": 0,
+          "QV": true,
+          "firstMixedValueWitness": null,
+          "minimumMultiplicityDifferenceWitness": null
+        },
+        {
+          "mode": "ROLE_CAPPAR_FRONTIER_REL_INC_ZOE",
+          "statesAudited": 933975,
+          "classes": 64182,
+          "mixedValueClasses": 4215,
+          "QV": false,
+          "firstMixedValueWitness": {
+            "mode": "ROLE_CAPPAR_FRONTIER_REL_INC_ZOE",
+            "key": "[\"w1|cap=0|r0=|r1=\",\"O\"]||[\"w1|cap=1|r0=|r1=P:0\",\"O\"]",
+            "rank": 17,
+            "a": "336301:153170",
+            "b": "106981:662042",
+            "aOutcome": "win",
+            "bOutcome": "draw",
+            "aCode": 2,
+            "bCode": 1,
+            "multiplicityDifferenceL1": 2,
+            "parityPairUnits": null,
+            "aCounts": [
+              {
+                "type": "T88146",
+                "canonicalType": "2||16",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T90222",
+                "canonicalType": "5||",
+                "width": 1,
+                "count": 3
+              }
+            ],
+            "bCounts": [
+              {
+                "type": "T88152",
+                "canonicalType": "2||8",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T90222",
+                "canonicalType": "5||",
+                "width": 1,
+                "count": 3
+              }
+            ],
+            "delta": [
+              {
+                "type": "T88146",
+                "canonicalType": "2||16",
+                "width": 1,
+                "delta": -1
+              },
+              {
+                "type": "T88152",
+                "canonicalType": "2||8",
+                "width": 1,
+                "delta": 1
+              }
+            ]
+          },
+          "minimumMultiplicityDifferenceWitness": {
+            "mode": "ROLE_CAPPAR_FRONTIER_REL_INC_ZOE",
+            "key": "[\"w1|cap=0|r0=F:0,P:0,P:0,P:0|r1=F:0,P:0,P:0\",\"O\"]||[\"w1|cap=0|r0=F:0,P:0,P:0,P:0|r1=P:0\",\"O\"]||[\"w1|cap=0|r0=|r1=\",\"E\"]",
+            "rank": 12,
+            "a": "344325:5210",
+            "b": "148518:270921",
+            "aOutcome": "loss",
+            "bOutcome": "draw",
+            "aCode": 0,
+            "bCode": 1,
+            "multiplicityDifferenceL1": 2,
+            "parityPairUnits": null,
+            "aCounts": [
+              {
+                "type": "T63135",
+                "canonicalType": "1|30|14",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T63138",
+                "canonicalType": "1|30|4",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T90222",
+                "canonicalType": "5||",
+                "width": 1,
+                "count": 2
+              }
+            ],
+            "bCounts": [
+              {
+                "type": "T63135",
+                "canonicalType": "1|30|14",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T63140",
+                "canonicalType": "1|30|8",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T90222",
+                "canonicalType": "5||",
+                "width": 1,
+                "count": 2
+              }
+            ],
+            "delta": [
+              {
+                "type": "T63138",
+                "canonicalType": "1|30|4",
+                "width": 1,
+                "delta": -1
+              },
+              {
+                "type": "T63140",
+                "canonicalType": "1|30|8",
+                "width": 1,
+                "delta": 1
+              }
+            ]
+          }
+        },
+        {
+          "mode": "ROLE_CAPPAR_RPAR_REL_INC_ZOE",
+          "statesAudited": 933975,
+          "classes": 76001,
+          "mixedValueClasses": 335,
+          "QV": false,
+          "firstMixedValueWitness": {
+            "mode": "ROLE_CAPPAR_RPAR_REL_INC_ZOE",
+            "key": "[\"w1|cap=0|r0=|r1=\",\"E\"]||[\"w1|cap=1|r0=O:0|r1=F:0\",\"O\"]||[\"w1|cap=1|r0=|r1=\",\"O\"]",
+            "rank": 14,
+            "a": "83237:143954",
+            "b": "83365:301146",
+            "aOutcome": "win",
+            "bOutcome": "draw",
+            "aCode": 2,
+            "bCode": 1,
+            "multiplicityDifferenceL1": 2,
+            "parityPairUnits": null,
+            "aCounts": [
+              {
+                "type": "T26025",
+                "canonicalType": "0|8|1",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T90220",
+                "canonicalType": "4||",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T90222",
+                "canonicalType": "5||",
+                "width": 1,
+                "count": 2
+              }
+            ],
+            "bCounts": [
+              {
+                "type": "T88139",
+                "canonicalType": "2|8|4",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T90220",
+                "canonicalType": "4||",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T90222",
+                "canonicalType": "5||",
+                "width": 1,
+                "count": 2
+              }
+            ],
+            "delta": [
+              {
+                "type": "T26025",
+                "canonicalType": "0|8|1",
+                "width": 1,
+                "delta": -1
+              },
+              {
+                "type": "T88139",
+                "canonicalType": "2|8|4",
+                "width": 1,
+                "delta": 1
+              }
+            ]
+          },
+          "minimumMultiplicityDifferenceWitness": {
+            "mode": "ROLE_CAPPAR_RPAR_REL_INC_ZOE",
+            "key": "[\"w1|cap=0|r0=E:0;F:0|r1=O:0\",\"O\"]||[\"w1|cap=0|r0=|r1=\",\"E\"]||[\"w1|cap=1|r0=|r1=\",\"O\"]",
+            "rank": 15,
+            "a": "75053:152146",
+            "b": "361861:22618",
+            "aOutcome": "loss",
+            "bOutcome": "draw",
+            "aCode": 0,
+            "bCode": 1,
+            "multiplicityDifferenceL1": 2,
+            "parityPairUnits": null,
+            "aCounts": [
+              {
+                "type": "T63117",
+                "canonicalType": "1|2.8|16",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T90220",
+                "canonicalType": "4||",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T90222",
+                "canonicalType": "5||",
+                "width": 1,
+                "count": 2
+              }
+            ],
+            "bCounts": [
+              {
+                "type": "T63120",
+                "canonicalType": "1|2.8|4",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T90220",
+                "canonicalType": "4||",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T90222",
+                "canonicalType": "5||",
+                "width": 1,
+                "count": 2
+              }
+            ],
+            "delta": [
+              {
+                "type": "T63117",
+                "canonicalType": "1|2.8|16",
+                "width": 1,
+                "delta": -1
+              },
+              {
+                "type": "T63120",
+                "canonicalType": "1|2.8|4",
+                "width": 1,
+                "delta": 1
+              }
+            ]
+          }
+        },
+        {
+          "mode": "ROLE_CAPPAR_REL_INC_ZOE",
+          "statesAudited": 933975,
+          "classes": 79309,
+          "mixedValueClasses": 0,
+          "QV": true,
+          "firstMixedValueWitness": null,
+          "minimumMultiplicityDifferenceWitness": null
+        },
+        {
+          "mode": "MULTI",
+          "statesAudited": 933975,
+          "classes": 79850,
+          "mixedValueClasses": 0,
+          "QV": true,
+          "firstMixedValueWitness": null,
+          "minimumMultiplicityDifferenceWitness": null
+        }
+      ],
+      "disposition": {
+        "FRONTIER_QV": false,
+        "RPAR_QV": false,
+        "EXACT_DEPTH_QV": true,
+        "FRONTIER_classes": 64182,
+        "RPAR_classes": 76001,
+        "EXACT_DEPTH_classes": 79309
+      }
+    },
+    {
+      "label": "6x3-k4",
+      "width": 6,
+      "height": 3,
+      "k": 4,
+      "physicalStates": 2087325,
+      "nonterminalStates": 1914210,
+      "componentTypes": 19844,
+      "tactical2Counts": {
+        "W": 227321,
+        "L2": 25450,
+        "O": 1661439
+      },
+      "audits": [
+        {
+          "mode": "EXACT_ZOE",
+          "statesAudited": 1661439,
+          "classes": 18418,
+          "mixedValueClasses": 0,
+          "QV": true,
+          "firstMixedValueWitness": null,
+          "minimumMultiplicityDifferenceWitness": null
+        },
+        {
+          "mode": "ROLE_CAPPAR_FRONTIER_REL_INC_ZOE",
+          "statesAudited": 1661439,
+          "classes": 17182,
+          "mixedValueClasses": 137,
+          "QV": false,
+          "firstMixedValueWitness": {
+            "mode": "ROLE_CAPPAR_FRONTIER_REL_INC_ZOE",
+            "key": "[\"w1|cap=0|r0=|r1=\",\"O\"]||[\"w1|cap=1|r0=|r1=P:0\",\"O\"]",
+            "rank": 15,
+            "a": "118933:10058",
+            "b": "135853:59714",
+            "aOutcome": "draw",
+            "bOutcome": "win",
+            "aCode": 1,
+            "bCode": 2,
+            "multiplicityDifferenceL1": 2,
+            "parityPairUnits": null,
+            "aCounts": [
+              {
+                "type": "T18482",
+                "canonicalType": "0||2",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T19843",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 5
+              }
+            ],
+            "bCounts": [
+              {
+                "type": "T18484",
+                "canonicalType": "0||4",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T19843",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 5
+              }
+            ],
+            "delta": [
+              {
+                "type": "T18482",
+                "canonicalType": "0||2",
+                "width": 1,
+                "delta": -1
+              },
+              {
+                "type": "T18484",
+                "canonicalType": "0||4",
+                "width": 1,
+                "delta": 1
+              }
+            ]
+          },
+          "minimumMultiplicityDifferenceWitness": {
+            "mode": "ROLE_CAPPAR_FRONTIER_REL_INC_ZOE",
+            "key": "[\"w1|cap=0|r0=F:0|r1=\",\"O\"]||[\"w1|cap=0|r0=|r1=\",\"E\"]||[\"w1|cap=1|r0=P:0|r1=\",\"O\"]",
+            "rank": 13,
+            "a": "71429:49242",
+            "b": "181060:6187",
+            "aOutcome": "loss",
+            "bOutcome": "draw",
+            "aCode": 0,
+            "bCode": 1,
+            "multiplicityDifferenceL1": 2,
+            "parityPairUnits": null,
+            "aCounts": [
+              {
+                "type": "T18470",
+                "canonicalType": "0|2|",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T19821",
+                "canonicalType": "1|2|",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T19843",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 4
+              }
+            ],
+            "bCounts": [
+              {
+                "type": "T18474",
+                "canonicalType": "0|4|",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T19821",
+                "canonicalType": "1|2|",
+                "width": 1,
+                "count": 1
+              },
+              {
+                "type": "T19843",
+                "canonicalType": "3||",
+                "width": 1,
+                "count": 4
+              }
+            ],
+            "delta": [
+              {
+                "type": "T18470",
+                "canonicalType": "0|2|",
+                "width": 1,
+                "delta": -1
+              },
+              {
+                "type": "T18474",
+                "canonicalType": "0|4|",
+                "width": 1,
+                "delta": 1
+              }
+            ]
+          }
+        },
+        {
+          "mode": "ROLE_CAPPAR_RPAR_REL_INC_ZOE",
+          "statesAudited": 1661439,
+          "classes": 17550,
+          "mixedValueClasses": 0,
+          "QV": true,
+          "firstMixedValueWitness": null,
+          "minimumMultiplicityDifferenceWitness": null
+        },
+        {
+          "mode": "ROLE_CAPPAR_REL_INC_ZOE",
+          "statesAudited": 1661439,
+          "classes": 17550,
+          "mixedValueClasses": 0,
+          "QV": true,
+          "firstMixedValueWitness": null,
+          "minimumMultiplicityDifferenceWitness": null
+        },
+        {
+          "mode": "MULTI",
+          "statesAudited": 1661439,
+          "classes": 18437,
+          "mixedValueClasses": 0,
+          "QV": true,
+          "firstMixedValueWitness": null,
+          "minimumMultiplicityDifferenceWitness": null
+        }
+      ],
+      "disposition": {
+        "FRONTIER_QV": false,
+        "RPAR_QV": true,
+        "EXACT_DEPTH_QV": true,
+        "FRONTIER_classes": 17182,
+        "RPAR_classes": 17550,
+        "EXACT_DEPTH_classes": 17550
+      }
+    }
+  ],
+  "mechanicalChecks": {
+    "candidatesFrozenBeforeQualification": true,
+    "countAggregationBeforeZoeClassification": true,
+    "roleCapacityParityRetained": true,
+    "roleAlignmentJointlyCanonicalized": true,
+    "depthCompressionOutcomeIndependent": true,
+    "noRankGrade": true,
+    "formulaHoldoutsUntouched": true,
+    "exactDepthControlsExact": true,
+    "exactDepthClassCountsReproduced": true,
+    "fullMultiplicityControlsExact": true
+  },
+  "interpretationGuard": [
+    "The depth ladder was frozen coarsest-first before qualification.",
+    "ROLE_CAPPAR_FRONTIER retains only frontier versus positive depth; ROLE_CAPPAR_RPAR additionally retains positive-depth parity.",
+    "Because role-capacity parity remains attached, positive relative-depth parity and anchored row parity are equivalent recodings per role.",
+    "A passing rung is bounded Q-V identity evidence, not a global-minimality theorem.",
+    "EW-RS-059 formula holdouts remain sealed.",
+    "No Q-A/Q-F, standard-7x6, universal theorem, or center-opening claim follows."
+  ]
+}
