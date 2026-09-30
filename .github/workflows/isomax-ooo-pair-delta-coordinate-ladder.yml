@@ -1,0 +1,53 @@
+name: IsoMax OOO pair-delta coordinate ladder
+
+on:
+  push:
+    branches:
+      - experiment/isomax-late-xor-components-20260929
+    paths:
+      - '.github/workflows/isomax-ooo-pair-delta-coordinate-ladder.yml'
+      - 'research/isograph/discovery/2026-09-29-isomax-late-xor-components/EXPERIMENTAL_WARRANT_RS_070.json'
+      - 'research/isograph/discovery/2026-09-29-isomax-late-xor-components/ooo-exchange-circuit-lib.mjs'
+      - 'research/isograph/discovery/2026-09-29-isomax-late-xor-components/ooo-exchange-circuit-lib.test.mjs'
+      - 'research/isograph/discovery/2026-09-29-isomax-late-xor-components/run-ooo-pair-delta-coordinate-ladder.mjs'
+      - 'research/isograph/discovery/2026-09-29-isomax-late-xor-components/verify-ooo-pair-delta-result.mjs'
+  workflow_dispatch:
+
+concurrency:
+  group: isomax-ooo-pair-delta-coordinate-ladder-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with: {fetch-depth: 0}
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with: {node-version: '26'}
+      - name: Test pair-delta compression semantics
+        run: node --test research/isograph/discovery/2026-09-29-isomax-late-xor-components/ooo-exchange-circuit-lib.test.mjs
+      - name: Run pair-delta coordinate ladder
+        run: node --max-old-space-size=6144 research/isograph/discovery/2026-09-29-isomax-late-xor-components/run-ooo-pair-delta-coordinate-ladder.mjs
+      - name: Verify pair-delta result
+        run: node research/isograph/discovery/2026-09-29-isomax-late-xor-components/verify-ooo-pair-delta-result.mjs
+      - name: Research integrity
+        run: node tools/verify-research-integrity.mjs
+      - name: Commit pair-delta evidence
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            research/isograph/discovery/2026-09-29-isomax-late-xor-components/OOO_PAIR_DELTA_COORDINATE_LADDER_0_1.json \
+            research/isograph/discovery/2026-09-29-isomax-late-xor-components/OOO_PAIR_DELTA_COORDINATE_LADDER_RESULT_VERIFY_0_1.json
+          if git diff --cached --quiet; then
+            echo "No generated changes."
+          else
+            git commit -m "research(isomax): freeze pair-delta coordinate ladder"
+            git pull --rebase origin experiment/isomax-late-xor-components-20260929
+            git push origin HEAD:experiment/isomax-late-xor-components-20260929
+          fi
