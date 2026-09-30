@@ -1,7 +1,7 @@
 {
   "schema": "connect4.isomax.full_discovery.findings.v5",
   "date_author_local": "2026-09-29",
-  "status": "INTERIM__EW017_PENDING",
+  "status": "INTERIM__EW018_PENDING",
   "evidence_provenance": [
     {
       "id": "P1",
@@ -88,16 +88,22 @@
       "file": "SURVIVING_OBSTRUCTION_0_1.json"
     },
     {
-      "id": "CAP_HOLE",
+      "id": "CAPHOLE_K4_BROAD",
       "branch": "experiment/isomax-discovery-cap-hole-orientation-20260929",
       "commit": "f5999e384b97a54e551669589d2d3be00df6ab9b",
       "file": "CAP_HOLE_ORIENTATION_AUDIT_0_1.json"
     },
     {
-      "id": "CAP_HOLE_BIT",
+      "id": "CAPHOLE_K4_BIT",
       "branch": "experiment/isomax-discovery-cap-hole-orientation-20260929",
       "commit": "b517aac5c7d644dedbf1fea0afc715d8d2f78872",
       "file": "CAP_HOLE_ORIENTATION_0_1.json"
+    },
+    {
+      "id": "CAPHOLE_K3",
+      "branch": "experiment/isomax-discovery-cap-hole-k3-confirmation-20260929",
+      "commit": "c761b695c48dbc946aeae65af91b8bd72f5fbe65",
+      "file": "CAP_HOLE_K3_CONFIRMATION_0_1.json"
     }
   ],
   "findings": [
@@ -327,59 +333,51 @@
     },
     {
       "id": "DISC-F024",
-      "kind": "RELABELING_COVARIANT_MOTIF",
-      "statement": "The predecessor minimum 5x4 contradiction and the independent support-release-surviving contradiction both exhibit the same relabeling-covariant sheet-difference motif at source and target: sheet-exclusive residuals are exact one-hole subsets of the current open-cap set and the two sheets select disjoint holes from one two-column hole pair. Raw residual-mask identity is not part of the motif.",
+      "kind": "CROSS_K_MOTIF_SUPPORT",
+      "statement": "The repaired relabeling-covariant two-column open-cap-hole motif transfers to fresh 5x4 k3 obstruction: 130 binary groups carry the motif, 76 lie on cycle support, and 26 lie on support of nonzero fundamental cycles. Flat 4x5 k3 has one motif group, but it lies off all cycle support.",
       "evidence": [
-        "CAP_HOLE"
+        "CAPHOLE_K4_BROAD",
+        "CAPHOLE_K3"
       ],
-      "scope": "two independently selected exact 5x4 k4 obstruction families"
+      "scope": "frozen broad motif; k4 selected obstruction families plus fresh standard k3 4x5/5x4 holdout"
     },
     {
       "id": "DISC-F025",
-      "kind": "FINITE_NEGATIVE_CONTROL",
-      "statement": "The repaired open-cap two-hole motif was absent from every tested same-support sheet pair in flat 4x5 k4 (3714 pairs; 120 cycle-supporting groups) and flat 5x3 k3 (2113 pairs; 6 cycle-supporting groups). This strengthens the motif as a discovery candidate but does not establish necessity or sufficiency.",
+      "kind": "EMBEDDING_NOT_PRESENCE",
+      "statement": "Motif presence alone is not sufficient for frustration: flat 4x5 k3 contains one motif-bearing group outside cycle support. The recurring clue is therefore the motif's embedding in cycle-supporting continuation structure, not bare motif existence.",
       "evidence": [
-        "CAP_HOLE"
+        "CAPHOLE_K3"
       ],
-      "scope": "two exact flat controls; finite absence only"
+      "scope": "fresh standard k3 holdout"
     },
     {
       "id": "DISC-F026",
-      "kind": "CLUE_PRESERVING_FALSIFIER",
-      "statement": "The first EW-015 version required the two hole columns to have equal support height; the predecessor source witness has hole-column heights 2 and 3, falsifying that guard. Removing only the equal-height requirement preserved the broader one-hole two-column motif and allowed the control audit to proceed.",
+      "kind": "LOCAL_COORDINATE_FALSIFIER",
+      "statement": "The stricter mover-relative missing-cap self-incidence bit is not a global corrected phase coordinate. It covers 162 of 930 stored 5x4 k4 repair reconvergence route-pairs and matches both start-sheet versions of the unique contradiction, but two covered flat same-parity reconvergences change the bit. Flat 4x5 k4 has zero defined route-pairs under this narrow coordinate.",
       "evidence": [
-        "CAP_HOLE"
+        "CAPHOLE_K4_BIT"
       ],
-      "scope": "EW-015 candidate-repair lineage"
-    },
-    {
-      "id": "DISC-F027",
-      "kind": "FALSIFIED_SCALAR_REFINEMENT",
-      "statement": "A stricter mover-relative endpoint bit—whether the unique missing cap of a one-hole cap residual is incident to another mover residual—matches both start-sheet realizations of the unique support-release-surviving contradiction, but is not a global potential coordinate. In the same repaired 5x4 carrier it is defined on 162 audited route pairs and fails on 2 flat same-parity reconvergences; flat 4x5 has zero defined coverage.",
-      "evidence": [
-        "CAP_HOLE_BIT"
-      ],
-      "scope": "support-release-pruned 4x5/5x4 k4 stored reconvergences"
+      "scope": "support-release-pruned k4 4x5/5x4 stored reconvergences"
     }
   ],
   "live_gap": {
     "id": "DISC-GAP-001",
-    "statement": "Whether the relabeling-covariant open-cap two-hole sheet-difference motif is a cross-k causal component of frustration, a k4-specific correlate, or one member of a broader residual-incidence family remains unresolved.",
+    "statement": "Whether the broad relabeling-covariant cap-hole motif is a necessary structural bottleneck for every tested nonzero fundamental cycle, or only one recurring obstruction-associated motif, remains unresolved.",
     "fixed_by_latest": [
-      "the motif is shared by two independent exact 5x4 k4 obstruction families",
-      "the unsupported equal-height refinement is falsified",
-      "no motif occurrence was found in two tested flat cycle controls",
-      "the stronger self-incidence scalar bit is locally correct on the robust contradiction but globally falsified by two flat 5x4 reconvergences"
+      "the broad motif occurs in both independent k4 obstruction families",
+      "the broad motif transfers to fresh k3 nonzero-cycle support",
+      "bare motif presence is not sufficient because flat 4x5 k3 has one off-cycle motif occurrence",
+      "the narrower endpoint self-incidence bit is falsified as a global phase coordinate by two flat 5x4 reconvergences"
     ],
     "anti_circularity": [
-      "do not use raw mask numbers as invariant identity",
-      "do not add support-height equality after its direct falsifier",
-      "do not promote finite flat-control absence to sufficiency",
-      "do not promote the stricter endpoint bit after its flat same-parity counterexamples",
-      "do not use W/D/L or syndrome to define the motif"
+      "freeze the broad motif before cycle-cover testing",
+      "do not modify the motif using nonzero-cycle results",
+      "do not use syndrome/delta parity to compute motif membership",
+      "distinguish cycle intersection from phase prediction",
+      "retain zero-cycle motif intersections as negative/specificity evidence"
     ],
     "pending_evidence": [
-      "EW-017 fresh standard k3 motif confirmation"
+      "EW-018 exact nonzero fundamental-cycle motif-cover audit at k3 and repair-surviving k4"
     ]
   },
   "revision_of": "DISCOVERY_FINDINGS_0_4.json"
