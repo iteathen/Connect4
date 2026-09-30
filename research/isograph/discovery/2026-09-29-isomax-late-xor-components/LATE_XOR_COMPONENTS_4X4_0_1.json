@@ -1,0 +1,137 @@
+{
+  "schema": "connect4.isomax.late_xor_components_4x4.v1",
+  "date_author_local": "2026-09-29",
+  "scope": "complete physical 4x4 connect-4 first-win carrier after exact bounded R/F/G reduction",
+  "pipeline": "physical P -> q_o -> RFG -> residual-incidence connected components -> component valuation/composition candidate",
+  "componentDefinition": {
+    "vertices": "columns with support-height labels",
+    "hyperedges": "surviving owner-labelled RFG residuals",
+    "components": "connected components of the residual-incidence hypergraph, isolated columns included",
+    "type": "component support + owned residuals canonicalized under all internal column permutations",
+    "currentRankOnly": true,
+    "solvedValueUsed": false,
+    "futureClassUsed": false
+  },
+  "universalXorLogic": "For this fixed component definition, any XOR valuation into an exponent-2 Abelian group depends only on component-type multiplicity parity. C_PARITY_P is therefore the finest universal collision test for all such valuations.",
+  "controls": {
+    "physicalStates": 161029,
+    "nonterminalStates": 134289,
+    "qStarDirectClasses": 30046,
+    "qSigmaRFGClasses": 9308,
+    "componentTypes": 7757,
+    "componentHistogram": {
+      "1": 6513,
+      "2": 16394,
+      "3": 23474,
+      "4": 87908
+    },
+    "multiComponentStates": 127776,
+    "maxComponents": 4
+  },
+  "candidates": [
+    {
+      "id": "C_MULTI",
+      "classes": 9308,
+      "QF_component_transport": true,
+      "QA_component_transport": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "id": "C_MULTI_P",
+      "classes": 9308,
+      "QF_component_transport": true,
+      "QA_component_transport": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "id": "C_MOD4_P",
+      "classes": 9308,
+      "QF_component_transport": true,
+      "QA_component_transport": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "id": "C_PARITY_P",
+      "classes": 9117,
+      "QF_component_transport": false,
+      "QA_component_transport": false,
+      "QV": false,
+      "firstFutureFailure": {
+        "key": "1|1||2||4||",
+        "a": "18183:12408",
+        "b": "4877:1138",
+        "aInterface": "m0|1||2=>T:P1",
+        "bInterface": "m0|1||2=>T:P1||m0|3||=>N:0|1||2||3||||m0|3||=>N:0|1||2||3||"
+      },
+      "firstActionFailure": {
+        "key": "1|1||2||4||",
+        "a": "18183:12408",
+        "b": "4877:1138",
+        "aActionSignature": "m0|1||2=>-1",
+        "bActionSignature": "m0|1||2=>-1||m0|3||=>0||m0|3||=>0"
+      },
+      "firstValueFailure": {
+        "key": "0|",
+        "a": "1927:14456",
+        "b": "1955:22620",
+        "aValue": 0,
+        "bValue": 1
+      }
+    },
+    {
+      "id": "C_PARITY",
+      "classes": 9117,
+      "QF_component_transport": false,
+      "QA_component_transport": false,
+      "QV": false,
+      "firstFutureFailure": {
+        "key": "1||2||4||",
+        "a": "18183:12408",
+        "b": "4877:1138",
+        "aInterface": "m0|1||2=>T:P1",
+        "bInterface": "m0|1||2=>T:P1||m0|3||=>N:1||2||3||||m0|3||=>N:1||2||3||"
+      },
+      "firstActionFailure": {
+        "key": "1||2||4||",
+        "a": "18183:12408",
+        "b": "4877:1138",
+        "aActionSignature": "m0|1||2=>-1",
+        "bActionSignature": "m0|1||2=>-1||m0|3||=>0||m0|3||=>0"
+      },
+      "firstValueFailure": {
+        "key": "",
+        "a": "1927:14456",
+        "b": "1955:22620",
+        "aValue": 0,
+        "bValue": 1
+      }
+    }
+  ],
+  "disposition": {
+    "componentMultisetQF": true,
+    "componentMultisetQA": true,
+    "componentMultisetQV": true,
+    "componentParityQF": false,
+    "componentParityQA": false,
+    "componentParityQV": false,
+    "componentMod4QF": true,
+    "componentMod4QA": true,
+    "componentMod4QV": true,
+    "xorForFixedComponentsQV": "XOR_REJECTED_FOR_THIS_FIXED_COMPONENT_DEFINITION_QV"
+  },
+  "interpretationGuard": [
+    "Failure of C_PARITY_P rejects XOR only for this frozen post-RFG component definition.",
+    "Failure of C_MULTI rejects this component decomposition itself for the failed semantic target.",
+    "Success of C_PARITY_P proves only existence of a nonminimal XOR realization via one-hot component basis; valuation minimization remains open.",
+    "No standard-7x6 theorem follows from this bounded audit."
+  ]
+}
