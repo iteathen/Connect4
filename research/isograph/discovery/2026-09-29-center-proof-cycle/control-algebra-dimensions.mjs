@@ -893,7 +893,7 @@ function applyOpponentOpenCapTerminalDominance(
 }
 
 
-export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontierBlocker=false,nonterminalFrontierBlocker=false,moverFinalCapParity=false,remainingMoveCapacity=false,supportReleaseTurnCapacity=false,opponentOpenCapTerminalDominance=false,measureLocalBranchClosure=true,auditColumnRefinement=false,auditPairColumnRefinement=false,auditBinaryTieStabilizers=false,auditOpponentResidualDeletion=false,auditEarliestMergeParents=false,auditEarliestMergeWitness=false,emitPrimitiveWitnessData=false,emitFullDirectCarrier=false}){
+export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontierBlocker=false,nonterminalFrontierBlocker=false,moverFinalCapParity=false,remainingMoveCapacity=false,supportReleaseTurnCapacity=false,opponentOpenCapTerminalDominance=false,measureLocalBranchClosure=true,auditColumnRefinement=false,auditPairColumnRefinement=false,auditBinaryTieStabilizers=false,auditOpponentResidualDeletion=false,auditEarliestMergeParents=false,auditEarliestMergeWitness=false,auditOpenCapHoleMotif=false,emitPrimitiveWitnessData=false,emitFullDirectCarrier=false}){
   const cells=width*height;
   assert.ok(cells<=30,'direct residual-orbit harness is intentionally bounded to <=30 cells');
   const masks=winMasks(width,height,k),
@@ -1947,6 +1947,229 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     };
   }
 
+  let openCapHoleMotifAudit=null;
+  if(auditOpenCapHoleMotif){
+    const bitCount=mask=>{
+      let n=0;
+      for(let v=mask>>>0;v;v=(v&(v-1))>>>0)n++;
+      return n;
+    };
+    function capMaskFor(rec){
+      let mask=0;
+      for(let col=0;col<width;col++)if(rec.heights[col]<height)
+        mask|=1<<((height-1)*width+col);
+      return mask>>>0;
+    }
+    function oneHoleRows(rec){
+      const cap=capMaskFor(rec),out=[];
+      for(const [player,residuals] of [[0,rec.r0],[1,rec.r1]])
+        for(const residual0 of residuals){
+          const residual=residual0>>>0;
+          if((residual&cap)!==residual)continue;
+          const hole=(cap^residual)>>>0;
+          if(bitCount(hole)!==1)continue;
+          const bit=31-Math.clz32(hole),col=bit%width;
+          out.push({player,residual,holeBit:bit,holeColumn:col});
+        }
+      return out;
+    }
+    const residualKey=(player,residual)=>player+':'+(residual>>>0);
+    function motifPair(a,b){
+      if(Array.from(a.heights).join(',')!==Array.from(b.heights).join(','))
+        return {motif:false};
+      const setA=new Set([
+          ...a.r0.map(x=>residualKey(0,x)),
+          ...a.r1.map(x=>residualKey(1,x)),
+        ]),
+        setB=new Set([
+          ...b.r0.map(x=>residualKey(0,x)),
+          ...b.r1.map(x=>residualKey(1,x)),
+        ]),
+        onlyA=[...setA].filter(x=>!setB.has(x)),
+        onlyB=[...setB].filter(x=>!setA.has(x)),
+        holesAByKey=new Map(oneHoleRows(a).map(x=>[
+          residualKey(x.player,x.residual),x,
+        ])),
+        holesBByKey=new Map(oneHoleRows(b).map(x=>[
+          residualKey(x.player,x.residual),x,
+        ])),
+        diffA=onlyA.map(k=>holesAByKey.get(k)).filter(Boolean),
+        diffB=onlyB.map(k=>holesBByKey.get(k)).filter(Boolean),
+        allDiffOneHole=
+          onlyA.length>0&&onlyB.length>0&&
+          diffA.length===onlyA.length&&diffB.length===onlyB.length,
+        colsA=[...new Set(diffA.map(x=>x.holeColumn))],
+        colsB=[...new Set(diffB.map(x=>x.holeColumn))],
+        union=[...new Set([...colsA,...colsB])].sort((x,y)=>x-y),
+        disjoint=colsA.every(x=>!colsB.includes(x)),
+        motif=allDiffOneHole&&union.length===2&&disjoint;
+      return {
+        motif,
+        support:Array.from(a.heights),
+        holePair:union,
+        diffA,diffB,
+      };
+    }
+
+    const binaryLabelledIds=new Set(
+        binaryGroupRows.flatMap(row=>row.labelledClasses)),
+      byLabel=new Map();
+    for(const rec of nodes.values()){
+      if(rec.terminal)continue;
+      const labelled=actionLabelledStateClass.get(rec.key);
+      if(!binaryLabelledIds.has(labelled))continue;
+      const support=Array.from(rec.heights).join(',');
+      let supportMap=byLabel.get(labelled);
+      if(!supportMap){supportMap=new Map();byLabel.set(labelled,supportMap);}
+      let rows=supportMap.get(support);
+      if(!rows){rows=[];supportMap.set(support,rows);}
+      rows.push(rec);
+    }
+
+    const motifGroupIds=new Set(),motifExamples=[];
+    let testedPairs=0,groupsWithSharedSupport=0;
+    for(const group of binaryGroupRows){
+      const [la,lb]=group.labelledClasses,
+        ma=byLabel.get(la),mb=byLabel.get(lb);
+      if(!ma||!mb)continue;
+      const supports=[...ma.keys()].filter(key=>mb.has(key));
+      if(!supports.length)continue;
+      groupsWithSharedSupport++;
+      let found=null;
+      outer: for(const support of supports)
+        for(const a of ma.get(support))for(const b of mb.get(support)){
+          testedPairs++;
+          const m=motifPair(a,b);
+          if(m.motif){found=m;break outer;}
+        }
+      if(found){
+        motifGroupIds.add(group.id);
+        if(motifExamples.length<32)motifExamples.push({
+          groupId:group.id,
+          labelledClasses:[...group.labelledClasses],
+          ...found,
+        });
+      }
+    }
+
+    const forestParent=new Map(binaryGroupIds.map(id=>[id,id])),
+      forestParity=new Map(binaryGroupIds.map(id=>[id,0])),
+      forestSize=new Map(binaryGroupIds.map(id=>[id,1])),
+      forestAdj=new Map(binaryGroupIds.map(id=>[id,[]]));
+    function forestFind(id){
+      const p=forestParent.get(id);
+      if(p===id)return [id,0];
+      const [root,up]=forestFind(p),
+        q=forestParity.get(id)^up;
+      forestParent.set(id,root);forestParity.set(id,q);
+      return [root,q];
+    }
+    function forestPathNodes(a,b){
+      const queue=[a],prev=new Map([[a,null]]);
+      for(let i=0;i<queue.length&&!prev.has(b);i++)
+        for(const next of forestAdj.get(queue[i])??[])
+          if(!prev.has(next)){
+            prev.set(next,queue[i]);queue.push(next);
+          }
+      assert.ok(prev.has(b),'closing edge endpoints need forest path');
+      const nodesOnPath=new Set([b]);
+      let x=b;
+      while(x!==a){x=prev.get(x);nodesOnPath.add(x);}
+      return nodesOnPath;
+    }
+
+    const cycleRows=[];
+    for(const edge of reducedEdges){
+      let [ra,pa]=forestFind(edge.from),
+        [rb,pb]=forestFind(edge.to);
+      if(ra===rb){
+        const syndrome=pa^pb^edge.delta,
+          cycleNodes=forestPathNodes(edge.from,edge.to);
+        cycleNodes.add(edge.from);cycleNodes.add(edge.to);
+        const motifNodes=[...cycleNodes]
+          .filter(id=>motifGroupIds.has(id)).sort((a,b)=>a-b);
+        cycleRows.push({
+          closingEdgeId:edge.id,
+          syndrome,
+          nodeCount:cycleNodes.size,
+          containsMotif:motifNodes.length>0,
+          motifNodes,
+        });
+        continue;
+      }
+      const bridge=pa^pb^edge.delta;
+      forestAdj.get(edge.from).push(edge.to);
+      forestAdj.get(edge.to).push(edge.from);
+      if(forestSize.get(ra)<forestSize.get(rb)){
+        forestParent.set(ra,rb);forestParity.set(ra,bridge);
+        forestSize.set(rb,forestSize.get(ra)+forestSize.get(rb));
+      }else{
+        forestParent.set(rb,ra);forestParity.set(rb,bridge);
+        forestSize.set(ra,forestSize.get(ra)+forestSize.get(rb));
+      }
+    }
+    assert.equal(cycleRows.length,integrabilityAudit.cycleRank);
+    assert.equal(cycleRows.filter(x=>x.syndrome===0).length,
+      integrabilityAudit.zeroCycleSyndromes);
+    assert.equal(cycleRows.filter(x=>x.syndrome===1).length,
+      integrabilityAudit.nonzeroCycleSyndromes);
+
+    const zeroRows=cycleRows.filter(x=>x.syndrome===0),
+      nonzeroRows=cycleRows.filter(x=>x.syndrome===1),
+      zeroWith=zeroRows.filter(x=>x.containsMotif),
+      nonzeroWith=nonzeroRows.filter(x=>x.containsMotif);
+
+    const contradictionRows=pathAudit.contradictoryExamples.map(example=>{
+      const groupIds=new Set([example.source,example.target]);
+      for(const parityPaths of example.witnessPathsByParity)
+        for(const path of parityPaths)
+          for(const edge of path){groupIds.add(edge.from);groupIds.add(edge.to);}
+      const motifNodes=[...groupIds]
+        .filter(id=>motifGroupIds.has(id)).sort((a,b)=>a-b);
+      return {
+        source:example.source,target:example.target,
+        motifNodes,containsMotif:motifNodes.length>0,
+        minPathEdges:example.minPathEdges,
+        maxPathEdges:example.maxPathEdges,
+      };
+    });
+
+    openCapHoleMotifAudit={
+      definition:{
+        support:'same exact support across compared sheet states',
+        residualDifference:'every sheet-exclusive residual is a one-hole subset of the current open-cap set',
+        orientation:'the sheets select disjoint holes from one two-column pair',
+        equalHeightRequired:false,
+        rawMaskIdentityRequired:false,
+      },
+      groupsWithSharedSupport,testedPairs,
+      motifGroups:motifGroupIds.size,
+      cycleCoverage:{
+        fundamentalCycles:cycleRows.length,
+        zeroCycles:zeroRows.length,
+        zeroCyclesWithMotif:zeroWith.length,
+        zeroCyclesWithoutMotif:zeroRows.length-zeroWith.length,
+        nonzeroCycles:nonzeroRows.length,
+        nonzeroCyclesWithMotif:nonzeroWith.length,
+        nonzeroCyclesWithoutMotif:nonzeroRows.length-nonzeroWith.length,
+        allObservedNonzeroCyclesContainMotif:
+          nonzeroRows.length>0&&nonzeroWith.length===nonzeroRows.length,
+        noObservedZeroCycleContainsMotif:zeroWith.length===0,
+      },
+      contradictionCoverage:{
+        contradictions:contradictionRows.length,
+        withMotif:contradictionRows.filter(x=>x.containsMotif).length,
+        withoutMotif:contradictionRows.filter(x=>!x.containsMotif).length,
+        allObservedContradictionsContainMotif:
+          contradictionRows.length>0&&
+          contradictionRows.every(x=>x.containsMotif),
+      },
+      motifExamples,
+      cycleRows,
+      contradictionRows,
+    };
+  }
+
   const binaryPhaseCocycleAudit={
     basis:'binary deeper-continuation groups after immediate action gauge removal',
     sheetConvention:'sorted recursive action-labelled class ids; absolute 0/1 names are gauge only',
@@ -2022,6 +2245,7 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     nonzeroCycleSyndromeExamples:integrabilityAudit.nonzeroSyndromeExamples,
     obstructionGroupExamples,
     shortestContradictionTransporterAudit,
+    openCapHoleMotifAudit,
     edgeExamples:binaryInheritanceEdges.slice(0,64),
   };
 
@@ -2879,6 +3103,7 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     auditOpponentResidualDeletion,
     auditEarliestMergeParents,
     auditEarliestMergeWitness,
+    auditOpenCapHoleMotif,
     winningLineCount:masks.length,
     residualOrbitStates:nodes.size,
     literalActionEdges,
