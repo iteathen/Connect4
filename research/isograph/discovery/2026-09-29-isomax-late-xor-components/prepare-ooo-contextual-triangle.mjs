@@ -1,0 +1,20 @@
+import fs from 'node:fs';import {createHash} from 'node:crypto';import {execFileSync} from 'node:child_process';
+import {commonQuotient} from './ooo-joint-da-common-quotient-lib.mjs';
+import {JOINT_DA_CANDIDATES,jointTriangleKey} from './ooo-joint-da-scalar-lib.mjs';
+import {rowBasis} from './ooo-common-carrier-level-lib.mjs';
+import {defectBasis} from './ooo-contextual-triangle-lib.mjs';
+const base=new URL('.',import.meta.url),read=f=>fs.readFileSync(new URL(f,base),'utf8').replace(/\r\n/g,'\n'),hash=s=>createHash('sha256').update(s).digest('hex');
+const source=JSON.parse(read('OOO_JOINT_DA_SCALAR_STRUCTURE_0_1.json')),previous=JSON.parse(read('OOO_COMMON_CARRIER_LEVEL_STRUCTURE_0_1.json'));
+const cases=source.cases.map((c,ci)=>{
+ const src=c.source,catalog=[...new Set(src.triples.map(([,v])=>JSON.stringify([...v].sort())))].sort(),index=new Map(catalog.map((key,i)=>[key,i]));
+ const columns=JOINT_DA_CANDIDATES.slice(2,6).map(c=>catalog.map(key=>jointTriangleKey(JSON.parse(key),c))),labels=commonQuotient(columns);
+ const tripleLabels=src.triples.map(([i,v])=>[i,labels[index.get(JSON.stringify([...v].sort()))]]),lookup=new Map(tripleLabels);
+ const featureKeys=[...new Set(labels)].sort((a,b)=>a-b),fidx=new Map(featureKeys.map((key,i)=>[key,i]));
+ const structuralRows=src.dependencies.map(d=>{const s=new Set();for(const ti of d.oooResidue){const j=fidx.get(lookup.get(ti));if(s.has(j))s.delete(j);else s.add(j);}return [...s].sort((a,b)=>a-b);});
+ const local={id:'LOCAL_TRIANGLE_COMMON',catalog,columns,labels,tripleLabels,featureKeys,structuralRows,basisDependencyIndices:rowBasis(structuralRows).indices,imageRank:rowBasis(structuralRows).pivots.size};
+ const [pooled,linear]=previous.cases[ci].candidates;
+ return {label:src.label,local,pooledDefect:defectBasis(pooled.structuralRows,linear.commonKernel),localDefect:defectBasis(local.structuralRows,linear.commonKernel)};
+});
+const inputs=['EXPERIMENTAL_WARRANT_RS_081.json','ooo-contextual-triangle-lib.mjs','prepare-ooo-contextual-triangle.mjs','OOO_JOINT_DA_SCALAR_STRUCTURE_0_1.json','OOO_COMMON_CARRIER_LEVEL_STRUCTURE_0_1.json'];
+const out={schema:'connect4.isomax.contextual_triangle_structure.v1',warrant:'EW-RS-081',sourceCommit:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),inputSha256:Object.fromEntries(inputs.map(f=>[f,hash(read(f))])),newScalarReplay:false,cases,holdouts:source.holdouts};
+fs.writeFileSync(new URL('OOO_CONTEXTUAL_TRIANGLE_STRUCTURE_0_1.json',base),JSON.stringify(out,null,2)+'\n');console.log(JSON.stringify(cases.map(c=>({label:c.label,classes:c.local.featureKeys.length,rank:c.local.imageRank,pooledDefect:c.pooledDefect.dimension,localDefect:c.localDefect.dimension})),null,2));
