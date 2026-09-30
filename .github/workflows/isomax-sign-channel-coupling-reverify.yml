@@ -1,0 +1,48 @@
+name: IsoMax sign-channel coupling reverify
+
+on:
+  push:
+    branches:
+      - experiment/isomax-late-xor-components-20260929
+    paths:
+      - '.github/workflows/isomax-sign-channel-coupling-reverify.yml'
+      - 'research/isograph/discovery/2026-09-29-isomax-late-xor-components/verify-ooo-sign-channel-coupling.mjs'
+  workflow_dispatch:
+
+concurrency:
+  group: isomax-sign-channel-coupling-reverify
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  reverify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with: {fetch-depth: 0}
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with: {node-version: '26'}
+      - name: Test mechanical sign-channel order
+        run: node --test research/isograph/discovery/2026-09-29-isomax-late-xor-components/ooo-sign-channel-coupling-lib.test.mjs
+      - name: Reverify RS-077 classification
+        run: node research/isograph/discovery/2026-09-29-isomax-late-xor-components/verify-ooo-sign-channel-coupling.mjs
+      - name: Research integrity
+        run: node tools/verify-research-integrity.mjs
+      - name: Publish corrected RS-077 verifier
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          out=research/isograph/discovery/2026-09-29-isomax-late-xor-components/OOO_SIGN_CHANNEL_COUPLING_RESULT_VERIFY_0_1.json
+          git stash push -m rs077-reverify -- "$out"
+          git pull --rebase origin experiment/isomax-late-xor-components-20260929
+          git stash pop
+          git add "$out"
+          if git diff --cached --quiet; then
+            echo "No verifier changes."
+          else
+            git commit -m "research(isomax): correct RS-077 Pareto classification"
+            git push origin HEAD:experiment/isomax-late-xor-components-20260929
+          fi
