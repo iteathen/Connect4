@@ -106,7 +106,6 @@ const passingDirectQV=direct.filter(x=>x.QV).sort((a,b)=>a.classes-b.classes);
 const passingOrbitQF=orbit.filter(x=>x.QF_transported).sort((a,b)=>a.classes-b.classes);
 const passingOrbitQA=orbit.filter(x=>x.QA_transported).sort((a,b)=>a.classes-b.classes);
 const passingOrbitQV=orbit.filter(x=>x.QV).sort((a,b)=>a.classes-b.classes);
-const out={
 let oracleEquality=0,oracleMismatch=0;
 const oracleMismatchExamples=[];
 for(const x of nts){
