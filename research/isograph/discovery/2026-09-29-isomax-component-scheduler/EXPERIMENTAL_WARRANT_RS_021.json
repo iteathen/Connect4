@@ -1,0 +1,21 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.component_scheduler.v1",
+  "id": "EW-RS-021",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "parent": "EW-RS-020",
+  "objective": "Test whether the cross-component effects exposed by the induced-interaction audit factor exactly through local component state plus a small global scheduler coordinate.",
+  "scheduler_candidate": {
+    "R": "remaining P0/P1 move slots",
+    "F": "number of components with nonempty local blocked-frontier set, capped at 2",
+    "G": "number of components with open columns, capped at 2",
+    "H": "global open-column count, capped at 2"
+  },
+  "anti_circularity": [
+    "no values",
+    "no future classes",
+    "no XOR",
+    "no restored deleted residual masks in the scheduler"
+  ],
+  "falsifier": "any mismatch between monolithic R/F/G/H and componentwise reconstruction"
+}
