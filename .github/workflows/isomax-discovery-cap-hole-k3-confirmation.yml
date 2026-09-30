@@ -1,0 +1,36 @@
+name: IsoMax discovery cap-hole k3 confirmation
+
+on:
+  push:
+    branches:
+      - experiment/isomax-discovery-cap-hole-k3-confirmation-20260929
+    paths:
+      - '.github/workflows/isomax-discovery-cap-hole-k3-confirmation.yml'
+      - 'research/isograph/discovery/2026-09-29-isomax-full-discovery/run-cap-hole-k3-confirmation.mjs'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  confirm:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with: {fetch-depth: 0}
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with: {node-version: '26'}
+      - name: Run k3 cap-hole motif holdout
+        run: node research/isograph/discovery/2026-09-29-isomax-full-discovery/run-cap-hole-k3-confirmation.mjs
+      - name: Research integrity
+        run: node tools/verify-research-integrity.mjs
+      - name: Commit k3 motif evidence
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/isograph/discovery/2026-09-29-isomax-full-discovery/CAP_HOLE_K3_CONFIRMATION_0_1.json
+          if git diff --cached --quiet; then echo "No generated changes."; else
+            git commit -m "research(isomax): freeze k3 cap-hole confirmation"
+            git push origin HEAD:experiment/isomax-discovery-cap-hole-k3-confirmation-20260929
+          fi

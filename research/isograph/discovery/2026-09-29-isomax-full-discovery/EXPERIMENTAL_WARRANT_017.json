@@ -1,0 +1,43 @@
+{
+  "schema": "connect4.isomax.discovery.experimental_warrant.v1",
+  "id": "EW-017",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE_FRESH_CROSS_K_MOTIF_CONFIRMATION",
+  "purpose": [
+    "FRESH_CONFIRMATION",
+    "DISCRIMINATING"
+  ],
+  "parent_warrant": "EW-015",
+  "frozen_candidate": "EW-015 repaired one-hole open-cap two-column motif, without equal-height requirement",
+  "objective": "Test whether the EW-015 motif appears on nonzero fundamental-cycle support in fresh 5x4 k3 obstruction while remaining absent from cycle support in flat 4x5 k3.",
+  "evidence_lineage": {
+    "candidate_selected_from": [
+      "predecessor 5x4 k4 minimum contradiction",
+      "support-release-surviving 5x4 k4 contradiction"
+    ],
+    "prior_negative_controls": [
+      "4x5 k4 flat",
+      "5x3 k3 flat"
+    ],
+    "holdout_cases": [
+      "5x4 k3 standard carrier",
+      "4x5 k3 standard carrier"
+    ]
+  },
+  "targeted_observations": [
+    "motif-bearing binary groups",
+    "motif-bearing groups on any undirected cycle support",
+    "motif-bearing groups on nonzero fundamental-cycle support",
+    "tested same-support sheet pairs"
+  ],
+  "adaptive_evidence_firewall": "k3 standard carriers were known to be flat/obstructed before motif selection, but their internal motif membership was not used to define or repair the motif. Interpret as fresh structural holdout, not untouched outcome holdout.",
+  "falsification_rules": [
+    "motif absent from all nonzero-cycle-supporting 5x4 k3 groups weakens cross-k mechanism generality",
+    "motif present on 4x5 k3 cycle support falsifies simple motif sufficiency",
+    "presence only outside nonzero-cycle support is not confirmation"
+  ],
+  "prohibited_information_sources": [
+    "solved database",
+    "W/D/L as structural producer input"
+  ]
+}
