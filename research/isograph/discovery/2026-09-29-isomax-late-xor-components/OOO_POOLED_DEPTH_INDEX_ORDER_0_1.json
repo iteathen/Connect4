@@ -1,0 +1,121 @@
+{
+  "schema": "connect4.isomax.depth_index_order.v1",
+  "warrant": "EW-RS-085",
+  "status": "PASS",
+  "domain": "all nonnegative integer depth indices",
+  "proof": "Below 3 inspect exact indices. From 3 onward every non-EXACT map repeats with period dividing12; two tail periods plus the prefix exhaust all equality-pattern refinements. EXACT is handled analytically.",
+  "order": [
+    {
+      "coarse": "DEPTHLESS",
+      "noFinerThan": [
+        "DEPTHLESS",
+        "PARITY",
+        "ZERO_VS_POSITIVE",
+        "ZERO_ODD_POSITIVE_EVEN",
+        "CLIP2",
+        "CLIP3",
+        "MOD3",
+        "MOD4",
+        "EXACT"
+      ]
+    },
+    {
+      "coarse": "PARITY",
+      "noFinerThan": [
+        "PARITY",
+        "ZERO_ODD_POSITIVE_EVEN",
+        "MOD4",
+        "EXACT"
+      ]
+    },
+    {
+      "coarse": "ZERO_VS_POSITIVE",
+      "noFinerThan": [
+        "ZERO_VS_POSITIVE",
+        "ZERO_ODD_POSITIVE_EVEN",
+        "CLIP2",
+        "CLIP3",
+        "EXACT"
+      ]
+    },
+    {
+      "coarse": "ZERO_ODD_POSITIVE_EVEN",
+      "noFinerThan": [
+        "ZERO_ODD_POSITIVE_EVEN",
+        "EXACT"
+      ]
+    },
+    {
+      "coarse": "CLIP2",
+      "noFinerThan": [
+        "CLIP2",
+        "CLIP3",
+        "EXACT"
+      ]
+    },
+    {
+      "coarse": "CLIP3",
+      "noFinerThan": [
+        "CLIP3",
+        "EXACT"
+      ]
+    },
+    {
+      "coarse": "MOD3",
+      "noFinerThan": [
+        "MOD3",
+        "EXACT"
+      ]
+    },
+    {
+      "coarse": "MOD4",
+      "noFinerThan": [
+        "MOD4",
+        "EXACT"
+      ]
+    },
+    {
+      "coarse": "EXACT",
+      "noFinerThan": [
+        "EXACT"
+      ]
+    }
+  ],
+  "minima": [
+    {
+      "encoding": "SIGN",
+      "passing": [
+        "ZERO_ODD_POSITIVE_EVEN",
+        "CLIP2",
+        "CLIP3",
+        "MOD3",
+        "MOD4",
+        "EXACT"
+      ],
+      "minimal": [
+        "ZERO_ODD_POSITIVE_EVEN",
+        "CLIP2",
+        "MOD3",
+        "MOD4"
+      ]
+    },
+    {
+      "encoding": "SIGNED_PARITY",
+      "passing": [
+        "ZERO_VS_POSITIVE",
+        "ZERO_ODD_POSITIVE_EVEN",
+        "CLIP2",
+        "CLIP3",
+        "MOD3",
+        "MOD4",
+        "EXACT"
+      ],
+      "minimal": [
+        "ZERO_VS_POSITIVE",
+        "MOD3",
+        "MOD4"
+      ]
+    }
+  ],
+  "guard": "Index-partition order only; no global minimality over arbitrary triangle or scalar carriers follows."
+}
