@@ -2224,8 +2224,15 @@ function auditCase(W,H,K){
         const clip3=sixBucketCountQuotient.audits.find(x=>x.mode==='BUCKET_CLIP3');
         assert.ok(clip3&&clip3.exactScalarFactorization,'EW-RS-076 uniform CLIP3 control missing');
         const imageRank=structuralPivots.size;
-        const kernelDimensionRelativeToClip3=clip3.imageRank-imageRank;
-        assert.ok(kernelDimensionRelativeToClip3>=0,'EW-RS-076 family grid rank exceeds uniform CLIP3 rank');
+        const rankDifferenceVsUniformClip3=imageRank-clip3.imageRank;
+        const factorsThroughUniformClip3=['C','D','A'].every(k=>
+          candidate[k]==='PRESENCE'||candidate[k]==='CLIP2'||candidate[k]==='CLIP3'
+        );
+        const kernelDimensionRelativeToClip3=factorsThroughUniformClip3
+          ? clip3.imageRank-imageRank
+          : null;
+        if(factorsThroughUniformClip3)
+          assert.ok(kernelDimensionRelativeToClip3>=0,'EW-RS-076 comparable family grid rank exceeds uniform CLIP3 rank');
 
         const equationPivots=new Map();
         let contradictions=0,zeroStructuralNonzeroScalar=0,firstContradiction=null;
@@ -2262,6 +2269,8 @@ function auditCase(W,H,K){
           C:candidate.C,D:candidate.D,A:candidate.A,
           featureKeyCount:featureKeys.length,
           imageRank,
+          rankDifferenceVsUniformClip3,
+          factorsThroughUniformClip3,
           kernelDimensionRelativeToClip3,
           zeroStructuralNonzeroScalar,
           contradictions,
