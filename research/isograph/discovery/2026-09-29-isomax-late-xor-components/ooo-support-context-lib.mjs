@@ -1,0 +1,2 @@
+import assert from 'node:assert/strict';import {commonQuotient} from './ooo-joint-da-common-quotient-lib.mjs';
+export function supportProfileCommon(domains,columns){const profiles=Array(columns[0].length).fill(0);domains.forEach((indices,k)=>indices.forEach(i=>{assert.ok(i>=0&&i<profiles.length);profiles[i]|=1<<k;}));assert.ok(profiles.every(x=>x));return {profiles,labels:commonQuotient(columns.map(col=>col.map((key,i)=>JSON.stringify([profiles[i],key]))))};}
