@@ -1,0 +1,39 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.exact_rank_graded_affine_xor.v1",
+  "id": "EW-RS-028",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "parent": "EW-RS-027",
+  "objective": "Test whether exact current rank, rather than rank mod 3, is the missing scheduler grade for an independent GF(2)^2 XOR component valuation on T2-O states.",
+  "candidate": {
+    "equation": "code(U(P)) = b_G,r XOR XOR_{odd C} g_G,r(C)",
+    "group": "GF(2)^2",
+    "codes": {
+      "loss": "00",
+      "draw": "01",
+      "win": "10"
+    }
+  },
+  "frozen": [
+    "T2-O domain",
+    "post-RFG component definition",
+    "component multiplicity parity",
+    "current-mover relative outcome",
+    "XOR composition",
+    "two-bit affine outcome code"
+  ],
+  "changed_only": "valuation grade: rank mod 3 -> exact current rank",
+  "motivation": "The exact 4x4-k3 contradiction certificate spans ranks 12 and 9 while holding rank mod 3 fixed.",
+  "cases": [
+    "3x3-k3",
+    "3x4-k3",
+    "4x3-k3",
+    "4x4-k4",
+    "4x4-k3",
+    "3x5-k3",
+    "5x3-k3",
+    "3x6-k3"
+  ],
+  "falsifier": "Any contradiction under exact-rank grading proves that independent linear component valuation fails even at fixed exact rank in that carrier.",
+  "interpretation": "A pass would exhibit a Q/D tradeoff: exact rank is a finer Q-V carrier than rank mod 3, but may support a simpler XOR evaluator."
+}
