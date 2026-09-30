@@ -1,0 +1,129 @@
+{
+  "schema": "connect4.isomax.discovery.mss_valuation.v4",
+  "authority": "DP 0.9",
+  "objectives": [
+    {
+      "id": "MSS-001",
+      "target": "one complete 5x4 contradiction",
+      "objective": [
+        "min total traversals",
+        "then min max route length",
+        "then min distinct edges"
+      ],
+      "result": "UNIQUE_MINIMUM",
+      "support": {
+        "totalTraversals": 4,
+        "maxRouteEdges": 2,
+        "distinctEdges": 4,
+        "source": 3260,
+        "target": 574
+      },
+      "evidence": "MSS_ANALYSIS_0_1.json"
+    },
+    {
+      "id": "MSS-002",
+      "target": "syndrome classifier from coarse local cycle summaries",
+      "objective": "fewest non-tautological features",
+      "result": "NO_VALID_SUPPORT_EVEN_WITH_ALL_EIGHT_FEATURES",
+      "witness": "matched zero/nonzero full eight-feature signature",
+      "evidence": "CYCLE_FEATURES_0_1.json + exhaustive subset audit"
+    },
+    {
+      "id": "MSS-003",
+      "target": "counterfactual winning-line families sufficient for 5x4 k4 frustration",
+      "objective": "set inclusion / fewest H,V,D families",
+      "result": "UNIQUE_MINIMUM_H_PLUS_D",
+      "support": [
+        "H",
+        "D"
+      ],
+      "controls": {
+        "H": "flat",
+        "D": "flat",
+        "V": "flat",
+        "HV": "flat",
+        "VD": "flat",
+        "HD": "obstructed",
+        "HVD": "obstructed"
+      },
+      "evidence": "LINE_FAMILY_INTERVENTION_0_1.json"
+    },
+    {
+      "id": "MSS-004",
+      "target": "frontier/cap closure machinery required for 5x4 k4 obstruction",
+      "objective": "fewest enabled closures among frontier and final-cap",
+      "result": "EMPTY_SET_SUFFICES_FOR_OBSTRUCTION",
+      "support": [],
+      "note": "F0C0 already has 79 nonzero syndromes; frontier reduces but does not create obstruction; final-cap is cocycle-inert.",
+      "evidence": "PHASE1_OBSERVATIONS_0_1.json"
+    },
+    {
+      "id": "MSS-005",
+      "target": "k4 finite cycle classification by action-order motif",
+      "objective": "compact relabel-invariant structural key after coarse-feature failure",
+      "result": "PARENT_RANK_PLUS_FULL_RELABELLED_ACTION_WORD_FITS_TRAINING_BUT_NOT_HOLDOUT_COVERAGE",
+      "holdout": {
+        "seen": 68,
+        "seenCorrect": 68,
+        "unseen": 410,
+        "nonzeroUnseen": 23
+      },
+      "disposition": "DISCOVERY_CLUE_NOT_PROMOTED"
+    },
+    {
+      "id": "MSS-006",
+      "target": "counterfactual winning-line families sufficient for 5x4 k3 frustration",
+      "objective": "set inclusion over H,V,D families",
+      "result": "TWO_INCLUSION_MINIMA",
+      "support": [
+        [
+          "H"
+        ],
+        [
+          "V",
+          "D"
+        ]
+      ],
+      "controls": {
+        "H": "obstructed",
+        "V": "flat",
+        "D": "flat",
+        "HV": "obstructed",
+        "HD": "obstructed",
+        "VD": "obstructed",
+        "HVD": "obstructed"
+      },
+      "cross_geometry_control": "all seven corresponding 4x5 k3 subsets are flat",
+      "evidence": "LINE_FAMILY_K3_CONFIRMATION_0_1.json",
+      "disposition": "EXACT_FINITE_COUNTERFACTUAL_RESULT__NOT_A_CROSS_K_RULE"
+    },
+    {
+      "id": "MSS-007",
+      "target": "one contradiction surviving exact support-release/turn-capacity pruning",
+      "objective": [
+        "min total traversals",
+        "then min max route length",
+        "then min distinct edges"
+      ],
+      "result": "UNIQUE_ONLY_SURVIVING_CONTRADICTION",
+      "support": {
+        "routeLengths": [
+          3,
+          3
+        ],
+        "totalTraversals": 6,
+        "distinctEdges": 6,
+        "contradictionsInCarrier": 1
+      },
+      "comparison": "baseline MSS-001 is cheaper (4 traversals) but is eliminated by the repair; robustness and raw minimum cost select different witnesses.",
+      "evidence": "SURVIVING_OBSTRUCTION_0_1.json",
+      "disposition": "REPAIR_SCOPED_MSS"
+    }
+  ],
+  "valuation": {
+    "validity_first": true,
+    "no_cross_axis_scalarization": true,
+    "preferred_next_gap": "test whether the repeated residual distinction in the predecessor and repair-surviving witnesses has a relabeling-covariant open-cap-hole orientation form, with flat 4x5 as discriminating control."
+  },
+  "revision_of": "MSS_VALUATION_0_3.json"
+}
