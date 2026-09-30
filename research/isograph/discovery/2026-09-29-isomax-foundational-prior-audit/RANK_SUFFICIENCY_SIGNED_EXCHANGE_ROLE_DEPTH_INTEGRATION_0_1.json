@@ -1,0 +1,99 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.signed_exchange_role_depth_integration.v1",
+  "date_author_local": "2026-09-30",
+  "research_direction": "Joshua Oshiro",
+  "status": "ROLE_ID_REMOVED__SIGNED_PARITY_DEPTH_ID_REMOVED",
+  "evidence": {
+    "branch": "experiment/isomax-late-xor-components-20260929",
+    "commit": "df50a783bcb2e443fd823adc4bf698767c181883",
+    "file": "OOO_SIGNED_EXCHANGE_ROLE_DEPTH_QUOTIENT_0_1.json",
+    "resultVerification": "OOO_SIGNED_EXCHANGE_ROLE_DEPTH_QUOTIENT_RESULT_VERIFY_0_1.json",
+    "warrant": "EW-RS-073",
+    "workflowRun": 36751987454,
+    "workflowConclusion": "success",
+    "researchIntegrity": "success"
+  },
+  "common": {
+    "SIGN": {
+      "inclusionMinimalExact": [
+        "C_ROLELESS+D_DEPTH_PARITY"
+      ],
+      "resultRanks": {
+        "6x3-k3": 70,
+        "4x5-k4": 282,
+        "6x3-k4": 16
+      }
+    },
+    "SIGNED_PARITY": {
+      "inclusionMinimalExact": [
+        "C_ROLELESS+D_DEPTHLESS"
+      ],
+      "resultRanks": {
+        "6x3-k3": 73,
+        "4x5-k4": 262,
+        "6x3-k4": 14
+      },
+      "featureKeys": {
+        "6x3-k3": 263,
+        "4x5-k4": 504,
+        "6x3-k4": 35
+      }
+    }
+  },
+  "findings": [
+    {
+      "id": "RS-F243",
+      "status": "CAPACITY_ROLE_IDENTITY_REDUNDANT",
+      "statement": "Canonical capacity-role index i can be removed from the common signed exchange carrier under both SIGN and SIGNED_PARITY; roleless signed changed-coordinate counts remain exact."
+    },
+    {
+      "id": "RS-F244",
+      "status": "SIGN_DEPTH_PARITY_SUFFICIENT",
+      "statement": "Under SIGN, exact depth magnitude is unnecessary but depth parity remains required by the common transfer: C_ROLELESS+D_DEPTH_PARITY is exact on all three, while depthless SIGN has one contradiction on 6x3-k3."
+    },
+    {
+      "id": "RS-F245",
+      "status": "SIGNED_PARITY_DEPTH_IDENTITY_REDUNDANT",
+      "statement": "Under SIGNED_PARITY, depth parity and exact depth are both removable. C_ROLELESS+D_DEPTHLESS is scalar-exact on all three hard carriers."
+    },
+    {
+      "id": "RS-F246",
+      "status": "SIX_SIGNED_BUCKET_CARRIER",
+      "statement": "The selected compact SIGNED_PARITY realization reduces each pair edge to signed counts over six semantic buckets: C+, C-, D0+, D0-, D1+, D1-, where only odd-magnitude underlying coordinate changes participate."
+    },
+    {
+      "id": "RS-F247",
+      "status": "FOUR_BY_FIVE_LARGE_INDEX_KERNEL",
+      "statement": "On 4x5-k4, the SIGNED_PARITY roleless-depthless quotient reduces structural image rank from 282 to 262 with zero scalar loss, exposing a 20-dimensional index-detail kernel."
+    },
+    {
+      "id": "RS-F248",
+      "status": "EVEN_DELTA_DEPTH_PARITY_SOURCE_CLUE",
+      "statement": "Depth parity is needed only in the all-sign gauge on 6x3-k3; once even-magnitude coordinate changes are removed by SIGNED_PARITY, depth identity becomes unnecessary. This localizes the residual depth-parity distinction to information carried by even-magnitude changes."
+    }
+  ],
+  "dpMss": {
+    "preferredCompactCommonGauge": "SIGNED_PARITY",
+    "capacityRoleIndex": "REMOVE",
+    "exactDepth": "REMOVE",
+    "depthParity": "REMOVE_IN_SIGNED_PARITY_GAUGE",
+    "ownerSeparation": "RETAIN_PENDING_NEXT_TEST",
+    "signedBucketCounts": "RETAIN_PENDING_COUNT_QUOTIENT_TEST",
+    "currentPairState": [
+      "C+",
+      "C-",
+      "D0+",
+      "D0-",
+      "D1+",
+      "D1-"
+    ]
+  },
+  "next_question": "Can the six signed bucket counts be reduced by presence/parity/ZOE count quotients, and can D0/D1 owner separation be removed?",
+  "nonclaims": [
+    "The six-bucket carrier is not proved globally minimal.",
+    "Owner separation is not yet qualified for removal.",
+    "Exact signed bucket counts are not yet proved necessary.",
+    "EW-RS-059 holdouts remain sealed.",
+    "No Q-A/Q-F, standard-7x6, universal theorem, or center-opening proof follows."
+  ]
+}
