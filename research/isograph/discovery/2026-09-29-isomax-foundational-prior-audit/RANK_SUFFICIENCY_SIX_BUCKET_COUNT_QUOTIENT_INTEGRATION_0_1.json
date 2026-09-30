@@ -1,0 +1,176 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.six_bucket_count_quotient_integration.v1",
+  "date_author_local": "2026-09-30",
+  "research_direction": "Joshua Oshiro",
+  "status": "UNIFORM_CLIP3_COMMON_EXACT__EXACT_COUNTS_REDUNDANT",
+  "evidence": {
+    "branch": "experiment/isomax-late-xor-components-20260929",
+    "commit": "0dd5379b2365e248ad66022ec1684a2e12410318",
+    "file": "OOO_SIX_BUCKET_COUNT_QUOTIENT_0_1.json",
+    "resultVerification": "OOO_SIX_BUCKET_COUNT_QUOTIENT_RESULT_VERIFY_0_1.json",
+    "warrant": "EW-RS-075",
+    "workflowRun": 36754628563,
+    "workflowConclusion": "success",
+    "researchIntegrity": "success"
+  },
+  "frozenSourceCarrier": "SIGNED_PARITY + C_ROLELESS + D_DEPTHLESS + D_SYMMETRIC_MARGINALS",
+  "sixBuckets": [
+    "C+",
+    "C-",
+    "D+",
+    "D-",
+    "A+",
+    "A-"
+  ],
+  "commonExactModes": [
+    "BUCKET_CLIP3",
+    "BUCKET_EXACT"
+  ],
+  "selectedCommonMode": "BUCKET_CLIP3",
+  "selectedDefinition": "Apply n -> 0,1,2,3+ uniformly to all six pair buckets before forming the sorted exchange triangle.",
+  "results": {
+    "6x3-k3": {
+      "scalarImageDimension": 1,
+      "presence": {
+        "rank": 71,
+        "contradictions": 0,
+        "exact": true
+      },
+      "parity": {
+        "rank": 48,
+        "contradictions": 12,
+        "exact": false
+      },
+      "zoe": {
+        "rank": 72,
+        "contradictions": 0,
+        "exact": true
+      },
+      "clip2": {
+        "rank": 72,
+        "contradictions": 0,
+        "exact": true
+      },
+      "clip3": {
+        "rank": 72,
+        "contradictions": 0,
+        "exact": true
+      },
+      "exact": {
+        "rank": 73,
+        "contradictions": 0,
+        "exact": true
+      }
+    },
+    "4x5-k4": {
+      "scalarImageDimension": 2,
+      "presence": {
+        "rank": 75,
+        "contradictions": 66,
+        "exact": false
+      },
+      "parity": {
+        "rank": 35,
+        "contradictions": 97,
+        "exact": false
+      },
+      "zoe": {
+        "rank": 177,
+        "contradictions": 47,
+        "exact": false
+      },
+      "clip2": {
+        "rank": 222,
+        "contradictions": 14,
+        "exact": false
+      },
+      "clip3": {
+        "rank": 253,
+        "contradictions": 0,
+        "exact": true
+      },
+      "exact": {
+        "rank": 254,
+        "contradictions": 0,
+        "exact": true
+      }
+    },
+    "6x3-k4": {
+      "scalarImageDimension": 2,
+      "presence": {
+        "rank": 14,
+        "contradictions": 0,
+        "exact": true
+      },
+      "parity": {
+        "rank": 12,
+        "contradictions": 1,
+        "exact": false
+      },
+      "zoe": {
+        "rank": 14,
+        "contradictions": 0,
+        "exact": true
+      },
+      "clip2": {
+        "rank": 14,
+        "contradictions": 0,
+        "exact": true
+      },
+      "clip3": {
+        "rank": 14,
+        "contradictions": 0,
+        "exact": true
+      },
+      "exact": {
+        "rank": 14,
+        "contradictions": 0,
+        "exact": true
+      }
+    }
+  },
+  "findings": [
+    {
+      "id": "RS-F249",
+      "status": "CLIP3_COMMON_EXACT",
+      "statement": "Uniform six-bucket saturation at 3 is scalar-exact on all three hard carriers; exact bucket counts above 3 are unnecessary in the tested common carrier."
+    },
+    {
+      "id": "RS-F250",
+      "status": "CLIP2_TOO_COARSE_ON_4X5",
+      "statement": "On 4x5-k4, uniform clip-at-2 leaves fourteen scalar contradictions, while clip-at-3 eliminates them. The distinction between count 2 and count >=3 is load-bearing somewhere in the six-bucket carrier."
+    },
+    {
+      "id": "RS-F251",
+      "status": "ZOE_NOT_FINAL_BUCKET_ALGEBRA",
+      "statement": "ZOE is insufficient at this late exchange-count layer on 4x5-k4, leaving forty-seven contradictions. The earlier component-multiplicity ZOE law therefore does not transfer unchanged to the six exchange buckets."
+    },
+    {
+      "id": "RS-F252",
+      "status": "PARITY_STRONGLY_INSUFFICIENT",
+      "statement": "Bucket parity loses the scalar map on every demanding common test where contradictions are observable: 12 on 6x3-k3, 97 on 4x5-k4, and 1 on 6x3-k4."
+    },
+    {
+      "id": "RS-F253",
+      "status": "EXACT_COUNT_TAIL_VALUE_NULL",
+      "statement": "Relative to exact six counts, clip-at-3 removes one structural direction on 6x3-k3 and one on 4x5-k4 while preserving scalar image dimensions, showing the exact count tail beyond 3+ is value-null on the declared carriers."
+    }
+  ],
+  "dpMss": {
+    "presence": "INSUFFICIENT_COMMONLY",
+    "parity": "INSUFFICIENT_COMMONLY",
+    "zoe": "INSUFFICIENT_COMMONLY",
+    "clip2": "INSUFFICIENT_COMMONLY",
+    "clip3": "SELECTED_COMMON_UNIFORM_COUNT_QUOTIENT",
+    "exact": "RECONSTRUCTION_CONTROL",
+    "nextAxis": "Determine which of C,D,A bucket families specifically require 3+ versus 2+ or coarser state."
+  },
+  "nextQuestion": "Which of the three semantic bucket families C={C+,C-}, D={D+,D-}, A={A+,A-} actually require the 3+ saturation state, and can the others use clip2/ZOE/presence without scalar loss?",
+  "nonclaims": [
+    "Uniform clip3 is selected only within the frozen EW-RS-075 uniform-transform ladder.",
+    "This result does not imply clip3 is the component-multiplicity count law; it applies only to the six late exchange buckets.",
+    "No individual bucket coefficient or syndrome is frozen.",
+    "EW-RS-059 PRIMARY 3x6-k4 and BACKUP 5x3-k4 remain sealed.",
+    "No Q-A/Q-F, standard-7x6, universal theorem, or center-opening proof follows."
+  ]
+}
