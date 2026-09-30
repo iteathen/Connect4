@@ -1,0 +1,109 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ooo_motif_hypergraph_boundary_integration.v1",
+  "date_author_local": "2026-09-30",
+  "research_direction": "Joshua Oshiro",
+  "status": "LOWER_ORDER_BOUNDARIES_REJECTED__TRIPLE_MOTIF_RETAINED",
+  "evidence": {
+    "branch": "experiment/isomax-late-xor-components-20260929",
+    "commit": "d9d136e01738e691f8b5bfe6ea5d2c3758d132db",
+    "file": "OOO_MOTIF_HYPERGRAPH_BOUNDARY_0_1.json",
+    "warrant": "EW-RS-068",
+    "workflowRun": 36739541534,
+    "workflowConclusion": "success",
+    "researchIntegrity": "success"
+  },
+  "vertexIdentity": "WIDTH_CAPMASK_OWNER_DEPTH_HISTOGRAMS",
+  "results": {
+    "6x3-k3": {
+      "tripleMotifRank": 75,
+      "vertex": {
+        "rank": 49,
+        "contradictions": 7
+      },
+      "pair": {
+        "rank": 20,
+        "contradictions": 25
+      },
+      "vertexPlusPair": {
+        "rank": 55,
+        "contradictions": 3
+      },
+      "triple": {
+        "rank": 75,
+        "contradictions": 0
+      }
+    },
+    "4x5-k4": {
+      "tripleMotifRank": 288,
+      "vertex": {
+        "rank": 53,
+        "contradictions": 69
+      },
+      "pair": {
+        "rank": 13,
+        "contradictions": 23
+      },
+      "vertexPlusPair": {
+        "rank": 66,
+        "contradictions": 70
+      },
+      "triple": {
+        "rank": 288,
+        "contradictions": 0
+      }
+    },
+    "6x3-k4": {
+      "tripleMotifRank": 16,
+      "vertex": {
+        "rank": 13,
+        "contradictions": 1
+      },
+      "pair": {
+        "rank": 2,
+        "contradictions": 5
+      },
+      "vertexPlusPair": {
+        "rank": 14,
+        "contradictions": 1
+      },
+      "triple": {
+        "rank": 16,
+        "contradictions": 0
+      }
+    }
+  },
+  "findings": [
+    {
+      "id": "RS-F212",
+      "status": "VERTEX_BOUNDARY_REJECTED",
+      "statement": "Parity of selected descriptor-summary vertices is insufficient for the scalar dependency residue on all three hard carriers."
+    },
+    {
+      "id": "RS-F213",
+      "status": "PAIR_BOUNDARY_REJECTED",
+      "statement": "Parity of unordered descriptor-summary pairs induced by OOO motif triples is insufficient on all three hard carriers."
+    },
+    {
+      "id": "RS-F214",
+      "status": "VERTEX_PLUS_PAIR_REJECTED",
+      "statement": "Combining vertex and pair boundary parities remains insufficient on all three hard carriers; the failures cannot be repaired by their direct sum."
+    },
+    {
+      "id": "RS-F215",
+      "status": "TRIPLE_MOTIF_LOAD_BEARING",
+      "statement": "Within the frozen EW-RS-067 vertex identity and linear GF(2) boundary ladder, complete triple-motif identity is load-bearing for the observed scalar correction."
+    },
+    {
+      "id": "RS-F216",
+      "status": "REPRESENTATION_SCOPED_TRIADICITY",
+      "statement": "The result supports a genuinely three-way scalar interaction relative to the selected motif representation and tested linear boundary operators, but does not establish an intrinsic universal three-body law for Connect Four."
+    }
+  ],
+  "nonclaims": [
+    "Failure of ordinary vertex/pair boundaries does not exclude other mechanically defined circuit, exchange, orientation, or nonlinear structural laws on triple motifs.",
+    "Triple-motif one-hot coefficients are not promoted as invariant syndrome coefficients.",
+    "EW-RS-059 PRIMARY 3x6-k4 and BACKUP 5x3-k4 remain sealed.",
+    "No Q-A/Q-F, universal cubic sufficiency, standard-7x6 qualification, or center-opening proof follows."
+  ],
+  "next_question": "What mechanically generated circuit/exchange/orientation invariant of the selected OOO triple motifs can compress the triple-motif scalar map without outcome-selecting individual triples?"
+}
