@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
+import {pathToFileURL} from 'node:url';
 import {exchangeCircuitKey,compressedPairDelta} from './ooo-exchange-circuit-lib.mjs';
 import {familyTriangleKey,canonicalFamilySubset} from './ooo-pair-delta-family-lib.mjs';
 import {roleDepthTriangleKey} from './ooo-pair-delta-index-lib.mjs';
@@ -9,7 +10,7 @@ import {FAMILY_SATURATION_GRID,familySaturationTriangleKey} from './ooo-six-buck
 import {SIGN_CHANNEL_GRID,signChannelTriangleKey} from './ooo-sign-channel-coupling-lib.mjs';
 import {freezeGridThenReplay} from './ooo-grid-freeze-lib.mjs';
 
-function auditCase(W,H,K){
+function auditCase(W,H,K,captureStructure=null){
   const N=W*H;
 
   function winMasks(){
@@ -1677,6 +1678,7 @@ function auditCase(W,H,K){
         for(const ti of dep.oooResidue)
           if(!tripleVertices.has(ti))tripleVertices.set(ti,decodeTripleVertices(ti));
 
+
       const familySubsets=[
         ['W'],['C'],['D0'],['D1'],
         ['W','C'],['W','D0'],['W','D1'],['C','D0'],['C','D1'],['D0','D1'],
@@ -2352,6 +2354,15 @@ function auditCase(W,H,K){
         for(const ti of dep.oooResidue)
           if(!tripleVertices.has(ti))tripleVertices.set(ti,decodeTripleVertices(ti));
 
+      if(captureStructure)captureStructure({
+        label:W+'x'+H+'-k'+K,
+        triples:[...tripleVertices].map(([i,v])=>[i,[...v]]),
+        dependencies:matchedDependencyQuotient.dependencies.map(d=>({
+          dependencyIndex:d.dependencyIndex,sourceSignature:d.sourceSignature,oooResidue:[...d.oooResidue]
+        }))
+      });
+
+
       function span2(codes){
         const nz=[...new Set(codes.filter(x=>x!==0))];
         return nz.length===0?0:nz.length===1?1:2;
@@ -2626,6 +2637,17 @@ const expectedSelectedFamilyRank=new Map([
   ['6x3-k3',72],['4x5-k4',252],['6x3-k4',14]
 ]);
 
+// A separate experiment may reuse this construction, but can only receive
+// structural triples and dependency residues on the three qualified carriers.
+export function captureLateStructuralCase(W,H,K){
+  assert.ok(specs.some(s=>s[0]===W&&s[1]===H&&s[2]===K),'carrier not authorized for structural capture');
+  let captured;
+  auditCase(W,H,K,value=>{captured=value;});
+  assert.ok(captured,'structural capture missing');
+  return captured;
+}
+
+if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href){
 const cases=[];
 for(const spec of specs){
   const c=auditCase(...spec);
@@ -2849,3 +2871,4 @@ console.log(JSON.stringify({
     signChannelCoupling:c.decoder.oooSignChannelCoupling.audits
   }))
 },null,2));
+}
