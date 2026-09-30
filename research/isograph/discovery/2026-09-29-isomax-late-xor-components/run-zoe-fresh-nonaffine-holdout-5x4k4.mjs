@@ -232,17 +232,13 @@ function auditCase(W,H,K){
   }
 
   const nts=[...states.values()].filter(x=>!x.terminal);
-  const reps=new Map();
 
-  for(const x of nts){
-    const z=RFG(qOf(x));
-    reps.set(x.key,rep(z));
-  }
-
-  const typeWidth=new Map();
-  for(const r of reps.values())for(const c of r.comps)typeWidth.set(c.type,c.width);
-  const typeIds=new Map([...typeWidth.keys()].sort().map((t,i)=>[t,'T'+String(i).padStart(5,'0')]));
-
+  /*
+   * EW-RS-050 resource-preserving realization:
+   * T2 is structural and does not depend on component canonicalization.
+   * Classify it first, then materialize post-RFG component representations
+   * only for T2-O, the frozen algebra domain. This changes no semantic key.
+   */
   function immediateWinningColumns(q,player){
     const rs=player?q.r1:q.r0,out=[];
     for(let col=0;col<W;col++)if(q.h[col]<H){
@@ -272,6 +268,17 @@ function auditCase(W,H,K){
   }
 
   const t2=new Map(nts.map(x=>[x.key,tacticalStatus2(x)]));
+  const ots=nts.filter(x=>t2.get(x.key)==='O');
+  const reps=new Map();
+
+  for(const x of ots){
+    const z=RFG(qOf(x));
+    reps.set(x.key,rep(z));
+  }
+
+  const typeWidth=new Map();
+  for(const r of reps.values())for(const c of r.comps)typeWidth.set(c.type,c.width);
+  const typeIds=new Map([...typeWidth.keys()].sort().map((t,i)=>[t,'T'+String(i).padStart(5,'0')]));
 
   /* Freeze all structural keys before deriving exact values. */
   const values=new Map();
@@ -309,8 +316,7 @@ function auditCase(W,H,K){
   function degree1Audit(){
     const variableKeys=new Set();
     let equations=0;
-    for(const x of nts){
-      if(t2.get(x.key)!=='O')continue;
+    for(const x of ots){
       equations++;
       variableKeys.add('B|'+x.rank);
       for(const [t,n] of reps.get(x.key).counts){
@@ -323,8 +329,7 @@ function auditCase(W,H,K){
     const pivots=new Map();
     let contradictions=0,firstContradiction=null;
 
-    for(const x of nts){
-      if(t2.get(x.key)!=='O')continue;
+    for(const x of ots){
       const keys=['B|'+x.rank];
       const oddTypes=[];
       for(const [t,n] of reps.get(x.key).counts){
@@ -425,8 +430,7 @@ function auditCase(W,H,K){
     const seen=new Map(),mixed=new Set();
     let statesAudited=0,firstMixed=null,minimumWitness=null;
 
-    for(const x of nts){
-      if(t2.get(x.key)!=='O')continue;
+    for(const x of ots){
       statesAudited++;
       const key=signatureFor(x,mode);
       const code=relativeOutcomeCode(x);
@@ -519,7 +523,9 @@ const out={
     keysOutcomeIndependent:true,
     T2ORetained:true,
     fullMultiplicityControlExact:byMode.MULTI.QV,
-    degree1ModelMechanicallyGenerated:true
+    degree1ModelMechanicallyGenerated:true,
+    componentRepresentationsMaterializedOnlyForT2O:true,
+    materializedComponentRepresentationCount:caseResult.tactical2Counts.O
   },
   disposition:{
     PRESENCE_QV:byMode.PRESENCE.QV,
