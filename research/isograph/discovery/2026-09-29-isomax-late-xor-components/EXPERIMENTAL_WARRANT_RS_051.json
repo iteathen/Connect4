@@ -1,0 +1,57 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.zoe_structural_aggregation.v1",
+  "id": "EW-RS-051",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "parent": "EW-RS-050",
+  "objective": "Test whether exact component identity can be compressed after count repair by aggregating component multiplicities inside frozen frontier-relative structural descriptor classes and then applying the same Z/O/E count state.",
+  "derivation_cases": [
+    "5x3-k3",
+    "4x4-k4",
+    "6x3-k3",
+    "4x5-k4"
+  ],
+  "frozenCountState": {
+    "name": "ZOE",
+    "definition": "For each retained structural identity: omit zero count, emit O for positive odd total multiplicity, emit E for positive even total multiplicity."
+  },
+  "frozenDescriptorCandidates": [
+    {
+      "name": "EXACT_ZOE",
+      "definition": "Exact canonical component type is the retained identity; this is the established scalar control."
+    },
+    {
+      "name": "REL_INC_ZOE",
+      "definition": "Map every exact component type to the frozen REL_INC owner-preserving residual/column incidence descriptor with exact frontier-relative depths; sum multiplicities over equal REL_INC descriptors; apply ZOE to the aggregate count."
+    },
+    {
+      "name": "TOPO_RPAR_ZOE",
+      "definition": "Map every exact component type to the frozen TOPO_RPAR descriptor with residual/column incidence topology and F/O/E release labels; sum multiplicities over equal descriptors; apply ZOE to the aggregate count."
+    }
+  ],
+  "controls": [
+    "MULTI full exact component multiplicity",
+    "EXACT_ZOE exact-type ZOE"
+  ],
+  "antiCircularity": [
+    "REL_INC and TOPO_RPAR were defined before the current count-aggregation experiment.",
+    "The aggregation rule is fixed before scalar qualification: counts are summed by descriptor identity first, then classified as zero/positive-odd/positive-even.",
+    "No W/D/L label selects a descriptor, component merge, count state, or phase grade.",
+    "No rank grade is added in this experiment."
+  ],
+  "falsifiers": [
+    "Any mixed scalar-value EXACT_ZOE class invalidates the harness because the frozen exact-type control must reproduce prior Q-V exactness.",
+    "Any mixed scalar-value REL_INC_ZOE class rejects REL_INC aggregation on that carrier.",
+    "Any mixed scalar-value TOPO_RPAR_ZOE class rejects TOPO_RPAR aggregation on that carrier.",
+    "MULTI failure rejects the exact component-multiset Q-V control."
+  ],
+  "interpretationGuards": [
+    "A passing descriptor-aggregated ZOE key is a bounded Q-V quotient result, not Q-A or Q-F.",
+    "A descriptor may pass scalar value while discarding structural distinctions relevant to other targets.",
+    "No standard-7x6 or universal descriptor theorem follows."
+  ],
+  "nextIfCommonSuccess": "Freeze the coarsest common scalar-exact descriptor aggregation, then qualify it unchanged on a fresh non-affine carrier before attempting a closed-form evaluator.",
+  "nextIfRelIncOnly": "Retain REL_INC_ZOE as the current count-aware scalar descriptor and inspect the topology/release distinctions lost by TOPO_RPAR.",
+  "nextIfBothFail": "Freeze the collision families and refine component identity only along the exact structural distinctions exposed by the failures; do not revert to arbitrary exact IDs.",
+  "nextIfExactZoeFails": "Stop: this contradicts the established ZOE control and indicates a harness or representation mismatch."
+}
