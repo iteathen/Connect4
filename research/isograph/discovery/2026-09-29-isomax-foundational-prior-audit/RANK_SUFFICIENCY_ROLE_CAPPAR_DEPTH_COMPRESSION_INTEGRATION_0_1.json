@@ -1,0 +1,137 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.role_cappar_depth_compression_integration.v1",
+  "date_author_local": "2026-09-30",
+  "research_direction": "Joshua Oshiro",
+  "status": "EXACT_RELATIVE_DEPTH_RETAINED__WHOLE_IDENTITY",
+  "evidence": {
+    "branch": "experiment/isomax-late-xor-components-20260929",
+    "commit": "dbfd9186ebcd552927aaf267702ce560d82f50bd",
+    "file": "ROLE_CAPPAR_DEPTH_COMPRESSION_0_1.json",
+    "warrant": "EW-RS-066",
+    "workflowRun": 36735151255,
+    "workflowConclusion": "success",
+    "researchIntegrity": "success"
+  },
+  "frozenLadder": [
+    "ROLE_CAPPAR_FRONTIER_REL_INC_ZOE",
+    "ROLE_CAPPAR_RPAR_REL_INC_ZOE",
+    "ROLE_CAPPAR_REL_INC_ZOE"
+  ],
+  "results": {
+    "5x3-k3": {
+      "frontier": {
+        "classes": 3215,
+        "mixedValueClasses": 13,
+        "qv": false
+      },
+      "rpar": {
+        "classes": 3259,
+        "mixedValueClasses": 0,
+        "qv": true
+      },
+      "exact": {
+        "classes": 3259,
+        "mixedValueClasses": 0,
+        "qv": true
+      }
+    },
+    "4x4-k4": {
+      "frontier": {
+        "classes": 6907,
+        "mixedValueClasses": 421,
+        "qv": false
+      },
+      "rpar": {
+        "classes": 7760,
+        "mixedValueClasses": 20,
+        "qv": false
+      },
+      "exact": {
+        "classes": 7894,
+        "mixedValueClasses": 0,
+        "qv": true
+      }
+    },
+    "6x3-k3": {
+      "frontier": {
+        "classes": 16601,
+        "mixedValueClasses": 32,
+        "qv": false
+      },
+      "rpar": {
+        "classes": 16732,
+        "mixedValueClasses": 0,
+        "qv": true
+      },
+      "exact": {
+        "classes": 16732,
+        "mixedValueClasses": 0,
+        "qv": true
+      }
+    },
+    "4x5-k4": {
+      "frontier": {
+        "classes": 64182,
+        "mixedValueClasses": 4215,
+        "qv": false
+      },
+      "rpar": {
+        "classes": 76001,
+        "mixedValueClasses": 335,
+        "qv": false
+      },
+      "exact": {
+        "classes": 79309,
+        "mixedValueClasses": 0,
+        "qv": true
+      }
+    },
+    "6x3-k4": {
+      "frontier": {
+        "classes": 17182,
+        "mixedValueClasses": 137,
+        "qv": false
+      },
+      "rpar": {
+        "classes": 17550,
+        "mixedValueClasses": 0,
+        "qv": true
+      },
+      "exact": {
+        "classes": 17550,
+        "mixedValueClasses": 0,
+        "qv": true
+      }
+    }
+  },
+  "findings": [
+    {
+      "id": "RS-F203",
+      "status": "FRONTIER_ONLY_REJECTED",
+      "statement": "Collapsing positive relative depth to one undifferentiated P label is Q-V inexact on every declared carrier."
+    },
+    {
+      "id": "RS-F204",
+      "status": "RPAR_NOT_COMMON_WHOLE_IDENTITY",
+      "statement": "Frontier plus positive-depth parity is exact on 5x3-k3, 6x3-k3, and 6x3-k4, but fails as a whole-component identity on 4x4-k4 and 4x5-k4 with 20 and 335 mixed scalar classes respectively."
+    },
+    {
+      "id": "RS-F205",
+      "status": "EXACT_DEPTH_RETAINED",
+      "statement": "Under the frozen coarsest-first ladder, exact frontier-relative depth remains the selected common whole-component coordinate for ROLE_CAPPAR_REL_INC_ZOE across all five declared carriers."
+    },
+    {
+      "id": "RS-F206",
+      "status": "INTERACTION_IDENTITY_DISTINCTION",
+      "statement": "Earlier sufficiency of positive-depth parity for interaction descriptors does not imply sufficiency after direct whole-component aggregation under ZOE. Exact depth magnitude can be redundant for an interaction coordinate yet load-bearing for component identity."
+    }
+  ],
+  "nonclaims": [
+    "This does not prove exact relative depth is globally minimal; only the frozen frontier-only and RPAR compressions are rejected as common replacements.",
+    "RPAR remains a valid exact whole-identity recoding on the three carriers where its partition matches the exact ROLE_CAPPAR class count.",
+    "The result does not alter the OOO matched-dependency factorization already established in the exact-depth coordinate.",
+    "EW-RS-059 PRIMARY 3x6-k4 and BACKUP 5x3-k4 remain sealed.",
+    "No Q-A/Q-F, standard-7x6, universal theorem, or center-opening proof follows."
+  ],
+  "next_question": "With exact relative depth retained, what mechanically generated descriptor-motif or DTS/circuit functionals on the OOO dependency-residue quotient span the scalar image without outcome-selecting individual triples?"
+}
