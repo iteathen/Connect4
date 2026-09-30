@@ -44,6 +44,79 @@
           "fail": null
         }
       },
+      "partitionEquivalence": {
+        "E1_vs_RGH": {
+          "same": false,
+          "mismatches": 2009,
+          "aClasses": 30267,
+          "bClasses": 30745,
+          "examples": [
+            {
+              "state": "1353:20502",
+              "side": "A_TO_B",
+              "ka": "4,1,4,1|2560.32800.34944|8736.40960",
+              "kb": "4,1,4,1|2560.32800.34944|8736.40960",
+              "prior": "4,1,4,1|2560.32800.34944|160.8736.40960"
+            },
+            {
+              "state": "16713:5142",
+              "side": "A_TO_B",
+              "ka": "4,1,4,1|34944|8736",
+              "kb": "4,1,4,1|34944|8736",
+              "prior": "4,1,4,1|34944|160.8736"
+            },
+            {
+              "state": "13057:54",
+              "side": "A_TO_B",
+              "ka": "4,4,1,0|3072|192.17472.34952",
+              "kb": "4,4,1,0|72.3072|192.17472.34952",
+              "prior": "4,4,1,0|3072|192.17472.34952"
+            },
+            {
+              "state": "5381:16498",
+              "side": "A_TO_B",
+              "ka": "4,2,4,0|2560|128.8704",
+              "kb": "4,2,4,0|2560|128.8704",
+              "prior": "4,2,4,0|2560|128.520.8704"
+            },
+            {
+              "state": "39177:182",
+              "side": "A_TO_B",
+              "ka": "4,2,1,4|1536|64.8704",
+              "kb": "4,2,1,4|576.1536|64.8704",
+              "prior": "4,2,1,4|1536|64.8704"
+            },
+            {
+              "state": "6413:32946",
+              "side": "A_TO_B",
+              "ka": "4,2,1,4|1536|64.8704",
+              "kb": "4,2,1,4|576.1536|64.8704",
+              "prior": "4,2,1,4|1536|64.8704"
+            },
+            {
+              "state": "37161:2198",
+              "side": "A_TO_B",
+              "ka": "4,2,1,4|1024|17472",
+              "kb": "4,2,1,4|576.1024|17472",
+              "prior": "4,2,1,4|1024|17472"
+            },
+            {
+              "state": "6473:32918",
+              "side": "A_TO_B",
+              "ka": "4,1,2,4|512|8736",
+              "kb": "4,1,2,4|512|8736",
+              "prior": "4,1,2,4|512.1056|8736"
+            }
+          ]
+        },
+        "FE1_vs_RFGH": {
+          "same": true,
+          "mismatches": 0,
+          "aClasses": 29986,
+          "bClasses": 29986,
+          "examples": []
+        }
+      },
       "feasibilityCache": 9894,
       "examples": [
         {
@@ -196,6 +269,22 @@
           "classes": 325,
           "QF": true,
           "fail": null
+        }
+      },
+      "partitionEquivalence": {
+        "E1_vs_RGH": {
+          "same": true,
+          "mismatches": 0,
+          "aClasses": 337,
+          "bClasses": 337,
+          "examples": []
+        },
+        "FE1_vs_RFGH": {
+          "same": true,
+          "mismatches": 0,
+          "aClasses": 325,
+          "bClasses": 325,
+          "examples": []
         }
       },
       "feasibilityCache": 680,
@@ -352,6 +441,22 @@
           "fail": null
         }
       },
+      "partitionEquivalence": {
+        "E1_vs_RGH": {
+          "same": true,
+          "mismatches": 0,
+          "aClasses": 1272,
+          "bClasses": 1272,
+          "examples": []
+        },
+        "FE1_vs_RFGH": {
+          "same": true,
+          "mismatches": 0,
+          "aClasses": 1206,
+          "bClasses": 1206,
+          "examples": []
+        }
+      },
       "feasibilityCache": 2301,
       "examples": [
         {
@@ -501,6 +606,37 @@
           "classes": 3430,
           "QF": true,
           "fail": null
+        }
+      },
+      "partitionEquivalence": {
+        "E1_vs_RGH": {
+          "same": false,
+          "mismatches": 2,
+          "aClasses": 3568,
+          "bClasses": 3570,
+          "examples": [
+            {
+              "state": "195:3084",
+              "side": "A_TO_B",
+              "ka": "1,1,3,3|32.272|288.512",
+              "kb": "1,1,3,3|32.272|288.512",
+              "prior": "1,1,3,3|32.272|48.288.512"
+            },
+            {
+              "state": "540:291",
+              "side": "A_TO_B",
+              "ka": "3,3,1,1|64.2176|1024.2112",
+              "kb": "3,3,1,1|64.2176|192.1024.2112",
+              "prior": "3,3,1,1|64.2176|1024.2112"
+            }
+          ]
+        },
+        "FE1_vs_RFGH": {
+          "same": true,
+          "mismatches": 0,
+          "aClasses": 3430,
+          "bClasses": 3430,
+          "examples": []
         }
       },
       "feasibilityCache": 4894,
@@ -657,6 +793,79 @@
           "fail": null
         }
       },
+      "partitionEquivalence": {
+        "E1_vs_RGH": {
+          "same": false,
+          "mismatches": 41,
+          "aClasses": 18464,
+          "bClasses": 18484,
+          "examples": [
+            {
+              "state": "1481:38934",
+              "side": "A_TO_B",
+              "ka": "4,1,3,4|32.512.8192.16384|16896.24576",
+              "kb": "4,1,3,4|32.512.8192.16384|544.16896.24576",
+              "prior": "4,1,3,4|32.512.8192.16384|16896.24576"
+            },
+            {
+              "state": "3401:20630",
+              "side": "A_TO_B",
+              "ka": "4,1,4,3|32.512|512.8192",
+              "kb": "4,1,4,3|32.512|512.8192",
+              "prior": "4,1,4,3|32.512|512.8192.32800"
+            },
+            {
+              "state": "33129:6294",
+              "side": "A_TO_B",
+              "ka": "4,2,2,4|512.1024|9216.16896.24576",
+              "kb": "4,2,2,4|512.1024|1536.9216.16896.24576",
+              "prior": "4,2,2,4|512.1024|9216.16896.24576"
+            },
+            {
+              "state": "9093:4154",
+              "side": "A_TO_B",
+              "ka": "4,4,1,2|1024.34816|64.33792",
+              "kb": "4,4,1,2|1024.34816|64.33792",
+              "prior": "4,4,1,2|1024.2112.34816|64.33792"
+            },
+            {
+              "state": "8643:4668",
+              "side": "A_TO_B",
+              "ka": "4,4,2,2|1024.2048|16384.33792",
+              "kb": "4,4,2,2|1024.2048|3072.16384.33792",
+              "prior": "4,4,2,2|1024.2048|16384.33792"
+            },
+            {
+              "state": "6401:32920",
+              "side": "A_TO_B",
+              "ka": "4,0,0,4|6.36.66.546.576.1056.1092.1536.8736.17472|96.546.576.1056.1092.8736.9216.16896.17472.24576",
+              "kb": "4,0,0,4|6.36.66.546.576.1056.1092.1536.8736.17472|6.96.546.576.1056.1092.8736.9216.16896.17472.24576",
+              "prior": "4,0,0,4|6.36.66.546.576.1056.1092.1536.8736.17472|96.546.576.1056.1092.8736.9216.16896.17472.24576"
+            },
+            {
+              "state": "2347:41620",
+              "side": "A_TO_B",
+              "ka": "3,4,1,4|64.1024|1024.16384",
+              "kb": "3,4,1,4|64.1024|1024.4160.16384",
+              "prior": "3,4,1,4|64.1024|1024.16384"
+            },
+            {
+              "state": "427:43540",
+              "side": "A_TO_B",
+              "ka": "3,4,1,4|64.1024|1024.16384",
+              "kb": "3,4,1,4|64.1024|1024.4160.16384",
+              "prior": "3,4,1,4|64.1024|1024.16384"
+            }
+          ]
+        },
+        "FE1_vs_RFGH": {
+          "same": true,
+          "mismatches": 0,
+          "aClasses": 17628,
+          "bClasses": 17628,
+          "examples": []
+        }
+      },
       "feasibilityCache": 19626,
       "examples": [
         {
@@ -773,7 +982,9 @@
     "E1_equals_RGH_every_case": false,
     "F_E1_equals_RFGH_every_case": false,
     "H_owner_formula_simplifies_every_case": true,
-    "allRepresentationsQF": true
+    "allRepresentationsQF": true,
+    "E1_RGH_same_partition_every_case": false,
+    "FE1_RFGH_same_partition_every_case": true
   },
   "interpretationGuard": "Complete bounded exact evidence only. Equality with E1 is a structural decomposition result over tested cases; general symbolic proof and standard-7x6 qualification remain separate."
 }
