@@ -1,0 +1,241 @@
+{
+  "schema": "connect4.isomax.zoe_fresh_holdout_4x5k3.v1",
+  "date_author_local": "2026-09-29",
+  "warrant": "EW-RS-049",
+  "target": "4x5-k3",
+  "frozenCandidate": "ZOE = omit zero counts; label every present exact component type O for positive odd multiplicity and E for positive even multiplicity",
+  "frozenDomain": "direct T2-O",
+  "frozenComponentDefinition": "post-RFG residual-incidence connected components with support/owner-labelled canonical component type",
+  "case": {
+    "label": "4x5-k3",
+    "width": 4,
+    "height": 5,
+    "k": 3,
+    "physicalStates": 195472,
+    "nonterminalStates": 104399,
+    "componentTypes": 31247,
+    "tactical2Counts": {
+      "W": 76538,
+      "L2": 14093,
+      "O": 13768
+    },
+    "degree1": {
+      "model": "exact-rank affine GF(2)^2 over exact component multiplicity parity",
+      "equations": 13768,
+      "activeVariables": 6019,
+      "pivotRank": 5934,
+      "activeNullity": 85,
+      "contradictions": 0,
+      "firstContradiction": null,
+      "codeGauge": {
+        "loss": "00",
+        "draw": "01",
+        "win": "10"
+      }
+    },
+    "audits": [
+      {
+        "mode": "PRESENCE",
+        "statesAudited": 13768,
+        "classes": 5981,
+        "mixedValueClasses": 2,
+        "QV": false,
+        "firstMixedValueWitness": {
+          "mode": "PRESENCE",
+          "key": "T14944:P,T31244:P,T31246:P",
+          "rank": 14,
+          "a": "99657:284820",
+          "b": "34249:88084",
+          "aOutcome": "win",
+          "bOutcome": "loss",
+          "aCode": 2,
+          "bCode": 0,
+          "multiplicityDifferenceL1": 2,
+          "parityPairUnits": null,
+          "aCounts": [
+            {
+              "type": "T14944",
+              "canonicalType": "0|2.4.8|4.8.16",
+              "width": 1,
+              "count": 1
+            },
+            {
+              "type": "T31244",
+              "canonicalType": "4||",
+              "width": 1,
+              "count": 1
+            },
+            {
+              "type": "T31246",
+              "canonicalType": "5||",
+              "width": 1,
+              "count": 2
+            }
+          ],
+          "bCounts": [
+            {
+              "type": "T14944",
+              "canonicalType": "0|2.4.8|4.8.16",
+              "width": 1,
+              "count": 1
+            },
+            {
+              "type": "T31244",
+              "canonicalType": "4||",
+              "width": 1,
+              "count": 2
+            },
+            {
+              "type": "T31246",
+              "canonicalType": "5||",
+              "width": 1,
+              "count": 1
+            }
+          ],
+          "delta": [
+            {
+              "type": "T31244",
+              "canonicalType": "4||",
+              "width": 1,
+              "delta": 1
+            },
+            {
+              "type": "T31246",
+              "canonicalType": "5||",
+              "width": 1,
+              "delta": -1
+            }
+          ]
+        },
+        "minimumMultiplicityDifferenceWitness": {
+          "mode": "PRESENCE",
+          "key": "T14938:P,T31244:P,T31246:P",
+          "rank": 14,
+          "a": "45225:199442",
+          "b": "38089:280852",
+          "aOutcome": "win",
+          "bOutcome": "loss",
+          "aCode": 2,
+          "bCode": 0,
+          "multiplicityDifferenceL1": 2,
+          "parityPairUnits": null,
+          "aCounts": [
+            {
+              "type": "T14938",
+              "canonicalType": "0|2.4.8|2.4.8.16",
+              "width": 1,
+              "count": 1
+            },
+            {
+              "type": "T31244",
+              "canonicalType": "4||",
+              "width": 1,
+              "count": 1
+            },
+            {
+              "type": "T31246",
+              "canonicalType": "5||",
+              "width": 1,
+              "count": 2
+            }
+          ],
+          "bCounts": [
+            {
+              "type": "T14938",
+              "canonicalType": "0|2.4.8|2.4.8.16",
+              "width": 1,
+              "count": 1
+            },
+            {
+              "type": "T31244",
+              "canonicalType": "4||",
+              "width": 1,
+              "count": 2
+            },
+            {
+              "type": "T31246",
+              "canonicalType": "5||",
+              "width": 1,
+              "count": 1
+            }
+          ],
+          "delta": [
+            {
+              "type": "T31244",
+              "canonicalType": "4||",
+              "width": 1,
+              "delta": 1
+            },
+            {
+              "type": "T31246",
+              "canonicalType": "5||",
+              "width": 1,
+              "delta": -1
+            }
+          ]
+        }
+      },
+      {
+        "mode": "M2",
+        "statesAudited": 13768,
+        "classes": 5983,
+        "mixedValueClasses": 0,
+        "QV": true,
+        "firstMixedValueWitness": null,
+        "minimumMultiplicityDifferenceWitness": null
+      },
+      {
+        "mode": "ZOE",
+        "statesAudited": 13768,
+        "classes": 5984,
+        "mixedValueClasses": 0,
+        "QV": true,
+        "firstMixedValueWitness": null,
+        "minimumMultiplicityDifferenceWitness": null
+      },
+      {
+        "mode": "ZOE_R3",
+        "statesAudited": 13768,
+        "classes": 5984,
+        "mixedValueClasses": 0,
+        "QV": true,
+        "firstMixedValueWitness": null,
+        "minimumMultiplicityDifferenceWitness": null
+      },
+      {
+        "mode": "MULTI",
+        "statesAudited": 13768,
+        "classes": 5984,
+        "mixedValueClasses": 0,
+        "QV": true,
+        "firstMixedValueWitness": null,
+        "minimumMultiplicityDifferenceWitness": null
+      }
+    ],
+    "minimumParitySeparators": null
+  },
+  "mechanicalChecks": {
+    "freshGeometryPredeclared": true,
+    "candidateFrozenFromEWRS047": true,
+    "keysOutcomeIndependent": true,
+    "T2ORetained": true,
+    "fullMultiplicityControlExact": true,
+    "degree1ModelMechanicallyGenerated": true
+  },
+  "disposition": {
+    "PRESENCE_QV": false,
+    "M2_QV": true,
+    "ZOE_QV": true,
+    "ZOE_R3_QV": true,
+    "MULTI_QV": true,
+    "degree1Contradictions": 0,
+    "freshNonAffine": false,
+    "freshZoeNonAffineSuccess": false
+  },
+  "interpretationGuard": [
+    "ZOE is frozen before 4x5-k3 outcome qualification.",
+    "The case counts as non-affine evidence only when the exact-rank degree-1 contradiction count is nonzero.",
+    "A ZOE pass remains bounded finite evidence.",
+    "No standard-7x6 claim follows."
+  ]
+}
