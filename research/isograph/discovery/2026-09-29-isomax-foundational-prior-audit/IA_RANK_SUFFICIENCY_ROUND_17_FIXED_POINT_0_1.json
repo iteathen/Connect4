@@ -1,0 +1,27 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_fixed_point.v1",
+  "round": 17,
+  "date_author_local": "2026-09-29",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_16_0_1.json",
+    "RANK_SUFFICIENCY_AFFINE_XOR_INTEGRATION_0_1.json"
+  ],
+  "recursive_generation": {
+    "families_checked": [
+      "affine component valuation",
+      "scheduler grading",
+      "representation/evaluator separation",
+      "component interaction",
+      "late XOR"
+    ],
+    "new_assertions": []
+  },
+  "fixed_point": true,
+  "reason": "RS-IA063 through RS-IA068 exhaust the native implications of the affine-XOR falsifier. The next distinction requires the phase-graded valuation experiment.",
+  "next_evidence_boundaries": [
+    "phase-graded g_r3(C) XOR valuation",
+    "same-phase contradiction witnesses",
+    "nonlinear/interacting decoder if graded valuation fails"
+  ],
+  "stop_status": "FIXED_POINT__PHASE_GRADED_TEST_NEXT"
+}
