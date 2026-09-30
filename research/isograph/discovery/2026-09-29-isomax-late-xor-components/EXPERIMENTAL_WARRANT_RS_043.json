@@ -1,0 +1,57 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.release_parity_fresh_holdout.v1",
+  "id": "EW-RS-043",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "parent": "EW-RS-042",
+  "objective": "Qualify the frozen TOPO_RPAR scalar interaction coordinate unchanged on a fresh complete carrier whose frontier-relative depth range extends beyond every demanding derivation carrier.",
+  "cases": [
+    "4x5-k4"
+  ],
+  "freshness": {
+    "geometry": "4x5-k4",
+    "priorUseInLateStageCampaign": false,
+    "selectionBasis": [
+      "extends the demanding 4x4-k4 family by one gravity layer",
+      "introduces frontier-relative depth 4",
+      "directly tests the frozen TOPO_RPAR identifications depth 2~4 and depth 1~3",
+      "selected before any 4x5-k4 outcome qualification"
+    ]
+  },
+  "frozenCandidate": {
+    "name": "TOPO_RPAR",
+    "source": "EW-RS-042 / RELEASE_PARITY_TOPOLOGY_0_1.json",
+    "definition": "Canonical owner-preserving residual/column incidence hypergraph with each residual cell labeled F when depth=0, O when depth is positive odd, and E when depth is positive even.",
+    "changesAllowedDuringHoldout": false
+  },
+  "frozenFromPrior": [
+    "q_o rank-local reduction",
+    "RFG and hereditary G",
+    "post-RFG residual-incidence connected components",
+    "direct rank-local T2",
+    "exact-rank affine offset plus exact component-type parity",
+    "quadratic pair semantics",
+    "REL_INC",
+    "TOPO_RPAR"
+  ],
+  "controls": [
+    "DEGREE1 exact-rank affine component model",
+    "REL_INC quadratic pair model",
+    "EXACT component-identity quadratic pair model"
+  ],
+  "antiCircularity": [
+    "The holdout geometry is fixed before its W/D/L qualification is observed.",
+    "TOPO_RPAR is copied unchanged from EW-RS-042.",
+    "No outcome, contradiction, fitted coefficient, or oracle label may alter the candidate during this holdout.",
+    "Solved outcomes appear only as qualification right-hand sides."
+  ],
+  "falsifiers": [
+    "Any TOPO_RPAR scalar contradiction rejects the frozen candidate on 4x5-k4.",
+    "Any EXACT quadratic contradiction rejects degree-2 exact-component sufficiency on this holdout and must be separated from TOPO_RPAR failure.",
+    "If DEGREE1 has zero contradictions, 4x5-k4 is an affine control and does not establish necessity of the interaction correction.",
+    "If REL_INC fails while EXACT passes, frontier-relative exact incidence itself fails to transfer to this holdout."
+  ],
+  "successCriterion": "TOPO_RPAR has zero scalar contradictions; for this run to count as a fresh non-affine holdout, DEGREE1 must also have at least one contradiction.",
+  "nextIfSuccess": "Freeze the holdout result, then derive the two scalar syndrome bits directly in the frozen TOPO_RPAR coordinate without treating fitted gauge coefficients as invariant.",
+  "nextIfFail": "Freeze the falsifier and refine only the frontier-relative topology/timing distinction exposed by the holdout; do not outcome-select arbitrary component IDs or absolute elevation."
+}
