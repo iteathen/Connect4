@@ -1,0 +1,93 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.fresh_quadratic_holdout_integration.v1",
+  "date_author_local": "2026-09-29",
+  "research_direction": "Joshua Oshiro",
+  "status": "FRESH_WIDER_QUADRATIC_HOLDOUT_PASS",
+  "evidence": [
+    {
+      "id": "FQ63",
+      "branch": "experiment/isomax-late-xor-components-20260929",
+      "commit": "b8dfe25c6d745c5f5d330288004ddbe8717ef82e",
+      "file": "FRESH_QUADRATIC_HOLDOUT_6X3K3_0_1.json",
+      "warrant": "EW-RS-033"
+    },
+    {
+      "id": "Q44",
+      "branch": "experiment/isomax-late-xor-components-20260929",
+      "commit": "480b735266b0e583ed70f289237104cb7a0ef701",
+      "file": "EXACT_RANK_QUADRATIC_XOR_4X4K4_0_1.json"
+    },
+    {
+      "id": "Q53",
+      "branch": "experiment/isomax-late-xor-components-20260929",
+      "commit": "5db78c1f9070236b4844a6cb32677b505e43c789",
+      "file": "EXACT_RANK_QUADRATIC_XOR_0_1.json"
+    }
+  ],
+  "fresh_case": {
+    "label": "6x3-k3",
+    "physical_states": 692970,
+    "nonterminal_states": 353581,
+    "component_types": 72195,
+    "t2_o_equations": 36569,
+    "degree1": {
+      "active_variables": 16388,
+      "pivot_rank": 16263,
+      "nullity": 125,
+      "contradictions": 520
+    },
+    "degree2": {
+      "active_variables": 27674,
+      "linear_variables": 16370,
+      "quadratic_variables": 11286,
+      "rank_offsets": 18,
+      "pivot_rank": 16735,
+      "nullity": 10939,
+      "contradictions": 0
+    }
+  },
+  "findings": [
+    {
+      "id": "RS-F131",
+      "status": "EXACT_FINITE_FRESH_HOLDOUT",
+      "statement": "The predeclared exact-rank degree-2 GF(2)^2 decoder is consistent on complete fresh 6x3-k3: 36,569 T2-O equations and zero contradictions."
+    },
+    {
+      "id": "RS-F132",
+      "status": "EXACT_FINITE_FRESH_FALSIFIER_CONTROL",
+      "statement": "The same fresh carrier strongly falsifies degree one with 520 contradictions, so the degree-2 pass is not vacuous and is not inherited from a geometry where affine composition already happened to work."
+    },
+    {
+      "id": "RS-F133",
+      "status": "CROSS_GEOMETRY_SYNTHESIS",
+      "statement": "Degree two now removes every exact-rank affine contradiction in all three demanding carriers tested under the frozen model class: derivation carriers 5x3-k3 and 4x4-k4 plus fresh wider 6x3-k3."
+    },
+    {
+      "id": "RS-F134",
+      "status": "DEGREE_BOUND_CANDIDATE_STRENGTHENED",
+      "statement": "The bounded evidence now supports a serious rank-graded quadratic GF(2)^2 evaluator hypothesis for T2-O component parity. This is stronger than the earlier late-XOR hypothesis because it identifies the first interaction order required by explicit falsifiers."
+    },
+    {
+      "id": "RS-F135",
+      "status": "MSS_PRESSURE",
+      "statement": "Full quadratic expansion is far from minimal: on fresh 6x3 it introduces 11,286 pair variables, yet the matrix rank rises only 472 above the degree-1 model. The next discovery target is the low-dimensional interaction subspace, not more polynomial degree."
+    },
+    {
+      "id": "RS-F136",
+      "status": "NEXT_REDUCTION_BOUNDARY",
+      "statement": "Decompose the quadratic rank gain by exact rank and identify the smallest structurally generated interaction coordinates spanning the value-relevant second-order subspace before fitting sparse coefficients."
+    }
+  ],
+  "cross_geometry": {
+    "5x3-k3": {"degree1_contradictions":18,"degree2_contradictions":0,"quadratic_variables":2104,"rank_gain":37},
+    "4x4-k4": {"degree1_contradictions":168,"degree2_contradictions":0,"quadratic_variables":5232,"rank_gain":422},
+    "6x3-k3_fresh": {"degree1_contradictions":520,"degree2_contradictions":0,"quadratic_variables":11286,"rank_gain":472}
+  },
+  "nonclaims": [
+    "This is not a standard-7x6 theorem.",
+    "This does not establish that all geometries have polynomial degree at most two.",
+    "This does not make the full pair-feature expansion a satisfactory final D_G.",
+    "This does not identify canonical pair coefficients."
+  ],
+  "next_question": "What low-dimensional exact-rank interaction subspace carries the second-order information that the full pair expansion redundantly represents?"
+}
