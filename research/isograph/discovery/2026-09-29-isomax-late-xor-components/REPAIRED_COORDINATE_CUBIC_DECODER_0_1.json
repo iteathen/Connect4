@@ -1,0 +1,318 @@
+{
+  "schema": "connect4.isomax.repaired_coordinate_cubic_decoder.v1",
+  "date_author_local": "2026-09-30",
+  "warrant": "EW-RS-058",
+  "frozenCoordinate": "ROLE_CAPPAR_REL_INC_ZOE",
+  "binaryZoeEncoding": {
+    "P": "aggregate multiplicity > 0",
+    "O": "aggregate multiplicity mod 2",
+    "zero": [
+      0,
+      0
+    ],
+    "positive_even": [
+      1,
+      0
+    ],
+    "positive_odd": [
+      1,
+      1
+    ]
+  },
+  "polynomialFamily": "complete observed square-free P/O monomials through degree 3",
+  "outcomeCode": {
+    "loss": "00",
+    "draw": "01",
+    "win": "10"
+  },
+  "cases": [
+    {
+      "label": "6x3-k3",
+      "width": 6,
+      "height": 3,
+      "k": 3,
+      "physicalStates": 692970,
+      "nonterminalStates": 353581,
+      "componentTypes": 14619,
+      "tactical2Counts": {
+        "W": 277244,
+        "L2": 39768,
+        "O": 36569
+      },
+      "legacyDegree1": {
+        "model": "exact-rank affine GF(2)^2 over exact component multiplicity parity",
+        "equations": 36569,
+        "activeVariables": 16388,
+        "pivotRank": 16263,
+        "activeNullity": 125,
+        "contradictions": 520,
+        "firstContradiction": {
+          "key": "66731:41556",
+          "rank": 13,
+          "h": [
+            2,
+            3,
+            1,
+            3,
+            3,
+            1
+          ],
+          "oddTypes": [
+            "T14602",
+            "T14604",
+            "T14616",
+            "T14618"
+          ],
+          "relativeOutcome": "win",
+          "code": 2,
+          "reducedRhs": 2
+        },
+        "codeGauge": {
+          "loss": "00",
+          "draw": "01",
+          "win": "10"
+        }
+      },
+      "decoder": {
+        "structuralClasses": 16732,
+        "scalarMixedClasses": 0,
+        "descriptorIdentities": 14615,
+        "activeAffineVariables": 29231,
+        "activePresenceVariables": 14615,
+        "activeOddnessVariables": 14615,
+        "affine": {
+          "pivotRank": 14619,
+          "contradictions": 1454,
+          "firstContradiction": {
+            "classKey": "3:E,53:O",
+            "code": 2,
+            "reducedRhs": 2
+          },
+          "y0RankGain": 1,
+          "y1RankGain": 1,
+          "jointScalarTargetDimension": 2
+        },
+        "degree2": {
+          "pairCatalog": 66421,
+          "pivotRank": 16657,
+          "rankGainOverAffine": 2038,
+          "contradictions": 24,
+          "firstContradiction": {
+            "classKey": "3:O,60:O,3628:O",
+            "code": 2,
+            "reducedRhs": 2
+          }
+        },
+        "degree3": {
+          "tripleCatalog": 64991,
+          "pivotRank": 16732,
+          "rankGainOverDegree2": 75,
+          "rankGainOverAffine": 2113,
+          "contradictions": 0,
+          "firstContradiction": null
+        },
+        "codeGauge": {
+          "loss": "00",
+          "draw": "01",
+          "win": "10"
+        }
+      }
+    },
+    {
+      "label": "4x5-k4",
+      "width": 4,
+      "height": 5,
+      "k": 4,
+      "physicalStates": 1706255,
+      "nonterminalStates": 1348441,
+      "componentTypes": 73708,
+      "tactical2Counts": {
+        "W": 348191,
+        "L2": 66275,
+        "O": 933975
+      },
+      "legacyDegree1": {
+        "model": "exact-rank affine GF(2)^2 over exact component multiplicity parity",
+        "equations": 933975,
+        "activeVariables": 77544,
+        "pivotRank": 77499,
+        "activeNullity": 45,
+        "contradictions": 23918,
+        "firstContradiction": {
+          "key": "90537:136790",
+          "rank": 16,
+          "h": [
+            5,
+            5,
+            4,
+            2
+          ],
+          "oddTypes": [
+            "T72492",
+            "T73705"
+          ],
+          "relativeOutcome": "draw",
+          "code": 1,
+          "reducedRhs": 1
+        },
+        "codeGauge": {
+          "loss": "00",
+          "draw": "01",
+          "win": "10"
+        }
+      },
+      "decoder": {
+        "structuralClasses": 79309,
+        "scalarMixedClasses": 0,
+        "descriptorIdentities": 73587,
+        "activeAffineVariables": 147175,
+        "activePresenceVariables": 73587,
+        "activeOddnessVariables": 73587,
+        "affine": {
+          "pivotRank": 73601,
+          "contradictions": 2918,
+          "firstContradiction": {
+            "classKey": "5:E,10:O,23:O",
+            "code": 0,
+            "reducedRhs": 2
+          },
+          "y0RankGain": 1,
+          "y1RankGain": 1,
+          "jointScalarTargetDimension": 2
+        },
+        "degree2": {
+          "pairCatalog": 285413,
+          "pivotRank": 78938,
+          "rankGainOverAffine": 5337,
+          "contradictions": 24,
+          "firstContradiction": {
+            "classKey": "5:O,25:O,67:O",
+            "code": 2,
+            "reducedRhs": 3
+          }
+        },
+        "degree3": {
+          "tripleCatalog": 263021,
+          "pivotRank": 79309,
+          "rankGainOverDegree2": 371,
+          "rankGainOverAffine": 5708,
+          "contradictions": 0,
+          "firstContradiction": null
+        },
+        "codeGauge": {
+          "loss": "00",
+          "draw": "01",
+          "win": "10"
+        }
+      }
+    },
+    {
+      "label": "6x3-k4",
+      "width": 6,
+      "height": 3,
+      "k": 4,
+      "physicalStates": 2087325,
+      "nonterminalStates": 1914210,
+      "componentTypes": 16460,
+      "tactical2Counts": {
+        "W": 227321,
+        "L2": 25450,
+        "O": 1661439
+      },
+      "legacyDegree1": {
+        "model": "exact-rank affine GF(2)^2 over exact component multiplicity parity",
+        "equations": 1661439,
+        "activeVariables": 17731,
+        "pivotRank": 17696,
+        "activeNullity": 35,
+        "contradictions": 3543,
+        "firstContradiction": {
+          "key": "6187:148292",
+          "rank": 12,
+          "h": [
+            3,
+            1,
+            3,
+            2,
+            0,
+            3
+          ],
+          "oddTypes": [
+            "T15265",
+            "T16443",
+            "T16459"
+          ],
+          "relativeOutcome": "loss",
+          "code": 0,
+          "reducedRhs": 1
+        },
+        "codeGauge": {
+          "loss": "00",
+          "draw": "01",
+          "win": "10"
+        }
+      },
+      "decoder": {
+        "structuralClasses": 17550,
+        "scalarMixedClasses": 0,
+        "descriptorIdentities": 16452,
+        "activeAffineVariables": 32905,
+        "activePresenceVariables": 16452,
+        "activeOddnessVariables": 16452,
+        "affine": {
+          "pivotRank": 16463,
+          "contradictions": 459,
+          "firstContradiction": {
+            "classKey": "3:E,12:O,22:O",
+            "code": 2,
+            "reducedRhs": 2
+          },
+          "y0RankGain": 1,
+          "y1RankGain": 1,
+          "jointScalarTargetDimension": 2
+        },
+        "degree2": {
+          "pairCatalog": 67834,
+          "pivotRank": 17534,
+          "rankGainOverAffine": 1071,
+          "contradictions": 5,
+          "firstContradiction": {
+            "classKey": "3:O,12:O,22:O,26:O",
+            "code": 0,
+            "reducedRhs": 2
+          }
+        },
+        "degree3": {
+          "tripleCatalog": 52467,
+          "pivotRank": 17550,
+          "rankGainOverDegree2": 16,
+          "rankGainOverAffine": 1087,
+          "contradictions": 0,
+          "firstContradiction": null
+        },
+        "codeGauge": {
+          "loss": "00",
+          "draw": "01",
+          "win": "10"
+        }
+      }
+    }
+  ],
+  "mechanicalChecks": {
+    "roleCapparClassPurityRetained": true,
+    "classCountControlsReproduced": true,
+    "legacyDegree1ControlsReproduced": true,
+    "repairedAffineControlsReproduced": true,
+    "degree2ControlsReproduced": true,
+    "cubicFeaturesMechanicallyGenerated": true,
+    "binaryZoeEncodingOutcomeIndependent": true,
+    "duplicateStructuralRowsCollapsedBeforeDecoderAlgebra": true
+  },
+  "interpretationGuard": [
+    "Every observed square-free triple of distinct active repaired-coordinate P/O bits is included; no cubic monomial is outcome-selected.",
+    "A zero degree-3 contradiction count establishes bounded decoder existence only, not a closed-form or universal law.",
+    "The scalar target dimension remains two in the frozen EW-RS-057 evidence even if the structural polynomial degree required for realization is three.",
+    "Any degree-3 contradiction must be frozen before degree-4 escalation.",
+    "No Q-A/Q-F or standard-7x6 claim follows."
+  ]
+}
