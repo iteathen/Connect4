@@ -1,0 +1,48 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.symmetric_relation_circuits.v1",
+  "id": "EW-RS-095",
+  "status": "FROZEN_BEFORE_SYMMETRIC_RELATION_CIRCUIT_REPLAY",
+  "parent": "EW-RS-094",
+  "foundationBoundary": "7f3521fe IA94/QUv35",
+  "objective": "Determine whether fixed symmetric Boolean triangle circuits replace paired-label correlation association.",
+  "researchOwner": "research/semantic-quotient",
+  "source": "RS094 pair relation c=sign(N_C)*sign(N_P1) and full RS093 marginal triangle key.",
+  "candidateGrid": {
+    "encodings": [
+      "NEGATIVE",
+      "POSITIVE"
+    ],
+    "contexts": [
+      "CIRCUIT_ONLY",
+      "MARGINAL"
+    ],
+    "degreeSubsets": "All8 subsets of e1,e2,e3 independently for each encoding/context; 32 candidates.",
+    "controls": [
+      "PAIRED_RELATION_CONTROL"
+    ]
+  },
+  "definitions": {
+    "bits": "For each of3 pairs b=1 iff c=-1 (NEGATIVE) or c=+1 (POSITIVE). A zero correlation yields0 in both encodings.",
+    "circuits": "e1=b0 XOR b1 XOR b2; e2=b0*b1 XOR b0*b2 XOR b1*b2; e3=b0*b1*b2, overGF(2).",
+    "triangleFeatures": "Always include a constant1 coordinate. For each selected degree include its named E_k coordinate iff e_k=1. MARGINAL additionally includes one coordinate for the sorted triangle of marginal pair keys. No one-hot tuple of circuit values.",
+    "dependencyFeatures": "XOR triangle feature vectors over the existing OOO residue.",
+    "control": "CSTAR_8 triangle one-hot plus constant; constant is already a projection of one-hot parity and does not change the kernel."
+  },
+  "procedure": [
+    "Test circuit values on all8 bit triples and permutation invariance.",
+    "Freeze all33 catalogs, dependency rows, bases and complete kernels; commit before scalar replay.",
+    "Replay all fixed scalar characters, verify CIRCUIT_ONLY/MARGINAL empty-degree baselines and paired control.",
+    "Report complete grid and all minimal passing degree subsets within each encoding/context; output no fitted coefficient arrays."
+  ],
+  "guards": [
+    "Testing factorization through a circuit-feature family does not select or establish a closed scalar combination rule.",
+    "Positive and negative encodings are both frozen; no favorable polarity is chosen after replay.",
+    "No outcome-picked marginal weights or state exceptions.",
+    "No holdout outcomes or scalar labels for synthetic data."
+  ],
+  "holdouts": {
+    "primary": "3x6-k4",
+    "backup": "5x3-k4",
+    "sealed": true
+  }
+}
