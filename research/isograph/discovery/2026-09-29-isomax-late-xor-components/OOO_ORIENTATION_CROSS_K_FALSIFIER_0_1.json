@@ -1,0 +1,95 @@
+{
+  "schema": "connect4.isomax.ooo_orientation_cross_k_falsifier.v1",
+  "date_author_local": "2026-09-30",
+  "warrant": "EW-RS-071",
+  "status": "STRONG_HVD_SOURCE_HYPOTHESIS_REJECTED__ORIENTATION_ORGANIZATION_STILL_OPEN",
+  "inputs": {
+    "orientationPreflight": {
+      "file": "OOO_ORIENTATION_PROVENANCE_SPEC_VERIFY_0_1.json",
+      "evidenceCommit": "094f0524ed355f133d062779f4052ffb591b2108"
+    },
+    "oddnessOnlyDecoder": {
+      "file": "REPAIRED_ODDNESS_ONLY_CUBIC_DECODER_0_1.json",
+      "warrant": "EW-RS-061"
+    },
+    "matchedDependencyQuotient": {
+      "file": "MATCHED_DEGREE2_DEPENDENCY_QUOTIENT_0_1.json",
+      "warrant": "EW-RS-065"
+    }
+  },
+  "exactGeometry": {
+    "6x3-k3": {
+      "rawWinningLines": {
+        "H": 12,
+        "V": 6,
+        "DPLUS": 4,
+        "DMINUS": 4,
+        "total": 26
+      },
+      "reflectedFoldedFamilies": [
+        "H",
+        "V",
+        "D"
+      ]
+    },
+    "4x5-k4": {
+      "rawWinningLines": {
+        "H": 5,
+        "V": 8,
+        "DPLUS": 2,
+        "DMINUS": 2,
+        "total": 17
+      },
+      "reflectedFoldedFamilies": [
+        "H",
+        "V",
+        "D"
+      ]
+    },
+    "6x3-k4": {
+      "rawWinningLines": {
+        "H": 9,
+        "V": 0,
+        "DPLUS": 0,
+        "DMINUS": 0,
+        "total": 9
+      },
+      "reflectedFoldedFamilies": [
+        "H"
+      ]
+    }
+  },
+  "frozenOooEvidence": {
+    "6x3-k4": {
+      "degree2Contradictions": 5,
+      "oddnessOnlyCubicRankGain": 16,
+      "oddnessOnlyCubicContradictions": 0,
+      "matchedOooResidueRank": 16,
+      "matchedScalarDependencyImageDimension": 2
+    }
+  },
+  "deduction": [
+    "On 6x3-k4, K=4 exceeds board height H=3, so vertical k=4 lines are geometrically impossible.",
+    "A k=4 diagonal changes row by three between endpoints, which also exceeds the 3-row board; both diagonal slopes are geometrically impossible.",
+    "Therefore every legal winning line on 6x3-k4 is horizontal.",
+    "Nevertheless the already-frozen repaired-coordinate evidence on this same carrier has five degree-2 contradictions and a nonzero 16-dimensional oddness-only cubic correction.",
+    "Therefore the existence of the OOO correction cannot generally require simultaneous H, V, and D winning-line channels."
+  ],
+  "falsifierDisposition": {
+    "hypothesis": "The surviving triadic OOO scalar relation is fundamentally an interaction among H,V,D geometric channels.",
+    "disposition": "REJECTED_AS_GENERAL_SOURCE_EXPLANATION",
+    "reason": "A declared hard carrier with a nontrivial OOO correction has only H winning-line geometry."
+  },
+  "retainedQuestions": [
+    "Whether orientation provenance still compresses or organizes the OOO quotient on carriers that possess H,V,D.",
+    "Whether horizontal-only 6x3-k4 OOO structure exposes a more primitive within-orientation/support exchange law.",
+    "Whether H/V/D is one geometry-specific realization of a deeper transition/circuit invariant rather than the universal cause of triadicity.",
+    "Whether the same non-orientation exchange law explains both H-only 6x3-k4 and mixed-orientation carriers."
+  ],
+  "interpretationGuards": [
+    "This does not claim orientation is irrelevant on 6x3-k3 or 4x5-k4.",
+    "This does not claim OOO is intrinsically cubic; degree is representation-dependent.",
+    "This does not use EW-RS-059 PRIMARY 3x6-k4 or BACKUP 5x3-k4 outcomes.",
+    "No Q-A/Q-F, standard-7x6, or universal theorem follows."
+  ]
+}
