@@ -1,0 +1,71 @@
+{
+  "schema": "connect4.isomax.exact_single_residual_feasibility_4x4.v1",
+  "date_author_local": "2026-09-29",
+  "scope": "complete physical 4x4 connect-4 first-win carrier",
+  "operator": {
+    "id": "X",
+    "definition": "delete a player residual iff no gravity-respecting support-lattice path exists on which every required cell is occupied on that player's turns",
+    "stateSpace": "support vectors only; no opponent goals, no terminal/value lookahead",
+    "rankLocal": true,
+    "futureTreeUsed": false,
+    "memoizedSupportStates": 43914
+  },
+  "dominance": {
+    "residualDeletions": {
+      "R": 75778,
+      "G": 47456,
+      "X": 99218
+    },
+    "RDeletedButXKept": 0,
+    "GDeletedButXKept": 0,
+    "result": "X subsumes every R- and G-deletion in the complete 4x4 control"
+  },
+  "direct": [
+    {
+      "id": "QO",
+      "seq": "",
+      "classes": 34094,
+      "QF_transition_congruence": true,
+      "firstFailure": null
+    },
+    {
+      "id": "RFG",
+      "seq": "RFG",
+      "classes": 30046,
+      "QF_transition_congruence": true,
+      "firstFailure": null
+    },
+    {
+      "id": "X",
+      "seq": "X",
+      "classes": 30267,
+      "QF_transition_congruence": true,
+      "firstFailure": null
+    },
+    {
+      "id": "XF",
+      "seq": "XF",
+      "classes": 29986,
+      "QF_transition_congruence": true,
+      "firstFailure": null
+    }
+  ],
+  "orbitClasses": {
+    "QO": 10496,
+    "RFG": 9308,
+    "X": 9368,
+    "XF": 9286
+  },
+  "covariance": {
+    "checks": 3222936,
+    "mismatches": 0
+  },
+  "result": {
+    "X_QF": true,
+    "XF_QF": true,
+    "X_smaller_than_RFG": false,
+    "XF_smaller_than_RFG": true,
+    "orbit_XF_smaller_than_orbit_RFG": true
+  },
+  "interpretationGuard": "Exact finite structural feasibility. X tests only single-residual gravity/turn schedulability and does not solve interactions among residuals or first-win preemption."
+}
