@@ -3,7 +3,11 @@ import assert from 'node:assert/strict';
 import {
   SIGN_CHANNEL_MODES,
   SIGN_CHANNEL_GRID,
+  SIGN_CHANNEL_SOURCE_CODES,
   coupleFamilyPair,
+  signChannelModeNoFiner,
+  signChannelModeEquivalent,
+  signChannelCandidateStrictlyCoarser,
   signChannelPairSignature,
   signChannelPairDelta,
   signChannelTriangleKey
@@ -72,4 +76,86 @@ test('triangle key is permutation invariant for the complete grid',()=>{
     const key=signChannelTriangleKey(perms[0],candidate);
     for(const p of perms.slice(1))assert.equal(signChannelTriangleKey(p,candidate),key,candidate.key);
   }
+});
+
+
+test('RS-077 information containment is derived from each frozen family alphabet',()=>{
+  assert.deepEqual(SIGN_CHANNEL_SOURCE_CODES,{C:[0,1],D:[0,1,2,3],A:[0,1,2]});
+
+  function relations(family){
+    const equiv=[],strict=[];
+    for(let i=0;i<SIGN_CHANNEL_MODES.length;i++)for(let j=i+1;j<SIGN_CHANNEL_MODES.length;j++){
+      const a=SIGN_CHANNEL_MODES[i],b=SIGN_CHANNEL_MODES[j];
+      const ab=signChannelModeNoFiner(family,a,b);
+      const ba=signChannelModeNoFiner(family,b,a);
+      if(ab&&ba)equiv.push(a+'='+b);
+      else{
+        if(ab)strict.push(a+'<'+b);
+        if(ba)strict.push(b+'<'+a);
+      }
+    }
+    return {equiv:equiv.sort(),strict:strict.sort()};
+  }
+
+  assert.deepEqual(relations('C'),{
+    equiv:[
+      'ABS_NET=UNORDERED_PAIR',
+      'SIGNED_NET=SEPARATED',
+      'TOTAL=ABS_NET',
+      'TOTAL=UNORDERED_PAIR'
+    ],
+    strict:[
+      'ABS_NET<SEPARATED',
+      'ABS_NET<SIGNED_NET',
+      'TOTAL<SEPARATED',
+      'TOTAL<SIGNED_NET',
+      'UNORDERED_PAIR<SEPARATED',
+      'UNORDERED_PAIR<SIGNED_NET'
+    ]
+  });
+
+  assert.deepEqual(relations('D'),{
+    equiv:[],
+    strict:[
+      'ABS_NET<SEPARATED',
+      'ABS_NET<SIGNED_NET',
+      'ABS_NET<UNORDERED_PAIR',
+      'SIGNED_NET<SEPARATED',
+      'TOTAL<SEPARATED',
+      'TOTAL<UNORDERED_PAIR',
+      'UNORDERED_PAIR<SEPARATED'
+    ]
+  });
+
+  assert.deepEqual(relations('A'),{
+    equiv:['TOTAL=UNORDERED_PAIR'],
+    strict:[
+      'ABS_NET<SEPARATED',
+      'ABS_NET<SIGNED_NET',
+      'ABS_NET<TOTAL',
+      'ABS_NET<UNORDERED_PAIR',
+      'SIGNED_NET<SEPARATED',
+      'TOTAL<SEPARATED',
+      'UNORDERED_PAIR<SEPARATED'
+    ]
+  });
+
+  assert.equal(signChannelModeEquivalent('C','TOTAL','ABS_NET'),true);
+  assert.equal(signChannelModeEquivalent('A','TOTAL','UNORDERED_PAIR'),true);
+  assert.equal(signChannelModeEquivalent('D','TOTAL','ABS_NET'),false);
+  assert.equal(
+    signChannelCandidateStrictlyCoarser(
+      {C:'TOTAL',D:'SEPARATED',A:'SEPARATED'},
+      {C:'SIGNED_NET',D:'SEPARATED',A:'SEPARATED'}
+    ),
+    true
+  );
+  assert.equal(
+    signChannelCandidateStrictlyCoarser(
+      {C:'TOTAL',D:'SEPARATED',A:'SEPARATED'},
+      {C:'ABS_NET',D:'SEPARATED',A:'SEPARATED'}
+    ),
+    false,
+    'partition-equivalent C modes must not dominate one another'
+  );
 });
