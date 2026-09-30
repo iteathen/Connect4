@@ -1,0 +1,29 @@
+name: IsoMax foundational audit final
+
+on:
+  push:
+    branches:
+      - research/isomax-foundational-prior-audit-20260929
+    paths:
+      - '.github/workflows/isomax-foundational-audit-final.yml'
+      - 'research/isograph/discovery/2026-09-29-isomax-foundational-prior-audit/FOUNDATIONAL_PRIOR_AUDIT_REPORT_0_1.md'
+      - 'research/isograph/discovery/2026-09-29-isomax-foundational-prior-audit/verify-foundational-prior-audit.mjs'
+      - 'research/isograph/discovery/2026-09-29-isomax-foundational-prior-audit/*_0_1.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with: {fetch-depth: 0}
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with: {node-version: '26'}
+      - name: Verify foundational prior audit
+        run: node research/isograph/discovery/2026-09-29-isomax-foundational-prior-audit/verify-foundational-prior-audit.mjs
+      - name: Research integrity
+        run: node tools/verify-research-integrity.mjs
