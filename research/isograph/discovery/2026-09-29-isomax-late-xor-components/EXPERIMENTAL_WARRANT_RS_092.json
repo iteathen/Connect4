@@ -1,0 +1,39 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.endpoint_gauge.v1",
+  "id": "EW-RS-092",
+  "status": "FROZEN_BEFORE_ENDPOINT_GAUGE_REPLAY",
+  "parent": "EW-RS-091",
+  "foundationBoundary": "fd60bb77 IA90/QUv33; POOLED_NATIVE_DISCOVERY_CONTINUATION_0_1.md",
+  "objective": "Separate owner-channel information from arbitrary endpoint-order conventions in the native zero/bulk carrier.",
+  "researchOwner": "research/semantic-quotient",
+  "source": "RS079 selected vertices; exact roleless C sign counts and SIGNED_PARITY zero/bulk owner-separated count vectors.",
+  "candidateGrid": [
+    "LEX_OWNER0",
+    "LEX_OWNER1",
+    "OWNER_ANON_TIE_ORBIT",
+    "PREFIX_TIE_ORBIT",
+    "FULL_EDGE_REVERSAL_ORBIT"
+  ],
+  "definitions": {
+    "LEX_OWNER0": "Original full selected vertex lexicographic order w|cap|dh0|dh1.",
+    "LEX_OWNER1": "Compare keys obtained by swapping dh0/dh1 fields, but compute signed deltas in original owner channels.",
+    "OWNER_ANON_TIE_ORBIT": "Compare w|cap plus lexicographically sorted two owner histogram strings; if equal use the lexicographic minimum of the two endpoint-directed pair records.",
+    "PREFIX_TIE_ORBIT": "Compare w|cap only; if equal take endpoint-reversal orbit minimum.",
+    "FULL_EDGE_REVERSAL_ORBIT": "Always take endpoint-reversal orbit minimum of the signed count record."
+  },
+  "procedure": [
+    "Test endpoint permutation invariance and reversal involution, including an owner-anonymous tie and a pair whose owner0/owner1 orders differ.",
+    "Prepare every pooled catalog, row, basis and complete kernel; commit before replay.",
+    "Replay fixed scalar characters and individual/pooled factorization; reproduce the original rank353 source kernel."
+  ],
+  "guards": [
+    "Tie orbits are explicitly part of the maps, not arbitrary owner-priority tiebreakers.",
+    "Alternative orientations are maps from selected vertices, not presumed quotients of the compressed original gauge.",
+    "No H/V/D geometric-orientation reopening, no fitted coefficients, no synthetic outcomes."
+  ],
+  "holdouts": {
+    "primary": "3x6-k4",
+    "backup": "5x3-k4",
+    "sealed": true
+  }
+}
