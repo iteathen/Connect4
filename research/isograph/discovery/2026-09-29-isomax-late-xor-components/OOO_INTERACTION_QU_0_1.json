@@ -79,6 +79,11 @@
       "id": "QU-OOO-04",
       "subject": "native realization family: hypergraph / triangle closure / release-phase cocycle / free-phase mediation / owner-race balance / latent quotient",
       "status": "OPEN"
+    },
+    {
+      "id": "QU-OOO-05",
+      "subject": "whether the OOO remainder is a lower-complexity law on the weighted ZOE width fiber rather than intrinsic cubic interaction",
+      "status": "OPEN"
     }
   ],
   "basisDependentLeads": {
@@ -112,6 +117,18 @@
     "warrant": "EW-RS-063",
     "method": "enumerate every complete fixed-presence E/O 3-cube in discovery carriers and measure eight-corner scalar XOR",
     "falsifier": "same triple with different third-difference code across contexts",
-    "status": "RUNNING"
+    "status": "RUNNING_REBASE_SAFE_RERUN_AFTER_ZERO_CUBE_EXECUTION"
+  },
+  "exactWidthConservation": {
+    "integerLaw": "sum_d width_d * n_d = W",
+    "parityLaw": "XOR_{d: width_d odd} O_d = W mod 2",
+    "zoeBudget": "n_d = minCount(Z/O/E) + 2*k_d, with minCount(Z)=0,minCount(O)=1,minCount(E)=2",
+    "baseLoad": "B(S)=sum_d width_d * minCount(z_d)",
+    "realizabilityNecessary": [
+      "B(S) <= W",
+      "W-B(S) is even"
+    ],
+    "cubicQuotientRelation": "for any distinct a,b, XOR_{d odd-width, d not a,b} [O_a O_b O_d] = 0 modulo degree<=2",
+    "status": "DEDUCTIVE_EXACT_OUTCOME_INDEPENDENT"
   }
 }
