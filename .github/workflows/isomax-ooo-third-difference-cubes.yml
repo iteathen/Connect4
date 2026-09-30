@@ -34,5 +34,6 @@ jobs:
             echo "No generated changes."
           else
             git commit -m "research(isomax): freeze OOO third-difference cubes"
+            git pull --rebase origin experiment/isomax-late-xor-components-20260929
             git push origin HEAD:experiment/isomax-late-xor-components-20260929
           fi
