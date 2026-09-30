@@ -1,0 +1,39 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.exact_rank_quadratic_xor.v1",
+  "id": "EW-RS-031",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "parent": "EW-RS-030",
+  "objective": "Test whether the 5x3-k3 T2-O scalar map becomes exact when the frozen exact-rank GF(2)^2 decoder is extended from independent component values to all observed pairwise component-parity interactions.",
+  "frozen_from_prior": [
+    "post-RFG component parity representation",
+    "exact current rank",
+    "direct rank-local T2 with W/L2/O",
+    "relative outcome code loss=00, draw=01, win=10",
+    "no representation refinement"
+  ],
+  "models": [
+    {
+      "id": "DEGREE1",
+      "terms": "rank-specific affine offset plus rank-specific linear component-parity terms",
+      "expected_control": "18 contradictions, reproducing EW-RS-028"
+    },
+    {
+      "id": "DEGREE2",
+      "terms": "DEGREE1 plus rank-specific pair products x_C x_D for every component pair co-occurring in an observed T2-O parity signature"
+    }
+  ],
+  "target": "5x3-k3",
+  "anti_circularity": [
+    "Feature terms are generated only from frozen structural parity signatures and exact rank.",
+    "Outcome labels do not select which pair features exist.",
+    "Degree is fixed before the solve.",
+    "The degree-1 reproduction is a mechanical control."
+  ],
+  "falsifiers": [
+    "Any DEGREE2 contradiction rejects quadratic sufficiency on this carrier.",
+    "A DEGREE2 pass establishes only finite existence of a quadratic decoder, not a unique or minimal interaction set."
+  ],
+  "next_if_pass": "Test the same frozen degree-2 model class on the independent 4x4-k4 exact-rank affine-failure carrier, then minimize interactions.",
+  "next_if_fail": "Extract the minimum degree-2 contradiction before considering cubic or non-polynomial finite algebra."
+}
