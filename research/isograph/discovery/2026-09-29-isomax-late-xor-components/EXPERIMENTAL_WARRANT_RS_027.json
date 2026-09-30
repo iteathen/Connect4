@@ -1,0 +1,27 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.phase_graded_contradiction_certificate.v1",
+  "id": "EW-RS-027",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "parent": "EW-RS-026",
+  "objective": "Recover explicit same-rank-phase linear-dependency certificates for the two remaining 4x4-k3 phase-graded GF(2)^2 valuation contradictions before introducing any interaction terms.",
+  "case": "4x4-k3",
+  "domain": "T2-O nonterminal states",
+  "frozen_equations": "code(U(P)) = b_r3 XOR XOR_{odd C} g_r3(C)",
+  "certificate_definition": "A set of frozen state equations whose left-hand component/phase coefficients XOR to zero but whose two-bit outcome right-hand sides XOR to a nonzero code.",
+  "method": "Repeat the frozen Gaussian elimination with exact equation provenance attached to pivot rows; emit the provenance set for the first two contradiction rows.",
+  "targets": [
+    "certificate support size",
+    "rank-mod-3 consistency",
+    "state keys and relative outcomes",
+    "odd component types per state",
+    "component-incidence parity check",
+    "right-hand-side XOR"
+  ],
+  "anti_circularity": [
+    "The equation system is unchanged from EW-RS-026.",
+    "Provenance instrumentation does not alter pivots, coefficients, codes or elimination order.",
+    "No interaction term is added."
+  ],
+  "nonclaim": "The basis-derived certificate need not be minimum-cardinality; it is an exact contradiction witness suitable for structural inspection."
+}
