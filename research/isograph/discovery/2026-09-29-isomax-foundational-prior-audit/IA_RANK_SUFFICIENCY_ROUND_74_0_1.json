@@ -1,0 +1,61 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_round.v1",
+  "round": 74,
+  "date_author_local": "2026-09-30",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_73_FIXED_POINT_0_1.json",
+    "RANK_SUFFICIENCY_SIGNED_EXCHANGE_TOKEN_FAMILY_MSS_INTEGRATION_0_1.json"
+  ],
+  "reopened_reason": "EW-RS-072 exhaustively deletes the four semantic token families inside both common exact signed exchange gauges.",
+  "new_assertions": [
+    {
+      "id": "RS-IA228",
+      "family": "M",
+      "body": "Component-width exchange W is nonessential in the declared common scalar carrier: C+D0+D1 is exact under both SIGN and SIGNED_PARITY on all three hard carriers."
+    },
+    {
+      "id": "RS-IA229",
+      "family": "F",
+      "body": "4x5-k4 makes C, D0, and D1 individually load-bearing within the frozen family lattice because every strict subset of C+D0+D1 is scalar-inexact there."
+    },
+    {
+      "id": "RS-IA230",
+      "family": "Q",
+      "body": "Capacity phase is a cross-carrier rather than per-carrier necessity: horizontal-only 6x3-k4 is exact with D0+D1 alone, but 4x5-k4 requires C in the common support."
+    },
+    {
+      "id": "RS-IA231",
+      "family": "N",
+      "body": "6x3-k3 has incomparable minimal supports C+D1 and D0+D1; therefore one-carrier MSS structure does not determine the common transfer support."
+    },
+    {
+      "id": "RS-IA232",
+      "family": "R",
+      "body": "The next lawful compression axis is internal token identity: exact capacity-role indices C:i and exact owner-depth indices D0:d/D1:d, with family membership C/D0/D1 held fixed."
+    },
+    {
+      "id": "RS-IA233",
+      "family": "F",
+      "body": "EW-RS-059 remains sealed because family MSS does not freeze a closed scalar syndrome."
+    }
+  ],
+  "qu_refinements": [
+    {
+      "id": "RS-QR059",
+      "target": "QU-RS-004",
+      "add_fixed": [
+        "C+D0+D1 is the unique inclusion-minimal common exact token-family support under both SIGN and SIGNED_PARITY",
+        "W can be deleted commonly",
+        "4x5-k4 requires each of C,D0,D1 within the frozen family lattice",
+        "6x3-k4 needs only D0+D1 and 6x3-k3 has two incomparable two-family minima"
+      ],
+      "retain_open": [
+        "capacity role-index compression",
+        "owner-depth index compression",
+        "owner separation after depth compression",
+        "closed scalar syndrome before EW-RS-059 unsealing"
+      ]
+    }
+  ],
+  "stop_status": "REOPENED__C_D0_D1_INDEX_COMPRESSION_NEXT"
+}
