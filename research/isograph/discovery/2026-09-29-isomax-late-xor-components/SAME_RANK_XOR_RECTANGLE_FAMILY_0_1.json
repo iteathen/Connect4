@@ -1,0 +1,3332 @@
+{
+  "schema": "connect4.isomax.same_rank_xor_rectangle_family.v1",
+  "date_author_local": "2026-09-29",
+  "warrant": "EW-RS-030",
+  "source": {
+    "commit": "93088eec6c228fd5c82c9e9c06b97c93536289d0",
+    "file": "SAME_RANK_XOR_CONTRADICTION_CERTIFICATE_0_1.json"
+  },
+  "frozenModel": "5x3-k3 T2-O exact-rank independent affine GF(2)^2 component valuation",
+  "counts": {
+    "contradictions": 18,
+    "fourRowRectangles": 12,
+    "unambiguousMinimumPairing": 12,
+    "structurallyTiedMinimumPairing": 0,
+    "distinctMinimumToggleSignatures": 4
+  },
+  "toggleGroupSummary": [
+    {
+      "toggle": [
+        "T09438",
+        "T09439"
+      ],
+      "rectangles": [
+        "R05",
+        "R06",
+        "R07",
+        "R08",
+        "R09",
+        "R10"
+      ],
+      "count": 6
+    },
+    {
+      "toggle": [
+        "T09407",
+        "T09411"
+      ],
+      "rectangles": [
+        "R03",
+        "R04"
+      ],
+      "count": 2
+    },
+    {
+      "toggle": [
+        "T09407",
+        "T09415"
+      ],
+      "rectangles": [
+        "R01",
+        "R02"
+      ],
+      "count": 2
+    },
+    {
+      "toggle": [
+        "T09436",
+        "T09438"
+      ],
+      "rectangles": [
+        "R11",
+        "R12"
+      ],
+      "count": 2
+    }
+  ],
+  "rectangles": [
+    {
+      "id": "R01",
+      "rank": 9,
+      "certificateSize": 4,
+      "stateKeys": [
+        "4249:8484",
+        "20617:564",
+        "4235:2372",
+        "5258:293"
+      ],
+      "outcomes": [
+        "win",
+        "win",
+        "draw",
+        "loss"
+      ],
+      "codes": [
+        2,
+        2,
+        1,
+        0
+      ],
+      "typeDictionary": {
+        "T07229": {
+          "canonicalType": "0,2|4.16|21.36",
+          "width": 2
+        },
+        "T07351": {
+          "canonicalType": "0|7|4",
+          "width": 1
+        },
+        "T09407": {
+          "canonicalType": "1|4|",
+          "width": 1
+        },
+        "T09415": {
+          "canonicalType": "1|6|4",
+          "width": 1
+        },
+        "T09436": {
+          "canonicalType": "2|4|",
+          "width": 1
+        }
+      },
+      "minimumToggleSize": 2,
+      "minimalPairings": [
+        {
+          "pairingIndex": 0,
+          "pairs": [
+            [
+              0,
+              1
+            ],
+            [
+              2,
+              3
+            ]
+          ],
+          "toggle": [
+            "T09407",
+            "T09415"
+          ],
+          "toggleSize": 2,
+          "contexts": [
+            [
+              "T07229"
+            ],
+            [
+              "T07351",
+              "T09436"
+            ]
+          ],
+          "contextDelta": [
+            "T07229",
+            "T07351",
+            "T09436"
+          ],
+          "effects": [
+            0,
+            1
+          ],
+          "effectSyndrome": 1,
+          "pairRows": [
+            [
+              "4249:8484",
+              "20617:564"
+            ],
+            [
+              "4235:2372",
+              "5258:293"
+            ]
+          ],
+          "pairOutcomes": [
+            [
+              "win",
+              "win"
+            ],
+            [
+              "draw",
+              "loss"
+            ]
+          ]
+        }
+      ],
+      "allPairings": [
+        {
+          "pairingIndex": 0,
+          "pairs": [
+            [
+              0,
+              1
+            ],
+            [
+              2,
+              3
+            ]
+          ],
+          "toggle": [
+            "T09407",
+            "T09415"
+          ],
+          "toggleSize": 2,
+          "contexts": [
+            [
+              "T07229"
+            ],
+            [
+              "T07351",
+              "T09436"
+            ]
+          ],
+          "contextDelta": [
+            "T07229",
+            "T07351",
+            "T09436"
+          ],
+          "effects": [
+            0,
+            1
+          ],
+          "effectSyndrome": 1,
+          "pairRows": [
+            [
+              "4249:8484",
+              "20617:564"
+            ],
+            [
+              "4235:2372",
+              "5258:293"
+            ]
+          ],
+          "pairOutcomes": [
+            [
+              "win",
+              "win"
+            ],
+            [
+              "draw",
+              "loss"
+            ]
+          ]
+        },
+        {
+          "pairingIndex": 1,
+          "pairs": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              3
+            ]
+          ],
+          "toggle": [
+            "T07229",
+            "T07351",
+            "T09436"
+          ],
+          "toggleSize": 3,
+          "contexts": [
+            [
+              "T09415"
+            ],
+            [
+              "T09407"
+            ]
+          ],
+          "contextDelta": [
+            "T09407",
+            "T09415"
+          ],
+          "effects": [
+            3,
+            2
+          ],
+          "effectSyndrome": 1,
+          "pairRows": [
+            [
+              "4249:8484",
+              "4235:2372"
+            ],
+            [
+              "20617:564",
+              "5258:293"
+            ]
+          ],
+          "pairOutcomes": [
+            [
+              "win",
+              "draw"
+            ],
+            [
+              "win",
+              "loss"
+            ]
+          ]
+        },
+        {
+          "pairingIndex": 2,
+          "pairs": [
+            [
+              0,
+              3
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "toggle": [
+            "T07229",
+            "T07351",
+            "T09407",
+            "T09415",
+            "T09436"
+          ],
+          "toggleSize": 5,
+          "contexts": [
+            [],
+            []
+          ],
+          "contextDelta": [],
+          "effects": [
+            2,
+            3
+          ],
+          "effectSyndrome": 1,
+          "pairRows": [
+            [
+              "4249:8484",
+              "5258:293"
+            ],
+            [
+              "20617:564",
+              "4235:2372"
+            ]
+          ],
+          "pairOutcomes": [
+            [
+              "win",
+              "loss"
+            ],
+            [
+              "win",
+              "draw"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "R02",
+      "rank": 9,
+      "certificateSize": 4,
+      "stateKeys": [
+        "4249:8484",
+        "20617:564",
+        "4235:2372",
+        "20618:596"
+      ],
+      "outcomes": [
+        "win",
+        "win",
+        "draw",
+        "loss"
+      ],
+      "codes": [
+        2,
+        2,
+        1,
+        0
+      ],
+      "typeDictionary": {
+        "T07229": {
+          "canonicalType": "0,2|4.16|21.36",
+          "width": 2
+        },
+        "T07351": {
+          "canonicalType": "0|7|4",
+          "width": 1
+        },
+        "T09407": {
+          "canonicalType": "1|4|",
+          "width": 1
+        },
+        "T09415": {
+          "canonicalType": "1|6|4",
+          "width": 1
+        },
+        "T09436": {
+          "canonicalType": "2|4|",
+          "width": 1
+        }
+      },
+      "minimumToggleSize": 2,
+      "minimalPairings": [
+        {
+          "pairingIndex": 0,
+          "pairs": [
+            [
+              0,
+              1
+            ],
+            [
+              2,
+              3
+            ]
+          ],
+          "toggle": [
+            "T09407",
+            "T09415"
+          ],
+          "toggleSize": 2,
+          "contexts": [
+            [
+              "T07229"
+            ],
+            [
+              "T07351",
+              "T09436"
+            ]
+          ],
+          "contextDelta": [
+            "T07229",
+            "T07351",
+            "T09436"
+          ],
+          "effects": [
+            0,
+            1
+          ],
+          "effectSyndrome": 1,
+          "pairRows": [
+            [
+              "4249:8484",
+              "20617:564"
+            ],
+            [
+              "4235:2372",
+              "20618:596"
+            ]
+          ],
+          "pairOutcomes": [
+            [
+              "win",
+              "win"
+            ],
+            [
+              "draw",
+              "loss"
+            ]
+          ]
+        }
+      ],
+      "allPairings": [
+        {
+          "pairingIndex": 0,
+          "pairs": [
+            [
+              0,
+              1
+            ],
+            [
+              2,
+              3
+            ]
+          ],
+          "toggle": [
+            "T09407",
+            "T09415"
+          ],
+          "toggleSize": 2,
+          "contexts": [
+            [
+              "T07229"
+            ],
+            [
+              "T07351",
+              "T09436"
+            ]
+          ],
+          "contextDelta": [
+            "T07229",
+            "T07351",
+            "T09436"
+          ],
+          "effects": [
+            0,
+            1
+          ],
+          "effectSyndrome": 1,
+          "pairRows": [
+            [
+              "4249:8484",
+              "20617:564"
+            ],
+            [
+              "4235:2372",
+              "20618:596"
+            ]
+          ],
+          "pairOutcomes": [
+            [
+              "win",
+              "win"
+            ],
+            [
+              "draw",
+              "loss"
+            ]
+          ]
+        },
+        {
+          "pairingIndex": 1,
+          "pairs": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              3
+            ]
+          ],
+          "toggle": [
+            "T07229",
+            "T07351",
+            "T09436"
+          ],
+          "toggleSize": 3,
+          "contexts": [
+            [
+              "T09415"
+            ],
+            [
+              "T09407"
+            ]
+          ],
+          "contextDelta": [
+            "T09407",
+            "T09415"
+          ],
+          "effects": [
+            3,
+            2
+          ],
+          "effectSyndrome": 1,
+          "pairRows": [
+            [
+              "4249:8484",
+              "4235:2372"
+            ],
+            [
+              "20617:564",
+              "20618:596"
+            ]
+          ],
+          "pairOutcomes": [
+            [
+              "win",
+              "draw"
+            ],
+            [
+              "win",
+              "loss"
+            ]
+          ]
+        },
+        {
+          "pairingIndex": 2,
+          "pairs": [
+            [
+              0,
+              3
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "toggle": [
+            "T07229",
+            "T07351",
+            "T09407",
+            "T09415",
+            "T09436"
+          ],
+          "toggleSize": 5,
+          "contexts": [
+            [],
+            []
+          ],
+          "contextDelta": [],
+          "effects": [
+            2,
+            3
+          ],
+          "effectSyndrome": 1,
+          "pairRows": [
+            [
+              "4249:8484",
+              "20618:596"
+            ],
+            [
+              "20617:564",
+              "4235:2372"
+            ]
+          ],
+          "pairOutcomes": [
+            [
+              "win",
+              "loss"
+            ],
+            [
+              "win",
+              "draw"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "R03",
+      "rank": 10,
+      "certificateSize": 4,
+      "stateKeys": [
+        "2373:4250",
+        "18501:4754",
+        "2197:4426",
+        "9508:4249"
+      ],
+      "outcomes": [
+        "win",
+        "loss",
+        "draw",
+        "loss"
+      ],
+      "codes": [
+        2,
+        0,
+        1,
+        0
+      ],
+      "typeDictionary": {
+        "T07332": {
+          "canonicalType": "0|2|2.4",
+          "width": 1
+        },
+        "T09407": {
+          "canonicalType": "1|4|",
+          "width": 1
+        },
+        "T09411": {
+          "canonicalType": "1|4|6",
+          "width": 1
+        },
+        "T09439": {
+          "canonicalType": "2||4",
+          "width": 1
+        },
+        "T09440": {
+          "canonicalType": "3||",
+          "width": 1
+        }
+      },
+      "minimumToggleSize": 2,
+      "minimalPairings": [
+        {
+          "pairingIndex": 1,
+          "pairs": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              3
+            ]
+          ],
+          "toggle": [
+            "T09407",
+            "T09411"
+          ],
+          "toggleSize": 2,
+          "contexts": [
+            [
+              "T09439"
+            ],
+            [
+              "T07332",
+              "T09440"
+            ]
+          ],
+          "contextDelta": [
+            "T07332",
+            "T09439",
+            "T09440"
+          ],
+          "effects": [
+            3,
+            0
+          ],
+          "effectSyndrome": 3,
+          "pairRows": [
+            [
+              "2373:4250",
+              "2197:4426"
+            ],
+            [
+              "18501:4754",
+              "9508:4249"
+            ]
+          ],
+          "pairOutcomes": [
+            [
+              "win",
+              "draw"
+            ],
+            [
+              "loss",
+              "loss"
+            ]
+          ]
+        }
+      ],
+      "allPairings": [
+        {
+          "pairingIndex": 0,
+          "pairs": [
+            [
+              0,
+              1
+            ],
+            [
+              2,
+              3
+            ]
+          ],
+          "toggle": [
+            "T07332",
+            "T09411",
+            "T09439",
+            "T09440"
+          ],
+          "toggleSize": 4,
+          "contexts": [
+            [
+              "T09407"
+            ],
+            []
+          ],
+          "contextDelta": [
+            "T09407"
+          ],
+          "effects": [
+            2,
+            1
+          ],
+          "effectSyndrome": 3,
+          "pairRows": [
+            [
+              "2373:4250",
+              "18501:4754"
+            ],
+            [
+              "2197:4426",
+              "9508:4249"
+            ]
+          ],
+          "pairOutcomes": [
+            [
+              "win",
+              "loss"
+            ],
+            [
+              "draw",
+              "loss"
+            ]
+          ]
+        },
+        {
+          "pairingIndex": 1,
+          "pairs": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              3
+            ]
+          ],
+          "toggle": [
+            "T09407",
+            "T09411"
+          ],
+          "toggleSize": 2,
+          "contexts": [
+            [
+              "T09439"
+            ],
+            [
+              "T07332",
+              "T09440"
+            ]
+          ],
+          "contextDelta": [
+            "T07332",
+            "T09439",
+            "T09440"
+          ],
+          "effects": [
+            3,
+            0
+          ],
+          "effectSyndrome": 3,
+          "pairRows": [
+            [
+              "2373:4250",
+              "2197:4426"
+            ],
+            [
+              "18501:4754",
+              "9508:4249"
+            ]
+          ],
+          "pairOutcomes": [
+            [
+              "win",
+              "draw"
+            ],
+            [
+              "loss",
+              "loss"
+            ]
+          ]
+        },
+        {
+          "pairingIndex": 2,
+          "pairs": [
+            [
+              0,
+              3
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "toggle": [
+            "T07332",
+            "T09407",
+            "T09439",
+            "T09440"
+          ],
+          "toggleSize": 4,
+          "contexts": [
+            [
+              "T09411"
+            ],
+            []
+          ],
+          "contextDelta": [
+            "T09411"
+          ],
+          "effects": [
+            2,
+            1
+          ],
+          "effectSyndrome": 3,
+          "pairRows": [
+            [
+              "2373:4250",
+              "9508:4249"
+            ],
+            [
+              "18501:4754",
+              "2197:4426"
+            ]
+          ],
+          "pairOutcomes": [
+            [
+              "win",
+              "loss"
+            ],
+            [
+              "loss",
+              "draw"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "R04",
+      "rank": 10,
+      "certificateSize": 4,
+      "stateKeys": [
+        "2373:4250",
+        "18501:4754",
+        "2197:4426",
+        "19012:4243"
+      ],
+      "outcomes": [
+        "win",
+        "loss",
+        "draw",
+        "loss"
+      ],
+      "codes": [
+        2,
+        0,
+        1,
+        0
+      ],
+      "typeDictionary": {
+        "T07332": {
+          "canonicalType": "0|2|2.4",
+          "width": 1
+        },
+        "T09407": {
+          "canonicalType": "1|4|",
+          "width": 1
+        },
+        "T09411": {
+          "canonicalType": "1|4|6",
+          "width": 1
+        },
+        "T09439": {
+          "canonicalType": "2||4",
+          "width": 1
+        },
+        "T09440": {
+          "canonicalType": "3||",
+          "width": 1
+        }
+      },
+      "minimumToggleSize": 2,
+      "minimalPairings": [
+        {
+          "pairingIndex": 1,
+          "pairs": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              3
+            ]
+          ],
+          "toggle": [
+            "T09407",
+            "T09411"
+          ],
+          "toggleSize": 2,
+          "contexts": [
+            [
+              "T09439"
+            ],
+            [
+              "T07332",
+              "T09440"
+            ]
+          ],
+          "contextDelta": [
+            "T07332",
+            "T09439",
+            "T09440"
+          ],
+          "effects": [
+            3,
+            0
+          ],
+          "effectSyndrome": 3,
+          "pairRows": [
+            [
+              "2373:4250",
+              "2197:4426"
+            ],
+            [
+              "18501:4754",
+              "19012:4243"
+            ]
+          ],
+          "pairOutcomes": [
+            [
+              "win",
+              "draw"
+            ],
+            [
+              "loss",
+              "loss"
+            ]
+          ]
+        }
+      ],
+      "allPairings": [
+        {
+          "pairingIndex": 0,
+          "pairs": [
+            [
+              0,
+              1
+            ],
+            [
+              2,
+              3
+            ]
+          ],
+          "toggle": [
+            "T07332",
+            "T09411",
+            "T09439",
+            "T09440"
+          ],
+          "toggleSize": 4,
+          "contexts": [
+            [
+              "T09407"
+            ],
+            []
+          ],
+          "contextDelta": [
+            "T09407"
+          ],
+          "effects": [
+            2,
+            1
+          ],
+          "effectSyndrome": 3,
+          "pairRows": [
+            [
+              "2373:4250",
+              "18501:4754"
+            ],
+            [
+              "2197:4426",
+              "19012:4243"
+            ]
+          ],
+          "pairOutcomes": [
+            [
+              "win",
+              "loss"
+            ],
+            [
+              "draw",
+              "loss"
+            ]
+          ]
+        },
+        {
+          "pairingIndex": 1,
+          "pairs": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              3
+            ]
+          ],
+          "toggle": [
+            "T09407",
+            "T09411"
+          ],
+          "toggleSize": 2,
+          "contexts": [
+            [
+              "T09439"
+            ],
+            [
+              "T07332",
+              "T09440"
+            ]
+          ],
+          "contextDelta": [
+            "T07332",
+            "T09439",
+            "T09440"
+          ],
+          "effects": [
+            3,
+            0
+          ],
+          "effectSyndrome": 3,
+          "pairRows": [
+            [
+              "2373:4250",
+              "2197:4426"
+            ],
+            [
+              "18501:4754",
+              "19012:4243"
+            ]
+          ],
+          "pairOutcomes": [
+            [
+              "win",
+              "draw"
+            ],
+            [
+              "loss",
+              "loss"
+            ]
+          ]
+        },
+        {
+          "pairingIndex": 2,
+          "pairs": [
+            [
+              0,
+              3
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "toggle": [
+            "T07332",
+            "T09407",
+            "T09439",
+            "T09440"
+          ],
+          "toggleSize": 4,
+          "contexts": [
+            [
+              "T09411"
+            ],
+            []
+          ],
+          "contextDelta": [
+            "T09411"
+          ],
+          "effects": [
+            2,
+            1
+          ],
+          "effectSyndrome": 3,
+          "pairRows": [
+            [
+              "2373:4250",
+              "19012:4243"
+            ],
+            [
+              "18501:4754",
+              "2197:4426"
+            ]
+          ],
+          "pairOutcomes": [
+            [
+              "win",
+              "loss"
+            ],
+            [
+              "loss",
+              "draw"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "R05",
+      "rank": 10,
+      "certificateSize": 4,
+      "stateKeys": [
+        "1609:310",
+        "1173:4202",
+        "589:1330",
+        "2197:4202"
+      ],
+      "outcomes": [
+        "loss",
+        "draw",
+        "win",
+        "win"
+      ],
+      "codes": [
+        0,
+        1,
+        2,
+        2
+      ],
+      "typeDictionary": {
+        "T08868": {
+          "canonicalType": "1,1|12.20.24|40.48",
+          "width": 2
+        },
+        "T09176": {
+          "canonicalType": "1,2,2|64.136|64.264",
+          "width": 3
+        },
+        "T09438": {
+          "canonicalType": "2||",
+          "width": 1
+        },
+        "T09439": {
+          "canonicalType": "2||4",
+          "width": 1
+        },
+        "T09440": {
+          "canonicalType": "3||",
+          "width": 1
+        }
+      },
+      "minimumToggleSize": 2,
+      "minimalPairings": [
+        {
+          "pairingIndex": 1,
+          "pairs": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              3
+            ]
+          ],
+          "toggle": [
+            "T09438",
+            "T09439"
+          ],
+          "toggleSize": 2,
+          "contexts": [
+            [
+              "T09176",
+              "T09440"
+            ],
+            [
+              "T08868"
+            ]
+          ],
+          "contextDelta": [
+            "T08868",
+            "T09176",
+            "T09440"
+          ],
+          "effects": [
+            2,
+            3
+          ],
+          "effectSyndrome": 1,
+          "pairRows": [
+            [
+              "1609:310",
+              "589:1330"
+            ],
+            [
+              "1173:4202",
+              "2197:4202"
+            ]
+          ],
+          "pairOutcomes": [
+            [
+              "loss",
+              "win"
+            ],
+            [
+              "draw",
+              "win"
+            ]
+          ]
+        }
+      ],
+      "allPairings": [
+        {
+          "pairingIndex": 0,
+          "pairs": [
+            [
+              0,
+              1
+            ],
+            [
+              2,
+              3
+            ]
+          ],
+          "toggle": [
+            "T08868",
+            "T09176",
+            "T09440"
+          ],
+          "toggleSize": 3,
+          "contexts": [
+            [
+              "T09439"
+            ],
+            [
+              "T09438"
+            ]
+          ],
+          "contextDelta": [
+            "T09438",
+            "T09439"
+          ],
+          "effects": [
+            1,
+            0
+          ],
+          "effectSyndrome": 1,
+          "pairRows": [
+            [
+              "1609:310",
+              "1173:4202"
+            ],
+            [
+              "589:1330",
+              "2197:4202"
+            ]
+          ],
+          "pairOutcomes": [
+            [
+              "loss",
+              "draw"
+            ],
+            [
+              "win",
+              "win"
+            ]
+          ]
+        },
+        {
+          "pairingIndex": 1,
+          "pairs": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              3
+            ]
+          ],
+          "toggle": [
+            "T09438",
+            "T09439"
+          ],
+          "toggleSize": 2,
+          "contexts": [
+            [
+              "T09176",
+              "T09440"
+            ],
+            [
+              "T08868"
+            ]
+          ],
+          "contextDelta": [
+            "T08868",
+            "T09176",
+            "T09440"
+          ],
+          "effects": [
+            2,
+            3
+          ],
+          "effectSyndrome": 1,
+          "pairRows": [
+            [
+              "1609:310",
+              "589:1330"
+            ],
+            [
+              "1173:4202",
+              "2197:4202"
+            ]
+          ],
+          "pairOutcomes": [
+            [
+              "loss",
+              "win"
+            ],
+            [
+              "draw",
+              "win"
+            ]
+          ]
+        },
+        {
+          "pairingIndex": 2,
+          "pairs": [
+            [
+              0,
+              3
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "toggle": [
+            "T08868",
+            "T09176",
+            "T09438",
+            "T09439",
+            "T09440"
+          ],
+          "toggleSize": 5,
+          "contexts": [
+            [],
+            []
+          ],
+          "contextDelta": [],
+          "effects": [
+            2,
+            3
+          ],
+          "effectSyndrome": 1,
+          "pairRows": [
+            [
+              "1609:310",
+              "2197:4202"
+            ],
+            [
+              "1173:4202",
+              "589:1330"
+            ]
+          ],
+          "pairOutcomes": [
+            [
+              "loss",
+              "win"
+            ],
+            [
+              "draw",
+              "win"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "R06",
+      "rank": 10,
+      "certificateSize": 4,
+      "stateKeys": [
+        "1609:310",
+        "1173:4202",
+        "589:1330",
+        "8341:4874"
+      ],
+      "outcomes": [
+        "loss",
+        "draw",
+        "win",
+        "win"
+      ],
+      "codes": [
+        0,
+        1,
+        2,
+        2
+      ],
+      "typeDictionary": {
+        "T08868": {
+          "canonicalType": "1,1|12.20.24|40.48",
+          "width": 2
+        },
+        "T09176": {
+          "canonicalType": "1,2,2|64.136|64.264",
+          "width": 3
+        },
+        "T09438": {
+          "canonicalType": "2||",
+          "width": 1
+        },
+        "T09439": {
+          "canonicalType": "2||4",
+          "width": 1
+        },
+        "T09440": {
+          "canonicalType": "3||",
+          "width": 1
+        }
+      },
+      "minimumToggleSize": 2,
+      "minimalPairings": [
+        {
+          "pairingIndex": 1,
+          "pairs": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              3
+            ]
+          ],
+          "toggle": [
+            "T09438",
+            "T09439"
+          ],
+          "toggleSize": 2,
+          "contexts": [
+            [
+              "T09176",
+              "T09440"
+            ],
+            [
+              "T08868"
+            ]
+          ],
+          "contextDelta": [
+            "T08868",
+            "T09176",
+            "T09440"
+          ],
+          "effects": [
+            2,
+            3
+          ],
+          "effectSyndrome": 1,
+          "pairRows": [
+            [
+              "1609:310",
+              "589:1330"
+            ],
+            [
+              "1173:4202",
+              "8341:4874"
+            ]
+          ],
+          "pairOutcomes": [
+            [
+              "loss",
+              "win"
+            ],
+            [
+              "draw",
+              "win"
+            ]
+          ]
+        }
+      ],
+      "allPairings": [
+        {
+          "pairingIndex": 0,
+          "pairs": [
+            [
+              0,
+              1
+            ],
+            [
+              2,
+              3
+            ]
+          ],
+          "toggle": [
+            "T08868",
+            "T09176",
+            "T09440"
+          ],
+          "toggleSize": 3,
+          "contexts": [
+            [
+              "T09439"
+            ],
+            [
+              "T09438"
+            ]
+          ],
+          "contextDelta": [
+            "T09438",
+            "T09439"
+          ],
+          "effects": [
+            1,
+            0
+          ],
+          "effectSyndrome": 1,
+          "pairRows": [
+            [
+              "1609:310",
+              "1173:4202"
+            ],
+            [
+              "589:1330",
+              "8341:4874"
+            ]
+          ],
+          "pairOutcomes": [
+            [
+              "loss",
+              "draw"
+            ],
+            [
+              "win",
+              "win"
+            ]
+          ]
+        },
+        {
+          "pairingIndex": 1,
+          "pairs": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              3
+            ]
+          ],
+          "toggle": [
+            "T09438",
+            "T09439"
+          ],
+          "toggleSize": 2,
+          "contexts": [
+            [
+              "T09176",
+              "T09440"
+            ],
+            [
+              "T08868"
+            ]
+          ],
+          "contextDelta": [
+            "T08868",
+            "T09176",
+            "T09440"
+          ],
+          "effects": [
+            2,
+            3
+          ],
+          "effectSyndrome": 1,
+          "pairRows": [
+            [
+              "1609:310",
+              "589:1330"
+            ],
+            [
+              "1173:4202",
+              "8341:4874"
+            ]
+          ],
+          "pairOutcomes": [
+            [
+              "loss",
+              "win"
+            ],
+            [
+              "draw",
+              "win"
+            ]
+          ]
+        },
+        {
+          "pairingIndex": 2,
+          "pairs": [
+            [
+              0,
+              3
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "toggle": [
+            "T08868",
+            "T09176",
+            "T09438",
+            "T09439",
+            "T09440"
+          ],
+          "toggleSize": 5,
+          "contexts": [
+            [],
+            []
+          ],
+          "contextDelta": [],
+          "effects": [
+            2,
+            3
+          ],
+          "effectSyndrome": 1,
+          "pairRows": [
+            [
+              "1609:310",
+              "8341:4874"
+            ],
+            [
+              "1173:4202",
+              "589:1330"
+            ]
+          ],
+          "pairOutcomes": [
+            [
+              "loss",
+              "win"
+            ],
+            [
+              "draw",
+              "win"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "R07",
+      "rank": 10,
+      "certificateSize": 4,
+      "stateKeys": [
+        "1609:310",
+        "1413:4202",
+        "589:1330",
+        "2437:4202"
+      ],
+      "outcomes": [
+        "loss",
+        "win",
+        "win",
+        "win"
+      ],
+      "codes": [
+        0,
+        2,
+        2,
+        2
+      ],
+      "typeDictionary": {
+        "T07235": {
+          "canonicalType": "0,2|4.16|48",
+          "width": 2
+        },
+        "T09176": {
+          "canonicalType": "1,2,2|64.136|64.264",
+          "width": 3
+        },
+        "T09438": {
+          "canonicalType": "2||",
+          "width": 1
+        },
+        "T09439": {
+          "canonicalType": "2||4",
+          "width": 1
+        },
+        "T09440": {
+          "canonicalType": "3||",
+          "width": 1
+        }
+      },
+      "minimumToggleSize": 2,
+      "minimalPairings": [
+        {
+          "pairingIndex": 1,
+          "pairs": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              3
+            ]
+          ],
+          "toggle": [
+            "T09438",
+            "T09439"
+          ],
+          "toggleSize": 2,
+          "contexts": [
+            [
+              "T09176",
+              "T09440"
+            ],
+            [
+              "T07235"
+            ]
+          ],
+          "contextDelta": [
+            "T07235",
+            "T09176",
+            "T09440"
+          ],
+          "effects": [
+            2,
+            0
+          ],
+          "effectSyndrome": 2,
+          "pairRows": [
+            [
+              "1609:310",
+              "589:1330"
+            ],
+            [
+              "1413:4202",
+              "2437:4202"
+            ]
+          ],
+          "pairOutcomes": [
+            [
+              "loss",
+              "win"
+            ],
+            [
+              "win",
+              "win"
+            ]
+          ]
+        }
+      ],
+      "allPairings": [
+        {
+          "pairingIndex": 0,
+          "pairs": [
+            [
+              0,
+              1
+            ],
+            [
+              2,
+              3
+            ]
+          ],
+          "toggle": [
+            "T07235",
+            "T09176",
+            "T09440"
+          ],
+          "toggleSize": 3,
+          "contexts": [
+            [
+              "T09439"
+            ],
+            [
+              "T09438"
+            ]
+          ],
+          "contextDelta": [
+            "T09438",
+            "T09439"
+          ],
+          "effects": [
+            2,
+            0
+          ],
+          "effectSyndrome": 2,
+          "pairRows": [
+            [
+              "1609:310",
+              "1413:4202"
+            ],
+            [
+              "589:1330",
+              "2437:4202"
+            ]
+          ],
+          "pairOutcomes": [
+            [
+              "loss",
+              "win"
+            ],
+            [
+              "win",
+              "win"
+            ]
+          ]
+        },
+        {
+          "pairingIndex": 1,
+          "pairs": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              3
+            ]
+          ],
+          "toggle": [
+            "T09438",
+            "T09439"
+          ],
+          "toggleSize": 2,
+          "contexts": [
+            [
+              "T09176",
+              "T09440"
+            ],
+            [
+              "T07235"
+            ]
+          ],
+          "contextDelta": [
+            "T07235",
+            "T09176",
+            "T09440"
+          ],
+          "effects": [
+            2,
+            0
+          ],
+          "effectSyndrome": 2,
+          "pairRows": [
+            [
+              "1609:310",
+              "589:1330"
+            ],
+            [
+              "1413:4202",
+              "2437:4202"
+            ]
+          ],
+          "pairOutcomes": [
+            [
+              "loss",
+              "win"
+            ],
+            [
+              "win",
+              "win"
+            ]
+          ]
+        },
+        {
+          "pairingIndex": 2,
+          "pairs": [
+            [
+              0,
+              3
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "toggle": [
+            "T07235",
+            "T09176",
+            "T09438",
+            "T09439",
+            "T09440"
+          ],
+          "toggleSize": 5,
+          "contexts": [
+            [],
+            []
+          ],
+          "contextDelta": [],
+          "effects": [
+            2,
+            0
+          ],
+          "effectSyndrome": 2,
+          "pairRows": [
+            [
+              "1609:310",
+              "2437:4202"
+            ],
+            [
+              "1413:4202",
+              "589:1330"
+            ]
+          ],
+          "pairOutcomes": [
+            [
+              "loss",
+              "win"
+            ],
+            [
+              "win",
+              "win"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "R08",
+      "rank": 10,
+      "certificateSize": 4,
+      "stateKeys": [
+        "1609:310",
+        "1413:4202",
+        "589:1330",
+        "8404:4874"
+      ],
+      "outcomes": [
+        "loss",
+        "win",
+        "win",
+        "win"
+      ],
+      "codes": [
+        0,
+        2,
+        2,
+        2
+      ],
+      "typeDictionary": {
+        "T07235": {
+          "canonicalType": "0,2|4.16|48",
+          "width": 2
+        },
+        "T09176": {
+          "canonicalType": "1,2,2|64.136|64.264",
+          "width": 3
+        },
+        "T09438": {
+          "canonicalType": "2||",
+          "width": 1
+        },
+        "T09439": {
+          "canonicalType": "2||4",
+          "width": 1
+        },
+        "T09440": {
+          "canonicalType": "3||",
+          "width": 1
+        }
+      },
+      "minimumToggleSize": 2,
+      "minimalPairings": [
+        {
+          "pairingIndex": 1,
+          "pairs": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              3
+            ]
+          ],
+          "toggle": [
+            "T09438",
+            "T09439"
+          ],
+          "toggleSize": 2,
+          "contexts": [
+            [
+              "T09176",
+              "T09440"
+            ],
+            [
+              "T07235"
+            ]
+          ],
+          "contextDelta": [
+            "T07235",
+            "T09176",
+            "T09440"
+          ],
+          "effects": [
+            2,
+            0
+          ],
+          "effectSyndrome": 2,
+          "pairRows": [
+            [
+              "1609:310",
+              "589:1330"
+            ],
+            [
+              "1413:4202",
+              "8404:4874"
+            ]
+          ],
+          "pairOutcomes": [
+            [
+              "loss",
+              "win"
+            ],
+            [
+              "win",
+              "win"
+            ]
+          ]
+        }
+      ],
+      "allPairings": [
+        {
+          "pairingIndex": 0,
+          "pairs": [
+            [
+              0,
+              1
+            ],
+            [
+              2,
+              3
+            ]
+          ],
+          "toggle": [
+            "T07235",
+            "T09176",
+            "T09440"
+          ],
+          "toggleSize": 3,
+          "contexts": [
+            [
+              "T09439"
+            ],
+            [
+              "T09438"
+            ]
+          ],
+          "contextDelta": [
+            "T09438",
+            "T09439"
+          ],
+          "effects": [
+            2,
+            0
+          ],
+          "effectSyndrome": 2,
+          "pairRows": [
+            [
+              "1609:310",
+              "1413:4202"
+            ],
+            [
+              "589:1330",
+              "8404:4874"
+            ]
+          ],
+          "pairOutcomes": [
+            [
+              "loss",
+              "win"
+            ],
+            [
+              "win",
+              "win"
+            ]
+          ]
+        },
+        {
+          "pairingIndex": 1,
+          "pairs": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              3
+            ]
+          ],
+          "toggle": [
+            "T09438",
+            "T09439"
+          ],
+          "toggleSize": 2,
+          "contexts": [
+            [
+              "T09176",
+              "T09440"
+            ],
+            [
+              "T07235"
+            ]
+          ],
+          "contextDelta": [
+            "T07235",
+            "T09176",
+            "T09440"
+          ],
+          "effects": [
+            2,
+            0
+          ],
+          "effectSyndrome": 2,
+          "pairRows": [
+            [
+              "1609:310",
+              "589:1330"
+            ],
+            [
+              "1413:4202",
+              "8404:4874"
+            ]
+          ],
+          "pairOutcomes": [
+            [
+              "loss",
+              "win"
+            ],
+            [
+              "win",
+              "win"
+            ]
+          ]
+        },
+        {
+          "pairingIndex": 2,
+          "pairs": [
+            [
+              0,
+              3
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "toggle": [
+            "T07235",
+            "T09176",
+            "T09438",
+            "T09439",
+            "T09440"
+          ],
+          "toggleSize": 5,
+          "contexts": [
+            [],
+            []
+          ],
+          "contextDelta": [],
+          "effects": [
+            2,
+            0
+          ],
+          "effectSyndrome": 2,
+          "pairRows": [
+            [
+              "1609:310",
+              "8404:4874"
+            ],
+            [
+              "1413:4202",
+              "589:1330"
+            ]
+          ],
+          "pairOutcomes": [
+            [
+              "loss",
+              "win"
+            ],
+            [
+              "win",
+              "win"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "R09",
+      "rank": 10,
+      "certificateSize": 4,
+      "stateKeys": [
+        "1609:310",
+        "589:1330",
+        "2153:1810",
+        "16489:1810"
+      ],
+      "outcomes": [
+        "loss",
+        "win",
+        "loss",
+        "loss"
+      ],
+      "codes": [
+        0,
+        2,
+        0,
+        0
+      ],
+      "typeDictionary": {
+        "T07323": {
+          "canonicalType": "0|2.4|2.4",
+          "width": 1
+        },
+        "T09176": {
+          "canonicalType": "1,2,2|64.136|64.264",
+          "width": 3
+        },
+        "T09438": {
+          "canonicalType": "2||",
+          "width": 1
+        },
+        "T09439": {
+          "canonicalType": "2||4",
+          "width": 1
+        },
+        "T09440": {
+          "canonicalType": "3||",
+          "width": 1
+        }
+      },
+      "minimumToggleSize": 2,
+      "minimalPairings": [
+        {
+          "pairingIndex": 0,
+          "pairs": [
+            [
+              0,
+              1
+            ],
+            [
+              2,
+              3
+            ]
+          ],
+          "toggle": [
+            "T09438",
+            "T09439"
+          ],
+          "toggleSize": 2,
+          "contexts": [
+            [
+              "T09176",
+              "T09440"
+            ],
+            [
+              "T07323"
+            ]
+          ],
+          "contextDelta": [
+            "T07323",
+            "T09176",
+            "T09440"
+          ],
+          "effects": [
+            2,
+            0
+          ],
+          "effectSyndrome": 2,
+          "pairRows": [
+            [
+              "1609:310",
+              "589:1330"
+            ],
+            [
+              "2153:1810",
+              "16489:1810"
+            ]
+          ],
+          "pairOutcomes": [
+            [
+              "loss",
+              "win"
+            ],
+            [
+              "loss",
+              "loss"
+            ]
+          ]
+        }
+      ],
+      "allPairings": [
+        {
+          "pairingIndex": 0,
+          "pairs": [
+            [
+              0,
+              1
+            ],
+            [
+              2,
+              3
+            ]
+          ],
+          "toggle": [
+            "T09438",
+            "T09439"
+          ],
+          "toggleSize": 2,
+          "contexts": [
+            [
+              "T09176",
+              "T09440"
+            ],
+            [
+              "T07323"
+            ]
+          ],
+          "contextDelta": [
+            "T07323",
+            "T09176",
+            "T09440"
+          ],
+          "effects": [
+            2,
+            0
+          ],
+          "effectSyndrome": 2,
+          "pairRows": [
+            [
+              "1609:310",
+              "589:1330"
+            ],
+            [
+              "2153:1810",
+              "16489:1810"
+            ]
+          ],
+          "pairOutcomes": [
+            [
+              "loss",
+              "win"
+            ],
+            [
+              "loss",
+              "loss"
+            ]
+          ]
+        },
+        {
+          "pairingIndex": 1,
+          "pairs": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              3
+            ]
+          ],
+          "toggle": [
+            "T07323",
+            "T09176",
+            "T09438",
+            "T09440"
+          ],
+          "toggleSize": 4,
+          "contexts": [
+            [
+              "T09439"
+            ],
+            []
+          ],
+          "contextDelta": [
+            "T09439"
+          ],
+          "effects": [
+            0,
+            2
+          ],
+          "effectSyndrome": 2,
+          "pairRows": [
+            [
+              "1609:310",
+              "2153:1810"
+            ],
+            [
+              "589:1330",
+              "16489:1810"
+            ]
+          ],
+          "pairOutcomes": [
+            [
+              "loss",
+              "loss"
+            ],
+            [
+              "win",
+              "loss"
+            ]
+          ]
+        },
+        {
+          "pairingIndex": 2,
+          "pairs": [
+            [
+              0,
+              3
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "toggle": [
+            "T07323",
+            "T09176",
+            "T09439",
+            "T09440"
+          ],
+          "toggleSize": 4,
+          "contexts": [
+            [],
+            [
+              "T09438"
+            ]
+          ],
+          "contextDelta": [
+            "T09438"
+          ],
+          "effects": [
+            0,
+            2
+          ],
+          "effectSyndrome": 2,
+          "pairRows": [
+            [
+              "1609:310",
+              "16489:1810"
+            ],
+            [
+              "589:1330",
+              "2153:1810"
+            ]
+          ],
+          "pairOutcomes": [
+            [
+              "loss",
+              "loss"
+            ],
+            [
+              "win",
+              "loss"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "R10",
+      "rank": 10,
+      "certificateSize": 4,
+      "stateKeys": [
+        "1609:310",
+        "589:1330",
+        "2153:1810",
+        "1810:16489"
+      ],
+      "outcomes": [
+        "loss",
+        "win",
+        "loss",
+        "loss"
+      ],
+      "codes": [
+        0,
+        2,
+        0,
+        0
+      ],
+      "typeDictionary": {
+        "T07323": {
+          "canonicalType": "0|2.4|2.4",
+          "width": 1
+        },
+        "T09176": {
+          "canonicalType": "1,2,2|64.136|64.264",
+          "width": 3
+        },
+        "T09438": {
+          "canonicalType": "2||",
+          "width": 1
+        },
+        "T09439": {
+          "canonicalType": "2||4",
+          "width": 1
+        },
+        "T09440": {
+          "canonicalType": "3||",
+          "width": 1
+        }
+      },
+      "minimumToggleSize": 2,
+      "minimalPairings": [
+        {
+          "pairingIndex": 0,
+          "pairs": [
+            [
+              0,
+              1
+            ],
+            [
+              2,
+              3
+            ]
+          ],
+          "toggle": [
+            "T09438",
+            "T09439"
+          ],
+          "toggleSize": 2,
+          "contexts": [
+            [
+              "T09176",
+              "T09440"
+            ],
+            [
+              "T07323"
+            ]
+          ],
+          "contextDelta": [
+            "T07323",
+            "T09176",
+            "T09440"
+          ],
+          "effects": [
+            2,
+            0
+          ],
+          "effectSyndrome": 2,
+          "pairRows": [
+            [
+              "1609:310",
+              "589:1330"
+            ],
+            [
+              "2153:1810",
+              "1810:16489"
+            ]
+          ],
+          "pairOutcomes": [
+            [
+              "loss",
+              "win"
+            ],
+            [
+              "loss",
+              "loss"
+            ]
+          ]
+        }
+      ],
+      "allPairings": [
+        {
+          "pairingIndex": 0,
+          "pairs": [
+            [
+              0,
+              1
+            ],
+            [
+              2,
+              3
+            ]
+          ],
+          "toggle": [
+            "T09438",
+            "T09439"
+          ],
+          "toggleSize": 2,
+          "contexts": [
+            [
+              "T09176",
+              "T09440"
+            ],
+            [
+              "T07323"
+            ]
+          ],
+          "contextDelta": [
+            "T07323",
+            "T09176",
+            "T09440"
+          ],
+          "effects": [
+            2,
+            0
+          ],
+          "effectSyndrome": 2,
+          "pairRows": [
+            [
+              "1609:310",
+              "589:1330"
+            ],
+            [
+              "2153:1810",
+              "1810:16489"
+            ]
+          ],
+          "pairOutcomes": [
+            [
+              "loss",
+              "win"
+            ],
+            [
+              "loss",
+              "loss"
+            ]
+          ]
+        },
+        {
+          "pairingIndex": 1,
+          "pairs": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              3
+            ]
+          ],
+          "toggle": [
+            "T07323",
+            "T09176",
+            "T09438",
+            "T09440"
+          ],
+          "toggleSize": 4,
+          "contexts": [
+            [
+              "T09439"
+            ],
+            []
+          ],
+          "contextDelta": [
+            "T09439"
+          ],
+          "effects": [
+            0,
+            2
+          ],
+          "effectSyndrome": 2,
+          "pairRows": [
+            [
+              "1609:310",
+              "2153:1810"
+            ],
+            [
+              "589:1330",
+              "1810:16489"
+            ]
+          ],
+          "pairOutcomes": [
+            [
+              "loss",
+              "loss"
+            ],
+            [
+              "win",
+              "loss"
+            ]
+          ]
+        },
+        {
+          "pairingIndex": 2,
+          "pairs": [
+            [
+              0,
+              3
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "toggle": [
+            "T07323",
+            "T09176",
+            "T09439",
+            "T09440"
+          ],
+          "toggleSize": 4,
+          "contexts": [
+            [],
+            [
+              "T09438"
+            ]
+          ],
+          "contextDelta": [
+            "T09438"
+          ],
+          "effects": [
+            0,
+            2
+          ],
+          "effectSyndrome": 2,
+          "pairRows": [
+            [
+              "1609:310",
+              "1810:16489"
+            ],
+            [
+              "589:1330",
+              "2153:1810"
+            ]
+          ],
+          "pairOutcomes": [
+            [
+              "loss",
+              "loss"
+            ],
+            [
+              "win",
+              "loss"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "R11",
+      "rank": 11,
+      "certificateSize": 4,
+      "stateKeys": [
+        "3461:4202",
+        "3461:8298",
+        "4714:1173",
+        "4714:2197"
+      ],
+      "outcomes": [
+        "loss",
+        "loss",
+        "loss",
+        "draw"
+      ],
+      "codes": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "typeDictionary": {
+        "T07317": {
+          "canonicalType": "0|2.4|",
+          "width": 1
+        },
+        "T09325": {
+          "canonicalType": "1,2|20.48|36",
+          "width": 2
+        },
+        "T09436": {
+          "canonicalType": "2|4|",
+          "width": 1
+        },
+        "T09438": {
+          "canonicalType": "2||",
+          "width": 1
+        },
+        "T09440": {
+          "canonicalType": "3||",
+          "width": 1
+        }
+      },
+      "minimumToggleSize": 2,
+      "minimalPairings": [
+        {
+          "pairingIndex": 0,
+          "pairs": [
+            [
+              0,
+              1
+            ],
+            [
+              2,
+              3
+            ]
+          ],
+          "toggle": [
+            "T09436",
+            "T09438"
+          ],
+          "toggleSize": 2,
+          "contexts": [
+            [
+              "T07317",
+              "T09440"
+            ],
+            [
+              "T09325"
+            ]
+          ],
+          "contextDelta": [
+            "T07317",
+            "T09325",
+            "T09440"
+          ],
+          "effects": [
+            0,
+            1
+          ],
+          "effectSyndrome": 1,
+          "pairRows": [
+            [
+              "3461:4202",
+              "3461:8298"
+            ],
+            [
+              "4714:1173",
+              "4714:2197"
+            ]
+          ],
+          "pairOutcomes": [
+            [
+              "loss",
+              "loss"
+            ],
+            [
+              "loss",
+              "draw"
+            ]
+          ]
+        }
+      ],
+      "allPairings": [
+        {
+          "pairingIndex": 0,
+          "pairs": [
+            [
+              0,
+              1
+            ],
+            [
+              2,
+              3
+            ]
+          ],
+          "toggle": [
+            "T09436",
+            "T09438"
+          ],
+          "toggleSize": 2,
+          "contexts": [
+            [
+              "T07317",
+              "T09440"
+            ],
+            [
+              "T09325"
+            ]
+          ],
+          "contextDelta": [
+            "T07317",
+            "T09325",
+            "T09440"
+          ],
+          "effects": [
+            0,
+            1
+          ],
+          "effectSyndrome": 1,
+          "pairRows": [
+            [
+              "3461:4202",
+              "3461:8298"
+            ],
+            [
+              "4714:1173",
+              "4714:2197"
+            ]
+          ],
+          "pairOutcomes": [
+            [
+              "loss",
+              "loss"
+            ],
+            [
+              "loss",
+              "draw"
+            ]
+          ]
+        },
+        {
+          "pairingIndex": 1,
+          "pairs": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              3
+            ]
+          ],
+          "toggle": [
+            "T07317",
+            "T09325",
+            "T09436",
+            "T09438",
+            "T09440"
+          ],
+          "toggleSize": 5,
+          "contexts": [
+            [],
+            []
+          ],
+          "contextDelta": [],
+          "effects": [
+            0,
+            1
+          ],
+          "effectSyndrome": 1,
+          "pairRows": [
+            [
+              "3461:4202",
+              "4714:1173"
+            ],
+            [
+              "3461:8298",
+              "4714:2197"
+            ]
+          ],
+          "pairOutcomes": [
+            [
+              "loss",
+              "loss"
+            ],
+            [
+              "loss",
+              "draw"
+            ]
+          ]
+        },
+        {
+          "pairingIndex": 2,
+          "pairs": [
+            [
+              0,
+              3
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "toggle": [
+            "T07317",
+            "T09325",
+            "T09440"
+          ],
+          "toggleSize": 3,
+          "contexts": [
+            [
+              "T09438"
+            ],
+            [
+              "T09436"
+            ]
+          ],
+          "contextDelta": [
+            "T09436",
+            "T09438"
+          ],
+          "effects": [
+            1,
+            0
+          ],
+          "effectSyndrome": 1,
+          "pairRows": [
+            [
+              "3461:4202",
+              "4714:2197"
+            ],
+            [
+              "3461:8298",
+              "4714:1173"
+            ]
+          ],
+          "pairOutcomes": [
+            [
+              "loss",
+              "draw"
+            ],
+            [
+              "loss",
+              "loss"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "R12",
+      "rank": 11,
+      "certificateSize": 4,
+      "stateKeys": [
+        "3461:4202",
+        "3461:8298",
+        "4714:1173",
+        "4906:8341"
+      ],
+      "outcomes": [
+        "loss",
+        "loss",
+        "loss",
+        "draw"
+      ],
+      "codes": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "typeDictionary": {
+        "T07317": {
+          "canonicalType": "0|2.4|",
+          "width": 1
+        },
+        "T09325": {
+          "canonicalType": "1,2|20.48|36",
+          "width": 2
+        },
+        "T09436": {
+          "canonicalType": "2|4|",
+          "width": 1
+        },
+        "T09438": {
+          "canonicalType": "2||",
+          "width": 1
+        },
+        "T09440": {
+          "canonicalType": "3||",
+          "width": 1
+        }
+      },
+      "minimumToggleSize": 2,
+      "minimalPairings": [
+        {
+          "pairingIndex": 0,
+          "pairs": [
+            [
+              0,
+              1
+            ],
+            [
+              2,
+              3
+            ]
+          ],
+          "toggle": [
+            "T09436",
+            "T09438"
+          ],
+          "toggleSize": 2,
+          "contexts": [
+            [
+              "T07317",
+              "T09440"
+            ],
+            [
+              "T09325"
+            ]
+          ],
+          "contextDelta": [
+            "T07317",
+            "T09325",
+            "T09440"
+          ],
+          "effects": [
+            0,
+            1
+          ],
+          "effectSyndrome": 1,
+          "pairRows": [
+            [
+              "3461:4202",
+              "3461:8298"
+            ],
+            [
+              "4714:1173",
+              "4906:8341"
+            ]
+          ],
+          "pairOutcomes": [
+            [
+              "loss",
+              "loss"
+            ],
+            [
+              "loss",
+              "draw"
+            ]
+          ]
+        }
+      ],
+      "allPairings": [
+        {
+          "pairingIndex": 0,
+          "pairs": [
+            [
+              0,
+              1
+            ],
+            [
+              2,
+              3
+            ]
+          ],
+          "toggle": [
+            "T09436",
+            "T09438"
+          ],
+          "toggleSize": 2,
+          "contexts": [
+            [
+              "T07317",
+              "T09440"
+            ],
+            [
+              "T09325"
+            ]
+          ],
+          "contextDelta": [
+            "T07317",
+            "T09325",
+            "T09440"
+          ],
+          "effects": [
+            0,
+            1
+          ],
+          "effectSyndrome": 1,
+          "pairRows": [
+            [
+              "3461:4202",
+              "3461:8298"
+            ],
+            [
+              "4714:1173",
+              "4906:8341"
+            ]
+          ],
+          "pairOutcomes": [
+            [
+              "loss",
+              "loss"
+            ],
+            [
+              "loss",
+              "draw"
+            ]
+          ]
+        },
+        {
+          "pairingIndex": 1,
+          "pairs": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              3
+            ]
+          ],
+          "toggle": [
+            "T07317",
+            "T09325",
+            "T09436",
+            "T09438",
+            "T09440"
+          ],
+          "toggleSize": 5,
+          "contexts": [
+            [],
+            []
+          ],
+          "contextDelta": [],
+          "effects": [
+            0,
+            1
+          ],
+          "effectSyndrome": 1,
+          "pairRows": [
+            [
+              "3461:4202",
+              "4714:1173"
+            ],
+            [
+              "3461:8298",
+              "4906:8341"
+            ]
+          ],
+          "pairOutcomes": [
+            [
+              "loss",
+              "loss"
+            ],
+            [
+              "loss",
+              "draw"
+            ]
+          ]
+        },
+        {
+          "pairingIndex": 2,
+          "pairs": [
+            [
+              0,
+              3
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "toggle": [
+            "T07317",
+            "T09325",
+            "T09440"
+          ],
+          "toggleSize": 3,
+          "contexts": [
+            [
+              "T09438"
+            ],
+            [
+              "T09436"
+            ]
+          ],
+          "contextDelta": [
+            "T09436",
+            "T09438"
+          ],
+          "effects": [
+            1,
+            0
+          ],
+          "effectSyndrome": 1,
+          "pairRows": [
+            [
+              "3461:4202",
+              "4906:8341"
+            ],
+            [
+              "3461:8298",
+              "4714:1173"
+            ]
+          ],
+          "pairOutcomes": [
+            [
+              "loss",
+              "draw"
+            ],
+            [
+              "loss",
+              "loss"
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "interpretationGuard": [
+    "Pairings are ranked only by component-parity symmetric-difference cardinality; outcomes do not select the pairing.",
+    "A toggle signature is a candidate local substitution direction, not yet a fitted interaction term.",
+    "Different contexts producing different code deltas under the same toggle certify contextual nonlinearity.",
+    "Multiple toggle groups would reject a one-substitution explanation but would not by itself prove multiple algebra generators after further normalization.",
+    "No standard-7x6 claim follows."
+  ]
+}
