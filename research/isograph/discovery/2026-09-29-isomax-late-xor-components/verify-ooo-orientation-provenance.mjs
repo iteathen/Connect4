@@ -73,9 +73,10 @@ for(const [W,H,K] of [[6,3,3],[4,5,4],[6,3,4]]){
 }
 
 for(const required of [
-  'horizontal reflection preserves H',
-  'horizontal reflection preserves V',
-  'horizontal reflection exchanges D+ and D-',
+  '- H -> H',
+  '- V -> V',
+  '- D+ -> D-',
+  '- D- -> D+',
   'duplicate residual masks',
   'strict-superset absorption'
 ]){
