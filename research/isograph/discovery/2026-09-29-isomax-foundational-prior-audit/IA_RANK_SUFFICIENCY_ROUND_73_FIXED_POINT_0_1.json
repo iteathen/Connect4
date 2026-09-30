@@ -1,0 +1,31 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_fixed_point.v1",
+  "round": 73,
+  "date_author_local": "2026-09-30",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_72_0_1.json",
+    "RANK_SUFFICIENCY_PAIR_DELTA_COORDINATE_INTEGRATION_0_1.json"
+  ],
+  "recursive_generation": {
+    "families_checked": [
+      "exact magnitude versus sign",
+      "support/parity/unsigned magnitude failures",
+      "signed-parity alternate exact realization",
+      "structural-rank comparison of sign versus signed parity",
+      "orientation-independent exchange interpretation",
+      "token-family decomposition W/C_i/D0_d/D1_d",
+      "formula-holdout anti-circularity"
+    ],
+    "new_assertions": []
+  },
+  "fixed_point": true,
+  "reason": "EW-RS-070 removes exact magnitude from the common exchange realization but does not identify which token-coordinate families are necessary or a closed scalar syndrome. Further exact deductions require a new frozen token-family/role-depth compression experiment.",
+  "next_evidence_boundaries": [
+    "preserve DELTA_SIGN_TRIANGLE as the frozen-order selected common control",
+    "preserve DELTA_SIGNED_PARITY_TRIANGLE as an alternate uniformly rank-reducing exact control",
+    "freeze token-family subsets before scalar replay",
+    "do not outcome-select individual signed token coordinates",
+    "EW-RS-059 PRIMARY 3x6-k4 and BACKUP 5x3-k4 remain sealed"
+  ],
+  "stop_status": "FIXED_POINT__SIGNED_EXCHANGE_TOKEN_FAMILY_NEXT"
+}
