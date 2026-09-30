@@ -1,0 +1,44 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.same_rank_xor_certificate.v1",
+  "id": "EW-RS-029",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "parent": "EW-RS-028",
+  "objective": "Extract an explicit same-exact-rank dependency certificate for the smaller 5x3-k3 exact-rank-graded affine XOR falsifier before introducing any pairwise, polynomial, or other interaction term.",
+  "frozen_from_prior": [
+    "post-RFG residual-incidence connected components",
+    "support/owner-labelled canonical component type",
+    "direct rank-local T2 partition W/L2/O",
+    "T2-O relative outcome code loss=00, draw=01, win=10",
+    "exact-rank-disjoint independent GF(2)^2 component valuation model"
+  ],
+  "target": {
+    "geometry": "5x3-k3",
+    "known_equations": 7255,
+    "known_contradictions": 18,
+    "first_known_contradiction_state": "2197:4202",
+    "known_rank": 10
+  },
+  "method": [
+    "Repeat the frozen exact-rank GF(2) elimination on 5x3-k3 only.",
+    "Carry source-equation provenance through every row XOR.",
+    "When a zero-left-hand-side/nonzero-right-hand-side row appears, emit the exact source equations whose XOR forms the contradiction.",
+    "Mechanically verify that all component-variable coefficients and the exact-rank affine offset cancel while the outcome code does not.",
+    "Record component instances/columns and board support for each certificate equation to expose any contextual interaction clue."
+  ],
+  "falsifiers_and_outcomes": [
+    "A two-equation certificate would imply two identical exact-rank parity signatures with different values and would contradict the already frozen Q-V sufficiency result; this must not occur.",
+    "A four-equation rectangle would establish a minimal-form nonlinear interaction witness for the tested affine code, but would not by itself identify the correct interaction term.",
+    "A larger dependency still falsifies independent additivity and must be preserved without forcing a pairwise explanation."
+  ],
+  "anti_circularity": [
+    "No structural key is modified using outcome labels.",
+    "The certificate is extracted from the already-frozen failed linear model.",
+    "No new interaction feature is introduced in this experiment."
+  ],
+  "nonclaims": [
+    "The certificate does not falsify the Q-V sufficiency of exact rank plus component parity plus T2.",
+    "The certificate does not falsify every XOR-like or finite-algebra decoder.",
+    "No standard-7x6 claim follows."
+  ]
+}
