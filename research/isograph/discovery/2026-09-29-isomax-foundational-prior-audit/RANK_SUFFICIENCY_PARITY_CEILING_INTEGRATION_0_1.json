@@ -1,0 +1,94 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.parity_ceiling_integration.v1",
+  "date_author_local": "2026-09-29",
+  "research_direction": "Joshua Oshiro",
+  "status": "COMPONENT_PARITY_ALL_DEGREE_CEILING_FIRED",
+  "evidence": [
+    {
+      "id": "FRESH_4X5",
+      "branch": "experiment/isomax-late-xor-components-20260929",
+      "commit": "d2836997ed1b2ad5e5e7576baeed11f2009e6b62",
+      "file": "RELEASE_PARITY_FRESH_HOLDOUT_4X5K4_0_1.json",
+      "warrant": "EW-RS-043"
+    },
+    {
+      "id": "CUBIC",
+      "branch": "experiment/isomax-late-xor-components-20260929",
+      "commit": "d2450d30ab003c11506fae5ea4df11c50c449d68",
+      "file": "FRESH_CUBIC_EXACT_COMPONENT_4X5K4_0_1.json",
+      "warrant": "EW-RS-044"
+    },
+    {
+      "id": "PARITY_CEILING",
+      "branch": "experiment/isomax-late-xor-components-20260929",
+      "commit": "ce56d35e46bf9cebcb7dbe1644d3ff80ebcf8d05",
+      "file": "PARITY_ALL_DEGREE_CEILING_4X5K4_0_1.json",
+      "warrant": "EW-RS-045"
+    }
+  ],
+  "results": {
+    "4x5-k4": {
+      "physical_states": 1706255,
+      "t2_o_equations": 933975,
+      "degree1_contradictions": 23918,
+      "degree2_exact_component_contradictions": 12,
+      "degree3_exact_component_contradictions": 12,
+      "cubic_columns_added": 8486,
+      "cubic_rank_gain": 70,
+      "exact_rank_parity_mixed_value_classes": 3,
+      "exact_rank_mod3_qv": true,
+      "exact_rank_mod4_qv": true,
+      "exact_rank_mod6_qv": true,
+      "exact_rank_full_multiplicity_qv": true
+    }
+  },
+  "minimum_parity_collision": {
+    "rank": 13,
+    "multiplicity_difference_l1": 4,
+    "pair_units": 2,
+    "form": "two copies of one exact component type are replaced by two copies of another while the complete odd-multiplicity component set stays unchanged",
+    "separated_by_mod3": true,
+    "separated_by_mod4": true,
+    "separated_by_mod6": true,
+    "separated_by_full_multiplicity": true
+  },
+  "findings": [
+    {
+      "id": "RS-F165",
+      "status": "FRESH_QUADRATIC_FALSIFIER",
+      "statement": "On predeclared fresh non-affine 4x5-k4, exact-rank degree-2 GF(2)^2 valuation over exact component-parity variables leaves 12 contradictions."
+    },
+    {
+      "id": "RS-F166",
+      "status": "CUBIC_NONREPAIR",
+      "statement": "Adding all observed square-free exact-component cubic monomials adds 8,486 columns and 70 rank directions but leaves the same 12 contradictions, including the same first contradiction."
+    },
+    {
+      "id": "RS-F167",
+      "status": "ALL_DEGREE_PARITY_CEILING",
+      "statement": "There are three exact-rank T2-O classes on 4x5-k4 with identical complete exact-component multiplicity-parity vectors but different scalar values. Therefore no evaluator depending only on exact rank and those binary parity coordinates can be Q-V exact, regardless of polynomial degree."
+    },
+    {
+      "id": "RS-F168",
+      "status": "COUNT_REDUCTION_SEAM",
+      "statement": "Full exact component multiplicity remains Q-V exact on 4x5-k4, isolating the fresh failure to count reduction rather than to the exact component multiset representation."
+    },
+    {
+      "id": "RS-F169",
+      "status": "FINITE_COUNT_RESIDUE_TRANSFER",
+      "statement": "Exact-rank component multiplicities modulo 3, 4, and 6 are each Q-V exact on the complete 4x5-k4 T2-O corpus."
+    }
+  ],
+  "superseded_or_narrowed": [
+    "The prior hypothesis that quadratic degree may be generally sufficient is now falsified by 4x5-k4.",
+    "The prior plan to seek two final syndrome bits solely over multiplicity-parity component coordinates is too narrow for 4x5-k4.",
+    "TOPO_RPAR remains a valid scalar-exact coordinate on the earlier demanding carriers but fails fresh 4x5-k4 together with the broader REL_INC degree-2 model."
+  ],
+  "nonclaims": [
+    "Degree 3 is not claimed universally insufficient outside the frozen parity coordinate.",
+    "Modulo 3, 4, or 6 is not claimed to be the universal final count algebra.",
+    "Full component multiplicity is not claimed minimal.",
+    "No standard-7x6 theorem follows."
+  ],
+  "next_question": "What is the smallest outcome-independent refinement of component multiplicity parity that retains the pair-count information needed on 4x5-k4 while preserving the earlier bounded exactness results?"
+}
