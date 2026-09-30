@@ -89,6 +89,53 @@ export function coupleFamilyPair(family,plus,minus,mode){
   }
 }
 
+
+export const SIGN_CHANNEL_SOURCE_CODES=Object.freeze({
+  C:Object.freeze([0,1]),
+  D:Object.freeze([0,1,2,3]),
+  A:Object.freeze([0,1,2])
+});
+
+function sourcePairs(family){
+  const codes=SIGN_CHANNEL_SOURCE_CODES[family];
+  assert.ok(codes,'unknown sign-channel family '+family);
+  const out=[];
+  for(const plus of codes)for(const minus of codes)out.push([plus,minus]);
+  return out;
+}
+
+export function signChannelModeNoFiner(family,coarseMode,fineMode){
+  assert.ok(SIGN_CHANNEL_MODES.includes(coarseMode),'unknown coarse sign-channel mode '+coarseMode);
+  assert.ok(SIGN_CHANNEL_MODES.includes(fineMode),'unknown fine sign-channel mode '+fineMode);
+  const pairs=sourcePairs(family);
+  for(let i=0;i<pairs.length;i++)for(let j=i+1;j<pairs.length;j++){
+    const [pi,mi]=pairs[i],[pj,mj]=pairs[j];
+    const fineI=coupleFamilyPair(family,pi,mi,fineMode);
+    const fineJ=coupleFamilyPair(family,pj,mj,fineMode);
+    if(fineI!==fineJ)continue;
+    const coarseI=coupleFamilyPair(family,pi,mi,coarseMode);
+    const coarseJ=coupleFamilyPair(family,pj,mj,coarseMode);
+    if(coarseI!==coarseJ)return false;
+  }
+  return true;
+}
+
+export function signChannelModeEquivalent(family,aMode,bMode){
+  return signChannelModeNoFiner(family,aMode,bMode)&&
+    signChannelModeNoFiner(family,bMode,aMode);
+}
+
+export function signChannelCandidateStrictlyCoarser(a,b){
+  let strict=false;
+  for(const family of ['C','D','A']){
+    assert.ok(a&&b,'sign-channel candidates are required');
+    const aMode=a[family],bMode=b[family];
+    if(!signChannelModeNoFiner(family,aMode,bMode))return false;
+    if(!signChannelModeEquivalent(family,aMode,bMode))strict=true;
+  }
+  return strict;
+}
+
 function parseSelectedSix(raw){
   const m=raw.match(/^C\+=(\d+),C-=(\d+)\|D\+=(\d+),D-=(\d+),A\+=(\d+),A-=(\d+)$/);
   assert.ok(m,'unexpected selected six-bucket signature '+raw);
