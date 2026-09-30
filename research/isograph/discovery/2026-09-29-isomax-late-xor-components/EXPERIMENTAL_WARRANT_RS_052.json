@@ -1,0 +1,59 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.capacity_relative_incidence_zoe.v1",
+  "id": "EW-RS-052",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "parent": "EW-RS-051",
+  "objective": "Test whether the scalar collisions introduced by REL_INC-ZOE are repaired by the already-frozen remaining-local-capacity distinction, without restoring arbitrary exact component identity.",
+  "derivation_cases": [
+    "5x3-k3",
+    "4x4-k4",
+    "6x3-k3",
+    "4x5-k4"
+  ],
+  "motivation": [
+    "EW-RS-051 rejects both REL_INC-ZOE and TOPO_RPAR-ZOE on every demanding derivation carrier while exact-type ZOE remains Q-V exact.",
+    "Minimum REL_INC-ZOE collisions repeatedly replace component types with the same frontier-relative residual-incidence descriptor but different absolute local frontier/capacity, including 2|| versus 3|| and 1|4| versus 2|8|.",
+    "CAP6_REL_INC and CAP_REL_INC were defined outcome-independently before this experiment.",
+    "In EW-RS-035/036, CAP6_REL_INC recovered the complete observed degree-2 structural interaction span on 5x3-k3, 4x4-k4, and 6x3-k3."
+  ],
+  "frozenCountState": {
+    "name": "ZOE",
+    "definition": "For each retained structural identity: omit zero count, emit O for positive odd total multiplicity, emit E for positive even total multiplicity."
+  },
+  "frozenDescriptorCandidates": [
+    {
+      "name": "CAP6_REL_INC_ZOE",
+      "definition": "Map each exact component to (REL_INC, component width, remaining local capacity mod 6); sum multiplicities over equal descriptors; apply ZOE."
+    },
+    {
+      "name": "CAP_REL_INC_ZOE",
+      "definition": "Map each exact component to (REL_INC, component width, exact remaining local capacity); sum multiplicities over equal descriptors; apply ZOE."
+    }
+  ],
+  "controls": [
+    "EXACT_ZOE exact-type ZOE",
+    "REL_INC_ZOE previously rejected aggregation",
+    "MULTI full exact component multiplicity"
+  ],
+  "antiCircularity": [
+    "REL_INC, CAP6_REL_INC, and CAP_REL_INC were defined before EW-RS-051 collision outcomes were observed.",
+    "The capacity value is computed only from current component width, board height, and local column frontier heights.",
+    "Counts are aggregated by the frozen descriptor before ZOE classification.",
+    "No W/D/L label selects a component, capacity residue, merge, phase grade, or coefficient."
+  ],
+  "falsifiers": [
+    "Any mixed scalar-value EXACT_ZOE class invalidates the established control.",
+    "Any mixed scalar-value CAP6_REL_INC_ZOE class rejects capacity-mod-6 relative-incidence aggregation on that carrier.",
+    "Any mixed scalar-value CAP_REL_INC_ZOE class rejects exact-capacity relative-incidence aggregation on that carrier.",
+    "MULTI must remain Q-V exact."
+  ],
+  "nextIfCap6CommonSuccess": "Freeze CAP6_REL_INC_ZOE as the current structural identity compression and qualify it unchanged on predeclared fresh non-affine 5x4-k4 before decoder discovery.",
+  "nextIfExactCapacityOnly": "Freeze CAP_REL_INC_ZOE and localize the capacity-mod-6 alias that causes CAP6 failure before any finer identity feature is added.",
+  "nextIfBothFail": "Freeze the minimum collision families and inspect only the exact component distinctions still erased after exact capacity plus REL_INC; do not return to arbitrary exact IDs.",
+  "interpretationGuards": [
+    "Passing establishes bounded Q-V sufficiency only, not Q-A/Q-F.",
+    "Capacity is retained as a structural descriptor coordinate, not as an outcome-fitted phase.",
+    "No standard-7x6 or universal theorem follows."
+  ]
+}
