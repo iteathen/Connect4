@@ -1,0 +1,72 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_round.v1",
+  "round": 82,
+  "date_author_local": "2026-09-30",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_81_FIXED_POINT_0_1.json",
+    "RANK_SUFFICIENCY_SIX_BUCKET_FAMILY_SATURATION_INTEGRATION_0_1.json"
+  ],
+  "reopened_reason": "EW-RS-076 localizes the common late exchange-count information to one unique Pareto-minimal family-specific saturation law.",
+  "new_assertions": [
+    {
+      "id": "RS-IA255",
+      "family": "M",
+      "body": "Capacity-change magnitude is removable in the common late scalar carrier: C+ and C- each require only zero versus positive."
+    },
+    {
+      "id": "RS-IA256",
+      "family": "F",
+      "body": "Depth-change count is the unique family carrying the 3+ saturation requirement in the frozen C/D/A partition: every common-exact grid point has D=CLIP3."
+    },
+    {
+      "id": "RS-IA257",
+      "family": "Q",
+      "body": "Owner-imbalance magnitude needs only 0/1/2+: A=PRESENCE and A=ZOE remain inexact on 4x5-k4, while A=CLIP2 is exact."
+    },
+    {
+      "id": "RS-IA258",
+      "family": "V",
+      "body": "The selected 4x5-k4 family-saturation carrier has rank 252 versus uniform-CLIP3 rank 253 while preserving scalar image dimension two, so one additional saturation direction is value-null."
+    },
+    {
+      "id": "RS-IA259",
+      "family": "N",
+      "body": "6x3-k3 and 6x3-k4 do not constrain this family grid because all 64 candidates are scalar-exact there; current common MSS localization is entirely forced by 4x5-k4."
+    },
+    {
+      "id": "RS-IA260",
+      "family": "D",
+      "body": "The current common pair-state alphabet is C+/C- presence, D+/D- clipped at 3+, and A+/A- clipped at 2+, with plus/minus channels still distinct."
+    },
+    {
+      "id": "RS-IA261",
+      "family": "R",
+      "body": "The next lawful reduction must act on plus/minus channel coupling symmetrically and structurally; no individual sign bucket may be dropped or merged after inspecting scalar labels."
+    },
+    {
+      "id": "RS-IA262",
+      "family": "F",
+      "body": "EW-RS-059 remains sealed because EW-RS-076 does not define a closed scalar syndrome."
+    }
+  ],
+  "qu_refinements": [
+    {
+      "id": "RS-QR063",
+      "target": "QU-RS-004",
+      "add_fixed": [
+        "the unique Pareto-minimal common family saturation law is C=PRESENCE, D=CLIP3, A=CLIP2",
+        "capacity-change counts beyond presence are common-redundant",
+        "the D depth-change family alone requires the 3+ saturation state within the frozen family partition",
+        "A owner-imbalance counts need 0/1/2+ but not 3+",
+        "4x5-k4 alone determines the common family-saturation MSS because all 64 grid points are exact on both 6x3 hard carriers"
+      ],
+      "retain_open": [
+        "plus/minus channel coupling within C,D,A",
+        "small circuit law on the compressed pair-state alphabet",
+        "closed scalar syndrome before EW-RS-059 unsealing",
+        "standard-7x6 qualification"
+      ]
+    }
+  ],
+  "stop_status": "REOPENED__PLUS_MINUS_COUPLING_NEXT"
+}
