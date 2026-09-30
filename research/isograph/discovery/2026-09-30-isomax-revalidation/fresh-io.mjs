@@ -5,3 +5,7 @@ export function renameCheckpoint(from,to,{rename=fs.renameSync,delay=pause,attem
 }
 export function atomicWrite(file,bytes){fs.writeFileSync(file+'.partial',bytes);renameCheckpoint(file+'.partial',file);}
 export function isHeapLimitFailure(code,stderr){return code!==0&&/FATAL ERROR:[^\r\n]*(?:heap out of memory|Allocation failed.*heap)/i.test(stderr);}
+export function canAdvanceFresh({resultStatus,structureStatus,resourceStatus}){
+  if(resultStatus!==undefined)return resultStatus==='SCALAR_OOO_VACUOUS';
+  return structureStatus==='STRUCTURALLY_VACUOUS'||resourceStatus==='RESOURCE_CENSORED';
+}

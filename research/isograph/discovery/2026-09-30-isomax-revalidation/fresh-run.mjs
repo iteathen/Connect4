@@ -3,16 +3,19 @@ import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {spawn} from 'node:child_process';
 import assert from 'node:assert/strict';
-import {atomicWrite,isHeapLimitFailure} from './fresh-io.mjs';
+import {atomicWrite,isHeapLimitFailure,canAdvanceFresh} from './fresh-io.mjs';
 const here=path.dirname(fileURLToPath(import.meta.url)),[phase,label,commit]=process.argv.slice(2),w=JSON.parse(fs.readFileSync(path.join(here,'FRESH_OOO_WARRANT.json')));
 assert.ok(['prepare','replay'].includes(phase));assert.ok(w.candidateOrder.includes(label));
 const dir=path.join(here,'fresh-'+label);fs.mkdirSync(dir,{recursive:true});
+assert.ok(!fs.existsSync(path.join(dir,'fresh-replay-result.json')),'Scientific result already recorded: no repeated prepare or replay');
 const ledger=path.join(dir,'fresh-resource-ledger.json'),used=fs.existsSync(ledger)?JSON.parse(fs.readFileSync(ledger)).elapsedMs:0;
 const campaignUsed=w.candidateOrder.reduce((n,l)=>{const f=path.join(here,'fresh-'+l,'fresh-resource-ledger.json');return n+(fs.existsSync(f)?JSON.parse(fs.readFileSync(f)).elapsedMs:0);},0);
 assert.ok(used<w.caps.wallMsPerCandidate&&campaignUsed<w.caps.campaignWallMs,'RESOURCE_CENSORED: time already exhausted');
 if(label===w.candidateOrder[1]){
   const prior=path.join(here,'fresh-'+w.candidateOrder[0]);const r=path.join(prior,'fresh-replay-result.json'),m=path.join(prior,'fresh-structure-manifest.json'),l=path.join(prior,'fresh-resource-ledger.json');
-  const canAdvance=(fs.existsSync(r)&&JSON.parse(fs.readFileSync(r)).status==='SCALAR_OOO_VACUOUS')||(fs.existsSync(m)&&JSON.parse(fs.readFileSync(m)).status==='STRUCTURALLY_VACUOUS')||(fs.existsSync(l)&&JSON.parse(fs.readFileSync(l)).status==='RESOURCE_CENSORED');
+  const canAdvance=canAdvanceFresh({resultStatus:fs.existsSync(r)?JSON.parse(fs.readFileSync(r)).status:undefined,
+    structureStatus:fs.existsSync(m)?JSON.parse(fs.readFileSync(m)).status:undefined,
+    resourceStatus:fs.existsSync(l)?JSON.parse(fs.readFileSync(l)).status:undefined});
   assert.ok(canAdvance,'Candidate order: backup requires documented prior vacuity/resource censoring');
 }
 const child=spawn(process.execPath,['--max-old-space-size='+w.caps.v8HeapMiB,path.join(here,'fresh-worker.mjs'),phase,label,...(commit?[commit]:[])],{stdio:['ignore','inherit','pipe'],env:{...process.env,FRESH_SUPERVISED:'1'},windowsHide:true});
