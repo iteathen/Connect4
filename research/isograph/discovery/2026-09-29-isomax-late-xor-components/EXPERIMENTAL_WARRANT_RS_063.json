@@ -1,0 +1,57 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.ooo_third_difference_cubes.v1",
+  "id": "EW-RS-063",
+  "date_author_local": "2026-09-30",
+  "status": "ACTIVE",
+  "parent": "EW-RS-061",
+  "objective": "Render the oddness-only cubic remainder as explicit three-input structural interactions by locating complete E/O Boolean 3-cubes in the frozen ROLE_CAPPAR_REL_INC_ZOE class space and measuring the gauge-invariant third finite difference of the scalar output.",
+  "cases": [
+    "6x3-k3",
+    "4x5-k4",
+    "6x3-k4"
+  ],
+  "frozenCoordinate": {
+    "identity": "ROLE_CAPPAR_REL_INC",
+    "countState": "ZOE",
+    "cubeInput": "three distinct descriptor oddness coordinates O_a,O_b,O_c",
+    "cubeControl": "all descriptor presence bits P are fixed, and every other descriptor E/O state is fixed across the eight corners",
+    "output": "relative W/D/L code L=00,D=01,W=10"
+  },
+  "isographQU": {
+    "knownInputs": [
+      "three distinct repaired descriptor identities a,b,c",
+      "each descriptor is present at every cube corner",
+      "the three selected descriptor states vary E<->O independently",
+      "all other repaired descriptor states are held fixed"
+    ],
+    "knownOutput": "XOR of the eight two-bit scalar output codes",
+    "knownLaw": "Every polynomial term of total oddness degree <=2 cancels in the eight-corner XOR. With presence fixed, presence-containing cubic terms are also at most degree 2 in the three varied oddness coordinates and cancel.",
+    "open": [
+      "which structural descriptor triples have nonzero third difference",
+      "whether a triple's third difference is context-invariant across every observed cube",
+      "whether nonzero triples share an outcome-independent structural relation",
+      "whether the OOO interaction is better represented as a 3-uniform hypergraph, a transition/cocycle relation, or another smaller native law"
+    ]
+  },
+  "antiCircularity": [
+    "Cube existence is determined only from frozen structural class keys before consulting scalar outputs.",
+    "The three varied descriptors are not selected by W/D/L labels.",
+    "Every complete cube in the declared discovery carriers is enumerated.",
+    "Outputs are consulted only after all eight structural corners exist.",
+    "EW-RS-059 formula holdouts 3x6-k4 and 5x3-k4 remain sealed."
+  ],
+  "falsifiers": [
+    "If the same descriptor triple has different nonzero third differences in different fixed contexts, the simple context-independent OOO coefficient interpretation is rejected.",
+    "A nonzero third difference on a complete cube is a direct certificate that affine/quadratic oddness structure is insufficient on that cube.",
+    "If no complete cubes exist, the experiment is structurally non-discriminating rather than a negative result.",
+    "Any mixed scalar output inside one repaired structural class invalidates the source coordinate control."
+  ],
+  "nextIfContextInvariantNonzero": "Freeze gauge-invariant OOO interaction certificates and render their descriptor triples in IsoGraph/QU to search for the smallest structural relation shared by the nonzero hyperedges.",
+  "nextIfContextDependent": "Freeze the context dependence as evidence of degree>3 or a missing coordinate before any formula selection.",
+  "nextIfNoCubes": "Use transition-linked or matched-certificate construction to synthesize outcome-independent cube completions without touching EW-RS-059.",
+  "interpretationGuards": [
+    "This is discovery-corpus evidence, not independent formula qualification.",
+    "A cube certificate is local to observed structural states and does not prove a universal coefficient law.",
+    "No Q-A/Q-F, standard-7x6, or center-opening claim follows."
+  ]
+}
