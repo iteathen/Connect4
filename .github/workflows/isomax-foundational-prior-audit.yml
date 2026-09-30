@@ -27,11 +27,14 @@ jobs:
         run: node research/isograph/discovery/2026-09-29-isomax-foundational-prior-audit/run-fixed-frame-route-audit.mjs
       - name: Run closure prior audit
         run: node research/isograph/discovery/2026-09-29-isomax-foundational-prior-audit/run-closure-prior-audit.mjs
+      - name: Run transporter-aware reconstruction
+        run: node research/isograph/discovery/2026-09-29-isomax-foundational-prior-audit/run-transporter-aware-reconstruction.mjs
       - name: Validate generated audit JSON
         run: |
           node -e "JSON.parse(require('fs').readFileSync('research/isograph/discovery/2026-09-29-isomax-foundational-prior-audit/WITNESS_PRIOR_AUDIT_0_1.json','utf8'))"
           node -e "JSON.parse(require('fs').readFileSync('research/isograph/discovery/2026-09-29-isomax-foundational-prior-audit/FIXED_FRAME_ROUTE_AUDIT_0_1.json','utf8'))"
           node -e "JSON.parse(require('fs').readFileSync('research/isograph/discovery/2026-09-29-isomax-foundational-prior-audit/CLOSURE_PRIOR_AUDIT_0_1.json','utf8'))"
+          node -e "JSON.parse(require('fs').readFileSync('research/isograph/discovery/2026-09-29-isomax-foundational-prior-audit/TRANSPORTER_AWARE_RECONSTRUCTION_0_1.json','utf8'))"
       - name: Research integrity
         run: node tools/verify-research-integrity.mjs
       - name: Commit witness audit evidence
@@ -41,7 +44,8 @@ jobs:
           git add \
             research/isograph/discovery/2026-09-29-isomax-foundational-prior-audit/WITNESS_PRIOR_AUDIT_0_1.json \
             research/isograph/discovery/2026-09-29-isomax-foundational-prior-audit/FIXED_FRAME_ROUTE_AUDIT_0_1.json \
-            research/isograph/discovery/2026-09-29-isomax-foundational-prior-audit/CLOSURE_PRIOR_AUDIT_0_1.json
+            research/isograph/discovery/2026-09-29-isomax-foundational-prior-audit/CLOSURE_PRIOR_AUDIT_0_1.json \
+            research/isograph/discovery/2026-09-29-isomax-foundational-prior-audit/TRANSPORTER_AWARE_RECONSTRUCTION_0_1.json
           if git diff --cached --quiet; then
             echo "No generated audit changes."
           else
