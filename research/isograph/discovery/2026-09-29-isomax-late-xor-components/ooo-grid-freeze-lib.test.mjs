@@ -12,19 +12,33 @@ function runActualFamilyAudit({failLast=false}={}){
   const start=source.indexOf('function oooSixBucketFamilySaturationAudit(){');
   const end=source.indexOf('const sixBucketFamilySaturation=oooSixBucketFamilySaturationAudit();',start);
   assert.ok(start>=0&&end>start);
-  let preparedCount=0,scalarReads=0,frozenCount=0;
+  let preparedCount=0,scalarReads=0;
+  const completed=[];
+  function readBarrier(){
+    scalarReads++;
+    assert.equal(preparedCount,64);
+    assert.equal(completed.length,64);
+    function frozen(value){
+      if(value&&typeof value==='object'){
+        assert.ok(Object.isFrozen(value));
+        for(const child of Object.values(value))frozen(child);
+      }
+    }
+    for(const state of completed)frozen(state);
+  }
   const dependency={oooResidue:[0],sourceSignature:'toy',dependencyIndex:0,
-    get scalarCode(){scalarReads++;assert.equal(preparedCount,64);assert.equal(frozenCount,64);return 1;}};
+    get scalarCode(){readBarrier();return 1;}};
   const control={mode:'BUCKET_CLIP3',imageRank:1,
-    get exactScalarFactorization(){scalarReads++;assert.equal(preparedCount,64);assert.equal(frozenCount,64);return true;}};
+    get exactScalarFactorization(){readBarrier();return true;}};
   const key=()=>{preparedCount++;if(failLast&&preparedCount===64)throw new Error('last structure failed');return 'toy';};
-  const freeze=(grid,prepare,replay)=>freezeGridThenReplay(grid,prepare,state=>{
-    if(frozenCount===0)frozenCount=64;
-    for(const field of ['featureKeys','structuralRows','basisDependencyIndices'])assert.ok(Object.isFrozen(state[field]));
-    return replay(state);
-  });
+  const freeze=(grid,prepare,replay)=>freezeGridThenReplay(grid,candidate=>{
+    const state=prepare(candidate);
+    completed.push(state);
+    return state;
+  },replay);
   const args={assert,descriptorIds:new Map([['w1|cap=1|r0=0:0|r1=',0]]),
-    tripleKeys:[20202],pairBase:100,matchedDependencyQuotient:{dependencies:[dependency],scalarDependencyImageDimension:1},
+    tripleKeys:[20202],pairBase:100,matchedDependencyQuotient:{dependencies:[dependency],
+      get scalarDependencyImageDimension(){readBarrier();return 1;}},
     sixBucketCountQuotient:{audits:[control]},FAMILY_SATURATION_GRID,
     familySaturationTriangleKey:key,xorRow:(a,b)=>a.filter(x=>!b.includes(x)).concat(b.filter(x=>!a.includes(x))).sort((a,b)=>a-b),
     freezeGridThenReplay:freeze};

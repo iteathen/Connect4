@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {execFileSync} from 'node:child_process';
 import {JOINT_DA_CANDIDATES,jointTriangleKey} from './ooo-joint-da-scalar-lib.mjs';
+import {verifyRs076SourceRequalificationFromRepository} from '../2026-09-30-isomax-revalidation/source-requalification.mjs';
 const base=new URL('.',import.meta.url),dir='research/isograph/discovery/2026-09-29-isomax-late-xor-components/';
 const read=f=>fs.readFileSync(new URL(f,base),'utf8').replace(/\r\n/g,'\n');
 const hash=s=>createHash('sha256').update(s).digest('hex');
@@ -15,7 +16,10 @@ assert.equal(raw.structureSha256,hash(structuralText));
 assert.equal(structuralText,git(['show',raw.structureCommit+':'+dir+'OOO_JOINT_DA_SCALAR_STRUCTURE_0_1.json']));
 git(['merge-base','--is-ancestor',structure.sourceCommit,raw.structureCommit]);
 for(const [f,h] of Object.entries(structure.inputSha256)){
- assert.equal(hash(read(f)),h,'current input drift '+f);
+ if(f==='run-ooo-sign-channel-coupling.mjs'&&hash(read(f))!==h){
+  const certificate=JSON.parse(fs.readFileSync(new URL('../2026-09-30-isomax-revalidation/RS076_FREEZE_SEQUENCE_REQUALIFICATION_0_1.json',base),'utf8'));
+  verifyRs076SourceRequalificationFromRepository({repositoryRoot:git(['rev-parse','--show-toplevel']).trim(),certificate,expectedOriginalSha256:h});
+ }else assert.equal(hash(read(f)),h,'current input drift '+f);
  assert.equal(hash(git(['show',structure.sourceCommit+':'+dir+f])),h,'pinned input drift '+f);
 }
 const priorText=git(['show',raw.sourceEvidenceCommit+':'+dir+'OOO_SIGN_CHANNEL_COUPLING_0_1.json']);

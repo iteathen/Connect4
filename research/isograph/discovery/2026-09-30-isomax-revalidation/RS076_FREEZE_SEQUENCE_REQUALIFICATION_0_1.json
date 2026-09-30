@@ -1,0 +1,26 @@
+{
+  "schema": "connect4.isomax.rs076_source_requalification.v1",
+  "status": "PASS",
+  "canonicalResearchOwner": "research/semantic-quotient",
+  "transformation": "RS076_ALL_GRID_PREPARE_THEN_REPLAY_V1",
+  "originalSource": {"commit": "3173aca8669c85ad7d522fa0f44bb6736e2dcc40", "sha256": "1b2ecef9547ec159d2a8510e00a5d6cdb29f84b2c87463156a9d9656f026d5e8"},
+  "repairedSource": {"commit": "c04de18a91ccdd3fbf4c25087999d7c05b6c90f6", "sha256": "96f62e24464550018728a06a847c398084fa83efd489a7bb5140baa00b9d030b"},
+  "evidence": {"commit": "a4c4c3731f580a27ba7420cc63f0188b340923a3", "sha256": "9e26e7a113e30456c871ff5c59a9759a721504f1794faa5c686160ecf4b7e413"},
+  "fullReplay": {
+    "status": "PASS",
+    "sourceCommit": "c04de18a91ccdd3fbf4c25087999d7c05b6c90f6",
+    "evidenceSha256": "9e26e7a113e30456c871ff5c59a9759a721504f1794faa5c686160ecf4b7e413",
+    "runUrl": "https://github.com/iteathen/Connect4/actions/runs/36781520908",
+    "verifiedExecution": "Full sign-channel coupling grid, verifier and research-integrity steps succeeded; final evidence publication step reported No generated changes at 2026-09-30T21:50:00Z. Remote remained at the repaired source commit.",
+    "cases": ["6x3-k3", "4x5-k4", "6x3-k4"],
+    "familyAuditsReproduced": 192,
+    "signCouplingAuditsReproduced": 375
+  },
+  "regression": "Actual nested RS076 function executed against scalar/control getters. Original source reads at candidate 1 of 64 and fails. Repaired source completes and recursively freezes all 64 prepared objects before any scalar, scalar-dimension or control-exactness access. A failure preparing candidate 64 prevents every scalar access.",
+  "independentReview": "Implementation split reviewed; 50 deterministic synthetic old/new comparisons were byte-identical. Review requested stronger observation of frozen objects; addressed before final requalification.",
+  "descendantHandling": "Historical RS079 input hashes and structural/scalar snapshots remain immutable. Its verifier accepts only this exact reconstructable source edit plus unchanged complete evidence. All other input drift still fails.",
+  "qualificationDisposition": "RS076 procedural freeze requirement requalified on all three known carriers; bounded scientific outputs retained unchanged.",
+  "discoveryDisposition": "No fresh evidence for OOO, pooled transfer or a universal formula. Upstream outcomes were already known; original chronology is not rewritten.",
+  "sealedFormulaHoldouts": ["3x6-k4", "5x3-k4"],
+  "rs096": "HOLD"
+}

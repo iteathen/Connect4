@@ -1,0 +1,101 @@
+{
+  "status": "BOUNDED_REPLAY_COMPLETE",
+  "structureSha256": "9a50b250aa42af415c7d52ebeda4bc765001a44b1c138c074ddd5c3b9a947c2e",
+  "structureCommit": "649596b43e59b7bedab858335f4098309288ca0e",
+  "scalarSourceSha256": "8ecb9b0378e9572f9597128124deff09c999a1b22020989164bb097a14a5af08",
+  "equivalent": [
+    {
+      "a": "FIXED_FULL",
+      "b": "SWAPPED_FULL",
+      "splits": 0,
+      "merges": 0,
+      "bijection": true
+    },
+    {
+      "a": "FIXED_P1",
+      "b": "SWAPPED_P0_TRANSPORT",
+      "splits": 0,
+      "merges": 0,
+      "bijection": true
+    },
+    {
+      "a": "FIXED_P0",
+      "b": "SWAPPED_P1_FIXED_LABEL",
+      "splits": 0,
+      "merges": 0,
+      "bijection": true
+    }
+  ],
+  "audits": [
+    {
+      "id": "FIXED_FULL",
+      "rank": 351,
+      "kernelDimension": 111,
+      "scalarKernelFailures": 0,
+      "exact": true,
+      "firstFailure": null
+    },
+    {
+      "id": "SWAPPED_FULL",
+      "rank": 351,
+      "kernelDimension": 111,
+      "scalarKernelFailures": 0,
+      "exact": true,
+      "firstFailure": null
+    },
+    {
+      "id": "FIXED_P1",
+      "rank": 342,
+      "kernelDimension": 120,
+      "scalarKernelFailures": 0,
+      "exact": true,
+      "firstFailure": null
+    },
+    {
+      "id": "SWAPPED_P0_TRANSPORT",
+      "rank": 342,
+      "kernelDimension": 120,
+      "scalarKernelFailures": 0,
+      "exact": true,
+      "firstFailure": null
+    },
+    {
+      "id": "FIXED_P0",
+      "rank": 340,
+      "kernelDimension": 122,
+      "scalarKernelFailures": 2,
+      "exact": false,
+      "firstFailure": {
+        "k": 117,
+        "indices": [
+          201,
+          220,
+          446,
+          448,
+          449
+        ],
+        "code": 2
+      }
+    },
+    {
+      "id": "SWAPPED_P1_FIXED_LABEL",
+      "rank": 340,
+      "kernelDimension": 122,
+      "scalarKernelFailures": 2,
+      "exact": false,
+      "firstFailure": {
+        "k": 117,
+        "indices": [
+          201,
+          220,
+          446,
+          448,
+          449
+        ],
+        "code": 2
+      }
+    }
+  ],
+  "interpretation": "A transported fixed-owner identity is not a mover/opponent law. Mover-relative normalization must be separately reconstructed from state parity and checked for descent before scalar claims.",
+  "rs096": "HOLD"
+}
