@@ -1,0 +1,94 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.zoe_count_quotient_integration.v1",
+  "date_author_local": "2026-09-29",
+  "research_direction": "Joshua Oshiro",
+  "status": "ZOE_FRESH_NONAFFINE_QUALIFIED",
+  "definition": {
+    "name": "ZOE",
+    "component_state": "For every exact canonical post-RFG component type T: omit T when n_T=0, emit O when n_T>0 is odd, and emit E when n_T>0 is even.",
+    "rank_grade": "none"
+  },
+  "evidence": [
+    {
+      "id": "DERIVATION_4X5K4",
+      "branch": "experiment/isomax-late-xor-components-20260929",
+      "commit": "a3a878aa0dae42bd361bf393a1662cbb9dc6bb57",
+      "file": "THREE_STATE_COUNT_QUOTIENT_4X5K4_0_1.json",
+      "warrant": "EW-RS-047"
+    },
+    {
+      "id": "TRANSFER",
+      "branch": "experiment/isomax-late-xor-components-20260929",
+      "commit": "728482e12d390fd74df90279b279176dbe7915d4",
+      "file": "THREE_STATE_COUNT_QUOTIENT_TRANSFER_0_1.json",
+      "warrant": "EW-RS-048"
+    },
+    {
+      "id": "FRESH_4X5K3",
+      "branch": "experiment/isomax-late-xor-components-20260929",
+      "commit": "9933af1a78913416a08e96c759d597bed9449402",
+      "file": "ZOE_FRESH_HOLDOUT_4X5K3_0_1.json",
+      "warrant": "EW-RS-049"
+    },
+    {
+      "id": "FRESH_NONAFFINE_5X4K4",
+      "branch": "experiment/isomax-late-xor-components-20260929",
+      "commit": "bacb9c08c4384363c3967977f21d15bc5eccce63",
+      "file": "ZOE_FRESH_NONAFFINE_HOLDOUT_5X4K4_0_1.json",
+      "warrant": "EW-RS-050"
+    }
+  ],
+  "results": {
+    "5x3-k3": {"t2_o": 7255, "zoe_mixed_value_classes": 0, "zoe_classes": 3262, "multi_classes": 3262},
+    "4x4-k4": {"t2_o": 105450, "zoe_mixed_value_classes": 0, "zoe_classes": 8050, "multi_classes": 8052},
+    "6x3-k3": {"t2_o": 36569, "zoe_mixed_value_classes": 0, "zoe_classes": 16735, "multi_classes": 16735},
+    "3x7-k3": {"t2_o": 10863, "zoe_mixed_value_classes": 0, "zoe_classes": 3667, "multi_classes": 3667},
+    "4x5-k4": {"t2_o": 933975, "zoe_mixed_value_classes": 0, "zoe_classes": 79848, "multi_classes": 79850},
+    "4x5-k3_fresh": {"t2_o": 13768, "zoe_mixed_value_classes": 0, "zoe_classes": 5984, "multi_classes": 5984, "degree1_contradictions": 0, "nonaffine": false},
+    "5x4-k4_fresh": {"t2_o": 2007085, "zoe_mixed_value_classes": 0, "zoe_classes": 213226, "multi_classes": 213250, "degree1_contradictions": 16550, "nonaffine": true}
+  },
+  "findings": [
+    {
+      "id": "RS-F170",
+      "status": "THREE_STATE_COUNT_QUOTIENT",
+      "statement": "The minimal structurally motivated repair tested after the parity ceiling is the three-state ZOE count quotient: zero, positive odd, and positive even multiplicity."
+    },
+    {
+      "id": "RS-F171",
+      "status": "COMMON_BOUNDED_QV_COORDINATE",
+      "statement": "Ungraded ZOE has zero mixed scalar-value classes on every tested transfer carrier and on both fresh holdouts."
+    },
+    {
+      "id": "RS-F172",
+      "status": "FRESH_NONAFFINE_QUALIFICATION",
+      "statement": "On predeclared fresh 5x4-k4, ZOE is Q-V exact across 2,007,085 T2-O states while the exact-rank affine component-parity model has 16,550 contradictions."
+    },
+    {
+      "id": "RS-F173",
+      "status": "STRICT_VALUE_COMPRESSION",
+      "statement": "ZOE is strictly coarser than full exact component multiplicity yet Q-V exact on 4x4-k4, 4x5-k4, and fresh 5x4-k4."
+    },
+    {
+      "id": "RS-F174",
+      "status": "PHASE_NOT_REQUIRED_FOR_TESTED_ZOE_QV",
+      "statement": "Adding rank mod 3 to ZOE is not required for scalar class purity on any tested carrier; in several carriers it refines the partition up to full multiplicity without changing Q-V exactness."
+    },
+    {
+      "id": "RS-F175",
+      "status": "POSITIVE_EVEN_DISTINCTION_LOAD_BEARING",
+      "statement": "The parity failure is repaired by distinguishing zero multiplicity from positive-even multiplicity; the tested scalar quotient does not require exact positive-even magnitude."
+    }
+  ],
+  "narrowed_or_superseded": [
+    "The earlier component-parity-plus-phase scalar picture is no longer the strongest count quotient: ungraded ZOE carries the tested scalar value information with a direct per-component count-state refinement.",
+    "Modulo 4 and modulo 6 remain passing finite controls but are not needed to express the currently smallest tested repair of the parity collision.",
+    "The two-syndrome search over binary component parity alone is superseded by a count-aware search surface."
+  ],
+  "nonclaims": [
+    "ZOE is not proved minimal among all possible count quotients.",
+    "ZOE is not proved universally sufficient.",
+    "ZOE does not establish Q-A or Q-F sufficiency.",
+    "No standard-7x6 theorem follows."
+  ],
+  "next_question": "Can exact component identity now be compressed structurally by aggregating ZOE counts over frozen frontier-relative descriptors such as TOPO_RPAR or REL_INC without reintroducing scalar collisions?"
+}
