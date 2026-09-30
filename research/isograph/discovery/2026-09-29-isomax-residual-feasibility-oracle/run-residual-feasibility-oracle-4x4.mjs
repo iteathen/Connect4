@@ -94,7 +94,6 @@ const passingDirectQV=direct.filter(x=>x.QV).sort((a,b)=>a.classes-b.classes);
 const passingOrbitQF=orbit.filter(x=>x.QF_transported).sort((a,b)=>a.classes-b.classes);
 const passingOrbitQA=orbit.filter(x=>x.QA_transported).sort((a,b)=>a.classes-b.classes);
 const passingOrbitQV=orbit.filter(x=>x.QV).sort((a,b)=>a.classes-b.classes);
-const out={
 const gapExamples=[],containmentFailures=[];
 let residualOccurrences=0,oracleDeleted=0,rfgDeleted=0,oracleExtra=0,eEqualsRFG=0,eNotRFG=0,efEqualsRFG=0,efNotRFG=0;
 for(const x of nts){
