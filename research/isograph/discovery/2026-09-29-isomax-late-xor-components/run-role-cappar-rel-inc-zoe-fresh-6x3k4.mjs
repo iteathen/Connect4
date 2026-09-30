@@ -546,7 +546,7 @@ assert.equal(byMode.ROLE_CAP_EXACT_REL_INC_ZOE.classes,byMode.EXACT_ZOE.classes,
 const out={
   schema:'connect4.isomax.role_cappar_rel_inc_zoe_fresh_6x3k4.v1',
   date_author_local:'2026-09-30',
-  warrant:'EW-RS-055',
+  warrant:'EW-RS-056',
   target:'6x3-k4',
   frozenCandidate:'ROLE_CAPPAR_REL_INC_ZOE = jointly canonicalized REL_INC with per-column remaining-capacity parity attached to each local incidence role, followed by ZOE count aggregation',
   frozenDomain:'direct T2-O',
