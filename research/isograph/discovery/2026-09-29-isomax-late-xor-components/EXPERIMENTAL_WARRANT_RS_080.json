@@ -1,0 +1,57 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.common_carrier_level.v1",
+  "id": "EW-RS-080",
+  "status": "FROZEN_BEFORE_RS079_SCALAR_REPLAY",
+  "parent": "EW-RS-079",
+  "objective": "Distinguish pair-local, realizable-triangle, and dependency-linear common carriers without using scalar failures to define a map.",
+  "researchOwner": "research/semantic-quotient",
+  "inputs": "The structural-only RS079 snapshot on the three declared carriers; the four frozen PMEC controls. No scalar labels enter either construction.",
+  "candidates": [
+    {
+      "id": "TRIANGLE_COMMON_OBSERVED_UNION",
+      "definition": "Deduplicate sorted triples of canonical vertex strings across all three source catalogs. Evaluate each of the four PMEC triangle keys. Take the transitive closure of their four equality relations on this entire observed structural union. Map every original triple to its component label and form parity rows. This is an empirical structural domain, not a full realizability theorem."
+    },
+    {
+      "id": "DEPENDENCY_COMMON_LINEAR",
+      "definition": "For each carrier, regard the matched dependencies as the canonical basis of V=GF(2)^m. For each PMEC map F_i:V->feature space derive its kernel by outcome-independent elimination with provenance. Let K be the sum of the four kernels. Reduce the canonical basis vectors modulo a canonical RREF basis for K. These remainders define V/K, the finest common linear quotient of all four F_i."
+    }
+  ],
+  "theorem": "If the scalar linear map y factors every F_i, it vanishes on every ker(F_i), hence on their sum K and factors V/K. Conversely any linear common factor vanishes on K. The theorem is conditional on the controls; it neither selects scalar coefficients nor proves minimality among all value-sufficient carriers.",
+  "procedure": [
+    "Freeze the union-triangle catalog, four equality maps, common component labels, induced per-carrier rows and bases.",
+    "Freeze each PMEC kernel basis, the sum-kernel RREF, free coordinates, quotient rows and bases independently of scalar values.",
+    "Commit all structural artifacts before replay; verify every generator is in its claimed PMEC kernel and the published common kernel has exactly the same span as their union.",
+    "Replay aligned pinned RS077 scalar codes; independently verify exactness and structural ranks with BigInt linear algebra. Preserve any triangle failure as scoped negative knowledge.",
+    "Compare the dimensions at each assembly level; seek a native circuit description of the common surviving image rather than treating a corpus-indexed basis as a closed law."
+  ],
+  "controls": {
+    "carriers": [
+      "6x3-k3",
+      "4x5-k4",
+      "6x3-k4"
+    ],
+    "scalarImageDimensions": [
+      1,
+      2,
+      2
+    ],
+    "retainAllFourPMEC": true
+  },
+  "antiCircularity": [
+    "No outcome-directed domain pruning or component splitting.",
+    "No scalar-selected kernel generator or basis order.",
+    "No fitting coefficients or exact motif-ID lookup declared a closed syndrome.",
+    "No scalar replay of new candidates until both structural constructions are committed."
+  ],
+  "holdouts": {
+    "primary": "3x6-k4",
+    "backup": "5x3-k4",
+    "sealed": true
+  },
+  "nonclaims": [
+    "full board or triangle realizability",
+    "universal or standard-7x6 law",
+    "Q_F or Q_A result",
+    "closed scalar decoder"
+  ]
+}
