@@ -8,6 +8,7 @@ import {gunzipSync} from 'node:zlib';
 import {isDeepStrictEqual} from 'node:util';
 import {assertCarrier,canonicalExternalImage} from './independent-oracle.mjs';
 import {legacyStateRecords,LEGACY_SOURCE} from './legacy-state-adapter.mjs';
+import {renameCheckpoint} from './independent-io.mjs';
 
 const here=path.dirname(fileURLToPath(import.meta.url)),label=process.argv[2];
 const match=/^(\d+)x(\d+)-k(\d+)$/.exec(label??'');if(!match)throw new Error('Expected trained carrier label');
@@ -15,7 +16,7 @@ const [W,H,K]=match.slice(1).map(Number);assertCarrier(W,H,K);
 const target=path.join(here,`independent-${label}`),manifest=JSON.parse(fs.readFileSync(path.join(target,'independent-state-manifest.json')));
 const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
 const output=path.join(target,'independent-comparison.json');
-const write=result=>{fs.writeFileSync(output+'.partial',JSON.stringify(result,null,2)+'\n');fs.renameSync(output+'.partial',output);};
+const write=result=>{fs.writeFileSync(output+'.partial',JSON.stringify(result,null,2)+'\n');renameCheckpoint(output+'.partial',output);};
 const fields=['key','a','b','rank','h','terminal','winner','wdlAbsolute','t2','q','rfg','components','roleCapparZoe'];
 const fieldMismatches=Object.fromEntries(fields.map(f=>[f,0]));
 let shardIndex=0,current=[],rowIndex=0,compared=0,missingIndependent=0,firstMismatches=[];
@@ -31,6 +32,7 @@ try{
     const independent=next();if(!independent){missingIndependent++;return;}
     for(const field of fields)if(!isDeepStrictEqual(independent[field],reference[field])){fieldMismatches[field]++;if(firstMismatches.length<20)firstMismatches.push({ordinal:compared,field,independentKey:independent.key,referenceKey:reference.key,independent:independent[field],reference:reference[field]});}
     compared++;
+    if(firstMismatches.length)throw new Error('First state mismatch preserved; stop for observation-first diagnosis');
     if(compared%100000===0){write({...base(),phase:'STATEWISE'});process.stdout.write(JSON.stringify({label,compared,fieldMismatches})+'\n');}
   },{captureOoo:!process.argv.includes('--skip-ooo')});
   const extraIndependent=next()!==null;

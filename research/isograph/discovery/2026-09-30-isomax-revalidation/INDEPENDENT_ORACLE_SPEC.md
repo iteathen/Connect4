@@ -76,3 +76,26 @@ independent prefix and remain in this staging evidence directory.
 Do not claim all three carriers qualified from toy tests, compilation, equal
 counts, source hashes, or a partial state stream. Statewise comparison and the
 OOO certificate comparison must report their actual coverage and mismatches.
+
+## Commands and artifact interpretation
+
+From the repository root, for each allowlisted label:
+
+```powershell
+node --test research/isograph/discovery/2026-09-30-isomax-revalidation/independent-oracle.test.mjs
+node --max-old-space-size=6144 research/isograph/discovery/2026-09-30-isomax-revalidation/independent-runner.mjs 6x3-k3
+node --max-old-space-size=6144 research/isograph/discovery/2026-09-30-isomax-revalidation/independent-compare.mjs 6x3-k3
+```
+
+`independent-<label>/independent-comparison.json` owns the bounded comparison
+disposition. `independent-summary.json` alone means the independent construction
+finished; it does not mean reference agreement. The comparator stops at its first
+state mismatch and preserves the exact differing fields. Optional `--skip-ooo`
+is explicit incomplete OOO coverage, never a passing full comparison.
+
+The comparison module imports `legacy-state-adapter.mjs`, which executes the
+reference source prefix and matched-dependency stage. This import is restricted
+to the comparison driver: the independent oracle/runner have no reference
+imports. After statewise equality, the comparison maps the reference dependency
+residues into descriptor-text OOO columns and compares canonical RREF entries,
+not just ranks or hashes. Hashes are identity evidence, not equality authority.
