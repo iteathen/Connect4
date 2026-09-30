@@ -1,0 +1,132 @@
+{
+  "schema": "connect4.rank_sufficient_qg_dg.findings.v1",
+  "date_author_local": "2026-09-29",
+  "research_direction": "Joshua Oshiro",
+  "status": "ACTIVE",
+  "findings": [
+    {
+      "id": "QGDG-F001",
+      "kind": "EXACT_UPPER_BOUND",
+      "statement": "Qualified standard-7x6 q_o is a rank-local sufficient representation for complete orientation-sensitive literal-action ordinary future behavior.",
+      "scope": "qualified Connect4 authority 1.2, legal nonterminal standard 7x6",
+      "evidence": [
+        "CONNECT4_LOGIC_AUTHORITY_1_2"
+      ]
+    },
+    {
+      "id": "QGDG-F002",
+      "kind": "VALUE_UPPER_BOUND",
+      "statement": "Qualified q_r, the horizontal-reflection orbit of q_o with explicit action transporter, is a rank-local sufficient representation for exact scalar ordinary value and future-game correspondence up to reflection transport, but not literal action-label identity.",
+      "scope": "qualified Connect4 authority 1.2",
+      "evidence": [
+        "CONNECT4_LOGIC_AUTHORITY_1_2"
+      ]
+    },
+    {
+      "id": "QGDG-F003",
+      "kind": "RANK_LOCAL_UPDATE",
+      "statement": "Across the four complete bounded controls, q_o successor state was independently derived from q_o + literal move + G on 385862 legal nonterminal edges with zero mismatches to the physical child q_o.",
+      "scope": [
+        "4x4-k4",
+        "4x4-k3",
+        "3x4-k3",
+        "4x3-k3"
+      ],
+      "evidence": [
+        "SAFE_FORGETTING_CENSUS_0_1.json"
+      ]
+    },
+    {
+      "id": "QGDG-F004",
+      "kind": "NONMINIMALITY_BOUNDED",
+      "statement": "q_o is future-behavior sufficient but not coarsest on every tested bounded domain: each case has strictly more distinct q_o representations than complete literal future-behavior classes.",
+      "scope": [
+        {
+          "case": "4x4-k4",
+          "q_o": 34097,
+          "future_classes": 27429,
+          "excess": 6668
+        },
+        {
+          "case": "4x4-k3",
+          "q_o": 18877,
+          "future_classes": 12201,
+          "excess": 6676
+        },
+        {
+          "case": "3x4-k3",
+          "q_o": 1396,
+          "future_classes": 980,
+          "excess": 416
+        },
+        {
+          "case": "4x3-k3",
+          "q_o": 3737,
+          "future_classes": 2897,
+          "excess": 840
+        }
+      ],
+      "evidence": [
+        "SAFE_FORGETTING_CENSUS_0_1.json"
+      ],
+      "guard": "bounded exact result; does not prove standard-7x6 nonminimality"
+    },
+    {
+      "id": "QGDG-F005",
+      "kind": "SAFE_FORGETTING_FALSIFIERS",
+      "statement": "Support alone, support plus only one player's residuals, owned residuals without support, support plus unowned residual union, residual-size histograms, GF(2)-rank summaries, and residual cell-incidence histograms all fail both complete-future and scalar-value sufficiency on every tested case.",
+      "scope": [
+        "4x4-k4",
+        "4x4-k3",
+        "3x4-k3",
+        "4x3-k3"
+      ],
+      "evidence": [
+        "SAFE_FORGETTING_CENSUS_0_1.json"
+      ]
+    },
+    {
+      "id": "QGDG-F006",
+      "kind": "SUFFICIENCY_LEVEL_SEPARATION",
+      "statement": "Physical horizontal-reflection quotient q_r is scalar-value sufficient on every tested bounded case but is not literal-action future-behavior sufficient on any of them. Future-behavior and scalar-value minimality must therefore remain separate research targets.",
+      "scope": [
+        "4x4-k4",
+        "4x4-k3",
+        "3x4-k3",
+        "4x3-k3"
+      ],
+      "evidence": [
+        "SAFE_FORGETTING_CENSUS_0_1.json"
+      ]
+    },
+    {
+      "id": "QGDG-F007",
+      "kind": "EVALUATOR_EXISTENCE",
+      "statement": "A finite rank-well-founded Bellman evaluator supplies one exact D_G once a sufficient ordinary-state carrier is fixed; this establishes evaluator existence without constraining the final evaluator to recursive form.",
+      "scope": "ordinary finite Connect4 game semantics",
+      "evidence": [
+        "CONNECT4_GAME_THEORY_1_2"
+      ]
+    },
+    {
+      "id": "QGDG-F008",
+      "kind": "ALGEBRAIC_EVALUATOR_STRUCTURE",
+      "statement": "Existing exact RBA work represents tested threshold Bellman transformers as monotone lattice polynomials over an idempotent antichain semiring, with exact local-skyline factorization of semiring multiplication. This proves nontrivial exact algebraic structure in D_G on those boundary carriers, but not a root-scale direct closed form.",
+      "scope": "qualified/current exact RBA relations and tested support-local threshold boundaries",
+      "evidence": [
+        "RBA_ANTICHAIN_SEMIRING_RESULTS_0_1.json",
+        "RBA_NATIVE_SEMIRING_RESULTS_0_1.json"
+      ]
+    },
+    {
+      "id": "QGDG-F009",
+      "kind": "AUDIT_CONSTRAINT",
+      "statement": "The prior canonical-frame two-sheet cocycle is not a valid shortcut to a minimal Q_G: its witness fibers collapse at literal-future resolution, action-token recursion omitted transporter alignment, and arbitrary canonical slots are not generally physical board columns.",
+      "scope": "foundational-audit bounded carrier",
+      "evidence": [
+        "IDENTITY_QU_NEI_AUDIT_0_1.json",
+        "LEGO_INVENTORY_0_1.json"
+      ]
+    }
+  ]
+}

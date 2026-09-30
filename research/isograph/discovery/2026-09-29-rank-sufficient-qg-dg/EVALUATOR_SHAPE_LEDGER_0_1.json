@@ -1,0 +1,47 @@
+{
+  "schema": "connect4.rank_sufficient_qg_dg.evaluator_shape_ledger.v1",
+  "date_author_local": "2026-09-29",
+  "exact_known": [
+    {
+      "id": "DG-K001",
+      "shape": "rank-well-founded Bellman recursion",
+      "status": "EXACT",
+      "input": "ordinary sufficient state such as q_o / transported q_r",
+      "output": "exact scalar W/D/L/value",
+      "direct_noniterative": false,
+      "minimality": "OPEN"
+    },
+    {
+      "id": "DG-K002",
+      "shape": "antichain-semiring / lattice-polynomial threshold transformer",
+      "status": "EXACT_IN_DECLARED_RBA_SCOPE",
+      "input": "support-local favorable q-state threshold fronts",
+      "laws": [
+        "idempotent commutative semiring",
+        "distributive lattice polynomial",
+        "fixed-path preimage homomorphism"
+      ],
+      "direct_noniterative": "algebraic expression exists locally/compositionally; root-scale closed form not established",
+      "minimality": "OPEN"
+    },
+    {
+      "id": "DG-K003",
+      "shape": "streaming local-skyline factorization",
+      "status": "EXACT_ALGORITHMIC_FACTORIZATION",
+      "role": "reduces semiring product without changing semantic operation",
+      "direct_noniterative": false,
+      "minimality": "implementation/normal-form question remains open"
+    }
+  ],
+  "open_shapes": [
+    "single closed-form formula",
+    "global polynomial/algebraic invariant",
+    "finite algebra over minimal Q",
+    "matrix/tensor operator",
+    "combinatorial identity",
+    "fixed point / rewriting system",
+    "rank-local recursive calculus",
+    "hybrid direct + maintained coordinates"
+  ],
+  "rule": "Known exact recursive/algebraic presentations establish possibilities, not exclusivity."
+}
