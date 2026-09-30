@@ -1,0 +1,83 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.quadratic_xor_integration.v1",
+  "date_author_local": "2026-09-29",
+  "research_direction": "Joshua Oshiro",
+  "status": "EXACT_FINITE_QUADRATIC_DECODER_EXISTS_ON_5X3",
+  "evidence": [
+    {
+      "id": "ERQX",
+      "branch": "experiment/isomax-late-xor-components-20260929",
+      "commit": "5db78c1f9070236b4844a6cb32677b505e43c789",
+      "file": "EXACT_RANK_QUADRATIC_XOR_0_1.json",
+      "warrant": "EW-RS-031"
+    },
+    {
+      "id": "RECT",
+      "branch": "experiment/isomax-late-xor-components-20260929",
+      "commit": "63896d38a034c31f5a83bea6e74f1416e1fb1f31",
+      "file": "SAME_RANK_XOR_RECTANGLE_FAMILY_0_1.json",
+      "warrant": "EW-RS-030"
+    }
+  ],
+  "tested_law": "On 5x3-k3 T2-O states, retain exact rank and the frozen component-parity variables; decode relative W/D/L in GF(2)^2 using a rank-specific affine polynomial of degree at most two.",
+  "findings": [
+    {
+      "id": "RS-F119",
+      "status": "EXACT_FINITE_POSITIVE",
+      "statement": "The full observed exact-rank quadratic GF(2)^2 model is consistent on the complete 5x3-k3 T2-O carrier: 7,255 equations, zero contradictions."
+    },
+    {
+      "id": "RS-F120",
+      "status": "MECHANICAL_CONTROL",
+      "statement": "The degree-1 submodel exactly reproduces the prior 18 contradictions before quadratic terms are enabled. The degree-2 pass therefore does not arise from a changed component producer, T2 rule, rank convention, or outcome encoding."
+    },
+    {
+      "id": "RS-F121",
+      "status": "EXACT_FINITE_Q_D_TRADEOFF",
+      "statement": "No refinement of the tested scalar Q was required. Holding exact-rank component parity plus T2 fixed and enlarging only D from affine to quadratic resolves the complete 5x3-k3 nonadditivity set."
+    },
+    {
+      "id": "RS-F122",
+      "status": "COMPLEXITY_GUARD",
+      "statement": "The existence proof is highly nonminimal: the quadratic system exposes 2,104 observed pair variables in addition to 3,276 linear variables and 15 rank offsets, with active nullity 2,135. This is evidence for a degree bound in this carrier, not yet a simple structural evaluator."
+    },
+    {
+      "id": "RS-F123",
+      "status": "STRUCTURAL_CONSISTENCY",
+      "statement": "The degree-2 success is consistent with the preceding certificate family: every minimum affine obstruction is a four-row rectangle with a size-two local substitution, exactly the discrete-derivative shape that quadratic interaction terms can absorb."
+    },
+    {
+      "id": "RS-F124",
+      "status": "NEXT_CONTROL_BOUNDARY",
+      "statement": "The same frozen exact-rank degree-2 model class must be tested on 4x4-k4, the independent carrier retaining 168 degree-1 contradictions, before quadratic composition is treated as a cross-geometry candidate."
+    }
+  ],
+  "model_size": {
+    "equations": 7255,
+    "degree1": {
+      "active_variables": 3291,
+      "offset": 15,
+      "linear": 3276,
+      "quadratic": 0,
+      "pivot_rank": 3223,
+      "nullity": 68,
+      "contradictions": 18
+    },
+    "degree2": {
+      "active_variables": 5395,
+      "offset": 15,
+      "linear": 3276,
+      "quadratic": 2104,
+      "pivot_rank": 3260,
+      "nullity": 2135,
+      "contradictions": 0
+    }
+  },
+  "nonclaims": [
+    "This does not prove pairwise interactions are minimal.",
+    "This does not provide a closed-form component-interaction valuation.",
+    "This does not establish quadratic sufficiency on 4x4-k4 or any larger geometry.",
+    "This does not qualify standard 7x6."
+  ],
+  "next_question": "Does the identical exact-rank degree-2 GF(2)^2 model class eliminate the 168 independent affine contradictions on complete 4x4-k4?"
+}
