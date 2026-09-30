@@ -1,0 +1,54 @@
+name: IsoMax sign-channel coupling
+
+on:
+  push:
+    branches:
+      - experiment/isomax-late-xor-components-20260929
+    paths:
+      - '.github/workflows/isomax-sign-channel-coupling.yml'
+      - 'research/isograph/discovery/2026-09-29-isomax-late-xor-components/ooo-sign-channel-coupling-lib.mjs'
+      - 'research/isograph/discovery/2026-09-29-isomax-late-xor-components/ooo-sign-channel-coupling-lib.test.mjs'
+      - 'research/isograph/discovery/2026-09-29-isomax-late-xor-components/run-ooo-sign-channel-coupling.mjs'
+      - 'research/isograph/discovery/2026-09-29-isomax-late-xor-components/verify-ooo-sign-channel-coupling.mjs'
+  workflow_dispatch:
+
+concurrency:
+  group: isomax-sign-channel-coupling
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with: {fetch-depth: 0}
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with: {node-version: '26'}
+      - name: Check RS-077 runner syntax
+        run: node --check research/isograph/discovery/2026-09-29-isomax-late-xor-components/run-ooo-sign-channel-coupling.mjs
+      - name: Test sign-channel coupling semantics
+        run: node --test research/isograph/discovery/2026-09-29-isomax-late-xor-components/ooo-sign-channel-coupling-lib.test.mjs
+      - name: Run sign-channel coupling grid
+        run: node --max-old-space-size=6144 research/isograph/discovery/2026-09-29-isomax-late-xor-components/run-ooo-sign-channel-coupling.mjs
+      - name: Verify sign-channel coupling result
+        run: node research/isograph/discovery/2026-09-29-isomax-late-xor-components/verify-ooo-sign-channel-coupling.mjs
+      - name: Research integrity
+        run: node tools/verify-research-integrity.mjs
+      - name: Commit sign-channel coupling evidence
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            research/isograph/discovery/2026-09-29-isomax-late-xor-components/OOO_SIGN_CHANNEL_COUPLING_0_1.json \
+            research/isograph/discovery/2026-09-29-isomax-late-xor-components/OOO_SIGN_CHANNEL_COUPLING_RESULT_VERIFY_0_1.json
+          if git diff --cached --quiet; then
+            echo "No generated changes."
+          else
+            git commit -m "research(isomax): freeze sign-channel coupling"
+            git pull --rebase origin experiment/isomax-late-xor-components-20260929
+            git push origin HEAD:experiment/isomax-late-xor-components-20260929
+          fi
