@@ -1,0 +1,41 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.capacity_profile_rel_inc_zoe_integration.v1",
+  "date_author_local": "2026-09-30",
+  "research_direction": "Joshua Oshiro",
+  "status": "UNALIGNED_CAPACITY_PROFILE_INSUFFICIENT__ROLE_ALIGNMENT_OPEN",
+  "evidence": {
+    "branch": "experiment/isomax-late-xor-components-20260929",
+    "commit": "6e2e0149e06e2b9cdb955b9200ed4b852a376c50",
+    "file": "CAPACITY_PROFILE_RELATIVE_INCIDENCE_ZOE_0_1.json",
+    "warrant": "EW-RS-053"
+  },
+  "results": {
+    "5x3-k3": {"CAP_REL_INC_ZOE_mixed": 0, "CAP_PROFILE_REL_INC_ZOE_mixed": 0},
+    "4x4-k4": {"CAP_REL_INC_ZOE_mixed": 10, "CAP_PROFILE_REL_INC_ZOE_mixed": 2},
+    "6x3-k3": {"CAP_REL_INC_ZOE_mixed": 0, "CAP_PROFILE_REL_INC_ZOE_mixed": 0},
+    "4x5-k4": {"CAP_REL_INC_ZOE_mixed": 317, "CAP_PROFILE_REL_INC_ZOE_mixed": 41}
+  },
+  "findings": [
+    {
+      "id": "RS-F184",
+      "status": "CAPACITY_PROFILE_STRONG_PARTIAL_REPAIR",
+      "statement": "Replacing scalar total capacity with the unordered per-column capacity multiset removes most remaining REL_INC-ZOE collisions, reducing 4x4-k4 from 10 to 2 mixed classes and 4x5-k4 from 317 to 41."
+    },
+    {
+      "id": "RS-F185",
+      "status": "UNALIGNED_PROFILE_GENERAL_FAILURE",
+      "statement": "The exact unordered capacity profile remains Q-V inexact on 4x4-k4 and 4x5-k4."
+    },
+    {
+      "id": "RS-F186",
+      "status": "ROLE_ALIGNMENT_LEAD",
+      "statement": "The first surviving collisions preserve REL_INC and the exact unordered capacity profile but differ in exact component identity, localizing the next structurally grounded test to the alignment between column capacity state and residual-incidence column role."
+    }
+  ],
+  "nonclaims": [
+    "Capacity-to-incidence role alignment is not yet proved sufficient.",
+    "Exact role-aligned capacity is not selected as the final quotient; it is only a reconstruction control.",
+    "No standard-7x6 theorem follows."
+  ],
+  "next_question": "What is the coarsest jointly canonicalized role-aligned column-capacity labeling that preserves Q-V under ZOE aggregation: capacity parity, zero/positive-odd/positive-even, or exact capacity?"
+}
