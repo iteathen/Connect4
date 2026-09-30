@@ -1,0 +1,61 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_round.v1",
+  "round": 24,
+  "date_author_local": "2026-09-29",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_23_FIXED_POINT_0_1.json",
+    "RANK_SUFFICIENCY_SAME_RANK_XOR_CERTIFICATE_INTEGRATION_0_1.json"
+  ],
+  "reopened_reason": "explicit four-state same-exact-rank certificate localizes the 5x3-k3 obstruction to contextual evaluator nonlinearity",
+  "new_assertions": [
+    {
+      "id": "RS-IA087",
+      "family": "C",
+      "body": "The minimum 5x3 exact-rank contradiction is a four-state GF(2) rectangle rather than a Q-V collision: its structural incidence rows cancel while its outcome codes do not."
+    },
+    {
+      "id": "RS-IA088",
+      "family": "R",
+      "body": "T09415 <-> T09407 has context-dependent semantic effect: neutral beside T07229 but non-neutral beside T07351 + T09436. A component substitution cannot therefore carry one context-free additive delta in the tested evaluator."
+    },
+    {
+      "id": "RS-IA089",
+      "family": "F",
+      "body": "The current failure is on the evaluator side of the Q/D split. Refining Q is not justified by this certificate because the frozen exact-rank component-parity + T2 key already separates scalar values."
+    },
+    {
+      "id": "RS-IA090",
+      "family": "M",
+      "body": "A four-equation rectangle is the first exact finite witness that D_G on the tested quotient has a nonzero second discrete derivative with respect to component-parity directions."
+    },
+    {
+      "id": "RS-IA091",
+      "family": "Q",
+      "body": "The affine-XOR falsifier is outcome-code-gauge robust over injective GF(2)^2 codings; changing the three W/D/L code labels cannot remove the four-row contradiction."
+    },
+    {
+      "id": "RS-IA092",
+      "family": "S",
+      "body": "Pairwise interaction is now warranted as a candidate class but not yet as a promoted explanation. The twelve minimal rectangles must first be classified for shared versus independent generators."
+    }
+  ],
+  "qu_refinements": [
+    {
+      "id": "RS-QR033",
+      "target": "QU-RS-010",
+      "add_fixed": [
+        "5x3-k3 exact-rank nonadditivity has a four-state certificate",
+        "one certified substitution T09415 <-> T09407 changes effect across component context",
+        "the certificate is evaluator nonlinearity rather than a Q-V collision",
+        "the four-row contradiction is invariant under injective GF(2)^2 outcome recoding"
+      ],
+      "retain_open": [
+        "classification of the twelve size-4 rectangle certificates",
+        "whether one interaction generator explains the family",
+        "whether pairwise terms suffice",
+        "non-additive finite decoder alternatives"
+      ]
+    }
+  ],
+  "stop_status": "REOPENED__RECTANGLE_FAMILY_CLASSIFICATION_PENDING"
+}
