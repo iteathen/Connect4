@@ -1,0 +1,415 @@
+{
+  "schema": "connect4.isomax.final_mover_cap_closure_4x4.v1",
+  "date_author_local": "2026-09-29",
+  "scope": "complete physical 4x4 connect-4 first-win carrier",
+  "transforms": {
+    "R": "support-release/turn capacity",
+    "F": "nonterminal frontier blocker",
+    "G": "delete all-open-cap residuals owned by the player who cannot make the final board move"
+  },
+  "methodology": {
+    "candidateDefinitionsUseValues": false,
+    "valueLabelsDerivedAfterStructuralKeys": true,
+    "solvedDatabaseUsed": false,
+    "finalBoardMover": 1
+  },
+  "algebra": {
+    "idempotent": {
+      "R": true,
+      "F": true,
+      "G": true
+    },
+    "pairwiseCommutation": {
+      "RF": true,
+      "RG": true,
+      "FG": true
+    }
+  },
+  "direct": [
+    {
+      "seq": "QO",
+      "classes": 34094,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "R",
+      "classes": 32214,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "F",
+      "classes": 32788,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "G",
+      "classes": 31794,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "RF",
+      "classes": 31389,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "FR",
+      "classes": 31389,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "RG",
+      "classes": 30869,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "GR",
+      "classes": 30869,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "FG",
+      "classes": 30710,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "GF",
+      "classes": 30710,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "RFG",
+      "classes": 30046,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "RGF",
+      "classes": 30046,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "FRG",
+      "classes": 30046,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "FGR",
+      "classes": 30046,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "GRF",
+      "classes": 30046,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "GFR",
+      "classes": 30046,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    }
+  ],
+  "orbit": [
+    {
+      "seq": "QO",
+      "classes": 10496,
+      "QF_transported": true,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "R",
+      "classes": 10106,
+      "QF_transported": true,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "F",
+      "classes": 9940,
+      "QF_transported": true,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "G",
+      "classes": 9896,
+      "QF_transported": true,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "RF",
+      "classes": 9676,
+      "QF_transported": true,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "FR",
+      "classes": 9676,
+      "QF_transported": true,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "RG",
+      "classes": 9715,
+      "QF_transported": true,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "GR",
+      "classes": 9715,
+      "QF_transported": true,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "FG",
+      "classes": 9426,
+      "QF_transported": true,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "GF",
+      "classes": 9426,
+      "QF_transported": true,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "RFG",
+      "classes": 9308,
+      "QF_transported": true,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "RGF",
+      "classes": 9308,
+      "QF_transported": true,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "FRG",
+      "classes": 9308,
+      "QF_transported": true,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "FGR",
+      "classes": 9308,
+      "QF_transported": true,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "GRF",
+      "classes": 9308,
+      "QF_transported": true,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "GFR",
+      "classes": 9308,
+      "QF_transported": true,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    }
+  ],
+  "minima": {
+    "directQF": {
+      "seq": "RFG",
+      "classes": 30046,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    "directQA": {
+      "seq": "RFG",
+      "classes": 30046,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    "directQV": {
+      "seq": "RFG",
+      "classes": 30046,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    "orbitQF": {
+      "seq": "RFG",
+      "classes": 9308,
+      "QF_transported": true,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    "orbitQA": {
+      "seq": "RFG",
+      "classes": 9308,
+      "QF_transported": true,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    "orbitQV": {
+      "seq": "RFG",
+      "classes": 9308,
+      "QF_transported": true,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    }
+  },
+  "interpretationGuard": "Exact finite 4x4 evidence. G is a direct current-rank structural rule; generalization still requires proof and cross-case qualification."
+}
