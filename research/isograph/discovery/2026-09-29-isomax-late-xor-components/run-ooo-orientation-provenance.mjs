@@ -477,11 +477,13 @@ function auditCase(W,H,K){
       rs.filter(rec=>resCols(rec.mask).every(c=>loc.has(c))).map(rec=>({owner,rec}))
     );
     const best=new Map(orientationModes.map(m=>[m,null]));
+    let alignedPermutations=0;
 
     for(const p of Ps(n)){
       const capsByRole=Array(n);
       for(let i=0;i<n;i++)capsByRole[p[i]]=(H-qp.h[cols[i]])&1;
       const records=[];
+      const baseOwners=[[],[]];
 
       for(const side of owned)for(const {owner,rec} of side){
         const cells=bits(rec.mask).map(bit=>{
@@ -492,12 +494,20 @@ function auditCase(W,H,K){
           return {depth,role:p[li]};
         }).sort((a,b)=>a.role-b.role||a.depth-b.depth);
 
+        baseOwners[owner].push(cells.map(x=>x.depth+':'+x.role).sort().join(','));
         records.push({
           owner,
           cells,
           sources:rec.sources.map(x=>({id:x.id,orientation:x.orientation})).sort((a,b)=>a.id.localeCompare(b.id))
         });
       }
+
+      const directBase='w'+n+'|cap='+capsByRole.join('.')+
+        '|r0='+baseOwners[0].sort().join(';')+
+        '|r1='+baseOwners[1].sort().join(';');
+
+      if(directBase!==baseDescriptor)continue;
+      alignedPermutations++;
 
       const occurrence={width:n,capsByRole,records,baseDescriptor};
       for(const mode of orientationModes){
@@ -506,6 +516,9 @@ function auditCase(W,H,K){
         if(prior===null||key<prior)best.set(mode,key);
       }
     }
+
+    assert.ok(alignedPermutations>0,'EW-RS-071 no local permutation realizes base ROLE_CAPPAR descriptor');
+    for(const mode of orientationModes)assert.notEqual(best.get(mode),null,'EW-RS-071 missing aligned orientation summary '+mode);
     return best;
   }
 
