@@ -1,0 +1,23 @@
+{
+  "schema": "isomax-owner-gauge-revalidation-0.1",
+  "status": "FROZEN_DESIGN_BEFORE_REPLAY",
+  "canonicalResearchOwner": "research/semantic-quotient",
+  "purpose": "Re-test fixed owner relabeling after endpoint-reversal cleanup; distinguish transport of the RS094 relation from insisting on the same numeric owner label.",
+  "domain": "The existing RS079 structural snapshot, all 462 trained dependencies; no fresh qualification.",
+  "candidates": [
+    ["FIXED_FULL", false, "FULL_EDGE_REVERSAL_ORBIT"],
+    ["SWAPPED_FULL", true, "FULL_EDGE_REVERSAL_ORBIT"],
+    ["FIXED_P1", false, "CSTAR_8"],
+    ["SWAPPED_P0_TRANSPORT", true, "CSTAR_2"],
+    ["FIXED_P0", false, "CSTAR_2"],
+    ["SWAPPED_P1_FIXED_LABEL", true, "CSTAR_8"]
+  ],
+  "structuralChecks": [
+    "Freeze all catalogs, parity rows, bases and kernels before any new scalar replay.",
+    "Compare kernel bases and triangle partitions under (fixed full, swapped full), (fixed P1, swapped P0), (fixed P0, swapped P1).",
+    "Owner relabeling may permute channel positions; equivalence is bijective relabeling of feature columns, not byte equality of keys."
+  ],
+  "interpretation": "A transported fixed-owner identity is not a mover/opponent law. Mover-relative normalization must be separately reconstructed from state parity and checked for descent before scalar claims.",
+  "sealedFormulaHoldouts": ["3x6-k4", "5x3-k4"],
+  "rs096": "HOLD"
+}
