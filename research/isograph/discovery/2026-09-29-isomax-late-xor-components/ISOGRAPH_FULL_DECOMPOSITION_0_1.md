@@ -1013,3 +1013,78 @@ The principal remaining question is:
 \text{ over phase-anchored residual incidence + ZOE?}
 }
 \]
+
+
+---
+
+# 14. Post-decomposition evidence — EW-RS-061 oddness-only cubic
+
+A concurrent discovery-corpus experiment completed after the first decomposition checkpoint.
+
+EW-RS-061 tested the restricted decoder family:
+
+\[
+\text{complete affine P/O}
++
+\text{complete degree-2 P/O}
++
+\text{all mechanically generated OOO triples only}.
+\]
+
+Every cubic monomial containing a presence bit P was removed.
+
+Results:
+
+| carrier | full cubic catalog | OOO-only cubic catalog | OOO rank gain over degree 2 | contradictions |
+|---|---:|---:|---:|---:|
+| 6x3-k3 | 64,991 | 1,753 | 75 | 0 |
+| 4x5-k4 | 263,021 | 7,485 | 294 | 0 |
+| 6x3-k4 | 52,467 | 501 | 16 | 0 |
+
+This is particularly informative on 4x5-k4.
+
+EW-RS-060 found an outcome-independent cubic quotient of dimension 371 whose deterministic basis contained:
+
+- 294 OOO directions;
+- 77 OOP directions.
+
+EW-RS-061 shows that retaining the complete lower-degree P/O span plus all OOO triples is already scalar-exact. The 77 presence-containing cubic quotient directions are therefore not required for scalar decoding on that carrier, even though they are genuine structural directions modulo degree 2 in the broader feature space.
+
+Disposition:
+
+- **bounded discovery-corpus evidence:** cubic scalar correction can be restricted to oddness-only triple interactions on all three hard carriers;
+- **not independent qualification:** the hypothesis was motivated by EW-RS-060;
+- **not a final formula:** all observed OOO triples are still admitted mechanically;
+- **holdouts remain sealed:** EW-RS-059 is untouched.
+
+## IA/DP consequence
+
+This does not alter the exact IA fixed point, because it is empirical decoder evidence rather than a deductive identity.
+
+It does sharpen the discovery frontier:
+
+\[
+\boxed{
+\text{presence information is needed in lower-degree structure, but the observed cubic scalar correction needs only oddness bits.}
+}
+\]
+
+That is strongly aligned with the native decomposition:
+
+\[
+ZOE=(\text{presence by OR},\text{oddness by XOR}).
+\]
+
+The highest-degree correction seen so far lies entirely in the XOR/oddness coordinate.
+
+The next warranted structural question is no longer whether OOP cubic terms are needed. On the current discovery corpus they are not.
+
+The next question is:
+
+\[
+\boxed{
+\text{What structural rule selects or composes the required OOO oddness interactions?}
+}
+\]
+
+Any such rule must be frozen before the EW-RS-059 primary formula holdout is unsealed.
