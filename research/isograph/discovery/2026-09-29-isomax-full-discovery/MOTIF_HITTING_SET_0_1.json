@@ -1,0 +1,105 @@
+{
+  "schema": "connect4.isomax.discovery.motif_hitting_set.v1",
+  "date_author_local": "2026-09-29",
+  "authority": "DP 0.9 Minimum Sufficient Support / valuation over frozen finite evidence",
+  "evidence": {
+    "branch": "experiment/isomax-discovery-cap-hole-cycle-coverage-20260929",
+    "commit": "b1bcbb3ac982a845fe948f63bd210375ee5b122a",
+    "file": "CAP_HOLE_CYCLE_COVERAGE_0_1.json",
+    "cycle_basis": "deterministic fundamental-cycle basis from exact reduced binary inheritance graph"
+  },
+  "objective": "fewest motif-bearing binary groups whose union intersects every observed nonzero fundamental cycle",
+  "k4_release": {
+    "nonzero_cycles": 22,
+    "motif_candidate_groups_on_nonzero_cycles": 62,
+    "nondominated_candidate_groups": 9,
+    "minimum_hitting_set_size": 6,
+    "number_of_minimum_solutions": 6,
+    "minimum_solutions": [
+      [
+        152,
+        546,
+        1045,
+        1201,
+        1263,
+        1620
+      ],
+      [
+        152,
+        546,
+        1045,
+        1201,
+        1263,
+        1623
+      ],
+      [
+        152,
+        546,
+        1201,
+        1263,
+        1562,
+        1620
+      ],
+      [
+        152,
+        546,
+        1201,
+        1263,
+        1562,
+        1623
+      ],
+      [
+        152,
+        546,
+        1201,
+        1263,
+        1563,
+        1620
+      ],
+      [
+        152,
+        546,
+        1201,
+        1263,
+        1563,
+        1623
+      ]
+    ],
+    "representation_note": "group IDs are local handles in the frozen k4-release carrier and are not cross-carrier semantic identities",
+    "exact_search": "branch-and-bound set cover after removing strictly dominated equal-cost candidate groups; equal-size minima retained"
+  },
+  "k3_standard": {
+    "nonzero_cycles": 23,
+    "motif_covered_nonzero_cycles": 17,
+    "motif_uncovered_nonzero_cycles": 6,
+    "motif_only_hitting_set": "INFEASIBLE",
+    "uncovered_closing_edges": [
+      {
+        "closingEdgeId": 676,
+        "nodeCount": 2
+      },
+      {
+        "closingEdgeId": 1866,
+        "nodeCount": 14
+      },
+      {
+        "closingEdgeId": 2596,
+        "nodeCount": 2
+      },
+      {
+        "closingEdgeId": 3352,
+        "nodeCount": 10
+      },
+      {
+        "closingEdgeId": 3354,
+        "nodeCount": 10
+      },
+      {
+        "closingEdgeId": 3441,
+        "nodeCount": 2
+      }
+    ]
+  },
+  "conclusion": "The broad cap-hole motif forms a complete but non-unique six-group hitting layer for the observed repair-pruned k4 nonzero fundamental cycles, while no motif-only hitting layer exists for all observed k3 nonzero cycles.",
+  "interpretation_guard": "Finite basis-relative MSS only. The six-group cardinality and local IDs are not universal game invariants."
+}
