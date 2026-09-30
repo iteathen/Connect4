@@ -1,0 +1,161 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.signed_exchange_token_family_mss.v1",
+  "id": "EW-RS-072",
+  "date_author_local": "2026-09-30",
+  "status": "ACTIVE",
+  "parent": "EW-RS-070",
+  "objective": "Determine which token-coordinate families inside the common exact signed exchange triangle are structurally necessary for the scalar dependency image, using exhaustive family-subset deletion before scalar replay.",
+  "cases": [
+    "6x3-k3",
+    "4x5-k4",
+    "6x3-k4"
+  ],
+  "sealedFormulaHoldouts": {
+    "primary": "3x6-k4",
+    "backup": "5x3-k4",
+    "outcomesMayBeAccessed": false
+  },
+  "frozenCarrier": {
+    "vertexIdentity": "WIDTH_CAPMASK_OWNER_DEPTH_HISTOGRAMS",
+    "pairOrientation": "lexicographic endpoint orientation inherited from EW-RS-069",
+    "matchedDependencyCarrier": "EW-RS-065",
+    "primaryPairEncoding": "SIGN",
+    "secondaryPairEncoding": "SIGNED_PARITY",
+    "primaryControlRanks": {
+      "6x3-k3": 70,
+      "4x5-k4": 283,
+      "6x3-k4": 16
+    },
+    "secondaryControlRanks": {
+      "6x3-k3": 73,
+      "4x5-k4": 282,
+      "6x3-k4": 14
+    }
+  },
+  "tokenFamilies": {
+    "W": "component-width token W",
+    "C": "all role-capacity-parity tokens C:i, retaining exact canonical role index i",
+    "D0": "all owner-0 exact-depth histogram tokens D0:d, retaining exact depth d",
+    "D1": "all owner-1 exact-depth histogram tokens D1:d, retaining exact depth d"
+  },
+  "familySubsets": [
+    [
+      "W"
+    ],
+    [
+      "C"
+    ],
+    [
+      "D0"
+    ],
+    [
+      "D1"
+    ],
+    [
+      "W",
+      "C"
+    ],
+    [
+      "W",
+      "D0"
+    ],
+    [
+      "W",
+      "D1"
+    ],
+    [
+      "C",
+      "D0"
+    ],
+    [
+      "C",
+      "D1"
+    ],
+    [
+      "D0",
+      "D1"
+    ],
+    [
+      "W",
+      "C",
+      "D0"
+    ],
+    [
+      "W",
+      "C",
+      "D1"
+    ],
+    [
+      "W",
+      "D0",
+      "D1"
+    ],
+    [
+      "C",
+      "D0",
+      "D1"
+    ],
+    [
+      "W",
+      "C",
+      "D0",
+      "D1"
+    ]
+  ],
+  "encodings": [
+    {
+      "name": "SIGN",
+      "definition": "For each nonzero exact delta coordinate, retain token identity and sign; discard magnitude."
+    },
+    {
+      "name": "SIGNED_PARITY",
+      "definition": "Retain token identity and sign only when exact delta magnitude is odd; omit every even-magnitude delta coordinate."
+    }
+  ],
+  "structuralProcedure": [
+    "For every OOO triple, reconstruct the same three WIDTH_CAPMASK_OWNER_DEPTH_HISTOGRAMS vertices used by EW-RS-069/070.",
+    "For each pair encoding and each frozen family subset, compute all three pair signatures, deleting token terms whose family is outside the subset.",
+    "Sort the three pair signatures to form the triple key.",
+    "Map EW-RS-065 matched dependencies to GF(2) parity of triple keys and freeze the structural basis.",
+    "Only after every structural candidate map and basis is frozen replay scalar dependency residues."
+  ],
+  "selectionAndMss": {
+    "primaryQuestion": "Which inclusion-minimal family subsets are scalar-exact on all three carriers under SIGN?",
+    "secondaryQuestion": "Which inclusion-minimal family subsets are scalar-exact on all three carriers under SIGNED_PARITY?",
+    "valuation": [
+      "subset cardinality",
+      "then structural image rank",
+      "then feature-key count"
+    ],
+    "noForcedTotalOrder": "Report all incomparable minimal exact subsets; do not force a single winner when the subset lattice has multiple minima."
+  },
+  "measurements": [
+    "feature-key count",
+    "structural image rank",
+    "kernel dimension relative to the corresponding full SIGN or SIGNED_PARITY control",
+    "zero-structural-residue/nonzero-scalar count",
+    "scalar contradiction count",
+    "scalar image dimension on structurally selected basis",
+    "inclusion-minimal exact subsets per carrier and common across all carriers"
+  ],
+  "antiCircularity": [
+    "Both pair encodings, all four token families, all 15 family subsets, and the subset valuation are frozen before scalar inspection.",
+    "No individual W/C:i/D0:d/D1:d token coordinate is selected or deleted using W/D/L.",
+    "Exact role and exact depth indices remain intact within any included family.",
+    "EW-RS-065 dependencies and EW-RS-069 vertex/pair orientation are unchanged.",
+    "EW-RS-059 PRIMARY 3x6-k4 and BACKUP 5x3-k4 remain sealed."
+  ],
+  "falsifiers": [
+    "The full W+C+D0+D1 SIGN subset must reproduce RS-070 ranks 70,283,16 with zero contradictions.",
+    "The full W+C+D0+D1 SIGNED_PARITY subset must reproduce RS-070 ranks 73,282,14 with zero contradictions.",
+    "Any candidate with zero structural residue and nonzero scalar residue is insufficient.",
+    "No outcome-driven family exception or token-level rescue is allowed."
+  ],
+  "nextIfStrictSubsetPasses": "Freeze the inclusion-minimal common family support and next compress role/depth indices within only those retained families.",
+  "nextIfAllFamiliesRequired": "Retain all four families and move to outcome-independent circuit/basis reduction inside the full signed exchange image rather than deleting individual token coordinates.",
+  "interpretationGuards": [
+    "Family-subset sufficiency is bounded Q-V evidence on the declared hard carriers.",
+    "A retained token family is not proved universally necessary unless every strict family subset is structurally ruled out in the declared lattice.",
+    "No Q-A/Q-F, standard-7x6, universal theorem, or center-opening proof follows."
+  ]
+}
