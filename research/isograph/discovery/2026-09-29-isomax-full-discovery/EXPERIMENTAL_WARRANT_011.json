@@ -1,0 +1,41 @@
+{
+  "schema": "connect4.isomax.discovery.experimental_warrant.v1",
+  "id": "EW-011",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE_FRESH_CONFIRMATION",
+  "purpose": [
+    "DISCRIMINATING",
+    "CHARACTERIZING"
+  ],
+  "parent_warrant": "EW-006",
+  "parent_clue": "At k=4, H+D is the unique minimal obstructing winning-line family for 5x4 while every 4x5 subset is flat.",
+  "objective": "Freeze the k=4 subset predictions and test all H/V/D subsets on fresh k=3 4x5/5x4 carriers.",
+  "training_scope": "EW-006 k=4 line-family intervention only",
+  "holdout_scope": "k=3 4x5/5x4 line-family subsets; none inspected when selecting H+D",
+  "predictions": {
+    "4x5": {
+      "H": "flat",
+      "V": "flat",
+      "D": "flat",
+      "H+V": "flat",
+      "H+D": "flat",
+      "V+D": "flat",
+      "H+V+D": "flat"
+    },
+    "5x4": {
+      "H": "flat",
+      "V": "flat",
+      "D": "flat",
+      "H+V": "flat",
+      "H+D": "obstructed",
+      "V+D": "flat",
+      "H+V+D": "obstructed"
+    }
+  },
+  "adaptive_evidence_firewall": "Any prediction change after observing k=3 requires a new holdout.",
+  "interpretation_barrier": "Counterfactual structural producer; confirmation is about residual-family interaction, not standard game outcomes.",
+  "prohibited_information_sources": [
+    "solved database",
+    "W/D/L as structural producer input"
+  ]
+}
