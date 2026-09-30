@@ -42,13 +42,15 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add \
-            research/isograph/discovery/2026-09-29-isomax-late-xor-components/OOO_SIGN_CHANNEL_COUPLING_0_1.json \
-            research/isograph/discovery/2026-09-29-isomax-late-xor-components/OOO_SIGN_CHANNEL_COUPLING_RESULT_VERIFY_0_1.json
+          out1=research/isograph/discovery/2026-09-29-isomax-late-xor-components/OOO_SIGN_CHANNEL_COUPLING_0_1.json
+          out2=research/isograph/discovery/2026-09-29-isomax-late-xor-components/OOO_SIGN_CHANNEL_COUPLING_RESULT_VERIFY_0_1.json
+          git stash push --include-untracked -m rs077-generated -- "$out1" "$out2"
+          git pull --rebase origin experiment/isomax-late-xor-components-20260929
+          git stash pop
+          git add "$out1" "$out2"
           if git diff --cached --quiet; then
             echo "No generated changes."
           else
             git commit -m "research(isomax): freeze sign-channel coupling"
-            git pull --rebase origin experiment/isomax-late-xor-components-20260929
             git push origin HEAD:experiment/isomax-late-xor-components-20260929
           fi
