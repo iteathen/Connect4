@@ -1,0 +1,19 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.qv_merge_mechanism.v1",
+  "id": "EW-RS-022",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "parent": "EW-RS-019",
+  "objective": "Classify the only observed nontrivial SAT2 Q-V merge on 5x3-k3 and determine whether it is purely evaluator-side action multiplicity/dominance redundancy.",
+  "anti_circularity": [
+    "SAT2 key frozen before values",
+    "component types unchanged",
+    "values used only to explain an already observed Q-V collision"
+  ],
+  "falsifiers": [
+    "different action-value sets with same scalar extremum => dominance, not pure duplicate multiplicity",
+    "different extrema => SAT2 Q-V would be false",
+    "same unique transported role=>value set with different multiplicities => pure action multiplicity erasure"
+  ],
+  "implication": "Do not promote SAT2 as a component algebra if the only nontrivial merge is explained by Bellman idempotence over duplicate actions."
+}
