@@ -1,0 +1,26 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_fixed_point.v1",
+  "round": 33,
+  "date_author_local": "2026-09-29",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_32_0_1.json",
+    "RANK_SUFFICIENCY_FRESH_QUADRATIC_HOLDOUT_INTEGRATION_0_1.json"
+  ],
+  "recursive_generation": {
+    "families_checked": [
+      "fresh transfer",
+      "interaction order",
+      "interaction dimension",
+      "Q versus D pressure",
+      "degree-escalation restraint"
+    ],
+    "new_assertions": []
+  },
+  "fixed_point": true,
+  "reason": "The fresh holdout strengthens the quadratic degree candidate but does not identify the interaction basis. Further IA requires rank-resolved subspace evidence.",
+  "next_evidence_boundaries": [
+    "exact-rank quadratic rank-gain decomposition",
+    "structural basis candidate for the value-relevant interaction subspace"
+  ],
+  "stop_status": "FIXED_POINT__INTERACTION_SUBSPACE_NEXT"
+}
