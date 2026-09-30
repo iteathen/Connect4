@@ -780,3 +780,123 @@ This motivates the next DTS/DP object:
 \]
 
 The currently running EW-RS-064 affine-fiber audit is intended to identify that tangent space and any additional parity constraints beyond board width.
+
+
+---
+
+# 18. Presence-fiber geometry — EW-RS-064
+
+EW-RS-064 measured the reachable oddness states after fixing the complete descriptor-presence set.
+
+The result is much stronger than width parity alone:
+
+\[
+\boxed{
+\text{the repaired O/E coordinates live on extremely thin structural fibers.}
+}
+\]
+
+## 18.1 6x3-k3
+
+- structural classes: 16,732
+- fixed-presence fibers: 16,728
+- 16,724 fibers contain exactly one reachable oddness state
+- only 4 fibers contain two states
+- maximum affine dimension: 1
+- complete coordinate fibers: 0
+- 16,728 / 16,728 fibers are complete affine subspaces of their own affine hull
+- only 2 fibers have width parity as their sole independent linear constraint
+- 16,726 fibers have additional independent linear constraints
+- 13,047 / 16,732 classes have zero ZOE width slack
+
+## 18.2 4x5-k4
+
+- structural classes: 79,309
+- fixed-presence fibers: 79,185
+- 79,068 fibers contain one reachable oddness state
+- 110 contain two states
+- 7 contain three states
+- maximum affine dimension: 2
+- complete coordinate fibers: 0
+- 79,178 fibers are complete affine subspaces of their affine hull
+- 7 fibers are not complete affine subspaces
+- only 18 fibers have width parity as their sole independent linear constraint
+- 79,167 fibers have additional independent linear constraints
+- 79,093 / 79,309 classes have zero ZOE width slack
+
+Thus about 99.7% of observed scalar classes already consume the entire board-width budget at the minimum multiplicities represented by ZOE.
+
+## 18.3 6x3-k4
+
+- structural classes: 17,550
+- fixed-presence fibers: 17,465
+- 17,390 fibers contain one reachable oddness state
+- 67 contain two states
+- 6 contain three states
+- 2 contain four states
+- maximum affine dimension: 2
+- complete coordinate fibers: 0
+- 17,459 fibers are complete affine subspaces of their affine hull
+- 6 fibers are not complete affine subspaces
+- only 20 fibers have width parity as their sole independent linear constraint
+- 17,445 fibers have additional independent linear constraints
+- 15,549 / 17,550 classes have zero ZOE width slack
+
+## 18.4 Interpretation guard
+
+The phrase "additional independent linear constraints" is local to each observed fixed-presence fiber.
+
+Because most fibers are singletons, many such local constraints simply express that only one oddness assignment is realizable for that exact presence set. They are **not automatically universal parity laws** and must not be promoted as such.
+
+The important invariant conclusion is instead:
+
+> The ambient P/O Boolean cube is a very poor model of the reachable repaired state space.
+
+Almost every fixed-presence oddness fiber has affine dimension 0, and none is a complete coordinate cube.
+
+## 18.5 Consequence for the OOO phenomenon
+
+The OOO cubic representation should now be interpreted as a coordinate realization of a scalar function on a **thin weighted ZOE realizability manifold**.
+
+The relevant object is not:
+
+\[
+\text{three independently varying oddness bits}.
+\]
+
+It is:
+
+\[
+\boxed{
+\text{a constrained structural signature whose allowed oddness exchanges are determined by component width, presence, and residual realizability.}
+}
+\]
+
+This explains several observations simultaneously:
+
+1. direct 8-corner OOO cubes do not exist;
+2. cubic bases are highly non-unique;
+3. deterministic OOO terms can look like three-body interactions even when the underlying manifold supplies fewer independent degrees of freedom;
+4. ZOE can be nearly partition-equivalent to exact multiplicity on small-width carriers;
+5. a lower-complexity native law may become visible only after quotienting by structural realizability constraints.
+
+## 18.6 Revised QU target
+
+The central QU is now:
+
+\[
+\boxed{
+\text{What are the primitive generators of the reachable ZOE signature manifold, and how does scalar W/D/L vary along those generators?}
+}
+\]
+
+OOO hyperedges are retained as decoder evidence, but they are no longer the preferred semantic primitive.
+
+The next IsoGraph/DTS object should therefore be the **constraint-preserving exchange/circuit graph** of repaired signatures:
+
+- vertices: reachable repaired ZOE signatures;
+- edges: minimal structural exchanges between signatures that preserve exact board-width and the fixed semantic guards;
+- circuits: minimal closed combinations of exchanges;
+- scalar annotation: W/D/L change across those exchanges.
+
+This is the appropriate place to search for a cocycle, phase law, or other small invariant.
