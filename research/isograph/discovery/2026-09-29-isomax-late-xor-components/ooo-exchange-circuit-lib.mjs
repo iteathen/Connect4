@@ -62,6 +62,51 @@ export function exactPairDelta(aVertex,bVertex){
   return directedDeltaParsed(parseSelectedVertex(lo),parseSelectedVertex(hi));
 }
 
+function directedDeltaTermsParsed(a,b){
+  const va=vectorCountsParsed(a),vb=vectorCountsParsed(b);
+  const keys=[...new Set([...va.keys(),...vb.keys()])].sort();
+  const out=[];
+  for(const key of keys){
+    const delta=(vb.get(key)??0)-(va.get(key)??0);
+    if(delta!==0)out.push({key,delta});
+  }
+  return out;
+}
+
+export function compressedPairDelta(aVertex,bVertex,mode){
+  const [lo,hi]=aVertex<=bVertex?[aVertex,bVertex]:[bVertex,aVertex];
+  const terms=directedDeltaTermsParsed(parseSelectedVertex(lo),parseSelectedVertex(hi));
+
+  if(mode==='SUPPORT')
+    return terms.length?terms.map(x=>x.key).join(','):'0';
+
+  if(mode==='PARITY'){
+    const z=terms.filter(x=>(Math.abs(x.delta)&1)!==0).map(x=>x.key);
+    return z.length?z.join(','):'0';
+  }
+
+  if(mode==='SIGN')
+    return terms.length?terms.map(x=>x.key+':'+(x.delta>0?'+':'-')).join(','):'0';
+
+  if(mode==='ABS_MAG')
+    return terms.length?terms.map(x=>x.key+'='+Math.abs(x.delta)).join(','):'0';
+
+  if(mode==='SIGNED_PARITY'){
+    const z=terms
+      .filter(x=>(Math.abs(x.delta)&1)!==0)
+      .map(x=>x.key+':'+(x.delta>0?'+':'-'));
+    return z.length?z.join(','):'0';
+  }
+
+  if(mode==='SIGNED_CLIPPED_MAG')
+    return terms.length?terms.map(x=>x.key+'='+(x.delta>0?'+':'-')+(Math.abs(x.delta)===1?'1':'2+')).join(','):'0';
+
+  if(mode==='EXACT')
+    return terms.length?terms.map(x=>x.key+'='+x.delta).join(','):'0';
+
+  throw new Error('unknown pair-delta compression mode '+mode);
+}
+
 function l1Hist(a,b){
   const keys=new Set([...a.keys(),...b.keys()]);
   let n=0;
