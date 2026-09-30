@@ -1,0 +1,235 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.orientation_provenance_integration.v1",
+  "date_author_local": "2026-09-30",
+  "research_direction": "Joshua Oshiro",
+  "status": "HVD_GENERAL_SOURCE_REJECTED__ORIENTATION_NOT_COMMON_COMPRESSION__NONORIENTATION_EXCHANGE_PREFERRED",
+  "evidence": {
+    "branch": "experiment/isomax-late-xor-components-20260929",
+    "warrant": "EW-RS-071",
+    "preflight": {
+      "commit": "094f0524ed355f133d062779f4052ffb591b2108",
+      "file": "OOO_ORIENTATION_PROVENANCE_SPEC_VERIFY_0_1.json",
+      "status": "PASS"
+    },
+    "result": {
+      "commit": "e01fc192ebb7123bb4d74f85bce0515b97f5a550",
+      "file": "OOO_ORIENTATION_PROVENANCE_0_1.json"
+    },
+    "resultVerification": {
+      "file": "OOO_ORIENTATION_PROVENANCE_RESULT_VERIFY_0_1.json",
+      "sourceWorkflowRun": 36746540630,
+      "unit": "success",
+      "specVerify": "success",
+      "audit": "success",
+      "resultVerify": "success",
+      "researchIntegrity": "success",
+      "publication": "recovered after add/add rebase conflict"
+    }
+  },
+  "exactDeductions": {
+    "reflection": [
+      "Horizontal reflection preserves H and V and exchanges D+ with D-.",
+      "The provenance q_o/RFG projection, T2 partition, exact component multiset, and ROLE_CAPPAR aggregate commute with reflection with zero mismatches on all three declared carriers.",
+      "Therefore diagonal sign is removable for reflection-invariant scalar questions: D+~D- -> D."
+    ],
+    "carrierGeometry": {
+      "6x3-k3": {
+        "H": 12,
+        "V": 6,
+        "DPLUS": 4,
+        "DMINUS": 4
+      },
+      "4x5-k4": {
+        "H": 5,
+        "V": 8,
+        "DPLUS": 2,
+        "DMINUS": 2
+      },
+      "6x3-k4": {
+        "H": 9,
+        "V": 0,
+        "DPLUS": 0,
+        "DMINUS": 0
+      }
+    },
+    "supportSemantics": "Vertical dynamics are discrete support/precedence updates h_c->h_c+1 with frontier accessibility, release depth, and phase; no physical acceleration/velocity semantics are used."
+  },
+  "boundedResults": {
+    "6x3-k3": {
+      "oooResidueRank": 75,
+      "scalarImageDimension": 1,
+      "hvdTriples": 256,
+      "nonHvdTriples": 41,
+      "hvdOnly": {
+        "rank": 74,
+        "contradictions": 0,
+        "exact": true
+      },
+      "nonHvdOnly": {
+        "rank": 31,
+        "contradictions": 8,
+        "exact": false
+      },
+      "firstOrientationCandidateExact": "ORI_COUNTS",
+      "exactOrientation": {
+        "featureKeys": 297,
+        "rank": 75,
+        "contradictions": 0,
+        "exact": true
+      }
+    },
+    "4x5-k4": {
+      "oooResidueRank": 294,
+      "scalarImageDimension": 2,
+      "hvdTriples": 438,
+      "nonHvdTriples": 239,
+      "hvdOnly": {
+        "rank": 217,
+        "contradictions": 5,
+        "exact": false
+      },
+      "nonHvdOnly": {
+        "rank": 152,
+        "contradictions": 14,
+        "exact": false
+      },
+      "firstOrientationCandidateExact": "EXACT_ORIENTATION_PROVENANCE",
+      "exactOrientation": {
+        "featureKeys": 677,
+        "rank": 294,
+        "contradictions": 0,
+        "exact": true
+      }
+    },
+    "6x3-k4": {
+      "oooResidueRank": 16,
+      "scalarImageDimension": 2,
+      "hvdTriples": 0,
+      "nonHvdTriples": 50,
+      "hvdOnly": {
+        "rank": 0,
+        "contradictions": 8,
+        "exact": false
+      },
+      "nonHvdOnly": {
+        "rank": 16,
+        "contradictions": 0,
+        "exact": true
+      },
+      "firstOrientationCandidateExact": "EXACT_ORIENTATION_PROVENANCE",
+      "exactOrientation": {
+        "featureKeys": 50,
+        "rank": 16,
+        "contradictions": 0,
+        "exact": true
+      }
+    }
+  },
+  "commonCandidateDisposition": {
+    "ORI_PRESENCE": "fails all three",
+    "ORI_COUNTS": "exact only on 6x3-k3; fails 4x5-k4 and 6x3-k4",
+    "OWNER_ORI_COUNTS": "exact only on 6x3-k3; fails 4x5-k4 and 6x3-k4",
+    "ORI_ROLE_PHASE_COUNTS": "exact only on 6x3-k3; fails 4x5-k4 and 6x3-k4",
+    "ORI_DEPTH_HISTOGRAM": "exact only on 6x3-k3; fails 4x5-k4 and 6x3-k4",
+    "OWNER_ORI_DEPTH_HISTOGRAM": "exact only on 6x3-k3; fails 4x5-k4 and 6x3-k4",
+    "PAIR_ORI_INCIDENCE": "fails all three",
+    "OWNER_ORI_PHASE_DEPTH": "exact only on 6x3-k3; fails 4x5-k4 and 6x3-k4",
+    "EXACT_ORIENTATION_PROVENANCE": "exact on all three, but reconstruction-level and not a compression",
+    "FULL_DESCRIPTOR_PLUS_EXACT_ORIENTATION": "exact reconstruction control on all three"
+  },
+  "crossK": {
+    "comparison": "6x3-k3 versus 6x3-k4",
+    "commonCompressedExactCandidate": null,
+    "sharedFeatureKeys": {
+      "ORI_PRESENCE": 0,
+      "ORI_COUNTS": 0,
+      "OWNER_ORI_COUNTS": 0,
+      "ORI_ROLE_PHASE_COUNTS": 0,
+      "ORI_DEPTH_HISTOGRAM": 0,
+      "OWNER_ORI_DEPTH_HISTOGRAM": 0,
+      "PAIR_ORI_INCIDENCE": 1,
+      "OWNER_ORI_PHASE_DEPTH": 0,
+      "EXACT_ORIENTATION_PROVENANCE": 0,
+      "FULL_DESCRIPTOR_PLUS_EXACT_ORIENTATION": 0
+    },
+    "interpretation": "The only shared orientation-derived feature key occurs in PAIR_ORI_INCIDENCE, which is scalar-inexact on both k values. No shared compressed orientation motif law survives the clean same-geometry k=3/k=4 comparison."
+  },
+  "shuffleControl": {
+    "finding": "Exact orientation provenance remains scalar-exact under deterministic cyclic descriptor-label shifts 1,3,7 on every carrier.",
+    "strongerObservation": "Several compressed shifted controls become exact where the true orientation assignment is inexact, including all OWNER_ORI_PHASE_DEPTH shifts on 4x5-k4 and 6x3-k4.",
+    "disposition": "Orientation labels do not show unique explanatory privilege under the frozen shuffle control."
+  },
+  "comparisonToNonOrientationCarrier": {
+    "source": "EW-RS-069",
+    "carrier": "EXCHANGE_EXACT_DELTA_TRIANGLE over WIDTH_CAPMASK_OWNER_DEPTH_HISTOGRAMS motif vertices",
+    "ranks": {
+      "6x3-k3": 75,
+      "4x5-k4": 283,
+      "6x3-k4": 16
+    },
+    "scalarExact": true,
+    "consequence": "A non-orientation exchange carrier is common across all three hard carriers and is strictly smaller than exact orientation provenance on 4x5-k4 (283 versus 294 rank). This satisfies the declared RS-071 falsifier that a simpler non-orientation exchange/circuit invariant can explain the same scalar quotient."
+  },
+  "findings": [
+    {
+      "id": "RS-F226",
+      "status": "HVD_SIMULTANEOUS_REQUIREMENT_REJECTED",
+      "statement": "6x3-k4 has no V or D winning lines and zero HVD OOO triples, yet its non-HVD residue has rank 16 and preserves the complete two-dimensional scalar dependency image."
+    },
+    {
+      "id": "RS-F227",
+      "status": "HVD_NOT_COMMONLY_SUFFICIENT",
+      "statement": "HVD-only OOO residue is scalar-exact on 6x3-k3 but scalar-inexact on 4x5-k4 and vacuous on 6x3-k4; no common HVD-only law exists across the declared hard carriers."
+    },
+    {
+      "id": "RS-F228",
+      "status": "ORIENTATION_SUMMARY_COMPRESSION_REJECTED",
+      "statement": "Every declared compressed orientation summary is scalar-inexact on at least one hard carrier. Common exactness appears only at exact orientation provenance / reconstruction-control granularity."
+    },
+    {
+      "id": "RS-F229",
+      "status": "ORIENTATION_SHUFFLE_NEGATIVE_CONTROL",
+      "statement": "Deterministic cyclic reassignment of orientation annotations preserves scalar exactness for exact orientation provenance on all carriers and can improve several coarser summaries; true orientation labels therefore lack unique scalar explanatory privilege in this experiment."
+    },
+    {
+      "id": "RS-F230",
+      "status": "CROSS_K_ORIENTATION_LAW_REJECTED",
+      "statement": "The same-geometry 6x3 k=3/k=4 comparison has no shared scalar-exact compressed orientation feature vocabulary; the only shared feature key lies in a candidate that fails both."
+    },
+    {
+      "id": "RS-F231",
+      "status": "NONORIENTATION_EXCHANGE_DOMINATES",
+      "statement": "EW-RS-069 exact pair-delta exchange is scalar-exact across the same hard carriers without explicit orientation provenance and is strictly more compressed on 4x5-k4, making exchange/support structure the stronger common organizing candidate."
+    }
+  ],
+  "dpMss": {
+    "diagonalSign": "REMOVE_EXACTLY_BY_REFLECTION",
+    "orientationPresence": "REMOVE_AS_COMMON_SCALAR_SUPPORT",
+    "exactOrientationMultiplicity": "NOT_COMMONLY_SUFFICIENT_WITHOUT_FINER_STRUCTURE",
+    "ownerSeparation": "DOES_NOT_REPAIR_COMMON_ORIENTATION_SUMMARY",
+    "phase": "DOES_NOT_REPAIR_COMMON_ORIENTATION_SUMMARY",
+    "exactDepth": "DOES_NOT_REPAIR_COMMON_ORIENTATION_SUMMARY",
+    "exactOrientationProvenance": "EXACT_BUT_RECONSTRUCTION_LEVEL__NOT_SELECTED_MSS",
+    "preferredCommonDirection": "return to non-orientation exchange/support circuit family"
+  },
+  "dtsDisposition": {
+    "exactChannelAnatomy": [
+      "H is transverse to vertical support chains and has at most one source-line cell per column.",
+      "V lies within one support chain and one column advance can affect multiple surviving cells of the same V source line.",
+      "D couples column displacement to changing support depth and is mixed geometry/support structure."
+    ],
+    "conclusion": "These channel distinctions are exact geometry, but they are not the common source of OOO. Any common DTS law must admit the horizontal-only 6x3-k4 realization; the already exact base-free/non-orientation exchange carrier is therefore the stronger target."
+  },
+  "open": [
+    "what within-H/support exchange law generates the 16-dimensional 6x3-k4 OOO correction",
+    "which pair-delta coordinates from EW-RS-070 are load-bearing after the orientation detour",
+    "whether one common support/exchange circuit law explains mixed-orientation and H-only carriers",
+    "closed two-syndrome law before EW-RS-059 unsealing"
+  ],
+  "nonclaims": [
+    "Orientation provenance is not claimed irrelevant to carrier-specific structure on 6x3-k3 or 4x5-k4.",
+    "Failure of this orientation ladder does not prove no orientation-aware alternative can compress a restricted carrier.",
+    "EW-RS-059 PRIMARY 3x6-k4 and BACKUP 5x3-k4 remain sealed.",
+    "No Q-A/Q-F, standard-7x6, universal theorem, or center-opening proof follows."
+  ]
+}
