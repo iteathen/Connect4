@@ -1,7 +1,7 @@
 {
   "schema": "connect4.isomax.rank_sufficiency.sign_channel_coupling_integration_quarantine.v1",
   "date_author_local": "2026-09-30",
-  "status": "QUARANTINED_PENDING_MECHANICAL_PARETO_RECLASSIFICATION",
+  "status": "RESOLVED__MECHANICAL_PARETO_RECLASSIFICATION_INTEGRATED",
   "cause": {
     "experimentalBranch": "experiment/isomax-late-xor-components-20260929",
     "verifierRepairCommit": "c8f0318066f2ea4d4664e3e57a5bcef26972f536",
@@ -14,8 +14,26 @@
     "QU_LEDGER_RANK_SUFFICIENCY_0_31.json"
   ],
   "authority": {
-    "scalarEvidenceMayBeReused": false,
-    "paretoClassificationMayBeReused": false,
+    "scalarEvidenceMayBeReused": true,
+    "paretoClassificationMayBeReused": true,
+    "useOnlyCorrectedVerifierCommit": "35c21163d19aa51cf569a7ee17c267c1009193a4",
+    "ewRs059HoldoutsRemainSealed": true
+  },
+  "resolution": {
+    "correctedExperimentalVerifierCommit": "35c21163d19aa51cf569a7ee17c267c1009193a4",
+    "correctedReverifyWorkflowRun": 36760754033,
+    "reverifyConclusion": "success",
+    "researchIntegrityGate": "success",
+    "foundationalRepairCommits": {
+      "integration": "6a45ae06416d32abfdefae3a99fb8497238ce0da",
+      "iaRound84": "ef1aef530b63eccc0f179a411598078bc5da154d",
+      "iaRound85FixedPoint": "a0c59a743b61b71a251f931084c45651f30d5a8b",
+      "quLedger31": "d05df1cbedf082030172339a37b32fcdebb70150"
+    },
+    "authoritativePareto": {
+      "formalModeLabelCount": 15,
+      "partitionEquivalenceClassCount": 4
+    },
     "ewRs059HoldoutsRemainSealed": true
   }
 }
