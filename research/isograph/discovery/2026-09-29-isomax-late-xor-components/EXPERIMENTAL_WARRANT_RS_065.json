@@ -1,0 +1,74 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.matched_degree2_dependency_quotient.v1",
+  "id": "EW-RS-065",
+  "date_author_local": "2026-09-30",
+  "status": "ACTIVE",
+  "parent": "EW-RS-064",
+  "objective": "Replace impossible axis-aligned OOO cubes with an outcome-independent dual certificate basis: freeze the left-kernel dependencies of the complete degree<=2 repaired P/O feature matrix, map those dependencies into the complete OOO structural residue space, and only after that structural quotient is frozen annotate each dependency with its two-bit scalar XOR.",
+  "cases": [
+    "6x3-k3",
+    "4x5-k4",
+    "6x3-k4"
+  ],
+  "frozenCoordinate": {
+    "identity": "ROLE_CAPPAR_REL_INC",
+    "countState": "ZOE",
+    "binaryEncoding": "P_d=[n_d>0], O_d=n_d mod 2",
+    "ownerGauge": "absolute r0/r1",
+    "rankGrade": "none"
+  },
+  "frozenMatrices": {
+    "rows": "Distinct scalar-pure repaired structural classes, ordered lexicographically by complete repaired signature; duplicate physical states are collapsed before algebra.",
+    "lower": "Complete constant/affine P/O columns plus every observed square-free degree-2 P/O column.",
+    "cubic": "Every observed O_a O_b O_c column for three distinct repaired descriptor identities.",
+    "outcomes": "Relative W/D/L code L=00,D=01,W=10; excluded from all basis selection."
+  },
+  "structuralProcedure": [
+    "Run deterministic sparse GF(2) row elimination on the frozen degree<=2 matrix only.",
+    "Every row that structurally reduces to zero freezes one matched dependency in a deterministic left-kernel basis; outcome labels are not consulted.",
+    "Carry the complete OOO feature row through exactly the same structural elimination to obtain the dependency's OOO residue.",
+    "Reduce the frozen dependency residues among themselves, again without outcomes, to obtain a basis for the image of ker(D2^T) under the OOO map.",
+    "Only after both bases are frozen, replay the same reductions with the two-bit scalar column and record each dependency's scalar XOR."
+  ],
+  "measurements": [
+    "degree<=2 row rank and left-nullity",
+    "number of deterministic matched dependencies",
+    "OOO-residue rank across those dependencies",
+    "OOO-residue zero/nonzero histogram and residue-weight histogram",
+    "dimension of scalar dependency image in GF(2)^2",
+    "scalar-code histogram on the structurally frozen dependency basis",
+    "dimension of scalar image restricted to the structurally independent OOO-residue basis",
+    "whether every dependency with zero OOO residue has zero scalar residue",
+    "whether OOO-residue rank reproduces the independently measured OOO rank gain over degree 2"
+  ],
+  "expectedStructuralControls": {
+    "6x3-k3": {
+      "oooRankGain": 75
+    },
+    "4x5-k4": {
+      "oooRankGain": 294
+    },
+    "6x3-k4": {
+      "oooRankGain": 16
+    }
+  },
+  "antiCircularity": [
+    "All class ordering, degree<=2 elimination pivots, dependency selection, OOO residue construction, and OOO residue-basis selection are functions only of frozen structural rows.",
+    "Scalar W/D/L codes are attached only after the structural dependency and residue bases are frozen.",
+    "No dependency is selected because its scalar XOR is nonzero.",
+    "Individual dependency-basis elements remain gauge/order representatives; the left-nullity, OOO image rank, scalar image dimension, and factorization statements are the invariants.",
+    "EW-RS-059 PRIMARY 3x6-k4 and BACKUP 5x3-k4 remain sealed."
+  ],
+  "falsifiers": [
+    "OOO-residue image rank differs from the independently measured OOO rank gain over complete degree 2.",
+    "Any structurally zero OOO residue carries a nonzero scalar residue despite OOO-only cubic exactness.",
+    "Scalar dependency image has dimension larger than the previously measured target quotient on the same carrier.",
+    "Any outcome access influences a pivot, dependency, or structural residue selection."
+  ],
+  "nextIfControlsHold": "Use the frozen matched-dependency/OOO-residue quotient as the invariant discovery carrier for mechanically generated descriptor-motif functionals and DTS exchange/circuit annotations; do not fit or unseal the formula holdout until a closed structural syndrome family is frozen.",
+  "interpretationGuards": [
+    "A deterministic matched dependency is a basis representative, not automatically a minimal matroid circuit.",
+    "Nonzero scalar XOR on a dependency is a direct certificate that degree<=2 cannot realize the scalar target on that relation.",
+    "This experiment tests Q-V decoder structure only and does not establish Q-A, Q-F, universal cubic sufficiency, 7x6 sufficiency, or a center-opening proof."
+  ]
+}
