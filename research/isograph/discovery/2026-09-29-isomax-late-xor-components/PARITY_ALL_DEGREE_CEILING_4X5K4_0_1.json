@@ -1,0 +1,233 @@
+{
+  "schema": "connect4.isomax.parity_all_degree_ceiling_4x5k4.v1",
+  "date_author_local": "2026-09-29",
+  "warrant": "EW-RS-045",
+  "target": "4x5-k4",
+  "frozenDomain": "T2-O with exact rank",
+  "frozenComponentDefinition": "post-RFG residual-incidence connected components with support/owner-labelled canonical component type",
+  "case": {
+    "label": "4x5-k4",
+    "width": 4,
+    "height": 5,
+    "k": 4,
+    "physicalStates": 1706255,
+    "nonterminalStates": 1348441,
+    "componentTypes": 90223,
+    "tactical2Counts": {
+      "W": 348191,
+      "L2": 66275,
+      "O": 933975
+    },
+    "audits": [
+      {
+        "mode": "EXACT_RANK_PARITY",
+        "statesAudited": 933975,
+        "classes": 79812,
+        "mixedValueClasses": 3,
+        "QV": false,
+        "firstMixedValueWitness": {
+          "mode": "EXACT_RANK_PARITY",
+          "key": "13|T90220:1,T90222:1",
+          "rank": 13,
+          "a": "82401:5150",
+          "b": "83113:4438",
+          "aOutcome": "draw",
+          "bOutcome": "loss",
+          "aCode": 1,
+          "bCode": 0,
+          "multiplicityDifferenceL1": 4,
+          "parityPairUnits": 2,
+          "aCounts": [
+            {
+              "type": "T88106",
+              "canonicalType": "2|28|",
+              "width": 1,
+              "count": 2
+            },
+            {
+              "type": "T90220",
+              "canonicalType": "4||",
+              "width": 1,
+              "count": 1
+            },
+            {
+              "type": "T90222",
+              "canonicalType": "5||",
+              "width": 1,
+              "count": 1
+            }
+          ],
+          "bCounts": [
+            {
+              "type": "T88134",
+              "canonicalType": "2|8|",
+              "width": 1,
+              "count": 2
+            },
+            {
+              "type": "T90220",
+              "canonicalType": "4||",
+              "width": 1,
+              "count": 1
+            },
+            {
+              "type": "T90222",
+              "canonicalType": "5||",
+              "width": 1,
+              "count": 1
+            }
+          ],
+          "delta": [
+            {
+              "type": "T88106",
+              "canonicalType": "2|28|",
+              "width": 1,
+              "delta": -2
+            },
+            {
+              "type": "T88134",
+              "canonicalType": "2|8|",
+              "width": 1,
+              "delta": 2
+            }
+          ]
+        },
+        "minimumMultiplicityDifferenceWitness": {
+          "mode": "EXACT_RANK_PARITY",
+          "key": "13|T90218:1,T90222:1",
+          "rank": 13,
+          "a": "83019:4532",
+          "b": "83169:4382",
+          "aOutcome": "draw",
+          "bOutcome": "loss",
+          "aCode": 1,
+          "bCode": 0,
+          "multiplicityDifferenceL1": 4,
+          "parityPairUnits": 2,
+          "aCounts": [
+            {
+              "type": "T88147",
+              "canonicalType": "2||28",
+              "width": 1,
+              "count": 2
+            },
+            {
+              "type": "T90218",
+              "canonicalType": "4|16|",
+              "width": 1,
+              "count": 1
+            },
+            {
+              "type": "T90222",
+              "canonicalType": "5||",
+              "width": 1,
+              "count": 1
+            }
+          ],
+          "bCounts": [
+            {
+              "type": "T88134",
+              "canonicalType": "2|8|",
+              "width": 1,
+              "count": 2
+            },
+            {
+              "type": "T90218",
+              "canonicalType": "4|16|",
+              "width": 1,
+              "count": 1
+            },
+            {
+              "type": "T90222",
+              "canonicalType": "5||",
+              "width": 1,
+              "count": 1
+            }
+          ],
+          "delta": [
+            {
+              "type": "T88134",
+              "canonicalType": "2|8|",
+              "width": 1,
+              "delta": 2
+            },
+            {
+              "type": "T88147",
+              "canonicalType": "2||28",
+              "width": 1,
+              "delta": -2
+            }
+          ]
+        }
+      },
+      {
+        "mode": "EXACT_RANK_MOD3",
+        "statesAudited": 933975,
+        "classes": 79850,
+        "mixedValueClasses": 0,
+        "QV": true,
+        "firstMixedValueWitness": null,
+        "minimumMultiplicityDifferenceWitness": null
+      },
+      {
+        "mode": "EXACT_RANK_MOD4",
+        "statesAudited": 933975,
+        "classes": 79850,
+        "mixedValueClasses": 0,
+        "QV": true,
+        "firstMixedValueWitness": null,
+        "minimumMultiplicityDifferenceWitness": null
+      },
+      {
+        "mode": "EXACT_RANK_MOD6",
+        "statesAudited": 933975,
+        "classes": 79850,
+        "mixedValueClasses": 0,
+        "QV": true,
+        "firstMixedValueWitness": null,
+        "minimumMultiplicityDifferenceWitness": null
+      },
+      {
+        "mode": "EXACT_RANK_MULTIPLICITY",
+        "statesAudited": 933975,
+        "classes": 79850,
+        "mixedValueClasses": 0,
+        "QV": true,
+        "firstMixedValueWitness": null,
+        "minimumMultiplicityDifferenceWitness": null
+      }
+    ],
+    "minimumParitySeparators": {
+      "witness": {
+        "a": "83019:4532",
+        "b": "83169:4382",
+        "rank": 13,
+        "multiplicityDifferenceL1": 4
+      },
+      "MOD3": true,
+      "MOD4": true,
+      "MOD6": true,
+      "MULTIPLICITY": true
+    }
+  },
+  "mechanicalChecks": {
+    "keysOutcomeIndependent": true,
+    "exactRankRetained": true,
+    "T2ORetained": true,
+    "allPredeclaredModesEmitted": true
+  },
+  "disposition": {
+    "parityQV": false,
+    "parityAllDegreeCeilingFired": true,
+    "mod3QV": true,
+    "mod4QV": true,
+    "mod6QV": true,
+    "fullMultiplicityQV": true
+  },
+  "interpretationGuard": [
+    "A mixed EXACT_RANK_PARITY class means no evaluator depending only on exact rank and the frozen component-parity vector can be Q-V exact, regardless of polynomial degree.",
+    "A passing modulus is only a finite 4x5-k4 count-residue sufficiency result, not a universal algebra theorem.",
+    "Full multiplicity passing would localize the failure to count reduction rather than to the exact component multiset itself.",
+    "No standard-7x6 claim follows."
+  ]
+}
