@@ -1,0 +1,98 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_round.v1",
+  "round": 12,
+  "date_author_local": "2026-09-29",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_11_0_1.json",
+    "RANK_SUFFICIENCY_PHASE_FACTORIZATION_INTEGRATION_0_1.json",
+    "experiment/isomax-late-xor-components-20260929@3822913b71604d7008b9e1a28d354258a509e62b"
+  ],
+  "reopened_reason": "new rank-conditioned component-parity qualification plus direct current-rank T2 derivation materially changes the contextual Q-V carrier",
+  "new_assertions": [
+    {
+      "id": "RS-IA051",
+      "family": "C",
+      "body": "The 5x3 post-T2 parity collision is a scheduler-phase alias in the tested carrier rather than evidence that the paired component types must be assigned arbitrary patched values: exact rank separates it, and rank mod 3 suffices in the tested corpus."
+    },
+    {
+      "id": "RS-IA052",
+      "family": "R",
+      "body": "Multiplicity modulo m carries a homomorphic global phase projection because component types encode local support heights: total rank modulo m is the weighted sum of component counts modulo m. MOD3 success therefore cannot be read as a ternary component algebra without factoring this phase out."
+    },
+    {
+      "id": "RS-IA053",
+      "family": "S",
+      "body": "The T2 W/L2/O reducer is recognizable from current-rank singleton residuals and the legal support frontier; ordinary child-state exploration is not required for its structural meaning."
+    },
+    {
+      "id": "RS-IA054",
+      "family": "F",
+      "body": "The bounded key (component multiplicity parity, rank mod 3, T2) is Q-V exact on eight complete carriers but is not generally Q-F exact; it is therefore a scalar-value candidate, not a future-behavior quotient."
+    },
+    {
+      "id": "RS-IA055",
+      "family": "M",
+      "body": "Within the tested cross-case candidates, rank mod 3 is a smaller sufficient phase than exact rank for the contextual Q-V key, while rank mod 4 is falsified on 5x3 and rank without T2 is falsified on every carrier."
+    },
+    {
+      "id": "RS-IA056",
+      "family": "Q",
+      "body": "A late exponent-2 quotient has reappeared only after scheduler/tactical phase factorization; this does not yet supply a component valuation phi, an XOR evaluator, or a universal group law."
+    }
+  ],
+  "qu_refinements": [
+    {
+      "id": "RS-QR020",
+      "target": "QU-RS-003",
+      "add_fixed": [
+        "component multiplicity parity + rank mod 3 + direct T2 is Q-V exact on eight complete bounded carriers including fresh 3x6-k3",
+        "the same tested carrier remains Q-F-inexact in most cases"
+      ],
+      "retain_open": [
+        "Q-A qualification of the phase-factored key",
+        "fresh wider and standard-7x6 qualification",
+        "coarsest Q-V contextual quotient"
+      ]
+    },
+    {
+      "id": "RS-QR021",
+      "target": "QU-RS-004",
+      "add_fixed": [
+        "bare post-RFG component parity remains falsified",
+        "phase-conditioned component parity is a bounded Q-V-sufficient quotient after T2 on eight complete carriers"
+      ],
+      "retain_open": [
+        "stable component valuation",
+        "XOR or other finite composition law",
+        "direct D_G on the phase-factored quotient"
+      ]
+    },
+    {
+      "id": "RS-QR022",
+      "target": "QU-RS-006",
+      "add_fixed": [
+        "rank phase and singleton-frontier tactical status are concrete low-dimensional contextual coordinates for the tested Q-V quotient",
+        "T2 is directly current-rank recognizable from q_o and is preserved by RFG on all eight controls"
+      ],
+      "retain_open": [
+        "symbolic proof of RFG T2 preservation",
+        "minimal contextual scheduler",
+        "Q-A/Q-F contextual congruence"
+      ]
+    },
+    {
+      "id": "RS-QR023",
+      "target": "QU-RS-008",
+      "add_fixed": [
+        "component count modulo m determines rank modulo m by a weighted support-height projection",
+        "prior MOD3 success is therefore compatible with phase preservation and is not standalone evidence of ternary algebra"
+      ],
+      "retain_open": [
+        "phase-factored component valuation",
+        "whether an exponent-2 value algebra survives fresh larger controls",
+        "non-group finite algebra alternatives"
+      ]
+    }
+  ],
+  "stop_status": "REOPENED__PHASE_FACTORED_QV_QA_VALUATION_PENDING"
+}
