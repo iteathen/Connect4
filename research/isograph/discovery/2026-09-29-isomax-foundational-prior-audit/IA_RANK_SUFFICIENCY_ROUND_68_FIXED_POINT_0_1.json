@@ -1,0 +1,31 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_fixed_point.v1",
+  "round": 68,
+  "date_author_local": "2026-09-30",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_67_0_1.json",
+    "RANK_SUFFICIENCY_OOO_EXCHANGE_CIRCUIT_INTEGRATION_0_1.json"
+  ],
+  "recursive_generation": {
+    "families_checked": [
+      "absolute triple identity versus exchange-relative representation",
+      "exact-delta triangle factorization",
+      "base-free two-leg exchange factorization",
+      "4x5-k4 exchange-null structural subspace",
+      "coarse norm failure",
+      "pair-delta support/sign/parity/magnitude decompositions",
+      "formula-holdout anti-circularity"
+    ],
+    "new_assertions": []
+  },
+  "fixed_point": true,
+  "reason": "EW-RS-069 establishes exchange-relative scalar sufficiency but does not identify which internal delta coordinates are necessary or a closed syndrome rule. Further exact deductions require a new frozen structural ladder over pair-delta contents.",
+  "next_evidence_boundaries": [
+    "preserve EW-RS-069 exact-delta and base-free exchange controls",
+    "freeze support/sign/parity/magnitude pair-delta candidates before scalar inspection",
+    "measure candidate image ranks before scalar replay",
+    "do not select individual delta keys from scalar residues",
+    "EW-RS-059 PRIMARY 3x6-k4 and BACKUP 5x3-k4 remain sealed"
+  ],
+  "stop_status": "FIXED_POINT__PAIR_DELTA_STRUCTURAL_LADDER_NEXT"
+}
