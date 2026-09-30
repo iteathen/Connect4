@@ -1,0 +1,35 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.count_modulus_transfer_4x5k4.v1",
+  "id": "EW-RS-046",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "parent": "EW-RS-045",
+  "objective": "Determine which component-count residue survives the fresh 4x5-k4 parity all-degree falsifier when exact rank is no longer supplied as a separate coordinate.",
+  "case": "4x5-k4",
+  "domain": "T2-O only",
+  "frozenKeys": [
+    "M2 = exact canonical component multiplicities modulo 2",
+    "M2_R3 = M2 plus rank modulo 3",
+    "M3 = exact canonical component multiplicities modulo 3",
+    "M4 = exact canonical component multiplicities modulo 4",
+    "M6 = exact canonical component multiplicities modulo 6",
+    "MULTI = full exact canonical component multiplicities"
+  ],
+  "structuralFacts": [
+    "component multiplicities modulo m determine rank modulo m by the previously established weighted support-height projection",
+    "EW-RS-045 exhibits same-exact-rank M2 collisions, so adding exact rank or rank mod 3 cannot repair those particular parity identifications",
+    "EW-RS-045 found exact-rank M3/M4/M6/full multiplicity all Q-V exact with the same class count on this holdout"
+  ],
+  "antiCircularity": [
+    "All modulus keys are predeclared from component counts before this audit.",
+    "No modulus is chosen from W/D/L identities of individual contradictory states.",
+    "Solved outcomes are consulted only after key construction to test scalar class purity."
+  ],
+  "falsifiers": [
+    "Any mixed scalar-value class rejects that key on 4x5-k4.",
+    "M2_R3 must fail if the frozen same-rank M2 collision is reproduced; a pass would invalidate the harness.",
+    "MULTI failure would reject exact component-multiset Q-V sufficiency on this holdout."
+  ],
+  "nextIfM3Passes": "Treat per-component ternary residue, not parity plus global phase, as the leading count coordinate and derive the smallest structural decoder/falsifier against M3.",
+  "nextIfM3Fails": "Use the smallest passing predeclared modulus or full multiplicity as the next count coordinate; do not return to higher-degree M2 polynomials."
+}
