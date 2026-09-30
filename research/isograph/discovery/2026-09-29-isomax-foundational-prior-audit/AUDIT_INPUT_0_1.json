@@ -1,0 +1,942 @@
+{
+  "schema": "connect4.isomax.foundational_prior_audit.input.v1",
+  "date_author_local": "2026-09-29",
+  "research_direction": "Joshua Oshiro",
+  "source": {
+    "branch": "experiment/isomax-discovery-surviving-obstruction-20260929",
+    "commit": "361f91e8ecdad9e79323713d6d3cb7f5ae92df8b",
+    "file": "research/isograph/discovery/2026-09-29-isomax-full-discovery/SURVIVING_OBSTRUCTION_0_1.json",
+    "blob": "1c532afc8fa1bb1d59c87b388b264489732085d0"
+  },
+  "case": {
+    "width": 5,
+    "height": 4,
+    "k": 4,
+    "gravity": "row 0 bottom; legal move occupies row=height[col]",
+    "closures": {
+      "nonterminalFrontierBlocker": true,
+      "moverFinalCapParity": true,
+      "supportReleaseTurnCapacity": true
+    }
+  },
+  "summary": {
+    "states": 287920,
+    "classes": 251222,
+    "actionClasses": 261853,
+    "cycleRank": 542,
+    "zero": 520,
+    "nonzero": 22,
+    "contradictions": 1,
+    "outcomeLabelsUsedByProducer": false
+  },
+  "contradiction": {
+    "source": 3483,
+    "target": 153,
+    "multiplicity": 2,
+    "parityPathCounts": [
+      1,
+      1
+    ],
+    "minPathEdges": 3,
+    "maxPathEdges": 3,
+    "contradictory": true,
+    "topological": true,
+    "witnessEdgeIdsByParity": [
+      [
+        [
+          2723,
+          2255,
+          59
+        ]
+      ],
+      [
+        [
+          2724,
+          2710,
+          350
+        ]
+      ]
+    ],
+    "witnessPathsByParity": [
+      [
+        [
+          {
+            "id": 2723,
+            "from": 3483,
+            "to": 3008,
+            "column": 0,
+            "delta": 0
+          },
+          {
+            "id": 2255,
+            "from": 3008,
+            "to": 152,
+            "column": 0,
+            "delta": 0
+          },
+          {
+            "id": 59,
+            "from": 152,
+            "to": 153,
+            "column": 1,
+            "delta": 0
+          }
+        ]
+      ],
+      [
+        [
+          {
+            "id": 2724,
+            "from": 3483,
+            "to": 3463,
+            "column": 1,
+            "delta": 0
+          },
+          {
+            "id": 2710,
+            "from": 3463,
+            "to": 698,
+            "column": 0,
+            "delta": 1
+          },
+          {
+            "id": 350,
+            "from": 698,
+            "to": 153,
+            "column": 1,
+            "delta": 0
+          }
+        ]
+      ]
+    ]
+  },
+  "routeRows": [
+    {
+      "pathParity": 0,
+      "startSheet": 0,
+      "startLabelledClass": 105385,
+      "accumulatedDelta": 0,
+      "finalStateKey": "Q:2,3,3,3,4|1024|132096.360448",
+      "finalLabelledClass": 876,
+      "finalSheet": 0,
+      "expectedFinalSheet": 0,
+      "sourceActionSequences": [
+        "0,1,1"
+      ],
+      "totalTransporterParitySet": [
+        0,
+        1
+      ],
+      "totalTransporters": [
+        [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        [
+          0,
+          3,
+          2,
+          1,
+          4
+        ]
+      ],
+      "steps": [
+        {
+          "edgeId": 2723,
+          "from": 3483,
+          "to": 3008,
+          "column": 0,
+          "delta": 0,
+          "parentStateKey": "Q:1,1,3,3,4|96.3072.33824|67648.132160.264224.360448",
+          "childStateKey": "Q:1,2,3,3,4|32.3072.67584|33824.133152.360448",
+          "parentLabelledClass": 105385,
+          "childLabelledClass": 48425,
+          "parentSheet": 0,
+          "childSheet": 0,
+          "canonicalizerParitySet": [
+            1
+          ],
+          "canonicalizerPermutations": [
+            [
+              1,
+              0,
+              2,
+              3,
+              4
+            ]
+          ]
+        },
+        {
+          "edgeId": 2255,
+          "from": 3008,
+          "to": 152,
+          "column": 0,
+          "delta": 0,
+          "parentStateKey": "Q:1,2,3,3,4|32.3072.67584|33824.133152.360448",
+          "childStateKey": "Q:2,2,3,3,4|3072.33792|67584.132096.360448",
+          "parentLabelledClass": 48425,
+          "childLabelledClass": 6681,
+          "parentSheet": 0,
+          "childSheet": 0,
+          "canonicalizerParitySet": [
+            1
+          ],
+          "canonicalizerPermutations": [
+            [
+              1,
+              0,
+              2,
+              3,
+              4
+            ]
+          ]
+        },
+        {
+          "edgeId": 59,
+          "from": 152,
+          "to": 153,
+          "column": 1,
+          "delta": 0,
+          "parentStateKey": "Q:2,2,3,3,4|3072.33792|67584.132096.360448",
+          "childStateKey": "Q:2,3,3,3,4|1024|132096.360448",
+          "parentLabelledClass": 6681,
+          "childLabelledClass": 876,
+          "parentSheet": 0,
+          "childSheet": 0,
+          "canonicalizerParitySet": [
+            0,
+            1
+          ],
+          "canonicalizerPermutations": [
+            [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            [
+              0,
+              3,
+              2,
+              1,
+              4
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "pathParity": 0,
+      "startSheet": 1,
+      "startLabelledClass": 131493,
+      "accumulatedDelta": 0,
+      "finalStateKey": "Q:2,3,3,3,4|1024|132096.229376",
+      "finalLabelledClass": 1812,
+      "finalSheet": 1,
+      "expectedFinalSheet": 1,
+      "sourceActionSequences": [
+        "0,1,1"
+      ],
+      "totalTransporterParitySet": [
+        0
+      ],
+      "totalTransporters": [
+        [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      ],
+      "steps": [
+        {
+          "edgeId": 2723,
+          "from": 3483,
+          "to": 3008,
+          "column": 0,
+          "delta": 0,
+          "parentStateKey": "Q:1,1,3,3,4|96.3072.33824|67648.132160.229376.264224",
+          "childStateKey": "Q:1,2,3,3,4|32.3072.67584|33824.133152.229376",
+          "parentLabelledClass": 131493,
+          "childLabelledClass": 73523,
+          "parentSheet": 1,
+          "childSheet": 1,
+          "canonicalizerParitySet": [
+            1
+          ],
+          "canonicalizerPermutations": [
+            [
+              1,
+              0,
+              2,
+              3,
+              4
+            ]
+          ]
+        },
+        {
+          "edgeId": 2255,
+          "from": 3008,
+          "to": 152,
+          "column": 0,
+          "delta": 0,
+          "parentStateKey": "Q:1,2,3,3,4|32.3072.67584|33824.133152.229376",
+          "childStateKey": "Q:2,2,3,3,4|3072.33792|67584.132096.229376",
+          "parentLabelledClass": 73523,
+          "childLabelledClass": 8879,
+          "parentSheet": 1,
+          "childSheet": 1,
+          "canonicalizerParitySet": [
+            1
+          ],
+          "canonicalizerPermutations": [
+            [
+              1,
+              0,
+              2,
+              3,
+              4
+            ]
+          ]
+        },
+        {
+          "edgeId": 59,
+          "from": 152,
+          "to": 153,
+          "column": 1,
+          "delta": 0,
+          "parentStateKey": "Q:2,2,3,3,4|3072.33792|67584.132096.229376",
+          "childStateKey": "Q:2,3,3,3,4|1024|132096.229376",
+          "parentLabelledClass": 8879,
+          "childLabelledClass": 1812,
+          "parentSheet": 1,
+          "childSheet": 1,
+          "canonicalizerParitySet": [
+            0
+          ],
+          "canonicalizerPermutations": [
+            [
+              0,
+              1,
+              2,
+              3,
+              4
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "pathParity": 1,
+      "startSheet": 0,
+      "startLabelledClass": 105385,
+      "accumulatedDelta": 1,
+      "finalStateKey": "Q:2,3,3,3,4|1024|132096.229376",
+      "finalLabelledClass": 1812,
+      "finalSheet": 1,
+      "expectedFinalSheet": 1,
+      "sourceActionSequences": [
+        "1,0,0"
+      ],
+      "totalTransporterParitySet": [
+        0
+      ],
+      "totalTransporters": [
+        [
+          1,
+          0,
+          3,
+          2,
+          4
+        ]
+      ],
+      "steps": [
+        {
+          "edgeId": 2724,
+          "from": 3483,
+          "to": 3463,
+          "column": 1,
+          "delta": 0,
+          "parentStateKey": "Q:1,1,3,3,4|96.3072.33824|67648.132160.264224.360448",
+          "childStateKey": "Q:1,2,3,3,4|32.3072|133152.229376",
+          "parentLabelledClass": 105385,
+          "childLabelledClass": 55303,
+          "parentSheet": 0,
+          "childSheet": 0,
+          "canonicalizerParitySet": [
+            1
+          ],
+          "canonicalizerPermutations": [
+            [
+              0,
+              1,
+              3,
+              2,
+              4
+            ]
+          ]
+        },
+        {
+          "edgeId": 2710,
+          "from": 3463,
+          "to": 698,
+          "column": 0,
+          "delta": 1,
+          "parentStateKey": "Q:1,2,3,3,4|32.3072|133152.229376",
+          "childStateKey": "Q:2,2,3,3,4|3072|132096.229376",
+          "parentLabelledClass": 55303,
+          "childLabelledClass": 8299,
+          "parentSheet": 0,
+          "childSheet": 1,
+          "canonicalizerParitySet": [
+            1
+          ],
+          "canonicalizerPermutations": [
+            [
+              1,
+              0,
+              2,
+              3,
+              4
+            ]
+          ]
+        },
+        {
+          "edgeId": 350,
+          "from": 698,
+          "to": 153,
+          "column": 1,
+          "delta": 0,
+          "parentStateKey": "Q:2,2,3,3,4|3072|132096.229376",
+          "childStateKey": "Q:2,3,3,3,4|1024|132096.229376",
+          "parentLabelledClass": 8299,
+          "childLabelledClass": 1812,
+          "parentSheet": 1,
+          "childSheet": 1,
+          "canonicalizerParitySet": [
+            0
+          ],
+          "canonicalizerPermutations": [
+            [
+              0,
+              1,
+              2,
+              3,
+              4
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "pathParity": 1,
+      "startSheet": 1,
+      "startLabelledClass": 131493,
+      "accumulatedDelta": 1,
+      "finalStateKey": "Q:2,3,3,3,4|1024|132096.360448",
+      "finalLabelledClass": 876,
+      "finalSheet": 0,
+      "expectedFinalSheet": 0,
+      "sourceActionSequences": [
+        "1,0,0"
+      ],
+      "totalTransporterParitySet": [
+        0,
+        1
+      ],
+      "totalTransporters": [
+        [
+          1,
+          0,
+          3,
+          2,
+          4
+        ],
+        [
+          3,
+          0,
+          1,
+          2,
+          4
+        ]
+      ],
+      "steps": [
+        {
+          "edgeId": 2724,
+          "from": 3483,
+          "to": 3463,
+          "column": 1,
+          "delta": 0,
+          "parentStateKey": "Q:1,1,3,3,4|96.3072.33824|67648.132160.229376.264224",
+          "childStateKey": "Q:1,2,3,3,4|32.3072|133152.360448",
+          "parentLabelledClass": 131493,
+          "childLabelledClass": 70586,
+          "parentSheet": 1,
+          "childSheet": 1,
+          "canonicalizerParitySet": [
+            1
+          ],
+          "canonicalizerPermutations": [
+            [
+              0,
+              1,
+              3,
+              2,
+              4
+            ]
+          ]
+        },
+        {
+          "edgeId": 2710,
+          "from": 3463,
+          "to": 698,
+          "column": 0,
+          "delta": 1,
+          "parentStateKey": "Q:1,2,3,3,4|32.3072|133152.360448",
+          "childStateKey": "Q:2,2,3,3,4|3072|132096.360448",
+          "parentLabelledClass": 70586,
+          "childLabelledClass": 7877,
+          "parentSheet": 1,
+          "childSheet": 0,
+          "canonicalizerParitySet": [
+            1
+          ],
+          "canonicalizerPermutations": [
+            [
+              1,
+              0,
+              2,
+              3,
+              4
+            ]
+          ]
+        },
+        {
+          "edgeId": 350,
+          "from": 698,
+          "to": 153,
+          "column": 1,
+          "delta": 0,
+          "parentStateKey": "Q:2,2,3,3,4|3072|132096.360448",
+          "childStateKey": "Q:2,3,3,3,4|1024|132096.360448",
+          "parentLabelledClass": 7877,
+          "childLabelledClass": 876,
+          "parentSheet": 0,
+          "childSheet": 0,
+          "canonicalizerParitySet": [
+            0,
+            1
+          ],
+          "canonicalizerPermutations": [
+            [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            [
+              0,
+              3,
+              2,
+              1,
+              4
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "obstructionGroups": [
+    {
+      "id": 152,
+      "rank": 14,
+      "unlabelledClass": 4737,
+      "phaseFreeProfile": "C426,C472,C473,C474,I",
+      "labelledClasses": [
+        6681,
+        8879
+      ],
+      "recursiveProfiles": [
+        "L821,L876,L877,L878,I",
+        "L821,L1812,L877,L878,I"
+      ],
+      "representativeSheets": [
+        {
+          "labelledClass": 6681,
+          "representative": {
+            "key": "Q:2,2,3,3,4|3072.33792|67584.132096.360448.425984",
+            "rank": 14,
+            "support": [
+              2,
+              2,
+              3,
+              3,
+              4
+            ],
+            "p0Residuals": [
+              3072,
+              33792
+            ],
+            "p1Residuals": [
+              67584,
+              132096,
+              360448,
+              425984
+            ]
+          }
+        },
+        {
+          "labelledClass": 8879,
+          "representative": {
+            "key": "Q:2,2,3,3,4|3072.33792|67584.132096.229376",
+            "rank": 14,
+            "support": [
+              2,
+              2,
+              3,
+              3,
+              4
+            ],
+            "p0Residuals": [
+              3072,
+              33792
+            ],
+            "p1Residuals": [
+              67584,
+              132096,
+              229376
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 153,
+      "rank": 15,
+      "unlabelledClass": 472,
+      "phaseFreeProfile": "C92,C96,C43,C96,I",
+      "labelledClasses": [
+        876,
+        1812
+      ],
+      "recursiveProfiles": [
+        "L146,L151,L114,L151,I",
+        "L146,L302,L114,L302,I"
+      ],
+      "representativeSheets": [
+        {
+          "labelledClass": 876,
+          "representative": {
+            "key": "Q:2,3,3,3,4|1024|132096.229376.360448",
+            "rank": 15,
+            "support": [
+              2,
+              3,
+              3,
+              3,
+              4
+            ],
+            "p0Residuals": [
+              1024
+            ],
+            "p1Residuals": [
+              132096,
+              229376,
+              360448
+            ]
+          }
+        },
+        {
+          "labelledClass": 1812,
+          "representative": {
+            "key": "Q:2,3,3,3,4|1024|132096",
+            "rank": 15,
+            "support": [
+              2,
+              3,
+              3,
+              3,
+              4
+            ],
+            "p0Residuals": [
+              1024
+            ],
+            "p1Residuals": [
+              132096
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 698,
+      "rank": 14,
+      "unlabelledClass": 5755,
+      "phaseFreeProfile": "C755,C472,C1103,C1124,I",
+      "labelledClasses": [
+        7877,
+        8299
+      ],
+      "recursiveProfiles": [
+        "L1267,L876,L1712,L1735,I",
+        "L1267,L1812,L1712,L1735,I"
+      ],
+      "representativeSheets": [
+        {
+          "labelledClass": 7877,
+          "representative": {
+            "key": "Q:2,2,3,3,4|3072|132096.229376.360448",
+            "rank": 14,
+            "support": [
+              2,
+              2,
+              3,
+              3,
+              4
+            ],
+            "p0Residuals": [
+              3072
+            ],
+            "p1Residuals": [
+              132096,
+              229376,
+              360448
+            ]
+          }
+        },
+        {
+          "labelledClass": 8299,
+          "representative": {
+            "key": "Q:2,2,3,3,4|3072|132096.229376.425984",
+            "rank": 14,
+            "support": [
+              2,
+              2,
+              3,
+              3,
+              4
+            ],
+            "p0Residuals": [
+              3072
+            ],
+            "p1Residuals": [
+              132096,
+              229376,
+              425984
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 3008,
+      "rank": 13,
+      "unlabelledClass": 41859,
+      "phaseFreeProfile": "C4737,C8657,C8809,C8808,I",
+      "labelledClasses": [
+        48425,
+        73523
+      ],
+      "recursiveProfiles": [
+        "L6681,L11423,L11448,L11447,I",
+        "L8879,L11423,L11448,L11447,I"
+      ],
+      "representativeSheets": [
+        {
+          "labelledClass": 48425,
+          "representative": {
+            "key": "Q:1,2,3,3,4|32.3072.67584|33824.133152.229376.360448",
+            "rank": 13,
+            "support": [
+              1,
+              2,
+              3,
+              3,
+              4
+            ],
+            "p0Residuals": [
+              32,
+              3072,
+              67584
+            ],
+            "p1Residuals": [
+              33824,
+              133152,
+              229376,
+              360448
+            ]
+          }
+        },
+        {
+          "labelledClass": 73523,
+          "representative": {
+            "key": "Q:1,2,3,3,4|32.3072.67584|33824.133152.229376",
+            "rank": 13,
+            "support": [
+              1,
+              2,
+              3,
+              3,
+              4
+            ],
+            "p0Residuals": [
+              32,
+              3072,
+              67584
+            ],
+            "p1Residuals": [
+              33824,
+              133152,
+              229376
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 3463,
+      "rank": 13,
+      "unlabelledClass": 48351,
+      "phaseFreeProfile": "C5755,C8705,C8164,C8163,I",
+      "labelledClasses": [
+        55303,
+        70586
+      ],
+      "recursiveProfiles": [
+        "L8299,L11315,L10696,L10695,I",
+        "L7877,L11315,L10696,L10695,I"
+      ],
+      "representativeSheets": [
+        {
+          "labelledClass": 55303,
+          "representative": {
+            "key": "Q:1,2,3,3,4|32.3072|133152.229376",
+            "rank": 13,
+            "support": [
+              1,
+              2,
+              3,
+              3,
+              4
+            ],
+            "p0Residuals": [
+              32,
+              3072
+            ],
+            "p1Residuals": [
+              133152,
+              229376
+            ]
+          }
+        },
+        {
+          "labelledClass": 70586,
+          "representative": {
+            "key": "Q:1,2,3,3,4|32.3072|133152.229376.360448",
+            "rank": 13,
+            "support": [
+              1,
+              2,
+              3,
+              3,
+              4
+            ],
+            "p0Residuals": [
+              32,
+              3072
+            ],
+            "p1Residuals": [
+              133152,
+              229376,
+              360448
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 3483,
+      "rank": 12,
+      "unlabelledClass": 96147,
+      "phaseFreeProfile": "C41859,C48351,C48713,C48714,I",
+      "labelledClasses": [
+        105385,
+        131493
+      ],
+      "recursiveProfiles": [
+        "L48425,L55303,L55701,L55702,I",
+        "L73523,L70586,L55701,L55702,I"
+      ],
+      "representativeSheets": [
+        {
+          "labelledClass": 105385,
+          "representative": {
+            "key": "Q:1,1,3,3,4|96.3072.33824|67648.132160.264224.360448",
+            "rank": 12,
+            "support": [
+              1,
+              1,
+              3,
+              3,
+              4
+            ],
+            "p0Residuals": [
+              96,
+              3072,
+              33824
+            ],
+            "p1Residuals": [
+              67648,
+              132160,
+              264224,
+              360448
+            ]
+          }
+        },
+        {
+          "labelledClass": 131493,
+          "representative": {
+            "key": "Q:1,1,3,3,4|96.3072.33824|67648.132160.229376.264224",
+            "rank": 12,
+            "support": [
+              1,
+              1,
+              3,
+              3,
+              4
+            ],
+            "p0Residuals": [
+              96,
+              3072,
+              33824
+            ],
+            "p1Residuals": [
+              67648,
+              132160,
+              229376,
+              264224
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "baselineMssReference": {
+    "source": 3260,
+    "target": 574,
+    "sourceRank": 12,
+    "targetRank": 14,
+    "routeLengths": [
+      2,
+      2
+    ],
+    "totalTraversals": 4,
+    "distinctEdges": 4
+  }
+}
