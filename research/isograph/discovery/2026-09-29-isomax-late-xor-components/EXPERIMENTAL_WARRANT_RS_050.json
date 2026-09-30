@@ -1,0 +1,42 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.zoe_fresh_nonaffine_holdout_5x4k4.v1",
+  "id": "EW-RS-050",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "parent": "EW-RS-049",
+  "objective": "Qualify frozen ungraded ZOE unchanged on complete fresh 5x4-k4 and independently require a nonzero exact-rank DEGREE1 contradiction count for the run to count as fresh non-affine evidence.",
+  "case": "5x4-k4",
+  "freshness": [
+    "5x4-k4 has not been used by the late-stage ZOE/parity derivation campaign",
+    "the carrier is selected before its scalar qualification is observed",
+    "it extends the known non-affine 4x4-k4 family in width rather than height, providing a directionally distinct test from 4x5-k4"
+  ],
+  "frozenCandidate": {
+    "name": "ZOE",
+    "definition": "For each exact canonical post-RFG component type T: omit T when n_T=0, emit O when n_T>0 is odd, and emit E when n_T>0 is even.",
+    "rankGrade": "none",
+    "changesAllowedDuringHoldout": false
+  },
+  "controls": [
+    "PRESENCE",
+    "M2",
+    "ZOE_R3",
+    "MULTI full multiplicity",
+    "DEGREE1 exact-rank affine GF(2)^2 component-parity model"
+  ],
+  "antiCircularity": [
+    "The carrier and candidate are frozen before any 5x4-k4 outcome qualification.",
+    "No carrier-specific count state, phase, coefficient, component identity selection, or topology refinement may alter ZOE.",
+    "Solved outcomes are used only after structural coordinate generation as class-purity checks and GF(2)^2 right-hand sides."
+  ],
+  "falsifiers": [
+    "Any mixed scalar-value ZOE class rejects frozen ZOE on 5x4-k4.",
+    "MULTI failure rejects exact component-multiset Q-V sufficiency on the holdout.",
+    "If DEGREE1 has zero contradictions, the run remains transfer evidence but is not the requested fresh non-affine qualification."
+  ],
+  "resourceGuard": "If exhaustive execution exceeds the runner resource envelope, record that as a resource observation and optimize execution without changing the frozen carrier or ZOE semantics.",
+  "successCriterion": "ZOE has zero mixed scalar-value classes and DEGREE1 has at least one contradiction.",
+  "nextIfSuccess": "Integrate ZOE and the parity-ceiling sequence into the foundational QU/IA audit, then test frontier-relative descriptor aggregation under ZOE counts.",
+  "nextIfAffine": "Retain the transfer result and predeclare another carrier without changing ZOE.",
+  "nextIfZoeFails": "Freeze the minimum ZOE collision and compare ZOE_R3/full multiplicity before any semantic refinement."
+}
