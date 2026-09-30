@@ -1,0 +1,460 @@
+{
+  "schema": "connect4.isomax.quadratic_topology_delay_ladder.v1",
+  "date_author_local": "2026-09-29",
+  "warrant": "EW-RS-041",
+  "frozenComponentDefinition": "post-RFG residual-incidence connected components with support/owner-labelled canonical component type",
+  "frozenTacticalReduction": "direct rank-local T2 = W immediate win; L2 universal one-move release loss; O unresolved",
+  "frozenLinearCoordinates": "exact-rank affine offset plus exact component-type parity",
+  "descriptorHypothesis": "the missing scalar interaction coordinate is residual/column hypergraph topology plus only a coarse gravity-delay label, not arbitrary component identity or exact absolute elevation",
+  "descriptorModes": [
+    "TOPO = canonical residual/column hypergraph with all gravity depths erased",
+    "TOPO_D0 = TOPO plus one bit per residual cell for frontier versus above-frontier",
+    "TOPO_DPAR = TOPO plus residual-cell gravity-depth parity",
+    "TOPO_D012 = TOPO plus depth bucket 0, 1, or >=2",
+    "REL_INC_EXACT = TOPO plus exact frontier-relative gravity depth",
+    "REL_INC = independently established exact relative-incidence descriptor control",
+    "EXACT = full canonical component type control"
+  ],
+  "cases": [
+    {
+      "label": "5x3-k3",
+      "width": 5,
+      "height": 3,
+      "k": 3,
+      "physicalStates": 70914,
+      "nonterminalStates": 40659,
+      "componentTypes": 9441,
+      "tactical2Counts": {
+        "W": 28001,
+        "L2": 5403,
+        "O": 7255
+      },
+      "degree1": {
+        "pivotRank": 3223,
+        "contradictions": 18
+      },
+      "degree2": {
+        "quadraticCatalog": 2104,
+        "pivotRank": 3260,
+        "contradictions": 0
+      },
+      "interactionBasis": {
+        "quotientBasisCount": 37,
+        "quadraticRankGain": 37
+      },
+      "descriptorLadder": [
+        {
+          "mode": "TOPO",
+          "equations": 7255,
+          "exactLinearVariables": 3291,
+          "descriptorPairVariables": 1836,
+          "structuralRank": 3258,
+          "structuralRankGainOverDegree1": 35,
+          "fullQuadraticRank": 3260,
+          "fullQuadraticRankGain": 37,
+          "structuralSpanPreserved": false,
+          "contradictions": 0,
+          "decoderExact": true,
+          "firstContradiction": null,
+          "pairCatalogCompressionAgainstExact": 0.12737642585551334
+        },
+        {
+          "mode": "TOPO_D0",
+          "equations": 7255,
+          "exactLinearVariables": 3291,
+          "descriptorPairVariables": 1971,
+          "structuralRank": 3260,
+          "structuralRankGainOverDegree1": 37,
+          "fullQuadraticRank": 3260,
+          "fullQuadraticRankGain": 37,
+          "structuralSpanPreserved": true,
+          "contradictions": 0,
+          "decoderExact": true,
+          "firstContradiction": null,
+          "pairCatalogCompressionAgainstExact": 0.06321292775665399
+        },
+        {
+          "mode": "TOPO_DPAR",
+          "equations": 7255,
+          "exactLinearVariables": 3291,
+          "descriptorPairVariables": 2002,
+          "structuralRank": 3260,
+          "structuralRankGainOverDegree1": 37,
+          "fullQuadraticRank": 3260,
+          "fullQuadraticRankGain": 37,
+          "structuralSpanPreserved": true,
+          "contradictions": 0,
+          "decoderExact": true,
+          "firstContradiction": null,
+          "pairCatalogCompressionAgainstExact": 0.048479087452471537
+        },
+        {
+          "mode": "TOPO_D012",
+          "equations": 7255,
+          "exactLinearVariables": 3291,
+          "descriptorPairVariables": 2016,
+          "structuralRank": 3260,
+          "structuralRankGainOverDegree1": 37,
+          "fullQuadraticRank": 3260,
+          "fullQuadraticRankGain": 37,
+          "structuralSpanPreserved": true,
+          "contradictions": 0,
+          "decoderExact": true,
+          "firstContradiction": null,
+          "pairCatalogCompressionAgainstExact": 0.041825095057034245
+        },
+        {
+          "mode": "REL_INC_EXACT",
+          "equations": 7255,
+          "exactLinearVariables": 3291,
+          "descriptorPairVariables": 2016,
+          "structuralRank": 3260,
+          "structuralRankGainOverDegree1": 37,
+          "fullQuadraticRank": 3260,
+          "fullQuadraticRankGain": 37,
+          "structuralSpanPreserved": true,
+          "contradictions": 0,
+          "decoderExact": true,
+          "firstContradiction": null,
+          "pairCatalogCompressionAgainstExact": 0.041825095057034245
+        },
+        {
+          "mode": "REL_INC",
+          "equations": 7255,
+          "exactLinearVariables": 3291,
+          "descriptorPairVariables": 2016,
+          "structuralRank": 3260,
+          "structuralRankGainOverDegree1": 37,
+          "fullQuadraticRank": 3260,
+          "fullQuadraticRankGain": 37,
+          "structuralSpanPreserved": true,
+          "contradictions": 0,
+          "decoderExact": true,
+          "firstContradiction": null,
+          "pairCatalogCompressionAgainstExact": 0.041825095057034245
+        },
+        {
+          "mode": "EXACT",
+          "equations": 7255,
+          "exactLinearVariables": 3291,
+          "descriptorPairVariables": 2104,
+          "structuralRank": 3260,
+          "structuralRankGainOverDegree1": 37,
+          "fullQuadraticRank": 3260,
+          "fullQuadraticRankGain": 37,
+          "structuralSpanPreserved": true,
+          "contradictions": 0,
+          "decoderExact": true,
+          "firstContradiction": null,
+          "pairCatalogCompressionAgainstExact": 0
+        }
+      ]
+    },
+    {
+      "label": "4x4-k4",
+      "width": 4,
+      "height": 4,
+      "k": 4,
+      "physicalStates": 161029,
+      "nonterminalStates": 134289,
+      "componentTypes": 7757,
+      "tactical2Counts": {
+        "W": 24685,
+        "L2": 4154,
+        "O": 105450
+      },
+      "degree1": {
+        "pivotRank": 7605,
+        "contradictions": 168
+      },
+      "degree2": {
+        "quadraticCatalog": 5232,
+        "pivotRank": 8027,
+        "contradictions": 0
+      },
+      "interactionBasis": {
+        "quotientBasisCount": 422,
+        "quadraticRankGain": 422
+      },
+      "descriptorLadder": [
+        {
+          "mode": "TOPO",
+          "equations": 105450,
+          "exactLinearVariables": 7638,
+          "descriptorPairVariables": 1882,
+          "structuralRank": 7786,
+          "structuralRankGainOverDegree1": 181,
+          "fullQuadraticRank": 8027,
+          "fullQuadraticRankGain": 422,
+          "structuralSpanPreserved": false,
+          "contradictions": 128,
+          "decoderExact": false,
+          "firstContradiction": {
+            "key": "35201:570",
+            "rank": 10,
+            "reducedRhs": 1
+          },
+          "pairCatalogCompressionAgainstExact": 0.6402905198776758
+        },
+        {
+          "mode": "TOPO_D0",
+          "equations": 105450,
+          "exactLinearVariables": 7638,
+          "descriptorPairVariables": 3551,
+          "structuralRank": 7859,
+          "structuralRankGainOverDegree1": 254,
+          "fullQuadraticRank": 8027,
+          "fullQuadraticRankGain": 422,
+          "structuralSpanPreserved": false,
+          "contradictions": 38,
+          "decoderExact": false,
+          "firstContradiction": {
+            "key": "35201:1116",
+            "rank": 10,
+            "reducedRhs": 1
+          },
+          "pairCatalogCompressionAgainstExact": 0.32129204892966357
+        },
+        {
+          "mode": "TOPO_DPAR",
+          "equations": 105450,
+          "exactLinearVariables": 7638,
+          "descriptorPairVariables": 3632,
+          "structuralRank": 7879,
+          "structuralRankGainOverDegree1": 274,
+          "fullQuadraticRank": 8027,
+          "fullQuadraticRankGain": 422,
+          "structuralSpanPreserved": false,
+          "contradictions": 16,
+          "decoderExact": false,
+          "firstContradiction": {
+            "key": "8977:102",
+            "rank": 9,
+            "reducedRhs": 1
+          },
+          "pairCatalogCompressionAgainstExact": 0.3058103975535168
+        },
+        {
+          "mode": "TOPO_D012",
+          "equations": 105450,
+          "exactLinearVariables": 7638,
+          "descriptorPairVariables": 3881,
+          "structuralRank": 7894,
+          "structuralRankGainOverDegree1": 289,
+          "fullQuadraticRank": 8027,
+          "fullQuadraticRankGain": 422,
+          "structuralSpanPreserved": false,
+          "contradictions": 12,
+          "decoderExact": false,
+          "firstContradiction": {
+            "key": "8977:102",
+            "rank": 9,
+            "reducedRhs": 1
+          },
+          "pairCatalogCompressionAgainstExact": 0.25821865443425074
+        },
+        {
+          "mode": "REL_INC_EXACT",
+          "equations": 105450,
+          "exactLinearVariables": 7638,
+          "descriptorPairVariables": 3918,
+          "structuralRank": 7900,
+          "structuralRankGainOverDegree1": 295,
+          "fullQuadraticRank": 8027,
+          "fullQuadraticRankGain": 422,
+          "structuralSpanPreserved": false,
+          "contradictions": 0,
+          "decoderExact": true,
+          "firstContradiction": null,
+          "pairCatalogCompressionAgainstExact": 0.25114678899082565
+        },
+        {
+          "mode": "REL_INC",
+          "equations": 105450,
+          "exactLinearVariables": 7638,
+          "descriptorPairVariables": 3918,
+          "structuralRank": 7900,
+          "structuralRankGainOverDegree1": 295,
+          "fullQuadraticRank": 8027,
+          "fullQuadraticRankGain": 422,
+          "structuralSpanPreserved": false,
+          "contradictions": 0,
+          "decoderExact": true,
+          "firstContradiction": null,
+          "pairCatalogCompressionAgainstExact": 0.25114678899082565
+        },
+        {
+          "mode": "EXACT",
+          "equations": 105450,
+          "exactLinearVariables": 7638,
+          "descriptorPairVariables": 5232,
+          "structuralRank": 8027,
+          "structuralRankGainOverDegree1": 422,
+          "fullQuadraticRank": 8027,
+          "fullQuadraticRankGain": 422,
+          "structuralSpanPreserved": true,
+          "contradictions": 0,
+          "decoderExact": true,
+          "firstContradiction": null,
+          "pairCatalogCompressionAgainstExact": 0
+        }
+      ]
+    },
+    {
+      "label": "6x3-k3",
+      "width": 6,
+      "height": 3,
+      "k": 3,
+      "physicalStates": 692970,
+      "nonterminalStates": 353581,
+      "componentTypes": 72195,
+      "tactical2Counts": {
+        "W": 277244,
+        "L2": 39768,
+        "O": 36569
+      },
+      "degree1": {
+        "pivotRank": 16263,
+        "contradictions": 520
+      },
+      "degree2": {
+        "quadraticCatalog": 11286,
+        "pivotRank": 16735,
+        "contradictions": 0
+      },
+      "interactionBasis": {
+        "quotientBasisCount": 472,
+        "quadraticRankGain": 472
+      },
+      "descriptorLadder": [
+        {
+          "mode": "TOPO",
+          "equations": 36569,
+          "exactLinearVariables": 16388,
+          "descriptorPairVariables": 10055,
+          "structuralRank": 16669,
+          "structuralRankGainOverDegree1": 406,
+          "fullQuadraticRank": 16735,
+          "fullQuadraticRankGain": 472,
+          "structuralSpanPreserved": false,
+          "contradictions": 20,
+          "decoderExact": false,
+          "firstContradiction": {
+            "key": "74889:33362",
+            "rank": 11,
+            "reducedRhs": 2
+          },
+          "pairCatalogCompressionAgainstExact": 0.10907318802055643
+        },
+        {
+          "mode": "TOPO_D0",
+          "equations": 36569,
+          "exactLinearVariables": 16388,
+          "descriptorPairVariables": 10693,
+          "structuralRank": 16715,
+          "structuralRankGainOverDegree1": 452,
+          "fullQuadraticRank": 16735,
+          "fullQuadraticRankGain": 472,
+          "structuralSpanPreserved": false,
+          "contradictions": 4,
+          "decoderExact": false,
+          "firstContradiction": {
+            "key": "149706:8997",
+            "rank": 13,
+            "reducedRhs": 2
+          },
+          "pairCatalogCompressionAgainstExact": 0.052542973595605225
+        },
+        {
+          "mode": "TOPO_DPAR",
+          "equations": 36569,
+          "exactLinearVariables": 16388,
+          "descriptorPairVariables": 10764,
+          "structuralRank": 16733,
+          "structuralRankGainOverDegree1": 470,
+          "fullQuadraticRank": 16735,
+          "fullQuadraticRankGain": 472,
+          "structuralSpanPreserved": false,
+          "contradictions": 0,
+          "decoderExact": true,
+          "firstContradiction": null,
+          "pairCatalogCompressionAgainstExact": 0.046251993620414655
+        },
+        {
+          "mode": "TOPO_D012",
+          "equations": 36569,
+          "exactLinearVariables": 16388,
+          "descriptorPairVariables": 10857,
+          "structuralRank": 16735,
+          "structuralRankGainOverDegree1": 472,
+          "fullQuadraticRank": 16735,
+          "fullQuadraticRankGain": 472,
+          "structuralSpanPreserved": true,
+          "contradictions": 0,
+          "decoderExact": true,
+          "firstContradiction": null,
+          "pairCatalogCompressionAgainstExact": 0.03801169590643272
+        },
+        {
+          "mode": "REL_INC_EXACT",
+          "equations": 36569,
+          "exactLinearVariables": 16388,
+          "descriptorPairVariables": 10857,
+          "structuralRank": 16735,
+          "structuralRankGainOverDegree1": 472,
+          "fullQuadraticRank": 16735,
+          "fullQuadraticRankGain": 472,
+          "structuralSpanPreserved": true,
+          "contradictions": 0,
+          "decoderExact": true,
+          "firstContradiction": null,
+          "pairCatalogCompressionAgainstExact": 0.03801169590643272
+        },
+        {
+          "mode": "REL_INC",
+          "equations": 36569,
+          "exactLinearVariables": 16388,
+          "descriptorPairVariables": 10857,
+          "structuralRank": 16735,
+          "structuralRankGainOverDegree1": 472,
+          "fullQuadraticRank": 16735,
+          "fullQuadraticRankGain": 472,
+          "structuralSpanPreserved": true,
+          "contradictions": 0,
+          "decoderExact": true,
+          "firstContradiction": null,
+          "pairCatalogCompressionAgainstExact": 0.03801169590643272
+        },
+        {
+          "mode": "EXACT",
+          "equations": 36569,
+          "exactLinearVariables": 16388,
+          "descriptorPairVariables": 11286,
+          "structuralRank": 16735,
+          "structuralRankGainOverDegree1": 472,
+          "fullQuadraticRank": 16735,
+          "fullQuadraticRankGain": 472,
+          "structuralSpanPreserved": true,
+          "contradictions": 0,
+          "decoderExact": true,
+          "firstContradiction": null,
+          "pairCatalogCompressionAgainstExact": 0
+        }
+      ]
+    }
+  ],
+  "mechanicalChecks": {
+    "descriptorsOutcomeIndependent": true,
+    "exactLinearCoordinatesFrozen": true,
+    "exactDescriptorControlReproducesFullRank": true,
+    "exactDescriptorControlExact": true
+  },
+  "interpretationGuard": [
+    "Descriptor modes are fixed from current component geometry and gravity timing before outcome verification.",
+    "Exact affine/linear component identities remain frozen; this experiment quotients only the quadratic pair coordinate.",
+    "A coarse descriptor that preserves decoder exactness but not the full degree-2 structural span is a value-specific candidate, not a proof that the omitted structural directions are nonexistent.",
+    "A descriptor that preserves the full structural span gives an outcome-independent generator for the observed quadratic interaction subspace.",
+    "Failure of these descriptors does not falsify quadratic GF(2); it only rejects these proposed structural generators.",
+    "No standard-7x6 claim follows."
+  ]
+}
