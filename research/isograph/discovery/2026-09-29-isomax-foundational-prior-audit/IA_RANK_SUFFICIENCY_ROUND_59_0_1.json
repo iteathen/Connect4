@@ -1,0 +1,61 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_round.v1",
+  "round": 59,
+  "date_author_local": "2026-09-30",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_58_0_1.json",
+    "RANK_SUFFICIENCY_MOVER_RELATIVE_OWNER_NORMALIZATION_INTEGRATION_0_1.json",
+    "RANK_SUFFICIENCY_OOO_MATCHED_DEPENDENCY_INTEGRATION_0_1.json"
+  ],
+  "reopened_reason": "RS-063 through RS-065 replace impossible axis-aligned oddness cubes with a realizable matched-dependency quotient and establish scalar factorization through the OOO residue image.",
+  "new_assertions": [
+    {
+      "id": "RS-IA179",
+      "family": "Q",
+      "body": "The reachable fixed-presence oddness carrier is not a free Boolean cube: no complete three-coordinate E/O cube occurs on the three hard carriers, and almost every observed presence fiber has linear constraints beyond width parity."
+    },
+    {
+      "id": "RS-IA180",
+      "family": "A",
+      "body": "For frozen degree<=2 matrix D2 and OOO matrix C, the invariant cubic correction dimension is the rank of the structural map phi: ker(D2^T)->OOO, lambda |-> lambda^T C; equivalently rank([D2 C])-rank(D2). Individual pivot triples are gauges."
+    },
+    {
+      "id": "RS-IA181",
+      "family": "V",
+      "body": "Because the scalar target y is exactly representable by degree<=2 plus OOO on the tested hard carriers, its matched-dependency residue factors through phi: if lambda^T C=0 for lambda in ker(D2^T), then lambda^T y=0."
+    },
+    {
+      "id": "RS-IA182",
+      "family": "D",
+      "body": "The scalar dependency image dimensions 1,2,2 are the invariant target dimensions relative to degree<=2 expressed on realizable structural dependencies, while the OOO structural quotient dimensions 75,294,16 measure available cubic structure rather than value complexity."
+    },
+    {
+      "id": "RS-IA183",
+      "family": "M",
+      "body": "On 4x5-k4, dim ker(phi)=371-294=77. This is the dimension of the degree<=2 dependency subspace not resolved by OOO features; its scalar image is zero under the OOO-exact decoder. The equality to the prior 77 presence-containing cubic rank directions is dimensional, not a canonical basis identification."
+    },
+    {
+      "id": "RS-IA184",
+      "family": "R",
+      "body": "The next compact decoder object should be a mechanically defined structural functional on the OOO dependency-residue quotient, or an equivalent DTS/circuit law, rather than fitted coefficients on raw OOO monomials."
+    }
+  ],
+  "qu_refinements": [
+    {
+      "id": "RS-QR051",
+      "target": "QU-RS-004",
+      "add_fixed": [
+        "no complete axis-aligned three-oddness cubes occur on 6x3-k3, 4x5-k4, or 6x3-k4 at fixed descriptor presence",
+        "fixed-presence oddness fibers are strongly constrained and generally require relations beyond exact width parity",
+        "matched degree<=2 dependency OOO image ranks are exactly 75,294,16 and reproduce oddness-only cubic rank gains",
+        "scalar dependency residues factor through the OOO image with target dimensions 1,2,2 and zero scalar residue on zero OOO residue"
+      ],
+      "retain_open": [
+        "mechanically defined descriptor-motif functionals spanning the scalar OOO image",
+        "closed syndrome family before EW-RS-059 unsealing",
+        "standard-7x6 qualification"
+      ]
+    }
+  ],
+  "stop_status": "REOPENED__OOO_DEPENDENCY_FUNCTIONAL_NEXT"
+}
