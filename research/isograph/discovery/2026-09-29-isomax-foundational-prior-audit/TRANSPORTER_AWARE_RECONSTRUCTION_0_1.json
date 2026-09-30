@@ -1,0 +1,154 @@
+{
+  "schema": "connect4.isomax.foundational_prior_audit.transporter_aware_reconstruction.v1",
+  "date_author_local": "2026-09-29",
+  "inputs": [
+    "WITNESS_PRIOR_AUDIT_0_1.json",
+    "FIXED_FRAME_ROUTE_AUDIT_0_1.json"
+  ],
+  "corrected": {
+    "behaviorRelation": "complete no-canonicalization literal-action future tree from each exact canonical sheet state",
+    "transporterAwareRouteRelation": "complete literal-action future tree after one explicit global action permutation between fixed-source-frame route endpoints",
+    "witnessGroups": [
+      {
+        "group": 152,
+        "storedFiberSize": 2,
+        "exactStateClasses": 2,
+        "columnOrbitClasses": 2,
+        "literalFutureClasses": 1,
+        "multisetFutureClasses": 1,
+        "setFutureClasses": 1,
+        "storedSheetDistinctionSurvivesLiteralFuture": false
+      },
+      {
+        "group": 153,
+        "storedFiberSize": 2,
+        "exactStateClasses": 2,
+        "columnOrbitClasses": 2,
+        "literalFutureClasses": 1,
+        "multisetFutureClasses": 1,
+        "setFutureClasses": 1,
+        "storedSheetDistinctionSurvivesLiteralFuture": false
+      },
+      {
+        "group": 698,
+        "storedFiberSize": 2,
+        "exactStateClasses": 2,
+        "columnOrbitClasses": 2,
+        "literalFutureClasses": 1,
+        "multisetFutureClasses": 1,
+        "setFutureClasses": 1,
+        "storedSheetDistinctionSurvivesLiteralFuture": false
+      },
+      {
+        "group": 3008,
+        "storedFiberSize": 2,
+        "exactStateClasses": 2,
+        "columnOrbitClasses": 2,
+        "literalFutureClasses": 1,
+        "multisetFutureClasses": 1,
+        "setFutureClasses": 1,
+        "storedSheetDistinctionSurvivesLiteralFuture": false
+      },
+      {
+        "group": 3463,
+        "storedFiberSize": 2,
+        "exactStateClasses": 2,
+        "columnOrbitClasses": 2,
+        "literalFutureClasses": 1,
+        "multisetFutureClasses": 1,
+        "setFutureClasses": 1,
+        "storedSheetDistinctionSurvivesLiteralFuture": false
+      },
+      {
+        "group": 3483,
+        "storedFiberSize": 2,
+        "exactStateClasses": 2,
+        "columnOrbitClasses": 2,
+        "literalFutureClasses": 1,
+        "multisetFutureClasses": 1,
+        "setFutureClasses": 1,
+        "storedSheetDistinctionSurvivesLiteralFuture": false
+      }
+    ],
+    "binaryGroupsRemainingAtLiteralFutureResolution": 0,
+    "binaryGroupsCollapsedAtLiteralFutureResolution": 6,
+    "storedWitnessBinaryCarrierExists": true,
+    "literalFutureBinaryCarrierExists": false,
+    "z2HolonomyDefinedAfterLiteralFutureCollapse": false
+  },
+  "fixedFrameRoutes": [
+    {
+      "startSheet": 0,
+      "rawExactReconvergence": false,
+      "rawOrbitReconvergence": false,
+      "rawLiteralReconvergence": false,
+      "rawMultisetReconvergence": true,
+      "rawSetReconvergence": true,
+      "oneGlobalActionTransporterExists": true,
+      "transporterWitnesses": [
+        [
+          1,
+          0,
+          3,
+          2,
+          4
+        ],
+        [
+          1,
+          2,
+          3,
+          0,
+          4
+        ]
+      ]
+    },
+    {
+      "startSheet": 1,
+      "rawExactReconvergence": false,
+      "rawOrbitReconvergence": false,
+      "rawLiteralReconvergence": false,
+      "rawMultisetReconvergence": true,
+      "rawSetReconvergence": true,
+      "oneGlobalActionTransporterExists": true,
+      "transporterWitnesses": [
+        [
+          1,
+          0,
+          3,
+          2,
+          4
+        ],
+        [
+          1,
+          2,
+          3,
+          0,
+          4
+        ]
+      ]
+    }
+  ],
+  "falsifier": {
+    "claim_under_test": "the stored two-sheet witness distinguishes two recursively literal-action-labelled future behaviors at every base node, so its odd holonomy is an intrinsic future-behavior obstruction",
+    "result": "FALSIFIED",
+    "reason": [
+      "all six stored two-sheet witness groups collapse to one independently computed literal-action future behavior in their canonical frames",
+      "the two fixed-source-frame route endpoints are literal-future distinct only until an explicit global action transporter is applied",
+      "after behavior-level collapse, the witness does not retain a two-sheet fiber on which the stored Z2 deltas could be interpreted as intrinsic future-behavior transport"
+    ],
+    "surviving_weaker_claim": "the stored canonical-frame action-token construction carries a non-exact Z2 cochain / odd relative holonomy on its own representation graph"
+  },
+  "identity_scope": {
+    "notClaimed": [
+      "physical states are identical",
+      "exact residual states are identical",
+      "arbitrary-column orbits are identical",
+      "qualified standard-7x6 q_o/q_r theorem directly applies to this bounded pruned carrier"
+    ],
+    "supported": [
+      "within the audited bounded pruned transition model, each stored sheet pair has identical complete fixed-canonical-frame literal future behavior",
+      "fixed-source-frame route endpoints have complete literal future correspondence under at least one explicit global action permutation"
+    ]
+  },
+  "disposition": "CURRENT_SURVIVING_OBSTRUCTION_REINTERPRETED_AS_REPRESENTATION_RELATIVE_HOLONOMY__INTRINSIC_FUTURE_BEHAVIOR_OBSTRUCTION_NOT_SUPPORTED"
+}
