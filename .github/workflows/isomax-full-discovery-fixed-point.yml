@@ -1,0 +1,32 @@
+name: IsoMax full discovery fixed point
+
+on:
+  push:
+    branches:
+      - research/isomax-full-isograph-discovery-20260929
+    paths:
+      - '.github/workflows/isomax-full-discovery-fixed-point.yml'
+      - 'tools/verify-isomax-full-discovery.mjs'
+      - 'research/isograph/discovery/2026-09-29-isomax-full-discovery/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: '26'
+      - name: Verify predecessor primitive campaign remains intact
+        run: node research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/verify-complete-primitive-campaign.mjs
+      - name: Verify full discovery fixed point
+        run: node tools/verify-isomax-full-discovery.mjs
+      - name: Research integrity
+        run: node tools/verify-research-integrity.mjs
