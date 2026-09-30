@@ -7,6 +7,7 @@ import {
   coupleFamilyPair,
   signChannelModeNoFiner,
   signChannelModeEquivalent,
+  signChannelCandidateEquivalent,
   signChannelCandidateStrictlyCoarser,
   signChannelPairSignature,
   signChannelPairDelta,
@@ -143,6 +144,13 @@ test('RS-077 information containment is derived from each frozen family alphabet
   assert.equal(signChannelModeEquivalent('C','TOTAL','ABS_NET'),true);
   assert.equal(signChannelModeEquivalent('A','TOTAL','UNORDERED_PAIR'),true);
   assert.equal(signChannelModeEquivalent('D','TOTAL','ABS_NET'),false);
+  assert.equal(
+    signChannelCandidateEquivalent(
+      {C:'TOTAL',D:'SIGNED_NET',A:'TOTAL'},
+      {C:'ABS_NET',D:'SIGNED_NET',A:'UNORDERED_PAIR'}
+    ),
+    true
+  );
   assert.equal(
     signChannelCandidateStrictlyCoarser(
       {C:'TOTAL',D:'SEPARATED',A:'SEPARATED'},
