@@ -1,0 +1,38 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.same_rank_rectangle_family.v1",
+  "id": "EW-RS-030",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "parent": "EW-RS-029",
+  "objective": "Classify all twelve minimum four-state 5x3-k3 same-exact-rank affine-XOR contradiction certificates before introducing interaction terms.",
+  "frozen_from_prior": [
+    "EW-RS-029 provenance-carrying elimination",
+    "post-RFG component definition",
+    "direct rank-local T2",
+    "exact-rank independent GF(2)^2 component model",
+    "loss/draw/win code gauge"
+  ],
+  "method": [
+    "Emit full rows for every size-4 contradiction certificate.",
+    "For each four-row certificate, evaluate all three perfect pairings.",
+    "Choose the pairing with the smallest nonempty component-parity symmetric-difference as the local substitution candidate; retain ties explicitly.",
+    "Record the two common component contexts and the outcome-code delta induced by the same substitution in each context.",
+    "Group rectangles by substitution signature and by context-effect pattern."
+  ],
+  "decision_questions": [
+    "Do all minimal rectangles share one substitution signature?",
+    "If not, how many distinct substitution generators occur?",
+    "Does a repeated substitution change effect only under one recurring context factor?",
+    "Is a pairwise-interaction model now warranted, or is broader nonlinear structure indicated?"
+  ],
+  "anti_circularity": [
+    "No new feature is fit to values.",
+    "Pairing is selected by structural symmetric-difference size, not by outcome labels.",
+    "All outcome comparisons occur after certificate structure is frozen."
+  ],
+  "nonclaims": [
+    "Classification does not prove pairwise sufficiency.",
+    "A repeated motif is not promoted beyond 5x3-k3 without fresh controls.",
+    "No standard-7x6 claim follows."
+  ]
+}
