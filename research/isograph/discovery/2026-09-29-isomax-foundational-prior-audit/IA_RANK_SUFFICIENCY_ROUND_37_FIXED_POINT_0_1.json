@@ -1,0 +1,27 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_fixed_point.v1",
+  "round": 37,
+  "date_author_local": "2026-09-29",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_36_0_1.json",
+    "RANK_SUFFICIENCY_SCALAR_INTERACTION_SYNDROME_INTEGRATION_0_1.json"
+  ],
+  "recursive_generation": {
+    "families_checked": [
+      "value-versus-structural dimension",
+      "two-bit syndrome factorization",
+      "REL_INC carrier sufficiency",
+      "affine control",
+      "phase compression"
+    ],
+    "new_assertions": []
+  },
+  "fixed_point": true,
+  "reason": "EW-RS-038 determines the scalar correction dimension but not the two structural syndrome functions. Further IA requires explicit candidate syndrome evidence.",
+  "next_evidence_boundaries": [
+    "outcome-independent candidate bank for two REL_INC interaction syndromes",
+    "fresh non-affine holdout for frozen syndrome formulas",
+    "phase grading of any successful syndrome law"
+  ],
+  "stop_status": "FIXED_POINT__TWO_SYNDROME_FORMULAS_NEXT"
+}
