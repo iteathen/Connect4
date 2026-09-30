@@ -1,0 +1,55 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_round.v1",
+  "round": 95,
+  "date_author_local": "2026-09-30",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_94_FIXED_POINT_0_1.json",
+    "RANK_SUFFICIENCY_RELATION_CIRCUIT_INTEGRATION_0_1.json"
+  ],
+  "reopened_reason": "RS095 falsifies the complete frozen additive Boolean circuit grid.",
+  "new_assertions": [
+    {
+      "id": "RS-IA311",
+      "family": "F",
+      "source": "RS-F298",
+      "body": "All32 RS095 symmetric Boolean circuit feature maps fail pooled scalar reconstruction. Full marginal-plus-circuit maps for either polarity have rank314 and18 contradictions, retaining only draw. The paired relation control reproduces rank342 and exactness."
+    },
+    {
+      "id": "RS-IA312",
+      "family": "M",
+      "source": "RS-F299",
+      "body": "For each fixed positive/negative encoding,1,e1,e2,e3 span all symmetric Boolean functions of the3 pair bits. The full-family failure therefore excludes any additive symmetric Boolean correction to the marginal carrier in the frozen linear dependency assembly. It does not exclude nonlinear joint dependence on marginal and circuit values."
+    },
+    {
+      "id": "RS-IA313",
+      "family": "Q",
+      "source": "RS-F300",
+      "body": "A full ternary correlation histogram can retain mixed positive/negative information beyond the separately tested additive spans. Appending marginal and histogram vectors differs from a one-hot joint label; the latter retains conditional dependence. Neither representation has been qualified by RS095."
+    },
+    {
+      "id": "RS-IA314",
+      "family": "R",
+      "body": "Sufficiency of the paired relation carrier does not imply a separable correction on its marginal quotient. Circuit failure directs discovery toward conditional association rather than a per-witness coefficient patch."
+    }
+  ],
+  "qu_refinements": [
+    {
+      "id": "RS-QR070",
+      "target": [
+        "QU-RS-004",
+        "QU-RS-008",
+        "QU-RS-010"
+      ],
+      "add_fixed": [
+        "All32 RS095 symmetric Boolean circuit feature maps fail pooled scalar reconstruction. Full marginal-plus-circuit maps for either polarity have rank314 and18 contradictions, retaining only draw. The paired relation control reproduces rank342 and exactness.",
+        "For each fixed positive/negative encoding,1,e1,e2,e3 span all symmetric Boolean functions of the3 pair bits. The full-family failure therefore excludes any additive symmetric Boolean correction to the marginal carrier in the frozen linear dependency assembly. It does not exclude nonlinear joint dependence on marginal and circuit values.",
+        "A full ternary correlation histogram can retain mixed positive/negative information beyond the separately tested additive spans. Appending marginal and histogram vectors differs from a one-hot joint label; the latter retains conditional dependence. Neither representation has been qualified by RS095.",
+        "Sufficiency of the paired relation carrier does not imply a separable correction on its marginal quotient. Circuit failure directs discovery toward conditional association rather than a per-witness coefficient patch."
+      ],
+      "retain_open": [
+        "Frozen comparison of separate marginal/histogram vectors and their joint label."
+      ]
+    }
+  ],
+  "stop_status": "REOPENED__RELATION_ASSOCIATION_NEXT"
+}

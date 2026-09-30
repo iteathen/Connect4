@@ -1,0 +1,47 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_fixed_point.v1",
+  "round": 96,
+  "date_author_local": "2026-09-30",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_95_0_1.json"
+  ],
+  "recursive_generation": {
+    "families_checked": [
+      "symmetric Boolean basis completeness",
+      "separate polarity versus ternary histogram",
+      "additive versus conditional marginal dependence",
+      "matched-dependency character scope",
+      "formula holdout boundary"
+    ],
+    "new_assertions": []
+  },
+  "fixed_point": true,
+  "reason": "The full additive-family exclusion is stated in round95. It cannot decide the stronger joint-label or mixed-ternary hypotheses; these require separately frozen structural maps.",
+  "next_evidence_boundaries": {
+    "status": "REQUIRES_SEPARATE_PRE_SCALAR_WARRANT",
+    "candidateFamily": {
+      "histograms": [
+        "NEGATIVE_COUNT",
+        "POSITIVE_COUNT",
+        "TERNARY_HISTOGRAM"
+      ],
+      "assemblies": [
+        "HISTOGRAM_ONLY",
+        "DIRECT_SUM_WITH_MARGINAL",
+        "JOINT_LABEL_WITH_MARGINAL"
+      ],
+      "controls": [
+        "MARGINAL_ONLY",
+        "PAIRED_RELATION"
+      ]
+    },
+    "objective": "Determine whether two multisets suffice without preserving which marginal pair carries each correlation.",
+    "guards": [
+      "Freeze all11 maps and complete structural kernels before replay.",
+      "No scalar coefficient fitting or post-hoc domain exclusions.",
+      "No claim of closed scalar formula even if joint-label factorization passes.",
+      "Both formula holdouts remain sealed."
+    ]
+  },
+  "stop_status": "LOCAL_INFERENCE_FIXED_POINT__ASSOCIATION_DISCOVERY_NEXT"
+}
