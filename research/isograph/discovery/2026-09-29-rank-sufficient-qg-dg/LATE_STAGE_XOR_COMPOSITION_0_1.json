@@ -1,0 +1,74 @@
+{
+  "schema": "connect4.rank_sufficient_qg_dg.late_stage_xor_hypothesis.v1",
+  "date_author_local": "2026-09-29",
+  "research_direction": "Joshua Oshiro",
+  "status": "ACTIVE_DISCOVERY_LENS",
+  "parent_equation": "V_G(P)=D_G(Q_G(P))",
+  "pipeline": [
+    "P",
+    "q_o",
+    "R/F/G exact safe-forgetting",
+    "Sigma transporter quotient",
+    "Q*",
+    "components C_i",
+    "valuation phi_G(C_i)=g_i",
+    "XOR-like composition",
+    "D_G",
+    "V_G(P)"
+  ],
+  "raw_xor_disposition": {
+    "p_identity": "p = (X_h & 1)",
+    "X_h_recursive_closed": false,
+    "X_h_predicts_RFG": false,
+    "interpretation": "RAW_OPERAND_REJECTED__LATE_XOR_HYPOTHESIS_OPEN"
+  },
+  "current_reduced_candidate": {
+    "id": "q_SigmaRFG",
+    "expression": "[G(F(R(q_o)))]_{S_W}",
+    "evidence": [
+      "research/isomax-foundational-prior-audit-20260929@61d234c38ed955e77a8f9895e03d110d1d15a05e",
+      "qualification/isomax-q-sigma-rf-20260929@fc04374c55df18756628f816493ea1af86faabc7"
+    ],
+    "standard7x6_status": "qualification pending"
+  },
+  "first_component_extractor": {
+    "name": "post-RFG residual-incidence connected components",
+    "vertices": "columns labeled by support height",
+    "hyperedges": "surviving owner-labeled residuals",
+    "component_identity": "canonical under all permutations internal to the component",
+    "solved_value_used": false,
+    "future_class_used": false
+  },
+  "tests": [
+    {
+      "id": "C-MULTI",
+      "meaning": "full component multiplicities"
+    },
+    {
+      "id": "C-PARITY",
+      "meaning": "component multiplicity parity vector + global p",
+      "universal_for": "all XOR valuations into exponent-2 Abelian groups over this fixed component definition"
+    },
+    {
+      "id": "C-MOD4",
+      "meaning": "component multiplicities mod 4 + global p"
+    },
+    {
+      "id": "Q-SigmaRFG",
+      "meaning": "full reduced transporter-aware control"
+    }
+  ],
+  "falsification_logic": [
+    "C-MULTI failure rejects the component decomposition for that semantic target",
+    "C-MULTI pass + C-PARITY failure rejects every XOR valuation of those fixed component types into any GF(2)^d",
+    "C-PARITY pass proves existence of a nonminimal XOR realization via one-hot component basis",
+    "none of these outcomes decides XOR over a different later-stage component definition"
+  ],
+  "targets": [
+    "Q-F",
+    "Q-A",
+    "Q-V"
+  ],
+  "direct_recursive_separation": true,
+  "no_solver_changes": true
+}
