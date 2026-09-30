@@ -3,7 +3,7 @@ import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {spawn} from 'node:child_process';
 import assert from 'node:assert/strict';
-import {atomicWrite} from './fresh-io.mjs';
+import {atomicWrite,isHeapLimitFailure} from './fresh-io.mjs';
 const here=path.dirname(fileURLToPath(import.meta.url)),[phase,label,commit]=process.argv.slice(2),w=JSON.parse(fs.readFileSync(path.join(here,'FRESH_OOO_WARRANT.json')));
 assert.ok(['prepare','replay'].includes(phase));assert.ok(w.candidateOrder.includes(label));
 const dir=path.join(here,'fresh-'+label);fs.mkdirSync(dir,{recursive:true});
@@ -15,15 +15,17 @@ if(label===w.candidateOrder[1]){
   const canAdvance=(fs.existsSync(r)&&JSON.parse(fs.readFileSync(r)).status==='SCALAR_OOO_VACUOUS')||(fs.existsSync(m)&&JSON.parse(fs.readFileSync(m)).status==='STRUCTURALLY_VACUOUS')||(fs.existsSync(l)&&JSON.parse(fs.readFileSync(l)).status==='RESOURCE_CENSORED');
   assert.ok(canAdvance,'Candidate order: backup requires documented prior vacuity/resource censoring');
 }
-const child=spawn(process.execPath,['--max-old-space-size=4096',path.join(here,'fresh-worker.mjs'),phase,label,...(commit?[commit]:[])],{stdio:'inherit',env:{...process.env,FRESH_SUPERVISED:'1'},windowsHide:true});
+const child=spawn(process.execPath,['--max-old-space-size='+w.caps.v8HeapMiB,path.join(here,'fresh-worker.mjs'),phase,label,...(commit?[commit]:[])],{stdio:['ignore','inherit','pipe'],env:{...process.env,FRESH_SUPERVISED:'1'},windowsHide:true});
+let stderrTail='';child.stderr.on('data',chunk=>{process.stderr.write(chunk);stderrTail=(stderrTail+chunk.toString()).slice(-16384);});
 const began=Date.now(),timeout=Math.min(w.caps.wallMsPerCandidate-used,w.caps.campaignWallMs-campaignUsed);
 let timedOut=false;
 const timer=setTimeout(()=>{timedOut=true;child.kill();atomicWrite(path.join(dir,'fresh-supervisor-stop.json'),JSON.stringify({status:'RESOURCE_CENSORED',reason:'wall cap',elapsedMs:used+Date.now()-began})+'\n');},timeout);
 child.on('error',error=>{clearTimeout(timer);atomicWrite(path.join(dir,'fresh-supervisor-exit.json'),JSON.stringify({status:'FAILED_TO_START',error:error.message,elapsedMs:used+Date.now()-began})+'\n');process.exitCode=1;});
-child.on('exit',(code,signal)=>{
+child.on('close',(code,signal)=>{
   clearTimeout(timer);const elapsedMs=used+Date.now()-began;
   const old=fs.existsSync(ledger)?JSON.parse(fs.readFileSync(ledger)):{};
-  atomicWrite(ledger,JSON.stringify({...old,label,phase,elapsedMs,...(timedOut?{status:'RESOURCE_CENSORED',reason:'supervisor wall cap'}:code!==0&&old.status!=='RESOURCE_CENSORED'?{status:'FAILED',reason:'nonresource child failure'}:{})})+'\n');
-  if(code!==0)atomicWrite(path.join(dir,'fresh-supervisor-exit.json'),JSON.stringify({status:timedOut?'RESOURCE_CENSORED':'INCOMPLETE',code,signal,elapsedMs})+'\n');
+  const heapLimit=isHeapLimitFailure(code,stderrTail),resource=timedOut||heapLimit||old.status==='RESOURCE_CENSORED';
+  atomicWrite(ledger,JSON.stringify({...old,label,phase,elapsedMs,...(timedOut?{status:'RESOURCE_CENSORED',reason:'supervisor wall cap'}:heapLimit?{status:'RESOURCE_CENSORED',reason:'declared V8 heap cap'}:code!==0&&old.status!=='RESOURCE_CENSORED'?{status:'FAILED',reason:'nonresource child failure'}:{})})+'\n');
+  if(code!==0)atomicWrite(path.join(dir,'fresh-supervisor-exit.json'),JSON.stringify({status:resource?'RESOURCE_CENSORED':'INCOMPLETE',code,signal,elapsedMs,stderrTail})+'\n');
   process.exitCode=code??1;
 });
