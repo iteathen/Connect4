@@ -1,0 +1,73 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_round.v1",
+  "round": 70,
+  "date_author_local": "2026-09-30",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_69_0_1.json",
+    "RANK_SUFFICIENCY_ORIENTATION_PROVENANCE_INTEGRATION_0_1.json"
+  ],
+  "reopened_reason": "The complete verified EW-RS-071 orientation ladder, HVD restriction tests, cross-k comparison, and deterministic shuffle controls are now available beyond the preflight-only geometric falsifier.",
+  "new_assertions": [
+    {
+      "id": "RS-IA214",
+      "family": "G",
+      "body": "Diagonal slope sign is exactly quotientable for reflection-invariant scalar questions because horizontal reflection preserves H/V, exchanges D+/D-, and commutes with q_o/RFG, T2, exact componentization, and ROLE_CAPPAR aggregation on the declared carriers."
+    },
+    {
+      "id": "RS-IA215",
+      "family": "F",
+      "body": "The strong H/V/D source hypothesis is rejected twice: 6x3-k4 has no V or D geometry while retaining the full non-HVD OOO scalar image, and HVD-only residue is not scalar-exact on 4x5-k4."
+    },
+    {
+      "id": "RS-IA216",
+      "family": "M",
+      "body": "No declared compressed orientation summary is a common scalar-exact carrier across 6x3-k3, 4x5-k4, and 6x3-k4. Common exactness appears only at exact orientation-provenance/reconstruction granularity."
+    },
+    {
+      "id": "RS-IA217",
+      "family": "N",
+      "body": "Exact orientation provenance does not demonstrate orientation necessity: deterministic cyclic reassignment of descriptor orientation annotations preserves exactness at that granularity on every carrier and can make several coarser summaries exact where the true orientation assignment fails."
+    },
+    {
+      "id": "RS-IA218",
+      "family": "Q",
+      "body": "The clean same-geometry 6x3 k=3 versus k=4 comparison has no shared scalar-exact compressed orientation-feature vocabulary; therefore persistence of OOO across k cannot be explained by a shared H/V/D motif law under EW-RS-071."
+    },
+    {
+      "id": "RS-IA219",
+      "family": "D",
+      "body": "The non-orientation EW-RS-069 exact pair-delta exchange carrier is the stronger common structural explanation candidate: it is scalar-exact on all three hard carriers and has lower image rank than exact orientation provenance on 4x5-k4."
+    },
+    {
+      "id": "RS-IA220",
+      "family": "R",
+      "body": "After EW-RS-071, orientation provenance should remain a carrier-specific diagnostic rather than the primary common-syndrome search axis. The next common-law search returns to support/exchange coordinates, beginning with the frozen EW-RS-070 pair-delta compression ladder."
+    },
+    {
+      "id": "RS-IA221",
+      "family": "F",
+      "body": "EW-RS-059 PRIMARY 3x6-k4 and BACKUP 5x3-k4 remain sealed; no orientation result authorizes formula-holdout access."
+    }
+  ],
+  "qu_refinements": [
+    {
+      "id": "RS-QR057",
+      "target": "QU-RS-004",
+      "add_fixed": [
+        "EW-RS-071 exact orientation provenance is scalar-exact on all three hard carriers but every compressed orientation summary fails on at least one",
+        "6x3-k4 has zero HVD triples and its non-HVD OOO residue alone has rank 16 with the full two-dimensional scalar image",
+        "HVD-only residue is exact on 6x3-k3 but inexact on 4x5-k4 and vacuous on 6x3-k4",
+        "deterministic orientation-label shuffles preserve exact-orientation scalar factorization on every carrier",
+        "EW-RS-069 non-orientation exact pair-delta exchange is a strictly smaller common scalar carrier on 4x5-k4 than exact orientation provenance"
+      ],
+      "retain_open": [
+        "within-H/support exchange mechanism for horizontal-only 6x3-k4",
+        "minimal pair-delta information under EW-RS-070",
+        "common support/exchange circuit law across H-only and mixed-orientation carriers",
+        "closed two-syndrome law before EW-RS-059 unsealing",
+        "standard-7x6 qualification"
+      ]
+    }
+  ],
+  "stop_status": "REOPENED__ORIENTATION_REJECTED_AS_COMMON_SOURCE__EXCHANGE_RETURN"
+}
