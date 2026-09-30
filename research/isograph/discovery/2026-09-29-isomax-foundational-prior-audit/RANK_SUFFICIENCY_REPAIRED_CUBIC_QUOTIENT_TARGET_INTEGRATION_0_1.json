@@ -1,0 +1,71 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.repaired_cubic_quotient_target_integration.v1",
+  "date_author_local": "2026-09-30",
+  "research_direction": "Joshua Oshiro",
+  "status": "CUBIC_QUOTIENT_REDUCED__TARGET_RELATIVE_TO_DEGREE2_MEASURED",
+  "evidence": {
+    "branch": "experiment/isomax-late-xor-components-20260929",
+    "commit": "8e3196dd2c4d5b52dbf97b0dff8315425054da33",
+    "file": "REPAIRED_CUBIC_QUOTIENT_TARGET_0_1.json",
+    "warrant": "EW-RS-060"
+  },
+  "results": {
+    "6x3-k3": {
+      "cubic_quotient_dimension": 75,
+      "basis_motifs": {"OOO":75},
+      "y0_gain_over_degree2": 0,
+      "y1_gain_over_degree2": 1,
+      "joint_target_dimension_over_degree2": 1,
+      "deterministic_target_cubic_support": 30,
+      "target_support_all_OOO": true
+    },
+    "4x5-k4": {
+      "cubic_quotient_dimension": 371,
+      "basis_motifs": {"OOO":294,"OOP":77},
+      "y0_gain_over_degree2": 1,
+      "y1_gain_over_degree2": 1,
+      "joint_target_dimension_over_degree2": 2,
+      "deterministic_target_cubic_support": 16,
+      "target_support_all_OOO": true
+    },
+    "6x3-k4": {
+      "cubic_quotient_dimension": 16,
+      "basis_motifs": {"OOO":16},
+      "y0_gain_over_degree2": 1,
+      "y1_gain_over_degree2": 1,
+      "joint_target_dimension_over_degree2": 2,
+      "deterministic_target_cubic_support": 5,
+      "target_support_all_OOO": true
+    }
+  },
+  "findings": [
+    {
+      "id": "RS-F188",
+      "status": "CUBIC_QUOTIENT_DIMENSIONS",
+      "statement": "Outcome-independent reduction modulo complete degree two leaves cubic quotient dimensions 75, 371, and 16 on 6x3-k3, 4x5-k4, and 6x3-k4."
+    },
+    {
+      "id": "RS-F189",
+      "status": "TARGET_DIMENSION_DEPENDS_ON_BASE_SPAN",
+      "statement": "Relative to degree two, the residual scalar target dimension is one on 6x3-k3 and two on 4x5-k4 and 6x3-k4; the earlier two-dimensional result was specifically relative to the affine repaired-coordinate span."
+    },
+    {
+      "id": "RS-F190",
+      "status": "ODDNESS_CUBIC_TARGET_CLUE",
+      "statement": "In the deterministic basis gauge frozen only after outcome-independent cubic reduction, every nonzero cubic scalar target coefficient is an OOO interaction among three distinct descriptor identities."
+    },
+    {
+      "id": "RS-F191",
+      "status": "PRESENCE_CUBIC_STRUCTURAL_SCALAR_SPLIT",
+      "statement": "4x5-k4 contains 77 independent OOP cubic structural directions, yet none is used by either scalar target bit in the deterministic EW-RS-060 gauge, separating cubic structural complexity from scalar target support."
+    }
+  ],
+  "nonclaims": [
+    "OOO-only cubic sufficiency is not established by this integration; EW-RS-061 is the explicit falsifier.",
+    "Deterministic target coefficient supports are basis-gauge dependent.",
+    "No final syndrome formula has been selected.",
+    "EW-RS-059 formula holdouts remain sealed.",
+    "No Q-A/Q-F or standard-7x6 claim follows."
+  ],
+  "next_question": "Is complete oddness-only OOO cubic interaction sufficient once all affine and degree-2 P/O terms are retained?"
+}
