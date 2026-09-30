@@ -1,0 +1,78 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.release_parity_topology_integration.v1",
+  "date_author_local": "2026-09-29",
+  "research_direction": "Joshua Oshiro",
+  "status": "RELEASE_PARITY_TOPOLOGY_COMMON_SCALAR_COORDINATE",
+  "evidence": [
+    {
+      "id": "RPAR",
+      "branch": "experiment/isomax-late-xor-components-20260929",
+      "commit": "fc3a0f5ecf3bb0f19ff8f5eec906580a2334ec3d",
+      "file": "RELEASE_PARITY_TOPOLOGY_0_1.json",
+      "warrant": "EW-RS-042"
+    }
+  ],
+  "definition": {
+    "name": "TOPO_RPAR",
+    "component_coordinate": "Owner-preserving residual/column incidence hypergraph canonicalized under local column permutations.",
+    "cell_label": "F if frontier-relative depth d=0; O if d>0 is odd; E if d>0 is even."
+  },
+  "results": {
+    "5x3-k3": {
+      "degree1_contradictions": 18,
+      "pair_variables": 2016,
+      "interaction_rank_gain": 37,
+      "full_structural_span": true,
+      "scalar_contradictions": 0
+    },
+    "4x4-k4": {
+      "degree1_contradictions": 168,
+      "pair_variables": 3877,
+      "interaction_rank_gain": 289,
+      "full_interaction_rank_gain": 422,
+      "full_structural_span": false,
+      "scalar_contradictions": 0
+    },
+    "6x3-k3": {
+      "degree1_contradictions": 520,
+      "pair_variables": 10857,
+      "interaction_rank_gain": 472,
+      "full_structural_span": true,
+      "scalar_contradictions": 0
+    }
+  },
+  "findings": [
+    {
+      "id": "RS-F160",
+      "status": "COMMON_SCALAR_RELEASE_QUOTIENT",
+      "statement": "TOPO_RPAR is scalar-exact with zero contradictions on all three demanding carriers 5x3-k3, 4x4-k4, and 6x3-k3."
+    },
+    {
+      "id": "RS-F161",
+      "status": "RELEASE_SEMANTICS_COMPRESSION",
+      "statement": "Absolute positive release depth is not required by the tested scalar evaluator: it is sufficient to distinguish immediate frontier cells from delayed cells and then retain only delayed-depth parity."
+    },
+    {
+      "id": "RS-F162",
+      "status": "4X4_GAP_CLOSED",
+      "statement": "On 4x4-k4, TOPO_DPAR leaves 16 contradictions and TOPO_D012 leaves 12, while TOPO_RPAR closes all contradictions. The load-bearing distinction is specifically frontier status plus parity among positive release depths."
+    },
+    {
+      "id": "RS-F163",
+      "status": "VALUE_SPECIFIC_COARSENING",
+      "statement": "On 4x4-k4, TOPO_RPAR adds only 289 structural dimensions beyond affine versus 422 in the complete degree-2 space, yet remains scalar-exact. The omitted 133 structural directions are scalar-redundant in the tested corpus."
+    },
+    {
+      "id": "RS-F164",
+      "status": "UNIVERSAL_CANDIDATE_BOUNDARY",
+      "statement": "TOPO_RPAR is the first tested release-semantic pair coordinate coarser than exact REL_INC that is scalar-exact across every demanding carrier."
+    }
+  ],
+  "nonclaims": [
+    "TOPO_RPAR is not yet fresh-qualified on a carrier that independently requires non-affine interaction.",
+    "TOPO_RPAR is not proved minimal.",
+    "The two scalar syndrome coefficient functions over TOPO_RPAR have not yet been derived.",
+    "No standard-7x6 theorem follows."
+  ],
+  "next_question": "Does frozen TOPO_RPAR remain scalar-exact on a predeclared fresh geometry whose affine model independently fails?"
+}
