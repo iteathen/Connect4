@@ -1,0 +1,143 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.signed_exchange_role_depth_index_integration.v1",
+  "date_author_local": "2026-09-30",
+  "research_direction": "Joshua Oshiro",
+  "status": "ROLE_INDEX_REMOVED__DEPTH_INDEX_REMOVED_UNDER_SIGNED_PARITY__OWNER_CHANNEL_NEXT",
+  "evidence": {
+    "branch": "experiment/isomax-late-xor-components-20260929",
+    "commit": "df50a783bcb2e443fd823adc4bf698767c181883",
+    "file": "OOO_SIGNED_EXCHANGE_ROLE_DEPTH_QUOTIENT_0_1.json",
+    "resultVerification": "OOO_SIGNED_EXCHANGE_ROLE_DEPTH_QUOTIENT_RESULT_VERIFY_0_1.json",
+    "warrant": "EW-RS-073",
+    "workflowRun": 36751987454,
+    "workflowConclusion": "success",
+    "researchIntegrity": "success"
+  },
+  "common": {
+    "SIGN": {
+      "exactGrid": [
+        "C_ROLELESS+D_DEPTH_PARITY",
+        "C_ROLELESS+D_EXACT_DEPTH",
+        "C_EXACT_ROLE+D_DEPTH_PARITY",
+        "C_EXACT_ROLE+D_EXACT_DEPTH"
+      ],
+      "inclusionMinimalExact": [
+        "C_ROLELESS+D_DEPTH_PARITY"
+      ]
+    },
+    "SIGNED_PARITY": {
+      "exactGrid": [
+        "C_ROLELESS+D_DEPTHLESS",
+        "C_ROLELESS+D_DEPTH_PARITY",
+        "C_ROLELESS+D_EXACT_DEPTH",
+        "C_EXACT_ROLE+D_DEPTHLESS",
+        "C_EXACT_ROLE+D_DEPTH_PARITY",
+        "C_EXACT_ROLE+D_EXACT_DEPTH"
+      ],
+      "inclusionMinimalExact": [
+        "C_ROLELESS+D_DEPTHLESS"
+      ]
+    }
+  },
+  "selectedCompactRealization": {
+    "encoding": "SIGNED_PARITY",
+    "capacityIndex": "C_ROLELESS",
+    "depthIndex": "D_DEPTHLESS",
+    "semantics": [
+      "retain C positive/negative changed-coordinate counts with no canonical role identity",
+      "retain D0 positive/negative odd-magnitude changed-coordinate counts with no depth identity",
+      "retain D1 positive/negative odd-magnitude changed-coordinate counts with no depth identity",
+      "owner channels D0 and D1 remain separate"
+    ],
+    "ranks": {
+      "6x3-k3": 73,
+      "4x5-k4": 262,
+      "6x3-k4": 14
+    },
+    "featureKeyCounts": {
+      "6x3-k3": 263,
+      "4x5-k4": 504,
+      "6x3-k4": 35
+    },
+    "scalarImageDimensions": {
+      "6x3-k3": 1,
+      "4x5-k4": 2,
+      "6x3-k4": 2
+    }
+  },
+  "comparison": {
+    "SIGN": {
+      "selected": "C_ROLELESS+D_DEPTH_PARITY",
+      "ranks": {
+        "6x3-k3": 70,
+        "4x5-k4": 282,
+        "6x3-k4": 16
+      },
+      "note": "6x3-k3 is the sole carrier where depthless SIGN fails, with one contradiction; depth parity repairs it."
+    },
+    "SIGNED_PARITY": {
+      "selected": "C_ROLELESS+D_DEPTHLESS",
+      "ranks": {
+        "6x3-k3": 73,
+        "4x5-k4": 262,
+        "6x3-k4": 14
+      },
+      "note": "The coarsest point in the entire frozen role/depth grid is exact on every hard carrier."
+    }
+  },
+  "findings": [
+    {
+      "id": "RS-F244",
+      "status": "CAPACITY_ROLE_INDEX_REDUNDANT",
+      "statement": "Exact canonical C role identity is unnecessary in the common scalar carrier: C_ROLELESS is sufficient at the minimal exact grid point for both SIGN and SIGNED_PARITY."
+    },
+    {
+      "id": "RS-F245",
+      "status": "EXACT_DEPTH_INDEX_REDUNDANT",
+      "statement": "Exact D0/D1 depth identity is unnecessary in both common realizations. SIGN needs only depth parity; SIGNED_PARITY needs no depth index at all."
+    },
+    {
+      "id": "RS-F246",
+      "status": "SIGNED_PARITY_DEPTHLESS_COMMON",
+      "statement": "Under SIGNED_PARITY, C_ROLELESS+D_DEPTHLESS is scalar-exact on all three hard carriers and is the coarsest point of the frozen role/depth partial order."
+    },
+    {
+      "id": "RS-F247",
+      "status": "TWENTY_STRUCTURAL_DIRECTIONS_REMOVED_ON_4X5",
+      "statement": "On 4x5-k4 the SIGNED_PARITY roleless/depthless quotient reduces structural image rank from 282 to 262 while preserving the full two-dimensional scalar dependency image."
+    },
+    {
+      "id": "RS-F248",
+      "status": "DEPTH_PARITY_ONLY_SIGN_REPAIR",
+      "statement": "For plain SIGN, depthless exchange is already exact on 4x5-k4 and 6x3-k4 but leaves one contradiction on 6x3-k3; retaining only depth parity closes that final gap."
+    },
+    {
+      "id": "RS-F249",
+      "status": "INDEX_FREE_NATIVE_CANDIDATE",
+      "statement": "The most compact common tested exchange representation no longer names component width, capacity roles, or depth levels. It retains only signed bucket counts for capacity changes and the two owner-separated depth-change channels."
+    }
+  ],
+  "dpMss": {
+    "W": "REMOVED_BY_EW_RS_072",
+    "capacityRoleIndex": "REMOVE",
+    "exactDepthIndex": "REMOVE",
+    "depthParity": "NOT_NEEDED_UNDER_SIGNED_PARITY__NEEDED_BY_MINIMAL_SIGN_REALIZATION",
+    "ownerSeparation": "RETAINED_BUT_UNTESTED",
+    "selectedCompactCarrier": "SIGNED_PARITY + C_ROLELESS + D_DEPTHLESS",
+    "next": "test owner-channel separation and small count/circuit quotients on the six signed bucket counts"
+  },
+  "open": [
+    "whether D0 and D1 owner channels can be merged or made unordered",
+    "whether only net signed counts, count parity, or support of the C/D owner buckets is needed",
+    "whether the roleless/depthless signed-parity triangle admits a smaller circuit invariant",
+    "closed one/two scalar syndrome law before EW-RS-059 unsealing",
+    "standard-7x6 qualification"
+  ],
+  "nonclaims": [
+    "Role/depth index redundancy is bounded to the declared hard carriers and frozen exchange construction.",
+    "Owner separation is not yet shown necessary.",
+    "The six signed count buckets are not yet a closed scalar formula.",
+    "EW-RS-059 PRIMARY 3x6-k4 and BACKUP 5x3-k4 remain sealed.",
+    "No Q-A/Q-F, standard-7x6, universal theorem, or center-opening proof follows."
+  ]
+}
