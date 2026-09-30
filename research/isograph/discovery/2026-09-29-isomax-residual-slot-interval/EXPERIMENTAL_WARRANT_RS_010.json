@@ -1,0 +1,33 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.residual_slot_interval.v1",
+  "id": "EW-RS-010",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "objective": "Test whether exact single-residual support-lattice ownership feasibility E1 admits a direct parity-slot interval characterization derived from current support and persistent geometry.",
+  "candidate": {
+    "task": "each required residual cell",
+    "release": "depth above current support in its column",
+    "deadline": "depth + total remaining cells outside that column",
+    "allowedSlots": "future plies owned by the residual owner",
+    "intervalCriterion": "match all required cells injectively to allowed slots inside [release,deadline]",
+    "prefixCriterion": "for every time prefix, column-prefix moves forced by required cells whose deadlines have expired must fit in that prefix"
+  },
+  "relation_to_prior": [
+    "R is release-only scheduling",
+    "G/H are late/forced ownership special cases",
+    "E1 is the exact support-lattice oracle"
+  ],
+  "anti_circularity": [
+    "no W/D/L",
+    "no future game semantics",
+    "candidate derived before comparing to E1",
+    "E1 used only as structural validation oracle"
+  ],
+  "cases": [
+    "4x4-k4",
+    "3x3-k3",
+    "3x4-k3",
+    "4x3-k3",
+    "4x4-k3"
+  ]
+}
