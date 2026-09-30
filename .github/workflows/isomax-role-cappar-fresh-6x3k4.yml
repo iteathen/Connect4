@@ -36,5 +36,6 @@ jobs:
             echo "No generated changes."
           else
             git commit -m "research(isomax): freeze fresh 6x3-k4 role-capacity evidence"
+            git pull --rebase origin experiment/isomax-late-xor-components-20260929
             git push origin HEAD:experiment/isomax-late-xor-components-20260929
           fi
