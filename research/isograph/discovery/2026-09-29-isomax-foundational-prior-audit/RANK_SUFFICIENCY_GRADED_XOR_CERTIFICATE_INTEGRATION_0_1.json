@@ -1,0 +1,82 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.graded_xor_certificate_integration.v1",
+  "date_author_local": "2026-09-29",
+  "research_direction": "Joshua Oshiro",
+  "status": "EXACT_FOUR_STATE_SAME_PHASE_DEPENDENCY_RECOVERED",
+  "evidence": [
+    {
+      "id": "CERT",
+      "branch": "experiment/isomax-late-xor-components-20260929",
+      "commit": "21bed1925720eb0ff0417517db9d19f68628a414",
+      "file": "PHASE_GRADED_XOR_CERTIFICATE_0_1.json",
+      "warrant": "EW-RS-027"
+    }
+  ],
+  "certificate": {
+    "geometry": "4x4-k3",
+    "rank_mod_3": 0,
+    "support_size": 4,
+    "component_incidence_parity_zero": true,
+    "phase_offset_cancels": true,
+    "outcome_code_xor": "10",
+    "corners": [
+      {
+        "rank": 12,
+        "relative_value": "win",
+        "odd_component_types": ["T06485","T07121"],
+        "state": "20809:3222"
+      },
+      {
+        "rank": 12,
+        "relative_value": "draw",
+        "odd_component_types": ["T06500","T07121"],
+        "state": "8899:19500"
+      },
+      {
+        "rank": 9,
+        "relative_value": "draw",
+        "odd_component_types": ["T03602","T06500"],
+        "state": "8771:17444"
+      },
+      {
+        "rank": 9,
+        "relative_value": "loss",
+        "odd_component_types": ["T03602","T06485"],
+        "state": "1603:24612"
+      }
+    ]
+  },
+  "findings": [
+    {
+      "id": "RS-F095",
+      "status": "EXACT_LINEAR_DEPENDENCY_CERTIFICATE",
+      "statement": "The first 4x4-k3 phase-graded contradiction has a four-equation support entirely in rank-mod-3 phase 0. Every component-type incidence cancels mod 2 and the phase offset appears four times, yet the relative-outcome codes XOR to nonzero 10."
+    },
+    {
+      "id": "RS-F096",
+      "status": "EXACT_CONTEXT_EFFECT",
+      "statement": "The certificate is a component-substitution rectangle: replacing T06500 by T06485 changes draw to win in companion context T07121, but changes draw to loss in companion context T03602. Thus the marginal value of that substitution is not context-independent under the rank-mod-3 grade."
+    },
+    {
+      "id": "RS-F097",
+      "status": "CLUE_PRESERVING_PHASE_REFINEMENT",
+      "statement": "The two upper corners are exact rank 12 and the two lower corners are exact rank 9. The contradiction therefore mixes distinct exact ranks that share rank mod 3. Before introducing pairwise interaction terms, exact rank must be tested as a finer valuation grade."
+    },
+    {
+      "id": "RS-F098",
+      "status": "REPLICATION_WITHIN_SAME_STRUCTURAL_CORNER",
+      "statement": "The second contradiction certificate repeats the same win/draw/draw structural rectangle and substitutes a different physical rank-9 loss state with the same odd component signature {T03602,T06485}. The obstruction is therefore not tied to one physical representative."
+    },
+    {
+      "id": "RS-F099",
+      "status": "MODEL_RESTRAINT",
+      "statement": "The certificate proves failure of rank-mod-3-graded independent linear values, but it does not yet prove irreducible pair interaction because exact rank remains an admissible finer grade and is visibly different across the rectangle."
+    },
+    {
+      "id": "RS-F100",
+      "status": "Q_D_TRADEOFF",
+      "statement": "A finer exact-rank Q-V carrier may admit a simpler affine/XOR D_G even though rank mod 3 is sufficient for scalar equivalence. This directly tests the governing possibility that the smallest Q_G and simplest D_G need not occur at the same representation granularity."
+    }
+  ],
+  "next_question": "Does exact-rank grading eliminate the phase-graded affine XOR contradictions across the complete controls?"
+}
