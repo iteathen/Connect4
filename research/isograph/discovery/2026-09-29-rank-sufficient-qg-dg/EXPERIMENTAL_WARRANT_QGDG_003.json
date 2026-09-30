@@ -1,0 +1,39 @@
+{
+  "schema": "connect4.rank_sufficient_qg_dg.experimental_warrant.v1",
+  "id": "QGDG-EW-003",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "parent_findings": [
+    "QGDG-F010",
+    "QGDG-F011",
+    "QGDG-F014"
+  ],
+  "purpose": [
+    "NORMAL_FORM",
+    "CONFLUENCE",
+    "RANK_LOCAL_UPDATE",
+    "SAFE_FORGETTING"
+  ],
+  "objective": "Determine whether the four current-rank safe-forgetting operators define a confluent/idempotent semantic closure and whether the resulting compressed representation is closed under exact rank-local updates.",
+  "operators": [
+    "remaining-move capacity M",
+    "support-release/turn capacity R",
+    "nonterminal frontier blocker F",
+    "mover final-cap parity C"
+  ],
+  "tests": [
+    "individual idempotence",
+    "pairwise commutation",
+    "all 24 one-pass orders",
+    "all 24 iterated fixed-point orders",
+    "future/value sufficiency of fixed-point form",
+    "self-update closure from normalized Q + literal move + G"
+  ],
+  "construction_firewall": "No future/value information enters any rewrite or update; those are post-hoc validation only.",
+  "cases": [
+    "4x4-k4",
+    "4x4-k3",
+    "3x4-k3",
+    "4x3-k3"
+  ]
+}
