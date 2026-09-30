@@ -1,0 +1,141 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.six_bucket_family_saturation_integration.v1",
+  "date_author_local": "2026-09-30",
+  "research_direction": "Joshua Oshiro",
+  "status": "UNIQUE_PARETO_MSS__C_PRESENCE_D_CLIP3_A_CLIP2",
+  "evidence": {
+    "branch": "experiment/isomax-late-xor-components-20260929",
+    "resultFile": "OOO_SIX_BUCKET_FAMILY_SATURATION_0_1.json",
+    "verificationFile": "OOO_SIX_BUCKET_FAMILY_SATURATION_RESULT_VERIFY_0_1.json",
+    "warrant": "EW-RS-076",
+    "scientificWorkflowRun": 36756474290,
+    "scientificGates": {
+      "syntax": "success",
+      "familySemantics": "success",
+      "audit": "success",
+      "resultVerification": "success",
+      "researchIntegrity": "success"
+    },
+    "publicationRepairCommits": {
+      "result": "489d3de31f92c3bc38249aeb0eba5633ef19bf37",
+      "verification": "9232507f539184d816ae52084823b75889bb4635"
+    }
+  },
+  "frozenSourceCarrier": "SIGNED_PARITY + C_ROLELESS + D_DEPTHLESS + D_SYMMETRIC_MARGINALS",
+  "commonExactGrid": [
+    "C=PRESENCE|D=CLIP3|A=CLIP2",
+    "C=PRESENCE|D=CLIP3|A=CLIP3",
+    "C=ZOE|D=CLIP3|A=CLIP2",
+    "C=ZOE|D=CLIP3|A=CLIP3",
+    "C=CLIP2|D=CLIP3|A=CLIP2",
+    "C=CLIP2|D=CLIP3|A=CLIP3",
+    "C=CLIP3|D=CLIP3|A=CLIP2",
+    "C=CLIP3|D=CLIP3|A=CLIP3"
+  ],
+  "uniqueParetoMinimalCommonExact": "C=PRESENCE|D=CLIP3|A=CLIP2",
+  "selectedDefinition": {
+    "C": "For each sign bucket C+/C-, retain only zero versus positive.",
+    "D": "For each sign bucket D+/D-, retain 0,1,2,3+.",
+    "A": "For each sign bucket A+/A-, retain 0,1,2+."
+  },
+  "results": {
+    "6x3-k3": {
+      "all64CandidatesExact": true,
+      "selected": {
+        "rank": 72,
+        "contradictions": 0,
+        "scalarImageDimension": 1
+      },
+      "uniformClip3": {
+        "rank": 72,
+        "contradictions": 0
+      }
+    },
+    "4x5-k4": {
+      "exactCandidateCount": 8,
+      "selected": {
+        "rank": 252,
+        "contradictions": 0,
+        "scalarImageDimension": 2
+      },
+      "uniformClip3": {
+        "rank": 253,
+        "contradictions": 0
+      },
+      "depthClip2Neighbor": {
+        "key": "C=PRESENCE|D=CLIP2|A=CLIP2",
+        "rank": 222,
+        "contradictions": 14
+      },
+      "imbalancePresenceNeighbor": {
+        "key": "C=PRESENCE|D=CLIP3|A=PRESENCE",
+        "rank": 236,
+        "contradictions": 6
+      },
+      "imbalanceZoeNeighbor": {
+        "key": "C=PRESENCE|D=CLIP3|A=ZOE",
+        "rank": 246,
+        "contradictions": 4
+      }
+    },
+    "6x3-k4": {
+      "all64CandidatesExact": true,
+      "selected": {
+        "rank": 14,
+        "contradictions": 0,
+        "scalarImageDimension": 2
+      },
+      "uniformClip3": {
+        "rank": 14,
+        "contradictions": 0
+      }
+    }
+  },
+  "findings": [
+    {
+      "id": "RS-F255",
+      "status": "CAPACITY_MAGNITUDE_REMOVED",
+      "statement": "Within the common owner-symmetric signed-parity exchange carrier, the C family needs only separate plus/minus presence. Every tested count refinement of C is value-redundant once D and A carry sufficient information."
+    },
+    {
+      "id": "RS-F256",
+      "status": "DEPTH_FAMILY_CARRIES_3PLUS_THRESHOLD",
+      "statement": "Every common-exact EW-RS-076 grid point has D=CLIP3. No PRESENCE, ZOE, or CLIP2 realization of the D family is common-exact, so the 2-versus-3+ distinction is localized to depth-change counts within the frozen family partition."
+    },
+    {
+      "id": "RS-F257",
+      "status": "OWNER_IMBALANCE_CLIP2_SUFFICIENT",
+      "statement": "A requires only CLIP2 in the unique Pareto-minimal common law. On 4x5-k4, A=PRESENCE leaves six contradictions and A=ZOE leaves four, while A=CLIP2 is exact."
+    },
+    {
+      "id": "RS-F258",
+      "status": "UNIQUE_PARETO_COMMON_MSS",
+      "statement": "Under the corrected frozen information partial order, the unique Pareto-minimal common exact family saturation law is C=PRESENCE, D=CLIP3, A=CLIP2."
+    },
+    {
+      "id": "RS-F259",
+      "status": "FOUR_BY_FIVE_SOLE_FAMILY_DISCRIMINATOR",
+      "statement": "All 64 family-saturation candidates are scalar-exact on 6x3-k3 and 6x3-k4; 4x5-k4 alone reduces the common exact set to eight and therefore determines the current transfer MSS."
+    },
+    {
+      "id": "RS-F260",
+      "status": "ONE_ADDITIONAL_VALUE_NULL_DIRECTION",
+      "statement": "On 4x5-k4 the selected Pareto-minimal carrier has rank 252 versus uniform CLIP3 rank 253 while preserving the full two-dimensional scalar image."
+    }
+  ],
+  "dpMss": {
+    "capacityFamilyC": "PRESENCE_PER_SIGN",
+    "depthFamilyD": "CLIP3_PER_SIGN",
+    "ownerImbalanceFamilyA": "CLIP2_PER_SIGN",
+    "plusMinusSeparation": "RETAINED__NEXT_TEST",
+    "selectedPairState": "C+/C- presence; D+/D- in {0,1,2,3+}; A+/A- in {0,1,2+}"
+  },
+  "nextQuestion": "Can plus/minus channels within C, D, and A be coupled, netted, unordered, or otherwise reduced while preserving the unique Pareto-minimal exchange carrier and scalar image?",
+  "nonclaims": [
+    "The selected family-specific saturation is minimal only within the frozen EW-RS-076 family grid and partial order.",
+    "The result does not establish that each plus/minus channel is separately necessary.",
+    "No individual bucket coefficient or scalar syndrome is frozen.",
+    "EW-RS-059 PRIMARY 3x6-k4 and BACKUP 5x3-k4 remain sealed.",
+    "No Q-A/Q-F, standard-7x6, universal theorem, or center-opening proof follows."
+  ]
+}
