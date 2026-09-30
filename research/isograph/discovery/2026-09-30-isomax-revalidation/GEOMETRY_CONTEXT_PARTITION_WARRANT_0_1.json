@@ -1,0 +1,34 @@
+{
+  "schema":"connect4.isomax.revalidation.geometry_context_partition_warrant.v1",
+  "id":"REVAL-LEGO-GEOM-002",
+  "date":"2026-09-30",
+  "status":"FROZEN_BEFORE_TRAINED_SCALAR_REPLAY",
+  "canonicalResearchOwner":"research/semantic-quotient",
+  "parent":"REVAL-LEGO-GEOM-001",
+  "sourceCarrier":"ROLELESS_DEPTHLESS_OWNER_SEPARATED",
+  "objective":"Enumerate the complete set-partition lattice of the three trained carriers under the valid CONDITION_FEATURES assembly, to determine the coarsest pooled carrier-context partition(s) preserving the scalar map without assigning semantic meaning post hoc.",
+  "carrierOrder":["6x3-k3","4x5-k4","6x3-k4"],
+  "partitions":[
+    {"id":"ABC","blocks":[[0,1,2]]},
+    {"id":"A_BC","blocks":[[0],[1,2]]},
+    {"id":"B_AC","blocks":[[1],[0,2]]},
+    {"id":"C_AB","blocks":[[2],[0,1]]},
+    {"id":"A_B_C","blocks":[[0],[1],[2]]}
+  ],
+  "map":"For each partition block, prefix every source structural feature key with its block id before dependency parity assembly. This is a geometry/context-conditioned coefficient space, not an appended dependency-level constant.",
+  "procedure":[
+    "Prepare all five conditioned feature catalogs, rows, ranks and kernels before reading scalar codes.",
+    "Replay the pinned 462 trained scalar dependency codes.",
+    "Report all exact partitions and all minimal exact partitions under partition refinement.",
+    "Compare semantic REVAL-LEGO-GEOM-001 contexts only after this outcome-blind partition result is fixed."
+  ],
+  "guards":[
+    "No state- or dependency-specific split.",
+    "No new geometry formula may be invented after replay.",
+    "A passing abstract partition does not itself identify the physical meaning of the context.",
+    "No sealed-holdout access or RS096 continuation."
+  ],
+  "sealedFormulaHoldouts":["3x6-k4","5x3-k4"],
+  "rs096":"HOLD",
+  "authorityEffect":"NONE"
+}
