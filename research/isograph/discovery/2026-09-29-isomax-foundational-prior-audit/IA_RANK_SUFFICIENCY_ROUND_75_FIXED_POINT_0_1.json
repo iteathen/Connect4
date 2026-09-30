@@ -1,0 +1,33 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_fixed_point.v1",
+  "round": 75,
+  "date_author_local": "2026-09-30",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_74_0_1.json",
+    "RANK_SUFFICIENCY_SIGNED_EXCHANGE_TOKEN_FAMILY_MSS_INTEGRATION_0_1.json"
+  ],
+  "recursive_generation": {
+    "families_checked": [
+      "W-family deletion",
+      "C/D0/D1 strict-subset falsifiers",
+      "per-carrier versus common MSS",
+      "SIGN versus SIGNED_PARITY family supports",
+      "role-index compression",
+      "depth-index compression",
+      "owner separation",
+      "formula-holdout anti-circularity"
+    ],
+    "new_assertions": []
+  },
+  "fixed_point": true,
+  "reason": "EW-RS-072 fixes the family-level MSS but does not determine how much exact role/depth indexing inside C,D0,D1 is necessary. Further deductions require a frozen internal-index quotient experiment.",
+  "next_evidence_boundaries": [
+    "hold family support C+D0+D1 fixed",
+    "test roleless and parity-class capacity indexing",
+    "test exact-depth versus depth-parity and roleless depth summaries",
+    "preserve owner channels initially",
+    "do not outcome-select individual roles or depths",
+    "EW-RS-059 holdouts remain sealed"
+  ],
+  "stop_status": "FIXED_POINT__C_D0_D1_INDEX_COMPRESSION_NEXT"
+}
