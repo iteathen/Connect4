@@ -1,0 +1,40 @@
+{
+  "schema":"connect4.isomax.revalidation.boundary_sign_character_warrant.v1",
+  "id":"REVAL-LEGO-BOUNDARY-004",
+  "date":"2026-09-30",
+  "status":"FROZEN_BEFORE_TRAINED_SCALAR_REPLAY",
+  "canonicalResearchOwner":"research/semantic-quotient",
+  "parent":"REVAL-LEGO-BOUNDARY-003",
+  "objective":"Search a complete low-complexity family for a single mechanically defined structural column that carries the one scalar character missing from the DIRECT_SUM boundary carrier.",
+  "source":"Each ZERO_VS_POSITIVE OOO triangle is projected to its depthless triangle motif M and boundary bit B=ANY_ZERO. For each of M's three pair records compute signed imbalances N_C, N_D0, N_D1 from depthless signed-parity counts.",
+  "channels":[
+    {"id":"D0","definition":"N_D=N_D0"},
+    {"id":"D1","definition":"N_D=N_D1"},
+    {"id":"DMERGED","definition":"N_D=N_D0+N_D1"}
+  ],
+  "relationEncodings":[
+    {"id":"NEG","definition":"r=1 iff N_C*N_D<0"},
+    {"id":"POS","definition":"r=1 iff N_C*N_D>0"},
+    {"id":"NONZERO","definition":"r=1 iff N_C*N_D!=0"}
+  ],
+  "symmetricCircuitBasis":"For the three pair bits r1,r2,r3 use 1,e1,e2,e3 over GF(2), where e1=r1 xor r2 xor r3, e2=r1r2 xor r1r3 xor r2r3, e3=r1r2r3. Test all16 XOR combinations of these four basis functions.",
+  "candidateColumn":"For each triangle occurrence, emit B * f(r1,r2,r3). A dependency column is the XOR over its frozen OOO triangle residue. Append exactly this one column to the frozen DIRECT_SUM carrier.",
+  "candidateCount":144,
+  "procedure":[
+    "Prepare all 144 structural columns and augmented DIRECT_SUM rows before reading scalar codes.",
+    "Verify mask1/constant candidates reproduce the generic boundary-contact additive column when applicable.",
+    "Replay the pinned 462 scalar codes and report every exact candidate.",
+    "If multiple candidates pass, quotient them by equality of the realized 462-bit structural column before interpretation.",
+    "Do not select a winner by rank; every candidate adds at most one structural dimension."
+  ],
+  "guards":[
+    "No motif ID lookup, geometry tag, state exception or scalar-selected marginal condition.",
+    "The family is permutation-invariant across the three triangle edges.",
+    "Numeric owner0/owner1 are source gauges; a passing owner-specific candidate remains representation-relative until mover-gauge transport is checked.",
+    "A pass is trained discovery only and does not qualify a closed formula or OOO generalization.",
+    "No sealed-holdout access or RS096 continuation."
+  ],
+  "sealedFormulaHoldouts":["3x6-k4","5x3-k4"],
+  "rs096":"HOLD",
+  "authorityEffect":"NONE"
+}
