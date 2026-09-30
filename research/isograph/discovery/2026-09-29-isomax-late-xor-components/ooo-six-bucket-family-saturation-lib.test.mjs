@@ -38,6 +38,36 @@ test('family transforms stay paired across plus/minus buckets',()=>{
   );
 });
 
+test('all four transforms are semantically frozen for every family',()=>{
+  const raw='C+=0,C-=4|D+=1,D-=3,A+=2,A-=5';
+  const controls={
+    C:{
+      PRESENCE:'C+=0,C-=1|D+=1,D-=3,A+=2,A-=3',
+      ZOE:'C+=Z,C-=E|D+=1,D-=3,A+=2,A-=3',
+      CLIP2:'C+=0,C-=2|D+=1,D-=3,A+=2,A-=3',
+      CLIP3:'C+=0,C-=3|D+=1,D-=3,A+=2,A-=3'
+    },
+    D:{
+      PRESENCE:'C+=0,C-=3|D+=1,D-=1,A+=2,A-=3',
+      ZOE:'C+=0,C-=3|D+=O,D-=O,A+=2,A-=3',
+      CLIP2:'C+=0,C-=3|D+=1,D-=2,A+=2,A-=3',
+      CLIP3:'C+=0,C-=3|D+=1,D-=3,A+=2,A-=3'
+    },
+    A:{
+      PRESENCE:'C+=0,C-=3|D+=1,D-=3,A+=1,A-=1',
+      ZOE:'C+=0,C-=3|D+=1,D-=3,A+=E,A-=O',
+      CLIP2:'C+=0,C-=3|D+=1,D-=3,A+=2,A-=2',
+      CLIP3:'C+=0,C-=3|D+=1,D-=3,A+=2,A-=3'
+    }
+  };
+  for(const family of ['C','D','A']){
+    for(const mode of FAMILY_SATURATION_MODES){
+      const candidate={C:'CLIP3',D:'CLIP3',A:'CLIP3',[family]:mode};
+      assert.equal(transformSixBucketByFamily(raw,candidate),controls[family][mode],family+' '+mode);
+    }
+  }
+});
+
 test('family-saturation pair signatures are endpoint invariant',()=>{
   for(const candidate of FAMILY_SATURATION_GRID){
     assert.equal(
