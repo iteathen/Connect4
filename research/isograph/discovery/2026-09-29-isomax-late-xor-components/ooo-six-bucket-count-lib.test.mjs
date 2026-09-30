@@ -36,7 +36,7 @@ test('six-bucket signature applies one transform uniformly',()=>{
   );
   assert.equal(
     transformSixBucketSignature(raw,'BUCKET_CLIP2'),
-    'C+=0,C-=1|D+=2+,D-=2+,A+=2+,A-=2+'
+    'C+=0,C-=1|D+=2,D-=2,A+=2,A-=2'
   );
 });
 
