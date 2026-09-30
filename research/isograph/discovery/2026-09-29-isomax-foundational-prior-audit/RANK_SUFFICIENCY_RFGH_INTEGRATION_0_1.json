@@ -1,0 +1,72 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.rfgh_integration.v1",
+  "date_author_local": "2026-09-29",
+  "research_direction": "Joshua Oshiro",
+  "evidence": [
+    "FORCED_COLUMN_PARITY_4X4_0_1.json",
+    "RGH_FEASIBILITY_DECOMPOSITION_0_1.json",
+    "EXACT_SINGLE_RESIDUAL_FEASIBILITY_HOLDOUT_0_1.json",
+    "RANK_SUFFICIENCY_XOR_PARITY_INTEGRATION_0_1.json"
+  ],
+  "operators": {
+    "R": "support-release/turn-capacity necessary feasibility",
+    "F": "universal nonterminal frontier blocker",
+    "G": "hereditary final-mover open-cap deletion",
+    "H": "sole-open-column forced-ownership deletion",
+    "E1": "exact single-residual support-lattice ownership feasibility"
+  },
+  "exact_finite": [
+    {
+      "id": "RS-F045",
+      "statement": "RFGH is Q-F exact on complete 4x4-k4 and on complete 3x3-k3, 3x4-k3, 4x3-k3 and 4x4-k3 controls.",
+      "status": "EXACT_FINITE_CROSS_CASE"
+    },
+    {
+      "id": "RS-F046",
+      "statement": "On complete 4x4-k4, RFGH has 29,986 direct classes; its S4 transporter orbit has 9,286 classes and is Q-F/Q-A/Q-V exact.",
+      "status": "EXACT_FINITE"
+    },
+    {
+      "id": "RS-F047",
+      "statement": "The 9,286-class q_SigmaRFGH carrier is the smallest transporter-aware Q-F representation tested so far on complete 4x4-k4, superseding q_SigmaRFG at 9,308.",
+      "status": "EXACT_FINITE_TESTED_MINIMUM"
+    },
+    {
+      "id": "RS-F048",
+      "statement": "H commutes with R/F/G and is idempotent on complete 4x4-k4.",
+      "status": "EXACT_FINITE"
+    },
+    {
+      "id": "RS-F049",
+      "statement": "Across all five complete decomposition cases, each residual deleted by R, G or H is also deleted by E1.",
+      "status": "EXACT_FINITE_CROSS_CASE"
+    },
+    {
+      "id": "RS-F050",
+      "statement": "E1 and RGH are not generally equal as normalized representations and are not generally the same partition.",
+      "status": "EXACT_FINITE_CROSS_CASE_FALSIFIER"
+    },
+    {
+      "id": "RS-F051",
+      "statement": "Across all five complete cases, F(E1(q)) and RFGH(q) induce exactly the same partition of physical states, with zero partition mismatches, although their residual keys can differ.",
+      "status": "EXACT_FINITE_CROSS_CASE"
+    }
+  ],
+  "deductive_candidate": [
+    "H is rank-local: it uses only current support, residual ownership/cells and persistent geometry.",
+    "When one column is nonfull, owner of its future row r is ((W-1)*H+r) mod 2; this is invariant under column relabeling because row and board dimensions are preserved.",
+    "Therefore H is column-permutation covariant as an abstract support/residual rule.",
+    "If the existing general q_Sigma, R, F and G candidate laws qualify, H composes with them without requiring an additional transported scalar coordinate."
+  ],
+  "quotient_interpretation": {
+    "strongest_tested": "F∘E1 and RFGH are lossless recodings of one state partition on all five complete tested domains.",
+    "not_claimed": [
+      "E1=RGH as operators",
+      "their residual normal forms are identical",
+      "standard-7x6 qualification",
+      "global minimality of q_SigmaRFGH"
+    ]
+  },
+  "current_candidate": "q_SigmaRFGH=[H(G(F(R(q_o))))]_{S_W}",
+  "status": "GENERAL_DEDUCTIVE_CANDIDATE_WITH_EXACT_BOUNDED_CROSS_CASE_SUPPORT__STANDARD7X6_QUALIFICATION_PENDING"
+}

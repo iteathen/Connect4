@@ -1,0 +1,50 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.experimental_inquiry_xor.v1",
+  "date_author_local": "2026-09-29",
+  "authority": "Experimental Inquiry 0.1 + DP 0.10",
+  "inquiries": [
+    {
+      "id": "EI-RS-X1",
+      "mode": "DISCRIMINATING",
+      "target": "height XOR + stone parity as sufficient coordinate",
+      "result": "FALSIFIED across five complete cases for Q-F/Q-A/Q-V",
+      "status": "CLOSED_MODEL_BREAK"
+    },
+    {
+      "id": "EI-RS-X2",
+      "mode": "ALTERNATIVE_REPRESENTATIONS",
+      "target": "support-only neighboring invariants",
+      "result": "rank/modular rank, sorted multiset, elementary symmetric invariants, power sums, transformed XORs, parity/open masks all fail cross-case exact sufficiency",
+      "status": "CLOSED_NEGATIVE"
+    },
+    {
+      "id": "EI-RS-X3",
+      "mode": "DERIVATION_AUDIT",
+      "target": "G/H dependence on current parity",
+      "result": "current p cancels from final-board mover and sole-open-column forced-owner formulas; persistent geometry/open-column structure is the stronger explanation",
+      "status": "CLOSED_MODEL_NARROWING"
+    },
+    {
+      "id": "EI-RS-X4",
+      "mode": "AMBIGUITY_FALSIFIER",
+      "target": "836 same-future transition splits",
+      "result": "all occur at fixed full support, so XOR/parity and every support-only invariant are unable to resolve them",
+      "status": "CLOSED"
+    },
+    {
+      "id": "EI-RS-X5",
+      "mode": "CLUE_PRESERVING_COMPOSITION",
+      "target": "E1=RGH",
+      "result": "literal operator equality and general partition equality falsified; retain weaker question after F",
+      "status": "CLOSED_MODEL_BREAK"
+    },
+    {
+      "id": "EI-RS-X6",
+      "mode": "REFINED_COMPOSITION",
+      "target": "partition(F(E1)) = partition(RFGH)",
+      "result": "CONFIRMED on training plus four complete holdouts with zero partition mismatches",
+      "status": "CLOSED_CANDIDATE_REFINED"
+    }
+  ],
+  "next_inquiry": "symbolic/general derivation or fresh larger control for F∘E1 ≡ RFGH; do not return to XOR without new evidence"
+}

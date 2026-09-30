@@ -1,0 +1,33 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.dts_xor_feasibility.v1",
+  "date_author_local": "2026-09-29",
+  "authority": "DTS 0.1",
+  "results": [
+    {
+      "id": "DTS-RS-X1",
+      "result": "XOR_NOT_CLOSED_STATE",
+      "statement": "X_h has an exact move update X_h'=X_h xor h_c xor(h_c+1), but the action transition additionally needs the current height h_c of the chosen column; X_h,p alone are not a closed transition state."
+    },
+    {
+      "id": "DTS-RS-X2",
+      "result": "GROUP_INVARIANT_NOT_TRANSPORTER",
+      "statement": "X_h,p are invariant under column relabeling and therefore constant on q_Sigma orbits. They do not encode the transporter or select a representative."
+    },
+    {
+      "id": "DTS-RS-X3",
+      "result": "RESIDUAL_DEPENDENCE",
+      "statement": "F cannot be determined from support alone in the tested carriers; transition sufficiency requires residual/action interface information independent of support algebra."
+    },
+    {
+      "id": "DTS-RS-X4",
+      "result": "QUOTIENT_EQUIVALENT_NORMAL_FORMS",
+      "statement": "F(E1(q)) and RFGH(q) can have different residual normal forms while inducing one identical tested state partition. Transition-state identity should therefore be phrased at quotient relation level rather than byte/token equality."
+    },
+    {
+      "id": "DTS-RS-X5",
+      "result": "SUPPORT_ONLY_AMBIGUITY_BARRIER",
+      "statement": "The 836 old recursive ambiguities survive every support-only refinement because both parent and successor support are already identical inside each failure fiber."
+    }
+  ],
+  "pending": "General transporter-aware proof/qualification of the strengthened q_SigmaRFGH quotient and explanation of the F∘E1/RFGH partition law."
+}

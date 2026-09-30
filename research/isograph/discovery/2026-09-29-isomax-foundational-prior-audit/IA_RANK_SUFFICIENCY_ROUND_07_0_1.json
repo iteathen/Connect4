@@ -1,0 +1,77 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_round.v1",
+  "round": 7,
+  "date_author_local": "2026-09-29",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_06_0_1.json",
+    "RANK_SUFFICIENCY_RFGH_INTEGRATION_0_1.json",
+    "MSS_RANK_SUFFICIENCY_XOR_FEASIBILITY_0_1.json"
+  ],
+  "new_assertions": [
+    {
+      "id": "RS-IA035",
+      "family": "M",
+      "body": "q_SigmaRFGH has 9,286 exact transporter-aware Q-F/Q-A/Q-V classes on complete 4x4-k4 and is the smallest tested valid transporter-aware Q-F carrier there."
+    },
+    {
+      "id": "RS-IA036",
+      "family": "I",
+      "body": "A scalar invariant of a group action cannot choose among members of one orbit; X_h and p are therefore structurally incapable of serving as q_Sigma canonical tie-breakers."
+    },
+    {
+      "id": "RS-IA037",
+      "family": "C",
+      "body": "The residual distinctions deleted by E1 but retained by RGH are semantically absorbed after F in every tested domain: F∘E1 and RFGH induce the same partition."
+    },
+    {
+      "id": "RS-IA038",
+      "family": "R",
+      "body": "Exact normalized residual equality is stronger than rank-sufficient quotient equality; different residual normal forms may be lossless recodings of one future-sufficient partition."
+    },
+    {
+      "id": "RS-IA039",
+      "family": "F",
+      "body": "The tested safe-forgetting kernel decomposes into a support-lattice ownership-feasibility component and a frontier/residual-interaction component; support algebra alone cannot subsume F."
+    },
+    {
+      "id": "RS-IA040",
+      "family": "S",
+      "body": "The smallest-looking candidate by raw class count is irrelevant when it fails semantic sufficiency; minimality comparisons must be validity-first."
+    },
+    {
+      "id": "RS-IA041",
+      "family": "C",
+      "body": "Geometry-specific Q-V success of residuals plus reduced support descriptors does not transfer across the complete holdouts and therefore cannot be promoted as a general value quotient."
+    }
+  ],
+  "qu_refinements": [
+    {
+      "id": "RS-QR014",
+      "target": "QU-RS-002",
+      "add_fixed": [
+        "complete 4x4 q_SigmaRFGH has 9,286 classes",
+        "direct RFGH is Q-F exact on five complete tested domains",
+        "F∘E1 and RFGH are partition-equivalent on all five"
+      ],
+      "retain_open": [
+        "general proof/standard-7x6 qualification",
+        "minimal Q-F below this quotient",
+        "additional safe-forgetting rules"
+      ]
+    },
+    {
+      "id": "RS-QR015",
+      "target": "QU-RS-005",
+      "add_fixed": [
+        "literal E1=RGH is false",
+        "F∘E1 and RFGH nevertheless define the same partition on all five tested domains"
+      ],
+      "retain_open": [
+        "structural reason for frontier absorption",
+        "general theorem/falsifier",
+        "canonical normal form for the common quotient"
+      ]
+    }
+  ],
+  "stop_status": "OPEN__NEW_EXPERIMENT_REQUIRED_FOR_FURTHER_EXACT_REFINEMENT"
+}

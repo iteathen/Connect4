@@ -1,0 +1,45 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.mss_xor_feasibility.v1",
+  "date_author_local": "2026-09-29",
+  "authority": "DP 0.9",
+  "objectives": [
+    {
+      "id": "MSS-RS-X1",
+      "target": "smallest tested complete-4x4 transporter-aware Q-F carrier",
+      "validity_first": true,
+      "result": "q_SigmaRFGH",
+      "classes": 9286,
+      "comparison": {
+        "q_SigmaRFG": 9308,
+        "q_SigmaRFC": 9508,
+        "q_SigmaQO": 10496
+      },
+      "scope": "tested candidates only"
+    },
+    {
+      "id": "MSS-RS-X2",
+      "target": "derive exact single-residual feasibility quotient after frontier reduction",
+      "objective": "fewest named local rules with no support-lattice oracle in final representation",
+      "result": "RFGH induces the same partition as F∘E1 across five complete cases",
+      "caveat": "not yet a symbolic general theorem"
+    },
+    {
+      "id": "MSS-RS-X3",
+      "target": "height-XOR/parity representation",
+      "result": "INVALID_BY_SUFFICIENCY",
+      "reason": "X_h,p fail Q-F/Q-A/Q-V on all five complete cases; low class count is inadmissible without semantic validity"
+    },
+    {
+      "id": "MSS-RS-X4",
+      "target": "resolve 836 recursive representation splits using support coordinates",
+      "result": "IMPOSSIBLE_WITH_SUPPORT_ONLY_COORDINATE",
+      "reason": "all 836 parent and child ambiguity fibers have identical complete support"
+    }
+  ],
+  "valuation": {
+    "validity_first": true,
+    "description_complexity": "F∘E1 and RFGH quotient equivalence reduces multiple safe-forgetting rules to one tested semantic quotient relation.",
+    "computational_cost_unmeasured": "No cycle/runtime scalarization is assigned here. E1 support-lattice search and R/G/H filters have not been compared under a qualified cost model.",
+    "current_priority": "derive/falsify the general partition law F∘E1 ≡ RFGH and seek additional rank-local compression below that quotient"
+  }
+}
