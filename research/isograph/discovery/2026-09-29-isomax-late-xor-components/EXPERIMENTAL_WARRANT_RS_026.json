@@ -1,0 +1,41 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.phase_graded_affine_xor.v1",
+  "id": "EW-RS-026",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "parent": "EW-RS-025",
+  "objective": "Test whether the scheduler grade acts on component values themselves: within T2-O, allow an independent GF(2)^2 component valuation for each rank-mod-3 phase while retaining XOR composition.",
+  "frozen_domain": "T2-O nonterminal states",
+  "frozen_representation": "post-RFG component multiplicity parity M2 plus rank mod 3",
+  "relative_value": "current-mover win/draw/loss",
+  "candidate": {
+    "equation": "code(U(P)) = b_G,r3 XOR XOR_{odd C} g_G,r3(C)",
+    "group": "GF(2)^2",
+    "fixed_codes": {
+      "loss": "00",
+      "draw": "01",
+      "win": "10"
+    },
+    "interpretation": "The component carrier remains XOR-composed inside each phase, but the scheduler grade may change a component's valuation."
+  },
+  "control": "EW-RS-025 shared g_G(C) plus phase offsets",
+  "cases": [
+    "3x3-k3",
+    "3x4-k3",
+    "4x3-k3",
+    "4x4-k4",
+    "4x4-k3",
+    "3x5-k3",
+    "5x3-k3",
+    "3x6-k3"
+  ],
+  "anti_circularity": [
+    "No new structural operand is introduced.",
+    "Only the already-qualified rank-mod-3 scheduler grade is permitted to index component valuation.",
+    "Exact outcomes remain downstream right-hand sides of the frozen linear systems."
+  ],
+  "falsifiers": [
+    "Any contradiction in a phase-graded system rejects independent affine XOR component valuation within that geometry and fixed phase.",
+    "Failure does not reject nonlinear decoders, higher-order component interactions, or non-XOR finite algebras."
+  ]
+}
