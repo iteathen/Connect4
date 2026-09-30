@@ -97,7 +97,8 @@
   "measurements": [
     "feature-key count",
     "structural image rank",
-    "kernel dimension relative to uniform CLIP3",
+    "rank difference versus uniform CLIP3",
+    "kernel dimension relative to uniform CLIP3 only when the candidate is structurally proven to factor through uniform CLIP3",
     "zero-structural-residue/nonzero-scalar count",
     "scalar contradiction count",
     "scalar image dimension",
@@ -105,6 +106,7 @@
     "Pareto-minimal common-exact grid points"
   ],
   "antiCircularity": [
+    "Rank-versus-CLIP3 reporting was corrected before any RS-076 scalar run so incomparable ZOE/CLIP3 candidates are not mislabelled as quotient kernels.",
     "The family-mode information partial order was corrected before any RS-076 scalar run: PRESENCE<ZOE; PRESENCE<CLIP2<CLIP3; ZOE incomparable with CLIP2/CLIP3.",
     "The three bucket families, four family modes, complete 64-point grid, pair grouping, and partial-order rule are frozen before scalar inspection.",
     "No plus/minus bucket is split independently.",
