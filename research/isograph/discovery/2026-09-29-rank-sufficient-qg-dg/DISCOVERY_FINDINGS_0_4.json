@@ -1,0 +1,456 @@
+{
+  "schema": "connect4.rank_sufficient_qg_dg.findings.v4",
+  "date_author_local": "2026-09-29",
+  "research_direction": "Joshua Oshiro",
+  "status": "ACTIVE",
+  "findings": [
+    {
+      "id": "QGDG-F001",
+      "kind": "EXACT_UPPER_BOUND",
+      "statement": "Qualified standard-7x6 q_o is a rank-local sufficient representation for complete orientation-sensitive literal-action ordinary future behavior.",
+      "scope": "qualified Connect4 authority 1.2, legal nonterminal standard 7x6",
+      "evidence": [
+        "CONNECT4_LOGIC_AUTHORITY_1_2"
+      ]
+    },
+    {
+      "id": "QGDG-F002",
+      "kind": "VALUE_UPPER_BOUND",
+      "statement": "Qualified q_r, the horizontal-reflection orbit of q_o with explicit action transporter, is a rank-local sufficient representation for exact scalar ordinary value and future-game correspondence up to reflection transport, but not literal action-label identity.",
+      "scope": "qualified Connect4 authority 1.2",
+      "evidence": [
+        "CONNECT4_LOGIC_AUTHORITY_1_2"
+      ]
+    },
+    {
+      "id": "QGDG-F003",
+      "kind": "RANK_LOCAL_UPDATE",
+      "statement": "Across the four complete bounded controls, q_o successor state was independently derived from q_o + literal move + G on 385862 legal nonterminal edges with zero mismatches to the physical child q_o.",
+      "scope": [
+        "4x4-k4",
+        "4x4-k3",
+        "3x4-k3",
+        "4x3-k3"
+      ],
+      "evidence": [
+        "SAFE_FORGETTING_CENSUS_0_1.json"
+      ]
+    },
+    {
+      "id": "QGDG-F004",
+      "kind": "NONMINIMALITY_BOUNDED",
+      "statement": "q_o is future-behavior sufficient but not coarsest on every tested bounded domain: each case has strictly more distinct q_o representations than complete literal future-behavior classes.",
+      "scope": [
+        {
+          "case": "4x4-k4",
+          "q_o": 34097,
+          "future_classes": 27429,
+          "excess": 6668
+        },
+        {
+          "case": "4x4-k3",
+          "q_o": 18877,
+          "future_classes": 12201,
+          "excess": 6676
+        },
+        {
+          "case": "3x4-k3",
+          "q_o": 1396,
+          "future_classes": 980,
+          "excess": 416
+        },
+        {
+          "case": "4x3-k3",
+          "q_o": 3737,
+          "future_classes": 2897,
+          "excess": 840
+        }
+      ],
+      "evidence": [
+        "SAFE_FORGETTING_CENSUS_0_1.json"
+      ],
+      "guard": "bounded exact result; does not prove standard-7x6 nonminimality"
+    },
+    {
+      "id": "QGDG-F005",
+      "kind": "SAFE_FORGETTING_FALSIFIERS",
+      "statement": "Support alone, support plus only one player's residuals, owned residuals without support, support plus unowned residual union, residual-size histograms, GF(2)-rank summaries, and residual cell-incidence histograms all fail both complete-future and scalar-value sufficiency on every tested case.",
+      "scope": [
+        "4x4-k4",
+        "4x4-k3",
+        "3x4-k3",
+        "4x3-k3"
+      ],
+      "evidence": [
+        "SAFE_FORGETTING_CENSUS_0_1.json"
+      ]
+    },
+    {
+      "id": "QGDG-F006",
+      "kind": "SUFFICIENCY_LEVEL_SEPARATION",
+      "statement": "Physical horizontal-reflection quotient q_r is scalar-value sufficient on every tested bounded case but is not literal-action future-behavior sufficient on any of them. Future-behavior and scalar-value minimality must therefore remain separate research targets.",
+      "scope": [
+        "4x4-k4",
+        "4x4-k3",
+        "3x4-k3",
+        "4x3-k3"
+      ],
+      "evidence": [
+        "SAFE_FORGETTING_CENSUS_0_1.json"
+      ]
+    },
+    {
+      "id": "QGDG-F007",
+      "kind": "EVALUATOR_EXISTENCE",
+      "statement": "A finite rank-well-founded Bellman evaluator supplies one exact D_G once a sufficient ordinary-state carrier is fixed; this establishes evaluator existence without constraining the final evaluator to recursive form.",
+      "scope": "ordinary finite Connect4 game semantics",
+      "evidence": [
+        "CONNECT4_GAME_THEORY_1_2"
+      ]
+    },
+    {
+      "id": "QGDG-F008",
+      "kind": "ALGEBRAIC_EVALUATOR_STRUCTURE",
+      "statement": "Existing exact RBA work represents tested threshold Bellman transformers as monotone lattice polynomials over an idempotent antichain semiring, with exact local-skyline factorization of semiring multiplication. This proves nontrivial exact algebraic structure in D_G on those boundary carriers, but not a root-scale direct closed form.",
+      "scope": "qualified/current exact RBA relations and tested support-local threshold boundaries",
+      "evidence": [
+        "RBA_ANTICHAIN_SEMIRING_RESULTS_0_1.json",
+        "RBA_NATIVE_SEMIRING_RESULTS_0_1.json"
+      ]
+    },
+    {
+      "id": "QGDG-F009",
+      "kind": "AUDIT_CONSTRAINT",
+      "statement": "The prior canonical-frame two-sheet cocycle is not a valid shortcut to a minimal Q_G: its witness fibers collapse at literal-future resolution, action-token recursion omitted transporter alignment, and arbitrary canonical slots are not generally physical board columns.",
+      "scope": "foundational-audit bounded carrier",
+      "evidence": [
+        "IDENTITY_QU_NEI_AUDIT_0_1.json",
+        "LEGO_INVENTORY_0_1.json"
+      ]
+    },
+    {
+      "id": "QGDG-F010",
+      "kind": "BOUNDED_SAFE_COMPRESSION",
+      "statement": "Remaining-move capacity, support-release/turn capacity, nonterminal frontier blocking, mover final-cap parity, frontier+cap, and the tested combined local closure each preserve complete literal future behavior and exact scalar value on every state of all four bounded controls.",
+      "scope": [
+        "4x4-k4",
+        "4x4-k3",
+        "3x4-k3",
+        "4x3-k3"
+      ],
+      "evidence": [
+        "QO_REDUNDANCY_AUDIT_0_1.json"
+      ],
+      "guard": "finite exact controls only"
+    },
+    {
+      "id": "QGDG-F011",
+      "kind": "NORMALIZATION_GAIN",
+      "statement": "The combined tested local closure strictly reduces q_o representation count on every bounded case without semantic collisions: 4x4-k4 34097→30745; 4x4-k3 18877→17725; 3x4-k3 1396→1245; 4x3-k3 3737→3451.",
+      "scope": [
+        "4x4-k4",
+        "4x4-k3",
+        "3x4-k3",
+        "4x3-k3"
+      ],
+      "evidence": [
+        "QO_REDUNDANCY_AUDIT_0_1.json"
+      ]
+    },
+    {
+      "id": "QGDG-F012",
+      "kind": "REDUNDANCY_LOCALIZATION",
+      "statement": "Most bounded q_o nonminimality occurs at fixed support: 4105/4107 redundant future classes in 4x4-k4, 1927/1980 in 4x4-k3, 150/153 in 3x4-k3, and 328/337 in 4x3-k3 contain distinct same-support q_o representations with identical complete futures.",
+      "scope": [
+        "4x4-k4",
+        "4x4-k3",
+        "3x4-k3",
+        "4x3-k3"
+      ],
+      "evidence": [
+        "QO_REDUNDANCY_AUDIT_0_1.json"
+      ]
+    },
+    {
+      "id": "QGDG-F013",
+      "kind": "ONE_RESIDUAL_REDUNDANCY",
+      "statement": "In every tested case the minimum same-support future-equivalent q_o difference is one residual token. In several minima that residual is individually remaining-move and support-release feasible, proving that individual feasibility alone does not characterize all safely forgettable residual information.",
+      "scope": [
+        {
+          "case": "4x4-k4",
+          "example": {
+            "score": 1,
+            "future": 11,
+            "diff": {
+              "support": 0,
+              "r0": 0,
+              "r1": 1
+            },
+            "qA": "4,4,4,0|8|8.128",
+            "qB": "4,4,4,0|8|128",
+            "value": 1,
+            "changed": [
+              {
+                "side": "A_only",
+                "mask": 8,
+                "p": 1,
+                "size": 1,
+                "remainingMoves": 2,
+                "remainingCapacity": true,
+                "releaseFeasible": true,
+                "isAllOpenCaps": false,
+                "cells": [
+                  {
+                    "bit": 3,
+                    "col": 3,
+                    "row": 0,
+                    "release": 1
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "case": "4x4-k3",
+          "example": {
+            "score": 1,
+            "future": 71,
+            "diff": {
+              "support": 0,
+              "r0": 1,
+              "r1": 0
+            },
+            "qA": "4,4,1,2|64.1024.34816.49152|64.3072.16384",
+            "qB": "4,4,1,2|64.1024.34816|64.3072.16384",
+            "value": -1,
+            "changed": [
+              {
+                "side": "A_only",
+                "mask": 49152,
+                "p": 0,
+                "size": 2,
+                "remainingMoves": 2,
+                "remainingCapacity": true,
+                "releaseFeasible": true,
+                "isAllOpenCaps": true,
+                "cells": [
+                  {
+                    "bit": 15,
+                    "col": 3,
+                    "row": 3,
+                    "release": 2
+                  },
+                  {
+                    "bit": 14,
+                    "col": 2,
+                    "row": 3,
+                    "release": 3
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "case": "3x4-k3",
+          "example": {
+            "score": 1,
+            "future": 9,
+            "diff": {
+              "support": 0,
+              "r0": 0,
+              "r1": 1
+            },
+            "qA": "4,4,2|256|2048",
+            "qB": "4,4,2|256|256.2048",
+            "value": 1,
+            "changed": [
+              {
+                "side": "B_only",
+                "mask": 256,
+                "p": 1,
+                "size": 1,
+                "remainingMoves": 1,
+                "remainingCapacity": true,
+                "releaseFeasible": true,
+                "isAllOpenCaps": false,
+                "cells": [
+                  {
+                    "bit": 8,
+                    "col": 2,
+                    "row": 2,
+                    "release": 1
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "case": "4x3-k3",
+          "example": {
+            "score": 1,
+            "future": 11,
+            "diff": {
+              "support": 0,
+              "r0": 1,
+              "r1": 0
+            },
+            "qA": "3,3,3,1|128|2048",
+            "qB": "3,3,3,1|128.2048|2048",
+            "value": 1,
+            "changed": [
+              {
+                "side": "B_only",
+                "mask": 2048,
+                "p": 0,
+                "size": 1,
+                "remainingMoves": 1,
+                "remainingCapacity": true,
+                "releaseFeasible": false,
+                "isAllOpenCaps": true,
+                "cells": [
+                  {
+                    "bit": 11,
+                    "col": 3,
+                    "row": 2,
+                    "release": 2
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "evidence": [
+        "QO_REDUNDANCY_AUDIT_0_1.json"
+      ]
+    },
+    {
+      "id": "QGDG-F014",
+      "kind": "INCOMPLETE_NORMALIZATION",
+      "statement": "The combined local closure is not coarsest even on the bounded controls: its representation counts remain strictly above complete future-behavior class counts in every case. Additional rank-local safe-forgetting structure remains to be discovered.",
+      "scope": [
+        {
+          "case": "4x4-k4",
+          "closed": 30745,
+          "future": 27429
+        },
+        {
+          "case": "4x4-k3",
+          "closed": 17725,
+          "future": 12201
+        },
+        {
+          "case": "3x4-k3",
+          "closed": 1245,
+          "future": 980
+        },
+        {
+          "case": "4x3-k3",
+          "closed": 3451,
+          "future": 2897
+        }
+      ],
+      "evidence": [
+        "QO_REDUNDANCY_AUDIT_0_1.json"
+      ]
+    },
+    {
+      "id": "QGDG-F015",
+      "kind": "CONFLUENT_BOUNDED_NORMAL_FORM",
+      "statement": "The four predeclared local safe-forgetting operators M/R/F/C are individually idempotent and pairwise commuting on every tested state. All 24 operator orders produce one identical one-pass/fixed-point normal form on all four complete bounded domains.",
+      "scope": [
+        "4x4-k4",
+        "4x4-k3",
+        "3x4-k3",
+        "4x3-k3"
+      ],
+      "evidence": [
+        "LOCAL_NORMAL_FORM_0_1.json"
+      ],
+      "guard": "bounded exact controls only"
+    },
+    {
+      "id": "QGDG-F016",
+      "kind": "DIRECT_RANK_LOCAL_SUFFICIENCY",
+      "statement": "The confluent local normal form is exactly complete-future and scalar-value sufficient on all four bounded domains when recomputed from the current q_o/current position.",
+      "scope": [
+        {
+          "case": "4x4-k4",
+          "normal_groups": 30745,
+          "future_classes": 27429
+        },
+        {
+          "case": "4x4-k3",
+          "normal_groups": 17725,
+          "future_classes": 12201
+        },
+        {
+          "case": "3x4-k3",
+          "normal_groups": 1245,
+          "future_classes": 980
+        },
+        {
+          "case": "4x3-k3",
+          "normal_groups": 3451,
+          "future_classes": 2897
+        }
+      ],
+      "evidence": [
+        "LOCAL_NORMAL_FORM_0_1.json"
+      ],
+      "guard": "bounded exact controls; standard-7x6 theorem not yet established"
+    },
+    {
+      "id": "QGDG-F017",
+      "kind": "NAIVE_UPDATE_FORMULA_FALSIFIER",
+      "statement": "Applying the ordinary q_o residual-cofactor update directly to the pruned local normal form and renormalizing does not reproduce the freshly recomputed child normal form on 17,279 of 385,862 bounded legal edges. This falsifies that inherited update formula on the compressed coordinates; it does not yet falsify existence of some other exact F_G on the compressed state.",
+      "scope": [
+        {
+          "case": "4x4-k4",
+          "edges": 304574,
+          "mismatches": 14844
+        },
+        {
+          "case": "4x4-k3",
+          "edges": 65756,
+          "mismatches": 1970
+        },
+        {
+          "case": "3x4-k3",
+          "edges": 3714,
+          "mismatches": 333
+        },
+        {
+          "case": "4x3-k3",
+          "edges": 11818,
+          "mismatches": 132
+        }
+      ],
+      "evidence": [
+        "LOCAL_NORMAL_FORM_0_1.json"
+      ]
+    },
+    {
+      "id": "QGDG-F018",
+      "kind": "DIRECT_RECURSIVE_REALIZATION_OPEN",
+      "statement": "Direct rank-local recomputation and recursive maintenance are distinct realization questions. EW-003 shows the obvious inherited q_o update formula is not closed on Q_DIRECT_LOCAL_NORMAL, but transition congruence of the compressed representation must be tested before concluding that extra latent state is necessary.",
+      "scope": "four complete bounded controls",
+      "evidence": [
+        "LOCAL_NORMAL_FORM_0_1.json"
+      ]
+    },
+    {
+      "id": "QGDG-F019",
+      "kind": "REAPPEARING_RESIDUAL_OBSERVATION",
+      "statement": "Under the failed inherited update formula, freshly recomputed child normal forms can contain residuals absent from the normalized parent. These observations motivate provenance analysis but do not by themselves prove those residuals must be explicitly carried by every exact recursive realization.",
+      "scope": "bounded mismatch census; exact structural source to be classified next",
+      "evidence": [
+        "LOCAL_NORMAL_FORM_0_1.json"
+      ]
+    }
+  ],
+  "revision_of": "DISCOVERY_FINDINGS_0_3.json"
+}
