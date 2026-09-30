@@ -1,0 +1,63 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_round.v1",
+  "round": 1,
+  "date_author_local": "2026-09-29",
+  "fixed_point_reopened_from": "FOUNDATIONAL_AUDIT_IA_FIXED_POINT",
+  "new_assertions": [
+    {
+      "id": "RS-IA001",
+      "family": "C",
+      "body": "An exact Q,D pair already exists with Q=q_o and D=rank-well-founded Bellman evaluation on standard 7x6; existence is not the unresolved question."
+    },
+    {
+      "id": "RS-IA002",
+      "family": "Q",
+      "body": "A future-derived recursive equivalence class may be used as a compression oracle but is inadmissible as the final rank-local definition of Q unless an equivalent current-rank structural recognizer is found."
+    },
+    {
+      "id": "RS-IA003",
+      "family": "R",
+      "body": "The complete 4x4 controls establish strict rank-local Q-F compressions below q_o using remaining-capacity, support-release and frontier deletions."
+    },
+    {
+      "id": "RS-IA004",
+      "family": "F",
+      "body": "The 4x4 final-cap and all-closure candidates separate value/action-value sufficiency from complete future-transition sufficiency."
+    },
+    {
+      "id": "RS-IA005",
+      "family": "S",
+      "body": "Physical-board automorphism and compiled-q transition-algebra automorphism are distinct symmetry notions; arbitrary column permutation can fail the first while satisfying the second."
+    },
+    {
+      "id": "RS-IA006",
+      "family": "C",
+      "body": "If the symbolic q_o column-permutation equivariance proof qualifies generally, the S_W orbit q_Sigma is a direct rank-local transporter-aware Q-F quotient and a scalar Q-V quotient."
+    }
+  ],
+  "support_refinements": [],
+  "qu_refinements": [
+    {
+      "id": "RS-QR001",
+      "target": "QU-AUDIT-001",
+      "add_fixed": [
+        "complete 4x4 evidence supports a transporter-aware full-column orbit quotient of q_o"
+      ],
+      "retain_open": [
+        "standard-7x6 qualification",
+        "minimal quotient below that orbit"
+      ]
+    },
+    {
+      "id": "RS-QR002",
+      "target": "QU-AUDIT-002",
+      "add_fixed": [
+        "nonphysical canonical frames can be semantically lawful for the compiled q transition algebra when transporter is retained"
+      ],
+      "retain_open": [
+        "root-to-physical-frame provenance for proof/geometry semantics"
+      ]
+    }
+  ],
+  "stop_status": "OPEN__NEW_EVIDENCE_REQUIRES_FURTHER_ROUNDS"
+}

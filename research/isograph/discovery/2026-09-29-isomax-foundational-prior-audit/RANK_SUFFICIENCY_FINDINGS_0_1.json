@@ -1,0 +1,86 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.findings.v1",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE_DISCOVERY",
+  "evidence": [
+    {
+      "id": "RS-E001",
+      "branch": "experiment/isomax-rank-local-compression-20260929",
+      "commit": "755af1d88f9b6521b3f4527d63989c4205e98ea1",
+      "file": "RANK_LOCAL_COMPRESSION_4X4_0_1.json"
+    },
+    {
+      "id": "RS-E002",
+      "branch": "experiment/isomax-rank-local-compression-20260929",
+      "commit": "7e67e61fe0e763ba36574ad4df70424dddb080aa",
+      "file": "QO_COLUMN_PERMUTATION_EQUIVARIANCE_4X4_0_1.json"
+    }
+  ],
+  "findings": [
+    {
+      "id": "RS-F001",
+      "kind": "BASELINE_EXISTENCE",
+      "statement": "Qualified q_o plus its exact rank-local successor contract and Bellman rank recursion already provide one exact standard-7x6 Q,D realization; the open problem is minimality/simplification rather than existence.",
+      "status": "EXACT_FROM_CURRENT_AUTHORITY"
+    },
+    {
+      "id": "RS-F002",
+      "kind": "RANK_LOCAL_ADMISSIBILITY",
+      "statement": "The bottom-up recursive quotient classes used by the cocycle campaign are future-derived and therefore are not admissible final definitions of Q under the new rank-local objective. They remain compression oracles.",
+      "status": "DEDUCTIVE_FROM_DEFINITION"
+    },
+    {
+      "id": "RS-F003",
+      "kind": "FINITE_QF_COMPRESSION",
+      "statement": "On the complete 4x4 physical carrier, remaining-move pruning, support-release/turn pruning, and the nonterminal frontier blocker each yield strict rank-local compressions of q_o that remain exact literal transition congruences.",
+      "status": "EXACT_FINITE",
+      "counts": {
+        "q_o": 34094,
+        "remaining": 32520,
+        "release": 32214,
+        "frontier": 32788
+      }
+    },
+    {
+      "id": "RS-F004",
+      "kind": "SUFFICIENCY_TARGET_SPLIT",
+      "statement": "On the same complete 4x4 carrier, final-cap pruning and the combined tested closure representation preserve exact scalar value and literal action values but fail full future-transition congruence. Thus Q-V/Q-A can be strictly coarser than the tested Q-F representation.",
+      "status": "EXACT_FINITE",
+      "counts": {
+        "finalCap": 32958,
+        "allClosures": 30742
+      }
+    },
+    {
+      "id": "RS-F005",
+      "kind": "SUMMARY_FALSIFIERS",
+      "statement": "Support alone, residuals-plus-rank without support, residual counts, residual-size histograms, per-cell incidence summaries, incidence+histogram, XOR/OR summaries, and ownership-erased exact residual unions all have exact 4x4 counterexamples even for scalar value sufficiency.",
+      "status": "EXACT_FINITE"
+    },
+    {
+      "id": "RS-F006",
+      "kind": "TRANSPORTER_QUOTIENT",
+      "statement": "The full S4 column orbit of q_o is a strict rank-local 4x4 compression (34,094 to 10,496 classes) preserving transporter-aware transition congruence, transported action values, and scalar value; literal action labels are intentionally not preserved without the transporter.",
+      "status": "EXACT_FINITE"
+    },
+    {
+      "id": "RS-F007",
+      "kind": "ALGEBRAIC_EQUIVARIANCE",
+      "statement": "A direct exhaustive algebra audit independently verifies T(pi q, pi c)=pi T(q,c) for every complete-4x4 q_o state, every column permutation and every action, with 7,309,776 transition-equivariance checks and zero mismatches.",
+      "status": "EXACT_FINITE__GENERAL_DEDUCTIVE_CANDIDATE"
+    },
+    {
+      "id": "RS-F008",
+      "kind": "SYMMETRY_LAYER_SPLIT",
+      "statement": "Full column permutation need not be a physical board symmetry to be an automorphism of the compiled q_o transition algebra. Physical geometry and compiled residual-transition symmetry are different layers.",
+      "status": "DEDUCTIVE_CANDIDATE_SUPPORTED_BY_AUDIT"
+    }
+  ],
+  "next": [
+    "independently qualify the general q_o S_W equivariance proof on standard 7x6 semantics",
+    "search compositions of the Q-F-safe rank-local closures for a smaller congruent representation",
+    "separately search Q-V/Q-A compressions that need not be recursively transition-closed",
+    "test whether q_Sigma can be combined with safe residual deletion before/after orbit canonicalization",
+    "continue direct D search over the smaller quotient rather than assuming Bellman recursion is final"
+  ]
+}
