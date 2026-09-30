@@ -1,0 +1,43 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.fresh_quadratic_holdout_6x3k3.v1",
+  "id": "EW-RS-033",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE_FRESH_HOLDOUT",
+  "parent": "EW-RS-032",
+  "objective": "Freshly test the frozen exact-rank degree-1 and degree-2 GF(2)^2 component-parity decoder classes on 6x3-k3.",
+  "fresh_case": {
+    "label": "6x3-k3",
+    "width": 6,
+    "height": 3,
+    "k": 3,
+    "selection_reason": "widens beyond every current late-XOR component carrier while retaining the same 32-bit exact structural implementation",
+    "contributed_to_hypothesis": false
+  },
+  "frozen_from_prior": [
+    "post-RFG residual-incidence component extraction",
+    "support/owner-labelled canonical component types",
+    "component multiplicity parity",
+    "direct rank-local T2 = W/L2/O",
+    "exact current rank grading",
+    "relative outcome code loss=00, draw=01, win=10",
+    "DEGREE1 = rank-specific offset plus linear component-parity terms",
+    "DEGREE2 = DEGREE1 plus every observed rank-specific pair product of odd component variables"
+  ],
+  "targets": [
+    "DEGREE1 contradiction count",
+    "DEGREE2 contradiction count",
+    "active variable and nullity growth",
+    "QV representation diagnostics"
+  ],
+  "anti_circularity": [
+    "6x3-k3 did not define the component extractor, T2, rank grade, affine model, rectangle interpretation, or quadratic feature class.",
+    "Pair features are generated solely from frozen structural parity signatures before outcomes are solved.",
+    "No coefficient or feature is imported from another geometry; G-specific coefficients remain independently solved."
+  ],
+  "falsifiers": [
+    "Any DEGREE2 contradiction falsifies the current cross-carrier degree<=2 candidate.",
+    "A DEGREE2 pass supports only one additional bounded geometry and still does not prove minimality or standard-7x6 sufficiency."
+  ],
+  "next_if_pass": "Begin sparse/MSS interaction discovery using derivation carriers while reserving another fresh geometry for validation.",
+  "next_if_fail": "Extract a minimum degree-2 contradiction certificate before any cubic extension."
+}
