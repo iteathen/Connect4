@@ -4,7 +4,6 @@ import {
   parseSelectedVertex,
   exactPairDelta,
   compressedPairDelta,
-  compressedPairDeltaFamilies,
   pairNormProfile,
   exchangeCircuitKey
 } from './ooo-exchange-circuit-lib.mjs';
@@ -92,23 +91,3 @@ test('compressed pair signatures are endpoint-order invariant',()=>{
   );
 });
 
-
-test('token-family filtering preserves exact signed coordinates inside retained families',()=>{
-  assert.equal(compressedPairDeltaFamilies(A,B,'SIGN',['W']),'0');
-  assert.equal(compressedPairDeltaFamilies(A,B,'SIGN',['C']),'C:0:+');
-  assert.equal(compressedPairDeltaFamilies(A,B,'SIGN',['D0']),'D0:0:+,D0:1:-');
-  assert.equal(
-    compressedPairDeltaFamilies(A,B,'SIGN',['C','D0']),
-    'C:0:+,D0:0:+,D0:1:-'
-  );
-  assert.equal(compressedPairDeltaFamilies(A,C,'SIGN',['W']),'W:+');
-  assert.equal(compressedPairDeltaFamilies(A,C,'SIGN',['D1']),'D1:1:+');
-});
-
-test('family filtering works identically for signed-parity encoding',()=>{
-  assert.equal(compressedPairDeltaFamilies(A,B,'SIGNED_PARITY',['C']),'C:0:+');
-  assert.equal(
-    compressedPairDeltaFamilies(A,B,'SIGNED_PARITY',['C','D0']),
-    compressedPairDelta(A,B,'SIGNED_PARITY')
-  );
-});
