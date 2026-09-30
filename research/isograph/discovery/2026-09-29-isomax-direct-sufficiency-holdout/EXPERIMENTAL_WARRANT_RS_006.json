@@ -1,0 +1,18 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.direct_sufficiency_holdout.v1",
+  "id": "EW-RS-006",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE_FRESH_HOLDOUT",
+  "candidate_frozen_from": "EW-RS-005 complete 4x4 k4 semantic-sufficiency audit",
+  "cases": [
+    "3x3 k3",
+    "3x4 k3",
+    "4x3 k3",
+    "4x4 k3"
+  ],
+  "objective": "Test whether C and RFC continue to preserve complete literal future behavior while potentially failing recursive closure.",
+  "falsifiers": [
+    "any future-behavior split inside a C or RFC key rejects the semantic-sufficiency candidate in that scope"
+  ],
+  "noSolvedDatabase": true
+}
