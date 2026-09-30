@@ -1,0 +1,60 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_round.v1",
+  "round": 69,
+  "date_author_local": "2026-09-30",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_68_FIXED_POINT_0_1.json",
+    "RANK_SUFFICIENCY_ORIENTATION_CROSS_K_FALSIFIER_INTEGRATION_0_1.json"
+  ],
+  "reopened_reason": "EW-RS-071 preflight exposes a hard-carrier geometry asymmetry: 6x3-k4 has only horizontal k=4 winning lines yet already has a nonzero OOO correction.",
+  "new_assertions": [
+    {
+      "id": "RS-IA208",
+      "family": "G",
+      "body": "Winning-line orientation-family availability is a finite-board geometric property, not a fixed three-channel invariant: 6x3-k4 has H only because K=4 exceeds board height 3 and diagonals also require unavailable row span."
+    },
+    {
+      "id": "RS-IA209",
+      "family": "F",
+      "body": "A general H/V/D-source explanation of OOO is falsified because the horizontal-only 6x3-k4 carrier has five degree-2 contradictions and a 16-dimensional OOO correction."
+    },
+    {
+      "id": "RS-IA210",
+      "family": "Q",
+      "body": "The cross-k observation must be weakened: OOO persistence across k=3 and k=4 argues against a pure k-1 companion-count primitive, but does not identify orientation-family cardinality as the invariant."
+    },
+    {
+      "id": "RS-IA211",
+      "family": "R",
+      "body": "Any surviving common structural explanation should be expressible both on horizontal-only 6x3-k4 and on mixed-orientation carriers, making support/exchange/circuit structure a stronger candidate than simultaneous H/V/D presence."
+    },
+    {
+      "id": "RS-IA212",
+      "family": "D",
+      "body": "Orientation provenance remains worth testing as a carrier-specific organizing coordinate, but a passing mixed-carrier orientation summary cannot be promoted as the universal source of OOO."
+    },
+    {
+      "id": "RS-IA213",
+      "family": "F",
+      "body": "EW-RS-059 PRIMARY 3x6-k4 and BACKUP 5x3-k4 remain sealed; the orientation falsifier uses only declared discovery carriers and previously frozen evidence."
+    }
+  ],
+  "qu_refinements": [
+    {
+      "id": "RS-QR056",
+      "target": "QU-RS-004",
+      "add_fixed": [
+        "6x3-k4 has nine horizontal k=4 winning lines and zero vertical or diagonal k=4 lines",
+        "the same 6x3-k4 carrier has five degree-2 contradictions and a 16-dimensional oddness-only cubic correction",
+        "simultaneous H/V/D interaction is therefore rejected as the general source of the OOO remainder"
+      ],
+      "retain_open": [
+        "orientation as a mixed-carrier organizing coordinate",
+        "common H-only/mixed-orientation support-exchange law",
+        "closed scalar syndrome before EW-RS-059 unsealing",
+        "standard-7x6 qualification"
+      ]
+    }
+  ],
+  "stop_status": "REOPENED__ORIENTATION_LADDER_PENDING__HVD_SOURCE_REJECTED"
+}
