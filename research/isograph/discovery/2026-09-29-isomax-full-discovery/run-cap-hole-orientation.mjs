@@ -53,11 +53,12 @@ function motifPair(a,b){
     union=[...new Set([...colsA,...colsB])].sort((x,y)=>x-y),
     disjoint=colsA.every(x=>!colsB.includes(x)),
     equalHeight=union.length===2&&a.heights[union[0]]===a.heights[union[1]],
-    motif=allDiffOneHole&&union.length===2&&disjoint&&equalHeight;
+    heightPair=union.length===2?union.map(c=>a.heights[c]):[],
+    motif=allDiffOneHole&&union.length===2&&disjoint;
   return {
     motif,heights:[...a.heights],capMask:capMask(a),
     onlyA,onlyB,diffA,diffB,holeColumnsA:colsA,holeColumnsB:colsB,
-    holePair:union,equalHeight,allDiffOneHole,disjoint,
+    holePair:union,heightPair,equalHeight,allDiffOneHole,disjoint,
   };
 }
 function recFromCarrier(row,width,height){
@@ -189,7 +190,7 @@ const out={
   residual_difference:'every residual present on only one sheet is an exact one-hole subset of the current open-cap set',
   orientation:'the two sheets choose disjoint holes from one two-column hole pair',
   covariance:'hole columns are carried by column relabeling; raw residual mask numbers are not used as semantic identity',
-  equal_height_guard:'the two hole columns have equal support height at the compared state'
+  support_height_relation:'recorded but not required; the first EW-015 attempt was falsified because the predecessor source hole pair has unequal heights'
  },
  positive,flatControls,
  result:flatCycleCounterexamples>0?'MOTIF_NOT_SUFFICIENT':'MOTIF_SURVIVES_TESTED_FLAT_CYCLE_CONTROLS',
