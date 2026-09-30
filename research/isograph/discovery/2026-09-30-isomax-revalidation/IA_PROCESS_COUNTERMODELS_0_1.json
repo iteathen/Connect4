@@ -1,0 +1,98 @@
+{
+  "scope": "Abstract Boolean equations and observed relation samples only; no game boards, scalar games, or sealed outcomes computed",
+  "sourceSplit": {
+    "assignment": {
+      "sA": 0,
+      "sB": 1,
+      "b": 0,
+      "c": 1,
+      "tA": 0,
+      "tB": 0
+    },
+    "edgeDeltas": [
+      0,
+      0,
+      0,
+      1
+    ],
+    "projection": {
+      "sA": "S",
+      "sB": "S",
+      "b": "B",
+      "c": "C",
+      "tA": "T",
+      "tB": "T"
+    },
+    "preserves": "Four projected edges S-B-T and S-C-T, their labels/deltas and one Boolean value per refined node; only source endpoint occurrences are split",
+    "limitation": "Countermodel to unguarded endpoint-occurrence refinement prose. It is not a countermodel to the native fixed-source guard, and does not assert a physically realizable full-game/source lift; those stronger premises are absent from the claimed universal prose."
+  },
+  "fixedSourceGuard": {
+    "assignmentsChecked": 64,
+    "fixedSourceModels": 2,
+    "guardViolations": 0,
+    "guard": "sA=sB",
+    "conclusion": "tA!=tB"
+  },
+  "relativeParity": {
+    "observations": [
+      [
+        0,
+        1
+      ]
+    ],
+    "compatibleTotalBooleanFunctions": [
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "conclusion": "Observed x!=y disproves y=x and every group homomorphism Z2->Z2 (which must map 0 to 0), but permits an arbitrary function with f(0)=1 and does not alone disprove y=f(x). A second same-input/different-output sample is required for arbitrary non-factorization.",
+    "premiseAudit": "SC-IA057 lists only SC-IA056, whose body is the observed parity pair. Neither that body nor the SC-IA057 scope specifies homomorphism-only candidate functions.",
+    "possibleRepair": "Explicitly admit diagonal route-pairs with relative parity 0 and phase difference 0, or restrict the assertion to inequality/direct-parity/homomorphism-law falsification. The original sole premise does not state that enlarged comparison domain."
+  },
+  "enlargedAllRoutePairs": {
+    "status": "VALID_REPAIR_IF_THIS_DOMAIN_IS_EXPLICITLY_ADMITTED",
+    "samples": [
+      {
+        "pair": [
+          0,
+          0
+        ],
+        "relativeParity": 0,
+        "phaseDifference": 0
+      },
+      {
+        "pair": [
+          0,
+          1
+        ],
+        "relativeParity": 0,
+        "phaseDifference": 1
+      },
+      {
+        "pair": [
+          1,
+          0
+        ],
+        "relativeParity": 0,
+        "phaseDifference": 1
+      },
+      {
+        "pair": [
+          1,
+          1
+        ],
+        "relativeParity": 0,
+        "phaseDifference": 0
+      }
+    ],
+    "conclusion": "Including diagonal pairs gives a genuine same-input/different-output witness, hence arbitrary relative-parity factorization fails on all route pairs. The singleton f(0)=1 countermodel does NOT fit this enlarged domain.",
+    "nativePremiseAudit": "The inspected kernel binds route A and B separately and defines the single transporter 197502 as composition of 197500 and 197501. It does not declare a general route-pair-to-relative-transporter/difference relation including diagonals; SC-IA057 sole premise is the fixed-pair SC-IA056 observation. General finite-map closure can supply the missing elementary derivation, but it is not the stated proof/body."
+  },
+  "nativeGuardsPresent": true,
+  "native211056And211057Identical": true
+}

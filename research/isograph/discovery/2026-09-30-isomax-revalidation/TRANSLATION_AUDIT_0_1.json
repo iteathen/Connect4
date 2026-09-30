@@ -1,0 +1,2955 @@
+{
+  "schema": "connect4.isomax.translation_audit.v1",
+  "dateAuthorLocal": "2026-09-30",
+  "status": "COMPLETE_BOUNDED_TRANSLATION_REVIEW_WITH_FINDINGS",
+  "authorityEffect": "none",
+  "owner": "research/semantic-quotient",
+  "auditNature": "Every edge in late decomposition 0.1 is individually assessed against its vocabulary and companions. Mechanical checks verify census/reference integrity only; semantic annotations are reviewer judgments.",
+  "sourceManifest": [
+    {
+      "key": "native",
+      "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.isg",
+      "bytes": 2062,
+      "rawSha256": "1270c74c8c1f2e75f604da2ab0d75ea55a9e56aeb9d579689e208ca436a597be",
+      "utf8LfSha256": "aaa43467d4d1135035edcd9a444306fc801ec497f0040ff1a91537903e0f9e12",
+      "reviewCoverage": "full_text_review"
+    },
+    {
+      "key": "vocab",
+      "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_VOCAB_0_1.json",
+      "bytes": 2527,
+      "rawSha256": "e85485dfeb3db37cd1dcedc843b3b41e7ce588a5268abdec6e6d28199b7064a5",
+      "utf8LfSha256": "e8a2a219d82919360269aabb8aa1c3e38827a0129fa843f2acd09ec2905eb7ef",
+      "reviewCoverage": "full_text_review"
+    },
+    {
+      "key": "json",
+      "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.json",
+      "bytes": 15325,
+      "rawSha256": "f28f150bb26ecb25865706a673f631108dc47262a8507b88393de3cd679a67ad",
+      "utf8LfSha256": "c24ca08d6b96851ee8cf526dc37410995cb94392c5a19160a0e4012a08022516",
+      "reviewCoverage": "full_text_review"
+    },
+    {
+      "key": "prose",
+      "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+      "bytes": 27485,
+      "rawSha256": "ad4ac283e77ca59188cf42a3937aa321f004ce885a063dc38332711ad23228cb",
+      "utf8LfSha256": "468d57627f9bd6fb659a6fe7a183988707fb49ff41a4632fe007d08c572c20ce",
+      "reviewCoverage": "full_text_review"
+    },
+    {
+      "key": "identities",
+      "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_IDENTITY_CHECK_0_1.json",
+      "bytes": 1620,
+      "rawSha256": "a859dac7b5d72febb3d46c39a6986a7f30cc53b30d2002c12ccc8828f39b1ba3",
+      "utf8LfSha256": "cabae1dedc21e102836d3ae4c23aa36d698f76420778f6abd3124ba659f06043",
+      "reviewCoverage": "full_text_review"
+    },
+    {
+      "key": "control",
+      "path": "research/isograph/discovery/2026-09-30-isomax-revalidation/REVALIDATION_CONTROL_0_1.json",
+      "bytes": 6174,
+      "rawSha256": "eb0a21f38f22cd8a133f1742e45796ac6d0eb7088a378216663c6635b2ee836a",
+      "utf8LfSha256": "eb0a21f38f22cd8a133f1742e45796ac6d0eb7088a378216663c6635b2ee836a",
+      "reviewCoverage": "full_text_review"
+    },
+    {
+      "key": "lineage",
+      "path": "research/isograph/discovery/2026-09-30-isomax-revalidation/LINEAGE_RS065_RS077.md",
+      "bytes": 10678,
+      "rawSha256": "9b384891fbd445ef7994c426bffadb12680c7fee293627f5cc1a1f94fff463ef",
+      "utf8LfSha256": "9b384891fbd445ef7994c426bffadb12680c7fee293627f5cc1a1f94fff463ef",
+      "reviewCoverage": "full_text_review"
+    },
+    {
+      "key": "errata",
+      "path": "research/isograph/discovery/2026-09-30-isomax-revalidation/SEMANTIC_ERRATA_0_1.md",
+      "bytes": 3522,
+      "rawSha256": "711dba3bb16bab820fbdbb6af2e5f950f8e86bf8aeaa39095a3281d327c5bca9",
+      "utf8LfSha256": "711dba3bb16bab820fbdbb6af2e5f950f8e86bf8aeaa39095a3281d327c5bca9",
+      "reviewCoverage": "full_text_review"
+    },
+    {
+      "key": "hotAuthority",
+      "path": "research/isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_AUTHORITY_0_3.md",
+      "bytes": 862,
+      "rawSha256": "8da4fbc200baec715e508b334f8d2769541ad2fbde98f832d17d1a64dae36f81",
+      "utf8LfSha256": "fd71ea5e5d2867255918e2f2d318c7e411ef7fd468f134dc5097fe92c62bfa51",
+      "reviewCoverage": "full_text_review"
+    },
+    {
+      "key": "hotProse",
+      "path": "research/isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_0_3_CANDIDATE.md",
+      "bytes": 9863,
+      "rawSha256": "dfdcd6aac39ccd1f62879d325e7b2f01ebde73847a9809745cef57f8e29a06a5",
+      "utf8LfSha256": "e19e26dc76f4b92a2692ddc1812423ecd33b0ac3b6c5a3b1f218121b695d359d",
+      "reviewCoverage": "full_text_review"
+    },
+    {
+      "key": "hotJson",
+      "path": "research/isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_0_3_CANDIDATE.json",
+      "bytes": 8448,
+      "rawSha256": "5bceb21a397871d4db530837b7323457e8d582a1c8f88f05f97cdca1cb4b8a76",
+      "utf8LfSha256": "91f0ec064b6fbc21d58deac01d2f6d942a4ec93c4c437221d10796f82bc6b060",
+      "reviewCoverage": "metadata and representation category comparison"
+    },
+    {
+      "key": "hotNative",
+      "path": "research/isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_0_3_CANDIDATE.isg",
+      "bytes": 1205,
+      "rawSha256": "519b7ad4ec80053da509dbceda3e26e568659043e68b07626c737ec8f4086cb1",
+      "utf8LfSha256": "e41c28dcd89e69f9eaa53bb317f6bb7161f27824099c6c8c22fc56aa57e364ae",
+      "reviewCoverage": "full_text_review"
+    },
+    {
+      "key": "hotQualification",
+      "path": "research/isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_0_3_QUALIFICATION.md",
+      "bytes": 6159,
+      "rawSha256": "2af112046a7d6a85b5aa9752a17d278035e32c6c4318a4043311d5e7067a7a81",
+      "utf8LfSha256": "d5aaf18bef2de5cd4aa61f2426ee17d4272c81510cc92b2f34a3758aeb2f287b",
+      "reviewCoverage": "bounded qualification/closure/provenance sections"
+    },
+    {
+      "key": "coreProse",
+      "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_SEMANTICS_0_1.md",
+      "bytes": 16485,
+      "rawSha256": "96c0110992328b477109ddbac195750821d3dae8620c1c9aa022bc08b59f82ea",
+      "utf8LfSha256": "cc47673c37711564bd1de690aa498c9b12d36ebe283a16c5f0e3e3b5cecd863a",
+      "reviewCoverage": "full_text_review"
+    },
+    {
+      "key": "coreNative",
+      "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_GAME_0_1.isg",
+      "bytes": 16264,
+      "rawSha256": "fece9bff273309f53f50e8cfddf5325904263863400eeab2e8761af53b72ed92",
+      "utf8LfSha256": "d6e4f7b80a5b2d9c6d7e928854c876eb70b0d0ede95b2a302caeda418b583769",
+      "reviewCoverage": "sampled native primitive clauses; whole file hashed, not fully proof-checked"
+    },
+    {
+      "key": "coreManifest",
+      "path": "research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/SOURCE_MANIFEST_STRICT_0_2.json",
+      "bytes": 950,
+      "rawSha256": "ace0a6b8a957d7ed80e45612f0dead0cff0592ede344dba39eb92a5ccd758aba",
+      "utf8LfSha256": "9ece7384c89c4a779cbd4f29babd706a2ba5ec488deb5c68ba04033a860e2429",
+      "reviewCoverage": "full_text_review"
+    }
+  ],
+  "mechanicalChecks": {
+    "nativeEdgeCount": 61,
+    "nodeCount": 39,
+    "vocabularyRelationCount": 16,
+    "distinctUsedRelationCount": 16,
+    "allEndpointsResolve": true,
+    "allPredicatesResolveInExternalVocabulary": true,
+    "allEdgesReviewedExactlyOnce": true,
+    "balancedBracketsAndParentheses": true,
+    "localDeclaredNodeCount": 39,
+    "predicateIdsAbsentFromLocalNodeDeclaration": [
+      998900,
+      998901,
+      998902,
+      998903,
+      998904,
+      998905,
+      998906,
+      998907,
+      998908,
+      998909,
+      998910,
+      998911,
+      998912,
+      998913,
+      998914,
+      998915
+    ],
+    "formalParserOrCoreTypeCheckerRun": false,
+    "assertedNativeDeductionCount": 8
+  },
+  "nodes": [
+    {
+      "id": 998001,
+      "name": "physical_event_position",
+      "reviewType": "position"
+    },
+    {
+      "id": 998002,
+      "name": "normalized_q_residual_state",
+      "reviewType": "residual_state"
+    },
+    {
+      "id": 998003,
+      "name": "RFG_rank_local_projection",
+      "reviewType": "projected_state"
+    },
+    {
+      "id": 998004,
+      "name": "T2_tactical_boundary",
+      "reviewType": "tactical_classifier"
+    },
+    {
+      "id": 998005,
+      "name": "residual_incidence_components",
+      "reviewType": "component_family"
+    },
+    {
+      "id": 998006,
+      "name": "REL_INC",
+      "reviewType": "incidence_coordinate"
+    },
+    {
+      "id": 998007,
+      "name": "role_vertical_phase_kappa",
+      "reviewType": "phase_coordinate"
+    },
+    {
+      "id": 998008,
+      "name": "phase_anchored_REL_INC_descriptor",
+      "reviewType": "descriptor"
+    },
+    {
+      "id": 998009,
+      "name": "descriptor_multiplicity",
+      "reviewType": "multiplicity_map"
+    },
+    {
+      "id": 998010,
+      "name": "ZOE_count_state",
+      "reviewType": "count_coordinate"
+    },
+    {
+      "id": 998011,
+      "name": "presence_coordinate_P",
+      "reviewType": "presence_coordinate"
+    },
+    {
+      "id": 998012,
+      "name": "oddness_coordinate_O",
+      "reviewType": "oddness_coordinate"
+    },
+    {
+      "id": 998013,
+      "name": "native_ZOE_OR_XOR_monoid",
+      "reviewType": "monoid"
+    },
+    {
+      "id": 998014,
+      "name": "derived_rank_parity",
+      "reviewType": "parity_observable"
+    },
+    {
+      "id": 998015,
+      "name": "repaired_scalar_signature",
+      "reviewType": "signature"
+    },
+    {
+      "id": 998016,
+      "name": "affine_PO_decoder_realization",
+      "reviewType": "feature_realization"
+    },
+    {
+      "id": 998017,
+      "name": "degree2_PO_decoder_realization",
+      "reviewType": "feature_realization"
+    },
+    {
+      "id": 998018,
+      "name": "degree3_PO_decoder_realization",
+      "reviewType": "feature_realization"
+    },
+    {
+      "id": 998019,
+      "name": "outcome_independent_cubic_quotient",
+      "reviewType": "quotient_feature_space"
+    },
+    {
+      "id": 998020,
+      "name": "relative_scalar_WDL_value",
+      "reviewType": "scalar_value"
+    },
+    {
+      "id": 998021,
+      "name": "standard_7x6_specialization",
+      "reviewType": "geometry_context"
+    },
+    {
+      "id": 998022,
+      "name": "center_opening_structural_target",
+      "reviewType": "theorem_target"
+    },
+    {
+      "id": 998023,
+      "name": "EW_RS_059_sealed_formula_holdouts",
+      "reviewType": "holdout_policy"
+    },
+    {
+      "id": 998024,
+      "name": "QU_exact_depth_necessity",
+      "reviewType": "open_question"
+    },
+    {
+      "id": 998025,
+      "name": "QU_T2_semantic_necessity",
+      "reviewType": "open_question"
+    },
+    {
+      "id": 998026,
+      "name": "QU_signature_transition_closure",
+      "reviewType": "open_question"
+    },
+    {
+      "id": 998027,
+      "name": "QU_CPC_control_parity_bridge",
+      "reviewType": "open_question"
+    },
+    {
+      "id": 998028,
+      "name": "QU_native_compact_decoder",
+      "reviewType": "open_question"
+    },
+    {
+      "id": 998029,
+      "name": "QU_standard_7x6_sufficiency",
+      "reviewType": "open_question"
+    },
+    {
+      "id": 998030,
+      "name": "QU_general_descriptor_substitution_theorem",
+      "reviewType": "open_question"
+    },
+    {
+      "id": 998031,
+      "name": "QU_center_opening_theorem",
+      "reviewType": "open_question"
+    },
+    {
+      "id": 998032,
+      "name": "frontier_height_parity",
+      "reviewType": "height_parity_observable"
+    },
+    {
+      "id": 998033,
+      "name": "anchored_absolute_row_parity",
+      "reviewType": "row_parity_observable"
+    },
+    {
+      "id": 998034,
+      "name": "cubic_OOO_motif_clue",
+      "reviewType": "basis_motif_clue"
+    },
+    {
+      "id": 998035,
+      "name": "cubic_OOP_motif_clue",
+      "reviewType": "basis_motif_clue"
+    },
+    {
+      "id": 998036,
+      "name": "Q_V_scope",
+      "reviewType": "value_equivalence_scope"
+    },
+    {
+      "id": 998037,
+      "name": "Q_A_scope",
+      "reviewType": "action_equivalence_scope"
+    },
+    {
+      "id": 998038,
+      "name": "Q_F_scope",
+      "reviewType": "proof_equivalence_scope"
+    },
+    {
+      "id": 998039,
+      "name": "oddness_only_cubic_decoder_discovery_candidate",
+      "reviewType": "decoder_candidate"
+    }
+  ],
+  "relationCensus": [
+    {
+      "id": 998900,
+      "name": "transforms_to",
+      "count": 5,
+      "edgeIds": [
+        "TRANSLATION-E001",
+        "TRANSLATION-E002",
+        "TRANSLATION-E008",
+        "TRANSLATION-E009",
+        "TRANSLATION-E010"
+      ],
+      "semantics": "Externally named topology relation; semantic domain/range judgments recorded per edge, not an authoritative Core predicate signature."
+    },
+    {
+      "id": 998901,
+      "name": "exact_recoding_or_equivalence",
+      "count": 2,
+      "edgeIds": [
+        "TRANSLATION-E013",
+        "TRANSLATION-E052"
+      ],
+      "semantics": "Externally named topology relation; semantic domain/range judgments recorded per edge, not an authoritative Core predicate signature."
+    },
+    {
+      "id": 998902,
+      "name": "deductively_derives",
+      "count": 8,
+      "edgeIds": [
+        "TRANSLATION-E014",
+        "TRANSLATION-E015",
+        "TRANSLATION-E021",
+        "TRANSLATION-E022",
+        "TRANSLATION-E023",
+        "TRANSLATION-E032",
+        "TRANSLATION-E033",
+        "TRANSLATION-E053"
+      ],
+      "semantics": "Externally named topology relation; semantic domain/range judgments recorded per edge, not an authoritative Core predicate signature."
+    },
+    {
+      "id": 998903,
+      "name": "bounded_empirical_QV_support",
+      "count": 4,
+      "edgeIds": [
+        "TRANSLATION-E030",
+        "TRANSLATION-E031",
+        "TRANSLATION-E036",
+        "TRANSLATION-E059"
+      ],
+      "semantics": "Externally named topology relation; semantic domain/range judgments recorded per edge, not an authoritative Core predicate signature."
+    },
+    {
+      "id": 998904,
+      "name": "falsified_or_insufficient_for_declared_target",
+      "count": 2,
+      "edgeIds": [
+        "TRANSLATION-E028",
+        "TRANSLATION-E029"
+      ],
+      "semantics": "Externally named topology relation; semantic domain/range judgments recorded per edge, not an authoritative Core predicate signature."
+    },
+    {
+      "id": 998905,
+      "name": "open_QU_relation",
+      "count": 8,
+      "edgeIds": [
+        "TRANSLATION-E039",
+        "TRANSLATION-E040",
+        "TRANSLATION-E041",
+        "TRANSLATION-E042",
+        "TRANSLATION-E043",
+        "TRANSLATION-E044",
+        "TRANSLATION-E045",
+        "TRANSLATION-E046"
+      ],
+      "semantics": "Externally named topology relation; semantic domain/range judgments recorded per edge, not an authoritative Core predicate signature."
+    },
+    {
+      "id": 998906,
+      "name": "decomposes_to",
+      "count": 7,
+      "edgeIds": [
+        "TRANSLATION-E003",
+        "TRANSLATION-E004",
+        "TRANSLATION-E005",
+        "TRANSLATION-E006",
+        "TRANSLATION-E007",
+        "TRANSLATION-E017",
+        "TRANSLATION-E018"
+      ],
+      "semantics": "Externally named topology relation; semantic domain/range judgments recorded per edge, not an authoritative Core predicate signature."
+    },
+    {
+      "id": 998907,
+      "name": "native_count_composition",
+      "count": 2,
+      "edgeIds": [
+        "TRANSLATION-E019",
+        "TRANSLATION-E020"
+      ],
+      "semantics": "Externally named topology relation; semantic domain/range judgments recorded per edge, not an authoritative Core predicate signature."
+    },
+    {
+      "id": 998908,
+      "name": "preserves_DTS_invariant",
+      "count": 1,
+      "edgeIds": [
+        "TRANSLATION-E016"
+      ],
+      "semantics": "Externally named topology relation; semantic domain/range judgments recorded per edge, not an authoritative Core predicate signature."
+    },
+    {
+      "id": 998909,
+      "name": "depends_on",
+      "count": 7,
+      "edgeIds": [
+        "TRANSLATION-E011",
+        "TRANSLATION-E012",
+        "TRANSLATION-E054",
+        "TRANSLATION-E055",
+        "TRANSLATION-E056",
+        "TRANSLATION-E057",
+        "TRANSLATION-E060"
+      ],
+      "semantics": "Externally named topology relation; semantic domain/range judgments recorded per edge, not an authoritative Core predicate signature."
+    },
+    {
+      "id": 998910,
+      "name": "does_not_imply",
+      "count": 2,
+      "edgeIds": [
+        "TRANSLATION-E037",
+        "TRANSLATION-E038"
+      ],
+      "semantics": "Externally named topology relation; semantic domain/range judgments recorded per edge, not an authoritative Core predicate signature."
+    },
+    {
+      "id": 998911,
+      "name": "sealed_holdout_boundary",
+      "count": 2,
+      "edgeIds": [
+        "TRANSLATION-E047",
+        "TRANSLATION-E048"
+      ],
+      "semantics": "Externally named topology relation; semantic domain/range judgments recorded per edge, not an authoritative Core predicate signature."
+    },
+    {
+      "id": 998912,
+      "name": "bounded_candidate_substitution",
+      "count": 1,
+      "edgeIds": [
+        "TRANSLATION-E061"
+      ],
+      "semantics": "Externally named topology relation; semantic domain/range judgments recorded per edge, not an authoritative Core predicate signature."
+    },
+    {
+      "id": 998913,
+      "name": "decoder_realization_of",
+      "count": 5,
+      "edgeIds": [
+        "TRANSLATION-E024",
+        "TRANSLATION-E025",
+        "TRANSLATION-E026",
+        "TRANSLATION-E027",
+        "TRANSLATION-E058"
+      ],
+      "semantics": "Externally named topology relation; semantic domain/range judgments recorded per edge, not an authoritative Core predicate signature."
+    },
+    {
+      "id": 998914,
+      "name": "scope_guard",
+      "count": 2,
+      "edgeIds": [
+        "TRANSLATION-E034",
+        "TRANSLATION-E035"
+      ],
+      "semantics": "Externally named topology relation; semantic domain/range judgments recorded per edge, not an authoritative Core predicate signature."
+    },
+    {
+      "id": 998915,
+      "name": "next_discovery_target",
+      "count": 3,
+      "edgeIds": [
+        "TRANSLATION-E049",
+        "TRANSLATION-E050",
+        "TRANSLATION-E051"
+      ],
+      "semantics": "Externally named topology relation; semantic domain/range judgments recorded per edge, not an authoritative Core predicate signature."
+    }
+  ],
+  "nativeEdges": [
+    {
+      "id": "TRANSLATION-E001",
+      "line": 10,
+      "tuple": "(^998900 998001 998002)",
+      "relationId": 998900,
+      "sourceId": 998001,
+      "targetId": 998002,
+      "relation": "transforms_to",
+      "source": "physical_event_position",
+      "target": "normalized_q_residual_state",
+      "sourceType": "position",
+      "targetType": "residual_state",
+      "assessment": "consistent_topology",
+      "note": "Normalization pipeline link; exact state semantics remain in the authority/companion, not in this edge.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 72
+        }
+      ],
+      "findingIds": [],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "position",
+        "targetType": "residual_state",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "consistent_topology"
+      }
+    },
+    {
+      "id": "TRANSLATION-E002",
+      "line": 11,
+      "tuple": "(^998900 998002 998003)",
+      "relationId": 998900,
+      "sourceId": 998002,
+      "targetId": 998003,
+      "relation": "transforms_to",
+      "source": "normalized_q_residual_state",
+      "target": "RFG_rank_local_projection",
+      "sourceType": "residual_state",
+      "targetType": "projected_state",
+      "assessment": "companion_erratum",
+      "note": "RFG pipeline retained, but F owner wording requires the recorded erratum.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 90
+        }
+      ],
+      "findingIds": [
+        "TRANSLATION-F011"
+      ],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "residual_state",
+        "targetType": "projected_state",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "companion_erratum"
+      }
+    },
+    {
+      "id": "TRANSLATION-E003",
+      "line": 12,
+      "tuple": "(^998906 998003 998005)",
+      "relationId": 998906,
+      "sourceId": 998003,
+      "targetId": 998005,
+      "relation": "decomposes_to",
+      "source": "RFG_rank_local_projection",
+      "target": "residual_incidence_components",
+      "sourceType": "projected_state",
+      "targetType": "component_family",
+      "assessment": "consistent_topology",
+      "note": "Component extraction and coordinate projections; role phase uses support/geometry context. These are structural summaries, not scalar claims.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 128
+        }
+      ],
+      "findingIds": [],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "projected_state",
+        "targetType": "component_family",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "consistent_topology"
+      }
+    },
+    {
+      "id": "TRANSLATION-E004",
+      "line": 13,
+      "tuple": "(^998906 998005 998006)",
+      "relationId": 998906,
+      "sourceId": 998005,
+      "targetId": 998006,
+      "relation": "decomposes_to",
+      "source": "residual_incidence_components",
+      "target": "REL_INC",
+      "sourceType": "component_family",
+      "targetType": "incidence_coordinate",
+      "assessment": "consistent_topology",
+      "note": "Component extraction and coordinate projections; role phase uses support/geometry context. These are structural summaries, not scalar claims.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 128
+        }
+      ],
+      "findingIds": [],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "component_family",
+        "targetType": "incidence_coordinate",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "consistent_topology"
+      }
+    },
+    {
+      "id": "TRANSLATION-E005",
+      "line": 14,
+      "tuple": "(^998906 998005 998007)",
+      "relationId": 998906,
+      "sourceId": 998005,
+      "targetId": 998007,
+      "relation": "decomposes_to",
+      "source": "residual_incidence_components",
+      "target": "role_vertical_phase_kappa",
+      "sourceType": "component_family",
+      "targetType": "phase_coordinate",
+      "assessment": "consistent_topology",
+      "note": "Component extraction and coordinate projections; role phase uses support/geometry context. These are structural summaries, not scalar claims.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 128
+        }
+      ],
+      "findingIds": [],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "component_family",
+        "targetType": "phase_coordinate",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "consistent_topology"
+      }
+    },
+    {
+      "id": "TRANSLATION-E006",
+      "line": 15,
+      "tuple": "(^998906 998006 998008)",
+      "relationId": 998906,
+      "sourceId": 998006,
+      "targetId": 998008,
+      "relation": "decomposes_to",
+      "source": "REL_INC",
+      "target": "phase_anchored_REL_INC_descriptor",
+      "sourceType": "incidence_coordinate",
+      "targetType": "descriptor",
+      "assessment": "direction_or_type_mismatch",
+      "note": "Part-to-whole construction is labelled decomposes_to; joint canonicalization is omitted.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.json",
+          "line": 89
+        }
+      ],
+      "findingIds": [
+        "TRANSLATION-F003"
+      ],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "incidence_coordinate",
+        "targetType": "descriptor",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "direction_or_type_mismatch"
+      }
+    },
+    {
+      "id": "TRANSLATION-E007",
+      "line": 16,
+      "tuple": "(^998906 998007 998008)",
+      "relationId": 998906,
+      "sourceId": 998007,
+      "targetId": 998008,
+      "relation": "decomposes_to",
+      "source": "role_vertical_phase_kappa",
+      "target": "phase_anchored_REL_INC_descriptor",
+      "sourceType": "phase_coordinate",
+      "targetType": "descriptor",
+      "assessment": "direction_or_type_mismatch",
+      "note": "Part-to-whole construction is labelled decomposes_to; joint canonicalization is omitted.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.json",
+          "line": 89
+        }
+      ],
+      "findingIds": [
+        "TRANSLATION-F003"
+      ],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "phase_coordinate",
+        "targetType": "descriptor",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "direction_or_type_mismatch"
+      }
+    },
+    {
+      "id": "TRANSLATION-E008",
+      "line": 17,
+      "tuple": "(^998900 998008 998009)",
+      "relationId": 998900,
+      "sourceId": 998008,
+      "targetId": 998009,
+      "relation": "transforms_to",
+      "source": "phase_anchored_REL_INC_descriptor",
+      "target": "descriptor_multiplicity",
+      "sourceType": "descriptor",
+      "targetType": "multiplicity_map",
+      "assessment": "context_required",
+      "note": "Multiplicity is counted over the entire component family, not obtained from one descriptor occurrence.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 394
+        }
+      ],
+      "findingIds": [],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "descriptor",
+        "targetType": "multiplicity_map",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "context_required"
+      }
+    },
+    {
+      "id": "TRANSLATION-E009",
+      "line": 18,
+      "tuple": "(^998900 998009 998010)",
+      "relationId": 998900,
+      "sourceId": 998009,
+      "targetId": 998010,
+      "relation": "transforms_to",
+      "source": "descriptor_multiplicity",
+      "target": "ZOE_count_state",
+      "sourceType": "multiplicity_map",
+      "targetType": "count_coordinate",
+      "assessment": "consistent_topology",
+      "note": "Apply the Z/O/E multiplicity quotient per descriptor; preserve descriptor labels.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 282
+        }
+      ],
+      "findingIds": [],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "multiplicity_map",
+        "targetType": "count_coordinate",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "consistent_topology"
+      }
+    },
+    {
+      "id": "TRANSLATION-E010",
+      "line": 19,
+      "tuple": "(^998900 998010 998015)",
+      "relationId": 998900,
+      "sourceId": 998010,
+      "targetId": 998015,
+      "relation": "transforms_to",
+      "source": "ZOE_count_state",
+      "target": "repaired_scalar_signature",
+      "sourceType": "count_coordinate",
+      "targetType": "signature",
+      "assessment": "context_required",
+      "note": "Signature is the entire labelled count map, not one bare ZOE symbol; tactical scope remains separate.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.json",
+          "line": 34
+        }
+      ],
+      "findingIds": [],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "count_coordinate",
+        "targetType": "signature",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "context_required"
+      }
+    },
+    {
+      "id": "TRANSLATION-E011",
+      "line": 20,
+      "tuple": "(^998909 998004 998020)",
+      "relationId": 998909,
+      "sourceId": 998004,
+      "targetId": 998020,
+      "relation": "depends_on",
+      "source": "T2_tactical_boundary",
+      "target": "relative_scalar_WDL_value",
+      "sourceType": "tactical_classifier",
+      "targetType": "scalar_value",
+      "assessment": "reversed_dependency",
+      "note": "The value evaluation depends on the structural inputs, with branch/decoder qualification.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.isg",
+          "line": 80
+        }
+      ],
+      "findingIds": [
+        "TRANSLATION-F002"
+      ],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "tactical_classifier",
+        "targetType": "scalar_value",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "reversed_dependency"
+      }
+    },
+    {
+      "id": "TRANSLATION-E012",
+      "line": 21,
+      "tuple": "(^998909 998015 998020)",
+      "relationId": 998909,
+      "sourceId": 998015,
+      "targetId": 998020,
+      "relation": "depends_on",
+      "source": "repaired_scalar_signature",
+      "target": "relative_scalar_WDL_value",
+      "sourceType": "signature",
+      "targetType": "scalar_value",
+      "assessment": "reversed_dependency",
+      "note": "The value evaluation depends on the structural inputs, with branch/decoder qualification.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.isg",
+          "line": 80
+        }
+      ],
+      "findingIds": [
+        "TRANSLATION-F002"
+      ],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "signature",
+        "targetType": "scalar_value",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "reversed_dependency"
+      }
+    },
+    {
+      "id": "TRANSLATION-E013",
+      "line": 24,
+      "tuple": "(^998901 998007 998032)",
+      "relationId": 998901,
+      "sourceId": 998007,
+      "targetId": 998032,
+      "relation": "exact_recoding_or_equivalence",
+      "source": "role_vertical_phase_kappa",
+      "target": "frontier_height_parity",
+      "sourceType": "phase_coordinate",
+      "targetType": "height_parity_observable",
+      "assessment": "context_required",
+      "note": "Exact parity recoding given H; not an unparameterized equality and not a NEI judgment.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 210
+        }
+      ],
+      "findingIds": [],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "phase_coordinate",
+        "targetType": "height_parity_observable",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "context_required"
+      }
+    },
+    {
+      "id": "TRANSLATION-E014",
+      "line": 25,
+      "tuple": "(^998902 998006 998033)",
+      "relationId": 998902,
+      "sourceId": 998006,
+      "targetId": 998033,
+      "relation": "deductively_derives",
+      "source": "REL_INC",
+      "target": "anchored_absolute_row_parity",
+      "sourceType": "incidence_coordinate",
+      "targetType": "row_parity_observable",
+      "assessment": "missing_joint_premises",
+      "note": "Needs aligned relative depth and phase jointly, given H and a represented cell.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 233
+        }
+      ],
+      "findingIds": [
+        "TRANSLATION-F004"
+      ],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "incidence_coordinate",
+        "targetType": "row_parity_observable",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "missing_joint_premises"
+      }
+    },
+    {
+      "id": "TRANSLATION-E015",
+      "line": 26,
+      "tuple": "(^998902 998007 998033)",
+      "relationId": 998902,
+      "sourceId": 998007,
+      "targetId": 998033,
+      "relation": "deductively_derives",
+      "source": "role_vertical_phase_kappa",
+      "target": "anchored_absolute_row_parity",
+      "sourceType": "phase_coordinate",
+      "targetType": "row_parity_observable",
+      "assessment": "missing_joint_premises",
+      "note": "Needs aligned relative depth and phase jointly, given H and a represented cell.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 233
+        }
+      ],
+      "findingIds": [
+        "TRANSLATION-F004"
+      ],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "phase_coordinate",
+        "targetType": "row_parity_observable",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "missing_joint_premises"
+      }
+    },
+    {
+      "id": "TRANSLATION-E016",
+      "line": 27,
+      "tuple": "(^998908 998033 998033)",
+      "relationId": 998908,
+      "sourceId": 998033,
+      "targetId": 998033,
+      "relation": "preserves_DTS_invariant",
+      "source": "anchored_absolute_row_parity",
+      "target": "anchored_absolute_row_parity",
+      "sourceType": "row_parity_observable",
+      "targetType": "row_parity_observable",
+      "assessment": "missing_transition_guard",
+      "note": "Guarded surviving-cell invariant; no full signature transition congruence.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 260
+        }
+      ],
+      "findingIds": [
+        "TRANSLATION-F005"
+      ],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "row_parity_observable",
+        "targetType": "row_parity_observable",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "missing_transition_guard"
+      }
+    },
+    {
+      "id": "TRANSLATION-E017",
+      "line": 30,
+      "tuple": "(^998906 998010 998011)",
+      "relationId": 998906,
+      "sourceId": 998010,
+      "targetId": 998011,
+      "relation": "decomposes_to",
+      "source": "ZOE_count_state",
+      "target": "presence_coordinate_P",
+      "sourceType": "count_coordinate",
+      "targetType": "presence_coordinate",
+      "assessment": "consistent_topology",
+      "note": "Presence and oddness coordinates jointly encode the three valid ZOE states.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 282
+        }
+      ],
+      "findingIds": [],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "count_coordinate",
+        "targetType": "presence_coordinate",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "consistent_topology"
+      }
+    },
+    {
+      "id": "TRANSLATION-E018",
+      "line": 31,
+      "tuple": "(^998906 998010 998012)",
+      "relationId": 998906,
+      "sourceId": 998010,
+      "targetId": 998012,
+      "relation": "decomposes_to",
+      "source": "ZOE_count_state",
+      "target": "oddness_coordinate_O",
+      "sourceType": "count_coordinate",
+      "targetType": "oddness_coordinate",
+      "assessment": "consistent_topology",
+      "note": "Presence and oddness coordinates jointly encode the three valid ZOE states.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 282
+        }
+      ],
+      "findingIds": [],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "count_coordinate",
+        "targetType": "oddness_coordinate",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "consistent_topology"
+      }
+    },
+    {
+      "id": "TRANSLATION-E019",
+      "line": 32,
+      "tuple": "(^998907 998011 998013)",
+      "relationId": 998907,
+      "sourceId": 998011,
+      "targetId": 998013,
+      "relation": "native_count_composition",
+      "source": "presence_coordinate_P",
+      "target": "native_ZOE_OR_XOR_monoid",
+      "sourceType": "presence_coordinate",
+      "targetType": "monoid",
+      "assessment": "context_required",
+      "note": "P composes by OR and O by XOR jointly in the valid-state monoid. Neither coordinate separately reconstructs the whole monoid.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_IDENTITY_CHECK_0_1.json",
+          "line": 41
+        }
+      ],
+      "findingIds": [],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "presence_coordinate",
+        "targetType": "monoid",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "context_required"
+      }
+    },
+    {
+      "id": "TRANSLATION-E020",
+      "line": 33,
+      "tuple": "(^998907 998012 998013)",
+      "relationId": 998907,
+      "sourceId": 998012,
+      "targetId": 998013,
+      "relation": "native_count_composition",
+      "source": "oddness_coordinate_O",
+      "target": "native_ZOE_OR_XOR_monoid",
+      "sourceType": "oddness_coordinate",
+      "targetType": "monoid",
+      "assessment": "context_required",
+      "note": "P composes by OR and O by XOR jointly in the valid-state monoid. Neither coordinate separately reconstructs the whole monoid.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_IDENTITY_CHECK_0_1.json",
+          "line": 41
+        }
+      ],
+      "findingIds": [],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "oddness_coordinate",
+        "targetType": "monoid",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "context_required"
+      }
+    },
+    {
+      "id": "TRANSLATION-E021",
+      "line": 34,
+      "tuple": "(^998902 998008 998014)",
+      "relationId": 998902,
+      "sourceId": 998008,
+      "targetId": 998014,
+      "relation": "deductively_derives",
+      "source": "phase_anchored_REL_INC_descriptor",
+      "target": "derived_rank_parity",
+      "sourceType": "descriptor",
+      "targetType": "parity_observable",
+      "assessment": "missing_joint_premises",
+      "note": "Needs whole labelled multiplicity state, descriptor checksums, geometry parity and complete column accounting.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 410
+        }
+      ],
+      "findingIds": [
+        "TRANSLATION-F006"
+      ],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "descriptor",
+        "targetType": "parity_observable",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "missing_joint_premises"
+      }
+    },
+    {
+      "id": "TRANSLATION-E022",
+      "line": 35,
+      "tuple": "(^998902 998010 998014)",
+      "relationId": 998902,
+      "sourceId": 998010,
+      "targetId": 998014,
+      "relation": "deductively_derives",
+      "source": "ZOE_count_state",
+      "target": "derived_rank_parity",
+      "sourceType": "count_coordinate",
+      "targetType": "parity_observable",
+      "assessment": "missing_joint_premises",
+      "note": "Needs whole labelled multiplicity state, descriptor checksums, geometry parity and complete column accounting.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 410
+        }
+      ],
+      "findingIds": [
+        "TRANSLATION-F006"
+      ],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "count_coordinate",
+        "targetType": "parity_observable",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "missing_joint_premises"
+      }
+    },
+    {
+      "id": "TRANSLATION-E023",
+      "line": 36,
+      "tuple": "(^998902 998014 998020)",
+      "relationId": 998902,
+      "sourceId": 998014,
+      "targetId": 998020,
+      "relation": "deductively_derives",
+      "source": "derived_rank_parity",
+      "target": "relative_scalar_WDL_value",
+      "sourceType": "parity_observable",
+      "targetType": "scalar_value",
+      "assessment": "unsupported_derivation",
+      "note": "Parity/mover alone does not derive scalar outcome; no absolute-outcome premise supplied.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 424
+        }
+      ],
+      "findingIds": [
+        "TRANSLATION-F001"
+      ],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "parity_observable",
+        "targetType": "scalar_value",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "unsupported_derivation"
+      }
+    },
+    {
+      "id": "TRANSLATION-E024",
+      "line": 39,
+      "tuple": "(^998913 998016 998015)",
+      "relationId": 998913,
+      "sourceId": 998016,
+      "targetId": 998015,
+      "relation": "decoder_realization_of",
+      "source": "affine_PO_decoder_realization",
+      "target": "repaired_scalar_signature",
+      "sourceType": "feature_realization",
+      "targetType": "signature",
+      "assessment": "context_required",
+      "note": "These are candidate feature/function families over the signature; decoder_realization_of is not a success claim. Affine/D2 failures and cubic bounded evidence are separate edges.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 739
+        }
+      ],
+      "findingIds": [],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "feature_realization",
+        "targetType": "signature",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "context_required"
+      }
+    },
+    {
+      "id": "TRANSLATION-E025",
+      "line": 40,
+      "tuple": "(^998913 998017 998015)",
+      "relationId": 998913,
+      "sourceId": 998017,
+      "targetId": 998015,
+      "relation": "decoder_realization_of",
+      "source": "degree2_PO_decoder_realization",
+      "target": "repaired_scalar_signature",
+      "sourceType": "feature_realization",
+      "targetType": "signature",
+      "assessment": "context_required",
+      "note": "These are candidate feature/function families over the signature; decoder_realization_of is not a success claim. Affine/D2 failures and cubic bounded evidence are separate edges.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 739
+        }
+      ],
+      "findingIds": [],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "feature_realization",
+        "targetType": "signature",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "context_required"
+      }
+    },
+    {
+      "id": "TRANSLATION-E026",
+      "line": 41,
+      "tuple": "(^998913 998018 998015)",
+      "relationId": 998913,
+      "sourceId": 998018,
+      "targetId": 998015,
+      "relation": "decoder_realization_of",
+      "source": "degree3_PO_decoder_realization",
+      "target": "repaired_scalar_signature",
+      "sourceType": "feature_realization",
+      "targetType": "signature",
+      "assessment": "context_required",
+      "note": "These are candidate feature/function families over the signature; decoder_realization_of is not a success claim. Affine/D2 failures and cubic bounded evidence are separate edges.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 739
+        }
+      ],
+      "findingIds": [],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "feature_realization",
+        "targetType": "signature",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "context_required"
+      }
+    },
+    {
+      "id": "TRANSLATION-E027",
+      "line": 42,
+      "tuple": "(^998913 998019 998018)",
+      "relationId": 998913,
+      "sourceId": 998019,
+      "targetId": 998018,
+      "relation": "decoder_realization_of",
+      "source": "outcome_independent_cubic_quotient",
+      "target": "degree3_PO_decoder_realization",
+      "sourceType": "quotient_feature_space",
+      "targetType": "feature_realization",
+      "assessment": "context_required",
+      "note": "Outcome-independent quotient of cubic features modulo lower degree on a fixed carrier; not an outcome-independent scalar decoder.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 540
+        }
+      ],
+      "findingIds": [],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "quotient_feature_space",
+        "targetType": "feature_realization",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "context_required"
+      }
+    },
+    {
+      "id": "TRANSLATION-E028",
+      "line": 43,
+      "tuple": "(^998904 998016 998020)",
+      "relationId": 998904,
+      "sourceId": 998016,
+      "targetId": 998020,
+      "relation": "falsified_or_insufficient_for_declared_target",
+      "source": "affine_PO_decoder_realization",
+      "target": "relative_scalar_WDL_value",
+      "sourceType": "feature_realization",
+      "targetType": "scalar_value",
+      "assessment": "consistent_bounded_claim",
+      "note": "Insufficiency for the declared hard discovery targets, not every carrier and not universal impossibility.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 739
+        }
+      ],
+      "findingIds": [],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "feature_realization",
+        "targetType": "scalar_value",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "consistent_bounded_claim"
+      }
+    },
+    {
+      "id": "TRANSLATION-E029",
+      "line": 44,
+      "tuple": "(^998904 998017 998020)",
+      "relationId": 998904,
+      "sourceId": 998017,
+      "targetId": 998020,
+      "relation": "falsified_or_insufficient_for_declared_target",
+      "source": "degree2_PO_decoder_realization",
+      "target": "relative_scalar_WDL_value",
+      "sourceType": "feature_realization",
+      "targetType": "scalar_value",
+      "assessment": "consistent_bounded_claim",
+      "note": "Insufficiency for the declared hard discovery targets, not every carrier and not universal impossibility.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 739
+        }
+      ],
+      "findingIds": [],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "feature_realization",
+        "targetType": "scalar_value",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "consistent_bounded_claim"
+      }
+    },
+    {
+      "id": "TRANSLATION-E030",
+      "line": 45,
+      "tuple": "(^998903 998018 998020)",
+      "relationId": 998903,
+      "sourceId": 998018,
+      "targetId": 998020,
+      "relation": "bounded_empirical_QV_support",
+      "source": "degree3_PO_decoder_realization",
+      "target": "relative_scalar_WDL_value",
+      "sourceType": "feature_realization",
+      "targetType": "scalar_value",
+      "assessment": "consistent_bounded_claim",
+      "note": "Bounded Q-V existence/factorization evidence on declared finite carriers; no closed decoder or general theorem follows.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 778
+        }
+      ],
+      "findingIds": [],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "feature_realization",
+        "targetType": "scalar_value",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "consistent_bounded_claim"
+      }
+    },
+    {
+      "id": "TRANSLATION-E031",
+      "line": 46,
+      "tuple": "(^998903 998019 998020)",
+      "relationId": 998903,
+      "sourceId": 998019,
+      "targetId": 998020,
+      "relation": "bounded_empirical_QV_support",
+      "source": "outcome_independent_cubic_quotient",
+      "target": "relative_scalar_WDL_value",
+      "sourceType": "quotient_feature_space",
+      "targetType": "scalar_value",
+      "assessment": "consistent_bounded_claim",
+      "note": "Bounded Q-V existence/factorization evidence on declared finite carriers; no closed decoder or general theorem follows.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 778
+        }
+      ],
+      "findingIds": [],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "quotient_feature_space",
+        "targetType": "scalar_value",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "consistent_bounded_claim"
+      }
+    },
+    {
+      "id": "TRANSLATION-E032",
+      "line": 49,
+      "tuple": "(^998902 998019 998034)",
+      "relationId": 998902,
+      "sourceId": 998019,
+      "targetId": 998034,
+      "relation": "deductively_derives",
+      "source": "outcome_independent_cubic_quotient",
+      "target": "cubic_OOO_motif_clue",
+      "sourceType": "quotient_feature_space",
+      "targetType": "basis_motif_clue",
+      "assessment": "context_required",
+      "note": "Motif histogram of the selected deterministic quotient basis on the observed corpus. Basis dependence precludes interpreting it as a universal invariant.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 548
+        }
+      ],
+      "findingIds": [],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "quotient_feature_space",
+        "targetType": "basis_motif_clue",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "context_required"
+      }
+    },
+    {
+      "id": "TRANSLATION-E033",
+      "line": 50,
+      "tuple": "(^998902 998019 998035)",
+      "relationId": 998902,
+      "sourceId": 998019,
+      "targetId": 998035,
+      "relation": "deductively_derives",
+      "source": "outcome_independent_cubic_quotient",
+      "target": "cubic_OOP_motif_clue",
+      "sourceType": "quotient_feature_space",
+      "targetType": "basis_motif_clue",
+      "assessment": "context_required",
+      "note": "Motif histogram of the selected deterministic quotient basis on the observed corpus. Basis dependence precludes interpreting it as a universal invariant.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 548
+        }
+      ],
+      "findingIds": [],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "quotient_feature_space",
+        "targetType": "basis_motif_clue",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "context_required"
+      }
+    },
+    {
+      "id": "TRANSLATION-E034",
+      "line": 51,
+      "tuple": "(^998914 998034 998020)",
+      "relationId": 998914,
+      "sourceId": 998034,
+      "targetId": 998020,
+      "relation": "scope_guard",
+      "source": "cubic_OOO_motif_clue",
+      "target": "relative_scalar_WDL_value",
+      "sourceType": "basis_motif_clue",
+      "targetType": "scalar_value",
+      "assessment": "consistent_scope_warning",
+      "note": "Scope-guard label warns that motif clues do not themselves compute WDL; its actual condition is supplied only by companions.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 548
+        }
+      ],
+      "findingIds": [],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "basis_motif_clue",
+        "targetType": "scalar_value",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "consistent_scope_warning"
+      }
+    },
+    {
+      "id": "TRANSLATION-E035",
+      "line": 52,
+      "tuple": "(^998914 998035 998020)",
+      "relationId": 998914,
+      "sourceId": 998035,
+      "targetId": 998020,
+      "relation": "scope_guard",
+      "source": "cubic_OOP_motif_clue",
+      "target": "relative_scalar_WDL_value",
+      "sourceType": "basis_motif_clue",
+      "targetType": "scalar_value",
+      "assessment": "consistent_scope_warning",
+      "note": "Scope-guard label warns that motif clues do not themselves compute WDL; its actual condition is supplied only by companions.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 548
+        }
+      ],
+      "findingIds": [],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "basis_motif_clue",
+        "targetType": "scalar_value",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "consistent_scope_warning"
+      }
+    },
+    {
+      "id": "TRANSLATION-E036",
+      "line": 55,
+      "tuple": "(^998903 998015 998036)",
+      "relationId": 998903,
+      "sourceId": 998015,
+      "targetId": 998036,
+      "relation": "bounded_empirical_QV_support",
+      "source": "repaired_scalar_signature",
+      "target": "Q_V_scope",
+      "sourceType": "signature",
+      "targetType": "value_equivalence_scope",
+      "assessment": "consistent_bounded_claim",
+      "note": "The bounded repaired-coordinate Q-V statement is supported on tested scopes, not all geometries.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 592
+        }
+      ],
+      "findingIds": [],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "signature",
+        "targetType": "value_equivalence_scope",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "consistent_bounded_claim"
+      }
+    },
+    {
+      "id": "TRANSLATION-E037",
+      "line": 56,
+      "tuple": "(^998910 998036 998037)",
+      "relationId": 998910,
+      "sourceId": 998036,
+      "targetId": 998037,
+      "relation": "does_not_imply",
+      "source": "Q_V_scope",
+      "target": "Q_A_scope",
+      "sourceType": "value_equivalence_scope",
+      "targetType": "action_equivalence_scope",
+      "assessment": "consistent_scope_warning",
+      "note": "Q-V does not establish action/future or proof identity.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.json",
+          "line": 293
+        }
+      ],
+      "findingIds": [],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "value_equivalence_scope",
+        "targetType": "action_equivalence_scope",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "consistent_scope_warning"
+      }
+    },
+    {
+      "id": "TRANSLATION-E038",
+      "line": 57,
+      "tuple": "(^998910 998036 998038)",
+      "relationId": 998910,
+      "sourceId": 998036,
+      "targetId": 998038,
+      "relation": "does_not_imply",
+      "source": "Q_V_scope",
+      "target": "Q_F_scope",
+      "sourceType": "value_equivalence_scope",
+      "targetType": "proof_equivalence_scope",
+      "assessment": "consistent_scope_warning",
+      "note": "Q-V does not establish action/future or proof identity.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.json",
+          "line": 293
+        }
+      ],
+      "findingIds": [],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "value_equivalence_scope",
+        "targetType": "proof_equivalence_scope",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "consistent_scope_warning"
+      }
+    },
+    {
+      "id": "TRANSLATION-E039",
+      "line": 60,
+      "tuple": "(^998905 998024 998006)",
+      "relationId": 998905,
+      "sourceId": 998024,
+      "targetId": 998006,
+      "relation": "open_QU_relation",
+      "source": "QU_exact_depth_necessity",
+      "target": "REL_INC",
+      "sourceType": "open_question",
+      "targetType": "incidence_coordinate",
+      "assessment": "consistent_open_question",
+      "note": "An explicitly open historical question concerning the target coordinate/theorem; no truth or closure assertion.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 862
+        }
+      ],
+      "findingIds": [],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "open_question",
+        "targetType": "incidence_coordinate",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "consistent_open_question"
+      }
+    },
+    {
+      "id": "TRANSLATION-E040",
+      "line": 61,
+      "tuple": "(^998905 998025 998004)",
+      "relationId": 998905,
+      "sourceId": 998025,
+      "targetId": 998004,
+      "relation": "open_QU_relation",
+      "source": "QU_T2_semantic_necessity",
+      "target": "T2_tactical_boundary",
+      "sourceType": "open_question",
+      "targetType": "tactical_classifier",
+      "assessment": "consistent_open_question",
+      "note": "An explicitly open historical question concerning the target coordinate/theorem; no truth or closure assertion.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 862
+        }
+      ],
+      "findingIds": [],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "open_question",
+        "targetType": "tactical_classifier",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "consistent_open_question"
+      }
+    },
+    {
+      "id": "TRANSLATION-E041",
+      "line": 62,
+      "tuple": "(^998905 998026 998015)",
+      "relationId": 998905,
+      "sourceId": 998026,
+      "targetId": 998015,
+      "relation": "open_QU_relation",
+      "source": "QU_signature_transition_closure",
+      "target": "repaired_scalar_signature",
+      "sourceType": "open_question",
+      "targetType": "signature",
+      "assessment": "consistent_open_question",
+      "note": "An explicitly open historical question concerning the target coordinate/theorem; no truth or closure assertion.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 862
+        }
+      ],
+      "findingIds": [],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "open_question",
+        "targetType": "signature",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "consistent_open_question"
+      }
+    },
+    {
+      "id": "TRANSLATION-E042",
+      "line": 63,
+      "tuple": "(^998905 998027 998007)",
+      "relationId": 998905,
+      "sourceId": 998027,
+      "targetId": 998007,
+      "relation": "open_QU_relation",
+      "source": "QU_CPC_control_parity_bridge",
+      "target": "role_vertical_phase_kappa",
+      "sourceType": "open_question",
+      "targetType": "phase_coordinate",
+      "assessment": "consistent_open_question",
+      "note": "An explicitly open historical question concerning the target coordinate/theorem; no truth or closure assertion.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 862
+        }
+      ],
+      "findingIds": [],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "open_question",
+        "targetType": "phase_coordinate",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "consistent_open_question"
+      }
+    },
+    {
+      "id": "TRANSLATION-E043",
+      "line": 64,
+      "tuple": "(^998905 998028 998015)",
+      "relationId": 998905,
+      "sourceId": 998028,
+      "targetId": 998015,
+      "relation": "open_QU_relation",
+      "source": "QU_native_compact_decoder",
+      "target": "repaired_scalar_signature",
+      "sourceType": "open_question",
+      "targetType": "signature",
+      "assessment": "consistent_open_question",
+      "note": "An explicitly open historical question concerning the target coordinate/theorem; no truth or closure assertion.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 862
+        }
+      ],
+      "findingIds": [],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "open_question",
+        "targetType": "signature",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "consistent_open_question"
+      }
+    },
+    {
+      "id": "TRANSLATION-E044",
+      "line": 65,
+      "tuple": "(^998905 998029 998015)",
+      "relationId": 998905,
+      "sourceId": 998029,
+      "targetId": 998015,
+      "relation": "open_QU_relation",
+      "source": "QU_standard_7x6_sufficiency",
+      "target": "repaired_scalar_signature",
+      "sourceType": "open_question",
+      "targetType": "signature",
+      "assessment": "consistent_open_question",
+      "note": "An explicitly open historical question concerning the target coordinate/theorem; no truth or closure assertion.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 862
+        }
+      ],
+      "findingIds": [],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "open_question",
+        "targetType": "signature",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "consistent_open_question"
+      }
+    },
+    {
+      "id": "TRANSLATION-E045",
+      "line": 66,
+      "tuple": "(^998905 998030 998008)",
+      "relationId": 998905,
+      "sourceId": 998030,
+      "targetId": 998008,
+      "relation": "open_QU_relation",
+      "source": "QU_general_descriptor_substitution_theorem",
+      "target": "phase_anchored_REL_INC_descriptor",
+      "sourceType": "open_question",
+      "targetType": "descriptor",
+      "assessment": "consistent_open_question",
+      "note": "An explicitly open historical question concerning the target coordinate/theorem; no truth or closure assertion.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 862
+        }
+      ],
+      "findingIds": [],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "open_question",
+        "targetType": "descriptor",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "consistent_open_question"
+      }
+    },
+    {
+      "id": "TRANSLATION-E046",
+      "line": 67,
+      "tuple": "(^998905 998031 998022)",
+      "relationId": 998905,
+      "sourceId": 998031,
+      "targetId": 998022,
+      "relation": "open_QU_relation",
+      "source": "QU_center_opening_theorem",
+      "target": "center_opening_structural_target",
+      "sourceType": "open_question",
+      "targetType": "theorem_target",
+      "assessment": "consistent_open_question",
+      "note": "An explicitly open historical question concerning the target coordinate/theorem; no truth or closure assertion.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 862
+        }
+      ],
+      "findingIds": [],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "open_question",
+        "targetType": "theorem_target",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "consistent_open_question"
+      }
+    },
+    {
+      "id": "TRANSLATION-E047",
+      "line": 70,
+      "tuple": "(^998911 998023 998028)",
+      "relationId": 998911,
+      "sourceId": 998023,
+      "targetId": 998028,
+      "relation": "sealed_holdout_boundary",
+      "source": "EW_RS_059_sealed_formula_holdouts",
+      "target": "QU_native_compact_decoder",
+      "sourceType": "holdout_policy",
+      "targetType": "open_question",
+      "assessment": "consistent_scope_warning",
+      "note": "Sealed formula-holdout boundary is a research policy, not a mathematical implication. Only warrant labels were inspected.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.json",
+          "line": 26
+        }
+      ],
+      "findingIds": [],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "holdout_policy",
+        "targetType": "open_question",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "consistent_scope_warning"
+      }
+    },
+    {
+      "id": "TRANSLATION-E048",
+      "line": 71,
+      "tuple": "(^998911 998023 998019)",
+      "relationId": 998911,
+      "sourceId": 998023,
+      "targetId": 998019,
+      "relation": "sealed_holdout_boundary",
+      "source": "EW_RS_059_sealed_formula_holdouts",
+      "target": "outcome_independent_cubic_quotient",
+      "sourceType": "holdout_policy",
+      "targetType": "quotient_feature_space",
+      "assessment": "consistent_scope_warning",
+      "note": "Sealed formula-holdout boundary is a research policy, not a mathematical implication. Only warrant labels were inspected.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.json",
+          "line": 26
+        }
+      ],
+      "findingIds": [],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "holdout_policy",
+        "targetType": "quotient_feature_space",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "consistent_scope_warning"
+      }
+    },
+    {
+      "id": "TRANSLATION-E049",
+      "line": 72,
+      "tuple": "(^998915 998024 998028)",
+      "relationId": 998915,
+      "sourceId": 998024,
+      "targetId": 998028,
+      "relation": "next_discovery_target",
+      "source": "QU_exact_depth_necessity",
+      "target": "QU_native_compact_decoder",
+      "sourceType": "open_question",
+      "targetType": "open_question",
+      "assessment": "consistent_topology",
+      "note": "Research routing from an unresolved question to decoder discovery; not proof dependency or experimental result.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 898
+        }
+      ],
+      "findingIds": [],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "open_question",
+        "targetType": "open_question",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "consistent_topology"
+      }
+    },
+    {
+      "id": "TRANSLATION-E050",
+      "line": 73,
+      "tuple": "(^998915 998025 998028)",
+      "relationId": 998915,
+      "sourceId": 998025,
+      "targetId": 998028,
+      "relation": "next_discovery_target",
+      "source": "QU_T2_semantic_necessity",
+      "target": "QU_native_compact_decoder",
+      "sourceType": "open_question",
+      "targetType": "open_question",
+      "assessment": "consistent_topology",
+      "note": "Research routing from an unresolved question to decoder discovery; not proof dependency or experimental result.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 898
+        }
+      ],
+      "findingIds": [],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "open_question",
+        "targetType": "open_question",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "consistent_topology"
+      }
+    },
+    {
+      "id": "TRANSLATION-E051",
+      "line": 74,
+      "tuple": "(^998915 998026 998028)",
+      "relationId": 998915,
+      "sourceId": 998026,
+      "targetId": 998028,
+      "relation": "next_discovery_target",
+      "source": "QU_signature_transition_closure",
+      "target": "QU_native_compact_decoder",
+      "sourceType": "open_question",
+      "targetType": "open_question",
+      "assessment": "consistent_topology",
+      "note": "Research routing from an unresolved question to decoder discovery; not proof dependency or experimental result.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 898
+        }
+      ],
+      "findingIds": [],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "open_question",
+        "targetType": "open_question",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "consistent_topology"
+      }
+    },
+    {
+      "id": "TRANSLATION-E052",
+      "line": 77,
+      "tuple": "(^998901 998021 998007)",
+      "relationId": 998901,
+      "sourceId": 998021,
+      "targetId": 998007,
+      "relation": "exact_recoding_or_equivalence",
+      "source": "standard_7x6_specialization",
+      "target": "role_vertical_phase_kappa",
+      "sourceType": "geometry_context",
+      "targetType": "phase_coordinate",
+      "assessment": "direction_or_type_mismatch",
+      "note": "Specialization of parity identities has been encoded as geometry-to-coordinate equivalence/derivation; actual state input is missing.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 938
+        }
+      ],
+      "findingIds": [
+        "TRANSLATION-F006"
+      ],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "geometry_context",
+        "targetType": "phase_coordinate",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "direction_or_type_mismatch"
+      }
+    },
+    {
+      "id": "TRANSLATION-E053",
+      "line": 78,
+      "tuple": "(^998902 998021 998014)",
+      "relationId": 998902,
+      "sourceId": 998021,
+      "targetId": 998014,
+      "relation": "deductively_derives",
+      "source": "standard_7x6_specialization",
+      "target": "derived_rank_parity",
+      "sourceType": "geometry_context",
+      "targetType": "parity_observable",
+      "assessment": "direction_or_type_mismatch",
+      "note": "Specialization of parity identities has been encoded as geometry-to-coordinate equivalence/derivation; actual state input is missing.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 938
+        }
+      ],
+      "findingIds": [
+        "TRANSLATION-F006"
+      ],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "geometry_context",
+        "targetType": "parity_observable",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "direction_or_type_mismatch"
+      }
+    },
+    {
+      "id": "TRANSLATION-E054",
+      "line": 79,
+      "tuple": "(^998909 998022 998021)",
+      "relationId": 998909,
+      "sourceId": 998022,
+      "targetId": 998021,
+      "relation": "depends_on",
+      "source": "center_opening_structural_target",
+      "target": "standard_7x6_specialization",
+      "sourceType": "theorem_target",
+      "targetType": "geometry_context",
+      "assessment": "consistent_open_question",
+      "note": "Necessary research prerequisites for the center-opening target, not a jointly sufficient proof. A center-opening argument is explicitly absent.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 966
+        }
+      ],
+      "findingIds": [],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "theorem_target",
+        "targetType": "geometry_context",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "consistent_open_question"
+      }
+    },
+    {
+      "id": "TRANSLATION-E055",
+      "line": 80,
+      "tuple": "(^998909 998022 998028)",
+      "relationId": 998909,
+      "sourceId": 998022,
+      "targetId": 998028,
+      "relation": "depends_on",
+      "source": "center_opening_structural_target",
+      "target": "QU_native_compact_decoder",
+      "sourceType": "theorem_target",
+      "targetType": "open_question",
+      "assessment": "consistent_open_question",
+      "note": "Necessary research prerequisites for the center-opening target, not a jointly sufficient proof. A center-opening argument is explicitly absent.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 966
+        }
+      ],
+      "findingIds": [],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "theorem_target",
+        "targetType": "open_question",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "consistent_open_question"
+      }
+    },
+    {
+      "id": "TRANSLATION-E056",
+      "line": 81,
+      "tuple": "(^998909 998022 998029)",
+      "relationId": 998909,
+      "sourceId": 998022,
+      "targetId": 998029,
+      "relation": "depends_on",
+      "source": "center_opening_structural_target",
+      "target": "QU_standard_7x6_sufficiency",
+      "sourceType": "theorem_target",
+      "targetType": "open_question",
+      "assessment": "consistent_open_question",
+      "note": "Necessary research prerequisites for the center-opening target, not a jointly sufficient proof. A center-opening argument is explicitly absent.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 966
+        }
+      ],
+      "findingIds": [],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "theorem_target",
+        "targetType": "open_question",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "consistent_open_question"
+      }
+    },
+    {
+      "id": "TRANSLATION-E057",
+      "line": 82,
+      "tuple": "(^998909 998022 998031)",
+      "relationId": 998909,
+      "sourceId": 998022,
+      "targetId": 998031,
+      "relation": "depends_on",
+      "source": "center_opening_structural_target",
+      "target": "QU_center_opening_theorem",
+      "sourceType": "theorem_target",
+      "targetType": "open_question",
+      "assessment": "consistent_open_question",
+      "note": "Necessary research prerequisites for the center-opening target, not a jointly sufficient proof. A center-opening argument is explicitly absent.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 966
+        }
+      ],
+      "findingIds": [],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "theorem_target",
+        "targetType": "open_question",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "consistent_open_question"
+      }
+    },
+    {
+      "id": "TRANSLATION-E058",
+      "line": 86,
+      "tuple": "(^998913 998039 998015)",
+      "relationId": 998913,
+      "sourceId": 998039,
+      "targetId": 998015,
+      "relation": "decoder_realization_of",
+      "source": "oddness_only_cubic_decoder_discovery_candidate",
+      "target": "repaired_scalar_signature",
+      "sourceType": "decoder_candidate",
+      "targetType": "signature",
+      "assessment": "context_required",
+      "note": "Candidate decoder family on the signature includes complete lower-degree P/O plus all OOO; the name alone omits that split.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 1024
+        }
+      ],
+      "findingIds": [],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "decoder_candidate",
+        "targetType": "signature",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "context_required"
+      }
+    },
+    {
+      "id": "TRANSLATION-E059",
+      "line": 87,
+      "tuple": "(^998903 998039 998020)",
+      "relationId": 998903,
+      "sourceId": 998039,
+      "targetId": 998020,
+      "relation": "bounded_empirical_QV_support",
+      "source": "oddness_only_cubic_decoder_discovery_candidate",
+      "target": "relative_scalar_WDL_value",
+      "sourceType": "decoder_candidate",
+      "targetType": "scalar_value",
+      "assessment": "consistent_bounded_claim",
+      "note": "RS061 is bounded discovery evidence and explicitly not independent qualification or a final formula.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 1055
+        }
+      ],
+      "findingIds": [],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "decoder_candidate",
+        "targetType": "scalar_value",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "consistent_bounded_claim"
+      }
+    },
+    {
+      "id": "TRANSLATION-E060",
+      "line": 88,
+      "tuple": "(^998909 998039 998012)",
+      "relationId": 998909,
+      "sourceId": 998039,
+      "targetId": 998012,
+      "relation": "depends_on",
+      "source": "oddness_only_cubic_decoder_discovery_candidate",
+      "target": "oddness_coordinate_O",
+      "sourceType": "decoder_candidate",
+      "targetType": "oddness_coordinate",
+      "assessment": "missing_lower_degree_context",
+      "note": "Only the highest-degree correction is oddness-only; presence remains in the lower-degree span.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 1051
+        }
+      ],
+      "findingIds": [
+        "TRANSLATION-F007"
+      ],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "decoder_candidate",
+        "targetType": "oddness_coordinate",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "missing_lower_degree_context"
+      }
+    },
+    {
+      "id": "TRANSLATION-E061",
+      "line": 89,
+      "tuple": "(^998912 998039 998018)",
+      "relationId": 998912,
+      "sourceId": 998039,
+      "targetId": 998018,
+      "relation": "bounded_candidate_substitution",
+      "source": "oddness_only_cubic_decoder_discovery_candidate",
+      "target": "degree3_PO_decoder_realization",
+      "sourceType": "decoder_candidate",
+      "targetType": "feature_realization",
+      "assessment": "consistent_bounded_claim",
+      "note": "OOO restriction substitutes for the full cubic family for scalar decoding on the stated discovery carriers, not structural equality of feature spaces.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 1051
+        }
+      ],
+      "findingIds": [],
+      "typeCheck": {
+        "vocabularyResolved": true,
+        "sourceType": "decoder_candidate",
+        "targetType": "feature_realization",
+        "formalCoreTypeCheck": "NOT_PERFORMED",
+        "semanticJudgment": "consistent_bounded_claim"
+      }
+    }
+  ],
+  "findings": [
+    {
+      "id": "TRANSLATION-F001",
+      "severity": "P2",
+      "title": "Rank parity does not supply scalar W/D/L",
+      "nativeReferences": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.isg",
+          "line": 36,
+          "edgeId": "TRANSLATION-E023",
+          "tuple": "(^998902 998014 998020)"
+        }
+      ],
+      "sourceMeaning": "IA-07 reconstructs rank parity and hence side-to-move parity. The companions contain no absolute WDL input or derivation converting it to relative WDL at this edge.",
+      "likelyIntendedRelation": "Possibly absolute-to-relative outcome gauge conversion, requiring a separately supplied absolute outcome and mover parity; otherwise delete this derivation.",
+      "downstreamImpact": "A consumer following deductively_derives can incorrectly read a closed scalar formula into a parity identity. This does not invalidate that identity or the separately computed scalar evidence.",
+      "correctionRecommendation": "Keep the historical artifact; in a successor introduce an explicit conversion operation with both premises, or route parity to side-to-move only.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 380
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 424
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.json",
+          "line": 181
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_IDENTITY_CHECK_0_1.json",
+          "line": 43
+        }
+      ],
+      "certainty": {
+        "classification": "confirmed_overstrong_translation",
+        "qualification": "The native predicate is explicit; the proposed conversion intent is uncertain. No claim here that an admitted Core theorem has been refuted."
+      }
+    },
+    {
+      "id": "TRANSLATION-F002",
+      "severity": "P2",
+      "title": "T2 and signature dependency arrows are reversed",
+      "nativeReferences": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.isg",
+          "line": 20,
+          "edgeId": "TRANSLATION-E011",
+          "tuple": "(^998909 998004 998020)"
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.isg",
+          "line": 21,
+          "edgeId": "TRANSLATION-E012",
+          "tuple": "(^998909 998015 998020)"
+        }
+      ],
+      "sourceMeaning": "T2 classification and the structural signature are inputs to the piecewise relative-value evaluation. The later center-opening depends_on edges establish the ordinary dependent-to-prerequisite direction.",
+      "likelyIntendedRelation": "Value evaluation depends on T2; its T2-O branch depends on a signature and a qualified decoder.",
+      "downstreamImpact": "The present arrows suggest outcome-dependent construction of the classifier/signature, obscuring the structural/scalar boundary.",
+      "correctionRecommendation": "Reverse these dependencies and represent the tactical branches plus decoder qualification explicitly; do not imply the signature alone deductively computes WDL.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 32
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 108
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.json",
+          "line": 34
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.isg",
+          "line": 80
+        }
+      ],
+      "certainty": {
+        "classification": "confirmed_direction_inconsistency",
+        "qualification": "Judgment uses depends_on orientation in the same file and the structural pipeline semantics."
+      }
+    },
+    {
+      "id": "TRANSLATION-F003",
+      "severity": "P3",
+      "title": "decomposes_to is used backwards for descriptor construction",
+      "nativeReferences": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.isg",
+          "line": 15,
+          "edgeId": "TRANSLATION-E006",
+          "tuple": "(^998906 998006 998008)"
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.isg",
+          "line": 16,
+          "edgeId": "TRANSLATION-E007",
+          "tuple": "(^998906 998007 998008)"
+        }
+      ],
+      "sourceMeaning": "REL_INC and role-attached phase jointly form a descriptor under the same local column canonicalization; neither is a whole decomposing into that descriptor.",
+      "likelyIntendedRelation": "Jointly constructs(REL_INC, rolePhase, descriptor), or descriptor decomposes into its two jointly aligned coordinates.",
+      "downstreamImpact": "Inconsistent part/whole direction can turn a conjunction into two independent descriptor reconstructions.",
+      "correctionRecommendation": "Use a construction node with both inputs and common role alignment, or reverse these part edges.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 155
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.json",
+          "line": 89
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.isg",
+          "line": 13
+        }
+      ],
+      "certainty": {
+        "classification": "confirmed_relation_label_inconsistency",
+        "qualification": "Whole-to-part versus part-to-whole usage in the same file."
+      }
+    },
+    {
+      "id": "TRANSLATION-F004",
+      "severity": "P2",
+      "title": "Row-parity derivations drop their joint premises",
+      "nativeReferences": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.isg",
+          "line": 25,
+          "edgeId": "TRANSLATION-E014",
+          "tuple": "(^998902 998006 998033)"
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.isg",
+          "line": 26,
+          "edgeId": "TRANSLATION-E015",
+          "tuple": "(^998902 998007 998033)"
+        }
+      ],
+      "sourceMeaning": "rowmod2 = Hmod2 XOR kappa_c XOR dmod2 for a particular represented cell; REL_INC and its aligned phase are jointly needed, given H.",
+      "likelyIntendedRelation": "A contextual joint derivation from H, the cell depth in REL_INC, and that same role phase.",
+      "downstreamImpact": "Read independently, each unary edge asserts sufficiency not supplied by the formula.",
+      "correctionRecommendation": "Represent the full premise tuple and cell/role association; preserve the true companion identity.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 222
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 233
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.json",
+          "line": 156
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_IDENTITY_CHECK_0_1.json",
+          "line": 39
+        }
+      ],
+      "certainty": {
+        "classification": "confirmed_missing_premises_under_literal_reading",
+        "qualification": "Companion formula is correct; a topology reader might supply the conjunction implicitly, but it is absent natively."
+      }
+    },
+    {
+      "id": "TRANSLATION-F005",
+      "severity": "P3",
+      "title": "DTS invariant self-loop omits the transition and survivor guard",
+      "nativeReferences": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.isg",
+          "line": 27,
+          "edgeId": "TRANSLATION-E016",
+          "tuple": "(^998908 998033 998033)"
+        }
+      ],
+      "sourceMeaning": "Only the same surviving physical cell in the moved column has depth and phase toggled together. This is not closure of the whole projected signature under a move.",
+      "likelyIntendedRelation": "Preservation along the guarded move relation for a transported cell.",
+      "downstreamImpact": "An unguarded self-loop can be mistaken for transition congruence, while QU_signature_transition_closure is explicitly open.",
+      "correctionRecommendation": "Attach the transition, moved role and survivor identity; retain the separate open closure question.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 250
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 260
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 639
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.isg",
+          "line": 62
+        }
+      ],
+      "certainty": {
+        "classification": "confirmed_missing_guard",
+        "qualification": "The companion supplies the missing guard; no claim that the guarded identity is false."
+      }
+    },
+    {
+      "id": "TRANSLATION-F006",
+      "severity": "P2",
+      "title": "Rank reconstruction and 7x6 edges omit state/context and mix types",
+      "nativeReferences": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.isg",
+          "line": 34,
+          "edgeId": "TRANSLATION-E021",
+          "tuple": "(^998902 998008 998014)"
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.isg",
+          "line": 35,
+          "edgeId": "TRANSLATION-E022",
+          "tuple": "(^998902 998010 998014)"
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.isg",
+          "line": 77,
+          "edgeId": "TRANSLATION-E052",
+          "tuple": "(^998901 998021 998007)"
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.isg",
+          "line": 78,
+          "edgeId": "TRANSLATION-E053",
+          "tuple": "(^998902 998021 998014)"
+        }
+      ],
+      "sourceMeaning": "Rank parity follows from WHmod2 and the XOR of every descriptor phase checksum weighted by multiplicity oddness. W=7,H=6 simplifies constants; it is not equivalent to a phase coordinate and does not determine a position parity alone.",
+      "likelyIntendedRelation": "A rule specialization followed by evaluation on the whole descriptor-count state, with complete column accounting.",
+      "downstreamImpact": "Singleton descriptor, unlabelled ZOE count, or geometry context may otherwise appear sufficient to reconstruct rank parity.",
+      "correctionRecommendation": "Distinguish descriptor types from whole-state maps, expose geometry/checksum/multiplicity premises, and replace specialization-equivalence with specializes_rule.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 380
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 394
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 410
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 938
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.json",
+          "line": 181
+        }
+      ],
+      "certainty": {
+        "classification": "confirmed_missing_context_and_type_mismatch",
+        "qualification": "If nodes stand for contextual rules rather than values some omissions are shorthand, but the native vocabulary does not encode that distinction."
+      }
+    },
+    {
+      "id": "TRANSLATION-F007",
+      "severity": "P3",
+      "title": "OOO candidate dependency hides retained lower-degree presence terms",
+      "nativeReferences": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.isg",
+          "line": 88,
+          "edgeId": "TRANSLATION-E060",
+          "tuple": "(^998909 998039 998012)"
+        }
+      ],
+      "sourceMeaning": "RS061 uses complete affine and degree-two P/O plus all OOO cubic triples. Only the cubic correction omits presence.",
+      "likelyIntendedRelation": "The cubic correction depends on oddness, while the complete candidate also includes the full lower-degree P/O span.",
+      "downstreamImpact": "Calling the entire decoder oddness-only can silently remove necessary lower-degree information or change the hypothesis under test.",
+      "correctionRecommendation": "Split the candidate into lower-degree carrier and OOO correction, and preserve the bounded empirical relation rather than upgrading it to deduction.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 1024
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 1051
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.json",
+          "line": 497
+        }
+      ],
+      "certainty": {
+        "classification": "confirmed_omitted_dependency_not_false_bounded_result",
+        "qualification": "depends_on need not be an exhaustive list; the risk is interpreting the named whole candidate as wholly oddness-only."
+      }
+    },
+    {
+      "id": "TRANSLATION-F008",
+      "severity": "P3",
+      "title": "Topology vocabulary is not primitive semantic proof closure",
+      "nativeReferences": [],
+      "sourceMeaning": "The native file lists named binary links. Predicate meanings, conjunctions, carrier scopes, operational maps and proof witnesses reside in external prose/vocabulary; 16 predicate IDs are not listed in its local ^0 node declaration.",
+      "likelyIntendedRelation": "A research topology index into companion evidence, not a label-erased primitive derivation of all named claims.",
+      "downstreamImpact": "Native serialization, bracket balance and vocabulary resolution alone cannot certify truth, Core typing, NEI identity, IA closure or DP minimality.",
+      "correctionRecommendation": "Label this layer topology throughout; a primitive successor needs explicit carrier definitions, maps, guarded quantification and proof support. External predicate declarations are a coverage fact, not a demonstrated grammar violation.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_VOCAB_0_1.json",
+          "line": 3,
+          "text": "  \"status\": \"RESEARCH_TOPOLOGY_VOCAB_NO_AUTHORITY_EFFECT\","
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.isg",
+          "line": 2
+        },
+        {
+          "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_SEMANTICS_0_1.md",
+          "line": 14
+        },
+        {
+          "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_SEMANTICS_0_1.md",
+          "line": 646
+        }
+      ],
+      "certainty": {
+        "classification": "confirmed_representation_limit",
+        "qualification": "Not a Core syntax rejection or a certification failure of another artifact."
+      }
+    },
+    {
+      "id": "TRANSLATION-F009",
+      "severity": "P3",
+      "title": "NEI SAME wording overstates scoped representation equivalence",
+      "nativeReferences": [],
+      "sourceMeaning": "Late prose under NEI identity discipline calls invertible recodings SAME for representation-content questions, without an NEI query/evidence model or native NEI judgment. Hot-loop0.3 explicitly separates exact representation equivalence from NEI SAME.",
+      "likelyIntendedRelation": "Scoped exact recoding given its parameters, not an admitted NEI SAME result.",
+      "downstreamImpact": "Readers may carry a representation bijection into physical-event, action or proof identity without the required scope.",
+      "correctionRecommendation": "Use scoped_recoding/equivalence terminology unless a separate admissible NEI query is supplied. No native NEI claim is present to invalidate.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 580
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 590
+        },
+        {
+          "path": "research/isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_0_3_CANDIDATE.md",
+          "line": 13
+        },
+        {
+          "path": "research/isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_0_3_CANDIDATE.md",
+          "line": 153
+        }
+      ],
+      "certainty": {
+        "classification": "terminology_ambiguity",
+        "qualification": "SAME may be informal scoped-equivalence language. No native NEI admission is asserted."
+      }
+    },
+    {
+      "id": "TRANSLATION-F010",
+      "severity": "INFO",
+      "title": "Historical graph stops at RS061 and is not the current campaign graph",
+      "nativeReferences": [],
+      "sourceMeaning": "The last native candidate and JSON postDecompositionEvidence record RS061. Later RS065-RS095 quotient searches and revalidation do not appear as native edges here. Historical fresh-case language must not become present independent qualification.",
+      "likelyIntendedRelation": "A preserved research checkpoint with links to subsequent evidence and its present scope reset.",
+      "downstreamImpact": "Calling this the full current graph can conceal the lineage, training-data status and difference between geometry-parameterized laws and a geometry-blind pooled functional.",
+      "correctionRecommendation": "Retain the source snapshot and add an explicit as-of/successor coverage index; do not overwrite it or infer that old QU labels reflect every later resolution.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 1020
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-30-isomax-revalidation/REVALIDATION_CONTROL_0_1.json",
+          "line": 23,
+          "text": "    \"geometryParameterizedDecoder\": \"A closed mechanically defined law may depend on W,H,K or derived rule structure. Parameters must not conceal case-specific fitted tables or outcome-selected exceptions. EW-RS-059 formula qualification remains gated on a frozen closed law.\","
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-30-isomax-revalidation/REVALIDATION_CONTROL_0_1.json",
+          "line": 25,
+          "text": "    \"ooo\": \"Provisional oracle-motivated discovery hypothesis; the three hard cases are training data, not fresh qualification.\","
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-30-isomax-revalidation/LINEAGE_RS065_RS077.md",
+          "line": 7
+        }
+      ],
+      "certainty": {
+        "classification": "confirmed_snapshot_scope",
+        "qualification": "Historical claims remain historical, not disproven by later research."
+      }
+    },
+    {
+      "id": "TRANSLATION-F011",
+      "severity": "P3",
+      "title": "RFG companion prose names the wrong owner for F",
+      "nativeReferences": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.isg",
+          "line": 11,
+          "edgeId": "TRANSLATION-E002",
+          "tuple": "(^998900 998002 998003)"
+        }
+      ],
+      "sourceMeaning": "The decomposition prose says F applies to the mover family. The separately recorded semantic erratum says the post-R absorption rule removes opponent residuals containing all nonwinning legal frontier cells.",
+      "likelyIntendedRelation": "The same pipeline topology with the corrected opponent-family definition of F.",
+      "downstreamImpact": "A reconstruction from the prose alone can implement a different projection. This audit cites the recorded erratum, not a new independent code or board verification.",
+      "correctionRecommendation": "Cross-link the preserved graph to the erratum and use its corrected owner semantics in any successor.",
+      "evidence": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 96
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-30-isomax-revalidation/SEMANTIC_ERRATA_0_1.md",
+          "line": 9,
+          "text": "Qualification disposition: the wording is corrected here to “F removes opponent residuals containing all nonwinning legal frontier cells, using the post-R families.” Discovery disposition: this correction does not establish every other RFG or component claim, physical meaning of canonical slots, a universal cubic law, or the scalar formula. Statewise independent comparison separately records its actual bounded coverage."
+        }
+      ],
+      "certainty": {
+        "classification": "confirmed_companion_erratum",
+        "qualification": "Already recorded by another bounded audit; underlying implementation not independently inspected in this audit."
+      }
+    }
+  ],
+  "companionIdentityCheck": {
+    "recordedStatus": "PASS",
+    "recordedChecks": {
+      "zoeAdditiveHomomorphism": {
+        "pass": true,
+        "cases": 16641
+      },
+      "zoeCommutativeMonoid": {
+        "pass": true,
+        "cases": 27
+      },
+      "rolePhaseRecodingAndMoveGauge": {
+        "pass": true,
+        "cases": 8
+      },
+      "groupedDescriptorRankContribution": {
+        "pass": true,
+        "cases": 258
+      },
+      "rankParityReconstruction": {
+        "pass": true,
+        "cases": 4092
+      },
+      "binaryZoeAbsorption": {
+        "pass": true,
+        "cases": 3
+      },
+      "orToGf2AnfEncoding": {
+        "pass": true,
+        "cases": 12
+      }
+    },
+    "recordedScopeGuard": [
+      "These are algebraic/mechanical identities of the frozen representation.",
+      "They do not prove repaired-coordinate Q-V sufficiency on standard 7x6.",
+      "They do not prove T2 removal, exact-depth removal, Q-A, Q-F, or a closed scalar decoder.",
+      "EW-RS-059 holdout outcomes are not read."
+    ],
+    "auditTreatment": "Read the exact companion record; did not rerun identity tests or board enumeration. These identities do not verify parity-to-WDL or every native edge."
+  },
+  "representationContrast": {
+    "late": {
+      "status": "RESEARCH_TOPOLOGY_VOCAB_NO_AUTHORITY_EFFECT",
+      "declaredStack": [
+        "Core 0.21",
+        "QU 0.1",
+        "NEI 0.4",
+        "DP 0.1-0.10",
+        "DTS 0.1",
+        "Experimental Inquiry 0.1"
+      ],
+      "sourcePins": {
+        "roleAlignedHarnessBlob": "3ba17a71d10ac5831193ce91d613a7b46c35b60c",
+        "fresh6x3k4Blob": "ab30b86b597ff409045fd8212afee0440e5b82b5",
+        "repairedCubicBlob": "854d7e0d0c081e52bcedcb02491d0dd0b245bb4d",
+        "holdoutWarrantBlob": "8210dad9a35a076606ea90cc25eb87cf9b164041",
+        "cubicQuotientWarrantBlob": "2d72c30dc60c4ef983a4d9e8a185e4b22935da84",
+        "cubicQuotientFreezeCommit": "8e3196dd2c4d5b52dbf97b0dff8315425054da33",
+        "humanDecompositionCommit": "f126fbf4bf3c641a7961abc17cb9e1a43c26890f"
+      },
+      "meaning": "Research topology with external labels and companion premises; neither native proof closure nor game-theory authority."
+    },
+    "hotLoop03": {
+      "metadata": {
+        "repository": "iteathen/isograph",
+        "revision": "55c98d31dd2715cdb48abe4f8e313fd72d0dabba",
+        "path": "extensions/nei/NATURAL_ENTROPIC_IDENTITY_SPEC_0_4_CANDIDATE.md",
+        "status": "qualified_authority",
+        "semantic_sha256": "6e2f0efb1f4bfbfa55bc2c5597f1ecc5b4d7bb734216543c21ba72089b0aacee"
+      },
+      "meaning": "Qualified performance-research graph uses scoped exact representation equivalence; it explicitly disclaims generic NEI SAME and requires reflection action transport. Its qualification must not be inherited by the late graph.",
+      "references": [
+        {
+          "path": "research/isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_0_3_CANDIDATE.md",
+          "line": 13
+        },
+        {
+          "path": "research/isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_0_3_CANDIDATE.md",
+          "line": 153
+        },
+        {
+          "path": "research/isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_0_3_CANDIDATE.md",
+          "line": 275
+        }
+      ]
+    },
+    "core020": {
+      "sourceManifest": {
+        "schema": "isomax.core020.structural_control.strict_source_manifest.v2",
+        "date_author_local": "2026-09-29",
+        "research_direction": "Joshua Oshiro",
+        "isograph_main": "8dc6a0f37babae61d50e9cd5889d2cd1c11220ec",
+        "core020_sha256": "9a619b552a6ef7719e5b4b5f3a9df4a732ff4377b9bc7b86c385ed5c992b88e7",
+        "qu01_sha256": "1f1510b41e4351726e4d9e714eb32ece0d5e69f0964255aabd7b4a6e94eee4cc",
+        "dp_used": false,
+        "nei_used": false,
+        "dts_used": false,
+        "experimental_inquiry_used": false,
+        "connect4_canonical_base": "77701467d269be45f480d4e9a8b390d644faf064",
+        "structural_source_head": "4bfe1c6507c6b2edd93bbd1dabd74b0efe5343f7",
+        "strict_native_kernel": "ISOMAX_STRUCTURAL_CONTROL_CORE020_0_2.isg",
+        "strict_native_ia": "STRICT_IA_CORE020_0_2.isg",
+        "authority_effect": "none",
+        "note": "IsoGraph main advanced in DP/EI routing during this audit, but the qualified Core 0.20 and QU 0.1 hashes used here are unchanged."
+      },
+      "meaning": "Separate primitive-candidate representation embeds quantified definitions, carriers, transition/value recursion and rank measure. Its admitted source versions and qualification burden differ from the late topology label. This audit does not certify those primitive clauses or infer Core0.21 compatibility.",
+      "references": [
+        {
+          "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_SEMANTICS_0_1.md",
+          "line": 8
+        },
+        {
+          "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_SEMANTICS_0_1.md",
+          "line": 14
+        },
+        {
+          "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_SEMANTICS_0_1.md",
+          "line": 38
+        },
+        {
+          "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_SEMANTICS_0_1.md",
+          "line": 646
+        }
+      ]
+    }
+  },
+  "answers": {
+    "geometryBlindLawAssertedByCompanions": false,
+    "universalOOOLawEstablished": false,
+    "absoluteWdlPremiseSuppliedForParityEdge": false,
+    "fullNativePrimitiveProofClosure": false,
+    "empiricalOOOEdgeIsBounded": true,
+    "transitionClosureStillOpenInSnapshot": true,
+    "latestNativeEvidence": "EW-RS-061",
+    "currentGeometryDistinction": {
+      "geometryParameterizedDecoder": "A closed mechanically defined law may depend on W,H,K or derived rule structure. Parameters must not conceal case-specific fitted tables or outcome-selected exceptions. EW-RS-059 formula qualification remains gated on a frozen closed law.",
+      "geometryBlindPooledFunctional": "RS-082 through RS-095 investigate the stronger common-functional subproblem on a shared feature space. Failure here does not falsify the geometry-parameterized objective.",
+      "ooo": "Provisional oracle-motivated discovery hypothesis; the three hard cases are training data, not fresh qualification.",
+      "characters": "Kernel-image dimension is invariant; semantic names of characters refer to the declared L=00,D=01,W=10 encoding.",
+      "columns": "Canonical component slots are abstract unless accompanied by the physical action transporter. No arbitrary-column physical symmetry claim."
+    },
+    "requiresSuccessorCorrection": true,
+    "historicalEvidenceInvalidatedByThisAudit": false
+  },
+  "limitations": [
+    "No board solving, scalar replay, sealed outcome access or inference. Only source text, existing summary records and warrant labels read.",
+    "No whole historic-package review, no independent replay of empirical ranks, no formal Core parser/type checker or theorem prover.",
+    "Source hashes attest exact reviewed text, not that cited Git pins resolve to the same underlying evidence; deep pin-chain qualification is outside this bounded audit.",
+    "IA process and Discovery Protocol audits are owned separately. No finding here declares native IA roots211044/211052 invalid or adjudicates SC057.",
+    "The native graph has no explicit NEI SAME predicate; the finding concerns companion terminology.",
+    "F owner correction is cross-checked against the existing semantic erratum, not independently re-proved here.",
+    "No original source, qualified authority, historical evidence or unknown ledger is changed."
+  ],
+  "reproduction": {
+    "command": "node research/isograph/discovery/2026-09-30-isomax-revalidation/TRANSLATION_AUDIT_0_1.mjs",
+    "writes": [
+      "research/isograph/discovery/2026-09-30-isomax-revalidation/TRANSLATION_AUDIT_0_1.json"
+    ],
+    "generatorUtf8LfSha256": "ac604e7b2b8f6f6b2235f1d3c8b8418ae712aa358010fbd358030a6a87d85da6",
+    "sourceHashConvention": "Both raw bytes and UTF-8 with CRLF converted to LF; no other whitespace normalization."
+  }
+}

@@ -1,0 +1,822 @@
+{
+  "schema": "connect4.ia_process_audit.v1",
+  "status": "SOURCE_AND_TINY_ALGEBRA_AUDIT_COMPLETE",
+  "owner": "research/semantic-quotient",
+  "sourceHashConvention": "RAW_FILE_BYTES",
+  "authorityEffect": "NONE",
+  "originalArtifactsModified": false,
+  "boardComputationsRun": false,
+  "scalarGameComputationsRun": false,
+  "sealedOutcomesAccessed": false,
+  "coverage": {
+    "lateIAsReviewed": 11,
+    "lateIAsTotal": 11,
+    "sourceInventoryInspected": 31,
+    "coreIaInventoryInspected": 64,
+    "coreSemanticAudit": "selected load-bearing bodies and dependencies, not a claim to independently prove all 64 native bodies"
+  },
+  "conclusion": {
+    "lateIdentityMathematics": "No false late IA identity found with explicit guards.",
+    "coreErrors": "Dropped fixed-source guard in SC-IA044/052; SC-IA057 fixed-pair argument lacks the pair-domain/diagonal proof needed for arbitrary non-factorization. The latter conclusion is repairable on the explicit all-route-pairs domain, not disproved globally. Corresponding weaker/guarded native formulas remain valid.",
+    "fixedPoint": "Historical reviewed operational closure relative to frozen premises and named rule/normalization choices. No logically exhaustive closure or mechanically generated saturation certificate. Current source expressly disclaims universal logical completeness; F01/F02 expose material refinements missed by that review."
+  },
+  "lateCoverage": [
+    {
+      "id": "IA-LATE-001",
+      "statement": "role capacity parity is exactly frontier-height parity up to fixed H",
+      "declaredStatus": "DEDUCTIVE_EXACT",
+      "auditDisposition": "VALID_DEDUCTIVE_IDENTITY",
+      "requiredPremises": "Fixed integer H and h; kappa=(H-h) mod 2.",
+      "derivation": "Reduction in Z/2 gives subtraction=addition. Fixed H makes the recoding invertible.",
+      "mechanicalCoverage": "rolePhaseRecodingAndMoveGauge",
+      "limit": "Checker sets k=H XOR h before testing the same equality; this is a finite recoding sanity check, not an independent implementation check.",
+      "refs": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.json",
+          "line": 148,
+          "jsonPointer": "/implicitAssertions/0"
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 201
+        }
+      ]
+    },
+    {
+      "id": "IA-LATE-002",
+      "statement": "role phase plus relative depth anchors absolute row parity",
+      "declaredStatus": "DEDUCTIVE_EXACT",
+      "auditDisposition": "VALID_DEDUCTIVE_IDENTITY",
+      "requiredPremises": "A represented residual cell has r=h_c+d, and phase stays attached to that same local role.",
+      "derivation": "Reduce r=h+d modulo 2 and substitute IA-001. Local column permutation does not change vertical row.",
+      "mechanicalCoverage": "rolePhaseRecodingAndMoveGauge",
+      "limit": "Does not identify a canonical column with a fixed physical column or establish CPC ownership/deadline semantics.",
+      "refs": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.json",
+          "line": 154,
+          "jsonPointer": "/implicitAssertions/1"
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 222
+        }
+      ]
+    },
+    {
+      "id": "IA-LATE-003",
+      "statement": "for a surviving cell in a moved column, kappa and d parity both toggle, preserving anchored row parity",
+      "declaredStatus": "DEDUCTIVE_EXACT_DTS_INVARIANT",
+      "auditDisposition": "VALID_GUARDED_INVARIANT",
+      "requiredPremises": "One legal move in the tracked column; the same absolute-row cell survives, and its role correspondence is transported across recanonicalization.",
+      "derivation": "h increases by one; d decreases by one; both parities toggle, so their XOR is fixed.",
+      "mechanicalCoverage": "rolePhaseRecodingAndMoveGauge",
+      "limit": "Does not prove quotient transition closure, survival of every residual, or identity of a canonical role index before/after movement.",
+      "refs": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.json",
+          "line": 160,
+          "jsonPointer": "/implicitAssertions/2"
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 250
+        }
+      ]
+    },
+    {
+      "id": "IA-LATE-004",
+      "statement": "ZOE is the additive quotient preserving zero/nonzero and count parity",
+      "declaredStatus": "DEDUCTIVE_EXACT",
+      "auditDisposition": "VALID_DEDUCTIVE_MONOID",
+      "requiredPremises": "Counts are nonnegative integers for a fixed descriptor, combined by multiset addition.",
+      "derivation": "Zero iff both summands zero; parity adds modulo 2. The three-state quotient is closed and inherits commutative associativity/identity.",
+      "mechanicalCoverage": "zoeAdditiveHomomorphism + zoeCommutativeMonoid",
+      "limit": "Addition only: ZOE is not a cancellative group and does not define deletion/cofactor dynamics or a WDL composition law.",
+      "refs": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.json",
+          "line": 165,
+          "jsonPointer": "/implicitAssertions/3"
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 282
+        }
+      ]
+    },
+    {
+      "id": "IA-LATE-005",
+      "statement": "XOR is lawful on normalized oddness while presence composes by OR",
+      "declaredStatus": "DEDUCTIVE_EXACT",
+      "auditDisposition": "VALID_DEDUCTIVE_PROJECTION",
+      "requiredPremises": "Descriptor identities are already aligned; combine multiplicities by addition.",
+      "derivation": "Oddness is the additive map to Z/2; positive support is the additive map to Boolean OR.",
+      "mechanicalCoverage": "zoeAdditiveHomomorphism",
+      "limit": "Changing or merging descriptor identities first changes the coordinates; XOR is not established as final game-value composition.",
+      "refs": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.json",
+          "line": 170,
+          "jsonPointer": "/implicitAssertions/4"
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 341
+        }
+      ]
+    },
+    {
+      "id": "IA-LATE-006",
+      "statement": "ZOE is the coarsest count quotient required to preserve both zero predicate and parity",
+      "declaredStatus": "DEDUCTIVE_EXACT_RELATIVE_TO_DECLARED_OBSERVABLES",
+      "auditDisposition": "VALID_RELATIVE_MINIMALITY",
+      "requiredPremises": "The quotient must recover both predicates n=0 and n mod 2 on all nonnegative integers.",
+      "derivation": "Each output pair is one of (0,0),(1,0),(1,1); any preserving quotient cannot merge distinct pairs. The ZOE kernel is an additive congruence.",
+      "mechanicalCoverage": "NO_DIRECT_MINIMALITY_TEST",
+      "limit": "No proof that these are the only game-relevant observables, nor global MSS optimality among arbitrary structural encodings. On smaller restricted count domains the image may have fewer than three realized states.",
+      "refs": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.json",
+          "line": 175,
+          "jsonPointer": "/implicitAssertions/5"
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 359
+        }
+      ]
+    },
+    {
+      "id": "IA-LATE-007",
+      "statement": "rank parity is reconstructible from geometry, descriptor phase checksums, and ZOE oddness",
+      "declaredStatus": "DEDUCTIVE_EXACT",
+      "auditDisposition": "VALID_GUARDED_DEDUCTION",
+      "requiredPremises": "Fixed W,H; components partition every physical column, including isolated/full columns; equal descriptors preserve their capacity-phase checksum; standard player0-first alternating no-pass game.",
+      "derivation": "XOR h_c = WH mod2 XOR XOR kappa_c; group columns by components and descriptor multiplicity; even repeated checksums cancel. Mover is rank mod2 under the start/turn contract.",
+      "mechanicalCoverage": "groupedDescriptorRankContribution + rankParityReconstruction",
+      "limit": "Checker verifies bit algebra and widths 1..10, but does not execute component coverage, descriptor grouping/canonicalization, or mover schedule. These are necessary premises of the proof.",
+      "refs": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.json",
+          "line": 180,
+          "jsonPointer": "/implicitAssertions/6"
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 380
+        }
+      ]
+    },
+    {
+      "id": "IA-LATE-008",
+      "statement": "exact rank, rank mod 3, and arbitrary scheduler state are not recovered by IA-LATE-007",
+      "declaredStatus": "SCOPE_GUARD",
+      "auditDisposition": "VALID_SCOPE_NONCLAIM",
+      "requiredPremises": "Statement means the preceding parity derivation establishes no stronger rank information.",
+      "derivation": "A theorem recovering rank mod2 alone says nothing about exact rank or mod3 recovery from the full descriptor.",
+      "mechanicalCoverage": "NO_DIRECT_TEST_EXPECTED",
+      "limit": "Do not reinterpret this as a proof that the full signature can never recover exact rank, mod3 or schedule on a restricted domain.",
+      "refs": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.json",
+          "line": 186,
+          "jsonPointer": "/implicitAssertions/7"
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 438
+        }
+      ]
+    },
+    {
+      "id": "IA-LATE-009",
+      "statement": "binary ZOE coordinates satisfy absorption",
+      "declaredStatus": "DEDUCTIVE_EXACT",
+      "auditDisposition": "VALID_DEDUCTIVE_IDENTITY",
+      "requiredPremises": "Valid ZOE Boolean coordinates satisfy O=>P.",
+      "derivation": "At O=0 both sides zero; at O=1 valid states have P=1, so PO=O.",
+      "mechanicalCoverage": "binaryZoeAbsorption",
+      "limit": "This reduces coordinate monomials, not scalar behavior or a native game-theory interaction order.",
+      "refs": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.json",
+          "line": 191,
+          "jsonPointer": "/implicitAssertions/8"
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 446
+        }
+      ]
+    },
+    {
+      "id": "IA-LATE-010",
+      "statement": "GF(2) polynomial degree is not a semantic interaction degree because native OR expands into higher ANF degree",
+      "declaredStatus": "DEDUCTIVE_REPRESENTATION_WARNING",
+      "auditDisposition": "VALID_REPRESENTATION_WARNING",
+      "requiredPremises": "GF(2) ANF over chosen P/O encoding is distinguished from a chosen native operation vocabulary.",
+      "derivation": "OR(a,b)=a+b+ab; a native OR of three arguments has a cubic ANF. Algebraic degree therefore is not representation-independent game interaction degree.",
+      "mechanicalCoverage": "orToGf2AnfEncoding",
+      "limit": "Does not prove observed OOO correction is caused by OR, or remove the bounded necessity of degree>2 in the frozen feature vocabulary.",
+      "refs": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.json",
+          "line": 197,
+          "jsonPointer": "/implicitAssertions/9"
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 486
+        }
+      ]
+    },
+    {
+      "id": "IA-LATE-011",
+      "statement": "affine joint target dimension 2 means both output columns are independent modulo affine span, not that exactly two unique structural syndrome generators exist",
+      "declaredStatus": "SCOPE_CORRECTION",
+      "auditDisposition": "VALID_LINEAR_ALGEBRA_SCOPE_CORRECTION",
+      "requiredPremises": "The joint target rank gain is actually 2 relative to the declared affine span, not merely two individually nonzero gains.",
+      "derivation": "dim((A+span(y0,y1))/A)=2 says the two cosets are independent; it neither selects a unique basis nor identifies two unique structural syndrome terms.",
+      "mechanicalCoverage": "NO_DIRECT_RANK_OR_TARGET_TEST",
+      "limit": "Identity checker does not replay target ranks. Joint gain 2 must remain pinned to separate bounded decoder evidence; two individual gains of 1 alone would not suffice.",
+      "refs": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.json",
+          "line": 202,
+          "jsonPointer": "/implicitAssertions/10"
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 516
+        }
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "id": "IA-PROCESS-F01",
+      "kind": "ACTUAL_DROPPED_GUARD_IN_PROSE_AND_ADMISSION",
+      "severity": "HIGH",
+      "affectedAssertions": [
+        "SC-IA044",
+        "SC-IA052"
+      ],
+      "nativeRoots": [
+        211044,
+        211052
+      ],
+      "statement": "Universal target-necessity prose omits the equal-source guard present in the true native formulas.",
+      "evidence": "Native roots explicitly assume a0=a1. SC-IA021 only derives that at least one shared endpoint must split. Source-only split countermodel satisfies all four projected edge equations with target merged.",
+      "retain": "Target-only splitting is sufficient; target splitting is necessary when source phase/identity is fixed. Retain guarded native formulas and valid SC-IA021/026/037/051.",
+      "correct": "Restore fixed-source guard in human bodies, normalized bodies, admission exact_body_preserved claims and QU-SC-001. Do not infer target asymmetry for all refinements.",
+      "immediateDependents": [
+        {
+          "id": "SC-IA052",
+          "premises": [
+            "SC-IA021",
+            "SC-IA037",
+            "SC-IA044",
+            "SC-IA051"
+          ]
+        }
+      ],
+      "downstream": [
+        "ROUND_10_0_1.json SC-QR009 target-necessity fixed fact",
+        "QU_LEDGER_FINAL_0_6.json QU-SC-001 /fixed/11",
+        "COMPLETE_IA_ADMISSION_0_2.json exact_body_preserved on 044/052",
+        "Round16 no-support-refinement/completeness disposition"
+      ],
+      "refs": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/COMPLETE_IA_ADMISSION_0_2.json",
+          "line": 353
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/COMPLETE_IA_CORE020_0_2.isg",
+          "line": 334
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/COMPLETE_IA_ADMISSION_0_2.json",
+          "line": 751
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/COMPLETE_IA_CORE020_0_2.isg",
+          "line": 775
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/COMPLETE_IA_ADMISSION_0_2.json",
+          "line": 885
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/COMPLETE_IA_CORE020_0_2.isg",
+          "line": 1083
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/ROUND_10_0_1.json",
+          "line": 37
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/QU_LEDGER_FINAL_0_6.json",
+          "line": 23
+        }
+      ]
+    },
+    {
+      "id": "IA-PROCESS-F02",
+      "kind": "UNSUPPORTED_FIXED_PAIR_INFERENCE_REPAIRABLE_BY_EXPLICIT_PAIR_DOMAIN",
+      "severity": "HIGH",
+      "affectedAssertions": [
+        "SC-IA057"
+      ],
+      "nativeRoots": [
+        211057
+      ],
+      "statement": "One sample relative-parity=0, phase-difference=1 falsifies direct equality (also homomorphism-only laws), not arbitrary functional determination.",
+      "evidence": "SC-IA057 has only SC-IA056 as premise; native 211057 is literally the same body as 211056. No homomorphism-only candidate restriction appears in that premise or scope. The sample admits two total Boolean functions, both f(0)=1.",
+      "retain": "Exact observed inequality and falsification of the identity/direct-parity law or any group homomorphism Z2->Z2. No claim that relative parity is in fact globally sufficient.",
+      "correct": "Narrow prose to direct equality/homomorphism laws or explicitly enlarge domain to self-pairs and derive a same-input/different-output witness. Do not import unlisted identity-pair comparisons silently.",
+      "immediateDependents": [],
+      "downstream": [
+        "ROUND_12_0_2.json SC-QR011 relative-parity exclusion",
+        "QU_LEDGER_FINAL_0_6.json QU-SC-004 excluded relative-parity sufficiency",
+        "COMPLETE_IA_ADMISSION_0_2.json exact_body_preserved on 057",
+        "Round16 family-F saturation/support-refinement disposition"
+      ],
+      "refs": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/COMPLETE_IA_ADMISSION_0_2.json",
+          "line": 951
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/COMPLETE_IA_CORE020_0_2.isg",
+          "line": 1148
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/COMPLETE_IA_ADMISSION_0_2.json",
+          "line": 967
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/COMPLETE_IA_CORE020_0_2.isg",
+          "line": 1155
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/ROUND_12_0_2.json",
+          "line": 81
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/QU_LEDGER_FINAL_0_6.json",
+          "line": 102
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/ISOMAX_STRUCTURAL_CONTROL_CORE020_0_2.isg",
+          "line": 218
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/ISOMAX_STRUCTURAL_CONTROL_CORE020_0_2.isg",
+          "line": 240
+        }
+      ],
+      "scopeClarification": "This audit does not refute the non-factorization conclusion on all ordered route pairs. Adding (A,A) or (B,B) gives (0,0), which collides with (A,B)=(0,1). The current single-sample argument and native body omit that domain/derivation; their stronger prose is not verified by the supplied body."
+    },
+    {
+      "id": "IA-PROCESS-F03",
+      "kind": "INCOMPLETE_MECHANICAL_FIXED_POINT_EVIDENCE",
+      "severity": "MEDIUM",
+      "statement": "The complete verifier checks a recorded stopping decision; it does not compute inference-family saturation or equivalence of every prose/native assertion.",
+      "evidence": "Verifier asserts status strings and empty new_assertions/support_refinements/qu_refinements arrays; inference rule file supplies named families and prose authority, without a candidate grammar, executable enumerator or exact normalization equivalence. It also performs substantial independent-in-function finite replay, raw incidence checks, GF(2) certificates, delimiter/free-variable/root checks; those should not be dismissed.",
+      "retain": "31 source roots and 64 IA roots as a represented inventory; successful finite replay where separately recorded; operational frozen-packet stopping decision as historical reviewed evidence.",
+      "correct": "Call closure reviewed, rule/premise/normalization-relative and not logically exhaustive. F01/F02 require support/body corrections before renewing a zero-refinement stop claim. Root presence and true guarded formulas do not prove stronger prose bodies.",
+      "refs": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/verify-complete-primitive-campaign.mjs",
+          "line": 121
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/verify-complete-primitive-campaign.mjs",
+          "line": 273
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/INFERENCE_RULES_0_2.json",
+          "line": 58
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/COMPLETE_ROUND_16_FIXED_POINT_0_1.json",
+          "line": 94
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/FIXED_POINT_REPORT_0_4_COMPLETE_PRIMITIVE.md",
+          "line": 58
+        }
+      ]
+    },
+    {
+      "id": "IA-PROCESS-F04",
+      "kind": "INCOMPLETE_CHECKER_COVERAGE_NOT_FALSE_MATHEMATICS",
+      "severity": "LOW",
+      "statement": "Late identity PASS covers seven algebra families, not all eleven complete statements or representation premises.",
+      "evidence": "Minimality, stronger-rank nonclaim, and target-rank interpretation have no direct tests. Phase check partly checks constructed identities; rank checks do not verify all-column component coverage or physical-to-descriptor transport. The prose derivations do supply the elementary mathematics.",
+      "retain": "All eleven late statements remain valid with the recorded guards/nonclaim interpretations.",
+      "correct": "Keep proof reasoning distinct from finite implementation sanity checks; do not call this checker a native IsoGraph primitive-closure or all-IA theorem certificate.",
+      "refs": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/verify-isograph-full-decomposition-identities.mjs",
+          "line": 57
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/verify-isograph-full-decomposition-identities.mjs",
+          "line": 88
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.json",
+          "line": 207
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+          "line": 556
+        }
+      ]
+    }
+  ],
+  "weakenedFoundationalInterpretations": [
+    {
+      "assertions": [
+        "SC-IA003",
+        "SC-IA004",
+        "SC-IA018",
+        "SC-IA023",
+        "SC-IA025",
+        "SC-IA035",
+        "SC-IA036"
+      ],
+      "retained": "Extensional distinctions and local fits inside the stated residual/quotient representation.",
+      "notLicensed": "Intrinsic physical/action-future distinctions or a universally meaningful repair coordinate.",
+      "laterEvidence": [
+        "AUD-IA003",
+        "AUD-IA004",
+        "AUD-IA005",
+        "AUD-IA011"
+      ],
+      "impact": "Canonical-frame sheets can collapse under literal-future identity; canonical slots require transport before physical interpretation. Local residual repair equations are not thereby false.",
+      "refs": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-foundational-prior-audit/IA_AUDIT_ROUND_01_0_1.json",
+          "line": 37
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-foundational-prior-audit/IA_AUDIT_ROUND_01_0_1.json",
+          "line": 59
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-foundational-prior-audit/IA_AUDIT_ROUND_02_0_1.json",
+          "line": 33
+        }
+      ]
+    },
+    {
+      "assertions": [
+        "SC-IA005",
+        "SC-IA020",
+        "SC-IA029",
+        "SC-IA031",
+        "SC-IA064"
+      ],
+      "retained": "Non-exact cochain/local contradiction on the declared representation graph, with explicit quotient relation.",
+      "notLicensed": "Physical-game holonomy or a value obstruction independent of representation.",
+      "laterEvidence": [
+        "AUD-IA004",
+        "AUD-IA006",
+        "AUD-IA008",
+        "AUD-IA009"
+      ],
+      "impact": "Behavioral reconstruction can remove the witness two-sheet carrier while original graph arithmetic remains correct. Different carrier/census revisions must not be silently identified.",
+      "refs": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-foundational-prior-audit/IA_AUDIT_ROUND_01_0_1.json",
+          "line": 48
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-foundational-prior-audit/IA_AUDIT_ROUND_01_0_1.json",
+          "line": 69
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-foundational-prior-audit/IA_AUDIT_ROUND_01_0_1.json",
+          "line": 89
+        }
+      ]
+    },
+    {
+      "assertions": [
+        "SC-IA061",
+        "SC-IA064"
+      ],
+      "retained": "Zero versus nonzero syndrome status and specific pinned-basis census observations.",
+      "notLicensed": "Number of nonzero basis syndromes as invariant obstruction dimension/magnitude.",
+      "laterEvidence": [
+        "AUD-IA002",
+        "AUD-IA012"
+      ],
+      "impact": "Basis change may alter nonzero-count while preserving exactness/non-exactness. The guarded non-determination-by-cell-bound conclusion survives.",
+      "refs": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-foundational-prior-audit/IA_AUDIT_ROUND_01_0_1.json",
+          "line": 27
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-foundational-prior-audit/IA_AUDIT_ROUND_02_0_1.json",
+          "line": 43
+        }
+      ]
+    },
+    {
+      "assertions": [
+        "IA-LATE-003",
+        "IA-LATE-007",
+        "L2 RFG structural pipeline"
+      ],
+      "retained": "Same-cell parity identity, all-column rank checksum, and represented isolated residual feasibility.",
+      "notLicensed": "Canonical-index transport, full-game realizability, CPC deadline ownership or signature-level transition congruence.",
+      "laterEvidence": [
+        "AUD-IA007",
+        "AUD-IA011",
+        "QU-LATE-05",
+        "QU-LATE-07"
+      ],
+      "impact": "Late artifact already leaves transition closure and CPC relation open. Keep those guards rather than labeling valid identities refuted.",
+      "refs": [
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-foundational-prior-audit/IA_AUDIT_ROUND_01_0_1.json",
+          "line": 79
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.json",
+          "line": 429
+        },
+        {
+          "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.json",
+          "line": 439
+        }
+      ]
+    }
+  ],
+  "checks": {
+    "existingIdentityChecker": {
+      "execution": "Original source executed with output intercepted; no original file overwritten",
+      "result": {
+        "schema": "connect4.isomax.isograph_full_decomposition_identity_check.v1",
+        "date_author_local": "2026-09-30",
+        "status": "PASS",
+        "outcomeIndependent": true,
+        "solvedOutcomesRead": false,
+        "checks": {
+          "zoeAdditiveHomomorphism": {
+            "pass": true,
+            "cases": 16641
+          },
+          "zoeCommutativeMonoid": {
+            "pass": true,
+            "cases": 27
+          },
+          "rolePhaseRecodingAndMoveGauge": {
+            "pass": true,
+            "cases": 8
+          },
+          "groupedDescriptorRankContribution": {
+            "pass": true,
+            "cases": 258
+          },
+          "rankParityReconstruction": {
+            "pass": true,
+            "cases": 4092
+          },
+          "binaryZoeAbsorption": {
+            "pass": true,
+            "cases": 3
+          },
+          "orToGf2AnfEncoding": {
+            "pass": true,
+            "cases": 12
+          }
+        },
+        "verifiedIdentities": [
+          "kappa = Hmod2 XOR hmod2",
+          "rowmod2 = Hmod2 XOR kappa XOR dmod2",
+          "move toggles kappa and d parity together for a surviving same-row cell",
+          "ZOE(n+m) = ZOE(n) star ZOE(m) with star=(OR,XOR)",
+          "descriptor phase checksum repeated n times depends only on n mod 2",
+          "rankmod2 = (W*H mod2) XOR XOR_c kappa_c",
+          "P_d AND O_d = O_d on valid ZOE states",
+          "OR introduces higher GF(2) ANF degree under binary flattening"
+        ],
+        "scopeGuard": [
+          "These are algebraic/mechanical identities of the frozen representation.",
+          "They do not prove repaired-coordinate Q-V sufficiency on standard 7x6.",
+          "They do not prove T2 removal, exact-depth removal, Q-A, Q-F, or a closed scalar decoder.",
+          "EW-RS-059 holdout outcomes are not read."
+        ]
+      },
+      "exactlyMatchesSavedArtifact": true
+    },
+    "tinyCountermodels": {
+      "scope": "Abstract Boolean equations and observed relation samples only; no game boards, scalar games, or sealed outcomes computed",
+      "sourceSplit": {
+        "assignment": {
+          "sA": 0,
+          "sB": 1,
+          "b": 0,
+          "c": 1,
+          "tA": 0,
+          "tB": 0
+        },
+        "edgeDeltas": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "projection": {
+          "sA": "S",
+          "sB": "S",
+          "b": "B",
+          "c": "C",
+          "tA": "T",
+          "tB": "T"
+        },
+        "preserves": "Four projected edges S-B-T and S-C-T, their labels/deltas and one Boolean value per refined node; only source endpoint occurrences are split",
+        "limitation": "Countermodel to unguarded endpoint-occurrence refinement prose. It is not a countermodel to the native fixed-source guard, and does not assert a physically realizable full-game/source lift; those stronger premises are absent from the claimed universal prose."
+      },
+      "fixedSourceGuard": {
+        "assignmentsChecked": 64,
+        "fixedSourceModels": 2,
+        "guardViolations": 0,
+        "guard": "sA=sB",
+        "conclusion": "tA!=tB"
+      },
+      "relativeParity": {
+        "observations": [
+          [
+            0,
+            1
+          ]
+        ],
+        "compatibleTotalBooleanFunctions": [
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "conclusion": "Observed x!=y disproves y=x and every group homomorphism Z2->Z2 (which must map 0 to 0), but permits an arbitrary function with f(0)=1 and does not alone disprove y=f(x). A second same-input/different-output sample is required for arbitrary non-factorization.",
+        "premiseAudit": "SC-IA057 lists only SC-IA056, whose body is the observed parity pair. Neither that body nor the SC-IA057 scope specifies homomorphism-only candidate functions.",
+        "possibleRepair": "Explicitly admit diagonal route-pairs with relative parity 0 and phase difference 0, or restrict the assertion to inequality/direct-parity/homomorphism-law falsification. The original sole premise does not state that enlarged comparison domain."
+      },
+      "enlargedAllRoutePairs": {
+        "status": "VALID_REPAIR_IF_THIS_DOMAIN_IS_EXPLICITLY_ADMITTED",
+        "samples": [
+          {
+            "pair": [
+              0,
+              0
+            ],
+            "relativeParity": 0,
+            "phaseDifference": 0
+          },
+          {
+            "pair": [
+              0,
+              1
+            ],
+            "relativeParity": 0,
+            "phaseDifference": 1
+          },
+          {
+            "pair": [
+              1,
+              0
+            ],
+            "relativeParity": 0,
+            "phaseDifference": 1
+          },
+          {
+            "pair": [
+              1,
+              1
+            ],
+            "relativeParity": 0,
+            "phaseDifference": 0
+          }
+        ],
+        "conclusion": "Including diagonal pairs gives a genuine same-input/different-output witness, hence arbitrary relative-parity factorization fails on all route pairs. The singleton f(0)=1 countermodel does NOT fit this enlarged domain.",
+        "nativePremiseAudit": "The inspected kernel binds route A and B separately and defines the single transporter 197502 as composition of 197500 and 197501. It does not declare a general route-pair-to-relative-transporter/difference relation including diagonals; SC-IA057 sole premise is the fixed-pair SC-IA056 observation. General finite-map closure can supply the missing elementary derivation, but it is not the stated proof/body."
+      },
+      "nativeGuardsPresent": true,
+      "native211056And211057Identical": true
+    },
+    "completeCampaignVerifier": "SOURCE_INSPECTED_ONLY; not executed because it calls board/scalar producer functions"
+  },
+  "sources": [
+    {
+      "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.json",
+      "sha256": "f28f150bb26ecb25865706a673f631108dc47262a8507b88393de3cd679a67ad",
+      "bytes": 15325
+    },
+    {
+      "path": "research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/COMPLETE_IA_ADMISSION_0_2.json",
+      "sha256": "1bd0a72fe92d2fcc5c34dc6ea74b4833b70423e871ef786ace57d972c954f73b",
+      "bytes": 47789
+    },
+    {
+      "path": "research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/COMPLETE_IA_CORE020_0_2.isg",
+      "sha256": "4ddefb817160f6e412b9ed36fb24912fff50cd0d9a7f63d62b0ee9dfb345aaea",
+      "bytes": 39799
+    },
+    {
+      "path": "research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/COMPLETE_SOURCE_ADMISSION_0_1.json",
+      "sha256": "8861be509384f6f27d32201f0fd297feabef1a03d6c82852b60e2a0219ed9657",
+      "bytes": 21679
+    },
+    {
+      "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/verify-isograph-full-decomposition-identities.mjs",
+      "sha256": "88ff3b339fa2628713ace5336cc0b8636888b12a4c434b63d1f52ec3207d37b9",
+      "bytes": 4613
+    },
+    {
+      "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_IDENTITY_CHECK_0_1.json",
+      "sha256": "a859dac7b5d72febb3d46c39a6986a7f30cc53b30d2002c12ccc8828f39b1ba3",
+      "bytes": 1620
+    },
+    {
+      "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+      "sha256": "ad4ac283e77ca59188cf42a3937aa321f004ce885a063dc38332711ad23228cb",
+      "bytes": 27485
+    },
+    {
+      "path": "research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/ROUND_10_0_1.json",
+      "sha256": "72546e14333678c74510b45003e951b1fcb0de2dc6bfa1d77c6a2284dc404355",
+      "bytes": 3723
+    },
+    {
+      "path": "research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/QU_LEDGER_FINAL_0_6.json",
+      "sha256": "4771252c761e4f248520b4925d2f7ef7b2512eb4895ac62c839ad85c25aad6ee",
+      "bytes": 10334
+    },
+    {
+      "path": "research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/ROUND_12_0_2.json",
+      "sha256": "822ed026fcab6810c4cf060908b6a4549ece9018c6cc71c07e4b87f5623acb8b",
+      "bytes": 6453
+    },
+    {
+      "path": "research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/verify-complete-primitive-campaign.mjs",
+      "sha256": "89f522b0e798a0eae0692d787d2df3e486b2fceb4dccd86f69a6ac89972c6093",
+      "bytes": 34691
+    },
+    {
+      "path": "research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/INFERENCE_RULES_0_2.json",
+      "sha256": "abdab79d8e3d1a73a934287f252dcf446a8887924b9951d08019ddab2080a39f",
+      "bytes": 2126
+    },
+    {
+      "path": "research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/COMPLETE_ROUND_16_FIXED_POINT_0_1.json",
+      "sha256": "2094f72359c912af4e40de033fa36a7422f244ab6ea1d44e1da53aa2d6a56d8d",
+      "bytes": 4890
+    },
+    {
+      "path": "research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/FIXED_POINT_REPORT_0_4_COMPLETE_PRIMITIVE.md",
+      "sha256": "7e5d5f24a62e8e1dd4226f27f3a32e478b68239752bb99bc761e1934bfa116b3",
+      "bytes": 4236
+    },
+    {
+      "path": "research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/ISOMAX_STRUCTURAL_CONTROL_CORE020_0_2.isg",
+      "sha256": "57226cd08710fbb52099b3c3e486764eb27445f308cb0489d521724f6b15542c",
+      "bytes": 14374
+    },
+    {
+      "path": "research/isograph/discovery/2026-09-29-isomax-foundational-prior-audit/IA_AUDIT_ROUND_01_0_1.json",
+      "sha256": "d80c5f1a989e0aab6bafcc0956b3ab87f024d0fdd84bc6d67d48acf7d8998451",
+      "bytes": 9127
+    },
+    {
+      "path": "research/isograph/discovery/2026-09-29-isomax-foundational-prior-audit/IA_AUDIT_ROUND_02_0_1.json",
+      "sha256": "aae711352cdbbb54ef596c2b9713952a476d6fd4eb219681be4226209bd19cc8",
+      "bytes": 5555
+    },
+    {
+      "path": "research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/COMPLETE_SOURCE_CORE020_0_1.isg",
+      "sha256": "d3e91f76e5ffd63f758da330cc794656d05566741fc5d040d8a031cdeac5083f",
+      "bytes": 8179
+    },
+    {
+      "path": "research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/ROUND_15_COMPLETE_0_1.json",
+      "sha256": "1e1509d8dfd68eaae56ff78ed7d8d8c8e767e2f45707ddc12b1e20c15e83e894",
+      "bytes": 7954
+    },
+    {
+      "path": "research/isograph/discovery/2026-09-29-isomax-core020-ia-closure/verify-ia-closure.mjs",
+      "sha256": "784ac42bbccd9924c172bd1e78a4cc0504dda6850ed57db17263cf11a51f8a38",
+      "bytes": 10083
+    }
+  ]
+}

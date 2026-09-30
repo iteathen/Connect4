@@ -1,0 +1,793 @@
+{
+  "schema": "connect4.revalidation.discovery_protocol_application_audit.v1",
+  "status": "SOURCE_AUDIT_WITH_FORMAL_INFERENCE_COUNTERMODEL",
+  "date": "2026-09-30",
+  "baselineLateRevision": "a0d439449e398c5ce5a70ccbc9b3a38f3df16928",
+  "comparisonIsoGraphRevision": "323d0f4ea78775ca99170002efb5be0037d6b01b",
+  "authority": {
+    "connect4": "1.2 UNCHANGED",
+    "canonicalOwner": "research/semantic-quotient",
+    "location": "staging checkout; no authority promotion",
+    "upstreamDisposition": "No upstream DP categorical defect established by this audit. Qualified DP0.9 and DP0.10 explicitly guard the distinctions violated by the application findings below.",
+    "exactSpecsVerified": true,
+    "historicalApplicationPin": "The late decomposition identifies the integrated stack by versions. This audit did not recover an exact immutable IsoGraph revision/hash binding in that decomposition, so the current qualified comparison pin must not be silently substituted for a proven historical execution pin.",
+    "candidateFilename": "CANDIDATE in the historical filenames is not evidence of unqualified status; exact hashes match the qualified module ledger."
+  },
+  "scope": {
+    "mode": "read-only historical sources; new audit artifacts only",
+    "boardEnumeration": false,
+    "boardSolve": false,
+    "outcomePayloadInspection": false,
+    "sealedHoldouts": "EW-RS-059 remain sealed",
+    "phase2Execution": "paused; no execution by this audit",
+    "newMathematics": "finite abstract sign countermodel only; not a game position or scalar outcome counterexample"
+  },
+  "findings": [
+    {
+      "id": "DPAPP-01",
+      "status": "CONFIRMED_APPLICATION_INFERENCE_ERROR",
+      "severity": "material",
+      "title": "Global reflection does not imply independent diagonal-sign erasure",
+      "sourceRefs": [
+        "ORI_NOTE",
+        "ORI_LIB",
+        "ORI_RUNNER",
+        "DP09"
+      ],
+      "claim": "The note deduces diagonal sign removable exactly for reflection-invariant scalar questions from the global reflection exchanging D+ and D-.",
+      "actualCode": "foldOrientation maps every D+ and D- source token to D independently; allSourceInstances, cellExpanded and pairIncidence use that pointwise fold. EXACT_ORIENTATION_PROVENANCE retains raw signs. The coarse candidate is not merely canonicalization under one simultaneous global reflection.",
+      "failure": "Equivariance of the raw line catalog under one Z2 action proves preservation along its orbits. Independent sign forgetting merges distinct simultaneous-action orbits and can discard relative signs. A scalar invariant under reflection need not be constant on these larger fibers.",
+      "established": "The deduction is invalid in general, and the implemented coarse map actually performs the additional forgetting.",
+      "notEstablished": "No legal Connect4 board pair with different scalar values in a folded fiber was constructed. This is not proof the particular folded carrier fails bounded scalar sufficiency.",
+      "qualificationDisposition": "Retract exact-removability status based solely on reflection. Retain catalog symmetry and the empirical ladder as distinct scoped evidence.",
+      "discoveryDisposition": "OPEN_STRUCTURAL_LEAD: test/preserve relative sign information or prove its redundancy on the admissible structural domain before claiming removal.",
+      "correction": "Use simultaneous reflection orbit canonicalization for an exact symmetry quotient. Classify pointwise folding as an additional forgetful candidate needing independent sufficiency proof.",
+      "protocolSpecDisposition": "Application violation of DP0.9 unchanged-scope sufficiency and support-versus-identity discipline; no upstream defect inferred."
+    },
+    {
+      "id": "DPAPP-02",
+      "status": "CONFIRMED_OVERBROAD_APPLICATION_WORDING",
+      "severity": "material",
+      "title": "One H-only domain does not establish universal dispensability of orientation information",
+      "sourceRefs": [
+        "ORI_NOTE",
+        "DP09",
+        "DP10"
+      ],
+      "claim": "The DP/MSS disposition labels orientation family as universal required support REJECTED because an H-only carrier has a nonzero OOO correction.",
+      "legitimateNarrowConclusion": "An explanation requiring a joint interaction of H, V and D to generate every OOO correction is contradicted by the already declared H-only control, relative to the fixed repaired-coordinate polynomial representation.",
+      "failure": "A feature constant on one carrier may remain necessary to distinguish situations on other carriers for one common evaluator. Not required in every individual carrier is different from removable from a law over their union. OOO itself is representation-relative, so this evidence also does not establish an intrinsic game-theoretic cubic cause.",
+      "sourceNuance": "The note explicitly says orientation may still organize mixed-orientation carriers. That qualification should govern its stronger MSS bullet and QU-ORI-01 wording.",
+      "qualificationDisposition": "Narrow the rejection to the joint-H/V/D source explanation; do not record global support elimination.",
+      "discoveryDisposition": "OPEN_STRUCTURAL_LEAD: mixed-carrier conditional role and a common support law remain open.",
+      "protocolSpecDisposition": "Application scope/necessity overstatement; DP0.9 states nonessential for one objective is not globally irrelevant, and DP0.10 limits narrow negatives."
+    },
+    {
+      "id": "DPAPP-03",
+      "status": "CONFIRMED_NONDISCRIMINATING_FALSIFIER",
+      "severity": "material",
+      "title": "RS060 target-dimension greater than two cannot falsify a two-output target",
+      "sourceRefs": [
+        "RS060",
+        "DECOMPOSITION",
+        "DECOMPOSITION_IA",
+        "DP10"
+      ],
+      "claim": "A joint target dimension greater than two rejects the retained two-output-direction hypothesis relative to degree two.",
+      "derivation": "For any vector space L and two appended columns y0,y1, dim((L+span(y0,y1))/L) <= dim(span(y0,y1)) <= 2. This follows before seeing any game labels or data.",
+      "legitimateMeasurement": "Values 0, 1 and 2 are meaningful relative to L; testing membership of both targets in a frozen structural image remains meaningful. Outcome-independent basis choice and outcome-fitted coefficient discovery remain distinct.",
+      "failure": "The >2 condition can only signal an implementation/definition mismatch, not reject an empirical two-output hypothesis in the declared measurement. A two-bit output alphabet does not discover two native structural syndrome generators or their constructive rule.",
+      "sourceNuance": "The later decomposition, including IA-LATE-011, correctly distinguishes rank-two independence modulo the affine span from exactly two unique structural syndrome generators. Credit that correction. The defect identified here is the historical warrant falsifier, not a claim that the observed rank-two result is vacuous.",
+      "qualificationDisposition": "Reclassify >2 as an impossible-by-definition integrity check; replace the claimed hypothesis falsifier with a test of a predeclared structural syndrome map.",
+      "discoveryDisposition": "KEEP: structural rank, target rank and fitted support remain diagnostic evidence within the fixed representation.",
+      "protocolSpecDisposition": "Application experimental-design defect; DP0.10 provides warrant authority, not truth or validation of every downstream falsifier."
+    },
+    {
+      "id": "DPAPP-04",
+      "status": "TERMINOLOGY_AND_ORDERING_RISK_NOT_PROVEN_RESULT_FAILURE",
+      "severity": "limited",
+      "title": "A frozen search order is not automatically a semantic coarsening order",
+      "sourceRefs": [
+        "RS067",
+        "RS070",
+        "RS077",
+        "DP09"
+      ],
+      "observation": "RS067 uses coarsest-first and first passing language. Several candidate summaries in the lineage are incomparable (mask-size versus depth-histogram summaries; SIGN versus SIGNED_PARITY). RS070 separately treats candidate ordering as discovery valuation, and RS077 has a declared finite coordinate order.",
+      "disposition": "Call a first-passing element preferred under the frozen valuation unless a factorization/refinement relation or minimum under a declared measure is proved. No global minimum or incorrect selected scalar result is established by this observation.",
+      "protocolSpecDisposition": "DP0.9 permits declared valuation orders and partial orders; it explicitly distinguishes minimal, minimum, sufficiency and semantics."
+    }
+  ],
+  "countermodel": {
+    "kind": "FORMAL_INFERENCE_COUNTERMODEL_NOT_CONNECT4_WITNESS",
+    "pinnedImplementationTested": "ORI_LIB",
+    "labeledInputs": {
+      "a": [
+        "D+",
+        "D+"
+      ],
+      "b": [
+        "D+",
+        "D-"
+      ]
+    },
+    "simultaneousReflectionOrbits": {
+      "a": [
+        "D+,D+",
+        "D-,D-"
+      ],
+      "b": [
+        "D+,D-",
+        "D-,D+"
+      ]
+    },
+    "pointwiseFold": [
+      "D",
+      "D"
+    ],
+    "invariant": {
+      "name": "the two labeled signs are equal",
+      "a": true,
+      "b": false,
+      "unchangedBySimultaneousReflection": true
+    },
+    "actualLibraryCoarseCounts": {
+      "a": "H=0,V=0,D=2",
+      "b": "H=0,V=0,D=2"
+    },
+    "actualLibraryExactProvenanceSeparates": true,
+    "conclusion": "Reflection-invariant functions need not factor through pointwise sign erasure. This invalidates the universal inference but does not establish actual game-scalar failure."
+  },
+  "lineageAudit": {
+    "domainDefinitions": {
+      "X": "whole-state repaired signature classes on one declared reachable T2O domain",
+      "L": "complete constant/P/O/degree-two evaluation span",
+      "K": "kernel of the transpose of the lower-degree feature evaluation matrix",
+      "T": "complete distinct-descriptor OOO product evaluation family",
+      "dependencyCarrier": "image of K under the transpose of T; not a board observational quotient"
+    },
+    "stages": [
+      {
+        "rs": "065",
+        "operation": "Linear kernel/image construction on dependency space; basis selection is gauge, not natural identity."
+      },
+      {
+        "rs": "066",
+        "operation": "Separate whole-state depth-coarsening test; not the next quotient of the RS065 dependency image."
+      },
+      {
+        "rs": "067",
+        "operation": "Triple motif labels with one-hot parity assembly; candidate siblings are not all nested."
+      },
+      {
+        "rs": "068",
+        "operation": "Vertex/pair boundary linear maps; failures obstruct those maps, not all pair-level or nonlinear laws."
+      },
+      {
+        "rs": "069",
+        "operation": "Pair deltas regenerated from three exact descriptors, with lexicographic endpoint gauge. Gauge invariance requires a separate check."
+      },
+      {
+        "rs": "070",
+        "operation": "Parallel delta encodings, including incomparable SIGN and SIGNED_PARITY; not one total quotient chain."
+      },
+      {
+        "rs": "071",
+        "operation": "Augments provenance from source occurrences and pools observed per-descriptor occurrence variants; a new structural source/domain branch, not a quotient of RS070. Pointwise orientation folding has the additional DPAPP-01 issue."
+      },
+      {
+        "rs": "072-074",
+        "operation": "Coordinate-family deletions and summary maps within the chosen pair-delta encoding. Owner-symmetric bucket construction alone does not prove physical owner-swap equivariance upstream."
+      },
+      {
+        "rs": "075",
+        "operation": "Sibling transforms of exact bucket counts: presence, parity, ZOE, clip2, clip3 and exact."
+      },
+      {
+        "rs": "076",
+        "operation": "Grid regenerated from RS074 exact counts, not generally a quotient of RS075 clip3; ZOE distinguishes 3 from 4 where clip3 does not. The selected presence/clip3/clip2 map does factor through clip3."
+      },
+      {
+        "rs": "077",
+        "operation": "Genuine symbol coupling of selected saturated interval coordinates under the declared finite coordinate order. Historical coverage/repair is a separate implementation issue, not a DP axiom."
+      }
+    ],
+    "checkedVsUnverified": "Map/domain/gauge classifications are a source audit, supported by the existing detailed LINEAGE_RS065_RS077.md and this pin of warrants. No scalar re-execution or universal factorization proof was performed here. A later RS076 repair must be cited separately rather than attributed to the baseline pin."
+  },
+  "coverageAndLegitimateOperations": [
+    {
+      "topic": "Search space versus semantics / MSS",
+      "refs": [
+        "DECOMPOSITION",
+        "DP09"
+      ],
+      "assessment": "The decomposition declares bounded scalar WDL as its objective, labels support removals by scope, and explicitly denies a global minimum. This is legitimate objective-scoped valuation. A search preference has no independent game-semantic authority."
+    },
+    {
+      "topic": "QV versus QA/QF",
+      "refs": [
+        "DECOMPOSITION",
+        "RS060",
+        "RS061"
+      ],
+      "assessment": "Sources explicitly limit repaired-coordinate evidence to scalar QV and deny move/action or transition sufficiency. A scalar-constant fiber need not preserve optimal actions or transition closure."
+    },
+    {
+      "topic": "Fitted decoder versus constructive law",
+      "refs": [
+        "DECOMPOSITION",
+        "RS060"
+      ],
+      "assessment": "Frozen feature spans plus scalar fits establish existence of a decoder on declared finite rows. The decomposition calls the polynomial an existence witness/diagnostic basis, not the final law. An abstract Phi of the signature is not a closed algorithmic native evaluator."
+    },
+    {
+      "topic": "Adaptive frozen discovery versus independent qualification",
+      "refs": [
+        "RS059",
+        "RS060",
+        "RS061",
+        "DP10"
+      ],
+      "assessment": "RS060 freezes its structural basis before fitted coefficient inspection; RS061 then explicitly calls OOO oracle-motivated discovery, not independent qualification. Re-freezing an adaptively motivated hypothesis on the same carriers does not restore freshness. EW-RS059 reserves later sealed formula qualification. These guards are legitimate and must remain attached."
+    },
+    {
+      "topic": "Per-geometry existence versus shared law",
+      "refs": [
+        "RS079",
+        "RS080",
+        "RS081",
+        "RS082",
+        "LINEAGE_POOLED",
+        "ROLE_DEPTH"
+      ],
+      "assessment": "RS079-081 test or compare per-carrier structures. RS082 explicitly strengthens the objective to one shared GF(2) scalar functional on pooled dependencies and limits a negative to that map. Formally, forall g exists ell_g does not imply exists ell forall g; success on three geometries still does not establish a universal closed law."
+    },
+    {
+      "topic": "Observational quotient versus linear factorization",
+      "refs": [
+        "PARTITION_COMMON_LIB",
+        "LINEAR_COMMON_LIB",
+        "NATIVE_COMMON",
+        "NATIVE_DOMAIN"
+      ],
+      "assessment": "An equality-generated partition on a finite triangle catalog, a quotient of a linear dependency space, and a quotient of whole board observations are different objects. The union-find common coarsening is domain-relative; kernel-sum linear construction is a vector-space operation. Synthetic domain extension can change paths and ranks without falsifying a realizable-domain claim."
+    },
+    {
+      "topic": "Owner and endpoint gauges",
+      "refs": [
+        "OWNER_COHERENCE",
+        "ENDPOINT_GAUGE"
+      ],
+      "assessment": "The later notes explicitly distinguish formal owner flips of already oriented records, vertex-level owner swap followed by reorientation, and game-player relabeling. Endpoint recodings can require reconstruction from source vertices and need not factor through an earlier compressed carrier. These are appropriate distinctions."
+    },
+    {
+      "topic": "Parity characters versus outcome meaning",
+      "refs": [
+        "RS060",
+        "SIGN_CORRELATION",
+        "RELATION_LIB"
+      ],
+      "assessment": "P and O are presence and multiplicity-parity coordinates; OaObOc is a Boolean product, not an outcome character. GF(2) output characters depend on the chosen L/D/W code basis. A dependency XOR target is not a pointwise board-value formula. A preserved one-dimensional output character alone does not supply the full scalar law."
+    },
+    {
+      "topic": "Counterexample versus representation-relative obstruction / RS095",
+      "refs": [
+        "RELATION_CIRCUIT",
+        "RELATION_LIB",
+        "RS082"
+      ],
+      "assessment": "The four symmetric Boolean functions 1,e1,e2,e3 span the functions of three Boolean inputs invariant under permutation. RS095 tests an additive direct sum with marginal one-hot features; failure excludes that additive linear dependency descent, not arbitrary nonlinear dependence on the joint marginal/circuit label. Its note explicitly preserves this distinction and separate positive/negative encodings. A kernel certificate is a decisive obstruction to its declared representation and assembly, not a general game-law impossibility."
+    }
+  ],
+  "protocolSpecDisposition": {
+    "upstreamCategoryMistakeEstablished": false,
+    "applicationViolations": [
+      "DPAPP-01",
+      "DPAPP-02",
+      "DPAPP-03"
+    ],
+    "notAFrameworkRefutation": "The current qualified protocol explicitly requires unchanged input/scope/obligations before sufficient-support removal, separates support from semantic identity, limits minimum claims to declared coverage and order, and separates adaptive discovery from independent qualification. The reviewed failures apply those rules incorrectly or supply a vacuous downstream falsifier; they do not follow from the rules.",
+    "independentOtherAudits": "Core semantic-conservation and CLOSED_PRIMITIVE body reconstruction are handled by the parent/parallel audits; this file does not assert an independent reconstruction of that separate corpus."
+  },
+  "validation": {
+    "executed": [
+      "Exact qualified DP0.9/0.10 hashes match ledger",
+      "Every listed source and anchor resolved at immutable revision",
+      "Simultaneous sign orbits differ",
+      "Pointwise fold and actual ORI_COUNTS merge the abstract inputs",
+      "Equality-of-sign invariant is reflection invariant and separates inputs",
+      "Actual EXACT_ORIENTATION_PROVENANCE preserves the distinction"
+    ],
+    "noBoardComputation": true
+  },
+  "sources": [
+    {
+      "id": "DP09",
+      "repository": "C:/r/isograph-authority-ref",
+      "revision": "323d0f4ea78775ca99170002efb5be0037d6b01b",
+      "path": "extensions/discovery/DISCOVERY_PROTOCOLS_0_9_MINIMUM_SUFFICIENT_SUPPORT_VALUATION_CANDIDATE.md",
+      "identityEncoding": "UTF8_LF",
+      "sha256": "4d6ed98288863ccd50e9cbccf2e626ff241aded3bd9fb534e0fb74ad147858ea",
+      "anchors": [
+        {
+          "line": 257,
+          "text": "same admissible inputs"
+        },
+        {
+          "line": 290,
+          "text": "# 6. Minimal and minimum sufficient support"
+        },
+        {
+          "line": 79,
+          "text": "nonessential for sufficiency of one objective"
+        },
+        {
+          "line": 752,
+          "text": "# 18. Interaction with NEI"
+        },
+        {
+          "line": 766,
+          "text": "# 19. Search discipline"
+        }
+      ]
+    },
+    {
+      "id": "DP10",
+      "repository": "C:/r/isograph-authority-ref",
+      "revision": "323d0f4ea78775ca99170002efb5be0037d6b01b",
+      "path": "extensions/discovery/DISCOVERY_PROTOCOLS_0_10_EXPERIMENTAL_WARRANT_CANDIDATE.md",
+      "identityEncoding": "UTF8_LF",
+      "sha256": "108f3998bba90aff6a386335aeb45fde663d4be0b32643a06e01fb039bff61ec",
+      "anchors": [
+        {
+          "line": 57,
+          "text": "narrow negative result"
+        },
+        {
+          "line": 351,
+          "text": "# 11. Adaptive evidence firewall"
+        },
+        {
+          "line": 382,
+          "text": "No warrant is justified merely to continue searching because more combinations exist."
+        },
+        {
+          "line": 413,
+          "text": "The warrant itself proves none of these downstream conclusions."
+        }
+      ]
+    },
+    {
+      "id": "QUALIFIED_MODULES",
+      "repository": "C:/r/isograph-authority-ref",
+      "revision": "323d0f4ea78775ca99170002efb5be0037d6b01b",
+      "path": "qualification/QUALIFIED_MODULES_2026-09-29_CORE_0_21.md",
+      "identityEncoding": "UTF8_LF",
+      "sha256": "8901a0c5fabbde58b29edc1a958eb69f6f2596c89507b18704048c6e8934f793",
+      "anchors": [
+        {
+          "line": 35,
+          "text": "- DP 0.9: 4d6ed98288863ccd50e9cbccf2e626ff241aded3bd9fb534e0fb74ad147858ea"
+        },
+        {
+          "line": 36,
+          "text": "- DP 0.10: 108f3998bba90aff6a386335aeb45fde663d4be0b32643a06e01fb039bff61ec"
+        }
+      ]
+    },
+    {
+      "id": "DECOMPOSITION",
+      "repository": "C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\Connect4-worktrees\\isomax-late-algebra",
+      "revision": "a0d439449e398c5ce5a70ccbc9b3a38f3df16928",
+      "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.md",
+      "identityEncoding": "UTF8_LF",
+      "sha256": "468d57627f9bd6fb659a6fe7a183988707fb49ff41a4632fe007d08c572c20ce",
+      "anchors": [
+        {
+          "line": 6,
+          "text": "**IsoGraph family:** current qualified integrated stack through Core 0.21 + QU 0.1 + NEI 0.4 + Discovery Protocols 0.1–0.10 + DTS 0.1 + Experimental Inquiry 0.1  "
+        },
+        {
+          "line": 40,
+          "text": "The current repaired-coordinate evidence is Q-V evidence only."
+        },
+        {
+          "line": 719,
+          "text": "No global minimum has been established."
+        },
+        {
+          "line": 733,
+          "text": "That is a DP valuation result, not a global-minimum theorem."
+        },
+        {
+          "line": 778,
+          "text": "The polynomial decoder is an existence witness and diagnostic basis, not the presumed final law."
+        },
+        {
+          "line": 1056,
+          "text": "- **not independent qualification:** the hypothesis was motivated by EW-RS-060;"
+        }
+      ]
+    },
+    {
+      "id": "DECOMPOSITION_IA",
+      "repository": "C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\Connect4-worktrees\\isomax-late-algebra",
+      "revision": "a0d439449e398c5ce5a70ccbc9b3a38f3df16928",
+      "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ISOGRAPH_FULL_DECOMPOSITION_0_1.json",
+      "identityEncoding": "UTF8_LF",
+      "sha256": "c24ca08d6b96851ee8cf526dc37410995cb94392c5a19160a0e4012a08022516",
+      "anchors": [
+        {
+          "line": 202,
+          "text": "      \"id\": \"IA-LATE-011\","
+        },
+        {
+          "line": 203,
+          "text": "      \"statement\": \"affine joint target dimension 2 means both output columns are independent modulo affine span, not that exactly two unique structural syndrome generators exist\","
+        }
+      ]
+    },
+    {
+      "id": "RS059",
+      "repository": "C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\Connect4-worktrees\\isomax-late-algebra",
+      "revision": "a0d439449e398c5ce5a70ccbc9b3a38f3df16928",
+      "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/EXPERIMENTAL_WARRANT_RS_059.json",
+      "identityEncoding": "UTF8_LF",
+      "sha256": "27e4e714864fb93956c8fc245c35f33aea7a6dde0598c96038904026a558a2c8",
+      "anchors": []
+    },
+    {
+      "id": "RS060",
+      "repository": "C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\Connect4-worktrees\\isomax-late-algebra",
+      "revision": "a0d439449e398c5ce5a70ccbc9b3a38f3df16928",
+      "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/EXPERIMENTAL_WARRANT_RS_060.json",
+      "identityEncoding": "UTF8_LF",
+      "sha256": "9566e58504654159e374fa816e5a26de87aeddaa4858481d6f10a0c2dd405877",
+      "anchors": [
+        {
+          "line": 35,
+          "text": "    \"joint target dimension dim(span(DEGREE2,y0,y1)/span(DEGREE2))\","
+        },
+        {
+          "line": 58,
+          "text": "    \"A joint target dimension greater than two rejects the retained two-output-direction hypothesis relative to degree two.\","
+        },
+        {
+          "line": 52,
+          "text": "    \"The deterministic target-coordinate gauge is explicitly outcome-fitted discovery evidence and may not be published as an invariant final formula.\","
+        }
+      ]
+    },
+    {
+      "id": "RS061",
+      "repository": "C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\Connect4-worktrees\\isomax-late-algebra",
+      "revision": "a0d439449e398c5ce5a70ccbc9b3a38f3df16928",
+      "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/EXPERIMENTAL_WARRANT_RS_061.json",
+      "identityEncoding": "UTF8_LF",
+      "sha256": "9537a870d4dba2272494e39dd1d33c0dd242753785308a62e88f69732719c7ab",
+      "anchors": [
+        {
+          "line": 32,
+          "text": "    \"This experiment is explicitly an oracle-motivated discovery hypothesis derived from EW-RS-060 and is not counted as independent qualification.\","
+        }
+      ]
+    },
+    {
+      "id": "ORI_NOTE",
+      "repository": "C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\Connect4-worktrees\\isomax-late-algebra",
+      "revision": "a0d439449e398c5ce5a70ccbc9b3a38f3df16928",
+      "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/OOO_ORIENTATION_DP_DTS_0_1.md",
+      "identityEncoding": "UTF8_LF",
+      "sha256": "0b3a24ad69efbec0f3304c0fecc1067d4259e48cac35cdd3314164ebc9362da6",
+      "anchors": [
+        {
+          "line": 22,
+          "text": "Therefore diagonal sign is removable for reflection-invariant scalar questions:"
+        },
+        {
+          "line": 28,
+          "text": "This is an exact structural quotient, not a scalar fit."
+        },
+        {
+          "line": 128,
+          "text": "- **diagonal sign:** REMOVABLE EXACTLY by reflection;"
+        },
+        {
+          "line": 129,
+          "text": "- **orientation family as universal required support:** REJECTED, because 6x3-k4 is H-only yet has a nonzero OOO correction;"
+        },
+        {
+          "line": 58,
+          "text": "Orientation may still organize mixed-orientation carriers."
+        }
+      ]
+    },
+    {
+      "id": "ORI_LIB",
+      "repository": "C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\Connect4-worktrees\\isomax-late-algebra",
+      "revision": "a0d439449e398c5ce5a70ccbc9b3a38f3df16928",
+      "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ooo-orientation-provenance-lib.mjs",
+      "identityEncoding": "UTF8_LF",
+      "sha256": "a09fd2ea27dfa6eb2e695098bc30175874590e61fa1675c3c57edb3895c8bace",
+      "anchors": [
+        {
+          "line": 106,
+          "text": "  if(orientation==='D+'||orientation==='D-')return 'D';"
+        },
+        {
+          "line": 124,
+          "text": "    for(const src of rec.sources)out.push({rec,src,orientation:foldOrientation(src.orientation)});"
+        },
+        {
+          "line": 172,
+          "text": "    const os=new Set(rec.sources.map(x=>foldOrientation(x.orientation)));"
+        },
+        {
+          "line": 188,
+          "text": "function exactOrientationKey(occurrence){"
+        }
+      ]
+    },
+    {
+      "id": "ORI_RUNNER",
+      "repository": "C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\Connect4-worktrees\\isomax-late-algebra",
+      "revision": "a0d439449e398c5ce5a70ccbc9b3a38f3df16928",
+      "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/run-ooo-orientation-provenance.mjs",
+      "identityEncoding": "UTF8_LF",
+      "sha256": "fba8065947e282f72296e1fc5fc268753eabee2a1fc3fabe0f7798a1ba6cfd00",
+      "anchors": []
+    },
+    {
+      "id": "RS065",
+      "repository": "C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\Connect4-worktrees\\isomax-late-algebra",
+      "revision": "a0d439449e398c5ce5a70ccbc9b3a38f3df16928",
+      "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/EXPERIMENTAL_WARRANT_RS_065.json",
+      "identityEncoding": "UTF8_LF",
+      "sha256": "ffaf810a93f3436ec7276def893ab8ae9cf7370804f3f11ebe7aebefa99ca13a",
+      "anchors": []
+    },
+    {
+      "id": "RS066",
+      "repository": "C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\Connect4-worktrees\\isomax-late-algebra",
+      "revision": "a0d439449e398c5ce5a70ccbc9b3a38f3df16928",
+      "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/EXPERIMENTAL_WARRANT_RS_066.json",
+      "identityEncoding": "UTF8_LF",
+      "sha256": "ad67a08fde03fb52bd4e46211d274f170d680806f387e65dc7b66b65705897bb",
+      "anchors": []
+    },
+    {
+      "id": "RS067",
+      "repository": "C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\Connect4-worktrees\\isomax-late-algebra",
+      "revision": "a0d439449e398c5ce5a70ccbc9b3a38f3df16928",
+      "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/EXPERIMENTAL_WARRANT_RS_067.json",
+      "identityEncoding": "UTF8_LF",
+      "sha256": "22e610436e24cb35cf9c1a23d7ddea6a9a30ed73b2941dfaa3114c3ac40be8ac",
+      "anchors": []
+    },
+    {
+      "id": "RS068",
+      "repository": "C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\Connect4-worktrees\\isomax-late-algebra",
+      "revision": "a0d439449e398c5ce5a70ccbc9b3a38f3df16928",
+      "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/EXPERIMENTAL_WARRANT_RS_068.json",
+      "identityEncoding": "UTF8_LF",
+      "sha256": "b7d61c347e4209b1555c696ae9fbf25fbf83858805b8526e4a5a903395084c6d",
+      "anchors": []
+    },
+    {
+      "id": "RS069",
+      "repository": "C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\Connect4-worktrees\\isomax-late-algebra",
+      "revision": "a0d439449e398c5ce5a70ccbc9b3a38f3df16928",
+      "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/EXPERIMENTAL_WARRANT_RS_069.json",
+      "identityEncoding": "UTF8_LF",
+      "sha256": "a931459bcabb47d65557f934d2d9c1506bbde452d02b4ef9040d05e9247d8435",
+      "anchors": []
+    },
+    {
+      "id": "RS070",
+      "repository": "C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\Connect4-worktrees\\isomax-late-algebra",
+      "revision": "a0d439449e398c5ce5a70ccbc9b3a38f3df16928",
+      "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/EXPERIMENTAL_WARRANT_RS_070.json",
+      "identityEncoding": "UTF8_LF",
+      "sha256": "6b7badf356470156eaefc1addc49c21b0dead4ed3d18f164065c101a030beea3",
+      "anchors": []
+    },
+    {
+      "id": "RS071",
+      "repository": "C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\Connect4-worktrees\\isomax-late-algebra",
+      "revision": "a0d439449e398c5ce5a70ccbc9b3a38f3df16928",
+      "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/EXPERIMENTAL_WARRANT_RS_071.json",
+      "identityEncoding": "UTF8_LF",
+      "sha256": "688c1ee5d0a9f0b9ffb3c2ad6962ac92e7785bf23ba40c6148eddf403262d456",
+      "anchors": []
+    },
+    {
+      "id": "RS072",
+      "repository": "C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\Connect4-worktrees\\isomax-late-algebra",
+      "revision": "a0d439449e398c5ce5a70ccbc9b3a38f3df16928",
+      "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/EXPERIMENTAL_WARRANT_RS_072.json",
+      "identityEncoding": "UTF8_LF",
+      "sha256": "71ab8dc0709da83117bbe806dbc196a344484d03337372de72bd66faea584ea5",
+      "anchors": []
+    },
+    {
+      "id": "RS073",
+      "repository": "C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\Connect4-worktrees\\isomax-late-algebra",
+      "revision": "a0d439449e398c5ce5a70ccbc9b3a38f3df16928",
+      "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/EXPERIMENTAL_WARRANT_RS_073.json",
+      "identityEncoding": "UTF8_LF",
+      "sha256": "d32b9e0077b5160c8488b0f0ff3fc8b2b49791eabc9b39b510cc0574139ceae2",
+      "anchors": []
+    },
+    {
+      "id": "RS074",
+      "repository": "C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\Connect4-worktrees\\isomax-late-algebra",
+      "revision": "a0d439449e398c5ce5a70ccbc9b3a38f3df16928",
+      "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/EXPERIMENTAL_WARRANT_RS_074.json",
+      "identityEncoding": "UTF8_LF",
+      "sha256": "7c54ce9ee4f9c1cda1f4a57f3d89e4b29317c112c4292b2baca2f975b753177f",
+      "anchors": []
+    },
+    {
+      "id": "RS075",
+      "repository": "C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\Connect4-worktrees\\isomax-late-algebra",
+      "revision": "a0d439449e398c5ce5a70ccbc9b3a38f3df16928",
+      "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/EXPERIMENTAL_WARRANT_RS_075.json",
+      "identityEncoding": "UTF8_LF",
+      "sha256": "97bd002789252369565e764fbe73c7191e99b02123da8fb20096bbe7528eac68",
+      "anchors": []
+    },
+    {
+      "id": "RS076",
+      "repository": "C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\Connect4-worktrees\\isomax-late-algebra",
+      "revision": "a0d439449e398c5ce5a70ccbc9b3a38f3df16928",
+      "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/EXPERIMENTAL_WARRANT_RS_076.json",
+      "identityEncoding": "UTF8_LF",
+      "sha256": "a6d895dbad78f41127c111ad6fbc09d9b4b9f9a57371c73b1ad67f58097e26c0",
+      "anchors": []
+    },
+    {
+      "id": "RS077",
+      "repository": "C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\Connect4-worktrees\\isomax-late-algebra",
+      "revision": "a0d439449e398c5ce5a70ccbc9b3a38f3df16928",
+      "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/EXPERIMENTAL_WARRANT_RS_077.json",
+      "identityEncoding": "UTF8_LF",
+      "sha256": "f25c7b01be5a8282e117ad981d12dd5f1c64ba42e3d02ababdfecc910efeb6a0",
+      "anchors": []
+    },
+    {
+      "id": "RS079",
+      "repository": "C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\Connect4-worktrees\\isomax-late-algebra",
+      "revision": "a0d439449e398c5ce5a70ccbc9b3a38f3df16928",
+      "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/EXPERIMENTAL_WARRANT_RS_079.json",
+      "identityEncoding": "UTF8_LF",
+      "sha256": "f0cbfc38f5f5f4bd32010e8fab96d27b2787f15f1ad7dc2ea26c1cdd7e2c68ad",
+      "anchors": []
+    },
+    {
+      "id": "RS080",
+      "repository": "C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\Connect4-worktrees\\isomax-late-algebra",
+      "revision": "a0d439449e398c5ce5a70ccbc9b3a38f3df16928",
+      "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/EXPERIMENTAL_WARRANT_RS_080.json",
+      "identityEncoding": "UTF8_LF",
+      "sha256": "8ce4cd4df57a46cdaf096d145a689cefa03a065bc432bb1a3f661603f567fb31",
+      "anchors": []
+    },
+    {
+      "id": "RS081",
+      "repository": "C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\Connect4-worktrees\\isomax-late-algebra",
+      "revision": "a0d439449e398c5ce5a70ccbc9b3a38f3df16928",
+      "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/EXPERIMENTAL_WARRANT_RS_081.json",
+      "identityEncoding": "UTF8_LF",
+      "sha256": "b6e5cf0f52376590835c29dbf1ca46c5315a45146f912cb56dccf2f645d653d8",
+      "anchors": []
+    },
+    {
+      "id": "RS082",
+      "repository": "C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\Connect4-worktrees\\isomax-late-algebra",
+      "revision": "a0d439449e398c5ce5a70ccbc9b3a38f3df16928",
+      "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/EXPERIMENTAL_WARRANT_RS_082.json",
+      "identityEncoding": "UTF8_LF",
+      "sha256": "e99ab7aa74a4aabb734cc9acf905ff7c90b5cbe6121daa3cc7616087045174e2",
+      "anchors": []
+    },
+    {
+      "id": "LINEAGE_POOLED",
+      "repository": "C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\Connect4-worktrees\\isomax-late-algebra",
+      "revision": "a0d439449e398c5ce5a70ccbc9b3a38f3df16928",
+      "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/OOO_POOLED_LINEAGE_INTERPRETATION_0_1.md",
+      "identityEncoding": "UTF8_LF",
+      "sha256": "78801b42ace98bb092411fcdcfb47a9f49dd7c8d792a55bbc2f517bc4a16154e",
+      "anchors": []
+    },
+    {
+      "id": "ROLE_DEPTH",
+      "repository": "C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\Connect4-worktrees\\isomax-late-algebra",
+      "revision": "a0d439449e398c5ce5a70ccbc9b3a38f3df16928",
+      "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/OOO_POOLED_ROLE_DEPTH_INTERPRETATION_0_1.md",
+      "identityEncoding": "UTF8_LF",
+      "sha256": "db245064973d084a99f6bdcc5f641b6b1840007387bf47a94ca7a344a2a56ba4",
+      "anchors": []
+    },
+    {
+      "id": "OWNER_COHERENCE",
+      "repository": "C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\Connect4-worktrees\\isomax-late-algebra",
+      "revision": "a0d439449e398c5ce5a70ccbc9b3a38f3df16928",
+      "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/OOO_POOLED_OWNER_COHERENCE_INTERPRETATION_0_1.md",
+      "identityEncoding": "UTF8_LF",
+      "sha256": "433055c96387c4e83a1e1a8009e146c19ab18e4acc11e23892d0d25e1df910d8",
+      "anchors": []
+    },
+    {
+      "id": "NATIVE_COMMON",
+      "repository": "C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\Connect4-worktrees\\isomax-late-algebra",
+      "revision": "a0d439449e398c5ce5a70ccbc9b3a38f3df16928",
+      "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/OOO_POOLED_NATIVE_COMMON_INTERPRETATION_0_1.md",
+      "identityEncoding": "UTF8_LF",
+      "sha256": "ad6b7c44e215e0d5d2c40ef9562ba6963f8ef741467ba48df73e08055375b1de",
+      "anchors": []
+    },
+    {
+      "id": "NATIVE_DOMAIN",
+      "repository": "C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\Connect4-worktrees\\isomax-late-algebra",
+      "revision": "a0d439449e398c5ce5a70ccbc9b3a38f3df16928",
+      "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/OOO_POOLED_NATIVE_DOMAIN_INTERPRETATION_0_1.md",
+      "identityEncoding": "UTF8_LF",
+      "sha256": "828256170cbbdf7a7343a483b3a2b43b94463a1bbcbd8f8e4734f4d150357cd9",
+      "anchors": []
+    },
+    {
+      "id": "ENDPOINT_GAUGE",
+      "repository": "C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\Connect4-worktrees\\isomax-late-algebra",
+      "revision": "a0d439449e398c5ce5a70ccbc9b3a38f3df16928",
+      "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/OOO_POOLED_ENDPOINT_GAUGE_INTERPRETATION_0_1.md",
+      "identityEncoding": "UTF8_LF",
+      "sha256": "dcb879bb74002ab4c3155f9a18d103a1298d57bf90fa8194ccfe6164be19ec66",
+      "anchors": []
+    },
+    {
+      "id": "SIGN_CORRELATION",
+      "repository": "C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\Connect4-worktrees\\isomax-late-algebra",
+      "revision": "a0d439449e398c5ce5a70ccbc9b3a38f3df16928",
+      "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/OOO_POOLED_SIGN_CORRELATION_INTERPRETATION_0_1.md",
+      "identityEncoding": "UTF8_LF",
+      "sha256": "6434127e13448205b698965693fb1a07296dcb205e2e062e9e3e4faf0f418f38",
+      "anchors": []
+    },
+    {
+      "id": "RELATION_CIRCUIT",
+      "repository": "C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\Connect4-worktrees\\isomax-late-algebra",
+      "revision": "a0d439449e398c5ce5a70ccbc9b3a38f3df16928",
+      "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/OOO_POOLED_RELATION_CIRCUIT_INTERPRETATION_0_1.md",
+      "identityEncoding": "UTF8_LF",
+      "sha256": "c33fa02c7a320d97abc071c6961f8538fe78678bd2505e04aeb43c9218ff6f21",
+      "anchors": []
+    },
+    {
+      "id": "RELATION_LIB",
+      "repository": "C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\Connect4-worktrees\\isomax-late-algebra",
+      "revision": "a0d439449e398c5ce5a70ccbc9b3a38f3df16928",
+      "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ooo-pooled-relation-circuit-lib.mjs",
+      "identityEncoding": "UTF8_LF",
+      "sha256": "237c23c70951cf0a1fa57ddf1afd055dc55ef227bd42eead4f387d3c1dc06dd4",
+      "anchors": []
+    },
+    {
+      "id": "PARTITION_COMMON_LIB",
+      "repository": "C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\Connect4-worktrees\\isomax-late-algebra",
+      "revision": "a0d439449e398c5ce5a70ccbc9b3a38f3df16928",
+      "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ooo-joint-da-common-quotient-lib.mjs",
+      "identityEncoding": "UTF8_LF",
+      "sha256": "3500ed7050722b04c286578f35ef37e7609598fa0d36d3a7023891f015873214",
+      "anchors": []
+    },
+    {
+      "id": "LINEAR_COMMON_LIB",
+      "repository": "C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\Connect4-worktrees\\isomax-late-algebra",
+      "revision": "a0d439449e398c5ce5a70ccbc9b3a38f3df16928",
+      "path": "research/isograph/discovery/2026-09-29-isomax-late-xor-components/ooo-common-carrier-level-lib.mjs",
+      "identityEncoding": "UTF8_LF",
+      "sha256": "8ddabdf2ac0f11ef1187eff2d9c17eacee26f0866b14de2f0d178e3fa1f216f9",
+      "anchors": []
+    }
+  ]
+}
