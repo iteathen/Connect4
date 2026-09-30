@@ -1,0 +1,51 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.repaired_decoder_formula_holdouts.v1",
+  "id": "EW-RS-059",
+  "date_author_local": "2026-09-30",
+  "status": "ACTIVE__SEALED",
+  "parent": "EW-RS-058",
+  "objective": "Reserve outcome-blind carriers for qualification of any later selected closed-form scalar decoder over the frozen ROLE_CAPPAR_REL_INC_ZOE coordinate before cubic-basis reduction or syndrome formula selection.",
+  "holdouts": [
+    {
+      "name": "PRIMARY",
+      "case": "3x6-k4",
+      "priorLateStageUseFound": false,
+      "selectionBasis": [
+        "18-cell carrier at the same tractable resource scale as 6x3-k4",
+        "different gravity orientation from 6x3-k4, so frontier-role structure changes even though dimensions transpose",
+        "k=4 keeps the line family distinct from the previously used 3x7-k3 and 6x3-k3 cases"
+      ]
+    },
+    {
+      "name": "BACKUP",
+      "case": "5x3-k4",
+      "priorLateStageUseFound": false,
+      "selectionBasis": [
+        "15-cell carrier selected only from geometry and tractability",
+        "different width/height/k combination from every repaired-coordinate decoder-discovery case"
+      ]
+    }
+  ],
+  "freshnessMethod": {
+    "repositorySearchBeforeReservation": [
+      "5x3-k4",
+      "3x5-k4",
+      "4x6-k4",
+      "5x4-k3",
+      "3x6-k4"
+    ],
+    "matchingResultsForReservedCases": 0,
+    "outcomesInspected": false
+  },
+  "seal": [
+    "Do not solve, qualify, sample, or inspect W/D/L outcomes for 3x6-k4 or 5x3-k4 before a decoder formula is frozen.",
+    "Do not use either carrier to choose structural motifs, polynomial terms, gauges, coefficients, phase grades, thresholds, or syndrome definitions.",
+    "Repository provenance checks and geometry-only resource planning are allowed."
+  ],
+  "qualificationRule": "After a decoder formula is frozen from the discovery corpus, test PRIMARY unchanged first. BACKUP remains sealed unless PRIMARY is affine/non-discriminating, resource-infeasible, or an independent second holdout is explicitly warranted.",
+  "interpretationGuards": [
+    "A later pass establishes bounded fresh Q-V qualification only.",
+    "If the primary carrier is affine under the frozen coordinate, it remains valid transfer evidence but does not establish non-affine decoder necessity.",
+    "No Q-A/Q-F, standard-7x6, or universal theorem follows."
+  ]
+}
