@@ -1,0 +1,53 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.capacity_profile_relative_incidence_zoe.v1",
+  "id": "EW-RS-053",
+  "date_author_local": "2026-09-30",
+  "status": "ACTIVE",
+  "parent": "EW-RS-052",
+  "objective": "Test whether the surviving capacity-aware REL_INC-ZOE collisions are repaired by retaining the unordered multiset of per-column remaining capacities, without attaching capacities to specific REL_INC column roles.",
+  "derivation_cases": [
+    "5x3-k3",
+    "4x4-k4",
+    "6x3-k3",
+    "4x5-k4"
+  ],
+  "motivation": [
+    "EW-RS-052 shows exact total remaining capacity plus REL_INC is Q-V inexact on 4x4-k4 and 4x5-k4.",
+    "The first surviving collisions preserve REL_INC, width, and total capacity while changing local height/capacity profiles such as [1,3] versus [2,2] and [1,4] versus [2,3].",
+    "Foundational IA round 48 requires testing the unordered per-column capacity profile before preserving capacity-to-incidence role alignment."
+  ],
+  "frozenCountState": {
+    "name": "ZOE",
+    "definition": "For each retained structural identity: omit zero total count, emit O for positive odd total multiplicity, and E for positive even total multiplicity."
+  },
+  "candidate": {
+    "name": "CAP_PROFILE_REL_INC_ZOE",
+    "definition": "Map each exact component to (REL_INC, component width, sorted multiset of remaining local column capacities H-h_c); sum multiplicities over equal descriptors; apply ZOE.",
+    "alignment": "Per-column capacities are sorted independently and are not attached to REL_INC column roles."
+  },
+  "controls": [
+    "EXACT_ZOE exact-type ZOE",
+    "REL_INC_ZOE",
+    "CAP_REL_INC_ZOE exact-total-capacity control",
+    "MULTI full exact component multiplicity"
+  ],
+  "antiCircularity": [
+    "The capacity-profile coordinate is fixed before qualification.",
+    "Per-column remaining capacities are computed only from board height and current local frontier heights.",
+    "The unordered profile was selected by the pre-existing foundational IA rule before this qualification.",
+    "No W/D/L label selects a column role, profile entry, merge, phase grade, or coefficient."
+  ],
+  "falsifiers": [
+    "Any mixed scalar-value EXACT_ZOE class invalidates the established control.",
+    "Any mixed scalar-value CAP_PROFILE_REL_INC_ZOE class rejects the unaligned capacity-profile descriptor on that carrier.",
+    "MULTI must remain Q-V exact."
+  ],
+  "nextIfCommonSuccess": "Freeze CAP_PROFILE_REL_INC_ZOE as the current structural identity compression and qualify it unchanged on predeclared fresh non-affine 5x4-k4 before decoder discovery.",
+  "nextIfFail": "Freeze the minimum collision families and test role-aligned column capacity labels inside REL_INC; do not restore arbitrary exact component identity.",
+  "interpretationGuards": [
+    "Passing establishes bounded Q-V sufficiency only, not Q-A/Q-F.",
+    "A pass does not prove the unordered capacity profile minimal.",
+    "A failure localizes the next distinction to capacity-to-incidence alignment or another exact component feature still erased.",
+    "No standard-7x6 or universal theorem follows."
+  ]
+}
