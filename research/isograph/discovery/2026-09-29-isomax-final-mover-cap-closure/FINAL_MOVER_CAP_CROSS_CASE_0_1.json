@@ -1,0 +1,142 @@
+{
+  "schema": "connect4.isomax.final_mover_cap_cross_case.v1",
+  "date_author_local": "2026-09-29",
+  "cases": [
+    {
+      "width": 3,
+      "height": 3,
+      "k": 3,
+      "physicalStates": 694,
+      "nonterminalStates": 505,
+      "qClasses": 396,
+      "permutations": 6,
+      "finalBoardMover": 0,
+      "checks": {
+        "physicalTransitionChecks": 966,
+        "gFactorChecks": 966,
+        "rfgFactorChecks": 966,
+        "equivarianceChecks": 7128,
+        "transportedGFactorChecks": 7128,
+        "transportedRFGFactorChecks": 7128,
+        "gCovarianceChecks": 2376,
+        "rfgCovarianceChecks": 2376
+      },
+      "results": {
+        "physicalQTransitionMatches": true,
+        "G_idempotent": true,
+        "RG_commutes": true,
+        "FG_commutes": true,
+        "G_covariant": true,
+        "RFG_covariant": true,
+        "T_column_equivariant": true,
+        "G_transition_factorization": true,
+        "RFG_transition_factorization": true,
+        "transported_G_transition_factorization": true,
+        "transported_RFG_transition_factorization": true
+      }
+    },
+    {
+      "width": 3,
+      "height": 4,
+      "k": 3,
+      "physicalStates": 2715,
+      "nonterminalStates": 1801,
+      "qClasses": 1393,
+      "permutations": 6,
+      "finalBoardMover": 1,
+      "checks": {
+        "physicalTransitionChecks": 3714,
+        "gFactorChecks": 3714,
+        "rfgFactorChecks": 3714,
+        "equivarianceChecks": 25074,
+        "transportedGFactorChecks": 25074,
+        "transportedRFGFactorChecks": 25074,
+        "gCovarianceChecks": 8358,
+        "rfgCovarianceChecks": 8358
+      },
+      "results": {
+        "physicalQTransitionMatches": true,
+        "G_idempotent": true,
+        "RG_commutes": true,
+        "FG_commutes": true,
+        "G_covariant": true,
+        "RFG_covariant": true,
+        "T_column_equivariant": true,
+        "G_transition_factorization": true,
+        "RFG_transition_factorization": true,
+        "transported_G_transition_factorization": true,
+        "transported_RFG_transition_factorization": true
+      }
+    },
+    {
+      "width": 4,
+      "height": 3,
+      "k": 3,
+      "physicalStates": 7157,
+      "nonterminalStates": 4631,
+      "qClasses": 3734,
+      "permutations": 24,
+      "finalBoardMover": 1,
+      "checks": {
+        "physicalTransitionChecks": 11818,
+        "gFactorChecks": 11818,
+        "rfgFactorChecks": 11818,
+        "equivarianceChecks": 358464,
+        "transportedGFactorChecks": 358464,
+        "transportedRFGFactorChecks": 358464,
+        "gCovarianceChecks": 89616,
+        "rfgCovarianceChecks": 89616
+      },
+      "results": {
+        "physicalQTransitionMatches": true,
+        "G_idempotent": true,
+        "RG_commutes": true,
+        "FG_commutes": true,
+        "G_covariant": true,
+        "RFG_covariant": true,
+        "T_column_equivariant": true,
+        "G_transition_factorization": true,
+        "RFG_transition_factorization": true,
+        "transported_G_transition_factorization": true,
+        "transported_RFG_transition_factorization": true
+      }
+    },
+    {
+      "width": 4,
+      "height": 4,
+      "k": 4,
+      "physicalStates": 161029,
+      "nonterminalStates": 134289,
+      "qClasses": 34094,
+      "permutations": 24,
+      "finalBoardMover": 1,
+      "checks": {
+        "physicalTransitionChecks": 304574,
+        "gFactorChecks": 304574,
+        "rfgFactorChecks": 304574,
+        "equivarianceChecks": 3273024,
+        "transportedGFactorChecks": 3273024,
+        "transportedRFGFactorChecks": 3273024,
+        "gCovarianceChecks": 818256,
+        "rfgCovarianceChecks": 818256
+      },
+      "results": {
+        "physicalQTransitionMatches": true,
+        "G_idempotent": true,
+        "RG_commutes": true,
+        "FG_commutes": true,
+        "G_covariant": true,
+        "RFG_covariant": true,
+        "T_column_equivariant": true,
+        "G_transition_factorization": true,
+        "RFG_transition_factorization": true,
+        "transported_G_transition_factorization": true,
+        "transported_RFG_transition_factorization": true
+      }
+    }
+  ],
+  "result": "ALL_FINAL_MOVER_CAP_CROSS_CASE_CONTROLS_PASS",
+  "theoremScopeCandidate": "G permanently deletes non-final-player residuals containing every current open top cap; RFG remains a transporter-aware rank-local transition factor",
+  "qualificationBoundary": "Complete bounded controls include both odd-cell and even-cell boards. General proof/standard-7x6 qualification remains separate.",
+  "noSolvedValueUsed": true
+}
