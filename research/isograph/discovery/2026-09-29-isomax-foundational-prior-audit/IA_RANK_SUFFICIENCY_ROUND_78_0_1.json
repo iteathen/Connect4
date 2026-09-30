@@ -1,0 +1,66 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_round.v1",
+  "round": 78,
+  "date_author_local": "2026-09-30",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_77_FIXED_POINT_0_1.json",
+    "RANK_SUFFICIENCY_SIGNED_EXCHANGE_OWNER_QUOTIENT_INTEGRATION_0_1.json"
+  ],
+  "reopened_reason": "EW-RS-074 removes absolute owner identity from the preferred roleless/depthless SIGNED_PARITY exchange carrier while identifying the remaining owner-symmetry statistic needed by 4x5-k4.",
+  "new_assertions": [
+    {
+      "id": "RS-IA241",
+      "family": "M",
+      "body": "Absolute owner labels are not load-bearing in the declared common scalar carrier: D_SYMMETRIC_MARGINALS is exact on all three hard carriers."
+    },
+    {
+      "id": "RS-IA242",
+      "family": "F",
+      "body": "Complete owner merging is too coarse only on 4x5-k4, where it leaves eight scalar contradictions; therefore the load-bearing residue is owner-channel asymmetry rather than owner identity itself."
+    },
+    {
+      "id": "RS-IA243",
+      "family": "Q",
+      "body": "The selected owner quotient retains only D totals and absolute per-sign owner imbalance. Which absolute owner carries the imbalance and within-channel plus/minus pairing are unnecessary in the frozen common realization."
+    },
+    {
+      "id": "RS-IA244",
+      "family": "V",
+      "body": "On 4x5-k4 the selected owner quotient reduces the roleless/depthless signed-parity image from rank 262 to 254 while preserving the two-dimensional scalar image."
+    },
+    {
+      "id": "RS-IA245",
+      "family": "D",
+      "body": "The current common pair signature is six nonnegative structural buckets C+,C-,D+,D-,A+,A-, where A+/A- are absolute owner-channel imbalances. The next lawful compression should act only on these bucket values."
+    },
+    {
+      "id": "RS-IA246",
+      "family": "R",
+      "body": "Presence/parity/ZOE/saturation transforms of the six bucket counts can now be frozen without referring to descriptor identity, role index, depth index, or absolute owner label."
+    },
+    {
+      "id": "RS-IA247",
+      "family": "F",
+      "body": "EW-RS-059 remains sealed because EW-RS-074 still supplies a structural carrier rather than a closed scalar syndrome."
+    }
+  ],
+  "qu_refinements": [
+    {
+      "id": "RS-QR061",
+      "target": "QU-RS-004",
+      "add_fixed": [
+        "absolute owner labels D0/D1 are common-redundant in the preferred signed-parity exchange carrier",
+        "D_MERGED is inexact only on 4x5-k4 and leaves eight scalar contradictions there",
+        "D_SYMMETRIC_MARGINALS is common-exact and retains only D totals plus absolute per-sign owner imbalance",
+        "4x5-k4 D_SYMMETRIC_MARGINALS has rank 254 versus separated-owner rank 262 with the same two-dimensional scalar image"
+      ],
+      "retain_open": [
+        "count algebra on C+,C-,D+,D-,A+,A-",
+        "small circuit relation over the six-bucket pair signature",
+        "closed scalar syndrome before EW-RS-059 unsealing",
+        "standard-7x6 qualification"
+      ]
+    }
+  ],
+  "stop_status": "REOPENED__SIX_BUCKET_COUNT_ALGEBRA_NEXT"
+}
