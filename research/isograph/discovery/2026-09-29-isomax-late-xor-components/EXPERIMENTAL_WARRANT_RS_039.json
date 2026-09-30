@@ -1,0 +1,49 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.canonical_scalar_syndrome_extraction.v1",
+  "id": "EW-RS-039",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "parent": "EW-RS-038",
+  "objective": "Extract a deterministic fitted realization of the two scalar interaction bits in a structurally frozen REL_INC coordinate gauge, so their support can be inspected for sparse or repeated structural motifs.",
+  "cases": [
+    "5x3-k3",
+    "4x4-k4",
+    "6x3-k3",
+    "3x7-k3"
+  ],
+  "frozen_from_prior": [
+    "post-RFG component parity",
+    "direct rank-local T2",
+    "exact-rank affine component coordinates",
+    "REL_INC pair carrier",
+    "outcome gauge loss=00 draw=01 win=10",
+    "EW-RS-038 scalar target dimensions"
+  ],
+  "extraction_rule": [
+    "Build all frozen REL_INC pair columns and exact affine columns.",
+    "Order REL_INC pair columns lexicographically before exact affine columns.",
+    "Use deterministic highest-index GF(2) row pivots, which gives affine columns priority.",
+    "Set all free variables to zero.",
+    "Back-substitute to obtain one canonical coefficient vector for y0 and one for y1.",
+    "Verify every state equation exactly."
+  ],
+  "anti_circularity": [
+    "Column definitions and ordering do not depend on outcomes.",
+    "Outcome bits determine only the right-hand sides of the two solved systems.",
+    "The extracted supports are explicitly labeled fitted discovery objects, not promoted structural laws."
+  ],
+  "targets": [
+    "pair-support size for y0 and y1",
+    "support concentration by exact rank",
+    "support concentration by component-width pair",
+    "whether affine-control 3x7 naturally requires no interaction support",
+    "repeated REL_INC motifs suitable for a frozen next-round structural hypothesis"
+  ],
+  "falsifiers": [
+    "Any reconstruction failure invalidates the extraction harness.",
+    "If a carrier known to have target dimension two yields no pair support for a target bit, the basis/gauge implementation is inconsistent.",
+    "No support pattern is considered established until independently frozen and qualified."
+  ],
+  "next_if_sparse": "Promote the simplest repeated structural motif to an outcome-independent syndrome candidate and qualify it on a fresh non-affine carrier.",
+  "next_if_dense": "Factor the fitted support by predeclared REL_INC invariants and phase before proposing a structural syndrome."
+}
