@@ -1,0 +1,15 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.component_multiplicity_qa.v1",
+  "id": "EW-RS-019",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "objective": "Determine whether the frozen saturating-2 component multiplicity law is Q-A sufficient across all seven complete cases, separately from Q-F and Q-V.",
+  "motivation": "Fresh 5x3 evidence shows SAT2 is Q-V exact but Q-F-inexact; Q-A determines whether multiplicity>=3 changes only action multiplicity/future structure or also exact transported action values.",
+  "anti_circularity": [
+    "same frozen component definition",
+    "same SAT2 rule",
+    "action values derived after keys are frozen",
+    "no geometry-specific patches"
+  ],
+  "interpretation": "A Q-A pass with Q-F failure would establish a three-level sufficiency hierarchy: future structure needs more multiplicity detail than exact decisions/value."
+}
