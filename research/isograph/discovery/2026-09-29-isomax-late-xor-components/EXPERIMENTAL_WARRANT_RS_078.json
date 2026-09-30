@@ -1,0 +1,46 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.joint_da_common_quotient.v1",
+  "id": "EW-RS-078",
+  "status": "FROZEN_STRUCTURAL_AUDIT_ONLY",
+  "parent": "EW-RS-077",
+  "foundationalInput": "89d249d1b3c4e0503b20880799d8c4decbdea4a6:IA_RANK_SUFFICIENCY_ROUND_85_FIXED_POINT_0_1.json",
+  "objective": "Derive the finest pair-level deterministic common quotient of all four RS-077 Pareto carriers, testing whether owner-count realizability preserves information lost by a Cartesian alphabet treatment.",
+  "researchOwner": "research/semantic-quotient",
+  "scalarAccess": "NONE: this phase enumerates finite structural alphabets only; no board solver, scalar evidence file, or W/D/L input is read.",
+  "carriers": [
+    {"id":"PMEC-01","D":"TOTAL","A":"SIGNED_NET"},
+    {"id":"PMEC-02","D":"SIGNED_NET","A":"TOTAL"},
+    {"id":"PMEC-03","D":"ABS_NET","A":"SEPARATED"},
+    {"id":"PMEC-04","D":"SEPARATED","A":"ABS_NET"}
+  ],
+  "capacity": "Retain the common C active-sign-support cardinality unchanged. Its independent direct product does not affect the D/A partition audit.",
+  "domains": [
+    {"id":"CARTESIAN","definition":"All ordered (D+,D-,A+,A-) over D={0,1,2,3+}, A={0,1,2+}: 144 states."},
+    {"id":"OWNER_COUNT_REALIZABLE","definition":"For each sign independently, require integers x,y>=0 with D=clip3(x+y), A=clip2(abs(x-y)). Exact unsaturated feasibility is D>=A and D=A mod 2. The saturated single-sign alphabet is (0,0),(1,1),(2,0),(2,2+),(3+,0),(3+,1),(3+,2+), giving 49 ordered two-sign states."}
+  ],
+  "domainProof": "Necessity follows from x=(D+A)/2 and y=(D-A)/2 up to owner swap. Sufficiency follows from the same formulas. Saturation yields exactly the seven listed pairs: for D<3 inspect D=0,1,2; for D>=3 the witnesses (D,A)=(4,0),(3,1),(3,3) cover A=0,1,2+. No discarded exact count is restored to the state.",
+  "procedure": [
+    "Enumerate both domains in numeric lexicographic order, using category codes only as names.",
+    "Evaluate the four frozen interval-aware maps using the canonical RS-077 library.",
+    "For each map connect all source states with equal map output; take the transitive closure of the union of these four equality relations.",
+    "Canonicalize each connected component by its least source-state index. This is the finest common quotient: any function factoring every carrier is constant along every edge and therefore on every component.",
+    "Publish all states, map keys, equality-component labels and per-carrier factor maps.",
+    "Measure whether the quotient is invariant under simultaneous plus/minus reversal, and under independent D-only and A-only reversal wherever both states belong to the domain.",
+    "Independently verify closure by graph traversal, not the generator's union-find, and verify factorization and maximality."
+  ],
+  "falsifiers": [
+    "Any carrier fiber split by a component label invalidates common factorization.",
+    "Any two equally labelled states disconnected in the union graph invalidate maximality.",
+    "Any feasible integer owner-count pair outside the seven-symbol alphabet invalidates the domain proof.",
+    "A quotient invariant under simultaneous reversal cannot itself encode a globally directed pair state; preserve this as negative structural evidence."
+  ],
+  "interpretationGuards": [
+    "OWNER_COUNT_REALIZABLE describes integer bucket feasibility, not complete board or triangle realizability.",
+    "Common pair-level factorization does not imply common triangle-level or GF(2) dependency-image minimality.",
+    "No scalar exactness or failure is inferred merely from partition size or directional symmetry.",
+    "No outcome-driven domain restriction, component split, feature exception, or preferred Pareto carrier is allowed.",
+    "A scalar qualification phase requires a separate frozen warrant after this structural audit; all four original carriers remain controls."
+  ],
+  "holdouts": {"primary":"3x6-k4","backup":"5x3-k4","sealed":true},
+  "nonclaims": ["closed scalar syndrome","Q_F or Q_A result","standard 7x6 qualification","universal Connect Four law"]
+}
