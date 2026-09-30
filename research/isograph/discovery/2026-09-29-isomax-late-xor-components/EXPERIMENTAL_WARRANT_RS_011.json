@@ -1,0 +1,38 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.late_xor_components.v1",
+  "id": "EW-RS-011",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "objective": "Test XOR-like composition only after exact R/F/G reduction by decomposing the reduced residual-incidence hypergraph into canonical interaction components.",
+  "training_source": "LATE_STAGE_XOR_COMPOSITION_0_1",
+  "candidate_definition_frozen_before_values": true,
+  "structural_inputs": [
+    "q_o",
+    "R",
+    "F",
+    "G",
+    "component incidence",
+    "support heights",
+    "owner labels",
+    "stone-count parity"
+  ],
+  "not_used_to_define_candidate": [
+    "solved W/D/L database",
+    "future class ids",
+    "action values",
+    "scalar values"
+  ],
+  "falsifiers": [
+    "C_MULTI failure rejects the current connected-component decomposition for that semantic target.",
+    "C_MULTI success plus C_PARITY_P failure rejects every XOR valuation of the frozen component types into any exponent-2 Abelian group for that target.",
+    "C_PARITY_P success supports existence only; it does not prove a compact/minimal valuation."
+  ],
+  "targets": [
+    "Q-F transporter-aware transition interface",
+    "Q-A transporter-aware action values",
+    "Q-V scalar value"
+  ],
+  "nearby_algebra_control": "component multiplicities mod 4 plus global parity",
+  "scope": "complete 4x4 connect-4 first-win carrier",
+  "holdout_rule": "Any positive composition law requires fresh cross-geometry/connect-length controls before promotion."
+}
