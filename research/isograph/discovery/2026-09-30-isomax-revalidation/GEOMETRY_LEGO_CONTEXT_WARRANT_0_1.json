@@ -1,0 +1,80 @@
+{
+  "schema": "connect4.isomax.revalidation.geometry_lego_context_warrant.v1",
+  "id": "REVAL-LEGO-GEOM-001",
+  "date": "2026-09-30",
+  "status": "FROZEN_BEFORE_TRAINED_SCALAR_REPLAY",
+  "canonicalResearchOwner": "research/semantic-quotient",
+  "sourceHead": "98c0b471f3bcb8c5d4638e3b76265bfb74330d0e",
+  "objective": "Test whether the first geometry-blind pooled contradiction at ROLELESS_DEPTHLESS_OWNER_SEPARATED is explained by simple board-rule geometry context, rather than requiring local exact depth. This is a bounded trained-data revalidation of the stronger pooled objective, not formula qualification.",
+  "sourceCarrier": "EW-RS-083 ROLELESS_DEPTHLESS_OWNER_SEPARATED pooled dependency rows over 6x3-k3, 4x5-k4 and 6x3-k4.",
+  "geometryContexts": [
+    {
+      "id": "NONE",
+      "definition": "one common label for every carrier"
+    },
+    {
+      "id": "CELL_COUNT_PARITY",
+      "definition": "(W*H) mod 2"
+    },
+    {
+      "id": "K_PARITY",
+      "definition": "K mod 2"
+    },
+    {
+      "id": "HEIGHT_GE_K",
+      "definition": "Boolean H>=K; equivalently whether vertical k-lines are geometrically possible"
+    },
+    {
+      "id": "LINE_FAMILY_MASK",
+      "definition": "availability mask of H,V,D line families from W,H,K only: H iff W>=K, V iff H>=K, D iff W>=K and H>=K"
+    },
+    {
+      "id": "HEIGHT_SLACK_SIGN",
+      "definition": "sign(H-K) in {NEG,ZERO,POS}"
+    },
+    {
+      "id": "LINE_COUNT_PARITIES",
+      "definition": "parities of exact counts of horizontal, vertical and both-diagonal winning lines derived from W,H,K"
+    },
+    {
+      "id": "LINE_COUNTS_EXACT",
+      "definition": "exact tuple (number of H lines, number of V lines, number of diagonal lines) derived from W,H,K"
+    },
+    {
+      "id": "RULE_TUPLE",
+      "definition": "exact (W,H,K) carrier rule tuple; reconstruction/control context"
+    }
+  ],
+  "assemblies": [
+    {
+      "id": "APPEND_CONTEXT",
+      "definition": "retain the original pooled structural row and append one one-hot context-label coordinate for the carrier"
+    },
+    {
+      "id": "CONDITION_FEATURES",
+      "definition": "replace each structural feature key f by joint key (context,f), allowing one scalar functional parameterized by the predeclared geometry context"
+    }
+  ],
+  "structuralFreeze": [
+    "Derive every context label from W,H,K only.",
+    "Construct all candidate structural rows, feature catalogs, ranks and kernels before reading pooled scalar codes.",
+    "Do not split a context after scalar replay.",
+    "Do not add a geometry candidate because it separates a particular contradiction."
+  ],
+  "controls": [
+    "NONE must reproduce the published ROLELESS_DEPTHLESS_OWNER_SEPARATED pooled rank and contradiction disposition.",
+    "RULE_TUPLE|CONDITION_FEATURES is the geometry-conditioned upper control; it is not a minimality claim.",
+    "Report whether the fixed pooled two-row certificate indices 315 and 455 remain identical for every candidate.",
+    "Report all three nonzero scalar characters in the fixed L=00,D=01,W=10 gauge."
+  ],
+  "interpretationGuards": [
+    "Passing a geometry context establishes only bounded trained-corpus factorization for the stronger pooled objective.",
+    "A context feature is a rule parameter, not evidence that raw geometry tags are part of a final minimal law.",
+    "Failure of APPEND_CONTEXT does not falsify CONDITION_FEATURES; they ask additive correction versus coefficient conditioning.",
+    "Semantic names such as win/draw character remain gauge labels.",
+    "No RS096 continuation, coefficient fitting, state exception or sealed-holdout access is authorized."
+  ],
+  "sealedFormulaHoldouts": ["3x6-k4","5x3-k4"],
+  "rs096": "HOLD",
+  "authorityEffect": "NONE"
+}
