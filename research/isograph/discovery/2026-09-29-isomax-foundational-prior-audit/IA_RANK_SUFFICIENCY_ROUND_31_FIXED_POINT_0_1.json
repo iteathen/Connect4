@@ -1,0 +1,26 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_fixed_point.v1",
+  "round": 31,
+  "date_author_local": "2026-09-29",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_30_0_1.json",
+    "RANK_SUFFICIENCY_QUADRATIC_XOR_4X4K4_INTEGRATION_0_1.json"
+  ],
+  "recursive_generation": {
+    "families_checked": [
+      "cross-carrier degree bound",
+      "Q/D separation",
+      "coefficient identifiability",
+      "holdout discipline",
+      "minimality restraint"
+    ],
+    "new_assertions": []
+  },
+  "fixed_point": true,
+  "reason": "The two-carrier transfer supports a degree-2 candidate but not a general law. New structural assertions require a predeclared fresh geometry.",
+  "next_evidence_boundaries": [
+    "fresh wider exact-rank quadratic holdout",
+    "sparse pair-interaction minimization only after transfer"
+  ],
+  "stop_status": "FIXED_POINT__FRESH_QUADRATIC_HOLDOUT_NEXT"
+}
