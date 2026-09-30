@@ -1,0 +1,1245 @@
+{
+  "schema": "connect4.isomax.residual_feasibility_oracle_4x4.v1",
+  "date_author_local": "2026-09-29",
+  "scope": "complete physical 4x4 connect-4 first-win carrier",
+  "oracle": {
+    "name": "E exact isolated residual schedule feasibility",
+    "definition": "future support-profile reachability with alternating owner parity; opponent may fill nonrequired cells but may not take required cells",
+    "admissibleFinalQ": false,
+    "reason": "E explores hypothetical future support schedules to define the current representation",
+    "role": "compression oracle for discovering additional rank-local necessary conditions"
+  },
+  "comparison": {
+    "residualOccurrences": 336636,
+    "oracleDeleted": 99218,
+    "rfgDeleted": 100804,
+    "oracleExtra": 1306,
+    "eEqualsRFG": 130243,
+    "eNotRFG": 4046,
+    "efEqualsRFG": 133091,
+    "efNotRFG": 1198,
+    "containmentFailures": 2892,
+    "exactMemoEntries": 10081
+  },
+  "algebra": {
+    "E_idempotent": true,
+    "EF_commutes": true
+  },
+  "direct": [
+    {
+      "seq": "QO",
+      "classes": 34094,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "RFG",
+      "classes": 30046,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "E",
+      "classes": 30267,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "EF",
+      "classes": 29986,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "FE",
+      "classes": 29986,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    }
+  ],
+  "orbit": [
+    {
+      "seq": "QO",
+      "classes": 10496,
+      "QF_transported": true,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "RFG",
+      "classes": 9308,
+      "QF_transported": true,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "E",
+      "classes": 9368,
+      "QF_transported": true,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "EF",
+      "classes": 9286,
+      "QF_transported": true,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    {
+      "seq": "FE",
+      "classes": 9286,
+      "QF_transported": true,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    }
+  ],
+  "minima": {
+    "directQF": {
+      "seq": "EF",
+      "classes": 29986,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    },
+    "orbitQF": {
+      "seq": "EF",
+      "classes": 9286,
+      "QF_transported": true,
+      "QA_transported": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    }
+  },
+  "gapExamples": [
+    {
+      "state": "34183:22616",
+      "support": [
+        4,
+        1,
+        4,
+        4
+      ],
+      "owner": 1,
+      "residual": 512,
+      "cells": [
+        9
+      ],
+      "remaining": 13,
+      "rfgKey": "4,1,4,4||512",
+      "eKey": "4,1,4,4||"
+    },
+    {
+      "state": "50439:6360",
+      "support": [
+        4,
+        1,
+        4,
+        4
+      ],
+      "owner": 1,
+      "residual": 512,
+      "cells": [
+        9
+      ],
+      "remaining": 13,
+      "rfgKey": "4,1,4,4||32.512",
+      "eKey": "4,1,4,4||32"
+    },
+    {
+      "state": "36103:20696",
+      "support": [
+        4,
+        1,
+        4,
+        4
+      ],
+      "owner": 1,
+      "residual": 512,
+      "cells": [
+        9
+      ],
+      "remaining": 13,
+      "rfgKey": "4,1,4,4||32.512",
+      "eKey": "4,1,4,4|512|32"
+    },
+    {
+      "state": "19719:37080",
+      "support": [
+        4,
+        1,
+        4,
+        4
+      ],
+      "owner": 1,
+      "residual": 512,
+      "cells": [
+        9
+      ],
+      "remaining": 13,
+      "rfgKey": "4,1,4,4||32.512",
+      "eKey": "4,1,4,4|512|32"
+    },
+    {
+      "state": "49543:7256",
+      "support": [
+        4,
+        1,
+        4,
+        4
+      ],
+      "owner": 1,
+      "residual": 512,
+      "cells": [
+        9
+      ],
+      "remaining": 13,
+      "rfgKey": "4,1,4,4||512",
+      "eKey": "4,1,4,4||"
+    },
+    {
+      "state": "35207:21592",
+      "support": [
+        4,
+        1,
+        4,
+        4
+      ],
+      "owner": 1,
+      "residual": 512,
+      "cells": [
+        9
+      ],
+      "remaining": 13,
+      "rfgKey": "4,1,4,4||512",
+      "eKey": "4,1,4,4||"
+    },
+    {
+      "state": "18823:37976",
+      "support": [
+        4,
+        1,
+        4,
+        4
+      ],
+      "owner": 1,
+      "residual": 512,
+      "cells": [
+        9
+      ],
+      "remaining": 13,
+      "rfgKey": "4,1,4,4||512",
+      "eKey": "4,1,4,4||"
+    },
+    {
+      "state": "17799:39000",
+      "support": [
+        4,
+        1,
+        4,
+        4
+      ],
+      "owner": 1,
+      "residual": 512,
+      "cells": [
+        9
+      ],
+      "remaining": 13,
+      "rfgKey": "4,1,4,4||512",
+      "eKey": "4,1,4,4||"
+    },
+    {
+      "state": "51463:5336",
+      "support": [
+        4,
+        1,
+        4,
+        4
+      ],
+      "owner": 1,
+      "residual": 512,
+      "cells": [
+        9
+      ],
+      "remaining": 13,
+      "rfgKey": "4,1,4,4||32.512",
+      "eKey": "4,1,4,4||32"
+    },
+    {
+      "state": "36227:20572",
+      "support": [
+        4,
+        1,
+        4,
+        4
+      ],
+      "owner": 1,
+      "residual": 512,
+      "cells": [
+        9
+      ],
+      "remaining": 13,
+      "rfgKey": "4,1,4,4|512|512",
+      "eKey": "4,1,4,4|512|"
+    },
+    {
+      "state": "19843:36956",
+      "support": [
+        4,
+        1,
+        4,
+        4
+      ],
+      "owner": 1,
+      "residual": 512,
+      "cells": [
+        9
+      ],
+      "remaining": 13,
+      "rfgKey": "4,1,4,4|512|512",
+      "eKey": "4,1,4,4|512|"
+    },
+    {
+      "state": "51587:5212",
+      "support": [
+        4,
+        1,
+        4,
+        4
+      ],
+      "owner": 1,
+      "residual": 512,
+      "cells": [
+        9
+      ],
+      "remaining": 13,
+      "rfgKey": "4,1,4,4||512",
+      "eKey": "4,1,4,4||"
+    },
+    {
+      "state": "50565:6234",
+      "support": [
+        4,
+        1,
+        4,
+        4
+      ],
+      "owner": 1,
+      "residual": 512,
+      "cells": [
+        9
+      ],
+      "remaining": 13,
+      "rfgKey": "4,1,4,4||512",
+      "eKey": "4,1,4,4||"
+    },
+    {
+      "state": "52485:4314",
+      "support": [
+        4,
+        1,
+        4,
+        4
+      ],
+      "owner": 1,
+      "residual": 512,
+      "cells": [
+        9
+      ],
+      "remaining": 13,
+      "rfgKey": "4,1,4,4||32.512",
+      "eKey": "4,1,4,4|512|32"
+    },
+    {
+      "state": "19717:37080",
+      "support": [
+        4,
+        0,
+        4,
+        4
+      ],
+      "owner": 1,
+      "residual": 512,
+      "cells": [
+        9
+      ],
+      "remaining": 12,
+      "rfgKey": "4,0,4,4|512|32.512",
+      "eKey": "4,0,4,4|512|32"
+    },
+    {
+      "state": "36229:20570",
+      "support": [
+        4,
+        1,
+        4,
+        4
+      ],
+      "owner": 1,
+      "residual": 512,
+      "cells": [
+        9
+      ],
+      "remaining": 13,
+      "rfgKey": "4,1,4,4|512|512",
+      "eKey": "4,1,4,4|512|"
+    },
+    {
+      "state": "19845:36954",
+      "support": [
+        4,
+        1,
+        4,
+        4
+      ],
+      "owner": 1,
+      "residual": 512,
+      "cells": [
+        9
+      ],
+      "remaining": 13,
+      "rfgKey": "4,1,4,4|512|512",
+      "eKey": "4,1,4,4|512|"
+    },
+    {
+      "state": "3461:53336",
+      "support": [
+        4,
+        0,
+        4,
+        4
+      ],
+      "owner": 1,
+      "residual": 512,
+      "cells": [
+        9
+      ],
+      "remaining": 12,
+      "rfgKey": "4,0,4,4|512|512.8192",
+      "eKey": "4,0,4,4|512|8192"
+    },
+    {
+      "state": "3463:53336",
+      "support": [
+        4,
+        1,
+        4,
+        4
+      ],
+      "owner": 1,
+      "residual": 512,
+      "cells": [
+        9
+      ],
+      "remaining": 13,
+      "rfgKey": "4,1,4,4|512|512.8192",
+      "eKey": "4,1,4,4|512|8192"
+    },
+    {
+      "state": "17797:39000",
+      "support": [
+        4,
+        0,
+        4,
+        4
+      ],
+      "owner": 1,
+      "residual": 512,
+      "cells": [
+        9
+      ],
+      "remaining": 12,
+      "rfgKey": "4,0,4,4||512",
+      "eKey": "4,0,4,4||"
+    },
+    {
+      "state": "34181:22616",
+      "support": [
+        4,
+        0,
+        4,
+        4
+      ],
+      "owner": 0,
+      "residual": 32,
+      "cells": [
+        5
+      ],
+      "remaining": 12,
+      "rfgKey": "4,0,4,4|32|512",
+      "eKey": "4,0,4,4||"
+    },
+    {
+      "state": "34181:22616",
+      "support": [
+        4,
+        0,
+        4,
+        4
+      ],
+      "owner": 1,
+      "residual": 512,
+      "cells": [
+        9
+      ],
+      "remaining": 12,
+      "rfgKey": "4,0,4,4|32|512",
+      "eKey": "4,0,4,4||"
+    },
+    {
+      "state": "34061:22736",
+      "support": [
+        4,
+        0,
+        4,
+        4
+      ],
+      "owner": 0,
+      "residual": 32,
+      "cells": [
+        5
+      ],
+      "remaining": 12,
+      "rfgKey": "4,0,4,4|2.32|",
+      "eKey": "4,0,4,4|2|32"
+    },
+    {
+      "state": "34117:22680",
+      "support": [
+        4,
+        0,
+        4,
+        4
+      ],
+      "owner": 0,
+      "residual": 32,
+      "cells": [
+        5
+      ],
+      "remaining": 12,
+      "rfgKey": "4,0,4,4|32|",
+      "eKey": "4,0,4,4||"
+    },
+    {
+      "state": "51589:5210",
+      "support": [
+        4,
+        1,
+        4,
+        4
+      ],
+      "owner": 1,
+      "residual": 512,
+      "cells": [
+        9
+      ],
+      "remaining": 13,
+      "rfgKey": "4,1,4,4||512",
+      "eKey": "4,1,4,4||"
+    },
+    {
+      "state": "18821:37976",
+      "support": [
+        4,
+        0,
+        4,
+        4
+      ],
+      "owner": 1,
+      "residual": 512,
+      "cells": [
+        9
+      ],
+      "remaining": 12,
+      "rfgKey": "4,0,4,4||512",
+      "eKey": "4,0,4,4||"
+    },
+    {
+      "state": "35205:21592",
+      "support": [
+        4,
+        0,
+        4,
+        4
+      ],
+      "owner": 1,
+      "residual": 512,
+      "cells": [
+        9
+      ],
+      "remaining": 12,
+      "rfgKey": "4,0,4,4||512",
+      "eKey": "4,0,4,4||"
+    },
+    {
+      "state": "34121:22676",
+      "support": [
+        4,
+        0,
+        4,
+        4
+      ],
+      "owner": 0,
+      "residual": 32,
+      "cells": [
+        5
+      ],
+      "remaining": 12,
+      "rfgKey": "4,0,4,4|32|",
+      "eKey": "4,0,4,4||"
+    },
+    {
+      "state": "34185:22612",
+      "support": [
+        4,
+        0,
+        4,
+        4
+      ],
+      "owner": 0,
+      "residual": 32,
+      "cells": [
+        5
+      ],
+      "remaining": 12,
+      "rfgKey": "4,0,4,4|32|",
+      "eKey": "4,0,4,4||"
+    },
+    {
+      "state": "36105:20692",
+      "support": [
+        4,
+        0,
+        4,
+        4
+      ],
+      "owner": 0,
+      "residual": 32,
+      "cells": [
+        5
+      ],
+      "remaining": 12,
+      "rfgKey": "4,0,4,4|32.512|32",
+      "eKey": "4,0,4,4|512|32"
+    },
+    {
+      "state": "6921:41138",
+      "support": [
+        4,
+        4,
+        0,
+        4
+      ],
+      "owner": 0,
+      "residual": 64,
+      "cells": [
+        6
+      ],
+      "remaining": 12,
+      "rfgKey": "4,4,0,4|64.1024|64",
+      "eKey": "4,4,0,4|1024|64"
+    },
+    {
+      "state": "13065:34994",
+      "support": [
+        4,
+        4,
+        0,
+        4
+      ],
+      "owner": 0,
+      "residual": 64,
+      "cells": [
+        6
+      ],
+      "remaining": 12,
+      "rfgKey": "4,4,0,4|64|64",
+      "eKey": "4,4,0,4||64"
+    },
+    {
+      "state": "37641:10418",
+      "support": [
+        4,
+        4,
+        0,
+        4
+      ],
+      "owner": 0,
+      "residual": 64,
+      "cells": [
+        6
+      ],
+      "remaining": 12,
+      "rfgKey": "4,4,0,4|64|64",
+      "eKey": "4,4,0,4||64"
+    },
+    {
+      "state": "5001:43058",
+      "support": [
+        4,
+        4,
+        0,
+        4
+      ],
+      "owner": 0,
+      "residual": 64,
+      "cells": [
+        6
+      ],
+      "remaining": 12,
+      "rfgKey": "4,4,0,4|64|",
+      "eKey": "4,4,0,4||"
+    },
+    {
+      "state": "4905:43154",
+      "support": [
+        4,
+        4,
+        0,
+        4
+      ],
+      "owner": 0,
+      "residual": 64,
+      "cells": [
+        6
+      ],
+      "remaining": 12,
+      "rfgKey": "4,4,0,4|64|",
+      "eKey": "4,4,0,4||"
+    },
+    {
+      "state": "38273:18524",
+      "support": [
+        4,
+        0,
+        4,
+        4
+      ],
+      "owner": 0,
+      "residual": 32,
+      "cells": [
+        5
+      ],
+      "remaining": 12,
+      "rfgKey": "4,0,4,4|32|",
+      "eKey": "4,0,4,4||"
+    },
+    {
+      "state": "38153:18644",
+      "support": [
+        4,
+        0,
+        4,
+        4
+      ],
+      "owner": 0,
+      "residual": 32,
+      "cells": [
+        5
+      ],
+      "remaining": 12,
+      "rfgKey": "4,0,4,4|32|32",
+      "eKey": "4,0,4,4||32"
+    },
+    {
+      "state": "38209:18588",
+      "support": [
+        4,
+        0,
+        4,
+        4
+      ],
+      "owner": 0,
+      "residual": 32,
+      "cells": [
+        5
+      ],
+      "remaining": 12,
+      "rfgKey": "4,0,4,4|32|",
+      "eKey": "4,0,4,4||"
+    },
+    {
+      "state": "50563:6236",
+      "support": [
+        4,
+        1,
+        4,
+        4
+      ],
+      "owner": 1,
+      "residual": 512,
+      "cells": [
+        9
+      ],
+      "remaining": 13,
+      "rfgKey": "4,1,4,4||512",
+      "eKey": "4,1,4,4||"
+    },
+    {
+      "state": "52483:4316",
+      "support": [
+        4,
+        1,
+        4,
+        4
+      ],
+      "owner": 1,
+      "residual": 512,
+      "cells": [
+        9
+      ],
+      "remaining": 13,
+      "rfgKey": "4,1,4,4||32.512",
+      "eKey": "4,1,4,4|512|32"
+    },
+    {
+      "state": "34241:22556",
+      "support": [
+        4,
+        0,
+        4,
+        4
+      ],
+      "owner": 0,
+      "residual": 32,
+      "cells": [
+        5
+      ],
+      "remaining": 12,
+      "rfgKey": "4,0,4,4|32|",
+      "eKey": "4,0,4,4||"
+    },
+    {
+      "state": "50497:6300",
+      "support": [
+        4,
+        0,
+        4,
+        4
+      ],
+      "owner": 0,
+      "residual": 32,
+      "cells": [
+        5
+      ],
+      "remaining": 12,
+      "rfgKey": "4,0,4,4|32|",
+      "eKey": "4,0,4,4||"
+    },
+    {
+      "state": "36161:20636",
+      "support": [
+        4,
+        0,
+        4,
+        4
+      ],
+      "owner": 0,
+      "residual": 32,
+      "cells": [
+        5
+      ],
+      "remaining": 12,
+      "rfgKey": "4,0,4,4|32.512|",
+      "eKey": "4,0,4,4|512|"
+    },
+    {
+      "state": "50441:6356",
+      "support": [
+        4,
+        0,
+        4,
+        4
+      ],
+      "owner": 0,
+      "residual": 32,
+      "cells": [
+        5
+      ],
+      "remaining": 12,
+      "rfgKey": "4,0,4,4|32|32",
+      "eKey": "4,0,4,4||32"
+    },
+    {
+      "state": "38149:18648",
+      "support": [
+        4,
+        0,
+        4,
+        4
+      ],
+      "owner": 0,
+      "residual": 32,
+      "cells": [
+        5
+      ],
+      "remaining": 12,
+      "rfgKey": "4,0,4,4|32|32",
+      "eKey": "4,0,4,4||32"
+    },
+    {
+      "state": "40193:16604",
+      "support": [
+        4,
+        0,
+        4,
+        4
+      ],
+      "owner": 0,
+      "residual": 32,
+      "cells": [
+        5
+      ],
+      "remaining": 12,
+      "rfgKey": "4,0,4,4|32.512|32",
+      "eKey": "4,0,4,4|512|32"
+    },
+    {
+      "state": "50437:6360",
+      "support": [
+        4,
+        0,
+        4,
+        4
+      ],
+      "owner": 0,
+      "residual": 32,
+      "cells": [
+        5
+      ],
+      "remaining": 12,
+      "rfgKey": "4,0,4,4|32|32.512",
+      "eKey": "4,0,4,4||32"
+    },
+    {
+      "state": "50437:6360",
+      "support": [
+        4,
+        0,
+        4,
+        4
+      ],
+      "owner": 1,
+      "residual": 512,
+      "cells": [
+        9
+      ],
+      "remaining": 12,
+      "rfgKey": "4,0,4,4|32|32.512",
+      "eKey": "4,0,4,4||32"
+    },
+    {
+      "state": "36101:20696",
+      "support": [
+        4,
+        0,
+        4,
+        4
+      ],
+      "owner": 0,
+      "residual": 32,
+      "cells": [
+        5
+      ],
+      "remaining": 12,
+      "rfgKey": "4,0,4,4|32.512|32.512",
+      "eKey": "4,0,4,4|512|32"
+    },
+    {
+      "state": "36101:20696",
+      "support": [
+        4,
+        0,
+        4,
+        4
+      ],
+      "owner": 1,
+      "residual": 512,
+      "cells": [
+        9
+      ],
+      "remaining": 12,
+      "rfgKey": "4,0,4,4|32.512|32.512",
+      "eKey": "4,0,4,4|512|32"
+    },
+    {
+      "state": "49541:7256",
+      "support": [
+        4,
+        0,
+        4,
+        4
+      ],
+      "owner": 1,
+      "residual": 512,
+      "cells": [
+        9
+      ],
+      "remaining": 12,
+      "rfgKey": "4,0,4,4||512",
+      "eKey": "4,0,4,4||"
+    },
+    {
+      "state": "51461:5336",
+      "support": [
+        4,
+        0,
+        4,
+        4
+      ],
+      "owner": 1,
+      "residual": 512,
+      "cells": [
+        9
+      ],
+      "remaining": 12,
+      "rfgKey": "4,0,4,4||32.512",
+      "eKey": "4,0,4,4||32"
+    },
+    {
+      "state": "52609:4190",
+      "support": [
+        4,
+        1,
+        4,
+        4
+      ],
+      "owner": 1,
+      "residual": 512,
+      "cells": [
+        9
+      ],
+      "remaining": 13,
+      "rfgKey": "4,1,4,4|512|512",
+      "eKey": "4,1,4,4|512|"
+    },
+    {
+      "state": "36225:20572",
+      "support": [
+        4,
+        0,
+        4,
+        4
+      ],
+      "owner": 0,
+      "residual": 32,
+      "cells": [
+        5
+      ],
+      "remaining": 12,
+      "rfgKey": "4,0,4,4|32.512|512",
+      "eKey": "4,0,4,4|512|"
+    },
+    {
+      "state": "36225:20572",
+      "support": [
+        4,
+        0,
+        4,
+        4
+      ],
+      "owner": 1,
+      "residual": 512,
+      "cells": [
+        9
+      ],
+      "remaining": 12,
+      "rfgKey": "4,0,4,4|32.512|512",
+      "eKey": "4,0,4,4|512|"
+    },
+    {
+      "state": "19841:36956",
+      "support": [
+        4,
+        0,
+        4,
+        4
+      ],
+      "owner": 1,
+      "residual": 512,
+      "cells": [
+        9
+      ],
+      "remaining": 12,
+      "rfgKey": "4,0,4,4|512|512",
+      "eKey": "4,0,4,4|512|"
+    },
+    {
+      "state": "51585:5212",
+      "support": [
+        4,
+        0,
+        4,
+        4
+      ],
+      "owner": 1,
+      "residual": 512,
+      "cells": [
+        9
+      ],
+      "remaining": 12,
+      "rfgKey": "4,0,4,4||512",
+      "eKey": "4,0,4,4||"
+    },
+    {
+      "state": "6667:41392",
+      "support": [
+        4,
+        4,
+        0,
+        4
+      ],
+      "owner": 0,
+      "residual": 64,
+      "cells": [
+        6
+      ],
+      "remaining": 12,
+      "rfgKey": "4,4,0,4|4.64|",
+      "eKey": "4,4,0,4|4|64"
+    },
+    {
+      "state": "28743:1848",
+      "support": [
+        4,
+        4,
+        4,
+        1
+      ],
+      "owner": 1,
+      "residual": 2048,
+      "cells": [
+        11
+      ],
+      "remaining": 13,
+      "rfgKey": "4,4,4,1||2048",
+      "eKey": "4,4,4,1||"
+    },
+    {
+      "state": "45191:2872",
+      "support": [
+        4,
+        4,
+        1,
+        4
+      ],
+      "owner": 1,
+      "residual": 1024,
+      "cells": [
+        10
+      ],
+      "remaining": 13,
+      "rfgKey": "4,4,1,4||1024",
+      "eKey": "4,4,1,4||"
+    },
+    {
+      "state": "28747:1844",
+      "support": [
+        4,
+        4,
+        4,
+        1
+      ],
+      "owner": 1,
+      "residual": 2048,
+      "cells": [
+        11
+      ],
+      "remaining": 13,
+      "rfgKey": "4,4,4,1||2048",
+      "eKey": "4,4,4,1||"
+    },
+    {
+      "state": "45195:2868",
+      "support": [
+        4,
+        4,
+        1,
+        4
+      ],
+      "owner": 1,
+      "residual": 1024,
+      "cells": [
+        10
+      ],
+      "remaining": 13,
+      "rfgKey": "4,4,1,4||1024",
+      "eKey": "4,4,1,4||"
+    },
+    {
+      "state": "12811:35248",
+      "support": [
+        4,
+        4,
+        0,
+        4
+      ],
+      "owner": 0,
+      "residual": 64,
+      "cells": [
+        6
+      ],
+      "remaining": 12,
+      "rfgKey": "4,4,0,4|4.64|",
+      "eKey": "4,4,0,4|4|64"
+    },
+    {
+      "state": "37387:10672",
+      "support": [
+        4,
+        4,
+        0,
+        4
+      ],
+      "owner": 0,
+      "residual": 64,
+      "cells": [
+        6
+      ],
+      "remaining": 12,
+      "rfgKey": "4,4,0,4|4.64|",
+      "eKey": "4,4,0,4|4|64"
+    }
+  ],
+  "interpretationGuard": "E may validate safe forgetting but is not itself a permitted final rank-local Q definition. Any oracle-only deletion must be converted into an independently current-rank structural rule before promotion."
+}
