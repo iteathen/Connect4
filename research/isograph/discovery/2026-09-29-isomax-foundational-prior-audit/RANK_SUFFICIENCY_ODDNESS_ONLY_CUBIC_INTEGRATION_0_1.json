@@ -1,0 +1,42 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.oddness_only_cubic_integration.v1",
+  "date_author_local": "2026-09-30",
+  "research_direction": "Joshua Oshiro",
+  "status": "ODDNESS_ONLY_CUBIC_SCALAR_EXACT_ON_DISCOVERY_CORPUS",
+  "evidence": {
+    "branch": "experiment/isomax-late-xor-components-20260929",
+    "commit": "e59447bd1955122cefb760404196b70fb1fcc68a",
+    "file": "REPAIRED_ODDNESS_ONLY_CUBIC_DECODER_0_1.json",
+    "warrant": "EW-RS-061"
+  },
+  "results": {
+    "6x3-k3": {"ooo_catalog":1753,"rank_gain_over_degree2":75,"contradictions":0},
+    "4x5-k4": {"ooo_catalog":7485,"rank_gain_over_degree2":294,"contradictions":0},
+    "6x3-k4": {"ooo_catalog":501,"rank_gain_over_degree2":16,"contradictions":0}
+  },
+  "findings": [
+    {
+      "id": "RS-F192",
+      "status": "ODDNESS_ONLY_CUBIC_SUFFICIENCY",
+      "statement": "With complete affine and degree-2 P/O structure retained, complete mechanically generated cubic interactions among oddness bits alone eliminate every remaining scalar contradiction on all three hard repaired-coordinate carriers."
+    },
+    {
+      "id": "RS-F193",
+      "status": "PRESENCE_CUBIC_REDUNDANT_IN_TESTED_SCALAR_DECODER",
+      "statement": "Presence-containing cubic terms are scalar-redundant on the tested discovery corpus even though 4x5-k4 contains 77 independent OOP structural cubic directions modulo degree two."
+    },
+    {
+      "id": "RS-F194",
+      "status": "NATIVE_ZOE_ALIGNMENT",
+      "statement": "The highest-degree scalar correction observed so far lies entirely in the oddness/XOR coordinate of the native ZOE count algebra, while presence/OR information remains load-bearing at lower degree."
+    }
+  ],
+  "nonclaims": [
+    "EW-RS-061 is oracle-motivated discovery-corpus evidence, not independent formula qualification.",
+    "No individual OOO coefficient support is invariant.",
+    "No closed structural rule selecting OOO triples has yet been frozen.",
+    "EW-RS-059 formula holdouts remain sealed.",
+    "No Q-A/Q-F or standard-7x6 claim follows."
+  ],
+  "next_question": "Can the remaining cubic complexity be reduced by exact mover-relative owner normalization or by an outcome-independent structural rule over OOO oddness interactions?"
+}
