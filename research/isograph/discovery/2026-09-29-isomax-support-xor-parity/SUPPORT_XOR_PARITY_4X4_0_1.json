@@ -1,0 +1,2779 @@
+{
+  "schema": "connect4.isomax.support_xor_parity_4x4.v1",
+  "date_author_local": "2026-09-29",
+  "scope": "complete physical 4x4 connect-4 first-win carrier",
+  "notation": {
+    "X_h": "bitwise XOR of integer column heights; named X_h to avoid collision with existing X_feas residual-feasibility operator",
+    "p": "stone-count parity"
+  },
+  "algebraicFacts": {
+    "parityIsLowBitOfX": true,
+    "identity": "p = (sum h_c) mod 2 = X_h mod 2",
+    "finalBoardMoverAbsolute": 1,
+    "finalBoardMoverSource": "G alone: (W*H-1) mod 2",
+    "currentMoverFromParity": "current mover = p = X_h mod 2",
+    "XUpdate": "X_h(next)=X_h xor h_c xor (h_c+1)",
+    "parityUpdate": "p(next)=p xor 1",
+    "updateFormulaFailures": 0
+  },
+  "counts": {
+    "physicalStates": 161029,
+    "nonterminalStates": 134289,
+    "qoClasses": 34094,
+    "futureClasses": 27452,
+    "qSigmaOrbitClasses": 10496,
+    "residualOccurrences": 336636
+  },
+  "supportCandidates": [
+    {
+      "id": "P",
+      "classes": 2,
+      "QF": false,
+      "QA": false,
+      "QV": false,
+      "firstFutureFailure": {
+        "key": "0",
+        "a": "0:0",
+        "b": "1:16",
+        "aFuture": 27451,
+        "bFuture": 27431
+      },
+      "firstActionFailure": {
+        "key": "0",
+        "a": "0:0",
+        "b": "257:4112",
+        "aAction": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bAction": [
+          "I",
+          0,
+          0,
+          0
+        ]
+      },
+      "firstValueFailure": {
+        "key": "0",
+        "a": "0:0",
+        "b": "775:12400",
+        "aValue": 0,
+        "bValue": 1
+      }
+    },
+    {
+      "id": "XH",
+      "classes": 8,
+      "QF": false,
+      "QA": false,
+      "QV": false,
+      "firstFutureFailure": {
+        "key": "0",
+        "a": "0:0",
+        "b": "771:12336",
+        "aFuture": 27451,
+        "bFuture": 18754
+      },
+      "firstActionFailure": {
+        "key": "0",
+        "a": "0:0",
+        "b": "771:12336",
+        "aAction": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bAction": [
+          "I",
+          "I",
+          0,
+          0
+        ]
+      },
+      "firstValueFailure": {
+        "key": "0",
+        "a": "0:0",
+        "b": "839:12472",
+        "aValue": 0,
+        "bValue": 1
+      }
+    },
+    {
+      "id": "XH_P",
+      "classes": 8,
+      "QF": false,
+      "QA": false,
+      "QV": false,
+      "firstFutureFailure": {
+        "key": "0|0",
+        "a": "0:0",
+        "b": "771:12336",
+        "aFuture": 27451,
+        "bFuture": 18754
+      },
+      "firstActionFailure": {
+        "key": "0|0",
+        "a": "0:0",
+        "b": "771:12336",
+        "aAction": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bAction": [
+          "I",
+          "I",
+          0,
+          0
+        ]
+      },
+      "firstValueFailure": {
+        "key": "0|0",
+        "a": "0:0",
+        "b": "839:12472",
+        "aValue": 0,
+        "bValue": 1
+      }
+    },
+    {
+      "id": "THRESH",
+      "classes": 16,
+      "QF": false,
+      "QA": false,
+      "QV": false,
+      "firstFutureFailure": {
+        "key": "0",
+        "a": "0:0",
+        "b": "771:12336",
+        "aFuture": 27451,
+        "bFuture": 18754
+      },
+      "firstActionFailure": {
+        "key": "0",
+        "a": "0:0",
+        "b": "771:12336",
+        "aAction": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bAction": [
+          "I",
+          "I",
+          0,
+          0
+        ]
+      },
+      "firstValueFailure": {
+        "key": "0",
+        "a": "0:0",
+        "b": "839:12472",
+        "aValue": 0,
+        "bValue": 1
+      }
+    },
+    {
+      "id": "HEIGHT_PARITY_SPECTRUM",
+      "classes": 16,
+      "QF": false,
+      "QA": false,
+      "QV": false,
+      "firstFutureFailure": {
+        "key": "0",
+        "a": "0:0",
+        "b": "771:12336",
+        "aFuture": 27451,
+        "bFuture": 18754
+      },
+      "firstActionFailure": {
+        "key": "0",
+        "a": "0:0",
+        "b": "771:12336",
+        "aAction": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bAction": [
+          "I",
+          "I",
+          0,
+          0
+        ]
+      },
+      "firstValueFailure": {
+        "key": "0",
+        "a": "0:0",
+        "b": "839:12472",
+        "aValue": 0,
+        "bValue": 1
+      }
+    },
+    {
+      "id": "SUM_MOD4",
+      "classes": 4,
+      "QF": false,
+      "QA": false,
+      "QV": false,
+      "firstFutureFailure": {
+        "key": "0",
+        "a": "0:0",
+        "b": "257:4112",
+        "aFuture": 27451,
+        "bFuture": 27219
+      },
+      "firstActionFailure": {
+        "key": "0",
+        "a": "0:0",
+        "b": "257:4112",
+        "aAction": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bAction": [
+          "I",
+          0,
+          0,
+          0
+        ]
+      },
+      "firstValueFailure": {
+        "key": "0",
+        "a": "0:0",
+        "b": "1799:28784",
+        "aValue": 0,
+        "bValue": 1
+      }
+    },
+    {
+      "id": "E2_MOD4",
+      "classes": 4,
+      "QF": false,
+      "QA": false,
+      "QV": false,
+      "firstFutureFailure": {
+        "key": "0",
+        "a": "0:0",
+        "b": "1:0",
+        "aFuture": 27451,
+        "bFuture": 27447
+      },
+      "firstActionFailure": {
+        "key": "0",
+        "a": "0:0",
+        "b": "257:4112",
+        "aAction": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bAction": [
+          "I",
+          0,
+          0,
+          0
+        ]
+      },
+      "firstValueFailure": {
+        "key": "0",
+        "a": "0:0",
+        "b": "775:12400",
+        "aValue": 0,
+        "bValue": 1
+      }
+    },
+    {
+      "id": "XH_E2_MOD4",
+      "classes": 27,
+      "QF": false,
+      "QA": false,
+      "QV": false,
+      "firstFutureFailure": {
+        "key": "0|0",
+        "a": "0:0",
+        "b": "771:12336",
+        "aFuture": 27451,
+        "bFuture": 18754
+      },
+      "firstActionFailure": {
+        "key": "0|0",
+        "a": "0:0",
+        "b": "771:12336",
+        "aAction": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bAction": [
+          "I",
+          "I",
+          0,
+          0
+        ]
+      },
+      "firstValueFailure": {
+        "key": "0|0",
+        "a": "0:0",
+        "b": "839:12472",
+        "aValue": 0,
+        "bValue": 1
+      }
+    },
+    {
+      "id": "MULTISET",
+      "classes": 69,
+      "QF": false,
+      "QA": false,
+      "QV": false,
+      "firstFutureFailure": {
+        "key": "0,0,0,1",
+        "a": "1:0",
+        "b": "2:0",
+        "aFuture": 27447,
+        "bFuture": 27448
+      },
+      "firstActionFailure": {
+        "key": "0,0,0,4",
+        "a": "257:4112",
+        "b": "514:8224",
+        "aAction": [
+          "I",
+          0,
+          0,
+          0
+        ],
+        "bAction": [
+          0,
+          "I",
+          0,
+          0
+        ]
+      },
+      "firstValueFailure": {
+        "key": "0,0,1,4",
+        "a": "259:4112",
+        "b": "4353:18",
+        "aValue": 0,
+        "bValue": -1
+      }
+    },
+    {
+      "id": "XH_NONFULL",
+      "classes": 16,
+      "QF": false,
+      "QA": false,
+      "QV": false,
+      "firstFutureFailure": {
+        "key": "0|4",
+        "a": "0:0",
+        "b": "289:530",
+        "aFuture": 27451,
+        "bFuture": 25678
+      },
+      "firstActionFailure": {
+        "key": "0|4",
+        "a": "0:0",
+        "b": "1445:2650",
+        "aAction": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bAction": [
+          0,
+          -1,
+          -1,
+          1
+        ]
+      },
+      "firstValueFailure": {
+        "key": "0|4",
+        "a": "0:0",
+        "b": "1445:2650",
+        "aValue": 0,
+        "bValue": 1
+      }
+    }
+  ],
+  "residualReplacementCandidates": [
+    {
+      "id": "RES_PLUS_XH",
+      "classes": 32001,
+      "QF": false,
+      "QA": false,
+      "QV": false,
+      "firstFutureFailure": {
+        "key": "0||49152",
+        "a": "1927:14456",
+        "b": "603:12708",
+        "aFuture": 12,
+        "bFuture": 1362
+      },
+      "firstActionFailure": {
+        "key": "0||49152",
+        "a": "1927:14456",
+        "b": "603:12708",
+        "aAction": [
+          "I",
+          "I",
+          0,
+          0
+        ],
+        "bAction": [
+          "I",
+          "I",
+          -1,
+          -1
+        ]
+      },
+      "firstValueFailure": {
+        "key": "0||49152",
+        "a": "1927:14456",
+        "b": "603:12708",
+        "aValue": 0,
+        "bValue": -1
+      }
+    },
+    {
+      "id": "RES_PLUS_P",
+      "classes": 31308,
+      "QF": false,
+      "QA": false,
+      "QV": false,
+      "firstFutureFailure": {
+        "key": "1|2048|128",
+        "a": "18183:12408",
+        "b": "9987:4212",
+        "aFuture": 69,
+        "bFuture": 1751
+      },
+      "firstActionFailure": {
+        "key": "1|2048|128",
+        "a": "18183:12408",
+        "b": "9987:4212",
+        "aAction": [
+          "I",
+          "I",
+          "I",
+          -1
+        ],
+        "bAction": [
+          "I",
+          "I",
+          -1,
+          0
+        ]
+      },
+      "firstValueFailure": {
+        "key": "0||49152",
+        "a": "1927:14456",
+        "b": "603:12708",
+        "aValue": 0,
+        "bValue": -1
+      }
+    },
+    {
+      "id": "RES_PLUS_THRESH",
+      "classes": 32033,
+      "QF": false,
+      "QA": false,
+      "QV": false,
+      "firstFutureFailure": {
+        "key": "0||49152",
+        "a": "1927:14456",
+        "b": "603:12708",
+        "aFuture": 12,
+        "bFuture": 1362
+      },
+      "firstActionFailure": {
+        "key": "0||49152",
+        "a": "1927:14456",
+        "b": "603:12708",
+        "aAction": [
+          "I",
+          "I",
+          0,
+          0
+        ],
+        "bAction": [
+          "I",
+          "I",
+          -1,
+          -1
+        ]
+      },
+      "firstValueFailure": {
+        "key": "0||49152",
+        "a": "1927:14456",
+        "b": "603:12708",
+        "aValue": 0,
+        "bValue": -1
+      }
+    },
+    {
+      "id": "RES_PLUS_MULTISET",
+      "classes": 32248,
+      "QF": false,
+      "QA": false,
+      "QV": false,
+      "firstFutureFailure": {
+        "key": "3,4,4,4||",
+        "a": "18311:14456",
+        "b": "34695:14456",
+        "aFuture": 3,
+        "bFuture": 4
+      },
+      "firstActionFailure": {
+        "key": "3,4,4,4||",
+        "a": "18311:14456",
+        "b": "34695:14456",
+        "aAction": [
+          "I",
+          "I",
+          "I",
+          0
+        ],
+        "bAction": [
+          "I",
+          "I",
+          0,
+          "I"
+        ]
+      },
+      "firstValueFailure": {
+        "key": "2,3,3,4|32768|57344",
+        "a": "1323:4820",
+        "b": "1325:6354",
+        "aValue": 0,
+        "bValue": 1
+      }
+    },
+    {
+      "id": "RES_PLUS_XH_THRESH",
+      "classes": 32033,
+      "QF": false,
+      "QA": false,
+      "QV": false,
+      "firstFutureFailure": {
+        "key": "0|0||49152",
+        "a": "1927:14456",
+        "b": "603:12708",
+        "aFuture": 12,
+        "bFuture": 1362
+      },
+      "firstActionFailure": {
+        "key": "0|0||49152",
+        "a": "1927:14456",
+        "b": "603:12708",
+        "aAction": [
+          "I",
+          "I",
+          0,
+          0
+        ],
+        "bAction": [
+          "I",
+          "I",
+          -1,
+          -1
+        ]
+      },
+      "firstValueFailure": {
+        "key": "0|0||49152",
+        "a": "1927:14456",
+        "b": "603:12708",
+        "aValue": 0,
+        "bValue": -1
+      }
+    },
+    {
+      "id": "QO",
+      "classes": 34094,
+      "QF": true,
+      "QA": true,
+      "QV": true,
+      "firstFutureFailure": null,
+      "firstActionFailure": null,
+      "firstValueFailure": null
+    }
+  ],
+  "safeForgettingPredictability": [
+    {
+      "feature": "P",
+      "rule": "R",
+      "groups": 350,
+      "ambiguousGroups": 92,
+      "first": {
+        "key": "0|0|4369",
+        "rows": [
+          {
+            "state": "0:0",
+            "owner": 0,
+            "mask": 4369,
+            "X_h": 0,
+            "p": 0,
+            "thresholdXor": 0,
+            "multiset": "0,0,0,0",
+            "R": false,
+            "F": false,
+            "G": false,
+            "X_feas": false,
+            "heights": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "state": "2:32",
+            "owner": 0,
+            "mask": 4369,
+            "X_h": 2,
+            "p": 0,
+            "thresholdXor": 3,
+            "multiset": "0,0,0,2",
+            "R": false,
+            "F": false,
+            "G": false,
+            "X_feas": false,
+            "heights": [
+              0,
+              2,
+              0,
+              0
+            ]
+          },
+          {
+            "state": "514:8224",
+            "owner": 0,
+            "mask": 4369,
+            "X_h": 4,
+            "p": 0,
+            "thresholdXor": 15,
+            "multiset": "0,0,0,4",
+            "R": false,
+            "F": false,
+            "G": false,
+            "X_feas": false,
+            "heights": [
+              0,
+              4,
+              0,
+              0
+            ]
+          },
+          {
+            "state": "518:8288",
+            "owner": 0,
+            "mask": 4369,
+            "X_h": 6,
+            "p": 0,
+            "thresholdXor": 12,
+            "multiset": "0,0,2,4",
+            "R": false,
+            "F": false,
+            "G": false,
+            "X_feas": false,
+            "heights": [
+              0,
+              4,
+              2,
+              0
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "feature": "P",
+      "rule": "F",
+      "groups": 350,
+      "ambiguousGroups": 132,
+      "first": {
+        "key": "0|1|240",
+        "rows": [
+          {
+            "state": "0:0",
+            "owner": 1,
+            "mask": 240,
+            "X_h": 0,
+            "p": 0,
+            "thresholdXor": 0,
+            "multiset": "0,0,0,0",
+            "R": false,
+            "F": false,
+            "G": false,
+            "X_feas": false,
+            "heights": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "state": "1:2",
+            "owner": 1,
+            "mask": 240,
+            "X_h": 0,
+            "p": 0,
+            "thresholdXor": 0,
+            "multiset": "0,0,1,1",
+            "R": false,
+            "F": false,
+            "G": false,
+            "X_feas": false,
+            "heights": [
+              1,
+              1,
+              0,
+              0
+            ]
+          },
+          {
+            "state": "5:10",
+            "owner": 1,
+            "mask": 240,
+            "X_h": 0,
+            "p": 0,
+            "thresholdXor": 0,
+            "multiset": "1,1,1,1",
+            "R": false,
+            "F": true,
+            "G": false,
+            "X_feas": true,
+            "heights": [
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          {
+            "state": "9:6",
+            "owner": 1,
+            "mask": 240,
+            "X_h": 0,
+            "p": 0,
+            "thresholdXor": 0,
+            "multiset": "1,1,1,1",
+            "R": false,
+            "F": true,
+            "G": false,
+            "X_feas": true,
+            "heights": [
+              1,
+              1,
+              1,
+              1
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "feature": "P",
+      "rule": "G",
+      "groups": 350,
+      "ambiguousGroups": 20,
+      "first": {
+        "key": "0|0|4369",
+        "rows": [
+          {
+            "state": "0:0",
+            "owner": 0,
+            "mask": 4369,
+            "X_h": 0,
+            "p": 0,
+            "thresholdXor": 0,
+            "multiset": "0,0,0,0",
+            "R": false,
+            "F": false,
+            "G": false,
+            "X_feas": false,
+            "heights": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "state": "2:32",
+            "owner": 0,
+            "mask": 4369,
+            "X_h": 2,
+            "p": 0,
+            "thresholdXor": 3,
+            "multiset": "0,0,0,2",
+            "R": false,
+            "F": false,
+            "G": false,
+            "X_feas": false,
+            "heights": [
+              0,
+              2,
+              0,
+              0
+            ]
+          },
+          {
+            "state": "514:8224",
+            "owner": 0,
+            "mask": 4369,
+            "X_h": 4,
+            "p": 0,
+            "thresholdXor": 15,
+            "multiset": "0,0,0,4",
+            "R": false,
+            "F": false,
+            "G": false,
+            "X_feas": false,
+            "heights": [
+              0,
+              4,
+              0,
+              0
+            ]
+          },
+          {
+            "state": "518:8288",
+            "owner": 0,
+            "mask": 4369,
+            "X_h": 6,
+            "p": 0,
+            "thresholdXor": 12,
+            "multiset": "0,0,2,4",
+            "R": false,
+            "F": false,
+            "G": false,
+            "X_feas": false,
+            "heights": [
+              0,
+              4,
+              2,
+              0
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "feature": "P",
+      "rule": "X_feas",
+      "groups": 350,
+      "ambiguousGroups": 130,
+      "first": {
+        "key": "0|0|4369",
+        "rows": [
+          {
+            "state": "0:0",
+            "owner": 0,
+            "mask": 4369,
+            "X_h": 0,
+            "p": 0,
+            "thresholdXor": 0,
+            "multiset": "0,0,0,0",
+            "R": false,
+            "F": false,
+            "G": false,
+            "X_feas": false,
+            "heights": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "state": "2:32",
+            "owner": 0,
+            "mask": 4369,
+            "X_h": 2,
+            "p": 0,
+            "thresholdXor": 3,
+            "multiset": "0,0,0,2",
+            "R": false,
+            "F": false,
+            "G": false,
+            "X_feas": false,
+            "heights": [
+              0,
+              2,
+              0,
+              0
+            ]
+          },
+          {
+            "state": "514:8224",
+            "owner": 0,
+            "mask": 4369,
+            "X_h": 4,
+            "p": 0,
+            "thresholdXor": 15,
+            "multiset": "0,0,0,4",
+            "R": false,
+            "F": false,
+            "G": false,
+            "X_feas": false,
+            "heights": [
+              0,
+              4,
+              0,
+              0
+            ]
+          },
+          {
+            "state": "518:8288",
+            "owner": 0,
+            "mask": 4369,
+            "X_h": 6,
+            "p": 0,
+            "thresholdXor": 12,
+            "multiset": "0,0,2,4",
+            "R": false,
+            "F": false,
+            "G": false,
+            "X_feas": false,
+            "heights": [
+              0,
+              4,
+              2,
+              0
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "feature": "XH",
+      "rule": "R",
+      "groups": 1094,
+      "ambiguousGroups": 125,
+      "first": {
+        "key": "0|0|61440",
+        "rows": [
+          {
+            "state": "0:0",
+            "owner": 0,
+            "mask": 61440,
+            "X_h": 0,
+            "p": 0,
+            "thresholdXor": 0,
+            "multiset": "0,0,0,0",
+            "R": false,
+            "F": false,
+            "G": true,
+            "X_feas": true,
+            "heights": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "state": "289:530",
+            "owner": 0,
+            "mask": 61440,
+            "X_h": 0,
+            "p": 0,
+            "thresholdXor": 0,
+            "multiset": "0,0,3,3",
+            "R": false,
+            "F": false,
+            "G": true,
+            "X_feas": true,
+            "heights": [
+              3,
+              3,
+              0,
+              0
+            ]
+          },
+          {
+            "state": "429:3666",
+            "owner": 0,
+            "mask": 61440,
+            "X_h": 0,
+            "p": 0,
+            "thresholdXor": 0,
+            "multiset": "3,3,3,3",
+            "R": true,
+            "F": false,
+            "G": true,
+            "X_feas": true,
+            "heights": [
+              3,
+              3,
+              3,
+              3
+            ]
+          },
+          {
+            "state": "301:722",
+            "owner": 0,
+            "mask": 61440,
+            "X_h": 0,
+            "p": 0,
+            "thresholdXor": 0,
+            "multiset": "2,2,3,3",
+            "R": true,
+            "F": false,
+            "G": true,
+            "X_feas": true,
+            "heights": [
+              3,
+              3,
+              2,
+              2
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "feature": "XH",
+      "rule": "F",
+      "groups": 1094,
+      "ambiguousGroups": 176,
+      "first": {
+        "key": "0|1|240",
+        "rows": [
+          {
+            "state": "0:0",
+            "owner": 1,
+            "mask": 240,
+            "X_h": 0,
+            "p": 0,
+            "thresholdXor": 0,
+            "multiset": "0,0,0,0",
+            "R": false,
+            "F": false,
+            "G": false,
+            "X_feas": false,
+            "heights": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "state": "1:2",
+            "owner": 1,
+            "mask": 240,
+            "X_h": 0,
+            "p": 0,
+            "thresholdXor": 0,
+            "multiset": "0,0,1,1",
+            "R": false,
+            "F": false,
+            "G": false,
+            "X_feas": false,
+            "heights": [
+              1,
+              1,
+              0,
+              0
+            ]
+          },
+          {
+            "state": "5:10",
+            "owner": 1,
+            "mask": 240,
+            "X_h": 0,
+            "p": 0,
+            "thresholdXor": 0,
+            "multiset": "1,1,1,1",
+            "R": false,
+            "F": true,
+            "G": false,
+            "X_feas": true,
+            "heights": [
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          {
+            "state": "9:6",
+            "owner": 1,
+            "mask": 240,
+            "X_h": 0,
+            "p": 0,
+            "thresholdXor": 0,
+            "multiset": "1,1,1,1",
+            "R": false,
+            "F": true,
+            "G": false,
+            "X_feas": true,
+            "heights": [
+              1,
+              1,
+              1,
+              1
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "feature": "XH",
+      "rule": "G",
+      "groups": 1094,
+      "ambiguousGroups": 26,
+      "first": {
+        "key": "4|0|8738",
+        "rows": [
+          {
+            "state": "257:4112",
+            "owner": 0,
+            "mask": 8738,
+            "X_h": 4,
+            "p": 0,
+            "thresholdXor": 15,
+            "multiset": "0,0,0,4",
+            "R": false,
+            "F": false,
+            "G": false,
+            "X_feas": false,
+            "heights": [
+              4,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "state": "1413:6232",
+            "owner": 0,
+            "mask": 8738,
+            "X_h": 4,
+            "p": 0,
+            "thresholdXor": 15,
+            "multiset": "0,3,3,4",
+            "R": true,
+            "F": false,
+            "G": false,
+            "X_feas": true,
+            "heights": [
+              4,
+              0,
+              3,
+              3
+            ]
+          },
+          {
+            "state": "17797:39000",
+            "owner": 0,
+            "mask": 8738,
+            "X_h": 4,
+            "p": 0,
+            "thresholdXor": 15,
+            "multiset": "0,4,4,4",
+            "R": true,
+            "F": false,
+            "G": true,
+            "X_feas": true,
+            "heights": [
+              4,
+              0,
+              4,
+              4
+            ]
+          },
+          {
+            "state": "261:4120",
+            "owner": 0,
+            "mask": 8738,
+            "X_h": 4,
+            "p": 0,
+            "thresholdXor": 15,
+            "multiset": "0,1,1,4",
+            "R": false,
+            "F": false,
+            "G": false,
+            "X_feas": false,
+            "heights": [
+              4,
+              0,
+              1,
+              1
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "feature": "XH",
+      "rule": "X_feas",
+      "groups": 1094,
+      "ambiguousGroups": 153,
+      "first": {
+        "key": "0|1|240",
+        "rows": [
+          {
+            "state": "0:0",
+            "owner": 1,
+            "mask": 240,
+            "X_h": 0,
+            "p": 0,
+            "thresholdXor": 0,
+            "multiset": "0,0,0,0",
+            "R": false,
+            "F": false,
+            "G": false,
+            "X_feas": false,
+            "heights": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "state": "1:2",
+            "owner": 1,
+            "mask": 240,
+            "X_h": 0,
+            "p": 0,
+            "thresholdXor": 0,
+            "multiset": "0,0,1,1",
+            "R": false,
+            "F": false,
+            "G": false,
+            "X_feas": false,
+            "heights": [
+              1,
+              1,
+              0,
+              0
+            ]
+          },
+          {
+            "state": "5:10",
+            "owner": 1,
+            "mask": 240,
+            "X_h": 0,
+            "p": 0,
+            "thresholdXor": 0,
+            "multiset": "1,1,1,1",
+            "R": false,
+            "F": true,
+            "G": false,
+            "X_feas": true,
+            "heights": [
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          {
+            "state": "9:6",
+            "owner": 1,
+            "mask": 240,
+            "X_h": 0,
+            "p": 0,
+            "thresholdXor": 0,
+            "multiset": "1,1,1,1",
+            "R": false,
+            "F": true,
+            "G": false,
+            "X_feas": true,
+            "heights": [
+              1,
+              1,
+              1,
+              1
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "feature": "XH_P",
+      "rule": "R",
+      "groups": 1094,
+      "ambiguousGroups": 125,
+      "first": {
+        "key": "0|0|0|61440",
+        "rows": [
+          {
+            "state": "0:0",
+            "owner": 0,
+            "mask": 61440,
+            "X_h": 0,
+            "p": 0,
+            "thresholdXor": 0,
+            "multiset": "0,0,0,0",
+            "R": false,
+            "F": false,
+            "G": true,
+            "X_feas": true,
+            "heights": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "state": "289:530",
+            "owner": 0,
+            "mask": 61440,
+            "X_h": 0,
+            "p": 0,
+            "thresholdXor": 0,
+            "multiset": "0,0,3,3",
+            "R": false,
+            "F": false,
+            "G": true,
+            "X_feas": true,
+            "heights": [
+              3,
+              3,
+              0,
+              0
+            ]
+          },
+          {
+            "state": "429:3666",
+            "owner": 0,
+            "mask": 61440,
+            "X_h": 0,
+            "p": 0,
+            "thresholdXor": 0,
+            "multiset": "3,3,3,3",
+            "R": true,
+            "F": false,
+            "G": true,
+            "X_feas": true,
+            "heights": [
+              3,
+              3,
+              3,
+              3
+            ]
+          },
+          {
+            "state": "301:722",
+            "owner": 0,
+            "mask": 61440,
+            "X_h": 0,
+            "p": 0,
+            "thresholdXor": 0,
+            "multiset": "2,2,3,3",
+            "R": true,
+            "F": false,
+            "G": true,
+            "X_feas": true,
+            "heights": [
+              3,
+              3,
+              2,
+              2
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "feature": "XH_P",
+      "rule": "F",
+      "groups": 1094,
+      "ambiguousGroups": 176,
+      "first": {
+        "key": "0|0|1|240",
+        "rows": [
+          {
+            "state": "0:0",
+            "owner": 1,
+            "mask": 240,
+            "X_h": 0,
+            "p": 0,
+            "thresholdXor": 0,
+            "multiset": "0,0,0,0",
+            "R": false,
+            "F": false,
+            "G": false,
+            "X_feas": false,
+            "heights": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "state": "1:2",
+            "owner": 1,
+            "mask": 240,
+            "X_h": 0,
+            "p": 0,
+            "thresholdXor": 0,
+            "multiset": "0,0,1,1",
+            "R": false,
+            "F": false,
+            "G": false,
+            "X_feas": false,
+            "heights": [
+              1,
+              1,
+              0,
+              0
+            ]
+          },
+          {
+            "state": "5:10",
+            "owner": 1,
+            "mask": 240,
+            "X_h": 0,
+            "p": 0,
+            "thresholdXor": 0,
+            "multiset": "1,1,1,1",
+            "R": false,
+            "F": true,
+            "G": false,
+            "X_feas": true,
+            "heights": [
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          {
+            "state": "9:6",
+            "owner": 1,
+            "mask": 240,
+            "X_h": 0,
+            "p": 0,
+            "thresholdXor": 0,
+            "multiset": "1,1,1,1",
+            "R": false,
+            "F": true,
+            "G": false,
+            "X_feas": true,
+            "heights": [
+              1,
+              1,
+              1,
+              1
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "feature": "XH_P",
+      "rule": "G",
+      "groups": 1094,
+      "ambiguousGroups": 26,
+      "first": {
+        "key": "4|0|0|8738",
+        "rows": [
+          {
+            "state": "257:4112",
+            "owner": 0,
+            "mask": 8738,
+            "X_h": 4,
+            "p": 0,
+            "thresholdXor": 15,
+            "multiset": "0,0,0,4",
+            "R": false,
+            "F": false,
+            "G": false,
+            "X_feas": false,
+            "heights": [
+              4,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "state": "1413:6232",
+            "owner": 0,
+            "mask": 8738,
+            "X_h": 4,
+            "p": 0,
+            "thresholdXor": 15,
+            "multiset": "0,3,3,4",
+            "R": true,
+            "F": false,
+            "G": false,
+            "X_feas": true,
+            "heights": [
+              4,
+              0,
+              3,
+              3
+            ]
+          },
+          {
+            "state": "17797:39000",
+            "owner": 0,
+            "mask": 8738,
+            "X_h": 4,
+            "p": 0,
+            "thresholdXor": 15,
+            "multiset": "0,4,4,4",
+            "R": true,
+            "F": false,
+            "G": true,
+            "X_feas": true,
+            "heights": [
+              4,
+              0,
+              4,
+              4
+            ]
+          },
+          {
+            "state": "261:4120",
+            "owner": 0,
+            "mask": 8738,
+            "X_h": 4,
+            "p": 0,
+            "thresholdXor": 15,
+            "multiset": "0,1,1,4",
+            "R": false,
+            "F": false,
+            "G": false,
+            "X_feas": false,
+            "heights": [
+              4,
+              0,
+              1,
+              1
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "feature": "XH_P",
+      "rule": "X_feas",
+      "groups": 1094,
+      "ambiguousGroups": 153,
+      "first": {
+        "key": "0|0|1|240",
+        "rows": [
+          {
+            "state": "0:0",
+            "owner": 1,
+            "mask": 240,
+            "X_h": 0,
+            "p": 0,
+            "thresholdXor": 0,
+            "multiset": "0,0,0,0",
+            "R": false,
+            "F": false,
+            "G": false,
+            "X_feas": false,
+            "heights": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "state": "1:2",
+            "owner": 1,
+            "mask": 240,
+            "X_h": 0,
+            "p": 0,
+            "thresholdXor": 0,
+            "multiset": "0,0,1,1",
+            "R": false,
+            "F": false,
+            "G": false,
+            "X_feas": false,
+            "heights": [
+              1,
+              1,
+              0,
+              0
+            ]
+          },
+          {
+            "state": "5:10",
+            "owner": 1,
+            "mask": 240,
+            "X_h": 0,
+            "p": 0,
+            "thresholdXor": 0,
+            "multiset": "1,1,1,1",
+            "R": false,
+            "F": true,
+            "G": false,
+            "X_feas": true,
+            "heights": [
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          {
+            "state": "9:6",
+            "owner": 1,
+            "mask": 240,
+            "X_h": 0,
+            "p": 0,
+            "thresholdXor": 0,
+            "multiset": "1,1,1,1",
+            "R": false,
+            "F": true,
+            "G": false,
+            "X_feas": true,
+            "heights": [
+              1,
+              1,
+              1,
+              1
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "feature": "THRESH",
+      "rule": "R",
+      "groups": 1712,
+      "ambiguousGroups": 116,
+      "first": {
+        "key": "0|0|61440",
+        "rows": [
+          {
+            "state": "0:0",
+            "owner": 0,
+            "mask": 61440,
+            "X_h": 0,
+            "p": 0,
+            "thresholdXor": 0,
+            "multiset": "0,0,0,0",
+            "R": false,
+            "F": false,
+            "G": true,
+            "X_feas": true,
+            "heights": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "state": "289:530",
+            "owner": 0,
+            "mask": 61440,
+            "X_h": 0,
+            "p": 0,
+            "thresholdXor": 0,
+            "multiset": "0,0,3,3",
+            "R": false,
+            "F": false,
+            "G": true,
+            "X_feas": true,
+            "heights": [
+              3,
+              3,
+              0,
+              0
+            ]
+          },
+          {
+            "state": "429:3666",
+            "owner": 0,
+            "mask": 61440,
+            "X_h": 0,
+            "p": 0,
+            "thresholdXor": 0,
+            "multiset": "3,3,3,3",
+            "R": true,
+            "F": false,
+            "G": true,
+            "X_feas": true,
+            "heights": [
+              3,
+              3,
+              3,
+              3
+            ]
+          },
+          {
+            "state": "301:722",
+            "owner": 0,
+            "mask": 61440,
+            "X_h": 0,
+            "p": 0,
+            "thresholdXor": 0,
+            "multiset": "2,2,3,3",
+            "R": true,
+            "F": false,
+            "G": true,
+            "X_feas": true,
+            "heights": [
+              3,
+              3,
+              2,
+              2
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "feature": "THRESH",
+      "rule": "F",
+      "groups": 1712,
+      "ambiguousGroups": 170,
+      "first": {
+        "key": "0|1|240",
+        "rows": [
+          {
+            "state": "0:0",
+            "owner": 1,
+            "mask": 240,
+            "X_h": 0,
+            "p": 0,
+            "thresholdXor": 0,
+            "multiset": "0,0,0,0",
+            "R": false,
+            "F": false,
+            "G": false,
+            "X_feas": false,
+            "heights": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "state": "1:2",
+            "owner": 1,
+            "mask": 240,
+            "X_h": 0,
+            "p": 0,
+            "thresholdXor": 0,
+            "multiset": "0,0,1,1",
+            "R": false,
+            "F": false,
+            "G": false,
+            "X_feas": false,
+            "heights": [
+              1,
+              1,
+              0,
+              0
+            ]
+          },
+          {
+            "state": "5:10",
+            "owner": 1,
+            "mask": 240,
+            "X_h": 0,
+            "p": 0,
+            "thresholdXor": 0,
+            "multiset": "1,1,1,1",
+            "R": false,
+            "F": true,
+            "G": false,
+            "X_feas": true,
+            "heights": [
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          {
+            "state": "9:6",
+            "owner": 1,
+            "mask": 240,
+            "X_h": 0,
+            "p": 0,
+            "thresholdXor": 0,
+            "multiset": "1,1,1,1",
+            "R": false,
+            "F": true,
+            "G": false,
+            "X_feas": true,
+            "heights": [
+              1,
+              1,
+              1,
+              1
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "feature": "THRESH",
+      "rule": "G",
+      "groups": 1712,
+      "ambiguousGroups": 26,
+      "first": {
+        "key": "15|0|8738",
+        "rows": [
+          {
+            "state": "257:4112",
+            "owner": 0,
+            "mask": 8738,
+            "X_h": 4,
+            "p": 0,
+            "thresholdXor": 15,
+            "multiset": "0,0,0,4",
+            "R": false,
+            "F": false,
+            "G": false,
+            "X_feas": false,
+            "heights": [
+              4,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "state": "1413:6232",
+            "owner": 0,
+            "mask": 8738,
+            "X_h": 4,
+            "p": 0,
+            "thresholdXor": 15,
+            "multiset": "0,3,3,4",
+            "R": true,
+            "F": false,
+            "G": false,
+            "X_feas": true,
+            "heights": [
+              4,
+              0,
+              3,
+              3
+            ]
+          },
+          {
+            "state": "17797:39000",
+            "owner": 0,
+            "mask": 8738,
+            "X_h": 4,
+            "p": 0,
+            "thresholdXor": 15,
+            "multiset": "0,4,4,4",
+            "R": true,
+            "F": false,
+            "G": true,
+            "X_feas": true,
+            "heights": [
+              4,
+              0,
+              4,
+              4
+            ]
+          },
+          {
+            "state": "261:4120",
+            "owner": 0,
+            "mask": 8738,
+            "X_h": 4,
+            "p": 0,
+            "thresholdXor": 15,
+            "multiset": "0,1,1,4",
+            "R": false,
+            "F": false,
+            "G": false,
+            "X_feas": false,
+            "heights": [
+              4,
+              0,
+              1,
+              1
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "feature": "THRESH",
+      "rule": "X_feas",
+      "groups": 1712,
+      "ambiguousGroups": 141,
+      "first": {
+        "key": "0|1|240",
+        "rows": [
+          {
+            "state": "0:0",
+            "owner": 1,
+            "mask": 240,
+            "X_h": 0,
+            "p": 0,
+            "thresholdXor": 0,
+            "multiset": "0,0,0,0",
+            "R": false,
+            "F": false,
+            "G": false,
+            "X_feas": false,
+            "heights": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "state": "1:2",
+            "owner": 1,
+            "mask": 240,
+            "X_h": 0,
+            "p": 0,
+            "thresholdXor": 0,
+            "multiset": "0,0,1,1",
+            "R": false,
+            "F": false,
+            "G": false,
+            "X_feas": false,
+            "heights": [
+              1,
+              1,
+              0,
+              0
+            ]
+          },
+          {
+            "state": "5:10",
+            "owner": 1,
+            "mask": 240,
+            "X_h": 0,
+            "p": 0,
+            "thresholdXor": 0,
+            "multiset": "1,1,1,1",
+            "R": false,
+            "F": true,
+            "G": false,
+            "X_feas": true,
+            "heights": [
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          {
+            "state": "9:6",
+            "owner": 1,
+            "mask": 240,
+            "X_h": 0,
+            "p": 0,
+            "thresholdXor": 0,
+            "multiset": "1,1,1,1",
+            "R": false,
+            "F": true,
+            "G": false,
+            "X_feas": true,
+            "heights": [
+              1,
+              1,
+              1,
+              1
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "feature": "MULTISET",
+      "rule": "R",
+      "groups": 3562,
+      "ambiguousGroups": 0,
+      "first": null
+    },
+    {
+      "feature": "MULTISET",
+      "rule": "F",
+      "groups": 3562,
+      "ambiguousGroups": 105,
+      "first": {
+        "key": "0,4,4,4|1|128",
+        "rows": [
+          {
+            "state": "1799:28784",
+            "owner": 1,
+            "mask": 128,
+            "X_h": 4,
+            "p": 0,
+            "thresholdXor": 15,
+            "multiset": "0,4,4,4",
+            "R": false,
+            "F": true,
+            "G": false,
+            "X_feas": false,
+            "heights": [
+              4,
+              4,
+              4,
+              0
+            ]
+          },
+          {
+            "state": "9987:20596",
+            "owner": 1,
+            "mask": 128,
+            "X_h": 4,
+            "p": 0,
+            "thresholdXor": 15,
+            "multiset": "0,4,4,4",
+            "R": false,
+            "F": false,
+            "G": false,
+            "X_feas": false,
+            "heights": [
+              4,
+              4,
+              4,
+              0
+            ]
+          },
+          {
+            "state": "9479:21104",
+            "owner": 1,
+            "mask": 128,
+            "X_h": 4,
+            "p": 0,
+            "thresholdXor": 15,
+            "multiset": "0,4,4,4",
+            "R": false,
+            "F": true,
+            "G": false,
+            "X_feas": false,
+            "heights": [
+              4,
+              4,
+              4,
+              0
+            ]
+          },
+          {
+            "state": "8967:21616",
+            "owner": 1,
+            "mask": 128,
+            "X_h": 4,
+            "p": 0,
+            "thresholdXor": 15,
+            "multiset": "0,4,4,4",
+            "R": false,
+            "F": true,
+            "G": false,
+            "X_feas": false,
+            "heights": [
+              4,
+              4,
+              4,
+              0
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "feature": "MULTISET",
+      "rule": "G",
+      "groups": 3562,
+      "ambiguousGroups": 0,
+      "first": null
+    },
+    {
+      "feature": "MULTISET",
+      "rule": "X_feas",
+      "groups": 3562,
+      "ambiguousGroups": 0,
+      "first": null
+    }
+  ],
+  "recursiveSupportUpdate": [
+    {
+      "feature": "P",
+      "groups": 8,
+      "ambiguousGroups": 0,
+      "first": null
+    },
+    {
+      "feature": "XH",
+      "groups": 32,
+      "ambiguousGroups": 32,
+      "first": {
+        "key": "0|0",
+        "rows": [
+          {
+            "state": "0:0",
+            "heights": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "nextHeights": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "next": "1"
+          },
+          {
+            "state": "289:530",
+            "heights": [
+              3,
+              3,
+              0,
+              0
+            ],
+            "nextHeights": [
+              4,
+              3,
+              0,
+              0
+            ],
+            "next": "7"
+          },
+          {
+            "state": "25057:3614",
+            "heights": [
+              3,
+              4,
+              4,
+              3
+            ],
+            "nextHeights": [
+              4,
+              4,
+              4,
+              3
+            ],
+            "next": "7"
+          },
+          {
+            "state": "8681:19990",
+            "heights": [
+              3,
+              4,
+              4,
+              3
+            ],
+            "nextHeights": [
+              4,
+              4,
+              4,
+              3
+            ],
+            "next": "7"
+          }
+        ]
+      }
+    },
+    {
+      "feature": "XH_P",
+      "groups": 32,
+      "ambiguousGroups": 32,
+      "first": {
+        "key": "0|0|0",
+        "rows": [
+          {
+            "state": "0:0",
+            "heights": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "nextHeights": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "next": "1|1"
+          },
+          {
+            "state": "289:530",
+            "heights": [
+              3,
+              3,
+              0,
+              0
+            ],
+            "nextHeights": [
+              4,
+              3,
+              0,
+              0
+            ],
+            "next": "7|1"
+          },
+          {
+            "state": "25057:3614",
+            "heights": [
+              3,
+              4,
+              4,
+              3
+            ],
+            "nextHeights": [
+              4,
+              4,
+              4,
+              3
+            ],
+            "next": "7|1"
+          },
+          {
+            "state": "8681:19990",
+            "heights": [
+              3,
+              4,
+              4,
+              3
+            ],
+            "nextHeights": [
+              4,
+              4,
+              4,
+              3
+            ],
+            "next": "7|1"
+          }
+        ]
+      }
+    },
+    {
+      "feature": "THRESH",
+      "groups": 64,
+      "ambiguousGroups": 64,
+      "first": {
+        "key": "0|0",
+        "rows": [
+          {
+            "state": "0:0",
+            "heights": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "nextHeights": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "next": "1"
+          },
+          {
+            "state": "289:530",
+            "heights": [
+              3,
+              3,
+              0,
+              0
+            ],
+            "nextHeights": [
+              4,
+              3,
+              0,
+              0
+            ],
+            "next": "8"
+          },
+          {
+            "state": "25057:3614",
+            "heights": [
+              3,
+              4,
+              4,
+              3
+            ],
+            "nextHeights": [
+              4,
+              4,
+              4,
+              3
+            ],
+            "next": "8"
+          },
+          {
+            "state": "8681:19990",
+            "heights": [
+              3,
+              4,
+              4,
+              3
+            ],
+            "nextHeights": [
+              4,
+              4,
+              4,
+              3
+            ],
+            "next": "8"
+          }
+        ]
+      }
+    },
+    {
+      "feature": "HEIGHT_PARITY_SPECTRUM",
+      "groups": 64,
+      "ambiguousGroups": 64,
+      "first": {
+        "key": "0|0",
+        "rows": [
+          {
+            "state": "0:0",
+            "heights": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "nextHeights": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "next": "3"
+          },
+          {
+            "state": "289:530",
+            "heights": [
+              3,
+              3,
+              0,
+              0
+            ],
+            "nextHeights": [
+              4,
+              3,
+              0,
+              0
+            ],
+            "next": "24"
+          },
+          {
+            "state": "25057:3614",
+            "heights": [
+              3,
+              4,
+              4,
+              3
+            ],
+            "nextHeights": [
+              4,
+              4,
+              4,
+              3
+            ],
+            "next": "24"
+          },
+          {
+            "state": "8681:19990",
+            "heights": [
+              3,
+              4,
+              4,
+              3
+            ],
+            "nextHeights": [
+              4,
+              4,
+              4,
+              3
+            ],
+            "next": "24"
+          }
+        ]
+      }
+    },
+    {
+      "feature": "SUM_MOD4",
+      "groups": 16,
+      "ambiguousGroups": 0,
+      "first": null
+    },
+    {
+      "feature": "E2_MOD4",
+      "groups": 16,
+      "ambiguousGroups": 16,
+      "first": {
+        "key": "0|0",
+        "rows": [
+          {
+            "state": "0:0",
+            "heights": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "nextHeights": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "next": "0"
+          },
+          {
+            "state": "1:0",
+            "heights": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "nextHeights": [
+              2,
+              0,
+              0,
+              0
+            ],
+            "next": "0"
+          },
+          {
+            "state": "1:16",
+            "heights": [
+              2,
+              0,
+              0,
+              0
+            ],
+            "nextHeights": [
+              3,
+              0,
+              0,
+              0
+            ],
+            "next": "0"
+          },
+          {
+            "state": "257:16",
+            "heights": [
+              3,
+              0,
+              0,
+              0
+            ],
+            "nextHeights": [
+              4,
+              0,
+              0,
+              0
+            ],
+            "next": "0"
+          }
+        ]
+      }
+    },
+    {
+      "feature": "XH_E2_MOD4",
+      "groups": 108,
+      "ambiguousGroups": 108,
+      "first": {
+        "key": "0|0|0",
+        "rows": [
+          {
+            "state": "0:0",
+            "heights": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "nextHeights": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "next": "1|0"
+          },
+          {
+            "state": "3:48",
+            "heights": [
+              2,
+              2,
+              0,
+              0
+            ],
+            "nextHeights": [
+              3,
+              2,
+              0,
+              0
+            ],
+            "next": "1|2"
+          },
+          {
+            "state": "1671:24696",
+            "heights": [
+              2,
+              4,
+              4,
+              2
+            ],
+            "nextHeights": [
+              3,
+              4,
+              4,
+              2
+            ],
+            "next": "1|2"
+          },
+          {
+            "state": "16967:9400",
+            "heights": [
+              2,
+              4,
+              4,
+              2
+            ],
+            "nextHeights": [
+              3,
+              4,
+              4,
+              2
+            ],
+            "next": "1|2"
+          }
+        ]
+      }
+    },
+    {
+      "feature": "MULTISET",
+      "groups": 276,
+      "ambiguousGroups": 212,
+      "first": {
+        "key": "0,0,0,1|0",
+        "rows": [
+          {
+            "state": "1:0",
+            "heights": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "nextHeights": [
+              2,
+              0,
+              0,
+              0
+            ],
+            "next": "0,0,0,2"
+          },
+          {
+            "state": "2:0",
+            "heights": [
+              0,
+              1,
+              0,
+              0
+            ],
+            "nextHeights": [
+              1,
+              1,
+              0,
+              0
+            ],
+            "next": "0,0,1,1"
+          },
+          {
+            "state": "4:0",
+            "heights": [
+              0,
+              0,
+              1,
+              0
+            ],
+            "nextHeights": [
+              1,
+              0,
+              1,
+              0
+            ],
+            "next": "0,0,1,1"
+          },
+          {
+            "state": "8:0",
+            "heights": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "nextHeights": [
+              1,
+              0,
+              0,
+              1
+            ],
+            "next": "0,0,1,1"
+          }
+        ]
+      }
+    }
+  ],
+  "futureSplitOracle": [
+    {
+      "feature": "P",
+      "futureClasses": 27449,
+      "qoClasses": 34094,
+      "futureDescriptorPairs": 27449,
+      "qoExcessOverFuture": 6645,
+      "qoDistinctionsEliminableWhileRetainingDescriptor": 6645,
+      "futureClassesFragmentedByDescriptor": 0,
+      "maxDescriptorVariantsWithinOneFutureClass": 1
+    },
+    {
+      "feature": "XH",
+      "futureClasses": 27449,
+      "qoClasses": 34094,
+      "futureDescriptorPairs": 27449,
+      "qoExcessOverFuture": 6645,
+      "qoDistinctionsEliminableWhileRetainingDescriptor": 6645,
+      "futureClassesFragmentedByDescriptor": 0,
+      "maxDescriptorVariantsWithinOneFutureClass": 1
+    },
+    {
+      "feature": "XH_P",
+      "futureClasses": 27449,
+      "qoClasses": 34094,
+      "futureDescriptorPairs": 27449,
+      "qoExcessOverFuture": 6645,
+      "qoDistinctionsEliminableWhileRetainingDescriptor": 6645,
+      "futureClassesFragmentedByDescriptor": 0,
+      "maxDescriptorVariantsWithinOneFutureClass": 1
+    },
+    {
+      "feature": "THRESH",
+      "futureClasses": 27449,
+      "qoClasses": 34094,
+      "futureDescriptorPairs": 27451,
+      "qoExcessOverFuture": 6645,
+      "qoDistinctionsEliminableWhileRetainingDescriptor": 6643,
+      "futureClassesFragmentedByDescriptor": 2,
+      "maxDescriptorVariantsWithinOneFutureClass": 2
+    },
+    {
+      "feature": "HEIGHT_PARITY_SPECTRUM",
+      "futureClasses": 27449,
+      "qoClasses": 34094,
+      "futureDescriptorPairs": 27451,
+      "qoExcessOverFuture": 6645,
+      "qoDistinctionsEliminableWhileRetainingDescriptor": 6643,
+      "futureClassesFragmentedByDescriptor": 2,
+      "maxDescriptorVariantsWithinOneFutureClass": 2
+    },
+    {
+      "feature": "SUM_MOD4",
+      "futureClasses": 27449,
+      "qoClasses": 34094,
+      "futureDescriptorPairs": 27449,
+      "qoExcessOverFuture": 6645,
+      "qoDistinctionsEliminableWhileRetainingDescriptor": 6645,
+      "futureClassesFragmentedByDescriptor": 0,
+      "maxDescriptorVariantsWithinOneFutureClass": 1
+    },
+    {
+      "feature": "E2_MOD4",
+      "futureClasses": 27449,
+      "qoClasses": 34094,
+      "futureDescriptorPairs": 27451,
+      "qoExcessOverFuture": 6645,
+      "qoDistinctionsEliminableWhileRetainingDescriptor": 6643,
+      "futureClassesFragmentedByDescriptor": 2,
+      "maxDescriptorVariantsWithinOneFutureClass": 2
+    },
+    {
+      "feature": "XH_E2_MOD4",
+      "futureClasses": 27449,
+      "qoClasses": 34094,
+      "futureDescriptorPairs": 27451,
+      "qoExcessOverFuture": 6645,
+      "qoDistinctionsEliminableWhileRetainingDescriptor": 6643,
+      "futureClassesFragmentedByDescriptor": 2,
+      "maxDescriptorVariantsWithinOneFutureClass": 2
+    },
+    {
+      "feature": "MULTISET",
+      "futureClasses": 27449,
+      "qoClasses": 34094,
+      "futureDescriptorPairs": 27451,
+      "qoExcessOverFuture": 6645,
+      "qoDistinctionsEliminableWhileRetainingDescriptor": 6643,
+      "futureClassesFragmentedByDescriptor": 2,
+      "maxDescriptorVariantsWithinOneFutureClass": 2
+    }
+  ],
+  "transporter": {
+    "X_hInvariantUnderAllColumnPermutations": true,
+    "pInvariantUnderAllColumnPermutations": true,
+    "qSigmaOrbitClasses": 10496,
+    "orbitClassesPerX": [
+      {
+        "X_h": 0,
+        "orbitClasses": 1305
+      },
+      {
+        "X_h": 1,
+        "orbitClasses": 1093
+      },
+      {
+        "X_h": 2,
+        "orbitClasses": 1406
+      },
+      {
+        "X_h": 3,
+        "orbitClasses": 1553
+      },
+      {
+        "X_h": 4,
+        "orbitClasses": 1443
+      },
+      {
+        "X_h": 5,
+        "orbitClasses": 1355
+      },
+      {
+        "X_h": 6,
+        "orbitClasses": 1140
+      },
+      {
+        "X_h": 7,
+        "orbitClasses": 1201
+      }
+    ],
+    "maxOrbitClassesSharingOneX": 1553,
+    "canonicalRepresentativeConsequence": "X_h is constant over every column orbit, so it cannot choose among permutations inside an orbit; at most it can bucket distinct orbits."
+  },
+  "interpretationGuard": "Exact finite 4x4 evidence. Solved values are derived only after structural coordinates are frozen. X_h is tested as a discovery lens, not assumed fundamental."
+}
