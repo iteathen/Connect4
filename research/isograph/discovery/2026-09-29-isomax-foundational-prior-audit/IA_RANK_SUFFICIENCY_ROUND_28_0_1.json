@@ -1,0 +1,60 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_round.v1",
+  "round": 28,
+  "date_author_local": "2026-09-29",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_27_FIXED_POINT_0_1.json",
+    "RANK_SUFFICIENCY_QUADRATIC_XOR_INTEGRATION_0_1.json"
+  ],
+  "reopened_reason": "the complete 5x3-k3 exact-rank affine obstruction set is absorbed by a frozen degree-2 evaluator without refining Q",
+  "new_assertions": [
+    {
+      "id": "RS-IA098",
+      "family": "M",
+      "body": "In complete 5x3-k3, the tested T2-O scalar decoder has GF(2) polynomial degree at most two relative to exact-rank component-parity coordinates."
+    },
+    {
+      "id": "RS-IA099",
+      "family": "F",
+      "body": "The 18 affine contradictions were evaluator-model insufficiency rather than evidence that the tested scalar Q needed another coordinate: changing D alone removes them."
+    },
+    {
+      "id": "RS-IA100",
+      "family": "C",
+      "body": "The four-row rectangle certificates are exactly the second-discrete-derivative obstructions expected when a degree-1 model is missing pair interactions; their disappearance under degree two is structurally coherent with that diagnosis."
+    },
+    {
+      "id": "RS-IA101",
+      "family": "Q",
+      "body": "Finite polynomial degree is a separate optimization axis from Q coarseness. A smaller Q may require a higher-degree D, while a refined Q can linearize part of D."
+    },
+    {
+      "id": "RS-IA102",
+      "family": "R",
+      "body": "The full degree-2 existence construction is radically underdetermined and therefore cannot be interpreted as a stable component-pair valuation without additional minimality or transfer evidence."
+    },
+    {
+      "id": "RS-IA103",
+      "family": "S",
+      "body": "Cross-geometry transfer now dominates local fitting: 4x4-k4 is the required independent falsifier because it retains 168 exact-rank degree-1 contradictions under the same frozen producer."
+    }
+  ],
+  "qu_refinements": [
+    {
+      "id": "RS-QR035",
+      "target": "QU-RS-010",
+      "add_fixed": [
+        "complete 5x3-k3 T2-O admits an exact-rank degree-2 GF(2)^2 decoder over frozen component parity",
+        "the degree-1 control exactly reproduces all 18 prior contradictions",
+        "no Q refinement was needed for the bounded degree-2 pass"
+      ],
+      "retain_open": [
+        "4x4-k4 quadratic transfer",
+        "minimal sparse interaction basis",
+        "closed-form structural interaction law",
+        "fresh larger-geometry transfer"
+      ]
+    }
+  ],
+  "stop_status": "REOPENED__4X4K4_QUADRATIC_CONTROL_PENDING"
+}
