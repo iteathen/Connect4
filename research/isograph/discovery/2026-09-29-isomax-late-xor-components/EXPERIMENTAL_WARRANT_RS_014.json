@@ -1,0 +1,27 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.late_xor_tactical_reduction.v1",
+  "id": "EW-RS-014",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "parent": "EW-RS-013",
+  "objective": "Test component parity only after exact one-ply tactical terminalization of immediate wins and unavoidable double-threat losses.",
+  "reduction": {
+    "W": "current mover has at least one immediate winning legal column",
+    "L": "current mover has no immediate win and opponent has at least two distinct immediate winning columns",
+    "O": "otherwise unresolved"
+  },
+  "exactness_argument": [
+    "W is exact by first-win stopping.",
+    "For L, any legal move occupies at most one landing column; with no immediate current-mover win, at least one distinct opponent immediate winning column remains for the next ply."
+  ],
+  "anti_circularity": [
+    "W/L/O is computed from current q_o support plus singleton residuals only.",
+    "No solved value or future-class label defines the tactical status.",
+    "The post-RFG component definition and parity key are unchanged."
+  ],
+  "target": "Q-V primary; Q-F recorded only as diagnostic",
+  "falsifiers": [
+    "If MOD2_P_TACTICAL remains Q-V inconsistent, this exact tactical terminalization is not enough to make the current components self-cancelling.",
+    "A success would not prove a final XOR law; it would show that absorbing one-ply terminal structure was a necessary preprocessing layer in tested cases."
+  ]
+}
