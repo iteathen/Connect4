@@ -1,0 +1,36 @@
+name: IsoMax discovery cap-hole orientation audit
+
+on:
+  push:
+    branches:
+      - experiment/isomax-discovery-cap-hole-orientation-20260929
+    paths:
+      - '.github/workflows/isomax-discovery-cap-hole-orientation.yml'
+      - 'research/isograph/discovery/2026-09-29-isomax-full-discovery/run-cap-hole-orientation.mjs'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with: {fetch-depth: 0}
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with: {node-version: '26'}
+      - name: Audit cap-hole orientation motif
+        run: node research/isograph/discovery/2026-09-29-isomax-full-discovery/run-cap-hole-orientation.mjs
+      - name: Research integrity
+        run: node tools/verify-research-integrity.mjs
+      - name: Commit cap-hole evidence
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/isograph/discovery/2026-09-29-isomax-full-discovery/CAP_HOLE_ORIENTATION_AUDIT_0_1.json
+          if git diff --cached --quiet; then echo "No generated changes."; else
+            git commit -m "research(isomax): freeze cap-hole orientation evidence"
+            git push origin HEAD:experiment/isomax-discovery-cap-hole-orientation-20260929
+          fi
