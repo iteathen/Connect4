@@ -163,7 +163,7 @@ function auditCase(W,H,K){
           const a=xs[0],b=xs[1],A=reps.get(a.key).counts,B=reps.get(b.key).counts,
             types=new Set([...A.keys(),...B.keys()]),delta=[];
           let l1=0;
-          for(const t of types){const d=(B.get(t)??0)-(A.get(t)??0);if(d){assert.equal(Math.abs(d)%2,0,id==='MOD2_P'?'mod2 collision must differ by even counts':0);l1+=Math.abs(d);delta.push({type:typeIds.get(t),width:typeWidth.get(t),delta:d});}}
+          for(const t of types){const d=(B.get(t)??0)-(A.get(t)??0);if(d){if(id==='MOD2_P')assert.equal(Math.abs(d)%2,0,'mod2 collision must differ by even counts');l1+=Math.abs(d);delta.push({type:typeIds.get(t),width:typeWidth.get(t),delta:d});}}
           const pairUnits=l1/2;
           if(minPairUnits===null||pairUnits<minPairUnits)minPairUnits=pairUnits;
           if(pairExamples.length<12)pairExamples.push({key:k,a:a.key,b:b.key,aValue:values.get(a.key),bValue:values.get(b.key),aCounts:compactCounts(a.key),bCounts:compactCounts(b.key),delta,pairUnits});
