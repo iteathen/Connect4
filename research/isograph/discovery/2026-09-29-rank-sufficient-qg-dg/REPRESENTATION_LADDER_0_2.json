@@ -1,0 +1,72 @@
+{
+  "schema": "connect4.rank_sufficient_qg_dg.representation_ladder.v2",
+  "date_author_local": "2026-09-29",
+  "order_semantics": "Q1 <= Q2 means Q1 is computable from Q2 modulo lossless recoding",
+  "ladder": [
+    {
+      "id": "P",
+      "name": "full current physical position",
+      "rank_local": true,
+      "sufficiency": [
+        "future",
+        "value",
+        "physical occurrence"
+      ],
+      "minimality": "upper endpoint"
+    },
+    {
+      "id": "QO",
+      "name": "orientation-sensitive support + owned normalized residual antichains",
+      "rank_local": true,
+      "sufficiency": [
+        "qualified complete ordinary future behavior",
+        "value"
+      ],
+      "minimality": "OPEN; bounded controls prove not coarsest there"
+    },
+    {
+      "id": "Q_LOCAL_CLOSED",
+      "name": "q_o after predeclared current-rank remaining/release/frontier/final-cap safe-forgetting closure",
+      "rank_local": true,
+      "sufficiency": "exact complete future behavior on all four bounded controls",
+      "transition_closure": "PENDING",
+      "minimality": "not coarsest on bounded controls",
+      "authority": "experimental bounded candidate, not standard-7x6 theorem"
+    },
+    {
+      "id": "QR",
+      "name": "physical horizontal-reflection orbit of QO",
+      "rank_local": true,
+      "sufficiency": [
+        "qualified scalar value",
+        "future behavior up to reflection transporter"
+      ],
+      "minimality": "OPEN"
+    },
+    {
+      "id": "CANDIDATE_COARSENINGS",
+      "name": "rank-local structural compressions below QO/QR",
+      "rank_local": true,
+      "sufficiency": "must be proven/falsified",
+      "minimality": "search target"
+    },
+    {
+      "id": "SEMANTIC_FUTURE_QUOTIENT",
+      "name": "coarsest complete continuation-behavior equivalence",
+      "rank_local_construction": "UNKNOWN",
+      "role": "validation target only; cannot define Q by future exploration"
+    },
+    {
+      "id": "VALUE_PARTITION",
+      "name": "exact scalar-value partition",
+      "rank_local_construction": "UNKNOWN",
+      "role": "validation target only; using solved value to define Q is circular"
+    }
+  ],
+  "important_nonordering": [
+    "Future-behavior and value sufficiency are different partial orders/targets.",
+    "Proof/certificate sufficiency may be finer than ordinary q_o.",
+    "Representation cardinality on a finite test is not itself a proof of semantic minimality."
+  ],
+  "revision_of": "REPRESENTATION_LADDER_0_1.json"
+}
