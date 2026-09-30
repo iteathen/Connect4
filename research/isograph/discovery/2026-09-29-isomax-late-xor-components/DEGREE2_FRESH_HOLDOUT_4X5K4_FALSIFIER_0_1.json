@@ -1,0 +1,33 @@
+{
+  "schema": "connect4.isomax.falsifier_observation.degree2_fresh_holdout.v1",
+  "date_author_local": "2026-09-29",
+  "warrant": "EW-RS-043",
+  "run": {
+    "workflow": "IsoMax release-parity fresh holdout 4x5-k4",
+    "run_id": 36678333329,
+    "head_sha": "fc849f028bcecc6c9c2163d8ef879ddedffd1422",
+    "geometry": "4x5-k4",
+    "node_heap_mb": 6144
+  },
+  "observation": {
+    "execution": "REACHED_ALGEBRA_QUALIFICATION",
+    "failing_control": "EXACT component-identity quadratic pair model with exact-rank affine component coordinates",
+    "contradictions": 12,
+    "assertion": "exact component quadratic control must retain exact scalar decoding",
+    "result": "FALSIFIER_FIRED"
+  },
+  "qualification_disposition": "DEGREE2_EXACT_COMPONENT_MODEL_REJECTED_ON_4X5K4",
+  "discovery_disposition": "OPEN_HIGHER_ORDER_INTERACTION_LEAD",
+  "candidate_disposition": "TOPO_RPAR cannot be promoted from this run because its parent exact-degree-2 model is already insufficient; complete per-model contradiction counts still need to be emitted.",
+  "anti_circularity": [
+    "4x5-k4 was predeclared before its outcome qualification.",
+    "The exact-component degree-2 control was frozen before this run.",
+    "No structural coordinate was added after observing the 12 contradictions."
+  ],
+  "interpretation_guard": [
+    "This rejects degree-2 sufficiency on 4x5-k4; it does not by itself prove degree 3 is sufficient.",
+    "It does not invalidate the zero-contradiction quadratic results on the previously tested carriers.",
+    "It does not establish a standard-7x6 result.",
+    "The next run must preserve the same frozen models and emit the full contradiction profile rather than abort on the exact-control falsifier."
+  ]
+}
