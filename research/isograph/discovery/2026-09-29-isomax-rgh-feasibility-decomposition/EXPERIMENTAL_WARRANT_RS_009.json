@@ -1,0 +1,21 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.rgh_feasibility_decomposition.v1",
+  "id": "EW-RS-009",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "objective": "Test whether exact single-residual support-lattice ownership feasibility E1 decomposes into the rank-local rules R+G+H, and whether F(E1(q)) equals RFGH(q), across the frozen 4x4-k4 training case and four fresh bounded holdouts.",
+  "distinction": "E1 is the existing exact single-residual feasibility operator; it is unrelated to the user's height-XOR coordinate X_h.",
+  "anti_circularity": [
+    "R/G/H definitions are frozen before these holdouts",
+    "E1 uses support-lattice ownership feasibility only, no W/D/L or first-win result oracle",
+    "equality is checked on exact transformed q representations, not only class counts"
+  ],
+  "cases": [
+    "4x4-k4",
+    "3x3-k3",
+    "3x4-k3",
+    "4x3-k3",
+    "4x4-k3"
+  ],
+  "no_solver_changes": true
+}
