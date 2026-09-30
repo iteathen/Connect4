@@ -1,0 +1,110 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.phase_factorization_integration.v1",
+  "date_author_local": "2026-09-29",
+  "research_direction": "Joshua Oshiro",
+  "status": "EXACT_BOUNDED_QV_CANDIDATE__GENERALIZATION_OPEN",
+  "evidence": [
+    {
+      "id": "CTX",
+      "branch": "research/isomax-foundational-prior-audit-20260929",
+      "commit": "5dab90f94cd8d3b1ec8866efb44515da9d217e14",
+      "file": "RANK_SUFFICIENCY_CONTEXTUAL_COMPONENT_INTEGRATION_0_1.json"
+    },
+    {
+      "id": "PHASE",
+      "branch": "experiment/isomax-late-xor-components-20260929",
+      "commit": "add16a19e701605716a7b1fbb3d7fc99757ac9ed",
+      "file": "RANK_CONDITIONED_COMPONENT_PHASE_0_1.json"
+    },
+    {
+      "id": "T2DIR",
+      "branch": "experiment/isomax-late-xor-components-20260929",
+      "commit": "3822913b71604d7008b9e1a28d354258a509e62b",
+      "file": "RANK_LOCAL_T2_DERIVATION_0_1.json"
+    },
+    {
+      "id": "FRESH0",
+      "branch": "experiment/isomax-late-xor-components-20260929",
+      "commit": "3fac96f674f00535f92f675b4aa4607e5d7bbc70",
+      "file": "LATE_XOR_TWO_PLY_FRESH_HOLDOUT_0_1.json"
+    }
+  ],
+  "candidate": {
+    "target": "Q-V only",
+    "bounded_key": [
+      "post-RFG component-type multiplicity modulo 2",
+      "current rank modulo 3",
+      "direct T2 category W/L2/O"
+    ],
+    "redundant_coordinate": "stone-count/turn parity p is determined by the component-type multiplicity parity because every component type contains its local support heights",
+    "notation": "Q_V^phase(P) = (M_2(P), r(P) mod 3, T2(P))",
+    "scope": "eight complete bounded carriers: 3x3-k3, 3x4-k3, 4x3-k3, 4x4-k4, 4x4-k3, 3x5-k3, 5x3-k3, fresh 3x6-k3"
+  },
+  "findings": [
+    {
+      "id": "RS-F065",
+      "status": "EXACT_FINITE_CROSS_CASE",
+      "statement": "After the frozen T2 reduction, every remaining component-parity scalar-value ambiguity in the eight tested carriers is cross-rank: the audit reports zero same-exact-rank mixed-value groups in every case. The only T2+parity Q-V failure is 5x3-k3, with two mixed groups."
+    },
+    {
+      "id": "RS-F066",
+      "status": "EXACT_FINITE_CROSS_CASE",
+      "statement": "Adding exact current rank to component multiplicity parity plus T2 removes all scalar-value collisions on all eight tested carriers, including fresh 3x6-k3. The resulting representation remains Q-F-inexact on most carriers, so this is a Q-V result rather than a Q-F promotion."
+    },
+    {
+      "id": "RS-F067",
+      "status": "EXACT_FINITE_CROSS_CASE",
+      "statement": "The smaller phase coordinate rank mod 3, together with component multiplicity parity and T2, is Q-V exact on all eight tested carriers. Rank mod 4 fails on 5x3-k3, while exact rank without T2 fails on every carrier. Rank phase and tactical reduction are therefore complementary in the tested corpus."
+    },
+    {
+      "id": "RS-F068",
+      "status": "DEDUCTIVE_EXACT_FROM_COMPONENT_ENCODING",
+      "statement": "For any modulus m, the component multiplicity signature modulo m determines total rank modulo m: if w_m(C) is the sum of the local support heights encoded by component type C modulo m, then r mod m = sum_C (n_C mod m) w_m(C) mod m. Components partition the columns, so this is an identity, not a finite empirical correlation."
+    },
+    {
+      "id": "RS-F069",
+      "status": "DEDUCTIVE_INTERPRETATION_GUARD",
+      "statement": "Prior MOD3 multiplicity success necessarily carried rank mod 3 as a projection. It therefore cannot by itself be interpreted as evidence for a ternary component algebra. Likewise, the explicit turn-parity coordinate p in the old MOD2_P keys is redundant because the MOD2 component signature already determines rank parity."
+    },
+    {
+      "id": "RS-F070",
+      "status": "EXACT_FINITE_QV_COMPRESSION",
+      "statement": "On 5x3-k3 the phase-factorized Q-V key has 13,355 classes versus 13,420 for the earlier MOD3 multiplicity key, while both are Q-V exact in that carrier; on 3x5-k3 the corresponding counts are 1,732 versus 1,733. These are bounded Q-V comparisons only and do not preserve the earlier Q-F status."
+    },
+    {
+      "id": "RS-F071",
+      "status": "DEDUCTIVE_CURRENT_RANK_LAW_WITH_EXHAUSTIVE_CONTROL",
+      "statement": "T2 has a direct current-rank structural form: W iff a mover singleton residual intersects the current legal frontier; otherwise a move replaces its column's frontier cell by the next cell above it, and L2 iff every such updated frontier intersects an opponent singleton residual. This law uses no child-state exploration and exactly matches the child-derived T2 reference on all eight complete controls."
+    },
+    {
+      "id": "RS-F072",
+      "status": "EXACT_FINITE_RFG_PRESERVATION",
+      "statement": "The same direct singleton-frontier T2 law computed after R/F/G safe forgetting has zero mismatches against the child-derived reference on all eight complete controls. General RFG preservation of all T2-relevant singleton facts remains to be proved."
+    },
+    {
+      "id": "RS-F073",
+      "status": "DERIVED_CONTEXTUAL_INTERPRETATION",
+      "statement": "The surviving 5x3 parity failure was not evidence that the paired component types required arbitrary patched values: it was a scheduler-phase alias. The natural tested Q-V carrier is contextual, with global rank phase and tactical frontier status acting alongside the parity-reduced component multiset."
+    },
+    {
+      "id": "RS-F074",
+      "status": "NEGATIVE_CORRESPONDENCE_RESULT",
+      "statement": "The historical 836 ambiguity family and the late component-phase ambiguity are not the same observed obstruction: the 836 family is same-support dead residual structure removed by hereditary G, whereas the late failure occurs after RFG and is separated by current rank phase. No common missing coordinate is supported by the present evidence."
+    }
+  ],
+  "interpretation": [
+    "Bare post-RFG component parity remains falsified, consistent with RS-F062.",
+    "A contextual exponent-2 count quotient reappears as a bounded Q-V candidate only after factoring global phase and the exact tactical frontier category.",
+    "No component nimber, XOR evaluator, or universal group law has been derived.",
+    "The next algebraic question is whether the contextual Q-V quotient admits a stable component valuation/composition law after phase has been factored explicitly."
+  ],
+  "open": [
+    "Q-A qualification of Q_V^phase",
+    "fresh wider-geometry and standard-7x6 qualification",
+    "symbolic proof that RFG always preserves the singleton-frontier information needed by direct T2",
+    "minimality of rank mod 3 versus another derived scheduler coordinate",
+    "whether T2 can be subsumed into the contextual scheduler normal form",
+    "whether the phase-factored component quotient supports XOR, a larger finite abelian group, or another finite algebra",
+    "direct form of D_G on the phase-factored Q-V quotient"
+  ]
+}
