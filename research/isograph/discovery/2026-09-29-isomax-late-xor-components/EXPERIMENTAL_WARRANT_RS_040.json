@@ -1,0 +1,55 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.simple_bilinear_syndrome_bank.v1",
+  "id": "EW-RS-040",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "parent": "EW-RS-039",
+  "objective": "Factor the canonical fitted scalar syndrome supports through a compact outcome-independent bank of symmetric bilinear component invariants and test how much rank-phase grading is actually required.",
+  "cases": [
+    "5x3-k3",
+    "4x4-k4",
+    "6x3-k3",
+    "3x7-k3"
+  ],
+  "frozen_component_bits": [
+    "ONE",
+    "component width parity",
+    "remaining local capacity low two bits",
+    "per-owner residual-count parity",
+    "per-owner residual-cell-incidence parity",
+    "per-owner multi-column residual parity",
+    "per-owner residuals touching the current frontier parity",
+    "per-owner odd-delay cell parity",
+    "per-owner odd maximum-delay residual parity",
+    "per-owner frontier-column and touched-column count parity",
+    "cross-owner shared touched/frontier column count parity",
+    "per-owner delay-bin cell parity for depth 0, depth 1, and depth >=2"
+  ],
+  "pair_construction": "For each unordered pair of odd component types, form all symmetric bilinear products of the frozen binary component features and XOR-aggregate identical products.",
+  "phase_modes": [
+    "GLOBAL: one coefficient per bilinear invariant across ranks within a carrier",
+    "R3: coefficients graded by rank mod 3",
+    "R6: coefficients graded by rank mod 6",
+    "EXACT: coefficients graded by exact rank"
+  ],
+  "frozen_from_prior": [
+    "post-RFG component parity",
+    "direct rank-local T2",
+    "exact-rank affine component coordinates",
+    "two-dimensional scalar target quotient on demanding carriers",
+    "REL_INC scalar sufficiency",
+    "EW-RS-039 fitted-support extraction"
+  ],
+  "anti_circularity": [
+    "All component bits and phase modes are declared before outcome qualification.",
+    "No W/D/L label selects or modifies a candidate feature.",
+    "Exact component identities remain only in the already-frozen affine part; the new interaction bank is structurally compressed."
+  ],
+  "falsifiers": [
+    "Any contradiction rejects that phase mode for this candidate bank on the tested carrier.",
+    "If EXACT fails, these simple binary invariants are insufficient even with exact-rank grading.",
+    "A pass does not establish cross-geometry coefficient transfer; that requires a subsequent frozen-coefficient test."
+  ],
+  "next_if_success": "Choose the coarsest phase mode exact on every demanding carrier, extract deterministic syndrome coefficients, then test coefficient transfer on a predeclared fresh non-affine carrier.",
+  "next_if_fail": "Enrich the bank only with independently motivated REL_INC topology invariants suggested by support factorization; do not add outcome-selected features."
+}
