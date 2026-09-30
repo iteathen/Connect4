@@ -1,0 +1,26 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_fixed_point.v1",
+  "round": 25,
+  "date_author_local": "2026-09-29",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_24_0_1.json",
+    "RANK_SUFFICIENCY_SAME_RANK_XOR_CERTIFICATE_INTEGRATION_0_1.json"
+  ],
+  "recursive_generation": {
+    "families_checked": [
+      "Q/D separation",
+      "same-rank contextual substitution",
+      "GF(2) rectangle nonlinearity",
+      "outcome-code gauge",
+      "interaction restraint"
+    ],
+    "new_assertions": []
+  },
+  "fixed_point": true,
+  "reason": "RS-IA087 through RS-IA092 exhaust the native implications of the first same-rank certificate. Choosing an interaction model requires classification of the full minimal-rectangle family.",
+  "next_evidence_boundaries": [
+    "twelve 5x3-k3 size-4 rectangle certificates",
+    "shared substitution/context motif versus multiple interaction generators"
+  ],
+  "stop_status": "FIXED_POINT__RECTANGLE_FAMILY_NEXT"
+}
