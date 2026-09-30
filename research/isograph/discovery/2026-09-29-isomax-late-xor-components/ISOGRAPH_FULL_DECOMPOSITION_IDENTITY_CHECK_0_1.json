@@ -1,0 +1,53 @@
+{
+  "schema": "connect4.isomax.isograph_full_decomposition_identity_check.v1",
+  "date_author_local": "2026-09-30",
+  "status": "PASS",
+  "outcomeIndependent": true,
+  "solvedOutcomesRead": false,
+  "checks": {
+    "zoeAdditiveHomomorphism": {
+      "pass": true,
+      "cases": 16641
+    },
+    "zoeCommutativeMonoid": {
+      "pass": true,
+      "cases": 27
+    },
+    "rolePhaseRecodingAndMoveGauge": {
+      "pass": true,
+      "cases": 8
+    },
+    "groupedDescriptorRankContribution": {
+      "pass": true,
+      "cases": 258
+    },
+    "rankParityReconstruction": {
+      "pass": true,
+      "cases": 4092
+    },
+    "binaryZoeAbsorption": {
+      "pass": true,
+      "cases": 3
+    },
+    "orToGf2AnfEncoding": {
+      "pass": true,
+      "cases": 12
+    }
+  },
+  "verifiedIdentities": [
+    "kappa = Hmod2 XOR hmod2",
+    "rowmod2 = Hmod2 XOR kappa XOR dmod2",
+    "move toggles kappa and d parity together for a surviving same-row cell",
+    "ZOE(n+m) = ZOE(n) star ZOE(m) with star=(OR,XOR)",
+    "descriptor phase checksum repeated n times depends only on n mod 2",
+    "rankmod2 = (W*H mod2) XOR XOR_c kappa_c",
+    "P_d AND O_d = O_d on valid ZOE states",
+    "OR introduces higher GF(2) ANF degree under binary flattening"
+  ],
+  "scopeGuard": [
+    "These are algebraic/mechanical identities of the frozen representation.",
+    "They do not prove repaired-coordinate Q-V sufficiency on standard 7x6.",
+    "They do not prove T2 removal, exact-depth removal, Q-A, Q-F, or a closed scalar decoder.",
+    "EW-RS-059 holdout outcomes are not read."
+  ]
+}
