@@ -1,0 +1,100 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.rectangle_family_integration.v1",
+  "date_author_local": "2026-09-29",
+  "research_direction": "Joshua Oshiro",
+  "status": "MULTIPLE_CONTEXTUAL_SUBSTITUTION_GENERATORS_FOUND",
+  "evidence": [
+    {
+      "id": "SRXF",
+      "branch": "experiment/isomax-late-xor-components-20260929",
+      "commit": "63896d38a034c31f5a83bea6e74f1416e1fb1f31",
+      "file": "SAME_RANK_XOR_RECTANGLE_FAMILY_0_1.json",
+      "warrant": "EW-RS-030"
+    },
+    {
+      "id": "SRXC",
+      "branch": "experiment/isomax-late-xor-components-20260929",
+      "commit": "93088eec6c228fd5c82c9e9c06b97c93536289d0",
+      "file": "SAME_RANK_XOR_CONTRADICTION_CERTIFICATE_0_1.json",
+      "warrant": "EW-RS-029"
+    }
+  ],
+  "findings": [
+    {
+      "id": "RS-F114",
+      "status": "EXACT_FINITE",
+      "statement": "All twelve minimum 5x3-k3 same-rank contradiction certificates are four-state rectangles with a unique structurally minimal substitution pairing of parity-toggle size two."
+    },
+    {
+      "id": "RS-F115",
+      "status": "EXACT_FINITE",
+      "statement": "The twelve rectangles use four distinct minimal substitution directions: T09438<->T09439 in six rectangles, and T09407<->T09411, T09407<->T09415, T09436<->T09438 in two rectangles each."
+    },
+    {
+      "id": "RS-F116",
+      "status": "EXACT_FINITE_STRUCTURAL_COMPRESSION",
+      "statement": "The twelve physical certificates collapse to six distinct substitution/context/effect motifs: each structural motif has two physical witnesses in the frozen certificate family."
+    },
+    {
+      "id": "RS-F117",
+      "status": "EXACT_FINITE_FALSIFIER",
+      "statement": "A one-special-substitution explanation is falsified. Contextual nonlinearity is distributed across at least four component-substitution directions in the 5x3-k3 exact-rank carrier."
+    },
+    {
+      "id": "RS-F118",
+      "status": "MODEL_WARRANT",
+      "statement": "Because every minimum witness is a four-row rectangle with a two-type local substitution, a degree-2/pairwise GF(2) interaction model is now a structurally motivated next candidate. This is a warrant to test, not evidence that quadratic terms are sufficient."
+    }
+  ],
+  "motifs": [
+    {
+      "toggle": ["T09407","T09415"],
+      "rank": 9,
+      "contexts": [["T07229"],["T07351","T09436"]],
+      "effects": [0,1],
+      "physical_certificates": 2
+    },
+    {
+      "toggle": ["T09407","T09411"],
+      "rank": 10,
+      "contexts": [["T09439"],["T07332","T09440"]],
+      "effects": [3,0],
+      "physical_certificates": 2
+    },
+    {
+      "toggle": ["T09438","T09439"],
+      "rank": 10,
+      "contexts": [["T09176","T09440"],["T08868"]],
+      "effects": [2,3],
+      "physical_certificates": 2
+    },
+    {
+      "toggle": ["T09438","T09439"],
+      "rank": 10,
+      "contexts": [["T09176","T09440"],["T07235"]],
+      "effects": [2,0],
+      "physical_certificates": 2
+    },
+    {
+      "toggle": ["T09438","T09439"],
+      "rank": 10,
+      "contexts": [["T09176","T09440"],["T07323"]],
+      "effects": [2,0],
+      "physical_certificates": 2
+    },
+    {
+      "toggle": ["T09436","T09438"],
+      "rank": 11,
+      "contexts": [["T07317","T09440"],["T09325"]],
+      "effects": [0,1],
+      "physical_certificates": 2
+    }
+  ],
+  "nonclaims": [
+    "The six motif classes are finite 5x3-k3 structure, not a universal theorem.",
+    "Unique size-two substitutions do not prove that pairwise terms suffice globally.",
+    "No representation refinement is implied because the frozen Q-V carrier remains exact.",
+    "No standard-7x6 claim follows."
+  ],
+  "next_question": "Does an exact-rank quadratic GF(2)^2 decoder eliminate the 5x3-k3 contradictions without changing Q?"
+}
