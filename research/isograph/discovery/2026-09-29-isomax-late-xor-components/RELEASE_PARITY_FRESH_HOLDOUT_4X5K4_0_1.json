@@ -1,0 +1,116 @@
+{
+  "schema": "connect4.isomax.release_parity_fresh_holdout.v1",
+  "date_author_local": "2026-09-29",
+  "warrant": "EW-RS-043",
+  "frozenCandidate": "TOPO_RPAR = residual/column incidence topology with F(depth=0), O(positive odd depth), E(positive even depth)",
+  "frozenComponentDefinition": "post-RFG residual-incidence connected components with support/owner-labelled canonical component type",
+  "frozenTacticalReduction": "direct rank-local T2 = W immediate win; L2 universal one-move release loss; O unresolved",
+  "frozenLinearCoordinates": "exact-rank affine offset plus exact component-type parity",
+  "holdoutSelection": "4x5-k4 was predeclared before outcome qualification because it extends 4x4-k4 and introduces unseen frontier-relative depth 4",
+  "cases": [
+    {
+      "label": "4x5-k4",
+      "width": 4,
+      "height": 5,
+      "k": 4,
+      "physicalStates": 1706255,
+      "nonterminalStates": 1348441,
+      "componentTypes": 90223,
+      "tactical2Counts": {
+        "W": 348191,
+        "L2": 66275,
+        "O": 933975
+      },
+      "degree1": {
+        "equations": 933975,
+        "pivotRank": 77499,
+        "contradictions": 23918,
+        "firstContradiction": {
+          "key": "90537:136790",
+          "rank": 16,
+          "h": [
+            5,
+            5,
+            4,
+            2
+          ],
+          "oddTypes": [
+            "T88094",
+            "T90220"
+          ],
+          "relativeOutcome": "draw",
+          "code": 1,
+          "reducedRhs": 1
+        }
+      },
+      "freshNonAffine": true,
+      "descriptors": [
+        {
+          "mode": "TOPO_RPAR",
+          "equations": 933975,
+          "exactLinearVariables": 77544,
+          "descriptorPairVariables": 37405,
+          "pivotRank": 78906,
+          "rankGainOverDegree1": 1407,
+          "contradictions": 466,
+          "decoderExact": false,
+          "firstContradiction": {
+            "key": "68037:5690",
+            "rank": 14,
+            "reducedRhs": 1
+          }
+        },
+        {
+          "mode": "REL_INC",
+          "equations": 933975,
+          "exactLinearVariables": 77544,
+          "descriptorPairVariables": 38431,
+          "pivotRank": 78982,
+          "rankGainOverDegree1": 1483,
+          "contradictions": 456,
+          "decoderExact": false,
+          "firstContradiction": {
+            "key": "68037:5690",
+            "rank": 14,
+            "reducedRhs": 1
+          }
+        },
+        {
+          "mode": "EXACT",
+          "equations": 933975,
+          "exactLinearVariables": 77544,
+          "descriptorPairVariables": 49811,
+          "pivotRank": 79742,
+          "rankGainOverDegree1": 2243,
+          "contradictions": 12,
+          "decoderExact": false,
+          "firstContradiction": {
+            "key": "83113:4438",
+            "rank": 13,
+            "reducedRhs": 1
+          }
+        }
+      ],
+      "disposition": {
+        "topoRparExact": false,
+        "relIncExact": false,
+        "exactDegree2Exact": false,
+        "degree2Falsified": true
+      }
+    }
+  ],
+  "mechanicalChecks": {
+    "candidateFrozenBeforeHoldout": true,
+    "descriptorsOutcomeIndependent": true,
+    "exactLinearCoordinatesFrozen": true,
+    "exactQuadraticControlExact": false,
+    "falsifierPreservedWithoutAbort": true
+  },
+  "interpretationGuard": [
+    "A zero-contradiction TOPO_RPAR result is fresh transfer evidence only because the candidate was frozen before 4x5-k4 outcomes were inspected.",
+    "The holdout counts as fresh non-affine evidence only if DEGREE1 has at least one contradiction.",
+    "TOPO_RPAR failure rejects this compact scalar quotient on 4x5-k4 without by itself rejecting REL_INC or quadratic GF(2).",
+    "EXACT failure falsifies exact-component degree-2 scalar sufficiency on this holdout and is preserved as a primary result rather than treated as a harness error.",
+    "No standard-7x6 or universal-degree claim follows."
+  ]
+}
