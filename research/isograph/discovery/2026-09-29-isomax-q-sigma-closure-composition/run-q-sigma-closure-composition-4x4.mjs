@@ -140,6 +140,7 @@ for(const [name,op] of Object.entries(OPS)){
     if(qkey(op(pq(q,p)))!==qkey(pq(op(q),p))){
       mismatch={q:qkey(q),p,a:qkey(op(pq(q,p))),b:qkey(pq(op(q),p))};break outer;
     }
+  }
   covariance.push({op:name,checks,mismatch,covariant:mismatch===null});
 }
 assert.ok(covariance.every(x=>x.covariant));
