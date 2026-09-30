@@ -1,0 +1,85 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.signed_exchange_owner_channel.v1",
+  "id": "EW-RS-074",
+  "date_author_local": "2026-09-30",
+  "status": "ACTIVE",
+  "parent": "EW-RS-073",
+  "objective": "Determine whether absolute owner separation D0/D1 remains necessary in the preferred roleless/depthless SIGNED_PARITY exchange carrier, using frozen owner-symmetry quotients before scalar replay.",
+  "cases": [
+    "6x3-k3",
+    "4x5-k4",
+    "6x3-k4"
+  ],
+  "sealedFormulaHoldouts": {
+    "primary": "3x6-k4",
+    "backup": "5x3-k4",
+    "outcomesMayBeAccessed": false
+  },
+  "frozenCarrier": {
+    "encoding": "SIGNED_PARITY",
+    "capacity": "roleless signed counts C+,C-",
+    "depth": "depthless owner-separated signed counts D0+,D0-,D1+,D1-",
+    "controlRanks": {
+      "6x3-k3": 73,
+      "4x5-k4": 262,
+      "6x3-k4": 14
+    },
+    "source": "EW-RS-073 C_ROLELESS+D_DEPTHLESS"
+  },
+  "ownerModes": [
+    {
+      "name": "D_MERGED",
+      "definition": "Replace D0/D1 by total signed depth-change counts D+=D0+ + D1+, D-=D0- + D1-."
+    },
+    {
+      "name": "D_SYMMETRIC_MARGINALS",
+      "definition": "Retain D+/D- totals plus owner-swap-invariant absolute imbalances |D0+-D1+| and |D0--D1-|; discard which absolute owner carries each imbalance and discard plus/minus cross-owner pairing."
+    },
+    {
+      "name": "D_UNORDERED_CHANNELS",
+      "definition": "Retain the two owner channel vectors (D0+,D0-) and (D1+,D1-) as an unordered sorted pair; owner labels are removed while owner-channel separation and plus/minus pairing are retained."
+    },
+    {
+      "name": "D_SEPARATED",
+      "definition": "Retain exact absolute owner-separated counts D0+,D0-,D1+,D1-; reconstruction control."
+    }
+  ],
+  "selectionOrder": [
+    "D_MERGED",
+    "D_SYMMETRIC_MARGINALS",
+    "D_UNORDERED_CHANNELS",
+    "D_SEPARATED"
+  ],
+  "structuralProcedure": [
+    "Start from each frozen RS-073 SIGNED_PARITY C_ROLELESS+D_DEPTHLESS pair signature.",
+    "Leave C+,C- unchanged.",
+    "Apply the declared owner map only to the four D bucket counts.",
+    "Form each OOO triple key as the sorted multiset of its three transformed pair signatures.",
+    "Freeze candidate catalogs, dependency rows, and structural bases before scalar replay."
+  ],
+  "measurements": [
+    "feature-key count",
+    "structural image rank and kernel relative to the separated control",
+    "zero-structural-residue/nonzero-scalar count",
+    "scalar contradiction count",
+    "scalar image dimension"
+  ],
+  "antiCircularity": [
+    "All four owner maps and their order are frozen before scalar inspection.",
+    "No owner-specific exception, delta key, or state is selected using W/D/L.",
+    "C roleless counts, SIGNED_PARITY filtering, and depthless grouping are inherited unchanged from EW-RS-073.",
+    "EW-RS-059 holdouts remain sealed."
+  ],
+  "falsifiers": [
+    "D_SEPARATED must reproduce RS-073 ranks 73,262,14 with zero contradictions.",
+    "Any candidate with zero structural residue and nonzero scalar residue is insufficient.",
+    "No post-hoc owner exception is allowed."
+  ],
+  "nextIfOwnerLabelsRemovable": "Freeze the coarsest passing owner quotient and test presence/parity/ZOE/exact count algebra on its remaining small signed buckets.",
+  "nextIfSeparatedRequired": "Retain owner separation and test the same bucket-count algebra before any coefficient fit.",
+  "interpretationGuards": [
+    "Owner-label quotient sufficiency is bounded Q-V evidence.",
+    "D_UNORDERED_CHANNELS removes absolute owner identity but does not merge the two channels.",
+    "No Q-A/Q-F, standard-7x6, universal theorem, or center-opening proof follows."
+  ]
+}
