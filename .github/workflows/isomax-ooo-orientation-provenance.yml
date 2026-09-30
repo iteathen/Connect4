@@ -17,6 +17,10 @@ on:
       - 'research/isograph/discovery/2026-09-29-isomax-late-xor-components/verify-ooo-orientation-result.mjs'
   workflow_dispatch:
 
+concurrency:
+  group: isomax-ooo-orientation-provenance-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: write
 
