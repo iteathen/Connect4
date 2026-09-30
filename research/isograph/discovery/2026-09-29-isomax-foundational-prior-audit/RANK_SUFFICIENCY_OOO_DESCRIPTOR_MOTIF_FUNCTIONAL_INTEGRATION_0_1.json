@@ -1,0 +1,87 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ooo_descriptor_motif_functional_integration.v1",
+  "date_author_local": "2026-09-30",
+  "research_direction": "Joshua Oshiro",
+  "status": "COMMON_OOO_MOTIF_FUNCTIONAL_FOUND__CLOSED_SYNDROME_OPEN",
+  "evidence": {
+    "branch": "experiment/isomax-late-xor-components-20260929",
+    "commit": "21d14dcd700338f0760b22734e4333d9a79ac089",
+    "file": "OOO_DESCRIPTOR_MOTIF_FUNCTIONAL_LADDER_0_1.json",
+    "warrant": "EW-RS-067",
+    "workflowRun": 36738240567,
+    "workflowConclusion": "success",
+    "researchIntegrity": "success"
+  },
+  "selectedCommonMode": "WIDTH_CAPMASK_OWNER_DEPTH_HISTOGRAMS",
+  "selectedDescriptorSummary": "component width + exact canonical role-capacity-parity vector + owner-separated exact histograms of residual-cell frontier-relative depths; residual-mask grouping and cell-to-role incidence are discarded inside the cubic motif functional",
+  "tripleMotif": "unordered multiset of three selected descriptor summaries",
+  "dependencyFunctional": "GF(2) parity of OOO residue triples in each triple-motif class",
+  "results": {
+    "6x3-k3": {
+      "motifKeyCount": 296,
+      "motifImageRank": 75,
+      "oooResidueRank": 75,
+      "motifKernelDimension": 0,
+      "scalarImageDimension": 1,
+      "contradictions": 0
+    },
+    "4x5-k4": {
+      "motifKeyCount": 657,
+      "motifImageRank": 288,
+      "oooResidueRank": 294,
+      "motifKernelDimension": 6,
+      "scalarImageDimension": 2,
+      "contradictions": 0
+    },
+    "6x3-k4": {
+      "motifKeyCount": 50,
+      "motifImageRank": 16,
+      "oooResidueRank": 16,
+      "motifKernelDimension": 0,
+      "scalarImageDimension": 2,
+      "contradictions": 0
+    }
+  },
+  "coarserRungs": {
+    "WIDTH": "fails all three",
+    "WIDTH_CAPXOR": "fails all three",
+    "WIDTH_CAPMASK": "fails all three",
+    "WIDTH_CAPMASK_OWNER_MASK_COUNTS": "passes 6x3-k4 only; fails 6x3-k3 and 4x5-k4",
+    "WIDTH_CAPMASK_OWNER_MASK_SIZE_PROFILES": "passes 6x3-k3 and 6x3-k4 but leaves one contradiction on 4x5-k4"
+  },
+  "findings": [
+    {
+      "id": "RS-F207",
+      "status": "COMMON_OOO_MOTIF_FUNCTIONAL",
+      "statement": "The scalar dependency residue factors through OOO triple-motif parity using only component width, exact role-capacity parity mask, and owner-separated exact relative-depth histograms on all three hard carriers."
+    },
+    {
+      "id": "RS-F208",
+      "status": "CUBIC_ROLE_INCIDENCE_REDUNDANT_IN_TESTED_SCALAR_MAP",
+      "statement": "Within the selected cubic motif functional, residual-mask grouping and cell-to-role incidence can be discarded without losing the tested scalar dependency image, even though those details remain part of the successful whole-component ROLE_CAPPAR identity."
+    },
+    {
+      "id": "RS-F209",
+      "status": "FOUR_BY_FIVE_STRUCTURAL_KERNEL",
+      "statement": "On 4x5-k4 the selected motif map compresses the 294-dimensional OOO structural image to rank 288 while preserving the full two-dimensional scalar image, exposing a six-dimensional motif-null structural subspace."
+    },
+    {
+      "id": "RS-F210",
+      "status": "MASK_SIZE_ALMOST_SUFFICIENT",
+      "statement": "The coarser owner-mask-size-profile motif is exact on 6x3-k3 and 6x3-k4 but leaves exactly one scalar contradiction on 4x5-k4; owner-separated exact depth distribution supplies the common repair without restoring role incidence."
+    },
+    {
+      "id": "RS-F211",
+      "status": "FORMULA_NOT_YET_FROZEN",
+      "statement": "One-hot parity over selected motif classes is a bounded exact feature realization, not yet a compact closed two-syndrome law. Individual motif coefficients remain unfrozen."
+    }
+  ],
+  "nonclaims": [
+    "The selected motif family is not proved globally minimal; it is the coarsest passing rung in EW-RS-067.",
+    "The selected cubic motif summary does not replace exact ROLE_CAPPAR component identity for the state quotient.",
+    "No individual motif class or coefficient has been selected as an invariant syndrome term.",
+    "EW-RS-059 PRIMARY 3x6-k4 and BACKUP 5x3-k4 remain sealed.",
+    "No Q-A/Q-F, universal cubic sufficiency, standard-7x6 qualification, or center-opening proof follows."
+  ],
+  "next_question": "Can the selected motif-parity space be reduced outcome-independently to a small structural quotient whose scalar image is realized by two closed, mechanically defined syndromes before EW-RS-059 is unsealed?"
+}
