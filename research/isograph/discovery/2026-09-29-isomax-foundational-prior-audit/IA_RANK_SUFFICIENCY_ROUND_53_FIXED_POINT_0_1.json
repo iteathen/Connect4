@@ -1,0 +1,28 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_fixed_point.v1",
+  "round": 53,
+  "date_author_local": "2026-09-30",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_52_0_1.json",
+    "RANK_SUFFICIENCY_ROLE_ALIGNED_CAPACITY_ZOE_INTEGRATION_0_1.json"
+  ],
+  "recursive_generation": {
+    "families_checked": [
+      "role-aligned capacity parity",
+      "zero versus positive-even role capacity",
+      "structural identity compression",
+      "fresh-holdout qualification",
+      "decoder-discovery gate"
+    ],
+    "new_assertions": []
+  },
+  "fixed_point": true,
+  "reason": "The derivation corpus selects role-aligned capacity parity as the coarsest passing rung, but independent qualification is still required before decoder discovery or stronger claims.",
+  "next_evidence_boundaries": [
+    "freeze ROLE_CAPPAR_REL_INC_ZOE unchanged on 5x4-k4 before outcome qualification",
+    "retain EXACT_ZOE and MULTI controls",
+    "preserve the memory-bounded 5x4 execution strategy without changing semantics",
+    "only after a fresh pass, reopen decoder discovery"
+  ],
+  "stop_status": "FIXED_POINT__FRESH_ROLE_CAPPAR_HOLDOUT_NEXT"
+}
