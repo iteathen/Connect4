@@ -4,7 +4,7 @@ import {exchangeCircuitKey,compressedPairDelta} from './ooo-exchange-circuit-lib
 import {familyTriangleKey,canonicalFamilySubset} from './ooo-pair-delta-family-lib.mjs';
 import {roleDepthTriangleKey} from './ooo-pair-delta-index-lib.mjs';
 import {ownerQuotientTriangleKey} from './ooo-pair-delta-owner-lib.mjs';
-import {SIX_BUCKET_COUNT_MODES,sixBucketTriangleKey} from './ooo-pair-delta-bucket-lib.mjs';
+import {COUNT_MODES,sixBucketTriangleKey} from './ooo-six-bucket-count-lib.mjs';
 
 function auditCase(W,H,K){
   const N=W*H;
@@ -2117,7 +2117,7 @@ function auditCase(W,H,K){
         };
       }
 
-      return {modes:[...SIX_BUCKET_COUNT_MODES],audits:SIX_BUCKET_COUNT_MODES.map(auditMode)};
+      return {modes:[...COUNT_MODES],audits:COUNT_MODES.map(auditMode)};
     }
 
     const sixBucketCountQuotient=oooSixBucketCountQuotientAudit();
