@@ -1,0 +1,70 @@
+{
+  "schema": "connect4.isomax.discovery.experimental_warrant.v1",
+  "id": "EW-019",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE_OBSTRUCTION_CHANNEL_MOTIF_PARTITION",
+  "purpose": [
+    "DISCRIMINATING",
+    "CHARACTERIZING"
+  ],
+  "parent_warrants": [
+    "EW-006",
+    "EW-011",
+    "EW-018"
+  ],
+  "frozen_candidate": "repaired relabeling-covariant open-cap two-hole motif",
+  "objective": "Determine whether motif coverage distinguishes the independently discovered minimal line-family obstruction channels rather than serving as a universal nonzero-cycle condition.",
+  "cases": [
+    {
+      "label": "5x4-k3-H",
+      "width": 5,
+      "height": 4,
+      "k": 3,
+      "directions": [
+        "H"
+      ]
+    },
+    {
+      "label": "5x4-k3-VD",
+      "width": 5,
+      "height": 4,
+      "k": 3,
+      "directions": [
+        "V",
+        "D"
+      ]
+    },
+    {
+      "label": "5x4-k4-HD",
+      "width": 5,
+      "height": 4,
+      "k": 4,
+      "directions": [
+        "H",
+        "D"
+      ]
+    }
+  ],
+  "rationale": [
+    "EW-018 falsified universal motif necessity at full k3 but found complete motif coverage at repair-pruned k4.",
+    "EW-011 established two inclusion-minimal k3 obstruction channels H and V+D.",
+    "EW-006 established H+D as the unique inclusion-minimal k4 channel.",
+    "Testing motif coverage inside these fixed channels can distinguish channel-specific mechanism from generic correlation without inventing a new feature."
+  ],
+  "targeted_observations": [
+    "fundamental zero/nonzero cycle motif coverage per minimal channel",
+    "contradictory reconvergence motif coverage per minimal channel",
+    "motif-bearing group counts"
+  ],
+  "anti_circularity": [
+    "line-family channels were fixed by prior counterfactual experiments",
+    "motif was fixed by EW-015 before this channel test",
+    "syndrome is read only after motif membership is computed",
+    "no W/D/L producer input"
+  ],
+  "stopping_rule": "If motif coverage differs by channel, record a channel-specific clue. If both channels contain motif-free nonzero cycles or both show similar mixed coverage, do not invent another motif refinement solely to force separation.",
+  "prohibited_information_sources": [
+    "solved database",
+    "W/D/L as structural producer input"
+  ]
+}
