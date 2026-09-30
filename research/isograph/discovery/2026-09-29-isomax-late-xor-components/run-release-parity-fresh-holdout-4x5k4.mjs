@@ -273,34 +273,6 @@ function auditCase(W,H,K){
 
   const t2=new Map(nts.map(x=>[x.key,tacticalStatus2(x)]));
 
-  const maps={
-    MULTI:new Map(nts.map(x=>[x.key,reps.get(x.key).multi])),
-    MOD2_P:new Map(nts.map(x=>[
-      x.key,
-      reps.get(x.key).p+'|'+reps.get(x.key).mod2
-    ])),
-    MOD2_P_TACTICAL2:new Map(nts.map(x=>[
-      x.key,
-      reps.get(x.key).p+'|'+reps.get(x.key).mod2+'|T2'+t2.get(x.key)
-    ])),
-    MOD2_RANK:new Map(nts.map(x=>[
-      x.key,
-      reps.get(x.key).rank+'|'+reps.get(x.key).mod2
-    ])),
-    MOD2_RANK_TACTICAL2:new Map(nts.map(x=>[
-      x.key,
-      reps.get(x.key).rank+'|'+reps.get(x.key).mod2+'|T2'+t2.get(x.key)
-    ])),
-    MOD2_R3_TACTICAL2:new Map(nts.map(x=>[
-      x.key,
-      reps.get(x.key).p+'|R3'+(reps.get(x.key).rank%3)+'|'+reps.get(x.key).mod2+'|T2'+t2.get(x.key)
-    ])),
-    MOD2_R4_TACTICAL2:new Map(nts.map(x=>[
-      x.key,
-      'R4'+(reps.get(x.key).rank%4)+'|'+reps.get(x.key).mod2+'|T2'+t2.get(x.key)
-    ]))
-  };
-
   /* Freeze all structural keys before deriving exact values. */
   const values=new Map();
   for(let rank=N;rank>=0;rank--)for(const x of byRank[rank]){
@@ -861,109 +833,11 @@ function auditCase(W,H,K){
   const descriptorModes=['TOPO_RPAR','REL_INC','EXACT'];
   const descriptorLadder=descriptorModes.map(scalarDescriptorAudit);
   const exactDescriptorControl=descriptorLadder.find(x=>x.mode==='EXACT');
-  assert.equal(
-    exactDescriptorControl.contradictions,
-    0,
-    'exact component quadratic control must retain exact scalar decoding'
-  );
-
-  function token(x){return x.winner===0?'P0':x.winner===1?'P1':'D';}
-  function role(k,c){return reps.get(k).roleByColumn.get(c);}
-
-  function compactCounts(k){
-    return [...reps.get(k).counts]
-      .sort((a,b)=>a[0].localeCompare(b[0]))
-      .map(([t,n])=>({type:typeIds.get(t),canonicalType:t,width:typeWidth.get(t),count:n}));
-  }
-
-  function evaluate(id){
-    const map=maps[id],groups=new Map();
-    for(const x of nts){
-      const k=map.get(x.key);
-      if(!groups.has(k))groups.set(k,[]);
-      groups.get(k).push(x);
-    }
-
-    let qf=true,qv=true,fFail=null,vFail=null,mixedValueGroups=0,sameExactRankMixedValueGroups=0;
-    let minPairUnits=null;
-    const pairExamples=[],rankProfiles=[];
-
-    for(const [k,rows] of groups){
-      let fs0=null,v0=null,id0=null;
-      const vals=new Set();
-      const byRankValue=new Map();
-
-      for(const x of rows){
-        const fs=[];
-        for(const e of x.children){
-          const ch=states.get(e.key);
-          fs.push(role(x.key,e.col)+'=>'+(ch.terminal?'T:'+token(ch):'N:'+map.get(ch.key)));
-        }
-        fs.sort();
-        const fSig=fs.join('||'),v=values.get(x.key);
-        vals.add(v);
-        if(!byRankValue.has(x.rank))byRankValue.set(x.rank,new Set());
-        byRankValue.get(x.rank).add(v);
-
-        if(id0===null){id0=x.key;fs0=fSig;v0=v;continue;}
-        if(qf&&fSig!==fs0)qf=false,fFail={key:k,a:id0,b:x.key,aInterface:fs0,bInterface:fSig};
-        if(qv&&v!==v0)qv=false,vFail={key:k,a:id0,b:x.key,aValue:v0,bValue:v};
-      }
-
-      if([...byRankValue.values()].some(s=>s.size>1))sameExactRankMixedValueGroups++;
-
-      if(vals.size>1){
-        mixedValueGroups++;
-        if(rankProfiles.length<12){
-          rankProfiles.push({
-            key:k,
-            ranks:[...byRankValue.entries()].map(([rank,vs])=>({rank,values:[...vs].sort()})).sort((a,b)=>a.rank-b.rank)
-          });
-        }
-
-        const byV=new Map();
-        for(const x of rows)if(!byV.has(values.get(x.key)))byV.set(values.get(x.key),x);
-        const xs=[...byV.values()];
-
-        if(xs.length>=2){
-          const a=xs[0],b=xs[1],A=reps.get(a.key).counts,B=reps.get(b.key).counts;
-          const types=new Set([...A.keys(),...B.keys()]),delta=[];
-          let l1=0;
-          for(const t of types){
-            const d=(B.get(t)??0)-(A.get(t)??0);
-            if(d){
-              if(id.startsWith('MOD2'))assert.equal(Math.abs(d)%2,0,'mod2 collision must differ by even counts');
-              l1+=Math.abs(d);
-              delta.push({type:typeIds.get(t),canonicalType:t,width:typeWidth.get(t),delta:d});
-            }
-          }
-          const pairUnits=l1/2;
-          if(minPairUnits===null||pairUnits<minPairUnits)minPairUnits=pairUnits;
-          if(pairExamples.length<12){
-            pairExamples.push({
-              key:k,
-              a:a.key,b:b.key,
-              aRank:a.rank,bRank:b.rank,rankDelta:b.rank-a.rank,
-              sameExactRank:a.rank===b.rank,
-              aValue:values.get(a.key),bValue:values.get(b.key),
-              aCounts:compactCounts(a.key),bCounts:compactCounts(b.key),
-              delta,pairUnits
-            });
-          }
-        }
-      }
-    }
-
-    return {
-      id,classes:groups.size,
-      QF_component_transport:qf,QV:qv,
-      mixedValueGroups,sameExactRankMixedValueGroups,
-      minPairUnits,firstFutureFailure:fFail,firstValueFailure:vFail,
-      rankProfiles,pairExamples
-    };
-  }
+  // EW-RS-043 is a falsification holdout: retain and emit exact-control
+  // contradictions instead of aborting before the evidence artifact is written.
 
   const results=[];
+
 
   return {
     label:W+'x'+H+'-k'+K,width:W,height:H,k:K,
@@ -980,13 +854,6 @@ const specs=[
   [4,5,4]
 ];
 const cases=specs.map(s=>auditCase(...s));
-for(const c of cases){
-  assert.equal(
-    c.descriptorLadder.find(x=>x.mode==='EXACT').contradictions,
-    0,
-    c.label+' exact-component quadratic scalar control must remain exact'
-  );
-}
 
 const out={
   schema:'connect4.isomax.release_parity_fresh_holdout.v1',
@@ -1007,19 +874,27 @@ const out={
       contradictions:c.polynomial.DEGREE1.contradictions,
       firstContradiction:c.polynomial.DEGREE1.firstContradiction
     },
-    descriptors:c.descriptorLadder
+    freshNonAffine:c.polynomial.DEGREE1.contradictions>0,
+    descriptors:c.descriptorLadder,
+    disposition:{
+      topoRparExact:c.descriptorLadder.find(x=>x.mode==='TOPO_RPAR').decoderExact,
+      relIncExact:c.descriptorLadder.find(x=>x.mode==='REL_INC').decoderExact,
+      exactDegree2Exact:c.descriptorLadder.find(x=>x.mode==='EXACT').decoderExact,
+      degree2Falsified:!c.descriptorLadder.find(x=>x.mode==='EXACT').decoderExact
+    }
   })),
   mechanicalChecks:{
     candidateFrozenBeforeHoldout:true,
     descriptorsOutcomeIndependent:true,
     exactLinearCoordinatesFrozen:true,
-    exactQuadraticControlExact:cases.every(c=>c.descriptorLadder.find(x=>x.mode==='EXACT').decoderExact)
+    exactQuadraticControlExact:cases.every(c=>c.descriptorLadder.find(x=>x.mode==='EXACT').decoderExact),
+    falsifierPreservedWithoutAbort:true
   },
   interpretationGuard:[
     'A zero-contradiction TOPO_RPAR result is fresh transfer evidence only because the candidate was frozen before 4x5-k4 outcomes were inspected.',
     'The holdout counts as fresh non-affine evidence only if DEGREE1 has at least one contradiction.',
     'TOPO_RPAR failure rejects this compact scalar quotient on 4x5-k4 without by itself rejecting REL_INC or quadratic GF(2).',
-    'EXACT failure would instead falsify exact-component degree-2 scalar sufficiency on this holdout.',
+    'EXACT failure falsifies exact-component degree-2 scalar sufficiency on this holdout and is preserved as a primary result rather than treated as a harness error.',
     'No standard-7x6 or universal-degree claim follows.'
   ]
 };
@@ -1037,6 +912,8 @@ console.log(JSON.stringify({
     nonterminalStates:c.nonterminalStates,
     t2O:c.tactical2Counts.O,
     degree1Contradictions:c.degree1.contradictions,
+    freshNonAffine:c.freshNonAffine,
+    disposition:c.disposition,
     descriptors:c.descriptors.map(x=>({
       mode:x.mode,
       pairVars:x.descriptorPairVariables,
