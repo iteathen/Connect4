@@ -1,0 +1,64 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.role_aligned_capacity_rel_inc_zoe.v1",
+  "id": "EW-RS-054",
+  "date_author_local": "2026-09-30",
+  "status": "ACTIVE",
+  "parent": "EW-RS-053",
+  "objective": "Determine the coarsest column-capacity label that becomes Q-V sufficient when jointly canonicalized with REL_INC column roles before ZOE aggregation.",
+  "derivation_cases": [
+    "5x3-k3",
+    "4x4-k4",
+    "6x3-k3",
+    "4x5-k4"
+  ],
+  "motivation": [
+    "EW-RS-053 shows the exact unordered per-column capacity profile still leaves 2 mixed classes on 4x4-k4 and 41 on 4x5-k4.",
+    "Those failures preserve REL_INC and the unordered exact capacity multiset, so only the association between a capacity state and an incidence column role remains structurally unresolved at this seam.",
+    "Foundational IA round 50 requires a minimal role-aligned capacity ladder before any unrelated component feature is added."
+  ],
+  "frozenCountState": {
+    "name": "ZOE",
+    "definition": "After structural identity aggregation, omit zero multiplicity, emit O for positive odd total multiplicity, and E for positive even total multiplicity."
+  },
+  "candidates": [
+    {
+      "name": "ROLE_CAPPAR_REL_INC_ZOE",
+      "definition": "Jointly canonicalize REL_INC with one capacity-parity bit (H-h_c mod 2) attached to each local incidence column role; aggregate equal descriptors; apply ZOE."
+    },
+    {
+      "name": "ROLE_CAP3_REL_INC_ZOE",
+      "definition": "Jointly canonicalize REL_INC with per-column capacity state Z when H-h_c=0, O when positive odd, and E when positive even; aggregate equal descriptors; apply ZOE."
+    },
+    {
+      "name": "ROLE_CAP_EXACT_REL_INC_ZOE",
+      "definition": "Jointly canonicalize REL_INC with exact per-column remaining capacity H-h_c attached to each local incidence column role; aggregate equal descriptors; apply ZOE.",
+      "role": "reconstruction control"
+    }
+  ],
+  "controls": [
+    "CAP_PROFILE_REL_INC_ZOE previously rejected unaligned profile",
+    "EXACT_ZOE exact-type ZOE",
+    "MULTI full exact component multiplicity"
+  ],
+  "antiCircularity": [
+    "All three role-aligned capacity grades are frozen before qualification.",
+    "Capacity labels depend only on board height and current local column frontier heights.",
+    "Joint canonicalization is performed over local column permutations before any solved outcome is consulted.",
+    "No W/D/L label selects a column, capacity state, component, merge, phase grade, or coefficient."
+  ],
+  "falsifiers": [
+    "Any mixed EXACT_ZOE class invalidates the established control.",
+    "Any mixed class rejects that role-aligned capacity grade on that carrier.",
+    "ROLE_CAP_EXACT_REL_INC_ZOE must retain scalar purity; failure would indicate a descriptor/harness defect because exact aligned capacity plus REL_INC reconstructs the exact component geometry up to the same local column isomorphism.",
+    "MULTI must remain Q-V exact."
+  ],
+  "selectionRule": "If multiple grades are Q-V exact across all derivation carriers, retain the coarsest grade in the declared order ROLE_CAPPAR < ROLE_CAP3 < ROLE_CAP_EXACT.",
+  "nextIfCoarseSuccess": "Freeze the coarsest common passing role-aligned descriptor and qualify it unchanged on fresh non-affine 5x4-k4.",
+  "nextIfOnlyExactSuccess": "Freeze exact aligned capacity as a reconstruction boundary, then inspect the collision family separating ROLE_CAP3 from exact capacity before any further feature is added.",
+  "nextIfExactFails": "Treat as a mechanical descriptor error; do not interpret as a semantic falsifier.",
+  "interpretationGuards": [
+    "Passing establishes bounded Q-V sufficiency only, not Q-A/Q-F.",
+    "Exact role-aligned capacity is a control, not presumed compression.",
+    "No standard-7x6 or universal theorem follows."
+  ]
+}
