@@ -1,0 +1,102 @@
+{
+  "schema": "connect4.isomax.exact_rank_quadratic_xor.v1",
+  "date_author_local": "2026-09-29",
+  "warrant": "EW-RS-031",
+  "frozenComponentDefinition": "post-RFG residual-incidence connected components with support/owner-labelled canonical component type",
+  "frozenTacticalReduction": "direct rank-local T2 = W immediate win; L2 universal one-move release loss; O unresolved",
+  "target": "5x3-k3",
+  "case": {
+    "label": "5x3-k3",
+    "width": 5,
+    "height": 3,
+    "k": 3,
+    "physicalStates": 70914,
+    "nonterminalStates": 40659,
+    "componentTypes": 9441,
+    "tactical2Counts": {
+      "W": 28001,
+      "L2": 5403,
+      "O": 7255
+    },
+    "polynomial": {
+      "DEGREE1": {
+        "degree": 1,
+        "consistent": false,
+        "equations": 7255,
+        "activeVariables": 3291,
+        "variableFamilyCounts": {
+          "offset": 15,
+          "linear": 3276,
+          "quadratic": 0
+        },
+        "pivotRank": 3223,
+        "activeNullity": 68,
+        "contradictions": 18,
+        "firstContradiction": {
+          "key": "2197:4202",
+          "rank": 10,
+          "h": [
+            2,
+            3,
+            3,
+            1,
+            1
+          ],
+          "oddTypes": [
+            "T08868",
+            "T09438"
+          ],
+          "relativeOutcome": "win",
+          "code": 2,
+          "reducedRhs": 1
+        },
+        "outcomeHistogram": {
+          "loss": 2573,
+          "draw": 469,
+          "win": 4213
+        },
+        "codeGauge": {
+          "loss": "00",
+          "draw": "01",
+          "win": "10"
+        }
+      },
+      "DEGREE2": {
+        "degree": 2,
+        "consistent": true,
+        "equations": 7255,
+        "activeVariables": 5395,
+        "variableFamilyCounts": {
+          "offset": 15,
+          "linear": 3276,
+          "quadratic": 2104
+        },
+        "pivotRank": 3260,
+        "activeNullity": 2135,
+        "contradictions": 0,
+        "firstContradiction": null,
+        "outcomeHistogram": {
+          "loss": 2573,
+          "draw": 469,
+          "win": 4213
+        },
+        "codeGauge": {
+          "loss": "00",
+          "draw": "01",
+          "win": "10"
+        }
+      }
+    }
+  },
+  "mechanicalChecks": {
+    "degree1ContradictionsReproduced": true,
+    "structuralFeatureGenerationOnly": true,
+    "representationUnchanged": true
+  },
+  "interpretationGuard": [
+    "DEGREE2 adds every observed rank-specific pair product of component-parity bits; pair terms are not selected using outcomes.",
+    "A pass proves only finite existence of a quadratic GF(2)^2 decoder on this carrier, not minimality or a closed-form interaction law.",
+    "A failure requires a degree-2 contradiction certificate before any cubic escalation.",
+    "No standard-7x6 claim follows."
+  ]
+}
