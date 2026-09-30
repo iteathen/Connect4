@@ -62,5 +62,5 @@ const result={
    interpretation:'source-frame routes are compared before per-step canonicalization; this separates physical/fixed-coordinate path behavior from canonical-frame sheet bookkeeping'
  }
 };
-fs.writeFileSync(new URL('./FIXED_FRAME_ROUTE_AUDIT_0_1.json',import.meta.url),JSON.stringify(result,null,2)+'\\n');
+fs.writeFileSync(new URL('./FIXED_FRAME_ROUTE_AUDIT_0_1.json',import.meta.url),JSON.stringify(result,null,2)+'\n');
 console.log(JSON.stringify({status:'FIXED_FRAME_ROUTE_AUDIT_COMPLETE',findings:result.findings,rows:rows.map(x=>({startSheet:x.startSheet,rawExact:x.rawEndpointExactEqual,rawOrbit:x.rawEndpointOrbitEqual,literalFuture:x.rawEndpointLiteralFutureEqual,canon:x.canonicalEndpoints,expected:x.expectedStoredCanonicalEndpoints}))},null,2));
