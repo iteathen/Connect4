@@ -67,7 +67,7 @@ function analyze({width:W,height:H,k:K,label}){
 
  let redundantFutureClasses=0,sameSupportRedundantClasses=0,minPair=null;
  const minExamples=[];
- const closureErase={REMAINING:0,RELEASE:0,FRONTIER:0,FINALCAP:0,FRONTIER_CAP:0,ALL_LOCAL:0},sameSupportPairsChecked=0;
+ const closureErase={REMAINING:0,RELEASE:0,FRONTIER:0,FINALCAP:0,FRONTIER_CAP:0,ALL_LOCAL:0}; let sameSupportPairsChecked=0;
  for(const [f,set] of futureToQ){
   const qs=[...set].map(k=>qRecords.get(k));
   if(qs.length<2)continue;redundantFutureClasses++;
