@@ -1,0 +1,17 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.single_residual_feasibility.v1",
+  "id": "EW-RS-007",
+  "date_author_local": "2026-09-29",
+  "objective": "Replace approximate residual feasibility rules R/G with exact single-residual gravity/turn schedulability on the support lattice and test whether this gives a smaller recursively closed Q-F representation.",
+  "anti_circularity": [
+    "uses support, owner, residual cells, gravity and alternating-turn parity only",
+    "no W/D/L",
+    "no opponent goals",
+    "no ordinary move-sequence game tree; memoized states are support vectors",
+    "candidate frozen before class-count result"
+  ],
+  "expectedRelations": [
+    "X should subsume R and G if their proofs are correct",
+    "X should be hereditary because any descendant completion would concatenate to a current feasible support path"
+  ]
+}
