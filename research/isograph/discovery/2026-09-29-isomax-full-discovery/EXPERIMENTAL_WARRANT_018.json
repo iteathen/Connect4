@@ -1,0 +1,54 @@
+{
+  "schema": "connect4.isomax.discovery.experimental_warrant.v1",
+  "id": "EW-018",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE_MOTIF_CYCLE_COVERAGE",
+  "purpose": [
+    "DISCRIMINATING",
+    "CHARACTERIZING"
+  ],
+  "parent_warrants": [
+    "EW-015",
+    "EW-017"
+  ],
+  "frozen_candidate": "repaired relabeling-covariant one-hole open-cap two-column sheet-difference motif",
+  "objective": "Measure whether every observed nonzero fundamental cycle and contradictory reconvergence intersects at least one motif-bearing binary group, and how often zero cycles do the same.",
+  "cases": [
+    {
+      "label": "5x4-k3-standard",
+      "width": 5,
+      "height": 4,
+      "k": 3,
+      "supportReleaseTurnCapacity": false
+    },
+    {
+      "label": "5x4-k4-release",
+      "width": 5,
+      "height": 4,
+      "k": 4,
+      "supportReleaseTurnCapacity": true
+    }
+  ],
+  "targeted_observations": [
+    "nonzero fundamental cycles with/without motif",
+    "zero fundamental cycles with/without motif",
+    "contradictory reconvergences with/without motif",
+    "motif-bearing group count and tested same-support sheet pairs"
+  ],
+  "interpretation_barriers": [
+    "fundamental-cycle coverage is relative to the deterministic spanning-forest basis used by the exact audit",
+    "all nonzero cycles containing motif would show finite observed necessity, not universal theorem necessity",
+    "zero cycles containing motif would refute simple motif sufficiency",
+    "motif is fixed before reading syndrome"
+  ],
+  "anti_circularity": [
+    "syndrome is used only after motif groups are identified",
+    "raw mask identifiers are excluded from motif semantics",
+    "no W/D/L input"
+  ],
+  "stopping_rule": "Use the exact coverage result to decide whether the motif is necessary-only, neither necessary nor sufficient, or still unresolved in the observed finite carriers. Do not invent a new refinement solely to eliminate zero-cycle counterexamples.",
+  "prohibited_information_sources": [
+    "solved database",
+    "W/D/L as structural producer input"
+  ]
+}
