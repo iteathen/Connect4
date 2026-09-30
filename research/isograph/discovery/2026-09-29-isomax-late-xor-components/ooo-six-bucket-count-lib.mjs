@@ -23,7 +23,7 @@ function parseRawSignature(raw){
 
 export function transformSixBucketSignature(raw,mode){
   const z=parseRawSignature(raw);
-  const f=n=>String(transformBucketCountRaw(n,mode));
+  const f=n=>String(transformBucketCount(n,mode));
   return [
     'C+='+f(z[0]),'C-='+f(z[1]),
     'D+='+f(z[2]),'D-='+f(z[3]),
