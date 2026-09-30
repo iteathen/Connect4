@@ -1,0 +1,122 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.six_bucket_family_saturation.v1",
+  "id": "EW-RS-076",
+  "date_author_local": "2026-09-30",
+  "status": "ACTIVE",
+  "parent": "EW-RS-075",
+  "objective": "Localize which semantic six-bucket families C={C+,C-}, D={D+,D-}, and A={A+,A-} require the 3+ saturation state inside the common owner-symmetric signed-parity exchange carrier, using a complete frozen family-specific transform grid before scalar replay.",
+  "cases": [
+    "6x3-k3",
+    "4x5-k4",
+    "6x3-k4"
+  ],
+  "sealedFormulaHoldouts": {
+    "primary": "3x6-k4",
+    "backup": "5x3-k4",
+    "outcomesMayBeAccessed": false
+  },
+  "frozenCarrier": {
+    "encoding": "SIGNED_PARITY",
+    "capacity": "C_ROLELESS",
+    "depth": "D_DEPTHLESS",
+    "ownerMode": "D_SYMMETRIC_MARGINALS",
+    "pairBuckets": [
+      "C+",
+      "C-",
+      "D+",
+      "D-",
+      "A+",
+      "A-"
+    ],
+    "uniformClip3ControlRanks": {
+      "6x3-k3": 72,
+      "4x5-k4": 253,
+      "6x3-k4": 14
+    },
+    "source": "EW-RS-075 BUCKET_CLIP3"
+  },
+  "bucketFamilies": {
+    "C": [
+      "C+",
+      "C-"
+    ],
+    "D": [
+      "D+",
+      "D-"
+    ],
+    "A": [
+      "A+",
+      "A-"
+    ]
+  },
+  "familyModes": [
+    {
+      "name": "PRESENCE",
+      "definition": "For both plus/minus buckets in the family retain only [n>0]."
+    },
+    {
+      "name": "ZOE",
+      "definition": "For both plus/minus buckets in the family retain Z if n=0, O if n>0 is odd, E if n>0 is even."
+    },
+    {
+      "name": "CLIP2",
+      "definition": "For both plus/minus buckets in the family retain 0,1,2+."
+    },
+    {
+      "name": "CLIP3",
+      "definition": "For both plus/minus buckets in the family retain 0,1,2,3+."
+    }
+  ],
+  "candidateGrid": {
+    "construction": "Complete Cartesian product of familyModes independently assigned to C, D, and A.",
+    "size": 64,
+    "keyOrder": [
+      "C",
+      "D",
+      "A"
+    ],
+    "noPerSignSplit": true
+  },
+  "structuralProcedure": [
+    "Start from each frozen EW-RS-074 D_SYMMETRIC_MARGINALS six-bucket pair signature.",
+    "Apply the C family transform uniformly to C+ and C-.",
+    "Apply the D family transform uniformly to D+ and D-.",
+    "Apply the A family transform uniformly to A+ and A-.",
+    "Form each OOO triple key as the sorted multiset of its three transformed pair signatures.",
+    "Freeze candidate feature catalogs, matched-dependency rows, and structural bases before scalar replay."
+  ],
+  "partialOrder": {
+    "familyOrder": "PRESENCE and ZOE are incomparable; CLIP2 and CLIP3 are ordered only by explicit information containment where applicable.",
+    "dominance": "Candidate X is strictly coarser than Y only if every family transform in X is structurally no finer than the corresponding transform in Y and at least one is strictly coarser.",
+    "output": "Report all Pareto-minimal common-exact candidates; do not force a single winner among incomparable count algebras."
+  },
+  "measurements": [
+    "feature-key count",
+    "structural image rank",
+    "kernel dimension relative to uniform CLIP3",
+    "zero-structural-residue/nonzero-scalar count",
+    "scalar contradiction count",
+    "scalar image dimension",
+    "common-exact grid points",
+    "Pareto-minimal common-exact grid points"
+  ],
+  "antiCircularity": [
+    "The three bucket families, four family modes, complete 64-point grid, pair grouping, and partial-order rule are frozen before scalar inspection.",
+    "No plus/minus bucket is split independently.",
+    "No family-specific threshold or exception is added after seeing W/D/L.",
+    "The EW-RS-074 owner quotient and EW-RS-065 matched dependencies remain unchanged.",
+    "EW-RS-059 PRIMARY 3x6-k4 and BACKUP 5x3-k4 remain sealed."
+  ],
+  "falsifiers": [
+    "Uniform C=CLIP3,D=CLIP3,A=CLIP3 must reproduce EW-RS-075 ranks 72,253,14 with zero contradictions.",
+    "Any candidate with zero structural residue and nonzero scalar residue is insufficient.",
+    "No outcome-driven family-specific rescue or per-sign exception is allowed."
+  ],
+  "nextIfFamilyCompressionPasses": "Freeze all Pareto-minimal common-exact family-specific saturation laws, then test plus/minus channel coupling and small circuit functionals only within those frozen minima.",
+  "nextIfOnlyUniformClip3Passes": "Retain uniform CLIP3 and move to outcome-independent six-bucket circuit/basis reduction rather than bucket-specific coefficient fitting.",
+  "interpretationGuards": [
+    "This experiment localizes count saturation only within the late six-bucket exchange carrier.",
+    "A coarser transform on one family does not imply that transform is valid at upstream component-multiplicity or other count layers.",
+    "No Q-A/Q-F, standard-7x6, universal theorem, or center-opening proof follows."
+  ]
+}
