@@ -1,0 +1,21 @@
+name: IsoMax OOO exchange circuit unit
+
+on:
+  push:
+    branches:
+      - experiment/isomax-late-xor-components-20260929
+    paths:
+      - '.github/workflows/isomax-ooo-exchange-circuit-unit.yml'
+      - 'research/isograph/discovery/2026-09-29-isomax-late-xor-components/ooo-exchange-circuit-lib.test.mjs'
+      - 'research/isograph/discovery/2026-09-29-isomax-late-xor-components/ooo-exchange-circuit-lib.mjs'
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with: {node-version: '26'}
+      - name: Test OOO exchange circuit semantics
+        run: node --test research/isograph/discovery/2026-09-29-isomax-late-xor-components/ooo-exchange-circuit-lib.test.mjs
