@@ -1,0 +1,51 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.frontier_context_repair.v1",
+  "id": "EW-RS-086",
+  "status": "FROZEN_BEFORE_FRONTIER_SCALAR_REPLAY",
+  "parent": "EW-RS-085",
+  "objective": "Find how much native depth-zero exchange information must augment the compressed sign-channel carriers for pooled scalar transfer.",
+  "researchOwner": "research/semantic-quotient",
+  "baseModes": [
+    "PMEC-01",
+    "PMEC-02",
+    "PMEC-03",
+    "PMEC-04",
+    "SEPARATED_RECONSTRUCTION"
+  ],
+  "frontierModes": [
+    "NONE",
+    "ANY",
+    "TOTAL",
+    "ABS_NET",
+    "UNORDERED",
+    "SIGNED_COUNTS",
+    "OWNER_SEPARATED"
+  ],
+  "source": "Canonical SIGNED_PARITY C/D0/D1 tokens; retain the existing base pair signature. From D0:0:+/-,D1:0:+/- derive exact four frontier indicators; each owner has at most one nonzero sign at depth0.",
+  "maps": {
+    "NONE": "constant",
+    "ANY": "whether any frontier indicator is nonzero",
+    "TOTAL": "number of changed frontier owner channels",
+    "ABS_NET": "absolute difference between plus and minus frontier counts",
+    "UNORDERED": "sorted pair of plus/minus frontier counts",
+    "SIGNED_COUNTS": "ordered plus/minus frontier counts",
+    "OWNER_SEPARATED": "four owner/sign indicators"
+  },
+  "control": "SIGNED_PARITY|ZERO_VS_POSITIVE from RS085 remains a full native zero/bulk reconstruction control.",
+  "procedure": [
+    "Enumerate all35 base/frontier combinations plus the full zero/bulk control. All pair maps are fixed before scalar replay.",
+    "For each pair append the chosen frontier symbol to the canonical base pair key, then sort the three pair keys for triangle identity.",
+    "Freeze all pooled catalogs, rows, bases and complete kernels, commit, then replay aligned pinned codes.",
+    "Reproduce NONE controls from RS082 and native zero/bulk from RS085. Publish per-carrier and pooled consistency, complete scalar kernel image and the three fixed scalar characters.",
+    "Derive the frontier-mode partition order exhaustively on the9 owner-sign states {none,+,-}^2. Retain all passing Pareto-minimal tag modes per base; never choose by contradiction count or scalar rank."
+  ],
+  "guards": [
+    "Frontier symbols are exact counts of available depth-zero signed tokens, not lower-bound interpretations of saturated tails.",
+    "No geometry label, occurrence profile, outcome-selected feature or scalar coefficient is added."
+  ],
+  "holdouts": {
+    "primary": "3x6-k4",
+    "backup": "5x3-k4",
+    "sealed": true
+  }
+}
