@@ -1,0 +1,99 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.phase_qa_integration.v1",
+  "date_author_local": "2026-09-29",
+  "research_direction": "Joshua Oshiro",
+  "status": "STRICT_QV_QA_SPLIT_ESTABLISHED_IN_BOUNDED_CORPUS",
+  "evidence": [
+    {
+      "id": "PHASEQA",
+      "branch": "experiment/isomax-late-xor-components-20260929",
+      "commit": "e6226847b3a006cd9402a6b09d6c6e8d4a5fd71f",
+      "file": "RANK_CONDITIONED_COMPONENT_PHASE_QA_0_1.json",
+      "warrant": "EW-RS-024"
+    },
+    {
+      "id": "PHASE",
+      "branch": "experiment/isomax-late-xor-components-20260929",
+      "commit": "add16a19e701605716a7b1fbb3d7fc99757ac9ed",
+      "file": "RANK_CONDITIONED_COMPONENT_PHASE_0_1.json"
+    },
+    {
+      "id": "T2DIR",
+      "branch": "experiment/isomax-late-xor-components-20260929",
+      "commit": "3822913b71604d7008b9e1a28d354258a509e62b",
+      "file": "RANK_LOCAL_T2_DERIVATION_0_1.json"
+    }
+  ],
+  "candidate": "post-RFG component multiplicity parity + rank mod 3 + direct T2",
+  "findings": [
+    {
+      "id": "RS-F075",
+      "status": "EXACT_FINITE_STRICT_SUFFICIENCY_SPLIT",
+      "statement": "The phase-factored candidate remains Q-V exact on all eight complete controls but is Q-A exact only on 3x3-k3. It fails transporter-aware action-value sufficiency on 3x4-k3, 4x3-k3, 4x4-k4, 4x4-k3, 3x5-k3, 5x3-k3 and fresh 3x6-k3."
+    },
+    {
+      "id": "RS-F076",
+      "status": "EXACT_FINITE_NEGATIVE",
+      "statement": "Replacing rank mod 3 with exact rank does not repair Q-A: exact-rank + component parity + T2 fails Q-A on the same seven carriers. The missing action information is therefore not merely a coarser rank-phase alias."
+    },
+    {
+      "id": "RS-F077",
+      "status": "EXACT_FINITE_NEGATIVE",
+      "statement": "Component parity + T2 without the rank phase fails Q-A on all eight carriers. Rank phase repairs the 5x3 scalar collision but does not restore the action multiplicity/type distinctions discarded by parity."
+    },
+    {
+      "id": "RS-F078",
+      "status": "EXACT_FINITE_PATTERN",
+      "statement": "Every tested carrier larger than 3x3 has a nontrivial class reduction under the phase-factored Q-V key relative to full component multiplicity, and every such carrier fails Q-A. The sole Q-A pass, 3x3-k3, has no class reduction for the phase-factored key relative to MULTI."
+    },
+    {
+      "id": "RS-F079",
+      "status": "DEDUCTIVE_SCALAR_ABSORPTION",
+      "statement": "T2-W and T2-L2 states have direct scalar values from mover identity: W fixes value to the mover's win sign and L2 fixes value to the mover's loss sign. Q-V may therefore forget the number and identity of winning/losing actions that Q-A must retain."
+    },
+    {
+      "id": "RS-F080",
+      "status": "EXACT_FINITE_GUARD",
+      "statement": "The Q-A gap is not confined to already scalar-absorbed T2-W/L2 states. For example, 4x4-k4 has a phase-factored Q-A collision inside T2-O, so unresolved scalar states can still share value while having different action-value interfaces."
+    },
+    {
+      "id": "RS-F081",
+      "status": "SEMANTIC_TARGET_SEPARATION",
+      "statement": "The phase-factored candidate is a scalar quotient only. It must not be promoted as a move-selection or action-value representation; Q-A requires a finer carrier even where Q-V is already exact."
+    },
+    {
+      "id": "RS-F082",
+      "status": "DISCOVERY_DIRECTION",
+      "statement": "For the Q-V/D_G campaign, valuation discovery should now focus on T2-O states after phase factorization, because W/L2 already have direct values. Q-A should continue as a separate finer-quotient channel rather than forcing action information back into the scalar carrier."
+    }
+  ],
+  "cross_case": {
+    "QV_phase_all_eight": true,
+    "QA_phase_pass": [
+      "3x3-k3"
+    ],
+    "QA_phase_fail": [
+      "3x4-k3",
+      "4x3-k3",
+      "4x4-k4",
+      "4x4-k3",
+      "3x5-k3",
+      "5x3-k3",
+      "3x6-k3"
+    ],
+    "QA_exact_rank_fail_same_seven": true
+  },
+  "interpretation_guard": [
+    "Q-A failure does not weaken the Q-V result.",
+    "Q-V success does not license action selection from the compressed key.",
+    "No XOR/component valuation law follows from the Q-V quotient alone.",
+    "The correct next scalar target is the unresolved T2-O phase-factored carrier, not restoration of Q-A distinctions."
+  ],
+  "open": [
+    "coarsest Q-A contextual quotient",
+    "direct D_G or component valuation on T2-O Q-V states",
+    "fresh wider-geometry Q-V qualification",
+    "general proof of RFG preservation of direct T2",
+    "standard-7x6 qualification"
+  ]
+}
