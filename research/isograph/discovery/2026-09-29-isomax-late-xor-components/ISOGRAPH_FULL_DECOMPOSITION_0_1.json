@@ -1,0 +1,469 @@
+{
+  "schema": "connect4.isomax.isograph_full_decomposition.v1",
+  "date_author_local": "2026-09-30",
+  "status": "RESEARCH_DECOMPOSITION_CANDIDATE_NO_AUTHORITY_EFFECT",
+  "owner": "research/semantic-quotient",
+  "authority": {
+    "connect4": "research/isograph/CONNECT4_LOGIC_AUTHORITY_1_2.md",
+    "isograph_stack": [
+      "Core 0.21",
+      "QU 0.1",
+      "NEI 0.4",
+      "DP 0.1-0.10",
+      "DTS 0.1",
+      "Experimental Inquiry 0.1"
+    ]
+  },
+  "sourcePins": {
+    "roleAlignedHarnessBlob": "3ba17a71d10ac5831193ce91d613a7b46c35b60c",
+    "fresh6x3k4Blob": "ab30b86b597ff409045fd8212afee0440e5b82b5",
+    "repairedCubicBlob": "854d7e0d0c081e52bcedcb02491d0dd0b245bb4d",
+    "holdoutWarrantBlob": "8210dad9a35a076606ea90cc25eb87cf9b164041",
+    "cubicQuotientWarrantBlob": "2d72c30dc60c4ef983a4d9e8a185e4b22935da84",
+    "cubicQuotientFreezeCommit": "8e3196dd2c4d5b52dbf97b0dff8315425054da33",
+    "humanDecompositionCommit": "f126fbf4bf3c641a7961abc17cb9e1a43c26890f"
+  },
+  "holdoutSeal": {
+    "warrant": "EW-RS-059",
+    "primary": "3x6-k4",
+    "backup": "5x3-k4",
+    "outcomesInspected": false,
+    "status": "SEALED"
+  },
+  "objective": {
+    "target": "relative scalar W/D/L",
+    "domain": "legal nonterminal positions, bounded declared carriers",
+    "tacticalSplit": [
+      "T2-W",
+      "T2-L2",
+      "T2-O"
+    ],
+    "lateStageAlgebraDomain": "T2-O",
+    "scope": "Q-V",
+    "notEstablished": [
+      "Q-A",
+      "Q-F",
+      "transition congruence",
+      "standard-7x6 sufficiency",
+      "universal decoder",
+      "center-opening theorem"
+    ]
+  },
+  "structuralPipeline": [
+    {
+      "id": "L0",
+      "name": "physical_event_game"
+    },
+    {
+      "id": "L1",
+      "name": "normalized_residual_requirements"
+    },
+    {
+      "id": "L2",
+      "name": "RFG_rank_local_forgetting"
+    },
+    {
+      "id": "L3",
+      "name": "residual_incidence_components"
+    },
+    {
+      "id": "L4",
+      "name": "phase_anchored_REL_INC_identity"
+    },
+    {
+      "id": "L5",
+      "name": "descriptor_multiplicity"
+    },
+    {
+      "id": "L6",
+      "name": "ZOE_count_quotient"
+    },
+    {
+      "id": "L7",
+      "name": "scalar_decoder"
+    }
+  ],
+  "repairedCoordinate": {
+    "residualCellDepth": "d = row - h_c",
+    "rolePhase": "kappa_c = (H - h_c) mod 2",
+    "identity": "canonicalize owner-labelled REL_INC and role-attached kappa under the same local column permutation",
+    "count": "n_d = multiplicity of descriptor d",
+    "countState": {
+      "Z": "n=0",
+      "E": "n>0 and even",
+      "O": "n odd"
+    },
+    "explicitRankGrade": false
+  },
+  "nativeZoeAlgebra": {
+    "binaryEncoding": {
+      "Z": [
+        0,
+        0
+      ],
+      "E": [
+        1,
+        0
+      ],
+      "O": [
+        1,
+        1
+      ],
+      "coordinates": [
+        "presence",
+        "oddness"
+      ],
+      "constraint": "oddness => presence"
+    },
+    "operation": "(p,o) star (p',o') = (p OR p', o XOR o')",
+    "table": {
+      "Z": {
+        "Z": "Z",
+        "E": "E",
+        "O": "O"
+      },
+      "E": {
+        "Z": "E",
+        "E": "E",
+        "O": "O"
+      },
+      "O": {
+        "Z": "O",
+        "E": "O",
+        "O": "E"
+      }
+    },
+    "properties": [
+      "associative",
+      "commutative",
+      "identity=Z",
+      "E idempotent",
+      "O star O = E",
+      "not a group"
+    ],
+    "status": "DEDUCTIVE_EXACT_FROM_COUNT_ADDITION"
+  },
+  "implicitAssertions": [
+    {
+      "id": "IA-LATE-001",
+      "statement": "role capacity parity is exactly frontier-height parity up to fixed H",
+      "formula": "kappa_c = Hmod2 XOR h_cmod2",
+      "status": "DEDUCTIVE_EXACT"
+    },
+    {
+      "id": "IA-LATE-002",
+      "statement": "role phase plus relative depth anchors absolute row parity",
+      "formula": "rowmod2 = Hmod2 XOR kappa_c XOR dmod2",
+      "status": "DEDUCTIVE_EXACT"
+    },
+    {
+      "id": "IA-LATE-003",
+      "statement": "for a surviving cell in a moved column, kappa and d parity both toggle, preserving anchored row parity",
+      "status": "DEDUCTIVE_EXACT_DTS_INVARIANT"
+    },
+    {
+      "id": "IA-LATE-004",
+      "statement": "ZOE is the additive quotient preserving zero/nonzero and count parity",
+      "status": "DEDUCTIVE_EXACT"
+    },
+    {
+      "id": "IA-LATE-005",
+      "statement": "XOR is lawful on normalized oddness while presence composes by OR",
+      "status": "DEDUCTIVE_EXACT"
+    },
+    {
+      "id": "IA-LATE-006",
+      "statement": "ZOE is the coarsest count quotient required to preserve both zero predicate and parity",
+      "status": "DEDUCTIVE_EXACT_RELATIVE_TO_DECLARED_OBSERVABLES"
+    },
+    {
+      "id": "IA-LATE-007",
+      "statement": "rank parity is reconstructible from geometry, descriptor phase checksums, and ZOE oddness",
+      "formula": "rankmod2 = (W*H mod2) XOR XOR_{d:ZOE(d)=O} K_d",
+      "status": "DEDUCTIVE_EXACT"
+    },
+    {
+      "id": "IA-LATE-008",
+      "statement": "exact rank, rank mod 3, and arbitrary scheduler state are not recovered by IA-LATE-007",
+      "status": "SCOPE_GUARD"
+    },
+    {
+      "id": "IA-LATE-009",
+      "statement": "binary ZOE coordinates satisfy absorption",
+      "formula": "P_d * O_d = O_d",
+      "status": "DEDUCTIVE_EXACT"
+    },
+    {
+      "id": "IA-LATE-010",
+      "statement": "GF(2) polynomial degree is not a semantic interaction degree because native OR expands into higher ANF degree",
+      "status": "DEDUCTIVE_REPRESENTATION_WARNING"
+    },
+    {
+      "id": "IA-LATE-011",
+      "statement": "affine joint target dimension 2 means both output columns are independent modulo affine span, not that exactly two unique structural syndrome generators exist",
+      "status": "SCOPE_CORRECTION"
+    }
+  ],
+  "iaFixedPoint": {
+    "carrier": "phase-anchored REL_INC identity + native ZOE count monoid",
+    "derived": [
+      "rank parity",
+      "side-to-move parity"
+    ],
+    "unresolved": [
+      "exact depth magnitude necessity",
+      "T2 necessity",
+      "native closed scalar decoder",
+      "standard-7x6 sufficiency",
+      "transition closure"
+    ],
+    "furtherExactEliminationWithoutNewAssumption": false
+  },
+  "decoderEvidence": {
+    "repairedCubic": {
+      "cases": {
+        "6x3-k3": {
+          "degree2Contradictions": 24,
+          "degree3Contradictions": 0,
+          "cubicRankGain": 75
+        },
+        "4x5-k4": {
+          "degree2Contradictions": 24,
+          "degree3Contradictions": 0,
+          "cubicRankGain": 371
+        },
+        "6x3-k4": {
+          "degree2Contradictions": 5,
+          "degree3Contradictions": 0,
+          "cubicRankGain": 16
+        }
+      },
+      "status": "BOUNDED_EXISTENCE"
+    },
+    "cubicQuotient": {
+      "outcomeIndependent": true,
+      "cases": {
+        "6x3-k3": {
+          "quotientDimension": 75,
+          "motifKinds": {
+            "OOO": 75
+          },
+          "degree2Target": {
+            "y0Gain": 0,
+            "y1Gain": 1,
+            "joint": 1
+          },
+          "reducedExact": true
+        },
+        "4x5-k4": {
+          "quotientDimension": 371,
+          "motifKinds": {
+            "OOO": 294,
+            "OOP": 77
+          },
+          "degree2Target": {
+            "y0Gain": 1,
+            "y1Gain": 1,
+            "joint": 2
+          },
+          "reducedExact": true
+        },
+        "6x3-k4": {
+          "quotientDimension": 16,
+          "motifKinds": {
+            "OOO": 16
+          },
+          "degree2Target": {
+            "y0Gain": 1,
+            "y1Gain": 1,
+            "joint": 2
+          },
+          "reducedExact": true
+        }
+      },
+      "interpretation": "motif distribution is discovery evidence in a deterministic outcome-independent basis; individual basis triples remain gauge-dependent"
+    }
+  },
+  "nei": {
+    "exactRepresentationSame": [
+      "kappa_c <-> frontier height parity given H",
+      "ZOE <-> constrained binary (P,O)",
+      "ROLE_CAPPAR_REL_INC <-> phase-anchored REL_INC given H"
+    ],
+    "boundedValueEquivalence": {
+      "statement": "equal repaired signatures imply equal scalar value in the declared tested scopes",
+      "status": "EMPIRICALLY_SUPPORTED_BOUNDED_QV",
+      "excludes": [
+        "physical identity",
+        "history identity",
+        "future-behavior identity",
+        "action identity",
+        "proof identity",
+        "standard-7x6 identity"
+      ]
+    }
+  },
+  "dts": {
+    "moveEffects": [
+      "h_c increments",
+      "role phase kappa_c toggles",
+      "surviving same-row residual depths in moved column decrement",
+      "mover residuals cofactor",
+      "blocked opponent residuals delete",
+      "antichain normalization may absorb",
+      "R/F/G may change visibility",
+      "incidence components may split/disappear/reclassify or appear to merge in the projection"
+    ],
+    "invariant": "anchored row parity for surviving cells",
+    "transitionClosedSignature": false,
+    "transitionClosureStatus": "OPEN_QU",
+    "warning": "Q-V exactness does not imply Q-A or Q-F exactness"
+  },
+  "dpMss": [
+    {
+      "support": "exact component multiplicity",
+      "disposition": "NONESSENTIAL_IN_TESTED_SCOPES",
+      "replacement": "ZOE"
+    },
+    {
+      "support": "M2 parity only",
+      "disposition": "INSUFFICIENT",
+      "evidence": "4x5-k4 and 5x4-k4 collisions"
+    },
+    {
+      "support": "presence only",
+      "disposition": "INSUFFICIENT"
+    },
+    {
+      "support": "M3 only without exact rank",
+      "disposition": "INSUFFICIENT_ON_4x5-k4"
+    },
+    {
+      "support": "ZOE",
+      "disposition": "SUFFICIENT_ON_COMPLETED_EXACT_TYPE_TESTS"
+    },
+    {
+      "support": "exact component identity",
+      "disposition": "SUBSTITUTABLE_IN_REPAIRED_SCOPES",
+      "replacement": "phase-anchored REL_INC"
+    },
+    {
+      "support": "REL_INC alone after ZOE aggregation",
+      "disposition": "INSUFFICIENT"
+    },
+    {
+      "support": "total capacity plus REL_INC",
+      "disposition": "INSUFFICIENT_ON_4x4_AND_4x5"
+    },
+    {
+      "support": "unordered capacity profile plus REL_INC",
+      "disposition": "INSUFFICIENT_ON_4x4_AND_4x5"
+    },
+    {
+      "support": "role-aligned capacity parity plus REL_INC",
+      "disposition": "COARSEST_PASSING_DECLARED_ROLE_CAPACITY_CANDIDATE"
+    },
+    {
+      "support": "explicit rank parity",
+      "disposition": "NONESSENTIAL",
+      "reason": "deductively reconstructed"
+    },
+    {
+      "support": "exact relative depth magnitude",
+      "disposition": "UNRESOLVED"
+    },
+    {
+      "support": "owner-labelled residual separation",
+      "disposition": "UNRESOLVED"
+    },
+    {
+      "support": "T2 boundary",
+      "disposition": "UNRESOLVED_AS_SEMANTIC_SUPPORT"
+    },
+    {
+      "support": "P/O binary encoding",
+      "disposition": "REALIZATION_ONLY"
+    },
+    {
+      "support": "pair/triple GF2 features",
+      "disposition": "REALIZATION_ONLY"
+    },
+    {
+      "support": "WDL bit gauge",
+      "disposition": "REALIZATION_GAUGE"
+    }
+  ],
+  "valuation": {
+    "preferredCurrentCarrier": "phase-anchored REL_INC + ZOE",
+    "profile": [
+      "fewer retained coordinates",
+      "no exact count magnitude",
+      "no explicit rank grade",
+      "native operations before polynomial expansion",
+      "outcome-independent construction"
+    ],
+    "globalMinimumClaim": false
+  },
+  "qu": [
+    {
+      "id": "QU-LATE-01",
+      "subject": "standard-7x6 scalar sufficiency",
+      "status": "OPEN"
+    },
+    {
+      "id": "QU-LATE-02",
+      "subject": "necessity of exact REL_INC depth magnitude after role phase anchoring",
+      "status": "OPEN"
+    },
+    {
+      "id": "QU-LATE-03",
+      "subject": "semantic necessity of separate T2 boundary",
+      "status": "OPEN"
+    },
+    {
+      "id": "QU-LATE-04",
+      "subject": "compact native scalar decoder Phi",
+      "status": "OPEN"
+    },
+    {
+      "id": "QU-LATE-05",
+      "subject": "signature-level transition closure",
+      "status": "OPEN"
+    },
+    {
+      "id": "QU-LATE-06",
+      "subject": "general proof of exact-component replacement by repaired descriptor for Q-V",
+      "status": "OPEN"
+    },
+    {
+      "id": "QU-LATE-07",
+      "subject": "exact relation to CPC/control parity",
+      "status": "OPEN"
+    },
+    {
+      "id": "QU-LATE-08",
+      "subject": "structural center-opening theorem after standard decoder",
+      "status": "OPEN"
+    }
+  ],
+  "recommendedNext": [
+    "interpret EW-RS-060 using quotient dimensions and motif classes, not fitted basis coefficients",
+    "search decoder directly over native ternary ZOE with P/O absorption enforced",
+    "test phase-aware depth reductions on already-open discovery carriers",
+    "test whether T2 is semantically removable from the scalar key on already-open carriers",
+    "separately test signature-level DTS transition congruence",
+    "freeze a closed decoder before unsealing EW-RS-059 primary holdout"
+  ],
+  "standard7x6Specialization": {
+    "H_even": true,
+    "rolePhase": "kappa_c = h_c mod 2",
+    "rankParity": "XOR of descriptor internal phase checksums over O-count descriptors",
+    "centerOpeningProofStatus": "OPEN"
+  },
+  "finalDecomposition": [
+    "residual normalization",
+    "phase-anchored residual incidence",
+    "zero-aware parity count monoid (OR,XOR)",
+    "unresolved compact scalar decoder"
+  ]
+}
