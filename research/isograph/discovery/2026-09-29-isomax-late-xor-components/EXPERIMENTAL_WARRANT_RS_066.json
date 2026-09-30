@@ -1,0 +1,64 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.role_cappar_depth_compression.v1",
+  "id": "EW-RS-066",
+  "date_author_local": "2026-09-30",
+  "status": "ACTIVE",
+  "parent": "EW-RS-065",
+  "objective": "Test whether exact positive frontier-relative depth magnitude remains necessary in the successful ROLE_CAPPAR_REL_INC_ZOE whole-component identity, using a frozen coarsest-first structural depth ladder before any further OOO motif fitting.",
+  "cases": [
+    "5x3-k3",
+    "4x4-k4",
+    "6x3-k3",
+    "4x5-k4",
+    "6x3-k4"
+  ],
+  "frozenCountState": "ZOE = zero omitted, positive odd O, positive even E after identity aggregation",
+  "frozenRoleState": "One remaining-capacity parity bit remains attached to each local REL_INC column role and is canonicalized jointly with residual incidence.",
+  "candidates": [
+    {
+      "name": "ROLE_CAPPAR_FRONTIER_REL_INC_ZOE",
+      "residualCellLabel": "F if relative depth d=0, P if d>0; retain owner channel, residual-mask boundaries, local column role, component width, and role-attached capacity parity."
+    },
+    {
+      "name": "ROLE_CAPPAR_RPAR_REL_INC_ZOE",
+      "residualCellLabel": "F if d=0, O if d>0 odd, E if d>0 even; retain owner channel, residual-mask boundaries, local column role, component width, and role-attached capacity parity."
+    },
+    {
+      "name": "ROLE_CAPPAR_REL_INC_ZOE",
+      "residualCellLabel": "Exact nonnegative relative depth d; current selected control."
+    }
+  ],
+  "selectionOrder": [
+    "ROLE_CAPPAR_FRONTIER_REL_INC_ZOE",
+    "ROLE_CAPPAR_RPAR_REL_INC_ZOE",
+    "ROLE_CAPPAR_REL_INC_ZOE"
+  ],
+  "exactControlClassCounts": {
+    "5x3-k3": 3259,
+    "4x4-k4": 7894,
+    "6x3-k3": 16732,
+    "4x5-k4": 79309,
+    "6x3-k4": 17550
+  },
+  "structuralIdentityNote": "With role capacity parity retained, positive-depth parity and anchored absolute-row parity are equivalent recodings per local column role; no duplicate anchored-parity rung is required.",
+  "antiCircularity": [
+    "All depth labels are defined from current-rank residual structure and support geometry before W/D/L qualification.",
+    "The ladder is frozen coarsest-first before any mixed-class result is inspected.",
+    "No descriptor split, depth threshold, or exception may be introduced from outcome labels.",
+    "EW-RS-059 PRIMARY 3x6-k4 and BACKUP 5x3-k4 remain sealed."
+  ],
+  "falsifiers": [
+    "Any mixed scalar class rejects that candidate as a whole-component Q-V identity on the affected carrier.",
+    "The exact ROLE_CAPPAR_REL_INC_ZOE control must reproduce its frozen class count and zero mixed scalar classes on every carrier.",
+    "A coarser candidate may be selected only if it has zero mixed scalar classes on every declared carrier.",
+    "No formula-holdout outcome may be accessed."
+  ],
+  "nextIfFrontierOnlyPasses": "Freeze frontier-versus-positive depth as the preferred structural identity and rerun decoder dimension/OOO dependency analysis in that compressed coordinate before motif fitting.",
+  "nextIfRparPasses": "Freeze frontier-plus-positive-depth-parity as the preferred structural identity and rerun decoder dimension/OOO dependency analysis in that compressed coordinate before motif fitting.",
+  "nextIfOnlyExactPasses": "Retain exact depth in ROLE_CAPPAR and proceed with mechanically generated OOO dependency motif/circuit functionals.",
+  "interpretationGuards": [
+    "This is an MSS/Q-V identity-compression test, not formula qualification.",
+    "Passing does not prove global minimality of the selected depth label.",
+    "No Q-A/Q-F, standard-7x6, universal theorem, or center-opening claim follows."
+  ]
+}
