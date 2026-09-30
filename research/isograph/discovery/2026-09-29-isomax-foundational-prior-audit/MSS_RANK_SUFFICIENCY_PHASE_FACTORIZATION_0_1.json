@@ -1,0 +1,70 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.mss_phase_factorization.v1",
+  "date_author_local": "2026-09-29",
+  "results": [
+    {
+      "id": "MSS-RS-P1",
+      "target": "turn parity coordinate p",
+      "result": "REMOVE",
+      "reason": "M2 already determines rank parity exactly from component-type support-height weights"
+    },
+    {
+      "id": "MSS-RS-P2",
+      "target": "exact rank versus rank mod 3 inside M2+T2 Q-V key",
+      "result": "RANK_MOD3_PREFERRED_AMONG_TESTED_VALID_PHASES",
+      "evidence": "Both are Q-V exact on all eight controls; rank mod 3 is never finer and has fewer classes on 4x4-k4, 4x4-k3, 5x3-k3 and fresh 3x6-k3."
+    },
+    {
+      "id": "MSS-RS-P3",
+      "target": "rank mod 4",
+      "result": "INVALID_BY_5X3_QV_FALSIFIER",
+      "reason": "Two mixed-value groups remain on 5x3-k3."
+    },
+    {
+      "id": "MSS-RS-P4",
+      "target": "rank phase without T2",
+      "result": "INVALID",
+      "reason": "Exact rank + M2 without T2 has Q-V collisions on every one of the eight tested carriers."
+    },
+    {
+      "id": "MSS-RS-P5",
+      "target": "T2 computational form",
+      "result": "DIRECT_CURRENT_RANK_FORM_AVAILABLE",
+      "reason": "Singleton-residual/frontier law exactly matches child-derived T2 on all eight controls; q_o requires no child traversal."
+    },
+    {
+      "id": "MSS-RS-P6",
+      "target": "cross-case tested Q-V carrier",
+      "result": "M2 + rank mod 3 + direct T2",
+      "status": "SMALLEST_AMONG_THE_EXPLICIT_PHASE_CHOICES_TESTED__GLOBAL_MINIMALITY_OPEN"
+    }
+  ],
+  "class_comparisons": [
+    {
+      "case": "4x4-k4",
+      "exactRankT2": 9285,
+      "rankMod3T2": 9278
+    },
+    {
+      "case": "4x4-k3",
+      "exactRankT2": 8119,
+      "rankMod3T2": 8117
+    },
+    {
+      "case": "5x3-k3",
+      "exactRankT2": 13357,
+      "rankMod3T2": 13355
+    },
+    {
+      "case": "3x6-k3",
+      "exactRankT2": 4567,
+      "rankMod3T2": 4566
+    }
+  ],
+  "valuation": [
+    "Validity precedes class count.",
+    "Q-V compression is not interchangeable with Q-A/Q-F sufficiency.",
+    "Do not infer ternary algebra from MOD3 because MOD3 necessarily carries rank mod 3.",
+    "Next machinery should target Q-A and a stable valuation law, not another modulus sweep."
+  ]
+}
