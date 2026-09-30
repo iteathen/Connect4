@@ -1,0 +1,83 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.orientation_cross_k_falsifier_integration.v1",
+  "date_author_local": "2026-09-30",
+  "research_direction": "Joshua Oshiro",
+  "status": "HVD_GENERAL_SOURCE_REJECTED__ORIENTATION_ORGANIZATION_OPEN",
+  "evidence": {
+    "branch": "experiment/isomax-late-xor-components-20260929",
+    "preflight": {
+      "commit": "094f0524ed355f133d062779f4052ffb591b2108",
+      "file": "OOO_ORIENTATION_PROVENANCE_SPEC_VERIFY_0_1.json",
+      "warrant": "EW-RS-071"
+    },
+    "crossKFalsifier": {
+      "commit": "f4c174d431f74ff91e27e62422f9bdcead8ab064",
+      "file": "OOO_ORIENTATION_CROSS_K_FALSIFIER_0_1.json"
+    },
+    "priorOoo": [
+      "REPAIRED_ODDNESS_ONLY_CUBIC_DECODER_0_1.json / EW-RS-061",
+      "MATCHED_DEGREE2_DEPENDENCY_QUOTIENT_0_1.json / EW-RS-065"
+    ]
+  },
+  "exactGeometry": {
+    "6x3-k3": {
+      "H": 12,
+      "V": 6,
+      "DPLUS": 4,
+      "DMINUS": 4
+    },
+    "4x5-k4": {
+      "H": 5,
+      "V": 8,
+      "DPLUS": 2,
+      "DMINUS": 2
+    },
+    "6x3-k4": {
+      "H": 9,
+      "V": 0,
+      "DPLUS": 0,
+      "DMINUS": 0
+    }
+  },
+  "existingOooControl": {
+    "carrier": "6x3-k4",
+    "degree2Contradictions": 5,
+    "oooRankGain": 16,
+    "oooContradictions": 0,
+    "scalarDependencyImageDimension": 2
+  },
+  "findings": [
+    {
+      "id": "RS-F222",
+      "status": "ORIENTATION_FAMILY_CARDINALITY_NOT_INVARIANT",
+      "statement": "The folded winning-line orientation families available on a finite carrier depend on board geometry and K; 6x3-k4 has only H, not H/V/D."
+    },
+    {
+      "id": "RS-F223",
+      "status": "HVD_GENERAL_SOURCE_REJECTED",
+      "statement": "Because horizontal-only 6x3-k4 has a nonzero 16-dimensional OOO correction with five degree-2 contradictions, simultaneous H,V,D interaction cannot be the general source of the surviving OOO layer."
+    },
+    {
+      "id": "RS-F224",
+      "status": "CROSS_K_CLUE_REVISED",
+      "statement": "Persistence of OOO across k=3 and k=4 remains evidence against a simple k-1 companion-count explanation, but it does not support a universal three-orientation explanation because one hard k=4 carrier has only one available orientation family."
+    },
+    {
+      "id": "RS-F225",
+      "status": "H_ONLY_CONTROL_PROMOTED",
+      "statement": "6x3-k4 is now a decisive control for any proposed deeper structural law: a common explanation must admit an H-only realization while also covering mixed-orientation carriers."
+    }
+  ],
+  "open": [
+    "whether orientation provenance compresses the OOO scalar map on mixed-orientation carriers",
+    "whether a deeper support/exchange/circuit invariant has H-only and mixed-orientation realizations",
+    "whether true orientation labels outperform deterministic shuffled controls",
+    "transition-level relation between orientation provenance and exact pair-delta exchange geometry"
+  ],
+  "nonclaims": [
+    "Orientation is not claimed irrelevant on carriers that contain V or D lines.",
+    "This does not identify the final scalar syndrome.",
+    "EW-RS-059 formula holdouts remain sealed.",
+    "No Q-A/Q-F or standard-7x6 claim follows."
+  ]
+}
