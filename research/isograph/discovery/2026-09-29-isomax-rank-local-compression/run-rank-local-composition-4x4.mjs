@@ -46,7 +46,7 @@ for(const a of ['M','R','F']){
   identities[a]=nts.every(x=>key(T[a](T[a](qmap.get(x.k))))===key(T[a](qmap.get(x.k))));
 }
 for(const [a,b] of [['M','R'],['M','F'],['R','F']]){
-  commutation[a+b]=nts.every(x=>key(T[b](T[a](qmap.get(x.k))))===key(T[a](T[b](qmap.get(x.k))));
+  commutation[a+b]=nts.every(x=>key(T[b](T[a](qmap.get(x.k))))===key(T[a](T[b](qmap.get(x.k)))));
 }
 const passingDirect=direct.filter(x=>x.QF).sort((a,b)=>a.classes-b.classes);
 const passingOrbit=orbit.filter(x=>x.QF_transported).sort((a,b)=>a.classes-b.classes);
