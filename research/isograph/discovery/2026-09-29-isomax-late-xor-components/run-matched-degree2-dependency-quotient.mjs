@@ -613,8 +613,6 @@ function auditCase(W,H,K){
      * frozen structurally first.  Scalar codes are replayed only afterward.
      */
     function matchedDegree2DependencyQuotient(){
-      const tripleCount=tripleKeys.length;
-
       function oooRow(rec){
         const out=[];
         const bs=rec.raw.filter(v=>v!==0&&(v&1)===0);
@@ -626,38 +624,85 @@ function auditCase(W,H,K){
         return out;
       }
 
+      /*
+       * Structural phase 1: freeze the degree<=2 row basis and one
+       * deterministic left-kernel dependency basis.  Pivot traces are DAG
+       * edges to earlier pivots; no outcomes or OOO values are consulted.
+       */
       const lowerPivots=new Map();
+      const pivotOrder=[];
       const dependencies=[];
 
       for(let rowIndex=0;rowIndex<rows.length;rowIndex++){
         let lower=degree2Row(rows[rowIndex]);
-        let residue=oooRow(rows[rowIndex]);
         const pivotTrace=[];
 
         while(lower.length){
           const p=lower[lower.length-1],prior=lowerPivots.get(p);
           if(!prior){
-            lowerPivots.set(p,{row:lower,residue});
+            lowerPivots.set(p,{
+              row:lower,
+              sourceRowIndex:rowIndex,
+              pivotTrace:[...pivotTrace]
+            });
+            pivotOrder.push(p);
             lower=null;
             break;
           }
           pivotTrace.push(p);
           lower=xorRow(lower,prior.row);
-          residue=xorRow(residue,prior.residue);
         }
 
         if(lower!==null&&lower.length===0){
           dependencies.push({
             sourceRowIndex:rowIndex,
             sourceSignature:rows[rowIndex].sig,
-            pivotTrace,
-            oooResidue:residue
+            pivotTrace:[...pivotTrace]
           });
         }
       }
 
       assert.equal(lowerPivots.size,degree2.pivotRank,'EW-RS-065 degree<=2 structural row rank drift');
       assert.equal(dependencies.length,rows.length-degree2.pivotRank,'EW-RS-065 left-nullity mismatch');
+
+      /*
+       * Compute only the pivot closure needed by the frozen dependencies.
+       * Every pivot trace points backward in pivotOrder, so reverse closure
+       * followed by forward evaluation is exact and non-recursive.
+       */
+      const neededPivots=new Set(dependencies.flatMap(d=>d.pivotTrace));
+      for(let i=pivotOrder.length-1;i>=0;i--){
+        const p=pivotOrder[i];
+        if(!neededPivots.has(p))continue;
+        for(const q of lowerPivots.get(p).pivotTrace)neededPivots.add(q);
+      }
+
+      /*
+       * Structural phase 2: map the already-frozen dependencies into the
+       * complete OOO space.  Still no outcome access.
+       */
+      const pivotOoo=new Map();
+      for(const p of pivotOrder){
+        if(!neededPivots.has(p))continue;
+        const pr=lowerPivots.get(p);
+        let z=oooRow(rows[pr.sourceRowIndex]);
+        for(const q of pr.pivotTrace){
+          const qz=pivotOoo.get(q);
+          assert.ok(qz,'EW-RS-065 OOO pivot closure/order drift');
+          z=xorRow(z,qz);
+        }
+        pivotOoo.set(p,z);
+      }
+
+      for(const dep of dependencies){
+        let z=oooRow(rows[dep.sourceRowIndex]);
+        for(const p of dep.pivotTrace){
+          const pz=pivotOoo.get(p);
+          assert.ok(pz,'EW-RS-065 missing OOO pivot residue');
+          z=xorRow(z,pz);
+        }
+        dep.oooResidue=z;
+      }
 
       const residuePivots=new Map();
       const residueBasisDependencyIndices=[];
@@ -687,42 +732,31 @@ function auditCase(W,H,K){
       }
 
       /*
-       * Outcome replay starts only here, after the structural dependency
-       * basis and OOO residue basis are frozen.
+       * Outcome phase: only after both structural bases are frozen.
+       * Evaluate the same frozen pivot-trace DAG in GF(2)^2.
        */
-      const scalarPivotCodes=new Map();
-      const scalarCodes=[];
-      let dependencyCursor=0;
+      const pivotScalar=new Map();
+      for(const p of pivotOrder){
+        if(!neededPivots.has(p))continue;
+        const pr=lowerPivots.get(p);
+        let code=rows[pr.sourceRowIndex].code;
+        for(const q of pr.pivotTrace){
+          const qc=pivotScalar.get(q);
+          assert.notEqual(qc,undefined,'EW-RS-065 scalar pivot closure/order drift');
+          code^=qc;
+        }
+        pivotScalar.set(p,code);
+      }
 
-      for(let rowIndex=0;rowIndex<rows.length;rowIndex++){
-        let lower=degree2Row(rows[rowIndex]);
-        let code=rows[rowIndex].code;
-
-        while(lower.length){
-          const p=lower[lower.length-1],prior=lowerPivots.get(p);
-          assert.ok(prior,'EW-RS-065 replay encountered unknown structural pivot');
-          if(prior.row===lower){
-            break;
-          }
-          const pc=scalarPivotCodes.get(p);
-          assert.notEqual(pc,undefined,'EW-RS-065 scalar replay pivot order drift');
-          lower=xorRow(lower,prior.row);
+      const scalarCodes=dependencies.map(dep=>{
+        let code=rows[dep.sourceRowIndex].code;
+        for(const p of dep.pivotTrace){
+          const pc=pivotScalar.get(p);
+          assert.notEqual(pc,undefined,'EW-RS-065 missing scalar pivot residue');
           code^=pc;
         }
-
-        if(lower.length){
-          const p=lower[lower.length-1];
-          if(!scalarPivotCodes.has(p))scalarPivotCodes.set(p,code);
-          continue;
-        }
-
-        const dep=dependencies[dependencyCursor];
-        assert.ok(dep,'EW-RS-065 scalar replay dependency overflow');
-        assert.equal(dep.sourceRowIndex,rowIndex,'EW-RS-065 scalar replay dependency ordering drift');
-        scalarCodes.push(code);
-        dependencyCursor++;
-      }
-      assert.equal(dependencyCursor,dependencies.length,'EW-RS-065 scalar replay dependency underflow');
+        return code;
+      });
 
       function span2(codes){
         const nz=[...new Set(codes.filter(x=>x!==0))];
@@ -771,6 +805,7 @@ function auditCase(W,H,K){
         degree2RowRank:lowerPivots.size,
         leftNullity:dependencies.length,
         deterministicMatchedDependencies:dependencies.length,
+        neededPivotClosure:neededPivots.size,
         oooResidueRank:residueRank,
         zeroResidues,
         nonzeroResidues,
