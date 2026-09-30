@@ -1,0 +1,3078 @@
+{
+  "schema": "connect4.isomax.pooled_stratum_summary_verify.v1",
+  "warrant": "EW-RS-089",
+  "status": "PASS",
+  "method": "independent BigInt row, complete-kernel and scalar-character verification; canonical lineage maps shared",
+  "audits": [
+    {
+      "mode": "NONE|NONE",
+      "imageRank": 6,
+      "pooled": {
+        "contradictions": 60,
+        "zeroStructuralNonzeroScalar": 15,
+        "firstContradiction": {
+          "dependencyIndex": 5,
+          "dependencyIndices": [
+            1,
+            5
+          ],
+          "reducedCode": 2
+        },
+        "scalarDependencyImageDimension": 2,
+        "scalarImageDimensionOnBasis": 1,
+        "exactScalarFactorization": false
+      },
+      "scalarKernelImageDimension": 2,
+      "maximalSharedScalarQuotientDimension": 0,
+      "characters": [
+        {
+          "mask": 1,
+          "kernelNonzeroCount": 2,
+          "exact": false
+        },
+        {
+          "mask": 2,
+          "kernelNonzeroCount": 59,
+          "exact": false
+        },
+        {
+          "mask": 3,
+          "kernelNonzeroCount": 59,
+          "exact": false
+        }
+      ],
+      "perCarrier": [
+        {
+          "label": "6x3-k3",
+          "imageRank": 6,
+          "contradictions": 30,
+          "zeroStructuralNonzeroScalar": 6,
+          "firstContradiction": {
+            "dependencyIndex": 5,
+            "dependencyIndices": [
+              1,
+              5
+            ],
+            "reducedCode": 2
+          },
+          "scalarDependencyImageDimension": 1,
+          "scalarImageDimensionOnBasis": 1,
+          "exactScalarFactorization": false
+        },
+        {
+          "label": "4x5-k4",
+          "imageRank": 2,
+          "contradictions": 106,
+          "zeroStructuralNonzeroScalar": 6,
+          "firstContradiction": {
+            "dependencyIndex": 64,
+            "dependencyIndices": [
+              62,
+              64
+            ],
+            "reducedCode": 2
+          },
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 1,
+          "exactScalarFactorization": false
+        },
+        {
+          "label": "6x3-k4",
+          "imageRank": 4,
+          "contradictions": 7,
+          "zeroStructuralNonzeroScalar": 3,
+          "firstContradiction": {
+            "dependencyIndex": 1,
+            "dependencyIndices": [
+              0,
+              1
+            ],
+            "reducedCode": 2
+          },
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 1,
+          "exactScalarFactorization": false
+        }
+      ],
+      "fixedTwoRowCertificate": {
+        "sameStructuralRow": true,
+        "scalarXor": 2
+      }
+    },
+    {
+      "mode": "NONE|TOTAL",
+      "imageRank": 167,
+      "pooled": {
+        "contradictions": 70,
+        "zeroStructuralNonzeroScalar": 1,
+        "firstContradiction": {
+          "dependencyIndex": 26,
+          "dependencyIndices": [
+            3,
+            26
+          ],
+          "reducedCode": 2
+        },
+        "scalarDependencyImageDimension": 2,
+        "scalarImageDimensionOnBasis": 2,
+        "exactScalarFactorization": false
+      },
+      "scalarKernelImageDimension": 2,
+      "maximalSharedScalarQuotientDimension": 0,
+      "characters": [
+        {
+          "mask": 1,
+          "kernelNonzeroCount": 1,
+          "exact": false
+        },
+        {
+          "mask": 2,
+          "kernelNonzeroCount": 70,
+          "exact": false
+        },
+        {
+          "mask": 3,
+          "kernelNonzeroCount": 69,
+          "exact": false
+        }
+      ],
+      "perCarrier": [
+        {
+          "label": "6x3-k3",
+          "imageRank": 56,
+          "contradictions": 5,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": {
+            "dependencyIndex": 26,
+            "dependencyIndices": [
+              3,
+              26
+            ],
+            "reducedCode": 2
+          },
+          "scalarDependencyImageDimension": 1,
+          "scalarImageDimensionOnBasis": 1,
+          "exactScalarFactorization": false
+        },
+        {
+          "label": "4x5-k4",
+          "imageRank": 113,
+          "contradictions": 53,
+          "zeroStructuralNonzeroScalar": 1,
+          "firstContradiction": {
+            "dependencyIndex": 90,
+            "dependencyIndices": [
+              9,
+              69,
+              71,
+              73,
+              90
+            ],
+            "reducedCode": 2
+          },
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 1,
+          "exactScalarFactorization": false
+        },
+        {
+          "label": "6x3-k4",
+          "imageRank": 14,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": true
+        }
+      ],
+      "fixedTwoRowCertificate": {
+        "sameStructuralRow": false,
+        "scalarXor": 2
+      }
+    },
+    {
+      "mode": "NONE|ABS_NET",
+      "imageRank": 106,
+      "pooled": {
+        "contradictions": 103,
+        "zeroStructuralNonzeroScalar": 1,
+        "firstContradiction": {
+          "dependencyIndex": 16,
+          "dependencyIndices": [
+            7,
+            9,
+            16
+          ],
+          "reducedCode": 2
+        },
+        "scalarDependencyImageDimension": 2,
+        "scalarImageDimensionOnBasis": 2,
+        "exactScalarFactorization": false
+      },
+      "scalarKernelImageDimension": 2,
+      "maximalSharedScalarQuotientDimension": 0,
+      "characters": [
+        {
+          "mask": 1,
+          "kernelNonzeroCount": 1,
+          "exact": false
+        },
+        {
+          "mask": 2,
+          "kernelNonzeroCount": 103,
+          "exact": false
+        },
+        {
+          "mask": 3,
+          "kernelNonzeroCount": 102,
+          "exact": false
+        }
+      ],
+      "perCarrier": [
+        {
+          "label": "6x3-k3",
+          "imageRank": 40,
+          "contradictions": 21,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": {
+            "dependencyIndex": 16,
+            "dependencyIndices": [
+              7,
+              9,
+              16
+            ],
+            "reducedCode": 2
+          },
+          "scalarDependencyImageDimension": 1,
+          "scalarImageDimensionOnBasis": 1,
+          "exactScalarFactorization": false
+        },
+        {
+          "label": "4x5-k4",
+          "imageRank": 78,
+          "contradictions": 59,
+          "zeroStructuralNonzeroScalar": 1,
+          "firstContradiction": {
+            "dependencyIndex": 64,
+            "dependencyIndices": [
+              62,
+              64
+            ],
+            "reducedCode": 2
+          },
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 1,
+          "exactScalarFactorization": false
+        },
+        {
+          "label": "6x3-k4",
+          "imageRank": 11,
+          "contradictions": 1,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": {
+            "dependencyIndex": 11,
+            "dependencyIndices": [
+              2,
+              11
+            ],
+            "reducedCode": 2
+          },
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": false
+        }
+      ],
+      "fixedTwoRowCertificate": {
+        "sameStructuralRow": false,
+        "scalarXor": 2
+      }
+    },
+    {
+      "mode": "NONE|SIGN_UNORDERED",
+      "imageRank": 187,
+      "pooled": {
+        "contradictions": 66,
+        "zeroStructuralNonzeroScalar": 1,
+        "firstContradiction": {
+          "dependencyIndex": 26,
+          "dependencyIndices": [
+            3,
+            26
+          ],
+          "reducedCode": 2
+        },
+        "scalarDependencyImageDimension": 2,
+        "scalarImageDimensionOnBasis": 2,
+        "exactScalarFactorization": false
+      },
+      "scalarKernelImageDimension": 2,
+      "maximalSharedScalarQuotientDimension": 0,
+      "characters": [
+        {
+          "mask": 1,
+          "kernelNonzeroCount": 1,
+          "exact": false
+        },
+        {
+          "mask": 2,
+          "kernelNonzeroCount": 66,
+          "exact": false
+        },
+        {
+          "mask": 3,
+          "kernelNonzeroCount": 65,
+          "exact": false
+        }
+      ],
+      "perCarrier": [
+        {
+          "label": "6x3-k3",
+          "imageRank": 56,
+          "contradictions": 5,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": {
+            "dependencyIndex": 26,
+            "dependencyIndices": [
+              3,
+              26
+            ],
+            "reducedCode": 2
+          },
+          "scalarDependencyImageDimension": 1,
+          "scalarImageDimensionOnBasis": 1,
+          "exactScalarFactorization": false
+        },
+        {
+          "label": "4x5-k4",
+          "imageRank": 132,
+          "contradictions": 21,
+          "zeroStructuralNonzeroScalar": 1,
+          "firstContradiction": {
+            "dependencyIndex": 99,
+            "dependencyIndices": [
+              87,
+              99
+            ],
+            "reducedCode": 2
+          },
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 1,
+          "exactScalarFactorization": false
+        },
+        {
+          "label": "6x3-k4",
+          "imageRank": 14,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": true
+        }
+      ],
+      "fixedTwoRowCertificate": {
+        "sameStructuralRow": false,
+        "scalarXor": 2
+      }
+    },
+    {
+      "mode": "NONE|OWNER_PAIR_UNORDERED",
+      "imageRank": 190,
+      "pooled": {
+        "contradictions": 64,
+        "zeroStructuralNonzeroScalar": 1,
+        "firstContradiction": {
+          "dependencyIndex": 26,
+          "dependencyIndices": [
+            3,
+            26
+          ],
+          "reducedCode": 2
+        },
+        "scalarDependencyImageDimension": 2,
+        "scalarImageDimensionOnBasis": 2,
+        "exactScalarFactorization": false
+      },
+      "scalarKernelImageDimension": 2,
+      "maximalSharedScalarQuotientDimension": 0,
+      "characters": [
+        {
+          "mask": 1,
+          "kernelNonzeroCount": 1,
+          "exact": false
+        },
+        {
+          "mask": 2,
+          "kernelNonzeroCount": 64,
+          "exact": false
+        },
+        {
+          "mask": 3,
+          "kernelNonzeroCount": 63,
+          "exact": false
+        }
+      ],
+      "perCarrier": [
+        {
+          "label": "6x3-k3",
+          "imageRank": 56,
+          "contradictions": 5,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": {
+            "dependencyIndex": 26,
+            "dependencyIndices": [
+              3,
+              26
+            ],
+            "reducedCode": 2
+          },
+          "scalarDependencyImageDimension": 1,
+          "scalarImageDimensionOnBasis": 1,
+          "exactScalarFactorization": false
+        },
+        {
+          "label": "4x5-k4",
+          "imageRank": 135,
+          "contradictions": 19,
+          "zeroStructuralNonzeroScalar": 1,
+          "firstContradiction": {
+            "dependencyIndex": 99,
+            "dependencyIndices": [
+              87,
+              99
+            ],
+            "reducedCode": 2
+          },
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 1,
+          "exactScalarFactorization": false
+        },
+        {
+          "label": "6x3-k4",
+          "imageRank": 14,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": true
+        }
+      ],
+      "fixedTwoRowCertificate": {
+        "sameStructuralRow": false,
+        "scalarXor": 2
+      }
+    },
+    {
+      "mode": "NONE|OWNER_SEPARATED",
+      "imageRank": 207,
+      "pooled": {
+        "contradictions": 41,
+        "zeroStructuralNonzeroScalar": 1,
+        "firstContradiction": {
+          "dependencyIndex": 26,
+          "dependencyIndices": [
+            3,
+            26
+          ],
+          "reducedCode": 2
+        },
+        "scalarDependencyImageDimension": 2,
+        "scalarImageDimensionOnBasis": 2,
+        "exactScalarFactorization": false
+      },
+      "scalarKernelImageDimension": 2,
+      "maximalSharedScalarQuotientDimension": 0,
+      "characters": [
+        {
+          "mask": 1,
+          "kernelNonzeroCount": 1,
+          "exact": false
+        },
+        {
+          "mask": 2,
+          "kernelNonzeroCount": 41,
+          "exact": false
+        },
+        {
+          "mask": 3,
+          "kernelNonzeroCount": 40,
+          "exact": false
+        }
+      ],
+      "perCarrier": [
+        {
+          "label": "6x3-k3",
+          "imageRank": 58,
+          "contradictions": 5,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": {
+            "dependencyIndex": 26,
+            "dependencyIndices": [
+              3,
+              26
+            ],
+            "reducedCode": 2
+          },
+          "scalarDependencyImageDimension": 1,
+          "scalarImageDimensionOnBasis": 1,
+          "exactScalarFactorization": false
+        },
+        {
+          "label": "4x5-k4",
+          "imageRank": 148,
+          "contradictions": 6,
+          "zeroStructuralNonzeroScalar": 1,
+          "firstContradiction": {
+            "dependencyIndex": 99,
+            "dependencyIndices": [
+              87,
+              99
+            ],
+            "reducedCode": 2
+          },
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 1,
+          "exactScalarFactorization": false
+        },
+        {
+          "label": "6x3-k4",
+          "imageRank": 14,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": true
+        }
+      ],
+      "fixedTwoRowCertificate": {
+        "sameStructuralRow": false,
+        "scalarXor": 2
+      }
+    },
+    {
+      "mode": "TOTAL|NONE",
+      "imageRank": 75,
+      "pooled": {
+        "contradictions": 127,
+        "zeroStructuralNonzeroScalar": 3,
+        "firstContradiction": {
+          "dependencyIndex": 9,
+          "dependencyIndices": [
+            1,
+            9
+          ],
+          "reducedCode": 2
+        },
+        "scalarDependencyImageDimension": 2,
+        "scalarImageDimensionOnBasis": 2,
+        "exactScalarFactorization": false
+      },
+      "scalarKernelImageDimension": 2,
+      "maximalSharedScalarQuotientDimension": 0,
+      "characters": [
+        {
+          "mask": 1,
+          "kernelNonzeroCount": 2,
+          "exact": false
+        },
+        {
+          "mask": 2,
+          "kernelNonzeroCount": 127,
+          "exact": false
+        },
+        {
+          "mask": 3,
+          "kernelNonzeroCount": 125,
+          "exact": false
+        }
+      ],
+      "perCarrier": [
+        {
+          "label": "6x3-k3",
+          "imageRank": 53,
+          "contradictions": 4,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": {
+            "dependencyIndex": 9,
+            "dependencyIndices": [
+              1,
+              9
+            ],
+            "reducedCode": 2
+          },
+          "scalarDependencyImageDimension": 1,
+          "scalarImageDimensionOnBasis": 1,
+          "exactScalarFactorization": false
+        },
+        {
+          "label": "4x5-k4",
+          "imageRank": 34,
+          "contradictions": 99,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": {
+            "dependencyIndex": 69,
+            "dependencyIndices": [
+              9,
+              64,
+              69
+            ],
+            "reducedCode": 2
+          },
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": false
+        },
+        {
+          "label": "6x3-k4",
+          "imageRank": 5,
+          "contradictions": 7,
+          "zeroStructuralNonzeroScalar": 3,
+          "firstContradiction": {
+            "dependencyIndex": 1,
+            "dependencyIndices": [
+              0,
+              1
+            ],
+            "reducedCode": 2
+          },
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 1,
+          "exactScalarFactorization": false
+        }
+      ],
+      "fixedTwoRowCertificate": {
+        "sameStructuralRow": false,
+        "scalarXor": 2
+      }
+    },
+    {
+      "mode": "TOTAL|TOTAL",
+      "imageRank": 333,
+      "pooled": {
+        "contradictions": 7,
+        "zeroStructuralNonzeroScalar": 0,
+        "firstContradiction": {
+          "dependencyIndex": 173,
+          "dependencyIndices": [
+            84,
+            144,
+            146,
+            148,
+            173
+          ],
+          "reducedCode": 2
+        },
+        "scalarDependencyImageDimension": 2,
+        "scalarImageDimensionOnBasis": 2,
+        "exactScalarFactorization": false
+      },
+      "scalarKernelImageDimension": 1,
+      "maximalSharedScalarQuotientDimension": 1,
+      "characters": [
+        {
+          "mask": 1,
+          "kernelNonzeroCount": 0,
+          "exact": true
+        },
+        {
+          "mask": 2,
+          "kernelNonzeroCount": 7,
+          "exact": false
+        },
+        {
+          "mask": 3,
+          "kernelNonzeroCount": 7,
+          "exact": false
+        }
+      ],
+      "perCarrier": [
+        {
+          "label": "6x3-k3",
+          "imageRank": 73,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 1,
+          "scalarImageDimensionOnBasis": 1,
+          "exactScalarFactorization": true
+        },
+        {
+          "label": "4x5-k4",
+          "imageRank": 248,
+          "contradictions": 6,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": {
+            "dependencyIndex": 98,
+            "dependencyIndices": [
+              9,
+              69,
+              71,
+              73,
+              98
+            ],
+            "reducedCode": 2
+          },
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": false
+        },
+        {
+          "label": "6x3-k4",
+          "imageRank": 14,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": true
+        }
+      ],
+      "fixedTwoRowCertificate": {
+        "sameStructuralRow": false,
+        "scalarXor": 2
+      }
+    },
+    {
+      "mode": "TOTAL|ABS_NET",
+      "imageRank": 311,
+      "pooled": {
+        "contradictions": 13,
+        "zeroStructuralNonzeroScalar": 0,
+        "firstContradiction": {
+          "dependencyIndex": 174,
+          "dependencyIndices": [
+            84,
+            137,
+            174
+          ],
+          "reducedCode": 2
+        },
+        "scalarDependencyImageDimension": 2,
+        "scalarImageDimensionOnBasis": 2,
+        "exactScalarFactorization": false
+      },
+      "scalarKernelImageDimension": 1,
+      "maximalSharedScalarQuotientDimension": 1,
+      "characters": [
+        {
+          "mask": 1,
+          "kernelNonzeroCount": 0,
+          "exact": true
+        },
+        {
+          "mask": 2,
+          "kernelNonzeroCount": 13,
+          "exact": false
+        },
+        {
+          "mask": 3,
+          "kernelNonzeroCount": 13,
+          "exact": false
+        }
+      ],
+      "perCarrier": [
+        {
+          "label": "6x3-k3",
+          "imageRank": 71,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 1,
+          "scalarImageDimensionOnBasis": 1,
+          "exactScalarFactorization": true
+        },
+        {
+          "label": "4x5-k4",
+          "imageRank": 230,
+          "contradictions": 12,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": {
+            "dependencyIndex": 99,
+            "dependencyIndices": [
+              9,
+              62,
+              99
+            ],
+            "reducedCode": 2
+          },
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": false
+        },
+        {
+          "label": "6x3-k4",
+          "imageRank": 12,
+          "contradictions": 1,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": {
+            "dependencyIndex": 11,
+            "dependencyIndices": [
+              2,
+              11
+            ],
+            "reducedCode": 2
+          },
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": false
+        }
+      ],
+      "fixedTwoRowCertificate": {
+        "sameStructuralRow": false,
+        "scalarXor": 2
+      }
+    },
+    {
+      "mode": "TOTAL|SIGN_UNORDERED",
+      "imageRank": 343,
+      "pooled": {
+        "contradictions": 1,
+        "zeroStructuralNonzeroScalar": 0,
+        "firstContradiction": {
+          "dependencyIndex": 457,
+          "dependencyIndices": [
+            84,
+            139,
+            144,
+            163,
+            201,
+            203,
+            218,
+            446,
+            447,
+            448,
+            449,
+            455,
+            457
+          ],
+          "reducedCode": 2
+        },
+        "scalarDependencyImageDimension": 2,
+        "scalarImageDimensionOnBasis": 2,
+        "exactScalarFactorization": false
+      },
+      "scalarKernelImageDimension": 1,
+      "maximalSharedScalarQuotientDimension": 1,
+      "characters": [
+        {
+          "mask": 1,
+          "kernelNonzeroCount": 0,
+          "exact": true
+        },
+        {
+          "mask": 2,
+          "kernelNonzeroCount": 1,
+          "exact": false
+        },
+        {
+          "mask": 3,
+          "kernelNonzeroCount": 1,
+          "exact": false
+        }
+      ],
+      "perCarrier": [
+        {
+          "label": "6x3-k3",
+          "imageRank": 73,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 1,
+          "scalarImageDimensionOnBasis": 1,
+          "exactScalarFactorization": true
+        },
+        {
+          "label": "4x5-k4",
+          "imageRank": 258,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": true
+        },
+        {
+          "label": "6x3-k4",
+          "imageRank": 14,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": true
+        }
+      ],
+      "fixedTwoRowCertificate": {
+        "sameStructuralRow": false,
+        "scalarXor": 2
+      }
+    },
+    {
+      "mode": "TOTAL|OWNER_PAIR_UNORDERED",
+      "imageRank": 344,
+      "pooled": {
+        "contradictions": 1,
+        "zeroStructuralNonzeroScalar": 0,
+        "firstContradiction": {
+          "dependencyIndex": 457,
+          "dependencyIndices": [
+            84,
+            139,
+            144,
+            163,
+            201,
+            203,
+            218,
+            446,
+            447,
+            448,
+            449,
+            455,
+            457
+          ],
+          "reducedCode": 2
+        },
+        "scalarDependencyImageDimension": 2,
+        "scalarImageDimensionOnBasis": 2,
+        "exactScalarFactorization": false
+      },
+      "scalarKernelImageDimension": 1,
+      "maximalSharedScalarQuotientDimension": 1,
+      "characters": [
+        {
+          "mask": 1,
+          "kernelNonzeroCount": 0,
+          "exact": true
+        },
+        {
+          "mask": 2,
+          "kernelNonzeroCount": 1,
+          "exact": false
+        },
+        {
+          "mask": 3,
+          "kernelNonzeroCount": 1,
+          "exact": false
+        }
+      ],
+      "perCarrier": [
+        {
+          "label": "6x3-k3",
+          "imageRank": 73,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 1,
+          "scalarImageDimensionOnBasis": 1,
+          "exactScalarFactorization": true
+        },
+        {
+          "label": "4x5-k4",
+          "imageRank": 259,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": true
+        },
+        {
+          "label": "6x3-k4",
+          "imageRank": 14,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": true
+        }
+      ],
+      "fixedTwoRowCertificate": {
+        "sameStructuralRow": false,
+        "scalarXor": 2
+      }
+    },
+    {
+      "mode": "TOTAL|OWNER_SEPARATED",
+      "imageRank": 352,
+      "pooled": {
+        "contradictions": 0,
+        "zeroStructuralNonzeroScalar": 0,
+        "firstContradiction": null,
+        "scalarDependencyImageDimension": 2,
+        "scalarImageDimensionOnBasis": 2,
+        "exactScalarFactorization": true
+      },
+      "scalarKernelImageDimension": 0,
+      "maximalSharedScalarQuotientDimension": 2,
+      "characters": [
+        {
+          "mask": 1,
+          "kernelNonzeroCount": 0,
+          "exact": true
+        },
+        {
+          "mask": 2,
+          "kernelNonzeroCount": 0,
+          "exact": true
+        },
+        {
+          "mask": 3,
+          "kernelNonzeroCount": 0,
+          "exact": true
+        }
+      ],
+      "perCarrier": [
+        {
+          "label": "6x3-k3",
+          "imageRank": 73,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 1,
+          "scalarImageDimensionOnBasis": 1,
+          "exactScalarFactorization": true
+        },
+        {
+          "label": "4x5-k4",
+          "imageRank": 265,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": true
+        },
+        {
+          "label": "6x3-k4",
+          "imageRank": 14,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": true
+        }
+      ],
+      "fixedTwoRowCertificate": {
+        "sameStructuralRow": false,
+        "scalarXor": 2
+      }
+    },
+    {
+      "mode": "ABS_NET|NONE",
+      "imageRank": 64,
+      "pooled": {
+        "contradictions": 132,
+        "zeroStructuralNonzeroScalar": 3,
+        "firstContradiction": {
+          "dependencyIndex": 9,
+          "dependencyIndices": [
+            1,
+            9
+          ],
+          "reducedCode": 2
+        },
+        "scalarDependencyImageDimension": 2,
+        "scalarImageDimensionOnBasis": 1,
+        "exactScalarFactorization": false
+      },
+      "scalarKernelImageDimension": 2,
+      "maximalSharedScalarQuotientDimension": 0,
+      "characters": [
+        {
+          "mask": 1,
+          "kernelNonzeroCount": 2,
+          "exact": false
+        },
+        {
+          "mask": 2,
+          "kernelNonzeroCount": 131,
+          "exact": false
+        },
+        {
+          "mask": 3,
+          "kernelNonzeroCount": 131,
+          "exact": false
+        }
+      ],
+      "perCarrier": [
+        {
+          "label": "6x3-k3",
+          "imageRank": 52,
+          "contradictions": 4,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": {
+            "dependencyIndex": 9,
+            "dependencyIndices": [
+              1,
+              9
+            ],
+            "reducedCode": 2
+          },
+          "scalarDependencyImageDimension": 1,
+          "scalarImageDimensionOnBasis": 1,
+          "exactScalarFactorization": false
+        },
+        {
+          "label": "4x5-k4",
+          "imageRank": 27,
+          "contradictions": 107,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": {
+            "dependencyIndex": 69,
+            "dependencyIndices": [
+              9,
+              64,
+              69
+            ],
+            "reducedCode": 2
+          },
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": false
+        },
+        {
+          "label": "6x3-k4",
+          "imageRank": 5,
+          "contradictions": 7,
+          "zeroStructuralNonzeroScalar": 3,
+          "firstContradiction": {
+            "dependencyIndex": 1,
+            "dependencyIndices": [
+              0,
+              1
+            ],
+            "reducedCode": 2
+          },
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 1,
+          "exactScalarFactorization": false
+        }
+      ],
+      "fixedTwoRowCertificate": {
+        "sameStructuralRow": false,
+        "scalarXor": 2
+      }
+    },
+    {
+      "mode": "ABS_NET|TOTAL",
+      "imageRank": 333,
+      "pooled": {
+        "contradictions": 7,
+        "zeroStructuralNonzeroScalar": 0,
+        "firstContradiction": {
+          "dependencyIndex": 173,
+          "dependencyIndices": [
+            84,
+            144,
+            146,
+            148,
+            173
+          ],
+          "reducedCode": 2
+        },
+        "scalarDependencyImageDimension": 2,
+        "scalarImageDimensionOnBasis": 2,
+        "exactScalarFactorization": false
+      },
+      "scalarKernelImageDimension": 1,
+      "maximalSharedScalarQuotientDimension": 1,
+      "characters": [
+        {
+          "mask": 1,
+          "kernelNonzeroCount": 0,
+          "exact": true
+        },
+        {
+          "mask": 2,
+          "kernelNonzeroCount": 7,
+          "exact": false
+        },
+        {
+          "mask": 3,
+          "kernelNonzeroCount": 7,
+          "exact": false
+        }
+      ],
+      "perCarrier": [
+        {
+          "label": "6x3-k3",
+          "imageRank": 73,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 1,
+          "scalarImageDimensionOnBasis": 1,
+          "exactScalarFactorization": true
+        },
+        {
+          "label": "4x5-k4",
+          "imageRank": 248,
+          "contradictions": 6,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": {
+            "dependencyIndex": 98,
+            "dependencyIndices": [
+              9,
+              69,
+              71,
+              73,
+              98
+            ],
+            "reducedCode": 2
+          },
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": false
+        },
+        {
+          "label": "6x3-k4",
+          "imageRank": 14,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": true
+        }
+      ],
+      "fixedTwoRowCertificate": {
+        "sameStructuralRow": false,
+        "scalarXor": 2
+      }
+    },
+    {
+      "mode": "ABS_NET|ABS_NET",
+      "imageRank": 310,
+      "pooled": {
+        "contradictions": 13,
+        "zeroStructuralNonzeroScalar": 0,
+        "firstContradiction": {
+          "dependencyIndex": 174,
+          "dependencyIndices": [
+            84,
+            137,
+            174
+          ],
+          "reducedCode": 2
+        },
+        "scalarDependencyImageDimension": 2,
+        "scalarImageDimensionOnBasis": 2,
+        "exactScalarFactorization": false
+      },
+      "scalarKernelImageDimension": 1,
+      "maximalSharedScalarQuotientDimension": 1,
+      "characters": [
+        {
+          "mask": 1,
+          "kernelNonzeroCount": 0,
+          "exact": true
+        },
+        {
+          "mask": 2,
+          "kernelNonzeroCount": 13,
+          "exact": false
+        },
+        {
+          "mask": 3,
+          "kernelNonzeroCount": 13,
+          "exact": false
+        }
+      ],
+      "perCarrier": [
+        {
+          "label": "6x3-k3",
+          "imageRank": 71,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 1,
+          "scalarImageDimensionOnBasis": 1,
+          "exactScalarFactorization": true
+        },
+        {
+          "label": "4x5-k4",
+          "imageRank": 230,
+          "contradictions": 12,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": {
+            "dependencyIndex": 99,
+            "dependencyIndices": [
+              9,
+              62,
+              99
+            ],
+            "reducedCode": 2
+          },
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": false
+        },
+        {
+          "label": "6x3-k4",
+          "imageRank": 12,
+          "contradictions": 1,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": {
+            "dependencyIndex": 11,
+            "dependencyIndices": [
+              2,
+              11
+            ],
+            "reducedCode": 2
+          },
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": false
+        }
+      ],
+      "fixedTwoRowCertificate": {
+        "sameStructuralRow": false,
+        "scalarXor": 2
+      }
+    },
+    {
+      "mode": "ABS_NET|SIGN_UNORDERED",
+      "imageRank": 343,
+      "pooled": {
+        "contradictions": 1,
+        "zeroStructuralNonzeroScalar": 0,
+        "firstContradiction": {
+          "dependencyIndex": 457,
+          "dependencyIndices": [
+            84,
+            139,
+            144,
+            163,
+            201,
+            203,
+            218,
+            446,
+            447,
+            448,
+            449,
+            455,
+            457
+          ],
+          "reducedCode": 2
+        },
+        "scalarDependencyImageDimension": 2,
+        "scalarImageDimensionOnBasis": 2,
+        "exactScalarFactorization": false
+      },
+      "scalarKernelImageDimension": 1,
+      "maximalSharedScalarQuotientDimension": 1,
+      "characters": [
+        {
+          "mask": 1,
+          "kernelNonzeroCount": 0,
+          "exact": true
+        },
+        {
+          "mask": 2,
+          "kernelNonzeroCount": 1,
+          "exact": false
+        },
+        {
+          "mask": 3,
+          "kernelNonzeroCount": 1,
+          "exact": false
+        }
+      ],
+      "perCarrier": [
+        {
+          "label": "6x3-k3",
+          "imageRank": 73,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 1,
+          "scalarImageDimensionOnBasis": 1,
+          "exactScalarFactorization": true
+        },
+        {
+          "label": "4x5-k4",
+          "imageRank": 258,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": true
+        },
+        {
+          "label": "6x3-k4",
+          "imageRank": 14,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": true
+        }
+      ],
+      "fixedTwoRowCertificate": {
+        "sameStructuralRow": false,
+        "scalarXor": 2
+      }
+    },
+    {
+      "mode": "ABS_NET|OWNER_PAIR_UNORDERED",
+      "imageRank": 344,
+      "pooled": {
+        "contradictions": 1,
+        "zeroStructuralNonzeroScalar": 0,
+        "firstContradiction": {
+          "dependencyIndex": 457,
+          "dependencyIndices": [
+            84,
+            139,
+            144,
+            163,
+            201,
+            203,
+            218,
+            446,
+            447,
+            448,
+            449,
+            455,
+            457
+          ],
+          "reducedCode": 2
+        },
+        "scalarDependencyImageDimension": 2,
+        "scalarImageDimensionOnBasis": 2,
+        "exactScalarFactorization": false
+      },
+      "scalarKernelImageDimension": 1,
+      "maximalSharedScalarQuotientDimension": 1,
+      "characters": [
+        {
+          "mask": 1,
+          "kernelNonzeroCount": 0,
+          "exact": true
+        },
+        {
+          "mask": 2,
+          "kernelNonzeroCount": 1,
+          "exact": false
+        },
+        {
+          "mask": 3,
+          "kernelNonzeroCount": 1,
+          "exact": false
+        }
+      ],
+      "perCarrier": [
+        {
+          "label": "6x3-k3",
+          "imageRank": 73,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 1,
+          "scalarImageDimensionOnBasis": 1,
+          "exactScalarFactorization": true
+        },
+        {
+          "label": "4x5-k4",
+          "imageRank": 259,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": true
+        },
+        {
+          "label": "6x3-k4",
+          "imageRank": 14,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": true
+        }
+      ],
+      "fixedTwoRowCertificate": {
+        "sameStructuralRow": false,
+        "scalarXor": 2
+      }
+    },
+    {
+      "mode": "ABS_NET|OWNER_SEPARATED",
+      "imageRank": 352,
+      "pooled": {
+        "contradictions": 0,
+        "zeroStructuralNonzeroScalar": 0,
+        "firstContradiction": null,
+        "scalarDependencyImageDimension": 2,
+        "scalarImageDimensionOnBasis": 2,
+        "exactScalarFactorization": true
+      },
+      "scalarKernelImageDimension": 0,
+      "maximalSharedScalarQuotientDimension": 2,
+      "characters": [
+        {
+          "mask": 1,
+          "kernelNonzeroCount": 0,
+          "exact": true
+        },
+        {
+          "mask": 2,
+          "kernelNonzeroCount": 0,
+          "exact": true
+        },
+        {
+          "mask": 3,
+          "kernelNonzeroCount": 0,
+          "exact": true
+        }
+      ],
+      "perCarrier": [
+        {
+          "label": "6x3-k3",
+          "imageRank": 73,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 1,
+          "scalarImageDimensionOnBasis": 1,
+          "exactScalarFactorization": true
+        },
+        {
+          "label": "4x5-k4",
+          "imageRank": 265,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": true
+        },
+        {
+          "label": "6x3-k4",
+          "imageRank": 14,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": true
+        }
+      ],
+      "fixedTwoRowCertificate": {
+        "sameStructuralRow": false,
+        "scalarXor": 2
+      }
+    },
+    {
+      "mode": "SIGN_UNORDERED|NONE",
+      "imageRank": 75,
+      "pooled": {
+        "contradictions": 127,
+        "zeroStructuralNonzeroScalar": 3,
+        "firstContradiction": {
+          "dependencyIndex": 9,
+          "dependencyIndices": [
+            1,
+            9
+          ],
+          "reducedCode": 2
+        },
+        "scalarDependencyImageDimension": 2,
+        "scalarImageDimensionOnBasis": 2,
+        "exactScalarFactorization": false
+      },
+      "scalarKernelImageDimension": 2,
+      "maximalSharedScalarQuotientDimension": 0,
+      "characters": [
+        {
+          "mask": 1,
+          "kernelNonzeroCount": 2,
+          "exact": false
+        },
+        {
+          "mask": 2,
+          "kernelNonzeroCount": 127,
+          "exact": false
+        },
+        {
+          "mask": 3,
+          "kernelNonzeroCount": 125,
+          "exact": false
+        }
+      ],
+      "perCarrier": [
+        {
+          "label": "6x3-k3",
+          "imageRank": 53,
+          "contradictions": 4,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": {
+            "dependencyIndex": 9,
+            "dependencyIndices": [
+              1,
+              9
+            ],
+            "reducedCode": 2
+          },
+          "scalarDependencyImageDimension": 1,
+          "scalarImageDimensionOnBasis": 1,
+          "exactScalarFactorization": false
+        },
+        {
+          "label": "4x5-k4",
+          "imageRank": 34,
+          "contradictions": 99,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": {
+            "dependencyIndex": 69,
+            "dependencyIndices": [
+              9,
+              64,
+              69
+            ],
+            "reducedCode": 2
+          },
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": false
+        },
+        {
+          "label": "6x3-k4",
+          "imageRank": 5,
+          "contradictions": 7,
+          "zeroStructuralNonzeroScalar": 3,
+          "firstContradiction": {
+            "dependencyIndex": 1,
+            "dependencyIndices": [
+              0,
+              1
+            ],
+            "reducedCode": 2
+          },
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 1,
+          "exactScalarFactorization": false
+        }
+      ],
+      "fixedTwoRowCertificate": {
+        "sameStructuralRow": false,
+        "scalarXor": 2
+      }
+    },
+    {
+      "mode": "SIGN_UNORDERED|TOTAL",
+      "imageRank": 333,
+      "pooled": {
+        "contradictions": 7,
+        "zeroStructuralNonzeroScalar": 0,
+        "firstContradiction": {
+          "dependencyIndex": 173,
+          "dependencyIndices": [
+            84,
+            144,
+            146,
+            148,
+            173
+          ],
+          "reducedCode": 2
+        },
+        "scalarDependencyImageDimension": 2,
+        "scalarImageDimensionOnBasis": 2,
+        "exactScalarFactorization": false
+      },
+      "scalarKernelImageDimension": 1,
+      "maximalSharedScalarQuotientDimension": 1,
+      "characters": [
+        {
+          "mask": 1,
+          "kernelNonzeroCount": 0,
+          "exact": true
+        },
+        {
+          "mask": 2,
+          "kernelNonzeroCount": 7,
+          "exact": false
+        },
+        {
+          "mask": 3,
+          "kernelNonzeroCount": 7,
+          "exact": false
+        }
+      ],
+      "perCarrier": [
+        {
+          "label": "6x3-k3",
+          "imageRank": 73,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 1,
+          "scalarImageDimensionOnBasis": 1,
+          "exactScalarFactorization": true
+        },
+        {
+          "label": "4x5-k4",
+          "imageRank": 248,
+          "contradictions": 6,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": {
+            "dependencyIndex": 98,
+            "dependencyIndices": [
+              9,
+              69,
+              71,
+              73,
+              98
+            ],
+            "reducedCode": 2
+          },
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": false
+        },
+        {
+          "label": "6x3-k4",
+          "imageRank": 14,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": true
+        }
+      ],
+      "fixedTwoRowCertificate": {
+        "sameStructuralRow": false,
+        "scalarXor": 2
+      }
+    },
+    {
+      "mode": "SIGN_UNORDERED|ABS_NET",
+      "imageRank": 311,
+      "pooled": {
+        "contradictions": 13,
+        "zeroStructuralNonzeroScalar": 0,
+        "firstContradiction": {
+          "dependencyIndex": 174,
+          "dependencyIndices": [
+            84,
+            137,
+            174
+          ],
+          "reducedCode": 2
+        },
+        "scalarDependencyImageDimension": 2,
+        "scalarImageDimensionOnBasis": 2,
+        "exactScalarFactorization": false
+      },
+      "scalarKernelImageDimension": 1,
+      "maximalSharedScalarQuotientDimension": 1,
+      "characters": [
+        {
+          "mask": 1,
+          "kernelNonzeroCount": 0,
+          "exact": true
+        },
+        {
+          "mask": 2,
+          "kernelNonzeroCount": 13,
+          "exact": false
+        },
+        {
+          "mask": 3,
+          "kernelNonzeroCount": 13,
+          "exact": false
+        }
+      ],
+      "perCarrier": [
+        {
+          "label": "6x3-k3",
+          "imageRank": 71,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 1,
+          "scalarImageDimensionOnBasis": 1,
+          "exactScalarFactorization": true
+        },
+        {
+          "label": "4x5-k4",
+          "imageRank": 230,
+          "contradictions": 12,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": {
+            "dependencyIndex": 99,
+            "dependencyIndices": [
+              9,
+              62,
+              99
+            ],
+            "reducedCode": 2
+          },
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": false
+        },
+        {
+          "label": "6x3-k4",
+          "imageRank": 12,
+          "contradictions": 1,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": {
+            "dependencyIndex": 11,
+            "dependencyIndices": [
+              2,
+              11
+            ],
+            "reducedCode": 2
+          },
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": false
+        }
+      ],
+      "fixedTwoRowCertificate": {
+        "sameStructuralRow": false,
+        "scalarXor": 2
+      }
+    },
+    {
+      "mode": "SIGN_UNORDERED|SIGN_UNORDERED",
+      "imageRank": 343,
+      "pooled": {
+        "contradictions": 1,
+        "zeroStructuralNonzeroScalar": 0,
+        "firstContradiction": {
+          "dependencyIndex": 457,
+          "dependencyIndices": [
+            84,
+            139,
+            144,
+            163,
+            201,
+            203,
+            218,
+            446,
+            447,
+            448,
+            449,
+            455,
+            457
+          ],
+          "reducedCode": 2
+        },
+        "scalarDependencyImageDimension": 2,
+        "scalarImageDimensionOnBasis": 2,
+        "exactScalarFactorization": false
+      },
+      "scalarKernelImageDimension": 1,
+      "maximalSharedScalarQuotientDimension": 1,
+      "characters": [
+        {
+          "mask": 1,
+          "kernelNonzeroCount": 0,
+          "exact": true
+        },
+        {
+          "mask": 2,
+          "kernelNonzeroCount": 1,
+          "exact": false
+        },
+        {
+          "mask": 3,
+          "kernelNonzeroCount": 1,
+          "exact": false
+        }
+      ],
+      "perCarrier": [
+        {
+          "label": "6x3-k3",
+          "imageRank": 73,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 1,
+          "scalarImageDimensionOnBasis": 1,
+          "exactScalarFactorization": true
+        },
+        {
+          "label": "4x5-k4",
+          "imageRank": 258,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": true
+        },
+        {
+          "label": "6x3-k4",
+          "imageRank": 14,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": true
+        }
+      ],
+      "fixedTwoRowCertificate": {
+        "sameStructuralRow": false,
+        "scalarXor": 2
+      }
+    },
+    {
+      "mode": "SIGN_UNORDERED|OWNER_PAIR_UNORDERED",
+      "imageRank": 344,
+      "pooled": {
+        "contradictions": 1,
+        "zeroStructuralNonzeroScalar": 0,
+        "firstContradiction": {
+          "dependencyIndex": 457,
+          "dependencyIndices": [
+            84,
+            139,
+            144,
+            163,
+            201,
+            203,
+            218,
+            446,
+            447,
+            448,
+            449,
+            455,
+            457
+          ],
+          "reducedCode": 2
+        },
+        "scalarDependencyImageDimension": 2,
+        "scalarImageDimensionOnBasis": 2,
+        "exactScalarFactorization": false
+      },
+      "scalarKernelImageDimension": 1,
+      "maximalSharedScalarQuotientDimension": 1,
+      "characters": [
+        {
+          "mask": 1,
+          "kernelNonzeroCount": 0,
+          "exact": true
+        },
+        {
+          "mask": 2,
+          "kernelNonzeroCount": 1,
+          "exact": false
+        },
+        {
+          "mask": 3,
+          "kernelNonzeroCount": 1,
+          "exact": false
+        }
+      ],
+      "perCarrier": [
+        {
+          "label": "6x3-k3",
+          "imageRank": 73,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 1,
+          "scalarImageDimensionOnBasis": 1,
+          "exactScalarFactorization": true
+        },
+        {
+          "label": "4x5-k4",
+          "imageRank": 259,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": true
+        },
+        {
+          "label": "6x3-k4",
+          "imageRank": 14,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": true
+        }
+      ],
+      "fixedTwoRowCertificate": {
+        "sameStructuralRow": false,
+        "scalarXor": 2
+      }
+    },
+    {
+      "mode": "SIGN_UNORDERED|OWNER_SEPARATED",
+      "imageRank": 352,
+      "pooled": {
+        "contradictions": 0,
+        "zeroStructuralNonzeroScalar": 0,
+        "firstContradiction": null,
+        "scalarDependencyImageDimension": 2,
+        "scalarImageDimensionOnBasis": 2,
+        "exactScalarFactorization": true
+      },
+      "scalarKernelImageDimension": 0,
+      "maximalSharedScalarQuotientDimension": 2,
+      "characters": [
+        {
+          "mask": 1,
+          "kernelNonzeroCount": 0,
+          "exact": true
+        },
+        {
+          "mask": 2,
+          "kernelNonzeroCount": 0,
+          "exact": true
+        },
+        {
+          "mask": 3,
+          "kernelNonzeroCount": 0,
+          "exact": true
+        }
+      ],
+      "perCarrier": [
+        {
+          "label": "6x3-k3",
+          "imageRank": 73,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 1,
+          "scalarImageDimensionOnBasis": 1,
+          "exactScalarFactorization": true
+        },
+        {
+          "label": "4x5-k4",
+          "imageRank": 265,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": true
+        },
+        {
+          "label": "6x3-k4",
+          "imageRank": 14,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": true
+        }
+      ],
+      "fixedTwoRowCertificate": {
+        "sameStructuralRow": false,
+        "scalarXor": 2
+      }
+    },
+    {
+      "mode": "OWNER_PAIR_UNORDERED|NONE",
+      "imageRank": 75,
+      "pooled": {
+        "contradictions": 127,
+        "zeroStructuralNonzeroScalar": 3,
+        "firstContradiction": {
+          "dependencyIndex": 9,
+          "dependencyIndices": [
+            1,
+            9
+          ],
+          "reducedCode": 2
+        },
+        "scalarDependencyImageDimension": 2,
+        "scalarImageDimensionOnBasis": 2,
+        "exactScalarFactorization": false
+      },
+      "scalarKernelImageDimension": 2,
+      "maximalSharedScalarQuotientDimension": 0,
+      "characters": [
+        {
+          "mask": 1,
+          "kernelNonzeroCount": 2,
+          "exact": false
+        },
+        {
+          "mask": 2,
+          "kernelNonzeroCount": 127,
+          "exact": false
+        },
+        {
+          "mask": 3,
+          "kernelNonzeroCount": 125,
+          "exact": false
+        }
+      ],
+      "perCarrier": [
+        {
+          "label": "6x3-k3",
+          "imageRank": 53,
+          "contradictions": 4,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": {
+            "dependencyIndex": 9,
+            "dependencyIndices": [
+              1,
+              9
+            ],
+            "reducedCode": 2
+          },
+          "scalarDependencyImageDimension": 1,
+          "scalarImageDimensionOnBasis": 1,
+          "exactScalarFactorization": false
+        },
+        {
+          "label": "4x5-k4",
+          "imageRank": 34,
+          "contradictions": 99,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": {
+            "dependencyIndex": 69,
+            "dependencyIndices": [
+              9,
+              64,
+              69
+            ],
+            "reducedCode": 2
+          },
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": false
+        },
+        {
+          "label": "6x3-k4",
+          "imageRank": 5,
+          "contradictions": 7,
+          "zeroStructuralNonzeroScalar": 3,
+          "firstContradiction": {
+            "dependencyIndex": 1,
+            "dependencyIndices": [
+              0,
+              1
+            ],
+            "reducedCode": 2
+          },
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 1,
+          "exactScalarFactorization": false
+        }
+      ],
+      "fixedTwoRowCertificate": {
+        "sameStructuralRow": false,
+        "scalarXor": 2
+      }
+    },
+    {
+      "mode": "OWNER_PAIR_UNORDERED|TOTAL",
+      "imageRank": 333,
+      "pooled": {
+        "contradictions": 7,
+        "zeroStructuralNonzeroScalar": 0,
+        "firstContradiction": {
+          "dependencyIndex": 173,
+          "dependencyIndices": [
+            84,
+            144,
+            146,
+            148,
+            173
+          ],
+          "reducedCode": 2
+        },
+        "scalarDependencyImageDimension": 2,
+        "scalarImageDimensionOnBasis": 2,
+        "exactScalarFactorization": false
+      },
+      "scalarKernelImageDimension": 1,
+      "maximalSharedScalarQuotientDimension": 1,
+      "characters": [
+        {
+          "mask": 1,
+          "kernelNonzeroCount": 0,
+          "exact": true
+        },
+        {
+          "mask": 2,
+          "kernelNonzeroCount": 7,
+          "exact": false
+        },
+        {
+          "mask": 3,
+          "kernelNonzeroCount": 7,
+          "exact": false
+        }
+      ],
+      "perCarrier": [
+        {
+          "label": "6x3-k3",
+          "imageRank": 73,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 1,
+          "scalarImageDimensionOnBasis": 1,
+          "exactScalarFactorization": true
+        },
+        {
+          "label": "4x5-k4",
+          "imageRank": 248,
+          "contradictions": 6,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": {
+            "dependencyIndex": 98,
+            "dependencyIndices": [
+              9,
+              69,
+              71,
+              73,
+              98
+            ],
+            "reducedCode": 2
+          },
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": false
+        },
+        {
+          "label": "6x3-k4",
+          "imageRank": 14,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": true
+        }
+      ],
+      "fixedTwoRowCertificate": {
+        "sameStructuralRow": false,
+        "scalarXor": 2
+      }
+    },
+    {
+      "mode": "OWNER_PAIR_UNORDERED|ABS_NET",
+      "imageRank": 311,
+      "pooled": {
+        "contradictions": 13,
+        "zeroStructuralNonzeroScalar": 0,
+        "firstContradiction": {
+          "dependencyIndex": 174,
+          "dependencyIndices": [
+            84,
+            137,
+            174
+          ],
+          "reducedCode": 2
+        },
+        "scalarDependencyImageDimension": 2,
+        "scalarImageDimensionOnBasis": 2,
+        "exactScalarFactorization": false
+      },
+      "scalarKernelImageDimension": 1,
+      "maximalSharedScalarQuotientDimension": 1,
+      "characters": [
+        {
+          "mask": 1,
+          "kernelNonzeroCount": 0,
+          "exact": true
+        },
+        {
+          "mask": 2,
+          "kernelNonzeroCount": 13,
+          "exact": false
+        },
+        {
+          "mask": 3,
+          "kernelNonzeroCount": 13,
+          "exact": false
+        }
+      ],
+      "perCarrier": [
+        {
+          "label": "6x3-k3",
+          "imageRank": 71,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 1,
+          "scalarImageDimensionOnBasis": 1,
+          "exactScalarFactorization": true
+        },
+        {
+          "label": "4x5-k4",
+          "imageRank": 230,
+          "contradictions": 12,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": {
+            "dependencyIndex": 99,
+            "dependencyIndices": [
+              9,
+              62,
+              99
+            ],
+            "reducedCode": 2
+          },
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": false
+        },
+        {
+          "label": "6x3-k4",
+          "imageRank": 12,
+          "contradictions": 1,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": {
+            "dependencyIndex": 11,
+            "dependencyIndices": [
+              2,
+              11
+            ],
+            "reducedCode": 2
+          },
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": false
+        }
+      ],
+      "fixedTwoRowCertificate": {
+        "sameStructuralRow": false,
+        "scalarXor": 2
+      }
+    },
+    {
+      "mode": "OWNER_PAIR_UNORDERED|SIGN_UNORDERED",
+      "imageRank": 343,
+      "pooled": {
+        "contradictions": 1,
+        "zeroStructuralNonzeroScalar": 0,
+        "firstContradiction": {
+          "dependencyIndex": 457,
+          "dependencyIndices": [
+            84,
+            139,
+            144,
+            163,
+            201,
+            203,
+            218,
+            446,
+            447,
+            448,
+            449,
+            455,
+            457
+          ],
+          "reducedCode": 2
+        },
+        "scalarDependencyImageDimension": 2,
+        "scalarImageDimensionOnBasis": 2,
+        "exactScalarFactorization": false
+      },
+      "scalarKernelImageDimension": 1,
+      "maximalSharedScalarQuotientDimension": 1,
+      "characters": [
+        {
+          "mask": 1,
+          "kernelNonzeroCount": 0,
+          "exact": true
+        },
+        {
+          "mask": 2,
+          "kernelNonzeroCount": 1,
+          "exact": false
+        },
+        {
+          "mask": 3,
+          "kernelNonzeroCount": 1,
+          "exact": false
+        }
+      ],
+      "perCarrier": [
+        {
+          "label": "6x3-k3",
+          "imageRank": 73,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 1,
+          "scalarImageDimensionOnBasis": 1,
+          "exactScalarFactorization": true
+        },
+        {
+          "label": "4x5-k4",
+          "imageRank": 258,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": true
+        },
+        {
+          "label": "6x3-k4",
+          "imageRank": 14,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": true
+        }
+      ],
+      "fixedTwoRowCertificate": {
+        "sameStructuralRow": false,
+        "scalarXor": 2
+      }
+    },
+    {
+      "mode": "OWNER_PAIR_UNORDERED|OWNER_PAIR_UNORDERED",
+      "imageRank": 344,
+      "pooled": {
+        "contradictions": 1,
+        "zeroStructuralNonzeroScalar": 0,
+        "firstContradiction": {
+          "dependencyIndex": 457,
+          "dependencyIndices": [
+            84,
+            139,
+            144,
+            163,
+            201,
+            203,
+            218,
+            446,
+            447,
+            448,
+            449,
+            455,
+            457
+          ],
+          "reducedCode": 2
+        },
+        "scalarDependencyImageDimension": 2,
+        "scalarImageDimensionOnBasis": 2,
+        "exactScalarFactorization": false
+      },
+      "scalarKernelImageDimension": 1,
+      "maximalSharedScalarQuotientDimension": 1,
+      "characters": [
+        {
+          "mask": 1,
+          "kernelNonzeroCount": 0,
+          "exact": true
+        },
+        {
+          "mask": 2,
+          "kernelNonzeroCount": 1,
+          "exact": false
+        },
+        {
+          "mask": 3,
+          "kernelNonzeroCount": 1,
+          "exact": false
+        }
+      ],
+      "perCarrier": [
+        {
+          "label": "6x3-k3",
+          "imageRank": 73,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 1,
+          "scalarImageDimensionOnBasis": 1,
+          "exactScalarFactorization": true
+        },
+        {
+          "label": "4x5-k4",
+          "imageRank": 259,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": true
+        },
+        {
+          "label": "6x3-k4",
+          "imageRank": 14,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": true
+        }
+      ],
+      "fixedTwoRowCertificate": {
+        "sameStructuralRow": false,
+        "scalarXor": 2
+      }
+    },
+    {
+      "mode": "OWNER_PAIR_UNORDERED|OWNER_SEPARATED",
+      "imageRank": 352,
+      "pooled": {
+        "contradictions": 0,
+        "zeroStructuralNonzeroScalar": 0,
+        "firstContradiction": null,
+        "scalarDependencyImageDimension": 2,
+        "scalarImageDimensionOnBasis": 2,
+        "exactScalarFactorization": true
+      },
+      "scalarKernelImageDimension": 0,
+      "maximalSharedScalarQuotientDimension": 2,
+      "characters": [
+        {
+          "mask": 1,
+          "kernelNonzeroCount": 0,
+          "exact": true
+        },
+        {
+          "mask": 2,
+          "kernelNonzeroCount": 0,
+          "exact": true
+        },
+        {
+          "mask": 3,
+          "kernelNonzeroCount": 0,
+          "exact": true
+        }
+      ],
+      "perCarrier": [
+        {
+          "label": "6x3-k3",
+          "imageRank": 73,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 1,
+          "scalarImageDimensionOnBasis": 1,
+          "exactScalarFactorization": true
+        },
+        {
+          "label": "4x5-k4",
+          "imageRank": 265,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": true
+        },
+        {
+          "label": "6x3-k4",
+          "imageRank": 14,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": true
+        }
+      ],
+      "fixedTwoRowCertificate": {
+        "sameStructuralRow": false,
+        "scalarXor": 2
+      }
+    },
+    {
+      "mode": "OWNER_SEPARATED|NONE",
+      "imageRank": 87,
+      "pooled": {
+        "contradictions": 122,
+        "zeroStructuralNonzeroScalar": 3,
+        "firstContradiction": {
+          "dependencyIndex": 64,
+          "dependencyIndices": [
+            9,
+            16,
+            17,
+            64
+          ],
+          "reducedCode": 2
+        },
+        "scalarDependencyImageDimension": 2,
+        "scalarImageDimensionOnBasis": 2,
+        "exactScalarFactorization": false
+      },
+      "scalarKernelImageDimension": 2,
+      "maximalSharedScalarQuotientDimension": 0,
+      "characters": [
+        {
+          "mask": 1,
+          "kernelNonzeroCount": 1,
+          "exact": false
+        },
+        {
+          "mask": 2,
+          "kernelNonzeroCount": 122,
+          "exact": false
+        },
+        {
+          "mask": 3,
+          "kernelNonzeroCount": 121,
+          "exact": false
+        }
+      ],
+      "perCarrier": [
+        {
+          "label": "6x3-k3",
+          "imageRank": 55,
+          "contradictions": 3,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": {
+            "dependencyIndex": 64,
+            "dependencyIndices": [
+              9,
+              16,
+              17,
+              64
+            ],
+            "reducedCode": 2
+          },
+          "scalarDependencyImageDimension": 1,
+          "scalarImageDimensionOnBasis": 1,
+          "exactScalarFactorization": false
+        },
+        {
+          "label": "4x5-k4",
+          "imageRank": 45,
+          "contradictions": 77,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": {
+            "dependencyIndex": 69,
+            "dependencyIndices": [
+              9,
+              64,
+              69
+            ],
+            "reducedCode": 2
+          },
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": false
+        },
+        {
+          "label": "6x3-k4",
+          "imageRank": 5,
+          "contradictions": 7,
+          "zeroStructuralNonzeroScalar": 3,
+          "firstContradiction": {
+            "dependencyIndex": 1,
+            "dependencyIndices": [
+              0,
+              1
+            ],
+            "reducedCode": 2
+          },
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 1,
+          "exactScalarFactorization": false
+        }
+      ],
+      "fixedTwoRowCertificate": {
+        "sameStructuralRow": false,
+        "scalarXor": 2
+      }
+    },
+    {
+      "mode": "OWNER_SEPARATED|TOTAL",
+      "imageRank": 343,
+      "pooled": {
+        "contradictions": 3,
+        "zeroStructuralNonzeroScalar": 0,
+        "firstContradiction": {
+          "dependencyIndex": 173,
+          "dependencyIndices": [
+            84,
+            144,
+            146,
+            148,
+            173
+          ],
+          "reducedCode": 2
+        },
+        "scalarDependencyImageDimension": 2,
+        "scalarImageDimensionOnBasis": 2,
+        "exactScalarFactorization": false
+      },
+      "scalarKernelImageDimension": 1,
+      "maximalSharedScalarQuotientDimension": 1,
+      "characters": [
+        {
+          "mask": 1,
+          "kernelNonzeroCount": 0,
+          "exact": true
+        },
+        {
+          "mask": 2,
+          "kernelNonzeroCount": 3,
+          "exact": false
+        },
+        {
+          "mask": 3,
+          "kernelNonzeroCount": 3,
+          "exact": false
+        }
+      ],
+      "perCarrier": [
+        {
+          "label": "6x3-k3",
+          "imageRank": 73,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 1,
+          "scalarImageDimensionOnBasis": 1,
+          "exactScalarFactorization": true
+        },
+        {
+          "label": "4x5-k4",
+          "imageRank": 257,
+          "contradictions": 3,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": {
+            "dependencyIndex": 98,
+            "dependencyIndices": [
+              9,
+              69,
+              71,
+              73,
+              98
+            ],
+            "reducedCode": 2
+          },
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": false
+        },
+        {
+          "label": "6x3-k4",
+          "imageRank": 14,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": true
+        }
+      ],
+      "fixedTwoRowCertificate": {
+        "sameStructuralRow": false,
+        "scalarXor": 2
+      }
+    },
+    {
+      "mode": "OWNER_SEPARATED|ABS_NET",
+      "imageRank": 329,
+      "pooled": {
+        "contradictions": 7,
+        "zeroStructuralNonzeroScalar": 0,
+        "firstContradiction": {
+          "dependencyIndex": 174,
+          "dependencyIndices": [
+            84,
+            137,
+            174
+          ],
+          "reducedCode": 2
+        },
+        "scalarDependencyImageDimension": 2,
+        "scalarImageDimensionOnBasis": 2,
+        "exactScalarFactorization": false
+      },
+      "scalarKernelImageDimension": 1,
+      "maximalSharedScalarQuotientDimension": 1,
+      "characters": [
+        {
+          "mask": 1,
+          "kernelNonzeroCount": 0,
+          "exact": true
+        },
+        {
+          "mask": 2,
+          "kernelNonzeroCount": 7,
+          "exact": false
+        },
+        {
+          "mask": 3,
+          "kernelNonzeroCount": 7,
+          "exact": false
+        }
+      ],
+      "perCarrier": [
+        {
+          "label": "6x3-k3",
+          "imageRank": 71,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 1,
+          "scalarImageDimensionOnBasis": 1,
+          "exactScalarFactorization": true
+        },
+        {
+          "label": "4x5-k4",
+          "imageRank": 247,
+          "contradictions": 6,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": {
+            "dependencyIndex": 99,
+            "dependencyIndices": [
+              9,
+              62,
+              99
+            ],
+            "reducedCode": 2
+          },
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": false
+        },
+        {
+          "label": "6x3-k4",
+          "imageRank": 12,
+          "contradictions": 1,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": {
+            "dependencyIndex": 11,
+            "dependencyIndices": [
+              2,
+              11
+            ],
+            "reducedCode": 2
+          },
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": false
+        }
+      ],
+      "fixedTwoRowCertificate": {
+        "sameStructuralRow": false,
+        "scalarXor": 2
+      }
+    },
+    {
+      "mode": "OWNER_SEPARATED|SIGN_UNORDERED",
+      "imageRank": 352,
+      "pooled": {
+        "contradictions": 0,
+        "zeroStructuralNonzeroScalar": 0,
+        "firstContradiction": null,
+        "scalarDependencyImageDimension": 2,
+        "scalarImageDimensionOnBasis": 2,
+        "exactScalarFactorization": true
+      },
+      "scalarKernelImageDimension": 0,
+      "maximalSharedScalarQuotientDimension": 2,
+      "characters": [
+        {
+          "mask": 1,
+          "kernelNonzeroCount": 0,
+          "exact": true
+        },
+        {
+          "mask": 2,
+          "kernelNonzeroCount": 0,
+          "exact": true
+        },
+        {
+          "mask": 3,
+          "kernelNonzeroCount": 0,
+          "exact": true
+        }
+      ],
+      "perCarrier": [
+        {
+          "label": "6x3-k3",
+          "imageRank": 73,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 1,
+          "scalarImageDimensionOnBasis": 1,
+          "exactScalarFactorization": true
+        },
+        {
+          "label": "4x5-k4",
+          "imageRank": 266,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": true
+        },
+        {
+          "label": "6x3-k4",
+          "imageRank": 14,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": true
+        }
+      ],
+      "fixedTwoRowCertificate": {
+        "sameStructuralRow": false,
+        "scalarXor": 2
+      }
+    },
+    {
+      "mode": "OWNER_SEPARATED|OWNER_PAIR_UNORDERED",
+      "imageRank": 352,
+      "pooled": {
+        "contradictions": 0,
+        "zeroStructuralNonzeroScalar": 0,
+        "firstContradiction": null,
+        "scalarDependencyImageDimension": 2,
+        "scalarImageDimensionOnBasis": 2,
+        "exactScalarFactorization": true
+      },
+      "scalarKernelImageDimension": 0,
+      "maximalSharedScalarQuotientDimension": 2,
+      "characters": [
+        {
+          "mask": 1,
+          "kernelNonzeroCount": 0,
+          "exact": true
+        },
+        {
+          "mask": 2,
+          "kernelNonzeroCount": 0,
+          "exact": true
+        },
+        {
+          "mask": 3,
+          "kernelNonzeroCount": 0,
+          "exact": true
+        }
+      ],
+      "perCarrier": [
+        {
+          "label": "6x3-k3",
+          "imageRank": 73,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 1,
+          "scalarImageDimensionOnBasis": 1,
+          "exactScalarFactorization": true
+        },
+        {
+          "label": "4x5-k4",
+          "imageRank": 266,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": true
+        },
+        {
+          "label": "6x3-k4",
+          "imageRank": 14,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": true
+        }
+      ],
+      "fixedTwoRowCertificate": {
+        "sameStructuralRow": false,
+        "scalarXor": 2
+      }
+    },
+    {
+      "mode": "OWNER_SEPARATED|OWNER_SEPARATED",
+      "imageRank": 353,
+      "pooled": {
+        "contradictions": 0,
+        "zeroStructuralNonzeroScalar": 0,
+        "firstContradiction": null,
+        "scalarDependencyImageDimension": 2,
+        "scalarImageDimensionOnBasis": 2,
+        "exactScalarFactorization": true
+      },
+      "scalarKernelImageDimension": 0,
+      "maximalSharedScalarQuotientDimension": 2,
+      "characters": [
+        {
+          "mask": 1,
+          "kernelNonzeroCount": 0,
+          "exact": true
+        },
+        {
+          "mask": 2,
+          "kernelNonzeroCount": 0,
+          "exact": true
+        },
+        {
+          "mask": 3,
+          "kernelNonzeroCount": 0,
+          "exact": true
+        }
+      ],
+      "perCarrier": [
+        {
+          "label": "6x3-k3",
+          "imageRank": 73,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 1,
+          "scalarImageDimensionOnBasis": 1,
+          "exactScalarFactorization": true
+        },
+        {
+          "label": "4x5-k4",
+          "imageRank": 266,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": true
+        },
+        {
+          "label": "6x3-k4",
+          "imageRank": 14,
+          "contradictions": 0,
+          "zeroStructuralNonzeroScalar": 0,
+          "firstContradiction": null,
+          "scalarDependencyImageDimension": 2,
+          "scalarImageDimensionOnBasis": 2,
+          "exactScalarFactorization": true
+        }
+      ],
+      "fixedTwoRowCertificate": {
+        "sameStructuralRow": false,
+        "scalarXor": 2
+      }
+    }
+  ],
+  "holdouts": {
+    "primary": "3x6-k4",
+    "backup": "5x3-k4",
+    "sealed": true
+  }
+}
