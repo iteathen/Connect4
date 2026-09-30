@@ -1,0 +1,213 @@
+{
+  "schema": "connect4.isomax.scalar_interaction_syndrome_dimension.v1",
+  "date_author_local": "2026-09-29",
+  "warrant": "EW-RS-038",
+  "targetEncoding": {
+    "loss": "00",
+    "draw": "01",
+    "win": "10"
+  },
+  "frozenRepresentation": "post-RFG component parity + direct T2 + exact rank; affine terms retain exact component type and interaction terms use frozen REL_INC pair descriptors",
+  "cases": [
+    {
+      "label": "5x3-k3",
+      "width": 5,
+      "height": 3,
+      "k": 3,
+      "physicalStates": 70914,
+      "nonterminalStates": 40659,
+      "tactical2Counts": {
+        "W": 28001,
+        "L2": 5403,
+        "O": 7255
+      },
+      "degree1Contradictions": 18,
+      "relIncDescriptor": {
+        "mode": "REL_INC",
+        "equations": 7255,
+        "exactLinearVariables": 3291,
+        "descriptorPairVariables": 2016,
+        "structuralRank": 3260,
+        "structuralRankGainOverDegree1": 37,
+        "fullQuadraticRank": 3260,
+        "fullQuadraticRankGain": 37,
+        "structuralSpanPreserved": true,
+        "contradictions": 0,
+        "decoderExact": true,
+        "firstContradiction": null,
+        "pairCatalogCompressionAgainstExact": 0.041825095057034245
+      },
+      "scalarInteractionSyndrome": {
+        "equations": 7255,
+        "affineRank": 3223,
+        "relIncPairVariables": 2016,
+        "relIncModelRank": 3260,
+        "relIncInteractionRankGain": 37,
+        "outcomeBits": {
+          "y0": "low outcome-code bit: draw indicator under loss=00, draw=01, win=10",
+          "y1": "high outcome-code bit: win indicator under loss=00, draw=01, win=10",
+          "y0Affine": false,
+          "y1Affine": false,
+          "y0RankGain": 1,
+          "y1RankGain": 1,
+          "jointRankGain": 2
+        },
+        "targetInteractionSyndromeDimension": 2,
+        "relIncSpansTarget": true
+      }
+    },
+    {
+      "label": "4x4-k4",
+      "width": 4,
+      "height": 4,
+      "k": 4,
+      "physicalStates": 161029,
+      "nonterminalStates": 134289,
+      "tactical2Counts": {
+        "W": 24685,
+        "L2": 4154,
+        "O": 105450
+      },
+      "degree1Contradictions": 168,
+      "relIncDescriptor": {
+        "mode": "REL_INC",
+        "equations": 105450,
+        "exactLinearVariables": 7638,
+        "descriptorPairVariables": 3918,
+        "structuralRank": 7900,
+        "structuralRankGainOverDegree1": 295,
+        "fullQuadraticRank": 8027,
+        "fullQuadraticRankGain": 422,
+        "structuralSpanPreserved": false,
+        "contradictions": 0,
+        "decoderExact": true,
+        "firstContradiction": null,
+        "pairCatalogCompressionAgainstExact": 0.25114678899082565
+      },
+      "scalarInteractionSyndrome": {
+        "equations": 105450,
+        "affineRank": 7605,
+        "relIncPairVariables": 3918,
+        "relIncModelRank": 7900,
+        "relIncInteractionRankGain": 295,
+        "outcomeBits": {
+          "y0": "low outcome-code bit: draw indicator under loss=00, draw=01, win=10",
+          "y1": "high outcome-code bit: win indicator under loss=00, draw=01, win=10",
+          "y0Affine": false,
+          "y1Affine": false,
+          "y0RankGain": 1,
+          "y1RankGain": 1,
+          "jointRankGain": 2
+        },
+        "targetInteractionSyndromeDimension": 2,
+        "relIncSpansTarget": true
+      }
+    },
+    {
+      "label": "6x3-k3",
+      "width": 6,
+      "height": 3,
+      "k": 3,
+      "physicalStates": 692970,
+      "nonterminalStates": 353581,
+      "tactical2Counts": {
+        "W": 277244,
+        "L2": 39768,
+        "O": 36569
+      },
+      "degree1Contradictions": 520,
+      "relIncDescriptor": {
+        "mode": "REL_INC",
+        "equations": 36569,
+        "exactLinearVariables": 16388,
+        "descriptorPairVariables": 10857,
+        "structuralRank": 16735,
+        "structuralRankGainOverDegree1": 472,
+        "fullQuadraticRank": 16735,
+        "fullQuadraticRankGain": 472,
+        "structuralSpanPreserved": true,
+        "contradictions": 0,
+        "decoderExact": true,
+        "firstContradiction": null,
+        "pairCatalogCompressionAgainstExact": 0.03801169590643272
+      },
+      "scalarInteractionSyndrome": {
+        "equations": 36569,
+        "affineRank": 16263,
+        "relIncPairVariables": 10857,
+        "relIncModelRank": 16735,
+        "relIncInteractionRankGain": 472,
+        "outcomeBits": {
+          "y0": "low outcome-code bit: draw indicator under loss=00, draw=01, win=10",
+          "y1": "high outcome-code bit: win indicator under loss=00, draw=01, win=10",
+          "y0Affine": false,
+          "y1Affine": false,
+          "y0RankGain": 1,
+          "y1RankGain": 1,
+          "jointRankGain": 2
+        },
+        "targetInteractionSyndromeDimension": 2,
+        "relIncSpansTarget": true
+      }
+    },
+    {
+      "label": "3x7-k3",
+      "width": 3,
+      "height": 7,
+      "k": 3,
+      "physicalStates": 71181,
+      "nonterminalStates": 42013,
+      "tactical2Counts": {
+        "W": 26431,
+        "L2": 4719,
+        "O": 10863
+      },
+      "degree1Contradictions": 0,
+      "relIncDescriptor": {
+        "mode": "REL_INC",
+        "equations": 10863,
+        "exactLinearVariables": 3707,
+        "descriptorPairVariables": 1864,
+        "structuralRank": 3667,
+        "structuralRankGainOverDegree1": 6,
+        "fullQuadraticRank": 3667,
+        "fullQuadraticRankGain": 6,
+        "structuralSpanPreserved": true,
+        "contradictions": 0,
+        "decoderExact": true,
+        "firstContradiction": null,
+        "pairCatalogCompressionAgainstExact": 0.12406015037593987
+      },
+      "scalarInteractionSyndrome": {
+        "equations": 10863,
+        "affineRank": 3661,
+        "relIncPairVariables": 1864,
+        "relIncModelRank": 3667,
+        "relIncInteractionRankGain": 6,
+        "outcomeBits": {
+          "y0": "low outcome-code bit: draw indicator under loss=00, draw=01, win=10",
+          "y1": "high outcome-code bit: win indicator under loss=00, draw=01, win=10",
+          "y0Affine": true,
+          "y1Affine": true,
+          "y0RankGain": 0,
+          "y1RankGain": 0,
+          "jointRankGain": 0
+        },
+        "targetInteractionSyndromeDimension": 0,
+        "relIncSpansTarget": true
+      }
+    }
+  ],
+  "mechanicalChecks": {
+    "relIncSpansTargetAll": true,
+    "targetDimensionAtMostTwo": true
+  },
+  "interpretationGuard": [
+    "REL_INC is frozen before this value-specific rank measurement.",
+    "The target interaction dimension is rank([affine,y0,y1])-rank(affine), so it counts only independent scalar outcome directions not already carried by the affine component model.",
+    "This does not identify a closed-form syndrome function; it establishes how many GF(2) scalar correction bits such a function must supply on each complete carrier.",
+    "A zero-dimensional target quotient means the scalar value is already affine even if unused structural quadratic directions exist.",
+    "A one-dimensional target quotient means a single GF(2) interaction syndrome suffices for the two-bit W/D/L encoding after affine decoding.",
+    "No standard-7x6 claim follows."
+  ]
+}
