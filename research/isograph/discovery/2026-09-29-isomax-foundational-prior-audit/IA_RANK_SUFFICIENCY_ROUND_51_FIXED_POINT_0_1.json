@@ -1,0 +1,28 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_fixed_point.v1",
+  "round": 51,
+  "date_author_local": "2026-09-30",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_50_0_1.json",
+    "RANK_SUFFICIENCY_CAPACITY_PROFILE_REL_INC_ZOE_INTEGRATION_0_1.json"
+  ],
+  "recursive_generation": {
+    "families_checked": [
+      "capacity parity aligned to incidence roles",
+      "zero/positive-odd/positive-even aligned capacity",
+      "exact aligned capacity reconstruction control",
+      "role alignment versus exact component identity",
+      "fresh qualification gate"
+    ],
+    "new_assertions": []
+  },
+  "fixed_point": true,
+  "reason": "The current corpus justifies one bounded role-alignment ladder and no unrelated identity features: aligned parity, aligned zero/positive-odd/positive-even, and exact aligned capacity as a reconstruction control.",
+  "next_evidence_boundaries": [
+    "freeze all role-aligned capacity rungs before qualification",
+    "canonicalize residual incidence and capacity labels jointly under the same local column permutation",
+    "retain unordered capacity-profile REL_INC-ZOE and exact-type ZOE as controls",
+    "fresh holdout only after a common compressed role-aligned descriptor survives the demanding derivation carriers"
+  ],
+  "stop_status": "FIXED_POINT__ROLE_ALIGNED_CAPACITY_LADDER_NEXT"
+}
