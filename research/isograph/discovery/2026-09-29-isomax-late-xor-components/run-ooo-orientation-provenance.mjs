@@ -1177,7 +1177,7 @@ function auditCase(W,H,K){
         const shuffled=[1,3,7].map(shift=>({shift,...auditMode(mode,shift)}));
         const byDescriptor=orientationVariantsByMode.get(mode);
         const variantCounts=descriptorById.map(d=>(byDescriptor.get(d)?.size??0));
-        audits.push({
+        const audit={
           mode,
           ...trueAudit,
           descriptorReconstructibility:{
@@ -1187,7 +1187,9 @@ function auditCase(W,H,K){
             maxVariants:Math.max(...variantCounts)
           },
           shuffled
-        });
+        };
+        Object.defineProperty(audit,'_featureKeys',{value:trueAudit._featureKeys,enumerable:false});
+        audits.push(audit);
       }
 
       const pureOrder={H:0,V:1,D:2};
