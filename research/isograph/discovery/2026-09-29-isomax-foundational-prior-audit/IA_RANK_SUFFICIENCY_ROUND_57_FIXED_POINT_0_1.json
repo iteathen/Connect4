@@ -1,0 +1,29 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_fixed_point.v1",
+  "round": 57,
+  "date_author_local": "2026-09-30",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_56_0_1.json",
+    "RANK_SUFFICIENCY_REPAIRED_CUBIC_DECODER_INTEGRATION_0_1.json"
+  ],
+  "recursive_generation": {
+    "families_checked": [
+      "cubic quotient versus raw cubic catalog",
+      "two-bit scalar target versus interaction degree",
+      "basis-gauge invariance",
+      "formula-selection anti-circularity",
+      "fresh formula holdout reservation"
+    ],
+    "new_assertions": []
+  },
+  "fixed_point": true,
+  "reason": "The current corpus establishes bounded cubic decoder existence but does not identify invariant syndrome formulas. Further progress requires outcome-independent cubic quotient reduction and target-subspace measurement, with formula holdouts sealed beforehand.",
+  "next_evidence_boundaries": [
+    "EW-RS-059 holdouts remain sealed until a formula is frozen",
+    "reduce cubic columns modulo degree two without outcomes",
+    "measure y0/y1 target dimension relative to degree two",
+    "treat fitted coordinates in any selected cubic basis as discovery gauge only",
+    "do not unseal 3x6-k4 or 5x3-k4 during motif discovery"
+  ],
+  "stop_status": "FIXED_POINT__CUBIC_QUOTIENT_TARGET_NEXT"
+}
