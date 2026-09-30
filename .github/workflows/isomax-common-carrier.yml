@@ -18,7 +18,7 @@ jobs:
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
         with: {node-version: '26'}
       - name: Semantic tests
-        run: node --test research/isograph/discovery/2026-09-29-isomax-late-xor-components/ooo-{grid-freeze,sign-channel-coupling,joint-da-common-quotient,joint-da-scalar,common-carrier-level,contextual-triangle,support-context}-lib.test.mjs
+        run: node --test research/isograph/discovery/2026-09-29-isomax-late-xor-components/ooo-{grid-freeze,sign-channel-coupling,joint-da-common-quotient,joint-da-scalar,common-carrier-level,contextual-triangle,support-context,pooled-lineage,pooled-role-depth,pooled-depth-index,pooled-frontier,pooled-owner-correlation,pooled-owner-coherence,pooled-stratum-summary,pooled-native-domain}-lib.test.mjs
       - name: Verify committed structural and scalar evidence
         run: |
           base=research/isograph/discovery/2026-09-29-isomax-late-xor-components
@@ -27,6 +27,17 @@ jobs:
           node "$base/verify-ooo-common-carrier-level.mjs"
           node "$base/verify-ooo-contextual-triangle.mjs"
           node "$base/verify-ooo-support-context.mjs"
+          node "$base/verify-ooo-pooled-lineage.mjs"
+          node "$base/verify-ooo-pooled-role-depth.mjs"
+          node "$base/verify-ooo-pooled-depth-index.mjs"
+          node "$base/verify-ooo-depth-index-order.mjs"
+          node "$base/verify-ooo-pooled-frontier.mjs"
+          node "$base/verify-ooo-frontier-order.mjs"
+          node "$base/verify-ooo-pooled-owner-correlation.mjs"
+          node "$base/verify-ooo-pooled-owner-coherence.mjs"
+          node "$base/verify-ooo-pooled-stratum-summary.mjs"
+          node "$base/verify-ooo-pooled-native-common.mjs"
+          node "$base/verify-ooo-pooled-native-domain.mjs"
           git diff --exit-code -- "$base"
       - name: Research integrity
         run: node tools/verify-research-integrity.mjs
