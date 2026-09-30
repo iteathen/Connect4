@@ -94,8 +94,9 @@ const passingDirectQV=direct.filter(x=>x.QV).sort((a,b)=>a.classes-b.classes);
 const passingOrbitQF=orbit.filter(x=>x.QF_transported).sort((a,b)=>a.classes-b.classes);
 const passingOrbitQA=orbit.filter(x=>x.QA_transported).sort((a,b)=>a.classes-b.classes);
 const passingOrbitQV=orbit.filter(x=>x.QV).sort((a,b)=>a.classes-b.classes);
-const gapExamples=[],containmentFailures=[];
-let residualOccurrences=0,oracleDeleted=0,rfgDeleted=0,oracleExtra=0,eEqualsRFG=0,eNotRFG=0,efEqualsRFG=0,efNotRFG=0;
+const gapExamples=[],containmentFailures=[],gapByOpenColumns={},gapByResidualSize={},gapByOwner={};
+let residualOccurrences=0,oracleDeleted=0,rfgDeleted=0,oracleExtra=0,eEqualsRFG=0,eNotRFG=0,efEqualsRFG=0,efNotRFG=0,
+  singleColumnForcedParityExplained=0;
 for(const x of nts){
   const q0=qmap.get(x.k),e=E(q0),rfg=apply(q0,'RFG'),ef=apply(q0,'EF');
   residualOccurrences+=q0.r0.length+q0.r1.length;
@@ -107,7 +108,22 @@ for(const x of nts){
     const es=new Set(ers),rs=new Set(rfgs);
     for(const m of orig)if(!es.has(m)&&rs.has(m)){
       oracleExtra++;
-      if(gapExamples.length<64)gapExamples.push({state:x.k,support:q0.h,owner,residual:m,cells:bits(m),remaining:q0.h.reduce((a,b)=>a+b,0),rfgKey:key(rfg),eKey:key(e)});
+      const open=q0.h.filter(v=>v<H).length,size=pc(m),rank=q0.h.reduce((a,b)=>a+b,0);
+      gapByOpenColumns[open]=(gapByOpenColumns[open]??0)+1;
+      gapByResidualSize[size]=(gapByResidualSize[size]??0)+1;
+      gapByOwner[owner]=(gapByOwner[owner]??0)+1;
+      let forcedSingle=false;
+      if(open===1){
+        const col=q0.h.findIndex(v=>v<H);
+        forcedSingle=bits(m).some(b=>{
+          if(b%W!==col)return false;
+          const depth=Math.floor(b/W)-q0.h[col]+1;
+          const forcedOwner=(rank+depth-1)&1;
+          return forcedOwner!==owner;
+        });
+        if(forcedSingle)singleColumnForcedParityExplained++;
+      }
+      if(gapExamples.length<64)gapExamples.push({state:x.k,support:q0.h,owner,residual:m,cells:bits(m),openColumns:open,residualSize:size,forcedSingleColumnParity:forcedSingle,rank,rfgKey:key(rfg),eKey:key(e)});
     }
     for(const m of orig)if(es.has(m)&&!rs.has(m))containmentFailures.push({state:x.k,owner,residual:m});
   }
@@ -122,7 +138,7 @@ const out={
    reason:'E explores hypothetical future support schedules to define the current representation',
    role:'compression oracle for discovering additional rank-local necessary conditions'
  },
- comparison:{residualOccurrences,oracleDeleted,rfgDeleted,oracleExtra,eEqualsRFG,eNotRFG,efEqualsRFG,efNotRFG,containmentFailures:containmentFailures.length,exactMemoEntries:exactMemo.size},
+ comparison:{residualOccurrences,oracleDeleted,rfgDeleted,oracleExtra,eEqualsRFG,eNotRFG,efEqualsRFG,efNotRFG,containmentFailures:containmentFailures.length,exactMemoEntries:exactMemo.size,gapByOpenColumns,gapByResidualSize,gapByOwner,singleColumnForcedParityExplained},
  algebra:{E_idempotent:identities.E,EF_commutes:commutation.EF},
  direct,orbit,
  minima:{
