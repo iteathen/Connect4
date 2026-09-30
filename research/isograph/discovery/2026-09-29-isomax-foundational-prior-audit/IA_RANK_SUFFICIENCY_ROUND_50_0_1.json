@@ -1,0 +1,50 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_round.v1",
+  "round": 50,
+  "date_author_local": "2026-09-30",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_49_FIXED_POINT_0_1.json",
+    "RANK_SUFFICIENCY_CAPACITY_PROFILE_REL_INC_ZOE_INTEGRATION_0_1.json"
+  ],
+  "reopened_reason": "The exact unordered per-column capacity profile sharply reduces but does not eliminate ZOE aggregation collisions on 4x4-k4 and 4x5-k4, so the remaining distinction can depend on which capacity state belongs to which REL_INC column role.",
+  "new_assertions": [
+    {
+      "id": "RS-IA159",
+      "family": "M",
+      "body": "Capacity distribution and capacity-to-incidence alignment are distinct structural coordinates: an unordered capacity multiset can be exact while still forgetting which residual role carries which support height."
+    },
+    {
+      "id": "RS-IA160",
+      "family": "Q",
+      "body": "The remaining 4x4/4x5 failures justify jointly canonicalizing column capacity labels with REL_INC rather than adding unrelated component features."
+    },
+    {
+      "id": "RS-IA161",
+      "family": "D",
+      "body": "Role alignment should itself be graded minimally: test aligned capacity parity, then aligned zero/positive-odd/positive-even labels, with exact aligned capacity retained only as a reconstruction control."
+    },
+    {
+      "id": "RS-IA162",
+      "family": "F",
+      "body": "If exact role-aligned capacity plus REL_INC does not reproduce exact-type ZOE scalar purity, the descriptor construction is mechanically incomplete; if it does, any coarser passing role label is a genuine structural compression candidate."
+    }
+  ],
+  "qu_refinements": [
+    {
+      "id": "RS-QR047",
+      "target": "QU-RS-004",
+      "add_fixed": [
+        "unordered exact per-column capacity profile plus REL_INC repairs all tested collisions on 5x3-k3 and 6x3-k3",
+        "the same profile leaves 2 mixed classes on 4x4-k4 and 41 on 4x5-k4",
+        "the remaining distinction is capacity-to-incidence role alignment rather than total capacity or unordered capacity distribution"
+      ],
+      "retain_open": [
+        "coarsest role-aligned capacity grade",
+        "minimal whole-component structural identity under ZOE counts",
+        "fresh qualification of any selected role-aligned descriptor",
+        "standard-7x6 qualification"
+      ]
+    }
+  ],
+  "stop_status": "REOPENED__ROLE_ALIGNED_CAPACITY_LADDER_NEXT"
+}
