@@ -1,0 +1,84 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.scalar_interaction_syndrome_integration.v1",
+  "date_author_local": "2026-09-29",
+  "research_direction": "Joshua Oshiro",
+  "status": "TWO_BIT_SCALAR_INTERACTION_SYNDROME_ESTABLISHED_ON_DEMANDING_CARRIERS",
+  "evidence": [
+    {
+      "id": "SYN2",
+      "branch": "experiment/isomax-late-xor-components-20260929",
+      "commit": "1cbc341cc8f960173e1c647fe0252b22c5479f81",
+      "file": "SCALAR_INTERACTION_SYNDROME_DIMENSION_0_1.json",
+      "warrant": "EW-RS-038"
+    }
+  ],
+  "cases": {
+    "5x3-k3": {
+      "degree1_contradictions": 18,
+      "rel_inc_interaction_rank_gain": 37,
+      "scalar_target_rank_gain": 2,
+      "y0_affine": false,
+      "y1_affine": false
+    },
+    "4x4-k4": {
+      "degree1_contradictions": 168,
+      "rel_inc_interaction_rank_gain": 295,
+      "scalar_target_rank_gain": 2,
+      "y0_affine": false,
+      "y1_affine": false
+    },
+    "6x3-k3": {
+      "degree1_contradictions": 520,
+      "rel_inc_interaction_rank_gain": 472,
+      "scalar_target_rank_gain": 2,
+      "y0_affine": false,
+      "y1_affine": false
+    },
+    "3x7-k3": {
+      "degree1_contradictions": 0,
+      "rel_inc_interaction_rank_gain": 6,
+      "scalar_target_rank_gain": 0,
+      "y0_affine": true,
+      "y1_affine": true
+    }
+  },
+  "findings": [
+    {
+      "id": "RS-F146",
+      "status": "EXACT_VALUE_QUOTIENT_DIMENSION",
+      "statement": "On each demanding carrier where exact-rank affine component decoding fails (5x3-k3, 4x4-k4, 6x3-k3), the two-bit scalar target adds exactly two GF(2) dimensions beyond the affine feature span."
+    },
+    {
+      "id": "RS-F147",
+      "status": "STRUCTURAL_VERSUS_VALUE_DIMENSION",
+      "statement": "The value-specific interaction quotient is radically smaller than the structural quadratic interaction space: target dimension 2 versus REL_INC structural rank gains 37, 295, and 472 on the three demanding carriers."
+    },
+    {
+      "id": "RS-F148",
+      "status": "BOTH_OUTCOME_BITS_NONAFFINE",
+      "statement": "On all three demanding carriers, both the draw-indicator bit y0 and win-indicator bit y1 are individually non-affine and each contributes one rank dimension beyond the exact-rank affine component span."
+    },
+    {
+      "id": "RS-F149",
+      "status": "REL_INC_SPANS_SCALAR_TARGET",
+      "statement": "Frozen REL_INC spans the complete two-bit scalar interaction target on every demanding carrier."
+    },
+    {
+      "id": "RS-F150",
+      "status": "AFFINE_CONTROL_CONFIRMED",
+      "statement": "Fresh 3x7-k3 has six unused structural quadratic dimensions but scalar target dimension zero, confirming that structural interaction directions can exist without being value-load-bearing."
+    },
+    {
+      "id": "RS-F151",
+      "status": "SCALAR_FORMULA_BOUNDARY",
+      "statement": "A final scalar evaluator need not expose the full quadratic interaction basis; after the affine component contribution it requires at most two independently derived GF(2) interaction syndromes on the current demanding corpus."
+    }
+  ],
+  "nonclaims": [
+    "The two syndrome functions themselves are not yet identified.",
+    "The result does not imply the same two structural formulas transfer unchanged across geometries.",
+    "The result does not prove REL_INC minimality.",
+    "No standard-7x6 theorem follows."
+  ],
+  "next_question": "Which two outcome-independent structural parity functions of frozen REL_INC pair incidence realize the scalar correction bits, and can they be frozen before fresh holdout qualification?"
+}
