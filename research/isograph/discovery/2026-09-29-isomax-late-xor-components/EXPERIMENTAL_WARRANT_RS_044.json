@@ -1,0 +1,42 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.fresh_cubic_exact_component.v1",
+  "id": "EW-RS-044",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "parent": "EW-RS-043",
+  "objective": "Test whether the 12 exact-component degree-2 contradictions on the predeclared fresh 4x5-k4 T2-O holdout are resolved by the next structurally generated multilinear degree, cubic GF(2).",
+  "case": "4x5-k4",
+  "frozenRepresentation": [
+    "q_o rank-local reduction",
+    "RFG and hereditary G",
+    "post-RFG residual-incidence connected components",
+    "direct rank-local T2 with algebra restricted to T2-O",
+    "exact-rank affine offsets",
+    "exact canonical component-type multiplicity parity bits",
+    "outcome code L=00, D=01, W=10"
+  ],
+  "candidate": {
+    "name": "DEGREE3_EXACT_COMPONENT",
+    "formulaClass": "b_r XOR sum_i a_{r,i} x_i XOR sum_{i<j} a_{r,ij} x_i x_j XOR sum_{i<j<k} a_{r,ijk} x_i x_j x_k",
+    "featureGeneration": "all observed rank-specific square-free monomials through degree 3 over odd exact component-type bits",
+    "outcomeIndependent": true
+  },
+  "controls": {
+    "degree1ExpectedContradictions": 23918,
+    "degree2ExpectedContradictions": 12,
+    "source": "RELEASE_PARITY_FRESH_HOLDOUT_4X5K4_0_1.json"
+  },
+  "antiCircularity": [
+    "Degree 3 is the next multilinear degree after the frozen degree-2 falsifier; no cubic term is selected using outcomes.",
+    "All observed cubic monomials are admitted mechanically from current-rank exact component parity.",
+    "Solved outcomes are used only as GF(2)^2 equation right-hand sides.",
+    "No TOPO_RPAR or REL_INC refinement is introduced in this experiment."
+  ],
+  "falsifiers": [
+    "The degree-1 and degree-2 contradiction counts must reproduce 23918 and 12 respectively; mismatch invalidates the run.",
+    "Any degree-3 contradiction rejects cubic sufficiency on 4x5-k4.",
+    "Zero degree-3 contradictions establishes only finite carrier sufficiency, not a universal cubic theorem."
+  ],
+  "nextIfSuccess": "Extract a same-exact-rank degree-2 contradiction certificate and characterize the cubic interaction structurally before attempting a compressed frontier-relative cubic syndrome.",
+  "nextIfFail": "Freeze the cubic falsifier before testing degree 4 or any alternative representation."
+}
