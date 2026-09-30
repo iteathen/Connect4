@@ -1,0 +1,117 @@
+{
+  "schema": "connect4.isomax.ooo_interaction_qu.v1",
+  "date_author_local": "2026-09-30",
+  "status": "OPEN_STRUCTURED_RESEARCH_UNKNOWN_NO_AUTHORITY_EFFECT",
+  "parent": "ISOGRAPH_FULL_DECOMPOSITION_0_1",
+  "scope": {
+    "objective": "scalar relative W/D/L",
+    "domain": "T2-O discovery carriers",
+    "level": "Q-V"
+  },
+  "holdoutSeal": {
+    "warrant": "EW-RS-059",
+    "primary": "3x6-k4",
+    "backup": "5x3-k4",
+    "status": "SEALED",
+    "outcomesInspected": false
+  },
+  "input": {
+    "descriptor": "phase-anchored REL_INC identity",
+    "oddSupport": "A(P)={d : aggregate descriptor multiplicity is odd}",
+    "interaction": "unordered 3-subset {a,b,c} of distinct descriptors",
+    "monomial": "O_a O_b O_c"
+  },
+  "output": {
+    "code": "relative W/D/L in GF(2)^2",
+    "invariantBoundary": "output columns modulo complete affine+degree2 P/O span",
+    "cubeInvariant": "XOR of eight output codes on a complete E/O 3-cube with all presence and all outside states fixed"
+  },
+  "established": {
+    "6x3-k3": {
+      "oooCatalog": 1753,
+      "oooRankGain": 75,
+      "oooCubicContradictions": 0,
+      "degree2TargetJoint": 1
+    },
+    "4x5-k4": {
+      "oooCatalog": 7485,
+      "oooRankGain": 294,
+      "oooCubicContradictions": 0,
+      "fullCubicQuotient": {
+        "OOO": 294,
+        "OOP": 77
+      },
+      "degree2TargetJoint": 2
+    },
+    "6x3-k4": {
+      "oooCatalog": 501,
+      "oooRankGain": 16,
+      "oooCubicContradictions": 0,
+      "degree2TargetJoint": 2
+    }
+  },
+  "exactDerivations": [
+    "OOO monomial depends only on odd-support set",
+    "OOO polynomial equals parity of active hyperedges in a 3-uniform hypergraph representation",
+    "complete E/O cube third difference annihilates all degree<=2 terms",
+    "with presence fixed, complete E/O cube third difference also annihilates every cubic term containing P",
+    "if native oddness degree<=3 then a fixed triple third difference is context-independent",
+    "zero/nonzero third difference is invariant under affine/injective WDL recoding into GF(2)^2",
+    "triple input order is nonsemantic"
+  ],
+  "qu": [
+    {
+      "id": "QU-OOO-01",
+      "subject": "outcome-independent structural predicate selecting scalar-load-bearing descriptor triples",
+      "status": "OPEN"
+    },
+    {
+      "id": "QU-OOO-02",
+      "subject": "structural meaning of nonzero GF(2)^2 third-difference direction",
+      "status": "OPEN"
+    },
+    {
+      "id": "QU-OOO-03",
+      "subject": "context independence of fixed triple interaction",
+      "status": "UNDER_TEST_EW_RS_063"
+    },
+    {
+      "id": "QU-OOO-04",
+      "subject": "native realization family: hypergraph / triangle closure / release-phase cocycle / free-phase mediation / owner-race balance / latent quotient",
+      "status": "OPEN"
+    }
+  ],
+  "basisDependentLeads": {
+    "widthProfiles": {
+      "6x3-k3": {
+        "1-1-1": 26,
+        "1-1-2": 35,
+        "1-1-3": 13,
+        "1-2-2": 1
+      },
+      "4x5-k4": {
+        "1-1-1": 271,
+        "1-1-2": 23
+      },
+      "6x3-k4": {
+        "1-1-1": 9,
+        "1-1-2": 7
+      }
+    },
+    "commonSimpleDescriptors": [
+      "w1|cap=1|r0=|r1=",
+      "w1|cap=0|r0=1:0|r1=",
+      "w1|cap=0|r0=|r1=1:0",
+      "w1|cap=1|r0=0:0|r1=",
+      "w1|cap=1|r0=|r1=0:0"
+    ],
+    "interpretation": "four common descriptors form two one-step release/phase pairs; the fifth is a phase-1 free column; useful DTS lead but insufficient to explain all deterministic OOO basis edges",
+    "guard": "deterministic quotient basis membership and fitted supports are gauge-dependent"
+  },
+  "experiment": {
+    "warrant": "EW-RS-063",
+    "method": "enumerate every complete fixed-presence E/O 3-cube in discovery carriers and measure eight-corner scalar XOR",
+    "falsifier": "same triple with different third-difference code across contexts",
+    "status": "RUNNING"
+  }
+}
