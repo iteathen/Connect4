@@ -86,8 +86,12 @@
     "Freeze candidate feature catalogs, matched-dependency rows, and structural bases before scalar replay."
   ],
   "partialOrder": {
-    "familyOrder": "PRESENCE and ZOE are incomparable; CLIP2 and CLIP3 are ordered only by explicit information containment where applicable.",
-    "dominance": "Candidate X is strictly coarser than Y only if every family transform in X is structurally no finer than the corresponding transform in Y and at least one is strictly coarser.",
+    "familyOrder": [
+      "PRESENCE < ZOE because ZOE determines zero versus positive and hence presence.",
+      "PRESENCE < CLIP2 < CLIP3 by explicit information containment.",
+      "ZOE is incomparable with CLIP2 and CLIP3 because parity above the clipping threshold and exact low-count distinctions cross."
+    ],
+    "dominance": "Candidate X is strictly coarser than Y only if every family transform in X is structurally no finer than the corresponding transform in Y under the frozen familyOrder and at least one is strictly coarser.",
     "output": "Report all Pareto-minimal common-exact candidates; do not force a single winner among incomparable count algebras."
   },
   "measurements": [
@@ -101,6 +105,7 @@
     "Pareto-minimal common-exact grid points"
   ],
   "antiCircularity": [
+    "The family-mode information partial order was corrected before any RS-076 scalar run: PRESENCE<ZOE; PRESENCE<CLIP2<CLIP3; ZOE incomparable with CLIP2/CLIP3.",
     "The three bucket families, four family modes, complete 64-point grid, pair grouping, and partial-order rule are frozen before scalar inspection.",
     "No plus/minus bucket is split independently.",
     "No family-specific threshold or exception is added after seeing W/D/L.",
