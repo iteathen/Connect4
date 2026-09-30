@@ -1,0 +1,50 @@
+{
+  "schema": "connect4.isomax.revalidation.boundary_capacity_star_bridge.v1",
+  "status": "STRUCTURAL_BRIDGE_ESTABLISHED_ON_TRAINED_DEPENDENCY_SPACE",
+  "sources": {
+    "boundaryJoint": "REVAL-LEGO-BOUNDARY-002 JOINT_LABEL",
+    "capacityStar": "EW-RS-094 CSTAR_8"
+  },
+  "dimensions": {
+    "boundaryJoint": {
+      "rank": 352,
+      "kernel": 110
+    },
+    "cstar8": {
+      "rank": 342,
+      "kernel": 120
+    },
+    "fullStar": {
+      "rank": 350,
+      "kernel": 112
+    }
+  },
+  "kernelRelations": {
+    "boundaryJointKernelSubsetOfCstar8Kernel": true,
+    "unionKernelRankJointCstar8": 120,
+    "implication": "On the frozen 462-dependency vector space, CSTAR_8 factors linearly through the boundary-joint carrier.",
+    "boundaryJointVersusFullStar": "incomparable kernels; intersection dimension 109"
+  },
+  "boundaryAssociationRetention": {
+    "relativeBoundaryCovarianceDimension": 3,
+    "cstar8ImageRankOnThatQuotient": 3,
+    "conclusion": "CSTAR_8 preserves all three boundary-association directions; it does not itself collapse them to the single value-bearing scalar character."
+  },
+  "interpretation": [
+    "The later RS094 capacity/positive-depth-owner1 relation is not an unrelated workaround: it is a coarser exact carrier downstream of the simpler boundary-marked triangle carrier on this dependency space.",
+    "CSTAR_8 removes ten additional structural directions beyond JOINT_LABEL while retaining all three boundary-covariance directions.",
+    "The remaining unsolved object is still the one scalar character on the three-dimensional boundary-covariance quotient."
+  ],
+  "nonclaims": [
+    "No pointwise board-level quotient map between the two feature systems is asserted; the statement is linear factorization on the frozen dependency image.",
+    "Numeric owner1 is not intrinsic; prior owner-gauge replay transports the selected relation under owner relabeling.",
+    "No fresh qualification or formula-holdout access."
+  ],
+  "holdouts": {
+    "primary": "3x6-k4",
+    "backup": "5x3-k4",
+    "sealed": true
+  },
+  "rs096": "HOLD",
+  "authorityEffect": "NONE"
+}
