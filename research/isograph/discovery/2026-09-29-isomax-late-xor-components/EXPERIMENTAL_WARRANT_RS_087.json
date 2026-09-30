@@ -1,0 +1,66 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.owner_correlation.v1",
+  "id": "EW-RS-087",
+  "status": "FROZEN_BEFORE_OWNER_CORRELATION_REPLAY",
+  "parent": "EW-RS-086",
+  "objective": "Determine whether relative owner alignment across frontier/bulk and sign cells supplies a native globally owner-invariant transfer carrier.",
+  "researchOwner": "research/semantic-quotient",
+  "source": "SIGNED_PARITY roleless C plus exact per-owner token counts in four cells [depth0+,depth0-,positiveDepth+,positiveDepth-].",
+  "candidateGrid": {
+    "correlationFamilies": {
+      "WITHIN_STRATUM": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ]
+      ],
+      "SAME_SIGN_CROSS_STRATUM": [
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          3
+        ]
+      ],
+      "OPPOSITE_SIGN_CROSS_STRATUM": [
+        [
+          0,
+          3
+        ],
+        [
+          1,
+          2
+        ]
+      ]
+    },
+    "subsets": "All8 subsets of these3 families; retain per-cell owner sum and absolute imbalance in every subset.",
+    "controls": [
+      "MERGED_OWNER_SUMS",
+      "GLOBAL_OWNER_UNORDERED",
+      "OWNER_SEPARATED"
+    ]
+  },
+  "map": "For cell i let delta_i=count_owner0_i-count_owner1_i. The added correlation is sign(delta_i)*sign(delta_j), invariant under global owner swap. Per-cell sums and absolute imbalances plus all6 correlation signs reconstruct the two owner vectors up to a common swap. C sign counts remain unchanged.",
+  "procedure": [
+    "Freeze all11 pooled map catalogs, rows, bases and complete kernels and commit before replay.",
+    "Semantically test the complete-correlation/global-unordered partition equivalence independently of scalar labels.",
+    "Replay aligned pinned scalar codes and all3 target characters, reproducing the full owner-separated zero/bulk control from RS085.",
+    "Measure all8 subset candidates and retain inclusion-minimal exact family subsets without coefficient fitting or per-state exceptions."
+  ],
+  "guards": [
+    "Per-cell marginals alone are not assumed finer than the earlier depthless owner-symmetric map.",
+    "Global owner-swap invariance is different from swapping owners independently in each cell.",
+    "No absolute owner label in any correlation candidate; owner-separated is only a reconstruction control."
+  ],
+  "holdouts": {
+    "primary": "3x6-k4",
+    "backup": "5x3-k4",
+    "sealed": true
+  }
+}
