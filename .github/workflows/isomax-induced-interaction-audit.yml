@@ -1,0 +1,36 @@
+name: IsoMax induced interaction audit
+
+on:
+  push:
+    branches:
+      - experiment/isomax-induced-interaction-audit-20260929
+    paths:
+      - '.github/workflows/isomax-induced-interaction-audit.yml'
+      - 'research/isograph/discovery/2026-09-29-isomax-induced-interactions/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with: {fetch-depth: 0}
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with: {node-version: '26'}
+      - name: Run induced-interaction audit
+        run: node research/isograph/discovery/2026-09-29-isomax-induced-interactions/run-induced-interaction-audit.mjs
+      - name: Research integrity
+        run: node tools/verify-research-integrity.mjs
+      - name: Commit induced-interaction evidence
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/isograph/discovery/2026-09-29-isomax-induced-interactions/INDUCED_INTERACTION_AUDIT_0_1.json
+          if git diff --cached --quiet; then echo "No generated changes."; else
+            git commit -m "research(isomax): freeze induced-interaction audit"
+            git push origin HEAD:experiment/isomax-induced-interaction-audit-20260929
+          fi

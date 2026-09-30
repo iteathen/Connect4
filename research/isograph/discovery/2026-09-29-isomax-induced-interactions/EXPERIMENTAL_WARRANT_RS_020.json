@@ -1,0 +1,20 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.induced_interaction.v1",
+  "id": "EW-RS-020",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "objective": "Test the elimination/fill-in warning directly: whether R/F/G/H deletions split residual connectivity and whether moves cause remote component changes after reduction.",
+  "motivation": "Cross-domain elimination methods preserve induced interactions when removed structure mediates surviving variables. Current component monoid is a representation factorization, not yet an independence theorem.",
+  "scope": "seven complete bounded Connect4 carriers used by the current rank-sufficiency campaign",
+  "anti_circularity": [
+    "no value labels",
+    "no XOR valuation",
+    "fixed R/F/G/H rules",
+    "fixed residual-incidence component definition"
+  ],
+  "outcomes": {
+    "deleted_bridge": "candidate induced-interaction clue only",
+    "remote_effect": "direct falsifier of context-free component dynamics at that stage",
+    "no_remote_effect": "bounded support for local dynamic factorization"
+  }
+}
