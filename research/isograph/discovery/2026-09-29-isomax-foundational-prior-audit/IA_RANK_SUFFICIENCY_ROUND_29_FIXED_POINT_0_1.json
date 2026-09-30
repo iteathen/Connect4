@@ -1,0 +1,26 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_fixed_point.v1",
+  "round": 29,
+  "date_author_local": "2026-09-29",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_28_0_1.json",
+    "RANK_SUFFICIENCY_QUADRATIC_XOR_INTEGRATION_0_1.json"
+  ],
+  "recursive_generation": {
+    "families_checked": [
+      "polynomial degree",
+      "Q/D tradeoff",
+      "rectangle absorption",
+      "valuation identifiability",
+      "cross-geometry transfer"
+    ],
+    "new_assertions": []
+  },
+  "fixed_point": true,
+  "reason": "RS-IA098 through RS-IA103 exhaust the native implications of the 5x3 quadratic existence result. A stronger claim requires the independent 4x4-k4 control.",
+  "next_evidence_boundaries": [
+    "4x4-k4 exact-rank quadratic GF(2)^2 control",
+    "sparse interaction minimization only after transfer evidence"
+  ],
+  "stop_status": "FIXED_POINT__4X4K4_QUADRATIC_NEXT"
+}
