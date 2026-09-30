@@ -4956,16 +4956,60 @@
     "paretoMinimalExact": [
       "C=TOTAL|D=TOTAL|A=SIGNED_NET",
       "C=TOTAL|D=SIGNED_NET|A=TOTAL",
+      "C=TOTAL|D=SIGNED_NET|A=UNORDERED_PAIR",
       "C=TOTAL|D=ABS_NET|A=SEPARATED",
       "C=TOTAL|D=SEPARATED|A=ABS_NET",
-      "C=SIGNED_NET|D=TOTAL|A=SIGNED_NET",
-      "C=SIGNED_NET|D=SIGNED_NET|A=TOTAL",
-      "C=SIGNED_NET|D=ABS_NET|A=SEPARATED",
-      "C=SIGNED_NET|D=SEPARATED|A=ABS_NET",
       "C=ABS_NET|D=TOTAL|A=SIGNED_NET",
       "C=ABS_NET|D=SIGNED_NET|A=TOTAL",
+      "C=ABS_NET|D=SIGNED_NET|A=UNORDERED_PAIR",
       "C=ABS_NET|D=ABS_NET|A=SEPARATED",
-      "C=ABS_NET|D=SEPARATED|A=ABS_NET"
+      "C=ABS_NET|D=SEPARATED|A=ABS_NET",
+      "C=UNORDERED_PAIR|D=TOTAL|A=SIGNED_NET",
+      "C=UNORDERED_PAIR|D=SIGNED_NET|A=TOTAL",
+      "C=UNORDERED_PAIR|D=SIGNED_NET|A=UNORDERED_PAIR",
+      "C=UNORDERED_PAIR|D=ABS_NET|A=SEPARATED",
+      "C=UNORDERED_PAIR|D=SEPARATED|A=ABS_NET"
+    ],
+    "paretoMinimalEquivalenceClasses": [
+      {
+        "id": "PMEC-01",
+        "representative": "C=TOTAL|D=TOTAL|A=SIGNED_NET",
+        "members": [
+          "C=TOTAL|D=TOTAL|A=SIGNED_NET",
+          "C=ABS_NET|D=TOTAL|A=SIGNED_NET",
+          "C=UNORDERED_PAIR|D=TOTAL|A=SIGNED_NET"
+        ]
+      },
+      {
+        "id": "PMEC-02",
+        "representative": "C=TOTAL|D=SIGNED_NET|A=TOTAL",
+        "members": [
+          "C=TOTAL|D=SIGNED_NET|A=TOTAL",
+          "C=TOTAL|D=SIGNED_NET|A=UNORDERED_PAIR",
+          "C=ABS_NET|D=SIGNED_NET|A=TOTAL",
+          "C=ABS_NET|D=SIGNED_NET|A=UNORDERED_PAIR",
+          "C=UNORDERED_PAIR|D=SIGNED_NET|A=TOTAL",
+          "C=UNORDERED_PAIR|D=SIGNED_NET|A=UNORDERED_PAIR"
+        ]
+      },
+      {
+        "id": "PMEC-03",
+        "representative": "C=TOTAL|D=ABS_NET|A=SEPARATED",
+        "members": [
+          "C=TOTAL|D=ABS_NET|A=SEPARATED",
+          "C=ABS_NET|D=ABS_NET|A=SEPARATED",
+          "C=UNORDERED_PAIR|D=ABS_NET|A=SEPARATED"
+        ]
+      },
+      {
+        "id": "PMEC-04",
+        "representative": "C=TOTAL|D=SEPARATED|A=ABS_NET",
+        "members": [
+          "C=TOTAL|D=SEPARATED|A=ABS_NET",
+          "C=ABS_NET|D=SEPARATED|A=ABS_NET",
+          "C=UNORDERED_PAIR|D=SEPARATED|A=ABS_NET"
+        ]
+      }
     ],
     "familyWithoutSeparated": {
       "C": [
@@ -5107,6 +5151,132 @@
         "C=SEPARATED|D=SEPARATED|A=UNORDERED_PAIR"
       ]
     }
+  },
+  "informationOrder": {
+    "derivation": "exhaustive partition refinement over each frozen RS-076 family alphabet",
+    "C": {
+      "equivalences": [
+        [
+          "TOTAL",
+          "ABS_NET"
+        ],
+        [
+          "TOTAL",
+          "UNORDERED_PAIR"
+        ],
+        [
+          "SIGNED_NET",
+          "SEPARATED"
+        ],
+        [
+          "ABS_NET",
+          "UNORDERED_PAIR"
+        ]
+      ],
+      "strictContainments": [
+        [
+          "TOTAL",
+          "SIGNED_NET"
+        ],
+        [
+          "TOTAL",
+          "SEPARATED"
+        ],
+        [
+          "ABS_NET",
+          "SIGNED_NET"
+        ],
+        [
+          "UNORDERED_PAIR",
+          "SIGNED_NET"
+        ],
+        [
+          "ABS_NET",
+          "SEPARATED"
+        ],
+        [
+          "UNORDERED_PAIR",
+          "SEPARATED"
+        ]
+      ]
+    },
+    "D": {
+      "equivalences": [],
+      "strictContainments": [
+        [
+          "TOTAL",
+          "UNORDERED_PAIR"
+        ],
+        [
+          "TOTAL",
+          "SEPARATED"
+        ],
+        [
+          "ABS_NET",
+          "SIGNED_NET"
+        ],
+        [
+          "SIGNED_NET",
+          "SEPARATED"
+        ],
+        [
+          "ABS_NET",
+          "UNORDERED_PAIR"
+        ],
+        [
+          "ABS_NET",
+          "SEPARATED"
+        ],
+        [
+          "UNORDERED_PAIR",
+          "SEPARATED"
+        ]
+      ]
+    },
+    "A": {
+      "equivalences": [
+        [
+          "TOTAL",
+          "UNORDERED_PAIR"
+        ]
+      ],
+      "strictContainments": [
+        [
+          "ABS_NET",
+          "TOTAL"
+        ],
+        [
+          "TOTAL",
+          "SEPARATED"
+        ],
+        [
+          "ABS_NET",
+          "SIGNED_NET"
+        ],
+        [
+          "SIGNED_NET",
+          "SEPARATED"
+        ],
+        [
+          "ABS_NET",
+          "UNORDERED_PAIR"
+        ],
+        [
+          "ABS_NET",
+          "SEPARATED"
+        ],
+        [
+          "UNORDERED_PAIR",
+          "SEPARATED"
+        ]
+      ]
+    }
+  },
+  "classificationRepair": {
+    "status": "OUTCOME_INDEPENDENT_STRUCTURAL_CORRECTION",
+    "scalarAuditChanged": false,
+    "exactGridChanged": false,
+    "note": "The original handwritten RS-077 partial order omitted family-specific equivalences and containments. Pareto classification is recomputed mechanically from the frozen coupling maps and source alphabets."
   },
   "holdouts": {
     "primary": "3x6-k4",
