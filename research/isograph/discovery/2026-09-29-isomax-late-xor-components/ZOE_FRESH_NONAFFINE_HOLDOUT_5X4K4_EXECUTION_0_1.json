@@ -1,0 +1,29 @@
+{
+  "schema": "connect4.isomax.execution_observation.zoe_fresh_holdout_5x4k4.v1",
+  "date_author_local": "2026-09-29",
+  "warrant": "EW-RS-050",
+  "run": {
+    "workflow": "IsoMax fresh ZOE holdout 5x4-k4",
+    "run_id": 36680527345,
+    "head_sha": "5a2db5f276846b2e5f613e44dc0bf6a637f30cd2",
+    "geometry": "5x4-k4",
+    "node_heap_mb": 6144
+  },
+  "observation": {
+    "stage": "Qualify frozen ZOE on fresh 5x4-k4",
+    "result": "RESOURCE_FAILURE",
+    "exit_code": 134,
+    "failure": "JavaScript heap out of memory",
+    "last_reported_heap_mb": 6112.5,
+    "evidence": "V8 reported ineffective mark-compacts near the 6144 MB old-space ceiling before the harness emitted any scalar qualification result."
+  },
+  "qualification_disposition": "INCOMPLETE_RESOURCE_FAILURE",
+  "discovery_disposition": "NO_SEMANTIC_FALSIFIER_OBSERVED",
+  "candidate_disposition": "ZOE_UNCHANGED_AND_FROZEN",
+  "anti_circularity": [
+    "No 5x4-k4 qualification artifact was produced.",
+    "No W/D/L-derived feature or count state is changed in response to the resource failure.",
+    "The predeclared 5x4-k4 carrier and ZOE definition remain unchanged."
+  ],
+  "next_action": "Reduce harness memory by removing redundant per-state height/child object storage or equivalent execution-only optimization, then rerun the identical frozen qualification."
+}
