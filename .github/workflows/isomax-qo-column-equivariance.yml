@@ -1,0 +1,36 @@
+name: IsoMax q_o column equivariance 4x4
+
+on:
+  push:
+    branches:
+      - experiment/isomax-rank-local-compression-20260929
+    paths:
+      - '.github/workflows/isomax-qo-column-equivariance.yml'
+      - 'research/isograph/discovery/2026-09-29-isomax-rank-local-compression/run-qo-column-equivariance-4x4.mjs'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with: {fetch-depth: 0}
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with: {node-version: '26'}
+      - name: Verify complete q_o column-permutation equivariance
+        run: node research/isograph/discovery/2026-09-29-isomax-rank-local-compression/run-qo-column-equivariance-4x4.mjs
+      - name: Research integrity
+        run: node tools/verify-research-integrity.mjs
+      - name: Commit equivariance evidence
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/isograph/discovery/2026-09-29-isomax-rank-local-compression/QO_COLUMN_PERMUTATION_EQUIVARIANCE_4X4_0_1.json
+          if git diff --cached --quiet; then echo "No generated changes."; else
+            git commit -m "research(isomax): freeze q_o column equivariance evidence"
+            git push origin HEAD:experiment/isomax-rank-local-compression-20260929
+          fi
