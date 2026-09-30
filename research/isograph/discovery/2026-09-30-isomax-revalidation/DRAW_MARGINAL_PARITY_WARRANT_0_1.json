@@ -1,0 +1,30 @@
+{
+  "schema":"connect4.isomax.revalidation.draw_marginal_parity_warrant.v1",
+  "id":"REVAL-LEGO-DRAW-001",
+  "date":"2026-09-30",
+  "status":"FROZEN_BEFORE_TRAINED_SCALAR_REPLAY",
+  "canonicalResearchOwner":"research/semantic-quotient",
+  "objective":"Test whether the surviving scalar mask1 character is a direct conservation parity of primitive marginal resource counts in the owner/endpoint-invariant COV_0 carrier.",
+  "source":"EW-RS-093 COV_0 marginal pair records. Each pair record contains totals T_i and absolute signed imbalances |N_i| for channels C,Z0,P0,Z1,P1, with no sign-correlation fields.",
+  "primitiveBits":[
+    "ONE_PER_TRIANGLE",
+    "T_C","T_Z0","T_P0","T_Z1","T_P1",
+    "A_C","A_Z0","A_P0","A_Z1","A_P1"
+  ],
+  "candidateFamily":"For each nonempty subset of the 11 primitive bits, define a triangle bit as the XOR of: ONE_PER_TRIANGLE if selected, plus the parity of each selected numeric field summed over the three pair records. Dependency value is XOR over its frozen OOO triangle residue. Test all 2047 nonzero masks.",
+  "procedure":[
+    "Prepare all 2047 structural columns before reading scalar codes.",
+    "Replay only scalar mask1 (the low bit in fixed L=00,D=01,W=10 gauge) on all462 dependencies.",
+    "Report every exact mask and inclusion-minimal exact masks under bit-subset containment.",
+    "If no mask passes, record that the draw character is not a simple GF(2) linear conservation parity of these primitive marginals."
+  ],
+  "guards":[
+    "No coefficient fitting outside the complete subset family.",
+    "No sign-correlation, geometry tag, motif ID or state exception is available to candidates.",
+    "This tests a direct one-column draw syndrome, not full W/D/L reconstruction.",
+    "No sealed-holdout access or RS096 continuation."
+  ],
+  "sealedFormulaHoldouts":["3x6-k4","5x3-k4"],
+  "rs096":"HOLD",
+  "authorityEffect":"NONE"
+}
