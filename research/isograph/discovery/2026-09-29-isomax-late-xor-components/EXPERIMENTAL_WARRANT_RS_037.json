@@ -1,0 +1,40 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.fresh_relative_incidence_holdout_3x7k3.v1",
+  "id": "EW-RS-037",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "parent": "EW-RS-036",
+  "objective": "Freshly qualify the frozen frontier-relative residual-incidence quadratic coordinate on a tall/narrow 3x7-k3 carrier that did not define or refine REL_INC.",
+  "fresh_case": "3x7-k3",
+  "rationale": [
+    "3x7-k3 changes the aspect ratio and support-depth range relative to 5x3, 6x3, and 4x4 controls.",
+    "The case is declared before any exact values are inspected.",
+    "REL_INC, DELAY, CAP6_REL_INC, and all other descriptor definitions are copied unchanged from EW-RS-036."
+  ],
+  "frozen_from_prior": [
+    "post-RFG component parity",
+    "direct rank-local T2",
+    "exact-rank affine/linear component coordinates",
+    "degree-2 pair-product semantics",
+    "REL_INC = permutation-canonical residual hypergraph with cell rows replaced by depth above local frontier"
+  ],
+  "primary_test": "REL_INC must have zero scalar contradictions on the complete 3x7-k3 T2-O carrier.",
+  "controls": [
+    "DEGREE1 affine model",
+    "DELAY descriptor",
+    "CAP6_REL_INC structural-span refinement",
+    "EXACT canonical component-pair descriptor"
+  ],
+  "anti_circularity": [
+    "No descriptor or case definition is changed after seeing 3x7 values.",
+    "Outcome labels are used only to qualify the predeclared models.",
+    "REL_INC is tested exactly as frozen by EW-RS-036."
+  ],
+  "falsifiers": [
+    "Any REL_INC scalar contradiction rejects REL_INC as a geometry-independent Q-V interaction coordinate at this stage.",
+    "If EXACT fails, the holdout harness is mechanically invalid.",
+    "If degree-2 EXACT itself fails, the broader quadratic model has encountered a fresh falsifier."
+  ],
+  "next_if_success": "Promote REL_INC from three-case candidate to four-case fresh-qualified Q-V interaction coordinate, integrate into the foundational QU/IA ledgers, then derive a direct coefficient law on REL_INC pair classes.",
+  "next_if_fail": "Extract the minimal fresh contradiction before adding any new coordinate."
+}
