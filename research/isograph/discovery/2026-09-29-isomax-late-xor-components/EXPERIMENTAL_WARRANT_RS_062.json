@@ -1,0 +1,62 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.mover_relative_owner_normalization.v1",
+  "id": "EW-RS-062",
+  "date_author_local": "2026-09-30",
+  "status": "ACTIVE",
+  "parent": "EW-RS-061",
+  "objective": "Test whether exact normalization of residual owner labels from absolute player 0/1 to current-mover/opponent coordinates reduces scalar decoder complexity in the frozen ROLE_CAPPAR_REL_INC_ZOE representation.",
+  "cases": [
+    "6x3-k3",
+    "4x5-k4",
+    "6x3-k4"
+  ],
+  "exactRecoding": {
+    "sourceIdentity": "ROLE_CAPPAR_REL_INC with absolute owner-labelled residual families r0/r1",
+    "targetIdentity": "MOVER_ROLE_CAPPAR_REL_INC with residual families labelled mover/opponent before the same local-column canonicalization",
+    "moverBit": "mu = rank mod 2",
+    "derivability": "mu is already reconstructible from ROLE_CAPPAR+ZOE as (W*H mod 2) XOR XOR_{d:z(n_d)=O} K_d, where K_d is the XOR of role capacity-parity bits inside descriptor d.",
+    "invertibility": "Role capacity bits and ZOE oddness are unchanged by owner relabelling, so mu is reconstructible from the mover-relative signature as well; swapping the two owner channels again when mu=1 recovers the absolute-owner signature."
+  },
+  "decoderModels": [
+    "AFFINE_PO over mover-relative descriptor P/O bits",
+    "DEGREE2_PO complete square-free pairs",
+    "DEGREE2_PO_PLUS_CUBIC_OOO complete oddness-only triples"
+  ],
+  "controls": {
+    "absoluteCoordinateClassCounts": {
+      "6x3-k3": 16732,
+      "4x5-k4": 79309,
+      "6x3-k4": 17550
+    },
+    "absoluteDegree2Contradictions": {
+      "6x3-k3": 24,
+      "4x5-k4": 24,
+      "6x3-k4": 5
+    },
+    "absoluteOooCubicContradictions": {
+      "6x3-k3": 0,
+      "4x5-k4": 0,
+      "6x3-k4": 0
+    }
+  },
+  "antiCircularity": [
+    "Mover-relative owner normalization is derived from an exact symmetry of the scalar query and the already-proved rank-parity reconstruction; it is not chosen from W/D/L labels.",
+    "No descriptor feature, owner swap, capacity bit, count state, or polynomial monomial is selected using outcomes.",
+    "The complete affine, pair, and OOO cubic families are generated mechanically after recoding.",
+    "EW-RS-059 formula holdouts 3x6-k4 and 5x3-k4 remain sealed."
+  ],
+  "falsifiers": [
+    "Mover-relative and absolute ROLE_CAPPAR+ZOE partitions must be equivalent on every test carrier; a class-count mismatch or non-bijective class mapping invalidates the recoding harness.",
+    "Any scalar mixed class invalidates the recoding harness because the source coordinate is Q-V exact.",
+    "Any OOO-cubic contradiction rejects the claim that the exact recoding preserves the established decoder existence result.",
+    "Degree reduction is established only if affine or degree-2 contradictions strictly decrease under the exact recoding."
+  ],
+  "nextIfDegree2Exact": "Freeze mover-relative owner normalization as the preferred exact coordinate gauge and re-run cubic-target analysis only if needed for lower-degree structural interpretation; keep formula holdouts sealed until a closed decoder is frozen.",
+  "nextIfComplexityReducedButDegree2Fails": "Freeze the reduced contradiction profile and compare mover-relative OOO quotient motifs before selecting any formula.",
+  "nextIfNoReduction": "Retain the exact recoding as optional vocabulary only and return to OOO structural-rule discovery without changing the frozen scalar coordinate.",
+  "interpretationGuards": [
+    "This experiment changes representation gauge, not semantic information.",
+    "Decoder degree is representation-dependent; any reduction is a realization simplification rather than a new Q-V quotient.",
+    "No Q-A/Q-F, standard-7x6, or universal theorem follows."
+  ]
+}
