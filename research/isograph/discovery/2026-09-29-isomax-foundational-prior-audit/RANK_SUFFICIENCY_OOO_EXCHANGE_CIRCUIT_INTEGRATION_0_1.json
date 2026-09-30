@@ -1,0 +1,123 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ooo_exchange_circuit_integration.v1",
+  "date_author_local": "2026-09-30",
+  "research_direction": "Joshua Oshiro",
+  "status": "EXCHANGE_GEOMETRY_SCALAR_EXACT__DELTA_COMPRESSION_OPEN",
+  "evidence": {
+    "branch": "experiment/isomax-late-xor-components-20260929",
+    "commit": "a47218755d27c0d437aa9fcb5bb3edef0edc4f05",
+    "file": "OOO_MOTIF_EXCHANGE_CIRCUIT_LADDER_0_1.json",
+    "warrant": "EW-RS-069",
+    "workflowRun": 36741530978,
+    "workflowConclusion": "success",
+    "unitWorkflowRun": 36741149465,
+    "unitConclusion": "success",
+    "researchIntegrity": "success"
+  },
+  "frozenVertexIdentity": "WIDTH_CAPMASK_OWNER_DEPTH_HISTOGRAMS",
+  "selectedCommonMode": "EXCHANGE_EXACT_DELTA_TRIANGLE",
+  "selectedDefinition": "For each unordered pair among the three selected motif vertices, orient the pair by frozen vertex-string order, compute the exact sparse signed difference of width/capacity/depth-histogram token counts, then retain the sorted multiset of all three pair-delta signatures.",
+  "results": {
+    "6x3-k3": {
+      "selectedMotifRank": 75,
+      "exactDeltaTriangle": {
+        "featureKeyCount": 294,
+        "imageRank": 75,
+        "kernelDimension": 0,
+        "scalarImageDimension": 1,
+        "contradictions": 0
+      },
+      "exchangeNormTriangle": {
+        "imageRank": 74,
+        "kernelDimension": 1,
+        "contradictions": 0,
+        "exact": true
+      },
+      "basefreeTwoLeg": {
+        "imageRank": 75,
+        "kernelDimension": 0,
+        "contradictions": 0,
+        "exact": true
+      }
+    },
+    "4x5-k4": {
+      "selectedMotifRank": 288,
+      "exactDeltaTriangle": {
+        "featureKeyCount": 618,
+        "imageRank": 283,
+        "kernelDimension": 5,
+        "scalarImageDimension": 2,
+        "contradictions": 0
+      },
+      "exchangeNormTriangle": {
+        "imageRank": 208,
+        "kernelDimension": 80,
+        "contradictions": 19,
+        "exact": false
+      },
+      "basefreeTwoLeg": {
+        "imageRank": 286,
+        "kernelDimension": 2,
+        "contradictions": 0,
+        "exact": true
+      }
+    },
+    "6x3-k4": {
+      "selectedMotifRank": 16,
+      "exactDeltaTriangle": {
+        "featureKeyCount": 50,
+        "imageRank": 16,
+        "kernelDimension": 0,
+        "scalarImageDimension": 2,
+        "contradictions": 0
+      },
+      "exchangeNormTriangle": {
+        "imageRank": 14,
+        "kernelDimension": 2,
+        "contradictions": 1,
+        "exact": false
+      },
+      "basefreeTwoLeg": {
+        "imageRank": 16,
+        "kernelDimension": 0,
+        "contradictions": 0,
+        "exact": true
+      }
+    }
+  },
+  "findings": [
+    {
+      "id": "RS-F217",
+      "status": "EXACT_DELTA_TRIANGLE_COMMON",
+      "statement": "The scalar dependency residue factors through the exact pair-delta triangle of the selected motif vertices on all three hard carriers."
+    },
+    {
+      "id": "RS-F218",
+      "status": "ABSOLUTE_TRIPLE_IDENTITY_NOT_REQUIRED",
+      "statement": "Complete selected triple-motif identity is not required by the tested scalar map: exact pairwise structural differences suffice, and on 4x5-k4 reduce structural image rank from 288 to 283 while preserving the full two-bit scalar image."
+    },
+    {
+      "id": "RS-F219",
+      "status": "BASEFREE_EXCHANGE_EXACT",
+      "statement": "BASEFREE_TWO_LEG_EXCHANGE is also scalar-exact on all three hard carriers. Under the frozen token-vector semantics it is invariant to common additive translation of all three vertices, so the tested scalar correction can be represented without an absolute base vertex."
+    },
+    {
+      "id": "RS-F220",
+      "status": "NORM_ONLY_NOT_COMMON",
+      "statement": "Coarse pair-distance norms are insufficient as a common law: EXCHANGE_NORM_TRIANGLE fails on 4x5-k4 and 6x3-k4 even though it passes 6x3-k3."
+    },
+    {
+      "id": "RS-F221",
+      "status": "FOUR_BY_FIVE_EXCHANGE_KERNEL",
+      "statement": "On 4x5-k4 the exact-delta exchange map has a five-dimensional kernel relative to the selected 288-dimensional triple-motif image, and that kernel is scalar-null."
+    }
+  ],
+  "nonclaims": [
+    "The lexicographically oriented exact-delta triangle is not claimed to be intrinsically canonical; it is the coarsest passing frozen RS-069 candidate.",
+    "Base-free exactness is established for the declared structured token embedding and finite discovery carriers only.",
+    "No individual delta key or coefficient is promoted as an invariant scalar syndrome.",
+    "EW-RS-059 PRIMARY 3x6-k4 and BACKUP 5x3-k4 remain sealed.",
+    "No Q-A/Q-F, universal cubic sufficiency, standard-7x6 qualification, or center-opening proof follows."
+  ],
+  "next_question": "Which parts of the exact pair-delta signatures—changed-coordinate support, sign, parity, or exact magnitude—are load-bearing for the scalar exchange law?"
+}
