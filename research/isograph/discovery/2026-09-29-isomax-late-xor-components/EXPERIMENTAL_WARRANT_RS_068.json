@@ -1,0 +1,74 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.ooo_motif_hypergraph_boundary.v1",
+  "id": "EW-RS-068",
+  "date_author_local": "2026-09-30",
+  "status": "ACTIVE",
+  "parent": "EW-RS-067",
+  "objective": "Determine whether the scalar image on the selected WIDTH_CAPMASK_OWNER_DEPTH_HISTOGRAMS OOO motif quotient factors through lower-order hypergraph boundary data—descriptor-summary vertices and unordered descriptor-summary pairs—before retaining full triple-motif identity.",
+  "cases": [
+    "6x3-k3",
+    "4x5-k4",
+    "6x3-k4"
+  ],
+  "frozenVertexIdentity": "WIDTH_CAPMASK_OWNER_DEPTH_HISTOGRAMS descriptor summary from EW-RS-067",
+  "frozenHyperedge": "unordered multiset of the three vertex identities in one OOO triple",
+  "candidates": [
+    {
+      "name": "VERTEX_BOUNDARY",
+      "definition": "For each matched OOO residue, GF(2) parity of occurrences of each vertex identity across all residue hyperedges, counting multiplicity inside each hyperedge."
+    },
+    {
+      "name": "PAIR_BOUNDARY",
+      "definition": "For each matched OOO residue, GF(2) parity of the three unordered vertex-identity pairs induced by every residue hyperedge, counting multiplicity."
+    },
+    {
+      "name": "VERTEX_PLUS_PAIR_BOUNDARY",
+      "definition": "Direct sum of VERTEX_BOUNDARY and PAIR_BOUNDARY."
+    },
+    {
+      "name": "TRIPLE_MOTIF",
+      "definition": "GF(2) parity of complete unordered three-vertex motif keys; EW-RS-067 reconstruction/control family."
+    }
+  ],
+  "selectionOrder": [
+    "VERTEX_BOUNDARY",
+    "PAIR_BOUNDARY",
+    "VERTEX_PLUS_PAIR_BOUNDARY",
+    "TRIPLE_MOTIF"
+  ],
+  "structuralProcedure": [
+    "Inherit EW-RS-065 matched degree<=2 dependencies and OOO residues unchanged.",
+    "Map exact descriptor IDs to the frozen EW-RS-067 vertex identity without outcomes.",
+    "Construct candidate boundary rows for every dependency before scalar replay.",
+    "Freeze a deterministic GF(2) basis for each candidate boundary image.",
+    "Only after structural bases are frozen replay the two-bit scalar residues."
+  ],
+  "measurements": [
+    "candidate feature-key count",
+    "candidate image rank on the OOO dependency residue space",
+    "kernel dimension relative to the selected EW-RS-067 triple-motif image",
+    "zero-candidate-residue/nonzero-scalar count",
+    "scalar contradiction count",
+    "scalar image dimension on a structural candidate basis"
+  ],
+  "antiCircularity": [
+    "Vertex identity is frozen by EW-RS-067 and is not changed from scalar results.",
+    "Boundary operators are fixed combinatorially before scalar replay.",
+    "No vertex, pair, or triple key is selected using W/D/L.",
+    "The candidate order is frozen before execution.",
+    "EW-RS-059 PRIMARY 3x6-k4 and BACKUP 5x3-k4 remain sealed."
+  ],
+  "falsifiers": [
+    "TRIPLE_MOTIF must reproduce the EW-RS-067 exact scalar factorization and motif image ranks 75,288,16.",
+    "Any candidate with zero structural residue but nonzero scalar residue is insufficient.",
+    "A candidate is selected only if it has zero scalar contradictions on all three carriers.",
+    "No outcome-driven key exceptions are allowed."
+  ],
+  "nextIfBoundaryPasses": "Freeze the coarsest common passing boundary as the structural syndrome carrier and reduce its scalar image before selecting closed coefficients.",
+  "nextIfOnlyTriplePasses": "Record irreducibility to the declared hypergraph boundaries and move to mechanically generated circuit/exchange annotations rather than outcome-selected triple terms.",
+  "interpretationGuards": [
+    "A passing boundary factorization is a bounded Q-V structural result, not yet a universal closed formula.",
+    "Boundary image rank is structural; individual deterministic basis elements are gauge representatives.",
+    "No Q-A/Q-F, standard-7x6, universal theorem, or center-opening proof follows."
+  ]
+}
