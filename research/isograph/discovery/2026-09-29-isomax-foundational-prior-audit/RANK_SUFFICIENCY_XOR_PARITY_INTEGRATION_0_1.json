@@ -1,0 +1,163 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.xor_parity_integration.v1",
+  "date_author_local": "2026-09-29",
+  "research_direction": "Joshua Oshiro",
+  "status": "EXACT_BOUNDED_FINDINGS__XOR_HYPOTHESIS_NARROWED",
+  "notation": {
+    "X_h": "bitwise XOR of current column heights; named X_h here to avoid collision with the existing exact single-residual feasibility operator",
+    "p": "stone-count parity = sum heights mod 2",
+    "E1": "exact single-residual support-lattice ownership-feasibility operator (called X in earlier E1 experiment artifacts)"
+  },
+  "evidence": [
+    {
+      "id": "XP",
+      "branch": "experiment/isomax-xor-parity-lens-20260929",
+      "commit": "f598363a5a965dc6aae9da672020a63de9869d75",
+      "file": "XOR_PARITY_LENS_0_1.json"
+    },
+    {
+      "id": "H4",
+      "branch": "experiment/isomax-forced-column-parity-20260929",
+      "commit": "844b4554879a045c775f443582912a0ece9f65be",
+      "file": "FORCED_COLUMN_PARITY_4X4_0_1.json"
+    },
+    {
+      "id": "DECOMP",
+      "branch": "experiment/isomax-rgh-feasibility-decomposition-20260929",
+      "commit": "61dd9ef890ded443788d63c06f33abb0bbb3e554",
+      "file": "RGH_FEASIBILITY_DECOMPOSITION_0_1.json"
+    },
+    {
+      "id": "E1H",
+      "branch": "experiment/isomax-exact-single-residual-holdout-20260929",
+      "commit": "927bae54388ba42cc823c96b4887546681937281",
+      "file": "EXACT_SINGLE_RESIDUAL_FEASIBILITY_HOLDOUT_0_1.json"
+    },
+    {
+      "id": "AMB",
+      "branch": "research/rank-sufficient-qg-dg-20260929",
+      "commit": "f1fa5f68c7e803d82ec005f868888a28923aa55d",
+      "file": "TRANSITION_CONGRUENCE_0_1.json"
+    }
+  ],
+  "exact_algebra": [
+    {
+      "id": "RS-F026",
+      "statement": "For every integer support vector, p = X_h & 1. Stone-count parity is therefore not an independent coordinate once X_h is retained.",
+      "status": "DEDUCTIVE_EXACT"
+    },
+    {
+      "id": "RS-F027",
+      "statement": "Current mover parity equals p, but final-board mover simplifies to (W*H-1) mod 2 and is independent of X_h and current p.",
+      "status": "DEDUCTIVE_EXACT"
+    },
+    {
+      "id": "RS-F028",
+      "statement": "After a move in column c from height h_c, X_h' = X_h XOR h_c XOR (h_c+1) and p'=p XOR 1. X_h,p alone are not action-closed because h_c is additionally required.",
+      "status": "DEDUCTIVE_EXACT"
+    },
+    {
+      "id": "RS-F029",
+      "statement": "When exactly one column is nonfull, forced owner of row r simplifies to ((W-1)*H+r) mod 2. The current-rank parity p cancels; X_h is unnecessary.",
+      "status": "DEDUCTIVE_EXACT",
+      "finite_checks": "zero mismatches across all five complete XOR/decomposition cases"
+    }
+  ],
+  "bounded_falsifiers": [
+    {
+      "id": "RS-F030",
+      "statement": "X_h, p, and (X_h,p) each fail Q-F, Q-A and Q-V on every one of the five complete bounded cases (4x4-k4 exploratory plus 4x4-k3, 3x3-k3, 3x4-k3, 4x3-k3 holdouts).",
+      "status": "EXACT_FINITE"
+    },
+    {
+      "id": "RS-F031",
+      "statement": "All tested support-only alternatives—rank/modular rank, sorted support multiset, elementary symmetric support invariants, power sums, transformed XORs, height-parity mask, open-column mask and combinations—fail to give a cross-case Q-F/Q-A/Q-V representation.",
+      "status": "EXACT_FINITE"
+    },
+    {
+      "id": "RS-F032",
+      "statement": "Residuals combined with X_h or nearby compressed support descriptors do not yield a cross-case exact representation; isolated Q-V successes on small geometries do not transfer.",
+      "status": "EXACT_FINITE_CROSS_CASE_NEGATIVE"
+    },
+    {
+      "id": "RS-F033",
+      "statement": "The 836 previously observed transition-congruence failures of the older direct normal form all occur at identical full support before and after the common action. Parent and child X_h,p are therefore identical across each ambiguity fiber. No support-only coordinate can resolve those 836 representation splits.",
+      "status": "EXACT_FINITE"
+    }
+  ],
+  "relation_to_q_sigma": [
+    {
+      "id": "RS-F034",
+      "statement": "X_h and p are invariant under every column permutation, so they are constant on each q_Sigma orbit and cannot choose a canonical representative inside the orbit.",
+      "status": "DEDUCTIVE_EXACT"
+    },
+    {
+      "id": "RS-F035",
+      "statement": "Adding X_h,p to RFG or q_SigmaRFG adds zero classes/information in every tested case; retained support already determines them.",
+      "status": "EXACT_FINITE_CROSS_CASE"
+    },
+    {
+      "id": "RS-F036",
+      "statement": "Column-permutation equivariance of compiled q_o is not explained by X_h. The exact equivariance law transports the entire support+owned-residual hypergraph and action labels; X_h is merely an invariant of that action.",
+      "status": "DERIVED_INTERPRETATION"
+    }
+  ],
+  "safe_forgetting": [
+    {
+      "id": "RS-F037",
+      "statement": "M/remaining-capacity deletion is determined by exact rank and residual ownership/size, not by X_h,p; X_h,p has bounded counterexamples.",
+      "status": "EXACT_FINITE"
+    },
+    {
+      "id": "RS-F038",
+      "statement": "R/support-release deletion is not determined by X_h,p or even X_h+rank across the full holdout set. Exact residual identity plus the support-height multiset happens to classify the tested decisions, but no general theorem is promoted from that finite pattern.",
+      "status": "EXACT_FINITE_WITH_OPEN_GENERALIZATION"
+    },
+    {
+      "id": "RS-F039",
+      "statement": "F/frontier blocking is not determined by any support-only descriptor tested, including the complete support vector; mover residual structure is independently load-bearing.",
+      "status": "EXACT_FINITE_CROSS_CASE"
+    },
+    {
+      "id": "RS-F040",
+      "statement": "G/final-mover cap deletion and H/sole-column ownership deletion require open-column/cap incidence structure. X_h,p alone do not determine either rule. Apparent X_h+rank prediction on some geometries fails on fresh 3x3/4x3 controls.",
+      "status": "EXACT_FINITE_CROSS_CASE"
+    }
+  ],
+  "derivational_compression": [
+    {
+      "id": "RS-F041",
+      "statement": "On complete 4x4-k4, H is idempotent, commutes with R/F/G, is Q-F/Q-A/Q-V safe in the tested compositions, and RFGH reduces the direct representation to 29,986 classes and the S4 transporter orbit to 9,286 classes.",
+      "status": "EXACT_FINITE"
+    },
+    {
+      "id": "RS-F042",
+      "statement": "R, G and H each delete only residuals that E1 also deletes in all five complete tested cases.",
+      "status": "EXACT_FINITE_CROSS_CASE"
+    },
+    {
+      "id": "RS-F043",
+      "statement": "E1 and RGH are not generally the same normalized representation or even the same partition; the strongest literal decomposition E1=RGH is falsified.",
+      "status": "EXACT_FINITE_CROSS_CASE_FALSIFIER"
+    },
+    {
+      "id": "RS-F044",
+      "statement": "After frontier reduction, F(E1(q)) and RFGH(q) induce exactly the same partition of physical states in all five complete tested cases, with zero partition mismatches, even where their residual keys differ.",
+      "status": "EXACT_FINITE_CROSS_CASE",
+      "interpretation": "RFGH is a lossless recoding of the F∘E1 quotient in the tested domains; this is the strongest current derivational compression among the safe-forgetting rules."
+    }
+  ],
+  "current_interpretation": [
+    "The XOR+parity hypothesis is retained only as a cheap algebraic checksum / turn-parity lens, not as a rank-sufficient state coordinate.",
+    "The stronger structural compression signal lies in support-lattice ownership feasibility plus frontier interaction, not in Nim-style height XOR.",
+    "F carries information independent of support geometry because it depends on the mover residual family.",
+    "The old 836 recursive ambiguities are residual-representation ambiguities and cannot be repaired by any support-only invariant.",
+    "No standard-7x6 theorem or minimality claim follows from these bounded controls."
+  ],
+  "next_open": [
+    "symbolic characterization of why F∘E1 and RFGH define the same quotient partition despite different residual representatives",
+    "fresh transporter-orbit qualification for RFGH beyond complete 4x4",
+    "whether E1 itself admits a closed-form/support-profile characterization smaller than support-lattice reachability",
+    "whether any robust Q-A/Q-V-only compression remains below the strengthened Q-F quotient"
+  ]
+}

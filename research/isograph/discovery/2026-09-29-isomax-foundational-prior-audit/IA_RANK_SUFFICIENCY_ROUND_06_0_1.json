@@ -1,0 +1,96 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_round.v1",
+  "round": 6,
+  "date_author_local": "2026-09-29",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_05_0_1.json",
+    "RANK_SUFFICIENCY_XOR_PARITY_INTEGRATION_0_1.json"
+  ],
+  "new_assertions": [
+    {
+      "id": "RS-IA026",
+      "family": "B",
+      "body": "Stone-count parity is exactly the low bit of column-height XOR: p=X_h&1; the pair (X_h,p) carries no more information than X_h alone."
+    },
+    {
+      "id": "RS-IA027",
+      "family": "F",
+      "body": "X_h and p are not Q-F, Q-A or Q-V sufficient on any of the five complete bounded controls, so the prior shortcut cannot be promoted as a standalone rank-sufficient value coordinate."
+    },
+    {
+      "id": "RS-IA028",
+      "family": "Q",
+      "body": "Because all 836 old transition ambiguities occur at fixed full support, no support-only invariant can resolve those representation splits."
+    },
+    {
+      "id": "RS-IA029",
+      "family": "I",
+      "body": "X_h and p are invariants of the full column-permutation action but are constant on each orbit; they cannot explain or select the q_Sigma canonical representative."
+    },
+    {
+      "id": "RS-IA030",
+      "family": "C",
+      "body": "The final-board-mover and sole-open-column ownership formulas eliminate current p entirely; their primitive explanation is persistent geometry plus row/open-column structure, not height XOR."
+    },
+    {
+      "id": "RS-IA031",
+      "family": "F",
+      "body": "Frontier blocking requires mover residual information not recoverable from support-only descriptors, so the irreducible Q-F kernel has a residual-semantic component independent of support algebra."
+    },
+    {
+      "id": "RS-IA032",
+      "family": "R",
+      "body": "R/G/H are each pointwise contained in exact single-residual feasibility E1 over all tested cases, but E1 and RGH are not generally the same partition."
+    },
+    {
+      "id": "RS-IA033",
+      "family": "C",
+      "body": "F∘E1 and RFGH induce exactly the same state partition on all five complete tested domains despite differing normalized residual representatives in some cases."
+    },
+    {
+      "id": "RS-IA034",
+      "family": "M",
+      "body": "The tested safe-forgetting family is more compactly described at quotient level as frontier reduction composed with single-residual ownership feasibility, with R/G/H providing one rank-local recoding of that quotient in the tested domains."
+    }
+  ],
+  "qu_refinements": [
+    {
+      "id": "RS-QR011",
+      "target": "QU-RS-002",
+      "add_fixed": [
+        "height XOR and stone parity are not standalone Q-F/Q-A/Q-V coordinates on five complete bounded cases",
+        "X_h,p add no information to q_SigmaRFG in those cases",
+        "F∘E1 and RFGH are partition-equivalent across all five controls"
+      ],
+      "retain_open": [
+        "symbolic/general proof of the F∘E1 ≡ RFGH quotient relation",
+        "standard-7x6 qualification",
+        "additional safe-forgetting below the 9,286-class complete-4x4 RFGH orbit"
+      ]
+    },
+    {
+      "id": "RS-QR012",
+      "target": "QU-RS-003",
+      "add_fixed": [
+        "X_h,p do not supply a general Q-V-only compression; every X_h,p class in complete 4x4-k4 contains multiple exact values"
+      ],
+      "retain_open": [
+        "other Q-A/Q-V-only structural quotients below strengthened Q-F",
+        "geometry-specific value quotients with independently stated guards"
+      ]
+    },
+    {
+      "id": "RS-QR013",
+      "target": "QU-RS-004",
+      "add_fixed": [
+        "X_h has a cheap exact rank update given the moved-column height, but it is not an exact evaluator coordinate by itself"
+      ],
+      "retain_open": [
+        "direct evaluator form",
+        "finite algebra D_G",
+        "hybrid Q/D factorization"
+      ]
+    }
+  ],
+  "stop_status": "OPEN__F_E1_VS_RFGH_GENERAL_LAW_AND_FURTHER_MINIMALITY_SEARCH_REMAIN"
+}
