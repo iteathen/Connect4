@@ -1,0 +1,68 @@
+{
+  "schema": "connect4.rank_sufficient_qg_dg.experimental_warrant.v1",
+  "id": "QGDG-EW-001",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "purpose": [
+    "SAFE_FORGETTING",
+    "DISCRIMINATING",
+    "DIRECT_ALGEBRAIC_FALSIFICATION",
+    "RANK_LOCAL_UPDATE_VALIDATION"
+  ],
+  "objective": "On complete bounded game domains, test predefined rank-local candidate representations for future-behavior and scalar-value sufficiency, while independently validating q_o transition closure.",
+  "construction_firewall": {
+    "candidates_use_future_tree": false,
+    "candidates_use_solved_value": false,
+    "future_behavior_used_only_as_validation": true,
+    "exact_value_used_only_as_validation": true
+  },
+  "cases": [
+    {
+      "width": 4,
+      "height": 4,
+      "k": 4,
+      "label": "4x4-k4"
+    },
+    {
+      "width": 4,
+      "height": 4,
+      "k": 3,
+      "label": "4x4-k3"
+    },
+    {
+      "width": 3,
+      "height": 4,
+      "k": 3,
+      "label": "3x4-k3"
+    },
+    {
+      "width": 4,
+      "height": 3,
+      "k": 3,
+      "label": "4x3-k3"
+    }
+  ],
+  "candidate_families": [
+    "q_o full oriented support + owned residual antichains",
+    "q_r physical horizontal-reflection orbit of q_o",
+    "support only",
+    "support + P0 residuals",
+    "support + P1 residuals",
+    "owned residuals without support",
+    "support + unowned residual union",
+    "support + residual-count/size histograms",
+    "support + residual GF(2) ranks/counts/size histograms",
+    "support + residual cell-incidence degree histograms"
+  ],
+  "target_relations": {
+    "future_behavior": "complete literal-action-labelled future behavior",
+    "scalar_value": "exact P0-oriented W/D/L"
+  },
+  "falsification_rule": "Any collision whose members have different target semantics falsifies that candidate for the tested sufficiency target.",
+  "positive_rule": "Zero collisions on a finite bounded domain is exact for that domain only unless backed by a separate theorem.",
+  "recursive_channel": "Independently derive q_o child state from q_o + literal action + G and require exact match to every physical child q_o.",
+  "direct_channel": "Predeclared algebraic summaries are current-position-only candidate inputs; collision counterexamples falsify them without implying no other direct evaluator exists.",
+  "prohibited_information_sources": [
+    "external solved database as producer input"
+  ]
+}
