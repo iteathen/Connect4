@@ -1,0 +1,93 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.role_cappar_fresh_integration.v1",
+  "date_author_local": "2026-09-30",
+  "research_direction": "Joshua Oshiro",
+  "status": "ROLE_CAPPAR_REL_INC_ZOE_FRESH_NONAFFINE_QUALIFIED",
+  "selectedCoordinate": {
+    "name": "ROLE_CAPPAR_REL_INC_ZOE",
+    "component_identity": "Joint canonicalization of frontier-relative residual incidence with one remaining-capacity parity bit H-h_c mod 2 attached to each local incidence column role.",
+    "count_state": "After aggregation by that structural identity: omit zero multiplicity, O for positive odd multiplicity, E for positive even multiplicity.",
+    "rank_grade": "none"
+  },
+  "evidence": [
+    {
+      "id": "DERIVATION",
+      "branch": "experiment/isomax-late-xor-components-20260929",
+      "commit": "5760780af89ad8e3cec515472a7e59321ef6e502",
+      "file": "ROLE_ALIGNED_CAPACITY_REL_INC_ZOE_0_1.json",
+      "warrant": "EW-RS-054"
+    },
+    {
+      "id": "FRESH_6X3K4",
+      "branch": "experiment/isomax-late-xor-components-20260929",
+      "commit": "03cf223fa6d6793b6da00ee50d50d7a66bf2af16",
+      "file": "ROLE_CAPPAR_REL_INC_ZOE_FRESH_6X3K4_0_1.json",
+      "warrant": "EW-RS-056"
+    },
+    {
+      "id": "TRANSFER_5X4_RESOURCE_OBSERVATION",
+      "branch": "experiment/isomax-late-xor-components-20260929",
+      "commit": "9719093df93568af98aabe40b0230dc5cfbd9316",
+      "file": "ROLE_CAPPAR_TRANSFER_5X4K4_EXECUTION_0_1.json",
+      "warrant": "EW-RS-055"
+    }
+  ],
+  "derivation_results": {
+    "5x3-k3": {"t2_o": 7255, "role_cappar_classes": 3259, "mixed_value_classes": 0},
+    "4x4-k4": {"t2_o": 105450, "role_cappar_classes": 7894, "mixed_value_classes": 0},
+    "6x3-k3": {"t2_o": 36569, "role_cappar_classes": 16732, "mixed_value_classes": 0},
+    "4x5-k4": {"t2_o": 933975, "role_cappar_classes": 79309, "mixed_value_classes": 0}
+  },
+  "fresh_result": {
+    "carrier": "6x3-k4",
+    "outcome_blind": true,
+    "physical_states": 2087325,
+    "t2_o": 1661439,
+    "degree1_contradictions": 3543,
+    "role_cappar_classes": 17550,
+    "role_cappar_mixed_value_classes": 0,
+    "role_cap3_classes": 17965,
+    "exact_role_capacity_classes": 18418,
+    "exact_zoe_classes": 18418,
+    "full_multiplicity_classes": 18437
+  },
+  "findings": [
+    {
+      "id": "RS-F176",
+      "status": "ROLE_ALIGNED_CAPACITY_PARITY_COORDINATE",
+      "statement": "Attaching only remaining-capacity parity to each REL_INC column role is sufficient for ZOE scalar class purity on every demanding derivation carrier."
+    },
+    {
+      "id": "RS-F177",
+      "status": "ROLE_ALIGNMENT_LOAD_BEARING",
+      "statement": "Unaligned exact capacity profiles can fail while role-aligned capacity parity passes, so the association between support-height parity and residual-incidence column role is load-bearing."
+    },
+    {
+      "id": "RS-F178",
+      "status": "FRESH_NONAFFINE_QUALIFICATION",
+      "statement": "Predeclared outcome-blind 6x3-k4 has 3,543 exact-rank affine component-parity contradictions but zero ROLE_CAPPAR_REL_INC_ZOE mixed scalar classes across 1,661,439 T2-O states."
+    },
+    {
+      "id": "RS-F179",
+      "status": "STRICT_STRUCTURAL_COMPRESSION",
+      "statement": "On fresh 6x3-k4 ROLE_CAPPAR_REL_INC_ZOE has 17,550 scalar classes versus 18,418 exact-type ZOE classes and 18,437 full-multiplicity classes, while remaining Q-V exact."
+    },
+    {
+      "id": "RS-F180",
+      "status": "EXACT_RECONSTRUCTION_CONTROL",
+      "statement": "Exact role-aligned capacity plus REL_INC induces the same class count as exact-type ZOE on every derivation carrier and fresh 6x3-k4, validating the descriptor reconstruction boundary."
+    }
+  ],
+  "narrowed_or_superseded": [
+    "The stale foundational boundary naming 5x4-k4 as the next outcome-blind fresh role-capacity holdout is superseded; 5x4 outcomes had already been observed under EW-RS-050 and now provide transfer-only context.",
+    "Total capacity and unordered capacity-profile augmentation are insufficient on the hardest derivation carriers; role alignment is the required seam.",
+    "The coarsest selected capacity grade is parity, not zero/odd/even or exact capacity."
+  ],
+  "nonclaims": [
+    "ROLE_CAPPAR_REL_INC_ZOE is not proved minimal among all structural identities.",
+    "The result is Q-V only and does not establish Q-A or Q-F.",
+    "No standard-7x6 or universal theorem follows.",
+    "The scalar decoder inside the compressed coordinate remains to be derived."
+  ],
+  "next_question": "What is the simplest outcome-independent scalar decoding law over ROLE_CAPPAR_REL_INC_ZOE classes, and can it be expressed without fitted exact-component IDs?"
+}
