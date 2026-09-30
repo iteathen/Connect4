@@ -1,0 +1,28 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.exact_rank_quadratic_xor_4x4k4.v1",
+  "id": "EW-RS-032",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "parent": "EW-RS-031",
+  "objective": "Independently test the frozen exact-rank degree-2 GF(2)^2 component-parity decoder on complete 4x4-k4, the other carrier that retained exact-rank affine contradictions.",
+  "frozen_from_prior": [
+    "post-RFG residual-incidence component definition",
+    "component multiplicity parity variables",
+    "direct rank-local T2 partition",
+    "exact-rank grading",
+    "relative outcome code loss=00, draw=01, win=10",
+    "degree-2 feature class = all observed rank-specific pair products of odd component variables"
+  ],
+  "target": "4x4-k4",
+  "controls": [
+    "DEGREE1 must reproduce exactly 168 contradictions from EW-RS-028",
+    "Q and T2 producer remain unchanged",
+    "pair features are generated structurally before outcome solving"
+  ],
+  "falsifiers": [
+    "Any DEGREE2 contradiction rejects cross-carrier quadratic sufficiency for the frozen model class.",
+    "A DEGREE2 pass supports bounded transfer only; it does not establish minimality, uniqueness, or standard-7x6 sufficiency."
+  ],
+  "next_if_pass": "Run a fresh geometry holdout before sparse interaction minimization or any generalized quadratic claim.",
+  "next_if_fail": "Extract a degree-2 contradiction certificate before considering degree three or a different algebra."
+}
