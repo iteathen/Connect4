@@ -1,0 +1,78 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.exact_rank_graded_xor_integration.v1",
+  "date_author_local": "2026-09-29",
+  "research_direction": "Joshua Oshiro",
+  "status": "EXACT_RANK_GRADE_RESOLVES_4X4K3__TWO_FIXED_RANK_FALSIFIERS_REMAIN",
+  "evidence": [
+    {
+      "id": "ERGX",
+      "branch": "experiment/isomax-late-xor-components-20260929",
+      "commit": "ca04da9f",
+      "file": "EXACT_RANK_GRADED_AFFINE_XOR_0_1.json",
+      "warrant": "EW-RS-028"
+    },
+    {
+      "id": "PGCERT",
+      "branch": "experiment/isomax-late-xor-components-20260929",
+      "commit": "21bed1925720eb0ff0417517db9d19f68628a414",
+      "file": "PHASE_GRADED_XOR_CERTIFICATE_0_1.json"
+    }
+  ],
+  "tested_law": "On T2-O states, code(U)=b_G,r XOR XOR_{odd C} g_G,r(C), with exact current rank grading the component valuation.",
+  "findings": [
+    {
+      "id": "RS-F101",
+      "status": "EXACT_FINITE_PARTIAL_POSITIVE",
+      "statement": "Exact-rank-graded independent GF(2)^2 component valuation is consistent on six complete carriers: 3x3-k3, 3x4-k3, 4x3-k3, 4x4-k3, 3x5-k3 and fresh 3x6-k3."
+    },
+    {
+      "id": "RS-F102",
+      "status": "EXACT_FINITE_Q_D_TRADEOFF",
+      "statement": "4x4-k3 is the first direct Q/D tradeoff witness: the coarser Q-V carrier using rank mod 3 is scalar-exact but its phase-graded affine XOR evaluator has two contradictions; refining only the grade to exact rank removes both contradictions while retaining the same component parity and XOR model."
+    },
+    {
+      "id": "RS-F103",
+      "status": "EXACT_FINITE_FALSIFIER",
+      "statement": "Exact rank does not make independent linear component valuation universal. 4x4-k4 retains 168 contradictions and 5x3-k3 retains 18 contradictions."
+    },
+    {
+      "id": "RS-F104",
+      "status": "EXACT_FINITE_MODEL_IMPROVEMENT",
+      "statement": "Relative to rank-mod-3-graded values, exact-rank grading reduces contradictions 4x4-k4 804->168, 4x4-k3 2->0, and 5x3-k3 45->18."
+    },
+    {
+      "id": "RS-F105",
+      "status": "STRUCTURAL_LOCALIZATION",
+      "statement": "Because g_G,r(C) and b_G,r use disjoint variable blocks by exact rank, any remaining linear contradiction lies entirely within one exact-rank block. The surviving 4x4-k4 and 5x3-k3 failures therefore cannot be explained by a coarser global rank grade."
+    },
+    {
+      "id": "RS-F106",
+      "status": "INTERPRETATION_GUARD",
+      "statement": "The six exact-rank positives prove finite existence of a rank-graded affine XOR coding only in those carriers; they do not provide a closed-form structural valuation and do not imply standard-7x6 qualification."
+    },
+    {
+      "id": "RS-F107",
+      "status": "NEXT_REDUCTION_BOUNDARY",
+      "statement": "Before adding pairwise or polynomial interaction terms, recover an explicit same-exact-rank contradiction certificate from the smaller 5x3-k3 failure set. That certificate must determine whether the obstruction is a specific contextual component substitution or a broader nonlinear relation."
+    }
+  ],
+  "cross_case": {
+    "exact_rank_graded_pass": [
+      "3x3-k3",
+      "3x4-k3",
+      "4x3-k3",
+      "4x4-k3",
+      "3x5-k3",
+      "3x6-k3"
+    ],
+    "exact_rank_graded_fail": [
+      "4x4-k4",
+      "5x3-k3"
+    ],
+    "contradictions": {
+      "4x4-k4": 168,
+      "5x3-k3": 18
+    }
+  },
+  "next_question": "What exact same-rank dependency produces the 5x3-k3 contradictions under g_G,r(C), and what is the smallest rank-local structural distinction or interaction needed to resolve it?"
+}
