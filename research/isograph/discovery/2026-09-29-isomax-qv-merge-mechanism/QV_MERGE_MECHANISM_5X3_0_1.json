@@ -1,0 +1,1058 @@
+{
+  "schema": "connect4.isomax.qv_merge_mechanism_5x3.v1",
+  "date_author_local": "2026-09-29",
+  "warrant": "EW-RS-022",
+  "frozenComponentDefinition": "post-RFG residual-incidence connected components with support/owner-labelled canonical component type",
+  "algebraQuestion": "For the unique observed nontrivial 5x3 SAT2 value merge, is scalar-value equality explained by Bellman/action multiplicity redundancy rather than a component self-cancellation law?",
+  "cases": [
+    {
+      "label": "5x3-k3",
+      "width": 5,
+      "height": 3,
+      "k": 3,
+      "physicalStates": 70914,
+      "nonterminalStates": 40659,
+      "componentTypes": 9441,
+      "componentHistogram": {
+        "1": 2199,
+        "2": 7251,
+        "3": 9196,
+        "4": 8920,
+        "5": 13093
+      },
+      "componentMultiplicityHistogram": {
+        "1": 79035,
+        "2": 18271,
+        "3": 8043,
+        "4": 1432
+      },
+      "maxComponents": 5,
+      "maxSameTypeMultiplicity": 4,
+      "results": [
+        {
+          "id": "MULTI",
+          "classes": 13421,
+          "QF_component_transport": true,
+          "QA_component_transport": true,
+          "QV": true,
+          "mixedValueGroups": 0,
+          "minPairUnits": null,
+          "firstFutureFailure": null,
+          "firstActionFailure": null,
+          "firstValueFailure": null,
+          "pairExamples": [],
+          "nontrivialCollisionGroups": []
+        },
+        {
+          "id": "PRESENCE_P",
+          "classes": 13352,
+          "QF_component_transport": false,
+          "QA_component_transport": false,
+          "QV": false,
+          "mixedValueGroups": 2,
+          "minPairUnits": 1,
+          "firstFutureFailure": {
+            "key": "0|1*1|6|4||1*2||4||1*3||",
+            "a": "1241:6438",
+            "b": "155:10564",
+            "aInterface": "m0|1|6|4=>N:1|1*2||4||1*3||||m0|2||4=>N:1|1*1||||1*3||",
+            "bInterface": "m0|1|6|4=>N:1|1*1||4||1*2||4||1*2|4|4||1*3||||m0|1|6|4=>N:1|1*1||4||1*2||4||1*2|4|4||1*3||||m0|2||4=>N:1|1*1|6|4||1*3||"
+          },
+          "firstActionFailure": {
+            "key": "0|1*1|6|4||1*2||4||1*3||",
+            "a": "1241:6438",
+            "b": "155:10564",
+            "aActionSignature": "m0|1|6|4=>-1||m0|2||4=>0",
+            "bActionSignature": "m0|1|6|4=>-1||m0|1|6|4=>-1||m0|2||4=>0"
+          },
+          "firstValueFailure": {
+            "key": "1|1*2||||1*2|4|||1*3||",
+            "a": "17625:2854",
+            "b": "1427:620",
+            "aValue": 0,
+            "bValue": 1
+          },
+          "pairExamples": [
+            {
+              "key": "1|1*2||||1*2|4|||1*3||",
+              "a": "17625:2854",
+              "b": "1427:620",
+              "aValue": 0,
+              "bValue": 1,
+              "aCounts": [
+                {
+                  "type": "T09438",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T09436",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T09440",
+                  "width": 1,
+                  "count": 3
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T09438",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T09436",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T09440",
+                  "width": 1,
+                  "count": 1
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T09438",
+                  "width": 1,
+                  "delta": 1
+                },
+                {
+                  "type": "T09436",
+                  "width": 1,
+                  "delta": 1
+                },
+                {
+                  "type": "T09440",
+                  "width": 1,
+                  "delta": -2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "0|1*2||||1*2||4||1*3||",
+              "a": "17194:8405",
+              "b": "874:10389",
+              "aValue": -1,
+              "bValue": 0,
+              "aCounts": [
+                {
+                  "type": "T09438",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T09439",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T09440",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T09438",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T09439",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T09440",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T09438",
+                  "width": 1,
+                  "delta": 1
+                },
+                {
+                  "type": "T09439",
+                  "width": 1,
+                  "delta": -1
+                }
+              ],
+              "pairUnits": 1
+            }
+          ],
+          "nontrivialCollisionGroups": []
+        },
+        {
+          "id": "SAT2_P",
+          "classes": 13420,
+          "QF_component_transport": false,
+          "QA_component_transport": false,
+          "QV": true,
+          "mixedValueGroups": 0,
+          "minPairUnits": null,
+          "firstFutureFailure": {
+            "key": "0|2*2||4||2*2|4|",
+            "a": "651:372",
+            "b": "341:682",
+            "aInterface": "m0|2|4|=>T:P0||m0|2|4|=>T:P0||m0|2||4=>N:1|2*2||4||2*2|4|||1*3||||m0|2||4=>N:1|2*2||4||2*2|4|||1*3||||m0|2||4=>N:1|2*2||4||2*2|4|||1*3||",
+            "bInterface": "m0|2|4|=>T:P0||m0|2|4|=>T:P0||m0|2|4|=>T:P0||m0|2||4=>N:1|1*2||4||2*2|4|||1*3||||m0|2||4=>N:1|1*2||4||2*2|4|||1*3||"
+          },
+          "firstActionFailure": {
+            "key": "0|2*2||4||2*2|4|",
+            "a": "651:372",
+            "b": "341:682",
+            "aActionSignature": "m0|2|4|=>1||m0|2|4|=>1||m0|2||4=>-1||m0|2||4=>-1||m0|2||4=>-1",
+            "bActionSignature": "m0|2|4|=>1||m0|2|4|=>1||m0|2|4|=>1||m0|2||4=>-1||m0|2||4=>-1"
+          },
+          "firstValueFailure": null,
+          "pairExamples": [],
+          "nontrivialCollisionGroups": [
+            {
+              "sat2Key": "0|2*2||4||2*2|4|",
+              "stateCount": 10,
+              "fullClassCount": 2,
+              "wholeValueSet": [
+                1
+              ],
+              "representatives": [
+                {
+                  "state": "651:372",
+                  "fullKey": "2|4|||2|4|||2||4||2||4||2||4",
+                  "value": 1,
+                  "actionPairs": [
+                    "m0|2|4|=>1",
+                    "m0|2|4|=>1",
+                    "m0|2||4=>-1",
+                    "m0|2||4=>-1",
+                    "m0|2||4=>-1"
+                  ],
+                  "uniqueActionPairs": [
+                    "m0|2|4|=>1",
+                    "m0|2||4=>-1"
+                  ],
+                  "actionValueMultiset": [
+                    -1,
+                    -1,
+                    -1,
+                    1,
+                    1
+                  ],
+                  "actionValueSet": [
+                    -1,
+                    1
+                  ],
+                  "counts": [
+                    {
+                      "type": "T09439",
+                      "width": 1,
+                      "count": 3
+                    },
+                    {
+                      "type": "T09436",
+                      "width": 1,
+                      "count": 2
+                    }
+                  ]
+                },
+                {
+                  "state": "341:682",
+                  "fullKey": "2|4|||2|4|||2|4|||2||4||2||4",
+                  "value": 1,
+                  "actionPairs": [
+                    "m0|2|4|=>1",
+                    "m0|2|4|=>1",
+                    "m0|2|4|=>1",
+                    "m0|2||4=>-1",
+                    "m0|2||4=>-1"
+                  ],
+                  "uniqueActionPairs": [
+                    "m0|2|4|=>1",
+                    "m0|2||4=>-1"
+                  ],
+                  "actionValueMultiset": [
+                    -1,
+                    -1,
+                    1,
+                    1,
+                    1
+                  ],
+                  "actionValueSet": [
+                    -1,
+                    1
+                  ],
+                  "counts": [
+                    {
+                      "type": "T09439",
+                      "width": 1,
+                      "count": 2
+                    },
+                    {
+                      "type": "T09436",
+                      "width": 1,
+                      "count": 3
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "SAT3_P",
+          "classes": 13421,
+          "QF_component_transport": true,
+          "QA_component_transport": true,
+          "QV": true,
+          "mixedValueGroups": 0,
+          "minPairUnits": null,
+          "firstFutureFailure": null,
+          "firstActionFailure": null,
+          "firstValueFailure": null,
+          "pairExamples": [],
+          "nontrivialCollisionGroups": []
+        },
+        {
+          "id": "MOD2_P",
+          "classes": 13235,
+          "QF_component_transport": false,
+          "QA_component_transport": false,
+          "QV": false,
+          "mixedValueGroups": 35,
+          "minPairUnits": 2,
+          "firstFutureFailure": {
+            "key": "0|1*1|6|4||1*2||4||1*3||",
+            "a": "1241:6438",
+            "b": "4235:852",
+            "aInterface": "m0|1|6|4=>N:1|1*3||||m0|2||4=>N:1|1*1||",
+            "bInterface": "m0|1|6|4=>N:1|1*2||4||1*2|4|4||1*3||||m0|2|4|=>T:P0||m0|2|4|=>T:P0||m0|2||4=>N:1|1*1|6|4"
+          },
+          "firstActionFailure": {
+            "key": "0|1*1|6|4||1*2||4||1*3||",
+            "a": "1241:6438",
+            "b": "4235:852",
+            "aActionSignature": "m0|1|6|4=>-1||m0|2||4=>0",
+            "bActionSignature": "m0|1|6|4=>-1||m0|2|4|=>1||m0|2|4|=>1||m0|2||4=>1"
+          },
+          "firstValueFailure": {
+            "key": "0|1*1|6|4||1*2||4||1*3||",
+            "a": "1241:6438",
+            "b": "4235:852",
+            "aValue": 0,
+            "bValue": 1
+          },
+          "pairExamples": [
+            {
+              "key": "0|1*1|6|4||1*2||4||1*3||",
+              "a": "1241:6438",
+              "b": "4235:852",
+              "aValue": 0,
+              "bValue": 1,
+              "aCounts": [
+                {
+                  "type": "T09415",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T09439",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T09440",
+                  "width": 1,
+                  "count": 3
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T09415",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T09439",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T09436",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T09440",
+                  "width": 1,
+                  "count": 1
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T09440",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T09436",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "1|1*1||",
+              "a": "9433:6438",
+              "b": "1369:2214",
+              "aValue": 0,
+              "bValue": -1,
+              "aCounts": [
+                {
+                  "type": "T09416",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T09440",
+                  "width": 1,
+                  "count": 4
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T09416",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T09437",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T09440",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T09440",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T09437",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "0|1*2||",
+              "a": "9433:6950",
+              "b": "1369:2726",
+              "aValue": 0,
+              "bValue": 1,
+              "aCounts": [
+                {
+                  "type": "T09438",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T09440",
+                  "width": 1,
+                  "count": 4
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T09438",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T09437",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T09440",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T09440",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T09437",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "1|1*3||",
+              "a": "1753:6438",
+              "b": "17625:8998",
+              "aValue": -1,
+              "bValue": 1,
+              "aCounts": [
+                {
+                  "type": "T09439",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T09440",
+                  "width": 1,
+                  "count": 3
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T09436",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T09440",
+                  "width": 1,
+                  "count": 3
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T09439",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T09436",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "1|1*2||||1*2|4|||1*3||",
+              "a": "17625:2854",
+              "b": "603:1444",
+              "aValue": 0,
+              "bValue": -1,
+              "aCounts": [
+                {
+                  "type": "T09438",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T09436",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T09440",
+                  "width": 1,
+                  "count": 3
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T09438",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T09436",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T09437",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T09440",
+                  "width": 1,
+                  "count": 1
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T09440",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T09437",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "1|1*1|4|",
+              "a": "26185:2358",
+              "b": "1675:8500",
+              "aValue": 1,
+              "bValue": -1,
+              "aCounts": [
+                {
+                  "type": "T09407",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T09440",
+                  "width": 1,
+                  "count": 4
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T09407",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T09439",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T09440",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T09440",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T09439",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "0|1*0|2|",
+              "a": "17617:6694",
+              "b": "419:6220",
+              "aValue": 0,
+              "bValue": 1,
+              "aCounts": [
+                {
+                  "type": "T07326",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T09440",
+                  "width": 1,
+                  "count": 4
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T07326",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T09437",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T09440",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T09440",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T09437",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "1|1*1||6",
+              "a": "3401:182",
+              "b": "4458:1173",
+              "aValue": -1,
+              "bValue": 1,
+              "aCounts": [
+                {
+                  "type": "T09420",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T09437",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T09440",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T09420",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T09436",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T09440",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T09437",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T09436",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "0|1*1|6|||1*2||4||1*3||",
+              "a": "3221:4458",
+              "b": "601:2438",
+              "aValue": 0,
+              "bValue": 1,
+              "aCounts": [
+                {
+                  "type": "T09412",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T09439",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T09440",
+                  "width": 1,
+                  "count": 3
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T09412",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T09439",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T09437",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T09440",
+                  "width": 1,
+                  "count": 1
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T09440",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T09437",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "1|1*1|2.4|6||1*2||||1*2|4|",
+              "a": "3461:122",
+              "b": "710:281",
+              "aValue": 1,
+              "bValue": -1,
+              "aCounts": [
+                {
+                  "type": "T09401",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T09438",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T09436",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T09440",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T09401",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T09438",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T09436",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T09437",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T09440",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T09437",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "0|1*1,2|20.48|4.32||1*3||",
+              "a": "9749:16746",
+              "b": "4365:722",
+              "aValue": -1,
+              "bValue": 1,
+              "aCounts": [
+                {
+                  "type": "T09329",
+                  "width": 2,
+                  "count": 1
+                },
+                {
+                  "type": "T09440",
+                  "width": 1,
+                  "count": 3
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T09329",
+                  "width": 2,
+                  "count": 1
+                },
+                {
+                  "type": "T09437",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T09440",
+                  "width": 1,
+                  "count": 1
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T09440",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T09437",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            },
+            {
+              "key": "0|1*0|4|2",
+              "a": "11537:17002",
+              "b": "12358:425",
+              "aValue": -1,
+              "bValue": 1,
+              "aCounts": [
+                {
+                  "type": "T07340",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T09440",
+                  "width": 1,
+                  "count": 4
+                }
+              ],
+              "bCounts": [
+                {
+                  "type": "T07340",
+                  "width": 1,
+                  "count": 1
+                },
+                {
+                  "type": "T09437",
+                  "width": 1,
+                  "count": 2
+                },
+                {
+                  "type": "T09440",
+                  "width": 1,
+                  "count": 2
+                }
+              ],
+              "delta": [
+                {
+                  "type": "T09440",
+                  "width": 1,
+                  "delta": -2
+                },
+                {
+                  "type": "T09437",
+                  "width": 1,
+                  "delta": 2
+                }
+              ],
+              "pairUnits": 2
+            }
+          ],
+          "nontrivialCollisionGroups": []
+        },
+        {
+          "id": "MOD3_P",
+          "classes": 13420,
+          "QF_component_transport": false,
+          "QA_component_transport": false,
+          "QV": true,
+          "mixedValueGroups": 0,
+          "minPairUnits": null,
+          "firstFutureFailure": {
+            "key": "1|1*2||4||1*3||",
+            "a": "1619:428",
+            "b": "2885:186",
+            "aInterface": "m0|2||4=>T:P1||m0|2||4=>T:P1||m0|2||4=>T:P1||m0|2||4=>T:P1",
+            "bInterface": "m0|2|4|=>N:0|1*2||||2*2|4|||2*3||||m0|2|4|=>N:0|1*2||||2*2|4|||2*3||||m0|2|4|=>N:0|1*2||||2*2|4|||2*3||||m0|2||4=>T:P1"
+          },
+          "firstActionFailure": {
+            "key": "1|1*2||4||1*3||",
+            "a": "1619:428",
+            "b": "2885:186",
+            "aActionSignature": "m0|2||4=>-1||m0|2||4=>-1||m0|2||4=>-1||m0|2||4=>-1",
+            "bActionSignature": "m0|2|4|=>1||m0|2|4|=>1||m0|2|4|=>1||m0|2||4=>-1"
+          },
+          "firstValueFailure": null,
+          "pairExamples": [],
+          "nontrivialCollisionGroups": []
+        },
+        {
+          "id": "MOD4_P",
+          "classes": 13421,
+          "QF_component_transport": true,
+          "QA_component_transport": true,
+          "QV": true,
+          "mixedValueGroups": 0,
+          "minPairUnits": null,
+          "firstFutureFailure": null,
+          "firstActionFailure": null,
+          "firstValueFailure": null,
+          "pairExamples": [],
+          "nontrivialCollisionGroups": []
+        }
+      ]
+    }
+  ],
+  "crossCase": {
+    "multisetQFAll": true,
+    "multisetQAAll": true,
+    "multisetQVAll": true,
+    "presenceQAAll": false,
+    "presenceQVAll": false,
+    "sat2QAAll": false,
+    "sat2QVAll": true,
+    "sat3QAAll": true,
+    "sat3QVAll": true,
+    "presenceQFAll": false,
+    "sat2QFAll": false,
+    "sat3QFAll": true,
+    "parityQAAll": false,
+    "parityQVAll": false,
+    "mod3QAAll": false,
+    "mod3QVAll": true,
+    "parityFailures": [
+      "5x3-k3"
+    ],
+    "mod3Failures": []
+  },
+  "interpretationGuard": [
+    "Component definition was frozen from 4x4-k4 before observing these cross-case component results.",
+    "PRESENCE_P tests idempotence C+C=C; SAT2_P and SAT3_P test saturating multiplicity laws without assuming a group.",
+    "MOD2_P remains the self-cancellation C+C=0 control.",
+    "Cross-case variation is evidence about when multiplicity becomes load-bearing, not permission to patch the valuation by geometry-specific labels."
+  ]
+}
