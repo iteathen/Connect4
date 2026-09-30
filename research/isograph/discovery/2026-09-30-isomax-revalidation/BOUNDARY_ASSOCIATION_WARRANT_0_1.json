@@ -1,0 +1,31 @@
+{
+  "schema":"connect4.isomax.revalidation.boundary_association_warrant.v1",
+  "id":"REVAL-LEGO-BOUNDARY-002",
+  "date":"2026-09-30",
+  "status":"FROZEN_BEFORE_TRAINED_SCALAR_REPLAY",
+  "canonicalResearchOwner":"research/semantic-quotient",
+  "parent":"REVAL-LEGO-BOUNDARY-001",
+  "objective":"Determine whether frontier contact is an additive pooled syndrome or whether its association to the depthless triangle motif is load-bearing.",
+  "source":"RS085 SIGNED_PARITY|ZERO_VS_POSITIVE, projected deterministically to ROLELESS_DEPTHLESS_OWNER_SEPARATED plus triangle-level ANY_ZERO.",
+  "candidates":[
+    {"id":"DEPTHLESS_CONTROL","definition":"published depthless triangle feature only"},
+    {"id":"BOUNDARY_ONLY","definition":"one structural feature B toggled for each OOO triangle whose three pair records contain any depth-zero D token; depthless triangle identity discarded"},
+    {"id":"DIRECT_SUM","definition":"depthless triangle feature plus independent generic boundary feature B for frontier-touching triangles"},
+    {"id":"JOINT_LABEL","definition":"joint one-hot label (depthless triangle identity, ANY_ZERO)"},
+    {"id":"FULL_ZERO_VS_POSITIVE","definition":"unchanged RS085 zero/positive-depth control"}
+  ],
+  "procedure":[
+    "Prepare all five structural maps, rows, ranks and kernels before scalar replay.",
+    "DEPTHLESS_CONTROL must reproduce rank348 and the fixed 315/455 collision.",
+    "JOINT_LABEL must reproduce the already-observed REVAL-LEGO-BOUNDARY-001 triangle-any-zero map.",
+    "Replay pinned scalar codes and report complete pooled exactness and fixed scalar characters."
+  ],
+  "guards":[
+    "No geometry labels, owner-specific exception or coefficient fitting.",
+    "Failure of DIRECT_SUM with success of JOINT_LABEL means association is load-bearing; do not reinterpret that as a scalar coefficient patch.",
+    "No sealed holdout access or RS096 continuation."
+  ],
+  "sealedFormulaHoldouts":["3x6-k4","5x3-k4"],
+  "rs096":"HOLD",
+  "authorityEffect":"NONE"
+}
