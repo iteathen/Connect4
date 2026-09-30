@@ -1,0 +1,398 @@
+{
+  "schema": "connect4.isomax.zoe_fresh_nonaffine_holdout_5x4k4.v1",
+  "date_author_local": "2026-09-29",
+  "warrant": "EW-RS-050",
+  "target": "5x4-k4",
+  "frozenCandidate": "ZOE = omit zero counts; label every present exact component type O for positive odd multiplicity and E for positive even multiplicity",
+  "frozenDomain": "direct T2-O",
+  "frozenComponentDefinition": "post-RFG residual-incidence connected components with support/owner-labelled canonical component type",
+  "case": {
+    "label": "5x4-k4",
+    "width": 5,
+    "height": 4,
+    "k": 4,
+    "physicalStates": 3945711,
+    "nonterminalStates": 3100379,
+    "componentTypes": 194646,
+    "tactical2Counts": {
+      "W": 928880,
+      "L2": 164414,
+      "O": 2007085
+    },
+    "degree1": {
+      "model": "exact-rank affine GF(2)^2 over exact component multiplicity parity",
+      "equations": 2007085,
+      "activeVariables": 203970,
+      "pivotRank": 203918,
+      "activeNullity": 52,
+      "contradictions": 16550,
+      "firstContradiction": {
+        "key": "20115:102508",
+        "rank": 15,
+        "h": [
+          4,
+          4,
+          3,
+          1,
+          3
+        ],
+        "oddTypes": [
+          "T178686",
+          "T194642"
+        ],
+        "relativeOutcome": "draw",
+        "code": 1,
+        "reducedRhs": 3
+      },
+      "codeGauge": {
+        "loss": "00",
+        "draw": "01",
+        "win": "10"
+      }
+    },
+    "audits": [
+      {
+        "mode": "PRESENCE",
+        "statesAudited": 2007085,
+        "classes": 212852,
+        "mixedValueClasses": 182,
+        "QV": false,
+        "firstMixedValueWitness": {
+          "mode": "PRESENCE",
+          "key": "T101586:P,T194643:P,T194645:P",
+          "rank": 15,
+          "a": "138771:114916",
+          "b": "73219:49396",
+          "aOutcome": "win",
+          "bOutcome": "loss",
+          "aCode": 2,
+          "bCode": 0,
+          "multiplicityDifferenceL1": 2,
+          "parityPairUnits": null,
+          "aCounts": [
+            {
+              "type": "T101586",
+              "canonicalType": "0|4|2",
+              "width": 1,
+              "count": 1
+            },
+            {
+              "type": "T194643",
+              "canonicalType": "3||",
+              "width": 1,
+              "count": 1
+            },
+            {
+              "type": "T194645",
+              "canonicalType": "4||",
+              "width": 1,
+              "count": 3
+            }
+          ],
+          "bCounts": [
+            {
+              "type": "T101586",
+              "canonicalType": "0|4|2",
+              "width": 1,
+              "count": 1
+            },
+            {
+              "type": "T194643",
+              "canonicalType": "3||",
+              "width": 1,
+              "count": 2
+            },
+            {
+              "type": "T194645",
+              "canonicalType": "4||",
+              "width": 1,
+              "count": 2
+            }
+          ],
+          "delta": [
+            {
+              "type": "T194643",
+              "canonicalType": "3||",
+              "width": 1,
+              "delta": 1
+            },
+            {
+              "type": "T194645",
+              "canonicalType": "4||",
+              "width": 1,
+              "delta": -1
+            }
+          ]
+        },
+        "minimumMultiplicityDifferenceWitness": {
+          "mode": "PRESENCE",
+          "key": "T100921:P,T194643:P,T194645:P",
+          "rank": 14,
+          "a": "19110:595025",
+          "b": "20132:69715",
+          "aOutcome": "loss",
+          "bOutcome": "win",
+          "aCode": 0,
+          "bCode": 2,
+          "multiplicityDifferenceL1": 2,
+          "parityPairUnits": null,
+          "aCounts": [
+            {
+              "type": "T100921",
+              "canonicalType": "0,3|129|4.64",
+              "width": 2,
+              "count": 1
+            },
+            {
+              "type": "T194643",
+              "canonicalType": "3||",
+              "width": 1,
+              "count": 1
+            },
+            {
+              "type": "T194645",
+              "canonicalType": "4||",
+              "width": 1,
+              "count": 2
+            }
+          ],
+          "bCounts": [
+            {
+              "type": "T100921",
+              "canonicalType": "0,3|129|4.64",
+              "width": 2,
+              "count": 1
+            },
+            {
+              "type": "T194643",
+              "canonicalType": "3||",
+              "width": 1,
+              "count": 2
+            },
+            {
+              "type": "T194645",
+              "canonicalType": "4||",
+              "width": 1,
+              "count": 1
+            }
+          ],
+          "delta": [
+            {
+              "type": "T194643",
+              "canonicalType": "3||",
+              "width": 1,
+              "delta": 1
+            },
+            {
+              "type": "T194645",
+              "canonicalType": "4||",
+              "width": 1,
+              "delta": -1
+            }
+          ]
+        }
+      },
+      {
+        "mode": "M2",
+        "statesAudited": 2007085,
+        "classes": 212709,
+        "mixedValueClasses": 5,
+        "QV": false,
+        "firstMixedValueWitness": {
+          "mode": "M2",
+          "key": "T194642:1",
+          "rank": 17,
+          "a": "93571:37500",
+          "b": "201541:10426",
+          "aOutcome": "draw",
+          "bOutcome": "win",
+          "aCode": 1,
+          "bCode": 2,
+          "multiplicityDifferenceL1": 4,
+          "parityPairUnits": 2,
+          "aCounts": [
+            {
+              "type": "T194642",
+              "canonicalType": "3|8|",
+              "width": 1,
+              "count": 1
+            },
+            {
+              "type": "T194643",
+              "canonicalType": "3||",
+              "width": 1,
+              "count": 2
+            },
+            {
+              "type": "T194645",
+              "canonicalType": "4||",
+              "width": 1,
+              "count": 2
+            }
+          ],
+          "bCounts": [
+            {
+              "type": "T194627",
+              "canonicalType": "2||8",
+              "width": 1,
+              "count": 2
+            },
+            {
+              "type": "T194642",
+              "canonicalType": "3|8|",
+              "width": 1,
+              "count": 1
+            },
+            {
+              "type": "T194645",
+              "canonicalType": "4||",
+              "width": 1,
+              "count": 2
+            }
+          ],
+          "delta": [
+            {
+              "type": "T194627",
+              "canonicalType": "2||8",
+              "width": 1,
+              "delta": 2
+            },
+            {
+              "type": "T194643",
+              "canonicalType": "3||",
+              "width": 1,
+              "delta": -2
+            }
+          ]
+        },
+        "minimumMultiplicityDifferenceWitness": {
+          "mode": "M2",
+          "key": "T194624:1",
+          "rank": 18,
+          "a": "269591:238312",
+          "b": "132654:37329",
+          "aOutcome": "draw",
+          "bOutcome": "loss",
+          "aCode": 1,
+          "bCode": 0,
+          "multiplicityDifferenceL1": 4,
+          "parityPairUnits": 2,
+          "aCounts": [
+            {
+              "type": "T194624",
+              "canonicalType": "2||",
+              "width": 1,
+              "count": 1
+            },
+            {
+              "type": "T194645",
+              "canonicalType": "4||",
+              "width": 1,
+              "count": 4
+            }
+          ],
+          "bCounts": [
+            {
+              "type": "T194624",
+              "canonicalType": "2||",
+              "width": 1,
+              "count": 1
+            },
+            {
+              "type": "T194627",
+              "canonicalType": "2||8",
+              "width": 1,
+              "count": 2
+            },
+            {
+              "type": "T194645",
+              "canonicalType": "4||",
+              "width": 1,
+              "count": 2
+            }
+          ],
+          "delta": [
+            {
+              "type": "T194627",
+              "canonicalType": "2||8",
+              "width": 1,
+              "delta": 2
+            },
+            {
+              "type": "T194645",
+              "canonicalType": "4||",
+              "width": 1,
+              "delta": -2
+            }
+          ]
+        }
+      },
+      {
+        "mode": "ZOE",
+        "statesAudited": 2007085,
+        "classes": 213226,
+        "mixedValueClasses": 0,
+        "QV": true,
+        "firstMixedValueWitness": null,
+        "minimumMultiplicityDifferenceWitness": null
+      },
+      {
+        "mode": "ZOE_R3",
+        "statesAudited": 2007085,
+        "classes": 213250,
+        "mixedValueClasses": 0,
+        "QV": true,
+        "firstMixedValueWitness": null,
+        "minimumMultiplicityDifferenceWitness": null
+      },
+      {
+        "mode": "MULTI",
+        "statesAudited": 2007085,
+        "classes": 213250,
+        "mixedValueClasses": 0,
+        "QV": true,
+        "firstMixedValueWitness": null,
+        "minimumMultiplicityDifferenceWitness": null
+      }
+    ],
+    "minimumParitySeparators": {
+      "witness": {
+        "a": "269591:238312",
+        "b": "132654:37329",
+        "rankA": 18,
+        "rankB": 14,
+        "multiplicityDifferenceL1": 4
+      },
+      "PRESENCE": true,
+      "ZOE": true,
+      "ZOE_R3": true,
+      "MULTI": true
+    }
+  },
+  "mechanicalChecks": {
+    "freshCarrierPredeclared": true,
+    "candidateFrozenFromEWRS047": true,
+    "keysOutcomeIndependent": true,
+    "T2ORetained": true,
+    "fullMultiplicityControlExact": true,
+    "degree1ModelMechanicallyGenerated": true,
+    "memoryOptimizedExecutionOnly": true
+  },
+  "disposition": {
+    "PRESENCE_QV": false,
+    "M2_QV": false,
+    "ZOE_QV": true,
+    "ZOE_R3_QV": true,
+    "MULTI_QV": true,
+    "degree1Contradictions": 16550,
+    "freshNonAffine": true,
+    "freshZoeNonAffineSuccess": true
+  },
+  "interpretationGuard": [
+    "ZOE is frozen before 5x4-k4 outcome qualification.",
+    "This retry changes only execution memory: component roles/interfaces are omitted and representations are retained only for T2-O states.",
+    "The case counts as non-affine evidence only when the exact-rank degree-1 contradiction count is nonzero.",
+    "A ZOE pass remains bounded finite evidence.",
+    "No standard-7x6 claim follows."
+  ]
+}
