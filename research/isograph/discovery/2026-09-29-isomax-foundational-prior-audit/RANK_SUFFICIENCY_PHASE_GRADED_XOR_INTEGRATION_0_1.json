@@ -1,0 +1,65 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.phase_graded_xor_integration.v1",
+  "date_author_local": "2026-09-29",
+  "research_direction": "Joshua Oshiro",
+  "status": "PHASE_GRADED_XOR_PARTIAL_POSITIVE__THREE_GEOMETRY_FALSIFIERS",
+  "evidence": [
+    {
+      "id": "PGX",
+      "branch": "experiment/isomax-late-xor-components-20260929",
+      "commit": "41685d50d673878b8b452ed3e3adbd776f357a82",
+      "file": "PHASE_GRADED_AFFINE_XOR_0_1.json",
+      "warrant": "EW-RS-026"
+    },
+    {
+      "id": "AFF2",
+      "branch": "experiment/isomax-late-xor-components-20260929",
+      "commit": "e5e509a46369633391849f3ea0a608ea5fd8445c",
+      "file": "PHASE_FACTORED_AFFINE_XOR_0_1.json"
+    }
+  ],
+  "tested_law": "On T2-O states, code(U)=b_G,r3 XOR XOR_{odd C} g_G,r3(C), allowing component values themselves to depend on rank mod 3.",
+  "findings": [
+    {
+      "id": "RS-F089",
+      "status": "EXACT_FINITE_PARTIAL_POSITIVE",
+      "statement": "Phase-graded independent GF(2)^2 component valuation is exactly consistent on five complete carriers: 3x3-k3, 3x4-k3, 4x3-k3, 3x5-k3 and fresh 3x6-k3."
+    },
+    {
+      "id": "RS-F090",
+      "status": "EXACT_FINITE_FALSIFIER",
+      "statement": "The same phase-graded valuation is inconsistent on 4x4-k4, 4x4-k3 and 5x3-k3. Therefore scheduler grading alone does not yield a universal independent linear component valuation."
+    },
+    {
+      "id": "RS-F091",
+      "status": "EXACT_FINITE_MODEL_IMPROVEMENT",
+      "statement": "Allowing component values to depend on rank phase removes every contradiction on five carriers and sharply reduces the remaining contradictions on the three failures: 4x4-k4 from 3,160 to 804, 4x4-k3 from 62 to 2, and 5x3-k3 from 382 to 45."
+    },
+    {
+      "id": "RS-F092",
+      "status": "MODEL_SHAPE_RESULT",
+      "statement": "Rank phase is therefore load-bearing not only as a decoder offset but as a grade on component valuation. Where contradictions remain, they occur within a fixed grade and require either component interaction, a nonlinear decoder, or a non-GF(2)^2 algebra."
+    },
+    {
+      "id": "RS-F093",
+      "status": "CLUE_PRESERVING_NEAR_MISS",
+      "statement": "4x4-k3 is a high-value near-miss: only two contradiction rows remain after phase grading. This should be inspected as a minimal witness family before introducing general pairwise or polynomial machinery."
+    },
+    {
+      "id": "RS-F094",
+      "status": "GENERALIZATION_GUARD",
+      "statement": "The five positive carriers do not justify a universal phase-graded XOR theorem. No simple width, height, or k threshold has yet been established that separates the positive and negative geometries."
+    }
+  ],
+  "phase_graded_status": [
+    {"case":"3x3-k3","consistent":true,"contradictions":0},
+    {"case":"3x4-k3","consistent":true,"contradictions":0},
+    {"case":"4x3-k3","consistent":true,"contradictions":0},
+    {"case":"4x4-k4","consistent":false,"contradictions":804},
+    {"case":"4x4-k3","consistent":false,"contradictions":2},
+    {"case":"3x5-k3","consistent":true,"contradictions":0},
+    {"case":"5x3-k3","consistent":false,"contradictions":45},
+    {"case":"3x6-k3","consistent":true,"contradictions":0}
+  ],
+  "next_question": "What exact same-phase dependency produces the two 4x4-k3 contradiction rows? Recover an explicit linear-dependency certificate before testing higher-order interactions."
+}
