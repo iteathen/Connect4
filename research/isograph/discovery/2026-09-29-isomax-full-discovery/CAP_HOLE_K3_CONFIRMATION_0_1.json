@@ -1,0 +1,2813 @@
+{
+  "schema": "connect4.isomax.discovery.cap_hole_k3_confirmation.v1",
+  "date_author_local": "2026-09-29",
+  "warrant": "EW-017",
+  "candidate_source": "EW-015 repaired motif",
+  "flat": {
+    "label": "4x5-k3-flat",
+    "width": 4,
+    "height": 5,
+    "k": 3,
+    "summary": {
+      "states": 34222,
+      "classes": 14201,
+      "binaryGroups": 935,
+      "cycleRank": 27,
+      "nonzero": 0,
+      "contradictions": 0
+    },
+    "groupsWithSharedSupport": 829,
+    "testedPairs": 10076,
+    "motifGroups": 1,
+    "cycleGroups": 125,
+    "cycleMotifGroups": 0,
+    "nonzeroFundamentalCycleNodes": 0,
+    "nonzeroClosingEdges": 0,
+    "nonzeroCycleMotifGroups": 0,
+    "motifExamples": [
+      {
+        "groupId": 71,
+        "labelledClasses": [
+          879,
+          882
+        ],
+        "support": "3,3,3,4",
+        "motif": true,
+        "heights": [
+          3,
+          3,
+          3,
+          4
+        ],
+        "capMask": 983040,
+        "onlyA": [
+          "0:917504"
+        ],
+        "onlyB": [
+          "0:458752",
+          "1:458752"
+        ],
+        "diffA": [
+          {
+            "player": 0,
+            "residual": 917504,
+            "holeBit": 16,
+            "holeColumn": 0
+          }
+        ],
+        "diffB": [
+          {
+            "player": 0,
+            "residual": 458752,
+            "holeBit": 19,
+            "holeColumn": 3
+          },
+          {
+            "player": 1,
+            "residual": 458752,
+            "holeBit": 19,
+            "holeColumn": 3
+          }
+        ],
+        "holeColumnsA": [
+          0
+        ],
+        "holeColumnsB": [
+          3
+        ],
+        "holePair": [
+          0,
+          3
+        ],
+        "heightPair": [
+          3,
+          4
+        ],
+        "equalHeight": false,
+        "allDiffOneHole": true,
+        "disjoint": true
+      }
+    ],
+    "nonzeroCycleMotifExamples": []
+  },
+  "obstructed": {
+    "label": "5x4-k3-obstructed",
+    "width": 5,
+    "height": 4,
+    "k": 3,
+    "summary": {
+      "states": 108293,
+      "classes": 50682,
+      "binaryGroups": 4484,
+      "cycleRank": 451,
+      "nonzero": 23,
+      "contradictions": 18
+    },
+    "groupsWithSharedSupport": 4223,
+    "testedPairs": 22162,
+    "motifGroups": 130,
+    "cycleGroups": 1309,
+    "cycleMotifGroups": 76,
+    "nonzeroFundamentalCycleNodes": 164,
+    "nonzeroClosingEdges": 23,
+    "nonzeroCycleMotifGroups": 26,
+    "motifExamples": [
+      {
+        "groupId": 691,
+        "labelledClasses": [
+          788,
+          829
+        ],
+        "support": "1,2,3,4,4",
+        "motif": true,
+        "heights": [
+          1,
+          2,
+          3,
+          4,
+          4
+        ],
+        "capMask": 229376,
+        "onlyA": [
+          "0:98304"
+        ],
+        "onlyB": [
+          "0:163840"
+        ],
+        "diffA": [
+          {
+            "player": 0,
+            "residual": 98304,
+            "holeBit": 17,
+            "holeColumn": 2
+          }
+        ],
+        "diffB": [
+          {
+            "player": 0,
+            "residual": 163840,
+            "holeBit": 16,
+            "holeColumn": 1
+          }
+        ],
+        "holeColumnsA": [
+          2
+        ],
+        "holeColumnsB": [
+          1
+        ],
+        "holePair": [
+          1,
+          2
+        ],
+        "heightPair": [
+          2,
+          3
+        ],
+        "equalHeight": false,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      {
+        "groupId": 812,
+        "labelledClasses": [
+          222,
+          223
+        ],
+        "support": "2,2,3,4,4",
+        "motif": true,
+        "heights": [
+          2,
+          2,
+          3,
+          4,
+          4
+        ],
+        "capMask": 229376,
+        "onlyA": [
+          "0:196608"
+        ],
+        "onlyB": [
+          "1:163840"
+        ],
+        "diffA": [
+          {
+            "player": 0,
+            "residual": 196608,
+            "holeBit": 15,
+            "holeColumn": 0
+          }
+        ],
+        "diffB": [
+          {
+            "player": 1,
+            "residual": 163840,
+            "holeBit": 16,
+            "holeColumn": 1
+          }
+        ],
+        "holeColumnsA": [
+          0
+        ],
+        "holeColumnsB": [
+          1
+        ],
+        "holePair": [
+          0,
+          1
+        ],
+        "heightPair": [
+          2,
+          2
+        ],
+        "equalHeight": true,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      {
+        "groupId": 816,
+        "labelledClasses": [
+          3296,
+          3297
+        ],
+        "support": "0,2,3,4,4",
+        "motif": true,
+        "heights": [
+          0,
+          2,
+          3,
+          4,
+          4
+        ],
+        "capMask": 229376,
+        "onlyA": [
+          "1:163840"
+        ],
+        "onlyB": [
+          "0:196608"
+        ],
+        "diffA": [
+          {
+            "player": 1,
+            "residual": 163840,
+            "holeBit": 16,
+            "holeColumn": 1
+          }
+        ],
+        "diffB": [
+          {
+            "player": 0,
+            "residual": 196608,
+            "holeBit": 15,
+            "holeColumn": 0
+          }
+        ],
+        "holeColumnsA": [
+          1
+        ],
+        "holeColumnsB": [
+          0
+        ],
+        "holePair": [
+          0,
+          1
+        ],
+        "heightPair": [
+          0,
+          2
+        ],
+        "equalHeight": false,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      {
+        "groupId": 857,
+        "labelledClasses": [
+          821,
+          1127
+        ],
+        "support": "2,2,3,3,4",
+        "motif": true,
+        "heights": [
+          2,
+          2,
+          3,
+          3,
+          4
+        ],
+        "capMask": 491520,
+        "onlyA": [
+          "0:425984"
+        ],
+        "onlyB": [
+          "0:360448"
+        ],
+        "diffA": [
+          {
+            "player": 0,
+            "residual": 425984,
+            "holeBit": 16,
+            "holeColumn": 1
+          }
+        ],
+        "diffB": [
+          {
+            "player": 0,
+            "residual": 360448,
+            "holeBit": 17,
+            "holeColumn": 2
+          }
+        ],
+        "holeColumnsA": [
+          1
+        ],
+        "holeColumnsB": [
+          2
+        ],
+        "holePair": [
+          1,
+          2
+        ],
+        "heightPair": [
+          2,
+          3
+        ],
+        "equalHeight": false,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      {
+        "groupId": 1121,
+        "labelledClasses": [
+          922,
+          1238
+        ],
+        "support": "1,2,3,4,4",
+        "motif": true,
+        "heights": [
+          1,
+          2,
+          3,
+          4,
+          4
+        ],
+        "capMask": 229376,
+        "onlyA": [
+          "1:196608"
+        ],
+        "onlyB": [
+          "0:163840"
+        ],
+        "diffA": [
+          {
+            "player": 1,
+            "residual": 196608,
+            "holeBit": 15,
+            "holeColumn": 0
+          }
+        ],
+        "diffB": [
+          {
+            "player": 0,
+            "residual": 163840,
+            "holeBit": 16,
+            "holeColumn": 1
+          }
+        ],
+        "holeColumnsA": [
+          0
+        ],
+        "holeColumnsB": [
+          1
+        ],
+        "holePair": [
+          0,
+          1
+        ],
+        "heightPair": [
+          1,
+          2
+        ],
+        "equalHeight": false,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      {
+        "groupId": 1275,
+        "labelledClasses": [
+          556,
+          599
+        ],
+        "support": "2,2,3,4,4",
+        "motif": true,
+        "heights": [
+          2,
+          2,
+          3,
+          4,
+          4
+        ],
+        "capMask": 229376,
+        "onlyA": [
+          "0:98304"
+        ],
+        "onlyB": [
+          "0:196608"
+        ],
+        "diffA": [
+          {
+            "player": 0,
+            "residual": 98304,
+            "holeBit": 17,
+            "holeColumn": 2
+          }
+        ],
+        "diffB": [
+          {
+            "player": 0,
+            "residual": 196608,
+            "holeBit": 15,
+            "holeColumn": 0
+          }
+        ],
+        "holeColumnsA": [
+          2
+        ],
+        "holeColumnsB": [
+          0
+        ],
+        "holePair": [
+          0,
+          2
+        ],
+        "heightPair": [
+          2,
+          3
+        ],
+        "equalHeight": false,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      {
+        "groupId": 1278,
+        "labelledClasses": [
+          1010,
+          1155
+        ],
+        "support": "1,2,3,4,4",
+        "motif": true,
+        "heights": [
+          1,
+          2,
+          3,
+          4,
+          4
+        ],
+        "capMask": 229376,
+        "onlyA": [
+          "0:163840"
+        ],
+        "onlyB": [
+          "0:98304"
+        ],
+        "diffA": [
+          {
+            "player": 0,
+            "residual": 163840,
+            "holeBit": 16,
+            "holeColumn": 1
+          }
+        ],
+        "diffB": [
+          {
+            "player": 0,
+            "residual": 98304,
+            "holeBit": 17,
+            "holeColumn": 2
+          }
+        ],
+        "holeColumnsA": [
+          1
+        ],
+        "holeColumnsB": [
+          2
+        ],
+        "holePair": [
+          1,
+          2
+        ],
+        "heightPair": [
+          2,
+          3
+        ],
+        "equalHeight": false,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      {
+        "groupId": 1464,
+        "labelledClasses": [
+          8785,
+          8788
+        ],
+        "support": "0,1,3,4,4",
+        "motif": true,
+        "heights": [
+          0,
+          1,
+          3,
+          4,
+          4
+        ],
+        "capMask": 229376,
+        "onlyA": [
+          "1:163840"
+        ],
+        "onlyB": [
+          "0:196608"
+        ],
+        "diffA": [
+          {
+            "player": 1,
+            "residual": 163840,
+            "holeBit": 16,
+            "holeColumn": 1
+          }
+        ],
+        "diffB": [
+          {
+            "player": 0,
+            "residual": 196608,
+            "holeBit": 15,
+            "holeColumn": 0
+          }
+        ],
+        "holeColumnsA": [
+          1
+        ],
+        "holeColumnsB": [
+          0
+        ],
+        "holePair": [
+          0,
+          1
+        ],
+        "heightPair": [
+          0,
+          1
+        ],
+        "equalHeight": false,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      {
+        "groupId": 1521,
+        "labelledClasses": [
+          3341,
+          4086
+        ],
+        "support": "0,2,3,4,4",
+        "motif": true,
+        "heights": [
+          0,
+          2,
+          3,
+          4,
+          4
+        ],
+        "capMask": 229376,
+        "onlyA": [
+          "0:98304"
+        ],
+        "onlyB": [
+          "0:163840"
+        ],
+        "diffA": [
+          {
+            "player": 0,
+            "residual": 98304,
+            "holeBit": 17,
+            "holeColumn": 2
+          }
+        ],
+        "diffB": [
+          {
+            "player": 0,
+            "residual": 163840,
+            "holeBit": 16,
+            "holeColumn": 1
+          }
+        ],
+        "holeColumnsA": [
+          2
+        ],
+        "holeColumnsB": [
+          1
+        ],
+        "holePair": [
+          1,
+          2
+        ],
+        "heightPair": [
+          2,
+          3
+        ],
+        "equalHeight": false,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      {
+        "groupId": 1615,
+        "labelledClasses": [
+          3376,
+          6928
+        ],
+        "support": "1,1,3,4,4",
+        "motif": true,
+        "heights": [
+          1,
+          1,
+          3,
+          4,
+          4
+        ],
+        "capMask": 229376,
+        "onlyA": [
+          "1:196608"
+        ],
+        "onlyB": [
+          "0:163840"
+        ],
+        "diffA": [
+          {
+            "player": 1,
+            "residual": 196608,
+            "holeBit": 15,
+            "holeColumn": 0
+          }
+        ],
+        "diffB": [
+          {
+            "player": 0,
+            "residual": 163840,
+            "holeBit": 16,
+            "holeColumn": 1
+          }
+        ],
+        "holeColumnsA": [
+          0
+        ],
+        "holeColumnsB": [
+          1
+        ],
+        "holePair": [
+          0,
+          1
+        ],
+        "heightPair": [
+          1,
+          1
+        ],
+        "equalHeight": true,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      {
+        "groupId": 1619,
+        "labelledClasses": [
+          10131,
+          10132
+        ],
+        "support": "0,1,3,4,4",
+        "motif": true,
+        "heights": [
+          0,
+          1,
+          3,
+          4,
+          4
+        ],
+        "capMask": 229376,
+        "onlyA": [
+          "0:196608"
+        ],
+        "onlyB": [
+          "0:163840"
+        ],
+        "diffA": [
+          {
+            "player": 0,
+            "residual": 196608,
+            "holeBit": 15,
+            "holeColumn": 0
+          }
+        ],
+        "diffB": [
+          {
+            "player": 0,
+            "residual": 163840,
+            "holeBit": 16,
+            "holeColumn": 1
+          }
+        ],
+        "holeColumnsA": [
+          0
+        ],
+        "holeColumnsB": [
+          1
+        ],
+        "holePair": [
+          0,
+          1
+        ],
+        "heightPair": [
+          0,
+          1
+        ],
+        "equalHeight": false,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      {
+        "groupId": 1629,
+        "labelledClasses": [
+          8929,
+          14013
+        ],
+        "support": "0,1,3,4,4",
+        "motif": true,
+        "heights": [
+          0,
+          1,
+          3,
+          4,
+          4
+        ],
+        "capMask": 229376,
+        "onlyA": [
+          "0:98304"
+        ],
+        "onlyB": [
+          "0:163840"
+        ],
+        "diffA": [
+          {
+            "player": 0,
+            "residual": 98304,
+            "holeBit": 17,
+            "holeColumn": 2
+          }
+        ],
+        "diffB": [
+          {
+            "player": 0,
+            "residual": 163840,
+            "holeBit": 16,
+            "holeColumn": 1
+          }
+        ],
+        "holeColumnsA": [
+          2
+        ],
+        "holeColumnsB": [
+          1
+        ],
+        "holePair": [
+          1,
+          2
+        ],
+        "heightPair": [
+          1,
+          3
+        ],
+        "equalHeight": false,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      {
+        "groupId": 1793,
+        "labelledClasses": [
+          1855,
+          1856
+        ],
+        "support": "1,2,3,4,4",
+        "motif": true,
+        "heights": [
+          1,
+          2,
+          3,
+          4,
+          4
+        ],
+        "capMask": 229376,
+        "onlyA": [
+          "0:98304"
+        ],
+        "onlyB": [
+          "1:196608"
+        ],
+        "diffA": [
+          {
+            "player": 0,
+            "residual": 98304,
+            "holeBit": 17,
+            "holeColumn": 2
+          }
+        ],
+        "diffB": [
+          {
+            "player": 1,
+            "residual": 196608,
+            "holeBit": 15,
+            "holeColumn": 0
+          }
+        ],
+        "holeColumnsA": [
+          2
+        ],
+        "holeColumnsB": [
+          0
+        ],
+        "holePair": [
+          0,
+          2
+        ],
+        "heightPair": [
+          1,
+          3
+        ],
+        "equalHeight": false,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      {
+        "groupId": 2077,
+        "labelledClasses": [
+          1156,
+          2053
+        ],
+        "support": "1,2,3,4,4",
+        "motif": true,
+        "heights": [
+          1,
+          2,
+          3,
+          4,
+          4
+        ],
+        "capMask": 229376,
+        "onlyA": [
+          "0:98304"
+        ],
+        "onlyB": [
+          "0:163840"
+        ],
+        "diffA": [
+          {
+            "player": 0,
+            "residual": 98304,
+            "holeBit": 17,
+            "holeColumn": 2
+          }
+        ],
+        "diffB": [
+          {
+            "player": 0,
+            "residual": 163840,
+            "holeBit": 16,
+            "holeColumn": 1
+          }
+        ],
+        "holeColumnsA": [
+          2
+        ],
+        "holeColumnsB": [
+          1
+        ],
+        "holePair": [
+          1,
+          2
+        ],
+        "heightPair": [
+          2,
+          3
+        ],
+        "equalHeight": false,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      {
+        "groupId": 2096,
+        "labelledClasses": [
+          1158,
+          2095
+        ],
+        "support": "1,2,3,4,4",
+        "motif": true,
+        "heights": [
+          1,
+          2,
+          3,
+          4,
+          4
+        ],
+        "capMask": 229376,
+        "onlyA": [
+          "1:98304"
+        ],
+        "onlyB": [
+          "0:163840"
+        ],
+        "diffA": [
+          {
+            "player": 1,
+            "residual": 98304,
+            "holeBit": 17,
+            "holeColumn": 2
+          }
+        ],
+        "diffB": [
+          {
+            "player": 0,
+            "residual": 163840,
+            "holeBit": 16,
+            "holeColumn": 1
+          }
+        ],
+        "holeColumnsA": [
+          2
+        ],
+        "holeColumnsB": [
+          1
+        ],
+        "holePair": [
+          1,
+          2
+        ],
+        "heightPair": [
+          2,
+          3
+        ],
+        "equalHeight": false,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      {
+        "groupId": 2113,
+        "labelledClasses": [
+          9476,
+          9478
+        ],
+        "support": "1,1,2,4,4",
+        "motif": true,
+        "heights": [
+          1,
+          1,
+          2,
+          4,
+          4
+        ],
+        "capMask": 229376,
+        "onlyA": [
+          "0:98304"
+        ],
+        "onlyB": [
+          "0:163840"
+        ],
+        "diffA": [
+          {
+            "player": 0,
+            "residual": 98304,
+            "holeBit": 17,
+            "holeColumn": 2
+          }
+        ],
+        "diffB": [
+          {
+            "player": 0,
+            "residual": 163840,
+            "holeBit": 16,
+            "holeColumn": 1
+          }
+        ],
+        "holeColumnsA": [
+          2
+        ],
+        "holeColumnsB": [
+          1
+        ],
+        "holePair": [
+          1,
+          2
+        ],
+        "heightPair": [
+          1,
+          2
+        ],
+        "equalHeight": false,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      {
+        "groupId": 2121,
+        "labelledClasses": [
+          3785,
+          3787
+        ],
+        "support": "1,1,3,4,4",
+        "motif": true,
+        "heights": [
+          1,
+          1,
+          3,
+          4,
+          4
+        ],
+        "capMask": 229376,
+        "onlyA": [
+          "1:98304"
+        ],
+        "onlyB": [
+          "1:163840"
+        ],
+        "diffA": [
+          {
+            "player": 1,
+            "residual": 98304,
+            "holeBit": 17,
+            "holeColumn": 2
+          }
+        ],
+        "diffB": [
+          {
+            "player": 1,
+            "residual": 163840,
+            "holeBit": 16,
+            "holeColumn": 1
+          }
+        ],
+        "holeColumnsA": [
+          2
+        ],
+        "holeColumnsB": [
+          1
+        ],
+        "holePair": [
+          1,
+          2
+        ],
+        "heightPair": [
+          1,
+          3
+        ],
+        "equalHeight": false,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      {
+        "groupId": 2371,
+        "labelledClasses": [
+          3895,
+          3896
+        ],
+        "support": "0,2,3,4,4",
+        "motif": true,
+        "heights": [
+          0,
+          2,
+          3,
+          4,
+          4
+        ],
+        "capMask": 229376,
+        "onlyA": [
+          "0:98304"
+        ],
+        "onlyB": [
+          "0:163840"
+        ],
+        "diffA": [
+          {
+            "player": 0,
+            "residual": 98304,
+            "holeBit": 17,
+            "holeColumn": 2
+          }
+        ],
+        "diffB": [
+          {
+            "player": 0,
+            "residual": 163840,
+            "holeBit": 16,
+            "holeColumn": 1
+          }
+        ],
+        "holeColumnsA": [
+          2
+        ],
+        "holeColumnsB": [
+          1
+        ],
+        "holePair": [
+          1,
+          2
+        ],
+        "heightPair": [
+          2,
+          3
+        ],
+        "equalHeight": false,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      {
+        "groupId": 2376,
+        "labelledClasses": [
+          3900,
+          6615
+        ],
+        "support": "0,2,3,4,4",
+        "motif": true,
+        "heights": [
+          0,
+          2,
+          3,
+          4,
+          4
+        ],
+        "capMask": 229376,
+        "onlyA": [
+          "0:163840"
+        ],
+        "onlyB": [
+          "0:98304"
+        ],
+        "diffA": [
+          {
+            "player": 0,
+            "residual": 163840,
+            "holeBit": 16,
+            "holeColumn": 1
+          }
+        ],
+        "diffB": [
+          {
+            "player": 0,
+            "residual": 98304,
+            "holeBit": 17,
+            "holeColumn": 2
+          }
+        ],
+        "holeColumnsA": [
+          1
+        ],
+        "holeColumnsB": [
+          2
+        ],
+        "holePair": [
+          1,
+          2
+        ],
+        "heightPair": [
+          2,
+          3
+        ],
+        "equalHeight": false,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      {
+        "groupId": 2379,
+        "labelledClasses": [
+          9781,
+          12008
+        ],
+        "support": "0,2,2,4,4",
+        "motif": true,
+        "heights": [
+          0,
+          2,
+          2,
+          4,
+          4
+        ],
+        "capMask": 229376,
+        "onlyA": [
+          "1:98304"
+        ],
+        "onlyB": [
+          "0:163840"
+        ],
+        "diffA": [
+          {
+            "player": 1,
+            "residual": 98304,
+            "holeBit": 17,
+            "holeColumn": 2
+          }
+        ],
+        "diffB": [
+          {
+            "player": 0,
+            "residual": 163840,
+            "holeBit": 16,
+            "holeColumn": 1
+          }
+        ],
+        "holeColumnsA": [
+          2
+        ],
+        "holeColumnsB": [
+          1
+        ],
+        "holePair": [
+          1,
+          2
+        ],
+        "heightPair": [
+          2,
+          2
+        ],
+        "equalHeight": true,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      {
+        "groupId": 2380,
+        "labelledClasses": [
+          3903,
+          3911
+        ],
+        "support": "0,2,3,4,4",
+        "motif": true,
+        "heights": [
+          0,
+          2,
+          3,
+          4,
+          4
+        ],
+        "capMask": 229376,
+        "onlyA": [
+          "1:98304"
+        ],
+        "onlyB": [
+          "0:163840"
+        ],
+        "diffA": [
+          {
+            "player": 1,
+            "residual": 98304,
+            "holeBit": 17,
+            "holeColumn": 2
+          }
+        ],
+        "diffB": [
+          {
+            "player": 0,
+            "residual": 163840,
+            "holeBit": 16,
+            "holeColumn": 1
+          }
+        ],
+        "holeColumnsA": [
+          2
+        ],
+        "holeColumnsB": [
+          1
+        ],
+        "holePair": [
+          1,
+          2
+        ],
+        "heightPair": [
+          2,
+          3
+        ],
+        "equalHeight": false,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      {
+        "groupId": 2395,
+        "labelledClasses": [
+          9795,
+          14257
+        ],
+        "support": "0,1,3,4,4",
+        "motif": true,
+        "heights": [
+          0,
+          1,
+          3,
+          4,
+          4
+        ],
+        "capMask": 229376,
+        "onlyA": [
+          "0:98304"
+        ],
+        "onlyB": [
+          "0:163840"
+        ],
+        "diffA": [
+          {
+            "player": 0,
+            "residual": 98304,
+            "holeBit": 17,
+            "holeColumn": 2
+          }
+        ],
+        "diffB": [
+          {
+            "player": 0,
+            "residual": 163840,
+            "holeBit": 16,
+            "holeColumn": 1
+          }
+        ],
+        "holeColumnsA": [
+          2
+        ],
+        "holeColumnsB": [
+          1
+        ],
+        "holePair": [
+          1,
+          2
+        ],
+        "heightPair": [
+          1,
+          3
+        ],
+        "equalHeight": false,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      {
+        "groupId": 2428,
+        "labelledClasses": [
+          9816,
+          12045
+        ],
+        "support": "0,1,3,4,4",
+        "motif": true,
+        "heights": [
+          0,
+          1,
+          3,
+          4,
+          4
+        ],
+        "capMask": 229376,
+        "onlyA": [
+          "0:98304"
+        ],
+        "onlyB": [
+          "0:163840"
+        ],
+        "diffA": [
+          {
+            "player": 0,
+            "residual": 98304,
+            "holeBit": 17,
+            "holeColumn": 2
+          }
+        ],
+        "diffB": [
+          {
+            "player": 0,
+            "residual": 163840,
+            "holeBit": 16,
+            "holeColumn": 1
+          }
+        ],
+        "holeColumnsA": [
+          2
+        ],
+        "holeColumnsB": [
+          1
+        ],
+        "holePair": [
+          1,
+          2
+        ],
+        "heightPair": [
+          1,
+          3
+        ],
+        "equalHeight": false,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      {
+        "groupId": 2448,
+        "labelledClasses": [
+          9819,
+          9820
+        ],
+        "support": "0,1,3,4,4",
+        "motif": true,
+        "heights": [
+          0,
+          1,
+          3,
+          4,
+          4
+        ],
+        "capMask": 229376,
+        "onlyA": [
+          "0:196608"
+        ],
+        "onlyB": [
+          "0:163840"
+        ],
+        "diffA": [
+          {
+            "player": 0,
+            "residual": 196608,
+            "holeBit": 15,
+            "holeColumn": 0
+          }
+        ],
+        "diffB": [
+          {
+            "player": 0,
+            "residual": 163840,
+            "holeBit": 16,
+            "holeColumn": 1
+          }
+        ],
+        "holeColumnsA": [
+          0
+        ],
+        "holeColumnsB": [
+          1
+        ],
+        "holePair": [
+          0,
+          1
+        ],
+        "heightPair": [
+          0,
+          1
+        ],
+        "equalHeight": false,
+        "allDiffOneHole": true,
+        "disjoint": true
+      }
+    ],
+    "nonzeroCycleMotifExamples": [
+      {
+        "groupId": 812,
+        "labelledClasses": [
+          222,
+          223
+        ],
+        "support": "2,2,3,4,4",
+        "motif": true,
+        "heights": [
+          2,
+          2,
+          3,
+          4,
+          4
+        ],
+        "capMask": 229376,
+        "onlyA": [
+          "0:196608"
+        ],
+        "onlyB": [
+          "1:163840"
+        ],
+        "diffA": [
+          {
+            "player": 0,
+            "residual": 196608,
+            "holeBit": 15,
+            "holeColumn": 0
+          }
+        ],
+        "diffB": [
+          {
+            "player": 1,
+            "residual": 163840,
+            "holeBit": 16,
+            "holeColumn": 1
+          }
+        ],
+        "holeColumnsA": [
+          0
+        ],
+        "holeColumnsB": [
+          1
+        ],
+        "holePair": [
+          0,
+          1
+        ],
+        "heightPair": [
+          2,
+          2
+        ],
+        "equalHeight": true,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      {
+        "groupId": 1278,
+        "labelledClasses": [
+          1010,
+          1155
+        ],
+        "support": "1,2,3,4,4",
+        "motif": true,
+        "heights": [
+          1,
+          2,
+          3,
+          4,
+          4
+        ],
+        "capMask": 229376,
+        "onlyA": [
+          "0:163840"
+        ],
+        "onlyB": [
+          "0:98304"
+        ],
+        "diffA": [
+          {
+            "player": 0,
+            "residual": 163840,
+            "holeBit": 16,
+            "holeColumn": 1
+          }
+        ],
+        "diffB": [
+          {
+            "player": 0,
+            "residual": 98304,
+            "holeBit": 17,
+            "holeColumn": 2
+          }
+        ],
+        "holeColumnsA": [
+          1
+        ],
+        "holeColumnsB": [
+          2
+        ],
+        "holePair": [
+          1,
+          2
+        ],
+        "heightPair": [
+          2,
+          3
+        ],
+        "equalHeight": false,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      {
+        "groupId": 2121,
+        "labelledClasses": [
+          3785,
+          3787
+        ],
+        "support": "1,1,3,4,4",
+        "motif": true,
+        "heights": [
+          1,
+          1,
+          3,
+          4,
+          4
+        ],
+        "capMask": 229376,
+        "onlyA": [
+          "1:98304"
+        ],
+        "onlyB": [
+          "1:163840"
+        ],
+        "diffA": [
+          {
+            "player": 1,
+            "residual": 98304,
+            "holeBit": 17,
+            "holeColumn": 2
+          }
+        ],
+        "diffB": [
+          {
+            "player": 1,
+            "residual": 163840,
+            "holeBit": 16,
+            "holeColumn": 1
+          }
+        ],
+        "holeColumnsA": [
+          2
+        ],
+        "holeColumnsB": [
+          1
+        ],
+        "holePair": [
+          1,
+          2
+        ],
+        "heightPair": [
+          1,
+          3
+        ],
+        "equalHeight": false,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      {
+        "groupId": 3150,
+        "labelledClasses": [
+          470,
+          558
+        ],
+        "support": "2,2,3,4,4",
+        "motif": true,
+        "heights": [
+          2,
+          2,
+          3,
+          4,
+          4
+        ],
+        "capMask": 229376,
+        "onlyA": [
+          "0:196608"
+        ],
+        "onlyB": [
+          "0:98304"
+        ],
+        "diffA": [
+          {
+            "player": 0,
+            "residual": 196608,
+            "holeBit": 15,
+            "holeColumn": 0
+          }
+        ],
+        "diffB": [
+          {
+            "player": 0,
+            "residual": 98304,
+            "holeBit": 17,
+            "holeColumn": 2
+          }
+        ],
+        "holeColumnsA": [
+          0
+        ],
+        "holeColumnsB": [
+          2
+        ],
+        "holePair": [
+          0,
+          2
+        ],
+        "heightPair": [
+          2,
+          3
+        ],
+        "equalHeight": false,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      {
+        "groupId": 3196,
+        "labelledClasses": [
+          1598,
+          1951
+        ],
+        "support": "2,2,3,3,4",
+        "motif": true,
+        "heights": [
+          2,
+          2,
+          3,
+          3,
+          4
+        ],
+        "capMask": 491520,
+        "onlyA": [
+          "0:458752"
+        ],
+        "onlyB": [
+          "0:360448"
+        ],
+        "diffA": [
+          {
+            "player": 0,
+            "residual": 458752,
+            "holeBit": 15,
+            "holeColumn": 0
+          }
+        ],
+        "diffB": [
+          {
+            "player": 0,
+            "residual": 360448,
+            "holeBit": 17,
+            "holeColumn": 2
+          }
+        ],
+        "holeColumnsA": [
+          0
+        ],
+        "holeColumnsB": [
+          2
+        ],
+        "holePair": [
+          0,
+          2
+        ],
+        "heightPair": [
+          2,
+          3
+        ],
+        "equalHeight": false,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      {
+        "groupId": 3207,
+        "labelledClasses": [
+          1686,
+          1693
+        ],
+        "support": "1,2,3,4,4",
+        "motif": true,
+        "heights": [
+          1,
+          2,
+          3,
+          4,
+          4
+        ],
+        "capMask": 229376,
+        "onlyA": [
+          "1:196608"
+        ],
+        "onlyB": [
+          "0:98304"
+        ],
+        "diffA": [
+          {
+            "player": 1,
+            "residual": 196608,
+            "holeBit": 15,
+            "holeColumn": 0
+          }
+        ],
+        "diffB": [
+          {
+            "player": 0,
+            "residual": 98304,
+            "holeBit": 17,
+            "holeColumn": 2
+          }
+        ],
+        "holeColumnsA": [
+          0
+        ],
+        "holeColumnsB": [
+          2
+        ],
+        "holePair": [
+          0,
+          2
+        ],
+        "heightPair": [
+          1,
+          3
+        ],
+        "equalHeight": false,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      {
+        "groupId": 3389,
+        "labelledClasses": [
+          540,
+          542
+        ],
+        "support": "2,2,3,4,4",
+        "motif": true,
+        "heights": [
+          2,
+          2,
+          3,
+          4,
+          4
+        ],
+        "capMask": 229376,
+        "onlyA": [
+          "0:98304"
+        ],
+        "onlyB": [
+          "1:163840"
+        ],
+        "diffA": [
+          {
+            "player": 0,
+            "residual": 98304,
+            "holeBit": 17,
+            "holeColumn": 2
+          }
+        ],
+        "diffB": [
+          {
+            "player": 1,
+            "residual": 163840,
+            "holeBit": 16,
+            "holeColumn": 1
+          }
+        ],
+        "holeColumnsA": [
+          2
+        ],
+        "holeColumnsB": [
+          1
+        ],
+        "holePair": [
+          1,
+          2
+        ],
+        "heightPair": [
+          2,
+          3
+        ],
+        "equalHeight": false,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      {
+        "groupId": 3404,
+        "labelledClasses": [
+          1878,
+          1879
+        ],
+        "support": "1,2,3,4,4",
+        "motif": true,
+        "heights": [
+          1,
+          2,
+          3,
+          4,
+          4
+        ],
+        "capMask": 229376,
+        "onlyA": [
+          "0:98304"
+        ],
+        "onlyB": [
+          "1:196608"
+        ],
+        "diffA": [
+          {
+            "player": 0,
+            "residual": 98304,
+            "holeBit": 17,
+            "holeColumn": 2
+          }
+        ],
+        "diffB": [
+          {
+            "player": 1,
+            "residual": 196608,
+            "holeBit": 15,
+            "holeColumn": 0
+          }
+        ],
+        "holeColumnsA": [
+          2
+        ],
+        "holeColumnsB": [
+          0
+        ],
+        "holePair": [
+          0,
+          2
+        ],
+        "heightPair": [
+          1,
+          3
+        ],
+        "equalHeight": false,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      {
+        "groupId": 3534,
+        "labelledClasses": [
+          1945,
+          1946
+        ],
+        "support": "2,2,3,3,4",
+        "motif": true,
+        "heights": [
+          2,
+          2,
+          3,
+          3,
+          4
+        ],
+        "capMask": 491520,
+        "onlyA": [
+          "0:458752"
+        ],
+        "onlyB": [
+          "0:360448"
+        ],
+        "diffA": [
+          {
+            "player": 0,
+            "residual": 458752,
+            "holeBit": 15,
+            "holeColumn": 0
+          }
+        ],
+        "diffB": [
+          {
+            "player": 0,
+            "residual": 360448,
+            "holeBit": 17,
+            "holeColumn": 2
+          }
+        ],
+        "holeColumnsA": [
+          0
+        ],
+        "holeColumnsB": [
+          2
+        ],
+        "holePair": [
+          0,
+          2
+        ],
+        "heightPair": [
+          2,
+          3
+        ],
+        "equalHeight": false,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      {
+        "groupId": 3535,
+        "labelledClasses": [
+          554,
+          555
+        ],
+        "support": "2,2,3,4,4",
+        "motif": true,
+        "heights": [
+          2,
+          2,
+          3,
+          4,
+          4
+        ],
+        "capMask": 229376,
+        "onlyA": [
+          "0:196608"
+        ],
+        "onlyB": [
+          "0:98304"
+        ],
+        "diffA": [
+          {
+            "player": 0,
+            "residual": 196608,
+            "holeBit": 15,
+            "holeColumn": 0
+          }
+        ],
+        "diffB": [
+          {
+            "player": 0,
+            "residual": 98304,
+            "holeBit": 17,
+            "holeColumn": 2
+          }
+        ],
+        "holeColumnsA": [
+          0
+        ],
+        "holeColumnsB": [
+          2
+        ],
+        "holePair": [
+          0,
+          2
+        ],
+        "heightPair": [
+          2,
+          3
+        ],
+        "equalHeight": false,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      {
+        "groupId": 3549,
+        "labelledClasses": [
+          1964,
+          1965
+        ],
+        "support": "1,2,3,4,4",
+        "motif": true,
+        "heights": [
+          1,
+          2,
+          3,
+          4,
+          4
+        ],
+        "capMask": 229376,
+        "onlyA": [
+          "0:98304"
+        ],
+        "onlyB": [
+          "0:163840"
+        ],
+        "diffA": [
+          {
+            "player": 0,
+            "residual": 98304,
+            "holeBit": 17,
+            "holeColumn": 2
+          }
+        ],
+        "diffB": [
+          {
+            "player": 0,
+            "residual": 163840,
+            "holeBit": 16,
+            "holeColumn": 1
+          }
+        ],
+        "holeColumnsA": [
+          2
+        ],
+        "holeColumnsB": [
+          1
+        ],
+        "holePair": [
+          1,
+          2
+        ],
+        "heightPair": [
+          2,
+          3
+        ],
+        "equalHeight": false,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      {
+        "groupId": 3551,
+        "labelledClasses": [
+          1968,
+          1969
+        ],
+        "support": "1,2,3,4,4",
+        "motif": true,
+        "heights": [
+          1,
+          2,
+          3,
+          4,
+          4
+        ],
+        "capMask": 229376,
+        "onlyA": [
+          "0:98304"
+        ],
+        "onlyB": [
+          "0:163840"
+        ],
+        "diffA": [
+          {
+            "player": 0,
+            "residual": 98304,
+            "holeBit": 17,
+            "holeColumn": 2
+          }
+        ],
+        "diffB": [
+          {
+            "player": 0,
+            "residual": 163840,
+            "holeBit": 16,
+            "holeColumn": 1
+          }
+        ],
+        "holeColumnsA": [
+          2
+        ],
+        "holeColumnsB": [
+          1
+        ],
+        "holePair": [
+          1,
+          2
+        ],
+        "heightPair": [
+          2,
+          3
+        ],
+        "equalHeight": false,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      {
+        "groupId": 3724,
+        "labelledClasses": [
+          2105,
+          2106
+        ],
+        "support": "1,2,3,4,4",
+        "motif": true,
+        "heights": [
+          1,
+          2,
+          3,
+          4,
+          4
+        ],
+        "capMask": 229376,
+        "onlyA": [
+          "0:98304"
+        ],
+        "onlyB": [
+          "0:163840"
+        ],
+        "diffA": [
+          {
+            "player": 0,
+            "residual": 98304,
+            "holeBit": 17,
+            "holeColumn": 2
+          }
+        ],
+        "diffB": [
+          {
+            "player": 0,
+            "residual": 163840,
+            "holeBit": 16,
+            "holeColumn": 1
+          }
+        ],
+        "holeColumnsA": [
+          2
+        ],
+        "holeColumnsB": [
+          1
+        ],
+        "holePair": [
+          1,
+          2
+        ],
+        "heightPair": [
+          2,
+          3
+        ],
+        "equalHeight": false,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      {
+        "groupId": 3955,
+        "labelledClasses": [
+          6512,
+          6515
+        ],
+        "support": "0,2,3,4,4",
+        "motif": true,
+        "heights": [
+          0,
+          2,
+          3,
+          4,
+          4
+        ],
+        "capMask": 229376,
+        "onlyA": [
+          "0:163840"
+        ],
+        "onlyB": [
+          "0:98304"
+        ],
+        "diffA": [
+          {
+            "player": 0,
+            "residual": 163840,
+            "holeBit": 16,
+            "holeColumn": 1
+          }
+        ],
+        "diffB": [
+          {
+            "player": 0,
+            "residual": 98304,
+            "holeBit": 17,
+            "holeColumn": 2
+          }
+        ],
+        "holeColumnsA": [
+          1
+        ],
+        "holeColumnsB": [
+          2
+        ],
+        "holePair": [
+          1,
+          2
+        ],
+        "heightPair": [
+          2,
+          3
+        ],
+        "equalHeight": false,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      {
+        "groupId": 3959,
+        "labelledClasses": [
+          14012,
+          14014
+        ],
+        "support": "0,1,3,4,4",
+        "motif": true,
+        "heights": [
+          0,
+          1,
+          3,
+          4,
+          4
+        ],
+        "capMask": 229376,
+        "onlyA": [
+          "0:98304"
+        ],
+        "onlyB": [
+          "0:163840"
+        ],
+        "diffA": [
+          {
+            "player": 0,
+            "residual": 98304,
+            "holeBit": 17,
+            "holeColumn": 2
+          }
+        ],
+        "diffB": [
+          {
+            "player": 0,
+            "residual": 163840,
+            "holeBit": 16,
+            "holeColumn": 1
+          }
+        ],
+        "holeColumnsA": [
+          2
+        ],
+        "holeColumnsB": [
+          1
+        ],
+        "holePair": [
+          1,
+          2
+        ],
+        "heightPair": [
+          1,
+          3
+        ],
+        "equalHeight": false,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      {
+        "groupId": 4200,
+        "labelledClasses": [
+          14278,
+          14279
+        ],
+        "support": "0,2,3,3,4",
+        "motif": true,
+        "heights": [
+          0,
+          2,
+          3,
+          3,
+          4
+        ],
+        "capMask": 491520,
+        "onlyA": [
+          "0:425984"
+        ],
+        "onlyB": [
+          "0:360448"
+        ],
+        "diffA": [
+          {
+            "player": 0,
+            "residual": 425984,
+            "holeBit": 16,
+            "holeColumn": 1
+          }
+        ],
+        "diffB": [
+          {
+            "player": 0,
+            "residual": 360448,
+            "holeBit": 17,
+            "holeColumn": 2
+          }
+        ],
+        "holeColumnsA": [
+          1
+        ],
+        "holeColumnsB": [
+          2
+        ],
+        "holePair": [
+          1,
+          2
+        ],
+        "heightPair": [
+          2,
+          3
+        ],
+        "equalHeight": false,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      {
+        "groupId": 4202,
+        "labelledClasses": [
+          6634,
+          6636
+        ],
+        "support": "0,2,3,4,4",
+        "motif": true,
+        "heights": [
+          0,
+          2,
+          3,
+          4,
+          4
+        ],
+        "capMask": 229376,
+        "onlyA": [
+          "0:163840"
+        ],
+        "onlyB": [
+          "0:98304"
+        ],
+        "diffA": [
+          {
+            "player": 0,
+            "residual": 163840,
+            "holeBit": 16,
+            "holeColumn": 1
+          }
+        ],
+        "diffB": [
+          {
+            "player": 0,
+            "residual": 98304,
+            "holeBit": 17,
+            "holeColumn": 2
+          }
+        ],
+        "holeColumnsA": [
+          1
+        ],
+        "holeColumnsB": [
+          2
+        ],
+        "holePair": [
+          1,
+          2
+        ],
+        "heightPair": [
+          2,
+          3
+        ],
+        "equalHeight": false,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      {
+        "groupId": 4204,
+        "labelledClasses": [
+          14283,
+          14284
+        ],
+        "support": "0,2,3,3,4",
+        "motif": true,
+        "heights": [
+          0,
+          2,
+          3,
+          3,
+          4
+        ],
+        "capMask": 491520,
+        "onlyA": [
+          "0:425984"
+        ],
+        "onlyB": [
+          "0:360448"
+        ],
+        "diffA": [
+          {
+            "player": 0,
+            "residual": 425984,
+            "holeBit": 16,
+            "holeColumn": 1
+          }
+        ],
+        "diffB": [
+          {
+            "player": 0,
+            "residual": 360448,
+            "holeBit": 17,
+            "holeColumn": 2
+          }
+        ],
+        "holeColumnsA": [
+          1
+        ],
+        "holeColumnsB": [
+          2
+        ],
+        "holePair": [
+          1,
+          2
+        ],
+        "heightPair": [
+          2,
+          3
+        ],
+        "equalHeight": false,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      {
+        "groupId": 4205,
+        "labelledClasses": [
+          6640,
+          6641
+        ],
+        "support": "0,2,3,4,4",
+        "motif": true,
+        "heights": [
+          0,
+          2,
+          3,
+          4,
+          4
+        ],
+        "capMask": 229376,
+        "onlyA": [
+          "0:163840"
+        ],
+        "onlyB": [
+          "0:98304"
+        ],
+        "diffA": [
+          {
+            "player": 0,
+            "residual": 163840,
+            "holeBit": 16,
+            "holeColumn": 1
+          }
+        ],
+        "diffB": [
+          {
+            "player": 0,
+            "residual": 98304,
+            "holeBit": 17,
+            "holeColumn": 2
+          }
+        ],
+        "holeColumnsA": [
+          1
+        ],
+        "holeColumnsB": [
+          2
+        ],
+        "holePair": [
+          1,
+          2
+        ],
+        "heightPair": [
+          2,
+          3
+        ],
+        "equalHeight": false,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      {
+        "groupId": 4377,
+        "labelledClasses": [
+          25742,
+          25744
+        ],
+        "support": "0,0,3,4,4",
+        "motif": true,
+        "heights": [
+          0,
+          0,
+          3,
+          4,
+          4
+        ],
+        "capMask": 229376,
+        "onlyA": [
+          "0:163840"
+        ],
+        "onlyB": [
+          "0:98304"
+        ],
+        "diffA": [
+          {
+            "player": 0,
+            "residual": 163840,
+            "holeBit": 16,
+            "holeColumn": 1
+          }
+        ],
+        "diffB": [
+          {
+            "player": 0,
+            "residual": 98304,
+            "holeBit": 17,
+            "holeColumn": 2
+          }
+        ],
+        "holeColumnsA": [
+          1
+        ],
+        "holeColumnsB": [
+          2
+        ],
+        "holePair": [
+          1,
+          2
+        ],
+        "heightPair": [
+          0,
+          3
+        ],
+        "equalHeight": false,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      {
+        "groupId": 4380,
+        "labelledClasses": [
+          38488,
+          38489
+        ],
+        "support": "0,0,2,4,4",
+        "motif": true,
+        "heights": [
+          0,
+          0,
+          2,
+          4,
+          4
+        ],
+        "capMask": 229376,
+        "onlyA": [
+          "0:98304"
+        ],
+        "onlyB": [
+          "0:163840"
+        ],
+        "diffA": [
+          {
+            "player": 0,
+            "residual": 98304,
+            "holeBit": 17,
+            "holeColumn": 2
+          }
+        ],
+        "diffB": [
+          {
+            "player": 0,
+            "residual": 163840,
+            "holeBit": 16,
+            "holeColumn": 1
+          }
+        ],
+        "holeColumnsA": [
+          2
+        ],
+        "holeColumnsB": [
+          1
+        ],
+        "holePair": [
+          1,
+          2
+        ],
+        "heightPair": [
+          0,
+          2
+        ],
+        "equalHeight": false,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      {
+        "groupId": 5389,
+        "labelledClasses": [
+          7555,
+          7556
+        ],
+        "support": "0,2,3,4,4",
+        "motif": true,
+        "heights": [
+          0,
+          2,
+          3,
+          4,
+          4
+        ],
+        "capMask": 229376,
+        "onlyA": [
+          "1:98304"
+        ],
+        "onlyB": [
+          "1:163840"
+        ],
+        "diffA": [
+          {
+            "player": 1,
+            "residual": 98304,
+            "holeBit": 17,
+            "holeColumn": 2
+          }
+        ],
+        "diffB": [
+          {
+            "player": 1,
+            "residual": 163840,
+            "holeBit": 16,
+            "holeColumn": 1
+          }
+        ],
+        "holeColumnsA": [
+          2
+        ],
+        "holeColumnsB": [
+          1
+        ],
+        "holePair": [
+          1,
+          2
+        ],
+        "heightPair": [
+          2,
+          3
+        ],
+        "equalHeight": false,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      {
+        "groupId": 5392,
+        "labelledClasses": [
+          28531,
+          28532
+        ],
+        "support": "0,1,3,3,4",
+        "motif": true,
+        "heights": [
+          0,
+          1,
+          3,
+          3,
+          4
+        ],
+        "capMask": 491520,
+        "onlyA": [
+          "1:425984"
+        ],
+        "onlyB": [
+          "1:360448"
+        ],
+        "diffA": [
+          {
+            "player": 1,
+            "residual": 425984,
+            "holeBit": 16,
+            "holeColumn": 1
+          }
+        ],
+        "diffB": [
+          {
+            "player": 1,
+            "residual": 360448,
+            "holeBit": 17,
+            "holeColumn": 2
+          }
+        ],
+        "holeColumnsA": [
+          1
+        ],
+        "holeColumnsB": [
+          2
+        ],
+        "holePair": [
+          1,
+          2
+        ],
+        "heightPair": [
+          1,
+          3
+        ],
+        "equalHeight": false,
+        "allDiffOneHole": true,
+        "disjoint": true
+      },
+      {
+        "groupId": 5394,
+        "labelledClasses": [
+          16621,
+          16623
+        ],
+        "support": "0,1,3,4,4",
+        "motif": true,
+        "heights": [
+          0,
+          1,
+          3,
+          4,
+          4
+        ],
+        "capMask": 229376,
+        "onlyA": [
+          "1:163840"
+        ],
+        "onlyB": [
+          "1:98304"
+        ],
+        "diffA": [
+          {
+            "player": 1,
+            "residual": 163840,
+            "holeBit": 16,
+            "holeColumn": 1
+          }
+        ],
+        "diffB": [
+          {
+            "player": 1,
+            "residual": 98304,
+            "holeBit": 17,
+            "holeColumn": 2
+          }
+        ],
+        "holeColumnsA": [
+          1
+        ],
+        "holeColumnsB": [
+          2
+        ],
+        "holePair": [
+          1,
+          2
+        ],
+        "heightPair": [
+          1,
+          3
+        ],
+        "equalHeight": false,
+        "allDiffOneHole": true,
+        "disjoint": true
+      }
+    ]
+  },
+  "result": {
+    "motifOnNonzeroSupport": true,
+    "motifOnFlatCycleSupport": false,
+    "crossKSupport": true
+  },
+  "interpretation_guard": "Fresh structural holdout over frozen motif definition. Positive overlap is supporting evidence, not necessity/sufficiency proof; absence is a scoped falsifier only."
+}
