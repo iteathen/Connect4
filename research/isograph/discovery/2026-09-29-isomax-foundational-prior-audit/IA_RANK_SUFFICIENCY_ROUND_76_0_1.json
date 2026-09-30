@@ -1,0 +1,66 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_round.v1",
+  "round": 76,
+  "date_author_local": "2026-09-30",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_75_FIXED_POINT_0_1.json",
+    "RANK_SUFFICIENCY_SIGNED_EXCHANGE_ROLE_DEPTH_QUOTIENT_INTEGRATION_0_1.json"
+  ],
+  "reopened_reason": "EW-RS-073 freezes the internal role/depth quotient grid inside the common C+D0+D1 signed exchange carrier and establishes a substantially coarser common exact realization.",
+  "new_assertions": [
+    {
+      "id": "RS-IA234",
+      "family": "M",
+      "body": "Canonical capacity-role index is not load-bearing for the declared common scalar exchange law: C_ROLELESS participates in the minimal common exact grid under both SIGN and SIGNED_PARITY."
+    },
+    {
+      "id": "RS-IA235",
+      "family": "Q",
+      "body": "Under SIGNED_PARITY, exact frontier-relative depth and depth parity are both removable from D0/D1; the common exact carrier needs only owner-separated signed counts of odd-magnitude changed depth coordinates."
+    },
+    {
+      "id": "RS-IA236",
+      "family": "F",
+      "body": "Ordinary SIGN retains one additional timing distinction on 6x3-k3: depthless SIGN loses one structural direction and produces one scalar contradiction, while depth parity restores exactness."
+    },
+    {
+      "id": "RS-IA237",
+      "family": "V",
+      "body": "On 4x5-k4 the roleless/depthless SIGNED_PARITY quotient reduces structural image rank from 282 to 262 without reducing the two-dimensional scalar image, exposing a twenty-dimensional value-null index subspace."
+    },
+    {
+      "id": "RS-IA238",
+      "family": "D",
+      "body": "The current common MSS description is SIGNED_PARITY exchange over three semantic families: roleless capacity-change count C and depthless owner-separated change counts D0,D1. Absolute width, exact capacity role, exact depth, depth parity, and even-magnitude delta coordinates are all absent."
+    },
+    {
+      "id": "RS-IA239",
+      "family": "R",
+      "body": "Owner separation D0 versus D1 is now the next explicit semantic coordinate to test. A lawful next experiment must freeze owner-merge/symmetric/antisymmetric channel maps before scalar replay."
+    },
+    {
+      "id": "RS-IA240",
+      "family": "F",
+      "body": "EW-RS-059 remains sealed because EW-RS-073 identifies a structural carrier but does not freeze the closed scalar syndrome map."
+    }
+  ],
+  "qu_refinements": [
+    {
+      "id": "RS-QR060",
+      "target": "QU-RS-004",
+      "add_fixed": [
+        "capacity role index is common-redundant in the signed exchange carrier",
+        "SIGNED_PARITY with C_ROLELESS+D_DEPTHLESS is scalar-exact on all three hard carriers",
+        "under that gauge exact depth and depth parity are common-redundant while owner separation D0/D1 remains retained",
+        "4x5-k4 roleless/depthless signed parity has rank 262 versus full C+D0+D1 signed-parity rank 282 with the same two-dimensional scalar image"
+      ],
+      "retain_open": [
+        "owner-channel merge or symmetric/antisymmetric quotient of D0/D1",
+        "native small circuit functional inside the roleless/depthless signed-parity image",
+        "closed two-syndrome law before EW-RS-059 unsealing",
+        "standard-7x6 qualification"
+      ]
+    }
+  ],
+  "stop_status": "REOPENED__OWNER_CHANNEL_QUOTIENT_NEXT"
+}
