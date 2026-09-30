@@ -1,0 +1,59 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.phase_factored_affine_xor.v1",
+  "id": "EW-RS-025",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "parents": [
+    "EW-RS-018",
+    "EW-RS-022",
+    "EW-RS-024"
+  ],
+  "objective": "On the unresolved T2-O scalar carrier, test the simplest direct late-XOR valuation law after rank phase has been factored explicitly.",
+  "frozen_domain": "T2-O nonterminal states only",
+  "frozen_representation": "post-RFG component-type multiplicity parity M2 plus rank mod 3",
+  "relative_value": "U=+1 if exact V is a win for the current mover, U=0 for draw, U=-1 for loss",
+  "affine_xor_candidate": {
+    "group": "GF(2)^2",
+    "fixed_codes": {
+      "loss": "00",
+      "draw": "01",
+      "win": "10"
+    },
+    "equation": "code(U(P)) = b_G,r3 XOR XOR_{component types C with odd multiplicity} g_G(C)",
+    "unknowns": [
+      "one 2-bit value g_G(C) per observed component type",
+      "one 2-bit phase offset b_G,r3 for each rank-mod-3 class"
+    ],
+    "note": "Any three distinct GF(2)^2 outcome codes are affine-equivalent, so fixing one injective code removes only coordinate gauge, not a genuine affine solution."
+  },
+  "control": {
+    "id": "NO_PHASE",
+    "equation": "code(U(P)) = XOR_{odd C} g_G(C)",
+    "purpose": "test whether the explicit rank-mod-3 offset is genuinely load-bearing"
+  },
+  "cases": [
+    "3x3-k3",
+    "3x4-k3",
+    "4x3-k3",
+    "4x4-k4",
+    "4x4-k3",
+    "3x5-k3",
+    "5x3-k3",
+    "3x6-k3"
+  ],
+  "anti_circularity": [
+    "Component extractor, parity projection, rank phase and T2 domain are frozen before values are derived.",
+    "Exact values supply only the right-hand side of the linear qualification system.",
+    "The test does not add new features or patched operands after observing contradictions.",
+    "Per-geometry valuation g_G is permitted because the governing objective explicitly allows persistent G."
+  ],
+  "falsifiers": [
+    "A zero-coefficient row with nonzero two-bit right-hand side rejects the affine GF(2)^2 valuation in that geometry.",
+    "A failure with phase offsets rejects this simplest direct two-bit XOR outcome code even though a larger/nonlinear decoder or another finite algebra may remain possible."
+  ],
+  "nonclaims": [
+    "A finite consistent solution does not prove a closed-form component valuation.",
+    "A finite consistent solution does not prove standard-7x6 qualification.",
+    "This test concerns Q-V only and deliberately ignores the finer Q-A interface."
+  ]
+}
