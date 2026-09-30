@@ -1,0 +1,49 @@
+{
+  "schema": "connect4.isomax.discovery.nei_analysis.v1",
+  "authority": "NEI 0.4",
+  "status": "NO_NATURAL_IDENTITY_PROMOTION",
+  "queries": [
+    {
+      "id": "NEI-Q001",
+      "subjects": [
+        "4x5 flat fundamental-cycle events",
+        "5x4 flat/nonzero fundamental-cycle events"
+      ],
+      "structural_evidence": [
+        "coarse local signatures overlap across zero/nonzero",
+        "action-order motifs can coincide across outcomes without rank",
+        "DTS syndrome differs"
+      ],
+      "result": "INCOMPLETE",
+      "reason": "No independently justified natural/domain identity model family is supplied. Structural/TI-like correspondence cannot promote SAME."
+    },
+    {
+      "id": "NEI-Q002",
+      "subjects": [
+        "globally minimal 5x4 four-transition contradiction",
+        "other 5x4 contradictory reconvergences"
+      ],
+      "structural_evidence": [
+        "minimum is unique under declared MSS cost",
+        "12 contradictory reconvergences exist in baseline"
+      ],
+      "result": "INCOMPLETE",
+      "reason": "Cost-minimality and shared obstruction role do not define natural identity."
+    },
+    {
+      "id": "NEI-Q003",
+      "subjects": [
+        "flat 4x4 action-order diamond",
+        "minimum contradictory 5x4 two-route witness"
+      ],
+      "structural_evidence": [
+        "both are two-route reconvergences",
+        "one has zero route difference; one odd",
+        "different case geometry and transition anatomy"
+      ],
+      "result": "INCOMPLETE",
+      "reason": "No qualified identity theory says whether these are one natural event type or distinct types. DTS distinction is not NEI DISTINCT by itself."
+    }
+  ],
+  "guard": "No SAME/DISTINCT/UNKNOWN was inferred from structural similarity alone; queries remain INCOMPLETE because admissible identity model families are not qualified."
+}

@@ -1,0 +1,79 @@
+{
+  "schema": "connect4.isomax.discovery.mss_valuation.v2",
+  "authority": "DP 0.9",
+  "objectives": [
+    {
+      "id": "MSS-001",
+      "target": "one complete 5x4 contradiction",
+      "objective": [
+        "min total traversals",
+        "then min max route length",
+        "then min distinct edges"
+      ],
+      "result": "UNIQUE_MINIMUM",
+      "support": {
+        "totalTraversals": 4,
+        "maxRouteEdges": 2,
+        "distinctEdges": 4,
+        "source": 3260,
+        "target": 574
+      },
+      "evidence": "MSS_ANALYSIS_0_1.json"
+    },
+    {
+      "id": "MSS-002",
+      "target": "syndrome classifier from coarse local cycle summaries",
+      "objective": "fewest non-tautological features",
+      "result": "NO_VALID_SUPPORT_EVEN_WITH_ALL_EIGHT_FEATURES",
+      "witness": "matched zero/nonzero full eight-feature signature",
+      "evidence": "CYCLE_FEATURES_0_1.json + exhaustive subset audit"
+    },
+    {
+      "id": "MSS-003",
+      "target": "counterfactual winning-line families sufficient for 5x4 k4 frustration",
+      "objective": "set inclusion / fewest H,V,D families",
+      "result": "UNIQUE_MINIMUM_H_PLUS_D",
+      "support": [
+        "H",
+        "D"
+      ],
+      "controls": {
+        "H": "flat",
+        "D": "flat",
+        "V": "flat",
+        "HV": "flat",
+        "VD": "flat",
+        "HD": "obstructed",
+        "HVD": "obstructed"
+      },
+      "evidence": "LINE_FAMILY_INTERVENTION_0_1.json"
+    },
+    {
+      "id": "MSS-004",
+      "target": "frontier/cap closure machinery required for 5x4 k4 obstruction",
+      "objective": "fewest enabled closures among frontier and final-cap",
+      "result": "EMPTY_SET_SUFFICES_FOR_OBSTRUCTION",
+      "support": [],
+      "note": "F0C0 already has 79 nonzero syndromes; frontier reduces but does not create obstruction; final-cap is cocycle-inert.",
+      "evidence": "PHASE1_OBSERVATIONS_0_1.json"
+    },
+    {
+      "id": "MSS-005",
+      "target": "k4 finite cycle classification by action-order motif",
+      "objective": "compact relabel-invariant structural key after coarse-feature failure",
+      "result": "PARENT_RANK_PLUS_FULL_RELABELLED_ACTION_WORD_FITS_TRAINING_BUT_NOT_HOLDOUT_COVERAGE",
+      "holdout": {
+        "seen": 68,
+        "seenCorrect": 68,
+        "unseen": 410,
+        "nonzeroUnseen": 23
+      },
+      "disposition": "DISCOVERY_CLUE_NOT_PROMOTED"
+    }
+  ],
+  "valuation": {
+    "validity_first": true,
+    "no_cross_axis_scalarization": true,
+    "preferred_next_gap": "explain why H+D is frustrated only in tested 5x4 geometry after simpler topology, merge-depth, guard and residual-pruning explanations fail"
+  }
+}
