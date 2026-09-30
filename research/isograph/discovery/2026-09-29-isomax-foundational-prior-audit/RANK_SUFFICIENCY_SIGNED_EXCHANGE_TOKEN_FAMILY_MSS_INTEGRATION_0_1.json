@@ -1,0 +1,149 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.signed_exchange_token_family_mss_integration.v1",
+  "date_author_local": "2026-09-30",
+  "research_direction": "Joshua Oshiro",
+  "status": "WIDTH_TOKEN_REMOVED__C_D0_D1_COMMON_MSS",
+  "evidence": {
+    "branch": "experiment/isomax-late-xor-components-20260929",
+    "commit": "a8a34dd0de8864d77f344dc5715d1f2b4460328c",
+    "file": "OOO_SIGNED_EXCHANGE_TOKEN_FAMILY_MSS_0_1.json",
+    "resultVerification": "OOO_SIGNED_EXCHANGE_TOKEN_FAMILY_MSS_RESULT_VERIFY_0_1.json",
+    "warrant": "EW-RS-072",
+    "workflowRun": 36750657320,
+    "workflowConclusion": "success",
+    "researchIntegrity": "success"
+  },
+  "common": {
+    "SIGN": {
+      "exactSubsets": [
+        "C+D0+D1",
+        "W+C+D0+D1"
+      ],
+      "inclusionMinimalExact": [
+        "C+D0+D1"
+      ]
+    },
+    "SIGNED_PARITY": {
+      "exactSubsets": [
+        "C+D0+D1",
+        "W+C+D0+D1"
+      ],
+      "inclusionMinimalExact": [
+        "C+D0+D1"
+      ]
+    }
+  },
+  "carrierMinimal": {
+    "6x3-k3": {
+      "SIGN": [
+        "C+D1",
+        "D0+D1"
+      ],
+      "SIGNED_PARITY": [
+        "C+D1",
+        "D0+D1"
+      ]
+    },
+    "4x5-k4": {
+      "SIGN": [
+        "C+D0+D1"
+      ],
+      "SIGNED_PARITY": [
+        "C+D0+D1"
+      ]
+    },
+    "6x3-k4": {
+      "SIGN": [
+        "D0+D1"
+      ],
+      "SIGNED_PARITY": [
+        "D0+D1"
+      ]
+    }
+  },
+  "commonSupportResults": {
+    "6x3-k3": {
+      "sign": {
+        "rank": 70,
+        "featureKeys": 266,
+        "contradictions": 0
+      },
+      "signedParity": {
+        "rank": 73,
+        "featureKeys": 284,
+        "contradictions": 0
+      }
+    },
+    "4x5-k4": {
+      "sign": {
+        "rank": 283,
+        "featureKeys": 618,
+        "contradictions": 0
+      },
+      "signedParity": {
+        "rank": 282,
+        "featureKeys": 610,
+        "contradictions": 0
+      }
+    },
+    "6x3-k4": {
+      "sign": {
+        "rank": 16,
+        "featureKeys": 50,
+        "contradictions": 0
+      },
+      "signedParity": {
+        "rank": 14,
+        "featureKeys": 44,
+        "contradictions": 0
+      }
+    }
+  },
+  "findings": [
+    {
+      "id": "RS-F238",
+      "status": "WIDTH_EXCHANGE_TOKEN_REDUNDANT",
+      "statement": "The component-width delta family W can be removed from both SIGN and SIGNED_PARITY exchange triangles on every hard carrier without changing scalar exactness."
+    },
+    {
+      "id": "RS-F239",
+      "status": "COMMON_FAMILY_MSS_C_D0_D1",
+      "statement": "C+D0+D1 is the unique inclusion-minimal common exact token-family subset under both common gauges. It retains role-capacity phase plus both owner-separated exact-depth channels."
+    },
+    {
+      "id": "RS-F240",
+      "status": "FOUR_BY_FIVE_FORCES_ALL_THREE_RETAINED_FAMILIES",
+      "statement": "On 4x5-k4 every strict subset of C+D0+D1 is scalar-inexact, so C, D0, and D1 are each load-bearing within the frozen family lattice on that carrier."
+    },
+    {
+      "id": "RS-F241",
+      "status": "CAPACITY_PHASE_NOT_UNIVERSALLY_REQUIRED_PER_CARRIER",
+      "statement": "Horizontal-only 6x3-k4 is exact with D0+D1 alone, so C is not a universally necessary family on each geometry even though it is required by the common cross-carrier support."
+    },
+    {
+      "id": "RS-F242",
+      "status": "OWNER_DEPTH_ASYMMETRY_ON_6X3_K3",
+      "statement": "6x3-k3 admits two incomparable minimal supports, C+D1 and D0+D1, while C+D0 fails. The common requirement is therefore determined by transfer across carriers rather than one carrier alone."
+    }
+  ],
+  "dpMss": {
+    "W": "REMOVE_COMMONLY",
+    "C": "RETAIN_FOR_COMMON_CROSS_CARRIER_MSS",
+    "D0": "RETAIN_FOR_COMMON_CROSS_CARRIER_MSS",
+    "D1": "RETAIN_FOR_COMMON_CROSS_CARRIER_MSS",
+    "common": "C+D0+D1",
+    "next": "compress exact role indices within C and exact depth indices within D0/D1 outcome-independently"
+  },
+  "open": [
+    "whether capacity role index i can collapse to roleless, parity-class, or exchange-count summaries",
+    "whether exact depth d can collapse to depth parity, signed depth displacement, or owner-relative aggregates",
+    "whether owner separation D0 versus D1 remains necessary after depth-index compression",
+    "closed scalar syndrome before EW-RS-059 unsealing"
+  ],
+  "nonclaims": [
+    "C, D0, and D1 are not claimed universally necessary outside the declared family lattice and carriers.",
+    "The result does not yet identify a closed syndrome rule.",
+    "EW-RS-059 PRIMARY 3x6-k4 and BACKUP 5x3-k4 remain sealed.",
+    "No Q-A/Q-F, standard-7x6, universal theorem, or center-opening proof follows."
+  ]
+}
