@@ -1,0 +1,29 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.late_xor_terminal_extraction.v1",
+  "id": "EW-RS-013",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "parent": "EW-RS-012",
+  "objective": "Test whether exact rank-local extraction of current-mover immediate-win opportunity removes the component-parity Q-V counterexamples before any XOR valuation is rejected more broadly.",
+  "rationale": [
+    "Every tested MOD2 component-parity Q-V failure is a two-pair component substitution.",
+    "The first complete-4x4 failure is draw versus an immediate current-mover win.",
+    "First-win opportunity is an absorbing game-semantic condition, unlike Nim normal-play self-cancellation."
+  ],
+  "frozen_component_definition": "post-RFG residual-incidence connected components",
+  "added_coordinate": "current mover has at least one immediate winning literal action, derived from reduced q and support before values",
+  "targets": [
+    "Q-V primary",
+    "Q-F diagnostic only"
+  ],
+  "anti_circularity": [
+    "immediate-win flag is computed from current support and owned singleton residuals only",
+    "no solved values or future classes define the flag",
+    "component types and MOD2 key remain unchanged from EW-RS-012"
+  ],
+  "falsifiers": [
+    "If MOD2_P_WIN remains Q-V-inconsistent, immediate-win terminal extraction is not sufficient to restore XOR composition.",
+    "If it passes Q-V but fails Q-F, retain the result only as scalar-value preprocessing.",
+    "A pass does not establish XOR beyond tested bounded domains or beyond this terminal extraction."
+  ]
+}
