@@ -1,0 +1,40 @@
+{
+  "schema": "connect4.rank_sufficient_qg_dg.experimental_warrant.v1",
+  "id": "QGDG-EW-002",
+  "date_author_local": "2026-09-29",
+  "status": "ACTIVE",
+  "parent_findings": [
+    "QGDG-F004",
+    "QGDG-F005",
+    "QGDG-F003"
+  ],
+  "purpose": [
+    "SAFE_FORGETTING",
+    "REDUNDANCY_ANATOMY",
+    "RANK_LOCAL_COMPRESSION"
+  ],
+  "objective": "Determine whether exact bounded q_o redundancy can be captured by independently defined current-rank residual feasibility/closure rules, and characterize the smallest future-equivalent q_o differences.",
+  "candidates": [
+    "remaining-move-capacity filter",
+    "support-release/turn-capacity filter",
+    "nonterminal frontier blocker",
+    "mover final-cap parity",
+    "frontier + final-cap",
+    "support-release + frontier + final-cap"
+  ],
+  "construction_firewall": {
+    "rules_preexist_in_research": true,
+    "future_tree_used_to_define_rule": false,
+    "solved_value_used_to_define_rule": false,
+    "future_behavior_and_value_only_validate_collisions": true
+  },
+  "cases": [
+    "4x4-k4",
+    "4x4-k3",
+    "3x4-k3",
+    "4x3-k3"
+  ],
+  "exact_positive_scope": "finite case only",
+  "falsification_rule": "one future/value collision falsifies candidate sufficiency in that case",
+  "redundancy_query": "Within each exact future-behavior class, find distinct q_o keys with minimal support difference and residual symmetric difference; test whether predeclared closures erase those differences."
+}
