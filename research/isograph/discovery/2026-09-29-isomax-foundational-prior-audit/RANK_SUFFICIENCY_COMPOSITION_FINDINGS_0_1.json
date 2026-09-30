@@ -1,0 +1,42 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.composition_findings.v1",
+  "date_author_local": "2026-09-29",
+  "evidence": {
+    "branch": "experiment/isomax-rank-local-compression-20260929",
+    "commit": "1e6f3090321bd939b4484bfe54d269790444b9b2",
+    "file": "RANK_LOCAL_COMPOSITION_4X4_0_1.json"
+  },
+  "exact_finite": [
+    {
+      "id": "RS-F009",
+      "statement": "M,R,F are idempotent on every complete-4x4 physical q_o state."
+    },
+    {
+      "id": "RS-F010",
+      "statement": "M/R, M/F and R/F commute on every complete-4x4 physical q_o state."
+    },
+    {
+      "id": "RS-F011",
+      "statement": "Every tested sequence over M,R,F remains a literal Q-F transition congruence on complete 4x4."
+    },
+    {
+      "id": "RS-F012",
+      "statement": "R+F is the smallest tested direct literal Q-F representation with 31,389 classes."
+    },
+    {
+      "id": "RS-F013",
+      "statement": "S4 orbit after R+F is the smallest tested transporter-aware Q-F representation with 9,676 classes."
+    },
+    {
+      "id": "RS-F014",
+      "statement": "Adding M to R+F changes no tested class count; all six three-operator orders produce the same 31,389 direct / 9,676 orbit class counts."
+    }
+  ],
+  "deductive_candidates": [
+    "R necessary-feasibility deletion permanently removes only impossible residual wins",
+    "F universally blocks its deleted opponent residual on every nonterminal next move",
+    "R absorbs M",
+    "R and F commute because R cannot delete current immediate-win singletons used to define F"
+  ],
+  "status": "OPEN_PENDING_SYMBOLIC_QUALIFICATION"
+}

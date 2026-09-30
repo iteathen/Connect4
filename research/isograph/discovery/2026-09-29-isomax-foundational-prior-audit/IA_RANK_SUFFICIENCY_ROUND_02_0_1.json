@@ -1,0 +1,62 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_round.v1",
+  "round": 2,
+  "date_author_local": "2026-09-29",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_01_0_1.json",
+    "RANK_SUFFICIENCY_COMPOSITION_FINDINGS_0_1.json"
+  ],
+  "new_assertions": [
+    {
+      "id": "RS-IA007",
+      "family": "B",
+      "body": "On complete 4x4, M,R,F are commuting idempotent rank-local reductions and every tested composition remains Q-F congruent."
+    },
+    {
+      "id": "RS-IA008",
+      "family": "R",
+      "body": "On complete 4x4, R+F strictly compresses q_o from 34,094 to 31,389 literal Q-F classes."
+    },
+    {
+      "id": "RS-IA009",
+      "family": "C",
+      "body": "On complete 4x4, composing S4 orbiting with R+F yields 9,676 transporter-aware Q-F classes, strictly below either operation alone."
+    },
+    {
+      "id": "RS-IA010",
+      "family": "S",
+      "body": "The direct/algebraic orbit quotient and rank-local recursive/deletion channel compose without forcing the evaluator D to take either form."
+    },
+    {
+      "id": "RS-IA011",
+      "family": "F",
+      "body": "M adds no observed partition reduction once R is present in complete 4x4; general absorption is a proof candidate, not yet authority."
+    }
+  ],
+  "support_refinements": [],
+  "qu_refinements": [
+    {
+      "id": "RS-QR003",
+      "target": "QU-RS-002",
+      "add_fixed": [
+        "complete 4x4 q_SigmaRF has 9,676 transporter-aware Q-F classes"
+      ],
+      "retain_open": [
+        "standard-7x6 proof",
+        "minimality below q_SigmaRF"
+      ]
+    },
+    {
+      "id": "RS-QR004",
+      "target": "QU-RS-003",
+      "add_fixed": [
+        "Q-F-safe operators form a finite commuting/idempotent reduction system in the complete 4x4 control"
+      ],
+      "retain_open": [
+        "general exact closure algebra",
+        "additional safe-forgetting operators"
+      ]
+    }
+  ],
+  "stop_status": "OPEN__SYMBOLIC_QUALIFICATION_AND_CROSS_CASE_CONTROLS_REQUIRED"
+}
