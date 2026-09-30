@@ -1,0 +1,105 @@
+{
+  "schema": "connect4.isomax.experimental_warrant.ooo_motif_exchange_circuit_ladder.v1",
+  "id": "EW-RS-069",
+  "date_author_local": "2026-09-30",
+  "status": "ACTIVE",
+  "parent": "EW-RS-068",
+  "objective": "Test whether the load-bearing WIDTH_CAPMASK_OWNER_DEPTH_HISTOGRAMS OOO triple motifs factor through mechanically defined exchange/circuit geometry of their three structured vertices, preserving genuinely triadic relations while discarding some absolute vertex identity.",
+  "cases": [
+    "6x3-k3",
+    "4x5-k4",
+    "6x3-k4"
+  ],
+  "frozenVertexIdentity": "WIDTH_CAPMASK_OWNER_DEPTH_HISTOGRAMS from EW-RS-067",
+  "vertexVectorEmbedding": {
+    "width": "one integer coordinate W equal to component width",
+    "capacity": "one binary count coordinate C_i for each canonical local role i with cap_i=1; width determines the role range",
+    "owner0Depth": "integer count coordinate D0_d for every relative depth d",
+    "owner1Depth": "integer count coordinate D1_d for every relative depth d",
+    "exactness": "This token-count vector exactly represents the frozen selected motif vertex identity."
+  },
+  "pairExchange": {
+    "orientation": "For an unordered vertex pair, order endpoints by the frozen vertex-identity string and compute target-minus-source on every token-count coordinate.",
+    "exactDelta": "Sparse sorted signed integer difference vector.",
+    "normProfile": "(|delta W|, capacity Hamming distance, owner0 depth-histogram L1 distance, owner1 depth-histogram L1 distance)."
+  },
+  "candidates": [
+    {
+      "name": "EXCHANGE_NORM_TRIANGLE",
+      "definition": "Sorted multiset of the three pair norm profiles."
+    },
+    {
+      "name": "EXCHANGE_EXACT_DELTA_TRIANGLE",
+      "definition": "Sorted multiset of the three exact signed pair-delta signatures."
+    },
+    {
+      "name": "BASEFREE_TWO_LEG_EXCHANGE",
+      "definition": "Choose the lexicographically smallest frozen vertex as base; encode the sorted exact deltas from that base to the other two vertices, omitting the base identity itself."
+    },
+    {
+      "name": "BASEFREE_PLUS_BASE_WIDTH_CAP",
+      "definition": "BASEFREE_TWO_LEG_EXCHANGE plus the base vertex's exact width and capacity-parity mask."
+    },
+    {
+      "name": "BASEFREE_PLUS_BASE_WIDTH_CAP_OWNER_TOTALS",
+      "definition": "Previous candidate plus base owner-separated total residual-cell counts, but not their depth distribution."
+    },
+    {
+      "name": "BASEFREE_PLUS_BASE_WIDTH_CAP_OWNER_DEPTH_PARITY",
+      "definition": "Previous width/cap base data plus owner-separated parity histograms of residual-cell depths (counts mod 2 at each depth)."
+    },
+    {
+      "name": "BASEFREE_PLUS_BASE_FULL_VERTEX",
+      "definition": "BASEFREE_TWO_LEG_EXCHANGE plus the complete frozen selected motif base vertex; reconstruction control."
+    },
+    {
+      "name": "FULL_TRIPLE_MOTIF",
+      "definition": "Complete unordered selected triple-motif identity; EW-RS-067/068 reconstruction control."
+    }
+  ],
+  "selectionOrder": [
+    "EXCHANGE_NORM_TRIANGLE",
+    "EXCHANGE_EXACT_DELTA_TRIANGLE",
+    "BASEFREE_TWO_LEG_EXCHANGE",
+    "BASEFREE_PLUS_BASE_WIDTH_CAP",
+    "BASEFREE_PLUS_BASE_WIDTH_CAP_OWNER_TOTALS",
+    "BASEFREE_PLUS_BASE_WIDTH_CAP_OWNER_DEPTH_PARITY",
+    "BASEFREE_PLUS_BASE_FULL_VERTEX",
+    "FULL_TRIPLE_MOTIF"
+  ],
+  "structuralProcedure": [
+    "Inherit EW-RS-065 matched degree<=2 dependencies and OOO residues unchanged.",
+    "Map exact descriptor IDs to the frozen EW-RS-067 selected motif vertex identity without outcomes.",
+    "Compute every triple's exchange/circuit candidate key before scalar replay.",
+    "Map each matched dependency to GF(2) parity of candidate keys and freeze a deterministic structural basis.",
+    "Only after each structural candidate map is frozen replay the two-bit scalar residues."
+  ],
+  "measurements": [
+    "candidate key count",
+    "candidate image rank on the selected triple-motif dependency image",
+    "kernel dimension relative to selected triple-motif rank",
+    "zero-candidate-residue/nonzero-scalar count",
+    "scalar contradiction count",
+    "scalar image dimension on a structurally selected candidate basis"
+  ],
+  "antiCircularity": [
+    "The vertex vector embedding, pair orientation, exchange definitions, candidate family, and selection order are frozen before scalar inspection.",
+    "No pair delta, norm, base feature, candidate key, or exception is selected using W/D/L.",
+    "All candidates are deterministic functions of the frozen selected motif vertex strings.",
+    "The matched dependency carrier is inherited unchanged from EW-RS-065.",
+    "EW-RS-059 PRIMARY 3x6-k4 and BACKUP 5x3-k4 remain sealed."
+  ],
+  "falsifiers": [
+    "BASEFREE_PLUS_BASE_FULL_VERTEX and FULL_TRIPLE_MOTIF must reproduce exact EW-RS-067 scalar factorization and selected motif ranks 75,288,16.",
+    "Any candidate with structurally zero residue but nonzero scalar residue is insufficient.",
+    "A candidate is selected only if it has zero scalar contradictions on all three declared carriers.",
+    "No post-hoc scalar-driven refinement is allowed."
+  ],
+  "nextIfExchangePasses": "Freeze the coarsest common passing exchange/circuit invariant and reduce its scalar image outcome-independently before selecting any closed syndrome coefficients.",
+  "nextIfOnlyReconstructionPasses": "Record that base-free exchange geometry is insufficient under the declared embedding and move to mechanically generated oriented/circuit incidence invariants on full selected triple motifs.",
+  "interpretationGuards": [
+    "A passing exchange signature is a bounded structural scalar factorization, not yet a universal closed formula.",
+    "Failure does not exclude other circuit/orientation constructions outside this frozen ladder.",
+    "No Q-A/Q-F, standard-7x6, universal theorem, or center-opening proof follows."
+  ]
+}
