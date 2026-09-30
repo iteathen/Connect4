@@ -2,7 +2,7 @@
   "schema": "connect4.isomax.experimental_warrant.sign_channel_coupling.v1",
   "id": "EW-RS-077",
   "date_author_local": "2026-09-30",
-  "status": "ACTIVE__SATURATION_AWARE_ARITHMETIC_REPAIRED_BEFORE_SCALAR_REPLAY",
+  "status": "ACTIVE__SATURATION_AWARE__MECHANICAL_INFORMATION_ORDER_REPAIRED",
   "parent": "EW-RS-076",
   "objective": "Determine the minimal structural coupling of plus/minus channels within the selected C=PRESENCE, D=CLIP3, A=CLIP2 exchange carrier, without dropping one sign channel or selecting family-specific exceptions from scalar outcomes.",
   "cases": [
@@ -67,15 +67,48 @@
     ]
   },
   "partialOrder": {
-    "familyOrder": [
-      "TOTAL < UNORDERED_PAIR < SEPARATED",
-      "ABS_NET < UNORDERED_PAIR < SEPARATED",
-      "SIGNED_NET < SEPARATED",
-      "TOTAL, ABS_NET, and SIGNED_NET are pairwise incomparable",
-      "UNORDERED_PAIR and SIGNED_NET are incomparable"
-    ],
-    "dominance": "Candidate X is strictly coarser than Y only when every family mode in X is no finer than the corresponding mode in Y under the frozen familyOrder, with at least one strict relation.",
-    "output": "Report all Pareto-minimal common-exact grid points; do not impose a total order on incomparable couplings."
+    "derivation": "For each family independently, enumerate the complete finite frozen source alphabet of ordered (+,-) category pairs. Mode X is no finer than mode Y iff equality under Y always implies equality under X on that complete source alphabet. Candidate dominance is the product of these mechanically derived family refinement relations.",
+    "sourceAlphabets": {
+      "C": "ordered pairs over {0,1+}",
+      "D": "ordered pairs over {0,1,2,3+}",
+      "A": "ordered pairs over {0,1,2+}"
+    },
+    "C": {
+      "equivalences": [
+        "TOTAL = ABS_NET = UNORDERED_PAIR",
+        "SIGNED_NET = SEPARATED"
+      ],
+      "strict": [
+        "{TOTAL,ABS_NET,UNORDERED_PAIR} < {SIGNED_NET,SEPARATED}"
+      ]
+    },
+    "D": {
+      "equivalences": [],
+      "strict": [
+        "TOTAL < UNORDERED_PAIR < SEPARATED",
+        "ABS_NET < SIGNED_NET < SEPARATED",
+        "ABS_NET < UNORDERED_PAIR"
+      ],
+      "incomparable": [
+        "TOTAL versus ABS_NET",
+        "TOTAL versus SIGNED_NET",
+        "SIGNED_NET versus UNORDERED_PAIR"
+      ]
+    },
+    "A": {
+      "equivalences": [
+        "TOTAL = UNORDERED_PAIR"
+      ],
+      "strict": [
+        "ABS_NET < TOTAL = UNORDERED_PAIR < SEPARATED",
+        "ABS_NET < SIGNED_NET < SEPARATED"
+      ],
+      "incomparable": [
+        "SIGNED_NET versus TOTAL/UNORDERED_PAIR"
+      ]
+    },
+    "dominance": "Candidate X is strictly coarser than Y iff, for every family, X's induced partition is no finer than Y's induced partition under exhaustive source-alphabet refinement, and at least one family partition is strictly coarser. Equivalent mode labels do not dominate one another.",
+    "output": "Report all Pareto-minimal exact grid points and also quotient them into partition-equivalence classes so mode aliases are not mistaken for distinct laws."
   },
   "structuralProcedure": [
     "Start from each frozen EW-RS-076 selected pair signature C+/C- presence, D+/D- CLIP3, A+/A- CLIP2.",
@@ -95,8 +128,10 @@
     "which families can discard plus/minus orientation"
   ],
   "antiCircularity": [
-    "The five coupling modes, three families, complete 125-point grid, and partial order are frozen before scalar inspection.",
+    "The five coupling maps, three families, complete 125-point grid, and all scalar audits remain exactly the saturation-aware RS-077 experiment.",
     "Arithmetic couplings are defined on the saturated source categories by exact abstract interval/set images; saturated tails are never substituted by their lower-bound numeral as if exact.",
+    "The information-containment relation is now derived exhaustively from the frozen source alphabets and coupling maps rather than asserted by hand.",
+    "The post-run classification repair does not inspect W/D/L or change any candidate feature map, structural row, basis, rank, contradiction count, or exactness result.",
     "No one-sided channel deletion, sign-specific exception, or outcome-selected coupling is permitted.",
     "The selected EW-RS-076 family saturation and EW-RS-065 matched dependencies are unchanged.",
     "EW-RS-059 PRIMARY 3x6-k4 and BACKUP 5x3-k4 remain sealed."
@@ -123,5 +158,13 @@
       "A pair (2+,1) has TOTAL interval [3,+inf], not exact 3."
     ],
     "outcomeIndependent": true
+  },
+  "postRunClassificationRepair": {
+    "status": "OUTCOME_INDEPENDENT_STRUCTURAL_CORRECTION",
+    "timing": "after the saturation-aware 125-point scalar audit, before foundational integration",
+    "issue": "The original handwritten information order treated several mode pairs as incomparable even though the frozen coupling maps induce equivalent or strictly nested partitions on the finite family alphabets.",
+    "scope": "Only the information-containment/Pareto classifier changes. Coupling definitions, 125 candidate keys, frozen structural feature catalogs, scalar replay, contradiction counts, ranks, and exact-grid membership remain unchanged.",
+    "method": "Exhaustively derive partition refinement from the already-frozen coupling maps and source alphabets, without consulting any W/D/L label or exactness result.",
+    "scalarOutcomeUsedToChooseRepair": false
   }
 }
