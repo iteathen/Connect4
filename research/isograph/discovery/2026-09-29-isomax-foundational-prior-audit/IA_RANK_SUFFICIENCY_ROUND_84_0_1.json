@@ -1,0 +1,93 @@
+{
+  "schema": "connect4.isomax.rank_sufficiency.ia_round.v1",
+  "round": 84,
+  "date_author_local": "2026-09-30",
+  "input": [
+    "IA_RANK_SUFFICIENCY_ROUND_83_FIXED_POINT_0_1.json",
+    "RANK_SUFFICIENCY_SIGN_CHANNEL_COUPLING_INTEGRATION_0_1.json"
+  ],
+  "reopened_reason": "EW-RS-077 fixes the common plus/minus coupling frontier and exposes a joint D/A directional constraint plus a structurally reducible C mode-label redundancy.",
+  "new_assertions": [
+    {
+      "id": "RS-IA263",
+      "family": "M",
+      "body": "C sign direction is common-redundant in the tested RS-077 carrier: every one of the thirteen common-exact D/A coupling pairs remains exact under every C coupling mode."
+    },
+    {
+      "id": "RS-IA264",
+      "family": "Q",
+      "body": "D/A sign direction is relocatable but jointly necessary: every common-exact candidate keeps SIGNED_NET or SEPARATED in at least one of D or A, while neither family is individually forced to keep direction."
+    },
+    {
+      "id": "RS-IA265",
+      "family": "F",
+      "body": "The frozen D/A Pareto frontier has four incomparable mode pairs: TOTAL+SIGNED_NET, SIGNED_NET+TOTAL, ABS_NET+SEPARATED, and SEPARATED+ABS_NET."
+    },
+    {
+      "id": "RS-IA266",
+      "family": "D",
+      "body": "The formal twelve-candidate Pareto frontier factors exactly as three incomparable C mode labels {TOTAL,SIGNED_NET,ABS_NET} times the four D/A Pareto pairs; the verifier therefore must retain all twelve formal minima."
+    },
+    {
+      "id": "RS-IA267",
+      "family": "N",
+      "body": "At this sign-coupling layer 6x3-k4 is the transfer discriminator: it accepts 65 of 125 candidates, exactly the common-exact set; 6x3-k3 accepts all 125 and 4x5-k4 accepts 80."
+    },
+    {
+      "id": "RS-IA268",
+      "family": "V",
+      "body": "Sign-channel coupling removes additional scalar-null structure: Pareto-minimal carriers reach rank 250 from 252 on 4x5-k4 and rank 13 from 14 on 6x3-k4 while preserving the full scalar image."
+    },
+    {
+      "id": "RS-IA269",
+      "family": "R",
+      "body": "Arithmetic coupling of saturated symbols must preserve set-valued source semantics. A symbol 1+, 2+, or 3+ denotes an interval of exact counts; treating it as an exact integer would reintroduce information discarded by EW-RS-076."
+    },
+    {
+      "id": "RS-IA270",
+      "family": "M",
+      "body": "On the frozen C presence alphabet {0,1+}^2, TOTAL, ABS_NET, and UNORDERED_PAIR induce the same three structural classes {neither sign present, exactly one sign present, both signs present}; SIGNED_NET and SEPARATED induce the same four ordered classes. This equivalence is outcome-independent."
+    },
+    {
+      "id": "RS-IA271",
+      "family": "Q",
+      "body": "Because a three-class C partition is already common-exact, the next structural experiment may replace C coupling-mode labels by the canonical active-sign-support cardinality 0/1/2 without scalar replay or loss of the tested C quotient."
+    },
+    {
+      "id": "RS-IA272",
+      "family": "D",
+      "body": "The four D/A Pareto mode pairs are closed under exchanging the mode assignments between D and A, but this does not establish semantic interchangeability of the D and A alphabets; it is a frontier symmetry only."
+    },
+    {
+      "id": "RS-IA273",
+      "family": "R",
+      "body": "Independent per-family minimization is no longer sound for D and A because exactness is relational across the two families. The next lawful reduction must treat the joint D/A pair state as the object of compression."
+    },
+    {
+      "id": "RS-IA274",
+      "family": "F",
+      "body": "EW-RS-059 remains sealed: RS-077 freezes only a structural sign-channel frontier and does not define a closed scalar syndrome."
+    }
+  ],
+  "qu_refinements": [
+    {
+      "id": "RS-QR064",
+      "target": "QU-RS-004",
+      "add_fixed": [
+        "RS-077 has 65 common-exact sign-channel grid points and 12 formal Pareto-minimal points",
+        "C sign direction is common-redundant across all common-exact D/A pairings",
+        "D/A sign direction is jointly necessary but relocatable between the two families",
+        "the D/A Pareto frontier is TOTAL+SIGNED_NET, SIGNED_NET+TOTAL, ABS_NET+SEPARATED, and SEPARATED+ABS_NET",
+        "6x3-k4 exactly determines the common RS-077 exact set",
+        "saturated count arithmetic must remain interval-valued rather than treating saturation codes as exact integers"
+      ],
+      "retain_open": [
+        "outcome-independent joint D/A circuit quotient below the four Pareto pairings",
+        "small closed structural syndrome generator on the compressed pair-state alphabet",
+        "closed scalar syndrome before EW-RS-059 unsealing",
+        "standard-7x6 qualification"
+      ]
+    }
+  ],
+  "stop_status": "REOPENED__JOINT_DA_CIRCUIT_NEXT"
+}
