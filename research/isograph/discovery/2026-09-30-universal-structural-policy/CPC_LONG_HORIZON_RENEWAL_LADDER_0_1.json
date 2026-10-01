@@ -118,7 +118,189 @@
           "rootChildren": null
         }
       ],
-      "maxCertified": 5
+      "maxCertified": 5,
+      "firstFailed": 7,
+      "failureFrontier": {
+        "successCount": 4,
+        "total": 7,
+        "pairs": [
+          {
+            "cols": [
+              1,
+              4
+            ],
+            "length": 1
+          },
+          {
+            "cols": [
+              2,
+              5
+            ],
+            "length": 1
+          },
+          {
+            "cols": [
+              3,
+              7
+            ],
+            "length": 2
+          }
+        ],
+        "branches": [
+          {
+            "attackerColumn": 1,
+            "responseColumn": 4,
+            "ok": true,
+            "closed": false,
+            "childClass": "S5",
+            "childKind": "RENEW"
+          },
+          {
+            "attackerColumn": 2,
+            "responseColumn": 5,
+            "ok": false,
+            "reason": "CHILD_OUTSIDE_S5",
+            "child": {
+              "rank": 12,
+              "support": [
+                1,
+                2,
+                0,
+                5,
+                2,
+                2,
+                0
+              ],
+              "phase": [
+                1,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0
+              ],
+              "basisSize": 64,
+              "minimalResidualCount": 33,
+              "sizeHistogram": {
+                "3": 18,
+                "4": 15
+              },
+              "deadlineHistogram": {
+                "5": 9,
+                "7": 15,
+                "9": 9
+              },
+              "maxCertified": 3
+            }
+          },
+          {
+            "attackerColumn": 3,
+            "responseColumn": 7,
+            "ok": true,
+            "closed": false,
+            "childClass": "S5",
+            "childKind": "RENEW"
+          },
+          {
+            "attackerColumn": 4,
+            "responseColumn": 1,
+            "ok": true,
+            "closed": false,
+            "childClass": "S5",
+            "childKind": "RENEW"
+          },
+          {
+            "attackerColumn": 5,
+            "responseColumn": 2,
+            "ok": false,
+            "reason": "CHILD_OUTSIDE_S5",
+            "child": {
+              "rank": 12,
+              "support": [
+                1,
+                2,
+                0,
+                5,
+                2,
+                2,
+                0
+              ],
+              "phase": [
+                1,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0
+              ],
+              "basisSize": 64,
+              "minimalResidualCount": 34,
+              "sizeHistogram": {
+                "2": 3,
+                "3": 16,
+                "4": 15
+              },
+              "deadlineHistogram": {
+                "3": 1,
+                "5": 10,
+                "7": 14,
+                "9": 9
+              },
+              "maxCertified": 3
+            }
+          },
+          {
+            "attackerColumn": 6,
+            "responseColumn": 6,
+            "ok": false,
+            "reason": "CHILD_OUTSIDE_S5",
+            "child": {
+              "rank": 12,
+              "support": [
+                1,
+                1,
+                0,
+                5,
+                1,
+                4,
+                0
+              ],
+              "phase": [
+                1,
+                1,
+                0,
+                1,
+                1,
+                0,
+                0
+              ],
+              "basisSize": 64,
+              "minimalResidualCount": 34,
+              "sizeHistogram": {
+                "2": 5,
+                "3": 13,
+                "4": 16
+              },
+              "deadlineHistogram": {
+                "5": 7,
+                "7": 15,
+                "9": 12
+              },
+              "maxCertified": 3
+            }
+          },
+          {
+            "attackerColumn": 7,
+            "responseColumn": 3,
+            "ok": true,
+            "closed": false,
+            "childClass": "S5",
+            "childKind": "RENEW"
+          }
+        ]
+      }
     },
     {
       "id": "candidate3",
@@ -233,7 +415,192 @@
           "rootChildren": null
         }
       ],
-      "maxCertified": 5
+      "maxCertified": 5,
+      "firstFailed": 7,
+      "failureFrontier": {
+        "successCount": 4,
+        "total": 7,
+        "pairs": [
+          {
+            "cols": [
+              1,
+              4
+            ],
+            "length": 1
+          },
+          {
+            "cols": [
+              3,
+              5
+            ],
+            "length": 1
+          },
+          {
+            "cols": [
+              6,
+              7
+            ],
+            "length": 2
+          }
+        ],
+        "branches": [
+          {
+            "attackerColumn": 1,
+            "responseColumn": 4,
+            "ok": true,
+            "closed": false,
+            "childClass": "S5",
+            "childKind": "RENEW"
+          },
+          {
+            "attackerColumn": 2,
+            "responseColumn": 2,
+            "ok": true,
+            "closed": false,
+            "childClass": "S5",
+            "childKind": "RENEW"
+          },
+          {
+            "attackerColumn": 3,
+            "responseColumn": 5,
+            "ok": false,
+            "reason": "CHILD_OUTSIDE_S5",
+            "child": {
+              "rank": 12,
+              "support": [
+                1,
+                0,
+                2,
+                5,
+                2,
+                2,
+                0
+              ],
+              "phase": [
+                1,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0
+              ],
+              "basisSize": 64,
+              "minimalResidualCount": 33,
+              "sizeHistogram": {
+                "2": 3,
+                "3": 15,
+                "4": 15
+              },
+              "deadlineHistogram": {
+                "3": 1,
+                "5": 11,
+                "7": 12,
+                "9": 9
+              },
+              "maxCertified": 3
+            }
+          },
+          {
+            "attackerColumn": 4,
+            "responseColumn": 1,
+            "ok": true,
+            "closed": false,
+            "childClass": "S5",
+            "childKind": "RENEW"
+          },
+          {
+            "attackerColumn": 5,
+            "responseColumn": 3,
+            "ok": false,
+            "reason": "CHILD_OUTSIDE_S5",
+            "child": {
+              "rank": 12,
+              "support": [
+                1,
+                0,
+                2,
+                5,
+                2,
+                2,
+                0
+              ],
+              "phase": [
+                1,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0
+              ],
+              "basisSize": 64,
+              "minimalResidualCount": 32,
+              "sizeHistogram": {
+                "2": 3,
+                "3": 14,
+                "4": 15
+              },
+              "deadlineHistogram": {
+                "3": 1,
+                "5": 10,
+                "7": 12,
+                "9": 9
+              },
+              "maxCertified": 3
+            }
+          },
+          {
+            "attackerColumn": 6,
+            "responseColumn": 7,
+            "ok": false,
+            "reason": "CHILD_OUTSIDE_S5",
+            "child": {
+              "rank": 12,
+              "support": [
+                1,
+                0,
+                1,
+                5,
+                1,
+                3,
+                1
+              ],
+              "phase": [
+                1,
+                0,
+                1,
+                1,
+                1,
+                1,
+                1
+              ],
+              "basisSize": 64,
+              "minimalResidualCount": 36,
+              "sizeHistogram": {
+                "2": 6,
+                "3": 14,
+                "4": 16
+              },
+              "deadlineHistogram": {
+                "3": 3,
+                "5": 9,
+                "7": 14,
+                "9": 10
+              },
+              "maxCertified": null
+            }
+          },
+          {
+            "attackerColumn": 7,
+            "responseColumn": 6,
+            "ok": true,
+            "closed": false,
+            "childClass": "S5",
+            "childKind": "BASE"
+          }
+        ]
+      }
     },
     {
       "id": "candidate6",
@@ -464,17 +831,295 @@
           "rootChildren": null
         }
       ],
-      "maxCertified": 9
+      "maxCertified": 9,
+      "firstFailed": 11,
+      "failureFrontier": {
+        "successCount": 1,
+        "total": 7,
+        "pairs": [
+          {
+            "cols": [
+              1,
+              4
+            ],
+            "length": 1
+          },
+          {
+            "cols": [
+              5,
+              6
+            ],
+            "length": 1
+          }
+        ],
+        "branches": [
+          {
+            "attackerColumn": 1,
+            "responseColumn": 4,
+            "ok": false,
+            "reason": "CHILD_OUTSIDE_S9",
+            "child": {
+              "rank": 12,
+              "support": [
+                2,
+                0,
+                0,
+                6,
+                1,
+                3,
+                0
+              ],
+              "phase": [
+                0,
+                0,
+                0,
+                0,
+                1,
+                1,
+                0
+              ],
+              "basisSize": 65,
+              "minimalResidualCount": 26,
+              "sizeHistogram": {
+                "2": 2,
+                "3": 14,
+                "4": 10
+              },
+              "deadlineHistogram": {
+                "3": 1,
+                "5": 5,
+                "7": 11,
+                "9": 9
+              },
+              "maxCertified": 7
+            }
+          },
+          {
+            "attackerColumn": 2,
+            "responseColumn": 2,
+            "ok": false,
+            "reason": "CHILD_OUTSIDE_S9",
+            "child": {
+              "rank": 12,
+              "support": [
+                1,
+                2,
+                0,
+                5,
+                1,
+                3,
+                0
+              ],
+              "phase": [
+                1,
+                0,
+                0,
+                1,
+                1,
+                1,
+                0
+              ],
+              "basisSize": 64,
+              "minimalResidualCount": 30,
+              "sizeHistogram": {
+                "1": 1,
+                "2": 1,
+                "3": 13,
+                "4": 15
+              },
+              "deadlineHistogram": {
+                "1": 1,
+                "5": 7,
+                "7": 14,
+                "9": 8
+              },
+              "maxCertified": null
+            }
+          },
+          {
+            "attackerColumn": 3,
+            "responseColumn": 3,
+            "ok": false,
+            "reason": "CHILD_OUTSIDE_S9",
+            "child": {
+              "rank": 12,
+              "support": [
+                1,
+                0,
+                2,
+                5,
+                1,
+                3,
+                0
+              ],
+              "phase": [
+                1,
+                0,
+                0,
+                1,
+                1,
+                1,
+                0
+              ],
+              "basisSize": 65,
+              "minimalResidualCount": 28,
+              "sizeHistogram": {
+                "1": 1,
+                "3": 12,
+                "4": 15
+              },
+              "deadlineHistogram": {
+                "1": 1,
+                "5": 5,
+                "7": 14,
+                "9": 8
+              },
+              "maxCertified": null
+            }
+          },
+          {
+            "attackerColumn": 4,
+            "responseColumn": 1,
+            "ok": false,
+            "reason": "CHILD_OUTSIDE_S9",
+            "child": {
+              "rank": 12,
+              "support": [
+                2,
+                0,
+                0,
+                6,
+                1,
+                3,
+                0
+              ],
+              "phase": [
+                0,
+                0,
+                0,
+                0,
+                1,
+                1,
+                0
+              ],
+              "basisSize": 65,
+              "minimalResidualCount": 32,
+              "sizeHistogram": {
+                "2": 1,
+                "3": 20,
+                "4": 11
+              },
+              "deadlineHistogram": {
+                "3": 1,
+                "5": 4,
+                "7": 16,
+                "9": 11
+              },
+              "maxCertified": 7
+            }
+          },
+          {
+            "attackerColumn": 5,
+            "responseColumn": 6,
+            "ok": false,
+            "reason": "CHILD_OUTSIDE_S9",
+            "child": {
+              "rank": 12,
+              "support": [
+                1,
+                0,
+                0,
+                5,
+                2,
+                4,
+                0
+              ],
+              "phase": [
+                1,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0
+              ],
+              "basisSize": 65,
+              "minimalResidualCount": 31,
+              "sizeHistogram": {
+                "2": 3,
+                "3": 12,
+                "4": 16
+              },
+              "deadlineHistogram": {
+                "3": 2,
+                "5": 6,
+                "7": 13,
+                "9": 10
+              },
+              "maxCertified": 7
+            }
+          },
+          {
+            "attackerColumn": 6,
+            "responseColumn": 5,
+            "ok": false,
+            "reason": "CHILD_OUTSIDE_S9",
+            "child": {
+              "rank": 12,
+              "support": [
+                1,
+                0,
+                0,
+                5,
+                2,
+                4,
+                0
+              ],
+              "phase": [
+                1,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0
+              ],
+              "basisSize": 65,
+              "minimalResidualCount": 32,
+              "sizeHistogram": {
+                "2": 1,
+                "3": 14,
+                "4": 17
+              },
+              "deadlineHistogram": {
+                "3": 1,
+                "5": 7,
+                "7": 13,
+                "9": 11
+              },
+              "maxCertified": 5
+            }
+          },
+          {
+            "attackerColumn": 7,
+            "responseColumn": 7,
+            "ok": true,
+            "closed": false,
+            "childClass": "S9",
+            "childKind": "RENEW"
+          }
+        ]
+      }
     }
   ],
   "work": {
-    "cofactorCount": 86329,
-    "branchTests": 47639,
-    "templateTests": 39150,
-    "baseTests": 3305,
-    "semanticStates": 2064,
-    "sMemoEntries": 3305,
-    "baseMemoEntries": 3305,
+    "cofactorCount": 150087,
+    "branchTests": 79554,
+    "templateTests": 60487,
+    "baseTests": 5508,
+    "semanticStates": 3721,
+    "sMemoEntries": 5508,
+    "baseMemoEntries": 5508,
     "budgetExceeded": false,
     "budgetMessage": null,
     "limits": {
