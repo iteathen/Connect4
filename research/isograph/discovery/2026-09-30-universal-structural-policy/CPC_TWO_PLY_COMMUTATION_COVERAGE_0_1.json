@@ -1,0 +1,523 @@
+{
+  "schema": "connect4.cpc_two_ply_commutation_coverage.v1",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "roots": {
+    "c2": {
+      "sequence": "4444415662",
+      "attacker": 1,
+      "nonterminalEndpoints": 48
+    },
+    "c3": {
+      "sequence": "4444415663",
+      "attacker": 1,
+      "nonterminalEndpoints": 48
+    },
+    "c6": {
+      "sequence": "4444415666",
+      "attacker": 1,
+      "nonterminalEndpoints": 48
+    }
+  },
+  "pairs": {
+    "c6_c2": {
+      "exactMatches": 5,
+      "coverage": {
+        "sameAttackerMatches": 5,
+        "attackerColumns": [
+          1,
+          3,
+          4,
+          5,
+          7
+        ],
+        "byAttackerColumn": {
+          "1": [
+            {
+              "leftD": 2,
+              "rightD": 6,
+              "rightSequence": "444441566216"
+            }
+          ],
+          "3": [
+            {
+              "leftD": 2,
+              "rightD": 6,
+              "rightSequence": "444441566236"
+            }
+          ],
+          "4": [
+            {
+              "leftD": 2,
+              "rightD": 6,
+              "rightSequence": "444441566246"
+            }
+          ],
+          "5": [
+            {
+              "leftD": 2,
+              "rightD": 6,
+              "rightSequence": "444441566256"
+            }
+          ],
+          "7": [
+            {
+              "leftD": 2,
+              "rightD": 6,
+              "rightSequence": "444441566276"
+            }
+          ]
+        }
+      },
+      "sample": [
+        {
+          "left": {
+            "a": 1,
+            "d": 2,
+            "sequence": "444441566612"
+          },
+          "right": {
+            "a": 1,
+            "d": 6,
+            "sequence": "444441566216"
+          },
+          "sameAttackerColumn": true,
+          "support": [
+            2,
+            1,
+            0,
+            5,
+            1,
+            3,
+            0
+          ]
+        },
+        {
+          "left": {
+            "a": 3,
+            "d": 2,
+            "sequence": "444441566632"
+          },
+          "right": {
+            "a": 3,
+            "d": 6,
+            "sequence": "444441566236"
+          },
+          "sameAttackerColumn": true,
+          "support": [
+            1,
+            1,
+            1,
+            5,
+            1,
+            3,
+            0
+          ]
+        },
+        {
+          "left": {
+            "a": 4,
+            "d": 2,
+            "sequence": "444441566642"
+          },
+          "right": {
+            "a": 4,
+            "d": 6,
+            "sequence": "444441566246"
+          },
+          "sameAttackerColumn": true,
+          "support": [
+            1,
+            1,
+            0,
+            6,
+            1,
+            3,
+            0
+          ]
+        },
+        {
+          "left": {
+            "a": 5,
+            "d": 2,
+            "sequence": "444441566652"
+          },
+          "right": {
+            "a": 5,
+            "d": 6,
+            "sequence": "444441566256"
+          },
+          "sameAttackerColumn": true,
+          "support": [
+            1,
+            1,
+            0,
+            5,
+            2,
+            3,
+            0
+          ]
+        },
+        {
+          "left": {
+            "a": 7,
+            "d": 2,
+            "sequence": "444441566672"
+          },
+          "right": {
+            "a": 7,
+            "d": 6,
+            "sequence": "444441566276"
+          },
+          "sameAttackerColumn": true,
+          "support": [
+            1,
+            1,
+            0,
+            5,
+            1,
+            3,
+            1
+          ]
+        }
+      ]
+    },
+    "c6_c3": {
+      "exactMatches": 5,
+      "coverage": {
+        "sameAttackerMatches": 5,
+        "attackerColumns": [
+          1,
+          2,
+          4,
+          5,
+          7
+        ],
+        "byAttackerColumn": {
+          "1": [
+            {
+              "leftD": 3,
+              "rightD": 6,
+              "rightSequence": "444441566316"
+            }
+          ],
+          "2": [
+            {
+              "leftD": 3,
+              "rightD": 6,
+              "rightSequence": "444441566326"
+            }
+          ],
+          "4": [
+            {
+              "leftD": 3,
+              "rightD": 6,
+              "rightSequence": "444441566346"
+            }
+          ],
+          "5": [
+            {
+              "leftD": 3,
+              "rightD": 6,
+              "rightSequence": "444441566356"
+            }
+          ],
+          "7": [
+            {
+              "leftD": 3,
+              "rightD": 6,
+              "rightSequence": "444441566376"
+            }
+          ]
+        }
+      },
+      "sample": [
+        {
+          "left": {
+            "a": 1,
+            "d": 3,
+            "sequence": "444441566613"
+          },
+          "right": {
+            "a": 1,
+            "d": 6,
+            "sequence": "444441566316"
+          },
+          "sameAttackerColumn": true,
+          "support": [
+            2,
+            0,
+            1,
+            5,
+            1,
+            3,
+            0
+          ]
+        },
+        {
+          "left": {
+            "a": 2,
+            "d": 3,
+            "sequence": "444441566623"
+          },
+          "right": {
+            "a": 2,
+            "d": 6,
+            "sequence": "444441566326"
+          },
+          "sameAttackerColumn": true,
+          "support": [
+            1,
+            1,
+            1,
+            5,
+            1,
+            3,
+            0
+          ]
+        },
+        {
+          "left": {
+            "a": 4,
+            "d": 3,
+            "sequence": "444441566643"
+          },
+          "right": {
+            "a": 4,
+            "d": 6,
+            "sequence": "444441566346"
+          },
+          "sameAttackerColumn": true,
+          "support": [
+            1,
+            0,
+            1,
+            6,
+            1,
+            3,
+            0
+          ]
+        },
+        {
+          "left": {
+            "a": 5,
+            "d": 3,
+            "sequence": "444441566653"
+          },
+          "right": {
+            "a": 5,
+            "d": 6,
+            "sequence": "444441566356"
+          },
+          "sameAttackerColumn": true,
+          "support": [
+            1,
+            0,
+            1,
+            5,
+            2,
+            3,
+            0
+          ]
+        },
+        {
+          "left": {
+            "a": 7,
+            "d": 3,
+            "sequence": "444441566673"
+          },
+          "right": {
+            "a": 7,
+            "d": 6,
+            "sequence": "444441566376"
+          },
+          "sameAttackerColumn": true,
+          "support": [
+            1,
+            0,
+            1,
+            5,
+            1,
+            3,
+            1
+          ]
+        }
+      ]
+    },
+    "c2_c3": {
+      "exactMatches": 5,
+      "coverage": {
+        "sameAttackerMatches": 5,
+        "attackerColumns": [
+          1,
+          4,
+          5,
+          6,
+          7
+        ],
+        "byAttackerColumn": {
+          "1": [
+            {
+              "leftD": 3,
+              "rightD": 2,
+              "rightSequence": "444441566312"
+            }
+          ],
+          "4": [
+            {
+              "leftD": 3,
+              "rightD": 2,
+              "rightSequence": "444441566342"
+            }
+          ],
+          "5": [
+            {
+              "leftD": 3,
+              "rightD": 2,
+              "rightSequence": "444441566352"
+            }
+          ],
+          "6": [
+            {
+              "leftD": 3,
+              "rightD": 2,
+              "rightSequence": "444441566362"
+            }
+          ],
+          "7": [
+            {
+              "leftD": 3,
+              "rightD": 2,
+              "rightSequence": "444441566372"
+            }
+          ]
+        }
+      },
+      "sample": [
+        {
+          "left": {
+            "a": 1,
+            "d": 3,
+            "sequence": "444441566213"
+          },
+          "right": {
+            "a": 1,
+            "d": 2,
+            "sequence": "444441566312"
+          },
+          "sameAttackerColumn": true,
+          "support": [
+            2,
+            1,
+            1,
+            5,
+            1,
+            2,
+            0
+          ]
+        },
+        {
+          "left": {
+            "a": 4,
+            "d": 3,
+            "sequence": "444441566243"
+          },
+          "right": {
+            "a": 4,
+            "d": 2,
+            "sequence": "444441566342"
+          },
+          "sameAttackerColumn": true,
+          "support": [
+            1,
+            1,
+            1,
+            6,
+            1,
+            2,
+            0
+          ]
+        },
+        {
+          "left": {
+            "a": 5,
+            "d": 3,
+            "sequence": "444441566253"
+          },
+          "right": {
+            "a": 5,
+            "d": 2,
+            "sequence": "444441566352"
+          },
+          "sameAttackerColumn": true,
+          "support": [
+            1,
+            1,
+            1,
+            5,
+            2,
+            2,
+            0
+          ]
+        },
+        {
+          "left": {
+            "a": 6,
+            "d": 3,
+            "sequence": "444441566263"
+          },
+          "right": {
+            "a": 6,
+            "d": 2,
+            "sequence": "444441566362"
+          },
+          "sameAttackerColumn": true,
+          "support": [
+            1,
+            1,
+            1,
+            5,
+            1,
+            3,
+            0
+          ]
+        },
+        {
+          "left": {
+            "a": 7,
+            "d": 3,
+            "sequence": "444441566273"
+          },
+          "right": {
+            "a": 7,
+            "d": 2,
+            "sequence": "444441566372"
+          },
+          "sameAttackerColumn": true,
+          "support": [
+            1,
+            1,
+            1,
+            5,
+            1,
+            2,
+            1
+          ]
+        }
+      ]
+    }
+  },
+  "c6SameAttackerUnionCoverage": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    7
+  ],
+  "boundary": [
+    "Two-ply local semantic endpoint census only; no value recursion or oracle.",
+    "Exact matches compare complete CPC/RBA semantic keys.",
+    "Matching endpoints do not by themselves establish strategy dominance or remoteness ordering."
+  ]
+}
