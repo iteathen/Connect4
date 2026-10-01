@@ -1,0 +1,1794 @@
+{
+  "schema": "connect4.cpc_trigger_adaptive_renewal_spectrum.v1",
+  "jsMinSysSha": "0899c5811918e68c22dc1b0e4dd8af97d9b4bbcb",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "requestedMaxHorizon": 31,
+  "horizons": [
+    3,
+    5,
+    7,
+    9,
+    11,
+    13,
+    15,
+    17,
+    19,
+    21,
+    23,
+    25,
+    27,
+    29,
+    31
+  ],
+  "rows": [
+    {
+      "id": "candidate2",
+      "sequence": "4444415662",
+      "attacker": 1,
+      "membership": [
+        {
+          "D": 3,
+          "accept": true,
+          "class": "B3",
+          "witness": [],
+          "witnessByTrigger": null,
+          "failedTrigger": null
+        },
+        {
+          "D": 5,
+          "accept": true,
+          "class": "AD_R3_TO_S5",
+          "witness": null,
+          "witnessByTrigger": [
+            {
+              "attackerColumn": 1,
+              "responseColumn": 2,
+              "closed": false,
+              "templatePairs": [
+                {
+                  "cols": [
+                    1,
+                    2
+                  ],
+                  "length": 1
+                },
+                {
+                  "cols": [
+                    4,
+                    5
+                  ],
+                  "length": 1
+                }
+              ],
+              "childClass": "B3"
+            },
+            {
+              "attackerColumn": 2,
+              "responseColumn": 1,
+              "closed": false,
+              "templatePairs": [
+                {
+                  "cols": [
+                    1,
+                    2
+                  ],
+                  "length": 1
+                },
+                {
+                  "cols": [
+                    4,
+                    5
+                  ],
+                  "length": 1
+                }
+              ],
+              "childClass": "B3"
+            },
+            {
+              "attackerColumn": 3,
+              "responseColumn": 3,
+              "closed": false,
+              "templatePairs": [
+                {
+                  "cols": [
+                    1,
+                    2
+                  ],
+                  "length": 1
+                },
+                {
+                  "cols": [
+                    4,
+                    5
+                  ],
+                  "length": 1
+                }
+              ],
+              "childClass": "B3"
+            },
+            {
+              "attackerColumn": 4,
+              "responseColumn": 5,
+              "closed": false,
+              "templatePairs": [
+                {
+                  "cols": [
+                    1,
+                    2
+                  ],
+                  "length": 1
+                },
+                {
+                  "cols": [
+                    4,
+                    5
+                  ],
+                  "length": 1
+                }
+              ],
+              "childClass": "B3"
+            },
+            {
+              "attackerColumn": 5,
+              "responseColumn": 4,
+              "closed": false,
+              "templatePairs": [
+                {
+                  "cols": [
+                    1,
+                    2
+                  ],
+                  "length": 1
+                },
+                {
+                  "cols": [
+                    4,
+                    5
+                  ],
+                  "length": 1
+                }
+              ],
+              "childClass": "B3"
+            },
+            {
+              "attackerColumn": 6,
+              "responseColumn": 6,
+              "closed": false,
+              "templatePairs": [
+                {
+                  "cols": [
+                    1,
+                    2
+                  ],
+                  "length": 1
+                },
+                {
+                  "cols": [
+                    4,
+                    5
+                  ],
+                  "length": 1
+                }
+              ],
+              "childClass": "B3"
+            },
+            {
+              "attackerColumn": 7,
+              "responseColumn": 7,
+              "closed": false,
+              "templatePairs": [
+                {
+                  "cols": [
+                    1,
+                    2
+                  ],
+                  "length": 1
+                },
+                {
+                  "cols": [
+                    4,
+                    5
+                  ],
+                  "length": 1
+                }
+              ],
+              "childClass": "B3"
+            }
+          ],
+          "failedTrigger": null
+        },
+        {
+          "D": 7,
+          "accept": false,
+          "class": "OUTSIDE_SAD7",
+          "witness": null,
+          "witnessByTrigger": null,
+          "failedTrigger": 5
+        },
+        {
+          "D": 9,
+          "accept": false,
+          "class": "OUTSIDE_SAD9",
+          "witness": null,
+          "witnessByTrigger": null,
+          "failedTrigger": 1
+        },
+        {
+          "D": 11,
+          "accept": false,
+          "class": "OUTSIDE_SAD11",
+          "witness": null,
+          "witnessByTrigger": null,
+          "failedTrigger": 1
+        },
+        {
+          "D": 13,
+          "accept": false,
+          "class": "OUTSIDE_SAD13",
+          "witness": null,
+          "witnessByTrigger": null,
+          "failedTrigger": 1
+        },
+        {
+          "D": 15,
+          "accept": false,
+          "class": "OUTSIDE_SAD15",
+          "witness": null,
+          "witnessByTrigger": null,
+          "failedTrigger": 1
+        },
+        {
+          "D": 17,
+          "accept": false,
+          "class": "OUTSIDE_SAD17",
+          "witness": null,
+          "witnessByTrigger": null,
+          "failedTrigger": 1
+        },
+        {
+          "D": 19,
+          "accept": false,
+          "class": "OUTSIDE_SAD19",
+          "witness": null,
+          "witnessByTrigger": null,
+          "failedTrigger": 1
+        },
+        {
+          "D": 21,
+          "accept": false,
+          "class": "OUTSIDE_SAD21",
+          "witness": null,
+          "witnessByTrigger": null,
+          "failedTrigger": 1
+        },
+        {
+          "D": 23,
+          "accept": false,
+          "class": "OUTSIDE_SAD23",
+          "witness": null,
+          "witnessByTrigger": null,
+          "failedTrigger": 1
+        },
+        {
+          "D": 25,
+          "accept": false,
+          "class": "OUTSIDE_SAD25",
+          "witness": null,
+          "witnessByTrigger": null,
+          "failedTrigger": 1
+        },
+        {
+          "D": 27,
+          "accept": false,
+          "class": "OUTSIDE_SAD27",
+          "witness": null,
+          "witnessByTrigger": null,
+          "failedTrigger": 1
+        },
+        {
+          "D": 29,
+          "accept": false,
+          "class": "OUTSIDE_SAD29",
+          "witness": null,
+          "witnessByTrigger": null,
+          "failedTrigger": 1
+        },
+        {
+          "D": 31,
+          "accept": false,
+          "class": "OUTSIDE_SAD31",
+          "witness": null,
+          "witnessByTrigger": null,
+          "failedTrigger": 1
+        }
+      ]
+    },
+    {
+      "id": "candidate3",
+      "sequence": "4444415663",
+      "attacker": 1,
+      "membership": [
+        {
+          "D": 3,
+          "accept": true,
+          "class": "B3",
+          "witness": [],
+          "witnessByTrigger": null,
+          "failedTrigger": null
+        },
+        {
+          "D": 5,
+          "accept": true,
+          "class": "AD_R3_TO_S5",
+          "witness": null,
+          "witnessByTrigger": [
+            {
+              "attackerColumn": 1,
+              "responseColumn": 3,
+              "closed": false,
+              "templatePairs": [
+                {
+                  "cols": [
+                    1,
+                    3
+                  ],
+                  "length": 1
+                },
+                {
+                  "cols": [
+                    4,
+                    5
+                  ],
+                  "length": 1
+                }
+              ],
+              "childClass": "B3"
+            },
+            {
+              "attackerColumn": 2,
+              "responseColumn": 2,
+              "closed": false,
+              "templatePairs": [
+                {
+                  "cols": [
+                    1,
+                    3
+                  ],
+                  "length": 1
+                },
+                {
+                  "cols": [
+                    4,
+                    5
+                  ],
+                  "length": 1
+                }
+              ],
+              "childClass": "B3"
+            },
+            {
+              "attackerColumn": 3,
+              "responseColumn": 1,
+              "closed": false,
+              "templatePairs": [
+                {
+                  "cols": [
+                    1,
+                    3
+                  ],
+                  "length": 1
+                },
+                {
+                  "cols": [
+                    4,
+                    5
+                  ],
+                  "length": 1
+                }
+              ],
+              "childClass": "B3"
+            },
+            {
+              "attackerColumn": 4,
+              "responseColumn": 5,
+              "closed": false,
+              "templatePairs": [
+                {
+                  "cols": [
+                    1,
+                    3
+                  ],
+                  "length": 1
+                },
+                {
+                  "cols": [
+                    4,
+                    5
+                  ],
+                  "length": 1
+                }
+              ],
+              "childClass": "B3"
+            },
+            {
+              "attackerColumn": 5,
+              "responseColumn": 4,
+              "closed": false,
+              "templatePairs": [
+                {
+                  "cols": [
+                    1,
+                    3
+                  ],
+                  "length": 1
+                },
+                {
+                  "cols": [
+                    4,
+                    5
+                  ],
+                  "length": 1
+                }
+              ],
+              "childClass": "B3"
+            },
+            {
+              "attackerColumn": 6,
+              "responseColumn": 6,
+              "closed": false,
+              "templatePairs": [
+                {
+                  "cols": [
+                    1,
+                    3
+                  ],
+                  "length": 1
+                },
+                {
+                  "cols": [
+                    4,
+                    5
+                  ],
+                  "length": 1
+                }
+              ],
+              "childClass": "B3"
+            },
+            {
+              "attackerColumn": 7,
+              "responseColumn": 7,
+              "closed": false,
+              "templatePairs": [
+                {
+                  "cols": [
+                    1,
+                    3
+                  ],
+                  "length": 1
+                },
+                {
+                  "cols": [
+                    4,
+                    5
+                  ],
+                  "length": 1
+                }
+              ],
+              "childClass": "B3"
+            }
+          ],
+          "failedTrigger": null
+        },
+        {
+          "D": 7,
+          "accept": false,
+          "class": "OUTSIDE_SAD7",
+          "witness": null,
+          "witnessByTrigger": null,
+          "failedTrigger": 3
+        },
+        {
+          "D": 9,
+          "accept": false,
+          "class": "OUTSIDE_SAD9",
+          "witness": null,
+          "witnessByTrigger": null,
+          "failedTrigger": 1
+        },
+        {
+          "D": 11,
+          "accept": false,
+          "class": "OUTSIDE_SAD11",
+          "witness": null,
+          "witnessByTrigger": null,
+          "failedTrigger": 1
+        },
+        {
+          "D": 13,
+          "accept": false,
+          "class": "OUTSIDE_SAD13",
+          "witness": null,
+          "witnessByTrigger": null,
+          "failedTrigger": 1
+        },
+        {
+          "D": 15,
+          "accept": false,
+          "class": "OUTSIDE_SAD15",
+          "witness": null,
+          "witnessByTrigger": null,
+          "failedTrigger": 1
+        },
+        {
+          "D": 17,
+          "accept": false,
+          "class": "OUTSIDE_SAD17",
+          "witness": null,
+          "witnessByTrigger": null,
+          "failedTrigger": 1
+        },
+        {
+          "D": 19,
+          "accept": false,
+          "class": "OUTSIDE_SAD19",
+          "witness": null,
+          "witnessByTrigger": null,
+          "failedTrigger": 1
+        },
+        {
+          "D": 21,
+          "accept": false,
+          "class": "OUTSIDE_SAD21",
+          "witness": null,
+          "witnessByTrigger": null,
+          "failedTrigger": 1
+        },
+        {
+          "D": 23,
+          "accept": false,
+          "class": "OUTSIDE_SAD23",
+          "witness": null,
+          "witnessByTrigger": null,
+          "failedTrigger": 1
+        },
+        {
+          "D": 25,
+          "accept": false,
+          "class": "OUTSIDE_SAD25",
+          "witness": null,
+          "witnessByTrigger": null,
+          "failedTrigger": 1
+        },
+        {
+          "D": 27,
+          "accept": false,
+          "class": "OUTSIDE_SAD27",
+          "witness": null,
+          "witnessByTrigger": null,
+          "failedTrigger": 1
+        },
+        {
+          "D": 29,
+          "accept": false,
+          "class": "OUTSIDE_SAD29",
+          "witness": null,
+          "witnessByTrigger": null,
+          "failedTrigger": 1
+        },
+        {
+          "D": 31,
+          "accept": false,
+          "class": "OUTSIDE_SAD31",
+          "witness": null,
+          "witnessByTrigger": null,
+          "failedTrigger": 1
+        }
+      ]
+    },
+    {
+      "id": "candidate6",
+      "sequence": "4444415666",
+      "attacker": 1,
+      "membership": [
+        {
+          "D": 3,
+          "accept": true,
+          "class": "B3",
+          "witness": [
+            {
+              "cols": [
+                1,
+                4
+              ],
+              "length": 1
+            },
+            {
+              "cols": [
+                5,
+                6
+              ],
+              "length": 1
+            },
+            {
+              "cols": [
+                2,
+                3
+              ],
+              "length": 2
+            }
+          ],
+          "witnessByTrigger": null,
+          "failedTrigger": null
+        },
+        {
+          "D": 5,
+          "accept": true,
+          "class": "B5",
+          "witness": [
+            {
+              "cols": [
+                1,
+                4
+              ],
+              "length": 1
+            },
+            {
+              "cols": [
+                5,
+                6
+              ],
+              "length": 1
+            },
+            {
+              "cols": [
+                2,
+                3
+              ],
+              "length": 2
+            }
+          ],
+          "witnessByTrigger": null,
+          "failedTrigger": null
+        },
+        {
+          "D": 7,
+          "accept": true,
+          "class": "AD_R5_TO_S7",
+          "witness": null,
+          "witnessByTrigger": [
+            {
+              "attackerColumn": 1,
+              "responseColumn": 4,
+              "closed": false,
+              "templatePairs": [
+                {
+                  "cols": [
+                    1,
+                    4
+                  ],
+                  "length": 1
+                },
+                {
+                  "cols": [
+                    5,
+                    6
+                  ],
+                  "length": 1
+                }
+              ],
+              "childClass": "AD_R3_TO_S5"
+            },
+            {
+              "attackerColumn": 2,
+              "responseColumn": 3,
+              "closed": false,
+              "templatePairs": [
+                {
+                  "cols": [
+                    1,
+                    4
+                  ],
+                  "length": 1
+                },
+                {
+                  "cols": [
+                    5,
+                    6
+                  ],
+                  "length": 1
+                },
+                {
+                  "cols": [
+                    2,
+                    3
+                  ],
+                  "length": 2
+                }
+              ],
+              "childClass": "B5"
+            },
+            {
+              "attackerColumn": 3,
+              "responseColumn": 2,
+              "closed": false,
+              "templatePairs": [
+                {
+                  "cols": [
+                    1,
+                    4
+                  ],
+                  "length": 1
+                },
+                {
+                  "cols": [
+                    5,
+                    6
+                  ],
+                  "length": 1
+                },
+                {
+                  "cols": [
+                    2,
+                    3
+                  ],
+                  "length": 2
+                }
+              ],
+              "childClass": "B5"
+            },
+            {
+              "attackerColumn": 4,
+              "responseColumn": 1,
+              "closed": false,
+              "templatePairs": [
+                {
+                  "cols": [
+                    1,
+                    4
+                  ],
+                  "length": 1
+                },
+                {
+                  "cols": [
+                    5,
+                    6
+                  ],
+                  "length": 1
+                }
+              ],
+              "childClass": "AD_R3_TO_S5"
+            },
+            {
+              "attackerColumn": 5,
+              "responseColumn": 6,
+              "closed": false,
+              "templatePairs": [
+                {
+                  "cols": [
+                    1,
+                    4
+                  ],
+                  "length": 1
+                },
+                {
+                  "cols": [
+                    5,
+                    6
+                  ],
+                  "length": 1
+                }
+              ],
+              "childClass": "AD_R3_TO_S5"
+            },
+            {
+              "attackerColumn": 6,
+              "responseColumn": 5,
+              "closed": false,
+              "templatePairs": [
+                {
+                  "cols": [
+                    1,
+                    4
+                  ],
+                  "length": 1
+                },
+                {
+                  "cols": [
+                    5,
+                    6
+                  ],
+                  "length": 1
+                }
+              ],
+              "childClass": "AD_R3_TO_S5"
+            },
+            {
+              "attackerColumn": 7,
+              "responseColumn": 7,
+              "closed": false,
+              "templatePairs": [
+                {
+                  "cols": [
+                    1,
+                    4
+                  ],
+                  "length": 1
+                },
+                {
+                  "cols": [
+                    5,
+                    6
+                  ],
+                  "length": 1
+                }
+              ],
+              "childClass": "B5"
+            }
+          ],
+          "failedTrigger": null
+        },
+        {
+          "D": 9,
+          "accept": true,
+          "class": "AD_R7_TO_S9",
+          "witness": null,
+          "witnessByTrigger": [
+            {
+              "attackerColumn": 1,
+              "responseColumn": 4,
+              "closed": false,
+              "templatePairs": [
+                {
+                  "cols": [
+                    1,
+                    4
+                  ],
+                  "length": 1
+                },
+                {
+                  "cols": [
+                    5,
+                    6
+                  ],
+                  "length": 1
+                }
+              ],
+              "childClass": "AD_R5_TO_S7"
+            },
+            {
+              "attackerColumn": 2,
+              "responseColumn": 3,
+              "closed": false,
+              "templatePairs": [
+                {
+                  "cols": [
+                    1,
+                    4
+                  ],
+                  "length": 1
+                },
+                {
+                  "cols": [
+                    5,
+                    6
+                  ],
+                  "length": 1
+                },
+                {
+                  "cols": [
+                    2,
+                    3
+                  ],
+                  "length": 2
+                }
+              ],
+              "childClass": "AD_R5_TO_S7"
+            },
+            {
+              "attackerColumn": 3,
+              "responseColumn": 2,
+              "closed": false,
+              "templatePairs": [
+                {
+                  "cols": [
+                    1,
+                    4
+                  ],
+                  "length": 1
+                },
+                {
+                  "cols": [
+                    5,
+                    6
+                  ],
+                  "length": 1
+                },
+                {
+                  "cols": [
+                    2,
+                    3
+                  ],
+                  "length": 2
+                }
+              ],
+              "childClass": "AD_R5_TO_S7"
+            },
+            {
+              "attackerColumn": 4,
+              "responseColumn": 1,
+              "closed": false,
+              "templatePairs": [
+                {
+                  "cols": [
+                    1,
+                    4
+                  ],
+                  "length": 1
+                },
+                {
+                  "cols": [
+                    5,
+                    6
+                  ],
+                  "length": 1
+                }
+              ],
+              "childClass": "AD_R5_TO_S7"
+            },
+            {
+              "attackerColumn": 5,
+              "responseColumn": 6,
+              "closed": false,
+              "templatePairs": [
+                {
+                  "cols": [
+                    1,
+                    4
+                  ],
+                  "length": 1
+                },
+                {
+                  "cols": [
+                    5,
+                    6
+                  ],
+                  "length": 1
+                }
+              ],
+              "childClass": "AD_R5_TO_S7"
+            },
+            {
+              "attackerColumn": 6,
+              "responseColumn": 4,
+              "closed": false,
+              "templatePairs": [
+                {
+                  "cols": [
+                    1,
+                    5
+                  ],
+                  "length": 1
+                },
+                {
+                  "cols": [
+                    4,
+                    6
+                  ],
+                  "length": 1
+                }
+              ],
+              "childClass": "AD_R5_TO_S7"
+            },
+            {
+              "attackerColumn": 7,
+              "responseColumn": 7,
+              "closed": false,
+              "templatePairs": [
+                {
+                  "cols": [
+                    1,
+                    4
+                  ],
+                  "length": 1
+                },
+                {
+                  "cols": [
+                    5,
+                    6
+                  ],
+                  "length": 1
+                }
+              ],
+              "childClass": "AD_R5_TO_S7"
+            }
+          ],
+          "failedTrigger": null
+        },
+        {
+          "D": 11,
+          "accept": false,
+          "class": "OUTSIDE_SAD11",
+          "witness": null,
+          "witnessByTrigger": null,
+          "failedTrigger": 1
+        },
+        {
+          "D": 13,
+          "accept": false,
+          "class": "OUTSIDE_SAD13",
+          "witness": null,
+          "witnessByTrigger": null,
+          "failedTrigger": 1
+        },
+        {
+          "D": 15,
+          "accept": false,
+          "class": "OUTSIDE_SAD15",
+          "witness": null,
+          "witnessByTrigger": null,
+          "failedTrigger": 1
+        },
+        {
+          "D": 17,
+          "accept": false,
+          "class": "OUTSIDE_SAD17",
+          "witness": null,
+          "witnessByTrigger": null,
+          "failedTrigger": 1
+        },
+        {
+          "D": 19,
+          "accept": false,
+          "class": "OUTSIDE_SAD19",
+          "witness": null,
+          "witnessByTrigger": null,
+          "failedTrigger": 1
+        },
+        {
+          "D": 21,
+          "accept": false,
+          "class": "OUTSIDE_SAD21",
+          "witness": null,
+          "witnessByTrigger": null,
+          "failedTrigger": 1
+        },
+        {
+          "D": 23,
+          "accept": false,
+          "class": "OUTSIDE_SAD23",
+          "witness": null,
+          "witnessByTrigger": null,
+          "failedTrigger": 1
+        },
+        {
+          "D": 25,
+          "accept": false,
+          "class": "OUTSIDE_SAD25",
+          "witness": null,
+          "witnessByTrigger": null,
+          "failedTrigger": 1
+        },
+        {
+          "D": 27,
+          "accept": false,
+          "class": "OUTSIDE_SAD27",
+          "witness": null,
+          "witnessByTrigger": null,
+          "failedTrigger": 1
+        },
+        {
+          "D": 29,
+          "accept": false,
+          "class": "OUTSIDE_SAD29",
+          "witness": null,
+          "witnessByTrigger": null,
+          "failedTrigger": 1
+        },
+        {
+          "D": 31,
+          "accept": false,
+          "class": "OUTSIDE_SAD31",
+          "witness": null,
+          "witnessByTrigger": null,
+          "failedTrigger": 1
+        }
+      ]
+    }
+  ],
+  "failureFrontiers": [
+    {
+      "id": "candidate2",
+      "sequence": "4444415662",
+      "failedHorizon": 7,
+      "failedTrigger": 5,
+      "requiredChildHorizon": 5,
+      "responseOptions": [
+        {
+          "responseColumn": 4,
+          "templatePairs": [
+            {
+              "cols": [
+                1,
+                2
+              ],
+              "length": 1
+            },
+            {
+              "cols": [
+                4,
+                5
+              ],
+              "length": 1
+            }
+          ],
+          "transport": "NONTERMINAL",
+          "childRank": 12,
+          "childSupport": [
+            1,
+            1,
+            0,
+            6,
+            2,
+            2,
+            0
+          ],
+          "childCpc": {
+            "kind": "CPC_NONE",
+            "interval": [
+              -1,
+              1
+            ],
+            "forcedColumn": null,
+            "preemptionCount": 0,
+            "preemptionMask32": 0,
+            "precursorCount": 0
+          },
+          "childTargetClass": {
+            "D": 5,
+            "accept": false,
+            "class": "OUTSIDE_SAD5",
+            "failedTrigger": 5
+          },
+          "childSpectrum": [
+            {
+              "D": 3,
+              "accept": true,
+              "class": "B3",
+              "failedTrigger": null
+            },
+            {
+              "D": 5,
+              "accept": false,
+              "class": "OUTSIDE_SAD5",
+              "failedTrigger": 5
+            }
+          ],
+          "attackerMinimalResidualCount": 29,
+          "attackerDeadlineHistogram": {
+            "3": 1,
+            "5": 7,
+            "7": 14,
+            "9": 7
+          }
+        },
+        {
+          "responseColumn": 2,
+          "templatePairs": [
+            {
+              "cols": [
+                1,
+                4
+              ],
+              "length": 1
+            },
+            {
+              "cols": [
+                2,
+                5
+              ],
+              "length": 1
+            }
+          ],
+          "transport": "NONTERMINAL",
+          "childRank": 12,
+          "childSupport": [
+            1,
+            2,
+            0,
+            5,
+            2,
+            2,
+            0
+          ],
+          "childCpc": {
+            "kind": "CPC_NONE",
+            "interval": [
+              -1,
+              1
+            ],
+            "forcedColumn": null,
+            "preemptionCount": 0,
+            "preemptionMask32": 0,
+            "precursorCount": 0
+          },
+          "childTargetClass": {
+            "D": 5,
+            "accept": false,
+            "class": "OUTSIDE_SAD5",
+            "failedTrigger": 5
+          },
+          "childSpectrum": [
+            {
+              "D": 3,
+              "accept": true,
+              "class": "B3",
+              "failedTrigger": null
+            },
+            {
+              "D": 5,
+              "accept": false,
+              "class": "OUTSIDE_SAD5",
+              "failedTrigger": 5
+            }
+          ],
+          "attackerMinimalResidualCount": 34,
+          "attackerDeadlineHistogram": {
+            "3": 1,
+            "5": 10,
+            "7": 14,
+            "9": 9
+          }
+        },
+        {
+          "responseColumn": 1,
+          "templatePairs": [
+            {
+              "cols": [
+                1,
+                5
+              ],
+              "length": 1
+            },
+            {
+              "cols": [
+                2,
+                4
+              ],
+              "length": 1
+            }
+          ],
+          "transport": "NONTERMINAL",
+          "childRank": 12,
+          "childSupport": [
+            2,
+            1,
+            0,
+            5,
+            2,
+            2,
+            0
+          ],
+          "childCpc": {
+            "kind": "CPC_NONE",
+            "interval": [
+              -1,
+              1
+            ],
+            "forcedColumn": null,
+            "preemptionCount": 0,
+            "preemptionMask32": 0,
+            "precursorCount": 0
+          },
+          "childTargetClass": {
+            "D": 5,
+            "accept": false,
+            "class": "OUTSIDE_SAD5",
+            "failedTrigger": 5
+          },
+          "childSpectrum": [
+            {
+              "D": 3,
+              "accept": true,
+              "class": "B3",
+              "failedTrigger": null
+            },
+            {
+              "D": 5,
+              "accept": false,
+              "class": "OUTSIDE_SAD5",
+              "failedTrigger": 5
+            }
+          ],
+          "attackerMinimalResidualCount": 33,
+          "attackerDeadlineHistogram": {
+            "3": 1,
+            "5": 7,
+            "7": 16,
+            "9": 9
+          }
+        }
+      ]
+    },
+    {
+      "id": "candidate3",
+      "sequence": "4444415663",
+      "failedHorizon": 7,
+      "failedTrigger": 3,
+      "requiredChildHorizon": 5,
+      "responseOptions": [
+        {
+          "responseColumn": 1,
+          "templatePairs": [
+            {
+              "cols": [
+                1,
+                3
+              ],
+              "length": 1
+            },
+            {
+              "cols": [
+                4,
+                5
+              ],
+              "length": 1
+            }
+          ],
+          "transport": "NONTERMINAL",
+          "childRank": 12,
+          "childSupport": [
+            2,
+            0,
+            2,
+            5,
+            1,
+            2,
+            0
+          ],
+          "childCpc": {
+            "kind": "CPC_NONE",
+            "interval": [
+              -1,
+              1
+            ],
+            "forcedColumn": null,
+            "preemptionCount": 0,
+            "preemptionMask32": 0,
+            "precursorCount": 0
+          },
+          "childTargetClass": {
+            "D": 5,
+            "accept": false,
+            "class": "OUTSIDE_SAD5",
+            "failedTrigger": 1
+          },
+          "childSpectrum": [
+            {
+              "D": 3,
+              "accept": true,
+              "class": "B3",
+              "failedTrigger": null
+            },
+            {
+              "D": 5,
+              "accept": false,
+              "class": "OUTSIDE_SAD5",
+              "failedTrigger": 1
+            }
+          ],
+          "attackerMinimalResidualCount": 34,
+          "attackerDeadlineHistogram": {
+            "3": 1,
+            "5": 13,
+            "7": 11,
+            "9": 9
+          }
+        },
+        {
+          "responseColumn": 5,
+          "templatePairs": [
+            {
+              "cols": [
+                1,
+                4
+              ],
+              "length": 1
+            },
+            {
+              "cols": [
+                3,
+                5
+              ],
+              "length": 1
+            }
+          ],
+          "transport": "NONTERMINAL",
+          "childRank": 12,
+          "childSupport": [
+            1,
+            0,
+            2,
+            5,
+            2,
+            2,
+            0
+          ],
+          "childCpc": {
+            "kind": "CPC_NONE",
+            "interval": [
+              -1,
+              1
+            ],
+            "forcedColumn": null,
+            "preemptionCount": 0,
+            "preemptionMask32": 0,
+            "precursorCount": 0
+          },
+          "childTargetClass": {
+            "D": 5,
+            "accept": false,
+            "class": "OUTSIDE_SAD5",
+            "failedTrigger": 3
+          },
+          "childSpectrum": [
+            {
+              "D": 3,
+              "accept": true,
+              "class": "B3",
+              "failedTrigger": null
+            },
+            {
+              "D": 5,
+              "accept": false,
+              "class": "OUTSIDE_SAD5",
+              "failedTrigger": 3
+            }
+          ],
+          "attackerMinimalResidualCount": 33,
+          "attackerDeadlineHistogram": {
+            "3": 1,
+            "5": 11,
+            "7": 12,
+            "9": 9
+          }
+        },
+        {
+          "responseColumn": 4,
+          "templatePairs": [
+            {
+              "cols": [
+                1,
+                5
+              ],
+              "length": 1
+            },
+            {
+              "cols": [
+                3,
+                4
+              ],
+              "length": 1
+            }
+          ],
+          "transport": "NONTERMINAL",
+          "childRank": 12,
+          "childSupport": [
+            1,
+            0,
+            2,
+            6,
+            1,
+            2,
+            0
+          ],
+          "childCpc": {
+            "kind": "CPC_NONE",
+            "interval": [
+              -1,
+              1
+            ],
+            "forcedColumn": null,
+            "preemptionCount": 0,
+            "preemptionMask32": 0,
+            "precursorCount": 0
+          },
+          "childTargetClass": {
+            "D": 5,
+            "accept": false,
+            "class": "OUTSIDE_SAD5",
+            "failedTrigger": 3
+          },
+          "childSpectrum": [
+            {
+              "D": 3,
+              "accept": true,
+              "class": "B3",
+              "failedTrigger": null
+            },
+            {
+              "D": 5,
+              "accept": false,
+              "class": "OUTSIDE_SAD5",
+              "failedTrigger": 3
+            }
+          ],
+          "attackerMinimalResidualCount": 30,
+          "attackerDeadlineHistogram": {
+            "3": 1,
+            "5": 14,
+            "7": 9,
+            "9": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": "candidate6",
+      "sequence": "4444415666",
+      "failedHorizon": 11,
+      "failedTrigger": 1,
+      "requiredChildHorizon": 9,
+      "responseOptions": [
+        {
+          "responseColumn": 4,
+          "templatePairs": [
+            {
+              "cols": [
+                1,
+                4
+              ],
+              "length": 1
+            },
+            {
+              "cols": [
+                5,
+                6
+              ],
+              "length": 1
+            }
+          ],
+          "transport": "NONTERMINAL",
+          "childRank": 12,
+          "childSupport": [
+            2,
+            0,
+            0,
+            6,
+            1,
+            3,
+            0
+          ],
+          "childCpc": {
+            "kind": "CPC_NONE",
+            "interval": [
+              -1,
+              1
+            ],
+            "forcedColumn": null,
+            "preemptionCount": 0,
+            "preemptionMask32": 0,
+            "precursorCount": 0
+          },
+          "childTargetClass": {
+            "D": 9,
+            "accept": false,
+            "class": "OUTSIDE_SAD9",
+            "failedTrigger": 1
+          },
+          "childSpectrum": [
+            {
+              "D": 3,
+              "accept": true,
+              "class": "B3",
+              "failedTrigger": null
+            },
+            {
+              "D": 5,
+              "accept": true,
+              "class": "AD_R3_TO_S5",
+              "failedTrigger": null
+            },
+            {
+              "D": 7,
+              "accept": true,
+              "class": "AD_R5_TO_S7",
+              "failedTrigger": null
+            },
+            {
+              "D": 9,
+              "accept": false,
+              "class": "OUTSIDE_SAD9",
+              "failedTrigger": 1
+            }
+          ],
+          "attackerMinimalResidualCount": 26,
+          "attackerDeadlineHistogram": {
+            "3": 1,
+            "5": 5,
+            "7": 11,
+            "9": 9
+          }
+        },
+        {
+          "responseColumn": 5,
+          "templatePairs": [
+            {
+              "cols": [
+                1,
+                5
+              ],
+              "length": 1
+            },
+            {
+              "cols": [
+                4,
+                6
+              ],
+              "length": 1
+            }
+          ],
+          "transport": "NONTERMINAL",
+          "childRank": 12,
+          "childSupport": [
+            2,
+            0,
+            0,
+            5,
+            2,
+            3,
+            0
+          ],
+          "childCpc": {
+            "kind": "CPC_NONE",
+            "interval": [
+              -1,
+              1
+            ],
+            "forcedColumn": null,
+            "preemptionCount": 0,
+            "preemptionMask32": 0,
+            "precursorCount": 0
+          },
+          "childTargetClass": {
+            "D": 9,
+            "accept": false,
+            "class": "OUTSIDE_SAD9",
+            "failedTrigger": 1
+          },
+          "childSpectrum": [
+            {
+              "D": 3,
+              "accept": true,
+              "class": "B3",
+              "failedTrigger": null
+            },
+            {
+              "D": 5,
+              "accept": true,
+              "class": "AD_R3_TO_S5",
+              "failedTrigger": null
+            },
+            {
+              "D": 7,
+              "accept": true,
+              "class": "AD_R5_TO_S7",
+              "failedTrigger": null
+            },
+            {
+              "D": 9,
+              "accept": false,
+              "class": "OUTSIDE_SAD9",
+              "failedTrigger": 1
+            }
+          ],
+          "attackerMinimalResidualCount": 30,
+          "attackerDeadlineHistogram": {
+            "3": 1,
+            "5": 5,
+            "7": 15,
+            "9": 9
+          }
+        },
+        {
+          "responseColumn": 6,
+          "templatePairs": [
+            {
+              "cols": [
+                1,
+                6
+              ],
+              "length": 1
+            },
+            {
+              "cols": [
+                4,
+                5
+              ],
+              "length": 1
+            }
+          ],
+          "transport": "NONTERMINAL",
+          "childRank": 12,
+          "childSupport": [
+            2,
+            0,
+            0,
+            5,
+            1,
+            4,
+            0
+          ],
+          "childCpc": {
+            "kind": "CPC_NONE",
+            "interval": [
+              -1,
+              1
+            ],
+            "forcedColumn": null,
+            "preemptionCount": 0,
+            "preemptionMask32": 0,
+            "precursorCount": 0
+          },
+          "childTargetClass": {
+            "D": 9,
+            "accept": false,
+            "class": "OUTSIDE_SAD9",
+            "failedTrigger": 1
+          },
+          "childSpectrum": [
+            {
+              "D": 3,
+              "accept": true,
+              "class": "B3",
+              "failedTrigger": null
+            },
+            {
+              "D": 5,
+              "accept": true,
+              "class": "AD_R3_TO_S5",
+              "failedTrigger": null
+            },
+            {
+              "D": 7,
+              "accept": true,
+              "class": "AD_R5_TO_S7",
+              "failedTrigger": null
+            },
+            {
+              "D": 9,
+              "accept": false,
+              "class": "OUTSIDE_SAD9",
+              "failedTrigger": 1
+            }
+          ],
+          "attackerMinimalResidualCount": 31,
+          "attackerDeadlineHistogram": {
+            "3": 1,
+            "5": 6,
+            "7": 13,
+            "9": 11
+          }
+        }
+      ]
+    }
+  ],
+  "work": {
+    "classCalls": 220430,
+    "memoHits": 140301,
+    "responseOptionsTested": 671007,
+    "branchTests": 376062,
+    "cofactorCount": 300762,
+    "classMemoSize": 220430,
+    "baseMemoSize": 220430,
+    "templateMemoSize": 71790,
+    "responseOptionMemoSize": 137722,
+    "cofactorMemoSize": 300762
+  },
+  "boundary": [
+    "S_D is a bounded constructive defender survival proof class, not exact remoteness.",
+    "Each observed attacker trigger may select its own complete synchronized-response template; the exact mate is then transported by CPC/RBA cofactor.",
+    "Failure of S_D is not an attacker forced-completion certificate.",
+    "The spectrum tests the sound quantifier swap from exists-template-for-all-triggers to for-all-triggers-exists-template; it is not unrestricted legal-response minimax."
+  ]
+}
