@@ -219,7 +219,10 @@ function adaptiveResponseOptions(q,attacker,column){
   for(const T of templates(q)){
     const mate=T.response.get(frontier);
     if(mate!==undefined&&!byMate.has(mate))
-      byMate.set(mate,{mate,template:T,source:'SYNCHRONIZED_TEMPLATE',residualId:null});
+      byMate.set(mate,{
+        mate,template:T,source:'SYNCHRONIZED_TEMPLATE',sources:['SYNCHRONIZED_TEMPLATE'],
+        residualId:null,crossLadder:null
+      });
   }
 
   // Attachment-preserving frontier residual edge:
@@ -234,10 +237,17 @@ function adaptiveResponseOptions(q,attacker,column){
       if(mate===frontier)continue;
       const rc=g.cellColumn[mate],rr=g.cellRow[mate];
       if(rc===column||q.words[rc]!==rr)continue;
-      if(byMate.has(mate))continue;
+      if(byMate.has(mate)){
+        const prior=byMate.get(mate);
+        if(!prior.sources)prior.sources=[prior.source];
+        if(!prior.sources.includes('FRONTIER_RESIDUAL_EDGE'))prior.sources.push('FRONTIER_RESIDUAL_EDGE');
+        continue;
+      }
       byMate.set(mate,{
         mate,
         source:'FRONTIER_RESIDUAL_EDGE',
+        sources:['FRONTIER_RESIDUAL_EDGE'],
+        crossLadder:null,
         residualId:id,
         template:{
           response:new Map([[frontier,mate]]),
@@ -280,11 +290,26 @@ function adaptiveResponseOptions(q,attacker,column){
       if(!matches||new Set(orderedLow).size!==2)continue;
       if(!orderedLow.every(cell=>q.words[g.cellColumn[cell]]===g.cellRow[cell]))continue;
       for(const mate of orderedLow){
-        if(byMate.has(mate))continue;
         const rc=g.cellColumn[mate],rr=g.cellRow[mate];
+        const ladderWitness={
+          lowerResidualId:lowId,
+          middleResidualId:midId,
+          triggerCell:frontier,
+          responseCell:mate,
+          transportedPair:upper.slice()
+        };
+        if(byMate.has(mate)){
+          const prior=byMate.get(mate);
+          if(!prior.sources)prior.sources=[prior.source];
+          if(!prior.sources.includes('CROSS_RESIDUAL_LADDER_EDGE'))prior.sources.push('CROSS_RESIDUAL_LADDER_EDGE');
+          if(!prior.crossLadder)prior.crossLadder=ladderWitness;
+          continue;
+        }
         byMate.set(mate,{
           mate,
           source:'CROSS_RESIDUAL_LADDER_EDGE',
+          sources:['CROSS_RESIDUAL_LADDER_EDGE'],
+          crossLadder:ladderWitness,
           residualId:midId,
           lowerResidualId:lowId,
           template:{
@@ -395,7 +420,7 @@ function classG(q,attacker,D,guardCol){
       const tr=responseSuccessor(q,option.template,attacker,c);
       if(!tr.ok)continue;
       if(tr.closed){
-        found={attackerColumn:c+1,responseColumn:tr.responseColumn,closed:true,mode:'GUARD_COMPOSED',responseSource:option.source,childClass:'CLOSED'};
+        found={attackerColumn:c+1,responseColumn:tr.responseColumn,closed:true,mode:'GUARD_COMPOSED',responseSource:option.source,responseSources:option.sources??[option.source],childClass:'CLOSED'};
         break;
       }
       const responseCol=tr.responseColumn-1;
@@ -409,7 +434,7 @@ function classG(q,attacker,D,guardCol){
         found={
           attackerColumn:c+1,responseColumn:tr.responseColumn,closed:false,
           mode:preservesGuard?'GUARD_PRESERVED':'GUARD_RETIRED',
-          responseSource:option.source,childClass:child.class
+          responseSource:option.source,responseSources:option.sources??[option.source],childClass:child.class
         };
         break;
       }
@@ -456,12 +481,13 @@ function classS(q,attacker,D){
       if(tr.closed){
         found={
           attackerColumn:c+1,responseColumn:tr.responseColumn,closed:true,
-          templatePairs:option.template.pairs,responseSource:option.source,childClass:'CLOSED'
+          templatePairs:option.template.pairs,responseSource:option.source,responseSources:option.sources??[option.source],childClass:'CLOSED'
         };
         break;
       }
       const establishesGuard=
-        option.source==='CROSS_RESIDUAL_LADDER_EDGE' &&
+        option.crossLadder!==null &&
+        option.crossLadder!==undefined &&
         g.cellRow[option.mate]===0 &&
         tr.responseColumn!==null;
       const child=establishesGuard
@@ -471,7 +497,7 @@ function classS(q,attacker,D){
         if(establishesGuard)guardEstablishments++;
         found={
           attackerColumn:c+1,responseColumn:tr.responseColumn,closed:false,
-          templatePairs:option.template.pairs,responseSource:option.source,
+          templatePairs:option.template.pairs,responseSource:option.source,responseSources:option.sources??[option.source],
           establishesGuard:establishesGuard?g.cellColumn[option.mate]+1:null,
           childClass:child.class
         };
@@ -520,7 +546,7 @@ for(const row of rows){
       options.push({
         responseColumn:g.cellColumn[option.mate]+1,
         templatePairs:option.template.pairs,
-        responseSource:option.source,
+        responseSource:option.source,responseSources:option.sources??[option.source],
         transport:'REJECTED',
         reason:tr.reason,
       });
@@ -530,7 +556,7 @@ for(const row of rows){
       options.push({
         responseColumn:tr.responseColumn,
         templatePairs:option.template.pairs,
-        responseSource:option.source,
+        responseSource:option.source,responseSources:option.sources??[option.source],
         transport:'CLOSED',
         reason:tr.reason,
       });
