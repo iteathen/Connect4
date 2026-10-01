@@ -1,0 +1,76 @@
+name: Research CPC top-repair response debt
+
+on:
+  push:
+    branches:
+      - research/universal-structural-policy-20260930
+    paths:
+      - .github/workflows/research-cpc-top-repair-response-debt.yml
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/run-cpc-three-column-response-debt-top-repair.mjs
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/run-cpc-attacker-completion-proof-classes.mjs
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Check out exact pushed revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+
+      - name: Pin Node runtime
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+
+      - name: Fetch pinned JSMinSys CPC/RBA authority
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone https://github.com/iteathen/JSMinSys.git jsminsys
+          git -C jsminsys checkout 0899c5811918e68c22dc1b0e4dd8af97d9b4bbcb
+          test "$(git -C jsminsys rev-parse HEAD)" = "0899c5811918e68c22dc1b0e4dd8af97d9b4bbcb"
+
+      - name: Run top-repair debt policy to absolute ply 41
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT=research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_THREE_COLUMN_RESPONSE_DEBT_TOP_REPAIR_0_1.json
+          node research/isograph/discovery/2026-09-30-universal-structural-policy/run-cpc-three-column-response-debt-top-repair.mjs ./jsminsys > "$OUT"
+          node - "$OUT" <<'NODE'
+          const fs=require('fs');
+          const r=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
+          console.log('ROWS='+JSON.stringify(r.rows.map(x=>({
+            id:x.id,
+            debt:x.initialDebtColumn,
+            maxRelative:x.maxCertifiedSurvivalHorizon,
+            maxAbsolute:x.maxCertifiedAbsolutePly,
+            firstFailedRelative:x.firstFailedHorizon,
+            firstFailedAbsolute:x.firstFailedAbsolutePly,
+            ladder:x.ladder
+          }))));
+          console.log('WORK='+JSON.stringify(r.work));
+          NODE
+
+      - name: Commit durable top-repair evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          BRANCH=research/universal-structural-policy-20260930
+          FILE=research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_THREE_COLUMN_RESPONSE_DEBT_TOP_REPAIR_0_1.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$FILE"
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "research: verify top-repair response-debt control"
+          for attempt in 1 2 3; do
+            git fetch origin "$BRANCH"
+            git rebase "origin/$BRANCH"
+            if git push origin HEAD:"$BRANCH"; then exit 0; fi
+            sleep 1
+          done
+          exit 1
