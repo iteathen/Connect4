@@ -1,0 +1,82 @@
+name: Research CPC rank24 zugzwang win composition
+
+on:
+  push:
+    branches:
+      - research/universal-structural-policy-20260930
+    paths:
+      - .github/workflows/research-cpc-rank24-zugzwang-win-composition.yml
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/run-cpc-rank24-zugzwang-win-composition.mjs
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_RANK24_ZUGZWANG_WIN_COMPOSITION_THEOREM.md
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/run-cpc-trigger5-forced-compression.mjs
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/run-cpc-truncated-target-reservoir-pairing.mjs
+
+permissions:
+  contents: write
+
+jobs:
+  qualify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out exact pushed revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+      - name: Pin Node runtime
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Assert exact Node runtime
+        run: node -e "if (process.version !== 'v26.7.0') throw new Error('expected Node v26.7.0, got ' + process.version)"
+      - name: Fetch pinned JSMinSys authority
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone https://github.com/iteathen/JSMinSys.git jsminsys
+          git -C jsminsys checkout bf23d3a67652cd42e1975f29c7dc4eed54f7eb42
+          test -z "$(git -C jsminsys status --porcelain)"
+      - name: Qualify rank24 zugzwang win composition
+        shell: bash
+        run: |
+          set -euo pipefail
+          DIR=research/isograph/discovery/2026-09-30-universal-structural-policy
+          OUT="$DIR/CPC_RANK24_ZUGZWANG_WIN_COMPOSITION_0_1.json"
+          node "$DIR/run-cpc-rank24-zugzwang-win-composition.mjs" ./jsminsys > "$OUT"
+          node - "$OUT" <<'NODE'
+          const fs=require('fs');
+          const r=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
+          if(r.oracleUsed!==false||r.solvedInputsUsed!==false)throw new Error('forbidden solved evidence flag');
+          if(r.jsMinSysSha!=='bf23d3a67652cd42e1975f29c7dc4eed54f7eb42')throw new Error('JSMinSys authority drift');
+          if(r.accept!==true)throw new Error('rank24 composition rejected');
+          if(r.currentState.rank!==24||r.currentState.mover!==1)throw new Error('current-state mismatch');
+          if(r.moveCertificate.player!==1||r.moveCertificate.column!==5||r.moveCertificate.exactValue!=='WIN')throw new Error('unexpected move certificate');
+          if(r.moveCertificate.relativeRemoteness!==null)throw new Error('remoteness must remain unclaimed');
+          if(JSON.stringify(r.moveCertificate.legalDefenderReplies)!==JSON.stringify([1,3,5,6,7]))throw new Error('reply coverage mismatch');
+          if(!r.premiseCertificates.trigger5.accept||!r.premiseCertificates.targetReservoir.accept)throw new Error('premise certificate missing');
+          console.log(JSON.stringify({
+            accept:r.accept,
+            rank:r.currentState.rank,
+            winningMove:r.moveCertificate.column,
+            replies:r.moveCertificate.legalDefenderReplies,
+            closures:r.moveCertificate.branches.map(x=>({reply:x.defenderReplyColumn,closure:x.closure}))
+          }));
+          NODE
+      - name: Commit durable composition evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          BRANCH=research/universal-structural-policy-20260930
+          FILE=research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_RANK24_ZUGZWANG_WIN_COMPOSITION_0_1.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$FILE"
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "research: record rank24 CPC zugzwang win composition"
+          for attempt in 1 2 3; do
+            git fetch origin "$BRANCH"
+            git rebase --autostash "origin/$BRANCH"
+            if git push origin HEAD:"$BRANCH"; then exit 0; fi
+            sleep 1
+          done
+          exit 1
