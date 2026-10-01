@@ -1,0 +1,68 @@
+name: Research CPC strong-distance lower envelope
+
+on:
+  push:
+    branches:
+      - research/universal-structural-policy-20260930
+    paths:
+      - .github/workflows/research-cpc-strong-distance-lower-envelope.yml
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_STRONG_DISTANCE_ENVELOPE_TARGET.md
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/run-cpc-strong-distance-lower-envelope.mjs
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Check out exact Connect4 revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - name: Pin Node runtime
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+
+      - name: Clone pinned qualified JSMinSys
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone https://github.com/iteathen/JSMinSys.git jsminsys
+          git -C jsminsys checkout 0899c5811918e68c22dc1b0e4dd8af97d9b4bbcb
+          test "$(git -C jsminsys rev-parse HEAD)" = "0899c5811918e68c22dc1b0e4dd8af97d9b4bbcb"
+
+      - name: Verify CPC-basis survival floor
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT=research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_STRONG_DISTANCE_LOWER_ENVELOPE_0_1.json
+          node research/isograph/discovery/2026-09-30-universal-structural-policy/run-cpc-strong-distance-lower-envelope.mjs ./jsminsys > "$OUT"
+          node - "$OUT" <<'NODE'
+          const fs=require('fs');
+          const r=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
+          console.log('ROWS='+JSON.stringify(r.rows.map(x=>({
+            id:x.id,
+            nativeKind:x.nativeCpc.kind,
+            nativeInterval:x.nativeCpc.absoluteInterval,
+            lower:x.strongDistanceLowerFromCpcBasis.horizon,
+            active:x.strongDistanceLowerFromCpcBasis.activeResidualCount,
+            minimal:x.strongDistanceLowerFromCpcBasis.minimalResidualCount,
+            pairs:x.strongDistanceLowerFromCpcBasis.templatePairs
+          }))));
+          NODE
+
+      - name: Commit durable CPC lower-envelope evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_STRONG_DISTANCE_LOWER_ENVELOPE_0_1.json
+          if git diff --cached --quiet; then
+            echo "CPC lower-envelope evidence unchanged"
+            exit 0
+          fi
+          git pull --rebase origin research/universal-structural-policy-20260930
+          git push origin HEAD:research/universal-structural-policy-20260930
