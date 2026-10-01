@@ -1,0 +1,139 @@
+{
+  "schema": "connect4.cpc_rank28_dual_singleton_handoff_composition.v1",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "theoremCandidate": "CPC_RANK28_DUAL_SINGLETON_HANDOFF_COMPOSITION_THEOREM.md",
+  "parent": {
+    "sequence": "4444415666662322224233177716",
+    "rank": 28,
+    "mover": 1,
+    "support": [
+      3,
+      6,
+      3,
+      6,
+      1,
+      6,
+      3
+    ]
+  },
+  "move": {
+    "player": 1,
+    "column": 1,
+    "terminal": 0,
+    "childSupport": [
+      4,
+      6,
+      3,
+      6,
+      1,
+      6,
+      3
+    ],
+    "c1r5Singleton": true,
+    "c3r5Singleton": true
+  },
+  "forcedReply": {
+    "nativeCpc": {
+      "baseline": {
+        "kind": "CPC_RESTRICT",
+        "interval": [
+          -1,
+          1
+        ],
+        "forcedColumn": 1,
+        "preemptionCount": 1,
+        "preemptionMask32": 1
+      },
+      "frontier": {
+        "kind": "CPC_RESTRICT",
+        "interval": [
+          -1,
+          1
+        ],
+        "forcedColumn": 1,
+        "preemptionCount": 1,
+        "preemptionMask32": 1
+      }
+    },
+    "nativeCpcForcesC1": true,
+    "literal": {
+      "rows": [
+        {
+          "replyColumn": 1,
+          "replyTerminal": 0,
+          "nextP1C1Terminal": 0,
+          "avoidsImmediateP1C1Win": true
+        },
+        {
+          "replyColumn": 3,
+          "replyTerminal": 0,
+          "nextP1C1Terminal": 3,
+          "avoidsImmediateP1C1Win": false
+        },
+        {
+          "replyColumn": 5,
+          "replyTerminal": 0,
+          "nextP1C1Terminal": 3,
+          "avoidsImmediateP1C1Win": false
+        },
+        {
+          "replyColumn": 7,
+          "replyTerminal": 0,
+          "nextP1C1Terminal": 3,
+          "avoidsImmediateP1C1Win": false
+        }
+      ],
+      "avoidingMask": 1,
+      "avoidingColumns": [
+        1
+      ],
+      "onlyC1": true
+    },
+    "literalOnlyC1": true,
+    "column": 1,
+    "terminal": 0,
+    "childSupport": [
+      5,
+      6,
+      3,
+      6,
+      1,
+      6,
+      3
+    ],
+    "expectedSequence": "444441566666232222423317771611",
+    "exactChildMatchesQualifiedRank30Root": true
+  },
+  "premise": {
+    "theorem": "CPC_RANK30_PHASE_TRANSFER_COMPOSITION_THEOREM.md",
+    "accept": true,
+    "parent": {
+      "sequence": "444441566666232222423317771611",
+      "rank": 30,
+      "mover": 1,
+      "support": [
+        5,
+        6,
+        3,
+        6,
+        1,
+        6,
+        3
+      ]
+    }
+  },
+  "accept": true,
+  "conclusion": [
+    "The exact rank-28 state is a Player-1 win by column 1.",
+    "P1:c1 creates simultaneous c1r5 and c3r5 Player-1 singleton obligations; native CPC and literal cofactors uniquely force P2:c1.",
+    "The exact post-c1/c1 RBA child equals the already-qualified rank-30 phase-transfer composition root."
+  ],
+  "boundary": [
+    "All transitions and state equality checks use exact RBA cofactors.",
+    "Production CPC is consumed unchanged at the pinned JSMinSys authority and every load-bearing forced reply is independently cross-checked by literal exact cofactors.",
+    "No oracle, Pons, solved W/D/L input, local game-tree value, minimax, best-move table, physical-position identity, or sealed holdout is used.",
+    "Production CPC, JSMinSys, and BSFP remain unchanged."
+  ]
+}
