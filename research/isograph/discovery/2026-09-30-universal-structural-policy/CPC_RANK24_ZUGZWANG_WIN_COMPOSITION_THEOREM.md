@@ -2,7 +2,7 @@
 
 **Date:** 2026-10-01  
 **Version:** 0.1 frozen before execution  
-**Status:** exact W/L composition candidate; qualification pending  
+**Status:** qualified exact local W/L theorem  
 **Branch:** research/universal-structural-policy-20260930
 
 ## Purpose
@@ -107,6 +107,24 @@ Qualification must freshly execute the two frozen structural certificates at the
 
 The composition runner may invoke the two structural qualification runners as theorem-premise checks. It must not read Pons, an oracle, a solved W/D/L database, a best-move table, or a sealed holdout.
 
+## Qualification result
+
+Qualified on 2026-10-01 by CPC_RANK24_ZUGZWANG_WIN_COMPOSITION_0_1.json at pinned JSMinSys authority bf23d3a67652cd42e1975f29c7dc4eed54f7eb42.
+
+The qualification freshly re-executed both structural premise certificates and verified:
+
+- oracleUsed=false and solvedInputsUsed=false throughout;
+- current state rank 24, Player 1 to move, support [3,6,3,6,1,5,0];
+- Player-1 column 5 is the certified move;
+- the complete legal Player-2 reply set is exactly {1,3,5,6,7};
+- reply 5 closes by an immediate exact Player-1 terminal;
+- replies 1,3,6,7 each close by the qualified forced-compression theorem followed by the qualified truncated target-reservoir pairing theorem;
+- relative remoteness remains unclaimed.
+
+Qualification workflow: GitHub Actions run 36881588496, successful. Durable evidence commit: e8679c949ed0fac24ff0fc6bd01730f78e2b8a6d.
+
+This changes the earlier status discipline at this one state: an attacker forced-completion W/L theorem is now closed at rank 24. It does not imply an attacker forced-completion theorem from rank 10.
+
 ## Falsifiers
 
 Reject this theorem if:
@@ -130,4 +148,4 @@ It does not yet prove:
 - a universal policy from the empty board;
 - v5.
 
-Its significance is narrower and concrete: the previously repeated D13/D27 obstruction now closes as a finite CPC zugzwang win at rank 24, if the composition qualification passes.
+Its significance is narrower and concrete: the previously repeated D13/D27 obstruction now closes as a finite CPC zugzwang win at rank 24.
