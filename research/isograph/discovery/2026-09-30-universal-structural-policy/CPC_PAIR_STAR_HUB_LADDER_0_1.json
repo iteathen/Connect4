@@ -1,0 +1,4005 @@
+{
+  "schema": "connect4.cpc_pair_star_hub_ladder.v1",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "targetCells": {
+    "C3": {
+      "column": 3,
+      "row": 3
+    },
+    "E3": {
+      "column": 5,
+      "row": 3
+    },
+    "G3": {
+      "column": 7,
+      "row": 3
+    },
+    "G2": {
+      "column": 7,
+      "row": 2
+    },
+    "E4": {
+      "column": 5,
+      "row": 4
+    },
+    "C6": {
+      "column": 3,
+      "row": 6
+    }
+  },
+  "pairStar": {
+    "lower": [
+      [
+        {
+          "column": 3,
+          "row": 3
+        },
+        {
+          "column": 5,
+          "row": 3
+        }
+      ],
+      [
+        {
+          "column": 5,
+          "row": 3
+        },
+        {
+          "column": 7,
+          "row": 3
+        }
+      ]
+    ],
+    "upper": [
+      [
+        {
+          "column": 7,
+          "row": 2
+        },
+        {
+          "column": 5,
+          "row": 4
+        }
+      ],
+      [
+        {
+          "column": 5,
+          "row": 4
+        },
+        {
+          "column": 3,
+          "row": 6
+        }
+      ]
+    ],
+    "hubs": [
+      {
+        "column": 5,
+        "row": 3
+      },
+      {
+        "column": 5,
+        "row": 4
+      }
+    ]
+  },
+  "states": [
+    {
+      "label": "candidate2_setup6_reply1",
+      "sequence": "444441566261",
+      "attacker": 1,
+      "heights": [
+        2,
+        1,
+        0,
+        5,
+        1,
+        3,
+        0
+      ],
+      "e3Depth": 1,
+      "pairCore": [
+        [
+          {
+            "column": 3,
+            "row": 3
+          },
+          {
+            "column": 5,
+            "row": 3
+          }
+        ],
+        [
+          {
+            "column": 5,
+            "row": 3
+          },
+          {
+            "column": 7,
+            "row": 3
+          }
+        ],
+        [
+          {
+            "column": 7,
+            "row": 2
+          },
+          {
+            "column": 5,
+            "row": 4
+          }
+        ],
+        [
+          {
+            "column": 5,
+            "row": 4
+          },
+          {
+            "column": 3,
+            "row": 6
+          }
+        ]
+      ],
+      "firstWinGuard": {
+        "passed": true,
+        "defenderImmediateWinColumns": []
+      },
+      "branches": [
+        {
+          "defenderReply": 1,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 2,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 3,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 4,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 5,
+          "hub": "E4",
+          "attackerMove": 5,
+          "terminal": false,
+          "singletonResiduals": [
+            {
+              "column": 7,
+              "row": 2,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            },
+            {
+              "column": 3,
+              "row": 6,
+              "supportDistance": 5,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 6,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 7,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 2,
+              "playable": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "candidate2_setup6_reply2",
+      "sequence": "444441566262",
+      "attacker": 1,
+      "heights": [
+        1,
+        2,
+        0,
+        5,
+        1,
+        3,
+        0
+      ],
+      "e3Depth": 1,
+      "pairCore": [
+        [
+          {
+            "column": 3,
+            "row": 3
+          },
+          {
+            "column": 5,
+            "row": 3
+          }
+        ],
+        [
+          {
+            "column": 5,
+            "row": 3
+          },
+          {
+            "column": 7,
+            "row": 3
+          }
+        ],
+        [
+          {
+            "column": 7,
+            "row": 2
+          },
+          {
+            "column": 5,
+            "row": 4
+          }
+        ],
+        [
+          {
+            "column": 5,
+            "row": 4
+          },
+          {
+            "column": 3,
+            "row": 6
+          }
+        ]
+      ],
+      "firstWinGuard": {
+        "passed": true,
+        "defenderImmediateWinColumns": []
+      },
+      "branches": [
+        {
+          "defenderReply": 1,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 2,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 3,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 4,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 5,
+          "hub": "E4",
+          "attackerMove": 5,
+          "terminal": false,
+          "singletonResiduals": [
+            {
+              "column": 7,
+              "row": 2,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            },
+            {
+              "column": 3,
+              "row": 6,
+              "supportDistance": 5,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 6,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 7,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 2,
+              "playable": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "candidate2_setup6_reply3",
+      "sequence": "444441566263",
+      "attacker": 1,
+      "heights": [
+        1,
+        1,
+        1,
+        5,
+        1,
+        3,
+        0
+      ],
+      "e3Depth": 1,
+      "pairCore": [
+        [
+          {
+            "column": 3,
+            "row": 3
+          },
+          {
+            "column": 5,
+            "row": 3
+          }
+        ],
+        [
+          {
+            "column": 5,
+            "row": 3
+          },
+          {
+            "column": 7,
+            "row": 3
+          }
+        ],
+        [
+          {
+            "column": 7,
+            "row": 2
+          },
+          {
+            "column": 5,
+            "row": 4
+          }
+        ],
+        [
+          {
+            "column": 5,
+            "row": 4
+          },
+          {
+            "column": 3,
+            "row": 6
+          }
+        ]
+      ],
+      "firstWinGuard": {
+        "passed": true,
+        "defenderImmediateWinColumns": []
+      },
+      "branches": [
+        {
+          "defenderReply": 1,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 2,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 3,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 4,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 5,
+          "hub": "E4",
+          "attackerMove": 5,
+          "terminal": false,
+          "singletonResiduals": [
+            {
+              "column": 7,
+              "row": 2,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            },
+            {
+              "column": 3,
+              "row": 6,
+              "supportDistance": 4,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 6,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 7,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 2,
+              "playable": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "candidate2_setup6_reply4",
+      "sequence": "444441566264",
+      "attacker": 1,
+      "heights": [
+        1,
+        1,
+        0,
+        6,
+        1,
+        3,
+        0
+      ],
+      "e3Depth": 1,
+      "pairCore": [
+        [
+          {
+            "column": 3,
+            "row": 3
+          },
+          {
+            "column": 5,
+            "row": 3
+          }
+        ],
+        [
+          {
+            "column": 5,
+            "row": 3
+          },
+          {
+            "column": 7,
+            "row": 3
+          }
+        ],
+        [
+          {
+            "column": 7,
+            "row": 2
+          },
+          {
+            "column": 5,
+            "row": 4
+          }
+        ],
+        [
+          {
+            "column": 5,
+            "row": 4
+          },
+          {
+            "column": 3,
+            "row": 6
+          }
+        ]
+      ],
+      "firstWinGuard": {
+        "passed": true,
+        "defenderImmediateWinColumns": []
+      },
+      "branches": [
+        {
+          "defenderReply": 1,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 2,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 3,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 5,
+          "hub": "E4",
+          "attackerMove": 5,
+          "terminal": false,
+          "singletonResiduals": [
+            {
+              "column": 7,
+              "row": 2,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            },
+            {
+              "column": 3,
+              "row": 6,
+              "supportDistance": 5,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 6,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 7,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 2,
+              "playable": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "candidate2_setup6_reply5",
+      "sequence": "444441566265",
+      "attacker": 1,
+      "heights": [
+        1,
+        1,
+        0,
+        5,
+        2,
+        3,
+        0
+      ],
+      "e3Depth": 0,
+      "pairCore": [
+        [
+          {
+            "column": 3,
+            "row": 3
+          },
+          {
+            "column": 5,
+            "row": 3
+          }
+        ],
+        [
+          {
+            "column": 5,
+            "row": 3
+          },
+          {
+            "column": 7,
+            "row": 3
+          }
+        ],
+        [
+          {
+            "column": 7,
+            "row": 2
+          },
+          {
+            "column": 5,
+            "row": 4
+          }
+        ],
+        [
+          {
+            "column": 5,
+            "row": 4
+          },
+          {
+            "column": 3,
+            "row": 6
+          }
+        ]
+      ],
+      "firstWinGuard": {
+        "passed": true,
+        "defenderImmediateWinColumns": []
+      },
+      "branches": [
+        {
+          "kind": "E3_IMMEDIATE",
+          "attackerMove": 5,
+          "terminal": false,
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "candidate2_setup6_reply6",
+      "sequence": "444441566266",
+      "attacker": 1,
+      "heights": [
+        1,
+        1,
+        0,
+        5,
+        1,
+        4,
+        0
+      ],
+      "e3Depth": 1,
+      "pairCore": [
+        [
+          {
+            "column": 3,
+            "row": 3
+          },
+          {
+            "column": 5,
+            "row": 3
+          }
+        ],
+        [
+          {
+            "column": 5,
+            "row": 3
+          },
+          {
+            "column": 7,
+            "row": 3
+          }
+        ],
+        [
+          {
+            "column": 7,
+            "row": 2
+          },
+          {
+            "column": 5,
+            "row": 4
+          }
+        ],
+        [
+          {
+            "column": 5,
+            "row": 4
+          },
+          {
+            "column": 3,
+            "row": 6
+          }
+        ]
+      ],
+      "firstWinGuard": {
+        "passed": true,
+        "defenderImmediateWinColumns": []
+      },
+      "branches": [
+        {
+          "defenderReply": 1,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 2,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 3,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 4,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 5,
+          "hub": "E4",
+          "attackerMove": 5,
+          "terminal": false,
+          "singletonResiduals": [
+            {
+              "column": 7,
+              "row": 2,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            },
+            {
+              "column": 3,
+              "row": 6,
+              "supportDistance": 5,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 6,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 7,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 2,
+              "playable": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "candidate2_setup6_reply7",
+      "sequence": "444441566267",
+      "attacker": 1,
+      "heights": [
+        1,
+        1,
+        0,
+        5,
+        1,
+        3,
+        1
+      ],
+      "e3Depth": 1,
+      "pairCore": [
+        [
+          {
+            "column": 3,
+            "row": 3
+          },
+          {
+            "column": 5,
+            "row": 3
+          }
+        ],
+        [
+          {
+            "column": 5,
+            "row": 3
+          },
+          {
+            "column": 7,
+            "row": 3
+          }
+        ],
+        [
+          {
+            "column": 7,
+            "row": 2
+          },
+          {
+            "column": 5,
+            "row": 4
+          }
+        ],
+        [
+          {
+            "column": 5,
+            "row": 4
+          },
+          {
+            "column": 3,
+            "row": 6
+          }
+        ]
+      ],
+      "firstWinGuard": {
+        "passed": true,
+        "defenderImmediateWinColumns": []
+      },
+      "branches": [
+        {
+          "defenderReply": 1,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 2,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 2,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 2,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 3,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 2,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 4,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 2,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 5,
+          "hub": "E4",
+          "attackerMove": 5,
+          "terminal": false,
+          "singletonResiduals": [
+            {
+              "column": 7,
+              "row": 2,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 3,
+              "row": 6,
+              "supportDistance": 5,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 6,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 2,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 7,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 1,
+              "playable": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "candidate3_setup6_reply1",
+      "sequence": "444441566361",
+      "attacker": 1,
+      "heights": [
+        2,
+        0,
+        1,
+        5,
+        1,
+        3,
+        0
+      ],
+      "e3Depth": 1,
+      "pairCore": [
+        [
+          {
+            "column": 3,
+            "row": 3
+          },
+          {
+            "column": 5,
+            "row": 3
+          }
+        ],
+        [
+          {
+            "column": 5,
+            "row": 3
+          },
+          {
+            "column": 7,
+            "row": 3
+          }
+        ],
+        [
+          {
+            "column": 7,
+            "row": 2
+          },
+          {
+            "column": 5,
+            "row": 4
+          }
+        ],
+        [
+          {
+            "column": 5,
+            "row": 4
+          },
+          {
+            "column": 3,
+            "row": 6
+          }
+        ]
+      ],
+      "firstWinGuard": {
+        "passed": true,
+        "defenderImmediateWinColumns": []
+      },
+      "branches": [
+        {
+          "defenderReply": 1,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 2,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 3,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 4,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 5,
+          "hub": "E4",
+          "attackerMove": 5,
+          "terminal": false,
+          "singletonResiduals": [
+            {
+              "column": 7,
+              "row": 2,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            },
+            {
+              "column": 3,
+              "row": 6,
+              "supportDistance": 4,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 6,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 7,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 2,
+              "playable": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "candidate3_setup6_reply2",
+      "sequence": "444441566362",
+      "attacker": 1,
+      "heights": [
+        1,
+        1,
+        1,
+        5,
+        1,
+        3,
+        0
+      ],
+      "e3Depth": 1,
+      "pairCore": [
+        [
+          {
+            "column": 3,
+            "row": 3
+          },
+          {
+            "column": 5,
+            "row": 3
+          }
+        ],
+        [
+          {
+            "column": 5,
+            "row": 3
+          },
+          {
+            "column": 7,
+            "row": 3
+          }
+        ],
+        [
+          {
+            "column": 7,
+            "row": 2
+          },
+          {
+            "column": 5,
+            "row": 4
+          }
+        ],
+        [
+          {
+            "column": 5,
+            "row": 4
+          },
+          {
+            "column": 3,
+            "row": 6
+          }
+        ]
+      ],
+      "firstWinGuard": {
+        "passed": true,
+        "defenderImmediateWinColumns": []
+      },
+      "branches": [
+        {
+          "defenderReply": 1,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 2,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 3,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 4,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 5,
+          "hub": "E4",
+          "attackerMove": 5,
+          "terminal": false,
+          "singletonResiduals": [
+            {
+              "column": 7,
+              "row": 2,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            },
+            {
+              "column": 3,
+              "row": 6,
+              "supportDistance": 4,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 6,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 7,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 2,
+              "playable": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "candidate3_setup6_reply3",
+      "sequence": "444441566363",
+      "attacker": 1,
+      "heights": [
+        1,
+        0,
+        2,
+        5,
+        1,
+        3,
+        0
+      ],
+      "e3Depth": 1,
+      "pairCore": [
+        [
+          {
+            "column": 3,
+            "row": 3
+          },
+          {
+            "column": 5,
+            "row": 3
+          }
+        ],
+        [
+          {
+            "column": 5,
+            "row": 3
+          },
+          {
+            "column": 7,
+            "row": 3
+          }
+        ],
+        [
+          {
+            "column": 7,
+            "row": 2
+          },
+          {
+            "column": 5,
+            "row": 4
+          }
+        ],
+        [
+          {
+            "column": 5,
+            "row": 4
+          },
+          {
+            "column": 3,
+            "row": 6
+          }
+        ]
+      ],
+      "firstWinGuard": {
+        "passed": true,
+        "defenderImmediateWinColumns": []
+      },
+      "branches": [
+        {
+          "defenderReply": 1,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 2,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 3,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 4,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 5,
+          "hub": "E4",
+          "attackerMove": 5,
+          "terminal": false,
+          "singletonResiduals": [
+            {
+              "column": 7,
+              "row": 2,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            },
+            {
+              "column": 3,
+              "row": 6,
+              "supportDistance": 3,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 6,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 7,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 2,
+              "playable": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "candidate3_setup6_reply4",
+      "sequence": "444441566364",
+      "attacker": 1,
+      "heights": [
+        1,
+        0,
+        1,
+        6,
+        1,
+        3,
+        0
+      ],
+      "e3Depth": 1,
+      "pairCore": [
+        [
+          {
+            "column": 3,
+            "row": 3
+          },
+          {
+            "column": 5,
+            "row": 3
+          }
+        ],
+        [
+          {
+            "column": 5,
+            "row": 3
+          },
+          {
+            "column": 7,
+            "row": 3
+          }
+        ],
+        [
+          {
+            "column": 7,
+            "row": 2
+          },
+          {
+            "column": 5,
+            "row": 4
+          }
+        ],
+        [
+          {
+            "column": 5,
+            "row": 4
+          },
+          {
+            "column": 3,
+            "row": 6
+          }
+        ]
+      ],
+      "firstWinGuard": {
+        "passed": true,
+        "defenderImmediateWinColumns": []
+      },
+      "branches": [
+        {
+          "defenderReply": 1,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 2,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 3,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 5,
+          "hub": "E4",
+          "attackerMove": 5,
+          "terminal": false,
+          "singletonResiduals": [
+            {
+              "column": 7,
+              "row": 2,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            },
+            {
+              "column": 3,
+              "row": 6,
+              "supportDistance": 4,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 6,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 3,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 7,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 2,
+              "playable": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "candidate3_setup6_reply5",
+      "sequence": "444441566365",
+      "attacker": 1,
+      "heights": [
+        1,
+        0,
+        1,
+        5,
+        2,
+        3,
+        0
+      ],
+      "e3Depth": 0,
+      "pairCore": [
+        [
+          {
+            "column": 3,
+            "row": 3
+          },
+          {
+            "column": 5,
+            "row": 3
+          }
+        ],
+        [
+          {
+            "column": 5,
+            "row": 3
+          },
+          {
+            "column": 7,
+            "row": 3
+          }
+        ],
+        [
+          {
+            "column": 7,
+            "row": 2
+          },
+          {
+            "column": 5,
+            "row": 4
+          }
+        ],
+        [
+          {
+            "column": 5,
+            "row": 4
+          },
+          {
+            "column": 3,
+            "row": 6
+          }
+        ]
+      ],
+      "firstWinGuard": {
+        "passed": true,
+        "defenderImmediateWinColumns": []
+      },
+      "branches": [
+        {
+          "kind": "E3_IMMEDIATE",
+          "attackerMove": 5,
+          "terminal": false,
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 2,
+              "playable": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "candidate3_setup6_reply6",
+      "sequence": "444441566366",
+      "attacker": 1,
+      "heights": [
+        1,
+        0,
+        1,
+        5,
+        1,
+        4,
+        0
+      ],
+      "e3Depth": 1,
+      "pairCore": [
+        [
+          {
+            "column": 3,
+            "row": 3
+          },
+          {
+            "column": 5,
+            "row": 3
+          }
+        ],
+        [
+          {
+            "column": 5,
+            "row": 3
+          },
+          {
+            "column": 7,
+            "row": 3
+          }
+        ],
+        [
+          {
+            "column": 7,
+            "row": 2
+          },
+          {
+            "column": 5,
+            "row": 4
+          }
+        ],
+        [
+          {
+            "column": 5,
+            "row": 4
+          },
+          {
+            "column": 3,
+            "row": 6
+          }
+        ]
+      ],
+      "firstWinGuard": {
+        "passed": false,
+        "defenderImmediateWinColumns": [
+          5
+        ]
+      },
+      "branches": [
+        {
+          "kind": "FIRST_WIN_GUARD_FAIL",
+          "attackerSupportMove": 5,
+          "defenderImmediateWinColumns": [
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "label": "candidate3_setup6_reply7",
+      "sequence": "444441566367",
+      "attacker": 1,
+      "heights": [
+        1,
+        0,
+        1,
+        5,
+        1,
+        3,
+        1
+      ],
+      "e3Depth": 1,
+      "pairCore": [
+        [
+          {
+            "column": 3,
+            "row": 3
+          },
+          {
+            "column": 5,
+            "row": 3
+          }
+        ],
+        [
+          {
+            "column": 5,
+            "row": 3
+          },
+          {
+            "column": 7,
+            "row": 3
+          }
+        ],
+        [
+          {
+            "column": 7,
+            "row": 2
+          },
+          {
+            "column": 5,
+            "row": 4
+          }
+        ],
+        [
+          {
+            "column": 5,
+            "row": 4
+          },
+          {
+            "column": 3,
+            "row": 6
+          }
+        ]
+      ],
+      "firstWinGuard": {
+        "passed": true,
+        "defenderImmediateWinColumns": []
+      },
+      "branches": [
+        {
+          "defenderReply": 1,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 2,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 2,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 2,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 3,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 2,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 4,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 2,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 5,
+          "hub": "E4",
+          "attackerMove": 5,
+          "terminal": false,
+          "singletonResiduals": [
+            {
+              "column": 7,
+              "row": 2,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 2,
+              "playable": false
+            },
+            {
+              "column": 3,
+              "row": 6,
+              "supportDistance": 4,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 6,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 2,
+              "playable": false
+            }
+          ]
+        },
+        {
+          "defenderReply": 7,
+          "hub": "E3",
+          "attackerMove": 5,
+          "terminal": false,
+          "survivingHubSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ],
+          "singletonResiduals": [
+            {
+              "column": 3,
+              "row": 3,
+              "supportDistance": 1,
+              "playable": false
+            },
+            {
+              "column": 7,
+              "row": 3,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "column": 7,
+              "row": 4,
+              "supportDistance": 1,
+              "playable": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "controlSummary": {
+    "guardedStates": 13,
+    "guardFailures": [
+      {
+        "label": "candidate3_setup6_reply6",
+        "defenderImmediateWinColumns": [
+          5
+        ]
+      }
+    ],
+    "candidate2AllGuarded": true,
+    "candidate3AllGuarded": false
+  },
+  "theoremCandidate": [
+    "If attacker owns the four pair residuals {x,h},{h,y},{u,h+},{h+,v}, h+ is immediately above h in one column, h is playable or one support event away, attacker moves, and no defender counterwin exists after the support move, then attacker can force terminal or at least one live singleton residual in at most three plies.",
+    "If h is playable, take h and both lower pair residuals become singleton residuals.",
+    "If h is one support event away, play its support. If defender occupies h, h+ becomes playable and taking h+ creates both upper singletons. Otherwise take h; one defender move can kill at most one distinct lower target, so at least one lower singleton remains."
+  ],
+  "boundary": [
+    "This is a strict residual-progress theorem candidate, not yet a forced terminal upper bound.",
+    "The four-pair star was discovered on consumed training evidence; the theorem must be frozen and qualified on fresh structural controls before use as a general CPC rule.",
+    "No oracle value is used."
+  ]
+}
