@@ -470,7 +470,7 @@ function classG(q,attacker,D,guardCol){
     // the trigger column, the ordinary same-column mate no longer exists.
     // Admit only guard-preserving current frontier cells that are attached to
     // at least one live attacker residual in the exact post-trigger state.
-    if(!found && first.q.words[c]===g.rows){
+    if(!found && c!==guardCol && first.q.words[c]===g.rows){
       const liveIds=activeMinimal(first.q,attacker);
       for(const rcol of legal(first.q)){
         if(rcol===guardCol)continue;
