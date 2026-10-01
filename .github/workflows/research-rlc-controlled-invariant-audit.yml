@@ -1,0 +1,49 @@
+name: Research RLC controlled-invariant instantiation audit
+
+on:
+  push:
+    branches:
+      - research/universal-structural-policy-20260930
+    paths:
+      - .github/workflows/research-rlc-controlled-invariant-audit.yml
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/RLC_RANKED_CONTROLLED_INVARIANT_CERTIFICATE_THEOREM.md
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/RLC_RANKED_CONTROLLED_INVARIANT_INSTANTIATION_AUDIT_DESIGN_0_1.md
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/test-rlc-ranked-controlled-invariant-instantiation-audit.mjs
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/run-rlc-ranked-controlled-invariant-instantiation-audit.mjs
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Verify frozen audit contract
+        run: node research/isograph/discovery/2026-09-30-universal-structural-policy/test-rlc-ranked-controlled-invariant-instantiation-audit.mjs
+      - name: Generate audit evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          DIR=research/isograph/discovery/2026-09-30-universal-structural-policy
+          OUT="$DIR/RLC_RANKED_CONTROLLED_INVARIANT_INSTANTIATION_AUDIT_0_1.json"
+          node "$DIR/run-rlc-ranked-controlled-invariant-instantiation-audit.mjs" > "$OUT"
+      - name: Commit durable audit evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          BRANCH=research/universal-structural-policy-20260930
+          FILE=research/isograph/discovery/2026-09-30-universal-structural-policy/RLC_RANKED_CONTROLLED_INVARIANT_INSTANTIATION_AUDIT_0_1.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$FILE"
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "research: record RLC controlled-invariant instantiation audit"
+          git pull --rebase origin "$BRANCH"
+          git push origin HEAD:"$BRANCH"
