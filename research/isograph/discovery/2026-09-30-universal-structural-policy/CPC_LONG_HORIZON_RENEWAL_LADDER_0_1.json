@@ -1,0 +1,492 @@
+{
+  "schema": "connect4.cpc_long_horizon_renewal_ladder.v1",
+  "jsMinSysSha": "0899c5811918e68c22dc1b0e4dd8af97d9b4bbcb",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "requestedMaxHorizon": 15,
+  "rows": [
+    {
+      "id": "candidate2",
+      "sequence": "4444415662",
+      "attacker": 0,
+      "ladder": [
+        {
+          "horizon": 3,
+          "accept": true,
+          "kind": "BASE",
+          "pairs": [],
+          "rootChildren": null
+        },
+        {
+          "horizon": 5,
+          "accept": true,
+          "kind": "RENEW",
+          "pairs": [
+            {
+              "cols": [
+                1,
+                2
+              ],
+              "length": 1
+            },
+            {
+              "cols": [
+                4,
+                5
+              ],
+              "length": 1
+            }
+          ],
+          "rootChildren": [
+            {
+              "attackerColumn": 1,
+              "responseColumn": 2,
+              "closed": false,
+              "childKind": "BASE"
+            },
+            {
+              "attackerColumn": 2,
+              "responseColumn": 1,
+              "closed": false,
+              "childKind": "BASE"
+            },
+            {
+              "attackerColumn": 3,
+              "responseColumn": 3,
+              "closed": false,
+              "childKind": "BASE"
+            },
+            {
+              "attackerColumn": 4,
+              "responseColumn": 5,
+              "closed": false,
+              "childKind": "BASE"
+            },
+            {
+              "attackerColumn": 5,
+              "responseColumn": 4,
+              "closed": false,
+              "childKind": "BASE"
+            },
+            {
+              "attackerColumn": 6,
+              "responseColumn": 6,
+              "closed": false,
+              "childKind": "BASE"
+            },
+            {
+              "attackerColumn": 7,
+              "responseColumn": 7,
+              "closed": false,
+              "childKind": "BASE"
+            }
+          ]
+        },
+        {
+          "horizon": 7,
+          "accept": false,
+          "kind": "OUT",
+          "pairs": null,
+          "rootChildren": null
+        },
+        {
+          "horizon": 9,
+          "accept": false,
+          "kind": "OUT",
+          "pairs": null,
+          "rootChildren": null
+        },
+        {
+          "horizon": 11,
+          "accept": false,
+          "kind": "OUT",
+          "pairs": null,
+          "rootChildren": null
+        },
+        {
+          "horizon": 13,
+          "accept": false,
+          "kind": "OUT",
+          "pairs": null,
+          "rootChildren": null
+        },
+        {
+          "horizon": 15,
+          "accept": false,
+          "kind": "OUT",
+          "pairs": null,
+          "rootChildren": null
+        }
+      ],
+      "maxCertified": 5
+    },
+    {
+      "id": "candidate3",
+      "sequence": "4444415663",
+      "attacker": 0,
+      "ladder": [
+        {
+          "horizon": 3,
+          "accept": true,
+          "kind": "BASE",
+          "pairs": [],
+          "rootChildren": null
+        },
+        {
+          "horizon": 5,
+          "accept": true,
+          "kind": "RENEW",
+          "pairs": [
+            {
+              "cols": [
+                1,
+                3
+              ],
+              "length": 1
+            },
+            {
+              "cols": [
+                4,
+                5
+              ],
+              "length": 1
+            }
+          ],
+          "rootChildren": [
+            {
+              "attackerColumn": 1,
+              "responseColumn": 3,
+              "closed": false,
+              "childKind": "BASE"
+            },
+            {
+              "attackerColumn": 2,
+              "responseColumn": 2,
+              "closed": false,
+              "childKind": "BASE"
+            },
+            {
+              "attackerColumn": 3,
+              "responseColumn": 1,
+              "closed": false,
+              "childKind": "BASE"
+            },
+            {
+              "attackerColumn": 4,
+              "responseColumn": 5,
+              "closed": false,
+              "childKind": "BASE"
+            },
+            {
+              "attackerColumn": 5,
+              "responseColumn": 4,
+              "closed": false,
+              "childKind": "BASE"
+            },
+            {
+              "attackerColumn": 6,
+              "responseColumn": 6,
+              "closed": false,
+              "childKind": "BASE"
+            },
+            {
+              "attackerColumn": 7,
+              "responseColumn": 7,
+              "closed": false,
+              "childKind": "BASE"
+            }
+          ]
+        },
+        {
+          "horizon": 7,
+          "accept": false,
+          "kind": "OUT",
+          "pairs": null,
+          "rootChildren": null
+        },
+        {
+          "horizon": 9,
+          "accept": false,
+          "kind": "OUT",
+          "pairs": null,
+          "rootChildren": null
+        },
+        {
+          "horizon": 11,
+          "accept": false,
+          "kind": "OUT",
+          "pairs": null,
+          "rootChildren": null
+        },
+        {
+          "horizon": 13,
+          "accept": false,
+          "kind": "OUT",
+          "pairs": null,
+          "rootChildren": null
+        },
+        {
+          "horizon": 15,
+          "accept": false,
+          "kind": "OUT",
+          "pairs": null,
+          "rootChildren": null
+        }
+      ],
+      "maxCertified": 5
+    },
+    {
+      "id": "candidate6",
+      "sequence": "4444415666",
+      "attacker": 0,
+      "ladder": [
+        {
+          "horizon": 3,
+          "accept": true,
+          "kind": "BASE",
+          "pairs": [
+            {
+              "cols": [
+                1,
+                4
+              ],
+              "length": 1
+            },
+            {
+              "cols": [
+                5,
+                6
+              ],
+              "length": 1
+            },
+            {
+              "cols": [
+                2,
+                3
+              ],
+              "length": 2
+            }
+          ],
+          "rootChildren": null
+        },
+        {
+          "horizon": 5,
+          "accept": true,
+          "kind": "BASE",
+          "pairs": [
+            {
+              "cols": [
+                1,
+                4
+              ],
+              "length": 1
+            },
+            {
+              "cols": [
+                5,
+                6
+              ],
+              "length": 1
+            },
+            {
+              "cols": [
+                2,
+                3
+              ],
+              "length": 2
+            }
+          ],
+          "rootChildren": null
+        },
+        {
+          "horizon": 7,
+          "accept": true,
+          "kind": "RENEW",
+          "pairs": [
+            {
+              "cols": [
+                1,
+                4
+              ],
+              "length": 1
+            },
+            {
+              "cols": [
+                5,
+                6
+              ],
+              "length": 1
+            },
+            {
+              "cols": [
+                2,
+                3
+              ],
+              "length": 2
+            }
+          ],
+          "rootChildren": [
+            {
+              "attackerColumn": 1,
+              "responseColumn": 4,
+              "closed": false,
+              "childKind": "RENEW"
+            },
+            {
+              "attackerColumn": 2,
+              "responseColumn": 3,
+              "closed": false,
+              "childKind": "BASE"
+            },
+            {
+              "attackerColumn": 3,
+              "responseColumn": 2,
+              "closed": false,
+              "childKind": "BASE"
+            },
+            {
+              "attackerColumn": 4,
+              "responseColumn": 1,
+              "closed": false,
+              "childKind": "RENEW"
+            },
+            {
+              "attackerColumn": 5,
+              "responseColumn": 6,
+              "closed": false,
+              "childKind": "RENEW"
+            },
+            {
+              "attackerColumn": 6,
+              "responseColumn": 5,
+              "closed": false,
+              "childKind": "RENEW"
+            },
+            {
+              "attackerColumn": 7,
+              "responseColumn": 7,
+              "closed": false,
+              "childKind": "BASE"
+            }
+          ]
+        },
+        {
+          "horizon": 9,
+          "accept": true,
+          "kind": "RENEW",
+          "pairs": [
+            {
+              "cols": [
+                1,
+                5
+              ],
+              "length": 1
+            },
+            {
+              "cols": [
+                4,
+                6
+              ],
+              "length": 1
+            },
+            {
+              "cols": [
+                2,
+                3
+              ],
+              "length": 2
+            }
+          ],
+          "rootChildren": [
+            {
+              "attackerColumn": 1,
+              "responseColumn": 5,
+              "closed": false,
+              "childKind": "RENEW"
+            },
+            {
+              "attackerColumn": 2,
+              "responseColumn": 3,
+              "closed": false,
+              "childKind": "RENEW"
+            },
+            {
+              "attackerColumn": 3,
+              "responseColumn": 2,
+              "closed": false,
+              "childKind": "RENEW"
+            },
+            {
+              "attackerColumn": 4,
+              "responseColumn": 6,
+              "closed": false,
+              "childKind": "RENEW"
+            },
+            {
+              "attackerColumn": 5,
+              "responseColumn": 1,
+              "closed": false,
+              "childKind": "RENEW"
+            },
+            {
+              "attackerColumn": 6,
+              "responseColumn": 4,
+              "closed": false,
+              "childKind": "RENEW"
+            },
+            {
+              "attackerColumn": 7,
+              "responseColumn": 7,
+              "closed": false,
+              "childKind": "RENEW"
+            }
+          ]
+        },
+        {
+          "horizon": 11,
+          "accept": false,
+          "kind": "OUT",
+          "pairs": null,
+          "rootChildren": null
+        },
+        {
+          "horizon": 13,
+          "accept": false,
+          "kind": "OUT",
+          "pairs": null,
+          "rootChildren": null
+        },
+        {
+          "horizon": 15,
+          "accept": false,
+          "kind": "OUT",
+          "pairs": null,
+          "rootChildren": null
+        }
+      ],
+      "maxCertified": 9
+    }
+  ],
+  "work": {
+    "cofactorCount": 86329,
+    "branchTests": 47639,
+    "templateTests": 39150,
+    "baseTests": 3305,
+    "semanticStates": 2064,
+    "sMemoEntries": 3305,
+    "baseMemoEntries": 3305,
+    "budgetExceeded": false,
+    "budgetMessage": null,
+    "limits": {
+      "cofactors": 2000000,
+      "branchTests": 1000000
+    }
+  },
+  "interpretation": "S_D is a constructive defender survival proof class: fixed B_D or one exact synchronized-response renewal into S_(D-2), evaluated entirely on support + typed CPC/RBA residual state.",
+  "boundary": [
+    "No oracle value or solved outcome is used.",
+    "This is theorem-discovery qualification of the semantic renewal grammar, not a final runtime move finder.",
+    "Failure to enter S_D is not an attacker upper bound.",
+    "Stop rather than infer anything if the explicit work budget is exceeded."
+  ]
+}
