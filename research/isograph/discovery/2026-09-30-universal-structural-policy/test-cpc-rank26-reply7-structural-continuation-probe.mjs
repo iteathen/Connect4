@@ -1,0 +1,35 @@
+import assert from 'node:assert/strict';
+import {execFileSync} from 'node:child_process';
+import {fileURLToPath} from 'node:url';
+import {dirname,resolve} from 'node:path';
+
+const library=process.argv[2];
+assert(library);
+const dir=dirname(fileURLToPath(import.meta.url));
+const runner=resolve(dir,'run-cpc-rank26-reply7-structural-continuation-probe.mjs');
+const raw=execFileSync(process.execPath,[runner,library],{encoding:'utf8',maxBuffer:64*1024*1024});
+const r=JSON.parse(raw);
+
+assert.equal(r.schema,'connect4.cpc_rank26_reply7_structural_continuation_probe.v1');
+assert.equal(r.jsMinSysSha,'bf23d3a67652cd42e1975f29c7dc4eed54f7eb42');
+assert.equal(r.oracleUsed,false);
+assert.equal(r.solvedInputsUsed,false);
+assert.equal(r.ordinaryGameTreeSearchUsed,false);
+assert.equal(r.state.rank,26);
+assert.equal(r.state.mover,1);
+assert.deepEqual(r.state.support,[2,6,3,6,2,5,2]);
+assert.deepEqual(r.legalP1Moves,[1,3,5,6,7]);
+assert.equal(r.rows.length,5);
+assert.deepEqual(r.rows.map(x=>x.p1Column),[1,3,5,6,7]);
+for(const row of r.rows){
+  assert.equal(typeof row.terminal,'number');
+  if(row.terminal===0){
+    assert.ok(row.cpcForP2);
+    assert.ok(Array.isArray(row.p1Minimal));
+    assert.ok(Array.isArray(row.p2Minimal));
+    assert.ok(Array.isArray(row.immediateP2WinningColumns));
+  }
+}
+assert.ok(r.conclusion.every(x=>typeof x==='string'));
+assert.ok(r.boundary.some(x=>x.includes('game-tree')));
+console.log(JSON.stringify({pass:true,state:r.state,rows:r.rows.map(x=>({p1Column:x.p1Column,terminal:x.terminal,cpc:r.rows.find(y=>y.p1Column===x.p1Column)?.cpcForP2?.baseline?.kind??null,forced:r.rows.find(y=>y.p1Column===x.p1Column)?.cpcForP2?.baseline?.forcedColumn??null}))}));
