@@ -334,7 +334,7 @@ function adaptiveResponseOptions(q,attacker,column){
 
 const classMemo=new Map(),guardMemo=new Map();
 let classCalls=0,responseOptionsTested=0,branchTests=0,memoHits=0;
-let guardCalls=0,guardMemoHits=0,guardBranchTests=0,guardForcedResponses=0,guardRetirements=0,guardEstablishments=0;
+let guardCalls=0,guardMemoHits=0,guardBranchTests=0,guardForcedResponses=0,guardRetirements=0,guardEstablishments=0,topDebtTests=0,topDebtClosures=0;
 
 function attackerTerminalCode(attacker){return attacker===0?3:1;}
 function noImmediateAttackerWin(q,attacker){
@@ -454,10 +454,46 @@ function classG(q,attacker,D,guardCol){
       }
     }
 
-    // Existing CPC response edges remain available if the support-lift edge
-    // does not close the branch. If the realized response consumes the guard
-    // column outside the forced guard transition, retire the guard and require
-    // the exact child to survive under the ordinary class.
+    // External top-exhaustion phase-debt repair. When the attacker just
+    // fills a non-guard column, the missing same-column response may be
+    // transported to a guard-preserving current frontier cell that is attached
+    // to a live attacker residual in the exact post-trigger state.
+    if(!found && c!==guardCol && firstExternal.term===0 && firstExternal.q.words[c]===g.rows){
+      const liveIds=activeMinimal(firstExternal.q,attacker);
+      for(const rcol of legal(firstExternal.q)){
+        if(rcol===guardCol || rcol===c)continue;
+        const responseCell=firstExternal.q.words[rcol]*g.columns+rcol;
+        if(!liveIds.some(id=>shapeCells(id).includes(responseCell)))continue;
+        topDebtTests++;guardForcedResponses++;
+        const second=cofactor(firstExternal.q,rcol);
+        if(second.term){
+          topDebtClosures++;
+          found={
+            attackerColumn:c+1,responseColumn:rcol+1,closed:true,
+            mode:'TOP_DEBT_ATTACHED_REPAIR',
+            responseCell:{column:rcol+1,row:g.cellRow[responseCell]+1},
+            guardPreserved:true,childClass:'CLOSED'
+          };
+          break;
+        }
+        const child=guardTail(second.q,attacker,D-2,guardCol);
+        if(child.accept){
+          topDebtClosures++;
+          found={
+            attackerColumn:c+1,responseColumn:rcol+1,closed:false,
+            mode:'TOP_DEBT_ATTACHED_REPAIR',
+            responseCell:{column:rcol+1,row:g.cellRow[responseCell]+1},
+            guardPreserved:true,childClass:child.class
+          };
+          break;
+        }
+      }
+    }
+
+    // Existing CPC response edges remain available if the local structural
+    // repair edges do not close the branch. If the realized response consumes
+    // the guard column outside the forced guard transition, retire the guard
+    // and require the exact child to survive under the ordinary class.
     for(const option of found?[]:adaptiveResponseOptions(q,attacker,c)){
       responseOptionsTested++;
       const tr=responseSuccessor(q,option.template,attacker,c);
@@ -640,7 +676,7 @@ for(const row of rows){
 }
 
 console.log(JSON.stringify({
-  schema:'connect4.cpc_guard_column_support_lift_renewal_spectrum.v1',
+  schema:'connect4.cpc_guard_column_support_lift_top_debt_renewal_spectrum.v1',
   jsMinSysSha:EXPECTED,
   oracleUsed:false,
   solvedInputsUsed:false,
@@ -650,7 +686,7 @@ console.log(JSON.stringify({
   failureFrontiers,
   work:{
     classCalls,memoHits,responseOptionsTested,branchTests,cofactorCount,
-    guardCalls,guardMemoHits,guardBranchTests,guardForcedResponses,guardRetirements,guardEstablishments,
+    guardCalls,guardMemoHits,guardBranchTests,guardForcedResponses,guardRetirements,guardEstablishments,topDebtTests,topDebtClosures,
     classMemoSize:classMemo.size,guardMemoSize:guardMemo.size,baseMemoSize:baseMemo.size,templateMemoSize:templateMemo.size,
     responseOptionMemoSize:responseOptionMemo.size,cofactorMemoSize:cofactorMemo.size
   },
@@ -659,7 +695,7 @@ console.log(JSON.stringify({
     'Response options are complete synchronized-template mates, exact same-residual frontier attachment edges, and exact +2-row cross-residual ladder edges; every transported child must independently re-enter the survival class.',
     'Each observed attacker trigger may select its own complete synchronized-response template; the exact mate is then transported by CPC/RBA cofactor.',
     'Failure of S_D is not an attacker forced-completion certificate.',
-    'The spectrum composes trigger-adaptive synchronized responses, pooled-frontier no-win closure, lineage-preserving cross-residual ladder establishment, the odd-row guard-column temporal contract, and the frozen support-lift blocker response; it is not unrestricted legal-response minimax.',
+    'The spectrum composes trigger-adaptive synchronized responses, pooled-frontier no-win closure, lineage-preserving cross-residual ladder establishment, the odd-row guard-column temporal contract, the support-lift blocker response, and external top-exhaustion phase-debt repair; it is not unrestricted legal-response minimax.',
     'The odd-row guard is frozen theorem-candidate scope. Positive extension requires fresh structural qualification and current-occupancy reconstruction before promotion.'
   ]
 },null,2));
