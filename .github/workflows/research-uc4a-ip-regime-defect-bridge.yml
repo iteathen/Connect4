@@ -1,0 +1,78 @@
+name: Research UC4A I/P regime defect bridge
+
+concurrency:
+  group: uc4a-ip-regime-defect-bridge-\${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  push:
+    branches:
+      - research/universal-structural-policy-20260930
+    paths:
+      - .github/workflows/research-uc4a-ip-regime-defect-bridge.yml
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/UC4A_IP_REGIME_DEFECT_BRIDGE_PROTOCOL_0_1.md
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/UC4A_IP_REGIME_SUBSPACE_TOMOGRAPHY_0_1.json
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/UC4A_CURVATURE_QUOTIENT_LOCALIZATION_0_1.json
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/test-uc4a-ip-regime-defect-bridge.mjs
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/run-uc4a-ip-regime-defect-bridge.mjs
+
+permissions:
+  contents: write
+
+jobs:
+  bridge:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out exact pushed revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+      - name: Pin Node runtime
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Verify frozen regime-defect bridge contract
+        run: node research/isograph/discovery/2026-09-30-universal-structural-policy/test-uc4a-ip-regime-defect-bridge.mjs
+      - name: Generate regime-defect bridge evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          DIR=research/isograph/discovery/2026-09-30-universal-structural-policy
+          OUT="$DIR/UC4A_IP_REGIME_DEFECT_BRIDGE_0_1.json"
+          node "$DIR/run-uc4a-ip-regime-defect-bridge.mjs" > "$OUT"
+          node - "$OUT" <<'NODE'
+          const fs=require('fs');
+          const r=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
+          if(r.rawOutcomeSourcesAccessed!==false||r.wdlLabelsAccessed!==false)throw new Error('raw outcome boundary violated');
+          if(r.sealedHoldoutsAccessed!==false)throw new Error('holdout boundary violated');
+          console.log(JSON.stringify({
+            targets:r.targets.map(x=>({
+              family:x.family,
+              directionId:x.directionId,
+              status:x.bridgeStatus,
+              globalOrder:x.global?.minimumSpanOrder??null,
+              sameFamilyOrder:x.sameFamily?.minimumSpanOrder??null,
+              exactGlobal:x.global?.minimumSpanOrder===1?x.global.minimalSpanningDefectSets.map(s=>s.directionIds):[]
+            })),
+            focus:r.focus
+          }));
+          NODE
+      - name: Commit durable regime-defect bridge evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          BRANCH=research/universal-structural-policy-20260930
+          FILE=research/isograph/discovery/2026-09-30-universal-structural-policy/UC4A_IP_REGIME_DEFECT_BRIDGE_0_1.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$FILE"
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "research: record UC4A regime-defect bridge"
+          for attempt in 1 2 3; do
+            git fetch origin "$BRANCH"
+            git rebase --autostash "origin/$BRANCH"
+            if git push origin HEAD:"$BRANCH"; then exit 0; fi
+            sleep 1
+          done
+          exit 1
