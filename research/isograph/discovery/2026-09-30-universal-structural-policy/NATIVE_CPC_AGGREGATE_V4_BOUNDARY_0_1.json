@@ -1,0 +1,122 @@
+{
+  "schema": "connect4.universal_structural_policy.aggregate_cpc_boundary.v1",
+  "createdAt": "2026-10-01T05:12:10.666Z",
+  "jsMinSysSha": "0899c5811918e68c22dc1b0e4dd8af97d9b4bbcb",
+  "geometry": "7x6",
+  "runtime": "v26.7.0",
+  "solvedInputsUsed": false,
+  "oracleUsed": false,
+  "oneCpcCallPerState": true,
+  "frontierResponse": true,
+  "projectedAdvisory": false,
+  "states": [
+    {
+      "id": "candidate2",
+      "sequence": "4444415662",
+      "rank": 10,
+      "mover": 1,
+      "basisSize": 65,
+      "cpc": {
+        "kind": 0,
+        "kindName": "CPC_NONE",
+        "absoluteInterval": [
+          -1,
+          1
+        ],
+        "forcedColumnZeroBased": -1,
+        "forcedColumnOneBased": null,
+        "preemptionMask32": 0,
+        "preemptionCount": 0,
+        "precursorCount": 0
+      }
+    },
+    {
+      "id": "candidate3",
+      "sequence": "4444415663",
+      "rank": 10,
+      "mover": 1,
+      "basisSize": 65,
+      "cpc": {
+        "kind": 0,
+        "kindName": "CPC_NONE",
+        "absoluteInterval": [
+          -1,
+          1
+        ],
+        "forcedColumnZeroBased": -1,
+        "forcedColumnOneBased": null,
+        "preemptionMask32": 0,
+        "preemptionCount": 0,
+        "precursorCount": 0
+      }
+    },
+    {
+      "id": "candidate6",
+      "sequence": "4444415666",
+      "rank": 10,
+      "mover": 1,
+      "basisSize": 66,
+      "cpc": {
+        "kind": 0,
+        "kindName": "CPC_NONE",
+        "absoluteInterval": [
+          -1,
+          1
+        ],
+        "forcedColumnZeroBased": -1,
+        "forcedColumnOneBased": null,
+        "preemptionMask32": 0,
+        "preemptionCount": 0,
+        "precursorCount": 0
+      }
+    },
+    {
+      "id": "candidate6_forced_2_then_3",
+      "sequence": "444441566623",
+      "rank": 12,
+      "mover": 1,
+      "basisSize": 64,
+      "cpc": {
+        "kind": 0,
+        "kindName": "CPC_NONE",
+        "absoluteInterval": [
+          -1,
+          1
+        ],
+        "forcedColumnZeroBased": -1,
+        "forcedColumnOneBased": null,
+        "preemptionMask32": 0,
+        "preemptionCount": 0,
+        "precursorCount": 0
+      }
+    },
+    {
+      "id": "candidate6_forced_3_then_2",
+      "sequence": "444441566632",
+      "rank": 12,
+      "mover": 1,
+      "basisSize": 64,
+      "cpc": {
+        "kind": 0,
+        "kindName": "CPC_NONE",
+        "absoluteInterval": [
+          -1,
+          1
+        ],
+        "forcedColumnZeroBased": -1,
+        "forcedColumnOneBased": null,
+        "preemptionMask32": 0,
+        "preemptionCount": 0,
+        "precursorCount": 0
+      }
+    }
+  ],
+  "interpretationBoundary": [
+    "CPC output is the aggregate structural closure for the prepared current-state basis.",
+    "CPC_EXACT is exact only under CPC's implemented guards.",
+    "CPC_BOUND is a sound WDL interval bound, not exact strong distance.",
+    "CPC_RESTRICT is an exact current-action restriction when emitted.",
+    "CPC_NONE means this CPC grammar did not close the state; it is not a game-value statement.",
+    "No move-selection ordering is licensed from unresolved intervals alone."
+  ]
+}
