@@ -1,0 +1,190 @@
+name: Research v4 first-nine Pons recheck
+
+on:
+  push:
+    branches:
+      - research/universal-structural-policy-20260930
+    paths:
+      - .github/workflows/research-v4-first-nine-pons-recheck.yml
+
+permissions:
+  contents: write
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Check out exact pushed revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - name: Require completed timing evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          node - <<'NODE'
+          const fs = require('fs');
+          const path = 'research/isograph/discovery/2026-09-30-universal-structural-policy/V4_FIRST_NINE_TIMING_BASELINE_0_1.json';
+          const r = JSON.parse(fs.readFileSync(path, 'utf8'));
+          if (r.subject.diagnostic.sequence !== '444441566') throw new Error('timing trajectory changed');
+          if (r.configuration.repetitions < 1000) throw new Error('timing evidence is not the qualified baseline');
+          console.log('TIMING_EVIDENCE_OK', r.timestampUtc, r.summary.totalFirstNine.medianMs);
+          NODE
+
+      - name: Build pinned Pascal Pons solver and verify book
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone https://github.com/PascalPons/connect4.git pons-connect4
+          cd pons-connect4
+          git checkout d6ba50d8aaf2308c769d9bf2abd42d90f34baf41
+          test "$(git rev-parse HEAD)" = "d6ba50d8aaf2308c769d9bf2abd42d90f34baf41"
+          make -j2
+          curl -fL --retry 3 -o 7x6.book https://github.com/PascalPons/connect4/releases/download/book/7x6.book
+          echo "f346cd449626fb81da93be0958e017ee854e5f74d85b6d38062357f5403aec53  7x6.book" | sha256sum -c -
+
+      - name: Analyze all nine pre-move positions with full vectors
+        shell: bash
+        run: |
+          set -euo pipefail
+          printf '\n4\n44\n444\n4444\n44444\n444441\n4444415\n44444156\n' > first-nine-prefixes.txt
+          start_ns=$(date +%s%N)
+          ./pons-connect4/c4solver -b ./pons-connect4/7x6.book -a < first-nine-prefixes.txt > first-nine-pons.txt
+          end_ns=$(date +%s%N)
+          echo $((end_ns-start_ns)) > first-nine-pons-wall-ns.txt
+          nl -ba first-nine-pons.txt
+
+      - name: Derive equivalence classes and admissible sets
+        shell: bash
+        run: |
+          set -euo pipefail
+          JSON=research/isograph/discovery/2026-09-30-universal-structural-policy/V4_FIRST_NINE_PONS_RECHECK_0_1.json
+          MD=research/isograph/discovery/2026-09-30-universal-structural-policy/V4_FIRST_NINE_PONS_RECHECK_0_1.md
+          node - "$JSON" "$MD" <<'NODE'
+          const fs = require('fs');
+          const assert = require('assert/strict');
+          const [jsonPath, mdPath] = process.argv.slice(2);
+          const base = 'research/isograph/discovery/2026-09-30-universal-structural-policy/';
+          const timing = JSON.parse(fs.readFileSync(base + 'V4_FIRST_NINE_TIMING_BASELINE_0_1.json', 'utf8'));
+          const prefixes = ['', '4', '44', '444', '4444', '44444', '444441', '4444415', '44444156'];
+          const lines = fs.readFileSync('first-nine-pons.txt', 'utf8').split(/\r?\n/).filter(x => x.trim().length);
+          assert.equal(lines.length, prefixes.length, 'expected exactly nine Pons output lines');
+
+          const checks = prefixes.map((prefix, i) => {
+            const fields = lines[i].trim().split(/\s+/);
+            let scores;
+            if (prefix === '') {
+              scores = fields.map(Number);
+            } else {
+              assert.equal(fields[0], prefix, 'Pons prefix order mismatch at ply ' + (i + 1));
+              scores = fields.slice(1).map(Number);
+            }
+            assert.equal(scores.length, 7, 'expected seven scores at ply ' + (i + 1));
+            assert(scores.every(Number.isInteger), 'non-integer Pons score');
+
+            const legal = scores.flatMap((score, c) => score === -1000 ? [] : [{move:c+1, score}]);
+            const wins = legal.filter(x => x.score > 0).map(x => x.move);
+            const draws = legal.filter(x => x.score === 0).map(x => x.move);
+            const losses = legal.filter(x => x.score < 0).map(x => x.move);
+            let acceptable, basis;
+            if (wins.length) {
+              acceptable = wins;
+              basis = 'ANY_WIN';
+            } else if (draws.length) {
+              acceptable = draws;
+              basis = 'ANY_DRAW';
+            } else {
+              const best = Math.max(...legal.map(x => x.score));
+              acceptable = legal.filter(x => x.score === best).map(x => x.move);
+              basis = 'MAX_DELAY_LOSS';
+            }
+
+            const exact = {};
+            for (const {move, score} of legal) {
+              (exact[String(score)] ??= []).push(move);
+            }
+            const selected = timing.subject.diagnostic.selectedSets[i];
+            const representative = timing.subject.diagnostic.representatives[i];
+            const selectedAllAcceptable = selected.every(m => acceptable.includes(m));
+            const representativeAcceptable = acceptable.includes(representative);
+            assert(selectedAllAcceptable, 'v4 selected set is not oracle-admissible at ply ' + (i + 1));
+            assert(representativeAcceptable, 'deterministic representative is not oracle-admissible at ply ' + (i + 1));
+
+            return {
+              ply: i + 1,
+              prefix,
+              scores,
+              wdlEquivalent: {wins, draws, losses},
+              exactStrongClasses: Object.entries(exact).map(([score, moves]) => ({score:Number(score), moves})).sort((a,b)=>b.score-a.score),
+              acceptable,
+              basis,
+              selected,
+              representative,
+              selectedAllAcceptable,
+              representativeAcceptable,
+            };
+          });
+
+          const oracleWallNs = Number(fs.readFileSync('first-nine-pons-wall-ns.txt', 'utf8').trim());
+          const out = {
+            schema: 'connect4.universal_structural_policy.v4.first_nine_pons_recheck.v1',
+            timestampUtc: new Date().toISOString(),
+            validationOnly: true,
+            trainingUse: false,
+            pons: {
+              revision: 'd6ba50d8aaf2308c769d9bf2abd42d90f34baf41',
+              book: '7x6.book',
+              bookSha256: 'f346cd449626fb81da93be0958e017ee854e5f74d85b6d38062357f5403aec53',
+              mode: 'c4solver -a / Solver::analyze()',
+              batchWallNs: oracleWallNs,
+              batchWallMs: oracleWallNs / 1e6,
+              timingNote: 'Separate oracle batch wall time; includes c4solver process startup and opening-book load and is not part of the move-finder benchmark.'
+            },
+            timingEvidence: {
+              schema: timing.schema,
+              timestampUtc: timing.timestampUtc,
+              benchmarkCommit: timing.environment.githubSha,
+              sequence: timing.subject.diagnostic.sequence,
+              repetitions: timing.configuration.repetitions,
+              medianFirstNineMs: timing.summary.totalFirstNine.medianMs
+            },
+            checks
+          };
+          fs.writeFileSync(jsonPath, JSON.stringify(out, null, 2) + '\n');
+
+          const rows = checks.map(c => {
+            const p = c.prefix === '' ? '∅' : c.prefix;
+            return `| ${c.ply} | \`${p}\` | [${c.scores.join(',')}] | {${c.acceptable.join(',')}} | {${c.selected.join(',')}} | ${c.representative} | ${c.basis} |`;
+          });
+          const md = [
+            '# v4 first-nine Pons full-vector recheck',
+            '',
+            '**Status:** validation/falsification only. No oracle value is a runtime premise of v4 or any theorem.',
+            '',
+            `Pinned Pons revision: \`${out.pons.revision}\``,
+            '',
+            `Opening book SHA-256: \`${out.pons.bookSha256}\``,
+            '',
+            `Separate oracle batch wall time: ${out.pons.batchWallMs.toFixed(3)} ms (includes solver process startup and book load; excluded from structural benchmark).`,
+            '',
+            '| ply | prefix before move | seven-column scores | acceptable set | v4 selected set | representative | basis |',
+            '|---:|:---|:---|:---|:---|---:|:---|',
+            ...rows,
+            '',
+            'All nine v4 selected sets are subsets of the project-acceptable perfect-move sets, and all nine deterministic representatives are acceptable.',
+            '',
+            'The JSON sibling preserves W/D/L-equivalent move sets and exact-strong score equivalence classes for every one of the nine positions, including the empty root.',
+            ''
+          ].join('\n');
+          fs.writeFileSync(mdPath, md + '\n');
+          NODE
+
+      - name: Commit durable oracle evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add             research/isograph/discovery/2026-09-30-universal-structural-policy/V4_FIRST_NINE_PONS_RECHECK_0_1.json             research/isograph/discovery/2026-09-30-universal-structural-policy/V4_FIRST_NINE_PONS_RECHECK_0_1.md
+          git commit -m "research: reconfirm v4 first-nine Pons admissibility"
+          git push origin HEAD:research/universal-structural-policy-20260930
