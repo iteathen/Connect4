@@ -1,0 +1,96 @@
+{
+  "schema": "connect4.cpc_d13_trigger5_gray_probe.v1",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "rows": [
+    {
+      "sequence": "444441566666232222423311",
+      "rank": 24,
+      "attacker": 1,
+      "support": [
+        3,
+        6,
+        3,
+        6,
+        1,
+        5,
+        0
+      ],
+      "rawOddMask": 229619,
+      "grayOddMask": 232049,
+      "effectiveOddMask": 232179,
+      "rawGuards": [
+        {
+          "column": 1,
+          "height": 3
+        },
+        {
+          "column": 3,
+          "height": 3
+        },
+        {
+          "column": 6,
+          "height": 5
+        }
+      ],
+      "effectiveGuards": [
+        {
+          "column": 1,
+          "height": 3
+        },
+        {
+          "column": 3,
+          "height": 3
+        },
+        {
+          "column": 6,
+          "height": 5
+        }
+      ],
+      "column5Row1": {
+        "owner": 1,
+        "gray": false,
+        "relevant": true
+      },
+      "grayCount": 14
+    },
+    {
+      "sequence": "4444415666662322224233115",
+      "rank": 25,
+      "attacker": 2,
+      "support": [
+        3,
+        6,
+        3,
+        6,
+        2,
+        5,
+        0
+      ],
+      "rawOddMask": 7688,
+      "grayOddMask": 232049,
+      "effectiveOddMask": 237177,
+      "rawGuards": [],
+      "effectiveGuards": [
+        {
+          "column": 6,
+          "height": 5
+        }
+      ],
+      "column5Row1": {
+        "owner": 1,
+        "gray": false,
+        "relevant": true
+      },
+      "grayCount": 14
+    }
+  ],
+  "conclusion": [
+    "The probe asks only whether column-5 row-1 ownership is still live-line relevant at the transported D13 trigger-5 obstruction.",
+    "Effective guards use the already-qualified neutral-token rule defender-owned OR gray on occupied odd rows."
+  ],
+  "boundary": [
+    "This is consumed-boundary diagnostic evidence; fresh neutral-token/gray guard qualification is recorded separately.",
+    "No response is licensed by this probe alone."
+  ]
+}
