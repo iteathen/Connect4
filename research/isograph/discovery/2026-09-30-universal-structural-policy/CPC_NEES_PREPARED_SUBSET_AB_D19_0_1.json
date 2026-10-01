@@ -1,0 +1,37 @@
+{
+  "schema": "connect4.cpc_nees_prepared_subset_ab.v1",
+  "horizon": 19,
+  "baselineSha": "db9cda32fc814a7f982816556cb59ab82a7a4782",
+  "subsetSha": "2f459989bca348ff1b840da0978262404a0d8f36",
+  "baseline": {
+    "wallSeconds": 18.16,
+    "maxRssKb": 248956,
+    "runtime": {
+      "elapsedNs": "18089505192",
+      "memoCapacity": 4194304,
+      "memoStoredKeyWords": 10,
+      "frameWords": 602,
+      "frameBasis": 2967
+    }
+  },
+  "subset": {
+    "wallSeconds": 17.09,
+    "maxRssKb": 249312,
+    "runtime": {
+      "elapsedNs": "17025095634",
+      "memoCapacity": 4194304,
+      "memoStoredKeyWords": 10,
+      "frameWords": 602,
+      "frameBasis": 2967
+    }
+  },
+  "ratios": {
+    "wall": 0.941079295154185,
+    "maxRss": 1.0014299715612398
+  },
+  "boundary": [
+    "Same runner job, Node 26.7.0, horizon, proof grammar and memo capacity.",
+    "Only minimal-residual subset checks change from generic shape scans to the initialization-prepared dense subset table.",
+    "Promotion depends on governing proof cost rather than the local table lookup intuition."
+  ]
+}
