@@ -1,0 +1,400 @@
+{
+  "schema": "connect4.cpc_compliant_survivor_successor_scan.v1",
+  "createdAt": "2026-10-01T06:29:52.571Z",
+  "jsMinSysSha": "0899c5811918e68c22dc1b0e4dd8af97d9b4bbcb",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "oneCpcCallPerSuccessor": true,
+  "semantics": [
+    "Each legal attacker setup is followed by exactly one native CPC evaluation over the successor complete active residual basis.",
+    "The CPC-produced singleton bitsets are read only as aggregate proof diagnostics; the residual basis is not rescanned by obligation type.",
+    "This is theorem-discovery evidence, not a move-selection rule and not ordinary recursive game-tree search."
+  ],
+  "roots": [
+    {
+      "id": "c6_compliant_23",
+      "sequence": "444441566623",
+      "survivalLower": null,
+      "attacker": 1,
+      "setups": [
+        {
+          "setupColumn": 1,
+          "sequence": "4444415666231",
+          "terminalCode": 0,
+          "basisSize": 64,
+          "cpc": {
+            "kind": 0,
+            "kindName": "CPC_NONE",
+            "absoluteInterval": [
+              -1,
+              1
+            ],
+            "exactAttackerWin": false,
+            "forcedColumn": null,
+            "preemptionMask32": 0,
+            "preemptionColumns": [],
+            "preemptionCount": 0,
+            "precursorCount": 0,
+            "aggregateSingletonProfile": {
+              "attacker": [],
+              "defender": [],
+              "playableAttacker": [],
+              "playableDefender": []
+            }
+          }
+        },
+        {
+          "setupColumn": 2,
+          "sequence": "4444415666232",
+          "terminalCode": 0,
+          "basisSize": 63,
+          "cpc": {
+            "kind": 0,
+            "kindName": "CPC_NONE",
+            "absoluteInterval": [
+              -1,
+              1
+            ],
+            "exactAttackerWin": false,
+            "forcedColumn": null,
+            "preemptionMask32": 0,
+            "preemptionColumns": [],
+            "preemptionCount": 0,
+            "precursorCount": 0,
+            "aggregateSingletonProfile": {
+              "attacker": [],
+              "defender": [],
+              "playableAttacker": [],
+              "playableDefender": []
+            }
+          }
+        },
+        {
+          "setupColumn": 3,
+          "sequence": "4444415666233",
+          "terminalCode": 0,
+          "basisSize": 64,
+          "cpc": {
+            "kind": 0,
+            "kindName": "CPC_NONE",
+            "absoluteInterval": [
+              -1,
+              1
+            ],
+            "exactAttackerWin": false,
+            "forcedColumn": null,
+            "preemptionMask32": 0,
+            "preemptionColumns": [],
+            "preemptionCount": 0,
+            "precursorCount": 0,
+            "aggregateSingletonProfile": {
+              "attacker": [
+                {
+                  "column": 5,
+                  "row": 4
+                }
+              ],
+              "defender": [],
+              "playableAttacker": [],
+              "playableDefender": []
+            }
+          }
+        },
+        {
+          "setupColumn": 4,
+          "sequence": "4444415666234",
+          "terminalCode": 0,
+          "basisSize": 63,
+          "cpc": {
+            "kind": 0,
+            "kindName": "CPC_NONE",
+            "absoluteInterval": [
+              -1,
+              1
+            ],
+            "exactAttackerWin": false,
+            "forcedColumn": null,
+            "preemptionMask32": 0,
+            "preemptionColumns": [],
+            "preemptionCount": 0,
+            "precursorCount": 0,
+            "aggregateSingletonProfile": {
+              "attacker": [],
+              "defender": [],
+              "playableAttacker": [],
+              "playableDefender": []
+            }
+          }
+        },
+        {
+          "setupColumn": 5,
+          "sequence": "4444415666235",
+          "terminalCode": 0,
+          "basisSize": 64,
+          "cpc": {
+            "kind": 0,
+            "kindName": "CPC_NONE",
+            "absoluteInterval": [
+              -1,
+              1
+            ],
+            "exactAttackerWin": false,
+            "forcedColumn": null,
+            "preemptionMask32": 0,
+            "preemptionColumns": [],
+            "preemptionCount": 0,
+            "precursorCount": 0,
+            "aggregateSingletonProfile": {
+              "attacker": [],
+              "defender": [],
+              "playableAttacker": [],
+              "playableDefender": []
+            }
+          }
+        },
+        {
+          "setupColumn": 6,
+          "sequence": "4444415666236",
+          "terminalCode": 0,
+          "basisSize": 63,
+          "cpc": {
+            "kind": 0,
+            "kindName": "CPC_NONE",
+            "absoluteInterval": [
+              -1,
+              1
+            ],
+            "exactAttackerWin": false,
+            "forcedColumn": null,
+            "preemptionMask32": 0,
+            "preemptionColumns": [],
+            "preemptionCount": 0,
+            "precursorCount": 0,
+            "aggregateSingletonProfile": {
+              "attacker": [],
+              "defender": [],
+              "playableAttacker": [],
+              "playableDefender": []
+            }
+          }
+        },
+        {
+          "setupColumn": 7,
+          "sequence": "4444415666237",
+          "terminalCode": 0,
+          "basisSize": 63,
+          "cpc": {
+            "kind": 0,
+            "kindName": "CPC_NONE",
+            "absoluteInterval": [
+              -1,
+              1
+            ],
+            "exactAttackerWin": false,
+            "forcedColumn": null,
+            "preemptionMask32": 0,
+            "preemptionColumns": [],
+            "preemptionCount": 0,
+            "precursorCount": 0,
+            "aggregateSingletonProfile": {
+              "attacker": [],
+              "defender": [],
+              "playableAttacker": [],
+              "playableDefender": []
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "c6_compliant_32",
+      "sequence": "444441566632",
+      "survivalLower": null,
+      "attacker": 1,
+      "setups": [
+        {
+          "setupColumn": 1,
+          "sequence": "4444415666321",
+          "terminalCode": 0,
+          "basisSize": 64,
+          "cpc": {
+            "kind": 0,
+            "kindName": "CPC_NONE",
+            "absoluteInterval": [
+              -1,
+              1
+            ],
+            "exactAttackerWin": false,
+            "forcedColumn": null,
+            "preemptionMask32": 0,
+            "preemptionColumns": [],
+            "preemptionCount": 0,
+            "precursorCount": 0,
+            "aggregateSingletonProfile": {
+              "attacker": [],
+              "defender": [],
+              "playableAttacker": [],
+              "playableDefender": []
+            }
+          }
+        },
+        {
+          "setupColumn": 2,
+          "sequence": "4444415666322",
+          "terminalCode": 0,
+          "basisSize": 63,
+          "cpc": {
+            "kind": 0,
+            "kindName": "CPC_NONE",
+            "absoluteInterval": [
+              -1,
+              1
+            ],
+            "exactAttackerWin": false,
+            "forcedColumn": null,
+            "preemptionMask32": 0,
+            "preemptionColumns": [],
+            "preemptionCount": 0,
+            "precursorCount": 0,
+            "aggregateSingletonProfile": {
+              "attacker": [],
+              "defender": [],
+              "playableAttacker": [],
+              "playableDefender": []
+            }
+          }
+        },
+        {
+          "setupColumn": 3,
+          "sequence": "4444415666323",
+          "terminalCode": 0,
+          "basisSize": 64,
+          "cpc": {
+            "kind": 0,
+            "kindName": "CPC_NONE",
+            "absoluteInterval": [
+              -1,
+              1
+            ],
+            "exactAttackerWin": false,
+            "forcedColumn": null,
+            "preemptionMask32": 0,
+            "preemptionColumns": [],
+            "preemptionCount": 0,
+            "precursorCount": 0,
+            "aggregateSingletonProfile": {
+              "attacker": [],
+              "defender": [],
+              "playableAttacker": [],
+              "playableDefender": []
+            }
+          }
+        },
+        {
+          "setupColumn": 4,
+          "sequence": "4444415666324",
+          "terminalCode": 0,
+          "basisSize": 63,
+          "cpc": {
+            "kind": 0,
+            "kindName": "CPC_NONE",
+            "absoluteInterval": [
+              -1,
+              1
+            ],
+            "exactAttackerWin": false,
+            "forcedColumn": null,
+            "preemptionMask32": 0,
+            "preemptionColumns": [],
+            "preemptionCount": 0,
+            "precursorCount": 0,
+            "aggregateSingletonProfile": {
+              "attacker": [],
+              "defender": [],
+              "playableAttacker": [],
+              "playableDefender": []
+            }
+          }
+        },
+        {
+          "setupColumn": 5,
+          "sequence": "4444415666325",
+          "terminalCode": 0,
+          "basisSize": 64,
+          "cpc": {
+            "kind": 0,
+            "kindName": "CPC_NONE",
+            "absoluteInterval": [
+              -1,
+              1
+            ],
+            "exactAttackerWin": false,
+            "forcedColumn": null,
+            "preemptionMask32": 0,
+            "preemptionColumns": [],
+            "preemptionCount": 0,
+            "precursorCount": 0,
+            "aggregateSingletonProfile": {
+              "attacker": [],
+              "defender": [],
+              "playableAttacker": [],
+              "playableDefender": []
+            }
+          }
+        },
+        {
+          "setupColumn": 6,
+          "sequence": "4444415666326",
+          "terminalCode": 0,
+          "basisSize": 63,
+          "cpc": {
+            "kind": 0,
+            "kindName": "CPC_NONE",
+            "absoluteInterval": [
+              -1,
+              1
+            ],
+            "exactAttackerWin": false,
+            "forcedColumn": null,
+            "preemptionMask32": 0,
+            "preemptionColumns": [],
+            "preemptionCount": 0,
+            "precursorCount": 0,
+            "aggregateSingletonProfile": {
+              "attacker": [],
+              "defender": [],
+              "playableAttacker": [],
+              "playableDefender": []
+            }
+          }
+        },
+        {
+          "setupColumn": 7,
+          "sequence": "4444415666327",
+          "terminalCode": 0,
+          "basisSize": 63,
+          "cpc": {
+            "kind": 0,
+            "kindName": "CPC_NONE",
+            "absoluteInterval": [
+              -1,
+              1
+            ],
+            "exactAttackerWin": false,
+            "forcedColumn": null,
+            "preemptionMask32": 0,
+            "preemptionColumns": [],
+            "preemptionCount": 0,
+            "precursorCount": 0,
+            "aggregateSingletonProfile": {
+              "attacker": [],
+              "defender": [],
+              "playableAttacker": [],
+              "playableDefender": []
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
