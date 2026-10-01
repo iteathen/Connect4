@@ -1,0 +1,147 @@
+name: Research CPC current-state guard-set ladder
+
+on:
+  push:
+    branches:
+      - research/universal-structural-policy-20260930
+    paths:
+      - .github/workflows/research-cpc-current-state-guard-set-ladder.yml
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/run-cpc-current-state-guard-set-target.mjs
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_CURRENT_STATE_GUARD_SET_RECONSTRUCTION_THEOREM.md
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - name: Check out exact pushed revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+      - name: Pin Node runtime
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Fetch pinned JSMinSys authority
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone https://github.com/iteathen/JSMinSys.git jsminsys
+          git -C jsminsys checkout 0899c5811918e68c22dc1b0e4dd8af97d9b4bbcb
+      - name: Run fresh-process guard-set horizon ladder
+        shell: bash
+        env:
+          NODE_OPTIONS: --max-old-space-size=5632
+        run: |
+          set -euo pipefail
+          DIR=research/isograph/discovery/2026-09-30-universal-structural-policy
+          SUMMARY="$DIR/CPC_CURRENT_STATE_GUARD_SET_LADDER_0_1.json"
+          rm -f "$DIR"/CPC_CURRENT_STATE_GUARD_SET_TARGET_D*_0_1.json "$SUMMARY"
+          LAST_TRUE=15
+          FIRST_FALSE=""
+          EXEC_FAIL=""
+          for D in 17 19 21 23 25 27 29 31; do
+            OUT="$DIR/CPC_CURRENT_STATE_GUARD_SET_TARGET_D\${D}_0_1.json"
+            TMP="$OUT.tmp"
+            echo "RUN_D=$D"
+            set +e
+            timeout 180 node "$DIR/run-cpc-current-state-guard-set-target.mjs" ./jsminsys "$D" > "$TMP"
+            CODE=$?
+            set -e
+            if [ "$CODE" -ne 0 ]; then
+              echo "EXEC_FAIL_D=$D code=$CODE"
+              rm -f "$TMP"
+              EXEC_FAIL="$D"
+              break
+            fi
+            mv "$TMP" "$OUT"
+            ACCEPT=$(node - "$OUT" <<'NODE'
+          const fs=require('fs');
+          const r=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
+          process.stdout.write(String(Boolean(r.result.accept)));
+          NODE
+            )
+            CLASS=$(node - "$OUT" <<'NODE'
+          const fs=require('fs');
+          const r=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
+          process.stdout.write(String(r.result.class??'NONE'));
+          NODE
+            )
+            FAIL=$(node - "$OUT" <<'NODE'
+          const fs=require('fs');
+          const r=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
+          process.stdout.write(String(r.result.failedTrigger??''));
+          NODE
+            )
+            echo "RESULT_D=$D accept=$ACCEPT class=$CLASS failedTrigger=$FAIL"
+            if [ "$ACCEPT" = "true" ]; then
+              LAST_TRUE="$D"
+            else
+              FIRST_FALSE="$D"
+              break
+            fi
+          done
+
+          node - "$DIR" "$SUMMARY" "$LAST_TRUE" "$FIRST_FALSE" "$EXEC_FAIL" <<'NODE'
+          const fs=require('fs'),path=require('path');
+          const [dir,out,lastTrue,firstFalse,execFail]=process.argv.slice(2);
+          const files=fs.readdirSync(dir)
+            .filter(x=>/^CPC_CURRENT_STATE_GUARD_SET_TARGET_D\d+_0_1\.json$/.test(x))
+            .sort((a,b)=>Number(a.match(/D(\d+)/)[1])-Number(b.match(/D(\d+)/)[1]));
+          const rows=files.map(file=>{
+            const r=JSON.parse(fs.readFileSync(path.join(dir,file),'utf8'));
+            return {
+              horizon:r.targetHorizon,
+              absolutePly:r.absolutePly,
+              accept:r.result.accept,
+              class:r.result.class,
+              failedTrigger:r.result.failedTrigger??null,
+              work:r.work,
+              file
+            };
+          });
+          const summary={
+            schema:'connect4.cpc_current_state_guard_set_ladder.v1',
+            root:'4444415666',
+            rootRank:10,
+            oracleUsed:false,
+            solvedInputsUsed:false,
+            establishedD15:true,
+            rows,
+            lastAcceptedHorizon:Number(lastTrue),
+            firstRejectedHorizon:firstFalse?Number(firstFalse):null,
+            executionFailureHorizon:execFail?Number(execFail):null,
+            targetAbsolutePly41RelativeHorizon:31,
+            boundary:[
+              'Each horizon is a fresh process and uses the same frozen guard-set theorem grammar.',
+              'Acceptance is a constructive survival lower certificate only.',
+              'Rejection is not an attacker upper bound.',
+              'Execution failure is resource evidence, not logical rejection.'
+            ]
+          };
+          fs.writeFileSync(out,JSON.stringify(summary,null,2)+'\n');
+          console.log(JSON.stringify(summary,null,2));
+          NODE
+
+      - name: Commit durable guard-set ladder evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          BRANCH=research/universal-structural-policy-20260930
+          DIR=research/isograph/discovery/2026-09-30-universal-structural-policy
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$DIR"/CPC_CURRENT_STATE_GUARD_SET_LADDER_0_1.json
+          find "$DIR" -maxdepth 1 -name 'CPC_CURRENT_STATE_GUARD_SET_TARGET_D*_0_1.json' -print0 | xargs -0 -r git add --
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "research: verify current-state guard-set ladder"
+          for attempt in 1 2 3; do
+            git fetch origin "$BRANCH"
+            git rebase --autostash "origin/$BRANCH"
+            if git push origin HEAD:"$BRANCH"; then exit 0; fi
+            sleep 1
+          done
+          exit 1
