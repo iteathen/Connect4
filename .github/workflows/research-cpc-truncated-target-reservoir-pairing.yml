@@ -1,0 +1,96 @@
+name: Research CPC truncated target reservoir pairing
+
+on:
+  push:
+    branches:
+      - research/universal-structural-policy-20260930
+    paths:
+      - .github/workflows/research-cpc-truncated-target-reservoir-pairing.yml
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/run-cpc-truncated-target-reservoir-pairing.mjs
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_TRUNCATED_TARGET_RESERVOIR_PAIRING_THEOREM.md
+
+permissions:
+  contents: write
+
+jobs:
+  qualify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out exact pushed revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+      - name: Pin Node runtime
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Assert exact Node runtime
+        run: node -e "if (process.version !== 'v26.7.0') throw new Error('expected Node v26.7.0, got ' + process.version)"
+      - name: Fetch pinned JSMinSys authority
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone https://github.com/iteathen/JSMinSys.git jsminsys
+          git -C jsminsys checkout bf23d3a67652cd42e1975f29c7dc4eed54f7eb42
+          test -z "$(git -C jsminsys status --porcelain)"
+      - name: Qualify truncated target reservoir pairing
+        shell: bash
+        run: |
+          set -euo pipefail
+          DIR=research/isograph/discovery/2026-09-30-universal-structural-policy
+          OUT="$DIR/CPC_TRUNCATED_TARGET_RESERVOIR_PAIRING_0_1.json"
+          node "$DIR/run-cpc-truncated-target-reservoir-pairing.mjs" ./jsminsys > "$OUT"
+          node - "$OUT" <<'NODE'
+          const fs=require('fs');
+          const r=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
+          if(r.oracleUsed!==false)throw new Error('oracleUsed must be false');
+          if(r.solvedInputsUsed!==false)throw new Error('solvedInputsUsed must be false');
+          if(r.jsMinSysSha!=='bf23d3a67652cd42e1975f29c7dc4eed54f7eb42')throw new Error('JSMinSys authority drift');
+          if(r.accept!==true)throw new Error('frozen truncated target-reservoir pairing theorem rejected on immediate family');
+          const expected=[1,3,6,7];
+          const got=r.rows.map(x=>x.firstResponseColumn);
+          if(JSON.stringify(got)!==JSON.stringify(expected))throw new Error('unexpected family '+JSON.stringify(got));
+          for(const row of r.rows){
+            if(!row.accept)throw new Error('row rejected after first reply '+row.firstResponseColumn);
+            if(!row.target.activeP1Singleton||row.target.projectedOwner!==1)throw new Error('target premise failed after '+row.firstResponseColumn);
+            if(row.defenderPlayableSingletons.length)throw new Error('defender immediate terminal premise failed after '+row.firstResponseColumn);
+            if(!row.template?.targetIsResponse)throw new Error('target not assigned as response after '+row.firstResponseColumn);
+            if(!row.validation?.pass)throw new Error('template falsification traversal failed after '+row.firstResponseColumn);
+          }
+          console.log(JSON.stringify({
+            accept:r.accept,
+            rows:r.rows.map(x=>({
+              firstResponse:x.firstResponseColumn,
+              support:x.support,
+              capacity:x.truncatedCapacity,
+              pairs:x.template.synchronizedPairs,
+              defenderResidualCount:x.template.defenderResidualCount,
+              validation:{
+                nodes:x.validation.defenderNodes,
+                responsePairs:x.validation.responsePairs,
+                maxPairDepth:x.validation.maxPairDepth,
+                p1Terminals:x.validation.p1TerminalResponses,
+                targetTerminals:x.validation.targetTerminalResponses
+              }
+            }))
+          }));
+          NODE
+      - name: Commit durable qualification evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          BRANCH=research/universal-structural-policy-20260930
+          FILE=research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_TRUNCATED_TARGET_RESERVOIR_PAIRING_0_1.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$FILE"
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "research: record truncated target reservoir pairing qualification"
+          for attempt in 1 2 3; do
+            git fetch origin "$BRANCH"
+            git rebase --autostash "origin/$BRANCH"
+            if git push origin HEAD:"$BRANCH"; then exit 0; fi
+            sleep 1
+          done
+          exit 1
