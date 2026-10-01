@@ -5,7 +5,7 @@ import {dirname,resolve} from 'node:path';
 
 const dir=dirname(fileURLToPath(import.meta.url));
 const script=resolve(dir,'run-uc4a-latent-structure-tomography-analysis.mjs');
-const raw=execFileSync(process.execPath,[script],{encoding:'utf8',maxBuffer:64*1024*1024,env:{...process.env,UC4A_TOMO_DIAGNOSTIC:'1'},stdio:['ignore','pipe','inherit']});
+const raw=execFileSync(process.execPath,[script],{encoding:'utf8',maxBuffer:64*1024*1024,env:{...process.env,UC4A_TOMO_DIAGNOSTIC:'1'},stdio:['ignore','pipe','inherit'],maxBuffer:64*1024*1024});
 const r=JSON.parse(raw);
 
 assert.equal(r.schema,'connect4.uc4a_latent_structure_tomography_analysis.v1');
