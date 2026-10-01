@@ -1,0 +1,5406 @@
+{
+  "schema": "connect4.cpc_rank20_c5_reply5_hazardous_response_predecessor_diagnostic.v1",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "ordinaryFreeBranchGameTreeUsed": false,
+  "productionCpcModified": false,
+  "jsMinSysModified": false,
+  "targetReservoirModified": false,
+  "bsfpModified": false,
+  "design": "CPC_RANK20_C5_REPLY5_HAZARDOUS_RESPONSE_PREDECESSOR_DIAGNOSTIC_DESIGN_0_1.md",
+  "sourceEvidence": "CPC_RANK20_C5_REPLY5_PARTIAL_RESERVOIR_EXACT_VALIDATION_PROBE_0_1.json",
+  "candidates": [
+    {
+      "id": "FIRST_D3_C1_CONTRACTION",
+      "signature": "1-5:1|3-6:1",
+      "sourceRank": 25,
+      "sourceSupport": [
+        3,
+        6,
+        2,
+        6,
+        3,
+        5,
+        0
+      ],
+      "dynamicValidationPassed": false,
+      "syntacticallyUncoveredResiduals": [
+        {
+          "diagnosticId": 189,
+          "cellSetKey": "3,3|3,4",
+          "size": 2,
+          "minimal": true,
+          "cells": [
+            {
+              "cell": 16,
+              "column": 3,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            },
+            {
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 1
+            }
+          ]
+        }
+      ],
+      "firstFailure": {
+        "kind": "defender-terminal",
+        "terminalCell": {
+          "cell": 23,
+          "column": 3,
+          "row": 4,
+          "projectedOwner": 2,
+          "supportDistance": 0
+        },
+        "stateBeforeTerminal": {
+          "rank": 31,
+          "mover": 2,
+          "support": [
+            6,
+            6,
+            3,
+            6,
+            4,
+            6,
+            0
+          ]
+        },
+        "precedingP1Response": {
+          "cell": 40,
+          "column": 6,
+          "row": 6,
+          "projectedOwner": 2,
+          "supportDistance": 0,
+          "immediatelyBelowTerminal": false
+        },
+        "precedingTrigger": {
+          "cell": 16,
+          "column": 3,
+          "row": 3,
+          "projectedOwner": 1,
+          "supportDistance": 0
+        },
+        "preResponseState": {
+          "rank": 30,
+          "mover": 1,
+          "support": [
+            6,
+            6,
+            3,
+            6,
+            4,
+            5,
+            0
+          ],
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "cpcAgreedRestriction": null,
+          "legalP1Columns": [
+            3,
+            5,
+            6,
+            7
+          ],
+          "immediateP1WinningColumns": [],
+          "knownRootHandoffs": [],
+          "playableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "p1Minimal": [
+            {
+              "diagnosticId": 30,
+              "size": 1,
+              "cells": [
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 1
+                }
+              ],
+              "fullyAligned": true
+            },
+            {
+              "diagnosticId": 228,
+              "size": 2,
+              "cells": [
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 2
+                },
+                {
+                  "cell": 32,
+                  "column": 5,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 0
+                }
+              ],
+              "fullyAligned": true
+            },
+            {
+              "diagnosticId": 551,
+              "size": 3,
+              "cells": [
+                {
+                  "cell": 37,
+                  "column": 3,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 2
+                },
+                {
+                  "cell": 39,
+                  "column": 5,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 1
+                },
+                {
+                  "cell": 40,
+                  "column": 6,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 0
+                }
+              ],
+              "fullyAligned": false
+            },
+            {
+              "diagnosticId": 555,
+              "size": 3,
+              "cells": [
+                {
+                  "cell": 39,
+                  "column": 5,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 1
+                },
+                {
+                  "cell": 40,
+                  "column": 6,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 0
+                },
+                {
+                  "cell": 41,
+                  "column": 7,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 5
+                }
+              ],
+              "fullyAligned": false
+            },
+            {
+              "diagnosticId": 574,
+              "size": 4,
+              "cells": [
+                {
+                  "cell": 6,
+                  "column": 7,
+                  "row": 1,
+                  "projectedOwner": 1,
+                  "supportDistance": 0
+                },
+                {
+                  "cell": 13,
+                  "column": 7,
+                  "row": 2,
+                  "projectedOwner": 2,
+                  "supportDistance": 1
+                },
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 2
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "projectedOwner": 2,
+                  "supportDistance": 3
+                }
+              ],
+              "fullyAligned": false
+            },
+            {
+              "diagnosticId": 593,
+              "size": 4,
+              "cells": [
+                {
+                  "cell": 13,
+                  "column": 7,
+                  "row": 2,
+                  "projectedOwner": 2,
+                  "supportDistance": 1
+                },
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 2
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "projectedOwner": 2,
+                  "supportDistance": 3
+                },
+                {
+                  "cell": 34,
+                  "column": 7,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 4
+                }
+              ],
+              "fullyAligned": false
+            },
+            {
+              "diagnosticId": 612,
+              "size": 4,
+              "cells": [
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 2
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "projectedOwner": 2,
+                  "supportDistance": 3
+                },
+                {
+                  "cell": 34,
+                  "column": 7,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 4
+                },
+                {
+                  "cell": 41,
+                  "column": 7,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 5
+                }
+              ],
+              "fullyAligned": false
+            }
+          ],
+          "p2Minimal": [
+            {
+              "diagnosticId": 23,
+              "size": 1,
+              "cells": [
+                {
+                  "cell": 23,
+                  "column": 3,
+                  "row": 4,
+                  "projectedOwner": 2,
+                  "supportDistance": 0
+                }
+              ],
+              "fullyAligned": true
+            },
+            {
+              "diagnosticId": 30,
+              "size": 1,
+              "cells": [
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 1
+                }
+              ],
+              "fullyAligned": false
+            },
+            {
+              "diagnosticId": 304,
+              "size": 2,
+              "cells": [
+                {
+                  "cell": 32,
+                  "column": 5,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 0
+                },
+                {
+                  "cell": 40,
+                  "column": 6,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 0
+                }
+              ],
+              "fullyAligned": false
+            },
+            {
+              "diagnosticId": 574,
+              "size": 4,
+              "cells": [
+                {
+                  "cell": 6,
+                  "column": 7,
+                  "row": 1,
+                  "projectedOwner": 1,
+                  "supportDistance": 0
+                },
+                {
+                  "cell": 13,
+                  "column": 7,
+                  "row": 2,
+                  "projectedOwner": 2,
+                  "supportDistance": 1
+                },
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 2
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "projectedOwner": 2,
+                  "supportDistance": 3
+                }
+              ],
+              "fullyAligned": false
+            },
+            {
+              "diagnosticId": 593,
+              "size": 4,
+              "cells": [
+                {
+                  "cell": 13,
+                  "column": 7,
+                  "row": 2,
+                  "projectedOwner": 2,
+                  "supportDistance": 1
+                },
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 2
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "projectedOwner": 2,
+                  "supportDistance": 3
+                },
+                {
+                  "cell": 34,
+                  "column": 7,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 4
+                }
+              ],
+              "fullyAligned": false
+            },
+            {
+              "diagnosticId": 612,
+              "size": 4,
+              "cells": [
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 2
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "projectedOwner": 2,
+                  "supportDistance": 3
+                },
+                {
+                  "cell": 34,
+                  "column": 7,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 4
+                },
+                {
+                  "cell": 41,
+                  "column": 7,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 5
+                }
+              ],
+              "fullyAligned": false
+            }
+          ]
+        },
+        "cpcReroutePromising": false,
+        "forcedAlternative": {
+          "column": null,
+          "legal": false,
+          "terminal": null,
+          "support": null
+        },
+        "pathLength": 3,
+        "path": [
+          {
+            "trigger": {
+              "cell": 21,
+              "column": 1,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            },
+            "response": {
+              "cell": 25,
+              "column": 5,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          },
+          {
+            "trigger": {
+              "cell": 28,
+              "column": 1,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            },
+            "response": {
+              "cell": 35,
+              "column": 1,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          },
+          {
+            "trigger": {
+              "cell": 16,
+              "column": 3,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            },
+            "response": {
+              "cell": 40,
+              "column": 6,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "SECOND_D1_C5_CONTRACTION",
+      "signature": "3-5:1|6-7:1",
+      "sourceRank": 27,
+      "sourceSupport": [
+        4,
+        6,
+        1,
+        6,
+        5,
+        5,
+        0
+      ],
+      "dynamicValidationPassed": false,
+      "syntacticallyUncoveredResiduals": [
+        {
+          "diagnosticId": 280,
+          "cellSetKey": "1,5|3,5",
+          "size": 2,
+          "minimal": false,
+          "cells": [
+            {
+              "cell": 28,
+              "column": 1,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 3
+            }
+          ]
+        },
+        {
+          "diagnosticId": 30,
+          "cellSetKey": "3,5",
+          "size": 1,
+          "minimal": true,
+          "cells": [
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 3
+            }
+          ]
+        }
+      ],
+      "firstFailure": {
+        "kind": "defender-terminal",
+        "terminalCell": {
+          "cell": 30,
+          "column": 3,
+          "row": 5,
+          "projectedOwner": 1,
+          "supportDistance": 0
+        },
+        "stateBeforeTerminal": {
+          "rank": 33,
+          "mover": 2,
+          "support": [
+            6,
+            6,
+            4,
+            6,
+            6,
+            5,
+            0
+          ]
+        },
+        "precedingP1Response": {
+          "cell": 23,
+          "column": 3,
+          "row": 4,
+          "projectedOwner": 2,
+          "supportDistance": 0,
+          "immediatelyBelowTerminal": true
+        },
+        "precedingTrigger": {
+          "cell": 16,
+          "column": 3,
+          "row": 3,
+          "projectedOwner": 1,
+          "supportDistance": 0
+        },
+        "preResponseState": {
+          "rank": 32,
+          "mover": 1,
+          "support": [
+            6,
+            6,
+            3,
+            6,
+            6,
+            5,
+            0
+          ],
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "cpcAgreedRestriction": null,
+          "legalP1Columns": [
+            3,
+            6,
+            7
+          ],
+          "immediateP1WinningColumns": [],
+          "knownRootHandoffs": [],
+          "playableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "p1Minimal": [
+            {
+              "diagnosticId": 20,
+              "size": 1,
+              "cells": [
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 2
+                }
+              ],
+              "fullyAligned": true
+            },
+            {
+              "diagnosticId": 317,
+              "size": 2,
+              "cells": [
+                {
+                  "cell": 37,
+                  "column": 3,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 2
+                },
+                {
+                  "cell": 40,
+                  "column": 6,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 0
+                }
+              ],
+              "fullyAligned": false
+            },
+            {
+              "diagnosticId": 323,
+              "size": 2,
+              "cells": [
+                {
+                  "cell": 40,
+                  "column": 6,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 0
+                },
+                {
+                  "cell": 41,
+                  "column": 7,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 5
+                }
+              ],
+              "fullyAligned": false
+            }
+          ],
+          "p2Minimal": [
+            {
+              "diagnosticId": 23,
+              "size": 1,
+              "cells": [
+                {
+                  "cell": 23,
+                  "column": 3,
+                  "row": 4,
+                  "projectedOwner": 2,
+                  "supportDistance": 0
+                }
+              ],
+              "fullyAligned": true
+            },
+            {
+              "diagnosticId": 30,
+              "size": 1,
+              "cells": [
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 1
+                }
+              ],
+              "fullyAligned": false
+            },
+            {
+              "diagnosticId": 574,
+              "size": 4,
+              "cells": [
+                {
+                  "cell": 6,
+                  "column": 7,
+                  "row": 1,
+                  "projectedOwner": 1,
+                  "supportDistance": 0
+                },
+                {
+                  "cell": 13,
+                  "column": 7,
+                  "row": 2,
+                  "projectedOwner": 2,
+                  "supportDistance": 1
+                },
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 2
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "projectedOwner": 2,
+                  "supportDistance": 3
+                }
+              ],
+              "fullyAligned": false
+            },
+            {
+              "diagnosticId": 593,
+              "size": 4,
+              "cells": [
+                {
+                  "cell": 13,
+                  "column": 7,
+                  "row": 2,
+                  "projectedOwner": 2,
+                  "supportDistance": 1
+                },
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 2
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "projectedOwner": 2,
+                  "supportDistance": 3
+                },
+                {
+                  "cell": 34,
+                  "column": 7,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 4
+                }
+              ],
+              "fullyAligned": false
+            },
+            {
+              "diagnosticId": 612,
+              "size": 4,
+              "cells": [
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 2
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "projectedOwner": 2,
+                  "supportDistance": 3
+                },
+                {
+                  "cell": 34,
+                  "column": 7,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 4
+                },
+                {
+                  "cell": 41,
+                  "column": 7,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 5
+                }
+              ],
+              "fullyAligned": false
+            }
+          ]
+        },
+        "cpcReroutePromising": false,
+        "forcedAlternative": {
+          "column": null,
+          "legal": false,
+          "terminal": null,
+          "support": null
+        },
+        "pathLength": 3,
+        "path": [
+          {
+            "trigger": {
+              "cell": 28,
+              "column": 1,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            },
+            "response": {
+              "cell": 35,
+              "column": 1,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          },
+          {
+            "trigger": {
+              "cell": 9,
+              "column": 3,
+              "row": 2,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            },
+            "response": {
+              "cell": 39,
+              "column": 5,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          },
+          {
+            "trigger": {
+              "cell": 16,
+              "column": 3,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            },
+            "response": {
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "SECOND_D1_C5_CONTRACTION",
+      "signature": "3-6:1|5-7:1",
+      "sourceRank": 27,
+      "sourceSupport": [
+        4,
+        6,
+        1,
+        6,
+        5,
+        5,
+        0
+      ],
+      "dynamicValidationPassed": false,
+      "syntacticallyUncoveredResiduals": [
+        {
+          "diagnosticId": 280,
+          "cellSetKey": "1,5|3,5",
+          "size": 2,
+          "minimal": false,
+          "cells": [
+            {
+              "cell": 28,
+              "column": 1,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 3
+            }
+          ]
+        },
+        {
+          "diagnosticId": 30,
+          "cellSetKey": "3,5",
+          "size": 1,
+          "minimal": true,
+          "cells": [
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 3
+            }
+          ]
+        }
+      ],
+      "firstFailure": {
+        "kind": "defender-terminal",
+        "terminalCell": {
+          "cell": 30,
+          "column": 3,
+          "row": 5,
+          "projectedOwner": 1,
+          "supportDistance": 0
+        },
+        "stateBeforeTerminal": {
+          "rank": 33,
+          "mover": 2,
+          "support": [
+            6,
+            6,
+            4,
+            6,
+            5,
+            6,
+            0
+          ]
+        },
+        "precedingP1Response": {
+          "cell": 23,
+          "column": 3,
+          "row": 4,
+          "projectedOwner": 2,
+          "supportDistance": 0,
+          "immediatelyBelowTerminal": true
+        },
+        "precedingTrigger": {
+          "cell": 16,
+          "column": 3,
+          "row": 3,
+          "projectedOwner": 1,
+          "supportDistance": 0
+        },
+        "preResponseState": {
+          "rank": 32,
+          "mover": 1,
+          "support": [
+            6,
+            6,
+            3,
+            6,
+            5,
+            6,
+            0
+          ],
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "cpcAgreedRestriction": null,
+          "legalP1Columns": [
+            3,
+            5,
+            7
+          ],
+          "immediateP1WinningColumns": [],
+          "knownRootHandoffs": [],
+          "playableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "p1Minimal": [
+            {
+              "diagnosticId": 20,
+              "size": 1,
+              "cells": [
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 2
+                }
+              ],
+              "fullyAligned": true
+            },
+            {
+              "diagnosticId": 316,
+              "size": 2,
+              "cells": [
+                {
+                  "cell": 37,
+                  "column": 3,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 2
+                },
+                {
+                  "cell": 39,
+                  "column": 5,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 0
+                }
+              ],
+              "fullyAligned": false
+            },
+            {
+              "diagnosticId": 322,
+              "size": 2,
+              "cells": [
+                {
+                  "cell": 39,
+                  "column": 5,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 0
+                },
+                {
+                  "cell": 41,
+                  "column": 7,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 5
+                }
+              ],
+              "fullyAligned": false
+            }
+          ],
+          "p2Minimal": [
+            {
+              "diagnosticId": 23,
+              "size": 1,
+              "cells": [
+                {
+                  "cell": 23,
+                  "column": 3,
+                  "row": 4,
+                  "projectedOwner": 2,
+                  "supportDistance": 0
+                }
+              ],
+              "fullyAligned": true
+            },
+            {
+              "diagnosticId": 30,
+              "size": 1,
+              "cells": [
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 1
+                }
+              ],
+              "fullyAligned": false
+            },
+            {
+              "diagnosticId": 574,
+              "size": 4,
+              "cells": [
+                {
+                  "cell": 6,
+                  "column": 7,
+                  "row": 1,
+                  "projectedOwner": 1,
+                  "supportDistance": 0
+                },
+                {
+                  "cell": 13,
+                  "column": 7,
+                  "row": 2,
+                  "projectedOwner": 2,
+                  "supportDistance": 1
+                },
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 2
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "projectedOwner": 2,
+                  "supportDistance": 3
+                }
+              ],
+              "fullyAligned": false
+            },
+            {
+              "diagnosticId": 593,
+              "size": 4,
+              "cells": [
+                {
+                  "cell": 13,
+                  "column": 7,
+                  "row": 2,
+                  "projectedOwner": 2,
+                  "supportDistance": 1
+                },
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 2
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "projectedOwner": 2,
+                  "supportDistance": 3
+                },
+                {
+                  "cell": 34,
+                  "column": 7,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 4
+                }
+              ],
+              "fullyAligned": false
+            },
+            {
+              "diagnosticId": 612,
+              "size": 4,
+              "cells": [
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 2
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "projectedOwner": 2,
+                  "supportDistance": 3
+                },
+                {
+                  "cell": 34,
+                  "column": 7,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 4
+                },
+                {
+                  "cell": 41,
+                  "column": 7,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 5
+                }
+              ],
+              "fullyAligned": false
+            }
+          ]
+        },
+        "cpcReroutePromising": false,
+        "forcedAlternative": {
+          "column": null,
+          "legal": false,
+          "terminal": null,
+          "support": null
+        },
+        "pathLength": 3,
+        "path": [
+          {
+            "trigger": {
+              "cell": 28,
+              "column": 1,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            },
+            "response": {
+              "cell": 35,
+              "column": 1,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          },
+          {
+            "trigger": {
+              "cell": 9,
+              "column": 3,
+              "row": 2,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            },
+            "response": {
+              "cell": 40,
+              "column": 6,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          },
+          {
+            "trigger": {
+              "cell": 16,
+              "column": 3,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            },
+            "response": {
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "SECOND_D1_C5_CONTRACTION",
+      "signature": "3-7:1|5-6:1",
+      "sourceRank": 27,
+      "sourceSupport": [
+        4,
+        6,
+        1,
+        6,
+        5,
+        5,
+        0
+      ],
+      "dynamicValidationPassed": false,
+      "syntacticallyUncoveredResiduals": [
+        {
+          "diagnosticId": 280,
+          "cellSetKey": "1,5|3,5",
+          "size": 2,
+          "minimal": false,
+          "cells": [
+            {
+              "cell": 28,
+              "column": 1,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 3
+            }
+          ]
+        },
+        {
+          "diagnosticId": 30,
+          "cellSetKey": "3,5",
+          "size": 1,
+          "minimal": true,
+          "cells": [
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 3
+            }
+          ]
+        }
+      ],
+      "firstFailure": {
+        "kind": "defender-terminal",
+        "terminalCell": {
+          "cell": 30,
+          "column": 3,
+          "row": 5,
+          "projectedOwner": 1,
+          "supportDistance": 0
+        },
+        "stateBeforeTerminal": {
+          "rank": 33,
+          "mover": 2,
+          "support": [
+            6,
+            6,
+            4,
+            6,
+            5,
+            5,
+            1
+          ]
+        },
+        "precedingP1Response": {
+          "cell": 23,
+          "column": 3,
+          "row": 4,
+          "projectedOwner": 2,
+          "supportDistance": 0,
+          "immediatelyBelowTerminal": true
+        },
+        "precedingTrigger": {
+          "cell": 16,
+          "column": 3,
+          "row": 3,
+          "projectedOwner": 1,
+          "supportDistance": 0
+        },
+        "preResponseState": {
+          "rank": 32,
+          "mover": 1,
+          "support": [
+            6,
+            6,
+            3,
+            6,
+            5,
+            5,
+            1
+          ],
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "cpcAgreedRestriction": null,
+          "legalP1Columns": [
+            3,
+            5,
+            6,
+            7
+          ],
+          "immediateP1WinningColumns": [],
+          "knownRootHandoffs": [],
+          "playableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "p1Minimal": [
+            {
+              "diagnosticId": 20,
+              "size": 1,
+              "cells": [
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 1
+                }
+              ],
+              "fullyAligned": true
+            },
+            {
+              "diagnosticId": 551,
+              "size": 3,
+              "cells": [
+                {
+                  "cell": 37,
+                  "column": 3,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 2
+                },
+                {
+                  "cell": 39,
+                  "column": 5,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 0
+                },
+                {
+                  "cell": 40,
+                  "column": 6,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 0
+                }
+              ],
+              "fullyAligned": false
+            },
+            {
+              "diagnosticId": 555,
+              "size": 3,
+              "cells": [
+                {
+                  "cell": 39,
+                  "column": 5,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 0
+                },
+                {
+                  "cell": 40,
+                  "column": 6,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 0
+                },
+                {
+                  "cell": 41,
+                  "column": 7,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 4
+                }
+              ],
+              "fullyAligned": false
+            }
+          ],
+          "p2Minimal": [
+            {
+              "diagnosticId": 23,
+              "size": 1,
+              "cells": [
+                {
+                  "cell": 23,
+                  "column": 3,
+                  "row": 4,
+                  "projectedOwner": 2,
+                  "supportDistance": 0
+                }
+              ],
+              "fullyAligned": true
+            },
+            {
+              "diagnosticId": 30,
+              "size": 1,
+              "cells": [
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 1
+                }
+              ],
+              "fullyAligned": false
+            },
+            {
+              "diagnosticId": 593,
+              "size": 4,
+              "cells": [
+                {
+                  "cell": 13,
+                  "column": 7,
+                  "row": 2,
+                  "projectedOwner": 2,
+                  "supportDistance": 0
+                },
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 1
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "projectedOwner": 2,
+                  "supportDistance": 2
+                },
+                {
+                  "cell": 34,
+                  "column": 7,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 3
+                }
+              ],
+              "fullyAligned": false
+            },
+            {
+              "diagnosticId": 612,
+              "size": 4,
+              "cells": [
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 1
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "projectedOwner": 2,
+                  "supportDistance": 2
+                },
+                {
+                  "cell": 34,
+                  "column": 7,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 3
+                },
+                {
+                  "cell": 41,
+                  "column": 7,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 4
+                }
+              ],
+              "fullyAligned": false
+            }
+          ]
+        },
+        "cpcReroutePromising": false,
+        "forcedAlternative": {
+          "column": null,
+          "legal": false,
+          "terminal": null,
+          "support": null
+        },
+        "pathLength": 3,
+        "path": [
+          {
+            "trigger": {
+              "cell": 28,
+              "column": 1,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            },
+            "response": {
+              "cell": 35,
+              "column": 1,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          },
+          {
+            "trigger": {
+              "cell": 9,
+              "column": 3,
+              "row": 2,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            },
+            "response": {
+              "cell": 6,
+              "column": 7,
+              "row": 1,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            }
+          },
+          {
+            "trigger": {
+              "cell": 16,
+              "column": 3,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            },
+            "response": {
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "SECOND_D3_C5_CONTRACTION",
+      "signature": "1-5:1|6-7:1",
+      "sourceRank": 27,
+      "sourceSupport": [
+        3,
+        6,
+        2,
+        6,
+        5,
+        5,
+        0
+      ],
+      "dynamicValidationPassed": false,
+      "syntacticallyUncoveredResiduals": [
+        {
+          "diagnosticId": 280,
+          "cellSetKey": "1,5|3,5",
+          "size": 2,
+          "minimal": false,
+          "cells": [
+            {
+              "cell": 28,
+              "column": 1,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 1
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 2
+            }
+          ]
+        },
+        {
+          "diagnosticId": 30,
+          "cellSetKey": "3,5",
+          "size": 1,
+          "minimal": true,
+          "cells": [
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 2
+            }
+          ]
+        }
+      ],
+      "firstFailure": {
+        "kind": "defender-terminal",
+        "terminalCell": {
+          "cell": 30,
+          "column": 3,
+          "row": 5,
+          "projectedOwner": 1,
+          "supportDistance": 0
+        },
+        "stateBeforeTerminal": {
+          "rank": 33,
+          "mover": 2,
+          "support": [
+            6,
+            6,
+            4,
+            6,
+            6,
+            5,
+            0
+          ]
+        },
+        "precedingP1Response": {
+          "cell": 23,
+          "column": 3,
+          "row": 4,
+          "projectedOwner": 2,
+          "supportDistance": 0,
+          "immediatelyBelowTerminal": true
+        },
+        "precedingTrigger": {
+          "cell": 16,
+          "column": 3,
+          "row": 3,
+          "projectedOwner": 1,
+          "supportDistance": 0
+        },
+        "preResponseState": {
+          "rank": 32,
+          "mover": 1,
+          "support": [
+            6,
+            6,
+            3,
+            6,
+            6,
+            5,
+            0
+          ],
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "cpcAgreedRestriction": null,
+          "legalP1Columns": [
+            3,
+            6,
+            7
+          ],
+          "immediateP1WinningColumns": [],
+          "knownRootHandoffs": [],
+          "playableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "p1Minimal": [
+            {
+              "diagnosticId": 20,
+              "size": 1,
+              "cells": [
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 2
+                }
+              ],
+              "fullyAligned": true
+            },
+            {
+              "diagnosticId": 317,
+              "size": 2,
+              "cells": [
+                {
+                  "cell": 37,
+                  "column": 3,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 2
+                },
+                {
+                  "cell": 40,
+                  "column": 6,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 0
+                }
+              ],
+              "fullyAligned": false
+            },
+            {
+              "diagnosticId": 323,
+              "size": 2,
+              "cells": [
+                {
+                  "cell": 40,
+                  "column": 6,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 0
+                },
+                {
+                  "cell": 41,
+                  "column": 7,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 5
+                }
+              ],
+              "fullyAligned": false
+            }
+          ],
+          "p2Minimal": [
+            {
+              "diagnosticId": 23,
+              "size": 1,
+              "cells": [
+                {
+                  "cell": 23,
+                  "column": 3,
+                  "row": 4,
+                  "projectedOwner": 2,
+                  "supportDistance": 0
+                }
+              ],
+              "fullyAligned": true
+            },
+            {
+              "diagnosticId": 30,
+              "size": 1,
+              "cells": [
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 1
+                }
+              ],
+              "fullyAligned": false
+            },
+            {
+              "diagnosticId": 574,
+              "size": 4,
+              "cells": [
+                {
+                  "cell": 6,
+                  "column": 7,
+                  "row": 1,
+                  "projectedOwner": 1,
+                  "supportDistance": 0
+                },
+                {
+                  "cell": 13,
+                  "column": 7,
+                  "row": 2,
+                  "projectedOwner": 2,
+                  "supportDistance": 1
+                },
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 2
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "projectedOwner": 2,
+                  "supportDistance": 3
+                }
+              ],
+              "fullyAligned": false
+            },
+            {
+              "diagnosticId": 593,
+              "size": 4,
+              "cells": [
+                {
+                  "cell": 13,
+                  "column": 7,
+                  "row": 2,
+                  "projectedOwner": 2,
+                  "supportDistance": 1
+                },
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 2
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "projectedOwner": 2,
+                  "supportDistance": 3
+                },
+                {
+                  "cell": 34,
+                  "column": 7,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 4
+                }
+              ],
+              "fullyAligned": false
+            },
+            {
+              "diagnosticId": 612,
+              "size": 4,
+              "cells": [
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 2
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "projectedOwner": 2,
+                  "supportDistance": 3
+                },
+                {
+                  "cell": 34,
+                  "column": 7,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 4
+                },
+                {
+                  "cell": 41,
+                  "column": 7,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 5
+                }
+              ],
+              "fullyAligned": false
+            }
+          ]
+        },
+        "cpcReroutePromising": false,
+        "forcedAlternative": {
+          "column": null,
+          "legal": false,
+          "terminal": null,
+          "support": null
+        },
+        "pathLength": 3,
+        "path": [
+          {
+            "trigger": {
+              "cell": 21,
+              "column": 1,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            },
+            "response": {
+              "cell": 39,
+              "column": 5,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          },
+          {
+            "trigger": {
+              "cell": 28,
+              "column": 1,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            },
+            "response": {
+              "cell": 35,
+              "column": 1,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          },
+          {
+            "trigger": {
+              "cell": 16,
+              "column": 3,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            },
+            "response": {
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "SECOND_D3_C5_CONTRACTION",
+      "signature": "1-6:1|5-7:1",
+      "sourceRank": 27,
+      "sourceSupport": [
+        3,
+        6,
+        2,
+        6,
+        5,
+        5,
+        0
+      ],
+      "dynamicValidationPassed": false,
+      "syntacticallyUncoveredResiduals": [
+        {
+          "diagnosticId": 280,
+          "cellSetKey": "1,5|3,5",
+          "size": 2,
+          "minimal": false,
+          "cells": [
+            {
+              "cell": 28,
+              "column": 1,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 1
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 2
+            }
+          ]
+        },
+        {
+          "diagnosticId": 30,
+          "cellSetKey": "3,5",
+          "size": 1,
+          "minimal": true,
+          "cells": [
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 2
+            }
+          ]
+        }
+      ],
+      "firstFailure": {
+        "kind": "defender-terminal",
+        "terminalCell": {
+          "cell": 30,
+          "column": 3,
+          "row": 5,
+          "projectedOwner": 1,
+          "supportDistance": 0
+        },
+        "stateBeforeTerminal": {
+          "rank": 33,
+          "mover": 2,
+          "support": [
+            6,
+            6,
+            4,
+            6,
+            5,
+            6,
+            0
+          ]
+        },
+        "precedingP1Response": {
+          "cell": 23,
+          "column": 3,
+          "row": 4,
+          "projectedOwner": 2,
+          "supportDistance": 0,
+          "immediatelyBelowTerminal": true
+        },
+        "precedingTrigger": {
+          "cell": 16,
+          "column": 3,
+          "row": 3,
+          "projectedOwner": 1,
+          "supportDistance": 0
+        },
+        "preResponseState": {
+          "rank": 32,
+          "mover": 1,
+          "support": [
+            6,
+            6,
+            3,
+            6,
+            5,
+            6,
+            0
+          ],
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "cpcAgreedRestriction": null,
+          "legalP1Columns": [
+            3,
+            5,
+            7
+          ],
+          "immediateP1WinningColumns": [],
+          "knownRootHandoffs": [],
+          "playableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "p1Minimal": [
+            {
+              "diagnosticId": 20,
+              "size": 1,
+              "cells": [
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 2
+                }
+              ],
+              "fullyAligned": true
+            },
+            {
+              "diagnosticId": 316,
+              "size": 2,
+              "cells": [
+                {
+                  "cell": 37,
+                  "column": 3,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 2
+                },
+                {
+                  "cell": 39,
+                  "column": 5,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 0
+                }
+              ],
+              "fullyAligned": false
+            },
+            {
+              "diagnosticId": 322,
+              "size": 2,
+              "cells": [
+                {
+                  "cell": 39,
+                  "column": 5,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 0
+                },
+                {
+                  "cell": 41,
+                  "column": 7,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 5
+                }
+              ],
+              "fullyAligned": false
+            }
+          ],
+          "p2Minimal": [
+            {
+              "diagnosticId": 23,
+              "size": 1,
+              "cells": [
+                {
+                  "cell": 23,
+                  "column": 3,
+                  "row": 4,
+                  "projectedOwner": 2,
+                  "supportDistance": 0
+                }
+              ],
+              "fullyAligned": true
+            },
+            {
+              "diagnosticId": 30,
+              "size": 1,
+              "cells": [
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 1
+                }
+              ],
+              "fullyAligned": false
+            },
+            {
+              "diagnosticId": 574,
+              "size": 4,
+              "cells": [
+                {
+                  "cell": 6,
+                  "column": 7,
+                  "row": 1,
+                  "projectedOwner": 1,
+                  "supportDistance": 0
+                },
+                {
+                  "cell": 13,
+                  "column": 7,
+                  "row": 2,
+                  "projectedOwner": 2,
+                  "supportDistance": 1
+                },
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 2
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "projectedOwner": 2,
+                  "supportDistance": 3
+                }
+              ],
+              "fullyAligned": false
+            },
+            {
+              "diagnosticId": 593,
+              "size": 4,
+              "cells": [
+                {
+                  "cell": 13,
+                  "column": 7,
+                  "row": 2,
+                  "projectedOwner": 2,
+                  "supportDistance": 1
+                },
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 2
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "projectedOwner": 2,
+                  "supportDistance": 3
+                },
+                {
+                  "cell": 34,
+                  "column": 7,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 4
+                }
+              ],
+              "fullyAligned": false
+            },
+            {
+              "diagnosticId": 612,
+              "size": 4,
+              "cells": [
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 2
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "projectedOwner": 2,
+                  "supportDistance": 3
+                },
+                {
+                  "cell": 34,
+                  "column": 7,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 4
+                },
+                {
+                  "cell": 41,
+                  "column": 7,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 5
+                }
+              ],
+              "fullyAligned": false
+            }
+          ]
+        },
+        "cpcReroutePromising": false,
+        "forcedAlternative": {
+          "column": null,
+          "legal": false,
+          "terminal": null,
+          "support": null
+        },
+        "pathLength": 3,
+        "path": [
+          {
+            "trigger": {
+              "cell": 21,
+              "column": 1,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            },
+            "response": {
+              "cell": 40,
+              "column": 6,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          },
+          {
+            "trigger": {
+              "cell": 28,
+              "column": 1,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            },
+            "response": {
+              "cell": 35,
+              "column": 1,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          },
+          {
+            "trigger": {
+              "cell": 16,
+              "column": 3,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            },
+            "response": {
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "SECOND_D3_C5_CONTRACTION",
+      "signature": "1-7:1|5-6:1",
+      "sourceRank": 27,
+      "sourceSupport": [
+        3,
+        6,
+        2,
+        6,
+        5,
+        5,
+        0
+      ],
+      "dynamicValidationPassed": false,
+      "syntacticallyUncoveredResiduals": [
+        {
+          "diagnosticId": 280,
+          "cellSetKey": "1,5|3,5",
+          "size": 2,
+          "minimal": false,
+          "cells": [
+            {
+              "cell": 28,
+              "column": 1,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 1
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 2
+            }
+          ]
+        },
+        {
+          "diagnosticId": 30,
+          "cellSetKey": "3,5",
+          "size": 1,
+          "minimal": true,
+          "cells": [
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 2
+            }
+          ]
+        }
+      ],
+      "firstFailure": {
+        "kind": "defender-terminal",
+        "terminalCell": {
+          "cell": 30,
+          "column": 3,
+          "row": 5,
+          "projectedOwner": 1,
+          "supportDistance": 0
+        },
+        "stateBeforeTerminal": {
+          "rank": 33,
+          "mover": 2,
+          "support": [
+            6,
+            6,
+            4,
+            6,
+            5,
+            5,
+            1
+          ]
+        },
+        "precedingP1Response": {
+          "cell": 23,
+          "column": 3,
+          "row": 4,
+          "projectedOwner": 2,
+          "supportDistance": 0,
+          "immediatelyBelowTerminal": true
+        },
+        "precedingTrigger": {
+          "cell": 16,
+          "column": 3,
+          "row": 3,
+          "projectedOwner": 1,
+          "supportDistance": 0
+        },
+        "preResponseState": {
+          "rank": 32,
+          "mover": 1,
+          "support": [
+            6,
+            6,
+            3,
+            6,
+            5,
+            5,
+            1
+          ],
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "cpcAgreedRestriction": null,
+          "legalP1Columns": [
+            3,
+            5,
+            6,
+            7
+          ],
+          "immediateP1WinningColumns": [],
+          "knownRootHandoffs": [],
+          "playableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "p1Minimal": [
+            {
+              "diagnosticId": 20,
+              "size": 1,
+              "cells": [
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 1
+                }
+              ],
+              "fullyAligned": true
+            },
+            {
+              "diagnosticId": 551,
+              "size": 3,
+              "cells": [
+                {
+                  "cell": 37,
+                  "column": 3,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 2
+                },
+                {
+                  "cell": 39,
+                  "column": 5,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 0
+                },
+                {
+                  "cell": 40,
+                  "column": 6,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 0
+                }
+              ],
+              "fullyAligned": false
+            },
+            {
+              "diagnosticId": 555,
+              "size": 3,
+              "cells": [
+                {
+                  "cell": 39,
+                  "column": 5,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 0
+                },
+                {
+                  "cell": 40,
+                  "column": 6,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 0
+                },
+                {
+                  "cell": 41,
+                  "column": 7,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 4
+                }
+              ],
+              "fullyAligned": false
+            }
+          ],
+          "p2Minimal": [
+            {
+              "diagnosticId": 23,
+              "size": 1,
+              "cells": [
+                {
+                  "cell": 23,
+                  "column": 3,
+                  "row": 4,
+                  "projectedOwner": 2,
+                  "supportDistance": 0
+                }
+              ],
+              "fullyAligned": true
+            },
+            {
+              "diagnosticId": 30,
+              "size": 1,
+              "cells": [
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 1
+                }
+              ],
+              "fullyAligned": false
+            },
+            {
+              "diagnosticId": 593,
+              "size": 4,
+              "cells": [
+                {
+                  "cell": 13,
+                  "column": 7,
+                  "row": 2,
+                  "projectedOwner": 2,
+                  "supportDistance": 0
+                },
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 1
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "projectedOwner": 2,
+                  "supportDistance": 2
+                },
+                {
+                  "cell": 34,
+                  "column": 7,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 3
+                }
+              ],
+              "fullyAligned": false
+            },
+            {
+              "diagnosticId": 612,
+              "size": 4,
+              "cells": [
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 1
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "projectedOwner": 2,
+                  "supportDistance": 2
+                },
+                {
+                  "cell": 34,
+                  "column": 7,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 3
+                },
+                {
+                  "cell": 41,
+                  "column": 7,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 4
+                }
+              ],
+              "fullyAligned": false
+            }
+          ]
+        },
+        "cpcReroutePromising": false,
+        "forcedAlternative": {
+          "column": null,
+          "legal": false,
+          "terminal": null,
+          "support": null
+        },
+        "pathLength": 3,
+        "path": [
+          {
+            "trigger": {
+              "cell": 21,
+              "column": 1,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            },
+            "response": {
+              "cell": 6,
+              "column": 7,
+              "row": 1,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            }
+          },
+          {
+            "trigger": {
+              "cell": 28,
+              "column": 1,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            },
+            "response": {
+              "cell": 35,
+              "column": 1,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          },
+          {
+            "trigger": {
+              "cell": 16,
+              "column": 3,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            },
+            "response": {
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "SECOND_D6_C5_CONTRACTION",
+      "signature": "1-3:1|5-7:1",
+      "sourceRank": 27,
+      "sourceSupport": [
+        3,
+        6,
+        1,
+        6,
+        5,
+        6,
+        0
+      ],
+      "dynamicValidationPassed": false,
+      "syntacticallyUncoveredResiduals": [
+        {
+          "diagnosticId": 280,
+          "cellSetKey": "1,5|3,5",
+          "size": 2,
+          "minimal": false,
+          "cells": [
+            {
+              "cell": 28,
+              "column": 1,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 1
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 3
+            }
+          ]
+        },
+        {
+          "diagnosticId": 30,
+          "cellSetKey": "3,5",
+          "size": 1,
+          "minimal": true,
+          "cells": [
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 3
+            }
+          ]
+        }
+      ],
+      "firstFailure": {
+        "kind": "defender-terminal",
+        "terminalCell": {
+          "cell": 30,
+          "column": 3,
+          "row": 5,
+          "projectedOwner": 1,
+          "supportDistance": 0
+        },
+        "stateBeforeTerminal": {
+          "rank": 33,
+          "mover": 2,
+          "support": [
+            6,
+            6,
+            4,
+            6,
+            5,
+            6,
+            0
+          ]
+        },
+        "precedingP1Response": {
+          "cell": 23,
+          "column": 3,
+          "row": 4,
+          "projectedOwner": 2,
+          "supportDistance": 0,
+          "immediatelyBelowTerminal": true
+        },
+        "precedingTrigger": {
+          "cell": 16,
+          "column": 3,
+          "row": 3,
+          "projectedOwner": 1,
+          "supportDistance": 0
+        },
+        "preResponseState": {
+          "rank": 32,
+          "mover": 1,
+          "support": [
+            6,
+            6,
+            3,
+            6,
+            5,
+            6,
+            0
+          ],
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "cpcAgreedRestriction": null,
+          "legalP1Columns": [
+            3,
+            5,
+            7
+          ],
+          "immediateP1WinningColumns": [],
+          "knownRootHandoffs": [],
+          "playableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "p1Minimal": [
+            {
+              "diagnosticId": 20,
+              "size": 1,
+              "cells": [
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 2
+                }
+              ],
+              "fullyAligned": true
+            }
+          ],
+          "p2Minimal": [
+            {
+              "diagnosticId": 23,
+              "size": 1,
+              "cells": [
+                {
+                  "cell": 23,
+                  "column": 3,
+                  "row": 4,
+                  "projectedOwner": 2,
+                  "supportDistance": 0
+                }
+              ],
+              "fullyAligned": true
+            },
+            {
+              "diagnosticId": 30,
+              "size": 1,
+              "cells": [
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 1
+                }
+              ],
+              "fullyAligned": false
+            },
+            {
+              "diagnosticId": 574,
+              "size": 4,
+              "cells": [
+                {
+                  "cell": 6,
+                  "column": 7,
+                  "row": 1,
+                  "projectedOwner": 1,
+                  "supportDistance": 0
+                },
+                {
+                  "cell": 13,
+                  "column": 7,
+                  "row": 2,
+                  "projectedOwner": 2,
+                  "supportDistance": 1
+                },
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 2
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "projectedOwner": 2,
+                  "supportDistance": 3
+                }
+              ],
+              "fullyAligned": false
+            },
+            {
+              "diagnosticId": 593,
+              "size": 4,
+              "cells": [
+                {
+                  "cell": 13,
+                  "column": 7,
+                  "row": 2,
+                  "projectedOwner": 2,
+                  "supportDistance": 1
+                },
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 2
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "projectedOwner": 2,
+                  "supportDistance": 3
+                },
+                {
+                  "cell": 34,
+                  "column": 7,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 4
+                }
+              ],
+              "fullyAligned": false
+            },
+            {
+              "diagnosticId": 612,
+              "size": 4,
+              "cells": [
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 2
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "projectedOwner": 2,
+                  "supportDistance": 3
+                },
+                {
+                  "cell": 34,
+                  "column": 7,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 4
+                },
+                {
+                  "cell": 41,
+                  "column": 7,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 5
+                }
+              ],
+              "fullyAligned": false
+            }
+          ]
+        },
+        "cpcReroutePromising": false,
+        "forcedAlternative": {
+          "column": null,
+          "legal": false,
+          "terminal": null,
+          "support": null
+        },
+        "pathLength": 3,
+        "path": [
+          {
+            "trigger": {
+              "cell": 9,
+              "column": 3,
+              "row": 2,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            },
+            "response": {
+              "cell": 21,
+              "column": 1,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          },
+          {
+            "trigger": {
+              "cell": 28,
+              "column": 1,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            },
+            "response": {
+              "cell": 35,
+              "column": 1,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          },
+          {
+            "trigger": {
+              "cell": 16,
+              "column": 3,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            },
+            "response": {
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "SECOND_D6_C5_CONTRACTION",
+      "signature": "1-5:1|3-7:1",
+      "sourceRank": 27,
+      "sourceSupport": [
+        3,
+        6,
+        1,
+        6,
+        5,
+        6,
+        0
+      ],
+      "dynamicValidationPassed": false,
+      "syntacticallyUncoveredResiduals": [
+        {
+          "diagnosticId": 280,
+          "cellSetKey": "1,5|3,5",
+          "size": 2,
+          "minimal": false,
+          "cells": [
+            {
+              "cell": 28,
+              "column": 1,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 1
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 3
+            }
+          ]
+        },
+        {
+          "diagnosticId": 30,
+          "cellSetKey": "3,5",
+          "size": 1,
+          "minimal": true,
+          "cells": [
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 3
+            }
+          ]
+        }
+      ],
+      "firstFailure": {
+        "kind": "defender-terminal",
+        "terminalCell": {
+          "cell": 30,
+          "column": 3,
+          "row": 5,
+          "projectedOwner": 1,
+          "supportDistance": 0
+        },
+        "stateBeforeTerminal": {
+          "rank": 35,
+          "mover": 2,
+          "support": [
+            6,
+            6,
+            4,
+            6,
+            6,
+            6,
+            1
+          ]
+        },
+        "precedingP1Response": {
+          "cell": 23,
+          "column": 3,
+          "row": 4,
+          "projectedOwner": 2,
+          "supportDistance": 0,
+          "immediatelyBelowTerminal": true
+        },
+        "precedingTrigger": {
+          "cell": 16,
+          "column": 3,
+          "row": 3,
+          "projectedOwner": 1,
+          "supportDistance": 0
+        },
+        "preResponseState": {
+          "rank": 34,
+          "mover": 1,
+          "support": [
+            6,
+            6,
+            3,
+            6,
+            6,
+            6,
+            1
+          ],
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "cpcAgreedRestriction": null,
+          "legalP1Columns": [
+            3,
+            7
+          ],
+          "immediateP1WinningColumns": [],
+          "knownRootHandoffs": [],
+          "playableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "p1Minimal": [
+            {
+              "diagnosticId": 20,
+              "size": 1,
+              "cells": [
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 1
+                }
+              ],
+              "fullyAligned": true
+            }
+          ],
+          "p2Minimal": [
+            {
+              "diagnosticId": 23,
+              "size": 1,
+              "cells": [
+                {
+                  "cell": 23,
+                  "column": 3,
+                  "row": 4,
+                  "projectedOwner": 2,
+                  "supportDistance": 0
+                }
+              ],
+              "fullyAligned": true
+            },
+            {
+              "diagnosticId": 30,
+              "size": 1,
+              "cells": [
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 1
+                }
+              ],
+              "fullyAligned": false
+            },
+            {
+              "diagnosticId": 593,
+              "size": 4,
+              "cells": [
+                {
+                  "cell": 13,
+                  "column": 7,
+                  "row": 2,
+                  "projectedOwner": 2,
+                  "supportDistance": 0
+                },
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 1
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "projectedOwner": 2,
+                  "supportDistance": 2
+                },
+                {
+                  "cell": 34,
+                  "column": 7,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 3
+                }
+              ],
+              "fullyAligned": false
+            },
+            {
+              "diagnosticId": 612,
+              "size": 4,
+              "cells": [
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 1
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "projectedOwner": 2,
+                  "supportDistance": 2
+                },
+                {
+                  "cell": 34,
+                  "column": 7,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 3
+                },
+                {
+                  "cell": 41,
+                  "column": 7,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 4
+                }
+              ],
+              "fullyAligned": false
+            }
+          ]
+        },
+        "cpcReroutePromising": false,
+        "forcedAlternative": {
+          "column": null,
+          "legal": false,
+          "terminal": null,
+          "support": null
+        },
+        "pathLength": 4,
+        "path": [
+          {
+            "trigger": {
+              "cell": 21,
+              "column": 1,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            },
+            "response": {
+              "cell": 39,
+              "column": 5,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          },
+          {
+            "trigger": {
+              "cell": 28,
+              "column": 1,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            },
+            "response": {
+              "cell": 35,
+              "column": 1,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          },
+          {
+            "trigger": {
+              "cell": 9,
+              "column": 3,
+              "row": 2,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            },
+            "response": {
+              "cell": 6,
+              "column": 7,
+              "row": 1,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            }
+          },
+          {
+            "trigger": {
+              "cell": 16,
+              "column": 3,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            },
+            "response": {
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "SECOND_D6_C5_CONTRACTION",
+      "signature": "1-7:1|3-5:1",
+      "sourceRank": 27,
+      "sourceSupport": [
+        3,
+        6,
+        1,
+        6,
+        5,
+        6,
+        0
+      ],
+      "dynamicValidationPassed": false,
+      "syntacticallyUncoveredResiduals": [
+        {
+          "diagnosticId": 280,
+          "cellSetKey": "1,5|3,5",
+          "size": 2,
+          "minimal": false,
+          "cells": [
+            {
+              "cell": 28,
+              "column": 1,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 1
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 3
+            }
+          ]
+        },
+        {
+          "diagnosticId": 30,
+          "cellSetKey": "3,5",
+          "size": 1,
+          "minimal": true,
+          "cells": [
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 3
+            }
+          ]
+        }
+      ],
+      "firstFailure": {
+        "kind": "defender-terminal",
+        "terminalCell": {
+          "cell": 30,
+          "column": 3,
+          "row": 5,
+          "projectedOwner": 1,
+          "supportDistance": 0
+        },
+        "stateBeforeTerminal": {
+          "rank": 35,
+          "mover": 2,
+          "support": [
+            6,
+            6,
+            4,
+            6,
+            6,
+            6,
+            1
+          ]
+        },
+        "precedingP1Response": {
+          "cell": 23,
+          "column": 3,
+          "row": 4,
+          "projectedOwner": 2,
+          "supportDistance": 0,
+          "immediatelyBelowTerminal": true
+        },
+        "precedingTrigger": {
+          "cell": 16,
+          "column": 3,
+          "row": 3,
+          "projectedOwner": 1,
+          "supportDistance": 0
+        },
+        "preResponseState": {
+          "rank": 34,
+          "mover": 1,
+          "support": [
+            6,
+            6,
+            3,
+            6,
+            6,
+            6,
+            1
+          ],
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "cpcAgreedRestriction": null,
+          "legalP1Columns": [
+            3,
+            7
+          ],
+          "immediateP1WinningColumns": [],
+          "knownRootHandoffs": [],
+          "playableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "p1Minimal": [
+            {
+              "diagnosticId": 20,
+              "size": 1,
+              "cells": [
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 1
+                }
+              ],
+              "fullyAligned": true
+            }
+          ],
+          "p2Minimal": [
+            {
+              "diagnosticId": 23,
+              "size": 1,
+              "cells": [
+                {
+                  "cell": 23,
+                  "column": 3,
+                  "row": 4,
+                  "projectedOwner": 2,
+                  "supportDistance": 0
+                }
+              ],
+              "fullyAligned": true
+            },
+            {
+              "diagnosticId": 30,
+              "size": 1,
+              "cells": [
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 1
+                }
+              ],
+              "fullyAligned": false
+            },
+            {
+              "diagnosticId": 593,
+              "size": 4,
+              "cells": [
+                {
+                  "cell": 13,
+                  "column": 7,
+                  "row": 2,
+                  "projectedOwner": 2,
+                  "supportDistance": 0
+                },
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 1
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "projectedOwner": 2,
+                  "supportDistance": 2
+                },
+                {
+                  "cell": 34,
+                  "column": 7,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 3
+                }
+              ],
+              "fullyAligned": false
+            },
+            {
+              "diagnosticId": 612,
+              "size": 4,
+              "cells": [
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 1
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "projectedOwner": 2,
+                  "supportDistance": 2
+                },
+                {
+                  "cell": 34,
+                  "column": 7,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 3
+                },
+                {
+                  "cell": 41,
+                  "column": 7,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 4
+                }
+              ],
+              "fullyAligned": false
+            }
+          ]
+        },
+        "cpcReroutePromising": false,
+        "forcedAlternative": {
+          "column": null,
+          "legal": false,
+          "terminal": null,
+          "support": null
+        },
+        "pathLength": 4,
+        "path": [
+          {
+            "trigger": {
+              "cell": 21,
+              "column": 1,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            },
+            "response": {
+              "cell": 6,
+              "column": 7,
+              "row": 1,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            }
+          },
+          {
+            "trigger": {
+              "cell": 28,
+              "column": 1,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            },
+            "response": {
+              "cell": 35,
+              "column": 1,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          },
+          {
+            "trigger": {
+              "cell": 9,
+              "column": 3,
+              "row": 2,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            },
+            "response": {
+              "cell": 39,
+              "column": 5,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          },
+          {
+            "trigger": {
+              "cell": 16,
+              "column": 3,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            },
+            "response": {
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "SECOND_D7_C5_CONTRACTION",
+      "signature": "1-3:1|5-6:1",
+      "sourceRank": 27,
+      "sourceSupport": [
+        3,
+        6,
+        1,
+        6,
+        5,
+        5,
+        1
+      ],
+      "dynamicValidationPassed": false,
+      "syntacticallyUncoveredResiduals": [
+        {
+          "diagnosticId": 280,
+          "cellSetKey": "1,5|3,5",
+          "size": 2,
+          "minimal": false,
+          "cells": [
+            {
+              "cell": 28,
+              "column": 1,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 1
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 3
+            }
+          ]
+        },
+        {
+          "diagnosticId": 30,
+          "cellSetKey": "3,5",
+          "size": 1,
+          "minimal": true,
+          "cells": [
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 3
+            }
+          ]
+        }
+      ],
+      "firstFailure": {
+        "kind": "defender-terminal",
+        "terminalCell": {
+          "cell": 30,
+          "column": 3,
+          "row": 5,
+          "projectedOwner": 1,
+          "supportDistance": 0
+        },
+        "stateBeforeTerminal": {
+          "rank": 33,
+          "mover": 2,
+          "support": [
+            6,
+            6,
+            4,
+            6,
+            5,
+            5,
+            1
+          ]
+        },
+        "precedingP1Response": {
+          "cell": 23,
+          "column": 3,
+          "row": 4,
+          "projectedOwner": 2,
+          "supportDistance": 0,
+          "immediatelyBelowTerminal": true
+        },
+        "precedingTrigger": {
+          "cell": 16,
+          "column": 3,
+          "row": 3,
+          "projectedOwner": 1,
+          "supportDistance": 0
+        },
+        "preResponseState": {
+          "rank": 32,
+          "mover": 1,
+          "support": [
+            6,
+            6,
+            3,
+            6,
+            5,
+            5,
+            1
+          ],
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "cpcAgreedRestriction": null,
+          "legalP1Columns": [
+            3,
+            5,
+            6,
+            7
+          ],
+          "immediateP1WinningColumns": [],
+          "knownRootHandoffs": [],
+          "playableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "p1Minimal": [
+            {
+              "diagnosticId": 20,
+              "size": 1,
+              "cells": [
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 1
+                }
+              ],
+              "fullyAligned": true
+            },
+            {
+              "diagnosticId": 551,
+              "size": 3,
+              "cells": [
+                {
+                  "cell": 37,
+                  "column": 3,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 2
+                },
+                {
+                  "cell": 39,
+                  "column": 5,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 0
+                },
+                {
+                  "cell": 40,
+                  "column": 6,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 0
+                }
+              ],
+              "fullyAligned": false
+            },
+            {
+              "diagnosticId": 555,
+              "size": 3,
+              "cells": [
+                {
+                  "cell": 39,
+                  "column": 5,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 0
+                },
+                {
+                  "cell": 40,
+                  "column": 6,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 0
+                },
+                {
+                  "cell": 41,
+                  "column": 7,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 4
+                }
+              ],
+              "fullyAligned": false
+            }
+          ],
+          "p2Minimal": [
+            {
+              "diagnosticId": 23,
+              "size": 1,
+              "cells": [
+                {
+                  "cell": 23,
+                  "column": 3,
+                  "row": 4,
+                  "projectedOwner": 2,
+                  "supportDistance": 0
+                }
+              ],
+              "fullyAligned": true
+            },
+            {
+              "diagnosticId": 30,
+              "size": 1,
+              "cells": [
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 1
+                }
+              ],
+              "fullyAligned": false
+            },
+            {
+              "diagnosticId": 438,
+              "size": 3,
+              "cells": [
+                {
+                  "cell": 13,
+                  "column": 7,
+                  "row": 2,
+                  "projectedOwner": 2,
+                  "supportDistance": 0
+                },
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 1
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "projectedOwner": 2,
+                  "supportDistance": 2
+                }
+              ],
+              "fullyAligned": false
+            },
+            {
+              "diagnosticId": 612,
+              "size": 4,
+              "cells": [
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 1
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "projectedOwner": 2,
+                  "supportDistance": 2
+                },
+                {
+                  "cell": 34,
+                  "column": 7,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 3
+                },
+                {
+                  "cell": 41,
+                  "column": 7,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 4
+                }
+              ],
+              "fullyAligned": false
+            }
+          ]
+        },
+        "cpcReroutePromising": false,
+        "forcedAlternative": {
+          "column": null,
+          "legal": false,
+          "terminal": null,
+          "support": null
+        },
+        "pathLength": 3,
+        "path": [
+          {
+            "trigger": {
+              "cell": 9,
+              "column": 3,
+              "row": 2,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            },
+            "response": {
+              "cell": 21,
+              "column": 1,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          },
+          {
+            "trigger": {
+              "cell": 28,
+              "column": 1,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            },
+            "response": {
+              "cell": 35,
+              "column": 1,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          },
+          {
+            "trigger": {
+              "cell": 16,
+              "column": 3,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            },
+            "response": {
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "SECOND_D7_C5_CONTRACTION",
+      "signature": "1-5:1|3-6:1",
+      "sourceRank": 27,
+      "sourceSupport": [
+        3,
+        6,
+        1,
+        6,
+        5,
+        5,
+        1
+      ],
+      "dynamicValidationPassed": false,
+      "syntacticallyUncoveredResiduals": [
+        {
+          "diagnosticId": 280,
+          "cellSetKey": "1,5|3,5",
+          "size": 2,
+          "minimal": false,
+          "cells": [
+            {
+              "cell": 28,
+              "column": 1,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 1
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 3
+            }
+          ]
+        },
+        {
+          "diagnosticId": 30,
+          "cellSetKey": "3,5",
+          "size": 1,
+          "minimal": true,
+          "cells": [
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 3
+            }
+          ]
+        }
+      ],
+      "firstFailure": {
+        "kind": "defender-terminal",
+        "terminalCell": {
+          "cell": 30,
+          "column": 3,
+          "row": 5,
+          "projectedOwner": 1,
+          "supportDistance": 0
+        },
+        "stateBeforeTerminal": {
+          "rank": 35,
+          "mover": 2,
+          "support": [
+            6,
+            6,
+            4,
+            6,
+            6,
+            6,
+            1
+          ]
+        },
+        "precedingP1Response": {
+          "cell": 23,
+          "column": 3,
+          "row": 4,
+          "projectedOwner": 2,
+          "supportDistance": 0,
+          "immediatelyBelowTerminal": true
+        },
+        "precedingTrigger": {
+          "cell": 16,
+          "column": 3,
+          "row": 3,
+          "projectedOwner": 1,
+          "supportDistance": 0
+        },
+        "preResponseState": {
+          "rank": 34,
+          "mover": 1,
+          "support": [
+            6,
+            6,
+            3,
+            6,
+            6,
+            6,
+            1
+          ],
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "cpcAgreedRestriction": null,
+          "legalP1Columns": [
+            3,
+            7
+          ],
+          "immediateP1WinningColumns": [],
+          "knownRootHandoffs": [],
+          "playableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "p1Minimal": [
+            {
+              "diagnosticId": 20,
+              "size": 1,
+              "cells": [
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 1
+                }
+              ],
+              "fullyAligned": true
+            },
+            {
+              "diagnosticId": 37,
+              "size": 1,
+              "cells": [
+                {
+                  "cell": 37,
+                  "column": 3,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 2
+                }
+              ],
+              "fullyAligned": false
+            },
+            {
+              "diagnosticId": 41,
+              "size": 1,
+              "cells": [
+                {
+                  "cell": 41,
+                  "column": 7,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 4
+                }
+              ],
+              "fullyAligned": false
+            }
+          ],
+          "p2Minimal": [
+            {
+              "diagnosticId": 23,
+              "size": 1,
+              "cells": [
+                {
+                  "cell": 23,
+                  "column": 3,
+                  "row": 4,
+                  "projectedOwner": 2,
+                  "supportDistance": 0
+                }
+              ],
+              "fullyAligned": true
+            },
+            {
+              "diagnosticId": 30,
+              "size": 1,
+              "cells": [
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 1
+                }
+              ],
+              "fullyAligned": false
+            },
+            {
+              "diagnosticId": 438,
+              "size": 3,
+              "cells": [
+                {
+                  "cell": 13,
+                  "column": 7,
+                  "row": 2,
+                  "projectedOwner": 2,
+                  "supportDistance": 0
+                },
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 1
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "projectedOwner": 2,
+                  "supportDistance": 2
+                }
+              ],
+              "fullyAligned": false
+            },
+            {
+              "diagnosticId": 612,
+              "size": 4,
+              "cells": [
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 1
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "projectedOwner": 2,
+                  "supportDistance": 2
+                },
+                {
+                  "cell": 34,
+                  "column": 7,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 3
+                },
+                {
+                  "cell": 41,
+                  "column": 7,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 4
+                }
+              ],
+              "fullyAligned": false
+            }
+          ]
+        },
+        "cpcReroutePromising": false,
+        "forcedAlternative": {
+          "column": null,
+          "legal": false,
+          "terminal": null,
+          "support": null
+        },
+        "pathLength": 4,
+        "path": [
+          {
+            "trigger": {
+              "cell": 21,
+              "column": 1,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            },
+            "response": {
+              "cell": 39,
+              "column": 5,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          },
+          {
+            "trigger": {
+              "cell": 28,
+              "column": 1,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            },
+            "response": {
+              "cell": 35,
+              "column": 1,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          },
+          {
+            "trigger": {
+              "cell": 9,
+              "column": 3,
+              "row": 2,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            },
+            "response": {
+              "cell": 40,
+              "column": 6,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          },
+          {
+            "trigger": {
+              "cell": 16,
+              "column": 3,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            },
+            "response": {
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "SECOND_D7_C5_CONTRACTION",
+      "signature": "1-6:1|3-5:1",
+      "sourceRank": 27,
+      "sourceSupport": [
+        3,
+        6,
+        1,
+        6,
+        5,
+        5,
+        1
+      ],
+      "dynamicValidationPassed": false,
+      "syntacticallyUncoveredResiduals": [
+        {
+          "diagnosticId": 280,
+          "cellSetKey": "1,5|3,5",
+          "size": 2,
+          "minimal": false,
+          "cells": [
+            {
+              "cell": 28,
+              "column": 1,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 1
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 3
+            }
+          ]
+        },
+        {
+          "diagnosticId": 30,
+          "cellSetKey": "3,5",
+          "size": 1,
+          "minimal": true,
+          "cells": [
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 3
+            }
+          ]
+        }
+      ],
+      "firstFailure": {
+        "kind": "defender-terminal",
+        "terminalCell": {
+          "cell": 30,
+          "column": 3,
+          "row": 5,
+          "projectedOwner": 1,
+          "supportDistance": 0
+        },
+        "stateBeforeTerminal": {
+          "rank": 35,
+          "mover": 2,
+          "support": [
+            6,
+            6,
+            4,
+            6,
+            6,
+            6,
+            1
+          ]
+        },
+        "precedingP1Response": {
+          "cell": 23,
+          "column": 3,
+          "row": 4,
+          "projectedOwner": 2,
+          "supportDistance": 0,
+          "immediatelyBelowTerminal": true
+        },
+        "precedingTrigger": {
+          "cell": 16,
+          "column": 3,
+          "row": 3,
+          "projectedOwner": 1,
+          "supportDistance": 0
+        },
+        "preResponseState": {
+          "rank": 34,
+          "mover": 1,
+          "support": [
+            6,
+            6,
+            3,
+            6,
+            6,
+            6,
+            1
+          ],
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "cpcAgreedRestriction": null,
+          "legalP1Columns": [
+            3,
+            7
+          ],
+          "immediateP1WinningColumns": [],
+          "knownRootHandoffs": [],
+          "playableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "p1Minimal": [
+            {
+              "diagnosticId": 20,
+              "size": 1,
+              "cells": [
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 1
+                }
+              ],
+              "fullyAligned": true
+            },
+            {
+              "diagnosticId": 37,
+              "size": 1,
+              "cells": [
+                {
+                  "cell": 37,
+                  "column": 3,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 2
+                }
+              ],
+              "fullyAligned": false
+            },
+            {
+              "diagnosticId": 41,
+              "size": 1,
+              "cells": [
+                {
+                  "cell": 41,
+                  "column": 7,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 4
+                }
+              ],
+              "fullyAligned": false
+            }
+          ],
+          "p2Minimal": [
+            {
+              "diagnosticId": 23,
+              "size": 1,
+              "cells": [
+                {
+                  "cell": 23,
+                  "column": 3,
+                  "row": 4,
+                  "projectedOwner": 2,
+                  "supportDistance": 0
+                }
+              ],
+              "fullyAligned": true
+            },
+            {
+              "diagnosticId": 30,
+              "size": 1,
+              "cells": [
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 1
+                }
+              ],
+              "fullyAligned": false
+            },
+            {
+              "diagnosticId": 438,
+              "size": 3,
+              "cells": [
+                {
+                  "cell": 13,
+                  "column": 7,
+                  "row": 2,
+                  "projectedOwner": 2,
+                  "supportDistance": 0
+                },
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 1
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "projectedOwner": 2,
+                  "supportDistance": 2
+                }
+              ],
+              "fullyAligned": false
+            },
+            {
+              "diagnosticId": 612,
+              "size": 4,
+              "cells": [
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 1
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "projectedOwner": 2,
+                  "supportDistance": 2
+                },
+                {
+                  "cell": 34,
+                  "column": 7,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 3
+                },
+                {
+                  "cell": 41,
+                  "column": 7,
+                  "row": 6,
+                  "projectedOwner": 2,
+                  "supportDistance": 4
+                }
+              ],
+              "fullyAligned": false
+            }
+          ]
+        },
+        "cpcReroutePromising": false,
+        "forcedAlternative": {
+          "column": null,
+          "legal": false,
+          "terminal": null,
+          "support": null
+        },
+        "pathLength": 4,
+        "path": [
+          {
+            "trigger": {
+              "cell": 21,
+              "column": 1,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            },
+            "response": {
+              "cell": 40,
+              "column": 6,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          },
+          {
+            "trigger": {
+              "cell": 28,
+              "column": 1,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            },
+            "response": {
+              "cell": 35,
+              "column": 1,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          },
+          {
+            "trigger": {
+              "cell": 9,
+              "column": 3,
+              "row": 2,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            },
+            "response": {
+              "cell": 39,
+              "column": 5,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          },
+          {
+            "trigger": {
+              "cell": 16,
+              "column": 3,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            },
+            "response": {
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "recurrence": [
+    {
+      "signature": "3|5|3|4|3|3|CPC_EXACT||CPC_EXACT|",
+      "count": 12,
+      "sourceStates": [
+        "SECOND_D1_C5_CONTRACTION",
+        "SECOND_D3_C5_CONTRACTION",
+        "SECOND_D6_C5_CONTRACTION",
+        "SECOND_D7_C5_CONTRACTION"
+      ],
+      "pairingCandidates": [
+        "SECOND_D1_C5_CONTRACTION:3-5:1|6-7:1",
+        "SECOND_D1_C5_CONTRACTION:3-6:1|5-7:1",
+        "SECOND_D1_C5_CONTRACTION:3-7:1|5-6:1",
+        "SECOND_D3_C5_CONTRACTION:1-5:1|6-7:1",
+        "SECOND_D3_C5_CONTRACTION:1-6:1|5-7:1",
+        "SECOND_D3_C5_CONTRACTION:1-7:1|5-6:1",
+        "SECOND_D6_C5_CONTRACTION:1-3:1|5-7:1",
+        "SECOND_D6_C5_CONTRACTION:1-5:1|3-7:1",
+        "SECOND_D6_C5_CONTRACTION:1-7:1|3-5:1",
+        "SECOND_D7_C5_CONTRACTION:1-3:1|5-6:1",
+        "SECOND_D7_C5_CONTRACTION:1-5:1|3-6:1",
+        "SECOND_D7_C5_CONTRACTION:1-6:1|3-5:1"
+      ],
+      "terminalCell": {
+        "cell": 30,
+        "column": 3,
+        "row": 5,
+        "projectedOwner": 1,
+        "supportDistance": 0
+      },
+      "hazardousResponse": {
+        "cell": 23,
+        "column": 3,
+        "row": 4,
+        "projectedOwner": 2,
+        "supportDistance": 0,
+        "immediatelyBelowTerminal": true
+      },
+      "trigger": {
+        "cell": 16,
+        "column": 3,
+        "row": 3,
+        "projectedOwner": 1,
+        "supportDistance": 0
+      },
+      "cpc": {
+        "baseline": {
+          "kind": "CPC_EXACT",
+          "interval": [
+            -1,
+            -1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0,
+          "projectedCount": [
+            0,
+            0
+          ],
+          "projectedForks": [
+            0,
+            0
+          ]
+        },
+        "frontier": {
+          "kind": "CPC_EXACT",
+          "interval": [
+            -1,
+            -1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0,
+          "projectedCount": [
+            0,
+            0
+          ],
+          "projectedForks": [
+            0,
+            0
+          ]
+        }
+      },
+      "cpcReroutePromisingCount": 0
+    },
+    {
+      "signature": "3|4|6|6|3|3|CPC_EXACT||CPC_EXACT|",
+      "count": 1,
+      "sourceStates": [
+        "FIRST_D3_C1_CONTRACTION"
+      ],
+      "pairingCandidates": [
+        "FIRST_D3_C1_CONTRACTION:1-5:1|3-6:1"
+      ],
+      "terminalCell": {
+        "cell": 23,
+        "column": 3,
+        "row": 4,
+        "projectedOwner": 2,
+        "supportDistance": 0
+      },
+      "hazardousResponse": {
+        "cell": 40,
+        "column": 6,
+        "row": 6,
+        "projectedOwner": 2,
+        "supportDistance": 0,
+        "immediatelyBelowTerminal": false
+      },
+      "trigger": {
+        "cell": 16,
+        "column": 3,
+        "row": 3,
+        "projectedOwner": 1,
+        "supportDistance": 0
+      },
+      "cpc": {
+        "baseline": {
+          "kind": "CPC_EXACT",
+          "interval": [
+            -1,
+            -1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0,
+          "projectedCount": [
+            0,
+            0
+          ],
+          "projectedForks": [
+            0,
+            0
+          ]
+        },
+        "frontier": {
+          "kind": "CPC_EXACT",
+          "interval": [
+            -1,
+            -1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0,
+          "projectedCount": [
+            0,
+            0
+          ],
+          "projectedForks": [
+            0,
+            0
+          ]
+        }
+      },
+      "cpcReroutePromisingCount": 0
+    }
+  ],
+  "summary": {
+    "candidateCount": 13,
+    "cpcReroutePromisingCount": 0,
+    "cpcReroutePromisingIds": []
+  },
+  "conclusion": [
+    "Every maximum partial-reservoir policy is traced to its first exact defender terminal, preserving the immediately preceding trigger/response pair.",
+    "In every tested failure, the mapped Player-1 reservoir response is immediately below the eventual Player-2 terminal cell and therefore creates the final support lift.",
+    "Production CPC supplies no qualifying one-column reroute away from the hazardous reservoir response at the traced predecessor states."
+  ],
+  "boundary": [
+    "This is discovery evidence only and does not authorize a response override or certify the rank-20 root.",
+    "No oracle, solved W/D/L, minimax, ordinary free-branch game-tree value, best-move table, opening book, BSFP solved frontier, physical-position identity shortcut, or sealed holdout is used.",
+    "Production CPC, JSMinSys, target-reservoir semantics, and BSFP remain unchanged."
+  ]
+}
