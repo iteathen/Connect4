@@ -1,0 +1,62 @@
+{
+  "schema": "connect4.cpc_current_state_guard_set_bounded_template_target.v1",
+  "jsMinSysSha": "0899c5811918e68c22dc1b0e4dd8af97d9b4bbcb",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "root": {
+    "id": "candidate6",
+    "sequence": "4444415666",
+    "rank": 10,
+    "attacker": 1,
+    "support": [
+      1,
+      0,
+      0,
+      5,
+      1,
+      3,
+      0
+    ]
+  },
+  "targetHorizon": 23,
+  "absolutePly": 33,
+  "initialOddDefenderMask": 98305,
+  "initialGuards": [
+    {
+      "column": 1,
+      "height": 1
+    },
+    {
+      "column": 6,
+      "height": 3
+    }
+  ],
+  "result": {
+    "accept": true,
+    "class": "GUARDSET_D23"
+  },
+  "work": {
+    "classCalls": 4431543,
+    "memoHits": 3377847,
+    "branchTests": 11437165,
+    "responseTests": 18435370,
+    "cofactorTransitions": 29872535,
+    "cofactorCount": 56221746,
+    "guardRenewCandidates": 1201351,
+    "supportLiftCandidates": 6270749,
+    "topDebtCandidates": 3767955,
+    "ordinaryCandidates": 27629514,
+    "classMemoSize": 4431543,
+    "baseMemoSize": 0,
+    "templateMemoSize": 2048,
+    "responseOptionMemoSize": 0,
+    "cofactorMemoSize": 0,
+    "templateCacheLimit": 2048
+  },
+  "boundary": [
+    "The guard set and proof grammar are unchanged; this execution variant additionally bounds template retention and removes redundant base-state memoization.",
+    "No new response type is introduced: all candidates belong to previously frozen CPC response, guard-renewal, support-lift, or top-debt theorems.",
+    "Top-debt repair retains the existing premise that at least one carried guard survives trigger and response untouched.",
+    "Acceptance is a constructive survival lower certificate only; rejection is not an attacker upper bound."
+  ]
+}
