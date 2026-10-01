@@ -1,0 +1,1748 @@
+{
+  "schema": "connect4.cpc_pair_star_fresh_qualification.v1",
+  "theoremVersion": "0.1",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "trainingPrefixExcluded": "444441566",
+  "corpus": {
+    "generator": "deterministic xorshift32 legal nonterminal prefixes",
+    "maxTrials": 120000,
+    "targetControls": 24,
+    "qualifyingPositions": 25,
+    "starsExamined": 25
+  },
+  "controls": [
+    {
+      "sequence": "11563254626631533611",
+      "rank": 20,
+      "attacker": 1,
+      "hub": {
+        "column": 4,
+        "row": 3
+      },
+      "upperHub": {
+        "column": 4,
+        "row": 4
+      },
+      "depth": 1,
+      "leaves": {
+        "lower": [
+          {
+            "column": 7,
+            "row": 3
+          },
+          {
+            "column": 2,
+            "row": 5
+          }
+        ],
+        "upper": [
+          {
+            "column": 2,
+            "row": 4
+          },
+          {
+            "column": 3,
+            "row": 5
+          }
+        ]
+      },
+      "guard": {
+        "passed": true,
+        "defenderImmediateWinColumns": []
+      },
+      "branches": [
+        {
+          "kind": "SUPPORT_TERMINAL",
+          "terminal": true
+        }
+      ]
+    },
+    {
+      "sequence": "475447511352",
+      "rank": 12,
+      "attacker": 1,
+      "hub": {
+        "column": 3,
+        "row": 3
+      },
+      "upperHub": {
+        "column": 3,
+        "row": 4
+      },
+      "depth": 1,
+      "leaves": {
+        "lower": [
+          {
+            "column": 2,
+            "row": 3
+          },
+          {
+            "column": 6,
+            "row": 3
+          }
+        ],
+        "upper": [
+          {
+            "column": 2,
+            "row": 5
+          },
+          {
+            "column": 6,
+            "row": 1
+          }
+        ]
+      },
+      "guard": {
+        "passed": true,
+        "defenderImmediateWinColumns": []
+      },
+      "branches": [
+        {
+          "defenderReply": 1,
+          "kind": "LOWER_HUB",
+          "terminal": false,
+          "survivingLowerSingletons": [
+            {
+              "column": 2,
+              "row": 3
+            },
+            {
+              "column": 6,
+              "row": 3
+            }
+          ]
+        },
+        {
+          "defenderReply": 2,
+          "kind": "LOWER_HUB",
+          "terminal": false,
+          "survivingLowerSingletons": [
+            {
+              "column": 2,
+              "row": 3
+            },
+            {
+              "column": 6,
+              "row": 3
+            }
+          ]
+        },
+        {
+          "defenderReply": 3,
+          "kind": "UPPER_HUB",
+          "terminal": false,
+          "upperSingletons": [
+            {
+              "column": 2,
+              "row": 5
+            },
+            {
+              "column": 6,
+              "row": 1
+            }
+          ]
+        },
+        {
+          "defenderReply": 4,
+          "kind": "LOWER_HUB",
+          "terminal": false,
+          "survivingLowerSingletons": [
+            {
+              "column": 2,
+              "row": 3
+            },
+            {
+              "column": 6,
+              "row": 3
+            }
+          ]
+        },
+        {
+          "defenderReply": 5,
+          "kind": "LOWER_HUB",
+          "terminal": false,
+          "survivingLowerSingletons": [
+            {
+              "column": 2,
+              "row": 3
+            },
+            {
+              "column": 6,
+              "row": 3
+            }
+          ]
+        },
+        {
+          "defenderReply": 6,
+          "kind": "LOWER_HUB",
+          "terminal": false,
+          "survivingLowerSingletons": [
+            {
+              "column": 2,
+              "row": 3
+            },
+            {
+              "column": 6,
+              "row": 3
+            }
+          ]
+        },
+        {
+          "defenderReply": 7,
+          "kind": "LOWER_HUB",
+          "terminal": false,
+          "survivingLowerSingletons": [
+            {
+              "column": 2,
+              "row": 3
+            },
+            {
+              "column": 6,
+              "row": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sequence": "565762335161",
+      "rank": 12,
+      "attacker": 1,
+      "hub": {
+        "column": 4,
+        "row": 2
+      },
+      "upperHub": {
+        "column": 4,
+        "row": 3
+      },
+      "depth": 1,
+      "leaves": {
+        "lower": [
+          {
+            "column": 7,
+            "row": 2
+          },
+          {
+            "column": 6,
+            "row": 4
+          }
+        ],
+        "upper": [
+          {
+            "column": 3,
+            "row": 3
+          },
+          {
+            "column": 7,
+            "row": 3
+          }
+        ]
+      },
+      "guard": {
+        "passed": true,
+        "defenderImmediateWinColumns": []
+      },
+      "branches": [
+        {
+          "defenderReply": 1,
+          "kind": "LOWER_HUB",
+          "terminal": false,
+          "survivingLowerSingletons": [
+            {
+              "column": 7,
+              "row": 2
+            },
+            {
+              "column": 6,
+              "row": 4
+            }
+          ]
+        },
+        {
+          "defenderReply": 2,
+          "kind": "LOWER_HUB",
+          "terminal": false,
+          "survivingLowerSingletons": [
+            {
+              "column": 7,
+              "row": 2
+            },
+            {
+              "column": 6,
+              "row": 4
+            }
+          ]
+        },
+        {
+          "defenderReply": 3,
+          "kind": "LOWER_HUB",
+          "terminal": false,
+          "survivingLowerSingletons": [
+            {
+              "column": 7,
+              "row": 2
+            },
+            {
+              "column": 6,
+              "row": 4
+            }
+          ]
+        },
+        {
+          "defenderReply": 4,
+          "kind": "UPPER_HUB",
+          "terminal": false,
+          "upperSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ]
+        },
+        {
+          "defenderReply": 5,
+          "kind": "LOWER_HUB",
+          "terminal": false,
+          "survivingLowerSingletons": [
+            {
+              "column": 7,
+              "row": 2
+            },
+            {
+              "column": 6,
+              "row": 4
+            }
+          ]
+        },
+        {
+          "defenderReply": 6,
+          "kind": "LOWER_HUB",
+          "terminal": false,
+          "survivingLowerSingletons": [
+            {
+              "column": 7,
+              "row": 2
+            }
+          ]
+        },
+        {
+          "defenderReply": 7,
+          "kind": "LOWER_HUB",
+          "terminal": false,
+          "survivingLowerSingletons": [
+            {
+              "column": 6,
+              "row": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sequence": "23742433335557277452",
+      "rank": 20,
+      "attacker": 1,
+      "hub": {
+        "column": 4,
+        "row": 4
+      },
+      "upperHub": {
+        "column": 4,
+        "row": 5
+      },
+      "depth": 0,
+      "leaves": {
+        "lower": [
+          {
+            "column": 6,
+            "row": 2
+          },
+          {
+            "column": 6,
+            "row": 4
+          }
+        ],
+        "upper": [
+          {
+            "column": 5,
+            "row": 6
+          },
+          {
+            "column": 1,
+            "row": 2
+          }
+        ]
+      },
+      "guard": {
+        "passed": true,
+        "defenderImmediateWinColumns": []
+      },
+      "branches": [
+        {
+          "kind": "DIRECT_HUB",
+          "terminal": false,
+          "lowerSingletons": [
+            {
+              "column": 6,
+              "row": 2
+            },
+            {
+              "column": 6,
+              "row": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sequence": "67224734216647",
+      "rank": 14,
+      "attacker": 1,
+      "hub": {
+        "column": 3,
+        "row": 2
+      },
+      "upperHub": {
+        "column": 3,
+        "row": 3
+      },
+      "depth": 0,
+      "leaves": {
+        "lower": [
+          {
+            "column": 1,
+            "row": 4
+          },
+          {
+            "column": 5,
+            "row": 4
+          }
+        ],
+        "upper": [
+          {
+            "column": 1,
+            "row": 3
+          },
+          {
+            "column": 5,
+            "row": 3
+          }
+        ]
+      },
+      "guard": {
+        "passed": true,
+        "defenderImmediateWinColumns": []
+      },
+      "branches": [
+        {
+          "kind": "DIRECT_HUB",
+          "terminal": false,
+          "lowerSingletons": [
+            {
+              "column": 1,
+              "row": 4
+            },
+            {
+              "column": 5,
+              "row": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sequence": "577224446261153",
+      "rank": 15,
+      "attacker": 2,
+      "hub": {
+        "column": 3,
+        "row": 2
+      },
+      "upperHub": {
+        "column": 3,
+        "row": 3
+      },
+      "depth": 0,
+      "leaves": {
+        "lower": [
+          {
+            "column": 1,
+            "row": 4
+          },
+          {
+            "column": 5,
+            "row": 4
+          }
+        ],
+        "upper": [
+          {
+            "column": 1,
+            "row": 3
+          },
+          {
+            "column": 5,
+            "row": 3
+          }
+        ]
+      },
+      "guard": {
+        "passed": true,
+        "defenderImmediateWinColumns": []
+      },
+      "branches": [
+        {
+          "kind": "DIRECT_HUB",
+          "terminal": false,
+          "lowerSingletons": [
+            {
+              "column": 1,
+              "row": 4
+            },
+            {
+              "column": 5,
+              "row": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sequence": "6662664322444742",
+      "rank": 16,
+      "attacker": 1,
+      "hub": {
+        "column": 3,
+        "row": 2
+      },
+      "upperHub": {
+        "column": 3,
+        "row": 3
+      },
+      "depth": 0,
+      "leaves": {
+        "lower": [
+          {
+            "column": 1,
+            "row": 2
+          },
+          {
+            "column": 5,
+            "row": 2
+          }
+        ],
+        "upper": [
+          {
+            "column": 1,
+            "row": 1
+          },
+          {
+            "column": 5,
+            "row": 5
+          }
+        ]
+      },
+      "guard": {
+        "passed": true,
+        "defenderImmediateWinColumns": []
+      },
+      "branches": [
+        {
+          "kind": "DIRECT_HUB",
+          "terminal": false,
+          "lowerSingletons": [
+            {
+              "column": 1,
+              "row": 2
+            },
+            {
+              "column": 5,
+              "row": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sequence": "6441621426562631475",
+      "rank": 19,
+      "attacker": 2,
+      "hub": {
+        "column": 5,
+        "row": 3
+      },
+      "upperHub": {
+        "column": 5,
+        "row": 4
+      },
+      "depth": 0,
+      "leaves": {
+        "lower": [
+          {
+            "column": 3,
+            "row": 3
+          },
+          {
+            "column": 7,
+            "row": 3
+          }
+        ],
+        "upper": [
+          {
+            "column": 7,
+            "row": 6
+          },
+          {
+            "column": 3,
+            "row": 2
+          }
+        ]
+      },
+      "guard": {
+        "passed": true,
+        "defenderImmediateWinColumns": []
+      },
+      "branches": [
+        {
+          "kind": "DIRECT_HUB",
+          "terminal": false,
+          "lowerSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sequence": "74353436774163",
+      "rank": 14,
+      "attacker": 1,
+      "hub": {
+        "column": 5,
+        "row": 3
+      },
+      "upperHub": {
+        "column": 5,
+        "row": 4
+      },
+      "depth": 1,
+      "leaves": {
+        "lower": [
+          {
+            "column": 2,
+            "row": 3
+          },
+          {
+            "column": 6,
+            "row": 3
+          }
+        ],
+        "upper": [
+          {
+            "column": 2,
+            "row": 1
+          },
+          {
+            "column": 6,
+            "row": 5
+          }
+        ]
+      },
+      "guard": {
+        "passed": true,
+        "defenderImmediateWinColumns": []
+      },
+      "branches": [
+        {
+          "defenderReply": 1,
+          "kind": "LOWER_HUB",
+          "terminal": false,
+          "survivingLowerSingletons": [
+            {
+              "column": 2,
+              "row": 3
+            },
+            {
+              "column": 6,
+              "row": 3
+            }
+          ]
+        },
+        {
+          "defenderReply": 2,
+          "kind": "LOWER_HUB",
+          "terminal": false,
+          "survivingLowerSingletons": [
+            {
+              "column": 2,
+              "row": 3
+            },
+            {
+              "column": 6,
+              "row": 3
+            }
+          ]
+        },
+        {
+          "defenderReply": 3,
+          "kind": "LOWER_HUB",
+          "terminal": false,
+          "survivingLowerSingletons": [
+            {
+              "column": 2,
+              "row": 3
+            },
+            {
+              "column": 6,
+              "row": 3
+            }
+          ]
+        },
+        {
+          "defenderReply": 4,
+          "kind": "LOWER_HUB",
+          "terminal": false,
+          "survivingLowerSingletons": [
+            {
+              "column": 2,
+              "row": 3
+            },
+            {
+              "column": 6,
+              "row": 3
+            }
+          ]
+        },
+        {
+          "defenderReply": 5,
+          "kind": "UPPER_HUB",
+          "terminal": false,
+          "upperSingletons": [
+            {
+              "column": 2,
+              "row": 1
+            },
+            {
+              "column": 6,
+              "row": 5
+            }
+          ]
+        },
+        {
+          "defenderReply": 6,
+          "kind": "LOWER_HUB",
+          "terminal": false,
+          "survivingLowerSingletons": [
+            {
+              "column": 2,
+              "row": 3
+            }
+          ]
+        },
+        {
+          "defenderReply": 7,
+          "kind": "LOWER_HUB",
+          "terminal": false,
+          "survivingLowerSingletons": [
+            {
+              "column": 2,
+              "row": 3
+            },
+            {
+              "column": 6,
+              "row": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sequence": "131544716232674462",
+      "rank": 18,
+      "attacker": 1,
+      "hub": {
+        "column": 5,
+        "row": 2
+      },
+      "upperHub": {
+        "column": 5,
+        "row": 3
+      },
+      "depth": 0,
+      "leaves": {
+        "lower": [
+          {
+            "column": 3,
+            "row": 4
+          },
+          {
+            "column": 7,
+            "row": 4
+          }
+        ],
+        "upper": [
+          {
+            "column": 3,
+            "row": 3
+          },
+          {
+            "column": 7,
+            "row": 3
+          }
+        ]
+      },
+      "guard": {
+        "passed": true,
+        "defenderImmediateWinColumns": []
+      },
+      "branches": [
+        {
+          "kind": "DIRECT_HUB",
+          "terminal": false,
+          "lowerSingletons": [
+            {
+              "column": 3,
+              "row": 4
+            },
+            {
+              "column": 7,
+              "row": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sequence": "177614164624526",
+      "rank": 15,
+      "attacker": 2,
+      "hub": {
+        "column": 5,
+        "row": 2
+      },
+      "upperHub": {
+        "column": 5,
+        "row": 3
+      },
+      "depth": 0,
+      "leaves": {
+        "lower": [
+          {
+            "column": 3,
+            "row": 4
+          },
+          {
+            "column": 7,
+            "row": 4
+          }
+        ],
+        "upper": [
+          {
+            "column": 3,
+            "row": 3
+          },
+          {
+            "column": 7,
+            "row": 3
+          }
+        ]
+      },
+      "guard": {
+        "passed": true,
+        "defenderImmediateWinColumns": []
+      },
+      "branches": [
+        {
+          "kind": "DIRECT_HUB",
+          "terminal": false,
+          "lowerSingletons": [
+            {
+              "column": 3,
+              "row": 4
+            },
+            {
+              "column": 7,
+              "row": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sequence": "66633261454741",
+      "rank": 14,
+      "attacker": 1,
+      "hub": {
+        "column": 5,
+        "row": 2
+      },
+      "upperHub": {
+        "column": 5,
+        "row": 3
+      },
+      "depth": 0,
+      "leaves": {
+        "lower": [
+          {
+            "column": 3,
+            "row": 4
+          },
+          {
+            "column": 7,
+            "row": 4
+          }
+        ],
+        "upper": [
+          {
+            "column": 3,
+            "row": 3
+          },
+          {
+            "column": 7,
+            "row": 3
+          }
+        ]
+      },
+      "guard": {
+        "passed": true,
+        "defenderImmediateWinColumns": []
+      },
+      "branches": [
+        {
+          "kind": "DIRECT_HUB",
+          "terminal": false,
+          "lowerSingletons": [
+            {
+              "column": 3,
+              "row": 4
+            },
+            {
+              "column": 7,
+              "row": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sequence": "535637372354",
+      "rank": 12,
+      "attacker": 1,
+      "hub": {
+        "column": 4,
+        "row": 2
+      },
+      "upperHub": {
+        "column": 4,
+        "row": 3
+      },
+      "depth": 0,
+      "leaves": {
+        "lower": [
+          {
+            "column": 6,
+            "row": 2
+          },
+          {
+            "column": 2,
+            "row": 4
+          }
+        ],
+        "upper": [
+          {
+            "column": 2,
+            "row": 3
+          },
+          {
+            "column": 6,
+            "row": 3
+          }
+        ]
+      },
+      "guard": {
+        "passed": true,
+        "defenderImmediateWinColumns": []
+      },
+      "branches": [
+        {
+          "kind": "DIRECT_HUB",
+          "terminal": false,
+          "lowerSingletons": [
+            {
+              "column": 6,
+              "row": 2
+            },
+            {
+              "column": 2,
+              "row": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sequence": "664536625444243",
+      "rank": 15,
+      "attacker": 2,
+      "hub": {
+        "column": 5,
+        "row": 3
+      },
+      "upperHub": {
+        "column": 5,
+        "row": 4
+      },
+      "depth": 0,
+      "leaves": {
+        "lower": [
+          {
+            "column": 3,
+            "row": 5
+          },
+          {
+            "column": 7,
+            "row": 1
+          }
+        ],
+        "upper": [
+          {
+            "column": 7,
+            "row": 2
+          },
+          {
+            "column": 3,
+            "row": 6
+          }
+        ]
+      },
+      "guard": {
+        "passed": true,
+        "defenderImmediateWinColumns": []
+      },
+      "branches": [
+        {
+          "kind": "DIRECT_HUB",
+          "terminal": false,
+          "lowerSingletons": [
+            {
+              "column": 3,
+              "row": 5
+            },
+            {
+              "column": 7,
+              "row": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sequence": "1753573555",
+      "rank": 10,
+      "attacker": 1,
+      "hub": {
+        "column": 4,
+        "row": 2
+      },
+      "upperHub": {
+        "column": 4,
+        "row": 3
+      },
+      "depth": 1,
+      "leaves": {
+        "lower": [
+          {
+            "column": 6,
+            "row": 2
+          },
+          {
+            "column": 2,
+            "row": 2
+          }
+        ],
+        "upper": [
+          {
+            "column": 2,
+            "row": 1
+          },
+          {
+            "column": 6,
+            "row": 5
+          }
+        ]
+      },
+      "guard": {
+        "passed": true,
+        "defenderImmediateWinColumns": []
+      },
+      "branches": [
+        {
+          "defenderReply": 1,
+          "kind": "LOWER_HUB",
+          "terminal": false,
+          "survivingLowerSingletons": [
+            {
+              "column": 6,
+              "row": 2
+            },
+            {
+              "column": 2,
+              "row": 2
+            }
+          ]
+        },
+        {
+          "defenderReply": 2,
+          "kind": "LOWER_HUB",
+          "terminal": false,
+          "survivingLowerSingletons": [
+            {
+              "column": 6,
+              "row": 2
+            },
+            {
+              "column": 2,
+              "row": 2
+            }
+          ]
+        },
+        {
+          "defenderReply": 3,
+          "kind": "LOWER_HUB",
+          "terminal": false,
+          "survivingLowerSingletons": [
+            {
+              "column": 6,
+              "row": 2
+            },
+            {
+              "column": 2,
+              "row": 2
+            }
+          ]
+        },
+        {
+          "defenderReply": 4,
+          "kind": "UPPER_HUB",
+          "terminal": false,
+          "upperSingletons": [
+            {
+              "column": 2,
+              "row": 1
+            },
+            {
+              "column": 6,
+              "row": 5
+            }
+          ]
+        },
+        {
+          "defenderReply": 5,
+          "kind": "LOWER_HUB",
+          "terminal": false,
+          "survivingLowerSingletons": [
+            {
+              "column": 6,
+              "row": 2
+            },
+            {
+              "column": 2,
+              "row": 2
+            }
+          ]
+        },
+        {
+          "defenderReply": 6,
+          "kind": "LOWER_HUB",
+          "terminal": false,
+          "survivingLowerSingletons": [
+            {
+              "column": 6,
+              "row": 2
+            },
+            {
+              "column": 2,
+              "row": 2
+            }
+          ]
+        },
+        {
+          "defenderReply": 7,
+          "kind": "LOWER_HUB",
+          "terminal": false,
+          "survivingLowerSingletons": [
+            {
+              "column": 6,
+              "row": 2
+            },
+            {
+              "column": 2,
+              "row": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sequence": "65724625234444742251",
+      "rank": 20,
+      "attacker": 1,
+      "hub": {
+        "column": 3,
+        "row": 2
+      },
+      "upperHub": {
+        "column": 3,
+        "row": 3
+      },
+      "depth": 0,
+      "leaves": {
+        "lower": [
+          {
+            "column": 1,
+            "row": 2
+          },
+          {
+            "column": 1,
+            "row": 4
+          }
+        ],
+        "upper": [
+          {
+            "column": 1,
+            "row": 5
+          },
+          {
+            "column": 5,
+            "row": 5
+          }
+        ]
+      },
+      "guard": {
+        "passed": true,
+        "defenderImmediateWinColumns": []
+      },
+      "branches": [
+        {
+          "kind": "DIRECT_HUB",
+          "terminal": false,
+          "lowerSingletons": [
+            {
+              "column": 1,
+              "row": 2
+            },
+            {
+              "column": 1,
+              "row": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sequence": "65743222445",
+      "rank": 11,
+      "attacker": 2,
+      "hub": {
+        "column": 3,
+        "row": 2
+      },
+      "upperHub": {
+        "column": 3,
+        "row": 3
+      },
+      "depth": 0,
+      "leaves": {
+        "lower": [
+          {
+            "column": 1,
+            "row": 4
+          },
+          {
+            "column": 5,
+            "row": 4
+          }
+        ],
+        "upper": [
+          {
+            "column": 1,
+            "row": 3
+          },
+          {
+            "column": 5,
+            "row": 3
+          }
+        ]
+      },
+      "guard": {
+        "passed": true,
+        "defenderImmediateWinColumns": []
+      },
+      "branches": [
+        {
+          "kind": "DIRECT_HUB",
+          "terminal": false,
+          "lowerSingletons": [
+            {
+              "column": 1,
+              "row": 4
+            },
+            {
+              "column": 5,
+              "row": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sequence": "64655212641227275655",
+      "rank": 20,
+      "attacker": 1,
+      "hub": {
+        "column": 4,
+        "row": 3
+      },
+      "upperHub": {
+        "column": 4,
+        "row": 4
+      },
+      "depth": 0,
+      "leaves": {
+        "lower": [
+          {
+            "column": 3,
+            "row": 3
+          },
+          {
+            "column": 7,
+            "row": 3
+          }
+        ],
+        "upper": [
+          {
+            "column": 3,
+            "row": 4
+          },
+          {
+            "column": 3,
+            "row": 5
+          }
+        ]
+      },
+      "guard": {
+        "passed": true,
+        "defenderImmediateWinColumns": []
+      },
+      "branches": [
+        {
+          "kind": "DIRECT_HUB",
+          "terminal": false,
+          "lowerSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sequence": "36631321155533616",
+      "rank": 17,
+      "attacker": 2,
+      "hub": {
+        "column": 4,
+        "row": 1
+      },
+      "upperHub": {
+        "column": 4,
+        "row": 2
+      },
+      "depth": 0,
+      "leaves": {
+        "lower": [
+          {
+            "column": 2,
+            "row": 3
+          },
+          {
+            "column": 7,
+            "row": 1
+          }
+        ],
+        "upper": [
+          {
+            "column": 2,
+            "row": 4
+          },
+          {
+            "column": 2,
+            "row": 2
+          }
+        ]
+      },
+      "guard": {
+        "passed": true,
+        "defenderImmediateWinColumns": []
+      },
+      "branches": [
+        {
+          "kind": "DIRECT_HUB",
+          "terminal": false,
+          "lowerSingletons": [
+            {
+              "column": 2,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sequence": "21634614433574537",
+      "rank": 17,
+      "attacker": 2,
+      "hub": {
+        "column": 5,
+        "row": 3
+      },
+      "upperHub": {
+        "column": 5,
+        "row": 4
+      },
+      "depth": 0,
+      "leaves": {
+        "lower": [
+          {
+            "column": 6,
+            "row": 4
+          },
+          {
+            "column": 3,
+            "row": 5
+          }
+        ],
+        "upper": [
+          {
+            "column": 2,
+            "row": 4
+          },
+          {
+            "column": 6,
+            "row": 4
+          }
+        ]
+      },
+      "guard": {
+        "passed": true,
+        "defenderImmediateWinColumns": []
+      },
+      "branches": [
+        {
+          "kind": "DIRECT_HUB",
+          "terminal": false,
+          "lowerSingletons": [
+            {
+              "column": 6,
+              "row": 4
+            },
+            {
+              "column": 3,
+              "row": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sequence": "4466632646561732",
+      "rank": 16,
+      "attacker": 1,
+      "hub": {
+        "column": 5,
+        "row": 2
+      },
+      "upperHub": {
+        "column": 5,
+        "row": 3
+      },
+      "depth": 0,
+      "leaves": {
+        "lower": [
+          {
+            "column": 3,
+            "row": 4
+          },
+          {
+            "column": 7,
+            "row": 4
+          }
+        ],
+        "upper": [
+          {
+            "column": 3,
+            "row": 3
+          },
+          {
+            "column": 7,
+            "row": 3
+          }
+        ]
+      },
+      "guard": {
+        "passed": true,
+        "defenderImmediateWinColumns": []
+      },
+      "branches": [
+        {
+          "kind": "DIRECT_HUB",
+          "terminal": false,
+          "lowerSingletons": [
+            {
+              "column": 3,
+              "row": 4
+            },
+            {
+              "column": 7,
+              "row": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sequence": "4227432332",
+      "rank": 10,
+      "attacker": 1,
+      "hub": {
+        "column": 4,
+        "row": 3
+      },
+      "upperHub": {
+        "column": 4,
+        "row": 4
+      },
+      "depth": 0,
+      "leaves": {
+        "lower": [
+          {
+            "column": 1,
+            "row": 3
+          },
+          {
+            "column": 5,
+            "row": 3
+          }
+        ],
+        "upper": [
+          {
+            "column": 1,
+            "row": 1
+          },
+          {
+            "column": 5,
+            "row": 5
+          }
+        ]
+      },
+      "guard": {
+        "passed": true,
+        "defenderImmediateWinColumns": []
+      },
+      "branches": [
+        {
+          "kind": "DIRECT_HUB",
+          "terminal": false,
+          "lowerSingletons": [
+            {
+              "column": 1,
+              "row": 3
+            },
+            {
+              "column": 5,
+              "row": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sequence": "446114545516152",
+      "rank": 15,
+      "attacker": 2,
+      "hub": {
+        "column": 6,
+        "row": 3
+      },
+      "upperHub": {
+        "column": 6,
+        "row": 4
+      },
+      "depth": 0,
+      "leaves": {
+        "lower": [
+          {
+            "column": 3,
+            "row": 3
+          },
+          {
+            "column": 7,
+            "row": 3
+          }
+        ],
+        "upper": [
+          {
+            "column": 3,
+            "row": 1
+          },
+          {
+            "column": 3,
+            "row": 4
+          }
+        ]
+      },
+      "guard": {
+        "passed": true,
+        "defenderImmediateWinColumns": []
+      },
+      "branches": [
+        {
+          "kind": "DIRECT_HUB",
+          "terminal": false,
+          "lowerSingletons": [
+            {
+              "column": 3,
+              "row": 3
+            },
+            {
+              "column": 7,
+              "row": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sequence": "2423412245",
+      "rank": 10,
+      "attacker": 1,
+      "hub": {
+        "column": 3,
+        "row": 2
+      },
+      "upperHub": {
+        "column": 3,
+        "row": 3
+      },
+      "depth": 0,
+      "leaves": {
+        "lower": [
+          {
+            "column": 1,
+            "row": 2
+          },
+          {
+            "column": 5,
+            "row": 2
+          }
+        ],
+        "upper": [
+          {
+            "column": 1,
+            "row": 3
+          },
+          {
+            "column": 5,
+            "row": 3
+          }
+        ]
+      },
+      "guard": {
+        "passed": true,
+        "defenderImmediateWinColumns": []
+      },
+      "branches": [
+        {
+          "kind": "DIRECT_HUB",
+          "terminal": false,
+          "lowerSingletons": [
+            {
+              "column": 1,
+              "row": 2
+            },
+            {
+              "column": 5,
+              "row": 2
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "retainedGuardFailures": [
+    {
+      "sequence": "4124614224",
+      "attacker": 1,
+      "hub": {
+        "column": 3,
+        "row": 2
+      },
+      "upperHub": {
+        "column": 3,
+        "row": 3
+      },
+      "depth": 1,
+      "leaves": {
+        "lower": [
+          {
+            "column": 1,
+            "row": 4
+          },
+          {
+            "column": 5,
+            "row": 4
+          }
+        ],
+        "upper": [
+          {
+            "column": 1,
+            "row": 3
+          },
+          {
+            "column": 5,
+            "row": 3
+          }
+        ]
+      },
+      "guard": {
+        "passed": false,
+        "defenderImmediateWinColumns": [
+          3
+        ]
+      },
+      "branches": []
+    }
+  ],
+  "conclusion": "Every fresh legal state satisfying the frozen pair-star premises and first-win guard satisfied the terminal-or-singleton conclusion. Guard failures are retained as scope evidence rather than treated as theorem contradictions.",
+  "boundary": "Fresh finite qualification is regression evidence; the theorem proof is the generic residual/turn-order argument in CPC_PAIR_STAR_HUB_LADDER_THEOREM.md."
+}
