@@ -1,8 +1,8 @@
 # CPC attacker forced-completion proof-class automaton
 
 **Date:** 2026-09-30  
-**Version:** 0.1 frozen before fresh oracle validation  
-**Status:** exact rank-local upper-bound theorem candidate  
+**Version:** 0.1  
+**Status:** qualified exact rank-local upper-bound proof-class automaton  
 **Branch:** \`research/universal-structural-policy-20260930\`
 
 ## Purpose
@@ -237,18 +237,48 @@ Memoization by exact CPC/RBA semantic state is permitted because it is proof-cla
 
 ## 11. Fresh qualification
 
-After this theorem and implementation are frozen:
+The theorem and implementation were frozen before oracle validation.
 
-1. generate fresh legal states independently of the consumed v4 prefix;
-2. retain only states where the structural \(A_D\) grammar proves a finite bound;
-3. freeze those structural certificates;
-4. query the pinned Pascal Pons oracle afterward;
-5. verify only that the oracle result is compatible with the proved attacker win and upper distance;
-6. do not repair the rule from oracle failures without consuming those states as training evidence.
+A deterministic structural generator then produced 30 fresh legal standard-7x6 certificates outside the consumed `444441566` training prefix:
+
+- 10 `IMMEDIATE_TERMINAL`;
+- 8 `SETUP_NATIVE_CPC`;
+- 12 `SETUP_CPC_RESTRICTION`.
+
+Twenty of the 30 certificates were non-immediate.
+
+Durable frozen structural evidence:
+
+`CPC_ATTACKER_COMPLETION_FRESH_STRUCTURAL_0_1.json`
+
+Only after that corpus was committed, the pinned Pascal Pons solver and official opening book were queried.
+
+Durable validation evidence:
+
+`CPC_ATTACKER_COMPLETION_FRESH_ORACLE_0_1.json`
+
+Result:
+
+[
+oxed{30/30	ext{ compatible},qquad0	ext{ failures}.}
+]
+
+For every fresh certificate:
+
+- the designated attacker had a positive exact Pons score;
+- the exact oracle win distance was no greater than the structurally proved (A_D) upper bound.
+
+Observed structural-upper slack in this corpus:
+
+- `IMMEDIATE_TERMINAL`: 0 plies;
+- `SETUP_NATIVE_CPC`: 0 plies;
+- `SETUP_CPC_RESTRICTION`: 0–2 plies.
+
+The oracle results remain validation only and are not inputs to the proof grammar.
 
 ## Claim discipline
 
-This theorem candidate:
+This qualified theorem:
 
 - is rank-local and geometry-derived;
 - uses CPC as the aggregate obligation authority;
