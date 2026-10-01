@@ -65,8 +65,8 @@ for(const [name,info] of Object.entries(stateInfo)){
   if(info.c7Capacity===0&&transferCount!==0)accept=false;
 }
 
-const uniqueExactStates=['Q','A','B','ZA'];
-const proofOrder=uniqueExactStates
+const exactStateNames=['Q','A','B','ZA','ZB','ZC'];
+const proofOrder=exactStateNames
   .map(name=>({name,R:stateInfo[name].c7Capacity}))
   .sort((a,b)=>a.R-b.R);
 
