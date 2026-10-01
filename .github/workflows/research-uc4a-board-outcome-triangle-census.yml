@@ -1,0 +1,85 @@
+name: Research UC4A board outcome structural triangle census
+
+on:
+  push:
+    branches:
+      - research/universal-structural-policy-20260930
+    paths:
+      - .github/workflows/research-uc4a-board-outcome-triangle-census.yml
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/run-uc4a-board-outcome-structural-triangle-census.mjs
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/UC4A_BOARD_OUTCOME_STRUCTURAL_TRIANGLE_CENSUS_0_1.md
+
+permissions:
+  contents: write
+
+jobs:
+  census:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out exact pushed revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+      - name: Pin Node runtime
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Run frozen structural census
+        shell: bash
+        run: |
+          set -euo pipefail
+          DIR=research/isograph/discovery/2026-09-30-universal-structural-policy
+          OUT="$DIR/UC4A_BOARD_OUTCOME_STRUCTURAL_TRIANGLE_CENSUS_RESULT_0_1.json"
+          node "$DIR/run-uc4a-board-outcome-structural-triangle-census.mjs" > "$OUT"
+          node - "$OUT" <<'NODE'
+          const fs=require('fs');
+          const r=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
+          if(r.sealedHoldoutsAccessed!==false)throw new Error('sealed holdout boundary violated');
+          if(r.solvedInputsUsedForStructuralProducer!==false)throw new Error('outcomes leaked into structural producer');
+          if(r.outcomeLabelsUsedOnlyPostHoc!==true)throw new Error('post-hoc label boundary missing');
+          if(r.boardCount!==37)throw new Error('expected frozen 37-board census');
+          console.log(JSON.stringify({
+            outcomeCounts:r.outcomeCounts,
+            architectural:{
+              features:r.architecturalTriangle.audit.features,
+              pureRows:r.architecturalTriangle.audit.pureRows,
+              mixedCells:r.architecturalTriangle.audit.mixedCells,
+              leaveOneWidthOut:{
+                coverage:r.architecturalTriangle.audit.leaveOneWidthOut.coverage,
+                accuracy:r.architecturalTriangle.audit.leaveOneWidthOut.accuracy
+              },
+              leaveOneHeightOut:{
+                coverage:r.architecturalTriangle.audit.leaveOneHeightOut.coverage,
+                accuracy:r.architecturalTriangle.audit.leaveOneHeightOut.accuracy
+              }
+            },
+            topTriples:r.topThreeFeatureSubsets.slice(0,10).map(x=>({
+              features:x.features,
+              pureRows:x.pureRows,
+              mixedCells:x.mixedCells,
+              signatureCells:x.signatureCells,
+              singletonPureRows:x.singletonPureRows,
+              widthCV:{coverage:x.leaveOneWidthOut.coverage,accuracy:x.leaveOneWidthOut.accuracy},
+              heightCV:{coverage:x.leaveOneHeightOut.coverage,accuracy:x.leaveOneHeightOut.accuracy}
+            }))
+          }));
+          NODE
+      - name: Commit durable census evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          BRANCH=research/universal-structural-policy-20260930
+          FILE=research/isograph/discovery/2026-09-30-universal-structural-policy/UC4A_BOARD_OUTCOME_STRUCTURAL_TRIANGLE_CENSUS_RESULT_0_1.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$FILE"
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "research: record UC4A outcome triangle census"
+          for attempt in 1 2 3; do
+            git fetch origin "$BRANCH"
+            git rebase --autostash "origin/$BRANCH"
+            if git push origin HEAD:"$BRANCH"; then exit 0; fi
+            sleep 1
+          done
+          exit 1
