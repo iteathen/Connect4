@@ -1,0 +1,468 @@
+{
+  "schema": "connect4.cpc_rank24_reply7_c6_blocker_reentry_probe.v1",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "state": {
+    "rank": 25,
+    "mover": 2,
+    "support": [
+      3,
+      6,
+      3,
+      6,
+      1,
+      5,
+      1
+    ],
+    "target": {
+      "column": 3,
+      "row": 5
+    }
+  },
+  "rows": [
+    {
+      "defenderColumn": 1,
+      "defenderTerminal": 0,
+      "supportAfterDefender": [
+        4,
+        6,
+        3,
+        6,
+        1,
+        5,
+        1
+      ],
+      "kind": "p1-c6-blocker-reentry",
+      "blockTerminal": 0,
+      "supportAfterBlock": [
+        4,
+        6,
+        3,
+        6,
+        1,
+        6,
+        1
+      ],
+      "targetActive": true,
+      "defenderPlayableSingletons": [],
+      "template": {
+        "capacity": [
+          2,
+          0,
+          2,
+          0,
+          5,
+          0,
+          5
+        ],
+        "oddColumns": [
+          5,
+          7
+        ],
+        "synchronizedPairs": [
+          {
+            "columns": [
+              5,
+              7
+            ],
+            "prefixLength": 1
+          }
+        ],
+        "targetIsResponse": true,
+        "defenderResidualCount": 7,
+        "coverage": [
+          {
+            "residualId": 213,
+            "size": 2,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 30,
+              "column": 3,
+              "row": 5
+            }
+          },
+          {
+            "residualId": 438,
+            "size": 3,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 27,
+              "column": 7,
+              "row": 4
+            }
+          },
+          {
+            "residualId": 515,
+            "size": 3,
+            "witness": {
+              "kind": "post-target-deferral",
+              "cell": 37,
+              "column": 3,
+              "row": 6
+            }
+          },
+          {
+            "residualId": 589,
+            "size": 4,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 25,
+              "column": 5,
+              "row": 4
+            }
+          },
+          {
+            "residualId": 593,
+            "size": 4,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 27,
+              "column": 7,
+              "row": 4
+            }
+          },
+          {
+            "residualId": 608,
+            "size": 4,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 25,
+              "column": 5,
+              "row": 4
+            }
+          },
+          {
+            "residualId": 612,
+            "size": 4,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 27,
+              "column": 7,
+              "row": 4
+            }
+          }
+        ]
+      },
+      "validation": {
+        "pass": true,
+        "defenderNodes": 26,
+        "responsePairs": 75,
+        "maxPairDepth": 4,
+        "p1Terminals": 50,
+        "targetTerminals": 26,
+        "failures": []
+      },
+      "accept": true
+    },
+    {
+      "defenderColumn": 3,
+      "defenderTerminal": 0,
+      "supportAfterDefender": [
+        3,
+        6,
+        4,
+        6,
+        1,
+        5,
+        1
+      ],
+      "kind": "target-support-trigger",
+      "p1TargetTerminal": 3,
+      "accept": true
+    },
+    {
+      "defenderColumn": 5,
+      "defenderTerminal": 0,
+      "supportAfterDefender": [
+        3,
+        6,
+        3,
+        6,
+        2,
+        5,
+        1
+      ],
+      "kind": "p1-c6-blocker-reentry",
+      "blockTerminal": 0,
+      "supportAfterBlock": [
+        3,
+        6,
+        3,
+        6,
+        2,
+        6,
+        1
+      ],
+      "targetActive": true,
+      "defenderPlayableSingletons": [],
+      "template": {
+        "capacity": [
+          3,
+          0,
+          2,
+          0,
+          4,
+          0,
+          5
+        ],
+        "oddColumns": [
+          1,
+          7
+        ],
+        "synchronizedPairs": [
+          {
+            "columns": [
+              1,
+              7
+            ],
+            "prefixLength": 1
+          }
+        ],
+        "targetIsResponse": true,
+        "defenderResidualCount": 7,
+        "coverage": [
+          {
+            "residualId": 213,
+            "size": 2,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 30,
+              "column": 3,
+              "row": 5
+            }
+          },
+          {
+            "residualId": 438,
+            "size": 3,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 27,
+              "column": 7,
+              "row": 4
+            }
+          },
+          {
+            "residualId": 485,
+            "size": 3,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 25,
+              "column": 5,
+              "row": 4
+            }
+          },
+          {
+            "residualId": 515,
+            "size": 3,
+            "witness": {
+              "kind": "post-target-deferral",
+              "cell": 37,
+              "column": 3,
+              "row": 6
+            }
+          },
+          {
+            "residualId": 593,
+            "size": 4,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 27,
+              "column": 7,
+              "row": 4
+            }
+          },
+          {
+            "residualId": 608,
+            "size": 4,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 25,
+              "column": 5,
+              "row": 4
+            }
+          },
+          {
+            "residualId": 612,
+            "size": 4,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 27,
+              "column": 7,
+              "row": 4
+            }
+          }
+        ]
+      },
+      "validation": {
+        "pass": true,
+        "defenderNodes": 19,
+        "responsePairs": 56,
+        "maxPairDepth": 4,
+        "p1Terminals": 38,
+        "targetTerminals": 19,
+        "failures": []
+      },
+      "accept": true
+    },
+    {
+      "defenderColumn": 6,
+      "defenderTerminal": 0,
+      "supportAfterDefender": [
+        3,
+        6,
+        3,
+        6,
+        1,
+        6,
+        1
+      ],
+      "kind": "defender-takes-c6-obstruction",
+      "accept": null
+    },
+    {
+      "defenderColumn": 7,
+      "defenderTerminal": 0,
+      "supportAfterDefender": [
+        3,
+        6,
+        3,
+        6,
+        1,
+        5,
+        2
+      ],
+      "kind": "p1-c6-blocker-reentry",
+      "blockTerminal": 0,
+      "supportAfterBlock": [
+        3,
+        6,
+        3,
+        6,
+        1,
+        6,
+        2
+      ],
+      "targetActive": true,
+      "defenderPlayableSingletons": [],
+      "template": {
+        "capacity": [
+          3,
+          0,
+          2,
+          0,
+          5,
+          0,
+          4
+        ],
+        "oddColumns": [
+          1,
+          5
+        ],
+        "synchronizedPairs": [
+          {
+            "columns": [
+              1,
+              5
+            ],
+            "prefixLength": 1
+          }
+        ],
+        "targetIsResponse": true,
+        "defenderResidualCount": 7,
+        "coverage": [
+          {
+            "residualId": 213,
+            "size": 2,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 30,
+              "column": 3,
+              "row": 5
+            }
+          },
+          {
+            "residualId": 227,
+            "size": 2,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 27,
+              "column": 7,
+              "row": 4
+            }
+          },
+          {
+            "residualId": 498,
+            "size": 3,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 27,
+              "column": 7,
+              "row": 4
+            }
+          },
+          {
+            "residualId": 515,
+            "size": 3,
+            "witness": {
+              "kind": "post-target-deferral",
+              "cell": 37,
+              "column": 3,
+              "row": 6
+            }
+          },
+          {
+            "residualId": 589,
+            "size": 4,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 25,
+              "column": 5,
+              "row": 4
+            }
+          },
+          {
+            "residualId": 608,
+            "size": 4,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 25,
+              "column": 5,
+              "row": 4
+            }
+          },
+          {
+            "residualId": 612,
+            "size": 4,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 27,
+              "column": 7,
+              "row": 4
+            }
+          }
+        ]
+      },
+      "validation": {
+        "pass": true,
+        "defenderNodes": 35,
+        "responsePairs": 101,
+        "maxPairDepth": 4,
+        "p1Terminals": 67,
+        "targetTerminals": 35,
+        "failures": []
+      },
+      "accept": true
+    }
+  ],
+  "conclusion": [
+    "Discovery probe only. The target-support branch c3 is checked as an immediate target completion.",
+    "For every non-c3, non-c6 defender move, P1:c6 is tested as a residual-attached blocker that removes the sole uncovered {c5r5,c6r6} residual before resynthesizing the existing target-reservoir certificate.",
+    "The defender-c6 orientation is intentionally left unresolved by this probe."
+  ],
+  "boundary": [
+    "No oracle, Pons, solved W/D/L, minimax, best-move table, physical-position identity, or sealed holdout is used.",
+    "Production CPC and JSMinSys are unchanged.",
+    "Each target-reservoir template is freshly synthesized from the exact post-block state."
+  ]
+}
