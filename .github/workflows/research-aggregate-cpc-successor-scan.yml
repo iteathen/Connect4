@@ -1,0 +1,74 @@
+name: Research aggregate CPC successor scan
+
+on:
+  push:
+    branches:
+      - research/universal-structural-policy-20260930
+    paths:
+      - .github/workflows/research-aggregate-cpc-successor-scan.yml
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/run-aggregate-cpc-successor-scan.mjs
+
+permissions:
+  contents: write
+
+jobs:
+  scan:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Check out exact pushed revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - name: Pin Node runtime
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+
+      - name: Fetch pinned JSMinSys CPC
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone https://github.com/iteathen/JSMinSys.git jsminsys
+          git -C jsminsys checkout 0899c5811918e68c22dc1b0e4dd8af97d9b4bbcb
+          test "$(git -C jsminsys rev-parse HEAD)" = "0899c5811918e68c22dc1b0e4dd8af97d9b4bbcb"
+
+      - name: Run one-pass CPC successor scan
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT=research/isograph/discovery/2026-09-30-universal-structural-policy/AGGREGATE_CPC_SUCCESSOR_SCAN_0_1.json
+          node research/isograph/discovery/2026-09-30-universal-structural-policy/run-aggregate-cpc-successor-scan.mjs jsminsys > "$OUT"
+          node - "$OUT" <<'NODE'
+          const fs=require('fs');
+          const r=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
+          for(const root of r.roots){
+            console.log('ROOT',root.id,'LOWER',root.survivalLower);
+            for(const s of root.setups){
+              console.log(JSON.stringify({
+                setup:s.setupColumn,
+                kind:s.cpc.kindName,
+                interval:s.cpc.absoluteInterval,
+                exactAttackerWin:s.cpc.exactAttackerWin,
+                forced:s.cpc.forcedColumn,
+                preemption:s.cpc.preemptionColumns,
+                precursorCount:s.cpc.precursorCount,
+                playableAttackerSingles:s.cpc.aggregateSingletonProfile.playableAttacker,
+                playableDefenderSingles:s.cpc.aggregateSingletonProfile.playableDefender
+              }));
+            }
+          }
+          NODE
+
+      - name: Commit durable structural evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/isograph/discovery/2026-09-30-universal-structural-policy/AGGREGATE_CPC_SUCCESSOR_SCAN_0_1.json
+          if git diff --cached --quiet; then
+            echo "scan evidence unchanged"
+            exit 0
+          fi
+          git commit -m "research: record aggregate CPC successor scan"
+          git push origin HEAD:research/universal-structural-policy-20260930
