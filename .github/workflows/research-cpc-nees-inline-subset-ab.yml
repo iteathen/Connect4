@@ -1,0 +1,82 @@
+name: Research NEES inline-subset A-B
+
+on:
+  push:
+    branches:
+      - research/universal-structural-policy-20260930
+    paths:
+      - .github/workflows/research-cpc-nees-inline-subset-ab.yml
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/run-cpc-guard-survival-nees-kernel-inline-subset.mjs
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Check out exact pushed revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+      - name: Pin Node runtime
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Fetch prepared and inline-subset JSMinSys
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --branch research/cpc-guard-proof-memo-nees-v1 --single-branch https://github.com/iteathen/JSMinSys.git jsminsys-prepared
+          git -C jsminsys-prepared checkout 2f459989bca348ff1b840da0978262404a0d8f36
+          git clone --branch research/cpc-guard-proof-memo-nees-v1 --single-branch https://github.com/iteathen/JSMinSys.git jsminsys-inline
+          git -C jsminsys-inline checkout 655ec0c1f13d6c259acecd0ec9c049df0764d52f
+      - name: Run D19 A-B
+        shell: bash
+        env:
+          NODE_OPTIONS: --max-old-space-size=2048
+        run: |
+          set -euo pipefail
+          DIR=research/isograph/discovery/2026-09-30-universal-structural-policy
+          /usr/bin/time -f 'wall=%e\nmaxrss_kb=%M\nuser=%U\nsys=%S' -o /tmp/prepared.time             node "$DIR/run-cpc-guard-survival-nees-kernel-subset.mjs" ./jsminsys-prepared 19 4194304 > /tmp/prepared.json
+          /usr/bin/time -f 'wall=%e\nmaxrss_kb=%M\nuser=%U\nsys=%S' -o /tmp/inline.time             node "$DIR/run-cpc-guard-survival-nees-kernel-inline-subset.mjs" ./jsminsys-inline 19 4194304 > /tmp/inline.json
+          node - /tmp/prepared.json /tmp/inline.json /tmp/prepared.time /tmp/inline.time "$DIR/CPC_NEES_INLINE_SUBSET_AB_D19_0_1.json" <<'NODE'
+          const fs=require('fs');
+          const [pp,ip,pt,it,out]=process.argv.slice(2);
+          const time=p=>Object.fromEntries(fs.readFileSync(p,'utf8').trim().split(/\n/).map(x=>x.split('=')));
+          const p=JSON.parse(fs.readFileSync(pp,'utf8')),i=JSON.parse(fs.readFileSync(ip,'utf8'));
+          if(!p.result.accept||!i.result.accept)throw new Error('D19 proof regression');
+          const tp=time(pt),ti=time(it);
+          const r={schema:'connect4.cpc_nees_inline_subset_ab.v1',horizon:19,
+            preparedSha:'2f459989bca348ff1b840da0978262404a0d8f36',
+            inlineSha:'655ec0c1f13d6c259acecd0ec9c049df0764d52f',
+            prepared:{wallSeconds:Number(tp.wall),maxRssKb:Number(tp.maxrss_kb),runtime:p.runtime},
+            inline:{wallSeconds:Number(ti.wall),maxRssKb:Number(ti.maxrss_kb),runtime:i.runtime},
+            ratios:{wall:Number(ti.wall)/Number(tp.wall),maxRss:Number(ti.maxrss_kb)/Number(tp.maxrss_kb)},
+            boundary:[
+              'Same runner job, Node 26.7.0, horizon, proof grammar and memo capacity.',
+              'Only dense subset access changes from initialization-selected callback to direct guarded table lookup.',
+              'Promotion depends on governing proof cost.'
+            ]};
+          fs.writeFileSync(out,JSON.stringify(r,null,2)+'\n');
+          console.log(JSON.stringify(r,null,2));
+          NODE
+      - name: Commit durable inline-subset evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          BRANCH=research/universal-structural-policy-20260930
+          FILE=research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_NEES_INLINE_SUBSET_AB_D19_0_1.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$FILE"
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "research: qualify inline-subset NEES kernel"
+          for attempt in 1 2 3; do
+            git fetch origin "$BRANCH"
+            git rebase --autostash "origin/$BRANCH"
+            if git push origin HEAD:"$BRANCH"; then exit 0; fi
+            sleep 1
+          done
+          exit 1
