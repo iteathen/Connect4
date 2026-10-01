@@ -323,6 +323,50 @@ function heldOutFor(type){
 }
 const heldOut={integer:heldOutFor('integer'),gf2:heldOutFor('gf2')};
 
+function heldOutComparisonReports(type,family,axis){
+  const source=familyRows(family);
+  const values=[...new Set(curvature.rows.flatMap(row=>row.boards).map(board=>{
+    const [w,h]=board.split('x').map(Number);
+    return axis==='width'?w:h;
+  }))].sort((a,b)=>a-b);
+  const reports=values.map(held=>{
+    const all=source.filter(row=>!touchedDimension(row,axis,held));
+    const boundary=all.filter(row=>row.annotation.boundaryAdjacent);
+    const homogeneous=all.filter(row=>row.annotation.homogeneous);
+    const allRank=rankReport(all,type).rank;
+    const boundaryRank=rankReport(boundary,type).rank;
+    const homogeneousRank=rankReport(homogeneous,type).rank;
+    return {
+      held,
+      allRows:all.length,
+      boundaryRows:boundary.length,
+      homogeneousRows:homogeneous.length,
+      allRank,
+      boundaryRank,
+      homogeneousRank,
+      boundaryNovel:allRank-homogeneousRank,
+      homogeneousNovel:allRank-boundaryRank
+    };
+  });
+  return {
+    axis,
+    reports,
+    minBoundaryNovel:reports.length?Math.min(...reports.map(x=>x.boundaryNovel)):0,
+    maxBoundaryNovel:reports.length?Math.max(...reports.map(x=>x.boundaryNovel)):0
+  };
+}
+function heldOutComparisonFor(type){
+  const out={};
+  for(const family of ['WIDTH2','HEIGHT2','MIXED','COMBINED']){
+    out[family]={
+      width:heldOutComparisonReports(type,family,'width'),
+      height:heldOutComparisonReports(type,family,'height')
+    };
+  }
+  return out;
+}
+const heldOutComparison={integer:heldOutComparisonFor('integer'),gf2:heldOutComparisonFor('gf2')};
+
 const neighborhoodClassCounts={};
 for(const family of ['WIDTH2','HEIGHT2','MIXED','COMBINED']){
   const source=familyRows(family);
@@ -388,6 +432,7 @@ console.log(JSON.stringify({
   },
   blockSupport,
   heldOut,
+  heldOutComparison,
   focus:{
     '8x6_9x6_10x6':{
       ...compactAnnotatedRow(focusRow),
