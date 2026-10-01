@@ -3,6 +3,10 @@ import {readFileSync} from 'node:fs';
 import {resolve} from 'node:path';
 import {createHash} from 'node:crypto';
 
+const DIAG=process.env.UC4A_TOMO_DIAGNOSTIC==='1';
+const DIAG_T0=Date.now();
+function mark(label){if(DIAG)console.error(`[uc4a-tomo +${Date.now()-DIAG_T0}ms] ${label}`);}
+
 const dir=resolve(import.meta.dirname);
 const STRUCTURAL_SHA='49844e4772a337d92ab10735d8bc13d1c5570edb6a1b382d4fb0660205d21760';
 const structural=JSON.parse(readFileSync(resolve(dir,'UC4A_LATENT_STRUCTURE_TOMOGRAPHY_STRUCTURAL_0_1.json'),'utf8'));
@@ -56,6 +60,7 @@ for(const key of labelMap.keys())if(!structuralKeys.has(key))throw new Error('la
 if(structuralKeys.has('3x6')||structuralKeys.has('5x3'))throw new Error('sealed holdout geometry accessed');
 
 const rows=structural.rows.map(x=>({...x,outcome:labelMap.get(x.board),source:sourceMap.get(x.board)}));
+mark('label join complete');
 const byBoard=new Map(rows.map(x=>[x.board,x]));
 const blockOrder=structural.fieldRegistry.blockOrder.filter(x=>x!=='Q');
 
@@ -166,6 +171,7 @@ for(const row of rows){
 unitEdges.sort((a,b)=>a.a.localeCompare(b.a)||a.b.localeCompare(b.b));
 const outcomeChangingEdges=unitEdges.filter(x=>x.outcomeChanged);
 const outcomePreservingEdges=unitEdges.filter(x=>!x.outcomeChanged);
+mark('trajectory and unit-edge census complete');
 
 const OUTCOMES=['P1_WIN','DRAW','P2_WIN'];
 function deltaValue(edge,name){
@@ -306,6 +312,7 @@ function ablations(){
 }
 const literalStages=refinement(false);
 const identitySuppressedStages=refinement(true);
+mark('blind quotient refinements complete');
 
 function integerRank(matrix){
   if(!matrix.length||!matrix[0]?.length)return 0;
@@ -495,6 +502,7 @@ function algebraSelfTest(){
   if(g.rank!==2||g.nullity!==1||stable(g.minimalCircuits.supports)!==stable([['a','b','c']]))throw new Error('GF2 self-test failed');
 }
 algebraSelfTest();
+mark('algebra self-tests complete');
 
 function matrixFor(edges,meta,type){
   return edges.map(e=>meta.map(m=>type==='integer'?e.integer[m.name]:e.gf2[m.name]));
@@ -548,6 +556,7 @@ function heldOutRank(axis,type){
 }
 const integerAll=integerReport(unitEdges),integerBoundary=integerReport(outcomeChangingEdges),integerPreserving=integerReport(outcomePreservingEdges);
 const gf2All=gf2Report(unitEdges),gf2Boundary=gf2Report(outcomeChangingEdges),gf2Preserving=gf2Report(outcomePreservingEdges);
+mark('exact rank/nullspace/SNF analyses complete');
 
 function differingFields(a,b,meta=allScalarMeta){
   const out=[];
@@ -568,6 +577,7 @@ for(let i=0;i<rows.length;i++)for(let j=i+1;j<rows.length;j++){
 }
 const sameOutcomePairs=contrastPairs.filter(x=>x.sameOutcome);
 const differentOutcomePairs=contrastPairs.filter(x=>!x.sameOutcome);
+mark('contrast-pair census complete');
 
 function minimizeMasks(masks){
   const uniq=[...new Map(masks.map(x=>[x.toString(),x])).values()];
@@ -630,12 +640,16 @@ function separationFrequencies(meta){
   }
   return out;
 }
+mark('starting identity-suppressed separator antichain');
 const primarySeparators=minimalHittingSets(identitySuppressedScalarMeta,differentOutcomePairs);
+mark('identity-suppressed separator antichain complete');
 const allSeparators=minimalHittingSets(allScalarMeta,differentOutcomePairs);
+mark('all-scalar separator antichain complete');
 const originalBoards=new Set(original.labeledRows.map(x=>outcomeKey(x.width,x.height)));
 const originalDifferentPairs=differentOutcomePairs.filter(x=>originalBoards.has(x.a)&&originalBoards.has(x.b));
 const freshAffectedDifferentPairs=differentOutcomePairs.filter(x=>!originalBoards.has(x.a)||!originalBoards.has(x.b));
 const originalSeparators=minimalHittingSets(identitySuppressedScalarMeta,originalDifferentPairs,2000);
+mark('chronology separator antichain complete');
 function separatorCoverage(fields,pairs){
   let hit=0;
   for(const p of pairs){
@@ -693,6 +707,7 @@ for(const t of triangles){
   const q=triangleTopologyMap.get(key);q.count++;q.triangles.push(t.id);
 }
 const triangleTopologies=[...triangleTopologyMap.values()].sort((a,b)=>a.outcomeBoundaryEdgeCount-b.outcomeBoundaryEdgeCount||b.count-a.count);
+mark('triangle/circuit census complete');
 
 function identitySuppressedPartitionAblations(){return ablations();}
 function compactFocus(board){
