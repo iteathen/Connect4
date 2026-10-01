@@ -1,0 +1,66 @@
+name: Research v4 first-nine timing baseline
+
+on:
+  push:
+    branches:
+      - research/universal-structural-policy-20260930
+    paths:
+      - .github/workflows/research-v4-first-nine-timing.yml
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/benchmark-universal-structural-policy-v4-first-nine.mjs
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/universal-structural-policy-v4.mjs
+
+permissions:
+  contents: read
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Check out exact pushed revision
+        uses: actions/checkout@v4
+
+      - name: Pin Node runtime
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+
+      - name: Run first-nine hot calculation benchmark
+        shell: bash
+        env:
+          C4_BENCH_REPS: '1000'
+          C4_BENCH_WARMUP: '200'
+        run: |
+          set -euo pipefail
+          node research/isograph/discovery/2026-09-30-universal-structural-policy/benchmark-universal-structural-policy-v4-first-nine.mjs > benchmark-v4-first-nine.raw.json
+          node - <<'NODE'
+          const fs = require('fs');
+          const r = JSON.parse(fs.readFileSync('benchmark-v4-first-nine.raw.json', 'utf8'));
+          console.log('SEQUENCE=' + r.subject.diagnostic.sequence);
+          console.log('REPETITIONS=' + r.configuration.repetitions);
+          console.log('WARMUP=' + r.configuration.warmupRepetitions);
+          console.log('NODE=' + r.environment.node);
+          console.log('V8=' + r.environment.v8);
+          console.log('CPU=' + r.environment.cpuModel);
+          console.log('TOTAL_MIN_MS=' + r.summary.totalFirstNine.minMs);
+          console.log('TOTAL_MEDIAN_MS=' + r.summary.totalFirstNine.medianMs);
+          console.log('TOTAL_P95_MS=' + r.summary.totalFirstNine.p95Ms);
+          for (const p of r.summary.perPly) {
+            console.log(`PLY_${p.ply}_REP=${p.representative} MEDIAN_MS=${p.medianMs} MIN_MS=${p.minMs} P95_MS=${p.p95Ms}`);
+          }
+          NODE
+
+      - name: Emit machine-readable evidence to log
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo 'BENCHMARK_JSON_BEGIN'
+          cat benchmark-v4-first-nine.raw.json
+          echo 'BENCHMARK_JSON_END'
+
+      - name: Upload raw benchmark evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: v4-first-nine-timing-raw
+          path: benchmark-v4-first-nine.raw.json
+          if-no-files-found: error
