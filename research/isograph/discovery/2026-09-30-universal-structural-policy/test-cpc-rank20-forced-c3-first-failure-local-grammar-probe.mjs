@@ -1,0 +1,22 @@
+import assert from 'node:assert/strict';
+import {execFileSync} from 'node:child_process';
+import {fileURLToPath} from 'node:url';
+import {dirname,resolve} from 'node:path';
+
+const dir=dirname(fileURLToPath(import.meta.url));
+const script=resolve(dir,'run-cpc-rank20-forced-c3-first-failure-local-grammar-probe.mjs');
+const raw=execFileSync(process.execPath,[script],{encoding:'utf8',maxBuffer:32*1024*1024});
+const r=JSON.parse(raw);
+assert.equal(r.schema,'connect4.cpc_rank20_forced_c3_first_failure_local_grammar_probe.v1');
+assert.equal(r.sourceLeafCount,11);
+assert.ok(r.uniqueExactQLeafCount>=1&&r.uniqueExactQLeafCount<=11);
+assert.equal(r.rows.length,11);
+assert.ok(r.rows.every(x=>['E(O)','E(A(I|E(O)))',null].includes(x.expression)));
+assert.equal(r.summary.provedCount,r.summary.rankOneCount+r.summary.rankThreeCount);
+assert.equal(r.summary.provedCount+r.summary.unresolvedCount,11);
+assert.equal(r.oracleUsed,false);
+assert.equal(r.solvedInputsUsed,false);
+assert.equal(r.productionCpcModified,false);
+assert.equal(r.jsMinSysModified,false);
+assert.equal(r.bsfpModified,false);
+console.log(JSON.stringify({pass:true,summary:r.summary}));
