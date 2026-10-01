@@ -1,0 +1,31 @@
+import assert from 'node:assert/strict';
+import {execFileSync} from 'node:child_process';
+import {fileURLToPath} from 'node:url';
+import {dirname,resolve} from 'node:path';
+const dir=dirname(fileURLToPath(import.meta.url));
+const script=resolve(dir,'run-cpc-rank20-rank32-target-reservoir-rejection-localization.mjs');
+const library=process.argv[2]; assert(library);
+const raw=execFileSync(process.execPath,[script,library],{encoding:'utf8',maxBuffer:128*1024*1024});
+const r=JSON.parse(raw);
+assert.equal(r.schema,'connect4.cpc_rank20_rank32_target_reservoir_rejection_localization.v1');
+assert.equal(r.jsMinSysSha,'bf23d3a67652cd42e1975f29c7dc4eed54f7eb42');
+assert.equal(r.oracleUsed,false); assert.equal(r.solvedInputsUsed,false);
+assert.equal(r.productionCpcModified,false); assert.equal(r.jsMinSysModified,false);
+assert.equal(r.targetReservoirModified,false); assert.equal(r.bsfpModified,false);
+assert.equal(r.sourceQClassCount,34);
+assert.equal(r.directTargetAttemptCount,142);
+assert.equal(r.attempts.length,142);
+const dispositions=['TARGET_OWNER_GUARD','PLAYABLE_P2_SINGLETON_GUARD','NO_COMPLETE_TEMPLATE','TEMPLATE_VALIDATION_FAILURE','UNEXPECTED_ACCEPT'];
+for(const a of r.attempts){
+  assert.ok(dispositions.includes(a.disposition));
+  assert.equal(typeof a.exactQClass,'string');
+  assert.equal(typeof a.setupColumn,'number');
+  assert.equal(typeof a.target.cell,'number');
+}
+assert.equal(Object.values(r.summary.dispositionCounts).reduce((a,b)=>a+b,0),142);
+assert.equal(r.summary.unexpectedAcceptCount,0);
+assert.ok(Array.isArray(r.residualRecurrence));
+assert.ok(Array.isArray(r.uncoveredSetRecurrence));
+assert.ok(r.conclusion.every(x=>typeof x==='string'));
+assert.ok(r.boundary.some(x=>x.includes('Production CPC')));
+console.log(JSON.stringify({pass:true,summary:r.summary,topResiduals:r.residualRecurrence.slice(0,5)}));
