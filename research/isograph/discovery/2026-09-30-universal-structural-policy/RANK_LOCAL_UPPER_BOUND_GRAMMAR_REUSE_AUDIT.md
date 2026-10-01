@@ -134,9 +134,7 @@ It is closely related to the synchronized-response channel already responsible f
 
 ## Candidate 2/3 first-layer observation
 
-After attacker setup in column 4, candidates 2 and 3 expose a poisoned-support restriction on defender column 4, but no current exact theorem reduces the remaining defender reservoir enough to force completion.
-
-Again, this is a legal-move restriction, not a win certificate.
+No poisoned-support or fork-precursor restriction fires at the first attacker setup layer in candidates 2 or 3 under the exact guards audited here. A setup in column 4 simply fills the last legal cell of that column; the resulting absence of column 4 from the defender legal set is ordinary board capacity, not a strategic poison certificate.
 
 ## Narrowed next theorem target
 
@@ -155,7 +153,7 @@ F
 \to \text{deadline / response obligations}.
 \]
 
-The next experiment should apply that exact feedback to the forced 2↔3 split at candidate 6 and to the column-4 poisoned-support restriction at candidates 2/3, then ask whether a response-matroid circuit or forced-completion certificate emerges.
+The next experiment should apply that exact feedback to the forced 2↔3 split at candidate 6 and to the still-unresolved first-layer geometry at candidates 2/3, then ask whether a response-matroid circuit or forced-completion certificate emerges.
 
 ## Claim discipline
 
