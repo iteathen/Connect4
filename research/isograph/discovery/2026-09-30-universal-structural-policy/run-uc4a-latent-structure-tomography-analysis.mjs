@@ -4,7 +4,7 @@ import {resolve} from 'node:path';
 import {createHash} from 'node:crypto';
 
 const dir=resolve(import.meta.dirname);
-const STRUCTURAL_SHA='bfcc2e0c8fc2675070e281554ea5385b50f118e894cd6ce308de2975e09febed';
+const STRUCTURAL_SHA='49844e4772a337d92ab10735d8bc13d1c5570edb6a1b382d4fb0660205d21760';
 const structural=JSON.parse(readFileSync(resolve(dir,'UC4A_LATENT_STRUCTURE_TOMOGRAPHY_STRUCTURAL_0_1.json'),'utf8'));
 const original=JSON.parse(readFileSync(resolve(dir,'UC4A_BOARD_OUTCOME_STRUCTURAL_TRIANGLE_CENSUS_RESULT_0_1.json'),'utf8'));
 const fresh=JSON.parse(readFileSync(resolve(dir,'UC4A_FRESH_BOARD_VALIDATION_ONE_COORDINATE_REPAIR_RESULT_0_1.json'),'utf8'));
@@ -735,7 +735,7 @@ const result={
   schema:'connect4.uc4a_latent_structure_tomography_analysis.v1',
   date:'2026-10-01',
   experimentDesign:'UC4A_LATENT_STRUCTURE_TOMOGRAPHY_EXPERIMENT_DESIGN_0_1.md',
-  analysisProtocol:'UC4A_LATENT_STRUCTURE_TOMOGRAPHY_ANALYSIS_PROTOCOL_0_1.md',
+  analysisProtocol:'UC4A_LATENT_STRUCTURE_TOMOGRAPHY_ANALYSIS_PROTOCOL_0_2.md',
   structuralAtlas:'UC4A_LATENT_STRUCTURE_TOMOGRAPHY_STRUCTURAL_0_1.json',
   structuralAtlasSha256:STRUCTURAL_SHA,
   boardCount:rows.length,labelCount:labelMap.size,
