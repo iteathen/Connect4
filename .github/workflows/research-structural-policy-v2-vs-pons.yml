@@ -1,0 +1,91 @@
+name: Research structural policy v2 vs Pons
+
+on:
+  push:
+    branches:
+      - research/universal-structural-policy-20260930
+    paths:
+      - .github/workflows/research-structural-policy-v2-vs-pons.yml
+
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Run structural policy v2
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone https://github.com/iteathen/Connect4.git connect4
+          cd connect4
+          git checkout research/universal-structural-policy-20260930
+          node research/isograph/discovery/2026-09-30-universal-structural-policy/universal-structural-policy-v2.mjs > ../structural-v2.json
+          cd ..
+          python3 - <<'PY'
+          import json
+          x=json.load(open('structural-v2.json'))
+          print('V2_SEQUENCE',x['sequence'])
+          print('V2_DISPOSITION',x['disposition'])
+          for r in x['trace']:
+              print('STRUCT',r['ply'],r['sequenceBefore'],r['selected'],r['reason'])
+          PY
+
+      - name: Build pinned Pons oracle
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone https://github.com/PascalPons/connect4.git pons-connect4
+          cd pons-connect4
+          git checkout d6ba50d8aaf2308c769d9bf2abd42d90f34baf41
+          make -j2
+          curl -fL --retry 3 -o 7x6.book https://github.com/PascalPons/connect4/releases/download/book/7x6.book
+          echo "PONS_SHA=$(git rev-parse HEAD)"
+          sha256sum 7x6.book
+          cd ..
+
+      - name: Analyze all v2 prefixes and compare
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          x=json.load(open('structural-v2.json'))
+          seqs=[r['sequenceBefore'] for r in x['trace'] if r['sequenceBefore']]
+          open('prefixes-v2.txt','w').write('\n'.join(seqs)+'\n')
+          PY
+          ./pons-connect4/c4solver -b ./pons-connect4/7x6.book -a < prefixes-v2.txt > oracle-v2.txt
+          python3 - <<'PY'
+          import json
+          x=json.load(open('structural-v2.json'))
+          vectors={}
+          for line in open('oracle-v2.txt'):
+              f=line.strip().split()
+              if f:vectors[f[0]]=list(map(int,f[1:]))
+          first=None
+          checks=[]
+          for r in x['trace']:
+              seq=r['sequenceBefore']
+              if not seq or seq not in vectors: continue
+              scores=vectors[seq]
+              legal=[(i+1,s) for i,s in enumerate(scores) if s!=-1000]
+              wins=[m for m,s in legal if s>0]
+              draws=[m for m,s in legal if s==0]
+              if wins:
+                  acceptable=wins; basis='ANY_WIN'
+              elif draws:
+                  acceptable=draws; basis='ANY_DRAW'
+              else:
+                  best=max(s for _,s in legal)
+                  acceptable=[m for m,s in legal if s==best]; basis='MAX_DELAY_LOSS'
+              selected=r['selected']
+              ok=all(m in acceptable for m in selected)
+              rec={'ply':r['ply'],'sequenceBefore':seq,'selected':selected,
+                   'scores':scores,'acceptable':acceptable,'basis':basis,'ok':ok}
+              checks.append(rec)
+              print('CHECK',json.dumps(rec,separators=(',',':')))
+              if r['ply']>=9 and not ok and first is None:
+                  first=rec
+                  break
+          print('FRESH_FIRST_MISMATCH',json.dumps(first,separators=(',',':')) if first else 'NONE')
+          print('V2_CHECKED',len(checks))
+          PY
