@@ -1,0 +1,108 @@
+{
+  "schema": "connect4.cpc_cross_pool_response_probe.v1",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "parent": {
+    "sequence": "44444156666623222242",
+    "rank": 20,
+    "support": [
+      1,
+      6,
+      1,
+      6,
+      1,
+      5,
+      0
+    ],
+    "oddDefenderMask": 229489,
+    "guards": [
+      {
+        "column": 1,
+        "height": 1
+      },
+      {
+        "column": 3,
+        "height": 1
+      },
+      {
+        "column": 6,
+        "height": 5
+      }
+    ],
+    "remainderParity": {
+      "odd": [
+        1,
+        3,
+        5,
+        6
+      ],
+      "even": [
+        7
+      ],
+      "full": [
+        2,
+        4
+      ]
+    }
+  },
+  "realized": {
+    "triggerColumn": 3,
+    "responseColumn": 7,
+    "childSequence": "4444415666662322224237",
+    "childRank": 22,
+    "childSupport": [
+      1,
+      6,
+      2,
+      6,
+      1,
+      5,
+      1
+    ],
+    "childOddDefenderMask": 491633,
+    "childGuards": [
+      {
+        "column": 1,
+        "height": 1
+      },
+      {
+        "column": 6,
+        "height": 5
+      },
+      {
+        "column": 7,
+        "height": 1
+      }
+    ],
+    "childRemainderParity": {
+      "odd": [
+        1,
+        5,
+        6,
+        7
+      ],
+      "even": [
+        3
+      ],
+      "full": [
+        2,
+        4
+      ]
+    }
+  },
+  "downstream": {
+    "horizon": 15,
+    "absolutePly": 37,
+    "code": 2,
+    "accept": false,
+    "failedTrigger": 1,
+    "elapsedNs": "41145794"
+  },
+  "boundary": [
+    "Discovery probe only: response column 7 is not licensed by the current frozen response grammar at the parent state.",
+    "The probe asks whether the exact child independently satisfies the already-qualified D15 survival class.",
+    "A positive child result would motivate a structural licensing theorem; it would not by itself license the move.",
+    "No oracle, solved W/D/L, best-move label, or physical-board identity is used."
+  ]
+}
