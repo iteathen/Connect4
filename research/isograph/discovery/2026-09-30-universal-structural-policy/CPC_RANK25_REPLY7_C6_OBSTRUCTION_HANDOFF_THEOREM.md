@@ -2,7 +2,7 @@
 
 **Date:** 2026-10-01  
 **Version:** 0.1 frozen before execution  
-**Status:** exact local composition candidate; qualification pending  
+**Status:** rejected exact local composition candidate  
 **Branch:** `research/universal-structural-policy-20260930`
 
 ## Purpose
@@ -48,3 +48,21 @@ Reject this theorem if any of the following occurs:
 This is a local obligation-handoff theorem, not a new production CPC feature. It uses exact RBA cofactors, first-win precedence, and existing qualified certificate classes only.
 
 It does not by itself close the entire reply-7 state; the other Player-2 first moves require the separate c6-blocker re-entry qualification.
+
+
+## Qualification result
+
+Rejected on 2026-10-01 by `CPC_RANK25_REPLY7_C6_OBSTRUCTION_HANDOFF_0_1.json` at pinned JSMinSys authority `bf23d3a67652cd42e1975f29c7dc4eed54f7eb42`, with `oracleUsed: false` and `solvedInputsUsed: false`.
+
+The handoff itself qualified through the forced block:
+
+- P2:c6 was nonterminal;
+- P1:c3 created the active c3r5 singleton;
+- production CPC restricted Player 2 to c3 in both baseline and frontier modes;
+- exact literal cofactors independently showed c3 was the only reply avoiding the immediate P1:c3 terminal;
+- P2:c3 was nonterminal;
+- the resulting rank-28 state retained the aligned `{c5r5,c7r3}` pair with c5 at height 1 and Player 1 to move.
+
+The frozen theorem failed only at its final re-entry claim. In the attempted height-1 c5 compression from that exact rank-28 state, P1:c5 was followed by an **immediate P2:c5 terminal**. Therefore the old c5 compression theorem does not transfer unchanged into this ownership state.
+
+This is a theorem rejection, not a workflow/resource failure. The exact rank-28 state must be analyzed directly.
