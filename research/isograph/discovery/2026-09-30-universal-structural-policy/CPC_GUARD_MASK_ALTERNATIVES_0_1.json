@@ -1,0 +1,158 @@
+{
+  "schema": "connect4.cpc_guard_mask_alternatives_probe.v1",
+  "jsMinSysSha": "0899c5811918e68c22dc1b0e4dd8af97d9b4bbcb",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "rows": [
+    {
+      "id": "candidate6_root",
+      "sequence": "4444415666",
+      "D": 15,
+      "attacker": 1,
+      "support": [
+        1,
+        0,
+        0,
+        5,
+        1,
+        3,
+        0
+      ],
+      "reconstructedGuards": [
+        1,
+        6
+      ],
+      "results": [
+        {
+          "guardColumn": 1,
+          "guardHeight": 1,
+          "accept": false,
+          "class": "GUARD_CHILD_FAIL",
+          "failedTrigger": 1,
+          "witnessByTrigger": null
+        },
+        {
+          "guardColumn": 6,
+          "guardHeight": 3,
+          "accept": false,
+          "class": "GUARD_RESPONSE_EXHAUSTED",
+          "failedTrigger": 2,
+          "witnessByTrigger": null
+        }
+      ]
+    },
+    {
+      "id": "c6_a2_d3",
+      "sequence": "444441566623",
+      "D": 13,
+      "attacker": 1,
+      "support": [
+        1,
+        1,
+        1,
+        5,
+        1,
+        3,
+        0
+      ],
+      "reconstructedGuards": [
+        1,
+        3,
+        6
+      ],
+      "results": [
+        {
+          "guardColumn": 1,
+          "guardHeight": 1,
+          "accept": false,
+          "class": "GUARD_CHILD_FAIL",
+          "failedTrigger": 1,
+          "witnessByTrigger": null
+        },
+        {
+          "guardColumn": 3,
+          "guardHeight": 1,
+          "accept": false,
+          "class": "GUARD_RESPONSE_EXHAUSTED",
+          "failedTrigger": 2,
+          "witnessByTrigger": null
+        },
+        {
+          "guardColumn": 6,
+          "guardHeight": 3,
+          "accept": false,
+          "class": "GUARD_CHILD_FAIL",
+          "failedTrigger": 6,
+          "witnessByTrigger": null
+        }
+      ]
+    },
+    {
+      "id": "c6_a2_d7",
+      "sequence": "444441566627",
+      "D": 13,
+      "attacker": 1,
+      "support": [
+        1,
+        1,
+        0,
+        5,
+        1,
+        3,
+        1
+      ],
+      "reconstructedGuards": [
+        1,
+        6,
+        7
+      ],
+      "results": [
+        {
+          "guardColumn": 1,
+          "guardHeight": 1,
+          "accept": false,
+          "class": "GUARD_CHILD_FAIL",
+          "failedTrigger": 1,
+          "witnessByTrigger": null
+        },
+        {
+          "guardColumn": 6,
+          "guardHeight": 3,
+          "accept": false,
+          "class": "GUARD_RESPONSE_EXHAUSTED",
+          "failedTrigger": 1,
+          "witnessByTrigger": null
+        },
+        {
+          "guardColumn": 7,
+          "guardHeight": 1,
+          "accept": false,
+          "class": "GUARD_RESPONSE_EXHAUSTED",
+          "failedTrigger": 1,
+          "witnessByTrigger": null
+        }
+      ]
+    }
+  ],
+  "work": {
+    "cofactorCount": 141715,
+    "guardCalls": 11175,
+    "guardMemoHits": 7669,
+    "guardBranchTests": 33604,
+    "guardForcedResponses": 31381,
+    "guardRetirements": 923,
+    "guardEstablishments": 440,
+    "topDebtTests": 7576,
+    "topDebtClosures": 5206,
+    "guardMemoSize": 11175,
+    "baseMemoSize": 13569,
+    "templateMemoSize": 12729,
+    "responseOptionMemoSize": 9753,
+    "cofactorMemoSize": 141715
+  },
+  "boundary": [
+    "Guard columns are reconstructed solely from current colored occupancy encoded by the supplied legal sequence; no W/D/L or oracle information is used.",
+    "Each reconstructed guard is tested independently under the already-frozen single-guard temporal contract.",
+    "Failure of every individual guard would motivate a multi-guard product; success of an existing guard would show provenance selection is unnecessarily lossy."
+  ]
+}
