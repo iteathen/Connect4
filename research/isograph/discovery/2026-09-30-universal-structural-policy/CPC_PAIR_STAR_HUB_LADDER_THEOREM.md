@@ -1,8 +1,8 @@
 # CPC pair-star hub-ladder progress theorem
 
 **Date:** 2026-09-30  
-**Version:** 0.1 frozen before fresh structural qualification  
-**Status:** exact local theorem candidate / CPC progress primitive  
+**Version:** 0.1  
+**Status:** qualified exact local theorem / CPC progress primitive  
 **Branch:** \`research/universal-structural-policy-20260930\`
 
 ## Purpose
@@ -235,7 +235,13 @@ Only such a composition can turn residual progress into a finite upper bound.
 
 ## 9. Qualification discipline
 
-Version 0.1 is frozen before fresh controls.
+Version 0.1 was frozen before fresh controls.
+
+Fresh qualification then passed on 24 independently generated legal standard-7x6 controls outside the consumed training prefix. The corpus included both players and ranks 12–20. One additional fresh state violated the explicit first-win premise and was retained as a guard-failure control rather than counted as theorem evidence.
+
+Durable evidence:
+
+`CPC_PAIR_STAR_FRESH_QUALIFICATION_0_1.json`
 
 Fresh qualification must:
 
@@ -250,4 +256,4 @@ Failure produces a scope correction, not a fitted exception.
 
 ## Claim discipline
 
-This is a local structural theorem candidate. It is not yet promoted as a universal CPC rule until fresh qualification passes.
+This is a qualified local structural theorem under the stated guards. It remains a CPC internal progress primitive, not a standalone move-selection rule.
