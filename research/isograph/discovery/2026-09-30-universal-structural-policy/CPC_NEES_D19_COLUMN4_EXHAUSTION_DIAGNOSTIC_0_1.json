@@ -1,0 +1,354 @@
+{
+  "schema": "connect4.cpc_nees_guard_trigger_diagnostic.v1",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "root": {
+    "sequence": "444441566666232222",
+    "rank": 18,
+    "support": [
+      1,
+      5,
+      1,
+      5,
+      1,
+      5,
+      0
+    ],
+    "guards": [
+      {
+        "column": 1,
+        "height": 1
+      },
+      {
+        "column": 3,
+        "height": 1
+      },
+      {
+        "column": 6,
+        "height": 5
+      }
+    ]
+  },
+  "horizon": 19,
+  "absolutePly": 37,
+  "triggerColumn": 4,
+  "candidateMask": 119,
+  "guardMask": 37,
+  "triggerTerminal": 0,
+  "responses": [
+    {
+      "responseColumn": 1,
+      "terminal": 0,
+      "childCode": 2,
+      "childAccept": false,
+      "childFailedTrigger": 1,
+      "nextOddDefenderMask": 229489,
+      "childRank": 20,
+      "childSupport": [
+        2,
+        5,
+        1,
+        6,
+        1,
+        5,
+        0
+      ],
+      "childGuards": [
+        {
+          "column": 3,
+          "height": 1
+        },
+        {
+          "column": 6,
+          "height": 5
+        }
+      ],
+      "childCpc": {
+        "kind": "CPC_NONE",
+        "interval": [
+          -1,
+          1
+        ],
+        "forcedColumn": null,
+        "preemptionCount": 0,
+        "preemptionMask32": 0,
+        "precursorCount": 0
+      },
+      "attackerResidualProfile": {
+        "count": 15,
+        "deadlineHistogram": {
+          "3": 1,
+          "5": 3,
+          "7": 7,
+          "9": 4
+        }
+      }
+    },
+    {
+      "responseColumn": 2,
+      "terminal": 0,
+      "childCode": 4,
+      "childAccept": false,
+      "childFailedTrigger": 3,
+      "nextOddDefenderMask": 229489,
+      "childRank": 20,
+      "childSupport": [
+        1,
+        6,
+        1,
+        6,
+        1,
+        5,
+        0
+      ],
+      "childGuards": [
+        {
+          "column": 1,
+          "height": 1
+        },
+        {
+          "column": 3,
+          "height": 1
+        },
+        {
+          "column": 6,
+          "height": 5
+        }
+      ],
+      "childCpc": {
+        "kind": "CPC_NONE",
+        "interval": [
+          -1,
+          1
+        ],
+        "forcedColumn": null,
+        "preemptionCount": 0,
+        "preemptionMask32": 0,
+        "precursorCount": 0
+      },
+      "attackerResidualProfile": {
+        "count": 14,
+        "deadlineHistogram": {
+          "3": 1,
+          "5": 3,
+          "7": 5,
+          "9": 5
+        }
+      }
+    },
+    {
+      "responseColumn": 3,
+      "terminal": 0,
+      "childCode": 3,
+      "childAccept": false,
+      "childFailedTrigger": 2,
+      "nextOddDefenderMask": 229489,
+      "childRank": 20,
+      "childSupport": [
+        1,
+        5,
+        2,
+        6,
+        1,
+        5,
+        0
+      ],
+      "childGuards": [
+        {
+          "column": 1,
+          "height": 1
+        },
+        {
+          "column": 6,
+          "height": 5
+        }
+      ],
+      "childCpc": {
+        "kind": "CPC_NONE",
+        "interval": [
+          -1,
+          1
+        ],
+        "forcedColumn": null,
+        "preemptionCount": 0,
+        "preemptionMask32": 0,
+        "precursorCount": 0
+      },
+      "attackerResidualProfile": {
+        "count": 14,
+        "deadlineHistogram": {
+          "5": 3,
+          "7": 7,
+          "9": 4
+        }
+      }
+    },
+    {
+      "responseColumn": 5,
+      "terminal": 0,
+      "childCode": 3,
+      "childAccept": false,
+      "childFailedTrigger": 2,
+      "nextOddDefenderMask": 229489,
+      "childRank": 20,
+      "childSupport": [
+        1,
+        5,
+        1,
+        6,
+        2,
+        5,
+        0
+      ],
+      "childGuards": [
+        {
+          "column": 1,
+          "height": 1
+        },
+        {
+          "column": 3,
+          "height": 1
+        },
+        {
+          "column": 6,
+          "height": 5
+        }
+      ],
+      "childCpc": {
+        "kind": "CPC_NONE",
+        "interval": [
+          -1,
+          1
+        ],
+        "forcedColumn": null,
+        "preemptionCount": 0,
+        "preemptionMask32": 0,
+        "precursorCount": 0
+      },
+      "attackerResidualProfile": {
+        "count": 15,
+        "deadlineHistogram": {
+          "3": 1,
+          "5": 2,
+          "7": 8,
+          "9": 4
+        }
+      }
+    },
+    {
+      "responseColumn": 6,
+      "terminal": 0,
+      "childCode": 2,
+      "childAccept": false,
+      "childFailedTrigger": 1,
+      "nextOddDefenderMask": 229489,
+      "childRank": 20,
+      "childSupport": [
+        1,
+        5,
+        1,
+        6,
+        1,
+        6,
+        0
+      ],
+      "childGuards": [
+        {
+          "column": 1,
+          "height": 1
+        },
+        {
+          "column": 3,
+          "height": 1
+        }
+      ],
+      "childCpc": {
+        "kind": "CPC_NONE",
+        "interval": [
+          -1,
+          1
+        ],
+        "forcedColumn": null,
+        "preemptionCount": 0,
+        "preemptionMask32": 0,
+        "precursorCount": 0
+      },
+      "attackerResidualProfile": {
+        "count": 14,
+        "deadlineHistogram": {
+          "3": 1,
+          "5": 3,
+          "7": 5,
+          "9": 5
+        }
+      }
+    },
+    {
+      "responseColumn": 7,
+      "terminal": 0,
+      "childCode": 3,
+      "childAccept": false,
+      "childFailedTrigger": 2,
+      "nextOddDefenderMask": 491633,
+      "childRank": 20,
+      "childSupport": [
+        1,
+        5,
+        1,
+        6,
+        1,
+        5,
+        1
+      ],
+      "childGuards": [
+        {
+          "column": 1,
+          "height": 1
+        },
+        {
+          "column": 3,
+          "height": 1
+        },
+        {
+          "column": 6,
+          "height": 5
+        },
+        {
+          "column": 7,
+          "height": 1
+        }
+      ],
+      "childCpc": {
+        "kind": "CPC_NONE",
+        "interval": [
+          -1,
+          1
+        ],
+        "forcedColumn": null,
+        "preemptionCount": 0,
+        "preemptionMask32": 0,
+        "precursorCount": 0
+      },
+      "attackerResidualProfile": {
+        "count": 15,
+        "deadlineHistogram": {
+          "3": 1,
+          "5": 3,
+          "7": 7,
+          "9": 4
+        }
+      }
+    }
+  ],
+  "runtime": {
+    "elapsedNs": "354418920",
+    "memoCapacity": 4194304
+  },
+  "boundary": [
+    "This is a diagnostic projection of the already-frozen NEES guard-survival response grammar; it adds no legal response.",
+    "Each childCode is the existing D25 survival result after exact trigger/response cofactors: 1 means closed/survives; 2..8 identifies that child class first unclosed attacker trigger.",
+    "Failure remains grammar incompleteness only, not an attacker forced-completion certificate.",
+    "No oracle, solved W/D/L, best-move labels, or physical-board identity is used by the proof diagnostic."
+  ]
+}
