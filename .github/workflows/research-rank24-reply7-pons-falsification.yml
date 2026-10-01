@@ -1,0 +1,117 @@
+name: Research rank24 reply7 Pons falsification
+
+on:
+  push:
+    branches:
+      - research/universal-structural-policy-20260930
+    paths:
+      - .github/workflows/research-rank24-reply7-pons-falsification.yml
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_RANK24_REPLY7_PONS_FALSIFICATION_TARGET.md
+
+permissions:
+  contents: write
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - name: Check out exact pushed revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+      - name: Build pinned Pascal Pons oracle
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone https://github.com/PascalPons/connect4.git pons-connect4
+          git -C pons-connect4 checkout d6ba50d8aaf2308c769d9bf2abd42d90f34baf41
+          test "$(git -C pons-connect4 rev-parse HEAD)" = "d6ba50d8aaf2308c769d9bf2abd42d90f34baf41"
+          make -C pons-connect4 -j2
+          curl -fL --retry 3 -o pons-connect4/7x6.book https://github.com/PascalPons/connect4/releases/download/book/7x6.book
+          echo "f346cd449626fb81da93be0958e017ee854e5f74d85b6d38062357f5403aec53  pons-connect4/7x6.book" | sha256sum -c -
+      - name: Validate frozen rank24 reply7 state
+        shell: bash
+        run: |
+          set -euo pipefail
+          DIR=research/isograph/discovery/2026-09-30-universal-structural-policy
+          OUT="$DIR/CPC_RANK24_REPLY7_PONS_FALSIFICATION_0_1.json"
+          SEQ=444441566666232222423317
+          printf '%s\n' "$SEQ" | ./pons-connect4/c4solver -b ./pons-connect4/7x6.book -a > rank24-reply7-pons.txt
+          python3 - "$OUT" "$SEQ" <<'PY'
+          import json,sys,time
+          from pathlib import Path
+          out,seq=sys.argv[1:3]
+          line=Path('rank24-reply7-pons.txt').read_text().strip()
+          fields=line.split()
+          if len(fields)<7:
+              raise SystemExit(f'bad Pons row: {line!r}')
+          scores=list(map(int,fields[-7:]))
+          legal=[(i+1,v) for i,v in enumerate(scores) if v!=-1000]
+          if not legal:
+              raise SystemExit('no legal moves returned')
+          wins=[c for c,v in legal if v>0]
+          draws=[c for c,v in legal if v==0]
+          losses=[c for c,v in legal if v<0]
+          exact={}
+          for c,v in legal:
+              exact.setdefault(v,[]).append(c)
+          best=max(v for _,v in legal)
+          result={
+              'schema':'connect4.cpc_rank24_reply7_pons_falsification.v1',
+              'generatedUtc':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),
+              'oracleRole':'validation/falsification only',
+              'structuralTarget':'CPC_RANK24_REPLY7_PONS_FALSIFICATION_TARGET.md',
+              'sequence':seq,
+              'rank':len(seq),
+              'mover':1,
+              'oracle':{
+                  'repository':'PascalPons/connect4',
+                  'revision':'d6ba50d8aaf2308c769d9bf2abd42d90f34baf41',
+                  'book':'7x6.book',
+                  'bookSha256':'f346cd449626fb81da93be0958e017ee854e5f74d85b6d38062357f5403aec53',
+                  'mode':'c4solver -a / Solver::analyze()'
+              },
+              'scores':scores,
+              'wdlEquivalent':{'win':wins,'draw':draws,'loss':losses},
+              'exactStrongEquivalenceClasses':[
+                  {'score':score,'moves':moves}
+                  for score,moves in sorted(exact.items(),reverse=True)
+              ],
+              'bestScore':best,
+              'hasWinningMove':bool(wins),
+              'hasDrawingMove':bool(draws),
+              'boundary':[
+                  'The structural validation target was committed before this oracle workflow ran.',
+                  'Oracle values are validation/falsification only and are forbidden as CPC proof or runtime premises.',
+                  'No structural theorem is established by this file.'
+              ]
+          }
+          Path(out).write_text(json.dumps(result,indent=2)+'\n')
+          print(json.dumps({
+              'sequence':seq,
+              'scores':scores,
+              'wdl':result['wdlEquivalent'],
+              'strongClasses':result['exactStrongEquivalenceClasses'],
+              'bestScore':best,
+              'hasWinningMove':result['hasWinningMove']
+          }))
+          PY
+      - name: Commit post-freeze oracle evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          BRANCH=research/universal-structural-policy-20260930
+          FILE=research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_RANK24_REPLY7_PONS_FALSIFICATION_0_1.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$FILE"
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "research: validate rank24 reply7 state with Pons"
+          for attempt in 1 2 3; do
+            git fetch origin "$BRANCH"
+            git rebase --autostash "origin/$BRANCH"
+            if git push origin HEAD:"$BRANCH"; then exit 0; fi
+            sleep 1
+          done
+          exit 1
