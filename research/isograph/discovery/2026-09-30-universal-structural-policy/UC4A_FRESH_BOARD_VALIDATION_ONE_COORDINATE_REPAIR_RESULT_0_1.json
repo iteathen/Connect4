@@ -1,0 +1,2029 @@
+{
+  "schema": "connect4.uc4a_fresh_board_validation_one_coordinate_repair.v1",
+  "date": "2026-10-01",
+  "hypothesis": "UC4A_FRESH_BOARD_VALIDATION_ONE_COORDINATE_REPAIR_0_1.md",
+  "source": {
+    "repository": "ChristopheSteininger/c4",
+    "branch": "master",
+    "tableDescription": "published README outcome table; extends Tromp board sizes with W+H=16 and additional larger cases",
+    "externalValidationOnly": true
+  },
+  "sealedHoldoutsAccessed": false,
+  "trainingBoardCount": 37,
+  "freshBoardCount": 15,
+  "combinedBoardCount": 52,
+  "freshRows": [
+    {
+      "width": 12,
+      "height": 4,
+      "outcomeName": "P2_WIN",
+      "coarse": {
+        "widthParity": 0,
+        "heightParity": 0,
+        "cellParity": 0,
+        "safeEntryCount": 0,
+        "safeEntryClass": "ZERO",
+        "phaseRadiusParity": 0,
+        "centerCount": 2,
+        "maxImpact": 7,
+        "maxImpactCount": 6,
+        "uniqueMaxImpact": 0,
+        "coreDeltaSign": "NEG",
+        "coreDeltaParity": 1,
+        "yCellParity": 1,
+        "yLineParity": 0,
+        "incidenceRankParity": 1,
+        "kernelParity": 1,
+        "lineCountParity": 0,
+        "elementaryUnresolvedParity": 1,
+        "topDefectParity": 1,
+        "topDefectClass": "ONE",
+        "neutralPairParity": 1
+      }
+    },
+    {
+      "width": 11,
+      "height": 5,
+      "outcomeName": "P1_WIN",
+      "coarse": {
+        "widthParity": 1,
+        "heightParity": 1,
+        "cellParity": 1,
+        "safeEntryCount": 0,
+        "safeEntryClass": "ZERO",
+        "phaseRadiusParity": 1,
+        "centerCount": 1,
+        "maxImpact": 7,
+        "maxImpactCount": 5,
+        "uniqueMaxImpact": 0,
+        "coreDeltaSign": "NEG",
+        "coreDeltaParity": 0,
+        "yCellParity": 0,
+        "yLineParity": 0,
+        "incidenceRankParity": 0,
+        "kernelParity": 0,
+        "lineCountParity": 0,
+        "elementaryUnresolvedParity": 0,
+        "topDefectParity": 0,
+        "topDefectClass": "EVEN_NONZERO",
+        "neutralPairParity": 0
+      }
+    },
+    {
+      "width": 10,
+      "height": 6,
+      "outcomeName": "P1_WIN",
+      "coarse": {
+        "widthParity": 0,
+        "heightParity": 0,
+        "cellParity": 0,
+        "safeEntryCount": 0,
+        "safeEntryClass": "ZERO",
+        "phaseRadiusParity": 1,
+        "centerCount": 2,
+        "maxImpact": 7,
+        "maxImpactCount": 4,
+        "uniqueMaxImpact": 0,
+        "coreDeltaSign": "POS",
+        "coreDeltaParity": 1,
+        "yCellParity": 1,
+        "yLineParity": 0,
+        "incidenceRankParity": 1,
+        "kernelParity": 1,
+        "lineCountParity": 0,
+        "elementaryUnresolvedParity": 0,
+        "topDefectParity": 1,
+        "topDefectClass": "ONE",
+        "neutralPairParity": 1
+      }
+    },
+    {
+      "width": 9,
+      "height": 7,
+      "outcomeName": "P1_WIN",
+      "coarse": {
+        "widthParity": 1,
+        "heightParity": 1,
+        "cellParity": 1,
+        "safeEntryCount": 0,
+        "safeEntryClass": "ZERO",
+        "phaseRadiusParity": 0,
+        "centerCount": 1,
+        "maxImpact": 7,
+        "maxImpactCount": 3,
+        "uniqueMaxImpact": 0,
+        "coreDeltaSign": "POS",
+        "coreDeltaParity": 0,
+        "yCellParity": 0,
+        "yLineParity": 0,
+        "incidenceRankParity": 0,
+        "kernelParity": 0,
+        "lineCountParity": 0,
+        "elementaryUnresolvedParity": 0,
+        "topDefectParity": 0,
+        "topDefectClass": "EVEN_NONZERO",
+        "neutralPairParity": 1
+      }
+    },
+    {
+      "width": 7,
+      "height": 9,
+      "outcomeName": "DRAW",
+      "coarse": {
+        "widthParity": 1,
+        "heightParity": 1,
+        "cellParity": 1,
+        "safeEntryCount": 1,
+        "safeEntryClass": "ONE",
+        "phaseRadiusParity": 1,
+        "centerCount": 1,
+        "maxImpact": 7,
+        "maxImpactCount": 1,
+        "uniqueMaxImpact": 1,
+        "coreDeltaSign": "POS",
+        "coreDeltaParity": 0,
+        "yCellParity": 0,
+        "yLineParity": 0,
+        "incidenceRankParity": 0,
+        "kernelParity": 0,
+        "lineCountParity": 0,
+        "elementaryUnresolvedParity": 0,
+        "topDefectParity": 0,
+        "topDefectClass": "EVEN_NONZERO",
+        "neutralPairParity": 0
+      }
+    },
+    {
+      "width": 8,
+      "height": 9,
+      "outcomeName": "P1_WIN",
+      "coarse": {
+        "widthParity": 0,
+        "heightParity": 1,
+        "cellParity": 0,
+        "safeEntryCount": 0,
+        "safeEntryClass": "ZERO",
+        "phaseRadiusParity": 0,
+        "centerCount": 2,
+        "maxImpact": 7,
+        "maxImpactCount": 2,
+        "uniqueMaxImpact": 0,
+        "coreDeltaSign": "POS",
+        "coreDeltaParity": 1,
+        "yCellParity": 0,
+        "yLineParity": 1,
+        "incidenceRankParity": 1,
+        "kernelParity": 0,
+        "lineCountParity": 1,
+        "elementaryUnresolvedParity": 0,
+        "topDefectParity": 1,
+        "topDefectClass": "ODD_MULTI",
+        "neutralPairParity": 0
+      }
+    },
+    {
+      "width": 6,
+      "height": 10,
+      "outcomeName": "P2_WIN",
+      "coarse": {
+        "widthParity": 0,
+        "heightParity": 0,
+        "cellParity": 0,
+        "safeEntryCount": 2,
+        "safeEntryClass": "MULTI",
+        "phaseRadiusParity": 1,
+        "centerCount": 2,
+        "maxImpact": 5,
+        "maxImpactCount": 2,
+        "uniqueMaxImpact": 0,
+        "coreDeltaSign": "POS",
+        "coreDeltaParity": 1,
+        "yCellParity": 1,
+        "yLineParity": 0,
+        "incidenceRankParity": 1,
+        "kernelParity": 1,
+        "lineCountParity": 0,
+        "elementaryUnresolvedParity": 0,
+        "topDefectParity": 1,
+        "topDefectClass": "ONE",
+        "neutralPairParity": 1
+      }
+    },
+    {
+      "width": 7,
+      "height": 10,
+      "outcomeName": "P1_WIN",
+      "coarse": {
+        "widthParity": 1,
+        "heightParity": 0,
+        "cellParity": 0,
+        "safeEntryCount": 1,
+        "safeEntryClass": "ONE",
+        "phaseRadiusParity": 1,
+        "centerCount": 1,
+        "maxImpact": 7,
+        "maxImpactCount": 1,
+        "uniqueMaxImpact": 1,
+        "coreDeltaSign": "POS",
+        "coreDeltaParity": 0,
+        "yCellParity": 0,
+        "yLineParity": 0,
+        "incidenceRankParity": 1,
+        "kernelParity": 0,
+        "lineCountParity": 1,
+        "elementaryUnresolvedParity": 0,
+        "topDefectParity": 1,
+        "topDefectClass": "ONE",
+        "neutralPairParity": 0
+      }
+    },
+    {
+      "width": 5,
+      "height": 11,
+      "outcomeName": "DRAW",
+      "coarse": {
+        "widthParity": 1,
+        "heightParity": 1,
+        "cellParity": 1,
+        "safeEntryCount": 3,
+        "safeEntryClass": "MULTI",
+        "phaseRadiusParity": 0,
+        "centerCount": 1,
+        "maxImpact": 4,
+        "maxImpactCount": 2,
+        "uniqueMaxImpact": 0,
+        "coreDeltaSign": "POS",
+        "coreDeltaParity": 0,
+        "yCellParity": 0,
+        "yLineParity": 0,
+        "incidenceRankParity": 0,
+        "kernelParity": 0,
+        "lineCountParity": 0,
+        "elementaryUnresolvedParity": 0,
+        "topDefectParity": 0,
+        "topDefectClass": "EVEN_NONZERO",
+        "neutralPairParity": 1
+      }
+    },
+    {
+      "width": 6,
+      "height": 11,
+      "outcomeName": "P1_WIN",
+      "coarse": {
+        "widthParity": 0,
+        "heightParity": 1,
+        "cellParity": 0,
+        "safeEntryCount": 2,
+        "safeEntryClass": "MULTI",
+        "phaseRadiusParity": 1,
+        "centerCount": 2,
+        "maxImpact": 5,
+        "maxImpactCount": 2,
+        "uniqueMaxImpact": 0,
+        "coreDeltaSign": "POS",
+        "coreDeltaParity": 1,
+        "yCellParity": 0,
+        "yLineParity": 1,
+        "incidenceRankParity": 1,
+        "kernelParity": 0,
+        "lineCountParity": 1,
+        "elementaryUnresolvedParity": 1,
+        "topDefectParity": 1,
+        "topDefectClass": "ODD_MULTI",
+        "neutralPairParity": 0
+      }
+    },
+    {
+      "width": 4,
+      "height": 12,
+      "outcomeName": "DRAW",
+      "coarse": {
+        "widthParity": 0,
+        "heightParity": 0,
+        "cellParity": 0,
+        "safeEntryCount": 4,
+        "safeEntryClass": "MULTI",
+        "phaseRadiusParity": 0,
+        "centerCount": 2,
+        "maxImpact": 3,
+        "maxImpactCount": 2,
+        "uniqueMaxImpact": 0,
+        "coreDeltaSign": "NEG",
+        "coreDeltaParity": 1,
+        "yCellParity": 1,
+        "yLineParity": 0,
+        "incidenceRankParity": 1,
+        "kernelParity": 1,
+        "lineCountParity": 0,
+        "elementaryUnresolvedParity": 1,
+        "topDefectParity": 1,
+        "topDefectClass": "ONE",
+        "neutralPairParity": 1
+      }
+    },
+    {
+      "width": 5,
+      "height": 12,
+      "outcomeName": "DRAW",
+      "coarse": {
+        "widthParity": 1,
+        "heightParity": 0,
+        "cellParity": 0,
+        "safeEntryCount": 3,
+        "safeEntryClass": "MULTI",
+        "phaseRadiusParity": 0,
+        "centerCount": 1,
+        "maxImpact": 4,
+        "maxImpactCount": 2,
+        "uniqueMaxImpact": 0,
+        "coreDeltaSign": "POS",
+        "coreDeltaParity": 0,
+        "yCellParity": 0,
+        "yLineParity": 0,
+        "incidenceRankParity": 1,
+        "kernelParity": 0,
+        "lineCountParity": 1,
+        "elementaryUnresolvedParity": 0,
+        "topDefectParity": 1,
+        "topDefectClass": "ONE",
+        "neutralPairParity": 1
+      }
+    },
+    {
+      "width": 6,
+      "height": 12,
+      "outcomeName": "P2_WIN",
+      "coarse": {
+        "widthParity": 0,
+        "heightParity": 0,
+        "cellParity": 0,
+        "safeEntryCount": 2,
+        "safeEntryClass": "MULTI",
+        "phaseRadiusParity": 1,
+        "centerCount": 2,
+        "maxImpact": 5,
+        "maxImpactCount": 2,
+        "uniqueMaxImpact": 0,
+        "coreDeltaSign": "POS",
+        "coreDeltaParity": 1,
+        "yCellParity": 1,
+        "yLineParity": 0,
+        "incidenceRankParity": 1,
+        "kernelParity": 1,
+        "lineCountParity": 0,
+        "elementaryUnresolvedParity": 1,
+        "topDefectParity": 1,
+        "topDefectClass": "ONE",
+        "neutralPairParity": 1
+      }
+    },
+    {
+      "width": 4,
+      "height": 13,
+      "outcomeName": "DRAW",
+      "coarse": {
+        "widthParity": 0,
+        "heightParity": 1,
+        "cellParity": 0,
+        "safeEntryCount": 4,
+        "safeEntryClass": "MULTI",
+        "phaseRadiusParity": 0,
+        "centerCount": 2,
+        "maxImpact": 3,
+        "maxImpactCount": 2,
+        "uniqueMaxImpact": 0,
+        "coreDeltaSign": "NEG",
+        "coreDeltaParity": 1,
+        "yCellParity": 0,
+        "yLineParity": 1,
+        "incidenceRankParity": 1,
+        "kernelParity": 0,
+        "lineCountParity": 1,
+        "elementaryUnresolvedParity": 0,
+        "topDefectParity": 1,
+        "topDefectClass": "ODD_MULTI",
+        "neutralPairParity": 0
+      }
+    },
+    {
+      "width": 5,
+      "height": 13,
+      "outcomeName": "DRAW",
+      "coarse": {
+        "widthParity": 1,
+        "heightParity": 1,
+        "cellParity": 1,
+        "safeEntryCount": 3,
+        "safeEntryClass": "MULTI",
+        "phaseRadiusParity": 0,
+        "centerCount": 1,
+        "maxImpact": 4,
+        "maxImpactCount": 2,
+        "uniqueMaxImpact": 0,
+        "coreDeltaSign": "POS",
+        "coreDeltaParity": 0,
+        "yCellParity": 0,
+        "yLineParity": 0,
+        "incidenceRankParity": 0,
+        "kernelParity": 0,
+        "lineCountParity": 0,
+        "elementaryUnresolvedParity": 0,
+        "topDefectParity": 0,
+        "topDefectClass": "EVEN_NONZERO",
+        "neutralPairParity": 0
+      }
+    }
+  ],
+  "baselineValidation": [
+    {
+      "features": [
+        "heightParity",
+        "safeEntryCount",
+        "coreDeltaSign"
+      ],
+      "predicted": 13,
+      "correct": 12,
+      "wrong": 1,
+      "uncovered": 2,
+      "coverage": 0.8666666666666667,
+      "accuracy": 0.9230769230769231,
+      "rows": [
+        {
+          "board": "12x4",
+          "signature": "0|0|NEG",
+          "actual": "P2_WIN",
+          "prediction": "P2_WIN",
+          "trainingBoards": [
+            "8x4",
+            "9x4",
+            "10x4",
+            "11x4"
+          ],
+          "trainingLabels": [
+            "P2_WIN"
+          ]
+        },
+        {
+          "board": "11x5",
+          "signature": "1|0|NEG",
+          "actual": "P1_WIN",
+          "prediction": "P1_WIN",
+          "trainingBoards": [
+            "8x5",
+            "9x5",
+            "10x5"
+          ],
+          "trainingLabels": [
+            "P1_WIN"
+          ]
+        },
+        {
+          "board": "10x6",
+          "signature": "0|0|POS",
+          "actual": "P1_WIN",
+          "prediction": "P2_WIN",
+          "trainingBoards": [
+            "8x8",
+            "8x6",
+            "9x6"
+          ],
+          "trainingLabels": [
+            "P2_WIN"
+          ]
+        },
+        {
+          "board": "9x7",
+          "signature": "1|0|POS",
+          "actual": "P1_WIN",
+          "prediction": "P1_WIN",
+          "trainingBoards": [
+            "8x7"
+          ],
+          "trainingLabels": [
+            "P1_WIN"
+          ]
+        },
+        {
+          "board": "7x9",
+          "signature": "1|1|POS",
+          "actual": "DRAW",
+          "prediction": "DRAW",
+          "trainingBoards": [
+            "7x7"
+          ],
+          "trainingLabels": [
+            "DRAW"
+          ]
+        },
+        {
+          "board": "8x9",
+          "signature": "1|0|POS",
+          "actual": "P1_WIN",
+          "prediction": "P1_WIN",
+          "trainingBoards": [
+            "8x7"
+          ],
+          "trainingLabels": [
+            "P1_WIN"
+          ]
+        },
+        {
+          "board": "6x10",
+          "signature": "0|2|POS",
+          "actual": "P2_WIN",
+          "prediction": "P2_WIN",
+          "trainingBoards": [
+            "6x8"
+          ],
+          "trainingLabels": [
+            "P2_WIN"
+          ]
+        },
+        {
+          "board": "7x10",
+          "signature": "0|1|POS",
+          "actual": "P1_WIN",
+          "prediction": "P1_WIN",
+          "trainingBoards": [
+            "7x8"
+          ],
+          "trainingLabels": [
+            "P1_WIN"
+          ]
+        },
+        {
+          "board": "5x11",
+          "signature": "1|3|POS",
+          "actual": "DRAW",
+          "prediction": null,
+          "trainingBoards": [],
+          "trainingLabels": []
+        },
+        {
+          "board": "6x11",
+          "signature": "1|2|POS",
+          "actual": "P1_WIN",
+          "prediction": "P1_WIN",
+          "trainingBoards": [
+            "6x9",
+            "6x7"
+          ],
+          "trainingLabels": [
+            "P1_WIN"
+          ]
+        },
+        {
+          "board": "4x12",
+          "signature": "0|4|NEG",
+          "actual": "DRAW",
+          "prediction": "DRAW",
+          "trainingBoards": [
+            "4x10",
+            "4x8",
+            "4x6",
+            "4x4"
+          ],
+          "trainingLabels": [
+            "DRAW"
+          ]
+        },
+        {
+          "board": "5x12",
+          "signature": "0|3|POS",
+          "actual": "DRAW",
+          "prediction": "DRAW",
+          "trainingBoards": [
+            "5x10"
+          ],
+          "trainingLabels": [
+            "DRAW"
+          ]
+        },
+        {
+          "board": "6x12",
+          "signature": "0|2|POS",
+          "actual": "P2_WIN",
+          "prediction": "P2_WIN",
+          "trainingBoards": [
+            "6x8"
+          ],
+          "trainingLabels": [
+            "P2_WIN"
+          ]
+        },
+        {
+          "board": "4x13",
+          "signature": "1|4|NEG",
+          "actual": "DRAW",
+          "prediction": "DRAW",
+          "trainingBoards": [
+            "4x11",
+            "4x9",
+            "4x7",
+            "4x5"
+          ],
+          "trainingLabels": [
+            "DRAW"
+          ]
+        },
+        {
+          "board": "5x13",
+          "signature": "1|3|POS",
+          "actual": "DRAW",
+          "prediction": null,
+          "trainingBoards": [],
+          "trainingLabels": []
+        }
+      ]
+    },
+    {
+      "features": [
+        "safeEntryCount",
+        "coreDeltaSign",
+        "topDefectClass"
+      ],
+      "predicted": 12,
+      "correct": 11,
+      "wrong": 1,
+      "uncovered": 3,
+      "coverage": 0.8,
+      "accuracy": 0.9166666666666666,
+      "rows": [
+        {
+          "board": "12x4",
+          "signature": "0|NEG|ONE",
+          "actual": "P2_WIN",
+          "prediction": "P2_WIN",
+          "trainingBoards": [
+            "8x4",
+            "9x4",
+            "10x4",
+            "11x4"
+          ],
+          "trainingLabels": [
+            "P2_WIN"
+          ]
+        },
+        {
+          "board": "11x5",
+          "signature": "0|NEG|EVEN_NONZERO",
+          "actual": "P1_WIN",
+          "prediction": "P1_WIN",
+          "trainingBoards": [
+            "9x5"
+          ],
+          "trainingLabels": [
+            "P1_WIN"
+          ]
+        },
+        {
+          "board": "10x6",
+          "signature": "0|POS|ONE",
+          "actual": "P1_WIN",
+          "prediction": "P2_WIN",
+          "trainingBoards": [
+            "8x8",
+            "8x6",
+            "9x6"
+          ],
+          "trainingLabels": [
+            "P2_WIN"
+          ]
+        },
+        {
+          "board": "9x7",
+          "signature": "0|POS|EVEN_NONZERO",
+          "actual": "P1_WIN",
+          "prediction": null,
+          "trainingBoards": [],
+          "trainingLabels": []
+        },
+        {
+          "board": "7x9",
+          "signature": "1|POS|EVEN_NONZERO",
+          "actual": "DRAW",
+          "prediction": "DRAW",
+          "trainingBoards": [
+            "7x7"
+          ],
+          "trainingLabels": [
+            "DRAW"
+          ]
+        },
+        {
+          "board": "8x9",
+          "signature": "0|POS|ODD_MULTI",
+          "actual": "P1_WIN",
+          "prediction": "P1_WIN",
+          "trainingBoards": [
+            "8x7"
+          ],
+          "trainingLabels": [
+            "P1_WIN"
+          ]
+        },
+        {
+          "board": "6x10",
+          "signature": "2|POS|ONE",
+          "actual": "P2_WIN",
+          "prediction": "P2_WIN",
+          "trainingBoards": [
+            "6x8"
+          ],
+          "trainingLabels": [
+            "P2_WIN"
+          ]
+        },
+        {
+          "board": "7x10",
+          "signature": "1|POS|ONE",
+          "actual": "P1_WIN",
+          "prediction": "P1_WIN",
+          "trainingBoards": [
+            "7x8"
+          ],
+          "trainingLabels": [
+            "P1_WIN"
+          ]
+        },
+        {
+          "board": "5x11",
+          "signature": "3|POS|EVEN_NONZERO",
+          "actual": "DRAW",
+          "prediction": null,
+          "trainingBoards": [],
+          "trainingLabels": []
+        },
+        {
+          "board": "6x11",
+          "signature": "2|POS|ODD_MULTI",
+          "actual": "P1_WIN",
+          "prediction": "P1_WIN",
+          "trainingBoards": [
+            "6x9",
+            "6x7"
+          ],
+          "trainingLabels": [
+            "P1_WIN"
+          ]
+        },
+        {
+          "board": "4x12",
+          "signature": "4|NEG|ONE",
+          "actual": "DRAW",
+          "prediction": "DRAW",
+          "trainingBoards": [
+            "4x10",
+            "4x8",
+            "4x6",
+            "4x4"
+          ],
+          "trainingLabels": [
+            "DRAW"
+          ]
+        },
+        {
+          "board": "5x12",
+          "signature": "3|POS|ONE",
+          "actual": "DRAW",
+          "prediction": "DRAW",
+          "trainingBoards": [
+            "5x10"
+          ],
+          "trainingLabels": [
+            "DRAW"
+          ]
+        },
+        {
+          "board": "6x12",
+          "signature": "2|POS|ONE",
+          "actual": "P2_WIN",
+          "prediction": "P2_WIN",
+          "trainingBoards": [
+            "6x8"
+          ],
+          "trainingLabels": [
+            "P2_WIN"
+          ]
+        },
+        {
+          "board": "4x13",
+          "signature": "4|NEG|ODD_MULTI",
+          "actual": "DRAW",
+          "prediction": "DRAW",
+          "trainingBoards": [
+            "4x11",
+            "4x9",
+            "4x7",
+            "4x5"
+          ],
+          "trainingLabels": [
+            "DRAW"
+          ]
+        },
+        {
+          "board": "5x13",
+          "signature": "3|POS|EVEN_NONZERO",
+          "actual": "DRAW",
+          "prediction": null,
+          "trainingBoards": [],
+          "trainingLabels": []
+        }
+      ]
+    }
+  ],
+  "baselineCombined": [
+    {
+      "features": [
+        "heightParity",
+        "safeEntryCount",
+        "coreDeltaSign"
+      ],
+      "totalRows": 52,
+      "signatureCells": 20,
+      "pureCells": 19,
+      "mixedCells": 1,
+      "pureRows": 48,
+      "pureRowFraction": 0.9230769230769231,
+      "mixed": [
+        {
+          "signature": "0|0|POS",
+          "labels": [
+            "P1_WIN",
+            "P2_WIN"
+          ],
+          "boards": [
+            "8x8",
+            "8x6",
+            "9x6",
+            "10x6"
+          ]
+        }
+      ]
+    },
+    {
+      "features": [
+        "safeEntryCount",
+        "coreDeltaSign",
+        "topDefectClass"
+      ],
+      "totalRows": 52,
+      "signatureCells": 22,
+      "pureCells": 21,
+      "mixedCells": 1,
+      "pureRows": 48,
+      "pureRowFraction": 0.9230769230769231,
+      "mixed": [
+        {
+          "signature": "0|POS|ONE",
+          "labels": [
+            "P1_WIN",
+            "P2_WIN"
+          ],
+          "boards": [
+            "8x8",
+            "8x6",
+            "9x6",
+            "10x6"
+          ]
+        }
+      ]
+    }
+  ],
+  "oneCoordinateRepairs": {
+    "T1": [
+      {
+        "features": [
+          "heightParity",
+          "safeEntryCount",
+          "coreDeltaSign",
+          "phaseRadiusParity"
+        ],
+        "totalRows": 52,
+        "signatureCells": 23,
+        "pureCells": 23,
+        "mixedCells": 0,
+        "pureRows": 52,
+        "pureRowFraction": 1,
+        "mixed": [],
+        "addedFeature": "phaseRadiusParity"
+      },
+      {
+        "features": [
+          "heightParity",
+          "safeEntryCount",
+          "coreDeltaSign",
+          "maxImpactCount"
+        ],
+        "totalRows": 52,
+        "signatureCells": 30,
+        "pureCells": 30,
+        "mixedCells": 0,
+        "pureRows": 52,
+        "pureRowFraction": 1,
+        "mixed": [],
+        "addedFeature": "maxImpactCount"
+      },
+      {
+        "features": [
+          "heightParity",
+          "safeEntryCount",
+          "coreDeltaSign",
+          "kernelParity"
+        ],
+        "totalRows": 52,
+        "signatureCells": 23,
+        "pureCells": 22,
+        "mixedCells": 1,
+        "pureRows": 49,
+        "pureRowFraction": 0.9423076923076923,
+        "mixed": [
+          {
+            "signature": "0|0|POS|1",
+            "labels": [
+              "P1_WIN",
+              "P2_WIN"
+            ],
+            "boards": [
+              "8x8",
+              "8x6",
+              "10x6"
+            ]
+          }
+        ],
+        "addedFeature": "kernelParity"
+      },
+      {
+        "features": [
+          "heightParity",
+          "safeEntryCount",
+          "coreDeltaSign",
+          "yCellParity"
+        ],
+        "totalRows": 52,
+        "signatureCells": 23,
+        "pureCells": 22,
+        "mixedCells": 1,
+        "pureRows": 49,
+        "pureRowFraction": 0.9423076923076923,
+        "mixed": [
+          {
+            "signature": "0|0|POS|1",
+            "labels": [
+              "P1_WIN",
+              "P2_WIN"
+            ],
+            "boards": [
+              "8x8",
+              "8x6",
+              "10x6"
+            ]
+          }
+        ],
+        "addedFeature": "yCellParity"
+      },
+      {
+        "features": [
+          "heightParity",
+          "safeEntryCount",
+          "coreDeltaSign",
+          "centerCount"
+        ],
+        "totalRows": 52,
+        "signatureCells": 24,
+        "pureCells": 23,
+        "mixedCells": 1,
+        "pureRows": 49,
+        "pureRowFraction": 0.9423076923076923,
+        "mixed": [
+          {
+            "signature": "0|0|POS|2",
+            "labels": [
+              "P1_WIN",
+              "P2_WIN"
+            ],
+            "boards": [
+              "8x8",
+              "8x6",
+              "10x6"
+            ]
+          }
+        ],
+        "addedFeature": "centerCount"
+      },
+      {
+        "features": [
+          "heightParity",
+          "safeEntryCount",
+          "coreDeltaSign",
+          "coreDeltaParity"
+        ],
+        "totalRows": 52,
+        "signatureCells": 24,
+        "pureCells": 23,
+        "mixedCells": 1,
+        "pureRows": 49,
+        "pureRowFraction": 0.9423076923076923,
+        "mixed": [
+          {
+            "signature": "0|0|POS|1",
+            "labels": [
+              "P1_WIN",
+              "P2_WIN"
+            ],
+            "boards": [
+              "8x8",
+              "8x6",
+              "10x6"
+            ]
+          }
+        ],
+        "addedFeature": "coreDeltaParity"
+      },
+      {
+        "features": [
+          "heightParity",
+          "safeEntryCount",
+          "coreDeltaSign",
+          "lineCountParity"
+        ],
+        "totalRows": 52,
+        "signatureCells": 24,
+        "pureCells": 23,
+        "mixedCells": 1,
+        "pureRows": 49,
+        "pureRowFraction": 0.9423076923076923,
+        "mixed": [
+          {
+            "signature": "0|0|POS|0",
+            "labels": [
+              "P1_WIN",
+              "P2_WIN"
+            ],
+            "boards": [
+              "8x8",
+              "8x6",
+              "10x6"
+            ]
+          }
+        ],
+        "addedFeature": "lineCountParity"
+      },
+      {
+        "features": [
+          "heightParity",
+          "safeEntryCount",
+          "coreDeltaSign",
+          "widthParity"
+        ],
+        "totalRows": 52,
+        "signatureCells": 24,
+        "pureCells": 23,
+        "mixedCells": 1,
+        "pureRows": 49,
+        "pureRowFraction": 0.9423076923076923,
+        "mixed": [
+          {
+            "signature": "0|0|POS|0",
+            "labels": [
+              "P1_WIN",
+              "P2_WIN"
+            ],
+            "boards": [
+              "8x8",
+              "8x6",
+              "10x6"
+            ]
+          }
+        ],
+        "addedFeature": "widthParity"
+      },
+      {
+        "features": [
+          "heightParity",
+          "safeEntryCount",
+          "coreDeltaSign",
+          "elementaryUnresolvedParity"
+        ],
+        "totalRows": 52,
+        "signatureCells": 28,
+        "pureCells": 27,
+        "mixedCells": 1,
+        "pureRows": 49,
+        "pureRowFraction": 0.9423076923076923,
+        "mixed": [
+          {
+            "signature": "0|0|POS|0",
+            "labels": [
+              "P1_WIN",
+              "P2_WIN"
+            ],
+            "boards": [
+              "8x6",
+              "9x6",
+              "10x6"
+            ]
+          }
+        ],
+        "addedFeature": "elementaryUnresolvedParity"
+      },
+      {
+        "features": [
+          "heightParity",
+          "safeEntryCount",
+          "coreDeltaSign",
+          "neutralPairParity"
+        ],
+        "totalRows": 52,
+        "signatureCells": 28,
+        "pureCells": 27,
+        "mixedCells": 1,
+        "pureRows": 49,
+        "pureRowFraction": 0.9423076923076923,
+        "mixed": [
+          {
+            "signature": "0|0|POS|1",
+            "labels": [
+              "P1_WIN",
+              "P2_WIN"
+            ],
+            "boards": [
+              "8x8",
+              "8x6",
+              "10x6"
+            ]
+          }
+        ],
+        "addedFeature": "neutralPairParity"
+      },
+      {
+        "features": [
+          "heightParity",
+          "safeEntryCount",
+          "coreDeltaSign",
+          "maxImpact"
+        ],
+        "totalRows": 52,
+        "signatureCells": 20,
+        "pureCells": 19,
+        "mixedCells": 1,
+        "pureRows": 48,
+        "pureRowFraction": 0.9230769230769231,
+        "mixed": [
+          {
+            "signature": "0|0|POS|7",
+            "labels": [
+              "P1_WIN",
+              "P2_WIN"
+            ],
+            "boards": [
+              "8x8",
+              "8x6",
+              "9x6",
+              "10x6"
+            ]
+          }
+        ],
+        "addedFeature": "maxImpact"
+      },
+      {
+        "features": [
+          "heightParity",
+          "safeEntryCount",
+          "coreDeltaSign",
+          "safeEntryClass"
+        ],
+        "totalRows": 52,
+        "signatureCells": 20,
+        "pureCells": 19,
+        "mixedCells": 1,
+        "pureRows": 48,
+        "pureRowFraction": 0.9230769230769231,
+        "mixed": [
+          {
+            "signature": "0|0|POS|ZERO",
+            "labels": [
+              "P1_WIN",
+              "P2_WIN"
+            ],
+            "boards": [
+              "8x8",
+              "8x6",
+              "9x6",
+              "10x6"
+            ]
+          }
+        ],
+        "addedFeature": "safeEntryClass"
+      },
+      {
+        "features": [
+          "heightParity",
+          "safeEntryCount",
+          "coreDeltaSign",
+          "uniqueMaxImpact"
+        ],
+        "totalRows": 52,
+        "signatureCells": 20,
+        "pureCells": 19,
+        "mixedCells": 1,
+        "pureRows": 48,
+        "pureRowFraction": 0.9230769230769231,
+        "mixed": [
+          {
+            "signature": "0|0|POS|0",
+            "labels": [
+              "P1_WIN",
+              "P2_WIN"
+            ],
+            "boards": [
+              "8x8",
+              "8x6",
+              "9x6",
+              "10x6"
+            ]
+          }
+        ],
+        "addedFeature": "uniqueMaxImpact"
+      },
+      {
+        "features": [
+          "heightParity",
+          "safeEntryCount",
+          "coreDeltaSign",
+          "cellParity"
+        ],
+        "totalRows": 52,
+        "signatureCells": 22,
+        "pureCells": 21,
+        "mixedCells": 1,
+        "pureRows": 48,
+        "pureRowFraction": 0.9230769230769231,
+        "mixed": [
+          {
+            "signature": "0|0|POS|0",
+            "labels": [
+              "P1_WIN",
+              "P2_WIN"
+            ],
+            "boards": [
+              "8x8",
+              "8x6",
+              "9x6",
+              "10x6"
+            ]
+          }
+        ],
+        "addedFeature": "cellParity"
+      },
+      {
+        "features": [
+          "heightParity",
+          "safeEntryCount",
+          "coreDeltaSign",
+          "topDefectClass"
+        ],
+        "totalRows": 52,
+        "signatureCells": 22,
+        "pureCells": 21,
+        "mixedCells": 1,
+        "pureRows": 48,
+        "pureRowFraction": 0.9230769230769231,
+        "mixed": [
+          {
+            "signature": "0|0|POS|ONE",
+            "labels": [
+              "P1_WIN",
+              "P2_WIN"
+            ],
+            "boards": [
+              "8x8",
+              "8x6",
+              "9x6",
+              "10x6"
+            ]
+          }
+        ],
+        "addedFeature": "topDefectClass"
+      },
+      {
+        "features": [
+          "heightParity",
+          "safeEntryCount",
+          "coreDeltaSign",
+          "topDefectParity"
+        ],
+        "totalRows": 52,
+        "signatureCells": 22,
+        "pureCells": 21,
+        "mixedCells": 1,
+        "pureRows": 48,
+        "pureRowFraction": 0.9230769230769231,
+        "mixed": [
+          {
+            "signature": "0|0|POS|1",
+            "labels": [
+              "P1_WIN",
+              "P2_WIN"
+            ],
+            "boards": [
+              "8x8",
+              "8x6",
+              "9x6",
+              "10x6"
+            ]
+          }
+        ],
+        "addedFeature": "topDefectParity"
+      },
+      {
+        "features": [
+          "heightParity",
+          "safeEntryCount",
+          "coreDeltaSign",
+          "incidenceRankParity"
+        ],
+        "totalRows": 52,
+        "signatureCells": 23,
+        "pureCells": 22,
+        "mixedCells": 1,
+        "pureRows": 48,
+        "pureRowFraction": 0.9230769230769231,
+        "mixed": [
+          {
+            "signature": "0|0|POS|1",
+            "labels": [
+              "P1_WIN",
+              "P2_WIN"
+            ],
+            "boards": [
+              "8x8",
+              "8x6",
+              "9x6",
+              "10x6"
+            ]
+          }
+        ],
+        "addedFeature": "incidenceRankParity"
+      },
+      {
+        "features": [
+          "heightParity",
+          "safeEntryCount",
+          "coreDeltaSign",
+          "yLineParity"
+        ],
+        "totalRows": 52,
+        "signatureCells": 23,
+        "pureCells": 22,
+        "mixedCells": 1,
+        "pureRows": 48,
+        "pureRowFraction": 0.9230769230769231,
+        "mixed": [
+          {
+            "signature": "0|0|POS|0",
+            "labels": [
+              "P1_WIN",
+              "P2_WIN"
+            ],
+            "boards": [
+              "8x8",
+              "8x6",
+              "9x6",
+              "10x6"
+            ]
+          }
+        ],
+        "addedFeature": "yLineParity"
+      }
+    ],
+    "T2": [
+      {
+        "features": [
+          "safeEntryCount",
+          "coreDeltaSign",
+          "topDefectClass",
+          "phaseRadiusParity"
+        ],
+        "totalRows": 52,
+        "signatureCells": 26,
+        "pureCells": 26,
+        "mixedCells": 0,
+        "pureRows": 52,
+        "pureRowFraction": 1,
+        "mixed": [],
+        "addedFeature": "phaseRadiusParity"
+      },
+      {
+        "features": [
+          "safeEntryCount",
+          "coreDeltaSign",
+          "topDefectClass",
+          "maxImpactCount"
+        ],
+        "totalRows": 52,
+        "signatureCells": 30,
+        "pureCells": 30,
+        "mixedCells": 0,
+        "pureRows": 52,
+        "pureRowFraction": 1,
+        "mixed": [],
+        "addedFeature": "maxImpactCount"
+      },
+      {
+        "features": [
+          "safeEntryCount",
+          "coreDeltaSign",
+          "topDefectClass",
+          "centerCount"
+        ],
+        "totalRows": 52,
+        "signatureCells": 24,
+        "pureCells": 23,
+        "mixedCells": 1,
+        "pureRows": 49,
+        "pureRowFraction": 0.9423076923076923,
+        "mixed": [
+          {
+            "signature": "0|POS|ONE|2",
+            "labels": [
+              "P1_WIN",
+              "P2_WIN"
+            ],
+            "boards": [
+              "8x8",
+              "8x6",
+              "10x6"
+            ]
+          }
+        ],
+        "addedFeature": "centerCount"
+      },
+      {
+        "features": [
+          "safeEntryCount",
+          "coreDeltaSign",
+          "topDefectClass",
+          "coreDeltaParity"
+        ],
+        "totalRows": 52,
+        "signatureCells": 24,
+        "pureCells": 23,
+        "mixedCells": 1,
+        "pureRows": 49,
+        "pureRowFraction": 0.9423076923076923,
+        "mixed": [
+          {
+            "signature": "0|POS|ONE|1",
+            "labels": [
+              "P1_WIN",
+              "P2_WIN"
+            ],
+            "boards": [
+              "8x8",
+              "8x6",
+              "10x6"
+            ]
+          }
+        ],
+        "addedFeature": "coreDeltaParity"
+      },
+      {
+        "features": [
+          "safeEntryCount",
+          "coreDeltaSign",
+          "topDefectClass",
+          "lineCountParity"
+        ],
+        "totalRows": 52,
+        "signatureCells": 24,
+        "pureCells": 23,
+        "mixedCells": 1,
+        "pureRows": 49,
+        "pureRowFraction": 0.9423076923076923,
+        "mixed": [
+          {
+            "signature": "0|POS|ONE|0",
+            "labels": [
+              "P1_WIN",
+              "P2_WIN"
+            ],
+            "boards": [
+              "8x8",
+              "8x6",
+              "10x6"
+            ]
+          }
+        ],
+        "addedFeature": "lineCountParity"
+      },
+      {
+        "features": [
+          "safeEntryCount",
+          "coreDeltaSign",
+          "topDefectClass",
+          "widthParity"
+        ],
+        "totalRows": 52,
+        "signatureCells": 24,
+        "pureCells": 23,
+        "mixedCells": 1,
+        "pureRows": 49,
+        "pureRowFraction": 0.9423076923076923,
+        "mixed": [
+          {
+            "signature": "0|POS|ONE|0",
+            "labels": [
+              "P1_WIN",
+              "P2_WIN"
+            ],
+            "boards": [
+              "8x8",
+              "8x6",
+              "10x6"
+            ]
+          }
+        ],
+        "addedFeature": "widthParity"
+      },
+      {
+        "features": [
+          "safeEntryCount",
+          "coreDeltaSign",
+          "topDefectClass",
+          "kernelParity"
+        ],
+        "totalRows": 52,
+        "signatureCells": 25,
+        "pureCells": 24,
+        "mixedCells": 1,
+        "pureRows": 49,
+        "pureRowFraction": 0.9423076923076923,
+        "mixed": [
+          {
+            "signature": "0|POS|ONE|1",
+            "labels": [
+              "P1_WIN",
+              "P2_WIN"
+            ],
+            "boards": [
+              "8x8",
+              "8x6",
+              "10x6"
+            ]
+          }
+        ],
+        "addedFeature": "kernelParity"
+      },
+      {
+        "features": [
+          "safeEntryCount",
+          "coreDeltaSign",
+          "topDefectClass",
+          "yCellParity"
+        ],
+        "totalRows": 52,
+        "signatureCells": 25,
+        "pureCells": 24,
+        "mixedCells": 1,
+        "pureRows": 49,
+        "pureRowFraction": 0.9423076923076923,
+        "mixed": [
+          {
+            "signature": "0|POS|ONE|1",
+            "labels": [
+              "P1_WIN",
+              "P2_WIN"
+            ],
+            "boards": [
+              "8x8",
+              "8x6",
+              "10x6"
+            ]
+          }
+        ],
+        "addedFeature": "yCellParity"
+      },
+      {
+        "features": [
+          "safeEntryCount",
+          "coreDeltaSign",
+          "topDefectClass",
+          "neutralPairParity"
+        ],
+        "totalRows": 52,
+        "signatureCells": 29,
+        "pureCells": 28,
+        "mixedCells": 1,
+        "pureRows": 49,
+        "pureRowFraction": 0.9423076923076923,
+        "mixed": [
+          {
+            "signature": "0|POS|ONE|1",
+            "labels": [
+              "P1_WIN",
+              "P2_WIN"
+            ],
+            "boards": [
+              "8x8",
+              "8x6",
+              "10x6"
+            ]
+          }
+        ],
+        "addedFeature": "neutralPairParity"
+      },
+      {
+        "features": [
+          "safeEntryCount",
+          "coreDeltaSign",
+          "topDefectClass",
+          "elementaryUnresolvedParity"
+        ],
+        "totalRows": 52,
+        "signatureCells": 30,
+        "pureCells": 29,
+        "mixedCells": 1,
+        "pureRows": 49,
+        "pureRowFraction": 0.9423076923076923,
+        "mixed": [
+          {
+            "signature": "0|POS|ONE|0",
+            "labels": [
+              "P1_WIN",
+              "P2_WIN"
+            ],
+            "boards": [
+              "8x6",
+              "9x6",
+              "10x6"
+            ]
+          }
+        ],
+        "addedFeature": "elementaryUnresolvedParity"
+      },
+      {
+        "features": [
+          "safeEntryCount",
+          "coreDeltaSign",
+          "topDefectClass",
+          "cellParity"
+        ],
+        "totalRows": 52,
+        "signatureCells": 22,
+        "pureCells": 21,
+        "mixedCells": 1,
+        "pureRows": 48,
+        "pureRowFraction": 0.9230769230769231,
+        "mixed": [
+          {
+            "signature": "0|POS|ONE|0",
+            "labels": [
+              "P1_WIN",
+              "P2_WIN"
+            ],
+            "boards": [
+              "8x8",
+              "8x6",
+              "9x6",
+              "10x6"
+            ]
+          }
+        ],
+        "addedFeature": "cellParity"
+      },
+      {
+        "features": [
+          "safeEntryCount",
+          "coreDeltaSign",
+          "topDefectClass",
+          "heightParity"
+        ],
+        "totalRows": 52,
+        "signatureCells": 22,
+        "pureCells": 21,
+        "mixedCells": 1,
+        "pureRows": 48,
+        "pureRowFraction": 0.9230769230769231,
+        "mixed": [
+          {
+            "signature": "0|POS|ONE|0",
+            "labels": [
+              "P1_WIN",
+              "P2_WIN"
+            ],
+            "boards": [
+              "8x8",
+              "8x6",
+              "9x6",
+              "10x6"
+            ]
+          }
+        ],
+        "addedFeature": "heightParity"
+      },
+      {
+        "features": [
+          "safeEntryCount",
+          "coreDeltaSign",
+          "topDefectClass",
+          "maxImpact"
+        ],
+        "totalRows": 52,
+        "signatureCells": 22,
+        "pureCells": 21,
+        "mixedCells": 1,
+        "pureRows": 48,
+        "pureRowFraction": 0.9230769230769231,
+        "mixed": [
+          {
+            "signature": "0|POS|ONE|7",
+            "labels": [
+              "P1_WIN",
+              "P2_WIN"
+            ],
+            "boards": [
+              "8x8",
+              "8x6",
+              "9x6",
+              "10x6"
+            ]
+          }
+        ],
+        "addedFeature": "maxImpact"
+      },
+      {
+        "features": [
+          "safeEntryCount",
+          "coreDeltaSign",
+          "topDefectClass",
+          "safeEntryClass"
+        ],
+        "totalRows": 52,
+        "signatureCells": 22,
+        "pureCells": 21,
+        "mixedCells": 1,
+        "pureRows": 48,
+        "pureRowFraction": 0.9230769230769231,
+        "mixed": [
+          {
+            "signature": "0|POS|ONE|ZERO",
+            "labels": [
+              "P1_WIN",
+              "P2_WIN"
+            ],
+            "boards": [
+              "8x8",
+              "8x6",
+              "9x6",
+              "10x6"
+            ]
+          }
+        ],
+        "addedFeature": "safeEntryClass"
+      },
+      {
+        "features": [
+          "safeEntryCount",
+          "coreDeltaSign",
+          "topDefectClass",
+          "topDefectParity"
+        ],
+        "totalRows": 52,
+        "signatureCells": 22,
+        "pureCells": 21,
+        "mixedCells": 1,
+        "pureRows": 48,
+        "pureRowFraction": 0.9230769230769231,
+        "mixed": [
+          {
+            "signature": "0|POS|ONE|1",
+            "labels": [
+              "P1_WIN",
+              "P2_WIN"
+            ],
+            "boards": [
+              "8x8",
+              "8x6",
+              "9x6",
+              "10x6"
+            ]
+          }
+        ],
+        "addedFeature": "topDefectParity"
+      },
+      {
+        "features": [
+          "safeEntryCount",
+          "coreDeltaSign",
+          "topDefectClass",
+          "uniqueMaxImpact"
+        ],
+        "totalRows": 52,
+        "signatureCells": 22,
+        "pureCells": 21,
+        "mixedCells": 1,
+        "pureRows": 48,
+        "pureRowFraction": 0.9230769230769231,
+        "mixed": [
+          {
+            "signature": "0|POS|ONE|0",
+            "labels": [
+              "P1_WIN",
+              "P2_WIN"
+            ],
+            "boards": [
+              "8x8",
+              "8x6",
+              "9x6",
+              "10x6"
+            ]
+          }
+        ],
+        "addedFeature": "uniqueMaxImpact"
+      },
+      {
+        "features": [
+          "safeEntryCount",
+          "coreDeltaSign",
+          "topDefectClass",
+          "incidenceRankParity"
+        ],
+        "totalRows": 52,
+        "signatureCells": 23,
+        "pureCells": 22,
+        "mixedCells": 1,
+        "pureRows": 48,
+        "pureRowFraction": 0.9230769230769231,
+        "mixed": [
+          {
+            "signature": "0|POS|ONE|1",
+            "labels": [
+              "P1_WIN",
+              "P2_WIN"
+            ],
+            "boards": [
+              "8x8",
+              "8x6",
+              "9x6",
+              "10x6"
+            ]
+          }
+        ],
+        "addedFeature": "incidenceRankParity"
+      },
+      {
+        "features": [
+          "safeEntryCount",
+          "coreDeltaSign",
+          "topDefectClass",
+          "yLineParity"
+        ],
+        "totalRows": 52,
+        "signatureCells": 23,
+        "pureCells": 22,
+        "mixedCells": 1,
+        "pureRows": 48,
+        "pureRowFraction": 0.9230769230769231,
+        "mixed": [
+          {
+            "signature": "0|POS|ONE|0",
+            "labels": [
+              "P1_WIN",
+              "P2_WIN"
+            ],
+            "boards": [
+              "8x8",
+              "8x6",
+              "9x6",
+              "10x6"
+            ]
+          }
+        ],
+        "addedFeature": "yLineParity"
+      }
+    ]
+  },
+  "collisionFamily": [
+    {
+      "board": "10x6",
+      "outcome": "P1_WIN",
+      "coarse": {
+        "widthParity": 0,
+        "heightParity": 0,
+        "cellParity": 0,
+        "safeEntryCount": 0,
+        "safeEntryClass": "ZERO",
+        "phaseRadiusParity": 1,
+        "centerCount": 2,
+        "maxImpact": 7,
+        "maxImpactCount": 4,
+        "uniqueMaxImpact": 0,
+        "coreDeltaSign": "POS",
+        "coreDeltaParity": 1,
+        "yCellParity": 1,
+        "yLineParity": 0,
+        "incidenceRankParity": 1,
+        "kernelParity": 1,
+        "lineCountParity": 0,
+        "elementaryUnresolvedParity": 0,
+        "topDefectParity": 1,
+        "topDefectClass": "ONE",
+        "neutralPairParity": 1
+      }
+    },
+    {
+      "board": "8x6",
+      "outcome": "P2_WIN",
+      "coarse": {
+        "widthParity": 0,
+        "heightParity": 0,
+        "cellParity": 0,
+        "safeEntryCount": 0,
+        "safeEntryClass": "ZERO",
+        "phaseRadiusParity": 0,
+        "centerCount": 2,
+        "maxImpact": 7,
+        "maxImpactCount": 2,
+        "uniqueMaxImpact": 0,
+        "coreDeltaSign": "POS",
+        "coreDeltaParity": 1,
+        "yCellParity": 1,
+        "yLineParity": 0,
+        "incidenceRankParity": 1,
+        "kernelParity": 1,
+        "lineCountParity": 0,
+        "elementaryUnresolvedParity": 0,
+        "topDefectParity": 1,
+        "topDefectClass": "ONE",
+        "neutralPairParity": 1
+      }
+    },
+    {
+      "board": "8x8",
+      "outcome": "P2_WIN",
+      "coarse": {
+        "widthParity": 0,
+        "heightParity": 0,
+        "cellParity": 0,
+        "safeEntryCount": 0,
+        "safeEntryClass": "ZERO",
+        "phaseRadiusParity": 0,
+        "centerCount": 2,
+        "maxImpact": 7,
+        "maxImpactCount": 2,
+        "uniqueMaxImpact": 0,
+        "coreDeltaSign": "POS",
+        "coreDeltaParity": 1,
+        "yCellParity": 1,
+        "yLineParity": 0,
+        "incidenceRankParity": 1,
+        "kernelParity": 1,
+        "lineCountParity": 0,
+        "elementaryUnresolvedParity": 1,
+        "topDefectParity": 1,
+        "topDefectClass": "ONE",
+        "neutralPairParity": 1
+      }
+    },
+    {
+      "board": "9x6",
+      "outcome": "P2_WIN",
+      "coarse": {
+        "widthParity": 1,
+        "heightParity": 0,
+        "cellParity": 0,
+        "safeEntryCount": 0,
+        "safeEntryClass": "ZERO",
+        "phaseRadiusParity": 0,
+        "centerCount": 1,
+        "maxImpact": 7,
+        "maxImpactCount": 3,
+        "uniqueMaxImpact": 0,
+        "coreDeltaSign": "POS",
+        "coreDeltaParity": 0,
+        "yCellParity": 0,
+        "yLineParity": 0,
+        "incidenceRankParity": 1,
+        "kernelParity": 0,
+        "lineCountParity": 1,
+        "elementaryUnresolvedParity": 0,
+        "topDefectParity": 1,
+        "topDefectClass": "ONE",
+        "neutralPairParity": 0
+      }
+    }
+  ],
+  "conclusion": [
+    "The two triples discovered on the frozen 37-board census are evaluated without modification on 15 newly available solved board geometries.",
+    "Any fresh wrong prediction is an explicit falsifier of the original pure-signature claim as a universal outcome carrier.",
+    "Repairs are restricted to one feature from the previously frozen 21-feature structural vocabulary; no validation-selected new coordinate is introduced.",
+    "A zero-mixed repair is descriptive evidence only and requires a new independent structural derivation before any theorem claim."
+  ],
+  "boundary": [
+    "Fresh W/D/L labels are external validation evidence only.",
+    "No fresh outcome changes any feature formula.",
+    "No sealed holdout is accessed.",
+    "No repaired signature is a gameplay premise or generalized Connect-Four theorem."
+  ]
+}
