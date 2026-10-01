@@ -1,0 +1,711 @@
+{
+  "schema": "connect4.cpc_matched_frontier_pool.v1",
+  "jsMinSysSha": "0899c5811918e68c22dc1b0e4dd8af97d9b4bbcb",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "theoremCandidate": [
+    "partition the even frontier pool into fixed pairs",
+    "pool trigger -> defender occupies its fixed mate",
+    "non-pool lower trigger -> defender occupies its fixed vertical upper mate",
+    "sufficient root coverage: every active minimal attacker residual either intersects a vertical response cell or contains both endpoints of at least one pool pair",
+    "when root coverage is complete, explicitly execute the resulting policy against every legal attacker trigger as an independent bounded check"
+  ],
+  "rows": [
+    {
+      "id": "candidate2",
+      "sequence": "4444415662",
+      "pool": [
+        {
+          "cell": 7,
+          "column": 1,
+          "row": 2
+        },
+        {
+          "cell": 8,
+          "column": 2,
+          "row": 2
+        },
+        {
+          "cell": 38,
+          "column": 4,
+          "row": 6
+        },
+        {
+          "cell": 11,
+          "column": 5,
+          "row": 2
+        }
+      ],
+      "verticalResponseCells": [
+        {
+          "cell": 21,
+          "column": 1,
+          "row": 4
+        },
+        {
+          "cell": 35,
+          "column": 1,
+          "row": 6
+        },
+        {
+          "cell": 22,
+          "column": 2,
+          "row": 4
+        },
+        {
+          "cell": 36,
+          "column": 2,
+          "row": 6
+        },
+        {
+          "cell": 9,
+          "column": 3,
+          "row": 2
+        },
+        {
+          "cell": 23,
+          "column": 3,
+          "row": 4
+        },
+        {
+          "cell": 37,
+          "column": 3,
+          "row": 6
+        },
+        {
+          "cell": 25,
+          "column": 5,
+          "row": 4
+        },
+        {
+          "cell": 39,
+          "column": 5,
+          "row": 6
+        },
+        {
+          "cell": 26,
+          "column": 6,
+          "row": 4
+        },
+        {
+          "cell": 40,
+          "column": 6,
+          "row": 6
+        },
+        {
+          "cell": 13,
+          "column": 7,
+          "row": 2
+        },
+        {
+          "cell": 27,
+          "column": 7,
+          "row": 4
+        },
+        {
+          "cell": 41,
+          "column": 7,
+          "row": 6
+        }
+      ],
+      "activeMinimalResidualCount": 37,
+      "matchings": [
+        {
+          "edges": [
+            [
+              {
+                "cell": 7,
+                "column": 1,
+                "row": 2
+              },
+              {
+                "cell": 8,
+                "column": 2,
+                "row": 2
+              }
+            ],
+            [
+              {
+                "cell": 38,
+                "column": 4,
+                "row": 6
+              },
+              {
+                "cell": 11,
+                "column": 5,
+                "row": 2
+              }
+            ]
+          ],
+          "uncovered": [
+            442,
+            452,
+            462,
+            482,
+            530,
+            534,
+            538,
+            542
+          ],
+          "pairCovered": [],
+          "completeCoverage": false,
+          "explicitPolicy": null
+        },
+        {
+          "edges": [
+            [
+              {
+                "cell": 7,
+                "column": 1,
+                "row": 2
+              },
+              {
+                "cell": 38,
+                "column": 4,
+                "row": 6
+              }
+            ],
+            [
+              {
+                "cell": 8,
+                "column": 2,
+                "row": 2
+              },
+              {
+                "cell": 11,
+                "column": 5,
+                "row": 2
+              }
+            ]
+          ],
+          "uncovered": [
+            442,
+            452,
+            462,
+            482,
+            530,
+            534,
+            538,
+            542
+          ],
+          "pairCovered": [],
+          "completeCoverage": false,
+          "explicitPolicy": null
+        },
+        {
+          "edges": [
+            [
+              {
+                "cell": 7,
+                "column": 1,
+                "row": 2
+              },
+              {
+                "cell": 11,
+                "column": 5,
+                "row": 2
+              }
+            ],
+            [
+              {
+                "cell": 8,
+                "column": 2,
+                "row": 2
+              },
+              {
+                "cell": 38,
+                "column": 4,
+                "row": 6
+              }
+            ]
+          ],
+          "uncovered": [
+            442,
+            452,
+            462,
+            482,
+            530,
+            534,
+            538,
+            542
+          ],
+          "pairCovered": [],
+          "completeCoverage": false,
+          "explicitPolicy": null
+        }
+      ]
+    },
+    {
+      "id": "candidate3",
+      "sequence": "4444415663",
+      "pool": [
+        {
+          "cell": 7,
+          "column": 1,
+          "row": 2
+        },
+        {
+          "cell": 9,
+          "column": 3,
+          "row": 2
+        },
+        {
+          "cell": 38,
+          "column": 4,
+          "row": 6
+        },
+        {
+          "cell": 11,
+          "column": 5,
+          "row": 2
+        }
+      ],
+      "verticalResponseCells": [
+        {
+          "cell": 21,
+          "column": 1,
+          "row": 4
+        },
+        {
+          "cell": 35,
+          "column": 1,
+          "row": 6
+        },
+        {
+          "cell": 8,
+          "column": 2,
+          "row": 2
+        },
+        {
+          "cell": 22,
+          "column": 2,
+          "row": 4
+        },
+        {
+          "cell": 36,
+          "column": 2,
+          "row": 6
+        },
+        {
+          "cell": 23,
+          "column": 3,
+          "row": 4
+        },
+        {
+          "cell": 37,
+          "column": 3,
+          "row": 6
+        },
+        {
+          "cell": 25,
+          "column": 5,
+          "row": 4
+        },
+        {
+          "cell": 39,
+          "column": 5,
+          "row": 6
+        },
+        {
+          "cell": 26,
+          "column": 6,
+          "row": 4
+        },
+        {
+          "cell": 40,
+          "column": 6,
+          "row": 6
+        },
+        {
+          "cell": 13,
+          "column": 7,
+          "row": 2
+        },
+        {
+          "cell": 27,
+          "column": 7,
+          "row": 4
+        },
+        {
+          "cell": 41,
+          "column": 7,
+          "row": 6
+        }
+      ],
+      "activeMinimalResidualCount": 38,
+      "matchings": [
+        {
+          "edges": [
+            [
+              {
+                "cell": 7,
+                "column": 1,
+                "row": 2
+              },
+              {
+                "cell": 9,
+                "column": 3,
+                "row": 2
+              }
+            ],
+            [
+              {
+                "cell": 38,
+                "column": 4,
+                "row": 6
+              },
+              {
+                "cell": 11,
+                "column": 5,
+                "row": 2
+              }
+            ]
+          ],
+          "uncovered": [
+            442,
+            452,
+            462,
+            482,
+            530,
+            534,
+            538,
+            542
+          ],
+          "pairCovered": [],
+          "completeCoverage": false,
+          "explicitPolicy": null
+        },
+        {
+          "edges": [
+            [
+              {
+                "cell": 7,
+                "column": 1,
+                "row": 2
+              },
+              {
+                "cell": 38,
+                "column": 4,
+                "row": 6
+              }
+            ],
+            [
+              {
+                "cell": 9,
+                "column": 3,
+                "row": 2
+              },
+              {
+                "cell": 11,
+                "column": 5,
+                "row": 2
+              }
+            ]
+          ],
+          "uncovered": [
+            442,
+            452,
+            462,
+            482,
+            530,
+            534,
+            538,
+            542
+          ],
+          "pairCovered": [],
+          "completeCoverage": false,
+          "explicitPolicy": null
+        },
+        {
+          "edges": [
+            [
+              {
+                "cell": 7,
+                "column": 1,
+                "row": 2
+              },
+              {
+                "cell": 11,
+                "column": 5,
+                "row": 2
+              }
+            ],
+            [
+              {
+                "cell": 9,
+                "column": 3,
+                "row": 2
+              },
+              {
+                "cell": 38,
+                "column": 4,
+                "row": 6
+              }
+            ]
+          ],
+          "uncovered": [
+            442,
+            452,
+            462,
+            482,
+            530,
+            534,
+            538,
+            542
+          ],
+          "pairCovered": [],
+          "completeCoverage": false,
+          "explicitPolicy": null
+        }
+      ]
+    },
+    {
+      "id": "candidate6",
+      "sequence": "4444415666",
+      "pool": [
+        {
+          "cell": 7,
+          "column": 1,
+          "row": 2
+        },
+        {
+          "cell": 38,
+          "column": 4,
+          "row": 6
+        },
+        {
+          "cell": 11,
+          "column": 5,
+          "row": 2
+        },
+        {
+          "cell": 26,
+          "column": 6,
+          "row": 4
+        }
+      ],
+      "verticalResponseCells": [
+        {
+          "cell": 21,
+          "column": 1,
+          "row": 4
+        },
+        {
+          "cell": 35,
+          "column": 1,
+          "row": 6
+        },
+        {
+          "cell": 8,
+          "column": 2,
+          "row": 2
+        },
+        {
+          "cell": 22,
+          "column": 2,
+          "row": 4
+        },
+        {
+          "cell": 36,
+          "column": 2,
+          "row": 6
+        },
+        {
+          "cell": 9,
+          "column": 3,
+          "row": 2
+        },
+        {
+          "cell": 23,
+          "column": 3,
+          "row": 4
+        },
+        {
+          "cell": 37,
+          "column": 3,
+          "row": 6
+        },
+        {
+          "cell": 25,
+          "column": 5,
+          "row": 4
+        },
+        {
+          "cell": 39,
+          "column": 5,
+          "row": 6
+        },
+        {
+          "cell": 40,
+          "column": 6,
+          "row": 6
+        },
+        {
+          "cell": 13,
+          "column": 7,
+          "row": 2
+        },
+        {
+          "cell": 27,
+          "column": 7,
+          "row": 4
+        },
+        {
+          "cell": 41,
+          "column": 7,
+          "row": 6
+        }
+      ],
+      "activeMinimalResidualCount": 34,
+      "matchings": [
+        {
+          "edges": [
+            [
+              {
+                "cell": 7,
+                "column": 1,
+                "row": 2
+              },
+              {
+                "cell": 38,
+                "column": 4,
+                "row": 6
+              }
+            ],
+            [
+              {
+                "cell": 11,
+                "column": 5,
+                "row": 2
+              },
+              {
+                "cell": 26,
+                "column": 6,
+                "row": 4
+              }
+            ]
+          ],
+          "uncovered": [
+            51,
+            442,
+            452,
+            530,
+            534,
+            538,
+            542,
+            611
+          ],
+          "pairCovered": [],
+          "completeCoverage": false,
+          "explicitPolicy": null
+        },
+        {
+          "edges": [
+            [
+              {
+                "cell": 7,
+                "column": 1,
+                "row": 2
+              },
+              {
+                "cell": 11,
+                "column": 5,
+                "row": 2
+              }
+            ],
+            [
+              {
+                "cell": 38,
+                "column": 4,
+                "row": 6
+              },
+              {
+                "cell": 26,
+                "column": 6,
+                "row": 4
+              }
+            ]
+          ],
+          "uncovered": [
+            51,
+            442,
+            452,
+            530,
+            534,
+            538,
+            542
+          ],
+          "pairCovered": [
+            {
+              "id": 611,
+              "edge": [
+                {
+                  "cell": 38,
+                  "column": 4,
+                  "row": 6
+                },
+                {
+                  "cell": 26,
+                  "column": 6,
+                  "row": 4
+                }
+              ]
+            }
+          ],
+          "completeCoverage": false,
+          "explicitPolicy": null
+        },
+        {
+          "edges": [
+            [
+              {
+                "cell": 7,
+                "column": 1,
+                "row": 2
+              },
+              {
+                "cell": 26,
+                "column": 6,
+                "row": 4
+              }
+            ],
+            [
+              {
+                "cell": 38,
+                "column": 4,
+                "row": 6
+              },
+              {
+                "cell": 11,
+                "column": 5,
+                "row": 2
+              }
+            ]
+          ],
+          "uncovered": [
+            51,
+            442,
+            452,
+            530,
+            534,
+            538,
+            542,
+            611
+          ],
+          "pairCovered": [],
+          "completeCoverage": false,
+          "explicitPolicy": null
+        }
+      ]
+    }
+  ],
+  "work": {
+    "cofactorCount": 0
+  },
+  "boundary": [
+    "Consumed-boundary theorem-discovery control.",
+    "A matching that covers only some defects is not a safety certificate.",
+    "No oracle values or solved outcomes are used.",
+    "Do not promote the theorem unless a complete-coverage case passes explicit policy execution and then fresh structural qualification."
+  ]
+}
