@@ -1,0 +1,72 @@
+name: Research CPC gray-token guard-set D23
+
+on:
+  push:
+    branches:
+      - research/universal-structural-policy-20260930
+    paths:
+      - .github/workflows/research-cpc-neutral-gray-guard-set-d23.yml
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/run-cpc-neutral-gray-guard-set-bigint-rba-target.mjs
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_NEUTRAL_TOKEN_GUARD_QUOTIENT_THEOREM.md
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Check out exact pushed revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+      - name: Pin Node runtime
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Fetch pinned JSMinSys authority
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone https://github.com/iteathen/JSMinSys.git jsminsys
+          git -C jsminsys checkout 0899c5811918e68c22dc1b0e4dd8af97d9b4bbcb
+      - name: Verify gray-token D23 regression
+        shell: bash
+        env:
+          NODE_OPTIONS: --max-old-space-size=6144
+        run: |
+          set -euo pipefail
+          DIR=research/isograph/discovery/2026-09-30-universal-structural-policy
+          OUT="$DIR/CPC_NEUTRAL_GRAY_GUARD_SET_D23_0_1.json"
+          timeout 780 node "$DIR/run-cpc-neutral-gray-guard-set-bigint-rba-target.mjs" ./jsminsys 23 > "$OUT"
+          node - "$OUT" <<'NODE'
+          const fs=require('fs');
+          const r=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
+          if(!r.result.accept)throw new Error('gray-token D23 regression failed');
+          console.log('GRAY_D23='+JSON.stringify({
+            accept:r.result.accept,
+            class:r.result.class,
+            absolutePly:r.absolutePly,
+            initialGuards:r.initialGuards,
+            work:r.work
+          }));
+          NODE
+      - name: Commit durable gray-token D23 evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          BRANCH=research/universal-structural-policy-20260930
+          FILE=research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_NEUTRAL_GRAY_GUARD_SET_D23_0_1.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$FILE"
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "research: verify gray-token guard-set D23"
+          for attempt in 1 2 3; do
+            git fetch origin "$BRANCH"
+            git rebase --autostash "origin/$BRANCH"
+            if git push origin HEAD:"$BRANCH"; then exit 0; fi
+            sleep 1
+          done
+          exit 1
