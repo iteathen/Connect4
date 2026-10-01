@@ -1,0 +1,73 @@
+name: Research CPC rank30 c5-forced local value discovery
+
+on:
+  push:
+    branches:
+      - research/universal-structural-policy-20260930
+    paths:
+      - .github/workflows/research-cpc-rank30-c5-forced-local-value-discovery.yml
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_RANK30_REPLY7_C5_FORCED_LOCAL_VALUE_DISCOVERY_DESIGN_0_1.md
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/test-cpc-rank30-reply7-c5-forced-local-value-discovery.mjs
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/run-cpc-rank30-reply7-c5-forced-local-value-discovery.mjs
+
+permissions:
+  contents: write
+
+jobs:
+  discover:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out exact pushed revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+      - name: Pin Node runtime
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Fetch pinned JSMinSys authority
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone https://github.com/iteathen/JSMinSys.git jsminsys
+          git -C jsminsys checkout bf23d3a67652cd42e1975f29c7dc4eed54f7eb42
+          test -z "$(git -C jsminsys status --porcelain)"
+      - name: Verify frozen discovery contract
+        run: node research/isograph/discovery/2026-09-30-universal-structural-policy/test-cpc-rank30-reply7-c5-forced-local-value-discovery.mjs ./jsminsys
+      - name: Generate durable discovery evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          DIR=research/isograph/discovery/2026-09-30-universal-structural-policy
+          OUT="$DIR/CPC_RANK30_REPLY7_C5_FORCED_LOCAL_VALUE_DISCOVERY_0_1.json"
+          node "$DIR/run-cpc-rank30-reply7-c5-forced-local-value-discovery.mjs" ./jsminsys > "$OUT"
+          node - "$OUT" <<'NODE'
+          const fs=require('fs');
+          const r=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
+          if(r.proofPremiseAllowed!==false||r.ordinaryGameTreeSearchUsed!==true)throw new Error('diagnostic boundary violated');
+          console.log(JSON.stringify({
+            value:r.discovery.value,
+            bestMoves:r.discovery.bestMoves,
+            moves:r.discovery.moves,
+            branches:r.bestMoveBranches.map(x=>({p1:x.p1Column,value:x.value,bestDefender:x.bestDefenderMoves}))
+          }));
+          NODE
+      - name: Commit durable discovery evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          BRANCH=research/universal-structural-policy-20260930
+          FILE=research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_RANK30_REPLY7_C5_FORCED_LOCAL_VALUE_DISCOVERY_0_1.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$FILE"
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "research: record rank30 c5-forced local value discovery"
+          for attempt in 1 2 3; do
+            git fetch origin "$BRANCH"
+            git rebase --autostash "origin/$BRANCH"
+            if git push origin HEAD:"$BRANCH"; then exit 0; fi
+            sleep 1
+          done
+          exit 1
