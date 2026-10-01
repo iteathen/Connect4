@@ -41,10 +41,3 @@ jobs:
           echo
           echo 'OFFICIAL_CLI'
           cat cli-44444.txt
-      - name: Upload evidence
-        uses: actions/upload-artifact@v4
-        with:
-          name: pons-full-vector-44444
-          path: |
-            service-44444.json
-            cli-44444.txt
