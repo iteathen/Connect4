@@ -179,7 +179,7 @@ for(const src of source.states){
   const inspectKernel=makeSemanticKernel();
   const semanticSource=semanticReplay(inspectKernel,src.sequence);
   const sourceExactBridge=exactBridge(src.sequence,jsSource,inspectKernel,semanticSource);
-  assert(sourceExactBridge.pass,src.id+' exact source bridge failed');
+  if(!sourceExactBridge.pass)throw new Error(src.id+' exact source bridge failed '+JSON.stringify(sourceExactBridge));
 
   const defenderReplies=[];
   for(let c=0;c<7;c++){
@@ -210,7 +210,7 @@ for(const src of source.states){
     assert.equal(jsChild.terminal,0,src.id+' unexpected terminal code');
     assert(Number.isSafeInteger(semNext)&&semNext>=0,src.id+' semantic child invalid');
     const childExactBridge=exactBridge(replySequence,jsChild,inspectKernel,semNext);
-    assert(childExactBridge.pass,src.id+' exact child bridge failed c'+(c+1));
+    if(!childExactBridge.pass)throw new Error(src.id+' exact child bridge failed c'+(c+1)+' '+JSON.stringify(childExactBridge));
 
     const inspectEngine=createRepairCapacityProofEngine(inspectKernel,{collectAllWinningActions:true,maxProofStates:1});
     const immediate=inspectEngine.terminalActions(semNext,0).map(x=>x.column+1);
