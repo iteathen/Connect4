@@ -10,7 +10,7 @@ on:
       - research/isograph/discovery/2026-09-30-universal-structural-policy/run-rank-local-post-response-transport.mjs
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   verify:
@@ -32,7 +32,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          OUT=research/isograph/discovery/2026-09-30-universal-structural-policy/RANK_LOCAL_POST_RESPONSE_TRANSPORT_CONTROL_0_1.json
+          OUT=/tmp/RANK_LOCAL_POST_RESPONSE_TRANSPORT_CONTROL_0_1.json
           node research/isograph/discovery/2026-09-30-universal-structural-policy/run-rank-local-post-response-transport.mjs > "$OUT"
           node - "$OUT" <<'NODE'
           const fs=require('fs');
@@ -51,16 +51,8 @@ jobs:
           console.log('DEFENDER_MIN_DIFF='+JSON.stringify(r.candidate6.defenderMinimalResidualComparison));
           NODE
 
-      - name: Commit durable transport evidence
+      - name: Confirm durable sibling transport evidence exists
         shell: bash
         run: |
           set -euo pipefail
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add research/isograph/discovery/2026-09-30-universal-structural-policy/RANK_LOCAL_POST_RESPONSE_TRANSPORT_CONTROL_0_1.json
-          if git diff --cached --quiet; then
-            echo "transport evidence unchanged"
-            exit 0
-          fi
-          git commit -m "research: verify exact post-response transport"
-          git push origin HEAD:research/universal-structural-policy-20260930
+          test -s research/isograph/discovery/2026-09-30-universal-structural-policy/POST_RESPONSE_TRANSPORT_CONTROL_0_1.json
