@@ -1,0 +1,295 @@
+{
+  "schema": "connect4.cpc_rank26_reply7_forced_chain_win_composition.v1",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "ordinaryGameTreeSearchUsed": false,
+  "theoremCandidate": "CPC_RANK26_REPLY7_FORCED_CHAIN_WIN_COMPOSITION_THEOREM.md",
+  "rank26": {
+    "sequence": "44444156666623222242331775",
+    "rank": 26,
+    "mover": 1,
+    "support": [
+      2,
+      6,
+      3,
+      6,
+      2,
+      5,
+      2
+    ]
+  },
+  "layerA": {
+    "p1Column": 5,
+    "afterP1": {
+      "terminal": 0,
+      "rank": 27,
+      "support": [
+        2,
+        6,
+        3,
+        6,
+        3,
+        5,
+        2
+      ]
+    },
+    "cpc": {
+      "baseline": {
+        "kind": "CPC_RESTRICT",
+        "interval": [
+          -1,
+          1
+        ],
+        "forcedColumn": 5,
+        "preemptionCount": 1,
+        "preemptionMask32": 16,
+        "precursorCount": 0,
+        "projectedCount": [
+          0,
+          0
+        ],
+        "projectedForks": [
+          0,
+          0
+        ]
+      },
+      "frontier": {
+        "kind": "CPC_RESTRICT",
+        "interval": [
+          -1,
+          1
+        ],
+        "forcedColumn": 5,
+        "preemptionCount": 1,
+        "preemptionMask32": 16,
+        "precursorCount": 0,
+        "projectedCount": [
+          0,
+          0
+        ],
+        "projectedForks": [
+          0,
+          0
+        ]
+      },
+      "agrees": true
+    },
+    "offForcedReplies": [
+      {
+        "defenderColumn": 1,
+        "terminal": 0,
+        "immediateP1WinningColumns": [
+          5
+        ],
+        "closed": true
+      },
+      {
+        "defenderColumn": 3,
+        "terminal": 0,
+        "immediateP1WinningColumns": [
+          5
+        ],
+        "closed": true
+      },
+      {
+        "defenderColumn": 6,
+        "terminal": 0,
+        "immediateP1WinningColumns": [
+          5
+        ],
+        "closed": true
+      },
+      {
+        "defenderColumn": 7,
+        "terminal": 0,
+        "immediateP1WinningColumns": [
+          5
+        ],
+        "closed": true
+      }
+    ],
+    "literalAllOffForcedClosed": true,
+    "handoff": {
+      "defenderColumn": 5,
+      "terminal": 0,
+      "rank": 28,
+      "support": [
+        2,
+        6,
+        3,
+        6,
+        4,
+        5,
+        2
+      ],
+      "exactRbaEqualsExpectedRank28": true,
+      "expectedSequence": "4444415666662322224233177555"
+    }
+  },
+  "layerB": {
+    "p1Column": 5,
+    "afterP1": {
+      "terminal": 0,
+      "rank": 29,
+      "support": [
+        2,
+        6,
+        3,
+        6,
+        5,
+        5,
+        2
+      ]
+    },
+    "cpc": {
+      "baseline": {
+        "kind": "CPC_RESTRICT",
+        "interval": [
+          -1,
+          1
+        ],
+        "forcedColumn": 7,
+        "preemptionCount": 1,
+        "preemptionMask32": 64,
+        "precursorCount": 0,
+        "projectedCount": [
+          0,
+          0
+        ],
+        "projectedForks": [
+          0,
+          0
+        ]
+      },
+      "frontier": {
+        "kind": "CPC_RESTRICT",
+        "interval": [
+          -1,
+          1
+        ],
+        "forcedColumn": 7,
+        "preemptionCount": 1,
+        "preemptionMask32": 64,
+        "precursorCount": 0,
+        "projectedCount": [
+          0,
+          0
+        ],
+        "projectedForks": [
+          0,
+          0
+        ]
+      },
+      "agrees": true
+    },
+    "offForcedReplies": [
+      {
+        "defenderColumn": 1,
+        "terminal": 0,
+        "immediateP1WinningColumns": [
+          7
+        ],
+        "closed": true
+      },
+      {
+        "defenderColumn": 3,
+        "terminal": 0,
+        "immediateP1WinningColumns": [
+          7
+        ],
+        "closed": true
+      },
+      {
+        "defenderColumn": 5,
+        "terminal": 0,
+        "immediateP1WinningColumns": [
+          7
+        ],
+        "closed": true
+      },
+      {
+        "defenderColumn": 6,
+        "terminal": 0,
+        "immediateP1WinningColumns": [
+          7
+        ],
+        "closed": true
+      }
+    ],
+    "literalAllOffForcedClosed": true,
+    "handoff": {
+      "defenderColumn": 7,
+      "terminal": 0,
+      "rank": 30,
+      "support": [
+        2,
+        6,
+        3,
+        6,
+        5,
+        5,
+        3
+      ],
+      "exactRbaEqualsExpectedRank30": true,
+      "expectedSequence": "444441566666232222423317755557"
+    }
+  },
+  "layerC": {
+    "p1Column": 1,
+    "handoff": {
+      "terminal": 0,
+      "rank": 31,
+      "support": [
+        3,
+        6,
+        3,
+        6,
+        5,
+        5,
+        3
+      ],
+      "exactRbaEqualsExpectedRank31": true,
+      "expectedSequence": "4444415666662322224233177555571"
+    },
+    "premise": {
+      "schema": "connect4.cpc_rank31_c3_target_reservoir_qualification.v1",
+      "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+      "oracleUsed": false,
+      "solvedInputsUsed": false,
+      "ordinaryGameTreeSearchUsed": false,
+      "accept": true,
+      "proofPremiseAllowed": true,
+      "target": {
+        "cell": 30,
+        "column": 3,
+        "row": 5
+      },
+      "validation": {
+        "pass": true,
+        "defenderNodes": 56,
+        "responsePairs": 117,
+        "maxPairDepth": 4,
+        "p1TerminalResponses": 62,
+        "targetTerminalResponses": 56,
+        "failures": []
+      },
+      "rejectionReason": null
+    }
+  },
+  "accept": true,
+  "rejectionReason": null,
+  "conclusion": [
+    "The exact rank-26 reply-7 state is structurally certified as a Player-1 win by column 5.",
+    "P1:c5 forces P2:c5; the exact rank-28 handoff then P1:c5 forces P2:c7; P1:c1 reaches exactly the separately qualified rank-31 c3r5 target-reservoir proof class.",
+    "Every off-forced defender reply at both CPC restriction layers is independently closed by an immediate exact Player-1 terminal.",
+    "No new Connect-Four proof primitive is introduced: this certificate is a composition of forced-response restriction, exact RBA handoff, and an existing target-reservoir theorem."
+  ],
+  "boundary": [
+    "No diagnostic W/D/L, local recursive value, best-move table, Pons/oracle value, solved database, opening book, BSFP solved frontier, physical-position identity, or sealed holdout is used.",
+    "Every forced layer is checked both by production CPC and by literal exact RBA reply enumeration.",
+    "Every handoff requires exact full-RBA equality with its frozen sequence root, not support equality alone.",
+    "The rank-31 target-reservoir proof is freshly re-executed against the pinned JSMinSys authority.",
+    "Production CPC, JSMinSys, and BSFP remain unchanged."
+  ]
+}
