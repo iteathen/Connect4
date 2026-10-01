@@ -243,6 +243,9 @@ function summarize(sequence,layers=4){
   };
 }
 
+export { ingress, rank, mover, terminal, legal, proveAttacker, summarize };
+
+if(import.meta.url===pathToFileURL(process.argv[1]).href){
 const controls=[
   {id:'hallFork',sequence:'2232',expected:3},
   {id:'forcedRestrictionChain',sequence:'32612636',expected:5},
@@ -277,3 +280,4 @@ console.log(JSON.stringify({
     'This is proof-hypergraph closure, not ordinary W/D/L search and not a move-ranking heuristic.'
   ]
 },null,2));
+}
