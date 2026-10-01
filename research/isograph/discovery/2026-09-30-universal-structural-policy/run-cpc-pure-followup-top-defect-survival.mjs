@@ -114,12 +114,15 @@ const roots=[
   {id:'candidate2',sequence:'4444415662'},
   {id:'candidate3',sequence:'4444415663'},
   {id:'candidate6',sequence:'4444415666'},
+  {id:'candidate6_trigger1_response4',sequence:'444441566614'},
+  {id:'candidate6_trigger1_response5',sequence:'444441566615'},
+  {id:'candidate6_trigger1_response6',sequence:'444441566616'},
 ];
 
 const rows=[];
 for(const root of roots){
   const q=ingress(root.sequence),attacker=mover(q);
-  assert.equal(rank(q),10);
+  assert(rank(q)===10||rank(q)===12,'unexpected diagnostic root rank');
   const p=phase(q),d=derivative(p);
   const ladder=[];
   let maxSafe=null,firstFailed=null;
@@ -134,7 +137,7 @@ for(const root of roots){
   const maxK=maxSafe===null?0:(maxSafe+1)/2;
   const witness=maxK?surviveCycles(q,attacker,maxK,true):null;
   rows.push({
-    ...root,attacker:attacker+1,
+    ...root,rootRank:rank(q),attacker:attacker+1,
     phase:p,derivative:d,initialPhaseSafe:safePhase(q),
     maxCertifiedSurvivalHorizon:maxSafe,
     firstFailedHorizon:firstFailed,
