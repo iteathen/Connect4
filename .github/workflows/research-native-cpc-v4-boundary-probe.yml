@@ -9,7 +9,7 @@ on:
       - research/isograph/discovery/2026-09-30-universal-structural-policy/run-native-cpc-v4-boundary-probe.mjs
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   probe:
@@ -41,7 +41,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          OUT=research/isograph/discovery/2026-09-30-universal-structural-policy/NATIVE_CPC_V4_BOUNDARY_PROBE_0_1.json
+          OUT=/tmp/NATIVE_CPC_V4_BOUNDARY_PROBE_0_1.json
           node research/isograph/discovery/2026-09-30-universal-structural-policy/run-native-cpc-v4-boundary-probe.mjs ./jsminsys > "$OUT"
           node - "$OUT" <<'NODE'
           const fs=require('fs');
@@ -58,16 +58,13 @@ jobs:
           }
           NODE
 
-      - name: Commit durable CPC evidence
+      - name: Confirm current main CPC source is identical
         shell: bash
         run: |
           set -euo pipefail
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add research/isograph/discovery/2026-09-30-universal-structural-policy/NATIVE_CPC_V4_BOUNDARY_PROBE_0_1.json
-          if git diff --cached --quiet; then
-            echo "CPC evidence unchanged"
-            exit 0
-          fi
-          git commit -m "research: verify native CPC v4-boundary probe"
-          git push origin HEAD:research/universal-structural-policy-20260930
+          CURRENT=0899c5811918e68c22dc1b0e4dd8af97d9b4bbcb
+          git -C jsminsys fetch origin "$CURRENT"
+          old=$(git -C jsminsys rev-parse HEAD:addons/cpc-connect4.mjs)
+          new=$(git -C jsminsys rev-parse "$CURRENT":addons/cpc-connect4.mjs)
+          test "$old" = "$new"
+          echo "CPC_BLOB_SHA=$old"
