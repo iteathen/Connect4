@@ -71,4 +71,7 @@ jobs:
             exit 0
           fi
           git commit -m "research: record aggregate CPC successor scan"
-          git push origin HEAD:research/universal-structural-policy-20260930
+          BRANCH=research/universal-structural-policy-20260930
+          git fetch origin "$BRANCH"
+          git rebase "origin/$BRANCH"
+          git push origin HEAD:"$BRANCH"
