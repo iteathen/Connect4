@@ -1,0 +1,109 @@
+{
+  "schema": "connect4.isomax.fresh_ooo_warrant.v2",
+  "id": "FRESH-OOO-REVALIDATION-2026-09-30-PHASE3",
+  "status": "FROZEN_PHASE3_CONTINUATION_BEFORE_PREPARATION",
+  "canonicalOwner": "research/semantic-quotient",
+  "authorityEffect": "NONE",
+  "candidateOrder": [
+    "6x4-k3",
+    "5x4-k5"
+  ],
+  "excludedPriorExposure": [
+    "5x4-k3",
+    "6x3-k3",
+    "4x5-k4",
+    "6x3-k4",
+    "3x7-k4",
+    "4x6-k3"
+  ],
+  "sealedExcluded": [
+    "3x6-k4",
+    "5x3-k4"
+  ],
+  "target": "Full OOO image on the complete degree<=2 repaired P/O left kernel only; no RS095 feature qualification",
+  "coordinate": "T2=O nonterminal classes, absolute-owner ROLE_CAPPAR_REL_INC, ZOE multiplicity, no rank grade",
+  "oracleSource": "649596b43e59b7bedab858335f4098309288ca0e:research/isograph/discovery/2026-09-30-isomax-revalidation/independent-oracle.mjs",
+  "oracleAdaptation": "Exact hash-checked fresh-only allowlist and resource-guard insertion; same solver semantics; not a second independent solver",
+  "caps": {
+    "states": 2000000,
+    "classes": 100000,
+    "oooKeys": 100000,
+    "incidences": 20000000,
+    "v8HeapMiB": 4096,
+    "rssBytes": 6442450944,
+    "wallMsPerCandidate": 900000,
+    "campaignWallMs": 2700000,
+    "snapshotBytes": 536870912
+  },
+  "freeze": "Complete structural state/class mapping, D2/OOO rows, kernel dependencies and bases/ranks saved and checkpoint committed before solve. Replay requires an explicit structural snapshot commit argument and verifies all source hashes.",
+  "eligibility": "oooRank>0 is structural eligibility only. Scalar nonzero on ker(D2^T) is required for a non-affine OOO qualification.",
+  "scalarCoding": "relative WDL: L=0,D=1,W=2; all state codes in a repaired class must agree",
+  "stopping": "A non-vacuous pass or falsifier stops. Resource censoring or OOO-vacuity may advance in order; preserve every disposition. No outcome-driven coordinate changes.",
+  "independence": "Sparse greatest pivots checked by separate packed BigInt greatest pivots and explicit dependency XOR; original least-pivot implementation cross-checked on synthetic matrices. No changed features, bases, scalar rules or caps.",
+  "execution": "No scalar run performed when authoring this warrant. Root reviews and checkpoints prepare output before replay.",
+  "excludedResourceCensored": [
+    "7x3-k4"
+  ],
+  "inheritedCampaign": {
+    "sourceCommit": "b24da724b7c628f36dc33fdd8fe73e99a1bcd620",
+    "originalCampaignWallMs": 2700000,
+    "elapsedMs": 390802,
+    "remainingAtFreezeMs": 2309198,
+    "ledgers": [
+      {
+        "label": "3x7-k4",
+        "relativePath": "../fresh-3x7-k4/fresh-resource-ledger.json",
+        "sourceCommit": "b24da724b7c628f36dc33fdd8fe73e99a1bcd620",
+        "sha256Utf8Lf": "48a51f7d75a4a51bdbb153293136a0a7dffdaafee0db2407602a897e995f3ff4",
+        "elapsedMs": 24447,
+        "status": "SCALAR_COMPLETE"
+      },
+      {
+        "label": "7x3-k4",
+        "relativePath": "../fresh-7x3-k4/fresh-resource-ledger.json",
+        "sourceCommit": "b24da724b7c628f36dc33fdd8fe73e99a1bcd620",
+        "sha256Utf8Lf": "819b1423751723c5f5ae33a2cc42671bb842624964b6c9faffbbfa4aef35d9b5",
+        "elapsedMs": 4347,
+        "status": "RESOURCE_CENSORED"
+      },
+      {
+        "label": "4x6-k3",
+        "relativePath": "../fresh-extension-v3/fresh-4x6-k3/fresh-resource-ledger.json",
+        "sourceCommit": "7e388097",
+        "sha256Utf8Lf": "2f55422aea79f1c1a485a31dc6b2f2212aec0f951348f58882c1931fb1fe0852",
+        "elapsedMs": 355532,
+        "status": "SCALAR_COMPLETE"
+      },
+      {
+        "label": "3x8-k3",
+        "relativePath": "../fresh-extension-v3/fresh-3x8-k3/fresh-resource-ledger.json",
+        "sourceCommit": "7e388097",
+        "sha256Utf8Lf": "c0589c48e39e4006499779428a84228423f31a6cbd543d4a607d05e2737e7a38",
+        "elapsedMs": 6476,
+        "status": "STRUCTURE_COMPLETE"
+      }
+    ],
+    "policy": "Every phase3 invocation adds all frozen phase1 and phase2 usage, including the interrupted346073ms already contained in the355532ms phase2 ledger. Caps unchanged."
+  },
+  "phase1Disposition": {
+    "primary": {
+      "label": "3x7-k4",
+      "status": "SCALAR_OOO_VACUOUS",
+      "interpretation": "Affine scalar exactness is a vacuous full-OOO control, not non-affine qualification."
+    },
+    "backup": {
+      "label": "7x3-k4",
+      "status": "RESOURCE_CENSORED",
+      "interpretation": "2m reachable-state cap during structural enumeration; no scalar replay."
+    },
+    "evidenceSource": "Root-verified phase-1 dispositions at b24da724b7c628f36dc33fdd8fe73e99a1bcd620",
+    "phase1Immutable": true
+  },
+  "freshnessEvidence": "../FRESH_EXTENSION_METADATA.json",
+  "extensionScope": "Same absolute-owner repaired P/O and full OOO family; continuation of existing plan, no new feature hypothesis.",
+  "executionAdaptation": "FRESH_PHASE3_ADAPTATION_0_4.json",
+  "phase2Disposition": {
+    "primary": "4x6-k3 affine fails, degree2 exact, scalar OOO-vacuous; secondary 3x8-k3 structurally OOO-vacuous, no scalar replay"
+  },
+  "selectionReason": "Extend the trained cubic-relevant width6 k3 geometry by one row; backup is the remaining metadata-reserved H-only geometry control. Neither candidate has been enumerated or solved. No assertion that either is non-affine."
+}
