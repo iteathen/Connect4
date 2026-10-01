@@ -1,0 +1,1085 @@
+{
+  "schema": "connect4.cpc_formula_coupled_gauge_equation_bridge.v1",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "formulaFrameworkSha": "f6bfce75ebf6aeafef08b9102ce20e0bfade2bdb",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "formulaOutcomesUsed": false,
+  "sealedHoldoutsAccessed": false,
+  "hypothesis": "CPC_FORMULA_COUPLED_GAUGE_EQUATION_BRIDGE_HYPOTHESIS.md",
+  "theoremSource": "CPC_THREE_COLUMN_PHASE_TRANSFER_WIN_THEOREM.md",
+  "states": {
+    "Q": {
+      "rank": 31,
+      "mover": 2,
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        1,
+        6,
+        3
+      ],
+      "components": [
+        {
+          "cols": [
+            1
+          ],
+          "width": 1,
+          "selected": "w1|cap=0|dh0=|dh1=",
+          "attachment": "r0=|r1=",
+          "augmented": "w1|cap=0|dh0=|dh1=|r0=|r1=",
+          "caps": [
+            0
+          ],
+          "perm": [
+            0
+          ],
+          "ownerGroups": [
+            [],
+            []
+          ],
+          "depthHist": [
+            "",
+            ""
+          ]
+        },
+        {
+          "cols": [
+            2
+          ],
+          "width": 1,
+          "selected": "w1|cap=0|dh0=|dh1=",
+          "attachment": "r0=|r1=",
+          "augmented": "w1|cap=0|dh0=|dh1=|r0=|r1=",
+          "caps": [
+            0
+          ],
+          "perm": [
+            0
+          ],
+          "ownerGroups": [
+            [],
+            []
+          ],
+          "depthHist": [
+            "",
+            ""
+          ]
+        },
+        {
+          "cols": [
+            4
+          ],
+          "width": 1,
+          "selected": "w1|cap=0|dh0=|dh1=",
+          "attachment": "r0=|r1=",
+          "augmented": "w1|cap=0|dh0=|dh1=|r0=|r1=",
+          "caps": [
+            0
+          ],
+          "perm": [
+            0
+          ],
+          "ownerGroups": [
+            [],
+            []
+          ],
+          "depthHist": [
+            "",
+            ""
+          ]
+        },
+        {
+          "cols": [
+            6
+          ],
+          "width": 1,
+          "selected": "w1|cap=0|dh0=|dh1=",
+          "attachment": "r0=|r1=",
+          "augmented": "w1|cap=0|dh0=|dh1=|r0=|r1=",
+          "caps": [
+            0
+          ],
+          "perm": [
+            0
+          ],
+          "ownerGroups": [
+            [],
+            []
+          ],
+          "depthHist": [
+            "",
+            ""
+          ]
+        },
+        {
+          "cols": [
+            7
+          ],
+          "width": 1,
+          "selected": "w1|cap=1|dh0=|dh1=0:1,1:1,2:1",
+          "attachment": "r0=|r1=0:0,1:0,2:0",
+          "augmented": "w1|cap=1|dh0=|dh1=0:1,1:1,2:1|r0=|r1=0:0,1:0,2:0",
+          "caps": [
+            1
+          ],
+          "perm": [
+            0
+          ],
+          "ownerGroups": [
+            [],
+            [
+              "0:0,1:0,2:0"
+            ]
+          ],
+          "depthHist": [
+            "",
+            "0:1,1:1,2:1"
+          ]
+        },
+        {
+          "cols": [
+            3,
+            5
+          ],
+          "width": 2,
+          "selected": "w2|cap=1.1|dh0=1:1,2:1|dh1=0:1,1:3,2:1,3:1",
+          "attachment": "r0=1:0;2:1|r1=0:0,1:0,2:0;1:0,1:1;3:1",
+          "augmented": "w2|cap=1.1|dh0=1:1,2:1|dh1=0:1,1:3,2:1,3:1|r0=1:0;2:1|r1=0:0,1:0,2:0;1:0,1:1;3:1",
+          "caps": [
+            1,
+            1
+          ],
+          "perm": [
+            0,
+            1
+          ],
+          "ownerGroups": [
+            [
+              "1:0",
+              "2:1"
+            ],
+            [
+              "0:0,1:0,2:0",
+              "1:0,1:1",
+              "3:1"
+            ]
+          ],
+          "depthHist": [
+            "1:1,2:1",
+            "0:1,1:3,2:1,3:1"
+          ]
+        }
+      ],
+      "selectedCounts": {
+        "w1|cap=0|dh0=|dh1=": 4,
+        "w1|cap=1|dh0=|dh1=0:1,1:1,2:1": 1,
+        "w2|cap=1.1|dh0=1:1,2:1|dh1=0:1,1:3,2:1,3:1": 1
+      },
+      "augmentedCounts": {
+        "w1|cap=0|dh0=|dh1=|r0=|r1=": 4,
+        "w1|cap=1|dh0=|dh1=0:1,1:1,2:1|r0=|r1=0:0,1:0,2:0": 1,
+        "w2|cap=1.1|dh0=1:1,2:1|dh1=0:1,1:3,2:1,3:1|r0=1:0;2:1|r1=0:0,1:0,2:0;1:0,1:1;3:1": 1
+      },
+      "roleVectors": {
+        "c3": {
+          "W": 2,
+          "C": 1,
+          "D0:1": 1,
+          "D1:1": 2,
+          "D1:0": 1,
+          "D1:2": 1
+        },
+        "c5": {
+          "W": 2,
+          "C": 1,
+          "D0:2": 1,
+          "D1:3": 1,
+          "D1:1": 1
+        },
+        "c7": {
+          "W": 1,
+          "C": 1,
+          "D1:0": 1,
+          "D1:1": 1,
+          "D1:2": 1
+        }
+      },
+      "pairDeltas": {
+        "d35": "D0:1=-1,D0:2=1,D1:0=-1,D1:1=-1,D1:2=-1,D1:3=1",
+        "d37": "D0:1=-1,D1:1=-1,W=-1",
+        "d57": "D0:2=-1,D1:0=1,D1:2=1,D1:3=-1,W=-1"
+      },
+      "circuitResidual": "0",
+      "gaugeAnchors": [
+        "G:OWNER3:1",
+        "G:OWNER5:2",
+        "G:SINGLE3:1",
+        "G:SINGLE5:1"
+      ]
+    },
+    "A": {
+      "rank": 33,
+      "mover": 2,
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        2,
+        6,
+        4
+      ],
+      "components": [
+        {
+          "cols": [
+            1
+          ],
+          "width": 1,
+          "selected": "w1|cap=0|dh0=|dh1=",
+          "attachment": "r0=|r1=",
+          "augmented": "w1|cap=0|dh0=|dh1=|r0=|r1=",
+          "caps": [
+            0
+          ],
+          "perm": [
+            0
+          ],
+          "ownerGroups": [
+            [],
+            []
+          ],
+          "depthHist": [
+            "",
+            ""
+          ]
+        },
+        {
+          "cols": [
+            2
+          ],
+          "width": 1,
+          "selected": "w1|cap=0|dh0=|dh1=",
+          "attachment": "r0=|r1=",
+          "augmented": "w1|cap=0|dh0=|dh1=|r0=|r1=",
+          "caps": [
+            0
+          ],
+          "perm": [
+            0
+          ],
+          "ownerGroups": [
+            [],
+            []
+          ],
+          "depthHist": [
+            "",
+            ""
+          ]
+        },
+        {
+          "cols": [
+            4
+          ],
+          "width": 1,
+          "selected": "w1|cap=0|dh0=|dh1=",
+          "attachment": "r0=|r1=",
+          "augmented": "w1|cap=0|dh0=|dh1=|r0=|r1=",
+          "caps": [
+            0
+          ],
+          "perm": [
+            0
+          ],
+          "ownerGroups": [
+            [],
+            []
+          ],
+          "depthHist": [
+            "",
+            ""
+          ]
+        },
+        {
+          "cols": [
+            6
+          ],
+          "width": 1,
+          "selected": "w1|cap=0|dh0=|dh1=",
+          "attachment": "r0=|r1=",
+          "augmented": "w1|cap=0|dh0=|dh1=|r0=|r1=",
+          "caps": [
+            0
+          ],
+          "perm": [
+            0
+          ],
+          "ownerGroups": [
+            [],
+            []
+          ],
+          "depthHist": [
+            "",
+            ""
+          ]
+        },
+        {
+          "cols": [
+            7
+          ],
+          "width": 1,
+          "selected": "w1|cap=0|dh0=|dh1=",
+          "attachment": "r0=|r1=",
+          "augmented": "w1|cap=0|dh0=|dh1=|r0=|r1=",
+          "caps": [
+            0
+          ],
+          "perm": [
+            0
+          ],
+          "ownerGroups": [
+            [],
+            []
+          ],
+          "depthHist": [
+            "",
+            ""
+          ]
+        },
+        {
+          "cols": [
+            3,
+            5
+          ],
+          "width": 2,
+          "selected": "w2|cap=0.1|dh0=1:2|dh1=0:2,1:2,2:2",
+          "attachment": "r0=1:0;1:1|r1=0:0,1:1;0:1,1:1,2:1;2:0",
+          "augmented": "w2|cap=0.1|dh0=1:2|dh1=0:2,1:2,2:2|r0=1:0;1:1|r1=0:0,1:1;0:1,1:1,2:1;2:0",
+          "caps": [
+            0,
+            1
+          ],
+          "perm": [
+            1,
+            0
+          ],
+          "ownerGroups": [
+            [
+              "1:0",
+              "1:1"
+            ],
+            [
+              "0:0,1:1",
+              "0:1,1:1,2:1",
+              "2:0"
+            ]
+          ],
+          "depthHist": [
+            "1:2",
+            "0:2,1:2,2:2"
+          ]
+        }
+      ],
+      "selectedCounts": {
+        "w1|cap=0|dh0=|dh1=": 5,
+        "w2|cap=0.1|dh0=1:2|dh1=0:2,1:2,2:2": 1
+      },
+      "augmentedCounts": {
+        "w1|cap=0|dh0=|dh1=|r0=|r1=": 5,
+        "w2|cap=0.1|dh0=1:2|dh1=0:2,1:2,2:2|r0=1:0;1:1|r1=0:0,1:1;0:1,1:1,2:1;2:0": 1
+      },
+      "roleVectors": {
+        "c3": {
+          "W": 2,
+          "C": 1,
+          "D0:1": 1,
+          "D1:1": 2,
+          "D1:0": 1,
+          "D1:2": 1
+        },
+        "c5": {
+          "W": 2,
+          "C": 0,
+          "D0:1": 1,
+          "D1:2": 1,
+          "D1:0": 1
+        },
+        "c7": {
+          "W": 1,
+          "C": 0
+        }
+      },
+      "pairDeltas": {
+        "d35": "C=-1,D1:1=-2",
+        "d37": "C=-1,D0:1=-1,D1:0=-1,D1:1=-2,D1:2=-1,W=-1",
+        "d57": "D0:1=-1,D1:0=-1,D1:2=-1,W=-1"
+      },
+      "circuitResidual": "0",
+      "gaugeAnchors": [
+        "G:OWNER3:1",
+        "G:OWNER5:2",
+        "G:SINGLE3:1",
+        "G:SINGLE5:1"
+      ]
+    },
+    "B": {
+      "rank": 33,
+      "mover": 2,
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        1,
+        6,
+        5
+      ],
+      "components": [
+        {
+          "cols": [
+            1
+          ],
+          "width": 1,
+          "selected": "w1|cap=0|dh0=|dh1=",
+          "attachment": "r0=|r1=",
+          "augmented": "w1|cap=0|dh0=|dh1=|r0=|r1=",
+          "caps": [
+            0
+          ],
+          "perm": [
+            0
+          ],
+          "ownerGroups": [
+            [],
+            []
+          ],
+          "depthHist": [
+            "",
+            ""
+          ]
+        },
+        {
+          "cols": [
+            2
+          ],
+          "width": 1,
+          "selected": "w1|cap=0|dh0=|dh1=",
+          "attachment": "r0=|r1=",
+          "augmented": "w1|cap=0|dh0=|dh1=|r0=|r1=",
+          "caps": [
+            0
+          ],
+          "perm": [
+            0
+          ],
+          "ownerGroups": [
+            [],
+            []
+          ],
+          "depthHist": [
+            "",
+            ""
+          ]
+        },
+        {
+          "cols": [
+            4
+          ],
+          "width": 1,
+          "selected": "w1|cap=0|dh0=|dh1=",
+          "attachment": "r0=|r1=",
+          "augmented": "w1|cap=0|dh0=|dh1=|r0=|r1=",
+          "caps": [
+            0
+          ],
+          "perm": [
+            0
+          ],
+          "ownerGroups": [
+            [],
+            []
+          ],
+          "depthHist": [
+            "",
+            ""
+          ]
+        },
+        {
+          "cols": [
+            6
+          ],
+          "width": 1,
+          "selected": "w1|cap=0|dh0=|dh1=",
+          "attachment": "r0=|r1=",
+          "augmented": "w1|cap=0|dh0=|dh1=|r0=|r1=",
+          "caps": [
+            0
+          ],
+          "perm": [
+            0
+          ],
+          "ownerGroups": [
+            [],
+            []
+          ],
+          "depthHist": [
+            "",
+            ""
+          ]
+        },
+        {
+          "cols": [
+            7
+          ],
+          "width": 1,
+          "selected": "w1|cap=1|dh0=|dh1=",
+          "attachment": "r0=|r1=",
+          "augmented": "w1|cap=1|dh0=|dh1=|r0=|r1=",
+          "caps": [
+            1
+          ],
+          "perm": [
+            0
+          ],
+          "ownerGroups": [
+            [],
+            []
+          ],
+          "depthHist": [
+            "",
+            ""
+          ]
+        },
+        {
+          "cols": [
+            3,
+            5
+          ],
+          "width": 2,
+          "selected": "w2|cap=1.1|dh0=1:1,2:1|dh1=0:1,1:3,2:1,3:1",
+          "attachment": "r0=1:0;2:1|r1=0:0,1:0,2:0;1:0,1:1;3:1",
+          "augmented": "w2|cap=1.1|dh0=1:1,2:1|dh1=0:1,1:3,2:1,3:1|r0=1:0;2:1|r1=0:0,1:0,2:0;1:0,1:1;3:1",
+          "caps": [
+            1,
+            1
+          ],
+          "perm": [
+            0,
+            1
+          ],
+          "ownerGroups": [
+            [
+              "1:0",
+              "2:1"
+            ],
+            [
+              "0:0,1:0,2:0",
+              "1:0,1:1",
+              "3:1"
+            ]
+          ],
+          "depthHist": [
+            "1:1,2:1",
+            "0:1,1:3,2:1,3:1"
+          ]
+        }
+      ],
+      "selectedCounts": {
+        "w1|cap=0|dh0=|dh1=": 4,
+        "w1|cap=1|dh0=|dh1=": 1,
+        "w2|cap=1.1|dh0=1:1,2:1|dh1=0:1,1:3,2:1,3:1": 1
+      },
+      "augmentedCounts": {
+        "w1|cap=0|dh0=|dh1=|r0=|r1=": 4,
+        "w1|cap=1|dh0=|dh1=|r0=|r1=": 1,
+        "w2|cap=1.1|dh0=1:1,2:1|dh1=0:1,1:3,2:1,3:1|r0=1:0;2:1|r1=0:0,1:0,2:0;1:0,1:1;3:1": 1
+      },
+      "roleVectors": {
+        "c3": {
+          "W": 2,
+          "C": 1,
+          "D0:1": 1,
+          "D1:1": 2,
+          "D1:0": 1,
+          "D1:2": 1
+        },
+        "c5": {
+          "W": 2,
+          "C": 1,
+          "D0:2": 1,
+          "D1:3": 1,
+          "D1:1": 1
+        },
+        "c7": {
+          "W": 1,
+          "C": 1
+        }
+      },
+      "pairDeltas": {
+        "d35": "D0:1=-1,D0:2=1,D1:0=-1,D1:1=-1,D1:2=-1,D1:3=1",
+        "d37": "D0:1=-1,D1:0=-1,D1:1=-2,D1:2=-1,W=-1",
+        "d57": "D0:2=-1,D1:1=-1,D1:3=-1,W=-1"
+      },
+      "circuitResidual": "0",
+      "gaugeAnchors": [
+        "G:OWNER3:1",
+        "G:OWNER5:2",
+        "G:SINGLE3:1",
+        "G:SINGLE5:1"
+      ]
+    },
+    "Z": {
+      "rank": 35,
+      "mover": 2,
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        2,
+        6,
+        6
+      ],
+      "components": [
+        {
+          "cols": [
+            1
+          ],
+          "width": 1,
+          "selected": "w1|cap=0|dh0=|dh1=",
+          "attachment": "r0=|r1=",
+          "augmented": "w1|cap=0|dh0=|dh1=|r0=|r1=",
+          "caps": [
+            0
+          ],
+          "perm": [
+            0
+          ],
+          "ownerGroups": [
+            [],
+            []
+          ],
+          "depthHist": [
+            "",
+            ""
+          ]
+        },
+        {
+          "cols": [
+            2
+          ],
+          "width": 1,
+          "selected": "w1|cap=0|dh0=|dh1=",
+          "attachment": "r0=|r1=",
+          "augmented": "w1|cap=0|dh0=|dh1=|r0=|r1=",
+          "caps": [
+            0
+          ],
+          "perm": [
+            0
+          ],
+          "ownerGroups": [
+            [],
+            []
+          ],
+          "depthHist": [
+            "",
+            ""
+          ]
+        },
+        {
+          "cols": [
+            4
+          ],
+          "width": 1,
+          "selected": "w1|cap=0|dh0=|dh1=",
+          "attachment": "r0=|r1=",
+          "augmented": "w1|cap=0|dh0=|dh1=|r0=|r1=",
+          "caps": [
+            0
+          ],
+          "perm": [
+            0
+          ],
+          "ownerGroups": [
+            [],
+            []
+          ],
+          "depthHist": [
+            "",
+            ""
+          ]
+        },
+        {
+          "cols": [
+            6
+          ],
+          "width": 1,
+          "selected": "w1|cap=0|dh0=|dh1=",
+          "attachment": "r0=|r1=",
+          "augmented": "w1|cap=0|dh0=|dh1=|r0=|r1=",
+          "caps": [
+            0
+          ],
+          "perm": [
+            0
+          ],
+          "ownerGroups": [
+            [],
+            []
+          ],
+          "depthHist": [
+            "",
+            ""
+          ]
+        },
+        {
+          "cols": [
+            7
+          ],
+          "width": 1,
+          "selected": "w1|cap=0|dh0=|dh1=",
+          "attachment": "r0=|r1=",
+          "augmented": "w1|cap=0|dh0=|dh1=|r0=|r1=",
+          "caps": [
+            0
+          ],
+          "perm": [
+            0
+          ],
+          "ownerGroups": [
+            [],
+            []
+          ],
+          "depthHist": [
+            "",
+            ""
+          ]
+        },
+        {
+          "cols": [
+            3,
+            5
+          ],
+          "width": 2,
+          "selected": "w2|cap=0.1|dh0=1:2|dh1=0:2,1:2,2:2",
+          "attachment": "r0=1:0;1:1|r1=0:0,1:1;0:1,1:1,2:1;2:0",
+          "augmented": "w2|cap=0.1|dh0=1:2|dh1=0:2,1:2,2:2|r0=1:0;1:1|r1=0:0,1:1;0:1,1:1,2:1;2:0",
+          "caps": [
+            0,
+            1
+          ],
+          "perm": [
+            1,
+            0
+          ],
+          "ownerGroups": [
+            [
+              "1:0",
+              "1:1"
+            ],
+            [
+              "0:0,1:1",
+              "0:1,1:1,2:1",
+              "2:0"
+            ]
+          ],
+          "depthHist": [
+            "1:2",
+            "0:2,1:2,2:2"
+          ]
+        }
+      ],
+      "selectedCounts": {
+        "w1|cap=0|dh0=|dh1=": 5,
+        "w2|cap=0.1|dh0=1:2|dh1=0:2,1:2,2:2": 1
+      },
+      "augmentedCounts": {
+        "w1|cap=0|dh0=|dh1=|r0=|r1=": 5,
+        "w2|cap=0.1|dh0=1:2|dh1=0:2,1:2,2:2|r0=1:0;1:1|r1=0:0,1:1;0:1,1:1,2:1;2:0": 1
+      },
+      "roleVectors": {
+        "c3": {
+          "W": 2,
+          "C": 1,
+          "D0:1": 1,
+          "D1:1": 2,
+          "D1:0": 1,
+          "D1:2": 1
+        },
+        "c5": {
+          "W": 2,
+          "C": 0,
+          "D0:1": 1,
+          "D1:2": 1,
+          "D1:0": 1
+        },
+        "c7": {
+          "W": 1,
+          "C": 0
+        }
+      },
+      "pairDeltas": {
+        "d35": "C=-1,D1:1=-2",
+        "d37": "C=-1,D0:1=-1,D1:0=-1,D1:1=-2,D1:2=-1,W=-1",
+        "d57": "D0:1=-1,D1:0=-1,D1:2=-1,W=-1"
+      },
+      "circuitResidual": "0",
+      "gaugeAnchors": [
+        "G:OWNER3:1",
+        "G:OWNER5:2",
+        "G:SINGLE3:1",
+        "G:SINGLE5:1"
+      ]
+    }
+  },
+  "responseRows": [
+    {
+      "state": "Q",
+      "trigger": 3,
+      "response": 3,
+      "responseClass": "TC3",
+      "code": 1
+    },
+    {
+      "state": "Q",
+      "trigger": 5,
+      "response": 7,
+      "responseClass": "X7",
+      "code": 8
+    },
+    {
+      "state": "Q",
+      "trigger": 7,
+      "response": 7,
+      "responseClass": "X7",
+      "code": 8
+    },
+    {
+      "state": "A",
+      "trigger": 3,
+      "response": 3,
+      "responseClass": "TC3",
+      "code": 1
+    },
+    {
+      "state": "A",
+      "trigger": 5,
+      "response": 5,
+      "responseClass": "TC5",
+      "code": 2
+    },
+    {
+      "state": "A",
+      "trigger": 7,
+      "response": 7,
+      "responseClass": "X7",
+      "code": 8
+    },
+    {
+      "state": "B",
+      "trigger": 3,
+      "response": 3,
+      "responseClass": "TC3",
+      "code": 1
+    },
+    {
+      "state": "B",
+      "trigger": 5,
+      "response": 7,
+      "responseClass": "X7",
+      "code": 8
+    },
+    {
+      "state": "B",
+      "trigger": 7,
+      "response": 5,
+      "responseClass": "X5",
+      "code": 4
+    },
+    {
+      "state": "Z",
+      "trigger": 3,
+      "response": 3,
+      "responseClass": "TC3",
+      "code": 1
+    },
+    {
+      "state": "Z",
+      "trigger": 5,
+      "response": 5,
+      "responseClass": "TC5",
+      "code": 2
+    }
+  ],
+  "collisions": {
+    "SELECTED": {
+      "classes": 9,
+      "conflictingClasses": 0,
+      "conflicts": []
+    },
+    "AUGMENTED": {
+      "classes": 9,
+      "conflictingClasses": 0,
+      "conflicts": []
+    },
+    "DELTA": {
+      "classes": 9,
+      "conflictingClasses": 0,
+      "conflicts": []
+    },
+    "DELTA_ANCHORED": {
+      "classes": 9,
+      "conflictingClasses": 0,
+      "conflicts": []
+    }
+  },
+  "systems": {
+    "SELECTED": [
+      {
+        "degree": 1,
+        "variables": 14,
+        "pivotRank": 5,
+        "nullity": 9,
+        "contradictions": 3,
+        "firstContradiction": {
+          "rowIndex": 4,
+          "state": "A",
+          "trigger": 5,
+          "responseClass": "TC5",
+          "reducedRhs": 10
+        }
+      },
+      {
+        "degree": 2,
+        "variables": 67,
+        "pivotRank": 9,
+        "nullity": 58,
+        "contradictions": 0,
+        "firstContradiction": null
+      },
+      {
+        "degree": 3,
+        "variables": 159,
+        "pivotRank": 9,
+        "nullity": 150,
+        "contradictions": 0,
+        "firstContradiction": null
+      }
+    ],
+    "AUGMENTED": [
+      {
+        "degree": 1,
+        "variables": 14,
+        "pivotRank": 5,
+        "nullity": 9,
+        "contradictions": 3,
+        "firstContradiction": {
+          "rowIndex": 4,
+          "state": "A",
+          "trigger": 5,
+          "responseClass": "TC5",
+          "reducedRhs": 10
+        }
+      },
+      {
+        "degree": 2,
+        "variables": 67,
+        "pivotRank": 9,
+        "nullity": 58,
+        "contradictions": 0,
+        "firstContradiction": null
+      },
+      {
+        "degree": 3,
+        "variables": 159,
+        "pivotRank": 9,
+        "nullity": 150,
+        "contradictions": 0,
+        "firstContradiction": null
+      }
+    ],
+    "DELTA": [
+      {
+        "degree": 1,
+        "variables": 12,
+        "pivotRank": 5,
+        "nullity": 7,
+        "contradictions": 3,
+        "firstContradiction": {
+          "rowIndex": 4,
+          "state": "A",
+          "trigger": 5,
+          "responseClass": "TC5",
+          "reducedRhs": 10
+        }
+      },
+      {
+        "degree": 2,
+        "variables": 45,
+        "pivotRank": 9,
+        "nullity": 36,
+        "contradictions": 0,
+        "firstContradiction": null
+      },
+      {
+        "degree": 3,
+        "variables": 75,
+        "pivotRank": 9,
+        "nullity": 66,
+        "contradictions": 0,
+        "firstContradiction": null
+      }
+    ],
+    "DELTA_ANCHORED": [
+      {
+        "degree": 1,
+        "variables": 16,
+        "pivotRank": 5,
+        "nullity": 11,
+        "contradictions": 3,
+        "firstContradiction": {
+          "rowIndex": 4,
+          "state": "A",
+          "trigger": 5,
+          "responseClass": "TC5",
+          "reducedRhs": 10
+        }
+      },
+      {
+        "degree": 2,
+        "variables": 99,
+        "pivotRank": 9,
+        "nullity": 90,
+        "contradictions": 0,
+        "firstContradiction": null
+      },
+      {
+        "degree": 3,
+        "variables": 331,
+        "pivotRank": 9,
+        "nullity": 322,
+        "contradictions": 0,
+        "firstContradiction": null
+      }
+    ]
+  },
+  "structuralChecks": {
+    "allPairDeltaCircuitsClose": true,
+    "sinkOrientationsExactRbaEqual": true
+  },
+  "conclusion": [
+    "This experiment couples the late-IsoMax exchange/gauge framework to an independently qualified finite CPC response policy without importing either side's solved values.",
+    "SELECTED tests width + role-capacity parity + owner-depth-histogram information; AUGMENTED adds exact residual grouping/role attachment from RBA.",
+    "DELTA tests the three-reservoir exact pair-exchange triangle; DELTA_ANCHORED adds CPC target-owner/singleton gauge anchors.",
+    "GF(2) affine/quadratic/cubic response-system contradictions quantify how much algebraic complexity each structural carrier needs.",
+    "A selected-coordinate conflict removed by AUGMENTED is direct current-state evidence that residual grouping/role attachment is the missing variable named by the late-IsoMax revalidation checkpoint."
+  ],
+  "boundary": [
+    "No formula W/D/L scalar code, formula holdout, Pons value, local game-tree value, minimax, opening book, or solved database is used.",
+    "The response labels are exact terminal/transfer edges from the independently qualified CPC phase-transfer theorem, not outcome-fitted targets.",
+    "Production CPC, JSMinSys, BSFP, and the formula branch are read-only and unchanged."
+  ]
+}
