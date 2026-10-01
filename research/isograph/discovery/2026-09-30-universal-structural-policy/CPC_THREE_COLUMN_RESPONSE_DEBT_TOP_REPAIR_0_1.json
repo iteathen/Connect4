@@ -1,0 +1,331 @@
+{
+  "schema": "connect4.cpc_three_column_response_debt_top_repair.v1",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "debtColumns": [
+    2,
+    3,
+    6
+  ],
+  "policy": [
+    "state memory is one prepaid defender debt column in {2,3,6}",
+    "attacker hits current debt column below top -> defender same-column follow-up, debt column unchanged",
+    "attacker fills the top of current debt column -> defender transports the one-slot response debt to another debt-reservoir column",
+    "attacker plays another column -> defender chooses a distinct debt column and transports the prepaid placement by the exact same-player commutation law",
+    "all realized placements use exact CPC/RBA cofactors with first-win stopping"
+  ],
+  "target": {
+    "rootRank": 10,
+    "absolutePly41RelativeHorizon": 31,
+    "exactMove41DelayWouldRequireSurvivalThroughRelativeHorizon29AndFailureBy31": true
+  },
+  "rows": [
+    {
+      "id": "candidate2",
+      "sequence": "4444415662",
+      "attacker": 1,
+      "initialDebtColumn": 2,
+      "maxCertifiedSurvivalHorizon": 3,
+      "maxCertifiedAbsolutePly": 13,
+      "firstFailedHorizon": 5,
+      "firstFailedAbsolutePly": 15,
+      "ladder": [
+        {
+          "attackerTurns": 1,
+          "horizon": 1,
+          "absolutePly": 11,
+          "accept": true,
+          "class": "THREE_COLUMN_RESPONSE_DEBT",
+          "failedColumn": null,
+          "token": null
+        },
+        {
+          "attackerTurns": 2,
+          "horizon": 3,
+          "absolutePly": 13,
+          "accept": true,
+          "class": "THREE_COLUMN_RESPONSE_DEBT",
+          "failedColumn": null,
+          "token": null
+        },
+        {
+          "attackerTurns": 3,
+          "horizon": 5,
+          "absolutePly": 15,
+          "accept": false,
+          "class": "DEBT_RESPONSE_EXHAUSTED",
+          "failedColumn": 5,
+          "token": 2
+        }
+      ],
+      "rootWitness": [
+        {
+          "attackerColumn": 1,
+          "responseColumn": 3,
+          "mode": "DEBT_SWITCH",
+          "tokenBefore": 2,
+          "tokenAfter": 3,
+          "childClass": "THREE_COLUMN_RESPONSE_DEBT"
+        },
+        {
+          "attackerColumn": 2,
+          "responseColumn": 2,
+          "mode": "SELF_STUTTER",
+          "tokenBefore": 2,
+          "tokenAfter": 2,
+          "childClass": "THREE_COLUMN_RESPONSE_DEBT"
+        },
+        {
+          "attackerColumn": 3,
+          "responseColumn": 6,
+          "mode": "DEBT_SWITCH",
+          "tokenBefore": 2,
+          "tokenAfter": 6,
+          "childClass": "THREE_COLUMN_RESPONSE_DEBT"
+        },
+        {
+          "attackerColumn": 4,
+          "responseColumn": 3,
+          "mode": "DEBT_SWITCH",
+          "tokenBefore": 2,
+          "tokenAfter": 3,
+          "childClass": "THREE_COLUMN_RESPONSE_DEBT"
+        },
+        {
+          "attackerColumn": 5,
+          "responseColumn": 3,
+          "mode": "DEBT_SWITCH",
+          "tokenBefore": 2,
+          "tokenAfter": 3,
+          "childClass": "THREE_COLUMN_RESPONSE_DEBT"
+        },
+        {
+          "attackerColumn": 6,
+          "responseColumn": 3,
+          "mode": "DEBT_SWITCH",
+          "tokenBefore": 2,
+          "tokenAfter": 3,
+          "childClass": "THREE_COLUMN_RESPONSE_DEBT"
+        },
+        {
+          "attackerColumn": 7,
+          "responseColumn": 3,
+          "mode": "DEBT_SWITCH",
+          "tokenBefore": 2,
+          "tokenAfter": 3,
+          "childClass": "THREE_COLUMN_RESPONSE_DEBT"
+        }
+      ]
+    },
+    {
+      "id": "candidate3",
+      "sequence": "4444415663",
+      "attacker": 1,
+      "initialDebtColumn": 3,
+      "maxCertifiedSurvivalHorizon": 3,
+      "maxCertifiedAbsolutePly": 13,
+      "firstFailedHorizon": 5,
+      "firstFailedAbsolutePly": 15,
+      "ladder": [
+        {
+          "attackerTurns": 1,
+          "horizon": 1,
+          "absolutePly": 11,
+          "accept": true,
+          "class": "THREE_COLUMN_RESPONSE_DEBT",
+          "failedColumn": null,
+          "token": null
+        },
+        {
+          "attackerTurns": 2,
+          "horizon": 3,
+          "absolutePly": 13,
+          "accept": true,
+          "class": "THREE_COLUMN_RESPONSE_DEBT",
+          "failedColumn": null,
+          "token": null
+        },
+        {
+          "attackerTurns": 3,
+          "horizon": 5,
+          "absolutePly": 15,
+          "accept": false,
+          "class": "DEBT_RESPONSE_EXHAUSTED",
+          "failedColumn": 5,
+          "token": 3
+        }
+      ],
+      "rootWitness": [
+        {
+          "attackerColumn": 1,
+          "responseColumn": 2,
+          "mode": "DEBT_SWITCH",
+          "tokenBefore": 3,
+          "tokenAfter": 2,
+          "childClass": "THREE_COLUMN_RESPONSE_DEBT"
+        },
+        {
+          "attackerColumn": 2,
+          "responseColumn": 6,
+          "mode": "DEBT_SWITCH",
+          "tokenBefore": 3,
+          "tokenAfter": 6,
+          "childClass": "THREE_COLUMN_RESPONSE_DEBT"
+        },
+        {
+          "attackerColumn": 3,
+          "responseColumn": 3,
+          "mode": "SELF_STUTTER",
+          "tokenBefore": 3,
+          "tokenAfter": 3,
+          "childClass": "THREE_COLUMN_RESPONSE_DEBT"
+        },
+        {
+          "attackerColumn": 4,
+          "responseColumn": 2,
+          "mode": "DEBT_SWITCH",
+          "tokenBefore": 3,
+          "tokenAfter": 2,
+          "childClass": "THREE_COLUMN_RESPONSE_DEBT"
+        },
+        {
+          "attackerColumn": 5,
+          "responseColumn": 2,
+          "mode": "DEBT_SWITCH",
+          "tokenBefore": 3,
+          "tokenAfter": 2,
+          "childClass": "THREE_COLUMN_RESPONSE_DEBT"
+        },
+        {
+          "attackerColumn": 6,
+          "responseColumn": 2,
+          "mode": "DEBT_SWITCH",
+          "tokenBefore": 3,
+          "tokenAfter": 2,
+          "childClass": "THREE_COLUMN_RESPONSE_DEBT"
+        },
+        {
+          "attackerColumn": 7,
+          "responseColumn": 2,
+          "mode": "DEBT_SWITCH",
+          "tokenBefore": 3,
+          "tokenAfter": 2,
+          "childClass": "THREE_COLUMN_RESPONSE_DEBT"
+        }
+      ]
+    },
+    {
+      "id": "candidate6",
+      "sequence": "4444415666",
+      "attacker": 1,
+      "initialDebtColumn": 6,
+      "maxCertifiedSurvivalHorizon": 3,
+      "maxCertifiedAbsolutePly": 13,
+      "firstFailedHorizon": 5,
+      "firstFailedAbsolutePly": 15,
+      "ladder": [
+        {
+          "attackerTurns": 1,
+          "horizon": 1,
+          "absolutePly": 11,
+          "accept": true,
+          "class": "THREE_COLUMN_RESPONSE_DEBT",
+          "failedColumn": null,
+          "token": null
+        },
+        {
+          "attackerTurns": 2,
+          "horizon": 3,
+          "absolutePly": 13,
+          "accept": true,
+          "class": "THREE_COLUMN_RESPONSE_DEBT",
+          "failedColumn": null,
+          "token": null
+        },
+        {
+          "attackerTurns": 3,
+          "horizon": 5,
+          "absolutePly": 15,
+          "accept": false,
+          "class": "DEBT_RESPONSE_EXHAUSTED",
+          "failedColumn": 5,
+          "token": 6
+        }
+      ],
+      "rootWitness": [
+        {
+          "attackerColumn": 1,
+          "responseColumn": 2,
+          "mode": "DEBT_SWITCH",
+          "tokenBefore": 6,
+          "tokenAfter": 2,
+          "childClass": "THREE_COLUMN_RESPONSE_DEBT"
+        },
+        {
+          "attackerColumn": 2,
+          "responseColumn": 3,
+          "mode": "DEBT_SWITCH",
+          "tokenBefore": 6,
+          "tokenAfter": 3,
+          "childClass": "THREE_COLUMN_RESPONSE_DEBT"
+        },
+        {
+          "attackerColumn": 3,
+          "responseColumn": 2,
+          "mode": "DEBT_SWITCH",
+          "tokenBefore": 6,
+          "tokenAfter": 2,
+          "childClass": "THREE_COLUMN_RESPONSE_DEBT"
+        },
+        {
+          "attackerColumn": 4,
+          "responseColumn": 2,
+          "mode": "DEBT_SWITCH",
+          "tokenBefore": 6,
+          "tokenAfter": 2,
+          "childClass": "THREE_COLUMN_RESPONSE_DEBT"
+        },
+        {
+          "attackerColumn": 5,
+          "responseColumn": 2,
+          "mode": "DEBT_SWITCH",
+          "tokenBefore": 6,
+          "tokenAfter": 2,
+          "childClass": "THREE_COLUMN_RESPONSE_DEBT"
+        },
+        {
+          "attackerColumn": 6,
+          "responseColumn": 6,
+          "mode": "SELF_STUTTER",
+          "tokenBefore": 6,
+          "tokenAfter": 6,
+          "childClass": "THREE_COLUMN_RESPONSE_DEBT"
+        },
+        {
+          "attackerColumn": 7,
+          "responseColumn": 2,
+          "mode": "DEBT_SWITCH",
+          "tokenBefore": 6,
+          "tokenAfter": 2,
+          "childClass": "THREE_COLUMN_RESPONSE_DEBT"
+        }
+      ]
+    }
+  ],
+  "work": {
+    "cfCalls": 1312,
+    "classCalls": 149,
+    "memoHits": 40,
+    "branchTests": 976,
+    "responseTests": 976,
+    "memoStates": 146,
+    "cofactorStates": 1312
+  },
+  "boundary": [
+    "This is a finite three-state temporal-contract policy, not unrestricted minimax.",
+    "Acceptance is a constructive survival certificate only.",
+    "Failure is not an attacker forced-completion upper bound.",
+    "The same-player commutation interpretation is used only on pairwise-distinct debt-switch transitions; self-stutter and top-debt transports are checked directly by exact cofactors.",
+    "Top-debt transport is a theorem-discovery policy constructor here; it is not promoted as a generic theorem by this control alone."
+  ]
+}
