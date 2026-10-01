@@ -43,6 +43,20 @@ assert.ok(r.repeatedModes.every(x=>x.count>1));
 assert.ok(r.blockSupport.COMBINED.all.patterns.length>0);
 assert.ok(r.heldOut.integer.COMBINED.width.reports.length>0);
 assert.ok(r.heldOut.gf2.COMBINED.height.reports.length>0);
+for(const algebra of ['integer','gf2']){
+  for(const family of ['WIDTH2','HEIGHT2','MIXED','COMBINED']){
+    for(const axis of ['width','height']){
+      const h=r.heldOutComparison[algebra][family][axis];
+      assert.ok(h.reports.length>0);
+      assert.equal(h.minBoundaryNovel,Math.min(...h.reports.map(x=>x.boundaryNovel)));
+      assert.equal(h.maxBoundaryNovel,Math.max(...h.reports.map(x=>x.boundaryNovel)));
+      for(const x of h.reports){
+        assert.equal(x.boundaryNovel,x.allRank-x.homogeneousRank);
+        assert.equal(x.homogeneousNovel,x.allRank-x.boundaryRank);
+      }
+    }
+  }
+}
 
 const focus=r.focus['8x6_9x6_10x6'];
 assert.equal(focus.id,'WIDTH2:8x6|9x6|10x6');
