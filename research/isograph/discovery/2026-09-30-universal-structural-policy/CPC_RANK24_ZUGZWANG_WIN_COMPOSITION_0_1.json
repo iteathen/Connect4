@@ -1,0 +1,228 @@
+{
+  "schema": "connect4.cpc_rank24_zugzwang_win_composition.v1",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "theoremCandidate": "CPC_RANK24_ZUGZWANG_WIN_COMPOSITION_THEOREM.md",
+  "qualificationLocator": "444441566666232222423311",
+  "currentState": {
+    "rank": 24,
+    "mover": 1,
+    "support": [
+      3,
+      6,
+      3,
+      6,
+      1,
+      5,
+      0
+    ]
+  },
+  "moveCertificate": {
+    "player": 1,
+    "column": 5,
+    "exactValue": "WIN",
+    "relativeRemoteness": null,
+    "legalDefenderReplies": [
+      1,
+      3,
+      5,
+      6,
+      7
+    ],
+    "branches": [
+      {
+        "defenderReplyColumn": 1,
+        "closure": "forced-compression-then-truncated-reservoir-zugzwang",
+        "triggerCertificate": true,
+        "targetReservoirCertificate": true,
+        "compressedSupport": [
+          4,
+          6,
+          3,
+          6,
+          5,
+          5,
+          0
+        ],
+        "truncatedCapacity": [
+          2,
+          0,
+          3,
+          0,
+          1,
+          1,
+          3
+        ],
+        "synchronizedPairs": [
+          {
+            "columns": [
+              3,
+              5
+            ],
+            "prefixLength": 1
+          },
+          {
+            "columns": [
+              6,
+              7
+            ],
+            "prefixLength": 1
+          }
+        ]
+      },
+      {
+        "defenderReplyColumn": 3,
+        "closure": "forced-compression-then-truncated-reservoir-zugzwang",
+        "triggerCertificate": true,
+        "targetReservoirCertificate": true,
+        "compressedSupport": [
+          3,
+          6,
+          4,
+          6,
+          5,
+          5,
+          0
+        ],
+        "truncatedCapacity": [
+          3,
+          0,
+          2,
+          0,
+          1,
+          1,
+          3
+        ],
+        "synchronizedPairs": [
+          {
+            "columns": [
+              1,
+              5
+            ],
+            "prefixLength": 1
+          },
+          {
+            "columns": [
+              6,
+              7
+            ],
+            "prefixLength": 1
+          }
+        ]
+      },
+      {
+        "defenderReplyColumn": 5,
+        "closure": "immediate-p1-terminal",
+        "triggerCertificate": true,
+        "targetReservoirCertificate": false
+      },
+      {
+        "defenderReplyColumn": 6,
+        "closure": "forced-compression-then-truncated-reservoir-zugzwang",
+        "triggerCertificate": true,
+        "targetReservoirCertificate": true,
+        "compressedSupport": [
+          3,
+          6,
+          3,
+          6,
+          5,
+          6,
+          0
+        ],
+        "truncatedCapacity": [
+          3,
+          0,
+          3,
+          0,
+          1,
+          0,
+          3
+        ],
+        "synchronizedPairs": [
+          {
+            "columns": [
+              1,
+              3
+            ],
+            "prefixLength": 1
+          },
+          {
+            "columns": [
+              5,
+              7
+            ],
+            "prefixLength": 1
+          }
+        ]
+      },
+      {
+        "defenderReplyColumn": 7,
+        "closure": "forced-compression-then-truncated-reservoir-zugzwang",
+        "triggerCertificate": true,
+        "targetReservoirCertificate": true,
+        "compressedSupport": [
+          3,
+          6,
+          3,
+          6,
+          5,
+          5,
+          1
+        ],
+        "truncatedCapacity": [
+          3,
+          0,
+          3,
+          0,
+          1,
+          1,
+          2
+        ],
+        "synchronizedPairs": [
+          {
+            "columns": [
+              1,
+              3
+            ],
+            "prefixLength": 1
+          },
+          {
+            "columns": [
+              5,
+              6
+            ],
+            "prefixLength": 1
+          }
+        ]
+      }
+    ]
+  },
+  "premiseCertificates": {
+    "trigger5": {
+      "schema": "connect4.cpc_trigger5_forced_compression.v1",
+      "accept": true,
+      "theorem": "CPC_TRIGGER5_FORCED_COMPRESSION_LEMMA.md"
+    },
+    "targetReservoir": {
+      "schema": "connect4.cpc_truncated_target_reservoir_pairing.v1",
+      "accept": true,
+      "theorem": "CPC_TRUNCATED_TARGET_RESERVOIR_PAIRING_THEOREM.md"
+    }
+  },
+  "accept": true,
+  "conclusion": [
+    "At the exact rank-24 current RBA state, Player 1 has a structurally certified winning move in column 5.",
+    "Every legal Player-2 reply is closed: column 5 loses immediately, while replies 1,3,6,7 enter the qualified forced-compression macro and then a qualified truncated-reservoir zugzwang win.",
+    "This is exact local W/L, not merely a bounded survival result.",
+    "No exact relative remoteness is claimed."
+  ],
+  "boundary": [
+    "The move history string is a qualification locator for this current state, not a universal runtime premise.",
+    "The composition freshly executes both finite structural qualification runners at the pinned JSMinSys authority.",
+    "No oracle, Pons, solved W/D/L input, minimax/negamax/alpha-beta premise, best-move table, physical-position identity, or sealed holdout is used.",
+    "Production CPC is consumed unchanged.",
+    "Standard Connect Four is not claimed solved by this local certificate and v5 is not authorized."
+  ]
+}
