@@ -1,0 +1,619 @@
+{
+  "schema": "connect4.cpc_rank32_q9f_monotone_proof_library_classification.v1",
+  "date": "2026-10-01",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "ordinaryFreeBranchGameTreeUsed": false,
+  "productionCpcModified": false,
+  "jsMinSysModified": false,
+  "repairCapacityModified": false,
+  "rcicModified": false,
+  "bsfpModified": false,
+  "design": "CPC_RANK32_Q9F_MONOTONE_PROOF_LIBRARY_CLASSIFICATION_DESIGN_0_1.md",
+  "sourceEvidence": "CPC_RANK20_RANK32_FORCED_OBLIGATION_LOSS_CENSUS_0_1.json",
+  "target": {
+    "exactQClass": "9f6b7a33ab7e9552",
+    "sequence": "44444156666623222242551151531133",
+    "rank": 32,
+    "support": [
+      6,
+      6,
+      4,
+      6,
+      5,
+      5,
+      0
+    ],
+    "exactBridge": {
+      "pass": true,
+      "checks": {
+        "rank": true,
+        "mover": true,
+        "support": true,
+        "p0Residuals": true,
+        "p1Residuals": true
+      },
+      "semanticQClass": "9f6b7a33ab7e9552"
+    },
+    "enabledP1Singletons": [
+      "C5"
+    ],
+    "forcedBlockColumn": 3
+  },
+  "forcedBlock": {
+    "column": 3,
+    "sequence": "444441566666232222425511515311333",
+    "terminal": false,
+    "support": [
+      6,
+      6,
+      5,
+      6,
+      5,
+      5,
+      0
+    ]
+  },
+  "replies": [
+    {
+      "replyColumn": 3,
+      "replySequence": "4444415666662322224255115153113333",
+      "terminalFor": null,
+      "rank": 34,
+      "support": [
+        6,
+        6,
+        6,
+        6,
+        5,
+        5,
+        0
+      ],
+      "exactQClass": "4c42e04be3de4c1b",
+      "exactBridge": {
+        "pass": true,
+        "checks": {
+          "rank": true,
+          "mover": true,
+          "support": true,
+          "p0Residuals": true,
+          "p1Residuals": true
+        },
+        "semanticQClass": "4c42e04be3de4c1b"
+      },
+      "activeP0SingletonTargets": [
+        20
+      ],
+      "enabledP1Singletons": [],
+      "immediateP0WinningColumns": [],
+      "legacyRepairTargets": [],
+      "routeAttempts": [
+        {
+          "kind": "DIRECT_TARGET_RESERVOIR_RCIC",
+          "accept": true,
+          "p0Column": 5,
+          "target": {
+            "cell": 20,
+            "column": 7,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": 2
+          },
+          "validation": {
+            "pass": true,
+            "defenderNodes": 3,
+            "responsePairs": 4,
+            "failures": []
+          }
+        },
+        {
+          "kind": "DIRECT_TARGET_RESERVOIR_RCIC",
+          "accept": true,
+          "p0Column": 6,
+          "target": {
+            "cell": 20,
+            "column": 7,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": 2
+          },
+          "validation": {
+            "pass": true,
+            "defenderNodes": 3,
+            "responsePairs": 4,
+            "failures": []
+          }
+        },
+        {
+          "kind": "DIRECT_TARGET_RESERVOIR_RCIC",
+          "accept": true,
+          "p0Column": 7,
+          "target": {
+            "cell": 20,
+            "column": 7,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": 1
+          },
+          "validation": {
+            "pass": true,
+            "defenderNodes": 3,
+            "responsePairs": 5,
+            "failures": []
+          }
+        }
+      ],
+      "acceptedRoutes": [
+        {
+          "kind": "DIRECT_TARGET_RESERVOIR_RCIC",
+          "p0Column": 5,
+          "target": {
+            "cell": 20,
+            "column": 7,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": 2
+          }
+        },
+        {
+          "kind": "DIRECT_TARGET_RESERVOIR_RCIC",
+          "p0Column": 6,
+          "target": {
+            "cell": 20,
+            "column": 7,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": 2
+          }
+        },
+        {
+          "kind": "DIRECT_TARGET_RESERVOIR_RCIC",
+          "p0Column": 7,
+          "target": {
+            "cell": 20,
+            "column": 7,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": 1
+          }
+        }
+      ],
+      "closed": true
+    },
+    {
+      "replyColumn": 5,
+      "replySequence": "4444415666662322224255115153113335",
+      "terminalFor": null,
+      "rank": 34,
+      "support": [
+        6,
+        6,
+        5,
+        6,
+        6,
+        5,
+        0
+      ],
+      "exactQClass": "a79457f391a38460",
+      "exactBridge": {
+        "pass": true,
+        "checks": {
+          "rank": true,
+          "mover": true,
+          "support": true,
+          "p0Residuals": true,
+          "p1Residuals": true
+        },
+        "semanticQClass": "a79457f391a38460"
+      },
+      "activeP0SingletonTargets": [
+        20
+      ],
+      "enabledP1Singletons": [],
+      "immediateP0WinningColumns": [],
+      "legacyRepairTargets": [],
+      "routeAttempts": [
+        {
+          "kind": "DIRECT_TARGET_RESERVOIR_RCIC",
+          "accept": true,
+          "p0Column": 3,
+          "target": {
+            "cell": 20,
+            "column": 7,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": 2
+          },
+          "validation": {
+            "pass": true,
+            "defenderNodes": 3,
+            "responsePairs": 4,
+            "failures": []
+          }
+        },
+        {
+          "kind": "DIRECT_TARGET_RESERVOIR_RCIC",
+          "accept": true,
+          "p0Column": 6,
+          "target": {
+            "cell": 20,
+            "column": 7,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": 2
+          },
+          "validation": {
+            "pass": true,
+            "defenderNodes": 3,
+            "responsePairs": 4,
+            "failures": []
+          }
+        },
+        {
+          "kind": "DIRECT_TARGET_RESERVOIR_RCIC",
+          "accept": true,
+          "p0Column": 7,
+          "target": {
+            "cell": 20,
+            "column": 7,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": 1
+          },
+          "validation": {
+            "pass": true,
+            "defenderNodes": 3,
+            "responsePairs": 5,
+            "failures": []
+          }
+        }
+      ],
+      "acceptedRoutes": [
+        {
+          "kind": "DIRECT_TARGET_RESERVOIR_RCIC",
+          "p0Column": 3,
+          "target": {
+            "cell": 20,
+            "column": 7,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": 2
+          }
+        },
+        {
+          "kind": "DIRECT_TARGET_RESERVOIR_RCIC",
+          "p0Column": 6,
+          "target": {
+            "cell": 20,
+            "column": 7,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": 2
+          }
+        },
+        {
+          "kind": "DIRECT_TARGET_RESERVOIR_RCIC",
+          "p0Column": 7,
+          "target": {
+            "cell": 20,
+            "column": 7,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": 1
+          }
+        }
+      ],
+      "closed": true
+    },
+    {
+      "replyColumn": 6,
+      "replySequence": "4444415666662322224255115153113336",
+      "terminalFor": null,
+      "rank": 34,
+      "support": [
+        6,
+        6,
+        5,
+        6,
+        5,
+        6,
+        0
+      ],
+      "exactQClass": "ad14ca4fd4b3e848",
+      "exactBridge": {
+        "pass": true,
+        "checks": {
+          "rank": true,
+          "mover": true,
+          "support": true,
+          "p0Residuals": true,
+          "p1Residuals": true
+        },
+        "semanticQClass": "ad14ca4fd4b3e848"
+      },
+      "activeP0SingletonTargets": [
+        20
+      ],
+      "enabledP1Singletons": [],
+      "immediateP0WinningColumns": [],
+      "legacyRepairTargets": [],
+      "routeAttempts": [
+        {
+          "kind": "DIRECT_TARGET_RESERVOIR_RCIC",
+          "accept": true,
+          "p0Column": 3,
+          "target": {
+            "cell": 20,
+            "column": 7,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": 2
+          },
+          "validation": {
+            "pass": true,
+            "defenderNodes": 3,
+            "responsePairs": 4,
+            "failures": []
+          }
+        },
+        {
+          "kind": "DIRECT_TARGET_RESERVOIR_RCIC",
+          "accept": true,
+          "p0Column": 5,
+          "target": {
+            "cell": 20,
+            "column": 7,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": 2
+          },
+          "validation": {
+            "pass": true,
+            "defenderNodes": 3,
+            "responsePairs": 4,
+            "failures": []
+          }
+        },
+        {
+          "kind": "DIRECT_TARGET_RESERVOIR_RCIC",
+          "accept": true,
+          "p0Column": 7,
+          "target": {
+            "cell": 20,
+            "column": 7,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": 1
+          },
+          "validation": {
+            "pass": true,
+            "defenderNodes": 3,
+            "responsePairs": 5,
+            "failures": []
+          }
+        }
+      ],
+      "acceptedRoutes": [
+        {
+          "kind": "DIRECT_TARGET_RESERVOIR_RCIC",
+          "p0Column": 3,
+          "target": {
+            "cell": 20,
+            "column": 7,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": 2
+          }
+        },
+        {
+          "kind": "DIRECT_TARGET_RESERVOIR_RCIC",
+          "p0Column": 5,
+          "target": {
+            "cell": 20,
+            "column": 7,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": 2
+          }
+        },
+        {
+          "kind": "DIRECT_TARGET_RESERVOIR_RCIC",
+          "p0Column": 7,
+          "target": {
+            "cell": 20,
+            "column": 7,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": 1
+          }
+        }
+      ],
+      "closed": true
+    },
+    {
+      "replyColumn": 7,
+      "replySequence": "4444415666662322224255115153113337",
+      "terminalFor": null,
+      "rank": 34,
+      "support": [
+        6,
+        6,
+        5,
+        6,
+        5,
+        5,
+        1
+      ],
+      "exactQClass": "12817fc089eb4b7d",
+      "exactBridge": {
+        "pass": true,
+        "checks": {
+          "rank": true,
+          "mover": true,
+          "support": true,
+          "p0Residuals": true,
+          "p1Residuals": true
+        },
+        "semanticQClass": "12817fc089eb4b7d"
+      },
+      "activeP0SingletonTargets": [
+        20
+      ],
+      "enabledP1Singletons": [],
+      "immediateP0WinningColumns": [],
+      "legacyRepairTargets": [
+        {
+          "targetCell": 20,
+          "targetColumn": 7,
+          "targetRow": 3,
+          "completed": true,
+          "proved": false,
+          "kind": "no_repair_predecessor",
+          "winningActions": [],
+          "stats": {
+            "proofStates": 4,
+            "candidateActionsChecked": 4,
+            "p1BranchesChecked": 6,
+            "maxDepth": 1,
+            "memoEntries": 4,
+            "certifiedStateTargetPairs": 2
+          }
+        }
+      ],
+      "routeAttempts": [
+        {
+          "kind": "LEGACY_REPAIR_CAPACITY",
+          "targetCell": 20,
+          "accept": false,
+          "proofKind": "no_repair_predecessor"
+        },
+        {
+          "kind": "DIRECT_TARGET_RESERVOIR_RCIC",
+          "accept": true,
+          "p0Column": 3,
+          "target": {
+            "cell": 20,
+            "column": 7,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": 1
+          },
+          "validation": {
+            "pass": true,
+            "defenderNodes": 3,
+            "responsePairs": 5,
+            "failures": []
+          }
+        },
+        {
+          "kind": "DIRECT_TARGET_RESERVOIR_RCIC",
+          "accept": true,
+          "p0Column": 5,
+          "target": {
+            "cell": 20,
+            "column": 7,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": 1
+          },
+          "validation": {
+            "pass": true,
+            "defenderNodes": 3,
+            "responsePairs": 5,
+            "failures": []
+          }
+        },
+        {
+          "kind": "DIRECT_TARGET_RESERVOIR_RCIC",
+          "accept": true,
+          "p0Column": 6,
+          "target": {
+            "cell": 20,
+            "column": 7,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": 1
+          },
+          "validation": {
+            "pass": true,
+            "defenderNodes": 3,
+            "responsePairs": 5,
+            "failures": []
+          }
+        },
+        {
+          "kind": "DIRECT_TARGET_RESERVOIR_RCIC",
+          "accept": false,
+          "p0Column": 7,
+          "target": {
+            "cell": 20,
+            "column": 7,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": 0
+          },
+          "validation": null
+        }
+      ],
+      "acceptedRoutes": [
+        {
+          "kind": "DIRECT_TARGET_RESERVOIR_RCIC",
+          "p0Column": 3,
+          "target": {
+            "cell": 20,
+            "column": 7,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": 1
+          }
+        },
+        {
+          "kind": "DIRECT_TARGET_RESERVOIR_RCIC",
+          "p0Column": 5,
+          "target": {
+            "cell": 20,
+            "column": 7,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": 1
+          }
+        },
+        {
+          "kind": "DIRECT_TARGET_RESERVOIR_RCIC",
+          "p0Column": 6,
+          "target": {
+            "cell": 20,
+            "column": 7,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": 1
+          }
+        }
+      ],
+      "closed": true
+    }
+  ],
+  "classification": "FORCED_BLOCK_ALL_REPLIES_POSITIVE",
+  "smallestUnclosedChild": null,
+  "summary": {
+    "replyCount": 4,
+    "closedReplyCount": 4,
+    "unclosedReplyCount": 0,
+    "acceptedRouteKinds": [
+      "DIRECT_TARGET_RESERVOIR_RCIC"
+    ],
+    "resourceFailureCount": 0
+  },
+  "conclusion": [
+    "q9f is reconstructed by exact semantic identity and its frozen forced c3 block is recomputed rather than assumed.",
+    "Every rank-34 adversarial child is queried against immediate terminal, legacy repair-capacity, and current generic RCIC positive routes before being called unresolved.",
+    "Every legal P1 reply after the forced block has an existing exact P0 certificate; q9f is therefore constructively P0-winning by monotone proof-library composition.",
+    "No certificate family is modified by this classification probe."
+  ],
+  "boundary": [
+    "No solved W/D/L, oracle, Pons score, minimax, unrestricted free-branch game-tree search, best-move table, opening book, BSFP solved frontier, support-only identity shortcut, or sealed holdout is used.",
+    "Production CPC, JSMinSys, repair-capacity semantics, RCIC semantics, target-reservoir semantics, and BSFP remain unchanged.",
+    "An unclosed child is unknown, not a loss; a closed child is accepted only through an already-qualified exact route."
+  ]
+}
