@@ -1,0 +1,68 @@
+{
+  "schema": "connect4.cpc_nees_proof_memo_ab.v1",
+  "baselineSha": "0899c5811918e68c22dc1b0e4dd8af97d9b4bbcb",
+  "neesSha": "e958c210deed02d452f6421006b83d0f143ad312",
+  "horizon": 19,
+  "baseline": {
+    "wallSeconds": 36.06,
+    "maxRssKb": 592872,
+    "work": {
+      "classCalls": 339792,
+      "memoHits": 207388,
+      "branchTests": 940842,
+      "responseTests": 1504892,
+      "cofactorTransitions": 2445734,
+      "cofactorCount": 5239406,
+      "guardRenewCandidates": 109546,
+      "supportLiftCandidates": 624114,
+      "topDebtCandidates": 308423,
+      "ordinaryCandidates": 2563456,
+      "classMemoSize": 339792,
+      "baseMemoSize": 0,
+      "templateMemoSize": 2048,
+      "responseOptionMemoSize": 0,
+      "cofactorMemoSize": 0,
+      "templateCacheLimit": 2048
+    },
+    "result": {
+      "accept": true,
+      "class": "GUARDSET_D19"
+    }
+  },
+  "nees": {
+    "wallSeconds": 33.92,
+    "maxRssKb": 669452,
+    "work": {
+      "classCalls": 340708,
+      "memoHits": 208206,
+      "branchTests": 943640,
+      "responseTests": 1509083,
+      "cofactorTransitions": 2452723,
+      "cofactorCount": 5253574,
+      "guardRenewCandidates": 109835,
+      "supportLiftCandidates": 626058,
+      "topDebtCandidates": 309171,
+      "ordinaryCandidates": 2571871,
+      "proofMemoCapacity": 4194304,
+      "memoStores": 340708,
+      "baseMemoSize": 0,
+      "templateMemoSize": 2048,
+      "responseOptionMemoSize": 0,
+      "cofactorMemoSize": 0,
+      "templateCacheLimit": 2048
+    },
+    "result": {
+      "accept": true,
+      "class": "GUARDSET_D19"
+    }
+  },
+  "ratios": {
+    "wall": 0.9406544647809206,
+    "maxRss": 1.1291678473599698
+  },
+  "boundary": [
+    "Same GitHub runner job and Node 26.7.0 profile; baseline uses Map/base64 class memo, NEES variant uses fixed typed-array exact RBA proof memo.",
+    "Proof grammar, RBA cofactors, response rules, and horizon are unchanged.",
+    "Wall/RSS are governing-unit evidence for this proof computation; cycle-ledger accounting remains in JSMinSys."
+  ]
+}
