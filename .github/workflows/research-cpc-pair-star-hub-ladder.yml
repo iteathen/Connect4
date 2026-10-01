@@ -40,12 +40,14 @@ jobs:
           const r=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
           console.log('PAIR_STAR='+JSON.stringify(r.pairStar));
           console.log('STATES='+r.states.length);
+          console.log('SUMMARY='+JSON.stringify(r.controlSummary));
           console.log('BRANCHES='+JSON.stringify(r.states.map(x=>({
             label:x.label,
             e3Depth:x.e3Depth,
+            guard:x.firstWinGuard,
             branchCount:x.branches.length,
-            terminalBranches:x.branches.filter(b=>b.terminal).length,
-            singletonBranches:x.branches.filter(b=>!b.terminal).length
+            terminalBranches:x.branches.filter(b=>b.terminal===true).length,
+            singletonBranches:x.branches.filter(b=>b.terminal===false).length
           }))));
           NODE
 
@@ -60,6 +62,12 @@ jobs:
           git add "$FILE"
           if git diff --cached --quiet; then exit 0; fi
           git commit -m "research: verify CPC pair-star hub ladder"
-          git fetch origin "$BRANCH"
-          git rebase "origin/$BRANCH"
-          git push origin HEAD:"$BRANCH"
+          for attempt in 1 2 3; do
+            git fetch origin "$BRANCH"
+            git rebase "origin/$BRANCH"
+            if git push origin HEAD:"$BRANCH"; then
+              exit 0
+            fi
+            sleep 1
+          done
+          exit 1
