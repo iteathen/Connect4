@@ -22,9 +22,9 @@ Build the GF(2) winning-line-to-cell incidence family and compute its rank direc
 
 `rank(B) = W*H - 9 + min(2,(W-3)(H-3))`.
 
-Record incidence rank, kernel dimension, diagonal residue rank, axis quotient rank `(W-3)+(H-3)`, its horizontal/vertical factors, `Y_cell`, `Y_line`, core delta, sign, and exact parity projections.
+Record incidence rank, kernel dimension, diagonal residue rank, the row/column axis quotient ranks, the actual vertical-line-parity quotient rank on `ker(B)`, `Y_cell`, `Y_line`, core delta/sign, and fixed-subspace dimensions of both cores under left-right reflection, geometric top-bottom reflection, and 180-degree rotation.
 
-This uses the prior total-domain theorem only for a runtime cross-check; the emitted rank is mechanically recomputed from generated lines.
+The producer constructs bases for `im(B)` and `ker(B)` mechanically. `Y_cell` is the kernel of row-plus-column parity restricted to `im(B)`. `Y_line` is the kernel of pure-vertical-line parity restricted to `ker(B)`. Closed-form rank identities are runtime cross-checks only where their hypotheses hold; the producer never obtains a core dimension by subtracting an assumed quotient rank.
 
 ## R — residual hierarchy
 

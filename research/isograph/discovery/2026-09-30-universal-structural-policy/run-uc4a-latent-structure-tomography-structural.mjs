@@ -39,6 +39,43 @@ function gf2Rank(masks){
   }
   return rank;
 }
+function gf2IndependentBasis(masks){
+  const basis=new Map(),out=[];
+  for(const original of masks){
+    let x=original;
+    while(x!==0n){
+      const p=x.toString(2).length-1;
+      const b=basis.get(p);
+      if(b===undefined){basis.set(p,x);out.push(original);break;}
+      x^=b;
+    }
+  }
+  return out;
+}
+function gf2DependencyBasis(masks){
+  const basis=new Map(),deps=[];
+  for(let i=0;i<masks.length;i++){
+    let x=masks[i],combo=1n<<BigInt(i);
+    while(x!==0n){
+      const p=x.toString(2).length-1;
+      const b=basis.get(p);
+      if(b===undefined){basis.set(p,{vec:x,combo});break;}
+      x^=b.vec;combo^=b.combo;
+    }
+    if(x===0n)deps.push(combo);
+  }
+  return gf2IndependentBasis(deps);
+}
+function gf2SubspaceKernelBasis(domainBasis,images){
+  if(domainBasis.length!==images.length)throw new Error('domain/image basis length mismatch');
+  const combos=gf2DependencyBasis(images),out=[];
+  for(const combo of combos){
+    let v=0n;
+    for(let i=0;i<domainBasis.length;i++)if((combo>>BigInt(i))&1n)v^=domainBasis[i];
+    out.push(v);
+  }
+  return gf2IndependentBasis(out);
+}
 
 function cellId(W,c,r){return r*W+c;}
 function lineKey(line){return [...line].sort((a,b)=>a-b).join(',');}
@@ -88,6 +125,58 @@ function reflectionSummary(W,H,lines){
   out.lr.fixedCells=(W%2)*H;
   out.tb.fixedCells=(H%2)*W;
   out.rot180.fixedCells=(W%2)*(H%2);
+  return out;
+}
+
+function cellParityImage(W,H,mask,mode){
+  let out=0n;
+  for(let id=0;id<W*H;id++)if((mask>>BigInt(id))&1n){
+    const c=id%W,r=Math.floor(id/W);
+    if(mode==='rows'||mode==='both')out^=1n<<BigInt(r);
+    if(mode==='columns')out^=1n<<BigInt(c);
+    else if(mode==='both')out^=1n<<BigInt(H+c);
+  }
+  return out;
+}
+function reflectCellMask(W,H,mask,kind){
+  let out=0n;
+  for(let id=0;id<W*H;id++)if((mask>>BigInt(id))&1n){
+    let c=id%W,r=Math.floor(id/W);
+    if(kind==='lr')c=W-1-c;
+    else if(kind==='tb')r=H-1-r;
+    else if(kind==='rot180'){c=W-1-c;r=H-1-r;}
+    out|=1n<<BigInt(cellId(W,c,r));
+  }
+  return out;
+}
+function lineReflectionMap(W,H,lines,kind){
+  const byKey=new Map(lines.map((line,i)=>[lineKey(line.cells),i]));
+  return lines.map(line=>{
+    const cells=line.cells.map(id=>{
+      let c=id%W,r=Math.floor(id/W);
+      if(kind==='lr')c=W-1-c;
+      else if(kind==='tb')r=H-1-r;
+      else if(kind==='rot180'){c=W-1-c;r=H-1-r;}
+      return cellId(W,c,r);
+    });
+    const j=byKey.get(lineKey(cells));
+    if(j===undefined)throw new Error('line reflection lost generated line');
+    return j;
+  });
+}
+function reflectLineCombo(combo,map){
+  let out=0n;
+  for(let i=0;i<map.length;i++)if((combo>>BigInt(i))&1n)out^=1n<<BigInt(map[i]);
+  return out;
+}
+function fixedSubspaceDimension(basis,transform){
+  return basis.length-gf2Rank(basis.map(v=>v^transform(v)));
+}
+function verticalLineParityImage(lines,combo){
+  let out=0n;
+  for(let i=0;i<lines.length;i++)if(((combo>>BigInt(i))&1n)&&lines[i].orientation==='vertical'){
+    out^=1n<<BigInt(lines[i].start[0]);
+  }
   return out;
 }
 
@@ -200,18 +289,41 @@ function structuralRow(W,H){
   const lineCount=lines.length;
 
   const lineMasks=lines.map(x=>x.cells.reduce((m,id)=>m|(1n<<BigInt(id)),0n));
-  const incidenceRank=gf2Rank(lineMasks);
+  const incidenceBasis=gf2IndependentBasis(lineMasks);
+  const incidenceRank=incidenceBasis.length;
   const diagonalResidueRank=Math.min(2,a*b);
   const formulaRank=W*H-9+diagonalResidueRank;
   if(incidenceRank!==formulaRank)throw new Error(`incidence theorem mismatch ${W}x${H}: ${incidenceRank} != ${formulaRank}`);
-  const kernelDimension=lineCount-incidenceRank;
+  const lineKernelBasis=gf2DependencyBasis(lineMasks);
+  const kernelDimension=lineKernelBasis.length;
   const formulaKernel=3*a*b-diagonalResidueRank;
   if(kernelDimension!==formulaKernel)throw new Error(`kernel theorem mismatch ${W}x${H}`);
-  const axisQuotientRank=a+b;
-  const yCell=incidenceRank-axisQuotientRank;
+
+  const rowParityImages=incidenceBasis.map(v=>cellParityImage(W,H,v,'rows'));
+  const columnParityImages=incidenceBasis.map(v=>cellParityImage(W,H,v,'columns'));
+  const axisParityImages=incidenceBasis.map(v=>cellParityImage(W,H,v,'both'));
+  const axisHorizontalRank=gf2Rank(columnParityImages);
+  const axisVerticalRank=gf2Rank(rowParityImages);
+  const axisQuotientRank=gf2Rank(axisParityImages);
+  if(axisHorizontalRank!==a||axisVerticalRank!==b||axisQuotientRank!==a+b)throw new Error(`axis quotient theorem mismatch ${W}x${H}`);
+  const yCellBasis=gf2SubspaceKernelBasis(incidenceBasis,axisParityImages);
+  const yCell=yCellBasis.length;
+
+  const verticalParityImages=lineKernelBasis.map(v=>verticalLineParityImage(lines,v));
+  const linePhaseQuotientRank=gf2Rank(verticalParityImages);
+  const yLineBasis=gf2SubspaceKernelBasis(lineKernelBasis,verticalParityImages);
+  const yLine=yLineBasis.length;
   const phaseDimension=W-1;
-  const yLine=kernelDimension-phaseDimension;
   const coreDelta=yLine-yCell;
+
+  const coreReflection={};
+  for(const [kind,label] of [['lr','leftRightFixed'],['tb','geometryOnlyTopBottomFixed'],['rot180','rotation180Fixed']]){
+    const lineMap=lineReflectionMap(W,H,lines,kind);
+    coreReflection[label]={
+      yCell:fixedSubspaceDimension(yCellBasis,v=>reflectCellMask(W,H,v,kind)),
+      yLine:fixedSubspaceDimension(yLineBasis,v=>reflectLineCombo(v,lineMap))
+    };
+  }
 
   const R=residualHierarchy(lines);
   const b43=boundaryMatrixRank(R.C4,R.C3);
@@ -255,8 +367,8 @@ function structuralRow(W,H){
     },
     I:{
       incidenceRank,kernelDimension,diagonalResidueRank,axisQuotientRank,
-      axisHorizontalRank:a,axisVerticalRank:b,
-      yCell,yLine,coreDelta,coreDeltaSign:signClass(coreDelta),
+      axisHorizontalRank,axisVerticalRank,linePhaseQuotientRank,
+      yCell,yLine,coreDelta,coreDeltaSign:signClass(coreDelta),coreReflection,
       incidenceRankParity:parity(incidenceRank),kernelParity:parity(kernelDimension),
       yCellParity:parity(yCell),yLineParity:parity(yLine),coreDeltaParity:parity(coreDelta),
       lineCountParity:parity(lineCount),
@@ -317,7 +429,7 @@ const fieldRegistry={
   blockOrder:['G','I','R','P','C','D','Q'],
   integerDeltaFields:{
     G:['width','height','cells','horizontalLines','verticalLines','risingDiagonalLines','fallingDiagonalLines','diagonalLines','lineCount','leftRightReflection.fixedLines','leftRightReflection.fixedCells'],
-    I:['incidenceRank','kernelDimension','diagonalResidueRank','axisQuotientRank','axisHorizontalRank','axisVerticalRank','yCell','yLine','coreDelta'],
+    I:['incidenceRank','kernelDimension','diagonalResidueRank','axisQuotientRank','axisHorizontalRank','axisVerticalRank','linePhaseQuotientRank','yCell','yLine','coreDelta','coreReflection.leftRightFixed.yCell','coreReflection.leftRightFixed.yLine','coreReflection.geometryOnlyTopBottomFixed.yCell','coreReflection.geometryOnlyTopBottomFixed.yLine','coreReflection.rotation180Fixed.yCell','coreReflection.rotation180Fixed.yLine'],
     R:['fragmentCounts.C4','fragmentCounts.C3','fragmentCounts.C2','fragmentCounts.C1','boundaryRanks.d4_to_d3','boundaryRanks.d3_to_d2','boundaryRanks.d2_to_d1','boundaryNullities.d4_to_d3','boundaryNullities.d3_to_d2','boundaryNullities.d2_to_d1'],
     P:['phaseDimension','pathRadius','centerCount','safeEntryCount','safeDerivativeWordCount','safePhaseWordCount','pairDisplacementGeneratorCount','pairDisplacementRank','pairDisplacementNullity','topDefectModuleDimension'],
     C:['elementaryResponseFrontierCount','neutralPairCapacity','pairResponseGeneratorCount','pairResponseRelationRank','pairResponseRelationNullity','oneSetupTopDefectWeight'],
