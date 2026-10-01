@@ -1,0 +1,67 @@
+{
+  "schema": "connect4.cpc_rank24_reply7_pons_falsification.v1",
+  "generatedUtc": "2026-10-01T15:58:26Z",
+  "oracleRole": "validation/falsification only",
+  "structuralTarget": "CPC_RANK24_REPLY7_PONS_FALSIFICATION_TARGET.md",
+  "sequence": "444441566666232222423317",
+  "rank": 24,
+  "mover": 1,
+  "oracle": {
+    "repository": "PascalPons/connect4",
+    "revision": "d6ba50d8aaf2308c769d9bf2abd42d90f34baf41",
+    "book": "7x6.book",
+    "bookSha256": "f346cd449626fb81da93be0958e017ee854e5f74d85b6d38062357f5403aec53",
+    "mode": "c4solver -a / Solver::analyze()"
+  },
+  "scores": [
+    3,
+    -1000,
+    0,
+    -1000,
+    2,
+    2,
+    3
+  ],
+  "wdlEquivalent": {
+    "win": [
+      1,
+      5,
+      6,
+      7
+    ],
+    "draw": [
+      3
+    ],
+    "loss": []
+  },
+  "exactStrongEquivalenceClasses": [
+    {
+      "score": 3,
+      "moves": [
+        1,
+        7
+      ]
+    },
+    {
+      "score": 2,
+      "moves": [
+        5,
+        6
+      ]
+    },
+    {
+      "score": 0,
+      "moves": [
+        3
+      ]
+    }
+  ],
+  "bestScore": 3,
+  "hasWinningMove": true,
+  "hasDrawingMove": true,
+  "boundary": [
+    "The structural validation target was committed before this oracle workflow ran.",
+    "Oracle values are validation/falsification only and are forbidden as CPC proof or runtime premises.",
+    "No structural theorem is established by this file."
+  ]
+}
