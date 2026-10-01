@@ -1,0 +1,144 @@
+{
+  "schema": "connect4.cpc_attacker_completion_proof_classes.v1",
+  "jsMinSysSha": "0899c5811918e68c22dc1b0e4dd8af97d9b4bbcb",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "transitionAuthority": "exact RBA cofactors plus native CPC exact/restriction outputs only",
+  "theoremVersion": "0.1",
+  "controls": [
+    {
+      "id": "hallFork",
+      "sequence": "2232",
+      "expected": 3,
+      "rank": 4,
+      "attacker": 1,
+      "layers": 4,
+      "finiteUpper": 3,
+      "certificate": {
+        "upper": 3,
+        "constructor": "SETUP_NATIVE_CPC",
+        "setupColumn": 4,
+        "postSetup": {
+          "kind": "CPC_EXACT",
+          "interval": [
+            1,
+            1
+          ],
+          "tactical": {
+            "upper": 2,
+            "route": "MULTIPLE_PLAYABLE_SINGLETONS",
+            "targets": [
+              {
+                "column": 1,
+                "row": 1
+              },
+              {
+                "column": 5,
+                "row": 1
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "forcedRestrictionChain",
+      "sequence": "32612636",
+      "expected": 5,
+      "rank": 8,
+      "attacker": 1,
+      "layers": 4,
+      "finiteUpper": 5,
+      "certificate": {
+        "upper": 5,
+        "constructor": "SETUP_CPC_RESTRICTION",
+        "setupColumn": 4,
+        "postSetup": {
+          "kind": "CPC_RESTRICT",
+          "interval": [
+            -1,
+            1
+          ],
+          "preemptionColumns": [
+            5
+          ],
+          "noncompliantUpper": 4
+        },
+        "children": [
+          {
+            "responseColumn": 5,
+            "upper": 3,
+            "certificate": {
+              "upper": 3,
+              "constructor": "SETUP_NATIVE_CPC",
+              "setupColumn": 4,
+              "postSetup": {
+                "kind": "CPC_EXACT",
+                "interval": [
+                  1,
+                  1
+                ],
+                "tactical": {
+                  "upper": 2,
+                  "route": "MULTIPLE_PLAYABLE_SINGLETONS",
+                  "targets": [
+                    {
+                      "column": 1,
+                      "row": 2
+                    },
+                    {
+                      "column": 5,
+                      "row": 2
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "v4ConsumedBoundary": [
+    {
+      "id": "candidate2",
+      "sequence": "4444415662",
+      "rank": 10,
+      "attacker": 1,
+      "layers": 4,
+      "finiteUpper": null,
+      "certificate": null
+    },
+    {
+      "id": "candidate3",
+      "sequence": "4444415663",
+      "rank": 10,
+      "attacker": 1,
+      "layers": 4,
+      "finiteUpper": null,
+      "certificate": null
+    },
+    {
+      "id": "candidate6",
+      "sequence": "4444415666",
+      "rank": 10,
+      "attacker": 1,
+      "layers": 4,
+      "finiteUpper": null,
+      "certificate": null
+    }
+  ],
+  "work": {
+    "cofactorCount": 269,
+    "cpcCount": 231,
+    "proofCalls": 43,
+    "memoHits": 10,
+    "memoStates": 33
+  },
+  "conclusion": "The attacker proof-class automaton recovers the qualified A3 Hall-fork and A5 forced-restriction controls while stopping at CPC_NONE. All three consumed v4 children remain without a finite upper certificate under this grammar.",
+  "boundary": [
+    "The recursion follows only exact CPC_RESTRICT response sets; CPC_NONE is never expanded.",
+    "Native CPC exact attacker wins receive a distance only when the already-qualified tactical route can be identified as <=2 or <=4.",
+    "This is proof-hypergraph closure, not ordinary W/D/L search and not a move-ranking heuristic."
+  ]
+}
