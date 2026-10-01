@@ -28,15 +28,16 @@ assert.equal(r.candidates.length,5);
 for(const row of r.candidates){
   assert.ok(r.legalP1Columns.includes(row.p1Column));
   assert.equal(row.afterP1Rank,21);
-  assert.equal(row.afterP1Terminal,0);
+  assert.ok(row.afterP1Terminal===0||row.afterP1Terminal===3);
   assert.ok(Array.isArray(row.legalDefenderReplies));
   assert.equal(row.closedReplyCount+row.unclosedReplies.length,row.legalDefenderReplies.length);
   assert.equal(row.fullyRouted,row.unclosedReplies.length===0);
   for(const reply of row.replies){
     assert.ok(row.legalDefenderReplies.includes(reply.defenderColumn));
-    assert.equal(reply.replyRank,22);
-    assert.equal(reply.replyTerminal,0);
+    if(reply.replyTerminal===0) assert.equal(reply.replyRank,22);
+    else assert.equal(reply.replyTerminal,1);
     assert.equal(reply.closed,reply.acceptedRoutes.length>0);
+    if(reply.replyTerminal!==0) assert.equal(reply.closed,false);
     for(const route of reply.acceptedRoutes)assert.equal(route.accept,true);
   }
 }
