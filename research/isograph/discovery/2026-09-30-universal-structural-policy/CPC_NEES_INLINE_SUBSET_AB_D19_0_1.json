@@ -1,0 +1,37 @@
+{
+  "schema": "connect4.cpc_nees_inline_subset_ab.v1",
+  "horizon": 19,
+  "preparedSha": "2f459989bca348ff1b840da0978262404a0d8f36",
+  "inlineSha": "655ec0c1f13d6c259acecd0ec9c049df0764d52f",
+  "prepared": {
+    "wallSeconds": 16.7,
+    "maxRssKb": 249120,
+    "runtime": {
+      "elapsedNs": "16638000533",
+      "memoCapacity": 4194304,
+      "memoStoredKeyWords": 10,
+      "frameWords": 602,
+      "frameBasis": 2967
+    }
+  },
+  "inline": {
+    "wallSeconds": 16.64,
+    "maxRssKb": 247196,
+    "runtime": {
+      "elapsedNs": "16577347348",
+      "memoCapacity": 4194304,
+      "memoStoredKeyWords": 10,
+      "frameWords": 602,
+      "frameBasis": 2967
+    }
+  },
+  "ratios": {
+    "wall": 0.9964071856287426,
+    "maxRss": 0.992276814386641
+  },
+  "boundary": [
+    "Same runner job, Node 26.7.0, horizon, proof grammar and memo capacity.",
+    "Only dense subset access changes from initialization-selected callback to direct guarded table lookup.",
+    "Promotion depends on governing proof cost."
+  ]
+}
