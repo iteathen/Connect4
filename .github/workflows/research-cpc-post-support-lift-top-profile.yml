@@ -1,0 +1,73 @@
+name: Research CPC post-support-lift top profile
+
+on:
+  push:
+    branches:
+      - research/universal-structural-policy-20260930
+    paths:
+      - .github/workflows/research-cpc-post-support-lift-top-profile.yml
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/run-cpc-post-support-lift-top-profile.mjs
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out exact pushed revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+      - name: Pin Node runtime
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Fetch pinned JSMinSys authority
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone https://github.com/iteathen/JSMinSys.git jsminsys
+          git -C jsminsys checkout 0899c5811918e68c22dc1b0e4dd8af97d9b4bbcb
+      - name: Run post-support-lift top profile
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT=research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_POST_SUPPORT_LIFT_TOP_PROFILE_0_1.json
+          node research/isograph/discovery/2026-09-30-universal-structural-policy/run-cpc-post-support-lift-top-profile.mjs ./jsminsys > "$OUT"
+          node - "$OUT" <<'NODE'
+          const fs=require('fs');
+          const r=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
+          console.log('ROWS='+JSON.stringify(r.rows.map(x=>({
+            id:x.id,
+            before:{support:x.before.support,cpc:x.before.cpc,residuals:x.before.residuals.length},
+            afterTop:{support:x.afterTop.support,cpc:x.afterTop.cpc,residuals:x.afterTop.residuals.length},
+            replies:x.replies.map(y=>({
+              r:y.responseColumn,terminal:y.terminal,
+              cpc:y.child?.cpc??null,
+              support:y.child?.support??null,
+              frontier:y.child?.residuals.filter(z=>z.frontierCells.length).map(z=>({
+                id:z.id,o:z.orientation,e:z.earliest,frontier:z.frontierCells,cells:z.cells
+              }))??[]
+            }))
+          }))));
+          NODE
+      - name: Commit durable top profile
+        shell: bash
+        run: |
+          set -euo pipefail
+          BRANCH=research/universal-structural-policy-20260930
+          FILE=research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_POST_SUPPORT_LIFT_TOP_PROFILE_0_1.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$FILE"
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "research: record post-support-lift top profile"
+          for attempt in 1 2 3; do
+            git fetch origin "$BRANCH"
+            git rebase "origin/$BRANCH"
+            if git push origin HEAD:"$BRANCH"; then exit 0; fi
+            sleep 1
+          done
+          exit 1
