@@ -410,12 +410,55 @@ function classG(q,attacker,D,guardCol){
       continue;
     }
 
-    // External trigger, or top-row guard trigger. Use only already licensed
-    // CPC response edges. If the realized response consumes the guard column
-    // outside the forced guard transition, retire the guard and require the
-    // exact child to survive under the ordinary class.
+    // External trigger, or top-row guard trigger.
+    // First admit the frozen support-lift blocker edge: after the attacker
+    // trigger, the uniquely released same-column cell may be occupied by the
+    // defender iff it belongs to a live attacker residual in the exact
+    // post-trigger state. This preserves the guard when c is external.
     let found=null;
-    for(const option of adaptiveResponseOptions(q,attacker,c)){
+    const firstExternal=cofactor(q,c);
+    if(firstExternal.term===attackerTerminalCode(attacker)){
+      const r={accept:false,class:'GUARD_ATTACKER_TERMINAL',failedTrigger:c+1,guardCol:guardCol+1};
+      guardMemo.set(mk,r);return r;
+    }
+    if(firstExternal.term){
+      found={attackerColumn:c+1,closed:true,mode:'SUPPORT_LIFT_TRIGGER_TERMINAL',childClass:'CLOSED'};
+    }else if(firstExternal.q.words[c]<g.rows){
+      const released=firstExternal.q.words[c]*g.columns+c;
+      const attached=activeMinimal(firstExternal.q,attacker).some(id=>shapeCells(id).includes(released));
+      if(attached){
+        const second=cofactor(firstExternal.q,c);
+        guardForcedResponses++;
+        if(second.term){
+          found={
+            attackerColumn:c+1,responseColumn:c+1,closed:true,
+            mode:'SUPPORT_LIFT_BLOCKER',releasedCell:{column:c+1,row:g.cellRow[released]+1},
+            childClass:'CLOSED'
+          };
+        }else{
+          const topGuardTrigger=(c===guardCol&&h===5);
+          const preservesGuard=!topGuardTrigger&&c!==guardCol;
+          const child=preservesGuard
+            ?guardTail(second.q,attacker,D-2,guardCol)
+            :ordinaryTail(second.q,attacker,D-2);
+          if(child.accept){
+            if(!preservesGuard)guardRetirements++;
+            found={
+              attackerColumn:c+1,responseColumn:c+1,closed:false,
+              mode:'SUPPORT_LIFT_BLOCKER',
+              releasedCell:{column:c+1,row:g.cellRow[released]+1},
+              childClass:child.class,guardPreserved:preservesGuard
+            };
+          }
+        }
+      }
+    }
+
+    // Existing CPC response edges remain available if the support-lift edge
+    // does not close the branch. If the realized response consumes the guard
+    // column outside the forced guard transition, retire the guard and require
+    // the exact child to survive under the ordinary class.
+    for(const option of found?[]:adaptiveResponseOptions(q,attacker,c)){
       responseOptionsTested++;
       const tr=responseSuccessor(q,option.template,attacker,c);
       if(!tr.ok)continue;
@@ -597,7 +640,7 @@ for(const row of rows){
 }
 
 console.log(JSON.stringify({
-  schema:'connect4.cpc_guard_column_renewal_spectrum.v1',
+  schema:'connect4.cpc_guard_column_support_lift_renewal_spectrum.v1',
   jsMinSysSha:EXPECTED,
   oracleUsed:false,
   solvedInputsUsed:false,
@@ -616,7 +659,7 @@ console.log(JSON.stringify({
     'Response options are complete synchronized-template mates, exact same-residual frontier attachment edges, and exact +2-row cross-residual ladder edges; every transported child must independently re-enter the survival class.',
     'Each observed attacker trigger may select its own complete synchronized-response template; the exact mate is then transported by CPC/RBA cofactor.',
     'Failure of S_D is not an attacker forced-completion certificate.',
-    'The spectrum composes trigger-adaptive synchronized responses, pooled-frontier no-win closure, lineage-preserving cross-residual ladder establishment, and the frozen odd-row guard-column temporal contract; it is not unrestricted legal-response minimax.',
+    'The spectrum composes trigger-adaptive synchronized responses, pooled-frontier no-win closure, lineage-preserving cross-residual ladder establishment, the odd-row guard-column temporal contract, and the frozen support-lift blocker response; it is not unrestricted legal-response minimax.',
     'The odd-row guard is frozen theorem-candidate scope. Positive extension requires fresh structural qualification and current-occupancy reconstruction before promotion.'
   ]
 },null,2));
