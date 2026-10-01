@@ -157,9 +157,10 @@ function switchH(sequence,attacker,switchesLeft){
         continue;
       }
       const next=switchH(successorSequence,attacker,switchesLeft-1);
+      const successorBase=baseH(successorSequence,attacker).horizon;
       const total=2+next.horizon;
       guaranteed=Math.min(guaranteed,total);
-      branches.push({attackerColumn:c+1,responseColumn:rc+1,status:'SWITCH',successorH:next.horizon,successorPairs:next.pairs,totalFromRoot:total});
+      branches.push({attackerColumn:c+1,responseColumn:rc+1,status:'SWITCH',successorBaseH:successorBase,successorH:next.horizon,successorPairs:next.pairs,totalFromRoot:total});
     }
     if(valid&&guaranteed>best.horizon)best={horizon:guaranteed,pairs:T.pairs,branches,depth:switchesLeft};
   }
