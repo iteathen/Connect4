@@ -2,7 +2,7 @@
 
 **Date:** 2026-10-01  
 **Version:** 0.1 frozen before execution  
-**Status:** exact local theorem candidate; qualification pending  
+**Status:** qualified exact local theorem  
 **Branch:** `research/universal-structural-policy-20260930`
 
 ## Purpose
@@ -61,15 +61,23 @@ Qualification must use:
 
 The native CPC restriction in step 4 is load-bearing only if the independently enumerated legal cofactor cross-check agrees that column 5 is the sole reply preventing the next column-5 move from being an immediate Player-1 terminal.
 
-## What this lemma would establish
+## Qualification result
 
-If qualified, this is a finite local obligation-compression theorem. It explains why the D13 trigger-5 failure repeatedly reappears: the relevant state is not asking for a new defender response theorem. Column 5 itself is an attacker forcing channel that consumes one member of the parity-aligned residual.
+Qualified on 2026-10-01 by `CPC_TRIGGER5_FORCED_COMPRESSION_0_1.json`, generated from JSMinSys authority `bf23d3a67652cd42e1975f29c7dc4eed54f7eb42` with `oracleUsed: false` and `solvedInputsUsed: false`.
 
-The lemma would reduce the remaining research question to the singleton target (y=(7,3)) plus escape/preemption closure over the remaining event reservoirs.
+All frozen falsifiers passed. The exact legal first-response set was `{1,3,5,6,7}`. The direct column-5 reply admits the immediate Player-1 column-5 first win. For each off-column reply `{1,3,6,7}`, both production CPC initialization variants report `CPC_RESTRICT` with `forcedColumn=5`, `preemptionCount=1`, and mask `0x10`; independent exact-RBA enumeration agrees that column 5 is the only second defender reply preventing the next Player-1 column-5 terminal. After that forced block, Player 1 consumes column 5 row 5 nonterminally, the attached minimal pair is still present immediately before consumption, and the exact cofactor contracts it to an active singleton at column 7 row 3. The CPC target-owner projection remains Player 1 in every branch.
+
+Qualification workflow: GitHub Actions run `36879659848` (`Research CPC trigger5 forced compression`), successful. Durable evidence was committed as `6b437f5120aeb183e0941ec2870b426ff48b0857`.
+
+## What this lemma establishes
+
+This is a finite local obligation-compression theorem. It explains why the D13 trigger-5 failure repeatedly reappears: the relevant state is not asking for a new defender response theorem. Column 5 itself is an attacker forcing channel that consumes one member of the parity-aligned residual.
+
+The lemma reduces the remaining research question to the singleton target (y=(7,3)) plus escape/preemption closure over the remaining event reservoirs.
 
 ## What it does not establish
 
-Even if every clause above passes, this lemma does **not** by itself prove:
+This qualified lemma does **not** by itself prove:
 
 - the rank-24 state is a Player-1 win;
 - candidate 6 is optimal;
@@ -95,4 +103,4 @@ Reject or weaken the lemma if any legal branch shows any of the following:
 
 ## Claim discipline
 
-This candidate is frozen before execution. A successful workflow is not sufficient by itself; promotion to a qualified local theorem requires the generated evidence to satisfy every falsifier above.
+The statement above was frozen before execution. Qualification is based on the generated evidence satisfying every listed falsifier; workflow success alone was not treated as a theorem result.
