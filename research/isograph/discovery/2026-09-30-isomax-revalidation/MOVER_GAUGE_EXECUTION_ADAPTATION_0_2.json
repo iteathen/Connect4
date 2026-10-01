@@ -1,0 +1,24 @@
+{
+  "status": "FROZEN_EXECUTION_ONLY_ADAPTATION_BEFORE_NEW_SCALAR_REPLAY",
+  "parent": "MOVER_GAUGE_WARRANT_0_1.json",
+  "oldSourceSha256": "79c88c39b7b84cb57c7c2945a801d7a5cdfbcd39817c488d7a3231d851bd2c5e",
+  "reason": "Live debugger sampled old PID 32292 in packedRank called by lower-rank verification after over 2 hours CPU. Common-low-column synthetic matrix reproduces least-pivot elimination fill; greatest-pivot packed verifier finishes 8000 rows in 12ms. BigInt Map key hashing hypothesis rejected by separate benchmark.",
+  "change": "Only independent packed rank verification pivot order changes. Sparse structural matrices, bases, dependencies, candidates and scalar selection rules unchanged. Original source and snapshots preserved. v2 snapshots must reproduce every existing v1 scientific field exactly.",
+  "verification": "60 seeded matrices against original packed and sparse rank, high columns and duplicate cancellation, 8000-row pivot-chain stress; copied polynomial synthetic suite. Same pivot order weakens algorithmic diversity but arithmetic implementation remains independent; retain original least-pivot checks on small matrices.",
+  "outputs": "Separate v2 per-gauge and pooled snapshots and result; commit complete structures before replay.",
+  "sealedFormulaHoldouts": [
+    "3x6-k4",
+    "5x3-k4"
+  ],
+  "rs096": "HOLD",
+  "runtimeDisposition": {
+    "oldPid": 32292,
+    "stoppedAfterCpuSeconds": 8035.5625,
+    "oldSnapshotsPreserved": true,
+    "synthetic8000Rows": {
+      "leastMs": 55536.8293,
+      "greatestMs": 7.7195,
+      "rankBoth": 8000
+    }
+  }
+}
