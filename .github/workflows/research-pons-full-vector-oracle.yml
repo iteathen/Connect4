@@ -16,7 +16,9 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          curl -fsSL 'https://connect4.gamesolver.org/solve?pos=44444' | tee service-44444.json
+          if ! curl -sSL -w '\nHTTP_STATUS=%{http_code}\n' 'https://connect4.gamesolver.org/solve?pos=44444' | tee service-44444.json; then
+            echo 'service query failed; continuing with official CLI'
+          fi
           echo
       - name: Build official Pascal Pons solver
         shell: bash
