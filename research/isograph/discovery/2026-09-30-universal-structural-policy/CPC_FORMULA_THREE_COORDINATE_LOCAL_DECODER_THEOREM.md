@@ -2,7 +2,7 @@
 
 Date: 2026-10-01
 Version: 0.1 frozen before execution
-Status: exact local theorem candidate
+Status: rejected exact local theorem candidate
 Branch: research/universal-structural-policy-20260930
 
 ## Purpose
@@ -82,3 +82,33 @@ Reject if:
 This theorem applies only to the exact qualified three-column phase-transfer family.
 
 It does not prove universal meanings for By or Bxy, standard 7x6 value from the old formula, rank 10, v5 or a complete Connect Four solve.
+
+
+## Qualification result — rejected
+
+The frozen decoder was tested in GitHub Actions run 36895715873 and rejected.
+
+The counterexample is exact and structural:
+
+- state A;
+- Player-2 trigger c3;
+- qualified role: EXPOSE via exact Player-1 c3 terminal response;
+- post-trigger F = [0,0,0].
+
+That same post-trigger vector also occurs on c5 exposure rows.
+
+Therefore the proposed inverse meaning
+
+[0,0,0] => EXPOSE_C5
+
+is false even inside the already-qualified finite phase machine.
+
+The narrower Bx result remains unaffected:
+
+- every transfer row has post Bx=1;
+- every exposure row has post Bx=0;
+- EXPOSE = delta(Bx) remains qualified.
+
+This falsifier shows that By/Bxy do not independently decode exposed-target identity without additional contextual/interaction information. That is consistent with the separate coupled-gauge experiment, where degree-1 response decoding has contradictions but degree-2 systems are exact.
+
+No coordinate was modified after seeing the failure.
