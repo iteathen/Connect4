@@ -1,0 +1,53 @@
+import assert from 'node:assert/strict';
+import {execFileSync} from 'node:child_process';
+import {fileURLToPath} from 'node:url';
+import {dirname,resolve} from 'node:path';
+
+const script=resolve(dirname(fileURLToPath(import.meta.url)),'run-uc4a-latent-structure-tomography-structural.mjs');
+const raw=execFileSync(process.execPath,[script],{encoding:'utf8'});
+const r=JSON.parse(raw);
+assert.equal(r.schema,'connect4.uc4a_latent_structure_tomography_structural.v1');
+assert.equal(r.boardCount,52);
+assert.equal(r.oracleUsed,false);
+assert.equal(r.solvedInputsUsed,false);
+assert.equal(r.outcomeLabelsAccessibleToProducer,false);
+assert.equal(r.sealedHoldoutsAccessed,false);
+assert.equal(new Set(r.rows.map(x=>x.board)).size,52);
+assert.ok(!r.rows.some(x=>x.board==='3x6'||x.board==='5x3'));
+const s=JSON.stringify(r);
+for(const token of ['P1_WIN','P2_WIN','DRAW']) assert.equal(s.includes(token),false);
+
+const row=(b)=>r.rows.find(x=>x.board===b);
+const r76=row('7x6');
+assert.ok(r76);
+assert.equal(r76.blocks.G.lineCount,69);
+assert.deepEqual(r76.blocks.G.orientationLineCounts,{horizontal:24,vertical:21,risingDiagonal:12,fallingDiagonal:12});
+assert.equal(r76.blocks.I.incidenceRank,35);
+assert.equal(r76.blocks.I.kernelDimension,34);
+assert.equal(r76.blocks.I.yCell,28);
+assert.equal(r76.blocks.I.yLine,28);
+assert.equal(r76.blocks.I.coreDelta,0);
+assert.equal(r76.blocks.R.fragmentCounts.C4,69);
+assert.equal(r76.blocks.R.fragmentCounts.C3,232);
+assert.equal(r76.blocks.R.fragmentCounts.C2,282);
+assert.equal(r76.blocks.R.fragmentCounts.C1,42);
+assert.equal(r76.blocks.R.boundaryRanks.d4_to_d3,69);
+assert.equal(r76.blocks.P.safeEntryCount,1);
+assert.deepEqual(r76.blocks.P.safeEntryColumns,[4]);
+assert.equal(r76.blocks.P.phaseDimension,6);
+assert.equal(r76.blocks.P.safeDerivativeWordCount,26);
+assert.equal(r76.blocks.P.safePhaseWordCount,52);
+assert.equal(r76.blocks.P.pairDisplacementRank,6);
+assert.equal(r76.blocks.P.pairDisplacementNullity,15);
+assert.equal(r76.blocks.D.frontierLineIncidenceByColumn.length,7);
+
+for(const W of [...new Set(r.rows.map(x=>x.width))]){
+  const x=r.rows.find(y=>y.width===W);
+  assert.equal(x.blocks.P.safeEntryCount,Math.max(0,8-W),`safe entries W=${W}`);
+}
+assert.equal(row('8x6').blocks.P.pathRadius,4);
+assert.equal(row('9x6').blocks.P.pathRadius,4);
+assert.equal(row('10x6').blocks.P.pathRadius,5);
+assert.equal(r.rowHashes.length,52);
+assert.match(r.structuralAtlasSha256,/^[0-9a-f]{64}$/);
+console.log(JSON.stringify({pass:true,boards:r.boardCount,atlas:r.structuralAtlasSha256,standard:{lineCount:r76.blocks.G.lineCount,C3:r76.blocks.R.fragmentCounts.C3,boundary4:r76.blocks.R.boundaryRanks.d4_to_d3,safe:r76.blocks.P.safeEntryColumns}}));
