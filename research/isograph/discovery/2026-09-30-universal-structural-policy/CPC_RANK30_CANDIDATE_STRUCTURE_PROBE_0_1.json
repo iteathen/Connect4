@@ -1,0 +1,1989 @@
+{
+  "schema": "connect4.cpc_rank30_candidate_structure_probe.v1",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "start": {
+    "sequence": "444441566666232222423317163311",
+    "rank": 30,
+    "mover": 1,
+    "terminal": 0,
+    "support": [
+      5,
+      6,
+      5,
+      6,
+      1,
+      6,
+      1
+    ],
+    "cpc": {
+      "baseline": {
+        "kind": "CPC_NONE",
+        "interval": [
+          -1,
+          1
+        ],
+        "forcedColumn": null,
+        "preemptionCount": 0,
+        "preemptionMask32": 0,
+        "precursorCount": 0,
+        "projectedCount": [
+          0,
+          0
+        ],
+        "projectedForks": [
+          0,
+          0
+        ]
+      },
+      "frontier": {
+        "kind": "CPC_NONE",
+        "interval": [
+          -1,
+          1
+        ],
+        "forcedColumn": null,
+        "preemptionCount": 0,
+        "preemptionMask32": 0,
+        "precursorCount": 0,
+        "projectedCount": [
+          0,
+          0
+        ],
+        "projectedForks": [
+          0,
+          0
+        ]
+      }
+    },
+    "p1Aligned": [
+      {
+        "diagnosticId": 228,
+        "size": 2,
+        "cells": [
+          {
+            "cell": 20,
+            "column": 7,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": 1,
+            "playable": false
+          },
+          {
+            "cell": 32,
+            "column": 5,
+            "row": 5,
+            "projectedOwner": 1,
+            "supportDistance": 3,
+            "playable": false
+          }
+        ],
+        "fullyAligned": true
+      }
+    ],
+    "p2Aligned": [],
+    "p1Singletons": [
+      {
+        "diagnosticId": 25,
+        "size": 1,
+        "cells": [
+          {
+            "cell": 25,
+            "column": 5,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": 2,
+            "playable": false
+          }
+        ],
+        "fullyAligned": false
+      }
+    ],
+    "p2Singletons": [
+      {
+        "diagnosticId": 18,
+        "size": 1,
+        "cells": [
+          {
+            "cell": 18,
+            "column": 5,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": 1,
+            "playable": false
+          }
+        ],
+        "fullyAligned": false
+      },
+      {
+        "diagnosticId": 32,
+        "size": 1,
+        "cells": [
+          {
+            "cell": 32,
+            "column": 5,
+            "row": 5,
+            "projectedOwner": 1,
+            "supportDistance": 3,
+            "playable": false
+          }
+        ],
+        "fullyAligned": false
+      }
+    ]
+  },
+  "candidates": [
+    {
+      "p1Column": 1,
+      "terminal": 0,
+      "support": [
+        6,
+        6,
+        5,
+        6,
+        1,
+        6,
+        1
+      ],
+      "state": {
+        "rank": 31,
+        "mover": 2,
+        "terminal": 0,
+        "support": [
+          6,
+          6,
+          5,
+          6,
+          1,
+          6,
+          1
+        ],
+        "cpc": {
+          "baseline": {
+            "kind": "CPC_NONE",
+            "interval": [
+              -1,
+              1
+            ],
+            "forcedColumn": null,
+            "preemptionCount": 0,
+            "preemptionMask32": 0,
+            "precursorCount": 0,
+            "projectedCount": [
+              0,
+              0
+            ],
+            "projectedForks": [
+              0,
+              0
+            ]
+          },
+          "frontier": {
+            "kind": "CPC_NONE",
+            "interval": [
+              -1,
+              1
+            ],
+            "forcedColumn": null,
+            "preemptionCount": 0,
+            "preemptionMask32": 0,
+            "precursorCount": 0,
+            "projectedCount": [
+              0,
+              0
+            ],
+            "projectedForks": [
+              0,
+              0
+            ]
+          }
+        },
+        "p1Aligned": [
+          {
+            "diagnosticId": 228,
+            "size": 2,
+            "cells": [
+              {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "projectedOwner": 1,
+                "supportDistance": 1,
+                "playable": false
+              },
+              {
+                "cell": 32,
+                "column": 5,
+                "row": 5,
+                "projectedOwner": 1,
+                "supportDistance": 3,
+                "playable": false
+              }
+            ],
+            "fullyAligned": true
+          }
+        ],
+        "p2Aligned": [],
+        "p1Singletons": [
+          {
+            "diagnosticId": 25,
+            "size": 1,
+            "cells": [
+              {
+                "cell": 25,
+                "column": 5,
+                "row": 4,
+                "projectedOwner": 2,
+                "supportDistance": 2,
+                "playable": false
+              }
+            ],
+            "fullyAligned": false
+          }
+        ],
+        "p2Singletons": [
+          {
+            "diagnosticId": 18,
+            "size": 1,
+            "cells": [
+              {
+                "cell": 18,
+                "column": 5,
+                "row": 3,
+                "projectedOwner": 1,
+                "supportDistance": 1,
+                "playable": false
+              }
+            ],
+            "fullyAligned": false
+          },
+          {
+            "diagnosticId": 32,
+            "size": 1,
+            "cells": [
+              {
+                "cell": 32,
+                "column": 5,
+                "row": 5,
+                "projectedOwner": 1,
+                "supportDistance": 3,
+                "playable": false
+              }
+            ],
+            "fullyAligned": false
+          }
+        ]
+      },
+      "immediateP2WinningColumns": [],
+      "replies": [
+        {
+          "p2Column": 3,
+          "terminal": 0,
+          "support": [
+            6,
+            6,
+            6,
+            6,
+            1,
+            6,
+            1
+          ],
+          "immediateP1WinningColumns": [],
+          "state": {
+            "rank": 32,
+            "mover": 1,
+            "terminal": 0,
+            "support": [
+              6,
+              6,
+              6,
+              6,
+              1,
+              6,
+              1
+            ],
+            "cpc": {
+              "baseline": {
+                "kind": "CPC_NONE",
+                "interval": [
+                  -1,
+                  1
+                ],
+                "forcedColumn": null,
+                "preemptionCount": 0,
+                "preemptionMask32": 0,
+                "precursorCount": 0,
+                "projectedCount": [
+                  0,
+                  0
+                ],
+                "projectedForks": [
+                  0,
+                  0
+                ]
+              },
+              "frontier": {
+                "kind": "CPC_NONE",
+                "interval": [
+                  -1,
+                  1
+                ],
+                "forcedColumn": null,
+                "preemptionCount": 0,
+                "preemptionMask32": 0,
+                "precursorCount": 0,
+                "projectedCount": [
+                  0,
+                  0
+                ],
+                "projectedForks": [
+                  0,
+                  0
+                ]
+              }
+            },
+            "p1Aligned": [
+              {
+                "diagnosticId": 228,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 20,
+                    "column": 7,
+                    "row": 3,
+                    "projectedOwner": 1,
+                    "supportDistance": 1,
+                    "playable": false
+                  },
+                  {
+                    "cell": 32,
+                    "column": 5,
+                    "row": 5,
+                    "projectedOwner": 1,
+                    "supportDistance": 3,
+                    "playable": false
+                  }
+                ],
+                "fullyAligned": true
+              }
+            ],
+            "p2Aligned": [],
+            "p1Singletons": [
+              {
+                "diagnosticId": 25,
+                "size": 1,
+                "cells": [
+                  {
+                    "cell": 25,
+                    "column": 5,
+                    "row": 4,
+                    "projectedOwner": 2,
+                    "supportDistance": 2,
+                    "playable": false
+                  }
+                ],
+                "fullyAligned": false
+              }
+            ],
+            "p2Singletons": [
+              {
+                "diagnosticId": 18,
+                "size": 1,
+                "cells": [
+                  {
+                    "cell": 18,
+                    "column": 5,
+                    "row": 3,
+                    "projectedOwner": 1,
+                    "supportDistance": 1,
+                    "playable": false
+                  }
+                ],
+                "fullyAligned": false
+              },
+              {
+                "diagnosticId": 32,
+                "size": 1,
+                "cells": [
+                  {
+                    "cell": 32,
+                    "column": 5,
+                    "row": 5,
+                    "projectedOwner": 1,
+                    "supportDistance": 3,
+                    "playable": false
+                  }
+                ],
+                "fullyAligned": false
+              }
+            ]
+          }
+        },
+        {
+          "p2Column": 5,
+          "terminal": 0,
+          "support": [
+            6,
+            6,
+            5,
+            6,
+            2,
+            6,
+            1
+          ],
+          "immediateP1WinningColumns": [],
+          "state": {
+            "rank": 32,
+            "mover": 1,
+            "terminal": 0,
+            "support": [
+              6,
+              6,
+              5,
+              6,
+              2,
+              6,
+              1
+            ],
+            "cpc": {
+              "baseline": {
+                "kind": "CPC_RESTRICT",
+                "interval": [
+                  -1,
+                  1
+                ],
+                "forcedColumn": 5,
+                "preemptionCount": 1,
+                "preemptionMask32": 16,
+                "precursorCount": 0,
+                "projectedCount": [
+                  0,
+                  0
+                ],
+                "projectedForks": [
+                  0,
+                  0
+                ]
+              },
+              "frontier": {
+                "kind": "CPC_RESTRICT",
+                "interval": [
+                  -1,
+                  1
+                ],
+                "forcedColumn": 5,
+                "preemptionCount": 1,
+                "preemptionMask32": 16,
+                "precursorCount": 0,
+                "projectedCount": [
+                  0,
+                  0
+                ],
+                "projectedForks": [
+                  0,
+                  0
+                ]
+              }
+            },
+            "p1Aligned": [
+              {
+                "diagnosticId": 228,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 20,
+                    "column": 7,
+                    "row": 3,
+                    "projectedOwner": 1,
+                    "supportDistance": 1,
+                    "playable": false
+                  },
+                  {
+                    "cell": 32,
+                    "column": 5,
+                    "row": 5,
+                    "projectedOwner": 1,
+                    "supportDistance": 2,
+                    "playable": false
+                  }
+                ],
+                "fullyAligned": true
+              }
+            ],
+            "p2Aligned": [],
+            "p1Singletons": [
+              {
+                "diagnosticId": 25,
+                "size": 1,
+                "cells": [
+                  {
+                    "cell": 25,
+                    "column": 5,
+                    "row": 4,
+                    "projectedOwner": 2,
+                    "supportDistance": 1,
+                    "playable": false
+                  }
+                ],
+                "fullyAligned": false
+              }
+            ],
+            "p2Singletons": [
+              {
+                "diagnosticId": 18,
+                "size": 1,
+                "cells": [
+                  {
+                    "cell": 18,
+                    "column": 5,
+                    "row": 3,
+                    "projectedOwner": 1,
+                    "supportDistance": 0,
+                    "playable": true
+                  }
+                ],
+                "fullyAligned": false
+              },
+              {
+                "diagnosticId": 32,
+                "size": 1,
+                "cells": [
+                  {
+                    "cell": 32,
+                    "column": 5,
+                    "row": 5,
+                    "projectedOwner": 1,
+                    "supportDistance": 2,
+                    "playable": false
+                  }
+                ],
+                "fullyAligned": false
+              }
+            ]
+          }
+        },
+        {
+          "p2Column": 7,
+          "terminal": 0,
+          "support": [
+            6,
+            6,
+            5,
+            6,
+            1,
+            6,
+            2
+          ],
+          "immediateP1WinningColumns": [],
+          "state": {
+            "rank": 32,
+            "mover": 1,
+            "terminal": 0,
+            "support": [
+              6,
+              6,
+              5,
+              6,
+              1,
+              6,
+              2
+            ],
+            "cpc": {
+              "baseline": {
+                "kind": "CPC_NONE",
+                "interval": [
+                  -1,
+                  1
+                ],
+                "forcedColumn": null,
+                "preemptionCount": 0,
+                "preemptionMask32": 0,
+                "precursorCount": 0,
+                "projectedCount": [
+                  0,
+                  0
+                ],
+                "projectedForks": [
+                  0,
+                  0
+                ]
+              },
+              "frontier": {
+                "kind": "CPC_NONE",
+                "interval": [
+                  -1,
+                  1
+                ],
+                "forcedColumn": null,
+                "preemptionCount": 0,
+                "preemptionMask32": 0,
+                "precursorCount": 0,
+                "projectedCount": [
+                  0,
+                  0
+                ],
+                "projectedForks": [
+                  0,
+                  0
+                ]
+              }
+            },
+            "p1Aligned": [
+              {
+                "diagnosticId": 228,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 20,
+                    "column": 7,
+                    "row": 3,
+                    "projectedOwner": 1,
+                    "supportDistance": 0,
+                    "playable": true
+                  },
+                  {
+                    "cell": 32,
+                    "column": 5,
+                    "row": 5,
+                    "projectedOwner": 1,
+                    "supportDistance": 3,
+                    "playable": false
+                  }
+                ],
+                "fullyAligned": true
+              }
+            ],
+            "p2Aligned": [],
+            "p1Singletons": [
+              {
+                "diagnosticId": 25,
+                "size": 1,
+                "cells": [
+                  {
+                    "cell": 25,
+                    "column": 5,
+                    "row": 4,
+                    "projectedOwner": 2,
+                    "supportDistance": 2,
+                    "playable": false
+                  }
+                ],
+                "fullyAligned": false
+              }
+            ],
+            "p2Singletons": [
+              {
+                "diagnosticId": 18,
+                "size": 1,
+                "cells": [
+                  {
+                    "cell": 18,
+                    "column": 5,
+                    "row": 3,
+                    "projectedOwner": 1,
+                    "supportDistance": 1,
+                    "playable": false
+                  }
+                ],
+                "fullyAligned": false
+              },
+              {
+                "diagnosticId": 32,
+                "size": 1,
+                "cells": [
+                  {
+                    "cell": 32,
+                    "column": 5,
+                    "row": 5,
+                    "projectedOwner": 1,
+                    "supportDistance": 3,
+                    "playable": false
+                  }
+                ],
+                "fullyAligned": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "p1Column": 3,
+      "terminal": 0,
+      "support": [
+        5,
+        6,
+        6,
+        6,
+        1,
+        6,
+        1
+      ],
+      "state": {
+        "rank": 31,
+        "mover": 2,
+        "terminal": 0,
+        "support": [
+          5,
+          6,
+          6,
+          6,
+          1,
+          6,
+          1
+        ],
+        "cpc": {
+          "baseline": {
+            "kind": "CPC_NONE",
+            "interval": [
+              -1,
+              1
+            ],
+            "forcedColumn": null,
+            "preemptionCount": 0,
+            "preemptionMask32": 0,
+            "precursorCount": 0,
+            "projectedCount": [
+              0,
+              0
+            ],
+            "projectedForks": [
+              0,
+              0
+            ]
+          },
+          "frontier": {
+            "kind": "CPC_NONE",
+            "interval": [
+              -1,
+              1
+            ],
+            "forcedColumn": null,
+            "preemptionCount": 0,
+            "preemptionMask32": 0,
+            "precursorCount": 0,
+            "projectedCount": [
+              0,
+              0
+            ],
+            "projectedForks": [
+              0,
+              0
+            ]
+          }
+        },
+        "p1Aligned": [
+          {
+            "diagnosticId": 228,
+            "size": 2,
+            "cells": [
+              {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "projectedOwner": 1,
+                "supportDistance": 1,
+                "playable": false
+              },
+              {
+                "cell": 32,
+                "column": 5,
+                "row": 5,
+                "projectedOwner": 1,
+                "supportDistance": 3,
+                "playable": false
+              }
+            ],
+            "fullyAligned": true
+          }
+        ],
+        "p2Aligned": [],
+        "p1Singletons": [
+          {
+            "diagnosticId": 25,
+            "size": 1,
+            "cells": [
+              {
+                "cell": 25,
+                "column": 5,
+                "row": 4,
+                "projectedOwner": 2,
+                "supportDistance": 2,
+                "playable": false
+              }
+            ],
+            "fullyAligned": false
+          }
+        ],
+        "p2Singletons": [
+          {
+            "diagnosticId": 18,
+            "size": 1,
+            "cells": [
+              {
+                "cell": 18,
+                "column": 5,
+                "row": 3,
+                "projectedOwner": 1,
+                "supportDistance": 1,
+                "playable": false
+              }
+            ],
+            "fullyAligned": false
+          },
+          {
+            "diagnosticId": 32,
+            "size": 1,
+            "cells": [
+              {
+                "cell": 32,
+                "column": 5,
+                "row": 5,
+                "projectedOwner": 1,
+                "supportDistance": 3,
+                "playable": false
+              }
+            ],
+            "fullyAligned": false
+          }
+        ]
+      },
+      "immediateP2WinningColumns": [],
+      "replies": [
+        {
+          "p2Column": 1,
+          "terminal": 0,
+          "support": [
+            6,
+            6,
+            6,
+            6,
+            1,
+            6,
+            1
+          ],
+          "immediateP1WinningColumns": [],
+          "state": {
+            "rank": 32,
+            "mover": 1,
+            "terminal": 0,
+            "support": [
+              6,
+              6,
+              6,
+              6,
+              1,
+              6,
+              1
+            ],
+            "cpc": {
+              "baseline": {
+                "kind": "CPC_NONE",
+                "interval": [
+                  -1,
+                  1
+                ],
+                "forcedColumn": null,
+                "preemptionCount": 0,
+                "preemptionMask32": 0,
+                "precursorCount": 0,
+                "projectedCount": [
+                  0,
+                  0
+                ],
+                "projectedForks": [
+                  0,
+                  0
+                ]
+              },
+              "frontier": {
+                "kind": "CPC_NONE",
+                "interval": [
+                  -1,
+                  1
+                ],
+                "forcedColumn": null,
+                "preemptionCount": 0,
+                "preemptionMask32": 0,
+                "precursorCount": 0,
+                "projectedCount": [
+                  0,
+                  0
+                ],
+                "projectedForks": [
+                  0,
+                  0
+                ]
+              }
+            },
+            "p1Aligned": [
+              {
+                "diagnosticId": 228,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 20,
+                    "column": 7,
+                    "row": 3,
+                    "projectedOwner": 1,
+                    "supportDistance": 1,
+                    "playable": false
+                  },
+                  {
+                    "cell": 32,
+                    "column": 5,
+                    "row": 5,
+                    "projectedOwner": 1,
+                    "supportDistance": 3,
+                    "playable": false
+                  }
+                ],
+                "fullyAligned": true
+              }
+            ],
+            "p2Aligned": [],
+            "p1Singletons": [
+              {
+                "diagnosticId": 25,
+                "size": 1,
+                "cells": [
+                  {
+                    "cell": 25,
+                    "column": 5,
+                    "row": 4,
+                    "projectedOwner": 2,
+                    "supportDistance": 2,
+                    "playable": false
+                  }
+                ],
+                "fullyAligned": false
+              }
+            ],
+            "p2Singletons": [
+              {
+                "diagnosticId": 18,
+                "size": 1,
+                "cells": [
+                  {
+                    "cell": 18,
+                    "column": 5,
+                    "row": 3,
+                    "projectedOwner": 1,
+                    "supportDistance": 1,
+                    "playable": false
+                  }
+                ],
+                "fullyAligned": false
+              },
+              {
+                "diagnosticId": 32,
+                "size": 1,
+                "cells": [
+                  {
+                    "cell": 32,
+                    "column": 5,
+                    "row": 5,
+                    "projectedOwner": 1,
+                    "supportDistance": 3,
+                    "playable": false
+                  }
+                ],
+                "fullyAligned": false
+              }
+            ]
+          }
+        },
+        {
+          "p2Column": 5,
+          "terminal": 0,
+          "support": [
+            5,
+            6,
+            6,
+            6,
+            2,
+            6,
+            1
+          ],
+          "immediateP1WinningColumns": [],
+          "state": {
+            "rank": 32,
+            "mover": 1,
+            "terminal": 0,
+            "support": [
+              5,
+              6,
+              6,
+              6,
+              2,
+              6,
+              1
+            ],
+            "cpc": {
+              "baseline": {
+                "kind": "CPC_RESTRICT",
+                "interval": [
+                  -1,
+                  1
+                ],
+                "forcedColumn": 5,
+                "preemptionCount": 1,
+                "preemptionMask32": 16,
+                "precursorCount": 0,
+                "projectedCount": [
+                  0,
+                  0
+                ],
+                "projectedForks": [
+                  0,
+                  0
+                ]
+              },
+              "frontier": {
+                "kind": "CPC_RESTRICT",
+                "interval": [
+                  -1,
+                  1
+                ],
+                "forcedColumn": 5,
+                "preemptionCount": 1,
+                "preemptionMask32": 16,
+                "precursorCount": 0,
+                "projectedCount": [
+                  0,
+                  0
+                ],
+                "projectedForks": [
+                  0,
+                  0
+                ]
+              }
+            },
+            "p1Aligned": [
+              {
+                "diagnosticId": 228,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 20,
+                    "column": 7,
+                    "row": 3,
+                    "projectedOwner": 1,
+                    "supportDistance": 1,
+                    "playable": false
+                  },
+                  {
+                    "cell": 32,
+                    "column": 5,
+                    "row": 5,
+                    "projectedOwner": 1,
+                    "supportDistance": 2,
+                    "playable": false
+                  }
+                ],
+                "fullyAligned": true
+              }
+            ],
+            "p2Aligned": [],
+            "p1Singletons": [
+              {
+                "diagnosticId": 25,
+                "size": 1,
+                "cells": [
+                  {
+                    "cell": 25,
+                    "column": 5,
+                    "row": 4,
+                    "projectedOwner": 2,
+                    "supportDistance": 1,
+                    "playable": false
+                  }
+                ],
+                "fullyAligned": false
+              }
+            ],
+            "p2Singletons": [
+              {
+                "diagnosticId": 18,
+                "size": 1,
+                "cells": [
+                  {
+                    "cell": 18,
+                    "column": 5,
+                    "row": 3,
+                    "projectedOwner": 1,
+                    "supportDistance": 0,
+                    "playable": true
+                  }
+                ],
+                "fullyAligned": false
+              },
+              {
+                "diagnosticId": 32,
+                "size": 1,
+                "cells": [
+                  {
+                    "cell": 32,
+                    "column": 5,
+                    "row": 5,
+                    "projectedOwner": 1,
+                    "supportDistance": 2,
+                    "playable": false
+                  }
+                ],
+                "fullyAligned": false
+              }
+            ]
+          }
+        },
+        {
+          "p2Column": 7,
+          "terminal": 0,
+          "support": [
+            5,
+            6,
+            6,
+            6,
+            1,
+            6,
+            2
+          ],
+          "immediateP1WinningColumns": [],
+          "state": {
+            "rank": 32,
+            "mover": 1,
+            "terminal": 0,
+            "support": [
+              5,
+              6,
+              6,
+              6,
+              1,
+              6,
+              2
+            ],
+            "cpc": {
+              "baseline": {
+                "kind": "CPC_NONE",
+                "interval": [
+                  -1,
+                  1
+                ],
+                "forcedColumn": null,
+                "preemptionCount": 0,
+                "preemptionMask32": 0,
+                "precursorCount": 0,
+                "projectedCount": [
+                  0,
+                  0
+                ],
+                "projectedForks": [
+                  0,
+                  0
+                ]
+              },
+              "frontier": {
+                "kind": "CPC_NONE",
+                "interval": [
+                  -1,
+                  1
+                ],
+                "forcedColumn": null,
+                "preemptionCount": 0,
+                "preemptionMask32": 0,
+                "precursorCount": 0,
+                "projectedCount": [
+                  0,
+                  0
+                ],
+                "projectedForks": [
+                  0,
+                  0
+                ]
+              }
+            },
+            "p1Aligned": [
+              {
+                "diagnosticId": 228,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 20,
+                    "column": 7,
+                    "row": 3,
+                    "projectedOwner": 1,
+                    "supportDistance": 0,
+                    "playable": true
+                  },
+                  {
+                    "cell": 32,
+                    "column": 5,
+                    "row": 5,
+                    "projectedOwner": 1,
+                    "supportDistance": 3,
+                    "playable": false
+                  }
+                ],
+                "fullyAligned": true
+              }
+            ],
+            "p2Aligned": [],
+            "p1Singletons": [
+              {
+                "diagnosticId": 25,
+                "size": 1,
+                "cells": [
+                  {
+                    "cell": 25,
+                    "column": 5,
+                    "row": 4,
+                    "projectedOwner": 2,
+                    "supportDistance": 2,
+                    "playable": false
+                  }
+                ],
+                "fullyAligned": false
+              }
+            ],
+            "p2Singletons": [
+              {
+                "diagnosticId": 18,
+                "size": 1,
+                "cells": [
+                  {
+                    "cell": 18,
+                    "column": 5,
+                    "row": 3,
+                    "projectedOwner": 1,
+                    "supportDistance": 1,
+                    "playable": false
+                  }
+                ],
+                "fullyAligned": false
+              },
+              {
+                "diagnosticId": 32,
+                "size": 1,
+                "cells": [
+                  {
+                    "cell": 32,
+                    "column": 5,
+                    "row": 5,
+                    "projectedOwner": 1,
+                    "supportDistance": 3,
+                    "playable": false
+                  }
+                ],
+                "fullyAligned": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "p1Column": 7,
+      "terminal": 0,
+      "support": [
+        5,
+        6,
+        5,
+        6,
+        1,
+        6,
+        2
+      ],
+      "state": {
+        "rank": 31,
+        "mover": 2,
+        "terminal": 0,
+        "support": [
+          5,
+          6,
+          5,
+          6,
+          1,
+          6,
+          2
+        ],
+        "cpc": {
+          "baseline": {
+            "kind": "CPC_NONE",
+            "interval": [
+              -1,
+              1
+            ],
+            "forcedColumn": null,
+            "preemptionCount": 0,
+            "preemptionMask32": 0,
+            "precursorCount": 0,
+            "projectedCount": [
+              0,
+              0
+            ],
+            "projectedForks": [
+              0,
+              0
+            ]
+          },
+          "frontier": {
+            "kind": "CPC_NONE",
+            "interval": [
+              -1,
+              1
+            ],
+            "forcedColumn": null,
+            "preemptionCount": 0,
+            "preemptionMask32": 0,
+            "precursorCount": 0,
+            "projectedCount": [
+              0,
+              0
+            ],
+            "projectedForks": [
+              0,
+              0
+            ]
+          }
+        },
+        "p1Aligned": [
+          {
+            "diagnosticId": 228,
+            "size": 2,
+            "cells": [
+              {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "projectedOwner": 1,
+                "supportDistance": 0,
+                "playable": true
+              },
+              {
+                "cell": 32,
+                "column": 5,
+                "row": 5,
+                "projectedOwner": 1,
+                "supportDistance": 3,
+                "playable": false
+              }
+            ],
+            "fullyAligned": true
+          }
+        ],
+        "p2Aligned": [],
+        "p1Singletons": [
+          {
+            "diagnosticId": 25,
+            "size": 1,
+            "cells": [
+              {
+                "cell": 25,
+                "column": 5,
+                "row": 4,
+                "projectedOwner": 2,
+                "supportDistance": 2,
+                "playable": false
+              }
+            ],
+            "fullyAligned": false
+          }
+        ],
+        "p2Singletons": [
+          {
+            "diagnosticId": 18,
+            "size": 1,
+            "cells": [
+              {
+                "cell": 18,
+                "column": 5,
+                "row": 3,
+                "projectedOwner": 1,
+                "supportDistance": 1,
+                "playable": false
+              }
+            ],
+            "fullyAligned": false
+          },
+          {
+            "diagnosticId": 32,
+            "size": 1,
+            "cells": [
+              {
+                "cell": 32,
+                "column": 5,
+                "row": 5,
+                "projectedOwner": 1,
+                "supportDistance": 3,
+                "playable": false
+              }
+            ],
+            "fullyAligned": false
+          }
+        ]
+      },
+      "immediateP2WinningColumns": [],
+      "replies": [
+        {
+          "p2Column": 1,
+          "terminal": 0,
+          "support": [
+            6,
+            6,
+            5,
+            6,
+            1,
+            6,
+            2
+          ],
+          "immediateP1WinningColumns": [],
+          "state": {
+            "rank": 32,
+            "mover": 1,
+            "terminal": 0,
+            "support": [
+              6,
+              6,
+              5,
+              6,
+              1,
+              6,
+              2
+            ],
+            "cpc": {
+              "baseline": {
+                "kind": "CPC_NONE",
+                "interval": [
+                  -1,
+                  1
+                ],
+                "forcedColumn": null,
+                "preemptionCount": 0,
+                "preemptionMask32": 0,
+                "precursorCount": 0,
+                "projectedCount": [
+                  0,
+                  0
+                ],
+                "projectedForks": [
+                  0,
+                  0
+                ]
+              },
+              "frontier": {
+                "kind": "CPC_NONE",
+                "interval": [
+                  -1,
+                  1
+                ],
+                "forcedColumn": null,
+                "preemptionCount": 0,
+                "preemptionMask32": 0,
+                "precursorCount": 0,
+                "projectedCount": [
+                  0,
+                  0
+                ],
+                "projectedForks": [
+                  0,
+                  0
+                ]
+              }
+            },
+            "p1Aligned": [
+              {
+                "diagnosticId": 228,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 20,
+                    "column": 7,
+                    "row": 3,
+                    "projectedOwner": 1,
+                    "supportDistance": 0,
+                    "playable": true
+                  },
+                  {
+                    "cell": 32,
+                    "column": 5,
+                    "row": 5,
+                    "projectedOwner": 1,
+                    "supportDistance": 3,
+                    "playable": false
+                  }
+                ],
+                "fullyAligned": true
+              }
+            ],
+            "p2Aligned": [],
+            "p1Singletons": [
+              {
+                "diagnosticId": 25,
+                "size": 1,
+                "cells": [
+                  {
+                    "cell": 25,
+                    "column": 5,
+                    "row": 4,
+                    "projectedOwner": 2,
+                    "supportDistance": 2,
+                    "playable": false
+                  }
+                ],
+                "fullyAligned": false
+              }
+            ],
+            "p2Singletons": [
+              {
+                "diagnosticId": 18,
+                "size": 1,
+                "cells": [
+                  {
+                    "cell": 18,
+                    "column": 5,
+                    "row": 3,
+                    "projectedOwner": 1,
+                    "supportDistance": 1,
+                    "playable": false
+                  }
+                ],
+                "fullyAligned": false
+              },
+              {
+                "diagnosticId": 32,
+                "size": 1,
+                "cells": [
+                  {
+                    "cell": 32,
+                    "column": 5,
+                    "row": 5,
+                    "projectedOwner": 1,
+                    "supportDistance": 3,
+                    "playable": false
+                  }
+                ],
+                "fullyAligned": false
+              }
+            ]
+          }
+        },
+        {
+          "p2Column": 3,
+          "terminal": 0,
+          "support": [
+            5,
+            6,
+            6,
+            6,
+            1,
+            6,
+            2
+          ],
+          "immediateP1WinningColumns": [],
+          "state": {
+            "rank": 32,
+            "mover": 1,
+            "terminal": 0,
+            "support": [
+              5,
+              6,
+              6,
+              6,
+              1,
+              6,
+              2
+            ],
+            "cpc": {
+              "baseline": {
+                "kind": "CPC_NONE",
+                "interval": [
+                  -1,
+                  1
+                ],
+                "forcedColumn": null,
+                "preemptionCount": 0,
+                "preemptionMask32": 0,
+                "precursorCount": 0,
+                "projectedCount": [
+                  0,
+                  0
+                ],
+                "projectedForks": [
+                  0,
+                  0
+                ]
+              },
+              "frontier": {
+                "kind": "CPC_NONE",
+                "interval": [
+                  -1,
+                  1
+                ],
+                "forcedColumn": null,
+                "preemptionCount": 0,
+                "preemptionMask32": 0,
+                "precursorCount": 0,
+                "projectedCount": [
+                  0,
+                  0
+                ],
+                "projectedForks": [
+                  0,
+                  0
+                ]
+              }
+            },
+            "p1Aligned": [
+              {
+                "diagnosticId": 228,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 20,
+                    "column": 7,
+                    "row": 3,
+                    "projectedOwner": 1,
+                    "supportDistance": 0,
+                    "playable": true
+                  },
+                  {
+                    "cell": 32,
+                    "column": 5,
+                    "row": 5,
+                    "projectedOwner": 1,
+                    "supportDistance": 3,
+                    "playable": false
+                  }
+                ],
+                "fullyAligned": true
+              }
+            ],
+            "p2Aligned": [],
+            "p1Singletons": [
+              {
+                "diagnosticId": 25,
+                "size": 1,
+                "cells": [
+                  {
+                    "cell": 25,
+                    "column": 5,
+                    "row": 4,
+                    "projectedOwner": 2,
+                    "supportDistance": 2,
+                    "playable": false
+                  }
+                ],
+                "fullyAligned": false
+              }
+            ],
+            "p2Singletons": [
+              {
+                "diagnosticId": 18,
+                "size": 1,
+                "cells": [
+                  {
+                    "cell": 18,
+                    "column": 5,
+                    "row": 3,
+                    "projectedOwner": 1,
+                    "supportDistance": 1,
+                    "playable": false
+                  }
+                ],
+                "fullyAligned": false
+              },
+              {
+                "diagnosticId": 32,
+                "size": 1,
+                "cells": [
+                  {
+                    "cell": 32,
+                    "column": 5,
+                    "row": 5,
+                    "projectedOwner": 1,
+                    "supportDistance": 3,
+                    "playable": false
+                  }
+                ],
+                "fullyAligned": false
+              }
+            ]
+          }
+        },
+        {
+          "p2Column": 5,
+          "terminal": 0,
+          "support": [
+            5,
+            6,
+            5,
+            6,
+            2,
+            6,
+            2
+          ],
+          "immediateP1WinningColumns": [],
+          "state": {
+            "rank": 32,
+            "mover": 1,
+            "terminal": 0,
+            "support": [
+              5,
+              6,
+              5,
+              6,
+              2,
+              6,
+              2
+            ],
+            "cpc": {
+              "baseline": {
+                "kind": "CPC_RESTRICT",
+                "interval": [
+                  -1,
+                  1
+                ],
+                "forcedColumn": 5,
+                "preemptionCount": 1,
+                "preemptionMask32": 16,
+                "precursorCount": 0,
+                "projectedCount": [
+                  0,
+                  0
+                ],
+                "projectedForks": [
+                  0,
+                  0
+                ]
+              },
+              "frontier": {
+                "kind": "CPC_RESTRICT",
+                "interval": [
+                  -1,
+                  1
+                ],
+                "forcedColumn": 5,
+                "preemptionCount": 1,
+                "preemptionMask32": 16,
+                "precursorCount": 0,
+                "projectedCount": [
+                  0,
+                  0
+                ],
+                "projectedForks": [
+                  0,
+                  0
+                ]
+              }
+            },
+            "p1Aligned": [
+              {
+                "diagnosticId": 228,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 20,
+                    "column": 7,
+                    "row": 3,
+                    "projectedOwner": 1,
+                    "supportDistance": 0,
+                    "playable": true
+                  },
+                  {
+                    "cell": 32,
+                    "column": 5,
+                    "row": 5,
+                    "projectedOwner": 1,
+                    "supportDistance": 2,
+                    "playable": false
+                  }
+                ],
+                "fullyAligned": true
+              }
+            ],
+            "p2Aligned": [],
+            "p1Singletons": [
+              {
+                "diagnosticId": 25,
+                "size": 1,
+                "cells": [
+                  {
+                    "cell": 25,
+                    "column": 5,
+                    "row": 4,
+                    "projectedOwner": 2,
+                    "supportDistance": 1,
+                    "playable": false
+                  }
+                ],
+                "fullyAligned": false
+              }
+            ],
+            "p2Singletons": [
+              {
+                "diagnosticId": 18,
+                "size": 1,
+                "cells": [
+                  {
+                    "cell": 18,
+                    "column": 5,
+                    "row": 3,
+                    "projectedOwner": 1,
+                    "supportDistance": 0,
+                    "playable": true
+                  }
+                ],
+                "fullyAligned": false
+              },
+              {
+                "diagnosticId": 32,
+                "size": 1,
+                "cells": [
+                  {
+                    "cell": 32,
+                    "column": 5,
+                    "row": 5,
+                    "projectedOwner": 1,
+                    "supportDistance": 2,
+                    "playable": false
+                  }
+                ],
+                "fullyAligned": false
+              }
+            ]
+          }
+        },
+        {
+          "p2Column": 7,
+          "terminal": 0,
+          "support": [
+            5,
+            6,
+            5,
+            6,
+            1,
+            6,
+            3
+          ],
+          "immediateP1WinningColumns": [],
+          "state": {
+            "rank": 32,
+            "mover": 1,
+            "terminal": 0,
+            "support": [
+              5,
+              6,
+              5,
+              6,
+              1,
+              6,
+              3
+            ],
+            "cpc": {
+              "baseline": {
+                "kind": "CPC_NONE",
+                "interval": [
+                  -1,
+                  1
+                ],
+                "forcedColumn": null,
+                "preemptionCount": 0,
+                "preemptionMask32": 0,
+                "precursorCount": 0,
+                "projectedCount": [
+                  0,
+                  0
+                ],
+                "projectedForks": [
+                  0,
+                  0
+                ]
+              },
+              "frontier": {
+                "kind": "CPC_BOUND",
+                "interval": [
+                  -1,
+                  0
+                ],
+                "forcedColumn": null,
+                "preemptionCount": 0,
+                "preemptionMask32": 0,
+                "precursorCount": 0,
+                "projectedCount": [
+                  0,
+                  0
+                ],
+                "projectedForks": [
+                  0,
+                  0
+                ]
+              }
+            },
+            "p1Aligned": [],
+            "p2Aligned": [],
+            "p1Singletons": [
+              {
+                "diagnosticId": 25,
+                "size": 1,
+                "cells": [
+                  {
+                    "cell": 25,
+                    "column": 5,
+                    "row": 4,
+                    "projectedOwner": 2,
+                    "supportDistance": 2,
+                    "playable": false
+                  }
+                ],
+                "fullyAligned": false
+              }
+            ],
+            "p2Singletons": [
+              {
+                "diagnosticId": 18,
+                "size": 1,
+                "cells": [
+                  {
+                    "cell": 18,
+                    "column": 5,
+                    "row": 3,
+                    "projectedOwner": 1,
+                    "supportDistance": 1,
+                    "playable": false
+                  }
+                ],
+                "fullyAligned": false
+              },
+              {
+                "diagnosticId": 32,
+                "size": 1,
+                "cells": [
+                  {
+                    "cell": 32,
+                    "column": 5,
+                    "row": 5,
+                    "projectedOwner": 1,
+                    "supportDistance": 3,
+                    "playable": false
+                  }
+                ],
+                "fullyAligned": false
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "conclusion": [
+    "Discovery probe only for the three rank-30 moves that survive the exact immediate-danger filter after the c1/c1 handoff.",
+    "It records native CPC restrictions, exact immediate terminals, and mover-relative residual attachment after every legal reply.",
+    "No unresolved candidate is assigned W/D/L."
+  ],
+  "boundary": [
+    "No oracle, Pons, solved W/D/L, minimax, best-move table, physical-position identity, or sealed holdout is used.",
+    "Production CPC and JSMinSys are read-only and unchanged.",
+    "Residual ids are diagnostic only; exact cell attachment is recorded."
+  ]
+}
