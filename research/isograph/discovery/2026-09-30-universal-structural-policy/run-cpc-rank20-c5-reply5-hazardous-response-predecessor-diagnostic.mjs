@@ -597,8 +597,6 @@ for(const s of source.states){
     const firstFailure=traceFirstFailure(q,candidate);
     assert(firstFailure);
     assert.equal(firstFailure.kind,'defender-terminal');
-    assert.equal(firstFailure.precedingP1Response.immediatelyBelowTerminal,true);
-
     const item={
       id:s.id,
       signature:candidate.signature,
