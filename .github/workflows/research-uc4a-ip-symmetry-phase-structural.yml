@@ -1,0 +1,74 @@
+name: Research UC4A I/P symmetry-phase structural freeze
+
+concurrency:
+  group: uc4a-ip-symmetry-phase-structural-\${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  push:
+    branches:
+      - research/universal-structural-policy-20260930
+    paths:
+      - .github/workflows/research-uc4a-ip-symmetry-phase-structural.yml
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/UC4A_IP_SYMMETRY_PHASE_MECHANISM_REDERIVATION_EXPERIMENT_DESIGN_0_1.md
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/test-uc4a-ip-symmetry-phase-structural.mjs
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/run-uc4a-ip-symmetry-phase-structural.mjs
+
+permissions:
+  contents: write
+
+jobs:
+  structural-freeze:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out exact pushed revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+      - name: Pin Node runtime
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Verify label-free structural contract
+        run: node research/isograph/discovery/2026-09-30-universal-structural-policy/test-uc4a-ip-symmetry-phase-structural.mjs
+      - name: Generate extended unlabeled I/P mode atlas
+        shell: bash
+        run: |
+          set -euo pipefail
+          DIR=research/isograph/discovery/2026-09-30-universal-structural-policy
+          OUT="$DIR/UC4A_IP_SYMMETRY_PHASE_STRUCTURAL_0_1.json"
+          node "$DIR/run-uc4a-ip-symmetry-phase-structural.mjs" > "$OUT"
+          node - "$OUT" <<'NODE'
+          const fs=require('fs');
+          const r=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
+          if(r.boardCount!==169||r.curvatureRowCount!==430)throw new Error('extended grid census drift');
+          if(r.outcomeLabelsAccessibleToProducer!==false||r.localizationArtifactAccessibleToProducer!==false)throw new Error('label/localization isolation violated');
+          if(r.sealedHoldoutsAccessed!==false)throw new Error('holdout boundary violated');
+          console.log(JSON.stringify({
+            atlas:r.structuralAtlasSha256,
+            familyCounts:r.familyCounts,
+            ipRanks:r.modeCensus.integer.familyRanks,
+            projectiveModeCount:r.modeCensus.integer.projectiveModes.length,
+            reflectionDependencies:r.modeCensus.reflectionSector.linearDependencies,
+            safeEntryCurvature:r.modeCensus.safeEntryCurvature
+          }));
+          NODE
+      - name: Commit durable label-free mode atlas
+        shell: bash
+        run: |
+          set -euo pipefail
+          BRANCH=research/universal-structural-policy-20260930
+          FILE=research/isograph/discovery/2026-09-30-universal-structural-policy/UC4A_IP_SYMMETRY_PHASE_STRUCTURAL_0_1.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$FILE"
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "research: freeze label-free UC4A I/P mode atlas"
+          for attempt in 1 2 3; do
+            git fetch origin "$BRANCH"
+            git rebase --autostash "origin/$BRANCH"
+            if git push origin HEAD:"$BRANCH"; then exit 0; fi
+            sleep 1
+          done
+          exit 1
