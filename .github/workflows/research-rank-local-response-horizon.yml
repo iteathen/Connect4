@@ -1,0 +1,27 @@
+name: Research rank-local response horizon
+
+on:
+  push:
+    branches:
+      - research/universal-structural-policy-20260930
+    paths:
+      - .github/workflows/research-rank-local-response-horizon.yml
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Fetch branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone https://github.com/iteathen/Connect4.git connect4
+          cd connect4
+          git checkout research/universal-structural-policy-20260930
+      - name: Run rank-local theorem control
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd connect4
+          node research/isograph/discovery/2026-09-30-universal-structural-policy/run-rank-local-bounded-response-horizon.mjs
