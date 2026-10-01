@@ -1,0 +1,164 @@
+{
+  "schema": "connect4.cpc_d23_trigger2_gray_probe.v1",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "rows": [
+    {
+      "sequence": "44444156666623",
+      "rank": 14,
+      "attacker": 1,
+      "support": [
+        1,
+        1,
+        1,
+        5,
+        1,
+        5,
+        0
+      ],
+      "rawOddMask": 229441,
+      "grayOddMask": 229376,
+      "effectiveOddMask": 229441,
+      "rawGuards": [
+        {
+          "column": 1,
+          "height": 1
+        },
+        {
+          "column": 3,
+          "height": 1
+        },
+        {
+          "column": 6,
+          "height": 5
+        }
+      ],
+      "effectiveGuards": [
+        {
+          "column": 1,
+          "height": 1
+        },
+        {
+          "column": 3,
+          "height": 1
+        },
+        {
+          "column": 6,
+          "height": 5
+        }
+      ],
+      "column2Row1": {
+        "owner": 1,
+        "gray": false,
+        "relevant": true
+      },
+      "grayCount": 4
+    },
+    {
+      "sequence": "444441566666232",
+      "rank": 15,
+      "attacker": 2,
+      "support": [
+        1,
+        2,
+        1,
+        5,
+        1,
+        5,
+        0
+      ],
+      "rawOddMask": 7688,
+      "grayOddMask": 229376,
+      "effectiveOddMask": 237064,
+      "rawGuards": [
+        {
+          "column": 4,
+          "height": 5
+        },
+        {
+          "column": 5,
+          "height": 1
+        }
+      ],
+      "effectiveGuards": [
+        {
+          "column": 4,
+          "height": 5
+        },
+        {
+          "column": 5,
+          "height": 1
+        },
+        {
+          "column": 6,
+          "height": 5
+        }
+      ],
+      "column2Row1": {
+        "owner": 1,
+        "gray": false,
+        "relevant": true
+      },
+      "grayCount": 4
+    },
+    {
+      "sequence": "4444415666662322",
+      "rank": 16,
+      "attacker": 1,
+      "support": [
+        1,
+        3,
+        1,
+        5,
+        1,
+        5,
+        0
+      ],
+      "rawOddMask": 229457,
+      "grayOddMask": 229888,
+      "effectiveOddMask": 229969,
+      "rawGuards": [
+        {
+          "column": 1,
+          "height": 1
+        },
+        {
+          "column": 3,
+          "height": 1
+        },
+        {
+          "column": 6,
+          "height": 5
+        }
+      ],
+      "effectiveGuards": [
+        {
+          "column": 1,
+          "height": 1
+        },
+        {
+          "column": 3,
+          "height": 1
+        },
+        {
+          "column": 6,
+          "height": 5
+        }
+      ],
+      "column2Row1": {
+        "owner": 1,
+        "gray": false,
+        "relevant": true
+      },
+      "grayCount": 6
+    }
+  ],
+  "conclusion": [
+    "The probe asks only whether column-2 row-1 ownership is still live-line relevant at the D23 trigger-2 obstruction.",
+    "Effective guards use the already-qualified neutral-token rule defender-owned OR gray on occupied odd rows."
+  ],
+  "boundary": [
+    "This is consumed-boundary diagnostic evidence; fresh neutral-token/gray guard qualification is recorded separately.",
+    "No response is licensed by this probe alone."
+  ]
+}
