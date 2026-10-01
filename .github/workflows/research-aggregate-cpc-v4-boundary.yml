@@ -1,0 +1,53 @@
+name: Research aggregate CPC v4 boundary
+
+on:
+  push:
+    branches:
+      - research/universal-structural-policy-20260930
+    paths:
+      - .github/workflows/research-aggregate-cpc-v4-boundary.yml
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/native-cpc-aggregate-v4-boundary.mjs
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Check out exact pushed revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - name: Pin Node runtime
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+
+      - name: Fetch pinned JSMinSys CPC
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone https://github.com/iteathen/JSMinSys.git jsminsys
+          git -C jsminsys checkout 0899c5811918e68c22dc1b0e4dd8af97d9b4bbcb
+
+      - name: Run one aggregate CPC evaluation per state
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT=research/isograph/discovery/2026-09-30-universal-structural-policy/NATIVE_CPC_AGGREGATE_V4_BOUNDARY_0_1.json
+          node research/isograph/discovery/2026-09-30-universal-structural-policy/native-cpc-aggregate-v4-boundary.mjs jsminsys "$OUT"
+
+      - name: Commit durable CPC evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/isograph/discovery/2026-09-30-universal-structural-policy/NATIVE_CPC_AGGREGATE_V4_BOUNDARY_0_1.json
+          if git diff --cached --quiet; then
+            echo "CPC evidence unchanged"
+            exit 0
+          fi
+          git commit -m "research: record aggregate CPC v4 boundary"
+          git push origin HEAD:research/universal-structural-policy-20260930
