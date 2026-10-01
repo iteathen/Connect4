@@ -1,0 +1,2794 @@
+{
+  "schema": "connect4.cpc_rank20_legacy_repair_route_reentry_probe.v1",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "ordinaryFreeBranchGameTreeUsed": false,
+  "productionCpcModified": false,
+  "jsMinSysModified": false,
+  "bsfpModified": false,
+  "design": "CPC_RANK20_LEGACY_REPAIR_ROUTE_REENTRY_PROBE_DESIGN_0_1.md",
+  "sourceEvidence": "CPC_RANK20_C5_REPLY5_POST_CONTRACTION_CPC_REENTRY_DIAGNOSTIC_0_1.json",
+  "proofEngine": {
+    "kind": "standard7x6-repair-capacity-exact-certificate-v1",
+    "path": "research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-repair-capacity-proof-lib.mjs",
+    "maxProofStatesPerAttempt": 100000
+  },
+  "sourceStates": [
+    {
+      "id": "FIRST_D3_C1_CONTRACTION",
+      "sequence": "4444415666662322224255131",
+      "rank": 25,
+      "support": [
+        3,
+        6,
+        2,
+        6,
+        3,
+        5,
+        0
+      ],
+      "sourceTarget": {
+        "cell": 30,
+        "column": 3,
+        "row": 5,
+        "projectedOwner": 1,
+        "supportDistance": 2
+      },
+      "sourceTargetReservoirTemplateExists": false,
+      "sourceCpcReentryPromising": false,
+      "sourceExactBridge": {
+        "pass": true,
+        "checks": {
+          "rank": true,
+          "mover": true,
+          "support": true,
+          "p0Residuals": true,
+          "p1Residuals": true
+        },
+        "js": {
+          "rank": 25,
+          "support": [
+            3,
+            6,
+            2,
+            6,
+            3,
+            5,
+            0
+          ],
+          "p0Residuals": [
+            "13,20,27,34",
+            "20,27,34,41",
+            "20,32",
+            "21,28",
+            "30",
+            "37,39,40",
+            "39,40,41",
+            "6,13,20,27"
+          ],
+          "p1Residuals": [
+            "13,20,27,34",
+            "16,23",
+            "16,32,40",
+            "20,27,34,41",
+            "25,32,39",
+            "30",
+            "6,13,20,27"
+          ]
+        },
+        "semantic": {
+          "rank": 25,
+          "support": [
+            3,
+            6,
+            2,
+            6,
+            3,
+            5,
+            0
+          ],
+          "p0Residuals": [
+            "13,20,27,34",
+            "20,27,34,41",
+            "20,32",
+            "21,28",
+            "30",
+            "37,39,40",
+            "39,40,41",
+            "6,13,20,27"
+          ],
+          "p1Residuals": [
+            "13,20,27,34",
+            "16,23",
+            "16,32,40",
+            "20,27,34,41",
+            "25,32,39",
+            "30",
+            "6,13,20,27"
+          ]
+        }
+      },
+      "defenderReplies": [
+        {
+          "defenderColumn": 1,
+          "terminal": false,
+          "childSequence": "44444156666623222242551311",
+          "childRank": 26,
+          "childSupport": [
+            4,
+            6,
+            2,
+            6,
+            3,
+            5,
+            0
+          ],
+          "childExactBridge": {
+            "pass": true,
+            "checks": {
+              "rank": true,
+              "mover": true,
+              "support": true,
+              "p0Residuals": true,
+              "p1Residuals": true
+            },
+            "js": {
+              "rank": 26,
+              "support": [
+                4,
+                6,
+                2,
+                6,
+                3,
+                5,
+                0
+              ],
+              "p0Residuals": [
+                "13,20,27,34",
+                "20,27,34,41",
+                "20,32",
+                "30",
+                "37,39,40",
+                "39,40,41",
+                "6,13,20,27"
+              ],
+              "p1Residuals": [
+                "13,20,27,34",
+                "16,23",
+                "16,32,40",
+                "20,27,34,41",
+                "25,32,39",
+                "30",
+                "6,13,20,27"
+              ]
+            },
+            "semantic": {
+              "rank": 26,
+              "support": [
+                4,
+                6,
+                2,
+                6,
+                3,
+                5,
+                0
+              ],
+              "p0Residuals": [
+                "13,20,27,34",
+                "20,27,34,41",
+                "20,32",
+                "30",
+                "37,39,40",
+                "39,40,41",
+                "6,13,20,27"
+              ],
+              "p1Residuals": [
+                "13,20,27,34",
+                "16,23",
+                "16,32,40",
+                "20,27,34,41",
+                "25,32,39",
+                "30",
+                "6,13,20,27"
+              ]
+            }
+          },
+          "immediateP0WinningColumns": [],
+          "activeP0SingletonTargets": [
+            30
+          ],
+          "invariantCompatibleTargets": [],
+          "proofAttempts": [],
+          "provedTargets": [],
+          "resourceFailures": [],
+          "closed": false,
+          "closedBy": "NO_LEGACY_REPAIR_ROUTE"
+        },
+        {
+          "defenderColumn": 3,
+          "terminal": false,
+          "childSequence": "44444156666623222242551313",
+          "childRank": 26,
+          "childSupport": [
+            3,
+            6,
+            3,
+            6,
+            3,
+            5,
+            0
+          ],
+          "childExactBridge": {
+            "pass": true,
+            "checks": {
+              "rank": true,
+              "mover": true,
+              "support": true,
+              "p0Residuals": true,
+              "p1Residuals": true
+            },
+            "js": {
+              "rank": 26,
+              "support": [
+                3,
+                6,
+                3,
+                6,
+                3,
+                5,
+                0
+              ],
+              "p0Residuals": [
+                "13,20,27,34",
+                "20,27,34,41",
+                "20,32",
+                "21,28",
+                "30",
+                "37,39,40",
+                "39,40,41",
+                "6,13,20,27"
+              ],
+              "p1Residuals": [
+                "13,20,27,34",
+                "20,27,34,41",
+                "23",
+                "25,32,39",
+                "30",
+                "32,40",
+                "6,13,20,27"
+              ]
+            },
+            "semantic": {
+              "rank": 26,
+              "support": [
+                3,
+                6,
+                3,
+                6,
+                3,
+                5,
+                0
+              ],
+              "p0Residuals": [
+                "13,20,27,34",
+                "20,27,34,41",
+                "20,32",
+                "21,28",
+                "30",
+                "37,39,40",
+                "39,40,41",
+                "6,13,20,27"
+              ],
+              "p1Residuals": [
+                "13,20,27,34",
+                "20,27,34,41",
+                "23",
+                "25,32,39",
+                "30",
+                "32,40",
+                "6,13,20,27"
+              ]
+            }
+          },
+          "immediateP0WinningColumns": [],
+          "activeP0SingletonTargets": [
+            30
+          ],
+          "invariantCompatibleTargets": [
+            30
+          ],
+          "proofAttempts": [
+            {
+              "targetCell": 30,
+              "targetColumn": 3,
+              "targetRow": 5,
+              "completed": true,
+              "proved": false,
+              "proofKind": "no_repair_predecessor",
+              "witness": null,
+              "witnessKind": null,
+              "mu": 7,
+              "winningActions": [],
+              "rejected": [
+                {
+                  "action": "A",
+                  "reply": "A",
+                  "replyCell": "A5",
+                  "reason": "no_repair_predecessor",
+                  "childMu": 5
+                },
+                {
+                  "action": "E",
+                  "reply": "A",
+                  "replyCell": "A4",
+                  "reason": "no_repair_predecessor",
+                  "childMu": 5
+                },
+                {
+                  "action": "F",
+                  "reply": "A",
+                  "replyCell": "A4",
+                  "reason": "no_repair_predecessor",
+                  "childMu": 5
+                }
+              ],
+              "exactCertificateKey": "rank=26|turn=0|h=3,6,3,6,3,5,0|r0=00000000:000001a0;00000000:00000380;00100000:00000001;08100000:00000204;08102000:00000004;08102040:00000000;10200000:00000000;40000000:00000000|r1=00000000:00000101;00800000:00000000;02000000:00000081;08100000:00000204;08102000:00000004;08102040:00000000;40000000:00000000|target=30",
+              "stats": {
+                "proofStates": 10,
+                "candidateActionsChecked": 21,
+                "p1BranchesChecked": 21,
+                "maxDepth": 3,
+                "memoEntries": 10,
+                "certifiedStateTargetPairs": 0
+              },
+              "error": null
+            }
+          ],
+          "provedTargets": [],
+          "resourceFailures": [],
+          "closed": false,
+          "closedBy": "NO_LEGACY_REPAIR_ROUTE"
+        },
+        {
+          "defenderColumn": 5,
+          "terminal": false,
+          "childSequence": "44444156666623222242551315",
+          "childRank": 26,
+          "childSupport": [
+            3,
+            6,
+            2,
+            6,
+            4,
+            5,
+            0
+          ],
+          "childExactBridge": {
+            "pass": true,
+            "checks": {
+              "rank": true,
+              "mover": true,
+              "support": true,
+              "p0Residuals": true,
+              "p1Residuals": true
+            },
+            "js": {
+              "rank": 26,
+              "support": [
+                3,
+                6,
+                2,
+                6,
+                4,
+                5,
+                0
+              ],
+              "p0Residuals": [
+                "13,20,27,34",
+                "20,27,34,41",
+                "20,32",
+                "21,28",
+                "30",
+                "37,39,40",
+                "39,40,41",
+                "6,13,20,27"
+              ],
+              "p1Residuals": [
+                "13,20,27,34",
+                "16,23",
+                "16,32,40",
+                "20,27,34,41",
+                "30",
+                "32,39",
+                "6,13,20,27"
+              ]
+            },
+            "semantic": {
+              "rank": 26,
+              "support": [
+                3,
+                6,
+                2,
+                6,
+                4,
+                5,
+                0
+              ],
+              "p0Residuals": [
+                "13,20,27,34",
+                "20,27,34,41",
+                "20,32",
+                "21,28",
+                "30",
+                "37,39,40",
+                "39,40,41",
+                "6,13,20,27"
+              ],
+              "p1Residuals": [
+                "13,20,27,34",
+                "16,23",
+                "16,32,40",
+                "20,27,34,41",
+                "30",
+                "32,39",
+                "6,13,20,27"
+              ]
+            }
+          },
+          "immediateP0WinningColumns": [],
+          "activeP0SingletonTargets": [
+            30
+          ],
+          "invariantCompatibleTargets": [],
+          "proofAttempts": [],
+          "provedTargets": [],
+          "resourceFailures": [],
+          "closed": false,
+          "closedBy": "NO_LEGACY_REPAIR_ROUTE"
+        },
+        {
+          "defenderColumn": 6,
+          "terminal": false,
+          "childSequence": "44444156666623222242551316",
+          "childRank": 26,
+          "childSupport": [
+            3,
+            6,
+            2,
+            6,
+            3,
+            6,
+            0
+          ],
+          "childExactBridge": {
+            "pass": true,
+            "checks": {
+              "rank": true,
+              "mover": true,
+              "support": true,
+              "p0Residuals": true,
+              "p1Residuals": true
+            },
+            "js": {
+              "rank": 26,
+              "support": [
+                3,
+                6,
+                2,
+                6,
+                3,
+                6,
+                0
+              ],
+              "p0Residuals": [
+                "13,20,27,34",
+                "20,27,34,41",
+                "20,32",
+                "21,28",
+                "30",
+                "6,13,20,27"
+              ],
+              "p1Residuals": [
+                "13,20,27,34",
+                "16,23",
+                "16,32",
+                "20,27,34,41",
+                "25,32,39",
+                "30",
+                "6,13,20,27"
+              ]
+            },
+            "semantic": {
+              "rank": 26,
+              "support": [
+                3,
+                6,
+                2,
+                6,
+                3,
+                6,
+                0
+              ],
+              "p0Residuals": [
+                "13,20,27,34",
+                "20,27,34,41",
+                "20,32",
+                "21,28",
+                "30",
+                "6,13,20,27"
+              ],
+              "p1Residuals": [
+                "13,20,27,34",
+                "16,23",
+                "16,32",
+                "20,27,34,41",
+                "25,32,39",
+                "30",
+                "6,13,20,27"
+              ]
+            }
+          },
+          "immediateP0WinningColumns": [],
+          "activeP0SingletonTargets": [
+            30
+          ],
+          "invariantCompatibleTargets": [],
+          "proofAttempts": [],
+          "provedTargets": [],
+          "resourceFailures": [],
+          "closed": false,
+          "closedBy": "NO_LEGACY_REPAIR_ROUTE"
+        },
+        {
+          "defenderColumn": 7,
+          "terminal": false,
+          "childSequence": "44444156666623222242551317",
+          "childRank": 26,
+          "childSupport": [
+            3,
+            6,
+            2,
+            6,
+            3,
+            5,
+            1
+          ],
+          "childExactBridge": {
+            "pass": true,
+            "checks": {
+              "rank": true,
+              "mover": true,
+              "support": true,
+              "p0Residuals": true,
+              "p1Residuals": true
+            },
+            "js": {
+              "rank": 26,
+              "support": [
+                3,
+                6,
+                2,
+                6,
+                3,
+                5,
+                1
+              ],
+              "p0Residuals": [
+                "13,20,27,34",
+                "20,27,34,41",
+                "20,32",
+                "21,28",
+                "30",
+                "37,39,40",
+                "39,40,41"
+              ],
+              "p1Residuals": [
+                "13,20,27",
+                "16,23",
+                "16,32,40",
+                "20,27,34,41",
+                "25,32,39",
+                "30"
+              ]
+            },
+            "semantic": {
+              "rank": 26,
+              "support": [
+                3,
+                6,
+                2,
+                6,
+                3,
+                5,
+                1
+              ],
+              "p0Residuals": [
+                "13,20,27,34",
+                "20,27,34,41",
+                "20,32",
+                "21,28",
+                "30",
+                "37,39,40",
+                "39,40,41"
+              ],
+              "p1Residuals": [
+                "13,20,27",
+                "16,23",
+                "16,32,40",
+                "20,27,34,41",
+                "25,32,39",
+                "30"
+              ]
+            }
+          },
+          "immediateP0WinningColumns": [],
+          "activeP0SingletonTargets": [
+            30
+          ],
+          "invariantCompatibleTargets": [],
+          "proofAttempts": [],
+          "provedTargets": [],
+          "resourceFailures": [],
+          "closed": false,
+          "closedBy": "NO_LEGACY_REPAIR_ROUTE"
+        }
+      ],
+      "legacyRepairClosed": false,
+      "unresolvedDefenderColumns": [
+        1,
+        3,
+        5,
+        6,
+        7
+      ]
+    },
+    {
+      "id": "SECOND_D1_C5_CONTRACTION",
+      "sequence": "444441566666232222425511515",
+      "rank": 27,
+      "support": [
+        4,
+        6,
+        1,
+        6,
+        5,
+        5,
+        0
+      ],
+      "sourceTarget": {
+        "cell": 20,
+        "column": 7,
+        "row": 3,
+        "projectedOwner": 1,
+        "supportDistance": 2
+      },
+      "sourceTargetReservoirTemplateExists": false,
+      "sourceCpcReentryPromising": true,
+      "sourceExactBridge": {
+        "pass": true,
+        "checks": {
+          "rank": true,
+          "mover": true,
+          "support": true,
+          "p0Residuals": true,
+          "p1Residuals": true
+        },
+        "js": {
+          "rank": 27,
+          "support": [
+            4,
+            6,
+            1,
+            6,
+            5,
+            5,
+            0
+          ],
+          "p0Residuals": [
+            "16,23,30,37",
+            "20",
+            "37,39,40",
+            "39,40,41",
+            "9"
+          ],
+          "p1Residuals": [
+            "13,20,27,34",
+            "20,27,34,41",
+            "28,35",
+            "30",
+            "6,13,20,27",
+            "9,16,23"
+          ]
+        },
+        "semantic": {
+          "rank": 27,
+          "support": [
+            4,
+            6,
+            1,
+            6,
+            5,
+            5,
+            0
+          ],
+          "p0Residuals": [
+            "16,23,30,37",
+            "20",
+            "37,39,40",
+            "39,40,41",
+            "9"
+          ],
+          "p1Residuals": [
+            "13,20,27,34",
+            "20,27,34,41",
+            "28,35",
+            "30",
+            "6,13,20,27",
+            "9,16,23"
+          ]
+        }
+      },
+      "defenderReplies": [
+        {
+          "defenderColumn": 1,
+          "terminal": false,
+          "childSequence": "4444415666662322224255115151",
+          "childRank": 28,
+          "childSupport": [
+            5,
+            6,
+            1,
+            6,
+            5,
+            5,
+            0
+          ],
+          "childExactBridge": {
+            "pass": true,
+            "checks": {
+              "rank": true,
+              "mover": true,
+              "support": true,
+              "p0Residuals": true,
+              "p1Residuals": true
+            },
+            "js": {
+              "rank": 28,
+              "support": [
+                5,
+                6,
+                1,
+                6,
+                5,
+                5,
+                0
+              ],
+              "p0Residuals": [
+                "16,23,30,37",
+                "20",
+                "37,39,40",
+                "39,40,41",
+                "9"
+              ],
+              "p1Residuals": [
+                "13,20,27,34",
+                "20,27,34,41",
+                "30",
+                "35",
+                "6,13,20,27",
+                "9,16,23"
+              ]
+            },
+            "semantic": {
+              "rank": 28,
+              "support": [
+                5,
+                6,
+                1,
+                6,
+                5,
+                5,
+                0
+              ],
+              "p0Residuals": [
+                "16,23,30,37",
+                "20",
+                "37,39,40",
+                "39,40,41",
+                "9"
+              ],
+              "p1Residuals": [
+                "13,20,27,34",
+                "20,27,34,41",
+                "30",
+                "35",
+                "6,13,20,27",
+                "9,16,23"
+              ]
+            }
+          },
+          "immediateP0WinningColumns": [
+            3
+          ],
+          "activeP0SingletonTargets": [
+            9,
+            20
+          ],
+          "invariantCompatibleTargets": [],
+          "proofAttempts": [],
+          "provedTargets": [],
+          "resourceFailures": [],
+          "closed": true,
+          "closedBy": "IMMEDIATE_P0_TERMINAL"
+        },
+        {
+          "defenderColumn": 3,
+          "terminal": false,
+          "childSequence": "4444415666662322224255115153",
+          "childRank": 28,
+          "childSupport": [
+            4,
+            6,
+            2,
+            6,
+            5,
+            5,
+            0
+          ],
+          "childExactBridge": {
+            "pass": true,
+            "checks": {
+              "rank": true,
+              "mover": true,
+              "support": true,
+              "p0Residuals": true,
+              "p1Residuals": true
+            },
+            "js": {
+              "rank": 28,
+              "support": [
+                4,
+                6,
+                2,
+                6,
+                5,
+                5,
+                0
+              ],
+              "p0Residuals": [
+                "16,23,30,37",
+                "20",
+                "37,39,40",
+                "39,40,41"
+              ],
+              "p1Residuals": [
+                "13,20,27,34",
+                "16,23",
+                "20,27,34,41",
+                "28,35",
+                "30",
+                "6,13,20,27"
+              ]
+            },
+            "semantic": {
+              "rank": 28,
+              "support": [
+                4,
+                6,
+                2,
+                6,
+                5,
+                5,
+                0
+              ],
+              "p0Residuals": [
+                "16,23,30,37",
+                "20",
+                "37,39,40",
+                "39,40,41"
+              ],
+              "p1Residuals": [
+                "13,20,27,34",
+                "16,23",
+                "20,27,34,41",
+                "28,35",
+                "30",
+                "6,13,20,27"
+              ]
+            }
+          },
+          "immediateP0WinningColumns": [],
+          "activeP0SingletonTargets": [
+            20
+          ],
+          "invariantCompatibleTargets": [],
+          "proofAttempts": [],
+          "provedTargets": [],
+          "resourceFailures": [],
+          "closed": false,
+          "closedBy": "NO_LEGACY_REPAIR_ROUTE"
+        },
+        {
+          "defenderColumn": 5,
+          "terminal": false,
+          "childSequence": "4444415666662322224255115155",
+          "childRank": 28,
+          "childSupport": [
+            4,
+            6,
+            1,
+            6,
+            6,
+            5,
+            0
+          ],
+          "childExactBridge": {
+            "pass": true,
+            "checks": {
+              "rank": true,
+              "mover": true,
+              "support": true,
+              "p0Residuals": true,
+              "p1Residuals": true
+            },
+            "js": {
+              "rank": 28,
+              "support": [
+                4,
+                6,
+                1,
+                6,
+                6,
+                5,
+                0
+              ],
+              "p0Residuals": [
+                "16,23,30,37",
+                "20",
+                "9"
+              ],
+              "p1Residuals": [
+                "13,20,27,34",
+                "20,27,34,41",
+                "28,35",
+                "30",
+                "6,13,20,27",
+                "9,16,23"
+              ]
+            },
+            "semantic": {
+              "rank": 28,
+              "support": [
+                4,
+                6,
+                1,
+                6,
+                6,
+                5,
+                0
+              ],
+              "p0Residuals": [
+                "16,23,30,37",
+                "20",
+                "9"
+              ],
+              "p1Residuals": [
+                "13,20,27,34",
+                "20,27,34,41",
+                "28,35",
+                "30",
+                "6,13,20,27",
+                "9,16,23"
+              ]
+            }
+          },
+          "immediateP0WinningColumns": [
+            3
+          ],
+          "activeP0SingletonTargets": [
+            9,
+            20
+          ],
+          "invariantCompatibleTargets": [],
+          "proofAttempts": [],
+          "provedTargets": [],
+          "resourceFailures": [],
+          "closed": true,
+          "closedBy": "IMMEDIATE_P0_TERMINAL"
+        },
+        {
+          "defenderColumn": 6,
+          "terminal": false,
+          "childSequence": "4444415666662322224255115156",
+          "childRank": 28,
+          "childSupport": [
+            4,
+            6,
+            1,
+            6,
+            5,
+            6,
+            0
+          ],
+          "childExactBridge": {
+            "pass": true,
+            "checks": {
+              "rank": true,
+              "mover": true,
+              "support": true,
+              "p0Residuals": true,
+              "p1Residuals": true
+            },
+            "js": {
+              "rank": 28,
+              "support": [
+                4,
+                6,
+                1,
+                6,
+                5,
+                6,
+                0
+              ],
+              "p0Residuals": [
+                "16,23,30,37",
+                "20",
+                "9"
+              ],
+              "p1Residuals": [
+                "13,20,27,34",
+                "20,27,34,41",
+                "28,35",
+                "30",
+                "6,13,20,27",
+                "9,16,23"
+              ]
+            },
+            "semantic": {
+              "rank": 28,
+              "support": [
+                4,
+                6,
+                1,
+                6,
+                5,
+                6,
+                0
+              ],
+              "p0Residuals": [
+                "16,23,30,37",
+                "20",
+                "9"
+              ],
+              "p1Residuals": [
+                "13,20,27,34",
+                "20,27,34,41",
+                "28,35",
+                "30",
+                "6,13,20,27",
+                "9,16,23"
+              ]
+            }
+          },
+          "immediateP0WinningColumns": [
+            3
+          ],
+          "activeP0SingletonTargets": [
+            9,
+            20
+          ],
+          "invariantCompatibleTargets": [],
+          "proofAttempts": [],
+          "provedTargets": [],
+          "resourceFailures": [],
+          "closed": true,
+          "closedBy": "IMMEDIATE_P0_TERMINAL"
+        },
+        {
+          "defenderColumn": 7,
+          "terminal": false,
+          "childSequence": "4444415666662322224255115157",
+          "childRank": 28,
+          "childSupport": [
+            4,
+            6,
+            1,
+            6,
+            5,
+            5,
+            1
+          ],
+          "childExactBridge": {
+            "pass": true,
+            "checks": {
+              "rank": true,
+              "mover": true,
+              "support": true,
+              "p0Residuals": true,
+              "p1Residuals": true
+            },
+            "js": {
+              "rank": 28,
+              "support": [
+                4,
+                6,
+                1,
+                6,
+                5,
+                5,
+                1
+              ],
+              "p0Residuals": [
+                "16,23,30,37",
+                "20",
+                "37,39,40",
+                "39,40,41",
+                "9"
+              ],
+              "p1Residuals": [
+                "13,20,27",
+                "20,27,34,41",
+                "28,35",
+                "30",
+                "9,16,23"
+              ]
+            },
+            "semantic": {
+              "rank": 28,
+              "support": [
+                4,
+                6,
+                1,
+                6,
+                5,
+                5,
+                1
+              ],
+              "p0Residuals": [
+                "16,23,30,37",
+                "20",
+                "37,39,40",
+                "39,40,41",
+                "9"
+              ],
+              "p1Residuals": [
+                "13,20,27",
+                "20,27,34,41",
+                "28,35",
+                "30",
+                "9,16,23"
+              ]
+            }
+          },
+          "immediateP0WinningColumns": [
+            3
+          ],
+          "activeP0SingletonTargets": [
+            9,
+            20
+          ],
+          "invariantCompatibleTargets": [
+            20
+          ],
+          "proofAttempts": [],
+          "provedTargets": [],
+          "resourceFailures": [],
+          "closed": true,
+          "closedBy": "IMMEDIATE_P0_TERMINAL"
+        }
+      ],
+      "legacyRepairClosed": false,
+      "unresolvedDefenderColumns": [
+        3
+      ]
+    },
+    {
+      "id": "SECOND_D3_C5_CONTRACTION",
+      "sequence": "444441566666232222425511535",
+      "rank": 27,
+      "support": [
+        3,
+        6,
+        2,
+        6,
+        5,
+        5,
+        0
+      ],
+      "sourceTarget": {
+        "cell": 20,
+        "column": 7,
+        "row": 3,
+        "projectedOwner": 1,
+        "supportDistance": 2
+      },
+      "sourceTargetReservoirTemplateExists": false,
+      "sourceCpcReentryPromising": false,
+      "sourceExactBridge": {
+        "pass": true,
+        "checks": {
+          "rank": true,
+          "mover": true,
+          "support": true,
+          "p0Residuals": true,
+          "p1Residuals": true
+        },
+        "js": {
+          "rank": 27,
+          "support": [
+            3,
+            6,
+            2,
+            6,
+            5,
+            5,
+            0
+          ],
+          "p0Residuals": [
+            "16,23,30,37",
+            "20",
+            "37,39,40",
+            "39,40,41"
+          ],
+          "p1Residuals": [
+            "13,20,27,34",
+            "16,23",
+            "20,27,34,41",
+            "21,28,35",
+            "30",
+            "6,13,20,27"
+          ]
+        },
+        "semantic": {
+          "rank": 27,
+          "support": [
+            3,
+            6,
+            2,
+            6,
+            5,
+            5,
+            0
+          ],
+          "p0Residuals": [
+            "16,23,30,37",
+            "20",
+            "37,39,40",
+            "39,40,41"
+          ],
+          "p1Residuals": [
+            "13,20,27,34",
+            "16,23",
+            "20,27,34,41",
+            "21,28,35",
+            "30",
+            "6,13,20,27"
+          ]
+        }
+      },
+      "defenderReplies": [
+        {
+          "defenderColumn": 1,
+          "terminal": false,
+          "childSequence": "4444415666662322224255115351",
+          "childRank": 28,
+          "childSupport": [
+            4,
+            6,
+            2,
+            6,
+            5,
+            5,
+            0
+          ],
+          "childExactBridge": {
+            "pass": true,
+            "checks": {
+              "rank": true,
+              "mover": true,
+              "support": true,
+              "p0Residuals": true,
+              "p1Residuals": true
+            },
+            "js": {
+              "rank": 28,
+              "support": [
+                4,
+                6,
+                2,
+                6,
+                5,
+                5,
+                0
+              ],
+              "p0Residuals": [
+                "16,23,30,37",
+                "20",
+                "37,39,40",
+                "39,40,41"
+              ],
+              "p1Residuals": [
+                "13,20,27,34",
+                "16,23",
+                "20,27,34,41",
+                "28,35",
+                "30",
+                "6,13,20,27"
+              ]
+            },
+            "semantic": {
+              "rank": 28,
+              "support": [
+                4,
+                6,
+                2,
+                6,
+                5,
+                5,
+                0
+              ],
+              "p0Residuals": [
+                "16,23,30,37",
+                "20",
+                "37,39,40",
+                "39,40,41"
+              ],
+              "p1Residuals": [
+                "13,20,27,34",
+                "16,23",
+                "20,27,34,41",
+                "28,35",
+                "30",
+                "6,13,20,27"
+              ]
+            }
+          },
+          "immediateP0WinningColumns": [],
+          "activeP0SingletonTargets": [
+            20
+          ],
+          "invariantCompatibleTargets": [],
+          "proofAttempts": [],
+          "provedTargets": [],
+          "resourceFailures": [],
+          "closed": false,
+          "closedBy": "NO_LEGACY_REPAIR_ROUTE"
+        },
+        {
+          "defenderColumn": 3,
+          "terminal": false,
+          "childSequence": "4444415666662322224255115353",
+          "childRank": 28,
+          "childSupport": [
+            3,
+            6,
+            3,
+            6,
+            5,
+            5,
+            0
+          ],
+          "childExactBridge": {
+            "pass": true,
+            "checks": {
+              "rank": true,
+              "mover": true,
+              "support": true,
+              "p0Residuals": true,
+              "p1Residuals": true
+            },
+            "js": {
+              "rank": 28,
+              "support": [
+                3,
+                6,
+                3,
+                6,
+                5,
+                5,
+                0
+              ],
+              "p0Residuals": [
+                "20",
+                "37,39,40",
+                "39,40,41"
+              ],
+              "p1Residuals": [
+                "13,20,27,34",
+                "20,27,34,41",
+                "21,28,35",
+                "23",
+                "30",
+                "6,13,20,27"
+              ]
+            },
+            "semantic": {
+              "rank": 28,
+              "support": [
+                3,
+                6,
+                3,
+                6,
+                5,
+                5,
+                0
+              ],
+              "p0Residuals": [
+                "20",
+                "37,39,40",
+                "39,40,41"
+              ],
+              "p1Residuals": [
+                "13,20,27,34",
+                "20,27,34,41",
+                "21,28,35",
+                "23",
+                "30",
+                "6,13,20,27"
+              ]
+            }
+          },
+          "immediateP0WinningColumns": [],
+          "activeP0SingletonTargets": [
+            20
+          ],
+          "invariantCompatibleTargets": [],
+          "proofAttempts": [],
+          "provedTargets": [],
+          "resourceFailures": [],
+          "closed": false,
+          "closedBy": "NO_LEGACY_REPAIR_ROUTE"
+        },
+        {
+          "defenderColumn": 5,
+          "terminal": false,
+          "childSequence": "4444415666662322224255115355",
+          "childRank": 28,
+          "childSupport": [
+            3,
+            6,
+            2,
+            6,
+            6,
+            5,
+            0
+          ],
+          "childExactBridge": {
+            "pass": true,
+            "checks": {
+              "rank": true,
+              "mover": true,
+              "support": true,
+              "p0Residuals": true,
+              "p1Residuals": true
+            },
+            "js": {
+              "rank": 28,
+              "support": [
+                3,
+                6,
+                2,
+                6,
+                6,
+                5,
+                0
+              ],
+              "p0Residuals": [
+                "16,23,30,37",
+                "20"
+              ],
+              "p1Residuals": [
+                "13,20,27,34",
+                "16,23",
+                "20,27,34,41",
+                "21,28,35",
+                "30",
+                "6,13,20,27"
+              ]
+            },
+            "semantic": {
+              "rank": 28,
+              "support": [
+                3,
+                6,
+                2,
+                6,
+                6,
+                5,
+                0
+              ],
+              "p0Residuals": [
+                "16,23,30,37",
+                "20"
+              ],
+              "p1Residuals": [
+                "13,20,27,34",
+                "16,23",
+                "20,27,34,41",
+                "21,28,35",
+                "30",
+                "6,13,20,27"
+              ]
+            }
+          },
+          "immediateP0WinningColumns": [],
+          "activeP0SingletonTargets": [
+            20
+          ],
+          "invariantCompatibleTargets": [],
+          "proofAttempts": [],
+          "provedTargets": [],
+          "resourceFailures": [],
+          "closed": false,
+          "closedBy": "NO_LEGACY_REPAIR_ROUTE"
+        },
+        {
+          "defenderColumn": 6,
+          "terminal": false,
+          "childSequence": "4444415666662322224255115356",
+          "childRank": 28,
+          "childSupport": [
+            3,
+            6,
+            2,
+            6,
+            5,
+            6,
+            0
+          ],
+          "childExactBridge": {
+            "pass": true,
+            "checks": {
+              "rank": true,
+              "mover": true,
+              "support": true,
+              "p0Residuals": true,
+              "p1Residuals": true
+            },
+            "js": {
+              "rank": 28,
+              "support": [
+                3,
+                6,
+                2,
+                6,
+                5,
+                6,
+                0
+              ],
+              "p0Residuals": [
+                "16,23,30,37",
+                "20"
+              ],
+              "p1Residuals": [
+                "13,20,27,34",
+                "16,23",
+                "20,27,34,41",
+                "21,28,35",
+                "30",
+                "6,13,20,27"
+              ]
+            },
+            "semantic": {
+              "rank": 28,
+              "support": [
+                3,
+                6,
+                2,
+                6,
+                5,
+                6,
+                0
+              ],
+              "p0Residuals": [
+                "16,23,30,37",
+                "20"
+              ],
+              "p1Residuals": [
+                "13,20,27,34",
+                "16,23",
+                "20,27,34,41",
+                "21,28,35",
+                "30",
+                "6,13,20,27"
+              ]
+            }
+          },
+          "immediateP0WinningColumns": [],
+          "activeP0SingletonTargets": [
+            20
+          ],
+          "invariantCompatibleTargets": [],
+          "proofAttempts": [],
+          "provedTargets": [],
+          "resourceFailures": [],
+          "closed": false,
+          "closedBy": "NO_LEGACY_REPAIR_ROUTE"
+        },
+        {
+          "defenderColumn": 7,
+          "terminal": false,
+          "childSequence": "4444415666662322224255115357",
+          "childRank": 28,
+          "childSupport": [
+            3,
+            6,
+            2,
+            6,
+            5,
+            5,
+            1
+          ],
+          "childExactBridge": {
+            "pass": true,
+            "checks": {
+              "rank": true,
+              "mover": true,
+              "support": true,
+              "p0Residuals": true,
+              "p1Residuals": true
+            },
+            "js": {
+              "rank": 28,
+              "support": [
+                3,
+                6,
+                2,
+                6,
+                5,
+                5,
+                1
+              ],
+              "p0Residuals": [
+                "16,23,30,37",
+                "20",
+                "37,39,40",
+                "39,40,41"
+              ],
+              "p1Residuals": [
+                "13,20,27",
+                "16,23",
+                "20,27,34,41",
+                "21,28,35",
+                "30"
+              ]
+            },
+            "semantic": {
+              "rank": 28,
+              "support": [
+                3,
+                6,
+                2,
+                6,
+                5,
+                5,
+                1
+              ],
+              "p0Residuals": [
+                "16,23,30,37",
+                "20",
+                "37,39,40",
+                "39,40,41"
+              ],
+              "p1Residuals": [
+                "13,20,27",
+                "16,23",
+                "20,27,34,41",
+                "21,28,35",
+                "30"
+              ]
+            }
+          },
+          "immediateP0WinningColumns": [],
+          "activeP0SingletonTargets": [
+            20
+          ],
+          "invariantCompatibleTargets": [
+            20
+          ],
+          "proofAttempts": [
+            {
+              "targetCell": 20,
+              "targetColumn": 7,
+              "targetRow": 3,
+              "completed": true,
+              "proved": false,
+              "proofKind": "no_repair_predecessor",
+              "witness": null,
+              "witnessKind": null,
+              "mu": 5,
+              "winningActions": [],
+              "rejected": [
+                {
+                  "action": "A",
+                  "reply": "A",
+                  "replyCell": "A5",
+                  "reason": "no_repair_predecessor",
+                  "childMu": 3
+                },
+                {
+                  "action": "E",
+                  "reply": "A",
+                  "replyCell": "A4",
+                  "reason": "no_repair_predecessor",
+                  "childMu": 3
+                },
+                {
+                  "action": "F",
+                  "reply": "A",
+                  "replyCell": "A4",
+                  "reason": "no_repair_predecessor",
+                  "childMu": 3
+                }
+              ],
+              "exactCertificateKey": "rank=28|turn=0|h=3,6,2,6,5,5,1|r0=00000000:000001a0;00000000:00000380;00100000:00000000;40810000:00000020|r1=00810000:00000000;08100000:00000204;08102000:00000000;10200000:00000008;40000000:00000000|target=20",
+              "stats": {
+                "proofStates": 9,
+                "candidateActionsChecked": 15,
+                "p1BranchesChecked": 15,
+                "maxDepth": 3,
+                "memoEntries": 9,
+                "certifiedStateTargetPairs": 0
+              },
+              "error": null
+            }
+          ],
+          "provedTargets": [],
+          "resourceFailures": [],
+          "closed": false,
+          "closedBy": "NO_LEGACY_REPAIR_ROUTE"
+        }
+      ],
+      "legacyRepairClosed": false,
+      "unresolvedDefenderColumns": [
+        1,
+        3,
+        5,
+        6,
+        7
+      ]
+    },
+    {
+      "id": "SECOND_D6_C5_CONTRACTION",
+      "sequence": "444441566666232222425511565",
+      "rank": 27,
+      "support": [
+        3,
+        6,
+        1,
+        6,
+        5,
+        6,
+        0
+      ],
+      "sourceTarget": {
+        "cell": 20,
+        "column": 7,
+        "row": 3,
+        "projectedOwner": 1,
+        "supportDistance": 2
+      },
+      "sourceTargetReservoirTemplateExists": false,
+      "sourceCpcReentryPromising": true,
+      "sourceExactBridge": {
+        "pass": true,
+        "checks": {
+          "rank": true,
+          "mover": true,
+          "support": true,
+          "p0Residuals": true,
+          "p1Residuals": true
+        },
+        "js": {
+          "rank": 27,
+          "support": [
+            3,
+            6,
+            1,
+            6,
+            5,
+            6,
+            0
+          ],
+          "p0Residuals": [
+            "16,23,30,37",
+            "20",
+            "9"
+          ],
+          "p1Residuals": [
+            "13,20,27,34",
+            "20,27,34,41",
+            "21,28,35",
+            "30",
+            "6,13,20,27",
+            "9,16,23"
+          ]
+        },
+        "semantic": {
+          "rank": 27,
+          "support": [
+            3,
+            6,
+            1,
+            6,
+            5,
+            6,
+            0
+          ],
+          "p0Residuals": [
+            "16,23,30,37",
+            "20",
+            "9"
+          ],
+          "p1Residuals": [
+            "13,20,27,34",
+            "20,27,34,41",
+            "21,28,35",
+            "30",
+            "6,13,20,27",
+            "9,16,23"
+          ]
+        }
+      },
+      "defenderReplies": [
+        {
+          "defenderColumn": 1,
+          "terminal": false,
+          "childSequence": "4444415666662322224255115651",
+          "childRank": 28,
+          "childSupport": [
+            4,
+            6,
+            1,
+            6,
+            5,
+            6,
+            0
+          ],
+          "childExactBridge": {
+            "pass": true,
+            "checks": {
+              "rank": true,
+              "mover": true,
+              "support": true,
+              "p0Residuals": true,
+              "p1Residuals": true
+            },
+            "js": {
+              "rank": 28,
+              "support": [
+                4,
+                6,
+                1,
+                6,
+                5,
+                6,
+                0
+              ],
+              "p0Residuals": [
+                "16,23,30,37",
+                "20",
+                "9"
+              ],
+              "p1Residuals": [
+                "13,20,27,34",
+                "20,27,34,41",
+                "28,35",
+                "30",
+                "6,13,20,27",
+                "9,16,23"
+              ]
+            },
+            "semantic": {
+              "rank": 28,
+              "support": [
+                4,
+                6,
+                1,
+                6,
+                5,
+                6,
+                0
+              ],
+              "p0Residuals": [
+                "16,23,30,37",
+                "20",
+                "9"
+              ],
+              "p1Residuals": [
+                "13,20,27,34",
+                "20,27,34,41",
+                "28,35",
+                "30",
+                "6,13,20,27",
+                "9,16,23"
+              ]
+            }
+          },
+          "immediateP0WinningColumns": [
+            3
+          ],
+          "activeP0SingletonTargets": [
+            9,
+            20
+          ],
+          "invariantCompatibleTargets": [],
+          "proofAttempts": [],
+          "provedTargets": [],
+          "resourceFailures": [],
+          "closed": true,
+          "closedBy": "IMMEDIATE_P0_TERMINAL"
+        },
+        {
+          "defenderColumn": 3,
+          "terminal": false,
+          "childSequence": "4444415666662322224255115653",
+          "childRank": 28,
+          "childSupport": [
+            3,
+            6,
+            2,
+            6,
+            5,
+            6,
+            0
+          ],
+          "childExactBridge": {
+            "pass": true,
+            "checks": {
+              "rank": true,
+              "mover": true,
+              "support": true,
+              "p0Residuals": true,
+              "p1Residuals": true
+            },
+            "js": {
+              "rank": 28,
+              "support": [
+                3,
+                6,
+                2,
+                6,
+                5,
+                6,
+                0
+              ],
+              "p0Residuals": [
+                "16,23,30,37",
+                "20"
+              ],
+              "p1Residuals": [
+                "13,20,27,34",
+                "16,23",
+                "20,27,34,41",
+                "21,28,35",
+                "30",
+                "6,13,20,27"
+              ]
+            },
+            "semantic": {
+              "rank": 28,
+              "support": [
+                3,
+                6,
+                2,
+                6,
+                5,
+                6,
+                0
+              ],
+              "p0Residuals": [
+                "16,23,30,37",
+                "20"
+              ],
+              "p1Residuals": [
+                "13,20,27,34",
+                "16,23",
+                "20,27,34,41",
+                "21,28,35",
+                "30",
+                "6,13,20,27"
+              ]
+            }
+          },
+          "immediateP0WinningColumns": [],
+          "activeP0SingletonTargets": [
+            20
+          ],
+          "invariantCompatibleTargets": [],
+          "proofAttempts": [],
+          "provedTargets": [],
+          "resourceFailures": [],
+          "closed": false,
+          "closedBy": "NO_LEGACY_REPAIR_ROUTE"
+        },
+        {
+          "defenderColumn": 5,
+          "terminal": false,
+          "childSequence": "4444415666662322224255115655",
+          "childRank": 28,
+          "childSupport": [
+            3,
+            6,
+            1,
+            6,
+            6,
+            6,
+            0
+          ],
+          "childExactBridge": {
+            "pass": true,
+            "checks": {
+              "rank": true,
+              "mover": true,
+              "support": true,
+              "p0Residuals": true,
+              "p1Residuals": true
+            },
+            "js": {
+              "rank": 28,
+              "support": [
+                3,
+                6,
+                1,
+                6,
+                6,
+                6,
+                0
+              ],
+              "p0Residuals": [
+                "16,23,30,37",
+                "20",
+                "9"
+              ],
+              "p1Residuals": [
+                "13,20,27,34",
+                "20,27,34,41",
+                "21,28,35",
+                "30",
+                "6,13,20,27",
+                "9,16,23"
+              ]
+            },
+            "semantic": {
+              "rank": 28,
+              "support": [
+                3,
+                6,
+                1,
+                6,
+                6,
+                6,
+                0
+              ],
+              "p0Residuals": [
+                "16,23,30,37",
+                "20",
+                "9"
+              ],
+              "p1Residuals": [
+                "13,20,27,34",
+                "20,27,34,41",
+                "21,28,35",
+                "30",
+                "6,13,20,27",
+                "9,16,23"
+              ]
+            }
+          },
+          "immediateP0WinningColumns": [
+            3
+          ],
+          "activeP0SingletonTargets": [
+            9,
+            20
+          ],
+          "invariantCompatibleTargets": [],
+          "proofAttempts": [],
+          "provedTargets": [],
+          "resourceFailures": [],
+          "closed": true,
+          "closedBy": "IMMEDIATE_P0_TERMINAL"
+        },
+        {
+          "defenderColumn": 7,
+          "terminal": false,
+          "childSequence": "4444415666662322224255115657",
+          "childRank": 28,
+          "childSupport": [
+            3,
+            6,
+            1,
+            6,
+            5,
+            6,
+            1
+          ],
+          "childExactBridge": {
+            "pass": true,
+            "checks": {
+              "rank": true,
+              "mover": true,
+              "support": true,
+              "p0Residuals": true,
+              "p1Residuals": true
+            },
+            "js": {
+              "rank": 28,
+              "support": [
+                3,
+                6,
+                1,
+                6,
+                5,
+                6,
+                1
+              ],
+              "p0Residuals": [
+                "16,23,30,37",
+                "20",
+                "9"
+              ],
+              "p1Residuals": [
+                "13,20,27",
+                "20,27,34,41",
+                "21,28,35",
+                "30",
+                "9,16,23"
+              ]
+            },
+            "semantic": {
+              "rank": 28,
+              "support": [
+                3,
+                6,
+                1,
+                6,
+                5,
+                6,
+                1
+              ],
+              "p0Residuals": [
+                "16,23,30,37",
+                "20",
+                "9"
+              ],
+              "p1Residuals": [
+                "13,20,27",
+                "20,27,34,41",
+                "21,28,35",
+                "30",
+                "9,16,23"
+              ]
+            }
+          },
+          "immediateP0WinningColumns": [
+            3
+          ],
+          "activeP0SingletonTargets": [
+            9,
+            20
+          ],
+          "invariantCompatibleTargets": [
+            20
+          ],
+          "proofAttempts": [],
+          "provedTargets": [],
+          "resourceFailures": [],
+          "closed": true,
+          "closedBy": "IMMEDIATE_P0_TERMINAL"
+        }
+      ],
+      "legacyRepairClosed": false,
+      "unresolvedDefenderColumns": [
+        3
+      ]
+    },
+    {
+      "id": "SECOND_D7_C5_CONTRACTION",
+      "sequence": "444441566666232222425511575",
+      "rank": 27,
+      "support": [
+        3,
+        6,
+        1,
+        6,
+        5,
+        5,
+        1
+      ],
+      "sourceTarget": {
+        "cell": 20,
+        "column": 7,
+        "row": 3,
+        "projectedOwner": 1,
+        "supportDistance": 1
+      },
+      "sourceTargetReservoirTemplateExists": false,
+      "sourceCpcReentryPromising": true,
+      "sourceExactBridge": {
+        "pass": true,
+        "checks": {
+          "rank": true,
+          "mover": true,
+          "support": true,
+          "p0Residuals": true,
+          "p1Residuals": true
+        },
+        "js": {
+          "rank": 27,
+          "support": [
+            3,
+            6,
+            1,
+            6,
+            5,
+            5,
+            1
+          ],
+          "p0Residuals": [
+            "16,23,30,37",
+            "20",
+            "37,39,40",
+            "39,40,41",
+            "9"
+          ],
+          "p1Residuals": [
+            "13,20,27",
+            "20,27,34,41",
+            "21,28,35",
+            "30",
+            "9,16,23"
+          ]
+        },
+        "semantic": {
+          "rank": 27,
+          "support": [
+            3,
+            6,
+            1,
+            6,
+            5,
+            5,
+            1
+          ],
+          "p0Residuals": [
+            "16,23,30,37",
+            "20",
+            "37,39,40",
+            "39,40,41",
+            "9"
+          ],
+          "p1Residuals": [
+            "13,20,27",
+            "20,27,34,41",
+            "21,28,35",
+            "30",
+            "9,16,23"
+          ]
+        }
+      },
+      "defenderReplies": [
+        {
+          "defenderColumn": 1,
+          "terminal": false,
+          "childSequence": "4444415666662322224255115751",
+          "childRank": 28,
+          "childSupport": [
+            4,
+            6,
+            1,
+            6,
+            5,
+            5,
+            1
+          ],
+          "childExactBridge": {
+            "pass": true,
+            "checks": {
+              "rank": true,
+              "mover": true,
+              "support": true,
+              "p0Residuals": true,
+              "p1Residuals": true
+            },
+            "js": {
+              "rank": 28,
+              "support": [
+                4,
+                6,
+                1,
+                6,
+                5,
+                5,
+                1
+              ],
+              "p0Residuals": [
+                "16,23,30,37",
+                "20",
+                "37,39,40",
+                "39,40,41",
+                "9"
+              ],
+              "p1Residuals": [
+                "13,20,27",
+                "20,27,34,41",
+                "28,35",
+                "30",
+                "9,16,23"
+              ]
+            },
+            "semantic": {
+              "rank": 28,
+              "support": [
+                4,
+                6,
+                1,
+                6,
+                5,
+                5,
+                1
+              ],
+              "p0Residuals": [
+                "16,23,30,37",
+                "20",
+                "37,39,40",
+                "39,40,41",
+                "9"
+              ],
+              "p1Residuals": [
+                "13,20,27",
+                "20,27,34,41",
+                "28,35",
+                "30",
+                "9,16,23"
+              ]
+            }
+          },
+          "immediateP0WinningColumns": [
+            3
+          ],
+          "activeP0SingletonTargets": [
+            9,
+            20
+          ],
+          "invariantCompatibleTargets": [
+            20
+          ],
+          "proofAttempts": [],
+          "provedTargets": [],
+          "resourceFailures": [],
+          "closed": true,
+          "closedBy": "IMMEDIATE_P0_TERMINAL"
+        },
+        {
+          "defenderColumn": 3,
+          "terminal": false,
+          "childSequence": "4444415666662322224255115753",
+          "childRank": 28,
+          "childSupport": [
+            3,
+            6,
+            2,
+            6,
+            5,
+            5,
+            1
+          ],
+          "childExactBridge": {
+            "pass": true,
+            "checks": {
+              "rank": true,
+              "mover": true,
+              "support": true,
+              "p0Residuals": true,
+              "p1Residuals": true
+            },
+            "js": {
+              "rank": 28,
+              "support": [
+                3,
+                6,
+                2,
+                6,
+                5,
+                5,
+                1
+              ],
+              "p0Residuals": [
+                "16,23,30,37",
+                "20",
+                "37,39,40",
+                "39,40,41"
+              ],
+              "p1Residuals": [
+                "13,20,27",
+                "16,23",
+                "20,27,34,41",
+                "21,28,35",
+                "30"
+              ]
+            },
+            "semantic": {
+              "rank": 28,
+              "support": [
+                3,
+                6,
+                2,
+                6,
+                5,
+                5,
+                1
+              ],
+              "p0Residuals": [
+                "16,23,30,37",
+                "20",
+                "37,39,40",
+                "39,40,41"
+              ],
+              "p1Residuals": [
+                "13,20,27",
+                "16,23",
+                "20,27,34,41",
+                "21,28,35",
+                "30"
+              ]
+            }
+          },
+          "immediateP0WinningColumns": [],
+          "activeP0SingletonTargets": [
+            20
+          ],
+          "invariantCompatibleTargets": [
+            20
+          ],
+          "proofAttempts": [
+            {
+              "targetCell": 20,
+              "targetColumn": 7,
+              "targetRow": 3,
+              "completed": true,
+              "proved": false,
+              "proofKind": "no_repair_predecessor",
+              "witness": null,
+              "witnessKind": null,
+              "mu": 5,
+              "winningActions": [],
+              "rejected": [
+                {
+                  "action": "A",
+                  "reply": "A",
+                  "replyCell": "A5",
+                  "reason": "no_repair_predecessor",
+                  "childMu": 3
+                },
+                {
+                  "action": "E",
+                  "reply": "A",
+                  "replyCell": "A4",
+                  "reason": "no_repair_predecessor",
+                  "childMu": 3
+                },
+                {
+                  "action": "F",
+                  "reply": "A",
+                  "replyCell": "A4",
+                  "reason": "no_repair_predecessor",
+                  "childMu": 3
+                }
+              ],
+              "exactCertificateKey": "rank=28|turn=0|h=3,6,2,6,5,5,1|r0=00000000:000001a0;00000000:00000380;00100000:00000000;40810000:00000020|r1=00810000:00000000;08100000:00000204;08102000:00000000;10200000:00000008;40000000:00000000|target=20",
+              "stats": {
+                "proofStates": 9,
+                "candidateActionsChecked": 15,
+                "p1BranchesChecked": 15,
+                "maxDepth": 3,
+                "memoEntries": 9,
+                "certifiedStateTargetPairs": 0
+              },
+              "error": null
+            }
+          ],
+          "provedTargets": [],
+          "resourceFailures": [],
+          "closed": false,
+          "closedBy": "NO_LEGACY_REPAIR_ROUTE"
+        },
+        {
+          "defenderColumn": 5,
+          "terminal": false,
+          "childSequence": "4444415666662322224255115755",
+          "childRank": 28,
+          "childSupport": [
+            3,
+            6,
+            1,
+            6,
+            6,
+            5,
+            1
+          ],
+          "childExactBridge": {
+            "pass": true,
+            "checks": {
+              "rank": true,
+              "mover": true,
+              "support": true,
+              "p0Residuals": true,
+              "p1Residuals": true
+            },
+            "js": {
+              "rank": 28,
+              "support": [
+                3,
+                6,
+                1,
+                6,
+                6,
+                5,
+                1
+              ],
+              "p0Residuals": [
+                "16,23,30,37",
+                "20",
+                "9"
+              ],
+              "p1Residuals": [
+                "13,20,27",
+                "20,27,34,41",
+                "21,28,35",
+                "30",
+                "9,16,23"
+              ]
+            },
+            "semantic": {
+              "rank": 28,
+              "support": [
+                3,
+                6,
+                1,
+                6,
+                6,
+                5,
+                1
+              ],
+              "p0Residuals": [
+                "16,23,30,37",
+                "20",
+                "9"
+              ],
+              "p1Residuals": [
+                "13,20,27",
+                "20,27,34,41",
+                "21,28,35",
+                "30",
+                "9,16,23"
+              ]
+            }
+          },
+          "immediateP0WinningColumns": [
+            3
+          ],
+          "activeP0SingletonTargets": [
+            9,
+            20
+          ],
+          "invariantCompatibleTargets": [
+            20
+          ],
+          "proofAttempts": [],
+          "provedTargets": [],
+          "resourceFailures": [],
+          "closed": true,
+          "closedBy": "IMMEDIATE_P0_TERMINAL"
+        },
+        {
+          "defenderColumn": 6,
+          "terminal": false,
+          "childSequence": "4444415666662322224255115756",
+          "childRank": 28,
+          "childSupport": [
+            3,
+            6,
+            1,
+            6,
+            5,
+            6,
+            1
+          ],
+          "childExactBridge": {
+            "pass": true,
+            "checks": {
+              "rank": true,
+              "mover": true,
+              "support": true,
+              "p0Residuals": true,
+              "p1Residuals": true
+            },
+            "js": {
+              "rank": 28,
+              "support": [
+                3,
+                6,
+                1,
+                6,
+                5,
+                6,
+                1
+              ],
+              "p0Residuals": [
+                "16,23,30,37",
+                "20",
+                "9"
+              ],
+              "p1Residuals": [
+                "13,20,27",
+                "20,27,34,41",
+                "21,28,35",
+                "30",
+                "9,16,23"
+              ]
+            },
+            "semantic": {
+              "rank": 28,
+              "support": [
+                3,
+                6,
+                1,
+                6,
+                5,
+                6,
+                1
+              ],
+              "p0Residuals": [
+                "16,23,30,37",
+                "20",
+                "9"
+              ],
+              "p1Residuals": [
+                "13,20,27",
+                "20,27,34,41",
+                "21,28,35",
+                "30",
+                "9,16,23"
+              ]
+            }
+          },
+          "immediateP0WinningColumns": [
+            3
+          ],
+          "activeP0SingletonTargets": [
+            9,
+            20
+          ],
+          "invariantCompatibleTargets": [
+            20
+          ],
+          "proofAttempts": [],
+          "provedTargets": [],
+          "resourceFailures": [],
+          "closed": true,
+          "closedBy": "IMMEDIATE_P0_TERMINAL"
+        },
+        {
+          "defenderColumn": 7,
+          "terminal": false,
+          "childSequence": "4444415666662322224255115757",
+          "childRank": 28,
+          "childSupport": [
+            3,
+            6,
+            1,
+            6,
+            5,
+            5,
+            2
+          ],
+          "childExactBridge": {
+            "pass": true,
+            "checks": {
+              "rank": true,
+              "mover": true,
+              "support": true,
+              "p0Residuals": true,
+              "p1Residuals": true
+            },
+            "js": {
+              "rank": 28,
+              "support": [
+                3,
+                6,
+                1,
+                6,
+                5,
+                5,
+                2
+              ],
+              "p0Residuals": [
+                "16,23,30,37",
+                "20",
+                "37,39,40",
+                "39,40,41",
+                "9"
+              ],
+              "p1Residuals": [
+                "20,27",
+                "21,28,35",
+                "30",
+                "9,16,23"
+              ]
+            },
+            "semantic": {
+              "rank": 28,
+              "support": [
+                3,
+                6,
+                1,
+                6,
+                5,
+                5,
+                2
+              ],
+              "p0Residuals": [
+                "16,23,30,37",
+                "20",
+                "37,39,40",
+                "39,40,41",
+                "9"
+              ],
+              "p1Residuals": [
+                "20,27",
+                "21,28,35",
+                "30",
+                "9,16,23"
+              ]
+            }
+          },
+          "immediateP0WinningColumns": [
+            3,
+            7
+          ],
+          "activeP0SingletonTargets": [
+            9,
+            20
+          ],
+          "invariantCompatibleTargets": [],
+          "proofAttempts": [],
+          "provedTargets": [],
+          "resourceFailures": [],
+          "closed": true,
+          "closedBy": "IMMEDIATE_P0_TERMINAL"
+        }
+      ],
+      "legacyRepairClosed": false,
+      "unresolvedDefenderColumns": [
+        3
+      ]
+    }
+  ],
+  "summary": {
+    "sourceStateCount": 5,
+    "exactBridgePassCount": 5,
+    "legacyRepairClosedCount": 0,
+    "legacyRepairClosedIds": [],
+    "newlyRecoveredByLegacyRepairIds": [],
+    "proofAttemptCount": 3,
+    "provedTargetCount": 0,
+    "logicalRepairRejectionCount": 3,
+    "resourceFailureCount": 0
+  },
+  "conclusion": [
+    "This probe queries the older adaptive repair-capacity certificate family before treating the live post-contraction RCIC states as new obstructions.",
+    "Every admitted route requires exact support plus complete normalized P0/P1 residual-antichain equality between JSMinSys RBA and the older semantic-quotient kernel; support equality alone is never used.",
+    "A LEGACY_REPAIR_CAPACITY closure reuses the already-qualified decreasing-mu repair theorem and is not ordinary free-branch minimax.",
+    "Any source state closed here but rejected by deterministic target-reservoir routing is direct evidence of an incomplete unified proof-routing catalog.",
+    "Logical rejection and resource exhaustion are reported separately."
+  ],
+  "boundary": [
+    "This is research-side integration evidence only and does not by itself certify the rank-20 root.",
+    "No oracle, Pons score, solved W/D/L, minimax, ordinary free-branch game-tree value, best-move table, opening book, BSFP solved frontier, physical-position identity shortcut, or sealed holdout is used.",
+    "Production CPC, JSMinSys, target-reservoir semantics, and BSFP remain unchanged.",
+    "An exact legacy closure is a proof route for that exact state; broader class reuse still requires a sound adapter/congruence theorem."
+  ]
+}
