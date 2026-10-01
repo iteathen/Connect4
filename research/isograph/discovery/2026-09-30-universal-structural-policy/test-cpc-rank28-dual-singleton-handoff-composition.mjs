@@ -1,0 +1,30 @@
+import assert from 'node:assert/strict';
+import {execFileSync} from 'node:child_process';
+import {fileURLToPath} from 'node:url';
+import {dirname,resolve} from 'node:path';
+
+const library=process.argv[2];
+assert(library);
+const dir=dirname(fileURLToPath(import.meta.url));
+const runner=resolve(dir,'run-cpc-rank28-dual-singleton-handoff-composition.mjs');
+const raw=execFileSync(process.execPath,[runner,library],{encoding:'utf8',maxBuffer:32*1024*1024});
+const r=JSON.parse(raw);
+
+assert.equal(r.schema,'connect4.cpc_rank28_dual_singleton_handoff_composition.v1');
+assert.equal(r.jsMinSysSha,'bf23d3a67652cd42e1975f29c7dc4eed54f7eb42');
+assert.equal(r.oracleUsed,false);
+assert.equal(r.solvedInputsUsed,false);
+assert.equal(r.parent.rank,28);
+assert.deepEqual(r.parent.support,[3,6,3,6,1,6,3]);
+assert.equal(r.move.column,1);
+assert.equal(r.move.terminal,0);
+assert.equal(r.move.c1r5Singleton,true);
+assert.equal(r.move.c3r5Singleton,true);
+assert.equal(r.forcedReply.nativeCpcForcesC1,true);
+assert.equal(r.forcedReply.literalOnlyC1,true);
+assert.equal(r.forcedReply.terminal,0);
+assert.deepEqual(r.forcedReply.childSupport,[5,6,3,6,1,6,3]);
+assert.equal(r.forcedReply.exactChildMatchesQualifiedRank30Root,true);
+assert.equal(r.premise.accept,true);
+assert.equal(r.accept,true);
+console.log(JSON.stringify({pass:true,accept:r.accept,parent:r.parent,forcedReply:r.forcedReply,conclusion:r.conclusion}));
