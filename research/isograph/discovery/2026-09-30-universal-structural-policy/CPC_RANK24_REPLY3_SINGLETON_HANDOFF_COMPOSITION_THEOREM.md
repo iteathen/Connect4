@@ -2,7 +2,7 @@
 
 **Date:** 2026-10-01  
 **Version:** 0.1 frozen before execution  
-**Status:** exact W/L composition candidate; qualification pending  
+**Status:** qualified exact W/L composition theorem  
 **Branch:** `research/universal-structural-policy-20260930`
 
 ## Purpose
@@ -64,6 +64,21 @@ Qualification must:
 - independently enumerate every legal Player-2 reply after P1:c3;
 - freshly execute the existing height-1 c5 compression and target-reservoir proof on the exact post-c1 state;
 - record `oracleUsed: false` and `solvedInputsUsed: false`.
+
+## Qualification result
+
+Qualified on 2026-10-01 by `CPC_RANK24_REPLY3_SINGLETON_HANDOFF_COMPOSITION_0_1.json` at pinned JSMinSys authority `bf23d3a67652cd42e1975f29c7dc4eed54f7eb42`, with `oracleUsed: false` and `solvedInputsUsed: false`.
+
+The frozen composition passed:
+
+- P1:c3 created the active singleton c1r3;
+- production CPC restricted Player 2 to c1 in both baseline and frontier modes;
+- exact literal cofactors independently showed c1 was the only reply avoiding an immediate P1:c1 terminal;
+- P2:c1 was nonterminal;
+- the post-handoff rank-26 state retained the aligned `{c5r5,c7r3}` pair with c5 at height 1;
+- the existing height-1 c5 compression and truncated target-reservoir certificate accepted the exact post-handoff state.
+
+Qualification workflow: GitHub Actions run `36885769173`, successful. Durable evidence commit: `8af6df024f570c914e83b0339df1990c22c9fdd6`.
 
 ## Falsifiers
 
