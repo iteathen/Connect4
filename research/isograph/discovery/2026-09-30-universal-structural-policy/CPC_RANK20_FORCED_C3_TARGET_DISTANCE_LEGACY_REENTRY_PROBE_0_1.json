@@ -1,0 +1,742 @@
+{
+  "schema": "connect4.cpc_rank20_forced_c3_target_distance_legacy_reentry_probe.v1",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "ordinaryFreeBranchGameTreeUsed": false,
+  "productionCpcModified": false,
+  "jsMinSysModified": false,
+  "bsfpModified": false,
+  "design": "CPC_RANK20_FORCED_C3_TARGET_DISTANCE_LEGACY_REENTRY_PROBE_DESIGN_0_1.md",
+  "sourceEvidence": {
+    "postContraction": "CPC_RANK20_C5_REPLY5_POST_CONTRACTION_CPC_REENTRY_DIAGNOSTIC_0_1.json",
+    "legacyRepairAudit": "CPC_RANK20_LEGACY_REPAIR_ROUTE_REENTRY_PROBE_0_1.json"
+  },
+  "proofEngine": {
+    "kind": "standard7x6-target-distance-lexicographic-proof",
+    "path": "research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-target-distance-lexicographic-proof-lib.mjs",
+    "maxProofStates": 100000,
+    "maxTargetDistance": 2
+  },
+  "states": [
+    {
+      "id": "SECOND_D1_C5_CONTRACTION",
+      "sourceSequence": "444441566666232222425511515",
+      "sourceRank": 27,
+      "sourceSupport": [
+        4,
+        6,
+        1,
+        6,
+        5,
+        5,
+        0
+      ],
+      "sourceCpc": {
+        "baseline": {
+          "kind": "CPC_RESTRICT",
+          "interval": [
+            -1,
+            1
+          ],
+          "forcedColumn": 3,
+          "preemptionCount": 1,
+          "preemptionMask32": 4
+        },
+        "frontier": {
+          "kind": "CPC_RESTRICT",
+          "interval": [
+            -1,
+            1
+          ],
+          "forcedColumn": 3,
+          "preemptionCount": 1,
+          "preemptionMask32": 4
+        }
+      },
+      "sourceCpcForcedColumn": 3,
+      "defenderBranches": [
+        {
+          "defenderColumn": 1,
+          "terminal": 0,
+          "immediateP0WinningColumns": [
+            3
+          ]
+        },
+        {
+          "defenderColumn": 3,
+          "terminal": 0,
+          "immediateP0WinningColumns": []
+        },
+        {
+          "defenderColumn": 5,
+          "terminal": 0,
+          "immediateP0WinningColumns": [
+            3
+          ]
+        },
+        {
+          "defenderColumn": 6,
+          "terminal": 0,
+          "immediateP0WinningColumns": [
+            3
+          ]
+        },
+        {
+          "defenderColumn": 7,
+          "terminal": 0,
+          "immediateP0WinningColumns": [
+            3
+          ]
+        }
+      ],
+      "allNonC3DefenderRepliesImmediateP0Terminal": true,
+      "childSequence": "4444415666662322224255115153",
+      "childRank": 28,
+      "childSupport": [
+        4,
+        6,
+        2,
+        6,
+        5,
+        5,
+        0
+      ],
+      "childExactBridge": {
+        "pass": true,
+        "checks": {
+          "rank": true,
+          "mover": true,
+          "support": true,
+          "p0Residuals": true,
+          "p1Residuals": true
+        },
+        "js": {
+          "rank": 28,
+          "support": [
+            4,
+            6,
+            2,
+            6,
+            5,
+            5,
+            0
+          ],
+          "p0Residuals": [
+            "16,23,30,37",
+            "20",
+            "37,39,40",
+            "39,40,41"
+          ],
+          "p1Residuals": [
+            "13,20,27,34",
+            "16,23",
+            "20,27,34,41",
+            "28,35",
+            "30",
+            "6,13,20,27"
+          ]
+        },
+        "semantic": {
+          "rank": 28,
+          "support": [
+            4,
+            6,
+            2,
+            6,
+            5,
+            5,
+            0
+          ],
+          "p0Residuals": [
+            "16,23,30,37",
+            "20",
+            "37,39,40",
+            "39,40,41"
+          ],
+          "p1Residuals": [
+            "13,20,27,34",
+            "16,23",
+            "20,27,34,41",
+            "28,35",
+            "30",
+            "6,13,20,27"
+          ]
+        }
+      },
+      "target": {
+        "cell": 20,
+        "column": 7,
+        "row": 3
+      },
+      "targetDistance": 2,
+      "proofCompleted": true,
+      "proved": false,
+      "proofKind": "no_target_distance_predecessor",
+      "witness": null,
+      "witnessKind": null,
+      "measure": {
+        "distance": 2,
+        "delta": 4,
+        "mu": 4
+      },
+      "obligations": [],
+      "rejected": [
+        {
+          "action": "G",
+          "reply": "A",
+          "replyCell": "A5",
+          "reason": "no_lex_predecessor",
+          "childMeasure": {
+            "distance": 1,
+            "delta": 4,
+            "mu": 3
+          }
+        },
+        {
+          "action": "A",
+          "reply": "A",
+          "replyCell": "A6",
+          "reason": "no_target_distance_predecessor",
+          "childMeasure": {
+            "distance": 2,
+            "delta": 4,
+            "mu": 2
+          }
+        },
+        {
+          "action": "E",
+          "reply": "A",
+          "replyCell": "A5",
+          "reason": "no_target_distance_predecessor",
+          "childMeasure": {
+            "distance": 2,
+            "delta": 4,
+            "mu": 2
+          }
+        },
+        {
+          "action": "F",
+          "reply": "A",
+          "replyCell": "A5",
+          "reason": "no_target_distance_predecessor",
+          "childMeasure": {
+            "distance": 2,
+            "delta": 4,
+            "mu": 2
+          }
+        },
+        {
+          "action": "C",
+          "reply": "A",
+          "replyCell": "A5",
+          "reason": "no_target_distance_predecessor",
+          "childMeasure": {
+            "distance": 2,
+            "delta": 3,
+            "mu": 3
+          }
+        }
+      ],
+      "resourceFailure": null,
+      "stats": {
+        "distance2ProofStates": 48,
+        "targetDistanceProofStates": 48,
+        "lexProofStates": 93,
+        "combinedProofStates": 141,
+        "actionsChecked": 72,
+        "p1BranchesChecked": 238,
+        "maxDepth": 4,
+        "targetSupportWitnesses": 11,
+        "repairWitnesses": 2,
+        "resolvedWitnesses": 8,
+        "forcedWitnesses": 10,
+        "capacityDefects": 4,
+        "memoEntries": 48,
+        "maxProofStates": 100000,
+        "maxTargetDistance": 2,
+        "rootActions": null
+      },
+      "enclosingStateClosed": false,
+      "composition": null
+    },
+    {
+      "id": "SECOND_D6_C5_CONTRACTION",
+      "sourceSequence": "444441566666232222425511565",
+      "sourceRank": 27,
+      "sourceSupport": [
+        3,
+        6,
+        1,
+        6,
+        5,
+        6,
+        0
+      ],
+      "sourceCpc": {
+        "baseline": {
+          "kind": "CPC_RESTRICT",
+          "interval": [
+            -1,
+            1
+          ],
+          "forcedColumn": 3,
+          "preemptionCount": 1,
+          "preemptionMask32": 4
+        },
+        "frontier": {
+          "kind": "CPC_RESTRICT",
+          "interval": [
+            -1,
+            1
+          ],
+          "forcedColumn": 3,
+          "preemptionCount": 1,
+          "preemptionMask32": 4
+        }
+      },
+      "sourceCpcForcedColumn": 3,
+      "defenderBranches": [
+        {
+          "defenderColumn": 1,
+          "terminal": 0,
+          "immediateP0WinningColumns": [
+            3
+          ]
+        },
+        {
+          "defenderColumn": 3,
+          "terminal": 0,
+          "immediateP0WinningColumns": []
+        },
+        {
+          "defenderColumn": 5,
+          "terminal": 0,
+          "immediateP0WinningColumns": [
+            3
+          ]
+        },
+        {
+          "defenderColumn": 7,
+          "terminal": 0,
+          "immediateP0WinningColumns": [
+            3
+          ]
+        }
+      ],
+      "allNonC3DefenderRepliesImmediateP0Terminal": true,
+      "childSequence": "4444415666662322224255115653",
+      "childRank": 28,
+      "childSupport": [
+        3,
+        6,
+        2,
+        6,
+        5,
+        6,
+        0
+      ],
+      "childExactBridge": {
+        "pass": true,
+        "checks": {
+          "rank": true,
+          "mover": true,
+          "support": true,
+          "p0Residuals": true,
+          "p1Residuals": true
+        },
+        "js": {
+          "rank": 28,
+          "support": [
+            3,
+            6,
+            2,
+            6,
+            5,
+            6,
+            0
+          ],
+          "p0Residuals": [
+            "16,23,30,37",
+            "20"
+          ],
+          "p1Residuals": [
+            "13,20,27,34",
+            "16,23",
+            "20,27,34,41",
+            "21,28,35",
+            "30",
+            "6,13,20,27"
+          ]
+        },
+        "semantic": {
+          "rank": 28,
+          "support": [
+            3,
+            6,
+            2,
+            6,
+            5,
+            6,
+            0
+          ],
+          "p0Residuals": [
+            "16,23,30,37",
+            "20"
+          ],
+          "p1Residuals": [
+            "13,20,27,34",
+            "16,23",
+            "20,27,34,41",
+            "21,28,35",
+            "30",
+            "6,13,20,27"
+          ]
+        }
+      },
+      "target": {
+        "cell": 20,
+        "column": 7,
+        "row": 3
+      },
+      "targetDistance": 2,
+      "proofCompleted": true,
+      "proved": false,
+      "proofKind": "no_target_distance_predecessor",
+      "witness": null,
+      "witnessKind": null,
+      "measure": {
+        "distance": 2,
+        "delta": 4,
+        "mu": 4
+      },
+      "obligations": [],
+      "rejected": [
+        {
+          "action": "G",
+          "reply": "A",
+          "replyCell": "A4",
+          "reason": "no_lex_predecessor",
+          "childMeasure": {
+            "distance": 1,
+            "delta": 4,
+            "mu": 3
+          }
+        },
+        {
+          "action": "A",
+          "reply": "A",
+          "replyCell": "A5",
+          "reason": "no_target_distance_predecessor",
+          "childMeasure": {
+            "distance": 2,
+            "delta": 4,
+            "mu": 2
+          }
+        },
+        {
+          "action": "E",
+          "reply": "A",
+          "replyCell": "A4",
+          "reason": "no_target_distance_predecessor",
+          "childMeasure": {
+            "distance": 2,
+            "delta": 4,
+            "mu": 2
+          }
+        },
+        {
+          "action": "C",
+          "reply": "A",
+          "replyCell": "A4",
+          "reason": "no_target_distance_predecessor",
+          "childMeasure": {
+            "distance": 2,
+            "delta": 3,
+            "mu": 3
+          }
+        }
+      ],
+      "resourceFailure": null,
+      "stats": {
+        "distance2ProofStates": 32,
+        "targetDistanceProofStates": 32,
+        "lexProofStates": 58,
+        "combinedProofStates": 90,
+        "actionsChecked": 51,
+        "p1BranchesChecked": 153,
+        "maxDepth": 4,
+        "targetSupportWitnesses": 9,
+        "repairWitnesses": 1,
+        "resolvedWitnesses": 7,
+        "forcedWitnesses": 8,
+        "capacityDefects": 1,
+        "memoEntries": 32,
+        "maxProofStates": 100000,
+        "maxTargetDistance": 2,
+        "rootActions": null
+      },
+      "enclosingStateClosed": false,
+      "composition": null
+    },
+    {
+      "id": "SECOND_D7_C5_CONTRACTION",
+      "sourceSequence": "444441566666232222425511575",
+      "sourceRank": 27,
+      "sourceSupport": [
+        3,
+        6,
+        1,
+        6,
+        5,
+        5,
+        1
+      ],
+      "sourceCpc": {
+        "baseline": {
+          "kind": "CPC_RESTRICT",
+          "interval": [
+            -1,
+            1
+          ],
+          "forcedColumn": 3,
+          "preemptionCount": 1,
+          "preemptionMask32": 4
+        },
+        "frontier": {
+          "kind": "CPC_RESTRICT",
+          "interval": [
+            -1,
+            1
+          ],
+          "forcedColumn": 3,
+          "preemptionCount": 1,
+          "preemptionMask32": 4
+        }
+      },
+      "sourceCpcForcedColumn": 3,
+      "defenderBranches": [
+        {
+          "defenderColumn": 1,
+          "terminal": 0,
+          "immediateP0WinningColumns": [
+            3
+          ]
+        },
+        {
+          "defenderColumn": 3,
+          "terminal": 0,
+          "immediateP0WinningColumns": []
+        },
+        {
+          "defenderColumn": 5,
+          "terminal": 0,
+          "immediateP0WinningColumns": [
+            3
+          ]
+        },
+        {
+          "defenderColumn": 6,
+          "terminal": 0,
+          "immediateP0WinningColumns": [
+            3
+          ]
+        },
+        {
+          "defenderColumn": 7,
+          "terminal": 0,
+          "immediateP0WinningColumns": [
+            3,
+            7
+          ]
+        }
+      ],
+      "allNonC3DefenderRepliesImmediateP0Terminal": true,
+      "childSequence": "4444415666662322224255115753",
+      "childRank": 28,
+      "childSupport": [
+        3,
+        6,
+        2,
+        6,
+        5,
+        5,
+        1
+      ],
+      "childExactBridge": {
+        "pass": true,
+        "checks": {
+          "rank": true,
+          "mover": true,
+          "support": true,
+          "p0Residuals": true,
+          "p1Residuals": true
+        },
+        "js": {
+          "rank": 28,
+          "support": [
+            3,
+            6,
+            2,
+            6,
+            5,
+            5,
+            1
+          ],
+          "p0Residuals": [
+            "16,23,30,37",
+            "20",
+            "37,39,40",
+            "39,40,41"
+          ],
+          "p1Residuals": [
+            "13,20,27",
+            "16,23",
+            "20,27,34,41",
+            "21,28,35",
+            "30"
+          ]
+        },
+        "semantic": {
+          "rank": 28,
+          "support": [
+            3,
+            6,
+            2,
+            6,
+            5,
+            5,
+            1
+          ],
+          "p0Residuals": [
+            "16,23,30,37",
+            "20",
+            "37,39,40",
+            "39,40,41"
+          ],
+          "p1Residuals": [
+            "13,20,27",
+            "16,23",
+            "20,27,34,41",
+            "21,28,35",
+            "30"
+          ]
+        }
+      },
+      "target": {
+        "cell": 20,
+        "column": 7,
+        "row": 3
+      },
+      "targetDistance": 1,
+      "proofCompleted": true,
+      "proved": false,
+      "proofKind": "no_lex_predecessor",
+      "witness": null,
+      "witnessKind": null,
+      "measure": {
+        "delta": 4,
+        "mu": 5
+      },
+      "obligations": [],
+      "rejected": [
+        {
+          "action": "A",
+          "reply": "A",
+          "replyCell": "A5",
+          "reason": "no_lex_predecessor",
+          "childMeasure": {
+            "delta": 4,
+            "mu": 3
+          },
+          "exactLoss": false,
+          "obligations": null,
+          "forcedDefense": null
+        },
+        {
+          "action": "E",
+          "reply": "A",
+          "replyCell": "A4",
+          "reason": "no_lex_predecessor",
+          "childMeasure": {
+            "delta": 4,
+            "mu": 3
+          },
+          "exactLoss": false,
+          "obligations": null,
+          "forcedDefense": null
+        },
+        {
+          "action": "F",
+          "reply": "A",
+          "replyCell": "A4",
+          "reason": "no_lex_predecessor",
+          "childMeasure": {
+            "delta": 4,
+            "mu": 3
+          },
+          "exactLoss": false,
+          "obligations": null,
+          "forcedDefense": null
+        },
+        {
+          "action": "C",
+          "reply": "A",
+          "replyCell": "A4",
+          "reason": "no_lex_predecessor",
+          "childMeasure": {
+            "delta": 3,
+            "mu": 4
+          },
+          "exactLoss": false,
+          "obligations": null,
+          "forcedDefense": null
+        }
+      ],
+      "resourceFailure": null,
+      "stats": {
+        "distance2ProofStates": 0,
+        "targetDistanceProofStates": 0,
+        "lexProofStates": 82,
+        "combinedProofStates": 82,
+        "actionsChecked": 0,
+        "p1BranchesChecked": 0,
+        "maxDepth": 0,
+        "targetSupportWitnesses": 0,
+        "repairWitnesses": 0,
+        "resolvedWitnesses": 0,
+        "forcedWitnesses": 0,
+        "capacityDefects": 0,
+        "memoEntries": 0,
+        "maxProofStates": 100000,
+        "maxTargetDistance": 2,
+        "rootActions": null
+      },
+      "enclosingStateClosed": false,
+      "composition": null
+    }
+  ],
+  "summary": {
+    "stateCount": 3,
+    "exactBridgePassCount": 3,
+    "provedCount": 0,
+    "provedIds": [],
+    "enclosingStateClosedCount": 0,
+    "enclosingStateClosedIds": [],
+    "logicalRejectionCount": 3,
+    "resourceFailureCount": 0
+  },
+  "conclusion": [
+    "This probe queries the older target-distance lexicographic theorem on the exact CPC-forced c3 children before introducing any new proof primitive.",
+    "Every child is admitted only after exact support plus normalized P0/P1 residual-antichain equality between JSMinSys RBA and the older semantic-quotient kernel.",
+    "All non-c3 defender replies are independently rechecked for immediate Player-1 terminal closure; the c3 child is the only branch delegated to the legacy target-distance theorem.",
+    "None of the exact rank-28 children is proved by the older target-distance family; this legacy route does not close the remaining obstruction.",
+    "No enclosing post-contraction state is fully closed by this composition."
+  ],
+  "boundary": [
+    "This is research-side proof-library integration evidence only and does not by itself certify the rank-20 root.",
+    "No oracle, solved W/D/L, minimax, ordinary free-branch game-tree value, best-move table, opening book, BSFP solved frontier, physical-position identity shortcut, or sealed holdout is used.",
+    "Production CPC, JSMinSys, target-reservoir semantics, and BSFP remain unchanged.",
+    "Resource exhaustion is kept separate from logical theorem rejection."
+  ]
+}
