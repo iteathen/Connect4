@@ -11,6 +11,7 @@
     {
       "id": "candidate2",
       "sequence": "4444415662",
+      "rootRank": 10,
       "attacker": 1,
       "phase": [
         1,
@@ -67,6 +68,7 @@
     {
       "id": "candidate3",
       "sequence": "4444415663",
+      "rootRank": 10,
       "attacker": 1,
       "phase": [
         1,
@@ -123,6 +125,7 @@
     {
       "id": "candidate6",
       "sequence": "4444415666",
+      "rootRank": 10,
       "attacker": 1,
       "phase": [
         1,
@@ -204,16 +207,174 @@
           "childClass": "DONE"
         }
       ]
+    },
+    {
+      "id": "candidate6_trigger1_response4",
+      "sequence": "444441566614",
+      "rootRank": 12,
+      "attacker": 1,
+      "phase": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0
+      ],
+      "derivative": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        1
+      ],
+      "initialPhaseSafe": false,
+      "maxCertifiedSurvivalHorizon": null,
+      "firstFailedHorizon": 1,
+      "ladder": [
+        {
+          "attackerTurns": 1,
+          "horizon": 1,
+          "accept": false,
+          "class": "UNSAFE_PHASE",
+          "failedColumn": null
+        }
+      ],
+      "maximalRootWitness": null
+    },
+    {
+      "id": "candidate6_trigger1_response5",
+      "sequence": "444441566615",
+      "rootRank": 12,
+      "attacker": 1,
+      "phase": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0
+      ],
+      "derivative": [
+        0,
+        0,
+        1,
+        1,
+        1,
+        1
+      ],
+      "initialPhaseSafe": false,
+      "maxCertifiedSurvivalHorizon": null,
+      "firstFailedHorizon": 1,
+      "ladder": [
+        {
+          "attackerTurns": 1,
+          "horizon": 1,
+          "accept": false,
+          "class": "UNSAFE_PHASE",
+          "failedColumn": null
+        }
+      ],
+      "maximalRootWitness": null
+    },
+    {
+      "id": "candidate6_trigger1_response6",
+      "sequence": "444441566616",
+      "rootRank": 12,
+      "attacker": 1,
+      "phase": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0
+      ],
+      "derivative": [
+        0,
+        0,
+        1,
+        0,
+        1,
+        0
+      ],
+      "initialPhaseSafe": true,
+      "maxCertifiedSurvivalHorizon": 1,
+      "firstFailedHorizon": 3,
+      "ladder": [
+        {
+          "attackerTurns": 1,
+          "horizon": 1,
+          "accept": true,
+          "class": "PURE_FOLLOWUP_DEFECT",
+          "failedColumn": null
+        },
+        {
+          "attackerTurns": 2,
+          "horizon": 3,
+          "accept": false,
+          "class": "FOLLOWUP_CHILD_FAIL",
+          "failedColumn": 2
+        }
+      ],
+      "maximalRootWitness": [
+        {
+          "attackerColumn": 1,
+          "responseColumn": 1,
+          "mode": "FOLLOWUP",
+          "childClass": "DONE"
+        },
+        {
+          "attackerColumn": 2,
+          "responseColumn": 2,
+          "mode": "FOLLOWUP",
+          "childClass": "DONE"
+        },
+        {
+          "attackerColumn": 3,
+          "responseColumn": 3,
+          "mode": "FOLLOWUP",
+          "childClass": "DONE"
+        },
+        {
+          "attackerColumn": 4,
+          "responseColumn": 1,
+          "mode": "TOP_REPAIR",
+          "childClass": "DONE"
+        },
+        {
+          "attackerColumn": 5,
+          "responseColumn": 5,
+          "mode": "FOLLOWUP",
+          "childClass": "DONE"
+        },
+        {
+          "attackerColumn": 6,
+          "responseColumn": 6,
+          "mode": "FOLLOWUP",
+          "childClass": "DONE"
+        },
+        {
+          "attackerColumn": 7,
+          "responseColumn": 7,
+          "mode": "FOLLOWUP",
+          "childClass": "DONE"
+        }
+      ]
     }
   ],
   "work": {
-    "classCalls": 245,
-    "memoHits": 152,
-    "branchTests": 1601,
-    "repairTests": 362,
-    "cofactorCalls": 2526,
-    "memoStates": 245,
-    "cofactorStates": 2526
+    "classCalls": 251,
+    "memoHits": 153,
+    "branchTests": 1620,
+    "repairTests": 364,
+    "cofactorCalls": 2559,
+    "memoStates": 251,
+    "cofactorStates": 2559
   },
   "boundary": [
     "This is a constructive restricted defender temporal-contract policy, not minimax and not an exact remoteness claim.",
