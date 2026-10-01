@@ -1,0 +1,50 @@
+name: Research Pons full-vector oracle
+
+on:
+  push:
+    branches:
+      - research/universal-structural-policy-20260930
+    paths:
+      - .github/workflows/research-pons-full-vector-oracle.yml
+
+jobs:
+  analyze-44444:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Query public solver service
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fsSL 'https://connect4.gamesolver.org/solve?pos=44444' | tee service-44444.json
+          echo
+      - name: Build official Pascal Pons solver
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --depth 1 https://github.com/PascalPons/connect4.git pons-connect4
+          cd pons-connect4
+          make -j2
+          curl -fL --retry 3 -o 7x6.book https://github.com/PascalPons/connect4/releases/download/book/7x6.book
+      - name: Analyze all seven moves
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd pons-connect4
+          printf '44444\n' | ./c4solver -b 7x6.book -a | tee ../cli-44444.txt
+      - name: Show oracle evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo 'SERVICE_JSON'
+          cat service-44444.json
+          echo
+          echo 'OFFICIAL_CLI'
+          cat cli-44444.txt
+      - name: Upload evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: pons-full-vector-44444
+          path: |
+            service-44444.json
+            cli-44444.txt
