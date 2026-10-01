@@ -1,0 +1,351 @@
+{
+  "schema": "connect4.cpc_bx_viability_finite_reservoir.v1",
+  "theoremCandidate": "CPC_BX_VIABILITY_FINITE_RESERVOIR_THEOREM.md",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "sourceEvidence": {
+    "phase": "CPC_THREE_COLUMN_PHASE_TRANSFER_WIN_0_1.json",
+    "bridge": "CPC_FORMULA_EXCHANGE_PHASE_BRIDGE_PILOT_0_1.json"
+  },
+  "invariant": {
+    "viabilityCoordinate": "Bx = F[0]",
+    "exposeEquation": "EXPOSE = delta(Bx)",
+    "rank": "R = remaining c7 capacity"
+  },
+  "stateInfo": {
+    "Q": {
+      "Bx": 1,
+      "F": [
+        1,
+        1,
+        1
+      ],
+      "c7Capacity": 3,
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        1,
+        6,
+        3
+      ],
+      "legalTransitionCount": 3,
+      "transferCount": 2,
+      "exposureCount": 1
+    },
+    "A": {
+      "Bx": 1,
+      "F": [
+        1,
+        0,
+        0
+      ],
+      "c7Capacity": 2,
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        2,
+        6,
+        4
+      ],
+      "legalTransitionCount": 3,
+      "transferCount": 1,
+      "exposureCount": 2
+    },
+    "B": {
+      "Bx": 1,
+      "F": [
+        1,
+        0,
+        0
+      ],
+      "c7Capacity": 1,
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        1,
+        6,
+        5
+      ],
+      "legalTransitionCount": 3,
+      "transferCount": 2,
+      "exposureCount": 1
+    },
+    "ZA": {
+      "Bx": 1,
+      "F": [
+        1,
+        0,
+        0
+      ],
+      "c7Capacity": 0,
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        2,
+        6,
+        6
+      ],
+      "legalTransitionCount": 2,
+      "transferCount": 0,
+      "exposureCount": 2
+    },
+    "ZB": {
+      "Bx": 1,
+      "F": [
+        1,
+        0,
+        0
+      ],
+      "c7Capacity": 0,
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        2,
+        6,
+        6
+      ],
+      "legalTransitionCount": 2,
+      "transferCount": 0,
+      "exposureCount": 2
+    },
+    "ZC": {
+      "Bx": 1,
+      "F": [
+        1,
+        0,
+        0
+      ],
+      "c7Capacity": 0,
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        2,
+        6,
+        6
+      ],
+      "legalTransitionCount": 2,
+      "transferCount": 0,
+      "exposureCount": 2
+    }
+  },
+  "exactSinkEquality": {
+    "ZA_ZB": true,
+    "ZA_ZC": true,
+    "ZB_ZC": true
+  },
+  "checks": [
+    {
+      "state": "Q",
+      "p2Column": 3,
+      "label": "EXPOSE",
+      "deltaBx": 1,
+      "postBx": 0,
+      "responseTerminal": 3,
+      "ok": true
+    },
+    {
+      "state": "Q",
+      "p2Column": 5,
+      "label": "TRANSFER",
+      "deltaBx": 0,
+      "postBx": 1,
+      "responseTerminal": 0,
+      "next": "A",
+      "c7CapacityBefore": 3,
+      "c7CapacityAfter": 2,
+      "ok": true
+    },
+    {
+      "state": "Q",
+      "p2Column": 7,
+      "label": "TRANSFER",
+      "deltaBx": 0,
+      "postBx": 1,
+      "responseTerminal": 0,
+      "next": "B",
+      "c7CapacityBefore": 3,
+      "c7CapacityAfter": 1,
+      "ok": true
+    },
+    {
+      "state": "A",
+      "p2Column": 3,
+      "label": "EXPOSE",
+      "deltaBx": 1,
+      "postBx": 0,
+      "responseTerminal": 3,
+      "ok": true
+    },
+    {
+      "state": "A",
+      "p2Column": 5,
+      "label": "EXPOSE",
+      "deltaBx": 1,
+      "postBx": 0,
+      "responseTerminal": 3,
+      "ok": true
+    },
+    {
+      "state": "A",
+      "p2Column": 7,
+      "label": "TRANSFER",
+      "deltaBx": 0,
+      "postBx": 1,
+      "responseTerminal": 0,
+      "next": "ZA",
+      "c7CapacityBefore": 2,
+      "c7CapacityAfter": 0,
+      "ok": true
+    },
+    {
+      "state": "B",
+      "p2Column": 3,
+      "label": "EXPOSE",
+      "deltaBx": 1,
+      "postBx": 0,
+      "responseTerminal": 3,
+      "ok": true
+    },
+    {
+      "state": "B",
+      "p2Column": 5,
+      "label": "TRANSFER",
+      "deltaBx": 0,
+      "postBx": 1,
+      "responseTerminal": 0,
+      "next": "ZB",
+      "c7CapacityBefore": 1,
+      "c7CapacityAfter": 0,
+      "ok": true
+    },
+    {
+      "state": "B",
+      "p2Column": 7,
+      "label": "TRANSFER",
+      "deltaBx": 0,
+      "postBx": 1,
+      "responseTerminal": 0,
+      "next": "ZC",
+      "c7CapacityBefore": 1,
+      "c7CapacityAfter": 0,
+      "ok": true
+    },
+    {
+      "state": "ZA",
+      "p2Column": 3,
+      "label": "EXPOSE",
+      "deltaBx": 1,
+      "postBx": 0,
+      "responseTerminal": 3,
+      "ok": true
+    },
+    {
+      "state": "ZA",
+      "p2Column": 5,
+      "label": "EXPOSE",
+      "deltaBx": 1,
+      "postBx": 0,
+      "responseTerminal": 3,
+      "ok": true
+    },
+    {
+      "state": "ZB",
+      "p2Column": 3,
+      "label": "EXPOSE",
+      "deltaBx": 1,
+      "postBx": 0,
+      "responseTerminal": 3,
+      "ok": true
+    },
+    {
+      "state": "ZB",
+      "p2Column": 5,
+      "label": "EXPOSE",
+      "deltaBx": 1,
+      "postBx": 0,
+      "responseTerminal": 3,
+      "ok": true
+    },
+    {
+      "state": "ZC",
+      "p2Column": 3,
+      "label": "EXPOSE",
+      "deltaBx": 1,
+      "postBx": 0,
+      "responseTerminal": 3,
+      "ok": true
+    },
+    {
+      "state": "ZC",
+      "p2Column": 5,
+      "label": "EXPOSE",
+      "deltaBx": 1,
+      "postBx": 0,
+      "responseTerminal": 3,
+      "ok": true
+    }
+  ],
+  "induction": {
+    "proofOrder": [
+      {
+        "name": "ZA",
+        "R": 0
+      },
+      {
+        "name": "ZB",
+        "R": 0
+      },
+      {
+        "name": "ZC",
+        "R": 0
+      },
+      {
+        "name": "B",
+        "R": 1
+      },
+      {
+        "name": "A",
+        "R": 2
+      },
+      {
+        "name": "Q",
+        "R": 3
+      }
+    ],
+    "provedStates": [
+      "ZA",
+      "ZB",
+      "ZC",
+      "B",
+      "A",
+      "Q"
+    ],
+    "rootProved": true
+  },
+  "accept": true,
+  "conclusion": [
+    "Bx=1 is an exact viability invariant on every Player-2 state in the qualified three-column family.",
+    "Every exposure edge is exactly delta(Bx)=1 and terminates for Player 1 on the qualified response.",
+    "Every transfer edge has delta(Bx)=0, returns to Bx=1, and strictly decreases remaining c7 capacity.",
+    "At c7 capacity zero no transfer edge remains; well-founded induction therefore reproves the rank-31 Player-1 win."
+  ],
+  "boundary": [
+    "This is a composition of two previously qualified exact structural evidence objects.",
+    "No oracle, Pons, solved W/D/L, local game-tree value, old OOO scalar code, best-move table, or sealed holdout is used.",
+    "No BSFP solved frontier is imported; only the viability/predecessor proof pattern is reused.",
+    "Production CPC and JSMinSys remain unchanged."
+  ]
+}
