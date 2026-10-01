@@ -1,0 +1,141 @@
+{
+  "schema": "connect4.cpc_rank31_c3_target_reservoir_qualification.v1",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "ordinaryGameTreeSearchUsed": false,
+  "proofPremiseAllowed": true,
+  "design": "CPC_RANK31_C3_TARGET_RESERVOIR_QUALIFICATION_0_1.md",
+  "theoremSchema": "CPC_TRUNCATED_TARGET_RESERVOIR_PAIRING_THEOREM.md",
+  "state": {
+    "sequence": "4444415666662322224233177555571",
+    "rank": 31,
+    "mover": 2,
+    "support": [
+      3,
+      6,
+      3,
+      6,
+      5,
+      5,
+      3
+    ]
+  },
+  "target": {
+    "cell": 30,
+    "column": 3,
+    "row": 5
+  },
+  "guards": {
+    "activeP1Singleton": true,
+    "targetProjectedOwner": 1,
+    "targetPlayable": false,
+    "targetSupportDistance": 1,
+    "playableP2Singletons": []
+  },
+  "template": {
+    "capacity": [
+      3,
+      0,
+      2,
+      0,
+      1,
+      1,
+      3
+    ],
+    "totalRelevant": 10,
+    "oddColumns": [
+      1,
+      5,
+      6,
+      7
+    ],
+    "synchronizedPairs": [
+      {
+        "columns": [
+          1,
+          5
+        ],
+        "prefixLength": 1
+      },
+      {
+        "columns": [
+          6,
+          7
+        ],
+        "prefixLength": 1
+      }
+    ],
+    "partner": [
+      5,
+      0,
+      0,
+      0,
+      1,
+      7,
+      6
+    ],
+    "prefixLength": [
+      1,
+      0,
+      0,
+      0,
+      1,
+      1,
+      1
+    ],
+    "targetIsResponse": true,
+    "targetDepth": 1,
+    "targetPrefixLength": 0,
+    "defenderResidualCount": 2,
+    "coverage": [
+      {
+        "residualId": 515,
+        "size": 3,
+        "containsTarget": true,
+        "witness": {
+          "kind": "post-target-deferral",
+          "cell": 37,
+          "column": 3,
+          "row": 6
+        }
+      },
+      {
+        "residualId": 529,
+        "size": 3,
+        "containsTarget": false,
+        "witness": {
+          "kind": "vertical-response",
+          "cell": 41,
+          "column": 7,
+          "row": 6,
+          "depth": 2,
+          "L": 1
+        }
+      }
+    ]
+  },
+  "validation": {
+    "pass": true,
+    "defenderNodes": 56,
+    "responsePairs": 117,
+    "maxPairDepth": 4,
+    "p1TerminalResponses": 62,
+    "targetTerminalResponses": 56,
+    "failures": []
+  },
+  "accept": true,
+  "rejectionReason": null,
+  "conclusion": [
+    "The exact rank-31 state admits a fresh truncated synchronized pairing certificate for the active Player-1 singleton c3r5.",
+    "The target is assigned as a Player-1 vertical response and every active Player-2 residual has an exact blocker/deferral witness.",
+    "Independent exact-RBA traversal found no illegal paired response and no Player-2 terminal before the Player-1 response.",
+    "Therefore the rank-31 current state is structurally certified as a Player-1 win without solved values or ordinary game-tree search."
+  ],
+  "boundary": [
+    "No oracle, Pons, solved W/D/L, ordinary game-tree search, best-move table, BSFP solved frontier, physical-position identity, or sealed holdout is used.",
+    "Template synthesis uses only the current exact RBA residuals, support/gravity, mover parity, and CPC target ownership.",
+    "The traversal is a finite falsification cross-check of the synthesized response law; it does not consume a solved value.",
+    "Production CPC and JSMinSys are read-only and unchanged; BSFP is unchanged."
+  ]
+}
