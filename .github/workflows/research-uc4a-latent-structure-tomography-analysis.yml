@@ -1,12 +1,16 @@
 name: Research UC4A latent structure tomography analysis
 
+concurrency:
+  group: uc4a-tomography-analysis-${{ github.ref }}
+  cancel-in-progress: true
+
 on:
   push:
     branches:
       - research/universal-structural-policy-20260930
     paths:
       - .github/workflows/research-uc4a-latent-structure-tomography-analysis.yml
-      - research/isograph/discovery/2026-09-30-universal-structural-policy/UC4A_LATENT_STRUCTURE_TOMOGRAPHY_ANALYSIS_PROTOCOL_0_1.md
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/UC4A_LATENT_STRUCTURE_TOMOGRAPHY_ANALYSIS_PROTOCOL_0_2.md
       - research/isograph/discovery/2026-09-30-universal-structural-policy/test-uc4a-latent-structure-tomography-analysis.mjs
       - research/isograph/discovery/2026-09-30-universal-structural-policy/run-uc4a-latent-structure-tomography-analysis.mjs
       - research/isograph/discovery/2026-09-30-universal-structural-policy/UC4A_LATENT_STRUCTURE_TOMOGRAPHY_STRUCTURAL_0_1.json
