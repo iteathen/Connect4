@@ -1,0 +1,165 @@
+# UC4A second-order curvature tomography analysis protocol 0.1
+
+**Date:** 2026-10-01  
+**Status:** frozen Phase-B protocol before outcome overlay  
+**Branch:** `research/universal-structural-policy-20260930`  
+**Experiment:** `UC4A_SECOND_ORDER_CURVATURE_TOMOGRAPHY_EXPERIMENT_DESIGN_0_1.md`  
+**Curvature atlas:** `UC4A_SECOND_ORDER_CURVATURE_STRUCTURAL_0_1.json`  
+**Curvature atlas SHA-256:** `58ac628a545a434f176e84c834b03f145a7efaf86f2389abb106465b13ea99b3`
+
+## Boundary
+
+The 101 curvature neighborhoods are already frozen and hashed before this protocol joins any outcome labels.
+
+This phase may consume only:
+
+- the frozen curvature atlas above;
+- `UC4A_BOARD_OUTCOME_STRUCTURAL_TRIANGLE_CENSUS_RESULT_0_1.json` for the original 37 unsealed board labels;
+- `UC4A_FRESH_BOARD_VALIDATION_ONE_COORDINATE_REPAIR_RESULT_0_1.json` for the 15 fresh unsealed board labels.
+
+No label may modify a curvature vector, signature hash, field registry, block support, row ordering, or structural rank operator.
+
+The sealed formula holdouts remain untouched. Production CPC, JSMinSys, and BSFP remain read-only.
+
+## Neighborhood outcome annotation
+
+### WIDTH2 / HEIGHT2
+
+For boards `a,b,c`, annotate:
+
+- outcome word `[O(a),O(b),O(c)]`;
+- adjacent transitions `O(a)->O(b)`, `O(b)->O(c)`;
+- boundary-edge count 0, 1, or 2;
+- `boundaryAdjacent = boundary-edge count > 0`;
+- `homogeneous = boundary-edge count == 0`.
+
+### MIXED
+
+For frozen board order `[a,b,c,d]` where:
+
+- `a=(W,H)`;
+- `b=(W+1,H)`;
+- `c=(W,H+1)`;
+- `d=(W+1,H+1)`;
+
+annotate the four perimeter comparisons:
+
+- `a-b`;
+- `a-c`;
+- `b-d`;
+- `c-d`.
+
+Record:
+
+- four-corner outcome word;
+- horizontal boundary pair;
+- vertical boundary pair;
+- boundary-edge count 0..4;
+- boundary-adjacent / homogeneous flags.
+
+Outcomes remain categorical annotations and never enter a numeric curvature calculation.
+
+## Rank analysis
+
+Using exactly the integer and GF(2) field orders frozen in the curvature atlas, compute for each family and for the combined 101-row system:
+
+- rank of all curvature rows;
+- rank of boundary-adjacent curvature rows;
+- rank of homogeneous curvature rows;
+- boundary-novel dimension = all rank - homogeneous rank;
+- homogeneous-novel dimension = all rank - boundary rank;
+- per-block ranks for all/boundary/homogeneous sets.
+
+Use exact rational rank for integer curvature and exact GF(2) rank/nullspace for binary curvature.
+
+Do not ask for rank 3.
+
+## Repeated structural modes
+
+Group by the already-frozen `signatureHash`. Do not recompute or change signatures after labels are visible.
+
+For each repeated signature report:
+
+- count;
+- curvature family/families;
+- frozen row IDs;
+- widths/heights represented;
+- boundary-edge counts represented;
+- outcome-neighborhood words represented;
+- number of boundary-adjacent rows;
+- number of homogeneous rows;
+- whether the same exact structural mode occurs in both classes.
+
+A signature that occurs in both boundary-adjacent and homogeneous neighborhoods is a direct falsifier of that signature alone being a boundary rule.
+
+## Block-support census
+
+Using frozen `nonzeroBlocks`, report separately for all, boundary-adjacent, and homogeneous rows:
+
+- blocks ever nonzero;
+- blocks nonzero on every row;
+- exact block-support pattern frequencies.
+
+No block is added or removed after label overlay.
+
+## Held-out stability
+
+For each family and combined ranks, repeat boundary-adjacent curvature rank after excluding every row touching a held width, then every row touching a held height.
+
+Report exact rank ranges and row counts.
+
+A rank drop under holdout is preserved, not repaired.
+
+## Required 8x6 / 9x6 / 10x6 focus
+
+The frozen row:
+
+`WIDTH2:8x6|9x6|10x6`
+
+has signature hash:
+
+`a980368068d2b34bdbae6fa91d4c11114bbd9ae2ffa63e77da7839abbeff27d9`.
+
+Before reading labels, the structural atlas already established that all 32 WIDTH2 signatures are unique.
+
+Phase B must therefore report:
+
+- its outcome word and boundary-edge count;
+- its frozen nonzero fields/blocks;
+- all exact signature matches from the structural atlas.
+
+If it has no other match, record that the 10x6 width-curvature witness is currently unique in this cohort rather than promoting it as a recurring universal mode.
+
+## Interpretation rules
+
+A positive result requires more than low rank.
+
+Strong evidence would require at least one of:
+
+- boundary-adjacent curvature adds structural dimensions absent from homogeneous curvature;
+- a repeated exact curvature signature recurs across unrelated widths/heights and remains boundary-pure;
+- held-out families preserve the same low-dimensional boundary curvature;
+- a small coupled block support is characteristic of boundary neighborhoods but not homogeneous ones.
+
+Negative evidence includes:
+
+- boundary-novel dimension remains zero;
+- repeated modes occur in both boundary and homogeneous neighborhoods;
+- low rank is generated by ordinary polynomial geometry identities;
+- the 8x6/9x6/10x6 witness is unique.
+
+## Claim boundary
+
+The output remains descriptive discovery evidence.
+
+It cannot by itself establish:
+
+- a W/D/L theorem;
+- a final Outcome-Formation Triangle;
+- a universal board formula;
+- semantic axes for Bx/By/Bxy;
+- a production CPC rule;
+- a BSFP solved-value premise;
+- an optimal-move theorem.
+
+If curvature fails to create boundary-specific structure, the board-geometry triangle hypothesis must be narrowed further toward state-local response/control dynamics rather than repaired by another fitted coordinate.
