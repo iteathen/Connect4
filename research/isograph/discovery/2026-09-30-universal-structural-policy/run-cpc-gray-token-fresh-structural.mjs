@@ -104,7 +104,7 @@ function guards(board,attacker,gray){
     const h=board.heights[c];
     if(!(h>=1&&h<=5&&(h&1)))continue;
     let ok=true;
-    for(let r=0;r<h;r+=2)if(!(safe&(1<<(c*3+(r>>>1)))){ok=false;break;}
+    for(let r=0;r<h;r+=2)if(!(safe&(1<<(c*3+(r>>>1))))){ok=false;break;}
     if(ok)out.push(c);
   }
   return {safeMask:safe,columns:out};
