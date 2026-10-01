@@ -1,0 +1,3098 @@
+{
+  "schema": "connect4.cpc_rank20_response_lift_exclusion_alternative_census.v1",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "ordinaryFreeBranchGameTreeUsed": false,
+  "productionCpcModified": false,
+  "jsMinSysModified": false,
+  "targetReservoirModified": false,
+  "bsfpModified": false,
+  "design": "CPC_RANK20_RESPONSE_LIFT_EXCLUSION_ALTERNATIVE_CENSUS_DESIGN_0_1.md",
+  "sourceEvidence": {
+    "partialReservoir": "CPC_RANK20_C5_REPLY5_PARTIAL_RESERVOIR_EXACT_VALIDATION_PROBE_0_1.json",
+    "hazardousPredecessor": "CPC_RANK20_C5_REPLY5_HAZARDOUS_RESPONSE_PREDECESSOR_DIAGNOSTIC_0_1.json"
+  },
+  "candidateCount": 13,
+  "candidates": [
+    {
+      "id": "FIRST_D3_C1_CONTRACTION",
+      "pairingSignature": "1-5:1|3-6:1",
+      "firstFailureKind": "defender-terminal",
+      "terminalCell": {
+        "cell": 23,
+        "column": 3,
+        "row": 4,
+        "projectedOwner": 2,
+        "supportDistance": 0
+      },
+      "predecessorRank": 30,
+      "predecessorSupport": [
+        6,
+        6,
+        3,
+        6,
+        4,
+        5,
+        0
+      ],
+      "predecessorCpc": {
+        "baseline": {
+          "kind": "CPC_EXACT",
+          "interval": [
+            -1,
+            -1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0,
+          "projectedCount": [
+            0,
+            0
+          ],
+          "projectedForks": [
+            0,
+            0
+          ]
+        },
+        "frontier": {
+          "kind": "CPC_EXACT",
+          "interval": [
+            -1,
+            -1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0,
+          "projectedCount": [
+            0,
+            0
+          ],
+          "projectedForks": [
+            0,
+            0
+          ]
+        }
+      },
+      "preResponsePlayableP2Singletons": [
+        {
+          "diagnosticId": 23,
+          "cell": 23,
+          "column": 3,
+          "row": 4,
+          "projectedOwner": 2,
+          "supportDistance": 0
+        }
+      ],
+      "mappedResponseColumn": 6,
+      "mappedResponseCell": 40,
+      "mappedResponseHazard": true,
+      "mappedResponsePostPlayableP2Singletons": [
+        {
+          "diagnosticId": 23,
+          "cell": 23,
+          "column": 3,
+          "row": 4,
+          "projectedOwner": 2,
+          "supportDistance": 0,
+          "alreadyPlayableBeforeResponse": true,
+          "newlyExposedByResponse": false,
+          "sameColumnAsResponse": false,
+          "immediatelyAboveLanding": false
+        }
+      ],
+      "legalResponses": [
+        {
+          "column": 3,
+          "landingCell": {
+            "cell": 23,
+            "column": 3,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "terminal": 0,
+          "resultingSupport": [
+            6,
+            6,
+            4,
+            6,
+            4,
+            5,
+            0
+          ],
+          "knownRoot": null,
+          "preResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "postResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 30,
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 0,
+              "alreadyPlayableBeforeResponse": false,
+              "newlyExposedByResponse": true,
+              "sameColumnAsResponse": true,
+              "immediatelyAboveLanding": true
+            }
+          ],
+          "responseLiftHazard": true,
+          "singletonSafe": false
+        },
+        {
+          "column": 5,
+          "landingCell": {
+            "cell": 32,
+            "column": 5,
+            "row": 5,
+            "projectedOwner": 1,
+            "supportDistance": 0
+          },
+          "terminal": 0,
+          "resultingSupport": [
+            6,
+            6,
+            3,
+            6,
+            5,
+            5,
+            0
+          ],
+          "knownRoot": null,
+          "preResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "postResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0,
+              "alreadyPlayableBeforeResponse": true,
+              "newlyExposedByResponse": false,
+              "sameColumnAsResponse": false,
+              "immediatelyAboveLanding": false
+            }
+          ],
+          "responseLiftHazard": true,
+          "singletonSafe": false
+        },
+        {
+          "column": 6,
+          "landingCell": {
+            "cell": 40,
+            "column": 6,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "terminal": 0,
+          "resultingSupport": [
+            6,
+            6,
+            3,
+            6,
+            4,
+            6,
+            0
+          ],
+          "knownRoot": null,
+          "preResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "postResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0,
+              "alreadyPlayableBeforeResponse": true,
+              "newlyExposedByResponse": false,
+              "sameColumnAsResponse": false,
+              "immediatelyAboveLanding": false
+            }
+          ],
+          "responseLiftHazard": true,
+          "singletonSafe": false
+        },
+        {
+          "column": 7,
+          "landingCell": {
+            "cell": 6,
+            "column": 7,
+            "row": 1,
+            "projectedOwner": 1,
+            "supportDistance": 0
+          },
+          "terminal": 0,
+          "resultingSupport": [
+            6,
+            6,
+            3,
+            6,
+            4,
+            5,
+            1
+          ],
+          "knownRoot": null,
+          "preResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "postResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0,
+              "alreadyPlayableBeforeResponse": true,
+              "newlyExposedByResponse": false,
+              "sameColumnAsResponse": false,
+              "immediatelyAboveLanding": false
+            }
+          ],
+          "responseLiftHazard": true,
+          "singletonSafe": false
+        }
+      ],
+      "safeAlternativeColumns": [],
+      "disposition": "NO_SINGLETON_SAFE_ALTERNATIVE"
+    },
+    {
+      "id": "SECOND_D1_C5_CONTRACTION",
+      "pairingSignature": "3-5:1|6-7:1",
+      "firstFailureKind": "defender-terminal",
+      "terminalCell": {
+        "cell": 30,
+        "column": 3,
+        "row": 5,
+        "projectedOwner": 1,
+        "supportDistance": 0
+      },
+      "predecessorRank": 32,
+      "predecessorSupport": [
+        6,
+        6,
+        3,
+        6,
+        6,
+        5,
+        0
+      ],
+      "predecessorCpc": {
+        "baseline": {
+          "kind": "CPC_EXACT",
+          "interval": [
+            -1,
+            -1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0,
+          "projectedCount": [
+            0,
+            0
+          ],
+          "projectedForks": [
+            0,
+            0
+          ]
+        },
+        "frontier": {
+          "kind": "CPC_EXACT",
+          "interval": [
+            -1,
+            -1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0,
+          "projectedCount": [
+            0,
+            0
+          ],
+          "projectedForks": [
+            0,
+            0
+          ]
+        }
+      },
+      "preResponsePlayableP2Singletons": [
+        {
+          "diagnosticId": 23,
+          "cell": 23,
+          "column": 3,
+          "row": 4,
+          "projectedOwner": 2,
+          "supportDistance": 0
+        }
+      ],
+      "mappedResponseColumn": 3,
+      "mappedResponseCell": 23,
+      "mappedResponseHazard": true,
+      "mappedResponsePostPlayableP2Singletons": [
+        {
+          "diagnosticId": 30,
+          "cell": 30,
+          "column": 3,
+          "row": 5,
+          "projectedOwner": 1,
+          "supportDistance": 0,
+          "alreadyPlayableBeforeResponse": false,
+          "newlyExposedByResponse": true,
+          "sameColumnAsResponse": true,
+          "immediatelyAboveLanding": true
+        }
+      ],
+      "legalResponses": [
+        {
+          "column": 3,
+          "landingCell": {
+            "cell": 23,
+            "column": 3,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "terminal": 0,
+          "resultingSupport": [
+            6,
+            6,
+            4,
+            6,
+            6,
+            5,
+            0
+          ],
+          "knownRoot": null,
+          "preResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "postResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 30,
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 0,
+              "alreadyPlayableBeforeResponse": false,
+              "newlyExposedByResponse": true,
+              "sameColumnAsResponse": true,
+              "immediatelyAboveLanding": true
+            }
+          ],
+          "responseLiftHazard": true,
+          "singletonSafe": false
+        },
+        {
+          "column": 6,
+          "landingCell": {
+            "cell": 40,
+            "column": 6,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "terminal": 0,
+          "resultingSupport": [
+            6,
+            6,
+            3,
+            6,
+            6,
+            6,
+            0
+          ],
+          "knownRoot": null,
+          "preResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "postResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0,
+              "alreadyPlayableBeforeResponse": true,
+              "newlyExposedByResponse": false,
+              "sameColumnAsResponse": false,
+              "immediatelyAboveLanding": false
+            }
+          ],
+          "responseLiftHazard": true,
+          "singletonSafe": false
+        },
+        {
+          "column": 7,
+          "landingCell": {
+            "cell": 6,
+            "column": 7,
+            "row": 1,
+            "projectedOwner": 1,
+            "supportDistance": 0
+          },
+          "terminal": 0,
+          "resultingSupport": [
+            6,
+            6,
+            3,
+            6,
+            6,
+            5,
+            1
+          ],
+          "knownRoot": null,
+          "preResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "postResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0,
+              "alreadyPlayableBeforeResponse": true,
+              "newlyExposedByResponse": false,
+              "sameColumnAsResponse": false,
+              "immediatelyAboveLanding": false
+            }
+          ],
+          "responseLiftHazard": true,
+          "singletonSafe": false
+        }
+      ],
+      "safeAlternativeColumns": [],
+      "disposition": "NO_SINGLETON_SAFE_ALTERNATIVE"
+    },
+    {
+      "id": "SECOND_D1_C5_CONTRACTION",
+      "pairingSignature": "3-6:1|5-7:1",
+      "firstFailureKind": "defender-terminal",
+      "terminalCell": {
+        "cell": 30,
+        "column": 3,
+        "row": 5,
+        "projectedOwner": 1,
+        "supportDistance": 0
+      },
+      "predecessorRank": 32,
+      "predecessorSupport": [
+        6,
+        6,
+        3,
+        6,
+        5,
+        6,
+        0
+      ],
+      "predecessorCpc": {
+        "baseline": {
+          "kind": "CPC_EXACT",
+          "interval": [
+            -1,
+            -1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0,
+          "projectedCount": [
+            0,
+            0
+          ],
+          "projectedForks": [
+            0,
+            0
+          ]
+        },
+        "frontier": {
+          "kind": "CPC_EXACT",
+          "interval": [
+            -1,
+            -1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0,
+          "projectedCount": [
+            0,
+            0
+          ],
+          "projectedForks": [
+            0,
+            0
+          ]
+        }
+      },
+      "preResponsePlayableP2Singletons": [
+        {
+          "diagnosticId": 23,
+          "cell": 23,
+          "column": 3,
+          "row": 4,
+          "projectedOwner": 2,
+          "supportDistance": 0
+        }
+      ],
+      "mappedResponseColumn": 3,
+      "mappedResponseCell": 23,
+      "mappedResponseHazard": true,
+      "mappedResponsePostPlayableP2Singletons": [
+        {
+          "diagnosticId": 30,
+          "cell": 30,
+          "column": 3,
+          "row": 5,
+          "projectedOwner": 1,
+          "supportDistance": 0,
+          "alreadyPlayableBeforeResponse": false,
+          "newlyExposedByResponse": true,
+          "sameColumnAsResponse": true,
+          "immediatelyAboveLanding": true
+        }
+      ],
+      "legalResponses": [
+        {
+          "column": 3,
+          "landingCell": {
+            "cell": 23,
+            "column": 3,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "terminal": 0,
+          "resultingSupport": [
+            6,
+            6,
+            4,
+            6,
+            5,
+            6,
+            0
+          ],
+          "knownRoot": null,
+          "preResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "postResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 30,
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 0,
+              "alreadyPlayableBeforeResponse": false,
+              "newlyExposedByResponse": true,
+              "sameColumnAsResponse": true,
+              "immediatelyAboveLanding": true
+            }
+          ],
+          "responseLiftHazard": true,
+          "singletonSafe": false
+        },
+        {
+          "column": 5,
+          "landingCell": {
+            "cell": 39,
+            "column": 5,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "terminal": 0,
+          "resultingSupport": [
+            6,
+            6,
+            3,
+            6,
+            6,
+            6,
+            0
+          ],
+          "knownRoot": null,
+          "preResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "postResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0,
+              "alreadyPlayableBeforeResponse": true,
+              "newlyExposedByResponse": false,
+              "sameColumnAsResponse": false,
+              "immediatelyAboveLanding": false
+            }
+          ],
+          "responseLiftHazard": true,
+          "singletonSafe": false
+        },
+        {
+          "column": 7,
+          "landingCell": {
+            "cell": 6,
+            "column": 7,
+            "row": 1,
+            "projectedOwner": 1,
+            "supportDistance": 0
+          },
+          "terminal": 0,
+          "resultingSupport": [
+            6,
+            6,
+            3,
+            6,
+            5,
+            6,
+            1
+          ],
+          "knownRoot": null,
+          "preResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "postResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0,
+              "alreadyPlayableBeforeResponse": true,
+              "newlyExposedByResponse": false,
+              "sameColumnAsResponse": false,
+              "immediatelyAboveLanding": false
+            }
+          ],
+          "responseLiftHazard": true,
+          "singletonSafe": false
+        }
+      ],
+      "safeAlternativeColumns": [],
+      "disposition": "NO_SINGLETON_SAFE_ALTERNATIVE"
+    },
+    {
+      "id": "SECOND_D1_C5_CONTRACTION",
+      "pairingSignature": "3-7:1|5-6:1",
+      "firstFailureKind": "defender-terminal",
+      "terminalCell": {
+        "cell": 30,
+        "column": 3,
+        "row": 5,
+        "projectedOwner": 1,
+        "supportDistance": 0
+      },
+      "predecessorRank": 32,
+      "predecessorSupport": [
+        6,
+        6,
+        3,
+        6,
+        5,
+        5,
+        1
+      ],
+      "predecessorCpc": {
+        "baseline": {
+          "kind": "CPC_EXACT",
+          "interval": [
+            -1,
+            -1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0,
+          "projectedCount": [
+            0,
+            0
+          ],
+          "projectedForks": [
+            0,
+            0
+          ]
+        },
+        "frontier": {
+          "kind": "CPC_EXACT",
+          "interval": [
+            -1,
+            -1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0,
+          "projectedCount": [
+            0,
+            0
+          ],
+          "projectedForks": [
+            0,
+            0
+          ]
+        }
+      },
+      "preResponsePlayableP2Singletons": [
+        {
+          "diagnosticId": 23,
+          "cell": 23,
+          "column": 3,
+          "row": 4,
+          "projectedOwner": 2,
+          "supportDistance": 0
+        }
+      ],
+      "mappedResponseColumn": 3,
+      "mappedResponseCell": 23,
+      "mappedResponseHazard": true,
+      "mappedResponsePostPlayableP2Singletons": [
+        {
+          "diagnosticId": 30,
+          "cell": 30,
+          "column": 3,
+          "row": 5,
+          "projectedOwner": 1,
+          "supportDistance": 0,
+          "alreadyPlayableBeforeResponse": false,
+          "newlyExposedByResponse": true,
+          "sameColumnAsResponse": true,
+          "immediatelyAboveLanding": true
+        }
+      ],
+      "legalResponses": [
+        {
+          "column": 3,
+          "landingCell": {
+            "cell": 23,
+            "column": 3,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "terminal": 0,
+          "resultingSupport": [
+            6,
+            6,
+            4,
+            6,
+            5,
+            5,
+            1
+          ],
+          "knownRoot": null,
+          "preResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "postResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 30,
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 0,
+              "alreadyPlayableBeforeResponse": false,
+              "newlyExposedByResponse": true,
+              "sameColumnAsResponse": true,
+              "immediatelyAboveLanding": true
+            }
+          ],
+          "responseLiftHazard": true,
+          "singletonSafe": false
+        },
+        {
+          "column": 5,
+          "landingCell": {
+            "cell": 39,
+            "column": 5,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "terminal": 0,
+          "resultingSupport": [
+            6,
+            6,
+            3,
+            6,
+            6,
+            5,
+            1
+          ],
+          "knownRoot": null,
+          "preResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "postResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0,
+              "alreadyPlayableBeforeResponse": true,
+              "newlyExposedByResponse": false,
+              "sameColumnAsResponse": false,
+              "immediatelyAboveLanding": false
+            }
+          ],
+          "responseLiftHazard": true,
+          "singletonSafe": false
+        },
+        {
+          "column": 6,
+          "landingCell": {
+            "cell": 40,
+            "column": 6,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "terminal": 0,
+          "resultingSupport": [
+            6,
+            6,
+            3,
+            6,
+            5,
+            6,
+            1
+          ],
+          "knownRoot": null,
+          "preResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "postResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0,
+              "alreadyPlayableBeforeResponse": true,
+              "newlyExposedByResponse": false,
+              "sameColumnAsResponse": false,
+              "immediatelyAboveLanding": false
+            }
+          ],
+          "responseLiftHazard": true,
+          "singletonSafe": false
+        },
+        {
+          "column": 7,
+          "landingCell": {
+            "cell": 13,
+            "column": 7,
+            "row": 2,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "terminal": 0,
+          "resultingSupport": [
+            6,
+            6,
+            3,
+            6,
+            5,
+            5,
+            2
+          ],
+          "knownRoot": null,
+          "preResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "postResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0,
+              "alreadyPlayableBeforeResponse": true,
+              "newlyExposedByResponse": false,
+              "sameColumnAsResponse": false,
+              "immediatelyAboveLanding": false
+            }
+          ],
+          "responseLiftHazard": true,
+          "singletonSafe": false
+        }
+      ],
+      "safeAlternativeColumns": [],
+      "disposition": "NO_SINGLETON_SAFE_ALTERNATIVE"
+    },
+    {
+      "id": "SECOND_D3_C5_CONTRACTION",
+      "pairingSignature": "1-5:1|6-7:1",
+      "firstFailureKind": "defender-terminal",
+      "terminalCell": {
+        "cell": 30,
+        "column": 3,
+        "row": 5,
+        "projectedOwner": 1,
+        "supportDistance": 0
+      },
+      "predecessorRank": 32,
+      "predecessorSupport": [
+        6,
+        6,
+        3,
+        6,
+        6,
+        5,
+        0
+      ],
+      "predecessorCpc": {
+        "baseline": {
+          "kind": "CPC_EXACT",
+          "interval": [
+            -1,
+            -1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0,
+          "projectedCount": [
+            0,
+            0
+          ],
+          "projectedForks": [
+            0,
+            0
+          ]
+        },
+        "frontier": {
+          "kind": "CPC_EXACT",
+          "interval": [
+            -1,
+            -1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0,
+          "projectedCount": [
+            0,
+            0
+          ],
+          "projectedForks": [
+            0,
+            0
+          ]
+        }
+      },
+      "preResponsePlayableP2Singletons": [
+        {
+          "diagnosticId": 23,
+          "cell": 23,
+          "column": 3,
+          "row": 4,
+          "projectedOwner": 2,
+          "supportDistance": 0
+        }
+      ],
+      "mappedResponseColumn": 3,
+      "mappedResponseCell": 23,
+      "mappedResponseHazard": true,
+      "mappedResponsePostPlayableP2Singletons": [
+        {
+          "diagnosticId": 30,
+          "cell": 30,
+          "column": 3,
+          "row": 5,
+          "projectedOwner": 1,
+          "supportDistance": 0,
+          "alreadyPlayableBeforeResponse": false,
+          "newlyExposedByResponse": true,
+          "sameColumnAsResponse": true,
+          "immediatelyAboveLanding": true
+        }
+      ],
+      "legalResponses": [
+        {
+          "column": 3,
+          "landingCell": {
+            "cell": 23,
+            "column": 3,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "terminal": 0,
+          "resultingSupport": [
+            6,
+            6,
+            4,
+            6,
+            6,
+            5,
+            0
+          ],
+          "knownRoot": null,
+          "preResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "postResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 30,
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 0,
+              "alreadyPlayableBeforeResponse": false,
+              "newlyExposedByResponse": true,
+              "sameColumnAsResponse": true,
+              "immediatelyAboveLanding": true
+            }
+          ],
+          "responseLiftHazard": true,
+          "singletonSafe": false
+        },
+        {
+          "column": 6,
+          "landingCell": {
+            "cell": 40,
+            "column": 6,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "terminal": 0,
+          "resultingSupport": [
+            6,
+            6,
+            3,
+            6,
+            6,
+            6,
+            0
+          ],
+          "knownRoot": null,
+          "preResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "postResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0,
+              "alreadyPlayableBeforeResponse": true,
+              "newlyExposedByResponse": false,
+              "sameColumnAsResponse": false,
+              "immediatelyAboveLanding": false
+            }
+          ],
+          "responseLiftHazard": true,
+          "singletonSafe": false
+        },
+        {
+          "column": 7,
+          "landingCell": {
+            "cell": 6,
+            "column": 7,
+            "row": 1,
+            "projectedOwner": 1,
+            "supportDistance": 0
+          },
+          "terminal": 0,
+          "resultingSupport": [
+            6,
+            6,
+            3,
+            6,
+            6,
+            5,
+            1
+          ],
+          "knownRoot": null,
+          "preResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "postResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0,
+              "alreadyPlayableBeforeResponse": true,
+              "newlyExposedByResponse": false,
+              "sameColumnAsResponse": false,
+              "immediatelyAboveLanding": false
+            }
+          ],
+          "responseLiftHazard": true,
+          "singletonSafe": false
+        }
+      ],
+      "safeAlternativeColumns": [],
+      "disposition": "NO_SINGLETON_SAFE_ALTERNATIVE"
+    },
+    {
+      "id": "SECOND_D3_C5_CONTRACTION",
+      "pairingSignature": "1-6:1|5-7:1",
+      "firstFailureKind": "defender-terminal",
+      "terminalCell": {
+        "cell": 30,
+        "column": 3,
+        "row": 5,
+        "projectedOwner": 1,
+        "supportDistance": 0
+      },
+      "predecessorRank": 32,
+      "predecessorSupport": [
+        6,
+        6,
+        3,
+        6,
+        5,
+        6,
+        0
+      ],
+      "predecessorCpc": {
+        "baseline": {
+          "kind": "CPC_EXACT",
+          "interval": [
+            -1,
+            -1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0,
+          "projectedCount": [
+            0,
+            0
+          ],
+          "projectedForks": [
+            0,
+            0
+          ]
+        },
+        "frontier": {
+          "kind": "CPC_EXACT",
+          "interval": [
+            -1,
+            -1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0,
+          "projectedCount": [
+            0,
+            0
+          ],
+          "projectedForks": [
+            0,
+            0
+          ]
+        }
+      },
+      "preResponsePlayableP2Singletons": [
+        {
+          "diagnosticId": 23,
+          "cell": 23,
+          "column": 3,
+          "row": 4,
+          "projectedOwner": 2,
+          "supportDistance": 0
+        }
+      ],
+      "mappedResponseColumn": 3,
+      "mappedResponseCell": 23,
+      "mappedResponseHazard": true,
+      "mappedResponsePostPlayableP2Singletons": [
+        {
+          "diagnosticId": 30,
+          "cell": 30,
+          "column": 3,
+          "row": 5,
+          "projectedOwner": 1,
+          "supportDistance": 0,
+          "alreadyPlayableBeforeResponse": false,
+          "newlyExposedByResponse": true,
+          "sameColumnAsResponse": true,
+          "immediatelyAboveLanding": true
+        }
+      ],
+      "legalResponses": [
+        {
+          "column": 3,
+          "landingCell": {
+            "cell": 23,
+            "column": 3,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "terminal": 0,
+          "resultingSupport": [
+            6,
+            6,
+            4,
+            6,
+            5,
+            6,
+            0
+          ],
+          "knownRoot": null,
+          "preResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "postResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 30,
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 0,
+              "alreadyPlayableBeforeResponse": false,
+              "newlyExposedByResponse": true,
+              "sameColumnAsResponse": true,
+              "immediatelyAboveLanding": true
+            }
+          ],
+          "responseLiftHazard": true,
+          "singletonSafe": false
+        },
+        {
+          "column": 5,
+          "landingCell": {
+            "cell": 39,
+            "column": 5,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "terminal": 0,
+          "resultingSupport": [
+            6,
+            6,
+            3,
+            6,
+            6,
+            6,
+            0
+          ],
+          "knownRoot": null,
+          "preResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "postResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0,
+              "alreadyPlayableBeforeResponse": true,
+              "newlyExposedByResponse": false,
+              "sameColumnAsResponse": false,
+              "immediatelyAboveLanding": false
+            }
+          ],
+          "responseLiftHazard": true,
+          "singletonSafe": false
+        },
+        {
+          "column": 7,
+          "landingCell": {
+            "cell": 6,
+            "column": 7,
+            "row": 1,
+            "projectedOwner": 1,
+            "supportDistance": 0
+          },
+          "terminal": 0,
+          "resultingSupport": [
+            6,
+            6,
+            3,
+            6,
+            5,
+            6,
+            1
+          ],
+          "knownRoot": null,
+          "preResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "postResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0,
+              "alreadyPlayableBeforeResponse": true,
+              "newlyExposedByResponse": false,
+              "sameColumnAsResponse": false,
+              "immediatelyAboveLanding": false
+            }
+          ],
+          "responseLiftHazard": true,
+          "singletonSafe": false
+        }
+      ],
+      "safeAlternativeColumns": [],
+      "disposition": "NO_SINGLETON_SAFE_ALTERNATIVE"
+    },
+    {
+      "id": "SECOND_D3_C5_CONTRACTION",
+      "pairingSignature": "1-7:1|5-6:1",
+      "firstFailureKind": "defender-terminal",
+      "terminalCell": {
+        "cell": 30,
+        "column": 3,
+        "row": 5,
+        "projectedOwner": 1,
+        "supportDistance": 0
+      },
+      "predecessorRank": 32,
+      "predecessorSupport": [
+        6,
+        6,
+        3,
+        6,
+        5,
+        5,
+        1
+      ],
+      "predecessorCpc": {
+        "baseline": {
+          "kind": "CPC_EXACT",
+          "interval": [
+            -1,
+            -1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0,
+          "projectedCount": [
+            0,
+            0
+          ],
+          "projectedForks": [
+            0,
+            0
+          ]
+        },
+        "frontier": {
+          "kind": "CPC_EXACT",
+          "interval": [
+            -1,
+            -1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0,
+          "projectedCount": [
+            0,
+            0
+          ],
+          "projectedForks": [
+            0,
+            0
+          ]
+        }
+      },
+      "preResponsePlayableP2Singletons": [
+        {
+          "diagnosticId": 23,
+          "cell": 23,
+          "column": 3,
+          "row": 4,
+          "projectedOwner": 2,
+          "supportDistance": 0
+        }
+      ],
+      "mappedResponseColumn": 3,
+      "mappedResponseCell": 23,
+      "mappedResponseHazard": true,
+      "mappedResponsePostPlayableP2Singletons": [
+        {
+          "diagnosticId": 30,
+          "cell": 30,
+          "column": 3,
+          "row": 5,
+          "projectedOwner": 1,
+          "supportDistance": 0,
+          "alreadyPlayableBeforeResponse": false,
+          "newlyExposedByResponse": true,
+          "sameColumnAsResponse": true,
+          "immediatelyAboveLanding": true
+        }
+      ],
+      "legalResponses": [
+        {
+          "column": 3,
+          "landingCell": {
+            "cell": 23,
+            "column": 3,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "terminal": 0,
+          "resultingSupport": [
+            6,
+            6,
+            4,
+            6,
+            5,
+            5,
+            1
+          ],
+          "knownRoot": null,
+          "preResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "postResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 30,
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 0,
+              "alreadyPlayableBeforeResponse": false,
+              "newlyExposedByResponse": true,
+              "sameColumnAsResponse": true,
+              "immediatelyAboveLanding": true
+            }
+          ],
+          "responseLiftHazard": true,
+          "singletonSafe": false
+        },
+        {
+          "column": 5,
+          "landingCell": {
+            "cell": 39,
+            "column": 5,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "terminal": 0,
+          "resultingSupport": [
+            6,
+            6,
+            3,
+            6,
+            6,
+            5,
+            1
+          ],
+          "knownRoot": null,
+          "preResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "postResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0,
+              "alreadyPlayableBeforeResponse": true,
+              "newlyExposedByResponse": false,
+              "sameColumnAsResponse": false,
+              "immediatelyAboveLanding": false
+            }
+          ],
+          "responseLiftHazard": true,
+          "singletonSafe": false
+        },
+        {
+          "column": 6,
+          "landingCell": {
+            "cell": 40,
+            "column": 6,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "terminal": 0,
+          "resultingSupport": [
+            6,
+            6,
+            3,
+            6,
+            5,
+            6,
+            1
+          ],
+          "knownRoot": null,
+          "preResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "postResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0,
+              "alreadyPlayableBeforeResponse": true,
+              "newlyExposedByResponse": false,
+              "sameColumnAsResponse": false,
+              "immediatelyAboveLanding": false
+            }
+          ],
+          "responseLiftHazard": true,
+          "singletonSafe": false
+        },
+        {
+          "column": 7,
+          "landingCell": {
+            "cell": 13,
+            "column": 7,
+            "row": 2,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "terminal": 0,
+          "resultingSupport": [
+            6,
+            6,
+            3,
+            6,
+            5,
+            5,
+            2
+          ],
+          "knownRoot": null,
+          "preResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "postResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0,
+              "alreadyPlayableBeforeResponse": true,
+              "newlyExposedByResponse": false,
+              "sameColumnAsResponse": false,
+              "immediatelyAboveLanding": false
+            }
+          ],
+          "responseLiftHazard": true,
+          "singletonSafe": false
+        }
+      ],
+      "safeAlternativeColumns": [],
+      "disposition": "NO_SINGLETON_SAFE_ALTERNATIVE"
+    },
+    {
+      "id": "SECOND_D6_C5_CONTRACTION",
+      "pairingSignature": "1-3:1|5-7:1",
+      "firstFailureKind": "defender-terminal",
+      "terminalCell": {
+        "cell": 30,
+        "column": 3,
+        "row": 5,
+        "projectedOwner": 1,
+        "supportDistance": 0
+      },
+      "predecessorRank": 32,
+      "predecessorSupport": [
+        6,
+        6,
+        3,
+        6,
+        5,
+        6,
+        0
+      ],
+      "predecessorCpc": {
+        "baseline": {
+          "kind": "CPC_EXACT",
+          "interval": [
+            -1,
+            -1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0,
+          "projectedCount": [
+            0,
+            0
+          ],
+          "projectedForks": [
+            0,
+            0
+          ]
+        },
+        "frontier": {
+          "kind": "CPC_EXACT",
+          "interval": [
+            -1,
+            -1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0,
+          "projectedCount": [
+            0,
+            0
+          ],
+          "projectedForks": [
+            0,
+            0
+          ]
+        }
+      },
+      "preResponsePlayableP2Singletons": [
+        {
+          "diagnosticId": 23,
+          "cell": 23,
+          "column": 3,
+          "row": 4,
+          "projectedOwner": 2,
+          "supportDistance": 0
+        }
+      ],
+      "mappedResponseColumn": 3,
+      "mappedResponseCell": 23,
+      "mappedResponseHazard": true,
+      "mappedResponsePostPlayableP2Singletons": [
+        {
+          "diagnosticId": 30,
+          "cell": 30,
+          "column": 3,
+          "row": 5,
+          "projectedOwner": 1,
+          "supportDistance": 0,
+          "alreadyPlayableBeforeResponse": false,
+          "newlyExposedByResponse": true,
+          "sameColumnAsResponse": true,
+          "immediatelyAboveLanding": true
+        }
+      ],
+      "legalResponses": [
+        {
+          "column": 3,
+          "landingCell": {
+            "cell": 23,
+            "column": 3,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "terminal": 0,
+          "resultingSupport": [
+            6,
+            6,
+            4,
+            6,
+            5,
+            6,
+            0
+          ],
+          "knownRoot": null,
+          "preResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "postResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 30,
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 0,
+              "alreadyPlayableBeforeResponse": false,
+              "newlyExposedByResponse": true,
+              "sameColumnAsResponse": true,
+              "immediatelyAboveLanding": true
+            }
+          ],
+          "responseLiftHazard": true,
+          "singletonSafe": false
+        },
+        {
+          "column": 5,
+          "landingCell": {
+            "cell": 39,
+            "column": 5,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "terminal": 0,
+          "resultingSupport": [
+            6,
+            6,
+            3,
+            6,
+            6,
+            6,
+            0
+          ],
+          "knownRoot": null,
+          "preResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "postResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0,
+              "alreadyPlayableBeforeResponse": true,
+              "newlyExposedByResponse": false,
+              "sameColumnAsResponse": false,
+              "immediatelyAboveLanding": false
+            }
+          ],
+          "responseLiftHazard": true,
+          "singletonSafe": false
+        },
+        {
+          "column": 7,
+          "landingCell": {
+            "cell": 6,
+            "column": 7,
+            "row": 1,
+            "projectedOwner": 1,
+            "supportDistance": 0
+          },
+          "terminal": 0,
+          "resultingSupport": [
+            6,
+            6,
+            3,
+            6,
+            5,
+            6,
+            1
+          ],
+          "knownRoot": null,
+          "preResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "postResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0,
+              "alreadyPlayableBeforeResponse": true,
+              "newlyExposedByResponse": false,
+              "sameColumnAsResponse": false,
+              "immediatelyAboveLanding": false
+            }
+          ],
+          "responseLiftHazard": true,
+          "singletonSafe": false
+        }
+      ],
+      "safeAlternativeColumns": [],
+      "disposition": "NO_SINGLETON_SAFE_ALTERNATIVE"
+    },
+    {
+      "id": "SECOND_D6_C5_CONTRACTION",
+      "pairingSignature": "1-5:1|3-7:1",
+      "firstFailureKind": "defender-terminal",
+      "terminalCell": {
+        "cell": 30,
+        "column": 3,
+        "row": 5,
+        "projectedOwner": 1,
+        "supportDistance": 0
+      },
+      "predecessorRank": 34,
+      "predecessorSupport": [
+        6,
+        6,
+        3,
+        6,
+        6,
+        6,
+        1
+      ],
+      "predecessorCpc": {
+        "baseline": {
+          "kind": "CPC_EXACT",
+          "interval": [
+            -1,
+            -1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0,
+          "projectedCount": [
+            0,
+            0
+          ],
+          "projectedForks": [
+            0,
+            0
+          ]
+        },
+        "frontier": {
+          "kind": "CPC_EXACT",
+          "interval": [
+            -1,
+            -1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0,
+          "projectedCount": [
+            0,
+            0
+          ],
+          "projectedForks": [
+            0,
+            0
+          ]
+        }
+      },
+      "preResponsePlayableP2Singletons": [
+        {
+          "diagnosticId": 23,
+          "cell": 23,
+          "column": 3,
+          "row": 4,
+          "projectedOwner": 2,
+          "supportDistance": 0
+        }
+      ],
+      "mappedResponseColumn": 3,
+      "mappedResponseCell": 23,
+      "mappedResponseHazard": true,
+      "mappedResponsePostPlayableP2Singletons": [
+        {
+          "diagnosticId": 30,
+          "cell": 30,
+          "column": 3,
+          "row": 5,
+          "projectedOwner": 1,
+          "supportDistance": 0,
+          "alreadyPlayableBeforeResponse": false,
+          "newlyExposedByResponse": true,
+          "sameColumnAsResponse": true,
+          "immediatelyAboveLanding": true
+        }
+      ],
+      "legalResponses": [
+        {
+          "column": 3,
+          "landingCell": {
+            "cell": 23,
+            "column": 3,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "terminal": 0,
+          "resultingSupport": [
+            6,
+            6,
+            4,
+            6,
+            6,
+            6,
+            1
+          ],
+          "knownRoot": null,
+          "preResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "postResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 30,
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 0,
+              "alreadyPlayableBeforeResponse": false,
+              "newlyExposedByResponse": true,
+              "sameColumnAsResponse": true,
+              "immediatelyAboveLanding": true
+            }
+          ],
+          "responseLiftHazard": true,
+          "singletonSafe": false
+        },
+        {
+          "column": 7,
+          "landingCell": {
+            "cell": 13,
+            "column": 7,
+            "row": 2,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "terminal": 0,
+          "resultingSupport": [
+            6,
+            6,
+            3,
+            6,
+            6,
+            6,
+            2
+          ],
+          "knownRoot": null,
+          "preResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "postResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0,
+              "alreadyPlayableBeforeResponse": true,
+              "newlyExposedByResponse": false,
+              "sameColumnAsResponse": false,
+              "immediatelyAboveLanding": false
+            }
+          ],
+          "responseLiftHazard": true,
+          "singletonSafe": false
+        }
+      ],
+      "safeAlternativeColumns": [],
+      "disposition": "NO_SINGLETON_SAFE_ALTERNATIVE"
+    },
+    {
+      "id": "SECOND_D6_C5_CONTRACTION",
+      "pairingSignature": "1-7:1|3-5:1",
+      "firstFailureKind": "defender-terminal",
+      "terminalCell": {
+        "cell": 30,
+        "column": 3,
+        "row": 5,
+        "projectedOwner": 1,
+        "supportDistance": 0
+      },
+      "predecessorRank": 34,
+      "predecessorSupport": [
+        6,
+        6,
+        3,
+        6,
+        6,
+        6,
+        1
+      ],
+      "predecessorCpc": {
+        "baseline": {
+          "kind": "CPC_EXACT",
+          "interval": [
+            -1,
+            -1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0,
+          "projectedCount": [
+            0,
+            0
+          ],
+          "projectedForks": [
+            0,
+            0
+          ]
+        },
+        "frontier": {
+          "kind": "CPC_EXACT",
+          "interval": [
+            -1,
+            -1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0,
+          "projectedCount": [
+            0,
+            0
+          ],
+          "projectedForks": [
+            0,
+            0
+          ]
+        }
+      },
+      "preResponsePlayableP2Singletons": [
+        {
+          "diagnosticId": 23,
+          "cell": 23,
+          "column": 3,
+          "row": 4,
+          "projectedOwner": 2,
+          "supportDistance": 0
+        }
+      ],
+      "mappedResponseColumn": 3,
+      "mappedResponseCell": 23,
+      "mappedResponseHazard": true,
+      "mappedResponsePostPlayableP2Singletons": [
+        {
+          "diagnosticId": 30,
+          "cell": 30,
+          "column": 3,
+          "row": 5,
+          "projectedOwner": 1,
+          "supportDistance": 0,
+          "alreadyPlayableBeforeResponse": false,
+          "newlyExposedByResponse": true,
+          "sameColumnAsResponse": true,
+          "immediatelyAboveLanding": true
+        }
+      ],
+      "legalResponses": [
+        {
+          "column": 3,
+          "landingCell": {
+            "cell": 23,
+            "column": 3,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "terminal": 0,
+          "resultingSupport": [
+            6,
+            6,
+            4,
+            6,
+            6,
+            6,
+            1
+          ],
+          "knownRoot": null,
+          "preResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "postResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 30,
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 0,
+              "alreadyPlayableBeforeResponse": false,
+              "newlyExposedByResponse": true,
+              "sameColumnAsResponse": true,
+              "immediatelyAboveLanding": true
+            }
+          ],
+          "responseLiftHazard": true,
+          "singletonSafe": false
+        },
+        {
+          "column": 7,
+          "landingCell": {
+            "cell": 13,
+            "column": 7,
+            "row": 2,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "terminal": 0,
+          "resultingSupport": [
+            6,
+            6,
+            3,
+            6,
+            6,
+            6,
+            2
+          ],
+          "knownRoot": null,
+          "preResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "postResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0,
+              "alreadyPlayableBeforeResponse": true,
+              "newlyExposedByResponse": false,
+              "sameColumnAsResponse": false,
+              "immediatelyAboveLanding": false
+            }
+          ],
+          "responseLiftHazard": true,
+          "singletonSafe": false
+        }
+      ],
+      "safeAlternativeColumns": [],
+      "disposition": "NO_SINGLETON_SAFE_ALTERNATIVE"
+    },
+    {
+      "id": "SECOND_D7_C5_CONTRACTION",
+      "pairingSignature": "1-3:1|5-6:1",
+      "firstFailureKind": "defender-terminal",
+      "terminalCell": {
+        "cell": 30,
+        "column": 3,
+        "row": 5,
+        "projectedOwner": 1,
+        "supportDistance": 0
+      },
+      "predecessorRank": 32,
+      "predecessorSupport": [
+        6,
+        6,
+        3,
+        6,
+        5,
+        5,
+        1
+      ],
+      "predecessorCpc": {
+        "baseline": {
+          "kind": "CPC_EXACT",
+          "interval": [
+            -1,
+            -1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0,
+          "projectedCount": [
+            0,
+            0
+          ],
+          "projectedForks": [
+            0,
+            0
+          ]
+        },
+        "frontier": {
+          "kind": "CPC_EXACT",
+          "interval": [
+            -1,
+            -1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0,
+          "projectedCount": [
+            0,
+            0
+          ],
+          "projectedForks": [
+            0,
+            0
+          ]
+        }
+      },
+      "preResponsePlayableP2Singletons": [
+        {
+          "diagnosticId": 23,
+          "cell": 23,
+          "column": 3,
+          "row": 4,
+          "projectedOwner": 2,
+          "supportDistance": 0
+        }
+      ],
+      "mappedResponseColumn": 3,
+      "mappedResponseCell": 23,
+      "mappedResponseHazard": true,
+      "mappedResponsePostPlayableP2Singletons": [
+        {
+          "diagnosticId": 30,
+          "cell": 30,
+          "column": 3,
+          "row": 5,
+          "projectedOwner": 1,
+          "supportDistance": 0,
+          "alreadyPlayableBeforeResponse": false,
+          "newlyExposedByResponse": true,
+          "sameColumnAsResponse": true,
+          "immediatelyAboveLanding": true
+        }
+      ],
+      "legalResponses": [
+        {
+          "column": 3,
+          "landingCell": {
+            "cell": 23,
+            "column": 3,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "terminal": 0,
+          "resultingSupport": [
+            6,
+            6,
+            4,
+            6,
+            5,
+            5,
+            1
+          ],
+          "knownRoot": null,
+          "preResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "postResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 30,
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 0,
+              "alreadyPlayableBeforeResponse": false,
+              "newlyExposedByResponse": true,
+              "sameColumnAsResponse": true,
+              "immediatelyAboveLanding": true
+            }
+          ],
+          "responseLiftHazard": true,
+          "singletonSafe": false
+        },
+        {
+          "column": 5,
+          "landingCell": {
+            "cell": 39,
+            "column": 5,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "terminal": 0,
+          "resultingSupport": [
+            6,
+            6,
+            3,
+            6,
+            6,
+            5,
+            1
+          ],
+          "knownRoot": null,
+          "preResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "postResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0,
+              "alreadyPlayableBeforeResponse": true,
+              "newlyExposedByResponse": false,
+              "sameColumnAsResponse": false,
+              "immediatelyAboveLanding": false
+            }
+          ],
+          "responseLiftHazard": true,
+          "singletonSafe": false
+        },
+        {
+          "column": 6,
+          "landingCell": {
+            "cell": 40,
+            "column": 6,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "terminal": 0,
+          "resultingSupport": [
+            6,
+            6,
+            3,
+            6,
+            5,
+            6,
+            1
+          ],
+          "knownRoot": null,
+          "preResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "postResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0,
+              "alreadyPlayableBeforeResponse": true,
+              "newlyExposedByResponse": false,
+              "sameColumnAsResponse": false,
+              "immediatelyAboveLanding": false
+            }
+          ],
+          "responseLiftHazard": true,
+          "singletonSafe": false
+        },
+        {
+          "column": 7,
+          "landingCell": {
+            "cell": 13,
+            "column": 7,
+            "row": 2,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "terminal": 0,
+          "resultingSupport": [
+            6,
+            6,
+            3,
+            6,
+            5,
+            5,
+            2
+          ],
+          "knownRoot": null,
+          "preResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "postResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0,
+              "alreadyPlayableBeforeResponse": true,
+              "newlyExposedByResponse": false,
+              "sameColumnAsResponse": false,
+              "immediatelyAboveLanding": false
+            }
+          ],
+          "responseLiftHazard": true,
+          "singletonSafe": false
+        }
+      ],
+      "safeAlternativeColumns": [],
+      "disposition": "NO_SINGLETON_SAFE_ALTERNATIVE"
+    },
+    {
+      "id": "SECOND_D7_C5_CONTRACTION",
+      "pairingSignature": "1-5:1|3-6:1",
+      "firstFailureKind": "defender-terminal",
+      "terminalCell": {
+        "cell": 30,
+        "column": 3,
+        "row": 5,
+        "projectedOwner": 1,
+        "supportDistance": 0
+      },
+      "predecessorRank": 34,
+      "predecessorSupport": [
+        6,
+        6,
+        3,
+        6,
+        6,
+        6,
+        1
+      ],
+      "predecessorCpc": {
+        "baseline": {
+          "kind": "CPC_EXACT",
+          "interval": [
+            -1,
+            -1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0,
+          "projectedCount": [
+            0,
+            0
+          ],
+          "projectedForks": [
+            0,
+            0
+          ]
+        },
+        "frontier": {
+          "kind": "CPC_EXACT",
+          "interval": [
+            -1,
+            -1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0,
+          "projectedCount": [
+            0,
+            0
+          ],
+          "projectedForks": [
+            0,
+            0
+          ]
+        }
+      },
+      "preResponsePlayableP2Singletons": [
+        {
+          "diagnosticId": 23,
+          "cell": 23,
+          "column": 3,
+          "row": 4,
+          "projectedOwner": 2,
+          "supportDistance": 0
+        }
+      ],
+      "mappedResponseColumn": 3,
+      "mappedResponseCell": 23,
+      "mappedResponseHazard": true,
+      "mappedResponsePostPlayableP2Singletons": [
+        {
+          "diagnosticId": 30,
+          "cell": 30,
+          "column": 3,
+          "row": 5,
+          "projectedOwner": 1,
+          "supportDistance": 0,
+          "alreadyPlayableBeforeResponse": false,
+          "newlyExposedByResponse": true,
+          "sameColumnAsResponse": true,
+          "immediatelyAboveLanding": true
+        }
+      ],
+      "legalResponses": [
+        {
+          "column": 3,
+          "landingCell": {
+            "cell": 23,
+            "column": 3,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "terminal": 0,
+          "resultingSupport": [
+            6,
+            6,
+            4,
+            6,
+            6,
+            6,
+            1
+          ],
+          "knownRoot": null,
+          "preResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "postResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 30,
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 0,
+              "alreadyPlayableBeforeResponse": false,
+              "newlyExposedByResponse": true,
+              "sameColumnAsResponse": true,
+              "immediatelyAboveLanding": true
+            }
+          ],
+          "responseLiftHazard": true,
+          "singletonSafe": false
+        },
+        {
+          "column": 7,
+          "landingCell": {
+            "cell": 13,
+            "column": 7,
+            "row": 2,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "terminal": 0,
+          "resultingSupport": [
+            6,
+            6,
+            3,
+            6,
+            6,
+            6,
+            2
+          ],
+          "knownRoot": null,
+          "preResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "postResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0,
+              "alreadyPlayableBeforeResponse": true,
+              "newlyExposedByResponse": false,
+              "sameColumnAsResponse": false,
+              "immediatelyAboveLanding": false
+            }
+          ],
+          "responseLiftHazard": true,
+          "singletonSafe": false
+        }
+      ],
+      "safeAlternativeColumns": [],
+      "disposition": "NO_SINGLETON_SAFE_ALTERNATIVE"
+    },
+    {
+      "id": "SECOND_D7_C5_CONTRACTION",
+      "pairingSignature": "1-6:1|3-5:1",
+      "firstFailureKind": "defender-terminal",
+      "terminalCell": {
+        "cell": 30,
+        "column": 3,
+        "row": 5,
+        "projectedOwner": 1,
+        "supportDistance": 0
+      },
+      "predecessorRank": 34,
+      "predecessorSupport": [
+        6,
+        6,
+        3,
+        6,
+        6,
+        6,
+        1
+      ],
+      "predecessorCpc": {
+        "baseline": {
+          "kind": "CPC_EXACT",
+          "interval": [
+            -1,
+            -1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0,
+          "projectedCount": [
+            0,
+            0
+          ],
+          "projectedForks": [
+            0,
+            0
+          ]
+        },
+        "frontier": {
+          "kind": "CPC_EXACT",
+          "interval": [
+            -1,
+            -1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0,
+          "projectedCount": [
+            0,
+            0
+          ],
+          "projectedForks": [
+            0,
+            0
+          ]
+        }
+      },
+      "preResponsePlayableP2Singletons": [
+        {
+          "diagnosticId": 23,
+          "cell": 23,
+          "column": 3,
+          "row": 4,
+          "projectedOwner": 2,
+          "supportDistance": 0
+        }
+      ],
+      "mappedResponseColumn": 3,
+      "mappedResponseCell": 23,
+      "mappedResponseHazard": true,
+      "mappedResponsePostPlayableP2Singletons": [
+        {
+          "diagnosticId": 30,
+          "cell": 30,
+          "column": 3,
+          "row": 5,
+          "projectedOwner": 1,
+          "supportDistance": 0,
+          "alreadyPlayableBeforeResponse": false,
+          "newlyExposedByResponse": true,
+          "sameColumnAsResponse": true,
+          "immediatelyAboveLanding": true
+        }
+      ],
+      "legalResponses": [
+        {
+          "column": 3,
+          "landingCell": {
+            "cell": 23,
+            "column": 3,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "terminal": 0,
+          "resultingSupport": [
+            6,
+            6,
+            4,
+            6,
+            6,
+            6,
+            1
+          ],
+          "knownRoot": null,
+          "preResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "postResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 30,
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 0,
+              "alreadyPlayableBeforeResponse": false,
+              "newlyExposedByResponse": true,
+              "sameColumnAsResponse": true,
+              "immediatelyAboveLanding": true
+            }
+          ],
+          "responseLiftHazard": true,
+          "singletonSafe": false
+        },
+        {
+          "column": 7,
+          "landingCell": {
+            "cell": 13,
+            "column": 7,
+            "row": 2,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "terminal": 0,
+          "resultingSupport": [
+            6,
+            6,
+            3,
+            6,
+            6,
+            6,
+            2
+          ],
+          "knownRoot": null,
+          "preResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "postResponsePlayableP2Singletons": [
+            {
+              "diagnosticId": 23,
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 0,
+              "alreadyPlayableBeforeResponse": true,
+              "newlyExposedByResponse": false,
+              "sameColumnAsResponse": false,
+              "immediatelyAboveLanding": false
+            }
+          ],
+          "responseLiftHazard": true,
+          "singletonSafe": false
+        }
+      ],
+      "safeAlternativeColumns": [],
+      "disposition": "NO_SINGLETON_SAFE_ALTERNATIVE"
+    }
+  ],
+  "summary": {
+    "candidateCount": 13,
+    "responseLiftHazardCount": 13,
+    "mappedResponseAlreadySafeCount": 0,
+    "safeAlternativeExistsCount": 0,
+    "noSingletonSafeAlternativeCount": 13,
+    "safeAlternativeCandidateIds": [],
+    "noSafeAlternativeCandidateIds": [
+      "FIRST_D3_C1_CONTRACTION:1-5:1|3-6:1",
+      "SECOND_D1_C5_CONTRACTION:3-5:1|6-7:1",
+      "SECOND_D1_C5_CONTRACTION:3-6:1|5-7:1",
+      "SECOND_D1_C5_CONTRACTION:3-7:1|5-6:1",
+      "SECOND_D3_C5_CONTRACTION:1-5:1|6-7:1",
+      "SECOND_D3_C5_CONTRACTION:1-6:1|5-7:1",
+      "SECOND_D3_C5_CONTRACTION:1-7:1|5-6:1",
+      "SECOND_D6_C5_CONTRACTION:1-3:1|5-7:1",
+      "SECOND_D6_C5_CONTRACTION:1-5:1|3-7:1",
+      "SECOND_D6_C5_CONTRACTION:1-7:1|3-5:1",
+      "SECOND_D7_C5_CONTRACTION:1-3:1|5-6:1",
+      "SECOND_D7_C5_CONTRACTION:1-5:1|3-6:1",
+      "SECOND_D7_C5_CONTRACTION:1-6:1|3-5:1"
+    ],
+    "mappedHazardAlreadyPlayableBeforeCount": 1,
+    "mappedHazardNewlyExposedCount": 12
+  },
+  "conclusion": [
+    "Every frozen first-failure predecessor is reconstructed exactly from the pinned RBA state and the frozen deterministic trigger/response path.",
+    "A mapped nonterminal response is classified as a response-lift hazard exactly when the resulting Player-2 state contains an active physically playable Player-2 residual singleton.",
+    "Every mapped response in the frozen failure family violates the response-lift exclusion condition.",
+    "No hazardous predecessor has a different legal singleton-safe Player-1 response; the repair must move earlier in the response circuit rather than rerouting only at the final hazardous decision."
+  ],
+  "boundary": [
+    "This is discovery/qualification evidence only and does not certify the rank-20 root or select an optimal response.",
+    "No oracle, solved W/D/L, minimax, ordinary free-branch game-tree value, best-move table, opening book, BSFP solved frontier, physical-position identity shortcut, or sealed holdout is used.",
+    "Only one-ply legal Player-1 responses are inspected at the already-localized hazardous predecessor states.",
+    "Production CPC, JSMinSys, target-reservoir semantics, and BSFP remain unchanged."
+  ]
+}
