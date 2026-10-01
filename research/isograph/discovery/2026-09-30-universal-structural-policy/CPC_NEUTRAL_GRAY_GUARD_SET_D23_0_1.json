@@ -1,0 +1,67 @@
+{
+  "schema": "connect4.cpc_neutral_gray_guard_set_bigint_rba_target.v1",
+  "jsMinSysSha": "0899c5811918e68c22dc1b0e4dd8af97d9b4bbcb",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "root": {
+    "id": "candidate6",
+    "sequence": "4444415666",
+    "rank": 10,
+    "attacker": 1,
+    "support": [
+      1,
+      0,
+      0,
+      5,
+      1,
+      3,
+      0
+    ]
+  },
+  "targetHorizon": 23,
+  "absolutePly": 33,
+  "initialOddDefenderMask": 98305,
+  "initialGuards": [
+    {
+      "column": 1,
+      "height": 1
+    },
+    {
+      "column": 6,
+      "height": 3
+    }
+  ],
+  "result": {
+    "accept": true,
+    "class": "GUARDSET_D23"
+  },
+  "work": {
+    "classCalls": 3152532,
+    "memoHits": 2756485,
+    "branchTests": 8014993,
+    "responseTests": 12921365,
+    "cofactorTransitions": 20936358,
+    "cofactorCount": 37682352,
+    "guardRenewCandidates": 1105450,
+    "supportLiftCandidates": 4365022,
+    "topDebtCandidates": 3575118,
+    "ordinaryCandidates": 19068024,
+    "classMemoSize": 3152532,
+    "baseMemoSize": 0,
+    "templateMemoSize": 2048,
+    "responseOptionMemoSize": 0,
+    "cofactorMemoSize": 0,
+    "templateCacheLimit": 2048,
+    "neutralNormalizeCalls": 5909018,
+    "neutralBitsPromoted": 2898770
+  },
+  "boundary": [
+    "The guard set and response grammar are unchanged; this execution variant keys memoization by exact RBA words packed into a collision-free BigInt plus the neutral-aware guard mask and horizon.",
+    "Raw physical ownership is used only to recognize newly neutral occupied cells; it is not part of memo identity.",
+    "An occupied odd-row ownership bit is promoted to gray only when that cell belongs to no still-possible winning line for either player.",
+    "Neutrality is monotone under token addition, so a promoted gray ownership distinction is never required again.",
+    "No new response type is introduced: all candidates belong to previously frozen CPC response, guard-renewal, support-lift, or top-debt theorems.",
+    "Top-debt repair retains the existing premise that at least one carried guard survives trigger and response untouched.",
+    "Acceptance is a constructive survival lower certificate only; rejection is not an attacker upper bound."
+  ]
+}
