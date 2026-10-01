@@ -1,0 +1,1269 @@
+{
+  "schema": "connect4.cpc_gray_token_fresh_structural.v1",
+  "jsMinSysSha": "0899c5811918e68c22dc1b0e4dd8af97d9b4bbcb",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "consumedBoundaryUsed": false,
+  "roots": 55,
+  "grayRoots": 49,
+  "grayCellsSeen": 175,
+  "twoPlyTransitions": 1662,
+  "grayChildTransitions": 1451,
+  "terminalTriggers": 71,
+  "terminalResponses": 128,
+  "ranksCovered": [
+    8,
+    10,
+    12,
+    14,
+    16,
+    18,
+    20,
+    22,
+    24,
+    26,
+    28
+  ],
+  "guardsObserved": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "samples": [
+    {
+      "sequence": "44556621",
+      "rank": 8,
+      "support": [
+        1,
+        1,
+        0,
+        2,
+        2,
+        2,
+        0
+      ],
+      "grayCells": 0,
+      "grayOddMask": 0,
+      "defenderOddMask": 1,
+      "effectiveOddSafeMask": 1,
+      "effectiveGuards": [
+        1
+      ],
+      "checkedTwoPlyTransitions": 35,
+      "grayChildTransitions": 0
+    },
+    {
+      "sequence": "55667732",
+      "rank": 8,
+      "support": [
+        0,
+        1,
+        1,
+        0,
+        2,
+        2,
+        2
+      ],
+      "grayCells": 0,
+      "grayOddMask": 0,
+      "defenderOddMask": 8,
+      "effectiveOddSafeMask": 8,
+      "effectiveGuards": [
+        2
+      ],
+      "checkedTwoPlyTransitions": 42,
+      "grayChildTransitions": 6
+    },
+    {
+      "sequence": "66771143",
+      "rank": 8,
+      "support": [
+        2,
+        0,
+        1,
+        1,
+        0,
+        2,
+        2
+      ],
+      "grayCells": 0,
+      "grayOddMask": 0,
+      "defenderOddMask": 64,
+      "effectiveOddSafeMask": 64,
+      "effectiveGuards": [
+        3
+      ],
+      "checkedTwoPlyTransitions": 42,
+      "grayChildTransitions": 8
+    },
+    {
+      "sequence": "77112254",
+      "rank": 8,
+      "support": [
+        2,
+        2,
+        0,
+        1,
+        1,
+        0,
+        2
+      ],
+      "grayCells": 1,
+      "grayOddMask": 1,
+      "defenderOddMask": 512,
+      "effectiveOddSafeMask": 513,
+      "effectiveGuards": [
+        4
+      ],
+      "checkedTwoPlyTransitions": 49,
+      "grayChildTransitions": 49
+    },
+    {
+      "sequence": "11223365",
+      "rank": 8,
+      "support": [
+        2,
+        2,
+        2,
+        0,
+        1,
+        1,
+        0
+      ],
+      "grayCells": 0,
+      "grayOddMask": 0,
+      "defenderOddMask": 4096,
+      "effectiveOddSafeMask": 4096,
+      "effectiveGuards": [
+        5
+      ],
+      "checkedTwoPlyTransitions": 42,
+      "grayChildTransitions": 6
+    },
+    {
+      "sequence": "22334476",
+      "rank": 8,
+      "support": [
+        0,
+        2,
+        2,
+        2,
+        0,
+        1,
+        1
+      ],
+      "grayCells": 0,
+      "grayOddMask": 0,
+      "defenderOddMask": 32768,
+      "effectiveOddSafeMask": 32768,
+      "effectiveGuards": [
+        6
+      ],
+      "checkedTwoPlyTransitions": 35,
+      "grayChildTransitions": 0
+    },
+    {
+      "sequence": "33445517",
+      "rank": 8,
+      "support": [
+        1,
+        0,
+        2,
+        2,
+        2,
+        0,
+        1
+      ],
+      "grayCells": 0,
+      "grayOddMask": 0,
+      "defenderOddMask": 262144,
+      "effectiveOddSafeMask": 262144,
+      "effectiveGuards": [
+        7
+      ],
+      "checkedTwoPlyTransitions": 35,
+      "grayChildTransitions": 0
+    },
+    {
+      "sequence": "43723471611525",
+      "rank": 14,
+      "support": [
+        3,
+        2,
+        2,
+        2,
+        2,
+        1,
+        2
+      ],
+      "grayCells": 2,
+      "grayOddMask": 9,
+      "defenderOddMask": 4169,
+      "effectiveOddSafeMask": 4169,
+      "effectiveGuards": [],
+      "checkedTwoPlyTransitions": 49,
+      "grayChildTransitions": 49
+    },
+    {
+      "sequence": "4372347161152511",
+      "rank": 16,
+      "support": [
+        5,
+        2,
+        2,
+        2,
+        2,
+        1,
+        2
+      ],
+      "grayCells": 2,
+      "grayOddMask": 9,
+      "defenderOddMask": 4173,
+      "effectiveOddSafeMask": 4173,
+      "effectiveGuards": [],
+      "checkedTwoPlyTransitions": 41,
+      "grayChildTransitions": 41
+    },
+    {
+      "sequence": "437234716115251134",
+      "rank": 18,
+      "support": [
+        5,
+        2,
+        3,
+        3,
+        2,
+        1,
+        2
+      ],
+      "grayCells": 2,
+      "grayOddMask": 9,
+      "defenderOddMask": 5197,
+      "effectiveOddSafeMask": 5197,
+      "effectiveGuards": [],
+      "checkedTwoPlyTransitions": 41,
+      "grayChildTransitions": 41
+    },
+    {
+      "sequence": "43723471611525113451",
+      "rank": 20,
+      "support": [
+        6,
+        2,
+        3,
+        3,
+        3,
+        1,
+        2
+      ],
+      "grayCells": 4,
+      "grayOddMask": 4169,
+      "defenderOddMask": 5197,
+      "effectiveOddSafeMask": 5197,
+      "effectiveGuards": [],
+      "checkedTwoPlyTransitions": 30,
+      "grayChildTransitions": 30
+    },
+    {
+      "sequence": "4372347161152511345154",
+      "rank": 22,
+      "support": [
+        6,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2
+      ],
+      "grayCells": 4,
+      "grayOddMask": 4169,
+      "defenderOddMask": 5197,
+      "effectiveOddSafeMask": 5197,
+      "effectiveGuards": [],
+      "checkedTwoPlyTransitions": 26,
+      "grayChildTransitions": 26
+    },
+    {
+      "sequence": "437234716115251134515455",
+      "rank": 24,
+      "support": [
+        6,
+        2,
+        3,
+        4,
+        6,
+        1,
+        2
+      ],
+      "grayCells": 5,
+      "grayOddMask": 12361,
+      "defenderOddMask": 5197,
+      "effectiveOddSafeMask": 13389,
+      "effectiveGuards": [],
+      "checkedTwoPlyTransitions": 17,
+      "grayChildTransitions": 17
+    },
+    {
+      "sequence": "43723471611525113451545547",
+      "rank": 26,
+      "support": [
+        6,
+        2,
+        3,
+        5,
+        6,
+        1,
+        3
+      ],
+      "grayCells": 10,
+      "grayOddMask": 274509,
+      "defenderOddMask": 529485,
+      "effectiveOddSafeMask": 799821,
+      "effectiveGuards": [
+        7
+      ],
+      "checkedTwoPlyTransitions": 19,
+      "grayChildTransitions": 19
+    },
+    {
+      "sequence": "4372347161152511345154554773",
+      "rank": 28,
+      "support": [
+        6,
+        2,
+        4,
+        5,
+        6,
+        1,
+        4
+      ],
+      "grayCells": 13,
+      "grayOddMask": 798925,
+      "defenderOddMask": 529485,
+      "effectiveOddSafeMask": 799949,
+      "effectiveGuards": [],
+      "checkedTwoPlyTransitions": 19,
+      "grayChildTransitions": 19
+    },
+    {
+      "sequence": "4442251545",
+      "rank": 10,
+      "support": [
+        1,
+        2,
+        0,
+        4,
+        3,
+        0,
+        0
+      ],
+      "grayCells": 1,
+      "grayOddMask": 8,
+      "defenderOddMask": 12296,
+      "effectiveOddSafeMask": 12296,
+      "effectiveGuards": [
+        5
+      ],
+      "checkedTwoPlyTransitions": 43,
+      "grayChildTransitions": 43
+    },
+    {
+      "sequence": "444225154536",
+      "rank": 12,
+      "support": [
+        1,
+        2,
+        1,
+        4,
+        3,
+        1,
+        0
+      ],
+      "grayCells": 1,
+      "grayOddMask": 8,
+      "defenderOddMask": 45064,
+      "effectiveOddSafeMask": 45064,
+      "effectiveGuards": [
+        5,
+        6
+      ],
+      "checkedTwoPlyTransitions": 43,
+      "grayChildTransitions": 43
+    },
+    {
+      "sequence": "44422515453646",
+      "rank": 14,
+      "support": [
+        1,
+        2,
+        1,
+        5,
+        3,
+        2,
+        0
+      ],
+      "grayCells": 1,
+      "grayOddMask": 8,
+      "defenderOddMask": 45064,
+      "effectiveOddSafeMask": 45064,
+      "effectiveGuards": [
+        5
+      ],
+      "checkedTwoPlyTransitions": 31,
+      "grayChildTransitions": 31
+    },
+    {
+      "sequence": "4442251545364631",
+      "rank": 16,
+      "support": [
+        2,
+        2,
+        2,
+        5,
+        3,
+        2,
+        0
+      ],
+      "grayCells": 1,
+      "grayOddMask": 8,
+      "defenderOddMask": 45064,
+      "effectiveOddSafeMask": 45064,
+      "effectiveGuards": [
+        5
+      ],
+      "checkedTwoPlyTransitions": 30,
+      "grayChildTransitions": 30
+    },
+    {
+      "sequence": "444225154536463167",
+      "rank": 18,
+      "support": [
+        2,
+        2,
+        2,
+        5,
+        3,
+        3,
+        1
+      ],
+      "grayCells": 2,
+      "grayOddMask": 32776,
+      "defenderOddMask": 307208,
+      "effectiveOddSafeMask": 307208,
+      "effectiveGuards": [
+        5,
+        7
+      ],
+      "checkedTwoPlyTransitions": 27,
+      "grayChildTransitions": 27
+    },
+    {
+      "sequence": "44422515453646316713",
+      "rank": 20,
+      "support": [
+        3,
+        2,
+        3,
+        5,
+        3,
+        3,
+        1
+      ],
+      "grayCells": 5,
+      "grayOddMask": 32841,
+      "defenderOddMask": 307336,
+      "effectiveOddSafeMask": 307401,
+      "effectiveGuards": [
+        3,
+        5,
+        7
+      ],
+      "checkedTwoPlyTransitions": 31,
+      "grayChildTransitions": 31
+    },
+    {
+      "sequence": "4442251545364631671312",
+      "rank": 22,
+      "support": [
+        4,
+        3,
+        3,
+        5,
+        3,
+        3,
+        1
+      ],
+      "grayCells": 7,
+      "grayOddMask": 33353,
+      "defenderOddMask": 307352,
+      "effectiveOddSafeMask": 307929,
+      "effectiveGuards": [
+        2,
+        3,
+        5,
+        7
+      ],
+      "checkedTwoPlyTransitions": 27,
+      "grayChildTransitions": 27
+    },
+    {
+      "sequence": "444225154536463167131236",
+      "rank": 24,
+      "support": [
+        4,
+        3,
+        4,
+        5,
+        3,
+        4,
+        1
+      ],
+      "grayCells": 7,
+      "grayOddMask": 33353,
+      "defenderOddMask": 307352,
+      "effectiveOddSafeMask": 307929,
+      "effectiveGuards": [
+        2,
+        5,
+        7
+      ],
+      "checkedTwoPlyTransitions": 22,
+      "grayChildTransitions": 22
+    },
+    {
+      "sequence": "44422515453646316713123653",
+      "rank": 26,
+      "support": [
+        4,
+        3,
+        5,
+        5,
+        4,
+        4,
+        1
+      ],
+      "grayCells": 8,
+      "grayOddMask": 33609,
+      "defenderOddMask": 307608,
+      "effectiveOddSafeMask": 308185,
+      "effectiveGuards": [
+        2,
+        3,
+        7
+      ],
+      "checkedTwoPlyTransitions": 10,
+      "grayChildTransitions": 10
+    },
+    {
+      "sequence": "4442251545364631671312365315",
+      "rank": 28,
+      "support": [
+        5,
+        3,
+        5,
+        5,
+        5,
+        4,
+        1
+      ],
+      "grayCells": 8,
+      "grayOddMask": 33609,
+      "defenderOddMask": 323992,
+      "effectiveOddSafeMask": 324569,
+      "effectiveGuards": [
+        2,
+        3,
+        5,
+        7
+      ],
+      "checkedTwoPlyTransitions": 4,
+      "grayChildTransitions": 4
+    },
+    {
+      "sequence": "421616266557",
+      "rank": 12,
+      "support": [
+        2,
+        2,
+        0,
+        1,
+        2,
+        4,
+        1
+      ],
+      "grayCells": 1,
+      "grayOddMask": 32768,
+      "defenderOddMask": 364552,
+      "effectiveOddSafeMask": 364552,
+      "effectiveGuards": [
+        7
+      ],
+      "checkedTwoPlyTransitions": 49,
+      "grayChildTransitions": 49
+    },
+    {
+      "sequence": "42161626655767",
+      "rank": 14,
+      "support": [
+        2,
+        2,
+        0,
+        1,
+        2,
+        5,
+        2
+      ],
+      "grayCells": 1,
+      "grayOddMask": 32768,
+      "defenderOddMask": 364552,
+      "effectiveOddSafeMask": 364552,
+      "effectiveGuards": [],
+      "checkedTwoPlyTransitions": 48,
+      "grayChildTransitions": 48
+    },
+    {
+      "sequence": "4216162665576721",
+      "rank": 16,
+      "support": [
+        3,
+        3,
+        0,
+        1,
+        2,
+        5,
+        2
+      ],
+      "grayCells": 1,
+      "grayOddMask": 32768,
+      "defenderOddMask": 364554,
+      "effectiveOddSafeMask": 364554,
+      "effectiveGuards": [],
+      "checkedTwoPlyTransitions": 48,
+      "grayChildTransitions": 48
+    },
+    {
+      "sequence": "421616266557672163",
+      "rank": 18,
+      "support": [
+        3,
+        3,
+        1,
+        1,
+        2,
+        6,
+        2
+      ],
+      "grayCells": 1,
+      "grayOddMask": 32768,
+      "defenderOddMask": 364618,
+      "effectiveOddSafeMask": 364618,
+      "effectiveGuards": [
+        3
+      ],
+      "checkedTwoPlyTransitions": 36,
+      "grayChildTransitions": 36
+    },
+    {
+      "sequence": "42161626655767216342",
+      "rank": 20,
+      "support": [
+        3,
+        4,
+        1,
+        2,
+        2,
+        6,
+        2
+      ],
+      "grayCells": 2,
+      "grayOddMask": 36864,
+      "defenderOddMask": 364618,
+      "effectiveOddSafeMask": 364618,
+      "effectiveGuards": [
+        3
+      ],
+      "checkedTwoPlyTransitions": 30,
+      "grayChildTransitions": 30
+    },
+    {
+      "sequence": "4216162665576721634213",
+      "rank": 22,
+      "support": [
+        4,
+        4,
+        2,
+        2,
+        2,
+        6,
+        2
+      ],
+      "grayCells": 3,
+      "grayOddMask": 36864,
+      "defenderOddMask": 364618,
+      "effectiveOddSafeMask": 364618,
+      "effectiveGuards": [],
+      "checkedTwoPlyTransitions": 36,
+      "grayChildTransitions": 36
+    },
+    {
+      "sequence": "421616266557672163421341",
+      "rank": 24,
+      "support": [
+        5,
+        4,
+        2,
+        3,
+        2,
+        6,
+        2
+      ],
+      "grayCells": 4,
+      "grayOddMask": 36872,
+      "defenderOddMask": 364622,
+      "effectiveOddSafeMask": 364622,
+      "effectiveGuards": [],
+      "checkedTwoPlyTransitions": 29,
+      "grayChildTransitions": 29
+    },
+    {
+      "sequence": "42161626655767216342134127",
+      "rank": 26,
+      "support": [
+        5,
+        5,
+        2,
+        3,
+        2,
+        6,
+        3
+      ],
+      "grayCells": 5,
+      "grayOddMask": 36876,
+      "defenderOddMask": 888910,
+      "effectiveOddSafeMask": 888910,
+      "effectiveGuards": [
+        7
+      ],
+      "checkedTwoPlyTransitions": 24,
+      "grayChildTransitions": 24
+    },
+    {
+      "sequence": "4216162665576721634213412775",
+      "rank": 28,
+      "support": [
+        5,
+        5,
+        2,
+        3,
+        3,
+        6,
+        4
+      ],
+      "grayCells": 6,
+      "grayOddMask": 561164,
+      "defenderOddMask": 897102,
+      "effectiveOddSafeMask": 897102,
+      "effectiveGuards": [
+        5
+      ],
+      "checkedTwoPlyTransitions": 23,
+      "grayChildTransitions": 23
+    },
+    {
+      "sequence": "4756733742",
+      "rank": 10,
+      "support": [
+        0,
+        1,
+        2,
+        2,
+        1,
+        1,
+        3
+      ],
+      "grayCells": 1,
+      "grayOddMask": 64,
+      "defenderOddMask": 819272,
+      "effectiveOddSafeMask": 819272,
+      "effectiveGuards": [
+        2,
+        6,
+        7
+      ],
+      "checkedTwoPlyTransitions": 49,
+      "grayChildTransitions": 49
+    },
+    {
+      "sequence": "475673374231",
+      "rank": 12,
+      "support": [
+        1,
+        1,
+        3,
+        2,
+        1,
+        1,
+        3
+      ],
+      "grayCells": 1,
+      "grayOddMask": 64,
+      "defenderOddMask": 819273,
+      "effectiveOddSafeMask": 819273,
+      "effectiveGuards": [
+        1,
+        2,
+        6,
+        7
+      ],
+      "checkedTwoPlyTransitions": 49,
+      "grayChildTransitions": 49
+    },
+    {
+      "sequence": "47567337423111",
+      "rank": 14,
+      "support": [
+        3,
+        1,
+        3,
+        2,
+        1,
+        1,
+        3
+      ],
+      "grayCells": 2,
+      "grayOddMask": 65,
+      "defenderOddMask": 819275,
+      "effectiveOddSafeMask": 819275,
+      "effectiveGuards": [
+        1,
+        2,
+        6,
+        7
+      ],
+      "checkedTwoPlyTransitions": 42,
+      "grayChildTransitions": 42
+    },
+    {
+      "sequence": "4756733742311144",
+      "rank": 16,
+      "support": [
+        3,
+        1,
+        3,
+        4,
+        1,
+        1,
+        3
+      ],
+      "grayCells": 2,
+      "grayOddMask": 65,
+      "defenderOddMask": 819275,
+      "effectiveOddSafeMask": 819275,
+      "effectiveGuards": [
+        1,
+        2,
+        6,
+        7
+      ],
+      "checkedTwoPlyTransitions": 42,
+      "grayChildTransitions": 42
+    },
+    {
+      "sequence": "475673374231114436",
+      "rank": 18,
+      "support": [
+        3,
+        1,
+        4,
+        4,
+        1,
+        2,
+        3
+      ],
+      "grayCells": 2,
+      "grayOddMask": 65,
+      "defenderOddMask": 819275,
+      "effectiveOddSafeMask": 819275,
+      "effectiveGuards": [
+        1,
+        2,
+        7
+      ],
+      "checkedTwoPlyTransitions": 34,
+      "grayChildTransitions": 34
+    },
+    {
+      "sequence": "47567337423111443674",
+      "rank": 20,
+      "support": [
+        3,
+        1,
+        4,
+        5,
+        1,
+        2,
+        4
+      ],
+      "grayCells": 3,
+      "grayOddMask": 65,
+      "defenderOddMask": 821323,
+      "effectiveOddSafeMask": 821323,
+      "effectiveGuards": [
+        1,
+        2
+      ],
+      "checkedTwoPlyTransitions": 33,
+      "grayChildTransitions": 33
+    },
+    {
+      "sequence": "4756733742311144367441",
+      "rank": 22,
+      "support": [
+        4,
+        1,
+        4,
+        6,
+        1,
+        2,
+        4
+      ],
+      "grayCells": 4,
+      "grayOddMask": 524353,
+      "defenderOddMask": 821323,
+      "effectiveOddSafeMask": 821323,
+      "effectiveGuards": [
+        2
+      ],
+      "checkedTwoPlyTransitions": 23,
+      "grayChildTransitions": 23
+    },
+    {
+      "sequence": "475673374231114436744157",
+      "rank": 24,
+      "support": [
+        4,
+        1,
+        4,
+        6,
+        2,
+        2,
+        5
+      ],
+      "grayCells": 4,
+      "grayOddMask": 524353,
+      "defenderOddMask": 1869899,
+      "effectiveOddSafeMask": 1869899,
+      "effectiveGuards": [
+        2,
+        7
+      ],
+      "checkedTwoPlyTransitions": 15,
+      "grayChildTransitions": 15
+    },
+    {
+      "sequence": "47567337423111443674415772",
+      "rank": 26,
+      "support": [
+        4,
+        2,
+        4,
+        6,
+        2,
+        2,
+        6
+      ],
+      "grayCells": 5,
+      "grayOddMask": 524353,
+      "defenderOddMask": 1869899,
+      "effectiveOddSafeMask": 1869899,
+      "effectiveGuards": [],
+      "checkedTwoPlyTransitions": 13,
+      "grayChildTransitions": 13
+    },
+    {
+      "sequence": "4756733742311144367441577251",
+      "rank": 28,
+      "support": [
+        5,
+        2,
+        4,
+        6,
+        3,
+        2,
+        6
+      ],
+      "grayCells": 7,
+      "grayOddMask": 786497,
+      "defenderOddMask": 1869903,
+      "effectiveOddSafeMask": 1869903,
+      "effectiveGuards": [
+        1
+      ],
+      "checkedTwoPlyTransitions": 4,
+      "grayChildTransitions": 4
+    },
+    {
+      "sequence": "4126644466",
+      "rank": 10,
+      "support": [
+        1,
+        1,
+        0,
+        4,
+        0,
+        4,
+        0
+      ],
+      "grayCells": 2,
+      "grayOddMask": 32768,
+      "defenderOddMask": 32769,
+      "effectiveOddSafeMask": 32769,
+      "effectiveGuards": [
+        1
+      ],
+      "checkedTwoPlyTransitions": 49,
+      "grayChildTransitions": 49
+    },
+    {
+      "sequence": "412664446652",
+      "rank": 12,
+      "support": [
+        1,
+        2,
+        0,
+        4,
+        1,
+        4,
+        0
+      ],
+      "grayCells": 2,
+      "grayOddMask": 32768,
+      "defenderOddMask": 32769,
+      "effectiveOddSafeMask": 32769,
+      "effectiveGuards": [
+        1
+      ],
+      "checkedTwoPlyTransitions": 42,
+      "grayChildTransitions": 42
+    },
+    {
+      "sequence": "41266444665246",
+      "rank": 14,
+      "support": [
+        1,
+        2,
+        0,
+        5,
+        1,
+        5,
+        0
+      ],
+      "grayCells": 3,
+      "grayOddMask": 163840,
+      "defenderOddMask": 163841,
+      "effectiveOddSafeMask": 163841,
+      "effectiveGuards": [
+        1
+      ],
+      "checkedTwoPlyTransitions": 40,
+      "grayChildTransitions": 40
+    },
+    {
+      "sequence": "4126644466524664",
+      "rank": 16,
+      "support": [
+        1,
+        2,
+        0,
+        6,
+        1,
+        6,
+        0
+      ],
+      "grayCells": 4,
+      "grayOddMask": 163840,
+      "defenderOddMask": 163841,
+      "effectiveOddSafeMask": 163841,
+      "effectiveGuards": [
+        1
+      ],
+      "checkedTwoPlyTransitions": 20,
+      "grayChildTransitions": 20
+    },
+    {
+      "sequence": "412664446652466455",
+      "rank": 18,
+      "support": [
+        1,
+        2,
+        0,
+        6,
+        3,
+        6,
+        0
+      ],
+      "grayCells": 4,
+      "grayOddMask": 163840,
+      "defenderOddMask": 172033,
+      "effectiveOddSafeMask": 172033,
+      "effectiveGuards": [
+        1
+      ],
+      "checkedTwoPlyTransitions": 16,
+      "grayChildTransitions": 16
+    },
+    {
+      "sequence": "41266444665246645557",
+      "rank": 20,
+      "support": [
+        1,
+        2,
+        0,
+        6,
+        4,
+        6,
+        1
+      ],
+      "grayCells": 4,
+      "grayOddMask": 163840,
+      "defenderOddMask": 434177,
+      "effectiveOddSafeMask": 434177,
+      "effectiveGuards": [
+        1,
+        7
+      ],
+      "checkedTwoPlyTransitions": 12,
+      "grayChildTransitions": 12
+    },
+    {
+      "sequence": "4126644466524664555711",
+      "rank": 22,
+      "support": [
+        3,
+        2,
+        0,
+        6,
+        4,
+        6,
+        1
+      ],
+      "grayCells": 4,
+      "grayOddMask": 163840,
+      "defenderOddMask": 434179,
+      "effectiveOddSafeMask": 434179,
+      "effectiveGuards": [
+        1,
+        7
+      ],
+      "checkedTwoPlyTransitions": 12,
+      "grayChildTransitions": 12
+    },
+    {
+      "sequence": "412664446652466455571111",
+      "rank": 24,
+      "support": [
+        5,
+        2,
+        0,
+        6,
+        4,
+        6,
+        1
+      ],
+      "grayCells": 4,
+      "grayOddMask": 163840,
+      "defenderOddMask": 434183,
+      "effectiveOddSafeMask": 434183,
+      "effectiveGuards": [
+        1,
+        7
+      ],
+      "checkedTwoPlyTransitions": 11,
+      "grayChildTransitions": 11
+    },
+    {
+      "sequence": "41266444665246645557111155",
+      "rank": 26,
+      "support": [
+        5,
+        2,
+        0,
+        6,
+        6,
+        6,
+        1
+      ],
+      "grayCells": 4,
+      "grayOddMask": 163840,
+      "defenderOddMask": 434183,
+      "effectiveOddSafeMask": 434183,
+      "effectiveGuards": [
+        1,
+        7
+      ],
+      "checkedTwoPlyTransitions": 5,
+      "grayChildTransitions": 5
+    },
+    {
+      "sequence": "4126644466524664555711115517",
+      "rank": 28,
+      "support": [
+        6,
+        2,
+        0,
+        6,
+        6,
+        6,
+        2
+      ],
+      "grayCells": 4,
+      "grayOddMask": 163840,
+      "defenderOddMask": 434183,
+      "effectiveOddSafeMask": 434183,
+      "effectiveGuards": [],
+      "checkedTwoPlyTransitions": 4,
+      "grayChildTransitions": 4
+    },
+    {
+      "sequence": "4666555543735714",
+      "rank": 16,
+      "support": [
+        1,
+        0,
+        2,
+        3,
+        5,
+        3,
+        2
+      ],
+      "grayCells": 1,
+      "grayOddMask": 512,
+      "defenderOddMask": 99392,
+      "effectiveOddSafeMask": 99904,
+      "effectiveGuards": [
+        4,
+        6
+      ],
+      "checkedTwoPlyTransitions": 34,
+      "grayChildTransitions": 34
+    }
+  ],
+  "work": {
+    "cofactorCount": 2138
+  },
+  "conclusion": [
+    "Every directly classified gray token lay only on four-lines already containing both colors.",
+    "Grayness of every already-occupied gray token was monotone across all checked exact nonterminal descendants.",
+    "Defender-owned odd cells and gray odd cells compose into a current-state effective blocker-safe mask without changing support/gravity."
+  ],
+  "boundary": [
+    "This qualifies gray detection, irreversibility, and effective odd-row resource reconstruction; it does not by itself qualify gray-key memo collisions.",
+    "No oracle, solved value, strong distance, consumed c6 prefix, or best-move label is used.",
+    "The exact RBA cofactor remains authoritative for response legality and terminal precedence."
+  ]
+}
