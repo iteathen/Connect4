@@ -1,0 +1,83 @@
+{
+  "schema": "connect4.cpc_rank30_phase_transfer_composition.v1",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "theoremCandidate": "CPC_RANK30_PHASE_TRANSFER_COMPOSITION_THEOREM.md",
+  "parent": {
+    "sequence": "444441566666232222423317771611",
+    "rank": 30,
+    "mover": 1,
+    "support": [
+      5,
+      6,
+      3,
+      6,
+      1,
+      6,
+      3
+    ]
+  },
+  "move": {
+    "player": 1,
+    "column": 1,
+    "terminal": 0,
+    "childSupport": [
+      6,
+      6,
+      3,
+      6,
+      1,
+      6,
+      3
+    ],
+    "expectedSequence": "4444415666662322224233177716111",
+    "exactChildMatchesQualifiedRoot": true
+  },
+  "premise": {
+    "theorem": "CPC_THREE_COLUMN_PHASE_TRANSFER_WIN_THEOREM.md",
+    "accept": true,
+    "root": {
+      "sequence": "4444415666662322224233177716111",
+      "rank": 31,
+      "mover": 2,
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        1,
+        6,
+        3
+      ],
+      "legalColumns": [
+        3,
+        5,
+        7
+      ],
+      "activeP1Singletons": [
+        {
+          "column": 3,
+          "row": 5,
+          "active": true
+        },
+        {
+          "column": 5,
+          "row": 4,
+          "active": true
+        }
+      ]
+    }
+  },
+  "accept": true,
+  "conclusion": [
+    "The exact rank-30 state is a Player-1 win by column 1.",
+    "P1:c1 reaches exactly the qualified rank-31 three-column phase-transfer theorem root.",
+    "No solved or search-derived value is used as a proof premise."
+  ],
+  "boundary": [
+    "All state transitions and equality checks use exact RBA.",
+    "No oracle, Pons, solved W/D/L input, local game-tree value, minimax, best-move table, physical identity, or sealed holdout is used.",
+    "Production CPC and JSMinSys are read-only and unchanged."
+  ]
+}
