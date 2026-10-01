@@ -1,0 +1,80 @@
+{
+  "schema": "connect4.external-pons-full-vector.v1",
+  "date": "2026-09-30",
+  "branch": "research/universal-structural-policy-20260930",
+  "positionSequence": "44444",
+  "oracle": {
+    "implementation": "PascalPons/connect4 official C++ solver",
+    "revision": "d6ba50d8aaf2308c769d9bf2abd42d90f34baf41",
+    "mode": "-a full move analysis",
+    "openingBook": {
+      "releaseTag": "book",
+      "asset": "7x6.book",
+      "assetId": 10766475,
+      "sizeBytes": 33554524,
+      "sha256": "f346cd449626fb81da93be0958e017ee854e5f74d85b6d38062357f5403aec53"
+    }
+  },
+  "execution": {
+    "repository": "iteathen/Connect4",
+    "workflow": ".github/workflows/research-pons-full-vector-oracle.yml",
+    "workflowRunId": 36810504868,
+    "workflowCommit": "0f4e0cd416ecfaed885bd91fd9c9fb0aaccc80c0",
+    "conclusion": "success",
+    "publicServiceAttempt": "HTTP 403 Cloudflare; ignored for evidentiary result"
+  },
+  "rawCliLine": "44444 -1 -1 -1 -1 -1 -1 -1",
+  "scoresByColumn": [
+    -1,
+    -1,
+    -1,
+    -1,
+    -1,
+    -1,
+    -1
+  ],
+  "wdlByColumn": [
+    "L",
+    "L",
+    "L",
+    "L",
+    "L",
+    "L",
+    "L"
+  ],
+  "wdlEquivalentMoves": {
+    "L": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ]
+  },
+  "exactStrongEquivalentClasses": [
+    {
+      "score": -1,
+      "moves": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    }
+  ],
+  "projectAcceptablePerfectMoves": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "conclusion": "All seven legal ply-6 moves after 44444 are exactly strong-score equivalent. Under the project convention, every legal move is acceptable: all lose with the same Pons strong score/remoteness. A solver displaying one move such as 6 is only choosing a representative/tie-break."
+}
