@@ -18,6 +18,11 @@ const {prepareConnect4RbaGeometry,connect4RbaShapeSubset}=await load('rba-connec
 const {connect4RbaFromMoves}=await load('rba-connect4-ingress');
 const {prepareConnect4RbaExecutionProfile}=await load('rba-connect4-profile');
 const {connect4RbaCofactorKnownHeight}=await load('rba-connect4-coordinate');
+const {
+  CPC_NONE,CPC_EXACT,CPC_BOUND,CPC_RESTRICT,
+  prepareConnect4CpcScratch,evaluateConnect4Cpc32
+}=await load('cpc-connect4');
+const CPC_KIND=new Map([[CPC_NONE,'CPC_NONE'],[CPC_EXACT,'CPC_EXACT'],[CPC_BOUND,'CPC_BOUND'],[CPC_RESTRICT,'CPC_RESTRICT']]);
 
 const g=prepareConnect4RbaGeometry({columns:7,rows:6});
 const profile=prepareConnect4RbaExecutionProfile(g);
@@ -32,6 +37,18 @@ const terminal=q=>q.words[g.metaOffset]&3;
 const mover=q=>rank(q)&1;
 function legal(q){const out=[];for(let c=0;c<g.columns;c++)if(q.words[c]<g.rows)out.push(c);return out;}
 function keyOf(q){return Array.from(q.words).join(',')+'|'+Array.from(q.basis).join(',');}
+function cpcSummary(q){
+  const scratch=prepareConnect4CpcScratch(g,{frontierResponse:true,projectedAdvisory:false});
+  const kind=evaluateConnect4Cpc32(g,q.words,0,q.basis,0,q.basis.length,scratch);
+  return {
+    kind:CPC_KIND.get(kind),
+    interval:[scratch.interval[0]-2,scratch.interval[1]-2],
+    forcedColumn:scratch.forcedColumn[0]>=0?scratch.forcedColumn[0]+1:null,
+    preemptionCount:scratch.preemptionCount[0],
+    preemptionMask32:scratch.preemptionMask32[0]>>>0,
+    precursorCount:scratch.precursorCount[0],
+  };
+}
 function coordHas(words,base,index){return (words[base+(index>>>5)]&(1<<(index&31)))!==0;}
 function activeMinimal(q,player){
   const coord=player?g.p1Offset:g.p0Offset,active=[];
@@ -252,6 +269,66 @@ for(const root of roots){
   rows.push({...root,attacker:attacker+1,membership});
 }
 
+const failureFrontiers=[];
+for(const row of rows){
+  const failure=row.membership.find((m,i)=>!m.accept&&i>0&&row.membership[i-1].accept);
+  if(!failure||!failure.failedTrigger)continue;
+  const q=ingress(row.sequence),attacker=mover(q),column=failure.failedTrigger-1;
+  const options=[];
+  for(const option of adaptiveResponseOptions(q,column)){
+    const tr=responseSuccessor(q,option.template,attacker,column);
+    if(!tr.ok){
+      options.push({
+        responseColumn:g.cellColumn[option.mate]+1,
+        templatePairs:option.template.pairs,
+        transport:'REJECTED',
+        reason:tr.reason,
+      });
+      continue;
+    }
+    if(tr.closed){
+      options.push({
+        responseColumn:tr.responseColumn,
+        templatePairs:option.template.pairs,
+        transport:'CLOSED',
+        reason:tr.reason,
+      });
+      continue;
+    }
+    const child=classS(tr.q,attacker,failure.D-2);
+    const childSpectrum=[];
+    for(let d=3;d<=failure.D-2;d+=2){
+      const cd=classS(tr.q,attacker,d);
+      childSpectrum.push({D:d,accept:cd.accept,class:cd.class,failedTrigger:cd.failedTrigger??null});
+    }
+    const deadlines={};
+    for(const id of activeMinimal(tr.q,attacker)){
+      const d=earliest(tr.q,id,attacker);
+      if(d!==null)deadlines[d]=(deadlines[d]??0)+1;
+    }
+    options.push({
+      responseColumn:tr.responseColumn,
+      templatePairs:option.template.pairs,
+      transport:'NONTERMINAL',
+      childRank:rank(tr.q),
+      childSupport:Array.from(tr.q.words.slice(0,g.columns)),
+      childCpc:cpcSummary(tr.q),
+      childTargetClass:{D:failure.D-2,accept:child.accept,class:child.class,failedTrigger:child.failedTrigger??null},
+      childSpectrum,
+      attackerMinimalResidualCount:activeMinimal(tr.q,attacker).length,
+      attackerDeadlineHistogram:deadlines,
+    });
+  }
+  failureFrontiers.push({
+    id:row.id,
+    sequence:row.sequence,
+    failedHorizon:failure.D,
+    failedTrigger:failure.failedTrigger,
+    requiredChildHorizon:failure.D-2,
+    responseOptions:options,
+  });
+}
+
 console.log(JSON.stringify({
   schema:'connect4.cpc_trigger_adaptive_renewal_spectrum.v1',
   jsMinSysSha:EXPECTED,
@@ -260,6 +337,7 @@ console.log(JSON.stringify({
   requestedMaxHorizon:maxD,
   horizons,
   rows,
+  failureFrontiers,
   work:{
     classCalls,memoHits,responseOptionsTested,branchTests,cofactorCount,
     classMemoSize:classMemo.size,baseMemoSize:baseMemo.size,templateMemoSize:templateMemo.size,
