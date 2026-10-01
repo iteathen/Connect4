@@ -29,7 +29,7 @@ jobs:
           set -euo pipefail
           git clone https://github.com/iteathen/JSMinSys.git jsminsys
           git -C jsminsys checkout bf23d3a67652cd42e1975f29c7dc4eed54f7eb42
-      - name: Qualify c6 obstruction handoff
+      - name: Generate c6 obstruction handoff evidence
         shell: bash
         run: |
           set -euo pipefail
@@ -40,17 +40,17 @@ jobs:
           const fs=require('fs');
           const r=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
           if(r.oracleUsed!==false||r.solvedInputsUsed!==false)throw new Error('forbidden solved evidence');
-          if(r.accept!==true)throw new Error('c6 obstruction handoff rejected');
-          if(!r.handoff.nativeCpcForcesC3||!r.handoff.literal.onlyC3)throw new Error('forced c3 mismatch');
-          if(!r.downstreamCompression?.accept)throw new Error('downstream compression rejected');
           console.log(JSON.stringify({
             accept:r.accept,
             obstruction:r.obstructionMove,
+            singleton:r.handoff.singletonAfterP1C3,
+            nativeCpcForcesC3:r.handoff.nativeCpcForcesC3,
+            literalOnlyC3:r.handoff.literal.onlyC3,
             postForced:r.handoff.postForced,
-            downstreamAccept:r.downstreamCompression.accept
+            downstreamAccept:r.downstreamCompression?.accept??false
           }));
           NODE
-      - name: Commit durable qualification evidence
+      - name: Commit durable qualification or rejection evidence
         shell: bash
         run: |
           set -euo pipefail
@@ -59,12 +59,24 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add "$FILE"
-          if git diff --cached --quiet; then exit 0; fi
-          git commit -m "research: record reply7 c6 obstruction handoff qualification"
-          for attempt in 1 2 3; do
-            git fetch origin "$BRANCH"
-            git rebase --autostash "origin/$BRANCH"
-            if git push origin HEAD:"$BRANCH"; then exit 0; fi
-            sleep 1
-          done
-          exit 1
+          if ! git diff --cached --quiet; then
+            git commit -m "research: record reply7 c6 obstruction handoff result"
+            for attempt in 1 2 3; do
+              git fetch origin "$BRANCH"
+              git rebase --autostash "origin/$BRANCH"
+              if git push origin HEAD:"$BRANCH"; then break; fi
+              sleep 1
+            done
+          fi
+      - name: Enforce frozen theorem verdict
+        shell: bash
+        run: |
+          set -euo pipefail
+          FILE=research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_RANK25_REPLY7_C6_OBSTRUCTION_HANDOFF_0_1.json
+          node - "$FILE" <<'NODE'
+          const fs=require('fs');
+          const r=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
+          if(r.accept!==true)throw new Error('c6 obstruction handoff rejected');
+          if(!r.handoff.nativeCpcForcesC3||!r.handoff.literal.onlyC3)throw new Error('forced c3 mismatch');
+          if(!r.downstreamCompression?.accept)throw new Error('downstream compression rejected');
+          NODE
