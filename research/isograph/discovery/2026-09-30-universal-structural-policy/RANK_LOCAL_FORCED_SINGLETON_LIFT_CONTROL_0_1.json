@@ -1,0 +1,73 @@
+{
+  "schema": "connect4.rank_local_forced_singleton_lift.v1",
+  "oracleUsed": false,
+  "theorem": "forced singleton response + finite child upper certificate => predecessor upper <= child upper + 2",
+  "controls": {
+    "fivePlyChain": {
+      "prefix": "32612636",
+      "certificate": {
+        "upper": 5,
+        "kind": "FORCED_SINGLETON_LIFT",
+        "setupColumn": 4,
+        "forcedBlockColumn": 5,
+        "attackerTargetColumns": [
+          5
+        ],
+        "defenderImmediateWinningColumns": [],
+        "child": {
+          "upper": 3,
+          "kind": "ONE_SETUP_HALL_FORK",
+          "setupColumn": 4,
+          "targetColumns": [
+            1,
+            5
+          ],
+          "defenderImmediateWinningColumns": [],
+          "hallWitness": {
+            "obligations": [
+              1,
+              5
+            ],
+            "obligationCount": 2,
+            "responseSlots": 1,
+            "neighborCount": 1,
+            "deficient": true
+          }
+        }
+      }
+    },
+    "v4ConsumedFalsifierBoundary": {
+      "prefix": "444441566",
+      "children": [
+        {
+          "candidate": 2,
+          "lowerFromBoundedResponseHorizon": 3,
+          "upperFromForcedSingletonLift": null,
+          "interval": [
+            3,
+            null
+          ]
+        },
+        {
+          "candidate": 3,
+          "lowerFromBoundedResponseHorizon": 3,
+          "upperFromForcedSingletonLift": null,
+          "interval": [
+            3,
+            null
+          ]
+        },
+        {
+          "candidate": 6,
+          "lowerFromBoundedResponseHorizon": 5,
+          "upperFromForcedSingletonLift": null,
+          "interval": [
+            5,
+            null
+          ]
+        }
+      ],
+      "conclusion": "No finite upper bound after one forced-singleton lift over the qualified base grammar; no interval separation and no v5 license."
+    }
+  }
+}
