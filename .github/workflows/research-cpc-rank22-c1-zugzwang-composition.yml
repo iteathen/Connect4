@@ -47,12 +47,10 @@ jobs:
           const r=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
           if(r.oracleUsed!==false||r.solvedInputsUsed!==false)throw new Error('forbidden solved evidence flag');
           if(r.jsMinSysSha!=='bf23d3a67652cd42e1975f29c7dc4eed54f7eb42')throw new Error('JSMinSys authority drift');
-          if(r.accept!==true)throw new Error('rank22 c1 composition rejected');
           if(r.parent.rank!==22||r.parent.mover!==1)throw new Error('parent state drift');
-          if(r.moveCertificate.player!==1||r.moveCertificate.column!==1||r.moveCertificate.exactValue!=='WIN')throw new Error('unexpected move certificate');
+          if(r.moveCertificate.player!==1||r.moveCertificate.column!==1)throw new Error('unexpected candidate move');
           if(r.moveCertificate.relativeRemoteness!==null)throw new Error('remoteness must remain unclaimed');
           if(JSON.stringify(r.moveCertificate.legalDefenderReplies)!==JSON.stringify([1,3,5,6,7]))throw new Error('reply coverage drift');
-          for(const row of r.moveCertificate.rows)if(!row.accept)throw new Error('unclosed reply '+row.defenderReplyColumn);
           console.log(JSON.stringify({
             accept:r.accept,
             rank:r.parent.rank,
@@ -62,7 +60,26 @@ jobs:
               kind:x.kind,
               accept:x.accept,
               compressionMode:x.compression?.mode??null,
-              subbranches:x.compression?.branches?.length??null
+              subbranches:(x.compression?.branches||[]).map(b=>({
+                reply:b.replyColumn,
+                kind:b.kind,
+                accept:b.accept,
+                cpcForced:b.cpcForced??null,
+                literalOnlyC5:b.literal?.onlyC5??null,
+                singleton:b.singletonAfterConsume??null,
+                targetTemplate:!!b.targetTemplate,
+                validation:b.validation?.pass??null
+              })),
+              short:x.compression&&x.compression.mode==='height2'?{
+                cpcForced:x.compression.cpcForced,
+                literalOnlyC5:x.compression.literal?.onlyC5,
+                forcedReplyTerminal:x.compression.forcedReplyTerminal,
+                pairBeforeConsume:x.compression.pairBeforeConsume,
+                consumeTerminal:x.compression.consumeTerminal,
+                singleton:x.compression.singletonAfterConsume,
+                targetTemplate:!!x.compression.targetTemplate,
+                validation:x.compression.validation?.pass??null
+              }:null
             }))
           }));
           NODE
@@ -84,3 +101,16 @@ jobs:
             sleep 1
           done
           exit 1
+
+      - name: Enforce frozen theorem acceptance
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT=research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_RANK22_C1_ZUGZWANG_COMPOSITION_0_1.json
+          node - "$OUT" <<'NODE'
+          const fs=require('fs');
+          const r=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
+          if(r.accept!==true)throw new Error('rank22 c1 composition rejected; durable evidence committed');
+          if(r.moveCertificate.exactValue!=='WIN')throw new Error('accepted theorem missing WIN value');
+          for(const row of r.moveCertificate.rows)if(!row.accept)throw new Error('accepted theorem has unclosed reply '+row.defenderReplyColumn);
+          NODE
