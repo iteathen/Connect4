@@ -1,0 +1,64 @@
+name: Research NEES CPC guard survival D27
+
+on:
+  push:
+    branches:
+      - research/universal-structural-policy-20260930
+    paths:
+      - .github/workflows/research-cpc-nees-guard-kernel-d27.yml
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/run-cpc-guard-survival-nees-kernel.mjs
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Check out exact pushed revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+      - name: Pin Node runtime
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Fetch NEES JSMinSys kernel revision
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --branch research/cpc-guard-proof-memo-nees-v1 --single-branch https://github.com/iteathen/JSMinSys.git jsminsys-nees
+          git -C jsminsys-nees checkout db9cda32fc814a7f982816556cb59ab82a7a4782
+      - name: Run NEES kernel D27
+        shell: bash
+        env:
+          NODE_OPTIONS: --max-old-space-size=2048
+        run: |
+          set -euo pipefail
+          DIR=research/isograph/discovery/2026-09-30-universal-structural-policy
+          OUT="$DIR/CPC_NEES_GUARD_KERNEL_D27_0_1.json"
+          /usr/bin/time -f 'D27 wall=%e maxrss_kb=%M user=%U sys=%S'             timeout 1080 node "$DIR/run-cpc-guard-survival-nees-kernel.mjs" ./jsminsys-nees 27 4194304 > "$OUT"
+          node - "$OUT" <<'NODE'
+          const fs=require('fs');
+          const r=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
+          console.log('D27='+JSON.stringify({result:r.result,runtime:r.runtime,absolutePly:r.absolutePly}));
+          NODE
+      - name: Commit durable D27 evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          BRANCH=research/universal-structural-policy-20260930
+          FILE=research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_NEES_GUARD_KERNEL_D27_0_1.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$FILE"
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "research: verify NEES CPC guard kernel D27"
+          for attempt in 1 2 3; do
+            git fetch origin "$BRANCH"
+            git rebase --autostash "origin/$BRANCH"
+            if git push origin HEAD:"$BRANCH"; then exit 0; fi
+            sleep 1
+          done
+          exit 1
