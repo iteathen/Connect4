@@ -550,7 +550,7 @@ console.log(JSON.stringify({
     responseOptionMemoSize:0,cofactorMemoSize:0,templateCacheLimit:TEMPLATE_CACHE_MAX
   },
   boundary:[
-    'The guard set and proof grammar are unchanged; this execution variant additionally bounds template retention and removes redundant base-state memoization.'
+    'The guard set and proof grammar are unchanged; this execution variant additionally bounds template retention and removes redundant base-state memoization.',
     'No new response type is introduced: all candidates belong to previously frozen CPC response, guard-renewal, support-lift, or top-debt theorems.',
     'Top-debt repair retains the existing premise that at least one carried guard survives trigger and response untouched.',
     'Acceptance is a constructive survival lower certificate only; rejection is not an attacker upper bound.'
