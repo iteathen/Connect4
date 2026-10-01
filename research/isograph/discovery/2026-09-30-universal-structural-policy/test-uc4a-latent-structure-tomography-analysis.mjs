@@ -9,7 +9,7 @@ const raw=execFileSync(process.execPath,[script],{encoding:'utf8'});
 const r=JSON.parse(raw);
 
 assert.equal(r.schema,'connect4.uc4a_latent_structure_tomography_analysis.v1');
-assert.equal(r.structuralAtlasSha256,'bfcc2e0c8fc2675070e281554ea5385b50f118e894cd6ce308de2975e09febed');
+assert.equal(r.structuralAtlasSha256,'49844e4772a337d92ab10735d8bc13d1c5570edb6a1b382d4fb0660205d21760');\nassert.equal(r.analysisProtocol,'UC4A_LATENT_STRUCTURE_TOMOGRAPHY_ANALYSIS_PROTOCOL_0_2.md');
 assert.equal(r.boardCount,52);
 assert.equal(r.labelCount,52);
 assert.equal(r.sealedHoldoutsAccessed,false);
