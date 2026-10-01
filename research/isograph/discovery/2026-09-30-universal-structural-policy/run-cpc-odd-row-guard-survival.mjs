@@ -369,7 +369,7 @@ function classS(q,attacker,D){
 
 
 const guardMemo=new Map();
-let guardCalls=0,guardMemoHits=0,guardBranchTests=0,guardResponses=0;
+let guardCalls=0,guardMemoHits=0,guardBranchTests=0,guardResponses=0,topDebtTests=0,topDebtClosures=0;
 function terminalPolarity(code,attacker){
   if(code===0)return 'NONTERMINAL';
   if(code===2)return 'DRAW';
@@ -500,6 +500,42 @@ function classG(q,attacker,D,guardCol){
       }
     }
 
+    // Top-exhaustion phase-debt repair. If the attacker just filled a
+    // non-guard column, the missing same-column response may be transported to
+    // a guard-preserving frontier resource that is attached to at least one
+    // live attacker residual. The exact transported child must re-enter the
+    // same guard class.
+    if(!found && c!==guardCol && first.q.words[c]===g.rows){
+      const postResiduals=activeMinimal(first.q,attacker);
+      for(const rcol of legal(first.q)){
+        if(rcol===guardCol || rcol===c)continue;
+        const responseCell=first.q.words[rcol]*g.columns+rcol;
+        const attached=postResiduals.some(id=>shapeCells(id).includes(responseCell));
+        if(!attached)continue;
+        topDebtTests++;guardResponses++;
+        const second=cofactor(first.q,rcol),p2=terminalPolarity(second.term,attacker);
+        if(p2==='DRAW'||p2==='DEFENDER'){
+          topDebtClosures++;
+          found={
+            attackerColumn:c+1,responseColumn:rcol+1,mode:'TOP_DEBT_ATTACHED_REPAIR',
+            responseCell:{column:rcol+1,row:g.cellRow[responseCell]+1},closed:p2
+          };
+          break;
+        }
+        if(p2!=='NONTERMINAL')continue;
+        const child=classG(second.q,attacker,D-2,guardCol);
+        if(child.accept){
+          topDebtClosures++;
+          found={
+            attackerColumn:c+1,responseColumn:rcol+1,mode:'TOP_DEBT_ATTACHED_REPAIR',
+            responseCell:{column:rcol+1,row:g.cellRow[responseCell]+1},
+            childClass:child.class,guardPreserved:true
+          };
+          break;
+        }
+      }
+    }
+
     // Existing CPC-licensed response edges remain available. Preserve the
     // guard only if neither realized move consumes the guard column; otherwise
     // the exact child must close under ordinary S_(D-2).
@@ -577,7 +613,7 @@ console.log(JSON.stringify({
   target:{rootRank:14,relativeHorizonToAbsolutePly41:27},
   rows,
   work:{
-    guardCalls,guardMemoHits,guardBranchTests,guardResponses,
+    guardCalls,guardMemoHits,guardBranchTests,guardResponses,topDebtTests,topDebtClosures,
     ordinary:{classCalls,memoHits,responseOptionsTested,branchTests,cofactorCount}
   },
   boundary:[
