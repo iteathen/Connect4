@@ -1,0 +1,115 @@
+{
+  "schema": "connect4.cpc_rank22_c1_reply_target_scan.v1",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "parent": {
+    "sequence": "4444415666662322224233",
+    "rank": 22,
+    "support": [
+      1,
+      6,
+      3,
+      6,
+      1,
+      5,
+      0
+    ],
+    "candidateMoveColumn": 1
+  },
+  "legalDefenderReplies": [
+    1,
+    3,
+    5,
+    6,
+    7
+  ],
+  "rows": [
+    {
+      "defenderReplyColumn": 1,
+      "rank": 24,
+      "support": [
+        3,
+        6,
+        3,
+        6,
+        1,
+        5,
+        0
+      ],
+      "knownQualifiedRank24State": true,
+      "structuralWinningMoves": []
+    },
+    {
+      "defenderReplyColumn": 3,
+      "rank": 24,
+      "support": [
+        2,
+        6,
+        4,
+        6,
+        1,
+        5,
+        0
+      ],
+      "knownQualifiedRank24State": false,
+      "structuralWinningMoves": []
+    },
+    {
+      "defenderReplyColumn": 5,
+      "rank": 24,
+      "support": [
+        2,
+        6,
+        3,
+        6,
+        2,
+        5,
+        0
+      ],
+      "knownQualifiedRank24State": false,
+      "structuralWinningMoves": []
+    },
+    {
+      "defenderReplyColumn": 6,
+      "rank": 24,
+      "support": [
+        2,
+        6,
+        3,
+        6,
+        1,
+        6,
+        0
+      ],
+      "knownQualifiedRank24State": false,
+      "structuralWinningMoves": []
+    },
+    {
+      "defenderReplyColumn": 7,
+      "rank": 24,
+      "support": [
+        2,
+        6,
+        3,
+        6,
+        1,
+        5,
+        1
+      ],
+      "knownQualifiedRank24State": false,
+      "structuralWinningMoves": []
+    }
+  ],
+  "conclusion": [
+    "This discovery scan applies the qualified truncated target-reservoir theorem after one candidate Player-1 move in each rank-24 reply state.",
+    "The reply-1 child is separately known to be an exact Player-1 win from the qualified rank-24 zugzwang theorem.",
+    "structuralWinningMoves lists only immediate terminals or one-ply moves whose child carries a finite truncated target-reservoir certificate.",
+    "Failure to list a move is not a loss/draw result; it means this structural certificate class did not close that reply state in one move."
+  ],
+  "boundary": [
+    "No oracle, Pons, solved W/D/L, best-move table, minimax, or sealed holdout is used.",
+    "This is a discovery scan, not yet a rank-22 theorem composition.",
+    "Production CPC is unchanged."
+  ]
+}
