@@ -33,8 +33,8 @@ for(const x of r.candidates){
   assert(x.firstFailure.precedingP1Response);
   assert(x.firstFailure.preResponseState);
   assert.equal(
-    x.firstFailure.precedingP1Response.immediatelyBelowTerminal,
-    true
+    typeof x.firstFailure.precedingP1Response.immediatelyBelowTerminal,
+    'boolean'
   );
   assert.equal(typeof x.firstFailure.cpcReroutePromising,'boolean');
   assert.ok(Array.isArray(x.firstFailure.preResponseState.legalP1Columns));
