@@ -1,0 +1,106 @@
+{
+  "schema": "connect4.rank_local_forced_completion_upper_bound.v1",
+  "theorem": "immediate win or one-setup two-frontier Hall fork",
+  "oracleUsed": false,
+  "controls": {
+    "immediate": {
+      "prefix": "112233",
+      "result": {
+        "upper": 1,
+        "kind": "IMMEDIATE_WIN",
+        "immediateWinningColumns": [
+          4
+        ],
+        "certificates": []
+      }
+    },
+    "oneSetupFork": {
+      "prefix": "2232",
+      "result": {
+        "upper": 3,
+        "kind": "ONE_SETUP_HALL_FORK",
+        "immediateWinningColumns": [],
+        "certificates": [
+          {
+            "setupColumn": 4,
+            "targetColumns": [
+              1,
+              5
+            ],
+            "defenderImmediateWinningColumns": [],
+            "hallWitness": {
+              "obligations": [
+                1,
+                5
+              ],
+              "obligationCount": 2,
+              "responseSlots": 1,
+              "neighborCount": 1,
+              "deficient": true
+            }
+          }
+        ]
+      }
+    },
+    "emptyBoundary": {
+      "prefix": "",
+      "result": {
+        "upper": null,
+        "kind": "NO_FINITE_BOUND_FROM_THIS_PRIMITIVE",
+        "immediateWinningColumns": [],
+        "certificates": []
+      }
+    },
+    "v4ConsumedFalsifierBoundary": {
+      "prefix": "444441566",
+      "children": [
+        {
+          "candidate": 2,
+          "lowerFromBoundedResponseHorizon": 3,
+          "upperFromThisPrimitive": null,
+          "interval": [
+            3,
+            null
+          ],
+          "upperCertificate": {
+            "upper": null,
+            "kind": "NO_FINITE_BOUND_FROM_THIS_PRIMITIVE",
+            "immediateWinningColumns": [],
+            "certificates": []
+          }
+        },
+        {
+          "candidate": 3,
+          "lowerFromBoundedResponseHorizon": 3,
+          "upperFromThisPrimitive": null,
+          "interval": [
+            3,
+            null
+          ],
+          "upperCertificate": {
+            "upper": null,
+            "kind": "NO_FINITE_BOUND_FROM_THIS_PRIMITIVE",
+            "immediateWinningColumns": [],
+            "certificates": []
+          }
+        },
+        {
+          "candidate": 6,
+          "lowerFromBoundedResponseHorizon": 5,
+          "upperFromThisPrimitive": null,
+          "interval": [
+            5,
+            null
+          ],
+          "upperCertificate": {
+            "upper": null,
+            "kind": "NO_FINITE_BOUND_FROM_THIS_PRIMITIVE",
+            "immediateWinningColumns": [],
+            "certificates": []
+          }
+        }
+      ],
+      "conclusion": "No finite upper bound for candidates 2, 3, or 6 from this narrow primitive; no interval separation and no v5 license."
+    }
+  }
+}
