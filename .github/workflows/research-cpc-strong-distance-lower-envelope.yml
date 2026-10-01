@@ -64,5 +64,8 @@ jobs:
             echo "CPC lower-envelope evidence unchanged"
             exit 0
           fi
-          git pull --rebase origin research/universal-structural-policy-20260930
-          git push origin HEAD:research/universal-structural-policy-20260930
+          git commit -m "research: verify CPC strong-distance lower envelope"
+          BRANCH=research/universal-structural-policy-20260930
+          git fetch origin "$BRANCH"
+          git rebase "origin/$BRANCH"
+          git push origin HEAD:"$BRANCH"
