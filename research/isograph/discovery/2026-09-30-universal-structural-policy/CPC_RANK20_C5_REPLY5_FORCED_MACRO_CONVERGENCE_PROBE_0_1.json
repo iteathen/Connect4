@@ -1,0 +1,2445 @@
+{
+  "schema": "connect4.cpc_rank20_c5_reply5_forced_macro_convergence_probe.v1",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "ordinaryGameTreeSearchUsed": false,
+  "productionCpcModified": false,
+  "jsMinSysModified": false,
+  "bsfpModified": false,
+  "design": "CPC_RANK20_C5_REPLY5_FORCED_MACRO_CONVERGENCE_PROBE_DESIGN_0_1.md",
+  "rank20": {
+    "sequence": "44444156666623222242",
+    "rank": 20,
+    "mover": 1,
+    "support": [
+      1,
+      6,
+      1,
+      6,
+      1,
+      5,
+      0
+    ]
+  },
+  "sourcePath": [
+    "P1:c5",
+    "P2:c5"
+  ],
+  "sourceRank22": {
+    "rank": 22,
+    "mover": 1,
+    "support": [
+      1,
+      6,
+      1,
+      6,
+      3,
+      5,
+      0
+    ],
+    "cpc": {
+      "baseline": {
+        "kind": "CPC_NONE",
+        "interval": [
+          -1,
+          1
+        ],
+        "forcedColumn": null,
+        "preemptionCount": 0,
+        "preemptionMask32": 0,
+        "precursorCount": 0,
+        "projectedCount": [
+          0,
+          0
+        ],
+        "projectedForks": [
+          0,
+          0
+        ]
+      },
+      "frontier": {
+        "kind": "CPC_NONE",
+        "interval": [
+          -1,
+          1
+        ],
+        "forcedColumn": null,
+        "preemptionCount": 0,
+        "preemptionMask32": 0,
+        "precursorCount": 0,
+        "projectedCount": [
+          0,
+          0
+        ],
+        "projectedForks": [
+          0,
+          0
+        ]
+      }
+    },
+    "p1Minimal": [
+      {
+        "diagnosticId": 128,
+        "size": 2,
+        "cells": [
+          {
+            "cell": 9,
+            "column": 3,
+            "row": 2,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          {
+            "cell": 25,
+            "column": 5,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          }
+        ],
+        "fullyAligned": false
+      },
+      {
+        "diagnosticId": 172,
+        "size": 2,
+        "cells": [
+          {
+            "cell": 14,
+            "column": 1,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": 1
+          },
+          {
+            "cell": 30,
+            "column": 3,
+            "row": 5,
+            "projectedOwner": 1,
+            "supportDistance": 3
+          }
+        ],
+        "fullyAligned": true
+      },
+      {
+        "diagnosticId": 228,
+        "size": 2,
+        "cells": [
+          {
+            "cell": 20,
+            "column": 7,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": 2
+          },
+          {
+            "cell": 32,
+            "column": 5,
+            "row": 5,
+            "projectedOwner": 1,
+            "supportDistance": 1
+          }
+        ],
+        "fullyAligned": true
+      },
+      {
+        "diagnosticId": 551,
+        "size": 3,
+        "cells": [
+          {
+            "cell": 37,
+            "column": 3,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 4
+          },
+          {
+            "cell": 39,
+            "column": 5,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 2
+          },
+          {
+            "cell": 40,
+            "column": 6,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          }
+        ],
+        "fullyAligned": false
+      },
+      {
+        "diagnosticId": 555,
+        "size": 3,
+        "cells": [
+          {
+            "cell": 39,
+            "column": 5,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 2
+          },
+          {
+            "cell": 40,
+            "column": 6,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          {
+            "cell": 41,
+            "column": 7,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 5
+          }
+        ],
+        "fullyAligned": false
+      },
+      {
+        "diagnosticId": 574,
+        "size": 4,
+        "cells": [
+          {
+            "cell": 6,
+            "column": 7,
+            "row": 1,
+            "projectedOwner": 1,
+            "supportDistance": 0
+          },
+          {
+            "cell": 13,
+            "column": 7,
+            "row": 2,
+            "projectedOwner": 2,
+            "supportDistance": 1
+          },
+          {
+            "cell": 20,
+            "column": 7,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": 2
+          },
+          {
+            "cell": 27,
+            "column": 7,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": 3
+          }
+        ],
+        "fullyAligned": false
+      },
+      {
+        "diagnosticId": 576,
+        "size": 4,
+        "cells": [
+          {
+            "cell": 7,
+            "column": 1,
+            "row": 2,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          {
+            "cell": 14,
+            "column": 1,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": 1
+          },
+          {
+            "cell": 21,
+            "column": 1,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": 2
+          },
+          {
+            "cell": 28,
+            "column": 1,
+            "row": 5,
+            "projectedOwner": 1,
+            "supportDistance": 3
+          }
+        ],
+        "fullyAligned": false
+      },
+      {
+        "diagnosticId": 582,
+        "size": 4,
+        "cells": [
+          {
+            "cell": 9,
+            "column": 3,
+            "row": 2,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          {
+            "cell": 16,
+            "column": 3,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": 1
+          },
+          {
+            "cell": 23,
+            "column": 3,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": 2
+          },
+          {
+            "cell": 30,
+            "column": 3,
+            "row": 5,
+            "projectedOwner": 1,
+            "supportDistance": 3
+          }
+        ],
+        "fullyAligned": false
+      },
+      {
+        "diagnosticId": 593,
+        "size": 4,
+        "cells": [
+          {
+            "cell": 13,
+            "column": 7,
+            "row": 2,
+            "projectedOwner": 2,
+            "supportDistance": 1
+          },
+          {
+            "cell": 20,
+            "column": 7,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": 2
+          },
+          {
+            "cell": 27,
+            "column": 7,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": 3
+          },
+          {
+            "cell": 34,
+            "column": 7,
+            "row": 5,
+            "projectedOwner": 1,
+            "supportDistance": 4
+          }
+        ],
+        "fullyAligned": false
+      },
+      {
+        "diagnosticId": 595,
+        "size": 4,
+        "cells": [
+          {
+            "cell": 14,
+            "column": 1,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": 1
+          },
+          {
+            "cell": 21,
+            "column": 1,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": 2
+          },
+          {
+            "cell": 28,
+            "column": 1,
+            "row": 5,
+            "projectedOwner": 1,
+            "supportDistance": 3
+          },
+          {
+            "cell": 35,
+            "column": 1,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 4
+          }
+        ],
+        "fullyAligned": false
+      },
+      {
+        "diagnosticId": 601,
+        "size": 4,
+        "cells": [
+          {
+            "cell": 16,
+            "column": 3,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": 1
+          },
+          {
+            "cell": 23,
+            "column": 3,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": 2
+          },
+          {
+            "cell": 30,
+            "column": 3,
+            "row": 5,
+            "projectedOwner": 1,
+            "supportDistance": 3
+          },
+          {
+            "cell": 37,
+            "column": 3,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 4
+          }
+        ],
+        "fullyAligned": false
+      },
+      {
+        "diagnosticId": 612,
+        "size": 4,
+        "cells": [
+          {
+            "cell": 20,
+            "column": 7,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": 2
+          },
+          {
+            "cell": 27,
+            "column": 7,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": 3
+          },
+          {
+            "cell": 34,
+            "column": 7,
+            "row": 5,
+            "projectedOwner": 1,
+            "supportDistance": 4
+          },
+          {
+            "cell": 41,
+            "column": 7,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 5
+          }
+        ],
+        "fullyAligned": false
+      }
+    ],
+    "p2Minimal": [
+      {
+        "diagnosticId": 30,
+        "size": 1,
+        "cells": [
+          {
+            "cell": 30,
+            "column": 3,
+            "row": 5,
+            "projectedOwner": 1,
+            "supportDistance": 3
+          }
+        ],
+        "fullyAligned": false
+      },
+      {
+        "diagnosticId": 385,
+        "size": 3,
+        "cells": [
+          {
+            "cell": 7,
+            "column": 1,
+            "row": 2,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          {
+            "cell": 14,
+            "column": 1,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": 1
+          },
+          {
+            "cell": 21,
+            "column": 1,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": 2
+          }
+        ],
+        "fullyAligned": false
+      },
+      {
+        "diagnosticId": 404,
+        "size": 3,
+        "cells": [
+          {
+            "cell": 9,
+            "column": 3,
+            "row": 2,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          {
+            "cell": 16,
+            "column": 3,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": 1
+          },
+          {
+            "cell": 23,
+            "column": 3,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": 2
+          }
+        ],
+        "fullyAligned": false
+      },
+      {
+        "diagnosticId": 469,
+        "size": 3,
+        "cells": [
+          {
+            "cell": 16,
+            "column": 3,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": 1
+          },
+          {
+            "cell": 32,
+            "column": 5,
+            "row": 5,
+            "projectedOwner": 1,
+            "supportDistance": 1
+          },
+          {
+            "cell": 40,
+            "column": 6,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          }
+        ],
+        "fullyAligned": false
+      },
+      {
+        "diagnosticId": 525,
+        "size": 3,
+        "cells": [
+          {
+            "cell": 25,
+            "column": 5,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          {
+            "cell": 32,
+            "column": 5,
+            "row": 5,
+            "projectedOwner": 1,
+            "supportDistance": 1
+          },
+          {
+            "cell": 39,
+            "column": 5,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 2
+          }
+        ],
+        "fullyAligned": false
+      },
+      {
+        "diagnosticId": 574,
+        "size": 4,
+        "cells": [
+          {
+            "cell": 6,
+            "column": 7,
+            "row": 1,
+            "projectedOwner": 1,
+            "supportDistance": 0
+          },
+          {
+            "cell": 13,
+            "column": 7,
+            "row": 2,
+            "projectedOwner": 2,
+            "supportDistance": 1
+          },
+          {
+            "cell": 20,
+            "column": 7,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": 2
+          },
+          {
+            "cell": 27,
+            "column": 7,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": 3
+          }
+        ],
+        "fullyAligned": false
+      },
+      {
+        "diagnosticId": 593,
+        "size": 4,
+        "cells": [
+          {
+            "cell": 13,
+            "column": 7,
+            "row": 2,
+            "projectedOwner": 2,
+            "supportDistance": 1
+          },
+          {
+            "cell": 20,
+            "column": 7,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": 2
+          },
+          {
+            "cell": 27,
+            "column": 7,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": 3
+          },
+          {
+            "cell": 34,
+            "column": 7,
+            "row": 5,
+            "projectedOwner": 1,
+            "supportDistance": 4
+          }
+        ],
+        "fullyAligned": false
+      },
+      {
+        "diagnosticId": 595,
+        "size": 4,
+        "cells": [
+          {
+            "cell": 14,
+            "column": 1,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": 1
+          },
+          {
+            "cell": 21,
+            "column": 1,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": 2
+          },
+          {
+            "cell": 28,
+            "column": 1,
+            "row": 5,
+            "projectedOwner": 1,
+            "supportDistance": 3
+          },
+          {
+            "cell": 35,
+            "column": 1,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 4
+          }
+        ],
+        "fullyAligned": false
+      },
+      {
+        "diagnosticId": 612,
+        "size": 4,
+        "cells": [
+          {
+            "cell": 20,
+            "column": 7,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": 2
+          },
+          {
+            "cell": 27,
+            "column": 7,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": 3
+          },
+          {
+            "cell": 34,
+            "column": 7,
+            "row": 5,
+            "projectedOwner": 1,
+            "supportDistance": 4
+          },
+          {
+            "cell": 41,
+            "column": 7,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 5
+          }
+        ],
+        "fullyAligned": false
+      }
+    ],
+    "p1AlignedPairs": [
+      {
+        "diagnosticId": 172,
+        "size": 2,
+        "cells": [
+          {
+            "cell": 14,
+            "column": 1,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": 1
+          },
+          {
+            "cell": 30,
+            "column": 3,
+            "row": 5,
+            "projectedOwner": 1,
+            "supportDistance": 3
+          }
+        ],
+        "fullyAligned": true
+      },
+      {
+        "diagnosticId": 228,
+        "size": 2,
+        "cells": [
+          {
+            "cell": 20,
+            "column": 7,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": 2
+          },
+          {
+            "cell": 32,
+            "column": 5,
+            "row": 5,
+            "projectedOwner": 1,
+            "supportDistance": 1
+          }
+        ],
+        "fullyAligned": true
+      }
+    ]
+  },
+  "routeA": {
+    "p1Column": 3,
+    "afterP1": {
+      "terminal": 0,
+      "rank": 23,
+      "support": [
+        1,
+        6,
+        2,
+        6,
+        3,
+        5,
+        0
+      ],
+      "cpc": {
+        "baseline": {
+          "kind": "CPC_RESTRICT",
+          "interval": [
+            -1,
+            1
+          ],
+          "forcedColumn": 5,
+          "preemptionCount": 1,
+          "preemptionMask32": 16,
+          "precursorCount": 0,
+          "projectedCount": [
+            0,
+            0
+          ],
+          "projectedForks": [
+            0,
+            0
+          ]
+        },
+        "frontier": {
+          "kind": "CPC_RESTRICT",
+          "interval": [
+            -1,
+            1
+          ],
+          "forcedColumn": 5,
+          "preemptionCount": 1,
+          "preemptionMask32": 16,
+          "precursorCount": 0,
+          "projectedCount": [
+            0,
+            0
+          ],
+          "projectedForks": [
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "forcedDefenderColumn": 5,
+    "result": {
+      "terminal": 0,
+      "rank": 24,
+      "mover": 1,
+      "support": [
+        1,
+        6,
+        2,
+        6,
+        4,
+        5,
+        0
+      ],
+      "knownRoot": null,
+      "cpc": {
+        "baseline": {
+          "kind": "CPC_NONE",
+          "interval": [
+            -1,
+            1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0,
+          "projectedCount": [
+            0,
+            0
+          ],
+          "projectedForks": [
+            0,
+            0
+          ]
+        },
+        "frontier": {
+          "kind": "CPC_NONE",
+          "interval": [
+            -1,
+            1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0,
+          "projectedCount": [
+            0,
+            0
+          ],
+          "projectedForks": [
+            0,
+            0
+          ]
+        }
+      },
+      "basis": [
+        6,
+        7,
+        13,
+        16,
+        20,
+        21,
+        23,
+        27,
+        30,
+        32,
+        34,
+        37,
+        40,
+        41,
+        108,
+        167,
+        172,
+        189,
+        191,
+        193,
+        228,
+        233,
+        251,
+        253,
+        280,
+        289,
+        301,
+        303,
+        310,
+        316,
+        385,
+        464,
+        469,
+        551,
+        555,
+        574,
+        576,
+        593,
+        595,
+        601,
+        612
+      ],
+      "p1ActiveResidualIds": [
+        172,
+        228,
+        464,
+        551,
+        555,
+        574,
+        576,
+        593,
+        595,
+        601,
+        612
+      ],
+      "p2ActiveResidualIds": [
+        30,
+        172,
+        280,
+        289,
+        303,
+        385,
+        464,
+        469,
+        574,
+        576,
+        593,
+        595,
+        601,
+        612
+      ],
+      "p1Minimal": [
+        {
+          "diagnosticId": 172,
+          "size": 2,
+          "cells": [
+            {
+              "cell": 14,
+              "column": 1,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 1
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 2
+            }
+          ],
+          "fullyAligned": true
+        },
+        {
+          "diagnosticId": 228,
+          "size": 2,
+          "cells": [
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 2
+            },
+            {
+              "cell": 32,
+              "column": 5,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            }
+          ],
+          "fullyAligned": true
+        },
+        {
+          "diagnosticId": 464,
+          "size": 3,
+          "cells": [
+            {
+              "cell": 16,
+              "column": 3,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            },
+            {
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 1
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 2
+            }
+          ],
+          "fullyAligned": false
+        },
+        {
+          "diagnosticId": 551,
+          "size": 3,
+          "cells": [
+            {
+              "cell": 37,
+              "column": 3,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 3
+            },
+            {
+              "cell": 39,
+              "column": 5,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 1
+            },
+            {
+              "cell": 40,
+              "column": 6,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "fullyAligned": false
+        },
+        {
+          "diagnosticId": 555,
+          "size": 3,
+          "cells": [
+            {
+              "cell": 39,
+              "column": 5,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 1
+            },
+            {
+              "cell": 40,
+              "column": 6,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            },
+            {
+              "cell": 41,
+              "column": 7,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 5
+            }
+          ],
+          "fullyAligned": false
+        },
+        {
+          "diagnosticId": 574,
+          "size": 4,
+          "cells": [
+            {
+              "cell": 6,
+              "column": 7,
+              "row": 1,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            },
+            {
+              "cell": 13,
+              "column": 7,
+              "row": 2,
+              "projectedOwner": 2,
+              "supportDistance": 1
+            },
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 2
+            },
+            {
+              "cell": 27,
+              "column": 7,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 3
+            }
+          ],
+          "fullyAligned": false
+        },
+        {
+          "diagnosticId": 576,
+          "size": 4,
+          "cells": [
+            {
+              "cell": 7,
+              "column": 1,
+              "row": 2,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            },
+            {
+              "cell": 14,
+              "column": 1,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 1
+            },
+            {
+              "cell": 21,
+              "column": 1,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 2
+            },
+            {
+              "cell": 28,
+              "column": 1,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 3
+            }
+          ],
+          "fullyAligned": false
+        },
+        {
+          "diagnosticId": 593,
+          "size": 4,
+          "cells": [
+            {
+              "cell": 13,
+              "column": 7,
+              "row": 2,
+              "projectedOwner": 2,
+              "supportDistance": 1
+            },
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 2
+            },
+            {
+              "cell": 27,
+              "column": 7,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 3
+            },
+            {
+              "cell": 34,
+              "column": 7,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 4
+            }
+          ],
+          "fullyAligned": false
+        },
+        {
+          "diagnosticId": 595,
+          "size": 4,
+          "cells": [
+            {
+              "cell": 14,
+              "column": 1,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 1
+            },
+            {
+              "cell": 21,
+              "column": 1,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 2
+            },
+            {
+              "cell": 28,
+              "column": 1,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 3
+            },
+            {
+              "cell": 35,
+              "column": 1,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 4
+            }
+          ],
+          "fullyAligned": false
+        },
+        {
+          "diagnosticId": 612,
+          "size": 4,
+          "cells": [
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 2
+            },
+            {
+              "cell": 27,
+              "column": 7,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 3
+            },
+            {
+              "cell": 34,
+              "column": 7,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 4
+            },
+            {
+              "cell": 41,
+              "column": 7,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 5
+            }
+          ],
+          "fullyAligned": false
+        }
+      ],
+      "p2Minimal": [
+        {
+          "diagnosticId": 30,
+          "size": 1,
+          "cells": [
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 2
+            }
+          ],
+          "fullyAligned": false
+        },
+        {
+          "diagnosticId": 303,
+          "size": 2,
+          "cells": [
+            {
+              "cell": 32,
+              "column": 5,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            },
+            {
+              "cell": 39,
+              "column": 5,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 1
+            }
+          ],
+          "fullyAligned": false
+        },
+        {
+          "diagnosticId": 385,
+          "size": 3,
+          "cells": [
+            {
+              "cell": 7,
+              "column": 1,
+              "row": 2,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            },
+            {
+              "cell": 14,
+              "column": 1,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 1
+            },
+            {
+              "cell": 21,
+              "column": 1,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 2
+            }
+          ],
+          "fullyAligned": false
+        },
+        {
+          "diagnosticId": 469,
+          "size": 3,
+          "cells": [
+            {
+              "cell": 16,
+              "column": 3,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            },
+            {
+              "cell": 32,
+              "column": 5,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            },
+            {
+              "cell": 40,
+              "column": 6,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "fullyAligned": false
+        },
+        {
+          "diagnosticId": 574,
+          "size": 4,
+          "cells": [
+            {
+              "cell": 6,
+              "column": 7,
+              "row": 1,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            },
+            {
+              "cell": 13,
+              "column": 7,
+              "row": 2,
+              "projectedOwner": 2,
+              "supportDistance": 1
+            },
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 2
+            },
+            {
+              "cell": 27,
+              "column": 7,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 3
+            }
+          ],
+          "fullyAligned": false
+        },
+        {
+          "diagnosticId": 593,
+          "size": 4,
+          "cells": [
+            {
+              "cell": 13,
+              "column": 7,
+              "row": 2,
+              "projectedOwner": 2,
+              "supportDistance": 1
+            },
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 2
+            },
+            {
+              "cell": 27,
+              "column": 7,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 3
+            },
+            {
+              "cell": 34,
+              "column": 7,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 4
+            }
+          ],
+          "fullyAligned": false
+        },
+        {
+          "diagnosticId": 595,
+          "size": 4,
+          "cells": [
+            {
+              "cell": 14,
+              "column": 1,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 1
+            },
+            {
+              "cell": 21,
+              "column": 1,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 2
+            },
+            {
+              "cell": 28,
+              "column": 1,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 3
+            },
+            {
+              "cell": 35,
+              "column": 1,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 4
+            }
+          ],
+          "fullyAligned": false
+        },
+        {
+          "diagnosticId": 612,
+          "size": 4,
+          "cells": [
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 2
+            },
+            {
+              "cell": 27,
+              "column": 7,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 3
+            },
+            {
+              "cell": 34,
+              "column": 7,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 4
+            },
+            {
+              "cell": 41,
+              "column": 7,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 5
+            }
+          ],
+          "fullyAligned": false
+        }
+      ],
+      "p1AlignedPairs": [
+        {
+          "diagnosticId": 172,
+          "size": 2,
+          "cells": [
+            {
+              "cell": 14,
+              "column": 1,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 1
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 2
+            }
+          ],
+          "fullyAligned": true
+        },
+        {
+          "diagnosticId": 228,
+          "size": 2,
+          "cells": [
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 2
+            },
+            {
+              "cell": 32,
+              "column": 5,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            }
+          ],
+          "fullyAligned": true
+        }
+      ]
+    }
+  },
+  "routeB": {
+    "p1Column": 5,
+    "afterP1": {
+      "terminal": 0,
+      "rank": 23,
+      "support": [
+        1,
+        6,
+        1,
+        6,
+        4,
+        5,
+        0
+      ],
+      "cpc": {
+        "baseline": {
+          "kind": "CPC_RESTRICT",
+          "interval": [
+            -1,
+            1
+          ],
+          "forcedColumn": 3,
+          "preemptionCount": 1,
+          "preemptionMask32": 4,
+          "precursorCount": 0,
+          "projectedCount": [
+            0,
+            0
+          ],
+          "projectedForks": [
+            0,
+            0
+          ]
+        },
+        "frontier": {
+          "kind": "CPC_RESTRICT",
+          "interval": [
+            -1,
+            1
+          ],
+          "forcedColumn": 3,
+          "preemptionCount": 1,
+          "preemptionMask32": 4,
+          "precursorCount": 0,
+          "projectedCount": [
+            0,
+            0
+          ],
+          "projectedForks": [
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "forcedDefenderColumn": 3,
+    "result": {
+      "terminal": 0,
+      "rank": 24,
+      "mover": 1,
+      "support": [
+        1,
+        6,
+        2,
+        6,
+        4,
+        5,
+        0
+      ],
+      "knownRoot": null,
+      "cpc": {
+        "baseline": {
+          "kind": "CPC_NONE",
+          "interval": [
+            -1,
+            1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0,
+          "projectedCount": [
+            0,
+            0
+          ],
+          "projectedForks": [
+            0,
+            0
+          ]
+        },
+        "frontier": {
+          "kind": "CPC_NONE",
+          "interval": [
+            -1,
+            1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0,
+          "projectedCount": [
+            0,
+            0
+          ],
+          "projectedForks": [
+            0,
+            0
+          ]
+        }
+      },
+      "basis": [
+        6,
+        7,
+        13,
+        16,
+        20,
+        21,
+        23,
+        27,
+        30,
+        32,
+        34,
+        37,
+        40,
+        41,
+        108,
+        167,
+        172,
+        189,
+        191,
+        193,
+        228,
+        233,
+        251,
+        253,
+        280,
+        289,
+        301,
+        303,
+        310,
+        316,
+        385,
+        464,
+        469,
+        551,
+        555,
+        574,
+        576,
+        593,
+        595,
+        601,
+        612
+      ],
+      "p1ActiveResidualIds": [
+        172,
+        228,
+        551,
+        555,
+        574,
+        576,
+        593,
+        595,
+        601,
+        612
+      ],
+      "p2ActiveResidualIds": [
+        30,
+        172,
+        189,
+        280,
+        289,
+        385,
+        464,
+        469,
+        574,
+        576,
+        593,
+        595,
+        601,
+        612
+      ],
+      "p1Minimal": [
+        {
+          "diagnosticId": 172,
+          "size": 2,
+          "cells": [
+            {
+              "cell": 14,
+              "column": 1,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 1
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 2
+            }
+          ],
+          "fullyAligned": true
+        },
+        {
+          "diagnosticId": 228,
+          "size": 2,
+          "cells": [
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 2
+            },
+            {
+              "cell": 32,
+              "column": 5,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            }
+          ],
+          "fullyAligned": true
+        },
+        {
+          "diagnosticId": 551,
+          "size": 3,
+          "cells": [
+            {
+              "cell": 37,
+              "column": 3,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 3
+            },
+            {
+              "cell": 39,
+              "column": 5,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 1
+            },
+            {
+              "cell": 40,
+              "column": 6,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "fullyAligned": false
+        },
+        {
+          "diagnosticId": 555,
+          "size": 3,
+          "cells": [
+            {
+              "cell": 39,
+              "column": 5,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 1
+            },
+            {
+              "cell": 40,
+              "column": 6,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            },
+            {
+              "cell": 41,
+              "column": 7,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 5
+            }
+          ],
+          "fullyAligned": false
+        },
+        {
+          "diagnosticId": 574,
+          "size": 4,
+          "cells": [
+            {
+              "cell": 6,
+              "column": 7,
+              "row": 1,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            },
+            {
+              "cell": 13,
+              "column": 7,
+              "row": 2,
+              "projectedOwner": 2,
+              "supportDistance": 1
+            },
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 2
+            },
+            {
+              "cell": 27,
+              "column": 7,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 3
+            }
+          ],
+          "fullyAligned": false
+        },
+        {
+          "diagnosticId": 576,
+          "size": 4,
+          "cells": [
+            {
+              "cell": 7,
+              "column": 1,
+              "row": 2,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            },
+            {
+              "cell": 14,
+              "column": 1,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 1
+            },
+            {
+              "cell": 21,
+              "column": 1,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 2
+            },
+            {
+              "cell": 28,
+              "column": 1,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 3
+            }
+          ],
+          "fullyAligned": false
+        },
+        {
+          "diagnosticId": 593,
+          "size": 4,
+          "cells": [
+            {
+              "cell": 13,
+              "column": 7,
+              "row": 2,
+              "projectedOwner": 2,
+              "supportDistance": 1
+            },
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 2
+            },
+            {
+              "cell": 27,
+              "column": 7,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 3
+            },
+            {
+              "cell": 34,
+              "column": 7,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 4
+            }
+          ],
+          "fullyAligned": false
+        },
+        {
+          "diagnosticId": 595,
+          "size": 4,
+          "cells": [
+            {
+              "cell": 14,
+              "column": 1,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 1
+            },
+            {
+              "cell": 21,
+              "column": 1,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 2
+            },
+            {
+              "cell": 28,
+              "column": 1,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 3
+            },
+            {
+              "cell": 35,
+              "column": 1,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 4
+            }
+          ],
+          "fullyAligned": false
+        },
+        {
+          "diagnosticId": 601,
+          "size": 4,
+          "cells": [
+            {
+              "cell": 16,
+              "column": 3,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            },
+            {
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 1
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 2
+            },
+            {
+              "cell": 37,
+              "column": 3,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 3
+            }
+          ],
+          "fullyAligned": false
+        },
+        {
+          "diagnosticId": 612,
+          "size": 4,
+          "cells": [
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 2
+            },
+            {
+              "cell": 27,
+              "column": 7,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 3
+            },
+            {
+              "cell": 34,
+              "column": 7,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 4
+            },
+            {
+              "cell": 41,
+              "column": 7,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 5
+            }
+          ],
+          "fullyAligned": false
+        }
+      ],
+      "p2Minimal": [
+        {
+          "diagnosticId": 30,
+          "size": 1,
+          "cells": [
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 2
+            }
+          ],
+          "fullyAligned": false
+        },
+        {
+          "diagnosticId": 189,
+          "size": 2,
+          "cells": [
+            {
+              "cell": 16,
+              "column": 3,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            },
+            {
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 1
+            }
+          ],
+          "fullyAligned": false
+        },
+        {
+          "diagnosticId": 385,
+          "size": 3,
+          "cells": [
+            {
+              "cell": 7,
+              "column": 1,
+              "row": 2,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            },
+            {
+              "cell": 14,
+              "column": 1,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 1
+            },
+            {
+              "cell": 21,
+              "column": 1,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 2
+            }
+          ],
+          "fullyAligned": false
+        },
+        {
+          "diagnosticId": 469,
+          "size": 3,
+          "cells": [
+            {
+              "cell": 16,
+              "column": 3,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            },
+            {
+              "cell": 32,
+              "column": 5,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            },
+            {
+              "cell": 40,
+              "column": 6,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 0
+            }
+          ],
+          "fullyAligned": false
+        },
+        {
+          "diagnosticId": 574,
+          "size": 4,
+          "cells": [
+            {
+              "cell": 6,
+              "column": 7,
+              "row": 1,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            },
+            {
+              "cell": 13,
+              "column": 7,
+              "row": 2,
+              "projectedOwner": 2,
+              "supportDistance": 1
+            },
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 2
+            },
+            {
+              "cell": 27,
+              "column": 7,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 3
+            }
+          ],
+          "fullyAligned": false
+        },
+        {
+          "diagnosticId": 593,
+          "size": 4,
+          "cells": [
+            {
+              "cell": 13,
+              "column": 7,
+              "row": 2,
+              "projectedOwner": 2,
+              "supportDistance": 1
+            },
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 2
+            },
+            {
+              "cell": 27,
+              "column": 7,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 3
+            },
+            {
+              "cell": 34,
+              "column": 7,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 4
+            }
+          ],
+          "fullyAligned": false
+        },
+        {
+          "diagnosticId": 595,
+          "size": 4,
+          "cells": [
+            {
+              "cell": 14,
+              "column": 1,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 1
+            },
+            {
+              "cell": 21,
+              "column": 1,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 2
+            },
+            {
+              "cell": 28,
+              "column": 1,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 3
+            },
+            {
+              "cell": 35,
+              "column": 1,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 4
+            }
+          ],
+          "fullyAligned": false
+        },
+        {
+          "diagnosticId": 612,
+          "size": 4,
+          "cells": [
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 2
+            },
+            {
+              "cell": 27,
+              "column": 7,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 3
+            },
+            {
+              "cell": 34,
+              "column": 7,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 4
+            },
+            {
+              "cell": 41,
+              "column": 7,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 5
+            }
+          ],
+          "fullyAligned": false
+        }
+      ],
+      "p1AlignedPairs": [
+        {
+          "diagnosticId": 172,
+          "size": 2,
+          "cells": [
+            {
+              "cell": 14,
+              "column": 1,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 1
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 2
+            }
+          ],
+          "fullyAligned": true
+        },
+        {
+          "diagnosticId": 228,
+          "size": 2,
+          "cells": [
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 2
+            },
+            {
+              "cell": 32,
+              "column": 5,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            }
+          ],
+          "fullyAligned": true
+        }
+      ]
+    }
+  },
+  "comparison": {
+    "supportEqual": true,
+    "basisEqual": true,
+    "exactRbaEqual": false,
+    "p1ResidualSymmetricDifference": [
+      {
+        "diagnosticId": 464,
+        "size": 3,
+        "inRouteA": true,
+        "inRouteB": false,
+        "attachedCells": [
+          {
+            "cell": 16,
+            "column": 3,
+            "row": 3
+          },
+          {
+            "cell": 23,
+            "column": 3,
+            "row": 4
+          },
+          {
+            "cell": 30,
+            "column": 3,
+            "row": 5
+          }
+        ],
+        "routeADescription": {
+          "diagnosticId": 464,
+          "size": 3,
+          "cells": [
+            {
+              "cell": 16,
+              "column": 3,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            },
+            {
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 1
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 2
+            }
+          ],
+          "fullyAligned": false
+        },
+        "routeBDescription": null
+      }
+    ],
+    "p2ResidualSymmetricDifference": [
+      {
+        "diagnosticId": 189,
+        "size": 2,
+        "inRouteA": false,
+        "inRouteB": true,
+        "attachedCells": [
+          {
+            "cell": 16,
+            "column": 3,
+            "row": 3
+          },
+          {
+            "cell": 23,
+            "column": 3,
+            "row": 4
+          }
+        ],
+        "routeADescription": null,
+        "routeBDescription": {
+          "diagnosticId": 189,
+          "size": 2,
+          "cells": [
+            {
+              "cell": 16,
+              "column": 3,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            },
+            {
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "projectedOwner": 2,
+              "supportDistance": 1
+            }
+          ],
+          "fullyAligned": false
+        }
+      },
+      {
+        "diagnosticId": 303,
+        "size": 2,
+        "inRouteA": true,
+        "inRouteB": false,
+        "attachedCells": [
+          {
+            "cell": 32,
+            "column": 5,
+            "row": 5
+          },
+          {
+            "cell": 39,
+            "column": 5,
+            "row": 6
+          }
+        ],
+        "routeADescription": {
+          "diagnosticId": 303,
+          "size": 2,
+          "cells": [
+            {
+              "cell": 32,
+              "column": 5,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 0
+            },
+            {
+              "cell": 39,
+              "column": 5,
+              "row": 6,
+              "projectedOwner": 2,
+              "supportDistance": 1
+            }
+          ],
+          "fullyAligned": false
+        },
+        "routeBDescription": null
+      }
+    ]
+  },
+  "conclusion": [
+    "This bounded probe compares the two CPC-forced macros exposed by the unresolved P1:c5 / P2:c5 rank-22 child.",
+    "The two macros share the same support vector but are not the same exact RBA state; support-level convergence is rejected and the residual symmetric difference is preserved.",
+    "No value is assigned to either rank-24 result by this probe."
+  ],
+  "boundary": [
+    "This is discovery evidence only and does not certify the rank-20 root or either rank-24 result.",
+    "No oracle, Pons score, solved W/D/L, minimax, ordinary game-tree value, best-move table, opening book, BSFP solved frontier, physical-position identity shortcut, or sealed holdout is used.",
+    "Production CPC, JSMinSys, and BSFP remain unchanged."
+  ]
+}
