@@ -1,0 +1,71 @@
+{
+  "schema": "connect4.cpc_rank30_c5_escape_commutation.v1",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "base": {
+    "sequence": "4444415666662322224233177716115",
+    "rank": 31,
+    "mover": 2,
+    "support": [
+      5,
+      6,
+      3,
+      6,
+      2,
+      6,
+      3
+    ]
+  },
+  "branchA": {
+    "moves": [
+      1,
+      7
+    ],
+    "support": [
+      6,
+      6,
+      3,
+      6,
+      2,
+      6,
+      4
+    ],
+    "rank": 33,
+    "basisSize": 23
+  },
+  "branchB": {
+    "moves": [
+      7,
+      1
+    ],
+    "support": [
+      6,
+      6,
+      3,
+      6,
+      2,
+      6,
+      4
+    ],
+    "rank": 33,
+    "basisSize": 23
+  },
+  "exactRbaEqual": false,
+  "wordDiff": [
+    {
+      "index": 11,
+      "a": 7438608,
+      "b": 7569680
+    }
+  ],
+  "basisDiff": [],
+  "conclusion": [
+    "This probe tests whether the two cross-reservoir escape/response orders collapse to the same exact RBA state.",
+    "Exact equality is stronger than support equality and automatically consumes any neutral/gray ownership quotient already represented by RBA."
+  ],
+  "boundary": [
+    "No oracle, Pons, solved W/D/L, local game-tree values, minimax, best-move table, physical identity, or sealed holdout is used.",
+    "Production CPC and JSMinSys are read-only and unchanged."
+  ]
+}
