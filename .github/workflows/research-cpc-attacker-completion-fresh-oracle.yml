@@ -1,0 +1,88 @@
+name: Research CPC attacker completion fresh oracle
+
+on:
+  push:
+    branches:
+      - research/universal-structural-policy-20260930
+    paths:
+      - .github/workflows/research-cpc-attacker-completion-fresh-oracle.yml
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/run-cpc-attacker-completion-fresh-oracle.mjs
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_ATTACKER_COMPLETION_FRESH_STRUCTURAL_0_1.json
+
+permissions:
+  contents: write
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Check out exact pushed revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+
+      - name: Build pinned Pascal Pons solver and verify book
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone https://github.com/PascalPons/connect4.git pons-connect4
+          git -C pons-connect4 checkout d6ba50d8aaf2308c769d9bf2abd42d90f34baf41
+          test "$(git -C pons-connect4 rev-parse HEAD)" = "d6ba50d8aaf2308c769d9bf2abd42d90f34baf41"
+          make -C pons-connect4 -j2
+          curl -fL --retry 3 -o pons-connect4/7x6.book https://github.com/PascalPons/connect4/releases/download/book/7x6.book
+          echo "f346cd449626fb81da93be0958e017ee854e5f74d85b6d38062357f5403aec53  pons-connect4/7x6.book" | sha256sum -c -
+
+      - name: Query frozen fresh structural corpus
+        shell: bash
+        run: |
+          set -euo pipefail
+          CORPUS=research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_ATTACKER_COMPLETION_FRESH_STRUCTURAL_0_1.json
+          node - "$CORPUS" > fresh-a-d-prefixes.txt <<'NODE'
+          const fs=require('fs');
+          const r=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
+          if(r.oracleUsed!==false||r.solvedInputsUsed!==false)throw new Error('structural corpus was not frozen oracle-free');
+          for(const c of r.certificates)console.log(c.sequence);
+          NODE
+          ./pons-connect4/c4solver -b ./pons-connect4/7x6.book -a < fresh-a-d-prefixes.txt > fresh-a-d-pons.txt
+          test "$(wc -l < fresh-a-d-pons.txt)" -eq "$(wc -l < fresh-a-d-prefixes.txt)"
+
+      - name: Validate structural upper certificates
+        shell: bash
+        run: |
+          set -euo pipefail
+          CORPUS=research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_ATTACKER_COMPLETION_FRESH_STRUCTURAL_0_1.json
+          OUT=research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_ATTACKER_COMPLETION_FRESH_ORACLE_0_1.json
+          node research/isograph/discovery/2026-09-30-universal-structural-policy/run-cpc-attacker-completion-fresh-oracle.mjs "$CORPUS" fresh-a-d-pons.txt > "$OUT"
+          node - "$OUT" <<'NODE'
+          const fs=require('fs');
+          const r=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
+          console.log('SUMMARY='+JSON.stringify(r.summary));
+          console.log('NON_IMMEDIATE='+JSON.stringify(r.checks.filter(x=>x.constructor!=='IMMEDIATE_TERMINAL').map(x=>({
+            sequence:x.sequence,
+            constructor:x.constructor,
+            structuralUpper:x.structuralUpper,
+            oracleDistance:x.oracleExactWinDistance,
+            bestScore:x.oracleBestScore
+          }))));
+          NODE
+
+      - name: Commit durable fresh oracle validation
+        shell: bash
+        run: |
+          set -euo pipefail
+          BRANCH=research/universal-structural-policy-20260930
+          FILE=research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_ATTACKER_COMPLETION_FRESH_ORACLE_0_1.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$FILE"
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "research: validate fresh A-D certificates with Pons"
+          for attempt in 1 2 3; do
+            git fetch origin "$BRANCH"
+            git rebase "origin/$BRANCH"
+            if git push origin HEAD:"$BRANCH"; then exit 0; fi
+            sleep 1
+          done
+          echo "failed to publish fresh A-D oracle evidence after retries" >&2
+          exit 1
