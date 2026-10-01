@@ -24,10 +24,13 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          git clone --depth 1 https://github.com/PascalPons/connect4.git pons-connect4
+          git clone https://github.com/PascalPons/connect4.git pons-connect4
           cd pons-connect4
+          git checkout d6ba50d8aaf2308c769d9bf2abd42d90f34baf41
+          echo "PONS_SHA=$(git rev-parse HEAD)"
           make -j2
           curl -fL --retry 3 -o 7x6.book https://github.com/PascalPons/connect4/releases/download/book/7x6.book
+          sha256sum 7x6.book
       - name: Analyze all seven moves
         shell: bash
         run: |
