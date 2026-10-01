@@ -1,0 +1,88 @@
+name: Research NEES prepared-subset A-B
+
+on:
+  push:
+    branches:
+      - research/universal-structural-policy-20260930
+    paths:
+      - .github/workflows/research-cpc-nees-subset-ab.yml
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/run-cpc-guard-survival-nees-kernel-subset.mjs
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Check out exact pushed revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+      - name: Pin Node runtime
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Fetch baseline and subset-optimized JSMinSys
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --branch research/cpc-guard-proof-memo-nees-v1 --single-branch https://github.com/iteathen/JSMinSys.git jsminsys-base
+          git -C jsminsys-base checkout db9cda32fc814a7f982816556cb59ab82a7a4782
+          git clone --branch research/cpc-guard-proof-memo-nees-v1 --single-branch https://github.com/iteathen/JSMinSys.git jsminsys-subset
+          git -C jsminsys-subset checkout 2f459989bca348ff1b840da0978262404a0d8f36
+      - name: Run D19 A-B
+        shell: bash
+        env:
+          NODE_OPTIONS: --max-old-space-size=2048
+        run: |
+          set -euo pipefail
+          DIR=research/isograph/discovery/2026-09-30-universal-structural-policy
+          /usr/bin/time -f 'wall=%e\nmaxrss_kb=%M\nuser=%U\nsys=%S' -o /tmp/base.time \
+            node "$DIR/run-cpc-guard-survival-nees-kernel.mjs" ./jsminsys-base 19 4194304 > /tmp/base.json
+          /usr/bin/time -f 'wall=%e\nmaxrss_kb=%M\nuser=%U\nsys=%S' -o /tmp/subset.time \
+            node "$DIR/run-cpc-guard-survival-nees-kernel-subset.mjs" ./jsminsys-subset 19 4194304 > /tmp/subset.json
+          node - /tmp/base.json /tmp/subset.json /tmp/base.time /tmp/subset.time "$DIR/CPC_NEES_PREPARED_SUBSET_AB_D19_0_1.json" <<'NODE'
+          const fs=require('fs');
+          const [bp,sp,bt,st,out]=process.argv.slice(2);
+          const time=p=>Object.fromEntries(fs.readFileSync(p,'utf8').trim().split(/\n/).map(x=>x.split('=')));
+          const b=JSON.parse(fs.readFileSync(bp,'utf8'));
+          const s=JSON.parse(fs.readFileSync(sp,'utf8'));
+          if(!b.result.accept||!s.result.accept)throw new Error('D19 proof regression');
+          const tb=time(bt),ts=time(st);
+          const r={
+            schema:'connect4.cpc_nees_prepared_subset_ab.v1',
+            horizon:19,
+            baselineSha:'db9cda32fc814a7f982816556cb59ab82a7a4782',
+            subsetSha:'2f459989bca348ff1b840da0978262404a0d8f36',
+            baseline:{wallSeconds:Number(tb.wall),maxRssKb:Number(tb.maxrss_kb),runtime:b.runtime},
+            subset:{wallSeconds:Number(ts.wall),maxRssKb:Number(ts.maxrss_kb),runtime:s.runtime},
+            ratios:{wall:Number(ts.wall)/Number(tb.wall),maxRss:Number(ts.maxrss_kb)/Number(tb.maxrss_kb)},
+            boundary:[
+              'Same runner job, Node 26.7.0, horizon, proof grammar and memo capacity.',
+              'Only minimal-residual subset checks change from generic shape scans to the initialization-prepared dense subset table.',
+              'Promotion depends on governing proof cost rather than the local table lookup intuition.'
+            ]
+          };
+          fs.writeFileSync(out,JSON.stringify(r,null,2)+'\n');
+          console.log(JSON.stringify(r,null,2));
+          NODE
+      - name: Commit durable subset A-B evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          BRANCH=research/universal-structural-policy-20260930
+          FILE=research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_NEES_PREPARED_SUBSET_AB_D19_0_1.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$FILE"
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "research: qualify prepared-subset NEES kernel"
+          for attempt in 1 2 3; do
+            git fetch origin "$BRANCH"
+            git rebase --autostash "origin/$BRANCH"
+            if git push origin HEAD:"$BRANCH"; then exit 0; fi
+            sleep 1
+          done
+          exit 1
