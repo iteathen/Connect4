@@ -1,0 +1,77 @@
+name: Research CPC forced completion upper envelope
+
+on:
+  push:
+    branches:
+      - research/universal-structural-policy-20260930
+    paths:
+      - .github/workflows/research-cpc-forced-completion-upper-envelope.yml
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_FORCED_COMPLETION_UPPER_ENVELOPE_THEOREM.md
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/run-cpc-forced-completion-upper-envelope.mjs
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Check out exact pushed revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+
+      - name: Pin Node runtime
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+
+      - name: Assert exact Node runtime
+        run: node -e "if (process.version !== 'v26.7.0') throw new Error('expected Node v26.7.0, got ' + process.version)"
+
+      - name: Fetch pinned JSMinSys CPC authority
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone https://github.com/iteathen/JSMinSys.git jsminsys
+          git -C jsminsys checkout 0899c5811918e68c22dc1b0e4dd8af97d9b4bbcb
+          test "$(git -C jsminsys rev-parse HEAD)" = "0899c5811918e68c22dc1b0e4dd8af97d9b4bbcb"
+
+      - name: Verify CPC upper-envelope controls
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT=research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_FORCED_COMPLETION_UPPER_ENVELOPE_CONTROL_0_1.json
+          node research/isograph/discovery/2026-09-30-universal-structural-policy/run-cpc-forced-completion-upper-envelope.mjs ./jsminsys > "$OUT"
+          node - "$OUT" <<'NODE'
+          const fs=require('fs');
+          const r=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
+          console.log('ORACLE_USED='+r.oracleUsed);
+          console.log('HALL_UPPER='+r.controls.hallFork.upperFromRoot);
+          console.log('CHAIN_UPPER='+r.controls.forcedRestrictionChain.upperFromRoot);
+          console.log('V4='+JSON.stringify(r.controls.v4ConsumedBoundary.children.map(x=>({
+            candidate:x.candidate,
+            lower:x.lowerFromCpcEnvelope,
+            upper:x.finiteUpperFromThisGrammar,
+            forced:x.setups.filter(s=>s.postSetup.restriction).map(s=>[s.setupColumn,s.postSetup.restriction.forcedColumn])
+          }))));
+          NODE
+
+      - name: Commit durable upper-envelope evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          BRANCH=research/universal-structural-policy-20260930
+          FILE=research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_FORCED_COMPLETION_UPPER_ENVELOPE_CONTROL_0_1.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$FILE"
+          if git diff --cached --quiet; then
+            echo "evidence unchanged"
+            exit 0
+          fi
+          git commit -m "research: verify CPC forced-completion upper envelope"
+          git fetch origin "$BRANCH"
+          git rebase "origin/$BRANCH"
+          git push origin HEAD:"$BRANCH"
