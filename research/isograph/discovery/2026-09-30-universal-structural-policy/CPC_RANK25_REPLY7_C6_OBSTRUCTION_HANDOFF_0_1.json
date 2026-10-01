@@ -1,0 +1,513 @@
+{
+  "schema": "connect4.cpc_rank25_reply7_c6_obstruction_handoff.v1",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "theoremCandidate": "CPC_RANK25_REPLY7_C6_OBSTRUCTION_HANDOFF_THEOREM.md",
+  "state": {
+    "rank": 25,
+    "mover": 2,
+    "support": [
+      3,
+      6,
+      3,
+      6,
+      1,
+      5,
+      1
+    ],
+    "activeSingleton": {
+      "column": 3,
+      "row": 5,
+      "active": true
+    }
+  },
+  "obstructionMove": {
+    "column": 6,
+    "terminal": 0,
+    "support": [
+      3,
+      6,
+      3,
+      6,
+      1,
+      6,
+      1
+    ]
+  },
+  "handoff": {
+    "p1MoveColumn": 3,
+    "p1MoveTerminal": 0,
+    "supportAfterP1": [
+      3,
+      6,
+      4,
+      6,
+      1,
+      6,
+      1
+    ],
+    "singletonAfterP1C3": true,
+    "nativeCpc": {
+      "baseline": {
+        "kind": "CPC_RESTRICT",
+        "interval": [
+          -1,
+          1
+        ],
+        "forcedColumn": 3,
+        "preemptionCount": 1,
+        "preemptionMask32": 4
+      },
+      "frontier": {
+        "kind": "CPC_RESTRICT",
+        "interval": [
+          -1,
+          1
+        ],
+        "forcedColumn": 3,
+        "preemptionCount": 1,
+        "preemptionMask32": 4
+      }
+    },
+    "nativeCpcForcesC3": true,
+    "literal": {
+      "rows": [
+        {
+          "replyColumn": 1,
+          "replyTerminal": 0,
+          "nextP1C3Terminal": 3,
+          "avoidsImmediateP1C3Win": false
+        },
+        {
+          "replyColumn": 3,
+          "replyTerminal": 0,
+          "nextP1C3Terminal": 0,
+          "avoidsImmediateP1C3Win": true
+        },
+        {
+          "replyColumn": 5,
+          "replyTerminal": 0,
+          "nextP1C3Terminal": 3,
+          "avoidsImmediateP1C3Win": false
+        },
+        {
+          "replyColumn": 7,
+          "replyTerminal": 0,
+          "nextP1C3Terminal": 3,
+          "avoidsImmediateP1C3Win": false
+        }
+      ],
+      "avoidingMask": 4,
+      "avoidingColumns": [
+        3
+      ],
+      "onlyC3": true
+    },
+    "forcedDefenderColumn": 3,
+    "forcedReplyTerminal": 0,
+    "postForced": {
+      "rank": 28,
+      "mover": 1,
+      "support": [
+        3,
+        6,
+        5,
+        6,
+        1,
+        6,
+        1
+      ],
+      "pairRetained": true,
+      "c5Height": 1
+    }
+  },
+  "downstreamCompression": {
+    "mode": "height1",
+    "firstSupport": [
+      3,
+      6,
+      5,
+      6,
+      2,
+      6,
+      1
+    ],
+    "branches": [
+      {
+        "replyColumn": 1,
+        "replyTerminal": 0,
+        "kind": "off-column-compression",
+        "secondC5Terminal": 0,
+        "nativeCpc": {
+          "baseline": {
+            "kind": "CPC_RESTRICT",
+            "interval": [
+              -1,
+              1
+            ],
+            "forcedColumn": 5,
+            "preemptionCount": 1,
+            "preemptionMask32": 16
+          },
+          "frontier": {
+            "kind": "CPC_RESTRICT",
+            "interval": [
+              -1,
+              1
+            ],
+            "forcedColumn": 5,
+            "preemptionCount": 1,
+            "preemptionMask32": 16
+          }
+        },
+        "literal": {
+          "rows": [
+            {
+              "replyColumn": 1,
+              "replyTerminal": 0,
+              "nextP1C5Terminal": 3,
+              "avoidsImmediateP1C5Win": false
+            },
+            {
+              "replyColumn": 3,
+              "replyTerminal": 0,
+              "nextP1C5Terminal": 3,
+              "avoidsImmediateP1C5Win": false
+            },
+            {
+              "replyColumn": 5,
+              "replyTerminal": 0,
+              "nextP1C5Terminal": 0,
+              "avoidsImmediateP1C5Win": true
+            },
+            {
+              "replyColumn": 7,
+              "replyTerminal": 0,
+              "nextP1C5Terminal": 3,
+              "avoidsImmediateP1C5Win": false
+            }
+          ],
+          "avoidingMask": 16,
+          "avoidingColumns": [
+            5
+          ],
+          "onlyC5": true
+        },
+        "cpcForced": true,
+        "forcedReplyTerminal": 0,
+        "pairBeforeConsume": true,
+        "consumeTerminal": 0,
+        "consumeSupport": [
+          4,
+          6,
+          5,
+          6,
+          5,
+          6,
+          1
+        ],
+        "singletonAfterConsume": true,
+        "targetTemplate": {
+          "capacity": [
+            2,
+            0,
+            1,
+            0,
+            1,
+            0,
+            2
+          ],
+          "oddColumns": [
+            3,
+            5
+          ],
+          "synchronizedPairs": [
+            {
+              "columns": [
+                3,
+                5
+              ],
+              "prefixLength": 1
+            }
+          ],
+          "targetIsResponse": true,
+          "defenderResidualCount": 3,
+          "coverage": [
+            {
+              "residualId": 438,
+              "size": 3,
+              "witness": {
+                "kind": "post-target-deferral",
+                "cell": 27,
+                "column": 7,
+                "row": 4
+              }
+            },
+            {
+              "residualId": 593,
+              "size": 4,
+              "witness": {
+                "kind": "post-target-deferral",
+                "cell": 27,
+                "column": 7,
+                "row": 4
+              }
+            },
+            {
+              "residualId": 612,
+              "size": 4,
+              "witness": {
+                "kind": "post-target-deferral",
+                "cell": 27,
+                "column": 7,
+                "row": 4
+              }
+            }
+          ]
+        },
+        "validation": {
+          "pass": true,
+          "defenderNodes": 8,
+          "responsePairs": 15,
+          "maxPairDepth": 2,
+          "p1Terminals": 8,
+          "targetTerminals": 8,
+          "failures": []
+        },
+        "accept": true
+      },
+      {
+        "replyColumn": 3,
+        "replyTerminal": 0,
+        "kind": "off-column-compression",
+        "secondC5Terminal": 0,
+        "nativeCpc": {
+          "baseline": {
+            "kind": "CPC_RESTRICT",
+            "interval": [
+              -1,
+              1
+            ],
+            "forcedColumn": 5,
+            "preemptionCount": 1,
+            "preemptionMask32": 16
+          },
+          "frontier": {
+            "kind": "CPC_RESTRICT",
+            "interval": [
+              -1,
+              1
+            ],
+            "forcedColumn": 5,
+            "preemptionCount": 1,
+            "preemptionMask32": 16
+          }
+        },
+        "literal": {
+          "rows": [
+            {
+              "replyColumn": 1,
+              "replyTerminal": 0,
+              "nextP1C5Terminal": 3,
+              "avoidsImmediateP1C5Win": false
+            },
+            {
+              "replyColumn": 5,
+              "replyTerminal": 0,
+              "nextP1C5Terminal": 0,
+              "avoidsImmediateP1C5Win": true
+            },
+            {
+              "replyColumn": 7,
+              "replyTerminal": 0,
+              "nextP1C5Terminal": 3,
+              "avoidsImmediateP1C5Win": false
+            }
+          ],
+          "avoidingMask": 16,
+          "avoidingColumns": [
+            5
+          ],
+          "onlyC5": true
+        },
+        "cpcForced": true,
+        "forcedReplyTerminal": 0,
+        "pairBeforeConsume": true,
+        "consumeTerminal": 0,
+        "consumeSupport": [
+          3,
+          6,
+          6,
+          6,
+          5,
+          6,
+          1
+        ],
+        "singletonAfterConsume": true,
+        "targetTemplate": {
+          "capacity": [
+            3,
+            0,
+            0,
+            0,
+            1,
+            0,
+            2
+          ],
+          "oddColumns": [
+            1,
+            5
+          ],
+          "synchronizedPairs": [
+            {
+              "columns": [
+                1,
+                5
+              ],
+              "prefixLength": 1
+            }
+          ],
+          "targetIsResponse": true,
+          "defenderResidualCount": 3,
+          "coverage": [
+            {
+              "residualId": 438,
+              "size": 3,
+              "witness": {
+                "kind": "post-target-deferral",
+                "cell": 27,
+                "column": 7,
+                "row": 4
+              }
+            },
+            {
+              "residualId": 593,
+              "size": 4,
+              "witness": {
+                "kind": "post-target-deferral",
+                "cell": 27,
+                "column": 7,
+                "row": 4
+              }
+            },
+            {
+              "residualId": 612,
+              "size": 4,
+              "witness": {
+                "kind": "post-target-deferral",
+                "cell": 27,
+                "column": 7,
+                "row": 4
+              }
+            }
+          ]
+        },
+        "validation": {
+          "pass": true,
+          "defenderNodes": 5,
+          "responsePairs": 9,
+          "maxPairDepth": 2,
+          "p1Terminals": 5,
+          "targetTerminals": 5,
+          "failures": []
+        },
+        "accept": true
+      },
+      {
+        "replyColumn": 5,
+        "replyTerminal": 1,
+        "accept": false
+      },
+      {
+        "replyColumn": 7,
+        "replyTerminal": 0,
+        "kind": "off-column-compression",
+        "secondC5Terminal": 0,
+        "nativeCpc": {
+          "baseline": {
+            "kind": "CPC_RESTRICT",
+            "interval": [
+              -1,
+              1
+            ],
+            "forcedColumn": 5,
+            "preemptionCount": 1,
+            "preemptionMask32": 16
+          },
+          "frontier": {
+            "kind": "CPC_RESTRICT",
+            "interval": [
+              -1,
+              1
+            ],
+            "forcedColumn": 5,
+            "preemptionCount": 1,
+            "preemptionMask32": 16
+          }
+        },
+        "literal": {
+          "rows": [
+            {
+              "replyColumn": 1,
+              "replyTerminal": 0,
+              "nextP1C5Terminal": 3,
+              "avoidsImmediateP1C5Win": false
+            },
+            {
+              "replyColumn": 3,
+              "replyTerminal": 0,
+              "nextP1C5Terminal": 3,
+              "avoidsImmediateP1C5Win": false
+            },
+            {
+              "replyColumn": 5,
+              "replyTerminal": 0,
+              "nextP1C5Terminal": 0,
+              "avoidsImmediateP1C5Win": true
+            },
+            {
+              "replyColumn": 7,
+              "replyTerminal": 0,
+              "nextP1C5Terminal": 3,
+              "avoidsImmediateP1C5Win": false
+            }
+          ],
+          "avoidingMask": 16,
+          "avoidingColumns": [
+            5
+          ],
+          "onlyC5": true
+        },
+        "cpcForced": true,
+        "forcedReplyTerminal": 0,
+        "pairBeforeConsume": true,
+        "consumeTerminal": 0,
+        "consumeSupport": [
+          3,
+          6,
+          5,
+          6,
+          5,
+          6,
+          2
+        ],
+        "singletonAfterConsume": true,
+        "targetTemplate": null,
+        "validation": null,
+        "accept": false
+      }
+    ],
+    "accept": false
+  },
+  "accept": false,
+  "conclusion": [
+    "At least one frozen c6-obstruction handoff premise failed; the theorem is rejected or requires narrowing."
+  ],
+  "boundary": [
+    "All transitions are exact RBA cofactors; production CPC is consumed unchanged.",
+    "The forced c3 restriction is independently cross-checked against every legal defender reply.",
+    "The downstream c5 compression and target-reservoir certificate are freshly synthesized on the exact post-handoff state.",
+    "No oracle, Pons, solved W/D/L input, minimax, best-move table, physical-position identity, or sealed holdout is used."
+  ]
+}
