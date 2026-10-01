@@ -2,7 +2,7 @@
 
 **Date:** 2026-10-01  
 **Version:** 0.1 frozen before execution  
-**Status:** exact local composition candidate  
+**Status:** qualified exact local composition theorem  
 **Branch:** `research/universal-structural-policy-20260930`
 
 ## Purpose
@@ -145,3 +145,22 @@ e1);
 Qualification establishes only a compressed proof of the already-qualified rank-31 family.
 
 It does not yet generalize `Bx` to arbitrary Connect Four states, alter production CPC, unseal formula holdouts, prove rank 10, authorize v5, or solve Connect Four.
+
+
+## Qualification result
+
+Qualified on 2026-10-01 by `CPC_BX_VIABILITY_FINITE_RESERVOIR_0_1.json`.
+
+The generated evidence reports `accept: true` and proves:
+
+- every reachable Player-2 phase state has `Bx=1`;
+- every exact exposure edge satisfies `delta(Bx)=1` and terminates for Player 1 on the qualified response;
+- every exact transfer edge satisfies `delta(Bx)=0`, returns to `Bx=1`, and strictly decreases remaining c7 capacity;
+- the exact c7-capacity-zero sinks have no transfer edge;
+- induction over c7 capacities `0,1,2,3` proves the rank-31 root.
+
+The first qualification workflow attempt failed only because the checker retained canonical sink name `ZA` while exact transfer edges referenced exact-equal aliases `ZB` and `ZC`. The bridge evidence had already proved `ZA=ZB=ZC` as exact RBA states. The checker was corrected to retain all exact sink aliases; no theorem premise was changed.
+
+Durable evidence commit: `48a31386f97cff56eda1b545c9bb1b821f30298e`.
+
+Production CPC and JSMinSys remained unchanged.
