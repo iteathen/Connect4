@@ -558,6 +558,7 @@ console.log(JSON.stringify({
     'The guard set is reconstructed from a compact current-occupancy odd-row ownership descriptor, not from one provenance-selected guard.',
     'No new response type is introduced: all candidates belong to previously frozen CPC response, guard-renewal, support-lift, or top-debt theorems.',
     'Top-debt repair retains the existing premise that at least one carried guard survives trigger and response untouched.',
-    'Acceptance is a constructive survival lower certificate only; rejection is not an attacker upper bound.',\n    'The cofactor cache is disabled in this execution variant; cofactors are recomputed exactly and proof semantics are unchanged.'
+    'Acceptance is a constructive survival lower certificate only; rejection is not an attacker upper bound.',
+    'The cofactor cache is disabled in this execution variant; cofactors are recomputed exactly and proof semantics are unchanged.'
   ]
 },null,2));
