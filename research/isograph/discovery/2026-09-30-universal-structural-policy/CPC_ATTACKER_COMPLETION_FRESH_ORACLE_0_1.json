@@ -1,0 +1,615 @@
+{
+  "schema": "connect4.cpc_attacker_completion_fresh_oracle_validation.v1",
+  "validationOnly": true,
+  "trainingUse": false,
+  "pons": {
+    "revision": "d6ba50d8aaf2308c769d9bf2abd42d90f34baf41",
+    "mode": "c4solver -a / Solver::analyze()",
+    "book": "7x6.book",
+    "bookSha256": "f346cd449626fb81da93be0958e017ee854e5f74d85b6d38062357f5403aec53"
+  },
+  "structuralCorpus": {
+    "schema": "connect4.cpc_attacker_completion_fresh_structural.v1",
+    "theoremVersion": "0.1",
+    "certificateCount": 30,
+    "trainingPrefixExcluded": "444441566"
+  },
+  "checks": [
+    {
+      "sequence": "74236551513223",
+      "rank": 14,
+      "attacker": 1,
+      "constructor": "SETUP_CPC_RESTRICTION",
+      "structuralUpper": 5,
+      "scores": [
+        5,
+        9,
+        9,
+        12,
+        12,
+        10,
+        3
+      ],
+      "oracleBestScore": 12,
+      "oracleExactWinDistance": 5,
+      "compatible": true
+    },
+    {
+      "sequence": "716466127474251",
+      "rank": 15,
+      "attacker": 2,
+      "constructor": "IMMEDIATE_TERMINAL",
+      "structuralUpper": 1,
+      "scores": [
+        -13,
+        -13,
+        14,
+        14,
+        -13,
+        -13,
+        13
+      ],
+      "oracleBestScore": 14,
+      "oracleExactWinDistance": 1,
+      "compatible": true
+    },
+    {
+      "sequence": "514773342374312423",
+      "rank": 18,
+      "attacker": 1,
+      "constructor": "IMMEDIATE_TERMINAL",
+      "structuralUpper": 1,
+      "scores": [
+        -12,
+        12,
+        -12,
+        -1,
+        -12,
+        -12,
+        -12
+      ],
+      "oracleBestScore": 12,
+      "oracleExactWinDistance": 1,
+      "compatible": true
+    },
+    {
+      "sequence": "524227536443456674257",
+      "rank": 21,
+      "attacker": 2,
+      "constructor": "IMMEDIATE_TERMINAL",
+      "structuralUpper": 1,
+      "scores": [
+        10,
+        4,
+        -10,
+        5,
+        10,
+        11,
+        5
+      ],
+      "oracleBestScore": 11,
+      "oracleExactWinDistance": 1,
+      "compatible": true
+    },
+    {
+      "sequence": "1616732266761733567723",
+      "rank": 22,
+      "attacker": 1,
+      "constructor": "IMMEDIATE_TERMINAL",
+      "structuralUpper": 1,
+      "scores": [
+        10,
+        -2,
+        -2,
+        9,
+        9,
+        -1000,
+        -2
+      ],
+      "oracleBestScore": 10,
+      "oracleExactWinDistance": 1,
+      "compatible": true
+    },
+    {
+      "sequence": "65631674673736463343747",
+      "rank": 23,
+      "attacker": 2,
+      "constructor": "IMMEDIATE_TERMINAL",
+      "structuralUpper": 1,
+      "scores": [
+        -9,
+        10,
+        -1000,
+        -9,
+        -9,
+        -1000,
+        -9
+      ],
+      "oracleBestScore": 10,
+      "oracleExactWinDistance": 1,
+      "compatible": true
+    },
+    {
+      "sequence": "175463444521266324421162",
+      "rank": 24,
+      "attacker": 1,
+      "constructor": "IMMEDIATE_TERMINAL",
+      "structuralUpper": 1,
+      "scores": [
+        2,
+        2,
+        9,
+        -1000,
+        2,
+        8,
+        2
+      ],
+      "oracleBestScore": 9,
+      "oracleExactWinDistance": 1,
+      "compatible": true
+    },
+    {
+      "sequence": "4511652354776755456271771",
+      "rank": 25,
+      "attacker": 2,
+      "constructor": "IMMEDIATE_TERMINAL",
+      "structuralUpper": 1,
+      "scores": [
+        -8,
+        -8,
+        9,
+        -8,
+        -1000,
+        -8,
+        -1000
+      ],
+      "oracleBestScore": 9,
+      "oracleExactWinDistance": 1,
+      "compatible": true
+    },
+    {
+      "sequence": "55334335735742561146561122",
+      "rank": 26,
+      "attacker": 1,
+      "constructor": "IMMEDIATE_TERMINAL",
+      "structuralUpper": 1,
+      "scores": [
+        -8,
+        -8,
+        -8,
+        8,
+        -1000,
+        -8,
+        -8
+      ],
+      "oracleBestScore": 8,
+      "oracleExactWinDistance": 1,
+      "compatible": true
+    },
+    {
+      "sequence": "46676562",
+      "rank": 8,
+      "attacker": 1,
+      "constructor": "IMMEDIATE_TERMINAL",
+      "structuralUpper": 1,
+      "scores": [
+        6,
+        6,
+        14,
+        14,
+        14,
+        17,
+        13
+      ],
+      "oracleBestScore": 17,
+      "oracleExactWinDistance": 1,
+      "compatible": true
+    },
+    {
+      "sequence": "372637437536",
+      "rank": 12,
+      "attacker": 1,
+      "constructor": "IMMEDIATE_TERMINAL",
+      "structuralUpper": 1,
+      "scores": [
+        15,
+        13,
+        2,
+        13,
+        11,
+        11,
+        4
+      ],
+      "oracleBestScore": 15,
+      "oracleExactWinDistance": 1,
+      "compatible": true
+    },
+    {
+      "sequence": "521233343321631715",
+      "rank": 18,
+      "attacker": 1,
+      "constructor": "SETUP_NATIVE_CPC",
+      "structuralUpper": 3,
+      "scores": [
+        -12,
+        -12,
+        -1000,
+        11,
+        -12,
+        -12,
+        -12
+      ],
+      "oracleBestScore": 11,
+      "oracleExactWinDistance": 3,
+      "compatible": true
+    },
+    {
+      "sequence": "255566422662454253615",
+      "rank": 21,
+      "attacker": 2,
+      "constructor": "SETUP_CPC_RESTRICTION",
+      "structuralUpper": 5,
+      "scores": [
+        -10,
+        -10,
+        -10,
+        9,
+        -1000,
+        -10,
+        -10
+      ],
+      "oracleBestScore": 9,
+      "oracleExactWinDistance": 5,
+      "compatible": true
+    },
+    {
+      "sequence": "7275475633",
+      "rank": 10,
+      "attacker": 1,
+      "constructor": "SETUP_CPC_RESTRICTION",
+      "structuralUpper": 9,
+      "scores": [
+        -2,
+        2,
+        4,
+        12,
+        3,
+        10,
+        4
+      ],
+      "oracleBestScore": 12,
+      "oracleExactWinDistance": 9,
+      "compatible": true
+    },
+    {
+      "sequence": "5535627422133",
+      "rank": 13,
+      "attacker": 2,
+      "constructor": "SETUP_CPC_RESTRICTION",
+      "structuralUpper": 5,
+      "scores": [
+        4,
+        6,
+        6,
+        13,
+        13,
+        5,
+        4
+      ],
+      "oracleBestScore": 13,
+      "oracleExactWinDistance": 5,
+      "compatible": true
+    },
+    {
+      "sequence": "653255161763443",
+      "rank": 15,
+      "attacker": 2,
+      "constructor": "SETUP_NATIVE_CPC",
+      "structuralUpper": 3,
+      "scores": [
+        2,
+        2,
+        0,
+        13,
+        13,
+        0,
+        0
+      ],
+      "oracleBestScore": 13,
+      "oracleExactWinDistance": 3,
+      "compatible": true
+    },
+    {
+      "sequence": "666612275456412122",
+      "rank": 18,
+      "attacker": 1,
+      "constructor": "SETUP_NATIVE_CPC",
+      "structuralUpper": 3,
+      "scores": [
+        10,
+        9,
+        11,
+        8,
+        10,
+        9,
+        9
+      ],
+      "oracleBestScore": 11,
+      "oracleExactWinDistance": 3,
+      "compatible": true
+    },
+    {
+      "sequence": "61467664644347124",
+      "rank": 17,
+      "attacker": 2,
+      "constructor": "SETUP_CPC_RESTRICTION",
+      "structuralUpper": 7,
+      "scores": [
+        -12,
+        -12,
+        -12,
+        -1000,
+        10,
+        -12,
+        -12
+      ],
+      "oracleBestScore": 10,
+      "oracleExactWinDistance": 7,
+      "compatible": true
+    },
+    {
+      "sequence": "6337737361156653153",
+      "rank": 19,
+      "attacker": 2,
+      "constructor": "SETUP_NATIVE_CPC",
+      "structuralUpper": 3,
+      "scores": [
+        -10,
+        11,
+        -1000,
+        -11,
+        -10,
+        -10,
+        -4
+      ],
+      "oracleBestScore": 11,
+      "oracleExactWinDistance": 3,
+      "compatible": true
+    },
+    {
+      "sequence": "54774752553655",
+      "rank": 14,
+      "attacker": 1,
+      "constructor": "SETUP_NATIVE_CPC",
+      "structuralUpper": 3,
+      "scores": [
+        9,
+        10,
+        13,
+        10,
+        -1000,
+        11,
+        10
+      ],
+      "oracleBestScore": 13,
+      "oracleExactWinDistance": 3,
+      "compatible": true
+    },
+    {
+      "sequence": "451223211567545",
+      "rank": 15,
+      "attacker": 2,
+      "constructor": "SETUP_NATIVE_CPC",
+      "structuralUpper": 3,
+      "scores": [
+        -3,
+        -4,
+        12,
+        -10,
+        -11,
+        13,
+        -8
+      ],
+      "oracleBestScore": 13,
+      "oracleExactWinDistance": 3,
+      "compatible": true
+    },
+    {
+      "sequence": "45515346",
+      "rank": 8,
+      "attacker": 1,
+      "constructor": "SETUP_CPC_RESTRICTION",
+      "structuralUpper": 7,
+      "scores": [
+        7,
+        7,
+        14,
+        14,
+        14,
+        13,
+        13
+      ],
+      "oracleBestScore": 14,
+      "oracleExactWinDistance": 7,
+      "compatible": true
+    },
+    {
+      "sequence": "3475327746",
+      "rank": 10,
+      "attacker": 1,
+      "constructor": "SETUP_NATIVE_CPC",
+      "structuralUpper": 3,
+      "scores": [
+        9,
+        11,
+        14,
+        12,
+        15,
+        11,
+        6
+      ],
+      "oracleBestScore": 15,
+      "oracleExactWinDistance": 3,
+      "compatible": true
+    },
+    {
+      "sequence": "52256721571571",
+      "rank": 14,
+      "attacker": 1,
+      "constructor": "SETUP_CPC_RESTRICTION",
+      "structuralUpper": 5,
+      "scores": [
+        -11,
+        11,
+        11,
+        12,
+        -11,
+        1,
+        -11
+      ],
+      "oracleBestScore": 12,
+      "oracleExactWinDistance": 5,
+      "compatible": true
+    },
+    {
+      "sequence": "1774366464554221245716",
+      "rank": 22,
+      "attacker": 1,
+      "constructor": "SETUP_CPC_RESTRICTION",
+      "structuralUpper": 7,
+      "scores": [
+        -1,
+        7,
+        7,
+        2,
+        2,
+        2,
+        2
+      ],
+      "oracleBestScore": 7,
+      "oracleExactWinDistance": 7,
+      "compatible": true
+    },
+    {
+      "sequence": "237751117415541",
+      "rank": 15,
+      "attacker": 2,
+      "constructor": "SETUP_CPC_RESTRICTION",
+      "structuralUpper": 7,
+      "scores": [
+        4,
+        10,
+        11,
+        11,
+        10,
+        2,
+        12
+      ],
+      "oracleBestScore": 12,
+      "oracleExactWinDistance": 5,
+      "compatible": true
+    },
+    {
+      "sequence": "5266221113312465762",
+      "rank": 19,
+      "attacker": 2,
+      "constructor": "SETUP_NATIVE_CPC",
+      "structuralUpper": 3,
+      "scores": [
+        -3,
+        -4,
+        1,
+        11,
+        8,
+        -2,
+        0
+      ],
+      "oracleBestScore": 11,
+      "oracleExactWinDistance": 3,
+      "compatible": true
+    },
+    {
+      "sequence": "2741473551",
+      "rank": 10,
+      "attacker": 1,
+      "constructor": "SETUP_CPC_RESTRICTION",
+      "structuralUpper": 9,
+      "scores": [
+        7,
+        12,
+        12,
+        12,
+        5,
+        10,
+        6
+      ],
+      "oracleBestScore": 12,
+      "oracleExactWinDistance": 9,
+      "compatible": true
+    },
+    {
+      "sequence": "64751674411",
+      "rank": 11,
+      "attacker": 2,
+      "constructor": "SETUP_CPC_RESTRICTION",
+      "structuralUpper": 5,
+      "scores": [
+        5,
+        14,
+        14,
+        5,
+        5,
+        5,
+        3
+      ],
+      "oracleBestScore": 14,
+      "oracleExactWinDistance": 5,
+      "compatible": true
+    },
+    {
+      "sequence": "4251361231",
+      "rank": 10,
+      "attacker": 1,
+      "constructor": "SETUP_CPC_RESTRICTION",
+      "structuralUpper": 11,
+      "scores": [
+        -13,
+        11,
+        11,
+        -14,
+        -12,
+        -13,
+        -13
+      ],
+      "oracleBestScore": 11,
+      "oracleExactWinDistance": 11,
+      "compatible": true
+    }
+  ],
+  "summary": {
+    "passed": 30,
+    "failed": 0,
+    "byConstructor": {
+      "SETUP_CPC_RESTRICTION": {
+        "count": 12,
+        "maxSlack": 2,
+        "minSlack": 0
+      },
+      "IMMEDIATE_TERMINAL": {
+        "count": 10,
+        "maxSlack": 0,
+        "minSlack": 0
+      },
+      "SETUP_NATIVE_CPC": {
+        "count": 8,
+        "maxSlack": 0,
+        "minSlack": 0
+      }
+    }
+  },
+  "boundary": [
+    "Oracle results were queried only after the structural corpus was frozen.",
+    "Validation checks only that the designated attacker is winning and that exact oracle win distance is <= the structurally proved upper bound.",
+    "No oracle result is fed back into the A_D proof grammar or used as a runtime premise."
+  ]
+}
