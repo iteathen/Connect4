@@ -1,0 +1,286 @@
+{
+  "schema": "connect4.cpc_c6_bottom_response_guard_d15_failure.v1",
+  "jsMinSysSha": "0899c5811918e68c22dc1b0e4dd8af97d9b4bbcb",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "requestedMaxHorizon": 15,
+  "horizons": [
+    15
+  ],
+  "rows": [
+    {
+      "id": "candidate6",
+      "sequence": "4444415666",
+      "attacker": 1,
+      "membership": [
+        {
+          "D": 15,
+          "accept": false,
+          "class": "OUTSIDE_SAD15",
+          "witness": null,
+          "witnessByTrigger": null,
+          "failedTrigger": 2
+        }
+      ]
+    }
+  ],
+  "failureFrontiers": [
+    {
+      "id": "candidate6",
+      "sequence": "4444415666",
+      "failedHorizon": 15,
+      "failedTrigger": 2,
+      "requiredChildHorizon": 13,
+      "responseOptions": [
+        {
+          "responseColumn": 2,
+          "templatePairs": [
+            {
+              "cols": [
+                1,
+                4
+              ],
+              "length": 1
+            },
+            {
+              "cols": [
+                5,
+                6
+              ],
+              "length": 1
+            }
+          ],
+          "responseSource": "SYNCHRONIZED_TEMPLATE",
+          "responseSources": [
+            "SYNCHRONIZED_TEMPLATE"
+          ],
+          "establishesGuard": null,
+          "transport": "NONTERMINAL",
+          "childRank": 12,
+          "childSupport": [
+            1,
+            2,
+            0,
+            5,
+            1,
+            3,
+            0
+          ],
+          "childCpc": {
+            "kind": "CPC_EXACT",
+            "interval": [
+              1,
+              1
+            ],
+            "forcedColumn": null,
+            "preemptionCount": 0,
+            "preemptionMask32": 0,
+            "precursorCount": 0
+          },
+          "childTargetClass": {
+            "D": 13,
+            "accept": false,
+            "class": "OUTSIDE_SAD13",
+            "failedTrigger": 1
+          },
+          "childSpectrum": [
+            {
+              "D": 13,
+              "accept": false,
+              "class": "OUTSIDE_SAD13",
+              "failedTrigger": 1,
+              "guardCol": null
+            }
+          ],
+          "attackerMinimalResidualCount": 30,
+          "attackerDeadlineHistogram": {
+            "1": 1,
+            "5": 7,
+            "7": 14,
+            "9": 8
+          }
+        },
+        {
+          "responseColumn": 3,
+          "templatePairs": [
+            {
+              "cols": [
+                1,
+                4
+              ],
+              "length": 1
+            },
+            {
+              "cols": [
+                5,
+                6
+              ],
+              "length": 1
+            },
+            {
+              "cols": [
+                2,
+                3
+              ],
+              "length": 2
+            }
+          ],
+          "responseSource": "SYNCHRONIZED_TEMPLATE",
+          "responseSources": [
+            "SYNCHRONIZED_TEMPLATE",
+            "FRONTIER_RESIDUAL_EDGE"
+          ],
+          "establishesGuard": 3,
+          "transport": "NONTERMINAL",
+          "childRank": 12,
+          "childSupport": [
+            1,
+            1,
+            1,
+            5,
+            1,
+            3,
+            0
+          ],
+          "childCpc": {
+            "kind": "CPC_NONE",
+            "interval": [
+              -1,
+              1
+            ],
+            "forcedColumn": null,
+            "preemptionCount": 0,
+            "preemptionMask32": 0,
+            "precursorCount": 0
+          },
+          "childTargetClass": {
+            "D": 13,
+            "accept": false,
+            "class": "GUARD_RESPONSE_EXHAUSTED",
+            "failedTrigger": 2
+          },
+          "childSpectrum": [
+            {
+              "D": 13,
+              "accept": false,
+              "class": "GUARD_RESPONSE_EXHAUSTED",
+              "failedTrigger": 2,
+              "guardCol": 3
+            }
+          ],
+          "attackerMinimalResidualCount": 30,
+          "attackerDeadlineHistogram": {
+            "3": 1,
+            "5": 5,
+            "7": 14,
+            "9": 10
+          }
+        },
+        {
+          "responseColumn": 7,
+          "templatePairs": [
+            {
+              "cols": [
+                1,
+                4
+              ],
+              "length": 1
+            },
+            {
+              "cols": [
+                5,
+                6
+              ],
+              "length": 1
+            },
+            {
+              "cols": [
+                2,
+                7
+              ],
+              "length": 2
+            }
+          ],
+          "responseSource": "SYNCHRONIZED_TEMPLATE",
+          "responseSources": [
+            "SYNCHRONIZED_TEMPLATE"
+          ],
+          "establishesGuard": 7,
+          "transport": "NONTERMINAL",
+          "childRank": 12,
+          "childSupport": [
+            1,
+            1,
+            0,
+            5,
+            1,
+            3,
+            1
+          ],
+          "childCpc": {
+            "kind": "CPC_EXACT",
+            "interval": [
+              1,
+              1
+            ],
+            "forcedColumn": null,
+            "preemptionCount": 0,
+            "preemptionMask32": 0,
+            "precursorCount": 0
+          },
+          "childTargetClass": {
+            "D": 13,
+            "accept": false,
+            "class": "GUARD_RESPONSE_EXHAUSTED",
+            "failedTrigger": 1
+          },
+          "childSpectrum": [
+            {
+              "D": 13,
+              "accept": false,
+              "class": "GUARD_RESPONSE_EXHAUSTED",
+              "failedTrigger": 1,
+              "guardCol": 7
+            }
+          ],
+          "attackerMinimalResidualCount": 30,
+          "attackerDeadlineHistogram": {
+            "1": 1,
+            "5": 4,
+            "7": 14,
+            "9": 11
+          }
+        }
+      ]
+    }
+  ],
+  "work": {
+    "classCalls": 2338,
+    "memoHits": 954,
+    "responseOptionsTested": 12490,
+    "branchTests": 2300,
+    "cofactorCount": 102895,
+    "guardCalls": 7017,
+    "guardMemoHits": 5352,
+    "guardBranchTests": 24675,
+    "guardForcedResponses": 23470,
+    "guardRetirements": 317,
+    "guardEstablishments": 778,
+    "topDebtTests": 5206,
+    "topDebtClosures": 4020,
+    "classMemoSize": 2338,
+    "guardMemoSize": 7017,
+    "baseMemoSize": 9214,
+    "templateMemoSize": 8638,
+    "responseOptionMemoSize": 5489,
+    "cofactorMemoSize": 102895
+  },
+  "boundary": [
+    "S_D is a constructive defender survival proof class; POOLED_FRONTIER_NOWIN is an independently qualified unbounded no-win base certificate.",
+    "Response options are complete synchronized-template mates, exact same-residual frontier attachment edges, and exact +2-row cross-residual ladder edges; every transported child must independently re-enter the survival class.",
+    "Each observed attacker trigger may select its own complete synchronized-response template; the exact mate is then transported by CPC/RBA cofactor.",
+    "Failure of S_D is not an attacker forced-completion certificate.",
+    "The spectrum composes trigger-adaptive synchronized responses, pooled-frontier no-win closure, the frozen path-independent bottom-response guard-establishment corollary, the odd-row guard-column temporal contract, the support-lift blocker response, and external top-exhaustion phase-debt repair; it is not unrestricted legal-response minimax.",
+    "The bottom-response guard-establishment corollary is frozen theorem scope. Positive extension at the consumed boundary still requires fresh structural qualification before production promotion."
+  ]
+}
