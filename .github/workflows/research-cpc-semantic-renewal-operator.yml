@@ -1,0 +1,75 @@
+name: Research CPC semantic renewal operator
+
+on:
+  push:
+    branches:
+      - research/universal-structural-policy-20260930
+    paths:
+      - .github/workflows/research-cpc-semantic-renewal-operator.yml
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/run-cpc-semantic-renewal-operator.mjs
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Check out exact pushed revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+
+      - name: Pin Node runtime
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+
+      - name: Fetch pinned JSMinSys CPC/RBA authority
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone https://github.com/iteathen/JSMinSys.git jsminsys
+          git -C jsminsys checkout 0899c5811918e68c22dc1b0e4dd8af97d9b4bbcb
+          test "$(git -C jsminsys rev-parse HEAD)" = "0899c5811918e68c22dc1b0e4dd8af97d9b4bbcb"
+          test -z "$(git -C jsminsys status --porcelain)"
+
+      - name: Verify semantic CPC renewal
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT=research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_SEMANTIC_RENEWAL_OPERATOR_0_1.json
+          node research/isograph/discovery/2026-09-30-universal-structural-policy/run-cpc-semantic-renewal-operator.mjs ./jsminsys > "$OUT"
+          node - "$OUT" <<'NODE'
+          const fs=require('fs');
+          const r=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
+          console.log('RENEWAL_CONTROLS='+JSON.stringify(r.renewalControls.map(x=>({
+            label:x.label,
+            expected:x.expectedRepairable,
+            renewed:x.semanticRenewal,
+            pairs:x.pairs
+          }))));
+          console.log('ROOTS='+JSON.stringify(r.roots.map(x=>({
+            id:x.id,
+            base:x.base,
+            S5:x.S5,
+            S7:x.S7
+          }))));
+          console.log('WORK='+JSON.stringify(r.work));
+          NODE
+
+      - name: Commit durable semantic evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          BRANCH=research/universal-structural-policy-20260930
+          FILE=research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_SEMANTIC_RENEWAL_OPERATOR_0_1.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$FILE"
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "research: verify semantic CPC renewal operator"
+          git fetch origin "$BRANCH"
+          git rebase "origin/$BRANCH"
+          git push origin HEAD:"$BRANCH"
