@@ -1,5 +1,5 @@
 {
-  "schema": "connect4.cpc_odd_row_guard_survival.v1",
+  "schema": "connect4.cpc_odd_row_guard_support_lift_survival.v1",
   "jsMinSysSha": "0899c5811918e68c22dc1b0e4dd8af97d9b4bbcb",
   "oracleUsed": false,
   "solvedInputsUsed": false,
@@ -27,47 +27,367 @@
         {
           "D": 3,
           "absolutePly": 17,
-          "accept": false,
-          "class": "GUARD_NO_RESPONSE",
-          "failedTrigger": 1,
+          "accept": true,
+          "class": "ODD_ROW_GUARD_D3",
+          "failedTrigger": null,
           "guardHeight": 1,
-          "witnessByTrigger": null
+          "witnessByTrigger": [
+            {
+              "attackerColumn": 1,
+              "responseColumn": 1,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 1,
+                "row": 5
+              },
+              "childClass": "GUARD_ONE",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 2,
+              "responseColumn": 2,
+              "mode": "GUARD_RENEW",
+              "childClass": "GUARD_ONE",
+              "guardHeightBefore": 1,
+              "guardHeightAfter": 3
+            },
+            {
+              "attackerColumn": 3,
+              "responseColumn": 3,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 3,
+                "row": 2
+              },
+              "childClass": "GUARD_ONE",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 5,
+              "responseColumn": 5,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 5,
+                "row": 3
+              },
+              "childClass": "GUARD_ONE",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 6,
+              "responseColumn": 6,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 6,
+                "row": 5
+              },
+              "childClass": "GUARD_ONE",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 7,
+              "responseColumn": 7,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 7,
+                "row": 2
+              },
+              "childClass": "GUARD_ONE",
+              "guardPreserved": true
+            }
+          ]
         },
         {
           "D": 5,
           "absolutePly": 19,
-          "accept": false,
-          "class": "GUARD_NO_RESPONSE",
-          "failedTrigger": 1,
+          "accept": true,
+          "class": "ODD_ROW_GUARD_D5",
+          "failedTrigger": null,
           "guardHeight": 1,
-          "witnessByTrigger": null
+          "witnessByTrigger": [
+            {
+              "attackerColumn": 1,
+              "responseColumn": 1,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 1,
+                "row": 5
+              },
+              "childClass": "GUARD_DROP_TO_B3",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 2,
+              "responseColumn": 2,
+              "mode": "GUARD_RENEW",
+              "childClass": "ODD_ROW_GUARD_D3",
+              "guardHeightBefore": 1,
+              "guardHeightAfter": 3
+            },
+            {
+              "attackerColumn": 3,
+              "responseColumn": 3,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 3,
+                "row": 2
+              },
+              "childClass": "ODD_ROW_GUARD_D3",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 5,
+              "responseColumn": 5,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 5,
+                "row": 3
+              },
+              "childClass": "ODD_ROW_GUARD_D3",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 6,
+              "responseColumn": 6,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 6,
+                "row": 5
+              },
+              "childClass": "ODD_ROW_GUARD_D3",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 7,
+              "responseColumn": 7,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 7,
+                "row": 2
+              },
+              "childClass": "ODD_ROW_GUARD_D3",
+              "guardPreserved": true
+            }
+          ]
         },
         {
           "D": 7,
           "absolutePly": 21,
-          "accept": false,
-          "class": "GUARD_NO_RESPONSE",
-          "failedTrigger": 1,
+          "accept": true,
+          "class": "ODD_ROW_GUARD_D7",
+          "failedTrigger": null,
           "guardHeight": 1,
-          "witnessByTrigger": null
+          "witnessByTrigger": [
+            {
+              "attackerColumn": 1,
+              "responseColumn": 1,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 1,
+                "row": 5
+              },
+              "childClass": "ODD_ROW_GUARD_D5",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 2,
+              "responseColumn": 2,
+              "mode": "GUARD_RENEW",
+              "childClass": "ODD_ROW_GUARD_D5",
+              "guardHeightBefore": 1,
+              "guardHeightAfter": 3
+            },
+            {
+              "attackerColumn": 3,
+              "responseColumn": 3,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 3,
+                "row": 2
+              },
+              "childClass": "ODD_ROW_GUARD_D5",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 5,
+              "responseColumn": 5,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 5,
+                "row": 3
+              },
+              "childClass": "ODD_ROW_GUARD_D5",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 6,
+              "responseColumn": 6,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 6,
+                "row": 5
+              },
+              "childClass": "ODD_ROW_GUARD_D5",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 7,
+              "responseColumn": 7,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 7,
+                "row": 2
+              },
+              "childClass": "ODD_ROW_GUARD_D5",
+              "guardPreserved": true
+            }
+          ]
         },
         {
           "D": 9,
           "absolutePly": 23,
-          "accept": false,
-          "class": "GUARD_NO_RESPONSE",
-          "failedTrigger": 1,
+          "accept": true,
+          "class": "ODD_ROW_GUARD_D9",
+          "failedTrigger": null,
           "guardHeight": 1,
-          "witnessByTrigger": null
+          "witnessByTrigger": [
+            {
+              "attackerColumn": 1,
+              "responseColumn": 1,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 1,
+                "row": 5
+              },
+              "childClass": "ODD_ROW_GUARD_D7",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 2,
+              "responseColumn": 2,
+              "mode": "GUARD_RENEW",
+              "childClass": "ODD_ROW_GUARD_D7",
+              "guardHeightBefore": 1,
+              "guardHeightAfter": 3
+            },
+            {
+              "attackerColumn": 3,
+              "responseColumn": 3,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 3,
+                "row": 2
+              },
+              "childClass": "ODD_ROW_GUARD_D7",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 5,
+              "responseColumn": 5,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 5,
+                "row": 3
+              },
+              "childClass": "ODD_ROW_GUARD_D7",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 6,
+              "responseColumn": 6,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 6,
+                "row": 5
+              },
+              "childClass": "ODD_ROW_GUARD_D7",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 7,
+              "responseColumn": 7,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 7,
+                "row": 2
+              },
+              "childClass": "ODD_ROW_GUARD_D7",
+              "guardPreserved": true
+            }
+          ]
         },
         {
           "D": 11,
           "absolutePly": 25,
-          "accept": false,
-          "class": "GUARD_NO_RESPONSE",
-          "failedTrigger": 1,
+          "accept": true,
+          "class": "ODD_ROW_GUARD_D11",
+          "failedTrigger": null,
           "guardHeight": 1,
-          "witnessByTrigger": null
+          "witnessByTrigger": [
+            {
+              "attackerColumn": 1,
+              "responseColumn": 1,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 1,
+                "row": 5
+              },
+              "childClass": "ODD_ROW_GUARD_D9",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 2,
+              "responseColumn": 2,
+              "mode": "GUARD_RENEW",
+              "childClass": "ODD_ROW_GUARD_D9",
+              "guardHeightBefore": 1,
+              "guardHeightAfter": 3
+            },
+            {
+              "attackerColumn": 3,
+              "responseColumn": 3,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 3,
+                "row": 2
+              },
+              "childClass": "ODD_ROW_GUARD_D9",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 5,
+              "responseColumn": 5,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 5,
+                "row": 3
+              },
+              "childClass": "ODD_ROW_GUARD_D9",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 6,
+              "responseColumn": 6,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 6,
+                "row": 5
+              },
+              "childClass": "ODD_ROW_GUARD_D9",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 7,
+              "responseColumn": 7,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 7,
+                "row": 2
+              },
+              "childClass": "ODD_ROW_GUARD_D9",
+              "guardPreserved": true
+            }
+          ]
         },
         {
           "D": 13,
@@ -162,36 +482,224 @@
         {
           "D": 3,
           "absolutePly": 17,
-          "accept": false,
-          "class": "GUARD_NO_RESPONSE",
-          "failedTrigger": 1,
+          "accept": true,
+          "class": "ODD_ROW_GUARD_D3",
+          "failedTrigger": null,
           "guardHeight": 1,
-          "witnessByTrigger": null
+          "witnessByTrigger": [
+            {
+              "attackerColumn": 1,
+              "responseColumn": 1,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 1,
+                "row": 5
+              },
+              "childClass": "GUARD_ONE",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 2,
+              "responseColumn": 2,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 2,
+                "row": 2
+              },
+              "childClass": "GUARD_ONE",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 3,
+              "responseColumn": 3,
+              "mode": "GUARD_RENEW",
+              "childClass": "GUARD_ONE",
+              "guardHeightBefore": 1,
+              "guardHeightAfter": 3
+            },
+            {
+              "attackerColumn": 5,
+              "responseColumn": 5,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 5,
+                "row": 3
+              },
+              "childClass": "GUARD_ONE",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 6,
+              "responseColumn": 6,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 6,
+                "row": 5
+              },
+              "childClass": "GUARD_ONE",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 7,
+              "responseColumn": 7,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 7,
+                "row": 2
+              },
+              "childClass": "GUARD_ONE",
+              "guardPreserved": true
+            }
+          ]
         },
         {
           "D": 5,
           "absolutePly": 19,
-          "accept": false,
-          "class": "GUARD_NO_RESPONSE",
-          "failedTrigger": 1,
+          "accept": true,
+          "class": "ODD_ROW_GUARD_D5",
+          "failedTrigger": null,
           "guardHeight": 1,
-          "witnessByTrigger": null
+          "witnessByTrigger": [
+            {
+              "attackerColumn": 1,
+              "responseColumn": 1,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 1,
+                "row": 5
+              },
+              "childClass": "ODD_ROW_GUARD_D3",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 2,
+              "responseColumn": 2,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 2,
+                "row": 2
+              },
+              "childClass": "ODD_ROW_GUARD_D3",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 3,
+              "responseColumn": 3,
+              "mode": "GUARD_RENEW",
+              "childClass": "ODD_ROW_GUARD_D3",
+              "guardHeightBefore": 1,
+              "guardHeightAfter": 3
+            },
+            {
+              "attackerColumn": 5,
+              "responseColumn": 5,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 5,
+                "row": 3
+              },
+              "childClass": "ODD_ROW_GUARD_D3",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 6,
+              "responseColumn": 6,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 6,
+                "row": 5
+              },
+              "childClass": "ODD_ROW_GUARD_D3",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 7,
+              "responseColumn": 7,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 7,
+                "row": 2
+              },
+              "childClass": "ODD_ROW_GUARD_D3",
+              "guardPreserved": true
+            }
+          ]
         },
         {
           "D": 7,
           "absolutePly": 21,
-          "accept": false,
-          "class": "GUARD_NO_RESPONSE",
-          "failedTrigger": 1,
+          "accept": true,
+          "class": "ODD_ROW_GUARD_D7",
+          "failedTrigger": null,
           "guardHeight": 1,
-          "witnessByTrigger": null
+          "witnessByTrigger": [
+            {
+              "attackerColumn": 1,
+              "responseColumn": 1,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 1,
+                "row": 5
+              },
+              "childClass": "ODD_ROW_GUARD_D5",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 2,
+              "responseColumn": 7,
+              "mode": "LICENSED_GUARD_PRESERVE",
+              "responseSource": "SYNCHRONIZED_TEMPLATE",
+              "childClass": "ODD_ROW_GUARD_D5"
+            },
+            {
+              "attackerColumn": 3,
+              "responseColumn": 3,
+              "mode": "GUARD_RENEW",
+              "childClass": "ODD_ROW_GUARD_D5",
+              "guardHeightBefore": 1,
+              "guardHeightAfter": 3
+            },
+            {
+              "attackerColumn": 5,
+              "responseColumn": 5,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 5,
+                "row": 3
+              },
+              "childClass": "ODD_ROW_GUARD_D5",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 6,
+              "responseColumn": 6,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 6,
+                "row": 5
+              },
+              "childClass": "ODD_ROW_GUARD_D5",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 7,
+              "responseColumn": 7,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 7,
+                "row": 2
+              },
+              "childClass": "ODD_ROW_GUARD_D5",
+              "guardPreserved": true
+            }
+          ]
         },
         {
           "D": 9,
           "absolutePly": 23,
           "accept": false,
           "class": "GUARD_NO_RESPONSE",
-          "failedTrigger": 1,
+          "failedTrigger": 3,
           "guardHeight": 1,
           "witnessByTrigger": null
         },
@@ -297,36 +805,249 @@
         {
           "D": 3,
           "absolutePly": 17,
-          "accept": false,
-          "class": "GUARD_NO_RESPONSE",
-          "failedTrigger": 1,
+          "accept": true,
+          "class": "ODD_ROW_GUARD_D3",
+          "failedTrigger": null,
           "guardHeight": 1,
-          "witnessByTrigger": null
+          "witnessByTrigger": [
+            {
+              "attackerColumn": 1,
+              "responseColumn": 1,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 1,
+                "row": 5
+              },
+              "childClass": "GUARD_ONE",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 2,
+              "responseColumn": 2,
+              "mode": "GUARD_RENEW",
+              "childClass": "GUARD_ONE",
+              "guardHeightBefore": 1,
+              "guardHeightAfter": 3
+            },
+            {
+              "attackerColumn": 3,
+              "responseColumn": 3,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 3,
+                "row": 2
+              },
+              "childClass": "GUARD_ONE",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 4,
+              "responseColumn": 6,
+              "mode": "LICENSED_GUARD_PRESERVE",
+              "responseSource": "SYNCHRONIZED_TEMPLATE",
+              "childClass": "GUARD_ONE"
+            },
+            {
+              "attackerColumn": 5,
+              "responseColumn": 5,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 5,
+                "row": 4
+              },
+              "childClass": "GUARD_ONE",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 6,
+              "responseColumn": 6,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 6,
+                "row": 5
+              },
+              "childClass": "GUARD_ONE",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 7,
+              "responseColumn": 7,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 7,
+                "row": 2
+              },
+              "childClass": "GUARD_ONE",
+              "guardPreserved": true
+            }
+          ]
         },
         {
           "D": 5,
           "absolutePly": 19,
-          "accept": false,
-          "class": "GUARD_NO_RESPONSE",
-          "failedTrigger": 1,
+          "accept": true,
+          "class": "ODD_ROW_GUARD_D5",
+          "failedTrigger": null,
           "guardHeight": 1,
-          "witnessByTrigger": null
+          "witnessByTrigger": [
+            {
+              "attackerColumn": 1,
+              "responseColumn": 1,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 1,
+                "row": 5
+              },
+              "childClass": "GUARD_DROP_TO_B3",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 2,
+              "responseColumn": 2,
+              "mode": "GUARD_RENEW",
+              "childClass": "ODD_ROW_GUARD_D3",
+              "guardHeightBefore": 1,
+              "guardHeightAfter": 3
+            },
+            {
+              "attackerColumn": 3,
+              "responseColumn": 3,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 3,
+                "row": 2
+              },
+              "childClass": "ODD_ROW_GUARD_D3",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 4,
+              "responseColumn": 6,
+              "mode": "LICENSED_GUARD_PRESERVE",
+              "responseSource": "SYNCHRONIZED_TEMPLATE",
+              "childClass": "ODD_ROW_GUARD_D3"
+            },
+            {
+              "attackerColumn": 5,
+              "responseColumn": 5,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 5,
+                "row": 4
+              },
+              "childClass": "ODD_ROW_GUARD_D3",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 6,
+              "responseColumn": 6,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 6,
+                "row": 5
+              },
+              "childClass": "ODD_ROW_GUARD_D3",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 7,
+              "responseColumn": 7,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 7,
+                "row": 2
+              },
+              "childClass": "ODD_ROW_GUARD_D3",
+              "guardPreserved": true
+            }
+          ]
         },
         {
           "D": 7,
           "absolutePly": 21,
-          "accept": false,
-          "class": "GUARD_NO_RESPONSE",
-          "failedTrigger": 1,
+          "accept": true,
+          "class": "ODD_ROW_GUARD_D7",
+          "failedTrigger": null,
           "guardHeight": 1,
-          "witnessByTrigger": null
+          "witnessByTrigger": [
+            {
+              "attackerColumn": 1,
+              "responseColumn": 1,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 1,
+                "row": 5
+              },
+              "childClass": "ODD_ROW_GUARD_D5",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 2,
+              "responseColumn": 2,
+              "mode": "GUARD_RENEW",
+              "childClass": "ODD_ROW_GUARD_D5",
+              "guardHeightBefore": 1,
+              "guardHeightAfter": 3
+            },
+            {
+              "attackerColumn": 3,
+              "responseColumn": 3,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 3,
+                "row": 2
+              },
+              "childClass": "ODD_ROW_GUARD_D5",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 4,
+              "responseColumn": 6,
+              "mode": "LICENSED_GUARD_PRESERVE",
+              "responseSource": "SYNCHRONIZED_TEMPLATE",
+              "childClass": "ODD_ROW_GUARD_D5"
+            },
+            {
+              "attackerColumn": 5,
+              "responseColumn": 5,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 5,
+                "row": 4
+              },
+              "childClass": "ODD_ROW_GUARD_D5",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 6,
+              "responseColumn": 6,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 6,
+                "row": 5
+              },
+              "childClass": "ODD_ROW_GUARD_D5",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 7,
+              "responseColumn": 7,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 7,
+                "row": 2
+              },
+              "childClass": "ODD_ROW_GUARD_D5",
+              "guardPreserved": true
+            }
+          ]
         },
         {
           "D": 9,
           "absolutePly": 23,
           "accept": false,
           "class": "GUARD_NO_RESPONSE",
-          "failedTrigger": 1,
+          "failedTrigger": 4,
           "guardHeight": 1,
           "witnessByTrigger": null
         },
@@ -432,36 +1153,249 @@
         {
           "D": 3,
           "absolutePly": 17,
-          "accept": false,
-          "class": "GUARD_NO_RESPONSE",
-          "failedTrigger": 1,
+          "accept": true,
+          "class": "ODD_ROW_GUARD_D3",
+          "failedTrigger": null,
           "guardHeight": 1,
-          "witnessByTrigger": null
+          "witnessByTrigger": [
+            {
+              "attackerColumn": 1,
+              "responseColumn": 1,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 1,
+                "row": 5
+              },
+              "childClass": "GUARD_ONE",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 2,
+              "responseColumn": 2,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 2,
+                "row": 2
+              },
+              "childClass": "GUARD_ONE",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 3,
+              "responseColumn": 3,
+              "mode": "GUARD_RENEW",
+              "childClass": "GUARD_ONE",
+              "guardHeightBefore": 1,
+              "guardHeightAfter": 3
+            },
+            {
+              "attackerColumn": 4,
+              "responseColumn": 6,
+              "mode": "LICENSED_GUARD_PRESERVE",
+              "responseSource": "SYNCHRONIZED_TEMPLATE",
+              "childClass": "GUARD_ONE"
+            },
+            {
+              "attackerColumn": 5,
+              "responseColumn": 5,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 5,
+                "row": 4
+              },
+              "childClass": "GUARD_ONE",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 6,
+              "responseColumn": 6,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 6,
+                "row": 5
+              },
+              "childClass": "GUARD_ONE",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 7,
+              "responseColumn": 7,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 7,
+                "row": 2
+              },
+              "childClass": "GUARD_ONE",
+              "guardPreserved": true
+            }
+          ]
         },
         {
           "D": 5,
           "absolutePly": 19,
-          "accept": false,
-          "class": "GUARD_NO_RESPONSE",
-          "failedTrigger": 1,
+          "accept": true,
+          "class": "ODD_ROW_GUARD_D5",
+          "failedTrigger": null,
           "guardHeight": 1,
-          "witnessByTrigger": null
+          "witnessByTrigger": [
+            {
+              "attackerColumn": 1,
+              "responseColumn": 1,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 1,
+                "row": 5
+              },
+              "childClass": "ODD_ROW_GUARD_D3",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 2,
+              "responseColumn": 2,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 2,
+                "row": 2
+              },
+              "childClass": "ODD_ROW_GUARD_D3",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 3,
+              "responseColumn": 3,
+              "mode": "GUARD_RENEW",
+              "childClass": "ODD_ROW_GUARD_D3",
+              "guardHeightBefore": 1,
+              "guardHeightAfter": 3
+            },
+            {
+              "attackerColumn": 4,
+              "responseColumn": 6,
+              "mode": "LICENSED_GUARD_PRESERVE",
+              "responseSource": "SYNCHRONIZED_TEMPLATE",
+              "childClass": "ODD_ROW_GUARD_D3"
+            },
+            {
+              "attackerColumn": 5,
+              "responseColumn": 5,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 5,
+                "row": 4
+              },
+              "childClass": "ODD_ROW_GUARD_D3",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 6,
+              "responseColumn": 6,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 6,
+                "row": 5
+              },
+              "childClass": "ODD_ROW_GUARD_D3",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 7,
+              "responseColumn": 7,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 7,
+                "row": 2
+              },
+              "childClass": "ODD_ROW_GUARD_D3",
+              "guardPreserved": true
+            }
+          ]
         },
         {
           "D": 7,
           "absolutePly": 21,
-          "accept": false,
-          "class": "GUARD_NO_RESPONSE",
-          "failedTrigger": 1,
+          "accept": true,
+          "class": "ODD_ROW_GUARD_D7",
+          "failedTrigger": null,
           "guardHeight": 1,
-          "witnessByTrigger": null
+          "witnessByTrigger": [
+            {
+              "attackerColumn": 1,
+              "responseColumn": 1,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 1,
+                "row": 5
+              },
+              "childClass": "ODD_ROW_GUARD_D5",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 2,
+              "responseColumn": 2,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 2,
+                "row": 2
+              },
+              "childClass": "ODD_ROW_GUARD_D5",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 3,
+              "responseColumn": 3,
+              "mode": "GUARD_RENEW",
+              "childClass": "ODD_ROW_GUARD_D5",
+              "guardHeightBefore": 1,
+              "guardHeightAfter": 3
+            },
+            {
+              "attackerColumn": 4,
+              "responseColumn": 6,
+              "mode": "LICENSED_GUARD_PRESERVE",
+              "responseSource": "SYNCHRONIZED_TEMPLATE",
+              "childClass": "ODD_ROW_GUARD_D5"
+            },
+            {
+              "attackerColumn": 5,
+              "responseColumn": 5,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 5,
+                "row": 4
+              },
+              "childClass": "ODD_ROW_GUARD_D5",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 6,
+              "responseColumn": 6,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 6,
+                "row": 5
+              },
+              "childClass": "ODD_ROW_GUARD_D5",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 7,
+              "responseColumn": 7,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 7,
+                "row": 2
+              },
+              "childClass": "ODD_ROW_GUARD_D5",
+              "guardPreserved": true
+            }
+          ]
         },
         {
           "D": 9,
           "absolutePly": 23,
           "accept": false,
           "class": "GUARD_NO_RESPONSE",
-          "failedTrigger": 1,
+          "failedTrigger": 3,
           "guardHeight": 1,
           "witnessByTrigger": null
         },
@@ -567,45 +1501,329 @@
         {
           "D": 3,
           "absolutePly": 17,
-          "accept": false,
-          "class": "GUARD_NO_RESPONSE",
-          "failedTrigger": 1,
+          "accept": true,
+          "class": "ODD_ROW_GUARD_D3",
+          "failedTrigger": null,
           "guardHeight": 1,
-          "witnessByTrigger": null
+          "witnessByTrigger": [
+            {
+              "attackerColumn": 1,
+              "responseColumn": 1,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 1,
+                "row": 5
+              },
+              "childClass": "GUARD_ONE",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 2,
+              "responseColumn": 2,
+              "mode": "GUARD_RENEW",
+              "childClass": "GUARD_ONE",
+              "guardHeightBefore": 1,
+              "guardHeightAfter": 3
+            },
+            {
+              "attackerColumn": 3,
+              "responseColumn": 3,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 3,
+                "row": 2
+              },
+              "childClass": "GUARD_ONE",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 4,
+              "responseColumn": 5,
+              "mode": "LICENSED_GUARD_PRESERVE",
+              "responseSource": "SYNCHRONIZED_TEMPLATE",
+              "childClass": "GUARD_ONE"
+            },
+            {
+              "attackerColumn": 5,
+              "responseColumn": 5,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 5,
+                "row": 3
+              },
+              "childClass": "GUARD_ONE",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 6,
+              "responseColumn": 6,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 6,
+                "row": 6
+              },
+              "childClass": "GUARD_ONE",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 7,
+              "responseColumn": 7,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 7,
+                "row": 2
+              },
+              "childClass": "GUARD_ONE",
+              "guardPreserved": true
+            }
+          ]
         },
         {
           "D": 5,
           "absolutePly": 19,
-          "accept": false,
-          "class": "GUARD_NO_RESPONSE",
-          "failedTrigger": 1,
+          "accept": true,
+          "class": "ODD_ROW_GUARD_D5",
+          "failedTrigger": null,
           "guardHeight": 1,
-          "witnessByTrigger": null
+          "witnessByTrigger": [
+            {
+              "attackerColumn": 1,
+              "responseColumn": 1,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 1,
+                "row": 5
+              },
+              "childClass": "GUARD_DROP_TO_B3",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 2,
+              "responseColumn": 2,
+              "mode": "GUARD_RENEW",
+              "childClass": "ODD_ROW_GUARD_D3",
+              "guardHeightBefore": 1,
+              "guardHeightAfter": 3
+            },
+            {
+              "attackerColumn": 3,
+              "responseColumn": 3,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 3,
+                "row": 2
+              },
+              "childClass": "ODD_ROW_GUARD_D3",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 4,
+              "responseColumn": 5,
+              "mode": "LICENSED_GUARD_PRESERVE",
+              "responseSource": "SYNCHRONIZED_TEMPLATE",
+              "childClass": "ODD_ROW_GUARD_D3"
+            },
+            {
+              "attackerColumn": 5,
+              "responseColumn": 5,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 5,
+                "row": 3
+              },
+              "childClass": "ODD_ROW_GUARD_D3",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 6,
+              "responseColumn": 6,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 6,
+                "row": 6
+              },
+              "childClass": "ODD_ROW_GUARD_D3",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 7,
+              "responseColumn": 7,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 7,
+                "row": 2
+              },
+              "childClass": "ODD_ROW_GUARD_D3",
+              "guardPreserved": true
+            }
+          ]
         },
         {
           "D": 7,
           "absolutePly": 21,
-          "accept": false,
-          "class": "GUARD_NO_RESPONSE",
-          "failedTrigger": 1,
+          "accept": true,
+          "class": "ODD_ROW_GUARD_D7",
+          "failedTrigger": null,
           "guardHeight": 1,
-          "witnessByTrigger": null
+          "witnessByTrigger": [
+            {
+              "attackerColumn": 1,
+              "responseColumn": 1,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 1,
+                "row": 5
+              },
+              "childClass": "ODD_ROW_GUARD_D5",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 2,
+              "responseColumn": 2,
+              "mode": "GUARD_RENEW",
+              "childClass": "ODD_ROW_GUARD_D5",
+              "guardHeightBefore": 1,
+              "guardHeightAfter": 3
+            },
+            {
+              "attackerColumn": 3,
+              "responseColumn": 3,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 3,
+                "row": 2
+              },
+              "childClass": "ODD_ROW_GUARD_D5",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 4,
+              "responseColumn": 5,
+              "mode": "LICENSED_GUARD_PRESERVE",
+              "responseSource": "SYNCHRONIZED_TEMPLATE",
+              "childClass": "ODD_ROW_GUARD_D5"
+            },
+            {
+              "attackerColumn": 5,
+              "responseColumn": 5,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 5,
+                "row": 3
+              },
+              "childClass": "ODD_ROW_GUARD_D5",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 6,
+              "responseColumn": 6,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 6,
+                "row": 6
+              },
+              "childClass": "ODD_ROW_GUARD_D5",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 7,
+              "responseColumn": 7,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 7,
+                "row": 2
+              },
+              "childClass": "ODD_ROW_GUARD_D5",
+              "guardPreserved": true
+            }
+          ]
         },
         {
           "D": 9,
           "absolutePly": 23,
-          "accept": false,
-          "class": "GUARD_NO_RESPONSE",
-          "failedTrigger": 1,
+          "accept": true,
+          "class": "ODD_ROW_GUARD_D9",
+          "failedTrigger": null,
           "guardHeight": 1,
-          "witnessByTrigger": null
+          "witnessByTrigger": [
+            {
+              "attackerColumn": 1,
+              "responseColumn": 1,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 1,
+                "row": 5
+              },
+              "childClass": "ODD_ROW_GUARD_D7",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 2,
+              "responseColumn": 2,
+              "mode": "GUARD_RENEW",
+              "childClass": "ODD_ROW_GUARD_D7",
+              "guardHeightBefore": 1,
+              "guardHeightAfter": 3
+            },
+            {
+              "attackerColumn": 3,
+              "responseColumn": 3,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 3,
+                "row": 2
+              },
+              "childClass": "ODD_ROW_GUARD_D7",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 4,
+              "responseColumn": 1,
+              "mode": "LICENSED_GUARD_PRESERVE",
+              "responseSource": "SYNCHRONIZED_TEMPLATE",
+              "childClass": "ODD_ROW_GUARD_D7"
+            },
+            {
+              "attackerColumn": 5,
+              "responseColumn": 5,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 5,
+                "row": 3
+              },
+              "childClass": "ODD_ROW_GUARD_D7",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 6,
+              "responseColumn": 6,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 6,
+                "row": 6
+              },
+              "childClass": "ODD_ROW_GUARD_D7",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 7,
+              "responseColumn": 7,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 7,
+                "row": 2
+              },
+              "childClass": "ODD_ROW_GUARD_D7",
+              "guardPreserved": true
+            }
+          ]
         },
         {
           "D": 11,
           "absolutePly": 25,
           "accept": false,
           "class": "GUARD_NO_RESPONSE",
-          "failedTrigger": 1,
+          "failedTrigger": 4,
           "guardHeight": 1,
           "witnessByTrigger": null
         },
@@ -623,7 +1841,7 @@
           "absolutePly": 29,
           "accept": false,
           "class": "GUARD_NO_RESPONSE",
-          "failedTrigger": 1,
+          "failedTrigger": 2,
           "guardHeight": 1,
           "witnessByTrigger": null
         },
@@ -702,36 +1920,242 @@
         {
           "D": 3,
           "absolutePly": 17,
-          "accept": false,
-          "class": "GUARD_NO_RESPONSE",
-          "failedTrigger": 1,
+          "accept": true,
+          "class": "ODD_ROW_GUARD_D3",
+          "failedTrigger": null,
           "guardHeight": 1,
-          "witnessByTrigger": null
+          "witnessByTrigger": [
+            {
+              "attackerColumn": 1,
+              "responseColumn": 1,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 1,
+                "row": 5
+              },
+              "childClass": "GUARD_ONE",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 2,
+              "responseColumn": 2,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 2,
+                "row": 2
+              },
+              "childClass": "GUARD_ONE",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 3,
+              "responseColumn": 3,
+              "mode": "GUARD_RENEW",
+              "childClass": "GUARD_ONE",
+              "guardHeightBefore": 1,
+              "guardHeightAfter": 3
+            },
+            {
+              "attackerColumn": 4,
+              "responseColumn": 5,
+              "mode": "LICENSED_GUARD_PRESERVE",
+              "responseSource": "SYNCHRONIZED_TEMPLATE",
+              "childClass": "GUARD_ONE"
+            },
+            {
+              "attackerColumn": 5,
+              "responseColumn": 5,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 5,
+                "row": 3
+              },
+              "closed": "DEFENDER"
+            },
+            {
+              "attackerColumn": 6,
+              "responseColumn": 6,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 6,
+                "row": 6
+              },
+              "childClass": "GUARD_ONE",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 7,
+              "responseColumn": 7,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 7,
+                "row": 2
+              },
+              "childClass": "GUARD_ONE",
+              "guardPreserved": true
+            }
+          ]
         },
         {
           "D": 5,
           "absolutePly": 19,
-          "accept": false,
-          "class": "GUARD_NO_RESPONSE",
-          "failedTrigger": 1,
+          "accept": true,
+          "class": "ODD_ROW_GUARD_D5",
+          "failedTrigger": null,
           "guardHeight": 1,
-          "witnessByTrigger": null
+          "witnessByTrigger": [
+            {
+              "attackerColumn": 1,
+              "responseColumn": 1,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 1,
+                "row": 5
+              },
+              "childClass": "ODD_ROW_GUARD_D3",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 2,
+              "responseColumn": 2,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 2,
+                "row": 2
+              },
+              "childClass": "ODD_ROW_GUARD_D3",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 3,
+              "responseColumn": 3,
+              "mode": "GUARD_RENEW",
+              "childClass": "ODD_ROW_GUARD_D3",
+              "guardHeightBefore": 1,
+              "guardHeightAfter": 3
+            },
+            {
+              "attackerColumn": 4,
+              "responseColumn": 5,
+              "mode": "LICENSED_GUARD_PRESERVE",
+              "responseSource": "SYNCHRONIZED_TEMPLATE",
+              "childClass": "ODD_ROW_GUARD_D3"
+            },
+            {
+              "attackerColumn": 5,
+              "responseColumn": 5,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 5,
+                "row": 3
+              },
+              "closed": "DEFENDER"
+            },
+            {
+              "attackerColumn": 6,
+              "responseColumn": 6,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 6,
+                "row": 6
+              },
+              "childClass": "ODD_ROW_GUARD_D3",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 7,
+              "responseColumn": 7,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 7,
+                "row": 2
+              },
+              "childClass": "ODD_ROW_GUARD_D3",
+              "guardPreserved": true
+            }
+          ]
         },
         {
           "D": 7,
           "absolutePly": 21,
-          "accept": false,
-          "class": "GUARD_NO_RESPONSE",
-          "failedTrigger": 1,
+          "accept": true,
+          "class": "ODD_ROW_GUARD_D7",
+          "failedTrigger": null,
           "guardHeight": 1,
-          "witnessByTrigger": null
+          "witnessByTrigger": [
+            {
+              "attackerColumn": 1,
+              "responseColumn": 1,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 1,
+                "row": 5
+              },
+              "childClass": "ODD_ROW_GUARD_D5",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 2,
+              "responseColumn": 6,
+              "mode": "LICENSED_GUARD_PRESERVE",
+              "responseSource": "SYNCHRONIZED_TEMPLATE",
+              "childClass": "ODD_ROW_GUARD_D5"
+            },
+            {
+              "attackerColumn": 3,
+              "responseColumn": 3,
+              "mode": "GUARD_RENEW",
+              "childClass": "ODD_ROW_GUARD_D5",
+              "guardHeightBefore": 1,
+              "guardHeightAfter": 3
+            },
+            {
+              "attackerColumn": 4,
+              "responseColumn": 5,
+              "mode": "LICENSED_GUARD_PRESERVE",
+              "responseSource": "SYNCHRONIZED_TEMPLATE",
+              "childClass": "ODD_ROW_GUARD_D5"
+            },
+            {
+              "attackerColumn": 5,
+              "responseColumn": 5,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 5,
+                "row": 3
+              },
+              "closed": "DEFENDER"
+            },
+            {
+              "attackerColumn": 6,
+              "responseColumn": 6,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 6,
+                "row": 6
+              },
+              "childClass": "ODD_ROW_GUARD_D5",
+              "guardPreserved": true
+            },
+            {
+              "attackerColumn": 7,
+              "responseColumn": 7,
+              "mode": "SUPPORT_LIFT_BLOCKER",
+              "releasedCell": {
+                "column": 7,
+                "row": 2
+              },
+              "childClass": "ODD_ROW_GUARD_D5",
+              "guardPreserved": true
+            }
+          ]
         },
         {
           "D": 9,
           "absolutePly": 23,
           "accept": false,
           "class": "GUARD_NO_RESPONSE",
-          "failedTrigger": 1,
+          "failedTrigger": 3,
           "guardHeight": 1,
           "witnessByTrigger": null
         },
@@ -785,7 +2209,7 @@
           "absolutePly": 35,
           "accept": false,
           "class": "GUARD_NO_RESPONSE",
-          "failedTrigger": 1,
+          "failedTrigger": 2,
           "guardHeight": 1,
           "witnessByTrigger": null
         },
@@ -820,22 +2244,22 @@
     }
   ],
   "work": {
-    "guardCalls": 162,
-    "guardMemoHits": 78,
-    "guardBranchTests": 150,
-    "guardResponses": 234,
+    "guardCalls": 64501,
+    "guardMemoHits": 40452,
+    "guardBranchTests": 119288,
+    "guardResponses": 163217,
     "ordinary": {
-      "classCalls": 222,
-      "memoHits": 216,
-      "responseOptionsTested": 810,
-      "branchTests": 204,
-      "cofactorCount": 70
+      "classCalls": 496681,
+      "memoHits": 432344,
+      "responseOptionsTested": 1366399,
+      "branchTests": 789667,
+      "cofactorCount": 1114951
     }
   },
   "boundary": [
     "Odd-row guard state is carried as proof provenance during theorem qualification; production promotion requires reconstruction from current occupancy.",
     "Guard renewal is exact only for same-column attacker trigger followed by the immediately playable higher odd defender cell.",
-    "External transitions remain restricted to already licensed CPC response edges; arbitrary defender responses are not admitted.",
+    "External transitions use already licensed CPC response edges plus the frozen support-lift blocker edge; arbitrary defender responses are not admitted.",
     "Dropping a guard is permitted only when the exact child independently closes under the ordinary survival grammar (or exact one-ply survival at D=1).",
     "This is a constructive survival experiment, not W/D/L or exact remoteness."
   ]
