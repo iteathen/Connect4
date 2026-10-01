@@ -1,0 +1,55 @@
+name: Research CPC rank20 forced c3 legacy proof-family matrix
+
+concurrency:
+  group: rank20-forced-c3-legacy-matrix-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  push:
+    branches:
+      - research/universal-structural-policy-20260930
+    paths:
+      - .github/workflows/research-cpc-rank20-forced-c3-legacy-proof-matrix.yml
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_RANK20_FORCED_C3_LEGACY_PROOF_FAMILY_MATRIX_DESIGN_0_1.md
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/test-cpc-rank20-forced-c3-legacy-proof-family-matrix.mjs
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/run-cpc-rank20-forced-c3-legacy-proof-family-matrix.mjs
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_RANK20_FORCED_C3_TARGET_DISTANCE_LEGACY_REENTRY_PROBE_0_1.json
+
+permissions:
+  contents: write
+
+jobs:
+  matrix:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with: {fetch-depth: 0}
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with: {node-version: 26.7.0}
+      - name: Verify legacy matrix contract
+        run: node research/isograph/discovery/2026-09-30-universal-structural-policy/test-cpc-rank20-forced-c3-legacy-proof-family-matrix.mjs
+      - name: Generate durable legacy matrix evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          DIR=research/isograph/discovery/2026-09-30-universal-structural-policy
+          OUT="$DIR/CPC_RANK20_FORCED_C3_LEGACY_PROOF_FAMILY_MATRIX_0_1.json"
+          node "$DIR/run-cpc-rank20-forced-c3-legacy-proof-family-matrix.mjs" > "$OUT"
+          node - "$OUT" <<'NODE'
+          const fs=require('fs');const r=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
+          console.log(JSON.stringify({summary:r.summary,states:r.states.map(x=>({id:x.id,legacyUnionClosed:x.legacyUnionClosed,engines:x.engines.map(e=>({engine:e.engine,applicable:e.applicable,proved:e.proved,proofKind:e.proofKind,resourceFailure:e.resourceFailure}))}))}));
+          NODE
+      - name: Commit durable legacy matrix evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          BRANCH=research/universal-structural-policy-20260930
+          FILE=research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_RANK20_FORCED_C3_LEGACY_PROOF_FAMILY_MATRIX_0_1.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$FILE"
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "research: record forced-c3 legacy proof matrix"
+          git pull --rebase origin "$BRANCH"
+          git push origin HEAD:"$BRANCH"
