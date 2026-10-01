@@ -2,7 +2,7 @@
 
 **Date:** 2026-10-01  
 **Version:** 0.1 frozen before execution  
-**Status:** exact local W/L theorem candidate; qualification pending  
+**Status:** qualified exact local W/L theorem  
 **Branch:** `research/universal-structural-policy-20260930`
 
 ## Purpose
@@ -97,6 +97,14 @@ For every listed terminal edge, qualification must verify the triggering Player-
 For every transport edge, qualification must verify the stated response is legal and nonterminal.
 
 No support-only state merge is permitted.
+
+## Qualification result
+
+Qualified on 2026-10-01 by `CPC_THREE_COLUMN_PHASE_TRANSFER_WIN_0_1.json` at pinned JSMinSys authority `bf23d3a67652cd42e1975f29c7dc4eed54f7eb42`, with `oracleUsed: false` and `solvedInputsUsed: false`.
+
+Every frozen transition passed. The three late sink orientations were evaluated independently and then found to be exactly RBA-equal (`ZA=ZB=ZC`), so their collapse is proved rather than inferred from support equality. GitHub Actions run `36891914023` completed successfully; durable evidence commit is `cae4492a5cd3b327e895cca294579142e7a3d82f`.
+
+The resulting exact local conclusion is that the rank-31 current RBA state is a Player-1 win under the finite phase-transfer policy.
 
 ## Falsifiers
 
