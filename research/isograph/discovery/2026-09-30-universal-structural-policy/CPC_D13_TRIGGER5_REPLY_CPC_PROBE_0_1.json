@@ -1,0 +1,139 @@
+{
+  "schema": "connect4.cpc_d13_trigger5_reply_cpc_probe.v1",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "parentSequence": "444441566666232222423311",
+  "triggerColumn": 5,
+  "rows": [
+    {
+      "responseColumn": 1,
+      "sequence": "44444156666623222242331151",
+      "rank": 26,
+      "terminal": 0,
+      "support": [
+        4,
+        6,
+        3,
+        6,
+        2,
+        5,
+        0
+      ],
+      "cpc": {
+        "kind": "CPC_NONE",
+        "interval": [
+          -1,
+          1
+        ],
+        "forcedColumn": null,
+        "preemptionCount": 0,
+        "precursorCount": 0
+      }
+    },
+    {
+      "responseColumn": 3,
+      "sequence": "44444156666623222242331153",
+      "rank": 26,
+      "terminal": 0,
+      "support": [
+        3,
+        6,
+        4,
+        6,
+        2,
+        5,
+        0
+      ],
+      "cpc": {
+        "kind": "CPC_NONE",
+        "interval": [
+          -1,
+          1
+        ],
+        "forcedColumn": null,
+        "preemptionCount": 0,
+        "precursorCount": 0
+      }
+    },
+    {
+      "responseColumn": 5,
+      "sequence": "44444156666623222242331155",
+      "rank": 26,
+      "terminal": 0,
+      "support": [
+        3,
+        6,
+        3,
+        6,
+        3,
+        5,
+        0
+      ],
+      "cpc": {
+        "kind": "CPC_EXACT",
+        "interval": [
+          1,
+          1
+        ],
+        "forcedColumn": null,
+        "preemptionCount": 0,
+        "precursorCount": 0
+      }
+    },
+    {
+      "responseColumn": 6,
+      "sequence": "44444156666623222242331156",
+      "rank": 26,
+      "terminal": 0,
+      "support": [
+        3,
+        6,
+        3,
+        6,
+        2,
+        6,
+        0
+      ],
+      "cpc": {
+        "kind": "CPC_NONE",
+        "interval": [
+          -1,
+          1
+        ],
+        "forcedColumn": null,
+        "preemptionCount": 0,
+        "precursorCount": 0
+      }
+    },
+    {
+      "responseColumn": 7,
+      "sequence": "44444156666623222242331157",
+      "rank": 26,
+      "terminal": 0,
+      "support": [
+        3,
+        6,
+        3,
+        6,
+        2,
+        5,
+        1
+      ],
+      "cpc": {
+        "kind": "CPC_NONE",
+        "interval": [
+          -1,
+          1
+        ],
+        "forcedColumn": null,
+        "preemptionCount": 0,
+        "precursorCount": 0
+      }
+    }
+  ],
+  "boundary": [
+    "This probe applies the existing native CPC evaluator independently to each legal defender reply after the transported trigger-5 state.",
+    "CPC exact/bound/restrict results are native structural certificates only; no oracle or solved W/D/L input is used.",
+    "A CPC_NONE result does not imply the state is not game-theoretically decided; it means current CPC grammar does not certify it."
+  ]
+}
