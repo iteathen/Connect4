@@ -5,7 +5,7 @@ import {dirname,resolve} from 'node:path';
 
 const dir=dirname(fileURLToPath(import.meta.url));
 const script=resolve(dir,'run-uc4a-latent-structure-tomography-analysis.mjs');
-const raw=execFileSync(process.execPath,[script],{encoding:'utf8',maxBuffer:64*1024*1024,env:{...process.env,UC4A_TOMO_DIAGNOSTIC:'1'},stdio:['ignore','pipe','inherit'],maxBuffer:64*1024*1024});
+const raw=execFileSync(process.execPath,[script],{encoding:'utf8',maxBuffer:64*1024*1024,env:{...process.env,UC4A_TOMO_DIAGNOSTIC:'1'},stdio:['ignore','pipe','inherit']});
 const r=JSON.parse(raw);
 
 assert.equal(r.schema,'connect4.uc4a_latent_structure_tomography_analysis.v1');
@@ -21,6 +21,9 @@ assert.deepEqual(Object.keys(r.views).sort(),['view1','view2','view3','view4','v
 
 assert.ok(r.views.view1.fixedWidthTrajectories.length>0);
 assert.ok(r.views.view1.fixedHeightTrajectories.length>0);
+assert.ok(r.views.view1.sameParityByTwoTrajectoryEdges.length>0);
+assert.ok(r.views.view1.sameParityByTwoTrajectoryEdges.every(x=>x.step===2));
+assert.ok(r.views.view1.sameParityByTwoTrajectoryEdges.some(x=>x.a==='8x6'&&x.b==='10x6'));
 assert.ok(r.views.view2.unitEdges.length>0);
 assert.equal(
   r.views.view2.unitEdges.length,
