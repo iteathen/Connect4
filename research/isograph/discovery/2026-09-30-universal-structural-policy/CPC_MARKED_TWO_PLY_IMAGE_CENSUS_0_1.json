@@ -1,0 +1,4187 @@
+{
+  "schema": "connect4.cpc_marked_two_ply_image_census.v1",
+  "createdAt": "2026-10-01T05:27:54.217Z",
+  "jsMinSysSha": "0899c5811918e68c22dc1b0e4dd8af97d9b4bbcb",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "proofAuthority": false,
+  "purpose": "theorem discovery only: attacker setup followed by CPC-admissible defender responses; no recursive expansion and no move-selection conclusion",
+  "rows": [
+    {
+      "id": "candidate2",
+      "sequence": "4444415662",
+      "attacker": 1,
+      "setups": [
+        {
+          "setupColumn": 1,
+          "postSetup": {
+            "sequence": "44444156621",
+            "rank": 11,
+            "mover": 2,
+            "terminalCode": 0,
+            "kind": "CPC_NONE",
+            "absoluteInterval": [
+              -1,
+              1
+            ],
+            "forcedColumn": null,
+            "preemptionCount": 0,
+            "preemptionMask32": 0,
+            "precursorCount": 0,
+            "attackerResiduals": {
+              "active": 39,
+              "minimal": 35,
+              "hist": {
+                "2": 1,
+                "3": 19,
+                "4": 15
+              }
+            }
+          },
+          "postAlreadyCertified": false,
+          "admissibleDefenderReplyColumns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "defenderResponses": [
+            {
+              "sequence": "444441566211",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 35,
+                "minimal": 32,
+                "hist": {
+                  "2": 1,
+                  "3": 17,
+                  "4": 14
+                }
+              }
+            },
+            {
+              "sequence": "444441566212",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 38,
+                "minimal": 34,
+                "hist": {
+                  "2": 1,
+                  "3": 19,
+                  "4": 14
+                }
+              }
+            },
+            {
+              "sequence": "444441566213",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 38,
+                "minimal": 34,
+                "hist": {
+                  "2": 1,
+                  "3": 19,
+                  "4": 14
+                }
+              }
+            },
+            {
+              "sequence": "444441566214",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 33,
+                "minimal": 29,
+                "hist": {
+                  "2": 1,
+                  "3": 19,
+                  "4": 9
+                }
+              }
+            },
+            {
+              "sequence": "444441566215",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 35,
+                "minimal": 32,
+                "hist": {
+                  "2": 1,
+                  "3": 16,
+                  "4": 15
+                }
+              }
+            },
+            {
+              "sequence": "444441566216",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 32,
+                "minimal": 29,
+                "hist": {
+                  "2": 1,
+                  "3": 13,
+                  "4": 15
+                }
+              }
+            },
+            {
+              "sequence": "444441566217",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 38,
+                "minimal": 34,
+                "hist": {
+                  "2": 1,
+                  "3": 19,
+                  "4": 14
+                }
+              }
+            }
+          ],
+          "branchSummary": {
+            "replyCount": 7,
+            "allChildrenExactAttackerWin": false,
+            "allChildrenRestrictedOrExact": false,
+            "commonKind": "CPC_NONE",
+            "commonPrecursorCount": 0,
+            "minAttackerPairResiduals": 1,
+            "maxAttackerPairResiduals": 1,
+            "minAttackerTripleResiduals": 13,
+            "maxAttackerTripleResiduals": 19
+          }
+        },
+        {
+          "setupColumn": 2,
+          "postSetup": {
+            "sequence": "44444156622",
+            "rank": 11,
+            "mover": 2,
+            "terminalCode": 0,
+            "kind": "CPC_NONE",
+            "absoluteInterval": [
+              -1,
+              1
+            ],
+            "forcedColumn": null,
+            "preemptionCount": 0,
+            "preemptionMask32": 0,
+            "precursorCount": 0,
+            "attackerResiduals": {
+              "active": 39,
+              "minimal": 36,
+              "hist": {
+                "3": 21,
+                "4": 15
+              }
+            }
+          },
+          "postAlreadyCertified": false,
+          "admissibleDefenderReplyColumns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "defenderResponses": [
+            {
+              "sequence": "444441566221",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 37,
+                "minimal": 34,
+                "hist": {
+                  "3": 20,
+                  "4": 14
+                }
+              }
+            },
+            {
+              "sequence": "444441566222",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 32,
+                "minimal": 30,
+                "hist": {
+                  "3": 15,
+                  "4": 15
+                }
+              }
+            },
+            {
+              "sequence": "444441566223",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 38,
+                "minimal": 35,
+                "hist": {
+                  "3": 21,
+                  "4": 14
+                }
+              }
+            },
+            {
+              "sequence": "444441566224",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 33,
+                "minimal": 30,
+                "hist": {
+                  "3": 21,
+                  "4": 9
+                }
+              }
+            },
+            {
+              "sequence": "444441566225",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 35,
+                "minimal": 33,
+                "hist": {
+                  "3": 18,
+                  "4": 15
+                }
+              }
+            },
+            {
+              "sequence": "444441566226",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 32,
+                "minimal": 30,
+                "hist": {
+                  "3": 15,
+                  "4": 15
+                }
+              }
+            },
+            {
+              "sequence": "444441566227",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 38,
+                "minimal": 35,
+                "hist": {
+                  "3": 21,
+                  "4": 14
+                }
+              }
+            }
+          ],
+          "branchSummary": {
+            "replyCount": 7,
+            "allChildrenExactAttackerWin": false,
+            "allChildrenRestrictedOrExact": false,
+            "commonKind": "CPC_NONE",
+            "commonPrecursorCount": 0,
+            "minAttackerPairResiduals": 0,
+            "maxAttackerPairResiduals": 0,
+            "minAttackerTripleResiduals": 15,
+            "maxAttackerTripleResiduals": 21
+          }
+        },
+        {
+          "setupColumn": 3,
+          "postSetup": {
+            "sequence": "44444156623",
+            "rank": 11,
+            "mover": 2,
+            "terminalCode": 0,
+            "kind": "CPC_NONE",
+            "absoluteInterval": [
+              -1,
+              1
+            ],
+            "forcedColumn": null,
+            "preemptionCount": 0,
+            "preemptionMask32": 0,
+            "precursorCount": 0,
+            "attackerResiduals": {
+              "active": 39,
+              "minimal": 36,
+              "hist": {
+                "3": 21,
+                "4": 15
+              }
+            }
+          },
+          "postAlreadyCertified": false,
+          "admissibleDefenderReplyColumns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "defenderResponses": [
+            {
+              "sequence": "444441566231",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 37,
+                "minimal": 34,
+                "hist": {
+                  "3": 20,
+                  "4": 14
+                }
+              }
+            },
+            {
+              "sequence": "444441566232",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_RESTRICT",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 3,
+              "preemptionMask32": 21,
+              "precursorCount": 1,
+              "attackerResiduals": {
+                "active": 38,
+                "minimal": 35,
+                "hist": {
+                  "3": 21,
+                  "4": 14
+                }
+              }
+            },
+            {
+              "sequence": "444441566233",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_RESTRICT",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": 2,
+              "preemptionCount": 1,
+              "preemptionMask32": 2,
+              "precursorCount": 1,
+              "attackerResiduals": {
+                "active": 35,
+                "minimal": 33,
+                "hist": {
+                  "3": 18,
+                  "4": 15
+                }
+              }
+            },
+            {
+              "sequence": "444441566234",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 33,
+                "minimal": 30,
+                "hist": {
+                  "3": 21,
+                  "4": 9
+                }
+              }
+            },
+            {
+              "sequence": "444441566235",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 35,
+                "minimal": 33,
+                "hist": {
+                  "3": 18,
+                  "4": 15
+                }
+              }
+            },
+            {
+              "sequence": "444441566236",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 32,
+                "minimal": 30,
+                "hist": {
+                  "3": 15,
+                  "4": 15
+                }
+              }
+            },
+            {
+              "sequence": "444441566237",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 38,
+                "minimal": 35,
+                "hist": {
+                  "3": 21,
+                  "4": 14
+                }
+              }
+            }
+          ],
+          "branchSummary": {
+            "replyCount": 7,
+            "allChildrenExactAttackerWin": false,
+            "allChildrenRestrictedOrExact": false,
+            "commonKind": null,
+            "commonPrecursorCount": null,
+            "minAttackerPairResiduals": 0,
+            "maxAttackerPairResiduals": 0,
+            "minAttackerTripleResiduals": 15,
+            "maxAttackerTripleResiduals": 21
+          }
+        },
+        {
+          "setupColumn": 4,
+          "postSetup": {
+            "sequence": "44444156624",
+            "rank": 11,
+            "mover": 2,
+            "terminalCode": 0,
+            "kind": "CPC_NONE",
+            "absoluteInterval": [
+              -1,
+              1
+            ],
+            "forcedColumn": null,
+            "preemptionCount": 0,
+            "preemptionMask32": 0,
+            "precursorCount": 0,
+            "attackerResiduals": {
+              "active": 39,
+              "minimal": 37,
+              "hist": {
+                "3": 26,
+                "4": 11
+              }
+            }
+          },
+          "postAlreadyCertified": false,
+          "admissibleDefenderReplyColumns": [
+            1,
+            2,
+            3,
+            5,
+            6,
+            7
+          ],
+          "defenderResponses": [
+            {
+              "sequence": "444441566241",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 37,
+                "minimal": 35,
+                "hist": {
+                  "3": 25,
+                  "4": 10
+                }
+              }
+            },
+            {
+              "sequence": "444441566242",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 38,
+                "minimal": 36,
+                "hist": {
+                  "3": 26,
+                  "4": 10
+                }
+              }
+            },
+            {
+              "sequence": "444441566243",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 38,
+                "minimal": 36,
+                "hist": {
+                  "3": 26,
+                  "4": 10
+                }
+              }
+            },
+            {
+              "sequence": "444441566245",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 35,
+                "minimal": 34,
+                "hist": {
+                  "3": 23,
+                  "4": 11
+                }
+              }
+            },
+            {
+              "sequence": "444441566246",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 32,
+                "minimal": 31,
+                "hist": {
+                  "3": 20,
+                  "4": 11
+                }
+              }
+            },
+            {
+              "sequence": "444441566247",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 38,
+                "minimal": 36,
+                "hist": {
+                  "3": 26,
+                  "4": 10
+                }
+              }
+            }
+          ],
+          "branchSummary": {
+            "replyCount": 6,
+            "allChildrenExactAttackerWin": false,
+            "allChildrenRestrictedOrExact": false,
+            "commonKind": "CPC_NONE",
+            "commonPrecursorCount": 0,
+            "minAttackerPairResiduals": 0,
+            "maxAttackerPairResiduals": 0,
+            "minAttackerTripleResiduals": 20,
+            "maxAttackerTripleResiduals": 26
+          }
+        },
+        {
+          "setupColumn": 5,
+          "postSetup": {
+            "sequence": "44444156625",
+            "rank": 11,
+            "mover": 2,
+            "terminalCode": 0,
+            "kind": "CPC_NONE",
+            "absoluteInterval": [
+              -1,
+              1
+            ],
+            "forcedColumn": null,
+            "preemptionCount": 0,
+            "preemptionMask32": 0,
+            "precursorCount": 0,
+            "attackerResiduals": {
+              "active": 39,
+              "minimal": 35,
+              "hist": {
+                "2": 3,
+                "3": 16,
+                "4": 16
+              }
+            }
+          },
+          "postAlreadyCertified": false,
+          "admissibleDefenderReplyColumns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "defenderResponses": [
+            {
+              "sequence": "444441566251",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 37,
+                "minimal": 33,
+                "hist": {
+                  "2": 3,
+                  "3": 15,
+                  "4": 15
+                }
+              }
+            },
+            {
+              "sequence": "444441566252",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 38,
+                "minimal": 34,
+                "hist": {
+                  "2": 3,
+                  "3": 16,
+                  "4": 15
+                }
+              }
+            },
+            {
+              "sequence": "444441566253",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 38,
+                "minimal": 34,
+                "hist": {
+                  "2": 3,
+                  "3": 16,
+                  "4": 15
+                }
+              }
+            },
+            {
+              "sequence": "444441566254",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 33,
+                "minimal": 29,
+                "hist": {
+                  "2": 3,
+                  "3": 16,
+                  "4": 10
+                }
+              }
+            },
+            {
+              "sequence": "444441566255",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 33,
+                "minimal": 31,
+                "hist": {
+                  "2": 2,
+                  "3": 13,
+                  "4": 16
+                }
+              }
+            },
+            {
+              "sequence": "444441566256",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 32,
+                "minimal": 29,
+                "hist": {
+                  "2": 2,
+                  "3": 11,
+                  "4": 16
+                }
+              }
+            },
+            {
+              "sequence": "444441566257",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 38,
+                "minimal": 34,
+                "hist": {
+                  "2": 3,
+                  "3": 16,
+                  "4": 15
+                }
+              }
+            }
+          ],
+          "branchSummary": {
+            "replyCount": 7,
+            "allChildrenExactAttackerWin": false,
+            "allChildrenRestrictedOrExact": false,
+            "commonKind": "CPC_NONE",
+            "commonPrecursorCount": 0,
+            "minAttackerPairResiduals": 2,
+            "maxAttackerPairResiduals": 3,
+            "minAttackerTripleResiduals": 11,
+            "maxAttackerTripleResiduals": 16
+          }
+        },
+        {
+          "setupColumn": 6,
+          "postSetup": {
+            "sequence": "44444156626",
+            "rank": 11,
+            "mover": 2,
+            "terminalCode": 0,
+            "kind": "CPC_NONE",
+            "absoluteInterval": [
+              -1,
+              1
+            ],
+            "forcedColumn": null,
+            "preemptionCount": 0,
+            "preemptionMask32": 0,
+            "precursorCount": 0,
+            "attackerResiduals": {
+              "active": 39,
+              "minimal": 36,
+              "hist": {
+                "2": 6,
+                "3": 13,
+                "4": 17
+              }
+            }
+          },
+          "postAlreadyCertified": false,
+          "admissibleDefenderReplyColumns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "defenderResponses": [
+            {
+              "sequence": "444441566261",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 37,
+                "minimal": 34,
+                "hist": {
+                  "2": 6,
+                  "3": 12,
+                  "4": 16
+                }
+              }
+            },
+            {
+              "sequence": "444441566262",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 38,
+                "minimal": 35,
+                "hist": {
+                  "2": 6,
+                  "3": 13,
+                  "4": 16
+                }
+              }
+            },
+            {
+              "sequence": "444441566263",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 38,
+                "minimal": 35,
+                "hist": {
+                  "2": 6,
+                  "3": 13,
+                  "4": 16
+                }
+              }
+            },
+            {
+              "sequence": "444441566264",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 33,
+                "minimal": 30,
+                "hist": {
+                  "2": 6,
+                  "3": 13,
+                  "4": 11
+                }
+              }
+            },
+            {
+              "sequence": "444441566265",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 35,
+                "minimal": 33,
+                "hist": {
+                  "2": 5,
+                  "3": 11,
+                  "4": 17
+                }
+              }
+            },
+            {
+              "sequence": "444441566266",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 36,
+                "minimal": 34,
+                "hist": {
+                  "2": 5,
+                  "3": 13,
+                  "4": 16
+                }
+              }
+            },
+            {
+              "sequence": "444441566267",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 38,
+                "minimal": 35,
+                "hist": {
+                  "2": 6,
+                  "3": 13,
+                  "4": 16
+                }
+              }
+            }
+          ],
+          "branchSummary": {
+            "replyCount": 7,
+            "allChildrenExactAttackerWin": false,
+            "allChildrenRestrictedOrExact": false,
+            "commonKind": "CPC_NONE",
+            "commonPrecursorCount": 0,
+            "minAttackerPairResiduals": 5,
+            "maxAttackerPairResiduals": 6,
+            "minAttackerTripleResiduals": 11,
+            "maxAttackerTripleResiduals": 13
+          }
+        },
+        {
+          "setupColumn": 7,
+          "postSetup": {
+            "sequence": "44444156627",
+            "rank": 11,
+            "mover": 2,
+            "terminalCode": 0,
+            "kind": "CPC_NONE",
+            "absoluteInterval": [
+              -1,
+              1
+            ],
+            "forcedColumn": null,
+            "preemptionCount": 0,
+            "preemptionMask32": 0,
+            "precursorCount": 0,
+            "attackerResiduals": {
+              "active": 39,
+              "minimal": 36,
+              "hist": {
+                "3": 21,
+                "4": 15
+              }
+            }
+          },
+          "postAlreadyCertified": false,
+          "admissibleDefenderReplyColumns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "defenderResponses": [
+            {
+              "sequence": "444441566271",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 37,
+                "minimal": 34,
+                "hist": {
+                  "3": 20,
+                  "4": 14
+                }
+              }
+            },
+            {
+              "sequence": "444441566272",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 38,
+                "minimal": 35,
+                "hist": {
+                  "3": 21,
+                  "4": 14
+                }
+              }
+            },
+            {
+              "sequence": "444441566273",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 38,
+                "minimal": 35,
+                "hist": {
+                  "3": 21,
+                  "4": 14
+                }
+              }
+            },
+            {
+              "sequence": "444441566274",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 33,
+                "minimal": 30,
+                "hist": {
+                  "3": 21,
+                  "4": 9
+                }
+              }
+            },
+            {
+              "sequence": "444441566275",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 35,
+                "minimal": 33,
+                "hist": {
+                  "3": 18,
+                  "4": 15
+                }
+              }
+            },
+            {
+              "sequence": "444441566276",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 32,
+                "minimal": 30,
+                "hist": {
+                  "3": 15,
+                  "4": 15
+                }
+              }
+            },
+            {
+              "sequence": "444441566277",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 36,
+                "minimal": 34,
+                "hist": {
+                  "3": 19,
+                  "4": 15
+                }
+              }
+            }
+          ],
+          "branchSummary": {
+            "replyCount": 7,
+            "allChildrenExactAttackerWin": false,
+            "allChildrenRestrictedOrExact": false,
+            "commonKind": "CPC_NONE",
+            "commonPrecursorCount": 0,
+            "minAttackerPairResiduals": 0,
+            "maxAttackerPairResiduals": 0,
+            "minAttackerTripleResiduals": 15,
+            "maxAttackerTripleResiduals": 21
+          }
+        }
+      ]
+    },
+    {
+      "id": "candidate3",
+      "sequence": "4444415663",
+      "attacker": 1,
+      "setups": [
+        {
+          "setupColumn": 1,
+          "postSetup": {
+            "sequence": "44444156631",
+            "rank": 11,
+            "mover": 2,
+            "terminalCode": 0,
+            "kind": "CPC_NONE",
+            "absoluteInterval": [
+              -1,
+              1
+            ],
+            "forcedColumn": null,
+            "preemptionCount": 0,
+            "preemptionMask32": 0,
+            "precursorCount": 0,
+            "attackerResiduals": {
+              "active": 40,
+              "minimal": 36,
+              "hist": {
+                "2": 1,
+                "3": 20,
+                "4": 15
+              }
+            }
+          },
+          "postAlreadyCertified": false,
+          "admissibleDefenderReplyColumns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "defenderResponses": [
+            {
+              "sequence": "444441566311",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 36,
+                "minimal": 33,
+                "hist": {
+                  "2": 1,
+                  "3": 18,
+                  "4": 14
+                }
+              }
+            },
+            {
+              "sequence": "444441566312",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 38,
+                "minimal": 34,
+                "hist": {
+                  "2": 1,
+                  "3": 19,
+                  "4": 14
+                }
+              }
+            },
+            {
+              "sequence": "444441566313",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 36,
+                "minimal": 32,
+                "hist": {
+                  "2": 1,
+                  "3": 17,
+                  "4": 14
+                }
+              }
+            },
+            {
+              "sequence": "444441566314",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 34,
+                "minimal": 30,
+                "hist": {
+                  "2": 1,
+                  "3": 20,
+                  "4": 9
+                }
+              }
+            },
+            {
+              "sequence": "444441566315",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 36,
+                "minimal": 33,
+                "hist": {
+                  "2": 1,
+                  "3": 17,
+                  "4": 15
+                }
+              }
+            },
+            {
+              "sequence": "444441566316",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 33,
+                "minimal": 30,
+                "hist": {
+                  "2": 1,
+                  "3": 14,
+                  "4": 15
+                }
+              }
+            },
+            {
+              "sequence": "444441566317",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 39,
+                "minimal": 35,
+                "hist": {
+                  "2": 1,
+                  "3": 20,
+                  "4": 14
+                }
+              }
+            }
+          ],
+          "branchSummary": {
+            "replyCount": 7,
+            "allChildrenExactAttackerWin": false,
+            "allChildrenRestrictedOrExact": false,
+            "commonKind": "CPC_NONE",
+            "commonPrecursorCount": 0,
+            "minAttackerPairResiduals": 1,
+            "maxAttackerPairResiduals": 1,
+            "minAttackerTripleResiduals": 14,
+            "maxAttackerTripleResiduals": 20
+          }
+        },
+        {
+          "setupColumn": 2,
+          "postSetup": {
+            "sequence": "44444156632",
+            "rank": 11,
+            "mover": 2,
+            "terminalCode": 0,
+            "kind": "CPC_NONE",
+            "absoluteInterval": [
+              -1,
+              1
+            ],
+            "forcedColumn": null,
+            "preemptionCount": 0,
+            "preemptionMask32": 0,
+            "precursorCount": 0,
+            "attackerResiduals": {
+              "active": 40,
+              "minimal": 36,
+              "hist": {
+                "2": 1,
+                "3": 20,
+                "4": 15
+              }
+            }
+          },
+          "postAlreadyCertified": false,
+          "admissibleDefenderReplyColumns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "defenderResponses": [
+            {
+              "sequence": "444441566321",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 38,
+                "minimal": 34,
+                "hist": {
+                  "2": 1,
+                  "3": 19,
+                  "4": 14
+                }
+              }
+            },
+            {
+              "sequence": "444441566322",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 38,
+                "minimal": 35,
+                "hist": {
+                  "2": 1,
+                  "3": 19,
+                  "4": 15
+                }
+              }
+            },
+            {
+              "sequence": "444441566323",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_RESTRICT",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": 2,
+              "preemptionCount": 1,
+              "preemptionMask32": 2,
+              "precursorCount": 1,
+              "attackerResiduals": {
+                "active": 36,
+                "minimal": 33,
+                "hist": {
+                  "3": 19,
+                  "4": 14
+                }
+              }
+            },
+            {
+              "sequence": "444441566324",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 34,
+                "minimal": 30,
+                "hist": {
+                  "2": 1,
+                  "3": 20,
+                  "4": 9
+                }
+              }
+            },
+            {
+              "sequence": "444441566325",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 36,
+                "minimal": 33,
+                "hist": {
+                  "2": 1,
+                  "3": 17,
+                  "4": 15
+                }
+              }
+            },
+            {
+              "sequence": "444441566326",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 33,
+                "minimal": 30,
+                "hist": {
+                  "2": 1,
+                  "3": 14,
+                  "4": 15
+                }
+              }
+            },
+            {
+              "sequence": "444441566327",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 39,
+                "minimal": 35,
+                "hist": {
+                  "2": 1,
+                  "3": 20,
+                  "4": 14
+                }
+              }
+            }
+          ],
+          "branchSummary": {
+            "replyCount": 7,
+            "allChildrenExactAttackerWin": false,
+            "allChildrenRestrictedOrExact": false,
+            "commonKind": null,
+            "commonPrecursorCount": null,
+            "minAttackerPairResiduals": 0,
+            "maxAttackerPairResiduals": 1,
+            "minAttackerTripleResiduals": 14,
+            "maxAttackerTripleResiduals": 20
+          }
+        },
+        {
+          "setupColumn": 3,
+          "postSetup": {
+            "sequence": "44444156633",
+            "rank": 11,
+            "mover": 2,
+            "terminalCode": 0,
+            "kind": "CPC_NONE",
+            "absoluteInterval": [
+              -1,
+              1
+            ],
+            "forcedColumn": null,
+            "preemptionCount": 0,
+            "preemptionMask32": 0,
+            "precursorCount": 0,
+            "attackerResiduals": {
+              "active": 40,
+              "minimal": 36,
+              "hist": {
+                "2": 3,
+                "3": 18,
+                "4": 15
+              }
+            }
+          },
+          "postAlreadyCertified": false,
+          "admissibleDefenderReplyColumns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "defenderResponses": [
+            {
+              "sequence": "444441566331",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 38,
+                "minimal": 34,
+                "hist": {
+                  "2": 3,
+                  "3": 17,
+                  "4": 14
+                }
+              }
+            },
+            {
+              "sequence": "444441566332",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 38,
+                "minimal": 34,
+                "hist": {
+                  "2": 2,
+                  "3": 18,
+                  "4": 14
+                }
+              }
+            },
+            {
+              "sequence": "444441566333",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 35,
+                "minimal": 32,
+                "hist": {
+                  "2": 3,
+                  "3": 14,
+                  "4": 15
+                }
+              }
+            },
+            {
+              "sequence": "444441566334",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 34,
+                "minimal": 30,
+                "hist": {
+                  "2": 3,
+                  "3": 18,
+                  "4": 9
+                }
+              }
+            },
+            {
+              "sequence": "444441566335",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 36,
+                "minimal": 33,
+                "hist": {
+                  "2": 3,
+                  "3": 15,
+                  "4": 15
+                }
+              }
+            },
+            {
+              "sequence": "444441566336",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 33,
+                "minimal": 30,
+                "hist": {
+                  "2": 3,
+                  "3": 12,
+                  "4": 15
+                }
+              }
+            },
+            {
+              "sequence": "444441566337",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 39,
+                "minimal": 35,
+                "hist": {
+                  "2": 3,
+                  "3": 18,
+                  "4": 14
+                }
+              }
+            }
+          ],
+          "branchSummary": {
+            "replyCount": 7,
+            "allChildrenExactAttackerWin": false,
+            "allChildrenRestrictedOrExact": false,
+            "commonKind": "CPC_NONE",
+            "commonPrecursorCount": 0,
+            "minAttackerPairResiduals": 2,
+            "maxAttackerPairResiduals": 3,
+            "minAttackerTripleResiduals": 12,
+            "maxAttackerTripleResiduals": 18
+          }
+        },
+        {
+          "setupColumn": 4,
+          "postSetup": {
+            "sequence": "44444156634",
+            "rank": 11,
+            "mover": 2,
+            "terminalCode": 0,
+            "kind": "CPC_NONE",
+            "absoluteInterval": [
+              -1,
+              1
+            ],
+            "forcedColumn": null,
+            "preemptionCount": 0,
+            "preemptionMask32": 0,
+            "precursorCount": 0,
+            "attackerResiduals": {
+              "active": 40,
+              "minimal": 38,
+              "hist": {
+                "3": 27,
+                "4": 11
+              }
+            }
+          },
+          "postAlreadyCertified": false,
+          "admissibleDefenderReplyColumns": [
+            1,
+            2,
+            3,
+            5,
+            6,
+            7
+          ],
+          "defenderResponses": [
+            {
+              "sequence": "444441566341",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 38,
+                "minimal": 36,
+                "hist": {
+                  "3": 26,
+                  "4": 10
+                }
+              }
+            },
+            {
+              "sequence": "444441566342",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 38,
+                "minimal": 36,
+                "hist": {
+                  "3": 26,
+                  "4": 10
+                }
+              }
+            },
+            {
+              "sequence": "444441566343",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 36,
+                "minimal": 34,
+                "hist": {
+                  "3": 24,
+                  "4": 10
+                }
+              }
+            },
+            {
+              "sequence": "444441566345",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 36,
+                "minimal": 35,
+                "hist": {
+                  "3": 24,
+                  "4": 11
+                }
+              }
+            },
+            {
+              "sequence": "444441566346",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 33,
+                "minimal": 32,
+                "hist": {
+                  "3": 21,
+                  "4": 11
+                }
+              }
+            },
+            {
+              "sequence": "444441566347",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 39,
+                "minimal": 37,
+                "hist": {
+                  "3": 27,
+                  "4": 10
+                }
+              }
+            }
+          ],
+          "branchSummary": {
+            "replyCount": 6,
+            "allChildrenExactAttackerWin": false,
+            "allChildrenRestrictedOrExact": false,
+            "commonKind": "CPC_NONE",
+            "commonPrecursorCount": 0,
+            "minAttackerPairResiduals": 0,
+            "maxAttackerPairResiduals": 0,
+            "minAttackerTripleResiduals": 21,
+            "maxAttackerTripleResiduals": 27
+          }
+        },
+        {
+          "setupColumn": 5,
+          "postSetup": {
+            "sequence": "44444156635",
+            "rank": 11,
+            "mover": 2,
+            "terminalCode": 0,
+            "kind": "CPC_NONE",
+            "absoluteInterval": [
+              -1,
+              1
+            ],
+            "forcedColumn": null,
+            "preemptionCount": 0,
+            "preemptionMask32": 0,
+            "precursorCount": 0,
+            "attackerResiduals": {
+              "active": 40,
+              "minimal": 36,
+              "hist": {
+                "2": 3,
+                "3": 17,
+                "4": 16
+              }
+            }
+          },
+          "postAlreadyCertified": false,
+          "admissibleDefenderReplyColumns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "defenderResponses": [
+            {
+              "sequence": "444441566351",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 38,
+                "minimal": 34,
+                "hist": {
+                  "2": 3,
+                  "3": 16,
+                  "4": 15
+                }
+              }
+            },
+            {
+              "sequence": "444441566352",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 38,
+                "minimal": 34,
+                "hist": {
+                  "2": 3,
+                  "3": 16,
+                  "4": 15
+                }
+              }
+            },
+            {
+              "sequence": "444441566353",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 36,
+                "minimal": 32,
+                "hist": {
+                  "2": 3,
+                  "3": 14,
+                  "4": 15
+                }
+              }
+            },
+            {
+              "sequence": "444441566354",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 34,
+                "minimal": 30,
+                "hist": {
+                  "2": 3,
+                  "3": 17,
+                  "4": 10
+                }
+              }
+            },
+            {
+              "sequence": "444441566355",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 34,
+                "minimal": 32,
+                "hist": {
+                  "2": 2,
+                  "3": 14,
+                  "4": 16
+                }
+              }
+            },
+            {
+              "sequence": "444441566356",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 33,
+                "minimal": 30,
+                "hist": {
+                  "2": 2,
+                  "3": 12,
+                  "4": 16
+                }
+              }
+            },
+            {
+              "sequence": "444441566357",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 39,
+                "minimal": 35,
+                "hist": {
+                  "2": 3,
+                  "3": 17,
+                  "4": 15
+                }
+              }
+            }
+          ],
+          "branchSummary": {
+            "replyCount": 7,
+            "allChildrenExactAttackerWin": false,
+            "allChildrenRestrictedOrExact": false,
+            "commonKind": "CPC_NONE",
+            "commonPrecursorCount": 0,
+            "minAttackerPairResiduals": 2,
+            "maxAttackerPairResiduals": 3,
+            "minAttackerTripleResiduals": 12,
+            "maxAttackerTripleResiduals": 17
+          }
+        },
+        {
+          "setupColumn": 6,
+          "postSetup": {
+            "sequence": "44444156636",
+            "rank": 11,
+            "mover": 2,
+            "terminalCode": 0,
+            "kind": "CPC_NONE",
+            "absoluteInterval": [
+              -1,
+              1
+            ],
+            "forcedColumn": null,
+            "preemptionCount": 0,
+            "preemptionMask32": 0,
+            "precursorCount": 0,
+            "attackerResiduals": {
+              "active": 40,
+              "minimal": 37,
+              "hist": {
+                "2": 6,
+                "3": 14,
+                "4": 17
+              }
+            }
+          },
+          "postAlreadyCertified": false,
+          "admissibleDefenderReplyColumns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "defenderResponses": [
+            {
+              "sequence": "444441566361",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 38,
+                "minimal": 35,
+                "hist": {
+                  "2": 6,
+                  "3": 13,
+                  "4": 16
+                }
+              }
+            },
+            {
+              "sequence": "444441566362",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 38,
+                "minimal": 35,
+                "hist": {
+                  "2": 6,
+                  "3": 13,
+                  "4": 16
+                }
+              }
+            },
+            {
+              "sequence": "444441566363",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 36,
+                "minimal": 33,
+                "hist": {
+                  "2": 6,
+                  "3": 11,
+                  "4": 16
+                }
+              }
+            },
+            {
+              "sequence": "444441566364",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 34,
+                "minimal": 31,
+                "hist": {
+                  "2": 6,
+                  "3": 14,
+                  "4": 11
+                }
+              }
+            },
+            {
+              "sequence": "444441566365",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 36,
+                "minimal": 34,
+                "hist": {
+                  "2": 5,
+                  "3": 12,
+                  "4": 17
+                }
+              }
+            },
+            {
+              "sequence": "444441566366",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 37,
+                "minimal": 35,
+                "hist": {
+                  "2": 5,
+                  "3": 14,
+                  "4": 16
+                }
+              }
+            },
+            {
+              "sequence": "444441566367",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 39,
+                "minimal": 36,
+                "hist": {
+                  "2": 6,
+                  "3": 14,
+                  "4": 16
+                }
+              }
+            }
+          ],
+          "branchSummary": {
+            "replyCount": 7,
+            "allChildrenExactAttackerWin": false,
+            "allChildrenRestrictedOrExact": false,
+            "commonKind": "CPC_NONE",
+            "commonPrecursorCount": 0,
+            "minAttackerPairResiduals": 5,
+            "maxAttackerPairResiduals": 6,
+            "minAttackerTripleResiduals": 11,
+            "maxAttackerTripleResiduals": 14
+          }
+        },
+        {
+          "setupColumn": 7,
+          "postSetup": {
+            "sequence": "44444156637",
+            "rank": 11,
+            "mover": 2,
+            "terminalCode": 0,
+            "kind": "CPC_NONE",
+            "absoluteInterval": [
+              -1,
+              1
+            ],
+            "forcedColumn": null,
+            "preemptionCount": 0,
+            "preemptionMask32": 0,
+            "precursorCount": 0,
+            "attackerResiduals": {
+              "active": 40,
+              "minimal": 37,
+              "hist": {
+                "3": 22,
+                "4": 15
+              }
+            }
+          },
+          "postAlreadyCertified": false,
+          "admissibleDefenderReplyColumns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "defenderResponses": [
+            {
+              "sequence": "444441566371",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 38,
+                "minimal": 35,
+                "hist": {
+                  "3": 21,
+                  "4": 14
+                }
+              }
+            },
+            {
+              "sequence": "444441566372",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 38,
+                "minimal": 35,
+                "hist": {
+                  "3": 21,
+                  "4": 14
+                }
+              }
+            },
+            {
+              "sequence": "444441566373",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 36,
+                "minimal": 33,
+                "hist": {
+                  "3": 19,
+                  "4": 14
+                }
+              }
+            },
+            {
+              "sequence": "444441566374",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 34,
+                "minimal": 31,
+                "hist": {
+                  "3": 22,
+                  "4": 9
+                }
+              }
+            },
+            {
+              "sequence": "444441566375",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 36,
+                "minimal": 34,
+                "hist": {
+                  "3": 19,
+                  "4": 15
+                }
+              }
+            },
+            {
+              "sequence": "444441566376",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 33,
+                "minimal": 31,
+                "hist": {
+                  "3": 16,
+                  "4": 15
+                }
+              }
+            },
+            {
+              "sequence": "444441566377",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 37,
+                "minimal": 35,
+                "hist": {
+                  "3": 20,
+                  "4": 15
+                }
+              }
+            }
+          ],
+          "branchSummary": {
+            "replyCount": 7,
+            "allChildrenExactAttackerWin": false,
+            "allChildrenRestrictedOrExact": false,
+            "commonKind": "CPC_NONE",
+            "commonPrecursorCount": 0,
+            "minAttackerPairResiduals": 0,
+            "maxAttackerPairResiduals": 0,
+            "minAttackerTripleResiduals": 16,
+            "maxAttackerTripleResiduals": 22
+          }
+        }
+      ]
+    },
+    {
+      "id": "candidate6",
+      "sequence": "4444415666",
+      "attacker": 1,
+      "setups": [
+        {
+          "setupColumn": 1,
+          "postSetup": {
+            "sequence": "44444156661",
+            "rank": 11,
+            "mover": 2,
+            "terminalCode": 0,
+            "kind": "CPC_NONE",
+            "absoluteInterval": [
+              -1,
+              1
+            ],
+            "forcedColumn": null,
+            "preemptionCount": 0,
+            "preemptionMask32": 0,
+            "precursorCount": 0,
+            "attackerResiduals": {
+              "active": 35,
+              "minimal": 32,
+              "hist": {
+                "2": 2,
+                "3": 14,
+                "4": 16
+              }
+            }
+          },
+          "postAlreadyCertified": false,
+          "admissibleDefenderReplyColumns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "defenderResponses": [
+            {
+              "sequence": "444441566611",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 31,
+                "minimal": 29,
+                "hist": {
+                  "2": 2,
+                  "3": 12,
+                  "4": 15
+                }
+              }
+            },
+            {
+              "sequence": "444441566612",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 32,
+                "minimal": 29,
+                "hist": {
+                  "2": 1,
+                  "3": 13,
+                  "4": 15
+                }
+              }
+            },
+            {
+              "sequence": "444441566613",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 33,
+                "minimal": 30,
+                "hist": {
+                  "2": 1,
+                  "3": 14,
+                  "4": 15
+                }
+              }
+            },
+            {
+              "sequence": "444441566614",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 29,
+                "minimal": 26,
+                "hist": {
+                  "2": 2,
+                  "3": 14,
+                  "4": 10
+                }
+              }
+            },
+            {
+              "sequence": "444441566615",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 32,
+                "minimal": 30,
+                "hist": {
+                  "2": 2,
+                  "3": 12,
+                  "4": 16
+                }
+              }
+            },
+            {
+              "sequence": "444441566616",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 34,
+                "minimal": 31,
+                "hist": {
+                  "2": 2,
+                  "3": 14,
+                  "4": 15
+                }
+              }
+            },
+            {
+              "sequence": "444441566617",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 34,
+                "minimal": 31,
+                "hist": {
+                  "2": 2,
+                  "3": 14,
+                  "4": 15
+                }
+              }
+            }
+          ],
+          "branchSummary": {
+            "replyCount": 7,
+            "allChildrenExactAttackerWin": false,
+            "allChildrenRestrictedOrExact": false,
+            "commonKind": "CPC_NONE",
+            "commonPrecursorCount": 0,
+            "minAttackerPairResiduals": 1,
+            "maxAttackerPairResiduals": 2,
+            "minAttackerTripleResiduals": 12,
+            "maxAttackerTripleResiduals": 14
+          }
+        },
+        {
+          "setupColumn": 2,
+          "postSetup": {
+            "sequence": "44444156662",
+            "rank": 11,
+            "mover": 2,
+            "terminalCode": 0,
+            "kind": "CPC_RESTRICT",
+            "absoluteInterval": [
+              -1,
+              1
+            ],
+            "forcedColumn": 3,
+            "preemptionCount": 1,
+            "preemptionMask32": 4,
+            "precursorCount": 0,
+            "attackerResiduals": {
+              "active": 36,
+              "minimal": 31,
+              "hist": {
+                "1": 1,
+                "2": 1,
+                "3": 14,
+                "4": 15
+              }
+            }
+          },
+          "postAlreadyCertified": false,
+          "admissibleDefenderReplyColumns": [
+            3
+          ],
+          "defenderResponses": [
+            {
+              "sequence": "444441566623",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 33,
+                "minimal": 30,
+                "hist": {
+                  "2": 1,
+                  "3": 14,
+                  "4": 15
+                }
+              }
+            }
+          ],
+          "branchSummary": {
+            "replyCount": 1,
+            "allChildrenExactAttackerWin": false,
+            "allChildrenRestrictedOrExact": false,
+            "commonKind": "CPC_NONE",
+            "commonPrecursorCount": 0,
+            "minAttackerPairResiduals": 1,
+            "maxAttackerPairResiduals": 1,
+            "minAttackerTripleResiduals": 14,
+            "maxAttackerTripleResiduals": 14
+          }
+        },
+        {
+          "setupColumn": 3,
+          "postSetup": {
+            "sequence": "44444156663",
+            "rank": 11,
+            "mover": 2,
+            "terminalCode": 0,
+            "kind": "CPC_RESTRICT",
+            "absoluteInterval": [
+              -1,
+              1
+            ],
+            "forcedColumn": 2,
+            "preemptionCount": 1,
+            "preemptionMask32": 2,
+            "precursorCount": 0,
+            "attackerResiduals": {
+              "active": 35,
+              "minimal": 31,
+              "hist": {
+                "1": 1,
+                "3": 15,
+                "4": 15
+              }
+            }
+          },
+          "postAlreadyCertified": false,
+          "admissibleDefenderReplyColumns": [
+            2
+          ],
+          "defenderResponses": [
+            {
+              "sequence": "444441566632",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 32,
+                "minimal": 30,
+                "hist": {
+                  "3": 15,
+                  "4": 15
+                }
+              }
+            }
+          ],
+          "branchSummary": {
+            "replyCount": 1,
+            "allChildrenExactAttackerWin": false,
+            "allChildrenRestrictedOrExact": false,
+            "commonKind": "CPC_NONE",
+            "commonPrecursorCount": 0,
+            "minAttackerPairResiduals": 0,
+            "maxAttackerPairResiduals": 0,
+            "minAttackerTripleResiduals": 15,
+            "maxAttackerTripleResiduals": 15
+          }
+        },
+        {
+          "setupColumn": 4,
+          "postSetup": {
+            "sequence": "44444156664",
+            "rank": 11,
+            "mover": 2,
+            "terminalCode": 0,
+            "kind": "CPC_NONE",
+            "absoluteInterval": [
+              -1,
+              1
+            ],
+            "forcedColumn": null,
+            "preemptionCount": 0,
+            "preemptionMask32": 0,
+            "precursorCount": 0,
+            "attackerResiduals": {
+              "active": 35,
+              "minimal": 34,
+              "hist": {
+                "2": 1,
+                "3": 21,
+                "4": 12
+              }
+            }
+          },
+          "postAlreadyCertified": false,
+          "admissibleDefenderReplyColumns": [
+            1,
+            2,
+            3,
+            5,
+            6,
+            7
+          ],
+          "defenderResponses": [
+            {
+              "sequence": "444441566641",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 33,
+                "minimal": 32,
+                "hist": {
+                  "2": 1,
+                  "3": 20,
+                  "4": 11
+                }
+              }
+            },
+            {
+              "sequence": "444441566642",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 32,
+                "minimal": 31,
+                "hist": {
+                  "3": 20,
+                  "4": 11
+                }
+              }
+            },
+            {
+              "sequence": "444441566643",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 33,
+                "minimal": 32,
+                "hist": {
+                  "3": 21,
+                  "4": 11
+                }
+              }
+            },
+            {
+              "sequence": "444441566645",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 32,
+                "minimal": 32,
+                "hist": {
+                  "2": 1,
+                  "3": 19,
+                  "4": 12
+                }
+              }
+            },
+            {
+              "sequence": "444441566646",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 34,
+                "minimal": 33,
+                "hist": {
+                  "2": 1,
+                  "3": 20,
+                  "4": 12
+                }
+              }
+            },
+            {
+              "sequence": "444441566647",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 34,
+                "minimal": 33,
+                "hist": {
+                  "2": 1,
+                  "3": 21,
+                  "4": 11
+                }
+              }
+            }
+          ],
+          "branchSummary": {
+            "replyCount": 6,
+            "allChildrenExactAttackerWin": false,
+            "allChildrenRestrictedOrExact": false,
+            "commonKind": "CPC_NONE",
+            "commonPrecursorCount": 0,
+            "minAttackerPairResiduals": 0,
+            "maxAttackerPairResiduals": 1,
+            "minAttackerTripleResiduals": 19,
+            "maxAttackerTripleResiduals": 21
+          }
+        },
+        {
+          "setupColumn": 5,
+          "postSetup": {
+            "sequence": "44444156665",
+            "rank": 11,
+            "mover": 2,
+            "terminalCode": 0,
+            "kind": "CPC_NONE",
+            "absoluteInterval": [
+              -1,
+              1
+            ],
+            "forcedColumn": null,
+            "preemptionCount": 0,
+            "preemptionMask32": 0,
+            "precursorCount": 0,
+            "attackerResiduals": {
+              "active": 35,
+              "minimal": 32,
+              "hist": {
+                "2": 3,
+                "3": 12,
+                "4": 17
+              }
+            }
+          },
+          "postAlreadyCertified": false,
+          "admissibleDefenderReplyColumns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "defenderResponses": [
+            {
+              "sequence": "444441566651",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 33,
+                "minimal": 30,
+                "hist": {
+                  "2": 3,
+                  "3": 11,
+                  "4": 16
+                }
+              }
+            },
+            {
+              "sequence": "444441566652",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 32,
+                "minimal": 29,
+                "hist": {
+                  "2": 2,
+                  "3": 11,
+                  "4": 16
+                }
+              }
+            },
+            {
+              "sequence": "444441566653",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 33,
+                "minimal": 30,
+                "hist": {
+                  "2": 2,
+                  "3": 12,
+                  "4": 16
+                }
+              }
+            },
+            {
+              "sequence": "444441566654",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 29,
+                "minimal": 26,
+                "hist": {
+                  "2": 3,
+                  "3": 12,
+                  "4": 11
+                }
+              }
+            },
+            {
+              "sequence": "444441566655",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 31,
+                "minimal": 30,
+                "hist": {
+                  "2": 2,
+                  "3": 11,
+                  "4": 17
+                }
+              }
+            },
+            {
+              "sequence": "444441566656",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 34,
+                "minimal": 31,
+                "hist": {
+                  "2": 3,
+                  "3": 12,
+                  "4": 16
+                }
+              }
+            },
+            {
+              "sequence": "444441566657",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 34,
+                "minimal": 31,
+                "hist": {
+                  "2": 3,
+                  "3": 12,
+                  "4": 16
+                }
+              }
+            }
+          ],
+          "branchSummary": {
+            "replyCount": 7,
+            "allChildrenExactAttackerWin": false,
+            "allChildrenRestrictedOrExact": false,
+            "commonKind": "CPC_NONE",
+            "commonPrecursorCount": 0,
+            "minAttackerPairResiduals": 2,
+            "maxAttackerPairResiduals": 3,
+            "minAttackerTripleResiduals": 11,
+            "maxAttackerTripleResiduals": 12
+          }
+        },
+        {
+          "setupColumn": 6,
+          "postSetup": {
+            "sequence": "44444156666",
+            "rank": 11,
+            "mover": 2,
+            "terminalCode": 0,
+            "kind": "CPC_NONE",
+            "absoluteInterval": [
+              -1,
+              1
+            ],
+            "forcedColumn": null,
+            "preemptionCount": 0,
+            "preemptionMask32": 0,
+            "precursorCount": 0,
+            "attackerResiduals": {
+              "active": 35,
+              "minimal": 34,
+              "hist": {
+                "2": 1,
+                "3": 16,
+                "4": 17
+              }
+            }
+          },
+          "postAlreadyCertified": false,
+          "admissibleDefenderReplyColumns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "defenderResponses": [
+            {
+              "sequence": "444441566661",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 33,
+                "minimal": 32,
+                "hist": {
+                  "2": 1,
+                  "3": 15,
+                  "4": 16
+                }
+              }
+            },
+            {
+              "sequence": "444441566662",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 32,
+                "minimal": 31,
+                "hist": {
+                  "3": 15,
+                  "4": 16
+                }
+              }
+            },
+            {
+              "sequence": "444441566663",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 33,
+                "minimal": 32,
+                "hist": {
+                  "3": 16,
+                  "4": 16
+                }
+              }
+            },
+            {
+              "sequence": "444441566664",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 29,
+                "minimal": 28,
+                "hist": {
+                  "2": 1,
+                  "3": 15,
+                  "4": 12
+                }
+              }
+            },
+            {
+              "sequence": "444441566665",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 32,
+                "minimal": 32,
+                "hist": {
+                  "2": 1,
+                  "3": 14,
+                  "4": 17
+                }
+              }
+            },
+            {
+              "sequence": "444441566666",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 31,
+                "minimal": 30,
+                "hist": {
+                  "2": 1,
+                  "3": 12,
+                  "4": 17
+                }
+              }
+            },
+            {
+              "sequence": "444441566667",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 34,
+                "minimal": 33,
+                "hist": {
+                  "2": 1,
+                  "3": 16,
+                  "4": 16
+                }
+              }
+            }
+          ],
+          "branchSummary": {
+            "replyCount": 7,
+            "allChildrenExactAttackerWin": false,
+            "allChildrenRestrictedOrExact": false,
+            "commonKind": "CPC_NONE",
+            "commonPrecursorCount": 0,
+            "minAttackerPairResiduals": 0,
+            "maxAttackerPairResiduals": 1,
+            "minAttackerTripleResiduals": 12,
+            "maxAttackerTripleResiduals": 16
+          }
+        },
+        {
+          "setupColumn": 7,
+          "postSetup": {
+            "sequence": "44444156667",
+            "rank": 11,
+            "mover": 2,
+            "terminalCode": 0,
+            "kind": "CPC_NONE",
+            "absoluteInterval": [
+              -1,
+              1
+            ],
+            "forcedColumn": null,
+            "preemptionCount": 0,
+            "preemptionMask32": 0,
+            "precursorCount": 0,
+            "attackerResiduals": {
+              "active": 35,
+              "minimal": 33,
+              "hist": {
+                "2": 1,
+                "3": 16,
+                "4": 16
+              }
+            }
+          },
+          "postAlreadyCertified": false,
+          "admissibleDefenderReplyColumns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "defenderResponses": [
+            {
+              "sequence": "444441566671",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 33,
+                "minimal": 31,
+                "hist": {
+                  "2": 1,
+                  "3": 15,
+                  "4": 15
+                }
+              }
+            },
+            {
+              "sequence": "444441566672",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 32,
+                "minimal": 30,
+                "hist": {
+                  "3": 15,
+                  "4": 15
+                }
+              }
+            },
+            {
+              "sequence": "444441566673",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 33,
+                "minimal": 31,
+                "hist": {
+                  "3": 16,
+                  "4": 15
+                }
+              }
+            },
+            {
+              "sequence": "444441566674",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 29,
+                "minimal": 27,
+                "hist": {
+                  "2": 1,
+                  "3": 16,
+                  "4": 10
+                }
+              }
+            },
+            {
+              "sequence": "444441566675",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 32,
+                "minimal": 31,
+                "hist": {
+                  "2": 1,
+                  "3": 14,
+                  "4": 16
+                }
+              }
+            },
+            {
+              "sequence": "444441566676",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 34,
+                "minimal": 32,
+                "hist": {
+                  "2": 1,
+                  "3": 16,
+                  "4": 15
+                }
+              }
+            },
+            {
+              "sequence": "444441566677",
+              "rank": 12,
+              "mover": 1,
+              "terminalCode": 0,
+              "kind": "CPC_NONE",
+              "absoluteInterval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "attackerResiduals": {
+                "active": 33,
+                "minimal": 32,
+                "hist": {
+                  "2": 1,
+                  "3": 15,
+                  "4": 16
+                }
+              }
+            }
+          ],
+          "branchSummary": {
+            "replyCount": 7,
+            "allChildrenExactAttackerWin": false,
+            "allChildrenRestrictedOrExact": false,
+            "commonKind": "CPC_NONE",
+            "commonPrecursorCount": 0,
+            "minAttackerPairResiduals": 0,
+            "maxAttackerPairResiduals": 1,
+            "minAttackerTripleResiduals": 14,
+            "maxAttackerTripleResiduals": 16
+          }
+        }
+      ]
+    }
+  ],
+  "boundary": [
+    "This census is not itself a runtime theorem or proof premise.",
+    "Any useful common successor property must be re-derived as a current-state CPC consequence before promotion.",
+    "CPC restrictions are honored exactly; CPC_NONE/BOUND states retain every legal defender reply."
+  ]
+}
