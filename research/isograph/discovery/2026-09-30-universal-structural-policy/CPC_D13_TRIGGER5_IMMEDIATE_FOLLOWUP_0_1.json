@@ -1,0 +1,165 @@
+{
+  "schema": "connect4.cpc_d13_trigger5_immediate_followup_probe.v1",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "parent": {
+    "sequence": "444441566666232222423311",
+    "rank": 24
+  },
+  "firstAttackColumn": 5,
+  "rows": [
+    {
+      "responseColumn": 1,
+      "replySequence": "44444156666623222242331151",
+      "replyTerminal": 0,
+      "replyRank": 26,
+      "replySupport": [
+        4,
+        6,
+        3,
+        6,
+        2,
+        5,
+        0
+      ],
+      "followupColumn": 5,
+      "followupLegal": true,
+      "followupTerminal": 0,
+      "followupSequence": "444441566666232222423311515",
+      "followupRank": 27,
+      "followupSupport": [
+        4,
+        6,
+        3,
+        6,
+        3,
+        5,
+        0
+      ]
+    },
+    {
+      "responseColumn": 3,
+      "replySequence": "44444156666623222242331153",
+      "replyTerminal": 0,
+      "replyRank": 26,
+      "replySupport": [
+        3,
+        6,
+        4,
+        6,
+        2,
+        5,
+        0
+      ],
+      "followupColumn": 5,
+      "followupLegal": true,
+      "followupTerminal": 0,
+      "followupSequence": "444441566666232222423311535",
+      "followupRank": 27,
+      "followupSupport": [
+        3,
+        6,
+        4,
+        6,
+        3,
+        5,
+        0
+      ]
+    },
+    {
+      "responseColumn": 5,
+      "replySequence": "44444156666623222242331155",
+      "replyTerminal": 0,
+      "replyRank": 26,
+      "replySupport": [
+        3,
+        6,
+        3,
+        6,
+        3,
+        5,
+        0
+      ],
+      "followupColumn": 5,
+      "followupLegal": true,
+      "followupTerminal": 3,
+      "followupSequence": "444441566666232222423311555",
+      "followupRank": 27,
+      "followupSupport": [
+        3,
+        6,
+        3,
+        6,
+        4,
+        5,
+        0
+      ]
+    },
+    {
+      "responseColumn": 6,
+      "replySequence": "44444156666623222242331156",
+      "replyTerminal": 0,
+      "replyRank": 26,
+      "replySupport": [
+        3,
+        6,
+        3,
+        6,
+        2,
+        6,
+        0
+      ],
+      "followupColumn": 5,
+      "followupLegal": true,
+      "followupTerminal": 0,
+      "followupSequence": "444441566666232222423311565",
+      "followupRank": 27,
+      "followupSupport": [
+        3,
+        6,
+        3,
+        6,
+        3,
+        6,
+        0
+      ]
+    },
+    {
+      "responseColumn": 7,
+      "replySequence": "44444156666623222242331157",
+      "replyTerminal": 0,
+      "replyRank": 26,
+      "replySupport": [
+        3,
+        6,
+        3,
+        6,
+        2,
+        5,
+        1
+      ],
+      "followupColumn": 5,
+      "followupLegal": true,
+      "followupTerminal": 0,
+      "followupSequence": "444441566666232222423311575",
+      "followupRank": 27,
+      "followupSupport": [
+        3,
+        6,
+        3,
+        6,
+        3,
+        5,
+        1
+      ]
+    }
+  ],
+  "conclusion": [
+    "This probe asks only whether attacker column 5 is an immediate terminal move after each physically legal defender reply to the first column-5 trigger.",
+    "It does not infer anything about replies whose first move is already terminal, and it makes no minimax claim beyond the enumerated local two-ply response set."
+  ],
+  "boundary": [
+    "No oracle, solved W/D/L, best-move label, or physical-board identity is used.",
+    "A universal terminal followup across every legal nonterminal defender reply would be a local forced-completion certificate at this exact state, not a global theorem for earlier states."
+  ]
+}
