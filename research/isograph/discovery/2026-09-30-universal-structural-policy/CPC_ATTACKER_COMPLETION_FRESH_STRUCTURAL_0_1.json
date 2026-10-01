@@ -1,0 +1,1307 @@
+{
+  "schema": "connect4.cpc_attacker_completion_fresh_structural.v1",
+  "theoremVersion": "0.1",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "trainingPrefixExcluded": "444441566",
+  "generator": {
+    "kind": "deterministic xorshift32 legal nonterminal CPC/RBA prefixes",
+    "maxTrials": 12000,
+    "attemptedProofs": 363,
+    "accepted": 30,
+    "constructorCounts": {
+      "SETUP_CPC_RESTRICTION": 12,
+      "IMMEDIATE_TERMINAL": 10,
+      "SETUP_NATIVE_CPC": 8
+    },
+    "nonImmediate": 20
+  },
+  "certificates": [
+    {
+      "sequence": "74236551513223",
+      "rank": 14,
+      "attacker": 1,
+      "upper": 5,
+      "constructor": "SETUP_CPC_RESTRICTION",
+      "certificate": {
+        "upper": 5,
+        "constructor": "SETUP_CPC_RESTRICTION",
+        "setupColumn": 4,
+        "postSetup": {
+          "kind": "CPC_RESTRICT",
+          "interval": [
+            -1,
+            1
+          ],
+          "preemptionColumns": [
+            6
+          ],
+          "noncompliantUpper": 4
+        },
+        "children": [
+          {
+            "responseColumn": 6,
+            "upper": 3,
+            "certificate": {
+              "upper": 3,
+              "constructor": "SETUP_NATIVE_CPC",
+              "setupColumn": 5,
+              "postSetup": {
+                "kind": "CPC_EXACT",
+                "interval": [
+                  1,
+                  1
+                ],
+                "tactical": {
+                  "upper": 2,
+                  "route": "MULTIPLE_PLAYABLE_SINGLETONS",
+                  "targets": [
+                    {
+                      "column": 4,
+                      "row": 3
+                    },
+                    {
+                      "column": 5,
+                      "row": 5
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "sequence": "716466127474251",
+      "rank": 15,
+      "attacker": 2,
+      "upper": 1,
+      "constructor": "IMMEDIATE_TERMINAL",
+      "certificate": {
+        "upper": 1,
+        "constructor": "IMMEDIATE_TERMINAL",
+        "setupColumn": 3
+      }
+    },
+    {
+      "sequence": "514773342374312423",
+      "rank": 18,
+      "attacker": 1,
+      "upper": 1,
+      "constructor": "IMMEDIATE_TERMINAL",
+      "certificate": {
+        "upper": 1,
+        "constructor": "IMMEDIATE_TERMINAL",
+        "setupColumn": 2
+      }
+    },
+    {
+      "sequence": "524227536443456674257",
+      "rank": 21,
+      "attacker": 2,
+      "upper": 1,
+      "constructor": "IMMEDIATE_TERMINAL",
+      "certificate": {
+        "upper": 1,
+        "constructor": "IMMEDIATE_TERMINAL",
+        "setupColumn": 6
+      }
+    },
+    {
+      "sequence": "1616732266761733567723",
+      "rank": 22,
+      "attacker": 1,
+      "upper": 1,
+      "constructor": "IMMEDIATE_TERMINAL",
+      "certificate": {
+        "upper": 1,
+        "constructor": "IMMEDIATE_TERMINAL",
+        "setupColumn": 1
+      }
+    },
+    {
+      "sequence": "65631674673736463343747",
+      "rank": 23,
+      "attacker": 2,
+      "upper": 1,
+      "constructor": "IMMEDIATE_TERMINAL",
+      "certificate": {
+        "upper": 1,
+        "constructor": "IMMEDIATE_TERMINAL",
+        "setupColumn": 2
+      }
+    },
+    {
+      "sequence": "175463444521266324421162",
+      "rank": 24,
+      "attacker": 1,
+      "upper": 1,
+      "constructor": "IMMEDIATE_TERMINAL",
+      "certificate": {
+        "upper": 1,
+        "constructor": "IMMEDIATE_TERMINAL",
+        "setupColumn": 3
+      }
+    },
+    {
+      "sequence": "4511652354776755456271771",
+      "rank": 25,
+      "attacker": 2,
+      "upper": 1,
+      "constructor": "IMMEDIATE_TERMINAL",
+      "certificate": {
+        "upper": 1,
+        "constructor": "IMMEDIATE_TERMINAL",
+        "setupColumn": 3
+      }
+    },
+    {
+      "sequence": "55334335735742561146561122",
+      "rank": 26,
+      "attacker": 1,
+      "upper": 1,
+      "constructor": "IMMEDIATE_TERMINAL",
+      "certificate": {
+        "upper": 1,
+        "constructor": "IMMEDIATE_TERMINAL",
+        "setupColumn": 4
+      }
+    },
+    {
+      "sequence": "46676562",
+      "rank": 8,
+      "attacker": 1,
+      "upper": 1,
+      "constructor": "IMMEDIATE_TERMINAL",
+      "certificate": {
+        "upper": 1,
+        "constructor": "IMMEDIATE_TERMINAL",
+        "setupColumn": 6
+      }
+    },
+    {
+      "sequence": "372637437536",
+      "rank": 12,
+      "attacker": 1,
+      "upper": 1,
+      "constructor": "IMMEDIATE_TERMINAL",
+      "certificate": {
+        "upper": 1,
+        "constructor": "IMMEDIATE_TERMINAL",
+        "setupColumn": 1
+      }
+    },
+    {
+      "sequence": "521233343321631715",
+      "rank": 18,
+      "attacker": 1,
+      "upper": 3,
+      "constructor": "SETUP_NATIVE_CPC",
+      "certificate": {
+        "upper": 3,
+        "constructor": "SETUP_NATIVE_CPC",
+        "setupColumn": 4,
+        "postSetup": {
+          "kind": "CPC_EXACT",
+          "interval": [
+            1,
+            1
+          ],
+          "tactical": {
+            "upper": 2,
+            "route": "MULTIPLE_PLAYABLE_SINGLETONS",
+            "targets": [
+              {
+                "column": 4,
+                "row": 3
+              },
+              {
+                "column": 2,
+                "row": 4
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "sequence": "255566422662454253615",
+      "rank": 21,
+      "attacker": 2,
+      "upper": 5,
+      "constructor": "SETUP_CPC_RESTRICTION",
+      "certificate": {
+        "upper": 5,
+        "constructor": "SETUP_CPC_RESTRICTION",
+        "setupColumn": 4,
+        "postSetup": {
+          "kind": "CPC_RESTRICT",
+          "interval": [
+            -1,
+            1
+          ],
+          "preemptionColumns": [
+            7
+          ],
+          "noncompliantUpper": 4
+        },
+        "children": [
+          {
+            "responseColumn": 7,
+            "upper": 3,
+            "certificate": {
+              "upper": 3,
+              "constructor": "SETUP_NATIVE_CPC",
+              "setupColumn": 3,
+              "postSetup": {
+                "kind": "CPC_EXACT",
+                "interval": [
+                  -1,
+                  -1
+                ],
+                "tactical": {
+                  "upper": 2,
+                  "route": "STACKED_SINGLETON_RELEASE",
+                  "target": {
+                    "column": 3,
+                    "row": 3
+                  },
+                  "released": {
+                    "column": 3,
+                    "row": 4
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "sequence": "7275475633",
+      "rank": 10,
+      "attacker": 1,
+      "upper": 9,
+      "constructor": "SETUP_CPC_RESTRICTION",
+      "certificate": {
+        "upper": 9,
+        "constructor": "SETUP_CPC_RESTRICTION",
+        "setupColumn": 4,
+        "postSetup": {
+          "kind": "CPC_RESTRICT",
+          "interval": [
+            -1,
+            1
+          ],
+          "preemptionColumns": [
+            6
+          ],
+          "noncompliantUpper": 4
+        },
+        "children": [
+          {
+            "responseColumn": 6,
+            "upper": 7,
+            "certificate": {
+              "upper": 7,
+              "constructor": "SETUP_CPC_RESTRICTION",
+              "setupColumn": 4,
+              "postSetup": {
+                "kind": "CPC_RESTRICT",
+                "interval": [
+                  -1,
+                  1
+                ],
+                "preemptionColumns": [
+                  4
+                ],
+                "noncompliantUpper": 4
+              },
+              "children": [
+                {
+                  "responseColumn": 4,
+                  "upper": 5,
+                  "certificate": {
+                    "upper": 5,
+                    "constructor": "SETUP_CPC_RESTRICTION",
+                    "setupColumn": 6,
+                    "postSetup": {
+                      "kind": "CPC_RESTRICT",
+                      "interval": [
+                        -1,
+                        1
+                      ],
+                      "preemptionColumns": [
+                        7
+                      ],
+                      "noncompliantUpper": 4
+                    },
+                    "children": [
+                      {
+                        "responseColumn": 7,
+                        "upper": 3,
+                        "certificate": {
+                          "upper": 3,
+                          "constructor": "SETUP_NATIVE_CPC",
+                          "setupColumn": 5,
+                          "postSetup": {
+                            "kind": "CPC_EXACT",
+                            "interval": [
+                              1,
+                              1
+                            ],
+                            "tactical": {
+                              "upper": 2,
+                              "route": "MULTIPLE_PLAYABLE_SINGLETONS",
+                              "targets": [
+                                {
+                                  "column": 3,
+                                  "row": 3
+                                },
+                                {
+                                  "column": 6,
+                                  "row": 4
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "sequence": "5535627422133",
+      "rank": 13,
+      "attacker": 2,
+      "upper": 5,
+      "constructor": "SETUP_CPC_RESTRICTION",
+      "certificate": {
+        "upper": 5,
+        "constructor": "SETUP_CPC_RESTRICTION",
+        "setupColumn": 4,
+        "postSetup": {
+          "kind": "CPC_RESTRICT",
+          "interval": [
+            -1,
+            1
+          ],
+          "preemptionColumns": [
+            6
+          ],
+          "noncompliantUpper": 4
+        },
+        "children": [
+          {
+            "responseColumn": 6,
+            "upper": 3,
+            "certificate": {
+              "upper": 3,
+              "constructor": "SETUP_NATIVE_CPC",
+              "setupColumn": 5,
+              "postSetup": {
+                "kind": "CPC_EXACT",
+                "interval": [
+                  -1,
+                  -1
+                ],
+                "tactical": {
+                  "upper": 2,
+                  "route": "MULTIPLE_PLAYABLE_SINGLETONS",
+                  "targets": [
+                    {
+                      "column": 4,
+                      "row": 3
+                    },
+                    {
+                      "column": 5,
+                      "row": 5
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "sequence": "653255161763443",
+      "rank": 15,
+      "attacker": 2,
+      "upper": 3,
+      "constructor": "SETUP_NATIVE_CPC",
+      "certificate": {
+        "upper": 3,
+        "constructor": "SETUP_NATIVE_CPC",
+        "setupColumn": 4,
+        "postSetup": {
+          "kind": "CPC_EXACT",
+          "interval": [
+            -1,
+            -1
+          ],
+          "tactical": {
+            "upper": 2,
+            "route": "MULTIPLE_PLAYABLE_SINGLETONS",
+            "targets": [
+              {
+                "column": 4,
+                "row": 4
+              },
+              {
+                "column": 5,
+                "row": 4
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "sequence": "666612275456412122",
+      "rank": 18,
+      "attacker": 1,
+      "upper": 3,
+      "constructor": "SETUP_NATIVE_CPC",
+      "certificate": {
+        "upper": 3,
+        "constructor": "SETUP_NATIVE_CPC",
+        "setupColumn": 3,
+        "postSetup": {
+          "kind": "CPC_EXACT",
+          "interval": [
+            1,
+            1
+          ],
+          "tactical": {
+            "upper": 2,
+            "route": "STACKED_SINGLETON_RELEASE",
+            "target": {
+              "column": 3,
+              "row": 2
+            },
+            "released": {
+              "column": 3,
+              "row": 3
+            }
+          }
+        }
+      }
+    },
+    {
+      "sequence": "61467664644347124",
+      "rank": 17,
+      "attacker": 2,
+      "upper": 7,
+      "constructor": "SETUP_CPC_RESTRICTION",
+      "certificate": {
+        "upper": 7,
+        "constructor": "SETUP_CPC_RESTRICTION",
+        "setupColumn": 5,
+        "postSetup": {
+          "kind": "CPC_RESTRICT",
+          "interval": [
+            -1,
+            1
+          ],
+          "preemptionColumns": [
+            5
+          ],
+          "noncompliantUpper": 4
+        },
+        "children": [
+          {
+            "responseColumn": 5,
+            "upper": 5,
+            "certificate": {
+              "upper": 5,
+              "constructor": "SETUP_CPC_RESTRICTION",
+              "setupColumn": 5,
+              "postSetup": {
+                "kind": "CPC_RESTRICT",
+                "interval": [
+                  -1,
+                  1
+                ],
+                "preemptionColumns": [
+                  7
+                ],
+                "noncompliantUpper": 4
+              },
+              "children": [
+                {
+                  "responseColumn": 7,
+                  "upper": 3,
+                  "certificate": {
+                    "upper": 3,
+                    "constructor": "SETUP_NATIVE_CPC",
+                    "setupColumn": 3,
+                    "postSetup": {
+                      "kind": "CPC_EXACT",
+                      "interval": [
+                        -1,
+                        -1
+                      ],
+                      "tactical": {
+                        "upper": 2,
+                        "route": "MULTIPLE_PLAYABLE_SINGLETONS",
+                        "targets": [
+                          {
+                            "column": 3,
+                            "row": 3
+                          },
+                          {
+                            "column": 5,
+                            "row": 4
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "sequence": "6337737361156653153",
+      "rank": 19,
+      "attacker": 2,
+      "upper": 3,
+      "constructor": "SETUP_NATIVE_CPC",
+      "certificate": {
+        "upper": 3,
+        "constructor": "SETUP_NATIVE_CPC",
+        "setupColumn": 2,
+        "postSetup": {
+          "kind": "CPC_EXACT",
+          "interval": [
+            -1,
+            -1
+          ],
+          "tactical": {
+            "upper": 2,
+            "route": "STACKED_SINGLETON_RELEASE",
+            "target": {
+              "column": 4,
+              "row": 1
+            },
+            "released": {
+              "column": 4,
+              "row": 2
+            }
+          }
+        }
+      }
+    },
+    {
+      "sequence": "54774752553655",
+      "rank": 14,
+      "attacker": 1,
+      "upper": 3,
+      "constructor": "SETUP_NATIVE_CPC",
+      "certificate": {
+        "upper": 3,
+        "constructor": "SETUP_NATIVE_CPC",
+        "setupColumn": 3,
+        "postSetup": {
+          "kind": "CPC_EXACT",
+          "interval": [
+            1,
+            1
+          ],
+          "tactical": {
+            "upper": 2,
+            "route": "MULTIPLE_PLAYABLE_SINGLETONS",
+            "targets": [
+              {
+                "column": 2,
+                "row": 2
+              },
+              {
+                "column": 6,
+                "row": 2
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "sequence": "451223211567545",
+      "rank": 15,
+      "attacker": 2,
+      "upper": 3,
+      "constructor": "SETUP_NATIVE_CPC",
+      "certificate": {
+        "upper": 3,
+        "constructor": "SETUP_NATIVE_CPC",
+        "setupColumn": 6,
+        "postSetup": {
+          "kind": "CPC_EXACT",
+          "interval": [
+            -1,
+            -1
+          ],
+          "tactical": {
+            "upper": 2,
+            "route": "MULTIPLE_PLAYABLE_SINGLETONS",
+            "targets": [
+              {
+                "column": 3,
+                "row": 2
+              },
+              {
+                "column": 7,
+                "row": 2
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "sequence": "45515346",
+      "rank": 8,
+      "attacker": 1,
+      "upper": 7,
+      "constructor": "SETUP_CPC_RESTRICTION",
+      "certificate": {
+        "upper": 7,
+        "constructor": "SETUP_CPC_RESTRICTION",
+        "setupColumn": 3,
+        "postSetup": {
+          "kind": "CPC_RESTRICT",
+          "interval": [
+            -1,
+            1
+          ],
+          "preemptionColumns": [
+            6
+          ],
+          "noncompliantUpper": 4
+        },
+        "children": [
+          {
+            "responseColumn": 6,
+            "upper": 5,
+            "certificate": {
+              "upper": 5,
+              "constructor": "SETUP_CPC_RESTRICTION",
+              "setupColumn": 2,
+              "postSetup": {
+                "kind": "CPC_RESTRICT",
+                "interval": [
+                  -1,
+                  1
+                ],
+                "preemptionColumns": [
+                  2
+                ],
+                "noncompliantUpper": 4
+              },
+              "children": [
+                {
+                  "responseColumn": 2,
+                  "upper": 3,
+                  "certificate": {
+                    "upper": 3,
+                    "constructor": "SETUP_NATIVE_CPC",
+                    "setupColumn": 4,
+                    "postSetup": {
+                      "kind": "CPC_EXACT",
+                      "interval": [
+                        1,
+                        1
+                      ],
+                      "tactical": {
+                        "upper": 2,
+                        "route": "MULTIPLE_PLAYABLE_SINGLETONS",
+                        "targets": [
+                          {
+                            "column": 4,
+                            "row": 4
+                          },
+                          {
+                            "column": 5,
+                            "row": 4
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "sequence": "3475327746",
+      "rank": 10,
+      "attacker": 1,
+      "upper": 3,
+      "constructor": "SETUP_NATIVE_CPC",
+      "certificate": {
+        "upper": 3,
+        "constructor": "SETUP_NATIVE_CPC",
+        "setupColumn": 5,
+        "postSetup": {
+          "kind": "CPC_EXACT",
+          "interval": [
+            1,
+            1
+          ],
+          "tactical": {
+            "upper": 2,
+            "route": "MULTIPLE_PLAYABLE_SINGLETONS",
+            "targets": [
+              {
+                "column": 2,
+                "row": 2
+              },
+              {
+                "column": 6,
+                "row": 2
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "sequence": "52256721571571",
+      "rank": 14,
+      "attacker": 1,
+      "upper": 5,
+      "constructor": "SETUP_CPC_RESTRICTION",
+      "certificate": {
+        "upper": 5,
+        "constructor": "SETUP_CPC_RESTRICTION",
+        "setupColumn": 4,
+        "postSetup": {
+          "kind": "CPC_RESTRICT",
+          "interval": [
+            -1,
+            1
+          ],
+          "preemptionColumns": [
+            3
+          ],
+          "noncompliantUpper": 4
+        },
+        "children": [
+          {
+            "responseColumn": 3,
+            "upper": 3,
+            "certificate": {
+              "upper": 3,
+              "constructor": "SETUP_NATIVE_CPC",
+              "setupColumn": 3,
+              "postSetup": {
+                "kind": "CPC_EXACT",
+                "interval": [
+                  1,
+                  1
+                ],
+                "tactical": {
+                  "upper": 2,
+                  "route": "MULTIPLE_PLAYABLE_SINGLETONS",
+                  "targets": [
+                    {
+                      "column": 4,
+                      "row": 2
+                    },
+                    {
+                      "column": 1,
+                      "row": 4
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "sequence": "1774366464554221245716",
+      "rank": 22,
+      "attacker": 1,
+      "upper": 7,
+      "constructor": "SETUP_CPC_RESTRICTION",
+      "certificate": {
+        "upper": 7,
+        "constructor": "SETUP_CPC_RESTRICTION",
+        "setupColumn": 2,
+        "postSetup": {
+          "kind": "CPC_RESTRICT",
+          "interval": [
+            -1,
+            1
+          ],
+          "preemptionColumns": [
+            2
+          ],
+          "noncompliantUpper": 4
+        },
+        "children": [
+          {
+            "responseColumn": 2,
+            "upper": 5,
+            "certificate": {
+              "upper": 5,
+              "constructor": "SETUP_CPC_RESTRICTION",
+              "setupColumn": 3,
+              "postSetup": {
+                "kind": "CPC_RESTRICT",
+                "interval": [
+                  -1,
+                  1
+                ],
+                "preemptionColumns": [
+                  3
+                ],
+                "noncompliantUpper": 4
+              },
+              "children": [
+                {
+                  "responseColumn": 3,
+                  "upper": 3,
+                  "certificate": {
+                    "upper": 3,
+                    "constructor": "SETUP_NATIVE_CPC",
+                    "setupColumn": 3,
+                    "postSetup": {
+                      "kind": "CPC_EXACT",
+                      "interval": [
+                        1,
+                        1
+                      ],
+                      "tactical": {
+                        "upper": 2,
+                        "route": "MULTIPLE_PLAYABLE_SINGLETONS",
+                        "targets": [
+                          {
+                            "column": 1,
+                            "row": 4
+                          },
+                          {
+                            "column": 5,
+                            "row": 4
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "sequence": "237751117415541",
+      "rank": 15,
+      "attacker": 2,
+      "upper": 7,
+      "constructor": "SETUP_CPC_RESTRICTION",
+      "certificate": {
+        "upper": 7,
+        "constructor": "SETUP_CPC_RESTRICTION",
+        "setupColumn": 3,
+        "postSetup": {
+          "kind": "CPC_RESTRICT",
+          "interval": [
+            -1,
+            1
+          ],
+          "preemptionColumns": [
+            2
+          ],
+          "noncompliantUpper": 4
+        },
+        "children": [
+          {
+            "responseColumn": 2,
+            "upper": 5,
+            "certificate": {
+              "upper": 5,
+              "constructor": "SETUP_CPC_RESTRICTION",
+              "setupColumn": 3,
+              "postSetup": {
+                "kind": "CPC_RESTRICT",
+                "interval": [
+                  -1,
+                  1
+                ],
+                "preemptionColumns": [
+                  3
+                ],
+                "noncompliantUpper": 4
+              },
+              "children": [
+                {
+                  "responseColumn": 3,
+                  "upper": 3,
+                  "certificate": {
+                    "upper": 3,
+                    "constructor": "SETUP_NATIVE_CPC",
+                    "setupColumn": 4,
+                    "postSetup": {
+                      "kind": "CPC_EXACT",
+                      "interval": [
+                        -1,
+                        -1
+                      ],
+                      "tactical": {
+                        "upper": 2,
+                        "route": "MULTIPLE_PLAYABLE_SINGLETONS",
+                        "targets": [
+                          {
+                            "column": 2,
+                            "row": 3
+                          },
+                          {
+                            "column": 4,
+                            "row": 4
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "sequence": "5266221113312465762",
+      "rank": 19,
+      "attacker": 2,
+      "upper": 3,
+      "constructor": "SETUP_NATIVE_CPC",
+      "certificate": {
+        "upper": 3,
+        "constructor": "SETUP_NATIVE_CPC",
+        "setupColumn": 4,
+        "postSetup": {
+          "kind": "CPC_EXACT",
+          "interval": [
+            -1,
+            -1
+          ],
+          "tactical": {
+            "upper": 2,
+            "route": "MULTIPLE_PLAYABLE_SINGLETONS",
+            "targets": [
+              {
+                "column": 7,
+                "row": 2
+              },
+              {
+                "column": 5,
+                "row": 3
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "sequence": "2741473551",
+      "rank": 10,
+      "attacker": 1,
+      "upper": 9,
+      "constructor": "SETUP_CPC_RESTRICTION",
+      "certificate": {
+        "upper": 9,
+        "constructor": "SETUP_CPC_RESTRICTION",
+        "setupColumn": 2,
+        "postSetup": {
+          "kind": "CPC_RESTRICT",
+          "interval": [
+            -1,
+            1
+          ],
+          "preemptionColumns": [
+            3
+          ],
+          "noncompliantUpper": 4
+        },
+        "children": [
+          {
+            "responseColumn": 3,
+            "upper": 7,
+            "certificate": {
+              "upper": 7,
+              "constructor": "SETUP_CPC_RESTRICTION",
+              "setupColumn": 2,
+              "postSetup": {
+                "kind": "CPC_RESTRICT",
+                "interval": [
+                  -1,
+                  1
+                ],
+                "preemptionColumns": [
+                  2
+                ],
+                "noncompliantUpper": 4
+              },
+              "children": [
+                {
+                  "responseColumn": 2,
+                  "upper": 5,
+                  "certificate": {
+                    "upper": 5,
+                    "constructor": "SETUP_CPC_RESTRICTION",
+                    "setupColumn": 4,
+                    "postSetup": {
+                      "kind": "CPC_RESTRICT",
+                      "interval": [
+                        -1,
+                        1
+                      ],
+                      "preemptionColumns": [
+                        4
+                      ],
+                      "noncompliantUpper": 4
+                    },
+                    "children": [
+                      {
+                        "responseColumn": 4,
+                        "upper": 3,
+                        "certificate": {
+                          "upper": 3,
+                          "constructor": "SETUP_NATIVE_CPC",
+                          "setupColumn": 3,
+                          "postSetup": {
+                            "kind": "CPC_EXACT",
+                            "interval": [
+                              1,
+                              1
+                            ],
+                            "tactical": {
+                              "upper": 2,
+                              "route": "MULTIPLE_PLAYABLE_SINGLETONS",
+                              "targets": [
+                                {
+                                  "column": 1,
+                                  "row": 3
+                                },
+                                {
+                                  "column": 5,
+                                  "row": 3
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "sequence": "64751674411",
+      "rank": 11,
+      "attacker": 2,
+      "upper": 5,
+      "constructor": "SETUP_CPC_RESTRICTION",
+      "certificate": {
+        "upper": 5,
+        "constructor": "SETUP_CPC_RESTRICTION",
+        "setupColumn": 2,
+        "postSetup": {
+          "kind": "CPC_RESTRICT",
+          "interval": [
+            -1,
+            1
+          ],
+          "preemptionColumns": [
+            3
+          ],
+          "noncompliantUpper": 4
+        },
+        "children": [
+          {
+            "responseColumn": 3,
+            "upper": 3,
+            "certificate": {
+              "upper": 3,
+              "constructor": "SETUP_NATIVE_CPC",
+              "setupColumn": 3,
+              "postSetup": {
+                "kind": "CPC_EXACT",
+                "interval": [
+                  -1,
+                  -1
+                ],
+                "tactical": {
+                  "upper": 2,
+                  "route": "MULTIPLE_PLAYABLE_SINGLETONS",
+                  "targets": [
+                    {
+                      "column": 2,
+                      "row": 2
+                    },
+                    {
+                      "column": 5,
+                      "row": 2
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "sequence": "4251361231",
+      "rank": 10,
+      "attacker": 1,
+      "upper": 11,
+      "constructor": "SETUP_CPC_RESTRICTION",
+      "certificate": {
+        "upper": 11,
+        "constructor": "SETUP_CPC_RESTRICTION",
+        "setupColumn": 2,
+        "postSetup": {
+          "kind": "CPC_RESTRICT",
+          "interval": [
+            -1,
+            1
+          ],
+          "preemptionColumns": [
+            1
+          ],
+          "noncompliantUpper": 4
+        },
+        "children": [
+          {
+            "responseColumn": 1,
+            "upper": 9,
+            "certificate": {
+              "upper": 9,
+              "constructor": "SETUP_CPC_RESTRICTION",
+              "setupColumn": 3,
+              "postSetup": {
+                "kind": "CPC_RESTRICT",
+                "interval": [
+                  -1,
+                  1
+                ],
+                "preemptionColumns": [
+                  3
+                ],
+                "noncompliantUpper": 4
+              },
+              "children": [
+                {
+                  "responseColumn": 3,
+                  "upper": 7,
+                  "certificate": {
+                    "upper": 7,
+                    "constructor": "SETUP_CPC_RESTRICTION",
+                    "setupColumn": 4,
+                    "postSetup": {
+                      "kind": "CPC_RESTRICT",
+                      "interval": [
+                        -1,
+                        1
+                      ],
+                      "preemptionColumns": [
+                        2
+                      ],
+                      "noncompliantUpper": 4
+                    },
+                    "children": [
+                      {
+                        "responseColumn": 2,
+                        "upper": 5,
+                        "certificate": {
+                          "upper": 5,
+                          "constructor": "SETUP_CPC_RESTRICTION",
+                          "setupColumn": 5,
+                          "postSetup": {
+                            "kind": "CPC_RESTRICT",
+                            "interval": [
+                              -1,
+                              1
+                            ],
+                            "preemptionColumns": [
+                              6
+                            ],
+                            "noncompliantUpper": 4
+                          },
+                          "children": [
+                            {
+                              "responseColumn": 6,
+                              "upper": 3,
+                              "certificate": {
+                                "upper": 3,
+                                "constructor": "SETUP_NATIVE_CPC",
+                                "setupColumn": 5,
+                                "postSetup": {
+                                  "kind": "CPC_EXACT",
+                                  "interval": [
+                                    1,
+                                    1
+                                  ],
+                                  "tactical": {
+                                    "upper": 2,
+                                    "route": "MULTIPLE_PLAYABLE_SINGLETONS",
+                                    "targets": [
+                                      {
+                                        "column": 4,
+                                        "row": 3
+                                      },
+                                      {
+                                        "column": 5,
+                                        "row": 4
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "freezeBoundary": [
+    "Every certificate was produced before any oracle query.",
+    "Only the frozen A_D proof grammar is used: exact RBA cofactors, native CPC tactical closure, and exact CPC_RESTRICT transport.",
+    "CPC_NONE is not expanded.",
+    "These positions are fresh with respect to the consumed 444441566 training prefix."
+  ]
+}
