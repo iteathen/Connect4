@@ -110,6 +110,7 @@ function verifyState(sequence,label){
     label,sequence,attacker:attacker+1,heights:P.heights,
     e3Depth,
     pairCore:[...LOWER,...UPPER].map(r=>r.map(named)),
+    firstWinGuard:{passed:true,defenderImmediateWinColumns:[]},
     branches:[]
   };
 
@@ -138,7 +139,18 @@ function verifyState(sequence,label){
 
   // First-win guard: defender must have no immediate terminal response.
   const defenderWins=winningFrontier(S,defender);
-  assert.deepEqual(defenderWins,[],label+' defender has immediate counterwin after E2');
+  if(defenderWins.length){
+    record.firstWinGuard={
+      passed:false,
+      defenderImmediateWinColumns:defenderWins.map(c=>c+1),
+    };
+    record.branches.push({
+      kind:'FIRST_WIN_GUARD_FAIL',
+      attackerSupportMove:5,
+      defenderImmediateWinColumns:defenderWins.map(c=>c+1),
+    });
+    return record;
+  }
 
   for(const d of legal(S)){
     const D=apply(S,d);
@@ -198,6 +210,15 @@ console.log(JSON.stringify({
     hubs:[named(E3),named(E4)]
   },
   states,
+  controlSummary:{
+    guardedStates:states.filter(s=>s.firstWinGuard.passed).length,
+    guardFailures:states.filter(s=>!s.firstWinGuard.passed).map(s=>({
+      label:s.label,
+      defenderImmediateWinColumns:s.firstWinGuard.defenderImmediateWinColumns
+    })),
+    candidate2AllGuarded:states.filter(s=>s.label.startsWith('candidate2_')).every(s=>s.firstWinGuard.passed),
+    candidate3AllGuarded:states.filter(s=>s.label.startsWith('candidate3_')).every(s=>s.firstWinGuard.passed),
+  },
   theoremCandidate:[
     'If attacker owns the four pair residuals {x,h},{h,y},{u,h+},{h+,v}, h+ is immediately above h in one column, h is playable or one support event away, attacker moves, and no defender counterwin exists after the support move, then attacker can force terminal or at least one live singleton residual in at most three plies.',
     'If h is playable, take h and both lower pair residuals become singleton residuals.',
