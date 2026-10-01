@@ -1,0 +1,82 @@
+name: Research CPC rank24 reply7 c7 dual obligation
+
+on:
+  push:
+    branches:
+      - research/universal-structural-policy-20260930
+    paths:
+      - .github/workflows/research-cpc-rank24-reply7-c7-dual-obligation.yml
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/run-cpc-rank24-reply7-c7-dual-obligation-probe.mjs
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_RANK24_REPLY7_C7_DUAL_OBLIGATION_HYPOTHESIS.md
+
+permissions:
+  contents: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Fetch pinned JSMinSys authority
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone https://github.com/iteathen/JSMinSys.git jsminsys
+          git -C jsminsys checkout bf23d3a67652cd42e1975f29c7dc4eed54f7eb42
+          test -z "$(git -C jsminsys status --porcelain)"
+      - name: Run c7 dual-obligation probe
+        shell: bash
+        run: |
+          set -euo pipefail
+          DIR=research/isograph/discovery/2026-09-30-universal-structural-policy
+          OUT="$DIR/CPC_RANK24_REPLY7_C7_DUAL_OBLIGATION_PROBE_0_1.json"
+          node "$DIR/run-cpc-rank24-reply7-c7-dual-obligation-probe.mjs" ./jsminsys > "$OUT"
+          node - "$OUT" <<'NODE'
+          const fs=require('fs');
+          const r=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
+          if(r.oracleUsed!==false||r.solvedInputsUsed!==false||r.oracleValuesUsed!==false)
+            throw new Error('forbidden solved/oracle evidence');
+          console.log(JSON.stringify({
+            firstMove:r.firstMove,
+            rows:r.rows.map(x=>({
+              reply:x.defenderReplyColumn,
+              terminal:x.replyTerminal,
+              offC7:x.offC7Followup?{
+                terminal:x.offC7Followup.terminal,
+                singleton:x.offC7Followup.singletonC5R5,
+                owner:x.offC7Followup.projectedOwnerC5R5,
+                template:!!x.offC7Followup.targetTemplate,
+                validation:x.offC7Followup.validation?.pass,
+                accept:x.offC7Followup.accept
+              }:null,
+              c7Taken:x.c7TakenBranch?{
+                pairSurvives:x.c7TakenBranch.pairC1R3C3R5Survives,
+                candidates:x.c7TakenBranch.p1Candidates
+              }:null
+            }))
+          }));
+          NODE
+      - name: Commit durable probe evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          BRANCH=research/universal-structural-policy-20260930
+          FILE=research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_RANK24_REPLY7_C7_DUAL_OBLIGATION_PROBE_0_1.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$FILE"
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "research: record rank24 reply7 c7 dual-obligation probe"
+          for attempt in 1 2 3; do
+            git fetch origin "$BRANCH"
+            git rebase --autostash "origin/$BRANCH"
+            if git push origin HEAD:"$BRANCH"; then exit 0; fi
+            sleep 1
+          done
+          exit 1
