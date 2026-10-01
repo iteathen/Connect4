@@ -1,0 +1,94 @@
+name: Research NEES CPC memo capacity sweep
+
+on:
+  push:
+    branches:
+      - research/universal-structural-policy-20260930
+    paths:
+      - .github/workflows/research-cpc-nees-memo-capacity-sweep.yml
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/run-cpc-guard-survival-nees-kernel.mjs
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Check out exact pushed revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+      - name: Pin Node runtime
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Fetch NEES JSMinSys kernel revision
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --branch research/cpc-guard-proof-memo-nees-v1 --single-branch https://github.com/iteathen/JSMinSys.git jsminsys-nees
+          git -C jsminsys-nees checkout db9cda32fc814a7f982816556cb59ab82a7a4782
+      - name: Sweep D19 memo capacities
+        shell: bash
+        env:
+          NODE_OPTIONS: --max-old-space-size=2048
+        run: |
+          set -euo pipefail
+          DIR=research/isograph/discovery/2026-09-30-universal-structural-policy
+          OUT="$DIR/CPC_NEES_GUARD_KERNEL_MEMO_SWEEP_D19_0_1.json"
+          rm -f /tmp/cpc-nees-sweep-*.json
+          for C in 262144 1048576 4194304 8388608; do
+            echo "CAPACITY=$C"
+            node "$DIR/run-cpc-guard-survival-nees-kernel.mjs" ./jsminsys-nees 19 "$C" > "/tmp/cpc-nees-sweep-$C.json"
+          done
+          node - "$OUT" <<'NODE'
+          const fs=require('fs');
+          const out=process.argv[2];
+          const caps=[262144,1048576,4194304,8388608];
+          const rows=caps.map(capacity=>{
+            const r=JSON.parse(fs.readFileSync('/tmp/cpc-nees-sweep-'+capacity+'.json','utf8'));
+            if(!r.result.accept)throw new Error('D19 failed at capacity '+capacity);
+            return {
+              capacity,
+              elapsedNs:Number(r.runtime.elapsedNs),
+              elapsedMs:Number(r.runtime.elapsedNs)/1e6,
+              storedKeyWords:r.runtime.memoStoredKeyWords,
+              frameWords:r.runtime.frameWords,
+              frameBasis:r.runtime.frameBasis
+            };
+          });
+          const best=rows.reduce((a,b)=>a.elapsedNs<=b.elapsedNs?a:b);
+          const result={
+            schema:'connect4.cpc_nees_guard_kernel_memo_sweep.v1',
+            horizon:19,
+            rows,
+            bestCapacity:best.capacity,
+            boundary:[
+              'Same exact proof kernel and theorem grammar; only direct-map memo capacity changes.',
+              'Kernel elapsedNs excludes cold ingress/preparation and is a tuning diagnostic subordinate to whole proof cost.',
+              'Larger memory is not automatically preferred; promotion must consider governing wall time and working-set cost.'
+            ]
+          };
+          fs.writeFileSync(out,JSON.stringify(result,null,2)+'\n');
+          console.log(JSON.stringify(result,null,2));
+          NODE
+      - name: Commit durable capacity evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          BRANCH=research/universal-structural-policy-20260930
+          FILE=research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_NEES_GUARD_KERNEL_MEMO_SWEEP_D19_0_1.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$FILE"
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "research: tune NEES guard proof memo capacity"
+          for attempt in 1 2 3; do
+            git fetch origin "$BRANCH"
+            git rebase --autostash "origin/$BRANCH"
+            if git push origin HEAD:"$BRANCH"; then exit 0; fi
+            sleep 1
+          done
+          exit 1
