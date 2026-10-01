@@ -1,0 +1,60 @@
+name: Research CPC late three-column phase-debt diagnostic
+
+on:
+  push:
+    branches:
+      - research/universal-structural-policy-20260930
+    paths:
+      - .github/workflows/research-cpc-three-column-late-phase-debt.yml
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/run-cpc-three-column-late-phase-debt-discovery.mjs
+
+permissions:
+  contents: write
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Fetch pinned JSMinSys authority
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone https://github.com/iteathen/JSMinSys.git jsminsys
+          git -C jsminsys checkout bf23d3a67652cd42e1975f29c7dc4eed54f7eb42
+      - name: Run late phase-debt diagnostic
+        shell: bash
+        run: |
+          set -euo pipefail
+          DIR=research/isograph/discovery/2026-09-30-universal-structural-policy
+          OUT="$DIR/CPC_THREE_COLUMN_LATE_PHASE_DEBT_DISCOVERY_0_1.json"
+          node "$DIR/run-cpc-three-column-late-phase-debt-discovery.mjs" ./jsminsys > "$OUT"
+          node - "$OUT" <<'NODE'
+          const fs=require('fs'),r=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
+          if(r.oracleUsed!==false||r.solvedInputsUsed!==false||r.proofPremiseAllowed!==false)throw new Error('boundary failure');
+          console.log(JSON.stringify({rows:r.rows.map(x=>({label:x.label,support:x.support,value:x.discovery.value,best:x.discovery.bestMoves,moves:x.discovery.moves,p1:x.p1Minimal,p2:x.p2Minimal})),orientations:r.sharedSupportOrientations}));
+          NODE
+      - name: Commit durable evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          BRANCH=research/universal-structural-policy-20260930
+          FILE=research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_THREE_COLUMN_LATE_PHASE_DEBT_DISCOVERY_0_1.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$FILE"
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "research: record late three-column phase-debt diagnostic"
+          for attempt in 1 2 3; do
+            git fetch origin "$BRANCH"
+            git rebase --autostash "origin/$BRANCH"
+            if git push origin HEAD:"$BRANCH"; then exit 0; fi
+            sleep 1
+          done
+          exit 1
