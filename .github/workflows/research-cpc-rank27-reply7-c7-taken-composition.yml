@@ -1,0 +1,71 @@
+name: Research CPC rank27 reply7 c7-taken composition
+
+on:
+  push:
+    branches:
+      - research/universal-structural-policy-20260930
+    paths:
+      - .github/workflows/research-cpc-rank27-reply7-c7-taken-composition.yml
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_RANK27_REPLY7_C7_TAKEN_COMPOSITION_THEOREM.md
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/test-cpc-rank27-reply7-c7-taken-composition.mjs
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/run-cpc-rank27-reply7-c7-taken-composition.mjs
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/run-cpc-rank28-dual-singleton-handoff-composition.mjs
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/run-cpc-rank30-phase-transfer-composition.mjs
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/run-cpc-three-column-phase-transfer-win.mjs
+
+permissions:
+  contents: write
+
+jobs:
+  qualify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Fetch pinned JSMinSys authority
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone https://github.com/iteathen/JSMinSys.git jsminsys
+          git -C jsminsys checkout bf23d3a67652cd42e1975f29c7dc4eed54f7eb42
+          test -z "$(git -C jsminsys status --porcelain)"
+      - name: Verify frozen rank27 composition contract
+        run: node research/isograph/discovery/2026-09-30-universal-structural-policy/test-cpc-rank27-reply7-c7-taken-composition.mjs ./jsminsys
+      - name: Generate durable qualification evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          DIR=research/isograph/discovery/2026-09-30-universal-structural-policy
+          OUT="$DIR/CPC_RANK27_REPLY7_C7_TAKEN_COMPOSITION_0_1.json"
+          node "$DIR/run-cpc-rank27-reply7-c7-taken-composition.mjs" ./jsminsys > "$OUT"
+          node - "$OUT" <<'NODE'
+          const fs=require('fs'),r=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
+          if(r.oracleUsed!==false||r.solvedInputsUsed!==false)throw new Error('forbidden solved evidence flag');
+          if(r.jsMinSysSha!=='bf23d3a67652cd42e1975f29c7dc4eed54f7eb42')throw new Error('authority drift');
+          if(r.accept!==true)throw new Error('rank27 c7-taken composition rejected');
+          if(r.rows.length!==5||r.rows.some(x=>x.accept!==true))throw new Error('not every legal defender reply is closed');
+          console.log(JSON.stringify({accept:r.accept,state:r.state,rows:r.rows.map(x=>({defenderColumn:x.defenderColumn,kind:x.kind,accept:x.accept})),conclusion:r.conclusion}));
+          NODE
+      - name: Commit durable qualification evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          BRANCH=research/universal-structural-policy-20260930
+          FILE=research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_RANK27_REPLY7_C7_TAKEN_COMPOSITION_0_1.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$FILE"
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "research: record rank27 c7-taken composition"
+          for attempt in 1 2 3; do
+            git fetch origin "$BRANCH"
+            git rebase --autostash "origin/$BRANCH"
+            if git push origin HEAD:"$BRANCH"; then exit 0; fi
+            sleep 1
+          done
+          exit 1
