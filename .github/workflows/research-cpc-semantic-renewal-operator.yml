@@ -70,6 +70,13 @@ jobs:
           git add "$FILE"
           if git diff --cached --quiet; then exit 0; fi
           git commit -m "research: verify semantic CPC renewal operator"
-          git fetch origin "$BRANCH"
-          git rebase "origin/$BRANCH"
-          git push origin HEAD:"$BRANCH"
+          for attempt in 1 2 3; do
+            git fetch origin "$BRANCH"
+            git rebase "origin/$BRANCH"
+            if git push origin HEAD:"$BRANCH"; then
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "failed to publish semantic renewal evidence after retries" >&2
+          exit 1
