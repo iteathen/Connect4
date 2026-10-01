@@ -1,0 +1,199 @@
+{
+  "schema": "connect4.cpc_nees_guard_trigger_diagnostic.v1",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "root": {
+    "sequence": "444441566666",
+    "rank": 12,
+    "support": [
+      1,
+      0,
+      0,
+      5,
+      1,
+      5,
+      0
+    ],
+    "guards": [
+      {
+        "column": 1,
+        "height": 1
+      },
+      {
+        "column": 6,
+        "height": 5
+      }
+    ]
+  },
+  "horizon": 25,
+  "absolutePly": 37,
+  "triggerColumn": 2,
+  "candidateMask": 70,
+  "guardMask": 33,
+  "triggerTerminal": 0,
+  "responses": [
+    {
+      "responseColumn": 2,
+      "terminal": 0,
+      "childCode": 2,
+      "childAccept": false,
+      "childFailedTrigger": 1,
+      "nextOddDefenderMask": 229377,
+      "childRank": 14,
+      "childSupport": [
+        1,
+        2,
+        0,
+        5,
+        1,
+        5,
+        0
+      ],
+      "childGuards": [
+        {
+          "column": 1,
+          "height": 1
+        },
+        {
+          "column": 6,
+          "height": 5
+        }
+      ],
+      "childCpc": {
+        "kind": "CPC_EXACT",
+        "interval": [
+          1,
+          1
+        ],
+        "forcedColumn": null,
+        "preemptionCount": 0,
+        "preemptionMask32": 0,
+        "precursorCount": 0
+      },
+      "attackerResidualProfile": {
+        "count": 27,
+        "deadlineHistogram": {
+          "1": 1,
+          "5": 8,
+          "7": 10,
+          "9": 8
+        }
+      }
+    },
+    {
+      "responseColumn": 3,
+      "terminal": 0,
+      "childCode": 3,
+      "childAccept": false,
+      "childFailedTrigger": 2,
+      "nextOddDefenderMask": 229441,
+      "childRank": 14,
+      "childSupport": [
+        1,
+        1,
+        1,
+        5,
+        1,
+        5,
+        0
+      ],
+      "childGuards": [
+        {
+          "column": 1,
+          "height": 1
+        },
+        {
+          "column": 3,
+          "height": 1
+        },
+        {
+          "column": 6,
+          "height": 5
+        }
+      ],
+      "childCpc": {
+        "kind": "CPC_NONE",
+        "interval": [
+          -1,
+          1
+        ],
+        "forcedColumn": null,
+        "preemptionCount": 0,
+        "preemptionMask32": 0,
+        "precursorCount": 0
+      },
+      "attackerResidualProfile": {
+        "count": 27,
+        "deadlineHistogram": {
+          "3": 1,
+          "5": 6,
+          "7": 10,
+          "9": 10
+        }
+      }
+    },
+    {
+      "responseColumn": 7,
+      "terminal": 0,
+      "childCode": 2,
+      "childAccept": false,
+      "childFailedTrigger": 1,
+      "nextOddDefenderMask": 491521,
+      "childRank": 14,
+      "childSupport": [
+        1,
+        1,
+        0,
+        5,
+        1,
+        5,
+        1
+      ],
+      "childGuards": [
+        {
+          "column": 1,
+          "height": 1
+        },
+        {
+          "column": 6,
+          "height": 5
+        },
+        {
+          "column": 7,
+          "height": 1
+        }
+      ],
+      "childCpc": {
+        "kind": "CPC_EXACT",
+        "interval": [
+          1,
+          1
+        ],
+        "forcedColumn": null,
+        "preemptionCount": 0,
+        "preemptionMask32": 0,
+        "precursorCount": 0
+      },
+      "attackerResidualProfile": {
+        "count": 27,
+        "deadlineHistogram": {
+          "1": 1,
+          "5": 5,
+          "7": 10,
+          "9": 11
+        }
+      }
+    }
+  ],
+  "runtime": {
+    "elapsedNs": "8072400380",
+    "memoCapacity": 4194304
+  },
+  "boundary": [
+    "This is a diagnostic projection of the already-frozen NEES guard-survival response grammar; it adds no legal response.",
+    "Each childCode is the existing D25 survival result after exact trigger/response cofactors: 1 means closed/survives; 2..8 identifies that child class first unclosed attacker trigger.",
+    "Failure remains grammar incompleteness only, not an attacker forced-completion certificate.",
+    "No oracle, solved W/D/L, best-move labels, or physical-board identity is used by the proof diagnostic."
+  ]
+}
