@@ -1,0 +1,933 @@
+{
+  "schema": "connect4.cpc_three_column_phase_transfer_win.v1",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "theoremCandidate": "CPC_THREE_COLUMN_PHASE_TRANSFER_WIN_THEOREM.md",
+  "root": {
+    "sequence": "4444415666662322224233177716111",
+    "rank": 31,
+    "mover": 2,
+    "support": [
+      6,
+      6,
+      3,
+      6,
+      1,
+      6,
+      3
+    ],
+    "legalColumns": [
+      3,
+      5,
+      7
+    ],
+    "activeP1Singletons": [
+      {
+        "column": 3,
+        "row": 5,
+        "active": true
+      },
+      {
+        "column": 5,
+        "row": 4,
+        "active": true
+      }
+    ]
+  },
+  "policy": {
+    "directC3": {
+      "p2Column": 3,
+      "p2Terminal": 0,
+      "supportAfterP2": [
+        6,
+        6,
+        4,
+        6,
+        1,
+        6,
+        3
+      ],
+      "p1Column": 3,
+      "p1Terminal": 3,
+      "supportAfterP1": [
+        6,
+        6,
+        5,
+        6,
+        1,
+        6,
+        3
+      ],
+      "accept": true
+    },
+    "afterP2C5": {
+      "responseColumn": 7,
+      "stateA": {
+        "rank": 33,
+        "mover": 2,
+        "terminal": 0,
+        "support": [
+          6,
+          6,
+          3,
+          6,
+          2,
+          6,
+          4
+        ],
+        "legalColumns": [
+          3,
+          5,
+          7
+        ],
+        "basisSize": 23,
+        "rbaWords": [
+          6,
+          6,
+          3,
+          6,
+          2,
+          6,
+          4,
+          132,
+          7400844,
+          0,
+          0,
+          7438608,
+          0,
+          0
+        ]
+      },
+      "branches": {
+        "c3": {
+          "p2Column": 3,
+          "p2Terminal": 0,
+          "supportAfterP2": [
+            6,
+            6,
+            4,
+            6,
+            2,
+            6,
+            4
+          ],
+          "p1Column": 3,
+          "p1Terminal": 3,
+          "supportAfterP1": [
+            6,
+            6,
+            5,
+            6,
+            2,
+            6,
+            4
+          ],
+          "accept": true
+        },
+        "c5": {
+          "p2Column": 5,
+          "p2Terminal": 0,
+          "supportAfterP2": [
+            6,
+            6,
+            3,
+            6,
+            3,
+            6,
+            4
+          ],
+          "p1Column": 5,
+          "p1Terminal": 3,
+          "supportAfterP1": [
+            6,
+            6,
+            3,
+            6,
+            4,
+            6,
+            4
+          ],
+          "accept": true
+        },
+        "c7": {
+          "p2Column": 7,
+          "p2Terminal": 0,
+          "supportAfterP2": [
+            6,
+            6,
+            3,
+            6,
+            2,
+            6,
+            5
+          ],
+          "p1Column": 7,
+          "p1Terminal": 0,
+          "state": {
+            "rank": 35,
+            "mover": 2,
+            "terminal": 0,
+            "support": [
+              6,
+              6,
+              3,
+              6,
+              2,
+              6,
+              6
+            ],
+            "legalColumns": [
+              3,
+              5
+            ],
+            "basisSize": 18,
+            "rbaWords": [
+              6,
+              6,
+              3,
+              6,
+              2,
+              6,
+              6,
+              140,
+              243596,
+              0,
+              0,
+              237840,
+              0,
+              0
+            ]
+          },
+          "accept": true,
+          "child": {
+            "words": {
+              "0": 6,
+              "1": 6,
+              "2": 3,
+              "3": 6,
+              "4": 2,
+              "5": 6,
+              "6": 6,
+              "7": 140,
+              "8": 243596,
+              "9": 0,
+              "10": 0,
+              "11": 237840,
+              "12": 0,
+              "13": 0
+            },
+            "basis": {
+              "0": 18,
+              "1": 23,
+              "2": 25,
+              "3": 30,
+              "4": 32,
+              "5": 37,
+              "6": 39,
+              "7": 211,
+              "8": 213,
+              "9": 246,
+              "10": 249,
+              "11": 253,
+              "12": 268,
+              "13": 289,
+              "14": 316,
+              "15": 485,
+              "16": 515,
+              "17": 608,
+              "18": 0,
+              "19": 0,
+              "20": 0,
+              "21": 0,
+              "22": 0,
+              "23": 0,
+              "24": 0,
+              "25": 0,
+              "26": 0,
+              "27": 0,
+              "28": 0,
+              "29": 0,
+              "30": 0,
+              "31": 0,
+              "32": 0,
+              "33": 0,
+              "34": 0,
+              "35": 0,
+              "36": 0,
+              "37": 0,
+              "38": 0,
+              "39": 0,
+              "40": 0,
+              "41": 0,
+              "42": 0,
+              "43": 0,
+              "44": 0,
+              "45": 0,
+              "46": 0,
+              "47": 0,
+              "48": 0,
+              "49": 0,
+              "50": 0,
+              "51": 0,
+              "52": 0,
+              "53": 0,
+              "54": 0,
+              "55": 0,
+              "56": 0,
+              "57": 0,
+              "58": 0,
+              "59": 0,
+              "60": 0,
+              "61": 0,
+              "62": 0,
+              "63": 0,
+              "64": 0,
+              "65": 0,
+              "66": 0,
+              "67": 0,
+              "68": 0
+            },
+            "n": 18,
+            "terminal": 0
+          }
+        }
+      },
+      "sinkZA": {
+        "state": {
+          "rank": 35,
+          "mover": 2,
+          "terminal": 0,
+          "support": [
+            6,
+            6,
+            3,
+            6,
+            2,
+            6,
+            6
+          ],
+          "legalColumns": [
+            3,
+            5
+          ],
+          "basisSize": 18,
+          "rbaWords": [
+            6,
+            6,
+            3,
+            6,
+            2,
+            6,
+            6,
+            140,
+            243596,
+            0,
+            0,
+            237840,
+            0,
+            0
+          ]
+        },
+        "branches": {
+          "c3": {
+            "p2Column": 3,
+            "p2Terminal": 0,
+            "supportAfterP2": [
+              6,
+              6,
+              4,
+              6,
+              2,
+              6,
+              6
+            ],
+            "p1Column": 3,
+            "p1Terminal": 3,
+            "supportAfterP1": [
+              6,
+              6,
+              5,
+              6,
+              2,
+              6,
+              6
+            ],
+            "accept": true
+          },
+          "c5": {
+            "p2Column": 5,
+            "p2Terminal": 0,
+            "supportAfterP2": [
+              6,
+              6,
+              3,
+              6,
+              3,
+              6,
+              6
+            ],
+            "p1Column": 5,
+            "p1Terminal": 3,
+            "supportAfterP1": [
+              6,
+              6,
+              3,
+              6,
+              4,
+              6,
+              6
+            ],
+            "accept": true
+          }
+        }
+      }
+    },
+    "afterP2C7": {
+      "responseColumn": 7,
+      "stateB": {
+        "rank": 33,
+        "mover": 2,
+        "terminal": 0,
+        "support": [
+          6,
+          6,
+          3,
+          6,
+          1,
+          6,
+          5
+        ],
+        "legalColumns": [
+          3,
+          5,
+          7
+        ],
+        "basisSize": 22,
+        "rbaWords": [
+          6,
+          6,
+          3,
+          6,
+          1,
+          6,
+          5,
+          132,
+          3993112,
+          0,
+          0,
+          3703328,
+          0,
+          0
+        ]
+      },
+      "branches": {
+        "c3": {
+          "p2Column": 3,
+          "p2Terminal": 0,
+          "supportAfterP2": [
+            6,
+            6,
+            4,
+            6,
+            1,
+            6,
+            5
+          ],
+          "p1Column": 3,
+          "p1Terminal": 3,
+          "supportAfterP1": [
+            6,
+            6,
+            5,
+            6,
+            1,
+            6,
+            5
+          ],
+          "accept": true
+        },
+        "c5": {
+          "p2Column": 5,
+          "p2Terminal": 0,
+          "supportAfterP2": [
+            6,
+            6,
+            3,
+            6,
+            2,
+            6,
+            5
+          ],
+          "p1Column": 7,
+          "p1Terminal": 0,
+          "state": {
+            "rank": 35,
+            "mover": 2,
+            "terminal": 0,
+            "support": [
+              6,
+              6,
+              3,
+              6,
+              2,
+              6,
+              6
+            ],
+            "legalColumns": [
+              3,
+              5
+            ],
+            "basisSize": 18,
+            "rbaWords": [
+              6,
+              6,
+              3,
+              6,
+              2,
+              6,
+              6,
+              140,
+              243596,
+              0,
+              0,
+              237840,
+              0,
+              0
+            ]
+          },
+          "accept": true,
+          "child": {
+            "words": {
+              "0": 6,
+              "1": 6,
+              "2": 3,
+              "3": 6,
+              "4": 2,
+              "5": 6,
+              "6": 6,
+              "7": 140,
+              "8": 243596,
+              "9": 0,
+              "10": 0,
+              "11": 237840,
+              "12": 0,
+              "13": 0
+            },
+            "basis": {
+              "0": 18,
+              "1": 23,
+              "2": 25,
+              "3": 30,
+              "4": 32,
+              "5": 37,
+              "6": 39,
+              "7": 211,
+              "8": 213,
+              "9": 246,
+              "10": 249,
+              "11": 253,
+              "12": 268,
+              "13": 289,
+              "14": 316,
+              "15": 485,
+              "16": 515,
+              "17": 608,
+              "18": 0,
+              "19": 0,
+              "20": 0,
+              "21": 0,
+              "22": 0,
+              "23": 0,
+              "24": 0,
+              "25": 0,
+              "26": 0,
+              "27": 0,
+              "28": 0,
+              "29": 0,
+              "30": 0,
+              "31": 0,
+              "32": 0,
+              "33": 0,
+              "34": 0,
+              "35": 0,
+              "36": 0,
+              "37": 0,
+              "38": 0,
+              "39": 0,
+              "40": 0,
+              "41": 0,
+              "42": 0,
+              "43": 0,
+              "44": 0,
+              "45": 0,
+              "46": 0,
+              "47": 0,
+              "48": 0,
+              "49": 0,
+              "50": 0,
+              "51": 0,
+              "52": 0,
+              "53": 0,
+              "54": 0,
+              "55": 0,
+              "56": 0,
+              "57": 0,
+              "58": 0,
+              "59": 0,
+              "60": 0,
+              "61": 0,
+              "62": 0,
+              "63": 0,
+              "64": 0,
+              "65": 0,
+              "66": 0,
+              "67": 0,
+              "68": 0
+            },
+            "n": 18,
+            "terminal": 0
+          }
+        },
+        "c7": {
+          "p2Column": 7,
+          "p2Terminal": 0,
+          "supportAfterP2": [
+            6,
+            6,
+            3,
+            6,
+            1,
+            6,
+            6
+          ],
+          "p1Column": 5,
+          "p1Terminal": 0,
+          "state": {
+            "rank": 35,
+            "mover": 2,
+            "terminal": 0,
+            "support": [
+              6,
+              6,
+              3,
+              6,
+              2,
+              6,
+              6
+            ],
+            "legalColumns": [
+              3,
+              5
+            ],
+            "basisSize": 18,
+            "rbaWords": [
+              6,
+              6,
+              3,
+              6,
+              2,
+              6,
+              6,
+              140,
+              243596,
+              0,
+              0,
+              237840,
+              0,
+              0
+            ]
+          },
+          "accept": true,
+          "child": {
+            "words": {
+              "0": 6,
+              "1": 6,
+              "2": 3,
+              "3": 6,
+              "4": 2,
+              "5": 6,
+              "6": 6,
+              "7": 140,
+              "8": 243596,
+              "9": 0,
+              "10": 0,
+              "11": 237840,
+              "12": 0,
+              "13": 0
+            },
+            "basis": {
+              "0": 18,
+              "1": 23,
+              "2": 25,
+              "3": 30,
+              "4": 32,
+              "5": 37,
+              "6": 39,
+              "7": 211,
+              "8": 213,
+              "9": 246,
+              "10": 249,
+              "11": 253,
+              "12": 268,
+              "13": 289,
+              "14": 316,
+              "15": 485,
+              "16": 515,
+              "17": 608,
+              "18": 0,
+              "19": 0,
+              "20": 0,
+              "21": 0,
+              "22": 0,
+              "23": 0,
+              "24": 0,
+              "25": 0,
+              "26": 0,
+              "27": 0,
+              "28": 0,
+              "29": 0,
+              "30": 0,
+              "31": 0,
+              "32": 0,
+              "33": 0,
+              "34": 0,
+              "35": 0,
+              "36": 0,
+              "37": 0,
+              "38": 0,
+              "39": 0,
+              "40": 0,
+              "41": 0,
+              "42": 0,
+              "43": 0,
+              "44": 0,
+              "45": 0,
+              "46": 0,
+              "47": 0,
+              "48": 0,
+              "49": 0,
+              "50": 0,
+              "51": 0,
+              "52": 0,
+              "53": 0,
+              "54": 0,
+              "55": 0,
+              "56": 0,
+              "57": 0,
+              "58": 0,
+              "59": 0,
+              "60": 0,
+              "61": 0,
+              "62": 0,
+              "63": 0,
+              "64": 0,
+              "65": 0,
+              "66": 0,
+              "67": 0,
+              "68": 0
+            },
+            "n": 18,
+            "terminal": 0
+          }
+        }
+      },
+      "sinkZB": {
+        "state": {
+          "rank": 35,
+          "mover": 2,
+          "terminal": 0,
+          "support": [
+            6,
+            6,
+            3,
+            6,
+            2,
+            6,
+            6
+          ],
+          "legalColumns": [
+            3,
+            5
+          ],
+          "basisSize": 18,
+          "rbaWords": [
+            6,
+            6,
+            3,
+            6,
+            2,
+            6,
+            6,
+            140,
+            243596,
+            0,
+            0,
+            237840,
+            0,
+            0
+          ]
+        },
+        "branches": {
+          "c3": {
+            "p2Column": 3,
+            "p2Terminal": 0,
+            "supportAfterP2": [
+              6,
+              6,
+              4,
+              6,
+              2,
+              6,
+              6
+            ],
+            "p1Column": 3,
+            "p1Terminal": 3,
+            "supportAfterP1": [
+              6,
+              6,
+              5,
+              6,
+              2,
+              6,
+              6
+            ],
+            "accept": true
+          },
+          "c5": {
+            "p2Column": 5,
+            "p2Terminal": 0,
+            "supportAfterP2": [
+              6,
+              6,
+              3,
+              6,
+              3,
+              6,
+              6
+            ],
+            "p1Column": 5,
+            "p1Terminal": 3,
+            "supportAfterP1": [
+              6,
+              6,
+              3,
+              6,
+              4,
+              6,
+              6
+            ],
+            "accept": true
+          }
+        }
+      },
+      "sinkZC": {
+        "state": {
+          "rank": 35,
+          "mover": 2,
+          "terminal": 0,
+          "support": [
+            6,
+            6,
+            3,
+            6,
+            2,
+            6,
+            6
+          ],
+          "legalColumns": [
+            3,
+            5
+          ],
+          "basisSize": 18,
+          "rbaWords": [
+            6,
+            6,
+            3,
+            6,
+            2,
+            6,
+            6,
+            140,
+            243596,
+            0,
+            0,
+            237840,
+            0,
+            0
+          ]
+        },
+        "branches": {
+          "c3": {
+            "p2Column": 3,
+            "p2Terminal": 0,
+            "supportAfterP2": [
+              6,
+              6,
+              4,
+              6,
+              2,
+              6,
+              6
+            ],
+            "p1Column": 3,
+            "p1Terminal": 3,
+            "supportAfterP1": [
+              6,
+              6,
+              5,
+              6,
+              2,
+              6,
+              6
+            ],
+            "accept": true
+          },
+          "c5": {
+            "p2Column": 5,
+            "p2Terminal": 0,
+            "supportAfterP2": [
+              6,
+              6,
+              3,
+              6,
+              3,
+              6,
+              6
+            ],
+            "p1Column": 5,
+            "p1Terminal": 3,
+            "supportAfterP1": [
+              6,
+              6,
+              3,
+              6,
+              4,
+              6,
+              6
+            ],
+            "accept": true
+          }
+        }
+      }
+    }
+  },
+  "sinkEquality": {
+    "ZA_ZB": true,
+    "ZA_ZC": true,
+    "ZB_ZC": true
+  },
+  "accept": true,
+  "conclusion": [
+    "The frozen three-column phase-transfer policy closes every legal Player-2 branch from the exact rank-31 state.",
+    "Every terminal edge is an exact first Player-1 win; every transport edge is legal and nonterminal.",
+    "Equal sink support vectors were not merged: all three exact RBA sink orientations were qualified separately.",
+    "The rank-31 current state is therefore an exact Player-1 win under this finite CPC obligation policy."
+  ],
+  "boundary": [
+    "All transitions use exact RBA cofactors and current active singleton attachment.",
+    "No oracle, Pons, solved W/D/L input, local game-tree value, minimax, best-move table, physical identity, or sealed holdout is used.",
+    "Production CPC and JSMinSys are read-only and unchanged.",
+    "No support-only state equivalence is assumed."
+  ]
+}
