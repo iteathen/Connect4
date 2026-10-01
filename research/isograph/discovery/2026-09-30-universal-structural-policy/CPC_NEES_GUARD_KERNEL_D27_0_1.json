@@ -1,0 +1,41 @@
+{
+  "schema": "connect4.cpc_guard_survival_nees_kernel.v1",
+  "jsMinSysSha": "db9cda32fc814a7f982816556cb59ab82a7a4782",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "root": {
+    "sequence": "4444415666",
+    "rank": 10,
+    "attacker": 1,
+    "support": [
+      1,
+      0,
+      0,
+      5,
+      1,
+      3,
+      0
+    ]
+  },
+  "targetHorizon": 27,
+  "absolutePly": 37,
+  "oddDefenderMask": 98305,
+  "result": {
+    "accept": false,
+    "code": 7,
+    "failedTrigger": 6
+  },
+  "runtime": {
+    "elapsedNs": "271593460660",
+    "memoCapacity": 4194304,
+    "memoStoredKeyWords": 10,
+    "frameWords": 602,
+    "frameBasis": 2967
+  },
+  "boundary": [
+    "Root ingress and fixture decoding are COLD; all repeated proof execution is delegated to the NEES-ledgered JSMinSys guard-survival kernel.",
+    "The E0/E1 kernel uses caller-owned RBA frame spans, numeric response masks, fixed typed scratch, and the exact typed RBA proof memo.",
+    "No physical bitboard, 49-bit position code, Map, Set, string key, or per-node aggregate allocation is part of the proof kernel.",
+    "Acceptance is a constructive survival lower certificate only; rejection is not an attacker upper bound."
+  ]
+}
