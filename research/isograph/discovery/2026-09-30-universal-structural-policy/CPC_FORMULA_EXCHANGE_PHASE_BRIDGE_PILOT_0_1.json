@@ -1,0 +1,3313 @@
+{
+  "schema": "connect4.cpc_formula_exchange_phase_bridge_pilot.v1",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "formulaSource": {
+    "branch": "experiment/isomax-late-xor-components-20260929",
+    "head": "f6bfce75ebf6aeafef08b9102ce20e0bfade2bdb",
+    "importedValues": false,
+    "reusedFramework": [
+      "signed capacity-depth pair exchange",
+      "frontier-vs-positive-depth distinction",
+      "boundary attachment",
+      "two-primitive Bx/By/Bxy equation shape"
+    ]
+  },
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "theoremTopologyUsed": "CPC_THREE_COLUMN_PHASE_TRANSFER_WIN_THEOREM.md",
+  "equations": {
+    "channels": [
+      3,
+      5,
+      7
+    ],
+    "capacity": "6-support[column]",
+    "positiveDepth": "owner-merged active-minimal residual-cell occurrence count at relative depth > 0",
+    "frontierDepth": "owner-merged active-minimal residual-cell occurrence count at relative depth = 0",
+    "pairRelation": "sign(deltaCapacity * deltaPositiveDepth)",
+    "x": "XOR of NEG pair relations",
+    "y": "XOR of POS pair relations",
+    "B": "any depth-zero occurrence on the three channels",
+    "F": "[B*x, B*y, B*(x AND y)]"
+  },
+  "exactStates": {
+    "Q": {
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        1,
+        6,
+        3
+      ],
+      "channels": [
+        {
+          "column": 3,
+          "capacity": 3,
+          "depth0": 1,
+          "positiveDepth": 4,
+          "p1Depth0": 0,
+          "p1PositiveDepth": 1,
+          "p2Depth0": 1,
+          "p2PositiveDepth": 3
+        },
+        {
+          "column": 5,
+          "capacity": 5,
+          "depth0": 0,
+          "positiveDepth": 3,
+          "p1Depth0": 0,
+          "p1PositiveDepth": 1,
+          "p2Depth0": 0,
+          "p2PositiveDepth": 2
+        },
+        {
+          "column": 7,
+          "capacity": 3,
+          "depth0": 1,
+          "positiveDepth": 2,
+          "p1Depth0": 0,
+          "p1PositiveDepth": 0,
+          "p2Depth0": 1,
+          "p2PositiveDepth": 2
+        }
+      ],
+      "edges": [
+        {
+          "columns": [
+            3,
+            5
+          ],
+          "deltaCapacity": 2,
+          "deltaPositiveDepth": -1,
+          "relation": "NEG"
+        },
+        {
+          "columns": [
+            3,
+            7
+          ],
+          "deltaCapacity": 0,
+          "deltaPositiveDepth": -2,
+          "relation": "ZERO"
+        },
+        {
+          "columns": [
+            5,
+            7
+          ],
+          "deltaCapacity": -2,
+          "deltaPositiveDepth": -1,
+          "relation": "POS"
+        }
+      ],
+      "x": 1,
+      "y": 1,
+      "B": 1,
+      "F": [
+        1,
+        1,
+        1
+      ]
+    },
+    "A": {
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        2,
+        6,
+        4
+      ],
+      "channels": [
+        {
+          "column": 3,
+          "capacity": 3,
+          "depth0": 1,
+          "positiveDepth": 4,
+          "p1Depth0": 0,
+          "p1PositiveDepth": 1,
+          "p2Depth0": 1,
+          "p2PositiveDepth": 3
+        },
+        {
+          "column": 5,
+          "capacity": 4,
+          "depth0": 1,
+          "positiveDepth": 2,
+          "p1Depth0": 0,
+          "p1PositiveDepth": 1,
+          "p2Depth0": 1,
+          "p2PositiveDepth": 1
+        },
+        {
+          "column": 7,
+          "capacity": 2,
+          "depth0": 0,
+          "positiveDepth": 0,
+          "p1Depth0": 0,
+          "p1PositiveDepth": 0,
+          "p2Depth0": 0,
+          "p2PositiveDepth": 0
+        }
+      ],
+      "edges": [
+        {
+          "columns": [
+            3,
+            5
+          ],
+          "deltaCapacity": 1,
+          "deltaPositiveDepth": -2,
+          "relation": "NEG"
+        },
+        {
+          "columns": [
+            3,
+            7
+          ],
+          "deltaCapacity": -1,
+          "deltaPositiveDepth": -4,
+          "relation": "POS"
+        },
+        {
+          "columns": [
+            5,
+            7
+          ],
+          "deltaCapacity": -2,
+          "deltaPositiveDepth": -2,
+          "relation": "POS"
+        }
+      ],
+      "x": 1,
+      "y": 0,
+      "B": 1,
+      "F": [
+        1,
+        0,
+        0
+      ]
+    },
+    "B": {
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        1,
+        6,
+        5
+      ],
+      "channels": [
+        {
+          "column": 3,
+          "capacity": 3,
+          "depth0": 1,
+          "positiveDepth": 4,
+          "p1Depth0": 0,
+          "p1PositiveDepth": 1,
+          "p2Depth0": 1,
+          "p2PositiveDepth": 3
+        },
+        {
+          "column": 5,
+          "capacity": 5,
+          "depth0": 0,
+          "positiveDepth": 3,
+          "p1Depth0": 0,
+          "p1PositiveDepth": 1,
+          "p2Depth0": 0,
+          "p2PositiveDepth": 2
+        },
+        {
+          "column": 7,
+          "capacity": 1,
+          "depth0": 0,
+          "positiveDepth": 0,
+          "p1Depth0": 0,
+          "p1PositiveDepth": 0,
+          "p2Depth0": 0,
+          "p2PositiveDepth": 0
+        }
+      ],
+      "edges": [
+        {
+          "columns": [
+            3,
+            5
+          ],
+          "deltaCapacity": 2,
+          "deltaPositiveDepth": -1,
+          "relation": "NEG"
+        },
+        {
+          "columns": [
+            3,
+            7
+          ],
+          "deltaCapacity": -2,
+          "deltaPositiveDepth": -4,
+          "relation": "POS"
+        },
+        {
+          "columns": [
+            5,
+            7
+          ],
+          "deltaCapacity": -4,
+          "deltaPositiveDepth": -3,
+          "relation": "POS"
+        }
+      ],
+      "x": 1,
+      "y": 0,
+      "B": 1,
+      "F": [
+        1,
+        0,
+        0
+      ]
+    },
+    "ZA": {
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        2,
+        6,
+        6
+      ],
+      "channels": [
+        {
+          "column": 3,
+          "capacity": 3,
+          "depth0": 1,
+          "positiveDepth": 4,
+          "p1Depth0": 0,
+          "p1PositiveDepth": 1,
+          "p2Depth0": 1,
+          "p2PositiveDepth": 3
+        },
+        {
+          "column": 5,
+          "capacity": 4,
+          "depth0": 1,
+          "positiveDepth": 2,
+          "p1Depth0": 0,
+          "p1PositiveDepth": 1,
+          "p2Depth0": 1,
+          "p2PositiveDepth": 1
+        },
+        {
+          "column": 7,
+          "capacity": 0,
+          "depth0": 0,
+          "positiveDepth": 0,
+          "p1Depth0": 0,
+          "p1PositiveDepth": 0,
+          "p2Depth0": 0,
+          "p2PositiveDepth": 0
+        }
+      ],
+      "edges": [
+        {
+          "columns": [
+            3,
+            5
+          ],
+          "deltaCapacity": 1,
+          "deltaPositiveDepth": -2,
+          "relation": "NEG"
+        },
+        {
+          "columns": [
+            3,
+            7
+          ],
+          "deltaCapacity": -3,
+          "deltaPositiveDepth": -4,
+          "relation": "POS"
+        },
+        {
+          "columns": [
+            5,
+            7
+          ],
+          "deltaCapacity": -4,
+          "deltaPositiveDepth": -2,
+          "relation": "POS"
+        }
+      ],
+      "x": 1,
+      "y": 0,
+      "B": 1,
+      "F": [
+        1,
+        0,
+        0
+      ]
+    },
+    "ZB": {
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        2,
+        6,
+        6
+      ],
+      "channels": [
+        {
+          "column": 3,
+          "capacity": 3,
+          "depth0": 1,
+          "positiveDepth": 4,
+          "p1Depth0": 0,
+          "p1PositiveDepth": 1,
+          "p2Depth0": 1,
+          "p2PositiveDepth": 3
+        },
+        {
+          "column": 5,
+          "capacity": 4,
+          "depth0": 1,
+          "positiveDepth": 2,
+          "p1Depth0": 0,
+          "p1PositiveDepth": 1,
+          "p2Depth0": 1,
+          "p2PositiveDepth": 1
+        },
+        {
+          "column": 7,
+          "capacity": 0,
+          "depth0": 0,
+          "positiveDepth": 0,
+          "p1Depth0": 0,
+          "p1PositiveDepth": 0,
+          "p2Depth0": 0,
+          "p2PositiveDepth": 0
+        }
+      ],
+      "edges": [
+        {
+          "columns": [
+            3,
+            5
+          ],
+          "deltaCapacity": 1,
+          "deltaPositiveDepth": -2,
+          "relation": "NEG"
+        },
+        {
+          "columns": [
+            3,
+            7
+          ],
+          "deltaCapacity": -3,
+          "deltaPositiveDepth": -4,
+          "relation": "POS"
+        },
+        {
+          "columns": [
+            5,
+            7
+          ],
+          "deltaCapacity": -4,
+          "deltaPositiveDepth": -2,
+          "relation": "POS"
+        }
+      ],
+      "x": 1,
+      "y": 0,
+      "B": 1,
+      "F": [
+        1,
+        0,
+        0
+      ]
+    },
+    "ZC": {
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        2,
+        6,
+        6
+      ],
+      "channels": [
+        {
+          "column": 3,
+          "capacity": 3,
+          "depth0": 1,
+          "positiveDepth": 4,
+          "p1Depth0": 0,
+          "p1PositiveDepth": 1,
+          "p2Depth0": 1,
+          "p2PositiveDepth": 3
+        },
+        {
+          "column": 5,
+          "capacity": 4,
+          "depth0": 1,
+          "positiveDepth": 2,
+          "p1Depth0": 0,
+          "p1PositiveDepth": 1,
+          "p2Depth0": 1,
+          "p2PositiveDepth": 1
+        },
+        {
+          "column": 7,
+          "capacity": 0,
+          "depth0": 0,
+          "positiveDepth": 0,
+          "p1Depth0": 0,
+          "p1PositiveDepth": 0,
+          "p2Depth0": 0,
+          "p2PositiveDepth": 0
+        }
+      ],
+      "edges": [
+        {
+          "columns": [
+            3,
+            5
+          ],
+          "deltaCapacity": 1,
+          "deltaPositiveDepth": -2,
+          "relation": "NEG"
+        },
+        {
+          "columns": [
+            3,
+            7
+          ],
+          "deltaCapacity": -3,
+          "deltaPositiveDepth": -4,
+          "relation": "POS"
+        },
+        {
+          "columns": [
+            5,
+            7
+          ],
+          "deltaCapacity": -4,
+          "deltaPositiveDepth": -2,
+          "relation": "POS"
+        }
+      ],
+      "x": 1,
+      "y": 0,
+      "B": 1,
+      "F": [
+        1,
+        0,
+        0
+      ]
+    }
+  },
+  "exactSinkEquality": {
+    "ZA_ZB": true,
+    "ZA_ZC": true,
+    "ZB_ZC": true
+  },
+  "rows": [
+    {
+      "state": "Q",
+      "p2Column": 3,
+      "p1ResponseColumn": 3,
+      "label": "EXPOSE",
+      "target": 1,
+      "pre": {
+        "support": [
+          6,
+          6,
+          3,
+          6,
+          1,
+          6,
+          3
+        ],
+        "channels": [
+          {
+            "column": 3,
+            "capacity": 3,
+            "depth0": 1,
+            "positiveDepth": 4,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 1,
+            "p2PositiveDepth": 3
+          },
+          {
+            "column": 5,
+            "capacity": 5,
+            "depth0": 0,
+            "positiveDepth": 3,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 0,
+            "p2PositiveDepth": 2
+          },
+          {
+            "column": 7,
+            "capacity": 3,
+            "depth0": 1,
+            "positiveDepth": 2,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 0,
+            "p2Depth0": 1,
+            "p2PositiveDepth": 2
+          }
+        ],
+        "edges": [
+          {
+            "columns": [
+              3,
+              5
+            ],
+            "deltaCapacity": 2,
+            "deltaPositiveDepth": -1,
+            "relation": "NEG"
+          },
+          {
+            "columns": [
+              3,
+              7
+            ],
+            "deltaCapacity": 0,
+            "deltaPositiveDepth": -2,
+            "relation": "ZERO"
+          },
+          {
+            "columns": [
+              5,
+              7
+            ],
+            "deltaCapacity": -2,
+            "deltaPositiveDepth": -1,
+            "relation": "POS"
+          }
+        ],
+        "x": 1,
+        "y": 1,
+        "B": 1,
+        "F": [
+          1,
+          1,
+          1
+        ]
+      },
+      "post": {
+        "support": [
+          6,
+          6,
+          4,
+          6,
+          1,
+          6,
+          3
+        ],
+        "channels": [
+          {
+            "column": 3,
+            "capacity": 2,
+            "depth0": 3,
+            "positiveDepth": 1,
+            "p1Depth0": 1,
+            "p1PositiveDepth": 0,
+            "p2Depth0": 2,
+            "p2PositiveDepth": 1
+          },
+          {
+            "column": 5,
+            "capacity": 5,
+            "depth0": 0,
+            "positiveDepth": 3,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 0,
+            "p2PositiveDepth": 2
+          },
+          {
+            "column": 7,
+            "capacity": 3,
+            "depth0": 1,
+            "positiveDepth": 2,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 0,
+            "p2Depth0": 1,
+            "p2PositiveDepth": 2
+          }
+        ],
+        "edges": [
+          {
+            "columns": [
+              3,
+              5
+            ],
+            "deltaCapacity": 3,
+            "deltaPositiveDepth": 2,
+            "relation": "POS"
+          },
+          {
+            "columns": [
+              3,
+              7
+            ],
+            "deltaCapacity": 1,
+            "deltaPositiveDepth": 1,
+            "relation": "POS"
+          },
+          {
+            "columns": [
+              5,
+              7
+            ],
+            "deltaCapacity": -2,
+            "deltaPositiveDepth": -1,
+            "relation": "POS"
+          }
+        ],
+        "x": 0,
+        "y": 1,
+        "B": 1,
+        "F": [
+          0,
+          1,
+          0
+        ]
+      },
+      "deltaF": [
+        1,
+        0,
+        1
+      ],
+      "responseTerminal": 3,
+      "next": null
+    },
+    {
+      "state": "Q",
+      "p2Column": 5,
+      "p1ResponseColumn": 7,
+      "label": "TRANSFER",
+      "target": 0,
+      "pre": {
+        "support": [
+          6,
+          6,
+          3,
+          6,
+          1,
+          6,
+          3
+        ],
+        "channels": [
+          {
+            "column": 3,
+            "capacity": 3,
+            "depth0": 1,
+            "positiveDepth": 4,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 1,
+            "p2PositiveDepth": 3
+          },
+          {
+            "column": 5,
+            "capacity": 5,
+            "depth0": 0,
+            "positiveDepth": 3,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 0,
+            "p2PositiveDepth": 2
+          },
+          {
+            "column": 7,
+            "capacity": 3,
+            "depth0": 1,
+            "positiveDepth": 2,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 0,
+            "p2Depth0": 1,
+            "p2PositiveDepth": 2
+          }
+        ],
+        "edges": [
+          {
+            "columns": [
+              3,
+              5
+            ],
+            "deltaCapacity": 2,
+            "deltaPositiveDepth": -1,
+            "relation": "NEG"
+          },
+          {
+            "columns": [
+              3,
+              7
+            ],
+            "deltaCapacity": 0,
+            "deltaPositiveDepth": -2,
+            "relation": "ZERO"
+          },
+          {
+            "columns": [
+              5,
+              7
+            ],
+            "deltaCapacity": -2,
+            "deltaPositiveDepth": -1,
+            "relation": "POS"
+          }
+        ],
+        "x": 1,
+        "y": 1,
+        "B": 1,
+        "F": [
+          1,
+          1,
+          1
+        ]
+      },
+      "post": {
+        "support": [
+          6,
+          6,
+          3,
+          6,
+          2,
+          6,
+          3
+        ],
+        "channels": [
+          {
+            "column": 3,
+            "capacity": 3,
+            "depth0": 1,
+            "positiveDepth": 4,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 1,
+            "p2PositiveDepth": 3
+          },
+          {
+            "column": 5,
+            "capacity": 4,
+            "depth0": 1,
+            "positiveDepth": 2,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 1,
+            "p2PositiveDepth": 1
+          },
+          {
+            "column": 7,
+            "capacity": 3,
+            "depth0": 1,
+            "positiveDepth": 2,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 0,
+            "p2Depth0": 1,
+            "p2PositiveDepth": 2
+          }
+        ],
+        "edges": [
+          {
+            "columns": [
+              3,
+              5
+            ],
+            "deltaCapacity": 1,
+            "deltaPositiveDepth": -2,
+            "relation": "NEG"
+          },
+          {
+            "columns": [
+              3,
+              7
+            ],
+            "deltaCapacity": 0,
+            "deltaPositiveDepth": -2,
+            "relation": "ZERO"
+          },
+          {
+            "columns": [
+              5,
+              7
+            ],
+            "deltaCapacity": -1,
+            "deltaPositiveDepth": 0,
+            "relation": "ZERO"
+          }
+        ],
+        "x": 1,
+        "y": 0,
+        "B": 1,
+        "F": [
+          1,
+          0,
+          0
+        ]
+      },
+      "deltaF": [
+        0,
+        1,
+        1
+      ],
+      "responseTerminal": 0,
+      "next": "A"
+    },
+    {
+      "state": "Q",
+      "p2Column": 7,
+      "p1ResponseColumn": 7,
+      "label": "TRANSFER",
+      "target": 0,
+      "pre": {
+        "support": [
+          6,
+          6,
+          3,
+          6,
+          1,
+          6,
+          3
+        ],
+        "channels": [
+          {
+            "column": 3,
+            "capacity": 3,
+            "depth0": 1,
+            "positiveDepth": 4,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 1,
+            "p2PositiveDepth": 3
+          },
+          {
+            "column": 5,
+            "capacity": 5,
+            "depth0": 0,
+            "positiveDepth": 3,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 0,
+            "p2PositiveDepth": 2
+          },
+          {
+            "column": 7,
+            "capacity": 3,
+            "depth0": 1,
+            "positiveDepth": 2,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 0,
+            "p2Depth0": 1,
+            "p2PositiveDepth": 2
+          }
+        ],
+        "edges": [
+          {
+            "columns": [
+              3,
+              5
+            ],
+            "deltaCapacity": 2,
+            "deltaPositiveDepth": -1,
+            "relation": "NEG"
+          },
+          {
+            "columns": [
+              3,
+              7
+            ],
+            "deltaCapacity": 0,
+            "deltaPositiveDepth": -2,
+            "relation": "ZERO"
+          },
+          {
+            "columns": [
+              5,
+              7
+            ],
+            "deltaCapacity": -2,
+            "deltaPositiveDepth": -1,
+            "relation": "POS"
+          }
+        ],
+        "x": 1,
+        "y": 1,
+        "B": 1,
+        "F": [
+          1,
+          1,
+          1
+        ]
+      },
+      "post": {
+        "support": [
+          6,
+          6,
+          3,
+          6,
+          1,
+          6,
+          4
+        ],
+        "channels": [
+          {
+            "column": 3,
+            "capacity": 3,
+            "depth0": 1,
+            "positiveDepth": 4,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 1,
+            "p2PositiveDepth": 3
+          },
+          {
+            "column": 5,
+            "capacity": 5,
+            "depth0": 0,
+            "positiveDepth": 3,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 0,
+            "p2PositiveDepth": 2
+          },
+          {
+            "column": 7,
+            "capacity": 2,
+            "depth0": 1,
+            "positiveDepth": 1,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 0,
+            "p2Depth0": 1,
+            "p2PositiveDepth": 1
+          }
+        ],
+        "edges": [
+          {
+            "columns": [
+              3,
+              5
+            ],
+            "deltaCapacity": 2,
+            "deltaPositiveDepth": -1,
+            "relation": "NEG"
+          },
+          {
+            "columns": [
+              3,
+              7
+            ],
+            "deltaCapacity": -1,
+            "deltaPositiveDepth": -3,
+            "relation": "POS"
+          },
+          {
+            "columns": [
+              5,
+              7
+            ],
+            "deltaCapacity": -3,
+            "deltaPositiveDepth": -2,
+            "relation": "POS"
+          }
+        ],
+        "x": 1,
+        "y": 0,
+        "B": 1,
+        "F": [
+          1,
+          0,
+          0
+        ]
+      },
+      "deltaF": [
+        0,
+        1,
+        1
+      ],
+      "responseTerminal": 0,
+      "next": "B"
+    },
+    {
+      "state": "A",
+      "p2Column": 3,
+      "p1ResponseColumn": 3,
+      "label": "EXPOSE",
+      "target": 1,
+      "pre": {
+        "support": [
+          6,
+          6,
+          3,
+          6,
+          2,
+          6,
+          4
+        ],
+        "channels": [
+          {
+            "column": 3,
+            "capacity": 3,
+            "depth0": 1,
+            "positiveDepth": 4,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 1,
+            "p2PositiveDepth": 3
+          },
+          {
+            "column": 5,
+            "capacity": 4,
+            "depth0": 1,
+            "positiveDepth": 2,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 1,
+            "p2PositiveDepth": 1
+          },
+          {
+            "column": 7,
+            "capacity": 2,
+            "depth0": 0,
+            "positiveDepth": 0,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 0,
+            "p2Depth0": 0,
+            "p2PositiveDepth": 0
+          }
+        ],
+        "edges": [
+          {
+            "columns": [
+              3,
+              5
+            ],
+            "deltaCapacity": 1,
+            "deltaPositiveDepth": -2,
+            "relation": "NEG"
+          },
+          {
+            "columns": [
+              3,
+              7
+            ],
+            "deltaCapacity": -1,
+            "deltaPositiveDepth": -4,
+            "relation": "POS"
+          },
+          {
+            "columns": [
+              5,
+              7
+            ],
+            "deltaCapacity": -2,
+            "deltaPositiveDepth": -2,
+            "relation": "POS"
+          }
+        ],
+        "x": 1,
+        "y": 0,
+        "B": 1,
+        "F": [
+          1,
+          0,
+          0
+        ]
+      },
+      "post": {
+        "support": [
+          6,
+          6,
+          4,
+          6,
+          2,
+          6,
+          4
+        ],
+        "channels": [
+          {
+            "column": 3,
+            "capacity": 2,
+            "depth0": 3,
+            "positiveDepth": 1,
+            "p1Depth0": 1,
+            "p1PositiveDepth": 0,
+            "p2Depth0": 2,
+            "p2PositiveDepth": 1
+          },
+          {
+            "column": 5,
+            "capacity": 4,
+            "depth0": 1,
+            "positiveDepth": 2,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 1,
+            "p2PositiveDepth": 1
+          },
+          {
+            "column": 7,
+            "capacity": 2,
+            "depth0": 0,
+            "positiveDepth": 0,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 0,
+            "p2Depth0": 0,
+            "p2PositiveDepth": 0
+          }
+        ],
+        "edges": [
+          {
+            "columns": [
+              3,
+              5
+            ],
+            "deltaCapacity": 2,
+            "deltaPositiveDepth": 1,
+            "relation": "POS"
+          },
+          {
+            "columns": [
+              3,
+              7
+            ],
+            "deltaCapacity": 0,
+            "deltaPositiveDepth": -1,
+            "relation": "ZERO"
+          },
+          {
+            "columns": [
+              5,
+              7
+            ],
+            "deltaCapacity": -2,
+            "deltaPositiveDepth": -2,
+            "relation": "POS"
+          }
+        ],
+        "x": 0,
+        "y": 0,
+        "B": 1,
+        "F": [
+          0,
+          0,
+          0
+        ]
+      },
+      "deltaF": [
+        1,
+        0,
+        0
+      ],
+      "responseTerminal": 3,
+      "next": null
+    },
+    {
+      "state": "A",
+      "p2Column": 5,
+      "p1ResponseColumn": 5,
+      "label": "EXPOSE",
+      "target": 1,
+      "pre": {
+        "support": [
+          6,
+          6,
+          3,
+          6,
+          2,
+          6,
+          4
+        ],
+        "channels": [
+          {
+            "column": 3,
+            "capacity": 3,
+            "depth0": 1,
+            "positiveDepth": 4,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 1,
+            "p2PositiveDepth": 3
+          },
+          {
+            "column": 5,
+            "capacity": 4,
+            "depth0": 1,
+            "positiveDepth": 2,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 1,
+            "p2PositiveDepth": 1
+          },
+          {
+            "column": 7,
+            "capacity": 2,
+            "depth0": 0,
+            "positiveDepth": 0,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 0,
+            "p2Depth0": 0,
+            "p2PositiveDepth": 0
+          }
+        ],
+        "edges": [
+          {
+            "columns": [
+              3,
+              5
+            ],
+            "deltaCapacity": 1,
+            "deltaPositiveDepth": -2,
+            "relation": "NEG"
+          },
+          {
+            "columns": [
+              3,
+              7
+            ],
+            "deltaCapacity": -1,
+            "deltaPositiveDepth": -4,
+            "relation": "POS"
+          },
+          {
+            "columns": [
+              5,
+              7
+            ],
+            "deltaCapacity": -2,
+            "deltaPositiveDepth": -2,
+            "relation": "POS"
+          }
+        ],
+        "x": 1,
+        "y": 0,
+        "B": 1,
+        "F": [
+          1,
+          0,
+          0
+        ]
+      },
+      "post": {
+        "support": [
+          6,
+          6,
+          3,
+          6,
+          3,
+          6,
+          4
+        ],
+        "channels": [
+          {
+            "column": 3,
+            "capacity": 3,
+            "depth0": 0,
+            "positiveDepth": 2,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 0,
+            "p2PositiveDepth": 1
+          },
+          {
+            "column": 5,
+            "capacity": 3,
+            "depth0": 1,
+            "positiveDepth": 1,
+            "p1Depth0": 1,
+            "p1PositiveDepth": 0,
+            "p2Depth0": 0,
+            "p2PositiveDepth": 1
+          },
+          {
+            "column": 7,
+            "capacity": 2,
+            "depth0": 0,
+            "positiveDepth": 0,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 0,
+            "p2Depth0": 0,
+            "p2PositiveDepth": 0
+          }
+        ],
+        "edges": [
+          {
+            "columns": [
+              3,
+              5
+            ],
+            "deltaCapacity": 0,
+            "deltaPositiveDepth": -1,
+            "relation": "ZERO"
+          },
+          {
+            "columns": [
+              3,
+              7
+            ],
+            "deltaCapacity": -1,
+            "deltaPositiveDepth": -2,
+            "relation": "POS"
+          },
+          {
+            "columns": [
+              5,
+              7
+            ],
+            "deltaCapacity": -1,
+            "deltaPositiveDepth": -1,
+            "relation": "POS"
+          }
+        ],
+        "x": 0,
+        "y": 0,
+        "B": 1,
+        "F": [
+          0,
+          0,
+          0
+        ]
+      },
+      "deltaF": [
+        1,
+        0,
+        0
+      ],
+      "responseTerminal": 3,
+      "next": null
+    },
+    {
+      "state": "A",
+      "p2Column": 7,
+      "p1ResponseColumn": 7,
+      "label": "TRANSFER",
+      "target": 0,
+      "pre": {
+        "support": [
+          6,
+          6,
+          3,
+          6,
+          2,
+          6,
+          4
+        ],
+        "channels": [
+          {
+            "column": 3,
+            "capacity": 3,
+            "depth0": 1,
+            "positiveDepth": 4,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 1,
+            "p2PositiveDepth": 3
+          },
+          {
+            "column": 5,
+            "capacity": 4,
+            "depth0": 1,
+            "positiveDepth": 2,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 1,
+            "p2PositiveDepth": 1
+          },
+          {
+            "column": 7,
+            "capacity": 2,
+            "depth0": 0,
+            "positiveDepth": 0,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 0,
+            "p2Depth0": 0,
+            "p2PositiveDepth": 0
+          }
+        ],
+        "edges": [
+          {
+            "columns": [
+              3,
+              5
+            ],
+            "deltaCapacity": 1,
+            "deltaPositiveDepth": -2,
+            "relation": "NEG"
+          },
+          {
+            "columns": [
+              3,
+              7
+            ],
+            "deltaCapacity": -1,
+            "deltaPositiveDepth": -4,
+            "relation": "POS"
+          },
+          {
+            "columns": [
+              5,
+              7
+            ],
+            "deltaCapacity": -2,
+            "deltaPositiveDepth": -2,
+            "relation": "POS"
+          }
+        ],
+        "x": 1,
+        "y": 0,
+        "B": 1,
+        "F": [
+          1,
+          0,
+          0
+        ]
+      },
+      "post": {
+        "support": [
+          6,
+          6,
+          3,
+          6,
+          2,
+          6,
+          5
+        ],
+        "channels": [
+          {
+            "column": 3,
+            "capacity": 3,
+            "depth0": 1,
+            "positiveDepth": 4,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 1,
+            "p2PositiveDepth": 3
+          },
+          {
+            "column": 5,
+            "capacity": 4,
+            "depth0": 1,
+            "positiveDepth": 2,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 1,
+            "p2PositiveDepth": 1
+          },
+          {
+            "column": 7,
+            "capacity": 1,
+            "depth0": 0,
+            "positiveDepth": 0,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 0,
+            "p2Depth0": 0,
+            "p2PositiveDepth": 0
+          }
+        ],
+        "edges": [
+          {
+            "columns": [
+              3,
+              5
+            ],
+            "deltaCapacity": 1,
+            "deltaPositiveDepth": -2,
+            "relation": "NEG"
+          },
+          {
+            "columns": [
+              3,
+              7
+            ],
+            "deltaCapacity": -2,
+            "deltaPositiveDepth": -4,
+            "relation": "POS"
+          },
+          {
+            "columns": [
+              5,
+              7
+            ],
+            "deltaCapacity": -3,
+            "deltaPositiveDepth": -2,
+            "relation": "POS"
+          }
+        ],
+        "x": 1,
+        "y": 0,
+        "B": 1,
+        "F": [
+          1,
+          0,
+          0
+        ]
+      },
+      "deltaF": [
+        0,
+        0,
+        0
+      ],
+      "responseTerminal": 0,
+      "next": "ZA"
+    },
+    {
+      "state": "B",
+      "p2Column": 3,
+      "p1ResponseColumn": 3,
+      "label": "EXPOSE",
+      "target": 1,
+      "pre": {
+        "support": [
+          6,
+          6,
+          3,
+          6,
+          1,
+          6,
+          5
+        ],
+        "channels": [
+          {
+            "column": 3,
+            "capacity": 3,
+            "depth0": 1,
+            "positiveDepth": 4,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 1,
+            "p2PositiveDepth": 3
+          },
+          {
+            "column": 5,
+            "capacity": 5,
+            "depth0": 0,
+            "positiveDepth": 3,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 0,
+            "p2PositiveDepth": 2
+          },
+          {
+            "column": 7,
+            "capacity": 1,
+            "depth0": 0,
+            "positiveDepth": 0,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 0,
+            "p2Depth0": 0,
+            "p2PositiveDepth": 0
+          }
+        ],
+        "edges": [
+          {
+            "columns": [
+              3,
+              5
+            ],
+            "deltaCapacity": 2,
+            "deltaPositiveDepth": -1,
+            "relation": "NEG"
+          },
+          {
+            "columns": [
+              3,
+              7
+            ],
+            "deltaCapacity": -2,
+            "deltaPositiveDepth": -4,
+            "relation": "POS"
+          },
+          {
+            "columns": [
+              5,
+              7
+            ],
+            "deltaCapacity": -4,
+            "deltaPositiveDepth": -3,
+            "relation": "POS"
+          }
+        ],
+        "x": 1,
+        "y": 0,
+        "B": 1,
+        "F": [
+          1,
+          0,
+          0
+        ]
+      },
+      "post": {
+        "support": [
+          6,
+          6,
+          4,
+          6,
+          1,
+          6,
+          5
+        ],
+        "channels": [
+          {
+            "column": 3,
+            "capacity": 2,
+            "depth0": 3,
+            "positiveDepth": 1,
+            "p1Depth0": 1,
+            "p1PositiveDepth": 0,
+            "p2Depth0": 2,
+            "p2PositiveDepth": 1
+          },
+          {
+            "column": 5,
+            "capacity": 5,
+            "depth0": 0,
+            "positiveDepth": 3,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 0,
+            "p2PositiveDepth": 2
+          },
+          {
+            "column": 7,
+            "capacity": 1,
+            "depth0": 0,
+            "positiveDepth": 0,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 0,
+            "p2Depth0": 0,
+            "p2PositiveDepth": 0
+          }
+        ],
+        "edges": [
+          {
+            "columns": [
+              3,
+              5
+            ],
+            "deltaCapacity": 3,
+            "deltaPositiveDepth": 2,
+            "relation": "POS"
+          },
+          {
+            "columns": [
+              3,
+              7
+            ],
+            "deltaCapacity": -1,
+            "deltaPositiveDepth": -1,
+            "relation": "POS"
+          },
+          {
+            "columns": [
+              5,
+              7
+            ],
+            "deltaCapacity": -4,
+            "deltaPositiveDepth": -3,
+            "relation": "POS"
+          }
+        ],
+        "x": 0,
+        "y": 1,
+        "B": 1,
+        "F": [
+          0,
+          1,
+          0
+        ]
+      },
+      "deltaF": [
+        1,
+        1,
+        0
+      ],
+      "responseTerminal": 3,
+      "next": null
+    },
+    {
+      "state": "B",
+      "p2Column": 5,
+      "p1ResponseColumn": 7,
+      "label": "TRANSFER",
+      "target": 0,
+      "pre": {
+        "support": [
+          6,
+          6,
+          3,
+          6,
+          1,
+          6,
+          5
+        ],
+        "channels": [
+          {
+            "column": 3,
+            "capacity": 3,
+            "depth0": 1,
+            "positiveDepth": 4,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 1,
+            "p2PositiveDepth": 3
+          },
+          {
+            "column": 5,
+            "capacity": 5,
+            "depth0": 0,
+            "positiveDepth": 3,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 0,
+            "p2PositiveDepth": 2
+          },
+          {
+            "column": 7,
+            "capacity": 1,
+            "depth0": 0,
+            "positiveDepth": 0,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 0,
+            "p2Depth0": 0,
+            "p2PositiveDepth": 0
+          }
+        ],
+        "edges": [
+          {
+            "columns": [
+              3,
+              5
+            ],
+            "deltaCapacity": 2,
+            "deltaPositiveDepth": -1,
+            "relation": "NEG"
+          },
+          {
+            "columns": [
+              3,
+              7
+            ],
+            "deltaCapacity": -2,
+            "deltaPositiveDepth": -4,
+            "relation": "POS"
+          },
+          {
+            "columns": [
+              5,
+              7
+            ],
+            "deltaCapacity": -4,
+            "deltaPositiveDepth": -3,
+            "relation": "POS"
+          }
+        ],
+        "x": 1,
+        "y": 0,
+        "B": 1,
+        "F": [
+          1,
+          0,
+          0
+        ]
+      },
+      "post": {
+        "support": [
+          6,
+          6,
+          3,
+          6,
+          2,
+          6,
+          5
+        ],
+        "channels": [
+          {
+            "column": 3,
+            "capacity": 3,
+            "depth0": 1,
+            "positiveDepth": 4,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 1,
+            "p2PositiveDepth": 3
+          },
+          {
+            "column": 5,
+            "capacity": 4,
+            "depth0": 1,
+            "positiveDepth": 2,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 1,
+            "p2PositiveDepth": 1
+          },
+          {
+            "column": 7,
+            "capacity": 1,
+            "depth0": 0,
+            "positiveDepth": 0,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 0,
+            "p2Depth0": 0,
+            "p2PositiveDepth": 0
+          }
+        ],
+        "edges": [
+          {
+            "columns": [
+              3,
+              5
+            ],
+            "deltaCapacity": 1,
+            "deltaPositiveDepth": -2,
+            "relation": "NEG"
+          },
+          {
+            "columns": [
+              3,
+              7
+            ],
+            "deltaCapacity": -2,
+            "deltaPositiveDepth": -4,
+            "relation": "POS"
+          },
+          {
+            "columns": [
+              5,
+              7
+            ],
+            "deltaCapacity": -3,
+            "deltaPositiveDepth": -2,
+            "relation": "POS"
+          }
+        ],
+        "x": 1,
+        "y": 0,
+        "B": 1,
+        "F": [
+          1,
+          0,
+          0
+        ]
+      },
+      "deltaF": [
+        0,
+        0,
+        0
+      ],
+      "responseTerminal": 0,
+      "next": "ZB"
+    },
+    {
+      "state": "B",
+      "p2Column": 7,
+      "p1ResponseColumn": 5,
+      "label": "TRANSFER",
+      "target": 0,
+      "pre": {
+        "support": [
+          6,
+          6,
+          3,
+          6,
+          1,
+          6,
+          5
+        ],
+        "channels": [
+          {
+            "column": 3,
+            "capacity": 3,
+            "depth0": 1,
+            "positiveDepth": 4,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 1,
+            "p2PositiveDepth": 3
+          },
+          {
+            "column": 5,
+            "capacity": 5,
+            "depth0": 0,
+            "positiveDepth": 3,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 0,
+            "p2PositiveDepth": 2
+          },
+          {
+            "column": 7,
+            "capacity": 1,
+            "depth0": 0,
+            "positiveDepth": 0,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 0,
+            "p2Depth0": 0,
+            "p2PositiveDepth": 0
+          }
+        ],
+        "edges": [
+          {
+            "columns": [
+              3,
+              5
+            ],
+            "deltaCapacity": 2,
+            "deltaPositiveDepth": -1,
+            "relation": "NEG"
+          },
+          {
+            "columns": [
+              3,
+              7
+            ],
+            "deltaCapacity": -2,
+            "deltaPositiveDepth": -4,
+            "relation": "POS"
+          },
+          {
+            "columns": [
+              5,
+              7
+            ],
+            "deltaCapacity": -4,
+            "deltaPositiveDepth": -3,
+            "relation": "POS"
+          }
+        ],
+        "x": 1,
+        "y": 0,
+        "B": 1,
+        "F": [
+          1,
+          0,
+          0
+        ]
+      },
+      "post": {
+        "support": [
+          6,
+          6,
+          3,
+          6,
+          1,
+          6,
+          6
+        ],
+        "channels": [
+          {
+            "column": 3,
+            "capacity": 3,
+            "depth0": 1,
+            "positiveDepth": 4,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 1,
+            "p2PositiveDepth": 3
+          },
+          {
+            "column": 5,
+            "capacity": 5,
+            "depth0": 0,
+            "positiveDepth": 3,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 0,
+            "p2PositiveDepth": 2
+          },
+          {
+            "column": 7,
+            "capacity": 0,
+            "depth0": 0,
+            "positiveDepth": 0,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 0,
+            "p2Depth0": 0,
+            "p2PositiveDepth": 0
+          }
+        ],
+        "edges": [
+          {
+            "columns": [
+              3,
+              5
+            ],
+            "deltaCapacity": 2,
+            "deltaPositiveDepth": -1,
+            "relation": "NEG"
+          },
+          {
+            "columns": [
+              3,
+              7
+            ],
+            "deltaCapacity": -3,
+            "deltaPositiveDepth": -4,
+            "relation": "POS"
+          },
+          {
+            "columns": [
+              5,
+              7
+            ],
+            "deltaCapacity": -5,
+            "deltaPositiveDepth": -3,
+            "relation": "POS"
+          }
+        ],
+        "x": 1,
+        "y": 0,
+        "B": 1,
+        "F": [
+          1,
+          0,
+          0
+        ]
+      },
+      "deltaF": [
+        0,
+        0,
+        0
+      ],
+      "responseTerminal": 0,
+      "next": "ZC"
+    },
+    {
+      "state": "ZA",
+      "p2Column": 3,
+      "p1ResponseColumn": 3,
+      "label": "EXPOSE",
+      "target": 1,
+      "pre": {
+        "support": [
+          6,
+          6,
+          3,
+          6,
+          2,
+          6,
+          6
+        ],
+        "channels": [
+          {
+            "column": 3,
+            "capacity": 3,
+            "depth0": 1,
+            "positiveDepth": 4,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 1,
+            "p2PositiveDepth": 3
+          },
+          {
+            "column": 5,
+            "capacity": 4,
+            "depth0": 1,
+            "positiveDepth": 2,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 1,
+            "p2PositiveDepth": 1
+          },
+          {
+            "column": 7,
+            "capacity": 0,
+            "depth0": 0,
+            "positiveDepth": 0,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 0,
+            "p2Depth0": 0,
+            "p2PositiveDepth": 0
+          }
+        ],
+        "edges": [
+          {
+            "columns": [
+              3,
+              5
+            ],
+            "deltaCapacity": 1,
+            "deltaPositiveDepth": -2,
+            "relation": "NEG"
+          },
+          {
+            "columns": [
+              3,
+              7
+            ],
+            "deltaCapacity": -3,
+            "deltaPositiveDepth": -4,
+            "relation": "POS"
+          },
+          {
+            "columns": [
+              5,
+              7
+            ],
+            "deltaCapacity": -4,
+            "deltaPositiveDepth": -2,
+            "relation": "POS"
+          }
+        ],
+        "x": 1,
+        "y": 0,
+        "B": 1,
+        "F": [
+          1,
+          0,
+          0
+        ]
+      },
+      "post": {
+        "support": [
+          6,
+          6,
+          4,
+          6,
+          2,
+          6,
+          6
+        ],
+        "channels": [
+          {
+            "column": 3,
+            "capacity": 2,
+            "depth0": 3,
+            "positiveDepth": 1,
+            "p1Depth0": 1,
+            "p1PositiveDepth": 0,
+            "p2Depth0": 2,
+            "p2PositiveDepth": 1
+          },
+          {
+            "column": 5,
+            "capacity": 4,
+            "depth0": 1,
+            "positiveDepth": 2,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 1,
+            "p2PositiveDepth": 1
+          },
+          {
+            "column": 7,
+            "capacity": 0,
+            "depth0": 0,
+            "positiveDepth": 0,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 0,
+            "p2Depth0": 0,
+            "p2PositiveDepth": 0
+          }
+        ],
+        "edges": [
+          {
+            "columns": [
+              3,
+              5
+            ],
+            "deltaCapacity": 2,
+            "deltaPositiveDepth": 1,
+            "relation": "POS"
+          },
+          {
+            "columns": [
+              3,
+              7
+            ],
+            "deltaCapacity": -2,
+            "deltaPositiveDepth": -1,
+            "relation": "POS"
+          },
+          {
+            "columns": [
+              5,
+              7
+            ],
+            "deltaCapacity": -4,
+            "deltaPositiveDepth": -2,
+            "relation": "POS"
+          }
+        ],
+        "x": 0,
+        "y": 1,
+        "B": 1,
+        "F": [
+          0,
+          1,
+          0
+        ]
+      },
+      "deltaF": [
+        1,
+        1,
+        0
+      ],
+      "responseTerminal": 3,
+      "next": null
+    },
+    {
+      "state": "ZA",
+      "p2Column": 5,
+      "p1ResponseColumn": 5,
+      "label": "EXPOSE",
+      "target": 1,
+      "pre": {
+        "support": [
+          6,
+          6,
+          3,
+          6,
+          2,
+          6,
+          6
+        ],
+        "channels": [
+          {
+            "column": 3,
+            "capacity": 3,
+            "depth0": 1,
+            "positiveDepth": 4,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 1,
+            "p2PositiveDepth": 3
+          },
+          {
+            "column": 5,
+            "capacity": 4,
+            "depth0": 1,
+            "positiveDepth": 2,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 1,
+            "p2PositiveDepth": 1
+          },
+          {
+            "column": 7,
+            "capacity": 0,
+            "depth0": 0,
+            "positiveDepth": 0,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 0,
+            "p2Depth0": 0,
+            "p2PositiveDepth": 0
+          }
+        ],
+        "edges": [
+          {
+            "columns": [
+              3,
+              5
+            ],
+            "deltaCapacity": 1,
+            "deltaPositiveDepth": -2,
+            "relation": "NEG"
+          },
+          {
+            "columns": [
+              3,
+              7
+            ],
+            "deltaCapacity": -3,
+            "deltaPositiveDepth": -4,
+            "relation": "POS"
+          },
+          {
+            "columns": [
+              5,
+              7
+            ],
+            "deltaCapacity": -4,
+            "deltaPositiveDepth": -2,
+            "relation": "POS"
+          }
+        ],
+        "x": 1,
+        "y": 0,
+        "B": 1,
+        "F": [
+          1,
+          0,
+          0
+        ]
+      },
+      "post": {
+        "support": [
+          6,
+          6,
+          3,
+          6,
+          3,
+          6,
+          6
+        ],
+        "channels": [
+          {
+            "column": 3,
+            "capacity": 3,
+            "depth0": 0,
+            "positiveDepth": 2,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 0,
+            "p2PositiveDepth": 1
+          },
+          {
+            "column": 5,
+            "capacity": 3,
+            "depth0": 1,
+            "positiveDepth": 1,
+            "p1Depth0": 1,
+            "p1PositiveDepth": 0,
+            "p2Depth0": 0,
+            "p2PositiveDepth": 1
+          },
+          {
+            "column": 7,
+            "capacity": 0,
+            "depth0": 0,
+            "positiveDepth": 0,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 0,
+            "p2Depth0": 0,
+            "p2PositiveDepth": 0
+          }
+        ],
+        "edges": [
+          {
+            "columns": [
+              3,
+              5
+            ],
+            "deltaCapacity": 0,
+            "deltaPositiveDepth": -1,
+            "relation": "ZERO"
+          },
+          {
+            "columns": [
+              3,
+              7
+            ],
+            "deltaCapacity": -3,
+            "deltaPositiveDepth": -2,
+            "relation": "POS"
+          },
+          {
+            "columns": [
+              5,
+              7
+            ],
+            "deltaCapacity": -3,
+            "deltaPositiveDepth": -1,
+            "relation": "POS"
+          }
+        ],
+        "x": 0,
+        "y": 0,
+        "B": 1,
+        "F": [
+          0,
+          0,
+          0
+        ]
+      },
+      "deltaF": [
+        1,
+        0,
+        0
+      ],
+      "responseTerminal": 3,
+      "next": null
+    },
+    {
+      "state": "ZB",
+      "p2Column": 3,
+      "p1ResponseColumn": 3,
+      "label": "EXPOSE",
+      "target": 1,
+      "pre": {
+        "support": [
+          6,
+          6,
+          3,
+          6,
+          2,
+          6,
+          6
+        ],
+        "channels": [
+          {
+            "column": 3,
+            "capacity": 3,
+            "depth0": 1,
+            "positiveDepth": 4,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 1,
+            "p2PositiveDepth": 3
+          },
+          {
+            "column": 5,
+            "capacity": 4,
+            "depth0": 1,
+            "positiveDepth": 2,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 1,
+            "p2PositiveDepth": 1
+          },
+          {
+            "column": 7,
+            "capacity": 0,
+            "depth0": 0,
+            "positiveDepth": 0,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 0,
+            "p2Depth0": 0,
+            "p2PositiveDepth": 0
+          }
+        ],
+        "edges": [
+          {
+            "columns": [
+              3,
+              5
+            ],
+            "deltaCapacity": 1,
+            "deltaPositiveDepth": -2,
+            "relation": "NEG"
+          },
+          {
+            "columns": [
+              3,
+              7
+            ],
+            "deltaCapacity": -3,
+            "deltaPositiveDepth": -4,
+            "relation": "POS"
+          },
+          {
+            "columns": [
+              5,
+              7
+            ],
+            "deltaCapacity": -4,
+            "deltaPositiveDepth": -2,
+            "relation": "POS"
+          }
+        ],
+        "x": 1,
+        "y": 0,
+        "B": 1,
+        "F": [
+          1,
+          0,
+          0
+        ]
+      },
+      "post": {
+        "support": [
+          6,
+          6,
+          4,
+          6,
+          2,
+          6,
+          6
+        ],
+        "channels": [
+          {
+            "column": 3,
+            "capacity": 2,
+            "depth0": 3,
+            "positiveDepth": 1,
+            "p1Depth0": 1,
+            "p1PositiveDepth": 0,
+            "p2Depth0": 2,
+            "p2PositiveDepth": 1
+          },
+          {
+            "column": 5,
+            "capacity": 4,
+            "depth0": 1,
+            "positiveDepth": 2,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 1,
+            "p2PositiveDepth": 1
+          },
+          {
+            "column": 7,
+            "capacity": 0,
+            "depth0": 0,
+            "positiveDepth": 0,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 0,
+            "p2Depth0": 0,
+            "p2PositiveDepth": 0
+          }
+        ],
+        "edges": [
+          {
+            "columns": [
+              3,
+              5
+            ],
+            "deltaCapacity": 2,
+            "deltaPositiveDepth": 1,
+            "relation": "POS"
+          },
+          {
+            "columns": [
+              3,
+              7
+            ],
+            "deltaCapacity": -2,
+            "deltaPositiveDepth": -1,
+            "relation": "POS"
+          },
+          {
+            "columns": [
+              5,
+              7
+            ],
+            "deltaCapacity": -4,
+            "deltaPositiveDepth": -2,
+            "relation": "POS"
+          }
+        ],
+        "x": 0,
+        "y": 1,
+        "B": 1,
+        "F": [
+          0,
+          1,
+          0
+        ]
+      },
+      "deltaF": [
+        1,
+        1,
+        0
+      ],
+      "responseTerminal": 3,
+      "next": null
+    },
+    {
+      "state": "ZB",
+      "p2Column": 5,
+      "p1ResponseColumn": 5,
+      "label": "EXPOSE",
+      "target": 1,
+      "pre": {
+        "support": [
+          6,
+          6,
+          3,
+          6,
+          2,
+          6,
+          6
+        ],
+        "channels": [
+          {
+            "column": 3,
+            "capacity": 3,
+            "depth0": 1,
+            "positiveDepth": 4,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 1,
+            "p2PositiveDepth": 3
+          },
+          {
+            "column": 5,
+            "capacity": 4,
+            "depth0": 1,
+            "positiveDepth": 2,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 1,
+            "p2PositiveDepth": 1
+          },
+          {
+            "column": 7,
+            "capacity": 0,
+            "depth0": 0,
+            "positiveDepth": 0,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 0,
+            "p2Depth0": 0,
+            "p2PositiveDepth": 0
+          }
+        ],
+        "edges": [
+          {
+            "columns": [
+              3,
+              5
+            ],
+            "deltaCapacity": 1,
+            "deltaPositiveDepth": -2,
+            "relation": "NEG"
+          },
+          {
+            "columns": [
+              3,
+              7
+            ],
+            "deltaCapacity": -3,
+            "deltaPositiveDepth": -4,
+            "relation": "POS"
+          },
+          {
+            "columns": [
+              5,
+              7
+            ],
+            "deltaCapacity": -4,
+            "deltaPositiveDepth": -2,
+            "relation": "POS"
+          }
+        ],
+        "x": 1,
+        "y": 0,
+        "B": 1,
+        "F": [
+          1,
+          0,
+          0
+        ]
+      },
+      "post": {
+        "support": [
+          6,
+          6,
+          3,
+          6,
+          3,
+          6,
+          6
+        ],
+        "channels": [
+          {
+            "column": 3,
+            "capacity": 3,
+            "depth0": 0,
+            "positiveDepth": 2,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 0,
+            "p2PositiveDepth": 1
+          },
+          {
+            "column": 5,
+            "capacity": 3,
+            "depth0": 1,
+            "positiveDepth": 1,
+            "p1Depth0": 1,
+            "p1PositiveDepth": 0,
+            "p2Depth0": 0,
+            "p2PositiveDepth": 1
+          },
+          {
+            "column": 7,
+            "capacity": 0,
+            "depth0": 0,
+            "positiveDepth": 0,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 0,
+            "p2Depth0": 0,
+            "p2PositiveDepth": 0
+          }
+        ],
+        "edges": [
+          {
+            "columns": [
+              3,
+              5
+            ],
+            "deltaCapacity": 0,
+            "deltaPositiveDepth": -1,
+            "relation": "ZERO"
+          },
+          {
+            "columns": [
+              3,
+              7
+            ],
+            "deltaCapacity": -3,
+            "deltaPositiveDepth": -2,
+            "relation": "POS"
+          },
+          {
+            "columns": [
+              5,
+              7
+            ],
+            "deltaCapacity": -3,
+            "deltaPositiveDepth": -1,
+            "relation": "POS"
+          }
+        ],
+        "x": 0,
+        "y": 0,
+        "B": 1,
+        "F": [
+          0,
+          0,
+          0
+        ]
+      },
+      "deltaF": [
+        1,
+        0,
+        0
+      ],
+      "responseTerminal": 3,
+      "next": null
+    },
+    {
+      "state": "ZC",
+      "p2Column": 3,
+      "p1ResponseColumn": 3,
+      "label": "EXPOSE",
+      "target": 1,
+      "pre": {
+        "support": [
+          6,
+          6,
+          3,
+          6,
+          2,
+          6,
+          6
+        ],
+        "channels": [
+          {
+            "column": 3,
+            "capacity": 3,
+            "depth0": 1,
+            "positiveDepth": 4,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 1,
+            "p2PositiveDepth": 3
+          },
+          {
+            "column": 5,
+            "capacity": 4,
+            "depth0": 1,
+            "positiveDepth": 2,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 1,
+            "p2PositiveDepth": 1
+          },
+          {
+            "column": 7,
+            "capacity": 0,
+            "depth0": 0,
+            "positiveDepth": 0,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 0,
+            "p2Depth0": 0,
+            "p2PositiveDepth": 0
+          }
+        ],
+        "edges": [
+          {
+            "columns": [
+              3,
+              5
+            ],
+            "deltaCapacity": 1,
+            "deltaPositiveDepth": -2,
+            "relation": "NEG"
+          },
+          {
+            "columns": [
+              3,
+              7
+            ],
+            "deltaCapacity": -3,
+            "deltaPositiveDepth": -4,
+            "relation": "POS"
+          },
+          {
+            "columns": [
+              5,
+              7
+            ],
+            "deltaCapacity": -4,
+            "deltaPositiveDepth": -2,
+            "relation": "POS"
+          }
+        ],
+        "x": 1,
+        "y": 0,
+        "B": 1,
+        "F": [
+          1,
+          0,
+          0
+        ]
+      },
+      "post": {
+        "support": [
+          6,
+          6,
+          4,
+          6,
+          2,
+          6,
+          6
+        ],
+        "channels": [
+          {
+            "column": 3,
+            "capacity": 2,
+            "depth0": 3,
+            "positiveDepth": 1,
+            "p1Depth0": 1,
+            "p1PositiveDepth": 0,
+            "p2Depth0": 2,
+            "p2PositiveDepth": 1
+          },
+          {
+            "column": 5,
+            "capacity": 4,
+            "depth0": 1,
+            "positiveDepth": 2,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 1,
+            "p2PositiveDepth": 1
+          },
+          {
+            "column": 7,
+            "capacity": 0,
+            "depth0": 0,
+            "positiveDepth": 0,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 0,
+            "p2Depth0": 0,
+            "p2PositiveDepth": 0
+          }
+        ],
+        "edges": [
+          {
+            "columns": [
+              3,
+              5
+            ],
+            "deltaCapacity": 2,
+            "deltaPositiveDepth": 1,
+            "relation": "POS"
+          },
+          {
+            "columns": [
+              3,
+              7
+            ],
+            "deltaCapacity": -2,
+            "deltaPositiveDepth": -1,
+            "relation": "POS"
+          },
+          {
+            "columns": [
+              5,
+              7
+            ],
+            "deltaCapacity": -4,
+            "deltaPositiveDepth": -2,
+            "relation": "POS"
+          }
+        ],
+        "x": 0,
+        "y": 1,
+        "B": 1,
+        "F": [
+          0,
+          1,
+          0
+        ]
+      },
+      "deltaF": [
+        1,
+        1,
+        0
+      ],
+      "responseTerminal": 3,
+      "next": null
+    },
+    {
+      "state": "ZC",
+      "p2Column": 5,
+      "p1ResponseColumn": 5,
+      "label": "EXPOSE",
+      "target": 1,
+      "pre": {
+        "support": [
+          6,
+          6,
+          3,
+          6,
+          2,
+          6,
+          6
+        ],
+        "channels": [
+          {
+            "column": 3,
+            "capacity": 3,
+            "depth0": 1,
+            "positiveDepth": 4,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 1,
+            "p2PositiveDepth": 3
+          },
+          {
+            "column": 5,
+            "capacity": 4,
+            "depth0": 1,
+            "positiveDepth": 2,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 1,
+            "p2PositiveDepth": 1
+          },
+          {
+            "column": 7,
+            "capacity": 0,
+            "depth0": 0,
+            "positiveDepth": 0,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 0,
+            "p2Depth0": 0,
+            "p2PositiveDepth": 0
+          }
+        ],
+        "edges": [
+          {
+            "columns": [
+              3,
+              5
+            ],
+            "deltaCapacity": 1,
+            "deltaPositiveDepth": -2,
+            "relation": "NEG"
+          },
+          {
+            "columns": [
+              3,
+              7
+            ],
+            "deltaCapacity": -3,
+            "deltaPositiveDepth": -4,
+            "relation": "POS"
+          },
+          {
+            "columns": [
+              5,
+              7
+            ],
+            "deltaCapacity": -4,
+            "deltaPositiveDepth": -2,
+            "relation": "POS"
+          }
+        ],
+        "x": 1,
+        "y": 0,
+        "B": 1,
+        "F": [
+          1,
+          0,
+          0
+        ]
+      },
+      "post": {
+        "support": [
+          6,
+          6,
+          3,
+          6,
+          3,
+          6,
+          6
+        ],
+        "channels": [
+          {
+            "column": 3,
+            "capacity": 3,
+            "depth0": 0,
+            "positiveDepth": 2,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 1,
+            "p2Depth0": 0,
+            "p2PositiveDepth": 1
+          },
+          {
+            "column": 5,
+            "capacity": 3,
+            "depth0": 1,
+            "positiveDepth": 1,
+            "p1Depth0": 1,
+            "p1PositiveDepth": 0,
+            "p2Depth0": 0,
+            "p2PositiveDepth": 1
+          },
+          {
+            "column": 7,
+            "capacity": 0,
+            "depth0": 0,
+            "positiveDepth": 0,
+            "p1Depth0": 0,
+            "p1PositiveDepth": 0,
+            "p2Depth0": 0,
+            "p2PositiveDepth": 0
+          }
+        ],
+        "edges": [
+          {
+            "columns": [
+              3,
+              5
+            ],
+            "deltaCapacity": 0,
+            "deltaPositiveDepth": -1,
+            "relation": "ZERO"
+          },
+          {
+            "columns": [
+              3,
+              7
+            ],
+            "deltaCapacity": -3,
+            "deltaPositiveDepth": -2,
+            "relation": "POS"
+          },
+          {
+            "columns": [
+              5,
+              7
+            ],
+            "deltaCapacity": -3,
+            "deltaPositiveDepth": -1,
+            "relation": "POS"
+          }
+        ],
+        "x": 0,
+        "y": 0,
+        "B": 1,
+        "F": [
+          0,
+          0,
+          0
+        ]
+      },
+      "deltaF": [
+        1,
+        0,
+        0
+      ],
+      "responseTerminal": 3,
+      "next": null
+    }
+  ],
+  "tupleClassification": {
+    "tupleSeparates": true,
+    "groups": [
+      {
+        "signature": "111010101",
+        "labels": [
+          "EXPOSE"
+        ],
+        "rows": [
+          "Q:3"
+        ],
+        "pure": true
+      },
+      {
+        "signature": "111100011",
+        "labels": [
+          "TRANSFER"
+        ],
+        "rows": [
+          "Q:5",
+          "Q:7"
+        ],
+        "pure": true
+      },
+      {
+        "signature": "100000100",
+        "labels": [
+          "EXPOSE"
+        ],
+        "rows": [
+          "A:3",
+          "A:5",
+          "ZA:5",
+          "ZB:5",
+          "ZC:5"
+        ],
+        "pure": true
+      },
+      {
+        "signature": "100100000",
+        "labels": [
+          "TRANSFER"
+        ],
+        "rows": [
+          "A:7",
+          "B:5",
+          "B:7"
+        ],
+        "pure": true
+      },
+      {
+        "signature": "100010110",
+        "labels": [
+          "EXPOSE"
+        ],
+        "rows": [
+          "B:3",
+          "ZA:3",
+          "ZB:3",
+          "ZC:3"
+        ],
+        "pure": true
+      }
+    ]
+  },
+  "linearClassification": [
+    {
+      "featureName": "PRE",
+      "featureCount": 4,
+      "rank": 2,
+      "consistent": false,
+      "solution": null,
+      "mismatches": null
+    },
+    {
+      "featureName": "POST",
+      "featureCount": 4,
+      "rank": 3,
+      "consistent": true,
+      "solution": [
+        1,
+        1,
+        0,
+        0
+      ],
+      "mismatches": 0
+    },
+    {
+      "featureName": "DELTA",
+      "featureCount": 4,
+      "rank": 4,
+      "consistent": true,
+      "solution": [
+        0,
+        1,
+        0,
+        0
+      ],
+      "mismatches": 0
+    },
+    {
+      "featureName": "PRE_POST",
+      "featureCount": 7,
+      "rank": 4,
+      "consistent": true,
+      "solution": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "mismatches": 0
+    },
+    {
+      "featureName": "PRE_DELTA",
+      "featureCount": 7,
+      "rank": 4,
+      "consistent": true,
+      "solution": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "mismatches": 0
+    },
+    {
+      "featureName": "POST_DELTA",
+      "featureCount": 7,
+      "rank": 4,
+      "consistent": true,
+      "solution": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "mismatches": 0
+    },
+    {
+      "featureName": "ALL",
+      "featureCount": 10,
+      "rank": 4,
+      "consistent": true,
+      "solution": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "mismatches": 0
+    }
+  ],
+  "accept": true,
+  "conclusion": [
+    "The formula-inspired exchange/frontier tuple separates every EXPOSE transition from every TRANSFER transition in the qualified three-column CPC machine.",
+    "This is a structural bridge result only; it does not establish a universal formula or a production CPC rule.",
+    "The linear-family report states separately whether any frozen GF(2) equation family is sufficient."
+  ],
+  "boundary": [
+    "No oracle, Pons, solved W/D/L, local game-tree value, old OOO scalar code, best-move table, or sealed formula holdout is used.",
+    "Formula artifacts contribute only pre-existing structural definitions; no formula scalar coefficient or outcome label is imported.",
+    "Transition labels are the already-qualified exact CPC theorem topology, not fitted game outcomes.",
+    "Production CPC and JSMinSys are unchanged.",
+    "This pilot uses owner-merged depth counts first; owner-separated refinement is permitted only if this frozen pilot fails."
+  ]
+}
