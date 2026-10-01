@@ -466,6 +466,40 @@ function classG(q,attacker,D,guardCol){
       }
     }
 
+    // Top-exhaustion phase-debt repair. If the attacker has just filled
+    // the trigger column, the ordinary same-column mate no longer exists.
+    // Admit only guard-preserving current frontier cells that are attached to
+    // at least one live attacker residual in the exact post-trigger state.
+    if(!found && first.q.words[c]===g.rows){
+      const liveIds=activeMinimal(first.q,attacker);
+      for(const rcol of legal(first.q)){
+        if(rcol===guardCol)continue;
+        const repairCell=first.q.words[rcol]*g.columns+rcol;
+        const attached=liveIds.some(id=>shapeCells(id).includes(repairCell));
+        if(!attached)continue;
+        const second=cofactor(first.q,rcol),p2=terminalPolarity(second.term,attacker);
+        guardResponses++;
+        if(p2==='DRAW'||p2==='DEFENDER'){
+          found={
+            attackerColumn:c+1,responseColumn:rcol+1,mode:'TOP_PHASE_DEBT_BLOCKER',
+            repairCell:{column:rcol+1,row:g.cellRow[repairCell]+1},closed:p2,
+            guardPreserved:true
+          };
+          break;
+        }
+        if(p2!=='NONTERMINAL')continue;
+        const child=classG(second.q,attacker,D-2,guardCol);
+        if(child.accept){
+          found={
+            attackerColumn:c+1,responseColumn:rcol+1,mode:'TOP_PHASE_DEBT_BLOCKER',
+            repairCell:{column:rcol+1,row:g.cellRow[repairCell]+1},
+            childClass:child.class,guardPreserved:true
+          };
+          break;
+        }
+      }
+    }
+
     // Existing CPC-licensed response edges remain available. Preserve the
     // guard only if neither realized move consumes the guard column; otherwise
     // the exact child must close under ordinary S_(D-2).
@@ -536,7 +570,7 @@ for(const root of roots){
 }
 
 console.log(JSON.stringify({
-  schema:'connect4.cpc_odd_row_guard_support_lift_survival.v1',
+  schema:'connect4.cpc_odd_row_guard_support_lift_phase_debt_survival.v1',
   jsMinSysSha:EXPECTED,
   oracleUsed:false,
   solvedInputsUsed:false,
@@ -549,7 +583,7 @@ console.log(JSON.stringify({
   boundary:[
     'Odd-row guard state is carried as proof provenance during theorem qualification; production promotion requires reconstruction from current occupancy.',
     'Guard renewal is exact only for same-column attacker trigger followed by the immediately playable higher odd defender cell.',
-    'External transitions use already licensed CPC response edges plus the frozen support-lift blocker edge; arbitrary defender responses are not admitted.',
+    'External transitions use already licensed CPC response edges, the frozen support-lift blocker edge, and the frozen top-exhaustion phase-debt blocker repair edge; arbitrary defender responses are not admitted.',
     'Dropping a guard is permitted only when the exact child independently closes under the ordinary survival grammar (or exact one-ply survival at D=1).',
     'This is a constructive survival experiment, not W/D/L or exact remoteness.'
   ]
