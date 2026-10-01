@@ -2,7 +2,7 @@
 
 **Date:** 2026-10-01  
 **Version:** 0.1 frozen before execution  
-**Status:** structural theorem candidate; qualification pending  
+**Status:** qualified structural theorem  
 **Branch:** research/universal-structural-policy-20260930
 
 ## Purpose
@@ -184,6 +184,29 @@ For each qualified state record:
 
 The search for a finite template is proof synthesis over current structural data. No W/D/L oracle value may participate in template selection.
 
+## Qualification result
+
+Qualified on 2026-10-01 by CPC_TRUNCATED_TARGET_RESERVOIR_PAIRING_0_1.json, generated from pinned JSMinSys authority bf23d3a67652cd42e1975f29c7dc4eed54f7eb42 with oracleUsed=false and solvedInputsUsed=false.
+
+All four post-compression states after first replies 1, 3, 6, and 7 admitted a finite template. In every state:
+
+- Player 1 retained the active singleton target c7r3;
+- Player 2 had no currently playable singleton terminal;
+- c7r3 was assigned as a Player-1 vertical response;
+- all five active Player-2 residuals were covered;
+- the synthesized template passed independent exact-RBA cofactor traversal with no illegal response and no Player-2 terminal.
+
+The accepted truncated capacities were respectively:
+
+- after reply 1: [2,0,3,0,1,1,3], with synchronized prefixes (3,5) and (6,7), each length 1;
+- after reply 3: [3,0,2,0,1,1,3], with prefixes (1,5) and (6,7), each length 1;
+- after reply 6: [3,0,3,0,1,0,3], with prefixes (1,3) and (5,7), each length 1;
+- after reply 7: [3,0,3,0,1,1,2], with prefixes (1,3) and (5,6), each length 1.
+
+The target pairing is therefore not a scalar parity guess: each certificate retains exact column pairing, prefix length, target role, residual attachment, and gravity order.
+
+Qualification workflow: GitHub Actions run 36881107529, successful. Durable evidence commit: 0d14c8b1471e407074773d49812226a1c47a0ef2.
+
 ## 9. Falsifiers
 
 Reject or narrow this theorem if any of the following occurs:
@@ -204,4 +227,4 @@ It does not add work to addons/cpc-connect4.mjs, change CPC return meanings, or 
 
 Initial qualification belongs entirely to separate Connect4 research machinery consuming pinned JSMinSys RBA/CPC authority.
 
-Even if the immediate rank-29 family qualifies, that establishes exact W/L only for those states and for any earlier state connected by independently qualified forcing composition. It does not by itself establish candidate-6 optimality, exact remoteness, a universal move finder, or v5.
+Qualification of the immediate rank-29 family establishes exact Player-1 wins for those states under this theorem, and establishes W/L for earlier states only when they are connected by independently qualified forcing composition and for any earlier state connected by independently qualified forcing composition. It does not by itself establish candidate-6 optimality, exact remoteness, a universal move finder, or v5.
