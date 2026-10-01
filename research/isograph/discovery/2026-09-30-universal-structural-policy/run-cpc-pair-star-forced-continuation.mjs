@@ -57,7 +57,7 @@ for(const row of source.rows){
   const attacker=row.attacker-1;
   const endpoints=[];
   for(const ep of row.endpoints){
-    const base=evalCpc(ep.sequence,attacker);
+    const base=evalCpc(ep.cpc.sequence,attacker);
     const continuation=[];
     if(base.kind==='CPC_RESTRICT'&&base.allowedColumns.length){
       for(const c of base.allowedColumns){
