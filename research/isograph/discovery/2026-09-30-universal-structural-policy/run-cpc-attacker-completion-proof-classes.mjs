@@ -243,7 +243,7 @@ function summarize(sequence,layers=4){
   };
 }
 
-export { ingress, rank, mover, terminal, legal, proveAttacker, summarize };
+export { ingress, rank, mover, terminal, legal, cofactor, proveAttacker, summarize };
 
 if(import.meta.url===pathToFileURL(process.argv[1]).href){
 const controls=[
