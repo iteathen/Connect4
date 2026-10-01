@@ -89,7 +89,7 @@ console.log(JSON.stringify({
     c2_c3:{exactMatches:c2c3.length,coverage:coverage(c2c3),sample:c2c3.slice(0,40)}
   },
   c6SameAttackerUnionCoverage:[...union].sort((a,b)=>a-b),
-  c6Column6AllExactMatches,
+  c6Column6AllExactMatches:c6Column6AllMatches,
   boundary:[
     'Two-ply local semantic endpoint census only; no value recursion or oracle.',
     'Exact matches compare complete CPC/RBA semantic keys.',
