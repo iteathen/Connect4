@@ -1,0 +1,263 @@
+{
+  "schema": "connect4.cpc_bottom_response_guard_candidate6_target.v1",
+  "jsMinSysSha": "0899c5811918e68c22dc1b0e4dd8af97d9b4bbcb",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "requestedMaxHorizon": 11,
+  "horizons": [
+    11
+  ],
+  "rows": [
+    {
+      "id": "candidate6",
+      "sequence": "4444415666",
+      "attacker": 1,
+      "membership": [
+        {
+          "D": 11,
+          "accept": true,
+          "class": "AD_R9_TO_S11",
+          "witness": null,
+          "witnessByTrigger": [
+            {
+              "attackerColumn": 1,
+              "responseColumn": 4,
+              "closed": false,
+              "templatePairs": [
+                {
+                  "cols": [
+                    1,
+                    4
+                  ],
+                  "length": 1
+                },
+                {
+                  "cols": [
+                    5,
+                    6
+                  ],
+                  "length": 1
+                }
+              ],
+              "responseSource": "SYNCHRONIZED_TEMPLATE",
+              "responseSources": [
+                "SYNCHRONIZED_TEMPLATE"
+              ],
+              "establishesGuard": null,
+              "childClass": "AD_R7_TO_S9"
+            },
+            {
+              "attackerColumn": 2,
+              "responseColumn": 3,
+              "closed": false,
+              "templatePairs": [
+                {
+                  "cols": [
+                    1,
+                    4
+                  ],
+                  "length": 1
+                },
+                {
+                  "cols": [
+                    5,
+                    6
+                  ],
+                  "length": 1
+                },
+                {
+                  "cols": [
+                    2,
+                    3
+                  ],
+                  "length": 2
+                }
+              ],
+              "responseSource": "SYNCHRONIZED_TEMPLATE",
+              "responseSources": [
+                "SYNCHRONIZED_TEMPLATE",
+                "FRONTIER_RESIDUAL_EDGE"
+              ],
+              "establishesGuard": 3,
+              "childClass": "ODD_ROW_GUARD_9"
+            },
+            {
+              "attackerColumn": 3,
+              "responseColumn": 2,
+              "closed": false,
+              "templatePairs": [
+                {
+                  "cols": [
+                    1,
+                    4
+                  ],
+                  "length": 1
+                },
+                {
+                  "cols": [
+                    5,
+                    6
+                  ],
+                  "length": 1
+                },
+                {
+                  "cols": [
+                    2,
+                    3
+                  ],
+                  "length": 2
+                }
+              ],
+              "responseSource": "SYNCHRONIZED_TEMPLATE",
+              "responseSources": [
+                "SYNCHRONIZED_TEMPLATE",
+                "FRONTIER_RESIDUAL_EDGE"
+              ],
+              "establishesGuard": 2,
+              "childClass": "ODD_ROW_GUARD_9"
+            },
+            {
+              "attackerColumn": 4,
+              "responseColumn": 1,
+              "closed": false,
+              "templatePairs": [
+                {
+                  "cols": [
+                    1,
+                    4
+                  ],
+                  "length": 1
+                },
+                {
+                  "cols": [
+                    5,
+                    6
+                  ],
+                  "length": 1
+                }
+              ],
+              "responseSource": "SYNCHRONIZED_TEMPLATE",
+              "responseSources": [
+                "SYNCHRONIZED_TEMPLATE"
+              ],
+              "establishesGuard": null,
+              "childClass": "AD_R7_TO_S9"
+            },
+            {
+              "attackerColumn": 5,
+              "responseColumn": 6,
+              "closed": false,
+              "templatePairs": [
+                {
+                  "cols": [
+                    1,
+                    4
+                  ],
+                  "length": 1
+                },
+                {
+                  "cols": [
+                    5,
+                    6
+                  ],
+                  "length": 1
+                }
+              ],
+              "responseSource": "SYNCHRONIZED_TEMPLATE",
+              "responseSources": [
+                "SYNCHRONIZED_TEMPLATE"
+              ],
+              "establishesGuard": null,
+              "childClass": "AD_R7_TO_S9"
+            },
+            {
+              "attackerColumn": 6,
+              "responseColumn": 5,
+              "closed": false,
+              "templatePairs": [
+                {
+                  "cols": [
+                    1,
+                    4
+                  ],
+                  "length": 1
+                },
+                {
+                  "cols": [
+                    5,
+                    6
+                  ],
+                  "length": 1
+                }
+              ],
+              "responseSource": "SYNCHRONIZED_TEMPLATE",
+              "responseSources": [
+                "SYNCHRONIZED_TEMPLATE"
+              ],
+              "establishesGuard": null,
+              "childClass": "AD_R7_TO_S9"
+            },
+            {
+              "attackerColumn": 7,
+              "responseColumn": 7,
+              "closed": false,
+              "templatePairs": [
+                {
+                  "cols": [
+                    1,
+                    4
+                  ],
+                  "length": 1
+                },
+                {
+                  "cols": [
+                    5,
+                    6
+                  ],
+                  "length": 1
+                }
+              ],
+              "responseSource": "SYNCHRONIZED_TEMPLATE",
+              "responseSources": [
+                "SYNCHRONIZED_TEMPLATE"
+              ],
+              "establishesGuard": null,
+              "childClass": "AD_R7_TO_S9"
+            }
+          ],
+          "failedTrigger": null
+        }
+      ]
+    }
+  ],
+  "failureFrontiers": [],
+  "work": {
+    "classCalls": 549,
+    "memoHits": 187,
+    "responseOptionsTested": 1644,
+    "branchTests": 544,
+    "cofactorCount": 14890,
+    "guardCalls": 798,
+    "guardMemoHits": 408,
+    "guardBranchTests": 2617,
+    "guardForcedResponses": 2505,
+    "guardRetirements": 11,
+    "guardEstablishments": 215,
+    "topDebtTests": 369,
+    "topDebtClosures": 360,
+    "classMemoSize": 549,
+    "guardMemoSize": 798,
+    "baseMemoSize": 1347,
+    "templateMemoSize": 1213,
+    "responseOptionMemoSize": 733,
+    "cofactorMemoSize": 14890
+  },
+  "boundary": [
+    "S_D is a constructive defender survival proof class; POOLED_FRONTIER_NOWIN is an independently qualified unbounded no-win base certificate.",
+    "Response options are complete synchronized-template mates, exact same-residual frontier attachment edges, and exact +2-row cross-residual ladder edges; every transported child must independently re-enter the survival class.",
+    "Each observed attacker trigger may select its own complete synchronized-response template; the exact mate is then transported by CPC/RBA cofactor.",
+    "Failure of S_D is not an attacker forced-completion certificate.",
+    "The spectrum composes trigger-adaptive synchronized responses, pooled-frontier no-win closure, the frozen path-independent bottom-response guard-establishment corollary, the odd-row guard-column temporal contract, the support-lift blocker response, and external top-exhaustion phase-debt repair; it is not unrestricted legal-response minimax.",
+    "The bottom-response guard-establishment corollary is frozen theorem scope. Positive extension at the consumed boundary still requires fresh structural qualification before production promotion."
+  ]
+}
