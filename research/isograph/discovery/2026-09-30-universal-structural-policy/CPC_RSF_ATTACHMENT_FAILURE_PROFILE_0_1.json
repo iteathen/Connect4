@@ -1,0 +1,7363 @@
+{
+  "schema": "connect4.cpc_rsf_attachment_failure_profile.v1",
+  "jsMinSysSha": "0899c5811918e68c22dc1b0e4dd8af97d9b4bbcb",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "objective": "Profile the first pooled-renewal failure frontier using remaining-capacity/support-release/frontier coordinates while preserving exact residual attachment identity.",
+  "isographGuidance": [
+    "DP 0.9: preserve minimum sufficient support for the declared survival-class objective; do not rank features before sufficiency.",
+    "Core 0.21: do not erase a load-bearing source-semantic attachment merely because a coarser derived view looks simpler.",
+    "Formula clue: depth=0 frontier exposure versus positive-depth bulk is load-bearing in the strongest pooled remainder audit.",
+    "Formula clue: R/S/F composition preserved exact bounded future/action/value behavior; scalar parity or presence alone did not."
+  ],
+  "cases": [
+    {
+      "label": "c2_fail_r4",
+      "sequence": "444441566254",
+      "rank": 12,
+      "attacker": 1,
+      "support": [
+        1,
+        1,
+        0,
+        6,
+        2,
+        2,
+        0
+      ],
+      "remaining": [
+        5,
+        5,
+        6,
+        0,
+        4,
+        4,
+        6
+      ],
+      "frontier": [
+        {
+          "cell": 7,
+          "column": 1,
+          "row": 2,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 5
+        },
+        {
+          "cell": 8,
+          "column": 2,
+          "row": 2,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 5
+        },
+        {
+          "cell": 2,
+          "column": 3,
+          "row": 1,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 6
+        },
+        {
+          "cell": 18,
+          "column": 5,
+          "row": 3,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 4
+        },
+        {
+          "cell": 19,
+          "column": 6,
+          "row": 3,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 4
+        },
+        {
+          "cell": 6,
+          "column": 7,
+          "row": 1,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 6
+        }
+      ],
+      "pooled": {
+        "pool": [
+          {
+            "cell": 7,
+            "column": 1,
+            "row": 2,
+            "depth": 0,
+            "frontier": true,
+            "positiveDepth": false,
+            "releaseRank": 1,
+            "remainingColumn": 5
+          },
+          {
+            "cell": 8,
+            "column": 2,
+            "row": 2,
+            "depth": 0,
+            "frontier": true,
+            "positiveDepth": false,
+            "releaseRank": 1,
+            "remainingColumn": 5
+          }
+        ],
+        "verticalResponses": [
+          {
+            "cell": 21,
+            "column": 1,
+            "row": 4,
+            "depth": 2,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 3,
+            "remainingColumn": 5
+          },
+          {
+            "cell": 35,
+            "column": 1,
+            "row": 6,
+            "depth": 4,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 5,
+            "remainingColumn": 5
+          },
+          {
+            "cell": 22,
+            "column": 2,
+            "row": 4,
+            "depth": 2,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 3,
+            "remainingColumn": 5
+          },
+          {
+            "cell": 36,
+            "column": 2,
+            "row": 6,
+            "depth": 4,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 5,
+            "remainingColumn": 5
+          },
+          {
+            "cell": 9,
+            "column": 3,
+            "row": 2,
+            "depth": 1,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 2,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 23,
+            "column": 3,
+            "row": 4,
+            "depth": 3,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 4,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 37,
+            "column": 3,
+            "row": 6,
+            "depth": 5,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 6,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 25,
+            "column": 5,
+            "row": 4,
+            "depth": 1,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 2,
+            "remainingColumn": 4
+          },
+          {
+            "cell": 39,
+            "column": 5,
+            "row": 6,
+            "depth": 3,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 4,
+            "remainingColumn": 4
+          },
+          {
+            "cell": 26,
+            "column": 6,
+            "row": 4,
+            "depth": 1,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 2,
+            "remainingColumn": 4
+          },
+          {
+            "cell": 40,
+            "column": 6,
+            "row": 6,
+            "depth": 3,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 4,
+            "remainingColumn": 4
+          },
+          {
+            "cell": 13,
+            "column": 7,
+            "row": 2,
+            "depth": 1,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 2,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 27,
+            "column": 7,
+            "row": 4,
+            "depth": 3,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 4,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 41,
+            "column": 7,
+            "row": 6,
+            "depth": 5,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 6,
+            "remainingColumn": 6
+          }
+        ]
+      },
+      "activeMinimalResidualCount": 29,
+      "pooledDefectCount": 8,
+      "defectDeadlineHistogram": {
+        "5": 3,
+        "7": 4,
+        "9": 1
+      },
+      "defectFrontierMultiplicityHistogram": {
+        "0": 5,
+        "1": 1,
+        "2": 2
+      },
+      "defectDepthWordHistogram": {
+        "1.1.2": 1,
+        "0.1.2": 1,
+        "0.0.2": 2,
+        "3.3.4": 1,
+        "2.3.4": 1,
+        "2.2.4": 2
+      },
+      "frontierAttachmentCellDegrees": [
+        {
+          "cell": 18,
+          "column": 5,
+          "row": 3,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 4,
+          "degree": 3
+        },
+        {
+          "cell": 19,
+          "column": 6,
+          "row": 3,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 4,
+          "degree": 2
+        }
+      ],
+      "defects": [
+        {
+          "id": 442,
+          "size": 3,
+          "earliest": 7,
+          "signature": "1:1:5,2:1:5,3:2:6",
+          "frontierCount": 0,
+          "positiveDepthCount": 3,
+          "minDepth": 1,
+          "maxDepth": 2,
+          "depthWord": [
+            1,
+            1,
+            2
+          ],
+          "columns": [
+            1,
+            2,
+            3
+          ],
+          "cells": [
+            {
+              "cell": 14,
+              "column": 1,
+              "row": 3,
+              "depth": 1,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 2,
+              "remainingColumn": 5
+            },
+            {
+              "cell": 15,
+              "column": 2,
+              "row": 3,
+              "depth": 1,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 2,
+              "remainingColumn": 5
+            },
+            {
+              "cell": 16,
+              "column": 3,
+              "row": 3,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 6
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 452,
+          "size": 3,
+          "earliest": 5,
+          "signature": "2:1:5,3:2:6,5:0:4",
+          "frontierCount": 1,
+          "positiveDepthCount": 2,
+          "minDepth": 0,
+          "maxDepth": 2,
+          "depthWord": [
+            0,
+            1,
+            2
+          ],
+          "columns": [
+            2,
+            3,
+            5
+          ],
+          "cells": [
+            {
+              "cell": 15,
+              "column": 2,
+              "row": 3,
+              "depth": 1,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 2,
+              "remainingColumn": 5
+            },
+            {
+              "cell": 16,
+              "column": 3,
+              "row": 3,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 18,
+              "column": 5,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 462,
+          "size": 3,
+          "earliest": 5,
+          "signature": "3:2:6,5:0:4,6:0:4",
+          "frontierCount": 2,
+          "positiveDepthCount": 1,
+          "minDepth": 0,
+          "maxDepth": 2,
+          "depthWord": [
+            0,
+            0,
+            2
+          ],
+          "columns": [
+            3,
+            5,
+            6
+          ],
+          "cells": [
+            {
+              "cell": 16,
+              "column": 3,
+              "row": 3,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 18,
+              "column": 5,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 19,
+              "column": 6,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 482,
+          "size": 3,
+          "earliest": 5,
+          "signature": "5:0:4,6:0:4,7:2:6",
+          "frontierCount": 2,
+          "positiveDepthCount": 1,
+          "minDepth": 0,
+          "maxDepth": 2,
+          "depthWord": [
+            0,
+            0,
+            2
+          ],
+          "columns": [
+            5,
+            6,
+            7
+          ],
+          "cells": [
+            {
+              "cell": 18,
+              "column": 5,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 19,
+              "column": 6,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 6
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 530,
+          "size": 3,
+          "earliest": 9,
+          "signature": "1:3:5,2:3:5,3:4:6",
+          "frontierCount": 0,
+          "positiveDepthCount": 3,
+          "minDepth": 3,
+          "maxDepth": 4,
+          "depthWord": [
+            3,
+            3,
+            4
+          ],
+          "columns": [
+            1,
+            2,
+            3
+          ],
+          "cells": [
+            {
+              "cell": 28,
+              "column": 1,
+              "row": 5,
+              "depth": 3,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 4,
+              "remainingColumn": 5
+            },
+            {
+              "cell": 29,
+              "column": 2,
+              "row": 5,
+              "depth": 3,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 4,
+              "remainingColumn": 5
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "depth": 4,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 5,
+              "remainingColumn": 6
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 534,
+          "size": 3,
+          "earliest": 7,
+          "signature": "2:3:5,3:4:6,5:2:4",
+          "frontierCount": 0,
+          "positiveDepthCount": 3,
+          "minDepth": 2,
+          "maxDepth": 4,
+          "depthWord": [
+            2,
+            3,
+            4
+          ],
+          "columns": [
+            2,
+            3,
+            5
+          ],
+          "cells": [
+            {
+              "cell": 29,
+              "column": 2,
+              "row": 5,
+              "depth": 3,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 4,
+              "remainingColumn": 5
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "depth": 4,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 5,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 32,
+              "column": 5,
+              "row": 5,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 4
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 538,
+          "size": 3,
+          "earliest": 7,
+          "signature": "3:4:6,5:2:4,6:2:4",
+          "frontierCount": 0,
+          "positiveDepthCount": 3,
+          "minDepth": 2,
+          "maxDepth": 4,
+          "depthWord": [
+            2,
+            2,
+            4
+          ],
+          "columns": [
+            3,
+            5,
+            6
+          ],
+          "cells": [
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "depth": 4,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 5,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 32,
+              "column": 5,
+              "row": 5,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 33,
+              "column": 6,
+              "row": 5,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 4
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 542,
+          "size": 3,
+          "earliest": 7,
+          "signature": "5:2:4,6:2:4,7:4:6",
+          "frontierCount": 0,
+          "positiveDepthCount": 3,
+          "minDepth": 2,
+          "maxDepth": 4,
+          "depthWord": [
+            2,
+            2,
+            4
+          ],
+          "columns": [
+            5,
+            6,
+            7
+          ],
+          "cells": [
+            {
+              "cell": 32,
+              "column": 5,
+              "row": 5,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 33,
+              "column": 6,
+              "row": 5,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 34,
+              "column": 7,
+              "row": 5,
+              "depth": 4,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 5,
+              "remainingColumn": 6
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        }
+      ]
+    },
+    {
+      "label": "c2_fail_r2",
+      "sequence": "444441566252",
+      "rank": 12,
+      "attacker": 1,
+      "support": [
+        1,
+        2,
+        0,
+        5,
+        2,
+        2,
+        0
+      ],
+      "remaining": [
+        5,
+        4,
+        6,
+        1,
+        4,
+        4,
+        6
+      ],
+      "frontier": [
+        {
+          "cell": 7,
+          "column": 1,
+          "row": 2,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 5
+        },
+        {
+          "cell": 15,
+          "column": 2,
+          "row": 3,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 4
+        },
+        {
+          "cell": 2,
+          "column": 3,
+          "row": 1,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 6
+        },
+        {
+          "cell": 38,
+          "column": 4,
+          "row": 6,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 1
+        },
+        {
+          "cell": 18,
+          "column": 5,
+          "row": 3,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 4
+        },
+        {
+          "cell": 19,
+          "column": 6,
+          "row": 3,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 4
+        },
+        {
+          "cell": 6,
+          "column": 7,
+          "row": 1,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 6
+        }
+      ],
+      "pooled": {
+        "pool": [
+          {
+            "cell": 7,
+            "column": 1,
+            "row": 2,
+            "depth": 0,
+            "frontier": true,
+            "positiveDepth": false,
+            "releaseRank": 1,
+            "remainingColumn": 5
+          },
+          {
+            "cell": 38,
+            "column": 4,
+            "row": 6,
+            "depth": 0,
+            "frontier": true,
+            "positiveDepth": false,
+            "releaseRank": 1,
+            "remainingColumn": 1
+          }
+        ],
+        "verticalResponses": [
+          {
+            "cell": 21,
+            "column": 1,
+            "row": 4,
+            "depth": 2,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 3,
+            "remainingColumn": 5
+          },
+          {
+            "cell": 35,
+            "column": 1,
+            "row": 6,
+            "depth": 4,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 5,
+            "remainingColumn": 5
+          },
+          {
+            "cell": 22,
+            "column": 2,
+            "row": 4,
+            "depth": 1,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 2,
+            "remainingColumn": 4
+          },
+          {
+            "cell": 36,
+            "column": 2,
+            "row": 6,
+            "depth": 3,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 4,
+            "remainingColumn": 4
+          },
+          {
+            "cell": 9,
+            "column": 3,
+            "row": 2,
+            "depth": 1,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 2,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 23,
+            "column": 3,
+            "row": 4,
+            "depth": 3,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 4,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 37,
+            "column": 3,
+            "row": 6,
+            "depth": 5,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 6,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 25,
+            "column": 5,
+            "row": 4,
+            "depth": 1,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 2,
+            "remainingColumn": 4
+          },
+          {
+            "cell": 39,
+            "column": 5,
+            "row": 6,
+            "depth": 3,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 4,
+            "remainingColumn": 4
+          },
+          {
+            "cell": 26,
+            "column": 6,
+            "row": 4,
+            "depth": 1,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 2,
+            "remainingColumn": 4
+          },
+          {
+            "cell": 40,
+            "column": 6,
+            "row": 6,
+            "depth": 3,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 4,
+            "remainingColumn": 4
+          },
+          {
+            "cell": 13,
+            "column": 7,
+            "row": 2,
+            "depth": 1,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 2,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 27,
+            "column": 7,
+            "row": 4,
+            "depth": 3,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 4,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 41,
+            "column": 7,
+            "row": 6,
+            "depth": 5,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 6,
+            "remainingColumn": 6
+          }
+        ]
+      },
+      "activeMinimalResidualCount": 34,
+      "pooledDefectCount": 8,
+      "defectDeadlineHistogram": {
+        "5": 4,
+        "7": 4
+      },
+      "defectFrontierMultiplicityHistogram": {
+        "0": 4,
+        "1": 1,
+        "2": 3
+      },
+      "defectDepthWordHistogram": {
+        "0.1.2": 1,
+        "0.0.2": 3,
+        "2.3.4": 1,
+        "2.2.4": 3
+      },
+      "frontierAttachmentCellDegrees": [
+        {
+          "cell": 15,
+          "column": 2,
+          "row": 3,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 4,
+          "degree": 2
+        },
+        {
+          "cell": 18,
+          "column": 5,
+          "row": 3,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 4,
+          "degree": 3
+        },
+        {
+          "cell": 19,
+          "column": 6,
+          "row": 3,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 4,
+          "degree": 2
+        }
+      ],
+      "defects": [
+        {
+          "id": 442,
+          "size": 3,
+          "earliest": 5,
+          "signature": "1:1:5,2:0:4,3:2:6",
+          "frontierCount": 1,
+          "positiveDepthCount": 2,
+          "minDepth": 0,
+          "maxDepth": 2,
+          "depthWord": [
+            0,
+            1,
+            2
+          ],
+          "columns": [
+            1,
+            2,
+            3
+          ],
+          "cells": [
+            {
+              "cell": 14,
+              "column": 1,
+              "row": 3,
+              "depth": 1,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 2,
+              "remainingColumn": 5
+            },
+            {
+              "cell": 15,
+              "column": 2,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 16,
+              "column": 3,
+              "row": 3,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 6
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 452,
+          "size": 3,
+          "earliest": 5,
+          "signature": "2:0:4,3:2:6,5:0:4",
+          "frontierCount": 2,
+          "positiveDepthCount": 1,
+          "minDepth": 0,
+          "maxDepth": 2,
+          "depthWord": [
+            0,
+            0,
+            2
+          ],
+          "columns": [
+            2,
+            3,
+            5
+          ],
+          "cells": [
+            {
+              "cell": 15,
+              "column": 2,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 16,
+              "column": 3,
+              "row": 3,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 18,
+              "column": 5,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 462,
+          "size": 3,
+          "earliest": 5,
+          "signature": "3:2:6,5:0:4,6:0:4",
+          "frontierCount": 2,
+          "positiveDepthCount": 1,
+          "minDepth": 0,
+          "maxDepth": 2,
+          "depthWord": [
+            0,
+            0,
+            2
+          ],
+          "columns": [
+            3,
+            5,
+            6
+          ],
+          "cells": [
+            {
+              "cell": 16,
+              "column": 3,
+              "row": 3,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 18,
+              "column": 5,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 19,
+              "column": 6,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 482,
+          "size": 3,
+          "earliest": 5,
+          "signature": "5:0:4,6:0:4,7:2:6",
+          "frontierCount": 2,
+          "positiveDepthCount": 1,
+          "minDepth": 0,
+          "maxDepth": 2,
+          "depthWord": [
+            0,
+            0,
+            2
+          ],
+          "columns": [
+            5,
+            6,
+            7
+          ],
+          "cells": [
+            {
+              "cell": 18,
+              "column": 5,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 19,
+              "column": 6,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 6
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 530,
+          "size": 3,
+          "earliest": 7,
+          "signature": "1:3:5,2:2:4,3:4:6",
+          "frontierCount": 0,
+          "positiveDepthCount": 3,
+          "minDepth": 2,
+          "maxDepth": 4,
+          "depthWord": [
+            2,
+            3,
+            4
+          ],
+          "columns": [
+            1,
+            2,
+            3
+          ],
+          "cells": [
+            {
+              "cell": 28,
+              "column": 1,
+              "row": 5,
+              "depth": 3,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 4,
+              "remainingColumn": 5
+            },
+            {
+              "cell": 29,
+              "column": 2,
+              "row": 5,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "depth": 4,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 5,
+              "remainingColumn": 6
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 534,
+          "size": 3,
+          "earliest": 7,
+          "signature": "2:2:4,3:4:6,5:2:4",
+          "frontierCount": 0,
+          "positiveDepthCount": 3,
+          "minDepth": 2,
+          "maxDepth": 4,
+          "depthWord": [
+            2,
+            2,
+            4
+          ],
+          "columns": [
+            2,
+            3,
+            5
+          ],
+          "cells": [
+            {
+              "cell": 29,
+              "column": 2,
+              "row": 5,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "depth": 4,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 5,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 32,
+              "column": 5,
+              "row": 5,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 4
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 538,
+          "size": 3,
+          "earliest": 7,
+          "signature": "3:4:6,5:2:4,6:2:4",
+          "frontierCount": 0,
+          "positiveDepthCount": 3,
+          "minDepth": 2,
+          "maxDepth": 4,
+          "depthWord": [
+            2,
+            2,
+            4
+          ],
+          "columns": [
+            3,
+            5,
+            6
+          ],
+          "cells": [
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "depth": 4,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 5,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 32,
+              "column": 5,
+              "row": 5,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 33,
+              "column": 6,
+              "row": 5,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 4
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 542,
+          "size": 3,
+          "earliest": 7,
+          "signature": "5:2:4,6:2:4,7:4:6",
+          "frontierCount": 0,
+          "positiveDepthCount": 3,
+          "minDepth": 2,
+          "maxDepth": 4,
+          "depthWord": [
+            2,
+            2,
+            4
+          ],
+          "columns": [
+            5,
+            6,
+            7
+          ],
+          "cells": [
+            {
+              "cell": 32,
+              "column": 5,
+              "row": 5,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 33,
+              "column": 6,
+              "row": 5,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 34,
+              "column": 7,
+              "row": 5,
+              "depth": 4,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 5,
+              "remainingColumn": 6
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        }
+      ]
+    },
+    {
+      "label": "c2_fail_r1",
+      "sequence": "444441566251",
+      "rank": 12,
+      "attacker": 1,
+      "support": [
+        2,
+        1,
+        0,
+        5,
+        2,
+        2,
+        0
+      ],
+      "remaining": [
+        4,
+        5,
+        6,
+        1,
+        4,
+        4,
+        6
+      ],
+      "frontier": [
+        {
+          "cell": 14,
+          "column": 1,
+          "row": 3,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 4
+        },
+        {
+          "cell": 8,
+          "column": 2,
+          "row": 2,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 5
+        },
+        {
+          "cell": 2,
+          "column": 3,
+          "row": 1,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 6
+        },
+        {
+          "cell": 38,
+          "column": 4,
+          "row": 6,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 1
+        },
+        {
+          "cell": 18,
+          "column": 5,
+          "row": 3,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 4
+        },
+        {
+          "cell": 19,
+          "column": 6,
+          "row": 3,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 4
+        },
+        {
+          "cell": 6,
+          "column": 7,
+          "row": 1,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 6
+        }
+      ],
+      "pooled": {
+        "pool": [
+          {
+            "cell": 8,
+            "column": 2,
+            "row": 2,
+            "depth": 0,
+            "frontier": true,
+            "positiveDepth": false,
+            "releaseRank": 1,
+            "remainingColumn": 5
+          },
+          {
+            "cell": 38,
+            "column": 4,
+            "row": 6,
+            "depth": 0,
+            "frontier": true,
+            "positiveDepth": false,
+            "releaseRank": 1,
+            "remainingColumn": 1
+          }
+        ],
+        "verticalResponses": [
+          {
+            "cell": 21,
+            "column": 1,
+            "row": 4,
+            "depth": 1,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 2,
+            "remainingColumn": 4
+          },
+          {
+            "cell": 35,
+            "column": 1,
+            "row": 6,
+            "depth": 3,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 4,
+            "remainingColumn": 4
+          },
+          {
+            "cell": 22,
+            "column": 2,
+            "row": 4,
+            "depth": 2,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 3,
+            "remainingColumn": 5
+          },
+          {
+            "cell": 36,
+            "column": 2,
+            "row": 6,
+            "depth": 4,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 5,
+            "remainingColumn": 5
+          },
+          {
+            "cell": 9,
+            "column": 3,
+            "row": 2,
+            "depth": 1,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 2,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 23,
+            "column": 3,
+            "row": 4,
+            "depth": 3,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 4,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 37,
+            "column": 3,
+            "row": 6,
+            "depth": 5,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 6,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 25,
+            "column": 5,
+            "row": 4,
+            "depth": 1,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 2,
+            "remainingColumn": 4
+          },
+          {
+            "cell": 39,
+            "column": 5,
+            "row": 6,
+            "depth": 3,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 4,
+            "remainingColumn": 4
+          },
+          {
+            "cell": 26,
+            "column": 6,
+            "row": 4,
+            "depth": 1,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 2,
+            "remainingColumn": 4
+          },
+          {
+            "cell": 40,
+            "column": 6,
+            "row": 6,
+            "depth": 3,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 4,
+            "remainingColumn": 4
+          },
+          {
+            "cell": 13,
+            "column": 7,
+            "row": 2,
+            "depth": 1,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 2,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 27,
+            "column": 7,
+            "row": 4,
+            "depth": 3,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 4,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 41,
+            "column": 7,
+            "row": 6,
+            "depth": 5,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 6,
+            "remainingColumn": 6
+          }
+        ]
+      },
+      "activeMinimalResidualCount": 33,
+      "pooledDefectCount": 8,
+      "defectDeadlineHistogram": {
+        "5": 4,
+        "7": 4
+      },
+      "defectFrontierMultiplicityHistogram": {
+        "0": 4,
+        "1": 2,
+        "2": 2
+      },
+      "defectDepthWordHistogram": {
+        "0.1.2": 2,
+        "0.0.2": 2,
+        "2.3.4": 2,
+        "2.2.4": 2
+      },
+      "frontierAttachmentCellDegrees": [
+        {
+          "cell": 14,
+          "column": 1,
+          "row": 3,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 4,
+          "degree": 1
+        },
+        {
+          "cell": 18,
+          "column": 5,
+          "row": 3,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 4,
+          "degree": 3
+        },
+        {
+          "cell": 19,
+          "column": 6,
+          "row": 3,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 4,
+          "degree": 2
+        }
+      ],
+      "defects": [
+        {
+          "id": 442,
+          "size": 3,
+          "earliest": 5,
+          "signature": "1:0:4,2:1:5,3:2:6",
+          "frontierCount": 1,
+          "positiveDepthCount": 2,
+          "minDepth": 0,
+          "maxDepth": 2,
+          "depthWord": [
+            0,
+            1,
+            2
+          ],
+          "columns": [
+            1,
+            2,
+            3
+          ],
+          "cells": [
+            {
+              "cell": 14,
+              "column": 1,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 15,
+              "column": 2,
+              "row": 3,
+              "depth": 1,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 2,
+              "remainingColumn": 5
+            },
+            {
+              "cell": 16,
+              "column": 3,
+              "row": 3,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 6
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 452,
+          "size": 3,
+          "earliest": 5,
+          "signature": "2:1:5,3:2:6,5:0:4",
+          "frontierCount": 1,
+          "positiveDepthCount": 2,
+          "minDepth": 0,
+          "maxDepth": 2,
+          "depthWord": [
+            0,
+            1,
+            2
+          ],
+          "columns": [
+            2,
+            3,
+            5
+          ],
+          "cells": [
+            {
+              "cell": 15,
+              "column": 2,
+              "row": 3,
+              "depth": 1,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 2,
+              "remainingColumn": 5
+            },
+            {
+              "cell": 16,
+              "column": 3,
+              "row": 3,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 18,
+              "column": 5,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 462,
+          "size": 3,
+          "earliest": 5,
+          "signature": "3:2:6,5:0:4,6:0:4",
+          "frontierCount": 2,
+          "positiveDepthCount": 1,
+          "minDepth": 0,
+          "maxDepth": 2,
+          "depthWord": [
+            0,
+            0,
+            2
+          ],
+          "columns": [
+            3,
+            5,
+            6
+          ],
+          "cells": [
+            {
+              "cell": 16,
+              "column": 3,
+              "row": 3,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 18,
+              "column": 5,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 19,
+              "column": 6,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 482,
+          "size": 3,
+          "earliest": 5,
+          "signature": "5:0:4,6:0:4,7:2:6",
+          "frontierCount": 2,
+          "positiveDepthCount": 1,
+          "minDepth": 0,
+          "maxDepth": 2,
+          "depthWord": [
+            0,
+            0,
+            2
+          ],
+          "columns": [
+            5,
+            6,
+            7
+          ],
+          "cells": [
+            {
+              "cell": 18,
+              "column": 5,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 19,
+              "column": 6,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 6
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 530,
+          "size": 3,
+          "earliest": 7,
+          "signature": "1:2:4,2:3:5,3:4:6",
+          "frontierCount": 0,
+          "positiveDepthCount": 3,
+          "minDepth": 2,
+          "maxDepth": 4,
+          "depthWord": [
+            2,
+            3,
+            4
+          ],
+          "columns": [
+            1,
+            2,
+            3
+          ],
+          "cells": [
+            {
+              "cell": 28,
+              "column": 1,
+              "row": 5,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 29,
+              "column": 2,
+              "row": 5,
+              "depth": 3,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 4,
+              "remainingColumn": 5
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "depth": 4,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 5,
+              "remainingColumn": 6
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 534,
+          "size": 3,
+          "earliest": 7,
+          "signature": "2:3:5,3:4:6,5:2:4",
+          "frontierCount": 0,
+          "positiveDepthCount": 3,
+          "minDepth": 2,
+          "maxDepth": 4,
+          "depthWord": [
+            2,
+            3,
+            4
+          ],
+          "columns": [
+            2,
+            3,
+            5
+          ],
+          "cells": [
+            {
+              "cell": 29,
+              "column": 2,
+              "row": 5,
+              "depth": 3,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 4,
+              "remainingColumn": 5
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "depth": 4,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 5,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 32,
+              "column": 5,
+              "row": 5,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 4
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 538,
+          "size": 3,
+          "earliest": 7,
+          "signature": "3:4:6,5:2:4,6:2:4",
+          "frontierCount": 0,
+          "positiveDepthCount": 3,
+          "minDepth": 2,
+          "maxDepth": 4,
+          "depthWord": [
+            2,
+            2,
+            4
+          ],
+          "columns": [
+            3,
+            5,
+            6
+          ],
+          "cells": [
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "depth": 4,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 5,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 32,
+              "column": 5,
+              "row": 5,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 33,
+              "column": 6,
+              "row": 5,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 4
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 542,
+          "size": 3,
+          "earliest": 7,
+          "signature": "5:2:4,6:2:4,7:4:6",
+          "frontierCount": 0,
+          "positiveDepthCount": 3,
+          "minDepth": 2,
+          "maxDepth": 4,
+          "depthWord": [
+            2,
+            2,
+            4
+          ],
+          "columns": [
+            5,
+            6,
+            7
+          ],
+          "cells": [
+            {
+              "cell": 32,
+              "column": 5,
+              "row": 5,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 33,
+              "column": 6,
+              "row": 5,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 34,
+              "column": 7,
+              "row": 5,
+              "depth": 4,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 5,
+              "remainingColumn": 6
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        }
+      ]
+    },
+    {
+      "label": "c3_fail_r1",
+      "sequence": "444441566331",
+      "rank": 12,
+      "attacker": 1,
+      "support": [
+        2,
+        0,
+        2,
+        5,
+        1,
+        2,
+        0
+      ],
+      "remaining": [
+        4,
+        6,
+        4,
+        1,
+        5,
+        4,
+        6
+      ],
+      "frontier": [
+        {
+          "cell": 14,
+          "column": 1,
+          "row": 3,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 4
+        },
+        {
+          "cell": 1,
+          "column": 2,
+          "row": 1,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 6
+        },
+        {
+          "cell": 16,
+          "column": 3,
+          "row": 3,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 4
+        },
+        {
+          "cell": 38,
+          "column": 4,
+          "row": 6,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 1
+        },
+        {
+          "cell": 11,
+          "column": 5,
+          "row": 2,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 5
+        },
+        {
+          "cell": 19,
+          "column": 6,
+          "row": 3,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 4
+        },
+        {
+          "cell": 6,
+          "column": 7,
+          "row": 1,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 6
+        }
+      ],
+      "pooled": {
+        "pool": [
+          {
+            "cell": 38,
+            "column": 4,
+            "row": 6,
+            "depth": 0,
+            "frontier": true,
+            "positiveDepth": false,
+            "releaseRank": 1,
+            "remainingColumn": 1
+          },
+          {
+            "cell": 11,
+            "column": 5,
+            "row": 2,
+            "depth": 0,
+            "frontier": true,
+            "positiveDepth": false,
+            "releaseRank": 1,
+            "remainingColumn": 5
+          }
+        ],
+        "verticalResponses": [
+          {
+            "cell": 21,
+            "column": 1,
+            "row": 4,
+            "depth": 1,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 2,
+            "remainingColumn": 4
+          },
+          {
+            "cell": 35,
+            "column": 1,
+            "row": 6,
+            "depth": 3,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 4,
+            "remainingColumn": 4
+          },
+          {
+            "cell": 8,
+            "column": 2,
+            "row": 2,
+            "depth": 1,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 2,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 22,
+            "column": 2,
+            "row": 4,
+            "depth": 3,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 4,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 36,
+            "column": 2,
+            "row": 6,
+            "depth": 5,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 6,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 23,
+            "column": 3,
+            "row": 4,
+            "depth": 1,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 2,
+            "remainingColumn": 4
+          },
+          {
+            "cell": 37,
+            "column": 3,
+            "row": 6,
+            "depth": 3,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 4,
+            "remainingColumn": 4
+          },
+          {
+            "cell": 25,
+            "column": 5,
+            "row": 4,
+            "depth": 2,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 3,
+            "remainingColumn": 5
+          },
+          {
+            "cell": 39,
+            "column": 5,
+            "row": 6,
+            "depth": 4,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 5,
+            "remainingColumn": 5
+          },
+          {
+            "cell": 26,
+            "column": 6,
+            "row": 4,
+            "depth": 1,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 2,
+            "remainingColumn": 4
+          },
+          {
+            "cell": 40,
+            "column": 6,
+            "row": 6,
+            "depth": 3,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 4,
+            "remainingColumn": 4
+          },
+          {
+            "cell": 13,
+            "column": 7,
+            "row": 2,
+            "depth": 1,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 2,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 27,
+            "column": 7,
+            "row": 4,
+            "depth": 3,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 4,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 41,
+            "column": 7,
+            "row": 6,
+            "depth": 5,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 6,
+            "remainingColumn": 6
+          }
+        ]
+      },
+      "activeMinimalResidualCount": 34,
+      "pooledDefectCount": 8,
+      "defectDeadlineHistogram": {
+        "5": 4,
+        "7": 4
+      },
+      "defectFrontierMultiplicityHistogram": {
+        "0": 4,
+        "1": 2,
+        "2": 2
+      },
+      "defectDepthWordHistogram": {
+        "0.0.2": 1,
+        "0.1.2": 2,
+        "0.0.1": 1,
+        "2.2.4": 1,
+        "2.3.4": 2,
+        "2.2.3": 1
+      },
+      "frontierAttachmentCellDegrees": [
+        {
+          "cell": 14,
+          "column": 1,
+          "row": 3,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 4,
+          "degree": 1
+        },
+        {
+          "cell": 16,
+          "column": 3,
+          "row": 3,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 4,
+          "degree": 3
+        },
+        {
+          "cell": 19,
+          "column": 6,
+          "row": 3,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 4,
+          "degree": 2
+        }
+      ],
+      "defects": [
+        {
+          "id": 442,
+          "size": 3,
+          "earliest": 5,
+          "signature": "1:0:4,2:2:6,3:0:4",
+          "frontierCount": 2,
+          "positiveDepthCount": 1,
+          "minDepth": 0,
+          "maxDepth": 2,
+          "depthWord": [
+            0,
+            0,
+            2
+          ],
+          "columns": [
+            1,
+            2,
+            3
+          ],
+          "cells": [
+            {
+              "cell": 14,
+              "column": 1,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 15,
+              "column": 2,
+              "row": 3,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 16,
+              "column": 3,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 452,
+          "size": 3,
+          "earliest": 5,
+          "signature": "2:2:6,3:0:4,5:1:5",
+          "frontierCount": 1,
+          "positiveDepthCount": 2,
+          "minDepth": 0,
+          "maxDepth": 2,
+          "depthWord": [
+            0,
+            1,
+            2
+          ],
+          "columns": [
+            2,
+            3,
+            5
+          ],
+          "cells": [
+            {
+              "cell": 15,
+              "column": 2,
+              "row": 3,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 16,
+              "column": 3,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 18,
+              "column": 5,
+              "row": 3,
+              "depth": 1,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 2,
+              "remainingColumn": 5
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 462,
+          "size": 3,
+          "earliest": 5,
+          "signature": "3:0:4,5:1:5,6:0:4",
+          "frontierCount": 2,
+          "positiveDepthCount": 1,
+          "minDepth": 0,
+          "maxDepth": 1,
+          "depthWord": [
+            0,
+            0,
+            1
+          ],
+          "columns": [
+            3,
+            5,
+            6
+          ],
+          "cells": [
+            {
+              "cell": 16,
+              "column": 3,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 18,
+              "column": 5,
+              "row": 3,
+              "depth": 1,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 2,
+              "remainingColumn": 5
+            },
+            {
+              "cell": 19,
+              "column": 6,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 482,
+          "size": 3,
+          "earliest": 5,
+          "signature": "5:1:5,6:0:4,7:2:6",
+          "frontierCount": 1,
+          "positiveDepthCount": 2,
+          "minDepth": 0,
+          "maxDepth": 2,
+          "depthWord": [
+            0,
+            1,
+            2
+          ],
+          "columns": [
+            5,
+            6,
+            7
+          ],
+          "cells": [
+            {
+              "cell": 18,
+              "column": 5,
+              "row": 3,
+              "depth": 1,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 2,
+              "remainingColumn": 5
+            },
+            {
+              "cell": 19,
+              "column": 6,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 6
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 530,
+          "size": 3,
+          "earliest": 7,
+          "signature": "1:2:4,2:4:6,3:2:4",
+          "frontierCount": 0,
+          "positiveDepthCount": 3,
+          "minDepth": 2,
+          "maxDepth": 4,
+          "depthWord": [
+            2,
+            2,
+            4
+          ],
+          "columns": [
+            1,
+            2,
+            3
+          ],
+          "cells": [
+            {
+              "cell": 28,
+              "column": 1,
+              "row": 5,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 29,
+              "column": 2,
+              "row": 5,
+              "depth": 4,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 5,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 4
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 534,
+          "size": 3,
+          "earliest": 7,
+          "signature": "2:4:6,3:2:4,5:3:5",
+          "frontierCount": 0,
+          "positiveDepthCount": 3,
+          "minDepth": 2,
+          "maxDepth": 4,
+          "depthWord": [
+            2,
+            3,
+            4
+          ],
+          "columns": [
+            2,
+            3,
+            5
+          ],
+          "cells": [
+            {
+              "cell": 29,
+              "column": 2,
+              "row": 5,
+              "depth": 4,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 5,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 32,
+              "column": 5,
+              "row": 5,
+              "depth": 3,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 4,
+              "remainingColumn": 5
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 538,
+          "size": 3,
+          "earliest": 7,
+          "signature": "3:2:4,5:3:5,6:2:4",
+          "frontierCount": 0,
+          "positiveDepthCount": 3,
+          "minDepth": 2,
+          "maxDepth": 3,
+          "depthWord": [
+            2,
+            2,
+            3
+          ],
+          "columns": [
+            3,
+            5,
+            6
+          ],
+          "cells": [
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 32,
+              "column": 5,
+              "row": 5,
+              "depth": 3,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 4,
+              "remainingColumn": 5
+            },
+            {
+              "cell": 33,
+              "column": 6,
+              "row": 5,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 4
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 542,
+          "size": 3,
+          "earliest": 7,
+          "signature": "5:3:5,6:2:4,7:4:6",
+          "frontierCount": 0,
+          "positiveDepthCount": 3,
+          "minDepth": 2,
+          "maxDepth": 4,
+          "depthWord": [
+            2,
+            3,
+            4
+          ],
+          "columns": [
+            5,
+            6,
+            7
+          ],
+          "cells": [
+            {
+              "cell": 32,
+              "column": 5,
+              "row": 5,
+              "depth": 3,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 4,
+              "remainingColumn": 5
+            },
+            {
+              "cell": 33,
+              "column": 6,
+              "row": 5,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 34,
+              "column": 7,
+              "row": 5,
+              "depth": 4,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 5,
+              "remainingColumn": 6
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        }
+      ]
+    },
+    {
+      "label": "c3_fail_r5",
+      "sequence": "444441566335",
+      "rank": 12,
+      "attacker": 1,
+      "support": [
+        1,
+        0,
+        2,
+        5,
+        2,
+        2,
+        0
+      ],
+      "remaining": [
+        5,
+        6,
+        4,
+        1,
+        4,
+        4,
+        6
+      ],
+      "frontier": [
+        {
+          "cell": 7,
+          "column": 1,
+          "row": 2,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 5
+        },
+        {
+          "cell": 1,
+          "column": 2,
+          "row": 1,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 6
+        },
+        {
+          "cell": 16,
+          "column": 3,
+          "row": 3,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 4
+        },
+        {
+          "cell": 38,
+          "column": 4,
+          "row": 6,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 1
+        },
+        {
+          "cell": 18,
+          "column": 5,
+          "row": 3,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 4
+        },
+        {
+          "cell": 19,
+          "column": 6,
+          "row": 3,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 4
+        },
+        {
+          "cell": 6,
+          "column": 7,
+          "row": 1,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 6
+        }
+      ],
+      "pooled": {
+        "pool": [
+          {
+            "cell": 7,
+            "column": 1,
+            "row": 2,
+            "depth": 0,
+            "frontier": true,
+            "positiveDepth": false,
+            "releaseRank": 1,
+            "remainingColumn": 5
+          },
+          {
+            "cell": 38,
+            "column": 4,
+            "row": 6,
+            "depth": 0,
+            "frontier": true,
+            "positiveDepth": false,
+            "releaseRank": 1,
+            "remainingColumn": 1
+          }
+        ],
+        "verticalResponses": [
+          {
+            "cell": 21,
+            "column": 1,
+            "row": 4,
+            "depth": 2,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 3,
+            "remainingColumn": 5
+          },
+          {
+            "cell": 35,
+            "column": 1,
+            "row": 6,
+            "depth": 4,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 5,
+            "remainingColumn": 5
+          },
+          {
+            "cell": 8,
+            "column": 2,
+            "row": 2,
+            "depth": 1,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 2,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 22,
+            "column": 2,
+            "row": 4,
+            "depth": 3,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 4,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 36,
+            "column": 2,
+            "row": 6,
+            "depth": 5,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 6,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 23,
+            "column": 3,
+            "row": 4,
+            "depth": 1,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 2,
+            "remainingColumn": 4
+          },
+          {
+            "cell": 37,
+            "column": 3,
+            "row": 6,
+            "depth": 3,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 4,
+            "remainingColumn": 4
+          },
+          {
+            "cell": 25,
+            "column": 5,
+            "row": 4,
+            "depth": 1,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 2,
+            "remainingColumn": 4
+          },
+          {
+            "cell": 39,
+            "column": 5,
+            "row": 6,
+            "depth": 3,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 4,
+            "remainingColumn": 4
+          },
+          {
+            "cell": 26,
+            "column": 6,
+            "row": 4,
+            "depth": 1,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 2,
+            "remainingColumn": 4
+          },
+          {
+            "cell": 40,
+            "column": 6,
+            "row": 6,
+            "depth": 3,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 4,
+            "remainingColumn": 4
+          },
+          {
+            "cell": 13,
+            "column": 7,
+            "row": 2,
+            "depth": 1,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 2,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 27,
+            "column": 7,
+            "row": 4,
+            "depth": 3,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 4,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 41,
+            "column": 7,
+            "row": 6,
+            "depth": 5,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 6,
+            "remainingColumn": 6
+          }
+        ]
+      },
+      "activeMinimalResidualCount": 33,
+      "pooledDefectCount": 8,
+      "defectDeadlineHistogram": {
+        "5": 4,
+        "7": 4
+      },
+      "defectFrontierMultiplicityHistogram": {
+        "0": 4,
+        "1": 1,
+        "2": 2,
+        "3": 1
+      },
+      "defectDepthWordHistogram": {
+        "0.1.2": 1,
+        "0.0.2": 2,
+        "0.0.0": 1,
+        "2.3.4": 1,
+        "2.2.4": 2,
+        "2.2.2": 1
+      },
+      "frontierAttachmentCellDegrees": [
+        {
+          "cell": 16,
+          "column": 3,
+          "row": 3,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 4,
+          "degree": 3
+        },
+        {
+          "cell": 18,
+          "column": 5,
+          "row": 3,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 4,
+          "degree": 3
+        },
+        {
+          "cell": 19,
+          "column": 6,
+          "row": 3,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 4,
+          "degree": 2
+        }
+      ],
+      "defects": [
+        {
+          "id": 442,
+          "size": 3,
+          "earliest": 5,
+          "signature": "1:1:5,2:2:6,3:0:4",
+          "frontierCount": 1,
+          "positiveDepthCount": 2,
+          "minDepth": 0,
+          "maxDepth": 2,
+          "depthWord": [
+            0,
+            1,
+            2
+          ],
+          "columns": [
+            1,
+            2,
+            3
+          ],
+          "cells": [
+            {
+              "cell": 14,
+              "column": 1,
+              "row": 3,
+              "depth": 1,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 2,
+              "remainingColumn": 5
+            },
+            {
+              "cell": 15,
+              "column": 2,
+              "row": 3,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 16,
+              "column": 3,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 452,
+          "size": 3,
+          "earliest": 5,
+          "signature": "2:2:6,3:0:4,5:0:4",
+          "frontierCount": 2,
+          "positiveDepthCount": 1,
+          "minDepth": 0,
+          "maxDepth": 2,
+          "depthWord": [
+            0,
+            0,
+            2
+          ],
+          "columns": [
+            2,
+            3,
+            5
+          ],
+          "cells": [
+            {
+              "cell": 15,
+              "column": 2,
+              "row": 3,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 16,
+              "column": 3,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 18,
+              "column": 5,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 462,
+          "size": 3,
+          "earliest": 5,
+          "signature": "3:0:4,5:0:4,6:0:4",
+          "frontierCount": 3,
+          "positiveDepthCount": 0,
+          "minDepth": 0,
+          "maxDepth": 0,
+          "depthWord": [
+            0,
+            0,
+            0
+          ],
+          "columns": [
+            3,
+            5,
+            6
+          ],
+          "cells": [
+            {
+              "cell": 16,
+              "column": 3,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 18,
+              "column": 5,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 19,
+              "column": 6,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 482,
+          "size": 3,
+          "earliest": 5,
+          "signature": "5:0:4,6:0:4,7:2:6",
+          "frontierCount": 2,
+          "positiveDepthCount": 1,
+          "minDepth": 0,
+          "maxDepth": 2,
+          "depthWord": [
+            0,
+            0,
+            2
+          ],
+          "columns": [
+            5,
+            6,
+            7
+          ],
+          "cells": [
+            {
+              "cell": 18,
+              "column": 5,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 19,
+              "column": 6,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 6
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 530,
+          "size": 3,
+          "earliest": 7,
+          "signature": "1:3:5,2:4:6,3:2:4",
+          "frontierCount": 0,
+          "positiveDepthCount": 3,
+          "minDepth": 2,
+          "maxDepth": 4,
+          "depthWord": [
+            2,
+            3,
+            4
+          ],
+          "columns": [
+            1,
+            2,
+            3
+          ],
+          "cells": [
+            {
+              "cell": 28,
+              "column": 1,
+              "row": 5,
+              "depth": 3,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 4,
+              "remainingColumn": 5
+            },
+            {
+              "cell": 29,
+              "column": 2,
+              "row": 5,
+              "depth": 4,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 5,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 4
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 534,
+          "size": 3,
+          "earliest": 7,
+          "signature": "2:4:6,3:2:4,5:2:4",
+          "frontierCount": 0,
+          "positiveDepthCount": 3,
+          "minDepth": 2,
+          "maxDepth": 4,
+          "depthWord": [
+            2,
+            2,
+            4
+          ],
+          "columns": [
+            2,
+            3,
+            5
+          ],
+          "cells": [
+            {
+              "cell": 29,
+              "column": 2,
+              "row": 5,
+              "depth": 4,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 5,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 32,
+              "column": 5,
+              "row": 5,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 4
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 538,
+          "size": 3,
+          "earliest": 7,
+          "signature": "3:2:4,5:2:4,6:2:4",
+          "frontierCount": 0,
+          "positiveDepthCount": 3,
+          "minDepth": 2,
+          "maxDepth": 2,
+          "depthWord": [
+            2,
+            2,
+            2
+          ],
+          "columns": [
+            3,
+            5,
+            6
+          ],
+          "cells": [
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 32,
+              "column": 5,
+              "row": 5,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 33,
+              "column": 6,
+              "row": 5,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 4
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 542,
+          "size": 3,
+          "earliest": 7,
+          "signature": "5:2:4,6:2:4,7:4:6",
+          "frontierCount": 0,
+          "positiveDepthCount": 3,
+          "minDepth": 2,
+          "maxDepth": 4,
+          "depthWord": [
+            2,
+            2,
+            4
+          ],
+          "columns": [
+            5,
+            6,
+            7
+          ],
+          "cells": [
+            {
+              "cell": 32,
+              "column": 5,
+              "row": 5,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 33,
+              "column": 6,
+              "row": 5,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 34,
+              "column": 7,
+              "row": 5,
+              "depth": 4,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 5,
+              "remainingColumn": 6
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        }
+      ]
+    },
+    {
+      "label": "c3_fail_r4",
+      "sequence": "444441566334",
+      "rank": 12,
+      "attacker": 1,
+      "support": [
+        1,
+        0,
+        2,
+        6,
+        1,
+        2,
+        0
+      ],
+      "remaining": [
+        5,
+        6,
+        4,
+        0,
+        5,
+        4,
+        6
+      ],
+      "frontier": [
+        {
+          "cell": 7,
+          "column": 1,
+          "row": 2,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 5
+        },
+        {
+          "cell": 1,
+          "column": 2,
+          "row": 1,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 6
+        },
+        {
+          "cell": 16,
+          "column": 3,
+          "row": 3,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 4
+        },
+        {
+          "cell": 11,
+          "column": 5,
+          "row": 2,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 5
+        },
+        {
+          "cell": 19,
+          "column": 6,
+          "row": 3,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 4
+        },
+        {
+          "cell": 6,
+          "column": 7,
+          "row": 1,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 6
+        }
+      ],
+      "pooled": {
+        "pool": [
+          {
+            "cell": 7,
+            "column": 1,
+            "row": 2,
+            "depth": 0,
+            "frontier": true,
+            "positiveDepth": false,
+            "releaseRank": 1,
+            "remainingColumn": 5
+          },
+          {
+            "cell": 11,
+            "column": 5,
+            "row": 2,
+            "depth": 0,
+            "frontier": true,
+            "positiveDepth": false,
+            "releaseRank": 1,
+            "remainingColumn": 5
+          }
+        ],
+        "verticalResponses": [
+          {
+            "cell": 21,
+            "column": 1,
+            "row": 4,
+            "depth": 2,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 3,
+            "remainingColumn": 5
+          },
+          {
+            "cell": 35,
+            "column": 1,
+            "row": 6,
+            "depth": 4,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 5,
+            "remainingColumn": 5
+          },
+          {
+            "cell": 8,
+            "column": 2,
+            "row": 2,
+            "depth": 1,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 2,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 22,
+            "column": 2,
+            "row": 4,
+            "depth": 3,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 4,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 36,
+            "column": 2,
+            "row": 6,
+            "depth": 5,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 6,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 23,
+            "column": 3,
+            "row": 4,
+            "depth": 1,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 2,
+            "remainingColumn": 4
+          },
+          {
+            "cell": 37,
+            "column": 3,
+            "row": 6,
+            "depth": 3,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 4,
+            "remainingColumn": 4
+          },
+          {
+            "cell": 25,
+            "column": 5,
+            "row": 4,
+            "depth": 2,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 3,
+            "remainingColumn": 5
+          },
+          {
+            "cell": 39,
+            "column": 5,
+            "row": 6,
+            "depth": 4,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 5,
+            "remainingColumn": 5
+          },
+          {
+            "cell": 26,
+            "column": 6,
+            "row": 4,
+            "depth": 1,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 2,
+            "remainingColumn": 4
+          },
+          {
+            "cell": 40,
+            "column": 6,
+            "row": 6,
+            "depth": 3,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 4,
+            "remainingColumn": 4
+          },
+          {
+            "cell": 13,
+            "column": 7,
+            "row": 2,
+            "depth": 1,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 2,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 27,
+            "column": 7,
+            "row": 4,
+            "depth": 3,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 4,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 41,
+            "column": 7,
+            "row": 6,
+            "depth": 5,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 6,
+            "remainingColumn": 6
+          }
+        ]
+      },
+      "activeMinimalResidualCount": 30,
+      "pooledDefectCount": 8,
+      "defectDeadlineHistogram": {
+        "5": 4,
+        "7": 4
+      },
+      "defectFrontierMultiplicityHistogram": {
+        "0": 4,
+        "1": 3,
+        "2": 1
+      },
+      "defectDepthWordHistogram": {
+        "0.1.2": 3,
+        "0.0.1": 1,
+        "2.3.4": 3,
+        "2.2.3": 1
+      },
+      "frontierAttachmentCellDegrees": [
+        {
+          "cell": 16,
+          "column": 3,
+          "row": 3,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 4,
+          "degree": 3
+        },
+        {
+          "cell": 19,
+          "column": 6,
+          "row": 3,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 4,
+          "degree": 2
+        }
+      ],
+      "defects": [
+        {
+          "id": 442,
+          "size": 3,
+          "earliest": 5,
+          "signature": "1:1:5,2:2:6,3:0:4",
+          "frontierCount": 1,
+          "positiveDepthCount": 2,
+          "minDepth": 0,
+          "maxDepth": 2,
+          "depthWord": [
+            0,
+            1,
+            2
+          ],
+          "columns": [
+            1,
+            2,
+            3
+          ],
+          "cells": [
+            {
+              "cell": 14,
+              "column": 1,
+              "row": 3,
+              "depth": 1,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 2,
+              "remainingColumn": 5
+            },
+            {
+              "cell": 15,
+              "column": 2,
+              "row": 3,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 16,
+              "column": 3,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 452,
+          "size": 3,
+          "earliest": 5,
+          "signature": "2:2:6,3:0:4,5:1:5",
+          "frontierCount": 1,
+          "positiveDepthCount": 2,
+          "minDepth": 0,
+          "maxDepth": 2,
+          "depthWord": [
+            0,
+            1,
+            2
+          ],
+          "columns": [
+            2,
+            3,
+            5
+          ],
+          "cells": [
+            {
+              "cell": 15,
+              "column": 2,
+              "row": 3,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 16,
+              "column": 3,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 18,
+              "column": 5,
+              "row": 3,
+              "depth": 1,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 2,
+              "remainingColumn": 5
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 462,
+          "size": 3,
+          "earliest": 5,
+          "signature": "3:0:4,5:1:5,6:0:4",
+          "frontierCount": 2,
+          "positiveDepthCount": 1,
+          "minDepth": 0,
+          "maxDepth": 1,
+          "depthWord": [
+            0,
+            0,
+            1
+          ],
+          "columns": [
+            3,
+            5,
+            6
+          ],
+          "cells": [
+            {
+              "cell": 16,
+              "column": 3,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 18,
+              "column": 5,
+              "row": 3,
+              "depth": 1,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 2,
+              "remainingColumn": 5
+            },
+            {
+              "cell": 19,
+              "column": 6,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 482,
+          "size": 3,
+          "earliest": 5,
+          "signature": "5:1:5,6:0:4,7:2:6",
+          "frontierCount": 1,
+          "positiveDepthCount": 2,
+          "minDepth": 0,
+          "maxDepth": 2,
+          "depthWord": [
+            0,
+            1,
+            2
+          ],
+          "columns": [
+            5,
+            6,
+            7
+          ],
+          "cells": [
+            {
+              "cell": 18,
+              "column": 5,
+              "row": 3,
+              "depth": 1,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 2,
+              "remainingColumn": 5
+            },
+            {
+              "cell": 19,
+              "column": 6,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 6
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 530,
+          "size": 3,
+          "earliest": 7,
+          "signature": "1:3:5,2:4:6,3:2:4",
+          "frontierCount": 0,
+          "positiveDepthCount": 3,
+          "minDepth": 2,
+          "maxDepth": 4,
+          "depthWord": [
+            2,
+            3,
+            4
+          ],
+          "columns": [
+            1,
+            2,
+            3
+          ],
+          "cells": [
+            {
+              "cell": 28,
+              "column": 1,
+              "row": 5,
+              "depth": 3,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 4,
+              "remainingColumn": 5
+            },
+            {
+              "cell": 29,
+              "column": 2,
+              "row": 5,
+              "depth": 4,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 5,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 4
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 534,
+          "size": 3,
+          "earliest": 7,
+          "signature": "2:4:6,3:2:4,5:3:5",
+          "frontierCount": 0,
+          "positiveDepthCount": 3,
+          "minDepth": 2,
+          "maxDepth": 4,
+          "depthWord": [
+            2,
+            3,
+            4
+          ],
+          "columns": [
+            2,
+            3,
+            5
+          ],
+          "cells": [
+            {
+              "cell": 29,
+              "column": 2,
+              "row": 5,
+              "depth": 4,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 5,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 32,
+              "column": 5,
+              "row": 5,
+              "depth": 3,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 4,
+              "remainingColumn": 5
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 538,
+          "size": 3,
+          "earliest": 7,
+          "signature": "3:2:4,5:3:5,6:2:4",
+          "frontierCount": 0,
+          "positiveDepthCount": 3,
+          "minDepth": 2,
+          "maxDepth": 3,
+          "depthWord": [
+            2,
+            2,
+            3
+          ],
+          "columns": [
+            3,
+            5,
+            6
+          ],
+          "cells": [
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 32,
+              "column": 5,
+              "row": 5,
+              "depth": 3,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 4,
+              "remainingColumn": 5
+            },
+            {
+              "cell": 33,
+              "column": 6,
+              "row": 5,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 4
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 542,
+          "size": 3,
+          "earliest": 7,
+          "signature": "5:3:5,6:2:4,7:4:6",
+          "frontierCount": 0,
+          "positiveDepthCount": 3,
+          "minDepth": 2,
+          "maxDepth": 4,
+          "depthWord": [
+            2,
+            3,
+            4
+          ],
+          "columns": [
+            5,
+            6,
+            7
+          ],
+          "cells": [
+            {
+              "cell": 32,
+              "column": 5,
+              "row": 5,
+              "depth": 3,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 4,
+              "remainingColumn": 5
+            },
+            {
+              "cell": 33,
+              "column": 6,
+              "row": 5,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 34,
+              "column": 7,
+              "row": 5,
+              "depth": 4,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 5,
+              "remainingColumn": 6
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        }
+      ]
+    },
+    {
+      "label": "c6_fail_r4",
+      "sequence": "444441566614",
+      "rank": 12,
+      "attacker": 1,
+      "support": [
+        2,
+        0,
+        0,
+        6,
+        1,
+        3,
+        0
+      ],
+      "remaining": [
+        4,
+        6,
+        6,
+        0,
+        5,
+        3,
+        6
+      ],
+      "frontier": [
+        {
+          "cell": 14,
+          "column": 1,
+          "row": 3,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 4
+        },
+        {
+          "cell": 1,
+          "column": 2,
+          "row": 1,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 6
+        },
+        {
+          "cell": 2,
+          "column": 3,
+          "row": 1,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 6
+        },
+        {
+          "cell": 11,
+          "column": 5,
+          "row": 2,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 5
+        },
+        {
+          "cell": 26,
+          "column": 6,
+          "row": 4,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 3
+        },
+        {
+          "cell": 6,
+          "column": 7,
+          "row": 1,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 6
+        }
+      ],
+      "pooled": {
+        "pool": [
+          {
+            "cell": 11,
+            "column": 5,
+            "row": 2,
+            "depth": 0,
+            "frontier": true,
+            "positiveDepth": false,
+            "releaseRank": 1,
+            "remainingColumn": 5
+          },
+          {
+            "cell": 26,
+            "column": 6,
+            "row": 4,
+            "depth": 0,
+            "frontier": true,
+            "positiveDepth": false,
+            "releaseRank": 1,
+            "remainingColumn": 3
+          }
+        ],
+        "verticalResponses": [
+          {
+            "cell": 21,
+            "column": 1,
+            "row": 4,
+            "depth": 1,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 2,
+            "remainingColumn": 4
+          },
+          {
+            "cell": 35,
+            "column": 1,
+            "row": 6,
+            "depth": 3,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 4,
+            "remainingColumn": 4
+          },
+          {
+            "cell": 8,
+            "column": 2,
+            "row": 2,
+            "depth": 1,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 2,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 22,
+            "column": 2,
+            "row": 4,
+            "depth": 3,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 4,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 36,
+            "column": 2,
+            "row": 6,
+            "depth": 5,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 6,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 9,
+            "column": 3,
+            "row": 2,
+            "depth": 1,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 2,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 23,
+            "column": 3,
+            "row": 4,
+            "depth": 3,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 4,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 37,
+            "column": 3,
+            "row": 6,
+            "depth": 5,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 6,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 25,
+            "column": 5,
+            "row": 4,
+            "depth": 2,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 3,
+            "remainingColumn": 5
+          },
+          {
+            "cell": 39,
+            "column": 5,
+            "row": 6,
+            "depth": 4,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 5,
+            "remainingColumn": 5
+          },
+          {
+            "cell": 40,
+            "column": 6,
+            "row": 6,
+            "depth": 2,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 3,
+            "remainingColumn": 3
+          },
+          {
+            "cell": 13,
+            "column": 7,
+            "row": 2,
+            "depth": 1,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 2,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 27,
+            "column": 7,
+            "row": 4,
+            "depth": 3,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 4,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 41,
+            "column": 7,
+            "row": 6,
+            "depth": 5,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 6,
+            "remainingColumn": 6
+          }
+        ]
+      },
+      "activeMinimalResidualCount": 26,
+      "pooledDefectCount": 7,
+      "defectDeadlineHistogram": {
+        "3": 1,
+        "5": 1,
+        "7": 4,
+        "9": 1
+      },
+      "defectFrontierMultiplicityHistogram": {
+        "0": 5,
+        "1": 1,
+        "2": 1
+      },
+      "defectDepthWordHistogram": {
+        "0.0": 1,
+        "0.2.2": 1,
+        "1.2.2": 1,
+        "2.4.4": 1,
+        "3.4.4": 1,
+        "1.3.4": 2
+      },
+      "frontierAttachmentCellDegrees": [
+        {
+          "cell": 1,
+          "column": 2,
+          "row": 1,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 6,
+          "degree": 1
+        },
+        {
+          "cell": 2,
+          "column": 3,
+          "row": 1,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 6,
+          "degree": 1
+        },
+        {
+          "cell": 14,
+          "column": 1,
+          "row": 3,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 4,
+          "degree": 1
+        }
+      ],
+      "defects": [
+        {
+          "id": 51,
+          "size": 2,
+          "earliest": 3,
+          "signature": "2:0:6,3:0:6",
+          "frontierCount": 2,
+          "positiveDepthCount": 0,
+          "minDepth": 0,
+          "maxDepth": 0,
+          "depthWord": [
+            0,
+            0
+          ],
+          "columns": [
+            2,
+            3
+          ],
+          "cells": [
+            {
+              "cell": 1,
+              "column": 2,
+              "row": 1,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 2,
+              "column": 3,
+              "row": 1,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 6
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 442,
+          "size": 3,
+          "earliest": 5,
+          "signature": "1:0:4,2:2:6,3:2:6",
+          "frontierCount": 1,
+          "positiveDepthCount": 2,
+          "minDepth": 0,
+          "maxDepth": 2,
+          "depthWord": [
+            0,
+            2,
+            2
+          ],
+          "columns": [
+            1,
+            2,
+            3
+          ],
+          "cells": [
+            {
+              "cell": 14,
+              "column": 1,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 15,
+              "column": 2,
+              "row": 3,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 16,
+              "column": 3,
+              "row": 3,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 6
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 452,
+          "size": 3,
+          "earliest": 7,
+          "signature": "2:2:6,3:2:6,5:1:5",
+          "frontierCount": 0,
+          "positiveDepthCount": 3,
+          "minDepth": 1,
+          "maxDepth": 2,
+          "depthWord": [
+            1,
+            2,
+            2
+          ],
+          "columns": [
+            2,
+            3,
+            5
+          ],
+          "cells": [
+            {
+              "cell": 15,
+              "column": 2,
+              "row": 3,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 16,
+              "column": 3,
+              "row": 3,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 18,
+              "column": 5,
+              "row": 3,
+              "depth": 1,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 2,
+              "remainingColumn": 5
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 530,
+          "size": 3,
+          "earliest": 7,
+          "signature": "1:2:4,2:4:6,3:4:6",
+          "frontierCount": 0,
+          "positiveDepthCount": 3,
+          "minDepth": 2,
+          "maxDepth": 4,
+          "depthWord": [
+            2,
+            4,
+            4
+          ],
+          "columns": [
+            1,
+            2,
+            3
+          ],
+          "cells": [
+            {
+              "cell": 28,
+              "column": 1,
+              "row": 5,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 29,
+              "column": 2,
+              "row": 5,
+              "depth": 4,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 5,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "depth": 4,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 5,
+              "remainingColumn": 6
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 534,
+          "size": 3,
+          "earliest": 9,
+          "signature": "2:4:6,3:4:6,5:3:5",
+          "frontierCount": 0,
+          "positiveDepthCount": 3,
+          "minDepth": 3,
+          "maxDepth": 4,
+          "depthWord": [
+            3,
+            4,
+            4
+          ],
+          "columns": [
+            2,
+            3,
+            5
+          ],
+          "cells": [
+            {
+              "cell": 29,
+              "column": 2,
+              "row": 5,
+              "depth": 4,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 5,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "depth": 4,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 5,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 32,
+              "column": 5,
+              "row": 5,
+              "depth": 3,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 4,
+              "remainingColumn": 5
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 538,
+          "size": 3,
+          "earliest": 7,
+          "signature": "3:4:6,5:3:5,6:1:3",
+          "frontierCount": 0,
+          "positiveDepthCount": 3,
+          "minDepth": 1,
+          "maxDepth": 4,
+          "depthWord": [
+            1,
+            3,
+            4
+          ],
+          "columns": [
+            3,
+            5,
+            6
+          ],
+          "cells": [
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "depth": 4,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 5,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 32,
+              "column": 5,
+              "row": 5,
+              "depth": 3,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 4,
+              "remainingColumn": 5
+            },
+            {
+              "cell": 33,
+              "column": 6,
+              "row": 5,
+              "depth": 1,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 2,
+              "remainingColumn": 3
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 542,
+          "size": 3,
+          "earliest": 7,
+          "signature": "5:3:5,6:1:3,7:4:6",
+          "frontierCount": 0,
+          "positiveDepthCount": 3,
+          "minDepth": 1,
+          "maxDepth": 4,
+          "depthWord": [
+            1,
+            3,
+            4
+          ],
+          "columns": [
+            5,
+            6,
+            7
+          ],
+          "cells": [
+            {
+              "cell": 32,
+              "column": 5,
+              "row": 5,
+              "depth": 3,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 4,
+              "remainingColumn": 5
+            },
+            {
+              "cell": 33,
+              "column": 6,
+              "row": 5,
+              "depth": 1,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 2,
+              "remainingColumn": 3
+            },
+            {
+              "cell": 34,
+              "column": 7,
+              "row": 5,
+              "depth": 4,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 5,
+              "remainingColumn": 6
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        }
+      ]
+    },
+    {
+      "label": "c6_fail_r5",
+      "sequence": "444441566615",
+      "rank": 12,
+      "attacker": 1,
+      "support": [
+        2,
+        0,
+        0,
+        5,
+        2,
+        3,
+        0
+      ],
+      "remaining": [
+        4,
+        6,
+        6,
+        1,
+        4,
+        3,
+        6
+      ],
+      "frontier": [
+        {
+          "cell": 14,
+          "column": 1,
+          "row": 3,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 4
+        },
+        {
+          "cell": 1,
+          "column": 2,
+          "row": 1,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 6
+        },
+        {
+          "cell": 2,
+          "column": 3,
+          "row": 1,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 6
+        },
+        {
+          "cell": 38,
+          "column": 4,
+          "row": 6,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 1
+        },
+        {
+          "cell": 18,
+          "column": 5,
+          "row": 3,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 4
+        },
+        {
+          "cell": 26,
+          "column": 6,
+          "row": 4,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 3
+        },
+        {
+          "cell": 6,
+          "column": 7,
+          "row": 1,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 6
+        }
+      ],
+      "pooled": {
+        "pool": [
+          {
+            "cell": 38,
+            "column": 4,
+            "row": 6,
+            "depth": 0,
+            "frontier": true,
+            "positiveDepth": false,
+            "releaseRank": 1,
+            "remainingColumn": 1
+          },
+          {
+            "cell": 26,
+            "column": 6,
+            "row": 4,
+            "depth": 0,
+            "frontier": true,
+            "positiveDepth": false,
+            "releaseRank": 1,
+            "remainingColumn": 3
+          }
+        ],
+        "verticalResponses": [
+          {
+            "cell": 21,
+            "column": 1,
+            "row": 4,
+            "depth": 1,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 2,
+            "remainingColumn": 4
+          },
+          {
+            "cell": 35,
+            "column": 1,
+            "row": 6,
+            "depth": 3,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 4,
+            "remainingColumn": 4
+          },
+          {
+            "cell": 8,
+            "column": 2,
+            "row": 2,
+            "depth": 1,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 2,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 22,
+            "column": 2,
+            "row": 4,
+            "depth": 3,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 4,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 36,
+            "column": 2,
+            "row": 6,
+            "depth": 5,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 6,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 9,
+            "column": 3,
+            "row": 2,
+            "depth": 1,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 2,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 23,
+            "column": 3,
+            "row": 4,
+            "depth": 3,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 4,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 37,
+            "column": 3,
+            "row": 6,
+            "depth": 5,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 6,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 25,
+            "column": 5,
+            "row": 4,
+            "depth": 1,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 2,
+            "remainingColumn": 4
+          },
+          {
+            "cell": 39,
+            "column": 5,
+            "row": 6,
+            "depth": 3,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 4,
+            "remainingColumn": 4
+          },
+          {
+            "cell": 40,
+            "column": 6,
+            "row": 6,
+            "depth": 2,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 3,
+            "remainingColumn": 3
+          },
+          {
+            "cell": 13,
+            "column": 7,
+            "row": 2,
+            "depth": 1,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 2,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 27,
+            "column": 7,
+            "row": 4,
+            "depth": 3,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 4,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 41,
+            "column": 7,
+            "row": 6,
+            "depth": 5,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 6,
+            "remainingColumn": 6
+          }
+        ]
+      },
+      "activeMinimalResidualCount": 30,
+      "pooledDefectCount": 8,
+      "defectDeadlineHistogram": {
+        "3": 1,
+        "5": 2,
+        "7": 5
+      },
+      "defectFrontierMultiplicityHistogram": {
+        "0": 4,
+        "1": 2,
+        "2": 2
+      },
+      "defectDepthWordHistogram": {
+        "0.0": 1,
+        "0.2.2": 2,
+        "2.4.4": 2,
+        "1.2.4": 2,
+        "0.0.2.2": 1
+      },
+      "frontierAttachmentCellDegrees": [
+        {
+          "cell": 1,
+          "column": 2,
+          "row": 1,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 6,
+          "degree": 1
+        },
+        {
+          "cell": 2,
+          "column": 3,
+          "row": 1,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 6,
+          "degree": 1
+        },
+        {
+          "cell": 14,
+          "column": 1,
+          "row": 3,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 4,
+          "degree": 1
+        },
+        {
+          "cell": 18,
+          "column": 5,
+          "row": 3,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 4,
+          "degree": 1
+        },
+        {
+          "cell": 26,
+          "column": 6,
+          "row": 4,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 3,
+          "degree": 1
+        },
+        {
+          "cell": 38,
+          "column": 4,
+          "row": 6,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 1,
+          "degree": 1
+        }
+      ],
+      "defects": [
+        {
+          "id": 51,
+          "size": 2,
+          "earliest": 3,
+          "signature": "2:0:6,3:0:6",
+          "frontierCount": 2,
+          "positiveDepthCount": 0,
+          "minDepth": 0,
+          "maxDepth": 0,
+          "depthWord": [
+            0,
+            0
+          ],
+          "columns": [
+            2,
+            3
+          ],
+          "cells": [
+            {
+              "cell": 1,
+              "column": 2,
+              "row": 1,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 2,
+              "column": 3,
+              "row": 1,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 6
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 442,
+          "size": 3,
+          "earliest": 5,
+          "signature": "1:0:4,2:2:6,3:2:6",
+          "frontierCount": 1,
+          "positiveDepthCount": 2,
+          "minDepth": 0,
+          "maxDepth": 2,
+          "depthWord": [
+            0,
+            2,
+            2
+          ],
+          "columns": [
+            1,
+            2,
+            3
+          ],
+          "cells": [
+            {
+              "cell": 14,
+              "column": 1,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 15,
+              "column": 2,
+              "row": 3,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 16,
+              "column": 3,
+              "row": 3,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 6
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 452,
+          "size": 3,
+          "earliest": 5,
+          "signature": "2:2:6,3:2:6,5:0:4",
+          "frontierCount": 1,
+          "positiveDepthCount": 2,
+          "minDepth": 0,
+          "maxDepth": 2,
+          "depthWord": [
+            0,
+            2,
+            2
+          ],
+          "columns": [
+            2,
+            3,
+            5
+          ],
+          "cells": [
+            {
+              "cell": 15,
+              "column": 2,
+              "row": 3,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 16,
+              "column": 3,
+              "row": 3,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 18,
+              "column": 5,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 530,
+          "size": 3,
+          "earliest": 7,
+          "signature": "1:2:4,2:4:6,3:4:6",
+          "frontierCount": 0,
+          "positiveDepthCount": 3,
+          "minDepth": 2,
+          "maxDepth": 4,
+          "depthWord": [
+            2,
+            4,
+            4
+          ],
+          "columns": [
+            1,
+            2,
+            3
+          ],
+          "cells": [
+            {
+              "cell": 28,
+              "column": 1,
+              "row": 5,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 29,
+              "column": 2,
+              "row": 5,
+              "depth": 4,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 5,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "depth": 4,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 5,
+              "remainingColumn": 6
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 534,
+          "size": 3,
+          "earliest": 7,
+          "signature": "2:4:6,3:4:6,5:2:4",
+          "frontierCount": 0,
+          "positiveDepthCount": 3,
+          "minDepth": 2,
+          "maxDepth": 4,
+          "depthWord": [
+            2,
+            4,
+            4
+          ],
+          "columns": [
+            2,
+            3,
+            5
+          ],
+          "cells": [
+            {
+              "cell": 29,
+              "column": 2,
+              "row": 5,
+              "depth": 4,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 5,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "depth": 4,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 5,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 32,
+              "column": 5,
+              "row": 5,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 4
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 538,
+          "size": 3,
+          "earliest": 7,
+          "signature": "3:4:6,5:2:4,6:1:3",
+          "frontierCount": 0,
+          "positiveDepthCount": 3,
+          "minDepth": 1,
+          "maxDepth": 4,
+          "depthWord": [
+            1,
+            2,
+            4
+          ],
+          "columns": [
+            3,
+            5,
+            6
+          ],
+          "cells": [
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "depth": 4,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 5,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 32,
+              "column": 5,
+              "row": 5,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 33,
+              "column": 6,
+              "row": 5,
+              "depth": 1,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 2,
+              "remainingColumn": 3
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 542,
+          "size": 3,
+          "earliest": 7,
+          "signature": "5:2:4,6:1:3,7:4:6",
+          "frontierCount": 0,
+          "positiveDepthCount": 3,
+          "minDepth": 1,
+          "maxDepth": 4,
+          "depthWord": [
+            1,
+            2,
+            4
+          ],
+          "columns": [
+            5,
+            6,
+            7
+          ],
+          "cells": [
+            {
+              "cell": 32,
+              "column": 5,
+              "row": 5,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 33,
+              "column": 6,
+              "row": 5,
+              "depth": 1,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 2,
+              "remainingColumn": 3
+            },
+            {
+              "cell": 34,
+              "column": 7,
+              "row": 5,
+              "depth": 4,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 5,
+              "remainingColumn": 6
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 611,
+          "size": 4,
+          "earliest": 7,
+          "signature": "4:0:1,5:2:4,6:0:3,7:2:6",
+          "frontierCount": 2,
+          "positiveDepthCount": 2,
+          "minDepth": 0,
+          "maxDepth": 2,
+          "depthWord": [
+            0,
+            0,
+            2,
+            2
+          ],
+          "columns": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "cells": [
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 26,
+              "column": 6,
+              "row": 4,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 3
+            },
+            {
+              "cell": 32,
+              "column": 5,
+              "row": 5,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 38,
+              "column": 4,
+              "row": 6,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 1
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 2,
+          "poolCells": [
+            {
+              "cell": 26,
+              "column": 6,
+              "row": 4,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 3
+            },
+            {
+              "cell": 38,
+              "column": 4,
+              "row": 6,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "c6_fail_r6",
+      "sequence": "444441566616",
+      "rank": 12,
+      "attacker": 1,
+      "support": [
+        2,
+        0,
+        0,
+        5,
+        1,
+        4,
+        0
+      ],
+      "remaining": [
+        4,
+        6,
+        6,
+        1,
+        5,
+        2,
+        6
+      ],
+      "frontier": [
+        {
+          "cell": 14,
+          "column": 1,
+          "row": 3,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 4
+        },
+        {
+          "cell": 1,
+          "column": 2,
+          "row": 1,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 6
+        },
+        {
+          "cell": 2,
+          "column": 3,
+          "row": 1,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 6
+        },
+        {
+          "cell": 38,
+          "column": 4,
+          "row": 6,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 1
+        },
+        {
+          "cell": 11,
+          "column": 5,
+          "row": 2,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 5
+        },
+        {
+          "cell": 33,
+          "column": 6,
+          "row": 5,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 2
+        },
+        {
+          "cell": 6,
+          "column": 7,
+          "row": 1,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 6
+        }
+      ],
+      "pooled": {
+        "pool": [
+          {
+            "cell": 38,
+            "column": 4,
+            "row": 6,
+            "depth": 0,
+            "frontier": true,
+            "positiveDepth": false,
+            "releaseRank": 1,
+            "remainingColumn": 1
+          },
+          {
+            "cell": 11,
+            "column": 5,
+            "row": 2,
+            "depth": 0,
+            "frontier": true,
+            "positiveDepth": false,
+            "releaseRank": 1,
+            "remainingColumn": 5
+          }
+        ],
+        "verticalResponses": [
+          {
+            "cell": 21,
+            "column": 1,
+            "row": 4,
+            "depth": 1,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 2,
+            "remainingColumn": 4
+          },
+          {
+            "cell": 35,
+            "column": 1,
+            "row": 6,
+            "depth": 3,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 4,
+            "remainingColumn": 4
+          },
+          {
+            "cell": 8,
+            "column": 2,
+            "row": 2,
+            "depth": 1,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 2,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 22,
+            "column": 2,
+            "row": 4,
+            "depth": 3,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 4,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 36,
+            "column": 2,
+            "row": 6,
+            "depth": 5,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 6,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 9,
+            "column": 3,
+            "row": 2,
+            "depth": 1,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 2,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 23,
+            "column": 3,
+            "row": 4,
+            "depth": 3,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 4,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 37,
+            "column": 3,
+            "row": 6,
+            "depth": 5,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 6,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 25,
+            "column": 5,
+            "row": 4,
+            "depth": 2,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 3,
+            "remainingColumn": 5
+          },
+          {
+            "cell": 39,
+            "column": 5,
+            "row": 6,
+            "depth": 4,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 5,
+            "remainingColumn": 5
+          },
+          {
+            "cell": 40,
+            "column": 6,
+            "row": 6,
+            "depth": 1,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 2,
+            "remainingColumn": 2
+          },
+          {
+            "cell": 13,
+            "column": 7,
+            "row": 2,
+            "depth": 1,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 2,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 27,
+            "column": 7,
+            "row": 4,
+            "depth": 3,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 4,
+            "remainingColumn": 6
+          },
+          {
+            "cell": 41,
+            "column": 7,
+            "row": 6,
+            "depth": 5,
+            "frontier": false,
+            "positiveDepth": true,
+            "releaseRank": 6,
+            "remainingColumn": 6
+          }
+        ]
+      },
+      "activeMinimalResidualCount": 31,
+      "pooledDefectCount": 7,
+      "defectDeadlineHistogram": {
+        "3": 1,
+        "5": 1,
+        "7": 4,
+        "9": 1
+      },
+      "defectFrontierMultiplicityHistogram": {
+        "0": 3,
+        "1": 3,
+        "2": 1
+      },
+      "defectDepthWordHistogram": {
+        "0.0": 1,
+        "0.2.2": 1,
+        "1.2.2": 1,
+        "2.4.4": 1,
+        "3.4.4": 1,
+        "0.3.4": 2
+      },
+      "frontierAttachmentCellDegrees": [
+        {
+          "cell": 1,
+          "column": 2,
+          "row": 1,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 6,
+          "degree": 1
+        },
+        {
+          "cell": 2,
+          "column": 3,
+          "row": 1,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 6,
+          "degree": 1
+        },
+        {
+          "cell": 14,
+          "column": 1,
+          "row": 3,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 4,
+          "degree": 1
+        },
+        {
+          "cell": 33,
+          "column": 6,
+          "row": 5,
+          "depth": 0,
+          "frontier": true,
+          "positiveDepth": false,
+          "releaseRank": 1,
+          "remainingColumn": 2,
+          "degree": 2
+        }
+      ],
+      "defects": [
+        {
+          "id": 51,
+          "size": 2,
+          "earliest": 3,
+          "signature": "2:0:6,3:0:6",
+          "frontierCount": 2,
+          "positiveDepthCount": 0,
+          "minDepth": 0,
+          "maxDepth": 0,
+          "depthWord": [
+            0,
+            0
+          ],
+          "columns": [
+            2,
+            3
+          ],
+          "cells": [
+            {
+              "cell": 1,
+              "column": 2,
+              "row": 1,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 2,
+              "column": 3,
+              "row": 1,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 6
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 442,
+          "size": 3,
+          "earliest": 5,
+          "signature": "1:0:4,2:2:6,3:2:6",
+          "frontierCount": 1,
+          "positiveDepthCount": 2,
+          "minDepth": 0,
+          "maxDepth": 2,
+          "depthWord": [
+            0,
+            2,
+            2
+          ],
+          "columns": [
+            1,
+            2,
+            3
+          ],
+          "cells": [
+            {
+              "cell": 14,
+              "column": 1,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 15,
+              "column": 2,
+              "row": 3,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 16,
+              "column": 3,
+              "row": 3,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 6
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 452,
+          "size": 3,
+          "earliest": 7,
+          "signature": "2:2:6,3:2:6,5:1:5",
+          "frontierCount": 0,
+          "positiveDepthCount": 3,
+          "minDepth": 1,
+          "maxDepth": 2,
+          "depthWord": [
+            1,
+            2,
+            2
+          ],
+          "columns": [
+            2,
+            3,
+            5
+          ],
+          "cells": [
+            {
+              "cell": 15,
+              "column": 2,
+              "row": 3,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 16,
+              "column": 3,
+              "row": 3,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 18,
+              "column": 5,
+              "row": 3,
+              "depth": 1,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 2,
+              "remainingColumn": 5
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 530,
+          "size": 3,
+          "earliest": 7,
+          "signature": "1:2:4,2:4:6,3:4:6",
+          "frontierCount": 0,
+          "positiveDepthCount": 3,
+          "minDepth": 2,
+          "maxDepth": 4,
+          "depthWord": [
+            2,
+            4,
+            4
+          ],
+          "columns": [
+            1,
+            2,
+            3
+          ],
+          "cells": [
+            {
+              "cell": 28,
+              "column": 1,
+              "row": 5,
+              "depth": 2,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 3,
+              "remainingColumn": 4
+            },
+            {
+              "cell": 29,
+              "column": 2,
+              "row": 5,
+              "depth": 4,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 5,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "depth": 4,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 5,
+              "remainingColumn": 6
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 534,
+          "size": 3,
+          "earliest": 9,
+          "signature": "2:4:6,3:4:6,5:3:5",
+          "frontierCount": 0,
+          "positiveDepthCount": 3,
+          "minDepth": 3,
+          "maxDepth": 4,
+          "depthWord": [
+            3,
+            4,
+            4
+          ],
+          "columns": [
+            2,
+            3,
+            5
+          ],
+          "cells": [
+            {
+              "cell": 29,
+              "column": 2,
+              "row": 5,
+              "depth": 4,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 5,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "depth": 4,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 5,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 32,
+              "column": 5,
+              "row": 5,
+              "depth": 3,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 4,
+              "remainingColumn": 5
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 538,
+          "size": 3,
+          "earliest": 7,
+          "signature": "3:4:6,5:3:5,6:0:2",
+          "frontierCount": 1,
+          "positiveDepthCount": 2,
+          "minDepth": 0,
+          "maxDepth": 4,
+          "depthWord": [
+            0,
+            3,
+            4
+          ],
+          "columns": [
+            3,
+            5,
+            6
+          ],
+          "cells": [
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "depth": 4,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 5,
+              "remainingColumn": 6
+            },
+            {
+              "cell": 32,
+              "column": 5,
+              "row": 5,
+              "depth": 3,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 4,
+              "remainingColumn": 5
+            },
+            {
+              "cell": 33,
+              "column": 6,
+              "row": 5,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 2
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        },
+        {
+          "id": 542,
+          "size": 3,
+          "earliest": 7,
+          "signature": "5:3:5,6:0:2,7:4:6",
+          "frontierCount": 1,
+          "positiveDepthCount": 2,
+          "minDepth": 0,
+          "maxDepth": 4,
+          "depthWord": [
+            0,
+            3,
+            4
+          ],
+          "columns": [
+            5,
+            6,
+            7
+          ],
+          "cells": [
+            {
+              "cell": 32,
+              "column": 5,
+              "row": 5,
+              "depth": 3,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 4,
+              "remainingColumn": 5
+            },
+            {
+              "cell": 33,
+              "column": 6,
+              "row": 5,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 2
+            },
+            {
+              "cell": 34,
+              "column": 7,
+              "row": 5,
+              "depth": 4,
+              "frontier": false,
+              "positiveDepth": true,
+              "releaseRank": 5,
+              "remainingColumn": 6
+            }
+          ],
+          "pooledVerticalCovered": false,
+          "pooledVerticalCells": [],
+          "poolMultiplicity": 0,
+          "poolCells": []
+        }
+      ]
+    }
+  ],
+  "families": [
+    {
+      "family": "c2_",
+      "rows": [
+        {
+          "label": "c2_fail_r4",
+          "defects": 8,
+          "deadlineHistogram": {
+            "5": 3,
+            "7": 4,
+            "9": 1
+          },
+          "frontierMultiplicityHistogram": {
+            "0": 5,
+            "1": 1,
+            "2": 2
+          },
+          "depthWordHistogram": {
+            "1.1.2": 1,
+            "0.1.2": 1,
+            "0.0.2": 2,
+            "3.3.4": 1,
+            "2.3.4": 1,
+            "2.2.4": 2
+          },
+          "frontierAttachmentCellDegrees": [
+            {
+              "cell": 18,
+              "column": 5,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4,
+              "degree": 3
+            },
+            {
+              "cell": 19,
+              "column": 6,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4,
+              "degree": 2
+            }
+          ]
+        },
+        {
+          "label": "c2_fail_r2",
+          "defects": 8,
+          "deadlineHistogram": {
+            "5": 4,
+            "7": 4
+          },
+          "frontierMultiplicityHistogram": {
+            "0": 4,
+            "1": 1,
+            "2": 3
+          },
+          "depthWordHistogram": {
+            "0.1.2": 1,
+            "0.0.2": 3,
+            "2.3.4": 1,
+            "2.2.4": 3
+          },
+          "frontierAttachmentCellDegrees": [
+            {
+              "cell": 15,
+              "column": 2,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4,
+              "degree": 2
+            },
+            {
+              "cell": 18,
+              "column": 5,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4,
+              "degree": 3
+            },
+            {
+              "cell": 19,
+              "column": 6,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4,
+              "degree": 2
+            }
+          ]
+        },
+        {
+          "label": "c2_fail_r1",
+          "defects": 8,
+          "deadlineHistogram": {
+            "5": 4,
+            "7": 4
+          },
+          "frontierMultiplicityHistogram": {
+            "0": 4,
+            "1": 2,
+            "2": 2
+          },
+          "depthWordHistogram": {
+            "0.1.2": 2,
+            "0.0.2": 2,
+            "2.3.4": 2,
+            "2.2.4": 2
+          },
+          "frontierAttachmentCellDegrees": [
+            {
+              "cell": 14,
+              "column": 1,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4,
+              "degree": 1
+            },
+            {
+              "cell": 18,
+              "column": 5,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4,
+              "degree": 3
+            },
+            {
+              "cell": 19,
+              "column": 6,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4,
+              "degree": 2
+            }
+          ]
+        }
+      ],
+      "commonDepthWords": [
+        "0.1.2",
+        "0.0.2",
+        "2.3.4",
+        "2.2.4"
+      ],
+      "commonFrontierCells": [
+        18,
+        19
+      ]
+    },
+    {
+      "family": "c3_",
+      "rows": [
+        {
+          "label": "c3_fail_r1",
+          "defects": 8,
+          "deadlineHistogram": {
+            "5": 4,
+            "7": 4
+          },
+          "frontierMultiplicityHistogram": {
+            "0": 4,
+            "1": 2,
+            "2": 2
+          },
+          "depthWordHistogram": {
+            "0.0.2": 1,
+            "0.1.2": 2,
+            "0.0.1": 1,
+            "2.2.4": 1,
+            "2.3.4": 2,
+            "2.2.3": 1
+          },
+          "frontierAttachmentCellDegrees": [
+            {
+              "cell": 14,
+              "column": 1,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4,
+              "degree": 1
+            },
+            {
+              "cell": 16,
+              "column": 3,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4,
+              "degree": 3
+            },
+            {
+              "cell": 19,
+              "column": 6,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4,
+              "degree": 2
+            }
+          ]
+        },
+        {
+          "label": "c3_fail_r5",
+          "defects": 8,
+          "deadlineHistogram": {
+            "5": 4,
+            "7": 4
+          },
+          "frontierMultiplicityHistogram": {
+            "0": 4,
+            "1": 1,
+            "2": 2,
+            "3": 1
+          },
+          "depthWordHistogram": {
+            "0.1.2": 1,
+            "0.0.2": 2,
+            "0.0.0": 1,
+            "2.3.4": 1,
+            "2.2.4": 2,
+            "2.2.2": 1
+          },
+          "frontierAttachmentCellDegrees": [
+            {
+              "cell": 16,
+              "column": 3,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4,
+              "degree": 3
+            },
+            {
+              "cell": 18,
+              "column": 5,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4,
+              "degree": 3
+            },
+            {
+              "cell": 19,
+              "column": 6,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4,
+              "degree": 2
+            }
+          ]
+        },
+        {
+          "label": "c3_fail_r4",
+          "defects": 8,
+          "deadlineHistogram": {
+            "5": 4,
+            "7": 4
+          },
+          "frontierMultiplicityHistogram": {
+            "0": 4,
+            "1": 3,
+            "2": 1
+          },
+          "depthWordHistogram": {
+            "0.1.2": 3,
+            "0.0.1": 1,
+            "2.3.4": 3,
+            "2.2.3": 1
+          },
+          "frontierAttachmentCellDegrees": [
+            {
+              "cell": 16,
+              "column": 3,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4,
+              "degree": 3
+            },
+            {
+              "cell": 19,
+              "column": 6,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4,
+              "degree": 2
+            }
+          ]
+        }
+      ],
+      "commonDepthWords": [
+        "0.1.2",
+        "2.3.4"
+      ],
+      "commonFrontierCells": [
+        16,
+        19
+      ]
+    },
+    {
+      "family": "c6_",
+      "rows": [
+        {
+          "label": "c6_fail_r4",
+          "defects": 7,
+          "deadlineHistogram": {
+            "3": 1,
+            "5": 1,
+            "7": 4,
+            "9": 1
+          },
+          "frontierMultiplicityHistogram": {
+            "0": 5,
+            "1": 1,
+            "2": 1
+          },
+          "depthWordHistogram": {
+            "0.0": 1,
+            "0.2.2": 1,
+            "1.2.2": 1,
+            "2.4.4": 1,
+            "3.4.4": 1,
+            "1.3.4": 2
+          },
+          "frontierAttachmentCellDegrees": [
+            {
+              "cell": 1,
+              "column": 2,
+              "row": 1,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 6,
+              "degree": 1
+            },
+            {
+              "cell": 2,
+              "column": 3,
+              "row": 1,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 6,
+              "degree": 1
+            },
+            {
+              "cell": 14,
+              "column": 1,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4,
+              "degree": 1
+            }
+          ]
+        },
+        {
+          "label": "c6_fail_r5",
+          "defects": 8,
+          "deadlineHistogram": {
+            "3": 1,
+            "5": 2,
+            "7": 5
+          },
+          "frontierMultiplicityHistogram": {
+            "0": 4,
+            "1": 2,
+            "2": 2
+          },
+          "depthWordHistogram": {
+            "0.0": 1,
+            "0.2.2": 2,
+            "2.4.4": 2,
+            "1.2.4": 2,
+            "0.0.2.2": 1
+          },
+          "frontierAttachmentCellDegrees": [
+            {
+              "cell": 1,
+              "column": 2,
+              "row": 1,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 6,
+              "degree": 1
+            },
+            {
+              "cell": 2,
+              "column": 3,
+              "row": 1,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 6,
+              "degree": 1
+            },
+            {
+              "cell": 14,
+              "column": 1,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4,
+              "degree": 1
+            },
+            {
+              "cell": 18,
+              "column": 5,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4,
+              "degree": 1
+            },
+            {
+              "cell": 26,
+              "column": 6,
+              "row": 4,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 3,
+              "degree": 1
+            },
+            {
+              "cell": 38,
+              "column": 4,
+              "row": 6,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 1,
+              "degree": 1
+            }
+          ]
+        },
+        {
+          "label": "c6_fail_r6",
+          "defects": 7,
+          "deadlineHistogram": {
+            "3": 1,
+            "5": 1,
+            "7": 4,
+            "9": 1
+          },
+          "frontierMultiplicityHistogram": {
+            "0": 3,
+            "1": 3,
+            "2": 1
+          },
+          "depthWordHistogram": {
+            "0.0": 1,
+            "0.2.2": 1,
+            "1.2.2": 1,
+            "2.4.4": 1,
+            "3.4.4": 1,
+            "0.3.4": 2
+          },
+          "frontierAttachmentCellDegrees": [
+            {
+              "cell": 1,
+              "column": 2,
+              "row": 1,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 6,
+              "degree": 1
+            },
+            {
+              "cell": 2,
+              "column": 3,
+              "row": 1,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 6,
+              "degree": 1
+            },
+            {
+              "cell": 14,
+              "column": 1,
+              "row": 3,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 4,
+              "degree": 1
+            },
+            {
+              "cell": 33,
+              "column": 6,
+              "row": 5,
+              "depth": 0,
+              "frontier": true,
+              "positiveDepth": false,
+              "releaseRank": 1,
+              "remainingColumn": 2,
+              "degree": 2
+            }
+          ]
+        }
+      ],
+      "commonDepthWords": [
+        "0.0",
+        "0.2.2",
+        "2.4.4"
+      ],
+      "commonFrontierCells": [
+        1,
+        2,
+        14
+      ]
+    }
+  ],
+  "boundary": [
+    "Consumed training evidence only.",
+    "This profile does not assign W/D/L or strong distance.",
+    "No scalar is promoted merely because it separates these cases.",
+    "The next theorem must be derived from attachment/transition semantics and then freshly qualified."
+  ]
+}
