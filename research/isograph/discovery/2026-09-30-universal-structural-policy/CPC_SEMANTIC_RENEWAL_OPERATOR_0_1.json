@@ -1,0 +1,534 @@
+{
+  "schema": "connect4.cpc_semantic_renewal_operator.v1",
+  "jsMinSysSha": "0899c5811918e68c22dc1b0e4dd8af97d9b4bbcb",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "transitionAuthority": "connect4RbaCofactorKnownHeight on support + CPC/RBA residual coordinate; no move-history replay in renewal evaluation",
+  "proofClasses": {
+    "B3": "fixed complete response template survives through 3",
+    "B5": "fixed complete response template survives through 5",
+    "R3_TO_S5": "one exact template response transition sends every attacker trigger into B3 or a closed defender/draw terminal",
+    "R5_TO_S7": "one exact template response transition sends every attacker trigger into S5=B5 union R3_TO_S5 or a closed defender/draw terminal"
+  },
+  "renewalControls": [
+    {
+      "label": "c6_14",
+      "sequence": "444441566614",
+      "expectedRepairable": true,
+      "semanticRenewal": true,
+      "pairs": [
+        {
+          "cols": [
+            5,
+            6
+          ],
+          "length": 1
+        },
+        {
+          "cols": [
+            2,
+            3
+          ],
+          "length": 2
+        }
+      ]
+    },
+    {
+      "label": "c6_41",
+      "sequence": "444441566641",
+      "expectedRepairable": true,
+      "semanticRenewal": true,
+      "pairs": [
+        {
+          "cols": [
+            5,
+            6
+          ],
+          "length": 1
+        },
+        {
+          "cols": [
+            2,
+            3
+          ],
+          "length": 2
+        }
+      ]
+    },
+    {
+      "label": "c6_56",
+      "sequence": "444441566656",
+      "expectedRepairable": true,
+      "semanticRenewal": true,
+      "pairs": [
+        {
+          "cols": [
+            1,
+            4
+          ],
+          "length": 1
+        },
+        {
+          "cols": [
+            2,
+            3
+          ],
+          "length": 2
+        }
+      ]
+    },
+    {
+      "label": "c6_65",
+      "sequence": "444441566665",
+      "expectedRepairable": true,
+      "semanticRenewal": true,
+      "pairs": [
+        {
+          "cols": [
+            1,
+            4
+          ],
+          "length": 1
+        },
+        {
+          "cols": [
+            2,
+            3
+          ],
+          "length": 2
+        }
+      ]
+    },
+    {
+      "label": "c3_22",
+      "sequence": "444441566322",
+      "expectedRepairable": true,
+      "semanticRenewal": true,
+      "pairs": [
+        {
+          "cols": [
+            1,
+            3
+          ],
+          "length": 1
+        },
+        {
+          "cols": [
+            4,
+            5
+          ],
+          "length": 1
+        }
+      ]
+    },
+    {
+      "label": "c2_12",
+      "sequence": "444441566212",
+      "expectedRepairable": false,
+      "semanticRenewal": false,
+      "pairs": null
+    },
+    {
+      "label": "c2_21",
+      "sequence": "444441566221",
+      "expectedRepairable": false,
+      "semanticRenewal": false,
+      "pairs": null
+    },
+    {
+      "label": "c2_33",
+      "sequence": "444441566233",
+      "expectedRepairable": false,
+      "semanticRenewal": false,
+      "pairs": null
+    },
+    {
+      "label": "c2_45",
+      "sequence": "444441566245",
+      "expectedRepairable": false,
+      "semanticRenewal": false,
+      "pairs": null
+    },
+    {
+      "label": "c2_54",
+      "sequence": "444441566254",
+      "expectedRepairable": false,
+      "semanticRenewal": false,
+      "pairs": null
+    },
+    {
+      "label": "c2_66",
+      "sequence": "444441566266",
+      "expectedRepairable": false,
+      "semanticRenewal": false,
+      "pairs": null
+    },
+    {
+      "label": "c2_77",
+      "sequence": "444441566277",
+      "expectedRepairable": false,
+      "semanticRenewal": false,
+      "pairs": null
+    },
+    {
+      "label": "c3_13",
+      "sequence": "444441566313",
+      "expectedRepairable": false,
+      "semanticRenewal": false,
+      "pairs": null
+    },
+    {
+      "label": "c3_31",
+      "sequence": "444441566331",
+      "expectedRepairable": false,
+      "semanticRenewal": false,
+      "pairs": null
+    },
+    {
+      "label": "c3_45",
+      "sequence": "444441566345",
+      "expectedRepairable": false,
+      "semanticRenewal": false,
+      "pairs": null
+    },
+    {
+      "label": "c3_54",
+      "sequence": "444441566354",
+      "expectedRepairable": false,
+      "semanticRenewal": false,
+      "pairs": null
+    },
+    {
+      "label": "c3_66",
+      "sequence": "444441566366",
+      "expectedRepairable": false,
+      "semanticRenewal": false,
+      "pairs": null
+    },
+    {
+      "label": "c3_77",
+      "sequence": "444441566377",
+      "expectedRepairable": false,
+      "semanticRenewal": false,
+      "pairs": null
+    }
+  ],
+  "roots": [
+    {
+      "id": "candidate2",
+      "sequence": "4444415662",
+      "expectedS7": false,
+      "base": {
+        "B3": true,
+        "B5": false,
+        "B7": false
+      },
+      "S5": {
+        "accept": true,
+        "class": "R3_TO_S5",
+        "witness": [
+          {
+            "cols": [
+              1,
+              2
+            ],
+            "length": 1
+          },
+          {
+            "cols": [
+              4,
+              5
+            ],
+            "length": 1
+          }
+        ]
+      },
+      "S7": {
+        "accept": false,
+        "class": "OUTSIDE_S7",
+        "branches": null
+      }
+    },
+    {
+      "id": "candidate3",
+      "sequence": "4444415663",
+      "expectedS7": false,
+      "base": {
+        "B3": true,
+        "B5": false,
+        "B7": false
+      },
+      "S5": {
+        "accept": true,
+        "class": "R3_TO_S5",
+        "witness": [
+          {
+            "cols": [
+              1,
+              3
+            ],
+            "length": 1
+          },
+          {
+            "cols": [
+              4,
+              5
+            ],
+            "length": 1
+          }
+        ]
+      },
+      "S7": {
+        "accept": false,
+        "class": "OUTSIDE_S7",
+        "branches": null
+      }
+    },
+    {
+      "id": "candidate6",
+      "sequence": "4444415666",
+      "expectedS7": true,
+      "base": {
+        "B3": true,
+        "B5": true,
+        "B7": false
+      },
+      "S5": {
+        "accept": true,
+        "class": "B5",
+        "witness": [
+          {
+            "cols": [
+              1,
+              4
+            ],
+            "length": 1
+          },
+          {
+            "cols": [
+              5,
+              6
+            ],
+            "length": 1
+          },
+          {
+            "cols": [
+              2,
+              3
+            ],
+            "length": 2
+          }
+        ]
+      },
+      "S7": {
+        "accept": true,
+        "class": "R5_TO_S7",
+        "witness": [
+          {
+            "cols": [
+              1,
+              4
+            ],
+            "length": 1
+          },
+          {
+            "cols": [
+              5,
+              6
+            ],
+            "length": 1
+          },
+          {
+            "cols": [
+              2,
+              3
+            ],
+            "length": 2
+          }
+        ],
+        "branches": [
+          {
+            "attackerColumn": 1,
+            "responseColumn": 4,
+            "class": "R3_TO_S5",
+            "witness": [
+              {
+                "cols": [
+                  5,
+                  6
+                ],
+                "length": 1
+              },
+              {
+                "cols": [
+                  2,
+                  3
+                ],
+                "length": 2
+              }
+            ]
+          },
+          {
+            "attackerColumn": 2,
+            "responseColumn": 3,
+            "class": "B5",
+            "witness": [
+              {
+                "cols": [
+                  1,
+                  2
+                ],
+                "length": 1
+              },
+              {
+                "cols": [
+                  3,
+                  4
+                ],
+                "length": 1
+              },
+              {
+                "cols": [
+                  5,
+                  6
+                ],
+                "length": 1
+              }
+            ]
+          },
+          {
+            "attackerColumn": 3,
+            "responseColumn": 2,
+            "class": "B5",
+            "witness": [
+              {
+                "cols": [
+                  1,
+                  2
+                ],
+                "length": 1
+              },
+              {
+                "cols": [
+                  3,
+                  4
+                ],
+                "length": 1
+              },
+              {
+                "cols": [
+                  5,
+                  6
+                ],
+                "length": 1
+              }
+            ]
+          },
+          {
+            "attackerColumn": 4,
+            "responseColumn": 1,
+            "class": "R3_TO_S5",
+            "witness": [
+              {
+                "cols": [
+                  5,
+                  6
+                ],
+                "length": 1
+              },
+              {
+                "cols": [
+                  2,
+                  3
+                ],
+                "length": 2
+              }
+            ]
+          },
+          {
+            "attackerColumn": 5,
+            "responseColumn": 6,
+            "class": "R3_TO_S5",
+            "witness": [
+              {
+                "cols": [
+                  1,
+                  4
+                ],
+                "length": 1
+              },
+              {
+                "cols": [
+                  2,
+                  3
+                ],
+                "length": 2
+              }
+            ]
+          },
+          {
+            "attackerColumn": 6,
+            "responseColumn": 5,
+            "class": "R3_TO_S5",
+            "witness": [
+              {
+                "cols": [
+                  1,
+                  4
+                ],
+                "length": 1
+              },
+              {
+                "cols": [
+                  2,
+                  3
+                ],
+                "length": 2
+              }
+            ]
+          },
+          {
+            "attackerColumn": 7,
+            "responseColumn": 7,
+            "class": "B5",
+            "witness": [
+              {
+                "cols": [
+                  1,
+                  4
+                ],
+                "length": 1
+              },
+              {
+                "cols": [
+                  5,
+                  6
+                ],
+                "length": 1
+              },
+              {
+                "cols": [
+                  2,
+                  3
+                ],
+                "length": 2
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "work": {
+    "cofactorCount": 57918,
+    "renewalTemplateTests": 14511,
+    "renewalBranchTests": 28959
+  },
+  "conclusion": "The prior two-switch distinction [5,5,7] is reproduced directly on the CPC semantic state using exact RBA cofactors and proof-class transitions, without replaying physical move histories. Candidate 6 is in S7 via R5 renewal; candidates 2/3 are in S5 but not S7 under this grammar.",
+  "boundary": [
+    "This is a rank-local CPC proof automaton, not a value solver.",
+    "S7 membership is a constructive survival lower certificate only.",
+    "The operator still quantifies over qualified response templates and legal current triggers; no unbounded recursion or minimax/negamax is used.",
+    "No finite forced-completion upper bound for candidates 2/3 follows, so v5 remains unlicensed."
+  ]
+}
