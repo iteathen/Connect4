@@ -18,12 +18,15 @@ jobs:
     timeout-minutes: 15
     steps:
       - name: Check out exact pushed revision
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
 
       - name: Pin Node runtime
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
         with:
-          node-version: '22.x'
+          node-version: 26.7.0
+
+      - name: Assert exact Node runtime
+        run: node -e "if (process.version !== 'v26.7.0') throw new Error('expected Node v26.7.0, got ' + process.version)"
 
       - name: Run first-nine hot calculation benchmark
         shell: bash
@@ -57,10 +60,3 @@ jobs:
           echo 'BENCHMARK_JSON_BEGIN'
           cat benchmark-v4-first-nine.raw.json
           echo 'BENCHMARK_JSON_END'
-
-      - name: Upload raw benchmark evidence
-        uses: actions/upload-artifact@v4
-        with:
-          name: v4-first-nine-timing-raw
-          path: benchmark-v4-first-nine.raw.json
-          if-no-files-found: error
