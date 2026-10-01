@@ -1,0 +1,746 @@
+{
+  "schema": "connect4.rba_rank24_reply7_c7_unresolved_value_discovery.v1",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "ordinaryGameTreeSearchUsed": true,
+  "proofPremiseAllowed": false,
+  "sourceHypothesis": "CPC_RANK24_REPLY7_C7_DUAL_OBLIGATION_HYPOTHESIS.md",
+  "states": [
+    {
+      "label": "after-p2-c5",
+      "sequence": "44444156666623222242331775",
+      "support": [
+        2,
+        6,
+        3,
+        6,
+        2,
+        5,
+        2
+      ],
+      "rank": 26,
+      "mover": 1,
+      "cpc": {
+        "baseline": {
+          "kind": "CPC_NONE",
+          "interval": [
+            -1,
+            1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0,
+          "projectedCount": [
+            0,
+            0
+          ],
+          "projectedForks": [
+            0,
+            0
+          ]
+        },
+        "frontier": {
+          "kind": "CPC_NONE",
+          "interval": [
+            -1,
+            1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0,
+          "projectedCount": [
+            0,
+            0
+          ],
+          "projectedForks": [
+            0,
+            0
+          ]
+        }
+      },
+      "p1Aligned": [
+        {
+          "diagnosticId": 172,
+          "size": 2,
+          "cells": [
+            {
+              "cell": 14,
+              "column": 1,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 1,
+              "playable": false
+            }
+          ],
+          "fullyAligned": true
+        },
+        {
+          "diagnosticId": 228,
+          "size": 2,
+          "cells": [
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "cell": 32,
+              "column": 5,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 2,
+              "playable": false
+            }
+          ],
+          "fullyAligned": true
+        }
+      ],
+      "p2Aligned": [],
+      "discovery": {
+        "value": 3,
+        "bestMoves": [
+          1,
+          5,
+          6,
+          7
+        ],
+        "moves": [
+          {
+            "column": 1,
+            "value": 3
+          },
+          {
+            "column": 3,
+            "value": 2
+          },
+          {
+            "column": 5,
+            "value": 3
+          },
+          {
+            "column": 6,
+            "value": 3
+          },
+          {
+            "column": 7,
+            "value": 3
+          }
+        ],
+        "nodes": 16850,
+        "memoSize": 6280,
+        "memoHits": 8246,
+        "elapsedNs": "48086744"
+      },
+      "structurallyProfiledWinningCandidates": [
+        {
+          "column": 1,
+          "terminal": 0,
+          "support": [
+            3,
+            6,
+            3,
+            6,
+            2,
+            5,
+            2
+          ],
+          "cpcForP2": {
+            "baseline": {
+              "kind": "CPC_NONE",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                1,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_NONE",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                1,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "immediateP2WinningColumns": [],
+          "p1Aligned": [
+            {
+              "diagnosticId": 30,
+              "size": 1,
+              "cells": [
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 1,
+                  "playable": false
+                }
+              ],
+              "fullyAligned": true
+            },
+            {
+              "diagnosticId": 228,
+              "size": 2,
+              "cells": [
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 0,
+                  "playable": true
+                },
+                {
+                  "cell": 32,
+                  "column": 5,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 2,
+                  "playable": false
+                }
+              ],
+              "fullyAligned": true
+            }
+          ],
+          "p2Aligned": []
+        },
+        {
+          "column": 5,
+          "terminal": 0,
+          "support": [
+            2,
+            6,
+            3,
+            6,
+            3,
+            5,
+            2
+          ],
+          "cpcForP2": {
+            "baseline": {
+              "kind": "CPC_RESTRICT",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": 5,
+              "preemptionCount": 1,
+              "preemptionMask32": 16,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_RESTRICT",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": 5,
+              "preemptionCount": 1,
+              "preemptionMask32": 16,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "immediateP2WinningColumns": [],
+          "p1Aligned": [
+            {
+              "diagnosticId": 172,
+              "size": 2,
+              "cells": [
+                {
+                  "cell": 14,
+                  "column": 1,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 0,
+                  "playable": true
+                },
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 1,
+                  "playable": false
+                }
+              ],
+              "fullyAligned": true
+            },
+            {
+              "diagnosticId": 228,
+              "size": 2,
+              "cells": [
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 0,
+                  "playable": true
+                },
+                {
+                  "cell": 32,
+                  "column": 5,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 1,
+                  "playable": false
+                }
+              ],
+              "fullyAligned": true
+            }
+          ],
+          "p2Aligned": []
+        },
+        {
+          "column": 6,
+          "terminal": 0,
+          "support": [
+            2,
+            6,
+            3,
+            6,
+            2,
+            6,
+            2
+          ],
+          "cpcForP2": {
+            "baseline": {
+              "kind": "CPC_NONE",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_NONE",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "immediateP2WinningColumns": [],
+          "p1Aligned": [
+            {
+              "diagnosticId": 172,
+              "size": 2,
+              "cells": [
+                {
+                  "cell": 14,
+                  "column": 1,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 0,
+                  "playable": true
+                },
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 1,
+                  "playable": false
+                }
+              ],
+              "fullyAligned": true
+            },
+            {
+              "diagnosticId": 228,
+              "size": 2,
+              "cells": [
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 0,
+                  "playable": true
+                },
+                {
+                  "cell": 32,
+                  "column": 5,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 2,
+                  "playable": false
+                }
+              ],
+              "fullyAligned": true
+            }
+          ],
+          "p2Aligned": []
+        },
+        {
+          "column": 7,
+          "terminal": 0,
+          "support": [
+            2,
+            6,
+            3,
+            6,
+            2,
+            5,
+            3
+          ],
+          "cpcForP2": {
+            "baseline": {
+              "kind": "CPC_NONE",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                1,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_NONE",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                1,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "immediateP2WinningColumns": [],
+          "p1Aligned": [
+            {
+              "diagnosticId": 32,
+              "size": 1,
+              "cells": [
+                {
+                  "cell": 32,
+                  "column": 5,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 2,
+                  "playable": false
+                }
+              ],
+              "fullyAligned": true
+            },
+            {
+              "diagnosticId": 172,
+              "size": 2,
+              "cells": [
+                {
+                  "cell": 14,
+                  "column": 1,
+                  "row": 3,
+                  "projectedOwner": 1,
+                  "supportDistance": 0,
+                  "playable": true
+                },
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 1,
+                  "playable": false
+                }
+              ],
+              "fullyAligned": true
+            }
+          ],
+          "p2Aligned": []
+        }
+      ]
+    },
+    {
+      "label": "after-p2-c7",
+      "sequence": "44444156666623222242331777",
+      "support": [
+        2,
+        6,
+        3,
+        6,
+        1,
+        5,
+        3
+      ],
+      "rank": 26,
+      "mover": 1,
+      "cpc": {
+        "baseline": {
+          "kind": "CPC_NONE",
+          "interval": [
+            -1,
+            1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0,
+          "projectedCount": [
+            0,
+            0
+          ],
+          "projectedForks": [
+            0,
+            0
+          ]
+        },
+        "frontier": {
+          "kind": "CPC_NONE",
+          "interval": [
+            -1,
+            1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0,
+          "projectedCount": [
+            0,
+            0
+          ],
+          "projectedForks": [
+            0,
+            0
+          ]
+        }
+      },
+      "p1Aligned": [
+        {
+          "diagnosticId": 172,
+          "size": 2,
+          "cells": [
+            {
+              "cell": 14,
+              "column": 1,
+              "row": 3,
+              "projectedOwner": 1,
+              "supportDistance": 0,
+              "playable": true
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "projectedOwner": 1,
+              "supportDistance": 1,
+              "playable": false
+            }
+          ],
+          "fullyAligned": true
+        }
+      ],
+      "p2Aligned": [],
+      "discovery": {
+        "value": 3,
+        "bestMoves": [
+          1
+        ],
+        "moves": [
+          {
+            "column": 1,
+            "value": 3
+          },
+          {
+            "column": 3,
+            "value": 2
+          },
+          {
+            "column": 5,
+            "value": 2
+          },
+          {
+            "column": 6,
+            "value": 2
+          },
+          {
+            "column": 7,
+            "value": 2
+          }
+        ],
+        "nodes": 25031,
+        "memoSize": 8845,
+        "memoHits": 13143,
+        "elapsedNs": "60374138"
+      },
+      "structurallyProfiledWinningCandidates": [
+        {
+          "column": 1,
+          "terminal": 0,
+          "support": [
+            3,
+            6,
+            3,
+            6,
+            1,
+            5,
+            3
+          ],
+          "cpcForP2": {
+            "baseline": {
+              "kind": "CPC_NONE",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                1,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_NONE",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                1,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "immediateP2WinningColumns": [],
+          "p1Aligned": [
+            {
+              "diagnosticId": 30,
+              "size": 1,
+              "cells": [
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5,
+                  "projectedOwner": 1,
+                  "supportDistance": 1,
+                  "playable": false
+                }
+              ],
+              "fullyAligned": true
+            }
+          ],
+          "p2Aligned": []
+        }
+      ]
+    }
+  ],
+  "valueEncoding": {
+    "1": "P2_WIN",
+    "2": "DRAW",
+    "3": "P1_WIN"
+  },
+  "boundary": [
+    "The W/D/L recursion is discovery/falsification evidence only and is forbidden as a structural theorem or runtime policy premise.",
+    "The two states were structurally identified before this local diagnostic; no Pons score or oracle value participates.",
+    "No external oracle, solved database, opening book, best-move table, physical-position identity, or sealed holdout is used.",
+    "Production CPC and JSMinSys are read-only and unchanged."
+  ]
+}
