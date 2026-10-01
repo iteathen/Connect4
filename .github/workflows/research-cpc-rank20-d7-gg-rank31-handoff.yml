@@ -1,0 +1,36 @@
+name: Research CPC rank20 D7 GG rank31 exact handoff
+on:
+  push:
+    branches: [research/universal-structural-policy-20260930]
+    paths:
+      - .github/workflows/research-cpc-rank20-d7-gg-rank31-handoff.yml
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_RANK20_D7_GG_RANK31_EXACT_HANDOFF_PROBE_DESIGN_0_1.md
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/run-cpc-rank20-d7-gg-rank31-exact-handoff-probe.mjs
+permissions: {contents: write}
+jobs:
+  probe:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with: {fetch-depth: 0}
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with: {node-version: 26.7.0}
+      - run: |
+          git clone -q https://github.com/iteathen/JSMinSys.git jsminsys
+          git -C jsminsys checkout -q bf23d3a67652cd42e1975f29c7dc4eed54f7eb42
+      - shell: bash
+        run: |
+          set -euo pipefail
+          DIR=research/isograph/discovery/2026-09-30-universal-structural-policy
+          OUT="$DIR/CPC_RANK20_D7_GG_RANK31_EXACT_HANDOFF_PROBE_0_1.json"
+          node "$DIR/run-cpc-rank20-d7-gg-rank31-exact-handoff-probe.mjs" ./jsminsys > "$OUT"
+          node - "$OUT" <<'NODE'
+          const fs=require('fs');const r=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));console.log(JSON.stringify({accept:r.accept,js:r.jsExactQEqual,semantic:r.semanticExactQEqual}));if(!r.accept)process.exit(2);
+          NODE
+      - shell: bash
+        run: |
+          BRANCH=research/universal-structural-policy-20260930
+          FILE=research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_RANK20_D7_GG_RANK31_EXACT_HANDOFF_PROBE_0_1.json
+          git config user.name "github-actions[bot]"; git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$FILE"; git commit -m "research: record D7 GG rank31 exact handoff"; git pull --rebase origin "$BRANCH"; git push origin HEAD:"$BRANCH"
