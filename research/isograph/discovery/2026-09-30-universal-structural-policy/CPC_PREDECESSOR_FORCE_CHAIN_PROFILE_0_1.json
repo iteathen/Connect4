@@ -1,0 +1,807 @@
+{
+  "schema": "connect4.cpc_predecessor_force_chain_profile.v1",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "start": {
+    "sequence": "4444415666",
+    "rank": 10,
+    "support": [
+      1,
+      0,
+      0,
+      5,
+      1,
+      3,
+      0
+    ]
+  },
+  "consumedEnd": {
+    "sequence": "444441566666232222423311",
+    "rank": 24,
+    "support": [
+      3,
+      6,
+      3,
+      6,
+      1,
+      5,
+      0
+    ]
+  },
+  "rows": [
+    {
+      "rankBeforeAttack": 10,
+      "prefix": "4444415666",
+      "supportBefore": [
+        1,
+        0,
+        0,
+        5,
+        1,
+        3,
+        0
+      ],
+      "attackerColumn": 6,
+      "afterAttackSupport": [
+        1,
+        0,
+        0,
+        5,
+        1,
+        4,
+        0
+      ],
+      "nativeCpc": {
+        "baseline": {
+          "kind": "CPC_NONE",
+          "interval": [
+            -1,
+            1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0
+        },
+        "frontier": {
+          "kind": "CPC_NONE",
+          "interval": [
+            -1,
+            1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0
+        }
+      },
+      "consumedReplyColumn": 6,
+      "literalReplies": [
+        {
+          "defenderReplyColumn": 1,
+          "defenderTerminal": 0,
+          "immediateP1WinningColumns": [],
+          "avoidsImmediateP1Win": true
+        },
+        {
+          "defenderReplyColumn": 2,
+          "defenderTerminal": 0,
+          "immediateP1WinningColumns": [],
+          "avoidsImmediateP1Win": true
+        },
+        {
+          "defenderReplyColumn": 3,
+          "defenderTerminal": 0,
+          "immediateP1WinningColumns": [],
+          "avoidsImmediateP1Win": true
+        },
+        {
+          "defenderReplyColumn": 4,
+          "defenderTerminal": 0,
+          "immediateP1WinningColumns": [],
+          "avoidsImmediateP1Win": true
+        },
+        {
+          "defenderReplyColumn": 5,
+          "defenderTerminal": 0,
+          "immediateP1WinningColumns": [],
+          "avoidsImmediateP1Win": true
+        },
+        {
+          "defenderReplyColumn": 6,
+          "defenderTerminal": 0,
+          "immediateP1WinningColumns": [],
+          "avoidsImmediateP1Win": true
+        },
+        {
+          "defenderReplyColumn": 7,
+          "defenderTerminal": 0,
+          "immediateP1WinningColumns": [],
+          "avoidsImmediateP1Win": true
+        }
+      ],
+      "repliesAvoidingImmediateP1Win": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "consumedReplyIsUniqueImmediateAvoidance": false,
+      "nativeCpcForcesConsumedReply": false,
+      "consumedPairTerminal": 0,
+      "supportAfterConsumedPair": [
+        1,
+        0,
+        0,
+        5,
+        1,
+        5,
+        0
+      ]
+    },
+    {
+      "rankBeforeAttack": 12,
+      "prefix": "444441566666",
+      "supportBefore": [
+        1,
+        0,
+        0,
+        5,
+        1,
+        5,
+        0
+      ],
+      "attackerColumn": 2,
+      "afterAttackSupport": [
+        1,
+        1,
+        0,
+        5,
+        1,
+        5,
+        0
+      ],
+      "nativeCpc": {
+        "baseline": {
+          "kind": "CPC_RESTRICT",
+          "interval": [
+            -1,
+            1
+          ],
+          "forcedColumn": 3,
+          "preemptionCount": 1,
+          "preemptionMask32": 4,
+          "precursorCount": 0
+        },
+        "frontier": {
+          "kind": "CPC_RESTRICT",
+          "interval": [
+            -1,
+            1
+          ],
+          "forcedColumn": 3,
+          "preemptionCount": 1,
+          "preemptionMask32": 4,
+          "precursorCount": 0
+        }
+      },
+      "consumedReplyColumn": 3,
+      "literalReplies": [
+        {
+          "defenderReplyColumn": 1,
+          "defenderTerminal": 0,
+          "immediateP1WinningColumns": [
+            3
+          ],
+          "avoidsImmediateP1Win": false
+        },
+        {
+          "defenderReplyColumn": 2,
+          "defenderTerminal": 0,
+          "immediateP1WinningColumns": [
+            3
+          ],
+          "avoidsImmediateP1Win": false
+        },
+        {
+          "defenderReplyColumn": 3,
+          "defenderTerminal": 0,
+          "immediateP1WinningColumns": [],
+          "avoidsImmediateP1Win": true
+        },
+        {
+          "defenderReplyColumn": 4,
+          "defenderTerminal": 0,
+          "immediateP1WinningColumns": [
+            3
+          ],
+          "avoidsImmediateP1Win": false
+        },
+        {
+          "defenderReplyColumn": 5,
+          "defenderTerminal": 0,
+          "immediateP1WinningColumns": [
+            3
+          ],
+          "avoidsImmediateP1Win": false
+        },
+        {
+          "defenderReplyColumn": 6,
+          "defenderTerminal": 0,
+          "immediateP1WinningColumns": [
+            3
+          ],
+          "avoidsImmediateP1Win": false
+        },
+        {
+          "defenderReplyColumn": 7,
+          "defenderTerminal": 0,
+          "immediateP1WinningColumns": [
+            3
+          ],
+          "avoidsImmediateP1Win": false
+        }
+      ],
+      "repliesAvoidingImmediateP1Win": [
+        3
+      ],
+      "consumedReplyIsUniqueImmediateAvoidance": true,
+      "nativeCpcForcesConsumedReply": true,
+      "consumedPairTerminal": 0,
+      "supportAfterConsumedPair": [
+        1,
+        1,
+        1,
+        5,
+        1,
+        5,
+        0
+      ]
+    },
+    {
+      "rankBeforeAttack": 14,
+      "prefix": "44444156666623",
+      "supportBefore": [
+        1,
+        1,
+        1,
+        5,
+        1,
+        5,
+        0
+      ],
+      "attackerColumn": 2,
+      "afterAttackSupport": [
+        1,
+        2,
+        1,
+        5,
+        1,
+        5,
+        0
+      ],
+      "nativeCpc": {
+        "baseline": {
+          "kind": "CPC_NONE",
+          "interval": [
+            -1,
+            1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0
+        },
+        "frontier": {
+          "kind": "CPC_NONE",
+          "interval": [
+            -1,
+            1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0
+        }
+      },
+      "consumedReplyColumn": 2,
+      "literalReplies": [
+        {
+          "defenderReplyColumn": 1,
+          "defenderTerminal": 0,
+          "immediateP1WinningColumns": [],
+          "avoidsImmediateP1Win": true
+        },
+        {
+          "defenderReplyColumn": 2,
+          "defenderTerminal": 0,
+          "immediateP1WinningColumns": [],
+          "avoidsImmediateP1Win": true
+        },
+        {
+          "defenderReplyColumn": 3,
+          "defenderTerminal": 0,
+          "immediateP1WinningColumns": [],
+          "avoidsImmediateP1Win": true
+        },
+        {
+          "defenderReplyColumn": 4,
+          "defenderTerminal": 0,
+          "immediateP1WinningColumns": [],
+          "avoidsImmediateP1Win": true
+        },
+        {
+          "defenderReplyColumn": 5,
+          "defenderTerminal": 0,
+          "immediateP1WinningColumns": [],
+          "avoidsImmediateP1Win": true
+        },
+        {
+          "defenderReplyColumn": 6,
+          "defenderTerminal": 0,
+          "immediateP1WinningColumns": [],
+          "avoidsImmediateP1Win": true
+        },
+        {
+          "defenderReplyColumn": 7,
+          "defenderTerminal": 0,
+          "immediateP1WinningColumns": [],
+          "avoidsImmediateP1Win": true
+        }
+      ],
+      "repliesAvoidingImmediateP1Win": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "consumedReplyIsUniqueImmediateAvoidance": false,
+      "nativeCpcForcesConsumedReply": false,
+      "consumedPairTerminal": 0,
+      "supportAfterConsumedPair": [
+        1,
+        3,
+        1,
+        5,
+        1,
+        5,
+        0
+      ]
+    },
+    {
+      "rankBeforeAttack": 16,
+      "prefix": "4444415666662322",
+      "supportBefore": [
+        1,
+        3,
+        1,
+        5,
+        1,
+        5,
+        0
+      ],
+      "attackerColumn": 2,
+      "afterAttackSupport": [
+        1,
+        4,
+        1,
+        5,
+        1,
+        5,
+        0
+      ],
+      "nativeCpc": {
+        "baseline": {
+          "kind": "CPC_NONE",
+          "interval": [
+            -1,
+            1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0
+        },
+        "frontier": {
+          "kind": "CPC_NONE",
+          "interval": [
+            -1,
+            1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0
+        }
+      },
+      "consumedReplyColumn": 2,
+      "literalReplies": [
+        {
+          "defenderReplyColumn": 1,
+          "defenderTerminal": 0,
+          "immediateP1WinningColumns": [],
+          "avoidsImmediateP1Win": true
+        },
+        {
+          "defenderReplyColumn": 2,
+          "defenderTerminal": 0,
+          "immediateP1WinningColumns": [],
+          "avoidsImmediateP1Win": true
+        },
+        {
+          "defenderReplyColumn": 3,
+          "defenderTerminal": 0,
+          "immediateP1WinningColumns": [],
+          "avoidsImmediateP1Win": true
+        },
+        {
+          "defenderReplyColumn": 4,
+          "defenderTerminal": 0,
+          "immediateP1WinningColumns": [],
+          "avoidsImmediateP1Win": true
+        },
+        {
+          "defenderReplyColumn": 5,
+          "defenderTerminal": 0,
+          "immediateP1WinningColumns": [],
+          "avoidsImmediateP1Win": true
+        },
+        {
+          "defenderReplyColumn": 6,
+          "defenderTerminal": 0,
+          "immediateP1WinningColumns": [],
+          "avoidsImmediateP1Win": true
+        },
+        {
+          "defenderReplyColumn": 7,
+          "defenderTerminal": 0,
+          "immediateP1WinningColumns": [],
+          "avoidsImmediateP1Win": true
+        }
+      ],
+      "repliesAvoidingImmediateP1Win": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "consumedReplyIsUniqueImmediateAvoidance": false,
+      "nativeCpcForcesConsumedReply": false,
+      "consumedPairTerminal": 0,
+      "supportAfterConsumedPair": [
+        1,
+        5,
+        1,
+        5,
+        1,
+        5,
+        0
+      ]
+    },
+    {
+      "rankBeforeAttack": 18,
+      "prefix": "444441566666232222",
+      "supportBefore": [
+        1,
+        5,
+        1,
+        5,
+        1,
+        5,
+        0
+      ],
+      "attackerColumn": 4,
+      "afterAttackSupport": [
+        1,
+        5,
+        1,
+        6,
+        1,
+        5,
+        0
+      ],
+      "nativeCpc": {
+        "baseline": {
+          "kind": "CPC_NONE",
+          "interval": [
+            -1,
+            1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0
+        },
+        "frontier": {
+          "kind": "CPC_NONE",
+          "interval": [
+            -1,
+            1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0
+        }
+      },
+      "consumedReplyColumn": 2,
+      "literalReplies": [
+        {
+          "defenderReplyColumn": 1,
+          "defenderTerminal": 0,
+          "immediateP1WinningColumns": [],
+          "avoidsImmediateP1Win": true
+        },
+        {
+          "defenderReplyColumn": 2,
+          "defenderTerminal": 0,
+          "immediateP1WinningColumns": [],
+          "avoidsImmediateP1Win": true
+        },
+        {
+          "defenderReplyColumn": 3,
+          "defenderTerminal": 0,
+          "immediateP1WinningColumns": [],
+          "avoidsImmediateP1Win": true
+        },
+        {
+          "defenderReplyColumn": 5,
+          "defenderTerminal": 0,
+          "immediateP1WinningColumns": [],
+          "avoidsImmediateP1Win": true
+        },
+        {
+          "defenderReplyColumn": 6,
+          "defenderTerminal": 0,
+          "immediateP1WinningColumns": [],
+          "avoidsImmediateP1Win": true
+        },
+        {
+          "defenderReplyColumn": 7,
+          "defenderTerminal": 0,
+          "immediateP1WinningColumns": [],
+          "avoidsImmediateP1Win": true
+        }
+      ],
+      "repliesAvoidingImmediateP1Win": [
+        1,
+        2,
+        3,
+        5,
+        6,
+        7
+      ],
+      "consumedReplyIsUniqueImmediateAvoidance": false,
+      "nativeCpcForcesConsumedReply": false,
+      "consumedPairTerminal": 0,
+      "supportAfterConsumedPair": [
+        1,
+        6,
+        1,
+        6,
+        1,
+        5,
+        0
+      ]
+    },
+    {
+      "rankBeforeAttack": 20,
+      "prefix": "44444156666623222242",
+      "supportBefore": [
+        1,
+        6,
+        1,
+        6,
+        1,
+        5,
+        0
+      ],
+      "attackerColumn": 3,
+      "afterAttackSupport": [
+        1,
+        6,
+        2,
+        6,
+        1,
+        5,
+        0
+      ],
+      "nativeCpc": {
+        "baseline": {
+          "kind": "CPC_NONE",
+          "interval": [
+            -1,
+            1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0
+        },
+        "frontier": {
+          "kind": "CPC_NONE",
+          "interval": [
+            -1,
+            1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0
+        }
+      },
+      "consumedReplyColumn": 3,
+      "literalReplies": [
+        {
+          "defenderReplyColumn": 1,
+          "defenderTerminal": 0,
+          "immediateP1WinningColumns": [],
+          "avoidsImmediateP1Win": true
+        },
+        {
+          "defenderReplyColumn": 3,
+          "defenderTerminal": 0,
+          "immediateP1WinningColumns": [],
+          "avoidsImmediateP1Win": true
+        },
+        {
+          "defenderReplyColumn": 5,
+          "defenderTerminal": 0,
+          "immediateP1WinningColumns": [],
+          "avoidsImmediateP1Win": true
+        },
+        {
+          "defenderReplyColumn": 6,
+          "defenderTerminal": 0,
+          "immediateP1WinningColumns": [],
+          "avoidsImmediateP1Win": true
+        },
+        {
+          "defenderReplyColumn": 7,
+          "defenderTerminal": 0,
+          "immediateP1WinningColumns": [],
+          "avoidsImmediateP1Win": true
+        }
+      ],
+      "repliesAvoidingImmediateP1Win": [
+        1,
+        3,
+        5,
+        6,
+        7
+      ],
+      "consumedReplyIsUniqueImmediateAvoidance": false,
+      "nativeCpcForcesConsumedReply": false,
+      "consumedPairTerminal": 0,
+      "supportAfterConsumedPair": [
+        1,
+        6,
+        3,
+        6,
+        1,
+        5,
+        0
+      ]
+    },
+    {
+      "rankBeforeAttack": 22,
+      "prefix": "4444415666662322224233",
+      "supportBefore": [
+        1,
+        6,
+        3,
+        6,
+        1,
+        5,
+        0
+      ],
+      "attackerColumn": 1,
+      "afterAttackSupport": [
+        2,
+        6,
+        3,
+        6,
+        1,
+        5,
+        0
+      ],
+      "nativeCpc": {
+        "baseline": {
+          "kind": "CPC_NONE",
+          "interval": [
+            -1,
+            1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0
+        },
+        "frontier": {
+          "kind": "CPC_NONE",
+          "interval": [
+            -1,
+            1
+          ],
+          "forcedColumn": null,
+          "preemptionCount": 0,
+          "preemptionMask32": 0,
+          "precursorCount": 0
+        }
+      },
+      "consumedReplyColumn": 1,
+      "literalReplies": [
+        {
+          "defenderReplyColumn": 1,
+          "defenderTerminal": 0,
+          "immediateP1WinningColumns": [],
+          "avoidsImmediateP1Win": true
+        },
+        {
+          "defenderReplyColumn": 3,
+          "defenderTerminal": 0,
+          "immediateP1WinningColumns": [],
+          "avoidsImmediateP1Win": true
+        },
+        {
+          "defenderReplyColumn": 5,
+          "defenderTerminal": 0,
+          "immediateP1WinningColumns": [],
+          "avoidsImmediateP1Win": true
+        },
+        {
+          "defenderReplyColumn": 6,
+          "defenderTerminal": 0,
+          "immediateP1WinningColumns": [],
+          "avoidsImmediateP1Win": true
+        },
+        {
+          "defenderReplyColumn": 7,
+          "defenderTerminal": 0,
+          "immediateP1WinningColumns": [],
+          "avoidsImmediateP1Win": true
+        }
+      ],
+      "repliesAvoidingImmediateP1Win": [
+        1,
+        3,
+        5,
+        6,
+        7
+      ],
+      "consumedReplyIsUniqueImmediateAvoidance": false,
+      "nativeCpcForcesConsumedReply": false,
+      "consumedPairTerminal": 0,
+      "supportAfterConsumedPair": [
+        3,
+        6,
+        3,
+        6,
+        1,
+        5,
+        0
+      ]
+    }
+  ],
+  "conclusion": [
+    "This is a local predecessor-edge diagnostic only.",
+    "nativeCpcForcesConsumedReply identifies edges already restricted by production CPC at the post-attack state.",
+    "repliesAvoidingImmediateP1Win independently enumerates exact one-ply defender replies and all immediate Player-1 terminal moves after each reply.",
+    "A non-unique avoidance set means the consumed defender reply was a survival-policy choice, not an exact forced edge under this diagnostic."
+  ],
+  "boundary": [
+    "No oracle, solved W/D/L, Pons, best-move labels, minimax, or sealed holdout is used.",
+    "The probe does not infer that an alternative defender reply wins or draws; it only distinguishes immediate tactical forcing from non-forcing.",
+    "Production CPC is read-only and unchanged."
+  ]
+}
