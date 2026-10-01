@@ -1,0 +1,223 @@
+{
+  "schema": "connect4.cpc_pure_followup_top_defect_survival.v1",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "contract": [
+    "ordinary attacker trigger below top -> same-column immediate defender follow-up",
+    "top-row attacker trigger -> defender may transport the missing follow-up to any nonfull column whose exact successor remains in the safe phase code and recursively certified contract class",
+    "all transitions use exact CPC/RBA cofactors and first-win stopping"
+  ],
+  "rows": [
+    {
+      "id": "candidate2",
+      "sequence": "4444415662",
+      "attacker": 1,
+      "phase": [
+        1,
+        1,
+        0,
+        1,
+        1,
+        0,
+        0
+      ],
+      "derivative": [
+        0,
+        1,
+        1,
+        0,
+        1,
+        0
+      ],
+      "initialPhaseSafe": true,
+      "maxCertifiedSurvivalHorizon": 5,
+      "firstFailedHorizon": 7,
+      "ladder": [
+        {
+          "attackerTurns": 1,
+          "horizon": 1,
+          "accept": true,
+          "class": "PURE_FOLLOWUP_DEFECT",
+          "failedColumn": null
+        },
+        {
+          "attackerTurns": 2,
+          "horizon": 3,
+          "accept": true,
+          "class": "PURE_FOLLOWUP_DEFECT",
+          "failedColumn": null
+        },
+        {
+          "attackerTurns": 3,
+          "horizon": 5,
+          "accept": true,
+          "class": "PURE_FOLLOWUP_DEFECT",
+          "failedColumn": null
+        },
+        {
+          "attackerTurns": 4,
+          "horizon": 7,
+          "accept": false,
+          "class": "FOLLOWUP_CHILD_FAIL",
+          "failedColumn": 5
+        }
+      ],
+      "maximalRootWitness": null
+    },
+    {
+      "id": "candidate3",
+      "sequence": "4444415663",
+      "attacker": 1,
+      "phase": [
+        1,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0
+      ],
+      "derivative": [
+        1,
+        1,
+        0,
+        0,
+        1,
+        0
+      ],
+      "initialPhaseSafe": true,
+      "maxCertifiedSurvivalHorizon": 5,
+      "firstFailedHorizon": 7,
+      "ladder": [
+        {
+          "attackerTurns": 1,
+          "horizon": 1,
+          "accept": true,
+          "class": "PURE_FOLLOWUP_DEFECT",
+          "failedColumn": null
+        },
+        {
+          "attackerTurns": 2,
+          "horizon": 3,
+          "accept": true,
+          "class": "PURE_FOLLOWUP_DEFECT",
+          "failedColumn": null
+        },
+        {
+          "attackerTurns": 3,
+          "horizon": 5,
+          "accept": true,
+          "class": "PURE_FOLLOWUP_DEFECT",
+          "failedColumn": null
+        },
+        {
+          "attackerTurns": 4,
+          "horizon": 7,
+          "accept": false,
+          "class": "FOLLOWUP_CHILD_FAIL",
+          "failedColumn": 2
+        }
+      ],
+      "maximalRootWitness": null
+    },
+    {
+      "id": "candidate6",
+      "sequence": "4444415666",
+      "attacker": 1,
+      "phase": [
+        1,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0
+      ],
+      "derivative": [
+        1,
+        0,
+        1,
+        0,
+        0,
+        1
+      ],
+      "initialPhaseSafe": true,
+      "maxCertifiedSurvivalHorizon": 1,
+      "firstFailedHorizon": 3,
+      "ladder": [
+        {
+          "attackerTurns": 1,
+          "horizon": 1,
+          "accept": true,
+          "class": "PURE_FOLLOWUP_DEFECT",
+          "failedColumn": null
+        },
+        {
+          "attackerTurns": 2,
+          "horizon": 3,
+          "accept": false,
+          "class": "FOLLOWUP_CHILD_FAIL",
+          "failedColumn": 2
+        }
+      ],
+      "maximalRootWitness": [
+        {
+          "attackerColumn": 1,
+          "responseColumn": 1,
+          "mode": "FOLLOWUP",
+          "childClass": "DONE"
+        },
+        {
+          "attackerColumn": 2,
+          "responseColumn": 2,
+          "mode": "FOLLOWUP",
+          "childClass": "DONE"
+        },
+        {
+          "attackerColumn": 3,
+          "responseColumn": 3,
+          "mode": "FOLLOWUP",
+          "childClass": "DONE"
+        },
+        {
+          "attackerColumn": 4,
+          "responseColumn": 2,
+          "mode": "TOP_REPAIR",
+          "childClass": "DONE"
+        },
+        {
+          "attackerColumn": 5,
+          "responseColumn": 5,
+          "mode": "FOLLOWUP",
+          "childClass": "DONE"
+        },
+        {
+          "attackerColumn": 6,
+          "responseColumn": 6,
+          "mode": "FOLLOWUP",
+          "childClass": "DONE"
+        },
+        {
+          "attackerColumn": 7,
+          "responseColumn": 7,
+          "mode": "FOLLOWUP",
+          "childClass": "DONE"
+        }
+      ]
+    }
+  ],
+  "work": {
+    "classCalls": 245,
+    "memoHits": 152,
+    "branchTests": 1601,
+    "repairTests": 362,
+    "cofactorCalls": 2526,
+    "memoStates": 245,
+    "cofactorStates": 2526
+  },
+  "boundary": [
+    "This is a constructive restricted defender temporal-contract policy, not minimax and not an exact remoteness claim.",
+    "The phase code restricts repair choices; exact residual state is still carried and terminal safety is checked on every realized trigger.",
+    "Failure at the next horizon is not an attacker upper bound."
+  ]
+}
