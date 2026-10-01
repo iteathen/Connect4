@@ -71,9 +71,18 @@ function termCells(term){
   return out;
 }
 function keyCells(cells){return [...cells].sort((a,b)=>a-b).join(',');}
+function keyArray(key){return key===''?[]:key.split(',').map(Number);}
+function isStrictSubsetKey(a,b){
+  const aa=keyArray(a),bb=new Set(keyArray(b));
+  return aa.length<b.size&&aa.every(x=>bb.has(x));
+}
+function normalizeResidualKeys(keys){
+  const unique=[...new Set(keys)];
+  return unique.filter(k=>!unique.some(other=>other!==k&&isStrictSubsetKey(other,k))).sort();
+}
 function semanticResidualKeys(kernel,id,player){
   const classId=player===0?kernel.states.p0At(id):kernel.states.p1At(id);
-  return kernel.classes.terms(classId).map(termCells).map(keyCells).sort();
+  return normalizeResidualKeys(kernel.classes.terms(classId).map(termCells).map(keyCells));
 }
 
 function jsFromSequence(sequence){
@@ -107,7 +116,7 @@ function jsShapeCells(id){
 function jsResidualKeys(q,player){
   const out=[];
   for(let i=0;i<q.n;i++)if(jsCoordHas(q,player,i))out.push(keyCells(jsShapeCells(q.basis[i])));
-  return out.sort();
+  return normalizeResidualKeys(out);
 }
 function exactBridge(sequence,jsq,kernel,sid){
   const jsP0=jsResidualKeys(jsq,P0),jsP1=jsResidualKeys(jsq,P1);
