@@ -1,0 +1,67 @@
+name: Research NEES D19 column4 exhaustion diagnostic
+
+on:
+  push:
+    branches:
+      - research/universal-structural-policy-20260930
+    paths:
+      - .github/workflows/research-cpc-nees-d19-column4-exhaustion.yml
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/run-cpc-nees-guard-trigger-diagnostic.mjs
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out exact pushed revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+      - name: Pin Node runtime
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Fetch diagnostic-qualified JSMinSys
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --branch research/cpc-guard-proof-memo-nees-v1 --single-branch https://github.com/iteathen/JSMinSys.git jsminsys
+          git -C jsminsys checkout bf23d3a67652cd42e1975f29c7dc4eed54f7eb42
+      - name: Run D19 column4 exhaustion diagnostic
+        shell: bash
+        env:
+          NODE_OPTIONS: --max-old-space-size=2048
+        run: |
+          set -euo pipefail
+          DIR=research/isograph/discovery/2026-09-30-universal-structural-policy
+          OUT="$DIR/CPC_NEES_D19_COLUMN4_EXHAUSTION_DIAGNOSTIC_0_1.json"
+          node "$DIR/run-cpc-nees-guard-trigger-diagnostic.mjs" ./jsminsys 444441566666232222 19 4 4194304 > "$OUT"
+          node - "$OUT" <<'NODE'
+          const fs=require('fs');
+          const r=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
+          console.log(JSON.stringify({
+            root:r.root,candidateMask:r.candidateMask,
+            responses:r.responses.map(x=>({response:x.responseColumn,code:x.childCode,failed:x.childFailedTrigger,support:x.childSupport,guards:x.childGuards,cpc:x.childCpc,residuals:x.attackerResidualProfile}))
+          }));
+          NODE
+      - name: Commit durable exhaustion evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          BRANCH=research/universal-structural-policy-20260930
+          FILE=research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_NEES_D19_COLUMN4_EXHAUSTION_DIAGNOSTIC_0_1.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$FILE"
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "research: diagnose column4 exhaustion frontier"
+          for attempt in 1 2 3; do
+            git fetch origin "$BRANCH"
+            git rebase --autostash "origin/$BRANCH"
+            if git push origin HEAD:"$BRANCH"; then exit 0; fi
+            sleep 1
+          done
+          exit 1
