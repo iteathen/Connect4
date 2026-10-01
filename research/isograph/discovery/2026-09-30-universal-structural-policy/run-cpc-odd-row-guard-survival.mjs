@@ -466,40 +466,6 @@ function classG(q,attacker,D,guardCol){
       }
     }
 
-    // Top-exhaustion phase-debt repair. If the attacker has just filled
-    // the trigger column, the ordinary same-column mate no longer exists.
-    // Admit only guard-preserving current frontier cells that are attached to
-    // at least one live attacker residual in the exact post-trigger state.
-    if(!found && c!==guardCol && first.q.words[c]===g.rows){
-      const liveIds=activeMinimal(first.q,attacker);
-      for(const rcol of legal(first.q)){
-        if(rcol===guardCol)continue;
-        const repairCell=first.q.words[rcol]*g.columns+rcol;
-        const attached=liveIds.some(id=>shapeCells(id).includes(repairCell));
-        if(!attached)continue;
-        const second=cofactor(first.q,rcol),p2=terminalPolarity(second.term,attacker);
-        guardResponses++;
-        if(p2==='DRAW'||p2==='DEFENDER'){
-          found={
-            attackerColumn:c+1,responseColumn:rcol+1,mode:'TOP_PHASE_DEBT_BLOCKER',
-            repairCell:{column:rcol+1,row:g.cellRow[repairCell]+1},closed:p2,
-            guardPreserved:true
-          };
-          break;
-        }
-        if(p2!=='NONTERMINAL')continue;
-        const child=classG(second.q,attacker,D-2,guardCol);
-        if(child.accept){
-          found={
-            attackerColumn:c+1,responseColumn:rcol+1,mode:'TOP_PHASE_DEBT_BLOCKER',
-            repairCell:{column:rcol+1,row:g.cellRow[repairCell]+1},
-            childClass:child.class,guardPreserved:true
-          };
-          break;
-        }
-      }
-    }
-
     // Top-exhaustion phase-debt repair. If the attacker just filled a
     // non-guard column, the missing same-column response may be transported to
     // a guard-preserving frontier resource that is attached to at least one
@@ -606,7 +572,7 @@ for(const root of roots){
 }
 
 console.log(JSON.stringify({
-  schema:'connect4.cpc_odd_row_guard_support_lift_phase_debt_survival.v1',
+  schema:'connect4.cpc_odd_row_guard_support_lift_top_debt_survival.v1',
   jsMinSysSha:EXPECTED,
   oracleUsed:false,
   solvedInputsUsed:false,
