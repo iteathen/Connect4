@@ -1,0 +1,75 @@
+name: Research CPC current-state guard-set D15
+
+on:
+  push:
+    branches:
+      - research/universal-structural-policy-20260930
+    paths:
+      - .github/workflows/research-cpc-current-state-guard-set-d15.yml
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/run-cpc-current-state-guard-set-target.mjs
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_CURRENT_STATE_GUARD_SET_RECONSTRUCTION_THEOREM.md
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out exact pushed revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+      - name: Pin Node runtime
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Fetch pinned JSMinSys authority
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone https://github.com/iteathen/JSMinSys.git jsminsys
+          git -C jsminsys checkout 0899c5811918e68c22dc1b0e4dd8af97d9b4bbcb
+      - name: Run current-state guard-set D15 target
+        shell: bash
+        env:
+          NODE_OPTIONS: --max-old-space-size=5632
+        run: |
+          set -euo pipefail
+          OUT=research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_CURRENT_STATE_GUARD_SET_D15_0_1.json
+          node research/isograph/discovery/2026-09-30-universal-structural-policy/run-cpc-current-state-guard-set-target.mjs ./jsminsys 15 > "$OUT"
+          node - "$OUT" <<'NODE'
+          const fs=require('fs');
+          const r=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
+          console.log('GUARDSET_D15='+JSON.stringify({
+            root:r.root,
+            initialGuards:r.initialGuards,
+            target:r.targetHorizon,
+            absolutePly:r.absolutePly,
+            accept:r.result.accept,
+            class:r.result.class,
+            failedTrigger:r.result.failedTrigger??null,
+            guards:r.result.guards??null,
+            witnessByTrigger:r.result.witnessByTrigger??null
+          }));
+          console.log('WORK='+JSON.stringify(r.work));
+          NODE
+      - name: Commit durable guard-set D15 evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          BRANCH=research/universal-structural-policy-20260930
+          FILE=research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_CURRENT_STATE_GUARD_SET_D15_0_1.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$FILE"
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "research: verify current-state guard-set D15"
+          for attempt in 1 2 3; do
+            git fetch origin "$BRANCH"
+            git rebase "origin/$BRANCH"
+            if git push origin HEAD:"$BRANCH"; then exit 0; fi
+            sleep 1
+          done
+          exit 1
