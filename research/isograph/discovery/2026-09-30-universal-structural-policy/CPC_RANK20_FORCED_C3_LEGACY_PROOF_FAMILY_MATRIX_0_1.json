@@ -1,0 +1,825 @@
+{
+  "schema": "connect4.cpc_rank20_forced_c3_legacy_proof_family_matrix.v1",
+  "date": "2026-10-01",
+  "sourceEvidence": "CPC_RANK20_FORCED_C3_TARGET_DISTANCE_LEGACY_REENTRY_PROBE_0_1.json",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "ordinaryFreeBranchGameTreeUsed": false,
+  "productionCpcModified": false,
+  "jsMinSysModified": false,
+  "bsfpModified": false,
+  "states": [
+    {
+      "id": "SECOND_D1_C5_CONTRACTION",
+      "childSequence": "4444415666662322224255115153",
+      "target": {
+        "cell": 20,
+        "column": 7,
+        "row": 3
+      },
+      "targetDistance": 2,
+      "engines": [
+        {
+          "engine": "LAMBDA",
+          "applicable": true,
+          "proved": false,
+          "proofKind": "no_generic_target_distance_predecessor",
+          "witness": null,
+          "witnessKind": null,
+          "measure": {
+            "distance": 2,
+            "mu": 4
+          },
+          "obligations": [],
+          "forcedDefense": null,
+          "rejected": [
+            {
+              "action": "G",
+              "reply": "A",
+              "replyCell": "A5",
+              "reason": "no_generic_target_distance_predecessor",
+              "childMeasure": {
+                "distance": 1,
+                "mu": 3
+              },
+              "exactLoss": false,
+              "obligations": [
+                "A6"
+              ],
+              "forcedDefense": {
+                "cell": "A6",
+                "column": "A"
+              }
+            },
+            {
+              "action": "A",
+              "reply": "A",
+              "replyCell": "A6",
+              "reason": "no_generic_target_distance_predecessor",
+              "childMeasure": {
+                "distance": 2,
+                "mu": 2
+              },
+              "exactLoss": false,
+              "obligations": [],
+              "forcedDefense": null
+            },
+            {
+              "action": "E",
+              "reply": "A",
+              "replyCell": "A5",
+              "reason": "no_generic_target_distance_predecessor",
+              "childMeasure": {
+                "distance": 2,
+                "mu": 2
+              },
+              "exactLoss": false,
+              "obligations": [
+                "A6"
+              ],
+              "forcedDefense": {
+                "cell": "A6",
+                "column": "A"
+              }
+            },
+            {
+              "action": "F",
+              "reply": "A",
+              "replyCell": "A5",
+              "reason": "no_generic_target_distance_predecessor",
+              "childMeasure": {
+                "distance": 2,
+                "mu": 2
+              },
+              "exactLoss": false,
+              "obligations": [
+                "A6"
+              ],
+              "forcedDefense": {
+                "cell": "A6",
+                "column": "A"
+              }
+            }
+          ],
+          "firstFailure": null,
+          "routes": null,
+          "stats": {
+            "proofStates": 44,
+            "actionsChecked": 73,
+            "p1BranchesChecked": 171,
+            "maxDepth": 3,
+            "targetSupportWitnesses": 0,
+            "repairWitnesses": 0,
+            "forcedDefenseNodes": 25,
+            "capacityDefects": 0,
+            "memoEntries": 44,
+            "maxProofStates": 100000,
+            "maxTargetDistance": 5,
+            "rootActions": null
+          },
+          "resourceFailure": null
+        },
+        {
+          "engine": "THETA",
+          "applicable": true,
+          "proved": false,
+          "proofKind": "no_theta_predecessor",
+          "witness": null,
+          "witnessKind": null,
+          "measure": {
+            "distance": 2,
+            "chi": 4,
+            "mu": 4
+          },
+          "obligations": [],
+          "forcedDefense": null,
+          "rejected": [
+            {
+              "action": "G",
+              "reply": "A",
+              "replyCell": "A5",
+              "reason": "no_theta_predecessor",
+              "childMeasure": {
+                "distance": 1,
+                "chi": 4,
+                "mu": 3
+              },
+              "exactLoss": false,
+              "obligations": [
+                "A6"
+              ],
+              "forcedDefense": {
+                "cell": "A6",
+                "column": "A",
+                "auxiliary": false
+              }
+            },
+            {
+              "action": "A",
+              "reply": "A",
+              "replyCell": "A6",
+              "reason": "no_theta_predecessor",
+              "childMeasure": {
+                "distance": 2,
+                "chi": 4,
+                "mu": 2
+              },
+              "exactLoss": false,
+              "obligations": [],
+              "forcedDefense": null
+            },
+            {
+              "action": "E",
+              "reply": "A",
+              "replyCell": "A5",
+              "reason": "no_theta_predecessor",
+              "childMeasure": {
+                "distance": 2,
+                "chi": 4,
+                "mu": 2
+              },
+              "exactLoss": false,
+              "obligations": [
+                "A6"
+              ],
+              "forcedDefense": {
+                "cell": "A6",
+                "column": "A",
+                "auxiliary": false
+              }
+            },
+            {
+              "action": "F",
+              "reply": "A",
+              "replyCell": "A5",
+              "reason": "no_theta_predecessor",
+              "childMeasure": {
+                "distance": 2,
+                "chi": 4,
+                "mu": 2
+              },
+              "exactLoss": false,
+              "obligations": [
+                "A6"
+              ],
+              "forcedDefense": {
+                "cell": "A6",
+                "column": "A",
+                "auxiliary": false
+              }
+            }
+          ],
+          "firstFailure": null,
+          "routes": null,
+          "stats": {
+            "proofStates": 101,
+            "actionsChecked": 149,
+            "p1BranchesChecked": 445,
+            "maxDepth": 4,
+            "targetSupportWitnesses": 5,
+            "repairWitnesses": 14,
+            "auxiliaryForcedWitnesses": 0,
+            "forcedDefenseNodes": 49,
+            "capacityDefects": 5,
+            "memoEntries": 101,
+            "maxProofStates": 100000,
+            "maxTargetDistance": 5,
+            "rootActions": null
+          },
+          "resourceFailure": null
+        },
+        {
+          "engine": "DISTANCE2_TARGET_SUPPORT",
+          "applicable": true,
+          "proved": false,
+          "proofKind": "distance2_target_support_rejected",
+          "witness": "G",
+          "witnessKind": null,
+          "measure": null,
+          "obligations": [],
+          "forcedDefense": null,
+          "rejected": [],
+          "firstFailure": {
+            "reply": "A",
+            "replyCell": "A5",
+            "reason": "no_lex_predecessor",
+            "measure": {
+              "delta": 4,
+              "mu": 3
+            },
+            "rejected": [
+              {
+                "action": "A",
+                "reply": "C",
+                "replyCell": "C3",
+                "reason": "no_lex_predecessor",
+                "childMeasure": {
+                  "delta": 3,
+                  "mu": 2
+                },
+                "exactLoss": false,
+                "obligations": null,
+                "forcedDefense": {
+                  "cell": "C4",
+                  "column": "C"
+                }
+              }
+            ]
+          },
+          "routes": {
+            "lexicographic_unproved": 1
+          },
+          "stats": {
+            "proofStates": 11,
+            "actionsChecked": 13,
+            "p1BranchesChecked": 31,
+            "maxDepth": 3,
+            "tailWitnesses": 3,
+            "repairWitnesses": 2,
+            "forcedDefenseNodes": 5,
+            "forcedCapacityLossNodes": 0,
+            "memoEntries": 11,
+            "maxProofStates": 100000
+          },
+          "resourceFailure": null
+        },
+        {
+          "engine": "DISTANCE1_RESOLVED_TAIL_CAPACITY",
+          "applicable": false,
+          "reason": "target_distance_not_1",
+          "proved": false,
+          "resourceFailure": null
+        }
+      ],
+      "legacyUnionClosed": false,
+      "closingEngines": [],
+      "enclosingStateCompositionReady": false
+    },
+    {
+      "id": "SECOND_D6_C5_CONTRACTION",
+      "childSequence": "4444415666662322224255115653",
+      "target": {
+        "cell": 20,
+        "column": 7,
+        "row": 3
+      },
+      "targetDistance": 2,
+      "engines": [
+        {
+          "engine": "LAMBDA",
+          "applicable": true,
+          "proved": false,
+          "proofKind": "no_generic_target_distance_predecessor",
+          "witness": null,
+          "witnessKind": null,
+          "measure": {
+            "distance": 2,
+            "mu": 4
+          },
+          "obligations": [],
+          "forcedDefense": null,
+          "rejected": [
+            {
+              "action": "G",
+              "reply": "A",
+              "replyCell": "A4",
+              "reason": "no_generic_target_distance_predecessor",
+              "childMeasure": {
+                "distance": 1,
+                "mu": 3
+              },
+              "exactLoss": false,
+              "obligations": [],
+              "forcedDefense": null
+            },
+            {
+              "action": "A",
+              "reply": "A",
+              "replyCell": "A5",
+              "reason": "no_generic_target_distance_predecessor",
+              "childMeasure": {
+                "distance": 2,
+                "mu": 2
+              },
+              "exactLoss": false,
+              "obligations": [],
+              "forcedDefense": null
+            },
+            {
+              "action": "E",
+              "reply": "A",
+              "replyCell": "A4",
+              "reason": "no_generic_target_distance_predecessor",
+              "childMeasure": {
+                "distance": 2,
+                "mu": 2
+              },
+              "exactLoss": false,
+              "obligations": [],
+              "forcedDefense": null
+            }
+          ],
+          "firstFailure": null,
+          "routes": null,
+          "stats": {
+            "proofStates": 26,
+            "actionsChecked": 42,
+            "p1BranchesChecked": 91,
+            "maxDepth": 3,
+            "targetSupportWitnesses": 0,
+            "repairWitnesses": 0,
+            "forcedDefenseNodes": 13,
+            "capacityDefects": 0,
+            "memoEntries": 26,
+            "maxProofStates": 100000,
+            "maxTargetDistance": 5,
+            "rootActions": null
+          },
+          "resourceFailure": null
+        },
+        {
+          "engine": "THETA",
+          "applicable": true,
+          "proved": false,
+          "proofKind": "no_theta_predecessor",
+          "witness": null,
+          "witnessKind": null,
+          "measure": {
+            "distance": 2,
+            "chi": 4,
+            "mu": 4
+          },
+          "obligations": [],
+          "forcedDefense": null,
+          "rejected": [
+            {
+              "action": "G",
+              "reply": "A",
+              "replyCell": "A4",
+              "reason": "no_theta_predecessor",
+              "childMeasure": {
+                "distance": 1,
+                "chi": 4,
+                "mu": 3
+              },
+              "exactLoss": false,
+              "obligations": [],
+              "forcedDefense": null
+            },
+            {
+              "action": "A",
+              "reply": "A",
+              "replyCell": "A5",
+              "reason": "no_theta_predecessor",
+              "childMeasure": {
+                "distance": 2,
+                "chi": 4,
+                "mu": 2
+              },
+              "exactLoss": false,
+              "obligations": [],
+              "forcedDefense": null
+            },
+            {
+              "action": "E",
+              "reply": "A",
+              "replyCell": "A4",
+              "reason": "no_theta_predecessor",
+              "childMeasure": {
+                "distance": 2,
+                "chi": 4,
+                "mu": 2
+              },
+              "exactLoss": false,
+              "obligations": [],
+              "forcedDefense": null
+            }
+          ],
+          "firstFailure": null,
+          "routes": null,
+          "stats": {
+            "proofStates": 62,
+            "actionsChecked": 92,
+            "p1BranchesChecked": 255,
+            "maxDepth": 4,
+            "targetSupportWitnesses": 4,
+            "repairWitnesses": 9,
+            "auxiliaryForcedWitnesses": 0,
+            "forcedDefenseNodes": 28,
+            "capacityDefects": 1,
+            "memoEntries": 62,
+            "maxProofStates": 100000,
+            "maxTargetDistance": 5,
+            "rootActions": null
+          },
+          "resourceFailure": null
+        },
+        {
+          "engine": "DISTANCE2_TARGET_SUPPORT",
+          "applicable": true,
+          "proved": false,
+          "proofKind": "distance2_target_support_rejected",
+          "witness": "G",
+          "witnessKind": null,
+          "measure": null,
+          "obligations": [],
+          "forcedDefense": null,
+          "rejected": [],
+          "firstFailure": {
+            "reply": "A",
+            "replyCell": "A4",
+            "reason": "no_lex_predecessor",
+            "measure": {
+              "delta": 4,
+              "mu": 3
+            },
+            "rejected": [
+              {
+                "action": "A",
+                "reply": "A",
+                "replyCell": "A6",
+                "reason": "no_lex_predecessor",
+                "childMeasure": {
+                  "delta": 4,
+                  "mu": 1
+                },
+                "exactLoss": false,
+                "obligations": null,
+                "forcedDefense": null
+              },
+              {
+                "action": "E",
+                "reply": "A",
+                "replyCell": "A5",
+                "reason": "no_lex_predecessor",
+                "childMeasure": {
+                  "delta": 4,
+                  "mu": 1
+                },
+                "exactLoss": false,
+                "obligations": null,
+                "forcedDefense": {
+                  "cell": "A6",
+                  "column": "A"
+                }
+              },
+              {
+                "action": "C",
+                "reply": "A",
+                "replyCell": "A5",
+                "reason": "no_lex_predecessor",
+                "childMeasure": {
+                  "delta": 3,
+                  "mu": 2
+                },
+                "exactLoss": false,
+                "obligations": null,
+                "forcedDefense": {
+                  "cell": "A6",
+                  "column": "A"
+                }
+              }
+            ]
+          },
+          "routes": {
+            "lexicographic_unproved": 1
+          },
+          "stats": {
+            "proofStates": 21,
+            "actionsChecked": 24,
+            "p1BranchesChecked": 65,
+            "maxDepth": 3,
+            "tailWitnesses": 4,
+            "repairWitnesses": 5,
+            "forcedDefenseNodes": 9,
+            "forcedCapacityLossNodes": 2,
+            "memoEntries": 21,
+            "maxProofStates": 100000
+          },
+          "resourceFailure": null
+        },
+        {
+          "engine": "DISTANCE1_RESOLVED_TAIL_CAPACITY",
+          "applicable": false,
+          "reason": "target_distance_not_1",
+          "proved": false,
+          "resourceFailure": null
+        }
+      ],
+      "legacyUnionClosed": false,
+      "closingEngines": [],
+      "enclosingStateCompositionReady": false
+    },
+    {
+      "id": "SECOND_D7_C5_CONTRACTION",
+      "childSequence": "4444415666662322224255115753",
+      "target": {
+        "cell": 20,
+        "column": 7,
+        "row": 3
+      },
+      "targetDistance": 1,
+      "engines": [
+        {
+          "engine": "LAMBDA",
+          "applicable": true,
+          "proved": false,
+          "proofKind": "no_generic_target_distance_predecessor",
+          "witness": null,
+          "witnessKind": null,
+          "measure": {
+            "distance": 1,
+            "mu": 5
+          },
+          "obligations": [],
+          "forcedDefense": null,
+          "rejected": [
+            {
+              "action": "G",
+              "reply": "G",
+              "replyCell": "G3",
+              "reason": "target_not_live",
+              "childMeasure": {
+                "distance": null,
+                "mu": 5
+              }
+            },
+            {
+              "action": "A",
+              "reply": "A",
+              "replyCell": "A5",
+              "reason": "no_generic_target_distance_predecessor",
+              "childMeasure": {
+                "distance": 1,
+                "mu": 3
+              },
+              "exactLoss": false,
+              "obligations": [],
+              "forcedDefense": null
+            },
+            {
+              "action": "E",
+              "reply": "A",
+              "replyCell": "A4",
+              "reason": "no_generic_target_distance_predecessor",
+              "childMeasure": {
+                "distance": 1,
+                "mu": 3
+              },
+              "exactLoss": false,
+              "obligations": [],
+              "forcedDefense": null
+            },
+            {
+              "action": "F",
+              "reply": "A",
+              "replyCell": "A4",
+              "reason": "no_generic_target_distance_predecessor",
+              "childMeasure": {
+                "distance": 1,
+                "mu": 3
+              },
+              "exactLoss": false,
+              "obligations": [],
+              "forcedDefense": null
+            }
+          ],
+          "firstFailure": null,
+          "routes": null,
+          "stats": {
+            "proofStates": 25,
+            "actionsChecked": 45,
+            "p1BranchesChecked": 112,
+            "maxDepth": 3,
+            "targetSupportWitnesses": 0,
+            "repairWitnesses": 0,
+            "forcedDefenseNodes": 13,
+            "capacityDefects": 0,
+            "memoEntries": 25,
+            "maxProofStates": 100000,
+            "maxTargetDistance": 5,
+            "rootActions": null
+          },
+          "resourceFailure": null
+        },
+        {
+          "engine": "THETA",
+          "applicable": true,
+          "proved": false,
+          "proofKind": "no_theta_predecessor",
+          "witness": null,
+          "witnessKind": null,
+          "measure": {
+            "distance": 1,
+            "chi": 4,
+            "mu": 5
+          },
+          "obligations": [],
+          "forcedDefense": null,
+          "rejected": [
+            {
+              "action": "G",
+              "reply": "G",
+              "replyCell": "G3",
+              "reason": "target_not_live",
+              "childMeasure": {
+                "distance": null,
+                "chi": 4,
+                "mu": 5
+              }
+            },
+            {
+              "action": "A",
+              "reply": "A",
+              "replyCell": "A5",
+              "reason": "no_theta_predecessor",
+              "childMeasure": {
+                "distance": 1,
+                "chi": 4,
+                "mu": 3
+              },
+              "exactLoss": false,
+              "obligations": [],
+              "forcedDefense": null
+            },
+            {
+              "action": "E",
+              "reply": "A",
+              "replyCell": "A4",
+              "reason": "no_theta_predecessor",
+              "childMeasure": {
+                "distance": 1,
+                "chi": 4,
+                "mu": 3
+              },
+              "exactLoss": false,
+              "obligations": [],
+              "forcedDefense": null
+            },
+            {
+              "action": "F",
+              "reply": "A",
+              "replyCell": "A4",
+              "reason": "no_theta_predecessor",
+              "childMeasure": {
+                "distance": 1,
+                "chi": 4,
+                "mu": 3
+              },
+              "exactLoss": false,
+              "obligations": [],
+              "forcedDefense": null
+            }
+          ],
+          "firstFailure": null,
+          "routes": null,
+          "stats": {
+            "proofStates": 56,
+            "actionsChecked": 94,
+            "p1BranchesChecked": 294,
+            "maxDepth": 4,
+            "targetSupportWitnesses": 0,
+            "repairWitnesses": 11,
+            "auxiliaryForcedWitnesses": 0,
+            "forcedDefenseNodes": 26,
+            "capacityDefects": 1,
+            "memoEntries": 56,
+            "maxProofStates": 100000,
+            "maxTargetDistance": 5,
+            "rootActions": null
+          },
+          "resourceFailure": null
+        },
+        {
+          "engine": "DISTANCE2_TARGET_SUPPORT",
+          "applicable": false,
+          "reason": "target_distance_not_2",
+          "proved": false,
+          "resourceFailure": null
+        },
+        {
+          "engine": "DISTANCE1_RESOLVED_TAIL_CAPACITY",
+          "applicable": true,
+          "proved": false,
+          "proofKind": "no_resolved_tail_extended_predecessor",
+          "witness": null,
+          "witnessKind": null,
+          "measure": {
+            "nu": 9
+          },
+          "obligations": [],
+          "forcedDefense": null,
+          "rejected": [
+            {
+              "action": "A",
+              "role": "repair",
+              "reply": "A",
+              "replyCell": "A5",
+              "reason": "no_resolved_tail_extended_predecessor",
+              "childNu": 7
+            },
+            {
+              "action": "E",
+              "role": "repair",
+              "reply": "A",
+              "replyCell": "A4",
+              "reason": "no_resolved_tail_extended_predecessor",
+              "childNu": 7
+            },
+            {
+              "action": "F",
+              "role": "repair",
+              "reply": "A",
+              "replyCell": "A4",
+              "reason": "no_resolved_tail_extended_predecessor",
+              "childNu": 7
+            },
+            {
+              "action": "C",
+              "role": "resolved_tail",
+              "reply": "A",
+              "replyCell": "A4",
+              "reason": "no_resolved_tail_extended_predecessor",
+              "childNu": 7
+            }
+          ],
+          "firstFailure": null,
+          "routes": null,
+          "stats": {
+            "proofStates": 20,
+            "candidateActionsChecked": 49,
+            "p1BranchesChecked": 59,
+            "maxDepth": 4,
+            "memoEntries": 20
+          },
+          "resourceFailure": null
+        }
+      ],
+      "legacyUnionClosed": false,
+      "closingEngines": [],
+      "enclosingStateCompositionReady": false
+    }
+  ],
+  "summary": {
+    "stateCount": 3,
+    "legacyUnionClosedCount": 0,
+    "legacyUnionClosedIds": [],
+    "compositionReadyIds": [],
+    "resourceFailureCount": 0,
+    "logicalAllFamilyRejectionIds": [
+      "SECOND_D1_C5_CONTRACTION",
+      "SECOND_D6_C5_CONTRACTION",
+      "SECOND_D7_C5_CONTRACTION"
+    ]
+  },
+  "conclusion": [
+    "This matrix queries the remaining reusable generic legacy proof engines whose guards apply to the exact forced-c3 rank-28 children.",
+    "Every applicable legacy engine completed without closing any exact child; the obstruction survives this generic legacy proof-family audit.",
+    "Inapplicable theorem families are recorded as inapplicable rather than counted as failures; resource failures remain unknown."
+  ],
+  "boundary": [
+    "This is research-side proof-library monotonicity evidence only and does not by itself certify the rank-20 root.",
+    "No oracle, solved W/D/L, minimax, ordinary free-branch game-tree value, best-move table, opening book, BSFP solved frontier, physical-position identity shortcut, or sealed holdout is used.",
+    "Production CPC, JSMinSys, target-reservoir semantics, and BSFP remain unchanged."
+  ]
+}
