@@ -65,6 +65,18 @@ function coverage(matches){
   return {sameAttackerMatches:same.length,attackerColumns:Object.keys(byA).map(Number).sort((a,b)=>a-b),byAttackerColumn:byA};
 }
 const union=new Set([...coverage(c6c2).attackerColumns,...coverage(c6c3).attackerColumns]);
+function leftAttackerMatches(matches,column){
+  return matches.filter(x=>x.left.a===column).map(x=>({
+    left:{a:x.left.a,d:x.left.d,sequence:x.left.sequence},
+    right:{a:x.right.a,d:x.right.d,sequence:x.right.sequence},
+    sameAttackerColumn:x.sameAttackerColumn,
+    support:x.support
+  }));
+}
+const c6Column6AllMatches={
+  c2:leftAttackerMatches(c6c2,6),
+  c3:leftAttackerMatches(c6c3,6)
+};
 
 console.log(JSON.stringify({
   schema:'connect4.cpc_two_ply_commutation_coverage.v1',
@@ -77,6 +89,7 @@ console.log(JSON.stringify({
     c2_c3:{exactMatches:c2c3.length,coverage:coverage(c2c3),sample:c2c3.slice(0,40)}
   },
   c6SameAttackerUnionCoverage:[...union].sort((a,b)=>a-b),
+  c6Column6AllExactMatches,
   boundary:[
     'Two-ply local semantic endpoint census only; no value recursion or oracle.',
     'Exact matches compare complete CPC/RBA semantic keys.',
