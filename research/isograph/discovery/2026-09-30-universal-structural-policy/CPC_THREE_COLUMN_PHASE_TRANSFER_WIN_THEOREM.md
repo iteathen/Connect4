@@ -106,6 +106,14 @@ Every frozen transition passed. The three late sink orientations were evaluated 
 
 The resulting exact local conclusion is that the rank-31 current RBA state is a Player-1 win under the finite phase-transfer policy.
 
+## Qualification result
+
+Qualified on 2026-10-01 by `CPC_THREE_COLUMN_PHASE_TRANSFER_WIN_0_1.json` at pinned JSMinSys authority `bf23d3a67652cd42e1975f29c7dc4eed54f7eb42`, with `oracleUsed: false` and `solvedInputsUsed: false`.
+
+The generated evidence reports `accept: true`. Every listed Player-2 trigger was legal and nonterminal, every phase-transfer response was legal and nonterminal, every terminal response was an exact Player-1 first win, and the separately preserved sink orientations all closed. GitHub Actions run `36891914023` completed successfully.
+
+The proof is an exact finite current-state certificate; workflow success alone was not treated as the theorem result.
+
 ## Falsifiers
 
 Reject this theorem if any of the following occurs:
@@ -120,7 +128,7 @@ Reject this theorem if any of the following occurs:
 
 ## Scope boundary
 
-If qualified, this theorem establishes an exact Player-1 win only for the stated rank-31 current RBA state and any earlier state connected to it by separately qualified exact composition.
+This qualified theorem establishes an exact Player-1 win only for the stated rank-31 current RBA state and any earlier state connected to it by separately qualified exact composition.
 
 It does not by itself prove rank 30, rank 28, rank 24 reply-7, rank 22, rank 10, exact remoteness, a universal move finder, or v5.
 
