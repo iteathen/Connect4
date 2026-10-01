@@ -1,0 +1,2195 @@
+{
+  "schema": "connect4.cpc_same_column_commutator_probe.v1",
+  "jsMinSysSha": "0899c5811918e68c22dc1b0e4dd8af97d9b4bbcb",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "parent": "444441566",
+  "centralPair": {
+    "column": 6,
+    "rows": [
+      3,
+      4
+    ]
+  },
+  "verticalLinesThroughCentralPair": [
+    {
+      "cells": [
+        {
+          "cell": 5,
+          "column": 6,
+          "row": 1
+        },
+        {
+          "cell": 12,
+          "column": 6,
+          "row": 2
+        },
+        {
+          "cell": 19,
+          "column": 6,
+          "row": 3
+        },
+        {
+          "cell": 26,
+          "column": 6,
+          "row": 4
+        }
+      ],
+      "containsLower": true,
+      "containsUpper": true
+    },
+    {
+      "cells": [
+        {
+          "cell": 12,
+          "column": 6,
+          "row": 2
+        },
+        {
+          "cell": 19,
+          "column": 6,
+          "row": 3
+        },
+        {
+          "cell": 26,
+          "column": 6,
+          "row": 4
+        },
+        {
+          "cell": 33,
+          "column": 6,
+          "row": 5
+        }
+      ],
+      "containsLower": true,
+      "containsUpper": true
+    },
+    {
+      "cells": [
+        {
+          "cell": 19,
+          "column": 6,
+          "row": 3
+        },
+        {
+          "cell": 26,
+          "column": 6,
+          "row": 4
+        },
+        {
+          "cell": 33,
+          "column": 6,
+          "row": 5
+        },
+        {
+          "cell": 40,
+          "column": 6,
+          "row": 6
+        }
+      ],
+      "containsLower": true,
+      "containsUpper": true
+    }
+  ],
+  "rows": [
+    {
+      "externalDefenderColumn": 1,
+      "orderA": "444441566661",
+      "orderB": "444441566166",
+      "exactWords": false,
+      "swappedCells": [
+        {
+          "column": 6,
+          "row": 3,
+          "orderA": "DEFENDER",
+          "orderB": "ATTACKER"
+        },
+        {
+          "column": 6,
+          "row": 4,
+          "orderA": "ATTACKER",
+          "orderB": "DEFENDER"
+        }
+      ],
+      "delta": {
+        "support": [
+          2,
+          0,
+          0,
+          5,
+          1,
+          4,
+          0
+        ],
+        "players": [
+          {
+            "player": 0,
+            "activeSymDiff": 6,
+            "minimalSymDiff": 7,
+            "minimalOnlyA": [
+              {
+                "id": 452,
+                "size": 3,
+                "cells": [
+                  {
+                    "cell": 15,
+                    "column": 2,
+                    "row": 3
+                  },
+                  {
+                    "cell": 16,
+                    "column": 3,
+                    "row": 3
+                  },
+                  {
+                    "cell": 18,
+                    "column": 5,
+                    "row": 3
+                  }
+                ],
+                "orientations": [
+                  "H"
+                ]
+              },
+              {
+                "id": 500,
+                "size": 3,
+                "cells": [
+                  {
+                    "cell": 20,
+                    "column": 7,
+                    "row": 3
+                  },
+                  {
+                    "cell": 32,
+                    "column": 5,
+                    "row": 5
+                  },
+                  {
+                    "cell": 38,
+                    "column": 4,
+                    "row": 6
+                  }
+                ],
+                "orientations": [
+                  "D"
+                ]
+              }
+            ],
+            "minimalOnlyB": [
+              {
+                "id": 150,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 11,
+                    "column": 5,
+                    "row": 2
+                  },
+                  {
+                    "cell": 27,
+                    "column": 7,
+                    "row": 4
+                  }
+                ],
+                "orientations": [
+                  "D"
+                ]
+              },
+              {
+                "id": 162,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 13,
+                    "column": 7,
+                    "row": 2
+                  },
+                  {
+                    "cell": 25,
+                    "column": 5,
+                    "row": 4
+                  }
+                ],
+                "orientations": [
+                  "D"
+                ]
+              },
+              {
+                "id": 186,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 16,
+                    "column": 3,
+                    "row": 3
+                  },
+                  {
+                    "cell": 18,
+                    "column": 5,
+                    "row": 3
+                  }
+                ],
+                "orientations": [
+                  "H"
+                ]
+              },
+              {
+                "id": 209,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 18,
+                    "column": 5,
+                    "row": 3
+                  },
+                  {
+                    "cell": 20,
+                    "column": 7,
+                    "row": 3
+                  }
+                ],
+                "orientations": [
+                  "H"
+                ]
+              },
+              {
+                "id": 268,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 25,
+                    "column": 5,
+                    "row": 4
+                  },
+                  {
+                    "cell": 37,
+                    "column": 3,
+                    "row": 6
+                  }
+                ],
+                "orientations": [
+                  "D"
+                ]
+              }
+            ],
+            "activeOrientationCounts": {
+              "onlyA": {
+                "H": 0,
+                "V": 0,
+                "D": 1,
+                "mixed": 0
+              },
+              "onlyB": {
+                "H": 2,
+                "V": 0,
+                "D": 3,
+                "mixed": 0
+              }
+            }
+          },
+          {
+            "player": 1,
+            "activeSymDiff": 5,
+            "minimalSymDiff": 6,
+            "minimalOnlyA": [
+              {
+                "id": 507,
+                "size": 3,
+                "cells": [
+                  {
+                    "cell": 22,
+                    "column": 2,
+                    "row": 4
+                  },
+                  {
+                    "cell": 23,
+                    "column": 3,
+                    "row": 4
+                  },
+                  {
+                    "cell": 25,
+                    "column": 5,
+                    "row": 4
+                  }
+                ],
+                "orientations": [
+                  "H"
+                ]
+              }
+            ],
+            "minimalOnlyB": [
+              {
+                "id": 66,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 2,
+                    "column": 3,
+                    "row": 1
+                  },
+                  {
+                    "cell": 18,
+                    "column": 5,
+                    "row": 3
+                  }
+                ],
+                "orientations": [
+                  "D"
+                ]
+              },
+              {
+                "id": 215,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 18,
+                    "column": 5,
+                    "row": 3
+                  },
+                  {
+                    "cell": 34,
+                    "column": 7,
+                    "row": 5
+                  }
+                ],
+                "orientations": [
+                  "D"
+                ]
+              },
+              {
+                "id": 246,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 23,
+                    "column": 3,
+                    "row": 4
+                  },
+                  {
+                    "cell": 25,
+                    "column": 5,
+                    "row": 4
+                  }
+                ],
+                "orientations": [
+                  "H"
+                ]
+              },
+              {
+                "id": 264,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 25,
+                    "column": 5,
+                    "row": 4
+                  },
+                  {
+                    "cell": 27,
+                    "column": 7,
+                    "row": 4
+                  }
+                ],
+                "orientations": [
+                  "H"
+                ]
+              },
+              {
+                "id": 500,
+                "size": 3,
+                "cells": [
+                  {
+                    "cell": 20,
+                    "column": 7,
+                    "row": 3
+                  },
+                  {
+                    "cell": 32,
+                    "column": 5,
+                    "row": 5
+                  },
+                  {
+                    "cell": 38,
+                    "column": 4,
+                    "row": 6
+                  }
+                ],
+                "orientations": [
+                  "D"
+                ]
+              }
+            ],
+            "activeOrientationCounts": {
+              "onlyA": {
+                "H": 0,
+                "V": 0,
+                "D": 0,
+                "mixed": 0
+              },
+              "onlyB": {
+                "H": 2,
+                "V": 0,
+                "D": 3,
+                "mixed": 0
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "externalDefenderColumn": 2,
+      "orderA": "444441566662",
+      "orderB": "444441566266",
+      "exactWords": false,
+      "swappedCells": [
+        {
+          "column": 6,
+          "row": 3,
+          "orderA": "DEFENDER",
+          "orderB": "ATTACKER"
+        },
+        {
+          "column": 6,
+          "row": 4,
+          "orderA": "ATTACKER",
+          "orderB": "DEFENDER"
+        }
+      ],
+      "delta": {
+        "support": [
+          1,
+          1,
+          0,
+          5,
+          1,
+          4,
+          0
+        ],
+        "players": [
+          {
+            "player": 0,
+            "activeSymDiff": 6,
+            "minimalSymDiff": 7,
+            "minimalOnlyA": [
+              {
+                "id": 452,
+                "size": 3,
+                "cells": [
+                  {
+                    "cell": 15,
+                    "column": 2,
+                    "row": 3
+                  },
+                  {
+                    "cell": 16,
+                    "column": 3,
+                    "row": 3
+                  },
+                  {
+                    "cell": 18,
+                    "column": 5,
+                    "row": 3
+                  }
+                ],
+                "orientations": [
+                  "H"
+                ]
+              },
+              {
+                "id": 500,
+                "size": 3,
+                "cells": [
+                  {
+                    "cell": 20,
+                    "column": 7,
+                    "row": 3
+                  },
+                  {
+                    "cell": 32,
+                    "column": 5,
+                    "row": 5
+                  },
+                  {
+                    "cell": 38,
+                    "column": 4,
+                    "row": 6
+                  }
+                ],
+                "orientations": [
+                  "D"
+                ]
+              }
+            ],
+            "minimalOnlyB": [
+              {
+                "id": 150,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 11,
+                    "column": 5,
+                    "row": 2
+                  },
+                  {
+                    "cell": 27,
+                    "column": 7,
+                    "row": 4
+                  }
+                ],
+                "orientations": [
+                  "D"
+                ]
+              },
+              {
+                "id": 162,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 13,
+                    "column": 7,
+                    "row": 2
+                  },
+                  {
+                    "cell": 25,
+                    "column": 5,
+                    "row": 4
+                  }
+                ],
+                "orientations": [
+                  "D"
+                ]
+              },
+              {
+                "id": 186,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 16,
+                    "column": 3,
+                    "row": 3
+                  },
+                  {
+                    "cell": 18,
+                    "column": 5,
+                    "row": 3
+                  }
+                ],
+                "orientations": [
+                  "H"
+                ]
+              },
+              {
+                "id": 209,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 18,
+                    "column": 5,
+                    "row": 3
+                  },
+                  {
+                    "cell": 20,
+                    "column": 7,
+                    "row": 3
+                  }
+                ],
+                "orientations": [
+                  "H"
+                ]
+              },
+              {
+                "id": 268,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 25,
+                    "column": 5,
+                    "row": 4
+                  },
+                  {
+                    "cell": 37,
+                    "column": 3,
+                    "row": 6
+                  }
+                ],
+                "orientations": [
+                  "D"
+                ]
+              }
+            ],
+            "activeOrientationCounts": {
+              "onlyA": {
+                "H": 0,
+                "V": 0,
+                "D": 1,
+                "mixed": 0
+              },
+              "onlyB": {
+                "H": 2,
+                "V": 0,
+                "D": 3,
+                "mixed": 0
+              }
+            }
+          },
+          {
+            "player": 1,
+            "activeSymDiff": 5,
+            "minimalSymDiff": 6,
+            "minimalOnlyA": [
+              {
+                "id": 507,
+                "size": 3,
+                "cells": [
+                  {
+                    "cell": 22,
+                    "column": 2,
+                    "row": 4
+                  },
+                  {
+                    "cell": 23,
+                    "column": 3,
+                    "row": 4
+                  },
+                  {
+                    "cell": 25,
+                    "column": 5,
+                    "row": 4
+                  }
+                ],
+                "orientations": [
+                  "H"
+                ]
+              }
+            ],
+            "minimalOnlyB": [
+              {
+                "id": 66,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 2,
+                    "column": 3,
+                    "row": 1
+                  },
+                  {
+                    "cell": 18,
+                    "column": 5,
+                    "row": 3
+                  }
+                ],
+                "orientations": [
+                  "D"
+                ]
+              },
+              {
+                "id": 215,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 18,
+                    "column": 5,
+                    "row": 3
+                  },
+                  {
+                    "cell": 34,
+                    "column": 7,
+                    "row": 5
+                  }
+                ],
+                "orientations": [
+                  "D"
+                ]
+              },
+              {
+                "id": 246,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 23,
+                    "column": 3,
+                    "row": 4
+                  },
+                  {
+                    "cell": 25,
+                    "column": 5,
+                    "row": 4
+                  }
+                ],
+                "orientations": [
+                  "H"
+                ]
+              },
+              {
+                "id": 264,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 25,
+                    "column": 5,
+                    "row": 4
+                  },
+                  {
+                    "cell": 27,
+                    "column": 7,
+                    "row": 4
+                  }
+                ],
+                "orientations": [
+                  "H"
+                ]
+              },
+              {
+                "id": 500,
+                "size": 3,
+                "cells": [
+                  {
+                    "cell": 20,
+                    "column": 7,
+                    "row": 3
+                  },
+                  {
+                    "cell": 32,
+                    "column": 5,
+                    "row": 5
+                  },
+                  {
+                    "cell": 38,
+                    "column": 4,
+                    "row": 6
+                  }
+                ],
+                "orientations": [
+                  "D"
+                ]
+              }
+            ],
+            "activeOrientationCounts": {
+              "onlyA": {
+                "H": 0,
+                "V": 0,
+                "D": 0,
+                "mixed": 0
+              },
+              "onlyB": {
+                "H": 2,
+                "V": 0,
+                "D": 3,
+                "mixed": 0
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "externalDefenderColumn": 3,
+      "orderA": "444441566663",
+      "orderB": "444441566366",
+      "exactWords": false,
+      "swappedCells": [
+        {
+          "column": 6,
+          "row": 3,
+          "orderA": "DEFENDER",
+          "orderB": "ATTACKER"
+        },
+        {
+          "column": 6,
+          "row": 4,
+          "orderA": "ATTACKER",
+          "orderB": "DEFENDER"
+        }
+      ],
+      "delta": {
+        "support": [
+          1,
+          0,
+          1,
+          5,
+          1,
+          4,
+          0
+        ],
+        "players": [
+          {
+            "player": 0,
+            "activeSymDiff": 6,
+            "minimalSymDiff": 7,
+            "minimalOnlyA": [
+              {
+                "id": 452,
+                "size": 3,
+                "cells": [
+                  {
+                    "cell": 15,
+                    "column": 2,
+                    "row": 3
+                  },
+                  {
+                    "cell": 16,
+                    "column": 3,
+                    "row": 3
+                  },
+                  {
+                    "cell": 18,
+                    "column": 5,
+                    "row": 3
+                  }
+                ],
+                "orientations": [
+                  "H"
+                ]
+              },
+              {
+                "id": 500,
+                "size": 3,
+                "cells": [
+                  {
+                    "cell": 20,
+                    "column": 7,
+                    "row": 3
+                  },
+                  {
+                    "cell": 32,
+                    "column": 5,
+                    "row": 5
+                  },
+                  {
+                    "cell": 38,
+                    "column": 4,
+                    "row": 6
+                  }
+                ],
+                "orientations": [
+                  "D"
+                ]
+              }
+            ],
+            "minimalOnlyB": [
+              {
+                "id": 150,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 11,
+                    "column": 5,
+                    "row": 2
+                  },
+                  {
+                    "cell": 27,
+                    "column": 7,
+                    "row": 4
+                  }
+                ],
+                "orientations": [
+                  "D"
+                ]
+              },
+              {
+                "id": 162,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 13,
+                    "column": 7,
+                    "row": 2
+                  },
+                  {
+                    "cell": 25,
+                    "column": 5,
+                    "row": 4
+                  }
+                ],
+                "orientations": [
+                  "D"
+                ]
+              },
+              {
+                "id": 186,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 16,
+                    "column": 3,
+                    "row": 3
+                  },
+                  {
+                    "cell": 18,
+                    "column": 5,
+                    "row": 3
+                  }
+                ],
+                "orientations": [
+                  "H"
+                ]
+              },
+              {
+                "id": 209,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 18,
+                    "column": 5,
+                    "row": 3
+                  },
+                  {
+                    "cell": 20,
+                    "column": 7,
+                    "row": 3
+                  }
+                ],
+                "orientations": [
+                  "H"
+                ]
+              },
+              {
+                "id": 268,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 25,
+                    "column": 5,
+                    "row": 4
+                  },
+                  {
+                    "cell": 37,
+                    "column": 3,
+                    "row": 6
+                  }
+                ],
+                "orientations": [
+                  "D"
+                ]
+              }
+            ],
+            "activeOrientationCounts": {
+              "onlyA": {
+                "H": 0,
+                "V": 0,
+                "D": 1,
+                "mixed": 0
+              },
+              "onlyB": {
+                "H": 2,
+                "V": 0,
+                "D": 3,
+                "mixed": 0
+              }
+            }
+          },
+          {
+            "player": 1,
+            "activeSymDiff": 11,
+            "minimalSymDiff": 8,
+            "minimalOnlyA": [
+              {
+                "id": 488,
+                "size": 3,
+                "cells": [
+                  {
+                    "cell": 18,
+                    "column": 5,
+                    "row": 3
+                  },
+                  {
+                    "cell": 30,
+                    "column": 3,
+                    "row": 5
+                  },
+                  {
+                    "cell": 36,
+                    "column": 2,
+                    "row": 6
+                  }
+                ],
+                "orientations": [
+                  "D"
+                ]
+              },
+              {
+                "id": 507,
+                "size": 3,
+                "cells": [
+                  {
+                    "cell": 22,
+                    "column": 2,
+                    "row": 4
+                  },
+                  {
+                    "cell": 23,
+                    "column": 3,
+                    "row": 4
+                  },
+                  {
+                    "cell": 25,
+                    "column": 5,
+                    "row": 4
+                  }
+                ],
+                "orientations": [
+                  "H"
+                ]
+              },
+              {
+                "id": 589,
+                "size": 4,
+                "cells": [
+                  {
+                    "cell": 11,
+                    "column": 5,
+                    "row": 2
+                  },
+                  {
+                    "cell": 18,
+                    "column": 5,
+                    "row": 3
+                  },
+                  {
+                    "cell": 25,
+                    "column": 5,
+                    "row": 4
+                  },
+                  {
+                    "cell": 32,
+                    "column": 5,
+                    "row": 5
+                  }
+                ],
+                "orientations": [
+                  "V"
+                ]
+              },
+              {
+                "id": 608,
+                "size": 4,
+                "cells": [
+                  {
+                    "cell": 18,
+                    "column": 5,
+                    "row": 3
+                  },
+                  {
+                    "cell": 25,
+                    "column": 5,
+                    "row": 4
+                  },
+                  {
+                    "cell": 32,
+                    "column": 5,
+                    "row": 5
+                  },
+                  {
+                    "cell": 39,
+                    "column": 5,
+                    "row": 6
+                  }
+                ],
+                "orientations": [
+                  "V"
+                ]
+              }
+            ],
+            "minimalOnlyB": [
+              {
+                "id": 18,
+                "size": 1,
+                "cells": [
+                  {
+                    "cell": 18,
+                    "column": 5,
+                    "row": 3
+                  }
+                ],
+                "orientations": [
+                  "D",
+                  "H",
+                  "V"
+                ]
+              },
+              {
+                "id": 246,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 23,
+                    "column": 3,
+                    "row": 4
+                  },
+                  {
+                    "cell": 25,
+                    "column": 5,
+                    "row": 4
+                  }
+                ],
+                "orientations": [
+                  "H"
+                ]
+              },
+              {
+                "id": 264,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 25,
+                    "column": 5,
+                    "row": 4
+                  },
+                  {
+                    "cell": 27,
+                    "column": 7,
+                    "row": 4
+                  }
+                ],
+                "orientations": [
+                  "H"
+                ]
+              },
+              {
+                "id": 500,
+                "size": 3,
+                "cells": [
+                  {
+                    "cell": 20,
+                    "column": 7,
+                    "row": 3
+                  },
+                  {
+                    "cell": 32,
+                    "column": 5,
+                    "row": 5
+                  },
+                  {
+                    "cell": 38,
+                    "column": 4,
+                    "row": 6
+                  }
+                ],
+                "orientations": [
+                  "D"
+                ]
+              }
+            ],
+            "activeOrientationCounts": {
+              "onlyA": {
+                "H": 0,
+                "V": 0,
+                "D": 0,
+                "mixed": 0
+              },
+              "onlyB": {
+                "H": 5,
+                "V": 1,
+                "D": 4,
+                "mixed": 1
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "externalDefenderColumn": 4,
+      "orderA": "444441566664",
+      "orderB": "444441566466",
+      "exactWords": false,
+      "swappedCells": [
+        {
+          "column": 6,
+          "row": 3,
+          "orderA": "DEFENDER",
+          "orderB": "ATTACKER"
+        },
+        {
+          "column": 6,
+          "row": 4,
+          "orderA": "ATTACKER",
+          "orderB": "DEFENDER"
+        }
+      ],
+      "delta": {
+        "support": [
+          1,
+          0,
+          0,
+          6,
+          1,
+          4,
+          0
+        ],
+        "players": [
+          {
+            "player": 0,
+            "activeSymDiff": 5,
+            "minimalSymDiff": 6,
+            "minimalOnlyA": [
+              {
+                "id": 452,
+                "size": 3,
+                "cells": [
+                  {
+                    "cell": 15,
+                    "column": 2,
+                    "row": 3
+                  },
+                  {
+                    "cell": 16,
+                    "column": 3,
+                    "row": 3
+                  },
+                  {
+                    "cell": 18,
+                    "column": 5,
+                    "row": 3
+                  }
+                ],
+                "orientations": [
+                  "H"
+                ]
+              }
+            ],
+            "minimalOnlyB": [
+              {
+                "id": 150,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 11,
+                    "column": 5,
+                    "row": 2
+                  },
+                  {
+                    "cell": 27,
+                    "column": 7,
+                    "row": 4
+                  }
+                ],
+                "orientations": [
+                  "D"
+                ]
+              },
+              {
+                "id": 162,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 13,
+                    "column": 7,
+                    "row": 2
+                  },
+                  {
+                    "cell": 25,
+                    "column": 5,
+                    "row": 4
+                  }
+                ],
+                "orientations": [
+                  "D"
+                ]
+              },
+              {
+                "id": 186,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 16,
+                    "column": 3,
+                    "row": 3
+                  },
+                  {
+                    "cell": 18,
+                    "column": 5,
+                    "row": 3
+                  }
+                ],
+                "orientations": [
+                  "H"
+                ]
+              },
+              {
+                "id": 209,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 18,
+                    "column": 5,
+                    "row": 3
+                  },
+                  {
+                    "cell": 20,
+                    "column": 7,
+                    "row": 3
+                  }
+                ],
+                "orientations": [
+                  "H"
+                ]
+              },
+              {
+                "id": 268,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 25,
+                    "column": 5,
+                    "row": 4
+                  },
+                  {
+                    "cell": 37,
+                    "column": 3,
+                    "row": 6
+                  }
+                ],
+                "orientations": [
+                  "D"
+                ]
+              }
+            ],
+            "activeOrientationCounts": {
+              "onlyA": {
+                "H": 0,
+                "V": 0,
+                "D": 0,
+                "mixed": 0
+              },
+              "onlyB": {
+                "H": 2,
+                "V": 0,
+                "D": 3,
+                "mixed": 0
+              }
+            }
+          },
+          {
+            "player": 1,
+            "activeSymDiff": 5,
+            "minimalSymDiff": 6,
+            "minimalOnlyA": [
+              {
+                "id": 507,
+                "size": 3,
+                "cells": [
+                  {
+                    "cell": 22,
+                    "column": 2,
+                    "row": 4
+                  },
+                  {
+                    "cell": 23,
+                    "column": 3,
+                    "row": 4
+                  },
+                  {
+                    "cell": 25,
+                    "column": 5,
+                    "row": 4
+                  }
+                ],
+                "orientations": [
+                  "H"
+                ]
+              }
+            ],
+            "minimalOnlyB": [
+              {
+                "id": 66,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 2,
+                    "column": 3,
+                    "row": 1
+                  },
+                  {
+                    "cell": 18,
+                    "column": 5,
+                    "row": 3
+                  }
+                ],
+                "orientations": [
+                  "D"
+                ]
+              },
+              {
+                "id": 215,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 18,
+                    "column": 5,
+                    "row": 3
+                  },
+                  {
+                    "cell": 34,
+                    "column": 7,
+                    "row": 5
+                  }
+                ],
+                "orientations": [
+                  "D"
+                ]
+              },
+              {
+                "id": 228,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 20,
+                    "column": 7,
+                    "row": 3
+                  },
+                  {
+                    "cell": 32,
+                    "column": 5,
+                    "row": 5
+                  }
+                ],
+                "orientations": [
+                  "D"
+                ]
+              },
+              {
+                "id": 246,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 23,
+                    "column": 3,
+                    "row": 4
+                  },
+                  {
+                    "cell": 25,
+                    "column": 5,
+                    "row": 4
+                  }
+                ],
+                "orientations": [
+                  "H"
+                ]
+              },
+              {
+                "id": 264,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 25,
+                    "column": 5,
+                    "row": 4
+                  },
+                  {
+                    "cell": 27,
+                    "column": 7,
+                    "row": 4
+                  }
+                ],
+                "orientations": [
+                  "H"
+                ]
+              }
+            ],
+            "activeOrientationCounts": {
+              "onlyA": {
+                "H": 0,
+                "V": 0,
+                "D": 0,
+                "mixed": 0
+              },
+              "onlyB": {
+                "H": 2,
+                "V": 0,
+                "D": 3,
+                "mixed": 0
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "externalDefenderColumn": 5,
+      "orderA": "444441566665",
+      "orderB": "444441566566",
+      "exactWords": false,
+      "swappedCells": [
+        {
+          "column": 6,
+          "row": 3,
+          "orderA": "DEFENDER",
+          "orderB": "ATTACKER"
+        },
+        {
+          "column": 6,
+          "row": 4,
+          "orderA": "ATTACKER",
+          "orderB": "DEFENDER"
+        }
+      ],
+      "delta": {
+        "support": [
+          1,
+          0,
+          0,
+          5,
+          2,
+          4,
+          0
+        ],
+        "players": [
+          {
+            "player": 0,
+            "activeSymDiff": 5,
+            "minimalSymDiff": 6,
+            "minimalOnlyA": [
+              {
+                "id": 452,
+                "size": 3,
+                "cells": [
+                  {
+                    "cell": 15,
+                    "column": 2,
+                    "row": 3
+                  },
+                  {
+                    "cell": 16,
+                    "column": 3,
+                    "row": 3
+                  },
+                  {
+                    "cell": 18,
+                    "column": 5,
+                    "row": 3
+                  }
+                ],
+                "orientations": [
+                  "H"
+                ]
+              },
+              {
+                "id": 500,
+                "size": 3,
+                "cells": [
+                  {
+                    "cell": 20,
+                    "column": 7,
+                    "row": 3
+                  },
+                  {
+                    "cell": 32,
+                    "column": 5,
+                    "row": 5
+                  },
+                  {
+                    "cell": 38,
+                    "column": 4,
+                    "row": 6
+                  }
+                ],
+                "orientations": [
+                  "D"
+                ]
+              }
+            ],
+            "minimalOnlyB": [
+              {
+                "id": 162,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 13,
+                    "column": 7,
+                    "row": 2
+                  },
+                  {
+                    "cell": 25,
+                    "column": 5,
+                    "row": 4
+                  }
+                ],
+                "orientations": [
+                  "D"
+                ]
+              },
+              {
+                "id": 186,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 16,
+                    "column": 3,
+                    "row": 3
+                  },
+                  {
+                    "cell": 18,
+                    "column": 5,
+                    "row": 3
+                  }
+                ],
+                "orientations": [
+                  "H"
+                ]
+              },
+              {
+                "id": 209,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 18,
+                    "column": 5,
+                    "row": 3
+                  },
+                  {
+                    "cell": 20,
+                    "column": 7,
+                    "row": 3
+                  }
+                ],
+                "orientations": [
+                  "H"
+                ]
+              },
+              {
+                "id": 268,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 25,
+                    "column": 5,
+                    "row": 4
+                  },
+                  {
+                    "cell": 37,
+                    "column": 3,
+                    "row": 6
+                  }
+                ],
+                "orientations": [
+                  "D"
+                ]
+              }
+            ],
+            "activeOrientationCounts": {
+              "onlyA": {
+                "H": 0,
+                "V": 0,
+                "D": 1,
+                "mixed": 0
+              },
+              "onlyB": {
+                "H": 2,
+                "V": 0,
+                "D": 2,
+                "mixed": 0
+              }
+            }
+          },
+          {
+            "player": 1,
+            "activeSymDiff": 5,
+            "minimalSymDiff": 6,
+            "minimalOnlyA": [
+              {
+                "id": 507,
+                "size": 3,
+                "cells": [
+                  {
+                    "cell": 22,
+                    "column": 2,
+                    "row": 4
+                  },
+                  {
+                    "cell": 23,
+                    "column": 3,
+                    "row": 4
+                  },
+                  {
+                    "cell": 25,
+                    "column": 5,
+                    "row": 4
+                  }
+                ],
+                "orientations": [
+                  "H"
+                ]
+              }
+            ],
+            "minimalOnlyB": [
+              {
+                "id": 66,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 2,
+                    "column": 3,
+                    "row": 1
+                  },
+                  {
+                    "cell": 18,
+                    "column": 5,
+                    "row": 3
+                  }
+                ],
+                "orientations": [
+                  "D"
+                ]
+              },
+              {
+                "id": 215,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 18,
+                    "column": 5,
+                    "row": 3
+                  },
+                  {
+                    "cell": 34,
+                    "column": 7,
+                    "row": 5
+                  }
+                ],
+                "orientations": [
+                  "D"
+                ]
+              },
+              {
+                "id": 246,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 23,
+                    "column": 3,
+                    "row": 4
+                  },
+                  {
+                    "cell": 25,
+                    "column": 5,
+                    "row": 4
+                  }
+                ],
+                "orientations": [
+                  "H"
+                ]
+              },
+              {
+                "id": 264,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 25,
+                    "column": 5,
+                    "row": 4
+                  },
+                  {
+                    "cell": 27,
+                    "column": 7,
+                    "row": 4
+                  }
+                ],
+                "orientations": [
+                  "H"
+                ]
+              },
+              {
+                "id": 500,
+                "size": 3,
+                "cells": [
+                  {
+                    "cell": 20,
+                    "column": 7,
+                    "row": 3
+                  },
+                  {
+                    "cell": 32,
+                    "column": 5,
+                    "row": 5
+                  },
+                  {
+                    "cell": 38,
+                    "column": 4,
+                    "row": 6
+                  }
+                ],
+                "orientations": [
+                  "D"
+                ]
+              }
+            ],
+            "activeOrientationCounts": {
+              "onlyA": {
+                "H": 0,
+                "V": 0,
+                "D": 0,
+                "mixed": 0
+              },
+              "onlyB": {
+                "H": 2,
+                "V": 0,
+                "D": 3,
+                "mixed": 0
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "externalDefenderColumn": 7,
+      "orderA": "444441566667",
+      "orderB": "444441566766",
+      "exactWords": false,
+      "swappedCells": [
+        {
+          "column": 6,
+          "row": 3,
+          "orderA": "DEFENDER",
+          "orderB": "ATTACKER"
+        },
+        {
+          "column": 6,
+          "row": 4,
+          "orderA": "ATTACKER",
+          "orderB": "DEFENDER"
+        }
+      ],
+      "delta": {
+        "support": [
+          1,
+          0,
+          0,
+          5,
+          1,
+          4,
+          1
+        ],
+        "players": [
+          {
+            "player": 0,
+            "activeSymDiff": 6,
+            "minimalSymDiff": 7,
+            "minimalOnlyA": [
+              {
+                "id": 452,
+                "size": 3,
+                "cells": [
+                  {
+                    "cell": 15,
+                    "column": 2,
+                    "row": 3
+                  },
+                  {
+                    "cell": 16,
+                    "column": 3,
+                    "row": 3
+                  },
+                  {
+                    "cell": 18,
+                    "column": 5,
+                    "row": 3
+                  }
+                ],
+                "orientations": [
+                  "H"
+                ]
+              },
+              {
+                "id": 500,
+                "size": 3,
+                "cells": [
+                  {
+                    "cell": 20,
+                    "column": 7,
+                    "row": 3
+                  },
+                  {
+                    "cell": 32,
+                    "column": 5,
+                    "row": 5
+                  },
+                  {
+                    "cell": 38,
+                    "column": 4,
+                    "row": 6
+                  }
+                ],
+                "orientations": [
+                  "D"
+                ]
+              }
+            ],
+            "minimalOnlyB": [
+              {
+                "id": 150,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 11,
+                    "column": 5,
+                    "row": 2
+                  },
+                  {
+                    "cell": 27,
+                    "column": 7,
+                    "row": 4
+                  }
+                ],
+                "orientations": [
+                  "D"
+                ]
+              },
+              {
+                "id": 162,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 13,
+                    "column": 7,
+                    "row": 2
+                  },
+                  {
+                    "cell": 25,
+                    "column": 5,
+                    "row": 4
+                  }
+                ],
+                "orientations": [
+                  "D"
+                ]
+              },
+              {
+                "id": 186,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 16,
+                    "column": 3,
+                    "row": 3
+                  },
+                  {
+                    "cell": 18,
+                    "column": 5,
+                    "row": 3
+                  }
+                ],
+                "orientations": [
+                  "H"
+                ]
+              },
+              {
+                "id": 209,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 18,
+                    "column": 5,
+                    "row": 3
+                  },
+                  {
+                    "cell": 20,
+                    "column": 7,
+                    "row": 3
+                  }
+                ],
+                "orientations": [
+                  "H"
+                ]
+              },
+              {
+                "id": 268,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 25,
+                    "column": 5,
+                    "row": 4
+                  },
+                  {
+                    "cell": 37,
+                    "column": 3,
+                    "row": 6
+                  }
+                ],
+                "orientations": [
+                  "D"
+                ]
+              }
+            ],
+            "activeOrientationCounts": {
+              "onlyA": {
+                "H": 0,
+                "V": 0,
+                "D": 1,
+                "mixed": 0
+              },
+              "onlyB": {
+                "H": 2,
+                "V": 0,
+                "D": 3,
+                "mixed": 0
+              }
+            }
+          },
+          {
+            "player": 1,
+            "activeSymDiff": 5,
+            "minimalSymDiff": 6,
+            "minimalOnlyA": [
+              {
+                "id": 507,
+                "size": 3,
+                "cells": [
+                  {
+                    "cell": 22,
+                    "column": 2,
+                    "row": 4
+                  },
+                  {
+                    "cell": 23,
+                    "column": 3,
+                    "row": 4
+                  },
+                  {
+                    "cell": 25,
+                    "column": 5,
+                    "row": 4
+                  }
+                ],
+                "orientations": [
+                  "H"
+                ]
+              }
+            ],
+            "minimalOnlyB": [
+              {
+                "id": 66,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 2,
+                    "column": 3,
+                    "row": 1
+                  },
+                  {
+                    "cell": 18,
+                    "column": 5,
+                    "row": 3
+                  }
+                ],
+                "orientations": [
+                  "D"
+                ]
+              },
+              {
+                "id": 215,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 18,
+                    "column": 5,
+                    "row": 3
+                  },
+                  {
+                    "cell": 34,
+                    "column": 7,
+                    "row": 5
+                  }
+                ],
+                "orientations": [
+                  "D"
+                ]
+              },
+              {
+                "id": 246,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 23,
+                    "column": 3,
+                    "row": 4
+                  },
+                  {
+                    "cell": 25,
+                    "column": 5,
+                    "row": 4
+                  }
+                ],
+                "orientations": [
+                  "H"
+                ]
+              },
+              {
+                "id": 264,
+                "size": 2,
+                "cells": [
+                  {
+                    "cell": 25,
+                    "column": 5,
+                    "row": 4
+                  },
+                  {
+                    "cell": 27,
+                    "column": 7,
+                    "row": 4
+                  }
+                ],
+                "orientations": [
+                  "H"
+                ]
+              },
+              {
+                "id": 500,
+                "size": 3,
+                "cells": [
+                  {
+                    "cell": 20,
+                    "column": 7,
+                    "row": 3
+                  },
+                  {
+                    "cell": 32,
+                    "column": 5,
+                    "row": 5
+                  },
+                  {
+                    "cell": 38,
+                    "column": 4,
+                    "row": 6
+                  }
+                ],
+                "orientations": [
+                  "D"
+                ]
+              }
+            ],
+            "activeOrientationCounts": {
+              "onlyA": {
+                "H": 0,
+                "V": 0,
+                "D": 0,
+                "mixed": 0
+              },
+              "onlyB": {
+                "H": 2,
+                "V": 0,
+                "D": 3,
+                "mixed": 0
+              }
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "conclusion": [
+    "same support/rank and identical occupancy outside the central pair",
+    "the two orders differ only by swapping player ownership of the central adjacent cells",
+    "every vertical Connect-4 line through either central cell contains both cells, so vertical line viability is invariant under the ownership swap",
+    "any CPC/RBA residual-coordinate delta must therefore be induced by horizontal/diagonal line incidences through the swapped cells"
+  ],
+  "boundary": [
+    "This is a transition-delta probe, not a W/D/L or remoteness theorem.",
+    "External defender columns are consumed-training descendants only.",
+    "A generic same-column commutator theorem would need boundary cases for adjacent pairs outside rows 3-4."
+  ]
+}
