@@ -1,0 +1,7365 @@
+{
+  "schema": "connect4.cpc_rank20_rank32_consequence_class_transport_census.v1",
+  "date": "2026-10-01",
+  "sourceEvidence": {
+    "rank5": "CPC_RANK20_FORCED_C3_RANK5_LOCAL_GRAMMAR_PROBE_0_1.json",
+    "shallowGrammar": "CPC_RANK20_FORCED_C3_FIRST_FAILURE_LOCAL_GRAMMAR_PROBE_0_1.json"
+  },
+  "sourceLeafCount": 11,
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "ordinaryFreeBranchGameTreeUsed": false,
+  "productionCpcModified": false,
+  "jsMinSysModified": false,
+  "bsfpModified": false,
+  "rows": [
+    {
+      "sourceLeafId": "SECOND_D1_C5_CONTRACTION:G->A",
+      "sourceQClass": "622683928b72c4be",
+      "sourceRank": 30,
+      "sourceSupport": [
+        5,
+        6,
+        2,
+        6,
+        5,
+        5,
+        1
+      ],
+      "rawTransitionCount": 22,
+      "consequenceKinds": [
+        "DEFENDER_TERMINAL",
+        "LOWER_I",
+        "UNRESOLVED_Q"
+      ],
+      "unresolvedTargetQClasses": [
+        "da6dcb3938748b5e",
+        "526d0f881be9c948",
+        "78fd9addd9e5189e",
+        "f2921084b85fd14f",
+        "2032001c933cdbd9",
+        "b7dad8f46e2fb27c",
+        "77b1d9e6ea5f69a7",
+        "bed156c31f338787",
+        "9bf0bd55c3ffa805",
+        "bed156c31f338787",
+        "663b2dedf80ef753"
+      ],
+      "quotientUnresolvedArity": 10,
+      "transitions": [
+        {
+          "p0Move": 1,
+          "p1Reply": 3,
+          "macroLabel": "c1>c3",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "da6dcb3938748b5e",
+          "targetRank": 32,
+          "targetSupport": [
+            6,
+            6,
+            3,
+            6,
+            5,
+            5,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 1,
+          "p1Reply": 5,
+          "macroLabel": "c1>c5",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "526d0f881be9c948",
+          "targetRank": 32,
+          "targetSupport": [
+            6,
+            6,
+            2,
+            6,
+            6,
+            5,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 1,
+          "p1Reply": 6,
+          "macroLabel": "c1>c6",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "78fd9addd9e5189e",
+          "targetRank": 32,
+          "targetSupport": [
+            6,
+            6,
+            2,
+            6,
+            5,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 1,
+          "p1Reply": 7,
+          "macroLabel": "c1>c7",
+          "kind": "LOWER_I",
+          "targetQClass": "6b2e0be7702c8de6",
+          "targetRank": 32,
+          "targetSupport": [
+            6,
+            6,
+            2,
+            6,
+            5,
+            5,
+            2
+          ],
+          "proofExpression": "I",
+          "proofWitness": {
+            "immediateWinningColumns": [
+              7
+            ]
+          }
+        },
+        {
+          "p0Move": 3,
+          "p1Reply": 1,
+          "macroLabel": "c3>c1",
+          "kind": "DEFENDER_TERMINAL",
+          "targetQClass": null,
+          "targetRank": null,
+          "targetSupport": null,
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 3,
+          "p1Reply": 3,
+          "macroLabel": "c3>c3",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "f2921084b85fd14f",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            4,
+            6,
+            5,
+            5,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 3,
+          "p1Reply": 5,
+          "macroLabel": "c3>c5",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "2032001c933cdbd9",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            3,
+            6,
+            6,
+            5,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 3,
+          "p1Reply": 6,
+          "macroLabel": "c3>c6",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "b7dad8f46e2fb27c",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            3,
+            6,
+            5,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 3,
+          "p1Reply": 7,
+          "macroLabel": "c3>c7",
+          "kind": "LOWER_I",
+          "targetQClass": "69e2565c306f0beb",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            3,
+            6,
+            5,
+            5,
+            2
+          ],
+          "proofExpression": "I",
+          "proofWitness": {
+            "immediateWinningColumns": [
+              7
+            ]
+          }
+        },
+        {
+          "p0Move": 5,
+          "p1Reply": 1,
+          "macroLabel": "c5>c1",
+          "kind": "DEFENDER_TERMINAL",
+          "targetQClass": null,
+          "targetRank": null,
+          "targetSupport": null,
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 5,
+          "p1Reply": 3,
+          "macroLabel": "c5>c3",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "77b1d9e6ea5f69a7",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            3,
+            6,
+            6,
+            5,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 5,
+          "p1Reply": 6,
+          "macroLabel": "c5>c6",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "bed156c31f338787",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            2,
+            6,
+            6,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 5,
+          "p1Reply": 7,
+          "macroLabel": "c5>c7",
+          "kind": "LOWER_I",
+          "targetQClass": "89df18e4800a04ea",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            2,
+            6,
+            6,
+            5,
+            2
+          ],
+          "proofExpression": "I",
+          "proofWitness": {
+            "immediateWinningColumns": [
+              7
+            ]
+          }
+        },
+        {
+          "p0Move": 6,
+          "p1Reply": 1,
+          "macroLabel": "c6>c1",
+          "kind": "DEFENDER_TERMINAL",
+          "targetQClass": null,
+          "targetRank": null,
+          "targetSupport": null,
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 6,
+          "p1Reply": 3,
+          "macroLabel": "c6>c3",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "9bf0bd55c3ffa805",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            3,
+            6,
+            5,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 6,
+          "p1Reply": 5,
+          "macroLabel": "c6>c5",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "bed156c31f338787",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            2,
+            6,
+            6,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 6,
+          "p1Reply": 7,
+          "macroLabel": "c6>c7",
+          "kind": "LOWER_I",
+          "targetQClass": "30ff09e8f92bcee7",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            2,
+            6,
+            5,
+            6,
+            2
+          ],
+          "proofExpression": "I",
+          "proofWitness": {
+            "immediateWinningColumns": [
+              7
+            ]
+          }
+        },
+        {
+          "p0Move": 7,
+          "p1Reply": 1,
+          "macroLabel": "c7>c1",
+          "kind": "DEFENDER_TERMINAL",
+          "targetQClass": null,
+          "targetRank": null,
+          "targetSupport": null,
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 7,
+          "p1Reply": 3,
+          "macroLabel": "c7>c3",
+          "kind": "LOWER_I",
+          "targetQClass": "9d4678aec46867ca",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            3,
+            6,
+            5,
+            5,
+            2
+          ],
+          "proofExpression": "I",
+          "proofWitness": {
+            "immediateWinningColumns": [
+              7
+            ]
+          }
+        },
+        {
+          "p0Move": 7,
+          "p1Reply": 5,
+          "macroLabel": "c7>c5",
+          "kind": "LOWER_I",
+          "targetQClass": "e02961bede1946f8",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            2,
+            6,
+            6,
+            5,
+            2
+          ],
+          "proofExpression": "I",
+          "proofWitness": {
+            "immediateWinningColumns": [
+              7
+            ]
+          }
+        },
+        {
+          "p0Move": 7,
+          "p1Reply": 6,
+          "macroLabel": "c7>c6",
+          "kind": "LOWER_I",
+          "targetQClass": "aa35c5a66ac544e7",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            2,
+            6,
+            5,
+            6,
+            2
+          ],
+          "proofExpression": "I",
+          "proofWitness": {
+            "immediateWinningColumns": [
+              7
+            ]
+          }
+        },
+        {
+          "p0Move": 7,
+          "p1Reply": 7,
+          "macroLabel": "c7>c7",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "663b2dedf80ef753",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            2,
+            6,
+            5,
+            5,
+            3
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        }
+      ]
+    },
+    {
+      "sourceLeafId": "SECOND_D1_C5_CONTRACTION:A->A",
+      "sourceQClass": "d21a89605c399aca",
+      "sourceRank": 30,
+      "sourceSupport": [
+        6,
+        6,
+        2,
+        6,
+        5,
+        5,
+        0
+      ],
+      "rawTransitionCount": 14,
+      "consequenceKinds": [
+        "LOWER_I",
+        "UNRESOLVED_Q"
+      ],
+      "unresolvedTargetQClasses": [
+        "9f6b7a33ab7e9552",
+        "0fc9d79484d94df1",
+        "9326596be55ae15a",
+        "966e6353e06e4d41",
+        "9d02a8478c3bc690",
+        "3afa4918e827e799",
+        "2ecda5a87ae9cbdc",
+        "80648733b86d690c",
+        "3afa4918e827e799",
+        "3ec23db76d062e04",
+        "da6dcb3938748b5e",
+        "526d0f881be9c948",
+        "78fd9addd9e5189e"
+      ],
+      "quotientUnresolvedArity": 12,
+      "transitions": [
+        {
+          "p0Move": 3,
+          "p1Reply": 3,
+          "macroLabel": "c3>c3",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "9f6b7a33ab7e9552",
+          "targetRank": 32,
+          "targetSupport": [
+            6,
+            6,
+            4,
+            6,
+            5,
+            5,
+            0
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 3,
+          "p1Reply": 5,
+          "macroLabel": "c3>c5",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "0fc9d79484d94df1",
+          "targetRank": 32,
+          "targetSupport": [
+            6,
+            6,
+            3,
+            6,
+            6,
+            5,
+            0
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 3,
+          "p1Reply": 6,
+          "macroLabel": "c3>c6",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "9326596be55ae15a",
+          "targetRank": 32,
+          "targetSupport": [
+            6,
+            6,
+            3,
+            6,
+            5,
+            6,
+            0
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 3,
+          "p1Reply": 7,
+          "macroLabel": "c3>c7",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "966e6353e06e4d41",
+          "targetRank": 32,
+          "targetSupport": [
+            6,
+            6,
+            3,
+            6,
+            5,
+            5,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 5,
+          "p1Reply": 3,
+          "macroLabel": "c5>c3",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "9d02a8478c3bc690",
+          "targetRank": 32,
+          "targetSupport": [
+            6,
+            6,
+            3,
+            6,
+            6,
+            5,
+            0
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 5,
+          "p1Reply": 6,
+          "macroLabel": "c5>c6",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "3afa4918e827e799",
+          "targetRank": 32,
+          "targetSupport": [
+            6,
+            6,
+            2,
+            6,
+            6,
+            6,
+            0
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 5,
+          "p1Reply": 7,
+          "macroLabel": "c5>c7",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "2ecda5a87ae9cbdc",
+          "targetRank": 32,
+          "targetSupport": [
+            6,
+            6,
+            2,
+            6,
+            6,
+            5,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 6,
+          "p1Reply": 3,
+          "macroLabel": "c6>c3",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "80648733b86d690c",
+          "targetRank": 32,
+          "targetSupport": [
+            6,
+            6,
+            3,
+            6,
+            5,
+            6,
+            0
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 6,
+          "p1Reply": 5,
+          "macroLabel": "c6>c5",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "3afa4918e827e799",
+          "targetRank": 32,
+          "targetSupport": [
+            6,
+            6,
+            2,
+            6,
+            6,
+            6,
+            0
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 6,
+          "p1Reply": 7,
+          "macroLabel": "c6>c7",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "3ec23db76d062e04",
+          "targetRank": 32,
+          "targetSupport": [
+            6,
+            6,
+            2,
+            6,
+            5,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 7,
+          "p1Reply": 3,
+          "macroLabel": "c7>c3",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "da6dcb3938748b5e",
+          "targetRank": 32,
+          "targetSupport": [
+            6,
+            6,
+            3,
+            6,
+            5,
+            5,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 7,
+          "p1Reply": 5,
+          "macroLabel": "c7>c5",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "526d0f881be9c948",
+          "targetRank": 32,
+          "targetSupport": [
+            6,
+            6,
+            2,
+            6,
+            6,
+            5,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 7,
+          "p1Reply": 6,
+          "macroLabel": "c7>c6",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "78fd9addd9e5189e",
+          "targetRank": 32,
+          "targetSupport": [
+            6,
+            6,
+            2,
+            6,
+            5,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 7,
+          "p1Reply": 7,
+          "macroLabel": "c7>c7",
+          "kind": "LOWER_I",
+          "targetQClass": "6b2e0be7702c8de6",
+          "targetRank": 32,
+          "targetSupport": [
+            6,
+            6,
+            2,
+            6,
+            5,
+            5,
+            2
+          ],
+          "proofExpression": "I",
+          "proofWitness": {
+            "immediateWinningColumns": [
+              7
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "sourceLeafId": "SECOND_D1_C5_CONTRACTION:E->A",
+      "sourceQClass": "00788378b8ae8d01",
+      "sourceRank": 30,
+      "sourceSupport": [
+        5,
+        6,
+        2,
+        6,
+        6,
+        5,
+        0
+      ],
+      "rawTransitionCount": 14,
+      "consequenceKinds": [
+        "DEFENDER_TERMINAL",
+        "LOWER_I",
+        "UNRESOLVED_Q"
+      ],
+      "unresolvedTargetQClasses": [
+        "9d02a8478c3bc690",
+        "3afa4918e827e799",
+        "2ecda5a87ae9cbdc",
+        "3abfd67de003bddb",
+        "80082e9945d4c152",
+        "ef268e62dfaecf76",
+        "22dffba09a403111",
+        "2f88de106c7c402b",
+        "77b1d9e6ea5f69a7",
+        "bed156c31f338787"
+      ],
+      "quotientUnresolvedArity": 10,
+      "transitions": [
+        {
+          "p0Move": 1,
+          "p1Reply": 3,
+          "macroLabel": "c1>c3",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "9d02a8478c3bc690",
+          "targetRank": 32,
+          "targetSupport": [
+            6,
+            6,
+            3,
+            6,
+            6,
+            5,
+            0
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 1,
+          "p1Reply": 6,
+          "macroLabel": "c1>c6",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "3afa4918e827e799",
+          "targetRank": 32,
+          "targetSupport": [
+            6,
+            6,
+            2,
+            6,
+            6,
+            6,
+            0
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 1,
+          "p1Reply": 7,
+          "macroLabel": "c1>c7",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "2ecda5a87ae9cbdc",
+          "targetRank": 32,
+          "targetSupport": [
+            6,
+            6,
+            2,
+            6,
+            6,
+            5,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 3,
+          "p1Reply": 1,
+          "macroLabel": "c3>c1",
+          "kind": "DEFENDER_TERMINAL",
+          "targetQClass": null,
+          "targetRank": null,
+          "targetSupport": null,
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 3,
+          "p1Reply": 3,
+          "macroLabel": "c3>c3",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "3abfd67de003bddb",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            4,
+            6,
+            6,
+            5,
+            0
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 3,
+          "p1Reply": 6,
+          "macroLabel": "c3>c6",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "80082e9945d4c152",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            3,
+            6,
+            6,
+            6,
+            0
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 3,
+          "p1Reply": 7,
+          "macroLabel": "c3>c7",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "ef268e62dfaecf76",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            3,
+            6,
+            6,
+            5,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 6,
+          "p1Reply": 1,
+          "macroLabel": "c6>c1",
+          "kind": "DEFENDER_TERMINAL",
+          "targetQClass": null,
+          "targetRank": null,
+          "targetSupport": null,
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 6,
+          "p1Reply": 3,
+          "macroLabel": "c6>c3",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "22dffba09a403111",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            3,
+            6,
+            6,
+            6,
+            0
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 6,
+          "p1Reply": 7,
+          "macroLabel": "c6>c7",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "2f88de106c7c402b",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            2,
+            6,
+            6,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 7,
+          "p1Reply": 1,
+          "macroLabel": "c7>c1",
+          "kind": "DEFENDER_TERMINAL",
+          "targetQClass": null,
+          "targetRank": null,
+          "targetSupport": null,
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 7,
+          "p1Reply": 3,
+          "macroLabel": "c7>c3",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "77b1d9e6ea5f69a7",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            3,
+            6,
+            6,
+            5,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 7,
+          "p1Reply": 6,
+          "macroLabel": "c7>c6",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "bed156c31f338787",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            2,
+            6,
+            6,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 7,
+          "p1Reply": 7,
+          "macroLabel": "c7>c7",
+          "kind": "LOWER_I",
+          "targetQClass": "89df18e4800a04ea",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            2,
+            6,
+            6,
+            5,
+            2
+          ],
+          "proofExpression": "I",
+          "proofWitness": {
+            "immediateWinningColumns": [
+              7
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "sourceLeafId": "SECOND_D1_C5_CONTRACTION:F->A",
+      "sourceQClass": "8b007f7dfd990ea6",
+      "sourceRank": 30,
+      "sourceSupport": [
+        5,
+        6,
+        2,
+        6,
+        5,
+        6,
+        0
+      ],
+      "rawTransitionCount": 14,
+      "consequenceKinds": [
+        "DEFENDER_TERMINAL",
+        "LOWER_I",
+        "UNRESOLVED_Q"
+      ],
+      "unresolvedTargetQClasses": [
+        "80648733b86d690c",
+        "3afa4918e827e799",
+        "3ec23db76d062e04",
+        "2a35b713d46a63b3",
+        "80082e9945d4c152",
+        "b4d5f90ecb54237a",
+        "22dffba09a403111",
+        "2f88de106c7c402b",
+        "9bf0bd55c3ffa805",
+        "bed156c31f338787"
+      ],
+      "quotientUnresolvedArity": 10,
+      "transitions": [
+        {
+          "p0Move": 1,
+          "p1Reply": 3,
+          "macroLabel": "c1>c3",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "80648733b86d690c",
+          "targetRank": 32,
+          "targetSupport": [
+            6,
+            6,
+            3,
+            6,
+            5,
+            6,
+            0
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 1,
+          "p1Reply": 5,
+          "macroLabel": "c1>c5",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "3afa4918e827e799",
+          "targetRank": 32,
+          "targetSupport": [
+            6,
+            6,
+            2,
+            6,
+            6,
+            6,
+            0
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 1,
+          "p1Reply": 7,
+          "macroLabel": "c1>c7",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "3ec23db76d062e04",
+          "targetRank": 32,
+          "targetSupport": [
+            6,
+            6,
+            2,
+            6,
+            5,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 3,
+          "p1Reply": 1,
+          "macroLabel": "c3>c1",
+          "kind": "DEFENDER_TERMINAL",
+          "targetQClass": null,
+          "targetRank": null,
+          "targetSupport": null,
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 3,
+          "p1Reply": 3,
+          "macroLabel": "c3>c3",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "2a35b713d46a63b3",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            4,
+            6,
+            5,
+            6,
+            0
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 3,
+          "p1Reply": 5,
+          "macroLabel": "c3>c5",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "80082e9945d4c152",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            3,
+            6,
+            6,
+            6,
+            0
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 3,
+          "p1Reply": 7,
+          "macroLabel": "c3>c7",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "b4d5f90ecb54237a",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            3,
+            6,
+            5,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 5,
+          "p1Reply": 1,
+          "macroLabel": "c5>c1",
+          "kind": "DEFENDER_TERMINAL",
+          "targetQClass": null,
+          "targetRank": null,
+          "targetSupport": null,
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 5,
+          "p1Reply": 3,
+          "macroLabel": "c5>c3",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "22dffba09a403111",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            3,
+            6,
+            6,
+            6,
+            0
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 5,
+          "p1Reply": 7,
+          "macroLabel": "c5>c7",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "2f88de106c7c402b",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            2,
+            6,
+            6,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 7,
+          "p1Reply": 1,
+          "macroLabel": "c7>c1",
+          "kind": "DEFENDER_TERMINAL",
+          "targetQClass": null,
+          "targetRank": null,
+          "targetSupport": null,
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 7,
+          "p1Reply": 3,
+          "macroLabel": "c7>c3",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "9bf0bd55c3ffa805",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            3,
+            6,
+            5,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 7,
+          "p1Reply": 5,
+          "macroLabel": "c7>c5",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "bed156c31f338787",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            2,
+            6,
+            6,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 7,
+          "p1Reply": 7,
+          "macroLabel": "c7>c7",
+          "kind": "LOWER_I",
+          "targetQClass": "30ff09e8f92bcee7",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            2,
+            6,
+            5,
+            6,
+            2
+          ],
+          "proofExpression": "I",
+          "proofWitness": {
+            "immediateWinningColumns": [
+              7
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "sourceLeafId": "SECOND_D6_C5_CONTRACTION:G->A",
+      "sourceQClass": "475b51b09cf2f66e",
+      "sourceRank": 30,
+      "sourceSupport": [
+        4,
+        6,
+        2,
+        6,
+        5,
+        6,
+        1
+      ],
+      "rawTransitionCount": 15,
+      "consequenceKinds": [
+        "LOWER_I",
+        "UNRESOLVED_Q"
+      ],
+      "unresolvedTargetQClasses": [
+        "78fd9addd9e5189e",
+        "1acd16f6ba136480",
+        "2fe4d26efce70b20",
+        "b7dad8f46e2fb27c",
+        "46f7d5f1741bd505",
+        "08824c691e2e6111",
+        "bed156c31f338787",
+        "94caca82a6b58891",
+        "35bf0a393f52a2e4"
+      ],
+      "quotientUnresolvedArity": 9,
+      "transitions": [
+        {
+          "p0Move": 1,
+          "p1Reply": 1,
+          "macroLabel": "c1>c1",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "78fd9addd9e5189e",
+          "targetRank": 32,
+          "targetSupport": [
+            6,
+            6,
+            2,
+            6,
+            5,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 1,
+          "p1Reply": 3,
+          "macroLabel": "c1>c3",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "1acd16f6ba136480",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            3,
+            6,
+            5,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 1,
+          "p1Reply": 5,
+          "macroLabel": "c1>c5",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "2fe4d26efce70b20",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            2,
+            6,
+            6,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 1,
+          "p1Reply": 7,
+          "macroLabel": "c1>c7",
+          "kind": "LOWER_I",
+          "targetQClass": "e3ab73aa2d256738",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            2,
+            6,
+            5,
+            6,
+            2
+          ],
+          "proofExpression": "I",
+          "proofWitness": {
+            "immediateWinningColumns": [
+              7
+            ]
+          }
+        },
+        {
+          "p0Move": 3,
+          "p1Reply": 1,
+          "macroLabel": "c3>c1",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "b7dad8f46e2fb27c",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            3,
+            6,
+            5,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 3,
+          "p1Reply": 3,
+          "macroLabel": "c3>c3",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "46f7d5f1741bd505",
+          "targetRank": 32,
+          "targetSupport": [
+            4,
+            6,
+            4,
+            6,
+            5,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 3,
+          "p1Reply": 5,
+          "macroLabel": "c3>c5",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "08824c691e2e6111",
+          "targetRank": 32,
+          "targetSupport": [
+            4,
+            6,
+            3,
+            6,
+            6,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 3,
+          "p1Reply": 7,
+          "macroLabel": "c3>c7",
+          "kind": "LOWER_I",
+          "targetQClass": "e216adda331ebf17",
+          "targetRank": 32,
+          "targetSupport": [
+            4,
+            6,
+            3,
+            6,
+            5,
+            6,
+            2
+          ],
+          "proofExpression": "I",
+          "proofWitness": {
+            "immediateWinningColumns": [
+              7
+            ]
+          }
+        },
+        {
+          "p0Move": 5,
+          "p1Reply": 1,
+          "macroLabel": "c5>c1",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "bed156c31f338787",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            2,
+            6,
+            6,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 5,
+          "p1Reply": 3,
+          "macroLabel": "c5>c3",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "94caca82a6b58891",
+          "targetRank": 32,
+          "targetSupport": [
+            4,
+            6,
+            3,
+            6,
+            6,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 5,
+          "p1Reply": 7,
+          "macroLabel": "c5>c7",
+          "kind": "LOWER_I",
+          "targetQClass": "a138b6dbb7e9034f",
+          "targetRank": 32,
+          "targetSupport": [
+            4,
+            6,
+            2,
+            6,
+            6,
+            6,
+            2
+          ],
+          "proofExpression": "I",
+          "proofWitness": {
+            "immediateWinningColumns": [
+              7
+            ]
+          }
+        },
+        {
+          "p0Move": 7,
+          "p1Reply": 1,
+          "macroLabel": "c7>c1",
+          "kind": "LOWER_I",
+          "targetQClass": "aa35c5a66ac544e7",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            2,
+            6,
+            5,
+            6,
+            2
+          ],
+          "proofExpression": "I",
+          "proofWitness": {
+            "immediateWinningColumns": [
+              7
+            ]
+          }
+        },
+        {
+          "p0Move": 7,
+          "p1Reply": 3,
+          "macroLabel": "c7>c3",
+          "kind": "LOWER_I",
+          "targetQClass": "cde40732a724d6f1",
+          "targetRank": 32,
+          "targetSupport": [
+            4,
+            6,
+            3,
+            6,
+            5,
+            6,
+            2
+          ],
+          "proofExpression": "I",
+          "proofWitness": {
+            "immediateWinningColumns": [
+              7
+            ]
+          }
+        },
+        {
+          "p0Move": 7,
+          "p1Reply": 5,
+          "macroLabel": "c7>c5",
+          "kind": "LOWER_I",
+          "targetQClass": "0ae87dab865f4e49",
+          "targetRank": 32,
+          "targetSupport": [
+            4,
+            6,
+            2,
+            6,
+            6,
+            6,
+            2
+          ],
+          "proofExpression": "I",
+          "proofWitness": {
+            "immediateWinningColumns": [
+              7
+            ]
+          }
+        },
+        {
+          "p0Move": 7,
+          "p1Reply": 7,
+          "macroLabel": "c7>c7",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "35bf0a393f52a2e4",
+          "targetRank": 32,
+          "targetSupport": [
+            4,
+            6,
+            2,
+            6,
+            5,
+            6,
+            3
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        }
+      ]
+    },
+    {
+      "sourceLeafId": "SECOND_D6_C5_CONTRACTION:A->A",
+      "sourceQClass": "9486272f55996c92",
+      "sourceRank": 30,
+      "sourceSupport": [
+        5,
+        6,
+        2,
+        6,
+        5,
+        6,
+        0
+      ],
+      "rawTransitionCount": 14,
+      "consequenceKinds": [
+        "LOWER_I",
+        "UNRESOLVED_Q"
+      ],
+      "unresolvedTargetQClasses": [
+        "168b04d4c4326beb",
+        "3afa4918e827e799",
+        "4b4509e31525d95e",
+        "9326596be55ae15a",
+        "e32df3e33d919f63",
+        "47c4a5bf0ab9600d",
+        "432622a657833ff3",
+        "3afa4918e827e799",
+        "bde94c43bc0bb533",
+        "c12e260ea9352ef9",
+        "78fd9addd9e5189e",
+        "1acd16f6ba136480",
+        "2fe4d26efce70b20"
+      ],
+      "quotientUnresolvedArity": 12,
+      "transitions": [
+        {
+          "p0Move": 1,
+          "p1Reply": 3,
+          "macroLabel": "c1>c3",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "168b04d4c4326beb",
+          "targetRank": 32,
+          "targetSupport": [
+            6,
+            6,
+            3,
+            6,
+            5,
+            6,
+            0
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 1,
+          "p1Reply": 5,
+          "macroLabel": "c1>c5",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "3afa4918e827e799",
+          "targetRank": 32,
+          "targetSupport": [
+            6,
+            6,
+            2,
+            6,
+            6,
+            6,
+            0
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 1,
+          "p1Reply": 7,
+          "macroLabel": "c1>c7",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "4b4509e31525d95e",
+          "targetRank": 32,
+          "targetSupport": [
+            6,
+            6,
+            2,
+            6,
+            5,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 3,
+          "p1Reply": 1,
+          "macroLabel": "c3>c1",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "9326596be55ae15a",
+          "targetRank": 32,
+          "targetSupport": [
+            6,
+            6,
+            3,
+            6,
+            5,
+            6,
+            0
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 3,
+          "p1Reply": 3,
+          "macroLabel": "c3>c3",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "e32df3e33d919f63",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            4,
+            6,
+            5,
+            6,
+            0
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 3,
+          "p1Reply": 5,
+          "macroLabel": "c3>c5",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "47c4a5bf0ab9600d",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            3,
+            6,
+            6,
+            6,
+            0
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 3,
+          "p1Reply": 7,
+          "macroLabel": "c3>c7",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "432622a657833ff3",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            3,
+            6,
+            5,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 5,
+          "p1Reply": 1,
+          "macroLabel": "c5>c1",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "3afa4918e827e799",
+          "targetRank": 32,
+          "targetSupport": [
+            6,
+            6,
+            2,
+            6,
+            6,
+            6,
+            0
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 5,
+          "p1Reply": 3,
+          "macroLabel": "c5>c3",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "bde94c43bc0bb533",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            3,
+            6,
+            6,
+            6,
+            0
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 5,
+          "p1Reply": 7,
+          "macroLabel": "c5>c7",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "c12e260ea9352ef9",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            2,
+            6,
+            6,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 7,
+          "p1Reply": 1,
+          "macroLabel": "c7>c1",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "78fd9addd9e5189e",
+          "targetRank": 32,
+          "targetSupport": [
+            6,
+            6,
+            2,
+            6,
+            5,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 7,
+          "p1Reply": 3,
+          "macroLabel": "c7>c3",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "1acd16f6ba136480",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            3,
+            6,
+            5,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 7,
+          "p1Reply": 5,
+          "macroLabel": "c7>c5",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "2fe4d26efce70b20",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            2,
+            6,
+            6,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 7,
+          "p1Reply": 7,
+          "macroLabel": "c7>c7",
+          "kind": "LOWER_I",
+          "targetQClass": "e3ab73aa2d256738",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            2,
+            6,
+            5,
+            6,
+            2
+          ],
+          "proofExpression": "I",
+          "proofWitness": {
+            "immediateWinningColumns": [
+              7
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "sourceLeafId": "SECOND_D6_C5_CONTRACTION:E->A",
+      "sourceQClass": "5d477ec65b3c48bc",
+      "sourceRank": 30,
+      "sourceSupport": [
+        4,
+        6,
+        2,
+        6,
+        6,
+        6,
+        0
+      ],
+      "rawTransitionCount": 9,
+      "consequenceKinds": [
+        "LOWER_I",
+        "UNRESOLVED_Q"
+      ],
+      "unresolvedTargetQClasses": [
+        "3afa4918e827e799",
+        "bde94c43bc0bb533",
+        "c12e260ea9352ef9",
+        "80082e9945d4c152",
+        "0edaddde602c576e",
+        "fb0b5ec4cda31d54",
+        "bed156c31f338787",
+        "94caca82a6b58891"
+      ],
+      "quotientUnresolvedArity": 8,
+      "transitions": [
+        {
+          "p0Move": 1,
+          "p1Reply": 1,
+          "macroLabel": "c1>c1",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "3afa4918e827e799",
+          "targetRank": 32,
+          "targetSupport": [
+            6,
+            6,
+            2,
+            6,
+            6,
+            6,
+            0
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 1,
+          "p1Reply": 3,
+          "macroLabel": "c1>c3",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "bde94c43bc0bb533",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            3,
+            6,
+            6,
+            6,
+            0
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 1,
+          "p1Reply": 7,
+          "macroLabel": "c1>c7",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "c12e260ea9352ef9",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            2,
+            6,
+            6,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 3,
+          "p1Reply": 1,
+          "macroLabel": "c3>c1",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "80082e9945d4c152",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            3,
+            6,
+            6,
+            6,
+            0
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 3,
+          "p1Reply": 3,
+          "macroLabel": "c3>c3",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "0edaddde602c576e",
+          "targetRank": 32,
+          "targetSupport": [
+            4,
+            6,
+            4,
+            6,
+            6,
+            6,
+            0
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 3,
+          "p1Reply": 7,
+          "macroLabel": "c3>c7",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "fb0b5ec4cda31d54",
+          "targetRank": 32,
+          "targetSupport": [
+            4,
+            6,
+            3,
+            6,
+            6,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 7,
+          "p1Reply": 1,
+          "macroLabel": "c7>c1",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "bed156c31f338787",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            2,
+            6,
+            6,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 7,
+          "p1Reply": 3,
+          "macroLabel": "c7>c3",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "94caca82a6b58891",
+          "targetRank": 32,
+          "targetSupport": [
+            4,
+            6,
+            3,
+            6,
+            6,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 7,
+          "p1Reply": 7,
+          "macroLabel": "c7>c7",
+          "kind": "LOWER_I",
+          "targetQClass": "a138b6dbb7e9034f",
+          "targetRank": 32,
+          "targetSupport": [
+            4,
+            6,
+            2,
+            6,
+            6,
+            6,
+            2
+          ],
+          "proofExpression": "I",
+          "proofWitness": {
+            "immediateWinningColumns": [
+              7
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "sourceLeafId": "SECOND_D7_C5_CONTRACTION:G->G",
+      "sourceQClass": "7ddbc5877da1aae5",
+      "sourceRank": 30,
+      "sourceSupport": [
+        3,
+        6,
+        2,
+        6,
+        5,
+        5,
+        3
+      ],
+      "rawTransitionCount": 23,
+      "consequenceKinds": [
+        "UNRESOLVED_Q"
+      ],
+      "unresolvedTargetQClasses": [
+        "fdfd7a5a5bf01e97",
+        "e33614d745566f6e",
+        "20438c51672dfc50",
+        "0c94d36ee53a09cf",
+        "c8bd11012cd7af0f",
+        "9a71b75a79d0a672",
+        "1a19d0c49e398186",
+        "fa415ceee14dfe15",
+        "e9c6db1630e21415",
+        "37a9c62d8fd980f9",
+        "cd0f59f3365ac676",
+        "2d83abfc0c70241e",
+        "29d4a951abd0d482",
+        "8ab031432caa9c47",
+        "0801daebe787d3cd",
+        "a3dfcb4015f5621a",
+        "29d4a951abd0d482",
+        "179e71321b01d832",
+        "a09cc4edc3e9b1e5",
+        "3a5600cd61301693",
+        "00809a9e5aee5cd2",
+        "a33bd9f921b62c86",
+        "517ce288243f3201"
+      ],
+      "quotientUnresolvedArity": 22,
+      "transitions": [
+        {
+          "p0Move": 1,
+          "p1Reply": 1,
+          "macroLabel": "c1>c1",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "fdfd7a5a5bf01e97",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            2,
+            6,
+            5,
+            5,
+            3
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 1,
+          "p1Reply": 3,
+          "macroLabel": "c1>c3",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "e33614d745566f6e",
+          "targetRank": 32,
+          "targetSupport": [
+            4,
+            6,
+            3,
+            6,
+            5,
+            5,
+            3
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 1,
+          "p1Reply": 5,
+          "macroLabel": "c1>c5",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "20438c51672dfc50",
+          "targetRank": 32,
+          "targetSupport": [
+            4,
+            6,
+            2,
+            6,
+            6,
+            5,
+            3
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 1,
+          "p1Reply": 6,
+          "macroLabel": "c1>c6",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "0c94d36ee53a09cf",
+          "targetRank": 32,
+          "targetSupport": [
+            4,
+            6,
+            2,
+            6,
+            5,
+            6,
+            3
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 1,
+          "p1Reply": 7,
+          "macroLabel": "c1>c7",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "c8bd11012cd7af0f",
+          "targetRank": 32,
+          "targetSupport": [
+            4,
+            6,
+            2,
+            6,
+            5,
+            5,
+            4
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 3,
+          "p1Reply": 1,
+          "macroLabel": "c3>c1",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "9a71b75a79d0a672",
+          "targetRank": 32,
+          "targetSupport": [
+            4,
+            6,
+            3,
+            6,
+            5,
+            5,
+            3
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 3,
+          "p1Reply": 3,
+          "macroLabel": "c3>c3",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "1a19d0c49e398186",
+          "targetRank": 32,
+          "targetSupport": [
+            3,
+            6,
+            4,
+            6,
+            5,
+            5,
+            3
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 3,
+          "p1Reply": 5,
+          "macroLabel": "c3>c5",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "fa415ceee14dfe15",
+          "targetRank": 32,
+          "targetSupport": [
+            3,
+            6,
+            3,
+            6,
+            6,
+            5,
+            3
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 3,
+          "p1Reply": 6,
+          "macroLabel": "c3>c6",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "e9c6db1630e21415",
+          "targetRank": 32,
+          "targetSupport": [
+            3,
+            6,
+            3,
+            6,
+            5,
+            6,
+            3
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 3,
+          "p1Reply": 7,
+          "macroLabel": "c3>c7",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "37a9c62d8fd980f9",
+          "targetRank": 32,
+          "targetSupport": [
+            3,
+            6,
+            3,
+            6,
+            5,
+            5,
+            4
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 5,
+          "p1Reply": 1,
+          "macroLabel": "c5>c1",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "cd0f59f3365ac676",
+          "targetRank": 32,
+          "targetSupport": [
+            4,
+            6,
+            2,
+            6,
+            6,
+            5,
+            3
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 5,
+          "p1Reply": 3,
+          "macroLabel": "c5>c3",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "2d83abfc0c70241e",
+          "targetRank": 32,
+          "targetSupport": [
+            3,
+            6,
+            3,
+            6,
+            6,
+            5,
+            3
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 5,
+          "p1Reply": 6,
+          "macroLabel": "c5>c6",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "29d4a951abd0d482",
+          "targetRank": 32,
+          "targetSupport": [
+            3,
+            6,
+            2,
+            6,
+            6,
+            6,
+            3
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 5,
+          "p1Reply": 7,
+          "macroLabel": "c5>c7",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "8ab031432caa9c47",
+          "targetRank": 32,
+          "targetSupport": [
+            3,
+            6,
+            2,
+            6,
+            6,
+            5,
+            4
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 6,
+          "p1Reply": 1,
+          "macroLabel": "c6>c1",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "0801daebe787d3cd",
+          "targetRank": 32,
+          "targetSupport": [
+            4,
+            6,
+            2,
+            6,
+            5,
+            6,
+            3
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 6,
+          "p1Reply": 3,
+          "macroLabel": "c6>c3",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "a3dfcb4015f5621a",
+          "targetRank": 32,
+          "targetSupport": [
+            3,
+            6,
+            3,
+            6,
+            5,
+            6,
+            3
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 6,
+          "p1Reply": 5,
+          "macroLabel": "c6>c5",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "29d4a951abd0d482",
+          "targetRank": 32,
+          "targetSupport": [
+            3,
+            6,
+            2,
+            6,
+            6,
+            6,
+            3
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 6,
+          "p1Reply": 7,
+          "macroLabel": "c6>c7",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "179e71321b01d832",
+          "targetRank": 32,
+          "targetSupport": [
+            3,
+            6,
+            2,
+            6,
+            5,
+            6,
+            4
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 7,
+          "p1Reply": 1,
+          "macroLabel": "c7>c1",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "a09cc4edc3e9b1e5",
+          "targetRank": 32,
+          "targetSupport": [
+            4,
+            6,
+            2,
+            6,
+            5,
+            5,
+            4
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 7,
+          "p1Reply": 3,
+          "macroLabel": "c7>c3",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "3a5600cd61301693",
+          "targetRank": 32,
+          "targetSupport": [
+            3,
+            6,
+            3,
+            6,
+            5,
+            5,
+            4
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 7,
+          "p1Reply": 5,
+          "macroLabel": "c7>c5",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "00809a9e5aee5cd2",
+          "targetRank": 32,
+          "targetSupport": [
+            3,
+            6,
+            2,
+            6,
+            6,
+            5,
+            4
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 7,
+          "p1Reply": 6,
+          "macroLabel": "c7>c6",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "a33bd9f921b62c86",
+          "targetRank": 32,
+          "targetSupport": [
+            3,
+            6,
+            2,
+            6,
+            5,
+            6,
+            4
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 7,
+          "p1Reply": 7,
+          "macroLabel": "c7>c7",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "517ce288243f3201",
+          "targetRank": 32,
+          "targetSupport": [
+            3,
+            6,
+            2,
+            6,
+            5,
+            5,
+            5
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        }
+      ]
+    },
+    {
+      "sourceLeafId": "SECOND_D7_C5_CONTRACTION:A->A",
+      "sourceQClass": "680acc3a5e8c8bef",
+      "sourceRank": 30,
+      "sourceSupport": [
+        5,
+        6,
+        2,
+        6,
+        5,
+        5,
+        1
+      ],
+      "rawTransitionCount": 22,
+      "consequenceKinds": [
+        "LOWER_I",
+        "UNRESOLVED_Q"
+      ],
+      "unresolvedTargetQClasses": [
+        "ed6875fb8f73132a",
+        "7d4a5529c1cf873b",
+        "4b4509e31525d95e",
+        "966e6353e06e4d41",
+        "94a0116a55fe9df1",
+        "e8d450049057ab15",
+        "432622a657833ff3",
+        "2ecda5a87ae9cbdc",
+        "44d53407f4c11e75",
+        "c12e260ea9352ef9",
+        "3ec23db76d062e04",
+        "980e773297da786a",
+        "c12e260ea9352ef9",
+        "fdfd7a5a5bf01e97"
+      ],
+      "quotientUnresolvedArity": 13,
+      "transitions": [
+        {
+          "p0Move": 1,
+          "p1Reply": 3,
+          "macroLabel": "c1>c3",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "ed6875fb8f73132a",
+          "targetRank": 32,
+          "targetSupport": [
+            6,
+            6,
+            3,
+            6,
+            5,
+            5,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 1,
+          "p1Reply": 5,
+          "macroLabel": "c1>c5",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "7d4a5529c1cf873b",
+          "targetRank": 32,
+          "targetSupport": [
+            6,
+            6,
+            2,
+            6,
+            6,
+            5,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 1,
+          "p1Reply": 6,
+          "macroLabel": "c1>c6",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "4b4509e31525d95e",
+          "targetRank": 32,
+          "targetSupport": [
+            6,
+            6,
+            2,
+            6,
+            5,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 1,
+          "p1Reply": 7,
+          "macroLabel": "c1>c7",
+          "kind": "LOWER_I",
+          "targetQClass": "b16677d3a99f2b41",
+          "targetRank": 32,
+          "targetSupport": [
+            6,
+            6,
+            2,
+            6,
+            5,
+            5,
+            2
+          ],
+          "proofExpression": "I",
+          "proofWitness": {
+            "immediateWinningColumns": [
+              7
+            ]
+          }
+        },
+        {
+          "p0Move": 3,
+          "p1Reply": 1,
+          "macroLabel": "c3>c1",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "966e6353e06e4d41",
+          "targetRank": 32,
+          "targetSupport": [
+            6,
+            6,
+            3,
+            6,
+            5,
+            5,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 3,
+          "p1Reply": 3,
+          "macroLabel": "c3>c3",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "94a0116a55fe9df1",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            4,
+            6,
+            5,
+            5,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 3,
+          "p1Reply": 5,
+          "macroLabel": "c3>c5",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "e8d450049057ab15",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            3,
+            6,
+            6,
+            5,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 3,
+          "p1Reply": 6,
+          "macroLabel": "c3>c6",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "432622a657833ff3",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            3,
+            6,
+            5,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 3,
+          "p1Reply": 7,
+          "macroLabel": "c3>c7",
+          "kind": "LOWER_I",
+          "targetQClass": "868d6f548e40f6f1",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            3,
+            6,
+            5,
+            5,
+            2
+          ],
+          "proofExpression": "I",
+          "proofWitness": {
+            "immediateWinningColumns": [
+              7
+            ]
+          }
+        },
+        {
+          "p0Move": 5,
+          "p1Reply": 1,
+          "macroLabel": "c5>c1",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "2ecda5a87ae9cbdc",
+          "targetRank": 32,
+          "targetSupport": [
+            6,
+            6,
+            2,
+            6,
+            6,
+            5,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 5,
+          "p1Reply": 3,
+          "macroLabel": "c5>c3",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "44d53407f4c11e75",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            3,
+            6,
+            6,
+            5,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 5,
+          "p1Reply": 6,
+          "macroLabel": "c5>c6",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "c12e260ea9352ef9",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            2,
+            6,
+            6,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 5,
+          "p1Reply": 7,
+          "macroLabel": "c5>c7",
+          "kind": "LOWER_I",
+          "targetQClass": "44dfbbdb94bb49bf",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            2,
+            6,
+            6,
+            5,
+            2
+          ],
+          "proofExpression": "I",
+          "proofWitness": {
+            "immediateWinningColumns": [
+              7
+            ]
+          }
+        },
+        {
+          "p0Move": 6,
+          "p1Reply": 1,
+          "macroLabel": "c6>c1",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "3ec23db76d062e04",
+          "targetRank": 32,
+          "targetSupport": [
+            6,
+            6,
+            2,
+            6,
+            5,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 6,
+          "p1Reply": 3,
+          "macroLabel": "c6>c3",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "980e773297da786a",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            3,
+            6,
+            5,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 6,
+          "p1Reply": 5,
+          "macroLabel": "c6>c5",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "c12e260ea9352ef9",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            2,
+            6,
+            6,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 6,
+          "p1Reply": 7,
+          "macroLabel": "c6>c7",
+          "kind": "LOWER_I",
+          "targetQClass": "78bb28ba9e2f80fd",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            2,
+            6,
+            5,
+            6,
+            2
+          ],
+          "proofExpression": "I",
+          "proofWitness": {
+            "immediateWinningColumns": [
+              7
+            ]
+          }
+        },
+        {
+          "p0Move": 7,
+          "p1Reply": 1,
+          "macroLabel": "c7>c1",
+          "kind": "LOWER_I",
+          "targetQClass": "3c46c6a40026836b",
+          "targetRank": 32,
+          "targetSupport": [
+            6,
+            6,
+            2,
+            6,
+            5,
+            5,
+            2
+          ],
+          "proofExpression": "I",
+          "proofWitness": {
+            "immediateWinningColumns": [
+              7
+            ]
+          }
+        },
+        {
+          "p0Move": 7,
+          "p1Reply": 3,
+          "macroLabel": "c7>c3",
+          "kind": "LOWER_I",
+          "targetQClass": "03f70079527f5bde",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            3,
+            6,
+            5,
+            5,
+            2
+          ],
+          "proofExpression": "I",
+          "proofWitness": {
+            "immediateWinningColumns": [
+              7
+            ]
+          }
+        },
+        {
+          "p0Move": 7,
+          "p1Reply": 5,
+          "macroLabel": "c7>c5",
+          "kind": "LOWER_I",
+          "targetQClass": "b611b899d0a5527f",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            2,
+            6,
+            6,
+            5,
+            2
+          ],
+          "proofExpression": "I",
+          "proofWitness": {
+            "immediateWinningColumns": [
+              7
+            ]
+          }
+        },
+        {
+          "p0Move": 7,
+          "p1Reply": 6,
+          "macroLabel": "c7>c6",
+          "kind": "LOWER_I",
+          "targetQClass": "2cb8853d0a948996",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            2,
+            6,
+            5,
+            6,
+            2
+          ],
+          "proofExpression": "I",
+          "proofWitness": {
+            "immediateWinningColumns": [
+              7
+            ]
+          }
+        },
+        {
+          "p0Move": 7,
+          "p1Reply": 7,
+          "macroLabel": "c7>c7",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "fdfd7a5a5bf01e97",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            2,
+            6,
+            5,
+            5,
+            3
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        }
+      ]
+    },
+    {
+      "sourceLeafId": "SECOND_D7_C5_CONTRACTION:E->A",
+      "sourceQClass": "8e5db6e2893b3eaf",
+      "sourceRank": 30,
+      "sourceSupport": [
+        4,
+        6,
+        2,
+        6,
+        6,
+        5,
+        1
+      ],
+      "rawTransitionCount": 15,
+      "consequenceKinds": [
+        "LOWER_I",
+        "UNRESOLVED_Q"
+      ],
+      "unresolvedTargetQClasses": [
+        "2ecda5a87ae9cbdc",
+        "44d53407f4c11e75",
+        "c12e260ea9352ef9",
+        "ef268e62dfaecf76",
+        "48337dc010216775",
+        "fb0b5ec4cda31d54",
+        "2f88de106c7c402b",
+        "cc8d7aab6e44cb31",
+        "cd0f59f3365ac676"
+      ],
+      "quotientUnresolvedArity": 9,
+      "transitions": [
+        {
+          "p0Move": 1,
+          "p1Reply": 1,
+          "macroLabel": "c1>c1",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "2ecda5a87ae9cbdc",
+          "targetRank": 32,
+          "targetSupport": [
+            6,
+            6,
+            2,
+            6,
+            6,
+            5,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 1,
+          "p1Reply": 3,
+          "macroLabel": "c1>c3",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "44d53407f4c11e75",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            3,
+            6,
+            6,
+            5,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 1,
+          "p1Reply": 6,
+          "macroLabel": "c1>c6",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "c12e260ea9352ef9",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            2,
+            6,
+            6,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 1,
+          "p1Reply": 7,
+          "macroLabel": "c1>c7",
+          "kind": "LOWER_I",
+          "targetQClass": "44dfbbdb94bb49bf",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            2,
+            6,
+            6,
+            5,
+            2
+          ],
+          "proofExpression": "I",
+          "proofWitness": {
+            "immediateWinningColumns": [
+              7
+            ]
+          }
+        },
+        {
+          "p0Move": 3,
+          "p1Reply": 1,
+          "macroLabel": "c3>c1",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "ef268e62dfaecf76",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            3,
+            6,
+            6,
+            5,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 3,
+          "p1Reply": 3,
+          "macroLabel": "c3>c3",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "48337dc010216775",
+          "targetRank": 32,
+          "targetSupport": [
+            4,
+            6,
+            4,
+            6,
+            6,
+            5,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 3,
+          "p1Reply": 6,
+          "macroLabel": "c3>c6",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "fb0b5ec4cda31d54",
+          "targetRank": 32,
+          "targetSupport": [
+            4,
+            6,
+            3,
+            6,
+            6,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 3,
+          "p1Reply": 7,
+          "macroLabel": "c3>c7",
+          "kind": "LOWER_I",
+          "targetQClass": "dda5601cd34bdfaa",
+          "targetRank": 32,
+          "targetSupport": [
+            4,
+            6,
+            3,
+            6,
+            6,
+            5,
+            2
+          ],
+          "proofExpression": "I",
+          "proofWitness": {
+            "immediateWinningColumns": [
+              7
+            ]
+          }
+        },
+        {
+          "p0Move": 6,
+          "p1Reply": 1,
+          "macroLabel": "c6>c1",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "2f88de106c7c402b",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            2,
+            6,
+            6,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 6,
+          "p1Reply": 3,
+          "macroLabel": "c6>c3",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "cc8d7aab6e44cb31",
+          "targetRank": 32,
+          "targetSupport": [
+            4,
+            6,
+            3,
+            6,
+            6,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 6,
+          "p1Reply": 7,
+          "macroLabel": "c6>c7",
+          "kind": "LOWER_I",
+          "targetQClass": "90d077e0af421bf4",
+          "targetRank": 32,
+          "targetSupport": [
+            4,
+            6,
+            2,
+            6,
+            6,
+            6,
+            2
+          ],
+          "proofExpression": "I",
+          "proofWitness": {
+            "immediateWinningColumns": [
+              7
+            ]
+          }
+        },
+        {
+          "p0Move": 7,
+          "p1Reply": 1,
+          "macroLabel": "c7>c1",
+          "kind": "LOWER_I",
+          "targetQClass": "0071e9c6b010c93a",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            2,
+            6,
+            6,
+            5,
+            2
+          ],
+          "proofExpression": "I",
+          "proofWitness": {
+            "immediateWinningColumns": [
+              7
+            ]
+          }
+        },
+        {
+          "p0Move": 7,
+          "p1Reply": 3,
+          "macroLabel": "c7>c3",
+          "kind": "LOWER_I",
+          "targetQClass": "36dafd201863153e",
+          "targetRank": 32,
+          "targetSupport": [
+            4,
+            6,
+            3,
+            6,
+            6,
+            5,
+            2
+          ],
+          "proofExpression": "I",
+          "proofWitness": {
+            "immediateWinningColumns": [
+              7
+            ]
+          }
+        },
+        {
+          "p0Move": 7,
+          "p1Reply": 6,
+          "macroLabel": "c7>c6",
+          "kind": "LOWER_I",
+          "targetQClass": "0ae87dab865f4e49",
+          "targetRank": 32,
+          "targetSupport": [
+            4,
+            6,
+            2,
+            6,
+            6,
+            6,
+            2
+          ],
+          "proofExpression": "I",
+          "proofWitness": {
+            "immediateWinningColumns": [
+              7
+            ]
+          }
+        },
+        {
+          "p0Move": 7,
+          "p1Reply": 7,
+          "macroLabel": "c7>c7",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "cd0f59f3365ac676",
+          "targetRank": 32,
+          "targetSupport": [
+            4,
+            6,
+            2,
+            6,
+            6,
+            5,
+            3
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        }
+      ]
+    },
+    {
+      "sourceLeafId": "SECOND_D7_C5_CONTRACTION:F->A",
+      "sourceQClass": "7c5e1cc7846c6b26",
+      "sourceRank": 30,
+      "sourceSupport": [
+        4,
+        6,
+        2,
+        6,
+        5,
+        6,
+        1
+      ],
+      "rawTransitionCount": 15,
+      "consequenceKinds": [
+        "LOWER_I",
+        "UNRESOLVED_Q"
+      ],
+      "unresolvedTargetQClasses": [
+        "3ec23db76d062e04",
+        "980e773297da786a",
+        "c12e260ea9352ef9",
+        "b4d5f90ecb54237a",
+        "1a9a74139206b84c",
+        "fb0b5ec4cda31d54",
+        "2f88de106c7c402b",
+        "cc8d7aab6e44cb31",
+        "0801daebe787d3cd"
+      ],
+      "quotientUnresolvedArity": 9,
+      "transitions": [
+        {
+          "p0Move": 1,
+          "p1Reply": 1,
+          "macroLabel": "c1>c1",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "3ec23db76d062e04",
+          "targetRank": 32,
+          "targetSupport": [
+            6,
+            6,
+            2,
+            6,
+            5,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 1,
+          "p1Reply": 3,
+          "macroLabel": "c1>c3",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "980e773297da786a",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            3,
+            6,
+            5,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 1,
+          "p1Reply": 5,
+          "macroLabel": "c1>c5",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "c12e260ea9352ef9",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            2,
+            6,
+            6,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 1,
+          "p1Reply": 7,
+          "macroLabel": "c1>c7",
+          "kind": "LOWER_I",
+          "targetQClass": "78bb28ba9e2f80fd",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            2,
+            6,
+            5,
+            6,
+            2
+          ],
+          "proofExpression": "I",
+          "proofWitness": {
+            "immediateWinningColumns": [
+              7
+            ]
+          }
+        },
+        {
+          "p0Move": 3,
+          "p1Reply": 1,
+          "macroLabel": "c3>c1",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "b4d5f90ecb54237a",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            3,
+            6,
+            5,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 3,
+          "p1Reply": 3,
+          "macroLabel": "c3>c3",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "1a9a74139206b84c",
+          "targetRank": 32,
+          "targetSupport": [
+            4,
+            6,
+            4,
+            6,
+            5,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 3,
+          "p1Reply": 5,
+          "macroLabel": "c3>c5",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "fb0b5ec4cda31d54",
+          "targetRank": 32,
+          "targetSupport": [
+            4,
+            6,
+            3,
+            6,
+            6,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 3,
+          "p1Reply": 7,
+          "macroLabel": "c3>c7",
+          "kind": "LOWER_I",
+          "targetQClass": "63ae00deaa939bfc",
+          "targetRank": 32,
+          "targetSupport": [
+            4,
+            6,
+            3,
+            6,
+            5,
+            6,
+            2
+          ],
+          "proofExpression": "I",
+          "proofWitness": {
+            "immediateWinningColumns": [
+              7
+            ]
+          }
+        },
+        {
+          "p0Move": 5,
+          "p1Reply": 1,
+          "macroLabel": "c5>c1",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "2f88de106c7c402b",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            2,
+            6,
+            6,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 5,
+          "p1Reply": 3,
+          "macroLabel": "c5>c3",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "cc8d7aab6e44cb31",
+          "targetRank": 32,
+          "targetSupport": [
+            4,
+            6,
+            3,
+            6,
+            6,
+            6,
+            1
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        },
+        {
+          "p0Move": 5,
+          "p1Reply": 7,
+          "macroLabel": "c5>c7",
+          "kind": "LOWER_I",
+          "targetQClass": "90d077e0af421bf4",
+          "targetRank": 32,
+          "targetSupport": [
+            4,
+            6,
+            2,
+            6,
+            6,
+            6,
+            2
+          ],
+          "proofExpression": "I",
+          "proofWitness": {
+            "immediateWinningColumns": [
+              7
+            ]
+          }
+        },
+        {
+          "p0Move": 7,
+          "p1Reply": 1,
+          "macroLabel": "c7>c1",
+          "kind": "LOWER_I",
+          "targetQClass": "e26f873479b3759d",
+          "targetRank": 32,
+          "targetSupport": [
+            5,
+            6,
+            2,
+            6,
+            5,
+            6,
+            2
+          ],
+          "proofExpression": "I",
+          "proofWitness": {
+            "immediateWinningColumns": [
+              7
+            ]
+          }
+        },
+        {
+          "p0Move": 7,
+          "p1Reply": 3,
+          "macroLabel": "c7>c3",
+          "kind": "LOWER_I",
+          "targetQClass": "2a4f37c6882a5c3b",
+          "targetRank": 32,
+          "targetSupport": [
+            4,
+            6,
+            3,
+            6,
+            5,
+            6,
+            2
+          ],
+          "proofExpression": "I",
+          "proofWitness": {
+            "immediateWinningColumns": [
+              7
+            ]
+          }
+        },
+        {
+          "p0Move": 7,
+          "p1Reply": 5,
+          "macroLabel": "c7>c5",
+          "kind": "LOWER_I",
+          "targetQClass": "0ae87dab865f4e49",
+          "targetRank": 32,
+          "targetSupport": [
+            4,
+            6,
+            2,
+            6,
+            6,
+            6,
+            2
+          ],
+          "proofExpression": "I",
+          "proofWitness": {
+            "immediateWinningColumns": [
+              7
+            ]
+          }
+        },
+        {
+          "p0Move": 7,
+          "p1Reply": 7,
+          "macroLabel": "c7>c7",
+          "kind": "UNRESOLVED_Q",
+          "targetQClass": "0801daebe787d3cd",
+          "targetRank": 32,
+          "targetSupport": [
+            4,
+            6,
+            2,
+            6,
+            5,
+            6,
+            3
+          ],
+          "proofExpression": null,
+          "proofWitness": null
+        }
+      ]
+    }
+  ],
+  "unresolvedQClasses": [
+    {
+      "exactQClass": "3afa4918e827e799",
+      "rank": 32,
+      "support": [
+        6,
+        6,
+        2,
+        6,
+        6,
+        6,
+        0
+      ],
+      "incomingTransitionCount": 7,
+      "sourceQClasses": [
+        "00788378b8ae8d01",
+        "5d477ec65b3c48bc",
+        "8b007f7dfd990ea6",
+        "9486272f55996c92",
+        "d21a89605c399aca"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D1_C5_CONTRACTION:A->A",
+        "SECOND_D1_C5_CONTRACTION:E->A",
+        "SECOND_D1_C5_CONTRACTION:F->A",
+        "SECOND_D6_C5_CONTRACTION:A->A",
+        "SECOND_D6_C5_CONTRACTION:E->A"
+      ],
+      "p0RootMoves": [
+        1,
+        5,
+        6
+      ],
+      "p1ReplyMoves": [
+        1,
+        5,
+        6
+      ],
+      "macroLabels": [
+        "c1>c1",
+        "c1>c5",
+        "c1>c6",
+        "c5>c1",
+        "c5>c6",
+        "c6>c5"
+      ],
+      "reachedFromMultipleSourceLeaves": true,
+      "reachedThroughMultipleMacroLabels": true,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:A->A",
+          "sourceQClass": "d21a89605c399aca",
+          "p0Move": 5,
+          "p1Reply": 6,
+          "macroLabel": "c5>c6"
+        },
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:A->A",
+          "sourceQClass": "d21a89605c399aca",
+          "p0Move": 6,
+          "p1Reply": 5,
+          "macroLabel": "c6>c5"
+        },
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:E->A",
+          "sourceQClass": "00788378b8ae8d01",
+          "p0Move": 1,
+          "p1Reply": 6,
+          "macroLabel": "c1>c6"
+        },
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:F->A",
+          "sourceQClass": "8b007f7dfd990ea6",
+          "p0Move": 1,
+          "p1Reply": 5,
+          "macroLabel": "c1>c5"
+        },
+        {
+          "sourceLeafId": "SECOND_D6_C5_CONTRACTION:A->A",
+          "sourceQClass": "9486272f55996c92",
+          "p0Move": 1,
+          "p1Reply": 5,
+          "macroLabel": "c1>c5"
+        },
+        {
+          "sourceLeafId": "SECOND_D6_C5_CONTRACTION:A->A",
+          "sourceQClass": "9486272f55996c92",
+          "p0Move": 5,
+          "p1Reply": 1,
+          "macroLabel": "c5>c1"
+        },
+        {
+          "sourceLeafId": "SECOND_D6_C5_CONTRACTION:E->A",
+          "sourceQClass": "5d477ec65b3c48bc",
+          "p0Move": 1,
+          "p1Reply": 1,
+          "macroLabel": "c1>c1"
+        }
+      ]
+    },
+    {
+      "exactQClass": "bed156c31f338787",
+      "rank": 32,
+      "support": [
+        5,
+        6,
+        2,
+        6,
+        6,
+        6,
+        1
+      ],
+      "incomingTransitionCount": 6,
+      "sourceQClasses": [
+        "00788378b8ae8d01",
+        "475b51b09cf2f66e",
+        "5d477ec65b3c48bc",
+        "622683928b72c4be",
+        "8b007f7dfd990ea6"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D1_C5_CONTRACTION:E->A",
+        "SECOND_D1_C5_CONTRACTION:F->A",
+        "SECOND_D1_C5_CONTRACTION:G->A",
+        "SECOND_D6_C5_CONTRACTION:E->A",
+        "SECOND_D6_C5_CONTRACTION:G->A"
+      ],
+      "p0RootMoves": [
+        5,
+        6,
+        7
+      ],
+      "p1ReplyMoves": [
+        1,
+        5,
+        6
+      ],
+      "macroLabels": [
+        "c5>c1",
+        "c5>c6",
+        "c6>c5",
+        "c7>c1",
+        "c7>c5",
+        "c7>c6"
+      ],
+      "reachedFromMultipleSourceLeaves": true,
+      "reachedThroughMultipleMacroLabels": true,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:G->A",
+          "sourceQClass": "622683928b72c4be",
+          "p0Move": 5,
+          "p1Reply": 6,
+          "macroLabel": "c5>c6"
+        },
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:G->A",
+          "sourceQClass": "622683928b72c4be",
+          "p0Move": 6,
+          "p1Reply": 5,
+          "macroLabel": "c6>c5"
+        },
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:E->A",
+          "sourceQClass": "00788378b8ae8d01",
+          "p0Move": 7,
+          "p1Reply": 6,
+          "macroLabel": "c7>c6"
+        },
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:F->A",
+          "sourceQClass": "8b007f7dfd990ea6",
+          "p0Move": 7,
+          "p1Reply": 5,
+          "macroLabel": "c7>c5"
+        },
+        {
+          "sourceLeafId": "SECOND_D6_C5_CONTRACTION:G->A",
+          "sourceQClass": "475b51b09cf2f66e",
+          "p0Move": 5,
+          "p1Reply": 1,
+          "macroLabel": "c5>c1"
+        },
+        {
+          "sourceLeafId": "SECOND_D6_C5_CONTRACTION:E->A",
+          "sourceQClass": "5d477ec65b3c48bc",
+          "p0Move": 7,
+          "p1Reply": 1,
+          "macroLabel": "c7>c1"
+        }
+      ]
+    },
+    {
+      "exactQClass": "c12e260ea9352ef9",
+      "rank": 32,
+      "support": [
+        5,
+        6,
+        2,
+        6,
+        6,
+        6,
+        1
+      ],
+      "incomingTransitionCount": 6,
+      "sourceQClasses": [
+        "5d477ec65b3c48bc",
+        "680acc3a5e8c8bef",
+        "7c5e1cc7846c6b26",
+        "8e5db6e2893b3eaf",
+        "9486272f55996c92"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D6_C5_CONTRACTION:A->A",
+        "SECOND_D6_C5_CONTRACTION:E->A",
+        "SECOND_D7_C5_CONTRACTION:A->A",
+        "SECOND_D7_C5_CONTRACTION:E->A",
+        "SECOND_D7_C5_CONTRACTION:F->A"
+      ],
+      "p0RootMoves": [
+        1,
+        5,
+        6
+      ],
+      "p1ReplyMoves": [
+        5,
+        6,
+        7
+      ],
+      "macroLabels": [
+        "c1>c5",
+        "c1>c6",
+        "c1>c7",
+        "c5>c6",
+        "c5>c7",
+        "c6>c5"
+      ],
+      "reachedFromMultipleSourceLeaves": true,
+      "reachedThroughMultipleMacroLabels": true,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D6_C5_CONTRACTION:A->A",
+          "sourceQClass": "9486272f55996c92",
+          "p0Move": 5,
+          "p1Reply": 7,
+          "macroLabel": "c5>c7"
+        },
+        {
+          "sourceLeafId": "SECOND_D6_C5_CONTRACTION:E->A",
+          "sourceQClass": "5d477ec65b3c48bc",
+          "p0Move": 1,
+          "p1Reply": 7,
+          "macroLabel": "c1>c7"
+        },
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:A->A",
+          "sourceQClass": "680acc3a5e8c8bef",
+          "p0Move": 5,
+          "p1Reply": 6,
+          "macroLabel": "c5>c6"
+        },
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:A->A",
+          "sourceQClass": "680acc3a5e8c8bef",
+          "p0Move": 6,
+          "p1Reply": 5,
+          "macroLabel": "c6>c5"
+        },
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:E->A",
+          "sourceQClass": "8e5db6e2893b3eaf",
+          "p0Move": 1,
+          "p1Reply": 6,
+          "macroLabel": "c1>c6"
+        },
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:F->A",
+          "sourceQClass": "7c5e1cc7846c6b26",
+          "p0Move": 1,
+          "p1Reply": 5,
+          "macroLabel": "c1>c5"
+        }
+      ]
+    },
+    {
+      "exactQClass": "2ecda5a87ae9cbdc",
+      "rank": 32,
+      "support": [
+        6,
+        6,
+        2,
+        6,
+        6,
+        5,
+        1
+      ],
+      "incomingTransitionCount": 4,
+      "sourceQClasses": [
+        "00788378b8ae8d01",
+        "680acc3a5e8c8bef",
+        "8e5db6e2893b3eaf",
+        "d21a89605c399aca"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D1_C5_CONTRACTION:A->A",
+        "SECOND_D1_C5_CONTRACTION:E->A",
+        "SECOND_D7_C5_CONTRACTION:A->A",
+        "SECOND_D7_C5_CONTRACTION:E->A"
+      ],
+      "p0RootMoves": [
+        1,
+        5
+      ],
+      "p1ReplyMoves": [
+        1,
+        7
+      ],
+      "macroLabels": [
+        "c1>c1",
+        "c1>c7",
+        "c5>c1",
+        "c5>c7"
+      ],
+      "reachedFromMultipleSourceLeaves": true,
+      "reachedThroughMultipleMacroLabels": true,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:A->A",
+          "sourceQClass": "d21a89605c399aca",
+          "p0Move": 5,
+          "p1Reply": 7,
+          "macroLabel": "c5>c7"
+        },
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:E->A",
+          "sourceQClass": "00788378b8ae8d01",
+          "p0Move": 1,
+          "p1Reply": 7,
+          "macroLabel": "c1>c7"
+        },
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:A->A",
+          "sourceQClass": "680acc3a5e8c8bef",
+          "p0Move": 5,
+          "p1Reply": 1,
+          "macroLabel": "c5>c1"
+        },
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:E->A",
+          "sourceQClass": "8e5db6e2893b3eaf",
+          "p0Move": 1,
+          "p1Reply": 1,
+          "macroLabel": "c1>c1"
+        }
+      ]
+    },
+    {
+      "exactQClass": "2f88de106c7c402b",
+      "rank": 32,
+      "support": [
+        5,
+        6,
+        2,
+        6,
+        6,
+        6,
+        1
+      ],
+      "incomingTransitionCount": 4,
+      "sourceQClasses": [
+        "00788378b8ae8d01",
+        "7c5e1cc7846c6b26",
+        "8b007f7dfd990ea6",
+        "8e5db6e2893b3eaf"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D1_C5_CONTRACTION:E->A",
+        "SECOND_D1_C5_CONTRACTION:F->A",
+        "SECOND_D7_C5_CONTRACTION:E->A",
+        "SECOND_D7_C5_CONTRACTION:F->A"
+      ],
+      "p0RootMoves": [
+        5,
+        6
+      ],
+      "p1ReplyMoves": [
+        1,
+        7
+      ],
+      "macroLabels": [
+        "c5>c1",
+        "c5>c7",
+        "c6>c1",
+        "c6>c7"
+      ],
+      "reachedFromMultipleSourceLeaves": true,
+      "reachedThroughMultipleMacroLabels": true,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:E->A",
+          "sourceQClass": "00788378b8ae8d01",
+          "p0Move": 6,
+          "p1Reply": 7,
+          "macroLabel": "c6>c7"
+        },
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:F->A",
+          "sourceQClass": "8b007f7dfd990ea6",
+          "p0Move": 5,
+          "p1Reply": 7,
+          "macroLabel": "c5>c7"
+        },
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:E->A",
+          "sourceQClass": "8e5db6e2893b3eaf",
+          "p0Move": 6,
+          "p1Reply": 1,
+          "macroLabel": "c6>c1"
+        },
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:F->A",
+          "sourceQClass": "7c5e1cc7846c6b26",
+          "p0Move": 5,
+          "p1Reply": 1,
+          "macroLabel": "c5>c1"
+        }
+      ]
+    },
+    {
+      "exactQClass": "3ec23db76d062e04",
+      "rank": 32,
+      "support": [
+        6,
+        6,
+        2,
+        6,
+        5,
+        6,
+        1
+      ],
+      "incomingTransitionCount": 4,
+      "sourceQClasses": [
+        "680acc3a5e8c8bef",
+        "7c5e1cc7846c6b26",
+        "8b007f7dfd990ea6",
+        "d21a89605c399aca"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D1_C5_CONTRACTION:A->A",
+        "SECOND_D1_C5_CONTRACTION:F->A",
+        "SECOND_D7_C5_CONTRACTION:A->A",
+        "SECOND_D7_C5_CONTRACTION:F->A"
+      ],
+      "p0RootMoves": [
+        1,
+        6
+      ],
+      "p1ReplyMoves": [
+        1,
+        7
+      ],
+      "macroLabels": [
+        "c1>c1",
+        "c1>c7",
+        "c6>c1",
+        "c6>c7"
+      ],
+      "reachedFromMultipleSourceLeaves": true,
+      "reachedThroughMultipleMacroLabels": true,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:A->A",
+          "sourceQClass": "d21a89605c399aca",
+          "p0Move": 6,
+          "p1Reply": 7,
+          "macroLabel": "c6>c7"
+        },
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:F->A",
+          "sourceQClass": "8b007f7dfd990ea6",
+          "p0Move": 1,
+          "p1Reply": 7,
+          "macroLabel": "c1>c7"
+        },
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:A->A",
+          "sourceQClass": "680acc3a5e8c8bef",
+          "p0Move": 6,
+          "p1Reply": 1,
+          "macroLabel": "c6>c1"
+        },
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:F->A",
+          "sourceQClass": "7c5e1cc7846c6b26",
+          "p0Move": 1,
+          "p1Reply": 1,
+          "macroLabel": "c1>c1"
+        }
+      ]
+    },
+    {
+      "exactQClass": "78fd9addd9e5189e",
+      "rank": 32,
+      "support": [
+        6,
+        6,
+        2,
+        6,
+        5,
+        6,
+        1
+      ],
+      "incomingTransitionCount": 4,
+      "sourceQClasses": [
+        "475b51b09cf2f66e",
+        "622683928b72c4be",
+        "9486272f55996c92",
+        "d21a89605c399aca"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D1_C5_CONTRACTION:A->A",
+        "SECOND_D1_C5_CONTRACTION:G->A",
+        "SECOND_D6_C5_CONTRACTION:A->A",
+        "SECOND_D6_C5_CONTRACTION:G->A"
+      ],
+      "p0RootMoves": [
+        1,
+        7
+      ],
+      "p1ReplyMoves": [
+        1,
+        6
+      ],
+      "macroLabels": [
+        "c1>c1",
+        "c1>c6",
+        "c7>c1",
+        "c7>c6"
+      ],
+      "reachedFromMultipleSourceLeaves": true,
+      "reachedThroughMultipleMacroLabels": true,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:G->A",
+          "sourceQClass": "622683928b72c4be",
+          "p0Move": 1,
+          "p1Reply": 6,
+          "macroLabel": "c1>c6"
+        },
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:A->A",
+          "sourceQClass": "d21a89605c399aca",
+          "p0Move": 7,
+          "p1Reply": 6,
+          "macroLabel": "c7>c6"
+        },
+        {
+          "sourceLeafId": "SECOND_D6_C5_CONTRACTION:G->A",
+          "sourceQClass": "475b51b09cf2f66e",
+          "p0Move": 1,
+          "p1Reply": 1,
+          "macroLabel": "c1>c1"
+        },
+        {
+          "sourceLeafId": "SECOND_D6_C5_CONTRACTION:A->A",
+          "sourceQClass": "9486272f55996c92",
+          "p0Move": 7,
+          "p1Reply": 1,
+          "macroLabel": "c7>c1"
+        }
+      ]
+    },
+    {
+      "exactQClass": "80082e9945d4c152",
+      "rank": 32,
+      "support": [
+        5,
+        6,
+        3,
+        6,
+        6,
+        6,
+        0
+      ],
+      "incomingTransitionCount": 3,
+      "sourceQClasses": [
+        "00788378b8ae8d01",
+        "5d477ec65b3c48bc",
+        "8b007f7dfd990ea6"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D1_C5_CONTRACTION:E->A",
+        "SECOND_D1_C5_CONTRACTION:F->A",
+        "SECOND_D6_C5_CONTRACTION:E->A"
+      ],
+      "p0RootMoves": [
+        3
+      ],
+      "p1ReplyMoves": [
+        1,
+        5,
+        6
+      ],
+      "macroLabels": [
+        "c3>c1",
+        "c3>c5",
+        "c3>c6"
+      ],
+      "reachedFromMultipleSourceLeaves": true,
+      "reachedThroughMultipleMacroLabels": true,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:E->A",
+          "sourceQClass": "00788378b8ae8d01",
+          "p0Move": 3,
+          "p1Reply": 6,
+          "macroLabel": "c3>c6"
+        },
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:F->A",
+          "sourceQClass": "8b007f7dfd990ea6",
+          "p0Move": 3,
+          "p1Reply": 5,
+          "macroLabel": "c3>c5"
+        },
+        {
+          "sourceLeafId": "SECOND_D6_C5_CONTRACTION:E->A",
+          "sourceQClass": "5d477ec65b3c48bc",
+          "p0Move": 3,
+          "p1Reply": 1,
+          "macroLabel": "c3>c1"
+        }
+      ]
+    },
+    {
+      "exactQClass": "fb0b5ec4cda31d54",
+      "rank": 32,
+      "support": [
+        4,
+        6,
+        3,
+        6,
+        6,
+        6,
+        1
+      ],
+      "incomingTransitionCount": 3,
+      "sourceQClasses": [
+        "5d477ec65b3c48bc",
+        "7c5e1cc7846c6b26",
+        "8e5db6e2893b3eaf"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D6_C5_CONTRACTION:E->A",
+        "SECOND_D7_C5_CONTRACTION:E->A",
+        "SECOND_D7_C5_CONTRACTION:F->A"
+      ],
+      "p0RootMoves": [
+        3
+      ],
+      "p1ReplyMoves": [
+        5,
+        6,
+        7
+      ],
+      "macroLabels": [
+        "c3>c5",
+        "c3>c6",
+        "c3>c7"
+      ],
+      "reachedFromMultipleSourceLeaves": true,
+      "reachedThroughMultipleMacroLabels": true,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D6_C5_CONTRACTION:E->A",
+          "sourceQClass": "5d477ec65b3c48bc",
+          "p0Move": 3,
+          "p1Reply": 7,
+          "macroLabel": "c3>c7"
+        },
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:E->A",
+          "sourceQClass": "8e5db6e2893b3eaf",
+          "p0Move": 3,
+          "p1Reply": 6,
+          "macroLabel": "c3>c6"
+        },
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:F->A",
+          "sourceQClass": "7c5e1cc7846c6b26",
+          "p0Move": 3,
+          "p1Reply": 5,
+          "macroLabel": "c3>c5"
+        }
+      ]
+    },
+    {
+      "exactQClass": "0801daebe787d3cd",
+      "rank": 32,
+      "support": [
+        4,
+        6,
+        2,
+        6,
+        5,
+        6,
+        3
+      ],
+      "incomingTransitionCount": 2,
+      "sourceQClasses": [
+        "7c5e1cc7846c6b26",
+        "7ddbc5877da1aae5"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D7_C5_CONTRACTION:F->A",
+        "SECOND_D7_C5_CONTRACTION:G->G"
+      ],
+      "p0RootMoves": [
+        6,
+        7
+      ],
+      "p1ReplyMoves": [
+        1,
+        7
+      ],
+      "macroLabels": [
+        "c6>c1",
+        "c7>c7"
+      ],
+      "reachedFromMultipleSourceLeaves": true,
+      "reachedThroughMultipleMacroLabels": true,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:G->G",
+          "sourceQClass": "7ddbc5877da1aae5",
+          "p0Move": 6,
+          "p1Reply": 1,
+          "macroLabel": "c6>c1"
+        },
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:F->A",
+          "sourceQClass": "7c5e1cc7846c6b26",
+          "p0Move": 7,
+          "p1Reply": 7,
+          "macroLabel": "c7>c7"
+        }
+      ]
+    },
+    {
+      "exactQClass": "1acd16f6ba136480",
+      "rank": 32,
+      "support": [
+        5,
+        6,
+        3,
+        6,
+        5,
+        6,
+        1
+      ],
+      "incomingTransitionCount": 2,
+      "sourceQClasses": [
+        "475b51b09cf2f66e",
+        "9486272f55996c92"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D6_C5_CONTRACTION:A->A",
+        "SECOND_D6_C5_CONTRACTION:G->A"
+      ],
+      "p0RootMoves": [
+        1,
+        7
+      ],
+      "p1ReplyMoves": [
+        3
+      ],
+      "macroLabels": [
+        "c1>c3",
+        "c7>c3"
+      ],
+      "reachedFromMultipleSourceLeaves": true,
+      "reachedThroughMultipleMacroLabels": true,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D6_C5_CONTRACTION:G->A",
+          "sourceQClass": "475b51b09cf2f66e",
+          "p0Move": 1,
+          "p1Reply": 3,
+          "macroLabel": "c1>c3"
+        },
+        {
+          "sourceLeafId": "SECOND_D6_C5_CONTRACTION:A->A",
+          "sourceQClass": "9486272f55996c92",
+          "p0Move": 7,
+          "p1Reply": 3,
+          "macroLabel": "c7>c3"
+        }
+      ]
+    },
+    {
+      "exactQClass": "22dffba09a403111",
+      "rank": 32,
+      "support": [
+        5,
+        6,
+        3,
+        6,
+        6,
+        6,
+        0
+      ],
+      "incomingTransitionCount": 2,
+      "sourceQClasses": [
+        "00788378b8ae8d01",
+        "8b007f7dfd990ea6"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D1_C5_CONTRACTION:E->A",
+        "SECOND_D1_C5_CONTRACTION:F->A"
+      ],
+      "p0RootMoves": [
+        5,
+        6
+      ],
+      "p1ReplyMoves": [
+        3
+      ],
+      "macroLabels": [
+        "c5>c3",
+        "c6>c3"
+      ],
+      "reachedFromMultipleSourceLeaves": true,
+      "reachedThroughMultipleMacroLabels": true,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:E->A",
+          "sourceQClass": "00788378b8ae8d01",
+          "p0Move": 6,
+          "p1Reply": 3,
+          "macroLabel": "c6>c3"
+        },
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:F->A",
+          "sourceQClass": "8b007f7dfd990ea6",
+          "p0Move": 5,
+          "p1Reply": 3,
+          "macroLabel": "c5>c3"
+        }
+      ]
+    },
+    {
+      "exactQClass": "29d4a951abd0d482",
+      "rank": 32,
+      "support": [
+        3,
+        6,
+        2,
+        6,
+        6,
+        6,
+        3
+      ],
+      "incomingTransitionCount": 2,
+      "sourceQClasses": [
+        "7ddbc5877da1aae5"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D7_C5_CONTRACTION:G->G"
+      ],
+      "p0RootMoves": [
+        5,
+        6
+      ],
+      "p1ReplyMoves": [
+        5,
+        6
+      ],
+      "macroLabels": [
+        "c5>c6",
+        "c6>c5"
+      ],
+      "reachedFromMultipleSourceLeaves": false,
+      "reachedThroughMultipleMacroLabels": true,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:G->G",
+          "sourceQClass": "7ddbc5877da1aae5",
+          "p0Move": 5,
+          "p1Reply": 6,
+          "macroLabel": "c5>c6"
+        },
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:G->G",
+          "sourceQClass": "7ddbc5877da1aae5",
+          "p0Move": 6,
+          "p1Reply": 5,
+          "macroLabel": "c6>c5"
+        }
+      ]
+    },
+    {
+      "exactQClass": "2fe4d26efce70b20",
+      "rank": 32,
+      "support": [
+        5,
+        6,
+        2,
+        6,
+        6,
+        6,
+        1
+      ],
+      "incomingTransitionCount": 2,
+      "sourceQClasses": [
+        "475b51b09cf2f66e",
+        "9486272f55996c92"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D6_C5_CONTRACTION:A->A",
+        "SECOND_D6_C5_CONTRACTION:G->A"
+      ],
+      "p0RootMoves": [
+        1,
+        7
+      ],
+      "p1ReplyMoves": [
+        5
+      ],
+      "macroLabels": [
+        "c1>c5",
+        "c7>c5"
+      ],
+      "reachedFromMultipleSourceLeaves": true,
+      "reachedThroughMultipleMacroLabels": true,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D6_C5_CONTRACTION:G->A",
+          "sourceQClass": "475b51b09cf2f66e",
+          "p0Move": 1,
+          "p1Reply": 5,
+          "macroLabel": "c1>c5"
+        },
+        {
+          "sourceLeafId": "SECOND_D6_C5_CONTRACTION:A->A",
+          "sourceQClass": "9486272f55996c92",
+          "p0Move": 7,
+          "p1Reply": 5,
+          "macroLabel": "c7>c5"
+        }
+      ]
+    },
+    {
+      "exactQClass": "432622a657833ff3",
+      "rank": 32,
+      "support": [
+        5,
+        6,
+        3,
+        6,
+        5,
+        6,
+        1
+      ],
+      "incomingTransitionCount": 2,
+      "sourceQClasses": [
+        "680acc3a5e8c8bef",
+        "9486272f55996c92"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D6_C5_CONTRACTION:A->A",
+        "SECOND_D7_C5_CONTRACTION:A->A"
+      ],
+      "p0RootMoves": [
+        3
+      ],
+      "p1ReplyMoves": [
+        6,
+        7
+      ],
+      "macroLabels": [
+        "c3>c6",
+        "c3>c7"
+      ],
+      "reachedFromMultipleSourceLeaves": true,
+      "reachedThroughMultipleMacroLabels": true,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D6_C5_CONTRACTION:A->A",
+          "sourceQClass": "9486272f55996c92",
+          "p0Move": 3,
+          "p1Reply": 7,
+          "macroLabel": "c3>c7"
+        },
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:A->A",
+          "sourceQClass": "680acc3a5e8c8bef",
+          "p0Move": 3,
+          "p1Reply": 6,
+          "macroLabel": "c3>c6"
+        }
+      ]
+    },
+    {
+      "exactQClass": "44d53407f4c11e75",
+      "rank": 32,
+      "support": [
+        5,
+        6,
+        3,
+        6,
+        6,
+        5,
+        1
+      ],
+      "incomingTransitionCount": 2,
+      "sourceQClasses": [
+        "680acc3a5e8c8bef",
+        "8e5db6e2893b3eaf"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D7_C5_CONTRACTION:A->A",
+        "SECOND_D7_C5_CONTRACTION:E->A"
+      ],
+      "p0RootMoves": [
+        1,
+        5
+      ],
+      "p1ReplyMoves": [
+        3
+      ],
+      "macroLabels": [
+        "c1>c3",
+        "c5>c3"
+      ],
+      "reachedFromMultipleSourceLeaves": true,
+      "reachedThroughMultipleMacroLabels": true,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:A->A",
+          "sourceQClass": "680acc3a5e8c8bef",
+          "p0Move": 5,
+          "p1Reply": 3,
+          "macroLabel": "c5>c3"
+        },
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:E->A",
+          "sourceQClass": "8e5db6e2893b3eaf",
+          "p0Move": 1,
+          "p1Reply": 3,
+          "macroLabel": "c1>c3"
+        }
+      ]
+    },
+    {
+      "exactQClass": "4b4509e31525d95e",
+      "rank": 32,
+      "support": [
+        6,
+        6,
+        2,
+        6,
+        5,
+        6,
+        1
+      ],
+      "incomingTransitionCount": 2,
+      "sourceQClasses": [
+        "680acc3a5e8c8bef",
+        "9486272f55996c92"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D6_C5_CONTRACTION:A->A",
+        "SECOND_D7_C5_CONTRACTION:A->A"
+      ],
+      "p0RootMoves": [
+        1
+      ],
+      "p1ReplyMoves": [
+        6,
+        7
+      ],
+      "macroLabels": [
+        "c1>c6",
+        "c1>c7"
+      ],
+      "reachedFromMultipleSourceLeaves": true,
+      "reachedThroughMultipleMacroLabels": true,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D6_C5_CONTRACTION:A->A",
+          "sourceQClass": "9486272f55996c92",
+          "p0Move": 1,
+          "p1Reply": 7,
+          "macroLabel": "c1>c7"
+        },
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:A->A",
+          "sourceQClass": "680acc3a5e8c8bef",
+          "p0Move": 1,
+          "p1Reply": 6,
+          "macroLabel": "c1>c6"
+        }
+      ]
+    },
+    {
+      "exactQClass": "526d0f881be9c948",
+      "rank": 32,
+      "support": [
+        6,
+        6,
+        2,
+        6,
+        6,
+        5,
+        1
+      ],
+      "incomingTransitionCount": 2,
+      "sourceQClasses": [
+        "622683928b72c4be",
+        "d21a89605c399aca"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D1_C5_CONTRACTION:A->A",
+        "SECOND_D1_C5_CONTRACTION:G->A"
+      ],
+      "p0RootMoves": [
+        1,
+        7
+      ],
+      "p1ReplyMoves": [
+        5
+      ],
+      "macroLabels": [
+        "c1>c5",
+        "c7>c5"
+      ],
+      "reachedFromMultipleSourceLeaves": true,
+      "reachedThroughMultipleMacroLabels": true,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:G->A",
+          "sourceQClass": "622683928b72c4be",
+          "p0Move": 1,
+          "p1Reply": 5,
+          "macroLabel": "c1>c5"
+        },
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:A->A",
+          "sourceQClass": "d21a89605c399aca",
+          "p0Move": 7,
+          "p1Reply": 5,
+          "macroLabel": "c7>c5"
+        }
+      ]
+    },
+    {
+      "exactQClass": "77b1d9e6ea5f69a7",
+      "rank": 32,
+      "support": [
+        5,
+        6,
+        3,
+        6,
+        6,
+        5,
+        1
+      ],
+      "incomingTransitionCount": 2,
+      "sourceQClasses": [
+        "00788378b8ae8d01",
+        "622683928b72c4be"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D1_C5_CONTRACTION:E->A",
+        "SECOND_D1_C5_CONTRACTION:G->A"
+      ],
+      "p0RootMoves": [
+        5,
+        7
+      ],
+      "p1ReplyMoves": [
+        3
+      ],
+      "macroLabels": [
+        "c5>c3",
+        "c7>c3"
+      ],
+      "reachedFromMultipleSourceLeaves": true,
+      "reachedThroughMultipleMacroLabels": true,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:G->A",
+          "sourceQClass": "622683928b72c4be",
+          "p0Move": 5,
+          "p1Reply": 3,
+          "macroLabel": "c5>c3"
+        },
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:E->A",
+          "sourceQClass": "00788378b8ae8d01",
+          "p0Move": 7,
+          "p1Reply": 3,
+          "macroLabel": "c7>c3"
+        }
+      ]
+    },
+    {
+      "exactQClass": "80648733b86d690c",
+      "rank": 32,
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        5,
+        6,
+        0
+      ],
+      "incomingTransitionCount": 2,
+      "sourceQClasses": [
+        "8b007f7dfd990ea6",
+        "d21a89605c399aca"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D1_C5_CONTRACTION:A->A",
+        "SECOND_D1_C5_CONTRACTION:F->A"
+      ],
+      "p0RootMoves": [
+        1,
+        6
+      ],
+      "p1ReplyMoves": [
+        3
+      ],
+      "macroLabels": [
+        "c1>c3",
+        "c6>c3"
+      ],
+      "reachedFromMultipleSourceLeaves": true,
+      "reachedThroughMultipleMacroLabels": true,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:A->A",
+          "sourceQClass": "d21a89605c399aca",
+          "p0Move": 6,
+          "p1Reply": 3,
+          "macroLabel": "c6>c3"
+        },
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:F->A",
+          "sourceQClass": "8b007f7dfd990ea6",
+          "p0Move": 1,
+          "p1Reply": 3,
+          "macroLabel": "c1>c3"
+        }
+      ]
+    },
+    {
+      "exactQClass": "9326596be55ae15a",
+      "rank": 32,
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        5,
+        6,
+        0
+      ],
+      "incomingTransitionCount": 2,
+      "sourceQClasses": [
+        "9486272f55996c92",
+        "d21a89605c399aca"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D1_C5_CONTRACTION:A->A",
+        "SECOND_D6_C5_CONTRACTION:A->A"
+      ],
+      "p0RootMoves": [
+        3
+      ],
+      "p1ReplyMoves": [
+        1,
+        6
+      ],
+      "macroLabels": [
+        "c3>c1",
+        "c3>c6"
+      ],
+      "reachedFromMultipleSourceLeaves": true,
+      "reachedThroughMultipleMacroLabels": true,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:A->A",
+          "sourceQClass": "d21a89605c399aca",
+          "p0Move": 3,
+          "p1Reply": 6,
+          "macroLabel": "c3>c6"
+        },
+        {
+          "sourceLeafId": "SECOND_D6_C5_CONTRACTION:A->A",
+          "sourceQClass": "9486272f55996c92",
+          "p0Move": 3,
+          "p1Reply": 1,
+          "macroLabel": "c3>c1"
+        }
+      ]
+    },
+    {
+      "exactQClass": "94caca82a6b58891",
+      "rank": 32,
+      "support": [
+        4,
+        6,
+        3,
+        6,
+        6,
+        6,
+        1
+      ],
+      "incomingTransitionCount": 2,
+      "sourceQClasses": [
+        "475b51b09cf2f66e",
+        "5d477ec65b3c48bc"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D6_C5_CONTRACTION:E->A",
+        "SECOND_D6_C5_CONTRACTION:G->A"
+      ],
+      "p0RootMoves": [
+        5,
+        7
+      ],
+      "p1ReplyMoves": [
+        3
+      ],
+      "macroLabels": [
+        "c5>c3",
+        "c7>c3"
+      ],
+      "reachedFromMultipleSourceLeaves": true,
+      "reachedThroughMultipleMacroLabels": true,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D6_C5_CONTRACTION:G->A",
+          "sourceQClass": "475b51b09cf2f66e",
+          "p0Move": 5,
+          "p1Reply": 3,
+          "macroLabel": "c5>c3"
+        },
+        {
+          "sourceLeafId": "SECOND_D6_C5_CONTRACTION:E->A",
+          "sourceQClass": "5d477ec65b3c48bc",
+          "p0Move": 7,
+          "p1Reply": 3,
+          "macroLabel": "c7>c3"
+        }
+      ]
+    },
+    {
+      "exactQClass": "966e6353e06e4d41",
+      "rank": 32,
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        5,
+        5,
+        1
+      ],
+      "incomingTransitionCount": 2,
+      "sourceQClasses": [
+        "680acc3a5e8c8bef",
+        "d21a89605c399aca"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D1_C5_CONTRACTION:A->A",
+        "SECOND_D7_C5_CONTRACTION:A->A"
+      ],
+      "p0RootMoves": [
+        3
+      ],
+      "p1ReplyMoves": [
+        1,
+        7
+      ],
+      "macroLabels": [
+        "c3>c1",
+        "c3>c7"
+      ],
+      "reachedFromMultipleSourceLeaves": true,
+      "reachedThroughMultipleMacroLabels": true,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:A->A",
+          "sourceQClass": "d21a89605c399aca",
+          "p0Move": 3,
+          "p1Reply": 7,
+          "macroLabel": "c3>c7"
+        },
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:A->A",
+          "sourceQClass": "680acc3a5e8c8bef",
+          "p0Move": 3,
+          "p1Reply": 1,
+          "macroLabel": "c3>c1"
+        }
+      ]
+    },
+    {
+      "exactQClass": "980e773297da786a",
+      "rank": 32,
+      "support": [
+        5,
+        6,
+        3,
+        6,
+        5,
+        6,
+        1
+      ],
+      "incomingTransitionCount": 2,
+      "sourceQClasses": [
+        "680acc3a5e8c8bef",
+        "7c5e1cc7846c6b26"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D7_C5_CONTRACTION:A->A",
+        "SECOND_D7_C5_CONTRACTION:F->A"
+      ],
+      "p0RootMoves": [
+        1,
+        6
+      ],
+      "p1ReplyMoves": [
+        3
+      ],
+      "macroLabels": [
+        "c1>c3",
+        "c6>c3"
+      ],
+      "reachedFromMultipleSourceLeaves": true,
+      "reachedThroughMultipleMacroLabels": true,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:A->A",
+          "sourceQClass": "680acc3a5e8c8bef",
+          "p0Move": 6,
+          "p1Reply": 3,
+          "macroLabel": "c6>c3"
+        },
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:F->A",
+          "sourceQClass": "7c5e1cc7846c6b26",
+          "p0Move": 1,
+          "p1Reply": 3,
+          "macroLabel": "c1>c3"
+        }
+      ]
+    },
+    {
+      "exactQClass": "9bf0bd55c3ffa805",
+      "rank": 32,
+      "support": [
+        5,
+        6,
+        3,
+        6,
+        5,
+        6,
+        1
+      ],
+      "incomingTransitionCount": 2,
+      "sourceQClasses": [
+        "622683928b72c4be",
+        "8b007f7dfd990ea6"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D1_C5_CONTRACTION:F->A",
+        "SECOND_D1_C5_CONTRACTION:G->A"
+      ],
+      "p0RootMoves": [
+        6,
+        7
+      ],
+      "p1ReplyMoves": [
+        3
+      ],
+      "macroLabels": [
+        "c6>c3",
+        "c7>c3"
+      ],
+      "reachedFromMultipleSourceLeaves": true,
+      "reachedThroughMultipleMacroLabels": true,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:G->A",
+          "sourceQClass": "622683928b72c4be",
+          "p0Move": 6,
+          "p1Reply": 3,
+          "macroLabel": "c6>c3"
+        },
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:F->A",
+          "sourceQClass": "8b007f7dfd990ea6",
+          "p0Move": 7,
+          "p1Reply": 3,
+          "macroLabel": "c7>c3"
+        }
+      ]
+    },
+    {
+      "exactQClass": "9d02a8478c3bc690",
+      "rank": 32,
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        6,
+        5,
+        0
+      ],
+      "incomingTransitionCount": 2,
+      "sourceQClasses": [
+        "00788378b8ae8d01",
+        "d21a89605c399aca"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D1_C5_CONTRACTION:A->A",
+        "SECOND_D1_C5_CONTRACTION:E->A"
+      ],
+      "p0RootMoves": [
+        1,
+        5
+      ],
+      "p1ReplyMoves": [
+        3
+      ],
+      "macroLabels": [
+        "c1>c3",
+        "c5>c3"
+      ],
+      "reachedFromMultipleSourceLeaves": true,
+      "reachedThroughMultipleMacroLabels": true,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:A->A",
+          "sourceQClass": "d21a89605c399aca",
+          "p0Move": 5,
+          "p1Reply": 3,
+          "macroLabel": "c5>c3"
+        },
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:E->A",
+          "sourceQClass": "00788378b8ae8d01",
+          "p0Move": 1,
+          "p1Reply": 3,
+          "macroLabel": "c1>c3"
+        }
+      ]
+    },
+    {
+      "exactQClass": "b4d5f90ecb54237a",
+      "rank": 32,
+      "support": [
+        5,
+        6,
+        3,
+        6,
+        5,
+        6,
+        1
+      ],
+      "incomingTransitionCount": 2,
+      "sourceQClasses": [
+        "7c5e1cc7846c6b26",
+        "8b007f7dfd990ea6"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D1_C5_CONTRACTION:F->A",
+        "SECOND_D7_C5_CONTRACTION:F->A"
+      ],
+      "p0RootMoves": [
+        3
+      ],
+      "p1ReplyMoves": [
+        1,
+        7
+      ],
+      "macroLabels": [
+        "c3>c1",
+        "c3>c7"
+      ],
+      "reachedFromMultipleSourceLeaves": true,
+      "reachedThroughMultipleMacroLabels": true,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:F->A",
+          "sourceQClass": "8b007f7dfd990ea6",
+          "p0Move": 3,
+          "p1Reply": 7,
+          "macroLabel": "c3>c7"
+        },
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:F->A",
+          "sourceQClass": "7c5e1cc7846c6b26",
+          "p0Move": 3,
+          "p1Reply": 1,
+          "macroLabel": "c3>c1"
+        }
+      ]
+    },
+    {
+      "exactQClass": "b7dad8f46e2fb27c",
+      "rank": 32,
+      "support": [
+        5,
+        6,
+        3,
+        6,
+        5,
+        6,
+        1
+      ],
+      "incomingTransitionCount": 2,
+      "sourceQClasses": [
+        "475b51b09cf2f66e",
+        "622683928b72c4be"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D1_C5_CONTRACTION:G->A",
+        "SECOND_D6_C5_CONTRACTION:G->A"
+      ],
+      "p0RootMoves": [
+        3
+      ],
+      "p1ReplyMoves": [
+        1,
+        6
+      ],
+      "macroLabels": [
+        "c3>c1",
+        "c3>c6"
+      ],
+      "reachedFromMultipleSourceLeaves": true,
+      "reachedThroughMultipleMacroLabels": true,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:G->A",
+          "sourceQClass": "622683928b72c4be",
+          "p0Move": 3,
+          "p1Reply": 6,
+          "macroLabel": "c3>c6"
+        },
+        {
+          "sourceLeafId": "SECOND_D6_C5_CONTRACTION:G->A",
+          "sourceQClass": "475b51b09cf2f66e",
+          "p0Move": 3,
+          "p1Reply": 1,
+          "macroLabel": "c3>c1"
+        }
+      ]
+    },
+    {
+      "exactQClass": "bde94c43bc0bb533",
+      "rank": 32,
+      "support": [
+        5,
+        6,
+        3,
+        6,
+        6,
+        6,
+        0
+      ],
+      "incomingTransitionCount": 2,
+      "sourceQClasses": [
+        "5d477ec65b3c48bc",
+        "9486272f55996c92"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D6_C5_CONTRACTION:A->A",
+        "SECOND_D6_C5_CONTRACTION:E->A"
+      ],
+      "p0RootMoves": [
+        1,
+        5
+      ],
+      "p1ReplyMoves": [
+        3
+      ],
+      "macroLabels": [
+        "c1>c3",
+        "c5>c3"
+      ],
+      "reachedFromMultipleSourceLeaves": true,
+      "reachedThroughMultipleMacroLabels": true,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D6_C5_CONTRACTION:A->A",
+          "sourceQClass": "9486272f55996c92",
+          "p0Move": 5,
+          "p1Reply": 3,
+          "macroLabel": "c5>c3"
+        },
+        {
+          "sourceLeafId": "SECOND_D6_C5_CONTRACTION:E->A",
+          "sourceQClass": "5d477ec65b3c48bc",
+          "p0Move": 1,
+          "p1Reply": 3,
+          "macroLabel": "c1>c3"
+        }
+      ]
+    },
+    {
+      "exactQClass": "cc8d7aab6e44cb31",
+      "rank": 32,
+      "support": [
+        4,
+        6,
+        3,
+        6,
+        6,
+        6,
+        1
+      ],
+      "incomingTransitionCount": 2,
+      "sourceQClasses": [
+        "7c5e1cc7846c6b26",
+        "8e5db6e2893b3eaf"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D7_C5_CONTRACTION:E->A",
+        "SECOND_D7_C5_CONTRACTION:F->A"
+      ],
+      "p0RootMoves": [
+        5,
+        6
+      ],
+      "p1ReplyMoves": [
+        3
+      ],
+      "macroLabels": [
+        "c5>c3",
+        "c6>c3"
+      ],
+      "reachedFromMultipleSourceLeaves": true,
+      "reachedThroughMultipleMacroLabels": true,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:E->A",
+          "sourceQClass": "8e5db6e2893b3eaf",
+          "p0Move": 6,
+          "p1Reply": 3,
+          "macroLabel": "c6>c3"
+        },
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:F->A",
+          "sourceQClass": "7c5e1cc7846c6b26",
+          "p0Move": 5,
+          "p1Reply": 3,
+          "macroLabel": "c5>c3"
+        }
+      ]
+    },
+    {
+      "exactQClass": "cd0f59f3365ac676",
+      "rank": 32,
+      "support": [
+        4,
+        6,
+        2,
+        6,
+        6,
+        5,
+        3
+      ],
+      "incomingTransitionCount": 2,
+      "sourceQClasses": [
+        "7ddbc5877da1aae5",
+        "8e5db6e2893b3eaf"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D7_C5_CONTRACTION:E->A",
+        "SECOND_D7_C5_CONTRACTION:G->G"
+      ],
+      "p0RootMoves": [
+        5,
+        7
+      ],
+      "p1ReplyMoves": [
+        1,
+        7
+      ],
+      "macroLabels": [
+        "c5>c1",
+        "c7>c7"
+      ],
+      "reachedFromMultipleSourceLeaves": true,
+      "reachedThroughMultipleMacroLabels": true,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:G->G",
+          "sourceQClass": "7ddbc5877da1aae5",
+          "p0Move": 5,
+          "p1Reply": 1,
+          "macroLabel": "c5>c1"
+        },
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:E->A",
+          "sourceQClass": "8e5db6e2893b3eaf",
+          "p0Move": 7,
+          "p1Reply": 7,
+          "macroLabel": "c7>c7"
+        }
+      ]
+    },
+    {
+      "exactQClass": "da6dcb3938748b5e",
+      "rank": 32,
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        5,
+        5,
+        1
+      ],
+      "incomingTransitionCount": 2,
+      "sourceQClasses": [
+        "622683928b72c4be",
+        "d21a89605c399aca"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D1_C5_CONTRACTION:A->A",
+        "SECOND_D1_C5_CONTRACTION:G->A"
+      ],
+      "p0RootMoves": [
+        1,
+        7
+      ],
+      "p1ReplyMoves": [
+        3
+      ],
+      "macroLabels": [
+        "c1>c3",
+        "c7>c3"
+      ],
+      "reachedFromMultipleSourceLeaves": true,
+      "reachedThroughMultipleMacroLabels": true,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:G->A",
+          "sourceQClass": "622683928b72c4be",
+          "p0Move": 1,
+          "p1Reply": 3,
+          "macroLabel": "c1>c3"
+        },
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:A->A",
+          "sourceQClass": "d21a89605c399aca",
+          "p0Move": 7,
+          "p1Reply": 3,
+          "macroLabel": "c7>c3"
+        }
+      ]
+    },
+    {
+      "exactQClass": "ef268e62dfaecf76",
+      "rank": 32,
+      "support": [
+        5,
+        6,
+        3,
+        6,
+        6,
+        5,
+        1
+      ],
+      "incomingTransitionCount": 2,
+      "sourceQClasses": [
+        "00788378b8ae8d01",
+        "8e5db6e2893b3eaf"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D1_C5_CONTRACTION:E->A",
+        "SECOND_D7_C5_CONTRACTION:E->A"
+      ],
+      "p0RootMoves": [
+        3
+      ],
+      "p1ReplyMoves": [
+        1,
+        7
+      ],
+      "macroLabels": [
+        "c3>c1",
+        "c3>c7"
+      ],
+      "reachedFromMultipleSourceLeaves": true,
+      "reachedThroughMultipleMacroLabels": true,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:E->A",
+          "sourceQClass": "00788378b8ae8d01",
+          "p0Move": 3,
+          "p1Reply": 7,
+          "macroLabel": "c3>c7"
+        },
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:E->A",
+          "sourceQClass": "8e5db6e2893b3eaf",
+          "p0Move": 3,
+          "p1Reply": 1,
+          "macroLabel": "c3>c1"
+        }
+      ]
+    },
+    {
+      "exactQClass": "fdfd7a5a5bf01e97",
+      "rank": 32,
+      "support": [
+        5,
+        6,
+        2,
+        6,
+        5,
+        5,
+        3
+      ],
+      "incomingTransitionCount": 2,
+      "sourceQClasses": [
+        "680acc3a5e8c8bef",
+        "7ddbc5877da1aae5"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D7_C5_CONTRACTION:A->A",
+        "SECOND_D7_C5_CONTRACTION:G->G"
+      ],
+      "p0RootMoves": [
+        1,
+        7
+      ],
+      "p1ReplyMoves": [
+        1,
+        7
+      ],
+      "macroLabels": [
+        "c1>c1",
+        "c7>c7"
+      ],
+      "reachedFromMultipleSourceLeaves": true,
+      "reachedThroughMultipleMacroLabels": true,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:G->G",
+          "sourceQClass": "7ddbc5877da1aae5",
+          "p0Move": 1,
+          "p1Reply": 1,
+          "macroLabel": "c1>c1"
+        },
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:A->A",
+          "sourceQClass": "680acc3a5e8c8bef",
+          "p0Move": 7,
+          "p1Reply": 7,
+          "macroLabel": "c7>c7"
+        }
+      ]
+    },
+    {
+      "exactQClass": "00809a9e5aee5cd2",
+      "rank": 32,
+      "support": [
+        3,
+        6,
+        2,
+        6,
+        6,
+        5,
+        4
+      ],
+      "incomingTransitionCount": 1,
+      "sourceQClasses": [
+        "7ddbc5877da1aae5"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D7_C5_CONTRACTION:G->G"
+      ],
+      "p0RootMoves": [
+        7
+      ],
+      "p1ReplyMoves": [
+        5
+      ],
+      "macroLabels": [
+        "c7>c5"
+      ],
+      "reachedFromMultipleSourceLeaves": false,
+      "reachedThroughMultipleMacroLabels": false,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:G->G",
+          "sourceQClass": "7ddbc5877da1aae5",
+          "p0Move": 7,
+          "p1Reply": 5,
+          "macroLabel": "c7>c5"
+        }
+      ]
+    },
+    {
+      "exactQClass": "08824c691e2e6111",
+      "rank": 32,
+      "support": [
+        4,
+        6,
+        3,
+        6,
+        6,
+        6,
+        1
+      ],
+      "incomingTransitionCount": 1,
+      "sourceQClasses": [
+        "475b51b09cf2f66e"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D6_C5_CONTRACTION:G->A"
+      ],
+      "p0RootMoves": [
+        3
+      ],
+      "p1ReplyMoves": [
+        5
+      ],
+      "macroLabels": [
+        "c3>c5"
+      ],
+      "reachedFromMultipleSourceLeaves": false,
+      "reachedThroughMultipleMacroLabels": false,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D6_C5_CONTRACTION:G->A",
+          "sourceQClass": "475b51b09cf2f66e",
+          "p0Move": 3,
+          "p1Reply": 5,
+          "macroLabel": "c3>c5"
+        }
+      ]
+    },
+    {
+      "exactQClass": "0c94d36ee53a09cf",
+      "rank": 32,
+      "support": [
+        4,
+        6,
+        2,
+        6,
+        5,
+        6,
+        3
+      ],
+      "incomingTransitionCount": 1,
+      "sourceQClasses": [
+        "7ddbc5877da1aae5"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D7_C5_CONTRACTION:G->G"
+      ],
+      "p0RootMoves": [
+        1
+      ],
+      "p1ReplyMoves": [
+        6
+      ],
+      "macroLabels": [
+        "c1>c6"
+      ],
+      "reachedFromMultipleSourceLeaves": false,
+      "reachedThroughMultipleMacroLabels": false,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:G->G",
+          "sourceQClass": "7ddbc5877da1aae5",
+          "p0Move": 1,
+          "p1Reply": 6,
+          "macroLabel": "c1>c6"
+        }
+      ]
+    },
+    {
+      "exactQClass": "0edaddde602c576e",
+      "rank": 32,
+      "support": [
+        4,
+        6,
+        4,
+        6,
+        6,
+        6,
+        0
+      ],
+      "incomingTransitionCount": 1,
+      "sourceQClasses": [
+        "5d477ec65b3c48bc"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D6_C5_CONTRACTION:E->A"
+      ],
+      "p0RootMoves": [
+        3
+      ],
+      "p1ReplyMoves": [
+        3
+      ],
+      "macroLabels": [
+        "c3>c3"
+      ],
+      "reachedFromMultipleSourceLeaves": false,
+      "reachedThroughMultipleMacroLabels": false,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D6_C5_CONTRACTION:E->A",
+          "sourceQClass": "5d477ec65b3c48bc",
+          "p0Move": 3,
+          "p1Reply": 3,
+          "macroLabel": "c3>c3"
+        }
+      ]
+    },
+    {
+      "exactQClass": "0fc9d79484d94df1",
+      "rank": 32,
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        6,
+        5,
+        0
+      ],
+      "incomingTransitionCount": 1,
+      "sourceQClasses": [
+        "d21a89605c399aca"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D1_C5_CONTRACTION:A->A"
+      ],
+      "p0RootMoves": [
+        3
+      ],
+      "p1ReplyMoves": [
+        5
+      ],
+      "macroLabels": [
+        "c3>c5"
+      ],
+      "reachedFromMultipleSourceLeaves": false,
+      "reachedThroughMultipleMacroLabels": false,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:A->A",
+          "sourceQClass": "d21a89605c399aca",
+          "p0Move": 3,
+          "p1Reply": 5,
+          "macroLabel": "c3>c5"
+        }
+      ]
+    },
+    {
+      "exactQClass": "168b04d4c4326beb",
+      "rank": 32,
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        5,
+        6,
+        0
+      ],
+      "incomingTransitionCount": 1,
+      "sourceQClasses": [
+        "9486272f55996c92"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D6_C5_CONTRACTION:A->A"
+      ],
+      "p0RootMoves": [
+        1
+      ],
+      "p1ReplyMoves": [
+        3
+      ],
+      "macroLabels": [
+        "c1>c3"
+      ],
+      "reachedFromMultipleSourceLeaves": false,
+      "reachedThroughMultipleMacroLabels": false,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D6_C5_CONTRACTION:A->A",
+          "sourceQClass": "9486272f55996c92",
+          "p0Move": 1,
+          "p1Reply": 3,
+          "macroLabel": "c1>c3"
+        }
+      ]
+    },
+    {
+      "exactQClass": "179e71321b01d832",
+      "rank": 32,
+      "support": [
+        3,
+        6,
+        2,
+        6,
+        5,
+        6,
+        4
+      ],
+      "incomingTransitionCount": 1,
+      "sourceQClasses": [
+        "7ddbc5877da1aae5"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D7_C5_CONTRACTION:G->G"
+      ],
+      "p0RootMoves": [
+        6
+      ],
+      "p1ReplyMoves": [
+        7
+      ],
+      "macroLabels": [
+        "c6>c7"
+      ],
+      "reachedFromMultipleSourceLeaves": false,
+      "reachedThroughMultipleMacroLabels": false,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:G->G",
+          "sourceQClass": "7ddbc5877da1aae5",
+          "p0Move": 6,
+          "p1Reply": 7,
+          "macroLabel": "c6>c7"
+        }
+      ]
+    },
+    {
+      "exactQClass": "1a19d0c49e398186",
+      "rank": 32,
+      "support": [
+        3,
+        6,
+        4,
+        6,
+        5,
+        5,
+        3
+      ],
+      "incomingTransitionCount": 1,
+      "sourceQClasses": [
+        "7ddbc5877da1aae5"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D7_C5_CONTRACTION:G->G"
+      ],
+      "p0RootMoves": [
+        3
+      ],
+      "p1ReplyMoves": [
+        3
+      ],
+      "macroLabels": [
+        "c3>c3"
+      ],
+      "reachedFromMultipleSourceLeaves": false,
+      "reachedThroughMultipleMacroLabels": false,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:G->G",
+          "sourceQClass": "7ddbc5877da1aae5",
+          "p0Move": 3,
+          "p1Reply": 3,
+          "macroLabel": "c3>c3"
+        }
+      ]
+    },
+    {
+      "exactQClass": "1a9a74139206b84c",
+      "rank": 32,
+      "support": [
+        4,
+        6,
+        4,
+        6,
+        5,
+        6,
+        1
+      ],
+      "incomingTransitionCount": 1,
+      "sourceQClasses": [
+        "7c5e1cc7846c6b26"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D7_C5_CONTRACTION:F->A"
+      ],
+      "p0RootMoves": [
+        3
+      ],
+      "p1ReplyMoves": [
+        3
+      ],
+      "macroLabels": [
+        "c3>c3"
+      ],
+      "reachedFromMultipleSourceLeaves": false,
+      "reachedThroughMultipleMacroLabels": false,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:F->A",
+          "sourceQClass": "7c5e1cc7846c6b26",
+          "p0Move": 3,
+          "p1Reply": 3,
+          "macroLabel": "c3>c3"
+        }
+      ]
+    },
+    {
+      "exactQClass": "2032001c933cdbd9",
+      "rank": 32,
+      "support": [
+        5,
+        6,
+        3,
+        6,
+        6,
+        5,
+        1
+      ],
+      "incomingTransitionCount": 1,
+      "sourceQClasses": [
+        "622683928b72c4be"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D1_C5_CONTRACTION:G->A"
+      ],
+      "p0RootMoves": [
+        3
+      ],
+      "p1ReplyMoves": [
+        5
+      ],
+      "macroLabels": [
+        "c3>c5"
+      ],
+      "reachedFromMultipleSourceLeaves": false,
+      "reachedThroughMultipleMacroLabels": false,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:G->A",
+          "sourceQClass": "622683928b72c4be",
+          "p0Move": 3,
+          "p1Reply": 5,
+          "macroLabel": "c3>c5"
+        }
+      ]
+    },
+    {
+      "exactQClass": "20438c51672dfc50",
+      "rank": 32,
+      "support": [
+        4,
+        6,
+        2,
+        6,
+        6,
+        5,
+        3
+      ],
+      "incomingTransitionCount": 1,
+      "sourceQClasses": [
+        "7ddbc5877da1aae5"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D7_C5_CONTRACTION:G->G"
+      ],
+      "p0RootMoves": [
+        1
+      ],
+      "p1ReplyMoves": [
+        5
+      ],
+      "macroLabels": [
+        "c1>c5"
+      ],
+      "reachedFromMultipleSourceLeaves": false,
+      "reachedThroughMultipleMacroLabels": false,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:G->G",
+          "sourceQClass": "7ddbc5877da1aae5",
+          "p0Move": 1,
+          "p1Reply": 5,
+          "macroLabel": "c1>c5"
+        }
+      ]
+    },
+    {
+      "exactQClass": "2a35b713d46a63b3",
+      "rank": 32,
+      "support": [
+        5,
+        6,
+        4,
+        6,
+        5,
+        6,
+        0
+      ],
+      "incomingTransitionCount": 1,
+      "sourceQClasses": [
+        "8b007f7dfd990ea6"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D1_C5_CONTRACTION:F->A"
+      ],
+      "p0RootMoves": [
+        3
+      ],
+      "p1ReplyMoves": [
+        3
+      ],
+      "macroLabels": [
+        "c3>c3"
+      ],
+      "reachedFromMultipleSourceLeaves": false,
+      "reachedThroughMultipleMacroLabels": false,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:F->A",
+          "sourceQClass": "8b007f7dfd990ea6",
+          "p0Move": 3,
+          "p1Reply": 3,
+          "macroLabel": "c3>c3"
+        }
+      ]
+    },
+    {
+      "exactQClass": "2d83abfc0c70241e",
+      "rank": 32,
+      "support": [
+        3,
+        6,
+        3,
+        6,
+        6,
+        5,
+        3
+      ],
+      "incomingTransitionCount": 1,
+      "sourceQClasses": [
+        "7ddbc5877da1aae5"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D7_C5_CONTRACTION:G->G"
+      ],
+      "p0RootMoves": [
+        5
+      ],
+      "p1ReplyMoves": [
+        3
+      ],
+      "macroLabels": [
+        "c5>c3"
+      ],
+      "reachedFromMultipleSourceLeaves": false,
+      "reachedThroughMultipleMacroLabels": false,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:G->G",
+          "sourceQClass": "7ddbc5877da1aae5",
+          "p0Move": 5,
+          "p1Reply": 3,
+          "macroLabel": "c5>c3"
+        }
+      ]
+    },
+    {
+      "exactQClass": "35bf0a393f52a2e4",
+      "rank": 32,
+      "support": [
+        4,
+        6,
+        2,
+        6,
+        5,
+        6,
+        3
+      ],
+      "incomingTransitionCount": 1,
+      "sourceQClasses": [
+        "475b51b09cf2f66e"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D6_C5_CONTRACTION:G->A"
+      ],
+      "p0RootMoves": [
+        7
+      ],
+      "p1ReplyMoves": [
+        7
+      ],
+      "macroLabels": [
+        "c7>c7"
+      ],
+      "reachedFromMultipleSourceLeaves": false,
+      "reachedThroughMultipleMacroLabels": false,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D6_C5_CONTRACTION:G->A",
+          "sourceQClass": "475b51b09cf2f66e",
+          "p0Move": 7,
+          "p1Reply": 7,
+          "macroLabel": "c7>c7"
+        }
+      ]
+    },
+    {
+      "exactQClass": "37a9c62d8fd980f9",
+      "rank": 32,
+      "support": [
+        3,
+        6,
+        3,
+        6,
+        5,
+        5,
+        4
+      ],
+      "incomingTransitionCount": 1,
+      "sourceQClasses": [
+        "7ddbc5877da1aae5"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D7_C5_CONTRACTION:G->G"
+      ],
+      "p0RootMoves": [
+        3
+      ],
+      "p1ReplyMoves": [
+        7
+      ],
+      "macroLabels": [
+        "c3>c7"
+      ],
+      "reachedFromMultipleSourceLeaves": false,
+      "reachedThroughMultipleMacroLabels": false,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:G->G",
+          "sourceQClass": "7ddbc5877da1aae5",
+          "p0Move": 3,
+          "p1Reply": 7,
+          "macroLabel": "c3>c7"
+        }
+      ]
+    },
+    {
+      "exactQClass": "3a5600cd61301693",
+      "rank": 32,
+      "support": [
+        3,
+        6,
+        3,
+        6,
+        5,
+        5,
+        4
+      ],
+      "incomingTransitionCount": 1,
+      "sourceQClasses": [
+        "7ddbc5877da1aae5"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D7_C5_CONTRACTION:G->G"
+      ],
+      "p0RootMoves": [
+        7
+      ],
+      "p1ReplyMoves": [
+        3
+      ],
+      "macroLabels": [
+        "c7>c3"
+      ],
+      "reachedFromMultipleSourceLeaves": false,
+      "reachedThroughMultipleMacroLabels": false,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:G->G",
+          "sourceQClass": "7ddbc5877da1aae5",
+          "p0Move": 7,
+          "p1Reply": 3,
+          "macroLabel": "c7>c3"
+        }
+      ]
+    },
+    {
+      "exactQClass": "3abfd67de003bddb",
+      "rank": 32,
+      "support": [
+        5,
+        6,
+        4,
+        6,
+        6,
+        5,
+        0
+      ],
+      "incomingTransitionCount": 1,
+      "sourceQClasses": [
+        "00788378b8ae8d01"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D1_C5_CONTRACTION:E->A"
+      ],
+      "p0RootMoves": [
+        3
+      ],
+      "p1ReplyMoves": [
+        3
+      ],
+      "macroLabels": [
+        "c3>c3"
+      ],
+      "reachedFromMultipleSourceLeaves": false,
+      "reachedThroughMultipleMacroLabels": false,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:E->A",
+          "sourceQClass": "00788378b8ae8d01",
+          "p0Move": 3,
+          "p1Reply": 3,
+          "macroLabel": "c3>c3"
+        }
+      ]
+    },
+    {
+      "exactQClass": "46f7d5f1741bd505",
+      "rank": 32,
+      "support": [
+        4,
+        6,
+        4,
+        6,
+        5,
+        6,
+        1
+      ],
+      "incomingTransitionCount": 1,
+      "sourceQClasses": [
+        "475b51b09cf2f66e"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D6_C5_CONTRACTION:G->A"
+      ],
+      "p0RootMoves": [
+        3
+      ],
+      "p1ReplyMoves": [
+        3
+      ],
+      "macroLabels": [
+        "c3>c3"
+      ],
+      "reachedFromMultipleSourceLeaves": false,
+      "reachedThroughMultipleMacroLabels": false,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D6_C5_CONTRACTION:G->A",
+          "sourceQClass": "475b51b09cf2f66e",
+          "p0Move": 3,
+          "p1Reply": 3,
+          "macroLabel": "c3>c3"
+        }
+      ]
+    },
+    {
+      "exactQClass": "47c4a5bf0ab9600d",
+      "rank": 32,
+      "support": [
+        5,
+        6,
+        3,
+        6,
+        6,
+        6,
+        0
+      ],
+      "incomingTransitionCount": 1,
+      "sourceQClasses": [
+        "9486272f55996c92"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D6_C5_CONTRACTION:A->A"
+      ],
+      "p0RootMoves": [
+        3
+      ],
+      "p1ReplyMoves": [
+        5
+      ],
+      "macroLabels": [
+        "c3>c5"
+      ],
+      "reachedFromMultipleSourceLeaves": false,
+      "reachedThroughMultipleMacroLabels": false,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D6_C5_CONTRACTION:A->A",
+          "sourceQClass": "9486272f55996c92",
+          "p0Move": 3,
+          "p1Reply": 5,
+          "macroLabel": "c3>c5"
+        }
+      ]
+    },
+    {
+      "exactQClass": "48337dc010216775",
+      "rank": 32,
+      "support": [
+        4,
+        6,
+        4,
+        6,
+        6,
+        5,
+        1
+      ],
+      "incomingTransitionCount": 1,
+      "sourceQClasses": [
+        "8e5db6e2893b3eaf"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D7_C5_CONTRACTION:E->A"
+      ],
+      "p0RootMoves": [
+        3
+      ],
+      "p1ReplyMoves": [
+        3
+      ],
+      "macroLabels": [
+        "c3>c3"
+      ],
+      "reachedFromMultipleSourceLeaves": false,
+      "reachedThroughMultipleMacroLabels": false,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:E->A",
+          "sourceQClass": "8e5db6e2893b3eaf",
+          "p0Move": 3,
+          "p1Reply": 3,
+          "macroLabel": "c3>c3"
+        }
+      ]
+    },
+    {
+      "exactQClass": "517ce288243f3201",
+      "rank": 32,
+      "support": [
+        3,
+        6,
+        2,
+        6,
+        5,
+        5,
+        5
+      ],
+      "incomingTransitionCount": 1,
+      "sourceQClasses": [
+        "7ddbc5877da1aae5"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D7_C5_CONTRACTION:G->G"
+      ],
+      "p0RootMoves": [
+        7
+      ],
+      "p1ReplyMoves": [
+        7
+      ],
+      "macroLabels": [
+        "c7>c7"
+      ],
+      "reachedFromMultipleSourceLeaves": false,
+      "reachedThroughMultipleMacroLabels": false,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:G->G",
+          "sourceQClass": "7ddbc5877da1aae5",
+          "p0Move": 7,
+          "p1Reply": 7,
+          "macroLabel": "c7>c7"
+        }
+      ]
+    },
+    {
+      "exactQClass": "663b2dedf80ef753",
+      "rank": 32,
+      "support": [
+        5,
+        6,
+        2,
+        6,
+        5,
+        5,
+        3
+      ],
+      "incomingTransitionCount": 1,
+      "sourceQClasses": [
+        "622683928b72c4be"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D1_C5_CONTRACTION:G->A"
+      ],
+      "p0RootMoves": [
+        7
+      ],
+      "p1ReplyMoves": [
+        7
+      ],
+      "macroLabels": [
+        "c7>c7"
+      ],
+      "reachedFromMultipleSourceLeaves": false,
+      "reachedThroughMultipleMacroLabels": false,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:G->A",
+          "sourceQClass": "622683928b72c4be",
+          "p0Move": 7,
+          "p1Reply": 7,
+          "macroLabel": "c7>c7"
+        }
+      ]
+    },
+    {
+      "exactQClass": "7d4a5529c1cf873b",
+      "rank": 32,
+      "support": [
+        6,
+        6,
+        2,
+        6,
+        6,
+        5,
+        1
+      ],
+      "incomingTransitionCount": 1,
+      "sourceQClasses": [
+        "680acc3a5e8c8bef"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D7_C5_CONTRACTION:A->A"
+      ],
+      "p0RootMoves": [
+        1
+      ],
+      "p1ReplyMoves": [
+        5
+      ],
+      "macroLabels": [
+        "c1>c5"
+      ],
+      "reachedFromMultipleSourceLeaves": false,
+      "reachedThroughMultipleMacroLabels": false,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:A->A",
+          "sourceQClass": "680acc3a5e8c8bef",
+          "p0Move": 1,
+          "p1Reply": 5,
+          "macroLabel": "c1>c5"
+        }
+      ]
+    },
+    {
+      "exactQClass": "8ab031432caa9c47",
+      "rank": 32,
+      "support": [
+        3,
+        6,
+        2,
+        6,
+        6,
+        5,
+        4
+      ],
+      "incomingTransitionCount": 1,
+      "sourceQClasses": [
+        "7ddbc5877da1aae5"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D7_C5_CONTRACTION:G->G"
+      ],
+      "p0RootMoves": [
+        5
+      ],
+      "p1ReplyMoves": [
+        7
+      ],
+      "macroLabels": [
+        "c5>c7"
+      ],
+      "reachedFromMultipleSourceLeaves": false,
+      "reachedThroughMultipleMacroLabels": false,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:G->G",
+          "sourceQClass": "7ddbc5877da1aae5",
+          "p0Move": 5,
+          "p1Reply": 7,
+          "macroLabel": "c5>c7"
+        }
+      ]
+    },
+    {
+      "exactQClass": "94a0116a55fe9df1",
+      "rank": 32,
+      "support": [
+        5,
+        6,
+        4,
+        6,
+        5,
+        5,
+        1
+      ],
+      "incomingTransitionCount": 1,
+      "sourceQClasses": [
+        "680acc3a5e8c8bef"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D7_C5_CONTRACTION:A->A"
+      ],
+      "p0RootMoves": [
+        3
+      ],
+      "p1ReplyMoves": [
+        3
+      ],
+      "macroLabels": [
+        "c3>c3"
+      ],
+      "reachedFromMultipleSourceLeaves": false,
+      "reachedThroughMultipleMacroLabels": false,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:A->A",
+          "sourceQClass": "680acc3a5e8c8bef",
+          "p0Move": 3,
+          "p1Reply": 3,
+          "macroLabel": "c3>c3"
+        }
+      ]
+    },
+    {
+      "exactQClass": "9a71b75a79d0a672",
+      "rank": 32,
+      "support": [
+        4,
+        6,
+        3,
+        6,
+        5,
+        5,
+        3
+      ],
+      "incomingTransitionCount": 1,
+      "sourceQClasses": [
+        "7ddbc5877da1aae5"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D7_C5_CONTRACTION:G->G"
+      ],
+      "p0RootMoves": [
+        3
+      ],
+      "p1ReplyMoves": [
+        1
+      ],
+      "macroLabels": [
+        "c3>c1"
+      ],
+      "reachedFromMultipleSourceLeaves": false,
+      "reachedThroughMultipleMacroLabels": false,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:G->G",
+          "sourceQClass": "7ddbc5877da1aae5",
+          "p0Move": 3,
+          "p1Reply": 1,
+          "macroLabel": "c3>c1"
+        }
+      ]
+    },
+    {
+      "exactQClass": "9f6b7a33ab7e9552",
+      "rank": 32,
+      "support": [
+        6,
+        6,
+        4,
+        6,
+        5,
+        5,
+        0
+      ],
+      "incomingTransitionCount": 1,
+      "sourceQClasses": [
+        "d21a89605c399aca"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D1_C5_CONTRACTION:A->A"
+      ],
+      "p0RootMoves": [
+        3
+      ],
+      "p1ReplyMoves": [
+        3
+      ],
+      "macroLabels": [
+        "c3>c3"
+      ],
+      "reachedFromMultipleSourceLeaves": false,
+      "reachedThroughMultipleMacroLabels": false,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:A->A",
+          "sourceQClass": "d21a89605c399aca",
+          "p0Move": 3,
+          "p1Reply": 3,
+          "macroLabel": "c3>c3"
+        }
+      ]
+    },
+    {
+      "exactQClass": "a09cc4edc3e9b1e5",
+      "rank": 32,
+      "support": [
+        4,
+        6,
+        2,
+        6,
+        5,
+        5,
+        4
+      ],
+      "incomingTransitionCount": 1,
+      "sourceQClasses": [
+        "7ddbc5877da1aae5"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D7_C5_CONTRACTION:G->G"
+      ],
+      "p0RootMoves": [
+        7
+      ],
+      "p1ReplyMoves": [
+        1
+      ],
+      "macroLabels": [
+        "c7>c1"
+      ],
+      "reachedFromMultipleSourceLeaves": false,
+      "reachedThroughMultipleMacroLabels": false,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:G->G",
+          "sourceQClass": "7ddbc5877da1aae5",
+          "p0Move": 7,
+          "p1Reply": 1,
+          "macroLabel": "c7>c1"
+        }
+      ]
+    },
+    {
+      "exactQClass": "a33bd9f921b62c86",
+      "rank": 32,
+      "support": [
+        3,
+        6,
+        2,
+        6,
+        5,
+        6,
+        4
+      ],
+      "incomingTransitionCount": 1,
+      "sourceQClasses": [
+        "7ddbc5877da1aae5"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D7_C5_CONTRACTION:G->G"
+      ],
+      "p0RootMoves": [
+        7
+      ],
+      "p1ReplyMoves": [
+        6
+      ],
+      "macroLabels": [
+        "c7>c6"
+      ],
+      "reachedFromMultipleSourceLeaves": false,
+      "reachedThroughMultipleMacroLabels": false,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:G->G",
+          "sourceQClass": "7ddbc5877da1aae5",
+          "p0Move": 7,
+          "p1Reply": 6,
+          "macroLabel": "c7>c6"
+        }
+      ]
+    },
+    {
+      "exactQClass": "a3dfcb4015f5621a",
+      "rank": 32,
+      "support": [
+        3,
+        6,
+        3,
+        6,
+        5,
+        6,
+        3
+      ],
+      "incomingTransitionCount": 1,
+      "sourceQClasses": [
+        "7ddbc5877da1aae5"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D7_C5_CONTRACTION:G->G"
+      ],
+      "p0RootMoves": [
+        6
+      ],
+      "p1ReplyMoves": [
+        3
+      ],
+      "macroLabels": [
+        "c6>c3"
+      ],
+      "reachedFromMultipleSourceLeaves": false,
+      "reachedThroughMultipleMacroLabels": false,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:G->G",
+          "sourceQClass": "7ddbc5877da1aae5",
+          "p0Move": 6,
+          "p1Reply": 3,
+          "macroLabel": "c6>c3"
+        }
+      ]
+    },
+    {
+      "exactQClass": "c8bd11012cd7af0f",
+      "rank": 32,
+      "support": [
+        4,
+        6,
+        2,
+        6,
+        5,
+        5,
+        4
+      ],
+      "incomingTransitionCount": 1,
+      "sourceQClasses": [
+        "7ddbc5877da1aae5"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D7_C5_CONTRACTION:G->G"
+      ],
+      "p0RootMoves": [
+        1
+      ],
+      "p1ReplyMoves": [
+        7
+      ],
+      "macroLabels": [
+        "c1>c7"
+      ],
+      "reachedFromMultipleSourceLeaves": false,
+      "reachedThroughMultipleMacroLabels": false,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:G->G",
+          "sourceQClass": "7ddbc5877da1aae5",
+          "p0Move": 1,
+          "p1Reply": 7,
+          "macroLabel": "c1>c7"
+        }
+      ]
+    },
+    {
+      "exactQClass": "e32df3e33d919f63",
+      "rank": 32,
+      "support": [
+        5,
+        6,
+        4,
+        6,
+        5,
+        6,
+        0
+      ],
+      "incomingTransitionCount": 1,
+      "sourceQClasses": [
+        "9486272f55996c92"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D6_C5_CONTRACTION:A->A"
+      ],
+      "p0RootMoves": [
+        3
+      ],
+      "p1ReplyMoves": [
+        3
+      ],
+      "macroLabels": [
+        "c3>c3"
+      ],
+      "reachedFromMultipleSourceLeaves": false,
+      "reachedThroughMultipleMacroLabels": false,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D6_C5_CONTRACTION:A->A",
+          "sourceQClass": "9486272f55996c92",
+          "p0Move": 3,
+          "p1Reply": 3,
+          "macroLabel": "c3>c3"
+        }
+      ]
+    },
+    {
+      "exactQClass": "e33614d745566f6e",
+      "rank": 32,
+      "support": [
+        4,
+        6,
+        3,
+        6,
+        5,
+        5,
+        3
+      ],
+      "incomingTransitionCount": 1,
+      "sourceQClasses": [
+        "7ddbc5877da1aae5"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D7_C5_CONTRACTION:G->G"
+      ],
+      "p0RootMoves": [
+        1
+      ],
+      "p1ReplyMoves": [
+        3
+      ],
+      "macroLabels": [
+        "c1>c3"
+      ],
+      "reachedFromMultipleSourceLeaves": false,
+      "reachedThroughMultipleMacroLabels": false,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:G->G",
+          "sourceQClass": "7ddbc5877da1aae5",
+          "p0Move": 1,
+          "p1Reply": 3,
+          "macroLabel": "c1>c3"
+        }
+      ]
+    },
+    {
+      "exactQClass": "e8d450049057ab15",
+      "rank": 32,
+      "support": [
+        5,
+        6,
+        3,
+        6,
+        6,
+        5,
+        1
+      ],
+      "incomingTransitionCount": 1,
+      "sourceQClasses": [
+        "680acc3a5e8c8bef"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D7_C5_CONTRACTION:A->A"
+      ],
+      "p0RootMoves": [
+        3
+      ],
+      "p1ReplyMoves": [
+        5
+      ],
+      "macroLabels": [
+        "c3>c5"
+      ],
+      "reachedFromMultipleSourceLeaves": false,
+      "reachedThroughMultipleMacroLabels": false,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:A->A",
+          "sourceQClass": "680acc3a5e8c8bef",
+          "p0Move": 3,
+          "p1Reply": 5,
+          "macroLabel": "c3>c5"
+        }
+      ]
+    },
+    {
+      "exactQClass": "e9c6db1630e21415",
+      "rank": 32,
+      "support": [
+        3,
+        6,
+        3,
+        6,
+        5,
+        6,
+        3
+      ],
+      "incomingTransitionCount": 1,
+      "sourceQClasses": [
+        "7ddbc5877da1aae5"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D7_C5_CONTRACTION:G->G"
+      ],
+      "p0RootMoves": [
+        3
+      ],
+      "p1ReplyMoves": [
+        6
+      ],
+      "macroLabels": [
+        "c3>c6"
+      ],
+      "reachedFromMultipleSourceLeaves": false,
+      "reachedThroughMultipleMacroLabels": false,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:G->G",
+          "sourceQClass": "7ddbc5877da1aae5",
+          "p0Move": 3,
+          "p1Reply": 6,
+          "macroLabel": "c3>c6"
+        }
+      ]
+    },
+    {
+      "exactQClass": "ed6875fb8f73132a",
+      "rank": 32,
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        5,
+        5,
+        1
+      ],
+      "incomingTransitionCount": 1,
+      "sourceQClasses": [
+        "680acc3a5e8c8bef"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D7_C5_CONTRACTION:A->A"
+      ],
+      "p0RootMoves": [
+        1
+      ],
+      "p1ReplyMoves": [
+        3
+      ],
+      "macroLabels": [
+        "c1>c3"
+      ],
+      "reachedFromMultipleSourceLeaves": false,
+      "reachedThroughMultipleMacroLabels": false,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:A->A",
+          "sourceQClass": "680acc3a5e8c8bef",
+          "p0Move": 1,
+          "p1Reply": 3,
+          "macroLabel": "c1>c3"
+        }
+      ]
+    },
+    {
+      "exactQClass": "f2921084b85fd14f",
+      "rank": 32,
+      "support": [
+        5,
+        6,
+        4,
+        6,
+        5,
+        5,
+        1
+      ],
+      "incomingTransitionCount": 1,
+      "sourceQClasses": [
+        "622683928b72c4be"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D1_C5_CONTRACTION:G->A"
+      ],
+      "p0RootMoves": [
+        3
+      ],
+      "p1ReplyMoves": [
+        3
+      ],
+      "macroLabels": [
+        "c3>c3"
+      ],
+      "reachedFromMultipleSourceLeaves": false,
+      "reachedThroughMultipleMacroLabels": false,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:G->A",
+          "sourceQClass": "622683928b72c4be",
+          "p0Move": 3,
+          "p1Reply": 3,
+          "macroLabel": "c3>c3"
+        }
+      ]
+    },
+    {
+      "exactQClass": "fa415ceee14dfe15",
+      "rank": 32,
+      "support": [
+        3,
+        6,
+        3,
+        6,
+        6,
+        5,
+        3
+      ],
+      "incomingTransitionCount": 1,
+      "sourceQClasses": [
+        "7ddbc5877da1aae5"
+      ],
+      "sourceLeafIds": [
+        "SECOND_D7_C5_CONTRACTION:G->G"
+      ],
+      "p0RootMoves": [
+        3
+      ],
+      "p1ReplyMoves": [
+        5
+      ],
+      "macroLabels": [
+        "c3>c5"
+      ],
+      "reachedFromMultipleSourceLeaves": false,
+      "reachedThroughMultipleMacroLabels": false,
+      "incoming": [
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:G->G",
+          "sourceQClass": "7ddbc5877da1aae5",
+          "p0Move": 3,
+          "p1Reply": 5,
+          "macroLabel": "c3>c5"
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "sourceLeafCount": 11,
+    "rawTransitionCount": 177,
+    "unresolvedTransitionCount": 129,
+    "terminalOrProvedTransitionCount": 48,
+    "uniqueUnresolvedQClassCount": 72,
+    "repeatedUnresolvedQClassCount": 34,
+    "repeatedAcrossSourceLeafCount": 33,
+    "repeatedAcrossMacroLabelCount": 34,
+    "unresolvedCompressionFraction": 0.4418604651162791,
+    "maxIncomingMultiplicity": 7,
+    "maxSourcePhysicalTransitions": 23,
+    "maxSourceQuotientUnresolvedArity": 22
+  },
+  "conclusion": [
+    "The census enumerates one complete P0/P1 macro-step from every unresolved rank-30 source q and classifies lower states only by terminal facts or the already-qualified rank<=3 positive grammar.",
+    "Unresolved lower states are normalized solely by exact semantic q identity; no value or new proof rule is assigned.",
+    "Multiple physical transition instances converge onto repeated unresolved exact-q consequence classes, so exact-q transport provides real branch compression at this layer."
+  ],
+  "boundary": [
+    "This is consequence-class transport evidence only and does not assign W/D/L value to any unresolved q class.",
+    "No oracle, solved W/D/L, minimax, unrestricted game-tree search, best-move table, opening book, BSFP solved frontier, physical-position identity shortcut, or sealed holdout is used.",
+    "Production CPC, JSMinSys, and BSFP remain unchanged."
+  ]
+}
