@@ -1,0 +1,150 @@
+{
+  "schema": "connect4.rba_three_column_phase_transfer_discovery.v1",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "ordinaryGameTreeSearchUsed": true,
+  "proofPremiseAllowed": false,
+  "parent": {
+    "sequence": "4444415666662322224233177716111",
+    "rank": 31,
+    "mover": 2,
+    "support": [
+      6,
+      6,
+      3,
+      6,
+      1,
+      6,
+      3
+    ],
+    "legalColumns": [
+      3,
+      5,
+      7
+    ]
+  },
+  "rows": [
+    {
+      "p2Column": 3,
+      "rank": 32,
+      "support": [
+        6,
+        6,
+        4,
+        6,
+        1,
+        6,
+        3
+      ],
+      "discovery": {
+        "value": 3,
+        "bestMoves": [
+          3
+        ],
+        "moves": [
+          {
+            "column": 3,
+            "value": 3
+          },
+          {
+            "column": 5,
+            "value": 1
+          },
+          {
+            "column": 7,
+            "value": 2
+          }
+        ],
+        "nodes": 45,
+        "memoSize": 28,
+        "memoHits": 4
+      }
+    },
+    {
+      "p2Column": 5,
+      "rank": 32,
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        2,
+        6,
+        3
+      ],
+      "discovery": {
+        "value": 3,
+        "bestMoves": [
+          5,
+          7
+        ],
+        "moves": [
+          {
+            "column": 3,
+            "value": 2
+          },
+          {
+            "column": 5,
+            "value": 3
+          },
+          {
+            "column": 7,
+            "value": 3
+          }
+        ],
+        "nodes": 179,
+        "memoSize": 98,
+        "memoHits": 41
+      }
+    },
+    {
+      "p2Column": 7,
+      "rank": 32,
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        1,
+        6,
+        4
+      ],
+      "discovery": {
+        "value": 3,
+        "bestMoves": [
+          5,
+          7
+        ],
+        "moves": [
+          {
+            "column": 3,
+            "value": 2
+          },
+          {
+            "column": 5,
+            "value": 3
+          },
+          {
+            "column": 7,
+            "value": 3
+          }
+        ],
+        "nodes": 166,
+        "memoSize": 90,
+        "memoHits": 38
+      }
+    }
+  ],
+  "valueEncoding": {
+    "1": "P2_WIN",
+    "2": "DRAW",
+    "3": "P1_WIN"
+  },
+  "boundary": [
+    "Discovery/falsification only; values are forbidden as structural theorem or runtime policy premises.",
+    "The rank-31 three-column state is reached through previously identified CPC-forced handoffs.",
+    "No Pons, external oracle, solved database, opening book, best-move table, physical identity, or sealed holdout is used.",
+    "Production CPC and JSMinSys are unchanged."
+  ]
+}
