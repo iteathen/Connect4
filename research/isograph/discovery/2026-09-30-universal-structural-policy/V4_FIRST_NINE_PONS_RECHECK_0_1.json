@@ -1,0 +1,571 @@
+{
+  "schema": "connect4.universal_structural_policy.v4.first_nine_pons_recheck.v1",
+  "timestampUtc": "2026-10-01T04:46:34.518Z",
+  "validationOnly": true,
+  "trainingUse": false,
+  "pons": {
+    "revision": "d6ba50d8aaf2308c769d9bf2abd42d90f34baf41",
+    "book": "7x6.book",
+    "bookSha256": "f346cd449626fb81da93be0958e017ee854e5f74d85b6d38062357f5403aec53",
+    "mode": "c4solver -a / Solver::analyze()",
+    "batchWallNs": 13216554,
+    "batchWallMs": 13.216554,
+    "timingNote": "Separate oracle batch wall time; includes c4solver process startup and opening-book load and is not part of the move-finder benchmark."
+  },
+  "timingEvidence": {
+    "schema": "connect4.universal_structural_policy.v4.first_nine_timing.v1",
+    "timestampUtc": "2026-10-01T04:44:15.547Z",
+    "benchmarkCommit": "49de2d74aae55cc41951e5533b579f73ede6d036",
+    "sequence": "444441566",
+    "repetitions": 1000,
+    "medianFirstNineMs": 23.725867
+  },
+  "checks": [
+    {
+      "ply": 1,
+      "prefix": "",
+      "scores": [
+        -2,
+        -1,
+        0,
+        1,
+        0,
+        -1,
+        -2
+      ],
+      "wdlEquivalent": {
+        "wins": [
+          4
+        ],
+        "draws": [
+          3,
+          5
+        ],
+        "losses": [
+          1,
+          2,
+          6,
+          7
+        ]
+      },
+      "exactStrongClasses": [
+        {
+          "score": 1,
+          "moves": [
+            4
+          ]
+        },
+        {
+          "score": 0,
+          "moves": [
+            3,
+            5
+          ]
+        },
+        {
+          "score": -1,
+          "moves": [
+            2,
+            6
+          ]
+        },
+        {
+          "score": -2,
+          "moves": [
+            1,
+            7
+          ]
+        }
+      ],
+      "acceptable": [
+        4
+      ],
+      "basis": "ANY_WIN",
+      "selected": [
+        4
+      ],
+      "representative": 4,
+      "selectedAllAcceptable": true,
+      "representativeAcceptable": true
+    },
+    {
+      "ply": 2,
+      "prefix": "4",
+      "scores": [
+        -4,
+        -2,
+        -2,
+        -1,
+        -2,
+        -2,
+        -4
+      ],
+      "wdlEquivalent": {
+        "wins": [],
+        "draws": [],
+        "losses": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      },
+      "exactStrongClasses": [
+        {
+          "score": -1,
+          "moves": [
+            4
+          ]
+        },
+        {
+          "score": -2,
+          "moves": [
+            2,
+            3,
+            5,
+            6
+          ]
+        },
+        {
+          "score": -4,
+          "moves": [
+            1,
+            7
+          ]
+        }
+      ],
+      "acceptable": [
+        4
+      ],
+      "basis": "MAX_DELAY_LOSS",
+      "selected": [
+        4
+      ],
+      "representative": 4,
+      "selectedAllAcceptable": true,
+      "representativeAcceptable": true
+    },
+    {
+      "ply": 3,
+      "prefix": "44",
+      "scores": [
+        -3,
+        -3,
+        -2,
+        1,
+        -2,
+        -3,
+        -3
+      ],
+      "wdlEquivalent": {
+        "wins": [
+          4
+        ],
+        "draws": [],
+        "losses": [
+          1,
+          2,
+          3,
+          5,
+          6,
+          7
+        ]
+      },
+      "exactStrongClasses": [
+        {
+          "score": 1,
+          "moves": [
+            4
+          ]
+        },
+        {
+          "score": -2,
+          "moves": [
+            3,
+            5
+          ]
+        },
+        {
+          "score": -3,
+          "moves": [
+            1,
+            2,
+            6,
+            7
+          ]
+        }
+      ],
+      "acceptable": [
+        4
+      ],
+      "basis": "ANY_WIN",
+      "selected": [
+        4
+      ],
+      "representative": 4,
+      "selectedAllAcceptable": true,
+      "representativeAcceptable": true
+    },
+    {
+      "ply": 4,
+      "prefix": "444",
+      "scores": [
+        -4,
+        -4,
+        -3,
+        -1,
+        -3,
+        -4,
+        -4
+      ],
+      "wdlEquivalent": {
+        "wins": [],
+        "draws": [],
+        "losses": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      },
+      "exactStrongClasses": [
+        {
+          "score": -1,
+          "moves": [
+            4
+          ]
+        },
+        {
+          "score": -3,
+          "moves": [
+            3,
+            5
+          ]
+        },
+        {
+          "score": -4,
+          "moves": [
+            1,
+            2,
+            6,
+            7
+          ]
+        }
+      ],
+      "acceptable": [
+        4
+      ],
+      "basis": "MAX_DELAY_LOSS",
+      "selected": [
+        4
+      ],
+      "representative": 4,
+      "selectedAllAcceptable": true,
+      "representativeAcceptable": true
+    },
+    {
+      "ply": 5,
+      "prefix": "4444",
+      "scores": [
+        -2,
+        -2,
+        -2,
+        1,
+        -2,
+        -2,
+        -2
+      ],
+      "wdlEquivalent": {
+        "wins": [
+          4
+        ],
+        "draws": [],
+        "losses": [
+          1,
+          2,
+          3,
+          5,
+          6,
+          7
+        ]
+      },
+      "exactStrongClasses": [
+        {
+          "score": 1,
+          "moves": [
+            4
+          ]
+        },
+        {
+          "score": -2,
+          "moves": [
+            1,
+            2,
+            3,
+            5,
+            6,
+            7
+          ]
+        }
+      ],
+      "acceptable": [
+        4
+      ],
+      "basis": "ANY_WIN",
+      "selected": [
+        4
+      ],
+      "representative": 4,
+      "selectedAllAcceptable": true,
+      "representativeAcceptable": true
+    },
+    {
+      "ply": 6,
+      "prefix": "44444",
+      "scores": [
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "wdlEquivalent": {
+        "wins": [],
+        "draws": [],
+        "losses": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      },
+      "exactStrongClasses": [
+        {
+          "score": -1,
+          "moves": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        }
+      ],
+      "acceptable": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "basis": "MAX_DELAY_LOSS",
+      "selected": [
+        1,
+        7
+      ],
+      "representative": 1,
+      "selectedAllAcceptable": true,
+      "representativeAcceptable": true
+    },
+    {
+      "ply": 7,
+      "prefix": "444441",
+      "scores": [
+        0,
+        -3,
+        1,
+        -3,
+        1,
+        0,
+        0
+      ],
+      "wdlEquivalent": {
+        "wins": [
+          3,
+          5
+        ],
+        "draws": [
+          1,
+          6,
+          7
+        ],
+        "losses": [
+          2,
+          4
+        ]
+      },
+      "exactStrongClasses": [
+        {
+          "score": 1,
+          "moves": [
+            3,
+            5
+          ]
+        },
+        {
+          "score": 0,
+          "moves": [
+            1,
+            6,
+            7
+          ]
+        },
+        {
+          "score": -3,
+          "moves": [
+            2,
+            4
+          ]
+        }
+      ],
+      "acceptable": [
+        3,
+        5
+      ],
+      "basis": "ANY_WIN",
+      "selected": [
+        5
+      ],
+      "representative": 5,
+      "selectedAllAcceptable": true,
+      "representativeAcceptable": true
+    },
+    {
+      "ply": 8,
+      "prefix": "4444415",
+      "scores": [
+        -16,
+        -16,
+        -3,
+        -16,
+        -16,
+        -1,
+        -16
+      ],
+      "wdlEquivalent": {
+        "wins": [],
+        "draws": [],
+        "losses": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      },
+      "exactStrongClasses": [
+        {
+          "score": -1,
+          "moves": [
+            6
+          ]
+        },
+        {
+          "score": -3,
+          "moves": [
+            3
+          ]
+        },
+        {
+          "score": -16,
+          "moves": [
+            1,
+            2,
+            4,
+            5,
+            7
+          ]
+        }
+      ],
+      "acceptable": [
+        6
+      ],
+      "basis": "MAX_DELAY_LOSS",
+      "selected": [
+        6
+      ],
+      "representative": 6,
+      "selectedAllAcceptable": true,
+      "representativeAcceptable": true
+    },
+    {
+      "ply": 9,
+      "prefix": "44444156",
+      "scores": [
+        -2,
+        -2,
+        0,
+        -2,
+        0,
+        1,
+        0
+      ],
+      "wdlEquivalent": {
+        "wins": [
+          6
+        ],
+        "draws": [
+          3,
+          5,
+          7
+        ],
+        "losses": [
+          1,
+          2,
+          4
+        ]
+      },
+      "exactStrongClasses": [
+        {
+          "score": 1,
+          "moves": [
+            6
+          ]
+        },
+        {
+          "score": 0,
+          "moves": [
+            3,
+            5,
+            7
+          ]
+        },
+        {
+          "score": -2,
+          "moves": [
+            1,
+            2,
+            4
+          ]
+        }
+      ],
+      "acceptable": [
+        6
+      ],
+      "basis": "ANY_WIN",
+      "selected": [
+        6
+      ],
+      "representative": 6,
+      "selectedAllAcceptable": true,
+      "representativeAcceptable": true
+    }
+  ]
+}
