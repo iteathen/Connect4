@@ -1,0 +1,35 @@
+{
+  "schema": "connect4.universal_structural_policy.pre_oracle.result.v0",
+  "frozenCandidateCommit": "c4f35ba2ad2106459426d9b46239f903959c737d",
+  "sourceLocalPrototypeSha256": "4c6d28ea6e10a6cd004b9498a430c63ab5982612efe8f8f977f4a73393d2f8ab",
+  "outcomeLocalPrototypeSha256": "8b71a1a0c0df8a0527808447c0ba1540a031766f097f5f067615ef9a2c7ed980",
+  "oracleConsulted": false,
+  "canonicalSequence": "44444333333661",
+  "disposition": "NON_SYMMETRIC_TIE",
+  "firstUnresolved": {
+    "ply": 15,
+    "sequenceBefore": "44444333333661",
+    "candidates": [
+      1,
+      6
+    ],
+    "race": {
+      "1": {
+        "ownEarliest": 4,
+        "oppEarliest": 3,
+        "margin": -1,
+        "A": 2,
+        "B": 2,
+        "phase": "SAFE"
+      },
+      "6": {
+        "ownEarliest": 4,
+        "oppEarliest": 3,
+        "margin": -1,
+        "A": 6,
+        "B": 1,
+        "phase": "REPAIRABLE"
+      }
+    }
+  }
+}
