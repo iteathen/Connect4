@@ -45,7 +45,7 @@ jobs:
           LAST_TRUE=""
           for D in 13 15 17 19 21 23 25 27 29 31; do
             TMP="$DIR/.c6-target-$D.tmp.json"
-            OUT="$DIR/CPC_C6_BOTTOM_RESPONSE_GUARD_TARGET_D\${D}_0_1.json"
+            OUT="$DIR/CPC_C6_BOTTOM_RESPONSE_GUARD_TARGET_D${D}_0_1.json"
             echo "RUN_D=$D"
             set +e
             node "$DIR/run-cpc-bottom-response-guard-c6-target.mjs" ./jsminsys "$D" > "$TMP"
