@@ -1,0 +1,81 @@
+name: Research CPC rank20 forced c3 target-distance legacy reentry
+
+concurrency:
+  group: rank20-forced-c3-target-distance-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  push:
+    branches:
+      - research/universal-structural-policy-20260930
+    paths:
+      - .github/workflows/research-cpc-rank20-forced-c3-target-distance-reentry.yml
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_RANK20_FORCED_C3_TARGET_DISTANCE_LEGACY_REENTRY_PROBE_DESIGN_0_1.md
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/test-cpc-rank20-forced-c3-target-distance-legacy-reentry-probe.mjs
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/run-cpc-rank20-forced-c3-target-distance-legacy-reentry-probe.mjs
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_RANK20_C5_REPLY5_POST_CONTRACTION_CPC_REENTRY_DIAGNOSTIC_0_1.json
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_RANK20_LEGACY_REPAIR_ROUTE_REENTRY_PROBE_0_1.json
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-target-distance-lexicographic-proof-lib.mjs
+
+permissions:
+  contents: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Fetch pinned JSMinSys authority
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone -q https://github.com/iteathen/JSMinSys.git jsminsys
+          git -C jsminsys checkout -q bf23d3a67652cd42e1975f29c7dc4eed54f7eb42
+      - name: Verify frozen target-distance reentry contract
+        run: node research/isograph/discovery/2026-09-30-universal-structural-policy/test-cpc-rank20-forced-c3-target-distance-legacy-reentry-probe.mjs ./jsminsys
+      - name: Generate durable target-distance reentry evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          DIR=research/isograph/discovery/2026-09-30-universal-structural-policy
+          OUT="$DIR/CPC_RANK20_FORCED_C3_TARGET_DISTANCE_LEGACY_REENTRY_PROBE_0_1.json"
+          node "$DIR/run-cpc-rank20-forced-c3-target-distance-legacy-reentry-probe.mjs" ./jsminsys > "$OUT"
+          node - "$OUT" <<'NODE'
+          const fs=require('fs');
+          const r=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
+          console.log(JSON.stringify({
+            provedCount:r.summary.provedCount,
+            provedIds:r.summary.provedIds,
+            enclosingStateClosedIds:r.summary.enclosingStateClosedIds,
+            resourceFailureCount:r.summary.resourceFailureCount,
+            states:r.states.map(x=>({
+              id:x.id,
+              targetDistance:x.targetDistance,
+              proved:x.proved,
+              proofKind:x.proofKind,
+              witness:x.witness,
+              witnessKind:x.witnessKind,
+              enclosingStateClosed:x.enclosingStateClosed,
+              stats:x.stats
+            }))
+          }));
+          NODE
+      - name: Commit durable target-distance reentry evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          BRANCH=research/universal-structural-policy-20260930
+          FILE=research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_RANK20_FORCED_C3_TARGET_DISTANCE_LEGACY_REENTRY_PROBE_0_1.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$FILE"
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "research: record forced-c3 target-distance reentry"
+          git pull --rebase origin "$BRANCH"
+          git push origin HEAD:"$BRANCH"
