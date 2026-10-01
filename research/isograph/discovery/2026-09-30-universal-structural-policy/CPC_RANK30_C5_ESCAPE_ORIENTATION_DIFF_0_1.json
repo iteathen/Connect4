@@ -1,0 +1,76 @@
+{
+  "schema": "connect4.cpc_rank30_c5_escape_orientation_diff.v1",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "geometry": {
+    "keyWords": 14,
+    "coordWords": 3,
+    "p0Offset": 8,
+    "p1Offset": 11,
+    "metaOffset": 7
+  },
+  "support": [
+    6,
+    6,
+    3,
+    6,
+    2,
+    6,
+    4
+  ],
+  "basisSize": 23,
+  "wordDiff": [
+    {
+      "index": 11,
+      "a": 7438608,
+      "b": 7569680,
+      "xor": 131072
+    }
+  ],
+  "player1": {
+    "onlyA": [],
+    "onlyB": []
+  },
+  "player2": {
+    "onlyA": [],
+    "onlyB": [
+      {
+        "diagnosticId": 308,
+        "size": 2,
+        "cells": [
+          {
+            "cell": 34,
+            "column": 7,
+            "row": 5
+          },
+          {
+            "cell": 41,
+            "column": 7,
+            "row": 6
+          }
+        ]
+      }
+    ]
+  },
+  "branchA": {
+    "moves": [
+      1,
+      7
+    ]
+  },
+  "branchB": {
+    "moves": [
+      7,
+      1
+    ]
+  },
+  "conclusion": [
+    "The two escape orders share support and basis but retain a typed RBA ownership distinction.",
+    "The symmetric coordinate difference identifies the minimum semantic state needed before any quotient or response-debt compression."
+  ],
+  "boundary": [
+    "No oracle, solved W/D/L, local game-tree values, Pons, minimax, physical identity, or sealed holdout is used.",
+    "Production CPC and JSMinSys are unchanged."
+  ]
+}
