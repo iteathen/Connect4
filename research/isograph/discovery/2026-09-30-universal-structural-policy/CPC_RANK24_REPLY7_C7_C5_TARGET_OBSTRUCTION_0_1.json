@@ -1,0 +1,334 @@
+{
+  "schema": "connect4.cpc_rank24_reply7_c7_c5_target_obstruction.v1",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "oracleValuesUsed": false,
+  "sourceHypothesis": "CPC_RANK24_REPLY7_C7_DUAL_OBLIGATION_HYPOTHESIS.md",
+  "state": {
+    "rank": 27,
+    "mover": 2,
+    "support": [
+      2,
+      6,
+      3,
+      6,
+      2,
+      5,
+      3
+    ],
+    "target": {
+      "column": 5,
+      "row": 5,
+      "activeP1Singleton": true,
+      "projectedOwner": 1
+    },
+    "defenderPlayableSingletons": [],
+    "truncatedCapacity": [
+      4,
+      0,
+      3,
+      0,
+      3,
+      1,
+      3
+    ],
+    "oddColumns": [
+      3,
+      5,
+      6,
+      7
+    ],
+    "activeDefenderResidualCount": 6
+  },
+  "search": {
+    "examinedTemplates": 4,
+    "targetRoleTemplates": 4,
+    "bestUncoveredCount": 1,
+    "obstructionResidualIds": [
+      213
+    ],
+    "bestTemplates": [
+      {
+        "synchronizedPairs": [
+          {
+            "columns": [
+              3,
+              5
+            ],
+            "prefixLength": 1
+          },
+          {
+            "columns": [
+              6,
+              7
+            ],
+            "prefixLength": 1
+          }
+        ],
+        "uncoveredCount": 1,
+        "coveredCount": 5,
+        "uncovered": [
+          {
+            "residualId": 213,
+            "size": 2,
+            "cells": [
+              {
+                "cell": 18,
+                "column": 5,
+                "row": 3
+              },
+              {
+                "cell": 30,
+                "column": 3,
+                "row": 5
+              }
+            ]
+          }
+        ],
+        "covered": [
+          {
+            "residualId": 304,
+            "size": 2,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 32,
+              "column": 5,
+              "row": 5
+            }
+          },
+          {
+            "residualId": 485,
+            "size": 3,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 32,
+              "column": 5,
+              "row": 5
+            }
+          },
+          {
+            "residualId": 515,
+            "size": 3,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 37,
+              "column": 3,
+              "row": 6
+            }
+          },
+          {
+            "residualId": 595,
+            "size": 4,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 21,
+              "column": 1,
+              "row": 4
+            }
+          },
+          {
+            "residualId": 608,
+            "size": 4,
+            "witness": {
+              "kind": "post-target-deferral",
+              "cell": 39,
+              "column": 5,
+              "row": 6
+            }
+          }
+        ]
+      },
+      {
+        "synchronizedPairs": [
+          {
+            "columns": [
+              3,
+              6
+            ],
+            "prefixLength": 1
+          },
+          {
+            "columns": [
+              5,
+              7
+            ],
+            "prefixLength": 1
+          }
+        ],
+        "uncoveredCount": 1,
+        "coveredCount": 5,
+        "uncovered": [
+          {
+            "residualId": 213,
+            "size": 2,
+            "cells": [
+              {
+                "cell": 18,
+                "column": 5,
+                "row": 3
+              },
+              {
+                "cell": 30,
+                "column": 3,
+                "row": 5
+              }
+            ]
+          }
+        ],
+        "covered": [
+          {
+            "residualId": 304,
+            "size": 2,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 32,
+              "column": 5,
+              "row": 5
+            }
+          },
+          {
+            "residualId": 485,
+            "size": 3,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 32,
+              "column": 5,
+              "row": 5
+            }
+          },
+          {
+            "residualId": 515,
+            "size": 3,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 37,
+              "column": 3,
+              "row": 6
+            }
+          },
+          {
+            "residualId": 595,
+            "size": 4,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 21,
+              "column": 1,
+              "row": 4
+            }
+          },
+          {
+            "residualId": 608,
+            "size": 4,
+            "witness": {
+              "kind": "post-target-deferral",
+              "cell": 39,
+              "column": 5,
+              "row": 6
+            }
+          }
+        ]
+      },
+      {
+        "synchronizedPairs": [
+          {
+            "columns": [
+              3,
+              7
+            ],
+            "prefixLength": 1
+          },
+          {
+            "columns": [
+              5,
+              6
+            ],
+            "prefixLength": 1
+          }
+        ],
+        "uncoveredCount": 1,
+        "coveredCount": 5,
+        "uncovered": [
+          {
+            "residualId": 213,
+            "size": 2,
+            "cells": [
+              {
+                "cell": 18,
+                "column": 5,
+                "row": 3
+              },
+              {
+                "cell": 30,
+                "column": 3,
+                "row": 5
+              }
+            ]
+          }
+        ],
+        "covered": [
+          {
+            "residualId": 304,
+            "size": 2,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 32,
+              "column": 5,
+              "row": 5
+            }
+          },
+          {
+            "residualId": 485,
+            "size": 3,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 32,
+              "column": 5,
+              "row": 5
+            }
+          },
+          {
+            "residualId": 515,
+            "size": 3,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 37,
+              "column": 3,
+              "row": 6
+            }
+          },
+          {
+            "residualId": 595,
+            "size": 4,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 21,
+              "column": 1,
+              "row": 4
+            }
+          },
+          {
+            "residualId": 608,
+            "size": 4,
+            "witness": {
+              "kind": "post-target-deferral",
+              "cell": 39,
+              "column": 5,
+              "row": 6
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "conclusion": [
+    "This is a theorem-gap diagnostic for the sole off-c7 branch not closed by the current c5r5 target-reservoir theorem.",
+    "It enumerates the complete synchronized pairing family admitted by the frozen theorem and reports the exact residual attachment left uncovered by the best templates.",
+    "No W/D/L value is inferred from template failure."
+  ],
+  "boundary": [
+    "No Pons result, oracle value, local game-tree value, solved W/D/L, minimax, best-move table, opening book, physical-position identity, or sealed holdout is used.",
+    "Production CPC and JSMinSys are unchanged.",
+    "Residual IDs are diagnostic only; exact cell attachment is recorded."
+  ]
+}
