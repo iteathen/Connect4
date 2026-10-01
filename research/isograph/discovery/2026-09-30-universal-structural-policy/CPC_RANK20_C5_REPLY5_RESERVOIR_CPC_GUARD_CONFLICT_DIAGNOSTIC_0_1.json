@@ -1,0 +1,3995 @@
+{
+  "schema": "connect4.cpc_rank20_c5_reply5_reservoir_cpc_guard_conflict_diagnostic.v1",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "ordinaryFreeBranchGameTreeUsed": false,
+  "productionCpcModified": false,
+  "jsMinSysModified": false,
+  "targetReservoirModified": false,
+  "bsfpModified": false,
+  "rerouteExecuted": false,
+  "design": "CPC_RANK20_C5_REPLY5_RESERVOIR_CPC_GUARD_CONFLICT_DIAGNOSTIC_DESIGN_0_1.md",
+  "sourceEvidence": {
+    "partialReservoir": "CPC_RANK20_C5_REPLY5_PARTIAL_RESERVOIR_EXACT_VALIDATION_PROBE_0_1.json",
+    "hazardousPredecessor": "CPC_RANK20_C5_REPLY5_HAZARDOUS_RESPONSE_PREDECESSOR_DIAGNOSTIC_0_1.json"
+  },
+  "candidates": [
+    {
+      "id": "FIRST_D3_C1_CONTRACTION",
+      "signature": "1-5:1|3-6:1",
+      "sourceRank": 25,
+      "sourceSupport": [
+        3,
+        6,
+        2,
+        6,
+        3,
+        5,
+        0
+      ],
+      "firstFailureKind": "defender-terminal",
+      "terminalCell": {
+        "cell": 23,
+        "column": 3,
+        "row": 4,
+        "projectedOwner": 2,
+        "supportDistance": 0
+      },
+      "pathLength": 3,
+      "responseDecisions": [
+        {
+          "index": 0,
+          "rank": 26,
+          "support": [
+            4,
+            6,
+            2,
+            6,
+            3,
+            5,
+            0
+          ],
+          "trigger": {
+            "cell": 21,
+            "column": 1,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": -1
+          },
+          "mappedReservoirResponse": {
+            "cell": 25,
+            "column": 5,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_NONE",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                1,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_NONE",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                1,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "agreedOneColumnRestriction": null,
+          "mappedResponseObeysRestriction": null,
+          "classification": "CPC_NONE",
+          "forcedAlternative": {
+            "column": null,
+            "legal": false,
+            "terminal": null,
+            "support": null,
+            "knownRoot": null
+          },
+          "immediateP1WinningColumns": [],
+          "knownRootHandoffs": [],
+          "agreedExactP1Loss": false,
+          "baselineExactP1Loss": false,
+          "frontierExactP1Loss": false
+        },
+        {
+          "index": 1,
+          "rank": 28,
+          "support": [
+            5,
+            6,
+            2,
+            6,
+            4,
+            5,
+            0
+          ],
+          "trigger": {
+            "cell": 28,
+            "column": 1,
+            "row": 5,
+            "projectedOwner": 1,
+            "supportDistance": -1
+          },
+          "mappedReservoirResponse": {
+            "cell": 35,
+            "column": 1,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_NONE",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                1,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_NONE",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                1,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "agreedOneColumnRestriction": null,
+          "mappedResponseObeysRestriction": null,
+          "classification": "CPC_NONE",
+          "forcedAlternative": {
+            "column": null,
+            "legal": false,
+            "terminal": null,
+            "support": null,
+            "knownRoot": null
+          },
+          "immediateP1WinningColumns": [],
+          "knownRootHandoffs": [],
+          "agreedExactP1Loss": false,
+          "baselineExactP1Loss": false,
+          "frontierExactP1Loss": false
+        },
+        {
+          "index": 2,
+          "rank": 30,
+          "support": [
+            6,
+            6,
+            3,
+            6,
+            4,
+            5,
+            0
+          ],
+          "trigger": {
+            "cell": 16,
+            "column": 3,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": -1
+          },
+          "mappedReservoirResponse": {
+            "cell": 40,
+            "column": 6,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "agreedOneColumnRestriction": null,
+          "mappedResponseObeysRestriction": null,
+          "classification": "CPC_EXACT",
+          "forcedAlternative": {
+            "column": null,
+            "legal": false,
+            "terminal": null,
+            "support": null,
+            "knownRoot": null
+          },
+          "immediateP1WinningColumns": [],
+          "knownRootHandoffs": [],
+          "agreedExactP1Loss": true,
+          "baselineExactP1Loss": true,
+          "frontierExactP1Loss": true
+        }
+      ],
+      "firstGuardConflictDecisionIndex": null,
+      "firstCpcExactP1LossDecisionIndex": 2,
+      "earliestGuardConflict": null,
+      "guardReroutePromising": false
+    },
+    {
+      "id": "SECOND_D1_C5_CONTRACTION",
+      "signature": "3-5:1|6-7:1",
+      "sourceRank": 27,
+      "sourceSupport": [
+        4,
+        6,
+        1,
+        6,
+        5,
+        5,
+        0
+      ],
+      "firstFailureKind": "defender-terminal",
+      "terminalCell": {
+        "cell": 30,
+        "column": 3,
+        "row": 5,
+        "projectedOwner": 1,
+        "supportDistance": 0
+      },
+      "pathLength": 3,
+      "responseDecisions": [
+        {
+          "index": 0,
+          "rank": 28,
+          "support": [
+            5,
+            6,
+            1,
+            6,
+            5,
+            5,
+            0
+          ],
+          "trigger": {
+            "cell": 28,
+            "column": 1,
+            "row": 5,
+            "projectedOwner": 1,
+            "supportDistance": -1
+          },
+          "mappedReservoirResponse": {
+            "cell": 35,
+            "column": 1,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "agreedOneColumnRestriction": null,
+          "mappedResponseObeysRestriction": null,
+          "classification": "CPC_EXACT",
+          "forcedAlternative": {
+            "column": null,
+            "legal": false,
+            "terminal": null,
+            "support": null,
+            "knownRoot": null
+          },
+          "immediateP1WinningColumns": [
+            3
+          ],
+          "knownRootHandoffs": [],
+          "agreedExactP1Loss": false,
+          "baselineExactP1Loss": false,
+          "frontierExactP1Loss": false
+        },
+        {
+          "index": 1,
+          "rank": 30,
+          "support": [
+            6,
+            6,
+            2,
+            6,
+            5,
+            5,
+            0
+          ],
+          "trigger": {
+            "cell": 9,
+            "column": 3,
+            "row": 2,
+            "projectedOwner": 2,
+            "supportDistance": -1
+          },
+          "mappedReservoirResponse": {
+            "cell": 39,
+            "column": 5,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_NONE",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                1,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_NONE",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                1,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "agreedOneColumnRestriction": null,
+          "mappedResponseObeysRestriction": null,
+          "classification": "CPC_NONE",
+          "forcedAlternative": {
+            "column": null,
+            "legal": false,
+            "terminal": null,
+            "support": null,
+            "knownRoot": null
+          },
+          "immediateP1WinningColumns": [],
+          "knownRootHandoffs": [],
+          "agreedExactP1Loss": false,
+          "baselineExactP1Loss": false,
+          "frontierExactP1Loss": false
+        },
+        {
+          "index": 2,
+          "rank": 32,
+          "support": [
+            6,
+            6,
+            3,
+            6,
+            6,
+            5,
+            0
+          ],
+          "trigger": {
+            "cell": 16,
+            "column": 3,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": -1
+          },
+          "mappedReservoirResponse": {
+            "cell": 23,
+            "column": 3,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "agreedOneColumnRestriction": null,
+          "mappedResponseObeysRestriction": null,
+          "classification": "CPC_EXACT",
+          "forcedAlternative": {
+            "column": null,
+            "legal": false,
+            "terminal": null,
+            "support": null,
+            "knownRoot": null
+          },
+          "immediateP1WinningColumns": [],
+          "knownRootHandoffs": [],
+          "agreedExactP1Loss": true,
+          "baselineExactP1Loss": true,
+          "frontierExactP1Loss": true
+        }
+      ],
+      "firstGuardConflictDecisionIndex": null,
+      "firstCpcExactP1LossDecisionIndex": 2,
+      "earliestGuardConflict": null,
+      "guardReroutePromising": false
+    },
+    {
+      "id": "SECOND_D1_C5_CONTRACTION",
+      "signature": "3-6:1|5-7:1",
+      "sourceRank": 27,
+      "sourceSupport": [
+        4,
+        6,
+        1,
+        6,
+        5,
+        5,
+        0
+      ],
+      "firstFailureKind": "defender-terminal",
+      "terminalCell": {
+        "cell": 30,
+        "column": 3,
+        "row": 5,
+        "projectedOwner": 1,
+        "supportDistance": 0
+      },
+      "pathLength": 3,
+      "responseDecisions": [
+        {
+          "index": 0,
+          "rank": 28,
+          "support": [
+            5,
+            6,
+            1,
+            6,
+            5,
+            5,
+            0
+          ],
+          "trigger": {
+            "cell": 28,
+            "column": 1,
+            "row": 5,
+            "projectedOwner": 1,
+            "supportDistance": -1
+          },
+          "mappedReservoirResponse": {
+            "cell": 35,
+            "column": 1,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "agreedOneColumnRestriction": null,
+          "mappedResponseObeysRestriction": null,
+          "classification": "CPC_EXACT",
+          "forcedAlternative": {
+            "column": null,
+            "legal": false,
+            "terminal": null,
+            "support": null,
+            "knownRoot": null
+          },
+          "immediateP1WinningColumns": [
+            3
+          ],
+          "knownRootHandoffs": [],
+          "agreedExactP1Loss": false,
+          "baselineExactP1Loss": false,
+          "frontierExactP1Loss": false
+        },
+        {
+          "index": 1,
+          "rank": 30,
+          "support": [
+            6,
+            6,
+            2,
+            6,
+            5,
+            5,
+            0
+          ],
+          "trigger": {
+            "cell": 9,
+            "column": 3,
+            "row": 2,
+            "projectedOwner": 2,
+            "supportDistance": -1
+          },
+          "mappedReservoirResponse": {
+            "cell": 40,
+            "column": 6,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_NONE",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                1,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_NONE",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                1,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "agreedOneColumnRestriction": null,
+          "mappedResponseObeysRestriction": null,
+          "classification": "CPC_NONE",
+          "forcedAlternative": {
+            "column": null,
+            "legal": false,
+            "terminal": null,
+            "support": null,
+            "knownRoot": null
+          },
+          "immediateP1WinningColumns": [],
+          "knownRootHandoffs": [],
+          "agreedExactP1Loss": false,
+          "baselineExactP1Loss": false,
+          "frontierExactP1Loss": false
+        },
+        {
+          "index": 2,
+          "rank": 32,
+          "support": [
+            6,
+            6,
+            3,
+            6,
+            5,
+            6,
+            0
+          ],
+          "trigger": {
+            "cell": 16,
+            "column": 3,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": -1
+          },
+          "mappedReservoirResponse": {
+            "cell": 23,
+            "column": 3,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "agreedOneColumnRestriction": null,
+          "mappedResponseObeysRestriction": null,
+          "classification": "CPC_EXACT",
+          "forcedAlternative": {
+            "column": null,
+            "legal": false,
+            "terminal": null,
+            "support": null,
+            "knownRoot": null
+          },
+          "immediateP1WinningColumns": [],
+          "knownRootHandoffs": [],
+          "agreedExactP1Loss": true,
+          "baselineExactP1Loss": true,
+          "frontierExactP1Loss": true
+        }
+      ],
+      "firstGuardConflictDecisionIndex": null,
+      "firstCpcExactP1LossDecisionIndex": 2,
+      "earliestGuardConflict": null,
+      "guardReroutePromising": false
+    },
+    {
+      "id": "SECOND_D1_C5_CONTRACTION",
+      "signature": "3-7:1|5-6:1",
+      "sourceRank": 27,
+      "sourceSupport": [
+        4,
+        6,
+        1,
+        6,
+        5,
+        5,
+        0
+      ],
+      "firstFailureKind": "defender-terminal",
+      "terminalCell": {
+        "cell": 30,
+        "column": 3,
+        "row": 5,
+        "projectedOwner": 1,
+        "supportDistance": 0
+      },
+      "pathLength": 3,
+      "responseDecisions": [
+        {
+          "index": 0,
+          "rank": 28,
+          "support": [
+            5,
+            6,
+            1,
+            6,
+            5,
+            5,
+            0
+          ],
+          "trigger": {
+            "cell": 28,
+            "column": 1,
+            "row": 5,
+            "projectedOwner": 1,
+            "supportDistance": -1
+          },
+          "mappedReservoirResponse": {
+            "cell": 35,
+            "column": 1,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "agreedOneColumnRestriction": null,
+          "mappedResponseObeysRestriction": null,
+          "classification": "CPC_EXACT",
+          "forcedAlternative": {
+            "column": null,
+            "legal": false,
+            "terminal": null,
+            "support": null,
+            "knownRoot": null
+          },
+          "immediateP1WinningColumns": [
+            3
+          ],
+          "knownRootHandoffs": [],
+          "agreedExactP1Loss": false,
+          "baselineExactP1Loss": false,
+          "frontierExactP1Loss": false
+        },
+        {
+          "index": 1,
+          "rank": 30,
+          "support": [
+            6,
+            6,
+            2,
+            6,
+            5,
+            5,
+            0
+          ],
+          "trigger": {
+            "cell": 9,
+            "column": 3,
+            "row": 2,
+            "projectedOwner": 2,
+            "supportDistance": -1
+          },
+          "mappedReservoirResponse": {
+            "cell": 6,
+            "column": 7,
+            "row": 1,
+            "projectedOwner": 1,
+            "supportDistance": 0
+          },
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_NONE",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                1,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_NONE",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                1,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "agreedOneColumnRestriction": null,
+          "mappedResponseObeysRestriction": null,
+          "classification": "CPC_NONE",
+          "forcedAlternative": {
+            "column": null,
+            "legal": false,
+            "terminal": null,
+            "support": null,
+            "knownRoot": null
+          },
+          "immediateP1WinningColumns": [],
+          "knownRootHandoffs": [],
+          "agreedExactP1Loss": false,
+          "baselineExactP1Loss": false,
+          "frontierExactP1Loss": false
+        },
+        {
+          "index": 2,
+          "rank": 32,
+          "support": [
+            6,
+            6,
+            3,
+            6,
+            5,
+            5,
+            1
+          ],
+          "trigger": {
+            "cell": 16,
+            "column": 3,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": -1
+          },
+          "mappedReservoirResponse": {
+            "cell": 23,
+            "column": 3,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "agreedOneColumnRestriction": null,
+          "mappedResponseObeysRestriction": null,
+          "classification": "CPC_EXACT",
+          "forcedAlternative": {
+            "column": null,
+            "legal": false,
+            "terminal": null,
+            "support": null,
+            "knownRoot": null
+          },
+          "immediateP1WinningColumns": [],
+          "knownRootHandoffs": [],
+          "agreedExactP1Loss": true,
+          "baselineExactP1Loss": true,
+          "frontierExactP1Loss": true
+        }
+      ],
+      "firstGuardConflictDecisionIndex": null,
+      "firstCpcExactP1LossDecisionIndex": 2,
+      "earliestGuardConflict": null,
+      "guardReroutePromising": false
+    },
+    {
+      "id": "SECOND_D3_C5_CONTRACTION",
+      "signature": "1-5:1|6-7:1",
+      "sourceRank": 27,
+      "sourceSupport": [
+        3,
+        6,
+        2,
+        6,
+        5,
+        5,
+        0
+      ],
+      "firstFailureKind": "defender-terminal",
+      "terminalCell": {
+        "cell": 30,
+        "column": 3,
+        "row": 5,
+        "projectedOwner": 1,
+        "supportDistance": 0
+      },
+      "pathLength": 3,
+      "responseDecisions": [
+        {
+          "index": 0,
+          "rank": 28,
+          "support": [
+            4,
+            6,
+            2,
+            6,
+            5,
+            5,
+            0
+          ],
+          "trigger": {
+            "cell": 21,
+            "column": 1,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": -1
+          },
+          "mappedReservoirResponse": {
+            "cell": 39,
+            "column": 5,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_NONE",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                1,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_NONE",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                1,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "agreedOneColumnRestriction": null,
+          "mappedResponseObeysRestriction": null,
+          "classification": "CPC_NONE",
+          "forcedAlternative": {
+            "column": null,
+            "legal": false,
+            "terminal": null,
+            "support": null,
+            "knownRoot": null
+          },
+          "immediateP1WinningColumns": [],
+          "knownRootHandoffs": [],
+          "agreedExactP1Loss": false,
+          "baselineExactP1Loss": false,
+          "frontierExactP1Loss": false
+        },
+        {
+          "index": 1,
+          "rank": 30,
+          "support": [
+            5,
+            6,
+            2,
+            6,
+            6,
+            5,
+            0
+          ],
+          "trigger": {
+            "cell": 28,
+            "column": 1,
+            "row": 5,
+            "projectedOwner": 1,
+            "supportDistance": -1
+          },
+          "mappedReservoirResponse": {
+            "cell": 35,
+            "column": 1,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_RESTRICT",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": 1,
+              "preemptionCount": 1,
+              "preemptionMask32": 1,
+              "precursorCount": 0,
+              "projectedCount": [
+                1,
+                1
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_RESTRICT",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": 1,
+              "preemptionCount": 1,
+              "preemptionMask32": 1,
+              "precursorCount": 0,
+              "projectedCount": [
+                1,
+                1
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "agreedOneColumnRestriction": 1,
+          "mappedResponseObeysRestriction": true,
+          "classification": "CPC_GUARD_MATCH",
+          "forcedAlternative": {
+            "column": 1,
+            "legal": true,
+            "terminal": 0,
+            "support": [
+              6,
+              6,
+              2,
+              6,
+              6,
+              5,
+              0
+            ],
+            "knownRoot": null
+          },
+          "immediateP1WinningColumns": [],
+          "knownRootHandoffs": [],
+          "agreedExactP1Loss": false,
+          "baselineExactP1Loss": false,
+          "frontierExactP1Loss": false
+        },
+        {
+          "index": 2,
+          "rank": 32,
+          "support": [
+            6,
+            6,
+            3,
+            6,
+            6,
+            5,
+            0
+          ],
+          "trigger": {
+            "cell": 16,
+            "column": 3,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": -1
+          },
+          "mappedReservoirResponse": {
+            "cell": 23,
+            "column": 3,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "agreedOneColumnRestriction": null,
+          "mappedResponseObeysRestriction": null,
+          "classification": "CPC_EXACT",
+          "forcedAlternative": {
+            "column": null,
+            "legal": false,
+            "terminal": null,
+            "support": null,
+            "knownRoot": null
+          },
+          "immediateP1WinningColumns": [],
+          "knownRootHandoffs": [],
+          "agreedExactP1Loss": true,
+          "baselineExactP1Loss": true,
+          "frontierExactP1Loss": true
+        }
+      ],
+      "firstGuardConflictDecisionIndex": null,
+      "firstCpcExactP1LossDecisionIndex": 2,
+      "earliestGuardConflict": null,
+      "guardReroutePromising": false
+    },
+    {
+      "id": "SECOND_D3_C5_CONTRACTION",
+      "signature": "1-6:1|5-7:1",
+      "sourceRank": 27,
+      "sourceSupport": [
+        3,
+        6,
+        2,
+        6,
+        5,
+        5,
+        0
+      ],
+      "firstFailureKind": "defender-terminal",
+      "terminalCell": {
+        "cell": 30,
+        "column": 3,
+        "row": 5,
+        "projectedOwner": 1,
+        "supportDistance": 0
+      },
+      "pathLength": 3,
+      "responseDecisions": [
+        {
+          "index": 0,
+          "rank": 28,
+          "support": [
+            4,
+            6,
+            2,
+            6,
+            5,
+            5,
+            0
+          ],
+          "trigger": {
+            "cell": 21,
+            "column": 1,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": -1
+          },
+          "mappedReservoirResponse": {
+            "cell": 40,
+            "column": 6,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_NONE",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                1,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_NONE",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                1,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "agreedOneColumnRestriction": null,
+          "mappedResponseObeysRestriction": null,
+          "classification": "CPC_NONE",
+          "forcedAlternative": {
+            "column": null,
+            "legal": false,
+            "terminal": null,
+            "support": null,
+            "knownRoot": null
+          },
+          "immediateP1WinningColumns": [],
+          "knownRootHandoffs": [],
+          "agreedExactP1Loss": false,
+          "baselineExactP1Loss": false,
+          "frontierExactP1Loss": false
+        },
+        {
+          "index": 1,
+          "rank": 30,
+          "support": [
+            5,
+            6,
+            2,
+            6,
+            5,
+            6,
+            0
+          ],
+          "trigger": {
+            "cell": 28,
+            "column": 1,
+            "row": 5,
+            "projectedOwner": 1,
+            "supportDistance": -1
+          },
+          "mappedReservoirResponse": {
+            "cell": 35,
+            "column": 1,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_RESTRICT",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": 1,
+              "preemptionCount": 1,
+              "preemptionMask32": 1,
+              "precursorCount": 0,
+              "projectedCount": [
+                1,
+                1
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_RESTRICT",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": 1,
+              "preemptionCount": 1,
+              "preemptionMask32": 1,
+              "precursorCount": 0,
+              "projectedCount": [
+                1,
+                1
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "agreedOneColumnRestriction": 1,
+          "mappedResponseObeysRestriction": true,
+          "classification": "CPC_GUARD_MATCH",
+          "forcedAlternative": {
+            "column": 1,
+            "legal": true,
+            "terminal": 0,
+            "support": [
+              6,
+              6,
+              2,
+              6,
+              5,
+              6,
+              0
+            ],
+            "knownRoot": null
+          },
+          "immediateP1WinningColumns": [],
+          "knownRootHandoffs": [],
+          "agreedExactP1Loss": false,
+          "baselineExactP1Loss": false,
+          "frontierExactP1Loss": false
+        },
+        {
+          "index": 2,
+          "rank": 32,
+          "support": [
+            6,
+            6,
+            3,
+            6,
+            5,
+            6,
+            0
+          ],
+          "trigger": {
+            "cell": 16,
+            "column": 3,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": -1
+          },
+          "mappedReservoirResponse": {
+            "cell": 23,
+            "column": 3,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "agreedOneColumnRestriction": null,
+          "mappedResponseObeysRestriction": null,
+          "classification": "CPC_EXACT",
+          "forcedAlternative": {
+            "column": null,
+            "legal": false,
+            "terminal": null,
+            "support": null,
+            "knownRoot": null
+          },
+          "immediateP1WinningColumns": [],
+          "knownRootHandoffs": [],
+          "agreedExactP1Loss": true,
+          "baselineExactP1Loss": true,
+          "frontierExactP1Loss": true
+        }
+      ],
+      "firstGuardConflictDecisionIndex": null,
+      "firstCpcExactP1LossDecisionIndex": 2,
+      "earliestGuardConflict": null,
+      "guardReroutePromising": false
+    },
+    {
+      "id": "SECOND_D3_C5_CONTRACTION",
+      "signature": "1-7:1|5-6:1",
+      "sourceRank": 27,
+      "sourceSupport": [
+        3,
+        6,
+        2,
+        6,
+        5,
+        5,
+        0
+      ],
+      "firstFailureKind": "defender-terminal",
+      "terminalCell": {
+        "cell": 30,
+        "column": 3,
+        "row": 5,
+        "projectedOwner": 1,
+        "supportDistance": 0
+      },
+      "pathLength": 3,
+      "responseDecisions": [
+        {
+          "index": 0,
+          "rank": 28,
+          "support": [
+            4,
+            6,
+            2,
+            6,
+            5,
+            5,
+            0
+          ],
+          "trigger": {
+            "cell": 21,
+            "column": 1,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": -1
+          },
+          "mappedReservoirResponse": {
+            "cell": 6,
+            "column": 7,
+            "row": 1,
+            "projectedOwner": 1,
+            "supportDistance": 0
+          },
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_NONE",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                1,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_NONE",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                1,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "agreedOneColumnRestriction": null,
+          "mappedResponseObeysRestriction": null,
+          "classification": "CPC_NONE",
+          "forcedAlternative": {
+            "column": null,
+            "legal": false,
+            "terminal": null,
+            "support": null,
+            "knownRoot": null
+          },
+          "immediateP1WinningColumns": [],
+          "knownRootHandoffs": [],
+          "agreedExactP1Loss": false,
+          "baselineExactP1Loss": false,
+          "frontierExactP1Loss": false
+        },
+        {
+          "index": 1,
+          "rank": 30,
+          "support": [
+            5,
+            6,
+            2,
+            6,
+            5,
+            5,
+            1
+          ],
+          "trigger": {
+            "cell": 28,
+            "column": 1,
+            "row": 5,
+            "projectedOwner": 1,
+            "supportDistance": -1
+          },
+          "mappedReservoirResponse": {
+            "cell": 35,
+            "column": 1,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_RESTRICT",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": 1,
+              "preemptionCount": 1,
+              "preemptionMask32": 1,
+              "precursorCount": 0,
+              "projectedCount": [
+                1,
+                1
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_RESTRICT",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": 1,
+              "preemptionCount": 1,
+              "preemptionMask32": 1,
+              "precursorCount": 0,
+              "projectedCount": [
+                1,
+                1
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "agreedOneColumnRestriction": 1,
+          "mappedResponseObeysRestriction": true,
+          "classification": "CPC_GUARD_MATCH",
+          "forcedAlternative": {
+            "column": 1,
+            "legal": true,
+            "terminal": 0,
+            "support": [
+              6,
+              6,
+              2,
+              6,
+              5,
+              5,
+              1
+            ],
+            "knownRoot": null
+          },
+          "immediateP1WinningColumns": [],
+          "knownRootHandoffs": [],
+          "agreedExactP1Loss": false,
+          "baselineExactP1Loss": false,
+          "frontierExactP1Loss": false
+        },
+        {
+          "index": 2,
+          "rank": 32,
+          "support": [
+            6,
+            6,
+            3,
+            6,
+            5,
+            5,
+            1
+          ],
+          "trigger": {
+            "cell": 16,
+            "column": 3,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": -1
+          },
+          "mappedReservoirResponse": {
+            "cell": 23,
+            "column": 3,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "agreedOneColumnRestriction": null,
+          "mappedResponseObeysRestriction": null,
+          "classification": "CPC_EXACT",
+          "forcedAlternative": {
+            "column": null,
+            "legal": false,
+            "terminal": null,
+            "support": null,
+            "knownRoot": null
+          },
+          "immediateP1WinningColumns": [],
+          "knownRootHandoffs": [],
+          "agreedExactP1Loss": true,
+          "baselineExactP1Loss": true,
+          "frontierExactP1Loss": true
+        }
+      ],
+      "firstGuardConflictDecisionIndex": null,
+      "firstCpcExactP1LossDecisionIndex": 2,
+      "earliestGuardConflict": null,
+      "guardReroutePromising": false
+    },
+    {
+      "id": "SECOND_D6_C5_CONTRACTION",
+      "signature": "1-3:1|5-7:1",
+      "sourceRank": 27,
+      "sourceSupport": [
+        3,
+        6,
+        1,
+        6,
+        5,
+        6,
+        0
+      ],
+      "firstFailureKind": "defender-terminal",
+      "terminalCell": {
+        "cell": 30,
+        "column": 3,
+        "row": 5,
+        "projectedOwner": 1,
+        "supportDistance": 0
+      },
+      "pathLength": 3,
+      "responseDecisions": [
+        {
+          "index": 0,
+          "rank": 28,
+          "support": [
+            3,
+            6,
+            2,
+            6,
+            5,
+            6,
+            0
+          ],
+          "trigger": {
+            "cell": 9,
+            "column": 3,
+            "row": 2,
+            "projectedOwner": 2,
+            "supportDistance": -1
+          },
+          "mappedReservoirResponse": {
+            "cell": 21,
+            "column": 1,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_NONE",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                1,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_NONE",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                1,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "agreedOneColumnRestriction": null,
+          "mappedResponseObeysRestriction": null,
+          "classification": "CPC_NONE",
+          "forcedAlternative": {
+            "column": null,
+            "legal": false,
+            "terminal": null,
+            "support": null,
+            "knownRoot": null
+          },
+          "immediateP1WinningColumns": [],
+          "knownRootHandoffs": [],
+          "agreedExactP1Loss": false,
+          "baselineExactP1Loss": false,
+          "frontierExactP1Loss": false
+        },
+        {
+          "index": 1,
+          "rank": 30,
+          "support": [
+            5,
+            6,
+            2,
+            6,
+            5,
+            6,
+            0
+          ],
+          "trigger": {
+            "cell": 28,
+            "column": 1,
+            "row": 5,
+            "projectedOwner": 1,
+            "supportDistance": -1
+          },
+          "mappedReservoirResponse": {
+            "cell": 35,
+            "column": 1,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_NONE",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                1,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_NONE",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                1,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "agreedOneColumnRestriction": null,
+          "mappedResponseObeysRestriction": null,
+          "classification": "CPC_NONE",
+          "forcedAlternative": {
+            "column": null,
+            "legal": false,
+            "terminal": null,
+            "support": null,
+            "knownRoot": null
+          },
+          "immediateP1WinningColumns": [],
+          "knownRootHandoffs": [],
+          "agreedExactP1Loss": false,
+          "baselineExactP1Loss": false,
+          "frontierExactP1Loss": false
+        },
+        {
+          "index": 2,
+          "rank": 32,
+          "support": [
+            6,
+            6,
+            3,
+            6,
+            5,
+            6,
+            0
+          ],
+          "trigger": {
+            "cell": 16,
+            "column": 3,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": -1
+          },
+          "mappedReservoirResponse": {
+            "cell": 23,
+            "column": 3,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "agreedOneColumnRestriction": null,
+          "mappedResponseObeysRestriction": null,
+          "classification": "CPC_EXACT",
+          "forcedAlternative": {
+            "column": null,
+            "legal": false,
+            "terminal": null,
+            "support": null,
+            "knownRoot": null
+          },
+          "immediateP1WinningColumns": [],
+          "knownRootHandoffs": [],
+          "agreedExactP1Loss": true,
+          "baselineExactP1Loss": true,
+          "frontierExactP1Loss": true
+        }
+      ],
+      "firstGuardConflictDecisionIndex": null,
+      "firstCpcExactP1LossDecisionIndex": 2,
+      "earliestGuardConflict": null,
+      "guardReroutePromising": false
+    },
+    {
+      "id": "SECOND_D6_C5_CONTRACTION",
+      "signature": "1-5:1|3-7:1",
+      "sourceRank": 27,
+      "sourceSupport": [
+        3,
+        6,
+        1,
+        6,
+        5,
+        6,
+        0
+      ],
+      "firstFailureKind": "defender-terminal",
+      "terminalCell": {
+        "cell": 30,
+        "column": 3,
+        "row": 5,
+        "projectedOwner": 1,
+        "supportDistance": 0
+      },
+      "pathLength": 4,
+      "responseDecisions": [
+        {
+          "index": 0,
+          "rank": 28,
+          "support": [
+            4,
+            6,
+            1,
+            6,
+            5,
+            6,
+            0
+          ],
+          "trigger": {
+            "cell": 21,
+            "column": 1,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": -1
+          },
+          "mappedReservoirResponse": {
+            "cell": 39,
+            "column": 5,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "agreedOneColumnRestriction": null,
+          "mappedResponseObeysRestriction": null,
+          "classification": "CPC_EXACT",
+          "forcedAlternative": {
+            "column": null,
+            "legal": false,
+            "terminal": null,
+            "support": null,
+            "knownRoot": null
+          },
+          "immediateP1WinningColumns": [
+            3
+          ],
+          "knownRootHandoffs": [],
+          "agreedExactP1Loss": false,
+          "baselineExactP1Loss": false,
+          "frontierExactP1Loss": false
+        },
+        {
+          "index": 1,
+          "rank": 30,
+          "support": [
+            5,
+            6,
+            1,
+            6,
+            6,
+            6,
+            0
+          ],
+          "trigger": {
+            "cell": 28,
+            "column": 1,
+            "row": 5,
+            "projectedOwner": 1,
+            "supportDistance": -1
+          },
+          "mappedReservoirResponse": {
+            "cell": 35,
+            "column": 1,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "agreedOneColumnRestriction": null,
+          "mappedResponseObeysRestriction": null,
+          "classification": "CPC_EXACT",
+          "forcedAlternative": {
+            "column": null,
+            "legal": false,
+            "terminal": null,
+            "support": null,
+            "knownRoot": null
+          },
+          "immediateP1WinningColumns": [
+            3
+          ],
+          "knownRootHandoffs": [],
+          "agreedExactP1Loss": false,
+          "baselineExactP1Loss": false,
+          "frontierExactP1Loss": false
+        },
+        {
+          "index": 2,
+          "rank": 32,
+          "support": [
+            6,
+            6,
+            2,
+            6,
+            6,
+            6,
+            0
+          ],
+          "trigger": {
+            "cell": 9,
+            "column": 3,
+            "row": 2,
+            "projectedOwner": 2,
+            "supportDistance": -1
+          },
+          "mappedReservoirResponse": {
+            "cell": 6,
+            "column": 7,
+            "row": 1,
+            "projectedOwner": 1,
+            "supportDistance": 0
+          },
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_NONE",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                1,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_NONE",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                1,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "agreedOneColumnRestriction": null,
+          "mappedResponseObeysRestriction": null,
+          "classification": "CPC_NONE",
+          "forcedAlternative": {
+            "column": null,
+            "legal": false,
+            "terminal": null,
+            "support": null,
+            "knownRoot": null
+          },
+          "immediateP1WinningColumns": [],
+          "knownRootHandoffs": [],
+          "agreedExactP1Loss": false,
+          "baselineExactP1Loss": false,
+          "frontierExactP1Loss": false
+        },
+        {
+          "index": 3,
+          "rank": 34,
+          "support": [
+            6,
+            6,
+            3,
+            6,
+            6,
+            6,
+            1
+          ],
+          "trigger": {
+            "cell": 16,
+            "column": 3,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": -1
+          },
+          "mappedReservoirResponse": {
+            "cell": 23,
+            "column": 3,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "agreedOneColumnRestriction": null,
+          "mappedResponseObeysRestriction": null,
+          "classification": "CPC_EXACT",
+          "forcedAlternative": {
+            "column": null,
+            "legal": false,
+            "terminal": null,
+            "support": null,
+            "knownRoot": null
+          },
+          "immediateP1WinningColumns": [],
+          "knownRootHandoffs": [],
+          "agreedExactP1Loss": true,
+          "baselineExactP1Loss": true,
+          "frontierExactP1Loss": true
+        }
+      ],
+      "firstGuardConflictDecisionIndex": null,
+      "firstCpcExactP1LossDecisionIndex": 3,
+      "earliestGuardConflict": null,
+      "guardReroutePromising": false
+    },
+    {
+      "id": "SECOND_D6_C5_CONTRACTION",
+      "signature": "1-7:1|3-5:1",
+      "sourceRank": 27,
+      "sourceSupport": [
+        3,
+        6,
+        1,
+        6,
+        5,
+        6,
+        0
+      ],
+      "firstFailureKind": "defender-terminal",
+      "terminalCell": {
+        "cell": 30,
+        "column": 3,
+        "row": 5,
+        "projectedOwner": 1,
+        "supportDistance": 0
+      },
+      "pathLength": 4,
+      "responseDecisions": [
+        {
+          "index": 0,
+          "rank": 28,
+          "support": [
+            4,
+            6,
+            1,
+            6,
+            5,
+            6,
+            0
+          ],
+          "trigger": {
+            "cell": 21,
+            "column": 1,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": -1
+          },
+          "mappedReservoirResponse": {
+            "cell": 6,
+            "column": 7,
+            "row": 1,
+            "projectedOwner": 1,
+            "supportDistance": 0
+          },
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "agreedOneColumnRestriction": null,
+          "mappedResponseObeysRestriction": null,
+          "classification": "CPC_EXACT",
+          "forcedAlternative": {
+            "column": null,
+            "legal": false,
+            "terminal": null,
+            "support": null,
+            "knownRoot": null
+          },
+          "immediateP1WinningColumns": [
+            3
+          ],
+          "knownRootHandoffs": [],
+          "agreedExactP1Loss": false,
+          "baselineExactP1Loss": false,
+          "frontierExactP1Loss": false
+        },
+        {
+          "index": 1,
+          "rank": 30,
+          "support": [
+            5,
+            6,
+            1,
+            6,
+            5,
+            6,
+            1
+          ],
+          "trigger": {
+            "cell": 28,
+            "column": 1,
+            "row": 5,
+            "projectedOwner": 1,
+            "supportDistance": -1
+          },
+          "mappedReservoirResponse": {
+            "cell": 35,
+            "column": 1,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "agreedOneColumnRestriction": null,
+          "mappedResponseObeysRestriction": null,
+          "classification": "CPC_EXACT",
+          "forcedAlternative": {
+            "column": null,
+            "legal": false,
+            "terminal": null,
+            "support": null,
+            "knownRoot": null
+          },
+          "immediateP1WinningColumns": [
+            3
+          ],
+          "knownRootHandoffs": [],
+          "agreedExactP1Loss": false,
+          "baselineExactP1Loss": false,
+          "frontierExactP1Loss": false
+        },
+        {
+          "index": 2,
+          "rank": 32,
+          "support": [
+            6,
+            6,
+            2,
+            6,
+            5,
+            6,
+            1
+          ],
+          "trigger": {
+            "cell": 9,
+            "column": 3,
+            "row": 2,
+            "projectedOwner": 2,
+            "supportDistance": -1
+          },
+          "mappedReservoirResponse": {
+            "cell": 39,
+            "column": 5,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_NONE",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                1,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_NONE",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                1,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "agreedOneColumnRestriction": null,
+          "mappedResponseObeysRestriction": null,
+          "classification": "CPC_NONE",
+          "forcedAlternative": {
+            "column": null,
+            "legal": false,
+            "terminal": null,
+            "support": null,
+            "knownRoot": null
+          },
+          "immediateP1WinningColumns": [],
+          "knownRootHandoffs": [],
+          "agreedExactP1Loss": false,
+          "baselineExactP1Loss": false,
+          "frontierExactP1Loss": false
+        },
+        {
+          "index": 3,
+          "rank": 34,
+          "support": [
+            6,
+            6,
+            3,
+            6,
+            6,
+            6,
+            1
+          ],
+          "trigger": {
+            "cell": 16,
+            "column": 3,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": -1
+          },
+          "mappedReservoirResponse": {
+            "cell": 23,
+            "column": 3,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "agreedOneColumnRestriction": null,
+          "mappedResponseObeysRestriction": null,
+          "classification": "CPC_EXACT",
+          "forcedAlternative": {
+            "column": null,
+            "legal": false,
+            "terminal": null,
+            "support": null,
+            "knownRoot": null
+          },
+          "immediateP1WinningColumns": [],
+          "knownRootHandoffs": [],
+          "agreedExactP1Loss": true,
+          "baselineExactP1Loss": true,
+          "frontierExactP1Loss": true
+        }
+      ],
+      "firstGuardConflictDecisionIndex": null,
+      "firstCpcExactP1LossDecisionIndex": 3,
+      "earliestGuardConflict": null,
+      "guardReroutePromising": false
+    },
+    {
+      "id": "SECOND_D7_C5_CONTRACTION",
+      "signature": "1-3:1|5-6:1",
+      "sourceRank": 27,
+      "sourceSupport": [
+        3,
+        6,
+        1,
+        6,
+        5,
+        5,
+        1
+      ],
+      "firstFailureKind": "defender-terminal",
+      "terminalCell": {
+        "cell": 30,
+        "column": 3,
+        "row": 5,
+        "projectedOwner": 1,
+        "supportDistance": 0
+      },
+      "pathLength": 3,
+      "responseDecisions": [
+        {
+          "index": 0,
+          "rank": 28,
+          "support": [
+            3,
+            6,
+            2,
+            6,
+            5,
+            5,
+            1
+          ],
+          "trigger": {
+            "cell": 9,
+            "column": 3,
+            "row": 2,
+            "projectedOwner": 2,
+            "supportDistance": -1
+          },
+          "mappedReservoirResponse": {
+            "cell": 21,
+            "column": 1,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_NONE",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                1,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_NONE",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                1,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "agreedOneColumnRestriction": null,
+          "mappedResponseObeysRestriction": null,
+          "classification": "CPC_NONE",
+          "forcedAlternative": {
+            "column": null,
+            "legal": false,
+            "terminal": null,
+            "support": null,
+            "knownRoot": null
+          },
+          "immediateP1WinningColumns": [],
+          "knownRootHandoffs": [],
+          "agreedExactP1Loss": false,
+          "baselineExactP1Loss": false,
+          "frontierExactP1Loss": false
+        },
+        {
+          "index": 1,
+          "rank": 30,
+          "support": [
+            5,
+            6,
+            2,
+            6,
+            5,
+            5,
+            1
+          ],
+          "trigger": {
+            "cell": 28,
+            "column": 1,
+            "row": 5,
+            "projectedOwner": 1,
+            "supportDistance": -1
+          },
+          "mappedReservoirResponse": {
+            "cell": 35,
+            "column": 1,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_NONE",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                1,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_NONE",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                1,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "agreedOneColumnRestriction": null,
+          "mappedResponseObeysRestriction": null,
+          "classification": "CPC_NONE",
+          "forcedAlternative": {
+            "column": null,
+            "legal": false,
+            "terminal": null,
+            "support": null,
+            "knownRoot": null
+          },
+          "immediateP1WinningColumns": [],
+          "knownRootHandoffs": [],
+          "agreedExactP1Loss": false,
+          "baselineExactP1Loss": false,
+          "frontierExactP1Loss": false
+        },
+        {
+          "index": 2,
+          "rank": 32,
+          "support": [
+            6,
+            6,
+            3,
+            6,
+            5,
+            5,
+            1
+          ],
+          "trigger": {
+            "cell": 16,
+            "column": 3,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": -1
+          },
+          "mappedReservoirResponse": {
+            "cell": 23,
+            "column": 3,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "agreedOneColumnRestriction": null,
+          "mappedResponseObeysRestriction": null,
+          "classification": "CPC_EXACT",
+          "forcedAlternative": {
+            "column": null,
+            "legal": false,
+            "terminal": null,
+            "support": null,
+            "knownRoot": null
+          },
+          "immediateP1WinningColumns": [],
+          "knownRootHandoffs": [],
+          "agreedExactP1Loss": true,
+          "baselineExactP1Loss": true,
+          "frontierExactP1Loss": true
+        }
+      ],
+      "firstGuardConflictDecisionIndex": null,
+      "firstCpcExactP1LossDecisionIndex": 2,
+      "earliestGuardConflict": null,
+      "guardReroutePromising": false
+    },
+    {
+      "id": "SECOND_D7_C5_CONTRACTION",
+      "signature": "1-5:1|3-6:1",
+      "sourceRank": 27,
+      "sourceSupport": [
+        3,
+        6,
+        1,
+        6,
+        5,
+        5,
+        1
+      ],
+      "firstFailureKind": "defender-terminal",
+      "terminalCell": {
+        "cell": 30,
+        "column": 3,
+        "row": 5,
+        "projectedOwner": 1,
+        "supportDistance": 0
+      },
+      "pathLength": 4,
+      "responseDecisions": [
+        {
+          "index": 0,
+          "rank": 28,
+          "support": [
+            4,
+            6,
+            1,
+            6,
+            5,
+            5,
+            1
+          ],
+          "trigger": {
+            "cell": 21,
+            "column": 1,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": -1
+          },
+          "mappedReservoirResponse": {
+            "cell": 39,
+            "column": 5,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "agreedOneColumnRestriction": null,
+          "mappedResponseObeysRestriction": null,
+          "classification": "CPC_EXACT",
+          "forcedAlternative": {
+            "column": null,
+            "legal": false,
+            "terminal": null,
+            "support": null,
+            "knownRoot": null
+          },
+          "immediateP1WinningColumns": [
+            3
+          ],
+          "knownRootHandoffs": [],
+          "agreedExactP1Loss": false,
+          "baselineExactP1Loss": false,
+          "frontierExactP1Loss": false
+        },
+        {
+          "index": 1,
+          "rank": 30,
+          "support": [
+            5,
+            6,
+            1,
+            6,
+            6,
+            5,
+            1
+          ],
+          "trigger": {
+            "cell": 28,
+            "column": 1,
+            "row": 5,
+            "projectedOwner": 1,
+            "supportDistance": -1
+          },
+          "mappedReservoirResponse": {
+            "cell": 35,
+            "column": 1,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "agreedOneColumnRestriction": null,
+          "mappedResponseObeysRestriction": null,
+          "classification": "CPC_EXACT",
+          "forcedAlternative": {
+            "column": null,
+            "legal": false,
+            "terminal": null,
+            "support": null,
+            "knownRoot": null
+          },
+          "immediateP1WinningColumns": [
+            3
+          ],
+          "knownRootHandoffs": [],
+          "agreedExactP1Loss": false,
+          "baselineExactP1Loss": false,
+          "frontierExactP1Loss": false
+        },
+        {
+          "index": 2,
+          "rank": 32,
+          "support": [
+            6,
+            6,
+            2,
+            6,
+            6,
+            5,
+            1
+          ],
+          "trigger": {
+            "cell": 9,
+            "column": 3,
+            "row": 2,
+            "projectedOwner": 2,
+            "supportDistance": -1
+          },
+          "mappedReservoirResponse": {
+            "cell": 40,
+            "column": 6,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_NONE",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                1,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_NONE",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                1,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "agreedOneColumnRestriction": null,
+          "mappedResponseObeysRestriction": null,
+          "classification": "CPC_NONE",
+          "forcedAlternative": {
+            "column": null,
+            "legal": false,
+            "terminal": null,
+            "support": null,
+            "knownRoot": null
+          },
+          "immediateP1WinningColumns": [],
+          "knownRootHandoffs": [],
+          "agreedExactP1Loss": false,
+          "baselineExactP1Loss": false,
+          "frontierExactP1Loss": false
+        },
+        {
+          "index": 3,
+          "rank": 34,
+          "support": [
+            6,
+            6,
+            3,
+            6,
+            6,
+            6,
+            1
+          ],
+          "trigger": {
+            "cell": 16,
+            "column": 3,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": -1
+          },
+          "mappedReservoirResponse": {
+            "cell": 23,
+            "column": 3,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "agreedOneColumnRestriction": null,
+          "mappedResponseObeysRestriction": null,
+          "classification": "CPC_EXACT",
+          "forcedAlternative": {
+            "column": null,
+            "legal": false,
+            "terminal": null,
+            "support": null,
+            "knownRoot": null
+          },
+          "immediateP1WinningColumns": [],
+          "knownRootHandoffs": [],
+          "agreedExactP1Loss": true,
+          "baselineExactP1Loss": true,
+          "frontierExactP1Loss": true
+        }
+      ],
+      "firstGuardConflictDecisionIndex": null,
+      "firstCpcExactP1LossDecisionIndex": 3,
+      "earliestGuardConflict": null,
+      "guardReroutePromising": false
+    },
+    {
+      "id": "SECOND_D7_C5_CONTRACTION",
+      "signature": "1-6:1|3-5:1",
+      "sourceRank": 27,
+      "sourceSupport": [
+        3,
+        6,
+        1,
+        6,
+        5,
+        5,
+        1
+      ],
+      "firstFailureKind": "defender-terminal",
+      "terminalCell": {
+        "cell": 30,
+        "column": 3,
+        "row": 5,
+        "projectedOwner": 1,
+        "supportDistance": 0
+      },
+      "pathLength": 4,
+      "responseDecisions": [
+        {
+          "index": 0,
+          "rank": 28,
+          "support": [
+            4,
+            6,
+            1,
+            6,
+            5,
+            5,
+            1
+          ],
+          "trigger": {
+            "cell": 21,
+            "column": 1,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": -1
+          },
+          "mappedReservoirResponse": {
+            "cell": 40,
+            "column": 6,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "agreedOneColumnRestriction": null,
+          "mappedResponseObeysRestriction": null,
+          "classification": "CPC_EXACT",
+          "forcedAlternative": {
+            "column": null,
+            "legal": false,
+            "terminal": null,
+            "support": null,
+            "knownRoot": null
+          },
+          "immediateP1WinningColumns": [
+            3
+          ],
+          "knownRootHandoffs": [],
+          "agreedExactP1Loss": false,
+          "baselineExactP1Loss": false,
+          "frontierExactP1Loss": false
+        },
+        {
+          "index": 1,
+          "rank": 30,
+          "support": [
+            5,
+            6,
+            1,
+            6,
+            5,
+            6,
+            1
+          ],
+          "trigger": {
+            "cell": 28,
+            "column": 1,
+            "row": 5,
+            "projectedOwner": 1,
+            "supportDistance": -1
+          },
+          "mappedReservoirResponse": {
+            "cell": 35,
+            "column": 1,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "agreedOneColumnRestriction": null,
+          "mappedResponseObeysRestriction": null,
+          "classification": "CPC_EXACT",
+          "forcedAlternative": {
+            "column": null,
+            "legal": false,
+            "terminal": null,
+            "support": null,
+            "knownRoot": null
+          },
+          "immediateP1WinningColumns": [
+            3
+          ],
+          "knownRootHandoffs": [],
+          "agreedExactP1Loss": false,
+          "baselineExactP1Loss": false,
+          "frontierExactP1Loss": false
+        },
+        {
+          "index": 2,
+          "rank": 32,
+          "support": [
+            6,
+            6,
+            2,
+            6,
+            5,
+            6,
+            1
+          ],
+          "trigger": {
+            "cell": 9,
+            "column": 3,
+            "row": 2,
+            "projectedOwner": 2,
+            "supportDistance": -1
+          },
+          "mappedReservoirResponse": {
+            "cell": 39,
+            "column": 5,
+            "row": 6,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_NONE",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                1,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_NONE",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                1,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "agreedOneColumnRestriction": null,
+          "mappedResponseObeysRestriction": null,
+          "classification": "CPC_NONE",
+          "forcedAlternative": {
+            "column": null,
+            "legal": false,
+            "terminal": null,
+            "support": null,
+            "knownRoot": null
+          },
+          "immediateP1WinningColumns": [],
+          "knownRootHandoffs": [],
+          "agreedExactP1Loss": false,
+          "baselineExactP1Loss": false,
+          "frontierExactP1Loss": false
+        },
+        {
+          "index": 3,
+          "rank": 34,
+          "support": [
+            6,
+            6,
+            3,
+            6,
+            6,
+            6,
+            1
+          ],
+          "trigger": {
+            "cell": 16,
+            "column": 3,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": -1
+          },
+          "mappedReservoirResponse": {
+            "cell": 23,
+            "column": 3,
+            "row": 4,
+            "projectedOwner": 2,
+            "supportDistance": 0
+          },
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "interval": [
+                -1,
+                -1
+              ],
+              "forcedColumn": null,
+              "preemptionCount": 0,
+              "preemptionMask32": 0,
+              "precursorCount": 0,
+              "projectedCount": [
+                0,
+                0
+              ],
+              "projectedForks": [
+                0,
+                0
+              ]
+            }
+          },
+          "agreedOneColumnRestriction": null,
+          "mappedResponseObeysRestriction": null,
+          "classification": "CPC_EXACT",
+          "forcedAlternative": {
+            "column": null,
+            "legal": false,
+            "terminal": null,
+            "support": null,
+            "knownRoot": null
+          },
+          "immediateP1WinningColumns": [],
+          "knownRootHandoffs": [],
+          "agreedExactP1Loss": true,
+          "baselineExactP1Loss": true,
+          "frontierExactP1Loss": true
+        }
+      ],
+      "firstGuardConflictDecisionIndex": null,
+      "firstCpcExactP1LossDecisionIndex": 3,
+      "earliestGuardConflict": null,
+      "guardReroutePromising": false
+    }
+  ],
+  "recurrence": [],
+  "summary": {
+    "candidateCount": 13,
+    "responseDecisionCount": 43,
+    "guardConflictDecisionCount": 0,
+    "guardConflictCandidateCount": 0,
+    "guardConflictCandidateIds": [],
+    "guardReroutePromisingCount": 0,
+    "guardReroutePromisingIds": [],
+    "firstExactLossDecisionIndexHistogram": {
+      "2": 9,
+      "3": 4
+    }
+  },
+  "conclusion": [
+    "Each frozen maximum-coverage reservoir policy is reconstructed at pinned JSMinSys authority and its deterministic first failing path is replayed independently.",
+    "Production CPC baseline and frontier modes are evaluated at every Player-1 mapped-response decision before the first defender terminal.",
+    "A guard conflict is recorded only when both CPC modes agree on one exact forced column and the reservoir mapping chooses another column.",
+    "The first exact Player-1 loss point requires both CPC modes to return CPC_EXACT with absolute P0 value 1, represented here as interval [-1,-1].",
+    "No reservoir path contains a qualifying CPC guard conflict before the first exact-loss decision; the CPC-guard reroute hypothesis is rejected for this frozen family."
+  ],
+  "boundary": [
+    "This is discovery evidence only and does not execute a reroute or certify the rank-20 root.",
+    "No oracle, solved W/D/L, minimax, ordinary free-branch game-tree value, best-move table, opening book, BSFP solved frontier, physical-position identity shortcut, or sealed holdout is used.",
+    "Production CPC, JSMinSys, target-reservoir semantics, and BSFP remain unchanged.",
+    "CPC_EXACT/BOUND/RESTRICT meanings are consumed read-only from pinned production CPC."
+  ]
+}
