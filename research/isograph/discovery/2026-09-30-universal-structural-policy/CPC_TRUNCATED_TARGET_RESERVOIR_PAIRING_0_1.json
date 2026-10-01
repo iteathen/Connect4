@@ -1,0 +1,618 @@
+{
+  "schema": "connect4.cpc_truncated_target_reservoir_pairing.v1",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "theoremCandidate": "CPC_TRUNCATED_TARGET_RESERVOIR_PAIRING_THEOREM.md",
+  "consumedLocator": {
+    "sequence": "444441566666232222423311",
+    "role": "qualification locator only; post-compression states are reached by exact RBA cofactors"
+  },
+  "target": {
+    "column": 7,
+    "row": 3,
+    "cell": 20,
+    "attackerPlayer": 1,
+    "defenderPlayer": 2
+  },
+  "rows": [
+    {
+      "firstResponseColumn": 1,
+      "rank": 29,
+      "mover": 2,
+      "support": [
+        4,
+        6,
+        3,
+        6,
+        5,
+        5,
+        0
+      ],
+      "target": {
+        "column": 7,
+        "row": 3,
+        "cell": 20,
+        "activeP1Singleton": true,
+        "supportDistance": 2,
+        "projectedOwner": 1
+      },
+      "defenderPlayableSingletons": [],
+      "truncatedCapacity": [
+        2,
+        0,
+        3,
+        0,
+        1,
+        1,
+        3
+      ],
+      "template": {
+        "totalRelevant": 10,
+        "oddColumns": [
+          3,
+          5,
+          6,
+          7
+        ],
+        "synchronizedPairs": [
+          {
+            "columns": [
+              3,
+              5
+            ],
+            "prefixLength": 1
+          },
+          {
+            "columns": [
+              6,
+              7
+            ],
+            "prefixLength": 1
+          }
+        ],
+        "partner": [
+          0,
+          0,
+          5,
+          0,
+          3,
+          7,
+          6
+        ],
+        "prefixLength": [
+          0,
+          0,
+          1,
+          0,
+          1,
+          1,
+          1
+        ],
+        "targetIsResponse": true,
+        "targetDepth": 2,
+        "targetPrefixLength": 1,
+        "defenderResidualCount": 5,
+        "coverage": [
+          {
+            "residualId": 282,
+            "size": 2,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 35,
+              "column": 1,
+              "row": 6,
+              "depth": 1,
+              "L": 0
+            }
+          },
+          {
+            "residualId": 515,
+            "size": 3,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 37,
+              "column": 3,
+              "row": 6,
+              "depth": 2,
+              "L": 1
+            }
+          },
+          {
+            "residualId": 574,
+            "size": 4,
+            "witness": {
+              "kind": "post-target-deferral",
+              "cell": 27,
+              "column": 7,
+              "row": 4
+            }
+          },
+          {
+            "residualId": 593,
+            "size": 4,
+            "witness": {
+              "kind": "post-target-deferral",
+              "cell": 27,
+              "column": 7,
+              "row": 4
+            }
+          },
+          {
+            "residualId": 612,
+            "size": 4,
+            "witness": {
+              "kind": "post-target-deferral",
+              "cell": 27,
+              "column": 7,
+              "row": 4
+            }
+          }
+        ]
+      },
+      "validation": {
+        "pass": true,
+        "defenderNodes": 99,
+        "responsePairs": 193,
+        "maxPairDepth": 4,
+        "p1TerminalResponses": 95,
+        "targetTerminalResponses": 83,
+        "failures": [],
+        "role": "falsification cross-check only; structural pairing coverage is the proof certificate"
+      },
+      "accept": true
+    },
+    {
+      "firstResponseColumn": 3,
+      "rank": 29,
+      "mover": 2,
+      "support": [
+        3,
+        6,
+        4,
+        6,
+        5,
+        5,
+        0
+      ],
+      "target": {
+        "column": 7,
+        "row": 3,
+        "cell": 20,
+        "activeP1Singleton": true,
+        "supportDistance": 2,
+        "projectedOwner": 1
+      },
+      "defenderPlayableSingletons": [],
+      "truncatedCapacity": [
+        3,
+        0,
+        2,
+        0,
+        1,
+        1,
+        3
+      ],
+      "template": {
+        "totalRelevant": 10,
+        "oddColumns": [
+          1,
+          5,
+          6,
+          7
+        ],
+        "synchronizedPairs": [
+          {
+            "columns": [
+              1,
+              5
+            ],
+            "prefixLength": 1
+          },
+          {
+            "columns": [
+              6,
+              7
+            ],
+            "prefixLength": 1
+          }
+        ],
+        "partner": [
+          5,
+          0,
+          0,
+          0,
+          1,
+          7,
+          6
+        ],
+        "prefixLength": [
+          1,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1
+        ],
+        "targetIsResponse": true,
+        "targetDepth": 2,
+        "targetPrefixLength": 1,
+        "defenderResidualCount": 5,
+        "coverage": [
+          {
+            "residualId": 292,
+            "size": 2,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 37,
+              "column": 3,
+              "row": 6,
+              "depth": 1,
+              "L": 0
+            }
+          },
+          {
+            "residualId": 505,
+            "size": 3,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 35,
+              "column": 1,
+              "row": 6,
+              "depth": 2,
+              "L": 1
+            }
+          },
+          {
+            "residualId": 574,
+            "size": 4,
+            "witness": {
+              "kind": "post-target-deferral",
+              "cell": 27,
+              "column": 7,
+              "row": 4
+            }
+          },
+          {
+            "residualId": 593,
+            "size": 4,
+            "witness": {
+              "kind": "post-target-deferral",
+              "cell": 27,
+              "column": 7,
+              "row": 4
+            }
+          },
+          {
+            "residualId": 612,
+            "size": 4,
+            "witness": {
+              "kind": "post-target-deferral",
+              "cell": 27,
+              "column": 7,
+              "row": 4
+            }
+          }
+        ]
+      },
+      "validation": {
+        "pass": true,
+        "defenderNodes": 96,
+        "responsePairs": 187,
+        "maxPairDepth": 4,
+        "p1TerminalResponses": 92,
+        "targetTerminalResponses": 80,
+        "failures": [],
+        "role": "falsification cross-check only; structural pairing coverage is the proof certificate"
+      },
+      "accept": true
+    },
+    {
+      "firstResponseColumn": 6,
+      "rank": 29,
+      "mover": 2,
+      "support": [
+        3,
+        6,
+        3,
+        6,
+        5,
+        6,
+        0
+      ],
+      "target": {
+        "column": 7,
+        "row": 3,
+        "cell": 20,
+        "activeP1Singleton": true,
+        "supportDistance": 2,
+        "projectedOwner": 1
+      },
+      "defenderPlayableSingletons": [],
+      "truncatedCapacity": [
+        3,
+        0,
+        3,
+        0,
+        1,
+        0,
+        3
+      ],
+      "template": {
+        "totalRelevant": 10,
+        "oddColumns": [
+          1,
+          3,
+          5,
+          7
+        ],
+        "synchronizedPairs": [
+          {
+            "columns": [
+              1,
+              3
+            ],
+            "prefixLength": 1
+          },
+          {
+            "columns": [
+              5,
+              7
+            ],
+            "prefixLength": 1
+          }
+        ],
+        "partner": [
+          3,
+          0,
+          1,
+          0,
+          7,
+          0,
+          5
+        ],
+        "prefixLength": [
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1
+        ],
+        "targetIsResponse": true,
+        "targetDepth": 2,
+        "targetPrefixLength": 1,
+        "defenderResidualCount": 5,
+        "coverage": [
+          {
+            "residualId": 505,
+            "size": 3,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 35,
+              "column": 1,
+              "row": 6,
+              "depth": 2,
+              "L": 1
+            }
+          },
+          {
+            "residualId": 515,
+            "size": 3,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 37,
+              "column": 3,
+              "row": 6,
+              "depth": 2,
+              "L": 1
+            }
+          },
+          {
+            "residualId": 574,
+            "size": 4,
+            "witness": {
+              "kind": "post-target-deferral",
+              "cell": 27,
+              "column": 7,
+              "row": 4
+            }
+          },
+          {
+            "residualId": 593,
+            "size": 4,
+            "witness": {
+              "kind": "post-target-deferral",
+              "cell": 27,
+              "column": 7,
+              "row": 4
+            }
+          },
+          {
+            "residualId": 612,
+            "size": 4,
+            "witness": {
+              "kind": "post-target-deferral",
+              "cell": 27,
+              "column": 7,
+              "row": 4
+            }
+          }
+        ]
+      },
+      "validation": {
+        "pass": true,
+        "defenderNodes": 77,
+        "responsePairs": 142,
+        "maxPairDepth": 4,
+        "p1TerminalResponses": 66,
+        "targetTerminalResponses": 66,
+        "failures": [],
+        "role": "falsification cross-check only; structural pairing coverage is the proof certificate"
+      },
+      "accept": true
+    },
+    {
+      "firstResponseColumn": 7,
+      "rank": 29,
+      "mover": 2,
+      "support": [
+        3,
+        6,
+        3,
+        6,
+        5,
+        5,
+        1
+      ],
+      "target": {
+        "column": 7,
+        "row": 3,
+        "cell": 20,
+        "activeP1Singleton": true,
+        "supportDistance": 1,
+        "projectedOwner": 1
+      },
+      "defenderPlayableSingletons": [],
+      "truncatedCapacity": [
+        3,
+        0,
+        3,
+        0,
+        1,
+        1,
+        2
+      ],
+      "template": {
+        "totalRelevant": 10,
+        "oddColumns": [
+          1,
+          3,
+          5,
+          6
+        ],
+        "synchronizedPairs": [
+          {
+            "columns": [
+              1,
+              3
+            ],
+            "prefixLength": 1
+          },
+          {
+            "columns": [
+              5,
+              6
+            ],
+            "prefixLength": 1
+          }
+        ],
+        "partner": [
+          3,
+          0,
+          1,
+          0,
+          6,
+          5,
+          0
+        ],
+        "prefixLength": [
+          1,
+          0,
+          1,
+          0,
+          1,
+          1,
+          0
+        ],
+        "targetIsResponse": true,
+        "targetDepth": 1,
+        "targetPrefixLength": 0,
+        "defenderResidualCount": 5,
+        "coverage": [
+          {
+            "residualId": 438,
+            "size": 3,
+            "witness": {
+              "kind": "post-target-deferral",
+              "cell": 27,
+              "column": 7,
+              "row": 4
+            }
+          },
+          {
+            "residualId": 505,
+            "size": 3,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 35,
+              "column": 1,
+              "row": 6,
+              "depth": 2,
+              "L": 1
+            }
+          },
+          {
+            "residualId": 515,
+            "size": 3,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 37,
+              "column": 3,
+              "row": 6,
+              "depth": 2,
+              "L": 1
+            }
+          },
+          {
+            "residualId": 593,
+            "size": 4,
+            "witness": {
+              "kind": "post-target-deferral",
+              "cell": 27,
+              "column": 7,
+              "row": 4
+            }
+          },
+          {
+            "residualId": 612,
+            "size": 4,
+            "witness": {
+              "kind": "post-target-deferral",
+              "cell": 27,
+              "column": 7,
+              "row": 4
+            }
+          }
+        ]
+      },
+      "validation": {
+        "pass": true,
+        "defenderNodes": 77,
+        "responsePairs": 153,
+        "maxPairDepth": 4,
+        "p1TerminalResponses": 77,
+        "targetTerminalResponses": 77,
+        "failures": [],
+        "role": "falsification cross-check only; structural pairing coverage is the proof certificate"
+      },
+      "accept": true
+    }
+  ],
+  "accept": true,
+  "conclusion": [
+    "Every qualified post-compression state admits a finite truncated synchronized pairing template.",
+    "The target c7r3 is an active Player-1 singleton and an assigned Player-1 vertical response in every accepted template.",
+    "Every active Player-2 residual is blocked by a vertical response, a complete synchronized cross pair, or target-first gravity deferral.",
+    "Exact cofactor traversal of the synthesized template found no defender terminal or illegal response and reaches a Player-1 terminal on every branch.",
+    "Therefore the pairing schema closes escape/preemption for these rank-29 states without using solved values or ordinary game-tree search as a proof premise."
+  ],
+  "boundary": [
+    "Template synthesis uses only current support, gravity, exact active RBA residual attachment, mover parity, and the already-active singleton target.",
+    "The validation traversal is an independent falsification cross-check of the finite template, not the proof premise and not a runtime universal policy.",
+    "Production CPC is read-only and unchanged.",
+    "No Pons/oracle, solved W/D/L, minimax, best-move label, physical-position identity, or sealed holdout is used."
+  ]
+}
