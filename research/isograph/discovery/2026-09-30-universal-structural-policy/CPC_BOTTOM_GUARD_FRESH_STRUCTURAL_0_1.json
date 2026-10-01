@@ -1,0 +1,1045 @@
+{
+  "schema": "connect4.cpc_bottom_response_guard_fresh_structural.v1",
+  "jsMinSysSha": "0899c5811918e68c22dc1b0e4dd8af97d9b4bbcb",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "consumedBoundaryUsed": false,
+  "cases": 21,
+  "guardColumnsCovered": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "ranksCovered": [
+    2,
+    4,
+    8
+  ],
+  "rows": [
+    {
+      "id": "g1_r2",
+      "sequence": "41",
+      "guard": 1,
+      "startRank": 2,
+      "guardColumn": 1,
+      "startSupport": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "reconstruction": {
+        "height1": true,
+        "defenderOwnsRow1": true,
+        "nextPlayableRow": 2
+      },
+      "transitions": [
+        {
+          "stage": "G1_TO_G3",
+          "beforeHeight": 1,
+          "attackerLandingRow": 2,
+          "defenderLandingRow": 3,
+          "afterHeight": 3,
+          "exactCofactorReplay": true,
+          "nonterminal": true
+        },
+        {
+          "stage": "G3_TO_G5",
+          "beforeHeight": 3,
+          "attackerLandingRow": 4,
+          "defenderLandingRow": 5,
+          "afterHeight": 5,
+          "exactCofactorReplay": true,
+          "nonterminal": true
+        }
+      ],
+      "topExhaustion": {
+        "attackerLandingRow": 6,
+        "resultingHeight": 6,
+        "sameColumnResponseExists": false,
+        "nonterminal": true,
+        "exactCofactorReplay": true
+      }
+    },
+    {
+      "id": "g2_r2",
+      "sequence": "52",
+      "guard": 2,
+      "startRank": 2,
+      "guardColumn": 2,
+      "startSupport": [
+        0,
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "reconstruction": {
+        "height1": true,
+        "defenderOwnsRow1": true,
+        "nextPlayableRow": 2
+      },
+      "transitions": [
+        {
+          "stage": "G1_TO_G3",
+          "beforeHeight": 1,
+          "attackerLandingRow": 2,
+          "defenderLandingRow": 3,
+          "afterHeight": 3,
+          "exactCofactorReplay": true,
+          "nonterminal": true
+        },
+        {
+          "stage": "G3_TO_G5",
+          "beforeHeight": 3,
+          "attackerLandingRow": 4,
+          "defenderLandingRow": 5,
+          "afterHeight": 5,
+          "exactCofactorReplay": true,
+          "nonterminal": true
+        }
+      ],
+      "topExhaustion": {
+        "attackerLandingRow": 6,
+        "resultingHeight": 6,
+        "sameColumnResponseExists": false,
+        "nonterminal": true,
+        "exactCofactorReplay": true
+      }
+    },
+    {
+      "id": "g3_r2",
+      "sequence": "63",
+      "guard": 3,
+      "startRank": 2,
+      "guardColumn": 3,
+      "startSupport": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        1,
+        0
+      ],
+      "reconstruction": {
+        "height1": true,
+        "defenderOwnsRow1": true,
+        "nextPlayableRow": 2
+      },
+      "transitions": [
+        {
+          "stage": "G1_TO_G3",
+          "beforeHeight": 1,
+          "attackerLandingRow": 2,
+          "defenderLandingRow": 3,
+          "afterHeight": 3,
+          "exactCofactorReplay": true,
+          "nonterminal": true
+        },
+        {
+          "stage": "G3_TO_G5",
+          "beforeHeight": 3,
+          "attackerLandingRow": 4,
+          "defenderLandingRow": 5,
+          "afterHeight": 5,
+          "exactCofactorReplay": true,
+          "nonterminal": true
+        }
+      ],
+      "topExhaustion": {
+        "attackerLandingRow": 6,
+        "resultingHeight": 6,
+        "sameColumnResponseExists": false,
+        "nonterminal": true,
+        "exactCofactorReplay": true
+      }
+    },
+    {
+      "id": "g4_r2",
+      "sequence": "14",
+      "guard": 4,
+      "startRank": 2,
+      "guardColumn": 4,
+      "startSupport": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "reconstruction": {
+        "height1": true,
+        "defenderOwnsRow1": true,
+        "nextPlayableRow": 2
+      },
+      "transitions": [
+        {
+          "stage": "G1_TO_G3",
+          "beforeHeight": 1,
+          "attackerLandingRow": 2,
+          "defenderLandingRow": 3,
+          "afterHeight": 3,
+          "exactCofactorReplay": true,
+          "nonterminal": true
+        },
+        {
+          "stage": "G3_TO_G5",
+          "beforeHeight": 3,
+          "attackerLandingRow": 4,
+          "defenderLandingRow": 5,
+          "afterHeight": 5,
+          "exactCofactorReplay": true,
+          "nonterminal": true
+        }
+      ],
+      "topExhaustion": {
+        "attackerLandingRow": 6,
+        "resultingHeight": 6,
+        "sameColumnResponseExists": false,
+        "nonterminal": true,
+        "exactCofactorReplay": true
+      }
+    },
+    {
+      "id": "g5_r2",
+      "sequence": "25",
+      "guard": 5,
+      "startRank": 2,
+      "guardColumn": 5,
+      "startSupport": [
+        0,
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "reconstruction": {
+        "height1": true,
+        "defenderOwnsRow1": true,
+        "nextPlayableRow": 2
+      },
+      "transitions": [
+        {
+          "stage": "G1_TO_G3",
+          "beforeHeight": 1,
+          "attackerLandingRow": 2,
+          "defenderLandingRow": 3,
+          "afterHeight": 3,
+          "exactCofactorReplay": true,
+          "nonterminal": true
+        },
+        {
+          "stage": "G3_TO_G5",
+          "beforeHeight": 3,
+          "attackerLandingRow": 4,
+          "defenderLandingRow": 5,
+          "afterHeight": 5,
+          "exactCofactorReplay": true,
+          "nonterminal": true
+        }
+      ],
+      "topExhaustion": {
+        "attackerLandingRow": 6,
+        "resultingHeight": 6,
+        "sameColumnResponseExists": false,
+        "nonterminal": true,
+        "exactCofactorReplay": true
+      }
+    },
+    {
+      "id": "g6_r2",
+      "sequence": "36",
+      "guard": 6,
+      "startRank": 2,
+      "guardColumn": 6,
+      "startSupport": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        1,
+        0
+      ],
+      "reconstruction": {
+        "height1": true,
+        "defenderOwnsRow1": true,
+        "nextPlayableRow": 2
+      },
+      "transitions": [
+        {
+          "stage": "G1_TO_G3",
+          "beforeHeight": 1,
+          "attackerLandingRow": 2,
+          "defenderLandingRow": 3,
+          "afterHeight": 3,
+          "exactCofactorReplay": true,
+          "nonterminal": true
+        },
+        {
+          "stage": "G3_TO_G5",
+          "beforeHeight": 3,
+          "attackerLandingRow": 4,
+          "defenderLandingRow": 5,
+          "afterHeight": 5,
+          "exactCofactorReplay": true,
+          "nonterminal": true
+        }
+      ],
+      "topExhaustion": {
+        "attackerLandingRow": 6,
+        "resultingHeight": 6,
+        "sameColumnResponseExists": false,
+        "nonterminal": true,
+        "exactCofactorReplay": true
+      }
+    },
+    {
+      "id": "g7_r2",
+      "sequence": "47",
+      "guard": 7,
+      "startRank": 2,
+      "guardColumn": 7,
+      "startSupport": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        1
+      ],
+      "reconstruction": {
+        "height1": true,
+        "defenderOwnsRow1": true,
+        "nextPlayableRow": 2
+      },
+      "transitions": [
+        {
+          "stage": "G1_TO_G3",
+          "beforeHeight": 1,
+          "attackerLandingRow": 2,
+          "defenderLandingRow": 3,
+          "afterHeight": 3,
+          "exactCofactorReplay": true,
+          "nonterminal": true
+        },
+        {
+          "stage": "G3_TO_G5",
+          "beforeHeight": 3,
+          "attackerLandingRow": 4,
+          "defenderLandingRow": 5,
+          "afterHeight": 5,
+          "exactCofactorReplay": true,
+          "nonterminal": true
+        }
+      ],
+      "topExhaustion": {
+        "attackerLandingRow": 6,
+        "resultingHeight": 6,
+        "sameColumnResponseExists": false,
+        "nonterminal": true,
+        "exactCofactorReplay": true
+      }
+    },
+    {
+      "id": "g1_r4",
+      "sequence": "2231",
+      "guard": 1,
+      "startRank": 4,
+      "guardColumn": 1,
+      "startSupport": [
+        1,
+        2,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "reconstruction": {
+        "height1": true,
+        "defenderOwnsRow1": true,
+        "nextPlayableRow": 2
+      },
+      "transitions": [
+        {
+          "stage": "G1_TO_G3",
+          "beforeHeight": 1,
+          "attackerLandingRow": 2,
+          "defenderLandingRow": 3,
+          "afterHeight": 3,
+          "exactCofactorReplay": true,
+          "nonterminal": true
+        },
+        {
+          "stage": "G3_TO_G5",
+          "beforeHeight": 3,
+          "attackerLandingRow": 4,
+          "defenderLandingRow": 5,
+          "afterHeight": 5,
+          "exactCofactorReplay": true,
+          "nonterminal": true
+        }
+      ],
+      "topExhaustion": {
+        "attackerLandingRow": 6,
+        "resultingHeight": 6,
+        "sameColumnResponseExists": false,
+        "nonterminal": true,
+        "exactCofactorReplay": true
+      }
+    },
+    {
+      "id": "g2_r4",
+      "sequence": "3342",
+      "guard": 2,
+      "startRank": 4,
+      "guardColumn": 2,
+      "startSupport": [
+        0,
+        1,
+        2,
+        1,
+        0,
+        0,
+        0
+      ],
+      "reconstruction": {
+        "height1": true,
+        "defenderOwnsRow1": true,
+        "nextPlayableRow": 2
+      },
+      "transitions": [
+        {
+          "stage": "G1_TO_G3",
+          "beforeHeight": 1,
+          "attackerLandingRow": 2,
+          "defenderLandingRow": 3,
+          "afterHeight": 3,
+          "exactCofactorReplay": true,
+          "nonterminal": true
+        },
+        {
+          "stage": "G3_TO_G5",
+          "beforeHeight": 3,
+          "attackerLandingRow": 4,
+          "defenderLandingRow": 5,
+          "afterHeight": 5,
+          "exactCofactorReplay": true,
+          "nonterminal": true
+        }
+      ],
+      "topExhaustion": {
+        "attackerLandingRow": 6,
+        "resultingHeight": 6,
+        "sameColumnResponseExists": false,
+        "nonterminal": true,
+        "exactCofactorReplay": true
+      }
+    },
+    {
+      "id": "g3_r4",
+      "sequence": "4453",
+      "guard": 3,
+      "startRank": 4,
+      "guardColumn": 3,
+      "startSupport": [
+        0,
+        0,
+        1,
+        2,
+        1,
+        0,
+        0
+      ],
+      "reconstruction": {
+        "height1": true,
+        "defenderOwnsRow1": true,
+        "nextPlayableRow": 2
+      },
+      "transitions": [
+        {
+          "stage": "G1_TO_G3",
+          "beforeHeight": 1,
+          "attackerLandingRow": 2,
+          "defenderLandingRow": 3,
+          "afterHeight": 3,
+          "exactCofactorReplay": true,
+          "nonterminal": true
+        },
+        {
+          "stage": "G3_TO_G5",
+          "beforeHeight": 3,
+          "attackerLandingRow": 4,
+          "defenderLandingRow": 5,
+          "afterHeight": 5,
+          "exactCofactorReplay": true,
+          "nonterminal": true
+        }
+      ],
+      "topExhaustion": {
+        "attackerLandingRow": 6,
+        "resultingHeight": 6,
+        "sameColumnResponseExists": false,
+        "nonterminal": true,
+        "exactCofactorReplay": true
+      }
+    },
+    {
+      "id": "g4_r4",
+      "sequence": "5564",
+      "guard": 4,
+      "startRank": 4,
+      "guardColumn": 4,
+      "startSupport": [
+        0,
+        0,
+        0,
+        1,
+        2,
+        1,
+        0
+      ],
+      "reconstruction": {
+        "height1": true,
+        "defenderOwnsRow1": true,
+        "nextPlayableRow": 2
+      },
+      "transitions": [
+        {
+          "stage": "G1_TO_G3",
+          "beforeHeight": 1,
+          "attackerLandingRow": 2,
+          "defenderLandingRow": 3,
+          "afterHeight": 3,
+          "exactCofactorReplay": true,
+          "nonterminal": true
+        },
+        {
+          "stage": "G3_TO_G5",
+          "beforeHeight": 3,
+          "attackerLandingRow": 4,
+          "defenderLandingRow": 5,
+          "afterHeight": 5,
+          "exactCofactorReplay": true,
+          "nonterminal": true
+        }
+      ],
+      "topExhaustion": {
+        "attackerLandingRow": 6,
+        "resultingHeight": 6,
+        "sameColumnResponseExists": false,
+        "nonterminal": true,
+        "exactCofactorReplay": true
+      }
+    },
+    {
+      "id": "g5_r4",
+      "sequence": "6675",
+      "guard": 5,
+      "startRank": 4,
+      "guardColumn": 5,
+      "startSupport": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        2,
+        1
+      ],
+      "reconstruction": {
+        "height1": true,
+        "defenderOwnsRow1": true,
+        "nextPlayableRow": 2
+      },
+      "transitions": [
+        {
+          "stage": "G1_TO_G3",
+          "beforeHeight": 1,
+          "attackerLandingRow": 2,
+          "defenderLandingRow": 3,
+          "afterHeight": 3,
+          "exactCofactorReplay": true,
+          "nonterminal": true
+        },
+        {
+          "stage": "G3_TO_G5",
+          "beforeHeight": 3,
+          "attackerLandingRow": 4,
+          "defenderLandingRow": 5,
+          "afterHeight": 5,
+          "exactCofactorReplay": true,
+          "nonterminal": true
+        }
+      ],
+      "topExhaustion": {
+        "attackerLandingRow": 6,
+        "resultingHeight": 6,
+        "sameColumnResponseExists": false,
+        "nonterminal": true,
+        "exactCofactorReplay": true
+      }
+    },
+    {
+      "id": "g6_r4",
+      "sequence": "7716",
+      "guard": 6,
+      "startRank": 4,
+      "guardColumn": 6,
+      "startSupport": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        2
+      ],
+      "reconstruction": {
+        "height1": true,
+        "defenderOwnsRow1": true,
+        "nextPlayableRow": 2
+      },
+      "transitions": [
+        {
+          "stage": "G1_TO_G3",
+          "beforeHeight": 1,
+          "attackerLandingRow": 2,
+          "defenderLandingRow": 3,
+          "afterHeight": 3,
+          "exactCofactorReplay": true,
+          "nonterminal": true
+        },
+        {
+          "stage": "G3_TO_G5",
+          "beforeHeight": 3,
+          "attackerLandingRow": 4,
+          "defenderLandingRow": 5,
+          "afterHeight": 5,
+          "exactCofactorReplay": true,
+          "nonterminal": true
+        }
+      ],
+      "topExhaustion": {
+        "attackerLandingRow": 6,
+        "resultingHeight": 6,
+        "sameColumnResponseExists": false,
+        "nonterminal": true,
+        "exactCofactorReplay": true
+      }
+    },
+    {
+      "id": "g7_r4",
+      "sequence": "1127",
+      "guard": 7,
+      "startRank": 4,
+      "guardColumn": 7,
+      "startSupport": [
+        2,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "reconstruction": {
+        "height1": true,
+        "defenderOwnsRow1": true,
+        "nextPlayableRow": 2
+      },
+      "transitions": [
+        {
+          "stage": "G1_TO_G3",
+          "beforeHeight": 1,
+          "attackerLandingRow": 2,
+          "defenderLandingRow": 3,
+          "afterHeight": 3,
+          "exactCofactorReplay": true,
+          "nonterminal": true
+        },
+        {
+          "stage": "G3_TO_G5",
+          "beforeHeight": 3,
+          "attackerLandingRow": 4,
+          "defenderLandingRow": 5,
+          "afterHeight": 5,
+          "exactCofactorReplay": true,
+          "nonterminal": true
+        }
+      ],
+      "topExhaustion": {
+        "attackerLandingRow": 6,
+        "resultingHeight": 6,
+        "sameColumnResponseExists": false,
+        "nonterminal": true,
+        "exactCofactorReplay": true
+      }
+    },
+    {
+      "id": "g1_r8",
+      "sequence": "44556621",
+      "guard": 1,
+      "startRank": 8,
+      "guardColumn": 1,
+      "startSupport": [
+        1,
+        1,
+        0,
+        2,
+        2,
+        2,
+        0
+      ],
+      "reconstruction": {
+        "height1": true,
+        "defenderOwnsRow1": true,
+        "nextPlayableRow": 2
+      },
+      "transitions": [
+        {
+          "stage": "G1_TO_G3",
+          "beforeHeight": 1,
+          "attackerLandingRow": 2,
+          "defenderLandingRow": 3,
+          "afterHeight": 3,
+          "exactCofactorReplay": true,
+          "nonterminal": true
+        },
+        {
+          "stage": "G3_TO_G5",
+          "beforeHeight": 3,
+          "attackerLandingRow": 4,
+          "defenderLandingRow": 5,
+          "afterHeight": 5,
+          "exactCofactorReplay": true,
+          "nonterminal": true
+        }
+      ],
+      "topExhaustion": {
+        "attackerLandingRow": 6,
+        "resultingHeight": 6,
+        "sameColumnResponseExists": false,
+        "nonterminal": true,
+        "exactCofactorReplay": true
+      }
+    },
+    {
+      "id": "g2_r8",
+      "sequence": "55667732",
+      "guard": 2,
+      "startRank": 8,
+      "guardColumn": 2,
+      "startSupport": [
+        0,
+        1,
+        1,
+        0,
+        2,
+        2,
+        2
+      ],
+      "reconstruction": {
+        "height1": true,
+        "defenderOwnsRow1": true,
+        "nextPlayableRow": 2
+      },
+      "transitions": [
+        {
+          "stage": "G1_TO_G3",
+          "beforeHeight": 1,
+          "attackerLandingRow": 2,
+          "defenderLandingRow": 3,
+          "afterHeight": 3,
+          "exactCofactorReplay": true,
+          "nonterminal": true
+        },
+        {
+          "stage": "G3_TO_G5",
+          "beforeHeight": 3,
+          "attackerLandingRow": 4,
+          "defenderLandingRow": 5,
+          "afterHeight": 5,
+          "exactCofactorReplay": true,
+          "nonterminal": true
+        }
+      ],
+      "topExhaustion": {
+        "attackerLandingRow": 6,
+        "resultingHeight": 6,
+        "sameColumnResponseExists": false,
+        "nonterminal": true,
+        "exactCofactorReplay": true
+      }
+    },
+    {
+      "id": "g3_r8",
+      "sequence": "66771143",
+      "guard": 3,
+      "startRank": 8,
+      "guardColumn": 3,
+      "startSupport": [
+        2,
+        0,
+        1,
+        1,
+        0,
+        2,
+        2
+      ],
+      "reconstruction": {
+        "height1": true,
+        "defenderOwnsRow1": true,
+        "nextPlayableRow": 2
+      },
+      "transitions": [
+        {
+          "stage": "G1_TO_G3",
+          "beforeHeight": 1,
+          "attackerLandingRow": 2,
+          "defenderLandingRow": 3,
+          "afterHeight": 3,
+          "exactCofactorReplay": true,
+          "nonterminal": true
+        },
+        {
+          "stage": "G3_TO_G5",
+          "beforeHeight": 3,
+          "attackerLandingRow": 4,
+          "defenderLandingRow": 5,
+          "afterHeight": 5,
+          "exactCofactorReplay": true,
+          "nonterminal": true
+        }
+      ],
+      "topExhaustion": {
+        "attackerLandingRow": 6,
+        "resultingHeight": 6,
+        "sameColumnResponseExists": false,
+        "nonterminal": true,
+        "exactCofactorReplay": true
+      }
+    },
+    {
+      "id": "g4_r8",
+      "sequence": "77112254",
+      "guard": 4,
+      "startRank": 8,
+      "guardColumn": 4,
+      "startSupport": [
+        2,
+        2,
+        0,
+        1,
+        1,
+        0,
+        2
+      ],
+      "reconstruction": {
+        "height1": true,
+        "defenderOwnsRow1": true,
+        "nextPlayableRow": 2
+      },
+      "transitions": [
+        {
+          "stage": "G1_TO_G3",
+          "beforeHeight": 1,
+          "attackerLandingRow": 2,
+          "defenderLandingRow": 3,
+          "afterHeight": 3,
+          "exactCofactorReplay": true,
+          "nonterminal": true
+        },
+        {
+          "stage": "G3_TO_G5",
+          "beforeHeight": 3,
+          "attackerLandingRow": 4,
+          "defenderLandingRow": 5,
+          "afterHeight": 5,
+          "exactCofactorReplay": true,
+          "nonterminal": true
+        }
+      ],
+      "topExhaustion": {
+        "attackerLandingRow": 6,
+        "resultingHeight": 6,
+        "sameColumnResponseExists": false,
+        "nonterminal": true,
+        "exactCofactorReplay": true
+      }
+    },
+    {
+      "id": "g5_r8",
+      "sequence": "11223365",
+      "guard": 5,
+      "startRank": 8,
+      "guardColumn": 5,
+      "startSupport": [
+        2,
+        2,
+        2,
+        0,
+        1,
+        1,
+        0
+      ],
+      "reconstruction": {
+        "height1": true,
+        "defenderOwnsRow1": true,
+        "nextPlayableRow": 2
+      },
+      "transitions": [
+        {
+          "stage": "G1_TO_G3",
+          "beforeHeight": 1,
+          "attackerLandingRow": 2,
+          "defenderLandingRow": 3,
+          "afterHeight": 3,
+          "exactCofactorReplay": true,
+          "nonterminal": true
+        },
+        {
+          "stage": "G3_TO_G5",
+          "beforeHeight": 3,
+          "attackerLandingRow": 4,
+          "defenderLandingRow": 5,
+          "afterHeight": 5,
+          "exactCofactorReplay": true,
+          "nonterminal": true
+        }
+      ],
+      "topExhaustion": {
+        "attackerLandingRow": 6,
+        "resultingHeight": 6,
+        "sameColumnResponseExists": false,
+        "nonterminal": true,
+        "exactCofactorReplay": true
+      }
+    },
+    {
+      "id": "g6_r8",
+      "sequence": "22334476",
+      "guard": 6,
+      "startRank": 8,
+      "guardColumn": 6,
+      "startSupport": [
+        0,
+        2,
+        2,
+        2,
+        0,
+        1,
+        1
+      ],
+      "reconstruction": {
+        "height1": true,
+        "defenderOwnsRow1": true,
+        "nextPlayableRow": 2
+      },
+      "transitions": [
+        {
+          "stage": "G1_TO_G3",
+          "beforeHeight": 1,
+          "attackerLandingRow": 2,
+          "defenderLandingRow": 3,
+          "afterHeight": 3,
+          "exactCofactorReplay": true,
+          "nonterminal": true
+        },
+        {
+          "stage": "G3_TO_G5",
+          "beforeHeight": 3,
+          "attackerLandingRow": 4,
+          "defenderLandingRow": 5,
+          "afterHeight": 5,
+          "exactCofactorReplay": true,
+          "nonterminal": true
+        }
+      ],
+      "topExhaustion": {
+        "attackerLandingRow": 6,
+        "resultingHeight": 6,
+        "sameColumnResponseExists": false,
+        "nonterminal": true,
+        "exactCofactorReplay": true
+      }
+    },
+    {
+      "id": "g7_r8",
+      "sequence": "33445517",
+      "guard": 7,
+      "startRank": 8,
+      "guardColumn": 7,
+      "startSupport": [
+        1,
+        0,
+        2,
+        2,
+        2,
+        0,
+        1
+      ],
+      "reconstruction": {
+        "height1": true,
+        "defenderOwnsRow1": true,
+        "nextPlayableRow": 2
+      },
+      "transitions": [
+        {
+          "stage": "G1_TO_G3",
+          "beforeHeight": 1,
+          "attackerLandingRow": 2,
+          "defenderLandingRow": 3,
+          "afterHeight": 3,
+          "exactCofactorReplay": true,
+          "nonterminal": true
+        },
+        {
+          "stage": "G3_TO_G5",
+          "beforeHeight": 3,
+          "attackerLandingRow": 4,
+          "defenderLandingRow": 5,
+          "afterHeight": 5,
+          "exactCofactorReplay": true,
+          "nonterminal": true
+        }
+      ],
+      "topExhaustion": {
+        "attackerLandingRow": 6,
+        "resultingHeight": 6,
+        "sameColumnResponseExists": false,
+        "nonterminal": true,
+        "exactCofactorReplay": true
+      }
+    }
+  ],
+  "work": {
+    "cofactorCount": 105
+  },
+  "conclusion": [
+    "Every fresh row-1 defender placement reconstructs the height-1 odd-row guard from current occupancy.",
+    "Across all seven columns and three independent starting-rank families, attacker row2/row4 triggers followed by same-column defender row3/row5 responses are exact legal nonterminal CPC/RBA transports.",
+    "After guard height 5, attacker row6 exactly exhausts the column and no same-column response exists, isolating the top-debt boundary."
+  ],
+  "boundary": [
+    "This qualifies guard reconstruction and same-column renewal structure only; it does not license the original row-1 defender response.",
+    "No W/D/L, strong score, oracle, consumed-prefix label, or best-move information is used.",
+    "Top-exhaustion repair remains governed by its separate frozen theorem and downstream proof-class closure."
+  ]
+}
