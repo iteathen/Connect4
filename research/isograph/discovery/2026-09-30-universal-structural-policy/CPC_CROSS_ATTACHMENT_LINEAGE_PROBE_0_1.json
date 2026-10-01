@@ -1,0 +1,2893 @@
+{
+  "schema": "connect4.cpc_cross_attachment_lineage_probe.v1",
+  "jsMinSysSha": "0899c5811918e68c22dc1b0e4dd8af97d9b4bbcb",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "rows": [
+    {
+      "id": "c6_r4",
+      "sequence": "444441566614",
+      "attacker": 1,
+      "supportBefore": [
+        2,
+        0,
+        0,
+        6,
+        1,
+        3,
+        0
+      ],
+      "triggerColumn": 1,
+      "triggerCell": {
+        "cell": 14,
+        "column": 1,
+        "row": 3
+      },
+      "watchedBefore": {
+        "51": {
+          "active": true,
+          "cells": [
+            {
+              "cell": 1,
+              "column": 2,
+              "row": 1
+            },
+            {
+              "cell": 2,
+              "column": 3,
+              "row": 1
+            }
+          ]
+        },
+        "442": {
+          "active": true,
+          "cells": [
+            {
+              "cell": 14,
+              "column": 1,
+              "row": 3
+            },
+            {
+              "cell": 15,
+              "column": 2,
+              "row": 3
+            },
+            {
+              "cell": 16,
+              "column": 3,
+              "row": 3
+            }
+          ]
+        },
+        "530": {
+          "active": true,
+          "cells": [
+            {
+              "cell": 28,
+              "column": 1,
+              "row": 5
+            },
+            {
+              "cell": 29,
+              "column": 2,
+              "row": 5
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5
+            }
+          ]
+        }
+      },
+      "afterTrigger": {
+        "51": {
+          "parentId": 51,
+          "triggerConsumesRequiredCell": false,
+          "expectedCells": [
+            {
+              "cell": 1,
+              "column": 2,
+              "row": 1
+            },
+            {
+              "cell": 2,
+              "column": 3,
+              "row": 1
+            }
+          ],
+          "exactDescendantIds": [
+            51
+          ]
+        },
+        "442": {
+          "parentId": 442,
+          "triggerConsumesRequiredCell": true,
+          "expectedCells": [
+            {
+              "cell": 15,
+              "column": 2,
+              "row": 3
+            },
+            {
+              "cell": 16,
+              "column": 3,
+              "row": 3
+            }
+          ],
+          "exactDescendantIds": [
+            175
+          ]
+        },
+        "530": {
+          "parentId": 530,
+          "triggerConsumesRequiredCell": false,
+          "expectedCells": [
+            {
+              "cell": 28,
+              "column": 1,
+              "row": 5
+            },
+            {
+              "cell": 29,
+              "column": 2,
+              "row": 5
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5
+            }
+          ],
+          "exactDescendantIds": [
+            530
+          ]
+        }
+      },
+      "replies": [
+        {
+          "responseColumn": 1,
+          "responseCell": {
+            "cell": 21,
+            "column": 1,
+            "row": 4
+          },
+          "terminal": "NONTERMINAL",
+          "support": [
+            4,
+            0,
+            0,
+            6,
+            1,
+            3,
+            0
+          ],
+          "lineage": {
+            "51": {
+              "parentId": 51,
+              "afterAttackerCells": [
+                {
+                  "cell": 1,
+                  "column": 2,
+                  "row": 1
+                },
+                {
+                  "cell": 2,
+                  "column": 3,
+                  "row": 1
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 1,
+                  "column": 2,
+                  "row": 1
+                },
+                {
+                  "cell": 2,
+                  "column": 3,
+                  "row": 1
+                }
+              ],
+              "exactDescendantIds": [
+                51
+              ],
+              "semanticDisposition": "PERSISTS"
+            },
+            "442": {
+              "parentId": 442,
+              "afterAttackerCells": [
+                {
+                  "cell": 15,
+                  "column": 2,
+                  "row": 3
+                },
+                {
+                  "cell": 16,
+                  "column": 3,
+                  "row": 3
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 15,
+                  "column": 2,
+                  "row": 3
+                },
+                {
+                  "cell": 16,
+                  "column": 3,
+                  "row": 3
+                }
+              ],
+              "exactDescendantIds": [
+                175
+              ],
+              "semanticDisposition": "PERSISTS"
+            },
+            "530": {
+              "parentId": 530,
+              "afterAttackerCells": [
+                {
+                  "cell": 28,
+                  "column": 1,
+                  "row": 5
+                },
+                {
+                  "cell": 29,
+                  "column": 2,
+                  "row": 5
+                },
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 28,
+                  "column": 1,
+                  "row": 5
+                },
+                {
+                  "cell": 29,
+                  "column": 2,
+                  "row": 5
+                },
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5
+                }
+              ],
+              "exactDescendantIds": [
+                530
+              ],
+              "semanticDisposition": "PERSISTS"
+            }
+          }
+        },
+        {
+          "responseColumn": 2,
+          "responseCell": {
+            "cell": 1,
+            "column": 2,
+            "row": 1
+          },
+          "terminal": "NONTERMINAL",
+          "support": [
+            3,
+            1,
+            0,
+            6,
+            1,
+            3,
+            0
+          ],
+          "lineage": {
+            "51": {
+              "parentId": 51,
+              "afterAttackerCells": [
+                {
+                  "cell": 1,
+                  "column": 2,
+                  "row": 1
+                },
+                {
+                  "cell": 2,
+                  "column": 3,
+                  "row": 1
+                }
+              ],
+              "defenderHitsRemainingRequirement": true,
+              "expectedAfterResponse": [],
+              "exactDescendantIds": [],
+              "semanticDisposition": "KILLED_BY_DEFENDER"
+            },
+            "442": {
+              "parentId": 442,
+              "afterAttackerCells": [
+                {
+                  "cell": 15,
+                  "column": 2,
+                  "row": 3
+                },
+                {
+                  "cell": 16,
+                  "column": 3,
+                  "row": 3
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 15,
+                  "column": 2,
+                  "row": 3
+                },
+                {
+                  "cell": 16,
+                  "column": 3,
+                  "row": 3
+                }
+              ],
+              "exactDescendantIds": [
+                175
+              ],
+              "semanticDisposition": "PERSISTS"
+            },
+            "530": {
+              "parentId": 530,
+              "afterAttackerCells": [
+                {
+                  "cell": 28,
+                  "column": 1,
+                  "row": 5
+                },
+                {
+                  "cell": 29,
+                  "column": 2,
+                  "row": 5
+                },
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 28,
+                  "column": 1,
+                  "row": 5
+                },
+                {
+                  "cell": 29,
+                  "column": 2,
+                  "row": 5
+                },
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5
+                }
+              ],
+              "exactDescendantIds": [
+                530
+              ],
+              "semanticDisposition": "PERSISTS"
+            }
+          }
+        },
+        {
+          "responseColumn": 3,
+          "responseCell": {
+            "cell": 2,
+            "column": 3,
+            "row": 1
+          },
+          "terminal": "NONTERMINAL",
+          "support": [
+            3,
+            0,
+            1,
+            6,
+            1,
+            3,
+            0
+          ],
+          "lineage": {
+            "51": {
+              "parentId": 51,
+              "afterAttackerCells": [
+                {
+                  "cell": 1,
+                  "column": 2,
+                  "row": 1
+                },
+                {
+                  "cell": 2,
+                  "column": 3,
+                  "row": 1
+                }
+              ],
+              "defenderHitsRemainingRequirement": true,
+              "expectedAfterResponse": [],
+              "exactDescendantIds": [],
+              "semanticDisposition": "KILLED_BY_DEFENDER"
+            },
+            "442": {
+              "parentId": 442,
+              "afterAttackerCells": [
+                {
+                  "cell": 15,
+                  "column": 2,
+                  "row": 3
+                },
+                {
+                  "cell": 16,
+                  "column": 3,
+                  "row": 3
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 15,
+                  "column": 2,
+                  "row": 3
+                },
+                {
+                  "cell": 16,
+                  "column": 3,
+                  "row": 3
+                }
+              ],
+              "exactDescendantIds": [
+                175
+              ],
+              "semanticDisposition": "PERSISTS"
+            },
+            "530": {
+              "parentId": 530,
+              "afterAttackerCells": [
+                {
+                  "cell": 28,
+                  "column": 1,
+                  "row": 5
+                },
+                {
+                  "cell": 29,
+                  "column": 2,
+                  "row": 5
+                },
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 28,
+                  "column": 1,
+                  "row": 5
+                },
+                {
+                  "cell": 29,
+                  "column": 2,
+                  "row": 5
+                },
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5
+                }
+              ],
+              "exactDescendantIds": [
+                530
+              ],
+              "semanticDisposition": "PERSISTS"
+            }
+          }
+        },
+        {
+          "responseColumn": 5,
+          "responseCell": {
+            "cell": 11,
+            "column": 5,
+            "row": 2
+          },
+          "terminal": "NONTERMINAL",
+          "support": [
+            3,
+            0,
+            0,
+            6,
+            2,
+            3,
+            0
+          ],
+          "lineage": {
+            "51": {
+              "parentId": 51,
+              "afterAttackerCells": [
+                {
+                  "cell": 1,
+                  "column": 2,
+                  "row": 1
+                },
+                {
+                  "cell": 2,
+                  "column": 3,
+                  "row": 1
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 1,
+                  "column": 2,
+                  "row": 1
+                },
+                {
+                  "cell": 2,
+                  "column": 3,
+                  "row": 1
+                }
+              ],
+              "exactDescendantIds": [
+                51
+              ],
+              "semanticDisposition": "PERSISTS"
+            },
+            "442": {
+              "parentId": 442,
+              "afterAttackerCells": [
+                {
+                  "cell": 15,
+                  "column": 2,
+                  "row": 3
+                },
+                {
+                  "cell": 16,
+                  "column": 3,
+                  "row": 3
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 15,
+                  "column": 2,
+                  "row": 3
+                },
+                {
+                  "cell": 16,
+                  "column": 3,
+                  "row": 3
+                }
+              ],
+              "exactDescendantIds": [
+                175
+              ],
+              "semanticDisposition": "PERSISTS"
+            },
+            "530": {
+              "parentId": 530,
+              "afterAttackerCells": [
+                {
+                  "cell": 28,
+                  "column": 1,
+                  "row": 5
+                },
+                {
+                  "cell": 29,
+                  "column": 2,
+                  "row": 5
+                },
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 28,
+                  "column": 1,
+                  "row": 5
+                },
+                {
+                  "cell": 29,
+                  "column": 2,
+                  "row": 5
+                },
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5
+                }
+              ],
+              "exactDescendantIds": [
+                530
+              ],
+              "semanticDisposition": "PERSISTS"
+            }
+          }
+        },
+        {
+          "responseColumn": 6,
+          "responseCell": {
+            "cell": 26,
+            "column": 6,
+            "row": 4
+          },
+          "terminal": "NONTERMINAL",
+          "support": [
+            3,
+            0,
+            0,
+            6,
+            1,
+            4,
+            0
+          ],
+          "lineage": {
+            "51": {
+              "parentId": 51,
+              "afterAttackerCells": [
+                {
+                  "cell": 1,
+                  "column": 2,
+                  "row": 1
+                },
+                {
+                  "cell": 2,
+                  "column": 3,
+                  "row": 1
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 1,
+                  "column": 2,
+                  "row": 1
+                },
+                {
+                  "cell": 2,
+                  "column": 3,
+                  "row": 1
+                }
+              ],
+              "exactDescendantIds": [
+                51
+              ],
+              "semanticDisposition": "PERSISTS"
+            },
+            "442": {
+              "parentId": 442,
+              "afterAttackerCells": [
+                {
+                  "cell": 15,
+                  "column": 2,
+                  "row": 3
+                },
+                {
+                  "cell": 16,
+                  "column": 3,
+                  "row": 3
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 15,
+                  "column": 2,
+                  "row": 3
+                },
+                {
+                  "cell": 16,
+                  "column": 3,
+                  "row": 3
+                }
+              ],
+              "exactDescendantIds": [
+                175
+              ],
+              "semanticDisposition": "PERSISTS"
+            },
+            "530": {
+              "parentId": 530,
+              "afterAttackerCells": [
+                {
+                  "cell": 28,
+                  "column": 1,
+                  "row": 5
+                },
+                {
+                  "cell": 29,
+                  "column": 2,
+                  "row": 5
+                },
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 28,
+                  "column": 1,
+                  "row": 5
+                },
+                {
+                  "cell": 29,
+                  "column": 2,
+                  "row": 5
+                },
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5
+                }
+              ],
+              "exactDescendantIds": [
+                530
+              ],
+              "semanticDisposition": "PERSISTS"
+            }
+          }
+        },
+        {
+          "responseColumn": 7,
+          "responseCell": {
+            "cell": 6,
+            "column": 7,
+            "row": 1
+          },
+          "terminal": "NONTERMINAL",
+          "support": [
+            3,
+            0,
+            0,
+            6,
+            1,
+            3,
+            1
+          ],
+          "lineage": {
+            "51": {
+              "parentId": 51,
+              "afterAttackerCells": [
+                {
+                  "cell": 1,
+                  "column": 2,
+                  "row": 1
+                },
+                {
+                  "cell": 2,
+                  "column": 3,
+                  "row": 1
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 1,
+                  "column": 2,
+                  "row": 1
+                },
+                {
+                  "cell": 2,
+                  "column": 3,
+                  "row": 1
+                }
+              ],
+              "exactDescendantIds": [
+                51
+              ],
+              "semanticDisposition": "PERSISTS"
+            },
+            "442": {
+              "parentId": 442,
+              "afterAttackerCells": [
+                {
+                  "cell": 15,
+                  "column": 2,
+                  "row": 3
+                },
+                {
+                  "cell": 16,
+                  "column": 3,
+                  "row": 3
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 15,
+                  "column": 2,
+                  "row": 3
+                },
+                {
+                  "cell": 16,
+                  "column": 3,
+                  "row": 3
+                }
+              ],
+              "exactDescendantIds": [
+                175
+              ],
+              "semanticDisposition": "PERSISTS"
+            },
+            "530": {
+              "parentId": 530,
+              "afterAttackerCells": [
+                {
+                  "cell": 28,
+                  "column": 1,
+                  "row": 5
+                },
+                {
+                  "cell": 29,
+                  "column": 2,
+                  "row": 5
+                },
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 28,
+                  "column": 1,
+                  "row": 5
+                },
+                {
+                  "cell": 29,
+                  "column": 2,
+                  "row": 5
+                },
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5
+                }
+              ],
+              "exactDescendantIds": [
+                530
+              ],
+              "semanticDisposition": "PERSISTS"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "c6_r5",
+      "sequence": "444441566615",
+      "attacker": 1,
+      "supportBefore": [
+        2,
+        0,
+        0,
+        5,
+        2,
+        3,
+        0
+      ],
+      "triggerColumn": 1,
+      "triggerCell": {
+        "cell": 14,
+        "column": 1,
+        "row": 3
+      },
+      "watchedBefore": {
+        "51": {
+          "active": true,
+          "cells": [
+            {
+              "cell": 1,
+              "column": 2,
+              "row": 1
+            },
+            {
+              "cell": 2,
+              "column": 3,
+              "row": 1
+            }
+          ]
+        },
+        "442": {
+          "active": true,
+          "cells": [
+            {
+              "cell": 14,
+              "column": 1,
+              "row": 3
+            },
+            {
+              "cell": 15,
+              "column": 2,
+              "row": 3
+            },
+            {
+              "cell": 16,
+              "column": 3,
+              "row": 3
+            }
+          ]
+        },
+        "530": {
+          "active": true,
+          "cells": [
+            {
+              "cell": 28,
+              "column": 1,
+              "row": 5
+            },
+            {
+              "cell": 29,
+              "column": 2,
+              "row": 5
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5
+            }
+          ]
+        }
+      },
+      "afterTrigger": {
+        "51": {
+          "parentId": 51,
+          "triggerConsumesRequiredCell": false,
+          "expectedCells": [
+            {
+              "cell": 1,
+              "column": 2,
+              "row": 1
+            },
+            {
+              "cell": 2,
+              "column": 3,
+              "row": 1
+            }
+          ],
+          "exactDescendantIds": [
+            51
+          ]
+        },
+        "442": {
+          "parentId": 442,
+          "triggerConsumesRequiredCell": true,
+          "expectedCells": [
+            {
+              "cell": 15,
+              "column": 2,
+              "row": 3
+            },
+            {
+              "cell": 16,
+              "column": 3,
+              "row": 3
+            }
+          ],
+          "exactDescendantIds": [
+            175
+          ]
+        },
+        "530": {
+          "parentId": 530,
+          "triggerConsumesRequiredCell": false,
+          "expectedCells": [
+            {
+              "cell": 28,
+              "column": 1,
+              "row": 5
+            },
+            {
+              "cell": 29,
+              "column": 2,
+              "row": 5
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5
+            }
+          ],
+          "exactDescendantIds": [
+            530
+          ]
+        }
+      },
+      "replies": [
+        {
+          "responseColumn": 1,
+          "responseCell": {
+            "cell": 21,
+            "column": 1,
+            "row": 4
+          },
+          "terminal": "NONTERMINAL",
+          "support": [
+            4,
+            0,
+            0,
+            5,
+            2,
+            3,
+            0
+          ],
+          "lineage": {
+            "51": {
+              "parentId": 51,
+              "afterAttackerCells": [
+                {
+                  "cell": 1,
+                  "column": 2,
+                  "row": 1
+                },
+                {
+                  "cell": 2,
+                  "column": 3,
+                  "row": 1
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 1,
+                  "column": 2,
+                  "row": 1
+                },
+                {
+                  "cell": 2,
+                  "column": 3,
+                  "row": 1
+                }
+              ],
+              "exactDescendantIds": [
+                51
+              ],
+              "semanticDisposition": "PERSISTS"
+            },
+            "442": {
+              "parentId": 442,
+              "afterAttackerCells": [
+                {
+                  "cell": 15,
+                  "column": 2,
+                  "row": 3
+                },
+                {
+                  "cell": 16,
+                  "column": 3,
+                  "row": 3
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 15,
+                  "column": 2,
+                  "row": 3
+                },
+                {
+                  "cell": 16,
+                  "column": 3,
+                  "row": 3
+                }
+              ],
+              "exactDescendantIds": [
+                175
+              ],
+              "semanticDisposition": "PERSISTS"
+            },
+            "530": {
+              "parentId": 530,
+              "afterAttackerCells": [
+                {
+                  "cell": 28,
+                  "column": 1,
+                  "row": 5
+                },
+                {
+                  "cell": 29,
+                  "column": 2,
+                  "row": 5
+                },
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 28,
+                  "column": 1,
+                  "row": 5
+                },
+                {
+                  "cell": 29,
+                  "column": 2,
+                  "row": 5
+                },
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5
+                }
+              ],
+              "exactDescendantIds": [
+                530
+              ],
+              "semanticDisposition": "PERSISTS"
+            }
+          }
+        },
+        {
+          "responseColumn": 2,
+          "responseCell": {
+            "cell": 1,
+            "column": 2,
+            "row": 1
+          },
+          "terminal": "NONTERMINAL",
+          "support": [
+            3,
+            1,
+            0,
+            5,
+            2,
+            3,
+            0
+          ],
+          "lineage": {
+            "51": {
+              "parentId": 51,
+              "afterAttackerCells": [
+                {
+                  "cell": 1,
+                  "column": 2,
+                  "row": 1
+                },
+                {
+                  "cell": 2,
+                  "column": 3,
+                  "row": 1
+                }
+              ],
+              "defenderHitsRemainingRequirement": true,
+              "expectedAfterResponse": [],
+              "exactDescendantIds": [],
+              "semanticDisposition": "KILLED_BY_DEFENDER"
+            },
+            "442": {
+              "parentId": 442,
+              "afterAttackerCells": [
+                {
+                  "cell": 15,
+                  "column": 2,
+                  "row": 3
+                },
+                {
+                  "cell": 16,
+                  "column": 3,
+                  "row": 3
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 15,
+                  "column": 2,
+                  "row": 3
+                },
+                {
+                  "cell": 16,
+                  "column": 3,
+                  "row": 3
+                }
+              ],
+              "exactDescendantIds": [
+                175
+              ],
+              "semanticDisposition": "PERSISTS"
+            },
+            "530": {
+              "parentId": 530,
+              "afterAttackerCells": [
+                {
+                  "cell": 28,
+                  "column": 1,
+                  "row": 5
+                },
+                {
+                  "cell": 29,
+                  "column": 2,
+                  "row": 5
+                },
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 28,
+                  "column": 1,
+                  "row": 5
+                },
+                {
+                  "cell": 29,
+                  "column": 2,
+                  "row": 5
+                },
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5
+                }
+              ],
+              "exactDescendantIds": [
+                530
+              ],
+              "semanticDisposition": "PERSISTS"
+            }
+          }
+        },
+        {
+          "responseColumn": 3,
+          "responseCell": {
+            "cell": 2,
+            "column": 3,
+            "row": 1
+          },
+          "terminal": "NONTERMINAL",
+          "support": [
+            3,
+            0,
+            1,
+            5,
+            2,
+            3,
+            0
+          ],
+          "lineage": {
+            "51": {
+              "parentId": 51,
+              "afterAttackerCells": [
+                {
+                  "cell": 1,
+                  "column": 2,
+                  "row": 1
+                },
+                {
+                  "cell": 2,
+                  "column": 3,
+                  "row": 1
+                }
+              ],
+              "defenderHitsRemainingRequirement": true,
+              "expectedAfterResponse": [],
+              "exactDescendantIds": [],
+              "semanticDisposition": "KILLED_BY_DEFENDER"
+            },
+            "442": {
+              "parentId": 442,
+              "afterAttackerCells": [
+                {
+                  "cell": 15,
+                  "column": 2,
+                  "row": 3
+                },
+                {
+                  "cell": 16,
+                  "column": 3,
+                  "row": 3
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 15,
+                  "column": 2,
+                  "row": 3
+                },
+                {
+                  "cell": 16,
+                  "column": 3,
+                  "row": 3
+                }
+              ],
+              "exactDescendantIds": [
+                175
+              ],
+              "semanticDisposition": "PERSISTS"
+            },
+            "530": {
+              "parentId": 530,
+              "afterAttackerCells": [
+                {
+                  "cell": 28,
+                  "column": 1,
+                  "row": 5
+                },
+                {
+                  "cell": 29,
+                  "column": 2,
+                  "row": 5
+                },
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 28,
+                  "column": 1,
+                  "row": 5
+                },
+                {
+                  "cell": 29,
+                  "column": 2,
+                  "row": 5
+                },
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5
+                }
+              ],
+              "exactDescendantIds": [
+                530
+              ],
+              "semanticDisposition": "PERSISTS"
+            }
+          }
+        },
+        {
+          "responseColumn": 4,
+          "responseCell": {
+            "cell": 38,
+            "column": 4,
+            "row": 6
+          },
+          "terminal": "NONTERMINAL",
+          "support": [
+            3,
+            0,
+            0,
+            6,
+            2,
+            3,
+            0
+          ],
+          "lineage": {
+            "51": {
+              "parentId": 51,
+              "afterAttackerCells": [
+                {
+                  "cell": 1,
+                  "column": 2,
+                  "row": 1
+                },
+                {
+                  "cell": 2,
+                  "column": 3,
+                  "row": 1
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 1,
+                  "column": 2,
+                  "row": 1
+                },
+                {
+                  "cell": 2,
+                  "column": 3,
+                  "row": 1
+                }
+              ],
+              "exactDescendantIds": [
+                51
+              ],
+              "semanticDisposition": "PERSISTS"
+            },
+            "442": {
+              "parentId": 442,
+              "afterAttackerCells": [
+                {
+                  "cell": 15,
+                  "column": 2,
+                  "row": 3
+                },
+                {
+                  "cell": 16,
+                  "column": 3,
+                  "row": 3
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 15,
+                  "column": 2,
+                  "row": 3
+                },
+                {
+                  "cell": 16,
+                  "column": 3,
+                  "row": 3
+                }
+              ],
+              "exactDescendantIds": [
+                175
+              ],
+              "semanticDisposition": "PERSISTS"
+            },
+            "530": {
+              "parentId": 530,
+              "afterAttackerCells": [
+                {
+                  "cell": 28,
+                  "column": 1,
+                  "row": 5
+                },
+                {
+                  "cell": 29,
+                  "column": 2,
+                  "row": 5
+                },
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 28,
+                  "column": 1,
+                  "row": 5
+                },
+                {
+                  "cell": 29,
+                  "column": 2,
+                  "row": 5
+                },
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5
+                }
+              ],
+              "exactDescendantIds": [
+                530
+              ],
+              "semanticDisposition": "PERSISTS"
+            }
+          }
+        },
+        {
+          "responseColumn": 5,
+          "responseCell": {
+            "cell": 18,
+            "column": 5,
+            "row": 3
+          },
+          "terminal": "NONTERMINAL",
+          "support": [
+            3,
+            0,
+            0,
+            5,
+            3,
+            3,
+            0
+          ],
+          "lineage": {
+            "51": {
+              "parentId": 51,
+              "afterAttackerCells": [
+                {
+                  "cell": 1,
+                  "column": 2,
+                  "row": 1
+                },
+                {
+                  "cell": 2,
+                  "column": 3,
+                  "row": 1
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 1,
+                  "column": 2,
+                  "row": 1
+                },
+                {
+                  "cell": 2,
+                  "column": 3,
+                  "row": 1
+                }
+              ],
+              "exactDescendantIds": [
+                51
+              ],
+              "semanticDisposition": "PERSISTS"
+            },
+            "442": {
+              "parentId": 442,
+              "afterAttackerCells": [
+                {
+                  "cell": 15,
+                  "column": 2,
+                  "row": 3
+                },
+                {
+                  "cell": 16,
+                  "column": 3,
+                  "row": 3
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 15,
+                  "column": 2,
+                  "row": 3
+                },
+                {
+                  "cell": 16,
+                  "column": 3,
+                  "row": 3
+                }
+              ],
+              "exactDescendantIds": [
+                175
+              ],
+              "semanticDisposition": "PERSISTS"
+            },
+            "530": {
+              "parentId": 530,
+              "afterAttackerCells": [
+                {
+                  "cell": 28,
+                  "column": 1,
+                  "row": 5
+                },
+                {
+                  "cell": 29,
+                  "column": 2,
+                  "row": 5
+                },
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 28,
+                  "column": 1,
+                  "row": 5
+                },
+                {
+                  "cell": 29,
+                  "column": 2,
+                  "row": 5
+                },
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5
+                }
+              ],
+              "exactDescendantIds": [
+                530
+              ],
+              "semanticDisposition": "PERSISTS"
+            }
+          }
+        },
+        {
+          "responseColumn": 6,
+          "responseCell": {
+            "cell": 26,
+            "column": 6,
+            "row": 4
+          },
+          "terminal": "NONTERMINAL",
+          "support": [
+            3,
+            0,
+            0,
+            5,
+            2,
+            4,
+            0
+          ],
+          "lineage": {
+            "51": {
+              "parentId": 51,
+              "afterAttackerCells": [
+                {
+                  "cell": 1,
+                  "column": 2,
+                  "row": 1
+                },
+                {
+                  "cell": 2,
+                  "column": 3,
+                  "row": 1
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 1,
+                  "column": 2,
+                  "row": 1
+                },
+                {
+                  "cell": 2,
+                  "column": 3,
+                  "row": 1
+                }
+              ],
+              "exactDescendantIds": [
+                51
+              ],
+              "semanticDisposition": "PERSISTS"
+            },
+            "442": {
+              "parentId": 442,
+              "afterAttackerCells": [
+                {
+                  "cell": 15,
+                  "column": 2,
+                  "row": 3
+                },
+                {
+                  "cell": 16,
+                  "column": 3,
+                  "row": 3
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 15,
+                  "column": 2,
+                  "row": 3
+                },
+                {
+                  "cell": 16,
+                  "column": 3,
+                  "row": 3
+                }
+              ],
+              "exactDescendantIds": [
+                175
+              ],
+              "semanticDisposition": "PERSISTS"
+            },
+            "530": {
+              "parentId": 530,
+              "afterAttackerCells": [
+                {
+                  "cell": 28,
+                  "column": 1,
+                  "row": 5
+                },
+                {
+                  "cell": 29,
+                  "column": 2,
+                  "row": 5
+                },
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 28,
+                  "column": 1,
+                  "row": 5
+                },
+                {
+                  "cell": 29,
+                  "column": 2,
+                  "row": 5
+                },
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5
+                }
+              ],
+              "exactDescendantIds": [
+                530
+              ],
+              "semanticDisposition": "PERSISTS"
+            }
+          }
+        },
+        {
+          "responseColumn": 7,
+          "responseCell": {
+            "cell": 6,
+            "column": 7,
+            "row": 1
+          },
+          "terminal": "NONTERMINAL",
+          "support": [
+            3,
+            0,
+            0,
+            5,
+            2,
+            3,
+            1
+          ],
+          "lineage": {
+            "51": {
+              "parentId": 51,
+              "afterAttackerCells": [
+                {
+                  "cell": 1,
+                  "column": 2,
+                  "row": 1
+                },
+                {
+                  "cell": 2,
+                  "column": 3,
+                  "row": 1
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 1,
+                  "column": 2,
+                  "row": 1
+                },
+                {
+                  "cell": 2,
+                  "column": 3,
+                  "row": 1
+                }
+              ],
+              "exactDescendantIds": [
+                51
+              ],
+              "semanticDisposition": "PERSISTS"
+            },
+            "442": {
+              "parentId": 442,
+              "afterAttackerCells": [
+                {
+                  "cell": 15,
+                  "column": 2,
+                  "row": 3
+                },
+                {
+                  "cell": 16,
+                  "column": 3,
+                  "row": 3
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 15,
+                  "column": 2,
+                  "row": 3
+                },
+                {
+                  "cell": 16,
+                  "column": 3,
+                  "row": 3
+                }
+              ],
+              "exactDescendantIds": [
+                175
+              ],
+              "semanticDisposition": "PERSISTS"
+            },
+            "530": {
+              "parentId": 530,
+              "afterAttackerCells": [
+                {
+                  "cell": 28,
+                  "column": 1,
+                  "row": 5
+                },
+                {
+                  "cell": 29,
+                  "column": 2,
+                  "row": 5
+                },
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 28,
+                  "column": 1,
+                  "row": 5
+                },
+                {
+                  "cell": 29,
+                  "column": 2,
+                  "row": 5
+                },
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5
+                }
+              ],
+              "exactDescendantIds": [
+                530
+              ],
+              "semanticDisposition": "PERSISTS"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "c6_r6",
+      "sequence": "444441566616",
+      "attacker": 1,
+      "supportBefore": [
+        2,
+        0,
+        0,
+        5,
+        1,
+        4,
+        0
+      ],
+      "triggerColumn": 1,
+      "triggerCell": {
+        "cell": 14,
+        "column": 1,
+        "row": 3
+      },
+      "watchedBefore": {
+        "51": {
+          "active": true,
+          "cells": [
+            {
+              "cell": 1,
+              "column": 2,
+              "row": 1
+            },
+            {
+              "cell": 2,
+              "column": 3,
+              "row": 1
+            }
+          ]
+        },
+        "442": {
+          "active": true,
+          "cells": [
+            {
+              "cell": 14,
+              "column": 1,
+              "row": 3
+            },
+            {
+              "cell": 15,
+              "column": 2,
+              "row": 3
+            },
+            {
+              "cell": 16,
+              "column": 3,
+              "row": 3
+            }
+          ]
+        },
+        "530": {
+          "active": true,
+          "cells": [
+            {
+              "cell": 28,
+              "column": 1,
+              "row": 5
+            },
+            {
+              "cell": 29,
+              "column": 2,
+              "row": 5
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5
+            }
+          ]
+        }
+      },
+      "afterTrigger": {
+        "51": {
+          "parentId": 51,
+          "triggerConsumesRequiredCell": false,
+          "expectedCells": [
+            {
+              "cell": 1,
+              "column": 2,
+              "row": 1
+            },
+            {
+              "cell": 2,
+              "column": 3,
+              "row": 1
+            }
+          ],
+          "exactDescendantIds": [
+            51
+          ]
+        },
+        "442": {
+          "parentId": 442,
+          "triggerConsumesRequiredCell": true,
+          "expectedCells": [
+            {
+              "cell": 15,
+              "column": 2,
+              "row": 3
+            },
+            {
+              "cell": 16,
+              "column": 3,
+              "row": 3
+            }
+          ],
+          "exactDescendantIds": [
+            175
+          ]
+        },
+        "530": {
+          "parentId": 530,
+          "triggerConsumesRequiredCell": false,
+          "expectedCells": [
+            {
+              "cell": 28,
+              "column": 1,
+              "row": 5
+            },
+            {
+              "cell": 29,
+              "column": 2,
+              "row": 5
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5
+            }
+          ],
+          "exactDescendantIds": [
+            530
+          ]
+        }
+      },
+      "replies": [
+        {
+          "responseColumn": 1,
+          "responseCell": {
+            "cell": 21,
+            "column": 1,
+            "row": 4
+          },
+          "terminal": "NONTERMINAL",
+          "support": [
+            4,
+            0,
+            0,
+            5,
+            1,
+            4,
+            0
+          ],
+          "lineage": {
+            "51": {
+              "parentId": 51,
+              "afterAttackerCells": [
+                {
+                  "cell": 1,
+                  "column": 2,
+                  "row": 1
+                },
+                {
+                  "cell": 2,
+                  "column": 3,
+                  "row": 1
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 1,
+                  "column": 2,
+                  "row": 1
+                },
+                {
+                  "cell": 2,
+                  "column": 3,
+                  "row": 1
+                }
+              ],
+              "exactDescendantIds": [
+                51
+              ],
+              "semanticDisposition": "PERSISTS"
+            },
+            "442": {
+              "parentId": 442,
+              "afterAttackerCells": [
+                {
+                  "cell": 15,
+                  "column": 2,
+                  "row": 3
+                },
+                {
+                  "cell": 16,
+                  "column": 3,
+                  "row": 3
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 15,
+                  "column": 2,
+                  "row": 3
+                },
+                {
+                  "cell": 16,
+                  "column": 3,
+                  "row": 3
+                }
+              ],
+              "exactDescendantIds": [
+                175
+              ],
+              "semanticDisposition": "PERSISTS"
+            },
+            "530": {
+              "parentId": 530,
+              "afterAttackerCells": [
+                {
+                  "cell": 28,
+                  "column": 1,
+                  "row": 5
+                },
+                {
+                  "cell": 29,
+                  "column": 2,
+                  "row": 5
+                },
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 28,
+                  "column": 1,
+                  "row": 5
+                },
+                {
+                  "cell": 29,
+                  "column": 2,
+                  "row": 5
+                },
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5
+                }
+              ],
+              "exactDescendantIds": [
+                530
+              ],
+              "semanticDisposition": "PERSISTS"
+            }
+          }
+        },
+        {
+          "responseColumn": 2,
+          "responseCell": {
+            "cell": 1,
+            "column": 2,
+            "row": 1
+          },
+          "terminal": "NONTERMINAL",
+          "support": [
+            3,
+            1,
+            0,
+            5,
+            1,
+            4,
+            0
+          ],
+          "lineage": {
+            "51": {
+              "parentId": 51,
+              "afterAttackerCells": [
+                {
+                  "cell": 1,
+                  "column": 2,
+                  "row": 1
+                },
+                {
+                  "cell": 2,
+                  "column": 3,
+                  "row": 1
+                }
+              ],
+              "defenderHitsRemainingRequirement": true,
+              "expectedAfterResponse": [],
+              "exactDescendantIds": [],
+              "semanticDisposition": "KILLED_BY_DEFENDER"
+            },
+            "442": {
+              "parentId": 442,
+              "afterAttackerCells": [
+                {
+                  "cell": 15,
+                  "column": 2,
+                  "row": 3
+                },
+                {
+                  "cell": 16,
+                  "column": 3,
+                  "row": 3
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 15,
+                  "column": 2,
+                  "row": 3
+                },
+                {
+                  "cell": 16,
+                  "column": 3,
+                  "row": 3
+                }
+              ],
+              "exactDescendantIds": [
+                175
+              ],
+              "semanticDisposition": "PERSISTS"
+            },
+            "530": {
+              "parentId": 530,
+              "afterAttackerCells": [
+                {
+                  "cell": 28,
+                  "column": 1,
+                  "row": 5
+                },
+                {
+                  "cell": 29,
+                  "column": 2,
+                  "row": 5
+                },
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 28,
+                  "column": 1,
+                  "row": 5
+                },
+                {
+                  "cell": 29,
+                  "column": 2,
+                  "row": 5
+                },
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5
+                }
+              ],
+              "exactDescendantIds": [
+                530
+              ],
+              "semanticDisposition": "PERSISTS"
+            }
+          }
+        },
+        {
+          "responseColumn": 3,
+          "responseCell": {
+            "cell": 2,
+            "column": 3,
+            "row": 1
+          },
+          "terminal": "NONTERMINAL",
+          "support": [
+            3,
+            0,
+            1,
+            5,
+            1,
+            4,
+            0
+          ],
+          "lineage": {
+            "51": {
+              "parentId": 51,
+              "afterAttackerCells": [
+                {
+                  "cell": 1,
+                  "column": 2,
+                  "row": 1
+                },
+                {
+                  "cell": 2,
+                  "column": 3,
+                  "row": 1
+                }
+              ],
+              "defenderHitsRemainingRequirement": true,
+              "expectedAfterResponse": [],
+              "exactDescendantIds": [],
+              "semanticDisposition": "KILLED_BY_DEFENDER"
+            },
+            "442": {
+              "parentId": 442,
+              "afterAttackerCells": [
+                {
+                  "cell": 15,
+                  "column": 2,
+                  "row": 3
+                },
+                {
+                  "cell": 16,
+                  "column": 3,
+                  "row": 3
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 15,
+                  "column": 2,
+                  "row": 3
+                },
+                {
+                  "cell": 16,
+                  "column": 3,
+                  "row": 3
+                }
+              ],
+              "exactDescendantIds": [
+                175
+              ],
+              "semanticDisposition": "PERSISTS"
+            },
+            "530": {
+              "parentId": 530,
+              "afterAttackerCells": [
+                {
+                  "cell": 28,
+                  "column": 1,
+                  "row": 5
+                },
+                {
+                  "cell": 29,
+                  "column": 2,
+                  "row": 5
+                },
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 28,
+                  "column": 1,
+                  "row": 5
+                },
+                {
+                  "cell": 29,
+                  "column": 2,
+                  "row": 5
+                },
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5
+                }
+              ],
+              "exactDescendantIds": [
+                530
+              ],
+              "semanticDisposition": "PERSISTS"
+            }
+          }
+        },
+        {
+          "responseColumn": 4,
+          "responseCell": {
+            "cell": 38,
+            "column": 4,
+            "row": 6
+          },
+          "terminal": "NONTERMINAL",
+          "support": [
+            3,
+            0,
+            0,
+            6,
+            1,
+            4,
+            0
+          ],
+          "lineage": {
+            "51": {
+              "parentId": 51,
+              "afterAttackerCells": [
+                {
+                  "cell": 1,
+                  "column": 2,
+                  "row": 1
+                },
+                {
+                  "cell": 2,
+                  "column": 3,
+                  "row": 1
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 1,
+                  "column": 2,
+                  "row": 1
+                },
+                {
+                  "cell": 2,
+                  "column": 3,
+                  "row": 1
+                }
+              ],
+              "exactDescendantIds": [
+                51
+              ],
+              "semanticDisposition": "PERSISTS"
+            },
+            "442": {
+              "parentId": 442,
+              "afterAttackerCells": [
+                {
+                  "cell": 15,
+                  "column": 2,
+                  "row": 3
+                },
+                {
+                  "cell": 16,
+                  "column": 3,
+                  "row": 3
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 15,
+                  "column": 2,
+                  "row": 3
+                },
+                {
+                  "cell": 16,
+                  "column": 3,
+                  "row": 3
+                }
+              ],
+              "exactDescendantIds": [
+                175
+              ],
+              "semanticDisposition": "PERSISTS"
+            },
+            "530": {
+              "parentId": 530,
+              "afterAttackerCells": [
+                {
+                  "cell": 28,
+                  "column": 1,
+                  "row": 5
+                },
+                {
+                  "cell": 29,
+                  "column": 2,
+                  "row": 5
+                },
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 28,
+                  "column": 1,
+                  "row": 5
+                },
+                {
+                  "cell": 29,
+                  "column": 2,
+                  "row": 5
+                },
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5
+                }
+              ],
+              "exactDescendantIds": [
+                530
+              ],
+              "semanticDisposition": "PERSISTS"
+            }
+          }
+        },
+        {
+          "responseColumn": 5,
+          "responseCell": {
+            "cell": 11,
+            "column": 5,
+            "row": 2
+          },
+          "terminal": "NONTERMINAL",
+          "support": [
+            3,
+            0,
+            0,
+            5,
+            2,
+            4,
+            0
+          ],
+          "lineage": {
+            "51": {
+              "parentId": 51,
+              "afterAttackerCells": [
+                {
+                  "cell": 1,
+                  "column": 2,
+                  "row": 1
+                },
+                {
+                  "cell": 2,
+                  "column": 3,
+                  "row": 1
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 1,
+                  "column": 2,
+                  "row": 1
+                },
+                {
+                  "cell": 2,
+                  "column": 3,
+                  "row": 1
+                }
+              ],
+              "exactDescendantIds": [
+                51
+              ],
+              "semanticDisposition": "PERSISTS"
+            },
+            "442": {
+              "parentId": 442,
+              "afterAttackerCells": [
+                {
+                  "cell": 15,
+                  "column": 2,
+                  "row": 3
+                },
+                {
+                  "cell": 16,
+                  "column": 3,
+                  "row": 3
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 15,
+                  "column": 2,
+                  "row": 3
+                },
+                {
+                  "cell": 16,
+                  "column": 3,
+                  "row": 3
+                }
+              ],
+              "exactDescendantIds": [
+                175
+              ],
+              "semanticDisposition": "PERSISTS"
+            },
+            "530": {
+              "parentId": 530,
+              "afterAttackerCells": [
+                {
+                  "cell": 28,
+                  "column": 1,
+                  "row": 5
+                },
+                {
+                  "cell": 29,
+                  "column": 2,
+                  "row": 5
+                },
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 28,
+                  "column": 1,
+                  "row": 5
+                },
+                {
+                  "cell": 29,
+                  "column": 2,
+                  "row": 5
+                },
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5
+                }
+              ],
+              "exactDescendantIds": [
+                530
+              ],
+              "semanticDisposition": "PERSISTS"
+            }
+          }
+        },
+        {
+          "responseColumn": 6,
+          "responseCell": {
+            "cell": 33,
+            "column": 6,
+            "row": 5
+          },
+          "terminal": "NONTERMINAL",
+          "support": [
+            3,
+            0,
+            0,
+            5,
+            1,
+            5,
+            0
+          ],
+          "lineage": {
+            "51": {
+              "parentId": 51,
+              "afterAttackerCells": [
+                {
+                  "cell": 1,
+                  "column": 2,
+                  "row": 1
+                },
+                {
+                  "cell": 2,
+                  "column": 3,
+                  "row": 1
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 1,
+                  "column": 2,
+                  "row": 1
+                },
+                {
+                  "cell": 2,
+                  "column": 3,
+                  "row": 1
+                }
+              ],
+              "exactDescendantIds": [
+                51
+              ],
+              "semanticDisposition": "PERSISTS"
+            },
+            "442": {
+              "parentId": 442,
+              "afterAttackerCells": [
+                {
+                  "cell": 15,
+                  "column": 2,
+                  "row": 3
+                },
+                {
+                  "cell": 16,
+                  "column": 3,
+                  "row": 3
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 15,
+                  "column": 2,
+                  "row": 3
+                },
+                {
+                  "cell": 16,
+                  "column": 3,
+                  "row": 3
+                }
+              ],
+              "exactDescendantIds": [
+                175
+              ],
+              "semanticDisposition": "PERSISTS"
+            },
+            "530": {
+              "parentId": 530,
+              "afterAttackerCells": [
+                {
+                  "cell": 28,
+                  "column": 1,
+                  "row": 5
+                },
+                {
+                  "cell": 29,
+                  "column": 2,
+                  "row": 5
+                },
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 28,
+                  "column": 1,
+                  "row": 5
+                },
+                {
+                  "cell": 29,
+                  "column": 2,
+                  "row": 5
+                },
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5
+                }
+              ],
+              "exactDescendantIds": [
+                530
+              ],
+              "semanticDisposition": "PERSISTS"
+            }
+          }
+        },
+        {
+          "responseColumn": 7,
+          "responseCell": {
+            "cell": 6,
+            "column": 7,
+            "row": 1
+          },
+          "terminal": "NONTERMINAL",
+          "support": [
+            3,
+            0,
+            0,
+            5,
+            1,
+            4,
+            1
+          ],
+          "lineage": {
+            "51": {
+              "parentId": 51,
+              "afterAttackerCells": [
+                {
+                  "cell": 1,
+                  "column": 2,
+                  "row": 1
+                },
+                {
+                  "cell": 2,
+                  "column": 3,
+                  "row": 1
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 1,
+                  "column": 2,
+                  "row": 1
+                },
+                {
+                  "cell": 2,
+                  "column": 3,
+                  "row": 1
+                }
+              ],
+              "exactDescendantIds": [
+                51
+              ],
+              "semanticDisposition": "PERSISTS"
+            },
+            "442": {
+              "parentId": 442,
+              "afterAttackerCells": [
+                {
+                  "cell": 15,
+                  "column": 2,
+                  "row": 3
+                },
+                {
+                  "cell": 16,
+                  "column": 3,
+                  "row": 3
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 15,
+                  "column": 2,
+                  "row": 3
+                },
+                {
+                  "cell": 16,
+                  "column": 3,
+                  "row": 3
+                }
+              ],
+              "exactDescendantIds": [
+                175
+              ],
+              "semanticDisposition": "PERSISTS"
+            },
+            "530": {
+              "parentId": 530,
+              "afterAttackerCells": [
+                {
+                  "cell": 28,
+                  "column": 1,
+                  "row": 5
+                },
+                {
+                  "cell": 29,
+                  "column": 2,
+                  "row": 5
+                },
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5
+                }
+              ],
+              "defenderHitsRemainingRequirement": false,
+              "expectedAfterResponse": [
+                {
+                  "cell": 28,
+                  "column": 1,
+                  "row": 5
+                },
+                {
+                  "cell": 29,
+                  "column": 2,
+                  "row": 5
+                },
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5
+                }
+              ],
+              "exactDescendantIds": [
+                530
+              ],
+              "semanticDisposition": "PERSISTS"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "work": {
+    "cofactorCount": 23
+  },
+  "conclusion": [
+    "Residual disappearance by fixed shape ID is not treated as semantic destruction.",
+    "Attacker occupation of a required cell transports the same line obligation to the exact residual with that cell removed.",
+    "Defender occupation of a remaining required cell kills that line obligation.",
+    "The probe preserves residual attachment identity across exact CPC/RBA cofactors."
+  ],
+  "boundary": [
+    "Consumed-training local diagnostic only.",
+    "This probe tests lineage conservation; it does not prove that residual 51, 442, and 530 form one causal ladder.",
+    "Any attachment-transport schema must be derived from the lineage-preserving result, not from fixed-ID disappearance."
+  ]
+}
