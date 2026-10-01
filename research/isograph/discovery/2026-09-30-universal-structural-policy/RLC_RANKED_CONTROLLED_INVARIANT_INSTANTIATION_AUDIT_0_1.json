@@ -1,0 +1,225 @@
+{
+  "schema": "connect4.rlc_ranked_controlled_invariant_instantiation_audit.v1",
+  "date": "2026-10-01",
+  "theorem": "RLC_RANKED_CONTROLLED_INVARIANT_CERTIFICATE_THEOREM.md",
+  "design": "RLC_RANKED_CONTROLLED_INVARIANT_INSTANTIATION_AUDIT_DESIGN_0_1.md",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "productionCpcModified": false,
+  "jsMinSysModified": false,
+  "bsfpModified": false,
+  "mechanisms": {
+    "guardSet": {
+      "classification": "CIC",
+      "sourceFiles": [
+        "CPC_CURRENT_STATE_GUARD_SET_D15_0_1.json",
+        "CPC_GUARD_SET_FRESH_STRUCTURAL_0_1.json"
+      ],
+      "sourceAccept": true,
+      "resource": "reconstructed current-state guard set Gamma(q)",
+      "obligations": "survival obligations under the frozen response grammar",
+      "responseTotal": true,
+      "currentStateResourceReconstructible": true,
+      "exactReentry": true,
+      "progressRank": null,
+      "winClaim": false,
+      "safetyClaim": true,
+      "evidence": {
+        "rootGuards": [
+          {
+            "column": 1,
+            "height": 1
+          },
+          {
+            "column": 6,
+            "height": 3
+          }
+        ],
+        "triggerCount": 7,
+        "freshRoots": 21,
+        "freshTwoPlyTransitions": 966,
+        "guardColumnsObserved": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      }
+    },
+    "forcedCompression": {
+      "classification": "PROGRESS_EDGE",
+      "sourceFiles": [
+        "CPC_TRIGGER5_FORCED_COMPRESSION_0_1.json"
+      ],
+      "sourceAccept": true,
+      "resource": "CPC forced-reply channel plus exact residual attachment",
+      "obligations": "attached two-cell Player-1 residual",
+      "responseTotal": true,
+      "allBranchesCloseOrDecrease": true,
+      "progressMeasure": {
+        "kind": "live-residual-cardinality",
+        "before": 2,
+        "after": 1
+      },
+      "directTerminalBranches": [
+        5
+      ],
+      "decreasingBranches": [
+        1,
+        3,
+        6,
+        7
+      ],
+      "standaloneWinClaim": false,
+      "requiresDownstreamCertificate": true
+    },
+    "targetReservoir": {
+      "classification": "RCIC",
+      "sourceFiles": [
+        "CPC_TRUNCATED_TARGET_RESERVOIR_PAIRING_0_1.json"
+      ],
+      "sourceAccept": true,
+      "resource": "finite truncated event reservoir plus synchronized/vertical response pairing",
+      "obligations": "all active defender residuals plus active Player-1 singleton target viability",
+      "responseTotal": true,
+      "obligationCoverageComplete": true,
+      "progressRank": {
+        "kind": "remaining-truncated-relevant-events",
+        "decreasePerNonterminalMacro": 2
+      },
+      "wellFoundedProgress": true,
+      "winClaim": true,
+      "rows": [
+        {
+          "firstResponseColumn": 1,
+          "activeTarget": true,
+          "targetProjectedToP1": true,
+          "noPlayableDefenderSingleton": true,
+          "targetIsResponse": true,
+          "finiteEvenReservoir": true,
+          "obligationCoverageComplete": true,
+          "validationPass": true,
+          "accept": true
+        },
+        {
+          "firstResponseColumn": 3,
+          "activeTarget": true,
+          "targetProjectedToP1": true,
+          "noPlayableDefenderSingleton": true,
+          "targetIsResponse": true,
+          "finiteEvenReservoir": true,
+          "obligationCoverageComplete": true,
+          "validationPass": true,
+          "accept": true
+        },
+        {
+          "firstResponseColumn": 6,
+          "activeTarget": true,
+          "targetProjectedToP1": true,
+          "noPlayableDefenderSingleton": true,
+          "targetIsResponse": true,
+          "finiteEvenReservoir": true,
+          "obligationCoverageComplete": true,
+          "validationPass": true,
+          "accept": true
+        },
+        {
+          "firstResponseColumn": 7,
+          "activeTarget": true,
+          "targetProjectedToP1": true,
+          "noPlayableDefenderSingleton": true,
+          "targetIsResponse": true,
+          "finiteEvenReservoir": true,
+          "obligationCoverageComplete": true,
+          "validationPass": true,
+          "accept": true
+        }
+      ]
+    },
+    "bxPhase": {
+      "classification": "RCIC",
+      "sourceFiles": [
+        "CPC_BX_VIABILITY_FINITE_RESERVOIR_0_1.json"
+      ],
+      "sourceAccept": true,
+      "resource": "Bx=1 viability plus finite c7 phase reservoir",
+      "obligations": "preserve viable control state until exposure",
+      "responseTotal": true,
+      "allStatesViable": true,
+      "allExposureEdgesTerminal": true,
+      "allTransferEdgesPreserveViability": true,
+      "allTransferEdgesDecreaseRank": true,
+      "progressRank": {
+        "kind": "remaining-c7-capacity"
+      },
+      "rootProvedByInduction": true,
+      "winClaim": true,
+      "transferCount": 5,
+      "exposureCount": 10,
+      "proofOrder": [
+        {
+          "name": "ZA",
+          "R": 0
+        },
+        {
+          "name": "ZB",
+          "R": 0
+        },
+        {
+          "name": "ZC",
+          "R": 0
+        },
+        {
+          "name": "B",
+          "R": 1
+        },
+        {
+          "name": "A",
+          "R": 2
+        },
+        {
+          "name": "Q",
+          "R": 3
+        }
+      ]
+    },
+    "phaseStateMachine": {
+      "classification": "RCIC_REALIZATION",
+      "sourceFiles": [
+        "CPC_THREE_COLUMN_PHASE_TRANSFER_WIN_0_1.json"
+      ],
+      "sourceAccept": true,
+      "resource": "finite exact phase-transfer state machine over c3/c5/c7",
+      "obligations": "maintain attached terminal exposures while transporting phase",
+      "responseTotal": true,
+      "exactSinkEquality": true,
+      "subordinateTo": "bxPhase",
+      "winClaim": true,
+      "acceptedPolicyEdges": 13
+    }
+  },
+  "merger": {
+    "guardSetIsSafetySuperclass": true,
+    "compressionIsProgressGenerator": true,
+    "reservoirAndPhaseShareRcicSchema": true,
+    "finitePhaseMachineIsRcicRealization": true,
+    "newTopLevelPrimitiveRequired": false
+  },
+  "conclusion": [
+    "The guard-set result fits the controlled-invariant safety superclass and deliberately lacks a win-progress rank.",
+    "Trigger-5 forced compression is best represented as a ranked progress edge: every branch either wins immediately or reduces a two-cell live obligation to a singleton.",
+    "Truncated target-reservoir pairing is a full ranked controlled-invariant certificate over a finite paired event reservoir.",
+    "Bx viability / phase transfer is a full ranked controlled-invariant certificate with remaining c7 capacity as an explicit decreasing rank.",
+    "The finite three-column phase-transfer machine is a concrete exact state-machine realization of the same ranked viability-plus-reservoir theorem rather than a separate top-level proof species.",
+    "The four recent mechanisms therefore reduce to one safety superclass, one ranked win subclass, and reusable progress/handoff edge generators."
+  ],
+  "boundary": [
+    "This audit changes theorem taxonomy only and proves no new Connect Four state.",
+    "All source artifacts were already qualified independently; this audit does not promote diagnostic W/D/L into a premise.",
+    "No production CPC, JSMinSys, or BSFP code is modified.",
+    "A future obstruction must first be routed through CIC/RCIC resources, responses, progress edges, and exact theorem-root handoffs before a new proof primitive is proposed."
+  ]
+}
