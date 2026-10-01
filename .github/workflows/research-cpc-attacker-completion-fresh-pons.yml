@@ -1,0 +1,178 @@
+name: Research CPC attacker completion fresh Pons validation
+
+on:
+  push:
+    branches:
+      - research/universal-structural-policy-20260930
+    paths:
+      - .github/workflows/research-cpc-attacker-completion-fresh-pons.yml
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_ATTACKER_COMPLETION_FRESH_STRUCTURAL_0_1.json
+
+permissions:
+  contents: write
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - name: Check out exact pushed revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+
+      - name: Build pinned Pascal Pons oracle
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone https://github.com/PascalPons/connect4.git pons-connect4
+          git -C pons-connect4 checkout d6ba50d8aaf2308c769d9bf2abd42d90f34baf41
+          test "$(git -C pons-connect4 rev-parse HEAD)" = "d6ba50d8aaf2308c769d9bf2abd42d90f34baf41"
+          make -C pons-connect4 -j2
+          curl -fL --retry 3 -o pons-connect4/7x6.book https://github.com/PascalPons/connect4/releases/download/book/7x6.book
+          echo "f346cd449626fb81da93be0958e017ee854e5f74d85b6d38062357f5403aec53  pons-connect4/7x6.book" | sha256sum -c -
+
+      - name: Validate frozen A-D certificates with full Pons vectors
+        shell: bash
+        run: |
+          set -euo pipefail
+          STRUCT=research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_ATTACKER_COMPLETION_FRESH_STRUCTURAL_0_1.json
+          OUT=research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_ATTACKER_COMPLETION_FRESH_PONS_VALIDATION_0_1.json
+          MD=research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_ATTACKER_COMPLETION_FRESH_PONS_VALIDATION_0_1.md
+
+          python3 - "$STRUCT" <<'PY'
+          import json,sys
+          r=json.load(open(sys.argv[1]))
+          with open('fresh-ad-prefixes.txt','w') as f:
+              for x in r['certificates']:
+                  f.write(x['sequence']+'\n')
+          PY
+
+          ./pons-connect4/c4solver -b ./pons-connect4/7x6.book -a < fresh-ad-prefixes.txt > fresh-ad-pons.txt
+
+          python3 - "$STRUCT" "$OUT" "$MD" <<'PY'
+          import json,sys,time
+          from pathlib import Path
+
+          struct_path,out_path,md_path=sys.argv[1:4]
+          s=json.load(open(struct_path))
+          lines=Path('fresh-ad-pons.txt').read_text().splitlines()
+          certs=s['certificates']
+          if len(lines)!=len(certs):
+              raise SystemExit(f'expected {len(certs)} oracle rows, got {len(lines)}')
+
+          rows=[]
+          for cert,line in zip(certs,lines):
+              fields=line.split()
+              if len(fields)<7:
+                  raise SystemExit(f'bad Pons row: {line!r}')
+              scores=list(map(int,fields[-7:]))
+              legal=[(i+1,v) for i,v in enumerate(scores) if v!=-1000]
+              best=max(v for _,v in legal)
+              wins=[c for c,v in legal if v>0]
+              draws=[c for c,v in legal if v==0]
+              losses=[c for c,v in legal if v<0]
+              n=cert['rank']
+              max_score=(43-n)//2
+              win_distance=None
+              if best>0:
+                  win_distance=2*(max_score-best)+1
+              ok_win=best>0
+              ok_upper=ok_win and win_distance<=cert['upper']
+              exact={}
+              for c,v in legal:
+                  exact.setdefault(str(v),[]).append(c)
+              row={
+                  'sequence':cert['sequence'],
+                  'rank':n,
+                  'attacker':cert['attacker'],
+                  'provedUpper':cert['upper'],
+                  'constructor':cert['constructor'],
+                  'scores':scores,
+                  'wdlEquivalent':{'win':wins,'draw':draws,'loss':losses},
+                  'exactStrongEquivalenceClasses':[
+                      {'score':int(k),'moves':v}
+                      for k,v in sorted(exact.items(),key=lambda kv:int(kv[0]),reverse=True)
+                  ],
+                  'bestScore':best,
+                  'oracleWinDistancePlies':win_distance,
+                  'attackerWinCompatible':ok_win,
+                  'upperBoundCompatible':ok_upper,
+              }
+              if not ok_win:
+                  raise SystemExit('A_D polarity failure: '+json.dumps(row))
+              if not ok_upper:
+                  raise SystemExit('A_D upper-bound failure: '+json.dumps(row))
+              rows.append(row)
+
+          result={
+              'schema':'connect4.cpc_attacker_completion_fresh_pons_validation.v1',
+              'generatedUtc':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),
+              'structuralSource':struct_path,
+              'oracle':{
+                  'repository':'PascalPons/connect4',
+                  'revision':'d6ba50d8aaf2308c769d9bf2abd42d90f34baf41',
+                  'book':'7x6.book',
+                  'bookSha256':'f346cd449626fb81da93be0958e017ee854e5f74d85b6d38062357f5403aec53',
+                  'mode':'c4solver -a / Solver::analyze()',
+              },
+              'rows':rows,
+              'allAttackerWinsCompatible':all(x['attackerWinCompatible'] for x in rows),
+              'allUpperBoundsCompatible':all(x['upperBoundCompatible'] for x in rows),
+              'constructorCounts':s['generator']['constructorCounts'],
+              'boundary':[
+                  'The structural corpus was committed before this oracle validation workflow ran.',
+                  'Oracle scores validate/falsify only; they are not proof premises or runtime inputs.',
+                  'The exact win-distance conversion follows the pinned Solver.cpp strong-score convention.'
+              ]
+          }
+          Path(out_path).write_text(json.dumps(result,indent=2)+'\n')
+
+          md=[
+              '# Fresh CPC attacker-completion Pons validation','',
+              '**Status:** post-freeze oracle validation only.','',
+              f"Frozen structural certificates: **{len(rows)}**.",
+              '',
+              f"All oracle-winning polarity checks: **{str(result['allAttackerWinsCompatible']).lower()}**.",
+              f"All proved upper bounds respected by oracle strong distance: **{str(result['allUpperBoundsCompatible']).lower()}**.",
+              '',
+              '| rank | constructor | proved upper | oracle win distance | sequence |',
+              '|---:|:---|---:|---:|:---|'
+          ]
+          for r in rows:
+              md.append(f"| {r['rank']} | {r['constructor']} | {r['provedUpper']} | {r['oracleWinDistancePlies']} | {r['sequence']} |")
+          md += [
+              '',
+              'Every row preserves the full seven-column Pons score vector and exact strong equivalence classes in the sibling JSON.',
+              '',
+              'No oracle result is incorporated into the CPC proof grammar.'
+          ]
+          Path(md_path).write_text('\n'.join(md)+'\n')
+          print(json.dumps({
+              'rows':len(rows),
+              'constructors':result['constructorCounts'],
+              'allWins':result['allAttackerWinsCompatible'],
+              'allUpper':result['allUpperBoundsCompatible'],
+              'maxSlack':max(r['provedUpper']-r['oracleWinDistancePlies'] for r in rows),
+          }))
+          PY
+
+      - name: Commit post-freeze oracle validation
+        shell: bash
+        run: |
+          set -euo pipefail
+          BRANCH=research/universal-structural-policy-20260930
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_ATTACKER_COMPLETION_FRESH_PONS_VALIDATION_0_1.json \
+            research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_ATTACKER_COMPLETION_FRESH_PONS_VALIDATION_0_1.md
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "research: validate fresh A-D certificates with Pons"
+          for attempt in 1 2 3; do
+            git fetch origin "$BRANCH"
+            git rebase "origin/$BRANCH"
+            if git push origin HEAD:"$BRANCH"; then exit 0; fi
+            sleep 1
+          done
+          exit 1
