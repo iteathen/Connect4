@@ -74,7 +74,7 @@ function keyCells(cells){return [...cells].sort((a,b)=>a-b).join(',');}
 function keyArray(key){return key===''?[]:key.split(',').map(Number);}
 function isStrictSubsetKey(a,b){
   const aa=keyArray(a),bb=new Set(keyArray(b));
-  return aa.length<b.size&&aa.every(x=>bb.has(x));
+  return aa.length<bb.size&&aa.every(x=>bb.has(x));
 }
 function normalizeResidualKeys(keys){
   const unique=[...new Set(keys)];
