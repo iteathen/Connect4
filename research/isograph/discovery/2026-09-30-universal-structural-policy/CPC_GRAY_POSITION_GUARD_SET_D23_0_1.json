@@ -1,0 +1,67 @@
+{
+  "schema": "connect4.cpc_gray_position_guard_set_target.v1",
+  "jsMinSysSha": "0899c5811918e68c22dc1b0e4dd8af97d9b4bbcb",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "root": {
+    "id": "candidate6",
+    "sequence": "4444415666",
+    "rank": 10,
+    "attacker": 1,
+    "support": [
+      1,
+      0,
+      0,
+      5,
+      1,
+      3,
+      0
+    ]
+  },
+  "targetHorizon": 23,
+  "absolutePly": 33,
+  "initialOddDefenderMask": 98305,
+  "initialGuards": [
+    {
+      "column": 1,
+      "height": 1
+    },
+    {
+      "column": 6,
+      "height": 3
+    }
+  ],
+  "result": {
+    "accept": true,
+    "class": "GUARDSET_D23"
+  },
+  "work": {
+    "classCalls": 3021247,
+    "memoHits": 2706216,
+    "branchTests": 7637263,
+    "responseTests": 12224566,
+    "cofactorTransitions": 19861829,
+    "cofactorCount": 34982722,
+    "guardRenewCandidates": 1074463,
+    "supportLiftCandidates": 4102549,
+    "topDebtCandidates": 3501415,
+    "ordinaryCandidates": 18079766,
+    "classMemoSize": 3021247,
+    "baseMemoSize": 0,
+    "templateMemoSize": 2048,
+    "responseOptionMemoSize": 0,
+    "cofactorMemoSize": 0,
+    "templateCacheLimit": 2048,
+    "grayNormalizeCalls": 5727464,
+    "grayBitsPromoted": 2757878,
+    "grayOwnerBitsCleared": 42660973
+  },
+  "boundary": [
+    "The guard set and response grammar are unchanged; memo identity is the gravity-valid physical position with ownership bits cleared only for currently gray occupied cells, plus the neutral-aware guard mask and horizon.",
+    "Every non-gray ownership bit, support sentinel, gravity height, and turn parity remains exact.",
+    "Gray ownership is erased only when the occupied cell lies on no still-possible winning line for either player; such grayness is monotone under token addition.",
+    "No new response type is introduced: all candidates belong to previously frozen CPC response, guard-renewal, support-lift, or top-debt theorems.",
+    "Top-debt repair retains the existing premise that at least one carried guard survives trigger and response untouched.",
+    "Acceptance is a constructive survival lower certificate only; rejection is not an attacker upper bound."
+  ]
+}
