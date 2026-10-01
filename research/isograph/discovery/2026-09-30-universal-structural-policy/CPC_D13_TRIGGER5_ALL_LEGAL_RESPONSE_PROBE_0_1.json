@@ -1,0 +1,343 @@
+{
+  "schema": "connect4.cpc_d13_trigger5_all_legal_response_probe.v1",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "parent": {
+    "sequence": "444441566666232222423311",
+    "rank": 24,
+    "horizon": 13,
+    "support": [
+      3,
+      6,
+      3,
+      6,
+      1,
+      5,
+      0
+    ],
+    "oddDefenderMask": 229619,
+    "guards": [
+      {
+        "column": 1,
+        "height": 3
+      },
+      {
+        "column": 3,
+        "height": 3
+      },
+      {
+        "column": 6,
+        "height": 5
+      }
+    ],
+    "remainderParity": {
+      "odd": [
+        1,
+        3,
+        5,
+        6
+      ],
+      "even": [
+        7
+      ],
+      "full": [
+        2,
+        4
+      ]
+    }
+  },
+  "trigger": {
+    "column": 5,
+    "sequence": "4444415666662322224233115",
+    "support": [
+      3,
+      6,
+      3,
+      6,
+      2,
+      5,
+      0
+    ],
+    "remainderParity": {
+      "odd": [
+        1,
+        3,
+        6
+      ],
+      "even": [
+        5,
+        7
+      ],
+      "full": [
+        2,
+        4
+      ]
+    }
+  },
+  "responses": [
+    {
+      "responseColumn": 1,
+      "terminal": 0,
+      "childSequence": "44444156666623222242331151",
+      "childRank": 26,
+      "childSupport": [
+        4,
+        6,
+        3,
+        6,
+        2,
+        5,
+        0
+      ],
+      "childOddDefenderMask": 229619,
+      "childGuards": [
+        {
+          "column": 3,
+          "height": 3
+        },
+        {
+          "column": 6,
+          "height": 5
+        }
+      ],
+      "childRemainderParity": {
+        "odd": [
+          3,
+          6
+        ],
+        "even": [
+          1,
+          5,
+          7
+        ],
+        "full": [
+          2,
+          4
+        ]
+      },
+      "downstream": {
+        "horizon": 11,
+        "absolutePly": 37,
+        "code": 6,
+        "accept": false,
+        "failedTrigger": 5,
+        "elapsedNs": "27296272"
+      }
+    },
+    {
+      "responseColumn": 3,
+      "terminal": 0,
+      "childSequence": "44444156666623222242331153",
+      "childRank": 26,
+      "childSupport": [
+        3,
+        6,
+        4,
+        6,
+        2,
+        5,
+        0
+      ],
+      "childOddDefenderMask": 229619,
+      "childGuards": [
+        {
+          "column": 1,
+          "height": 3
+        },
+        {
+          "column": 6,
+          "height": 5
+        }
+      ],
+      "childRemainderParity": {
+        "odd": [
+          1,
+          6
+        ],
+        "even": [
+          3,
+          5,
+          7
+        ],
+        "full": [
+          2,
+          4
+        ]
+      },
+      "downstream": {
+        "horizon": 11,
+        "absolutePly": 37,
+        "code": 6,
+        "accept": false,
+        "failedTrigger": 5,
+        "elapsedNs": "24084726"
+      }
+    },
+    {
+      "responseColumn": 5,
+      "terminal": 0,
+      "childSequence": "44444156666623222242331155",
+      "childRank": 26,
+      "childSupport": [
+        3,
+        6,
+        3,
+        6,
+        3,
+        5,
+        0
+      ],
+      "childOddDefenderMask": 237811,
+      "childGuards": [
+        {
+          "column": 1,
+          "height": 3
+        },
+        {
+          "column": 3,
+          "height": 3
+        },
+        {
+          "column": 6,
+          "height": 5
+        }
+      ],
+      "childRemainderParity": {
+        "odd": [
+          1,
+          3,
+          5,
+          6
+        ],
+        "even": [
+          7
+        ],
+        "full": [
+          2,
+          4
+        ]
+      },
+      "downstream": {
+        "horizon": 11,
+        "absolutePly": 37,
+        "code": 6,
+        "accept": false,
+        "failedTrigger": 5,
+        "elapsedNs": "16993847"
+      }
+    },
+    {
+      "responseColumn": 6,
+      "terminal": 0,
+      "childSequence": "44444156666623222242331156",
+      "childRank": 26,
+      "childSupport": [
+        3,
+        6,
+        3,
+        6,
+        2,
+        6,
+        0
+      ],
+      "childOddDefenderMask": 229619,
+      "childGuards": [
+        {
+          "column": 1,
+          "height": 3
+        },
+        {
+          "column": 3,
+          "height": 3
+        }
+      ],
+      "childRemainderParity": {
+        "odd": [
+          1,
+          3
+        ],
+        "even": [
+          5,
+          7
+        ],
+        "full": [
+          2,
+          4,
+          6
+        ]
+      },
+      "downstream": {
+        "horizon": 11,
+        "absolutePly": 37,
+        "code": 6,
+        "accept": false,
+        "failedTrigger": 5,
+        "elapsedNs": "21204555"
+      }
+    },
+    {
+      "responseColumn": 7,
+      "terminal": 0,
+      "childSequence": "44444156666623222242331157",
+      "childRank": 26,
+      "childSupport": [
+        3,
+        6,
+        3,
+        6,
+        2,
+        5,
+        1
+      ],
+      "childOddDefenderMask": 491763,
+      "childGuards": [
+        {
+          "column": 1,
+          "height": 3
+        },
+        {
+          "column": 3,
+          "height": 3
+        },
+        {
+          "column": 6,
+          "height": 5
+        },
+        {
+          "column": 7,
+          "height": 1
+        }
+      ],
+      "childRemainderParity": {
+        "odd": [
+          1,
+          3,
+          6,
+          7
+        ],
+        "even": [
+          5
+        ],
+        "full": [
+          2,
+          4
+        ]
+      },
+      "downstream": {
+        "horizon": 11,
+        "absolutePly": 37,
+        "code": 6,
+        "accept": false,
+        "failedTrigger": 5,
+        "elapsedNs": "19985994"
+      }
+    }
+  ],
+  "boundary": [
+    "Discovery probe only. Every physically legal defender response is tested, including responses not licensed by the current frozen grammar.",
+    "A positive unlicensed child only identifies a candidate missing structural response theorem; it does not license that response.",
+    "Each nonterminal child is evaluated only by the already-qualified NEES guard-survival class at D11.",
+    "No oracle, solved W/D/L, best-move label, or physical-board identity is used by the downstream proof."
+  ]
+}
