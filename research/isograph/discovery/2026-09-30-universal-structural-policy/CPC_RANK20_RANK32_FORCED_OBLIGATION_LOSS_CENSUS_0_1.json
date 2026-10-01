@@ -1,0 +1,2870 @@
+{
+  "schema": "connect4.cpc_rank20_rank32_forced_obligation_loss_census.v1",
+  "date": "2026-10-01",
+  "design": "CPC_RANK20_RANK32_FORCED_OBLIGATION_LOSS_CENSUS_DESIGN_0_1.md",
+  "sourceEvidence": {
+    "rank5": "CPC_RANK20_FORCED_C3_RANK5_LOCAL_GRAMMAR_PROBE_0_1.json",
+    "exchange": "CPC_RANK20_RANK32_CONSEQUENCE_EXCHANGE_CENSUS_0_1.json"
+  },
+  "sourceTransitionCount": 36,
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "ordinaryGameTreeSearchUsed": false,
+  "productionCpcModified": false,
+  "jsMinSysModified": false,
+  "bsfpModified": false,
+  "rank32Classes": [
+    {
+      "exactQClass": "0801daebe787d3cd",
+      "rank": 32,
+      "support": [
+        4,
+        6,
+        2,
+        6,
+        5,
+        6,
+        3
+      ],
+      "occurrenceCount": 2,
+      "occurrences": [
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:F->A",
+          "sourceLeafQClass": "7c5e1cc7846c6b26",
+          "sourceLeafSequence": "444441566666232222425511575361",
+          "rootMove": 7,
+          "defenderColumn": 7,
+          "provedReplyPrefixCount": 3,
+          "sequence": "44444156666623222242551157536177",
+          "lowerQClass": "0801daebe787d3cd",
+          "lowerSupport": [
+            4,
+            6,
+            2,
+            6,
+            5,
+            6,
+            3
+          ]
+        },
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:G->G",
+          "sourceLeafQClass": "7ddbc5877da1aae5",
+          "sourceLeafSequence": "444441566666232222425511575377",
+          "rootMove": 6,
+          "defenderColumn": 1,
+          "provedReplyPrefixCount": 0,
+          "sequence": "44444156666623222242551157537761",
+          "lowerQClass": "0801daebe787d3cd",
+          "lowerSupport": [
+            4,
+            6,
+            2,
+            6,
+            5,
+            6,
+            3
+          ]
+        }
+      ],
+      "identityChecks": [
+        {
+          "sequence": "44444156666623222242551157536177",
+          "expected": "0801daebe787d3cd",
+          "actual": "0801daebe787d3cd",
+          "pass": true
+        },
+        {
+          "sequence": "44444156666623222242551157537761",
+          "expected": "0801daebe787d3cd",
+          "actual": "0801daebe787d3cd",
+          "pass": true
+        }
+      ],
+      "proofCompleted": true,
+      "lossCertified": false,
+      "proofKind": "NO_ENABLED_P1_OBLIGATION",
+      "rootObligations": [],
+      "rootP0TerminalActions": [],
+      "compactProof": {
+        "loss": false,
+        "kind": "NO_ENABLED_P1_OBLIGATION",
+        "obligation": null,
+        "obligations": null,
+        "forcedColumn": null,
+        "adversarialReply": null,
+        "replyCell": null,
+        "escapeAction": null,
+        "escapeReason": null,
+        "child": null
+      },
+      "resourceFailure": null,
+      "stats": {
+        "nodes": 1,
+        "maxDepth": 0,
+        "multiDefects": 0,
+        "forcedNodes": 0,
+        "terminalWitnesses": 0,
+        "childLossWitnesses": 0,
+        "zeroObligationNodes": 1
+      }
+    },
+    {
+      "exactQClass": "168b04d4c4326beb",
+      "rank": 32,
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        5,
+        6,
+        0
+      ],
+      "occurrenceCount": 1,
+      "occurrences": [
+        {
+          "sourceLeafId": "SECOND_D6_C5_CONTRACTION:A->A",
+          "sourceLeafQClass": "9486272f55996c92",
+          "sourceLeafSequence": "444441566666232222425511565311",
+          "rootMove": 1,
+          "defenderColumn": 3,
+          "provedReplyPrefixCount": 0,
+          "sequence": "44444156666623222242551156531113",
+          "lowerQClass": "168b04d4c4326beb",
+          "lowerSupport": [
+            6,
+            6,
+            3,
+            6,
+            5,
+            6,
+            0
+          ]
+        }
+      ],
+      "identityChecks": [
+        {
+          "sequence": "44444156666623222242551156531113",
+          "expected": "168b04d4c4326beb",
+          "actual": "168b04d4c4326beb",
+          "pass": true
+        }
+      ],
+      "proofCompleted": true,
+      "lossCertified": true,
+      "proofKind": "FORCED_BLOCK_THEN_P1_TERMINAL",
+      "rootObligations": [
+        "C4"
+      ],
+      "rootP0TerminalActions": [],
+      "compactProof": {
+        "loss": true,
+        "kind": "FORCED_BLOCK_THEN_P1_TERMINAL",
+        "obligation": "C4",
+        "obligations": null,
+        "forcedColumn": "C",
+        "adversarialReply": "C",
+        "replyCell": "C5",
+        "escapeAction": null,
+        "escapeReason": null,
+        "child": null
+      },
+      "resourceFailure": null,
+      "stats": {
+        "nodes": 1,
+        "maxDepth": 0,
+        "multiDefects": 0,
+        "forcedNodes": 1,
+        "terminalWitnesses": 1,
+        "childLossWitnesses": 0,
+        "zeroObligationNodes": 0
+      }
+    },
+    {
+      "exactQClass": "2ecda5a87ae9cbdc",
+      "rank": 32,
+      "support": [
+        6,
+        6,
+        2,
+        6,
+        6,
+        5,
+        1
+      ],
+      "occurrenceCount": 2,
+      "occurrences": [
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:A->A",
+          "sourceLeafQClass": "680acc3a5e8c8bef",
+          "sourceLeafSequence": "444441566666232222425511575311",
+          "rootMove": 5,
+          "defenderColumn": 1,
+          "provedReplyPrefixCount": 0,
+          "sequence": "44444156666623222242551157531151",
+          "lowerQClass": "2ecda5a87ae9cbdc",
+          "lowerSupport": [
+            6,
+            6,
+            2,
+            6,
+            6,
+            5,
+            1
+          ]
+        },
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:E->A",
+          "sourceLeafQClass": "8e5db6e2893b3eaf",
+          "sourceLeafSequence": "444441566666232222425511575351",
+          "rootMove": 1,
+          "defenderColumn": 1,
+          "provedReplyPrefixCount": 0,
+          "sequence": "44444156666623222242551157535111",
+          "lowerQClass": "2ecda5a87ae9cbdc",
+          "lowerSupport": [
+            6,
+            6,
+            2,
+            6,
+            6,
+            5,
+            1
+          ]
+        }
+      ],
+      "identityChecks": [
+        {
+          "sequence": "44444156666623222242551157531151",
+          "expected": "2ecda5a87ae9cbdc",
+          "actual": "2ecda5a87ae9cbdc",
+          "pass": true
+        },
+        {
+          "sequence": "44444156666623222242551157535111",
+          "expected": "2ecda5a87ae9cbdc",
+          "actual": "2ecda5a87ae9cbdc",
+          "pass": true
+        }
+      ],
+      "proofCompleted": true,
+      "lossCertified": false,
+      "proofKind": "NO_ENABLED_P1_OBLIGATION",
+      "rootObligations": [],
+      "rootP0TerminalActions": [],
+      "compactProof": {
+        "loss": false,
+        "kind": "NO_ENABLED_P1_OBLIGATION",
+        "obligation": null,
+        "obligations": null,
+        "forcedColumn": null,
+        "adversarialReply": null,
+        "replyCell": null,
+        "escapeAction": null,
+        "escapeReason": null,
+        "child": null
+      },
+      "resourceFailure": null,
+      "stats": {
+        "nodes": 1,
+        "maxDepth": 0,
+        "multiDefects": 0,
+        "forcedNodes": 0,
+        "terminalWitnesses": 0,
+        "childLossWitnesses": 0,
+        "zeroObligationNodes": 1
+      }
+    },
+    {
+      "exactQClass": "2f88de106c7c402b",
+      "rank": 32,
+      "support": [
+        5,
+        6,
+        2,
+        6,
+        6,
+        6,
+        1
+      ],
+      "occurrenceCount": 2,
+      "occurrences": [
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:E->A",
+          "sourceLeafQClass": "8e5db6e2893b3eaf",
+          "sourceLeafSequence": "444441566666232222425511575351",
+          "rootMove": 6,
+          "defenderColumn": 1,
+          "provedReplyPrefixCount": 0,
+          "sequence": "44444156666623222242551157535161",
+          "lowerQClass": "2f88de106c7c402b",
+          "lowerSupport": [
+            5,
+            6,
+            2,
+            6,
+            6,
+            6,
+            1
+          ]
+        },
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:F->A",
+          "sourceLeafQClass": "7c5e1cc7846c6b26",
+          "sourceLeafSequence": "444441566666232222425511575361",
+          "rootMove": 5,
+          "defenderColumn": 1,
+          "provedReplyPrefixCount": 0,
+          "sequence": "44444156666623222242551157536151",
+          "lowerQClass": "2f88de106c7c402b",
+          "lowerSupport": [
+            5,
+            6,
+            2,
+            6,
+            6,
+            6,
+            1
+          ]
+        }
+      ],
+      "identityChecks": [
+        {
+          "sequence": "44444156666623222242551157535161",
+          "expected": "2f88de106c7c402b",
+          "actual": "2f88de106c7c402b",
+          "pass": true
+        },
+        {
+          "sequence": "44444156666623222242551157536151",
+          "expected": "2f88de106c7c402b",
+          "actual": "2f88de106c7c402b",
+          "pass": true
+        }
+      ],
+      "proofCompleted": true,
+      "lossCertified": true,
+      "proofKind": "FORCED_BLOCK_THEN_CHILD_LOSS",
+      "rootObligations": [
+        "A6"
+      ],
+      "rootP0TerminalActions": [],
+      "compactProof": {
+        "loss": true,
+        "kind": "FORCED_BLOCK_THEN_CHILD_LOSS",
+        "obligation": "A6",
+        "obligations": null,
+        "forcedColumn": "A",
+        "adversarialReply": "C",
+        "replyCell": "C3",
+        "escapeAction": null,
+        "escapeReason": null,
+        "child": {
+          "loss": true,
+          "kind": "FORCED_BLOCK_THEN_P1_TERMINAL",
+          "obligation": "C4",
+          "obligations": null,
+          "forcedColumn": "C",
+          "adversarialReply": "C",
+          "replyCell": "C5",
+          "escapeAction": null,
+          "escapeReason": null,
+          "child": null
+        }
+      },
+      "resourceFailure": null,
+      "stats": {
+        "nodes": 2,
+        "maxDepth": 1,
+        "multiDefects": 0,
+        "forcedNodes": 2,
+        "terminalWitnesses": 1,
+        "childLossWitnesses": 1,
+        "zeroObligationNodes": 0
+      }
+    },
+    {
+      "exactQClass": "35bf0a393f52a2e4",
+      "rank": 32,
+      "support": [
+        4,
+        6,
+        2,
+        6,
+        5,
+        6,
+        3
+      ],
+      "occurrenceCount": 1,
+      "occurrences": [
+        {
+          "sourceLeafId": "SECOND_D6_C5_CONTRACTION:G->A",
+          "sourceLeafQClass": "475b51b09cf2f66e",
+          "sourceLeafSequence": "444441566666232222425511565371",
+          "rootMove": 7,
+          "defenderColumn": 7,
+          "provedReplyPrefixCount": 3,
+          "sequence": "44444156666623222242551156537177",
+          "lowerQClass": "35bf0a393f52a2e4",
+          "lowerSupport": [
+            4,
+            6,
+            2,
+            6,
+            5,
+            6,
+            3
+          ]
+        }
+      ],
+      "identityChecks": [
+        {
+          "sequence": "44444156666623222242551156537177",
+          "expected": "35bf0a393f52a2e4",
+          "actual": "35bf0a393f52a2e4",
+          "pass": true
+        }
+      ],
+      "proofCompleted": true,
+      "lossCertified": false,
+      "proofKind": "NO_ENABLED_P1_OBLIGATION",
+      "rootObligations": [],
+      "rootP0TerminalActions": [],
+      "compactProof": {
+        "loss": false,
+        "kind": "NO_ENABLED_P1_OBLIGATION",
+        "obligation": null,
+        "obligations": null,
+        "forcedColumn": null,
+        "adversarialReply": null,
+        "replyCell": null,
+        "escapeAction": null,
+        "escapeReason": null,
+        "child": null
+      },
+      "resourceFailure": null,
+      "stats": {
+        "nodes": 1,
+        "maxDepth": 0,
+        "multiDefects": 0,
+        "forcedNodes": 0,
+        "terminalWitnesses": 0,
+        "childLossWitnesses": 0,
+        "zeroObligationNodes": 1
+      }
+    },
+    {
+      "exactQClass": "3afa4918e827e799",
+      "rank": 32,
+      "support": [
+        6,
+        6,
+        2,
+        6,
+        6,
+        6,
+        0
+      ],
+      "occurrenceCount": 2,
+      "occurrences": [
+        {
+          "sourceLeafId": "SECOND_D6_C5_CONTRACTION:A->A",
+          "sourceLeafQClass": "9486272f55996c92",
+          "sourceLeafSequence": "444441566666232222425511565311",
+          "rootMove": 5,
+          "defenderColumn": 1,
+          "provedReplyPrefixCount": 0,
+          "sequence": "44444156666623222242551156531151",
+          "lowerQClass": "3afa4918e827e799",
+          "lowerSupport": [
+            6,
+            6,
+            2,
+            6,
+            6,
+            6,
+            0
+          ]
+        },
+        {
+          "sourceLeafId": "SECOND_D6_C5_CONTRACTION:E->A",
+          "sourceLeafQClass": "5d477ec65b3c48bc",
+          "sourceLeafSequence": "444441566666232222425511565351",
+          "rootMove": 1,
+          "defenderColumn": 1,
+          "provedReplyPrefixCount": 0,
+          "sequence": "44444156666623222242551156535111",
+          "lowerQClass": "3afa4918e827e799",
+          "lowerSupport": [
+            6,
+            6,
+            2,
+            6,
+            6,
+            6,
+            0
+          ]
+        }
+      ],
+      "identityChecks": [
+        {
+          "sequence": "44444156666623222242551156531151",
+          "expected": "3afa4918e827e799",
+          "actual": "3afa4918e827e799",
+          "pass": true
+        },
+        {
+          "sequence": "44444156666623222242551156535111",
+          "expected": "3afa4918e827e799",
+          "actual": "3afa4918e827e799",
+          "pass": true
+        }
+      ],
+      "proofCompleted": true,
+      "lossCertified": false,
+      "proofKind": "NO_ENABLED_P1_OBLIGATION",
+      "rootObligations": [],
+      "rootP0TerminalActions": [],
+      "compactProof": {
+        "loss": false,
+        "kind": "NO_ENABLED_P1_OBLIGATION",
+        "obligation": null,
+        "obligations": null,
+        "forcedColumn": null,
+        "adversarialReply": null,
+        "replyCell": null,
+        "escapeAction": null,
+        "escapeReason": null,
+        "child": null
+      },
+      "resourceFailure": null,
+      "stats": {
+        "nodes": 1,
+        "maxDepth": 0,
+        "multiDefects": 0,
+        "forcedNodes": 0,
+        "terminalWitnesses": 0,
+        "childLossWitnesses": 0,
+        "zeroObligationNodes": 1
+      }
+    },
+    {
+      "exactQClass": "3ec23db76d062e04",
+      "rank": 32,
+      "support": [
+        6,
+        6,
+        2,
+        6,
+        5,
+        6,
+        1
+      ],
+      "occurrenceCount": 2,
+      "occurrences": [
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:A->A",
+          "sourceLeafQClass": "680acc3a5e8c8bef",
+          "sourceLeafSequence": "444441566666232222425511575311",
+          "rootMove": 6,
+          "defenderColumn": 1,
+          "provedReplyPrefixCount": 0,
+          "sequence": "44444156666623222242551157531161",
+          "lowerQClass": "3ec23db76d062e04",
+          "lowerSupport": [
+            6,
+            6,
+            2,
+            6,
+            5,
+            6,
+            1
+          ]
+        },
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:F->A",
+          "sourceLeafQClass": "7c5e1cc7846c6b26",
+          "sourceLeafSequence": "444441566666232222425511575361",
+          "rootMove": 1,
+          "defenderColumn": 1,
+          "provedReplyPrefixCount": 0,
+          "sequence": "44444156666623222242551157536111",
+          "lowerQClass": "3ec23db76d062e04",
+          "lowerSupport": [
+            6,
+            6,
+            2,
+            6,
+            5,
+            6,
+            1
+          ]
+        }
+      ],
+      "identityChecks": [
+        {
+          "sequence": "44444156666623222242551157531161",
+          "expected": "3ec23db76d062e04",
+          "actual": "3ec23db76d062e04",
+          "pass": true
+        },
+        {
+          "sequence": "44444156666623222242551157536111",
+          "expected": "3ec23db76d062e04",
+          "actual": "3ec23db76d062e04",
+          "pass": true
+        }
+      ],
+      "proofCompleted": true,
+      "lossCertified": false,
+      "proofKind": "NO_ENABLED_P1_OBLIGATION",
+      "rootObligations": [],
+      "rootP0TerminalActions": [],
+      "compactProof": {
+        "loss": false,
+        "kind": "NO_ENABLED_P1_OBLIGATION",
+        "obligation": null,
+        "obligations": null,
+        "forcedColumn": null,
+        "adversarialReply": null,
+        "replyCell": null,
+        "escapeAction": null,
+        "escapeReason": null,
+        "child": null
+      },
+      "resourceFailure": null,
+      "stats": {
+        "nodes": 1,
+        "maxDepth": 0,
+        "multiDefects": 0,
+        "forcedNodes": 0,
+        "terminalWitnesses": 0,
+        "childLossWitnesses": 0,
+        "zeroObligationNodes": 1
+      }
+    },
+    {
+      "exactQClass": "78fd9addd9e5189e",
+      "rank": 32,
+      "support": [
+        6,
+        6,
+        2,
+        6,
+        5,
+        6,
+        1
+      ],
+      "occurrenceCount": 2,
+      "occurrences": [
+        {
+          "sourceLeafId": "SECOND_D6_C5_CONTRACTION:A->A",
+          "sourceLeafQClass": "9486272f55996c92",
+          "sourceLeafSequence": "444441566666232222425511565311",
+          "rootMove": 7,
+          "defenderColumn": 1,
+          "provedReplyPrefixCount": 0,
+          "sequence": "44444156666623222242551156531171",
+          "lowerQClass": "78fd9addd9e5189e",
+          "lowerSupport": [
+            6,
+            6,
+            2,
+            6,
+            5,
+            6,
+            1
+          ]
+        },
+        {
+          "sourceLeafId": "SECOND_D6_C5_CONTRACTION:G->A",
+          "sourceLeafQClass": "475b51b09cf2f66e",
+          "sourceLeafSequence": "444441566666232222425511565371",
+          "rootMove": 1,
+          "defenderColumn": 1,
+          "provedReplyPrefixCount": 0,
+          "sequence": "44444156666623222242551156537111",
+          "lowerQClass": "78fd9addd9e5189e",
+          "lowerSupport": [
+            6,
+            6,
+            2,
+            6,
+            5,
+            6,
+            1
+          ]
+        }
+      ],
+      "identityChecks": [
+        {
+          "sequence": "44444156666623222242551156531171",
+          "expected": "78fd9addd9e5189e",
+          "actual": "78fd9addd9e5189e",
+          "pass": true
+        },
+        {
+          "sequence": "44444156666623222242551156537111",
+          "expected": "78fd9addd9e5189e",
+          "actual": "78fd9addd9e5189e",
+          "pass": true
+        }
+      ],
+      "proofCompleted": true,
+      "lossCertified": false,
+      "proofKind": "NO_ENABLED_P1_OBLIGATION",
+      "rootObligations": [],
+      "rootP0TerminalActions": [],
+      "compactProof": {
+        "loss": false,
+        "kind": "NO_ENABLED_P1_OBLIGATION",
+        "obligation": null,
+        "obligations": null,
+        "forcedColumn": null,
+        "adversarialReply": null,
+        "replyCell": null,
+        "escapeAction": null,
+        "escapeReason": null,
+        "child": null
+      },
+      "resourceFailure": null,
+      "stats": {
+        "nodes": 1,
+        "maxDepth": 0,
+        "multiDefects": 0,
+        "forcedNodes": 0,
+        "terminalWitnesses": 0,
+        "childLossWitnesses": 0,
+        "zeroObligationNodes": 1
+      }
+    },
+    {
+      "exactQClass": "80082e9945d4c152",
+      "rank": 32,
+      "support": [
+        5,
+        6,
+        3,
+        6,
+        6,
+        6,
+        0
+      ],
+      "occurrenceCount": 1,
+      "occurrences": [
+        {
+          "sourceLeafId": "SECOND_D6_C5_CONTRACTION:E->A",
+          "sourceLeafQClass": "5d477ec65b3c48bc",
+          "sourceLeafSequence": "444441566666232222425511565351",
+          "rootMove": 3,
+          "defenderColumn": 1,
+          "provedReplyPrefixCount": 0,
+          "sequence": "44444156666623222242551156535131",
+          "lowerQClass": "80082e9945d4c152",
+          "lowerSupport": [
+            5,
+            6,
+            3,
+            6,
+            6,
+            6,
+            0
+          ]
+        }
+      ],
+      "identityChecks": [
+        {
+          "sequence": "44444156666623222242551156535131",
+          "expected": "80082e9945d4c152",
+          "actual": "80082e9945d4c152",
+          "pass": true
+        }
+      ],
+      "proofCompleted": true,
+      "lossCertified": false,
+      "proofKind": "FORCED_BLOCK_HAS_NO_CERTIFIED_LOSING_REPLY",
+      "rootObligations": [
+        "A6"
+      ],
+      "rootP0TerminalActions": [],
+      "compactProof": {
+        "loss": false,
+        "kind": "FORCED_BLOCK_HAS_NO_CERTIFIED_LOSING_REPLY",
+        "obligation": "A6",
+        "obligations": null,
+        "forcedColumn": "A",
+        "adversarialReply": null,
+        "replyCell": null,
+        "escapeAction": null,
+        "escapeReason": null,
+        "child": null
+      },
+      "resourceFailure": null,
+      "stats": {
+        "nodes": 5,
+        "maxDepth": 2,
+        "multiDefects": 0,
+        "forcedNodes": 2,
+        "terminalWitnesses": 0,
+        "childLossWitnesses": 0,
+        "zeroObligationNodes": 3
+      }
+    },
+    {
+      "exactQClass": "80648733b86d690c",
+      "rank": 32,
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        5,
+        6,
+        0
+      ],
+      "occurrenceCount": 2,
+      "occurrences": [
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:A->A",
+          "sourceLeafQClass": "d21a89605c399aca",
+          "sourceLeafSequence": "444441566666232222425511515311",
+          "rootMove": 6,
+          "defenderColumn": 3,
+          "provedReplyPrefixCount": 0,
+          "sequence": "44444156666623222242551151531163",
+          "lowerQClass": "80648733b86d690c",
+          "lowerSupport": [
+            6,
+            6,
+            3,
+            6,
+            5,
+            6,
+            0
+          ]
+        },
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:F->A",
+          "sourceLeafQClass": "8b007f7dfd990ea6",
+          "sourceLeafSequence": "444441566666232222425511515361",
+          "rootMove": 1,
+          "defenderColumn": 3,
+          "provedReplyPrefixCount": 0,
+          "sequence": "44444156666623222242551151536113",
+          "lowerQClass": "80648733b86d690c",
+          "lowerSupport": [
+            6,
+            6,
+            3,
+            6,
+            5,
+            6,
+            0
+          ]
+        }
+      ],
+      "identityChecks": [
+        {
+          "sequence": "44444156666623222242551151531163",
+          "expected": "80648733b86d690c",
+          "actual": "80648733b86d690c",
+          "pass": true
+        },
+        {
+          "sequence": "44444156666623222242551151536113",
+          "expected": "80648733b86d690c",
+          "actual": "80648733b86d690c",
+          "pass": true
+        }
+      ],
+      "proofCompleted": true,
+      "lossCertified": true,
+      "proofKind": "FORCED_BLOCK_THEN_P1_TERMINAL",
+      "rootObligations": [
+        "C4"
+      ],
+      "rootP0TerminalActions": [],
+      "compactProof": {
+        "loss": true,
+        "kind": "FORCED_BLOCK_THEN_P1_TERMINAL",
+        "obligation": "C4",
+        "obligations": null,
+        "forcedColumn": "C",
+        "adversarialReply": "C",
+        "replyCell": "C5",
+        "escapeAction": null,
+        "escapeReason": null,
+        "child": null
+      },
+      "resourceFailure": null,
+      "stats": {
+        "nodes": 1,
+        "maxDepth": 0,
+        "multiDefects": 0,
+        "forcedNodes": 1,
+        "terminalWitnesses": 1,
+        "childLossWitnesses": 0,
+        "zeroObligationNodes": 0
+      }
+    },
+    {
+      "exactQClass": "9326596be55ae15a",
+      "rank": 32,
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        5,
+        6,
+        0
+      ],
+      "occurrenceCount": 1,
+      "occurrences": [
+        {
+          "sourceLeafId": "SECOND_D6_C5_CONTRACTION:A->A",
+          "sourceLeafQClass": "9486272f55996c92",
+          "sourceLeafSequence": "444441566666232222425511565311",
+          "rootMove": 3,
+          "defenderColumn": 1,
+          "provedReplyPrefixCount": 0,
+          "sequence": "44444156666623222242551156531131",
+          "lowerQClass": "9326596be55ae15a",
+          "lowerSupport": [
+            6,
+            6,
+            3,
+            6,
+            5,
+            6,
+            0
+          ]
+        }
+      ],
+      "identityChecks": [
+        {
+          "sequence": "44444156666623222242551156531131",
+          "expected": "9326596be55ae15a",
+          "actual": "9326596be55ae15a",
+          "pass": true
+        }
+      ],
+      "proofCompleted": true,
+      "lossCertified": false,
+      "proofKind": "NO_ENABLED_P1_OBLIGATION",
+      "rootObligations": [],
+      "rootP0TerminalActions": [],
+      "compactProof": {
+        "loss": false,
+        "kind": "NO_ENABLED_P1_OBLIGATION",
+        "obligation": null,
+        "obligations": null,
+        "forcedColumn": null,
+        "adversarialReply": null,
+        "replyCell": null,
+        "escapeAction": null,
+        "escapeReason": null,
+        "child": null
+      },
+      "resourceFailure": null,
+      "stats": {
+        "nodes": 1,
+        "maxDepth": 0,
+        "multiDefects": 0,
+        "forcedNodes": 0,
+        "terminalWitnesses": 0,
+        "childLossWitnesses": 0,
+        "zeroObligationNodes": 1
+      }
+    },
+    {
+      "exactQClass": "966e6353e06e4d41",
+      "rank": 32,
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        5,
+        5,
+        1
+      ],
+      "occurrenceCount": 1,
+      "occurrences": [
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:A->A",
+          "sourceLeafQClass": "680acc3a5e8c8bef",
+          "sourceLeafSequence": "444441566666232222425511575311",
+          "rootMove": 3,
+          "defenderColumn": 1,
+          "provedReplyPrefixCount": 0,
+          "sequence": "44444156666623222242551157531131",
+          "lowerQClass": "966e6353e06e4d41",
+          "lowerSupport": [
+            6,
+            6,
+            3,
+            6,
+            5,
+            5,
+            1
+          ]
+        }
+      ],
+      "identityChecks": [
+        {
+          "sequence": "44444156666623222242551157531131",
+          "expected": "966e6353e06e4d41",
+          "actual": "966e6353e06e4d41",
+          "pass": true
+        }
+      ],
+      "proofCompleted": true,
+      "lossCertified": false,
+      "proofKind": "NO_ENABLED_P1_OBLIGATION",
+      "rootObligations": [],
+      "rootP0TerminalActions": [],
+      "compactProof": {
+        "loss": false,
+        "kind": "NO_ENABLED_P1_OBLIGATION",
+        "obligation": null,
+        "obligations": null,
+        "forcedColumn": null,
+        "adversarialReply": null,
+        "replyCell": null,
+        "escapeAction": null,
+        "escapeReason": null,
+        "child": null
+      },
+      "resourceFailure": null,
+      "stats": {
+        "nodes": 1,
+        "maxDepth": 0,
+        "multiDefects": 0,
+        "forcedNodes": 0,
+        "terminalWitnesses": 0,
+        "childLossWitnesses": 0,
+        "zeroObligationNodes": 1
+      }
+    },
+    {
+      "exactQClass": "9a71b75a79d0a672",
+      "rank": 32,
+      "support": [
+        4,
+        6,
+        3,
+        6,
+        5,
+        5,
+        3
+      ],
+      "occurrenceCount": 1,
+      "occurrences": [
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:G->G",
+          "sourceLeafQClass": "7ddbc5877da1aae5",
+          "sourceLeafSequence": "444441566666232222425511575377",
+          "rootMove": 3,
+          "defenderColumn": 1,
+          "provedReplyPrefixCount": 0,
+          "sequence": "44444156666623222242551157537731",
+          "lowerQClass": "9a71b75a79d0a672",
+          "lowerSupport": [
+            4,
+            6,
+            3,
+            6,
+            5,
+            5,
+            3
+          ]
+        }
+      ],
+      "identityChecks": [
+        {
+          "sequence": "44444156666623222242551157537731",
+          "expected": "9a71b75a79d0a672",
+          "actual": "9a71b75a79d0a672",
+          "pass": true
+        }
+      ],
+      "proofCompleted": true,
+      "lossCertified": false,
+      "proofKind": "NO_ENABLED_P1_OBLIGATION",
+      "rootObligations": [],
+      "rootP0TerminalActions": [],
+      "compactProof": {
+        "loss": false,
+        "kind": "NO_ENABLED_P1_OBLIGATION",
+        "obligation": null,
+        "obligations": null,
+        "forcedColumn": null,
+        "adversarialReply": null,
+        "replyCell": null,
+        "escapeAction": null,
+        "escapeReason": null,
+        "child": null
+      },
+      "resourceFailure": null,
+      "stats": {
+        "nodes": 1,
+        "maxDepth": 0,
+        "multiDefects": 0,
+        "forcedNodes": 0,
+        "terminalWitnesses": 0,
+        "childLossWitnesses": 0,
+        "zeroObligationNodes": 1
+      }
+    },
+    {
+      "exactQClass": "9d02a8478c3bc690",
+      "rank": 32,
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        6,
+        5,
+        0
+      ],
+      "occurrenceCount": 2,
+      "occurrences": [
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:A->A",
+          "sourceLeafQClass": "d21a89605c399aca",
+          "sourceLeafSequence": "444441566666232222425511515311",
+          "rootMove": 5,
+          "defenderColumn": 3,
+          "provedReplyPrefixCount": 0,
+          "sequence": "44444156666623222242551151531153",
+          "lowerQClass": "9d02a8478c3bc690",
+          "lowerSupport": [
+            6,
+            6,
+            3,
+            6,
+            6,
+            5,
+            0
+          ]
+        },
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:E->A",
+          "sourceLeafQClass": "00788378b8ae8d01",
+          "sourceLeafSequence": "444441566666232222425511515351",
+          "rootMove": 1,
+          "defenderColumn": 3,
+          "provedReplyPrefixCount": 0,
+          "sequence": "44444156666623222242551151535113",
+          "lowerQClass": "9d02a8478c3bc690",
+          "lowerSupport": [
+            6,
+            6,
+            3,
+            6,
+            6,
+            5,
+            0
+          ]
+        }
+      ],
+      "identityChecks": [
+        {
+          "sequence": "44444156666623222242551151531153",
+          "expected": "9d02a8478c3bc690",
+          "actual": "9d02a8478c3bc690",
+          "pass": true
+        },
+        {
+          "sequence": "44444156666623222242551151535113",
+          "expected": "9d02a8478c3bc690",
+          "actual": "9d02a8478c3bc690",
+          "pass": true
+        }
+      ],
+      "proofCompleted": true,
+      "lossCertified": true,
+      "proofKind": "FORCED_BLOCK_THEN_P1_TERMINAL",
+      "rootObligations": [
+        "C4"
+      ],
+      "rootP0TerminalActions": [],
+      "compactProof": {
+        "loss": true,
+        "kind": "FORCED_BLOCK_THEN_P1_TERMINAL",
+        "obligation": "C4",
+        "obligations": null,
+        "forcedColumn": "C",
+        "adversarialReply": "C",
+        "replyCell": "C5",
+        "escapeAction": null,
+        "escapeReason": null,
+        "child": null
+      },
+      "resourceFailure": null,
+      "stats": {
+        "nodes": 1,
+        "maxDepth": 0,
+        "multiDefects": 0,
+        "forcedNodes": 1,
+        "terminalWitnesses": 1,
+        "childLossWitnesses": 0,
+        "zeroObligationNodes": 0
+      }
+    },
+    {
+      "exactQClass": "9f6b7a33ab7e9552",
+      "rank": 32,
+      "support": [
+        6,
+        6,
+        4,
+        6,
+        5,
+        5,
+        0
+      ],
+      "occurrenceCount": 1,
+      "occurrences": [
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:A->A",
+          "sourceLeafQClass": "d21a89605c399aca",
+          "sourceLeafSequence": "444441566666232222425511515311",
+          "rootMove": 3,
+          "defenderColumn": 3,
+          "provedReplyPrefixCount": 0,
+          "sequence": "44444156666623222242551151531133",
+          "lowerQClass": "9f6b7a33ab7e9552",
+          "lowerSupport": [
+            6,
+            6,
+            4,
+            6,
+            5,
+            5,
+            0
+          ]
+        }
+      ],
+      "identityChecks": [
+        {
+          "sequence": "44444156666623222242551151531133",
+          "expected": "9f6b7a33ab7e9552",
+          "actual": "9f6b7a33ab7e9552",
+          "pass": true
+        }
+      ],
+      "proofCompleted": true,
+      "lossCertified": false,
+      "proofKind": "FORCED_BLOCK_HAS_NO_CERTIFIED_LOSING_REPLY",
+      "rootObligations": [
+        "C5"
+      ],
+      "rootP0TerminalActions": [],
+      "compactProof": {
+        "loss": false,
+        "kind": "FORCED_BLOCK_HAS_NO_CERTIFIED_LOSING_REPLY",
+        "obligation": "C5",
+        "obligations": null,
+        "forcedColumn": "C",
+        "adversarialReply": null,
+        "replyCell": null,
+        "escapeAction": null,
+        "escapeReason": null,
+        "child": null
+      },
+      "resourceFailure": null,
+      "stats": {
+        "nodes": 5,
+        "maxDepth": 1,
+        "multiDefects": 0,
+        "forcedNodes": 1,
+        "terminalWitnesses": 0,
+        "childLossWitnesses": 0,
+        "zeroObligationNodes": 4
+      }
+    },
+    {
+      "exactQClass": "a09cc4edc3e9b1e5",
+      "rank": 32,
+      "support": [
+        4,
+        6,
+        2,
+        6,
+        5,
+        5,
+        4
+      ],
+      "occurrenceCount": 1,
+      "occurrences": [
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:G->G",
+          "sourceLeafQClass": "7ddbc5877da1aae5",
+          "sourceLeafSequence": "444441566666232222425511575377",
+          "rootMove": 7,
+          "defenderColumn": 1,
+          "provedReplyPrefixCount": 0,
+          "sequence": "44444156666623222242551157537771",
+          "lowerQClass": "a09cc4edc3e9b1e5",
+          "lowerSupport": [
+            4,
+            6,
+            2,
+            6,
+            5,
+            5,
+            4
+          ]
+        }
+      ],
+      "identityChecks": [
+        {
+          "sequence": "44444156666623222242551157537771",
+          "expected": "a09cc4edc3e9b1e5",
+          "actual": "a09cc4edc3e9b1e5",
+          "pass": true
+        }
+      ],
+      "proofCompleted": true,
+      "lossCertified": false,
+      "proofKind": "NO_ENABLED_P1_OBLIGATION",
+      "rootObligations": [],
+      "rootP0TerminalActions": [],
+      "compactProof": {
+        "loss": false,
+        "kind": "NO_ENABLED_P1_OBLIGATION",
+        "obligation": null,
+        "obligations": null,
+        "forcedColumn": null,
+        "adversarialReply": null,
+        "replyCell": null,
+        "escapeAction": null,
+        "escapeReason": null,
+        "child": null
+      },
+      "resourceFailure": null,
+      "stats": {
+        "nodes": 1,
+        "maxDepth": 0,
+        "multiDefects": 0,
+        "forcedNodes": 0,
+        "terminalWitnesses": 0,
+        "childLossWitnesses": 0,
+        "zeroObligationNodes": 1
+      }
+    },
+    {
+      "exactQClass": "b4d5f90ecb54237a",
+      "rank": 32,
+      "support": [
+        5,
+        6,
+        3,
+        6,
+        5,
+        6,
+        1
+      ],
+      "occurrenceCount": 1,
+      "occurrences": [
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:F->A",
+          "sourceLeafQClass": "7c5e1cc7846c6b26",
+          "sourceLeafSequence": "444441566666232222425511575361",
+          "rootMove": 3,
+          "defenderColumn": 1,
+          "provedReplyPrefixCount": 0,
+          "sequence": "44444156666623222242551157536131",
+          "lowerQClass": "b4d5f90ecb54237a",
+          "lowerSupport": [
+            5,
+            6,
+            3,
+            6,
+            5,
+            6,
+            1
+          ]
+        }
+      ],
+      "identityChecks": [
+        {
+          "sequence": "44444156666623222242551157536131",
+          "expected": "b4d5f90ecb54237a",
+          "actual": "b4d5f90ecb54237a",
+          "pass": true
+        }
+      ],
+      "proofCompleted": true,
+      "lossCertified": false,
+      "proofKind": "FORCED_BLOCK_HAS_NO_CERTIFIED_LOSING_REPLY",
+      "rootObligations": [
+        "A6"
+      ],
+      "rootP0TerminalActions": [],
+      "compactProof": {
+        "loss": false,
+        "kind": "FORCED_BLOCK_HAS_NO_CERTIFIED_LOSING_REPLY",
+        "obligation": "A6",
+        "obligations": null,
+        "forcedColumn": "A",
+        "adversarialReply": null,
+        "replyCell": null,
+        "escapeAction": null,
+        "escapeReason": null,
+        "child": null
+      },
+      "resourceFailure": null,
+      "stats": {
+        "nodes": 5,
+        "maxDepth": 2,
+        "multiDefects": 0,
+        "forcedNodes": 2,
+        "terminalWitnesses": 0,
+        "childLossWitnesses": 0,
+        "zeroObligationNodes": 3
+      }
+    },
+    {
+      "exactQClass": "b7dad8f46e2fb27c",
+      "rank": 32,
+      "support": [
+        5,
+        6,
+        3,
+        6,
+        5,
+        6,
+        1
+      ],
+      "occurrenceCount": 1,
+      "occurrences": [
+        {
+          "sourceLeafId": "SECOND_D6_C5_CONTRACTION:G->A",
+          "sourceLeafQClass": "475b51b09cf2f66e",
+          "sourceLeafSequence": "444441566666232222425511565371",
+          "rootMove": 3,
+          "defenderColumn": 1,
+          "provedReplyPrefixCount": 0,
+          "sequence": "44444156666623222242551156537131",
+          "lowerQClass": "b7dad8f46e2fb27c",
+          "lowerSupport": [
+            5,
+            6,
+            3,
+            6,
+            5,
+            6,
+            1
+          ]
+        }
+      ],
+      "identityChecks": [
+        {
+          "sequence": "44444156666623222242551156537131",
+          "expected": "b7dad8f46e2fb27c",
+          "actual": "b7dad8f46e2fb27c",
+          "pass": true
+        }
+      ],
+      "proofCompleted": true,
+      "lossCertified": false,
+      "proofKind": "FORCED_BLOCK_HAS_NO_CERTIFIED_LOSING_REPLY",
+      "rootObligations": [
+        "A6"
+      ],
+      "rootP0TerminalActions": [],
+      "compactProof": {
+        "loss": false,
+        "kind": "FORCED_BLOCK_HAS_NO_CERTIFIED_LOSING_REPLY",
+        "obligation": "A6",
+        "obligations": null,
+        "forcedColumn": "A",
+        "adversarialReply": null,
+        "replyCell": null,
+        "escapeAction": null,
+        "escapeReason": null,
+        "child": null
+      },
+      "resourceFailure": null,
+      "stats": {
+        "nodes": 5,
+        "maxDepth": 2,
+        "multiDefects": 0,
+        "forcedNodes": 2,
+        "terminalWitnesses": 0,
+        "childLossWitnesses": 0,
+        "zeroObligationNodes": 3
+      }
+    },
+    {
+      "exactQClass": "bed156c31f338787",
+      "rank": 32,
+      "support": [
+        5,
+        6,
+        2,
+        6,
+        6,
+        6,
+        1
+      ],
+      "occurrenceCount": 2,
+      "occurrences": [
+        {
+          "sourceLeafId": "SECOND_D6_C5_CONTRACTION:E->A",
+          "sourceLeafQClass": "5d477ec65b3c48bc",
+          "sourceLeafSequence": "444441566666232222425511565351",
+          "rootMove": 7,
+          "defenderColumn": 1,
+          "provedReplyPrefixCount": 0,
+          "sequence": "44444156666623222242551156535171",
+          "lowerQClass": "bed156c31f338787",
+          "lowerSupport": [
+            5,
+            6,
+            2,
+            6,
+            6,
+            6,
+            1
+          ]
+        },
+        {
+          "sourceLeafId": "SECOND_D6_C5_CONTRACTION:G->A",
+          "sourceLeafQClass": "475b51b09cf2f66e",
+          "sourceLeafSequence": "444441566666232222425511565371",
+          "rootMove": 5,
+          "defenderColumn": 1,
+          "provedReplyPrefixCount": 0,
+          "sequence": "44444156666623222242551156537151",
+          "lowerQClass": "bed156c31f338787",
+          "lowerSupport": [
+            5,
+            6,
+            2,
+            6,
+            6,
+            6,
+            1
+          ]
+        }
+      ],
+      "identityChecks": [
+        {
+          "sequence": "44444156666623222242551156535171",
+          "expected": "bed156c31f338787",
+          "actual": "bed156c31f338787",
+          "pass": true
+        },
+        {
+          "sequence": "44444156666623222242551156537151",
+          "expected": "bed156c31f338787",
+          "actual": "bed156c31f338787",
+          "pass": true
+        }
+      ],
+      "proofCompleted": true,
+      "lossCertified": true,
+      "proofKind": "FORCED_BLOCK_THEN_CHILD_LOSS",
+      "rootObligations": [
+        "A6"
+      ],
+      "rootP0TerminalActions": [],
+      "compactProof": {
+        "loss": true,
+        "kind": "FORCED_BLOCK_THEN_CHILD_LOSS",
+        "obligation": "A6",
+        "obligations": null,
+        "forcedColumn": "A",
+        "adversarialReply": "C",
+        "replyCell": "C3",
+        "escapeAction": null,
+        "escapeReason": null,
+        "child": {
+          "loss": true,
+          "kind": "FORCED_BLOCK_THEN_P1_TERMINAL",
+          "obligation": "C4",
+          "obligations": null,
+          "forcedColumn": "C",
+          "adversarialReply": "C",
+          "replyCell": "C5",
+          "escapeAction": null,
+          "escapeReason": null,
+          "child": null
+        }
+      },
+      "resourceFailure": null,
+      "stats": {
+        "nodes": 2,
+        "maxDepth": 1,
+        "multiDefects": 0,
+        "forcedNodes": 2,
+        "terminalWitnesses": 1,
+        "childLossWitnesses": 1,
+        "zeroObligationNodes": 0
+      }
+    },
+    {
+      "exactQClass": "cd0f59f3365ac676",
+      "rank": 32,
+      "support": [
+        4,
+        6,
+        2,
+        6,
+        6,
+        5,
+        3
+      ],
+      "occurrenceCount": 2,
+      "occurrences": [
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:E->A",
+          "sourceLeafQClass": "8e5db6e2893b3eaf",
+          "sourceLeafSequence": "444441566666232222425511575351",
+          "rootMove": 7,
+          "defenderColumn": 7,
+          "provedReplyPrefixCount": 3,
+          "sequence": "44444156666623222242551157535177",
+          "lowerQClass": "cd0f59f3365ac676",
+          "lowerSupport": [
+            4,
+            6,
+            2,
+            6,
+            6,
+            5,
+            3
+          ]
+        },
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:G->G",
+          "sourceLeafQClass": "7ddbc5877da1aae5",
+          "sourceLeafSequence": "444441566666232222425511575377",
+          "rootMove": 5,
+          "defenderColumn": 1,
+          "provedReplyPrefixCount": 0,
+          "sequence": "44444156666623222242551157537751",
+          "lowerQClass": "cd0f59f3365ac676",
+          "lowerSupport": [
+            4,
+            6,
+            2,
+            6,
+            6,
+            5,
+            3
+          ]
+        }
+      ],
+      "identityChecks": [
+        {
+          "sequence": "44444156666623222242551157535177",
+          "expected": "cd0f59f3365ac676",
+          "actual": "cd0f59f3365ac676",
+          "pass": true
+        },
+        {
+          "sequence": "44444156666623222242551157537751",
+          "expected": "cd0f59f3365ac676",
+          "actual": "cd0f59f3365ac676",
+          "pass": true
+        }
+      ],
+      "proofCompleted": true,
+      "lossCertified": false,
+      "proofKind": "NO_ENABLED_P1_OBLIGATION",
+      "rootObligations": [],
+      "rootP0TerminalActions": [],
+      "compactProof": {
+        "loss": false,
+        "kind": "NO_ENABLED_P1_OBLIGATION",
+        "obligation": null,
+        "obligations": null,
+        "forcedColumn": null,
+        "adversarialReply": null,
+        "replyCell": null,
+        "escapeAction": null,
+        "escapeReason": null,
+        "child": null
+      },
+      "resourceFailure": null,
+      "stats": {
+        "nodes": 1,
+        "maxDepth": 0,
+        "multiDefects": 0,
+        "forcedNodes": 0,
+        "terminalWitnesses": 0,
+        "childLossWitnesses": 0,
+        "zeroObligationNodes": 1
+      }
+    },
+    {
+      "exactQClass": "da6dcb3938748b5e",
+      "rank": 32,
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        5,
+        5,
+        1
+      ],
+      "occurrenceCount": 2,
+      "occurrences": [
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:A->A",
+          "sourceLeafQClass": "d21a89605c399aca",
+          "sourceLeafSequence": "444441566666232222425511515311",
+          "rootMove": 7,
+          "defenderColumn": 3,
+          "provedReplyPrefixCount": 0,
+          "sequence": "44444156666623222242551151531173",
+          "lowerQClass": "da6dcb3938748b5e",
+          "lowerSupport": [
+            6,
+            6,
+            3,
+            6,
+            5,
+            5,
+            1
+          ]
+        },
+        {
+          "sourceLeafId": "SECOND_D1_C5_CONTRACTION:G->A",
+          "sourceLeafQClass": "622683928b72c4be",
+          "sourceLeafSequence": "444441566666232222425511515371",
+          "rootMove": 1,
+          "defenderColumn": 3,
+          "provedReplyPrefixCount": 0,
+          "sequence": "44444156666623222242551151537113",
+          "lowerQClass": "da6dcb3938748b5e",
+          "lowerSupport": [
+            6,
+            6,
+            3,
+            6,
+            5,
+            5,
+            1
+          ]
+        }
+      ],
+      "identityChecks": [
+        {
+          "sequence": "44444156666623222242551151531173",
+          "expected": "da6dcb3938748b5e",
+          "actual": "da6dcb3938748b5e",
+          "pass": true
+        },
+        {
+          "sequence": "44444156666623222242551151537113",
+          "expected": "da6dcb3938748b5e",
+          "actual": "da6dcb3938748b5e",
+          "pass": true
+        }
+      ],
+      "proofCompleted": true,
+      "lossCertified": true,
+      "proofKind": "FORCED_BLOCK_THEN_P1_TERMINAL",
+      "rootObligations": [
+        "C4"
+      ],
+      "rootP0TerminalActions": [],
+      "compactProof": {
+        "loss": true,
+        "kind": "FORCED_BLOCK_THEN_P1_TERMINAL",
+        "obligation": "C4",
+        "obligations": null,
+        "forcedColumn": "C",
+        "adversarialReply": "C",
+        "replyCell": "C5",
+        "escapeAction": null,
+        "escapeReason": null,
+        "child": null
+      },
+      "resourceFailure": null,
+      "stats": {
+        "nodes": 1,
+        "maxDepth": 0,
+        "multiDefects": 0,
+        "forcedNodes": 1,
+        "terminalWitnesses": 1,
+        "childLossWitnesses": 0,
+        "zeroObligationNodes": 0
+      }
+    },
+    {
+      "exactQClass": "ed6875fb8f73132a",
+      "rank": 32,
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        5,
+        5,
+        1
+      ],
+      "occurrenceCount": 1,
+      "occurrences": [
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:A->A",
+          "sourceLeafQClass": "680acc3a5e8c8bef",
+          "sourceLeafSequence": "444441566666232222425511575311",
+          "rootMove": 1,
+          "defenderColumn": 3,
+          "provedReplyPrefixCount": 0,
+          "sequence": "44444156666623222242551157531113",
+          "lowerQClass": "ed6875fb8f73132a",
+          "lowerSupport": [
+            6,
+            6,
+            3,
+            6,
+            5,
+            5,
+            1
+          ]
+        }
+      ],
+      "identityChecks": [
+        {
+          "sequence": "44444156666623222242551157531113",
+          "expected": "ed6875fb8f73132a",
+          "actual": "ed6875fb8f73132a",
+          "pass": true
+        }
+      ],
+      "proofCompleted": true,
+      "lossCertified": true,
+      "proofKind": "FORCED_BLOCK_THEN_P1_TERMINAL",
+      "rootObligations": [
+        "C4"
+      ],
+      "rootP0TerminalActions": [],
+      "compactProof": {
+        "loss": true,
+        "kind": "FORCED_BLOCK_THEN_P1_TERMINAL",
+        "obligation": "C4",
+        "obligations": null,
+        "forcedColumn": "C",
+        "adversarialReply": "C",
+        "replyCell": "C5",
+        "escapeAction": null,
+        "escapeReason": null,
+        "child": null
+      },
+      "resourceFailure": null,
+      "stats": {
+        "nodes": 1,
+        "maxDepth": 0,
+        "multiDefects": 0,
+        "forcedNodes": 1,
+        "terminalWitnesses": 1,
+        "childLossWitnesses": 0,
+        "zeroObligationNodes": 0
+      }
+    },
+    {
+      "exactQClass": "ef268e62dfaecf76",
+      "rank": 32,
+      "support": [
+        5,
+        6,
+        3,
+        6,
+        6,
+        5,
+        1
+      ],
+      "occurrenceCount": 1,
+      "occurrences": [
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:E->A",
+          "sourceLeafQClass": "8e5db6e2893b3eaf",
+          "sourceLeafSequence": "444441566666232222425511575351",
+          "rootMove": 3,
+          "defenderColumn": 1,
+          "provedReplyPrefixCount": 0,
+          "sequence": "44444156666623222242551157535131",
+          "lowerQClass": "ef268e62dfaecf76",
+          "lowerSupport": [
+            5,
+            6,
+            3,
+            6,
+            6,
+            5,
+            1
+          ]
+        }
+      ],
+      "identityChecks": [
+        {
+          "sequence": "44444156666623222242551157535131",
+          "expected": "ef268e62dfaecf76",
+          "actual": "ef268e62dfaecf76",
+          "pass": true
+        }
+      ],
+      "proofCompleted": true,
+      "lossCertified": false,
+      "proofKind": "FORCED_BLOCK_HAS_NO_CERTIFIED_LOSING_REPLY",
+      "rootObligations": [
+        "A6"
+      ],
+      "rootP0TerminalActions": [],
+      "compactProof": {
+        "loss": false,
+        "kind": "FORCED_BLOCK_HAS_NO_CERTIFIED_LOSING_REPLY",
+        "obligation": "A6",
+        "obligations": null,
+        "forcedColumn": "A",
+        "adversarialReply": null,
+        "replyCell": null,
+        "escapeAction": null,
+        "escapeReason": null,
+        "child": null
+      },
+      "resourceFailure": null,
+      "stats": {
+        "nodes": 5,
+        "maxDepth": 2,
+        "multiDefects": 0,
+        "forcedNodes": 2,
+        "terminalWitnesses": 0,
+        "childLossWitnesses": 0,
+        "zeroObligationNodes": 3
+      }
+    },
+    {
+      "exactQClass": "fdfd7a5a5bf01e97",
+      "rank": 32,
+      "support": [
+        5,
+        6,
+        2,
+        6,
+        5,
+        5,
+        3
+      ],
+      "occurrenceCount": 2,
+      "occurrences": [
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:A->A",
+          "sourceLeafQClass": "680acc3a5e8c8bef",
+          "sourceLeafSequence": "444441566666232222425511575311",
+          "rootMove": 7,
+          "defenderColumn": 7,
+          "provedReplyPrefixCount": 4,
+          "sequence": "44444156666623222242551157531177",
+          "lowerQClass": "fdfd7a5a5bf01e97",
+          "lowerSupport": [
+            5,
+            6,
+            2,
+            6,
+            5,
+            5,
+            3
+          ]
+        },
+        {
+          "sourceLeafId": "SECOND_D7_C5_CONTRACTION:G->G",
+          "sourceLeafQClass": "7ddbc5877da1aae5",
+          "sourceLeafSequence": "444441566666232222425511575377",
+          "rootMove": 1,
+          "defenderColumn": 1,
+          "provedReplyPrefixCount": 0,
+          "sequence": "44444156666623222242551157537711",
+          "lowerQClass": "fdfd7a5a5bf01e97",
+          "lowerSupport": [
+            5,
+            6,
+            2,
+            6,
+            5,
+            5,
+            3
+          ]
+        }
+      ],
+      "identityChecks": [
+        {
+          "sequence": "44444156666623222242551157531177",
+          "expected": "fdfd7a5a5bf01e97",
+          "actual": "fdfd7a5a5bf01e97",
+          "pass": true
+        },
+        {
+          "sequence": "44444156666623222242551157537711",
+          "expected": "fdfd7a5a5bf01e97",
+          "actual": "fdfd7a5a5bf01e97",
+          "pass": true
+        }
+      ],
+      "proofCompleted": true,
+      "lossCertified": false,
+      "proofKind": "NO_ENABLED_P1_OBLIGATION",
+      "rootObligations": [],
+      "rootP0TerminalActions": [],
+      "compactProof": {
+        "loss": false,
+        "kind": "NO_ENABLED_P1_OBLIGATION",
+        "obligation": null,
+        "obligations": null,
+        "forcedColumn": null,
+        "adversarialReply": null,
+        "replyCell": null,
+        "escapeAction": null,
+        "escapeReason": null,
+        "child": null
+      },
+      "resourceFailure": null,
+      "stats": {
+        "nodes": 1,
+        "maxDepth": 0,
+        "multiDefects": 0,
+        "forcedNodes": 0,
+        "terminalWitnesses": 0,
+        "childLossWitnesses": 0,
+        "zeroObligationNodes": 1
+      }
+    }
+  ],
+  "sourceLeaves": [
+    {
+      "sourceLeafId": "SECOND_D1_C5_CONTRACTION:G->A",
+      "sourceStateId": "SECOND_D1_C5_CONTRACTION",
+      "sequence": "444441566666232222425511515371",
+      "exactQClass": "622683928b72c4be",
+      "rank": 30,
+      "support": [
+        5,
+        6,
+        2,
+        6,
+        5,
+        5,
+        1
+      ],
+      "rootActions": [
+        {
+          "rootMove": 1,
+          "adversarialReply": 3,
+          "sourceFailureKind": "NO_RANK_LE3_PROOF",
+          "lowerQClass": "da6dcb3938748b5e",
+          "eliminated": true,
+          "eliminationKind": "RANK32_FORCED_OBLIGATION_LOSS",
+          "lowerLossProofKind": "FORCED_BLOCK_THEN_P1_TERMINAL"
+        },
+        {
+          "rootMove": 3,
+          "adversarialReply": 1,
+          "sourceFailureKind": "DEFENDER_TERMINAL",
+          "lowerQClass": null,
+          "eliminated": true,
+          "eliminationKind": "DEFENDER_TERMINAL",
+          "lowerLossProofKind": null
+        },
+        {
+          "rootMove": 5,
+          "adversarialReply": 1,
+          "sourceFailureKind": "DEFENDER_TERMINAL",
+          "lowerQClass": null,
+          "eliminated": true,
+          "eliminationKind": "DEFENDER_TERMINAL",
+          "lowerLossProofKind": null
+        },
+        {
+          "rootMove": 6,
+          "adversarialReply": 1,
+          "sourceFailureKind": "DEFENDER_TERMINAL",
+          "lowerQClass": null,
+          "eliminated": true,
+          "eliminationKind": "DEFENDER_TERMINAL",
+          "lowerLossProofKind": null
+        },
+        {
+          "rootMove": 7,
+          "adversarialReply": 1,
+          "sourceFailureKind": "DEFENDER_TERMINAL",
+          "lowerQClass": null,
+          "eliminated": true,
+          "eliminationKind": "DEFENDER_TERMINAL",
+          "lowerLossProofKind": null
+        }
+      ],
+      "eliminatedActionCount": 5,
+      "survivingRootMoves": [],
+      "fullyActionEliminated": true,
+      "lossCertificate": {
+        "kind": "UNIVERSAL_P0_ACTION_ADVERSARIAL_ELIMINATION",
+        "actionWitnesses": [
+          {
+            "rootMove": 1,
+            "adversarialReply": 3,
+            "eliminationKind": "RANK32_FORCED_OBLIGATION_LOSS",
+            "lowerQClass": "da6dcb3938748b5e"
+          },
+          {
+            "rootMove": 3,
+            "adversarialReply": 1,
+            "eliminationKind": "DEFENDER_TERMINAL",
+            "lowerQClass": null
+          },
+          {
+            "rootMove": 5,
+            "adversarialReply": 1,
+            "eliminationKind": "DEFENDER_TERMINAL",
+            "lowerQClass": null
+          },
+          {
+            "rootMove": 6,
+            "adversarialReply": 1,
+            "eliminationKind": "DEFENDER_TERMINAL",
+            "lowerQClass": null
+          },
+          {
+            "rootMove": 7,
+            "adversarialReply": 1,
+            "eliminationKind": "DEFENDER_TERMINAL",
+            "lowerQClass": null
+          }
+        ]
+      }
+    },
+    {
+      "sourceLeafId": "SECOND_D1_C5_CONTRACTION:A->A",
+      "sourceStateId": "SECOND_D1_C5_CONTRACTION",
+      "sequence": "444441566666232222425511515311",
+      "exactQClass": "d21a89605c399aca",
+      "rank": 30,
+      "support": [
+        6,
+        6,
+        2,
+        6,
+        5,
+        5,
+        0
+      ],
+      "rootActions": [
+        {
+          "rootMove": 3,
+          "adversarialReply": 3,
+          "sourceFailureKind": "NO_RANK_LE3_PROOF",
+          "lowerQClass": "9f6b7a33ab7e9552",
+          "eliminated": false,
+          "eliminationKind": "UNRESOLVED",
+          "lowerLossProofKind": "FORCED_BLOCK_HAS_NO_CERTIFIED_LOSING_REPLY"
+        },
+        {
+          "rootMove": 5,
+          "adversarialReply": 3,
+          "sourceFailureKind": "NO_RANK_LE3_PROOF",
+          "lowerQClass": "9d02a8478c3bc690",
+          "eliminated": true,
+          "eliminationKind": "RANK32_FORCED_OBLIGATION_LOSS",
+          "lowerLossProofKind": "FORCED_BLOCK_THEN_P1_TERMINAL"
+        },
+        {
+          "rootMove": 6,
+          "adversarialReply": 3,
+          "sourceFailureKind": "NO_RANK_LE3_PROOF",
+          "lowerQClass": "80648733b86d690c",
+          "eliminated": true,
+          "eliminationKind": "RANK32_FORCED_OBLIGATION_LOSS",
+          "lowerLossProofKind": "FORCED_BLOCK_THEN_P1_TERMINAL"
+        },
+        {
+          "rootMove": 7,
+          "adversarialReply": 3,
+          "sourceFailureKind": "NO_RANK_LE3_PROOF",
+          "lowerQClass": "da6dcb3938748b5e",
+          "eliminated": true,
+          "eliminationKind": "RANK32_FORCED_OBLIGATION_LOSS",
+          "lowerLossProofKind": "FORCED_BLOCK_THEN_P1_TERMINAL"
+        }
+      ],
+      "eliminatedActionCount": 3,
+      "survivingRootMoves": [
+        3
+      ],
+      "fullyActionEliminated": false,
+      "lossCertificate": null
+    },
+    {
+      "sourceLeafId": "SECOND_D1_C5_CONTRACTION:E->A",
+      "sourceStateId": "SECOND_D1_C5_CONTRACTION",
+      "sequence": "444441566666232222425511515351",
+      "exactQClass": "00788378b8ae8d01",
+      "rank": 30,
+      "support": [
+        5,
+        6,
+        2,
+        6,
+        6,
+        5,
+        0
+      ],
+      "rootActions": [
+        {
+          "rootMove": 1,
+          "adversarialReply": 3,
+          "sourceFailureKind": "NO_RANK_LE3_PROOF",
+          "lowerQClass": "9d02a8478c3bc690",
+          "eliminated": true,
+          "eliminationKind": "RANK32_FORCED_OBLIGATION_LOSS",
+          "lowerLossProofKind": "FORCED_BLOCK_THEN_P1_TERMINAL"
+        },
+        {
+          "rootMove": 3,
+          "adversarialReply": 1,
+          "sourceFailureKind": "DEFENDER_TERMINAL",
+          "lowerQClass": null,
+          "eliminated": true,
+          "eliminationKind": "DEFENDER_TERMINAL",
+          "lowerLossProofKind": null
+        },
+        {
+          "rootMove": 6,
+          "adversarialReply": 1,
+          "sourceFailureKind": "DEFENDER_TERMINAL",
+          "lowerQClass": null,
+          "eliminated": true,
+          "eliminationKind": "DEFENDER_TERMINAL",
+          "lowerLossProofKind": null
+        },
+        {
+          "rootMove": 7,
+          "adversarialReply": 1,
+          "sourceFailureKind": "DEFENDER_TERMINAL",
+          "lowerQClass": null,
+          "eliminated": true,
+          "eliminationKind": "DEFENDER_TERMINAL",
+          "lowerLossProofKind": null
+        }
+      ],
+      "eliminatedActionCount": 4,
+      "survivingRootMoves": [],
+      "fullyActionEliminated": true,
+      "lossCertificate": {
+        "kind": "UNIVERSAL_P0_ACTION_ADVERSARIAL_ELIMINATION",
+        "actionWitnesses": [
+          {
+            "rootMove": 1,
+            "adversarialReply": 3,
+            "eliminationKind": "RANK32_FORCED_OBLIGATION_LOSS",
+            "lowerQClass": "9d02a8478c3bc690"
+          },
+          {
+            "rootMove": 3,
+            "adversarialReply": 1,
+            "eliminationKind": "DEFENDER_TERMINAL",
+            "lowerQClass": null
+          },
+          {
+            "rootMove": 6,
+            "adversarialReply": 1,
+            "eliminationKind": "DEFENDER_TERMINAL",
+            "lowerQClass": null
+          },
+          {
+            "rootMove": 7,
+            "adversarialReply": 1,
+            "eliminationKind": "DEFENDER_TERMINAL",
+            "lowerQClass": null
+          }
+        ]
+      }
+    },
+    {
+      "sourceLeafId": "SECOND_D1_C5_CONTRACTION:F->A",
+      "sourceStateId": "SECOND_D1_C5_CONTRACTION",
+      "sequence": "444441566666232222425511515361",
+      "exactQClass": "8b007f7dfd990ea6",
+      "rank": 30,
+      "support": [
+        5,
+        6,
+        2,
+        6,
+        5,
+        6,
+        0
+      ],
+      "rootActions": [
+        {
+          "rootMove": 1,
+          "adversarialReply": 3,
+          "sourceFailureKind": "NO_RANK_LE3_PROOF",
+          "lowerQClass": "80648733b86d690c",
+          "eliminated": true,
+          "eliminationKind": "RANK32_FORCED_OBLIGATION_LOSS",
+          "lowerLossProofKind": "FORCED_BLOCK_THEN_P1_TERMINAL"
+        },
+        {
+          "rootMove": 3,
+          "adversarialReply": 1,
+          "sourceFailureKind": "DEFENDER_TERMINAL",
+          "lowerQClass": null,
+          "eliminated": true,
+          "eliminationKind": "DEFENDER_TERMINAL",
+          "lowerLossProofKind": null
+        },
+        {
+          "rootMove": 5,
+          "adversarialReply": 1,
+          "sourceFailureKind": "DEFENDER_TERMINAL",
+          "lowerQClass": null,
+          "eliminated": true,
+          "eliminationKind": "DEFENDER_TERMINAL",
+          "lowerLossProofKind": null
+        },
+        {
+          "rootMove": 7,
+          "adversarialReply": 1,
+          "sourceFailureKind": "DEFENDER_TERMINAL",
+          "lowerQClass": null,
+          "eliminated": true,
+          "eliminationKind": "DEFENDER_TERMINAL",
+          "lowerLossProofKind": null
+        }
+      ],
+      "eliminatedActionCount": 4,
+      "survivingRootMoves": [],
+      "fullyActionEliminated": true,
+      "lossCertificate": {
+        "kind": "UNIVERSAL_P0_ACTION_ADVERSARIAL_ELIMINATION",
+        "actionWitnesses": [
+          {
+            "rootMove": 1,
+            "adversarialReply": 3,
+            "eliminationKind": "RANK32_FORCED_OBLIGATION_LOSS",
+            "lowerQClass": "80648733b86d690c"
+          },
+          {
+            "rootMove": 3,
+            "adversarialReply": 1,
+            "eliminationKind": "DEFENDER_TERMINAL",
+            "lowerQClass": null
+          },
+          {
+            "rootMove": 5,
+            "adversarialReply": 1,
+            "eliminationKind": "DEFENDER_TERMINAL",
+            "lowerQClass": null
+          },
+          {
+            "rootMove": 7,
+            "adversarialReply": 1,
+            "eliminationKind": "DEFENDER_TERMINAL",
+            "lowerQClass": null
+          }
+        ]
+      }
+    },
+    {
+      "sourceLeafId": "SECOND_D6_C5_CONTRACTION:G->A",
+      "sourceStateId": "SECOND_D6_C5_CONTRACTION",
+      "sequence": "444441566666232222425511565371",
+      "exactQClass": "475b51b09cf2f66e",
+      "rank": 30,
+      "support": [
+        4,
+        6,
+        2,
+        6,
+        5,
+        6,
+        1
+      ],
+      "rootActions": [
+        {
+          "rootMove": 1,
+          "adversarialReply": 1,
+          "sourceFailureKind": "NO_RANK_LE3_PROOF",
+          "lowerQClass": "78fd9addd9e5189e",
+          "eliminated": false,
+          "eliminationKind": "UNRESOLVED",
+          "lowerLossProofKind": "NO_ENABLED_P1_OBLIGATION"
+        },
+        {
+          "rootMove": 3,
+          "adversarialReply": 1,
+          "sourceFailureKind": "NO_RANK_LE3_PROOF",
+          "lowerQClass": "b7dad8f46e2fb27c",
+          "eliminated": false,
+          "eliminationKind": "UNRESOLVED",
+          "lowerLossProofKind": "FORCED_BLOCK_HAS_NO_CERTIFIED_LOSING_REPLY"
+        },
+        {
+          "rootMove": 5,
+          "adversarialReply": 1,
+          "sourceFailureKind": "NO_RANK_LE3_PROOF",
+          "lowerQClass": "bed156c31f338787",
+          "eliminated": true,
+          "eliminationKind": "RANK32_FORCED_OBLIGATION_LOSS",
+          "lowerLossProofKind": "FORCED_BLOCK_THEN_CHILD_LOSS"
+        },
+        {
+          "rootMove": 7,
+          "adversarialReply": 7,
+          "sourceFailureKind": "NO_RANK_LE3_PROOF",
+          "lowerQClass": "35bf0a393f52a2e4",
+          "eliminated": false,
+          "eliminationKind": "UNRESOLVED",
+          "lowerLossProofKind": "NO_ENABLED_P1_OBLIGATION"
+        }
+      ],
+      "eliminatedActionCount": 1,
+      "survivingRootMoves": [
+        1,
+        3,
+        7
+      ],
+      "fullyActionEliminated": false,
+      "lossCertificate": null
+    },
+    {
+      "sourceLeafId": "SECOND_D6_C5_CONTRACTION:A->A",
+      "sourceStateId": "SECOND_D6_C5_CONTRACTION",
+      "sequence": "444441566666232222425511565311",
+      "exactQClass": "9486272f55996c92",
+      "rank": 30,
+      "support": [
+        5,
+        6,
+        2,
+        6,
+        5,
+        6,
+        0
+      ],
+      "rootActions": [
+        {
+          "rootMove": 1,
+          "adversarialReply": 3,
+          "sourceFailureKind": "NO_RANK_LE3_PROOF",
+          "lowerQClass": "168b04d4c4326beb",
+          "eliminated": true,
+          "eliminationKind": "RANK32_FORCED_OBLIGATION_LOSS",
+          "lowerLossProofKind": "FORCED_BLOCK_THEN_P1_TERMINAL"
+        },
+        {
+          "rootMove": 3,
+          "adversarialReply": 1,
+          "sourceFailureKind": "NO_RANK_LE3_PROOF",
+          "lowerQClass": "9326596be55ae15a",
+          "eliminated": false,
+          "eliminationKind": "UNRESOLVED",
+          "lowerLossProofKind": "NO_ENABLED_P1_OBLIGATION"
+        },
+        {
+          "rootMove": 5,
+          "adversarialReply": 1,
+          "sourceFailureKind": "NO_RANK_LE3_PROOF",
+          "lowerQClass": "3afa4918e827e799",
+          "eliminated": false,
+          "eliminationKind": "UNRESOLVED",
+          "lowerLossProofKind": "NO_ENABLED_P1_OBLIGATION"
+        },
+        {
+          "rootMove": 7,
+          "adversarialReply": 1,
+          "sourceFailureKind": "NO_RANK_LE3_PROOF",
+          "lowerQClass": "78fd9addd9e5189e",
+          "eliminated": false,
+          "eliminationKind": "UNRESOLVED",
+          "lowerLossProofKind": "NO_ENABLED_P1_OBLIGATION"
+        }
+      ],
+      "eliminatedActionCount": 1,
+      "survivingRootMoves": [
+        3,
+        5,
+        7
+      ],
+      "fullyActionEliminated": false,
+      "lossCertificate": null
+    },
+    {
+      "sourceLeafId": "SECOND_D6_C5_CONTRACTION:E->A",
+      "sourceStateId": "SECOND_D6_C5_CONTRACTION",
+      "sequence": "444441566666232222425511565351",
+      "exactQClass": "5d477ec65b3c48bc",
+      "rank": 30,
+      "support": [
+        4,
+        6,
+        2,
+        6,
+        6,
+        6,
+        0
+      ],
+      "rootActions": [
+        {
+          "rootMove": 1,
+          "adversarialReply": 1,
+          "sourceFailureKind": "NO_RANK_LE3_PROOF",
+          "lowerQClass": "3afa4918e827e799",
+          "eliminated": false,
+          "eliminationKind": "UNRESOLVED",
+          "lowerLossProofKind": "NO_ENABLED_P1_OBLIGATION"
+        },
+        {
+          "rootMove": 3,
+          "adversarialReply": 1,
+          "sourceFailureKind": "NO_RANK_LE3_PROOF",
+          "lowerQClass": "80082e9945d4c152",
+          "eliminated": false,
+          "eliminationKind": "UNRESOLVED",
+          "lowerLossProofKind": "FORCED_BLOCK_HAS_NO_CERTIFIED_LOSING_REPLY"
+        },
+        {
+          "rootMove": 7,
+          "adversarialReply": 1,
+          "sourceFailureKind": "NO_RANK_LE3_PROOF",
+          "lowerQClass": "bed156c31f338787",
+          "eliminated": true,
+          "eliminationKind": "RANK32_FORCED_OBLIGATION_LOSS",
+          "lowerLossProofKind": "FORCED_BLOCK_THEN_CHILD_LOSS"
+        }
+      ],
+      "eliminatedActionCount": 1,
+      "survivingRootMoves": [
+        1,
+        3
+      ],
+      "fullyActionEliminated": false,
+      "lossCertificate": null
+    },
+    {
+      "sourceLeafId": "SECOND_D7_C5_CONTRACTION:G->G",
+      "sourceStateId": "SECOND_D7_C5_CONTRACTION",
+      "sequence": "444441566666232222425511575377",
+      "exactQClass": "7ddbc5877da1aae5",
+      "rank": 30,
+      "support": [
+        3,
+        6,
+        2,
+        6,
+        5,
+        5,
+        3
+      ],
+      "rootActions": [
+        {
+          "rootMove": 1,
+          "adversarialReply": 1,
+          "sourceFailureKind": "NO_RANK_LE3_PROOF",
+          "lowerQClass": "fdfd7a5a5bf01e97",
+          "eliminated": false,
+          "eliminationKind": "UNRESOLVED",
+          "lowerLossProofKind": "NO_ENABLED_P1_OBLIGATION"
+        },
+        {
+          "rootMove": 3,
+          "adversarialReply": 1,
+          "sourceFailureKind": "NO_RANK_LE3_PROOF",
+          "lowerQClass": "9a71b75a79d0a672",
+          "eliminated": false,
+          "eliminationKind": "UNRESOLVED",
+          "lowerLossProofKind": "NO_ENABLED_P1_OBLIGATION"
+        },
+        {
+          "rootMove": 5,
+          "adversarialReply": 1,
+          "sourceFailureKind": "NO_RANK_LE3_PROOF",
+          "lowerQClass": "cd0f59f3365ac676",
+          "eliminated": false,
+          "eliminationKind": "UNRESOLVED",
+          "lowerLossProofKind": "NO_ENABLED_P1_OBLIGATION"
+        },
+        {
+          "rootMove": 6,
+          "adversarialReply": 1,
+          "sourceFailureKind": "NO_RANK_LE3_PROOF",
+          "lowerQClass": "0801daebe787d3cd",
+          "eliminated": false,
+          "eliminationKind": "UNRESOLVED",
+          "lowerLossProofKind": "NO_ENABLED_P1_OBLIGATION"
+        },
+        {
+          "rootMove": 7,
+          "adversarialReply": 1,
+          "sourceFailureKind": "NO_RANK_LE3_PROOF",
+          "lowerQClass": "a09cc4edc3e9b1e5",
+          "eliminated": false,
+          "eliminationKind": "UNRESOLVED",
+          "lowerLossProofKind": "NO_ENABLED_P1_OBLIGATION"
+        }
+      ],
+      "eliminatedActionCount": 0,
+      "survivingRootMoves": [
+        1,
+        3,
+        5,
+        6,
+        7
+      ],
+      "fullyActionEliminated": false,
+      "lossCertificate": null
+    },
+    {
+      "sourceLeafId": "SECOND_D7_C5_CONTRACTION:A->A",
+      "sourceStateId": "SECOND_D7_C5_CONTRACTION",
+      "sequence": "444441566666232222425511575311",
+      "exactQClass": "680acc3a5e8c8bef",
+      "rank": 30,
+      "support": [
+        5,
+        6,
+        2,
+        6,
+        5,
+        5,
+        1
+      ],
+      "rootActions": [
+        {
+          "rootMove": 1,
+          "adversarialReply": 3,
+          "sourceFailureKind": "NO_RANK_LE3_PROOF",
+          "lowerQClass": "ed6875fb8f73132a",
+          "eliminated": true,
+          "eliminationKind": "RANK32_FORCED_OBLIGATION_LOSS",
+          "lowerLossProofKind": "FORCED_BLOCK_THEN_P1_TERMINAL"
+        },
+        {
+          "rootMove": 3,
+          "adversarialReply": 1,
+          "sourceFailureKind": "NO_RANK_LE3_PROOF",
+          "lowerQClass": "966e6353e06e4d41",
+          "eliminated": false,
+          "eliminationKind": "UNRESOLVED",
+          "lowerLossProofKind": "NO_ENABLED_P1_OBLIGATION"
+        },
+        {
+          "rootMove": 5,
+          "adversarialReply": 1,
+          "sourceFailureKind": "NO_RANK_LE3_PROOF",
+          "lowerQClass": "2ecda5a87ae9cbdc",
+          "eliminated": false,
+          "eliminationKind": "UNRESOLVED",
+          "lowerLossProofKind": "NO_ENABLED_P1_OBLIGATION"
+        },
+        {
+          "rootMove": 6,
+          "adversarialReply": 1,
+          "sourceFailureKind": "NO_RANK_LE3_PROOF",
+          "lowerQClass": "3ec23db76d062e04",
+          "eliminated": false,
+          "eliminationKind": "UNRESOLVED",
+          "lowerLossProofKind": "NO_ENABLED_P1_OBLIGATION"
+        },
+        {
+          "rootMove": 7,
+          "adversarialReply": 7,
+          "sourceFailureKind": "NO_RANK_LE3_PROOF",
+          "lowerQClass": "fdfd7a5a5bf01e97",
+          "eliminated": false,
+          "eliminationKind": "UNRESOLVED",
+          "lowerLossProofKind": "NO_ENABLED_P1_OBLIGATION"
+        }
+      ],
+      "eliminatedActionCount": 1,
+      "survivingRootMoves": [
+        3,
+        5,
+        6,
+        7
+      ],
+      "fullyActionEliminated": false,
+      "lossCertificate": null
+    },
+    {
+      "sourceLeafId": "SECOND_D7_C5_CONTRACTION:E->A",
+      "sourceStateId": "SECOND_D7_C5_CONTRACTION",
+      "sequence": "444441566666232222425511575351",
+      "exactQClass": "8e5db6e2893b3eaf",
+      "rank": 30,
+      "support": [
+        4,
+        6,
+        2,
+        6,
+        6,
+        5,
+        1
+      ],
+      "rootActions": [
+        {
+          "rootMove": 1,
+          "adversarialReply": 1,
+          "sourceFailureKind": "NO_RANK_LE3_PROOF",
+          "lowerQClass": "2ecda5a87ae9cbdc",
+          "eliminated": false,
+          "eliminationKind": "UNRESOLVED",
+          "lowerLossProofKind": "NO_ENABLED_P1_OBLIGATION"
+        },
+        {
+          "rootMove": 3,
+          "adversarialReply": 1,
+          "sourceFailureKind": "NO_RANK_LE3_PROOF",
+          "lowerQClass": "ef268e62dfaecf76",
+          "eliminated": false,
+          "eliminationKind": "UNRESOLVED",
+          "lowerLossProofKind": "FORCED_BLOCK_HAS_NO_CERTIFIED_LOSING_REPLY"
+        },
+        {
+          "rootMove": 6,
+          "adversarialReply": 1,
+          "sourceFailureKind": "NO_RANK_LE3_PROOF",
+          "lowerQClass": "2f88de106c7c402b",
+          "eliminated": true,
+          "eliminationKind": "RANK32_FORCED_OBLIGATION_LOSS",
+          "lowerLossProofKind": "FORCED_BLOCK_THEN_CHILD_LOSS"
+        },
+        {
+          "rootMove": 7,
+          "adversarialReply": 7,
+          "sourceFailureKind": "NO_RANK_LE3_PROOF",
+          "lowerQClass": "cd0f59f3365ac676",
+          "eliminated": false,
+          "eliminationKind": "UNRESOLVED",
+          "lowerLossProofKind": "NO_ENABLED_P1_OBLIGATION"
+        }
+      ],
+      "eliminatedActionCount": 1,
+      "survivingRootMoves": [
+        1,
+        3,
+        7
+      ],
+      "fullyActionEliminated": false,
+      "lossCertificate": null
+    },
+    {
+      "sourceLeafId": "SECOND_D7_C5_CONTRACTION:F->A",
+      "sourceStateId": "SECOND_D7_C5_CONTRACTION",
+      "sequence": "444441566666232222425511575361",
+      "exactQClass": "7c5e1cc7846c6b26",
+      "rank": 30,
+      "support": [
+        4,
+        6,
+        2,
+        6,
+        5,
+        6,
+        1
+      ],
+      "rootActions": [
+        {
+          "rootMove": 1,
+          "adversarialReply": 1,
+          "sourceFailureKind": "NO_RANK_LE3_PROOF",
+          "lowerQClass": "3ec23db76d062e04",
+          "eliminated": false,
+          "eliminationKind": "UNRESOLVED",
+          "lowerLossProofKind": "NO_ENABLED_P1_OBLIGATION"
+        },
+        {
+          "rootMove": 3,
+          "adversarialReply": 1,
+          "sourceFailureKind": "NO_RANK_LE3_PROOF",
+          "lowerQClass": "b4d5f90ecb54237a",
+          "eliminated": false,
+          "eliminationKind": "UNRESOLVED",
+          "lowerLossProofKind": "FORCED_BLOCK_HAS_NO_CERTIFIED_LOSING_REPLY"
+        },
+        {
+          "rootMove": 5,
+          "adversarialReply": 1,
+          "sourceFailureKind": "NO_RANK_LE3_PROOF",
+          "lowerQClass": "2f88de106c7c402b",
+          "eliminated": true,
+          "eliminationKind": "RANK32_FORCED_OBLIGATION_LOSS",
+          "lowerLossProofKind": "FORCED_BLOCK_THEN_CHILD_LOSS"
+        },
+        {
+          "rootMove": 7,
+          "adversarialReply": 7,
+          "sourceFailureKind": "NO_RANK_LE3_PROOF",
+          "lowerQClass": "0801daebe787d3cd",
+          "eliminated": false,
+          "eliminationKind": "UNRESOLVED",
+          "lowerLossProofKind": "NO_ENABLED_P1_OBLIGATION"
+        }
+      ],
+      "eliminatedActionCount": 1,
+      "survivingRootMoves": [
+        1,
+        3,
+        7
+      ],
+      "fullyActionEliminated": false,
+      "lossCertificate": null
+    }
+  ],
+  "summary": {
+    "rank32ClassCount": 24,
+    "rank32LossCertifiedCount": 7,
+    "rank32LossCertifiedQClasses": [
+      "168b04d4c4326beb",
+      "2f88de106c7c402b",
+      "80648733b86d690c",
+      "9d02a8478c3bc690",
+      "bed156c31f338787",
+      "da6dcb3938748b5e",
+      "ed6875fb8f73132a"
+    ],
+    "rank32UnknownCount": 17,
+    "rank30LeafCount": 11,
+    "rank30LossCertifiedCount": 3,
+    "rank30LossCertifiedLeafIds": [
+      "SECOND_D1_C5_CONTRACTION:G->A",
+      "SECOND_D1_C5_CONTRACTION:E->A",
+      "SECOND_D1_C5_CONTRACTION:F->A"
+    ],
+    "rank30LeavesWithNewlyEliminatedActions": [
+      "SECOND_D1_C5_CONTRACTION:G->A",
+      "SECOND_D1_C5_CONTRACTION:A->A",
+      "SECOND_D1_C5_CONTRACTION:E->A",
+      "SECOND_D1_C5_CONTRACTION:F->A",
+      "SECOND_D6_C5_CONTRACTION:G->A",
+      "SECOND_D6_C5_CONTRACTION:A->A",
+      "SECOND_D6_C5_CONTRACTION:E->A",
+      "SECOND_D7_C5_CONTRACTION:A->A",
+      "SECOND_D7_C5_CONTRACTION:E->A",
+      "SECOND_D7_C5_CONTRACTION:F->A"
+    ],
+    "resourceFailureCount": 0
+  },
+  "conclusion": [
+    "The 24 exact rank-32 consequence classes are tested with the already-qualified forced-obligation loss architecture; unknown states are never promoted to losses.",
+    "At least one rank-32 consequence class receives an exact forced-obligation P0-loss certificate, so every incoming rank-30 action with that adversarial reply is soundly eliminated.",
+    "At least one rank-30 first-failure leaf has every legal P0 action adversarially eliminated and therefore receives an exact P0-loss certificate.",
+    "Resource failures, if any, remain unknown rather than theorem rejections."
+  ],
+  "boundary": [
+    "Unknown is never treated as loss.",
+    "This is loss-only structural proof evidence and does not assert that the enclosing rank-28 or rank-20 state is P0-winning.",
+    "No oracle, solved W/D/L, minimax, unrestricted value search, best-move table, opening book, BSFP solved frontier, physical-position identity shortcut, or sealed holdout is used.",
+    "Production CPC, JSMinSys, target-reservoir semantics, and BSFP remain unchanged."
+  ]
+}
