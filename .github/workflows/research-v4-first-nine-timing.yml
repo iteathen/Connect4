@@ -10,7 +10,7 @@ on:
       - research/isograph/discovery/2026-09-30-universal-structural-policy/universal-structural-policy-v4.mjs
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   benchmark:
@@ -35,10 +35,12 @@ jobs:
           C4_BENCH_WARMUP: '200'
         run: |
           set -euo pipefail
-          node research/isograph/discovery/2026-09-30-universal-structural-policy/benchmark-universal-structural-policy-v4-first-nine.mjs > benchmark-v4-first-nine.raw.json
-          node - <<'NODE'
+          OUT=research/isograph/discovery/2026-09-30-universal-structural-policy/V4_FIRST_NINE_TIMING_BASELINE_0_1.json
+          node research/isograph/discovery/2026-09-30-universal-structural-policy/benchmark-universal-structural-policy-v4-first-nine.mjs > "$OUT"
+          node - "$OUT" <<'NODE'
           const fs = require('fs');
-          const r = JSON.parse(fs.readFileSync('benchmark-v4-first-nine.raw.json', 'utf8'));
+          const path = process.argv[2];
+          const r = JSON.parse(fs.readFileSync(path, 'utf8'));
           console.log('SEQUENCE=' + r.subject.diagnostic.sequence);
           console.log('REPETITIONS=' + r.configuration.repetitions);
           console.log('WARMUP=' + r.configuration.warmupRepetitions);
@@ -53,10 +55,61 @@ jobs:
           }
           NODE
 
-      - name: Emit machine-readable evidence to log
+      - name: Write concise interpretation
         shell: bash
         run: |
           set -euo pipefail
-          echo 'BENCHMARK_JSON_BEGIN'
-          cat benchmark-v4-first-nine.raw.json
-          echo 'BENCHMARK_JSON_END'
+          JSON=research/isograph/discovery/2026-09-30-universal-structural-policy/V4_FIRST_NINE_TIMING_BASELINE_0_1.json
+          MD=research/isograph/discovery/2026-09-30-universal-structural-policy/V4_FIRST_NINE_TIMING_BASELINE_0_1.md
+          node - "$JSON" "$MD" <<'NODE'
+          const fs = require('fs');
+          const [jsonPath, mdPath] = process.argv.slice(2);
+          const r = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
+          const t = r.summary.totalFirstNine;
+          const lines = [
+            '# v4 first-nine timing baseline',
+            '',
+            '**Status:** computational-cost baseline only; this does not promote v4 to a sound universal proof.',
+            '',
+            `Trajectory: \`${r.subject.diagnostic.sequence}\``,
+            '',
+            `Measured repetitions: ${r.configuration.repetitions}; warmup repetitions: ${r.configuration.warmupRepetitions}.`,
+            '',
+            '## Primary hot total',
+            '',
+            `- minimum: ${t.minMs.toFixed(6)} ms`,
+            `- median: ${t.medianMs.toFixed(6)} ms`,
+            `- p95: ${t.p95Ms.toFixed(6)} ms`,
+            '',
+            'The primary interval begins with the empty rank-local state ready and includes structural selection, deterministic minimum representative selection, and application through ply 9. It excludes process startup, checkout, source I/O, module initialization, oracle/book work, JSON/logging, Actions setup, and build time.',
+            '',
+            '## Per-ply calculation time',
+            '',
+            '| ply | representative | selected set | min ms | median ms | p95 ms |',
+            '|---:|---:|:---|---:|---:|---:|',
+            ...r.summary.perPly.map(p => `| ${p.ply} | ${p.representative} | ${p.selectedSet.join(',')} | ${p.minMs.toFixed(6)} | ${p.medianMs.toFixed(6)} | ${p.p95Ms.toFixed(6)} |`),
+            '',
+            '## Environment',
+            '',
+            `- Node: ${r.environment.node}`,
+            `- V8: ${r.environment.v8}`,
+            `- CPU: ${r.environment.cpuModel}`,
+            `- OS: ${r.environment.osType} ${r.environment.osRelease}`,
+            `- runner: ${r.environment.runnerOS || 'unknown'} / ${r.environment.runnerArch || 'unknown'}`,
+            `- benchmark commit: ${r.environment.githubSha || 'unknown'}`,
+            '',
+            'Raw distributions and excluded initialization measurements are preserved in the sibling JSON file.',
+            ''
+          ];
+          fs.writeFileSync(mdPath, lines.join('\n'));
+          NODE
+
+      - name: Commit durable benchmark evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add             research/isograph/discovery/2026-09-30-universal-structural-policy/V4_FIRST_NINE_TIMING_BASELINE_0_1.json             research/isograph/discovery/2026-09-30-universal-structural-policy/V4_FIRST_NINE_TIMING_BASELINE_0_1.md
+          git commit -m "research: preserve v4 first-nine timing evidence"
+          git push origin HEAD:research/universal-structural-policy-20260930
