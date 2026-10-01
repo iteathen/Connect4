@@ -431,7 +431,7 @@ console.log(JSON.stringify({
     responseOptionMemoSize:responseOptionMemo.size,cofactorMemoSize:cofactorMemo.size
   },
   boundary:[
-    'This is a structural transfer diagnostic over exact commutation-matched children and the unmatched same-column family; MATCHED_FRONTIER_NOWIN remains theorem-discovery only.'
+    'This is a structural transfer diagnostic over exact commutation-matched children and the unmatched same-column family; MATCHED_FRONTIER_NOWIN remains theorem-discovery only.',
     'Each observed attacker trigger may select its own complete synchronized-response template; the exact mate is then transported by CPC/RBA cofactor.',
     'Failure of S_D is not an attacker forced-completion certificate.',
     'The spectrum composes trigger-adaptive renewal with exact typed residual coverage by vertical responses plus a fixed frontier perfect matching. Positive matched-base findings require fresh qualification before promotion.'
