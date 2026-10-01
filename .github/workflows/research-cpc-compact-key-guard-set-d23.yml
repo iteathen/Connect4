@@ -1,0 +1,83 @@
+name: Research CPC compact-key guard-set D23
+
+on:
+  push:
+    branches:
+      - research/universal-structural-policy-20260930
+    paths:
+      - .github/workflows/research-cpc-compact-key-guard-set-d23.yml
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/run-cpc-current-state-guard-set-compact-key-target.mjs
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_CURRENT_STATE_GUARD_SET_RECONSTRUCTION_THEOREM.md
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Check out exact pushed revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+      - name: Pin Node runtime
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Fetch pinned JSMinSys authority
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone https://github.com/iteathen/JSMinSys.git jsminsys
+          git -C jsminsys checkout 0899c5811918e68c22dc1b0e4dd8af97d9b4bbcb
+      - name: Validate compact key at established D15
+        shell: bash
+        env:
+          NODE_OPTIONS: --max-old-space-size=4096
+        run: |
+          set -euo pipefail
+          DIR=research/isograph/discovery/2026-09-30-universal-structural-policy
+          OUT="$DIR/CPC_COMPACT_KEY_GUARD_SET_D15_0_1.json"
+          node "$DIR/run-cpc-current-state-guard-set-compact-key-target.mjs" ./jsminsys 15 > "$OUT"
+          node - "$OUT" <<'NODE'
+          const fs=require('fs');
+          const r=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
+          if(!r.result.accept || r.result.class!=='GUARDSET_D15') process.exit(1);
+          console.log('COMPACT_D15='+JSON.stringify({accept:r.result.accept,class:r.result.class,work:r.work}));
+          NODE
+      - name: Test compact key at D23
+        shell: bash
+        env:
+          NODE_OPTIONS: --max-old-space-size=6144
+        run: |
+          set -euo pipefail
+          DIR=research/isograph/discovery/2026-09-30-universal-structural-policy
+          OUT="$DIR/CPC_COMPACT_KEY_GUARD_SET_D23_0_1.json"
+          timeout 780 node "$DIR/run-cpc-current-state-guard-set-compact-key-target.mjs" ./jsminsys 23 > "$OUT"
+          node - "$OUT" <<'NODE'
+          const fs=require('fs');
+          const r=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
+          console.log('COMPACT_D23='+JSON.stringify({
+            accept:r.result.accept,class:r.result.class,
+            failed:r.result.failedTrigger??null,absolutePly:r.absolutePly,work:r.work
+          }));
+          NODE
+      - name: Commit durable compact-key evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          BRANCH=research/universal-structural-policy-20260930
+          DIR=research/isograph/discovery/2026-09-30-universal-structural-policy
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$DIR/CPC_COMPACT_KEY_GUARD_SET_D15_0_1.json" "$DIR/CPC_COMPACT_KEY_GUARD_SET_D23_0_1.json"
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "research: verify compact-key guard-set D23"
+          for attempt in 1 2 3; do
+            git fetch origin "$BRANCH"
+            git rebase --autostash "origin/$BRANCH"
+            if git push origin HEAD:"$BRANCH"; then exit 0; fi
+            sleep 1
+          done
+          exit 1
