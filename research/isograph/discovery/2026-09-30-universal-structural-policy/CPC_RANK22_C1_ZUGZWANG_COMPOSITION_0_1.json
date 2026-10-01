@@ -1,0 +1,2068 @@
+{
+  "schema": "connect4.cpc_rank22_c1_zugzwang_composition.v1",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "theoremCandidate": "CPC_RANK22_C1_ZUGZWANG_COMPOSITION_THEOREM.md",
+  "parent": {
+    "sequence": "4444415666662322224233",
+    "rank": 22,
+    "mover": 1,
+    "support": [
+      1,
+      6,
+      3,
+      6,
+      1,
+      5,
+      0
+    ]
+  },
+  "moveCertificate": {
+    "player": 1,
+    "column": 1,
+    "legalDefenderReplies": [
+      1,
+      3,
+      5,
+      6,
+      7
+    ],
+    "rows": [
+      {
+        "defenderReplyColumn": 1,
+        "replyTerminal": 0,
+        "support": [
+          3,
+          6,
+          3,
+          6,
+          1,
+          5,
+          0
+        ],
+        "kind": "qualified-rank24-premise",
+        "rank24SupportMatches": true,
+        "accept": true
+      },
+      {
+        "defenderReplyColumn": 3,
+        "replyTerminal": 0,
+        "support": [
+          2,
+          6,
+          4,
+          6,
+          1,
+          5,
+          0
+        ],
+        "kind": "height1-compression",
+        "compression": {
+          "mode": "height1",
+          "firstSupport": [
+            2,
+            6,
+            4,
+            6,
+            2,
+            5,
+            0
+          ],
+          "branches": [
+            {
+              "replyColumn": 1,
+              "replyTerminal": 0,
+              "kind": "off-column-compression",
+              "secondC5Terminal": 0,
+              "nativeCpc": {
+                "baseline": {
+                  "kind": "CPC_RESTRICT",
+                  "interval": [
+                    -1,
+                    1
+                  ],
+                  "forcedColumn": 5,
+                  "preemptionCount": 1,
+                  "preemptionMask32": 16
+                },
+                "frontier": {
+                  "kind": "CPC_RESTRICT",
+                  "interval": [
+                    -1,
+                    1
+                  ],
+                  "forcedColumn": 5,
+                  "preemptionCount": 1,
+                  "preemptionMask32": 16
+                }
+              },
+              "literal": {
+                "rows": [
+                  {
+                    "replyColumn": 1,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 3,
+                    "avoidsImmediateP1C5Win": false
+                  },
+                  {
+                    "replyColumn": 3,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 3,
+                    "avoidsImmediateP1C5Win": false
+                  },
+                  {
+                    "replyColumn": 5,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 0,
+                    "avoidsImmediateP1C5Win": true
+                  },
+                  {
+                    "replyColumn": 6,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 3,
+                    "avoidsImmediateP1C5Win": false
+                  },
+                  {
+                    "replyColumn": 7,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 3,
+                    "avoidsImmediateP1C5Win": false
+                  }
+                ],
+                "avoidingMask": 16,
+                "avoidingColumns": [
+                  5
+                ],
+                "onlyC5": true
+              },
+              "cpcForced": true,
+              "forcedReplyTerminal": 0,
+              "pairBeforeConsume": true,
+              "consumeTerminal": 0,
+              "consumeSupport": [
+                3,
+                6,
+                4,
+                6,
+                5,
+                5,
+                0
+              ],
+              "singletonAfterConsume": true,
+              "targetTemplate": {
+                "capacity": [
+                  3,
+                  0,
+                  2,
+                  0,
+                  1,
+                  1,
+                  3
+                ],
+                "oddColumns": [
+                  1,
+                  5,
+                  6,
+                  7
+                ],
+                "synchronizedPairs": [
+                  {
+                    "columns": [
+                      1,
+                      5
+                    ],
+                    "prefixLength": 1
+                  },
+                  {
+                    "columns": [
+                      6,
+                      7
+                    ],
+                    "prefixLength": 1
+                  }
+                ],
+                "targetIsResponse": true,
+                "defenderResidualCount": 5,
+                "coverage": [
+                  {
+                    "residualId": 292,
+                    "size": 2,
+                    "witness": {
+                      "kind": "vertical-response",
+                      "cell": 37,
+                      "column": 3,
+                      "row": 6
+                    }
+                  },
+                  {
+                    "residualId": 505,
+                    "size": 3,
+                    "witness": {
+                      "kind": "vertical-response",
+                      "cell": 35,
+                      "column": 1,
+                      "row": 6
+                    }
+                  },
+                  {
+                    "residualId": 574,
+                    "size": 4,
+                    "witness": {
+                      "kind": "post-target-deferral",
+                      "cell": 27,
+                      "column": 7,
+                      "row": 4
+                    }
+                  },
+                  {
+                    "residualId": 593,
+                    "size": 4,
+                    "witness": {
+                      "kind": "post-target-deferral",
+                      "cell": 27,
+                      "column": 7,
+                      "row": 4
+                    }
+                  },
+                  {
+                    "residualId": 612,
+                    "size": 4,
+                    "witness": {
+                      "kind": "post-target-deferral",
+                      "cell": 27,
+                      "column": 7,
+                      "row": 4
+                    }
+                  }
+                ]
+              },
+              "validation": {
+                "pass": true,
+                "defenderNodes": 96,
+                "responsePairs": 187,
+                "maxPairDepth": 4,
+                "p1Terminals": 92,
+                "targetTerminals": 80,
+                "failures": []
+              },
+              "accept": true
+            },
+            {
+              "replyColumn": 3,
+              "replyTerminal": 0,
+              "kind": "off-column-compression",
+              "secondC5Terminal": 0,
+              "nativeCpc": {
+                "baseline": {
+                  "kind": "CPC_EXACT",
+                  "interval": [
+                    -1,
+                    -1
+                  ],
+                  "forcedColumn": null,
+                  "preemptionCount": 0,
+                  "preemptionMask32": 0
+                },
+                "frontier": {
+                  "kind": "CPC_EXACT",
+                  "interval": [
+                    -1,
+                    -1
+                  ],
+                  "forcedColumn": null,
+                  "preemptionCount": 0,
+                  "preemptionMask32": 0
+                }
+              },
+              "literal": {
+                "rows": [
+                  {
+                    "replyColumn": 1,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 3,
+                    "avoidsImmediateP1C5Win": false
+                  },
+                  {
+                    "replyColumn": 3,
+                    "replyTerminal": 1,
+                    "nextP1C5Terminal": null,
+                    "avoidsImmediateP1C5Win": true
+                  },
+                  {
+                    "replyColumn": 5,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 0,
+                    "avoidsImmediateP1C5Win": true
+                  },
+                  {
+                    "replyColumn": 6,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 3,
+                    "avoidsImmediateP1C5Win": false
+                  },
+                  {
+                    "replyColumn": 7,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 3,
+                    "avoidsImmediateP1C5Win": false
+                  }
+                ],
+                "avoidingMask": 20,
+                "avoidingColumns": [
+                  3,
+                  5
+                ],
+                "onlyC5": false
+              },
+              "cpcForced": false,
+              "forcedReplyTerminal": 0,
+              "pairBeforeConsume": true,
+              "consumeTerminal": 0,
+              "consumeSupport": [
+                2,
+                6,
+                5,
+                6,
+                5,
+                5,
+                0
+              ],
+              "singletonAfterConsume": true,
+              "targetTemplate": null,
+              "validation": null,
+              "accept": false
+            },
+            {
+              "replyColumn": 5,
+              "replyTerminal": 0,
+              "kind": "direct-c5-reply",
+              "nextC5Terminal": 3,
+              "accept": true
+            },
+            {
+              "replyColumn": 6,
+              "replyTerminal": 0,
+              "kind": "off-column-compression",
+              "secondC5Terminal": 0,
+              "nativeCpc": {
+                "baseline": {
+                  "kind": "CPC_RESTRICT",
+                  "interval": [
+                    -1,
+                    1
+                  ],
+                  "forcedColumn": 5,
+                  "preemptionCount": 1,
+                  "preemptionMask32": 16
+                },
+                "frontier": {
+                  "kind": "CPC_RESTRICT",
+                  "interval": [
+                    -1,
+                    1
+                  ],
+                  "forcedColumn": 5,
+                  "preemptionCount": 1,
+                  "preemptionMask32": 16
+                }
+              },
+              "literal": {
+                "rows": [
+                  {
+                    "replyColumn": 1,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 3,
+                    "avoidsImmediateP1C5Win": false
+                  },
+                  {
+                    "replyColumn": 3,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 3,
+                    "avoidsImmediateP1C5Win": false
+                  },
+                  {
+                    "replyColumn": 5,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 0,
+                    "avoidsImmediateP1C5Win": true
+                  },
+                  {
+                    "replyColumn": 7,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 3,
+                    "avoidsImmediateP1C5Win": false
+                  }
+                ],
+                "avoidingMask": 16,
+                "avoidingColumns": [
+                  5
+                ],
+                "onlyC5": true
+              },
+              "cpcForced": true,
+              "forcedReplyTerminal": 0,
+              "pairBeforeConsume": true,
+              "consumeTerminal": 0,
+              "consumeSupport": [
+                2,
+                6,
+                4,
+                6,
+                5,
+                6,
+                0
+              ],
+              "singletonAfterConsume": true,
+              "targetTemplate": {
+                "capacity": [
+                  4,
+                  0,
+                  2,
+                  0,
+                  1,
+                  0,
+                  3
+                ],
+                "oddColumns": [
+                  5,
+                  7
+                ],
+                "synchronizedPairs": [
+                  {
+                    "columns": [
+                      5,
+                      7
+                    ],
+                    "prefixLength": 1
+                  }
+                ],
+                "targetIsResponse": true,
+                "defenderResidualCount": 5,
+                "coverage": [
+                  {
+                    "residualId": 292,
+                    "size": 2,
+                    "witness": {
+                      "kind": "vertical-response",
+                      "cell": 37,
+                      "column": 3,
+                      "row": 6
+                    }
+                  },
+                  {
+                    "residualId": 574,
+                    "size": 4,
+                    "witness": {
+                      "kind": "post-target-deferral",
+                      "cell": 27,
+                      "column": 7,
+                      "row": 4
+                    }
+                  },
+                  {
+                    "residualId": 593,
+                    "size": 4,
+                    "witness": {
+                      "kind": "post-target-deferral",
+                      "cell": 27,
+                      "column": 7,
+                      "row": 4
+                    }
+                  },
+                  {
+                    "residualId": 595,
+                    "size": 4,
+                    "witness": {
+                      "kind": "vertical-response",
+                      "cell": 21,
+                      "column": 1,
+                      "row": 4
+                    }
+                  },
+                  {
+                    "residualId": 612,
+                    "size": 4,
+                    "witness": {
+                      "kind": "post-target-deferral",
+                      "cell": 27,
+                      "column": 7,
+                      "row": 4
+                    }
+                  }
+                ]
+              },
+              "validation": {
+                "pass": true,
+                "defenderNodes": 61,
+                "responsePairs": 112,
+                "maxPairDepth": 4,
+                "p1Terminals": 52,
+                "targetTerminals": 52,
+                "failures": []
+              },
+              "accept": true
+            },
+            {
+              "replyColumn": 7,
+              "replyTerminal": 0,
+              "kind": "off-column-compression",
+              "secondC5Terminal": 0,
+              "nativeCpc": {
+                "baseline": {
+                  "kind": "CPC_RESTRICT",
+                  "interval": [
+                    -1,
+                    1
+                  ],
+                  "forcedColumn": 5,
+                  "preemptionCount": 1,
+                  "preemptionMask32": 16
+                },
+                "frontier": {
+                  "kind": "CPC_RESTRICT",
+                  "interval": [
+                    -1,
+                    1
+                  ],
+                  "forcedColumn": 5,
+                  "preemptionCount": 1,
+                  "preemptionMask32": 16
+                }
+              },
+              "literal": {
+                "rows": [
+                  {
+                    "replyColumn": 1,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 3,
+                    "avoidsImmediateP1C5Win": false
+                  },
+                  {
+                    "replyColumn": 3,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 3,
+                    "avoidsImmediateP1C5Win": false
+                  },
+                  {
+                    "replyColumn": 5,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 0,
+                    "avoidsImmediateP1C5Win": true
+                  },
+                  {
+                    "replyColumn": 6,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 3,
+                    "avoidsImmediateP1C5Win": false
+                  },
+                  {
+                    "replyColumn": 7,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 3,
+                    "avoidsImmediateP1C5Win": false
+                  }
+                ],
+                "avoidingMask": 16,
+                "avoidingColumns": [
+                  5
+                ],
+                "onlyC5": true
+              },
+              "cpcForced": true,
+              "forcedReplyTerminal": 0,
+              "pairBeforeConsume": true,
+              "consumeTerminal": 0,
+              "consumeSupport": [
+                2,
+                6,
+                4,
+                6,
+                5,
+                5,
+                1
+              ],
+              "singletonAfterConsume": true,
+              "targetTemplate": {
+                "capacity": [
+                  4,
+                  0,
+                  2,
+                  0,
+                  1,
+                  1,
+                  2
+                ],
+                "oddColumns": [
+                  5,
+                  6
+                ],
+                "synchronizedPairs": [
+                  {
+                    "columns": [
+                      5,
+                      6
+                    ],
+                    "prefixLength": 1
+                  }
+                ],
+                "targetIsResponse": true,
+                "defenderResidualCount": 5,
+                "coverage": [
+                  {
+                    "residualId": 292,
+                    "size": 2,
+                    "witness": {
+                      "kind": "vertical-response",
+                      "cell": 37,
+                      "column": 3,
+                      "row": 6
+                    }
+                  },
+                  {
+                    "residualId": 438,
+                    "size": 3,
+                    "witness": {
+                      "kind": "post-target-deferral",
+                      "cell": 27,
+                      "column": 7,
+                      "row": 4
+                    }
+                  },
+                  {
+                    "residualId": 593,
+                    "size": 4,
+                    "witness": {
+                      "kind": "post-target-deferral",
+                      "cell": 27,
+                      "column": 7,
+                      "row": 4
+                    }
+                  },
+                  {
+                    "residualId": 595,
+                    "size": 4,
+                    "witness": {
+                      "kind": "vertical-response",
+                      "cell": 21,
+                      "column": 1,
+                      "row": 4
+                    }
+                  },
+                  {
+                    "residualId": 612,
+                    "size": 4,
+                    "witness": {
+                      "kind": "post-target-deferral",
+                      "cell": 27,
+                      "column": 7,
+                      "row": 4
+                    }
+                  }
+                ]
+              },
+              "validation": {
+                "pass": true,
+                "defenderNodes": 61,
+                "responsePairs": 121,
+                "maxPairDepth": 4,
+                "p1Terminals": 61,
+                "targetTerminals": 61,
+                "failures": []
+              },
+              "accept": true
+            }
+          ],
+          "accept": false
+        },
+        "accept": false
+      },
+      {
+        "defenderReplyColumn": 5,
+        "replyTerminal": 0,
+        "support": [
+          2,
+          6,
+          3,
+          6,
+          2,
+          5,
+          0
+        ],
+        "kind": "height2-short-compression",
+        "compression": {
+          "mode": "height2",
+          "firstSupport": [
+            2,
+            6,
+            3,
+            6,
+            3,
+            5,
+            0
+          ],
+          "nativeCpc": {
+            "baseline": {
+              "kind": "CPC_RESTRICT",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": 5,
+              "preemptionCount": 1,
+              "preemptionMask32": 16
+            },
+            "frontier": {
+              "kind": "CPC_RESTRICT",
+              "interval": [
+                -1,
+                1
+              ],
+              "forcedColumn": 5,
+              "preemptionCount": 1,
+              "preemptionMask32": 16
+            }
+          },
+          "literal": {
+            "rows": [
+              {
+                "replyColumn": 1,
+                "replyTerminal": 0,
+                "nextP1C5Terminal": 3,
+                "avoidsImmediateP1C5Win": false
+              },
+              {
+                "replyColumn": 3,
+                "replyTerminal": 0,
+                "nextP1C5Terminal": 3,
+                "avoidsImmediateP1C5Win": false
+              },
+              {
+                "replyColumn": 5,
+                "replyTerminal": 0,
+                "nextP1C5Terminal": 0,
+                "avoidsImmediateP1C5Win": true
+              },
+              {
+                "replyColumn": 6,
+                "replyTerminal": 0,
+                "nextP1C5Terminal": 3,
+                "avoidsImmediateP1C5Win": false
+              },
+              {
+                "replyColumn": 7,
+                "replyTerminal": 0,
+                "nextP1C5Terminal": 3,
+                "avoidsImmediateP1C5Win": false
+              }
+            ],
+            "avoidingMask": 16,
+            "avoidingColumns": [
+              5
+            ],
+            "onlyC5": true
+          },
+          "cpcForced": true,
+          "forcedReplyTerminal": 0,
+          "forcedReplySupport": [
+            2,
+            6,
+            3,
+            6,
+            4,
+            5,
+            0
+          ],
+          "pairBeforeConsume": true,
+          "consumeTerminal": 0,
+          "consumeSupport": [
+            2,
+            6,
+            3,
+            6,
+            5,
+            5,
+            0
+          ],
+          "singletonAfterConsume": true,
+          "targetTemplate": {
+            "capacity": [
+              4,
+              0,
+              3,
+              0,
+              1,
+              1,
+              3
+            ],
+            "oddColumns": [
+              3,
+              5,
+              6,
+              7
+            ],
+            "synchronizedPairs": [
+              {
+                "columns": [
+                  3,
+                  5
+                ],
+                "prefixLength": 1
+              },
+              {
+                "columns": [
+                  6,
+                  7
+                ],
+                "prefixLength": 1
+              }
+            ],
+            "targetIsResponse": true,
+            "defenderResidualCount": 5,
+            "coverage": [
+              {
+                "residualId": 515,
+                "size": 3,
+                "witness": {
+                  "kind": "vertical-response",
+                  "cell": 37,
+                  "column": 3,
+                  "row": 6
+                }
+              },
+              {
+                "residualId": 574,
+                "size": 4,
+                "witness": {
+                  "kind": "post-target-deferral",
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4
+                }
+              },
+              {
+                "residualId": 593,
+                "size": 4,
+                "witness": {
+                  "kind": "post-target-deferral",
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4
+                }
+              },
+              {
+                "residualId": 595,
+                "size": 4,
+                "witness": {
+                  "kind": "vertical-response",
+                  "cell": 21,
+                  "column": 1,
+                  "row": 4
+                }
+              },
+              {
+                "residualId": 612,
+                "size": 4,
+                "witness": {
+                  "kind": "post-target-deferral",
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4
+                }
+              }
+            ]
+          },
+          "validation": {
+            "pass": true,
+            "defenderNodes": 262,
+            "responsePairs": 518,
+            "maxPairDepth": 5,
+            "p1Terminals": 257,
+            "targetTerminals": 227,
+            "failures": []
+          },
+          "accept": true
+        },
+        "accept": true
+      },
+      {
+        "defenderReplyColumn": 6,
+        "replyTerminal": 0,
+        "support": [
+          2,
+          6,
+          3,
+          6,
+          1,
+          6,
+          0
+        ],
+        "kind": "height1-compression",
+        "compression": {
+          "mode": "height1",
+          "firstSupport": [
+            2,
+            6,
+            3,
+            6,
+            2,
+            6,
+            0
+          ],
+          "branches": [
+            {
+              "replyColumn": 1,
+              "replyTerminal": 0,
+              "kind": "off-column-compression",
+              "secondC5Terminal": 0,
+              "nativeCpc": {
+                "baseline": {
+                  "kind": "CPC_RESTRICT",
+                  "interval": [
+                    -1,
+                    1
+                  ],
+                  "forcedColumn": 5,
+                  "preemptionCount": 1,
+                  "preemptionMask32": 16
+                },
+                "frontier": {
+                  "kind": "CPC_RESTRICT",
+                  "interval": [
+                    -1,
+                    1
+                  ],
+                  "forcedColumn": 5,
+                  "preemptionCount": 1,
+                  "preemptionMask32": 16
+                }
+              },
+              "literal": {
+                "rows": [
+                  {
+                    "replyColumn": 1,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 3,
+                    "avoidsImmediateP1C5Win": false
+                  },
+                  {
+                    "replyColumn": 3,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 3,
+                    "avoidsImmediateP1C5Win": false
+                  },
+                  {
+                    "replyColumn": 5,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 0,
+                    "avoidsImmediateP1C5Win": true
+                  },
+                  {
+                    "replyColumn": 7,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 3,
+                    "avoidsImmediateP1C5Win": false
+                  }
+                ],
+                "avoidingMask": 16,
+                "avoidingColumns": [
+                  5
+                ],
+                "onlyC5": true
+              },
+              "cpcForced": true,
+              "forcedReplyTerminal": 0,
+              "pairBeforeConsume": true,
+              "consumeTerminal": 0,
+              "consumeSupport": [
+                3,
+                6,
+                3,
+                6,
+                5,
+                6,
+                0
+              ],
+              "singletonAfterConsume": true,
+              "targetTemplate": {
+                "capacity": [
+                  3,
+                  0,
+                  3,
+                  0,
+                  1,
+                  0,
+                  3
+                ],
+                "oddColumns": [
+                  1,
+                  3,
+                  5,
+                  7
+                ],
+                "synchronizedPairs": [
+                  {
+                    "columns": [
+                      1,
+                      3
+                    ],
+                    "prefixLength": 1
+                  },
+                  {
+                    "columns": [
+                      5,
+                      7
+                    ],
+                    "prefixLength": 1
+                  }
+                ],
+                "targetIsResponse": true,
+                "defenderResidualCount": 5,
+                "coverage": [
+                  {
+                    "residualId": 505,
+                    "size": 3,
+                    "witness": {
+                      "kind": "vertical-response",
+                      "cell": 35,
+                      "column": 1,
+                      "row": 6
+                    }
+                  },
+                  {
+                    "residualId": 515,
+                    "size": 3,
+                    "witness": {
+                      "kind": "vertical-response",
+                      "cell": 37,
+                      "column": 3,
+                      "row": 6
+                    }
+                  },
+                  {
+                    "residualId": 574,
+                    "size": 4,
+                    "witness": {
+                      "kind": "post-target-deferral",
+                      "cell": 27,
+                      "column": 7,
+                      "row": 4
+                    }
+                  },
+                  {
+                    "residualId": 593,
+                    "size": 4,
+                    "witness": {
+                      "kind": "post-target-deferral",
+                      "cell": 27,
+                      "column": 7,
+                      "row": 4
+                    }
+                  },
+                  {
+                    "residualId": 612,
+                    "size": 4,
+                    "witness": {
+                      "kind": "post-target-deferral",
+                      "cell": 27,
+                      "column": 7,
+                      "row": 4
+                    }
+                  }
+                ]
+              },
+              "validation": {
+                "pass": true,
+                "defenderNodes": 77,
+                "responsePairs": 142,
+                "maxPairDepth": 4,
+                "p1Terminals": 66,
+                "targetTerminals": 66,
+                "failures": []
+              },
+              "accept": true
+            },
+            {
+              "replyColumn": 3,
+              "replyTerminal": 0,
+              "kind": "off-column-compression",
+              "secondC5Terminal": 0,
+              "nativeCpc": {
+                "baseline": {
+                  "kind": "CPC_RESTRICT",
+                  "interval": [
+                    -1,
+                    1
+                  ],
+                  "forcedColumn": 5,
+                  "preemptionCount": 1,
+                  "preemptionMask32": 16
+                },
+                "frontier": {
+                  "kind": "CPC_RESTRICT",
+                  "interval": [
+                    -1,
+                    1
+                  ],
+                  "forcedColumn": 5,
+                  "preemptionCount": 1,
+                  "preemptionMask32": 16
+                }
+              },
+              "literal": {
+                "rows": [
+                  {
+                    "replyColumn": 1,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 3,
+                    "avoidsImmediateP1C5Win": false
+                  },
+                  {
+                    "replyColumn": 3,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 3,
+                    "avoidsImmediateP1C5Win": false
+                  },
+                  {
+                    "replyColumn": 5,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 0,
+                    "avoidsImmediateP1C5Win": true
+                  },
+                  {
+                    "replyColumn": 7,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 3,
+                    "avoidsImmediateP1C5Win": false
+                  }
+                ],
+                "avoidingMask": 16,
+                "avoidingColumns": [
+                  5
+                ],
+                "onlyC5": true
+              },
+              "cpcForced": true,
+              "forcedReplyTerminal": 0,
+              "pairBeforeConsume": true,
+              "consumeTerminal": 0,
+              "consumeSupport": [
+                2,
+                6,
+                4,
+                6,
+                5,
+                6,
+                0
+              ],
+              "singletonAfterConsume": true,
+              "targetTemplate": {
+                "capacity": [
+                  4,
+                  0,
+                  2,
+                  0,
+                  1,
+                  0,
+                  3
+                ],
+                "oddColumns": [
+                  5,
+                  7
+                ],
+                "synchronizedPairs": [
+                  {
+                    "columns": [
+                      5,
+                      7
+                    ],
+                    "prefixLength": 1
+                  }
+                ],
+                "targetIsResponse": true,
+                "defenderResidualCount": 5,
+                "coverage": [
+                  {
+                    "residualId": 292,
+                    "size": 2,
+                    "witness": {
+                      "kind": "vertical-response",
+                      "cell": 37,
+                      "column": 3,
+                      "row": 6
+                    }
+                  },
+                  {
+                    "residualId": 574,
+                    "size": 4,
+                    "witness": {
+                      "kind": "post-target-deferral",
+                      "cell": 27,
+                      "column": 7,
+                      "row": 4
+                    }
+                  },
+                  {
+                    "residualId": 593,
+                    "size": 4,
+                    "witness": {
+                      "kind": "post-target-deferral",
+                      "cell": 27,
+                      "column": 7,
+                      "row": 4
+                    }
+                  },
+                  {
+                    "residualId": 595,
+                    "size": 4,
+                    "witness": {
+                      "kind": "vertical-response",
+                      "cell": 21,
+                      "column": 1,
+                      "row": 4
+                    }
+                  },
+                  {
+                    "residualId": 612,
+                    "size": 4,
+                    "witness": {
+                      "kind": "post-target-deferral",
+                      "cell": 27,
+                      "column": 7,
+                      "row": 4
+                    }
+                  }
+                ]
+              },
+              "validation": {
+                "pass": true,
+                "defenderNodes": 61,
+                "responsePairs": 112,
+                "maxPairDepth": 4,
+                "p1Terminals": 52,
+                "targetTerminals": 52,
+                "failures": []
+              },
+              "accept": true
+            },
+            {
+              "replyColumn": 5,
+              "replyTerminal": 0,
+              "kind": "direct-c5-reply",
+              "nextC5Terminal": 3,
+              "accept": true
+            },
+            {
+              "replyColumn": 7,
+              "replyTerminal": 0,
+              "kind": "off-column-compression",
+              "secondC5Terminal": 0,
+              "nativeCpc": {
+                "baseline": {
+                  "kind": "CPC_RESTRICT",
+                  "interval": [
+                    -1,
+                    1
+                  ],
+                  "forcedColumn": 5,
+                  "preemptionCount": 1,
+                  "preemptionMask32": 16
+                },
+                "frontier": {
+                  "kind": "CPC_RESTRICT",
+                  "interval": [
+                    -1,
+                    1
+                  ],
+                  "forcedColumn": 5,
+                  "preemptionCount": 1,
+                  "preemptionMask32": 16
+                }
+              },
+              "literal": {
+                "rows": [
+                  {
+                    "replyColumn": 1,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 3,
+                    "avoidsImmediateP1C5Win": false
+                  },
+                  {
+                    "replyColumn": 3,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 3,
+                    "avoidsImmediateP1C5Win": false
+                  },
+                  {
+                    "replyColumn": 5,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 0,
+                    "avoidsImmediateP1C5Win": true
+                  },
+                  {
+                    "replyColumn": 7,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 3,
+                    "avoidsImmediateP1C5Win": false
+                  }
+                ],
+                "avoidingMask": 16,
+                "avoidingColumns": [
+                  5
+                ],
+                "onlyC5": true
+              },
+              "cpcForced": true,
+              "forcedReplyTerminal": 0,
+              "pairBeforeConsume": true,
+              "consumeTerminal": 0,
+              "consumeSupport": [
+                2,
+                6,
+                3,
+                6,
+                5,
+                6,
+                1
+              ],
+              "singletonAfterConsume": true,
+              "targetTemplate": {
+                "capacity": [
+                  4,
+                  0,
+                  3,
+                  0,
+                  1,
+                  0,
+                  2
+                ],
+                "oddColumns": [
+                  3,
+                  5
+                ],
+                "synchronizedPairs": [
+                  {
+                    "columns": [
+                      3,
+                      5
+                    ],
+                    "prefixLength": 1
+                  }
+                ],
+                "targetIsResponse": true,
+                "defenderResidualCount": 5,
+                "coverage": [
+                  {
+                    "residualId": 438,
+                    "size": 3,
+                    "witness": {
+                      "kind": "post-target-deferral",
+                      "cell": 27,
+                      "column": 7,
+                      "row": 4
+                    }
+                  },
+                  {
+                    "residualId": 515,
+                    "size": 3,
+                    "witness": {
+                      "kind": "vertical-response",
+                      "cell": 37,
+                      "column": 3,
+                      "row": 6
+                    }
+                  },
+                  {
+                    "residualId": 593,
+                    "size": 4,
+                    "witness": {
+                      "kind": "post-target-deferral",
+                      "cell": 27,
+                      "column": 7,
+                      "row": 4
+                    }
+                  },
+                  {
+                    "residualId": 595,
+                    "size": 4,
+                    "witness": {
+                      "kind": "vertical-response",
+                      "cell": 21,
+                      "column": 1,
+                      "row": 4
+                    }
+                  },
+                  {
+                    "residualId": 612,
+                    "size": 4,
+                    "witness": {
+                      "kind": "post-target-deferral",
+                      "cell": 27,
+                      "column": 7,
+                      "row": 4
+                    }
+                  }
+                ]
+              },
+              "validation": {
+                "pass": true,
+                "defenderNodes": 35,
+                "responsePairs": 69,
+                "maxPairDepth": 4,
+                "p1Terminals": 35,
+                "targetTerminals": 35,
+                "failures": []
+              },
+              "accept": true
+            }
+          ],
+          "accept": true
+        },
+        "accept": true
+      },
+      {
+        "defenderReplyColumn": 7,
+        "replyTerminal": 0,
+        "support": [
+          2,
+          6,
+          3,
+          6,
+          1,
+          5,
+          1
+        ],
+        "kind": "height1-compression",
+        "compression": {
+          "mode": "height1",
+          "firstSupport": [
+            2,
+            6,
+            3,
+            6,
+            2,
+            5,
+            1
+          ],
+          "branches": [
+            {
+              "replyColumn": 1,
+              "replyTerminal": 0,
+              "kind": "off-column-compression",
+              "secondC5Terminal": 0,
+              "nativeCpc": {
+                "baseline": {
+                  "kind": "CPC_RESTRICT",
+                  "interval": [
+                    -1,
+                    1
+                  ],
+                  "forcedColumn": 5,
+                  "preemptionCount": 1,
+                  "preemptionMask32": 16
+                },
+                "frontier": {
+                  "kind": "CPC_RESTRICT",
+                  "interval": [
+                    -1,
+                    1
+                  ],
+                  "forcedColumn": 5,
+                  "preemptionCount": 1,
+                  "preemptionMask32": 16
+                }
+              },
+              "literal": {
+                "rows": [
+                  {
+                    "replyColumn": 1,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 3,
+                    "avoidsImmediateP1C5Win": false
+                  },
+                  {
+                    "replyColumn": 3,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 3,
+                    "avoidsImmediateP1C5Win": false
+                  },
+                  {
+                    "replyColumn": 5,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 0,
+                    "avoidsImmediateP1C5Win": true
+                  },
+                  {
+                    "replyColumn": 6,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 3,
+                    "avoidsImmediateP1C5Win": false
+                  },
+                  {
+                    "replyColumn": 7,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 3,
+                    "avoidsImmediateP1C5Win": false
+                  }
+                ],
+                "avoidingMask": 16,
+                "avoidingColumns": [
+                  5
+                ],
+                "onlyC5": true
+              },
+              "cpcForced": true,
+              "forcedReplyTerminal": 0,
+              "pairBeforeConsume": true,
+              "consumeTerminal": 0,
+              "consumeSupport": [
+                3,
+                6,
+                3,
+                6,
+                5,
+                5,
+                1
+              ],
+              "singletonAfterConsume": true,
+              "targetTemplate": {
+                "capacity": [
+                  3,
+                  0,
+                  3,
+                  0,
+                  1,
+                  1,
+                  2
+                ],
+                "oddColumns": [
+                  1,
+                  3,
+                  5,
+                  6
+                ],
+                "synchronizedPairs": [
+                  {
+                    "columns": [
+                      1,
+                      3
+                    ],
+                    "prefixLength": 1
+                  },
+                  {
+                    "columns": [
+                      5,
+                      6
+                    ],
+                    "prefixLength": 1
+                  }
+                ],
+                "targetIsResponse": true,
+                "defenderResidualCount": 5,
+                "coverage": [
+                  {
+                    "residualId": 438,
+                    "size": 3,
+                    "witness": {
+                      "kind": "post-target-deferral",
+                      "cell": 27,
+                      "column": 7,
+                      "row": 4
+                    }
+                  },
+                  {
+                    "residualId": 505,
+                    "size": 3,
+                    "witness": {
+                      "kind": "vertical-response",
+                      "cell": 35,
+                      "column": 1,
+                      "row": 6
+                    }
+                  },
+                  {
+                    "residualId": 515,
+                    "size": 3,
+                    "witness": {
+                      "kind": "vertical-response",
+                      "cell": 37,
+                      "column": 3,
+                      "row": 6
+                    }
+                  },
+                  {
+                    "residualId": 593,
+                    "size": 4,
+                    "witness": {
+                      "kind": "post-target-deferral",
+                      "cell": 27,
+                      "column": 7,
+                      "row": 4
+                    }
+                  },
+                  {
+                    "residualId": 612,
+                    "size": 4,
+                    "witness": {
+                      "kind": "post-target-deferral",
+                      "cell": 27,
+                      "column": 7,
+                      "row": 4
+                    }
+                  }
+                ]
+              },
+              "validation": {
+                "pass": true,
+                "defenderNodes": 77,
+                "responsePairs": 153,
+                "maxPairDepth": 4,
+                "p1Terminals": 77,
+                "targetTerminals": 77,
+                "failures": []
+              },
+              "accept": true
+            },
+            {
+              "replyColumn": 3,
+              "replyTerminal": 0,
+              "kind": "off-column-compression",
+              "secondC5Terminal": 0,
+              "nativeCpc": {
+                "baseline": {
+                  "kind": "CPC_RESTRICT",
+                  "interval": [
+                    -1,
+                    1
+                  ],
+                  "forcedColumn": 5,
+                  "preemptionCount": 1,
+                  "preemptionMask32": 16
+                },
+                "frontier": {
+                  "kind": "CPC_RESTRICT",
+                  "interval": [
+                    -1,
+                    1
+                  ],
+                  "forcedColumn": 5,
+                  "preemptionCount": 1,
+                  "preemptionMask32": 16
+                }
+              },
+              "literal": {
+                "rows": [
+                  {
+                    "replyColumn": 1,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 3,
+                    "avoidsImmediateP1C5Win": false
+                  },
+                  {
+                    "replyColumn": 3,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 3,
+                    "avoidsImmediateP1C5Win": false
+                  },
+                  {
+                    "replyColumn": 5,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 0,
+                    "avoidsImmediateP1C5Win": true
+                  },
+                  {
+                    "replyColumn": 6,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 3,
+                    "avoidsImmediateP1C5Win": false
+                  },
+                  {
+                    "replyColumn": 7,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 3,
+                    "avoidsImmediateP1C5Win": false
+                  }
+                ],
+                "avoidingMask": 16,
+                "avoidingColumns": [
+                  5
+                ],
+                "onlyC5": true
+              },
+              "cpcForced": true,
+              "forcedReplyTerminal": 0,
+              "pairBeforeConsume": true,
+              "consumeTerminal": 0,
+              "consumeSupport": [
+                2,
+                6,
+                4,
+                6,
+                5,
+                5,
+                1
+              ],
+              "singletonAfterConsume": true,
+              "targetTemplate": {
+                "capacity": [
+                  4,
+                  0,
+                  2,
+                  0,
+                  1,
+                  1,
+                  2
+                ],
+                "oddColumns": [
+                  5,
+                  6
+                ],
+                "synchronizedPairs": [
+                  {
+                    "columns": [
+                      5,
+                      6
+                    ],
+                    "prefixLength": 1
+                  }
+                ],
+                "targetIsResponse": true,
+                "defenderResidualCount": 5,
+                "coverage": [
+                  {
+                    "residualId": 292,
+                    "size": 2,
+                    "witness": {
+                      "kind": "vertical-response",
+                      "cell": 37,
+                      "column": 3,
+                      "row": 6
+                    }
+                  },
+                  {
+                    "residualId": 438,
+                    "size": 3,
+                    "witness": {
+                      "kind": "post-target-deferral",
+                      "cell": 27,
+                      "column": 7,
+                      "row": 4
+                    }
+                  },
+                  {
+                    "residualId": 593,
+                    "size": 4,
+                    "witness": {
+                      "kind": "post-target-deferral",
+                      "cell": 27,
+                      "column": 7,
+                      "row": 4
+                    }
+                  },
+                  {
+                    "residualId": 595,
+                    "size": 4,
+                    "witness": {
+                      "kind": "vertical-response",
+                      "cell": 21,
+                      "column": 1,
+                      "row": 4
+                    }
+                  },
+                  {
+                    "residualId": 612,
+                    "size": 4,
+                    "witness": {
+                      "kind": "post-target-deferral",
+                      "cell": 27,
+                      "column": 7,
+                      "row": 4
+                    }
+                  }
+                ]
+              },
+              "validation": {
+                "pass": true,
+                "defenderNodes": 61,
+                "responsePairs": 121,
+                "maxPairDepth": 4,
+                "p1Terminals": 61,
+                "targetTerminals": 61,
+                "failures": []
+              },
+              "accept": true
+            },
+            {
+              "replyColumn": 5,
+              "replyTerminal": 0,
+              "kind": "direct-c5-reply",
+              "nextC5Terminal": 3,
+              "accept": true
+            },
+            {
+              "replyColumn": 6,
+              "replyTerminal": 0,
+              "kind": "off-column-compression",
+              "secondC5Terminal": 0,
+              "nativeCpc": {
+                "baseline": {
+                  "kind": "CPC_RESTRICT",
+                  "interval": [
+                    -1,
+                    1
+                  ],
+                  "forcedColumn": 5,
+                  "preemptionCount": 1,
+                  "preemptionMask32": 16
+                },
+                "frontier": {
+                  "kind": "CPC_RESTRICT",
+                  "interval": [
+                    -1,
+                    1
+                  ],
+                  "forcedColumn": 5,
+                  "preemptionCount": 1,
+                  "preemptionMask32": 16
+                }
+              },
+              "literal": {
+                "rows": [
+                  {
+                    "replyColumn": 1,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 3,
+                    "avoidsImmediateP1C5Win": false
+                  },
+                  {
+                    "replyColumn": 3,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 3,
+                    "avoidsImmediateP1C5Win": false
+                  },
+                  {
+                    "replyColumn": 5,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 0,
+                    "avoidsImmediateP1C5Win": true
+                  },
+                  {
+                    "replyColumn": 7,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 3,
+                    "avoidsImmediateP1C5Win": false
+                  }
+                ],
+                "avoidingMask": 16,
+                "avoidingColumns": [
+                  5
+                ],
+                "onlyC5": true
+              },
+              "cpcForced": true,
+              "forcedReplyTerminal": 0,
+              "pairBeforeConsume": true,
+              "consumeTerminal": 0,
+              "consumeSupport": [
+                2,
+                6,
+                3,
+                6,
+                5,
+                6,
+                1
+              ],
+              "singletonAfterConsume": true,
+              "targetTemplate": {
+                "capacity": [
+                  4,
+                  0,
+                  3,
+                  0,
+                  1,
+                  0,
+                  2
+                ],
+                "oddColumns": [
+                  3,
+                  5
+                ],
+                "synchronizedPairs": [
+                  {
+                    "columns": [
+                      3,
+                      5
+                    ],
+                    "prefixLength": 1
+                  }
+                ],
+                "targetIsResponse": true,
+                "defenderResidualCount": 5,
+                "coverage": [
+                  {
+                    "residualId": 438,
+                    "size": 3,
+                    "witness": {
+                      "kind": "post-target-deferral",
+                      "cell": 27,
+                      "column": 7,
+                      "row": 4
+                    }
+                  },
+                  {
+                    "residualId": 515,
+                    "size": 3,
+                    "witness": {
+                      "kind": "vertical-response",
+                      "cell": 37,
+                      "column": 3,
+                      "row": 6
+                    }
+                  },
+                  {
+                    "residualId": 593,
+                    "size": 4,
+                    "witness": {
+                      "kind": "post-target-deferral",
+                      "cell": 27,
+                      "column": 7,
+                      "row": 4
+                    }
+                  },
+                  {
+                    "residualId": 595,
+                    "size": 4,
+                    "witness": {
+                      "kind": "vertical-response",
+                      "cell": 21,
+                      "column": 1,
+                      "row": 4
+                    }
+                  },
+                  {
+                    "residualId": 612,
+                    "size": 4,
+                    "witness": {
+                      "kind": "post-target-deferral",
+                      "cell": 27,
+                      "column": 7,
+                      "row": 4
+                    }
+                  }
+                ]
+              },
+              "validation": {
+                "pass": true,
+                "defenderNodes": 35,
+                "responsePairs": 69,
+                "maxPairDepth": 4,
+                "p1Terminals": 35,
+                "targetTerminals": 35,
+                "failures": []
+              },
+              "accept": true
+            },
+            {
+              "replyColumn": 7,
+              "replyTerminal": 0,
+              "kind": "off-column-compression",
+              "secondC5Terminal": 0,
+              "nativeCpc": {
+                "baseline": {
+                  "kind": "CPC_RESTRICT",
+                  "interval": [
+                    -1,
+                    1
+                  ],
+                  "forcedColumn": 5,
+                  "preemptionCount": 1,
+                  "preemptionMask32": 16
+                },
+                "frontier": {
+                  "kind": "CPC_RESTRICT",
+                  "interval": [
+                    -1,
+                    1
+                  ],
+                  "forcedColumn": 5,
+                  "preemptionCount": 1,
+                  "preemptionMask32": 16
+                }
+              },
+              "literal": {
+                "rows": [
+                  {
+                    "replyColumn": 1,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 3,
+                    "avoidsImmediateP1C5Win": false
+                  },
+                  {
+                    "replyColumn": 3,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 3,
+                    "avoidsImmediateP1C5Win": false
+                  },
+                  {
+                    "replyColumn": 5,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 0,
+                    "avoidsImmediateP1C5Win": true
+                  },
+                  {
+                    "replyColumn": 6,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 3,
+                    "avoidsImmediateP1C5Win": false
+                  },
+                  {
+                    "replyColumn": 7,
+                    "replyTerminal": 0,
+                    "nextP1C5Terminal": 3,
+                    "avoidsImmediateP1C5Win": false
+                  }
+                ],
+                "avoidingMask": 16,
+                "avoidingColumns": [
+                  5
+                ],
+                "onlyC5": true
+              },
+              "cpcForced": true,
+              "forcedReplyTerminal": 0,
+              "pairBeforeConsume": true,
+              "consumeTerminal": 0,
+              "consumeSupport": [
+                2,
+                6,
+                3,
+                6,
+                5,
+                5,
+                2
+              ],
+              "singletonAfterConsume": true,
+              "targetTemplate": null,
+              "validation": null,
+              "accept": false
+            }
+          ],
+          "accept": false
+        },
+        "accept": false
+      }
+    ],
+    "exactValue": null,
+    "relativeRemoteness": null
+  },
+  "accept": false,
+  "conclusion": [
+    "At least one legal reply failed the frozen rank-22 composition theorem."
+  ],
+  "boundary": [
+    "All branch transitions are exact RBA cofactors and all load-bearing CPC forced columns are independently cross-checked by literal exact cofactors.",
+    "Every target-reservoir template is synthesized from that exact contracted current state and independently traversed as a falsification check.",
+    "No oracle, Pons, solved W/D/L input, best-move table, minimax premise, physical-position identity, or sealed holdout is used.",
+    "Production CPC and JSMinSys are unchanged."
+  ]
+}
