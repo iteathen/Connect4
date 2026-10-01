@@ -1,0 +1,78 @@
+{
+  "schema": "connect4.cpc_c6_bottom_response_guard_target_ladder.v2",
+  "root": "4444415666",
+  "rootRank": 10,
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "sourceWorkflowRun": 36832938504,
+  "sourceWorkflowJob": 110273495604,
+  "recovery": "Scientific results recovered from successful calculation-step stdout after the workflow's final git rebase failed because generated evidence left unstaged changes. No recalculation or oracle input is used in this summary.",
+  "rows": [
+    {
+      "horizon": 13,
+      "absolutePly": 23,
+      "accept": true,
+      "class": "AD_R11_TO_S13",
+      "failedTrigger": null,
+      "work": {
+        "classCalls": 1331,
+        "memoHits": 482,
+        "responseOptionsTested": 5327,
+        "branchTests": 1416,
+        "cofactorCount": 54550,
+        "guardCalls": 3036,
+        "guardMemoHits": 2146,
+        "guardBranchTests": 11727,
+        "guardForcedResponses": 11268,
+        "guardRetirements": 83,
+        "guardEstablishments": 588,
+        "topDebtTests": 1822,
+        "topDebtClosures": 1724,
+        "classMemoSize": 1331,
+        "guardMemoSize": 3036,
+        "baseMemoSize": 4358,
+        "templateMemoSize": 3950,
+        "responseOptionMemoSize": 2345,
+        "cofactorMemoSize": 54550
+      }
+    },
+    {
+      "horizon": 15,
+      "absolutePly": 25,
+      "accept": false,
+      "class": "OUTSIDE_SAD15",
+      "failedTrigger": 2,
+      "work": {
+        "classCalls": 2338,
+        "memoHits": 953,
+        "responseOptionsTested": 12490,
+        "branchTests": 2300,
+        "cofactorCount": 102895,
+        "guardCalls": 7017,
+        "guardMemoHits": 5350,
+        "guardBranchTests": 24675,
+        "guardForcedResponses": 23470,
+        "guardRetirements": 317,
+        "guardEstablishments": 778,
+        "topDebtTests": 5206,
+        "topDebtClosures": 4020,
+        "classMemoSize": 2338,
+        "guardMemoSize": 7017,
+        "baseMemoSize": 9214,
+        "templateMemoSize": 8638,
+        "responseOptionMemoSize": 5489,
+        "cofactorMemoSize": 102895
+      }
+    }
+  ],
+  "lastAcceptedHorizon": 13,
+  "firstRejectedHorizon": 15,
+  "executionFailureHorizon": null,
+  "targetAbsolutePly41RelativeHorizon": 31,
+  "boundary": [
+    "Each target horizon was executed in a fresh process, avoiding cross-horizon memo retention.",
+    "Acceptance is a constructive survival lower certificate only.",
+    "Rejection at D15 is not an attacker forced-completion upper bound.",
+    "The D15 failure localizes the next missing proof edge to attacker trigger column 2 under the current grammar."
+  ]
+}
