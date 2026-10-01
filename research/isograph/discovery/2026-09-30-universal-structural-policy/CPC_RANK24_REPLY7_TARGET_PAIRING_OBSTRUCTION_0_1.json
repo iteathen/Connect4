@@ -1,0 +1,393 @@
+{
+  "schema": "connect4.cpc_rank24_reply7_target_pairing_obstruction.v1",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "qualificationLocator": "4444415666662322224233171",
+  "state": {
+    "rank": 25,
+    "mover": 2,
+    "support": [
+      3,
+      6,
+      3,
+      6,
+      1,
+      5,
+      1
+    ],
+    "target": {
+      "column": 3,
+      "row": 5,
+      "activeP1Singleton": true,
+      "projectedOwner": 1
+    },
+    "defenderPlayableSingletons": [],
+    "truncatedCapacity": [
+      3,
+      0,
+      2,
+      0,
+      5,
+      1,
+      5
+    ],
+    "oddColumns": [
+      1,
+      5,
+      6,
+      7
+    ],
+    "activeDefenderResidualCount": 8
+  },
+  "search": {
+    "examinedTemplates": 7,
+    "targetRoleTemplates": 7,
+    "bestUncoveredCount": 1,
+    "obstructionResidualIds": [
+      304
+    ],
+    "bestTemplates": [
+      {
+        "synchronizedPairs": [
+          {
+            "columns": [
+              1,
+              5
+            ],
+            "prefixLength": 1
+          },
+          {
+            "columns": [
+              6,
+              7
+            ],
+            "prefixLength": 1
+          }
+        ],
+        "uncoveredCount": 1,
+        "coveredCount": 7,
+        "uncovered": [
+          {
+            "residualId": 304,
+            "size": 2,
+            "cells": [
+              {
+                "cell": 32,
+                "column": 5,
+                "row": 5
+              },
+              {
+                "cell": 40,
+                "column": 6,
+                "row": 6
+              }
+            ]
+          }
+        ],
+        "covered": [
+          {
+            "residualId": 213,
+            "size": 2,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 30,
+              "column": 3,
+              "row": 5
+            }
+          },
+          {
+            "residualId": 438,
+            "size": 3,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 27,
+              "column": 7,
+              "row": 4
+            }
+          },
+          {
+            "residualId": 515,
+            "size": 3,
+            "witness": {
+              "kind": "post-target-deferral",
+              "cell": 37,
+              "column": 3,
+              "row": 6
+            }
+          },
+          {
+            "residualId": 589,
+            "size": 4,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 25,
+              "column": 5,
+              "row": 4
+            }
+          },
+          {
+            "residualId": 593,
+            "size": 4,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 27,
+              "column": 7,
+              "row": 4
+            }
+          },
+          {
+            "residualId": 608,
+            "size": 4,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 25,
+              "column": 5,
+              "row": 4
+            }
+          },
+          {
+            "residualId": 612,
+            "size": 4,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 27,
+              "column": 7,
+              "row": 4
+            }
+          }
+        ]
+      },
+      {
+        "synchronizedPairs": [
+          {
+            "columns": [
+              1,
+              6
+            ],
+            "prefixLength": 1
+          },
+          {
+            "columns": [
+              5,
+              7
+            ],
+            "prefixLength": 1
+          }
+        ],
+        "uncoveredCount": 1,
+        "coveredCount": 7,
+        "uncovered": [
+          {
+            "residualId": 304,
+            "size": 2,
+            "cells": [
+              {
+                "cell": 32,
+                "column": 5,
+                "row": 5
+              },
+              {
+                "cell": 40,
+                "column": 6,
+                "row": 6
+              }
+            ]
+          }
+        ],
+        "covered": [
+          {
+            "residualId": 213,
+            "size": 2,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 30,
+              "column": 3,
+              "row": 5
+            }
+          },
+          {
+            "residualId": 438,
+            "size": 3,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 27,
+              "column": 7,
+              "row": 4
+            }
+          },
+          {
+            "residualId": 515,
+            "size": 3,
+            "witness": {
+              "kind": "post-target-deferral",
+              "cell": 37,
+              "column": 3,
+              "row": 6
+            }
+          },
+          {
+            "residualId": 589,
+            "size": 4,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 25,
+              "column": 5,
+              "row": 4
+            }
+          },
+          {
+            "residualId": 593,
+            "size": 4,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 27,
+              "column": 7,
+              "row": 4
+            }
+          },
+          {
+            "residualId": 608,
+            "size": 4,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 25,
+              "column": 5,
+              "row": 4
+            }
+          },
+          {
+            "residualId": 612,
+            "size": 4,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 27,
+              "column": 7,
+              "row": 4
+            }
+          }
+        ]
+      },
+      {
+        "synchronizedPairs": [
+          {
+            "columns": [
+              1,
+              7
+            ],
+            "prefixLength": 1
+          },
+          {
+            "columns": [
+              5,
+              6
+            ],
+            "prefixLength": 1
+          }
+        ],
+        "uncoveredCount": 1,
+        "coveredCount": 7,
+        "uncovered": [
+          {
+            "residualId": 304,
+            "size": 2,
+            "cells": [
+              {
+                "cell": 32,
+                "column": 5,
+                "row": 5
+              },
+              {
+                "cell": 40,
+                "column": 6,
+                "row": 6
+              }
+            ]
+          }
+        ],
+        "covered": [
+          {
+            "residualId": 213,
+            "size": 2,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 30,
+              "column": 3,
+              "row": 5
+            }
+          },
+          {
+            "residualId": 438,
+            "size": 3,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 27,
+              "column": 7,
+              "row": 4
+            }
+          },
+          {
+            "residualId": 515,
+            "size": 3,
+            "witness": {
+              "kind": "post-target-deferral",
+              "cell": 37,
+              "column": 3,
+              "row": 6
+            }
+          },
+          {
+            "residualId": 589,
+            "size": 4,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 25,
+              "column": 5,
+              "row": 4
+            }
+          },
+          {
+            "residualId": 593,
+            "size": 4,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 27,
+              "column": 7,
+              "row": 4
+            }
+          },
+          {
+            "residualId": 608,
+            "size": 4,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 25,
+              "column": 5,
+              "row": 4
+            }
+          },
+          {
+            "residualId": 612,
+            "size": 4,
+            "witness": {
+              "kind": "vertical-response",
+              "cell": 27,
+              "column": 7,
+              "row": 4
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "conclusion": [
+    "This is a theorem-gap diagnostic, not a W/D/L result.",
+    "It enumerates the finite synchronized pairing family allowed by the qualified truncated target-reservoir theorem for singleton c3r5.",
+    "bestUncoveredCount is the exact number of active Player-2 residuals left outside that theorem coverage under the best current template."
+  ],
+  "boundary": [
+    "No oracle, Pons, solved W/D/L, minimax, best-move table, physical-position identity, or sealed holdout is used.",
+    "Production CPC and JSMinSys are unchanged.",
+    "Residual IDs are diagnostic only; uncovered exact cell attachment is recorded."
+  ]
+}
