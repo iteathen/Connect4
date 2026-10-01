@@ -224,6 +224,65 @@ function inS(q,attacker,D){
   const v={accept:false,kind:'OUT'};sMemo.set(mk,v);sInProgress.delete(mk);return v;
 }
 
+
+function stateSummary(q,attacker,maxChildD){
+  const minimal=activeMinimal(q,attacker);
+  const sizeHistogram={};
+  const deadlineHistogram={};
+  for(const id of minimal){
+    const sz=g.shapeSize[id];sizeHistogram[sz]=(sizeHistogram[sz]??0)+1;
+    const d=earliest(q,id,attacker);
+    const dk=d===null?'null':String(d);deadlineHistogram[dk]=(deadlineHistogram[dk]??0)+1;
+  }
+  let maxCertified=null;
+  for(let d=3;d<=maxChildD;d+=2)if(inS(q,attacker,d).accept)maxCertified=d;
+  return {
+    rank:rank(q),
+    support:Array.from({length:g.columns},(_,c)=>q.words[c]),
+    phase:Array.from({length:g.columns},(_,c)=>q.words[c]&1),
+    basisSize:q.basis.length,
+    minimalResidualCount:minimal.length,
+    sizeHistogram,
+    deadlineHistogram,
+    maxCertified
+  };
+}
+function failureFrontier(q,attacker,D){
+  assert(!inS(q,attacker,D).accept);
+  let best=null;
+  for(const T of templates(q)){
+    const branches=[];let successCount=0;
+    for(const c of legal(q)){
+      const tr=responseSuccessor(q,T,attacker,c);
+      if(!tr.ok){
+        branches.push({attackerColumn:c+1,ok:false,reason:tr.reason});
+        continue;
+      }
+      if(tr.closed){
+        successCount++;
+        branches.push({attackerColumn:c+1,responseColumn:tr.responseColumn,ok:true,closed:true});
+        continue;
+      }
+      const child=inS(tr.q,attacker,D-2);
+      if(child.accept){
+        successCount++;
+        branches.push({
+          attackerColumn:c+1,responseColumn:tr.responseColumn,ok:true,closed:false,
+          childClass:'S'+(D-2),childKind:child.kind
+        });
+      }else{
+        branches.push({
+          attackerColumn:c+1,responseColumn:tr.responseColumn,ok:false,reason:'CHILD_OUTSIDE_S'+(D-2),
+          child:stateSummary(tr.q,attacker,D-2)
+        });
+      }
+    }
+    const candidate={successCount,total:branches.length,pairs:T.pairs,branches};
+    if(!best||candidate.successCount>best.successCount)best=candidate;
+  }
+  return best;
+}
+
 const roots=[
   {id:'candidate2',sequence:'4444415662'},
   {id:'candidate3',sequence:'4444415663'},
@@ -243,7 +302,10 @@ try{
         rootChildren:r.children??null
       });
     }
-    rows.push({...root,attacker,ladder,maxCertified:ladder.filter(x=>x.accept).at(-1)?.horizon??null});
+    const maxCertified=ladder.filter(x=>x.accept).at(-1)?.horizon??null;
+    const firstFailed=ladder.find(x=>!x.accept)?.horizon??null;
+    const frontier=firstFailed===null?null:failureFrontier(q,attacker,firstFailed);
+    rows.push({...root,attacker,ladder,maxCertified,firstFailed,failureFrontier:frontier});
   }
 }catch(e){
   if(e.code!=='BUDGET')throw e;
