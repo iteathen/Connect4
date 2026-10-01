@@ -1,0 +1,75 @@
+name: Research CPC odd-row guard top-debt D13
+
+on:
+  push:
+    branches:
+      - research/universal-structural-policy-20260930
+    paths:
+      - .github/workflows/research-cpc-odd-row-guard-top-debt-d13.yml
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/run-cpc-odd-row-guard-top-debt-d13.mjs
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - name: Check out exact pushed revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+
+      - name: Pin Node runtime
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+
+      - name: Fetch pinned JSMinSys authority
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone https://github.com/iteathen/JSMinSys.git jsminsys
+          git -C jsminsys checkout 0899c5811918e68c22dc1b0e4dd8af97d9b4bbcb
+          test "$(git -C jsminsys rev-parse HEAD)" = "0899c5811918e68c22dc1b0e4dd8af97d9b4bbcb"
+
+      - name: Run bounded odd-row guard top-debt D13 diagnostic
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT=research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_ODD_ROW_GUARD_TOP_DEBT_D13_0_1.json
+          node research/isograph/discovery/2026-09-30-universal-structural-policy/run-cpc-odd-row-guard-top-debt-d13.mjs ./jsminsys > "$OUT"
+          node - "$OUT" <<'NODE'
+          const fs=require('fs');
+          const r=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
+          console.log('GUARD_SUMMARY='+JSON.stringify(r.rows.map(x=>({
+            id:x.id,
+            guard:x.guardColumn,
+            max:x.membership.filter(m=>m.accept).at(-1)?.D??null,
+            maxAbsolute:x.membership.filter(m=>m.accept).at(-1)?.absolutePly??null,
+            firstFailure:x.membership.find(m=>!m.accept)?.D??null,
+            firstFailureTrigger:x.membership.find(m=>!m.accept)?.failedTrigger??null,
+            D27:x.membership.find(m=>m.D===27)?.accept??null
+          }))));
+          console.log('WORK='+JSON.stringify(r.work));
+          NODE
+
+      - name: Commit durable D13 evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          BRANCH=research/universal-structural-policy-20260930
+          FILE=research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_ODD_ROW_GUARD_TOP_DEBT_D13_0_1.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$FILE"
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "research: verify odd-row guard survival"
+          for attempt in 1 2 3; do
+            git fetch origin "$BRANCH"
+            git rebase "origin/$BRANCH"
+            if git push origin HEAD:"$BRANCH"; then exit 0; fi
+            sleep 1
+          done
+          exit 1
