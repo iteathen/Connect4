@@ -158,8 +158,23 @@ function buildTrajectories(axis){
 const fixedWidthTrajectories=buildTrajectories('width');
 const fixedHeightTrajectories=buildTrajectories('height');
 const trajectoryEdges=[...fixedWidthTrajectories.flatMap(x=>x.edges),...fixedHeightTrajectories.flatMap(x=>x.edges)];
-const sameParityByTwoTrajectoryEdges=trajectoryEdges.filter(x=>x.step===2);
 const unitTrajectoryEdges=trajectoryEdges.filter(x=>x.step===1);
+
+function buildFixedStepEdges(axis,step){
+  const out=[];
+  const orientation=axis==='width'?'height':'width';
+  for(const row of rows){
+    const target=axis==='width'
+      ? byBoard.get(outcomeKey(row.width,row.height+step))
+      : byBoard.get(outcomeKey(row.width+step,row.height));
+    if(target)out.push(edgeRecord(row,target,orientation,step));
+  }
+  return out.sort((a,b)=>a.a.localeCompare(b.a)||a.b.localeCompare(b.b));
+}
+const sameParityByTwoTrajectoryEdges=[
+  ...buildFixedStepEdges('width',2),
+  ...buildFixedStepEdges('height',2)
+].sort((a,b)=>a.a.localeCompare(b.a)||a.b.localeCompare(b.b));
 
 const unitEdges=[];
 for(const row of rows){
