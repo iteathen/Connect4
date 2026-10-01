@@ -436,6 +436,36 @@ function classG(q,attacker,D,guardCol){
       }
     }
 
+    // Support-lift blocker edge. The attacker trigger releases exactly one
+    // same-column cell above it. Admit that one response only when the released
+    // cell belongs to a live attacker residual in the exact post-trigger state.
+    if(!found && first.q.words[c]<g.rows){
+      const released=first.q.words[c]*g.columns+c;
+      const attached=activeMinimal(first.q,attacker).some(id=>shapeCells(id).includes(released));
+      if(attached){
+        const second=cofactor(first.q,c),p2=terminalPolarity(second.term,attacker);
+        guardResponses++;
+        if(p2==='DRAW'||p2==='DEFENDER'){
+          found={
+            attackerColumn:c+1,responseColumn:c+1,mode:'SUPPORT_LIFT_BLOCKER',
+            releasedCell:{column:c+1,row:g.cellRow[released]+1},closed:p2
+          };
+        }else if(p2==='NONTERMINAL'){
+          const preserve=c!==guardCol;
+          const child=preserve
+            ? classG(second.q,attacker,D-2,guardCol)
+            : (D-2===1
+                ? {accept:surviveOne(second.q,attacker),class:'ORDINARY_ONE'}
+                : classS(second.q,attacker,D-2));
+          if(child.accept)found={
+            attackerColumn:c+1,responseColumn:c+1,mode:'SUPPORT_LIFT_BLOCKER',
+            releasedCell:{column:c+1,row:g.cellRow[released]+1},
+            childClass:child.class,guardPreserved:preserve
+          };
+        }
+      }
+    }
+
     // Existing CPC-licensed response edges remain available. Preserve the
     // guard only if neither realized move consumes the guard column; otherwise
     // the exact child must close under ordinary S_(D-2).
@@ -506,7 +536,7 @@ for(const root of roots){
 }
 
 console.log(JSON.stringify({
-  schema:'connect4.cpc_odd_row_guard_survival.v1',
+  schema:'connect4.cpc_odd_row_guard_support_lift_survival.v1',
   jsMinSysSha:EXPECTED,
   oracleUsed:false,
   solvedInputsUsed:false,
@@ -519,7 +549,7 @@ console.log(JSON.stringify({
   boundary:[
     'Odd-row guard state is carried as proof provenance during theorem qualification; production promotion requires reconstruction from current occupancy.',
     'Guard renewal is exact only for same-column attacker trigger followed by the immediately playable higher odd defender cell.',
-    'External transitions remain restricted to already licensed CPC response edges; arbitrary defender responses are not admitted.',
+    'External transitions use already licensed CPC response edges plus the frozen support-lift blocker edge; arbitrary defender responses are not admitted.',
     'Dropping a guard is permitted only when the exact child independently closes under the ordinary survival grammar (or exact one-ply survival at D=1).',
     'This is a constructive survival experiment, not W/D/L or exact remoteness.'
   ]
