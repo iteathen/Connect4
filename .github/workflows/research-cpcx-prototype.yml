@@ -1,0 +1,38 @@
+name: Research CPCX prototype
+
+on:
+  push:
+    branches:
+      - experiment/cpcx-20261002
+    paths:
+      - research/isograph/discovery/2026-10-02-cpcx/**
+      - .github/workflows/research-cpcx-prototype.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: "26.7.0"
+      - name: Test CPCX
+        run: node --test research/isograph/discovery/2026-10-02-cpcx/cpcx.test.mjs
+      - name: Inspect 44444
+        run: node research/isograph/discovery/2026-10-02-cpcx/run-cpcx.mjs > cpcx-44444.json
+      - name: Verify isolation boundary
+        shell: bash
+        run: |
+          set -euo pipefail
+          SRC=research/isograph/discovery/2026-10-02-cpcx/cpcx.mjs
+          ! grep -E 'cpc-connect4|ExactConnect4Oracle|components/oracle|alpha-beta|negamax|minimax' "$SRC"
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: cpcx-44444
+          path: cpcx-44444.json
+          if-no-files-found: error
