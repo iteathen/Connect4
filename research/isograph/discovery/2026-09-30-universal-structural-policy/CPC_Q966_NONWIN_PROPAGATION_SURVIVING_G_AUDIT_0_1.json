@@ -1,0 +1,193 @@
+{
+  "schema": "connect4.cpc_q966_nonwin_propagation_surviving_g_audit.v1",
+  "date": "2026-10-01",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "design": "CPC_Q966_NONWIN_PROPAGATION_SURVIVING_G_AUDIT_DESIGN_0_1.md",
+  "exactQClass": "966e6353e06e4d41",
+  "sequence": "44444156666623222242551151531137",
+  "rank": 32,
+  "support": [
+    6,
+    6,
+    3,
+    6,
+    5,
+    5,
+    1
+  ],
+  "exactBridge": {
+    "pass": true,
+    "checks": {
+      "semanticQ": true,
+      "rank": true,
+      "support": true,
+      "p0Residuals": true,
+      "p1Residuals": true
+    },
+    "exactQClass": "966e6353e06e4d41"
+  },
+  "q2dbPremise": {
+    "exactQClass": "2db2abcb67d530e0",
+    "classification": "P0_NONWIN",
+    "interval": {
+      "lower": -1,
+      "upper": 0
+    },
+    "derivation": [
+      {
+        "state": "q2db",
+        "action": 3,
+        "interval": [
+          -1,
+          -1
+        ],
+        "reason": "P1_C5_TERMINAL_REPLY"
+      },
+      {
+        "state": "q2db",
+        "action": 7,
+        "interval": [
+          -1,
+          0
+        ],
+        "reason": "FORCED_SAFETY_CHAIN_TO_Q649_NONWIN"
+      }
+    ],
+    "q649": {
+      "exactQClass": "6496c888c4e2a157",
+      "classification": "P0_NONWIN_DRAW_REPLY",
+      "interval": {
+        "lower": -1,
+        "upper": 0
+      }
+    }
+  },
+  "q5dPremise": {
+    "exactQClass": "5d34e24395b9d801",
+    "classification": "P0_NONWIN",
+    "interval": {
+      "lower": -1,
+      "upper": 0
+    },
+    "sourceEvidence": "CPC_Q5D34_STRUCTURAL_NONWIN_BACKPROP_0_1.json"
+  },
+  "gBranch": {
+    "rank33Q": "e0a395d3dff723c5",
+    "replies": [
+      {
+        "p1Column": 3,
+        "route": "P0_IMMEDIATE_AVAILABLE",
+        "winningColumns": [
+          7
+        ]
+      },
+      {
+        "p1Column": 5,
+        "route": "P0_IMMEDIATE_AVAILABLE",
+        "winningColumns": [
+          7
+        ]
+      },
+      {
+        "p1Column": 6,
+        "route": "P0_IMMEDIATE_AVAILABLE",
+        "winningColumns": [
+          7
+        ]
+      },
+      {
+        "p1Column": 7,
+        "route": "EXACT_Q5D_NONWIN_HANDOFF",
+        "childQ": "5d34e24395b9d801"
+      }
+    ],
+    "interval": {
+      "lower": -1,
+      "upper": 0
+    }
+  },
+  "rootActions": [
+    {
+      "column": 3,
+      "kind": "P1_TERMINAL_REPLY",
+      "interval": {
+        "lower": -1,
+        "upper": -1
+      },
+      "witness": [
+        {
+          "column": 3,
+          "cell": "C5"
+        }
+      ]
+    },
+    {
+      "column": 5,
+      "kind": "EXACT_Q2DB_NONWIN_REPLY",
+      "interval": {
+        "lower": -1,
+        "upper": 0
+      },
+      "witness": {
+        "action": "E",
+        "p0Column": 5,
+        "p1ReplyColumn": 6,
+        "p1ReplyCell": "F6",
+        "childQ": "2db2abcb67d530e0"
+      }
+    },
+    {
+      "column": 6,
+      "kind": "EXACT_Q2DB_NONWIN_REPLY",
+      "interval": {
+        "lower": -1,
+        "upper": 0
+      },
+      "witness": {
+        "action": "F",
+        "p0Column": 6,
+        "p1ReplyColumn": 5,
+        "p1ReplyCell": "E6",
+        "childQ": "2db2abcb67d530e0"
+      }
+    },
+    {
+      "column": 7,
+      "kind": "EXACT_Q5D_NONWIN_HANDOFF",
+      "interval": {
+        "lower": -1,
+        "upper": 0
+      },
+      "witness": {
+        "p1Column": 7,
+        "route": "EXACT_Q5D_NONWIN_HANDOFF",
+        "childQ": "5d34e24395b9d801"
+      }
+    }
+  ],
+  "classification": "Q966_P0_NONWIN",
+  "interval": {
+    "lower": -1,
+    "upper": 0
+  },
+  "resourceFailureCount": 0,
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "ordinaryFreeBranchGameTreeUsed": false,
+  "productionCpcModified": false,
+  "jsMinSysModified": false,
+  "bsfpModified": false,
+  "conclusion": [
+    "q2db is structurally P0-nonwinning: C exposes immediate P1:C5, while G follows the qualified forced-safety chain into q649, whose P1 draw reply bounds P0 above by draw.",
+    "q966 E and F each admit an exact P1 cross-reply into q2db, so neither can force a P0 win.",
+    "q966 G reaches the exact rank-33 CPC-restricted child where P1:G3 hands off to exact q5d34, now structurally certified P0-nonwinning.",
+    "q966 C exposes immediate P1:C5. Therefore every legal q966 P0 action has upper bound <= 0 and q966 is P0_NONWIN with interval [-1,0]."
+  ],
+  "boundary": [
+    "This is one-sided P0 nonwin only; it does not assert q966 loss or draw.",
+    "Every reusable consequence is admitted only by exact semantic-q identity.",
+    "Unknown branches remain unresolved; predecessor bounds use only the existence of an adversarial nonwin reply where sufficient.",
+    "No oracle, solved W/D/L input, minimax, unrestricted game-tree value, opening book, best-move table or BSFP solved frontier is used.",
+    "Production CPC, JSMinSys and BSFP are unchanged."
+  ]
+}
