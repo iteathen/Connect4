@@ -18,22 +18,43 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
         with:
           node-version: "26.7.0"
+
       - name: Test CPCX
-        run: node --test research/isograph/discovery/2026-10-02-cpcx/cpcx.test.mjs research/isograph/discovery/2026-10-02-cpcx/cpcx-closure.test.mjs research/isograph/discovery/2026-10-02-cpcx/cpcx-projection.test.mjs research/isograph/discovery/2026-10-02-cpcx/cpcx-two-stage.test.mjs
+        run: node --test research/isograph/discovery/2026-10-02-cpcx/*.test.mjs
+
       - name: Inspect 44444
         run: |
           node research/isograph/discovery/2026-10-02-cpcx/run-cpcx.mjs > cpcx-44444.json
           node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-closure.mjs > cpcx-closure-44444.json
           node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6.mjs > cpcx-move6.json
-      - name: Verify isolation boundary
+
+      - name: Verify CPCX dependency isolation
+        run: node research/isograph/discovery/2026-10-02-cpcx/verify-cpcx-isolation.mjs
+
+      - name: Verify production CPC unchanged
         shell: bash
         run: |
           set -euo pipefail
-          DIR=research/isograph/discovery/2026-10-02-cpcx
-          ! grep -R -E 'cpc-connect4|ExactConnect4Oracle|components/oracle' "$DIR"/*.mjs
+          git fetch origin research/universal-structural-policy-20260930
+          CHANGED="$(git diff --name-only origin/research/universal-structural-policy-20260930...HEAD)"
+          printf '%s
+' "$CHANGED"
+          if printf '%s
+' "$CHANGED" | grep -E '(^|/)(cpc-connect4\.mjs|cpc-connect4\.test\.mjs)$'; then
+            echo "production CPC changed"
+            exit 1
+          fi
+          if printf '%s
+' "$CHANGED" | grep -E '^addons/cpc-|^src/cpc-'; then
+            echo "production CPC path changed"
+            exit 1
+          fi
+
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
           name: cpcx-44444
