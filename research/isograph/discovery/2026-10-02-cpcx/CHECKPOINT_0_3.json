@@ -1,0 +1,71 @@
+{
+  "schema": "connect4.cpcx.checkpoint.v0_3",
+  "date": "2026-10-02",
+  "branch": "experiment/cpcx-20261002",
+  "durableResearchOwner": "research/semantic-quotient",
+  "status": "MULTI_PIECE_PROGRESS_PRIMITIVES_VERIFIED",
+  "productionCpcModified": false,
+  "exactResults": {
+    "boundedResidualAlgebra": {
+      "maxMissing": 4,
+      "threePieceChain": "3->2->1->completion",
+      "fourPieceChain": "4->3->2->1->completion",
+      "choiceEnumeration": false
+    },
+    "move6WingContract": {
+      "position": "44444",
+      "theorem": "every legal sixth action leaves at least one disjoint three-level wing family untouched",
+      "honoredResponse": "for every sixth action, if the first two same-column responses are honored, P0 completes the anchored bottom horizontal line on the third trigger",
+      "firstWinChecked": true
+    },
+    "universalFirstDeviationRepair": {
+      "theorem": "for every legal sixth action, a first non-honored wing response leaves the omitted response cell immediately repairable after a set-level first-win audit",
+      "postRepairFirstWinGuard": true,
+      "result": "at least two deviation-invariant P0 two-piece residuals survive for every sixth move",
+      "strongerCanonicalRightWing": "three invariant two-piece residuals survive",
+      "verticalInvariant": "every sixth move yields a deviation-invariant vertical two-piece P0 residual with lower support 0 and upper support 1"
+    },
+    "verticalTempoFalsifier": {
+      "rejected": "raw vertical 0/1 pair always forces the next response without normalization",
+      "falsifiedCases": 6,
+      "cause": "damaged sixth-move column can create a higher-priority opponent singleton",
+      "repair": "exact forced-singleton normalization precedes all progress"
+    },
+    "normalizedVerticalTwoStage": {
+      "theorem": "after forced-singleton normalization, the retained vertical 0/1 residual is an exact two-stage obligation",
+      "defenderTurn": "defender preempts lower now OR any nonpreempt frontier move lets attacker take lower and forces upper next",
+      "attackerTurn": "attacker lower directly forces upper when first-win guard passes",
+      "choiceEnumeration": false
+    },
+    "parityCollapse": {
+      "defenderTurnRankDeltas": [
+        1,
+        3
+      ],
+      "difference": 2,
+      "nextMover": "attacker in both cases",
+      "controlParityEquivalent": true,
+      "representation": "one CPC phase class plus at most one optional external defender blocker"
+    }
+  },
+  "retainedFalsifier": "CPCX_VERTICAL_TEMPO_FALSIFIER_0_1.json",
+  "verification": {
+    "directSourceExecution": true,
+    "solvedValues": false,
+    "oracle": false,
+    "productionCpcImports": false,
+    "branchEnumerationUsedAsProof": false,
+    "note": "Finite concrete paths were used only to falsify candidate rules and regression-test generic set-level theorems."
+  },
+  "unresolved": {
+    "seam": "compose the optional external defender blocker with the guaranteed residual family without branching",
+    "target": "derive a polynomial response-capacity/deadline closure that maps the collapsed residual family to forced completion or another well-founded CPCX macro",
+    "move6Status": "not yet a complete W/D/L proof"
+  },
+  "next": [
+    "Represent the optional external defender placement as one blocker token over the guaranteed residual family.",
+    "Build a matching/flow capacity test over surviving 2- and 3-piece obligations.",
+    "Require forced-singleton normalization before every progress iteration.",
+    "Iterate only theorem-certified macros until terminal, capacity deficiency, or unresolved."
+  ]
+}
