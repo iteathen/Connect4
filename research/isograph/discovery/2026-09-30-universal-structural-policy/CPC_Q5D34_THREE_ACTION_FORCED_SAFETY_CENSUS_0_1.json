@@ -1,0 +1,402 @@
+{
+  "schema": "connect4.cpc_q5d34_three_action_forced_safety_census.v1",
+  "date": "2026-10-01",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "design": "CPC_Q5D34_THREE_ACTION_FORCED_SAFETY_CENSUS_DESIGN_0_1.md",
+  "sourceEvidence": {
+    "forcedSafety": "CPC_Q966_G_BRANCH_FORCED_SAFETY_0_1.json",
+    "proofLibraryAudit": "CPC_Q5D34_MONOTONE_PROOF_LIBRARY_AUDIT_0_1.json"
+  },
+  "sourceQ": "5d34e24395b9d801",
+  "sequence": "4444415666662322224255115153113777",
+  "rank": 34,
+  "support": [
+    6,
+    6,
+    3,
+    6,
+    5,
+    5,
+    3
+  ],
+  "safeP0Actions": [
+    5,
+    6,
+    7
+  ],
+  "children": [
+    {
+      "p0Action": 5,
+      "p0LandingCell": "E6",
+      "startQ": "fbb987f9d3becc5b",
+      "startRank": 35,
+      "startSupport": [
+        6,
+        6,
+        3,
+        6,
+        6,
+        5,
+        3
+      ],
+      "startSequence": "44444156666623222242551151531137775",
+      "classification": "UNRESOLVED_MULTIPLE_SAFE",
+      "forcedSequence": [],
+      "steps": [
+        {
+          "index": 0,
+          "sequence": "44444156666623222242551151531137775",
+          "exactQClass": "fbb987f9d3becc5b",
+          "rank": 35,
+          "support": [
+            6,
+            6,
+            3,
+            6,
+            6,
+            5,
+            3
+          ],
+          "mover": "P1",
+          "legalActions": [
+            3,
+            6,
+            7
+          ],
+          "immediateTerminalActions": [],
+          "actionAudit": [
+            {
+              "column": 3,
+              "cell": "C4",
+              "moverTerminal": false,
+              "childQ": "789e932a61097f72",
+              "childSupport": [
+                6,
+                6,
+                4,
+                6,
+                6,
+                5,
+                3
+              ],
+              "opponentImmediateTerminals": [],
+              "safe": true
+            },
+            {
+              "column": 6,
+              "cell": "F6",
+              "moverTerminal": false,
+              "childQ": "e5d63da12420fdb3",
+              "childSupport": [
+                6,
+                6,
+                3,
+                6,
+                6,
+                6,
+                3
+              ],
+              "opponentImmediateTerminals": [],
+              "safe": true
+            },
+            {
+              "column": 7,
+              "cell": "G4",
+              "moverTerminal": false,
+              "childQ": "78439cf94bc69dd0",
+              "childSupport": [
+                6,
+                6,
+                3,
+                6,
+                6,
+                5,
+                4
+              ],
+              "opponentImmediateTerminals": [],
+              "safe": true
+            }
+          ],
+          "safeActions": [
+            3,
+            6,
+            7
+          ],
+          "forcedAction": null
+        }
+      ],
+      "terminal": {
+        "kind": "MULTIPLE_SAFE_ACTIONS",
+        "safeActions": [
+          3,
+          6,
+          7
+        ]
+      }
+    },
+    {
+      "p0Action": 6,
+      "p0LandingCell": "F6",
+      "startQ": "d22c464c13d0aab6",
+      "startRank": 35,
+      "startSupport": [
+        6,
+        6,
+        3,
+        6,
+        5,
+        6,
+        3
+      ],
+      "startSequence": "44444156666623222242551151531137776",
+      "classification": "UNRESOLVED_MULTIPLE_SAFE",
+      "forcedSequence": [],
+      "steps": [
+        {
+          "index": 0,
+          "sequence": "44444156666623222242551151531137776",
+          "exactQClass": "d22c464c13d0aab6",
+          "rank": 35,
+          "support": [
+            6,
+            6,
+            3,
+            6,
+            5,
+            6,
+            3
+          ],
+          "mover": "P1",
+          "legalActions": [
+            3,
+            5,
+            7
+          ],
+          "immediateTerminalActions": [],
+          "actionAudit": [
+            {
+              "column": 3,
+              "cell": "C4",
+              "moverTerminal": false,
+              "childQ": "8a65a5f252457389",
+              "childSupport": [
+                6,
+                6,
+                4,
+                6,
+                5,
+                6,
+                3
+              ],
+              "opponentImmediateTerminals": [],
+              "safe": true
+            },
+            {
+              "column": 5,
+              "cell": "E6",
+              "moverTerminal": false,
+              "childQ": "e5d63da12420fdb3",
+              "childSupport": [
+                6,
+                6,
+                3,
+                6,
+                6,
+                6,
+                3
+              ],
+              "opponentImmediateTerminals": [],
+              "safe": true
+            },
+            {
+              "column": 7,
+              "cell": "G4",
+              "moverTerminal": false,
+              "childQ": "98e27f2ab8525ea3",
+              "childSupport": [
+                6,
+                6,
+                3,
+                6,
+                5,
+                6,
+                4
+              ],
+              "opponentImmediateTerminals": [],
+              "safe": true
+            }
+          ],
+          "safeActions": [
+            3,
+            5,
+            7
+          ],
+          "forcedAction": null
+        }
+      ],
+      "terminal": {
+        "kind": "MULTIPLE_SAFE_ACTIONS",
+        "safeActions": [
+          3,
+          5,
+          7
+        ]
+      }
+    },
+    {
+      "p0Action": 7,
+      "p0LandingCell": "G4",
+      "startQ": "a2feb3b4c09b10f3",
+      "startRank": 35,
+      "startSupport": [
+        6,
+        6,
+        3,
+        6,
+        5,
+        5,
+        4
+      ],
+      "startSequence": "44444156666623222242551151531137777",
+      "classification": "UNRESOLVED_MULTIPLE_SAFE",
+      "forcedSequence": [],
+      "steps": [
+        {
+          "index": 0,
+          "sequence": "44444156666623222242551151531137777",
+          "exactQClass": "a2feb3b4c09b10f3",
+          "rank": 35,
+          "support": [
+            6,
+            6,
+            3,
+            6,
+            5,
+            5,
+            4
+          ],
+          "mover": "P1",
+          "legalActions": [
+            3,
+            5,
+            6,
+            7
+          ],
+          "immediateTerminalActions": [],
+          "actionAudit": [
+            {
+              "column": 3,
+              "cell": "C4",
+              "moverTerminal": false,
+              "childQ": "66739b4c27954716",
+              "childSupport": [
+                6,
+                6,
+                4,
+                6,
+                5,
+                5,
+                4
+              ],
+              "opponentImmediateTerminals": [],
+              "safe": true
+            },
+            {
+              "column": 5,
+              "cell": "E6",
+              "moverTerminal": false,
+              "childQ": "f435a6ec7dd5469e",
+              "childSupport": [
+                6,
+                6,
+                3,
+                6,
+                6,
+                5,
+                4
+              ],
+              "opponentImmediateTerminals": [],
+              "safe": true
+            },
+            {
+              "column": 6,
+              "cell": "F6",
+              "moverTerminal": false,
+              "childQ": "6c9a60f756817109",
+              "childSupport": [
+                6,
+                6,
+                3,
+                6,
+                5,
+                6,
+                4
+              ],
+              "opponentImmediateTerminals": [],
+              "safe": true
+            },
+            {
+              "column": 7,
+              "cell": "G5",
+              "moverTerminal": false,
+              "childQ": "1eb5ab134528f402",
+              "childSupport": [
+                6,
+                6,
+                3,
+                6,
+                5,
+                5,
+                5
+              ],
+              "opponentImmediateTerminals": [],
+              "safe": true
+            }
+          ],
+          "safeActions": [
+            3,
+            5,
+            6,
+            7
+          ],
+          "forcedAction": null
+        }
+      ],
+      "terminal": {
+        "kind": "MULTIPLE_SAFE_ACTIONS",
+        "safeActions": [
+          3,
+          5,
+          6,
+          7
+        ]
+      }
+    }
+  ],
+  "classification": "Q5D_UNRESOLVED",
+  "winningActions": [],
+  "summary": {
+    "childCount": 3,
+    "winCount": 0,
+    "lossCount": 0,
+    "drawCount": 0,
+    "unresolvedCount": 3,
+    "winningActions": []
+  },
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "ordinaryFreeBranchGameTreeUsed": false,
+  "productionCpcModified": false,
+  "jsMinSysModified": false,
+  "bsfpModified": false,
+  "conclusion": [
+    "q5d34 is reconstructed exactly at the first multiple-safe state of the q966 G branch, after the complete monotone proof library classified the state UNKNOWN.",
+    "The three exact terminal-safe P0 consequence classes E6/F6/G4 are each reduced only by the already-qualified forced terminal-safety operator.",
+    "No child has yet closed P0-winning and at least one reaches another multiple-safe obstruction; exact unresolved classes are preserved."
+  ],
+  "boundary": [
+    "No solved W/D/L, oracle, minimax, unrestricted game-tree value search, best-move table, opening book, BSFP solved frontier, support-only identity shortcut, or sealed holdout is used.",
+    "Each child follows only unique safe actions based on exact one-ply terminal exposure.",
+    "Production CPC, JSMinSys, legacy repair semantics, RCIC semantics, forced-loss semantics, and BSFP remain unchanged."
+  ]
+}
