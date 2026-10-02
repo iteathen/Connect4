@@ -1,0 +1,241 @@
+{
+  "schema": "connect4.cpc_q1e_d21_successor_exact_convergence.v1",
+  "date": "2026-10-01",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "design": "CPC_Q1E_D21_SUCCESSOR_EXACT_CONVERGENCE_DESIGN_0_1.md",
+  "q1e": {
+    "exactQClass": "1e8601e86599ef24",
+    "sequence": "444441566666232222425511515331",
+    "rank": 30,
+    "support": [
+      5,
+      6,
+      3,
+      6,
+      5,
+      5,
+      0
+    ],
+    "exactBridge": {
+      "pass": true,
+      "checks": {
+        "semanticQ": true,
+        "rank": true,
+        "support": true,
+        "p0Residuals": true,
+        "p1Residuals": true
+      },
+      "exactQClass": "1e8601e86599ef24"
+    }
+  },
+  "d21": {
+    "exactQClass": "d21a89605c399aca",
+    "sequence": "444441566666232222425511515311",
+    "rank": 30,
+    "support": [
+      6,
+      6,
+      2,
+      6,
+      5,
+      5,
+      0
+    ],
+    "exactBridge": {
+      "pass": true,
+      "checks": {
+        "semanticQ": true,
+        "rank": true,
+        "support": true,
+        "p0Residuals": true,
+        "p1Residuals": true
+      },
+      "exactQClass": "d21a89605c399aca"
+    },
+    "classification": "P0_NONWIN",
+    "interval": {
+      "lower": -1,
+      "upper": 0
+    }
+  },
+  "successors": {
+    "q1eAfterA": {
+      "sequence": "4444415666662322224255115153311",
+      "exactQClass": "582c38abc3dbd8c5",
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        5,
+        5,
+        0
+      ],
+      "p0Residuals": [
+        "20",
+        "23,30,37",
+        "37,39,40",
+        "39,40,41"
+      ],
+      "p1Residuals": [
+        "13,20,27,34",
+        "20,27,34,41",
+        "30",
+        "6,13,20,27"
+      ]
+    },
+    "d21AfterC": {
+      "sequence": "4444415666662322224255115153113",
+      "exactQClass": "582c38abc3dbd8c5",
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        5,
+        5,
+        0
+      ],
+      "p0Residuals": [
+        "20",
+        "23,30,37",
+        "37,39,40",
+        "39,40,41"
+      ],
+      "p1Residuals": [
+        "13,20,27,34",
+        "20,27,34,41",
+        "30",
+        "6,13,20,27"
+      ]
+    }
+  },
+  "convergence": {
+    "supportEqual": true,
+    "p0ResidualsEqual": true,
+    "p1ResidualsEqual": true,
+    "exactQEqual": true,
+    "q1eSuccessorQ": "582c38abc3dbd8c5",
+    "d21SuccessorQ": "582c38abc3dbd8c5",
+    "residualDifference": null
+  },
+  "afterG": {
+    "q1eChildQ": "966e6353e06e4d41",
+    "d21ChildQ": "966e6353e06e4d41",
+    "sameExactQ": true,
+    "q1eSupport": [
+      6,
+      6,
+      3,
+      6,
+      5,
+      5,
+      1
+    ],
+    "d21Support": [
+      6,
+      6,
+      3,
+      6,
+      5,
+      5,
+      1
+    ]
+  },
+  "q966Premise": {
+    "exactQClass": "966e6353e06e4d41",
+    "classification": "Q966_P0_NONWIN",
+    "interval": {
+      "lower": -1,
+      "upper": 0
+    },
+    "sourceEvidence": "CPC_Q966_NONWIN_PROPAGATION_SURVIVING_G_AUDIT_0_1.json"
+  },
+  "q1eRootActions": [
+    {
+      "column": 1,
+      "kind": "EXACT_Q966_NONWIN_REPLY_VIA_CONVERGENCE",
+      "witness": {
+        "forcedP0Cell": "A6",
+        "p1Column": 7,
+        "childQ": "966e6353e06e4d41",
+        "convergedRank31Q": "582c38abc3dbd8c5",
+        "sourceEvidence": "CPC_Q966_NONWIN_PROPAGATION_SURVIVING_G_AUDIT_0_1.json"
+      },
+      "interval": {
+        "lower": -1,
+        "upper": 0
+      }
+    },
+    {
+      "column": 3,
+      "kind": "P1_A6_TERMINAL_REPLY",
+      "witness": {
+        "p1Column": 1,
+        "cell": "A6"
+      },
+      "interval": {
+        "lower": -1,
+        "upper": -1
+      }
+    },
+    {
+      "column": 5,
+      "kind": "P1_A6_TERMINAL_REPLY",
+      "witness": {
+        "p1Column": 1,
+        "cell": "A6"
+      },
+      "interval": {
+        "lower": -1,
+        "upper": -1
+      }
+    },
+    {
+      "column": 6,
+      "kind": "P1_A6_TERMINAL_REPLY",
+      "witness": {
+        "p1Column": 1,
+        "cell": "A6"
+      },
+      "interval": {
+        "lower": -1,
+        "upper": -1
+      }
+    },
+    {
+      "column": 7,
+      "kind": "P1_A6_TERMINAL_REPLY",
+      "witness": {
+        "p1Column": 1,
+        "cell": "A6"
+      },
+      "interval": {
+        "lower": -1,
+        "upper": -1
+      }
+    }
+  ],
+  "classification": "P0_NONWIN",
+  "interval": {
+    "lower": -1,
+    "upper": 0
+  },
+  "resourceFailureCount": 0,
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "ordinaryFreeBranchGameTreeUsed": false,
+  "productionCpcModified": false,
+  "jsMinSysModified": false,
+  "bsfpModified": false,
+  "conclusion": [
+    "The q1e forced A6 successor and the d21 C3 successor are the same exact semantic q despite their distinct physical histories.",
+    "P1:G from the converged successor reaches exact q966, so q1e:A6 is P0-nonwinning.",
+    "All non-A q1e actions lose immediately to P1:A6, and A is nonwinning; q1e is therefore P0_NONWIN [-1,0]."
+  ],
+  "boundary": [
+    "Neutral-token structure motivates the equality test but does not replace exact q equality.",
+    "No oracle, solved W/D/L, minimax, unrestricted game-tree value, opening book, best-move table or BSFP solved frontier is used.",
+    "Production CPC, JSMinSys and BSFP are unchanged."
+  ]
+}
