@@ -1,0 +1,309 @@
+{
+  "schema": "connect4.cpc_q2db_forced_terminal_safety_chain.v1",
+  "date": "2026-10-01",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "design": "CPC_Q2DB_FORCED_TERMINAL_SAFETY_CHAIN_DESIGN_0_1.md",
+  "sourceEvidence": "CPC_Q2DB_TWO_COLUMN_TERMINAL_EXPOSURE_0_1.json",
+  "startQ": "2db2abcb67d530e0",
+  "startSequence": "4444415666662322224255115153113756",
+  "startRank": 34,
+  "startSupport": [
+    6,
+    6,
+    3,
+    6,
+    6,
+    6,
+    1
+  ],
+  "steps": [
+    {
+      "index": 0,
+      "sequence": "4444415666662322224255115153113756",
+      "exactQClass": "2db2abcb67d530e0",
+      "rank": 34,
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        6,
+        6,
+        1
+      ],
+      "mover": "P0",
+      "legalActions": [
+        3,
+        7
+      ],
+      "immediateTerminalActions": [],
+      "actionAudit": [
+        {
+          "column": 3,
+          "cell": "C4",
+          "moverTerminal": false,
+          "childQ": "696dbeb27a54c2e5",
+          "childSupport": [
+            6,
+            6,
+            4,
+            6,
+            6,
+            6,
+            1
+          ],
+          "opponentImmediateTerminals": [
+            {
+              "column": 3,
+              "cell": "C5"
+            }
+          ],
+          "safe": false
+        },
+        {
+          "column": 7,
+          "cell": "G2",
+          "moverTerminal": false,
+          "childQ": "ff5553a1d76cdce7",
+          "childSupport": [
+            6,
+            6,
+            3,
+            6,
+            6,
+            6,
+            2
+          ],
+          "opponentImmediateTerminals": [],
+          "safe": true
+        }
+      ],
+      "safeActions": [
+        7
+      ],
+      "forcedAction": 7
+    },
+    {
+      "index": 1,
+      "sequence": "44444156666623222242551151531137567",
+      "exactQClass": "ff5553a1d76cdce7",
+      "rank": 35,
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        6,
+        6,
+        2
+      ],
+      "mover": "P1",
+      "legalActions": [
+        3,
+        7
+      ],
+      "immediateTerminalActions": [],
+      "actionAudit": [
+        {
+          "column": 3,
+          "cell": "C4",
+          "moverTerminal": false,
+          "childQ": "b315ce84f1dda727",
+          "childSupport": [
+            6,
+            6,
+            4,
+            6,
+            6,
+            6,
+            2
+          ],
+          "opponentImmediateTerminals": [
+            {
+              "column": 7,
+              "cell": "G3"
+            }
+          ],
+          "safe": false
+        },
+        {
+          "column": 7,
+          "cell": "G3",
+          "moverTerminal": false,
+          "childQ": "e5d63da12420fdb3",
+          "childSupport": [
+            6,
+            6,
+            3,
+            6,
+            6,
+            6,
+            3
+          ],
+          "opponentImmediateTerminals": [],
+          "safe": true
+        }
+      ],
+      "safeActions": [
+        7
+      ],
+      "forcedAction": 7
+    },
+    {
+      "index": 2,
+      "sequence": "444441566666232222425511515311375677",
+      "exactQClass": "e5d63da12420fdb3",
+      "rank": 36,
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        6,
+        6,
+        3
+      ],
+      "mover": "P0",
+      "legalActions": [
+        3,
+        7
+      ],
+      "immediateTerminalActions": [],
+      "actionAudit": [
+        {
+          "column": 3,
+          "cell": "C4",
+          "moverTerminal": false,
+          "childQ": "6b3f7f4882b581bc",
+          "childSupport": [
+            6,
+            6,
+            4,
+            6,
+            6,
+            6,
+            3
+          ],
+          "opponentImmediateTerminals": [
+            {
+              "column": 3,
+              "cell": "C5"
+            }
+          ],
+          "safe": false
+        },
+        {
+          "column": 7,
+          "cell": "G4",
+          "moverTerminal": false,
+          "childQ": "6496c888c4e2a157",
+          "childSupport": [
+            6,
+            6,
+            3,
+            6,
+            6,
+            6,
+            4
+          ],
+          "opponentImmediateTerminals": [],
+          "safe": true
+        }
+      ],
+      "safeActions": [
+        7
+      ],
+      "forcedAction": 7
+    },
+    {
+      "index": 3,
+      "sequence": "4444415666662322224255115153113756777",
+      "exactQClass": "6496c888c4e2a157",
+      "rank": 37,
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        6,
+        6,
+        4
+      ],
+      "mover": "P1",
+      "legalActions": [
+        3,
+        7
+      ],
+      "immediateTerminalActions": [],
+      "actionAudit": [
+        {
+          "column": 3,
+          "cell": "C4",
+          "moverTerminal": false,
+          "childQ": "28d9883e71b855c4",
+          "childSupport": [
+            6,
+            6,
+            4,
+            6,
+            6,
+            6,
+            4
+          ],
+          "opponentImmediateTerminals": [],
+          "safe": true
+        },
+        {
+          "column": 7,
+          "cell": "G5",
+          "moverTerminal": false,
+          "childQ": "e7eb0902f1f7984c",
+          "childSupport": [
+            6,
+            6,
+            3,
+            6,
+            6,
+            6,
+            5
+          ],
+          "opponentImmediateTerminals": [],
+          "safe": true
+        }
+      ],
+      "safeActions": [
+        3,
+        7
+      ],
+      "forcedAction": null
+    }
+  ],
+  "forcedSequence": [
+    7,
+    7,
+    7
+  ],
+  "classification": "UNRESOLVED_MULTIPLE_SAFE",
+  "terminal": {
+    "kind": "MULTIPLE_SAFE_ACTIONS",
+    "safeActions": [
+      3,
+      7
+    ]
+  },
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "ordinaryFreeBranchGameTreeUsed": false,
+  "productionCpcModified": false,
+  "jsMinSysModified": false,
+  "bsfpModified": false,
+  "conclusion": [
+    "Every chain step uses only the current exact state, immediate terminal actions, and one-ply opponent terminal exposure.",
+    "The forced-safety reduction stops where multiple safe actions first remain."
+  ],
+  "boundary": [
+    "No solved W/D/L, oracle, minimax, unrestricted game-tree value search, best-move table, opening book, BSFP solved frontier, support-only identity shortcut, or sealed holdout is used.",
+    "No branching beyond one-ply terminal exposure is recursively evaluated.",
+    "Production CPC, JSMinSys, legacy repair semantics, RCIC semantics, and BSFP remain unchanged."
+  ]
+}
