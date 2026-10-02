@@ -236,7 +236,8 @@ for(const exactQClass of TARGETS){
       outcome:terminalName(ba3.terminal),
     },
     noP0WinningAction:stateAccept,
-    interval:{lower:-1,upper:0},
+    exactDraw:stateAccept,
+    interval:{lower:0,upper:0},
     accept:stateAccept,
   });
 }
@@ -257,7 +258,7 @@ console.log(JSON.stringify({
       remainingPoset:'A1<A2<A3 plus incomparable B',
       p0Residual:['A1','A2','A3'],
       p1Residual:['A2'],
-      consequence:'P0 nonwin; B is exact draw',
+      consequence:'exact draw: B forces draw and A1 admits immediate P1 terminal',
     },
   },
   oracleUsed:false,
@@ -270,7 +271,7 @@ console.log(JSON.stringify({
     'All three independent exact instantiations satisfy the label-free 3+1 tail theorem premises.',
     'A1 exposes the deferred P1 singleton A2 as an immediate terminal response.',
     'B exhausts the independent column and forces the three-event chain to an exact full-board draw.',
-    'Therefore neither legal P0 action is winning in every qualified instance.',
+    'Therefore neither legal P0 action is winning, while B is a forced draw action; every qualified instance is exactly draw.',
   ],
   boundary:[
     'Qualification consumes only exact current-state support, normalized residual antichains, gravity order and exact first-win cofactors.',
