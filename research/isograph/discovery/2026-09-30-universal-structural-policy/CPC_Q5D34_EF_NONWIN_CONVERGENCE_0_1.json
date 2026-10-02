@@ -1,0 +1,177 @@
+{
+  "schema": "connect4.cpc_q5d34_ef_nonwin_convergence.v1",
+  "date": "2026-10-01",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "design": "CPC_Q5D34_EF_NONWIN_CONVERGENCE_DESIGN_0_1.md",
+  "sourceEvidence": {
+    "q5dCensus": "CPC_Q5D34_THREE_ACTION_FORCED_SAFETY_CENSUS_0_1.json",
+    "q2dbForcedChain": "CPC_Q2DB_FORCED_TERMINAL_SAFETY_CHAIN_0_1.json",
+    "q649Closure": "CPC_Q649_TWO_REPLY_CONSEQUENCE_CLASS_CLOSURE_0_1.json"
+  },
+  "sourceQ": "5d34e24395b9d801",
+  "sourceSequence": "4444415666662322224255115153113777",
+  "rank": 34,
+  "support": [
+    6,
+    6,
+    3,
+    6,
+    5,
+    5,
+    3
+  ],
+  "convergenceQ": "e5d63da12420fdb3",
+  "q649": "6496c888c4e2a157",
+  "bridges": {
+    "efToConvergence": {
+      "pass": true,
+      "aSequence": "444441566666232222425511515311377756",
+      "bSequence": "444441566666232222425511515311375677",
+      "aQ": "e5d63da12420fdb3",
+      "bQ": "e5d63da12420fdb3",
+      "rank": 36,
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        6,
+        6,
+        3
+      ]
+    },
+    "feToConvergence": {
+      "pass": true,
+      "aSequence": "444441566666232222425511515311377765",
+      "bSequence": "444441566666232222425511515311375677",
+      "aQ": "e5d63da12420fdb3",
+      "bQ": "e5d63da12420fdb3",
+      "rank": 36,
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        6,
+        6,
+        3
+      ]
+    },
+    "convergenceToQ649": {
+      "pass": true,
+      "ef": {
+        "pass": true,
+        "aSequence": "4444415666662322224255115153113777567",
+        "bSequence": "4444415666662322224255115153113756777",
+        "aQ": "6496c888c4e2a157",
+        "bQ": "6496c888c4e2a157",
+        "rank": 37,
+        "support": [
+          6,
+          6,
+          3,
+          6,
+          6,
+          6,
+          4
+        ]
+      },
+      "fe": {
+        "pass": true,
+        "aSequence": "4444415666662322224255115153113777657",
+        "bSequence": "4444415666662322224255115153113756777",
+        "aQ": "6496c888c4e2a157",
+        "bQ": "6496c888c4e2a157",
+        "rank": 37,
+        "support": [
+          6,
+          6,
+          3,
+          6,
+          6,
+          6,
+          4
+        ]
+      }
+    }
+  },
+  "convergenceCertificate": {
+    "q": "e5d63da12420fdb3",
+    "rank": 36,
+    "support": [
+      6,
+      6,
+      3,
+      6,
+      6,
+      6,
+      3
+    ],
+    "uniqueSafeP0Action": 7,
+    "eliminatedAlternative": {
+      "column": 3,
+      "opponentImmediateTerminals": [
+        {
+          "column": 3,
+          "cell": "C5"
+        }
+      ]
+    },
+    "q649Handoff": "6496c888c4e2a157"
+  },
+  "q649DrawWitness": {
+    "q": "6496c888c4e2a157",
+    "p1Action": 7,
+    "classification": "DRAW_FULL_BOARD",
+    "forcedSequence": [
+      7,
+      3,
+      3,
+      3
+    ],
+    "terminal": {
+      "kind": "FULL_BOARD_DRAW"
+    }
+  },
+  "actions": [
+    {
+      "p0Action": 5,
+      "adversarialReply": 6,
+      "replyQ": "e5d63da12420fdb3",
+      "disposition": "P0_NONWIN",
+      "reason": "EXACT_E5D_TO_Q649_DRAW_HANDOFF"
+    },
+    {
+      "p0Action": 6,
+      "adversarialReply": 5,
+      "replyQ": "e5d63da12420fdb3",
+      "disposition": "P0_NONWIN",
+      "reason": "EXACT_E5D_TO_Q649_DRAW_HANDOFF"
+    },
+    {
+      "p0Action": 7,
+      "adversarialReply": null,
+      "replyQ": null,
+      "disposition": "SURVIVING_CANDIDATE",
+      "reason": "NOT_CLASSIFIED_BY_THIS_COMPOSITION"
+    }
+  ],
+  "classification": "EF_NONWIN_G_SURVIVES",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "ordinaryFreeBranchGameTreeUsed": false,
+  "productionCpcModified": false,
+  "jsMinSysModified": false,
+  "bsfpModified": false,
+  "conclusion": [
+    "The q5d E6/F6 cross replies are exact semantic-q convergences, not support-only matches.",
+    "Both converge to e5d63, whose only terminal-safe P0 action is G4; that exact handoff reaches q649.",
+    "At q649, P1 has an exact G5 consequence with a unique forced continuation to a full-board draw. Therefore P0 cannot force a win from e5d63.",
+    "Consequently q5d E6 and F6 cannot force a P0 win. G4 is the only remaining q5d winning candidate."
+  ],
+  "boundary": [
+    "This composition does not classify q5d G4 or q5d34 itself.",
+    "No solved W/D/L, oracle, minimax, unrestricted game-tree value search, best-move table, opening book, BSFP solved frontier, support-only identity shortcut, or sealed holdout is used.",
+    "Production CPC, JSMinSys, legacy repair semantics, RCIC semantics, forced-loss semantics, and BSFP remain unchanged."
+  ]
+}
