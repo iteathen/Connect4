@@ -1,25 +1,28 @@
-// CPCX debt-token composition through normalized vertical two-stage closure.
+// CPCX blocker-token / normalization-class composition after wing debt repair.
 //
-// One wing-deviation cell is an unknown defender token selected from the
-// quantified deviation frontier.  For each member of that flat set CPCX:
-//   1. materializes the already-certified debt repair;
-//   2. applies only deterministic singleton normalization;
-//   3. consumes one exact normalized vertical two-stage theorem.
+// The prior wing deviation is a flat quantified frontier set.  For each member,
+// CPCX asks the exact vertical two-stage theorem for its defender-response class.
 //
-// The vertical theorem itself universally collapses defender preemption versus
-// every nonpreempt frontier response, so this operator MUST NOT insert another
-// free defender move before it.
+// If the theorem is exact, its whole preempt/nonpreempt set is collapsed at once.
+// If the theorem identifies a finite first-win hazard set, CPCX splits only on
+// those theorem-derived hazard moves:
+//   - safe response set = every defender move not in the hazard set;
+//   - normalization hazards = exact moves that create a forced singleton.
 //
-// Realization carriers are immediately intersected into one abstract successor.
-// No recursive response tree is retained.
+// Hazard moves are followed only through deterministic forced normalization.
+// CPCX never forms deviation-frontier x arbitrary-reply-frontier products.
+//
+// Complexity is polynomial in the deviation set, live residual count and the
+// number of theorem-derived normalization hazards.
 
-import {cpcxCell} from './cpcx.mjs';
-import {applyCpcxForcedEvent,closeCpcxForcedResponses} from './cpcx-closure.mjs';
+import {
+  applyCpcxForcedEvent,
+  closeCpcxForcedResponses,
+} from './cpcx-closure.mjs';
 import {verifyCpcxFixedEventScript} from './cpcx-wing.mjs';
 import {
   findCpcxVerticalTwoStageObligations,
   certifyCpcxVerticalTwoStage,
-  partitionCpcxVerticalTwoStageGuard,
 } from './cpcx-two-stage.mjs';
 import {composeCpcxForcingMacro} from './cpcx-successor.mjs';
 
@@ -48,16 +51,10 @@ function materialize(position,events){
   };
 }
 
-function selectVerticalMacro(position,attacker){
+function verticalRows(position,attacker){
   const rows=[];
   for(const demand of findCpcxVerticalTwoStageObligations(position,{player:attacker})){
     const certificate=certifyCpcxVerticalTwoStage(position,demand);
-    if(!certificate.exact)continue;
-    if(certificate.kind==='ATTACKER_TERMINAL_ON_LOWER')return {
-      terminal:true,demand,certificate,
-    };
-    if(certificate.kind!=='FORCED_UPPER_RESPONSE'&&certificate.kind!=='PREEMPT_OR_FORCED_UPPER')
-      continue;
     rows.push({demand,certificate});
   }
   rows.sort((a,b)=>
@@ -65,23 +62,21 @@ function selectVerticalMacro(position,attacker){
     a.demand.upperCell-b.demand.upperCell||
     a.demand.obligation.lineId-b.demand.obligation.lineId
   );
-  if(!rows.length)return null;
-  const x=rows[0];
+  return rows;
+}
+
+function progressFor(demand,certificate,attacker){
   return {
-    terminal:false,
-    ...x,
-    progress:{
-      kind:'CERTIFIED_FORCING_MACRO',
-      exact:true,
-      player:attacker,
-      macro:{
-        kind:'VERTICAL_TWO_STAGE',
-        primaryCell:x.demand.lowerCell,
-        secondaryCell:x.demand.upperCell,
-        lineId:x.demand.obligation.lineId,
-        demand:x.demand,
-        certificate:x.certificate,
-      },
+    kind:'CERTIFIED_FORCING_MACRO',
+    exact:true,
+    player:attacker,
+    macro:{
+      kind:'VERTICAL_TWO_STAGE',
+      primaryCell:demand.lowerCell,
+      secondaryCell:demand.upperCell,
+      lineId:demand.obligation.lineId,
+      demand,
+      certificate,
     },
   };
 }
@@ -96,24 +91,29 @@ function intersectResiduals(carriers){
     out=[];
   for(const [key,first] of maps[0]){
     const rows=[first];
-    let all=true;
+    let all=1;
     for(let i=1;i<maps.length;i++){
       const r=maps[i].get(key);
-      if(!r){all=false;break;}
+      if(!r){all=0;break;}
       rows.push(r);
     }
     if(!all)continue;
     const events=first.missingCells.map(cell=>{
-      const samples=rows.flatMap(r=>{
+      const samples=[];
+      for(const r of rows){
         const e=r.events?.find(x=>x.cell===cell);
-        return e?[e]:[];
-      });
+        if(e)samples.push(e);
+      }
       return {
         cell,
-        minSupportDistance:samples.length?Math.min(...samples.map(e=>e.minSupportDistance)):null,
-        maxSupportDistance:samples.length?Math.max(...samples.map(e=>e.maxSupportDistance)):null,
+        minSupportDistance:samples.length
+          ?Math.min(...samples.map(e=>e.minSupportDistance))
+          :null,
+        maxSupportDistance:samples.length
+          ?Math.max(...samples.map(e=>e.maxSupportDistance))
+          :null,
         eventRankParity:samples.length?samples[0].eventRankParity:null,
-        eventRankParityConsistent:samples.every(e=>
+        eventRankParityConsistent:samples.length>0&&samples.every(e=>
           e.eventRankParity===samples[0].eventRankParity
         ),
       };
@@ -127,7 +127,7 @@ function intersectResiduals(carriers){
       missingCount:first.missingCount,
       missingCells:[...first.missingCells],
       events,
-      guarantee:'IDENTICAL_RESIDUAL_IN_EVERY_NONTERMINAL_DEVIATION_CLASS',
+      guarantee:'IDENTICAL_RESIDUAL_IN_EVERY_NONTERMINAL_RESPONSE_CLASS',
     });
   }
   return out;
@@ -149,261 +149,121 @@ function mergeBlockerTokens(carriers){
     candidateCells:[...cells].sort((a,b)=>a-b),
     directKillCapacity,
     supportOnly:directKillCapacity===0,
-    provenance:'vertical preempt-vs-nonpreempt uncertainty merged across wing-deviation token classes',
+    provenance:'collapsed vertical-macro uncertainty over safe/hazard response classes',
   }];
 }
 
+function composeVertical(position,demand,certificate,attacker){
+  if(certificate.kind==='ATTACKER_TERMINAL_ON_LOWER'||
+     certificate.kind==='PREEXISTING_CURRENT_TERMINAL')
+    return {kind:'CERTIFIED_FIRST_WIN',exact:true,player:attacker};
 
-function collapseCarrierSet(carriers,attacker,source){
-  if(!carriers.length)return {
-    schema:'connect4.cpcx.token-product-collapse.v0_3',
-    kind:'CERTIFIED_FIRST_WIN',
-    exact:true,
-    player:attacker,
-    attacker,
-    classes:source.classes??[],
-    recursive:false,
-    choiceEnumeration:false,
-  };
+  if(!certificate.exact)return null;
+  if(certificate.kind!=='FORCED_UPPER_RESPONSE'&&
+     certificate.kind!=='PREEMPT_OR_FORCED_UPPER')return null;
 
-  const rankOptions=[...new Set(carriers.flatMap(c=>c.rank.options))].sort((a,b)=>a-b),
-    parity=rankOptions[0]&1;
-  if(!rankOptions.every(x=>(x&1)===parity))return {
-    kind:'NO_CERTIFICATE',
-    exact:false,
-    seam:'RESPONSE_CLASS_RANK_PARITY_SPLIT',
-    rankOptions,
-  };
-  if(!carriers.every(c=>c.nextMover===attacker))return {
-    kind:'NO_CERTIFICATE',
-    exact:false,
-    seam:'RESPONSE_CLASS_MOVER_SPLIT',
-  };
+  return composeCpcxForcingMacro(
+    position,
+    progressFor(demand,certificate,attacker)
+  );
+}
 
-  const guaranteedResiduals=intersectResiduals(carriers),
-    blockerTokens=mergeBlockerTokens(carriers),
-    blockerCells=new Set(blockerTokens.flatMap(t=>t.candidateCells));
-  for(const r of guaranteedResiduals)if(r.missingCells.some(x=>blockerCells.has(x)))
-    return {
-      kind:'NO_CERTIFICATE',
-      exact:false,
-      seam:'MERGED_BLOCKER_INTERSECTS_GUARANTEED_RESIDUAL',
-      residual:r,
-    };
-
+function restrictedVerticalCertificate(failure){
+  if(failure.kind!=='POST_LOWER_FIRST_WIN_GUARD_FAILURE')return null;
+  const hazards=[...new Set(failure.risks.map(x=>x.defenderMove))].sort((a,b)=>a-b),
+    safe=failure.nonpreemptFrontier.filter(x=>!hazards.includes(x));
   return {
-    schema:'connect4.cpcx.token-product-collapse.v0_3',
-    kind:'ABSTRACT_SUCCESSOR',
-    exact:true,
-    attacker,
-    nextMover:attacker,
-    rank:{options:rankOptions,parity,allSameParity:true},
-    controlParityEquivalent:true,
-    guaranteedResiduals,
-    blockerTokens,
-    firstWinFacts:{
-      repairFirstWinGuardPassed:true,
-      postRepairFirstWinGuardPassed:true,
-      deterministicNormalizationApplied:true,
-      normalizedVerticalMacroApplied:true,
-      nextImmediateNormalizationClosed:false,
-    },
-    classes:source.classes??[],
-    choiceEnumeration:false,
-    recursive:false,
-    source:{
-      kind:source.kind,
-      decisionIndex:source.decisionIndex,
+    hazards,
+    certificate:{
+      kind:'PREEMPT_OR_FORCED_UPPER',
+      exact:true,
+      moverRole:'DEFENDER',
+      lowerCell:failure.lowerCell,
+      upperCell:failure.upperCell,
+      preemptCell:failure.lowerCell,
+      nonpreemptFrontier:safe,
+      responseCell:failure.upperCell,
+      rule:'exact vertical two-stage theorem restricted to nonpreempt moves outside its explicitly returned first-win hazard set',
+      choiceEnumeration:false,
+      restrictedByExactHazardAudit:true,
     },
   };
 }
 
-function composeVerticalWithGuardPartition(position,attacker){
-  const demands=findCpcxVerticalTwoStageObligations(position,{player:attacker})
-    .sort((a,b)=>
-      a.lowerCell-b.lowerCell||
-      a.upperCell-b.upperCell||
-      a.obligation.lineId-b.obligation.lineId
-    );
+function normalizeHazard(position,hazardCell,attacker){
+  const after=applyCpcxForcedEvent(position,hazardCell);
+  if(after.terminal)return {
+    kind:'NO_CERTIFICATE',
+    exact:false,
+    seam:'DEFENDER_NORMALIZATION_HAZARD_TERMINAL',
+    terminal:after.terminal,
+    hazardCell,
+  };
 
-  for(const demand of demands){
-    const certificate=certifyCpcxVerticalTwoStage(position,demand);
-    if(certificate.exact){
-      if(certificate.kind==='ATTACKER_TERMINAL_ON_LOWER')return {
-        kind:'CERTIFIED_FIRST_WIN',
-        exact:true,
-        player:attacker,
-        classes:[{kind:'ATTACKER_FIRST_WIN_ON_VERTICAL_LOWER'}],
-      };
-      if(certificate.kind!=='FORCED_UPPER_RESPONSE'&&certificate.kind!=='PREEMPT_OR_FORCED_UPPER')
-        continue;
-      const carrier=composeCpcxForcingMacro(position,{
-        kind:'CERTIFIED_FORCING_MACRO',
-        exact:true,
-        player:attacker,
-        macro:{
-          kind:'VERTICAL_TWO_STAGE',
-          primaryCell:demand.lowerCell,
-          secondaryCell:demand.upperCell,
-          lineId:demand.obligation.lineId,
-          demand,
-          certificate,
-        },
-      });
-      return {
-        kind:carrier.kind,
-        exact:carrier.exact,
-        carrier,
-        classes:[{
-          kind:'DIRECT_VERTICAL_CLASS',
-          verticalKind:certificate.kind,
-          rankOptions:carrier.rank?.options??[],
-        }],
-      };
-    }
-
-    if(certificate.kind!=='POST_LOWER_FIRST_WIN_GUARD_FAILURE')continue;
-    const partition=partitionCpcxVerticalTwoStageGuard(position,demand,certificate),
-      carriers=[],classes=[];
-
-    const safeCertificate={
-      kind:'PREEMPT_OR_FORCED_UPPER',
-      exact:true,
-      moverRole:'DEFENDER',
-      lowerCell:demand.lowerCell,
-      upperCell:demand.upperCell,
-      preemptCell:demand.lowerCell,
-      nonpreemptFrontier:[...partition.safeNonpreemptFrontier],
-      responseCell:demand.upperCell,
-      rule:'partition-restricted exact vertical class',
-      choiceEnumeration:false,
-    };
-    const safeCarrier=composeCpcxForcingMacro(position,{
-      kind:'CERTIFIED_FORCING_MACRO',
-      exact:true,
-      player:attacker,
-      macro:{
-        kind:'VERTICAL_TWO_STAGE',
-        primaryCell:demand.lowerCell,
-        secondaryCell:demand.upperCell,
-        lineId:demand.obligation.lineId,
-        demand,
-        certificate:safeCertificate,
-      },
-    });
-    if(!safeCarrier.exact)return {
-      kind:'NO_CERTIFICATE',
-      exact:false,
-      seam:'SAFE_VERTICAL_PARTITION_COMPOSITION_FAILED',
-    };
-    carriers.push(safeCarrier);
-    classes.push({
-      kind:'PREEMPT_OR_SAFE_DELAYED',
-      safeNonpreemptFrontier:[...partition.safeNonpreemptFrontier],
-      rankOptions:[...safeCarrier.rank.options],
-    });
-
-    for(const guarded of partition.guardNormalizationClasses){
-      if(guarded.targetCells.length!==1)return {
+  const normalized=closeCpcxForcedResponses(after);
+  if(normalized.kind==='CERTIFIED_FIRST_WIN'){
+    return normalized.player===attacker
+      ?{kind:'CERTIFIED_FIRST_WIN',exact:true,player:attacker,hazardCell}
+      :{
         kind:'NO_CERTIFICATE',
         exact:false,
-        seam:'GUARD_NORMALIZATION_MULTI_TARGET',
-        defenderMove:guarded.defenderMove,
-        targetCells:guarded.targetCells,
+        seam:'DEFENDER_FIRST_WIN_DURING_HAZARD_NORMALIZATION',
+        player:normalized.player,
+        hazardCell,
       };
-      const afterRisk=applyCpcxForcedEvent(position,guarded.defenderMove);
-      if(afterRisk.terminal)return {
-        kind:'NO_CERTIFICATE',
-        exact:false,
-        seam:'GUARD_NORMALIZATION_DEFENDER_TERMINAL',
-        defenderMove:guarded.defenderMove,
-        terminal:afterRisk.terminal,
-      };
-      const normalized=closeCpcxForcedResponses(afterRisk);
-      if(normalized.kind==='CERTIFIED_FIRST_WIN'){
-        if(normalized.player===attacker){
-          classes.push({
-            kind:'ATTACKER_FIRST_WIN_DURING_GUARD_NORMALIZATION',
-            defenderMove:guarded.defenderMove,
-            forcedSteps:normalized.steps.length,
-          });
-          continue;
-        }
-        return {
-          kind:'NO_CERTIFICATE',
-          exact:false,
-          seam:'DEFENDER_FIRST_WIN_DURING_GUARD_NORMALIZATION',
-          defenderMove:guarded.defenderMove,
-          player:normalized.player,
-        };
-      }
-      if(normalized.kind!=='OPEN')return {
-        kind:'NO_CERTIFICATE',
-        exact:false,
-        seam:'GUARD_NORMALIZATION_BOUNDARY_UNSUPPORTED',
-        defenderMove:guarded.defenderMove,
-      };
-
-      const reentry=selectVerticalMacro(normalized.position,attacker);
-      if(!reentry)return {
-        kind:'NO_CERTIFICATE',
-        exact:false,
-        seam:'VERTICAL_GUARD_REENTRY_NOT_FOUND',
-        defenderMove:guarded.defenderMove,
-      };
-      if(reentry.terminal){
-        classes.push({
-          kind:'ATTACKER_FIRST_WIN_AFTER_GUARD_NORMALIZATION',
-          defenderMove:guarded.defenderMove,
-          forcedSteps:normalized.steps.length,
-        });
-        continue;
-      }
-
-      const reentryCarrier=composeCpcxForcingMacro(normalized.position,reentry.progress);
-      if(!reentryCarrier.exact)return {
-        kind:'NO_CERTIFICATE',
-        exact:false,
-        seam:'VERTICAL_GUARD_REENTRY_COMPOSITION_FAILED',
-        defenderMove:guarded.defenderMove,
-      };
-      carriers.push(reentryCarrier);
-      classes.push({
-        kind:'GUARD_NORMALIZE_THEN_VERTICAL',
-        defenderMove:guarded.defenderMove,
-        targetCell:guarded.targetCells[0],
-        forcedSteps:normalized.steps.length,
-        verticalKind:reentry.certificate.kind,
-        rankOptions:[...reentryCarrier.rank.options],
-      });
-    }
-
-    const merged=collapseCarrierSet(carriers,attacker,{
-      kind:'PARTITIONED_VERTICAL_GUARD_COLLAPSE',
-      classes,
-    });
-    return {
-      kind:merged.kind,
-      exact:merged.exact,
-      carrier:merged.kind==='ABSTRACT_SUCCESSOR'?merged:null,
-      certificate:merged.kind==='CERTIFIED_FIRST_WIN'?merged:null,
-      seam:merged.seam??null,
-      classes,
-      partition,
-    };
   }
-  return null;
+  if(normalized.kind!=='OPEN')return {
+    kind:'NO_CERTIFICATE',
+    exact:false,
+    seam:'UNSUPPORTED_HAZARD_NORMALIZATION_BOUNDARY',
+    hazardCell,
+    boundary:normalized.boundary,
+  };
+
+  const rows=verticalRows(normalized.position,attacker),
+    exact=rows.find(x=>x.certificate.exact&&[
+      'PREEMPT_OR_FORCED_UPPER',
+      'FORCED_UPPER_RESPONSE',
+      'ATTACKER_TERMINAL_ON_LOWER',
+      'PREEXISTING_CURRENT_TERMINAL',
+    ].includes(x.certificate.kind));
+  if(!exact)return {
+    kind:'NO_CERTIFICATE',
+    exact:false,
+    seam:'NORMALIZED_VERTICAL_TWO_STAGE_NOT_FOUND',
+    hazardCell,
+    normalizedRank:normalized.position.rank,
+    normalizedMover:normalized.position.mover,
+  };
+
+  const carrier=composeVertical(
+    normalized.position,exact.demand,exact.certificate,attacker
+  );
+  return carrier?.kind==='CERTIFIED_FIRST_WIN'
+    ?carrier
+    :carrier?.exact
+      ?carrier
+      :{
+        kind:'NO_CERTIFICATE',
+        exact:false,
+        seam:'NORMALIZED_VERTICAL_COMPOSITION_FAILED',
+        hazardCell,
+      };
 }
 
 export function collapseCpcxDebtRepairTokenProduct(position,contract,repair){
   if(contract?.kind!=='THREE_TRIGGER_WING_ATTACK'||!repair?.exact)
     throw new TypeError('exact wing repair required');
-  if(!repair.firstWinGuardPassed||!repair.postRepairFirstWinGuardPassed||!repair.repairLegalAtDecision)
+  if(!repair.firstWinGuardPassed||
+     !repair.postRepairFirstWinGuardPassed||
+     !repair.repairLegalAtDecision)
     return {kind:'NO_CERTIFICATE',exact:false,seam:'WING_REPAIR_GUARD_FAILURE'};
 
   const attacker=repair.attacker,defender=repair.defender,
     classes=[],continuing=[];
 
+  // This is one flat quantified set scan.  It does not descend through a
+  // second arbitrary reply frontier.
   for(const deviationCell of repair.deviationFrontier){
     const postRepair=materialize(position,[
       ...repair.prefix,
@@ -418,83 +278,175 @@ export function collapseCpcxDebtRepairTokenProduct(position,contract,repair){
       verification:postRepair.verification,
     };
 
-    const normalized=closeCpcxForcedResponses(postRepair.position);
-    if(normalized.kind==='CERTIFIED_FIRST_WIN'){
-      if(normalized.player===attacker){
+    const rows=verticalRows(postRepair.position,attacker),
+      exact=rows.find(x=>x.certificate.exact&&[
+        'PREEMPT_OR_FORCED_UPPER',
+        'FORCED_UPPER_RESPONSE',
+        'ATTACKER_TERMINAL_ON_LOWER',
+        'PREEXISTING_CURRENT_TERMINAL',
+      ].includes(x.certificate.kind));
+
+    if(exact){
+      const carrier=composeVertical(
+        postRepair.position,exact.demand,exact.certificate,attacker
+      );
+      if(carrier?.kind==='CERTIFIED_FIRST_WIN'){
         classes.push({
-          deviationCell,
-          kind:'ATTACKER_FIRST_WIN_DURING_NORMALIZATION',
-          forcedSteps:normalized.steps.length,
+          deviationClass:'DIRECT_VERTICAL',
+          deviationCells:[deviationCell],
+          result:'CERTIFIED_FIRST_WIN',
         });
         continue;
       }
-      return {
+      if(!carrier?.exact)return {
         kind:'NO_CERTIFICATE',
         exact:false,
-        seam:'DEFENDER_FIRST_WIN_DURING_NORMALIZATION',
+        seam:'DIRECT_VERTICAL_COMPOSITION_FAILED',
         deviationCell,
-        player:normalized.player,
       };
-    }
-    if(normalized.kind!=='OPEN')return {
-      kind:'NO_CERTIFICATE',
-      exact:false,
-      seam:'UNSUPPORTED_NORMALIZATION_BOUNDARY',
-      deviationCell,
-      boundary:normalized.boundary,
-    };
-
-    const composed=composeVerticalWithGuardPartition(normalized.position,attacker);
-    if(!composed)return {
-      kind:'NO_CERTIFICATE',
-      exact:false,
-      seam:'NORMALIZED_VERTICAL_TWO_STAGE_NOT_FOUND',
-      deviationCell,
-      normalizedRank:normalized.position.rank,
-      normalizedMover:normalized.position.mover,
-    };
-    if(!composed.exact)return {
-      kind:'NO_CERTIFICATE',
-      exact:false,
-      seam:composed.seam??'VERTICAL_PARTITION_COMPOSITION_FAILED',
-      deviationCell,
-      detail:composed,
-    };
-    if(composed.kind==='CERTIFIED_FIRST_WIN'){
       classes.push({
-        deviationCell,
-        kind:'ATTACKER_FIRST_WIN_IN_VERTICAL_PARTITION',
-        forcedSteps:normalized.steps.length,
+        deviationClass:'DIRECT_VERTICAL',
+        deviationCells:[deviationCell],
+        result:'VERTICAL_MACRO_CONTINUES',
+        verticalKind:exact.certificate.kind,
+        rankOptions:[...carrier.rank.options],
       });
+      continuing.push(carrier);
       continue;
     }
-    const carrier=composed.carrier??composed;
-    if(carrier.nextMover!==attacker)return {
+
+    const failed=rows.find(x=>
+      x.certificate.kind==='POST_LOWER_FIRST_WIN_GUARD_FAILURE'
+    );
+    if(!failed)return {
       kind:'NO_CERTIFICATE',
       exact:false,
-      seam:'VERTICAL_MACRO_NEXT_MOVER_MISMATCH',
+      seam:'VERTICAL_TWO_STAGE_CLASSIFICATION_MISSING',
       deviationCell,
-      nextMover:carrier.nextMover,
+      rows:rows.map(x=>x.certificate.kind),
     };
 
-    classes.push({
+    const restricted=restrictedVerticalCertificate(failed.certificate);
+    if(!restricted)return {
+      kind:'NO_CERTIFICATE',
+      exact:false,
+      seam:'VERTICAL_HAZARD_RESTRICTION_FAILED',
       deviationCell,
-      kind:'VERTICAL_MACRO_CONTINUES',
-      forcedSteps:normalized.steps.length,
-      verticalClasses:composed.classes,
-      rankOptions:[...carrier.rank.options],
+    };
+
+    // Safe moves are one theorem-certified set class, not individual replies.
+    const safeCarrier=composeVertical(
+      postRepair.position,failed.demand,restricted.certificate,attacker
+    );
+    if(!safeCarrier?.exact)return {
+      kind:'NO_CERTIFICATE',
+      exact:false,
+      seam:'SAFE_VERTICAL_CLASS_COMPOSITION_FAILED',
+      deviationCell,
+    };
+    classes.push({
+      deviationClass:'VERTICAL_SAFE_RESPONSE_SET',
+      deviationCells:[deviationCell],
+      safeResponseCells:[failed.demand.lowerCell,...restricted.certificate.nonpreemptFrontier],
+      hazardCells:[...restricted.hazards],
+      result:'VERTICAL_MACRO_CONTINUES',
+      rankOptions:[...safeCarrier.rank.options],
     });
-    continuing.push(carrier);
+    continuing.push(safeCarrier);
+
+    // Only theorem-derived hazard moves receive deterministic normalization.
+    for(const hazardCell of restricted.hazards){
+      const carrier=normalizeHazard(postRepair.position,hazardCell,attacker);
+      if(carrier.kind==='CERTIFIED_FIRST_WIN'){
+        classes.push({
+          deviationClass:'NORMALIZATION_HAZARD',
+          deviationCells:[deviationCell],
+          hazardCells:[hazardCell],
+          result:'CERTIFIED_FIRST_WIN',
+        });
+        continue;
+      }
+      if(!carrier.exact)return {
+        ...carrier,
+        deviationCell,
+      };
+      classes.push({
+        deviationClass:'NORMALIZATION_HAZARD',
+        deviationCells:[deviationCell],
+        hazardCells:[hazardCell],
+        result:'VERTICAL_MACRO_CONTINUES',
+        rankOptions:[...carrier.rank.options],
+      });
+      continuing.push(carrier);
+    }
   }
 
-  const merged=collapseCarrierSet(continuing,attacker,{
-    kind:'WING_DEBT_NORMALIZE_VERTICAL',
-    decisionIndex:repair.decisionIndex,
+  if(!continuing.length)return {
+    schema:'connect4.cpcx.token-class-collapse.v0_2',
+    kind:'CERTIFIED_FIRST_WIN',
+    exact:true,
+    player:attacker,
+    attacker,
     classes,
-  });
-  if(merged.kind==='ABSTRACT_SUCCESSOR'){
-    merged.responseClassProductSize=classes.length;
-    merged.polynomialBound='O(|deviationFrontier| * (liveResidualCount + boundedGuardPartitionCost))';
-  }
-  return merged;
+    recursive:false,
+    choiceEnumeration:false,
+  };
+
+  const rankOptions=[...new Set(continuing.flatMap(c=>c.rank.options))].sort((a,b)=>a-b),
+    parity=rankOptions[0]&1;
+  if(!rankOptions.every(x=>(x&1)===parity))return {
+    kind:'NO_CERTIFICATE',
+    exact:false,
+    seam:'TOKEN_CLASS_RANK_PARITY_SPLIT',
+    rankOptions,
+  };
+  if(!continuing.every(c=>c.nextMover===attacker))return {
+    kind:'NO_CERTIFICATE',
+    exact:false,
+    seam:'TOKEN_CLASS_MOVER_SPLIT',
+  };
+
+  const guaranteedResiduals=intersectResiduals(continuing),
+    blockerTokens=mergeBlockerTokens(continuing),
+    blockerCells=new Set(blockerTokens.flatMap(t=>t.candidateCells));
+
+  for(const r of guaranteedResiduals)if(r.missingCells.some(x=>blockerCells.has(x)))
+    return {
+      kind:'NO_CERTIFICATE',
+      exact:false,
+      seam:'MERGED_BLOCKER_INTERSECTS_GUARANTEED_RESIDUAL',
+      residual:r,
+    };
+
+  return {
+    schema:'connect4.cpcx.token-class-collapse.v0_2',
+    kind:'ABSTRACT_SUCCESSOR',
+    exact:true,
+    attacker,
+    nextMover:attacker,
+    rank:{
+      options:rankOptions,
+      parity,
+      allSameParity:true,
+    },
+    controlParityEquivalent:true,
+    guaranteedResiduals,
+    blockerTokens,
+    firstWinFacts:{
+      repairFirstWinGuardPassed:true,
+      postRepairFirstWinGuardPassed:true,
+      exactVerticalHazardAuditApplied:true,
+      deterministicHazardNormalizationApplied:true,
+      nextImmediateNormalizationClosed:false,
+    },
+    classes,
+    responseClassCount:classes.length,
+    polynomialBound:'O(|deviationFrontier| * liveResidualCount * boundedHazardNormalizationCost); no arbitrary second-frontier product',
+    choiceEnumeration:false,
+    recursive:false,
+    source:{
+      kind:'WING_DEBT_VERTICAL_SAFE_SET_PLUS_NORMALIZATION_HAZARDS',
+      decisionIndex:repair.decisionIndex,
+    },
+  };
 }
