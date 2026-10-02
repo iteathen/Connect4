@@ -12,6 +12,7 @@ Consume only:
 - `CPC_Q2DB_TWO_COLUMN_TERMINAL_EXPOSURE_0_1.json`;
 - `CPC_Q2DB_FORCED_TERMINAL_SAFETY_CHAIN_0_1.json`;
 - `CPC_Q649_TWO_REPLY_CONSEQUENCE_CLASS_CLOSURE_0_1.json`;
+- `CPC_Q5D34_STRUCTURAL_NONWIN_BACKPROP_0_1.json`;
 - pinned JSMinSys `bf23d3a67652cd42e1975f29c7dc4eed54f7eb42`;
 - exact semantic-q terminal predicates.
 
@@ -31,11 +32,11 @@ The q966 extended-repair audit proves:
 - E -> P1:F6 -> exact q `2db2abcb67d530e0`;
 - F -> P1:E6 -> the same exact q.
 
-The q2db/q649 forced-safety composition proves that P1 has an exact continuation from q2db to a full-board draw.
+The q2db forced-safety chain reaches q649 after the only terminal-safe G continuation. q649 has the qualified `P0_NONWIN_DRAW_REPLY` certificate. Together with q2db:C exposing immediate P1 terminal C5, monotone interval predecessor reasoning gives q2db the one-sided interval `[-1,0]`.
 
 Therefore E and F cannot be P0-winning actions.
 
-This is a monotone exact-q nonwin handoff. It does not assert that q2db is a P0 loss.
+This is a monotone exact-q nonwin handoff. It does not assert that q2db is a P0 loss or exact draw.
 
 ### C and G
 
@@ -51,22 +52,24 @@ For each:
 
 If G is nonterminal and has no immediate P1 terminal:
 
-1. apply the already-qualified forced terminal-safety operator from the exact G child;
-2. follow only unique safe actions;
-3. stop at immediate terminal, zero-safe exposure, full-board draw, or first multiple-safe state.
+1. reconstruct the exact G child;
+2. apply the already-qualified forced terminal-safety operator;
+3. require the unique safe P1 response G3 to reach exact q `5d34e24395b9d801`;
+4. consume `CPC_Q5D34_STRUCTURAL_NONWIN_BACKPROP_0_1.json` only after exact q equality;
+5. assign the G action the q5d one-sided upper bound `U <= 0`.
 
-Do not recursively branch at a multiple-safe state.
+The prior stop-at-multiple-safe boundary is superseded here only because q5d now has an independently qualified structural nonwin certificate.
 
 ## q966 classification
 
 - `Q966_P0_WIN_G` if G is structurally certified P0-winning;
-- `Q966_P0_NONWIN` if C is eliminated, E/F have exact nonwin replies, and G is structurally certified P0 loss or draw;
+- `Q966_P0_NONWIN` if C is eliminated and E/F/G each have sound structural `U <= 0` certificates;
 - `Q966_UNRESOLVED_G` otherwise.
 
 Record exact reasons for every P0 action:
 
 - `P1_TERMINAL_REPLY`;
-- `EXACT_Q2DB_DRAW_REPLY`;
+- `EXACT_Q2DB_NONWIN_REPLY`;
 - `P0_WIN_FORCED_CHAIN`;
 - `P0_LOSS_FORCED_CHAIN`;
 - `DRAW_FULL_BOARD`;
