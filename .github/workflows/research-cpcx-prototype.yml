@@ -24,7 +24,9 @@ jobs:
       - name: Test CPCX
         run: node --test research/isograph/discovery/2026-10-02-cpcx/cpcx.test.mjs research/isograph/discovery/2026-10-02-cpcx/cpcx-closure.test.mjs
       - name: Inspect 44444
-        run: node research/isograph/discovery/2026-10-02-cpcx/run-cpcx.mjs > cpcx-44444.json
+        run: |
+          node research/isograph/discovery/2026-10-02-cpcx/run-cpcx.mjs > cpcx-44444.json
+          node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-closure.mjs > cpcx-closure-44444.json
       - name: Verify isolation boundary
         shell: bash
         run: |
@@ -34,5 +36,7 @@ jobs:
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
           name: cpcx-44444
-          path: cpcx-44444.json
+          path: |
+            cpcx-44444.json
+            cpcx-closure-44444.json
           if-no-files-found: error
