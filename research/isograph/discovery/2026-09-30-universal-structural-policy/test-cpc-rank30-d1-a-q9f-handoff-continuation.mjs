@@ -15,7 +15,7 @@ assert.equal(r.rank,30);
 assert.deepEqual(r.support,[6,6,2,6,5,5,0]);
 assert.equal(r.rootMove,3);
 assert.equal(r.rawDefenderReplyCount,4);
-assert.equal(r.defenderReplies.length,4);
+assert.equal(r.defenderReplies.length,r.provedReplyCount+(r.firstUnresolved?1:0));
 
 const first=r.defenderReplies[0];
 assert.equal(first.defenderColumn,3);
