@@ -202,6 +202,43 @@ export function certifyCpcxVerticalTwoStage(position,demand){
 }
 
 
+export function partitionCpcxVerticalTwoStageGuard(position,demand,certificate){
+  if(!demand?.obligation||certificate?.kind!=='POST_LOWER_FIRST_WIN_GUARD_FAILURE')
+    throw new TypeError('post-lower guard-failure certificate required');
+
+  const riskMoves=new Map();
+  for(const risk of certificate.risks){
+    if(!riskMoves.has(risk.defenderMove))riskMoves.set(risk.defenderMove,[]);
+    riskMoves.get(risk.defenderMove).push(risk);
+  }
+  const risky=new Set(riskMoves.keys()),
+    safeNonpreempt=certificate.nonpreemptFrontier.filter(cell=>!risky.has(cell));
+  for(const cell of risky)if(!certificate.nonpreemptFrontier.includes(cell))
+    throw new Error('risk move outside quantified nonpreempt frontier');
+
+  return {
+    kind:'PARTITIONED_VERTICAL_TWO_STAGE',
+    exact:true,
+    attacker:demand.attacker,
+    defender:demand.defender,
+    lowerCell:demand.lowerCell,
+    upperCell:demand.upperCell,
+    preemptCell:demand.lowerCell,
+    safeNonpreemptFrontier:safeNonpreempt,
+    guardNormalizationClasses:[...riskMoves.entries()]
+      .sort((a,b)=>a[0]-b[0])
+      .map(([defenderMove,risks])=>({
+        defenderMove,
+        targetCells:unique(risks.map(x=>x.targetCell)),
+        risks,
+      })),
+    responseClasses:1+(safeNonpreempt.length?1:0)+riskMoves.size,
+    choiceEnumeration:false,
+    rule:'preempt is exact; risk-free nonpreempt moves retain the ordinary delayed vertical proof; flagged nonpreempt moves must pass exact forced normalization before lower is attempted',
+  };
+}
+
+
 export function collapseCpcxVerticalTwoStage(position,demand,certificate){
   if(!certificate?.exact)throw new TypeError('exact two-stage certificate required');
   const attacker=demand.attacker,defender=demand.defender,
@@ -246,22 +283,23 @@ export function collapseCpcxVerticalTwoStage(position,demand,certificate){
       guarantee:'UNCHANGED_IN_PREEMPT_AND_ALL_DELAYED_RESOLUTIONS',
     });
   }
+  const hasDelayed=certificate.nonpreemptFrontier.length>0;
   return {
     kind:'VERTICAL_TWO_STAGE_COLLAPSED',
     exact:true,
     sourceKind:certificate.kind,
     nextMover:attacker,
-    rankDeltaOptions:[1,3],
+    rankDeltaOptions:hasDelayed?[1,3]:[1],
     rankDeltaParity:1,
     controlParityEquivalent:true,
     parityProof:'preempt consumes 1 event; delayed resolution consumes 3; difference is 2 so all unaffected CPC target parities agree',
     guaranteedResiduals,
-    externalDefenderUncertainty:{
+    externalDefenderUncertainty:hasDelayed?{
       maxPlacements:1,
       candidateCells:[...certificate.nonpreemptFrontier],
       owner:defender,
       note:'present only in delayed resolution; guaranteed residuals are disjoint from every candidate cell',
-    },
+    }:null,
     possibleDefenderCells:[...possibleDefenderCells].sort((a,b)=>a-b),
     choiceEnumeration:false,
     rule:'intersection is computed by set exclusion against all cells the defender may own in either exact resolution',
