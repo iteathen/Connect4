@@ -346,7 +346,7 @@ assert(bridge.pass);
 assert.equal(bridge.semanticQClass,TARGET_Q);
 assert.equal(jsRank(jsq),37);
 assert.deepEqual(jsSupport(jsq),[6,6,3,6,6,6,4]);
-assert.equal(jsMover(jsq),P2);
+assert.equal(jsMover(jsq),P1);
 
 const legalP1Columns=[];
 for(let c=0;c<7;c++)if(jsq.words[c]<6)legalP1Columns.push(c);
