@@ -273,6 +273,62 @@ export function composeCpcxForcedNormalization(position,progress){
   };
 }
 
+export function createCpcxDebtRepairSuccessor(position,contract,repair){
+  if(contract?.kind!=='THREE_TRIGGER_WING_ATTACK'||!repair?.exact)
+    throw new TypeError('exact wing debt repair required');
+  if(!repair.firstWinGuardPassed||!repair.postRepairFirstWinGuardPassed||!repair.repairLegalAtDecision)
+    return {
+      schema:'connect4.cpcx.abstract-successor.v0_1',
+      kind:'NO_CERTIFICATE',
+      exact:false,
+      seam:'WING_DEBT_FIRST_WIN_GUARD_FAILURE',
+    };
+
+  const rankDelta=repair.prefix.length+2,
+    rank=position.rank+rankDelta,
+    nextMover=(position.mover+rankDelta)&1;
+  return {
+    schema:'connect4.cpcx.abstract-successor.v0_1',
+    kind:'ABSTRACT_SUCCESSOR',
+    exact:true,
+    attacker:repair.attacker,
+    nextMover,
+    rank:{
+      options:[rank],
+      deltaOptions:[rankDelta],
+      parity:rank&1,
+      allSameParity:true,
+    },
+    controlParityEquivalent:true,
+    guaranteedResiduals:repair.guaranteedResiduals.map(r=>({
+      ...r,
+      missingCells:[...r.missingCells],
+      events:r.events.map(e=>({...e,eventRankParity:e.eventRank&1})),
+    })),
+    blockerTokens:[{
+      owner:repair.defender,
+      maxCount:1,
+      candidateCells:[...repair.deviationFrontier],
+      directKillCapacity:0,
+      supportOnly:true,
+      provenance:'one non-honored wing response',
+    }],
+    firstWinFacts:{
+      macroFirstWinGuardPassed:true,
+      postRepairFirstWinGuardPassed:true,
+      noTerminalDuringMacro:true,
+      nextImmediateNormalizationClosed:false,
+    },
+    source:{
+      kind:'WING_DEVIATION_REPAIR',
+      decisionIndex:repair.decisionIndex,
+      requiredResponseCell:repair.requiredResponseCell,
+    },
+    choiceEnumeration:false,
+    recursive:false,
+  };
+}
+
 export function classifyCpcxSuccessor(successor,{attacker=successor.attacker}={}){
   if(!successor?.exact)throw new TypeError('exact CPCX successor required');
 
