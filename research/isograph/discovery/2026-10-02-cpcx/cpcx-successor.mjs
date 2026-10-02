@@ -15,6 +15,7 @@ import {classifyCpcxProgress} from './cpcx-progress.mjs';
 import {verifyCpcxFixedEventScript} from './cpcx-wing.mjs';
 import {
   collapseCpcxVerticalTwoStage,
+  deriveCpcxVerticalOpponentSingletonEnvelope,
 } from './cpcx-two-stage.mjs';
 import {analyzeCpcxMacroUncertainty} from './cpcx-capacity.mjs';
 
@@ -98,6 +99,9 @@ function verticalSupportInterval(position,demand,certificate,cell){
 function abstractVerticalSuccessor(position,macro,collapse){
   const {demand,certificate}=macro,
     uncertainty=analyzeCpcxMacroUncertainty(position,collapse),
+    singletonEnvelope=deriveCpcxVerticalOpponentSingletonEnvelope(
+      position,demand,certificate
+    ),
     rankOptions=collapse.rankDeltaOptions.map(x=>position.rank+x),
     residuals=collapse.guaranteedResiduals.map(r=>({
       id:r.id,
@@ -144,8 +148,10 @@ function abstractVerticalSuccessor(position,macro,collapse){
     }]:[],
     firstWinFacts:{
       macroFirstWinGuardPassed:true,
-      noTerminalDuringMacro:true,
-      nextImmediateNormalizationClosed:false,
+      noTerminalDuringMacro:singletonEnvelope.defenderTerminalClasses===0,
+      opponentSingletonEnvelope:singletonEnvelope,
+      nextImmediateNormalizationClosed:
+        singletonEnvelope.exact===true&&singletonEnvelope.normalizationClosed===true,
     },
     source:{
       kind:'VERTICAL_TWO_STAGE',
