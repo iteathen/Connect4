@@ -1,0 +1,402 @@
+{
+  "schema": "connect4.rank-local.localhost-integration.v1",
+  "status": "EMPIRICAL_SINGLE_GAME_COMPLETE_WITH_DECLARED_RECLAMATION",
+  "canonicalResearchOwner": "research/semantic-quotient",
+  "activeResearchBranch": "research/universal-structural-policy-20260930",
+  "jsMinSysEvidenceCommit": "8044a273a6e251861b767723852979640ddf167e",
+  "measuredJsMinSysCommit": "7ec3fedabfab372e66cbfa57e76674fc5c42bcc1",
+  "sourcePath": "evidence/isomax-rank-local-localhost-20261001",
+  "harness": "tools/bench-connect4-rank-local-localhost.mjs",
+  "verificationHarness": "tools/verify-rank-local-localhost-evidence.mjs",
+  "summary": {
+    "status": "COMPLETE_WITH_DECLARED_BENCHMARK_RECLAMATION",
+    "performanceConclusion": "One complete game under60000ms with explicit between-search collection counted in wall; unmodified no-explicit-collection attempt failed, so no unconditional production full-game completion claim.",
+    "controlsPassed": 7,
+    "firstFiveComputedWithoutSearch": true,
+    "firstSearchPly": 6,
+    "finalSequence": "4444443333555533552",
+    "terminal": {
+      "kind": "WIN",
+      "winner": 1
+    },
+    "totalPlies": 19,
+    "rankLocalMoves": 11,
+    "searchedMoves": 8,
+    "totalWallMs": 51803.7435,
+    "totalSearchNodes": 80519176,
+    "under60Seconds": true,
+    "peakRssBytes": 12822052864,
+    "peakRssGiB": 11.94146728515625,
+    "cpuMs": 190235,
+    "processCycles": "702009652757",
+    "config": {
+      "workers": 4,
+      "rootFrontier": true,
+      "sharedSampleMask": 0,
+      "sharedCacheCapacity": 268435456,
+      "localCacheCapacity": 16777216,
+      "timeoutMs": 300000
+    },
+    "runtime": {
+      "node": "v27.0.0-nightly20260928b59840b593",
+      "v8": "14.6.202.34-node.36",
+      "cpu": "12th Gen Intel(R) Core(TM) i5-12600K",
+      "executable": "C:\\r\\isomax-nightly-runtime\\node-v27.0.0-nightly20260928b59840b593-win-x64\\node.exe"
+    },
+    "topology": {
+      "workers": 4,
+      "wideWorker": 0,
+      "deepWorkers": [
+        1,
+        2,
+        3
+      ],
+      "rootFrontier": true,
+      "targets": [
+        {
+          "group": 0,
+          "processor": 0,
+          "core": 0,
+          "efficiency": 1,
+          "l2Bytes": 1310720
+        },
+        {
+          "group": 0,
+          "processor": 2,
+          "core": 1,
+          "efficiency": 1,
+          "l2Bytes": 1310720
+        },
+        {
+          "group": 0,
+          "processor": 4,
+          "core": 2,
+          "efficiency": 1,
+          "l2Bytes": 1310720
+        },
+        {
+          "group": 0,
+          "processor": 6,
+          "core": 3,
+          "efficiency": 1,
+          "l2Bytes": 1310720
+        }
+      ]
+    },
+    "measuredSourceSha": "7ec3fedabfab372e66cbfa57e76674fc5c42bcc1",
+    "initialSourceSha": "1f3947d52be4dc35569d898b13951ee6f1b2df28",
+    "addonsTree": "d0e342bd9d5bb8c2d384bf5128467c1b08cdc9a7",
+    "solverFilesUnchanged": true,
+    "productionCpcUnchanged": true,
+    "bsfpChanged": false,
+    "deviations": {
+      "explicitBetweenSearchCollection": true,
+      "collectionMsIncluded": 1354.61329999999,
+      "backgroundApplications": "Not stopped; memory pressure recorded",
+      "freeRamBeforeCompletedAttemptBytes": 13051281408,
+      "cacheRuntimeAffinitySubstitution": false
+    },
+    "originalAttempt": {
+      "path": "game.json",
+      "status": "INCOMPLETE",
+      "reason": "native Worker construction EINVAL at ply7",
+      "performanceConclusion": "NONE"
+    },
+    "completeAttemptPath": "attempt-02-explicit-reclamation/game.json",
+    "rawTracePath": "attempt-02-explicit-reclamation/trace.jsonl",
+    "independentVerification": {
+      "status": "PASS",
+      "independentWinningLines": 69,
+      "checkedPlies": 19,
+      "affinityChecks": 32,
+      "controls": 7,
+      "firstTerminal": {
+        "kind": "WIN",
+        "winner": 1
+      },
+      "sequence": "4444443333555533552",
+      "totalNodes": 80519176,
+      "totalWallMs": 51803.7435,
+      "under60Seconds": true,
+      "peakRssBytes": 12822052864,
+      "sourceSha": "7ec3fedabfab372e66cbfa57e76674fc5c42bcc1",
+      "addonsUnchanged": true,
+      "gameSha256": "617ba58c7e8c087c8b9790c4dadf428cb9f00dd1ecd4da358b79e2ba92e54df3",
+      "qualifier": "Single completed attempt with explicit between-search GC included in wall. Baseline without explicit reclamation was incomplete. No independent exact-solver correctness or universal structural-certificate qualification claimed."
+    },
+    "historicalMemoryAuthority": {
+      "commit": "9d87c7274b2753102f8c16f0961acf3bb2acd24b",
+      "path": "evidence/isomax-memory-affinity-20260928/private-curve-576-raw.jsonl",
+      "wallMs": 32407.0529,
+      "use": "Memory/affinity configuration authority, not equivalent whole-game fixture or solver-version timing comparison"
+    },
+    "limits": "Single observed complete game. No solver redesign, game-theory promotion or universal structural-policy correctness claim."
+  },
+  "evidenceFiles": [
+    {
+      "path": "attempt-02-explicit-reclamation/controls.json",
+      "sha256": "28b6608f4f3a41dc0e3152dce3f47ad6f0e9f79357fb6044c935495eb8d8621a"
+    },
+    {
+      "path": "attempt-02-explicit-reclamation/events.jsonl",
+      "sha256": "b2b4820b8241430cf90c14d857e68e9b28e74d85bf706de15202b6d76d781a1c"
+    },
+    {
+      "path": "attempt-02-explicit-reclamation/EXECUTION_DEVIATION.json",
+      "sha256": "eb3fad7bd41808924dfde7573e83e43aafac0654aa3d88ee477f4a72bafa7217"
+    },
+    {
+      "path": "attempt-02-explicit-reclamation/game-stderr.txt",
+      "sha256": "b71c8ebab10a9efbb5d88834689d1cffa95ce948ed60229bdfb54be051d83bec"
+    },
+    {
+      "path": "attempt-02-explicit-reclamation/game.json",
+      "sha256": "617ba58c7e8c087c8b9790c4dadf428cb9f00dd1ecd4da358b79e2ba92e54df3"
+    },
+    {
+      "path": "attempt-02-explicit-reclamation/ply-06-affinity-0.json",
+      "sha256": "e7fa6ed2c6c2bf8b52fbb61691fdc72c15f6be620fcdc8c9e67d2b0dd7ec8fa6"
+    },
+    {
+      "path": "attempt-02-explicit-reclamation/ply-06-affinity-1.json",
+      "sha256": "72de8fdcb57acadf80f8ba61be57799354f2aa06cfd5d1aa576615d3e3ecc15a"
+    },
+    {
+      "path": "attempt-02-explicit-reclamation/ply-06-affinity-2.json",
+      "sha256": "680593e4bfbb781a96b403208ffb5c04bbdba65a0a7aa945c5caa8b14b51f82e"
+    },
+    {
+      "path": "attempt-02-explicit-reclamation/ply-06-affinity-3.json",
+      "sha256": "202b16fb543c269bd4215c9c87f0925a815b16fd9c6a26319ca265411353d318"
+    },
+    {
+      "path": "attempt-02-explicit-reclamation/ply-07-affinity-0.json",
+      "sha256": "e7fa6ed2c6c2bf8b52fbb61691fdc72c15f6be620fcdc8c9e67d2b0dd7ec8fa6"
+    },
+    {
+      "path": "attempt-02-explicit-reclamation/ply-07-affinity-1.json",
+      "sha256": "72de8fdcb57acadf80f8ba61be57799354f2aa06cfd5d1aa576615d3e3ecc15a"
+    },
+    {
+      "path": "attempt-02-explicit-reclamation/ply-07-affinity-2.json",
+      "sha256": "680593e4bfbb781a96b403208ffb5c04bbdba65a0a7aa945c5caa8b14b51f82e"
+    },
+    {
+      "path": "attempt-02-explicit-reclamation/ply-07-affinity-3.json",
+      "sha256": "202b16fb543c269bd4215c9c87f0925a815b16fd9c6a26319ca265411353d318"
+    },
+    {
+      "path": "attempt-02-explicit-reclamation/ply-11-affinity-0.json",
+      "sha256": "e7fa6ed2c6c2bf8b52fbb61691fdc72c15f6be620fcdc8c9e67d2b0dd7ec8fa6"
+    },
+    {
+      "path": "attempt-02-explicit-reclamation/ply-11-affinity-1.json",
+      "sha256": "72de8fdcb57acadf80f8ba61be57799354f2aa06cfd5d1aa576615d3e3ecc15a"
+    },
+    {
+      "path": "attempt-02-explicit-reclamation/ply-11-affinity-2.json",
+      "sha256": "680593e4bfbb781a96b403208ffb5c04bbdba65a0a7aa945c5caa8b14b51f82e"
+    },
+    {
+      "path": "attempt-02-explicit-reclamation/ply-11-affinity-3.json",
+      "sha256": "202b16fb543c269bd4215c9c87f0925a815b16fd9c6a26319ca265411353d318"
+    },
+    {
+      "path": "attempt-02-explicit-reclamation/ply-15-affinity-0.json",
+      "sha256": "e7fa6ed2c6c2bf8b52fbb61691fdc72c15f6be620fcdc8c9e67d2b0dd7ec8fa6"
+    },
+    {
+      "path": "attempt-02-explicit-reclamation/ply-15-affinity-1.json",
+      "sha256": "72de8fdcb57acadf80f8ba61be57799354f2aa06cfd5d1aa576615d3e3ecc15a"
+    },
+    {
+      "path": "attempt-02-explicit-reclamation/ply-15-affinity-2.json",
+      "sha256": "680593e4bfbb781a96b403208ffb5c04bbdba65a0a7aa945c5caa8b14b51f82e"
+    },
+    {
+      "path": "attempt-02-explicit-reclamation/ply-15-affinity-3.json",
+      "sha256": "202b16fb543c269bd4215c9c87f0925a815b16fd9c6a26319ca265411353d318"
+    },
+    {
+      "path": "attempt-02-explicit-reclamation/ply-16-affinity-0.json",
+      "sha256": "e7fa6ed2c6c2bf8b52fbb61691fdc72c15f6be620fcdc8c9e67d2b0dd7ec8fa6"
+    },
+    {
+      "path": "attempt-02-explicit-reclamation/ply-16-affinity-1.json",
+      "sha256": "72de8fdcb57acadf80f8ba61be57799354f2aa06cfd5d1aa576615d3e3ecc15a"
+    },
+    {
+      "path": "attempt-02-explicit-reclamation/ply-16-affinity-2.json",
+      "sha256": "680593e4bfbb781a96b403208ffb5c04bbdba65a0a7aa945c5caa8b14b51f82e"
+    },
+    {
+      "path": "attempt-02-explicit-reclamation/ply-16-affinity-3.json",
+      "sha256": "202b16fb543c269bd4215c9c87f0925a815b16fd9c6a26319ca265411353d318"
+    },
+    {
+      "path": "attempt-02-explicit-reclamation/ply-17-affinity-0.json",
+      "sha256": "e7fa6ed2c6c2bf8b52fbb61691fdc72c15f6be620fcdc8c9e67d2b0dd7ec8fa6"
+    },
+    {
+      "path": "attempt-02-explicit-reclamation/ply-17-affinity-1.json",
+      "sha256": "72de8fdcb57acadf80f8ba61be57799354f2aa06cfd5d1aa576615d3e3ecc15a"
+    },
+    {
+      "path": "attempt-02-explicit-reclamation/ply-17-affinity-2.json",
+      "sha256": "680593e4bfbb781a96b403208ffb5c04bbdba65a0a7aa945c5caa8b14b51f82e"
+    },
+    {
+      "path": "attempt-02-explicit-reclamation/ply-17-affinity-3.json",
+      "sha256": "202b16fb543c269bd4215c9c87f0925a815b16fd9c6a26319ca265411353d318"
+    },
+    {
+      "path": "attempt-02-explicit-reclamation/ply-18-affinity-0.json",
+      "sha256": "e7fa6ed2c6c2bf8b52fbb61691fdc72c15f6be620fcdc8c9e67d2b0dd7ec8fa6"
+    },
+    {
+      "path": "attempt-02-explicit-reclamation/ply-18-affinity-1.json",
+      "sha256": "72de8fdcb57acadf80f8ba61be57799354f2aa06cfd5d1aa576615d3e3ecc15a"
+    },
+    {
+      "path": "attempt-02-explicit-reclamation/ply-18-affinity-2.json",
+      "sha256": "680593e4bfbb781a96b403208ffb5c04bbdba65a0a7aa945c5caa8b14b51f82e"
+    },
+    {
+      "path": "attempt-02-explicit-reclamation/ply-18-affinity-3.json",
+      "sha256": "202b16fb543c269bd4215c9c87f0925a815b16fd9c6a26319ca265411353d318"
+    },
+    {
+      "path": "attempt-02-explicit-reclamation/ply-19-affinity-0.json",
+      "sha256": "e7fa6ed2c6c2bf8b52fbb61691fdc72c15f6be620fcdc8c9e67d2b0dd7ec8fa6"
+    },
+    {
+      "path": "attempt-02-explicit-reclamation/ply-19-affinity-1.json",
+      "sha256": "72de8fdcb57acadf80f8ba61be57799354f2aa06cfd5d1aa576615d3e3ecc15a"
+    },
+    {
+      "path": "attempt-02-explicit-reclamation/ply-19-affinity-2.json",
+      "sha256": "680593e4bfbb781a96b403208ffb5c04bbdba65a0a7aa945c5caa8b14b51f82e"
+    },
+    {
+      "path": "attempt-02-explicit-reclamation/ply-19-affinity-3.json",
+      "sha256": "202b16fb543c269bd4215c9c87f0925a815b16fd9c6a26319ca265411353d318"
+    },
+    {
+      "path": "attempt-02-explicit-reclamation/trace.jsonl",
+      "sha256": "3b366486531a2e479c4b7033aaa192131d7b431295ec7bc262b4a9640233512a"
+    },
+    {
+      "path": "control-affinity-0.json",
+      "sha256": "e7fa6ed2c6c2bf8b52fbb61691fdc72c15f6be620fcdc8c9e67d2b0dd7ec8fa6"
+    },
+    {
+      "path": "control-affinity-1.json",
+      "sha256": "72de8fdcb57acadf80f8ba61be57799354f2aa06cfd5d1aa576615d3e3ecc15a"
+    },
+    {
+      "path": "control-affinity-2.json",
+      "sha256": "680593e4bfbb781a96b403208ffb5c04bbdba65a0a7aa945c5caa8b14b51f82e"
+    },
+    {
+      "path": "control-affinity-3.json",
+      "sha256": "202b16fb543c269bd4215c9c87f0925a815b16fd9c6a26319ca265411353d318"
+    },
+    {
+      "path": "control-search-raw.json",
+      "sha256": "0835ac4c705f587e6909d8ab8047e7f64e35b5d3b15ef0e9f28801dcc1195558"
+    },
+    {
+      "path": "controls.json",
+      "sha256": "28b6608f4f3a41dc0e3152dce3f47ad6f0e9f79357fb6044c935495eb8d8621a"
+    },
+    {
+      "path": "events.jsonl",
+      "sha256": "4a71bad85999ae113dac916cc7fe7623bf77e549ef41de3c0957d3eea761ea66"
+    },
+    {
+      "path": "game-stderr.txt",
+      "sha256": "16c2234c70e696343ee5fc60af83a8c13142845e27633a6d0ca151bc34ec112c"
+    },
+    {
+      "path": "game.json",
+      "sha256": "75746535c7d95988c918e0890c909230656ad58a406f2ae8941154cf8d422256"
+    },
+    {
+      "path": "historical-576-raw.jsonl",
+      "sha256": "213d1d2560b904dd227d2b7da4a3781c83b3a5e5dde6d3975346a0856e0e1e93"
+    },
+    {
+      "path": "historical-curve-authority.json",
+      "sha256": "5277e4c5a878dd24727f04b0694124cf3ac0b03e99e5342623bb20b1817e7efb"
+    },
+    {
+      "path": "lifetime-probe/lifetime.json",
+      "sha256": "2aa191465c9e503970c0837a08d29fd6afc89f9fc0b483991771dfc9b9b37438"
+    },
+    {
+      "path": "lifetime-probe/probe-0-affinity-0.json",
+      "sha256": "e7fa6ed2c6c2bf8b52fbb61691fdc72c15f6be620fcdc8c9e67d2b0dd7ec8fa6"
+    },
+    {
+      "path": "lifetime-probe/probe-0-affinity-1.json",
+      "sha256": "72de8fdcb57acadf80f8ba61be57799354f2aa06cfd5d1aa576615d3e3ecc15a"
+    },
+    {
+      "path": "lifetime-probe/probe-0-affinity-2.json",
+      "sha256": "680593e4bfbb781a96b403208ffb5c04bbdba65a0a7aa945c5caa8b14b51f82e"
+    },
+    {
+      "path": "lifetime-probe/probe-0-affinity-3.json",
+      "sha256": "202b16fb543c269bd4215c9c87f0925a815b16fd9c6a26319ca265411353d318"
+    },
+    {
+      "path": "lifetime-probe/probe-1-affinity-0.json",
+      "sha256": "e7fa6ed2c6c2bf8b52fbb61691fdc72c15f6be620fcdc8c9e67d2b0dd7ec8fa6"
+    },
+    {
+      "path": "lifetime-probe/probe-1-affinity-1.json",
+      "sha256": "72de8fdcb57acadf80f8ba61be57799354f2aa06cfd5d1aa576615d3e3ecc15a"
+    },
+    {
+      "path": "lifetime-probe/probe-1-affinity-2.json",
+      "sha256": "680593e4bfbb781a96b403208ffb5c04bbdba65a0a7aa945c5caa8b14b51f82e"
+    },
+    {
+      "path": "lifetime-probe/probe-1-affinity-3.json",
+      "sha256": "202b16fb543c269bd4215c9c87f0925a815b16fd9c6a26319ca265411353d318"
+    },
+    {
+      "path": "PLAN.json",
+      "sha256": "278d133c083a090650c2cf0e00cad98d393a2caac93b4c56e6e18ef380241a52"
+    },
+    {
+      "path": "ply-06-affinity-0.json",
+      "sha256": "e7fa6ed2c6c2bf8b52fbb61691fdc72c15f6be620fcdc8c9e67d2b0dd7ec8fa6"
+    },
+    {
+      "path": "ply-06-affinity-1.json",
+      "sha256": "72de8fdcb57acadf80f8ba61be57799354f2aa06cfd5d1aa576615d3e3ecc15a"
+    },
+    {
+      "path": "ply-06-affinity-2.json",
+      "sha256": "680593e4bfbb781a96b403208ffb5c04bbdba65a0a7aa945c5caa8b14b51f82e"
+    },
+    {
+      "path": "ply-06-affinity-3.json",
+      "sha256": "202b16fb543c269bd4215c9c87f0925a815b16fd9c6a26319ca265411353d318"
+    },
+    {
+      "path": "SUMMARY.json",
+      "sha256": "84d8b2f1d862ce7814abf2c1aa240a4dc9f21e5fdf9d73b994400318286782f3"
+    },
+    {
+      "path": "trace.jsonl",
+      "sha256": "f5b0125453907f838e28a7ae84b384521b9ac6a0101b2c25cca23464a7af44f3"
+    },
+    {
+      "path": "VERIFICATION.json",
+      "sha256": "5c897e23b5cce79a6caa8fc88be554ed9c88ceaefbeb103c44e59d1a52e427a4"
+    }
+  ],
+  "authorityEffect": "NONE. Performance observation only; no universal structural optimality or correctness promotion. All solver addons byte-identical to recovered implementation. The unmodified no-GC execution did not complete; only the explicitly reclaimed attempt supports the bounded under60s observation."
+}
