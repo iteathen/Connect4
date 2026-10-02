@@ -305,3 +305,138 @@ export function collapseCpcxVerticalTwoStage(position,demand,certificate){
     rule:'intersection is computed by set exclusion against all cells the defender may own in either exact resolution',
   };
 }
+
+
+function cpcxTwoStageVirtualPosition(position,events){
+  const v=verifyCpcxFixedEventScript(position,events);
+  if(!v.legal)return {kind:'INVALID_CLASS',verification:v};
+  if(v.terminal)return {kind:'TERMINAL_CLASS',terminal:v.terminal,verification:v};
+  return {
+    kind:'NONTERMINAL_CLASS',
+    position:{
+      geometry:position.geometry,
+      moves:position.moves,
+      rank:position.rank+events.length,
+      mover:(position.mover+events.length)&1,
+      heights:v.finalHeights,
+      owner:v.finalOwner,
+      terminal:null,
+    },
+  };
+}
+
+export function deriveCpcxVerticalOpponentSingletonEnvelope(position,demand,certificate){
+  if(!certificate?.exact)throw new TypeError('exact vertical certificate required');
+  const attacker=demand.attacker,defender=demand.defender,
+    lower=demand.lowerCell,upper=demand.upperCell,
+    classes=[];
+
+  function add(label,events,externalCell=null){
+    const v=cpcxTwoStageVirtualPosition(position,events);
+    if(v.kind==='INVALID_CLASS')return {
+      kind:'INVALID_CLASS',
+      exact:false,
+      label,
+      verification:v.verification,
+    };
+    if(v.kind==='TERMINAL_CLASS'){
+      classes.push({
+        label,
+        externalCell,
+        terminal:v.terminal,
+        defenderSingletons:[],
+      });
+      return null;
+    }
+    classes.push({
+      label,
+      externalCell,
+      terminal:null,
+      defenderSingletons:immediateCells(v.position,defender),
+    });
+    return null;
+  }
+
+  if(certificate.kind==='FORCED_UPPER_RESPONSE'){
+    const bad=add('FIXED_UPPER_RESPONSE',[
+      {cell:lower,owner:attacker},
+      {cell:upper,owner:defender},
+    ]);
+    if(bad)return bad;
+  }else if(certificate.kind==='PREEMPT_OR_FORCED_UPPER'){
+    let bad=add('PREEMPT',[
+      {cell:lower,owner:defender},
+    ]);
+    if(bad)return bad;
+    for(const externalCell of certificate.nonpreemptFrontier){
+      bad=add('DELAYED',[
+        {cell:externalCell,owner:defender},
+        {cell:lower,owner:attacker},
+        {cell:upper,owner:defender},
+      ],externalCell);
+      if(bad)return bad;
+    }
+  }else if(certificate.kind==='ATTACKER_TERMINAL_ON_LOWER'||
+           certificate.kind==='PREEXISTING_CURRENT_TERMINAL'){
+    return {
+      kind:'TERMINAL_MACRO',
+      exact:true,
+      attacker,
+      defender,
+      continuingClasses:0,
+      attackerTerminalClasses:1,
+      defenderTerminalClasses:0,
+      possibleCells:[],
+      guaranteedCells:[],
+      normalizationClosed:true,
+      classes:[],
+      choiceEnumeration:false,
+    };
+  }else{
+    throw new TypeError('unsupported vertical certificate kind');
+  }
+
+  const defenderTerminal=classes.filter(x=>x.terminal?.player===defender),
+    attackerTerminal=classes.filter(x=>x.terminal?.player===attacker),
+    continuing=classes.filter(x=>x.terminal===null);
+  if(defenderTerminal.length)return {
+    kind:'DEFENDER_TERMINAL_CLASS',
+    exact:false,
+    attacker,
+    defender,
+    defenderTerminalClasses:defenderTerminal,
+    attackerTerminalClasses:attackerTerminal,
+    continuingClasses:continuing.length,
+    classes,
+    choiceEnumeration:false,
+  };
+
+  const possible=unique(continuing.flatMap(x=>x.defenderSingletons));
+  let guaranteed=[];
+  if(continuing.length){
+    guaranteed=[...continuing[0].defenderSingletons];
+    for(let i=1;i<continuing.length;i++){
+      const set=new Set(continuing[i].defenderSingletons);
+      guaranteed=guaranteed.filter(cell=>set.has(cell));
+    }
+  }
+
+  return {
+    schema:'connect4.cpcx.vertical-opponent-singleton-envelope.v0_1',
+    kind:'OPPONENT_SINGLETON_ENVELOPE',
+    exact:true,
+    attacker,
+    defender,
+    classCount:classes.length,
+    continuingClasses:continuing.length,
+    attackerTerminalClasses:attackerTerminal.length,
+    defenderTerminalClasses:0,
+    possibleCells:possible,
+    guaranteedCells:guaranteed,
+    normalizationClosed:possible.length===0,
+    classes,
+    proofRule:'flat exact preempt/delayed class scan; union is every possible defender singleton after the macro and intersection is every guaranteed defender singleton',
+    choiceEnumeration:false,
+    recursive:false,
+  };
+}
