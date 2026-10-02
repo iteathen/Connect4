@@ -150,6 +150,7 @@ export function compileCpcxEventConsequence(position,{
   if(effect.completions.length)consequence='OWNER_COMPLETES';
   else if(ownerSingletons.length>=2)consequence='OWNER_MULTI_SINGLETON';
   else if(ownerSingletons.length===1)consequence='OWNER_SINGLETON_BORN';
+  else if(effect.contracted.some(x=>x.player===owner))consequence='OWNER_LOWER_CARDINALITY';
 
   return {
     ...effect,
@@ -186,7 +187,7 @@ export function findCpcxConditionalPrecursors(position,{
   const out=[];
   for(const cell of [...cells].sort((a,b)=>a-b)){
     const c=compileCpcxEventConsequence(position,{cell,owner:player,obligations});
-    if(c.consequence==='OWNER_MULTI_SINGLETON'||c.consequence==='OWNER_SINGLETON_BORN'||c.consequence==='OWNER_COMPLETES'){
+    if(c.consequence!=='RESIDUAL_UPDATE'){
       out.push({
         cell,
         owner:player,
@@ -204,4 +205,69 @@ export function findCpcxConditionalPrecursors(position,{
     }
   }
   return out;
+}
+
+
+export function compileCpcxResidualEventChain(carrier,events){
+  if(!carrier||!Array.isArray(carrier.residuals))throw new TypeError('residual carrier');
+  if(!Array.isArray(events)||events.length<1||events.length>4)
+    throw new RangeError('event chain length must be 1..4');
+  let current=carrier;
+  const steps=[];
+  for(let i=0;i<events.length;i++){
+    const event=events[i];
+    if(!event||!Number.isInteger(event.cell)||(event.owner!==0&&event.owner!==1))
+      throw new TypeError('event chain item');
+    const before=current.residuals.length,
+      effect=applyCpcxResidualEvent(current,event);
+    steps.push({
+      index:i,
+      event:{cell:event.cell,owner:event.owner},
+      residualCountBefore:before,
+      residualCountAfter:effect.residuals.length,
+      killed:effect.killed,
+      contracted:effect.contracted,
+      completions:effect.completions,
+      singletons:effect.singletons,
+    });
+    current=effect;
+  }
+  return {
+    schema:'connect4.cpcx.residual-event-chain.v0_1',
+    events:events.map(x=>({cell:x.cell,owner:x.owner})),
+    steps,
+    residuals:current.residuals,
+    finalSingletons:current.singletons??[[],[]],
+    completions:steps.flatMap(x=>x.completions),
+    exactResidualAlgebra:true,
+    eventOccurrenceCertified:false,
+    choiceEnumeration:false,
+    complexity:'O(eventCount * liveResidualCount * maxMissing), with eventCount<=4 and maxMissing<=4 in CPCX v0.2',
+  };
+}
+
+export function traceCpcxObligationChain(obligation,eventCells,{owner=obligation.player}={}){
+  if(!Array.isArray(eventCells)||eventCells.length<1||eventCells.length>obligation.missingCount)
+    throw new RangeError('eventCells');
+  for(const cell of eventCells)if(!obligation.missingCells.includes(cell))
+    throw new RangeError('event outside obligation');
+  const carrier={
+    schema:'connect4.cpcx.single-obligation-carrier.v0_1',
+    rank:null,
+    mover:null,
+    residuals:[{
+      id:obligation.id,
+      player:obligation.player,
+      lineId:obligation.lineId,
+      lineLabel:obligation.lineLabel,
+      orientation:obligation.orientation,
+      missingCells:[...obligation.missingCells],
+      missingCount:obligation.missingCount,
+      source:'TRACE_SOURCE',
+    }],
+  };
+  return compileCpcxResidualEventChain(
+    carrier,
+    eventCells.map(cell=>({cell,owner})),
+  );
 }
