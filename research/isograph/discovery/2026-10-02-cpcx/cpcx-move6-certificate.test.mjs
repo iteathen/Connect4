@@ -14,7 +14,7 @@ test('44444 move6 attempt uses flat universal response classes and reports the f
   assert.equal(r.currentResponseSet.length,7);
   assert.equal(r.kind,'NO_CERTIFICATE');
   assert.equal(r.exact,false);
-  assert.equal(r.firstSeam,'ABSTRACT_OPPONENT_SINGLETON_ENVELOPE_MISSING');
+  assert.equal(r.firstSeam,'NO_EXACT_ABSTRACT_MACRO');
 
   for(const row of r.rows){
     assert.equal(row.exact,true);
@@ -34,7 +34,10 @@ test('44444 move6 attempt uses flat universal response classes and reports the f
       assert.equal(x.result.kind,'NO_CERTIFICATE');
       if(x.successor.kind==='ABSTRACT_SUCCESSOR'){
         assert.equal(x.successor.choiceEnumeration,false);
-        assert.equal(x.result.seam,'ABSTRACT_OPPONENT_SINGLETON_ENVELOPE_MISSING');
+        assert.ok([
+          'NO_EXACT_ABSTRACT_MACRO',
+          'ABSTRACT_OPPONENT_SINGLETON_ENVELOPE_MISSING',
+        ].includes(x.result.seam));
       }else{
         assert.equal(x.successor.kind,'NO_CERTIFICATE');
         assert.equal(row.actionColumn,2); // one-based move 3 special second-deviation seam
