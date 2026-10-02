@@ -1,6 +1,7 @@
 import {createCpcxGeometry,buildCpcxPosition} from './cpcx.mjs';
 import {compileCpcxPostActionWingAttack} from './cpcx-wing.mjs';
 import {deriveCpcxUniversalDebtRepair} from './cpcx-debt.mjs';
+import {attemptCpcxDisjointWingFirstWin} from './cpcx-move6-certificate.mjs';
 
 const g=createCpcxGeometry(),root=buildCpcxPosition('44444',{geometry:g}),rows=[];
 
@@ -42,23 +43,42 @@ for(let column=0;column<g.columns;column++){
   });
 }
 
+const certificateAttempt=attemptCpcxDisjointWingFirstWin(root,{attacker:0});
+
 console.log(JSON.stringify({
-  schema:'connect4.cpcx.move6-structural-report.v0_1',
+  schema:'connect4.cpcx.move6-first-win-report.v0_2',
   root:'44444',
+  requestedAttacker:0,
   productionCpcModified:false,
-  oracleUsed:false,
-  solvedValuesUsed:false,
+  externalSolvedDataUsed:false,
   recursiveReplyTraversalUsed:false,
   rows,
+  certificateAttempt:{
+    kind:certificateAttempt.kind,
+    exact:certificateAttempt.exact,
+    player:certificateAttempt.player??null,
+    firstSeam:certificateAttempt.firstSeam,
+    currentResponseSet:certificateAttempt.currentResponseSet,
+    universalCurrentResponseQuantification:certificateAttempt.universalCurrentResponseQuantification,
+    flatResponseSetOnly:certificateAttempt.flatResponseSetOnly,
+    perSixthAction:certificateAttempt.rows.map(r=>({
+      actionColumn:r.actionColumn+1,
+      selectedMacro:r.selectedMacro??null,
+      survivingWing:r.survivingWing?.map(x=>x+1)??null,
+      allResponseClassesCertified:r.allResponseClassesCertified??false,
+      responseClasses:r.responseClasses?.map(x=>({
+        class:x.class,
+        quantifiedCells:x.quantifiedCells??null,
+        resultKind:x.result.kind,
+        seam:x.result.seam??null,
+      }))??[],
+    })),
+  },
   exactConclusions:[
     'every legal sixth action leaves a disjoint synchronized wing available',
-    'if the first two same-column defender responses are honored, P0 terminals on the third wing trigger',
-    'for every first response deviation, the omitted response is repairable under exact first-win guards',
-    'every repaired first deviation leaves a deviation-invariant vertical two-piece P0 residual with support profile 0/1'
+    'if the first two same-column defender responses are honored, P0 gets the first terminal on the third wing trigger',
+    'first and second wing deviations are represented as set-wise debt-repair classes rather than recursive reply paths',
+    'debt repair preserves guaranteed residual carriers under explicit first-win guards'
   ],
-  unresolved:[
-    'the global repeated-macro termination theorem is not yet closed',
-    'higher-priority singleton normalization is required before every progress primitive',
-    'the retained vertical-tempo falsifier forbids treating the raw 0/1 pair as unconditional force'
-  ],
+  semantics:'CERTIFIED_FIRST_WIN is the only positive game conclusion; NO_CERTIFICATE means only that CPCX structural closure stopped.',
 },null,2));
