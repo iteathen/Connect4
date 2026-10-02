@@ -251,6 +251,26 @@
       "subroute": "THREE_COLUMN_PHASE_TRANSFER"
     },
     {
+      "id": "THREE_PLUS_ONE_DEFERRED_SINGLETON_TAIL_DRAW",
+      "name": "3+1 deferred-singleton tail exact-draw theorem",
+      "qualification": "QUALIFIED_REUSABLE",
+      "disposition": "THEOREM_FAMILY_ROUTABLE",
+      "sourceFiles": [
+        "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_3PLUS1_DEFERRED_SINGLETON_TAIL_NONWIN_THEOREM.md",
+        "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_3PLUS1_DEFERRED_SINGLETON_TAIL_QUALIFICATION_0_1.json",
+        "research/isograph/discovery/2026-09-30-universal-structural-policy/rlc-3plus1-deferred-singleton-tail-adapter.mjs"
+      ],
+      "adapter": {
+        "kind": "EXACT_STRUCTURAL_INTERVAL",
+        "export": "classifyThreePlusOneDeferredSingletonTail",
+        "interval": [
+          0,
+          0
+        ],
+        "exactStateIdentityRequired": true
+      }
+    },
+    {
       "id": "TRIGGER5_FORCED_COMPRESSION",
       "name": "Trigger-5 forced compression progress edge",
       "qualification": "QUALIFIED_REUSABLE",
@@ -627,6 +647,23 @@
       ]
     },
     {
+      "id": "THREE_PLUS_ONE_DEFERRED_SINGLETON_TAIL_DRAW",
+      "sources": [
+        {
+          "spec": "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_3PLUS1_DEFERRED_SINGLETON_TAIL_NONWIN_THEOREM.md",
+          "present": true
+        },
+        {
+          "spec": "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_3PLUS1_DEFERRED_SINGLETON_TAIL_QUALIFICATION_0_1.json",
+          "present": true
+        },
+        {
+          "spec": "research/isograph/discovery/2026-09-30-universal-structural-policy/rlc-3plus1-deferred-singleton-tail-adapter.mjs",
+          "present": true
+        }
+      ]
+    },
+    {
       "id": "TRIGGER5_FORCED_COMPRESSION",
       "sources": [
         {
@@ -870,7 +907,7 @@
     "adapterMissingIds": [],
     "invalidSupersessionCount": 0,
     "invalidSupersessions": [],
-    "routableFamilyCount": 16,
+    "routableFamilyCount": 17,
     "supersededFamilyCount": 9,
     "exactStateOnlyCount": 2,
     "rejectedCount": 3,
