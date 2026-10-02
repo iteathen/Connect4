@@ -316,3 +316,123 @@ The prototype retains two small independent exact controls:
 
 These controls test the forcing/capacity machinery without using `44444` as a
 training label.
+
+
+## One-sided first-win contract — 2026-10-02
+
+CPCX no longer treats global W/D/L preservation as a requirement for local
+progress.
+
+The runtime semantic outputs are now:
+
+```text
+CERTIFIED_FIRST_WIN(player)
+FORCED_NORMALIZATION
+CERTIFIED_FORCING_MACRO
+PROJECTION_ONLY
+NO_CERTIFICATE
+```
+
+`NO_CERTIFICATE` has no draw, loss, or value meaning. It means only that the
+current structural carrier does not contain another theorem-certified CPCX
+continuation.
+
+The progress order is:
+
+```text
+1. immediate current-player terminal
+2. opponent singleton overload
+3. unique forced singleton normalization
+4. exact pair-hub terminal fork
+5. one deterministically selected exact nonterminal forcing macro
+6. projection-only information
+7. NO_CERTIFICATE
+```
+
+Selecting one exact nonterminal macro does not require proving that every other
+local macro has the same game-theoretic value. The selection order is purely
+structural and deterministic.
+
+## Abstract successor
+
+`cpcx-successor.mjs` now composes exact macros into a common successor carrier.
+
+Concrete deterministic macros retain an exact physical position.
+
+Universally collapsed classes retain only facts common to every represented
+realization:
+
+```text
+designated attacker
+common next mover
+rank option set and rank parity
+guaranteed residual intersection
+support-distance intervals
+bounded defender blocker/support tokens
+first-win guard facts
+macro provenance
+```
+
+Every macro increases physical rank by at least one. The CPCX certificate
+iterator is iterative, not recursive, and may stop at any rank with
+`NO_CERTIFICATE`.
+
+## Move-6 composition status
+
+The `44444` integration now quantifies all seven current P1 sixth actions.
+For each one, CPCX selects the untouched wing by the same structural rule.
+
+Three defender response classes are represented:
+
+```text
+HONOR_BOTH
+DEVIATE_FIRST
+HONOR_FIRST_DEVIATE_SECOND
+```
+
+The honored class is an exact P0 first-win certificate on the third trigger.
+
+Deviation classes use the existing debt-repair theorem, exact immediate
+normalization, the normalized vertical two-stage theorem, parity collapse,
+guaranteed residual intersection, and support-only blocker tokens.
+
+The first-deviation class now advances for all seven sixth moves to a common
+P0-to-move abstract carrier with even rank parity.
+
+The second-deviation class also advances for six of seven sixth moves. The
+retained move-3 class reaches a concrete normalized state where CPCX currently
+finds no exact vertical, pair-hub, or playable two-piece macro and therefore
+returns `NO_CERTIFICATE`.
+
+For the advancing abstract carriers, CPCX currently stops at:
+
+```text
+ABSTRACT_OPPONENT_SINGLETON_ENVELOPE_MISSING
+```
+
+The carrier has guaranteed P0 residuals and bounded support-only defender tokens,
+but it does not yet retain a complete envelope of possible opponent singleton
+obligations after the collapsed macro. Without that envelope CPCX cannot safely
+decide whether immediate normalization is required before selecting another
+attacking macro.
+
+This is the current primary structural seam. It is not a W/D/L seam.
+
+## Set-class response handling
+
+The earlier experimental token-product implementation was superseded.
+
+CPCX no longer forms:
+
+```text
+deviation frontier x arbitrary next defender frontier
+```
+
+Instead, the exact vertical theorem classifies the next defender response set.
+Only theorem-returned first-win hazard cells become separate normalization
+classes. All remaining defender responses stay one safe set class.
+
+Hazard classes are followed only through deterministic singleton normalization.
+
+The retained move-3 second-deviation `NO_CERTIFICATE` is negative evidence and
+must not be silently converted into a loss or draw.
