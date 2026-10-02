@@ -80,6 +80,9 @@ assert.deepEqual(
 assert.equal(r.legacyTargetAdapter.usesExactStateIdentity,true);
 assert.equal(r.legacyTargetAdapter.supportOnlyIdentity,false);
 assert.equal(r.legacyTargetAdapter.hardCodedStateIds,false);
+assert.equal(r.threePlusOneTailAdapter.export,'classifyThreePlusOneDeferredSingletonTail');
+assert.deepEqual(r.threePlusOneTailAdapter.interval,[0,0]);
+assert.equal(r.threePlusOneTailAdapter.callable,true);
 
 assert.equal(r.rank20Regression.sequence,'44444156666623222242');
 assert.equal(r.rank20Regression.rank,20);
