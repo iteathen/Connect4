@@ -278,7 +278,35 @@ export function collapseCpcxDebtRepairTokenProduct(position,contract,repair){
       verification:postRepair.verification,
     };
 
-    const rows=verticalRows(postRepair.position,attacker),
+    const normalized=closeCpcxForcedResponses(postRepair.position);
+    if(normalized.kind==='CERTIFIED_FIRST_WIN'){
+      if(normalized.player===attacker){
+        classes.push({
+          deviationClass:'IMMEDIATE_NORMALIZATION',
+          deviationCells:[deviationCell],
+          result:'CERTIFIED_FIRST_WIN',
+          forcedSteps:normalized.steps.length,
+        });
+        continue;
+      }
+      return {
+        kind:'NO_CERTIFICATE',
+        exact:false,
+        seam:'DEFENDER_FIRST_WIN_DURING_POST_REPAIR_NORMALIZATION',
+        deviationCell,
+        player:normalized.player,
+      };
+    }
+    if(normalized.kind!=='OPEN')return {
+      kind:'NO_CERTIFICATE',
+      exact:false,
+      seam:'UNSUPPORTED_POST_REPAIR_NORMALIZATION_BOUNDARY',
+      deviationCell,
+      boundary:normalized.boundary,
+    };
+
+    const activePosition=normalized.position,
+      rows=verticalRows(activePosition,attacker),
       exact=rows.find(x=>x.certificate.exact&&[
         'PREEMPT_OR_FORCED_UPPER',
         'FORCED_UPPER_RESPONSE',
@@ -288,7 +316,7 @@ export function collapseCpcxDebtRepairTokenProduct(position,contract,repair){
 
     if(exact){
       const carrier=composeVertical(
-        postRepair.position,exact.demand,exact.certificate,attacker
+        activePosition,exact.demand,exact.certificate,attacker
       );
       if(carrier?.kind==='CERTIFIED_FIRST_WIN'){
         classes.push({
@@ -336,7 +364,7 @@ export function collapseCpcxDebtRepairTokenProduct(position,contract,repair){
 
     // Safe moves are one theorem-certified set class, not individual replies.
     const safeCarrier=composeVertical(
-      postRepair.position,failed.demand,restricted.certificate,attacker
+      activePosition,failed.demand,restricted.certificate,attacker
     );
     if(!safeCarrier?.exact)return {
       kind:'NO_CERTIFICATE',
@@ -356,7 +384,7 @@ export function collapseCpcxDebtRepairTokenProduct(position,contract,repair){
 
     // Only theorem-derived hazard moves receive deterministic normalization.
     for(const hazardCell of restricted.hazards){
-      const carrier=normalizeHazard(postRepair.position,hazardCell,attacker);
+      const carrier=normalizeHazard(activePosition,hazardCell,attacker);
       if(carrier.kind==='CERTIFIED_FIRST_WIN'){
         classes.push({
           deviationClass:'NORMALIZATION_HAZARD',
