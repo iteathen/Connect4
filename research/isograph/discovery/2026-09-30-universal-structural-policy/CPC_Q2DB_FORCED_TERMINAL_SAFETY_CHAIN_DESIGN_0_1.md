@@ -35,9 +35,10 @@ At each exact nonterminal state:
    - mover-terminal action is winning immediately;
    - nonterminal action is **unsafe** if the opponent then has at least one exact immediate terminal;
    - otherwise the action is **safe**;
-3. if zero safe actions remain, the current mover is losing by terminal exposure;
-4. if exactly one safe action remains, that action is forced and the chain continues;
-5. if two or more safe actions remain, stop `UNRESOLVED_MULTIPLE_SAFE`.
+3. if there are no legal actions and the state is nonterminal, stop `DRAW_FULL_BOARD`;
+4. otherwise, if zero safe actions remain, the current mover is losing by terminal exposure;
+5. if exactly one safe action remains, that action is forced and the chain continues;
+6. if two or more safe actions remain, stop `UNRESOLVED_MULTIPLE_SAFE`.
 
 No adversarial recursion is performed. The procedure follows only a unique forced action when one exists.
 
@@ -61,6 +62,7 @@ Report:
 
 - `P0_WIN_FORCED_CHAIN`;
 - `P0_LOSS_FORCED_CHAIN`;
+- `DRAW_FULL_BOARD`;
 - or `UNRESOLVED_MULTIPLE_SAFE`.
 
 The result is an exact certificate only if the chain terminates by immediate terminal or zero-safe-action exposure without ever encountering multiple safe actions.
