@@ -54,6 +54,12 @@ assert.equal(r.jsMinSysModified,false);
 assert.equal(r.legacyRepairModified,false);
 assert.equal(r.rcicModified,false);
 assert.equal(r.bsfpModified,false);
+const efMerge=r.exactQMergeGroups.find(x=>x.exactQClass==='e5d63da12420fdb3');
+assert.ok(efMerge);
+assert.equal(efMerge.memberCount,2);
+assert.equal(efMerge.distinctRootActionCount,2);
+assert.equal(efMerge.crossRootActionMerge,true);
+assert.deepEqual([...new Set(efMerge.members.map(x=>x.p0Action))].sort((a,b)=>a-b),[5,6]);
 assert.ok(r.boundary.some(x=>x.includes('No solved W/D/L')));
 
 console.log(JSON.stringify({
