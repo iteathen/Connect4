@@ -14,10 +14,8 @@
 
 import {compileCpcxPostActionWingAttack} from './cpcx-wing.mjs';
 import {deriveCpcxUniversalDebtRepair} from './cpcx-debt.mjs';
-import {
-  createCpcxDebtRepairSuccessor,
-  classifyCpcxSuccessor,
-} from './cpcx-successor.mjs';
+import {classifyCpcxSuccessor} from './cpcx-successor.mjs';
+import {collapseCpcxDebtRepairTokenProduct} from './cpcx-token-collapse.mjs';
 
 function frontierCells(position){
   const g=position.geometry,out=[];
@@ -82,16 +80,20 @@ export function attemptCpcxDisjointWingFirstWin(position,{
       });
 
     const firstRepair=deriveCpcxUniversalDebtRepair(position,wing,{decisionIndex:0}),
-      firstSuccessor=createCpcxDebtRepairSuccessor(position,wing,firstRepair),
-      firstNext=firstSuccessor.exact
-        ?classifyCpcxSuccessor(firstSuccessor,{attacker})
-        :firstSuccessor;
+      firstSuccessor=collapseCpcxDebtRepairTokenProduct(position,wing,firstRepair),
+      firstNext=firstSuccessor.kind==='CERTIFIED_FIRST_WIN'
+        ?firstSuccessor
+        :firstSuccessor.exact
+          ?classifyCpcxSuccessor(firstSuccessor,{attacker})
+          :firstSuccessor;
 
     const secondRepair=deriveCpcxUniversalDebtRepair(position,wing,{decisionIndex:1}),
-      secondSuccessor=createCpcxDebtRepairSuccessor(position,wing,secondRepair),
-      secondNext=secondSuccessor.exact
-        ?classifyCpcxSuccessor(secondSuccessor,{attacker})
-        :secondSuccessor;
+      secondSuccessor=collapseCpcxDebtRepairTokenProduct(position,wing,secondRepair),
+      secondNext=secondSuccessor.kind==='CERTIFIED_FIRST_WIN'
+        ?secondSuccessor
+        :secondSuccessor.exact
+          ?classifyCpcxSuccessor(secondSuccessor,{attacker})
+          :secondSuccessor;
 
     const responseClasses=[
       {
