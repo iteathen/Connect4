@@ -5,6 +5,7 @@ import {execFileSync} from 'node:child_process';
 import {resolve} from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {createHash} from 'node:crypto';
+import {runLegacyTargetProofFamilies,LEGACY_TARGET_ENGINE_KINDS} from './rlc-legacy-target-adapter.mjs';
 
 const library=process.argv[2];assert(library);
 const EXPECTED='bf23d3a67652cd42e1975f29c7dc4eed54f7eb42';
@@ -308,6 +309,49 @@ function currentPositiveLibrary(k,semState,jsState,sequence){
     if(!p.completed)resourceFailures++;
   }
 
+  // Monotonicity repair: query the reusable legacy target-proof classes for
+  // every exact current P0 singleton target. These are certificate-family
+  // adapters, not exact-state ids; each engine enforces its own invariant.
+  const singletonTargets=[...new Set(inspect.terms(semState,0).filter(t=>t.length===1).map(t=>t[0]))].sort((a,b)=>a-b);
+  const legacyTargetFamilies=[];
+  for(const target of singletonTargets){
+    const family=runLegacyTargetProofFamilies(k,semState,target,{maxProofStates:PROOF_CAP,maxTargetDistance:5});
+    const targetRow={
+      targetCell:target,
+      targetColumn:(target%7)+1,
+      targetRow:Math.floor(target/7)+1,
+      targetDistance:family.targetDistance,
+      proved:family.proved,
+      closingEngines:family.closingEngines,
+      resourceFailureCount:family.resourceFailureCount,
+      engines:family.engines,
+    };
+    legacyTargetFamilies.push(targetRow);
+    for(const engine of family.engines){
+      const attempt={
+        kind:'LEGACY_TARGET_'+engine.engine,
+        targetCell:target,
+        targetColumn:(target%7)+1,
+        targetRow:Math.floor(target/7)+1,
+        targetDistance:family.targetDistance,
+        applicable:engine.applicable,
+        accept:engine.proved===true,
+        proofKind:engine.proofKind??null,
+        reason:engine.reason??null,
+        resourceFailure:engine.resourceFailure??null,
+      };
+      routeAttempts.push(attempt);
+      if(engine.proved===true)acceptedRoutes.push({
+        kind:'LEGACY_TARGET_'+engine.engine,
+        targetCell:target,
+        targetColumn:(target%7)+1,
+        targetRow:Math.floor(target/7)+1,
+        proofKind:engine.proofKind??null,
+      });
+      if(engine.resourceFailure)resourceFailures++;
+    }
+  }
+
   const generic=genericRoutes(jsState);
   for(const x of generic.attempts)routeAttempts.push({
     kind:x.kind,accept:x.accept??false,p0Column:x.p0Column??null,
@@ -326,7 +370,7 @@ function currentPositiveLibrary(k,semState,jsState,sequence){
     if(seen.has(key))continue;
     seen.add(key);dedup.push(x);
   }
-  return {routeAttempts,acceptedRoutes:dedup,legacyRepairTargets,resourceFailures};
+  return {routeAttempts,acceptedRoutes:dedup,legacyRepairTargets,legacyTargetFamilies,resourceFailures};
 }
 
 
@@ -493,6 +537,8 @@ console.log(JSON.stringify({
   routeAttempts:positive.routeAttempts,
   positiveCertificates:positive.acceptedRoutes,
   legacyRepairTargets:positive.legacyRepairTargets,
+  legacyTargetEngineKinds:LEGACY_TARGET_ENGINE_KINDS,
+  legacyTargetFamilies:positive.legacyTargetFamilies,
   lossCertificate,
   disposition,
   summary:{
@@ -500,6 +546,8 @@ console.log(JSON.stringify({
     positiveKinds:[...new Set(positive.acceptedRoutes.map(x=>x.kind))].sort(),
     routeKindsTried:[...new Set(positive.routeAttempts.map(x=>x.kind))].sort(),
     legacyRepairTargetCount:positive.legacyRepairTargets.length,
+    legacyTargetSingletonCount:positive.legacyTargetFamilies.length,
+    legacyTargetResourceFailureCount:positive.legacyTargetFamilies.reduce((n,x)=>n+x.resourceFailureCount,0),
     forcedLossKind:lossCertificate.kind,
     resourceFailureCount
   },
@@ -514,7 +562,8 @@ console.log(JSON.stringify({
   bsfpModified:false,
   conclusion:[
     'q5d34 is reconstructed by exact semantic identity before positive or negative classification.',
-    'The complete current monotone positive library is queried without changing certificate semantics, and the unchanged forced-obligation loss calculus is run independently with UNKNOWN preserved.',
+    'The current monotone positive library now includes the reusable legacy target-distance, target+auxiliary, distance-2 re-entry and resolved-tail capacity families in addition to adaptive repair, exact handoffs and RCIC routes; certificate semantics are unchanged.',
+    'The unchanged forced-obligation loss calculus is run independently with UNKNOWN preserved.',
     disposition==='P0_WIN'
       ? 'At least one already-qualified constructive positive certificate closes q5d34.'
       : disposition==='P0_LOSS'
