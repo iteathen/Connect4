@@ -1,0 +1,126 @@
+{
+  "schema": "connect4.cpc_rank30_d21_structural_nonwin_backprop.v1",
+  "date": "2026-10-01",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "design": "CPC_RANK30_D21_STRUCTURAL_NONWIN_BACKPROP_DESIGN_0_1.md",
+  "sourceLeafId": "SECOND_D1_C5_CONTRACTION:A->A",
+  "exactQClass": "d21a89605c399aca",
+  "sequence": "444441566666232222425511515311",
+  "rank": 30,
+  "support": [
+    6,
+    6,
+    2,
+    6,
+    5,
+    5,
+    0
+  ],
+  "exactBridge": {
+    "pass": true,
+    "checks": {
+      "semanticQ": true,
+      "rank": true,
+      "support": true,
+      "p0Residuals": true,
+      "p1Residuals": true
+    },
+    "exactQClass": "d21a89605c399aca"
+  },
+  "q966Premise": {
+    "exactQClass": "966e6353e06e4d41",
+    "classification": "Q966_P0_NONWIN",
+    "interval": {
+      "lower": -1,
+      "upper": 0
+    },
+    "sourceEvidence": "CPC_Q966_NONWIN_PROPAGATION_SURVIVING_G_AUDIT_0_1.json"
+  },
+  "rootActions": [
+    {
+      "column": 3,
+      "kind": "EXACT_Q966_NONWIN_REPLY",
+      "interval": {
+        "lower": -1,
+        "upper": 0
+      },
+      "witness": {
+        "p1Column": 7,
+        "childQ": "966e6353e06e4d41",
+        "sourceEvidence": "CPC_Q966_NONWIN_PROPAGATION_SURVIVING_G_AUDIT_0_1.json"
+      }
+    },
+    {
+      "column": 5,
+      "kind": "RANK32_FORCED_OBLIGATION_LOSS",
+      "interval": {
+        "lower": -1,
+        "upper": -1
+      },
+      "witness": {
+        "p1Column": 3,
+        "childQ": "9d02a8478c3bc690",
+        "proofKind": "FORCED_BLOCK_THEN_P1_TERMINAL",
+        "obligation": "C4",
+        "forcedColumn": "C",
+        "terminalReply": "C5"
+      }
+    },
+    {
+      "column": 6,
+      "kind": "RANK32_FORCED_OBLIGATION_LOSS",
+      "interval": {
+        "lower": -1,
+        "upper": -1
+      },
+      "witness": {
+        "p1Column": 3,
+        "childQ": "80648733b86d690c",
+        "proofKind": "FORCED_BLOCK_THEN_P1_TERMINAL",
+        "obligation": "C4",
+        "forcedColumn": "C",
+        "terminalReply": "C5"
+      }
+    },
+    {
+      "column": 7,
+      "kind": "RANK32_FORCED_OBLIGATION_LOSS",
+      "interval": {
+        "lower": -1,
+        "upper": -1
+      },
+      "witness": {
+        "p1Column": 3,
+        "childQ": "da6dcb3938748b5e",
+        "proofKind": "FORCED_BLOCK_THEN_P1_TERMINAL",
+        "obligation": "C4",
+        "forcedColumn": "C",
+        "terminalReply": "C5"
+      }
+    }
+  ],
+  "classification": "P0_NONWIN",
+  "interval": {
+    "lower": -1,
+    "upper": 0
+  },
+  "resourceFailureCount": 0,
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "ordinaryFreeBranchGameTreeUsed": false,
+  "productionCpcModified": false,
+  "jsMinSysModified": false,
+  "bsfpModified": false,
+  "conclusion": [
+    "The rank-30 d21 state is reconstructed by exact semantic-q / JSMinSys RBA equality.",
+    "E, F and G retain their previously qualified adversarial c3 replies into exact rank-32 forced-obligation P0-loss states.",
+    "C now has an exact adversarial c7 reply into q966, structurally certified P0-nonwinning.",
+    "Every legal P0 action therefore has upper bound <= 0, so the rank-30 d21 state is P0_NONWIN with interval [-1,0]."
+  ],
+  "boundary": [
+    "This is one-sided nonwin only; no loss or draw upgrade is implied.",
+    "All handoffs require exact semantic-q equality.",
+    "No oracle, solved W/D/L input, minimax, unrestricted game-tree value, opening book, best-move table or BSFP solved frontier is used.",
+    "Production CPC, JSMinSys and BSFP are unchanged."
+  ]
+}
