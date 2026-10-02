@@ -217,6 +217,58 @@ export function findCpcxSynchronizedProjectionLadders(obligations){
   return out;
 }
 
+export function findCpcxDisjointSynchronizedFamilies(obligations,{minLevels=2}={}){
+  if(!Number.isInteger(minLevels)||minLevels<1)throw new RangeError('minLevels');
+  const ladders=findCpcxSynchronizedProjectionLadders(obligations),groups=new Map();
+  for(const ladder of ladders){
+    const g=obligations.find(o=>o.id===ladder.obligationId);
+    const columns=uniqueSorted(g.events.map(e=>e.column));
+    if(columns.length!==g.missingCount)continue;
+    const key=`${g.player}|${g.orientation}|${g.missingCount}|${columns.join(',')}`;
+    if(!groups.has(key))groups.set(key,{
+      player:g.player,
+      orientation:g.orientation,
+      missingCount:g.missingCount,
+      columns,
+      columnMask:columns.reduce((m,c)=>m|(1<<c),0)>>>0,
+      levels:[],
+    });
+    groups.get(key).levels.push({
+      obligationId:g.id,
+      lineLabel:g.lineLabel,
+      supportDistance:ladder.supportDistance,
+      eventRank:ladder.eventRank,
+      missingCells:[...g.missingCells],
+    });
+  }
+
+  const values=[...groups.values()]
+    .filter(g=>g.levels.length>=minLevels)
+    .map(g=>({
+      ...g,
+      levels:g.levels.sort((a,b)=>a.supportDistance-b.supportDistance||a.eventRank-b.eventRank),
+    }));
+  const pairs=[];
+  for(let i=0;i<values.length;i++)for(let j=i+1;j<values.length;j++){
+    const a=values[i],b=values[j];
+    if(a.player!==b.player||a.orientation!==b.orientation||a.missingCount!==b.missingCount)continue;
+    if(a.columnMask&b.columnMask)continue;
+    pairs.push({
+      player:a.player,
+      orientation:a.orientation,
+      missingCount:a.missingCount,
+      familyA:a,
+      familyB:b,
+      exactStructuralClaim:'one current placement can intersect at most one disjoint family',
+      survivesAnySingleAction:true,
+      exactSurvival:true,
+      exactForcing:false,
+      boundary:'survival of a projection family does not certify its projected owners or completion deadline',
+    });
+  }
+  return pairs;
+}
+
 export function buildCpcxBoundaryOperators(position){
   return cpcxColumnProfiles(position).map(p=>({
     column:p.column,
