@@ -6,6 +6,8 @@
 // - FORCED_NORMALIZATION: exactly one nonterminal response is forced.
 // - CERTIFIED_FORCING_MACRO: one exact nonterminal progress macro selected by
 //   a deterministic structural order.  No global value-preservation premise.
+// - DISJUNCTIVE_BLOCK_OBLIGATION: the current defender must consume one member
+//   of an exact blocker set or a CPC2 first-win trigger remains.
 // - PROJECTION_ONLY: useful structural projection, not an exact force.
 // - NO_CERTIFICATE: CPCX has no exact continuation at this state.
 //
@@ -22,6 +24,7 @@ import {
   findCpcxPlayableTwoPieceDemands,
   certifyEitherCpcxPlayableTwoPiece,
 } from './cpcx-two-piece.mjs';
+import {deriveCpcxDisjunctiveBlockObligation} from './cpcx-cpc2.mjs';
 
 function firstWin(player,source,certificate){
   return {
@@ -86,6 +89,12 @@ export function classifyCpcxProgress(position,{player=position.mover}={}){
     return firstWin(player,'PAIR_HUB_FORK',selected);
   }
 
+  const cpc2=player!==position.mover
+    ?deriveCpcxDisjunctiveBlockObligation(position,{attacker:player})
+    :null;
+  if(cpc2?.kind==='CERTIFIED_FIRST_WIN')
+    return firstWin(player,'CPC2_TRIGGER_OVERLOAD',cpc2);
+
   const macros=[];
   for(const demand of findCpcxVerticalTwoStageObligations(position,{player})){
     const certificate=certifyCpcxVerticalTwoStage(position,demand);
@@ -143,6 +152,16 @@ export function classifyCpcxProgress(position,{player=position.mover}={}){
       recursive:false,
     };
   }
+
+  if(cpc2?.kind==='DISJUNCTIVE_BLOCK_OBLIGATION')return {
+    schema:'connect4.cpcx.progress.v0_2',
+    kind:'DISJUNCTIVE_BLOCK_OBLIGATION',
+    exact:true,
+    player,
+    obligatedPlayer:cpc2.obligatedPlayer,
+    obligation:cpc2,
+    recursive:false,
+  };
 
   const projections=findCpcxSynchronizedProjectionLadders(obligations)
     .filter(x=>x.player===player);
