@@ -1,0 +1,68 @@
+name: Research CPC q1e-d21 exact convergence
+
+concurrency:
+  group: cpc-q1e-d21-convergence-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  push:
+    branches: [research/universal-structural-policy-20260930]
+    paths:
+      - .github/workflows/research-cpc-q1e-d21-exact-convergence.yml
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_Q1E_D21_SUCCESSOR_EXACT_CONVERGENCE_DESIGN_0_1.md
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/test-cpc-q1e-d21-successor-exact-convergence.mjs
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/run-cpc-q1e-d21-successor-exact-convergence.mjs
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_RANK30_C_REPLY_STRUCTURAL_DIFFERENTIAL_CENSUS_0_1.json
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_RANK30_D21_STRUCTURAL_NONWIN_BACKPROP_0_1.json
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_Q966_NONWIN_PROPAGATION_SURVIVING_G_AUDIT_0_1.json
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with: {fetch-depth: 0}
+      - name: Check out pinned JSMinSys authority
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: iteathen/JSMinSys
+          ref: bf23d3a67652cd42e1975f29c7dc4eed54f7eb42
+          path: .jsminsys
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with: {node-version: 26.7.0}
+      - name: Verify frozen exact convergence
+        run: node research/isograph/discovery/2026-09-30-universal-structural-policy/test-cpc-q1e-d21-successor-exact-convergence.mjs "$GITHUB_WORKSPACE/.jsminsys"
+      - name: Generate durable exact-convergence evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          DIR=research/isograph/discovery/2026-09-30-universal-structural-policy
+          OUT="$DIR/CPC_Q1E_D21_SUCCESSOR_EXACT_CONVERGENCE_0_1.json"
+          node "$DIR/run-cpc-q1e-d21-successor-exact-convergence.mjs" "$GITHUB_WORKSPACE/.jsminsys" > "$OUT"
+          node - "$OUT" <<'NODE'
+          const fs=require('fs');
+          const r=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
+          console.log(JSON.stringify({
+            convergence:r.convergence,
+            afterG:r.afterG,
+            classification:r.classification,
+            interval:r.interval
+          }));
+          NODE
+      - name: Commit durable exact-convergence evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          BRANCH=research/universal-structural-policy-20260930
+          FILE=research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_Q1E_D21_SUCCESSOR_EXACT_CONVERGENCE_0_1.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$FILE"
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "research: record q1e-d21 exact convergence"
+          git pull --rebase origin "$BRANCH"
+          git push origin HEAD:"$BRANCH"
