@@ -168,6 +168,15 @@
       }
     }
   ],
+  "q649Premise": {
+    "exactQClass": "6496c888c4e2a157",
+    "classification": "P0_NONWIN_DRAW_REPLY",
+    "interval": {
+      "lower": -1,
+      "upper": 0
+    },
+    "sourceEvidence": "CPC_Q649_TWO_REPLY_CONSEQUENCE_CLASS_CLOSURE_0_1.json"
+  },
   "rank36Predecessors": [
     {
       "exactQClass": "f435a6ec7dd5469e",
@@ -203,9 +212,9 @@
         },
         {
           "column": 6,
-          "kind": "EXACT_Q649_DRAW_HANDOFF",
+          "kind": "Q649_P0_NONWIN_DRAW_REPLY",
           "interval": [
-            0,
+            -1,
             0
           ]
         },
@@ -219,10 +228,10 @@
         }
       ],
       "interval": {
-        "lower": 0,
+        "lower": -1,
         "upper": 0
       },
-      "exactDraw": true
+      "classification": "P0_NONWIN"
     },
     {
       "exactQClass": "6c9a60f756817109",
@@ -258,9 +267,9 @@
         },
         {
           "column": 5,
-          "kind": "EXACT_Q649_DRAW_HANDOFF",
+          "kind": "Q649_P0_NONWIN_DRAW_REPLY",
           "interval": [
-            0,
+            -1,
             0
           ]
         },
@@ -274,16 +283,16 @@
         }
       ],
       "interval": {
-        "lower": 0,
+        "lower": -1,
         "upper": 0
       },
-      "exactDraw": true
+      "classification": "P0_NONWIN"
     }
   ],
   "g4Action": {
     "column": 7,
     "kind": "P1_REPLY_TO_EXACT_DRAW_CHILD",
-    "drawReplyQClasses": [
+    "nonwinReplyQClasses": [
       "6c9a60f756817109",
       "f435a6ec7dd5469e"
     ],
@@ -375,8 +384,8 @@
   "conclusion": [
     "The qualified 3+1 tail theorem upgrades three rank-38 consequence classes to exact draws.",
     "Each rank-37 G5 survivor is P0-nonwinning because P1 has at least one legal reply into an exact draw child.",
-    "Each exact rank-36 E/F-reply predecessor is an exact draw: its immediate-exposure action loses, its q649 action draws, and its G5 action reaches a P0-nonwinning P1 state.",
-    "After q5d:G4, P1 can choose E6 or F6 into one of those exact rank-36 draws, so G4 cannot force a P0 win.",
+    "Each exact rank-36 E/F-reply predecessor is P0-nonwinning: its immediate-exposure action loses, its q649 action is already P0-nonwinning, and its G5 action reaches a P0-nonwinning P1 state.",
+    "After q5d:G4, P1 can choose E6 or F6 into one of those rank-36 P0-nonwinning states, so G4 cannot force a P0 win.",
     "At q5d34, C4 admits immediate P1 terminal C5, E6 and F6 are already qualified nonwinning, and G4 is now nonwinning. Therefore q5d34 has the sound interval [-1,0]."
   ],
   "boundary": [
