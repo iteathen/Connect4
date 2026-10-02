@@ -14,11 +14,7 @@ import {
   classifyCpcxSuccessor,
   runCpcxFirstWinCertificate,
 } from './cpcx-successor.mjs';
-import {
-  findCpcxPlayablePairHubs,
-  certifyCpcxPlayablePairHub,
-} from './cpcx-fork.mjs';
-
+ 
 const g=createCpcxGeometry();
 
 test('playable two-piece forcing macro composes into one concrete successor',()=>{
@@ -100,17 +96,17 @@ test('unresolved state returns NO_CERTIFICATE and never a draw result',()=>{
   assert.equal(Object.prototype.hasOwnProperty.call(result,'value'),false);
 });
 
-test('pair-hub first-win guard failure is retained as non-certificate',()=>{
-  const p=buildCpcxPosition('4124614224',{geometry:g});
-  let guardFailure=null;
-  for(const candidate of findCpcxPlayablePairHubs(p,{player:p.mover})){
-    const cert=certifyCpcxPlayablePairHub(p,candidate);
-    if(cert.kind==='FIRST_WIN_GUARD_FAILURE'){guardFailure=cert;break;}
-  }
-  assert.ok(guardFailure);
-  assert.equal(guardFailure.exact,false);
-  assert.ok(guardFailure.defenderTerminalCells.length>=1);
-  const progress=classifyCpcxProgress(p,{player:p.mover});
+test('first-win ordering guard forces normalization instead of false macro certification',()=>{
+  const p=buildCpcxPosition('4444415151',{geometry:g});
+  const demand=findCpcxVerticalTwoStageObligations(p,{player:0})[0];
+  assert.ok(demand);
+  const cert=certifyCpcxVerticalTwoStage(p,demand);
+  assert.equal(cert.kind,'REQUIRES_FORCED_NORMALIZATION');
+  assert.equal(cert.exact,false);
+  assert.ok(cert.opponentSingletons.length>=1);
+
+  const progress=classifyCpcxProgress(p,{player:0});
+  assert.equal(progress.kind,'FORCED_NORMALIZATION');
   assert.notEqual(progress.kind,'CERTIFIED_FIRST_WIN');
 });
 
