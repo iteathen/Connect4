@@ -240,13 +240,18 @@ const g4Action={
   interval:{lower:g4Interval[0],upper:g4Interval[1]},
 };
 
-const rootActions=[
+const rootActionRaw=[
   {column:3,kind:'IMMEDIATE_P1_TERMINAL_EXPOSURE',interval:loss()},
   {column:5,kind:'QUALIFIED_E_NONWIN',interval:nonwin()},
   {column:6,kind:'QUALIFIED_F_NONWIN',interval:nonwin()},
   {column:7,kind:'G4_TO_P1_DRAW_REPLY',interval:[g4Interval[0],g4Interval[1]]},
 ];
-const rootInterval=predecessorInterval(0,rootActions.map(x=>x.interval));
+const rootInterval=predecessorInterval(0,rootActionRaw.map(x=>x.interval));
+const rootActions=rootActionRaw.map(x=>({
+  column:x.column,
+  kind:x.kind,
+  interval:{lower:x.interval[0],upper:x.interval[1]},
+}));
 assert.deepEqual(rootInterval,[-1,0]);
 
 console.log(JSON.stringify({
