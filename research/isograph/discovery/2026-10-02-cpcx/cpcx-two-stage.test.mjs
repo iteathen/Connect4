@@ -5,6 +5,7 @@ import {closeCpcxForcedResponses} from './cpcx-closure.mjs';
 import {
   findCpcxVerticalTwoStageObligations,
   certifyCpcxVerticalTwoStage,
+  collapseCpcxVerticalTwoStage,
 } from './cpcx-two-stage.mjs';
 
 const g=createCpcxGeometry();
@@ -45,6 +46,23 @@ test('forced normalization repairs all retained vertical-tempo falsifiers',()=>{
     if(exact.kind==='PREEMPT_OR_FORCED_UPPER')
       assert.equal(exact.choiceEnumeration,false,String(row.move));
   }
+});
+
+test('defender-turn two-stage alternatives collapse to one CPC parity class',()=>{
+  const p=buildCpcxPosition('4444415151',{geometry:g}),
+    normalized=closeCpcxForcedResponses(p).position,
+    demand=findCpcxVerticalTwoStageObligations(normalized,{player:0})[0],
+    cert=certifyCpcxVerticalTwoStage(normalized,demand),
+    collapsed=collapseCpcxVerticalTwoStage(normalized,demand,cert);
+  assert.equal(cert.kind,'PREEMPT_OR_FORCED_UPPER');
+  assert.deepEqual(collapsed.rankDeltaOptions,[1,3]);
+  assert.equal(collapsed.rankDeltaParity,1);
+  assert.equal(collapsed.controlParityEquivalent,true);
+  assert.equal(collapsed.nextMover,0);
+  assert.equal(collapsed.choiceEnumeration,false);
+  assert.ok(collapsed.guaranteedResiduals.some(r=>
+    r.lineLabel==='D1-E2-F3-G4'&&r.missingCount===2
+  ));
 });
 
 test('move-3 symmetric control transports turn back to attacker and forces upper',()=>{
