@@ -1,0 +1,176 @@
+{
+  "schema": "connect4.cpcx.checkpoint.v0_6",
+  "date": "2026-10-02",
+  "branch": "experiment/cpcx-20261002",
+  "recoveredStartingHead": "8c1f4c58cf1e8b2ad694e8cf5f6aa23ae76e6af2",
+  "qualifiedImplementationHead": "c0b757a959d289c0a1b70e32ebd97c64381b14f7",
+  "status": "FORWARD_CPC2_DISJUNCTIVE_BLOCK_THEOREM_QUALIFIED",
+  "productionCpcModified": false,
+  "semanticContract": {
+    "positiveTerminal": "CERTIFIED_FIRST_WIN(player)",
+    "failure": "NO_CERTIFICATE",
+    "noCertificateMeaning": "CPCX cannot currently prove a forced first win; no draw/loss/value inference",
+    "drawClassifier": false,
+    "globalWdlPreservationRequired": false,
+    "recursiveSearch": false,
+    "childBoardProofBranches": false
+  },
+  "exactTheorem": {
+    "name": "FORWARD_CPC2_DISJUNCTIVE_BLOCK",
+    "scope": "normalized defender-to-move positions with attacker trigger cells already on the current legal frontier",
+    "premises": [
+      "current position has no immediate terminal or forced-singleton normalization boundary",
+      "attacker trigger t is a current legal frontier cell",
+      "at least two current live attacker two-piece residuals contract through owner-labelled cofactor A:t to distinct completion singletons",
+      "post-trigger actionable singleton demand exceeds defender placement response capacity",
+      "for each current defender move d outside the blocker set, some surviving trigger remains frontier-stable after d",
+      "after D:d then A:t, the surviving actionable singleton demand still exceeds response capacity or A terminates on t",
+      "the defender has no earlier or immediate counterterminal before the certified attacker first win"
+    ],
+    "blockerDefinition": "d is sufficient exactly when it suppresses every certified trigger by direct trigger occupation or by cofactor reduction of the resulting actionable singleton demand to response capacity or below",
+    "consequence": "if every current frontier move outside exact blocker set B has a certified first-win witness, emit DISJUNCTIVE_BLOCK_OBLIGATION(D; B)",
+    "meaning": "D must occupy at least one member of B at the current rank or A has a certified first-win continuation",
+    "complexity": "polynomial residual cofactor scan plus polynomial bipartite response-capacity matching; no recursive child solving",
+    "boundary": "future/non-frontier trigger acquisition remains outside this theorem until a separate support/ownership transport theorem certifies it"
+  },
+  "runtimeRepresentation": {
+    "kind": "DISJUNCTIVE_BLOCK_OBLIGATION",
+    "fields": [
+      "obligatedPlayer",
+      "attacker",
+      "currentRank",
+      "currentMover",
+      "blockingCells",
+      "blockingLabels",
+      "triggerCertificates",
+      "responseCapacity",
+      "firstWinGuard",
+      "exactness",
+      "rankDeltaSemantics",
+      "outsideMoveCertificates",
+      "frontierAudit"
+    ],
+    "abstractSuccessor": {
+      "rankDelta": 1,
+      "nextMover": "attacker",
+      "blockerToken": "EXACTLY_ONE_OF(owner=defender, exactCount=1, candidateCells=B)",
+      "guaranteedResiduals": "attacker residuals disjoint from every blocker candidate",
+      "support": "intervals include possible one-cell support lift from the unknown chosen blocker",
+      "singletonEnvelope": "union/intersection of immediate singleton cells over blocker alternatives",
+      "branchSplit": false
+    }
+  },
+  "canonical443": {
+    "sequence": "443",
+    "mover": 1,
+    "attacker": 0,
+    "liveTwoPieceResiduals": [
+      {"line": "A1-B1-C1-D1", "missing": ["A1", "B1"]},
+      {"line": "B1-C1-D1-E1", "missing": ["B1", "E1"]},
+      {"line": "C1-D1-E1-F1", "missing": ["E1", "F1"]}
+    ],
+    "triggers": [
+      {"trigger": "B1", "completionSingletons": ["A1", "E1"], "responseCapacity": 1, "overload": true},
+      {"trigger": "E1", "completionSingletons": ["B1", "F1"], "responseCapacity": 1, "overload": true}
+    ],
+    "exactBlockingSet": ["B1", "E1"],
+    "derivedObligation": "O_OR(P1; {B1,E1})",
+    "abstractSuccessor": {
+      "rank": 4,
+      "nextMover": 0,
+      "p1Ownership": "exactly one of B1,E1",
+      "possibleAttackerImmediateSingletons": [],
+      "possibleDefenderImmediateSingletons": []
+    }
+  },
+  "falsification": {
+    "preservedCases": [
+      {
+        "sequence": "44455337312",
+        "class": "NONACTIONABLE_GEOMETRIC_SINGLETON",
+        "result": "geometric two-singleton cofactor is not promoted when fewer than two completions are playable"
+      },
+      {
+        "sequence": "74343",
+        "class": "SAME_COLUMN_SUPPORT_LIFT",
+        "result": "post-trigger support lift is applied algebraically; one actionable completion is insufficient for overload"
+      },
+      {
+        "sequence": "44564357767",
+        "class": "OVERLAPPING_SINGLETON_SETS",
+        "result": "capacity demand is over distinct completion cells, not duplicated line identities"
+      },
+      {
+        "sequence": "77512755757",
+        "class": "DEFENDER_COUNTERTERMINAL",
+        "result": "first-win guard fails closed with NO_CERTIFICATE instead of promoting an obligation"
+      }
+    ],
+    "genericPositiveTransfer": {
+      "sequence": "2273251243",
+      "result": "generic operator derives a different exact blocker set {D2}, demonstrating no 443 runtime special case"
+    }
+  },
+  "implementation": {
+    "newModule": "cpcx-cpc2.mjs",
+    "newTests": "cpcx-cpc2.test.mjs",
+    "progressIntegration": "cpcx-progress.mjs",
+    "successorIntegration": "cpcx-successor.mjs",
+    "productionCpcTouched": false,
+    "recursiveTraversalIntroduced": false,
+    "solvedDataIntroduced": false,
+    "oraclePremiseIntroduced": false,
+    "openingBookIntroduced": false,
+    "priorBestMoveLabelsIntroduced": false
+  },
+  "verification": {
+    "standaloneDiscoverySuite": {"tests": 13, "passed": 13},
+    "liveRepositoryWorkflow": {
+      "workflow": ".github/workflows/research-cpcx-prototype.yml",
+      "runId": 37079959062,
+      "head": "c0b757a959d289c0a1b70e32ebd97c64381b14f7",
+      "conclusion": "success",
+      "steps": [
+        "Test CPCX",
+        "Inspect 44444",
+        "Verify CPCX dependency isolation",
+        "Verify production CPC unchanged"
+      ]
+    },
+    "workflowRepair": {
+      "preexistingDefect": "literal newlines inside shell printf format strings made workflow YAML invalid from run 50 onward",
+      "repairCommit": "c0b757a959d289c0a1b70e32ebd97c64381b14f7",
+      "semanticCodeChange": false
+    }
+  },
+  "relationshipTo44444": {
+    "rootP0TwoPieceResidualCount": 0,
+    "liveMove6ArtifactPrimarySeam": "NO_EXACT_ABSTRACT_MACRO",
+    "closedByCpc2Now": false,
+    "reason": "the existing abstract successors do not provide one exact concrete frontier/owner state from which the current CPC2 trigger and per-defender-move cofactor audit can be instantiated",
+    "help": "CPC2 supplies the missing generic forward obligation operator; a future abstract lift may apply it when two attacker two-piece residuals and a frontier-stable shared trigger are guaranteed across every blocker-token realization",
+    "noOverclaim": "existing 44444 NO_CERTIFICATE remains unchanged"
+  },
+  "classification": {
+    "exactTheorem": [
+      "current-frontier CPC2 trigger overload",
+      "exact disjunctive blocker set",
+      "one-event abstract blocker successor"
+    ],
+    "projectionOnly": [
+      "future/non-frontier trigger ownership and timing",
+      "lifting CPC2 directly over current 44444 blocker-token carriers"
+    ],
+    "falsifiers": [
+      "nonactionable completion",
+      "same-column support interaction",
+      "overlap/deduplication",
+      "defender counterterminal"
+    ],
+    "unresolvedSeam": [
+      "NO_EXACT_ABSTRACT_MACRO in existing 44444 move6 carriers",
+      "ABSTRACT_OPPONENT_SINGLETON_ENVELOPE_MISSING in selected second-deviation carriers",
+      "VERTICAL_TWO_STAGE_CLASSIFICATION_MISSING for the existing move-3 second-deviation class"
+    ]
+  }
+}
