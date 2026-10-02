@@ -13,6 +13,7 @@ import {
   predecessorInterval,
 } from './rlc-proof-library-catalog.mjs';
 import {LEGACY_TARGET_ENGINE_KINDS} from './rlc-legacy-target-adapter.mjs';
+import {classifyThreePlusOneDeferredSingletonTail} from './rlc-3plus1-deferred-singleton-tail-adapter.mjs';
 
 const library=process.argv[2];assert(library,'JSMinSys checkout path required');
 const EXPECTED='bf23d3a67652cd42e1975f29c7dc4eed54f7eb42';
@@ -82,6 +83,8 @@ assert.equal(coverControl.proved,true);
 assert.deepEqual(choiceElimination([1,3,5],[1,5]),[3]);
 assert.deepEqual(predecessorInterval(0,[[-1,0],[0,1]]),[0,1]);
 assert.deepEqual(predecessorInterval(1,[[-1,0],[0,1]]),[-1,0]);
+assert.equal(typeof classifyThreePlusOneDeferredSingletonTail,'function');
+assert.match(sourceText('research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_3PLUS1_DEFERRED_SINGLETON_TAIL_NONWIN_THEOREM.md'),/qualified structural exact-draw theorem/);
 
 const summary=auditCatalog();
 assert.equal(summary.unclassifiedCount,0);
@@ -118,6 +121,13 @@ const out={
     hardCodedStateIds:false,
     stateInterface:'semantic quotient kernel state + exact target cell; each engine enforces its own structural invariant',
   },
+  threePlusOneTailAdapter:{
+    export:'classifyThreePlusOneDeferredSingletonTail',
+    callable:typeof classifyThreePlusOneDeferredSingletonTail==='function',
+    interval:[0,0],
+    hardCodedStateIds:false,
+    stateInterface:'exact current semantic q; 3+1 support poset plus exact normalized P0/P1 residual antichains',
+  },
   rank20Regression:{
     sequence:rank20Root.sequence,
     rank:rank20Root.rank,
@@ -139,6 +149,7 @@ const out={
     'Exact-only latent/rank-specific results remain exact-q handoffs and are not promoted into generic theorem classes.',
     'Rejected and unqualified candidate artifacts remain visible in the audit but are excluded from retained proof capability.',
     'The four legacy target engines omitted from the newer state-local q5d34 audit now have one shared certificate-class adapter.',
+    'The qualified 3+1 deferred-singleton tail exact-draw theorem is exposed through a generic current-state adapter.',
     'The earlier exact rank-20 obstruction remains unclosed by the legacy repair/family queries that were applicable, with zero recorded resource failures.',
   ],
   boundary:[
