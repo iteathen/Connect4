@@ -73,8 +73,7 @@ For q `6c9a60f756817109`:
 ### Qualified rank-38 nonwin theorem
 
 `CPC_3PLUS1_DEFERRED_SINGLETON_TAIL_NONWIN_THEOREM.md`, qualified by
-`CPC_3PLUS1_DEFERRED_SINGLETON_TAIL_QUALIFICATION_0_1.json`, gives
-P0-nonwin interval `[-1,0]` to:
+`CPC_3PLUS1_DEFERRED_SINGLETON_TAIL_QUALIFICATION_0_1.json`, gives exact draw interval `[0,0]` to:
 
 - q `4f5444dc55bb5371`;
 - q `60fba7c1d1c84a97`;
@@ -86,8 +85,7 @@ q `e7eb...`.
 The rank-37 survivor q `7cac...` has P1 replies into q `4f...` and
 q `e7eb...`.
 
-Therefore each rank-37 P1 state has at least one legal reply into an exact
-P0-nonwin child.
+Therefore each rank-37 P1 state has at least one legal reply into an exact draw child. This is sufficient to prove the rank-37 state P0-nonwinning; it does not by itself exclude a different P1 winning reply.
 
 ## Frozen derivation
 
