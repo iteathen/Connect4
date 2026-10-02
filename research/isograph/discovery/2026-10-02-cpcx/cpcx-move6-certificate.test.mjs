@@ -14,7 +14,7 @@ test('44444 move6 attempt uses flat universal response classes and reports the f
   assert.equal(r.currentResponseSet.length,7);
   assert.equal(r.kind,'NO_CERTIFICATE');
   assert.equal(r.exact,false);
-  assert.equal(r.firstSeam,'ABSTRACT_IMMEDIATE_NORMALIZATION_NOT_CLOSED');
+  assert.equal(r.firstSeam,'ABSTRACT_OPPONENT_SINGLETON_ENVELOPE_MISSING');
 
   for(const row of r.rows){
     assert.equal(row.exact,true);
@@ -31,10 +31,16 @@ test('44444 move6 attempt uses flat universal response classes and reports the f
     for(const x of row.responseClasses.slice(1)){
       assert.equal(x.setWise,true);
       assert.ok(x.quantifiedCells.length>=1);
-      assert.equal(x.successor.kind,'ABSTRACT_SUCCESSOR');
-      assert.equal(x.successor.choiceEnumeration,false);
       assert.equal(x.result.kind,'NO_CERTIFICATE');
-      assert.equal(x.result.seam,'ABSTRACT_IMMEDIATE_NORMALIZATION_NOT_CLOSED');
+      if(x.successor.kind==='ABSTRACT_SUCCESSOR'){
+        assert.equal(x.successor.choiceEnumeration,false);
+        assert.equal(x.result.seam,'ABSTRACT_OPPONENT_SINGLETON_ENVELOPE_MISSING');
+      }else{
+        assert.equal(x.successor.kind,'NO_CERTIFICATE');
+        assert.equal(row.actionColumn,2); // one-based move 3 special second-deviation seam
+        assert.equal(x.class,'HONOR_FIRST_DEVIATE_SECOND');
+        assert.equal(x.result.seam,'VERTICAL_TWO_STAGE_CLASSIFICATION_MISSING');
+      }
     }
   }
 });
