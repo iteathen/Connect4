@@ -1,0 +1,2503 @@
+{
+  "schema": "connect4.cpc_rank30_d1_a_unknown_child_structural_differential.v1",
+  "date": "2026-10-01",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "design": "CPC_RANK30_D1_A_UNKNOWN_CHILD_STRUCTURAL_DIFFERENTIAL_DESIGN_0_1.md",
+  "sourceEvidence": "CPC_RANK30_D1_A_BIDIRECTIONAL_PROOF_LIBRARY_CLOSURE_0_1.json",
+  "sourceLeafId": "SECOND_D1_C5_CONTRACTION:A->A",
+  "sourceExactQClass": "d21a89605c399aca",
+  "siblings": [
+    {
+      "defenderColumn": 3,
+      "sequence": "44444156666623222242551151531133",
+      "exactQClass": "9f6b7a33ab7e9552",
+      "rank": 32,
+      "support": [
+        6,
+        6,
+        4,
+        6,
+        5,
+        5,
+        0
+      ],
+      "exactBridge": {
+        "pass": true,
+        "checks": {
+          "rank": true,
+          "mover": true,
+          "support": true,
+          "p0Residuals": true,
+          "p1Residuals": true
+        },
+        "semanticQClass": "9f6b7a33ab7e9552"
+      },
+      "p0Residuals": [
+        "20",
+        "37,39,40",
+        "39,40,41"
+      ],
+      "p1Residuals": [
+        "13,20,27,34",
+        "20,27,34,41",
+        "30",
+        "6,13,20,27"
+      ],
+      "p0MinimalResiduals": [
+        {
+          "key": "20",
+          "owner": 0,
+          "size": 1,
+          "cells": [
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "supportDepth": 2,
+              "frontierAttached": false,
+              "projectedOwner": 1,
+              "targetSupportDistance": 2
+            }
+          ]
+        },
+        {
+          "key": "37,39,40",
+          "owner": 0,
+          "size": 3,
+          "cells": [
+            {
+              "cell": 37,
+              "column": 3,
+              "row": 6,
+              "supportDepth": 1,
+              "frontierAttached": false,
+              "projectedOwner": 2,
+              "targetSupportDistance": 1
+            },
+            {
+              "cell": 39,
+              "column": 5,
+              "row": 6,
+              "supportDepth": 0,
+              "frontierAttached": true,
+              "projectedOwner": 2,
+              "targetSupportDistance": 0
+            },
+            {
+              "cell": 40,
+              "column": 6,
+              "row": 6,
+              "supportDepth": 0,
+              "frontierAttached": true,
+              "projectedOwner": 2,
+              "targetSupportDistance": 0
+            }
+          ]
+        },
+        {
+          "key": "39,40,41",
+          "owner": 0,
+          "size": 3,
+          "cells": [
+            {
+              "cell": 39,
+              "column": 5,
+              "row": 6,
+              "supportDepth": 0,
+              "frontierAttached": true,
+              "projectedOwner": 2,
+              "targetSupportDistance": 0
+            },
+            {
+              "cell": 40,
+              "column": 6,
+              "row": 6,
+              "supportDepth": 0,
+              "frontierAttached": true,
+              "projectedOwner": 2,
+              "targetSupportDistance": 0
+            },
+            {
+              "cell": 41,
+              "column": 7,
+              "row": 6,
+              "supportDepth": 5,
+              "frontierAttached": false,
+              "projectedOwner": 2,
+              "targetSupportDistance": 5
+            }
+          ]
+        }
+      ],
+      "p1MinimalResiduals": [
+        {
+          "key": "30",
+          "owner": 1,
+          "size": 1,
+          "cells": [
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "supportDepth": 0,
+              "frontierAttached": true,
+              "projectedOwner": 1,
+              "targetSupportDistance": 0
+            }
+          ]
+        },
+        {
+          "key": "13,20,27,34",
+          "owner": 1,
+          "size": 4,
+          "cells": [
+            {
+              "cell": 13,
+              "column": 7,
+              "row": 2,
+              "supportDepth": 1,
+              "frontierAttached": false,
+              "projectedOwner": 2,
+              "targetSupportDistance": 1
+            },
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "supportDepth": 2,
+              "frontierAttached": false,
+              "projectedOwner": 1,
+              "targetSupportDistance": 2
+            },
+            {
+              "cell": 27,
+              "column": 7,
+              "row": 4,
+              "supportDepth": 3,
+              "frontierAttached": false,
+              "projectedOwner": 2,
+              "targetSupportDistance": 3
+            },
+            {
+              "cell": 34,
+              "column": 7,
+              "row": 5,
+              "supportDepth": 4,
+              "frontierAttached": false,
+              "projectedOwner": 1,
+              "targetSupportDistance": 4
+            }
+          ]
+        },
+        {
+          "key": "20,27,34,41",
+          "owner": 1,
+          "size": 4,
+          "cells": [
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "supportDepth": 2,
+              "frontierAttached": false,
+              "projectedOwner": 1,
+              "targetSupportDistance": 2
+            },
+            {
+              "cell": 27,
+              "column": 7,
+              "row": 4,
+              "supportDepth": 3,
+              "frontierAttached": false,
+              "projectedOwner": 2,
+              "targetSupportDistance": 3
+            },
+            {
+              "cell": 34,
+              "column": 7,
+              "row": 5,
+              "supportDepth": 4,
+              "frontierAttached": false,
+              "projectedOwner": 1,
+              "targetSupportDistance": 4
+            },
+            {
+              "cell": 41,
+              "column": 7,
+              "row": 6,
+              "supportDepth": 5,
+              "frontierAttached": false,
+              "projectedOwner": 2,
+              "targetSupportDistance": 5
+            }
+          ]
+        },
+        {
+          "key": "6,13,20,27",
+          "owner": 1,
+          "size": 4,
+          "cells": [
+            {
+              "cell": 6,
+              "column": 7,
+              "row": 1,
+              "supportDepth": 0,
+              "frontierAttached": true,
+              "projectedOwner": 1,
+              "targetSupportDistance": 0
+            },
+            {
+              "cell": 13,
+              "column": 7,
+              "row": 2,
+              "supportDepth": 1,
+              "frontierAttached": false,
+              "projectedOwner": 2,
+              "targetSupportDistance": 1
+            },
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "supportDepth": 2,
+              "frontierAttached": false,
+              "projectedOwner": 1,
+              "targetSupportDistance": 2
+            },
+            {
+              "cell": 27,
+              "column": 7,
+              "row": 4,
+              "supportDepth": 3,
+              "frontierAttached": false,
+              "projectedOwner": 2,
+              "targetSupportDistance": 3
+            }
+          ]
+        }
+      ],
+      "enabledSingletons": {
+        "P0": [],
+        "P1": [
+          {
+            "cell": 30,
+            "column": 3,
+            "row": 5,
+            "supportDepth": 0,
+            "frontierAttached": true,
+            "projectedOwner": 1,
+            "targetSupportDistance": 0
+          }
+        ]
+      },
+      "singletonTargets": {
+        "P0": [
+          {
+            "cell": 20,
+            "column": 7,
+            "row": 3,
+            "supportDepth": 2,
+            "frontierAttached": false,
+            "projectedOwner": 1,
+            "targetSupportDistance": 2
+          }
+        ],
+        "P1": [
+          {
+            "cell": 30,
+            "column": 3,
+            "row": 5,
+            "supportDepth": 0,
+            "frontierAttached": true,
+            "projectedOwner": 1,
+            "targetSupportDistance": 0
+          }
+        ]
+      },
+      "cpc": {
+        "baseline": {
+          "kind": "CPC_RESTRICT",
+          "forcedColumn": 3,
+          "preemptionCount": 1
+        },
+        "frontier": {
+          "kind": "CPC_RESTRICT",
+          "forcedColumn": 3,
+          "preemptionCount": 1
+        }
+      },
+      "phasePath": {
+        "remainingCapacity": [
+          0,
+          0,
+          2,
+          0,
+          1,
+          1,
+          6
+        ],
+        "capacityParity": [
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0
+        ],
+        "widthDerivative": [
+          0,
+          0,
+          0,
+          1,
+          0,
+          1
+        ],
+        "topDefectCharge": 0
+      },
+      "boundedGrammar": {
+        "kind": "EXACT_Q9F_HANDOFF"
+      },
+      "repairTargets": [],
+      "onePlyConsequences": []
+    },
+    {
+      "defenderColumn": 5,
+      "sequence": "44444156666623222242551151531135",
+      "exactQClass": "0fc9d79484d94df1",
+      "rank": 32,
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        6,
+        5,
+        0
+      ],
+      "exactBridge": {
+        "pass": true,
+        "checks": {
+          "rank": true,
+          "mover": true,
+          "support": true,
+          "p0Residuals": true,
+          "p1Residuals": true
+        },
+        "semanticQClass": "0fc9d79484d94df1"
+      },
+      "p0Residuals": [
+        "20",
+        "23,30,37"
+      ],
+      "p1Residuals": [
+        "13,20,27,34",
+        "20,27,34,41",
+        "30",
+        "6,13,20,27"
+      ],
+      "p0MinimalResiduals": [
+        {
+          "key": "20",
+          "owner": 0,
+          "size": 1,
+          "cells": [
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "supportDepth": 2,
+              "frontierAttached": false,
+              "projectedOwner": 1,
+              "targetSupportDistance": 2
+            }
+          ]
+        },
+        {
+          "key": "23,30,37",
+          "owner": 0,
+          "size": 3,
+          "cells": [
+            {
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "supportDepth": 0,
+              "frontierAttached": true,
+              "projectedOwner": 2,
+              "targetSupportDistance": 0
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "supportDepth": 1,
+              "frontierAttached": false,
+              "projectedOwner": 1,
+              "targetSupportDistance": 1
+            },
+            {
+              "cell": 37,
+              "column": 3,
+              "row": 6,
+              "supportDepth": 2,
+              "frontierAttached": false,
+              "projectedOwner": 2,
+              "targetSupportDistance": 2
+            }
+          ]
+        }
+      ],
+      "p1MinimalResiduals": [
+        {
+          "key": "30",
+          "owner": 1,
+          "size": 1,
+          "cells": [
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "supportDepth": 1,
+              "frontierAttached": false,
+              "projectedOwner": 1,
+              "targetSupportDistance": 1
+            }
+          ]
+        },
+        {
+          "key": "13,20,27,34",
+          "owner": 1,
+          "size": 4,
+          "cells": [
+            {
+              "cell": 13,
+              "column": 7,
+              "row": 2,
+              "supportDepth": 1,
+              "frontierAttached": false,
+              "projectedOwner": 2,
+              "targetSupportDistance": 1
+            },
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "supportDepth": 2,
+              "frontierAttached": false,
+              "projectedOwner": 1,
+              "targetSupportDistance": 2
+            },
+            {
+              "cell": 27,
+              "column": 7,
+              "row": 4,
+              "supportDepth": 3,
+              "frontierAttached": false,
+              "projectedOwner": 2,
+              "targetSupportDistance": 3
+            },
+            {
+              "cell": 34,
+              "column": 7,
+              "row": 5,
+              "supportDepth": 4,
+              "frontierAttached": false,
+              "projectedOwner": 1,
+              "targetSupportDistance": 4
+            }
+          ]
+        },
+        {
+          "key": "20,27,34,41",
+          "owner": 1,
+          "size": 4,
+          "cells": [
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "supportDepth": 2,
+              "frontierAttached": false,
+              "projectedOwner": 1,
+              "targetSupportDistance": 2
+            },
+            {
+              "cell": 27,
+              "column": 7,
+              "row": 4,
+              "supportDepth": 3,
+              "frontierAttached": false,
+              "projectedOwner": 2,
+              "targetSupportDistance": 3
+            },
+            {
+              "cell": 34,
+              "column": 7,
+              "row": 5,
+              "supportDepth": 4,
+              "frontierAttached": false,
+              "projectedOwner": 1,
+              "targetSupportDistance": 4
+            },
+            {
+              "cell": 41,
+              "column": 7,
+              "row": 6,
+              "supportDepth": 5,
+              "frontierAttached": false,
+              "projectedOwner": 2,
+              "targetSupportDistance": 5
+            }
+          ]
+        },
+        {
+          "key": "6,13,20,27",
+          "owner": 1,
+          "size": 4,
+          "cells": [
+            {
+              "cell": 6,
+              "column": 7,
+              "row": 1,
+              "supportDepth": 0,
+              "frontierAttached": true,
+              "projectedOwner": 1,
+              "targetSupportDistance": 0
+            },
+            {
+              "cell": 13,
+              "column": 7,
+              "row": 2,
+              "supportDepth": 1,
+              "frontierAttached": false,
+              "projectedOwner": 2,
+              "targetSupportDistance": 1
+            },
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "supportDepth": 2,
+              "frontierAttached": false,
+              "projectedOwner": 1,
+              "targetSupportDistance": 2
+            },
+            {
+              "cell": 27,
+              "column": 7,
+              "row": 4,
+              "supportDepth": 3,
+              "frontierAttached": false,
+              "projectedOwner": 2,
+              "targetSupportDistance": 3
+            }
+          ]
+        }
+      ],
+      "enabledSingletons": {
+        "P0": [],
+        "P1": []
+      },
+      "singletonTargets": {
+        "P0": [
+          {
+            "cell": 20,
+            "column": 7,
+            "row": 3,
+            "supportDepth": 2,
+            "frontierAttached": false,
+            "projectedOwner": 1,
+            "targetSupportDistance": 2
+          }
+        ],
+        "P1": [
+          {
+            "cell": 30,
+            "column": 3,
+            "row": 5,
+            "supportDepth": 1,
+            "frontierAttached": false,
+            "projectedOwner": 1,
+            "targetSupportDistance": 1
+          }
+        ]
+      },
+      "cpc": {
+        "baseline": {
+          "kind": "CPC_NONE",
+          "forcedColumn": null,
+          "preemptionCount": 0
+        },
+        "frontier": {
+          "kind": "CPC_NONE",
+          "forcedColumn": null,
+          "preemptionCount": 0
+        }
+      },
+      "phasePath": {
+        "remainingCapacity": [
+          0,
+          0,
+          3,
+          0,
+          0,
+          1,
+          6
+        ],
+        "capacityParity": [
+          0,
+          0,
+          1,
+          0,
+          0,
+          1,
+          0
+        ],
+        "widthDerivative": [
+          0,
+          1,
+          1,
+          0,
+          1,
+          1
+        ],
+        "topDefectCharge": 0
+      },
+      "boundedGrammar": null,
+      "repairTargets": [],
+      "onePlyConsequences": [
+        {
+          "actionColumn": 3,
+          "landingCell": 23,
+          "terminalFor": null,
+          "childQ": "f9641a11acd0d6b6",
+          "childSupport": [
+            6,
+            6,
+            4,
+            6,
+            6,
+            5,
+            0
+          ],
+          "enabledP1Singletons": [
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "supportDepth": 0,
+              "frontierAttached": true,
+              "projectedOwner": 1,
+              "targetSupportDistance": 0
+            }
+          ],
+          "p0SingletonTargets": [
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "supportDepth": 2,
+              "frontierAttached": false,
+              "projectedOwner": 1,
+              "targetSupportDistance": 2
+            }
+          ],
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            }
+          },
+          "entersExistingPositiveFamily": [],
+          "qualifiedDirectReservoirRoutes": []
+        },
+        {
+          "actionColumn": 6,
+          "landingCell": 40,
+          "terminalFor": null,
+          "childQ": "dcf7e2055fac65a5",
+          "childSupport": [
+            6,
+            6,
+            3,
+            6,
+            6,
+            6,
+            0
+          ],
+          "enabledP1Singletons": [],
+          "p0SingletonTargets": [
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "supportDepth": 2,
+              "frontierAttached": false,
+              "projectedOwner": 1,
+              "targetSupportDistance": 2
+            }
+          ],
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_NONE",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            },
+            "frontier": {
+              "kind": "CPC_NONE",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            }
+          },
+          "entersExistingPositiveFamily": [],
+          "qualifiedDirectReservoirRoutes": []
+        },
+        {
+          "actionColumn": 7,
+          "landingCell": 6,
+          "terminalFor": null,
+          "childQ": "352f72a0d0e0aae6",
+          "childSupport": [
+            6,
+            6,
+            3,
+            6,
+            6,
+            5,
+            1
+          ],
+          "enabledP1Singletons": [],
+          "p0SingletonTargets": [
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "supportDepth": 1,
+              "frontierAttached": false,
+              "projectedOwner": 1,
+              "targetSupportDistance": 1
+            }
+          ],
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_NONE",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            },
+            "frontier": {
+              "kind": "CPC_NONE",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            }
+          },
+          "entersExistingPositiveFamily": [],
+          "qualifiedDirectReservoirRoutes": []
+        }
+      ]
+    },
+    {
+      "defenderColumn": 6,
+      "sequence": "44444156666623222242551151531136",
+      "exactQClass": "9326596be55ae15a",
+      "rank": 32,
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        5,
+        6,
+        0
+      ],
+      "exactBridge": {
+        "pass": true,
+        "checks": {
+          "rank": true,
+          "mover": true,
+          "support": true,
+          "p0Residuals": true,
+          "p1Residuals": true
+        },
+        "semanticQClass": "9326596be55ae15a"
+      },
+      "p0Residuals": [
+        "20",
+        "23,30,37"
+      ],
+      "p1Residuals": [
+        "13,20,27,34",
+        "20,27,34,41",
+        "30",
+        "6,13,20,27"
+      ],
+      "p0MinimalResiduals": [
+        {
+          "key": "20",
+          "owner": 0,
+          "size": 1,
+          "cells": [
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "supportDepth": 2,
+              "frontierAttached": false,
+              "projectedOwner": 1,
+              "targetSupportDistance": 2
+            }
+          ]
+        },
+        {
+          "key": "23,30,37",
+          "owner": 0,
+          "size": 3,
+          "cells": [
+            {
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "supportDepth": 0,
+              "frontierAttached": true,
+              "projectedOwner": 2,
+              "targetSupportDistance": 0
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "supportDepth": 1,
+              "frontierAttached": false,
+              "projectedOwner": 1,
+              "targetSupportDistance": 1
+            },
+            {
+              "cell": 37,
+              "column": 3,
+              "row": 6,
+              "supportDepth": 2,
+              "frontierAttached": false,
+              "projectedOwner": 2,
+              "targetSupportDistance": 2
+            }
+          ]
+        }
+      ],
+      "p1MinimalResiduals": [
+        {
+          "key": "30",
+          "owner": 1,
+          "size": 1,
+          "cells": [
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "supportDepth": 1,
+              "frontierAttached": false,
+              "projectedOwner": 1,
+              "targetSupportDistance": 1
+            }
+          ]
+        },
+        {
+          "key": "13,20,27,34",
+          "owner": 1,
+          "size": 4,
+          "cells": [
+            {
+              "cell": 13,
+              "column": 7,
+              "row": 2,
+              "supportDepth": 1,
+              "frontierAttached": false,
+              "projectedOwner": 2,
+              "targetSupportDistance": 1
+            },
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "supportDepth": 2,
+              "frontierAttached": false,
+              "projectedOwner": 1,
+              "targetSupportDistance": 2
+            },
+            {
+              "cell": 27,
+              "column": 7,
+              "row": 4,
+              "supportDepth": 3,
+              "frontierAttached": false,
+              "projectedOwner": 2,
+              "targetSupportDistance": 3
+            },
+            {
+              "cell": 34,
+              "column": 7,
+              "row": 5,
+              "supportDepth": 4,
+              "frontierAttached": false,
+              "projectedOwner": 1,
+              "targetSupportDistance": 4
+            }
+          ]
+        },
+        {
+          "key": "20,27,34,41",
+          "owner": 1,
+          "size": 4,
+          "cells": [
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "supportDepth": 2,
+              "frontierAttached": false,
+              "projectedOwner": 1,
+              "targetSupportDistance": 2
+            },
+            {
+              "cell": 27,
+              "column": 7,
+              "row": 4,
+              "supportDepth": 3,
+              "frontierAttached": false,
+              "projectedOwner": 2,
+              "targetSupportDistance": 3
+            },
+            {
+              "cell": 34,
+              "column": 7,
+              "row": 5,
+              "supportDepth": 4,
+              "frontierAttached": false,
+              "projectedOwner": 1,
+              "targetSupportDistance": 4
+            },
+            {
+              "cell": 41,
+              "column": 7,
+              "row": 6,
+              "supportDepth": 5,
+              "frontierAttached": false,
+              "projectedOwner": 2,
+              "targetSupportDistance": 5
+            }
+          ]
+        },
+        {
+          "key": "6,13,20,27",
+          "owner": 1,
+          "size": 4,
+          "cells": [
+            {
+              "cell": 6,
+              "column": 7,
+              "row": 1,
+              "supportDepth": 0,
+              "frontierAttached": true,
+              "projectedOwner": 1,
+              "targetSupportDistance": 0
+            },
+            {
+              "cell": 13,
+              "column": 7,
+              "row": 2,
+              "supportDepth": 1,
+              "frontierAttached": false,
+              "projectedOwner": 2,
+              "targetSupportDistance": 1
+            },
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "supportDepth": 2,
+              "frontierAttached": false,
+              "projectedOwner": 1,
+              "targetSupportDistance": 2
+            },
+            {
+              "cell": 27,
+              "column": 7,
+              "row": 4,
+              "supportDepth": 3,
+              "frontierAttached": false,
+              "projectedOwner": 2,
+              "targetSupportDistance": 3
+            }
+          ]
+        }
+      ],
+      "enabledSingletons": {
+        "P0": [],
+        "P1": []
+      },
+      "singletonTargets": {
+        "P0": [
+          {
+            "cell": 20,
+            "column": 7,
+            "row": 3,
+            "supportDepth": 2,
+            "frontierAttached": false,
+            "projectedOwner": 1,
+            "targetSupportDistance": 2
+          }
+        ],
+        "P1": [
+          {
+            "cell": 30,
+            "column": 3,
+            "row": 5,
+            "supportDepth": 1,
+            "frontierAttached": false,
+            "projectedOwner": 1,
+            "targetSupportDistance": 1
+          }
+        ]
+      },
+      "cpc": {
+        "baseline": {
+          "kind": "CPC_NONE",
+          "forcedColumn": null,
+          "preemptionCount": 0
+        },
+        "frontier": {
+          "kind": "CPC_NONE",
+          "forcedColumn": null,
+          "preemptionCount": 0
+        }
+      },
+      "phasePath": {
+        "remainingCapacity": [
+          0,
+          0,
+          3,
+          0,
+          1,
+          0,
+          6
+        ],
+        "capacityParity": [
+          0,
+          0,
+          1,
+          0,
+          1,
+          0,
+          0
+        ],
+        "widthDerivative": [
+          0,
+          1,
+          1,
+          1,
+          1,
+          0
+        ],
+        "topDefectCharge": 0
+      },
+      "boundedGrammar": null,
+      "repairTargets": [],
+      "onePlyConsequences": [
+        {
+          "actionColumn": 3,
+          "landingCell": 23,
+          "terminalFor": null,
+          "childQ": "81cc1b21ba172dcb",
+          "childSupport": [
+            6,
+            6,
+            4,
+            6,
+            5,
+            6,
+            0
+          ],
+          "enabledP1Singletons": [
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "supportDepth": 0,
+              "frontierAttached": true,
+              "projectedOwner": 1,
+              "targetSupportDistance": 0
+            }
+          ],
+          "p0SingletonTargets": [
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "supportDepth": 2,
+              "frontierAttached": false,
+              "projectedOwner": 1,
+              "targetSupportDistance": 2
+            }
+          ],
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            }
+          },
+          "entersExistingPositiveFamily": [],
+          "qualifiedDirectReservoirRoutes": []
+        },
+        {
+          "actionColumn": 5,
+          "landingCell": 39,
+          "terminalFor": null,
+          "childQ": "dcf7e2055fac65a5",
+          "childSupport": [
+            6,
+            6,
+            3,
+            6,
+            6,
+            6,
+            0
+          ],
+          "enabledP1Singletons": [],
+          "p0SingletonTargets": [
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "supportDepth": 2,
+              "frontierAttached": false,
+              "projectedOwner": 1,
+              "targetSupportDistance": 2
+            }
+          ],
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_NONE",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            },
+            "frontier": {
+              "kind": "CPC_NONE",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            }
+          },
+          "entersExistingPositiveFamily": [],
+          "qualifiedDirectReservoirRoutes": []
+        },
+        {
+          "actionColumn": 7,
+          "landingCell": 6,
+          "terminalFor": null,
+          "childQ": "feb8c659d7ebf2e2",
+          "childSupport": [
+            6,
+            6,
+            3,
+            6,
+            5,
+            6,
+            1
+          ],
+          "enabledP1Singletons": [],
+          "p0SingletonTargets": [
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "supportDepth": 1,
+              "frontierAttached": false,
+              "projectedOwner": 1,
+              "targetSupportDistance": 1
+            }
+          ],
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_NONE",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            },
+            "frontier": {
+              "kind": "CPC_NONE",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            }
+          },
+          "entersExistingPositiveFamily": [],
+          "qualifiedDirectReservoirRoutes": []
+        }
+      ]
+    },
+    {
+      "defenderColumn": 7,
+      "sequence": "44444156666623222242551151531137",
+      "exactQClass": "966e6353e06e4d41",
+      "rank": 32,
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        5,
+        5,
+        1
+      ],
+      "exactBridge": {
+        "pass": true,
+        "checks": {
+          "rank": true,
+          "mover": true,
+          "support": true,
+          "p0Residuals": true,
+          "p1Residuals": true
+        },
+        "semanticQClass": "966e6353e06e4d41"
+      },
+      "p0Residuals": [
+        "20",
+        "23,30,37",
+        "37,39,40",
+        "39,40,41"
+      ],
+      "p1Residuals": [
+        "13,20,27",
+        "20,27,34,41",
+        "30"
+      ],
+      "p0MinimalResiduals": [
+        {
+          "key": "20",
+          "owner": 0,
+          "size": 1,
+          "cells": [
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "supportDepth": 1,
+              "frontierAttached": false,
+              "projectedOwner": 1,
+              "targetSupportDistance": 1
+            }
+          ]
+        },
+        {
+          "key": "23,30,37",
+          "owner": 0,
+          "size": 3,
+          "cells": [
+            {
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "supportDepth": 0,
+              "frontierAttached": true,
+              "projectedOwner": 2,
+              "targetSupportDistance": 0
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "supportDepth": 1,
+              "frontierAttached": false,
+              "projectedOwner": 1,
+              "targetSupportDistance": 1
+            },
+            {
+              "cell": 37,
+              "column": 3,
+              "row": 6,
+              "supportDepth": 2,
+              "frontierAttached": false,
+              "projectedOwner": 2,
+              "targetSupportDistance": 2
+            }
+          ]
+        },
+        {
+          "key": "37,39,40",
+          "owner": 0,
+          "size": 3,
+          "cells": [
+            {
+              "cell": 37,
+              "column": 3,
+              "row": 6,
+              "supportDepth": 2,
+              "frontierAttached": false,
+              "projectedOwner": 2,
+              "targetSupportDistance": 2
+            },
+            {
+              "cell": 39,
+              "column": 5,
+              "row": 6,
+              "supportDepth": 0,
+              "frontierAttached": true,
+              "projectedOwner": 2,
+              "targetSupportDistance": 0
+            },
+            {
+              "cell": 40,
+              "column": 6,
+              "row": 6,
+              "supportDepth": 0,
+              "frontierAttached": true,
+              "projectedOwner": 2,
+              "targetSupportDistance": 0
+            }
+          ]
+        },
+        {
+          "key": "39,40,41",
+          "owner": 0,
+          "size": 3,
+          "cells": [
+            {
+              "cell": 39,
+              "column": 5,
+              "row": 6,
+              "supportDepth": 0,
+              "frontierAttached": true,
+              "projectedOwner": 2,
+              "targetSupportDistance": 0
+            },
+            {
+              "cell": 40,
+              "column": 6,
+              "row": 6,
+              "supportDepth": 0,
+              "frontierAttached": true,
+              "projectedOwner": 2,
+              "targetSupportDistance": 0
+            },
+            {
+              "cell": 41,
+              "column": 7,
+              "row": 6,
+              "supportDepth": 4,
+              "frontierAttached": false,
+              "projectedOwner": 2,
+              "targetSupportDistance": 4
+            }
+          ]
+        }
+      ],
+      "p1MinimalResiduals": [
+        {
+          "key": "30",
+          "owner": 1,
+          "size": 1,
+          "cells": [
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "supportDepth": 1,
+              "frontierAttached": false,
+              "projectedOwner": 1,
+              "targetSupportDistance": 1
+            }
+          ]
+        },
+        {
+          "key": "13,20,27",
+          "owner": 1,
+          "size": 3,
+          "cells": [
+            {
+              "cell": 13,
+              "column": 7,
+              "row": 2,
+              "supportDepth": 0,
+              "frontierAttached": true,
+              "projectedOwner": 2,
+              "targetSupportDistance": 0
+            },
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "supportDepth": 1,
+              "frontierAttached": false,
+              "projectedOwner": 1,
+              "targetSupportDistance": 1
+            },
+            {
+              "cell": 27,
+              "column": 7,
+              "row": 4,
+              "supportDepth": 2,
+              "frontierAttached": false,
+              "projectedOwner": 2,
+              "targetSupportDistance": 2
+            }
+          ]
+        },
+        {
+          "key": "20,27,34,41",
+          "owner": 1,
+          "size": 4,
+          "cells": [
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "supportDepth": 1,
+              "frontierAttached": false,
+              "projectedOwner": 1,
+              "targetSupportDistance": 1
+            },
+            {
+              "cell": 27,
+              "column": 7,
+              "row": 4,
+              "supportDepth": 2,
+              "frontierAttached": false,
+              "projectedOwner": 2,
+              "targetSupportDistance": 2
+            },
+            {
+              "cell": 34,
+              "column": 7,
+              "row": 5,
+              "supportDepth": 3,
+              "frontierAttached": false,
+              "projectedOwner": 1,
+              "targetSupportDistance": 3
+            },
+            {
+              "cell": 41,
+              "column": 7,
+              "row": 6,
+              "supportDepth": 4,
+              "frontierAttached": false,
+              "projectedOwner": 2,
+              "targetSupportDistance": 4
+            }
+          ]
+        }
+      ],
+      "enabledSingletons": {
+        "P0": [],
+        "P1": []
+      },
+      "singletonTargets": {
+        "P0": [
+          {
+            "cell": 20,
+            "column": 7,
+            "row": 3,
+            "supportDepth": 1,
+            "frontierAttached": false,
+            "projectedOwner": 1,
+            "targetSupportDistance": 1
+          }
+        ],
+        "P1": [
+          {
+            "cell": 30,
+            "column": 3,
+            "row": 5,
+            "supportDepth": 1,
+            "frontierAttached": false,
+            "projectedOwner": 1,
+            "targetSupportDistance": 1
+          }
+        ]
+      },
+      "cpc": {
+        "baseline": {
+          "kind": "CPC_NONE",
+          "forcedColumn": null,
+          "preemptionCount": 0
+        },
+        "frontier": {
+          "kind": "CPC_NONE",
+          "forcedColumn": null,
+          "preemptionCount": 0
+        }
+      },
+      "phasePath": {
+        "remainingCapacity": [
+          0,
+          0,
+          3,
+          0,
+          1,
+          1,
+          5
+        ],
+        "capacityParity": [
+          0,
+          0,
+          1,
+          0,
+          1,
+          1,
+          1
+        ],
+        "widthDerivative": [
+          0,
+          1,
+          1,
+          1,
+          0,
+          0
+        ],
+        "topDefectCharge": 0
+      },
+      "boundedGrammar": null,
+      "repairTargets": [
+        {
+          "target": "G3",
+          "proved": false,
+          "kind": "no_repair_predecessor",
+          "mu": 2,
+          "witness": null,
+          "winningActions": [],
+          "rejected": [
+            {
+              "action": "E",
+              "reply": "C",
+              "replyCell": "C4",
+              "reason": "no_repair_predecessor",
+              "childMu": 1
+            },
+            {
+              "action": "F",
+              "reply": "C",
+              "replyCell": "C4",
+              "reason": "no_repair_predecessor",
+              "childMu": 1
+            }
+          ],
+          "firstFailureWitnesses": [
+            {
+              "action": "E",
+              "reply": "C",
+              "reason": "no_repair_predecessor",
+              "replyCell": "C4",
+              "childQ": "8fed7b5f375c7093",
+              "support": [
+                6,
+                6,
+                4,
+                6,
+                6,
+                5,
+                1
+              ],
+              "targetLive": true,
+              "targetSupportDistance": 1,
+              "enabledP1Singletons": [
+                "C5"
+              ],
+              "immediateP0WinningColumns": []
+            },
+            {
+              "action": "F",
+              "reply": "C",
+              "reason": "no_repair_predecessor",
+              "replyCell": "C4",
+              "childQ": "2bb8598461e3e623",
+              "support": [
+                6,
+                6,
+                4,
+                6,
+                5,
+                6,
+                1
+              ],
+              "targetLive": true,
+              "targetSupportDistance": 1,
+              "enabledP1Singletons": [
+                "C5"
+              ],
+              "immediateP0WinningColumns": []
+            }
+          ],
+          "stats": {
+            "proofStates": 3,
+            "candidateActionsChecked": 4,
+            "p1BranchesChecked": 4,
+            "maxDepth": 1,
+            "memoEntries": 3,
+            "certifiedStateTargetPairs": 0
+          }
+        }
+      ],
+      "onePlyConsequences": [
+        {
+          "actionColumn": 3,
+          "landingCell": 23,
+          "terminalFor": null,
+          "childQ": "9360326acdacd2b3",
+          "childSupport": [
+            6,
+            6,
+            4,
+            6,
+            5,
+            5,
+            1
+          ],
+          "enabledP1Singletons": [
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "supportDepth": 0,
+              "frontierAttached": true,
+              "projectedOwner": 1,
+              "targetSupportDistance": 0
+            }
+          ],
+          "p0SingletonTargets": [
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "supportDepth": 1,
+              "frontierAttached": false,
+              "projectedOwner": 1,
+              "targetSupportDistance": 1
+            }
+          ],
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            }
+          },
+          "entersExistingPositiveFamily": [],
+          "qualifiedDirectReservoirRoutes": []
+        },
+        {
+          "actionColumn": 5,
+          "landingCell": 39,
+          "terminalFor": null,
+          "childQ": "aafa5aac3e9c2141",
+          "childSupport": [
+            6,
+            6,
+            3,
+            6,
+            6,
+            5,
+            1
+          ],
+          "enabledP1Singletons": [],
+          "p0SingletonTargets": [
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "supportDepth": 1,
+              "frontierAttached": false,
+              "projectedOwner": 1,
+              "targetSupportDistance": 1
+            }
+          ],
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_NONE",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            },
+            "frontier": {
+              "kind": "CPC_NONE",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            }
+          },
+          "entersExistingPositiveFamily": [],
+          "qualifiedDirectReservoirRoutes": []
+        },
+        {
+          "actionColumn": 6,
+          "landingCell": 40,
+          "terminalFor": null,
+          "childQ": "4632e87dd9afffeb",
+          "childSupport": [
+            6,
+            6,
+            3,
+            6,
+            5,
+            6,
+            1
+          ],
+          "enabledP1Singletons": [],
+          "p0SingletonTargets": [
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "supportDepth": 1,
+              "frontierAttached": false,
+              "projectedOwner": 1,
+              "targetSupportDistance": 1
+            }
+          ],
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_NONE",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            },
+            "frontier": {
+              "kind": "CPC_NONE",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            }
+          },
+          "entersExistingPositiveFamily": [],
+          "qualifiedDirectReservoirRoutes": []
+        },
+        {
+          "actionColumn": 7,
+          "landingCell": 13,
+          "terminalFor": null,
+          "childQ": "e0a395d3dff723c5",
+          "childSupport": [
+            6,
+            6,
+            3,
+            6,
+            5,
+            5,
+            2
+          ],
+          "enabledP1Singletons": [],
+          "p0SingletonTargets": [
+            {
+              "cell": 20,
+              "column": 7,
+              "row": 3,
+              "supportDepth": 0,
+              "frontierAttached": true,
+              "projectedOwner": 1,
+              "targetSupportDistance": 0
+            }
+          ],
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_RESTRICT",
+              "forcedColumn": 7,
+              "preemptionCount": 1
+            },
+            "frontier": {
+              "kind": "CPC_RESTRICT",
+              "forcedColumn": 7,
+              "preemptionCount": 1
+            }
+          },
+          "entersExistingPositiveFamily": [],
+          "qualifiedDirectReservoirRoutes": []
+        }
+      ]
+    }
+  ],
+  "siblingDifferential": {
+    "sharedAll": [
+      {
+        "field": "capacity.c1",
+        "value": 0
+      },
+      {
+        "field": "capacity.c2",
+        "value": 0
+      },
+      {
+        "field": "capacity.c4",
+        "value": 0
+      },
+      {
+        "field": "capacityParity.c1",
+        "value": 0
+      },
+      {
+        "field": "capacityParity.c2",
+        "value": 0
+      },
+      {
+        "field": "capacityParity.c4",
+        "value": 0
+      },
+      {
+        "field": "p0EnabledSingletonCount",
+        "value": 0
+      },
+      {
+        "field": "support.c1",
+        "value": 6
+      },
+      {
+        "field": "support.c2",
+        "value": 6
+      },
+      {
+        "field": "support.c4",
+        "value": 6
+      },
+      {
+        "field": "topDefectCharge",
+        "value": 0
+      },
+      {
+        "field": "widthDerivative.e1",
+        "value": 0
+      }
+    ],
+    "sharedUnresolved": [
+      {
+        "field": "boundedGrammar",
+        "value": null
+      },
+      {
+        "field": "capacity.c1",
+        "value": 0
+      },
+      {
+        "field": "capacity.c2",
+        "value": 0
+      },
+      {
+        "field": "capacity.c3",
+        "value": 3
+      },
+      {
+        "field": "capacity.c4",
+        "value": 0
+      },
+      {
+        "field": "capacityParity.c1",
+        "value": 0
+      },
+      {
+        "field": "capacityParity.c2",
+        "value": 0
+      },
+      {
+        "field": "capacityParity.c3",
+        "value": 1
+      },
+      {
+        "field": "capacityParity.c4",
+        "value": 0
+      },
+      {
+        "field": "cpc.baseline.forcedColumn",
+        "value": null
+      },
+      {
+        "field": "cpc.baseline.kind",
+        "value": "CPC_NONE"
+      },
+      {
+        "field": "cpc.baseline.preemptionCount",
+        "value": 0
+      },
+      {
+        "field": "cpc.frontier.forcedColumn",
+        "value": null
+      },
+      {
+        "field": "cpc.frontier.kind",
+        "value": "CPC_NONE"
+      },
+      {
+        "field": "cpc.frontier.preemptionCount",
+        "value": 0
+      },
+      {
+        "field": "p0EnabledSingletonCount",
+        "value": 0
+      },
+      {
+        "field": "p1EnabledSingletonCount",
+        "value": 0
+      },
+      {
+        "field": "support.c1",
+        "value": 6
+      },
+      {
+        "field": "support.c2",
+        "value": 6
+      },
+      {
+        "field": "support.c3",
+        "value": 3
+      },
+      {
+        "field": "support.c4",
+        "value": 6
+      },
+      {
+        "field": "topDefectCharge",
+        "value": 0
+      },
+      {
+        "field": "widthDerivative.e1",
+        "value": 0
+      },
+      {
+        "field": "widthDerivative.e2",
+        "value": 1
+      },
+      {
+        "field": "widthDerivative.e3",
+        "value": 1
+      }
+    ],
+    "sharedUnresolvedButNotClosed": [
+      {
+        "field": "boundedGrammar",
+        "value": null
+      },
+      {
+        "field": "capacity.c3",
+        "value": 3
+      },
+      {
+        "field": "capacityParity.c3",
+        "value": 1
+      },
+      {
+        "field": "cpc.baseline.forcedColumn",
+        "value": null
+      },
+      {
+        "field": "cpc.baseline.kind",
+        "value": "CPC_NONE"
+      },
+      {
+        "field": "cpc.baseline.preemptionCount",
+        "value": 0
+      },
+      {
+        "field": "cpc.frontier.forcedColumn",
+        "value": null
+      },
+      {
+        "field": "cpc.frontier.kind",
+        "value": "CPC_NONE"
+      },
+      {
+        "field": "cpc.frontier.preemptionCount",
+        "value": 0
+      },
+      {
+        "field": "p1EnabledSingletonCount",
+        "value": 0
+      },
+      {
+        "field": "support.c3",
+        "value": 3
+      },
+      {
+        "field": "widthDerivative.e2",
+        "value": 1
+      },
+      {
+        "field": "widthDerivative.e3",
+        "value": 1
+      }
+    ],
+    "closedVsUnresolved": [
+      {
+        "defenderColumn": 5,
+        "exactQClass": "0fc9d79484d94df1",
+        "differingFields": [
+          {
+            "field": "boundedGrammar",
+            "closed": "EXACT_Q9F_HANDOFF",
+            "other": null
+          },
+          {
+            "field": "capacity.c3",
+            "closed": 2,
+            "other": 3
+          },
+          {
+            "field": "capacity.c5",
+            "closed": 1,
+            "other": 0
+          },
+          {
+            "field": "capacityParity.c3",
+            "closed": 0,
+            "other": 1
+          },
+          {
+            "field": "capacityParity.c5",
+            "closed": 1,
+            "other": 0
+          },
+          {
+            "field": "cpc.baseline.forcedColumn",
+            "closed": 3,
+            "other": null
+          },
+          {
+            "field": "cpc.baseline.kind",
+            "closed": "CPC_RESTRICT",
+            "other": "CPC_NONE"
+          },
+          {
+            "field": "cpc.baseline.preemptionCount",
+            "closed": 1,
+            "other": 0
+          },
+          {
+            "field": "cpc.frontier.forcedColumn",
+            "closed": 3,
+            "other": null
+          },
+          {
+            "field": "cpc.frontier.kind",
+            "closed": "CPC_RESTRICT",
+            "other": "CPC_NONE"
+          },
+          {
+            "field": "cpc.frontier.preemptionCount",
+            "closed": 1,
+            "other": 0
+          },
+          {
+            "field": "p0MinimalCount",
+            "closed": 3,
+            "other": 2
+          },
+          {
+            "field": "p0ResidualCount",
+            "closed": 3,
+            "other": 2
+          },
+          {
+            "field": "p1EnabledSingletonCount",
+            "closed": 1,
+            "other": 0
+          },
+          {
+            "field": "support.c3",
+            "closed": 4,
+            "other": 3
+          },
+          {
+            "field": "support.c5",
+            "closed": 5,
+            "other": 6
+          },
+          {
+            "field": "widthDerivative.e2",
+            "closed": 0,
+            "other": 1
+          },
+          {
+            "field": "widthDerivative.e3",
+            "closed": 0,
+            "other": 1
+          },
+          {
+            "field": "widthDerivative.e4",
+            "closed": 1,
+            "other": 0
+          },
+          {
+            "field": "widthDerivative.e5",
+            "closed": 0,
+            "other": 1
+          }
+        ],
+        "residualDelta": {
+          "P0": {
+            "added": [
+              "23,30,37"
+            ],
+            "removed": [
+              "37,39,40",
+              "39,40,41"
+            ]
+          },
+          "P1": {
+            "added": [],
+            "removed": []
+          }
+        }
+      },
+      {
+        "defenderColumn": 6,
+        "exactQClass": "9326596be55ae15a",
+        "differingFields": [
+          {
+            "field": "boundedGrammar",
+            "closed": "EXACT_Q9F_HANDOFF",
+            "other": null
+          },
+          {
+            "field": "capacity.c3",
+            "closed": 2,
+            "other": 3
+          },
+          {
+            "field": "capacity.c6",
+            "closed": 1,
+            "other": 0
+          },
+          {
+            "field": "capacityParity.c3",
+            "closed": 0,
+            "other": 1
+          },
+          {
+            "field": "capacityParity.c6",
+            "closed": 1,
+            "other": 0
+          },
+          {
+            "field": "cpc.baseline.forcedColumn",
+            "closed": 3,
+            "other": null
+          },
+          {
+            "field": "cpc.baseline.kind",
+            "closed": "CPC_RESTRICT",
+            "other": "CPC_NONE"
+          },
+          {
+            "field": "cpc.baseline.preemptionCount",
+            "closed": 1,
+            "other": 0
+          },
+          {
+            "field": "cpc.frontier.forcedColumn",
+            "closed": 3,
+            "other": null
+          },
+          {
+            "field": "cpc.frontier.kind",
+            "closed": "CPC_RESTRICT",
+            "other": "CPC_NONE"
+          },
+          {
+            "field": "cpc.frontier.preemptionCount",
+            "closed": 1,
+            "other": 0
+          },
+          {
+            "field": "p0MinimalCount",
+            "closed": 3,
+            "other": 2
+          },
+          {
+            "field": "p0ResidualCount",
+            "closed": 3,
+            "other": 2
+          },
+          {
+            "field": "p1EnabledSingletonCount",
+            "closed": 1,
+            "other": 0
+          },
+          {
+            "field": "support.c3",
+            "closed": 4,
+            "other": 3
+          },
+          {
+            "field": "support.c6",
+            "closed": 5,
+            "other": 6
+          },
+          {
+            "field": "widthDerivative.e2",
+            "closed": 0,
+            "other": 1
+          },
+          {
+            "field": "widthDerivative.e3",
+            "closed": 0,
+            "other": 1
+          },
+          {
+            "field": "widthDerivative.e5",
+            "closed": 0,
+            "other": 1
+          },
+          {
+            "field": "widthDerivative.e6",
+            "closed": 1,
+            "other": 0
+          }
+        ],
+        "residualDelta": {
+          "P0": {
+            "added": [
+              "23,30,37"
+            ],
+            "removed": [
+              "37,39,40",
+              "39,40,41"
+            ]
+          },
+          "P1": {
+            "added": [],
+            "removed": []
+          }
+        }
+      },
+      {
+        "defenderColumn": 7,
+        "exactQClass": "966e6353e06e4d41",
+        "differingFields": [
+          {
+            "field": "boundedGrammar",
+            "closed": "EXACT_Q9F_HANDOFF",
+            "other": null
+          },
+          {
+            "field": "capacity.c3",
+            "closed": 2,
+            "other": 3
+          },
+          {
+            "field": "capacity.c7",
+            "closed": 6,
+            "other": 5
+          },
+          {
+            "field": "capacityParity.c3",
+            "closed": 0,
+            "other": 1
+          },
+          {
+            "field": "capacityParity.c7",
+            "closed": 0,
+            "other": 1
+          },
+          {
+            "field": "cpc.baseline.forcedColumn",
+            "closed": 3,
+            "other": null
+          },
+          {
+            "field": "cpc.baseline.kind",
+            "closed": "CPC_RESTRICT",
+            "other": "CPC_NONE"
+          },
+          {
+            "field": "cpc.baseline.preemptionCount",
+            "closed": 1,
+            "other": 0
+          },
+          {
+            "field": "cpc.frontier.forcedColumn",
+            "closed": 3,
+            "other": null
+          },
+          {
+            "field": "cpc.frontier.kind",
+            "closed": "CPC_RESTRICT",
+            "other": "CPC_NONE"
+          },
+          {
+            "field": "cpc.frontier.preemptionCount",
+            "closed": 1,
+            "other": 0
+          },
+          {
+            "field": "p0MinimalCount",
+            "closed": 3,
+            "other": 4
+          },
+          {
+            "field": "p0ResidualCount",
+            "closed": 3,
+            "other": 4
+          },
+          {
+            "field": "p1EnabledSingletonCount",
+            "closed": 1,
+            "other": 0
+          },
+          {
+            "field": "p1MinimalCount",
+            "closed": 4,
+            "other": 3
+          },
+          {
+            "field": "p1ResidualCount",
+            "closed": 4,
+            "other": 3
+          },
+          {
+            "field": "repairInvariantTargetCount",
+            "closed": 0,
+            "other": 1
+          },
+          {
+            "field": "support.c3",
+            "closed": 4,
+            "other": 3
+          },
+          {
+            "field": "support.c7",
+            "closed": 0,
+            "other": 1
+          },
+          {
+            "field": "widthDerivative.e2",
+            "closed": 0,
+            "other": 1
+          },
+          {
+            "field": "widthDerivative.e3",
+            "closed": 0,
+            "other": 1
+          },
+          {
+            "field": "widthDerivative.e6",
+            "closed": 1,
+            "other": 0
+          }
+        ],
+        "residualDelta": {
+          "P0": {
+            "added": [
+              "23,30,37"
+            ],
+            "removed": []
+          },
+          "P1": {
+            "added": [
+              "13,20,27"
+            ],
+            "removed": [
+              "13,20,27,34",
+              "6,13,20,27"
+            ]
+          }
+        }
+      }
+    ],
+    "pairwiseUnknown": [
+      {
+        "a": 5,
+        "b": 6,
+        "nonlocalSupportEqual": true,
+        "nonlocalP0ResidualProjectionEqual": true,
+        "nonlocalP1ResidualProjectionEqual": true,
+        "exactLocalColumnPermutationMatches": [
+          [
+            6,
+            5,
+            7
+          ]
+        ]
+      },
+      {
+        "a": 5,
+        "b": 7,
+        "nonlocalSupportEqual": true,
+        "nonlocalP0ResidualProjectionEqual": true,
+        "nonlocalP1ResidualProjectionEqual": true,
+        "exactLocalColumnPermutationMatches": []
+      },
+      {
+        "a": 6,
+        "b": 7,
+        "nonlocalSupportEqual": true,
+        "nonlocalP0ResidualProjectionEqual": true,
+        "nonlocalP1ResidualProjectionEqual": true,
+        "exactLocalColumnPermutationMatches": []
+      }
+    ]
+  },
+  "summary": {
+    "unresolvedSiblingCount": 3,
+    "repairInvariantTargetCount": 1,
+    "unprovedRepairTargetCount": 1,
+    "repairFirstFailureWitnessCount": 2,
+    "onePlyConsequenceCount": 10,
+    "onePlyQualifiedEntranceCount": 0,
+    "onePlyQualifiedEntrances": [],
+    "pairwiseUnknown": [
+      {
+        "a": 5,
+        "b": 6,
+        "nonlocalSupportEqual": true,
+        "nonlocalP0ResidualProjectionEqual": true,
+        "nonlocalP1ResidualProjectionEqual": true,
+        "exactLocalColumnPermutationMatches": [
+          [
+            6,
+            5,
+            7
+          ]
+        ]
+      },
+      {
+        "a": 5,
+        "b": 7,
+        "nonlocalSupportEqual": true,
+        "nonlocalP0ResidualProjectionEqual": true,
+        "nonlocalP1ResidualProjectionEqual": true,
+        "exactLocalColumnPermutationMatches": []
+      },
+      {
+        "a": 6,
+        "b": 7,
+        "nonlocalSupportEqual": true,
+        "nonlocalP0ResidualProjectionEqual": true,
+        "nonlocalP1ResidualProjectionEqual": true,
+        "exactLocalColumnPermutationMatches": []
+      }
+    ],
+    "resourceFailureCount": 0
+  },
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "ordinaryFreeBranchGameTreeUsed": false,
+  "productionCpcModified": false,
+  "jsMinSysModified": false,
+  "legacyRepairModified": false,
+  "rcicModified": false,
+  "forcedLossModified": false,
+  "bsfpModified": false,
+  "conclusion": [
+    "The closed c3 child and all three unresolved siblings are reconstructed with exact semantic-q / JSMinSys RBA equality before any structural comparison.",
+    "No unresolved sibling enters an already-qualified positive family in one ply; the reported repair and sibling-difference witnesses localize the next theorem-discovery seam.",
+    "Legacy repair-capacity failure is reduced to exact first failing action/reply witnesses rather than a generic no-repair label.",
+    "No value label or free-branch search is used to select a difference."
+  ],
+  "boundary": [
+    "No solved W/D/L, oracle, minimax, unrestricted game-tree value search, best-move table, opening book, BSFP solved frontier, support-only identity shortcut, or sealed holdout is used.",
+    "Production CPC, JSMinSys, legacy repair semantics, RCIC semantics, forced-loss semantics, and BSFP remain unchanged."
+  ]
+}
