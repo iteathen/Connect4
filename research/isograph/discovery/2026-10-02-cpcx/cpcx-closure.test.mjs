@@ -11,6 +11,7 @@ import {
   closeCpcxForcedResponses,
   projectCpcxObligation,
   listCpcxMultiPieceProjectionCandidates,
+  findCpcxSynchronizedProjectionLadders,
   buildCpcxBoundaryOperators,
   createCpcxParitySystem,
   certifyCpcxObligation,
@@ -80,6 +81,18 @@ test('44444 multi-piece projection finds synchronized owner-aligned triples but 
   const candidates=listCpcxMultiPieceProjectionCandidates(obs);
   assert.ok(candidates.some(x=>x.obligationId===bottom.obligationId));
   assert.ok(candidates.every(x=>x.exactCompletionClaim===false));
+});
+
+test('44444 exposes synchronized three-piece projection ladders at rows 1, 3 and 5',()=>{
+  const p=buildCpcxPosition('44444',{geometry:g});
+  const ladders=findCpcxSynchronizedProjectionLadders(scanCpcxObligations(p))
+    .filter(x=>x.player===0&&x.orientation==='H'&&x.missingCount===3);
+  assert.equal(ladders.length,12);
+  const bySupport=new Map();
+  for(const x of ladders)bySupport.set(x.supportDistance,(bySupport.get(x.supportDistance)??0)+1);
+  assert.deepEqual([...bySupport.entries()].sort((a,b)=>a[0]-b[0]),[[0,4],[2,4],[4,4]]);
+  assert.ok(ladders.every(x=>x.exact===false));
+  assert.ok(ladders.every(x=>x.contractionLevels.join(',')==='3,2,1,0'));
 });
 
 test('column-boundary operator derives odd center defect instead of naming a phase',()=>{
