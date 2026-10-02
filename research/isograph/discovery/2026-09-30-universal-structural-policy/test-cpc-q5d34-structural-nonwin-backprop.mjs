@@ -26,16 +26,20 @@ for(const s of r.rank37Survivors){
   assert.ok(s.drawReplyQClasses.length>=1);
 }
 
+assert.equal(r.q649Premise.classification,'P0_NONWIN_DRAW_REPLY');
+assert.equal(r.q649Premise.interval.lower,-1);
+assert.equal(r.q649Premise.interval.upper,0);
+
 assert.equal(r.rank36Predecessors.length,2);
 for(const s of r.rank36Predecessors){
-  assert.equal(s.exactDraw,true);
-  assert.equal(s.interval.lower,0);
+  assert.equal(s.classification,'P0_NONWIN');
+  assert.equal(s.interval.lower,-1);
   assert.equal(s.interval.upper,0);
   assert.equal(s.actionIntervals.length,3);
 }
 
 assert.equal(r.g4Action.interval.upper,0);
-assert.ok(r.g4Action.drawReplyQClasses.length>=1);
+assert.ok(r.g4Action.nonwinReplyQClasses.length>=1);
 
 assert.equal(r.rootActions.length,4);
 assert.deepEqual(r.rootActions.map(x=>x.column),[3,5,6,7]);
