@@ -117,11 +117,16 @@ export function closeCpcxForcedResponses(position,{maxSteps=position.geometry.ce
       immediate=classifyCpcxImmediate(current,obligations);
     if(immediate.kind!=='FORCED_RESPONSE')return {
       kind:immediate.kind==='FORCED_LOSS_OVERLOAD'
-        ?'CERTIFIED_FORCED_LOSS'
+        ?'CERTIFIED_FIRST_WIN'
         :immediate.kind==='ALREADY_TERMINAL'
-          ?'TERMINAL'
+          ?'CERTIFIED_FIRST_WIN'
           :'OPEN',
       exact:true,
+      player:immediate.kind==='FORCED_LOSS_OVERLOAD'
+        ?immediate.opponent
+        :immediate.kind==='ALREADY_TERMINAL'
+          ?immediate.terminal.player
+          :null,
       position:current,
       steps,
       boundary:immediate,
