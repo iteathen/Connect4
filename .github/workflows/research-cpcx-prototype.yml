@@ -42,15 +42,12 @@ jobs:
           set -euo pipefail
           git fetch origin research/universal-structural-policy-20260930
           CHANGED="$(git diff --name-only origin/research/universal-structural-policy-20260930...HEAD)"
-          printf '%s
-' "$CHANGED"
-          if printf '%s
-' "$CHANGED" | grep -E '(^|/)(cpc-connect4\.mjs|cpc-connect4\.test\.mjs)$'; then
+          printf '%s\n' "$CHANGED"
+          if printf '%s\n' "$CHANGED" | grep -E '(^|/)(cpc-connect4\.mjs|cpc-connect4\.test\.mjs)$'; then
             echo "production CPC changed"
             exit 1
           fi
-          if printf '%s
-' "$CHANGED" | grep -E '^addons/cpc-|^src/cpc-'; then
+          if printf '%s\n' "$CHANGED" | grep -E '^addons/cpc-|^src/cpc-'; then
             echo "production CPC path changed"
             exit 1
           fi
