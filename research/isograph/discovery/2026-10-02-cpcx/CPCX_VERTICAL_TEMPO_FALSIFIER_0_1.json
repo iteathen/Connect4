@@ -1,0 +1,66 @@
+{
+  "schema": "connect4.cpcx.vertical-tempo-falsifier.v0_1",
+  "date": "2026-10-02",
+  "branch": "experiment/cpcx-20261002",
+  "premise": "After first wing deviation + repair, every sixth move exposes a deviation-invariant vertical two-piece P0 residual with lower support distance 0 and upper support distance 1.",
+  "rejectedCandidate": "If defender does not preempt the lower cell, P0 may always take it and force the upper response.",
+  "disposition": "FALSIFIED_WITH_FORCED_SINGLETON_PRIORITY_REPAIR",
+  "discoveryMethodBoundary": "Finite concrete branches were used only to falsify the candidate theorem. They are not proof premises for any promoted CPCX rule.",
+  "falsifiers": [
+    {
+      "sixthMove": 1,
+      "firstDeviation": "A2",
+      "laterDefenderMove": "A3",
+      "p0Progress": "E3",
+      "defenderImmediateSingleton": "A4"
+    },
+    {
+      "sixthMove": 2,
+      "firstDeviation": "B2",
+      "laterDefenderMove": "B3",
+      "p0Progress": "E3",
+      "defenderImmediateSingleton": "B4"
+    },
+    {
+      "sixthMove": 3,
+      "firstDeviation": "C2",
+      "laterDefenderMove": "C3",
+      "p0Progress": "E3",
+      "defenderImmediateSingleton": "C4"
+    },
+    {
+      "sixthMove": 5,
+      "firstDeviation": "E2",
+      "laterDefenderMove": "E3",
+      "p0Progress": "A3",
+      "defenderImmediateSingleton": "E4"
+    },
+    {
+      "sixthMove": 6,
+      "firstDeviation": "F2",
+      "laterDefenderMove": "F3",
+      "p0Progress": "A3",
+      "defenderImmediateSingleton": "F4"
+    },
+    {
+      "sixthMove": 7,
+      "firstDeviation": "G2",
+      "laterDefenderMove": "G3",
+      "p0Progress": "A3",
+      "defenderImmediateSingleton": "G4"
+    }
+  ],
+  "exactRepairRule": [
+    "Immediate current-player terminal has precedence.",
+    "Opponent singleton obligations are classified before CPCX progress.",
+    "Exactly one opponent singleton forces its unique block.",
+    "Two or more distinct opponent singletons are exact one-slot overload.",
+    "Only after deterministic forced-singleton closure returns OPEN may a multi-piece progress primitive fire."
+  ],
+  "observedRepair": {
+    "allSixFalsifiersHaveUniqueForcedBlock": true,
+    "forcedClosureTerminatesWithoutP0Loss": true,
+    "note": "One symmetric control also induces a subsequent forced P1 response; this is handled by the same deterministic closure rather than a special case."
+  },
+  "authorityEffect": "NONE. Prototype research falsifier and rule-order correction only."
+}
