@@ -446,8 +446,28 @@ export function collapseCpcxDebtRepairTokenProduct(position,contract,repair){
       residual:r,
     };
 
+  const envelopeKnown=continuing.every(c=>
+      c.firstWinFacts?.nextImmediateNormalizationClosed===true||
+      c.firstWinFacts?.opponentSingletonEnvelope?.exact===true
+    ),
+    possibleOpponentSingletons=[...new Set(continuing.flatMap(c=>
+      c.firstWinFacts?.opponentSingletonEnvelope?.possibleCells??[]
+    ))].sort((a,b)=>a-b),
+    guaranteedOpponentSingletons=(()=>{
+      const sets=continuing
+        .map(c=>c.firstWinFacts?.opponentSingletonEnvelope?.guaranteedCells)
+        .filter(Array.isArray);
+      if(!sets.length)return [];
+      let out=[...sets[0]];
+      for(let i=1;i<sets.length;i++){
+        const s=new Set(sets[i]);
+        out=out.filter(cell=>s.has(cell));
+      }
+      return out.sort((a,b)=>a-b);
+    })();
+
   return {
-    schema:'connect4.cpcx.token-class-collapse.v0_2',
+    schema:'connect4.cpcx.token-class-collapse.v0_3',
     kind:'ABSTRACT_SUCCESSOR',
     exact:true,
     attacker,
@@ -465,7 +485,15 @@ export function collapseCpcxDebtRepairTokenProduct(position,contract,repair){
       postRepairFirstWinGuardPassed:true,
       exactVerticalHazardAuditApplied:true,
       deterministicHazardNormalizationApplied:true,
-      nextImmediateNormalizationClosed:false,
+      opponentSingletonEnvelope:{
+        exact:envelopeKnown,
+        possibleCells:possibleOpponentSingletons,
+        guaranteedCells:guaranteedOpponentSingletons,
+        normalizationClosed:envelopeKnown&&possibleOpponentSingletons.length===0,
+        source:'intersection/union of exact component vertical singleton envelopes',
+      },
+      nextImmediateNormalizationClosed:
+        envelopeKnown&&possibleOpponentSingletons.length===0,
     },
     classes,
     responseClassCount:classes.length,
