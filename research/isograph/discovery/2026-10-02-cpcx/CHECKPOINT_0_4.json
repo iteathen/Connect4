@@ -1,0 +1,55 @@
+{
+  "schema": "connect4.cpcx.checkpoint.v0_4",
+  "date": "2026-10-02",
+  "branch": "experiment/cpcx-20261002",
+  "durableResearchOwner": "research/semantic-quotient",
+  "status": "EXACT_TWO_PIECE_OBLIGATION_THEOREM",
+  "productionCpcModified": false,
+  "theorem": {
+    "name": "normalized vertical two-stage obligation",
+    "premises": [
+      "live attacker vertical residual has exactly two missing adjacent cells",
+      "lower missing cell is current frontier",
+      "upper missing cell is exactly one support step above",
+      "current state has no higher-priority immediate terminal or opponent singleton obligation"
+    ],
+    "attackerToMove": [
+      "attacker occupies lower",
+      "either terminal occurs immediately or upper becomes a playable completion singleton",
+      "first-win audit must show defender has no immediate counterterminal",
+      "then upper response is forced"
+    ],
+    "defenderToMove": [
+      "defender may preempt lower now",
+      "otherwise the whole nonpreempt legal frontier is quantified as one set",
+      "set-level residual audit proves any nonpreempt move allows attacker lower and no defender counterterminal",
+      "upper response is then forced"
+    ],
+    "complexity": "polynomial in live residual count and frontier size; no recursive reply traversal"
+  },
+  "macroCollapse": {
+    "preemptRankDelta": 1,
+    "delayedRankDelta": 3,
+    "difference": 2,
+    "sameNextMover": "attacker",
+    "sameCpcParityClass": true,
+    "residualRepresentation": "guaranteed residual intersection plus at most one optional external defender blocker",
+    "choiceEnumeration": false
+  },
+  "move6Evidence": {
+    "root": "44444",
+    "honoredWingPath": "all seven sixth actions -> untouched wing -> third trigger terminal if both pair responses honored",
+    "firstDeviation": "all seven -> repair legal; post-repair first-win guard passes; vertical two-piece residual appears",
+    "naiveTempoRule": "falsified before normalization in six symmetric cases",
+    "normalizationRepair": "all retained falsifiers normalize through exact singleton closure",
+    "normalizedTwoStage": "all six retained falsifiers admit an exact normalized vertical two-stage certificate",
+    "move3Special": "normalization includes a second forced P1 response and returns turn directly to P0",
+    "globalWdlProofComplete": false
+  },
+  "retainedNegativeEvidence": "CPCX_VERTICAL_TEMPO_FALSIFIER_0_1.json",
+  "unresolved": {
+    "exactQuestion": "Does repeated normalization + certified multi-piece macro closure terminate in P0 completion for every legal opponent path from 44444?",
+    "nextSeam": "derive a well-founded response-capacity/debt measure or equivalent matching/flow closure over the guaranteed residual family after each collapsed macro",
+    "forbiddenShortcut": "do not prove termination by enumerating reply paths"
+  }
+}
