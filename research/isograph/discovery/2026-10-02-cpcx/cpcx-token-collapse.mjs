@@ -436,14 +436,7 @@ export function collapseCpcxDebtRepairTokenProduct(position,contract,repair){
 
   const guaranteedResiduals=intersectResiduals(continuing),
     blockerTokens=mergeBlockerTokens(continuing),
-    blockerCells=new Set(blockerTokens.flatMap(t=>t.candidateCells)),
-    envelopes=continuing.map(c=>
-      c.opponentSingletonEnvelope??c.firstWinFacts?.opponentSingletonEnvelope??null
-    ),
-    envelopeClosed=envelopes.every(e=>e?.exact===true&&e.normalizationClosed===true),
-    possibleOpponentSingletons=[...new Set(
-      envelopes.flatMap(e=>e?.possibleCells??[])
-    )].sort((a,b)=>a-b);
+    blockerCells=new Set(blockerTokens.flatMap(t=>t.candidateCells));
 
   for(const r of guaranteedResiduals)if(r.missingCells.some(x=>blockerCells.has(x)))
     return {
@@ -455,14 +448,15 @@ export function collapseCpcxDebtRepairTokenProduct(position,contract,repair){
 
   const envelopeKnown=continuing.every(c=>
       c.firstWinFacts?.nextImmediateNormalizationClosed===true||
+      c.opponentSingletonEnvelope?.exact===true||
       c.firstWinFacts?.opponentSingletonEnvelope?.exact===true
     ),
     possibleOpponentSingletons=[...new Set(continuing.flatMap(c=>
-      c.firstWinFacts?.opponentSingletonEnvelope?.possibleCells??[]
+      (c.opponentSingletonEnvelope??c.firstWinFacts?.opponentSingletonEnvelope)?.possibleCells??[]
     ))].sort((a,b)=>a-b),
     guaranteedOpponentSingletons=(()=>{
       const sets=continuing
-        .map(c=>c.firstWinFacts?.opponentSingletonEnvelope?.guaranteedCells)
+        .map(c=>(c.opponentSingletonEnvelope??c.firstWinFacts?.opponentSingletonEnvelope)?.guaranteedCells)
         .filter(Array.isArray);
       if(!sets.length)return [];
       let out=[...sets[0]];
@@ -472,6 +466,14 @@ export function collapseCpcxDebtRepairTokenProduct(position,contract,repair){
       }
       return out.sort((a,b)=>a-b);
     })();
+
+  const opponentSingletonEnvelope={
+    exact:envelopeKnown,
+    possibleCells:possibleOpponentSingletons,
+    guaranteedCells:guaranteedOpponentSingletons,
+    normalizationClosed:envelopeKnown&&possibleOpponentSingletons.length===0,
+    source:'intersection/union of exact component vertical singleton envelopes',
+  };
 
   return {
     schema:'connect4.cpcx.token-class-collapse.v0_3',
@@ -487,20 +489,15 @@ export function collapseCpcxDebtRepairTokenProduct(position,contract,repair){
     controlParityEquivalent:true,
     guaranteedResiduals,
     blockerTokens,
+    opponentSingletonEnvelope,
     firstWinFacts:{
       repairFirstWinGuardPassed:true,
       postRepairFirstWinGuardPassed:true,
       exactVerticalHazardAuditApplied:true,
       deterministicHazardNormalizationApplied:true,
-      opponentSingletonEnvelope:{
-        exact:envelopeKnown,
-        possibleCells:possibleOpponentSingletons,
-        guaranteedCells:guaranteedOpponentSingletons,
-        normalizationClosed:envelopeKnown&&possibleOpponentSingletons.length===0,
-        source:'intersection/union of exact component vertical singleton envelopes',
-      },
+      opponentSingletonEnvelope,
       nextImmediateNormalizationClosed:
-        envelopeKnown&&possibleOpponentSingletons.length===0,
+        opponentSingletonEnvelope.normalizationClosed,
     },
     classes,
     responseClassCount:classes.length,
