@@ -1,0 +1,100 @@
+{
+  "schema": "connect4.cpcx.checkpoint.v0_2",
+  "date": "2026-10-02",
+  "branch": "experiment/cpcx-20261002",
+  "headBeforeCheckpoint": "b08d943abc434147a1fc20f7b4fd9afae179fc0f",
+  "durableResearchOwner": "research/semantic-quotient",
+  "status": "CLOSURE_LAYER_VERIFIED",
+  "productionCpcModified": false,
+  "exactResults": {
+    "currentPly": {
+      "forcedSingletonFixture": "111111223 -> exact forced response D1",
+      "overloadFixture": "111131415 -> two distinct opponent singletons / one response slot / Hall deficiency 1"
+    },
+    "columnBoundary44444": {
+      "center": {
+        "height": 5,
+        "remaining": 1,
+        "neutralPairCount": 0,
+        "unmatchedTopDefect": 1
+      },
+      "otherColumns": {
+        "height": 0,
+        "remaining": 6,
+        "neutralPairCount": 3,
+        "unmatchedTopDefect": 0
+      }
+    },
+    "structural44444": {
+      "synchronizedP0HorizontalTripleLadders": 12,
+      "supportLevels": [
+        0,
+        2,
+        4
+      ],
+      "eventRanks": [
+        32,
+        34,
+        36
+      ],
+      "disjointWingFamilies": [
+        {
+          "columns": [
+            1,
+            2,
+            3
+          ],
+          "levels": [
+            1,
+            3,
+            5
+          ]
+        },
+        {
+          "columns": [
+            5,
+            6,
+            7
+          ],
+          "levels": [
+            1,
+            3,
+            5
+          ]
+        }
+      ],
+      "theorem": "one current placement can intersect at most one disjoint wing family, so at least one complete three-level family survives any sixth placement",
+      "exactSurvival": true,
+      "exactForcing": false
+    },
+    "polynomialOperators": [
+      "parity/XOR union-find with contradiction detection",
+      "bipartite augmenting-path response-capacity matching with Hall witness",
+      "deterministic forced singleton transit",
+      "fixed-cardinality residual contraction for missing counts 1..4"
+    ]
+  },
+  "projectionOnly": [
+    "zero-reservation owner labels on future cells",
+    "synchronized multi-piece ladder ownership",
+    "eventual completion of a surviving wing"
+  ],
+  "verification": {
+    "directBranchSourceExecution": true,
+    "invariantChecksPassed": 13,
+    "recursiveChoiceEnumeration": false,
+    "solvedValues": false,
+    "oracle": false,
+    "productionCpcImports": false
+  },
+  "nextTheorem": {
+    "target": "surviving synchronized wing -> certified forcing/deadline consequence",
+    "requiredGuards": [
+      "intervention-stable CPC ownership or equivalent response equations",
+      "support/admissibility closure",
+      "shared response-resource accounting",
+      "first-win-before-deadline"
+    ],
+    "requiredMethod": "polynomial algebraic closure; no reply-tree branching"
+  }
+}
