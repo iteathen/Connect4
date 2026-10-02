@@ -1,0 +1,195 @@
+{
+  "schema": "connect4.cpc_q649_dual_safe_defender_fork.v1",
+  "date": "2026-10-01",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "design": "CPC_Q649_DUAL_SAFE_DEFENDER_FORK_DESIGN_0_1.md",
+  "sourceEvidence": "CPC_Q2DB_FORCED_TERMINAL_SAFETY_CHAIN_0_1.json",
+  "exactQClass": "6496c888c4e2a157",
+  "sequence": "4444415666662322224255115153113756777",
+  "rank": 37,
+  "support": [
+    6,
+    6,
+    3,
+    6,
+    6,
+    6,
+    4
+  ],
+  "mover": "P1",
+  "exactBridge": {
+    "pass": true,
+    "checks": {
+      "rank": true,
+      "mover": true,
+      "support": true,
+      "p0Residuals": true,
+      "p1Residuals": true
+    },
+    "semanticQClass": "6496c888c4e2a157"
+  },
+  "legalP1Columns": [
+    3,
+    7
+  ],
+  "replies": [
+    {
+      "p1Column": 3,
+      "p1LandingCell": 23,
+      "sequence": "44444156666623222242551151531137567773",
+      "rank": 38,
+      "support": [
+        6,
+        6,
+        4,
+        6,
+        6,
+        6,
+        4
+      ],
+      "exactQClass": "28d9883e71b855c4",
+      "exactBridge": {
+        "pass": true,
+        "checks": {
+          "rank": true,
+          "mover": true,
+          "support": true,
+          "p0Residuals": true,
+          "p1Residuals": true
+        },
+        "semanticQClass": "28d9883e71b855c4"
+      },
+      "routeAttempts": [
+        {
+          "kind": "IMMEDIATE_P0_TERMINAL",
+          "accept": false,
+          "winningColumns": []
+        },
+        {
+          "kind": "EXACT_QUALIFIED_Q_HANDOFF",
+          "accept": false,
+          "exactQClass": "28d9883e71b855c4",
+          "handoff": null
+        },
+        {
+          "kind": "BOUNDED_RANK1",
+          "accept": false,
+          "certificate": null
+        },
+        {
+          "kind": "BOUNDED_RANK3",
+          "accept": false,
+          "certificate": null
+        }
+      ],
+      "acceptedRoutes": [],
+      "legacyRepairTargets": [],
+      "disposition": "UNKNOWN"
+    },
+    {
+      "p1Column": 7,
+      "p1LandingCell": 34,
+      "sequence": "44444156666623222242551151531137567777",
+      "rank": 38,
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        6,
+        6,
+        5
+      ],
+      "exactQClass": "e7eb0902f1f7984c",
+      "exactBridge": {
+        "pass": true,
+        "checks": {
+          "rank": true,
+          "mover": true,
+          "support": true,
+          "p0Residuals": true,
+          "p1Residuals": true
+        },
+        "semanticQClass": "e7eb0902f1f7984c"
+      },
+      "routeAttempts": [
+        {
+          "kind": "IMMEDIATE_P0_TERMINAL",
+          "accept": false,
+          "winningColumns": []
+        },
+        {
+          "kind": "EXACT_QUALIFIED_Q_HANDOFF",
+          "accept": false,
+          "exactQClass": "e7eb0902f1f7984c",
+          "handoff": null
+        },
+        {
+          "kind": "BOUNDED_RANK1",
+          "accept": false,
+          "certificate": null
+        },
+        {
+          "kind": "BOUNDED_RANK3",
+          "accept": false,
+          "certificate": null
+        }
+      ],
+      "acceptedRoutes": [],
+      "legacyRepairTargets": [],
+      "disposition": "UNKNOWN"
+    }
+  ],
+  "classification": "Q649_UNRESOLVED",
+  "feedback": {
+    "q649Closed": false,
+    "q2dbClosed": false,
+    "q966PreviouslyUnknownReplyWouldClose": false
+  },
+  "summary": {
+    "replyCount": 2,
+    "closedReplyCount": 0,
+    "unknownReplyCount": 2,
+    "smallestUnknownChild": {
+      "p1Column": 3,
+      "sequence": "44444156666623222242551151531137567773",
+      "exactQClass": "28d9883e71b855c4",
+      "support": [
+        6,
+        6,
+        4,
+        6,
+        6,
+        6,
+        4
+      ],
+      "routeKindsTried": [
+        "BOUNDED_RANK1",
+        "BOUNDED_RANK3",
+        "EXACT_QUALIFIED_Q_HANDOFF",
+        "IMMEDIATE_P0_TERMINAL"
+      ]
+    },
+    "acceptedRouteKinds": [],
+    "resourceFailureCount": 0
+  },
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "ordinaryFreeBranchGameTreeUsed": false,
+  "productionCpcModified": false,
+  "jsMinSysModified": false,
+  "legacyRepairModified": false,
+  "rcicModified": false,
+  "bsfpModified": false,
+  "conclusion": [
+    "The exact rank-37 q649 defender fork is reconstructed from the q2db forced-safety chain with both legal P1 actions preserved.",
+    "Each rank-38 child is queried against immediate terminal, exact qualified-q handoffs, bounded rank-1/rank-3 grammar, legacy repair-capacity, and generic direct/forced-contraction RCIC routes before it can be called unresolved.",
+    "At least one exact rank-38 child remains outside every queried qualified positive route; that child is preserved as the next obstruction.",
+    "No certificate family is modified by this composition."
+  ],
+  "boundary": [
+    "No solved W/D/L, oracle, Pons score, minimax, unrestricted game-tree value search, best-move table, opening book, BSFP solved frontier, support-only identity shortcut, or sealed holdout is used.",
+    "Production CPC, JSMinSys, legacy repair semantics, RCIC semantics, and BSFP remain unchanged.",
+    "An unclosed child is unknown, not a loss; accepted routes are only previously qualified certificate forms."
+  ]
+}
