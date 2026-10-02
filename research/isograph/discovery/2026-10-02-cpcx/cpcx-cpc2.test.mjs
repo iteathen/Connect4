@@ -6,6 +6,8 @@ import {
   deriveCpcxDisjunctiveBlockObligation,
   collapseCpcxDisjunctiveBlockObligation,
 } from './cpcx-cpc2.mjs';
+import {classifyCpcxProgress} from './cpcx-progress.mjs';
+import {runCpcxFirstWinCertificate} from './cpcx-successor.mjs';
 
 const g=createCpcxGeometry();
 const A1=0,B1=1,E1=4,F1=5;
@@ -175,6 +177,29 @@ test('defender counterterminal falsifier fails closed instead of promoting a fal
   )));
   assert.equal(Object.prototype.hasOwnProperty.call(o,'draw'),false);
   assert.equal(Object.prototype.hasOwnProperty.call(o,'value'),false);
+});
+
+test('443 progress emits the first-class disjunctive blocker obligation',()=>{
+  const p=buildCpcxPosition('443',{geometry:g}),
+    progress=classifyCpcxProgress(p,{player:0});
+  assert.equal(progress.kind,'DISJUNCTIVE_BLOCK_OBLIGATION');
+  assert.equal(progress.exact,true);
+  assert.equal(progress.player,0);
+  assert.equal(progress.obligatedPlayer,1);
+  assert.deepEqual(progress.obligation.blockingLabels,['B1','E1']);
+});
+
+test('443 certificate iteration collapses the blocker set and stops at the later abstract seam',()=>{
+  const p=buildCpcxPosition('443',{geometry:g}),
+    result=runCpcxFirstWinCertificate(p,{attacker:0});
+  assert.equal(result.kind,'NO_CERTIFICATE');
+  assert.equal(result.exact,false);
+  assert.equal(result.seam,'NO_EXACT_ABSTRACT_MACRO');
+  assert.equal(result.trace[0].progress.kind,'DISJUNCTIVE_BLOCK_OBLIGATION');
+  assert.equal(result.trace[0].progress.exact,true);
+  assert.equal(result.trace[1].progress.kind,'NO_CERTIFICATE');
+  assert.equal(Object.prototype.hasOwnProperty.call(result,'draw'),false);
+  assert.equal(Object.prototype.hasOwnProperty.call(result,'value'),false);
 });
 
 test('CPC2 source contains no 443 special case, child-board constructor, recursion, solved data, or production CPC import',async()=>{
