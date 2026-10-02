@@ -1,1 +1,38 @@
-import assert from 'node:assert/strict';\nimport {execFileSync} from 'node:child_process';\nimport {fileURLToPath} from 'node:url';\nimport {dirname,resolve} from 'node:path';\n\nconst dir=dirname(fileURLToPath(import.meta.url));\nconst script=resolve(dir,'run-cpc-3plus1-deferred-singleton-tail-qualification.mjs');\nconst library=process.argv[2];assert(library);\nconst raw=execFileSync(process.execPath,[script,library],{encoding:'utf8',maxBuffer:64*1024*1024});\nconst r=JSON.parse(raw);\n\nassert.equal(r.schema,'connect4.cpc_3plus1_deferred_singleton_tail_qualification.v1');\nassert.equal(r.jsMinSysSha,'bf23d3a67652cd42e1975f29c7dc4eed54f7eb42');\nassert.equal(r.theorem,'CPC_3PLUS1_DEFERRED_SINGLETON_TAIL_NONWIN_THEOREM.md');\nassert.equal(r.accept,true);\nassert.equal(r.states.length,3);\nfor(const s of r.states){\n  assert.equal(s.exactBridge.pass,true);\n  assert.equal(s.rank,38);\n  assert.equal(s.premises.poset,true);\n  assert.equal(s.premises.p0Residual,true);\n  assert.equal(s.premises.p1Residual,true);\n  assert.equal(s.premises.noPriorTerminal,true);\n  assert.equal(s.a1Branch.p1A2Terminal,true);\n  assert.equal(s.bBranch.forcedTail,true);\n  assert.equal(s.bBranch.outcome,'DRAW');\n  assert.equal(s.noP0WinningAction,true);\n  assert.equal(s.interval.upper,0);\n}\nassert.equal(r.summary.qualifiedStateCount,3);\nassert.equal(r.summary.failedStateCount,0);\nassert.equal(r.oracleUsed,false);\nassert.equal(r.solvedInputsUsed,false);\nassert.equal(r.ordinaryFreeBranchGameTreeUsed,false);\nassert.equal(r.productionCpcModified,false);\nassert.equal(r.jsMinSysModified,false);\nassert.equal(r.bsfpModified,false);\nconsole.log(JSON.stringify({pass:true,summary:r.summary}));\n
+import assert from 'node:assert/strict';
+import {execFileSync} from 'node:child_process';
+import {fileURLToPath} from 'node:url';
+import {dirname,resolve} from 'node:path';
+
+const dir=dirname(fileURLToPath(import.meta.url));
+const script=resolve(dir,'run-cpc-3plus1-deferred-singleton-tail-qualification.mjs');
+const library=process.argv[2];assert(library);
+const raw=execFileSync(process.execPath,[script,library],{encoding:'utf8',maxBuffer:64*1024*1024});
+const r=JSON.parse(raw);
+
+assert.equal(r.schema,'connect4.cpc_3plus1_deferred_singleton_tail_qualification.v1');
+assert.equal(r.jsMinSysSha,'bf23d3a67652cd42e1975f29c7dc4eed54f7eb42');
+assert.equal(r.theorem,'CPC_3PLUS1_DEFERRED_SINGLETON_TAIL_NONWIN_THEOREM.md');
+assert.equal(r.accept,true);
+assert.equal(r.states.length,3);
+for(const s of r.states){
+  assert.equal(s.exactBridge.pass,true);
+  assert.equal(s.rank,38);
+  assert.equal(s.premises.poset,true);
+  assert.equal(s.premises.p0Residual,true);
+  assert.equal(s.premises.p1Residual,true);
+  assert.equal(s.premises.noPriorTerminal,true);
+  assert.equal(s.a1Branch.p1A2Terminal,true);
+  assert.equal(s.bBranch.forcedTail,true);
+  assert.equal(s.bBranch.outcome,'DRAW');
+  assert.equal(s.noP0WinningAction,true);
+  assert.equal(s.interval.upper,0);
+}
+assert.equal(r.summary.qualifiedStateCount,3);
+assert.equal(r.summary.failedStateCount,0);
+assert.equal(r.oracleUsed,false);
+assert.equal(r.solvedInputsUsed,false);
+assert.equal(r.ordinaryFreeBranchGameTreeUsed,false);
+assert.equal(r.productionCpcModified,false);
+assert.equal(r.jsMinSysModified,false);
+assert.equal(r.bsfpModified,false);
+console.log(JSON.stringify({pass:true,summary:r.summary}));
