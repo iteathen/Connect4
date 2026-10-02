@@ -1,7 +1,11 @@
 # CPC 3+1 deferred-singleton tail nonwin theorem
 
-**Status:** frozen structural theorem candidate before qualification  
+**Status:** qualified structural nonwin theorem  
 **Date:** 2026-10-01
+
+## Qualification
+
+Qualified by `CPC_3PLUS1_DEFERRED_SINGLETON_TAIL_QUALIFICATION_0_1.json` on the three exact 3+1-tail instantiations. All three independently reconstructed exact q, satisfied the stated residual/event premises, exposed P1:A2 after A1, and forced the B-first tail to exact draw.
 
 ## Purpose
 
