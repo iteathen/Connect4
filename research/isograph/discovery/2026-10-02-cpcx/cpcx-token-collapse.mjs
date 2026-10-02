@@ -19,6 +19,7 @@ import {verifyCpcxFixedEventScript} from './cpcx-wing.mjs';
 import {
   findCpcxVerticalTwoStageObligations,
   certifyCpcxVerticalTwoStage,
+  partitionCpcxVerticalTwoStageGuard,
 } from './cpcx-two-stage.mjs';
 import {composeCpcxForcingMacro} from './cpcx-successor.mjs';
 
@@ -152,6 +153,248 @@ function mergeBlockerTokens(carriers){
   }];
 }
 
+
+function collapseCarrierSet(carriers,attacker,source){
+  if(!carriers.length)return {
+    schema:'connect4.cpcx.token-product-collapse.v0_3',
+    kind:'CERTIFIED_FIRST_WIN',
+    exact:true,
+    player:attacker,
+    attacker,
+    classes:source.classes??[],
+    recursive:false,
+    choiceEnumeration:false,
+  };
+
+  const rankOptions=[...new Set(carriers.flatMap(c=>c.rank.options))].sort((a,b)=>a-b),
+    parity=rankOptions[0]&1;
+  if(!rankOptions.every(x=>(x&1)===parity))return {
+    kind:'NO_CERTIFICATE',
+    exact:false,
+    seam:'RESPONSE_CLASS_RANK_PARITY_SPLIT',
+    rankOptions,
+  };
+  if(!carriers.every(c=>c.nextMover===attacker))return {
+    kind:'NO_CERTIFICATE',
+    exact:false,
+    seam:'RESPONSE_CLASS_MOVER_SPLIT',
+  };
+
+  const guaranteedResiduals=intersectResiduals(carriers),
+    blockerTokens=mergeBlockerTokens(carriers),
+    blockerCells=new Set(blockerTokens.flatMap(t=>t.candidateCells));
+  for(const r of guaranteedResiduals)if(r.missingCells.some(x=>blockerCells.has(x)))
+    return {
+      kind:'NO_CERTIFICATE',
+      exact:false,
+      seam:'MERGED_BLOCKER_INTERSECTS_GUARANTEED_RESIDUAL',
+      residual:r,
+    };
+
+  return {
+    schema:'connect4.cpcx.token-product-collapse.v0_3',
+    kind:'ABSTRACT_SUCCESSOR',
+    exact:true,
+    attacker,
+    nextMover:attacker,
+    rank:{options:rankOptions,parity,allSameParity:true},
+    controlParityEquivalent:true,
+    guaranteedResiduals,
+    blockerTokens,
+    firstWinFacts:{
+      repairFirstWinGuardPassed:true,
+      postRepairFirstWinGuardPassed:true,
+      deterministicNormalizationApplied:true,
+      normalizedVerticalMacroApplied:true,
+      nextImmediateNormalizationClosed:false,
+    },
+    classes:source.classes??[],
+    choiceEnumeration:false,
+    recursive:false,
+    source:{
+      kind:source.kind,
+      decisionIndex:source.decisionIndex,
+    },
+  };
+}
+
+function composeVerticalWithGuardPartition(position,attacker){
+  const demands=findCpcxVerticalTwoStageObligations(position,{player:attacker})
+    .sort((a,b)=>
+      a.lowerCell-b.lowerCell||
+      a.upperCell-b.upperCell||
+      a.obligation.lineId-b.obligation.lineId
+    );
+
+  for(const demand of demands){
+    const certificate=certifyCpcxVerticalTwoStage(position,demand);
+    if(certificate.exact){
+      if(certificate.kind==='ATTACKER_TERMINAL_ON_LOWER')return {
+        kind:'CERTIFIED_FIRST_WIN',
+        exact:true,
+        player:attacker,
+        classes:[{kind:'ATTACKER_FIRST_WIN_ON_VERTICAL_LOWER'}],
+      };
+      if(certificate.kind!=='FORCED_UPPER_RESPONSE'&&certificate.kind!=='PREEMPT_OR_FORCED_UPPER')
+        continue;
+      const carrier=composeCpcxForcingMacro(position,{
+        kind:'CERTIFIED_FORCING_MACRO',
+        exact:true,
+        player:attacker,
+        macro:{
+          kind:'VERTICAL_TWO_STAGE',
+          primaryCell:demand.lowerCell,
+          secondaryCell:demand.upperCell,
+          lineId:demand.obligation.lineId,
+          demand,
+          certificate,
+        },
+      });
+      return {
+        kind:carrier.kind,
+        exact:carrier.exact,
+        carrier,
+        classes:[{
+          kind:'DIRECT_VERTICAL_CLASS',
+          verticalKind:certificate.kind,
+          rankOptions:carrier.rank?.options??[],
+        }],
+      };
+    }
+
+    if(certificate.kind!=='POST_LOWER_FIRST_WIN_GUARD_FAILURE')continue;
+    const partition=partitionCpcxVerticalTwoStageGuard(position,demand,certificate),
+      carriers=[],classes=[];
+
+    const safeCertificate={
+      kind:'PREEMPT_OR_FORCED_UPPER',
+      exact:true,
+      moverRole:'DEFENDER',
+      lowerCell:demand.lowerCell,
+      upperCell:demand.upperCell,
+      preemptCell:demand.lowerCell,
+      nonpreemptFrontier:[...partition.safeNonpreemptFrontier],
+      responseCell:demand.upperCell,
+      rule:'partition-restricted exact vertical class',
+      choiceEnumeration:false,
+    };
+    const safeCarrier=composeCpcxForcingMacro(position,{
+      kind:'CERTIFIED_FORCING_MACRO',
+      exact:true,
+      player:attacker,
+      macro:{
+        kind:'VERTICAL_TWO_STAGE',
+        primaryCell:demand.lowerCell,
+        secondaryCell:demand.upperCell,
+        lineId:demand.obligation.lineId,
+        demand,
+        certificate:safeCertificate,
+      },
+    });
+    if(!safeCarrier.exact)return {
+      kind:'NO_CERTIFICATE',
+      exact:false,
+      seam:'SAFE_VERTICAL_PARTITION_COMPOSITION_FAILED',
+    };
+    carriers.push(safeCarrier);
+    classes.push({
+      kind:'PREEMPT_OR_SAFE_DELAYED',
+      safeNonpreemptFrontier:[...partition.safeNonpreemptFrontier],
+      rankOptions:[...safeCarrier.rank.options],
+    });
+
+    for(const guarded of partition.guardNormalizationClasses){
+      if(guarded.targetCells.length!==1)return {
+        kind:'NO_CERTIFICATE',
+        exact:false,
+        seam:'GUARD_NORMALIZATION_MULTI_TARGET',
+        defenderMove:guarded.defenderMove,
+        targetCells:guarded.targetCells,
+      };
+      const afterRisk=applyCpcxForcedEvent(position,guarded.defenderMove);
+      if(afterRisk.terminal)return {
+        kind:'NO_CERTIFICATE',
+        exact:false,
+        seam:'GUARD_NORMALIZATION_DEFENDER_TERMINAL',
+        defenderMove:guarded.defenderMove,
+        terminal:afterRisk.terminal,
+      };
+      const normalized=closeCpcxForcedResponses(afterRisk);
+      if(normalized.kind==='CERTIFIED_FIRST_WIN'){
+        if(normalized.player===attacker){
+          classes.push({
+            kind:'ATTACKER_FIRST_WIN_DURING_GUARD_NORMALIZATION',
+            defenderMove:guarded.defenderMove,
+            forcedSteps:normalized.steps.length,
+          });
+          continue;
+        }
+        return {
+          kind:'NO_CERTIFICATE',
+          exact:false,
+          seam:'DEFENDER_FIRST_WIN_DURING_GUARD_NORMALIZATION',
+          defenderMove:guarded.defenderMove,
+          player:normalized.player,
+        };
+      }
+      if(normalized.kind!=='OPEN')return {
+        kind:'NO_CERTIFICATE',
+        exact:false,
+        seam:'GUARD_NORMALIZATION_BOUNDARY_UNSUPPORTED',
+        defenderMove:guarded.defenderMove,
+      };
+
+      const reentry=selectVerticalMacro(normalized.position,attacker);
+      if(!reentry)return {
+        kind:'NO_CERTIFICATE',
+        exact:false,
+        seam:'VERTICAL_GUARD_REENTRY_NOT_FOUND',
+        defenderMove:guarded.defenderMove,
+      };
+      if(reentry.terminal){
+        classes.push({
+          kind:'ATTACKER_FIRST_WIN_AFTER_GUARD_NORMALIZATION',
+          defenderMove:guarded.defenderMove,
+          forcedSteps:normalized.steps.length,
+        });
+        continue;
+      }
+
+      const reentryCarrier=composeCpcxForcingMacro(normalized.position,reentry.progress);
+      if(!reentryCarrier.exact)return {
+        kind:'NO_CERTIFICATE',
+        exact:false,
+        seam:'VERTICAL_GUARD_REENTRY_COMPOSITION_FAILED',
+        defenderMove:guarded.defenderMove,
+      };
+      carriers.push(reentryCarrier);
+      classes.push({
+        kind:'GUARD_NORMALIZE_THEN_VERTICAL',
+        defenderMove:guarded.defenderMove,
+        targetCell:guarded.targetCells[0],
+        forcedSteps:normalized.steps.length,
+        verticalKind:reentry.certificate.kind,
+        rankOptions:[...reentryCarrier.rank.options],
+      });
+    }
+
+    const merged=collapseCarrierSet(carriers,attacker,{
+      kind:'PARTITIONED_VERTICAL_GUARD_COLLAPSE',
+      classes,
+    });
+    return {
+      kind:merged.kind,
+      exact:merged.exact,
+      carrier:merged.kind==='ABSTRACT_SUCCESSOR'?merged:null,
+      certificate:merged.kind==='CERTIFIED_FIRST_WIN'?merged:null,
+      seam:merged.seam??null,
+      classes,
+      partition,
+    };
+  }
+  return null;
+}
+
 export function collapseCpcxDebtRepairTokenProduct(position,contract,repair){
   if(contract?.kind!=='THREE_TRIGGER_WING_ATTACK'||!repair?.exact)
     throw new TypeError('exact wing repair required');
@@ -201,8 +444,8 @@ export function collapseCpcxDebtRepairTokenProduct(position,contract,repair){
       boundary:normalized.boundary,
     };
 
-    const macro=selectVerticalMacro(normalized.position,attacker);
-    if(!macro)return {
+    const composed=composeVerticalWithGuardPartition(normalized.position,attacker);
+    if(!composed)return {
       kind:'NO_CERTIFICATE',
       exact:false,
       seam:'NORMALIZED_VERTICAL_TWO_STAGE_NOT_FOUND',
@@ -210,23 +453,22 @@ export function collapseCpcxDebtRepairTokenProduct(position,contract,repair){
       normalizedRank:normalized.position.rank,
       normalizedMover:normalized.position.mover,
     };
-    if(macro.terminal){
+    if(!composed.exact)return {
+      kind:'NO_CERTIFICATE',
+      exact:false,
+      seam:composed.seam??'VERTICAL_PARTITION_COMPOSITION_FAILED',
+      deviationCell,
+      detail:composed,
+    };
+    if(composed.kind==='CERTIFIED_FIRST_WIN'){
       classes.push({
         deviationCell,
-        kind:'ATTACKER_FIRST_WIN_ON_VERTICAL_LOWER',
+        kind:'ATTACKER_FIRST_WIN_IN_VERTICAL_PARTITION',
         forcedSteps:normalized.steps.length,
       });
       continue;
     }
-
-    const carrier=composeCpcxForcingMacro(normalized.position,macro.progress);
-    if(!carrier.exact)return {
-      kind:'NO_CERTIFICATE',
-      exact:false,
-      seam:'VERTICAL_MACRO_COMPOSITION_FAILED',
-      deviationCell,
-      carrier,
-    };
+    const carrier=composed.carrier??composed;
     if(carrier.nextMover!==attacker)return {
       kind:'NO_CERTIFICATE',
       exact:false,
@@ -239,77 +481,19 @@ export function collapseCpcxDebtRepairTokenProduct(position,contract,repair){
       deviationCell,
       kind:'VERTICAL_MACRO_CONTINUES',
       forcedSteps:normalized.steps.length,
-      verticalKind:macro.certificate.kind,
+      verticalClasses:composed.classes,
       rankOptions:[...carrier.rank.options],
     });
     continuing.push(carrier);
   }
 
-  if(!continuing.length)return {
-    schema:'connect4.cpcx.token-product-collapse.v0_2',
-    kind:'CERTIFIED_FIRST_WIN',
-    exact:true,
-    player:attacker,
-    attacker,
+  const merged=collapseCarrierSet(continuing,attacker,{
+    kind:'WING_DEBT_NORMALIZE_VERTICAL',
+    decisionIndex:repair.decisionIndex,
     classes,
-    recursive:false,
-    choiceEnumeration:false,
-  };
-
-  const rankOptions=[...new Set(continuing.flatMap(c=>c.rank.options))].sort((a,b)=>a-b),
-    parity=rankOptions[0]&1;
-  if(!rankOptions.every(x=>(x&1)===parity))return {
-    kind:'NO_CERTIFICATE',
-    exact:false,
-    seam:'DEVIATION_CLASS_RANK_PARITY_SPLIT',
-    rankOptions,
-  };
-  if(!continuing.every(c=>c.nextMover===attacker))return {
-    kind:'NO_CERTIFICATE',
-    exact:false,
-    seam:'DEVIATION_CLASS_MOVER_SPLIT',
-  };
-
-  const guaranteedResiduals=intersectResiduals(continuing),
-    blockerTokens=mergeBlockerTokens(continuing),
-    blockerCells=new Set(blockerTokens.flatMap(t=>t.candidateCells));
-  for(const r of guaranteedResiduals)if(r.missingCells.some(x=>blockerCells.has(x)))
-    return {
-      kind:'NO_CERTIFICATE',
-      exact:false,
-      seam:'MERGED_BLOCKER_INTERSECTS_GUARANTEED_RESIDUAL',
-      residual:r,
-    };
-
-  return {
-    schema:'connect4.cpcx.token-product-collapse.v0_2',
-    kind:'ABSTRACT_SUCCESSOR',
-    exact:true,
-    attacker,
-    nextMover:attacker,
-    rank:{
-      options:rankOptions,
-      parity,
-      allSameParity:true,
-    },
-    controlParityEquivalent:true,
-    guaranteedResiduals,
-    blockerTokens,
-    firstWinFacts:{
-      repairFirstWinGuardPassed:true,
-      postRepairFirstWinGuardPassed:true,
-      deterministicNormalizationApplied:true,
-      normalizedVerticalMacroApplied:true,
-      nextImmediateNormalizationClosed:false,
-    },
-    classes,
-    responseClassProductSize:classes.length,
-    polynomialBound:'O(|deviationFrontier| * liveResidualCount * boundedVerticalMacroCost)',
-    choiceEnumeration:false,
-    recursive:false,
-    source:{
-      kind:'WING_DEBT_NORMALIZE_VERTICAL',
-      decisionIndex:repair.decisionIndex,
-    },
-  };
-}
+  });
+  if(merged.kind==='ABSTRACT_SUCCESSOR'){
+    merged.responseClassProductSize=classes.length;
+    merged.polynomialBound='O(|deviationFrontier| * (liveResidualCount + boundedGuardPartitionCost))';
+  }
+  return merged;
