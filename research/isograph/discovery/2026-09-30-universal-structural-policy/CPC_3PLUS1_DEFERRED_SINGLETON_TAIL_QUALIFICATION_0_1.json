@@ -1,0 +1,265 @@
+{
+  "schema": "connect4.cpc_3plus1_deferred_singleton_tail_qualification.v1",
+  "date": "2026-10-01",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "theorem": "CPC_3PLUS1_DEFERRED_SINGLETON_TAIL_NONWIN_THEOREM.md",
+  "sourceEvidence": "CPC_RANK38_3PLUS1_TAIL_EVENT_PRODUCT_0_1.json",
+  "states": [
+    {
+      "exactQClass": "4f5444dc55bb5371",
+      "sequence": "44444156666623222242551151531137777677",
+      "rank": 38,
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        5,
+        6,
+        6
+      ],
+      "exactBridge": {
+        "pass": true,
+        "checks": {
+          "rank": true,
+          "support": true,
+          "p0Residuals": true,
+          "p1Residuals": true
+        },
+        "semanticQClass": "4f5444dc55bb5371"
+      },
+      "events": {
+        "A1": {
+          "cell": 23,
+          "column": 3,
+          "row": 4
+        },
+        "A2": {
+          "cell": 30,
+          "column": 3,
+          "row": 5
+        },
+        "A3": {
+          "cell": 37,
+          "column": 3,
+          "row": 6
+        },
+        "B": {
+          "cell": 39,
+          "column": 5,
+          "row": 6
+        }
+      },
+      "premises": {
+        "poset": true,
+        "p0Residual": true,
+        "p1Residual": true,
+        "noPriorTerminal": true
+      },
+      "a1Branch": {
+        "p0ActionColumn": 3,
+        "p1ResponseColumn": 3,
+        "p1A2Terminal": true,
+        "outcome": "P0_NONWIN"
+      },
+      "bBranch": {
+        "p0ActionColumn": 5,
+        "forcedTail": true,
+        "forcedColumns": [
+          3,
+          3,
+          3
+        ],
+        "outcome": "DRAW"
+      },
+      "noP0WinningAction": true,
+      "interval": {
+        "lower": -1,
+        "upper": 0
+      },
+      "accept": true
+    },
+    {
+      "exactQClass": "60fba7c1d1c84a97",
+      "sequence": "44444156666623222242551151531137777577",
+      "rank": 38,
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        6,
+        5,
+        6
+      ],
+      "exactBridge": {
+        "pass": true,
+        "checks": {
+          "rank": true,
+          "support": true,
+          "p0Residuals": true,
+          "p1Residuals": true
+        },
+        "semanticQClass": "60fba7c1d1c84a97"
+      },
+      "events": {
+        "A1": {
+          "cell": 23,
+          "column": 3,
+          "row": 4
+        },
+        "A2": {
+          "cell": 30,
+          "column": 3,
+          "row": 5
+        },
+        "A3": {
+          "cell": 37,
+          "column": 3,
+          "row": 6
+        },
+        "B": {
+          "cell": 40,
+          "column": 6,
+          "row": 6
+        }
+      },
+      "premises": {
+        "poset": true,
+        "p0Residual": true,
+        "p1Residual": true,
+        "noPriorTerminal": true
+      },
+      "a1Branch": {
+        "p0ActionColumn": 3,
+        "p1ResponseColumn": 3,
+        "p1A2Terminal": true,
+        "outcome": "P0_NONWIN"
+      },
+      "bBranch": {
+        "p0ActionColumn": 6,
+        "forcedTail": true,
+        "forcedColumns": [
+          3,
+          3,
+          3
+        ],
+        "outcome": "DRAW"
+      },
+      "noP0WinningAction": true,
+      "interval": {
+        "lower": -1,
+        "upper": 0
+      },
+      "accept": true
+    },
+    {
+      "exactQClass": "e7eb0902f1f7984c",
+      "sequence": "44444156666623222242551151531137777576",
+      "rank": 38,
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        6,
+        6,
+        5
+      ],
+      "exactBridge": {
+        "pass": true,
+        "checks": {
+          "rank": true,
+          "support": true,
+          "p0Residuals": true,
+          "p1Residuals": true
+        },
+        "semanticQClass": "e7eb0902f1f7984c"
+      },
+      "events": {
+        "A1": {
+          "cell": 23,
+          "column": 3,
+          "row": 4
+        },
+        "A2": {
+          "cell": 30,
+          "column": 3,
+          "row": 5
+        },
+        "A3": {
+          "cell": 37,
+          "column": 3,
+          "row": 6
+        },
+        "B": {
+          "cell": 41,
+          "column": 7,
+          "row": 6
+        }
+      },
+      "premises": {
+        "poset": true,
+        "p0Residual": true,
+        "p1Residual": true,
+        "noPriorTerminal": true
+      },
+      "a1Branch": {
+        "p0ActionColumn": 3,
+        "p1ResponseColumn": 3,
+        "p1A2Terminal": true,
+        "outcome": "P0_NONWIN"
+      },
+      "bBranch": {
+        "p0ActionColumn": 7,
+        "forcedTail": true,
+        "forcedColumns": [
+          3,
+          3,
+          3
+        ],
+        "outcome": "DRAW"
+      },
+      "noP0WinningAction": true,
+      "interval": {
+        "lower": -1,
+        "upper": 0
+      },
+      "accept": true
+    }
+  ],
+  "accept": true,
+  "summary": {
+    "qualifiedStateCount": 3,
+    "failedStateCount": 0,
+    "theoremPremisePattern": {
+      "remainingPoset": "A1<A2<A3 plus incomparable B",
+      "p0Residual": [
+        "A1",
+        "A2",
+        "A3"
+      ],
+      "p1Residual": [
+        "A2"
+      ],
+      "consequence": "P0 nonwin; B is exact draw"
+    }
+  },
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "ordinaryFreeBranchGameTreeUsed": false,
+  "productionCpcModified": false,
+  "jsMinSysModified": false,
+  "bsfpModified": false,
+  "conclusion": [
+    "All three independent exact instantiations satisfy the label-free 3+1 tail theorem premises.",
+    "A1 exposes the deferred P1 singleton A2 as an immediate terminal response.",
+    "B exhausts the independent column and forces the three-event chain to an exact full-board draw.",
+    "Therefore neither legal P0 action is winning in every qualified instance."
+  ],
+  "boundary": [
+    "Qualification consumes only exact current-state support, normalized residual antichains, gravity order and exact first-win cofactors.",
+    "No oracle, solved W/D/L input, minimax, opening book, best-move table, BSFP solved frontier or support-only state identity is used.",
+    "Production CPC, JSMinSys and BSFP are unchanged."
+  ]
+}
