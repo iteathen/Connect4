@@ -1,0 +1,61 @@
+name: Research CPC rank30 D1 A q9f handoff continuation
+
+concurrency:
+  group: rank30-d1-a-q9f-handoff-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  push:
+    branches: [research/universal-structural-policy-20260930]
+    paths:
+      - .github/workflows/research-cpc-rank30-d1-a-q9f-handoff.yml
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_RANK30_D1_A_Q9F_HANDOFF_CONTINUATION_DESIGN_0_1.md
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/test-cpc-rank30-d1-a-q9f-handoff-continuation.mjs
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/run-cpc-rank30-d1-a-q9f-handoff-continuation.mjs
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_RANK32_Q9F_MONOTONE_PROOF_LIBRARY_CLASSIFICATION_0_1.json
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_RANK20_FORCED_C3_RANK5_LOCAL_GRAMMAR_PROBE_0_1.json
+
+permissions:
+  contents: write
+
+jobs:
+  continue:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with: {fetch-depth: 0}
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with: {node-version: 26.7.0}
+      - name: Verify frozen handoff continuation contract
+        run: node research/isograph/discovery/2026-09-30-universal-structural-policy/test-cpc-rank30-d1-a-q9f-handoff-continuation.mjs
+      - name: Generate durable handoff continuation
+        shell: bash
+        run: |
+          set -euo pipefail
+          DIR=research/isograph/discovery/2026-09-30-universal-structural-policy
+          OUT="$DIR/CPC_RANK30_D1_A_Q9F_HANDOFF_CONTINUATION_0_1.json"
+          node "$DIR/run-cpc-rank30-d1-a-q9f-handoff-continuation.mjs" > "$OUT"
+          node - "$OUT" <<'NODE'
+          const fs=require('fs');const r=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
+          console.log(JSON.stringify({
+            classification:r.classification,
+            provedReplyCount:r.provedReplyCount,
+            rank5Expression:r.rank5Expression,
+            replies:r.defenderReplies,
+            firstUnresolved:r.firstUnresolved
+          }));
+          NODE
+      - name: Commit durable handoff continuation
+        shell: bash
+        run: |
+          set -euo pipefail
+          BRANCH=research/universal-structural-policy-20260930
+          FILE=research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_RANK30_D1_A_Q9F_HANDOFF_CONTINUATION_0_1.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$FILE"
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "research: record rank30 q9f handoff continuation"
+          git pull --rebase origin "$BRANCH"
+          git push origin HEAD:"$BRANCH"
