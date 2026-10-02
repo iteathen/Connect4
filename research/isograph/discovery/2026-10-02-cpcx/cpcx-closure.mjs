@@ -187,6 +187,36 @@ export function listCpcxMultiPieceProjectionCandidates(obligations){
     .filter(x=>x.controlClass==='ALL_PROJECTED_TO_OWNER');
 }
 
+export function findCpcxSynchronizedProjectionLadders(obligations){
+  const out=[];
+  for(const obligation of obligations){
+    if(obligation.missingCount<2||obligation.missingCount>4)continue;
+    const projection=projectCpcxObligation(obligation);
+    if(projection.controlClass!=='ALL_PROJECTED_TO_OWNER')continue;
+    if(projection.synchronizedEventRank===null||projection.synchronizedSupportDistance===null)continue;
+    out.push({
+      obligationId:obligation.id,
+      player:obligation.player,
+      lineId:obligation.lineId,
+      lineLabel:obligation.lineLabel,
+      orientation:obligation.orientation,
+      missingCount:obligation.missingCount,
+      missingCells:[...obligation.missingCells],
+      eventRank:projection.synchronizedEventRank,
+      supportDistance:projection.synchronizedSupportDistance,
+      contractionLevels:Array.from({length:obligation.missingCount+1},(_,i)=>obligation.missingCount-i),
+      kind:'SYNCHRONIZED_MULTI_PIECE_PROJECTION',
+      exact:false,
+      proofNeed:[
+        'certify projected event ownership under interventions',
+        'certify event admissibility/support',
+        'certify completion before opponent terminal deadline',
+      ],
+    });
+  }
+  return out;
+}
+
 export function buildCpcxBoundaryOperators(position){
   return cpcxColumnProfiles(position).map(p=>({
     column:p.column,
