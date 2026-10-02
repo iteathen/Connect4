@@ -335,14 +335,13 @@ export function classifyCpcxSuccessor(successor,{attacker=successor.attacker}={}
   if(successor.concretePosition)
     return classifyCpcxProgress(successor.concretePosition,{player:attacker??successor.concretePosition.mover});
 
-  // Abstract carriers deliberately fail closed until immediate first-win /
-  // forced-normalization facts are closed under their blocker-token class.
+  // Abstract carriers deliberately fail closed until opponent singleton / first-win hazards are closed under their blocker-token class.
   if(!successor.firstWinFacts?.nextImmediateNormalizationClosed)return {
     schema:'connect4.cpcx.progress.v0_2',
     kind:'NO_CERTIFICATE',
     exact:false,
     player:attacker,
-    seam:'ABSTRACT_IMMEDIATE_NORMALIZATION_NOT_CLOSED',
+    seam:'ABSTRACT_OPPONENT_SINGLETON_ENVELOPE_MISSING',
     carrier:{
       nextMover:successor.nextMover,
       rank:successor.rank,
