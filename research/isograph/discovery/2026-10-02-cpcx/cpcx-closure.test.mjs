@@ -12,6 +12,7 @@ import {
   projectCpcxObligation,
   listCpcxMultiPieceProjectionCandidates,
   findCpcxSynchronizedProjectionLadders,
+  findCpcxDisjointSynchronizedFamilies,
   buildCpcxBoundaryOperators,
   createCpcxParitySystem,
   certifyCpcxObligation,
@@ -93,6 +94,23 @@ test('44444 exposes synchronized three-piece projection ladders at rows 1, 3 and
   assert.deepEqual([...bySupport.entries()].sort((a,b)=>a[0]-b[0]),[[0,4],[2,4],[4,4]]);
   assert.ok(ladders.every(x=>x.exact===false));
   assert.ok(ladders.every(x=>x.contractionLevels.join(',')==='3,2,1,0'));
+});
+
+test('44444 has disjoint three-level wing families, so one entire wing survives any sixth move',()=>{
+  const p=buildCpcxPosition('44444',{geometry:g});
+  const pairs=findCpcxDisjointSynchronizedFamilies(scanCpcxObligations(p),{minLevels:3})
+    .filter(x=>x.player===0&&x.orientation==='H'&&x.missingCount===3);
+  assert.ok(pairs.length>=1);
+  const wing=pairs.find(x=>
+    x.familyA.columns.join(',')==='0,1,2'&&x.familyB.columns.join(',')==='4,5,6'||
+    x.familyB.columns.join(',')==='0,1,2'&&x.familyA.columns.join(',')==='4,5,6'
+  );
+  assert.ok(wing);
+  assert.equal(wing.exactSurvival,true);
+  assert.equal(wing.survivesAnySingleAction,true);
+  assert.equal(wing.exactForcing,false);
+  assert.deepEqual(wing.familyA.levels.map(x=>x.supportDistance),[0,2,4]);
+  assert.deepEqual(wing.familyB.levels.map(x=>x.supportDistance),[0,2,4]);
 });
 
 test('column-boundary operator derives odd center defect instead of naming a phase',()=>{
