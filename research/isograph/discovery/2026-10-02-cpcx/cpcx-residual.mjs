@@ -210,8 +210,8 @@ export function findCpcxConditionalPrecursors(position,{
 
 export function compileCpcxResidualEventChain(carrier,events){
   if(!carrier||!Array.isArray(carrier.residuals))throw new TypeError('residual carrier');
-  if(!Array.isArray(events)||events.length<1||events.length>4)
-    throw new RangeError('event chain length must be 1..4');
+  if(!Array.isArray(events)||events.length<1||events.length>64)
+    throw new RangeError('event chain length must be 1..64');
   let current=carrier;
   const steps=[];
   for(let i=0;i<events.length;i++){
@@ -242,7 +242,7 @@ export function compileCpcxResidualEventChain(carrier,events){
     exactResidualAlgebra:true,
     eventOccurrenceCertified:false,
     choiceEnumeration:false,
-    complexity:'O(eventCount * liveResidualCount * maxMissing), with eventCount<=4 and maxMissing<=4 in CPCX v0.2',
+    complexity:'O(eventCount * liveResidualCount * maxMissing); maxMissing<=4 is the obligation-cardinality bound and does not limit deterministic event-chain length',
   };
 }
 
