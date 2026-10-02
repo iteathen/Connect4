@@ -96,7 +96,7 @@ function verticalSupportInterval(position,demand,certificate,cell){
   };
 }
 
-function abstractVerticalSuccessor(position,macro,collapse){
+function abstractVerticalSuccessor(position,macro,collapse,envelope){
   const {demand,certificate}=macro,
     uncertainty=analyzeCpcxMacroUncertainty(position,collapse),
     singletonEnvelope=deriveCpcxVerticalOpponentSingletonEnvelope(
@@ -208,7 +208,16 @@ export function composeCpcxForcingMacro(position,progress){
   if(macro.kind==='VERTICAL_TWO_STAGE'){
     const collapse=collapseCpcxVerticalTwoStage(
       position,macro.demand,macro.certificate
-    );
+    ),
+      envelope=deriveCpcxVerticalOpponentSingletonEnvelope(
+        position,macro.demand,macro.certificate
+      );
+    if(envelope.kind==='DEFENDER_TERMINAL_CLASS')return {
+      kind:'NO_CERTIFICATE',
+      exact:false,
+      seam:'VERTICAL_OPPONENT_SINGLETON_ENVELOPE_DEFENDER_TERMINAL',
+      envelope,
+    };
     if(macro.certificate.kind==='FORCED_UPPER_RESPONSE'){
       const events=[
         {cell:macro.demand.lowerCell,owner:macro.demand.attacker},
@@ -231,10 +240,11 @@ export function composeCpcxForcingMacro(position,progress){
         controlParityEquivalent:true,
         guaranteedResiduals:exactResiduals(next.position),
         blockerTokens:[],
+        opponentSingletonEnvelope:envelope,
         firstWinFacts:{
           macroFirstWinGuardPassed:true,
           noTerminalDuringMacro:next.position.terminal===null,
-          nextImmediateNormalizationClosed:true,
+          nextImmediateNormalizationClosed:envelope.normalizationClosed===true,
         },
         concretePosition:next.position,
         source:{kind:'VERTICAL_TWO_STAGE',certificateKind:macro.certificate.kind,collapse},
@@ -242,7 +252,7 @@ export function composeCpcxForcingMacro(position,progress){
         recursive:false,
       };
     }
-    return abstractVerticalSuccessor(position,macro,collapse);
+    return abstractVerticalSuccessor(position,macro,collapse,envelope);
   }
 
   throw new TypeError('unsupported CPCX forcing macro');
