@@ -1,0 +1,376 @@
+{
+  "schema": "connect4.cpc_rank32_q966_extended_repair_composition.v1",
+  "date": "2026-10-01",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "design": "CPC_RANK32_Q966_EXTENDED_REPAIR_COMPOSITION_DESIGN_0_1.md",
+  "sourceEvidence": {
+    "differential": "CPC_RANK30_D1_A_UNKNOWN_CHILD_STRUCTURAL_DIFFERENTIAL_0_1.json",
+    "mu1": "CPC_RANK30_D1_A_MU1_COUPLED_TARGET_OBLIGATION_0_1.json"
+  },
+  "exactQClass": "966e6353e06e4d41",
+  "sequence": "44444156666623222242551151531137",
+  "rank": 32,
+  "support": [
+    6,
+    6,
+    3,
+    6,
+    5,
+    5,
+    1
+  ],
+  "target": "G3",
+  "mu": 2,
+  "actions": [
+    {
+      "action": "E",
+      "column": 5,
+      "muAfterAction": 1,
+      "replies": [
+        {
+          "replyColumn": 3,
+          "replyCell": "C4",
+          "sequence": "4444415666662322224255115153113753",
+          "exactQClass": "8fed7b5f375c7093",
+          "support": [
+            6,
+            6,
+            4,
+            6,
+            6,
+            5,
+            1
+          ],
+          "targetLive": true,
+          "targetSupportDistance": 1,
+          "enabledP1Singletons": [
+            "C5"
+          ],
+          "positiveCertificates": [
+            {
+              "kind": "EXACT_MU1_COMPOSED_HANDOFF",
+              "sourceQ": "8fed7b5f375c7093",
+              "sourceEvidence": "CPC_RANK30_D1_A_MU1_COUPLED_TARGET_OBLIGATION_0_1.json"
+            },
+            {
+              "kind": "RANK3",
+              "rootMove": 3,
+              "consequences": [
+                {
+                  "defenderColumn": 3,
+                  "kind": "RANK1",
+                  "rootMove": 6
+                },
+                {
+                  "defenderColumn": 6,
+                  "kind": "RANK1",
+                  "rootMove": 3
+                },
+                {
+                  "defenderColumn": 7,
+                  "kind": "IMMEDIATE"
+                }
+              ]
+            }
+          ],
+          "repairAudit": {
+            "targets": [
+              "G3"
+            ],
+            "stats": {
+              "proofStates": 1,
+              "candidateActionsChecked": 1,
+              "p1BranchesChecked": 1,
+              "maxDepth": 0,
+              "memoEntries": 1,
+              "certifiedStateTargetPairs": 0
+            },
+            "resourceFailure": null
+          },
+          "disposition": "P0_WIN"
+        },
+        {
+          "replyColumn": 6,
+          "replyCell": "F6",
+          "sequence": "4444415666662322224255115153113756",
+          "exactQClass": "2db2abcb67d530e0",
+          "support": [
+            6,
+            6,
+            3,
+            6,
+            6,
+            6,
+            1
+          ],
+          "targetLive": true,
+          "targetSupportDistance": 1,
+          "enabledP1Singletons": [],
+          "positiveCertificates": [],
+          "repairAudit": {
+            "targets": [
+              "G3"
+            ],
+            "stats": {
+              "proofStates": 1,
+              "candidateActionsChecked": 0,
+              "p1BranchesChecked": 0,
+              "maxDepth": 0,
+              "memoEntries": 1,
+              "certifiedStateTargetPairs": 0
+            },
+            "resourceFailure": null
+          },
+          "disposition": "UNKNOWN"
+        },
+        {
+          "replyColumn": 7,
+          "replyCell": "G2",
+          "sequence": "4444415666662322224255115153113757",
+          "exactQClass": "951a677a008e07ae",
+          "support": [
+            6,
+            6,
+            3,
+            6,
+            6,
+            5,
+            2
+          ],
+          "targetLive": true,
+          "targetSupportDistance": 0,
+          "enabledP1Singletons": [],
+          "positiveCertificates": [
+            {
+              "kind": "IMMEDIATE_P0_TERMINAL",
+              "winningColumns": [
+                7
+              ]
+            }
+          ],
+          "repairAudit": {
+            "targets": [],
+            "stats": {
+              "proofStates": 0,
+              "candidateActionsChecked": 0,
+              "p1BranchesChecked": 0,
+              "maxDepth": 0,
+              "memoEntries": 0,
+              "certifiedStateTargetPairs": 0
+            },
+            "resourceFailure": null
+          },
+          "disposition": "P0_WIN"
+        }
+      ],
+      "disposition": "UNRESOLVED"
+    },
+    {
+      "action": "F",
+      "column": 6,
+      "muAfterAction": 1,
+      "replies": [
+        {
+          "replyColumn": 3,
+          "replyCell": "C4",
+          "sequence": "4444415666662322224255115153113763",
+          "exactQClass": "2bb8598461e3e623",
+          "support": [
+            6,
+            6,
+            4,
+            6,
+            5,
+            6,
+            1
+          ],
+          "targetLive": true,
+          "targetSupportDistance": 1,
+          "enabledP1Singletons": [
+            "C5"
+          ],
+          "positiveCertificates": [
+            {
+              "kind": "EXACT_MU1_COMPOSED_HANDOFF",
+              "sourceQ": "2bb8598461e3e623",
+              "sourceEvidence": "CPC_RANK30_D1_A_MU1_COUPLED_TARGET_OBLIGATION_0_1.json"
+            },
+            {
+              "kind": "RANK3",
+              "rootMove": 3,
+              "consequences": [
+                {
+                  "defenderColumn": 3,
+                  "kind": "RANK1",
+                  "rootMove": 5
+                },
+                {
+                  "defenderColumn": 5,
+                  "kind": "RANK1",
+                  "rootMove": 3
+                },
+                {
+                  "defenderColumn": 7,
+                  "kind": "IMMEDIATE"
+                }
+              ]
+            }
+          ],
+          "repairAudit": {
+            "targets": [
+              "G3"
+            ],
+            "stats": {
+              "proofStates": 1,
+              "candidateActionsChecked": 1,
+              "p1BranchesChecked": 1,
+              "maxDepth": 0,
+              "memoEntries": 1,
+              "certifiedStateTargetPairs": 0
+            },
+            "resourceFailure": null
+          },
+          "disposition": "P0_WIN"
+        },
+        {
+          "replyColumn": 5,
+          "replyCell": "E6",
+          "sequence": "4444415666662322224255115153113765",
+          "exactQClass": "2db2abcb67d530e0",
+          "support": [
+            6,
+            6,
+            3,
+            6,
+            6,
+            6,
+            1
+          ],
+          "targetLive": true,
+          "targetSupportDistance": 1,
+          "enabledP1Singletons": [],
+          "positiveCertificates": [],
+          "repairAudit": {
+            "targets": [
+              "G3"
+            ],
+            "stats": {
+              "proofStates": 1,
+              "candidateActionsChecked": 0,
+              "p1BranchesChecked": 0,
+              "maxDepth": 0,
+              "memoEntries": 1,
+              "certifiedStateTargetPairs": 0
+            },
+            "resourceFailure": null
+          },
+          "disposition": "UNKNOWN"
+        },
+        {
+          "replyColumn": 7,
+          "replyCell": "G2",
+          "sequence": "4444415666662322224255115153113767",
+          "exactQClass": "58e4d493d4166167",
+          "support": [
+            6,
+            6,
+            3,
+            6,
+            5,
+            6,
+            2
+          ],
+          "targetLive": true,
+          "targetSupportDistance": 0,
+          "enabledP1Singletons": [],
+          "positiveCertificates": [
+            {
+              "kind": "IMMEDIATE_P0_TERMINAL",
+              "winningColumns": [
+                7
+              ]
+            }
+          ],
+          "repairAudit": {
+            "targets": [],
+            "stats": {
+              "proofStates": 0,
+              "candidateActionsChecked": 0,
+              "p1BranchesChecked": 0,
+              "maxDepth": 0,
+              "memoEntries": 0,
+              "certifiedStateTargetPairs": 0
+            },
+            "resourceFailure": null
+          },
+          "disposition": "P0_WIN"
+        }
+      ],
+      "disposition": "UNRESOLVED"
+    }
+  ],
+  "classification": "Q966_UNRESOLVED",
+  "acceptedRepairActions": [],
+  "summary": {
+    "acceptedActionCount": 0,
+    "acceptedRepairActions": [],
+    "unresolvedActionCount": 2,
+    "counterexampleActionCount": 0,
+    "exactMu1HandoffCount": 2,
+    "unknownReplyCount": 2,
+    "smallestUnknownReply": {
+      "action": "E",
+      "replyColumn": 6,
+      "replyCell": "F6",
+      "sequence": "4444415666662322224255115153113756",
+      "exactQClass": "2db2abcb67d530e0",
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        6,
+        6,
+        1
+      ],
+      "targetLive": true,
+      "targetSupportDistance": 1,
+      "enabledP1Singletons": [],
+      "positiveCertificates": [],
+      "repairAudit": {
+        "targets": [
+          "G3"
+        ],
+        "stats": {
+          "proofStates": 1,
+          "candidateActionsChecked": 0,
+          "p1BranchesChecked": 0,
+          "maxDepth": 0,
+          "memoEntries": 1,
+          "certifiedStateTargetPairs": 0
+        },
+        "resourceFailure": null
+      },
+      "disposition": "UNKNOWN"
+    },
+    "resourceFailureCount": 0
+  },
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "ordinaryFreeBranchGameTreeUsed": false,
+  "productionCpcModified": false,
+  "jsMinSysModified": false,
+  "legacyRepairModified": false,
+  "rcicModified": false,
+  "bsfpModified": false,
+  "conclusion": [
+    "q966 is reconstructed by exact semantic identity and both legacy repair candidates E/F are replayed branch-completely.",
+    "At least one nonterminal reply remains outside the monotone positive library; the smallest exact obstruction is preserved.",
+    "The result preserves exactly which repair actions close."
+  ],
+  "boundary": [
+    "No solved W/D/L, oracle, minimax, unrestricted game-tree value search, best-move table, opening book, BSFP solved frontier, support-only identity shortcut, or sealed holdout is used.",
+    "The two mu=1 results are admitted only by exact semantic-q identity.",
+    "Production CPC, JSMinSys, legacy repair semantics, RCIC semantics, and BSFP remain unchanged."
+  ]
+}
