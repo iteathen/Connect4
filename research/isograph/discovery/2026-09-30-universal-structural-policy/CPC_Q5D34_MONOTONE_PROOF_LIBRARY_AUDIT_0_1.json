@@ -1,0 +1,122 @@
+{
+  "schema": "connect4.cpc_q5d34_monotone_proof_library_audit.v1",
+  "date": "2026-10-01",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "design": "CPC_Q5D34_MONOTONE_PROOF_LIBRARY_AUDIT_DESIGN_0_1.md",
+  "sourceEvidence": "CPC_Q966_G_BRANCH_FORCED_SAFETY_0_1.json",
+  "exactQClass": "5d34e24395b9d801",
+  "sequence": "4444415666662322224255115153113777",
+  "rank": 34,
+  "support": [
+    6,
+    6,
+    3,
+    6,
+    5,
+    5,
+    3
+  ],
+  "mover": "P0",
+  "exactBridge": {
+    "pass": true,
+    "checks": {
+      "rank": true,
+      "mover": true,
+      "support": true,
+      "p0Residuals": true,
+      "p1Residuals": true
+    },
+    "semanticQClass": "5d34e24395b9d801"
+  },
+  "terminalSafeP0Columns": [
+    5,
+    6,
+    7
+  ],
+  "routeAttempts": [
+    {
+      "kind": "IMMEDIATE_P0_TERMINAL",
+      "accept": false,
+      "winningColumns": []
+    },
+    {
+      "kind": "EXACT_QUALIFIED_Q_HANDOFF",
+      "accept": false,
+      "exactQClass": "5d34e24395b9d801",
+      "handoff": null
+    },
+    {
+      "kind": "BOUNDED_RANK1",
+      "accept": false,
+      "certificate": null
+    },
+    {
+      "kind": "BOUNDED_RANK3",
+      "accept": false,
+      "certificate": null
+    }
+  ],
+  "positiveCertificates": [],
+  "legacyRepairTargets": [],
+  "lossCertificate": {
+    "proofCompleted": true,
+    "loss": false,
+    "kind": "NO_ENABLED_P1_OBLIGATION",
+    "compactProof": {
+      "loss": false,
+      "kind": "NO_ENABLED_P1_OBLIGATION",
+      "obligation": null,
+      "obligations": null,
+      "forcedColumn": null,
+      "adversarialReply": null,
+      "replyCell": null,
+      "escapeAction": null,
+      "escapeReason": null,
+      "child": null
+    },
+    "resourceFailure": null,
+    "stats": {
+      "nodes": 1,
+      "maxDepth": 0,
+      "multiDefects": 0,
+      "forcedNodes": 0,
+      "terminalWitnesses": 0,
+      "childLossWitnesses": 0,
+      "zeroObligationNodes": 1
+    }
+  },
+  "disposition": "UNKNOWN",
+  "summary": {
+    "positiveCertificateCount": 0,
+    "positiveKinds": [],
+    "routeKindsTried": [
+      "BOUNDED_RANK1",
+      "BOUNDED_RANK3",
+      "EXACT_QUALIFIED_Q_HANDOFF",
+      "IMMEDIATE_P0_TERMINAL"
+    ],
+    "legacyRepairTargetCount": 0,
+    "forcedLossKind": "NO_ENABLED_P1_OBLIGATION",
+    "resourceFailureCount": 0
+  },
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "ordinaryFreeBranchGameTreeUsed": false,
+  "productionCpcModified": false,
+  "jsMinSysModified": false,
+  "legacyRepairModified": false,
+  "rcicModified": false,
+  "forcedLossModified": false,
+  "bsfpModified": false,
+  "conclusion": [
+    "q5d34 is reconstructed by exact semantic identity before positive or negative classification.",
+    "The complete current monotone positive library is queried without changing certificate semantics, and the unchanged forced-obligation loss calculus is run independently with UNKNOWN preserved.",
+    "Neither the complete queried positive library nor the unchanged forced-loss calculus classifies q5d34; it remains UNKNOWN.",
+    "A positive/loss collision is prohibited and would abort the audit."
+  ],
+  "boundary": [
+    "No solved W/D/L, oracle, minimax, unrestricted game-tree value search, best-move table, opening book, BSFP solved frontier, support-only identity shortcut, or sealed holdout is used.",
+    "Production CPC, JSMinSys, legacy repair semantics, RCIC semantics, forced-loss semantics, and BSFP remain unchanged.",
+    "Failure to find a positive route is not treated as loss; loss is accepted only from the existing exact forced-obligation proof rules."
+  ]
+}
