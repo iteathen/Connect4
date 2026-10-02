@@ -75,7 +75,7 @@ test('defender-turn vertical preempt/nonpreempt alternatives collapse to one abs
 
   const next=classifyCpcxSuccessor(successor,{attacker:0});
   assert.equal(next.kind,'NO_CERTIFICATE');
-  assert.equal(next.seam,'ABSTRACT_IMMEDIATE_NORMALIZATION_NOT_CLOSED');
+  assert.equal(next.seam,'ABSTRACT_OPPONENT_SINGLETON_ENVELOPE_MISSING');
 });
 
 test('one-sided certificate loop terminates immediately on an exact first win',()=>{
