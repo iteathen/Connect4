@@ -91,10 +91,10 @@ export function classifyThreePlusOneDeferredSingletonTail(kernel,state){
     rank:r,
     support:Object.freeze(h),
     events:Object.freeze({
-      A1,ObjectA1:Object.freeze({cell:A1,column:chain.column+1,row:chain.height+1}),
-      A2,ObjectA2:Object.freeze({cell:A2,column:chain.column+1,row:chain.height+2}),
-      A3,ObjectA3:Object.freeze({cell:A3,column:chain.column+1,row:chain.height+3}),
-      B,ObjectB:Object.freeze({cell:B,column:singleton.column+1,row:singleton.height+1}),
+      A1:Object.freeze({cell:A1,column:chain.column+1,row:chain.height+1}),
+      A2:Object.freeze({cell:A2,column:chain.column+1,row:chain.height+2}),
+      A3:Object.freeze({cell:A3,column:chain.column+1,row:chain.height+3}),
+      B:Object.freeze({cell:B,column:singleton.column+1,row:singleton.height+1}),
     }),
     residuals:Object.freeze({
       P0:Object.freeze([Object.freeze([A1,A2,A3])]),
