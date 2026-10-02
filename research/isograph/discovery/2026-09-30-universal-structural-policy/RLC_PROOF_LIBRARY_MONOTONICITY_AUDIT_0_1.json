@@ -1,0 +1,897 @@
+{
+  "schema": "connect4.rlc_proof_library_monotonicity_audit.v1",
+  "date": "2026-10-01",
+  "design": "RLC_PROOF_LIBRARY_MONOTONICITY_AUDIT_DESIGN_0_1.md",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "families": [
+    {
+      "id": "IMMEDIATE_TERMINAL",
+      "name": "Immediate exact terminal",
+      "qualification": "QUALIFIED_REUSABLE",
+      "disposition": "THEOREM_FAMILY_ROUTABLE",
+      "sourceFiles": [
+        "JSMinSys:addons/cpc-connect4.mjs"
+      ],
+      "adapter": {
+        "kind": "NATIVE_CPC_TERMINAL"
+      }
+    },
+    {
+      "id": "FORCED_RESPONSE_FORK",
+      "name": "Forced completion / singleton / fork upper certificates",
+      "qualification": "QUALIFIED_REUSABLE",
+      "disposition": "THEOREM_FAMILY_ROUTABLE",
+      "sourceFiles": [
+        "research/isograph/discovery/2026-09-30-universal-structural-policy/RANK_LOCAL_FORCED_COMPLETION_UPPER_BOUND_THEOREM.md",
+        "research/isograph/discovery/2026-09-30-universal-structural-policy/RANK_LOCAL_FORCED_SINGLETON_LIFT_THEOREM.md",
+        "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_FORCED_COMPLETION_UPPER_ENVELOPE_THEOREM.md"
+      ],
+      "adapter": {
+        "kind": "FORCED_COMPLETION_GRAMMAR"
+      }
+    },
+    {
+      "id": "REPAIR_CAPACITY",
+      "name": "Adaptive repair-capacity induction",
+      "qualification": "QUALIFIED_REUSABLE",
+      "disposition": "THEOREM_FAMILY_ROUTABLE",
+      "sourceFiles": [
+        "research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-repair-capacity-proof-lib.mjs",
+        "docs/research/2026-09-13-repair-capacity-predecessor-induction.md"
+      ],
+      "adapter": {
+        "kind": "LEGACY_TARGET_ENGINE",
+        "engine": "REPAIR_CAPACITY"
+      }
+    },
+    {
+      "id": "LEGACY_TARGET_LAMBDA",
+      "name": "Generic target-distance / mu predecessor",
+      "qualification": "QUALIFIED_REUSABLE",
+      "disposition": "THEOREM_FAMILY_ROUTABLE",
+      "sourceFiles": [
+        "research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-generic-target-distance-mu-proof-lib.mjs"
+      ],
+      "adapter": {
+        "kind": "LEGACY_TARGET_ENGINE",
+        "engine": "LAMBDA"
+      }
+    },
+    {
+      "id": "LEGACY_TARGET_THETA",
+      "name": "Generic target + auxiliary lexicographic predecessor",
+      "qualification": "QUALIFIED_REUSABLE",
+      "disposition": "THEOREM_FAMILY_ROUTABLE",
+      "sourceFiles": [
+        "research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-generic-target-aux-lex-proof-lib.mjs"
+      ],
+      "adapter": {
+        "kind": "LEGACY_TARGET_ENGINE",
+        "engine": "THETA"
+      }
+    },
+    {
+      "id": "DISTANCE2_TARGET_SUPPORT",
+      "name": "Distance-2 target-support re-entry",
+      "qualification": "QUALIFIED_REUSABLE",
+      "disposition": "THEOREM_FAMILY_ROUTABLE",
+      "sourceFiles": [
+        "research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-distance2-target-support-proof-lib.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-resolved-tail-lexicographic-proof-lib.mjs"
+      ],
+      "adapter": {
+        "kind": "LEGACY_TARGET_ENGINE",
+        "engine": "DISTANCE2_TARGET_SUPPORT"
+      }
+    },
+    {
+      "id": "DISTANCE1_RESOLVED_TAIL_CAPACITY",
+      "name": "Distance-1 resolved-tail capacity",
+      "qualification": "QUALIFIED_REUSABLE",
+      "disposition": "THEOREM_FAMILY_ROUTABLE",
+      "sourceFiles": [
+        "research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-resolved-tail-proof-lib.mjs"
+      ],
+      "adapter": {
+        "kind": "LEGACY_TARGET_ENGINE",
+        "engine": "DISTANCE1_RESOLVED_TAIL_CAPACITY"
+      }
+    },
+    {
+      "id": "TRUNCATED_TARGET_RESERVOIR",
+      "name": "Truncated target-reservoir pairing",
+      "qualification": "QUALIFIED_REUSABLE",
+      "disposition": "THEOREM_FAMILY_ROUTABLE",
+      "sourceFiles": [
+        "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_TRUNCATED_TARGET_RESERVOIR_PAIRING_THEOREM.md",
+        "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_TRUNCATED_TARGET_RESERVOIR_PAIRING_0_1.json"
+      ],
+      "adapter": {
+        "kind": "RCIC_TARGET_RESERVOIR"
+      }
+    },
+    {
+      "id": "RLC_RCIC",
+      "name": "Controlled-invariant / ranked controlled-invariant calculus",
+      "qualification": "QUALIFIED_REUSABLE",
+      "disposition": "THEOREM_FAMILY_ROUTABLE",
+      "sourceFiles": [
+        "research/isograph/discovery/2026-09-30-universal-structural-policy/RLC_RANKED_CONTROLLED_INVARIANT_CERTIFICATE_THEOREM.md",
+        "research/isograph/discovery/2026-09-30-universal-structural-policy/RLC_RANKED_CONTROLLED_INVARIANT_INSTANTIATION_AUDIT_0_1.json"
+      ],
+      "adapter": {
+        "kind": "RCIC_COMBINATOR"
+      }
+    },
+    {
+      "id": "CPC_GUARD_SURVIVAL",
+      "name": "CPC constructive guard-survival proof kernel",
+      "qualification": "QUALIFIED_REUSABLE",
+      "disposition": "THEOREM_FAMILY_ROUTABLE",
+      "sourceFiles": [
+        "JSMinSys:addons/cpc-connect4-guard-survival.mjs",
+        "JSMinSys:docs/cpc-guard-survival-nees.md"
+      ],
+      "adapter": {
+        "kind": "JSMINSYS_GUARD_SURVIVAL",
+        "requiredInputs": [
+          "exact_rba_q",
+          "odd_defender_guard_mask",
+          "odd_horizon"
+        ],
+        "note": "Guard side-state is a proof resource. If it is not reconstructible by a qualified current-state theorem, the adapter reports the missing guard rather than guessing it."
+      }
+    },
+    {
+      "id": "RESPONSE_MATROID_CIRCUIT",
+      "name": "Response-matroid circuit / defect transfer",
+      "qualification": "QUALIFIED_REUSABLE",
+      "disposition": "THEOREM_FAMILY_ROUTABLE",
+      "sourceFiles": [
+        "docs/research/2026-09-13-response-matroid-defect-transfer.md",
+        "docs/research/evidence/2026-09-13-response-matroid-control.json"
+      ],
+      "adapter": {
+        "kind": "RESPONSE_MATROID_COMBINATOR",
+        "export": "responseMatroidAudit"
+      }
+    },
+    {
+      "id": "COMPATIBLE_COVER_PROGRESS",
+      "name": "Compatible-cover + well-founded progress calculus",
+      "qualification": "QUALIFIED_REUSABLE",
+      "disposition": "THEOREM_FAMILY_ROUTABLE",
+      "sourceFiles": [
+        "docs/research/2026-09-13-compatible-cover-progress-calculus.md"
+      ],
+      "adapter": {
+        "kind": "COMPATIBLE_COVER_PROGRESS_COMBINATOR",
+        "export": "compatibleCoverProgressAudit",
+        "requiredInputs": [
+          "qualified_fragments",
+          "requirements",
+          "compatibility",
+          "decreasing_rank"
+        ]
+      }
+    },
+    {
+      "id": "CHOICE_ELIMINATION",
+      "name": "Choice-elimination predecessor calculus",
+      "qualification": "QUALIFIED_REUSABLE",
+      "disposition": "THEOREM_FAMILY_ROUTABLE",
+      "sourceFiles": [
+        "docs/research/2026-09-13-choice-elimination-predecessor-calculus.md"
+      ],
+      "adapter": {
+        "kind": "CHOICE_ELIMINATION_COMBINATOR",
+        "export": "choiceElimination"
+      }
+    },
+    {
+      "id": "WDL_INTERVAL_PREDECESSOR",
+      "name": "W/D/L interval predecessor calculus",
+      "qualification": "QUALIFIED_REUSABLE",
+      "disposition": "THEOREM_FAMILY_ROUTABLE",
+      "sourceFiles": [
+        "docs/research/2026-09-13-wdl-interval-predecessor-calculus.md"
+      ],
+      "adapter": {
+        "kind": "INTERVAL_PREDECESSOR_COMBINATOR",
+        "export": "predecessorInterval"
+      }
+    },
+    {
+      "id": "POST_RESPONSE_PREDECESSOR_TRANSPORT",
+      "name": "Exact post-response / controllable-predecessor transport",
+      "qualification": "QUALIFIED_REUSABLE",
+      "disposition": "THEOREM_FAMILY_ROUTABLE",
+      "sourceFiles": [
+        "research/isograph/discovery/2026-09-30-universal-structural-policy/RANK_LOCAL_POST_RESPONSE_TRANSPORT_THEOREM.md"
+      ],
+      "adapter": {
+        "kind": "EXACT_TRANSPORT_COMBINATOR"
+      }
+    },
+    {
+      "id": "RECURSIVE_CONSEQUENCE_Q_CONVERGENCE",
+      "name": "Exact semantic-q consequence convergence",
+      "qualification": "QUALIFIED_REUSABLE",
+      "disposition": "THEOREM_FAMILY_ROUTABLE",
+      "sourceFiles": [
+        "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_SAME_PLAYER_COMMUTATION_THEOREM.md"
+      ],
+      "adapter": {
+        "kind": "EXACT_Q_EQUIVALENCE",
+        "exactStateIdentityRequired": true
+      }
+    },
+    {
+      "id": "BX_FINITE_RESERVOIR",
+      "name": "Bx viability + finite c7 reservoir",
+      "qualification": "QUALIFIED_REUSABLE",
+      "disposition": "SUPERSEDED_BY_ROUTABLE",
+      "sourceFiles": [
+        "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_BX_VIABILITY_FINITE_RESERVOIR_THEOREM.md",
+        "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_BX_VIABILITY_FINITE_RESERVOIR_0_1.json"
+      ],
+      "replacement": "RLC_RCIC",
+      "subroute": "BX_VIABILITY_FINITE_RESERVOIR"
+    },
+    {
+      "id": "THREE_COLUMN_PHASE_TRANSFER",
+      "name": "Exact three-column phase-transfer win family",
+      "qualification": "QUALIFIED_REUSABLE",
+      "disposition": "SUPERSEDED_BY_ROUTABLE",
+      "sourceFiles": [
+        "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_THREE_COLUMN_PHASE_TRANSFER_WIN_THEOREM.md",
+        "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_THREE_COLUMN_PHASE_TRANSFER_WIN_0_1.json"
+      ],
+      "replacement": "RLC_RCIC",
+      "subroute": "THREE_COLUMN_PHASE_TRANSFER"
+    },
+    {
+      "id": "TRIGGER5_FORCED_COMPRESSION",
+      "name": "Trigger-5 forced compression progress edge",
+      "qualification": "QUALIFIED_REUSABLE",
+      "disposition": "SUPERSEDED_BY_ROUTABLE",
+      "sourceFiles": [
+        "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_TRIGGER5_FORCED_COMPRESSION_LEMMA.md",
+        "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_TRIGGER5_FORCED_COMPRESSION_0_1.json"
+      ],
+      "replacement": "RLC_RCIC",
+      "subroute": "FORCED_COMPRESSION_PROGRESS_EDGE"
+    },
+    {
+      "id": "PAIR_STAR_HUB_LADDER",
+      "name": "Pair-star hub-ladder progress theorem",
+      "qualification": "QUALIFIED_REUSABLE",
+      "disposition": "SUPERSEDED_BY_ROUTABLE",
+      "sourceFiles": [
+        "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_PAIR_STAR_HUB_LADDER_THEOREM.md",
+        "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_PAIR_STAR_FRESH_QUALIFICATION_0_1.json"
+      ],
+      "replacement": "RLC_RCIC",
+      "subroute": "PAIR_STAR_PROGRESS"
+    },
+    {
+      "id": "RANK_LOCAL_BOUNDED_RESPONSE_HORIZON",
+      "name": "Bounded synchronized-response survival horizon",
+      "qualification": "QUALIFIED_REUSABLE",
+      "disposition": "SUPERSEDED_BY_ROUTABLE",
+      "sourceFiles": [
+        "research/isograph/discovery/2026-09-30-universal-structural-policy/RANK_LOCAL_BOUNDED_RESPONSE_HORIZON_THEOREM.md"
+      ],
+      "replacement": "RLC_RCIC",
+      "subroute": "CIC_SURVIVAL"
+    },
+    {
+      "id": "FORCED_SINGLETON_UPPER_GRAMMAR",
+      "name": "Finite forced-singleton upper grammar closure",
+      "qualification": "QUALIFIED_REUSABLE",
+      "disposition": "SUPERSEDED_BY_ROUTABLE",
+      "sourceFiles": [
+        "research/isograph/discovery/2026-09-30-universal-structural-policy/FORCED_SINGLETON_UPPER_GRAMMAR_CLOSURE_BOUNDARY.md"
+      ],
+      "replacement": "FORCED_RESPONSE_FORK"
+    },
+    {
+      "id": "ATTACKER_COMPLETION_PROOF_CLASS",
+      "name": "Attacker forced-completion proof-class automaton",
+      "qualification": "QUALIFIED_REUSABLE",
+      "disposition": "SUPERSEDED_BY_ROUTABLE",
+      "sourceFiles": [
+        "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_ATTACKER_COMPLETION_PROOF_CLASS_THEOREM.md"
+      ],
+      "replacement": "FORCED_RESPONSE_FORK"
+    },
+    {
+      "id": "ONE_SWITCH_SURVIVAL",
+      "name": "One-switch synchronized-response survival",
+      "qualification": "QUALIFIED_REUSABLE",
+      "disposition": "SUPERSEDED_BY_ROUTABLE",
+      "sourceFiles": [
+        "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_ONE_SWITCH_SURVIVAL_THEOREM.md"
+      ],
+      "replacement": "RLC_RCIC",
+      "subroute": "CIC_SURVIVAL"
+    },
+    {
+      "id": "TWO_SWITCH_SURVIVAL",
+      "name": "Two-switch synchronized-response survival",
+      "qualification": "QUALIFIED_REUSABLE",
+      "disposition": "SUPERSEDED_BY_ROUTABLE",
+      "sourceFiles": [
+        "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_TWO_SWITCH_SURVIVAL_THEOREM.md"
+      ],
+      "replacement": "RLC_RCIC",
+      "subroute": "CIC_SURVIVAL"
+    },
+    {
+      "id": "LATENT_CONTRACT_FIXED_FAMILY",
+      "name": "Fixed latent-contract root/family closures",
+      "qualification": "QUALIFIED_EXACT",
+      "disposition": "EXACT_STATE_ONLY",
+      "sourceFiles": [
+        "research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-latent-c1-full-closure.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-latent-contract-backward-composition.mjs"
+      ],
+      "adapter": {
+        "kind": "EXACT_Q_HANDOFF",
+        "exactStateIdentityRequired": true
+      },
+      "boundary": "Fixed latent state/family only. Generic repair tails are routed through REPAIR_CAPACITY/LAMBDA/THETA rather than generalized from the locator."
+    },
+    {
+      "id": "RANK_SPECIFIC_ROUTED_COMPOSITIONS",
+      "name": "Qualified rank-specific exact-q compositions",
+      "qualification": "QUALIFIED_EXACT",
+      "disposition": "EXACT_STATE_ONLY",
+      "sourceFiles": [
+        "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_RANK24_REPLY3_SINGLETON_HANDOFF_COMPOSITION_THEOREM.md",
+        "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_RANK24_ZUGZWANG_WIN_COMPOSITION_THEOREM.md"
+      ],
+      "adapter": {
+        "kind": "EXACT_Q_HANDOFF",
+        "exactStateIdentityRequired": true
+      },
+      "boundary": "Only exact qualified semantic-q roots are eligible for handoff unless a separate generic theorem is cited."
+    },
+    {
+      "id": "RESIDUAL_ANTICHAIN_DOMINANCE",
+      "name": "Recursive residual-dominance preorder / antichain boundary",
+      "qualification": "CANDIDATE",
+      "disposition": "CANDIDATE_NOT_QUALIFIED",
+      "sourceFiles": [
+        "research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-recursive-dominance.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-4665655-proof-frontier-antichain.mjs"
+      ],
+      "boundary": "The live recursive-dominance source explicitly labels itself a bounded structural simulation test and says zero violations would not establish the theorem."
+    },
+    {
+      "id": "CURRENT_STATE_GUARD_RECONSTRUCTION",
+      "name": "Current-state guard-set reconstruction theorem candidate",
+      "qualification": "CANDIDATE",
+      "disposition": "CANDIDATE_NOT_QUALIFIED",
+      "sourceFiles": [
+        "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_CURRENT_STATE_GUARD_SET_RECONSTRUCTION_THEOREM.md"
+      ]
+    },
+    {
+      "id": "FRONTIER_RESIDUAL_ATTACHMENT_RESPONSE",
+      "name": "Frontier-residual attachment response theorem candidate",
+      "qualification": "CANDIDATE",
+      "disposition": "CANDIDATE_NOT_QUALIFIED",
+      "sourceFiles": [
+        "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_FRONTIER_RESIDUAL_ATTACHMENT_RESPONSE_THEOREM.md"
+      ]
+    },
+    {
+      "id": "HORIZONTAL_RESIDUAL_LADDER_TRANSPORT",
+      "name": "Horizontal residual-ladder transport theorem candidate",
+      "qualification": "CANDIDATE",
+      "disposition": "CANDIDATE_NOT_QUALIFIED",
+      "sourceFiles": [
+        "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_HORIZONTAL_RESIDUAL_LADDER_TRANSPORT_THEOREM.md"
+      ]
+    },
+    {
+      "id": "THREE_COORDINATE_DECODER_REJECTED",
+      "name": "Direct (Bx,By,Bxy) semantic decoder",
+      "qualification": "REJECTED",
+      "disposition": "OBSOLETE_OR_REJECTED",
+      "sourceFiles": [
+        "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_FORMULA_THREE_COORDINATE_LOCAL_DECODER_THEOREM.md"
+      ]
+    },
+    {
+      "id": "PAIR_STAR_VALUE_PROGRESS_REJECTED",
+      "name": "Pair-star scalar value-progress claim",
+      "qualification": "REJECTED",
+      "disposition": "OBSOLETE_OR_REJECTED",
+      "sourceFiles": [
+        "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_PAIR_STAR_VALUE_PROGRESS_REJECTION.md"
+      ]
+    },
+    {
+      "id": "RANK25_C6_HANDOFF_REJECTED",
+      "name": "Rank-25 c6 obstruction handoff candidate",
+      "qualification": "REJECTED",
+      "disposition": "OBSOLETE_OR_REJECTED",
+      "sourceFiles": [
+        "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_RANK25_REPLY7_C6_OBSTRUCTION_HANDOFF_THEOREM.md"
+      ]
+    }
+  ],
+  "sourceAudit": [
+    {
+      "id": "IMMEDIATE_TERMINAL",
+      "sources": [
+        {
+          "spec": "JSMinSys:addons/cpc-connect4.mjs",
+          "present": true
+        }
+      ]
+    },
+    {
+      "id": "FORCED_RESPONSE_FORK",
+      "sources": [
+        {
+          "spec": "research/isograph/discovery/2026-09-30-universal-structural-policy/RANK_LOCAL_FORCED_COMPLETION_UPPER_BOUND_THEOREM.md",
+          "present": true
+        },
+        {
+          "spec": "research/isograph/discovery/2026-09-30-universal-structural-policy/RANK_LOCAL_FORCED_SINGLETON_LIFT_THEOREM.md",
+          "present": true
+        },
+        {
+          "spec": "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_FORCED_COMPLETION_UPPER_ENVELOPE_THEOREM.md",
+          "present": true
+        }
+      ]
+    },
+    {
+      "id": "REPAIR_CAPACITY",
+      "sources": [
+        {
+          "spec": "research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-repair-capacity-proof-lib.mjs",
+          "present": true
+        },
+        {
+          "spec": "docs/research/2026-09-13-repair-capacity-predecessor-induction.md",
+          "present": true
+        }
+      ]
+    },
+    {
+      "id": "LEGACY_TARGET_LAMBDA",
+      "sources": [
+        {
+          "spec": "research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-generic-target-distance-mu-proof-lib.mjs",
+          "present": true
+        }
+      ]
+    },
+    {
+      "id": "LEGACY_TARGET_THETA",
+      "sources": [
+        {
+          "spec": "research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-generic-target-aux-lex-proof-lib.mjs",
+          "present": true
+        }
+      ]
+    },
+    {
+      "id": "DISTANCE2_TARGET_SUPPORT",
+      "sources": [
+        {
+          "spec": "research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-distance2-target-support-proof-lib.mjs",
+          "present": true
+        },
+        {
+          "spec": "research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-resolved-tail-lexicographic-proof-lib.mjs",
+          "present": true
+        }
+      ]
+    },
+    {
+      "id": "DISTANCE1_RESOLVED_TAIL_CAPACITY",
+      "sources": [
+        {
+          "spec": "research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-resolved-tail-proof-lib.mjs",
+          "present": true
+        }
+      ]
+    },
+    {
+      "id": "TRUNCATED_TARGET_RESERVOIR",
+      "sources": [
+        {
+          "spec": "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_TRUNCATED_TARGET_RESERVOIR_PAIRING_THEOREM.md",
+          "present": true
+        },
+        {
+          "spec": "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_TRUNCATED_TARGET_RESERVOIR_PAIRING_0_1.json",
+          "present": true
+        }
+      ]
+    },
+    {
+      "id": "RLC_RCIC",
+      "sources": [
+        {
+          "spec": "research/isograph/discovery/2026-09-30-universal-structural-policy/RLC_RANKED_CONTROLLED_INVARIANT_CERTIFICATE_THEOREM.md",
+          "present": true
+        },
+        {
+          "spec": "research/isograph/discovery/2026-09-30-universal-structural-policy/RLC_RANKED_CONTROLLED_INVARIANT_INSTANTIATION_AUDIT_0_1.json",
+          "present": true
+        }
+      ]
+    },
+    {
+      "id": "CPC_GUARD_SURVIVAL",
+      "sources": [
+        {
+          "spec": "JSMinSys:addons/cpc-connect4-guard-survival.mjs",
+          "present": true
+        },
+        {
+          "spec": "JSMinSys:docs/cpc-guard-survival-nees.md",
+          "present": true
+        }
+      ]
+    },
+    {
+      "id": "RESPONSE_MATROID_CIRCUIT",
+      "sources": [
+        {
+          "spec": "docs/research/2026-09-13-response-matroid-defect-transfer.md",
+          "present": true
+        },
+        {
+          "spec": "docs/research/evidence/2026-09-13-response-matroid-control.json",
+          "present": true
+        }
+      ]
+    },
+    {
+      "id": "COMPATIBLE_COVER_PROGRESS",
+      "sources": [
+        {
+          "spec": "docs/research/2026-09-13-compatible-cover-progress-calculus.md",
+          "present": true
+        }
+      ]
+    },
+    {
+      "id": "CHOICE_ELIMINATION",
+      "sources": [
+        {
+          "spec": "docs/research/2026-09-13-choice-elimination-predecessor-calculus.md",
+          "present": true
+        }
+      ]
+    },
+    {
+      "id": "WDL_INTERVAL_PREDECESSOR",
+      "sources": [
+        {
+          "spec": "docs/research/2026-09-13-wdl-interval-predecessor-calculus.md",
+          "present": true
+        }
+      ]
+    },
+    {
+      "id": "POST_RESPONSE_PREDECESSOR_TRANSPORT",
+      "sources": [
+        {
+          "spec": "research/isograph/discovery/2026-09-30-universal-structural-policy/RANK_LOCAL_POST_RESPONSE_TRANSPORT_THEOREM.md",
+          "present": true
+        }
+      ]
+    },
+    {
+      "id": "RECURSIVE_CONSEQUENCE_Q_CONVERGENCE",
+      "sources": [
+        {
+          "spec": "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_SAME_PLAYER_COMMUTATION_THEOREM.md",
+          "present": true
+        }
+      ]
+    },
+    {
+      "id": "BX_FINITE_RESERVOIR",
+      "sources": [
+        {
+          "spec": "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_BX_VIABILITY_FINITE_RESERVOIR_THEOREM.md",
+          "present": true
+        },
+        {
+          "spec": "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_BX_VIABILITY_FINITE_RESERVOIR_0_1.json",
+          "present": true
+        }
+      ]
+    },
+    {
+      "id": "THREE_COLUMN_PHASE_TRANSFER",
+      "sources": [
+        {
+          "spec": "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_THREE_COLUMN_PHASE_TRANSFER_WIN_THEOREM.md",
+          "present": true
+        },
+        {
+          "spec": "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_THREE_COLUMN_PHASE_TRANSFER_WIN_0_1.json",
+          "present": true
+        }
+      ]
+    },
+    {
+      "id": "TRIGGER5_FORCED_COMPRESSION",
+      "sources": [
+        {
+          "spec": "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_TRIGGER5_FORCED_COMPRESSION_LEMMA.md",
+          "present": true
+        },
+        {
+          "spec": "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_TRIGGER5_FORCED_COMPRESSION_0_1.json",
+          "present": true
+        }
+      ]
+    },
+    {
+      "id": "PAIR_STAR_HUB_LADDER",
+      "sources": [
+        {
+          "spec": "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_PAIR_STAR_HUB_LADDER_THEOREM.md",
+          "present": true
+        },
+        {
+          "spec": "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_PAIR_STAR_FRESH_QUALIFICATION_0_1.json",
+          "present": true
+        }
+      ]
+    },
+    {
+      "id": "RANK_LOCAL_BOUNDED_RESPONSE_HORIZON",
+      "sources": [
+        {
+          "spec": "research/isograph/discovery/2026-09-30-universal-structural-policy/RANK_LOCAL_BOUNDED_RESPONSE_HORIZON_THEOREM.md",
+          "present": true
+        }
+      ]
+    },
+    {
+      "id": "FORCED_SINGLETON_UPPER_GRAMMAR",
+      "sources": [
+        {
+          "spec": "research/isograph/discovery/2026-09-30-universal-structural-policy/FORCED_SINGLETON_UPPER_GRAMMAR_CLOSURE_BOUNDARY.md",
+          "present": true
+        }
+      ]
+    },
+    {
+      "id": "ATTACKER_COMPLETION_PROOF_CLASS",
+      "sources": [
+        {
+          "spec": "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_ATTACKER_COMPLETION_PROOF_CLASS_THEOREM.md",
+          "present": true
+        }
+      ]
+    },
+    {
+      "id": "ONE_SWITCH_SURVIVAL",
+      "sources": [
+        {
+          "spec": "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_ONE_SWITCH_SURVIVAL_THEOREM.md",
+          "present": true
+        }
+      ]
+    },
+    {
+      "id": "TWO_SWITCH_SURVIVAL",
+      "sources": [
+        {
+          "spec": "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_TWO_SWITCH_SURVIVAL_THEOREM.md",
+          "present": true
+        }
+      ]
+    },
+    {
+      "id": "LATENT_CONTRACT_FIXED_FAMILY",
+      "sources": [
+        {
+          "spec": "research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-latent-c1-full-closure.mjs",
+          "present": true
+        },
+        {
+          "spec": "research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-latent-contract-backward-composition.mjs",
+          "present": true
+        }
+      ]
+    },
+    {
+      "id": "RANK_SPECIFIC_ROUTED_COMPOSITIONS",
+      "sources": [
+        {
+          "spec": "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_RANK24_REPLY3_SINGLETON_HANDOFF_COMPOSITION_THEOREM.md",
+          "present": true
+        },
+        {
+          "spec": "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_RANK24_ZUGZWANG_WIN_COMPOSITION_THEOREM.md",
+          "present": true
+        }
+      ]
+    },
+    {
+      "id": "RESIDUAL_ANTICHAIN_DOMINANCE",
+      "sources": [
+        {
+          "spec": "research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-recursive-dominance.mjs",
+          "present": true
+        },
+        {
+          "spec": "research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-4665655-proof-frontier-antichain.mjs",
+          "present": true
+        }
+      ]
+    },
+    {
+      "id": "CURRENT_STATE_GUARD_RECONSTRUCTION",
+      "sources": [
+        {
+          "spec": "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_CURRENT_STATE_GUARD_SET_RECONSTRUCTION_THEOREM.md",
+          "present": true
+        }
+      ]
+    },
+    {
+      "id": "FRONTIER_RESIDUAL_ATTACHMENT_RESPONSE",
+      "sources": [
+        {
+          "spec": "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_FRONTIER_RESIDUAL_ATTACHMENT_RESPONSE_THEOREM.md",
+          "present": true
+        }
+      ]
+    },
+    {
+      "id": "HORIZONTAL_RESIDUAL_LADDER_TRANSPORT",
+      "sources": [
+        {
+          "spec": "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_HORIZONTAL_RESIDUAL_LADDER_TRANSPORT_THEOREM.md",
+          "present": true
+        }
+      ]
+    },
+    {
+      "id": "THREE_COORDINATE_DECODER_REJECTED",
+      "sources": [
+        {
+          "spec": "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_FORMULA_THREE_COORDINATE_LOCAL_DECODER_THEOREM.md",
+          "present": true
+        }
+      ]
+    },
+    {
+      "id": "PAIR_STAR_VALUE_PROGRESS_REJECTED",
+      "sources": [
+        {
+          "spec": "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_PAIR_STAR_VALUE_PROGRESS_REJECTION.md",
+          "present": true
+        }
+      ]
+    },
+    {
+      "id": "RANK25_C6_HANDOFF_REJECTED",
+      "sources": [
+        {
+          "spec": "research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_RANK25_REPLY7_C6_OBSTRUCTION_HANDOFF_THEOREM.md",
+          "present": true
+        }
+      ]
+    }
+  ],
+  "combinatorControls": {
+    "responseMatroid": {
+      "obligationCount": 2,
+      "rank": 1,
+      "deficiency": 1,
+      "overloaded": true
+    },
+    "compatibleCoverProgress": {
+      "coverComplete": true,
+      "progress": true,
+      "proved": true,
+      "chosen": [
+        "fa",
+        "fb"
+      ],
+      "coveredCount": 2,
+      "requirementCount": 2
+    },
+    "choiceElimination": {
+      "actions": [
+        1,
+        3,
+        5
+      ],
+      "nonWinning": [
+        1,
+        5
+      ],
+      "survivors": [
+        3
+      ]
+    },
+    "predecessorIntervals": {
+      "p0": [
+        0,
+        1
+      ],
+      "p1": [
+        -1,
+        0
+      ]
+    }
+  },
+  "legacyTargetAdapter": {
+    "engineKinds": [
+      "LAMBDA",
+      "THETA",
+      "DISTANCE2_TARGET_SUPPORT",
+      "DISTANCE1_RESOLVED_TAIL_CAPACITY"
+    ],
+    "usesExactStateIdentity": true,
+    "supportOnlyIdentity": false,
+    "hardCodedStateIds": false,
+    "stateInterface": "semantic quotient kernel state + exact target cell; each engine enforces its own structural invariant"
+  },
+  "rank20Regression": {
+    "sequence": "44444156666623222242",
+    "rank": 20,
+    "support": [
+      1,
+      6,
+      1,
+      6,
+      1,
+      5,
+      0
+    ],
+    "legacyRepairClosedCount": 0,
+    "legacyRepairResourceFailureCount": 0,
+    "legacyFamilyMatrixClosedCount": 0,
+    "legacyFamilyMatrixResourceFailureCount": 0,
+    "interpretation": "The exact rank-20 obstruction survived all applicable legacy queries already executed; this is not a claim about every rank-20 state."
+  },
+  "summary": {
+    "unclassifiedCount": 0,
+    "adapterMissingCount": 0,
+    "adapterMissingIds": [],
+    "invalidSupersessionCount": 0,
+    "invalidSupersessions": [],
+    "routableFamilyCount": 16,
+    "supersededFamilyCount": 9,
+    "exactStateOnlyCount": 2,
+    "rejectedCount": 3,
+    "candidateCount": 4
+  },
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "productionCpcModified": false,
+  "jsMinSysModified": false,
+  "bsfpModified": false,
+  "conclusion": [
+    "Every cataloged qualified reusable certificate family is either directly routable through a research-side adapter or explicitly mapped to a stronger routed replacement.",
+    "Exact-only latent/rank-specific results remain exact-q handoffs and are not promoted into generic theorem classes.",
+    "Rejected and unqualified candidate artifacts remain visible in the audit but are excluded from retained proof capability.",
+    "The four legacy target engines omitted from the newer state-local q5d34 audit now have one shared certificate-class adapter.",
+    "The earlier exact rank-20 obstruction remains unclosed by the legacy repair/family queries that were applicable, with zero recorded resource failures."
+  ],
+  "boundary": [
+    "This is a proof-library integration audit, not a new Connect Four W/D/L theorem.",
+    "No oracle, solved W/D/L table, minimax, ordinary free-branch game-tree value, opening book, best-move label, BSFP solved frontier, or support-only exact-state shortcut is used.",
+    "Production CPC is read-only. JSMinSys is pinned and read-only. BSFP is unchanged.",
+    "Candidate theorem files are not counted as proof availability merely because they exist."
+  ]
+}
