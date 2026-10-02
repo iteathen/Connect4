@@ -134,6 +134,7 @@ export function compileCpcxPostActionWingAttack(position,{
   return {
     kind:'THREE_TRIGGER_WING_ATTACK',
     exact:true,
+    boardColumns:g.columns,
     action:{cell:actionCell,column:actionColumn,owner:actionOwner},
     attacker,
     survivingFamily:{
@@ -182,17 +183,10 @@ export function classifyCpcxWingDeviation(contract,{decisionIndex,actualReplyCel
 
   const remainingTriggers=contract.anchoredLine.triggerCells.slice(decisionIndex+1),
     stealsFutureTrigger=remainingTriggers.includes(actualReplyCell),
-    inSurvivingWing=contract.survivingFamily.columns.includes(
-      actualReplyCell===null||actualReplyCell===undefined
-        ?-1
-        :actualReplyCell%3===-99? -1 : null
-    );
-  // Column is derived separately to avoid relying on the line width in the
-  // boolean above; callers consume actualReplyColumn below.
-  const width=contract.anchoredLine.lineCells.length===4?7:null,
-    actualReplyColumn=actualReplyCell===null||actualReplyCell===undefined||width===null
+    actualReplyColumn=actualReplyCell===null||actualReplyCell===undefined
       ?null
-      :actualReplyCell%width;
+      :actualReplyCell%contract.boardColumns,
+    inSurvivingWing=actualReplyColumn!==null&&contract.survivingFamily.columns.includes(actualReplyColumn);
   return {
     kind:stealsFutureTrigger?'TRIGGER_STOLEN_DEBT':'PAIR_DEVIATION_DEBT',
     exact:true,
@@ -201,6 +195,7 @@ export function classifyCpcxWingDeviation(contract,{decisionIndex,actualReplyCel
     requiredResponseCell:required,
     actualReplyCell:actualReplyCell??null,
     actualReplyColumn,
+    inSurvivingWing,
     stealsFutureTrigger,
     debt:{
       triggerCell:trigger,
