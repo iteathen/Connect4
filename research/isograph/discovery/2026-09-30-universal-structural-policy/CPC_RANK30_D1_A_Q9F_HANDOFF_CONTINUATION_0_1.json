@@ -1,0 +1,98 @@
+{
+  "schema": "connect4.cpc_rank30_d1_a_q9f_handoff_continuation.v1",
+  "date": "2026-10-01",
+  "sourceEvidence": "CPC_RANK20_FORCED_C3_RANK5_LOCAL_GRAMMAR_PROBE_0_1.json",
+  "q9fEvidence": "CPC_RANK32_Q9F_MONOTONE_PROOF_LIBRARY_CLASSIFICATION_0_1.json",
+  "sourceLeafId": "SECOND_D1_C5_CONTRACTION:A->A",
+  "sourceExactQClass": "d21a89605c399aca",
+  "sequence": "444441566666232222425511515311",
+  "rank": 30,
+  "support": [
+    6,
+    6,
+    2,
+    6,
+    5,
+    5,
+    0
+  ],
+  "rootMove": 3,
+  "rawDefenderReplyCount": 4,
+  "provedReplyCount": 1,
+  "defenderReplies": [
+    {
+      "defenderColumn": 3,
+      "lowerQClass": "9f6b7a33ab7e9552",
+      "rank": 32,
+      "support": [
+        6,
+        6,
+        4,
+        6,
+        5,
+        5,
+        0
+      ],
+      "proved": true,
+      "expression": "Q9F_RCIC",
+      "grammarRank": null,
+      "proofKind": "EXACT_Q9F_HANDOFF",
+      "rootMove": 3,
+      "witness": {
+        "sourceEvidence": "CPC_RANK32_Q9F_MONOTONE_PROOF_LIBRARY_CLASSIFICATION_0_1.json",
+        "classification": "FORCED_BLOCK_ALL_REPLIES_POSITIVE"
+      }
+    },
+    {
+      "defenderColumn": 5,
+      "kind": "NO_QUALIFIED_LOWER_PROOF",
+      "lowerQClass": "0fc9d79484d94df1",
+      "rank": 32,
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        6,
+        5,
+        0
+      ],
+      "proved": false
+    }
+  ],
+  "firstUnresolved": {
+    "defenderColumn": 5,
+    "kind": "NO_QUALIFIED_LOWER_PROOF",
+    "lowerQClass": "0fc9d79484d94df1",
+    "rank": 32,
+    "support": [
+      6,
+      6,
+      3,
+      6,
+      6,
+      5,
+      0
+    ]
+  },
+  "classification": "CONTINUATION_UNRESOLVED",
+  "rank5Expression": null,
+  "q9fSourceEvidenceAccepted": true,
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "ordinaryFreeBranchGameTreeUsed": false,
+  "productionCpcModified": false,
+  "jsMinSysModified": false,
+  "rankGrammarModified": false,
+  "bsfpModified": false,
+  "conclusion": [
+    "The previously qualified q9f result is admitted only as an exact semantic-q proof-library handoff.",
+    "The original rank-1/rank-3/rank-5 grammar is otherwise unchanged and the defender-reply loop resumes from the beginning in deterministic order.",
+    "The q9f c3 defender reply now closes, but a later defender reply remains outside the bounded proof library; that exact child is preserved as the next obstruction."
+  ],
+  "boundary": [
+    "No solved W/D/L, oracle, minimax, unrestricted free-branch value search, best-move table, BSFP solved value, support-only identity shortcut, or sealed holdout is used.",
+    "Production CPC, JSMinSys, the rank-1/rank-3/rank-5 grammar, and BSFP remain unchanged.",
+    "The q9f handoff is admitted only by exact semantic identity to an independently qualified constructive certificate."
+  ]
+}
