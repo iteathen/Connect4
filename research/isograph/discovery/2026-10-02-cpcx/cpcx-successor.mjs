@@ -18,6 +18,7 @@ import {
   deriveCpcxVerticalOpponentSingletonEnvelope,
 } from './cpcx-two-stage.mjs';
 import {analyzeCpcxMacroUncertainty} from './cpcx-capacity.mjs';
+import {collapseCpcxDisjunctiveBlockObligation} from './cpcx-cpc2.mjs';
 
 function appendMoves(position,events){
   const out=new Uint32Array(position.moves.length+events.length);
@@ -259,6 +260,19 @@ export function composeCpcxForcingMacro(position,progress){
   throw new TypeError('unsupported CPCX forcing macro');
 }
 
+export function composeCpcxDisjunctiveBlockObligation(position,progress){
+  if(progress?.kind!=='DISJUNCTIVE_BLOCK_OBLIGATION'||!progress.exact)
+    throw new TypeError('exact disjunctive block obligation required');
+  const successor=collapseCpcxDisjunctiveBlockObligation(
+    position,
+    progress.obligation??progress
+  );
+  if(!successor.exact)return successor;
+  if(successor.rank?.deltaOptions?.some(x=>x!==1))
+    throw new Error('disjunctive current-rank obligation must consume exactly one event');
+  return successor;
+}
+
 export function composeCpcxForcedNormalization(position,progress){
   if(progress?.kind!=='FORCED_NORMALIZATION'||!progress.exact)
     throw new TypeError('forced normalization required');
@@ -419,6 +433,22 @@ export function runCpcxFirstWinCertificate(position,{
       const delta=Math.min(...current.rank.deltaOptions);
       if(delta<1)throw new Error('non-progressing CPCX macro');
       consumed+=delta;
+      continue;
+    }
+
+    if(progress.kind==='DISJUNCTIVE_BLOCK_OBLIGATION'){
+      if(!concrete)throw new Error('abstract disjunctive obligation must be collapsed before iteration');
+      current=composeCpcxDisjunctiveBlockObligation(concrete,progress);
+      if(!current.exact)return {
+        schema:'connect4.cpcx.first-win-certificate.v0_1',
+        kind:'NO_CERTIFICATE',
+        exact:false,
+        requestedAttacker:attacker,
+        seam:current.seam??'CPC2_ABSTRACT_SUCCESSOR_UNRESOLVED',
+        trace,
+        recursive:false,
+      };
+      consumed+=1;
       continue;
     }
 
