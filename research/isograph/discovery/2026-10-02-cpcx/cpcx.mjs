@@ -5,7 +5,7 @@
 // - standard finite-gravity Connect-K geometry, with CPCX v0.1 bounded to
 //   obligations containing at most four missing cells;
 // - constructs current rank-local obligation/residual structure only;
-// - no recursive game traversal, minimax/negamax, solved values or oracle data.
+// - no recursive game traversal, solved values, or external solved-data inputs.
 //
 // Research direction / structural architecture / invariant-first program: Josh Oshiro.
 // Prototype formalization / implementation: OpenAI ChatGPT.
