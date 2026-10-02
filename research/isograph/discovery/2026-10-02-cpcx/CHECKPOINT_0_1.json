@@ -1,0 +1,99 @@
+{
+  "schema": "connect4.cpcx.checkpoint.v0_1",
+  "date": "2026-10-02",
+  "branch": "experiment/cpcx-20261002",
+  "durableResearchOwner": "research/semantic-quotient",
+  "verifiedSourceCommit": "c7ad412d3953a6e2d68569f0ce81c2a22ea58af5",
+  "status": "PROTOTYPE_KERNEL_VERIFIED",
+  "productionCpcModified": false,
+  "scope": {
+    "maxMissing": 4,
+    "recursiveGameTraversal": false,
+    "solvedValues": false,
+    "oracle": false,
+    "wdlClaims": false
+  },
+  "verification": {
+    "standard7x6WinningLines": 69,
+    "emptyBoardObligations": 138,
+    "emptyBoardFourPieceObligations": 138,
+    "position44444": {
+      "p0Focus": [
+        {
+          "line": "D1-E1-F1-G1",
+          "missing": 3
+        },
+        {
+          "line": "D3-E3-F3-G3",
+          "missing": 3
+        },
+        {
+          "line": "D5-E4-F3-G2",
+          "missing": 3
+        },
+        {
+          "line": "D6-E5-F4-G3",
+          "missing": 4
+        }
+      ],
+      "columnProfiles": [
+        [
+          0,
+          6,
+          3,
+          0
+        ],
+        [
+          0,
+          6,
+          3,
+          0
+        ],
+        [
+          0,
+          6,
+          3,
+          0
+        ],
+        [
+          5,
+          1,
+          0,
+          1
+        ],
+        [
+          0,
+          6,
+          3,
+          0
+        ],
+        [
+          0,
+          6,
+          3,
+          0
+        ],
+        [
+          0,
+          6,
+          3,
+          0
+        ]
+      ]
+    },
+    "tripleObligationDag": {
+      "nodes": 7,
+      "ownerEdges": 12,
+      "defenderEdges": 12
+    },
+    "maxFourPieceResidualStatesPerLiveLine": 15,
+    "maxTwoPlayerResidualStatesAcross69Lines": 2070
+  },
+  "next": [
+    "Add exact certification state separate from advisory zero-reservation projection.",
+    "Compose certified singleton events into lower-cardinality obligations without board recursion.",
+    "Add response-capacity/deadline relation for pair/triple/quad obligations.",
+    "Add explicit column-boundary debt transport operator.",
+    "Use 44444 only as a validation fixture after generic rules are stated."
+  ]
+}
