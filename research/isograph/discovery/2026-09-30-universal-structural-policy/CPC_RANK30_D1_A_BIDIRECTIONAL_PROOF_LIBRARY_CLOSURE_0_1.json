@@ -1,0 +1,365 @@
+{
+  "schema": "connect4.cpc_rank30_d1_a_bidirectional_proof_library_closure.v1",
+  "date": "2026-10-01",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "sourceLeafId": "SECOND_D1_C5_CONTRACTION:A->A",
+  "sourceExactQClass": "d21a89605c399aca",
+  "sequence": "444441566666232222425511515311",
+  "rank": 30,
+  "support": [
+    6,
+    6,
+    2,
+    6,
+    5,
+    5,
+    0
+  ],
+  "previouslyEliminatedRootMoves": [
+    5,
+    6,
+    7
+  ],
+  "rootMove": 3,
+  "children": [
+    {
+      "defenderColumn": 3,
+      "sequence": "44444156666623222242551151531133",
+      "exactQClass": "9f6b7a33ab7e9552",
+      "rank": 32,
+      "support": [
+        6,
+        6,
+        4,
+        6,
+        5,
+        5,
+        0
+      ],
+      "exactBridge": {
+        "pass": true,
+        "checks": {
+          "rank": true,
+          "mover": true,
+          "support": true,
+          "p0Residuals": true,
+          "p1Residuals": true
+        },
+        "semanticQClass": "9f6b7a33ab7e9552"
+      },
+      "positiveCertificates": [
+        {
+          "kind": "EXACT_Q9F_HANDOFF",
+          "sourceEvidence": "CPC_RANK32_Q9F_MONOTONE_PROOF_LIBRARY_CLASSIFICATION_0_1.json",
+          "classification": "FORCED_BLOCK_ALL_REPLIES_POSITIVE"
+        },
+        {
+          "kind": "DIRECT_TARGET_RESERVOIR_RCIC",
+          "p0Column": 3,
+          "target": {
+            "cell": 20,
+            "column": 7,
+            "row": 3,
+            "projectedOwner": 1,
+            "supportDistance": 2
+          },
+          "validation": {
+            "pass": true,
+            "defenderNodes": 13,
+            "responsePairs": 22,
+            "maxPairDepth": 3,
+            "p1Terminals": 0,
+            "targetTerminals": 10,
+            "failures": []
+          }
+        }
+      ],
+      "repairAudit": {
+        "targets": [],
+        "stats": {
+          "proofStates": 0,
+          "candidateActionsChecked": 0,
+          "p1BranchesChecked": 0,
+          "maxDepth": 0,
+          "memoEntries": 0,
+          "certifiedStateTargetPairs": 0
+        },
+        "resourceFailure": null
+      },
+      "lossCertificate": {
+        "loss": false,
+        "kind": "FORCED_BLOCK_HAS_NO_CERTIFIED_LOSING_REPLY",
+        "proofCompleted": true,
+        "compactProof": {
+          "loss": false,
+          "kind": "FORCED_BLOCK_HAS_NO_CERTIFIED_LOSING_REPLY",
+          "obligation": "C5",
+          "obligations": null,
+          "forcedColumn": "C",
+          "adversarialReply": null,
+          "replyCell": null,
+          "escapeAction": null,
+          "escapeReason": null,
+          "child": null
+        },
+        "resourceFailure": null,
+        "stats": {
+          "nodes": 5,
+          "maxDepth": 1,
+          "multiDefects": 0,
+          "forcedNodes": 1,
+          "terminalWitnesses": 0,
+          "childLossWitnesses": 0,
+          "zeroObligationNodes": 4
+        },
+        "rootObligations": [
+          "C5"
+        ]
+      },
+      "disposition": "P0_WIN"
+    },
+    {
+      "defenderColumn": 5,
+      "sequence": "44444156666623222242551151531135",
+      "exactQClass": "0fc9d79484d94df1",
+      "rank": 32,
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        6,
+        5,
+        0
+      ],
+      "exactBridge": {
+        "pass": true,
+        "checks": {
+          "rank": true,
+          "mover": true,
+          "support": true,
+          "p0Residuals": true,
+          "p1Residuals": true
+        },
+        "semanticQClass": "0fc9d79484d94df1"
+      },
+      "positiveCertificates": [],
+      "repairAudit": {
+        "targets": [],
+        "stats": {
+          "proofStates": 0,
+          "candidateActionsChecked": 0,
+          "p1BranchesChecked": 0,
+          "maxDepth": 0,
+          "memoEntries": 0,
+          "certifiedStateTargetPairs": 0
+        },
+        "resourceFailure": null
+      },
+      "lossCertificate": {
+        "loss": false,
+        "kind": "NO_ENABLED_P1_OBLIGATION",
+        "proofCompleted": true,
+        "compactProof": {
+          "loss": false,
+          "kind": "NO_ENABLED_P1_OBLIGATION",
+          "obligation": null,
+          "obligations": null,
+          "forcedColumn": null,
+          "adversarialReply": null,
+          "replyCell": null,
+          "escapeAction": null,
+          "escapeReason": null,
+          "child": null
+        },
+        "resourceFailure": null,
+        "stats": {
+          "nodes": 1,
+          "maxDepth": 0,
+          "multiDefects": 0,
+          "forcedNodes": 0,
+          "terminalWitnesses": 0,
+          "childLossWitnesses": 0,
+          "zeroObligationNodes": 1
+        },
+        "rootObligations": []
+      },
+      "disposition": "UNKNOWN"
+    },
+    {
+      "defenderColumn": 6,
+      "sequence": "44444156666623222242551151531136",
+      "exactQClass": "9326596be55ae15a",
+      "rank": 32,
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        5,
+        6,
+        0
+      ],
+      "exactBridge": {
+        "pass": true,
+        "checks": {
+          "rank": true,
+          "mover": true,
+          "support": true,
+          "p0Residuals": true,
+          "p1Residuals": true
+        },
+        "semanticQClass": "9326596be55ae15a"
+      },
+      "positiveCertificates": [],
+      "repairAudit": {
+        "targets": [],
+        "stats": {
+          "proofStates": 0,
+          "candidateActionsChecked": 0,
+          "p1BranchesChecked": 0,
+          "maxDepth": 0,
+          "memoEntries": 0,
+          "certifiedStateTargetPairs": 0
+        },
+        "resourceFailure": null
+      },
+      "lossCertificate": {
+        "loss": false,
+        "kind": "NO_ENABLED_P1_OBLIGATION",
+        "proofCompleted": true,
+        "compactProof": {
+          "loss": false,
+          "kind": "NO_ENABLED_P1_OBLIGATION",
+          "obligation": null,
+          "obligations": null,
+          "forcedColumn": null,
+          "adversarialReply": null,
+          "replyCell": null,
+          "escapeAction": null,
+          "escapeReason": null,
+          "child": null
+        },
+        "resourceFailure": null,
+        "stats": {
+          "nodes": 1,
+          "maxDepth": 0,
+          "multiDefects": 0,
+          "forcedNodes": 0,
+          "terminalWitnesses": 0,
+          "childLossWitnesses": 0,
+          "zeroObligationNodes": 1
+        },
+        "rootObligations": []
+      },
+      "disposition": "UNKNOWN"
+    },
+    {
+      "defenderColumn": 7,
+      "sequence": "44444156666623222242551151531137",
+      "exactQClass": "966e6353e06e4d41",
+      "rank": 32,
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        5,
+        5,
+        1
+      ],
+      "exactBridge": {
+        "pass": true,
+        "checks": {
+          "rank": true,
+          "mover": true,
+          "support": true,
+          "p0Residuals": true,
+          "p1Residuals": true
+        },
+        "semanticQClass": "966e6353e06e4d41"
+      },
+      "positiveCertificates": [],
+      "repairAudit": {
+        "targets": [
+          "G3"
+        ],
+        "stats": {
+          "proofStates": 3,
+          "candidateActionsChecked": 4,
+          "p1BranchesChecked": 4,
+          "maxDepth": 1,
+          "memoEntries": 3,
+          "certifiedStateTargetPairs": 0
+        },
+        "resourceFailure": null
+      },
+      "lossCertificate": {
+        "loss": false,
+        "kind": "NO_ENABLED_P1_OBLIGATION",
+        "proofCompleted": true,
+        "compactProof": {
+          "loss": false,
+          "kind": "NO_ENABLED_P1_OBLIGATION",
+          "obligation": null,
+          "obligations": null,
+          "forcedColumn": null,
+          "adversarialReply": null,
+          "replyCell": null,
+          "escapeAction": null,
+          "escapeReason": null,
+          "child": null
+        },
+        "resourceFailure": null,
+        "stats": {
+          "nodes": 1,
+          "maxDepth": 0,
+          "multiDefects": 0,
+          "forcedNodes": 0,
+          "terminalWitnesses": 0,
+          "childLossWitnesses": 0,
+          "zeroObligationNodes": 1
+        },
+        "rootObligations": []
+      },
+      "disposition": "UNKNOWN"
+    }
+  ],
+  "rootMoveDisposition": "UNRESOLVED",
+  "leafDisposition": "UNKNOWN",
+  "summary": {
+    "childCount": 4,
+    "dispositionCounts": {
+      "P0_WIN": 1,
+      "P0_LOSS": 0,
+      "UNKNOWN": 3
+    },
+    "positiveRouteCounts": {
+      "EXACT_Q9F_HANDOFF": 1,
+      "DIRECT_TARGET_RESERVOIR_RCIC": 1
+    },
+    "lossCertifiedChildCount": 0,
+    "unknownChildCount": 3,
+    "resourceFailureCount": 0
+  },
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "ordinaryFreeBranchGameTreeUsed": false,
+  "productionCpcModified": false,
+  "jsMinSysModified": false,
+  "legacyRepairModified": false,
+  "rcicModified": false,
+  "forcedLossModified": false,
+  "bsfpModified": false,
+  "conclusion": [
+    "The rank-30 c3 root move is re-evaluated against the currently qualified proof library in both directions rather than against RCIC alone.",
+    "Positive routing includes exact q9f reuse, bounded rank-1/rank-3 grammar, legacy repair-capacity induction, and generic target-reservoir/forced-contraction RCIC routes.",
+    "Negative routing uses the unchanged forced-obligation loss architecture; unknown is never treated as loss.",
+    "At least one defender child remains outside both qualified positive and negative libraries; the exact child is preserved as the next obstruction."
+  ],
+  "boundary": [
+    "No solved W/D/L, oracle, minimax, unrestricted free-branch game-tree search, best-move table, opening book, BSFP solved frontier, support-only identity shortcut, or sealed holdout is used.",
+    "The legacy latent-contract backward composition is rank-20-domain-specific; its reusable induction component is the legacy repair-capacity engine queried here.",
+    "Production CPC, JSMinSys, legacy repair semantics, RCIC semantics, forced-obligation loss semantics, and BSFP remain unchanged."
+  ]
+}
