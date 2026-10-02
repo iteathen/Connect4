@@ -407,16 +407,14 @@ returns `NO_CERTIFICATE`.
 For the advancing abstract carriers, CPCX currently stops at:
 
 ```text
-ABSTRACT_OPPONENT_SINGLETON_ENVELOPE_MISSING
+NO_EXACT_ABSTRACT_MACRO
 ```
 
-The carrier has guaranteed P0 residuals and bounded support-only defender tokens,
-but it does not yet retain a complete envelope of possible opponent singleton
-obligations after the collapsed macro. Without that envelope CPCX cannot safely
-decide whether immediate normalization is required before selecting another
-attacking macro.
+The carrier now retains an exact opponent-singleton envelope; on the primary first-deviation class that envelope is closed (`possibleCells=[]`), so immediate normalization is no longer the obstruction.
 
-This is the current primary structural seam. It is not a W/D/L seam.
+The current primary seam is later: after normalization and vertical macro collapse, the guaranteed residual intersection does not instantiate any existing exact abstract CPCX macro (no guaranteed playable two-piece, pair-hub fork, or other implemented forcing primitive). CPCX therefore returns `NO_EXACT_ABSTRACT_MACRO`.
+
+This is a missing abstract progress theorem, not a W/D/L seam.
 
 ## Set-class response handling
 
