@@ -1,0 +1,65 @@
+name: Research CPC q5d34 three-action forced-safety census
+
+concurrency:
+  group: cpc-q5d34-forced-safety-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  push:
+    branches: [research/universal-structural-policy-20260930]
+    paths:
+      - .github/workflows/research-cpc-q5d34-three-action-forced-safety-census.yml
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_Q5D34_THREE_ACTION_FORCED_SAFETY_CENSUS_DESIGN_0_1.md
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/test-cpc-q5d34-three-action-forced-safety-census.mjs
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/run-cpc-q5d34-three-action-forced-safety-census.mjs
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_Q966_G_BRANCH_FORCED_SAFETY_0_1.json
+      - research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_Q5D34_MONOTONE_PROOF_LIBRARY_AUDIT_0_1.json
+
+permissions:
+  contents: write
+
+jobs:
+  census:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with: {fetch-depth: 0}
+      - name: Check out pinned JSMinSys authority
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: iteathen/JSMinSys
+          ref: bf23d3a67652cd42e1975f29c7dc4eed54f7eb42
+          path: .jsminsys
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with: {node-version: 26.7.0}
+      - name: Verify frozen q5d34 forced-safety contract
+        run: node research/isograph/discovery/2026-09-30-universal-structural-policy/test-cpc-q5d34-three-action-forced-safety-census.mjs "$GITHUB_WORKSPACE/.jsminsys"
+      - name: Generate durable q5d34 forced-safety evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          DIR=research/isograph/discovery/2026-09-30-universal-structural-policy
+          OUT="$DIR/CPC_Q5D34_THREE_ACTION_FORCED_SAFETY_CENSUS_0_1.json"
+          node "$DIR/run-cpc-q5d34-three-action-forced-safety-census.mjs" "$GITHUB_WORKSPACE/.jsminsys" > "$OUT"
+          node - "$OUT" <<'NODE'
+          const fs=require('fs');const r=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
+          console.log(JSON.stringify({
+            classification:r.classification,
+            children:r.children.map(x=>({p0Action:x.p0Action,q:x.startQ,classification:x.classification,forced:x.forcedSequence})),
+            winningActions:r.winningActions
+          }));
+          NODE
+      - name: Commit durable q5d34 forced-safety evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          BRANCH=research/universal-structural-policy-20260930
+          FILE=research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_Q5D34_THREE_ACTION_FORCED_SAFETY_CENSUS_0_1.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$FILE"
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "research: record q5d34 forced-safety census"
+          git pull --rebase origin "$BRANCH"
+          git push origin HEAD:"$BRANCH"
