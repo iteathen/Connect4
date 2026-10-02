@@ -134,6 +134,17 @@ export const RLC_PROOF_LIBRARY_FAMILIES=freeze([
     'research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_THREE_COLUMN_PHASE_TRANSFER_WIN_0_1.json',
   ],'RLC_RCIC',{subroute:'THREE_COLUMN_PHASE_TRANSFER'}),
 
+  q('THREE_PLUS_ONE_DEFERRED_SINGLETON_TAIL_DRAW','3+1 deferred-singleton tail exact-draw theorem',[
+    'research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_3PLUS1_DEFERRED_SINGLETON_TAIL_NONWIN_THEOREM.md',
+    'research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_3PLUS1_DEFERRED_SINGLETON_TAIL_QUALIFICATION_0_1.json',
+    'research/isograph/discovery/2026-09-30-universal-structural-policy/rlc-3plus1-deferred-singleton-tail-adapter.mjs',
+  ],{
+    kind:'EXACT_STRUCTURAL_INTERVAL',
+    export:'classifyThreePlusOneDeferredSingletonTail',
+    interval:[0,0],
+    exactStateIdentityRequired:true,
+  }),
+
   s('TRIGGER5_FORCED_COMPRESSION','Trigger-5 forced compression progress edge',[
     'research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_TRIGGER5_FORCED_COMPRESSION_LEMMA.md',
     'research/isograph/discovery/2026-09-30-universal-structural-policy/CPC_TRIGGER5_FORCED_COMPRESSION_0_1.json',
