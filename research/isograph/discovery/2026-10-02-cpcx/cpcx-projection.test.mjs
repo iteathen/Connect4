@@ -113,10 +113,26 @@ test('universal first-deviation repair passes first-win guard for every sixth mo
       d=deriveCpcxUniversalDebtRepair(p,c,{decisionIndex:0});
     assert.equal(d.choiceEnumeration,false,String(column+1));
     assert.equal(d.firstWinGuardPassed,true,String(column+1));
+    assert.equal(d.postRepairFirstWinGuardPassed,true,String(column+1));
+    assert.equal(d.postRepairTerminalRisks.length,0,String(column+1));
     assert.equal(d.repairLegalAtDecision,true,String(column+1));
     assert.equal(d.terminalDeviationCells.length,0,String(column+1));
     assert.ok(d.guaranteedResiduals.filter(x=>x.missingCount===2).length>=2,String(column+1));
     assert.equal(d.forcingCertified,false,String(column+1));
+  }
+});
+
+test('second wing response deviation also reduces to deterministic repair plus surviving pair residuals',()=>{
+  const p=buildCpcxPosition('44444',{geometry:g});
+  for(let column=0;column<7;column++){
+    const cell=p.heights[column]*g.columns+column,
+      c=compileCpcxPostActionWingAttack(p,{actionCell:cell,actionOwner:1,attacker:0}),
+      d=deriveCpcxUniversalDebtRepair(p,c,{decisionIndex:1});
+    assert.equal(d.choiceEnumeration,false,String(column+1));
+    assert.equal(d.firstWinGuardPassed,true,String(column+1));
+    assert.equal(d.postRepairFirstWinGuardPassed,true,String(column+1));
+    assert.equal(d.repairLegalAtDecision,true,String(column+1));
+    assert.ok(d.guaranteedResiduals.filter(x=>x.missingCount===2).length>=1,String(column+1));
   }
 });
 
