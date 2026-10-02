@@ -331,6 +331,128 @@ function currentPositiveLibrary(k,semState,jsState,sequence){
 
 
 
+const FORCED_LOSS_NODE_CAP=100000;
+function compactLossProof(p,depth=0){
+  if(!p)return null;
+  if(depth>8)return {kind:'DEPTH_TRUNCATED'};
+  return {
+    loss:p.loss,kind:p.kind,obligation:p.obligation??null,obligations:p.obligations??null,
+    forcedColumn:p.forcedColumn??null,adversarialReply:p.adversarialReply??null,
+    replyCell:p.replyCell??null,escapeAction:p.escapeAction??null,escapeReason:p.escapeReason??null,
+    child:p.child?compactLossProof(p.child,depth+1):null
+  };
+}
+function forcedLossAudit(k,start){
+  const e=createRepairCapacityProofEngine(k,{maxProofStates:1});
+  const memo=new Map();
+  const stats={nodes:0,maxDepth:0,multiDefects:0,forcedNodes:0,terminalWitnesses:0,childLossWitnesses:0,zeroObligationNodes:0};
+  function key(state){return qClass(k,state);}
+  function prove(state,depth=0){
+    if(stats.nodes>=FORCED_LOSS_NODE_CAP)throw new Error('forced-obligation node cap exceeded '+FORCED_LOSS_NODE_CAP);
+    assert.equal(semRank(k,state)&1,0,'forced-loss node must be P0 turn');
+    const q=key(state);
+    if(memo.has(q))return memo.get(q);
+    stats.nodes++;stats.maxDepth=Math.max(stats.maxDepth,depth);
+
+    const p0Terminals=e.terminalActions(state,0);
+    if(p0Terminals.length){
+      const out={loss:false,kind:'P0_TERMINAL_AVAILABLE',terminalActions:p0Terminals.map(x=>e.col(x.column))};
+      memo.set(q,out);return out;
+    }
+
+    const obligations=[...new Set(e.enabledSingletons(state,1))];
+    if(obligations.length===0){
+      stats.zeroObligationNodes++;
+      const out={loss:false,kind:'NO_ENABLED_P1_OBLIGATION'};
+      memo.set(q,out);return out;
+    }
+
+    if(obligations.length>=2){
+      const actions=[];
+      for(const action of e.legal(state)){
+        const actionCell=e.landing(state,action),afterP0=k.advance(state,action);
+        if(afterP0===domain.QN_TERMINAL_WIN){
+          const out={loss:false,kind:'MULTI_OBLIGATION_P0_TERMINAL_ESCAPE',obligations:obligations.map(e.coord),escapeAction:e.col(action),escapeReason:'P0_terminal'};
+          memo.set(q,out);return out;
+        }
+        assert(afterP0>=0);
+        const terminals=e.terminalActions(afterP0,1);
+        actions.push({action:e.col(action),actionCell:e.coord(actionCell),p1TerminalCells:terminals.map(x=>e.coord(x.cell))});
+        if(terminals.length===0){
+          const out={loss:false,kind:'MULTI_OBLIGATION_ESCAPE',obligations:obligations.map(e.coord),escapeAction:e.col(action),escapeReason:'no_immediate_P1_terminal',actions};
+          memo.set(q,out);return out;
+        }
+      }
+      stats.multiDefects++;
+      const out={loss:true,kind:'MULTI_OBLIGATION_CAPACITY_DEFECT',obligations:obligations.map(e.coord),actions};
+      memo.set(q,out);return out;
+    }
+
+    stats.forcedNodes++;
+    const threat=obligations[0],forcedColumn=threat%7;
+    if(e.landing(state,forcedColumn)!==threat){
+      const out={loss:false,kind:'SINGLETON_NOT_PLAYABLE_OBLIGATION',obligation:e.coord(threat)};
+      memo.set(q,out);return out;
+    }
+
+    const nonblocking=[];
+    for(const action of e.legal(state)){
+      if(action===forcedColumn)continue;
+      const afterP0=k.advance(state,action);
+      if(afterP0===domain.QN_TERMINAL_WIN){
+        const out={loss:false,kind:'SINGLE_OBLIGATION_P0_TERMINAL_ESCAPE',obligation:e.coord(threat),escapeAction:e.col(action),escapeReason:'P0_terminal'};
+        memo.set(q,out);return out;
+      }
+      assert(afterP0>=0);
+      const terminals=e.terminalActions(afterP0,1);
+      nonblocking.push({action:e.col(action),p1TerminalCells:terminals.map(x=>e.coord(x.cell))});
+      if(terminals.length===0){
+        const out={loss:false,kind:'SINGLETON_NOT_FORCED',obligation:e.coord(threat),escapeAction:e.col(action),escapeReason:'nonblocking_action_without_P1_terminal',nonblocking};
+        memo.set(q,out);return out;
+      }
+    }
+
+    const afterBlock=k.advance(state,forcedColumn);
+    if(afterBlock===domain.QN_TERMINAL_WIN){
+      const out={loss:false,kind:'FORCED_BLOCK_IS_P0_TERMINAL',obligation:e.coord(threat),forcedColumn:e.col(forcedColumn),nonblocking};
+      memo.set(q,out);return out;
+    }
+    assert(afterBlock>=0);
+
+    const replyRows=[];
+    for(const reply of e.legal(afterBlock)){
+      const replyCell=e.landing(afterBlock,reply),child=k.advance(afterBlock,reply);
+      if(child===domain.QN_TERMINAL_WIN){
+        stats.terminalWitnesses++;
+        const out={loss:true,kind:'FORCED_BLOCK_THEN_P1_TERMINAL',obligation:e.coord(threat),forcedColumn:e.col(forcedColumn),adversarialReply:e.col(reply),replyCell:e.coord(replyCell),nonblocking};
+        memo.set(q,out);return out;
+      }
+      assert(child>=0);
+      if(e.terminalActions(child,0).length){
+        replyRows.push({reply:e.col(reply),result:'P0_terminal_available'});
+        continue;
+      }
+      const sub=prove(child,depth+1);
+      replyRows.push({reply:e.col(reply),result:sub.loss?'child_loss':'unknown',childKind:sub.kind});
+      if(sub.loss){
+        stats.childLossWitnesses++;
+        const out={loss:true,kind:'FORCED_BLOCK_THEN_CHILD_LOSS',obligation:e.coord(threat),forcedColumn:e.col(forcedColumn),adversarialReply:e.col(reply),replyCell:e.coord(replyCell),child:sub,nonblocking,replyRows};
+        memo.set(q,out);return out;
+      }
+    }
+    const out={loss:false,kind:'FORCED_BLOCK_HAS_NO_CERTIFIED_LOSING_REPLY',obligation:e.coord(threat),forcedColumn:e.col(forcedColumn),nonblocking,replyRows};
+    memo.set(q,out);return out;
+  }
+
+  try{
+    const proof=prove(start,0);
+    return {proofCompleted:true,loss:proof.loss===true,kind:proof.kind,compactProof:compactLossProof(proof),resourceFailure:null,stats};
+  }catch(error){
+    return {proofCompleted:false,loss:false,kind:'RESOURCE_FAILURE',compactProof:null,resourceFailure:{message:String(error?.message??error)},stats};
+  }
+}
+
+
 const source=JSON.parse(readFileSync(resolve(import.meta.dirname,SOURCE),'utf8'));
 assert.equal(source.schema,'connect4.cpc_q5d34_three_safe_action_consequence_closure.v1');
 assert.equal(source.sourceQ,TARGET_Q);
