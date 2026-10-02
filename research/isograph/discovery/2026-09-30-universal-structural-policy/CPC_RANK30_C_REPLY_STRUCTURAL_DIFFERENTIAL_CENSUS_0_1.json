@@ -1,0 +1,6619 @@
+{
+  "schema": "connect4.cpc_rank30_c_reply_structural_differential_census.v1",
+  "date": "2026-10-01",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "design": "CPC_RANK30_C_REPLY_STRUCTURAL_DIFFERENTIAL_CENSUS_DESIGN_0_1.md",
+  "sourceEvidence": "CPC_RANK28_D1_PARENT_MONOTONE_NONWIN_AUDIT_0_1.json",
+  "states": [
+    {
+      "exactQClass": "1e8601e86599ef24",
+      "sequence": "444441566666232222425511515331",
+      "rank": 30,
+      "support": [
+        5,
+        6,
+        3,
+        6,
+        5,
+        5,
+        0
+      ],
+      "sourceDefenderColumn": 1,
+      "sourceDisposition": "UNKNOWN",
+      "sourceInterval": {
+        "lower": -1,
+        "upper": 1
+      },
+      "exactBridge": {
+        "pass": true,
+        "checks": {
+          "rank": true,
+          "support": true,
+          "p0Residuals": true,
+          "p1Residuals": true
+        },
+        "semanticQClass": "1e8601e86599ef24"
+      },
+      "eventProduct": {
+        "E": {
+          "support": [
+            5,
+            6,
+            3,
+            6,
+            5,
+            5,
+            0
+          ],
+          "remainingCapacity": [
+            1,
+            0,
+            3,
+            0,
+            1,
+            1,
+            6
+          ],
+          "capacityParity": [
+            1,
+            0,
+            1,
+            0,
+            1,
+            1,
+            0
+          ],
+          "widthDerivative": [
+            1,
+            3,
+            3,
+            1,
+            0,
+            5
+          ],
+          "frontierCells": [
+            {
+              "cell": 35,
+              "column": 1,
+              "row": 6,
+              "supportDepth": 0,
+              "frontierAttached": true,
+              "projectedOwner": 2,
+              "targetSupportDistance": 0
+            },
+            {
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "supportDepth": 0,
+              "frontierAttached": true,
+              "projectedOwner": 2,
+              "targetSupportDistance": 0
+            },
+            {
+              "cell": 39,
+              "column": 5,
+              "row": 6,
+              "supportDepth": 0,
+              "frontierAttached": true,
+              "projectedOwner": 2,
+              "targetSupportDistance": 0
+            },
+            {
+              "cell": 40,
+              "column": 6,
+              "row": 6,
+              "supportDepth": 0,
+              "frontierAttached": true,
+              "projectedOwner": 2,
+              "targetSupportDistance": 0
+            },
+            {
+              "cell": 6,
+              "column": 7,
+              "row": 1,
+              "supportDepth": 0,
+              "frontierAttached": true,
+              "projectedOwner": 1,
+              "targetSupportDistance": 0
+            }
+          ]
+        },
+        "P": {
+          "mover": "P0",
+          "rank": 30,
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_RESTRICT",
+              "forcedColumn": 1,
+              "preemptionCount": 1
+            },
+            "frontier": {
+              "kind": "CPC_RESTRICT",
+              "forcedColumn": 1,
+              "preemptionCount": 1
+            }
+          }
+        },
+        "R": {
+          "P0": [
+            {
+              "diagnosticId": 20,
+              "size": 1,
+              "key": "20",
+              "cells": [
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "supportDepth": 2,
+                  "frontierAttached": false,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 2
+                }
+              ]
+            },
+            {
+              "diagnosticId": 515,
+              "size": 3,
+              "key": "23,30,37",
+              "cells": [
+                {
+                  "cell": 23,
+                  "column": 3,
+                  "row": 4,
+                  "supportDepth": 0,
+                  "frontierAttached": true,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 0
+                },
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5,
+                  "supportDepth": 1,
+                  "frontierAttached": false,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 1
+                },
+                {
+                  "cell": 37,
+                  "column": 3,
+                  "row": 6,
+                  "supportDepth": 2,
+                  "frontierAttached": false,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 2
+                }
+              ]
+            },
+            {
+              "diagnosticId": 551,
+              "size": 3,
+              "key": "37,39,40",
+              "cells": [
+                {
+                  "cell": 37,
+                  "column": 3,
+                  "row": 6,
+                  "supportDepth": 2,
+                  "frontierAttached": false,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 2
+                },
+                {
+                  "cell": 39,
+                  "column": 5,
+                  "row": 6,
+                  "supportDepth": 0,
+                  "frontierAttached": true,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 0
+                },
+                {
+                  "cell": 40,
+                  "column": 6,
+                  "row": 6,
+                  "supportDepth": 0,
+                  "frontierAttached": true,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 0
+                }
+              ]
+            },
+            {
+              "diagnosticId": 555,
+              "size": 3,
+              "key": "39,40,41",
+              "cells": [
+                {
+                  "cell": 39,
+                  "column": 5,
+                  "row": 6,
+                  "supportDepth": 0,
+                  "frontierAttached": true,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 0
+                },
+                {
+                  "cell": 40,
+                  "column": 6,
+                  "row": 6,
+                  "supportDepth": 0,
+                  "frontierAttached": true,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 0
+                },
+                {
+                  "cell": 41,
+                  "column": 7,
+                  "row": 6,
+                  "supportDepth": 5,
+                  "frontierAttached": false,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 5
+                }
+              ]
+            }
+          ],
+          "P1": [
+            {
+              "diagnosticId": 30,
+              "size": 1,
+              "key": "30",
+              "cells": [
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5,
+                  "supportDepth": 1,
+                  "frontierAttached": false,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 1
+                }
+              ]
+            },
+            {
+              "diagnosticId": 35,
+              "size": 1,
+              "key": "35",
+              "cells": [
+                {
+                  "cell": 35,
+                  "column": 1,
+                  "row": 6,
+                  "supportDepth": 0,
+                  "frontierAttached": true,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 0
+                }
+              ]
+            },
+            {
+              "diagnosticId": 593,
+              "size": 4,
+              "key": "13,20,27,34",
+              "cells": [
+                {
+                  "cell": 13,
+                  "column": 7,
+                  "row": 2,
+                  "supportDepth": 1,
+                  "frontierAttached": false,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 1
+                },
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "supportDepth": 2,
+                  "frontierAttached": false,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 2
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "supportDepth": 3,
+                  "frontierAttached": false,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 3
+                },
+                {
+                  "cell": 34,
+                  "column": 7,
+                  "row": 5,
+                  "supportDepth": 4,
+                  "frontierAttached": false,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 4
+                }
+              ]
+            },
+            {
+              "diagnosticId": 612,
+              "size": 4,
+              "key": "20,27,34,41",
+              "cells": [
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "supportDepth": 2,
+                  "frontierAttached": false,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 2
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "supportDepth": 3,
+                  "frontierAttached": false,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 3
+                },
+                {
+                  "cell": 34,
+                  "column": 7,
+                  "row": 5,
+                  "supportDepth": 4,
+                  "frontierAttached": false,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 4
+                },
+                {
+                  "cell": 41,
+                  "column": 7,
+                  "row": 6,
+                  "supportDepth": 5,
+                  "frontierAttached": false,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 5
+                }
+              ]
+            },
+            {
+              "diagnosticId": 574,
+              "size": 4,
+              "key": "6,13,20,27",
+              "cells": [
+                {
+                  "cell": 6,
+                  "column": 7,
+                  "row": 1,
+                  "supportDepth": 0,
+                  "frontierAttached": true,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 0
+                },
+                {
+                  "cell": 13,
+                  "column": 7,
+                  "row": 2,
+                  "supportDepth": 1,
+                  "frontierAttached": false,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 1
+                },
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "supportDepth": 2,
+                  "frontierAttached": false,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 2
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "supportDepth": 3,
+                  "frontierAttached": false,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 3
+                }
+              ]
+            }
+          ],
+          "normalizedAntichain": {
+            "P0": [
+              "20",
+              "23,30,37",
+              "37,39,40",
+              "39,40,41"
+            ],
+            "P1": [
+              "13,20,27,34",
+              "20,27,34,41",
+              "30",
+              "35",
+              "6,13,20,27"
+            ]
+          }
+        },
+        "C": {
+          "singletonTargets": {
+            "P0": [
+              {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 2,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 2
+              }
+            ],
+            "P1": [
+              {
+                "cell": 30,
+                "column": 3,
+                "row": 5,
+                "supportDepth": 1,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 1
+              },
+              {
+                "cell": 35,
+                "column": 1,
+                "row": 6,
+                "supportDepth": 0,
+                "frontierAttached": true,
+                "projectedOwner": 2,
+                "targetSupportDistance": 0
+              }
+            ]
+          },
+          "enabledSingletons": {
+            "P0": [],
+            "P1": [
+              "A6"
+            ]
+          },
+          "alignedP0Pairs": []
+        },
+        "N": {
+          "sourceDisposition": "UNKNOWN",
+          "sourceInterval": {
+            "lower": -1,
+            "upper": 1
+          },
+          "sourcePositiveKinds": []
+        }
+      },
+      "actions": [
+        {
+          "column": 1,
+          "landing": {
+            "cell": 35,
+            "column": 1,
+            "row": 6,
+            "supportDepth": 0,
+            "frontierAttached": true,
+            "projectedOwner": 2,
+            "targetSupportDistance": 0
+          },
+          "moverTerminal": false,
+          "childQ": "582c38abc3dbd8c5",
+          "childSupport": [
+            6,
+            6,
+            3,
+            6,
+            5,
+            5,
+            0
+          ],
+          "exactBridge": {
+            "pass": true,
+            "checks": {
+              "rank": true,
+              "support": true,
+              "p0Residuals": true,
+              "p1Residuals": true
+            },
+            "semanticQClass": "582c38abc3dbd8c5"
+          },
+          "opponentImmediateTerminals": [],
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_NONE",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            },
+            "frontier": {
+              "kind": "CPC_NONE",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            }
+          },
+          "enabledSingletons": {
+            "P0": [],
+            "P1": []
+          },
+          "singletonTargets": {
+            "P0": [
+              {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 2,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 2
+              }
+            ],
+            "P1": [
+              {
+                "cell": 30,
+                "column": 3,
+                "row": 5,
+                "supportDepth": 1,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 1
+              }
+            ]
+          },
+          "targetReservoirAttempts": [
+            {
+              "target": {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 2,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 2
+              },
+              "targetDepth": 2,
+              "capacity": [
+                0,
+                0,
+                3,
+                0,
+                1,
+                1,
+                3
+              ],
+              "totalRelevant": 8,
+              "oddColumns": [
+                3,
+                5,
+                6,
+                7
+              ],
+              "completePairings": 3,
+              "targetCompatiblePairings": 3,
+              "coverageCompatiblePairings": 0,
+              "stage": "DEFENDER_RESIDUAL_UNCOVERED",
+              "smallestUncoveredResidual": {
+                "diagnosticId": 30,
+                "size": 1,
+                "key": "30",
+                "cells": [
+                  {
+                    "cell": 30,
+                    "column": 3,
+                    "row": 5,
+                    "supportDepth": 1,
+                    "frontierAttached": false,
+                    "projectedOwner": 1,
+                    "targetSupportDistance": 1
+                  }
+                ]
+              },
+              "attemptedPairingPrefixes": [
+                {
+                  "pairing": [
+                    {
+                      "columns": [
+                        3,
+                        5
+                      ],
+                      "prefixLength": 1
+                    },
+                    {
+                      "columns": [
+                        6,
+                        7
+                      ],
+                      "prefixLength": 1
+                    }
+                  ],
+                  "uncoveredResidual": {
+                    "diagnosticId": 30,
+                    "size": 1,
+                    "key": "30",
+                    "cells": [
+                      {
+                        "cell": 30,
+                        "column": 3,
+                        "row": 5,
+                        "supportDepth": 1,
+                        "frontierAttached": false,
+                        "projectedOwner": 1,
+                        "targetSupportDistance": 1
+                      }
+                    ]
+                  }
+                },
+                {
+                  "pairing": [
+                    {
+                      "columns": [
+                        3,
+                        6
+                      ],
+                      "prefixLength": 1
+                    },
+                    {
+                      "columns": [
+                        5,
+                        7
+                      ],
+                      "prefixLength": 1
+                    }
+                  ],
+                  "uncoveredResidual": {
+                    "diagnosticId": 30,
+                    "size": 1,
+                    "key": "30",
+                    "cells": [
+                      {
+                        "cell": 30,
+                        "column": 3,
+                        "row": 5,
+                        "supportDepth": 1,
+                        "frontierAttached": false,
+                        "projectedOwner": 1,
+                        "targetSupportDistance": 1
+                      }
+                    ]
+                  }
+                },
+                {
+                  "pairing": [
+                    {
+                      "columns": [
+                        3,
+                        7
+                      ],
+                      "prefixLength": 1
+                    },
+                    {
+                      "columns": [
+                        5,
+                        6
+                      ],
+                      "prefixLength": 1
+                    }
+                  ],
+                  "uncoveredResidual": {
+                    "diagnosticId": 30,
+                    "size": 1,
+                    "key": "30",
+                    "cells": [
+                      {
+                        "cell": 30,
+                        "column": 3,
+                        "row": 5,
+                        "supportDepth": 1,
+                        "frontierAttached": false,
+                        "projectedOwner": 1,
+                        "targetSupportDistance": 1
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "tailAdapter": {
+            "applies": false,
+            "reason": "P0_NOT_TO_MOVE",
+            "rank": 31
+          },
+          "exactQualifiedHandoffs": []
+        },
+        {
+          "column": 3,
+          "landing": {
+            "cell": 23,
+            "column": 3,
+            "row": 4,
+            "supportDepth": 0,
+            "frontierAttached": true,
+            "projectedOwner": 2,
+            "targetSupportDistance": 0
+          },
+          "moverTerminal": false,
+          "childQ": "b8bf1a78bc23bc72",
+          "childSupport": [
+            5,
+            6,
+            4,
+            6,
+            5,
+            5,
+            0
+          ],
+          "exactBridge": {
+            "pass": true,
+            "checks": {
+              "rank": true,
+              "support": true,
+              "p0Residuals": true,
+              "p1Residuals": true
+            },
+            "semanticQClass": "b8bf1a78bc23bc72"
+          },
+          "opponentImmediateTerminals": [
+            {
+              "column": 1,
+              "cell": "A6"
+            },
+            {
+              "column": 3,
+              "cell": "C5"
+            }
+          ],
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            }
+          },
+          "enabledSingletons": {
+            "P0": [],
+            "P1": [
+              "A6",
+              "C5"
+            ]
+          },
+          "singletonTargets": {
+            "P0": [
+              {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 2,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 2
+              }
+            ],
+            "P1": [
+              {
+                "cell": 30,
+                "column": 3,
+                "row": 5,
+                "supportDepth": 0,
+                "frontierAttached": true,
+                "projectedOwner": 1,
+                "targetSupportDistance": 0
+              },
+              {
+                "cell": 35,
+                "column": 1,
+                "row": 6,
+                "supportDepth": 0,
+                "frontierAttached": true,
+                "projectedOwner": 2,
+                "targetSupportDistance": 0
+              }
+            ]
+          },
+          "targetReservoirAttempts": [
+            {
+              "target": {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 2,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 2
+              },
+              "stage": "PLAYABLE_DEFENDER_SINGLETON_EXISTS",
+              "defenderPlayable": [
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5,
+                  "supportDepth": 0,
+                  "frontierAttached": true,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 0
+                },
+                {
+                  "cell": 35,
+                  "column": 1,
+                  "row": 6,
+                  "supportDepth": 0,
+                  "frontierAttached": true,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 0
+                }
+              ]
+            }
+          ],
+          "tailAdapter": {
+            "applies": false,
+            "reason": "P0_NOT_TO_MOVE",
+            "rank": 31
+          },
+          "exactQualifiedHandoffs": []
+        },
+        {
+          "column": 5,
+          "landing": {
+            "cell": 39,
+            "column": 5,
+            "row": 6,
+            "supportDepth": 0,
+            "frontierAttached": true,
+            "projectedOwner": 2,
+            "targetSupportDistance": 0
+          },
+          "moverTerminal": false,
+          "childQ": "8d0a613f826c93cd",
+          "childSupport": [
+            5,
+            6,
+            3,
+            6,
+            6,
+            5,
+            0
+          ],
+          "exactBridge": {
+            "pass": true,
+            "checks": {
+              "rank": true,
+              "support": true,
+              "p0Residuals": true,
+              "p1Residuals": true
+            },
+            "semanticQClass": "8d0a613f826c93cd"
+          },
+          "opponentImmediateTerminals": [
+            {
+              "column": 1,
+              "cell": "A6"
+            }
+          ],
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            }
+          },
+          "enabledSingletons": {
+            "P0": [],
+            "P1": [
+              "A6"
+            ]
+          },
+          "singletonTargets": {
+            "P0": [
+              {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 2,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 2
+              }
+            ],
+            "P1": [
+              {
+                "cell": 30,
+                "column": 3,
+                "row": 5,
+                "supportDepth": 1,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 1
+              },
+              {
+                "cell": 35,
+                "column": 1,
+                "row": 6,
+                "supportDepth": 0,
+                "frontierAttached": true,
+                "projectedOwner": 2,
+                "targetSupportDistance": 0
+              }
+            ]
+          },
+          "targetReservoirAttempts": [
+            {
+              "target": {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 2,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 2
+              },
+              "stage": "PLAYABLE_DEFENDER_SINGLETON_EXISTS",
+              "defenderPlayable": [
+                {
+                  "cell": 35,
+                  "column": 1,
+                  "row": 6,
+                  "supportDepth": 0,
+                  "frontierAttached": true,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 0
+                }
+              ]
+            }
+          ],
+          "tailAdapter": {
+            "applies": false,
+            "reason": "P0_NOT_TO_MOVE",
+            "rank": 31
+          },
+          "exactQualifiedHandoffs": []
+        },
+        {
+          "column": 6,
+          "landing": {
+            "cell": 40,
+            "column": 6,
+            "row": 6,
+            "supportDepth": 0,
+            "frontierAttached": true,
+            "projectedOwner": 2,
+            "targetSupportDistance": 0
+          },
+          "moverTerminal": false,
+          "childQ": "7164b5cef54ced8c",
+          "childSupport": [
+            5,
+            6,
+            3,
+            6,
+            5,
+            6,
+            0
+          ],
+          "exactBridge": {
+            "pass": true,
+            "checks": {
+              "rank": true,
+              "support": true,
+              "p0Residuals": true,
+              "p1Residuals": true
+            },
+            "semanticQClass": "7164b5cef54ced8c"
+          },
+          "opponentImmediateTerminals": [
+            {
+              "column": 1,
+              "cell": "A6"
+            }
+          ],
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            }
+          },
+          "enabledSingletons": {
+            "P0": [],
+            "P1": [
+              "A6"
+            ]
+          },
+          "singletonTargets": {
+            "P0": [
+              {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 2,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 2
+              }
+            ],
+            "P1": [
+              {
+                "cell": 30,
+                "column": 3,
+                "row": 5,
+                "supportDepth": 1,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 1
+              },
+              {
+                "cell": 35,
+                "column": 1,
+                "row": 6,
+                "supportDepth": 0,
+                "frontierAttached": true,
+                "projectedOwner": 2,
+                "targetSupportDistance": 0
+              }
+            ]
+          },
+          "targetReservoirAttempts": [
+            {
+              "target": {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 2,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 2
+              },
+              "stage": "PLAYABLE_DEFENDER_SINGLETON_EXISTS",
+              "defenderPlayable": [
+                {
+                  "cell": 35,
+                  "column": 1,
+                  "row": 6,
+                  "supportDepth": 0,
+                  "frontierAttached": true,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 0
+                }
+              ]
+            }
+          ],
+          "tailAdapter": {
+            "applies": false,
+            "reason": "P0_NOT_TO_MOVE",
+            "rank": 31
+          },
+          "exactQualifiedHandoffs": []
+        },
+        {
+          "column": 7,
+          "landing": {
+            "cell": 6,
+            "column": 7,
+            "row": 1,
+            "supportDepth": 0,
+            "frontierAttached": true,
+            "projectedOwner": 1,
+            "targetSupportDistance": 0
+          },
+          "moverTerminal": false,
+          "childQ": "af15f72306e13a46",
+          "childSupport": [
+            5,
+            6,
+            3,
+            6,
+            5,
+            5,
+            1
+          ],
+          "exactBridge": {
+            "pass": true,
+            "checks": {
+              "rank": true,
+              "support": true,
+              "p0Residuals": true,
+              "p1Residuals": true
+            },
+            "semanticQClass": "af15f72306e13a46"
+          },
+          "opponentImmediateTerminals": [
+            {
+              "column": 1,
+              "cell": "A6"
+            }
+          ],
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            }
+          },
+          "enabledSingletons": {
+            "P0": [],
+            "P1": [
+              "A6"
+            ]
+          },
+          "singletonTargets": {
+            "P0": [
+              {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 1,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 1
+              }
+            ],
+            "P1": [
+              {
+                "cell": 30,
+                "column": 3,
+                "row": 5,
+                "supportDepth": 1,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 1
+              },
+              {
+                "cell": 35,
+                "column": 1,
+                "row": 6,
+                "supportDepth": 0,
+                "frontierAttached": true,
+                "projectedOwner": 2,
+                "targetSupportDistance": 0
+              }
+            ]
+          },
+          "targetReservoirAttempts": [
+            {
+              "target": {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 1,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 1
+              },
+              "stage": "PLAYABLE_DEFENDER_SINGLETON_EXISTS",
+              "defenderPlayable": [
+                {
+                  "cell": 35,
+                  "column": 1,
+                  "row": 6,
+                  "supportDepth": 0,
+                  "frontierAttached": true,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 0
+                }
+              ]
+            }
+          ],
+          "tailAdapter": {
+            "applies": false,
+            "reason": "P0_NOT_TO_MOVE",
+            "rank": 31
+          },
+          "exactQualifiedHandoffs": []
+        }
+      ],
+      "reproducedQualifiedPositive": false
+    },
+    {
+      "exactQClass": "5b07a7c903c1f4bf",
+      "sequence": "444441566666232222425511515333",
+      "rank": 30,
+      "support": [
+        4,
+        6,
+        4,
+        6,
+        5,
+        5,
+        0
+      ],
+      "sourceDefenderColumn": 3,
+      "sourceDisposition": "P0_WIN",
+      "sourceInterval": {
+        "lower": 1,
+        "upper": 1
+      },
+      "exactBridge": {
+        "pass": true,
+        "checks": {
+          "rank": true,
+          "support": true,
+          "p0Residuals": true,
+          "p1Residuals": true
+        },
+        "semanticQClass": "5b07a7c903c1f4bf"
+      },
+      "eventProduct": {
+        "E": {
+          "support": [
+            4,
+            6,
+            4,
+            6,
+            5,
+            5,
+            0
+          ],
+          "remainingCapacity": [
+            2,
+            0,
+            2,
+            0,
+            1,
+            1,
+            6
+          ],
+          "capacityParity": [
+            0,
+            0,
+            0,
+            0,
+            1,
+            1,
+            0
+          ],
+          "widthDerivative": [
+            2,
+            2,
+            2,
+            1,
+            0,
+            5
+          ],
+          "frontierCells": [
+            {
+              "cell": 28,
+              "column": 1,
+              "row": 5,
+              "supportDepth": 0,
+              "frontierAttached": true,
+              "projectedOwner": 1,
+              "targetSupportDistance": 0
+            },
+            {
+              "cell": 30,
+              "column": 3,
+              "row": 5,
+              "supportDepth": 0,
+              "frontierAttached": true,
+              "projectedOwner": 1,
+              "targetSupportDistance": 0
+            },
+            {
+              "cell": 39,
+              "column": 5,
+              "row": 6,
+              "supportDepth": 0,
+              "frontierAttached": true,
+              "projectedOwner": 2,
+              "targetSupportDistance": 0
+            },
+            {
+              "cell": 40,
+              "column": 6,
+              "row": 6,
+              "supportDepth": 0,
+              "frontierAttached": true,
+              "projectedOwner": 2,
+              "targetSupportDistance": 0
+            },
+            {
+              "cell": 6,
+              "column": 7,
+              "row": 1,
+              "supportDepth": 0,
+              "frontierAttached": true,
+              "projectedOwner": 1,
+              "targetSupportDistance": 0
+            }
+          ]
+        },
+        "P": {
+          "mover": "P0",
+          "rank": 30,
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_RESTRICT",
+              "forcedColumn": 3,
+              "preemptionCount": 1
+            },
+            "frontier": {
+              "kind": "CPC_RESTRICT",
+              "forcedColumn": 3,
+              "preemptionCount": 1
+            }
+          }
+        },
+        "R": {
+          "P0": [
+            {
+              "diagnosticId": 20,
+              "size": 1,
+              "key": "20",
+              "cells": [
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "supportDepth": 2,
+                  "frontierAttached": false,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 2
+                }
+              ]
+            },
+            {
+              "diagnosticId": 551,
+              "size": 3,
+              "key": "37,39,40",
+              "cells": [
+                {
+                  "cell": 37,
+                  "column": 3,
+                  "row": 6,
+                  "supportDepth": 1,
+                  "frontierAttached": false,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 1
+                },
+                {
+                  "cell": 39,
+                  "column": 5,
+                  "row": 6,
+                  "supportDepth": 0,
+                  "frontierAttached": true,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 0
+                },
+                {
+                  "cell": 40,
+                  "column": 6,
+                  "row": 6,
+                  "supportDepth": 0,
+                  "frontierAttached": true,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 0
+                }
+              ]
+            },
+            {
+              "diagnosticId": 555,
+              "size": 3,
+              "key": "39,40,41",
+              "cells": [
+                {
+                  "cell": 39,
+                  "column": 5,
+                  "row": 6,
+                  "supportDepth": 0,
+                  "frontierAttached": true,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 0
+                },
+                {
+                  "cell": 40,
+                  "column": 6,
+                  "row": 6,
+                  "supportDepth": 0,
+                  "frontierAttached": true,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 0
+                },
+                {
+                  "cell": 41,
+                  "column": 7,
+                  "row": 6,
+                  "supportDepth": 5,
+                  "frontierAttached": false,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 5
+                }
+              ]
+            }
+          ],
+          "P1": [
+            {
+              "diagnosticId": 30,
+              "size": 1,
+              "key": "30",
+              "cells": [
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5,
+                  "supportDepth": 0,
+                  "frontierAttached": true,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 0
+                }
+              ]
+            },
+            {
+              "diagnosticId": 282,
+              "size": 2,
+              "key": "28,35",
+              "cells": [
+                {
+                  "cell": 28,
+                  "column": 1,
+                  "row": 5,
+                  "supportDepth": 0,
+                  "frontierAttached": true,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 0
+                },
+                {
+                  "cell": 35,
+                  "column": 1,
+                  "row": 6,
+                  "supportDepth": 1,
+                  "frontierAttached": false,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 1
+                }
+              ]
+            },
+            {
+              "diagnosticId": 593,
+              "size": 4,
+              "key": "13,20,27,34",
+              "cells": [
+                {
+                  "cell": 13,
+                  "column": 7,
+                  "row": 2,
+                  "supportDepth": 1,
+                  "frontierAttached": false,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 1
+                },
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "supportDepth": 2,
+                  "frontierAttached": false,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 2
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "supportDepth": 3,
+                  "frontierAttached": false,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 3
+                },
+                {
+                  "cell": 34,
+                  "column": 7,
+                  "row": 5,
+                  "supportDepth": 4,
+                  "frontierAttached": false,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 4
+                }
+              ]
+            },
+            {
+              "diagnosticId": 612,
+              "size": 4,
+              "key": "20,27,34,41",
+              "cells": [
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "supportDepth": 2,
+                  "frontierAttached": false,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 2
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "supportDepth": 3,
+                  "frontierAttached": false,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 3
+                },
+                {
+                  "cell": 34,
+                  "column": 7,
+                  "row": 5,
+                  "supportDepth": 4,
+                  "frontierAttached": false,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 4
+                },
+                {
+                  "cell": 41,
+                  "column": 7,
+                  "row": 6,
+                  "supportDepth": 5,
+                  "frontierAttached": false,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 5
+                }
+              ]
+            },
+            {
+              "diagnosticId": 574,
+              "size": 4,
+              "key": "6,13,20,27",
+              "cells": [
+                {
+                  "cell": 6,
+                  "column": 7,
+                  "row": 1,
+                  "supportDepth": 0,
+                  "frontierAttached": true,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 0
+                },
+                {
+                  "cell": 13,
+                  "column": 7,
+                  "row": 2,
+                  "supportDepth": 1,
+                  "frontierAttached": false,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 1
+                },
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "supportDepth": 2,
+                  "frontierAttached": false,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 2
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "supportDepth": 3,
+                  "frontierAttached": false,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 3
+                }
+              ]
+            }
+          ],
+          "normalizedAntichain": {
+            "P0": [
+              "20",
+              "37,39,40",
+              "39,40,41"
+            ],
+            "P1": [
+              "13,20,27,34",
+              "20,27,34,41",
+              "28,35",
+              "30",
+              "6,13,20,27"
+            ]
+          }
+        },
+        "C": {
+          "singletonTargets": {
+            "P0": [
+              {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 2,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 2
+              }
+            ],
+            "P1": [
+              {
+                "cell": 30,
+                "column": 3,
+                "row": 5,
+                "supportDepth": 0,
+                "frontierAttached": true,
+                "projectedOwner": 1,
+                "targetSupportDistance": 0
+              }
+            ]
+          },
+          "enabledSingletons": {
+            "P0": [],
+            "P1": [
+              "C5"
+            ]
+          },
+          "alignedP0Pairs": []
+        },
+        "N": {
+          "sourceDisposition": "P0_WIN",
+          "sourceInterval": {
+            "lower": 1,
+            "upper": 1
+          },
+          "sourcePositiveKinds": [
+            "DIRECT_TARGET_RESERVOIR_RCIC"
+          ]
+        }
+      },
+      "actions": [
+        {
+          "column": 1,
+          "landing": {
+            "cell": 28,
+            "column": 1,
+            "row": 5,
+            "supportDepth": 0,
+            "frontierAttached": true,
+            "projectedOwner": 1,
+            "targetSupportDistance": 0
+          },
+          "moverTerminal": false,
+          "childQ": "8181ed8aedf74d8a",
+          "childSupport": [
+            5,
+            6,
+            4,
+            6,
+            5,
+            5,
+            0
+          ],
+          "exactBridge": {
+            "pass": true,
+            "checks": {
+              "rank": true,
+              "support": true,
+              "p0Residuals": true,
+              "p1Residuals": true
+            },
+            "semanticQClass": "8181ed8aedf74d8a"
+          },
+          "opponentImmediateTerminals": [
+            {
+              "column": 3,
+              "cell": "C5"
+            }
+          ],
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            }
+          },
+          "enabledSingletons": {
+            "P0": [],
+            "P1": [
+              "C5"
+            ]
+          },
+          "singletonTargets": {
+            "P0": [
+              {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 2,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 2
+              }
+            ],
+            "P1": [
+              {
+                "cell": 30,
+                "column": 3,
+                "row": 5,
+                "supportDepth": 0,
+                "frontierAttached": true,
+                "projectedOwner": 1,
+                "targetSupportDistance": 0
+              }
+            ]
+          },
+          "targetReservoirAttempts": [
+            {
+              "target": {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 2,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 2
+              },
+              "stage": "PLAYABLE_DEFENDER_SINGLETON_EXISTS",
+              "defenderPlayable": [
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5,
+                  "supportDepth": 0,
+                  "frontierAttached": true,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 0
+                }
+              ]
+            }
+          ],
+          "tailAdapter": {
+            "applies": false,
+            "reason": "P0_NOT_TO_MOVE",
+            "rank": 31
+          },
+          "exactQualifiedHandoffs": []
+        },
+        {
+          "column": 3,
+          "landing": {
+            "cell": 30,
+            "column": 3,
+            "row": 5,
+            "supportDepth": 0,
+            "frontierAttached": true,
+            "projectedOwner": 1,
+            "targetSupportDistance": 0
+          },
+          "moverTerminal": false,
+          "childQ": "6b5d1c841b25e491",
+          "childSupport": [
+            4,
+            6,
+            5,
+            6,
+            5,
+            5,
+            0
+          ],
+          "exactBridge": {
+            "pass": true,
+            "checks": {
+              "rank": true,
+              "support": true,
+              "p0Residuals": true,
+              "p1Residuals": true
+            },
+            "semanticQClass": "6b5d1c841b25e491"
+          },
+          "opponentImmediateTerminals": [],
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_NONE",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            },
+            "frontier": {
+              "kind": "CPC_NONE",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            }
+          },
+          "enabledSingletons": {
+            "P0": [],
+            "P1": []
+          },
+          "singletonTargets": {
+            "P0": [
+              {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 2,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 2
+              }
+            ],
+            "P1": []
+          },
+          "targetReservoirAttempts": [
+            {
+              "target": {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 2,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 2
+              },
+              "targetDepth": 2,
+              "capacity": [
+                2,
+                0,
+                1,
+                0,
+                1,
+                1,
+                3
+              ],
+              "totalRelevant": 8,
+              "oddColumns": [
+                3,
+                5,
+                6,
+                7
+              ],
+              "completePairings": 1,
+              "targetCompatiblePairings": 1,
+              "coverageCompatiblePairings": 1,
+              "stage": "ACCEPTED",
+              "template": {
+                "capacity": [
+                  2,
+                  0,
+                  1,
+                  0,
+                  1,
+                  1,
+                  3
+                ],
+                "oddColumns": [
+                  3,
+                  5,
+                  6,
+                  7
+                ],
+                "synchronizedPairs": [
+                  {
+                    "columns": [
+                      3,
+                      5
+                    ],
+                    "prefixLength": 1
+                  },
+                  {
+                    "columns": [
+                      6,
+                      7
+                    ],
+                    "prefixLength": 1
+                  }
+                ],
+                "coverage": [
+                  {
+                    "residualId": 282,
+                    "size": 2,
+                    "witness": {
+                      "kind": "vertical-response",
+                      "cell": 35,
+                      "column": 1,
+                      "row": 6,
+                      "supportDepth": 1,
+                      "frontierAttached": false,
+                      "projectedOwner": 2,
+                      "targetSupportDistance": 1,
+                      "depth": 1,
+                      "L": 0
+                    }
+                  },
+                  {
+                    "residualId": 574,
+                    "size": 4,
+                    "witness": {
+                      "kind": "post-target-deferral",
+                      "cell": 27,
+                      "column": 7,
+                      "row": 4,
+                      "supportDepth": 3,
+                      "frontierAttached": false,
+                      "projectedOwner": 2,
+                      "targetSupportDistance": 3
+                    }
+                  },
+                  {
+                    "residualId": 593,
+                    "size": 4,
+                    "witness": {
+                      "kind": "post-target-deferral",
+                      "cell": 27,
+                      "column": 7,
+                      "row": 4,
+                      "supportDepth": 3,
+                      "frontierAttached": false,
+                      "projectedOwner": 2,
+                      "targetSupportDistance": 3
+                    }
+                  },
+                  {
+                    "residualId": 612,
+                    "size": 4,
+                    "witness": {
+                      "kind": "post-target-deferral",
+                      "cell": 27,
+                      "column": 7,
+                      "row": 4,
+                      "supportDepth": 3,
+                      "frontierAttached": false,
+                      "projectedOwner": 2,
+                      "targetSupportDistance": 3
+                    }
+                  }
+                ]
+              },
+              "validation": {
+                "pass": true,
+                "defenderNodes": 46,
+                "responsePairs": 83,
+                "maxPairDepth": 3,
+                "p0TerminalResponses": 38,
+                "targetTerminalResponses": 38,
+                "failures": []
+              }
+            }
+          ],
+          "tailAdapter": {
+            "applies": false,
+            "reason": "P0_NOT_TO_MOVE",
+            "rank": 31
+          },
+          "exactQualifiedHandoffs": []
+        },
+        {
+          "column": 5,
+          "landing": {
+            "cell": 39,
+            "column": 5,
+            "row": 6,
+            "supportDepth": 0,
+            "frontierAttached": true,
+            "projectedOwner": 2,
+            "targetSupportDistance": 0
+          },
+          "moverTerminal": false,
+          "childQ": "a819f7277fd5e92e",
+          "childSupport": [
+            4,
+            6,
+            4,
+            6,
+            6,
+            5,
+            0
+          ],
+          "exactBridge": {
+            "pass": true,
+            "checks": {
+              "rank": true,
+              "support": true,
+              "p0Residuals": true,
+              "p1Residuals": true
+            },
+            "semanticQClass": "a819f7277fd5e92e"
+          },
+          "opponentImmediateTerminals": [
+            {
+              "column": 3,
+              "cell": "C5"
+            }
+          ],
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            }
+          },
+          "enabledSingletons": {
+            "P0": [],
+            "P1": [
+              "C5"
+            ]
+          },
+          "singletonTargets": {
+            "P0": [
+              {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 2,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 2
+              }
+            ],
+            "P1": [
+              {
+                "cell": 30,
+                "column": 3,
+                "row": 5,
+                "supportDepth": 0,
+                "frontierAttached": true,
+                "projectedOwner": 1,
+                "targetSupportDistance": 0
+              }
+            ]
+          },
+          "targetReservoirAttempts": [
+            {
+              "target": {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 2,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 2
+              },
+              "stage": "PLAYABLE_DEFENDER_SINGLETON_EXISTS",
+              "defenderPlayable": [
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5,
+                  "supportDepth": 0,
+                  "frontierAttached": true,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 0
+                }
+              ]
+            }
+          ],
+          "tailAdapter": {
+            "applies": false,
+            "reason": "P0_NOT_TO_MOVE",
+            "rank": 31
+          },
+          "exactQualifiedHandoffs": []
+        },
+        {
+          "column": 6,
+          "landing": {
+            "cell": 40,
+            "column": 6,
+            "row": 6,
+            "supportDepth": 0,
+            "frontierAttached": true,
+            "projectedOwner": 2,
+            "targetSupportDistance": 0
+          },
+          "moverTerminal": false,
+          "childQ": "5206ca12d6e03713",
+          "childSupport": [
+            4,
+            6,
+            4,
+            6,
+            5,
+            6,
+            0
+          ],
+          "exactBridge": {
+            "pass": true,
+            "checks": {
+              "rank": true,
+              "support": true,
+              "p0Residuals": true,
+              "p1Residuals": true
+            },
+            "semanticQClass": "5206ca12d6e03713"
+          },
+          "opponentImmediateTerminals": [
+            {
+              "column": 3,
+              "cell": "C5"
+            }
+          ],
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            }
+          },
+          "enabledSingletons": {
+            "P0": [],
+            "P1": [
+              "C5"
+            ]
+          },
+          "singletonTargets": {
+            "P0": [
+              {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 2,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 2
+              }
+            ],
+            "P1": [
+              {
+                "cell": 30,
+                "column": 3,
+                "row": 5,
+                "supportDepth": 0,
+                "frontierAttached": true,
+                "projectedOwner": 1,
+                "targetSupportDistance": 0
+              }
+            ]
+          },
+          "targetReservoirAttempts": [
+            {
+              "target": {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 2,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 2
+              },
+              "stage": "PLAYABLE_DEFENDER_SINGLETON_EXISTS",
+              "defenderPlayable": [
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5,
+                  "supportDepth": 0,
+                  "frontierAttached": true,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 0
+                }
+              ]
+            }
+          ],
+          "tailAdapter": {
+            "applies": false,
+            "reason": "P0_NOT_TO_MOVE",
+            "rank": 31
+          },
+          "exactQualifiedHandoffs": []
+        },
+        {
+          "column": 7,
+          "landing": {
+            "cell": 6,
+            "column": 7,
+            "row": 1,
+            "supportDepth": 0,
+            "frontierAttached": true,
+            "projectedOwner": 1,
+            "targetSupportDistance": 0
+          },
+          "moverTerminal": false,
+          "childQ": "6a389a7bae8be8d5",
+          "childSupport": [
+            4,
+            6,
+            4,
+            6,
+            5,
+            5,
+            1
+          ],
+          "exactBridge": {
+            "pass": true,
+            "checks": {
+              "rank": true,
+              "support": true,
+              "p0Residuals": true,
+              "p1Residuals": true
+            },
+            "semanticQClass": "6a389a7bae8be8d5"
+          },
+          "opponentImmediateTerminals": [
+            {
+              "column": 3,
+              "cell": "C5"
+            }
+          ],
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            }
+          },
+          "enabledSingletons": {
+            "P0": [],
+            "P1": [
+              "C5"
+            ]
+          },
+          "singletonTargets": {
+            "P0": [
+              {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 1,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 1
+              }
+            ],
+            "P1": [
+              {
+                "cell": 30,
+                "column": 3,
+                "row": 5,
+                "supportDepth": 0,
+                "frontierAttached": true,
+                "projectedOwner": 1,
+                "targetSupportDistance": 0
+              }
+            ]
+          },
+          "targetReservoirAttempts": [
+            {
+              "target": {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 1,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 1
+              },
+              "stage": "PLAYABLE_DEFENDER_SINGLETON_EXISTS",
+              "defenderPlayable": [
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5,
+                  "supportDepth": 0,
+                  "frontierAttached": true,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 0
+                }
+              ]
+            }
+          ],
+          "tailAdapter": {
+            "applies": false,
+            "reason": "P0_NOT_TO_MOVE",
+            "rank": 31
+          },
+          "exactQualifiedHandoffs": []
+        }
+      ],
+      "reproducedQualifiedPositive": true
+    },
+    {
+      "exactQClass": "3ff97b02970a6bb5",
+      "sequence": "444441566666232222425511515335",
+      "rank": 30,
+      "support": [
+        4,
+        6,
+        3,
+        6,
+        6,
+        5,
+        0
+      ],
+      "sourceDefenderColumn": 5,
+      "sourceDisposition": "UNKNOWN",
+      "sourceInterval": {
+        "lower": -1,
+        "upper": 1
+      },
+      "exactBridge": {
+        "pass": true,
+        "checks": {
+          "rank": true,
+          "support": true,
+          "p0Residuals": true,
+          "p1Residuals": true
+        },
+        "semanticQClass": "3ff97b02970a6bb5"
+      },
+      "eventProduct": {
+        "E": {
+          "support": [
+            4,
+            6,
+            3,
+            6,
+            6,
+            5,
+            0
+          ],
+          "remainingCapacity": [
+            2,
+            0,
+            3,
+            0,
+            0,
+            1,
+            6
+          ],
+          "capacityParity": [
+            0,
+            0,
+            1,
+            0,
+            0,
+            1,
+            0
+          ],
+          "widthDerivative": [
+            2,
+            3,
+            3,
+            0,
+            1,
+            5
+          ],
+          "frontierCells": [
+            {
+              "cell": 28,
+              "column": 1,
+              "row": 5,
+              "supportDepth": 0,
+              "frontierAttached": true,
+              "projectedOwner": 1,
+              "targetSupportDistance": 0
+            },
+            {
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "supportDepth": 0,
+              "frontierAttached": true,
+              "projectedOwner": 2,
+              "targetSupportDistance": 0
+            },
+            {
+              "cell": 40,
+              "column": 6,
+              "row": 6,
+              "supportDepth": 0,
+              "frontierAttached": true,
+              "projectedOwner": 2,
+              "targetSupportDistance": 0
+            },
+            {
+              "cell": 6,
+              "column": 7,
+              "row": 1,
+              "supportDepth": 0,
+              "frontierAttached": true,
+              "projectedOwner": 1,
+              "targetSupportDistance": 0
+            }
+          ]
+        },
+        "P": {
+          "mover": "P0",
+          "rank": 30,
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_NONE",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            },
+            "frontier": {
+              "kind": "CPC_NONE",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            }
+          }
+        },
+        "R": {
+          "P0": [
+            {
+              "diagnosticId": 20,
+              "size": 1,
+              "key": "20",
+              "cells": [
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "supportDepth": 2,
+                  "frontierAttached": false,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 2
+                }
+              ]
+            },
+            {
+              "diagnosticId": 515,
+              "size": 3,
+              "key": "23,30,37",
+              "cells": [
+                {
+                  "cell": 23,
+                  "column": 3,
+                  "row": 4,
+                  "supportDepth": 0,
+                  "frontierAttached": true,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 0
+                },
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5,
+                  "supportDepth": 1,
+                  "frontierAttached": false,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 1
+                },
+                {
+                  "cell": 37,
+                  "column": 3,
+                  "row": 6,
+                  "supportDepth": 2,
+                  "frontierAttached": false,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 2
+                }
+              ]
+            }
+          ],
+          "P1": [
+            {
+              "diagnosticId": 30,
+              "size": 1,
+              "key": "30",
+              "cells": [
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5,
+                  "supportDepth": 1,
+                  "frontierAttached": false,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 1
+                }
+              ]
+            },
+            {
+              "diagnosticId": 282,
+              "size": 2,
+              "key": "28,35",
+              "cells": [
+                {
+                  "cell": 28,
+                  "column": 1,
+                  "row": 5,
+                  "supportDepth": 0,
+                  "frontierAttached": true,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 0
+                },
+                {
+                  "cell": 35,
+                  "column": 1,
+                  "row": 6,
+                  "supportDepth": 1,
+                  "frontierAttached": false,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 1
+                }
+              ]
+            },
+            {
+              "diagnosticId": 593,
+              "size": 4,
+              "key": "13,20,27,34",
+              "cells": [
+                {
+                  "cell": 13,
+                  "column": 7,
+                  "row": 2,
+                  "supportDepth": 1,
+                  "frontierAttached": false,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 1
+                },
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "supportDepth": 2,
+                  "frontierAttached": false,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 2
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "supportDepth": 3,
+                  "frontierAttached": false,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 3
+                },
+                {
+                  "cell": 34,
+                  "column": 7,
+                  "row": 5,
+                  "supportDepth": 4,
+                  "frontierAttached": false,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 4
+                }
+              ]
+            },
+            {
+              "diagnosticId": 612,
+              "size": 4,
+              "key": "20,27,34,41",
+              "cells": [
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "supportDepth": 2,
+                  "frontierAttached": false,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 2
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "supportDepth": 3,
+                  "frontierAttached": false,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 3
+                },
+                {
+                  "cell": 34,
+                  "column": 7,
+                  "row": 5,
+                  "supportDepth": 4,
+                  "frontierAttached": false,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 4
+                },
+                {
+                  "cell": 41,
+                  "column": 7,
+                  "row": 6,
+                  "supportDepth": 5,
+                  "frontierAttached": false,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 5
+                }
+              ]
+            },
+            {
+              "diagnosticId": 574,
+              "size": 4,
+              "key": "6,13,20,27",
+              "cells": [
+                {
+                  "cell": 6,
+                  "column": 7,
+                  "row": 1,
+                  "supportDepth": 0,
+                  "frontierAttached": true,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 0
+                },
+                {
+                  "cell": 13,
+                  "column": 7,
+                  "row": 2,
+                  "supportDepth": 1,
+                  "frontierAttached": false,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 1
+                },
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "supportDepth": 2,
+                  "frontierAttached": false,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 2
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "supportDepth": 3,
+                  "frontierAttached": false,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 3
+                }
+              ]
+            }
+          ],
+          "normalizedAntichain": {
+            "P0": [
+              "20",
+              "23,30,37"
+            ],
+            "P1": [
+              "13,20,27,34",
+              "20,27,34,41",
+              "28,35",
+              "30",
+              "6,13,20,27"
+            ]
+          }
+        },
+        "C": {
+          "singletonTargets": {
+            "P0": [
+              {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 2,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 2
+              }
+            ],
+            "P1": [
+              {
+                "cell": 30,
+                "column": 3,
+                "row": 5,
+                "supportDepth": 1,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 1
+              }
+            ]
+          },
+          "enabledSingletons": {
+            "P0": [],
+            "P1": []
+          },
+          "alignedP0Pairs": []
+        },
+        "N": {
+          "sourceDisposition": "UNKNOWN",
+          "sourceInterval": {
+            "lower": -1,
+            "upper": 1
+          },
+          "sourcePositiveKinds": []
+        }
+      },
+      "actions": [
+        {
+          "column": 1,
+          "landing": {
+            "cell": 28,
+            "column": 1,
+            "row": 5,
+            "supportDepth": 0,
+            "frontierAttached": true,
+            "projectedOwner": 1,
+            "targetSupportDistance": 0
+          },
+          "moverTerminal": false,
+          "childQ": "58dfcbada8c51eb8",
+          "childSupport": [
+            5,
+            6,
+            3,
+            6,
+            6,
+            5,
+            0
+          ],
+          "exactBridge": {
+            "pass": true,
+            "checks": {
+              "rank": true,
+              "support": true,
+              "p0Residuals": true,
+              "p1Residuals": true
+            },
+            "semanticQClass": "58dfcbada8c51eb8"
+          },
+          "opponentImmediateTerminals": [],
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_NONE",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            },
+            "frontier": {
+              "kind": "CPC_NONE",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            }
+          },
+          "enabledSingletons": {
+            "P0": [],
+            "P1": []
+          },
+          "singletonTargets": {
+            "P0": [
+              {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 2,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 2
+              }
+            ],
+            "P1": [
+              {
+                "cell": 30,
+                "column": 3,
+                "row": 5,
+                "supportDepth": 1,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 1
+              }
+            ]
+          },
+          "targetReservoirAttempts": [
+            {
+              "target": {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 2,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 2
+              },
+              "targetDepth": 2,
+              "capacity": [
+                1,
+                0,
+                3,
+                0,
+                0,
+                1,
+                3
+              ],
+              "totalRelevant": 8,
+              "oddColumns": [
+                1,
+                3,
+                6,
+                7
+              ],
+              "completePairings": 3,
+              "targetCompatiblePairings": 3,
+              "coverageCompatiblePairings": 0,
+              "stage": "DEFENDER_RESIDUAL_UNCOVERED",
+              "smallestUncoveredResidual": {
+                "diagnosticId": 30,
+                "size": 1,
+                "key": "30",
+                "cells": [
+                  {
+                    "cell": 30,
+                    "column": 3,
+                    "row": 5,
+                    "supportDepth": 1,
+                    "frontierAttached": false,
+                    "projectedOwner": 1,
+                    "targetSupportDistance": 1
+                  }
+                ]
+              },
+              "attemptedPairingPrefixes": [
+                {
+                  "pairing": [
+                    {
+                      "columns": [
+                        1,
+                        3
+                      ],
+                      "prefixLength": 1
+                    },
+                    {
+                      "columns": [
+                        6,
+                        7
+                      ],
+                      "prefixLength": 1
+                    }
+                  ],
+                  "uncoveredResidual": {
+                    "diagnosticId": 30,
+                    "size": 1,
+                    "key": "30",
+                    "cells": [
+                      {
+                        "cell": 30,
+                        "column": 3,
+                        "row": 5,
+                        "supportDepth": 1,
+                        "frontierAttached": false,
+                        "projectedOwner": 1,
+                        "targetSupportDistance": 1
+                      }
+                    ]
+                  }
+                },
+                {
+                  "pairing": [
+                    {
+                      "columns": [
+                        1,
+                        6
+                      ],
+                      "prefixLength": 1
+                    },
+                    {
+                      "columns": [
+                        3,
+                        7
+                      ],
+                      "prefixLength": 1
+                    }
+                  ],
+                  "uncoveredResidual": {
+                    "diagnosticId": 30,
+                    "size": 1,
+                    "key": "30",
+                    "cells": [
+                      {
+                        "cell": 30,
+                        "column": 3,
+                        "row": 5,
+                        "supportDepth": 1,
+                        "frontierAttached": false,
+                        "projectedOwner": 1,
+                        "targetSupportDistance": 1
+                      }
+                    ]
+                  }
+                },
+                {
+                  "pairing": [
+                    {
+                      "columns": [
+                        1,
+                        7
+                      ],
+                      "prefixLength": 1
+                    },
+                    {
+                      "columns": [
+                        3,
+                        6
+                      ],
+                      "prefixLength": 1
+                    }
+                  ],
+                  "uncoveredResidual": {
+                    "diagnosticId": 30,
+                    "size": 1,
+                    "key": "30",
+                    "cells": [
+                      {
+                        "cell": 30,
+                        "column": 3,
+                        "row": 5,
+                        "supportDepth": 1,
+                        "frontierAttached": false,
+                        "projectedOwner": 1,
+                        "targetSupportDistance": 1
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "tailAdapter": {
+            "applies": false,
+            "reason": "P0_NOT_TO_MOVE",
+            "rank": 31
+          },
+          "exactQualifiedHandoffs": []
+        },
+        {
+          "column": 3,
+          "landing": {
+            "cell": 23,
+            "column": 3,
+            "row": 4,
+            "supportDepth": 0,
+            "frontierAttached": true,
+            "projectedOwner": 2,
+            "targetSupportDistance": 0
+          },
+          "moverTerminal": false,
+          "childQ": "170a805a43a71db7",
+          "childSupport": [
+            4,
+            6,
+            4,
+            6,
+            6,
+            5,
+            0
+          ],
+          "exactBridge": {
+            "pass": true,
+            "checks": {
+              "rank": true,
+              "support": true,
+              "p0Residuals": true,
+              "p1Residuals": true
+            },
+            "semanticQClass": "170a805a43a71db7"
+          },
+          "opponentImmediateTerminals": [
+            {
+              "column": 3,
+              "cell": "C5"
+            }
+          ],
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            }
+          },
+          "enabledSingletons": {
+            "P0": [],
+            "P1": [
+              "C5"
+            ]
+          },
+          "singletonTargets": {
+            "P0": [
+              {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 2,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 2
+              }
+            ],
+            "P1": [
+              {
+                "cell": 30,
+                "column": 3,
+                "row": 5,
+                "supportDepth": 0,
+                "frontierAttached": true,
+                "projectedOwner": 1,
+                "targetSupportDistance": 0
+              }
+            ]
+          },
+          "targetReservoirAttempts": [
+            {
+              "target": {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 2,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 2
+              },
+              "stage": "PLAYABLE_DEFENDER_SINGLETON_EXISTS",
+              "defenderPlayable": [
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5,
+                  "supportDepth": 0,
+                  "frontierAttached": true,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 0
+                }
+              ]
+            }
+          ],
+          "tailAdapter": {
+            "applies": false,
+            "reason": "P0_NOT_TO_MOVE",
+            "rank": 31
+          },
+          "exactQualifiedHandoffs": []
+        },
+        {
+          "column": 6,
+          "landing": {
+            "cell": 40,
+            "column": 6,
+            "row": 6,
+            "supportDepth": 0,
+            "frontierAttached": true,
+            "projectedOwner": 2,
+            "targetSupportDistance": 0
+          },
+          "moverTerminal": false,
+          "childQ": "d287bc38f6876feb",
+          "childSupport": [
+            4,
+            6,
+            3,
+            6,
+            6,
+            6,
+            0
+          ],
+          "exactBridge": {
+            "pass": true,
+            "checks": {
+              "rank": true,
+              "support": true,
+              "p0Residuals": true,
+              "p1Residuals": true
+            },
+            "semanticQClass": "d287bc38f6876feb"
+          },
+          "opponentImmediateTerminals": [],
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_NONE",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            },
+            "frontier": {
+              "kind": "CPC_NONE",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            }
+          },
+          "enabledSingletons": {
+            "P0": [],
+            "P1": []
+          },
+          "singletonTargets": {
+            "P0": [
+              {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 2,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 2
+              }
+            ],
+            "P1": [
+              {
+                "cell": 30,
+                "column": 3,
+                "row": 5,
+                "supportDepth": 1,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 1
+              }
+            ]
+          },
+          "targetReservoirAttempts": [
+            {
+              "target": {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 2,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 2
+              },
+              "targetDepth": 2,
+              "capacity": [
+                2,
+                0,
+                3,
+                0,
+                0,
+                0,
+                3
+              ],
+              "totalRelevant": 8,
+              "oddColumns": [
+                3,
+                7
+              ],
+              "completePairings": 1,
+              "targetCompatiblePairings": 1,
+              "coverageCompatiblePairings": 0,
+              "stage": "DEFENDER_RESIDUAL_UNCOVERED",
+              "smallestUncoveredResidual": {
+                "diagnosticId": 30,
+                "size": 1,
+                "key": "30",
+                "cells": [
+                  {
+                    "cell": 30,
+                    "column": 3,
+                    "row": 5,
+                    "supportDepth": 1,
+                    "frontierAttached": false,
+                    "projectedOwner": 1,
+                    "targetSupportDistance": 1
+                  }
+                ]
+              },
+              "attemptedPairingPrefixes": [
+                {
+                  "pairing": [
+                    {
+                      "columns": [
+                        3,
+                        7
+                      ],
+                      "prefixLength": 1
+                    }
+                  ],
+                  "uncoveredResidual": {
+                    "diagnosticId": 30,
+                    "size": 1,
+                    "key": "30",
+                    "cells": [
+                      {
+                        "cell": 30,
+                        "column": 3,
+                        "row": 5,
+                        "supportDepth": 1,
+                        "frontierAttached": false,
+                        "projectedOwner": 1,
+                        "targetSupportDistance": 1
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "tailAdapter": {
+            "applies": false,
+            "reason": "P0_NOT_TO_MOVE",
+            "rank": 31
+          },
+          "exactQualifiedHandoffs": []
+        },
+        {
+          "column": 7,
+          "landing": {
+            "cell": 6,
+            "column": 7,
+            "row": 1,
+            "supportDepth": 0,
+            "frontierAttached": true,
+            "projectedOwner": 1,
+            "targetSupportDistance": 0
+          },
+          "moverTerminal": false,
+          "childQ": "98b856495e5d28ce",
+          "childSupport": [
+            4,
+            6,
+            3,
+            6,
+            6,
+            5,
+            1
+          ],
+          "exactBridge": {
+            "pass": true,
+            "checks": {
+              "rank": true,
+              "support": true,
+              "p0Residuals": true,
+              "p1Residuals": true
+            },
+            "semanticQClass": "98b856495e5d28ce"
+          },
+          "opponentImmediateTerminals": [],
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_NONE",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            },
+            "frontier": {
+              "kind": "CPC_NONE",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            }
+          },
+          "enabledSingletons": {
+            "P0": [],
+            "P1": []
+          },
+          "singletonTargets": {
+            "P0": [
+              {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 1,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 1
+              }
+            ],
+            "P1": [
+              {
+                "cell": 30,
+                "column": 3,
+                "row": 5,
+                "supportDepth": 1,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 1
+              }
+            ]
+          },
+          "targetReservoirAttempts": [
+            {
+              "target": {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 1,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 1
+              },
+              "targetDepth": 1,
+              "capacity": [
+                2,
+                0,
+                3,
+                0,
+                0,
+                1,
+                2
+              ],
+              "totalRelevant": 8,
+              "oddColumns": [
+                3,
+                6
+              ],
+              "completePairings": 1,
+              "targetCompatiblePairings": 1,
+              "coverageCompatiblePairings": 0,
+              "stage": "DEFENDER_RESIDUAL_UNCOVERED",
+              "smallestUncoveredResidual": {
+                "diagnosticId": 30,
+                "size": 1,
+                "key": "30",
+                "cells": [
+                  {
+                    "cell": 30,
+                    "column": 3,
+                    "row": 5,
+                    "supportDepth": 1,
+                    "frontierAttached": false,
+                    "projectedOwner": 1,
+                    "targetSupportDistance": 1
+                  }
+                ]
+              },
+              "attemptedPairingPrefixes": [
+                {
+                  "pairing": [
+                    {
+                      "columns": [
+                        3,
+                        6
+                      ],
+                      "prefixLength": 1
+                    }
+                  ],
+                  "uncoveredResidual": {
+                    "diagnosticId": 30,
+                    "size": 1,
+                    "key": "30",
+                    "cells": [
+                      {
+                        "cell": 30,
+                        "column": 3,
+                        "row": 5,
+                        "supportDepth": 1,
+                        "frontierAttached": false,
+                        "projectedOwner": 1,
+                        "targetSupportDistance": 1
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "tailAdapter": {
+            "applies": false,
+            "reason": "P0_NOT_TO_MOVE",
+            "rank": 31
+          },
+          "exactQualifiedHandoffs": []
+        }
+      ],
+      "reproducedQualifiedPositive": false
+    },
+    {
+      "exactQClass": "373c44db3354a385",
+      "sequence": "444441566666232222425511515336",
+      "rank": 30,
+      "support": [
+        4,
+        6,
+        3,
+        6,
+        5,
+        6,
+        0
+      ],
+      "sourceDefenderColumn": 6,
+      "sourceDisposition": "UNKNOWN",
+      "sourceInterval": {
+        "lower": -1,
+        "upper": 1
+      },
+      "exactBridge": {
+        "pass": true,
+        "checks": {
+          "rank": true,
+          "support": true,
+          "p0Residuals": true,
+          "p1Residuals": true
+        },
+        "semanticQClass": "373c44db3354a385"
+      },
+      "eventProduct": {
+        "E": {
+          "support": [
+            4,
+            6,
+            3,
+            6,
+            5,
+            6,
+            0
+          ],
+          "remainingCapacity": [
+            2,
+            0,
+            3,
+            0,
+            1,
+            0,
+            6
+          ],
+          "capacityParity": [
+            0,
+            0,
+            1,
+            0,
+            1,
+            0,
+            0
+          ],
+          "widthDerivative": [
+            2,
+            3,
+            3,
+            1,
+            1,
+            6
+          ],
+          "frontierCells": [
+            {
+              "cell": 28,
+              "column": 1,
+              "row": 5,
+              "supportDepth": 0,
+              "frontierAttached": true,
+              "projectedOwner": 1,
+              "targetSupportDistance": 0
+            },
+            {
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "supportDepth": 0,
+              "frontierAttached": true,
+              "projectedOwner": 2,
+              "targetSupportDistance": 0
+            },
+            {
+              "cell": 39,
+              "column": 5,
+              "row": 6,
+              "supportDepth": 0,
+              "frontierAttached": true,
+              "projectedOwner": 2,
+              "targetSupportDistance": 0
+            },
+            {
+              "cell": 6,
+              "column": 7,
+              "row": 1,
+              "supportDepth": 0,
+              "frontierAttached": true,
+              "projectedOwner": 1,
+              "targetSupportDistance": 0
+            }
+          ]
+        },
+        "P": {
+          "mover": "P0",
+          "rank": 30,
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_NONE",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            },
+            "frontier": {
+              "kind": "CPC_NONE",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            }
+          }
+        },
+        "R": {
+          "P0": [
+            {
+              "diagnosticId": 20,
+              "size": 1,
+              "key": "20",
+              "cells": [
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "supportDepth": 2,
+                  "frontierAttached": false,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 2
+                }
+              ]
+            },
+            {
+              "diagnosticId": 515,
+              "size": 3,
+              "key": "23,30,37",
+              "cells": [
+                {
+                  "cell": 23,
+                  "column": 3,
+                  "row": 4,
+                  "supportDepth": 0,
+                  "frontierAttached": true,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 0
+                },
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5,
+                  "supportDepth": 1,
+                  "frontierAttached": false,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 1
+                },
+                {
+                  "cell": 37,
+                  "column": 3,
+                  "row": 6,
+                  "supportDepth": 2,
+                  "frontierAttached": false,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 2
+                }
+              ]
+            }
+          ],
+          "P1": [
+            {
+              "diagnosticId": 30,
+              "size": 1,
+              "key": "30",
+              "cells": [
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5,
+                  "supportDepth": 1,
+                  "frontierAttached": false,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 1
+                }
+              ]
+            },
+            {
+              "diagnosticId": 282,
+              "size": 2,
+              "key": "28,35",
+              "cells": [
+                {
+                  "cell": 28,
+                  "column": 1,
+                  "row": 5,
+                  "supportDepth": 0,
+                  "frontierAttached": true,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 0
+                },
+                {
+                  "cell": 35,
+                  "column": 1,
+                  "row": 6,
+                  "supportDepth": 1,
+                  "frontierAttached": false,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 1
+                }
+              ]
+            },
+            {
+              "diagnosticId": 593,
+              "size": 4,
+              "key": "13,20,27,34",
+              "cells": [
+                {
+                  "cell": 13,
+                  "column": 7,
+                  "row": 2,
+                  "supportDepth": 1,
+                  "frontierAttached": false,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 1
+                },
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "supportDepth": 2,
+                  "frontierAttached": false,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 2
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "supportDepth": 3,
+                  "frontierAttached": false,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 3
+                },
+                {
+                  "cell": 34,
+                  "column": 7,
+                  "row": 5,
+                  "supportDepth": 4,
+                  "frontierAttached": false,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 4
+                }
+              ]
+            },
+            {
+              "diagnosticId": 612,
+              "size": 4,
+              "key": "20,27,34,41",
+              "cells": [
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "supportDepth": 2,
+                  "frontierAttached": false,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 2
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "supportDepth": 3,
+                  "frontierAttached": false,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 3
+                },
+                {
+                  "cell": 34,
+                  "column": 7,
+                  "row": 5,
+                  "supportDepth": 4,
+                  "frontierAttached": false,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 4
+                },
+                {
+                  "cell": 41,
+                  "column": 7,
+                  "row": 6,
+                  "supportDepth": 5,
+                  "frontierAttached": false,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 5
+                }
+              ]
+            },
+            {
+              "diagnosticId": 574,
+              "size": 4,
+              "key": "6,13,20,27",
+              "cells": [
+                {
+                  "cell": 6,
+                  "column": 7,
+                  "row": 1,
+                  "supportDepth": 0,
+                  "frontierAttached": true,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 0
+                },
+                {
+                  "cell": 13,
+                  "column": 7,
+                  "row": 2,
+                  "supportDepth": 1,
+                  "frontierAttached": false,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 1
+                },
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "supportDepth": 2,
+                  "frontierAttached": false,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 2
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "supportDepth": 3,
+                  "frontierAttached": false,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 3
+                }
+              ]
+            }
+          ],
+          "normalizedAntichain": {
+            "P0": [
+              "20",
+              "23,30,37"
+            ],
+            "P1": [
+              "13,20,27,34",
+              "20,27,34,41",
+              "28,35",
+              "30",
+              "6,13,20,27"
+            ]
+          }
+        },
+        "C": {
+          "singletonTargets": {
+            "P0": [
+              {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 2,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 2
+              }
+            ],
+            "P1": [
+              {
+                "cell": 30,
+                "column": 3,
+                "row": 5,
+                "supportDepth": 1,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 1
+              }
+            ]
+          },
+          "enabledSingletons": {
+            "P0": [],
+            "P1": []
+          },
+          "alignedP0Pairs": []
+        },
+        "N": {
+          "sourceDisposition": "UNKNOWN",
+          "sourceInterval": {
+            "lower": -1,
+            "upper": 1
+          },
+          "sourcePositiveKinds": []
+        }
+      },
+      "actions": [
+        {
+          "column": 1,
+          "landing": {
+            "cell": 28,
+            "column": 1,
+            "row": 5,
+            "supportDepth": 0,
+            "frontierAttached": true,
+            "projectedOwner": 1,
+            "targetSupportDistance": 0
+          },
+          "moverTerminal": false,
+          "childQ": "4d721ca7a2ae3a62",
+          "childSupport": [
+            5,
+            6,
+            3,
+            6,
+            5,
+            6,
+            0
+          ],
+          "exactBridge": {
+            "pass": true,
+            "checks": {
+              "rank": true,
+              "support": true,
+              "p0Residuals": true,
+              "p1Residuals": true
+            },
+            "semanticQClass": "4d721ca7a2ae3a62"
+          },
+          "opponentImmediateTerminals": [],
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_NONE",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            },
+            "frontier": {
+              "kind": "CPC_NONE",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            }
+          },
+          "enabledSingletons": {
+            "P0": [],
+            "P1": []
+          },
+          "singletonTargets": {
+            "P0": [
+              {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 2,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 2
+              }
+            ],
+            "P1": [
+              {
+                "cell": 30,
+                "column": 3,
+                "row": 5,
+                "supportDepth": 1,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 1
+              }
+            ]
+          },
+          "targetReservoirAttempts": [
+            {
+              "target": {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 2,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 2
+              },
+              "targetDepth": 2,
+              "capacity": [
+                1,
+                0,
+                3,
+                0,
+                1,
+                0,
+                3
+              ],
+              "totalRelevant": 8,
+              "oddColumns": [
+                1,
+                3,
+                5,
+                7
+              ],
+              "completePairings": 3,
+              "targetCompatiblePairings": 3,
+              "coverageCompatiblePairings": 0,
+              "stage": "DEFENDER_RESIDUAL_UNCOVERED",
+              "smallestUncoveredResidual": {
+                "diagnosticId": 30,
+                "size": 1,
+                "key": "30",
+                "cells": [
+                  {
+                    "cell": 30,
+                    "column": 3,
+                    "row": 5,
+                    "supportDepth": 1,
+                    "frontierAttached": false,
+                    "projectedOwner": 1,
+                    "targetSupportDistance": 1
+                  }
+                ]
+              },
+              "attemptedPairingPrefixes": [
+                {
+                  "pairing": [
+                    {
+                      "columns": [
+                        1,
+                        3
+                      ],
+                      "prefixLength": 1
+                    },
+                    {
+                      "columns": [
+                        5,
+                        7
+                      ],
+                      "prefixLength": 1
+                    }
+                  ],
+                  "uncoveredResidual": {
+                    "diagnosticId": 30,
+                    "size": 1,
+                    "key": "30",
+                    "cells": [
+                      {
+                        "cell": 30,
+                        "column": 3,
+                        "row": 5,
+                        "supportDepth": 1,
+                        "frontierAttached": false,
+                        "projectedOwner": 1,
+                        "targetSupportDistance": 1
+                      }
+                    ]
+                  }
+                },
+                {
+                  "pairing": [
+                    {
+                      "columns": [
+                        1,
+                        5
+                      ],
+                      "prefixLength": 1
+                    },
+                    {
+                      "columns": [
+                        3,
+                        7
+                      ],
+                      "prefixLength": 1
+                    }
+                  ],
+                  "uncoveredResidual": {
+                    "diagnosticId": 30,
+                    "size": 1,
+                    "key": "30",
+                    "cells": [
+                      {
+                        "cell": 30,
+                        "column": 3,
+                        "row": 5,
+                        "supportDepth": 1,
+                        "frontierAttached": false,
+                        "projectedOwner": 1,
+                        "targetSupportDistance": 1
+                      }
+                    ]
+                  }
+                },
+                {
+                  "pairing": [
+                    {
+                      "columns": [
+                        1,
+                        7
+                      ],
+                      "prefixLength": 1
+                    },
+                    {
+                      "columns": [
+                        3,
+                        5
+                      ],
+                      "prefixLength": 1
+                    }
+                  ],
+                  "uncoveredResidual": {
+                    "diagnosticId": 30,
+                    "size": 1,
+                    "key": "30",
+                    "cells": [
+                      {
+                        "cell": 30,
+                        "column": 3,
+                        "row": 5,
+                        "supportDepth": 1,
+                        "frontierAttached": false,
+                        "projectedOwner": 1,
+                        "targetSupportDistance": 1
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "tailAdapter": {
+            "applies": false,
+            "reason": "P0_NOT_TO_MOVE",
+            "rank": 31
+          },
+          "exactQualifiedHandoffs": []
+        },
+        {
+          "column": 3,
+          "landing": {
+            "cell": 23,
+            "column": 3,
+            "row": 4,
+            "supportDepth": 0,
+            "frontierAttached": true,
+            "projectedOwner": 2,
+            "targetSupportDistance": 0
+          },
+          "moverTerminal": false,
+          "childQ": "bb55512d4cee1f45",
+          "childSupport": [
+            4,
+            6,
+            4,
+            6,
+            5,
+            6,
+            0
+          ],
+          "exactBridge": {
+            "pass": true,
+            "checks": {
+              "rank": true,
+              "support": true,
+              "p0Residuals": true,
+              "p1Residuals": true
+            },
+            "semanticQClass": "bb55512d4cee1f45"
+          },
+          "opponentImmediateTerminals": [
+            {
+              "column": 3,
+              "cell": "C5"
+            }
+          ],
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            }
+          },
+          "enabledSingletons": {
+            "P0": [],
+            "P1": [
+              "C5"
+            ]
+          },
+          "singletonTargets": {
+            "P0": [
+              {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 2,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 2
+              }
+            ],
+            "P1": [
+              {
+                "cell": 30,
+                "column": 3,
+                "row": 5,
+                "supportDepth": 0,
+                "frontierAttached": true,
+                "projectedOwner": 1,
+                "targetSupportDistance": 0
+              }
+            ]
+          },
+          "targetReservoirAttempts": [
+            {
+              "target": {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 2,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 2
+              },
+              "stage": "PLAYABLE_DEFENDER_SINGLETON_EXISTS",
+              "defenderPlayable": [
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5,
+                  "supportDepth": 0,
+                  "frontierAttached": true,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 0
+                }
+              ]
+            }
+          ],
+          "tailAdapter": {
+            "applies": false,
+            "reason": "P0_NOT_TO_MOVE",
+            "rank": 31
+          },
+          "exactQualifiedHandoffs": []
+        },
+        {
+          "column": 5,
+          "landing": {
+            "cell": 39,
+            "column": 5,
+            "row": 6,
+            "supportDepth": 0,
+            "frontierAttached": true,
+            "projectedOwner": 2,
+            "targetSupportDistance": 0
+          },
+          "moverTerminal": false,
+          "childQ": "d287bc38f6876feb",
+          "childSupport": [
+            4,
+            6,
+            3,
+            6,
+            6,
+            6,
+            0
+          ],
+          "exactBridge": {
+            "pass": true,
+            "checks": {
+              "rank": true,
+              "support": true,
+              "p0Residuals": true,
+              "p1Residuals": true
+            },
+            "semanticQClass": "d287bc38f6876feb"
+          },
+          "opponentImmediateTerminals": [],
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_NONE",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            },
+            "frontier": {
+              "kind": "CPC_NONE",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            }
+          },
+          "enabledSingletons": {
+            "P0": [],
+            "P1": []
+          },
+          "singletonTargets": {
+            "P0": [
+              {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 2,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 2
+              }
+            ],
+            "P1": [
+              {
+                "cell": 30,
+                "column": 3,
+                "row": 5,
+                "supportDepth": 1,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 1
+              }
+            ]
+          },
+          "targetReservoirAttempts": [
+            {
+              "target": {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 2,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 2
+              },
+              "targetDepth": 2,
+              "capacity": [
+                2,
+                0,
+                3,
+                0,
+                0,
+                0,
+                3
+              ],
+              "totalRelevant": 8,
+              "oddColumns": [
+                3,
+                7
+              ],
+              "completePairings": 1,
+              "targetCompatiblePairings": 1,
+              "coverageCompatiblePairings": 0,
+              "stage": "DEFENDER_RESIDUAL_UNCOVERED",
+              "smallestUncoveredResidual": {
+                "diagnosticId": 30,
+                "size": 1,
+                "key": "30",
+                "cells": [
+                  {
+                    "cell": 30,
+                    "column": 3,
+                    "row": 5,
+                    "supportDepth": 1,
+                    "frontierAttached": false,
+                    "projectedOwner": 1,
+                    "targetSupportDistance": 1
+                  }
+                ]
+              },
+              "attemptedPairingPrefixes": [
+                {
+                  "pairing": [
+                    {
+                      "columns": [
+                        3,
+                        7
+                      ],
+                      "prefixLength": 1
+                    }
+                  ],
+                  "uncoveredResidual": {
+                    "diagnosticId": 30,
+                    "size": 1,
+                    "key": "30",
+                    "cells": [
+                      {
+                        "cell": 30,
+                        "column": 3,
+                        "row": 5,
+                        "supportDepth": 1,
+                        "frontierAttached": false,
+                        "projectedOwner": 1,
+                        "targetSupportDistance": 1
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "tailAdapter": {
+            "applies": false,
+            "reason": "P0_NOT_TO_MOVE",
+            "rank": 31
+          },
+          "exactQualifiedHandoffs": []
+        },
+        {
+          "column": 7,
+          "landing": {
+            "cell": 6,
+            "column": 7,
+            "row": 1,
+            "supportDepth": 0,
+            "frontierAttached": true,
+            "projectedOwner": 1,
+            "targetSupportDistance": 0
+          },
+          "moverTerminal": false,
+          "childQ": "43fff93289df04af",
+          "childSupport": [
+            4,
+            6,
+            3,
+            6,
+            5,
+            6,
+            1
+          ],
+          "exactBridge": {
+            "pass": true,
+            "checks": {
+              "rank": true,
+              "support": true,
+              "p0Residuals": true,
+              "p1Residuals": true
+            },
+            "semanticQClass": "43fff93289df04af"
+          },
+          "opponentImmediateTerminals": [],
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_NONE",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            },
+            "frontier": {
+              "kind": "CPC_NONE",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            }
+          },
+          "enabledSingletons": {
+            "P0": [],
+            "P1": []
+          },
+          "singletonTargets": {
+            "P0": [
+              {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 1,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 1
+              }
+            ],
+            "P1": [
+              {
+                "cell": 30,
+                "column": 3,
+                "row": 5,
+                "supportDepth": 1,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 1
+              }
+            ]
+          },
+          "targetReservoirAttempts": [
+            {
+              "target": {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 1,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 1
+              },
+              "targetDepth": 1,
+              "capacity": [
+                2,
+                0,
+                3,
+                0,
+                1,
+                0,
+                2
+              ],
+              "totalRelevant": 8,
+              "oddColumns": [
+                3,
+                5
+              ],
+              "completePairings": 1,
+              "targetCompatiblePairings": 1,
+              "coverageCompatiblePairings": 0,
+              "stage": "DEFENDER_RESIDUAL_UNCOVERED",
+              "smallestUncoveredResidual": {
+                "diagnosticId": 30,
+                "size": 1,
+                "key": "30",
+                "cells": [
+                  {
+                    "cell": 30,
+                    "column": 3,
+                    "row": 5,
+                    "supportDepth": 1,
+                    "frontierAttached": false,
+                    "projectedOwner": 1,
+                    "targetSupportDistance": 1
+                  }
+                ]
+              },
+              "attemptedPairingPrefixes": [
+                {
+                  "pairing": [
+                    {
+                      "columns": [
+                        3,
+                        5
+                      ],
+                      "prefixLength": 1
+                    }
+                  ],
+                  "uncoveredResidual": {
+                    "diagnosticId": 30,
+                    "size": 1,
+                    "key": "30",
+                    "cells": [
+                      {
+                        "cell": 30,
+                        "column": 3,
+                        "row": 5,
+                        "supportDepth": 1,
+                        "frontierAttached": false,
+                        "projectedOwner": 1,
+                        "targetSupportDistance": 1
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "tailAdapter": {
+            "applies": false,
+            "reason": "P0_NOT_TO_MOVE",
+            "rank": 31
+          },
+          "exactQualifiedHandoffs": []
+        }
+      ],
+      "reproducedQualifiedPositive": false
+    },
+    {
+      "exactQClass": "ed03539228914a31",
+      "sequence": "444441566666232222425511515337",
+      "rank": 30,
+      "support": [
+        4,
+        6,
+        3,
+        6,
+        5,
+        5,
+        1
+      ],
+      "sourceDefenderColumn": 7,
+      "sourceDisposition": "UNKNOWN",
+      "sourceInterval": {
+        "lower": -1,
+        "upper": 1
+      },
+      "exactBridge": {
+        "pass": true,
+        "checks": {
+          "rank": true,
+          "support": true,
+          "p0Residuals": true,
+          "p1Residuals": true
+        },
+        "semanticQClass": "ed03539228914a31"
+      },
+      "eventProduct": {
+        "E": {
+          "support": [
+            4,
+            6,
+            3,
+            6,
+            5,
+            5,
+            1
+          ],
+          "remainingCapacity": [
+            2,
+            0,
+            3,
+            0,
+            1,
+            1,
+            5
+          ],
+          "capacityParity": [
+            0,
+            0,
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "widthDerivative": [
+            2,
+            3,
+            3,
+            1,
+            0,
+            4
+          ],
+          "frontierCells": [
+            {
+              "cell": 28,
+              "column": 1,
+              "row": 5,
+              "supportDepth": 0,
+              "frontierAttached": true,
+              "projectedOwner": 1,
+              "targetSupportDistance": 0
+            },
+            {
+              "cell": 23,
+              "column": 3,
+              "row": 4,
+              "supportDepth": 0,
+              "frontierAttached": true,
+              "projectedOwner": 2,
+              "targetSupportDistance": 0
+            },
+            {
+              "cell": 39,
+              "column": 5,
+              "row": 6,
+              "supportDepth": 0,
+              "frontierAttached": true,
+              "projectedOwner": 2,
+              "targetSupportDistance": 0
+            },
+            {
+              "cell": 40,
+              "column": 6,
+              "row": 6,
+              "supportDepth": 0,
+              "frontierAttached": true,
+              "projectedOwner": 2,
+              "targetSupportDistance": 0
+            },
+            {
+              "cell": 13,
+              "column": 7,
+              "row": 2,
+              "supportDepth": 0,
+              "frontierAttached": true,
+              "projectedOwner": 2,
+              "targetSupportDistance": 0
+            }
+          ]
+        },
+        "P": {
+          "mover": "P0",
+          "rank": 30,
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_NONE",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            },
+            "frontier": {
+              "kind": "CPC_NONE",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            }
+          }
+        },
+        "R": {
+          "P0": [
+            {
+              "diagnosticId": 20,
+              "size": 1,
+              "key": "20",
+              "cells": [
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "supportDepth": 1,
+                  "frontierAttached": false,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 1
+                }
+              ]
+            },
+            {
+              "diagnosticId": 515,
+              "size": 3,
+              "key": "23,30,37",
+              "cells": [
+                {
+                  "cell": 23,
+                  "column": 3,
+                  "row": 4,
+                  "supportDepth": 0,
+                  "frontierAttached": true,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 0
+                },
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5,
+                  "supportDepth": 1,
+                  "frontierAttached": false,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 1
+                },
+                {
+                  "cell": 37,
+                  "column": 3,
+                  "row": 6,
+                  "supportDepth": 2,
+                  "frontierAttached": false,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 2
+                }
+              ]
+            },
+            {
+              "diagnosticId": 551,
+              "size": 3,
+              "key": "37,39,40",
+              "cells": [
+                {
+                  "cell": 37,
+                  "column": 3,
+                  "row": 6,
+                  "supportDepth": 2,
+                  "frontierAttached": false,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 2
+                },
+                {
+                  "cell": 39,
+                  "column": 5,
+                  "row": 6,
+                  "supportDepth": 0,
+                  "frontierAttached": true,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 0
+                },
+                {
+                  "cell": 40,
+                  "column": 6,
+                  "row": 6,
+                  "supportDepth": 0,
+                  "frontierAttached": true,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 0
+                }
+              ]
+            },
+            {
+              "diagnosticId": 555,
+              "size": 3,
+              "key": "39,40,41",
+              "cells": [
+                {
+                  "cell": 39,
+                  "column": 5,
+                  "row": 6,
+                  "supportDepth": 0,
+                  "frontierAttached": true,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 0
+                },
+                {
+                  "cell": 40,
+                  "column": 6,
+                  "row": 6,
+                  "supportDepth": 0,
+                  "frontierAttached": true,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 0
+                },
+                {
+                  "cell": 41,
+                  "column": 7,
+                  "row": 6,
+                  "supportDepth": 4,
+                  "frontierAttached": false,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 4
+                }
+              ]
+            }
+          ],
+          "P1": [
+            {
+              "diagnosticId": 30,
+              "size": 1,
+              "key": "30",
+              "cells": [
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5,
+                  "supportDepth": 1,
+                  "frontierAttached": false,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 1
+                }
+              ]
+            },
+            {
+              "diagnosticId": 282,
+              "size": 2,
+              "key": "28,35",
+              "cells": [
+                {
+                  "cell": 28,
+                  "column": 1,
+                  "row": 5,
+                  "supportDepth": 0,
+                  "frontierAttached": true,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 0
+                },
+                {
+                  "cell": 35,
+                  "column": 1,
+                  "row": 6,
+                  "supportDepth": 1,
+                  "frontierAttached": false,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 1
+                }
+              ]
+            },
+            {
+              "diagnosticId": 438,
+              "size": 3,
+              "key": "13,20,27",
+              "cells": [
+                {
+                  "cell": 13,
+                  "column": 7,
+                  "row": 2,
+                  "supportDepth": 0,
+                  "frontierAttached": true,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 0
+                },
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "supportDepth": 1,
+                  "frontierAttached": false,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 1
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "supportDepth": 2,
+                  "frontierAttached": false,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 2
+                }
+              ]
+            },
+            {
+              "diagnosticId": 612,
+              "size": 4,
+              "key": "20,27,34,41",
+              "cells": [
+                {
+                  "cell": 20,
+                  "column": 7,
+                  "row": 3,
+                  "supportDepth": 1,
+                  "frontierAttached": false,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 1
+                },
+                {
+                  "cell": 27,
+                  "column": 7,
+                  "row": 4,
+                  "supportDepth": 2,
+                  "frontierAttached": false,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 2
+                },
+                {
+                  "cell": 34,
+                  "column": 7,
+                  "row": 5,
+                  "supportDepth": 3,
+                  "frontierAttached": false,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 3
+                },
+                {
+                  "cell": 41,
+                  "column": 7,
+                  "row": 6,
+                  "supportDepth": 4,
+                  "frontierAttached": false,
+                  "projectedOwner": 2,
+                  "targetSupportDistance": 4
+                }
+              ]
+            }
+          ],
+          "normalizedAntichain": {
+            "P0": [
+              "20",
+              "23,30,37",
+              "37,39,40",
+              "39,40,41"
+            ],
+            "P1": [
+              "13,20,27",
+              "20,27,34,41",
+              "28,35",
+              "30"
+            ]
+          }
+        },
+        "C": {
+          "singletonTargets": {
+            "P0": [
+              {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 1,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 1
+              }
+            ],
+            "P1": [
+              {
+                "cell": 30,
+                "column": 3,
+                "row": 5,
+                "supportDepth": 1,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 1
+              }
+            ]
+          },
+          "enabledSingletons": {
+            "P0": [],
+            "P1": []
+          },
+          "alignedP0Pairs": []
+        },
+        "N": {
+          "sourceDisposition": "UNKNOWN",
+          "sourceInterval": {
+            "lower": -1,
+            "upper": 1
+          },
+          "sourcePositiveKinds": []
+        }
+      },
+      "actions": [
+        {
+          "column": 1,
+          "landing": {
+            "cell": 28,
+            "column": 1,
+            "row": 5,
+            "supportDepth": 0,
+            "frontierAttached": true,
+            "projectedOwner": 1,
+            "targetSupportDistance": 0
+          },
+          "moverTerminal": false,
+          "childQ": "aff7a6425d1aa09c",
+          "childSupport": [
+            5,
+            6,
+            3,
+            6,
+            5,
+            5,
+            1
+          ],
+          "exactBridge": {
+            "pass": true,
+            "checks": {
+              "rank": true,
+              "support": true,
+              "p0Residuals": true,
+              "p1Residuals": true
+            },
+            "semanticQClass": "aff7a6425d1aa09c"
+          },
+          "opponentImmediateTerminals": [],
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_NONE",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            },
+            "frontier": {
+              "kind": "CPC_NONE",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            }
+          },
+          "enabledSingletons": {
+            "P0": [],
+            "P1": []
+          },
+          "singletonTargets": {
+            "P0": [
+              {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 1,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 1
+              }
+            ],
+            "P1": [
+              {
+                "cell": 30,
+                "column": 3,
+                "row": 5,
+                "supportDepth": 1,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 1
+              }
+            ]
+          },
+          "targetReservoirAttempts": [
+            {
+              "target": {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 1,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 1
+              },
+              "targetDepth": 1,
+              "capacity": [
+                1,
+                0,
+                3,
+                0,
+                1,
+                1,
+                2
+              ],
+              "totalRelevant": 8,
+              "oddColumns": [
+                1,
+                3,
+                5,
+                6
+              ],
+              "completePairings": 3,
+              "targetCompatiblePairings": 3,
+              "coverageCompatiblePairings": 0,
+              "stage": "DEFENDER_RESIDUAL_UNCOVERED",
+              "smallestUncoveredResidual": {
+                "diagnosticId": 30,
+                "size": 1,
+                "key": "30",
+                "cells": [
+                  {
+                    "cell": 30,
+                    "column": 3,
+                    "row": 5,
+                    "supportDepth": 1,
+                    "frontierAttached": false,
+                    "projectedOwner": 1,
+                    "targetSupportDistance": 1
+                  }
+                ]
+              },
+              "attemptedPairingPrefixes": [
+                {
+                  "pairing": [
+                    {
+                      "columns": [
+                        1,
+                        3
+                      ],
+                      "prefixLength": 1
+                    },
+                    {
+                      "columns": [
+                        5,
+                        6
+                      ],
+                      "prefixLength": 1
+                    }
+                  ],
+                  "uncoveredResidual": {
+                    "diagnosticId": 30,
+                    "size": 1,
+                    "key": "30",
+                    "cells": [
+                      {
+                        "cell": 30,
+                        "column": 3,
+                        "row": 5,
+                        "supportDepth": 1,
+                        "frontierAttached": false,
+                        "projectedOwner": 1,
+                        "targetSupportDistance": 1
+                      }
+                    ]
+                  }
+                },
+                {
+                  "pairing": [
+                    {
+                      "columns": [
+                        1,
+                        5
+                      ],
+                      "prefixLength": 1
+                    },
+                    {
+                      "columns": [
+                        3,
+                        6
+                      ],
+                      "prefixLength": 1
+                    }
+                  ],
+                  "uncoveredResidual": {
+                    "diagnosticId": 30,
+                    "size": 1,
+                    "key": "30",
+                    "cells": [
+                      {
+                        "cell": 30,
+                        "column": 3,
+                        "row": 5,
+                        "supportDepth": 1,
+                        "frontierAttached": false,
+                        "projectedOwner": 1,
+                        "targetSupportDistance": 1
+                      }
+                    ]
+                  }
+                },
+                {
+                  "pairing": [
+                    {
+                      "columns": [
+                        1,
+                        6
+                      ],
+                      "prefixLength": 1
+                    },
+                    {
+                      "columns": [
+                        3,
+                        5
+                      ],
+                      "prefixLength": 1
+                    }
+                  ],
+                  "uncoveredResidual": {
+                    "diagnosticId": 30,
+                    "size": 1,
+                    "key": "30",
+                    "cells": [
+                      {
+                        "cell": 30,
+                        "column": 3,
+                        "row": 5,
+                        "supportDepth": 1,
+                        "frontierAttached": false,
+                        "projectedOwner": 1,
+                        "targetSupportDistance": 1
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "tailAdapter": {
+            "applies": false,
+            "reason": "P0_NOT_TO_MOVE",
+            "rank": 31
+          },
+          "exactQualifiedHandoffs": []
+        },
+        {
+          "column": 3,
+          "landing": {
+            "cell": 23,
+            "column": 3,
+            "row": 4,
+            "supportDepth": 0,
+            "frontierAttached": true,
+            "projectedOwner": 2,
+            "targetSupportDistance": 0
+          },
+          "moverTerminal": false,
+          "childQ": "ed47311d4a57d503",
+          "childSupport": [
+            4,
+            6,
+            4,
+            6,
+            5,
+            5,
+            1
+          ],
+          "exactBridge": {
+            "pass": true,
+            "checks": {
+              "rank": true,
+              "support": true,
+              "p0Residuals": true,
+              "p1Residuals": true
+            },
+            "semanticQClass": "ed47311d4a57d503"
+          },
+          "opponentImmediateTerminals": [
+            {
+              "column": 3,
+              "cell": "C5"
+            }
+          ],
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_EXACT",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            },
+            "frontier": {
+              "kind": "CPC_EXACT",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            }
+          },
+          "enabledSingletons": {
+            "P0": [],
+            "P1": [
+              "C5"
+            ]
+          },
+          "singletonTargets": {
+            "P0": [
+              {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 1,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 1
+              }
+            ],
+            "P1": [
+              {
+                "cell": 30,
+                "column": 3,
+                "row": 5,
+                "supportDepth": 0,
+                "frontierAttached": true,
+                "projectedOwner": 1,
+                "targetSupportDistance": 0
+              }
+            ]
+          },
+          "targetReservoirAttempts": [
+            {
+              "target": {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 1,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 1
+              },
+              "stage": "PLAYABLE_DEFENDER_SINGLETON_EXISTS",
+              "defenderPlayable": [
+                {
+                  "cell": 30,
+                  "column": 3,
+                  "row": 5,
+                  "supportDepth": 0,
+                  "frontierAttached": true,
+                  "projectedOwner": 1,
+                  "targetSupportDistance": 0
+                }
+              ]
+            }
+          ],
+          "tailAdapter": {
+            "applies": false,
+            "reason": "P0_NOT_TO_MOVE",
+            "rank": 31
+          },
+          "exactQualifiedHandoffs": []
+        },
+        {
+          "column": 5,
+          "landing": {
+            "cell": 39,
+            "column": 5,
+            "row": 6,
+            "supportDepth": 0,
+            "frontierAttached": true,
+            "projectedOwner": 2,
+            "targetSupportDistance": 0
+          },
+          "moverTerminal": false,
+          "childQ": "a4707bbf2092be87",
+          "childSupport": [
+            4,
+            6,
+            3,
+            6,
+            6,
+            5,
+            1
+          ],
+          "exactBridge": {
+            "pass": true,
+            "checks": {
+              "rank": true,
+              "support": true,
+              "p0Residuals": true,
+              "p1Residuals": true
+            },
+            "semanticQClass": "a4707bbf2092be87"
+          },
+          "opponentImmediateTerminals": [],
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_NONE",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            },
+            "frontier": {
+              "kind": "CPC_NONE",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            }
+          },
+          "enabledSingletons": {
+            "P0": [],
+            "P1": []
+          },
+          "singletonTargets": {
+            "P0": [
+              {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 1,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 1
+              }
+            ],
+            "P1": [
+              {
+                "cell": 30,
+                "column": 3,
+                "row": 5,
+                "supportDepth": 1,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 1
+              }
+            ]
+          },
+          "targetReservoirAttempts": [
+            {
+              "target": {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 1,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 1
+              },
+              "targetDepth": 1,
+              "capacity": [
+                2,
+                0,
+                3,
+                0,
+                0,
+                1,
+                2
+              ],
+              "totalRelevant": 8,
+              "oddColumns": [
+                3,
+                6
+              ],
+              "completePairings": 1,
+              "targetCompatiblePairings": 1,
+              "coverageCompatiblePairings": 0,
+              "stage": "DEFENDER_RESIDUAL_UNCOVERED",
+              "smallestUncoveredResidual": {
+                "diagnosticId": 30,
+                "size": 1,
+                "key": "30",
+                "cells": [
+                  {
+                    "cell": 30,
+                    "column": 3,
+                    "row": 5,
+                    "supportDepth": 1,
+                    "frontierAttached": false,
+                    "projectedOwner": 1,
+                    "targetSupportDistance": 1
+                  }
+                ]
+              },
+              "attemptedPairingPrefixes": [
+                {
+                  "pairing": [
+                    {
+                      "columns": [
+                        3,
+                        6
+                      ],
+                      "prefixLength": 1
+                    }
+                  ],
+                  "uncoveredResidual": {
+                    "diagnosticId": 30,
+                    "size": 1,
+                    "key": "30",
+                    "cells": [
+                      {
+                        "cell": 30,
+                        "column": 3,
+                        "row": 5,
+                        "supportDepth": 1,
+                        "frontierAttached": false,
+                        "projectedOwner": 1,
+                        "targetSupportDistance": 1
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "tailAdapter": {
+            "applies": false,
+            "reason": "P0_NOT_TO_MOVE",
+            "rank": 31
+          },
+          "exactQualifiedHandoffs": []
+        },
+        {
+          "column": 6,
+          "landing": {
+            "cell": 40,
+            "column": 6,
+            "row": 6,
+            "supportDepth": 0,
+            "frontierAttached": true,
+            "projectedOwner": 2,
+            "targetSupportDistance": 0
+          },
+          "moverTerminal": false,
+          "childQ": "0edf91f55e306fca",
+          "childSupport": [
+            4,
+            6,
+            3,
+            6,
+            5,
+            6,
+            1
+          ],
+          "exactBridge": {
+            "pass": true,
+            "checks": {
+              "rank": true,
+              "support": true,
+              "p0Residuals": true,
+              "p1Residuals": true
+            },
+            "semanticQClass": "0edf91f55e306fca"
+          },
+          "opponentImmediateTerminals": [],
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_NONE",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            },
+            "frontier": {
+              "kind": "CPC_NONE",
+              "forcedColumn": null,
+              "preemptionCount": 0
+            }
+          },
+          "enabledSingletons": {
+            "P0": [],
+            "P1": []
+          },
+          "singletonTargets": {
+            "P0": [
+              {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 1,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 1
+              }
+            ],
+            "P1": [
+              {
+                "cell": 30,
+                "column": 3,
+                "row": 5,
+                "supportDepth": 1,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 1
+              }
+            ]
+          },
+          "targetReservoirAttempts": [
+            {
+              "target": {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 1,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 1
+              },
+              "targetDepth": 1,
+              "capacity": [
+                2,
+                0,
+                3,
+                0,
+                1,
+                0,
+                2
+              ],
+              "totalRelevant": 8,
+              "oddColumns": [
+                3,
+                5
+              ],
+              "completePairings": 1,
+              "targetCompatiblePairings": 1,
+              "coverageCompatiblePairings": 0,
+              "stage": "DEFENDER_RESIDUAL_UNCOVERED",
+              "smallestUncoveredResidual": {
+                "diagnosticId": 30,
+                "size": 1,
+                "key": "30",
+                "cells": [
+                  {
+                    "cell": 30,
+                    "column": 3,
+                    "row": 5,
+                    "supportDepth": 1,
+                    "frontierAttached": false,
+                    "projectedOwner": 1,
+                    "targetSupportDistance": 1
+                  }
+                ]
+              },
+              "attemptedPairingPrefixes": [
+                {
+                  "pairing": [
+                    {
+                      "columns": [
+                        3,
+                        5
+                      ],
+                      "prefixLength": 1
+                    }
+                  ],
+                  "uncoveredResidual": {
+                    "diagnosticId": 30,
+                    "size": 1,
+                    "key": "30",
+                    "cells": [
+                      {
+                        "cell": 30,
+                        "column": 3,
+                        "row": 5,
+                        "supportDepth": 1,
+                        "frontierAttached": false,
+                        "projectedOwner": 1,
+                        "targetSupportDistance": 1
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "tailAdapter": {
+            "applies": false,
+            "reason": "P0_NOT_TO_MOVE",
+            "rank": 31
+          },
+          "exactQualifiedHandoffs": []
+        },
+        {
+          "column": 7,
+          "landing": {
+            "cell": 13,
+            "column": 7,
+            "row": 2,
+            "supportDepth": 0,
+            "frontierAttached": true,
+            "projectedOwner": 2,
+            "targetSupportDistance": 0
+          },
+          "moverTerminal": false,
+          "childQ": "43e9d322c0ee8fdb",
+          "childSupport": [
+            4,
+            6,
+            3,
+            6,
+            5,
+            5,
+            2
+          ],
+          "exactBridge": {
+            "pass": true,
+            "checks": {
+              "rank": true,
+              "support": true,
+              "p0Residuals": true,
+              "p1Residuals": true
+            },
+            "semanticQClass": "43e9d322c0ee8fdb"
+          },
+          "opponentImmediateTerminals": [],
+          "cpc": {
+            "baseline": {
+              "kind": "CPC_RESTRICT",
+              "forcedColumn": 7,
+              "preemptionCount": 1
+            },
+            "frontier": {
+              "kind": "CPC_RESTRICT",
+              "forcedColumn": 7,
+              "preemptionCount": 1
+            }
+          },
+          "enabledSingletons": {
+            "P0": [
+              "G3"
+            ],
+            "P1": []
+          },
+          "singletonTargets": {
+            "P0": [
+              {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 0,
+                "frontierAttached": true,
+                "projectedOwner": 1,
+                "targetSupportDistance": 0
+              }
+            ],
+            "P1": [
+              {
+                "cell": 30,
+                "column": 3,
+                "row": 5,
+                "supportDepth": 1,
+                "frontierAttached": false,
+                "projectedOwner": 1,
+                "targetSupportDistance": 1
+              }
+            ]
+          },
+          "targetReservoirAttempts": [
+            {
+              "target": {
+                "cell": 20,
+                "column": 7,
+                "row": 3,
+                "supportDepth": 0,
+                "frontierAttached": true,
+                "projectedOwner": 1,
+                "targetSupportDistance": 0
+              },
+              "stage": "TARGET_NOT_AHEAD_OF_SUPPORT",
+              "targetDepth": 0
+            }
+          ],
+          "tailAdapter": {
+            "applies": false,
+            "reason": "P0_NOT_TO_MOVE",
+            "rank": 31
+          },
+          "exactQualifiedHandoffs": []
+        }
+      ],
+      "reproducedQualifiedPositive": false
+    }
+  ],
+  "differential": {
+    "identicalAcrossAll": [
+      "mover",
+      "p0SingletonTargets",
+      "enabledP0Singletons",
+      "alignedP0PairKeys"
+    ],
+    "unresolvedSharedDifferentFromPositive": [],
+    "unresolvedSplits": [
+      {
+        "field": "cpcBaseline",
+        "groups": [
+          {
+            "value": "CPC_RESTRICT",
+            "qClasses": [
+              "1e8601e86599ef24"
+            ]
+          },
+          {
+            "value": "CPC_NONE",
+            "qClasses": [
+              "3ff97b02970a6bb5",
+              "373c44db3354a385",
+              "ed03539228914a31"
+            ]
+          }
+        ]
+      },
+      {
+        "field": "cpcFrontier",
+        "groups": [
+          {
+            "value": "CPC_RESTRICT",
+            "qClasses": [
+              "1e8601e86599ef24"
+            ]
+          },
+          {
+            "value": "CPC_NONE",
+            "qClasses": [
+              "3ff97b02970a6bb5",
+              "373c44db3354a385",
+              "ed03539228914a31"
+            ]
+          }
+        ]
+      },
+      {
+        "field": "forcedColumn",
+        "groups": [
+          {
+            "value": 1,
+            "qClasses": [
+              "1e8601e86599ef24"
+            ]
+          },
+          {
+            "value": null,
+            "qClasses": [
+              "3ff97b02970a6bb5",
+              "373c44db3354a385",
+              "ed03539228914a31"
+            ]
+          }
+        ]
+      },
+      {
+        "field": "preemptionCount",
+        "groups": [
+          {
+            "value": 1,
+            "qClasses": [
+              "1e8601e86599ef24"
+            ]
+          },
+          {
+            "value": 0,
+            "qClasses": [
+              "3ff97b02970a6bb5",
+              "373c44db3354a385",
+              "ed03539228914a31"
+            ]
+          }
+        ]
+      },
+      {
+        "field": "remainingCapacity",
+        "groups": [
+          {
+            "value": [
+              1,
+              0,
+              3,
+              0,
+              1,
+              1,
+              6
+            ],
+            "qClasses": [
+              "1e8601e86599ef24"
+            ]
+          },
+          {
+            "value": [
+              2,
+              0,
+              3,
+              0,
+              0,
+              1,
+              6
+            ],
+            "qClasses": [
+              "3ff97b02970a6bb5"
+            ]
+          },
+          {
+            "value": [
+              2,
+              0,
+              3,
+              0,
+              1,
+              0,
+              6
+            ],
+            "qClasses": [
+              "373c44db3354a385"
+            ]
+          },
+          {
+            "value": [
+              2,
+              0,
+              3,
+              0,
+              1,
+              1,
+              5
+            ],
+            "qClasses": [
+              "ed03539228914a31"
+            ]
+          }
+        ]
+      },
+      {
+        "field": "capacityParity",
+        "groups": [
+          {
+            "value": [
+              1,
+              0,
+              1,
+              0,
+              1,
+              1,
+              0
+            ],
+            "qClasses": [
+              "1e8601e86599ef24"
+            ]
+          },
+          {
+            "value": [
+              0,
+              0,
+              1,
+              0,
+              0,
+              1,
+              0
+            ],
+            "qClasses": [
+              "3ff97b02970a6bb5"
+            ]
+          },
+          {
+            "value": [
+              0,
+              0,
+              1,
+              0,
+              1,
+              0,
+              0
+            ],
+            "qClasses": [
+              "373c44db3354a385"
+            ]
+          },
+          {
+            "value": [
+              0,
+              0,
+              1,
+              0,
+              1,
+              1,
+              1
+            ],
+            "qClasses": [
+              "ed03539228914a31"
+            ]
+          }
+        ]
+      },
+      {
+        "field": "widthDerivative",
+        "groups": [
+          {
+            "value": [
+              1,
+              3,
+              3,
+              1,
+              0,
+              5
+            ],
+            "qClasses": [
+              "1e8601e86599ef24"
+            ]
+          },
+          {
+            "value": [
+              2,
+              3,
+              3,
+              0,
+              1,
+              5
+            ],
+            "qClasses": [
+              "3ff97b02970a6bb5"
+            ]
+          },
+          {
+            "value": [
+              2,
+              3,
+              3,
+              1,
+              1,
+              6
+            ],
+            "qClasses": [
+              "373c44db3354a385"
+            ]
+          },
+          {
+            "value": [
+              2,
+              3,
+              3,
+              1,
+              0,
+              4
+            ],
+            "qClasses": [
+              "ed03539228914a31"
+            ]
+          }
+        ]
+      },
+      {
+        "field": "p0ResidualKeys",
+        "groups": [
+          {
+            "value": [
+              "20",
+              "23,30,37",
+              "37,39,40",
+              "39,40,41"
+            ],
+            "qClasses": [
+              "1e8601e86599ef24",
+              "ed03539228914a31"
+            ]
+          },
+          {
+            "value": [
+              "20",
+              "23,30,37"
+            ],
+            "qClasses": [
+              "3ff97b02970a6bb5",
+              "373c44db3354a385"
+            ]
+          }
+        ]
+      },
+      {
+        "field": "p1ResidualKeys",
+        "groups": [
+          {
+            "value": [
+              "30",
+              "35",
+              "13,20,27,34",
+              "20,27,34,41",
+              "6,13,20,27"
+            ],
+            "qClasses": [
+              "1e8601e86599ef24"
+            ]
+          },
+          {
+            "value": [
+              "30",
+              "28,35",
+              "13,20,27,34",
+              "20,27,34,41",
+              "6,13,20,27"
+            ],
+            "qClasses": [
+              "3ff97b02970a6bb5",
+              "373c44db3354a385"
+            ]
+          },
+          {
+            "value": [
+              "30",
+              "28,35",
+              "13,20,27",
+              "20,27,34,41"
+            ],
+            "qClasses": [
+              "ed03539228914a31"
+            ]
+          }
+        ]
+      },
+      {
+        "field": "p1SingletonTargets",
+        "groups": [
+          {
+            "value": [
+              30,
+              35
+            ],
+            "qClasses": [
+              "1e8601e86599ef24"
+            ]
+          },
+          {
+            "value": [
+              30
+            ],
+            "qClasses": [
+              "3ff97b02970a6bb5",
+              "373c44db3354a385",
+              "ed03539228914a31"
+            ]
+          }
+        ]
+      },
+      {
+        "field": "enabledP1Singletons",
+        "groups": [
+          {
+            "value": [
+              "A6"
+            ],
+            "qClasses": [
+              "1e8601e86599ef24"
+            ]
+          },
+          {
+            "value": [],
+            "qClasses": [
+              "3ff97b02970a6bb5",
+              "373c44db3354a385",
+              "ed03539228914a31"
+            ]
+          }
+        ]
+      },
+      {
+        "field": "actionProfile",
+        "groups": [
+          {
+            "value": [
+              {
+                "column": 1,
+                "immediateP1Terminals": [],
+                "targets": [
+                  20
+                ],
+                "stages": [
+                  "DEFENDER_RESIDUAL_UNCOVERED"
+                ],
+                "cpc": "CPC_NONE",
+                "tail": "P0_NOT_TO_MOVE"
+              },
+              {
+                "column": 3,
+                "immediateP1Terminals": [
+                  "A6",
+                  "C5"
+                ],
+                "targets": [
+                  20
+                ],
+                "stages": [
+                  "PLAYABLE_DEFENDER_SINGLETON_EXISTS"
+                ],
+                "cpc": "CPC_EXACT",
+                "tail": "P0_NOT_TO_MOVE"
+              },
+              {
+                "column": 5,
+                "immediateP1Terminals": [
+                  "A6"
+                ],
+                "targets": [
+                  20
+                ],
+                "stages": [
+                  "PLAYABLE_DEFENDER_SINGLETON_EXISTS"
+                ],
+                "cpc": "CPC_EXACT",
+                "tail": "P0_NOT_TO_MOVE"
+              },
+              {
+                "column": 6,
+                "immediateP1Terminals": [
+                  "A6"
+                ],
+                "targets": [
+                  20
+                ],
+                "stages": [
+                  "PLAYABLE_DEFENDER_SINGLETON_EXISTS"
+                ],
+                "cpc": "CPC_EXACT",
+                "tail": "P0_NOT_TO_MOVE"
+              },
+              {
+                "column": 7,
+                "immediateP1Terminals": [
+                  "A6"
+                ],
+                "targets": [
+                  20
+                ],
+                "stages": [
+                  "PLAYABLE_DEFENDER_SINGLETON_EXISTS"
+                ],
+                "cpc": "CPC_EXACT",
+                "tail": "P0_NOT_TO_MOVE"
+              }
+            ],
+            "qClasses": [
+              "1e8601e86599ef24"
+            ]
+          },
+          {
+            "value": [
+              {
+                "column": 1,
+                "immediateP1Terminals": [],
+                "targets": [
+                  20
+                ],
+                "stages": [
+                  "DEFENDER_RESIDUAL_UNCOVERED"
+                ],
+                "cpc": "CPC_NONE",
+                "tail": "P0_NOT_TO_MOVE"
+              },
+              {
+                "column": 3,
+                "immediateP1Terminals": [
+                  "C5"
+                ],
+                "targets": [
+                  20
+                ],
+                "stages": [
+                  "PLAYABLE_DEFENDER_SINGLETON_EXISTS"
+                ],
+                "cpc": "CPC_EXACT",
+                "tail": "P0_NOT_TO_MOVE"
+              },
+              {
+                "column": 6,
+                "immediateP1Terminals": [],
+                "targets": [
+                  20
+                ],
+                "stages": [
+                  "DEFENDER_RESIDUAL_UNCOVERED"
+                ],
+                "cpc": "CPC_NONE",
+                "tail": "P0_NOT_TO_MOVE"
+              },
+              {
+                "column": 7,
+                "immediateP1Terminals": [],
+                "targets": [
+                  20
+                ],
+                "stages": [
+                  "DEFENDER_RESIDUAL_UNCOVERED"
+                ],
+                "cpc": "CPC_NONE",
+                "tail": "P0_NOT_TO_MOVE"
+              }
+            ],
+            "qClasses": [
+              "3ff97b02970a6bb5"
+            ]
+          },
+          {
+            "value": [
+              {
+                "column": 1,
+                "immediateP1Terminals": [],
+                "targets": [
+                  20
+                ],
+                "stages": [
+                  "DEFENDER_RESIDUAL_UNCOVERED"
+                ],
+                "cpc": "CPC_NONE",
+                "tail": "P0_NOT_TO_MOVE"
+              },
+              {
+                "column": 3,
+                "immediateP1Terminals": [
+                  "C5"
+                ],
+                "targets": [
+                  20
+                ],
+                "stages": [
+                  "PLAYABLE_DEFENDER_SINGLETON_EXISTS"
+                ],
+                "cpc": "CPC_EXACT",
+                "tail": "P0_NOT_TO_MOVE"
+              },
+              {
+                "column": 5,
+                "immediateP1Terminals": [],
+                "targets": [
+                  20
+                ],
+                "stages": [
+                  "DEFENDER_RESIDUAL_UNCOVERED"
+                ],
+                "cpc": "CPC_NONE",
+                "tail": "P0_NOT_TO_MOVE"
+              },
+              {
+                "column": 7,
+                "immediateP1Terminals": [],
+                "targets": [
+                  20
+                ],
+                "stages": [
+                  "DEFENDER_RESIDUAL_UNCOVERED"
+                ],
+                "cpc": "CPC_NONE",
+                "tail": "P0_NOT_TO_MOVE"
+              }
+            ],
+            "qClasses": [
+              "373c44db3354a385"
+            ]
+          },
+          {
+            "value": [
+              {
+                "column": 1,
+                "immediateP1Terminals": [],
+                "targets": [
+                  20
+                ],
+                "stages": [
+                  "DEFENDER_RESIDUAL_UNCOVERED"
+                ],
+                "cpc": "CPC_NONE",
+                "tail": "P0_NOT_TO_MOVE"
+              },
+              {
+                "column": 3,
+                "immediateP1Terminals": [
+                  "C5"
+                ],
+                "targets": [
+                  20
+                ],
+                "stages": [
+                  "PLAYABLE_DEFENDER_SINGLETON_EXISTS"
+                ],
+                "cpc": "CPC_EXACT",
+                "tail": "P0_NOT_TO_MOVE"
+              },
+              {
+                "column": 5,
+                "immediateP1Terminals": [],
+                "targets": [
+                  20
+                ],
+                "stages": [
+                  "DEFENDER_RESIDUAL_UNCOVERED"
+                ],
+                "cpc": "CPC_NONE",
+                "tail": "P0_NOT_TO_MOVE"
+              },
+              {
+                "column": 6,
+                "immediateP1Terminals": [],
+                "targets": [
+                  20
+                ],
+                "stages": [
+                  "DEFENDER_RESIDUAL_UNCOVERED"
+                ],
+                "cpc": "CPC_NONE",
+                "tail": "P0_NOT_TO_MOVE"
+              },
+              {
+                "column": 7,
+                "immediateP1Terminals": [],
+                "targets": [
+                  20
+                ],
+                "stages": [
+                  "TARGET_NOT_AHEAD_OF_SUPPORT"
+                ],
+                "cpc": "CPC_RESTRICT",
+                "tail": "P0_NOT_TO_MOVE"
+              }
+            ],
+            "qClasses": [
+              "ed03539228914a31"
+            ]
+          }
+        ]
+      }
+    ],
+    "q5bVsQ1e": {
+      "positiveQ": "5b07a7c903c1f4bf",
+      "unresolvedQ": "1e8601e86599ef24",
+      "differences": [
+        {
+          "field": "forcedColumn",
+          "positive": 3,
+          "unresolved": 1
+        },
+        {
+          "field": "remainingCapacity",
+          "positive": [
+            2,
+            0,
+            2,
+            0,
+            1,
+            1,
+            6
+          ],
+          "unresolved": [
+            1,
+            0,
+            3,
+            0,
+            1,
+            1,
+            6
+          ]
+        },
+        {
+          "field": "capacityParity",
+          "positive": [
+            0,
+            0,
+            0,
+            0,
+            1,
+            1,
+            0
+          ],
+          "unresolved": [
+            1,
+            0,
+            1,
+            0,
+            1,
+            1,
+            0
+          ]
+        },
+        {
+          "field": "widthDerivative",
+          "positive": [
+            2,
+            2,
+            2,
+            1,
+            0,
+            5
+          ],
+          "unresolved": [
+            1,
+            3,
+            3,
+            1,
+            0,
+            5
+          ]
+        },
+        {
+          "field": "p0ResidualKeys",
+          "positive": [
+            "20",
+            "37,39,40",
+            "39,40,41"
+          ],
+          "unresolved": [
+            "20",
+            "23,30,37",
+            "37,39,40",
+            "39,40,41"
+          ]
+        },
+        {
+          "field": "p1ResidualKeys",
+          "positive": [
+            "30",
+            "28,35",
+            "13,20,27,34",
+            "20,27,34,41",
+            "6,13,20,27"
+          ],
+          "unresolved": [
+            "30",
+            "35",
+            "13,20,27,34",
+            "20,27,34,41",
+            "6,13,20,27"
+          ]
+        },
+        {
+          "field": "p1SingletonTargets",
+          "positive": [
+            30
+          ],
+          "unresolved": [
+            30,
+            35
+          ]
+        },
+        {
+          "field": "enabledP1Singletons",
+          "positive": [
+            "C5"
+          ],
+          "unresolved": [
+            "A6"
+          ]
+        },
+        {
+          "field": "actionProfile",
+          "positive": [
+            {
+              "column": 1,
+              "immediateP1Terminals": [
+                "C5"
+              ],
+              "targets": [
+                20
+              ],
+              "stages": [
+                "PLAYABLE_DEFENDER_SINGLETON_EXISTS"
+              ],
+              "cpc": "CPC_EXACT",
+              "tail": "P0_NOT_TO_MOVE"
+            },
+            {
+              "column": 3,
+              "immediateP1Terminals": [],
+              "targets": [
+                20
+              ],
+              "stages": [
+                "ACCEPTED"
+              ],
+              "cpc": "CPC_NONE",
+              "tail": "P0_NOT_TO_MOVE"
+            },
+            {
+              "column": 5,
+              "immediateP1Terminals": [
+                "C5"
+              ],
+              "targets": [
+                20
+              ],
+              "stages": [
+                "PLAYABLE_DEFENDER_SINGLETON_EXISTS"
+              ],
+              "cpc": "CPC_EXACT",
+              "tail": "P0_NOT_TO_MOVE"
+            },
+            {
+              "column": 6,
+              "immediateP1Terminals": [
+                "C5"
+              ],
+              "targets": [
+                20
+              ],
+              "stages": [
+                "PLAYABLE_DEFENDER_SINGLETON_EXISTS"
+              ],
+              "cpc": "CPC_EXACT",
+              "tail": "P0_NOT_TO_MOVE"
+            },
+            {
+              "column": 7,
+              "immediateP1Terminals": [
+                "C5"
+              ],
+              "targets": [
+                20
+              ],
+              "stages": [
+                "PLAYABLE_DEFENDER_SINGLETON_EXISTS"
+              ],
+              "cpc": "CPC_EXACT",
+              "tail": "P0_NOT_TO_MOVE"
+            }
+          ],
+          "unresolved": [
+            {
+              "column": 1,
+              "immediateP1Terminals": [],
+              "targets": [
+                20
+              ],
+              "stages": [
+                "DEFENDER_RESIDUAL_UNCOVERED"
+              ],
+              "cpc": "CPC_NONE",
+              "tail": "P0_NOT_TO_MOVE"
+            },
+            {
+              "column": 3,
+              "immediateP1Terminals": [
+                "A6",
+                "C5"
+              ],
+              "targets": [
+                20
+              ],
+              "stages": [
+                "PLAYABLE_DEFENDER_SINGLETON_EXISTS"
+              ],
+              "cpc": "CPC_EXACT",
+              "tail": "P0_NOT_TO_MOVE"
+            },
+            {
+              "column": 5,
+              "immediateP1Terminals": [
+                "A6"
+              ],
+              "targets": [
+                20
+              ],
+              "stages": [
+                "PLAYABLE_DEFENDER_SINGLETON_EXISTS"
+              ],
+              "cpc": "CPC_EXACT",
+              "tail": "P0_NOT_TO_MOVE"
+            },
+            {
+              "column": 6,
+              "immediateP1Terminals": [
+                "A6"
+              ],
+              "targets": [
+                20
+              ],
+              "stages": [
+                "PLAYABLE_DEFENDER_SINGLETON_EXISTS"
+              ],
+              "cpc": "CPC_EXACT",
+              "tail": "P0_NOT_TO_MOVE"
+            },
+            {
+              "column": 7,
+              "immediateP1Terminals": [
+                "A6"
+              ],
+              "targets": [
+                20
+              ],
+              "stages": [
+                "PLAYABLE_DEFENDER_SINGLETON_EXISTS"
+              ],
+              "cpc": "CPC_EXACT",
+              "tail": "P0_NOT_TO_MOVE"
+            }
+          ]
+        }
+      ],
+      "firstDifference": {
+        "field": "forcedColumn",
+        "positive": 3,
+        "unresolved": 1
+      }
+    },
+    "onePlyExactQConvergences": [
+      {
+        "exactQClass": "d287bc38f6876feb",
+        "memberCount": 2,
+        "members": [
+          {
+            "sourceQ": "3ff97b02970a6bb5",
+            "column": 6,
+            "sequence": "4444415666662322224255115153356"
+          },
+          {
+            "sourceQ": "373c44db3354a385",
+            "column": 5,
+            "sequence": "4444415666662322224255115153365"
+          }
+        ]
+      }
+    ],
+    "columnPermutationIsomorphisms": [
+      {
+        "a": "3ff97b02970a6bb5",
+        "b": "373c44db3354a385",
+        "columnMap": [
+          1,
+          2,
+          3,
+          4,
+          6,
+          5,
+          7
+        ]
+      }
+    ]
+  },
+  "summary": {
+    "stateCount": 5,
+    "positiveControlCount": 1,
+    "unresolvedStateCount": 4,
+    "onePlyConvergenceCount": 1,
+    "columnPermutationIsomorphismCount": 1,
+    "resourceFailureCount": 0
+  },
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "ordinaryFreeBranchGameTreeUsed": false,
+  "productionCpcModified": false,
+  "jsMinSysModified": false,
+  "bsfpModified": false,
+  "conclusion": [
+    "All five rank-30 sibling states are reconstructed by exact semantic q before structural comparison.",
+    "The already-qualified q5b07 direct target-reservoir certificate is reproduced independently from the frozen theorem logic.",
+    "Every unresolved target-reservoir rejection is localized to an exact guard, pairing, coverage, or validation stage rather than reported as a generic route failure.",
+    "Differential fields are descriptive discovery evidence only; no new theorem is promoted by this census."
+  ],
+  "boundary": [
+    "No post-result feature is added to this frozen experiment.",
+    "No oracle, solved W/D/L, minimax, unrestricted game-tree value, opening book, best-move table, BSFP solved frontier or support-only state identity is used.",
+    "Production CPC, JSMinSys and BSFP are unchanged."
+  ]
+}
