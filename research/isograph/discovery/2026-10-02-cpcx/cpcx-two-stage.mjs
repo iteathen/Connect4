@@ -200,3 +200,63 @@ export function certifyCpcxVerticalTwoStage(position,demand){
     choiceEnumeration:false,
   };
 }
+
+
+export function collapseCpcxVerticalTwoStage(position,demand,certificate){
+  if(!certificate?.exact)throw new TypeError('exact two-stage certificate required');
+  const attacker=demand.attacker,defender=demand.defender,
+    lower=demand.lowerCell,upper=demand.upperCell,
+    carrier=createCpcxResidualCarrier(position);
+
+  if(certificate.kind==='FORCED_UPPER_RESPONSE'){
+    const effect=compileCpcxResidualEventChain(carrier,[
+      {cell:lower,owner:attacker},
+      {cell:upper,owner:defender},
+    ]);
+    return {
+      kind:'VERTICAL_TWO_STAGE_COLLAPSED',
+      exact:true,
+      sourceKind:certificate.kind,
+      nextMover:attacker,
+      guaranteedResiduals:effect.residuals.filter(r=>r.player===attacker),
+      externalDefenderUncertainty:null,
+      choiceEnumeration:false,
+      rule:'fixed attacker-lower / defender-upper macro returns turn to attacker',
+    };
+  }
+
+  if(certificate.kind!=='PREEMPT_OR_FORCED_UPPER')
+    throw new TypeError('unsupported exact two-stage certificate');
+
+  const possibleDefenderCells=new Set([
+    lower,
+    upper,
+    ...certificate.nonpreemptFrontier,
+  ]);
+  const guaranteedResiduals=[];
+  for(const r of carrier.residuals){
+    if(r.player!==attacker)continue;
+    if(r.missingCells.some(cell=>possibleDefenderCells.has(cell)))continue;
+    guaranteedResiduals.push({
+      ...r,
+      missingCells:[...r.missingCells],
+      guarantee:'UNCHANGED_IN_PREEMPT_AND_ALL_DELAYED_RESOLUTIONS',
+    });
+  }
+  return {
+    kind:'VERTICAL_TWO_STAGE_COLLAPSED',
+    exact:true,
+    sourceKind:certificate.kind,
+    nextMover:attacker,
+    guaranteedResiduals,
+    externalDefenderUncertainty:{
+      maxPlacements:1,
+      candidateCells:[...certificate.nonpreemptFrontier],
+      owner:defender,
+      note:'present only in delayed resolution; guaranteed residuals are disjoint from every candidate cell',
+    },
+    possibleDefenderCells:[...possibleDefenderCells].sort((a,b)=>a-b),
+    choiceEnumeration:false,
+    rule:'intersection is computed by set exclusion against all cells the defender may own in either exact resolution',
+  };
+}
