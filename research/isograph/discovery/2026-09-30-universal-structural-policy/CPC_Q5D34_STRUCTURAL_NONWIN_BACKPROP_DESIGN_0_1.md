@@ -113,8 +113,10 @@ Therefore both exact rank-36 G5-predecessor states are P0-nonwinning because
 all of their legal P0 actions are covered by:
 
 - immediate P1 terminal exposure;
-- exact q649 draw handoff;
+- q649's qualified `P0_NONWIN_DRAW_REPLY` certificate;
 - G5 -> rank-37 P0-nonwin handoff.
+
+Do not strengthen these rank-36 states to exact draw merely because q649 has a draw consequence. q649 itself is only certified `[-1,0]` at this stage.
 
 ### q5d:G4
 
