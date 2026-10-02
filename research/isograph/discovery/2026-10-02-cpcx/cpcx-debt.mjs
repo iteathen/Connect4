@@ -79,6 +79,54 @@ function supportIntervalAfterUnknownDeviation(basePosition,repairCell,targetCell
   };
 }
 
+function supportAfterSpecificDeviationRepair(basePosition,deviationCell,repairCell,targetCell){
+  const g=basePosition.geometry,target=cpcxCell(g,targetCell),
+    d=cpcxCell(g,deviationCell),repair=cpcxCell(g,repairCell);
+  const heights=new Int16Array(basePosition.heights);
+  if(d.row!==heights[d.column])return null;
+  heights[d.column]+=1;
+  if(repair.row!==heights[repair.column])return null;
+  heights[repair.column]+=1;
+  return target.row-heights[target.column];
+}
+
+function postRepairDefenderTerminalRisks(decisionPosition,effect,deviations,repairCell,defender){
+  const deviationSet=new Set(deviations),risks=[];
+  for(const residual of effect.residuals){
+    if(residual.player!==defender)continue;
+    if(residual.missingCount===1){
+      const target=residual.missingCells[0];
+      for(const d of deviations){
+        if(d===target)continue; // would have completed on the deviation itself; guarded earlier.
+        const distance=supportAfterSpecificDeviationRepair(decisionPosition,d,repairCell,target);
+        if(distance===0){
+          risks.push({
+            kind:'SURVIVING_SINGLETON_AFTER_REPAIR',
+            obligationId:residual.id,
+            deviationCell:d,
+            targetCell:target,
+          });
+        }
+      }
+    }else if(residual.missingCount===2){
+      for(const d of residual.missingCells){
+        if(!deviationSet.has(d))continue;
+        const target=residual.missingCells[0]===d?residual.missingCells[1]:residual.missingCells[0],
+          distance=supportAfterSpecificDeviationRepair(decisionPosition,d,repairCell,target);
+        if(distance===0){
+          risks.push({
+            kind:'DEVIATION_CREATES_PLAYABLE_SINGLETON',
+            obligationId:residual.id,
+            deviationCell:d,
+            targetCell:target,
+          });
+        }
+      }
+    }
+  }
+  return risks;
+}
+
 export function deriveCpcxUniversalDebtRepair(position,contract,{decisionIndex=0}={}){
   if(contract.kind!=='THREE_TRIGGER_WING_ATTACK')throw new TypeError('wing contract');
   if(decisionIndex!==0&&decisionIndex!==1)throw new RangeError('decisionIndex');
@@ -100,6 +148,9 @@ export function deriveCpcxUniversalDebtRepair(position,contract,{decisionIndex=0
   const currentCarrier=createCpcxResidualCarrier(position),
     fixedKnownEvents=prefix.concat([{cell:requiredResponseCell,owner:attacker}]),
     effect=compileCpcxResidualEventChain(currentCarrier,fixedKnownEvents),
+    postRepairTerminalRisks=postRepairDefenderTerminalRisks(
+      decisionPosition,effect,deviations,requiredResponseCell,defender
+    ),
     deviationSet=new Set(deviations),
     guaranteedResiduals=[];
 
@@ -144,6 +195,8 @@ export function deriveCpcxUniversalDebtRepair(position,contract,{decisionIndex=0
     deviationFrontier:deviations,
     terminalDeviationCells,
     firstWinGuardPassed:terminalDeviationCells.length===0,
+    postRepairTerminalRisks,
+    postRepairFirstWinGuardPassed:postRepairTerminalRisks.length===0,
     repairLegalAtDecision,
     repair:{
       cell:requiredResponseCell,
