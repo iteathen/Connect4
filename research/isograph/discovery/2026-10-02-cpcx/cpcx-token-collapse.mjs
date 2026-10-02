@@ -14,7 +14,7 @@
 // No recursive response tree is retained.
 
 import {cpcxCell} from './cpcx.mjs';
-import {closeCpcxForcedResponses} from './cpcx-closure.mjs';
+import {applyCpcxForcedEvent,closeCpcxForcedResponses} from './cpcx-closure.mjs';
 import {verifyCpcxFixedEventScript} from './cpcx-wing.mjs';
 import {
   findCpcxVerticalTwoStageObligations,
