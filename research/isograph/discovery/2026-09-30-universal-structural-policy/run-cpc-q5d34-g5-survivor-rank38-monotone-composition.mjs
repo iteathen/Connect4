@@ -612,7 +612,6 @@ const exactQMergeGroups=[...grouped.entries()].map(([exactQClass,members])=>({
 const dispositionCounts={P0_WIN:0,P0_LOSS:0,UNKNOWN:0};
 for(const q of qClassifications)dispositionCounts[q.disposition]++;
 const firstUnresolved=qClassifications.find(x=>x.disposition==='UNKNOWN')??null;
-const totalResourceFailures=qClassifications.reduce((n,x)=>n+x.resourceFailureCount,0);
 
 console.log(JSON.stringify({
   schema:'connect4.cpc_q5d34_g5_survivor_rank38_monotone_composition.v1',
