@@ -99,7 +99,7 @@ function verticalSupportInterval(position,demand,certificate,cell){
 function abstractVerticalSuccessor(position,macro,collapse,envelope){
   const {demand,certificate}=macro,
     uncertainty=analyzeCpcxMacroUncertainty(position,collapse),
-    singletonEnvelope=deriveCpcxVerticalOpponentSingletonEnvelope(
+    singletonEnvelope=envelope??deriveCpcxVerticalOpponentSingletonEnvelope(
       position,demand,certificate
     ),
     rankOptions=collapse.rankDeltaOptions.map(x=>position.rank+x),
@@ -146,6 +146,7 @@ function abstractVerticalSuccessor(position,macro,collapse,envelope){
       directKillCapacity:uncertainty.directBlockCapacity,
       supportOnly:uncertainty.directKillEdges===0,
     }]:[],
+    opponentSingletonEnvelope:singletonEnvelope,
     firstWinFacts:{
       macroFirstWinGuardPassed:true,
       noTerminalDuringMacro:singletonEnvelope.defenderTerminalClasses===0,
