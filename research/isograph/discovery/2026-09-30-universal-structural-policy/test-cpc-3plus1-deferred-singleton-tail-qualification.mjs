@@ -25,6 +25,8 @@ for(const s of r.states){
   assert.equal(s.bBranch.forcedTail,true);
   assert.equal(s.bBranch.outcome,'DRAW');
   assert.equal(s.noP0WinningAction,true);
+  assert.equal(s.exactDraw,true);
+  assert.equal(s.interval.lower,0);
   assert.equal(s.interval.upper,0);
 }
 assert.equal(r.summary.qualifiedStateCount,3);
