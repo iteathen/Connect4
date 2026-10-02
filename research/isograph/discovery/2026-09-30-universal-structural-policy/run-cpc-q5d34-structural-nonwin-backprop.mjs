@@ -113,12 +113,15 @@ const rootEvidence=read('CPC_Q966_G_BRANCH_FORCED_SAFETY_0_1.json');
 const efEvidence=read('CPC_Q5D34_EF_NONWIN_CONVERGENCE_0_1.json');
 const g4Evidence=read('CPC_Q5D34_G4_FOUR_REPLY_FORCED_SAFETY_0_1.json');
 const g5Evidence=read('CPC_Q5D34_G4_EF_REPLY_G5_SURVIVOR_0_1.json');
+const q649Evidence=read('CPC_Q649_TWO_REPLY_CONSEQUENCE_CLASS_CLOSURE_0_1.json');
 const tailQualification=read('CPC_3PLUS1_DEFERRED_SINGLETON_TAIL_QUALIFICATION_0_1.json');
 
 assert.equal(rootEvidence.schema,'connect4.cpc_q966_g_branch_forced_safety.v1');
 assert.equal(efEvidence.schema,'connect4.cpc_q5d34_ef_nonwin_convergence.v1');
 assert.equal(g4Evidence.schema,'connect4.cpc_q5d34_g4_four_reply_forced_safety.v1');
 assert.equal(g5Evidence.schema,'connect4.cpc_q5d34_g4_ef_reply_g5_survivor.v1');
+assert.equal(q649Evidence.schema,'connect4.cpc_q649_two_reply_consequence_class_closure.v1');
+assert.equal(q649Evidence.classification,'P0_NONWIN_DRAW_REPLY');
 assert.equal(tailQualification.schema,'connect4.cpc_3plus1_deferred_singleton_tail_qualification.v1');
 assert.equal(tailQualification.accept,true);
 
@@ -200,12 +203,12 @@ for(const row of g5Evidence.cases){
   const survivor=rank37ByQ.get(row.survivorQ);assert(survivor);
   const actionIntervals=legal.map(column=>{
     if(column===eliminated)return {column,kind:'IMMEDIATE_P1_TERMINAL_EXPOSURE',interval:loss()};
-    if(column===drawAction)return {column,kind:'EXACT_Q649_DRAW_HANDOFF',interval:draw()};
+    if(column===drawAction)return {column,kind:'Q649_P0_NONWIN_DRAW_REPLY',interval:nonwin()};
     if(column===survivorAction)return {column,kind:'G5_TO_RANK37_NONWIN',interval:[survivor.interval.lower,survivor.interval.upper]};
     throw new Error('uncovered rank36 action '+column);
   });
   const interval=predecessorInterval(0,actionIntervals.map(x=>x.interval));
-  assert.deepEqual(interval,[0,0]);
+  assert.deepEqual(interval,[-1,0]);
   const out={
     exactQClass:row.predecessorQ,
     sequence:g4Reply.startSequence,
@@ -213,7 +216,7 @@ for(const row of g5Evidence.cases){
     bridge,
     actionIntervals,
     interval:{lower:interval[0],upper:interval[1]},
-    exactDraw:true,
+    classification:'P0_NONWIN',
   };
   rank36Predecessors.push(out);
   rank36ByQ.set(out.exactQClass,out);
@@ -221,21 +224,21 @@ for(const row of g5Evidence.cases){
 assert.equal(rank36Predecessors.length,2);
 
 const g4ReplyIntervals=[];
-const g4DrawReplyQClasses=[];
+const g4NonwinReplyQClasses=[];
 for(const reply of g4Evidence.replies){
   const d=rank36ByQ.get(reply.startQ);
   if(d){
     g4ReplyIntervals.push(draw());
-    g4DrawReplyQClasses.push(reply.startQ);
+    g4NonwinReplyQClasses.push(reply.startQ);
   }else g4ReplyIntervals.push(unknown());
 }
-assert(g4DrawReplyQClasses.length>=1);
+assert(g4NonwinReplyQClasses.length>=1);
 const g4Interval=predecessorInterval(1,g4ReplyIntervals);
 assert(g4Interval[1]<=0);
 const g4Action={
   column:7,
   kind:'P1_REPLY_TO_EXACT_DRAW_CHILD',
-  drawReplyQClasses:g4DrawReplyQClasses.sort(),
+  nonwinReplyQClasses:g4NonwinReplyQClasses.sort(),
   replyIntervals:g4Evidence.replies.map((x,i)=>({p1Column:x.p1Action,childQ:x.startQ,interval:g4ReplyIntervals[i]})),
   interval:{lower:g4Interval[0],upper:g4Interval[1]},
 };
@@ -272,6 +275,12 @@ console.log(JSON.stringify({
     interval:{lower:0,upper:0},
   },
   rank37Survivors,
+  q649Premise:{
+    exactQClass:q649Evidence.sourceQ,
+    classification:q649Evidence.classification,
+    interval:{lower:-1,upper:0},
+    sourceEvidence:'CPC_Q649_TWO_REPLY_CONSEQUENCE_CLASS_CLOSURE_0_1.json',
+  },
   rank36Predecessors,
   g4Action,
   rootActions,
@@ -287,8 +296,8 @@ console.log(JSON.stringify({
   conclusion:[
     'The qualified 3+1 tail theorem upgrades three rank-38 consequence classes to exact draws.',
     'Each rank-37 G5 survivor is P0-nonwinning because P1 has at least one legal reply into an exact draw child.',
-    'Each exact rank-36 E/F-reply predecessor is an exact draw: its immediate-exposure action loses, its q649 action draws, and its G5 action reaches a P0-nonwinning P1 state.',
-    'After q5d:G4, P1 can choose E6 or F6 into one of those exact rank-36 draws, so G4 cannot force a P0 win.',
+    'Each exact rank-36 E/F-reply predecessor is P0-nonwinning: its immediate-exposure action loses, its q649 action is already P0-nonwinning, and its G5 action reaches a P0-nonwinning P1 state.',
+    'After q5d:G4, P1 can choose E6 or F6 into one of those rank-36 P0-nonwinning states, so G4 cannot force a P0 win.',
     'At q5d34, C4 admits immediate P1 terminal C5, E6 and F6 are already qualified nonwinning, and G4 is now nonwinning. Therefore q5d34 has the sound interval [-1,0].',
   ],
   boundary:[
