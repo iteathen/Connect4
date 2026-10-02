@@ -164,3 +164,155 @@ node research/isograph/discovery/2026-10-02-cpcx/run-cpcx.mjs
 
 SEQUENCE=444444 node research/isograph/discovery/2026-10-02-cpcx/run-cpcx.mjs
 ```
+
+
+## v0.2 closure layer
+
+CPCX v0.2 adds an exact/guarded closure layer in `cpcx-closure.mjs`.
+
+### Exact current-ply rules
+
+The current side to move is classified before any future projection:
+
+```text
+current-player playable singleton
+    -> immediate terminal has precedence
+
+one distinct playable opponent singleton
+    -> exact forced response
+
+two or more distinct playable opponent singletons
+    -> exact response-capacity overload
+```
+
+The overload proof is represented as a bipartite capacity problem.  Current
+Connect Four supplies one placement slot.  If two distinct obligations both
+require that slot, maximum matching has size one and CPCX emits the corresponding
+Hall-deficiency witness.
+
+The implementation is an augmenting-path matching algorithm and is polynomial
+in the supplied demand/resource graph.
+
+### Deterministic forced transit
+
+A unique exact forced response may be applied and CPCX may repeat the same exact
+classification at the resulting state.
+
+This is not legal-move branching:
+
+```text
+there is exactly one admissible nonterminal response
+    -> take that exact transition
+    -> recompute current rank-local obligations
+```
+
+The closure stops as soon as a choice exists, an immediate terminal exists, or
+an exact overload is certified.
+
+### Guarded multi-piece certification
+
+CPCX now owns a parity/XOR fact system.  Exact owner facts and exact pairwise XOR
+relations may be inserted and closed by union-find with parity.
+
+A 2-, 3-, or 4-piece obligation is promoted to
+`CERTIFIED_COMPLETION` only when every missing event has:
+
+1. an exact owner fact equal to the obligation owner;
+2. an admissibility/support fact;
+3. a before-deadline fact.
+
+Owner projection by itself is deliberately insufficient.
+
+### Explicit boundary operator
+
+For each column CPCX emits:
+
+```text
+remaining
+neutralPairCount
+unmatchedTopDefect
+unmatchedEventOffset
+```
+
+under the stated paired-response schedule premise.
+
+Thus depletion is represented as an arithmetic boundary operator rather than a
+named phase supplied by the caller.
+
+## New structural result at 44444
+
+At `44444`, CPCX mechanically discovers twelve synchronized P0 three-piece
+horizontal projection ladders:
+
+```text
+row 1: four horizontal lines through D1
+row 3: four horizontal lines through D3
+row 5: four horizontal lines through D5
+```
+
+The three rows have support depths:
+
+```text
+0, 2, 4
+```
+
+and zero-reservation event ranks:
+
+```text
+32, 34, 36
+```
+
+respectively.
+
+More importantly, those ladders contain two disjoint three-column families:
+
+```text
+left wing:  A,B,C
+right wing: E,F,G
+```
+
+Each wing carries one synchronized three-piece ladder at all three support
+levels.
+
+Because the column sets are disjoint, one current placement can intersect at
+most one wing. Therefore CPCX v0.2 certifies:
+
+```text
+after any single legal sixth placement,
+at least one complete three-level wing family remains structurally untouched.
+```
+
+That statement is exact set-theoretic structure. It does **not** yet prove the
+surviving wing's projected owners or eventual completion.
+
+This materially narrows the move-6 theorem target.  CPCX no longer needs seven
+independent continuations.  It needs one generic theorem of the form:
+
+```text
+surviving synchronized three-level wing
++ certified parity/response ownership
++ support/deadline guards
+-> forced completion
+```
+
+If that theorem is established from rank-local facts, the same certificate
+applies after every legal sixth move.
+
+## v0.2 exact controls
+
+The prototype retains two small independent exact controls:
+
+```text
+111111223
+    -> one exact forced response at D1
+
+111131415
+    -> two distinct immediate opponent singleton obligations
+    -> one response slot
+    -> matching size 1
+    -> Hall deficiency 1
+    -> exact forced loss boundary
+```
+
+These controls test the forcing/capacity machinery without using `44444` as a
+training label.
