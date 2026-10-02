@@ -497,3 +497,4 @@ export function collapseCpcxDebtRepairTokenProduct(position,contract,repair){
     merged.polynomialBound='O(|deviationFrontier| * (liveResidualCount + boundedGuardPartitionCost))';
   }
   return merged;
+}
