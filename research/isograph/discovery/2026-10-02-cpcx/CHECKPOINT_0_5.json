@@ -1,0 +1,118 @@
+{
+  "schema": "connect4.cpcx.checkpoint.v0_5",
+  "date": "2026-10-02",
+  "branch": "experiment/cpcx-20261002",
+  "verifiedHead": "b2fd7bd99490e056bbb4c4d0310f710a9abb02c6",
+  "durableResearchOwner": "research/semantic-quotient",
+  "status": "ONE_SIDED_FIRST_WIN_CONTRACT_AND_ABSTRACT_SUCCESSOR_VERIFIED",
+  "productionCpcModified": false,
+  "contract": {
+    "positiveTerminal": "CERTIFIED_FIRST_WIN(player)",
+    "nonterminal": [
+      "FORCED_NORMALIZATION",
+      "CERTIFIED_FORCING_MACRO",
+      "PROJECTION_ONLY",
+      "NO_CERTIFICATE"
+    ],
+    "noCertificateMeaning": "structural certificate unavailable; no draw/loss/value inference",
+    "drawClassifier": false,
+    "globalWdlPreservationRequired": false,
+    "recursiveSearch": false
+  },
+  "exactResults": {
+    "immediateCurrentTerminal": "CERTIFIED_FIRST_WIN(currentPlayer)",
+    "opponentSingletonOverload": "CERTIFIED_FIRST_WIN(opponent)",
+    "pairHubFork": "CERTIFIED_FIRST_WIN(attacker)",
+    "exactNonterminalSelection": "one deterministic theorem-certified macro may be selected without equivalence of all local macros",
+    "verticalTwoStage": {
+      "preemptVsDelayedCollapsed": true,
+      "commonNextMover": "attacker",
+      "commonRankParity": true,
+      "opponentSingletonEnvelopeDerived": true
+    },
+    "abstractSuccessor": [
+      "designated attacker",
+      "common next mover",
+      "rank options/parity",
+      "guaranteed residual intersection",
+      "support intervals",
+      "bounded support-only blocker tokens",
+      "opponent singleton envelope",
+      "first-win guard facts"
+    ],
+    "tokenCollapse": {
+      "arbitrarySecondFrontierCartesianProduct": false,
+      "safeResponses": "one theorem-certified set class",
+      "hazardResponses": "only theorem-returned first-win hazard cells",
+      "hazardHandling": "deterministic forced normalization"
+    }
+  },
+  "move6": {
+    "root": "44444",
+    "requestedAttacker": 0,
+    "result": "NO_CERTIFICATE",
+    "certified": {
+      "allSevenSixthActionsCovered": true,
+      "untouchedWingAfterEverySixthAction": true,
+      "honoredBothResponses": "CERTIFIED_FIRST_WIN(P0)",
+      "firstDeviationAllSeven": "advances through repair, normalization classes, vertical macro collapse, and closed opponent-singleton envelope",
+      "firstDeviationNextMover": "P0",
+      "firstDeviationRankParity": "even",
+      "firstDeviationOpponentSingletonPossibleCells": []
+    },
+    "primarySeam": "NO_EXACT_ABSTRACT_MACRO",
+    "primarySeamMeaning": "after exact normalization and macro collapse, guaranteed residual intersection does not instantiate any currently implemented exact abstract forcing primitive",
+    "secondarySeams": [
+      {
+        "class": "HONOR_FIRST_DEVIATE_SECOND",
+        "sixthMove": 3,
+        "seam": "VERTICAL_TWO_STAGE_CLASSIFICATION_MISSING",
+        "note": "after exact normalization generic CPCX finds no vertical, pair-hub, or playable two-piece continuation"
+      },
+      {
+        "class": "HONOR_FIRST_DEVIATE_SECOND",
+        "sixthMoves": [
+          1,
+          2,
+          5
+        ],
+        "seam": "ABSTRACT_OPPONENT_SINGLETON_ENVELOPE_MISSING",
+        "note": "one possible opponent singleton remains in some collapsed second-deviation carriers"
+      }
+    ],
+    "globalWdlClaim": false
+  },
+  "verification": {
+    "liveSourceExecutionChecksPassed": 17,
+    "checks": [
+      "immediate first win",
+      "overload first win",
+      "pair-hub first win",
+      "one exact macro selection",
+      "first-win normalization precedence",
+      "unresolved -> NO_CERTIFICATE",
+      "vertical two-stage exactness",
+      "vertical opponent singleton envelope closure",
+      "move6 NO_CERTIFICATE",
+      "move6 primary seam",
+      "all seven sixth actions",
+      "honored response first win",
+      "first-deviation normalization envelope closure",
+      "first-deviation no exact abstract macro",
+      "move3 secondary seam",
+      "runtime isolation",
+      "no arbitrary second-frontier Cartesian product"
+    ],
+    "runtimeIsolationViolations": 0,
+    "productionCpcDiffFiles": [],
+    "githubActionsRunsAtVerifiedHead": 0,
+    "githubCombinedStatusesAtVerifiedHead": 0,
+    "ciNote": "workflow definition updated, but API-created branch commits did not surface a GitHub Actions run in available repository status"
+  },
+  "next": [
+    "derive the next exact abstract progress primitive over normalized guaranteed residual intersections",
+    "carry opponent residual/singleton envelopes through second-deviation carriers with possible singleton cells",
+    "retain move-3 second-deviation NO_CERTIFICATE as negative evidence until a generic theorem closes it",
+    "do not introduce draw classification or search fallback"
+  ]
+}
