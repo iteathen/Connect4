@@ -58,6 +58,13 @@
   ],
   "positiveCertificates": [],
   "legacyRepairTargets": [],
+  "legacyTargetEngineKinds": [
+    "LAMBDA",
+    "THETA",
+    "DISTANCE2_TARGET_SUPPORT",
+    "DISTANCE1_RESOLVED_TAIL_CAPACITY"
+  ],
+  "legacyTargetFamilies": [],
   "lossCertificate": {
     "proofCompleted": true,
     "loss": false,
@@ -96,6 +103,8 @@
       "IMMEDIATE_P0_TERMINAL"
     ],
     "legacyRepairTargetCount": 0,
+    "legacyTargetSingletonCount": 0,
+    "legacyTargetResourceFailureCount": 0,
     "forcedLossKind": "NO_ENABLED_P1_OBLIGATION",
     "resourceFailureCount": 0
   },
@@ -110,7 +119,8 @@
   "bsfpModified": false,
   "conclusion": [
     "q5d34 is reconstructed by exact semantic identity before positive or negative classification.",
-    "The complete current monotone positive library is queried without changing certificate semantics, and the unchanged forced-obligation loss calculus is run independently with UNKNOWN preserved.",
+    "The current monotone positive library now includes the reusable legacy target-distance, target+auxiliary, distance-2 re-entry and resolved-tail capacity families in addition to adaptive repair, exact handoffs and RCIC routes; certificate semantics are unchanged.",
+    "The unchanged forced-obligation loss calculus is run independently with UNKNOWN preserved.",
     "Neither the complete queried positive library nor the unchanged forced-loss calculus classifies q5d34; it remains UNKNOWN.",
     "A positive/loss collision is prohibited and would abort the audit."
   ],
