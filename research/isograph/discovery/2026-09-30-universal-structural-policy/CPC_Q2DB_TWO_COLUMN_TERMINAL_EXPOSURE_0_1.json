@@ -1,0 +1,90 @@
+{
+  "schema": "connect4.cpc_q2db_two_column_terminal_exposure.v1",
+  "date": "2026-10-01",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "design": "CPC_Q2DB_TWO_COLUMN_TERMINAL_EXPOSURE_DESIGN_0_1.md",
+  "sourceEvidence": "CPC_RANK32_Q966_EXTENDED_REPAIR_COMPOSITION_0_1.json",
+  "exactQClass": "2db2abcb67d530e0",
+  "rank": 34,
+  "support": [
+    6,
+    6,
+    3,
+    6,
+    6,
+    6,
+    1
+  ],
+  "convergence": {
+    "sequenceEF": "4444415666662322224255115153113756",
+    "sequenceFE": "4444415666662322224255115153113765",
+    "exactKeyEqual": true
+  },
+  "target": "G3",
+  "targetLive": true,
+  "targetSupportDistance": 1,
+  "enabledP1Singletons": [],
+  "legalP0Columns": [
+    3,
+    7
+  ],
+  "actions": [
+    {
+      "p0Column": 3,
+      "p0LandingCell": "C4",
+      "p0ImmediateTerminal": false,
+      "childQ": "696dbeb27a54c2e5",
+      "childSupport": [
+        6,
+        6,
+        4,
+        6,
+        6,
+        6,
+        1
+      ],
+      "p1ImmediateTerminals": [
+        {
+          "column": 3,
+          "cell": "C5"
+        }
+      ],
+      "enabledP1Singletons": [
+        "C5"
+      ]
+    },
+    {
+      "p0Column": 7,
+      "p0LandingCell": "G2",
+      "p0ImmediateTerminal": false,
+      "childQ": "ff5553a1d76cdce7",
+      "childSupport": [
+        6,
+        6,
+        3,
+        6,
+        6,
+        6,
+        2
+      ],
+      "p1ImmediateTerminals": [],
+      "enabledP1Singletons": []
+    }
+  ],
+  "classification": "UNRESOLVED",
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "ordinaryFreeBranchGameTreeUsed": false,
+  "productionCpcModified": false,
+  "jsMinSysModified": false,
+  "bsfpModified": false,
+  "conclusion": [
+    "The two physical E/F cross-reply paths are the same exact rank-34 semantic-q state.",
+    "At least one legal P0 action is nonterminal without exposing an immediate P1 terminal; that exact child is the next obstruction."
+  ],
+  "boundary": [
+    "No solved W/D/L, oracle, minimax, recursive game-tree value search, best-move table, opening book, BSFP solved frontier, support-only identity shortcut, or sealed holdout is used.",
+    "The classification uses only exact legal actions and immediate terminal predicates from the current semantic state.",
+    "Production CPC, JSMinSys, legacy repair semantics, RCIC semantics, and BSFP remain unchanged."
+  ]
+}
