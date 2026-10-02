@@ -1,0 +1,388 @@
+{
+  "schema": "connect4.cpc_q5d34_structural_nonwin_backprop.v1",
+  "date": "2026-10-01",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "design": "CPC_Q5D34_STRUCTURAL_NONWIN_BACKPROP_DESIGN_0_1.md",
+  "exactQClass": "5d34e24395b9d801",
+  "sequence": "4444415666662322224255115153113777",
+  "rank": 34,
+  "support": [
+    6,
+    6,
+    3,
+    6,
+    5,
+    5,
+    3
+  ],
+  "exactBridge": {
+    "pass": true,
+    "checks": {
+      "semanticQ": true,
+      "rank": true,
+      "support": true,
+      "p0Residuals": true,
+      "p1Residuals": true
+    },
+    "exactQClass": "5d34e24395b9d801"
+  },
+  "rank38DrawPremise": {
+    "theorem": "CPC_3PLUS1_DEFERRED_SINGLETON_TAIL_NONWIN_THEOREM.md",
+    "qualification": "CPC_3PLUS1_DEFERRED_SINGLETON_TAIL_QUALIFICATION_0_1.json",
+    "exactQClasses": [
+      "4f5444dc55bb5371",
+      "60fba7c1d1c84a97",
+      "e7eb0902f1f7984c"
+    ],
+    "accept": true,
+    "interval": {
+      "lower": 0,
+      "upper": 0
+    }
+  },
+  "rank37Survivors": [
+    {
+      "exactQClass": "5992c0c8965586f2",
+      "sequence": "4444415666662322224255115153113777757",
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        6,
+        5,
+        5
+      ],
+      "bridge": {
+        "pass": true,
+        "checks": {
+          "semanticQ": true,
+          "rank": true,
+          "support": true,
+          "p0Residuals": true,
+          "p1Residuals": true
+        },
+        "exactQClass": "5992c0c8965586f2"
+      },
+      "legalP1Columns": [
+        3,
+        6,
+        7
+      ],
+      "drawReplyQClasses": [
+        "60fba7c1d1c84a97",
+        "e7eb0902f1f7984c"
+      ],
+      "replyIntervals": [
+        {
+          "column": 3,
+          "childQ": "9aab54d218b853a7",
+          "interval": [
+            -1,
+            1
+          ]
+        },
+        {
+          "column": 6,
+          "childQ": "e7eb0902f1f7984c",
+          "interval": [
+            0,
+            0
+          ]
+        },
+        {
+          "column": 7,
+          "childQ": "60fba7c1d1c84a97",
+          "interval": [
+            0,
+            0
+          ]
+        }
+      ],
+      "interval": {
+        "lower": -1,
+        "upper": 0
+      }
+    },
+    {
+      "exactQClass": "7cac0ef80f3901f7",
+      "sequence": "4444415666662322224255115153113777767",
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        5,
+        6,
+        5
+      ],
+      "bridge": {
+        "pass": true,
+        "checks": {
+          "semanticQ": true,
+          "rank": true,
+          "support": true,
+          "p0Residuals": true,
+          "p1Residuals": true
+        },
+        "exactQClass": "7cac0ef80f3901f7"
+      },
+      "legalP1Columns": [
+        3,
+        5,
+        7
+      ],
+      "drawReplyQClasses": [
+        "4f5444dc55bb5371",
+        "e7eb0902f1f7984c"
+      ],
+      "replyIntervals": [
+        {
+          "column": 3,
+          "childQ": "a202048852f1fffb",
+          "interval": [
+            -1,
+            1
+          ]
+        },
+        {
+          "column": 5,
+          "childQ": "e7eb0902f1f7984c",
+          "interval": [
+            0,
+            0
+          ]
+        },
+        {
+          "column": 7,
+          "childQ": "4f5444dc55bb5371",
+          "interval": [
+            0,
+            0
+          ]
+        }
+      ],
+      "interval": {
+        "lower": -1,
+        "upper": 0
+      }
+    }
+  ],
+  "rank36Predecessors": [
+    {
+      "exactQClass": "f435a6ec7dd5469e",
+      "sequence": "444441566666232222425511515311377775",
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        6,
+        5,
+        4
+      ],
+      "bridge": {
+        "pass": true,
+        "checks": {
+          "semanticQ": true,
+          "rank": true,
+          "support": true,
+          "p0Residuals": true,
+          "p1Residuals": true
+        },
+        "exactQClass": "f435a6ec7dd5469e"
+      },
+      "actionIntervals": [
+        {
+          "column": 3,
+          "kind": "IMMEDIATE_P1_TERMINAL_EXPOSURE",
+          "interval": [
+            -1,
+            -1
+          ]
+        },
+        {
+          "column": 6,
+          "kind": "EXACT_Q649_DRAW_HANDOFF",
+          "interval": [
+            0,
+            0
+          ]
+        },
+        {
+          "column": 7,
+          "kind": "G5_TO_RANK37_NONWIN",
+          "interval": [
+            -1,
+            0
+          ]
+        }
+      ],
+      "interval": {
+        "lower": 0,
+        "upper": 0
+      },
+      "exactDraw": true
+    },
+    {
+      "exactQClass": "6c9a60f756817109",
+      "sequence": "444441566666232222425511515311377776",
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        5,
+        6,
+        4
+      ],
+      "bridge": {
+        "pass": true,
+        "checks": {
+          "semanticQ": true,
+          "rank": true,
+          "support": true,
+          "p0Residuals": true,
+          "p1Residuals": true
+        },
+        "exactQClass": "6c9a60f756817109"
+      },
+      "actionIntervals": [
+        {
+          "column": 3,
+          "kind": "IMMEDIATE_P1_TERMINAL_EXPOSURE",
+          "interval": [
+            -1,
+            -1
+          ]
+        },
+        {
+          "column": 5,
+          "kind": "EXACT_Q649_DRAW_HANDOFF",
+          "interval": [
+            0,
+            0
+          ]
+        },
+        {
+          "column": 7,
+          "kind": "G5_TO_RANK37_NONWIN",
+          "interval": [
+            -1,
+            0
+          ]
+        }
+      ],
+      "interval": {
+        "lower": 0,
+        "upper": 0
+      },
+      "exactDraw": true
+    }
+  ],
+  "g4Action": {
+    "column": 7,
+    "kind": "P1_REPLY_TO_EXACT_DRAW_CHILD",
+    "drawReplyQClasses": [
+      "6c9a60f756817109",
+      "f435a6ec7dd5469e"
+    ],
+    "replyIntervals": [
+      {
+        "p1Column": 3,
+        "childQ": "66739b4c27954716",
+        "interval": [
+          -1,
+          1
+        ]
+      },
+      {
+        "p1Column": 5,
+        "childQ": "f435a6ec7dd5469e",
+        "interval": [
+          0,
+          0
+        ]
+      },
+      {
+        "p1Column": 6,
+        "childQ": "6c9a60f756817109",
+        "interval": [
+          0,
+          0
+        ]
+      },
+      {
+        "p1Column": 7,
+        "childQ": "1eb5ab134528f402",
+        "interval": [
+          -1,
+          1
+        ]
+      }
+    ],
+    "interval": {
+      "lower": -1,
+      "upper": 0
+    }
+  },
+  "rootActions": [
+    {
+      "column": 3,
+      "kind": "IMMEDIATE_P1_TERMINAL_EXPOSURE",
+      "interval": {
+        "lower": -1,
+        "upper": -1
+      }
+    },
+    {
+      "column": 5,
+      "kind": "QUALIFIED_E_NONWIN",
+      "interval": {
+        "lower": -1,
+        "upper": 0
+      }
+    },
+    {
+      "column": 6,
+      "kind": "QUALIFIED_F_NONWIN",
+      "interval": {
+        "lower": -1,
+        "upper": 0
+      }
+    },
+    {
+      "column": 7,
+      "kind": "G4_TO_P1_DRAW_REPLY",
+      "interval": {
+        "lower": -1,
+        "upper": 0
+      }
+    }
+  ],
+  "classification": "P0_NONWIN",
+  "interval": {
+    "lower": -1,
+    "upper": 0
+  },
+  "resourceFailureCount": 0,
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "ordinaryFreeBranchGameTreeUsed": false,
+  "productionCpcModified": false,
+  "jsMinSysModified": false,
+  "bsfpModified": false,
+  "conclusion": [
+    "The qualified 3+1 tail theorem upgrades three rank-38 consequence classes to exact draws.",
+    "Each rank-37 G5 survivor is P0-nonwinning because P1 has at least one legal reply into an exact draw child.",
+    "Each exact rank-36 E/F-reply predecessor is an exact draw: its immediate-exposure action loses, its q649 action draws, and its G5 action reaches a P0-nonwinning P1 state.",
+    "After q5d:G4, P1 can choose E6 or F6 into one of those exact rank-36 draws, so G4 cannot force a P0 win.",
+    "At q5d34, C4 admits immediate P1 terminal C5, E6 and F6 are already qualified nonwinning, and G4 is now nonwinning. Therefore q5d34 has the sound interval [-1,0]."
+  ],
+  "boundary": [
+    "This proves P0_NONWIN only. It does not silently upgrade q5d34 to loss or draw.",
+    "Every handoff uses exact semantic-q identity. Unknown sibling replies remain [-1,1] and are narrowed only by monotone predecessor algebra.",
+    "No oracle, solved W/D/L input, minimax, unrestricted game-tree value, opening book, best-move table or BSFP solved frontier is used.",
+    "Production CPC, JSMinSys and BSFP are unchanged."
+  ]
+}
