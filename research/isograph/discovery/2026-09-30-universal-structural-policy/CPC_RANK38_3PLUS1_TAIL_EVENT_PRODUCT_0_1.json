@@ -1,0 +1,3401 @@
+{
+  "schema": "connect4.cpc_rank38_3plus1_tail_event_product.v1",
+  "date": "2026-10-01",
+  "jsMinSysSha": "bf23d3a67652cd42e1975f29c7dc4eed54f7eb42",
+  "design": "CPC_RANK38_3PLUS1_TAIL_EVENT_PRODUCT_DESIGN_0_1.md",
+  "sourceEvidence": "CPC_Q5D34_G5_SURVIVOR_RANK38_MONOTONE_COMPOSITION_0_1.json",
+  "states": [
+    {
+      "exactQClass": "4f5444dc55bb5371",
+      "sequence": "44444156666623222242551151531137777677",
+      "rank": 38,
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        5,
+        6,
+        6
+      ],
+      "exactBridge": {
+        "pass": true,
+        "checks": {
+          "rank": true,
+          "support": true,
+          "p0Residuals": true,
+          "p1Residuals": true
+        },
+        "semanticQClass": "4f5444dc55bb5371"
+      },
+      "remainingEventCount": 4,
+      "remainingEvents": {
+        "A1": {
+          "cell": 23,
+          "column": 3,
+          "row": 4
+        },
+        "A2": {
+          "cell": 30,
+          "column": 3,
+          "row": 5
+        },
+        "A3": {
+          "cell": 37,
+          "column": 3,
+          "row": 6
+        },
+        "B": {
+          "cell": 39,
+          "column": 5,
+          "row": 6
+        }
+      },
+      "poset": {
+        "kind": "THREE_CHAIN_PLUS_SINGLETON",
+        "chain": [
+          "A1",
+          "A2",
+          "A3"
+        ],
+        "singleton": "B",
+        "edges": [
+          [
+            "A1",
+            "A2"
+          ],
+          [
+            "A2",
+            "A3"
+          ]
+        ],
+        "chainColumn": 3,
+        "singletonColumn": 5
+      },
+      "rootCpc": {
+        "baseline": {
+          "kind": "CPC_NONE",
+          "forcedColumn": null,
+          "preemptionCount": 0
+        },
+        "frontier": {
+          "kind": "CPC_BOUND",
+          "forcedColumn": null,
+          "preemptionCount": 0
+        }
+      },
+      "rootEnabledSingletons": {
+        "P0": [],
+        "P1": []
+      },
+      "residualIncidence": {
+        "P0": [
+          {
+            "residualCells": [
+              23,
+              30,
+              37
+            ],
+            "remainingEvents": [
+              "A1",
+              "A2",
+              "A3"
+            ],
+            "remainingEventCount": 3,
+            "allResidualCellsRemaining": true
+          }
+        ],
+        "P1": [
+          {
+            "residualCells": [
+              30
+            ],
+            "remainingEvents": [
+              "A2"
+            ],
+            "remainingEventCount": 1,
+            "allResidualCellsRemaining": true
+          }
+        ]
+      },
+      "linearExtensions": [
+        {
+          "events": [
+            "B",
+            "A1",
+            "A2",
+            "A3"
+          ],
+          "firstEvent": "B",
+          "firstColumn": 5,
+          "outcome": "DRAW",
+          "prefixes": [
+            {
+              "index": 1,
+              "event": "B",
+              "cell": {
+                "cell": 39,
+                "column": 5,
+                "row": 6
+              },
+              "mover": "P0",
+              "beforeQ": "4f5444dc55bb5371",
+              "beforeSupport": null,
+              "accessibleColumns": [
+                3,
+                5
+              ],
+              "afterSupport": [
+                6,
+                6,
+                3,
+                6,
+                6,
+                6,
+                6
+              ],
+              "terminal": null,
+              "eventProduct": {
+                "E": {
+                  "played": "B",
+                  "accessibleColumns": [
+                    3,
+                    5
+                  ],
+                  "afterSupport": [
+                    6,
+                    6,
+                    3,
+                    6,
+                    6,
+                    6,
+                    6
+                  ]
+                },
+                "P": {
+                  "mover": "P0",
+                  "nextMover": "P1",
+                  "ply": 39
+                },
+                "R": {
+                  "P0": [
+                    [
+                      23,
+                      30,
+                      37
+                    ]
+                  ],
+                  "P1": [
+                    [
+                      30
+                    ]
+                  ]
+                },
+                "C": {
+                  "enabledSingletons": {
+                    "P0": [],
+                    "P1": []
+                  }
+                },
+                "N": {
+                  "terminal": null,
+                  "exactQClass": "23ef9f7e31da9e52"
+                }
+              },
+              "cpc": {
+                "baseline": {
+                  "kind": "CPC_NONE",
+                  "forcedColumn": null,
+                  "preemptionCount": 0
+                },
+                "frontier": {
+                  "kind": "CPC_NONE",
+                  "forcedColumn": null,
+                  "preemptionCount": 0
+                }
+              }
+            },
+            {
+              "index": 2,
+              "event": "A1",
+              "cell": {
+                "cell": 23,
+                "column": 3,
+                "row": 4
+              },
+              "mover": "P1",
+              "beforeQ": "23ef9f7e31da9e52",
+              "beforeSupport": null,
+              "accessibleColumns": [
+                3
+              ],
+              "afterSupport": [
+                6,
+                6,
+                4,
+                6,
+                6,
+                6,
+                6
+              ],
+              "terminal": null,
+              "eventProduct": {
+                "E": {
+                  "played": "A1",
+                  "accessibleColumns": [
+                    3
+                  ],
+                  "afterSupport": [
+                    6,
+                    6,
+                    4,
+                    6,
+                    6,
+                    6,
+                    6
+                  ]
+                },
+                "P": {
+                  "mover": "P1",
+                  "nextMover": "P0",
+                  "ply": 40
+                },
+                "R": {
+                  "P0": [],
+                  "P1": [
+                    [
+                      30
+                    ]
+                  ]
+                },
+                "C": {
+                  "enabledSingletons": {
+                    "P0": [],
+                    "P1": [
+                      "C5"
+                    ]
+                  }
+                },
+                "N": {
+                  "terminal": null,
+                  "exactQClass": "50e09f1858b5dab5"
+                }
+              },
+              "cpc": {
+                "baseline": {
+                  "kind": "CPC_BOUND",
+                  "forcedColumn": 3,
+                  "preemptionCount": 1
+                },
+                "frontier": {
+                  "kind": "CPC_BOUND",
+                  "forcedColumn": 3,
+                  "preemptionCount": 1
+                }
+              }
+            },
+            {
+              "index": 3,
+              "event": "A2",
+              "cell": {
+                "cell": 30,
+                "column": 3,
+                "row": 5
+              },
+              "mover": "P0",
+              "beforeQ": "50e09f1858b5dab5",
+              "beforeSupport": null,
+              "accessibleColumns": [
+                3
+              ],
+              "afterSupport": [
+                6,
+                6,
+                5,
+                6,
+                6,
+                6,
+                6
+              ],
+              "terminal": null,
+              "eventProduct": {
+                "E": {
+                  "played": "A2",
+                  "accessibleColumns": [
+                    3
+                  ],
+                  "afterSupport": [
+                    6,
+                    6,
+                    5,
+                    6,
+                    6,
+                    6,
+                    6
+                  ]
+                },
+                "P": {
+                  "mover": "P0",
+                  "nextMover": "P1",
+                  "ply": 41
+                },
+                "R": {
+                  "P0": [],
+                  "P1": []
+                },
+                "C": {
+                  "enabledSingletons": {
+                    "P0": [],
+                    "P1": []
+                  }
+                },
+                "N": {
+                  "terminal": null,
+                  "exactQClass": "b5679f569af47851"
+                }
+              },
+              "cpc": {
+                "baseline": {
+                  "kind": "CPC_EXACT",
+                  "forcedColumn": null,
+                  "preemptionCount": 0
+                },
+                "frontier": {
+                  "kind": "CPC_EXACT",
+                  "forcedColumn": null,
+                  "preemptionCount": 0
+                }
+              }
+            },
+            {
+              "index": 4,
+              "event": "A3",
+              "cell": {
+                "cell": 37,
+                "column": 3,
+                "row": 6
+              },
+              "mover": "P1",
+              "beforeQ": "b5679f569af47851",
+              "beforeSupport": [
+                6,
+                6,
+                5,
+                6,
+                6,
+                6,
+                6
+              ],
+              "accessibleColumns": [
+                3
+              ],
+              "afterSupport": [
+                6,
+                6,
+                6,
+                6,
+                6,
+                6,
+                6
+              ],
+              "terminal": "DRAW",
+              "eventProduct": {
+                "E": {
+                  "played": "A3",
+                  "accessibleColumns": [
+                    3
+                  ],
+                  "afterSupport": [
+                    6,
+                    6,
+                    6,
+                    6,
+                    6,
+                    6,
+                    6
+                  ]
+                },
+                "P": {
+                  "mover": "P1",
+                  "ply": 42
+                },
+                "R": null,
+                "C": null,
+                "N": {
+                  "terminal": "DRAW"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "events": [
+            "A1",
+            "B",
+            "A2",
+            "A3"
+          ],
+          "firstEvent": "A1",
+          "firstColumn": 3,
+          "outcome": "DRAW",
+          "prefixes": [
+            {
+              "index": 1,
+              "event": "A1",
+              "cell": {
+                "cell": 23,
+                "column": 3,
+                "row": 4
+              },
+              "mover": "P0",
+              "beforeQ": "4f5444dc55bb5371",
+              "beforeSupport": null,
+              "accessibleColumns": [
+                3,
+                5
+              ],
+              "afterSupport": [
+                6,
+                6,
+                4,
+                6,
+                5,
+                6,
+                6
+              ],
+              "terminal": null,
+              "eventProduct": {
+                "E": {
+                  "played": "A1",
+                  "accessibleColumns": [
+                    3,
+                    5
+                  ],
+                  "afterSupport": [
+                    6,
+                    6,
+                    4,
+                    6,
+                    5,
+                    6,
+                    6
+                  ]
+                },
+                "P": {
+                  "mover": "P0",
+                  "nextMover": "P1",
+                  "ply": 39
+                },
+                "R": {
+                  "P0": [
+                    [
+                      30,
+                      37
+                    ]
+                  ],
+                  "P1": [
+                    [
+                      30
+                    ]
+                  ]
+                },
+                "C": {
+                  "enabledSingletons": {
+                    "P0": [],
+                    "P1": [
+                      "C5"
+                    ]
+                  }
+                },
+                "N": {
+                  "terminal": null,
+                  "exactQClass": "0566edc38a1507fc"
+                }
+              },
+              "cpc": {
+                "baseline": {
+                  "kind": "CPC_EXACT",
+                  "forcedColumn": null,
+                  "preemptionCount": 0
+                },
+                "frontier": {
+                  "kind": "CPC_EXACT",
+                  "forcedColumn": null,
+                  "preemptionCount": 0
+                }
+              }
+            },
+            {
+              "index": 2,
+              "event": "B",
+              "cell": {
+                "cell": 39,
+                "column": 5,
+                "row": 6
+              },
+              "mover": "P1",
+              "beforeQ": "0566edc38a1507fc",
+              "beforeSupport": null,
+              "accessibleColumns": [
+                3,
+                5
+              ],
+              "afterSupport": [
+                6,
+                6,
+                4,
+                6,
+                6,
+                6,
+                6
+              ],
+              "terminal": null,
+              "eventProduct": {
+                "E": {
+                  "played": "B",
+                  "accessibleColumns": [
+                    3,
+                    5
+                  ],
+                  "afterSupport": [
+                    6,
+                    6,
+                    4,
+                    6,
+                    6,
+                    6,
+                    6
+                  ]
+                },
+                "P": {
+                  "mover": "P1",
+                  "nextMover": "P0",
+                  "ply": 40
+                },
+                "R": {
+                  "P0": [
+                    [
+                      30,
+                      37
+                    ]
+                  ],
+                  "P1": [
+                    [
+                      30
+                    ]
+                  ]
+                },
+                "C": {
+                  "enabledSingletons": {
+                    "P0": [],
+                    "P1": [
+                      "C5"
+                    ]
+                  }
+                },
+                "N": {
+                  "terminal": null,
+                  "exactQClass": "3463fb19c2c1ca34"
+                }
+              },
+              "cpc": {
+                "baseline": {
+                  "kind": "CPC_BOUND",
+                  "forcedColumn": 3,
+                  "preemptionCount": 1
+                },
+                "frontier": {
+                  "kind": "CPC_BOUND",
+                  "forcedColumn": 3,
+                  "preemptionCount": 1
+                }
+              }
+            },
+            {
+              "index": 3,
+              "event": "A2",
+              "cell": {
+                "cell": 30,
+                "column": 3,
+                "row": 5
+              },
+              "mover": "P0",
+              "beforeQ": "3463fb19c2c1ca34",
+              "beforeSupport": null,
+              "accessibleColumns": [
+                3
+              ],
+              "afterSupport": [
+                6,
+                6,
+                5,
+                6,
+                6,
+                6,
+                6
+              ],
+              "terminal": null,
+              "eventProduct": {
+                "E": {
+                  "played": "A2",
+                  "accessibleColumns": [
+                    3
+                  ],
+                  "afterSupport": [
+                    6,
+                    6,
+                    5,
+                    6,
+                    6,
+                    6,
+                    6
+                  ]
+                },
+                "P": {
+                  "mover": "P0",
+                  "nextMover": "P1",
+                  "ply": 41
+                },
+                "R": {
+                  "P0": [
+                    [
+                      37
+                    ]
+                  ],
+                  "P1": []
+                },
+                "C": {
+                  "enabledSingletons": {
+                    "P0": [
+                      "C6"
+                    ],
+                    "P1": []
+                  }
+                },
+                "N": {
+                  "terminal": null,
+                  "exactQClass": "2817aa24954a8bd5"
+                }
+              },
+              "cpc": {
+                "baseline": {
+                  "kind": "CPC_BOUND",
+                  "forcedColumn": 3,
+                  "preemptionCount": 1
+                },
+                "frontier": {
+                  "kind": "CPC_BOUND",
+                  "forcedColumn": 3,
+                  "preemptionCount": 1
+                }
+              }
+            },
+            {
+              "index": 4,
+              "event": "A3",
+              "cell": {
+                "cell": 37,
+                "column": 3,
+                "row": 6
+              },
+              "mover": "P1",
+              "beforeQ": "2817aa24954a8bd5",
+              "beforeSupport": [
+                6,
+                6,
+                5,
+                6,
+                6,
+                6,
+                6
+              ],
+              "accessibleColumns": [
+                3
+              ],
+              "afterSupport": [
+                6,
+                6,
+                6,
+                6,
+                6,
+                6,
+                6
+              ],
+              "terminal": "DRAW",
+              "eventProduct": {
+                "E": {
+                  "played": "A3",
+                  "accessibleColumns": [
+                    3
+                  ],
+                  "afterSupport": [
+                    6,
+                    6,
+                    6,
+                    6,
+                    6,
+                    6,
+                    6
+                  ]
+                },
+                "P": {
+                  "mover": "P1",
+                  "ply": 42
+                },
+                "R": null,
+                "C": null,
+                "N": {
+                  "terminal": "DRAW"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "events": [
+            "A1",
+            "A2",
+            "B",
+            "A3"
+          ],
+          "firstEvent": "A1",
+          "firstColumn": 3,
+          "outcome": "P1_WIN",
+          "prefixes": [
+            {
+              "index": 1,
+              "event": "A1",
+              "cell": {
+                "cell": 23,
+                "column": 3,
+                "row": 4
+              },
+              "mover": "P0",
+              "beforeQ": "4f5444dc55bb5371",
+              "beforeSupport": null,
+              "accessibleColumns": [
+                3,
+                5
+              ],
+              "afterSupport": [
+                6,
+                6,
+                4,
+                6,
+                5,
+                6,
+                6
+              ],
+              "terminal": null,
+              "eventProduct": {
+                "E": {
+                  "played": "A1",
+                  "accessibleColumns": [
+                    3,
+                    5
+                  ],
+                  "afterSupport": [
+                    6,
+                    6,
+                    4,
+                    6,
+                    5,
+                    6,
+                    6
+                  ]
+                },
+                "P": {
+                  "mover": "P0",
+                  "nextMover": "P1",
+                  "ply": 39
+                },
+                "R": {
+                  "P0": [
+                    [
+                      30,
+                      37
+                    ]
+                  ],
+                  "P1": [
+                    [
+                      30
+                    ]
+                  ]
+                },
+                "C": {
+                  "enabledSingletons": {
+                    "P0": [],
+                    "P1": [
+                      "C5"
+                    ]
+                  }
+                },
+                "N": {
+                  "terminal": null,
+                  "exactQClass": "0566edc38a1507fc"
+                }
+              },
+              "cpc": {
+                "baseline": {
+                  "kind": "CPC_EXACT",
+                  "forcedColumn": null,
+                  "preemptionCount": 0
+                },
+                "frontier": {
+                  "kind": "CPC_EXACT",
+                  "forcedColumn": null,
+                  "preemptionCount": 0
+                }
+              }
+            },
+            {
+              "index": 2,
+              "event": "A2",
+              "cell": {
+                "cell": 30,
+                "column": 3,
+                "row": 5
+              },
+              "mover": "P1",
+              "beforeQ": "0566edc38a1507fc",
+              "beforeSupport": [
+                6,
+                6,
+                4,
+                6,
+                5,
+                6,
+                6
+              ],
+              "accessibleColumns": [
+                3,
+                5
+              ],
+              "afterSupport": [
+                6,
+                6,
+                5,
+                6,
+                5,
+                6,
+                6
+              ],
+              "terminal": "P1_WIN",
+              "eventProduct": {
+                "E": {
+                  "played": "A2",
+                  "accessibleColumns": [
+                    3,
+                    5
+                  ],
+                  "afterSupport": [
+                    6,
+                    6,
+                    5,
+                    6,
+                    5,
+                    6,
+                    6
+                  ]
+                },
+                "P": {
+                  "mover": "P1",
+                  "ply": 40
+                },
+                "R": null,
+                "C": null,
+                "N": {
+                  "terminal": "P1_WIN"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "events": [
+            "A1",
+            "A2",
+            "A3",
+            "B"
+          ],
+          "firstEvent": "A1",
+          "firstColumn": 3,
+          "outcome": "P1_WIN",
+          "prefixes": [
+            {
+              "index": 1,
+              "event": "A1",
+              "cell": {
+                "cell": 23,
+                "column": 3,
+                "row": 4
+              },
+              "mover": "P0",
+              "beforeQ": "4f5444dc55bb5371",
+              "beforeSupport": null,
+              "accessibleColumns": [
+                3,
+                5
+              ],
+              "afterSupport": [
+                6,
+                6,
+                4,
+                6,
+                5,
+                6,
+                6
+              ],
+              "terminal": null,
+              "eventProduct": {
+                "E": {
+                  "played": "A1",
+                  "accessibleColumns": [
+                    3,
+                    5
+                  ],
+                  "afterSupport": [
+                    6,
+                    6,
+                    4,
+                    6,
+                    5,
+                    6,
+                    6
+                  ]
+                },
+                "P": {
+                  "mover": "P0",
+                  "nextMover": "P1",
+                  "ply": 39
+                },
+                "R": {
+                  "P0": [
+                    [
+                      30,
+                      37
+                    ]
+                  ],
+                  "P1": [
+                    [
+                      30
+                    ]
+                  ]
+                },
+                "C": {
+                  "enabledSingletons": {
+                    "P0": [],
+                    "P1": [
+                      "C5"
+                    ]
+                  }
+                },
+                "N": {
+                  "terminal": null,
+                  "exactQClass": "0566edc38a1507fc"
+                }
+              },
+              "cpc": {
+                "baseline": {
+                  "kind": "CPC_EXACT",
+                  "forcedColumn": null,
+                  "preemptionCount": 0
+                },
+                "frontier": {
+                  "kind": "CPC_EXACT",
+                  "forcedColumn": null,
+                  "preemptionCount": 0
+                }
+              }
+            },
+            {
+              "index": 2,
+              "event": "A2",
+              "cell": {
+                "cell": 30,
+                "column": 3,
+                "row": 5
+              },
+              "mover": "P1",
+              "beforeQ": "0566edc38a1507fc",
+              "beforeSupport": [
+                6,
+                6,
+                4,
+                6,
+                5,
+                6,
+                6
+              ],
+              "accessibleColumns": [
+                3,
+                5
+              ],
+              "afterSupport": [
+                6,
+                6,
+                5,
+                6,
+                5,
+                6,
+                6
+              ],
+              "terminal": "P1_WIN",
+              "eventProduct": {
+                "E": {
+                  "played": "A2",
+                  "accessibleColumns": [
+                    3,
+                    5
+                  ],
+                  "afterSupport": [
+                    6,
+                    6,
+                    5,
+                    6,
+                    5,
+                    6,
+                    6
+                  ]
+                },
+                "P": {
+                  "mover": "P1",
+                  "ply": 40
+                },
+                "R": null,
+                "C": null,
+                "N": {
+                  "terminal": "P1_WIN"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "rootActions": [
+        {
+          "firstEvent": "A1",
+          "column": 3,
+          "extensionCount": 3,
+          "outcomes": [
+            "DRAW",
+            "P1_WIN",
+            "P1_WIN"
+          ],
+          "disposition": "P0_NONWIN_ALL_EXTENSIONS"
+        },
+        {
+          "firstEvent": "B",
+          "column": 5,
+          "extensionCount": 1,
+          "outcomes": [
+            "DRAW"
+          ],
+          "disposition": "P0_NONWIN_ALL_EXTENSIONS"
+        }
+      ],
+      "outcomeCounts": {
+        "P0_WIN": 0,
+        "P1_WIN": 2,
+        "DRAW": 2
+      }
+    },
+    {
+      "exactQClass": "60fba7c1d1c84a97",
+      "sequence": "44444156666623222242551151531137777577",
+      "rank": 38,
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        6,
+        5,
+        6
+      ],
+      "exactBridge": {
+        "pass": true,
+        "checks": {
+          "rank": true,
+          "support": true,
+          "p0Residuals": true,
+          "p1Residuals": true
+        },
+        "semanticQClass": "60fba7c1d1c84a97"
+      },
+      "remainingEventCount": 4,
+      "remainingEvents": {
+        "A1": {
+          "cell": 23,
+          "column": 3,
+          "row": 4
+        },
+        "A2": {
+          "cell": 30,
+          "column": 3,
+          "row": 5
+        },
+        "A3": {
+          "cell": 37,
+          "column": 3,
+          "row": 6
+        },
+        "B": {
+          "cell": 40,
+          "column": 6,
+          "row": 6
+        }
+      },
+      "poset": {
+        "kind": "THREE_CHAIN_PLUS_SINGLETON",
+        "chain": [
+          "A1",
+          "A2",
+          "A3"
+        ],
+        "singleton": "B",
+        "edges": [
+          [
+            "A1",
+            "A2"
+          ],
+          [
+            "A2",
+            "A3"
+          ]
+        ],
+        "chainColumn": 3,
+        "singletonColumn": 6
+      },
+      "rootCpc": {
+        "baseline": {
+          "kind": "CPC_NONE",
+          "forcedColumn": null,
+          "preemptionCount": 0
+        },
+        "frontier": {
+          "kind": "CPC_BOUND",
+          "forcedColumn": null,
+          "preemptionCount": 0
+        }
+      },
+      "rootEnabledSingletons": {
+        "P0": [],
+        "P1": []
+      },
+      "residualIncidence": {
+        "P0": [
+          {
+            "residualCells": [
+              23,
+              30,
+              37
+            ],
+            "remainingEvents": [
+              "A1",
+              "A2",
+              "A3"
+            ],
+            "remainingEventCount": 3,
+            "allResidualCellsRemaining": true
+          }
+        ],
+        "P1": [
+          {
+            "residualCells": [
+              30
+            ],
+            "remainingEvents": [
+              "A2"
+            ],
+            "remainingEventCount": 1,
+            "allResidualCellsRemaining": true
+          }
+        ]
+      },
+      "linearExtensions": [
+        {
+          "events": [
+            "B",
+            "A1",
+            "A2",
+            "A3"
+          ],
+          "firstEvent": "B",
+          "firstColumn": 6,
+          "outcome": "DRAW",
+          "prefixes": [
+            {
+              "index": 1,
+              "event": "B",
+              "cell": {
+                "cell": 40,
+                "column": 6,
+                "row": 6
+              },
+              "mover": "P0",
+              "beforeQ": "60fba7c1d1c84a97",
+              "beforeSupport": null,
+              "accessibleColumns": [
+                3,
+                6
+              ],
+              "afterSupport": [
+                6,
+                6,
+                3,
+                6,
+                6,
+                6,
+                6
+              ],
+              "terminal": null,
+              "eventProduct": {
+                "E": {
+                  "played": "B",
+                  "accessibleColumns": [
+                    3,
+                    6
+                  ],
+                  "afterSupport": [
+                    6,
+                    6,
+                    3,
+                    6,
+                    6,
+                    6,
+                    6
+                  ]
+                },
+                "P": {
+                  "mover": "P0",
+                  "nextMover": "P1",
+                  "ply": 39
+                },
+                "R": {
+                  "P0": [
+                    [
+                      23,
+                      30,
+                      37
+                    ]
+                  ],
+                  "P1": [
+                    [
+                      30
+                    ]
+                  ]
+                },
+                "C": {
+                  "enabledSingletons": {
+                    "P0": [],
+                    "P1": []
+                  }
+                },
+                "N": {
+                  "terminal": null,
+                  "exactQClass": "23ef9f7e31da9e52"
+                }
+              },
+              "cpc": {
+                "baseline": {
+                  "kind": "CPC_NONE",
+                  "forcedColumn": null,
+                  "preemptionCount": 0
+                },
+                "frontier": {
+                  "kind": "CPC_NONE",
+                  "forcedColumn": null,
+                  "preemptionCount": 0
+                }
+              }
+            },
+            {
+              "index": 2,
+              "event": "A1",
+              "cell": {
+                "cell": 23,
+                "column": 3,
+                "row": 4
+              },
+              "mover": "P1",
+              "beforeQ": "23ef9f7e31da9e52",
+              "beforeSupport": null,
+              "accessibleColumns": [
+                3
+              ],
+              "afterSupport": [
+                6,
+                6,
+                4,
+                6,
+                6,
+                6,
+                6
+              ],
+              "terminal": null,
+              "eventProduct": {
+                "E": {
+                  "played": "A1",
+                  "accessibleColumns": [
+                    3
+                  ],
+                  "afterSupport": [
+                    6,
+                    6,
+                    4,
+                    6,
+                    6,
+                    6,
+                    6
+                  ]
+                },
+                "P": {
+                  "mover": "P1",
+                  "nextMover": "P0",
+                  "ply": 40
+                },
+                "R": {
+                  "P0": [],
+                  "P1": [
+                    [
+                      30
+                    ]
+                  ]
+                },
+                "C": {
+                  "enabledSingletons": {
+                    "P0": [],
+                    "P1": [
+                      "C5"
+                    ]
+                  }
+                },
+                "N": {
+                  "terminal": null,
+                  "exactQClass": "50e09f1858b5dab5"
+                }
+              },
+              "cpc": {
+                "baseline": {
+                  "kind": "CPC_BOUND",
+                  "forcedColumn": 3,
+                  "preemptionCount": 1
+                },
+                "frontier": {
+                  "kind": "CPC_BOUND",
+                  "forcedColumn": 3,
+                  "preemptionCount": 1
+                }
+              }
+            },
+            {
+              "index": 3,
+              "event": "A2",
+              "cell": {
+                "cell": 30,
+                "column": 3,
+                "row": 5
+              },
+              "mover": "P0",
+              "beforeQ": "50e09f1858b5dab5",
+              "beforeSupport": null,
+              "accessibleColumns": [
+                3
+              ],
+              "afterSupport": [
+                6,
+                6,
+                5,
+                6,
+                6,
+                6,
+                6
+              ],
+              "terminal": null,
+              "eventProduct": {
+                "E": {
+                  "played": "A2",
+                  "accessibleColumns": [
+                    3
+                  ],
+                  "afterSupport": [
+                    6,
+                    6,
+                    5,
+                    6,
+                    6,
+                    6,
+                    6
+                  ]
+                },
+                "P": {
+                  "mover": "P0",
+                  "nextMover": "P1",
+                  "ply": 41
+                },
+                "R": {
+                  "P0": [],
+                  "P1": []
+                },
+                "C": {
+                  "enabledSingletons": {
+                    "P0": [],
+                    "P1": []
+                  }
+                },
+                "N": {
+                  "terminal": null,
+                  "exactQClass": "b5679f569af47851"
+                }
+              },
+              "cpc": {
+                "baseline": {
+                  "kind": "CPC_EXACT",
+                  "forcedColumn": null,
+                  "preemptionCount": 0
+                },
+                "frontier": {
+                  "kind": "CPC_EXACT",
+                  "forcedColumn": null,
+                  "preemptionCount": 0
+                }
+              }
+            },
+            {
+              "index": 4,
+              "event": "A3",
+              "cell": {
+                "cell": 37,
+                "column": 3,
+                "row": 6
+              },
+              "mover": "P1",
+              "beforeQ": "b5679f569af47851",
+              "beforeSupport": [
+                6,
+                6,
+                5,
+                6,
+                6,
+                6,
+                6
+              ],
+              "accessibleColumns": [
+                3
+              ],
+              "afterSupport": [
+                6,
+                6,
+                6,
+                6,
+                6,
+                6,
+                6
+              ],
+              "terminal": "DRAW",
+              "eventProduct": {
+                "E": {
+                  "played": "A3",
+                  "accessibleColumns": [
+                    3
+                  ],
+                  "afterSupport": [
+                    6,
+                    6,
+                    6,
+                    6,
+                    6,
+                    6,
+                    6
+                  ]
+                },
+                "P": {
+                  "mover": "P1",
+                  "ply": 42
+                },
+                "R": null,
+                "C": null,
+                "N": {
+                  "terminal": "DRAW"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "events": [
+            "A1",
+            "B",
+            "A2",
+            "A3"
+          ],
+          "firstEvent": "A1",
+          "firstColumn": 3,
+          "outcome": "DRAW",
+          "prefixes": [
+            {
+              "index": 1,
+              "event": "A1",
+              "cell": {
+                "cell": 23,
+                "column": 3,
+                "row": 4
+              },
+              "mover": "P0",
+              "beforeQ": "60fba7c1d1c84a97",
+              "beforeSupport": null,
+              "accessibleColumns": [
+                3,
+                6
+              ],
+              "afterSupport": [
+                6,
+                6,
+                4,
+                6,
+                6,
+                5,
+                6
+              ],
+              "terminal": null,
+              "eventProduct": {
+                "E": {
+                  "played": "A1",
+                  "accessibleColumns": [
+                    3,
+                    6
+                  ],
+                  "afterSupport": [
+                    6,
+                    6,
+                    4,
+                    6,
+                    6,
+                    5,
+                    6
+                  ]
+                },
+                "P": {
+                  "mover": "P0",
+                  "nextMover": "P1",
+                  "ply": 39
+                },
+                "R": {
+                  "P0": [
+                    [
+                      30,
+                      37
+                    ]
+                  ],
+                  "P1": [
+                    [
+                      30
+                    ]
+                  ]
+                },
+                "C": {
+                  "enabledSingletons": {
+                    "P0": [],
+                    "P1": [
+                      "C5"
+                    ]
+                  }
+                },
+                "N": {
+                  "terminal": null,
+                  "exactQClass": "f88425fb9bb476eb"
+                }
+              },
+              "cpc": {
+                "baseline": {
+                  "kind": "CPC_EXACT",
+                  "forcedColumn": null,
+                  "preemptionCount": 0
+                },
+                "frontier": {
+                  "kind": "CPC_EXACT",
+                  "forcedColumn": null,
+                  "preemptionCount": 0
+                }
+              }
+            },
+            {
+              "index": 2,
+              "event": "B",
+              "cell": {
+                "cell": 40,
+                "column": 6,
+                "row": 6
+              },
+              "mover": "P1",
+              "beforeQ": "f88425fb9bb476eb",
+              "beforeSupport": null,
+              "accessibleColumns": [
+                3,
+                6
+              ],
+              "afterSupport": [
+                6,
+                6,
+                4,
+                6,
+                6,
+                6,
+                6
+              ],
+              "terminal": null,
+              "eventProduct": {
+                "E": {
+                  "played": "B",
+                  "accessibleColumns": [
+                    3,
+                    6
+                  ],
+                  "afterSupport": [
+                    6,
+                    6,
+                    4,
+                    6,
+                    6,
+                    6,
+                    6
+                  ]
+                },
+                "P": {
+                  "mover": "P1",
+                  "nextMover": "P0",
+                  "ply": 40
+                },
+                "R": {
+                  "P0": [
+                    [
+                      30,
+                      37
+                    ]
+                  ],
+                  "P1": [
+                    [
+                      30
+                    ]
+                  ]
+                },
+                "C": {
+                  "enabledSingletons": {
+                    "P0": [],
+                    "P1": [
+                      "C5"
+                    ]
+                  }
+                },
+                "N": {
+                  "terminal": null,
+                  "exactQClass": "3463fb19c2c1ca34"
+                }
+              },
+              "cpc": {
+                "baseline": {
+                  "kind": "CPC_BOUND",
+                  "forcedColumn": 3,
+                  "preemptionCount": 1
+                },
+                "frontier": {
+                  "kind": "CPC_BOUND",
+                  "forcedColumn": 3,
+                  "preemptionCount": 1
+                }
+              }
+            },
+            {
+              "index": 3,
+              "event": "A2",
+              "cell": {
+                "cell": 30,
+                "column": 3,
+                "row": 5
+              },
+              "mover": "P0",
+              "beforeQ": "3463fb19c2c1ca34",
+              "beforeSupport": null,
+              "accessibleColumns": [
+                3
+              ],
+              "afterSupport": [
+                6,
+                6,
+                5,
+                6,
+                6,
+                6,
+                6
+              ],
+              "terminal": null,
+              "eventProduct": {
+                "E": {
+                  "played": "A2",
+                  "accessibleColumns": [
+                    3
+                  ],
+                  "afterSupport": [
+                    6,
+                    6,
+                    5,
+                    6,
+                    6,
+                    6,
+                    6
+                  ]
+                },
+                "P": {
+                  "mover": "P0",
+                  "nextMover": "P1",
+                  "ply": 41
+                },
+                "R": {
+                  "P0": [
+                    [
+                      37
+                    ]
+                  ],
+                  "P1": []
+                },
+                "C": {
+                  "enabledSingletons": {
+                    "P0": [
+                      "C6"
+                    ],
+                    "P1": []
+                  }
+                },
+                "N": {
+                  "terminal": null,
+                  "exactQClass": "2817aa24954a8bd5"
+                }
+              },
+              "cpc": {
+                "baseline": {
+                  "kind": "CPC_BOUND",
+                  "forcedColumn": 3,
+                  "preemptionCount": 1
+                },
+                "frontier": {
+                  "kind": "CPC_BOUND",
+                  "forcedColumn": 3,
+                  "preemptionCount": 1
+                }
+              }
+            },
+            {
+              "index": 4,
+              "event": "A3",
+              "cell": {
+                "cell": 37,
+                "column": 3,
+                "row": 6
+              },
+              "mover": "P1",
+              "beforeQ": "2817aa24954a8bd5",
+              "beforeSupport": [
+                6,
+                6,
+                5,
+                6,
+                6,
+                6,
+                6
+              ],
+              "accessibleColumns": [
+                3
+              ],
+              "afterSupport": [
+                6,
+                6,
+                6,
+                6,
+                6,
+                6,
+                6
+              ],
+              "terminal": "DRAW",
+              "eventProduct": {
+                "E": {
+                  "played": "A3",
+                  "accessibleColumns": [
+                    3
+                  ],
+                  "afterSupport": [
+                    6,
+                    6,
+                    6,
+                    6,
+                    6,
+                    6,
+                    6
+                  ]
+                },
+                "P": {
+                  "mover": "P1",
+                  "ply": 42
+                },
+                "R": null,
+                "C": null,
+                "N": {
+                  "terminal": "DRAW"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "events": [
+            "A1",
+            "A2",
+            "B",
+            "A3"
+          ],
+          "firstEvent": "A1",
+          "firstColumn": 3,
+          "outcome": "P1_WIN",
+          "prefixes": [
+            {
+              "index": 1,
+              "event": "A1",
+              "cell": {
+                "cell": 23,
+                "column": 3,
+                "row": 4
+              },
+              "mover": "P0",
+              "beforeQ": "60fba7c1d1c84a97",
+              "beforeSupport": null,
+              "accessibleColumns": [
+                3,
+                6
+              ],
+              "afterSupport": [
+                6,
+                6,
+                4,
+                6,
+                6,
+                5,
+                6
+              ],
+              "terminal": null,
+              "eventProduct": {
+                "E": {
+                  "played": "A1",
+                  "accessibleColumns": [
+                    3,
+                    6
+                  ],
+                  "afterSupport": [
+                    6,
+                    6,
+                    4,
+                    6,
+                    6,
+                    5,
+                    6
+                  ]
+                },
+                "P": {
+                  "mover": "P0",
+                  "nextMover": "P1",
+                  "ply": 39
+                },
+                "R": {
+                  "P0": [
+                    [
+                      30,
+                      37
+                    ]
+                  ],
+                  "P1": [
+                    [
+                      30
+                    ]
+                  ]
+                },
+                "C": {
+                  "enabledSingletons": {
+                    "P0": [],
+                    "P1": [
+                      "C5"
+                    ]
+                  }
+                },
+                "N": {
+                  "terminal": null,
+                  "exactQClass": "f88425fb9bb476eb"
+                }
+              },
+              "cpc": {
+                "baseline": {
+                  "kind": "CPC_EXACT",
+                  "forcedColumn": null,
+                  "preemptionCount": 0
+                },
+                "frontier": {
+                  "kind": "CPC_EXACT",
+                  "forcedColumn": null,
+                  "preemptionCount": 0
+                }
+              }
+            },
+            {
+              "index": 2,
+              "event": "A2",
+              "cell": {
+                "cell": 30,
+                "column": 3,
+                "row": 5
+              },
+              "mover": "P1",
+              "beforeQ": "f88425fb9bb476eb",
+              "beforeSupport": [
+                6,
+                6,
+                4,
+                6,
+                6,
+                5,
+                6
+              ],
+              "accessibleColumns": [
+                3,
+                6
+              ],
+              "afterSupport": [
+                6,
+                6,
+                5,
+                6,
+                6,
+                5,
+                6
+              ],
+              "terminal": "P1_WIN",
+              "eventProduct": {
+                "E": {
+                  "played": "A2",
+                  "accessibleColumns": [
+                    3,
+                    6
+                  ],
+                  "afterSupport": [
+                    6,
+                    6,
+                    5,
+                    6,
+                    6,
+                    5,
+                    6
+                  ]
+                },
+                "P": {
+                  "mover": "P1",
+                  "ply": 40
+                },
+                "R": null,
+                "C": null,
+                "N": {
+                  "terminal": "P1_WIN"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "events": [
+            "A1",
+            "A2",
+            "A3",
+            "B"
+          ],
+          "firstEvent": "A1",
+          "firstColumn": 3,
+          "outcome": "P1_WIN",
+          "prefixes": [
+            {
+              "index": 1,
+              "event": "A1",
+              "cell": {
+                "cell": 23,
+                "column": 3,
+                "row": 4
+              },
+              "mover": "P0",
+              "beforeQ": "60fba7c1d1c84a97",
+              "beforeSupport": null,
+              "accessibleColumns": [
+                3,
+                6
+              ],
+              "afterSupport": [
+                6,
+                6,
+                4,
+                6,
+                6,
+                5,
+                6
+              ],
+              "terminal": null,
+              "eventProduct": {
+                "E": {
+                  "played": "A1",
+                  "accessibleColumns": [
+                    3,
+                    6
+                  ],
+                  "afterSupport": [
+                    6,
+                    6,
+                    4,
+                    6,
+                    6,
+                    5,
+                    6
+                  ]
+                },
+                "P": {
+                  "mover": "P0",
+                  "nextMover": "P1",
+                  "ply": 39
+                },
+                "R": {
+                  "P0": [
+                    [
+                      30,
+                      37
+                    ]
+                  ],
+                  "P1": [
+                    [
+                      30
+                    ]
+                  ]
+                },
+                "C": {
+                  "enabledSingletons": {
+                    "P0": [],
+                    "P1": [
+                      "C5"
+                    ]
+                  }
+                },
+                "N": {
+                  "terminal": null,
+                  "exactQClass": "f88425fb9bb476eb"
+                }
+              },
+              "cpc": {
+                "baseline": {
+                  "kind": "CPC_EXACT",
+                  "forcedColumn": null,
+                  "preemptionCount": 0
+                },
+                "frontier": {
+                  "kind": "CPC_EXACT",
+                  "forcedColumn": null,
+                  "preemptionCount": 0
+                }
+              }
+            },
+            {
+              "index": 2,
+              "event": "A2",
+              "cell": {
+                "cell": 30,
+                "column": 3,
+                "row": 5
+              },
+              "mover": "P1",
+              "beforeQ": "f88425fb9bb476eb",
+              "beforeSupport": [
+                6,
+                6,
+                4,
+                6,
+                6,
+                5,
+                6
+              ],
+              "accessibleColumns": [
+                3,
+                6
+              ],
+              "afterSupport": [
+                6,
+                6,
+                5,
+                6,
+                6,
+                5,
+                6
+              ],
+              "terminal": "P1_WIN",
+              "eventProduct": {
+                "E": {
+                  "played": "A2",
+                  "accessibleColumns": [
+                    3,
+                    6
+                  ],
+                  "afterSupport": [
+                    6,
+                    6,
+                    5,
+                    6,
+                    6,
+                    5,
+                    6
+                  ]
+                },
+                "P": {
+                  "mover": "P1",
+                  "ply": 40
+                },
+                "R": null,
+                "C": null,
+                "N": {
+                  "terminal": "P1_WIN"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "rootActions": [
+        {
+          "firstEvent": "A1",
+          "column": 3,
+          "extensionCount": 3,
+          "outcomes": [
+            "DRAW",
+            "P1_WIN",
+            "P1_WIN"
+          ],
+          "disposition": "P0_NONWIN_ALL_EXTENSIONS"
+        },
+        {
+          "firstEvent": "B",
+          "column": 6,
+          "extensionCount": 1,
+          "outcomes": [
+            "DRAW"
+          ],
+          "disposition": "P0_NONWIN_ALL_EXTENSIONS"
+        }
+      ],
+      "outcomeCounts": {
+        "P0_WIN": 0,
+        "P1_WIN": 2,
+        "DRAW": 2
+      }
+    },
+    {
+      "exactQClass": "e7eb0902f1f7984c",
+      "sequence": "44444156666623222242551151531137777576",
+      "rank": 38,
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        6,
+        6,
+        5
+      ],
+      "exactBridge": {
+        "pass": true,
+        "checks": {
+          "rank": true,
+          "support": true,
+          "p0Residuals": true,
+          "p1Residuals": true
+        },
+        "semanticQClass": "e7eb0902f1f7984c"
+      },
+      "remainingEventCount": 4,
+      "remainingEvents": {
+        "A1": {
+          "cell": 23,
+          "column": 3,
+          "row": 4
+        },
+        "A2": {
+          "cell": 30,
+          "column": 3,
+          "row": 5
+        },
+        "A3": {
+          "cell": 37,
+          "column": 3,
+          "row": 6
+        },
+        "B": {
+          "cell": 41,
+          "column": 7,
+          "row": 6
+        }
+      },
+      "poset": {
+        "kind": "THREE_CHAIN_PLUS_SINGLETON",
+        "chain": [
+          "A1",
+          "A2",
+          "A3"
+        ],
+        "singleton": "B",
+        "edges": [
+          [
+            "A1",
+            "A2"
+          ],
+          [
+            "A2",
+            "A3"
+          ]
+        ],
+        "chainColumn": 3,
+        "singletonColumn": 7
+      },
+      "rootCpc": {
+        "baseline": {
+          "kind": "CPC_NONE",
+          "forcedColumn": null,
+          "preemptionCount": 0
+        },
+        "frontier": {
+          "kind": "CPC_BOUND",
+          "forcedColumn": null,
+          "preemptionCount": 0
+        }
+      },
+      "rootEnabledSingletons": {
+        "P0": [],
+        "P1": []
+      },
+      "residualIncidence": {
+        "P0": [
+          {
+            "residualCells": [
+              23,
+              30,
+              37
+            ],
+            "remainingEvents": [
+              "A1",
+              "A2",
+              "A3"
+            ],
+            "remainingEventCount": 3,
+            "allResidualCellsRemaining": true
+          }
+        ],
+        "P1": [
+          {
+            "residualCells": [
+              30
+            ],
+            "remainingEvents": [
+              "A2"
+            ],
+            "remainingEventCount": 1,
+            "allResidualCellsRemaining": true
+          }
+        ]
+      },
+      "linearExtensions": [
+        {
+          "events": [
+            "B",
+            "A1",
+            "A2",
+            "A3"
+          ],
+          "firstEvent": "B",
+          "firstColumn": 7,
+          "outcome": "DRAW",
+          "prefixes": [
+            {
+              "index": 1,
+              "event": "B",
+              "cell": {
+                "cell": 41,
+                "column": 7,
+                "row": 6
+              },
+              "mover": "P0",
+              "beforeQ": "e7eb0902f1f7984c",
+              "beforeSupport": null,
+              "accessibleColumns": [
+                3,
+                7
+              ],
+              "afterSupport": [
+                6,
+                6,
+                3,
+                6,
+                6,
+                6,
+                6
+              ],
+              "terminal": null,
+              "eventProduct": {
+                "E": {
+                  "played": "B",
+                  "accessibleColumns": [
+                    3,
+                    7
+                  ],
+                  "afterSupport": [
+                    6,
+                    6,
+                    3,
+                    6,
+                    6,
+                    6,
+                    6
+                  ]
+                },
+                "P": {
+                  "mover": "P0",
+                  "nextMover": "P1",
+                  "ply": 39
+                },
+                "R": {
+                  "P0": [
+                    [
+                      23,
+                      30,
+                      37
+                    ]
+                  ],
+                  "P1": [
+                    [
+                      30
+                    ]
+                  ]
+                },
+                "C": {
+                  "enabledSingletons": {
+                    "P0": [],
+                    "P1": []
+                  }
+                },
+                "N": {
+                  "terminal": null,
+                  "exactQClass": "23ef9f7e31da9e52"
+                }
+              },
+              "cpc": {
+                "baseline": {
+                  "kind": "CPC_NONE",
+                  "forcedColumn": null,
+                  "preemptionCount": 0
+                },
+                "frontier": {
+                  "kind": "CPC_NONE",
+                  "forcedColumn": null,
+                  "preemptionCount": 0
+                }
+              }
+            },
+            {
+              "index": 2,
+              "event": "A1",
+              "cell": {
+                "cell": 23,
+                "column": 3,
+                "row": 4
+              },
+              "mover": "P1",
+              "beforeQ": "23ef9f7e31da9e52",
+              "beforeSupport": null,
+              "accessibleColumns": [
+                3
+              ],
+              "afterSupport": [
+                6,
+                6,
+                4,
+                6,
+                6,
+                6,
+                6
+              ],
+              "terminal": null,
+              "eventProduct": {
+                "E": {
+                  "played": "A1",
+                  "accessibleColumns": [
+                    3
+                  ],
+                  "afterSupport": [
+                    6,
+                    6,
+                    4,
+                    6,
+                    6,
+                    6,
+                    6
+                  ]
+                },
+                "P": {
+                  "mover": "P1",
+                  "nextMover": "P0",
+                  "ply": 40
+                },
+                "R": {
+                  "P0": [],
+                  "P1": [
+                    [
+                      30
+                    ]
+                  ]
+                },
+                "C": {
+                  "enabledSingletons": {
+                    "P0": [],
+                    "P1": [
+                      "C5"
+                    ]
+                  }
+                },
+                "N": {
+                  "terminal": null,
+                  "exactQClass": "50e09f1858b5dab5"
+                }
+              },
+              "cpc": {
+                "baseline": {
+                  "kind": "CPC_BOUND",
+                  "forcedColumn": 3,
+                  "preemptionCount": 1
+                },
+                "frontier": {
+                  "kind": "CPC_BOUND",
+                  "forcedColumn": 3,
+                  "preemptionCount": 1
+                }
+              }
+            },
+            {
+              "index": 3,
+              "event": "A2",
+              "cell": {
+                "cell": 30,
+                "column": 3,
+                "row": 5
+              },
+              "mover": "P0",
+              "beforeQ": "50e09f1858b5dab5",
+              "beforeSupport": null,
+              "accessibleColumns": [
+                3
+              ],
+              "afterSupport": [
+                6,
+                6,
+                5,
+                6,
+                6,
+                6,
+                6
+              ],
+              "terminal": null,
+              "eventProduct": {
+                "E": {
+                  "played": "A2",
+                  "accessibleColumns": [
+                    3
+                  ],
+                  "afterSupport": [
+                    6,
+                    6,
+                    5,
+                    6,
+                    6,
+                    6,
+                    6
+                  ]
+                },
+                "P": {
+                  "mover": "P0",
+                  "nextMover": "P1",
+                  "ply": 41
+                },
+                "R": {
+                  "P0": [],
+                  "P1": []
+                },
+                "C": {
+                  "enabledSingletons": {
+                    "P0": [],
+                    "P1": []
+                  }
+                },
+                "N": {
+                  "terminal": null,
+                  "exactQClass": "b5679f569af47851"
+                }
+              },
+              "cpc": {
+                "baseline": {
+                  "kind": "CPC_EXACT",
+                  "forcedColumn": null,
+                  "preemptionCount": 0
+                },
+                "frontier": {
+                  "kind": "CPC_EXACT",
+                  "forcedColumn": null,
+                  "preemptionCount": 0
+                }
+              }
+            },
+            {
+              "index": 4,
+              "event": "A3",
+              "cell": {
+                "cell": 37,
+                "column": 3,
+                "row": 6
+              },
+              "mover": "P1",
+              "beforeQ": "b5679f569af47851",
+              "beforeSupport": [
+                6,
+                6,
+                5,
+                6,
+                6,
+                6,
+                6
+              ],
+              "accessibleColumns": [
+                3
+              ],
+              "afterSupport": [
+                6,
+                6,
+                6,
+                6,
+                6,
+                6,
+                6
+              ],
+              "terminal": "DRAW",
+              "eventProduct": {
+                "E": {
+                  "played": "A3",
+                  "accessibleColumns": [
+                    3
+                  ],
+                  "afterSupport": [
+                    6,
+                    6,
+                    6,
+                    6,
+                    6,
+                    6,
+                    6
+                  ]
+                },
+                "P": {
+                  "mover": "P1",
+                  "ply": 42
+                },
+                "R": null,
+                "C": null,
+                "N": {
+                  "terminal": "DRAW"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "events": [
+            "A1",
+            "B",
+            "A2",
+            "A3"
+          ],
+          "firstEvent": "A1",
+          "firstColumn": 3,
+          "outcome": "DRAW",
+          "prefixes": [
+            {
+              "index": 1,
+              "event": "A1",
+              "cell": {
+                "cell": 23,
+                "column": 3,
+                "row": 4
+              },
+              "mover": "P0",
+              "beforeQ": "e7eb0902f1f7984c",
+              "beforeSupport": null,
+              "accessibleColumns": [
+                3,
+                7
+              ],
+              "afterSupport": [
+                6,
+                6,
+                4,
+                6,
+                6,
+                6,
+                5
+              ],
+              "terminal": null,
+              "eventProduct": {
+                "E": {
+                  "played": "A1",
+                  "accessibleColumns": [
+                    3,
+                    7
+                  ],
+                  "afterSupport": [
+                    6,
+                    6,
+                    4,
+                    6,
+                    6,
+                    6,
+                    5
+                  ]
+                },
+                "P": {
+                  "mover": "P0",
+                  "nextMover": "P1",
+                  "ply": 39
+                },
+                "R": {
+                  "P0": [
+                    [
+                      30,
+                      37
+                    ]
+                  ],
+                  "P1": [
+                    [
+                      30
+                    ]
+                  ]
+                },
+                "C": {
+                  "enabledSingletons": {
+                    "P0": [],
+                    "P1": [
+                      "C5"
+                    ]
+                  }
+                },
+                "N": {
+                  "terminal": null,
+                  "exactQClass": "b75f8b982c90288b"
+                }
+              },
+              "cpc": {
+                "baseline": {
+                  "kind": "CPC_EXACT",
+                  "forcedColumn": null,
+                  "preemptionCount": 0
+                },
+                "frontier": {
+                  "kind": "CPC_EXACT",
+                  "forcedColumn": null,
+                  "preemptionCount": 0
+                }
+              }
+            },
+            {
+              "index": 2,
+              "event": "B",
+              "cell": {
+                "cell": 41,
+                "column": 7,
+                "row": 6
+              },
+              "mover": "P1",
+              "beforeQ": "b75f8b982c90288b",
+              "beforeSupport": null,
+              "accessibleColumns": [
+                3,
+                7
+              ],
+              "afterSupport": [
+                6,
+                6,
+                4,
+                6,
+                6,
+                6,
+                6
+              ],
+              "terminal": null,
+              "eventProduct": {
+                "E": {
+                  "played": "B",
+                  "accessibleColumns": [
+                    3,
+                    7
+                  ],
+                  "afterSupport": [
+                    6,
+                    6,
+                    4,
+                    6,
+                    6,
+                    6,
+                    6
+                  ]
+                },
+                "P": {
+                  "mover": "P1",
+                  "nextMover": "P0",
+                  "ply": 40
+                },
+                "R": {
+                  "P0": [
+                    [
+                      30,
+                      37
+                    ]
+                  ],
+                  "P1": [
+                    [
+                      30
+                    ]
+                  ]
+                },
+                "C": {
+                  "enabledSingletons": {
+                    "P0": [],
+                    "P1": [
+                      "C5"
+                    ]
+                  }
+                },
+                "N": {
+                  "terminal": null,
+                  "exactQClass": "3463fb19c2c1ca34"
+                }
+              },
+              "cpc": {
+                "baseline": {
+                  "kind": "CPC_BOUND",
+                  "forcedColumn": 3,
+                  "preemptionCount": 1
+                },
+                "frontier": {
+                  "kind": "CPC_BOUND",
+                  "forcedColumn": 3,
+                  "preemptionCount": 1
+                }
+              }
+            },
+            {
+              "index": 3,
+              "event": "A2",
+              "cell": {
+                "cell": 30,
+                "column": 3,
+                "row": 5
+              },
+              "mover": "P0",
+              "beforeQ": "3463fb19c2c1ca34",
+              "beforeSupport": null,
+              "accessibleColumns": [
+                3
+              ],
+              "afterSupport": [
+                6,
+                6,
+                5,
+                6,
+                6,
+                6,
+                6
+              ],
+              "terminal": null,
+              "eventProduct": {
+                "E": {
+                  "played": "A2",
+                  "accessibleColumns": [
+                    3
+                  ],
+                  "afterSupport": [
+                    6,
+                    6,
+                    5,
+                    6,
+                    6,
+                    6,
+                    6
+                  ]
+                },
+                "P": {
+                  "mover": "P0",
+                  "nextMover": "P1",
+                  "ply": 41
+                },
+                "R": {
+                  "P0": [
+                    [
+                      37
+                    ]
+                  ],
+                  "P1": []
+                },
+                "C": {
+                  "enabledSingletons": {
+                    "P0": [
+                      "C6"
+                    ],
+                    "P1": []
+                  }
+                },
+                "N": {
+                  "terminal": null,
+                  "exactQClass": "2817aa24954a8bd5"
+                }
+              },
+              "cpc": {
+                "baseline": {
+                  "kind": "CPC_BOUND",
+                  "forcedColumn": 3,
+                  "preemptionCount": 1
+                },
+                "frontier": {
+                  "kind": "CPC_BOUND",
+                  "forcedColumn": 3,
+                  "preemptionCount": 1
+                }
+              }
+            },
+            {
+              "index": 4,
+              "event": "A3",
+              "cell": {
+                "cell": 37,
+                "column": 3,
+                "row": 6
+              },
+              "mover": "P1",
+              "beforeQ": "2817aa24954a8bd5",
+              "beforeSupport": [
+                6,
+                6,
+                5,
+                6,
+                6,
+                6,
+                6
+              ],
+              "accessibleColumns": [
+                3
+              ],
+              "afterSupport": [
+                6,
+                6,
+                6,
+                6,
+                6,
+                6,
+                6
+              ],
+              "terminal": "DRAW",
+              "eventProduct": {
+                "E": {
+                  "played": "A3",
+                  "accessibleColumns": [
+                    3
+                  ],
+                  "afterSupport": [
+                    6,
+                    6,
+                    6,
+                    6,
+                    6,
+                    6,
+                    6
+                  ]
+                },
+                "P": {
+                  "mover": "P1",
+                  "ply": 42
+                },
+                "R": null,
+                "C": null,
+                "N": {
+                  "terminal": "DRAW"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "events": [
+            "A1",
+            "A2",
+            "B",
+            "A3"
+          ],
+          "firstEvent": "A1",
+          "firstColumn": 3,
+          "outcome": "P1_WIN",
+          "prefixes": [
+            {
+              "index": 1,
+              "event": "A1",
+              "cell": {
+                "cell": 23,
+                "column": 3,
+                "row": 4
+              },
+              "mover": "P0",
+              "beforeQ": "e7eb0902f1f7984c",
+              "beforeSupport": null,
+              "accessibleColumns": [
+                3,
+                7
+              ],
+              "afterSupport": [
+                6,
+                6,
+                4,
+                6,
+                6,
+                6,
+                5
+              ],
+              "terminal": null,
+              "eventProduct": {
+                "E": {
+                  "played": "A1",
+                  "accessibleColumns": [
+                    3,
+                    7
+                  ],
+                  "afterSupport": [
+                    6,
+                    6,
+                    4,
+                    6,
+                    6,
+                    6,
+                    5
+                  ]
+                },
+                "P": {
+                  "mover": "P0",
+                  "nextMover": "P1",
+                  "ply": 39
+                },
+                "R": {
+                  "P0": [
+                    [
+                      30,
+                      37
+                    ]
+                  ],
+                  "P1": [
+                    [
+                      30
+                    ]
+                  ]
+                },
+                "C": {
+                  "enabledSingletons": {
+                    "P0": [],
+                    "P1": [
+                      "C5"
+                    ]
+                  }
+                },
+                "N": {
+                  "terminal": null,
+                  "exactQClass": "b75f8b982c90288b"
+                }
+              },
+              "cpc": {
+                "baseline": {
+                  "kind": "CPC_EXACT",
+                  "forcedColumn": null,
+                  "preemptionCount": 0
+                },
+                "frontier": {
+                  "kind": "CPC_EXACT",
+                  "forcedColumn": null,
+                  "preemptionCount": 0
+                }
+              }
+            },
+            {
+              "index": 2,
+              "event": "A2",
+              "cell": {
+                "cell": 30,
+                "column": 3,
+                "row": 5
+              },
+              "mover": "P1",
+              "beforeQ": "b75f8b982c90288b",
+              "beforeSupport": [
+                6,
+                6,
+                4,
+                6,
+                6,
+                6,
+                5
+              ],
+              "accessibleColumns": [
+                3,
+                7
+              ],
+              "afterSupport": [
+                6,
+                6,
+                5,
+                6,
+                6,
+                6,
+                5
+              ],
+              "terminal": "P1_WIN",
+              "eventProduct": {
+                "E": {
+                  "played": "A2",
+                  "accessibleColumns": [
+                    3,
+                    7
+                  ],
+                  "afterSupport": [
+                    6,
+                    6,
+                    5,
+                    6,
+                    6,
+                    6,
+                    5
+                  ]
+                },
+                "P": {
+                  "mover": "P1",
+                  "ply": 40
+                },
+                "R": null,
+                "C": null,
+                "N": {
+                  "terminal": "P1_WIN"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "events": [
+            "A1",
+            "A2",
+            "A3",
+            "B"
+          ],
+          "firstEvent": "A1",
+          "firstColumn": 3,
+          "outcome": "P1_WIN",
+          "prefixes": [
+            {
+              "index": 1,
+              "event": "A1",
+              "cell": {
+                "cell": 23,
+                "column": 3,
+                "row": 4
+              },
+              "mover": "P0",
+              "beforeQ": "e7eb0902f1f7984c",
+              "beforeSupport": null,
+              "accessibleColumns": [
+                3,
+                7
+              ],
+              "afterSupport": [
+                6,
+                6,
+                4,
+                6,
+                6,
+                6,
+                5
+              ],
+              "terminal": null,
+              "eventProduct": {
+                "E": {
+                  "played": "A1",
+                  "accessibleColumns": [
+                    3,
+                    7
+                  ],
+                  "afterSupport": [
+                    6,
+                    6,
+                    4,
+                    6,
+                    6,
+                    6,
+                    5
+                  ]
+                },
+                "P": {
+                  "mover": "P0",
+                  "nextMover": "P1",
+                  "ply": 39
+                },
+                "R": {
+                  "P0": [
+                    [
+                      30,
+                      37
+                    ]
+                  ],
+                  "P1": [
+                    [
+                      30
+                    ]
+                  ]
+                },
+                "C": {
+                  "enabledSingletons": {
+                    "P0": [],
+                    "P1": [
+                      "C5"
+                    ]
+                  }
+                },
+                "N": {
+                  "terminal": null,
+                  "exactQClass": "b75f8b982c90288b"
+                }
+              },
+              "cpc": {
+                "baseline": {
+                  "kind": "CPC_EXACT",
+                  "forcedColumn": null,
+                  "preemptionCount": 0
+                },
+                "frontier": {
+                  "kind": "CPC_EXACT",
+                  "forcedColumn": null,
+                  "preemptionCount": 0
+                }
+              }
+            },
+            {
+              "index": 2,
+              "event": "A2",
+              "cell": {
+                "cell": 30,
+                "column": 3,
+                "row": 5
+              },
+              "mover": "P1",
+              "beforeQ": "b75f8b982c90288b",
+              "beforeSupport": [
+                6,
+                6,
+                4,
+                6,
+                6,
+                6,
+                5
+              ],
+              "accessibleColumns": [
+                3,
+                7
+              ],
+              "afterSupport": [
+                6,
+                6,
+                5,
+                6,
+                6,
+                6,
+                5
+              ],
+              "terminal": "P1_WIN",
+              "eventProduct": {
+                "E": {
+                  "played": "A2",
+                  "accessibleColumns": [
+                    3,
+                    7
+                  ],
+                  "afterSupport": [
+                    6,
+                    6,
+                    5,
+                    6,
+                    6,
+                    6,
+                    5
+                  ]
+                },
+                "P": {
+                  "mover": "P1",
+                  "ply": 40
+                },
+                "R": null,
+                "C": null,
+                "N": {
+                  "terminal": "P1_WIN"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "rootActions": [
+        {
+          "firstEvent": "A1",
+          "column": 3,
+          "extensionCount": 3,
+          "outcomes": [
+            "DRAW",
+            "P1_WIN",
+            "P1_WIN"
+          ],
+          "disposition": "P0_NONWIN_ALL_EXTENSIONS"
+        },
+        {
+          "firstEvent": "B",
+          "column": 7,
+          "extensionCount": 1,
+          "outcomes": [
+            "DRAW"
+          ],
+          "disposition": "P0_NONWIN_ALL_EXTENSIONS"
+        }
+      ],
+      "outcomeCounts": {
+        "P0_WIN": 0,
+        "P1_WIN": 2,
+        "DRAW": 2
+      }
+    }
+  ],
+  "crossStateComparison": {
+    "fingerprintGroupCount": 1,
+    "fingerprintGroups": [
+      {
+        "fingerprint": "{\"P0\":[[\"A1\",\"A2\",\"A3\"]],\"P1\":[[\"A2\"]]}",
+        "qClasses": [
+          "4f5444dc55bb5371",
+          "60fba7c1d1c84a97",
+          "e7eb0902f1f7984c"
+        ],
+        "actionProfiles": [
+          {
+            "q": "4f5444dc55bb5371",
+            "profile": {
+              "A1": "P0_NONWIN_ALL_EXTENSIONS",
+              "B": "P0_NONWIN_ALL_EXTENSIONS"
+            }
+          },
+          {
+            "q": "60fba7c1d1c84a97",
+            "profile": {
+              "A1": "P0_NONWIN_ALL_EXTENSIONS",
+              "B": "P0_NONWIN_ALL_EXTENSIONS"
+            }
+          },
+          {
+            "q": "e7eb0902f1f7984c",
+            "profile": {
+              "A1": "P0_NONWIN_ALL_EXTENSIONS",
+              "B": "P0_NONWIN_ALL_EXTENSIONS"
+            }
+          }
+        ],
+        "sameActionProfile": true
+      }
+    ],
+    "sameIncidenceImpliesSameActionProfile": true,
+    "structuralCandidate": "Within the observed 3+1-tail family, identical residual-incidence signatures imply identical root-action extension dispositions.",
+    "generalizationStatus": "OBSERVED_FAMILY_ONLY_NOT_YET_QUALIFIED"
+  },
+  "summary": {
+    "stateCount": 3,
+    "totalLinearExtensions": 12,
+    "totalOutcomeCounts": {
+      "P0_WIN": 0,
+      "P1_WIN": 6,
+      "DRAW": 6
+    },
+    "structurallyClosedActionCount": 6,
+    "structurallyClosedActions": [
+      {
+        "exactQClass": "4f5444dc55bb5371",
+        "firstEvent": "A1",
+        "column": 3,
+        "disposition": "P0_NONWIN_ALL_EXTENSIONS"
+      },
+      {
+        "exactQClass": "4f5444dc55bb5371",
+        "firstEvent": "B",
+        "column": 5,
+        "disposition": "P0_NONWIN_ALL_EXTENSIONS"
+      },
+      {
+        "exactQClass": "60fba7c1d1c84a97",
+        "firstEvent": "A1",
+        "column": 3,
+        "disposition": "P0_NONWIN_ALL_EXTENSIONS"
+      },
+      {
+        "exactQClass": "60fba7c1d1c84a97",
+        "firstEvent": "B",
+        "column": 6,
+        "disposition": "P0_NONWIN_ALL_EXTENSIONS"
+      },
+      {
+        "exactQClass": "e7eb0902f1f7984c",
+        "firstEvent": "A1",
+        "column": 3,
+        "disposition": "P0_NONWIN_ALL_EXTENSIONS"
+      },
+      {
+        "exactQClass": "e7eb0902f1f7984c",
+        "firstEvent": "B",
+        "column": 7,
+        "disposition": "P0_NONWIN_ALL_EXTENSIONS"
+      }
+    ],
+    "mixedActionCount": 0,
+    "resourceFailureCount": 0
+  },
+  "oracleUsed": false,
+  "solvedInputsUsed": false,
+  "ordinaryFreeBranchGameTreeUsed": false,
+  "productionCpcModified": false,
+  "jsMinSysModified": false,
+  "bsfpModified": false,
+  "conclusion": [
+    "Each exact rank-38 state is reduced to the four linear extensions of its already-present 3+1 remaining-event partial order, with exact first-win stopping on every prefix.",
+    "The result is an exact finite current-state event-product certificate; no solved-game value is consumed.",
+    "Root actions are classified only from all compatible extensions of the fixed event poset, and residual-incidence signatures are compared separately before any theorem generalization."
+  ],
+  "boundary": [
+    "This experiment qualifies only the three exact rank-38 states and their 3+1 event-product certificates.",
+    "A reusable theorem beyond the observed family requires a separate frozen qualification and falsification campaign.",
+    "No oracle, solved W/D/L, minimax database, opening book, best-move table, unrestricted game-tree search, BSFP solved frontier, or support-only exact-state merge is used.",
+    "Production CPC, JSMinSys, and BSFP are unchanged."
+  ]
+}
