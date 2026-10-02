@@ -436,7 +436,14 @@ export function collapseCpcxDebtRepairTokenProduct(position,contract,repair){
 
   const guaranteedResiduals=intersectResiduals(continuing),
     blockerTokens=mergeBlockerTokens(continuing),
-    blockerCells=new Set(blockerTokens.flatMap(t=>t.candidateCells));
+    blockerCells=new Set(blockerTokens.flatMap(t=>t.candidateCells)),
+    envelopes=continuing.map(c=>
+      c.opponentSingletonEnvelope??c.firstWinFacts?.opponentSingletonEnvelope??null
+    ),
+    envelopeClosed=envelopes.every(e=>e?.exact===true&&e.normalizationClosed===true),
+    possibleOpponentSingletons=[...new Set(
+      envelopes.flatMap(e=>e?.possibleCells??[])
+    )].sort((a,b)=>a-b);
 
   for(const r of guaranteedResiduals)if(r.missingCells.some(x=>blockerCells.has(x)))
     return {
