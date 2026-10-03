@@ -23,7 +23,7 @@ import {
   cpcxCell,
   scanCpcxObligations,
 } from './cpcx.mjs';
-import {applyCpcxForcedEvent} from './cpcx-closure.mjs';
+import {applyCpcxForcedEvent,closeCpcxForcedResponses} from './cpcx-closure.mjs';
 import {
   analyzeCpcxOneDefectTargetReservoir,
   certifyCpcxTruncatedTargetReservoir,
@@ -150,32 +150,95 @@ function classifyReentry(position,{
   targetCell,
   parentMeasure,
 }){
-  const base=baseHandoff(position,{attacker,targetCell});
+  const directBase=baseHandoff(position,{attacker,targetCell});
+  if(directBase.exact)return {
+    kind:'BASE',
+    exact:true,
+    handoff:directBase,
+    position,
+    normalizationSteps:[],
+  };
+
+  const normalized=closeCpcxForcedResponses(position);
+  if(normalized.kind==='CERTIFIED_FIRST_WIN')return normalized.player===attacker?{
+    kind:'BASE',
+    exact:true,
+    handoff:{
+      kind:'FORCED_NORMALIZATION_FIRST_WIN',
+      exact:true,
+      player:attacker,
+      closure:normalized,
+    },
+    position:normalized.position,
+    normalizationSteps:normalized.steps,
+  }:{
+    kind:'NO_REENTRY',
+    exact:false,
+    seam:'OPPONENT_FIRST_WIN_DURING_ONE_DEFECT_NORMALIZATION',
+    player:normalized.player,
+    normalizationSteps:normalized.steps,
+  };
+  if(normalized.kind==='TERMINAL'){
+    const player=normalized.position.terminal?.player;
+    return player===attacker?{
+      kind:'BASE',
+      exact:true,
+      handoff:{
+        kind:'FORCED_NORMALIZATION_TERMINAL',
+        exact:true,
+        player:attacker,
+        closure:normalized,
+      },
+      position:normalized.position,
+      normalizationSteps:normalized.steps,
+    }:{
+      kind:'NO_REENTRY',
+      exact:false,
+      seam:'OPPONENT_TERMINAL_DURING_ONE_DEFECT_NORMALIZATION',
+      player,
+      normalizationSteps:normalized.steps,
+    };
+  }
+  if(normalized.kind!=='OPEN')return {
+    kind:'NO_REENTRY',
+    exact:false,
+    seam:'UNSUPPORTED_ONE_DEFECT_NORMALIZATION_BOUNDARY',
+    boundary:normalized.boundary,
+    normalizationSteps:normalized.steps,
+  };
+
+  const current=normalized.position,
+    base=baseHandoff(current,{attacker,targetCell});
   if(base.exact)return {
     kind:'BASE',
     exact:true,
     handoff:base,
+    position:current,
+    normalizationSteps:normalized.steps,
   };
 
-  if(position.mover!==(attacker^1))return {
+  if(current.mover!==(attacker^1))return {
     kind:'NO_REENTRY',
     exact:false,
     seam:'ONE_DEFECT_REENTRY_REQUIRES_DEFENDER_TO_MOVE',
+    normalizationSteps:normalized.steps,
   };
-  if(!targetStillActive(position,attacker,targetCell))return {
+  if(!targetStillActive(current,attacker,targetCell))return {
     kind:'NO_REENTRY',
     exact:false,
     seam:'ONE_DEFECT_TARGET_NOT_PRESERVED',
+    normalizationSteps:normalized.steps,
   };
 
   const analysis=analyzeCpcxOneDefectTargetReservoir(
-    position,{attacker,targetCell}
+    current,{attacker,targetCell}
   );
   if(analysis.kind!=='ONE_DEFECT_STATIC_COVERAGE')return {
     kind:'NO_REENTRY',
     exact:false,
     seam:analysis.kind,
     analysis,
+    normalizationSteps:normalized.steps,
   };
   if(!Number.isInteger(analysis.totalRelevantEvents)||
      analysis.totalRelevantEvents>=parentMeasure)return {
@@ -185,6 +248,7 @@ function classifyReentry(position,{
     parentMeasure,
     childMeasure:analysis.totalRelevantEvents??null,
     analysis,
+    normalizationSteps:normalized.steps,
   };
 
   return {
@@ -192,6 +256,8 @@ function classifyReentry(position,{
     exact:true,
     measure:analysis.totalRelevantEvents,
     analysis,
+    position:current,
+    normalizationSteps:normalized.steps,
   };
 }
 
@@ -240,7 +306,7 @@ function defectRepair(position,{
         :'LOWER_ONE_DEFECT',
       priority,
       measure,
-      child:reentry.kind==='LOWER_ONE_DEFECT'?child:null,
+      child:reentry.kind==='LOWER_ONE_DEFECT'?reentry.position:null,
       reentry,
     });
   }
@@ -537,7 +603,8 @@ export function certifyCpcxOneDefectTargetReservoirRcic(position,{
         continue;
       }
 
-      const childKey=positionKey(child,targetCell);
+      const reentryPosition=reentry.position,
+        childKey=positionKey(reentryPosition,targetCell);
       node.edges.push({
         defenderCell,
         defenderLabel:labelCell(g,defenderCell),
@@ -547,19 +614,20 @@ export function certifyCpcxOneDefectTargetReservoirRcic(position,{
         result:'LOWER_ONE_DEFECT',
         childKey,
         childMeasure:reentry.measure,
+        normalizationStepCount:reentry.normalizationSteps.length,
       });
       if(!nodes.has(childKey)){
         nodes.set(childKey,{
           key:childKey,
           status:'PENDING',
           measure:reentry.measure,
-          rank:child.rank,
-          support:Array.from(child.heights),
+          rank:reentryPosition.rank,
+          support:Array.from(reentryPosition.heights),
           edges:[],
         });
         queue.push({
           key:childKey,
-          position:child,
+          position:reentryPosition,
           analysis:reentry.analysis,
         });
       }
