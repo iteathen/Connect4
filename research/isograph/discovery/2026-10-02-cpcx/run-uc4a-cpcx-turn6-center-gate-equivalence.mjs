@@ -1,4 +1,3 @@
-import assert from 'node:assert/strict';
 import {
   createCpcxGeometry,
   buildCpcxPosition,
@@ -85,8 +84,11 @@ function exchangeAudit(x){
     diffCells=[xCell,centerTop],
     diffSet=new Set(diffCells),
     ownerDiff=[];
-  assert.deepEqual(Array.from(externalFirst.heights),Array.from(centerFirst.heights));
-  assert.equal(externalFirst.mover,centerFirst.mover);
+  if(JSON.stringify(Array.from(externalFirst.heights))!==
+     JSON.stringify(Array.from(centerFirst.heights)))
+    throw new Error('exchange support mismatch');
+  if(externalFirst.mover!==centerFirst.mover)
+    throw new Error('exchange mover mismatch');
   for(let cell=0;cell<g.cellCount;cell++)
     if(externalFirst.owner[cell]!==centerFirst.owner[cell])ownerDiff.push(cell);
 
