@@ -166,6 +166,159 @@ function capacityWitness(cells){
   };
 }
 
+export function auditCpcxLatentSingletonPairHubCurrentEvent(
+  position,
+  candidate,
+  defenderCell
+){
+  if(!position?.geometry||!position?.heights||!position?.owner)
+    throw new TypeError('exact CPCX position required');
+  if(position.terminal)return fail('SOURCE_ALREADY_TERMINAL');
+  if(!candidate||!Number.isInteger(candidate.targetCell)||
+     !Number.isInteger(candidate.hubCell))
+    throw new TypeError('latent pair-hub candidate');
+  if(!Number.isInteger(defenderCell))
+    throw new TypeError('defenderCell');
+
+  const defender=position.mover,attacker=defender^1;
+  if(candidate.attacker!==attacker)
+    return fail('ATTACKER_ROLE_MISMATCH');
+
+  const immediate=classifyCpcxImmediate(position);
+  if(immediate.kind!=='NO_IMMEDIATE_OBLIGATION')
+    return fail('SOURCE_IMMEDIATE_PRECEDENCE',{boundary:immediate});
+
+  const live=findCpcxLatentSingletonPairHubCandidates(position,{attacker})
+    .find(x=>
+      x.targetCell===candidate.targetCell&&
+      x.hubCell===candidate.hubCell&&
+      x.spokes.map(y=>y.cell).join(',')===
+        candidate.spokes.map(y=>y.cell).join(',')
+    );
+  if(!live)return fail('CANDIDATE_NOT_CURRENT_LIVE');
+  if(!isFrontier(position,defenderCell))
+    return fail('DEFENDER_EVENT_NOT_CURRENT_FRONTIER',{defenderCell});
+
+  const targetCell=live.targetCell,hubCell=live.hubCell,
+    spokeSet=new Set(live.spokes.map(x=>x.cell)),
+    afterDefender=applyCpcxForcedEvent(position,defenderCell);
+
+  if(afterDefender.terminal)return fail(
+    'DEFENDER_TERMINAL_ON_CURRENT_EVENT',
+    {defenderCell,terminal:afterDefender.terminal}
+  );
+
+  if(defenderCell===hubCell){
+    if(!isFrontier(afterDefender,targetCell))return fail(
+      'HUB_OCCUPATION_DID_NOT_RELEASE_TARGET',
+      {defenderCell,targetCell}
+    );
+    const terminal=applyCpcxForcedEvent(afterDefender,targetCell);
+    if(!terminal.terminal||terminal.terminal.player!==attacker)return fail(
+      'RELEASED_TARGET_NOT_ATTACKER_TERMINAL',
+      {defenderCell,targetCell,terminal:terminal.terminal}
+    );
+    return {
+      schema:'connect4.cpcx.latent-singleton-pair-hub-row.v0_1',
+      kind:'CERTIFIED_FIRST_WIN_ROW',
+      exact:true,
+      player:attacker,
+      attacker,
+      defender,
+      defenderCell,
+      class:'HUB_OCCUPATION',
+      attackerReplyCell:targetCell,
+      result:'ATTACKER_TERMINAL',
+      terminal:terminal.terminal,
+      recursive:false,
+      choiceEnumeration:false,
+      gameTreeTraversal:false,
+    };
+  }
+
+  if(!isFrontier(afterDefender,hubCell))return fail(
+    'HUB_NOT_FRONTIER_STABLE',
+    {defenderCell,hubCell}
+  );
+
+  const afterHub=applyCpcxForcedEvent(afterDefender,hubCell);
+  if(afterHub.terminal){
+    if(afterHub.terminal.player!==attacker)return fail(
+      'WRONG_TERMINAL_ON_HUB',
+      {defenderCell,terminal:afterHub.terminal}
+    );
+    return {
+      schema:'connect4.cpcx.latent-singleton-pair-hub-row.v0_1',
+      kind:'CERTIFIED_FIRST_WIN_ROW',
+      exact:true,
+      player:attacker,
+      attacker,
+      defender,
+      defenderCell,
+      class:'NON_HUB_EVENT',
+      attackerReplyCell:hubCell,
+      result:'ATTACKER_TERMINAL_ON_HUB',
+      terminal:afterHub.terminal,
+      recursive:false,
+      choiceEnumeration:false,
+      gameTreeTraversal:false,
+    };
+  }
+
+  const attackerSingletons=playableSingletonCells(afterHub,attacker),
+    defenderSingletons=playableSingletonCells(afterHub,defender),
+    survivingSpokes=attackerSingletons.filter(cell=>
+      spokeSet.has(cell)&&cell!==defenderCell
+    );
+
+  if(!attackerSingletons.includes(targetCell))return fail(
+    'LATENT_TARGET_NOT_RELEASED_BY_HUB',
+    {defenderCell,targetCell,attackerSingletons}
+  );
+  if(!survivingSpokes.length)return fail(
+    'NO_SURVIVING_PAIR_SPOKE',
+    {defenderCell,attackerSingletons}
+  );
+  if(defenderSingletons.length)return fail(
+    'DEFENDER_COUNTERTERMINAL_AFTER_HUB',
+    {
+      defenderCell,
+      defenderTerminalCells:defenderSingletons,
+      attackerCompletionCells:attackerSingletons,
+    }
+  );
+
+  const witnessCells=[targetCell,survivingSpokes[0]],
+    capacity=capacityWitness(witnessCells);
+  if(!capacity.overload)return fail(
+    'RESPONSE_CAPACITY_NOT_OVERLOADED',
+    {defenderCell,witnessCells,capacity}
+  );
+
+  return {
+    schema:'connect4.cpcx.latent-singleton-pair-hub-row.v0_1',
+    kind:'CERTIFIED_FIRST_WIN_ROW',
+    exact:true,
+    player:attacker,
+    attacker,
+    defender,
+    defenderCell,
+    class:spokeSet.has(defenderCell)
+      ?'SPOKE_OCCUPATION'
+      :'EXTERNAL_EVENT',
+    attackerReplyCell:hubCell,
+    result:'ATTACKER_SINGLETON_OVERLOAD',
+    releasedTargetCell:targetCell,
+    survivingSpokeCells:survivingSpokes,
+    attackerSingletonCells:attackerSingletons,
+    defenderSingletonCells:[],
+    capacity,
+    recursive:false,
+    choiceEnumeration:false,
+    gameTreeTraversal:false,
+  };
+}
+
 export function certifyCpcxLatentSingletonPairHubOverload(
   position,
   candidate
@@ -194,111 +347,16 @@ export function certifyCpcxLatentSingletonPairHubOverload(
     );
   if(!live)return fail('CANDIDATE_NOT_CURRENT_LIVE');
 
-  const targetCell=live.targetCell,hubCell=live.hubCell,
-    spokeSet=new Set(live.spokes.map(x=>x.cell)),
-    rows=[];
-
+  const rows=[];
   for(const defenderCell of frontierCells(position)){
-    const afterDefender=applyCpcxForcedEvent(position,defenderCell);
-    if(afterDefender.terminal)return fail(
-      'DEFENDER_TERMINAL_ON_CURRENT_EVENT',
-      {
-        defenderCell,
-        terminal:afterDefender.terminal,
-        rows,
-      }
+    const row=auditCpcxLatentSingletonPairHubCurrentEvent(
+      position,live,defenderCell
     );
-
-    if(defenderCell===hubCell){
-      if(!isFrontier(afterDefender,targetCell))return fail(
-        'HUB_OCCUPATION_DID_NOT_RELEASE_TARGET',
-        {defenderCell,targetCell,rows}
-      );
-      const terminal=applyCpcxForcedEvent(afterDefender,targetCell);
-      if(!terminal.terminal||terminal.terminal.player!==attacker)return fail(
-        'RELEASED_TARGET_NOT_ATTACKER_TERMINAL',
-        {
-          defenderCell,
-          targetCell,
-          terminal:terminal.terminal,
-          rows,
-        }
-      );
-      rows.push({
-        defenderCell,
-        class:'HUB_OCCUPATION',
-        attackerReplyCell:targetCell,
-        result:'ATTACKER_TERMINAL',
-        terminal:terminal.terminal,
-      });
-      continue;
-    }
-
-    if(!isFrontier(afterDefender,hubCell))return fail(
-      'HUB_NOT_FRONTIER_STABLE',
-      {defenderCell,hubCell,rows}
-    );
-
-    const afterHub=applyCpcxForcedEvent(afterDefender,hubCell);
-    if(afterHub.terminal){
-      if(afterHub.terminal.player!==attacker)return fail(
-        'WRONG_TERMINAL_ON_HUB',
-        {defenderCell,terminal:afterHub.terminal,rows}
-      );
-      rows.push({
-        defenderCell,
-        class:'NON_HUB_EVENT',
-        attackerReplyCell:hubCell,
-        result:'ATTACKER_TERMINAL_ON_HUB',
-        terminal:afterHub.terminal,
-      });
-      continue;
-    }
-
-    const attackerSingletons=playableSingletonCells(afterHub,attacker),
-      defenderSingletons=playableSingletonCells(afterHub,defender),
-      survivingSpokes=attackerSingletons.filter(cell=>
-        spokeSet.has(cell)&&cell!==defenderCell
-      );
-
-    if(!attackerSingletons.includes(targetCell))return fail(
-      'LATENT_TARGET_NOT_RELEASED_BY_HUB',
-      {defenderCell,targetCell,attackerSingletons,rows}
-    );
-    if(!survivingSpokes.length)return fail(
-      'NO_SURVIVING_PAIR_SPOKE',
-      {defenderCell,attackerSingletons,rows}
-    );
-    if(defenderSingletons.length)return fail(
-      'DEFENDER_COUNTERTERMINAL_AFTER_HUB',
-      {
-        defenderCell,
-        defenderTerminalCells:defenderSingletons,
-        attackerCompletionCells:attackerSingletons,
-        rows,
-      }
-    );
-
-    const witnessCells=[targetCell,survivingSpokes[0]],
-      capacity=capacityWitness(witnessCells);
-    if(!capacity.overload)return fail(
-      'RESPONSE_CAPACITY_NOT_OVERLOADED',
-      {defenderCell,witnessCells,capacity,rows}
-    );
-
-    rows.push({
-      defenderCell,
-      class:spokeSet.has(defenderCell)
-        ?'SPOKE_OCCUPATION'
-        :'EXTERNAL_EVENT',
-      attackerReplyCell:hubCell,
-      result:'ATTACKER_SINGLETON_OVERLOAD',
-      releasedTargetCell:targetCell,
-      survivingSpokeCells:survivingSpokes,
-      attackerSingletonCells:attackerSingletons,
-      defenderSingletonCells:[],
-      capacity,
-    });
+    if(!row.exact)return {
+      ...row,
+      rows,
+    };
+    rows.push(row);
   }
 
   return {
@@ -312,10 +370,10 @@ export function certifyCpcxLatentSingletonPairHubOverload(
     latentSingleton:{
       lineId:live.singleton.lineId,
       lineLabel:live.singleton.lineLabel,
-      targetCell,
+      targetCell:live.targetCell,
       sourceSupportDistance:1,
     },
-    hubCell,
+    hubCell:live.hubCell,
     spokes:live.spokes,
     distinctSpokeCount:live.spokes.length,
     currentFrontierEventCount:rows.length,
