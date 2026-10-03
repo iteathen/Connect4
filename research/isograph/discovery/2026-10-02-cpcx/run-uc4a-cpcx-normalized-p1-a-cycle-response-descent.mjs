@@ -28,6 +28,9 @@ import {
 import {
   buildCpcxMove6UnresolvedClassesArtifact,
 } from './cpcx-move6-unresolved-classes.mjs';
+import {
+  runCpcxFirstWinCertificate,
+} from './cpcx-successor.mjs';
 
 const g=createCpcxGeometry(),
   artifact=buildCpcxMove6UnresolvedClassesArtifact(),
@@ -67,6 +70,16 @@ function tupleLess(a,b){return a[0]<b[0]||(a[0]===b[0]&&a[1]<b[1]);}
 function immediateSummary(x){
   return {kind:x.kind,mover:x.mover??null,cell:Number.isInteger(x.cell)?label(x.cell):null,winningCells:(x.winningCells??[]).map(label),opponentThreatCells:(x.opponentThreatCells??x.threatCells??[]).map(label)};
 }
+function existingCertificate(position){
+  const c=runCpcxFirstWinCertificate(position,{attacker:0});
+  return {
+    kind:c.kind,
+    exact:c.exact??false,
+    player:c.player??null,
+    seam:c.seam??null,
+    traceLength:c.trace?.length??0,
+  };
+}
 function normalizedRecord(sourceKind,cls,eventCell,q){
   const R=rootResidual(q); if(!R)return null;
   const n=certifyCpcxProtectedResidualForcedNormalization(q,{protectedResidual:R});
@@ -102,6 +115,7 @@ function controllerDescent(position,R){
     exact:true,
     finalTuple:tuple(R),
     finalPhysicalKey:physicalKey(position),
+    existingCertificate:existingCertificate(position),
   };
   const immediate=classifyCpcxImmediate(position);
   if(immediate.kind==='FORCED_LOSS_OVERLOAD')return {kind:'CONTROLLER_FORCED_LOSS_OVERLOAD',exact:false,immediate:immediateSummary(immediate)};
@@ -111,7 +125,7 @@ function controllerDescent(position,R){
     if(n.kind!=='PROTECTED_RESIDUAL_FORCED_NORMALIZATION'||!n.exact)return {kind:'FORCED_NORMALIZATION_FAILED',exact:false,normalization:summarizeCertificate(n)};
     const finalR=residualByLine(n.finalPosition,R.lineId,R.player);
     if(!finalR)return {kind:'FORCED_NORMALIZATION_LOST_RESIDUAL',exact:false};
-    if(n.finalPosition.mover!==R.player)return {kind:'FORCED_NORMALIZATION_TO_OPPONENT_BOUNDARY',exact:true,sourceTuple:tuple(R),childTuple:tuple(finalR),normalization:{rankDelta:n.rankDelta,stepKinds:n.steps.map(x=>x.kind)},boundary:'deterministic forced response consumed the controller turn and returned to an opponent decision boundary'};
+    if(n.finalPosition.mover!==R.player)return {kind:'FORCED_NORMALIZATION_TO_OPPONENT_BOUNDARY',exact:true,sourceTuple:tuple(R),childTuple:tuple(finalR),normalization:{rankDelta:n.rankDelta,stepKinds:n.steps.map(x=>x.kind)},existingCertificate:existingCertificate(n.finalPosition),boundary:'deterministic forced response consumed the controller turn and returned to an opponent decision boundary'};
     const next=controllerDescentNoNormalization(n.finalPosition,finalR);
     return {kind:'FORCED_NORMALIZATION_THEN_DESCENT',exact:next.exact===true,sourceTuple:tuple(R),normalizedTuple:tuple(finalR),normalization:{rankDelta:n.rankDelta,stepKinds:n.steps.map(x=>x.kind)},next};
   }
@@ -151,6 +165,7 @@ function controllerDescentNoNormalization(position,R){
         ?[R.missingCount,best.childSupportDebt]
         :null,
     finalPhysicalKey:best.child?physicalKey(best.child):null,
+    existingCertificate:best.child?existingCertificate(best.child):null,
   };
 }
 
@@ -296,7 +311,7 @@ const all=rows.flatMap(r=>r.responses.map(x=>({
       toNode:normalizedNodeByKey.get(x.finalPhysicalKey)??null,
     }));
 console.log(JSON.stringify({
-  schema:'connect4.uc4a.cpcx.normalized-p1-a-cycle-response-descent.v0_2',
+  schema:'connect4.uc4a.cpcx.normalized-p1-a-cycle-response-descent.v0_3',
   observation:'ADVANCE_A-generated and root P1 normalized universal-diagonal boundaries; one current P1 event followed by deterministic normalization and at most one theorem-qualified P0 descent action',
   rows,
   summary:{
@@ -326,6 +341,34 @@ console.log(JSON.stringify({
       strictReturnEdges.filter(x=>x.toNode!==null).length,
     strictReturnEdgesUnmatched:
       strictReturnEdges.filter(x=>x.toNode===null),
+    endpointCertificateCounts:Object.fromEntries(
+      [...new Set(strictReturnEdges.map(x=>{
+        const row=all.find(y=>
+          y.nodeId===x.fromNode&&y.eventCell===x.eventCell&&y.role===x.role
+        );
+        function cert(d){
+          if(!d)return null;
+          if(d.existingCertificate)return d.existingCertificate;
+          if(d.kind==='FORCED_NORMALIZATION_THEN_DESCENT')return cert(d.next);
+          return null;
+        }
+        return cert(row?.descent)?.kind??'NONE';
+      }))].map(kind=>[
+        kind,
+        strictReturnEdges.filter(x=>{
+          const row=all.find(y=>
+            y.nodeId===x.fromNode&&y.eventCell===x.eventCell&&y.role===x.role
+          );
+          function cert(d){
+            if(!d)return null;
+            if(d.existingCertificate)return d.existingCertificate;
+            if(d.kind==='FORCED_NORMALIZATION_THEN_DESCENT')return cert(d.next);
+            return null;
+          }
+          return (cert(row?.descent)?.kind??'NONE')===kind;
+        }).length,
+      ])
+    ),
     strictReturnEdges,
   },
   boundary:{diagnosticOnly:true,rootCycleRole:'ADVANCE_A',exactlyOneCurrentP1Event:true,controllerFollowupUsesNoFreeLayerWhenForcedNormalizationReturnsDirectlyToP1:true,noFreeSecondP1Layer:true,transferUsesQualifiedSameTrackThenAnchorPivot:true,noValueConclusion:true,solvedData:false,oracle:false,minimax:false,recursiveSearch:false},
