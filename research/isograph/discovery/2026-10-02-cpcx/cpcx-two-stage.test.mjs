@@ -6,6 +6,7 @@ import {
   findCpcxVerticalTwoStageObligations,
   certifyCpcxVerticalTwoStage,
   collapseCpcxVerticalTwoStage,
+  deriveCpcxVerticalOpponentSingletonEnvelope,
 } from './cpcx-two-stage.mjs';
 
 const g=createCpcxGeometry();
@@ -63,6 +64,23 @@ test('defender-turn two-stage alternatives collapse to one CPC parity class',()=
   assert.ok(collapsed.guaranteedResiduals.some(r=>
     r.lineLabel==='D1-E2-F3-G4'&&r.missingCount===2
   ));
+});
+
+
+test('vertical envelope carries a conservative defender first-terminal lower horizon',()=>{
+  const p=buildCpcxPosition('4444415151',{geometry:g}),
+    normalized=closeCpcxForcedResponses(p).position,
+    demand=findCpcxVerticalTwoStageObligations(normalized,{player:0})[0],
+    cert=certifyCpcxVerticalTwoStage(normalized,demand),
+    envelope=deriveCpcxVerticalOpponentSingletonEnvelope(
+      normalized,demand,cert
+    );
+  assert.equal(envelope.kind,'OPPONENT_SINGLETON_ENVELOPE');
+  assert.equal(envelope.exact,true);
+  assert.equal(envelope.defenderTerminalClasses,0);
+  assert.equal(Number.isInteger(envelope.defenderEarliestTerminalLowerBound),true);
+  assert.ok(envelope.defenderEarliestTerminalLowerBound>=1);
+  assert.equal(Object.prototype.hasOwnProperty.call(envelope,'winner'),false);
 });
 
 test('move-3 symmetric control transports turn back to attacker and forces upper',()=>{
