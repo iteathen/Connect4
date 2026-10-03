@@ -522,6 +522,32 @@ for(const source of sources.values()){
                   currentMeasure:saturation.currentMeasure??null,
                   finalMeasure:saturation.finalMeasure??null,
                   finalRank:saturation.finalRank??null,
+                  finalResidual:saturation.finalResidual?{
+                    lineId:saturation.finalResidual.lineId,
+                    lineLabel:saturation.finalResidual.lineLabel,
+                    missingCount:saturation.finalResidual.missingCount,
+                    missing:saturation.finalResidual.missingCells.map(label),
+                    support:saturation.finalResidual.events.map(e=>
+                      e.supportDistance
+                    ),
+                    playable:saturation.finalResidual.currentlyPlayableCells.map(label),
+                  }:null,
+                  trace:(saturation.trace??[]).map(t=>({
+                    kind:t.kind,
+                    iteration:t.iteration??null,
+                    actionCell:Number.isInteger(t.actionCell)
+                      ?label(t.actionCell):null,
+                    selectedTarget:Number.isInteger(t.selectedTarget)
+                      ?label(t.selectedTarget):null,
+                    selectedMode:t.selectedMode??null,
+                    sourceMeasure:t.sourceMeasure??null,
+                    childMeasure:t.childMeasure??null,
+                    boundary:t.boundary?.kind??null,
+                    forcedEvents:(t.forcedEvents??[]).map(e=>({
+                      cell:Number.isInteger(e.cell)?label(e.cell):null,
+                      player:e.player??null,
+                    })),
+                  })),
                   descent:saturation.descent?{
                     kind:saturation.descent.kind,
                     exact:saturation.descent.exact??false,
@@ -561,6 +587,27 @@ for(const source of sources.values()){
                     sameTrackSeam:f.sameTrack?.seam??null,
                     anchorPivotSeam:f.anchorPivot?.seam??null,
                     closureSeam:f.closure?.seam??null,
+                    closureBoundary:f.closure?.boundary?{
+                      kind:f.closure.boundary.kind,
+                      threatCells:(f.closure.boundary.threatCells??[]).map(label),
+                      winningCells:(f.closure.boundary.winningCells??[]).map(label),
+                    }:null,
+                    closureCertificate:f.closure?.certificate?{
+                      kind:f.closure.certificate.kind,
+                      seam:f.closure.certificate.seam??null,
+                      sourceMeasure:f.closure.certificate.sourceMeasure??null,
+                      currentMeasure:f.closure.certificate.currentMeasure??null,
+                      descent:f.closure.certificate.descent?{
+                        kind:f.closure.certificate.descent.kind,
+                        seam:f.closure.certificate.descent.seam??null,
+                        selectedTarget:Number.isInteger(
+                          f.closure.certificate.descent.selectedTarget
+                        )?label(f.closure.certificate.descent.selectedTarget):null,
+                        actionCell:Number.isInteger(
+                          f.closure.certificate.descent.actionCell
+                        )?label(f.closure.certificate.descent.actionCell):null,
+                      }:null,
+                    }:null,
                   })),
                   descentFailures:(responseDescent.descentFailures??[]).map(f=>({
                     eventCell:Number.isInteger(f.eventCell)
