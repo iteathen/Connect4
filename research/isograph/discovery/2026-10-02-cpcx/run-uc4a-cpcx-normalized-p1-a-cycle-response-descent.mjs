@@ -23,6 +23,9 @@ import {
   certifyCpcxProtectedResidualDiagonalTransfer,
 } from './cpcx-diagonal-transfer.mjs';
 import {
+  certifyCpcxProtectedDiagonalAnchorPivot,
+} from './cpcx-diagonal-anchor-pivot.mjs';
+import {
   buildCpcxMove6UnresolvedClassesArtifact,
 } from './cpcx-move6-unresolved-classes.mjs';
 
@@ -188,26 +191,63 @@ for(const source of normalized){
     if(R.missingCells.includes(eventCell)){
       const child=applyCpcxForcedEvent(position,eventCell);
       if(child.terminal){responses.push({eventCell:label(eventCell),role:'PROTECTED_TARGET_OCCUPATION',terminal:child.terminal,exact:child.terminal.player===0});continue;}
-      const transfer=certifyCpcxProtectedResidualDiagonalTransfer(position,{
+      let transfer=certifyCpcxProtectedResidualDiagonalTransfer(position,{
         protectedResidual:R,
         blockedCell:eventCell,
-      });
+      }),transferMode='SAME_TRACK';
       if(transfer.kind!=='PROTECTED_RESIDUAL_DIAGONAL_TRANSFER'||!transfer.exact){
-        responses.push({eventCell:label(eventCell),role:'PROTECTED_TARGET_OCCUPATION',exact:false,seam:transfer.seam??transfer.kind,transfer:summarizeCertificate(transfer)});
-        continue;
+        const pivot=certifyCpcxProtectedDiagonalAnchorPivot(position,{
+          protectedResidual:R,
+          blockedCell:eventCell,
+        });
+        if(pivot.kind!=='PROTECTED_DIAGONAL_ANCHOR_PIVOT_TRANSFER'||!pivot.exact){
+          responses.push({
+            eventCell:label(eventCell),
+            role:'PROTECTED_TARGET_OCCUPATION',
+            exact:false,
+            seam:pivot.seam??transfer.seam??pivot.kind,
+            sameTrack:{kind:transfer.kind,seam:transfer.seam??null},
+            anchorPivot:{kind:pivot.kind,seam:pivot.seam??null},
+          });
+          continue;
+        }
+        transfer=pivot;
+        transferMode='ANCHOR_PIVOT';
       }
-      const transferR=residualByLine(transfer.child,transfer.transfer.lineId,R.player);
+      const target=transferMode==='SAME_TRACK'?transfer.transfer:transfer.pivot,
+        transferR=residualByLine(transfer.child,target.lineId,R.player);
       if(!transferR){
         responses.push({eventCell:label(eventCell),role:'PROTECTED_TARGET_OCCUPATION',exact:false,seam:'TRANSFER_RESIDUAL_NOT_LIVE'});
         continue;
       }
       const descent=controllerDescent(transfer.child,transferR),
         sourceTuple=tuple(R),finalTuple=descentFinalTuple(descent),
+        transferProgress=transferMode==='SAME_TRACK'
+          ?transfer.strictTupleDecrease===true
+          :transfer.strictExtendedMeasureDecrease===true,
         strictDescentOrWin=descent.exact===true&&(
           descentWins(descent)||
-          (finalTuple?tupleLess(finalTuple,sourceTuple):transfer.strictTupleDecrease===true)
+          (finalTuple?tupleLess(finalTuple,sourceTuple):transferProgress)
         );
-      responses.push({eventCell:label(eventCell),role:'PROTECTED_TARGET_OCCUPATION',exact:descent.exact===true,strictDescentOrWin,sourceTuple,finalTuple,transfer:{kind:transfer.kind,lineLabel:transfer.transfer.lineLabel,overlap:transfer.transfer.overlapCells.map(label),tuple:[...transfer.transfer.tuple],playable:transfer.transfer.currentlyPlayableCells.map(label),strictTupleDecrease:transfer.strictTupleDecrease},descent});
+      responses.push({
+        eventCell:label(eventCell),
+        role:'PROTECTED_TARGET_OCCUPATION',
+        exact:descent.exact===true,
+        strictDescentOrWin,
+        sourceTuple,
+        finalTuple,
+        transfer:{
+          mode:transferMode,
+          kind:transfer.kind,
+          lineLabel:target.lineLabel,
+          tuple:[...target.tuple],
+          playable:target.currentlyPlayableCells.map(label),
+          strictTupleDecrease:transfer.strictTupleDecrease??false,
+          strictExtendedMeasureDecrease:
+            transfer.strictExtendedMeasureDecrease??false,
+        },
+        descent,
+      });
       continue;
     }
     const trans=certifyCpcxProtectedResidualSupportTransition(position,{protectedResidual:R,eventCell});
@@ -256,7 +296,7 @@ const all=rows.flatMap(r=>r.responses.map(x=>({
       toNode:normalizedNodeByKey.get(x.finalPhysicalKey)??null,
     }));
 console.log(JSON.stringify({
-  schema:'connect4.uc4a.cpcx.normalized-p1-a-cycle-response-descent.v0_1',
+  schema:'connect4.uc4a.cpcx.normalized-p1-a-cycle-response-descent.v0_2',
   observation:'ADVANCE_A-generated and root P1 normalized universal-diagonal boundaries; one current P1 event followed by deterministic normalization and at most one theorem-qualified P0 descent action',
   rows,
   summary:{
@@ -288,5 +328,5 @@ console.log(JSON.stringify({
       strictReturnEdges.filter(x=>x.toNode===null),
     strictReturnEdges,
   },
-  boundary:{diagnosticOnly:true,rootCycleRole:'ADVANCE_A',exactlyOneCurrentP1Event:true,controllerFollowupUsesNoFreeLayerWhenForcedNormalizationReturnsDirectlyToP1:true,noFreeSecondP1Layer:true,transferUsesQualifiedDiagonalTransfer:true,noValueConclusion:true,solvedData:false,oracle:false,minimax:false,recursiveSearch:false},
+  boundary:{diagnosticOnly:true,rootCycleRole:'ADVANCE_A',exactlyOneCurrentP1Event:true,controllerFollowupUsesNoFreeLayerWhenForcedNormalizationReturnsDirectlyToP1:true,noFreeSecondP1Layer:true,transferUsesQualifiedSameTrackThenAnchorPivot:true,noValueConclusion:true,solvedData:false,oracle:false,minimax:false,recursiveSearch:false},
 },null,2));
