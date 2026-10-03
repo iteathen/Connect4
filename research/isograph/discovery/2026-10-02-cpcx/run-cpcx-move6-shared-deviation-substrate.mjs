@@ -305,16 +305,9 @@ const opponentLowerBounds=active
   .map(row=>row.opponentEarliestTerminalLowerBound)
   .filter(Number.isInteger);
 function projectedSupportKey(row,columns){
-  return JSON.stringify({
-    exact:row.supportEnvelope?.exact===true,
-    vectors:(row.supportEnvelope?.vectors??[])
-      .map(v=>columns.map(c=>v[c]))
-      .sort((a,b)=>{
-        const n=Math.min(a.length,b.length);
-        for(let i=0;i<n;i++)if(a[i]!==b[i])return a[i]-b[i];
-        return a.length-b.length;
-      }),
-  });
+  return keyCpcxSupportEnvelope(
+    projectCpcxSupportEnvelope(row.supportEnvelope,columns)
+  );
 }
 const supportProjectionClasses={};
 for(const [name,columns] of Object.entries({
