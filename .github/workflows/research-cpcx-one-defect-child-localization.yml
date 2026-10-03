@@ -1,0 +1,32 @@
+name: Research CPCX one-defect child localization
+
+on:
+  push:
+    branches:
+      - experiment/cpcx-20261002
+    paths:
+      - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-one-defect-child-localization.mjs
+      - .github/workflows/research-cpcx-one-defect-child-localization.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 2
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: "26.7.0"
+      - name: Localize lower children
+        run: |
+          node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-one-defect-child-localization.mjs > cpcx-one-defect-child-localization.json
+          cat cpcx-one-defect-child-localization.json
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: cpcx-one-defect-child-localization
+          path: cpcx-one-defect-child-localization.json
+          if-no-files-found: error
