@@ -211,6 +211,27 @@ function mergeOpponentResidualEnvelope(carriers){
   };
 }
 
+function mergeSupportEnvelope(carriers){
+  const envelopes=carriers.map(c=>c.supportEnvelope);
+  if(envelopes.some(x=>x?.exact!==true||!Array.isArray(x.vectors)))return {
+    exact:false,
+    vectors:[],
+    source:'at least one component carrier lacks exact support envelope',
+  };
+  const m=new Map();
+  for(const envelope of envelopes)for(const vector of envelope.vectors)
+    m.set(vector.join(','),[...vector]);
+  return {
+    exact:true,
+    vectors:[...m.values()].sort((a,b)=>{
+      const n=Math.min(a.length,b.length);
+      for(let i=0;i<n;i++)if(a[i]!==b[i])return a[i]-b[i];
+      return a.length-b.length;
+    }),
+    source:'union of exact component support classes',
+  };
+}
+
 function mergeSupportPhase(carriers){
   const keys=new Map();
   for(const carrier of carriers){
@@ -536,6 +557,7 @@ export function collapseCpcxDebtRepairTokenProduct(position,contract,repair,{ret
 
   const guaranteedResiduals=intersectResiduals(continuing),
     supportPhase=mergeSupportPhase(continuing),
+    supportEnvelope=mergeSupportEnvelope(continuing),
     opponentResidualEnvelope=mergeOpponentResidualEnvelope(continuing),
     blockerTokens=mergeBlockerTokens(continuing),
     blockerCells=new Set(blockerTokens.flatMap(t=>t.candidateCells));
@@ -601,6 +623,7 @@ export function collapseCpcxDebtRepairTokenProduct(position,contract,repair,{ret
     },
     controlParityEquivalent:true,
     supportPhase,
+    supportEnvelope,
     guaranteedResiduals,
     blockerTokens,
     opponentSingletonEnvelope,
