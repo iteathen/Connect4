@@ -66,6 +66,12 @@ import {
   certifyCpcxTruncatedTargetReservoir,
   analyzeCpcxOneDefectTargetReservoir,
 } from './cpcx-reservoir.mjs';
+import {
+  certifyCpcxOneDefectTargetReservoirRcic,
+} from './cpcx-one-defect-rcic.mjs';
+import {
+  certifyCpcxOneDefectAttachmentRcic,
+} from './cpcx-one-defect-attachment-rcic.mjs';
 
 const g=createCpcxGeometry(),
   artifact=buildCpcxMove6UnresolvedClassesArtifact(),
@@ -1319,6 +1325,48 @@ for(const source of sources.values()){
                                             fullCoverageTemplateCount:
                                               one.fullCoverageTemplateCount??null,
                                           },
+                                          rcic:(()=>{
+                                            const c=
+                                              certifyCpcxOneDefectTargetReservoirRcic(
+                                                q2,{
+                                                  attacker:0,
+                                                  targetCell,
+                                                  maxNodes:8192,
+                                                  useCpc2Restriction:true,
+                                                }
+                                              );
+                                            return {
+                                              kind:c.kind,
+                                              exact:c.exact??false,
+                                              player:c.player??null,
+                                              seam:c.seam??null,
+                                              nodeCount:c.nodeCount??null,
+                                              rootMeasure:
+                                                c.rootMeasure??
+                                                c.rootReservoirRank??null,
+                                            };
+                                          })(),
+                                          attachmentRcic:(()=>{
+                                            const c=
+                                              certifyCpcxOneDefectAttachmentRcic(
+                                                q2,{
+                                                  attacker:0,
+                                                  targetCell,
+                                                  maxNodes:8192,
+                                                  useCpc2Restriction:true,
+                                                }
+                                              );
+                                            return {
+                                              kind:c.kind,
+                                              exact:c.exact??false,
+                                              player:c.player??null,
+                                              seam:c.seam??null,
+                                              nodeCount:c.nodeCount??null,
+                                              rootGap:c.rootGap??null,
+                                              rootReservoirRank:
+                                                c.rootReservoirRank??null,
+                                            };
+                                          })(),
                                         };
                                       }):[];
                                   forcedFollowup={
