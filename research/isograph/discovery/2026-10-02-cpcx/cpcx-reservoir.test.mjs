@@ -5,6 +5,7 @@ import {
   certifyCpcxTruncatedTargetReservoir,
   findCpcxTruncatedTargetReservoirCertificates,
   analyzeCpcxTargetReservoir,
+  analyzeCpcxOneDefectTargetReservoir,
 } from './cpcx-reservoir.mjs';
 import {classifyCpcxProgress} from './cpcx-progress.mjs';
 import {applyCpcxForcedEvent} from './cpcx-closure.mjs';
