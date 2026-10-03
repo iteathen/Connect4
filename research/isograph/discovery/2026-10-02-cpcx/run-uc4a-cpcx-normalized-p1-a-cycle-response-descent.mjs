@@ -67,6 +67,35 @@ function rootResidual(position){
 function supportDebt(R){return R?R.events.reduce((n,e)=>n+e.supportDistance,0):null;}
 function tuple(R){return R?[R.missingCount,supportDebt(R)]:null;}
 function tupleLess(a,b){return a[0]<b[0]||(a[0]===b[0]&&a[1]<b[1]);}
+function residualDescriptor(position,R){
+  if(!R)return null;
+  const line=position.geometry.lines[R.lineId],
+    missing=new Set(R.missingCells),
+    anchors=line.cells.filter(cell=>
+      !missing.has(cell)&&position.owner[cell]===R.player
+    ).map(label).sort(),
+    events=[...R.events].sort((a,b)=>
+      b.row-a.row||a.column-b.column||a.cell-b.cell
+    ),
+    parity=events.map(e=>e.eventRank&1),
+    phase0=parity[0]??0;
+  return {
+    player:R.player,
+    orientation:R.orientation,
+    anchorCells:anchors,
+    missingCount:R.missingCount,
+    missingCells:events.map(e=>label(e.cell)),
+    supportProfile:events.map(e=>e.supportDistance),
+    supportDebt:supportDebt(R),
+    relativeEventParity:parity.map(x=>x^phase0),
+    playableCells:R.currentlyPlayableCells.map(label).sort(),
+    highestRowTarget:events.length?label(events[0].cell):null,
+    mover:position.mover,
+  };
+}
+function descriptorKey(d){
+  return JSON.stringify(d);
+}
 function immediateSummary(x){
   return {kind:x.kind,mover:x.mover??null,cell:Number.isInteger(x.cell)?label(x.cell):null,winningCells:(x.winningCells??[]).map(label),opponentThreatCells:(x.opponentThreatCells??x.threatCells??[]).map(label)};
 }
@@ -108,6 +137,13 @@ function descentFinalPhysicalKey(d){
     return descentFinalPhysicalKey(d.next);
   return null;
 }
+function descentFinalDescriptor(d){
+  if(!d)return null;
+  if(d.finalResidualDescriptor)return d.finalResidualDescriptor;
+  if(d.kind==='FORCED_NORMALIZATION_THEN_DESCENT')
+    return descentFinalDescriptor(d.next);
+  return null;
+}
 function controllerDescent(position,R){
   if(position.terminal)return {kind:'SOURCE_TERMINAL',terminal:position.terminal,exact:false};
   if(position.mover!==R.player)return {
@@ -115,6 +151,7 @@ function controllerDescent(position,R){
     exact:true,
     finalTuple:tuple(R),
     finalPhysicalKey:physicalKey(position),
+    finalResidualDescriptor:residualDescriptor(position,R),
     existingCertificate:existingCertificate(position),
   };
   const immediate=classifyCpcxImmediate(position);
@@ -125,7 +162,7 @@ function controllerDescent(position,R){
     if(n.kind!=='PROTECTED_RESIDUAL_FORCED_NORMALIZATION'||!n.exact)return {kind:'FORCED_NORMALIZATION_FAILED',exact:false,normalization:summarizeCertificate(n)};
     const finalR=residualByLine(n.finalPosition,R.lineId,R.player);
     if(!finalR)return {kind:'FORCED_NORMALIZATION_LOST_RESIDUAL',exact:false};
-    if(n.finalPosition.mover!==R.player)return {kind:'FORCED_NORMALIZATION_TO_OPPONENT_BOUNDARY',exact:true,sourceTuple:tuple(R),childTuple:tuple(finalR),normalization:{rankDelta:n.rankDelta,stepKinds:n.steps.map(x=>x.kind)},existingCertificate:existingCertificate(n.finalPosition),boundary:'deterministic forced response consumed the controller turn and returned to an opponent decision boundary'};
+    if(n.finalPosition.mover!==R.player)return {kind:'FORCED_NORMALIZATION_TO_OPPONENT_BOUNDARY',exact:true,sourceTuple:tuple(R),childTuple:tuple(finalR),finalPhysicalKey:physicalKey(n.finalPosition),finalResidualDescriptor:residualDescriptor(n.finalPosition,finalR),normalization:{rankDelta:n.rankDelta,stepKinds:n.steps.map(x=>x.kind)},existingCertificate:existingCertificate(n.finalPosition),boundary:'deterministic forced response consumed the controller turn and returned to an opponent decision boundary'};
     const next=controllerDescentNoNormalization(n.finalPosition,finalR);
     return {kind:'FORCED_NORMALIZATION_THEN_DESCENT',exact:next.exact===true,sourceTuple:tuple(R),normalizedTuple:tuple(finalR),normalization:{rankDelta:n.rankDelta,stepKinds:n.steps.map(x=>x.kind)},next};
   }
@@ -191,7 +228,10 @@ function controllerDescentNoNormalization(position,R){
   });
   const scored=candidates.map(c=>({c,score:c.kind==='CERTIFIED_FIRST_WIN'?0:c.kind==='PROTECTED_RESIDUAL_TARGET_ACQUISITION'?1:2})).sort((a,b)=>a.score-b.score||((a.c.targetCell??0)-(b.c.targetCell??0)));
   if(!scored.length)return {kind:'NO_CONTROLLER_DESCENT',exact:false,immediate:immediateSummary(immediate),attempts};
-  const best=scored[0].c;
+  const best=scored[0].c,
+    bestChildResidual=best.child&&Number.isInteger(best.sourceLineId)
+      ?residualByLine(best.child,best.sourceLineId,R.player)
+      :null;
   return {
     kind:best.kind==='CERTIFIED_FIRST_WIN'?'CONTROLLER_FIRST_WIN':best.kind,
     exact:true,
@@ -203,6 +243,9 @@ function controllerDescentNoNormalization(position,R){
         ?[R.missingCount,best.childSupportDebt]
         :null,
     finalPhysicalKey:best.child?physicalKey(best.child):null,
+    finalResidualDescriptor:bestChildResidual
+      ?residualDescriptor(best.child,bestChildResidual)
+      :null,
     existingCertificate:best.child?existingCertificate(best.child):null,
     attempts,
   };
@@ -325,6 +368,7 @@ for(const source of normalized){
       lineLabel:R.lineLabel,
       tuple:tuple(R),
       playable:R.currentlyPlayableCells.map(label),
+      descriptor:residualDescriptor(position,R),
     },
     responses,
   });
@@ -339,6 +383,7 @@ const all=rows.flatMap(r=>r.responses.map(x=>({
   strictReturnEdges=all.map(x=>({
     ...x,
     finalPhysicalKey:descentFinalPhysicalKey(x.descent),
+    finalDescriptor:descentFinalDescriptor(x.descent),
   })).filter(x=>x.strictDescentOrWin&&x.finalPhysicalKey)
     .map(x=>({
       fromNode:x.nodeId,
@@ -347,6 +392,10 @@ const all=rows.flatMap(r=>r.responses.map(x=>({
       role:x.role,
       sourceTuple:x.sourceTuple??null,
       finalTuple:x.finalTuple??descentFinalTuple(x.descent),
+      finalDescriptor:x.finalDescriptor,
+      finalDescriptorKey:x.finalDescriptor
+        ?descriptorKey(x.finalDescriptor)
+        :null,
       toNode:normalizedNodeByKey.get(x.finalPhysicalKey)??null,
     }));
 console.log(JSON.stringify({
@@ -378,6 +427,64 @@ console.log(JSON.stringify({
     strictReturnEdgeCount:strictReturnEdges.length,
     strictReturnEdgesMatchedToNormalizedNode:
       strictReturnEdges.filter(x=>x.toNode!==null).length,
+    sourceDescriptorClassCount:new Set(rows.map(x=>
+      descriptorKey(x.residual.descriptor)
+    )).size,
+    finalDescriptorClassCount:new Set(strictReturnEdges
+      .map(x=>x.finalDescriptorKey)
+      .filter(Boolean)).size,
+    finalDescriptorClasses:[...new Map(strictReturnEdges
+      .filter(x=>x.finalDescriptorKey)
+      .map(x=>[
+        x.finalDescriptorKey,{
+          descriptor:x.finalDescriptor,
+          count:strictReturnEdges.filter(y=>
+            y.finalDescriptorKey===x.finalDescriptorKey
+          ).length,
+        },
+      ])).values()],
+    finalDescriptorsMatchingSourceDescriptor:
+      strictReturnEdges.filter(x=>x.finalDescriptorKey&&
+        rows.some(r=>
+          descriptorKey(r.residual.descriptor)===x.finalDescriptorKey
+        )
+      ).length,
+    highestRowPolicy:(()=>{
+      function leaf(d){
+        if(!d)return null;
+        if(d.kind==='FORCED_NORMALIZATION_THEN_DESCENT')return leaf(d.next);
+        return d;
+      }
+      const decisions=all.map(x=>leaf(x.descent))
+        .filter(x=>Array.isArray(x?.attempts)&&x.attempts.length),
+        rows=decisions.map(x=>{
+          const maxRow=Math.max(...x.attempts.map(a=>
+            Number(a.targetCell.slice(1))
+          )),
+            candidates=x.attempts.filter(a=>
+              Number(a.targetCell.slice(1))===maxRow
+            );
+          return {
+            maxRow,
+            targets:candidates.map(a=>a.targetCell),
+            exact:candidates.some(a=>a.exact===true),
+            outcomes:candidates.map(a=>a.exact?a.kind:(a.seam??a.kind)),
+          };
+        });
+      return {
+        decisionCount:rows.length,
+        exactCount:rows.filter(x=>x.exact).length,
+        failureCount:rows.filter(x=>!x.exact).length,
+        everyHighestRowProtectedActionExact:
+          rows.every(x=>x.exact),
+        targetCounts:Object.fromEntries(
+          [...new Set(rows.flatMap(x=>x.targets))].sort().map(t=>[
+            t,rows.filter(x=>x.targets.includes(t)).length,
+          ])
+        ),
+        failures:rows.filter(x=>!x.exact),
+      };
+    })(),
     strictReturnEdgesUnmatched:
       strictReturnEdges.filter(x=>x.toNode===null),
     supportHazards:(()=>{
