@@ -1,0 +1,67 @@
+name: Research CPCX final-block odd RCIC
+
+on:
+  push:
+    branches:
+      - experiment/cpcx-20261002
+    paths:
+      - research/isograph/discovery/2026-10-02-cpcx/cpcx-one-defect-attachment-rcic.mjs
+      - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-final-block-one-defect-attachment.mjs
+      - .github/workflows/research-cpcx-final-block-odd-rcic.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: "26.7.0"
+      - name: Run final-block odd RCIC census
+        run: |
+          node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-final-block-one-defect-attachment.mjs > cpcx-move6-final-block-one-defect-attachment.json
+          node --input-type=module -e "
+            import fs from 'node:fs';
+            const x=JSON.parse(fs.readFileSync('cpcx-move6-final-block-one-defect-attachment.json','utf8'));
+            console.log(JSON.stringify({
+              summary:x.summary,
+              rows:x.rows.map(r=>({
+                sources:r.sources,
+                pair:r.pair,
+                analysis:r.oneDefectAnalysis,
+                result:{
+                  kind:r.result.kind,
+                  player:r.result.player,
+                  seam:r.result.seam,
+                  rootGap:r.result.rootGap,
+                  rootReservoirRank:r.result.rootReservoirRank,
+                  nodeCount:r.result.nodeCount,
+                  certifiedNodeCount:r.result.certifiedNodeCount,
+                  unresolvedNodeCount:r.result.unresolvedNodeCount,
+                  reservoirRanks:r.result.reservoirRanks,
+                  firstUnresolved:r.result.firstUnresolved?{
+                    rank:r.result.firstUnresolved.rank,
+                    gap:r.result.firstUnresolved.gap,
+                    reservoirRank:r.result.firstUnresolved.reservoirRank,
+                    seam:r.result.firstUnresolved.seam,
+                    unresolvedTriggers:r.result.firstUnresolved.unresolvedTriggers?.map(t=>({
+                      defenderCell:t.defenderLabel,
+                      optionCount:t.optionCount,
+                      rejectedCount:t.rejectedCount,
+                      rejected:t.rejected?.slice(0,8)
+                    }))
+                  }:null
+                }
+              }))
+            },null,2));
+          "
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: cpcx-final-block-odd-rcic
+          path: cpcx-move6-final-block-one-defect-attachment.json
+          if-no-files-found: error
