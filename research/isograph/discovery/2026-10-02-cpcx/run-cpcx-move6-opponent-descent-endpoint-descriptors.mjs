@@ -37,6 +37,12 @@ import {
 import {
   certifyCpcxProtectedDiagonalTargetInheritanceHandoff,
 } from './cpcx-diagonal-target-inheritance.mjs';
+import {
+  certifyCpcxProtectedResidualSupportAdvance,
+} from './cpcx-support-advance.mjs';
+import {
+  certifyCpcxProtectedResidualTargetAcquisition,
+} from './cpcx-target-acquisition.mjs';
 
 const g=createCpcxGeometry(),
   artifact=buildCpcxMove6UnresolvedClassesArtifact(),
@@ -483,6 +489,63 @@ for(const source of sources.values()){
               inheritance.exact&&
               inheritance.kind==='PROTECTED_DIAGONAL_TARGET_INHERITANCE_HANDOFF'
             ){
+              const progressOptions=inheritance.handoffResidual.events.map(e=>{
+                const progress=e.supportDistance===0
+                  ?certifyCpcxProtectedResidualTargetAcquisition(
+                    inheritance.child,{
+                      controllerResidual:inheritance.handoffResidual,
+                      targetCell:e.cell,
+                    }
+                  )
+                  :certifyCpcxProtectedResidualSupportAdvance(
+                    inheritance.child,{
+                      controllerResidual:inheritance.handoffResidual,
+                      targetCell:e.cell,
+                    }
+                  );
+                let nextResidual=null,response=null;
+                if(progress.exact&&
+                   progress.kind!=='CERTIFIED_FIRST_WIN'&&
+                   progress.child){
+                  nextResidual=scanCpcxObligations(progress.child).find(o=>
+                    o.player===0&&
+                    o.lineId===inheritance.handoffResidual.lineId
+                  )??null;
+                  if(nextResidual&&progress.child.mover===1&&
+                     classifyCpcxImmediate(progress.child).kind===
+                       'NO_IMMEDIATE_OBLIGATION')
+                    response=certifyCpcxProtectedDiagonalOpponentResponseDescent(
+                      progress.child,{protectedResidual:nextResidual}
+                    );
+                }
+                return {
+                  target:label(e.cell),
+                  sourceSupportDistance:e.supportDistance,
+                  progressKind:progress.kind,
+                  progressExact:progress.exact??false,
+                  progressSeam:progress.seam??null,
+                  actionCell:Number.isInteger(progress.actionCell)
+                    ?label(progress.actionCell):null,
+                  terminalPlayer:progress.player??null,
+                  childResidual:nextResidual?{
+                    missingCount:nextResidual.missingCount,
+                    missing:nextResidual.missingCells.map(label),
+                    support:nextResidual.events.map(x=>x.supportDistance),
+                  }:null,
+                  childImmediate:progress.child
+                    ?classifyCpcxImmediate(progress.child).kind:null,
+                  responseDescent:response?{
+                    kind:response.kind,
+                    exact:response.exact??false,
+                    seam:response.seam??null,
+                    sourceMeasure:response.sourceMeasure??null,
+                    eventCount:response.eventCount??null,
+                    failureCount:response.failures?.length??0,
+                    everyEventWinsOrStrictlyDescends:
+                      response.everyEventWinsOrStrictlyDescends??false,
+                  }:null,
+                };
+              });
               const saturation=
                 certifyCpcxProtectedDiagonalControllerSaturation(
                   inheritance.child,{
@@ -512,6 +575,7 @@ for(const source of sources.values()){
                   handoffSupport:inheritance.handoffResidual.events.map(e=>
                     e.supportDistance
                   ),
+                  progressOptions,
                 },
                 saturation:{
                   kind:saturation.kind,
@@ -909,6 +973,21 @@ console.log(JSON.stringify({
     targetInheritanceResponseDescentExactCount:noTransferProbes.filter(x=>
       x.targetInheritance?.responseDescent?.exact===true
     ).length,
+    targetInheritanceProgressOptionCensus:noTransferProbes.map(x=>({
+      blockedCell:x.blockedCell,
+      options:(x.targetInheritance?.handoff?.progressOptions??[]).map(o=>({
+        target:o.target,
+        sourceSupportDistance:o.sourceSupportDistance,
+        progressKind:o.progressKind,
+        progressExact:o.progressExact,
+        progressSeam:o.progressSeam,
+        actionCell:o.actionCell,
+        childImmediate:o.childImmediate,
+        responseKind:o.responseDescent?.kind??null,
+        responseExact:o.responseDescent?.exact??false,
+        responseSeam:o.responseDescent?.seam??null,
+      })),
+    })),
     allNoTransferSeamsHaveStrictTargetInheritance:noTransferProbes.every(x=>
       x.targetInheritance?.handoff?.exact===true
     ),
