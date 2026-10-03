@@ -27,6 +27,7 @@ import {
 import {
   certifyCpcxReservoirCoverageGapRcic,
   certifyCpcxReservoirAttachmentRcic,
+  certifyCpcxTargetAdaptiveReservoirAttachmentRcic,
 } from './cpcx-reservoir-gap-rcic.mjs';
 import {
   canonicalizeCpcxExactReflection,
@@ -35,7 +36,8 @@ import {
 
 const g=createCpcxGeometry(),root=buildCpcxPosition('44444',{geometry:g});
 
-const coverageRcicCache=new Map(),attachmentRcicCache=new Map();
+const coverageRcicCache=new Map(),attachmentRcicCache=new Map(),
+  adaptiveRcicCache=new Map();
 
 function exactRcicKey(position,targetCell){
   const c=canonicalizeCpcxExactReflection(position),
@@ -68,6 +70,17 @@ function cachedAttachmentRcic(position,targetCell){
     )
   );
   return attachmentRcicCache.get(k.key);
+}
+
+function cachedAdaptiveRcic(position,targetCell){
+  const k=exactRcicKey(position,targetCell);
+  if(!adaptiveRcicCache.has(k.key))adaptiveRcicCache.set(
+    k.key,
+    certifyCpcxTargetAdaptiveReservoirAttachmentRcic(
+      k.position,{attacker:0,targetCell:k.targetCell,maxNodes:8192}
+    )
+  );
+  return adaptiveRcicCache.get(k.key);
 }
 
 function label(cell){
@@ -546,6 +559,12 @@ function ladderPoisonBranches(position,pair){
             !afterEndpoint.terminal&&
             reservoirCoverage?.kind==='TRUNCATED_TARGET_STATIC_COVERAGE_GAP'
               ?cachedAttachmentRcic(afterEndpoint,targetCell)
+              :null,
+          adaptiveRcic=
+            Number.isInteger(targetCell)&&
+            !afterEndpoint.terminal&&
+            reservoirCoverage?.kind==='TRUNCATED_TARGET_STATIC_COVERAGE_GAP'
+              ?cachedAdaptiveRcic(afterEndpoint,targetCell)
               :null;
         branches.push({
           endpoint:event.label,
@@ -594,6 +613,20 @@ function ladderPoisonBranches(position,pair){
               afterEndpoint,targetCell,reservoirCoverage
             )
             :null,
+          adaptiveRcic:adaptiveRcic?{
+            kind:adaptiveRcic.kind,
+            exact:adaptiveRcic.exact,
+            player:adaptiveRcic.player??null,
+            seam:adaptiveRcic.seam??null,
+            rootGap:adaptiveRcic.rootGap??null,
+            rootReservoirRank:adaptiveRcic.rootReservoirRank??null,
+            nodeCount:adaptiveRcic.nodeCount??null,
+            certifiedNodeCount:adaptiveRcic.certifiedNodeCount??null,
+            targetSwitchCount:adaptiveRcic.targetSwitchCount??null,
+            targetLabels:adaptiveRcic.targetLabels??null,
+            reservoirRanks:adaptiveRcic.reservoirRanks??null,
+            unresolvedNodeCount:adaptiveRcic.unresolvedNodeCount??0,
+          }:null,
           attachmentRcic:attachmentRcic?{
             kind:attachmentRcic.kind,
             exact:attachmentRcic.exact,
@@ -805,7 +838,9 @@ const profileCounts={},
   coverageRcicCounts={},
   coverageRcicByGap={},
   attachmentRcicCounts={},
-  attachmentRcicByGap={};
+  attachmentRcicByGap={},
+  adaptiveRcicCounts={},
+  adaptiveRcicByGap={};
 for(const row of states){
   const pair=row.bestPair;
   if(!pair)continue;
@@ -820,6 +855,13 @@ for(const row of states){
       const key=`${profile}|${source}|${branch.result?.kind??'NO_RESULT'}|${branch.result?.player??''}`;
       poisonBranchSourceCounts[source]=(poisonBranchSourceCounts[source]??0)+1;
       poisonBranchProfileCounts[key]=(poisonBranchProfileCounts[key]??0)+1;
+      const trcic=branch.adaptiveRcic;
+      if(trcic){
+        const key=`${trcic.kind}|${trcic.player??''}|${trcic.seam??''}`;
+        adaptiveRcicCounts[key]=(adaptiveRcicCounts[key]??0)+1;
+        const gapKey=`${trcic.rootGap}|${trcic.kind}`;
+        adaptiveRcicByGap[gapKey]=(adaptiveRcicByGap[gapKey]??0)+1;
+      }
       const arcic=branch.attachmentRcic;
       if(arcic){
         const key=`${arcic.kind}|${arcic.player??''}|${arcic.seam??''}`;
@@ -920,6 +962,9 @@ console.log(JSON.stringify({
     attachmentRcicCounts,
     attachmentRcicByGap,
     attachmentRcicUniqueExactStates:attachmentRcicCache.size,
+    adaptiveRcicCounts,
+    adaptiveRcicByGap,
+    adaptiveRcicUniqueExactStates:adaptiveRcicCache.size,
     uniqueSetupPatternCount:uniqueSetupPatterns.size,
     uniqueSetupPatterns:[...uniqueSetupPatterns.values()]
       .sort((a,b)=>b.count-a.count||JSON.stringify(a.pattern).localeCompare(JSON.stringify(b.pattern))),
