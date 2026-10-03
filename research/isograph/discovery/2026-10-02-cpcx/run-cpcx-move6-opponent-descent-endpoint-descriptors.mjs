@@ -252,7 +252,16 @@ for(const cls of artifact.classes){
   sources.get(key).provenance.push({kind:'SATURATED_P1',...provenance});
 }
 
-const endpoints=[],terminals=[];
+const sourceDescriptors=[...sources.values()].map(source=>({
+    descriptor:descriptor(source.position,source.residual),
+    physicalKey:physicalKey(source.position),
+  })),
+  sourceRoleKeySet=new Set(sourceDescriptors.map(x=>roleKey(x.descriptor))),
+  sourceCoarseKeySet=new Set(sourceDescriptors.map(x=>coarseKey(x.descriptor))),
+  sourceMaskSet=new Set(sourceDescriptors.map(x=>
+    x.descriptor.d3WindowComplex.liveMask
+  )),
+  endpoints=[],terminals=[];
 for(const source of sources.values()){
   const c=certifyCpcxProtectedDiagonalOpponentResponseDescent(
     source.position,{protectedResidual:source.residual}
@@ -283,6 +292,15 @@ for(const source of sources.values()){
       provenance:source.provenance,
     });
   }
+}
+
+for(const row of endpoints){
+  row.reentersSourceRoleDescriptor=
+    sourceRoleKeySet.has(roleKey(row.descriptor));
+  row.reentersSourceCoarseDescriptor=
+    sourceCoarseKeySet.has(coarseKey(row.descriptor));
+  row.reentersSourceWindowMask=
+    sourceMaskSet.has(row.descriptor.d3WindowComplex.liveMask);
 }
 
 const roleClasses=new Map(),coarseClasses=new Map();
@@ -320,6 +338,27 @@ console.log(JSON.stringify({
     nonReenteringEndpointCount:endpoints.filter(x=>
       !x.reentersQualifiedSourceBand
     ).length,
+    sourceRoleDescriptorClassCount:sourceRoleKeySet.size,
+    endpointRoleDescriptorReentryCount:endpoints.filter(x=>
+      x.reentersSourceRoleDescriptor
+    ).length,
+    allEndpointsReenterSourceRoleDescriptor:endpoints.every(x=>
+      x.reentersSourceRoleDescriptor
+    ),
+    sourceCoarseDescriptorClassCount:sourceCoarseKeySet.size,
+    endpointCoarseDescriptorReentryCount:endpoints.filter(x=>
+      x.reentersSourceCoarseDescriptor
+    ).length,
+    allEndpointsReenterSourceCoarseDescriptor:endpoints.every(x=>
+      x.reentersSourceCoarseDescriptor
+    ),
+    sourceWindowMaskClassCount:sourceMaskSet.size,
+    endpointWindowMaskReentryCount:endpoints.filter(x=>
+      x.reentersSourceWindowMask
+    ).length,
+    allEndpointsReenterSourceWindowMask:endpoints.every(x=>
+      x.reentersSourceWindowMask
+    ),
     roleDescriptorClassCount:roleClasses.size,
     coarseDescriptorClassCount:coarseClasses.size,
     roleDescriptorClasses:[...roleClasses.values()]
