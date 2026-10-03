@@ -22,6 +22,7 @@ import {
   analyzeCpcxTargetReservoir,
   analyzeCpcxOneDefectTargetReservoir,
   analyzeCpcxTruncatedTargetReservoirCoverage,
+  certifyCpcxTruncatedTargetReservoir,
 } from './cpcx-reservoir.mjs';
 
 const g=createCpcxGeometry(),root=buildCpcxPosition('44444',{geometry:g});
@@ -214,6 +215,215 @@ function ladderAttachments(position,pair){
   );
 }
 
+function reservoirTemplateResponse(position,coverage,template,defenderCell){
+  const {column,row}=cpcxCell(g,defenderCell);
+  if(row!==position.heights[column]||position.owner[defenderCell]!==-1)
+    return null;
+  const partner=template.partner[column],
+    prefixLength=template.prefixLength[column];
+  if(partner>=0&&prefixLength>0){
+    const responseRow=position.heights[partner],
+      responseCell=responseRow*g.columns+partner;
+    return {
+      cell:responseCell,
+      role:'PARTIAL_TEMPLATE_RESPONSE',
+    };
+  }
+  if((coverage.capacity?.[column]??0)>1)return {
+    cell:defenderCell+g.columns,
+    role:'PARTIAL_TEMPLATE_VERTICAL_RESPONSE',
+  };
+  return null;
+}
+
+function currentAttachedResponses(position,uncoveredLineIds){
+  const ids=new Set(uncoveredLineIds),
+    frontier=new Set(frontierCells(position)),
+    cells=new Map();
+  for(const o of scanCpcxObligations(position)){
+    if(o.player!==1||!ids.has(o.lineId))continue;
+    for(const cell of o.missingCells){
+      if(!frontier.has(cell))continue;
+      const key=cell;
+      if(!cells.has(key))cells.set(key,{
+        cell,
+        role:'UNCOVERED_RESIDUAL_ATTACHMENT',
+        lineIds:[],
+        lineLabels:[],
+      });
+      const row=cells.get(key);
+      row.lineIds.push(o.lineId);
+      row.lineLabels.push(o.lineLabel);
+    }
+  }
+  return [...cells.values()].sort((a,b)=>a.cell-b.cell);
+}
+
+function evaluateCoverageRepairChild(position,targetCell,parentGap,response){
+  const child=applyCpcxForcedEvent(position,response.cell);
+  if(child.terminal)return child.terminal.player===0?{
+    ...response,
+    result:'ATTACKER_TERMINAL',
+    exact:true,
+    childGap:-1,
+    certificateSource:'TERMINAL',
+  }:{
+    ...response,
+    result:'WRONG_TERMINAL',
+    exact:false,
+    childGap:null,
+    terminal:child.terminal,
+  };
+
+  const certificate=runCpcxFirstWinCertificate(child,{attacker:0});
+  if(certificate.kind==='CERTIFIED_FIRST_WIN'&&certificate.player===0)return {
+    ...response,
+    result:'EXISTING_CPCX_FIRST_WIN',
+    exact:true,
+    childGap:-1,
+    certificateSource:
+      certificate.trace?.[0]?.progress?.source??
+      certificate.trace?.[0]?.progress?.kind??
+      null,
+    certificateTraceLength:certificate.trace?.length??0,
+  };
+
+  const ordinary=certifyCpcxTruncatedTargetReservoir(
+      child,{attacker:0,targetCell}
+    );
+  if(ordinary.kind==='CERTIFIED_FIRST_WIN')return {
+    ...response,
+    result:'ORDINARY_TARGET_RESERVOIR',
+    exact:true,
+    childGap:0,
+    certificateSource:'TRUNCATED_TARGET_RESERVOIR',
+  };
+
+  const next=analyzeCpcxTruncatedTargetReservoirCoverage(
+      child,{attacker:0,targetCell}
+    ),
+    childGap=next.minimumUncoveredResiduals??null;
+  if(
+    next.kind==='TRUNCATED_TARGET_STATIC_COVERAGE_GAP'&&
+    Number.isInteger(childGap)&&
+    childGap<parentGap
+  )return {
+    ...response,
+    result:'LOWER_COVERAGE_GAP',
+    exact:true,
+    childGap,
+    childDefenderResidualCount:next.defenderResidualCount,
+    certificateSource:null,
+    nextCoverageKind:next.kind,
+  };
+
+  return {
+    ...response,
+    result:'NO_STRICT_REPAIR',
+    exact:false,
+    childGap,
+    childDefenderResidualCount:next.defenderResidualCount??null,
+    nextCoverageKind:next.kind,
+    certificateSeam:certificate.seam??certificate.kind,
+  };
+}
+
+function reservoirCoverageRepairProbe(position,targetCell,coverage){
+  if(
+    position.mover!==1||
+    coverage?.kind!=='TRUNCATED_TARGET_STATIC_COVERAGE_GAP'
+  )return null;
+  const template=coverage.bestPartialTemplates?.[0];
+  if(!template)return null;
+  const parentGap=coverage.minimumUncoveredResiduals,
+    uncoveredLineIds=template.uncovered.map(x=>x.lineId),
+    rows=[];
+
+  for(const defenderCell of frontierCells(position)){
+    const afterDefender=applyCpcxForcedEvent(position,defenderCell);
+    if(afterDefender.terminal){
+      rows.push({
+        defenderCell:label(defenderCell),
+        defenderTerminal:afterDefender.terminal,
+        candidateCount:0,
+        successfulRepairs:[],
+        allCandidates:[],
+        covered:false,
+      });
+      continue;
+    }
+
+    const candidates=new Map(),
+      templateResponse=reservoirTemplateResponse(
+        position,coverage,template,defenderCell
+      );
+    if(templateResponse)candidates.set(templateResponse.cell,templateResponse);
+    for(const response of currentAttachedResponses(
+      afterDefender,uncoveredLineIds
+    )){
+      if(candidates.has(response.cell)){
+        const prior=candidates.get(response.cell);
+        candidates.set(response.cell,{
+          ...prior,
+          role:prior.role+'+UNCOVERED_RESIDUAL_ATTACHMENT',
+          lineIds:response.lineIds,
+          lineLabels:response.lineLabels,
+        });
+      }else candidates.set(response.cell,response);
+    }
+
+    const allCandidates=[];
+    for(const response of [...candidates.values()].sort((a,b)=>a.cell-b.cell)){
+      const meta=cpcxCell(g,response.cell);
+      if(
+        afterDefender.mover!==0||
+        afterDefender.heights[meta.column]!==meta.row||
+        afterDefender.owner[response.cell]!==-1
+      ){
+        allCandidates.push({
+          ...response,
+          responseLabel:label(response.cell),
+          result:'ILLEGAL_RESPONSE',
+          exact:false,
+        });
+        continue;
+      }
+      allCandidates.push({
+        ...evaluateCoverageRepairChild(
+          afterDefender,targetCell,parentGap,response
+        ),
+        responseLabel:label(response.cell),
+      });
+    }
+    const successfulRepairs=allCandidates.filter(x=>x.exact);
+    rows.push({
+      defenderCell:label(defenderCell),
+      defenderTerminal:null,
+      candidateCount:allCandidates.length,
+      successfulRepairs,
+      allCandidates,
+      covered:successfulRepairs.length>0,
+    });
+  }
+
+  return {
+    parentGap,
+    targetCell:label(targetCell),
+    uncovered:template.uncovered.map(x=>({
+      lineId:x.lineId,
+      lineLabel:x.lineLabel,
+      orientation:x.orientation,
+      missingCount:x.missingCount,
+      missingCells:x.missingCells.map(label),
+    })),
+    triggerCount:rows.length,
+    coveredTriggerCount:rows.filter(x=>x.covered).length,
+    allCurrentTriggersCovered:rows.every(x=>x.covered),
+    rows,
+    proofBoundary:'one current P1 trigger / one P0 response layer only; candidate responses are restricted to the selected partial reservoir template mate or current frontier cells attached to its uncovered P1 residuals; any lower-gap result is discovery evidence, not yet a promoted induction theorem',
+  };
+}
+
 function ladderPoisonBranches(position,pair){
   if(position.mover!==0)return [];
   const out=[];
@@ -324,6 +534,11 @@ function ladderPoisonBranches(position,pair){
                 missingCells:x.missingCells.map(label),
               })),
           }:null,
+          coverageRepair:Number.isInteger(targetCell)&&!afterEndpoint.terminal
+            ?reservoirCoverageRepairProbe(
+              afterEndpoint,targetCell,reservoirCoverage
+            )
+            :null,
         });
       }
       out.push({
@@ -476,7 +691,10 @@ const profileCounts={},
   certifiedSetupSourceCounts={},
   certifiedSetupRoleCounts={},
   poisonBranchSourceCounts={},
-  poisonBranchProfileCounts={};
+  poisonBranchProfileCounts={},
+  coverageRepairParentGapCounts={},
+  coverageRepairClosedTriggerCounts={},
+  coverageRepairResultCounts={};
 for(const row of states){
   const pair=row.bestPair;
   if(!pair)continue;
@@ -491,6 +709,18 @@ for(const row of states){
       const key=`${profile}|${source}|${branch.result?.kind??'NO_RESULT'}|${branch.result?.player??''}`;
       poisonBranchSourceCounts[source]=(poisonBranchSourceCounts[source]??0)+1;
       poisonBranchProfileCounts[key]=(poisonBranchProfileCounts[key]??0)+1;
+      const repair=branch.coverageRepair;
+      if(repair){
+        coverageRepairParentGapCounts[repair.parentGap]=
+          (coverageRepairParentGapCounts[repair.parentGap]??0)+1;
+        const closedKey=`${repair.coveredTriggerCount}/${repair.triggerCount}`;
+        coverageRepairClosedTriggerCounts[closedKey]=
+          (coverageRepairClosedTriggerCounts[closedKey]??0)+1;
+        for(const row of repair.rows)for(const response of row.successfulRepairs){
+          coverageRepairResultCounts[response.result]=
+            (coverageRepairResultCounts[response.result]??0)+1;
+        }
+      }
     }
   }
   for(const s of pair.allSetups??[]){
@@ -556,6 +786,9 @@ console.log(JSON.stringify({
     certifiedSetupRoleCounts,
     poisonBranchSourceCounts,
     poisonBranchProfileCounts,
+    coverageRepairParentGapCounts,
+    coverageRepairClosedTriggerCounts,
+    coverageRepairResultCounts,
     uniqueSetupPatternCount:uniqueSetupPatterns.size,
     uniqueSetupPatterns:[...uniqueSetupPatterns.values()]
       .sort((a,b)=>b.count-a.count||JSON.stringify(a.pattern).localeCompare(JSON.stringify(b.pattern))),
