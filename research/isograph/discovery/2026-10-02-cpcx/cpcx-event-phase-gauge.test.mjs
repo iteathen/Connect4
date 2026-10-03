@@ -21,6 +21,8 @@ test('empty-board residual-shaped cells have row-relative phase signature',()=>{
   assert.deepEqual(q.absoluteParity,[1,0,1]);
   assert.deepEqual(q.relativeParity,[0,1,0]);
   assert.deepEqual(q.rowRelativeParity,[0,1,0]);
+  assert.deepEqual(q.projectedOwners,[0,1,0]);
+  assert.deepEqual(q.geometryProjectedOwners,[0,1,0]);
 });
 
 test('one exact physical ply globally complements untouched event parity',()=>{
@@ -37,6 +39,8 @@ test('one exact physical ply globally complements untouched event parity',()=>{
     q.absoluteParityBefore.map(x=>x^1)
   );
   assert.equal(q.relativePhaseInvariant,true);
+  assert.equal(q.projectedOwnerInvariant,true);
+  assert.deepEqual(q.projectedOwners,[1,0,1]);
 });
 
 test('two physical plies restore absolute event parity on untouched cells',()=>{
@@ -74,6 +78,32 @@ test('phase transport fails closed when a selected target becomes occupied',()=>
   assert.equal(q.exact,false);
   assert.equal(q.seam,'SELECTED_CELL_OCCUPIED');
   assert.equal(q.side,'AFTER');
+});
+
+
+test('zero-reservation owner is invariant across rank and support changes',()=>{
+  const a=buildCpcxPosition('13',{geometry:g}),
+    b=buildCpcxPosition('1314',{geometry:g}),
+    cells=[cell(0,2),cell(2,3),cell(4,1)],
+    qa=deriveCpcxEventPhaseGauge(a,cells),
+    qb=deriveCpcxEventPhaseGauge(b,cells);
+  assert.equal(qa.exact,true);
+  assert.equal(qb.exact,true);
+  assert.notDeepEqual(qa.absoluteParity,qb.absoluteParity);
+  assert.deepEqual(qa.projectedOwners,qb.projectedOwners);
+  assert.deepEqual(qa.projectedOwners,[0,1,1]);
+});
+
+test('geometry-only owner gauge includes the rectangular parity offset',()=>{
+  const g45=createCpcxGeometry({columns:4,rows:5,connect:4}),
+    p=buildCpcxPosition('',{geometry:g45}),
+    c=(column,row)=>row*g45.columns+column,
+    q=deriveCpcxEventPhaseGauge(p,[c(0,0),c(1,1),c(2,2)]);
+  assert.equal(q.exact,true);
+  assert.deepEqual(q.projectedOwners,[1,0,1]);
+  assert.deepEqual(q.geometryProjectedOwners,[1,0,1]);
+  assert.equal(q.ownershipFormula,
+    'zeroReservationOwner = (boardRows * (boardColumns - 1) + row) mod 2');
 });
 
 test('event-phase module is production CPC and solver isolated',async()=>{
