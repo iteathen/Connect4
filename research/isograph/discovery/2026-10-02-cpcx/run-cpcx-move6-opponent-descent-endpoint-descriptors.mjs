@@ -43,6 +43,9 @@ import {
 import {
   certifyCpcxProtectedResidualTargetAcquisition,
 } from './cpcx-target-acquisition.mjs';
+import {
+  certifyCpcxProtectedResidualForcedNormalization,
+} from './cpcx-forced-normalization.mjs';
 
 const g=createCpcxGeometry(),
   artifact=buildCpcxMove6UnresolvedClassesArtifact(),
@@ -518,6 +521,95 @@ for(const source of sources.values()){
                       progress.child,{protectedResidual:nextResidual}
                     );
                 }
+                let forcedNormalization=null,
+                  postForcedProgressOptions=[];
+                if(
+                  nextResidual&&progress.child&&
+                  classifyCpcxImmediate(progress.child).kind==='FORCED_RESPONSE'
+                ){
+                  const n=certifyCpcxProtectedResidualForcedNormalization(
+                    progress.child,{protectedResidual:nextResidual}
+                  );
+                  forcedNormalization={
+                    kind:n.kind,
+                    exact:n.exact??false,
+                    seam:n.seam??null,
+                    steps:(n.steps??[]).map(step=>({
+                      cell:Number.isInteger(step.cell)?label(step.cell):null,
+                      owner:step.owner??null,
+                      kind:step.kind??null,
+                    })),
+                    finalRank:n.finalRank??null,
+                    finalMover:n.finalPosition?.mover??null,
+                    finalSupport:n.finalPosition
+                      ?Array.from(n.finalPosition.heights):null,
+                    finalMissing:(n.finalMissingCells??[]).map(label),
+                    finalSupportVector:n.finalSupportVector??null,
+                  };
+                  if(
+                    n.exact&&
+                    n.kind==='PROTECTED_RESIDUAL_FORCED_NORMALIZATION'&&
+                    n.finalPosition?.mover===0
+                  ){
+                    const nr=scanCpcxObligations(n.finalPosition).find(o=>
+                      o.player===0&&o.lineId===nextResidual.lineId
+                    )??null;
+                    if(nr){
+                      postForcedProgressOptions=nr.events.map(ne=>{
+                        const np=ne.supportDistance===0
+                          ?certifyCpcxProtectedResidualTargetAcquisition(
+                            n.finalPosition,{
+                              controllerResidual:nr,targetCell:ne.cell,
+                            }
+                          )
+                          :certifyCpcxProtectedResidualSupportAdvance(
+                            n.finalPosition,{
+                              controllerResidual:nr,targetCell:ne.cell,
+                            }
+                          );
+                        let rr=null,nr2=null;
+                        if(np.exact&&np.kind!=='CERTIFIED_FIRST_WIN'&&np.child){
+                          nr2=scanCpcxObligations(np.child).find(o=>
+                            o.player===0&&o.lineId===nr.lineId
+                          )??null;
+                          if(nr2&&np.child.mover===1&&
+                             classifyCpcxImmediate(np.child).kind===
+                               'NO_IMMEDIATE_OBLIGATION')
+                            rr=certifyCpcxProtectedDiagonalOpponentResponseDescent(
+                              np.child,{protectedResidual:nr2}
+                            );
+                        }
+                        return {
+                          target:label(ne.cell),
+                          sourceSupportDistance:ne.supportDistance,
+                          progressKind:np.kind,
+                          progressExact:np.exact??false,
+                          progressSeam:np.seam??null,
+                          actionCell:Number.isInteger(np.actionCell)
+                            ?label(np.actionCell):null,
+                          terminalPlayer:np.player??null,
+                          childResidual:nr2?{
+                            missingCount:nr2.missingCount,
+                            missing:nr2.missingCells.map(label),
+                            support:nr2.events.map(x=>x.supportDistance),
+                          }:null,
+                          childImmediate:np.child
+                            ?classifyCpcxImmediate(np.child).kind:null,
+                          responseDescent:rr?{
+                            kind:rr.kind,
+                            exact:rr.exact??false,
+                            seam:rr.seam??null,
+                            sourceMeasure:rr.sourceMeasure??null,
+                            eventCount:rr.eventCount??null,
+                            failureCount:rr.failures?.length??0,
+                            everyEventWinsOrStrictlyDescends:
+                              rr.everyEventWinsOrStrictlyDescends??false,
+                          }:null,
+                        };
+                      });
+                    }
+                  }
+                }
                 return {
                   target:label(e.cell),
                   sourceSupportDistance:e.supportDistance,
@@ -544,6 +636,8 @@ for(const source of sources.values()){
                     everyEventWinsOrStrictlyDescends:
                       response.everyEventWinsOrStrictlyDescends??false,
                   }:null,
+                  forcedNormalization,
+                  postForcedProgressOptions,
                 };
               });
               const saturation=
