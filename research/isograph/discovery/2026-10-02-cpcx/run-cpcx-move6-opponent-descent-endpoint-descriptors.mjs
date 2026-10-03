@@ -271,11 +271,14 @@ for(const source of sources.values()){
     if(row.kind!=='PROTECTED_DIAGONAL_OPPONENT_RESPONSE_EVENT_DESCENT'||
        !row.finalPosition||!row.finalResidual)
       throw new Error(`unexpected response row ${row.kind}`);
+    const endpointPhysicalKey=physicalKey(row.finalPosition);
     endpoints.push({
       sourceMeasure:row.sourceMeasure,
       finalMeasure:row.finalMeasure,
       eventCell:label(row.eventCell),
       transportKind:row.transportKind,
+      physicalKey:endpointPhysicalKey,
+      reentersQualifiedSourceBand:sources.has(endpointPhysicalKey),
       descriptor:descriptor(row.finalPosition,row.finalResidual),
       provenance:source.provenance,
     });
@@ -308,6 +311,15 @@ console.log(JSON.stringify({
     sourceBoundaryCount:sources.size,
     endpointCount:endpoints.length,
     terminalCount:terminals.length,
+    exactSourceBandReentryCount:endpoints.filter(x=>
+      x.reentersQualifiedSourceBand
+    ).length,
+    allEndpointsReenterQualifiedSourceBand:endpoints.every(x=>
+      x.reentersQualifiedSourceBand
+    ),
+    nonReenteringEndpointCount:endpoints.filter(x=>
+      !x.reentersQualifiedSourceBand
+    ).length,
     roleDescriptorClassCount:roleClasses.size,
     coarseDescriptorClassCount:coarseClasses.size,
     roleDescriptorClasses:[...roleClasses.values()]
