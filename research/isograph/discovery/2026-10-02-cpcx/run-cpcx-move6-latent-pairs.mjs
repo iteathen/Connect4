@@ -129,6 +129,52 @@ function pairRows(position){
   rows.sort(comparePair);
   return rows;
 }
+function ladderAttachments(position,pair){
+  const obs=scanCpcxObligations(position).filter(o=>o.player===0),
+    out=[];
+  for(const liftRows of [2,4]){
+    const lifted=[];
+    let valid=true;
+    for(const cell of pair.cells){
+      const meta=cpcxCell(g,cell);
+      if(meta.row+liftRows>=g.rows){valid=false;break;}
+      lifted.push(cell+liftRows*g.columns);
+    }
+    if(!valid)continue;
+    for(const o of obs){
+      if(o.lineId===pair.lineId)continue;
+      if(!lifted.every(cell=>o.missingCells.includes(cell)))continue;
+      const extras=o.missingCells.filter(cell=>!lifted.includes(cell));
+      out.push({
+        liftRows,
+        obligationId:o.id,
+        lineId:o.lineId,
+        lineLabel:o.lineLabel,
+        orientation:o.orientation,
+        missingCount:o.missingCount,
+        liftedCells:lifted.map(label),
+        extraCells:extras.map(label),
+        extraSupport:extras.map(cell=>{
+          const meta=cpcxCell(g,cell);
+          return {
+            cell:label(cell),
+            distance:meta.row-position.heights[meta.column],
+            frontier:label(position.heights[meta.column]*g.columns+meta.column),
+          };
+        }),
+        exactOneTriggerRung:o.missingCount===lifted.length+1,
+        sameOrientation:o.orientation===pair.orientation,
+      });
+    }
+  }
+  return out.sort((a,b)=>
+    a.liftRows-b.liftRows||
+    a.missingCount-b.missingCount||
+    Number(b.sameOrientation)-Number(a.sameOrientation)||
+    a.lineId-b.lineId
+  );
+}
+
 function lineageAfter(position,lineId){
   return scanCpcxObligations(position).find(o=>
     o.player===0&&o.lineId===lineId
@@ -195,6 +241,7 @@ function analyzeState(position,source){
         frontierIsTarget:x.frontierIsTarget,
       })),
       setups:setupRows(position,best),
+      ladderAttachments:ladderAttachments(position,best),
     }:null,
     allPairs:pairs.map(pair=>({
       lineId:pair.lineId,
@@ -260,6 +307,7 @@ for(let sixthColumn=0;sixthColumn<g.columns;sixthColumn++){
 const profileCounts={},
   setupOutcomeCounts={},
   orientationProfileCounts={},
+  ladderAttachmentCounts={},
   uniqueSetupPatterns=new Map();
 for(const row of states){
   const pair=row.bestPair;
@@ -316,6 +364,7 @@ console.log(JSON.stringify({
     statesWithoutPair:states.filter(x=>!x.bestPair).length,
     profileCounts,
     orientationProfileCounts,
+    ladderAttachmentCounts,
     setupOutcomeCounts,
     uniqueSetupPatternCount:uniqueSetupPatterns.size,
     uniqueSetupPatterns:[...uniqueSetupPatterns.values()]
