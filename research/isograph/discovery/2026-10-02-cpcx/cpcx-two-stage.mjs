@@ -355,7 +355,11 @@ export function deriveCpcxVerticalOpponentSingletonEnvelope(position,demand,cert
       label,
       externalCell,
       terminal:null,
+      support:Array.from(v.position.heights),
       defenderSingletons:immediateCells(v.position,defender),
+      defenderEarliestTerminalLowerBound:
+        lowerBoundCpcxEarliestTerminal(v.position,{player:defender})
+          .lowerBoundPly,
     });
     return null;
   }
