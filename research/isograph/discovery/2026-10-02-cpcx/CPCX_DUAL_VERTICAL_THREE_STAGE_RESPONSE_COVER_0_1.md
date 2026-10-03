@@ -1,6 +1,6 @@
 # CPCX Dual Vertical Three-Stage Response Cover 0.1
 
-**Status:** frozen theorem contract; implementation/qualification pending  
+**Status:** rejected by consumed U13 B6 falsifier before implementation  
 **Scope:** experimental CPCX only  
 **Observation:** one flat opponent response layer over two disjoint protected vertical three-stage ladders
 
@@ -166,6 +166,50 @@ Qualification must include:
    causes the selected three-stage first-win guard to fail;
 6. a negative case with only one protected ladder;
 7. production-CPC / solver / oracle / recursion isolation.
+
+## Falsification result
+
+The consumed U13 B6 application falsifies this theorem as a useful closure
+rule at the motivating boundary.
+
+After the current P0 action `B6`, P1 has five legal nonterminal replies:
+
+```text
+A4, C3, E5, F5, G3.
+```
+
+The diagnostic
+`run-uc4a-cpcx-u13-b6-dual-vertical-ladder.mjs` found:
+
+```text
+everyNonterminalReplyLeavesExactThreeStage = false
+exact ladder count after every reply = 0
+```
+
+Moreover:
+
+- `P1:E5` enters an exact P1 first-win certificate after deterministic
+  normalization;
+- `P1:G3` creates an exact P1 singleton overload.
+
+Therefore physical disjointness of the A/C ladders is insufficient even with
+the proposed child-certificate reconstruction discipline. Current first-win
+obligations can preempt both ladder continuations without physically occupying
+both ladder columns.
+
+Do not implement or promote this response-cover theorem as written.
+
+The useful retained lesson is narrower:
+
+```text
+disjoint protected ladders
+!=
+disjoint first-win proof resources.
+```
+
+A future theorem must carry the opponent immediate/response-capacity interface
+as part of the state rather than attempting to recover it only after one
+response.
 
 ## U13 move-6 use boundary
 
