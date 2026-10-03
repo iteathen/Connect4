@@ -55,7 +55,7 @@ test('fresh 5x3 k3 forced normalization re-enters the base pair-hub theorem',()=
   assert.equal(hazard.base.player,0);
 });
 
-test('unrepaired defender counterterminal remains a hard falsifier',()=>{
+test('normalization that destroys the pair-hub role fails closed',()=>{
   const g=createCpcxGeometry({columns:4,rows:4,connect:3}),
     p=buildCpcxPosition('12243',{geometry:g}),
     candidate=findCpcxLatentSingletonPairHubCandidates(
@@ -71,8 +71,7 @@ test('unrepaired defender counterterminal remains a hard falsifier',()=>{
   );
   assert.equal(c.kind,'NO_CERTIFICATE');
   assert.equal(c.exact,false);
-  assert.equal(c.seam,'PARENT_ROW_NOT_EXACT');
-  assert.equal(c.parentSeam,'DEFENDER_COUNTERTERMINAL_AFTER_HUB');
+  assert.equal(c.seam,'NORMALIZATION_LOST_PAIR_HUB_ROLE');
 });
 
 test('source immediate precedence is not consumed by normalization handoff',()=>{
