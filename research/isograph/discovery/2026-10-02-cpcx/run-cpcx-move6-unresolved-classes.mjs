@@ -4,7 +4,7 @@ import {
   cpcxCell,
   scanCpcxObligations,
 } from './cpcx.mjs';
-import {closeCpcxForcedResponses} from './cpcx-closure.mjs';
+import {closeCpcxForcedResponses,applyCpcxForcedEvent} from './cpcx-closure.mjs';
 import {
   findCpcxVerticalTwoStageObligations,
   certifyCpcxVerticalTwoStage,
@@ -124,6 +124,31 @@ function obligationSummary(position,reflect){
     small,
   };
 }
+function triggerLiftSummary(position){
+  if(position.mover!==0)return [];
+  const out=[];
+  for(let column=0;column<g.columns;column++){
+    const row=position.heights[column];
+    if(row>=g.rows)continue;
+    const cell=row*g.columns+column,
+      child=applyCpcxForcedEvent(position,cell),
+      progress=classifyCpcxProgress(child,{player:0});
+    out.push({
+      triggerCell:label(cell),
+      terminal:child.terminal,
+      progress:{
+        kind:progress.kind,
+        exact:progress.exact??false,
+        player:progress.player??null,
+        source:progress.source??null,
+        seam:progress.seam??null,
+        macroKind:progress.macro?.kind??null,
+        blockingCells:progress.obligation?.blockingCells?.map(label)??null,
+      },
+    });
+  }
+  return out;
+}
 function addState(groups,position,source){
   if(position.terminal)return;
   const progress=classifyCpcxProgress(position,{player:0});
@@ -143,6 +168,7 @@ function addState(groups,position,source){
       projectionCount:progress.projections?.length??0,
     },
     obligations:obligationSummary(position,canonical.reflect),
+    triggerLift:triggerLiftSummary(position),
     sources:[],
   });
   groups.get(canonical.key).sources.push(source);
@@ -231,6 +257,6 @@ console.log(JSON.stringify({
     solvedData:false,
     oracle:false,
     classKey:'exact occupancy + support + mover, quotiented only by board reflection',
-    expansion:'one theorem-defined vertical resolution layer',
+    expansion:'one theorem-defined vertical resolution layer plus one current-frontier attacker cofactor probe',
   },
 },null,2));
