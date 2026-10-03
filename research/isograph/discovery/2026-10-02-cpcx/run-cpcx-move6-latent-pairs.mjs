@@ -557,6 +557,26 @@ function ladderPoisonBranches(position,pair){
             nodeCount:coverageRcic.nodeCount??null,
             certifiedNodeCount:coverageRcic.certifiedNodeCount??null,
             measures:coverageRcic.measures??null,
+            unresolvedNodeCount:coverageRcic.unresolvedNodeCount??0,
+            unresolvedNodes:(coverageRcic.unresolvedNodes??[])
+              .slice(0,32)
+              .map(node=>({
+                rank:node.rank,
+                gap:node.gap,
+                support:node.support,
+                seam:node.seam,
+                unresolvedTriggers:node.unresolvedTriggers.map(t=>({
+                  defenderCell:t.defenderLabel,
+                  defenderTerminal:t.defenderTerminal,
+                  optionCount:t.optionCount,
+                  optionResults:t.options.map(o=>({
+                    responseLabel:o.responseLabel,
+                    role:o.role,
+                    result:o.result,
+                    childGap:o.childGap,
+                  })),
+                })),
+              })),
           }:null,
         });
       }
