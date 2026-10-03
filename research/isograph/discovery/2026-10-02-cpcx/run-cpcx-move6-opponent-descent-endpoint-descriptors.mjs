@@ -389,7 +389,10 @@ for(const source of sources.values()){
             if(successor){
               const q=successor.concretePosition??null,
                 protectedAfter=q
-                  ?findProtected(q)
+                  ?scanCpcxObligations(q).find(o=>
+                    o.player===0&&
+                    o.lineId===row.finalResidual.lineId
+                  )??null
                   :null,
                 nextProgress=q
                   ?classifyCpcxProgress(q,{player:0})
