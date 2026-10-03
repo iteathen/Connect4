@@ -1,0 +1,115 @@
+{
+  "schema": "connect4.cpcx.checkpoint.v1_0",
+  "date": "2026-10-03",
+  "branch": "experiment/cpcx-20261002",
+  "status": "UNIVERSAL_DIAGONAL_DEFECT_QUALIFIED",
+  "parentCheckpoint": "CHECKPOINT_0_9.json",
+  "liveHeadBeforeCheckpoint": "8d071744867d404326107da98d4be4dac29c3c22",
+  "primaryTurn6Target": {
+    "root": "44444",
+    "bestSetProven": false,
+    "bestSet": null,
+    "workingHypothesis": [1,2,3,4,5,6,7]
+  },
+  "qualifiedGenericTools": {
+    "guardedExternalEventCommutator": {
+      "status": "qualified",
+      "checkpoint": "CHECKPOINT_0_9.json",
+      "prototypeRun": 37103766038
+    },
+    "globalEventPhaseGauge": {
+      "status": "qualified",
+      "meaning": "absolute event parity is a global rank gauge for untouched cells; relative event parity is invariant"
+    },
+    "supportReleaseResponseNeutralization": {
+      "status": "qualified",
+      "meaning": "a depth-one opponent singleton may become a reserved support->block response edge under explicit first-win/capacity guards"
+    },
+    "supportReleaseAcquisition": {
+      "status": "qualified",
+      "qualificationRun": 37108604025,
+      "qualificationHead": "7aa102c6b6ace624eb670263137e11e936081c76",
+      "meaning": "a depth-one protected controller target may become an opponent-support->controller-acquisition edge under explicit first-win/capacity/cofactor guards"
+    },
+    "verticalThreeStageSetup": {
+      "status": "qualified",
+      "qualificationRun": 37128085378,
+      "qualificationHead": "2b493d4a32d1e9f70c6e21d8dd0617be4d77a52d",
+      "meaning": "an exact current-player vertical [0,1,2] residual may consume its bottom setup and hand off to the existing vertical two-stage theorem",
+      "boundary": "progress theorem only; no first-win conclusion by itself"
+    }
+  },
+  "universalDiagonalDefect": {
+    "status": "qualified diagnostic invariant",
+    "workflowRun": 37128915139,
+    "workflowHead": "8cb762bb8be6683d607b4c3d73f5e2039ef5b06d",
+    "artifact": "uc4a-cpcx-universal-diagonal-defect-census.json",
+    "sourceGenerator": "cpcx-move6-unresolved-classes.mjs",
+    "unresolvedPhysicalClassCount": 45,
+    "allClassesContainExactlyOneTargetResidual": true,
+    "spansAllSevenSixthMoves": true,
+    "target": {
+      "player": 0,
+      "physicalLine": "A6-B5-C4-D3",
+      "orientation": "D-",
+      "anchorCell": "D3",
+      "missingCells": ["A6","B5","C4"],
+      "missingCount": 3
+    },
+    "supportProfileClassCount": 10,
+    "absoluteEventPhaseClassCount": 2,
+    "relativeEventPhaseClassCount": 1,
+    "relativeEventPhase": [0,1,0],
+    "moverSplit": {
+      "p0ToMoveClassCount": 42,
+      "p1ToMoveClassCount": 3,
+      "p1ToMoveClasses": ["U1","U2","U3"],
+      "correction": "Do not repeat the earlier allNextMoverP0 claim for the 45 exact unresolved physical classes. That all-P0 fact applied to the earlier seven abstract shared-deviation carriers, not this later exact unresolved-class census."
+    },
+    "interpretationBoundary": [
+      "This proves a common exact CPCX carrier, not first-win closure.",
+      "The UC4A 3:1 parity-regime defect and this CPCX diagonal carrier are not yet formally identified as the same invariant.",
+      "The 3-cell/1-anchor description is a research interpretation, not a runtime numeric value."
+    ]
+  },
+  "uc4aBridge": {
+    "status": "mechanically supported research bridge; not a value theorem",
+    "candidateSemanticObject": "transported diagonal control defect",
+    "supportedFacts": [
+      "UC4A dominant 3:1 parity-regime quotient is reproduced by the diagonal-only incidence subsystem.",
+      "CPCX has one exact reflected-center diagonal three-cell carrier across all 45 unresolved turn-6 physical classes.",
+      "CPCX event-phase transport on untouched residual cells is a global gauge flip with one invariant relative phase class.",
+      "Center probes show exact contraction, support-release acquisition, shared-discharge neutralization, and diagonal ancestry transfer across D3."
+    ]
+  },
+  "supportSimplex": {
+    "status": "diagnostic committed; qualification pending at checkpoint time",
+    "runner": "run-uc4a-cpcx-diagonal-support-simplex.mjs",
+    "candidateClaim": "the A/B/C support-height projection of the universal defect is exactly the ten weak compositions of 0, 1, or 2 occupied support cells",
+    "doNotPromoteUntilGreen": true
+  },
+  "preservedNegatives": {
+    "dualB6U13Application": "negative; consumed B6 probe did not leave an exact three-stage ladder for the tested P1 response classes",
+    "u13A4VerticalContinuation": "negative as a winning route; theorem-derived hazards include exact P1 first-win failures",
+    "universalOneDefectRcic": "remains falsified as a universal theorem; positive instance diagnostics do not promote it",
+    "commonPairNestedLadder": false,
+    "fullSupportPhaseEquivalent": false,
+    "fullQOEquivalent": false,
+    "exactPhysicalClassCountReducedByCommutator": false
+  },
+  "nextTarget": {
+    "name": "finite universal diagonal-defect transition automaton",
+    "priority": [
+      "qualify the ten-state A/B/C support simplex and ownership-role census",
+      "derive theorem-defined transitions on the protected A6-B5-C4-D3 carrier using cofactor contraction, support-release acquisition/neutralization, and commutation",
+      "identify a well-founded progress measure that survives target/diagonal transfer rather than assuming one fixed target",
+      "use response-capacity semantics with physical-response deduplication for shared-discharge obligations",
+      "only then compose to a P0 first-win certificate across all 45 classes"
+    ]
+  },
+  "productionBoundary": {
+    "productionCpcModified": false,
+    "productionSolverModified": false,
+    "nodeJavaScriptResearchOnly": true
+  }
+}
