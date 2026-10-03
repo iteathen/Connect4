@@ -156,6 +156,27 @@ function controllerDescentNoNormalization(position,R){
     const c=e.supportDistance===0
       ?certifyCpcxProtectedResidualTargetAcquisition(position,{controllerResidual:R,targetCell})
       :certifyCpcxProtectedResidualSupportAdvance(position,{controllerResidual:R,targetCell});
+    let hazardResiduals=[];
+    if(
+      c.seam==='OPPONENT_TERMINAL_AFTER_SUPPORT_ADVANCE'&&
+      Number.isInteger(c.actionCell)
+    ){
+      const q=applyCpcxForcedEvent(position,c.actionCell),
+        opponent=position.mover^1;
+      hazardResiduals=scanCpcxObligations(q)
+        .filter(o=>
+          o.player===opponent&&
+          o.missingCount===1&&
+          o.events[0].supportDistance===0
+        )
+        .map(o=>({
+          lineId:o.lineId,
+          lineLabel:o.lineLabel,
+          orientation:o.orientation,
+          targetCell:label(o.missingCells[0]),
+        }))
+        .sort((a,b)=>a.lineId-b.lineId);
+    }
     return {
       targetCell:label(targetCell),
       supportDistance:e.supportDistance,
@@ -165,6 +186,7 @@ function controllerDescentNoNormalization(position,R){
       actionCell:Number.isInteger(c.actionCell)?label(c.actionCell):null,
       boundaryKind:c.boundary?.kind??c.childImmediateBoundary?.kind??null,
       opponentWinningCells:(c.boundary?.winningCells??c.childImmediateBoundary?.winningCells??[]).map(label),
+      hazardResiduals,
     };
   });
   const scored=candidates.map(c=>({c,score:c.kind==='CERTIFIED_FIRST_WIN'?0:c.kind==='PROTECTED_RESIDUAL_TARGET_ACQUISITION'?1:2})).sort((a,b)=>a.score-b.score||((a.c.targetCell??0)-(b.c.targetCell??0)));
@@ -383,6 +405,22 @@ console.log(JSON.stringify({
           ])
         ),
         attemptOutcomeCounts:seams,
+        hazardResidualPatterns:[...new Map(rows.flatMap(x=>x.attempts)
+          .filter(a=>a.seam==='OPPONENT_TERMINAL_AFTER_SUPPORT_ADVANCE')
+          .map(a=>[
+            JSON.stringify({
+              protectedTarget:a.targetCell,
+              actionCell:a.actionCell,
+              opponentWinningCells:a.opponentWinningCells,
+              hazardResiduals:a.hazardResiduals,
+            }),
+            {
+              protectedTarget:a.targetCell,
+              actionCell:a.actionCell,
+              opponentWinningCells:a.opponentWinningCells,
+              hazardResiduals:a.hazardResiduals,
+            },
+          ])).values()],
         allDecisionStatesRetainAtLeastOneExactProtectedAction:
           rows.every(x=>x.attempts.some(a=>a.exact)),
       };
