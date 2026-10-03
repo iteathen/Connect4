@@ -7,6 +7,10 @@ import {
   certifyCpcxVerticalTwoStage,
 } from './cpcx-two-stage.mjs';
 import {
+  findCpcxVerticalThreeStageObligations,
+  certifyCpcxVerticalThreeStageSetup,
+} from './cpcx-three-stage.mjs';
+import {
   classifyCpcxProgress,
 } from './cpcx-progress.mjs';
 import {
@@ -36,6 +40,41 @@ test('playable two-piece forcing macro composes into one concrete successor',()=
     'PROJECTION_ONLY',
     'NO_CERTIFICATE',
   ].includes(next.kind));
+});
+
+test('vertical three-stage delegates setup into the existing two-stage composer',()=>{
+  const p=buildCpcxPosition('12',{geometry:g}),
+    demand=findCpcxVerticalThreeStageObligations(p,{player:0})[0];
+  assert.ok(demand);
+  const certificate=certifyCpcxVerticalThreeStageSetup(p,demand);
+  assert.equal(certificate.kind,'VERTICAL_THREE_STAGE_SETUP');
+  assert.equal(certificate.exact,true);
+
+  const progress={
+    kind:'CERTIFIED_FORCING_MACRO',
+    exact:true,
+    player:0,
+    macro:{
+      kind:'VERTICAL_THREE_STAGE',
+      primaryCell:demand.setupCell,
+      secondaryCell:demand.middleCell,
+      tertiaryCell:demand.upperCell,
+      lineId:demand.obligation.lineId,
+      demand,
+      certificate,
+    },
+  };
+  const successor=composeCpcxForcingMacro(p,progress);
+  assert.equal(successor.kind,'ABSTRACT_SUCCESSOR');
+  assert.equal(successor.exact,true);
+  assert.equal(successor.nextMover,0);
+  assert.deepEqual(successor.rank.deltaOptions,[2,4]);
+  assert.equal(successor.rank.allSameParity,true);
+  assert.equal(successor.controlParityEquivalent,true);
+  assert.equal(successor.source.kind,'VERTICAL_THREE_STAGE');
+  assert.equal(successor.source.setupCell,demand.setupCell);
+  assert.equal(successor.source.childCertificateKind,'PREEMPT_OR_FORCED_UPPER');
+  assert.equal(successor.recursive,false);
 });
 
 test('defender-turn vertical preempt/nonpreempt alternatives collapse to one abstract successor',()=>{
