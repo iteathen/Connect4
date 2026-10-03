@@ -6,6 +6,7 @@ import {
 import {
   applyCpcxForcedEvent,
   classifyCpcxImmediate,
+  closeCpcxForcedResponses,
 } from './cpcx-closure.mjs';
 import {classifyCpcxProgress} from './cpcx-progress.mjs';
 import {
@@ -1144,10 +1145,66 @@ for(const source of sources.values()){
                         safeNonpreemptFrontier:
                           partition.safeNonpreemptFrontier.map(label),
                         hazardClasses:
-                          partition.guardNormalizationClasses.map(x=>({
-                            defenderMove:label(x.defenderMove),
-                            targetCells:x.targetCells.map(label),
-                          })),
+                          partition.guardNormalizationClasses.map(x=>{
+                            const afterHazard=applyCpcxForcedEvent(
+                                setup,x.defenderMove
+                              ),
+                              normalized=afterHazard.terminal
+                                ?null
+                                :closeCpcxForcedResponses(afterHazard),
+                              q=normalized?.kind==='OPEN'
+                                ?normalized.position:null,
+                              qp=q?classifyCpcxProgress(q,{player:0}):null,
+                              qf=q?runCpcxFirstWinCertificate(
+                                q,{attacker:0}
+                              ):null,
+                              vertical=q
+                                ?findCpcxVerticalTwoStageObligations(
+                                  q,{player:0}
+                                ).map(d=>({
+                                  lineId:d.obligation.lineId,
+                                  lineLabel:d.obligation.lineLabel,
+                                  lower:label(d.lowerCell),
+                                  upper:label(d.upperCell),
+                                  certificate:(()=>{
+                                    const c=certifyCpcxVerticalTwoStage(q,d);
+                                    return {
+                                      kind:c.kind,
+                                      exact:c.exact??false,
+                                      riskCount:c.risks?.length??0,
+                                    };
+                                  })(),
+                                }))
+                                :[];
+                            return {
+                              defenderMove:label(x.defenderMove),
+                              targetCells:x.targetCells.map(label),
+                              terminal:afterHazard.terminal,
+                              normalization:normalized?{
+                                kind:normalized.kind,
+                                player:normalized.player??null,
+                                stepCount:normalized.steps?.length??0,
+                                steps:(normalized.steps??[]).map(step=>({
+                                  cell:label(step.cell),
+                                  player:step.player,
+                                })),
+                                boundary:normalized.boundary?.kind??null,
+                                finalRank:q?.rank??null,
+                                finalMover:q?.mover??null,
+                                finalSupport:q
+                                  ?Array.from(q.heights):null,
+                              }:null,
+                              progress:qp?progressSummary(qp):null,
+                              firstWin:qf?{
+                                kind:qf.kind,
+                                exact:qf.exact??false,
+                                player:qf.player??null,
+                                seam:qf.seam??null,
+                                traceLength:qf.trace?.length??0,
+                              }:null,
+                              verticalTwoStage:vertical,
+                            };
+                          }),
                         responseClasses:partition.responseClasses,
                       }:null,
                     };
