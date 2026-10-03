@@ -388,7 +388,7 @@ for(const source of sources.values()){
               successor=composeCpcxForcingMacro(immediateChild,pr);
             if(successor){
               const q=successor.concretePosition??null,
-                protected=q
+                protectedAfter=q
                   ?findProtected(q)
                   :null,
                 nextProgress=q
@@ -405,13 +405,13 @@ for(const source of sources.values()){
                 }:null),
                 concrete:Boolean(q),
                 support:q?Array.from(q.heights):null,
-                protectedResidual:protected?{
-                  lineId:protected.lineId,
-                  lineLabel:protected.lineLabel,
-                  missingCount:protected.missingCount,
-                  missing:protected.missingCells.map(label),
-                  support:protected.events.map(e=>e.supportDistance),
-                  playable:protected.currentlyPlayableCells.map(label),
+                protectedResidual:protectedAfter?{
+                  lineId:protectedAfter.lineId,
+                  lineLabel:protectedAfter.lineLabel,
+                  missingCount:protectedAfter.missingCount,
+                  missing:protectedAfter.missingCells.map(label),
+                  support:protectedAfter.events.map(e=>e.supportDistance),
+                  playable:protectedAfter.currentlyPlayableCells.map(label),
                 }:null,
                 nextProgress:nextProgress
                   ?progressSummary(nextProgress)
