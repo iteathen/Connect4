@@ -927,9 +927,89 @@ for(const source of sources.values()){
               cert=child.terminal
                 ?null
                 :runCpcxFirstWinCertificate(child,{attacker:0});
+            let exactProgressFirst=null;
+            if(
+              !child.terminal&&progress?.exact&&
+              inheritance.exact&&
+              inheritance.kind==='PROTECTED_DIAGONAL_TARGET_INHERITANCE_HANDOFF'
+            ){
+              let successor=null;
+              if(progress.kind==='FORCED_NORMALIZATION')
+                successor=composeCpcxForcedNormalization(child,progress);
+              else if(progress.kind==='CERTIFIED_FORCING_MACRO')
+                successor=composeCpcxForcingMacro(child,progress);
+              if(successor){
+                const q=successor.concretePosition??null,
+                  R=q?scanCpcxObligations(q).find(o=>
+                    o.player===0&&
+                    o.lineId===inheritance.handoffResidual.lineId
+                  )??null:null;
+                let saturation2=null,response2=null;
+                if(q&&R&&q.mover===0){
+                  saturation2=certifyCpcxProtectedDiagonalControllerSaturationV2(
+                    q,{protectedResidual:R}
+                  );
+                  if(
+                    saturation2.exact&&
+                    saturation2.kind===
+                      'PROTECTED_DIAGONAL_CONTROLLER_SATURATION_V2'
+                  )response2=
+                    certifyCpcxProtectedDiagonalOpponentResponseDescentV2(
+                      saturation2.finalPosition,{
+                        protectedResidual:saturation2.finalResidual,
+                      }
+                    );
+                }else if(q&&R&&q.mover===1&&
+                         classifyCpcxImmediate(q).kind==='NO_IMMEDIATE_OBLIGATION'){
+                  response2=certifyCpcxProtectedDiagonalOpponentResponseDescentV2(
+                    q,{protectedResidual:R}
+                  );
+                }
+                exactProgressFirst={
+                  successorKind:successor.kind,
+                  exact:successor.exact??false,
+                  seam:successor.seam??null,
+                  player:successor.player??null,
+                  concrete:Boolean(q),
+                  rank:q?.rank??null,
+                  mover:q?.mover??null,
+                  protectedResidual:R?{
+                    lineId:R.lineId,
+                    lineLabel:R.lineLabel,
+                    missingCount:R.missingCount,
+                    missing:R.missingCells.map(label),
+                    support:R.events.map(e=>e.supportDistance),
+                  }:null,
+                  saturationV2:saturation2?{
+                    kind:saturation2.kind,
+                    exact:saturation2.exact??false,
+                    seam:saturation2.seam??null,
+                    finalMeasure:saturation2.finalMeasure??null,
+                    finalResidual:saturation2.finalResidual?{
+                      missingCount:saturation2.finalResidual.missingCount,
+                      missing:saturation2.finalResidual.missingCells.map(label),
+                      support:saturation2.finalResidual.events.map(e=>
+                        e.supportDistance
+                      ),
+                    }:null,
+                  }:null,
+                  responseDescentV2:response2?{
+                    kind:response2.kind,
+                    exact:response2.exact??false,
+                    seam:response2.seam??null,
+                    sourceMeasure:response2.sourceMeasure??null,
+                    eventCount:response2.eventCount??null,
+                    failureCount:response2.failures?.length??0,
+                    everyEventWinsOrStrictlyDescends:
+                      response2.everyEventWinsOrStrictlyDescends??false,
+                  }:null,
+                };
+              }
+            }
             noTransferTargetBlockProbe={
               blockedCell:label(dangerous.cell),
               targetInheritance:inheritanceClosure,
+              exactProgressFirst,
               terminal:child.terminal,
               immediate:immediate?{
                 kind:immediate.kind,
@@ -1208,6 +1288,12 @@ console.log(JSON.stringify({
     targetInheritanceSingletonReservoirFirstWinCount:noTransferProbes.filter(x=>
       x.targetInheritance?.singletonReservoir?.kind==='CERTIFIED_FIRST_WIN'&&
       x.targetInheritance.singletonReservoir.player===0
+    ).length,
+    exactProgressFirstCount:noTransferProbes.filter(x=>
+      x.exactProgressFirst?.exact===true
+    ).length,
+    exactProgressFirstResponseV2Count:noTransferProbes.filter(x=>
+      x.exactProgressFirst?.responseDescentV2?.exact===true
     ).length,
     targetInheritanceResponseDescentExactCount:noTransferProbes.filter(x=>
       x.targetInheritance?.responseDescent?.exact===true
