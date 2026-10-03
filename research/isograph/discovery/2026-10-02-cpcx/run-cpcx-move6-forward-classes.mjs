@@ -17,6 +17,7 @@ import {runCpcxFirstWinCertificate} from './cpcx-successor.mjs';
 import {
   analyzeCpcxTargetReservoir,
   analyzeCpcxOneDefectTargetReservoir,
+  certifyCpcxTruncatedTargetReservoir,
 } from './cpcx-reservoir.mjs';
 
 const g=createCpcxGeometry(),root=buildCpcxPosition('44444',{geometry:g});
@@ -147,6 +148,122 @@ function defectColumnExhaustionProbe(position,analysis){
   return rows;
 }
 
+function oneDefectRenewalProbe(position,targetCell,analysis){
+  const template=analysis?.selectedFullCoverageTemplate;
+  if(!template)return null;
+  const rows=[];
+  for(const defenderCell of frontier(position)){
+    const {column,row}=cpcxCell(g,defenderCell),
+      depth=row-position.heights[column],
+      partner=template.partner[column],
+      prefixLength=template.prefixLength[column];
+    let responseCell=null,responseKind=null;
+    if(partner>=0&&depth<prefixLength){
+      responseCell=(position.heights[partner]+depth)*g.columns+partner;
+      responseKind='SYNCHRONIZED_CROSS_RESPONSE';
+    }else if(depth+1<analysis.capacity[column]){
+      responseCell=defenderCell+g.columns;
+      responseKind='VERTICAL_RESPONSE';
+    }else{
+      rows.push({
+        defenderCell:label(defenderCell),
+        responseKind:'DEFECT_HANDOFF',
+        responseCell:null,
+        renews:false,
+      });
+      continue;
+    }
+
+    const afterDefender=applyCpcxForcedEvent(position,defenderCell);
+    if(afterDefender.terminal){
+      rows.push({
+        defenderCell:label(defenderCell),
+        responseKind,
+        responseCell:label(responseCell),
+        defenderTerminal:afterDefender.terminal,
+        renews:false,
+      });
+      continue;
+    }
+    const meta=cpcxCell(g,responseCell);
+    if(afterDefender.heights[meta.column]!==meta.row||
+       afterDefender.owner[responseCell]!==-1){
+      rows.push({
+        defenderCell:label(defenderCell),
+        responseKind,
+        responseCell:label(responseCell),
+        responseLegal:false,
+        renews:false,
+      });
+      continue;
+    }
+    const child=applyCpcxForcedEvent(afterDefender,responseCell);
+    if(child.terminal){
+      rows.push({
+        defenderCell:label(defenderCell),
+        responseKind,
+        responseCell:label(responseCell),
+        responseLegal:true,
+        terminal:child.terminal,
+        renews:child.terminal.player===0,
+        renewalClass:child.terminal.player===0?'ATTACKER_TERMINAL':'DEFENDER_TERMINAL',
+      });
+      continue;
+    }
+
+    const certificate=runCpcxFirstWinCertificate(child,{attacker:0}),
+      ordinary=certifyCpcxTruncatedTargetReservoir(
+        child,{attacker:0,targetCell}
+      ),
+      next=analyzeCpcxOneDefectTargetReservoir(
+        child,{attacker:0,targetCell}
+      ),
+      parentRank=analysis.totalRelevantEvents,
+      childRank=next.totalRelevantEvents??null,
+      exactExistingWin=
+        certificate.kind==='CERTIFIED_FIRST_WIN'&&certificate.player===0,
+      ordinaryWin=ordinary.kind==='CERTIFIED_FIRST_WIN'&&ordinary.player===0,
+      oneDefectRenewal=
+        next.kind==='ONE_DEFECT_STATIC_COVERAGE'&&
+        childRank===parentRank-2;
+    rows.push({
+      defenderCell:label(defenderCell),
+      responseKind,
+      responseCell:label(responseCell),
+      responseLegal:true,
+      certificate:{
+        kind:certificate.kind,
+        player:certificate.player??null,
+        seam:certificate.seam??null,
+        traceLength:certificate.trace?.length??0,
+      },
+      ordinaryReservoirKind:ordinary.kind,
+      oneDefectKind:next.kind,
+      parentReservoirRank:parentRank,
+      childReservoirRank:childRank,
+      rankDelta:childRank===null?null:parentRank-childRank,
+      renewalClass:exactExistingWin
+        ?'EXISTING_CPCX_FIRST_WIN'
+        :ordinaryWin
+          ?'ORDINARY_RESERVOIR_FIRST_WIN'
+          :oneDefectRenewal
+            ?'ONE_DEFECT_RENEWAL'
+            :'UNRESOLVED',
+      renews:exactExistingWin||ordinaryWin||oneDefectRenewal,
+    });
+  }
+  return {
+    selectedDefect:template.defect,
+    rowCount:rows.length,
+    renewedCount:rows.filter(x=>x.renews).length,
+    defectHandoffCount:rows.filter(x=>x.responseKind==='DEFECT_HANDOFF').length,
+    allCurrentResponsesRenew:
+      rows.every(x=>x.renews||x.responseKind==='DEFECT_HANDOFF'),
+    rows,
+    proofBoundary:'one current response layer only; recurrent use requires a separately proved well-founded renewal theorem and a certified defect-handoff base case',
+  };
+}
+
 function pairCompressionProbe(position){
   if(position.mover!==0)return null;
   const pair=scanCpcxObligations(position).find(o=>
@@ -211,6 +328,9 @@ function pairCompressionProbe(position){
     afterSetupSupport:Array.from(afterSetup.heights),
     reservoirAnalysis,
     oneDefectReservoirAnalysis,
+    oneDefectRenewal:afterSetup.terminal?null:oneDefectRenewalProbe(
+      afterSetup,targetCell,oneDefectReservoirAnalysis
+    ),
     defectColumnExhaustion:afterSetup.terminal?[]:defectColumnExhaustionProbe(afterSetup,reservoirAnalysis),
     replies,
     closedReplyCount:replies.filter(x=>
@@ -329,5 +449,6 @@ console.log(JSON.stringify({
     pairCompressionProbe:'one P0 setup on the unique playable endpoint of a two-cell residual, followed by one flat P1 frontier audit',
     discoverySecondSetupProbe:'bounded theorem-discovery scan only; enumerates one additional current P0 setup per P1 reply and is forbidden as a proof premise until generalized',
     defectColumnExhaustionProbe:'discovery-only same-column normalization of each odd reservoir column through its truncated relevant capacity; no claim that the opponent is forced to choose this order',
+    oneDefectRenewalProbe:'one theorem-template response layer only; tests reconstruction of the same one-defect class with reservoir rank reduced by two and does not recursively traverse descendants',
   },
 },null,2));
