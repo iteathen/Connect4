@@ -67,6 +67,9 @@ import {
   analyzeCpcxOneDefectTargetReservoir,
 } from './cpcx-reservoir.mjs';
 import {
+  deriveCpcxDisjunctiveBlockObligation,
+} from './cpcx-cpc2.mjs';
+import {
   certifyCpcxOneDefectTargetReservoirRcic,
 } from './cpcx-one-defect-rcic.mjs';
 import {
@@ -1325,6 +1328,33 @@ for(const source of sources.values()){
                                             fullCoverageTemplateCount:
                                               one.fullCoverageTemplateCount??null,
                                           },
+                                          cpc2:(()=>{
+                                            const c=
+                                              deriveCpcxDisjunctiveBlockObligation(
+                                                q2,{attacker:0}
+                                              );
+                                            return {
+                                              kind:c.kind,
+                                              exact:c.exact??false,
+                                              player:c.player??null,
+                                              seam:c.seam??null,
+                                              blockingCells:
+                                                (c.blockingCells??[])
+                                                  .map(label),
+                                              triggerCells:
+                                                (c.triggerCertificates??[])
+                                                  .map(x=>label(x.triggerCell)),
+                                              unresolvedMoves:
+                                                (c.unresolvedMoves??[])
+                                                  .map(x=>({
+                                                    defenderCell:
+                                                      label(x.defenderCell),
+                                                    reasons:
+                                                      (x.unresolved??[])
+                                                        .map(y=>y.reason),
+                                                  })),
+                                            };
+                                          })(),
                                           rcic:(()=>{
                                             const c=
                                               certifyCpcxOneDefectTargetReservoirRcic(
