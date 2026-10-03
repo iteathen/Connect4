@@ -75,6 +75,47 @@ function resultSummary(position){
     traceLength:certificate.trace?.length??0,
   };
 }
+function frontierCells(position){
+  const out=[];
+  for(let column=0;column<g.columns;column++){
+    const row=position.heights[column];
+    if(row<g.rows)out.push(row*g.columns+column);
+  }
+  return out;
+}
+function setupRole(pair,cell){
+  if(pair.cells.includes(cell))return 'PAIR_ENDPOINT';
+  if(pair.events.some(x=>x.frontierCell===cell))return 'PAIR_COLUMN_SUPPORT';
+  for(const a of pair.ladderAttachments??[]){
+    for(const x of a.extraSupport??[]){
+      const meta=cpcxCell(g,a.extraCells[a.extraSupport.indexOf(x)]??-1);
+      if(x.distance===0&&Number.isInteger(meta.column)){
+        const frontier=0*g.columns; // role is resolved below from the label
+      }
+    }
+  }
+  const cellLabel=label(cell);
+  if((pair.ladderAttachments??[]).some(a=>
+    a.extraSupport?.some(x=>x.distance===0&&x.frontier===cellLabel)
+  ))return 'PLAYABLE_LADDER_TRIGGER';
+  return 'EXTERNAL_SETUP';
+}
+function allSetupRows(position,pair){
+  if(position.mover!==0)return [];
+  return frontierCells(position).map(setupCell=>{
+    const child=applyCpcxForcedEvent(position,setupCell),
+      result=resultSummary(child);
+    return {
+      setupCell,
+      setupLabel:label(setupCell),
+      role:setupRole(pair,setupCell),
+      terminal:child.terminal,
+      certified:result.kind==='CERTIFIED_FIRST_WIN'&&result.player===0,
+      result,
+    };
+  });
+}
+
 function pairKey(row){
   return [
     Math.max(...row.distances),
@@ -242,6 +283,7 @@ function analyzeState(position,source){
       })),
       setups:setupRows(position,best),
       ladderAttachments:ladderAttachments(position,best),
+      allSetups:allSetupRows(position,{...best,ladderAttachments:ladderAttachments(position,best)}),
     }:null,
     allPairs:pairs.map(pair=>({
       lineId:pair.lineId,
@@ -308,7 +350,9 @@ const profileCounts={},
   setupOutcomeCounts={},
   orientationProfileCounts={},
   ladderAttachmentCounts={},
-  uniqueSetupPatterns=new Map();
+  uniqueSetupPatterns=new Map(),
+  certifiedSetupSourceCounts={},
+  certifiedSetupRoleCounts={};
 for(const row of states){
   const pair=row.bestPair;
   if(!pair)continue;
@@ -316,6 +360,12 @@ for(const row of states){
   profileCounts[profile]=(profileCounts[profile]??0)+1;
   const op=`${pair.orientation}|${profile}`;
   orientationProfileCounts[op]=(orientationProfileCounts[op]??0)+1;
+  for(const s of pair.allSetups??[]){
+    if(!s.certified)continue;
+    const source=s.result.source??s.result.kind;
+    certifiedSetupSourceCounts[source]=(certifiedSetupSourceCounts[source]??0)+1;
+    certifiedSetupRoleCounts[s.role]=(certifiedSetupRoleCounts[s.role]??0)+1;
+  }
   for(const s of pair.setups){
     const key=[
       profile,
@@ -366,6 +416,11 @@ console.log(JSON.stringify({
     orientationProfileCounts,
     ladderAttachmentCounts,
     setupOutcomeCounts,
+    statesWithCertifiedCurrentSetup:states.filter(x=>
+      x.bestPair?.allSetups?.some(s=>s.certified)
+    ).length,
+    certifiedSetupSourceCounts,
+    certifiedSetupRoleCounts,
     uniqueSetupPatternCount:uniqueSetupPatterns.size,
     uniqueSetupPatterns:[...uniqueSetupPatterns.values()]
       .sort((a,b)=>b.count-a.count||JSON.stringify(a.pattern).localeCompare(JSON.stringify(b.pattern))),
