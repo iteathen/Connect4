@@ -98,6 +98,19 @@ function intersectResiduals(carriers){
       rows.push(r);
     }
     if(!all)continue;
+    const profilesExact=rows.every(r=>
+      r.supportProfilesExact===true&&Array.isArray(r.supportProfiles)
+    );
+    const supportProfiles=profilesExact
+      ?[...new Map(rows.flatMap(r=>r.supportProfiles).map(p=>[
+        p.join(','),[...p],
+      ])).values()].sort((a,b)=>{
+        const n=Math.min(a.length,b.length);
+        for(let i=0;i<n;i++)if(a[i]!==b[i])return a[i]-b[i];
+        return a.length-b.length;
+      })
+      :[];
+
     const events=first.missingCells.map(cell=>{
       const samples=[];
       for(const r of rows){
@@ -127,6 +140,8 @@ function intersectResiduals(carriers){
       missingCount:first.missingCount,
       missingCells:[...first.missingCells],
       events,
+      supportProfiles,
+      supportProfilesExact:profilesExact,
       guarantee:'IDENTICAL_RESIDUAL_IN_EVERY_NONTERMINAL_RESPONSE_CLASS',
     });
   }
