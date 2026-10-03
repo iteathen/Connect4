@@ -569,6 +569,78 @@ function oneDefectViabilityChainProbe(position,targetCell){
   };
 }
 
+function adaptiveGapRepairProbe(position,targetCell,analysis){
+  if(analysis?.kind!=='ONE_DEFECT_STATIC_COVERAGE_GAP')return null;
+  const parentRank=analysis.totalRelevantEvents,rows=[];
+  for(const defenderCell of frontier(position)){
+    const afterDefender=applyCpcxForcedEvent(position,defenderCell);
+    if(afterDefender.terminal){
+      rows.push({
+        defenderCell:label(defenderCell),
+        defenderTerminal:afterDefender.terminal,
+        responses:[],
+        covered:false,
+      });
+      continue;
+    }
+    const responses=[];
+    for(const responseCell of frontier(afterDefender)){
+      const child=applyCpcxForcedEvent(afterDefender,responseCell);
+      if(child.terminal){
+        if(child.terminal.player===0)responses.push({
+          responseCell:label(responseCell),
+          kind:'ATTACKER_TERMINAL',
+          childReservoirRank:null,
+        });
+        continue;
+      }
+      const certificate=runCpcxFirstWinCertificate(child,{attacker:0}),
+        ordinary=certifyCpcxTruncatedTargetReservoir(
+          child,{attacker:0,targetCell}
+        ),
+        next=analyzeCpcxOneDefectTargetReservoir(
+          child,{attacker:0,targetCell}
+        ),
+        childRank=next.totalRelevantEvents??null,
+        exactExistingWin=
+          certificate.kind==='CERTIFIED_FIRST_WIN'&&certificate.player===0,
+        ordinaryWin=
+          ordinary.kind==='CERTIFIED_FIRST_WIN'&&ordinary.player===0,
+        lowerFullCoverage=
+          next.kind==='ONE_DEFECT_STATIC_COVERAGE'&&
+          Number.isInteger(childRank)&&
+          childRank<=parentRank-2;
+      if(exactExistingWin||ordinaryWin||lowerFullCoverage)responses.push({
+        responseCell:label(responseCell),
+        kind:exactExistingWin
+          ?'EXISTING_CPCX_FIRST_WIN'
+          :ordinaryWin
+            ?'ORDINARY_RESERVOIR_FIRST_WIN'
+            :'LOWER_ONE_DEFECT_FULL_COVERAGE',
+        certificateSource:
+          certificate.trace?.[0]?.progress?.source??null,
+        certificateTraceLength:certificate.trace?.length??0,
+        oneDefectKind:next.kind,
+        childReservoirRank:childRank,
+      });
+    }
+    rows.push({
+      defenderCell:label(defenderCell),
+      defenderTerminal:null,
+      responses,
+      covered:responses.length>0,
+    });
+  }
+  return {
+    parentReservoirRank:parentRank,
+    triggerCount:rows.length,
+    coveredTriggerCount:rows.filter(x=>x.covered).length,
+    allCurrentTriggersCovered:rows.every(x=>x.covered),
+    rows,
+    proofBoundary:'one current defender-trigger layer only; response enumeration is theorem discovery and is not a proof premise until compressed to a structural response rule',
+  };
+}
+
 function pairCompressionProbe(position){
   if(position.mover!==0)return null;
   const pair=scanCpcxObligations(position).find(o=>
@@ -638,6 +710,8 @@ function pairCompressionProbe(position){
     ),
     oneDefectViabilityChain:afterSetup.terminal?null:
       oneDefectViabilityChainProbe(afterSetup,targetCell),
+    adaptiveGapRepair:afterSetup.terminal?null:
+      adaptiveGapRepairProbe(afterSetup,targetCell,oneDefectReservoirAnalysis),
     defectColumnExhaustion:afterSetup.terminal?[]:defectColumnExhaustionProbe(afterSetup,reservoirAnalysis),
     replies,
     closedReplyCount:replies.filter(x=>
@@ -759,5 +833,6 @@ console.log(JSON.stringify({
     oneDefectRenewalProbe:'one theorem-template response layer only; tests reconstruction of the same one-defect class with reservoir rank reduced by two and does not recursively traverse descendants',
     defectHandoffRepairProbe:'discovery-only scan of one current P0 setup after an unmatched top event; successful cells are not proof premises until a generic repair theorem is established',
     oneDefectViabilityChainProbe:'discovery-only deterministic normalization through unmatched top events; all bounded full-coverage templates may be synthesized at each current state, ordinary defender choices are discharged only by the static template invariant, and one strictly decreasing handoff repair is followed; this is not yet a promoted theorem',
+    adaptiveGapRepairProbe:'discovery-only one current P1 trigger / one P0 response layer for static one-defect coverage gaps; successful response cells must later be compressed to a generic structural rule before promotion',
   },
 },null,2));
