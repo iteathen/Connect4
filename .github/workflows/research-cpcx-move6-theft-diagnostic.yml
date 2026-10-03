@@ -8,6 +8,8 @@ on:
       - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-theft-setups.mjs
       - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-theft-two-ply.mjs
       - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-theft-vertical-transport.mjs
+      - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-pair-star.mjs
+      - research/isograph/discovery/2026-10-02-cpcx/cpcx-pair-star.mjs
       - .github/workflows/research-cpcx-move6-theft-diagnostic.yml
   workflow_dispatch:
 
@@ -28,6 +30,7 @@ jobs:
           node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-theft-setups.mjs > cpcx-move6-theft-setups.json
           node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-theft-two-ply.mjs > cpcx-move6-theft-two-ply.json
           node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-theft-vertical-transport.mjs > cpcx-move6-theft-vertical-transport.json
+          node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-pair-star.mjs > cpcx-move6-pair-star.json
           node --input-type=module -e "
             import fs from 'node:fs';
             const x=JSON.parse(fs.readFileSync('cpcx-move6-theft-setups.json','utf8'));
@@ -65,4 +68,5 @@ jobs:
             cpcx-move6-theft-setups.json
             cpcx-move6-theft-two-ply.json
             cpcx-move6-theft-vertical-transport.json
+            cpcx-move6-pair-star.json
           if-no-files-found: error
