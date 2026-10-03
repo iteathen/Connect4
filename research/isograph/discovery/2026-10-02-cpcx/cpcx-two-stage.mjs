@@ -23,6 +23,28 @@ import {lowerBoundCpcxEarliestTerminal} from './cpcx-deadline.mjs';
 
 function unique(values){return [...new Set(values)].sort((a,b)=>a-b);}
 
+function residualEnvelopeRows(position,player){
+  return scanCpcxObligations(position)
+    .filter(o=>o.player===player)
+    .map(o=>({
+      lineId:o.lineId,
+      lineLabel:o.lineLabel,
+      orientation:o.orientation,
+      missingCount:o.missingCount,
+      missingCells:[...o.missingCells].sort((a,b)=>a-b),
+    }))
+    .sort((a,b)=>
+      a.missingCount-b.missingCount||
+      a.lineId-b.lineId||
+      a.missingCells.join(',').localeCompare(b.missingCells.join(','))
+    );
+}
+
+function residualEnvelopeKey(r){
+  return `${r.lineId}|${r.missingCells.join(',')}`;
+}
+
+
 function currentFrontier(position){
   const g=position.geometry,out=[];
   for(let c=0;c<g.columns;c++){
@@ -356,6 +378,7 @@ export function deriveCpcxVerticalOpponentSingletonEnvelope(position,demand,cert
       externalCell,
       terminal:null,
       support:Array.from(v.position.heights),
+      defenderResiduals:residualEnvelopeRows(v.position,defender),
       defenderSingletons:immediateCells(v.position,defender),
       defenderEarliestTerminalLowerBound:
         lowerBoundCpcxEarliestTerminal(v.position,{player:defender})
@@ -424,6 +447,31 @@ export function deriveCpcxVerticalOpponentSingletonEnvelope(position,demand,cert
     ))
     :null;
 
+  const defenderResidualMaps=continuing.map(cls=>
+      new Map((cls.defenderResiduals??[]).map(r=>[residualEnvelopeKey(r),r]))
+    ),
+    possibleDefenderResiduals=(()=>{
+      const m=new Map();
+      for(const rows of defenderResidualMaps)for(const [key,row] of rows)
+        if(!m.has(key))m.set(key,row);
+      return [...m.values()].sort((a,b)=>
+        a.missingCount-b.missingCount||
+        a.lineId-b.lineId||
+        a.missingCells.join(',').localeCompare(b.missingCells.join(','))
+      );
+    })(),
+    guaranteedDefenderResiduals=(()=>{
+      if(!defenderResidualMaps.length)return [];
+      const out=[];
+      for(const [key,row] of defenderResidualMaps[0])
+        if(defenderResidualMaps.slice(1).every(m=>m.has(key)))out.push(row);
+      return out.sort((a,b)=>
+        a.missingCount-b.missingCount||
+        a.lineId-b.lineId||
+        a.missingCells.join(',').localeCompare(b.missingCells.join(','))
+      );
+    })();
+
   const possible=unique(continuing.flatMap(x=>x.defenderSingletons));
   let guaranteed=[];
   if(continuing.length){
@@ -451,6 +499,12 @@ export function deriveCpcxVerticalOpponentSingletonEnvelope(position,demand,cert
       Number.isFinite(defenderEarliestTerminalLowerBound)
         ?defenderEarliestTerminalLowerBound
         :null,
+    opponentResidualEnvelope:{
+      exact:true,
+      possibleResiduals:possibleDefenderResiduals,
+      guaranteedResiduals:guaranteedDefenderResiduals,
+      source:'union/intersection of exact continuing vertical macro classes',
+    },
     classes,
     proofRule:'flat exact preempt/delayed class scan; union is every possible defender singleton after the macro and intersection is every guaranteed defender singleton',
     choiceEnumeration:false,
