@@ -133,12 +133,18 @@ There is no recursive legal-move traversal.
 
 ## Required qualification controls
 
-1. fresh hidden-target source where every current opponent event is external;
+1. fresh anchored source whose complete current opponent frontier is response-total;
 2. fresh same-track protected-target block event;
 3. fresh anchor-pivot protected-target block event;
-4. rejection of an opponent terminal event;
-5. rejection when source immediate precedence is not open;
-6. production-CPC / solver / oracle / recursion isolation.
+4. retained negative control showing that a hidden diagonal by itself need not be response-total;
+5. rejection of an opponent terminal event;
+6. rejection when source immediate precedence is not open;
+7. production-CPC / solver / oracle / recursion isolation.
+
+The retained hidden-target falsifier is load-bearing scope evidence.  A protected
+target can become a later forced block with no admissible same-track or
+anchor-pivot replacement, so "target currently hidden" is not an invariant
+strong enough to define the response-descent domain.
 
 ## Turn-6 application boundary
 
