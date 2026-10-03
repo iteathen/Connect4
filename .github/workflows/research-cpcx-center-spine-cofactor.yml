@@ -6,6 +6,9 @@ on:
       - experiment/cpcx-20261002
     paths:
       - research/isograph/discovery/2026-10-02-cpcx/run-uc4a-cpcx-turn6-center-spine-cofactor-equivalence.mjs
+      - research/isograph/discovery/2026-10-02-cpcx/cpcx-saturated-column-cofactor.mjs
+      - research/isograph/discovery/2026-10-02-cpcx/cpcx-saturated-column-cofactor.test.mjs
+      - research/isograph/discovery/2026-10-02-cpcx/CPCX_SATURATED_COLUMN_COFACTOR_HOMOMORPHISM_0_1.md
       - .github/workflows/research-cpcx-center-spine-cofactor.yml
   workflow_dispatch:
 
@@ -21,6 +24,7 @@ jobs:
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
         with:
           node-version: "26.7.0"
+      - run: node --test research/isograph/discovery/2026-10-02-cpcx/cpcx-saturated-column-cofactor.test.mjs
       - run: node research/isograph/discovery/2026-10-02-cpcx/run-uc4a-cpcx-turn6-center-spine-cofactor-equivalence.mjs > center-spine-cofactor-equivalence.json
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
