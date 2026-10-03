@@ -1,0 +1,33 @@
+name: Research CPCX move6 neutral reservoir
+
+on:
+  push:
+    branches:
+      - experiment/cpcx-20261002
+    paths:
+      - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-neutral-reservoir.mjs
+      - research/isograph/discovery/2026-10-02-cpcx/cpcx-q-quotient.mjs
+      - .github/workflows/research-cpcx-move6-neutral-reservoir.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: "26.7.0"
+      - name: Run neutral-reservoir discovery
+        run: |
+          node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-neutral-reservoir.mjs > cpcx-move6-neutral-reservoir.json
+          cat cpcx-move6-neutral-reservoir.json
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: cpcx-move6-neutral-reservoir
+          path: cpcx-move6-neutral-reservoir.json
+          if-no-files-found: error
