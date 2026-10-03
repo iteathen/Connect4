@@ -113,6 +113,23 @@ function verticalSupportPhaseVectors(position,demand,certificate){
   return uniquePhaseVectors(vectors);
 }
 
+function exactSupportEnvelopeFromVerticalClasses(envelope){
+  const m=new Map();
+  for(const cls of envelope?.classes??[]){
+    if(cls.terminal!==null||!Array.isArray(cls.support))continue;
+    m.set(cls.support.join(','),[...cls.support]);
+  }
+  return {
+    exact:true,
+    vectors:[...m.values()].sort((a,b)=>{
+      const n=Math.min(a.length,b.length);
+      for(let i=0;i<n;i++)if(a[i]!==b[i])return a[i]-b[i];
+      return a.length-b.length;
+    }),
+    source:'exact continuing vertical macro support classes',
+  };
+}
+
 function uniqueSupportProfiles(profiles){
   const m=new Map();
   for(const p of profiles)m.set(p.join(','),p);
@@ -170,6 +187,7 @@ function abstractVerticalSuccessor(position,macro,collapse,envelope){
     ),
     rankOptions=collapse.rankDeltaOptions.map(x=>position.rank+x),
     supportPhaseVectors=verticalSupportPhaseVectors(position,demand,certificate),
+    supportEnvelope=exactSupportEnvelopeFromVerticalClasses(singletonEnvelope),
     residuals=collapse.guaranteedResiduals.map(r=>({
       id:r.id,
       player:r.player,
@@ -214,6 +232,7 @@ function abstractVerticalSuccessor(position,macro,collapse,envelope){
       vectors:supportPhaseVectors,
       source:'exact vertical preempt/delayed support-parity projection',
     },
+    supportEnvelope,
     guaranteedResiduals:residuals,
     blockerTokens:collapse.externalDefenderUncertainty?[{
       owner:demand.defender,
@@ -274,6 +293,11 @@ export function composeCpcxForcingMacro(position,progress){
         exact:true,
         vectors:[supportPhaseVector(next.position.heights)],
         source:'exact concrete successor support parity',
+      },
+      supportEnvelope:{
+        exact:true,
+        vectors:[Array.from(next.position.heights)],
+        source:'exact concrete successor support vector',
       },
       guaranteedResiduals:exactResiduals(next.position),
       blockerTokens:[],
@@ -381,6 +405,11 @@ export function composeCpcxForcedNormalization(position,progress){
       exact:true,
       vectors:[supportPhaseVector(next.heights)],
       source:'exact concrete successor support parity',
+    },
+    supportEnvelope:{
+      exact:true,
+      vectors:[Array.from(next.heights)],
+      source:'exact concrete successor support vector',
     },
     guaranteedResiduals:exactResiduals(next),
     blockerTokens:[],
