@@ -138,6 +138,15 @@ export function certifyCpcxSupportReleaseAcquisition(position,{
   if(!frontier(afterController,supportCell))
     return fail('SUPPORT_TRIGGER_NOT_FRONTIER_AFTER_PINNED_ACTION');
 
+  // Audit the named SUPPLY event first. If it is itself terminal, this
+  // response class is rejected directly. Other already-playable opponent
+  // terminals are audited immediately afterward.
+  const afterSupply=applyCpcxForcedEvent(afterController,supportCell);
+  if(afterSupply.terminal)
+    return fail('SUPPORT_TRIGGER_TERMINAL',{
+      terminal:afterSupply.terminal,
+    });
+
   const opponentImmediate=playableSingletonCells(afterController,opponent);
   if(opponentImmediate.length)
     return fail('POST_CONTROLLER_OPPONENT_IMMEDIATE_SINGLETON',{
@@ -159,12 +168,6 @@ export function certifyCpcxSupportReleaseAcquisition(position,{
   if(externalKills.length)
     return fail('EXTERNAL_CLASS_INTERSECTS_PROTECTED_RESIDUAL',{
       cells:externalKills,
-    });
-
-  const afterSupply=applyCpcxForcedEvent(afterController,supportCell);
-  if(afterSupply.terminal)
-    return fail('SUPPORT_TRIGGER_TERMINAL',{
-      terminal:afterSupply.terminal,
     });
 
   const supplyOpponentImmediate=playableSingletonCells(afterSupply,opponent);
