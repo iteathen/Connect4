@@ -38,6 +38,12 @@ import {
   certifyCpcxProtectedDiagonalTargetInheritanceHandoff,
 } from './cpcx-diagonal-target-inheritance.mjs';
 import {
+  certifyCpcxProtectedDiagonalControllerSaturationV2,
+} from './cpcx-controller-saturation-v2.mjs';
+import {
+  certifyCpcxProtectedDiagonalOpponentResponseDescentV2,
+} from './cpcx-opponent-response-descent-v2.mjs';
+import {
   certifyCpcxProtectedResidualSupportAdvance,
 } from './cpcx-support-advance.mjs';
 import {
@@ -645,8 +651,14 @@ for(const source of sources.values()){
                   inheritance.child,{
                     protectedResidual:inheritance.handoffResidual,
                   }
-                );
-              let responseDescent=null;
+                ),
+                saturationV2=
+                  certifyCpcxProtectedDiagonalControllerSaturationV2(
+                    inheritance.child,{
+                      protectedResidual:inheritance.handoffResidual,
+                    }
+                  );
+              let responseDescent=null,responseDescentV2=null;
               if(
                 saturation.exact&&
                 saturation.kind==='PROTECTED_DIAGONAL_CONTROLLER_SATURATION'
@@ -654,6 +666,15 @@ for(const source of sources.values()){
                 certifyCpcxProtectedDiagonalOpponentResponseDescent(
                   saturation.finalPosition,{
                     protectedResidual:saturation.finalResidual,
+                  }
+                );
+              if(
+                saturationV2.exact&&
+                saturationV2.kind==='PROTECTED_DIAGONAL_CONTROLLER_SATURATION_V2'
+              )responseDescentV2=
+                certifyCpcxProtectedDiagonalOpponentResponseDescentV2(
+                  saturationV2.finalPosition,{
+                    protectedResidual:saturationV2.finalResidual,
                   }
                 );
               inheritanceClosure={
@@ -670,6 +691,37 @@ for(const source of sources.values()){
                     e.supportDistance
                   ),
                   progressOptions,
+                },
+                saturationV2:{
+                  kind:saturationV2.kind,
+                  exact:saturationV2.exact??false,
+                  seam:saturationV2.seam??null,
+                  player:saturationV2.player??null,
+                  sourceMeasure:saturationV2.sourceMeasure??null,
+                  finalMeasure:saturationV2.finalMeasure??null,
+                  finalRank:saturationV2.finalRank??null,
+                  finalResidual:saturationV2.finalResidual?{
+                    lineId:saturationV2.finalResidual.lineId,
+                    lineLabel:saturationV2.finalResidual.lineLabel,
+                    missingCount:saturationV2.finalResidual.missingCount,
+                    missing:saturationV2.finalResidual.missingCells.map(label),
+                    support:saturationV2.finalResidual.events.map(e=>
+                      e.supportDistance
+                    ),
+                    playable:saturationV2.finalResidual.currentlyPlayableCells.map(label),
+                  }:null,
+                  trace:(saturationV2.trace??[]).map(t=>({
+                    kind:t.kind,
+                    iteration:t.iteration??null,
+                    actionCell:Number.isInteger(t.actionCell)
+                      ?label(t.actionCell):null,
+                    selectedTarget:Number.isInteger(t.selectedTarget)
+                      ?label(t.selectedTarget):null,
+                    selectedMode:t.selectedMode??null,
+                    sourceMeasure:t.sourceMeasure??null,
+                    childMeasure:t.childMeasure??null,
+                    boundary:t.boundary?.kind??null,
+                  })),
                 },
                 saturation:{
                   kind:saturation.kind,
@@ -727,6 +779,17 @@ for(const source of sources.values()){
                     }:null,
                   }:null,
                 },
+                responseDescentV2:responseDescentV2?{
+                  kind:responseDescentV2.kind,
+                  exact:responseDescentV2.exact??false,
+                  seam:responseDescentV2.seam??null,
+                  player:responseDescentV2.player??null,
+                  sourceMeasure:responseDescentV2.sourceMeasure??null,
+                  eventCount:responseDescentV2.eventCount??null,
+                  failureCount:responseDescentV2.failures?.length??0,
+                  everyEventWinsOrStrictlyDescends:
+                    responseDescentV2.everyEventWinsOrStrictlyDescends??false,
+                }:null,
                 responseDescent:responseDescent?{
                   kind:responseDescent.kind,
                   exact:responseDescent.exact??false,
@@ -1063,6 +1126,12 @@ console.log(JSON.stringify({
     ).length,
     targetInheritanceSaturationExactCount:noTransferProbes.filter(x=>
       x.targetInheritance?.saturation?.exact===true
+    ).length,
+    targetInheritanceSaturationV2ExactCount:noTransferProbes.filter(x=>
+      x.targetInheritance?.saturationV2?.exact===true
+    ).length,
+    targetInheritanceResponseDescentV2ExactCount:noTransferProbes.filter(x=>
+      x.targetInheritance?.responseDescentV2?.exact===true
     ).length,
     targetInheritanceResponseDescentExactCount:noTransferProbes.filter(x=>
       x.targetInheritance?.responseDescent?.exact===true
