@@ -2022,6 +2022,7 @@ console.log(JSON.stringify({
     minimax:false,
     recursiveSearch:false,
     futureTreeGeneration:false,
+    latentPairHubProgressRuleIntegrated:true,
     noBestSetConclusion:true,
   },
 },null,2));
