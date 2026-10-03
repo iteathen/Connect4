@@ -54,8 +54,18 @@ test('playable two-piece exact macro may be selected without global value equiva
   assert.equal(c.kind,'CERTIFIED_FORCING_MACRO');
   assert.equal(c.exact,true);
   assert.equal(c.selectionAuthorized,true);
-  assert.ok(['PLAYABLE_TWO_PIECE','VERTICAL_TWO_STAGE'].includes(c.macro.kind));
+  assert.ok(['PLAYABLE_TWO_PIECE','VERTICAL_TWO_STAGE','VERTICAL_THREE_STAGE'].includes(c.macro.kind));
   assert.equal(c.selectionPremise,'local theorem exactness and deterministic structural order only');
+});
+
+test('qualified vertical three-stage is exposed as a generic forcing macro',()=>{
+  const p=buildCpcxPosition('12',{geometry:g}),
+    c=classifyCpcxProgress(p,{player:0});
+  assert.equal(c.kind,'CERTIFIED_FORCING_MACRO');
+  assert.equal(c.exact,true);
+  assert.equal(c.macro.kind,'VERTICAL_THREE_STAGE');
+  assert.equal(c.selectionAuthorized,true);
+  assert.equal(c.recursive,false);
 });
 
 test('hard residual state returns NO_CERTIFICATE, not a game value',()=>{
