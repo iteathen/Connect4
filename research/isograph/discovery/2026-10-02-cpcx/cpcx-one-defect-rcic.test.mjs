@@ -22,78 +22,36 @@ function directRcic(position,setupColumn,targetCell){
   });
 }
 
-function assertFirstWin(c,label){
-  assert.equal(
-    c.kind,
-    'CERTIFIED_FIRST_WIN',
-    `${label}: ${c.seam??'no seam'} ${JSON.stringify({
-      failedNode:c.failedNode??null,
-      defenderLabel:c.defenderLabel??null,
-      repair:c.repair??null,
-      reentry:c.reentry?.seam??null,
-    })}`,
-  );
-}
-
-test('rank10 full-coverage control closes by a one-defect RCIC after pair setup',()=>{
+test('F9 full-static-coverage control falsifies the one-defect RCIC candidate',()=>{
   const p=buildCpcxPosition('4444441123',{geometry:g}),
     direct=directRcic(p,2,3*g.columns+4),
-    rows=findCpcxPairSetupOneDefectRcicCertificates(p,{attacker:0}),
-    c=bySetup(rows,'C2');
-  assertFirstWin(direct,'F9 direct RCIC');
-  assert.ok(c);
-  assert.equal(c.kind,'CERTIFIED_FIRST_WIN');
-  assert.equal(c.exact,true);
-  assert.equal(c.player,0);
-  assert.equal(c.source,'PAIR_SETUP_TO_ONE_DEFECT_RCIC');
-  assert.equal(c.targetLabel,'E4');
-  assert.equal(c.childCertificate.kind,'CERTIFIED_FIRST_WIN');
-  assert.equal(c.childCertificate.player,0);
-  assert.equal(c.childCertificate.rcic.responseTotality,true);
-  assert.equal(c.childCertificate.rcic.strictDecrease,true);
-  assert.ok(c.childCertificate.nodeCount>=1);
-  assert.ok(c.childCertificate.edgeCount>=1);
-  assert.equal(c.childCertificate.ordinaryGameTreeSearch,false);
-  assert.equal(c.childCertificate.lossDelayAssumed,false);
+    rows=findCpcxPairSetupOneDefectRcicCertificates(p,{attacker:0});
+  assert.equal(direct.kind,'NO_CERTIFICATE');
+  assert.equal(direct.exact,false);
+  assert.equal(direct.seam,'NO_TRIGGER_ADAPTIVE_ONE_DEFECT_TEMPLATE');
+  assert.equal(bySetup(rows,'C2'),null);
+  assert.equal(Object.prototype.hasOwnProperty.call(direct,'draw'),false);
+  assert.equal(Object.prototype.hasOwnProperty.call(direct,'value'),false);
 });
 
-test('two-stage renewal control closes with a strictly decreasing RCIC measure',()=>{
+test('F17 renewal control falsifies adaptive RCIC closure at a lower exact state',()=>{
   const p=buildCpcxPosition('4444417765',{geometry:g}),
     direct=directRcic(p,4,3*g.columns+2),
-    rows=findCpcxPairSetupOneDefectRcicCertificates(p,{attacker:0}),
-    c=bySetup(rows,'E2');
-  assertFirstWin(direct,'F17 direct RCIC');
-  assert.ok(c);
-  const rcic=c.childCertificate;
-  assert.equal(rcic.kind,'CERTIFIED_FIRST_WIN');
-  assert.equal(rcic.player,0);
-  assert.ok(rcic.measures.length>=2);
-  for(let i=1;i<rcic.measures.length;i++)
-    assert.ok(rcic.measures[i]>rcic.measures[i-1]||rcic.measures[i]<rcic.measures[i-1]);
-  for(const node of rcic.nodes)for(const edge of node.edges){
-    if(edge.result!=='LOWER_ONE_DEFECT')continue;
-    const child=rcic.nodes.find(x=>x.key===edge.childKey);
-    assert.ok(child);
-    assert.ok(child.measure<node.measure);
-  }
+    rows=findCpcxPairSetupOneDefectRcicCertificates(p,{attacker:0});
+  assert.equal(direct.kind,'NO_CERTIFICATE');
+  assert.equal(direct.exact,false);
+  assert.equal(direct.seam,'NO_TRIGGER_ADAPTIVE_ONE_DEFECT_TEMPLATE');
+  assert.equal(bySetup(rows,'E2'),null);
 });
 
-test('ordinary-reservoir handoff control closes without a remoteness premise',()=>{
+test('F18 ordinary-reservoir discovery chain is not a universal RCIC proof',()=>{
   const p=buildCpcxPosition('4444417465',{geometry:g}),
     direct=directRcic(p,4,3*g.columns+2),
-    rows=findCpcxPairSetupOneDefectRcicCertificates(p,{attacker:0}),
-    c=bySetup(rows,'E2');
-  assertFirstWin(direct,'F18 direct RCIC');
-  assert.ok(c);
-  assert.equal(c.childCertificate.kind,'CERTIFIED_FIRST_WIN');
-  assert.equal(c.childCertificate.lossDelayAssumed,false);
-  assert.ok(c.childCertificate.nodes.some(node=>
-    node.edges.some(edge=>
-      edge.result==='BASE_FIRST_WIN'&&
-      ['ORDINARY_TARGET_RESERVOIR','EXISTING_CPCX_FIRST_WIN','ATTACKER_TERMINAL']
-        .includes(edge.baseClass)
-    )
-  ));
+    rows=findCpcxPairSetupOneDefectRcicCertificates(p,{attacker:0});
+  assert.equal(direct.kind,'NO_CERTIFICATE');
+  assert.equal(direct.exact,false);
+  assert.equal(direct.seam,'NO_TRIGGER_ADAPTIVE_ONE_DEFECT_TEMPLATE');
+  assert.equal(bySetup(rows,'E2'),null);
 });
 
 test('localized diagonal one-defect coverage gap remains NO_CERTIFICATE',()=>{
@@ -114,7 +72,7 @@ test('localized diagonal one-defect coverage gap remains NO_CERTIFICATE',()=>{
   assert.equal(Object.prototype.hasOwnProperty.call(c,'value'),false);
 });
 
-test('one-defect RCIC is standard-board structural and search/oracle isolated',async()=>{
+test('unpromoted one-defect RCIC candidate remains structural and search/oracle isolated',async()=>{
   const {readFile}=await import('node:fs/promises');
   const source=await readFile(new URL('./cpcx-one-defect-rcic.mjs',import.meta.url),'utf8');
   for(const forbidden of [
