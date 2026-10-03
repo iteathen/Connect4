@@ -10,6 +10,12 @@ import {
 import {classifyCpcxProgress} from './cpcx-progress.mjs';
 import {runCpcxFirstWinCertificate} from './cpcx-successor.mjs';
 import {
+  findAndCertifyCpcxPairStarProgress,
+} from './cpcx-pair-star.mjs';
+import {
+  findAndCertifyCpcxPairHubForks,
+} from './cpcx-fork.mjs';
+import {
   buildCpcxMove6UnresolvedClassesArtifact,
 } from './cpcx-move6-unresolved-classes.mjs';
 import {
@@ -390,6 +396,27 @@ for(const source of sources.values()){
               p1SmallResiduals:child.terminal
                 ?[]
                 :smallResidualSummary(child,1).slice(0,24),
+              pairStar:child.terminal
+                ?[]
+                :findAndCertifyCpcxPairStarProgress(child,{player:0})
+                  .map(x=>({
+                    hub:label(x.candidate.hub),
+                    upperHub:label(x.candidate.upperHub),
+                    supportDepth:x.candidate.supportDepth,
+                    lowerLeaves:x.candidate.lowerLeaves.map(label),
+                    upperLeaves:x.candidate.upperLeaves.map(label),
+                    source:x.certificate.source,
+                    singletonCells:(x.certificate.singletonCells??[]).map(label),
+                    branchCount:x.certificate.branches?.length??0,
+                  })),
+              pairHubForks:child.terminal
+                ?[]
+                :findAndCertifyCpcxPairHubForks(child,{player:0})
+                  .map(x=>({
+                    hub:label(x.candidate.hub),
+                    singletonCells:x.certificate.singletonCells.map(label),
+                    deficiency:x.certificate.deficiency,
+                  })),
               support:child.terminal?null:Array.from(child.heights),
               rank:child.rank,
               mover:child.mover,
@@ -462,6 +489,27 @@ for(const row of endpoints){
     sourceMaskSet.has(row.descriptor.d3WindowComplex.liveMask);
 }
 
+const noTransferProbes=novelMaskSecondLayerProbes
+    .flatMap(x=>x.secondLayerRows??[])
+    .map(x=>x.noTransferTargetBlockProbe)
+    .filter(Boolean),
+  commonPostBlockP0Residuals=(()=>{
+    if(!noTransferProbes.length)return [];
+    let common=new Map(noTransferProbes[0].p0SmallResiduals.map(r=>[
+      `${r.lineId}|${r.missing.join(',')}`,r
+    ]));
+    for(const probe of noTransferProbes.slice(1)){
+      const keys=new Set(probe.p0SmallResiduals.map(r=>
+        `${r.lineId}|${r.missing.join(',')}`
+      ));
+      common=new Map([...common].filter(([k])=>keys.has(k)));
+    }
+    return [...common.values()].sort((a,b)=>
+      a.missingCount-b.missingCount||
+      a.lineId-b.lineId
+    );
+  })();
+
 const roleClasses=new Map(),coarseClasses=new Map();
 for(const row of endpoints){
   for(const [map,key] of [
@@ -502,6 +550,15 @@ console.log(JSON.stringify({
   endpoints,
   summary:{
     sourceBoundaryCount:sources.size,
+    endpointCount:endpoints.length,
+    noTransferTargetBlockProbeCount:noTransferProbes.length,
+    noTransferTargetBlockPairStarCount:noTransferProbes.reduce(
+      (n,x)=>n+(x.pairStar?.length??0),0
+    ),
+    noTransferTargetBlockPairHubForkCount:noTransferProbes.reduce(
+      (n,x)=>n+(x.pairHubForks?.length??0),0
+    ),
+    commonPostBlockP0Residuals,
     endpointCount:endpoints.length,
     terminalCount:terminals.length,
     exactSourceBandReentryCount:endpoints.filter(x=>
