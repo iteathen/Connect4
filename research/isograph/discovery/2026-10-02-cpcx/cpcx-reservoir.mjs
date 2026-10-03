@@ -357,6 +357,8 @@ export function analyzeCpcxOneDefectTargetReservoir(position,{
       maxCovered<0?defenderResiduals.length:defenderResiduals.length-maxCovered,
     fullCoverageTemplateCount:full.length,
     selectedFullCoverageTemplate:full[0]??null,
+    fullCoverageTemplates:full.slice(0,64),
+    fullCoverageTemplatesTruncated:full.length>64,
     bestPartialTemplates:best.slice(0,16),
     proofBoundary:full.length
       ?'static coverage plus one unmatched defender top event is exact structure only; first-win certification still requires a qualified defect transport/repair viability theorem'
