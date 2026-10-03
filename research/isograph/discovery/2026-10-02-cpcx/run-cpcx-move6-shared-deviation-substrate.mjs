@@ -147,6 +147,8 @@ for(let column=0;column<g.columns;column++){
     residuals,
     blockerTokens,
     firstWinFacts:successor.firstWinFacts,
+    opponentEarliestTerminalLowerBound:
+      successor.firstWinFacts?.opponentEarliestTerminalLowerBound??null,
     opponentSingletonEnvelope:singletonEnvelope,
   });
 }
@@ -203,6 +205,10 @@ const phaseKeys=active.map(row=>
 const uniquePhaseKeys=[...new Set(phaseKeys)];
 
 const commonPairCells=new Set(pairRows.flatMap(r=>r.missingCells));
+const opponentLowerBounds=active
+  .map(row=>row.opponentEarliestTerminalLowerBound)
+  .filter(Number.isInteger);
+
 const blockerAudit=active.map(row=>({
   sixthMove:row.sixthMove,
   tokenCount:row.blockerTokens.length,
@@ -238,6 +244,18 @@ console.log(JSON.stringify({
     ),
     allOpponentSingletonEnvelopesEmpty:active.every(x=>
       (x.opponentSingletonEnvelope?.possibleCells?.length??-1)===0
+    ),
+    allOpponentTerminalLowerBoundsKnown:
+      opponentLowerBounds.length===active.length,
+    sharedOpponentEarliestTerminalLowerBound:
+      opponentLowerBounds.length===active.length
+        ?Math.min(...opponentLowerBounds)
+        :null,
+    opponentTerminalLowerBoundsByMove:Object.fromEntries(
+      active.map(x=>[
+        String(x.sixthMove),
+        x.opponentEarliestTerminalLowerBound,
+      ])
     ),
     allBlockersSupportOnly:blockerAudit.every(x=>x.allSupportOnly),
     allBlockersDisjointFromCommonPair:blockerAudit.every(x=>
