@@ -49,13 +49,23 @@ function immediateTerminalCells(position,player){
   return [...cells].sort((a,b)=>a-b);
 }
 
+function contractDefender(contract){
+  const defender=contract.defender??contract.action?.owner;
+  if(defender!==0&&defender!==1)throw new TypeError('wing defender');
+  return defender;
+}
+
 function priorFixedEvents(contract,decisionIndex){
-  const events=[{cell:contract.action.cell,owner:contract.action.owner}];
+  const defender=contractDefender(contract),
+    initial=contract.initialEvents??(
+      contract.action?[{cell:contract.action.cell,owner:contract.action.owner}]:[]
+    ),
+    events=initial.map(e=>({cell:e.cell,owner:e.owner}));
   for(let i=0;i<=decisionIndex;i++){
     events.push({cell:contract.anchoredLine.triggerCells[i],owner:contract.attacker});
     if(i<decisionIndex)events.push({
       cell:contract.anchoredLine.requiredResponseCells[i],
-      owner:contract.action.owner,
+      owner:defender,
     });
   }
   return events;
@@ -131,7 +141,7 @@ export function deriveCpcxUniversalDebtRepair(position,contract,{decisionIndex=0
   if(contract.kind!=='THREE_TRIGGER_WING_ATTACK')throw new TypeError('wing contract');
   if(decisionIndex!==0&&decisionIndex!==1)throw new RangeError('decisionIndex');
 
-  const defender=contract.action.owner,attacker=contract.attacker,
+  const defender=contractDefender(contract),attacker=contract.attacker,
     prefix=priorFixedEvents(contract,decisionIndex),
     decisionPosition=virtualPosition(position,prefix),
     requiredResponseCell=contract.anchoredLine.requiredResponseCells[decisionIndex],
