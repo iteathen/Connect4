@@ -142,6 +142,57 @@ be compared modulo global complement.  Absolute vectors such as
 
 represent the same relative phase signature.
 
+## Geometry-only zero-reservation ownership corollary
+
+CPCX also defines the projected owner of an empty event by
+
+```text
+zeroReservationOwner(x)
+  = mover xor ((eventRank(x)-1) mod 2).
+```
+
+Because Player 0 starts, `mover = rank mod 2`.  On a `W x H` board,
+
+```text
+E = W*H - rank
+eventRank(x)-1 = E - H + row(x)
+```
+
+and therefore the rank terms cancel:
+
+```text
+zeroReservationOwner(x)
+ = (H*(W-1) + row(x)) mod 2.
+```
+
+So zero-reservation ownership of an untouched empty physical cell is not a
+dynamic control coordinate at all.  It is fixed by board geometry and row.
+
+For standard 7x6 Connect Four, `H*(W-1)=36` is even, hence:
+
+```text
+zeroReservationOwner(x) = row(x) mod 2.
+```
+
+For the UC4A/CPCX protected diagonal
+
+```text
+A6-B5-C4-D3
+```
+
+the geometry-fixed owner pattern is therefore:
+
+```text
+A6 -> P1
+B5 -> P0
+C4 -> P1
+D3 -> P0
+```
+
+This corollary removes projected-owner parity as an independent dynamic state
+coordinate.  Residual survival, actual ownership, support/release state, and
+first-win response capacity remain separate load-bearing facts.
+
 ## What the theorem does not preserve
 
 This theorem does **not** prove that a residual survives.
