@@ -148,6 +148,45 @@ function intersectResiduals(carriers){
   return out;
 }
 
+function opponentResidualKey(r){
+  return `${r.lineId}|${(r.missingCells??[]).join(',')}`;
+}
+
+function mergeOpponentResidualEnvelope(carriers){
+  const envelopes=carriers.map(c=>
+    c.opponentResidualEnvelope??
+    c.firstWinFacts?.opponentResidualEnvelope
+  );
+  if(envelopes.some(x=>x?.exact!==true))return {
+    exact:false,
+    possibleResiduals:[],
+    guaranteedResiduals:[],
+    source:'at least one component lacks exact opponent residual envelope',
+  };
+
+  const maps=envelopes.map(e=>
+    new Map((e.possibleResiduals??[]).map(r=>[opponentResidualKey(r),r]))
+  ),possible=new Map();
+  for(const map of maps)for(const [key,row] of map)
+    if(!possible.has(key))possible.set(key,row);
+
+  const guaranteed=[];
+  if(maps.length)for(const [key,row] of maps[0])
+    if(maps.slice(1).every(m=>m.has(key)))guaranteed.push(row);
+
+  const sort=(a,b)=>
+    a.missingCount-b.missingCount||
+    a.lineId-b.lineId||
+    a.missingCells.join(',').localeCompare(b.missingCells.join(','));
+
+  return {
+    exact:true,
+    possibleResiduals:[...possible.values()].sort(sort),
+    guaranteedResiduals:guaranteed.sort(sort),
+    source:'union/intersection of exact component opponent residual envelopes',
+  };
+}
+
 function mergeSupportPhase(carriers){
   const keys=new Map();
   for(const carrier of carriers){
@@ -473,6 +512,7 @@ export function collapseCpcxDebtRepairTokenProduct(position,contract,repair,{ret
 
   const guaranteedResiduals=intersectResiduals(continuing),
     supportPhase=mergeSupportPhase(continuing),
+    opponentResidualEnvelope=mergeOpponentResidualEnvelope(continuing),
     blockerTokens=mergeBlockerTokens(continuing),
     blockerCells=new Set(blockerTokens.flatMap(t=>t.candidateCells));
 
@@ -540,12 +580,14 @@ export function collapseCpcxDebtRepairTokenProduct(position,contract,repair,{ret
     guaranteedResiduals,
     blockerTokens,
     opponentSingletonEnvelope,
+    opponentResidualEnvelope,
     firstWinFacts:{
       repairFirstWinGuardPassed:true,
       postRepairFirstWinGuardPassed:true,
       exactVerticalHazardAuditApplied:true,
       deterministicHazardNormalizationApplied:true,
       opponentSingletonEnvelope,
+      opponentResidualEnvelope,
       nextImmediateNormalizationClosed:
         opponentSingletonEnvelope.normalizationClosed,
       opponentEarliestTerminalLowerBound:
