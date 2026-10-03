@@ -82,6 +82,6 @@ test('pair-star theorem is generic, nonrecursive, and isolated from solved/searc
     'remoteness',
     'cpc-connect4',
   ])assert.equal(source.includes(forbidden),false,forbidden);
-  assert.match(source,/strict structural\s+progress/i);
+  assert.ok(source.includes('progress primitive, not a first-win theorem.'));
   assert.match(source,/first-win guard/i);
 });
