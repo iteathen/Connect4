@@ -74,6 +74,26 @@ function normalizeResidual(residual,reflect,successor){
   return row;
 }
 
+function normalizedSupportEnvelope(envelope,reflect){
+  if(envelope?.exact!==true||!Array.isArray(envelope.vectors))return {
+    exact:false,
+    vectors:[],
+  };
+  const m=new Map();
+  for(const vector of envelope.vectors){
+    const v=reflect?[...vector].reverse():[...vector];
+    m.set(v.join(','),v);
+  }
+  return {
+    exact:true,
+    vectors:[...m.values()].sort((a,b)=>{
+      const n=Math.min(a.length,b.length);
+      for(let i=0;i<n;i++)if(a[i]!==b[i])return a[i]-b[i];
+      return a.length-b.length;
+    }),
+  };
+}
+
 function normalizedSupportPhase(phase,reflect){
   if(phase?.exact!==true||!Array.isArray(phase.vectors))return {
     exact:false,
@@ -188,6 +208,7 @@ for(let column=0;column<g.columns;column++){
     blockerTokens=(successor.blockerTokens??[])
       .map(t=>normalizedToken(t,reflect)),
     supportPhase=normalizedSupportPhase(successor.supportPhase,reflect),
+    supportEnvelope=normalizedSupportEnvelope(successor.supportEnvelope,reflect),
     opponentResidualEnvelope=normalizedOpponentEnvelope(
       successor.opponentResidualEnvelope,reflect
     ),
@@ -205,6 +226,7 @@ for(let column=0;column<g.columns;column++){
     nextMover:successor.nextMover,
     controlParityEquivalent:successor.controlParityEquivalent,
     supportPhase,
+    supportEnvelope,
     opponentResidualEnvelope,
     residuals,
     blockerTokens,
@@ -282,6 +304,37 @@ const commonPairCells=new Set(pairRows.flatMap(r=>r.missingCells));
 const opponentLowerBounds=active
   .map(row=>row.opponentEarliestTerminalLowerBound)
   .filter(Number.isInteger);
+function projectedSupportKey(row,columns){
+  return JSON.stringify({
+    exact:row.supportEnvelope?.exact===true,
+    vectors:(row.supportEnvelope?.vectors??[])
+      .map(v=>columns.map(c=>v[c]))
+      .sort((a,b)=>{
+        const n=Math.min(a.length,b.length);
+        for(let i=0;i<n;i++)if(a[i]!==b[i])return a[i]-b[i];
+        return a.length-b.length;
+      }),
+  });
+}
+const supportProjectionClasses={};
+for(const [name,columns] of Object.entries({
+  FULL:[0,1,2,3,4,5,6],
+  AD:[0,1,2,3],
+  AC:[0,1,2],
+  BC:[1,2],
+})){
+  const m=new Map();
+  for(const row of active){
+    const key=projectedSupportKey(row,columns);
+    if(!m.has(key))m.set(key,[]);
+    m.get(key).push(row.sixthMove);
+  }
+  supportProjectionClasses[name]=[...m.entries()].map(([key,moves])=>({
+    moves,
+    envelope:JSON.parse(key),
+  }));
+}
+
 const opponentEnvelopeClasses=new Map();
 for(const row of active){
   const key=JSON.stringify(row.opponentResidualEnvelope);
@@ -323,6 +376,10 @@ console.log(JSON.stringify({
     allSupportPhaseExact:active.every(x=>x.supportPhase?.exact===true),
     supportPhaseClassCount:uniquePhaseKeys.length,
     allSupportPhaseClassesEqual:uniquePhaseKeys.length===1,
+    supportEnvelopeProjectionClassCounts:Object.fromEntries(
+      Object.entries(supportProjectionClasses).map(([k,v])=>[k,v.length])
+    ),
+    supportEnvelopeProjectionClasses:supportProjectionClasses,
     supportPhaseClass:uniquePhaseKeys.length===1?active[0].supportPhase:null,
     allOpponentSingletonEnvelopesExact:active.every(x=>
       x.opponentSingletonEnvelope?.exact===true
