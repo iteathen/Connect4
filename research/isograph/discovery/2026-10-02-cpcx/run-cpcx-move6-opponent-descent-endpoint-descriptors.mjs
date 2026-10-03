@@ -358,7 +358,54 @@ for(const source of sources.values()){
         const finalDescriptor=x.finalPosition&&x.finalResidual
           ?descriptor(x.finalPosition,x.finalResidual)
           :null;
-        let noTransferTargetBlockProbe=null;
+        let preControllerClosureProbe=null,
+          noTransferTargetBlockProbe=null;
+        if(finalDescriptor&&
+           finalDescriptor.d3WindowComplex.liveMask==='100000'&&
+           Number.isInteger(x.eventCell)){
+          const immediateChild=applyCpcxForcedEvent(
+              row.finalPosition,x.eventCell
+            ),
+            im=immediateChild.terminal
+              ?null
+              :classifyCpcxImmediate(immediateChild),
+            pr=immediateChild.terminal
+              ?null
+              :classifyCpcxProgress(immediateChild,{player:0}),
+            fw=immediateChild.terminal
+              ?null
+              :runCpcxFirstWinCertificate(immediateChild,{attacker:0});
+          preControllerClosureProbe={
+            eventCell:label(x.eventCell),
+            terminal:immediateChild.terminal,
+            immediate:im?{
+              kind:im.kind,
+              mover:im.mover??null,
+              cell:Number.isInteger(im.cell)?label(im.cell):null,
+              winningCells:(im.winningCells??[]).map(label),
+              threatCells:(im.threatCells??
+                im.opponentThreatCells??[]).map(label),
+            }:null,
+            progress:pr?progressSummary(pr):null,
+            firstWin:fw?{
+              kind:fw.kind,
+              exact:fw.exact??false,
+              player:fw.player??null,
+              seam:fw.seam??null,
+              traceLength:fw.trace?.length??0,
+            }:null,
+            p0SmallResiduals:immediateChild.terminal
+              ?[]
+              :smallResidualSummary(immediateChild,0).slice(0,24),
+            p1SmallResiduals:immediateChild.terminal
+              ?[]
+              :smallResidualSummary(immediateChild,1).slice(0,24),
+            support:immediateChild.terminal
+              ?null:Array.from(immediateChild.heights),
+            rank:immediateChild.rank,
+            mover:immediateChild.mover,
+          };
+        }
         if(finalDescriptor&&
            finalDescriptor.d3WindowComplex.liveMask==='100000'&&
            x.finalPosition&&x.finalResidual){
@@ -527,6 +574,7 @@ for(const source of sources.values()){
             supportResource:finalDescriptor.supportResource,
             d3WindowComplex:finalDescriptor.d3WindowComplex,
           }:null,
+          preControllerClosureProbe,
           noTransferTargetBlockProbe,
         };
       });
@@ -816,6 +864,8 @@ console.log(JSON.stringify({
     secondLayerProbeIsFalsificationOnly:true,
     noSecondLayerResultUsedAsProofPremise:true,
     noTransferTargetBlockProbeRestrictedToSingleExposedTarget:true,
+    preControllerClosureProbeInspectsExistingSecondLayerEventOnly:true,
+    preControllerClosureProbeIsFalsificationOnly:true,
     noTransferTargetBlockProbeIsFalsificationOnly:true,
     f6ResponseProbeIsOneCurrentOpponentLayerOnly:true,
     f6ResponseProbeIsFalsificationOnly:true,
