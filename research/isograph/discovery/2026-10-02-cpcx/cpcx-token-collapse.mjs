@@ -164,15 +164,39 @@ function mergeOpponentResidualEnvelope(carriers){
     source:'at least one component lacks exact opponent residual envelope',
   };
 
-  const maps=envelopes.map(e=>
-    new Map((e.possibleResiduals??[]).map(r=>[opponentResidualKey(r),r]))
-  ),possible=new Map();
-  for(const map of maps)for(const [key,row] of map)
-    if(!possible.has(key))possible.set(key,row);
+  function mergeRows(rows){
+    const m=new Map();
+    for(const row of rows){
+      const key=opponentResidualKey(row);
+      if(!m.has(key))m.set(key,{
+        ...row,
+        missingCells:[...(row.missingCells??[])],
+        supportProfiles:[],
+        supportProfilesExact:true,
+      });
+      const out=m.get(key);
+      if(row.supportProfilesExact!==true||!Array.isArray(row.supportProfiles))
+        out.supportProfilesExact=false;
+      for(const profile of row.supportProfiles??[])
+        if(!out.supportProfiles.some(x=>x.join(',')===profile.join(',')))
+          out.supportProfiles.push([...profile]);
+    }
+    for(const row of m.values())row.supportProfiles.sort((a,b)=>{
+      const n=Math.min(a.length,b.length);
+      for(let i=0;i<n;i++)if(a[i]!==b[i])return a[i]-b[i];
+      return a.length-b.length;
+    });
+    return m;
+  }
 
-  const guaranteed=[];
-  if(maps.length)for(const [key,row] of maps[0])
-    if(maps.slice(1).every(m=>m.has(key)))guaranteed.push(row);
+  const maps=envelopes.map(e=>mergeRows(e.possibleResiduals??[])),
+    possible=mergeRows(envelopes.flatMap(e=>e.possibleResiduals??[])),
+    guaranteedKeys=maps.length
+      ?[...maps[0].keys()].filter(key=>maps.slice(1).every(m=>m.has(key)))
+      :[],
+    guaranteed=mergeRows(guaranteedKeys.flatMap(key=>
+      maps.map(m=>m.get(key))
+    ));
 
   const sort=(a,b)=>
     a.missingCount-b.missingCount||
@@ -182,8 +206,8 @@ function mergeOpponentResidualEnvelope(carriers){
   return {
     exact:true,
     possibleResiduals:[...possible.values()].sort(sort),
-    guaranteedResiduals:guaranteed.sort(sort),
-    source:'union/intersection of exact component opponent residual envelopes',
+    guaranteedResiduals:[...guaranteed.values()].sort(sort),
+    source:'union/intersection of exact component opponent residual envelopes with support-profile relation preserved',
   };
 }
 
