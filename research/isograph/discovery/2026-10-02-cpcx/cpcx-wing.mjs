@@ -109,7 +109,12 @@ export function compileCpcxPostActionWingAttack(position,{
   if(anchorCells.length!==1||position.owner[anchorCells[0]]!==attacker)
     throw new Error('anchored line premise failed');
 
-  const triggers=[...bottom.missingCells].sort((a,b)=>a-b),
+  const anchorColumn=cpcxCell(g,anchorCells[0]).column,
+    triggers=[...bottom.missingCells].sort((a,b)=>{
+      const ca=cpcxCell(g,a).column,cb=cpcxCell(g,b).column,
+        da=Math.abs(ca-anchorColumn),db=Math.abs(cb-anchorColumn);
+      return db-da||ca-cb;
+    }),
     responses=triggers.map(cell=>cell+g.columns);
   for(let i=0;i<triggers.length;i++){
     const t=cpcxCell(g,triggers[i]),r=cpcxCell(g,responses[i]);
@@ -143,6 +148,7 @@ export function compileCpcxPostActionWingAttack(position,{
     },
     anchoredLine:{
       lineId:line.id,
+      triggerOrder:'OUTER_TO_ANCHOR_REFLECTION_CANONICAL',
       lineCells:[...line.cells],
       anchorCell:anchorCells[0],
       triggerCells:triggers,
