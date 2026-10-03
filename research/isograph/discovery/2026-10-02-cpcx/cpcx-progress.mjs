@@ -25,6 +25,10 @@ import {
   certifyEitherCpcxPlayableTwoPiece,
 } from './cpcx-two-piece.mjs';
 import {deriveCpcxDisjunctiveBlockObligation} from './cpcx-cpc2.mjs';
+import {
+  findCpcxTruncatedTargetReservoirCertificates,
+  findCpcxTargetReservoirSetupCertificates,
+} from './cpcx-reservoir.mjs';
 
 function firstWin(player,source,certificate){
   return {
@@ -87,6 +91,18 @@ export function classifyCpcxProgress(position,{player=position.mover}={}){
       a.certificate.kind.localeCompare(b.certificate.kind)
     )[0];
     return firstWin(player,'PAIR_HUB_FORK',selected);
+  }
+
+  if(player!==position.mover){
+    const reservoirs=findCpcxTruncatedTargetReservoirCertificates(
+      position,{attacker:player,obligations}
+    );
+    if(reservoirs.length)
+      return firstWin(player,'TRUNCATED_TARGET_RESERVOIR',reservoirs[0]);
+  }else{
+    const setups=findCpcxTargetReservoirSetupCertificates(position,{attacker:player});
+    if(setups.length)
+      return firstWin(player,'TARGET_RESERVOIR_SETUP',setups[0]);
   }
 
   const cpc2=player!==position.mover
