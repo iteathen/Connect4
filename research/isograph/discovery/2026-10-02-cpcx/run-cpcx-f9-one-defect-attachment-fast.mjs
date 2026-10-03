@@ -14,7 +14,7 @@ const g=createCpcxGeometry(),
   child=applyCpcxForcedEvent(root,setupCell),
   targetCell=3*g.columns+4,
   c=certifyCpcxOneDefectAttachmentRcic(child,{
-    attacker:0,targetCell,maxNodes:2048,useCpc2Restriction:true,
+    attacker:0,targetCell,maxNodes:128,useCpc2Restriction:true,
   });
 
 console.log(JSON.stringify({
@@ -31,7 +31,7 @@ console.log(JSON.stringify({
   reservoirRanks:c.reservoirRanks??null,
   firstUnresolved:(c.unresolvedNodes??[])[0]??null,
   premises:{
-    nodeBound:2048,
+    nodeBound:128,
     diagnosticOnly:true,
     retainedFalsifier:true,
     solvedData:false,
