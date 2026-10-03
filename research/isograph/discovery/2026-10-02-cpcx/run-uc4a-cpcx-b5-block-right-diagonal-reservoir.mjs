@@ -121,6 +121,46 @@ function reservoirSummary(x){
   };
 }
 
+function oneDefectTemplateDetail(position,analysis){
+  const selected=analysis.selectedFullCoverageTemplate??
+      analysis.bestPartialTemplates?.[0]??null;
+  if(!selected)return null;
+  const obligations=new Map(scanCpcxObligations(position)
+    .map(o=>[o.lineId,o]));
+  function residualDetail(row){
+    const o=obligations.get(row.lineId);
+    return {
+      lineId:row.lineId,
+      lineLabel:row.lineLabel,
+      orientation:o?.orientation??null,
+      missingCount:row.missingCount,
+      missing:(row.missingCells??[]).map(label),
+      support:o?.events.map(e=>e.supportDistance)??[],
+      playable:o?.currentlyPlayableCells.map(label)??[],
+    };
+  }
+  return {
+    fullCoverage:selected.uncoveredResidualCount===0,
+    targetDepth:selected.targetDepth,
+    targetPrefixLength:selected.targetPrefixLength,
+    tailLengths:[...(selected.tailLengths??[])],
+    defect:selected.defect?{
+      column:selected.defect.column+1,
+      cell:label(selected.defect.cell),
+      tailLength:selected.defect.tailLength,
+      role:selected.defect.role,
+    }:null,
+    synchronizedPairs:(selected.synchronizedPairs??[]).map(p=>({
+      columns:p.columns.map(c=>c+1),
+      prefixLength:p.prefixLength,
+      parityClass:p.parityClass??null,
+    })),
+    coveredResidualCount:selected.coveredResidualCount,
+    uncoveredResidualCount:selected.uncoveredResidualCount,
+    uncovered:(selected.uncovered??[]).map(residualDetail),
+  };
+}
+
 const rows=[];
 for(const f of fixtures){
   const source=buildCpcxPosition(f.sequence,{geometry:g}),
@@ -192,6 +232,7 @@ for(const f of fixtures){
     reservoir:{
       ordinary:reservoirSummary(ordinary),
       oneDefect:reservoirSummary(oneDefect),
+      oneDefectTemplate:oneDefectTemplateDetail(afterSetup,oneDefect),
       truncated:reservoirSummary(truncated),
       certificate:{
         kind:certificate.kind,
@@ -234,6 +275,12 @@ console.log(JSON.stringify({
     truncatedKinds:[...new Set(rows.map(r=>
       r.reservoir.truncated.kind
     ))].sort(),
+    selectedDefectColumnsByFixture:Object.fromEntries(rows.map(r=>[
+      r.id,r.reservoir.oneDefectTemplate?.defect?.column??null
+    ])),
+    uncoveredResidualsByFixture:Object.fromEntries(rows.map(r=>[
+      r.id,r.reservoir.oneDefectTemplate?.uncovered??[]
+    ])),
     exactFirstWinFixtures:rows.filter(r=>
       r.reservoir.certificate.kind==='CERTIFIED_FIRST_WIN'&&
       r.reservoir.certificate.player===0
