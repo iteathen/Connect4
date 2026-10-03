@@ -516,6 +516,205 @@ function synthesizeTemplate(position,targetCell,defenderResiduals){
   return found;
 }
 
+function partialTruncatedTemplateEvidence(
+  position,targetCell,defenderResiduals,capacity,partner,length
+){
+  const g=position.geometry,{column:tc,row:tr}=cpcxCell(g,targetCell),
+    targetDepth=tr-position.heights[tc],
+    targetL=partner[tc]>=0?length[tc]:0,
+    targetIsAttackerResponse=
+      targetDepth>=targetL+1&&((targetDepth-(targetL+1))&1)===0;
+  if(!targetIsAttackerResponse)return null;
+
+  const coverage=[],uncovered=[];
+  for(const residual of defenderResiduals){
+    const witness=coverageWitness(
+      position,residual,targetCell,partner,length
+    ),row={
+      obligationId:residual.id,
+      lineId:residual.lineId,
+      lineLabel:residual.lineLabel,
+      orientation:residual.orientation,
+      missingCount:residual.missingCount,
+      missingCells:[...residual.missingCells],
+    };
+    if(witness)coverage.push({...row,witness});
+    else uncovered.push(row);
+  }
+
+  const synchronizedPairs=[];
+  for(let c=0;c<g.columns;c++){
+    const p=partner[c];
+    if(p>=0&&c<p)synchronizedPairs.push({
+      columns:[c,p],
+      prefixLength:length[c],
+    });
+  }
+  return {
+    targetDepth,
+    targetPrefixLength:targetL,
+    targetIsAttackerResponse:true,
+    synchronizedPairs,
+    defenderResidualCount:defenderResiduals.length,
+    coveredResidualCount:coverage.length,
+    uncoveredResidualCount:uncovered.length,
+    coverage,
+    uncovered,
+  };
+}
+
+export function analyzeCpcxTruncatedTargetReservoirCoverage(position,{
+  attacker=position.mover^1,
+  targetCell,
+  obligations=scanCpcxObligations(position),
+}={}){
+  if(attacker!==0&&attacker!==1)throw new RangeError('attacker');
+  if(!Number.isInteger(targetCell))throw new RangeError('targetCell');
+  const g=position.geometry,defender=attacker^1;
+  if(g.columns!==7||g.rows!==6||g.connect!==4)return {
+    schema:'connect4.cpcx.truncated-target-coverage-analysis.v0_1',
+    kind:'UNSUPPORTED_GEOMETRY',
+    exact:false,
+    attacker,defender,
+  };
+
+  const target=targetSingleton(obligations,attacker,targetCell);
+  if(!target)return {
+    schema:'connect4.cpcx.truncated-target-coverage-analysis.v0_1',
+    kind:'TARGET_NOT_ACTIVE_ATTACKER_SINGLETON',
+    exact:true,
+    attacker,defender,targetCell,
+  };
+  if(position.mover!==defender)return {
+    schema:'connect4.cpcx.truncated-target-coverage-analysis.v0_1',
+    kind:'DEFENDER_NOT_TO_MOVE',
+    exact:true,
+    attacker,defender,targetCell,
+  };
+  if(target.events[0].supportDistance<=0)return {
+    schema:'connect4.cpcx.truncated-target-coverage-analysis.v0_1',
+    kind:'TARGET_NOT_NONPLAYABLE',
+    exact:true,
+    attacker,defender,targetCell,
+  };
+
+  const capacity=relevantCapacity(position,targetCell);
+  if(!capacity)return {
+    schema:'connect4.cpcx.truncated-target-coverage-analysis.v0_1',
+    kind:'TARGET_CAPACITY_INVALID',
+    exact:true,
+    attacker,defender,targetCell,
+  };
+  let totalRelevantEvents=0;
+  const odd=[];
+  for(let c=0;c<g.columns;c++){
+    totalRelevantEvents+=capacity[c];
+    if(capacity[c]&1)odd.push(c);
+  }
+  if(totalRelevantEvents&1||odd.length&1)return {
+    schema:'connect4.cpcx.truncated-target-coverage-analysis.v0_1',
+    kind:'PAIRING_PARITY_INADMISSIBLE',
+    exact:true,
+    attacker,defender,targetCell,
+    capacity:Array.from(capacity),
+    totalRelevantEvents,
+    oddColumns:odd,
+  };
+
+  const defenderResiduals=obligations.filter(o=>o.player===defender),
+    partner=new Int16Array(g.columns),
+    length=new Int16Array(g.columns);
+  partner.fill(-1);
+  let candidateCount=0,maxCovered=-1;
+  const full=[],best=[];
+
+  function record(){
+    const evidence=partialTruncatedTemplateEvidence(
+      position,targetCell,defenderResiduals,capacity,partner,length
+    );
+    if(!evidence)return;
+    candidateCount+=1;
+    const row={
+      partner:Array.from(partner),
+      prefixLength:Array.from(length),
+      ...evidence,
+    };
+    if(evidence.coveredResidualCount>maxCovered){
+      maxCovered=evidence.coveredResidualCount;
+      best.length=0;
+      best.push(row);
+    }else if(evidence.coveredResidualCount===maxCovered){
+      best.push(row);
+    }
+    if(evidence.uncoveredResidualCount===0)full.push(row);
+  }
+
+  function rec(pending){
+    if(!pending.length){record();return;}
+    const a=pending[0];
+    for(let j=1;j<pending.length;j++){
+      const b=pending[j],
+        rest=pending.filter((_,k)=>k!==0&&k!==j),
+        max=Math.min(capacity[a],capacity[b]);
+      partner[a]=b;partner[b]=a;
+      for(let L=1;L<=max;L+=2){
+        const {column:tc}=cpcxCell(g,targetCell);
+        if((a===tc||b===tc)&&L>=capacity[tc])continue;
+        length[a]=L;length[b]=L;
+        rec(rest);
+      }
+      partner[a]=-1;partner[b]=-1;
+      length[a]=0;length[b]=0;
+    }
+  }
+
+  if(!odd.length)record();
+  else rec(odd);
+
+  const sort=(a,b)=>
+    a.uncoveredResidualCount-b.uncoveredResidualCount||
+    a.synchronizedPairs.length-b.synchronizedPairs.length||
+    a.synchronizedPairs.reduce((n,p)=>n+p.prefixLength,0)-
+      b.synchronizedPairs.reduce((n,p)=>n+p.prefixLength,0)||
+    a.partner.join(',').localeCompare(b.partner.join(','))||
+    a.prefixLength.join(',').localeCompare(b.prefixLength.join(','));
+  full.sort(sort);best.sort(sort);
+
+  return {
+    schema:'connect4.cpcx.truncated-target-coverage-analysis.v0_1',
+    kind:full.length
+      ?'TRUNCATED_TARGET_STATIC_COVERAGE'
+      :'TRUNCATED_TARGET_STATIC_COVERAGE_GAP',
+    exact:true,
+    attacker,defender,
+    target:{
+      cell:targetCell,
+      label:labelCell(g,targetCell),
+      supportDistance:target.events[0].supportDistance,
+      obligationId:target.id,
+      lineId:target.lineId,
+      lineLabel:target.lineLabel,
+    },
+    capacity:Array.from(capacity),
+    totalRelevantEvents,
+    oddColumns:odd,
+    defenderResidualCount:defenderResiduals.length,
+    candidateCount,
+    maxCoveredResiduals:maxCovered,
+    minimumUncoveredResiduals:
+      maxCovered<0?defenderResiduals.length:defenderResiduals.length-maxCovered,
+    fullCoverageTemplateCount:full.length,
+    selectedFullCoverageTemplate:full[0]??null,
+    bestPartialTemplates:best.slice(0,16),
+    proofBoundary:full.length
+      ?'static ordinary-reservoir coverage only; certification still requires the qualified target-reservoir guards'
+      :'bounded standard7x6 ordinary-reservoir template synthesis leaves explicit uncovered defender residuals; diagnostic only',
+    firstWinCertified:false,
+    recursive:false,
+    gameTreeTraversal:false,
+  };
+}
+
 export function certifyCpcxTruncatedTargetReservoir(position,{
   attacker=position.mover^1,
   targetCell,
