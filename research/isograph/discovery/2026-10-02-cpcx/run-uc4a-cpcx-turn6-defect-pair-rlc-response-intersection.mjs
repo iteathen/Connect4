@@ -45,6 +45,14 @@ function rowSummary(x){
     H:x.H,
   };
 }
+function candidateResponse(x,eventColumn){
+  const distance=Math.abs(x-4);
+  if(distance===1)return x;
+  if(distance===2)
+    return eventColumn===1||eventColumn===7?x:eventColumn;
+  if(distance===3)return eventColumn;
+  throw new Error('off-center defect column required');
+}
 
 const rows=[];
 for(const x of [1,2,3,5,6,7]){
@@ -91,8 +99,11 @@ for(const x of [1,2,3,5,6,7]){
       mAligned=maxima(qAligned),
       common=commonColumns(mDefect,mAligned);
 
+    const eventColumn=cpcxCell(g,eventCell).column+1,
+      selected=candidateResponse(x,eventColumn);
     responses.push({
       p2Event:label(eventCell),
+      p2EventColumn:eventColumn,
       transportKind:transport.kind,
       sourceDefectSize:transport.sourceDefectSize??null,
       targetDefectSize:transport.targetDefectSize??null,
@@ -101,6 +112,8 @@ for(const x of [1,2,3,5,6,7]){
       alignedMaxima:mAligned.map(rowSummary),
       commonMaxColumns:common.map(c=>c+1),
       hasCommonParetoResponse:common.length>0,
+      candidateResponseColumn:selected,
+      candidateResponseInCommonPareto:common.includes(selected-1),
       sameParetoSet:
         JSON.stringify(mDefect.map(r=>r.column))===
         JSON.stringify(mAligned.map(r=>r.column)),
@@ -145,6 +158,17 @@ console.log(JSON.stringify({
       alignedMaxima:x.alignedMaxima,
     })),
     sameParetoSetCount:nonterminal.filter(x=>x.sameParetoSet).length,
+    everyCandidateResponseIsCommonPareto:
+      nonterminal.every(x=>x.candidateResponseInCommonPareto),
+    candidatePolicyFailures:nonterminal.filter(x=>
+      !x.candidateResponseInCommonPareto
+    ).map(x=>({
+      sourceX:x.sourceX,
+      p2Event:x.p2Event,
+      candidateResponseColumn:x.candidateResponseColumn,
+      commonMaxColumns:x.commonMaxColumns,
+    })),
+    candidatePolicy:'d=1 -> defect column; d=2 -> echo event except edge -> defect column; d=3 -> echo event',
     commonResponseCardinalityClasses:[
       ...new Set(nonterminal.map(x=>x.commonMaxColumns.length))
     ].sort((a,b)=>a-b),
@@ -162,6 +186,7 @@ console.log(JSON.stringify({
     nextControllerStepIsCurrentRankOnly:true,
     rlcRuleIsTheOriginalABParetoRuleOnExactSaturatedColumnCofactor:true,
     noSecondAdversaryLayer:true,
+    candidateResponseRuleIsDiagnosticNotPromoted:true,
     noValueConclusion:true,
     noSolvedData:true,
     noOracle:true,
