@@ -14,7 +14,10 @@ import {
 } from './cpcx-wing.mjs';
 import {classifyCpcxProgress} from './cpcx-progress.mjs';
 import {runCpcxFirstWinCertificate} from './cpcx-successor.mjs';
-import {analyzeCpcxTargetReservoir} from './cpcx-reservoir.mjs';
+import {
+  analyzeCpcxTargetReservoir,
+  analyzeCpcxOneDefectTargetReservoir,
+} from './cpcx-reservoir.mjs';
 
 const g=createCpcxGeometry(),root=buildCpcxPosition('44444',{geometry:g});
 
@@ -158,7 +161,11 @@ function pairCompressionProbe(position){
     afterSetup=applyCpcxForcedEvent(position,playable),
     reservoirAnalysis=afterSetup.terminal?null:analyzeCpcxTargetReservoir(
       afterSetup,{attacker:0,targetCell}
-    );
+    ),
+    oneDefectReservoirAnalysis=afterSetup.terminal?null:
+      analyzeCpcxOneDefectTargetReservoir(
+        afterSetup,{attacker:0,targetCell}
+      );
   if(afterSetup.terminal)return {
     pairLine:pair.lineLabel,
     setupCell:label(playable),
@@ -203,6 +210,7 @@ function pairCompressionProbe(position){
     targetCell:label(targetCell),
     afterSetupSupport:Array.from(afterSetup.heights),
     reservoirAnalysis,
+    oneDefectReservoirAnalysis,
     defectColumnExhaustion:afterSetup.terminal?[]:defectColumnExhaustionProbe(afterSetup,reservoirAnalysis),
     replies,
     closedReplyCount:replies.filter(x=>
