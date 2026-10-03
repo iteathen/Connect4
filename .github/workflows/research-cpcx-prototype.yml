@@ -34,6 +34,7 @@ jobs:
           node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6.mjs > cpcx-move6.json
           node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-seams.mjs > cpcx-move6-seams.json
           node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-carriers.mjs > cpcx-move6-carriers.json
+          node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-components.mjs > cpcx-move6-components.json
 
       - name: Verify CPCX dependency isolation
         run: node research/isograph/discovery/2026-10-02-cpcx/verify-cpcx-isolation.mjs
@@ -63,4 +64,5 @@ jobs:
             cpcx-move6.json
             cpcx-move6-seams.json
             cpcx-move6-carriers.json
+            cpcx-move6-components.json
           if-no-files-found: error
