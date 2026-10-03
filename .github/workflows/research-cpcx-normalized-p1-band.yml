@@ -1,0 +1,38 @@
+name: Research CPCX normalized P1 band
+
+on:
+  push:
+    branches:
+      - experiment/cpcx-20261002
+    paths:
+      - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-normalized-p1-band-response-descent.mjs
+      - research/isograph/discovery/2026-10-02-cpcx/cpcx-controller-saturation.mjs
+      - research/isograph/discovery/2026-10-02-cpcx/cpcx-forced-normalization.mjs
+      - research/isograph/discovery/2026-10-02-cpcx/cpcx-support-transition.mjs
+      - research/isograph/discovery/2026-10-02-cpcx/cpcx-diagonal-transfer.mjs
+      - research/isograph/discovery/2026-10-02-cpcx/cpcx-diagonal-anchor-pivot.mjs
+      - research/isograph/discovery/2026-10-02-cpcx/cpcx-move6-unresolved-classes.mjs
+      - .github/workflows/research-cpcx-normalized-p1-band.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: "26.7.0"
+      - name: Requalify controller saturation
+        run: node --test research/isograph/discovery/2026-10-02-cpcx/cpcx-controller-saturation.test.mjs
+      - name: Audit normalized P1 band
+        run: node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-normalized-p1-band-response-descent.mjs > cpcx-move6-normalized-p1-band-response-descent.json
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: cpcx-normalized-p1-band
+          path: cpcx-move6-normalized-p1-band-response-descent.json
+          if-no-files-found: error
