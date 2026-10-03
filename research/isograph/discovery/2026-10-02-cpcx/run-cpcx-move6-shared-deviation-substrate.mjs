@@ -24,9 +24,19 @@ function lineKey(lineId,reflect){
 }
 
 function normalizeResidual(residual,reflect,successor){
-  const mappedCells=residual.missingCells
-    .map(cell=>reflect?reflectCpcxCell(g,cell):cell)
-    .sort((a,b)=>a-b);
+  const originalCells=[...residual.missingCells],
+    mappedCellPairs=originalCells.map((cell,index)=>({
+      cell:reflect?reflectCpcxCell(g,cell):cell,
+      index,
+    })).sort((a,b)=>a.cell-b.cell),
+    mappedCells=mappedCellPairs.map(x=>x.cell),
+    supportProfiles=(residual.supportProfiles??[]).map(profile=>
+      mappedCellPairs.map(x=>profile[x.index])
+    ).sort((a,b)=>{
+      const n=Math.min(a.length,b.length);
+      for(let i=0;i<n;i++)if(a[i]!==b[i])return a[i]-b[i];
+      return a.length-b.length;
+    });
   const events=residual.events.map(e=>({
     cell:reflect?reflectCpcxCell(g,e.cell):e.cell,
     minSupportDistance:e.minSupportDistance,
@@ -44,6 +54,8 @@ function normalizeResidual(residual,reflect,successor){
     lineGeometry:lineKey(residual.lineId,reflect),
     missingCells:mappedCells,
     events,
+    supportProfiles,
+    supportProfilesExact:residual.supportProfilesExact===true,
     earliestCompletionLowerBound:
       lowerBoundCpcxAbstractResidualCompletion(
         {...successor,geometry:g},
@@ -173,6 +185,18 @@ const pairRows=common.filter(r=>
   r.missingCount===2&&
   (r.orientation==='D+'||r.orientation==='D-')
 );
+const pairSupportProfileClasses=new Map();
+for(const row of active){
+  const pair=row.residuals.find(r=>
+    r.missingCount===2&&
+    r.missingCells[0]===15&&r.missingCells[1]===23
+  );
+  const key=JSON.stringify(pair?.supportProfiles??[]);
+  if(!pairSupportProfileClasses.has(key))
+    pairSupportProfileClasses.set(key,[]);
+  pairSupportProfileClasses.get(key).push(row.sixthMove);
+}
+
 const nested=[];
 for(const pair of pairRows){
   const pairSet=new Set(pair.missingCells);
@@ -232,6 +256,10 @@ console.log(JSON.stringify({
     carrierCount:active.length,
     commonResidualCount:common.length,
     commonDiagonalPairCount:pairRows.length,
+    sharedPairSupportProfileClassCount:pairSupportProfileClasses.size,
+    sharedPairSupportProfileClasses:[...pairSupportProfileClasses.entries()]
+      .map(([key,moves])=>({moves,supportProfiles:JSON.parse(key)})),
+    allSevenSharePairSupportProfiles:pairSupportProfileClasses.size===1,
     nestedCommonRelationCount:nested.length,
     allNextMoverP0:active.every(x=>x.nextMover===0),
     allControlParityEquivalent:active.every(x=>x.controlParityEquivalent===true),
