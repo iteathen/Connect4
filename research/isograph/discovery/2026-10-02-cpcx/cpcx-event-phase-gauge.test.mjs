@@ -83,7 +83,7 @@ test('phase transport fails closed when a selected target becomes occupied',()=>
 
 test('zero-reservation owner is invariant across rank and support changes',()=>{
   const a=buildCpcxPosition('13',{geometry:g}),
-    b=buildCpcxPosition('1314',{geometry:g}),
+    b=buildCpcxPosition('131',{geometry:g}),
     cells=[cell(0,2),cell(2,3),cell(4,1)],
     qa=deriveCpcxEventPhaseGauge(a,cells),
     qb=deriveCpcxEventPhaseGauge(b,cells);
