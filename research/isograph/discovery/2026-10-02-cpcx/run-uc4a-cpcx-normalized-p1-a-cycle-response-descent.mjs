@@ -99,6 +99,71 @@ function descriptorKey(d){
 function immediateSummary(x){
   return {kind:x.kind,mover:x.mover??null,cell:Number.isInteger(x.cell)?label(x.cell):null,winningCells:(x.winningCells??[]).map(label),opponentThreatCells:(x.opponentThreatCells??x.threatCells??[]).map(label)};
 }
+function highestRowSafetyWitness(position,R){
+  const ordered=[...R.events].sort((a,b)=>
+      b.row-a.row||a.column-b.column||a.cell-b.cell
+    ),
+    target=ordered[0];
+  if(!target)return {kind:'NO_TARGET',exact:false};
+  if(target.supportDistance===0)return {
+    kind:'HIGHEST_TARGET_PLAYABLE',
+    exact:true,
+    targetCell:label(target.cell),
+    supportDistance:0,
+    actionCell:label(target.cell),
+    releasedCell:null,
+    lineWitnesses:[],
+  };
+  const g=position.geometry,
+    actionCell=position.heights[target.column]*g.columns+target.column,
+    child=applyCpcxForcedEvent(position,actionCell);
+  if(child.terminal)return {
+    kind:'HIGHEST_SUPPORT_TERMINAL',
+    exact:child.terminal.player===R.player,
+    targetCell:label(target.cell),
+    supportDistance:target.supportDistance,
+    actionCell:label(actionCell),
+    terminal:child.terminal,
+    releasedCell:null,
+    lineWitnesses:[],
+  };
+  const nextRow=child.heights[target.column],
+    releasedCell=nextRow<g.rows?nextRow*g.columns+target.column:null,
+    opponent=R.player^1,
+    witnesses=[];
+  if(Number.isInteger(releasedCell)){
+    for(const lineId of g.cellLines[releasedCell]){
+      const line=g.lines[lineId],
+        controllerCells=line.cells.filter(cell=>child.owner[cell]===R.player),
+        opponentCells=line.cells.filter(cell=>child.owner[cell]===opponent),
+        emptyCells=line.cells.filter(cell=>child.owner[cell]===-1);
+      let classification='OTHER';
+      if(controllerCells.length)classification='CONTROLLER_BLOCKED';
+      else if(emptyCells.length!==1)classification='NOT_SINGLETON';
+      else if(emptyCells[0]===releasedCell&&
+              opponentCells.length===line.cells.length-1)
+        classification='OPPONENT_SINGLETON';
+      witnesses.push({
+        lineId,
+        lineLabel:line.cells.map(label).join('-'),
+        orientation:line.orientation,
+        classification,
+        controllerCells:controllerCells.map(label),
+        opponentCells:opponentCells.map(label),
+        emptyCells:emptyCells.map(label),
+      });
+    }
+  }
+  return {
+    kind:'HIGHEST_SUPPORT_SAFETY_WITNESS',
+    exact:witnesses.every(x=>x.classification!=='OPPONENT_SINGLETON'),
+    targetCell:label(target.cell),
+    supportDistance:target.supportDistance,
+    actionCell:label(actionCell),
+    releasedCell:Number.isInteger(releasedCell)?label(releasedCell):null,
+    lineWitnesses:witnesses,
+  };
+}
 function existingCertificate(position){
   const c=runCpcxFirstWinCertificate(position,{attacker:0});
   return {
@@ -169,7 +234,8 @@ function controllerDescent(position,R){
   return controllerDescentNoNormalization(position,R);
 }
 function controllerDescentNoNormalization(position,R){
-  const immediate=classifyCpcxImmediate(position),candidates=[];
+  const immediate=classifyCpcxImmediate(position),candidates=[],
+    highestRowSafety=highestRowSafetyWitness(position,R);
   if(immediate.kind==='IMMEDIATE_TERMINAL_AVAILABLE'&&immediate.mover===R.player){
     for(const targetCell of R.missingCells){
       if(!(immediate.winningCells??[]).includes(targetCell))continue;
@@ -227,7 +293,7 @@ function controllerDescentNoNormalization(position,R){
     };
   });
   const scored=candidates.map(c=>({c,score:c.kind==='CERTIFIED_FIRST_WIN'?0:c.kind==='PROTECTED_RESIDUAL_TARGET_ACQUISITION'?1:2})).sort((a,b)=>a.score-b.score||((a.c.targetCell??0)-(b.c.targetCell??0)));
-  if(!scored.length)return {kind:'NO_CONTROLLER_DESCENT',exact:false,immediate:immediateSummary(immediate),attempts};
+  if(!scored.length)return {kind:'NO_CONTROLLER_DESCENT',exact:false,immediate:immediateSummary(immediate),highestRowSafety,attempts};
   const best=scored[0].c,
     bestChildResidual=best.child&&Number.isInteger(best.sourceLineId)
       ?residualByLine(best.child,best.sourceLineId,R.player)
@@ -247,6 +313,7 @@ function controllerDescentNoNormalization(position,R){
       ?residualDescriptor(best.child,bestChildResidual)
       :null,
     existingCertificate:best.child?existingCertificate(best.child):null,
+    highestRowSafety,
     attempts,
   };
 }
@@ -483,6 +550,31 @@ console.log(JSON.stringify({
           ])
         ),
         failures:rows.filter(x=>!x.exact),
+        safetyWitnesses:decisions.map(x=>x.highestRowSafety)
+          .filter(Boolean),
+        safetyLineClassificationCounts:(()=>{
+          const lines=decisions.flatMap(x=>
+            x.highestRowSafety?.lineWitnesses??[]
+          ),out={};
+          for(const row of lines)
+            out[row.classification]=(out[row.classification]??0)+1;
+          return out;
+        })(),
+        safetyControllerBlockerCounts:(()=>{
+          const cells=decisions.flatMap(x=>
+            (x.highestRowSafety?.lineWitnesses??[])
+              .flatMap(w=>w.controllerCells??[])
+          ),out={};
+          for(const cell of cells)out[cell]=(out[cell]??0)+1;
+          return out;
+        })(),
+        releasedCellCounts:(()=>{
+          const cells=decisions.map(x=>
+            x.highestRowSafety?.releasedCell
+          ).filter(Boolean),out={};
+          for(const cell of cells)out[cell]=(out[cell]??0)+1;
+          return out;
+        })(),
       };
     })(),
     strictReturnEdgesUnmatched:
