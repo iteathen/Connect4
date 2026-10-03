@@ -42,6 +42,19 @@ test('pair-hub fork certifies attacker first win',()=>{
   assert.equal(c.exact,true);
 });
 
+
+test('latent singleton pair-hub overload is exposed as first-win progress',()=>{
+  const g4=createCpcxGeometry({columns:4,rows:4,connect:3}),
+    p=buildCpcxPosition('12234',{geometry:g4}),
+    c=classifyCpcxProgress(p,{player:0});
+  assert.equal(p.mover,1);
+  assert.equal(c.kind,'CERTIFIED_FIRST_WIN');
+  assert.equal(c.exact,true);
+  assert.equal(c.player,0);
+  assert.equal(c.source,'LATENT_SINGLETON_PAIR_HUB_OVERLOAD');
+  assert.equal(c.certificate.certificate.recursive,false);
+});
+
 test('playable two-piece exact macro may be selected without global value equivalence',()=>{
   const p=buildCpcxPosition('44444151511355',{geometry:g}),
     demands=findCpcxPlayableTwoPieceDemands(p,{player:0});
@@ -97,7 +110,7 @@ test('progress contract contains no draw or global value-preservation gate',asyn
 
 test('progress modules remain isolated from solved data and production CPC',async()=>{
   const {readFile}=await import('node:fs/promises');
-  for(const file of ['./cpcx-fork.mjs','./cpcx-two-piece.mjs','./cpcx-progress.mjs']){
+  for(const file of ['./cpcx-fork.mjs','./cpcx-two-piece.mjs','./cpcx-latent-pair-hub.mjs','./cpcx-progress.mjs']){
     const source=await readFile(new URL(file,import.meta.url),'utf8');
     for(const forbidden of ['cpc-connect4','ExactConnect4Oracle','components/oracle','solveSequence('])
       assert.equal(source.includes(forbidden),false,file+' '+forbidden);
