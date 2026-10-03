@@ -20,6 +20,9 @@ import {
   certifyCpcxProtectedResidualTargetAcquisition,
 } from './cpcx-target-acquisition.mjs';
 import {
+  certifyCpcxProtectedDiagonalHighestTargetDescent,
+} from './cpcx-highest-target-descent.mjs';
+import {
   certifyCpcxProtectedResidualDiagonalTransfer,
 } from './cpcx-diagonal-transfer.mjs';
 import {
@@ -235,7 +238,11 @@ function controllerDescent(position,R){
 }
 function controllerDescentNoNormalization(position,R){
   const immediate=classifyCpcxImmediate(position),candidates=[],
-    highestRowSafety=highestRowSafetyWitness(position,R);
+    highestRowSafety=highestRowSafetyWitness(position,R),
+    deterministicHighest=
+      certifyCpcxProtectedDiagonalHighestTargetDescent(position,{
+        protectedResidual:R,
+      });
   if(immediate.kind==='IMMEDIATE_TERMINAL_AVAILABLE'&&immediate.mover===R.player){
     for(const targetCell of R.missingCells){
       if(!(immediate.winningCells??[]).includes(targetCell))continue;
@@ -293,7 +300,7 @@ function controllerDescentNoNormalization(position,R){
     };
   });
   const scored=candidates.map(c=>({c,score:c.kind==='CERTIFIED_FIRST_WIN'?0:c.kind==='PROTECTED_RESIDUAL_TARGET_ACQUISITION'?1:2})).sort((a,b)=>a.score-b.score||((a.c.targetCell??0)-(b.c.targetCell??0)));
-  if(!scored.length)return {kind:'NO_CONTROLLER_DESCENT',exact:false,immediate:immediateSummary(immediate),highestRowSafety,attempts};
+  if(!scored.length)return {kind:'NO_CONTROLLER_DESCENT',exact:false,immediate:immediateSummary(immediate),highestRowSafety,deterministicHighest:summarizeCertificate(deterministicHighest),attempts};
   const best=scored[0].c,
     bestChildResidual=best.child&&Number.isInteger(best.sourceLineId)
       ?residualByLine(best.child,best.sourceLineId,R.player)
@@ -314,6 +321,21 @@ function controllerDescentNoNormalization(position,R){
       :null,
     existingCertificate:best.child?existingCertificate(best.child):null,
     highestRowSafety,
+    deterministicHighest:{
+      kind:deterministicHighest.kind,
+      exact:deterministicHighest.exact??false,
+      seam:deterministicHighest.seam??null,
+      player:deterministicHighest.player??null,
+      selectedMode:deterministicHighest.selectedMode??null,
+      actionCell:Number.isInteger(deterministicHighest.actionCell)
+        ?label(deterministicHighest.actionCell):null,
+      selectedTarget:Number.isInteger(deterministicHighest.selectedTarget)
+        ?label(deterministicHighest.selectedTarget):null,
+      sourceMeasure:deterministicHighest.sourceMeasure??null,
+      childMeasure:deterministicHighest.childMeasure??null,
+      strictMeasureDecrease:
+        deterministicHighest.strictMeasureDecrease??false,
+    },
     attempts,
   };
 }
@@ -516,6 +538,48 @@ console.log(JSON.stringify({
           descriptorKey(r.residual.descriptor)===x.finalDescriptorKey
         )
       ).length,
+    deterministicHighestTargetOperator:(()=>{
+      function leaf(d){
+        if(!d)return null;
+        if(d.kind==='FORCED_NORMALIZATION_THEN_DESCENT')return leaf(d.next);
+        return d;
+      }
+      const decisions=all.map(x=>leaf(x.descent))
+        .filter(x=>x?.deterministicHighest);
+      return {
+        decisionCount:decisions.length,
+        exactCount:decisions.filter(x=>
+          x.deterministicHighest.exact===true
+        ).length,
+        failureCount:decisions.filter(x=>
+          x.deterministicHighest.exact!==true
+        ).length,
+        everyDecisionExact:decisions.every(x=>
+          x.deterministicHighest.exact===true
+        ),
+        kinds:Object.fromEntries(
+          [...new Set(decisions.map(x=>
+            x.deterministicHighest.kind
+          ))].sort().map(kind=>[
+            kind,decisions.filter(x=>
+              x.deterministicHighest.kind===kind
+            ).length,
+          ])
+        ),
+        modes:Object.fromEntries(
+          [...new Set(decisions.map(x=>
+            x.deterministicHighest.selectedMode??'NONE'
+          ))].sort().map(mode=>[
+            mode,decisions.filter(x=>
+              (x.deterministicHighest.selectedMode??'NONE')===mode
+            ).length,
+          ])
+        ),
+        failures:decisions.filter(x=>
+          x.deterministicHighest.exact!==true
+        ).map(x=>x.deterministicHighest),
+      };
+    })(),
     highestRowPolicy:(()=>{
       function leaf(d){
         if(!d)return null;
