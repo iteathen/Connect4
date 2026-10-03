@@ -121,22 +121,54 @@ function reflectedCell(cell){
   const {column,row}=cpcxCell(g,cell);
   return row*g.columns+(g.columns-1-column);
 }
-function correctionSignature(a,b){
+function lineGeometryKey(cells){
+  return [...cells].sort((a,b)=>a-b).join(',');
+}
+function reflectedOrientation(orientation){
+  if(orientation==='D+')return 'D-';
+  if(orientation==='D-')return 'D+';
+  return orientation;
+}
+function canonicalResidualRow(r,reflect=false){
+  const lineCells=g.lines[r.lineId].cells.map(cell=>
+      reflect?reflectedCell(cell):cell
+    ).sort((a,b)=>a-b),
+    missing=r.missing.map(cell=>
+      reflect?reflectedCell(cell):cell
+    ).sort((a,b)=>a-b);
+  return {
+    player:r.player,
+    orientation:reflect?reflectedOrientation(r.orientation):r.orientation,
+    lineGeometry:lineGeometryKey(lineCells),
+    missingGeometry:missing.join(','),
+    missingCount:missing.length,
+  };
+}
+function residualRowIdentity(r){
+  return JSON.stringify([r.player,r.lineId,r.orientation,r.missing]);
+}
+function correctionSignature(a,b,{reflect=false}={}){
   const ra=residualRows(a),rb=residualRows(b),
-    ka=new Map(ra.map(r=>[
-      JSON.stringify([r.player,r.lineId,r.orientation,r.missing]),r
-    ])),
-    kb=new Map(rb.map(r=>[
-      JSON.stringify([r.player,r.lineId,r.orientation,r.missing]),r
-    ])),
+    ka=new Map(ra.map(r=>[residualRowIdentity(r),r])),
+    kb=new Map(rb.map(r=>[residualRowIdentity(r),r])),
     onlyA=[...ka.entries()].filter(([k])=>!kb.has(k)).map(([,r])=>r),
-    onlyB=[...kb.entries()].filter(([k])=>!ka.has(k)).map(([,r])=>r);
+    onlyB=[...kb.entries()].filter(([k])=>!ka.has(k)).map(([,r])=>r),
+    canonicalOnlyA=onlyA.map(r=>canonicalResidualRow(r,reflect))
+      .sort((u,v)=>JSON.stringify(u).localeCompare(JSON.stringify(v))),
+    canonicalOnlyB=onlyB.map(r=>canonicalResidualRow(r,reflect))
+      .sort((u,v)=>JSON.stringify(u).localeCompare(JSON.stringify(v)));
   return {
     onlyACount:onlyA.length,
     onlyBCount:onlyB.length,
     onlyAOrientationCounts:orientationCounts(onlyA),
     onlyBOrientationCounts:orientationCounts(onlyB),
     symmetricDifferenceCount:onlyA.length+onlyB.length,
+    canonicalOnlyA,
+    canonicalOnlyB,
+    exactCanonicalKey:JSON.stringify({
+      onlyA:canonicalOnlyA,
+      onlyB:canonicalOnlyB,
+    }),
   };
 }
 
@@ -171,10 +203,14 @@ for(const x of [1,2,3,5,6,7]){
     ctrDefects=defectCells(centerFirst),
     diffs=ownerDiff(externalFirst,centerFirst),
     xCell=x-1,
-    correction=correctionSignature(externalFirst,centerFirst);
+    reflectedRepresentative=x>4,
+    correction=correctionSignature(externalFirst,centerFirst,{
+      reflect:reflectedRepresentative,
+    });
   exchange.push({
     x,
     distanceFromCenter:Math.abs(x-4),
+    reflectedRepresentative,
     externalFirstSequence:`${root}${x}4`,
     centerFirstSequence:`${root}4${x}`,
     supportEqual:
@@ -201,7 +237,7 @@ for(const row of exchange){
 }
 
 console.log(JSON.stringify({
-  schema:'connect4.uc4a.cpcx.turn6-center-spine-cofactor-equivalence.v0_1',
+  schema:'connect4.uc4a.cpcx.turn6-center-spine-cofactor-equivalence.v0_2',
   observation:'exact saturated-center cofactor quotient plus geometry-gauge defect normalization at the turn-6 handoff',
   gauge:{
     formula:'zeroReservationOwner(cell) = row(cell) mod 2 on 7x6',
@@ -234,10 +270,10 @@ console.log(JSON.stringify({
     distance:Number(distance),
     moves:rows.map(x=>x.x).sort((a,b)=>a-b),
     correctionSignatures:[...new Map(rows.map(x=>[
-      JSON.stringify(x.correction),x.correction
+      x.correction.exactCanonicalKey,x.correction
     ])).values()],
     oneCorrectionSignatureUpToReflection:
-      new Set(rows.map(x=>JSON.stringify(x.correction))).size===1,
+      new Set(rows.map(x=>x.correction.exactCanonicalKey)).size===1,
   })),
   summary:{
     closedCenterIsGaugeAligned:defectCells(closed).length===0,
@@ -253,13 +289,13 @@ console.log(JSON.stringify({
       [...reflectionClasses.keys()].map(Number).sort((a,b)=>a-b),
     everyDistanceClassHasOneCorrectionSignature:
       [...reflectionClasses.values()].every(rows=>
-        new Set(rows.map(x=>JSON.stringify(x.correction))).size===1
+        new Set(rows.map(x=>x.correction.exactCanonicalKey)).size===1
       ),
   },
   interpretation:{
     baseClass:'a saturated gauge-aligned center may be removed from the live action space and compiled into player-specific residual cofactors on the six side columns',
     parityControl:'center-first produces the gauge vacuum; off-center-first followed by D6 produces the same support substrate plus exactly two owner-gauge defects, x1 and D6',
-    constrainedEquivalence:'state identity for this handoff is support + saturated-center cofactor + bounded gauge-defect descriptor, not raw support alone',
+    constrainedEquivalence:'state identity for this handoff is support + saturated-center cofactor + bounded gauge-defect descriptor, canonicalized under board reflection; raw support alone is insufficient',
     polynomialRoute:'the static cofactor and each defect correction are computed from winning-line incidence; no future reply tree is required',
   },
   theoremBoundary:{
