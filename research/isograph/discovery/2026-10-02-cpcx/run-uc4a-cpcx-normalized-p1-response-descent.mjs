@@ -95,7 +95,7 @@ function controllerDescent(position,R){
     if(n.kind!=='PROTECTED_RESIDUAL_FORCED_NORMALIZATION'||!n.exact)return {kind:'FORCED_NORMALIZATION_FAILED',exact:false,normalization:summarizeCertificate(n)};
     const finalR=residualByLine(n.finalPosition,R.lineId,R.player);
     if(!finalR)return {kind:'FORCED_NORMALIZATION_LOST_RESIDUAL',exact:false};
-    if(n.finalPosition.mover!==R.player)return {kind:'FORCED_NORMALIZATION_TO_OPPONENT',exact:false,sourceTuple:tuple(R),finalTuple:tuple(finalR),normalization:{rankDelta:n.rankDelta,stepKinds:n.steps.map(x=>x.kind)}};
+    if(n.finalPosition.mover!==R.player)return {kind:'FORCED_NORMALIZATION_TO_OPPONENT_BOUNDARY',exact:true,sourceTuple:tuple(R),childTuple:tuple(finalR),normalization:{rankDelta:n.rankDelta,stepKinds:n.steps.map(x=>x.kind)},boundary:'deterministic forced response consumed the controller turn and returned to an opponent decision boundary'};
     const next=controllerDescentNoNormalization(n.finalPosition,finalR);
     return {kind:'FORCED_NORMALIZATION_THEN_DESCENT',exact:next.exact===true,sourceTuple:tuple(R),normalizedTuple:tuple(finalR),normalization:{rankDelta:n.rankDelta,stepKinds:n.steps.map(x=>x.kind)},next};
   }
@@ -201,7 +201,7 @@ const all=rows.flatMap(r=>r.responses.map(x=>({classId:r.classId,...x}))),
   strictFailures=all.filter(x=>!x.strictDescentOrWin);
 console.log(JSON.stringify({
   schema:'connect4.uc4a.cpcx.normalized-p1-response-descent.v0_1',
-  observation:'one current P1 event from every exact normalized universal-diagonal P1 boundary, followed by deterministic forced normalization if required and one theorem-qualified current P0 descent action',
+  observation:'one current P1 event from every exact normalized universal-diagonal P1 boundary, followed by deterministic forced normalization if required and, only when control returns to P0, at most one theorem-qualified current P0 descent action',
   rows,
   summary:{
     normalizedP1PhysicalClassCount:rows.length,
@@ -217,5 +217,5 @@ console.log(JSON.stringify({
     failures:failures.map(x=>({classId:x.classId,eventCell:x.eventCell,role:x.role,seam:x.seam??x.descent?.kind??null,descent:x.descent??null})),
     strictFailures:strictFailures.map(x=>({classId:x.classId,eventCell:x.eventCell,role:x.role,sourceTuple:x.sourceTuple??null,finalTuple:x.finalTuple??null,seam:x.seam??x.descent?.kind??null,descent:x.descent??null})),
   },
-  boundary:{diagnosticOnly:true,exactlyOneCurrentP1Event:true,controllerFollowupIsCurrentRankOnlyAfterDeterministicForcedNormalization:true,noFreeSecondP1Layer:true,transferUsesQualifiedDiagonalTransfer:true,noValueConclusion:true,solvedData:false,oracle:false,minimax:false,recursiveSearch:false},
+  boundary:{diagnosticOnly:true,exactlyOneCurrentP1Event:true,controllerFollowupUsesNoFreeLayerWhenForcedNormalizationReturnsDirectlyToP1:true,noFreeSecondP1Layer:true,transferUsesQualifiedDiagonalTransfer:true,noValueConclusion:true,solvedData:false,oracle:false,minimax:false,recursiveSearch:false},
 },null,2));
