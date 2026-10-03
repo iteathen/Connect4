@@ -4,6 +4,12 @@ import {
   scanCpcxObligations,
 } from './cpcx.mjs';
 import {
+  applyCpcxForcedEvent,
+  classifyCpcxImmediate,
+} from './cpcx-closure.mjs';
+import {classifyCpcxProgress} from './cpcx-progress.mjs';
+import {runCpcxFirstWinCertificate} from './cpcx-successor.mjs';
+import {
   buildCpcxMove6UnresolvedClassesArtifact,
 } from './cpcx-move6-unresolved-classes.mjs';
 import {
@@ -114,6 +120,42 @@ function d3WindowComplex(p){
     liveMask:rows.map(x=>x.liveForP0?1:0).join(''),
     liveWindowCount:rows.filter(x=>x.liveForP0).length,
     rows,
+  };
+}
+
+function smallResidualSummary(p,player){
+  return scanCpcxObligations(p)
+    .filter(o=>o.player===player&&o.missingCount<=3)
+    .map(o=>({
+      lineId:o.lineId,
+      lineLabel:o.lineLabel,
+      orientation:o.orientation,
+      missingCount:o.missingCount,
+      missing:o.missingCells.map(label),
+      support:o.events.map(e=>e.supportDistance),
+      supportDebt:supportDebt(o),
+      playable:o.currentlyPlayableCells.map(label),
+    }))
+    .sort((a,b)=>
+      a.missingCount-b.missingCount||
+      a.supportDebt-b.supportDebt||
+      a.lineId-b.lineId
+    );
+}
+
+function progressSummary(p){
+  return {
+    kind:p.kind,
+    exact:p.exact??false,
+    player:p.player??null,
+    source:p.source??null,
+    seam:p.seam??p.reason??null,
+    macroKind:p.macro?.kind??null,
+    primaryCell:Number.isInteger(p.macro?.primaryCell)
+      ?label(p.macro.primaryCell):null,
+    secondaryCell:Number.isInteger(p.macro?.secondaryCell)
+      ?label(p.macro.secondaryCell):null,
+    blockerCells:(p.obligation?.blockingCells??[]).map(label),
   };
 }
 
@@ -301,6 +343,59 @@ for(const source of sources.values()){
         const finalDescriptor=x.finalPosition&&x.finalResidual
           ?descriptor(x.finalPosition,x.finalResidual)
           :null;
+        let noTransferTargetBlockProbe=null;
+        if(finalDescriptor&&
+           finalDescriptor.d3WindowComplex.liveMask==='100000'&&
+           x.finalPosition&&x.finalResidual){
+          const dangerous=x.finalResidual.events.find(e=>
+            e.supportDistance===0&&
+            transferKind(x.finalPosition,x.finalResidual,e.cell)==='NO_TRANSFER'
+          );
+          if(dangerous){
+            const child=applyCpcxForcedEvent(
+              x.finalPosition,dangerous.cell
+            );
+            const immediate=child.terminal
+              ?null
+              :classifyCpcxImmediate(child),
+              progress=child.terminal
+                ?null
+                :classifyCpcxProgress(child,{player:0}),
+              cert=child.terminal
+                ?null
+                :runCpcxFirstWinCertificate(child,{attacker:0});
+            noTransferTargetBlockProbe={
+              blockedCell:label(dangerous.cell),
+              terminal:child.terminal,
+              immediate:immediate?{
+                kind:immediate.kind,
+                mover:immediate.mover??null,
+                cell:Number.isInteger(immediate.cell)
+                  ?label(immediate.cell):null,
+                winningCells:(immediate.winningCells??[]).map(label),
+                threatCells:(immediate.threatCells??
+                  immediate.opponentThreatCells??[]).map(label),
+              }:null,
+              progress:progress?progressSummary(progress):null,
+              firstWin:cert?{
+                kind:cert.kind,
+                exact:cert.exact??false,
+                player:cert.player??null,
+                seam:cert.seam??null,
+                traceLength:cert.trace?.length??0,
+              }:null,
+              p0SmallResiduals:child.terminal
+                ?[]
+                :smallResidualSummary(child,0).slice(0,24),
+              p1SmallResiduals:child.terminal
+                ?[]
+                :smallResidualSummary(child,1).slice(0,24),
+              support:child.terminal?null:Array.from(child.heights),
+              rank:child.rank,
+              mover:child.mover,
+            };
+          }
+        }
         return {
           eventCell:Number.isInteger(x.eventCell)?label(x.eventCell):null,
           kind:x.kind,
@@ -320,6 +415,7 @@ for(const source of sources.values()){
             supportResource:finalDescriptor.supportResource,
             d3WindowComplex:finalDescriptor.d3WindowComplex,
           }:null,
+          noTransferTargetBlockProbe,
         };
       });
       novelMaskSecondLayerProbes.push({
@@ -553,6 +649,8 @@ console.log(JSON.stringify({
     secondLayerProbeRestrictedToNovelWindowMasks:true,
     secondLayerProbeIsFalsificationOnly:true,
     noSecondLayerResultUsedAsProofPremise:true,
+    noTransferTargetBlockProbeRestrictedToSingleExposedTarget:true,
+    noTransferTargetBlockProbeIsFalsificationOnly:true,
     currentPlayableTargetTransferAuditOnly:true,
     noSolvedData:true,
     oracle:false,
