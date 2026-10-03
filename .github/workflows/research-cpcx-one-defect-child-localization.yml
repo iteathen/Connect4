@@ -7,6 +7,7 @@ on:
     paths:
       - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-one-defect-child-localization.mjs
       - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-one-defect-cpc2-restriction.mjs
+      - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-one-defect-trigger-options.mjs
       - research/isograph/discovery/2026-10-02-cpcx/cpcx-one-defect-rcic.mjs
       - .github/workflows/research-cpcx-one-defect-child-localization.yml
   workflow_dispatch:
@@ -27,11 +28,13 @@ jobs:
         run: |
           node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-one-defect-child-localization.mjs > cpcx-one-defect-child-localization.json
           node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-one-defect-cpc2-restriction.mjs > cpcx-one-defect-cpc2-restriction.json
-          cat cpcx-one-defect-cpc2-restriction.json
+          node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-one-defect-trigger-options.mjs > cpcx-one-defect-trigger-options.json
+          cat cpcx-one-defect-trigger-options.json
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
           name: cpcx-one-defect-child-localization
           path: |
             cpcx-one-defect-child-localization.json
             cpcx-one-defect-cpc2-restriction.json
+            cpcx-one-defect-trigger-options.json
           if-no-files-found: error
