@@ -1,0 +1,32 @@
+name: Research rank-local strong-distance separation
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/rank-local-strong-distance-boundary-20261003
+    paths:
+      - 'research/isograph/discovery/2026-10-03-rank-local-strong-distance/**'
+      - '.github/workflows/research-rank-local-strong-distance-separation.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: 24
+      - name: Run remoteness separation probe
+        run: |
+          mkdir -p research/isograph/discovery/2026-10-03-rank-local-strong-distance/evidence
+          node research/isograph/discovery/2026-10-03-rank-local-strong-distance/run-remoteness-separation-probe.mjs \
+            > research/isograph/discovery/2026-10-03-rank-local-strong-distance/evidence/RANK_LOCAL_STRONG_DISTANCE_PROBE_0_1.json
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: rank-local-strong-distance-probe
+          path: research/isograph/discovery/2026-10-03-rank-local-strong-distance/evidence/RANK_LOCAL_STRONG_DISTANCE_PROBE_0_1.json
