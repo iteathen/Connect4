@@ -133,6 +133,28 @@ function intersectResiduals(carriers){
   return out;
 }
 
+function mergeSupportPhase(carriers){
+  const keys=new Map();
+  for(const carrier of carriers){
+    const phase=carrier.supportPhase;
+    if(phase?.exact!==true||!Array.isArray(phase.vectors)||!phase.vectors.length)
+      return {
+        exact:false,
+        vectors:[],
+        source:'at least one component carrier lacks exact support phase',
+      };
+    for(const vector of phase.vectors)
+      keys.set(vector.join(''),[...vector]);
+  }
+  return {
+    exact:true,
+    vectors:[...keys.values()].sort((a,b)=>
+      a.join('').localeCompare(b.join(''))
+    ),
+    source:'union of exact component support-phase vectors',
+  };
+}
+
 function mergeBlockerTokens(carriers){
   const cells=new Set(),owners=new Set();
   let maxCount=0,directKillCapacity=0;
@@ -435,6 +457,7 @@ export function collapseCpcxDebtRepairTokenProduct(position,contract,repair,{ret
   };
 
   const guaranteedResiduals=intersectResiduals(continuing),
+    supportPhase=mergeSupportPhase(continuing),
     blockerTokens=mergeBlockerTokens(continuing),
     blockerCells=new Set(blockerTokens.flatMap(t=>t.candidateCells));
 
@@ -487,6 +510,7 @@ export function collapseCpcxDebtRepairTokenProduct(position,contract,repair,{ret
       allSameParity:true,
     },
     controlParityEquivalent:true,
+    supportPhase,
     guaranteedResiduals,
     blockerTokens,
     opponentSingletonEnvelope,
