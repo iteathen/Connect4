@@ -329,6 +329,7 @@ The runtime semantic outputs are now:
 CERTIFIED_FIRST_WIN(player)
 FORCED_NORMALIZATION
 CERTIFIED_FORCING_MACRO
+DISJUNCTIVE_BLOCK_OBLIGATION
 PROJECTION_ONLY
 NO_CERTIFICATE
 ```
@@ -344,9 +345,11 @@ The progress order is:
 2. opponent singleton overload
 3. unique forced singleton normalization
 4. exact pair-hub terminal fork
-5. one deterministically selected exact nonterminal forcing macro
-6. projection-only information
-7. NO_CERTIFICATE
+5. exact forward CPC2 first-win overload when no current blocker exists
+6. one deterministically selected exact nonterminal forcing macro
+7. exact CPC2 disjunctive current blocker obligation
+8. projection-only information
+9. NO_CERTIFICATE
 ```
 
 Selecting one exact nonterminal macro does not require proving that every other
@@ -434,3 +437,147 @@ Hazard classes are followed only through deterministic singleton normalization.
 
 The retained move-3 second-deviation `NO_CERTIFICATE` is negative evidence and
 must not be silently converted into a loss or draw.
+
+
+## Forward CPC2 disjunctive-block theorem
+
+CPCX now has a generic current-rank theorem for two-piece residuals.  The
+canonical discovery fixture is `443`, but the runtime operator contains no
+sequence-specific case.
+
+The theorem remains forward.  It does not project to a future singleton and
+then reason backward.  Instead it starts with the current live residual carrier
+and symbolically cofactors a possible attacker trigger:
+
+```text
+current live attacker two-piece residuals
+-> current-frontier trigger t
+-> owner-labelled cofactor A:t
+-> distinct actionable completion singleton set S_t
+-> response-capacity test
+```
+
+A trigger is CPC2 fork-producing only when the resulting *actionable* singleton
+demand exceeds the defender's response capacity.  Geometric singleton count by
+itself is insufficient.
+
+For each current defender frontier event `d`, CPCX then computes the flat
+cofactor class
+
+```text
+D:d ; A:t
+```
+
+without constructing a child board or recursively solving it.  The defender
+move suppresses `t` only if it occupies `t` directly or reduces the
+post-trigger actionable demand to response capacity or below.  Otherwise the
+overload is promoted only after the first-win guard verifies that the defender
+has no earlier/immediate counterterminal.
+
+If every current move outside a blocker set `B` has at least one certified
+surviving trigger, CPCX emits:
+
+```text
+DISJUNCTIVE_BLOCK_OBLIGATION(D; B)
+```
+
+with the exact meaning:
+
+```text
+D must occupy at least one member of B now,
+or A has a certified first-win continuation.
+```
+
+This is not a claim that the defender must eventually own every member of
+`B`.
+
+### Canonical 443 result
+
+After:
+
+```text
+4,4,3
+```
+
+P0 has the live two-piece residuals:
+
+```text
+A1-B1-C1-D1  missing {A1,B1}
+B1-C1-D1-E1  missing {B1,E1}
+C1-D1-E1-F1  missing {E1,F1}
+```
+
+The generic cofactor operator derives:
+
+```text
+P0:B1 -> {A1,E1}
+P0:E1 -> {B1,F1}
+```
+
+Both sets contain two distinct playable completion singletons against one
+defender placement slot.
+
+Current P1 move `B1` suppresses the `B1` trigger directly and reduces the
+`E1` cofactor to one surviving completion.  `E1` is symmetric.  Every
+other current frontier move leaves at least one certified overload.
+
+Therefore the exact current obligation is:
+
+```text
+O_OR(P1; {B1,E1})
+```
+
+### Abstract successor
+
+The two legal obligation alternatives are not expanded into game-tree branches.
+They collapse to one carrier containing:
+
+```text
+rank delta = +1
+next mover = P0
+P1 owns exactly one of {B1,E1}
+guaranteed P0 residuals disjoint from both blocker alternatives
+support-distance intervals under the one unknown blocker placement
+singleton union/intersection envelope
+first-win safety facts
+```
+
+For `443`, neither blocker alternative creates an immediate singleton, so the
+collapsed immediate envelope is closed.
+
+### Falsification guards
+
+The qualified theorem preserves negative controls for:
+
+- geometric two-singleton cofactors with fewer than two actionable completions;
+- same-column support lift;
+- overlapping singleton sets, deduplicated by completion cell;
+- indirect trigger suppression by a future singleton cell;
+- current defender moves that suppress multiple triggers;
+- defender counterterminals, which return `NO_CERTIFICATE`;
+- first-win precedence before obligation promotion.
+
+The unrelated legal position `2273251243` derives a different exact blocker
+set, `{D2}`, which is retained as a generic-transfer control.
+
+### Relationship to 44444
+
+The new CPC2 theorem does not close the current `44444` move-6 seam by
+itself.  The live root has no P0 two-piece residuals, and the existing abstract
+move-6 carriers do not yet provide one exact common frontier/owner state over
+which the CPC2 per-defender-move cofactor audit can be instantiated.
+
+The green move-6 artifact therefore still reports:
+
+```text
+NO_EXACT_ABSTRACT_MACRO
+```
+
+CPC2 supplies the missing *kind* of forward obligation operator.  A later
+abstract lift may reuse it when two attacker two-piece residuals and a
+frontier-stable shared trigger are guaranteed across every blocker-token
+realization.  Until that theorem exists, the `44444` result remains
+`NO_CERTIFICATE`.
+
+Qualification details and preserved falsifiers are frozen in
+`CHECKPOINT_0_6.json`.
