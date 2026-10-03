@@ -9,6 +9,7 @@ on:
       - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-one-defect-cpc2-restriction.mjs
       - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-one-defect-trigger-options.mjs
       - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-one-defect-vertical-composition.mjs
+      - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-one-defect-rank15-failure.mjs
       - research/isograph/discovery/2026-10-02-cpcx/cpcx-one-defect-rcic.mjs
       - .github/workflows/research-cpcx-one-defect-child-localization.yml
   workflow_dispatch:
@@ -31,7 +32,8 @@ jobs:
           node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-one-defect-cpc2-restriction.mjs > cpcx-one-defect-cpc2-restriction.json
           node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-one-defect-trigger-options.mjs > cpcx-one-defect-trigger-options.json
           node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-one-defect-vertical-composition.mjs > cpcx-one-defect-vertical-composition.json
-          cat cpcx-one-defect-vertical-composition.json
+          node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-one-defect-rank15-failure.mjs > cpcx-one-defect-rank15-failure.json
+          cat cpcx-one-defect-rank15-failure.json
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
           name: cpcx-one-defect-child-localization
@@ -40,4 +42,5 @@ jobs:
             cpcx-one-defect-cpc2-restriction.json
             cpcx-one-defect-trigger-options.json
             cpcx-one-defect-vertical-composition.json
+            cpcx-one-defect-rank15-failure.json
           if-no-files-found: error
