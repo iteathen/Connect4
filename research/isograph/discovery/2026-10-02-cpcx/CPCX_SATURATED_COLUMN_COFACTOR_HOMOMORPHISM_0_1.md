@@ -1,7 +1,7 @@
 # CPCX Saturated-Column Cofactor Homomorphism 0.1
 
 **Date:** 2026-10-03
-**Status:** theorem contract frozen before generic implementation
+**Status:** qualified generic theorem
 **Scope:** experimental CPCX / RLC structural equivalence
 **Originating application:** turn-6 center-column exhaustion after 44444
 **Production CPC / solver:** unchanged
@@ -212,3 +212,31 @@ The defect descriptor is a separate equivalence coordinate.
 The remaining turn-6 proof question is whether that bounded defect coordinate is a
 congruence for an RLC/RCIC continuation class, or can be routed by a finite correction
 theorem into the same class.
+
+
+## Qualification result
+
+Generic implementation:
+
+- `cpcx-saturated-column-cofactor.mjs`
+- `cpcx-saturated-column-cofactor.test.mjs`
+
+Qualification workflow run:
+
+- `37139482958` — SUCCESS
+- qualification head: `332a7ba4e11abc3eb26002a33f6ffc7ac0f28c12`
+
+Controls passed:
+
+- alternating saturated center: exact 42 residuals per player;
+- exact residual-size census: 24 three-cell + 18 four-cell per player;
+- RLC `(A,B,H)` computed directly from the cofactored hypergraph;
+- every current side event from `444444` commutes with projection;
+- non-alternating saturated-center control;
+- saturated edge-column control;
+- projected residual completion matches the same physical first terminal;
+- unsaturated-column rejection;
+- solver/oracle/production isolation.
+
+The theorem is qualified as a transition-equivalence primitive. It does not by itself
+prove a turn-6 game value or a complete RCIC continuation.
