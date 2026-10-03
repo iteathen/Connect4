@@ -159,7 +159,9 @@ test('reflected sixth actions produce reflected wing trigger and debt-repair car
     dl=deriveCpcxUniversalDebtRepair(p,left,{decisionIndex:0}),
     key=(r,doReflect)=>JSON.stringify({
       player:r.player??0,
-      orientation:r.orientation,
+      orientation:doReflect
+        ?r.orientation==='D+'?'D-':r.orientation==='D-'?'D+':r.orientation
+        :r.orientation,
       missingCount:r.missingCount,
       cells:r.missingCells.map(c=>doReflect?reflect(c):c).sort((a,b)=>a-b),
       eventParity:r.events.map(e=>e.eventRank&1).sort((a,b)=>a-b),
