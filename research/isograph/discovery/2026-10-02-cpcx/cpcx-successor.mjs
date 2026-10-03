@@ -69,6 +69,10 @@ function exactResiduals(position){
       maxSupportDistance:e.supportDistance,
       eventRankParity:e.eventRank&1,
     })),
+    supportProfiles:[o.missingCells.map(cell=>
+      o.events.find(e=>e.cell===cell).supportDistance
+    )],
+    supportProfilesExact:true,
   }));
 }
 
@@ -107,6 +111,30 @@ function verticalSupportPhaseVectors(position,demand,certificate){
     vectors.push(delayed);
   }
   return uniquePhaseVectors(vectors);
+}
+
+function uniqueSupportProfiles(profiles){
+  const m=new Map();
+  for(const p of profiles)m.set(p.join(','),p);
+  return [...m.values()].sort((a,b)=>{
+    const n=Math.min(a.length,b.length);
+    for(let i=0;i<n;i++)if(a[i]!==b[i])return a[i]-b[i];
+    return a.length-b.length;
+  });
+}
+
+function residualSupportProfilesFromEnvelope(position,residual,envelope){
+  const g=position.geometry,profiles=[];
+  for(const cls of envelope?.classes??[]){
+    if(cls.terminal!==null||!Array.isArray(cls.support))continue;
+    const profile=residual.missingCells.map(cell=>{
+      const {column,row}=cpcxCell(g,cell);
+      return row-cls.support[column];
+    });
+    if(profile.every(Number.isInteger)&&profile.every(x=>x>=0))
+      profiles.push(profile);
+  }
+  return uniqueSupportProfiles(profiles);
 }
 
 function verticalSupportInterval(position,demand,certificate,cell){
@@ -150,6 +178,10 @@ function abstractVerticalSuccessor(position,macro,collapse,envelope){
       orientation:r.orientation,
       missingCount:r.missingCount,
       missingCells:[...r.missingCells],
+      supportProfiles:residualSupportProfilesFromEnvelope(
+        position,r,singletonEnvelope
+      ),
+      supportProfilesExact:true,
       events:r.missingCells.map(cell=>{
         const {row}=cpcxCell(position.geometry,cell),
           s=verticalSupportInterval(position,demand,certificate,cell);
