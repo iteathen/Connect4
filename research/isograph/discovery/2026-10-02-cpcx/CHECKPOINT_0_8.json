@@ -1,0 +1,108 @@
+{
+  "schema": "connect4.cpcx.checkpoint.v0_8",
+  "date": "2026-10-02",
+  "branch": "experiment/cpcx-20261002",
+  "recoveredLiveHead": "245bc192a2d68b83411b0c6e7327553416f2dcea",
+  "diagnosticRepairHead": "cd750843574eaf30b46391f204221a149cb6fe51",
+  "status": "SHARED_DIAGONAL_SUBSTRATE_CONFIRMED_NESTED_LADDER_FALSIFIED",
+  "target": {
+    "board": "standard 7x6 Connect Four",
+    "root": "44444",
+    "mover": "P1",
+    "objective": "determine Best(44444) under game-theoretic first-win value and prove it structurally",
+    "workingHypothesis": "all seven legal sixth actions may share the same P0-first-win value",
+    "hypothesisIsPremise": false,
+    "delayEquivalenceRequired": false
+  },
+  "monitoringRecovery": {
+    "providedCheckpoint": "bfdc2b889e7dc256280aef261810a7ae714711a5",
+    "providedCheckpointWasStaleByCommits": 35,
+    "firstRecoveredLiveHead": "245bc192a2d68b83411b0c6e7327553416f2dcea"
+  },
+  "diagnosticRepair": {
+    "commit": "cd750843574eaf30b46391f204221a149cb6fe51",
+    "change": "import missing support-envelope projection helpers in run-cpcx-move6-shared-deviation-substrate.mjs",
+    "semanticEffect": "diagnostic wiring only; no CPCX theorem logic or production CPC change"
+  },
+  "verifiedSharedSubstrate": {
+    "carrierCount": 7,
+    "commonResidualCount": 5,
+    "commonDiagonalPairCount": 1,
+    "allSevenSharePairSupportProfiles": true,
+    "sharedPairSupportProfiles": [
+      [0,3],
+      [1,2],
+      [1,3],
+      [2,1],
+      [2,2],
+      [2,3]
+    ],
+    "allNextMoverP0": true,
+    "allControlParityEquivalent": true,
+    "allBlockersSupportOnly": true,
+    "allBlockersDisjointFromCommonPair": true
+  },
+  "importantFalsifier": {
+    "nestedCommonRelationCount": 0,
+    "meaning": "the common diagonal pair is real, but no universally shared larger residual containing that pair survives the exact common intersection",
+    "consequence": "do not promote a universal pair-plus-nested-rung or diagonal-ladder theorem from the current evidence"
+  },
+  "supportProjectionResult": {
+    "fullSupportEnvelopeClassCount": 4,
+    "projectedClassCounts": {
+      "AD": 2,
+      "AC": 1,
+      "BC": 1
+    },
+    "supportPhaseClassCount": 4,
+    "allSupportPhaseClassesEqual": false,
+    "interpretation": "the common-pair dependency columns have a shared exact projected support-envelope set, but full support phase remains split and cannot be quotiented away without a claim-relative irrelevance theorem"
+  },
+  "opponentFirstWinAudit": {
+    "allOpponentTerminalLowerBoundsKnown": true,
+    "lowerBoundsBySixthMove": {
+      "1": 4,
+      "2": 4,
+      "3": 2,
+      "4": 4,
+      "5": 2,
+      "6": 4,
+      "7": 4
+    },
+    "sharedMinimumLowerBound": 2,
+    "allSevenShareOpponentResidualEnvelope": false,
+    "deadlineProjectionCurrentlyCloses": false,
+    "reason": "no independently qualified finite P0 completion upper bound for the common diagonal certificate has yet been established"
+  },
+  "priorTheoremReuseAudit": {
+    "CPC_HORIZONTAL_RESIDUAL_LADDER_TRANSPORT_THEOREM": "not directly applicable: its exact two-row lifted-pair plus exposed-trigger premise is not established by the common diagonal carrier",
+    "CPC_FRONTIER_RESIDUAL_ATTACHMENT_RESPONSE_THEOREM": "local response rule only; does not itself supply a P0 forced-completion upper bound",
+    "CPC_SUPPORT_LIFT_BLOCKER_RESPONSE_THEOREM": "local support-linked blocker edge only; does not close the common diagonal claim",
+    "CPC_TRIGGER_ADAPTIVE_RENEWAL_THEOREM": "survival/lower-bound grammar, not a finite P0 first-win completion proof"
+  },
+  "smallestRemainingLemma": {
+    "statement": "A generic claim-relative forcing theorem must give a finite P0 first-win completion upper bound from the shared diagonal pair plus exactly preserved attachment/support/first-win roles, while proving that projected-away P1 residuals cannot terminally preempt that bound.",
+    "constraint": "the theorem may not assume the falsified universally nested residual and may not enumerate physical descendant replies",
+    "deadlineUse": "once a finite P0 upper bound U is proved, cpcx-deadline.mjs can soundly project away only P1 residuals whose earliest-terminal lower bound is greater than U"
+  },
+  "currentBestMoveConclusion": {
+    "proven": false,
+    "bestSet": null,
+    "selectedMove": null,
+    "boundary": "Do not state Best(44444)=LegalActions(44444) until all four reflection representatives receive P0 first-win authority or a stronger generic certificate-transport theorem closes them."
+  },
+  "verification": {
+    "researchCpcxPrototypeRun": 37102484222,
+    "researchCpcxPrototypeConclusion": "success",
+    "researchCpcxMove6QQuotientRun": 37102484197,
+    "researchCpcxMove6QQuotientConclusion": "success",
+    "productionCpcModified": false,
+    "solvedDataUsed": false,
+    "oraclePremiseUsed": false,
+    "recursiveGameTreeSearchUsed": false
+  },
+  "handoff": {
+    "modeAfterThisCheckpoint": "MONITOR_ONLY",
+    "nextAction": "report branch head, new commits, workflow state, and material theorem/falsifier changes without modifying the repository unless the owner explicitly revokes monitor-only"
+  }
+}
