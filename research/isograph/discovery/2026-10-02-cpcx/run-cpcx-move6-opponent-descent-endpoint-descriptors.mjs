@@ -34,6 +34,9 @@ import {
 import {
   certifyCpcxProtectedDiagonalAnchorPivot,
 } from './cpcx-diagonal-anchor-pivot.mjs';
+import {
+  certifyCpcxProtectedDiagonalTargetInheritanceHandoff,
+} from './cpcx-diagonal-target-inheritance.mjs';
 
 const g=createCpcxGeometry(),
   artifact=buildCpcxMove6UnresolvedClassesArtifact(),
@@ -468,6 +471,70 @@ for(const source of sources.values()){
             transferKind(x.finalPosition,x.finalResidual,e.cell)==='NO_TRANSFER'
           );
           if(dangerous){
+            const inheritance=
+              certifyCpcxProtectedDiagonalTargetInheritanceHandoff(
+                x.finalPosition,{
+                  protectedResidual:x.finalResidual,
+                  blockedCell:dangerous.cell,
+                }
+              );
+            let inheritanceClosure=null;
+            if(
+              inheritance.exact&&
+              inheritance.kind==='PROTECTED_DIAGONAL_TARGET_INHERITANCE_HANDOFF'
+            ){
+              const saturation=
+                certifyCpcxProtectedDiagonalControllerSaturation(
+                  inheritance.child,{
+                    protectedResidual:inheritance.handoffResidual,
+                  }
+                );
+              let responseDescent=null;
+              if(
+                saturation.exact&&
+                saturation.kind==='PROTECTED_DIAGONAL_CONTROLLER_SATURATION'
+              )responseDescent=
+                certifyCpcxProtectedDiagonalOpponentResponseDescent(
+                  saturation.finalPosition,{
+                    protectedResidual:saturation.finalResidual,
+                  }
+                );
+              inheritanceClosure={
+                handoff:{
+                  kind:inheritance.kind,
+                  exact:inheritance.exact,
+                  sourceMeasure:inheritance.sourceMeasure,
+                  childMeasure:inheritance.childMeasure,
+                  inheritedTargets:inheritance.inheritedTargets.map(label),
+                  sourceLineLabel:inheritance.sourceResidual.lineLabel,
+                  handoffLineLabel:inheritance.handoffResidual.lineLabel,
+                  handoffMissing:inheritance.handoffResidual.missingCells.map(label),
+                  handoffSupport:inheritance.handoffResidual.events.map(e=>
+                    e.supportDistance
+                  ),
+                },
+                saturation:{
+                  kind:saturation.kind,
+                  exact:saturation.exact??false,
+                  seam:saturation.seam??null,
+                  player:saturation.player??null,
+                  sourceMeasure:saturation.sourceMeasure??null,
+                  finalMeasure:saturation.finalMeasure??null,
+                  finalRank:saturation.finalRank??null,
+                },
+                responseDescent:responseDescent?{
+                  kind:responseDescent.kind,
+                  exact:responseDescent.exact??false,
+                  seam:responseDescent.seam??null,
+                  player:responseDescent.player??null,
+                  sourceMeasure:responseDescent.sourceMeasure??null,
+                  eventCount:responseDescent.eventCount??null,
+                  failureCount:responseDescent.failures?.length??0,
+                  everyEventWinsOrStrictlyDescends:
+                    responseDescent.everyEventWinsOrStrictlyDescends??false,
+                }:null,
+              };
+            }
             const child=applyCpcxForcedEvent(
               x.finalPosition,dangerous.cell
             );
@@ -482,6 +549,7 @@ for(const source of sources.values()){
                 :runCpcxFirstWinCertificate(child,{attacker:0});
             noTransferTargetBlockProbe={
               blockedCell:label(dangerous.cell),
+              targetInheritance:inheritanceClosure,
               terminal:child.terminal,
               immediate:immediate?{
                 kind:immediate.kind,
@@ -744,6 +812,18 @@ console.log(JSON.stringify({
     ),
     noTransferTargetBlockPairHubForkCount:noTransferProbes.reduce(
       (n,x)=>n+(x.pairHubForks?.length??0),0
+    ),
+    targetInheritanceHandoffExactCount:noTransferProbes.filter(x=>
+      x.targetInheritance?.handoff?.exact===true
+    ).length,
+    targetInheritanceSaturationExactCount:noTransferProbes.filter(x=>
+      x.targetInheritance?.saturation?.exact===true
+    ).length,
+    targetInheritanceResponseDescentExactCount:noTransferProbes.filter(x=>
+      x.targetInheritance?.responseDescent?.exact===true
+    ).length,
+    allNoTransferSeamsHaveStrictTargetInheritance:noTransferProbes.every(x=>
+      x.targetInheritance?.handoff?.exact===true
     ),
     commonPostBlockCurrentActionLabels:(()=>{
       if(!noTransferProbes.length)return [];
