@@ -57,6 +57,11 @@ import {
   certifyCpcxVerticalThreeStageSetup,
 } from './cpcx-three-stage.mjs';
 import {
+  findCpcxVerticalTwoStageObligations,
+  certifyCpcxVerticalTwoStage,
+  partitionCpcxVerticalTwoStageGuard,
+} from './cpcx-two-stage.mjs';
+import {
   certifyCpcxTruncatedTargetReservoir,
   analyzeCpcxOneDefectTargetReservoir,
 } from './cpcx-reservoir.mjs';
@@ -1090,8 +1095,26 @@ for(const source of sources.values()){
                 findCpcxVerticalThreeStageObligations(child,{player:0})
                   .map(demand=>{
                     const certificate=certifyCpcxVerticalThreeStageSetup(
-                      child,demand
-                    );
+                        child,demand
+                      ),
+                      setup=applyCpcxForcedEvent(child,demand.setupCell),
+                      childDemand=setup.terminal?null:
+                        findCpcxVerticalTwoStageObligations(
+                          setup,{player:0}
+                        ).find(x=>
+                          x.obligation.lineId===demand.obligation.lineId&&
+                          x.lowerCell===demand.middleCell&&
+                          x.upperCell===demand.upperCell
+                        )??null,
+                      childCertificate=childDemand
+                        ?certifyCpcxVerticalTwoStage(setup,childDemand)
+                        :null,
+                      partition=childDemand&&
+                        childCertificate?.kind==='POST_LOWER_FIRST_WIN_GUARD_FAILURE'
+                        ?partitionCpcxVerticalTwoStageGuard(
+                          setup,childDemand,childCertificate
+                        )
+                        :null;
                     return {
                       lineId:demand.obligation.lineId,
                       lineLabel:demand.obligation.lineLabel,
@@ -1102,9 +1125,31 @@ for(const source of sources.values()){
                       exact:certificate.exact??false,
                       seam:certificate.seam??null,
                       childCertificateKind:
+                        childCertificate?.kind??
                         certificate.childCertificate?.kind??null,
                       childCertificateExact:
+                        childCertificate?.exact??
                         certificate.childCertificate?.exact??false,
+                      riskCount:childCertificate?.risks?.length??0,
+                      risks:(childCertificate?.risks??[]).map(x=>({
+                        kind:x.kind,
+                        defenderMove:Number.isInteger(x.defenderMove)
+                          ?label(x.defenderMove):null,
+                        targetCell:Number.isInteger(x.targetCell)
+                          ?label(x.targetCell):null,
+                        obligationId:x.obligationId??null,
+                      })),
+                      partition:partition?{
+                        preemptCell:label(partition.preemptCell),
+                        safeNonpreemptFrontier:
+                          partition.safeNonpreemptFrontier.map(label),
+                        hazardClasses:
+                          partition.guardNormalizationClasses.map(x=>({
+                            defenderMove:label(x.defenderMove),
+                            targetCells:x.targetCells.map(label),
+                          })),
+                        responseClasses:partition.responseClasses,
+                      }:null,
                     };
                   }),
               currentP0Actions:child.terminal?[]:frontierCells(child).map(actionCell=>{
