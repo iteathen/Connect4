@@ -11,6 +11,7 @@ on:
       - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-pair-star.mjs
       - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-theft-post-vertical-pair-star.mjs
       - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-latent-pairs.mjs
+      - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-ladder-trigger-responses.mjs
       - research/isograph/discovery/2026-10-02-cpcx/cpcx-pair-star.mjs
       - .github/workflows/research-cpcx-move6-theft-diagnostic.yml
   workflow_dispatch:
@@ -35,6 +36,7 @@ jobs:
           node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-pair-star.mjs > cpcx-move6-pair-star.json
           node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-theft-post-vertical-pair-star.mjs > cpcx-move6-theft-post-vertical-pair-star.json
           node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-latent-pairs.mjs > cpcx-move6-latent-pairs.json
+          node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-ladder-trigger-responses.mjs > cpcx-move6-ladder-trigger-responses.json
           node --input-type=module -e "
             import fs from 'node:fs';
             const x=JSON.parse(fs.readFileSync('cpcx-move6-theft-setups.json','utf8'));
@@ -75,4 +77,5 @@ jobs:
             cpcx-move6-pair-star.json
             cpcx-move6-theft-post-vertical-pair-star.json
             cpcx-move6-latent-pairs.json
+            cpcx-move6-ladder-trigger-responses.json
           if-no-files-found: error
