@@ -447,18 +447,34 @@ function oneDefectViabilityChainProbe(position,targetCell){
         });
         continue;
       }
-      const childOrdinary=certifyCpcxTruncatedTargetReservoir(
+      const childCertificate=runCpcxFirstWinCertificate(
+          child,{attacker:0}
+        ),
+        childOrdinary=certifyCpcxTruncatedTargetReservoir(
           child,{attacker:0,targetCell}
         ),
         childAnalysis=analyzeCpcxOneDefectTargetReservoir(
           child,{attacker:0,targetCell}
         ),
         childRank=childAnalysis.totalRelevantEvents??null;
-      if(childOrdinary.kind==='CERTIFIED_FIRST_WIN')repairs.push({
+      if(
+        childCertificate.kind==='CERTIFIED_FIRST_WIN'&&
+        childCertificate.player===0
+      )repairs.push({
+        cell:repairCell,
+        label:label(repairCell),
+        kind:'EXISTING_CPCX_FIRST_WIN',
+        child:null,
+        childRank:-1,
+        certificateSource:
+          childCertificate.trace?.[0]?.progress?.source??null,
+        certificateTraceLength:childCertificate.trace?.length??0,
+      });
+      else if(childOrdinary.kind==='CERTIFIED_FIRST_WIN')repairs.push({
         cell:repairCell,
         label:label(repairCell),
         kind:'ORDINARY_RESERVOIR_FIRST_WIN',
-        child,
+        child:null,
         childRank:0,
       });
       else if(
@@ -507,10 +523,13 @@ function oneDefectViabilityChainProbe(position,targetCell){
       },
     });
     if(selected.kind==='ATTACKER_TERMINAL'||
+       selected.kind==='EXISTING_CPCX_FIRST_WIN'||
        selected.kind==='ORDINARY_RESERVOIR_FIRST_WIN')return {
       kind:selected.kind==='ATTACKER_TERMINAL'
         ?'DISCOVERY_CHAIN_TO_ATTACKER_TERMINAL'
-        :'DISCOVERY_CHAIN_TO_ORDINARY_RESERVOIR',
+        :selected.kind==='EXISTING_CPCX_FIRST_WIN'
+          ?'DISCOVERY_CHAIN_TO_EXISTING_CPCX_FIRST_WIN'
+          :'DISCOVERY_CHAIN_TO_ORDINARY_RESERVOIR',
       exactDiscovery:true,
       certifiedByTheorem:false,
       stageCount:stages.length,
