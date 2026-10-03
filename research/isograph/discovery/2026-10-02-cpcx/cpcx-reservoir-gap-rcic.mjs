@@ -164,6 +164,35 @@ function baseHandoff(position,{attacker,targetCell}){
   };
 }
 
+function compareDescriptorRank(a,b){
+  const ak=[
+      a?.gap??Number.MAX_SAFE_INTEGER,
+      a?.uncoveredMass??Number.MAX_SAFE_INTEGER,
+      a?.uncoveredSupportSum??Number.MAX_SAFE_INTEGER,
+      a?.uncoveredSupportMax??Number.MAX_SAFE_INTEGER,
+    ],
+    bk=[
+      b?.gap??Number.MAX_SAFE_INTEGER,
+      b?.uncoveredMass??Number.MAX_SAFE_INTEGER,
+      b?.uncoveredSupportSum??Number.MAX_SAFE_INTEGER,
+      b?.uncoveredSupportMax??Number.MAX_SAFE_INTEGER,
+    ];
+  for(let i=0;i<ak.length;i++)if(ak[i]!==bk[i])return ak[i]-bk[i];
+
+  const ad=[...(a?.uncoveredSupportDistances??[])].sort((x,y)=>y-x),
+    bd=[...(b?.uncoveredSupportDistances??[])].sort((x,y)=>y-x),
+    n=Math.max(ad.length,bd.length);
+  for(let i=0;i<n;i++){
+    const av=ad[i]??-1,bv=bd[i]??-1;
+    if(av!==bv)return av-bv;
+  }
+  return 0;
+}
+
+function descriptorStrictlyDecreases(parent,child){
+  return compareDescriptorRank(child,parent)<0;
+}
+
 function gapDescriptor(position,analysis){
   const template=analysis?.bestPartialTemplates?.[0],
     uncovered=template?.uncovered??[],
@@ -405,10 +434,23 @@ export function certifyCpcxReservoirCoverageGapRcic(position,{
             continue;
           }
 
-          if(
-            childClass.kind==='GAP'&&
-            childClass.gap<node.gap
-          ){
+          if(childClass.kind==='GAP'){
+            const childDescriptor=gapDescriptor(child,childClass.analysis);
+            if(!descriptorStrictlyDecreases(node.descriptor,childDescriptor)){
+              trigger.rejected.push({
+                templateIndex,
+                responseCell:response.cell,
+                responseLabel:labelCell(g,response.cell),
+                role:response.role,
+                lineIds:response.lineIds??[],
+                lineLabels:response.lineLabels??[],
+                childClass:childClass.kind,
+                childGap:childClass.gap,
+                childDescriptor,
+                seam:'COVERAGE_RANK_NOT_DECREASING',
+              });
+              continue;
+            }
             const childKey=ensureNode(child,childClass);
             if(childKey===null)continue;
             trigger.options.push({
@@ -421,6 +463,7 @@ export function certifyCpcxReservoirCoverageGapRcic(position,{
               result:'LOWER_COVERAGE_GAP',
               baseClass:null,
               childGap:childClass.gap,
+              childDescriptor,
               childKey,
             });
             if(!queue.some(x=>x.key===childKey))
@@ -460,7 +503,7 @@ export function certifyCpcxReservoirCoverageGapRcic(position,{
 
   // Solve the finite structural proof DAG from lower gap to higher gap.
   const ordered=[...nodes.values()].sort((a,b)=>
-    a.gap-b.gap||
+    compareDescriptorRank(a.descriptor,b.descriptor)||
     b.rank-a.rank||
     a.key.localeCompare(b.key)
   );
@@ -579,14 +622,14 @@ export function certifyCpcxReservoirCoverageGapRcic(position,{
         'current frontier cells attached to that template\'s uncovered P1 residuals',
         'exact handoff to existing CPCX or ordinary target-reservoir first-win certificate',
       ],
-      rank:'minimumUncoveredResiduals',
+      rank:'lexicographic(minimumUncoveredResiduals, uncoveredMissingCellMass, uncoveredSupportDebtSum, uncoveredSupportDebtMax, descendingSupportDebtVector)',
       strictDecrease:true,
       responseTotality:true,
       triggerAdaptiveTemplates:true,
       allowedNonterminalExit:'STRICTLY_LOWER_COVERAGE_GAP_ONLY',
       allowedTerminalExit:'P0_FIRST_WIN_ONLY',
     },
-    proofRule:'ranked coverage repair: after every current P1 trigger choose a response licensed by a partial target-reservoir template or exact uncovered-residual frontier attachment; every nonterminal re-entry must preserve the target and strictly decrease the exact minimum uncovered-residual count until the qualified ordinary target-reservoir base is reached',
+    proofRule:'ranked coverage repair: after every current P1 trigger choose a response licensed by a partial target-reservoir template or exact uncovered-residual frontier attachment; every nonterminal re-entry must preserve the target and strictly decrease the exact lexicographic obstruction rank (uncovered residual count, missing-cell mass, support debt) until the qualified ordinary target-reservoir base is reached',
     theoremProvenance:[
       'RLC_RANKED_CONTROLLED_INVARIANT_CERTIFICATE_THEOREM.md',
       'CPC_TRIGGER_ADAPTIVE_RENEWAL_THEOREM.md',
@@ -595,6 +638,7 @@ export function certifyCpcxReservoirCoverageGapRcic(position,{
     ],
     standardBoardOnly:true,
     proofClassCandidate:true,
+    rankRefinement:'LEXICOGRAPHIC_COVERAGE_OBSTRUCTION_V0_2',
     promotedToRuntime:false,
     solvedData:false,
     oracle:false,
