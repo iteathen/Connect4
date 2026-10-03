@@ -1,0 +1,34 @@
+{
+  "schema": "connect4.uc4a-cpcx.diagonal-defect-bridge-controls.v0_1",
+  "date": "2026-10-03",
+  "inputs": {
+    "geometryAndRulesOnly": true,
+    "solvedData": false,
+    "oracle": false,
+    "bestMoveLabels": false,
+    "gameTreeTraversal": false
+  },
+  "method": "independent reconstruction of UC4A I-block second-order WIDTH2/HEIGHT2 curvature; generic W>=8 parity cells; exact rational row-space quotient; target rows reduced modulo source parity-regime span",
+  "crossK": [
+    {"K":3,"dominant":{"count":190,"coordinates":[{"field":"rotation180.yCell","value":"1"},{"field":"rotation180.yLine","value":"1"}]}},
+    {"K":4,"dominant":{"count":190,"coordinates":[{"field":"rotation180.yCell","value":"3"},{"field":"rotation180.yLine","value":"1"}]}},
+    {"K":5,"dominant":{"count":174,"coordinates":[{"field":"rotation180.yCell","value":"1"},{"field":"rotation180.yLine","value":"1"}]}},
+    {"K":6,"dominant":{"count":152,"coordinates":[{"field":"rotation180.yCell","value":"1"},{"field":"rotation180.yLine","value":"1"}]}},
+    {"K":7,"dominant":{"count":77,"coordinates":[{"field":"rotation180.yLine","value":"1"}]}}
+  ],
+  "orientationControls": [
+    {"name":"FULL","dominant":{"count":190,"coordinates":[{"field":"rotation180.yCell","value":"3"},{"field":"rotation180.yLine","value":"1"}]}},
+    {"name":"H_ONLY","dominant":{"count":104,"coordinates":[{"field":"rotation180.yCell","value":"1"}]}},
+    {"name":"V_ONLY","dominant":{"count":104,"coordinates":[{"field":"rotation180.yCell","value":"1"}]}},
+    {"name":"HV_ONLY","dominant":{"count":190,"coordinates":[{"field":"rotation180.yCell","value":"3"},{"field":"rotation180.yLine","value":"-1"}]}},
+    {"name":"DIAGONALS_ONLY","dominant":{"count":96,"coordinates":[{"field":"rotation180.yCell","value":"3"},{"field":"rotation180.yLine","value":"1"}]}}
+  ],
+  "assertions": {
+    "connect4DominantIsThreeToOne": true,
+    "kMinusOneScalingRejected": true,
+    "diagonalsAloneRecoverThreeToOne": true,
+    "horizontalAloneDoesNotRecoverThreeToOne": true,
+    "verticalAloneDoesNotRecoverThreeToOne": true
+  },
+  "boundary": "These controls identify the geometry/algebraic carrier of the old UC4A defect. They do not prove semantic identity with the CPCX diagonal residual, W/D/L, or Best(44444)."
+}
