@@ -61,7 +61,7 @@ test('fresh support-hidden highest target uses one exact local-safe support desc
 });
 
 test('highest support descent fails closed when the released cell is an opponent singleton',()=>{
-  const p=buildCpcxPosition('22334445',{geometry:g}),
+  const p=buildCpcxPosition('2342537447',{geometry:g}),
     r=residual(p,0,'A6-B5-C4-D3'),
     c=certifyCpcxProtectedDiagonalHighestTargetDescent(p,{
       protectedResidual:r,
