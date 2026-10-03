@@ -94,6 +94,55 @@ function obligationSummary(position,reflect){
       a.missing.join(',').localeCompare(b.missing.join(','))
     );
 }
+function pairCompressionProbe(position){
+  if(position.mover!==0)return null;
+  const pair=scanCpcxObligations(position).find(o=>
+    o.player===0&&
+    o.missingCount===2&&
+    o.events.filter(e=>e.supportDistance===0).length===1
+  );
+  if(!pair)return null;
+  const playable=pair.events.find(e=>e.supportDistance===0)?.cell;
+  if(!Number.isInteger(playable))return null;
+  const afterSetup=applyCpcxForcedEvent(position,playable);
+  if(afterSetup.terminal)return {
+    pairLine:pair.lineLabel,
+    setupCell:label(playable),
+    terminalOnSetup:afterSetup.terminal,
+    replies:[],
+  };
+  const replies=[];
+  for(const replyCell of frontier(afterSetup)){
+    const afterReply=applyCpcxForcedEvent(afterSetup,replyCell),
+      cert=runCpcxFirstWinCertificate(afterReply,{attacker:0});
+    replies.push({
+      replyCell:label(replyCell),
+      replyTerminal:afterReply.terminal,
+      certificate:{
+        kind:cert.kind,
+        exact:cert.exact,
+        player:cert.player??null,
+        seam:cert.seam??null,
+        traceLength:cert.trace?.length??0,
+      },
+    });
+  }
+  return {
+    pairLine:pair.lineLabel,
+    pairCells:pair.missingCells.map(label),
+    setupCell:label(playable),
+    targetCell:label(pair.missingCells.find(x=>x!==playable)),
+    afterSetupSupport:Array.from(afterSetup.heights),
+    replies,
+    closedReplyCount:replies.filter(x=>
+      x.certificate.kind==='CERTIFIED_FIRST_WIN'&&x.certificate.player===0
+    ).length,
+    allRepliesClosed:replies.every(x=>
+      x.certificate.kind==='CERTIFIED_FIRST_WIN'&&x.certificate.player===0
+    ),
+  };
+}
+
 function progressSummary(position){
   const p=classifyCpcxProgress(position,{player:0}),
     c=runCpcxFirstWinCertificate(position,{attacker:0});
@@ -122,6 +171,7 @@ function add(position,source){
       mover:position.mover,
       support:reflect?Array.from(position.heights).reverse():Array.from(position.heights),
       ...progressSummary(position),
+      pairCompressionProbe:pairCompressionProbe(position),
       obligations:obligationSummary(position,reflect),
       sources:[],
     });
@@ -197,5 +247,6 @@ console.log(JSON.stringify({
     solvedData:false,
     oracle:false,
     delayEquivalenceAssumed:false,
+    pairCompressionProbe:'one P0 setup on the unique playable endpoint of a two-cell residual, followed by one flat P1 frontier audit; not recursive search',
   },
 },null,2));
