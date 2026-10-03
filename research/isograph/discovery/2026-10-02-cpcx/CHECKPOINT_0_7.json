@@ -1,0 +1,188 @@
+{
+  "schema": "connect4.cpcx.checkpoint.v0_7",
+  "date": "2026-10-02",
+  "branch": "experiment/cpcx-20261002",
+  "recoveredStartingHead": "8700bf80104f20e6fed01dc2daed4b9e923c3d6f",
+  "qualifiedArchitectureHead": "df0da507accad1616f758fc37b52ff4afc4e272b",
+  "status": "HYBRID_CONTROL_QUOTIENT_REPRESENTATIVE_PROOF_SELECTED",
+  "target": {
+    "board": "standard 7x6 Connect Four",
+    "root": "44444",
+    "mover": "P1",
+    "objective": "determine Best(44444) under game-theoretic first-win value and prove it structurally",
+    "desiredHypothesis": "all seven legal sixth actions may share the same P0-first-win value",
+    "hypothesisIsPremise": false,
+    "delayEquivalenceRequired": false
+  },
+  "optionAssessment": {
+    "option1_directClosure": {
+      "completion": "CERTIFIED_FIRST_WIN(P0) after each of all seven physical sixth actions, with every theorem-defined response class closed",
+      "reusable": [
+        "forward CPC2",
+        "three-trigger wing",
+        "universal debt repair",
+        "vertical two-stage",
+        "target reservoir",
+        "restriction transport",
+        "pair/pair-star and residual-ladder primitives"
+      ],
+      "newProofNeed": "close remaining theft/final-block descendants by generic first-win theorems",
+      "observedBurden": {
+        "unresolvedTheftVerticalStates": 90,
+        "restrictionLadderSignatures": 24,
+        "oneSetupCpc2ClosedSixthMoves": 0
+      },
+      "assessment": "valid but currently highest proof duplication and state-class burden"
+    },
+    "option2_fullControlEquivalence": {
+      "completion": "prove one sufficient descriptor C and a transition congruence that puts all seven sixth-action children in one control class, then prove one representative",
+      "reusable": [
+        "exact horizontal reflection",
+        "residual/cofactor algebra",
+        "CPC2 restrictions",
+        "support/deadline metadata",
+        "first-win guards"
+      ],
+      "newProofNeed": "a sufficient control-state congruence theorem preserving every admitted future CPCX transition and first-terminal precedence",
+      "observedEvidence": {
+        "allSevenShareWingControlFacts": true,
+        "exactReflectionClassCount": 4,
+        "lossyProjectionClassCount": 7,
+        "residualProfileClassCount": 7,
+        "projectionLadderClassCount": 4,
+        "columnProfileClassCount": 2,
+        "disjointFamilyClassCount": 2
+      },
+      "assessment": "too large a sufficiency theorem to justify now; existing data does not support immediate one-class collapse"
+    },
+    "option3_hybrid": {
+      "completion": "partition by proved equivalence, prove one representative per class, and merge classes only when a separate congruence theorem is qualified",
+      "currentAuthoritativeClasses": [
+        {
+          "members": [
+            1,
+            7
+          ],
+          "representative": 1
+        },
+        {
+          "members": [
+            2,
+            6
+          ],
+          "representative": 2
+        },
+        {
+          "members": [
+            3,
+            5
+          ],
+          "representative": 3
+        },
+        {
+          "members": [
+            4
+          ],
+          "representative": 4
+        }
+      ],
+      "newProofNeed": "representative first-win proofs plus optional narrower congruence theorems for later class merges",
+      "assessment": "smallest current proof burden while preserving strict soundness; selected"
+    }
+  },
+  "controlQuotient": {
+    "authoritativeEquivalence": "horizontal reflection automorphism only",
+    "tests": [
+      "exact reflected positions canonicalize to one key",
+      "complete live obligation basis maps under reflection",
+      "every current legal event has a reflected exact successor in the same canonical class",
+      "immediate first-win/normalization classification is reflection compatible"
+    ],
+    "discoveryProjection": {
+      "authoritative": false,
+      "allSevenEqual": false,
+      "erasedInformation": [
+        "absolute column identity",
+        "exact occupied-cell ownership outside summary profiles",
+        "winning-line ancestry identifiers",
+        "exact residual cell attachment graph",
+        "exact frontier-to-residual incidence",
+        "exact future event correspondence"
+      ],
+      "rule": "no certificate transport from projection equality until a separate congruence theorem is proved"
+    }
+  },
+  "sharedExactFactsAcrossAllSeven": {
+    "moverAfterSixth": "P0",
+    "noImmediateTerminal": true,
+    "untouchedThreeColumnWing": true,
+    "wingHonoredPathP0FirstWin": true,
+    "firstDeviationFirstWinGuardPassed": true,
+    "firstDeviationPostRepairFirstWinGuardPassed": true,
+    "firstDeviationRepairLegal": true,
+    "firstDeviationGuaranteedTwoPieceResidualCount": 2,
+    "note": "common facts are exact observations but are not a sufficient control-state theorem"
+  },
+  "informationThatCannotCurrentlyBeQuotientedAway": [
+    "exact live residual ancestry",
+    "exact residual-to-cell attachment",
+    "support heights and support-release relations",
+    "current legal frontier incidence",
+    "defender counterterminal availability",
+    "CPC2 exact blocker sets",
+    "opponent singleton envelopes",
+    "transported debt/defect resource identity",
+    "first-terminal precedence"
+  ],
+  "representativeProofMatrix": {
+    "classCount": 4,
+    "firstDecisionNormalForm": [
+      "STEAL_TRIGGER_2",
+      "STEAL_TRIGGER_3",
+      "NONSTEAL"
+    ],
+    "nonstealConsequence": "P0 trigger 2 creates an exact forced response at trigger 3; failure to occupy trigger 3 loses immediately",
+    "remainingExactReflectionStates": {
+      "theft": 8,
+      "forcedFinalBlock": 13
+    },
+    "theoremFamilies": [
+      "FIRST_DECISION_STEAL_TRIGGER_2",
+      "FIRST_DECISION_STEAL_TRIGGER_3",
+      "NONSTEAL_TO_FORCED_FINAL_TRIGGER_BLOCK"
+    ]
+  },
+  "negativeEvidence": {
+    "oneDefectRcic": "falsified as a universal closure theorem; retained as negative evidence",
+    "pairStarOnMove6Theft": "qualified generic pair-star theorem does not instantiate on the move6 theft states or post-vertical theft classes",
+    "shallowTheftSetup": "0 of 14 theft states have a one-setup existing-CPCX first-win certificate",
+    "twoPlyUniversalSetup": "0 of 14 theft states have a setup whose full next defender frontier is already CPCX-certified",
+    "reservoirGapRcic": {
+      "candidatePromoted": false,
+      "certifiedGapCases": 4,
+      "failedResponseTotalityCases": 56
+    }
+  },
+  "currentBestMoveConclusion": {
+    "proven": false,
+    "bestSet": null,
+    "selectedMove": null,
+    "boundary": "Do not state Best(44444)=LegalActions until all representative classes receive P0 first-win certificates or a stronger proved control congruence transfers such a certificate."
+  },
+  "nextResearchRule": [
+    "Work on the four representative classes, not seven physical children.",
+    "Stay at theorem-defined response classes; do not descend through unrestricted reply trees.",
+    "Attempt a narrower congruence only when it preserves exact residual attachment, support/deadline relations, restriction sets, and first-win precedence.",
+    "A successful representative certificate transfers to its reflected class member automatically.",
+    "If all four representatives certify P0 first win, Best(44444) is all seven legal actions under the current game-theoretic objective; center 4 may then be chosen only as deterministic symmetry tie-break."
+  ],
+  "verification": {
+    "reflectionQuotientFullSuiteRun": 37093589807,
+    "controlQuotientArtifactRun": 37093589851,
+    "representativeMatrixArtifactRun": 37093787646,
+    "productionCpcModified": false,
+    "solvedDataUsed": false,
+    "oraclePremiseUsed": false,
+    "recursiveGameTreeSearchUsed": false
+  }
+}
