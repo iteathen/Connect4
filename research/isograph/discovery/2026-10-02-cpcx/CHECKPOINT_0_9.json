@@ -1,0 +1,79 @@
+{
+  "schema": "connect4.cpcx.checkpoint.v0_9",
+  "date": "2026-10-02",
+  "branch": "experiment/cpcx-20261002",
+  "status": "GUARDED_EXTERNAL_EVENT_COMMUTATOR_QUALIFIED",
+  "parentCheckpoint": "CHECKPOINT_0_8.json",
+  "liveHeadBeforeWork": "4758e3e045c88366a41cbe01cc402f407d8ac7ec",
+  "theorem": {
+    "name": "CPCX_GUARDED_EXTERNAL_EVENT_COMMUTATOR_0_1",
+    "contractCommit": "86eb1b13a5bc7d68c5700870336f018138e45cc8",
+    "implementationCommit": "d9942e55166f62d30d003017d02abf9af4cdfbc9",
+    "testCommit": "ebfdba17facfa48d6f69cae0ff29f8498a5556bf",
+    "diagnosticCommit": "036cc0cdcb58cf5778694f88568e1ff13451fd19",
+    "workflowCommit": "24ae6dd4b0220982e6fa969ca9a898115c706df2",
+    "observationScope": [
+      "rank",
+      "next mover",
+      "exact owner occupancy",
+      "exact support heights",
+      "nonterminal first-win status",
+      "protected residual cofactor state"
+    ],
+    "conclusion": "Under explicit frontier, support-column, load-bearing, protected-cofactor, turn-pattern, and first-terminal guards, x;M;y and y;M;x have the same exact nonterminal CPCX physical successor.",
+    "globalColumnPermutationRequired": false,
+    "sameEndpointsUsedAsPremise": false,
+    "recursiveSearch": false,
+    "solvedData": false,
+    "oracle": false
+  },
+  "genericQualification": {
+    "freshBottomPositive": true,
+    "freshNonBottomPositive": true,
+    "negativeControls": {
+      "externalSupportDependency": "fails closed",
+      "loadBearingIntersection": "fails closed",
+      "supportPrerequisiteIntersection": "fails closed",
+      "macroPremiseResidualMutation": "fails closed",
+      "firstTerminalPrecedenceDifference": "fails closed"
+    },
+    "prototypeRunAtTestCommit": 37103631448,
+    "prototypeRunAtTestCommitConclusion": "success"
+  },
+  "move6Application": {
+    "workflowRun": 37103766038,
+    "workflowConclusion": "success",
+    "artifact": "cpcx-move6-event-commutator.json",
+    "unresolvedPhysicalClassCount": 45,
+    "candidateTranspositionPairCount": 208,
+    "certifiedTranspositionPairCount": 208,
+    "certifiedClassCount": 20,
+    "certifiedSourceOccurrenceCount": 124,
+    "seamCounts": {},
+    "centerDelayedU12Included": true,
+    "runtimeUsesUClassIds": false,
+    "classIdsDiagnosticOnly": true,
+    "exactPhysicalClassCountReduced": false,
+    "interpretation": "The unresolved artifact already quotients exact physical endpoints. The new theorem removes event-order provenance as an unexplained distinction and supplies a generic structural reason for reconvergence; it does not claim equality between physically distinct unresolved endpoints."
+  },
+  "preservedBoundaries": {
+    "best44444Proven": false,
+    "bestSet": null,
+    "opponentDeadlineProjectionCloses": false,
+    "commonPairNestedLadder": false,
+    "fullSupportPhaseEquivalent": false,
+    "fullQOEquivalent": false,
+    "productionCpcModified": false
+  },
+  "nextTarget": {
+    "name": "observation-relative A-C first-win proof cone",
+    "purpose": "determine whether physically distinct unresolved states differ only outside the load-bearing first-win observation after deleting opponent residuals solely by support-turn impossibility, terminal dominance, or exact response-capacity irrelevance",
+    "centerSpecificFocus": [
+      "U4",
+      "U5",
+      "U12",
+      "U13"
+    ],
+    "importantFact": "commutation explains U12 ordering duplication but does not by itself merge U4/U5/U12/U13 with one another"
+  }
+}
