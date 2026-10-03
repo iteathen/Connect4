@@ -533,11 +533,15 @@ function oneDefectViabilityChainProbe(position,targetCell){
       handoffEvents:chosen.handoff.events,
       repairCandidates:chosen.repairs.map(x=>({
         cell:x.label,kind:x.kind,childRank:x.childRank,
+        certificateSource:x.certificateSource??null,
+        certificateTraceLength:x.certificateTraceLength??null,
       })),
       selectedRepair:{
         cell:selected.label,
         kind:selected.kind,
         childRank:selected.childRank,
+        certificateSource:selected.certificateSource??null,
+        certificateTraceLength:selected.certificateTraceLength??null,
       },
     });
 
