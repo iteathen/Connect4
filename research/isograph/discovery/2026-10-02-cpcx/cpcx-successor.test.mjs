@@ -90,6 +90,15 @@ test('defender-turn vertical preempt/nonpreempt alternatives collapse to one abs
   assert.equal(successor.blockerTokens.length,1);
   assert.equal(successor.blockerTokens[0].maxCount,1);
   assert.equal(successor.blockerTokens[0].directKillCapacity,0);
+  const carried=successor.guaranteedResiduals.find(r=>
+    r.lineLabel==='D1-E2-F3-G4'&&r.missingCount===2
+  );
+  assert.ok(carried);
+  assert.equal(carried.supportProfilesExact,true);
+  assert.ok(carried.supportProfiles.length>=1);
+  assert.ok(carried.supportProfiles.every(p=>
+    p.length===carried.missingCells.length&&p.every(Number.isInteger)
+  ));
   assert.equal(successor.choiceEnumeration,false);
 
   const next=classifyCpcxSuccessor(successor,{attacker:0});
