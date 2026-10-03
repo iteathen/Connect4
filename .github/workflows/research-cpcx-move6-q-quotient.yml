@@ -15,6 +15,7 @@ on:
       - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-q-normalized-boundaries.mjs
       - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-neutral-reservoir.mjs
       - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-shared-deviation-substrate.mjs
+      - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-shared-pair-components.mjs
       - research/isograph/discovery/2026-10-02-cpcx/cpcx-deadline.mjs
       - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-q-realizability.mjs
       - .github/workflows/research-cpcx-move6-q-quotient.yml
@@ -44,12 +45,14 @@ jobs:
           node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-q-normalized-boundaries.mjs > cpcx-move6-q-normalized-boundaries.json
           node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-neutral-reservoir.mjs > cpcx-move6-neutral-reservoir.json
           node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-shared-deviation-substrate.mjs > cpcx-move6-shared-deviation-substrate.json
+          node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-shared-pair-components.mjs > cpcx-move6-shared-pair-components.json
           cat cpcx-move6-qo-quotient.json
           cat cpcx-move6-q-realizability.json
           cat cpcx-move6-q-branch-ti.json
           cat cpcx-move6-q-normalized-boundaries.json
           cat cpcx-move6-neutral-reservoir.json
           cat cpcx-move6-shared-deviation-substrate.json
+          cat cpcx-move6-shared-pair-components.json
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
           name: cpcx-move6-qo-quotient
@@ -60,4 +63,5 @@ jobs:
             cpcx-move6-q-normalized-boundaries.json
             cpcx-move6-neutral-reservoir.json
             cpcx-move6-shared-deviation-substrate.json
+            cpcx-move6-shared-pair-components.json
           if-no-files-found: error
