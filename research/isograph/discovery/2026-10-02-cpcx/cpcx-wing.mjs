@@ -75,6 +75,124 @@ function chooseSurvivingFamily(pair,actionColumn){
   return pair.familyA.columnMask<pair.familyB.columnMask?pair.familyA:pair.familyB;
 }
 
+
+function buildDirectWingContract(position,obligation,attacker){
+  const g=position.geometry,defender=attacker^1,
+    line=g.lines[obligation.lineId];
+  if(!line)return null;
+  const missing=new Set(obligation.missingCells),
+    anchorCells=line.cells.filter(cell=>!missing.has(cell));
+  if(anchorCells.length!==1||position.owner[anchorCells[0]]!==attacker)
+    return null;
+  if(obligation.events.some(e=>e.supportDistance!==0))return null;
+
+  const anchorColumn=cpcxCell(g,anchorCells[0]).column,
+    triggers=[...obligation.missingCells].sort((a,b)=>{
+      const ca=cpcxCell(g,a).column,cb=cpcxCell(g,b).column,
+        da=Math.abs(ca-anchorColumn),db=Math.abs(cb-anchorColumn);
+      return db-da||ca-cb;
+    }),
+    responses=triggers.map(cell=>cell+g.columns);
+
+  for(let i=0;i<2;i++){
+    if(responses[i]>=g.cellCount)return null;
+    const t=cpcxCell(g,triggers[i]),r=cpcxCell(g,responses[i]);
+    if(r.column!==t.column||r.row!==t.row+1||position.owner[responses[i]]!==-1)
+      return null;
+  }
+
+  const fixedEvents=[
+      {cell:triggers[0],owner:attacker,role:'TRIGGER_1'},
+      {cell:responses[0],owner:defender,role:'HONORED_RESPONSE_1'},
+      {cell:triggers[1],owner:attacker,role:'TRIGGER_2'},
+      {cell:responses[1],owner:defender,role:'HONORED_RESPONSE_2'},
+      {cell:triggers[2],owner:attacker,role:'TRIGGER_3'},
+    ],
+    verification=verifyCpcxFixedEventScript(position,fixedEvents),
+    expectedTerminalIndex=fixedEvents.length-1,
+    honoredPathWin=verification.legal&&
+      verification.terminal?.index===expectedTerminalIndex&&
+      verification.terminal.player===attacker&&
+      verification.terminal.lineId===line.id;
+
+  if(!honoredPathWin)return null;
+
+  return {
+    kind:'THREE_TRIGGER_WING_ATTACK',
+    exact:true,
+    boardColumns:g.columns,
+    action:null,
+    initialEvents:[],
+    attacker,
+    defender,
+    source:{kind:'DIRECT_CURRENT_THREE_TRIGGER_RESIDUAL'},
+    survivingFamily:{
+      columns:[...new Set(triggers.map(cell=>cpcxCell(g,cell).column))].sort((a,b)=>a-b),
+      levels:[],
+    },
+    anchoredLine:{
+      lineId:line.id,
+      triggerOrder:'OUTER_TO_ANCHOR_REFLECTION_CANONICAL',
+      lineCells:[...line.cells],
+      anchorCell:anchorCells[0],
+      triggerCells:triggers,
+      requiredResponseCells:responses,
+    },
+    honoredPath:{
+      fixedEvents,
+      verification:{
+        legal:verification.legal,
+        terminal:verification.terminal,
+        steps:verification.steps,
+      },
+      terminalOnThirdTrigger:true,
+      exact:true,
+    },
+    deviationContract:{
+      defenderDecisionPoints:2,
+      rule:'at either response point, any legal reply other than the required same-column response creates explicit pair debt',
+      forcingCertified:false,
+    },
+    proofBoundary:'all-honored response path is exact; arbitrary deviation debt remains unresolved',
+  };
+}
+
+export function findCpcxDirectThreeTriggerWingAttacks(position,{
+  attacker=position.mover,
+}={}){
+  if(attacker!==0&&attacker!==1)throw new RangeError('attacker');
+  if(position.terminal)return [];
+  if(position.mover!==attacker)return [];
+
+  return scanCpcxObligations(position)
+    .filter(o=>
+      o.player===attacker&&
+      o.orientation==='H'&&
+      o.missingCount===3
+    )
+    .map(o=>buildDirectWingContract(position,o,attacker))
+    .filter(Boolean)
+    .sort((a,b)=>a.anchoredLine.lineId-b.anchoredLine.lineId);
+}
+
+export function compileCpcxDirectThreeTriggerWingAttack(position,{
+  attacker=position.mover,
+  lineId=null,
+}={}){
+  const rows=findCpcxDirectThreeTriggerWingAttacks(position,{attacker}),
+    selected=Number.isInteger(lineId)
+      ?rows.find(x=>x.anchoredLine.lineId===lineId)
+      :rows.length===1?rows[0]:null;
+  if(selected)return selected;
+  return {
+    kind:rows.length>1&&!Number.isInteger(lineId)
+      ?'MULTIPLE_DIRECT_WING_CANDIDATES'
+      :'NO_DIRECT_WING_CANDIDATE',
+    exact:false,
+    candidateLineIds:rows.map(x=>x.anchoredLine.lineId),
+  };
+}
+
 export function compileCpcxPostActionWingAttack(position,{
   actionCell,
   actionOwner=position.mover,
@@ -141,7 +259,10 @@ export function compileCpcxPostActionWingAttack(position,{
     exact:true,
     boardColumns:g.columns,
     action:{cell:actionCell,column:actionColumn,owner:actionOwner},
+    initialEvents:[{cell:actionCell,owner:actionOwner,role:'SIXTH_ACTION'}],
     attacker,
+    defender:actionOwner,
+    source:{kind:'POST_ACTION_DISJOINT_WING'},
     survivingFamily:{
       columns:[...family.columns],
       levels:family.levels,
@@ -219,7 +340,11 @@ export function certifyCpcxSecondWingDeviation(position,contract,{actualReplyCel
     throw new TypeError('wing contract');
   if(!Number.isInteger(actualReplyCell))throw new RangeError('actualReplyCell');
 
-  const attacker=contract.attacker,defender=contract.action.owner,
+  const attacker=contract.attacker,
+    defender=contract.defender??contract.action?.owner,
+    initialEvents=contract.initialEvents??(
+      contract.action?[{cell:contract.action.cell,owner:contract.action.owner}]:[]
+    ),
     decisionIndex=1,
     deviation=classifyCpcxWingDeviation(contract,{decisionIndex,actualReplyCell});
 
@@ -239,7 +364,7 @@ export function certifyCpcxSecondWingDeviation(position,contract,{actualReplyCel
   const triggers=contract.anchoredLine.triggerCells,
     responses=contract.anchoredLine.requiredResponseCells,
     events=[
-      {cell:contract.action.cell,owner:defender,role:'INITIAL_DEFENDER_ACTION'},
+      ...initialEvents.map(e=>({cell:e.cell,owner:e.owner,role:e.role??'INITIAL_EVENT'})),
       {cell:triggers[0],owner:attacker,role:'TRIGGER_1'},
       {cell:responses[0],owner:defender,role:'HONORED_RESPONSE_1'},
       {cell:triggers[1],owner:attacker,role:'TRIGGER_2'},
