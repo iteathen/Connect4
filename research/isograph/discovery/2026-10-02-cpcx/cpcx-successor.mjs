@@ -313,6 +313,52 @@ export function composeCpcxForcingMacro(position,progress){
     };
   }
 
+  if(macro.kind==='VERTICAL_THREE_STAGE'){
+    const certificate=macro.certificate;
+    if(certificate?.kind!=='VERTICAL_THREE_STAGE_SETUP'||!certificate.exact)
+      throw new TypeError('exact vertical three-stage setup certificate required');
+
+    const childProgress={
+      kind:'CERTIFIED_FORCING_MACRO',
+      exact:true,
+      player:certificate.controller,
+      macro:{
+        kind:'VERTICAL_TWO_STAGE',
+        primaryCell:certificate.childDemand.lowerCell,
+        secondaryCell:certificate.childDemand.upperCell,
+        lineId:certificate.childDemand.obligation.lineId,
+        demand:certificate.childDemand,
+        certificate:certificate.childCertificate,
+      },
+    };
+    const childResult=composeCpcxForcingMacro(
+      certificate.child,childProgress
+    );
+    if(!childResult?.exact)return {
+      ...childResult,
+      seam:childResult?.seam??'VERTICAL_THREE_STAGE_CHILD_COMPOSITION_FAILED',
+    };
+    if(!childResult.rank?.deltaOptions)
+      throw new Error('vertical three-stage child result missing rank delta');
+
+    return {
+      ...childResult,
+      rank:{
+        ...childResult.rank,
+        deltaOptions:childResult.rank.deltaOptions.map(x=>x+1),
+      },
+      source:{
+        kind:'VERTICAL_THREE_STAGE',
+        setupCell:certificate.setupCell,
+        sourceLineId:certificate.sourceLineId,
+        childCertificateKind:certificate.childCertificate.kind,
+        childSource:childResult.source,
+      },
+      choiceEnumeration:false,
+      recursive:false,
+    };
+  }
+
   if(macro.kind==='VERTICAL_TWO_STAGE'){
     const collapse=collapseCpcxVerticalTwoStage(
       position,macro.demand,macro.certificate
