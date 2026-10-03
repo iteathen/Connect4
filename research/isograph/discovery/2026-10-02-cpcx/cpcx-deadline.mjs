@@ -110,6 +110,7 @@ export function lowerBoundCpcxEarliestTerminal(position,{
 
 export function lowerBoundCpcxAbstractResidualCompletion(successor,residual,{
   player=residual.player,
+  cellCount=successor?.geometry?.cellCount??null,
 }={}){
   if(!successor?.exact)throw new TypeError('exact successor required');
   if(player!==0&&player!==1)throw new RangeError('player');
@@ -123,13 +124,11 @@ export function lowerBoundCpcxAbstractResidualCompletion(successor,residual,{
 
   // For a lower bound across an abstract family, use the realization with the
   // most remaining physical plies and every cell's minimum support distance.
-  const minRank=Math.min(...rankOptions),
-    remainingPlies=successor.geometry?.cellCount
-      ?successor.geometry.cellCount-minRank
-      :null;
+  if(!Number.isInteger(cellCount)||cellCount<0)
+    throw new TypeError('abstract successor cellCount required');
 
-  if(remainingPlies===null)
-    throw new TypeError('abstract successor geometry.cellCount required');
+  const minRank=Math.min(...rankOptions),
+    remainingPlies=cellCount-minRank;
 
   return cpcxEarliestResidualCompletionLowerBound({
     mover:successor.nextMover,
