@@ -32,7 +32,8 @@ test('fresh hidden-target opponent boundary has total strict response descent',(
     });
 
   assert.equal(p.mover,1);
-  assert.equal(c.kind,'PROTECTED_DIAGONAL_OPPONENT_RESPONSE_DESCENT');
+  if(c.kind!=='PROTECTED_DIAGONAL_OPPONENT_RESPONSE_DESCENT')
+    assert.fail(JSON.stringify(c));
   assert.equal(c.exact,true);
   assert.equal(c.eventCount,3);
   assert.equal(c.allCurrentOpponentEventsCovered,true);
