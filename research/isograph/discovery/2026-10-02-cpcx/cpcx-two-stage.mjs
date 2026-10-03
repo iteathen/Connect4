@@ -19,6 +19,7 @@
 import {cpcxCell,scanCpcxObligations} from './cpcx.mjs';
 import {createCpcxResidualCarrier,compileCpcxResidualEventChain} from './cpcx-residual.mjs';
 import {verifyCpcxFixedEventScript} from './cpcx-wing.mjs';
+import {lowerBoundCpcxEarliestTerminal} from './cpcx-deadline.mjs';
 
 function unique(values){return [...new Set(values)].sort((a,b)=>a-b);}
 
@@ -345,6 +346,8 @@ export function deriveCpcxVerticalOpponentSingletonEnvelope(position,demand,cert
         externalCell,
         terminal:v.terminal,
         defenderSingletons:[],
+        defenderEarliestTerminalLowerBound:
+          v.terminal.player===defender?0:null,
       });
       return null;
     }
@@ -411,6 +414,12 @@ export function deriveCpcxVerticalOpponentSingletonEnvelope(position,demand,cert
     choiceEnumeration:false,
   };
 
+  const defenderEarliestTerminalLowerBound=continuing.length
+    ?Math.min(...continuing.map(x=>
+      x.defenderEarliestTerminalLowerBound??Infinity
+    ))
+    :null;
+
   const possible=unique(continuing.flatMap(x=>x.defenderSingletons));
   let guaranteed=[];
   if(continuing.length){
@@ -434,6 +443,10 @@ export function deriveCpcxVerticalOpponentSingletonEnvelope(position,demand,cert
     possibleCells:possible,
     guaranteedCells:guaranteed,
     normalizationClosed:possible.length===0,
+    defenderEarliestTerminalLowerBound:
+      Number.isFinite(defenderEarliestTerminalLowerBound)
+        ?defenderEarliestTerminalLowerBound
+        :null,
     classes,
     proofRule:'flat exact preempt/delayed class scan; union is every possible defender singleton after the macro and intersection is every guaranteed defender singleton',
     choiceEnumeration:false,
