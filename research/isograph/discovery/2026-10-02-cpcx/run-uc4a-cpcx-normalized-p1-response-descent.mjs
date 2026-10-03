@@ -20,6 +20,9 @@ import {
   certifyCpcxProtectedResidualTargetAcquisition,
 } from './cpcx-target-acquisition.mjs';
 import {
+  certifyCpcxProtectedResidualDiagonalTransfer,
+} from './cpcx-diagonal-transfer.mjs';
+import {
   buildCpcxMove6UnresolvedClassesArtifact,
 } from './cpcx-move6-unresolved-classes.mjs';
 
@@ -66,14 +69,6 @@ function normalizedRecord(sourceKind,cls,eventCell,q){
   const n=certifyCpcxProtectedResidualForcedNormalization(q,{protectedResidual:R});
   if(n.kind!=='PROTECTED_RESIDUAL_FORCED_NORMALIZATION'||!n.exact)return null;
   return {sourceKind,classId:cls.classId,eventCell:label(eventCell),position:n.finalPosition,normalization:{rankDelta:n.rankDelta,stepKinds:n.steps.map(x=>x.kind),sourceTuple:[n.sourceMissingCount,n.sourceSupportDebt],finalTuple:[n.finalMissingCount,n.finalSupportDebt]}};
-}
-function transferCandidate(position,sourceResidual,blockedCell){
-  const retained=new Set(g.lines[sourceResidual.lineId].cells.filter(c=>c!==blockedCell)),sourceTuple=tuple(sourceResidual);
-  return scanCpcxObligations(position)
-    .filter(o=>o.player===sourceResidual.player&&(o.orientation==='D+'||o.orientation==='D-'))
-    .map(o=>({residual:o,overlap:g.lines[o.lineId].cells.filter(c=>retained.has(c))}))
-    .filter(x=>x.overlap.length>0&&tupleLess(tuple(x.residual),sourceTuple))
-    .sort((a,b)=>b.overlap.length-a.overlap.length||a.residual.missingCount-b.residual.missingCount||supportDebt(a.residual)-supportDebt(b.residual)||a.residual.lineId-b.residual.lineId)[0]??null;
 }
 function summarizeCertificate(c){
   return {kind:c.kind,exact:c.exact??false,seam:c.seam??null,player:c.player??null,actionCell:Number.isInteger(c.actionCell)?label(c.actionCell):null,targetCell:Number.isInteger(c.targetCell)?label(c.targetCell):null,missingCountDelta:c.missingCountDelta??null,supportDebtDelta:c.supportDebtDelta??null};
@@ -165,15 +160,26 @@ for(const source of normalized){
     if(R.missingCells.includes(eventCell)){
       const child=applyCpcxForcedEvent(position,eventCell);
       if(child.terminal){responses.push({eventCell:label(eventCell),role:'PROTECTED_TARGET_OCCUPATION',terminal:child.terminal,exact:child.terminal.player===0});continue;}
-      const transfer=transferCandidate(child,R,eventCell);
-      if(!transfer){responses.push({eventCell:label(eventCell),role:'PROTECTED_TARGET_OCCUPATION',exact:false,seam:'NO_STRICTLY_LOWER_TRANSFER'});continue;}
-      const descent=controllerDescent(child,transfer.residual),
+      const transfer=certifyCpcxProtectedResidualDiagonalTransfer(position,{
+        protectedResidual:R,
+        blockedCell:eventCell,
+      });
+      if(transfer.kind!=='PROTECTED_RESIDUAL_DIAGONAL_TRANSFER'||!transfer.exact){
+        responses.push({eventCell:label(eventCell),role:'PROTECTED_TARGET_OCCUPATION',exact:false,seam:transfer.seam??transfer.kind,transfer:summarizeCertificate(transfer)});
+        continue;
+      }
+      const transferR=residualByLine(transfer.child,transfer.transfer.lineId,R.player);
+      if(!transferR){
+        responses.push({eventCell:label(eventCell),role:'PROTECTED_TARGET_OCCUPATION',exact:false,seam:'TRANSFER_RESIDUAL_NOT_LIVE'});
+        continue;
+      }
+      const descent=controllerDescent(transfer.child,transferR),
         sourceTuple=tuple(R),finalTuple=descentFinalTuple(descent),
         strictDescentOrWin=descent.exact===true&&(
           descentWins(descent)||
-          (finalTuple?tupleLess(finalTuple,sourceTuple):tupleLess(tuple(transfer.residual),sourceTuple))
+          (finalTuple?tupleLess(finalTuple,sourceTuple):transfer.strictTupleDecrease===true)
         );
-      responses.push({eventCell:label(eventCell),role:'PROTECTED_TARGET_OCCUPATION',exact:descent.exact===true,strictDescentOrWin,sourceTuple,finalTuple,transfer:{lineLabel:transfer.residual.lineLabel,overlap:transfer.overlap.map(label),tuple:tuple(transfer.residual),playable:transfer.residual.currentlyPlayableCells.map(label)},descent});
+      responses.push({eventCell:label(eventCell),role:'PROTECTED_TARGET_OCCUPATION',exact:descent.exact===true,strictDescentOrWin,sourceTuple,finalTuple,transfer:{kind:transfer.kind,lineLabel:transfer.transfer.lineLabel,overlap:transfer.transfer.overlapCells.map(label),tuple:[...transfer.transfer.tuple],playable:transfer.transfer.currentlyPlayableCells.map(label),strictTupleDecrease:transfer.strictTupleDecrease},descent});
       continue;
     }
     const trans=certifyCpcxProtectedResidualSupportTransition(position,{protectedResidual:R,eventCell});
@@ -211,5 +217,5 @@ console.log(JSON.stringify({
     failures:failures.map(x=>({classId:x.classId,eventCell:x.eventCell,role:x.role,seam:x.seam??x.descent?.kind??null,descent:x.descent??null})),
     strictFailures:strictFailures.map(x=>({classId:x.classId,eventCell:x.eventCell,role:x.role,sourceTuple:x.sourceTuple??null,finalTuple:x.finalTuple??null,seam:x.seam??x.descent?.kind??null,descent:x.descent??null})),
   },
-  boundary:{diagnosticOnly:true,exactlyOneCurrentP1Event:true,controllerFollowupIsCurrentRankOnlyAfterDeterministicForcedNormalization:true,noFreeSecondP1Layer:true,transferSelectionDiagnosticOnly:true,noValueConclusion:true,solvedData:false,oracle:false,minimax:false,recursiveSearch:false},
+  boundary:{diagnosticOnly:true,exactlyOneCurrentP1Event:true,controllerFollowupIsCurrentRankOnlyAfterDeterministicForcedNormalization:true,noFreeSecondP1Layer:true,transferUsesQualifiedDiagonalTransfer:true,noValueConclusion:true,solvedData:false,oracle:false,minimax:false,recursiveSearch:false},
 },null,2));
