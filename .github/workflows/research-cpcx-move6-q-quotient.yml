@@ -9,6 +9,9 @@ on:
       - research/isograph/discovery/2026-10-02-cpcx/cpcx-q-quotient.test.mjs
       - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-qo-quotient.mjs
       - research/isograph/discovery/2026-10-02-cpcx/cpcx-q-realizability.mjs
+      - research/isograph/discovery/2026-10-02-cpcx/cpcx-q-branch-ti.mjs
+      - research/isograph/discovery/2026-10-02-cpcx/cpcx-q-branch-ti.test.mjs
+      - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-q-branch-ti.mjs
       - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-q-realizability.mjs
       - .github/workflows/research-cpcx-move6-q-quotient.yml
   workflow_dispatch:
@@ -26,17 +29,22 @@ jobs:
         with:
           node-version: "26.7.0"
       - name: Qualify q_o transporter port
-        run: node --test research/isograph/discovery/2026-10-02-cpcx/cpcx-q-quotient.test.mjs
+        run: |
+          node --test research/isograph/discovery/2026-10-02-cpcx/cpcx-q-quotient.test.mjs
+          node --test research/isograph/discovery/2026-10-02-cpcx/cpcx-q-branch-ti.test.mjs
       - name: Run move6 q_o quotient diagnostic
         run: |
           node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-qo-quotient.mjs > cpcx-move6-qo-quotient.json
           node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-q-realizability.mjs > cpcx-move6-q-realizability.json
+          node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-q-branch-ti.mjs > cpcx-move6-q-branch-ti.json
           cat cpcx-move6-qo-quotient.json
           cat cpcx-move6-q-realizability.json
+          cat cpcx-move6-q-branch-ti.json
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
           name: cpcx-move6-qo-quotient
           path: |
             cpcx-move6-qo-quotient.json
             cpcx-move6-q-realizability.json
+            cpcx-move6-q-branch-ti.json
           if-no-files-found: error
