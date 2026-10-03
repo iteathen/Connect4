@@ -516,7 +516,7 @@ for(const source of sources.values()){
                       targetCell:e.cell,
                     }
                   );
-                let nextResidual=null,response=null;
+                let nextResidual=null,response=null,response2=null;
                 if(progress.exact&&
                    progress.kind!=='CERTIFIED_FIRST_WIN'&&
                    progress.child){
@@ -528,6 +528,9 @@ for(const source of sources.values()){
                      classifyCpcxImmediate(progress.child).kind===
                        'NO_IMMEDIATE_OBLIGATION')
                     response=certifyCpcxProtectedDiagonalOpponentResponseDescent(
+                      progress.child,{protectedResidual:nextResidual}
+                    ),
+                    response2=certifyCpcxProtectedDiagonalOpponentResponseDescentV2(
                       progress.child,{protectedResidual:nextResidual}
                     );
                 }
@@ -577,7 +580,7 @@ for(const source of sources.values()){
                               controllerResidual:nr,targetCell:ne.cell,
                             }
                           );
-                        let rr=null,nr2=null;
+                        let rr=null,rr2=null,nr2=null;
                         if(np.exact&&np.kind!=='CERTIFIED_FIRST_WIN'&&np.child){
                           nr2=scanCpcxObligations(np.child).find(o=>
                             o.player===0&&o.lineId===nr.lineId
@@ -586,6 +589,9 @@ for(const source of sources.values()){
                              classifyCpcxImmediate(np.child).kind===
                                'NO_IMMEDIATE_OBLIGATION')
                             rr=certifyCpcxProtectedDiagonalOpponentResponseDescent(
+                              np.child,{protectedResidual:nr2}
+                            ),
+                            rr2=certifyCpcxProtectedDiagonalOpponentResponseDescentV2(
                               np.child,{protectedResidual:nr2}
                             );
                         }
@@ -614,6 +620,16 @@ for(const source of sources.values()){
                             failureCount:rr.failures?.length??0,
                             everyEventWinsOrStrictlyDescends:
                               rr.everyEventWinsOrStrictlyDescends??false,
+                          }:null,
+                          responseDescentV2:rr2?{
+                            kind:rr2.kind,
+                            exact:rr2.exact??false,
+                            seam:rr2.seam??null,
+                            sourceMeasure:rr2.sourceMeasure??null,
+                            eventCount:rr2.eventCount??null,
+                            failureCount:rr2.failures?.length??0,
+                            everyEventWinsOrStrictlyDescends:
+                              rr2.everyEventWinsOrStrictlyDescends??false,
                           }:null,
                         };
                       });
@@ -645,6 +661,16 @@ for(const source of sources.values()){
                     failureCount:response.failures?.length??0,
                     everyEventWinsOrStrictlyDescends:
                       response.everyEventWinsOrStrictlyDescends??false,
+                  }:null,
+                  responseDescentV2:response2?{
+                    kind:response2.kind,
+                    exact:response2.exact??false,
+                    seam:response2.seam??null,
+                    sourceMeasure:response2.sourceMeasure??null,
+                    eventCount:response2.eventCount??null,
+                    failureCount:response2.failures?.length??0,
+                    everyEventWinsOrStrictlyDescends:
+                      response2.everyEventWinsOrStrictlyDescends??false,
                   }:null,
                   forcedNormalization,
                   postForcedProgressOptions,
