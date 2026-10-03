@@ -25,7 +25,7 @@ import {
 
 function fail(seam,detail={}){
   return {
-    schema:'connect4.cpcx.protected-diagonal-track-transfer.v0_1',
+    schema:'connect4.cpcx.protected-residual-diagonal-transfer.v0_1',
     kind:'NO_CERTIFICATE',
     exact:false,
     seam,
@@ -191,8 +191,8 @@ export function certifyCpcxProtectedResidualDiagonalTransfer(position,{
 
   const chosen=candidates[0],replacement=chosen.residual;
   return {
-    schema:'connect4.cpcx.protected-diagonal-track-transfer.v0_1',
-    kind:'PROTECTED_DIAGONAL_TRACK_TRANSFER',
+    schema:'connect4.cpcx.protected-residual-diagonal-transfer.v0_1',
+    kind:'PROTECTED_RESIDUAL_DIAGONAL_TRANSFER',
     exact:true,
     controller,
     opponent,
