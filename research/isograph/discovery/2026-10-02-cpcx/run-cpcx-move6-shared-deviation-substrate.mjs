@@ -12,6 +12,10 @@ import {
 import {
   lowerBoundCpcxAbstractResidualCompletion,
 } from './cpcx-deadline.mjs';
+import {
+  keyCpcxSupportEnvelope,
+  projectCpcxSupportEnvelope,
+} from './cpcx-support-envelope.mjs';
 
 const g=createCpcxGeometry(),
   root=buildCpcxPosition('44444',{geometry:g});
