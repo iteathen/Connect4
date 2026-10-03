@@ -6,6 +6,7 @@ on:
       - experiment/cpcx-20261002
     paths:
       - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-cpc2-setup-restriction.mjs
+      - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-restriction-ladder.mjs
       - research/isograph/discovery/2026-10-02-cpcx/cpcx-cpc2.mjs
       - research/isograph/discovery/2026-10-02-cpcx/cpcx-successor.mjs
       - research/isograph/discovery/2026-10-02-cpcx/cpcx-progress.mjs
@@ -27,6 +28,7 @@ jobs:
       - name: Run move6 CPC2 setup restriction diagnostic
         run: |
           node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-cpc2-setup-restriction.mjs > cpcx-move6-cpc2-setup-restriction.json
+          node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-restriction-ladder.mjs > cpcx-move6-restriction-ladder.json
           node --input-type=module -e "
             import fs from 'node:fs';
             const x=JSON.parse(fs.readFileSync('cpcx-move6-cpc2-setup-restriction.json','utf8'));
@@ -53,5 +55,7 @@ jobs:
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
           name: cpcx-move6-value-diagnostic
-          path: cpcx-move6-cpc2-setup-restriction.json
+          path: |
+            cpcx-move6-cpc2-setup-restriction.json
+            cpcx-move6-restriction-ladder.json
           if-no-files-found: error
