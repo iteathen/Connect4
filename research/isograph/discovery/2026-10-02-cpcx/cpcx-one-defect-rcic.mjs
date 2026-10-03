@@ -34,6 +34,7 @@ import {
   certifyCpcxTruncatedTargetReservoir,
 } from './cpcx-reservoir.mjs';
 import {runCpcxFirstWinCertificate} from './cpcx-successor.mjs';
+import {deriveCpcxDisjunctiveBlockObligation} from './cpcx-cpc2.mjs';
 
 function unique(values){return [...new Set(values)].sort((a,b)=>a-b);}
 
@@ -815,6 +816,7 @@ export function certifyCpcxOneDefectTargetReservoirRcic(position,{
   attacker=position.mover^1,
   targetCell,
   maxNodes=4096,
+  useCpc2Restriction=false,
 }={}){
   if(attacker!==0&&attacker!==1)throw new RangeError('attacker');
   if(!Number.isInteger(targetCell))throw new RangeError('targetCell');
@@ -903,9 +905,64 @@ export function certifyCpcxOneDefectTargetReservoirRcic(position,{
     };
 
     active.add(key);
-    const edges=[],failures=[];
+    const edges=[],failures=[],
+      fullFrontier=frontier(current);
+    let continuationFrontier=fullFrontier,cpc2Restriction=null;
 
-    for(const defenderCell of frontier(current)){
+    if(useCpc2Restriction){
+      const cpc2=deriveCpcxDisjunctiveBlockObligation(current,{attacker});
+      if(cpc2.kind==='CERTIFIED_FIRST_WIN'&&cpc2.player===attacker){
+        const result={
+          schema:'connect4.cpcx.one-defect-rcic-node.v0_3',
+          kind:'CERTIFIED_FIRST_WIN',
+          exact:true,
+          player:attacker,
+          key,
+          rank:current.rank,
+          measure,
+          support:Array.from(current.heights),
+          triggerAdaptive:true,
+          cpc2Restriction:{
+            kind:'CPC2_NO_BLOCKING_MOVE',
+            blockingCells:[],
+            outsideCount:fullFrontier.length,
+          },
+          edgeCount:fullFrontier.length,
+          edges:fullFrontier.map(defenderCell=>({
+            defenderCell,
+            defenderLabel:labelCell(g,defenderCell),
+            policyKind:'CPC2_NONCOMPLIANT_FIRST_WIN',
+            result:'BASE_FIRST_WIN',
+            baseClass:'CPC2_TRIGGER_OVERLOAD',
+          })),
+        };
+        memo.set(key,result);
+        active.delete(key);
+        return result;
+      }
+      if(cpc2.kind==='DISJUNCTIVE_BLOCK_OBLIGATION'&&cpc2.exact){
+        const blockers=new Set(cpc2.blockingCells);
+        continuationFrontier=fullFrontier.filter(cell=>blockers.has(cell));
+        cpc2Restriction={
+          kind:'DISJUNCTIVE_BLOCK_OBLIGATION',
+          blockingCells:[...cpc2.blockingCells],
+          blockingLabels:[...cpc2.blockingLabels],
+          outsideCount:fullFrontier.length-continuationFrontier.length,
+        };
+        for(const defenderCell of fullFrontier){
+          if(blockers.has(defenderCell))continue;
+          edges.push({
+            defenderCell,
+            defenderLabel:labelCell(g,defenderCell),
+            policyKind:'CPC2_NONCOMPLIANT_FIRST_WIN',
+            result:'BASE_FIRST_WIN',
+            baseClass:'CPC2_TRIGGER_OVERLOAD',
+          });
+        }
+      }
+    }
+
+    for(const defenderCell of continuationFrontier){
       const afterDefender=applyCpcxForcedEvent(current,defenderCell);
       if(afterDefender.terminal){
         active.delete(key);
@@ -1107,6 +1164,7 @@ export function certifyCpcxOneDefectTargetReservoirRcic(position,{
       measure,
       support:Array.from(current.heights),
       triggerAdaptive:true,
+      cpc2Restriction,
       edgeCount:edges.length,
       edges,
     };
@@ -1187,6 +1245,7 @@ export function certifyCpcxOneDefectTargetReservoirRcic(position,{
     ordinaryGameTreeSearch:false,
     structuralProofGraph:true,
     proofClassInduction:true,
+    cpc2RestrictionTransport:useCpc2Restriction,
     recursive:false,
     gameTreeTraversal:false,
   };
@@ -1195,6 +1254,7 @@ export function certifyCpcxOneDefectTargetReservoirRcic(position,{
 export function findCpcxPairSetupOneDefectRcicCertificates(position,{
   attacker=position.mover,
   maxNodes=4096,
+  useCpc2Restriction=false,
 }={}){
   if(attacker!==0&&attacker!==1)throw new RangeError('attacker');
   if(position.terminal||position.mover!==attacker)return [];
@@ -1232,7 +1292,7 @@ export function findCpcxPairSetupOneDefectRcicCertificates(position,{
     }
 
     const rcic=certifyCpcxOneDefectTargetReservoirRcic(child,{
-      attacker,targetCell,maxNodes,
+      attacker,targetCell,maxNodes,useCpc2Restriction,
     });
     if(rcic.kind!=='CERTIFIED_FIRST_WIN')continue;
     out.push({
