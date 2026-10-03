@@ -212,14 +212,15 @@ function controllerDescent(position,R){
       kind:'FORCED_NORMALIZATION_LOST_RESIDUAL',exact:false,
     };
     if(n.finalPosition.mover!==R.player)return {
-      kind:'FORCED_NORMALIZATION_TO_OPPONENT',
-      exact:false,
+      kind:'FORCED_NORMALIZATION_TO_OPPONENT_BOUNDARY',
+      exact:true,
       sourceTuple:tuple(R),
-      finalTuple:tuple(finalR),
+      childTuple:tuple(finalR),
       normalization:{
         rankDelta:n.rankDelta,
         stepKinds:n.steps.map(x=>x.kind),
       },
+      boundary:'deterministic forced response consumed the controller turn and returned to an opponent decision boundary',
     };
     const next=controllerDescentNoNormalization(n.finalPosition,finalR);
     return {
@@ -450,7 +451,7 @@ console.log(JSON.stringify({
     diagnosticOnly:true,
     controllerCandidateRolesAreOnlyTheThreeProtectedSupportColumns:true,
     exactlyOneCurrentP1ResponseLayer:true,
-    controllerFollowupIsCurrentRankOnlyAfterDeterministicForcedNormalization:true,
+    controllerFollowupUsesNoFreeLayerWhenForcedNormalizationReturnsDirectlyToP1:true,
     noFreeSecondP1Layer:true,
     allTransitionsUseQualifiedGenericTheorems:true,
     noValueConclusion:true,
