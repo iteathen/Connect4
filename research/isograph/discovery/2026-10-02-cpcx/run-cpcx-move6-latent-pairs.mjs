@@ -18,6 +18,10 @@ import {
 } from './cpcx-two-stage.mjs';
 import {classifyCpcxProgress} from './cpcx-progress.mjs';
 import {runCpcxFirstWinCertificate} from './cpcx-successor.mjs';
+import {
+  analyzeCpcxTargetReservoir,
+  analyzeCpcxOneDefectTargetReservoir,
+} from './cpcx-reservoir.mjs';
 
 const g=createCpcxGeometry(),root=buildCpcxPosition('44444',{geometry:g});
 
@@ -264,7 +268,14 @@ function ladderPoisonBranches(position,pair){
         }
         const afterEndpoint=applyCpcxForcedEvent(afterSupport,event.cell),
           result=resultSummary(afterEndpoint),
-          lineage=afterEndpoint.terminal?null:lineageAfter(afterEndpoint,pair.lineId);
+          lineage=afterEndpoint.terminal?null:lineageAfter(afterEndpoint,pair.lineId),
+          targetCell=lineage?.missingCount===1?lineage.missingCells[0]:null,
+          reservoir=Number.isInteger(targetCell)&&!afterEndpoint.terminal
+            ?analyzeCpcxTargetReservoir(afterEndpoint,{attacker:0,targetCell})
+            :null,
+          oneDefect=Number.isInteger(targetCell)&&!afterEndpoint.terminal
+            ?analyzeCpcxOneDefectTargetReservoir(afterEndpoint,{attacker:0,targetCell})
+            :null;
         branches.push({
           endpoint:event.label,
           supportCell:label(supportCell),
@@ -280,6 +291,18 @@ function ladderPoisonBranches(position,pair){
             })),
           }:null,
           result,
+          reservoir:reservoir?{
+            kind:reservoir.kind,
+            totalRelevantEvents:reservoir.totalRelevantEvents??null,
+            totalParity:reservoir.totalParity??null,
+            oddColumns:reservoir.oddColumnLabels??null,
+          }:null,
+          oneDefect:oneDefect?{
+            kind:oneDefect.kind,
+            totalRelevantEvents:oneDefect.totalRelevantEvents??null,
+            fullCoverageTemplateCount:oneDefect.fullCoverageTemplateCount??null,
+            minimumUncoveredResiduals:oneDefect.minimumUncoveredResiduals??null,
+          }:null,
         });
       }
       out.push({
