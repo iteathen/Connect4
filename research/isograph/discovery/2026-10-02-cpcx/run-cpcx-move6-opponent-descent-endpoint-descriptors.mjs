@@ -261,6 +261,7 @@ const sourceDescriptors=[...sources.values()].map(source=>({
   sourceMaskSet=new Set(sourceDescriptors.map(x=>
     x.descriptor.d3WindowComplex.liveMask
   )),
+  novelMaskSecondLayerProbes=[],
   endpoints=[],terminals=[];
 for(const source of sources.values()){
   const c=certifyCpcxProtectedDiagonalOpponentResponseDescent(
@@ -280,7 +281,28 @@ for(const source of sources.values()){
     if(row.kind!=='PROTECTED_DIAGONAL_OPPONENT_RESPONSE_EVENT_DESCENT'||
        !row.finalPosition||!row.finalResidual)
       throw new Error(`unexpected response row ${row.kind}`);
-    const endpointPhysicalKey=physicalKey(row.finalPosition);
+    const endpointPhysicalKey=physicalKey(row.finalPosition),
+      endpointDescriptor=descriptor(row.finalPosition,row.finalResidual),
+      endpointMask=endpointDescriptor.d3WindowComplex.liveMask;
+    if(!sourceMaskSet.has(endpointMask)){
+      const probe=certifyCpcxProtectedDiagonalOpponentResponseDescent(
+        row.finalPosition,{protectedResidual:row.finalResidual}
+      );
+      novelMaskSecondLayerProbes.push({
+        mask:endpointMask,
+        sourceMeasure:row.sourceMeasure,
+        endpointMeasure:row.finalMeasure,
+        firstLayerEventCell:label(row.eventCell),
+        exact:probe.exact??false,
+        kind:probe.kind,
+        seam:probe.seam??null,
+        eventCount:probe.eventCount??null,
+        failureEvents:(probe.failures??[]).map(x=>({
+          eventCell:Number.isInteger(x.eventCell)?label(x.eventCell):null,
+          seam:x.seam??x.kind??null,
+        })),
+      });
+    }
     endpoints.push({
       sourceMeasure:row.sourceMeasure,
       finalMeasure:row.finalMeasure,
@@ -288,7 +310,7 @@ for(const source of sources.values()){
       transportKind:row.transportKind,
       physicalKey:endpointPhysicalKey,
       reentersQualifiedSourceBand:sources.has(endpointPhysicalKey),
-      descriptor:descriptor(row.finalPosition,row.finalResidual),
+      descriptor:endpointDescriptor,
       provenance:source.provenance,
     });
   }
@@ -353,6 +375,13 @@ console.log(JSON.stringify({
       x.reentersSourceCoarseDescriptor
     ),
     sourceWindowMaskClassCount:sourceMaskSet.size,
+    novelMaskSecondLayerProbeCount:novelMaskSecondLayerProbes.length,
+    novelMaskSecondLayerExactCount:novelMaskSecondLayerProbes.filter(x=>
+      x.exact
+    ).length,
+    novelMaskSecondLayerFailures:novelMaskSecondLayerProbes.filter(x=>
+      !x.exact
+    ),
     endpointWindowMaskReentryCount:endpoints.filter(x=>
       x.reentersSourceWindowMask
     ).length,
@@ -442,7 +471,9 @@ console.log(JSON.stringify({
   boundary:{
     diagnosticOnly:true,
     endpointObservationOnly:true,
-    noSecondOpponentResponseLayer:true,
+    secondLayerProbeRestrictedToNovelWindowMasks:true,
+    secondLayerProbeIsFalsificationOnly:true,
+    noSecondLayerResultUsedAsProofPremise:true,
     currentPlayableTargetTransferAuditOnly:true,
     noSolvedData:true,
     oracle:false,
