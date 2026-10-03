@@ -9,6 +9,9 @@ import {
   certifyCpcxProtectedDiagonalOpponentResponseEvent,
   certifyCpcxProtectedDiagonalOpponentResponseDescent,
 } from './cpcx-opponent-response-descent.mjs';
+import {
+  certifyCpcxProtectedDiagonalControllerSaturation,
+} from './cpcx-controller-saturation.mjs';
 
 function residual(position,player,lineLabel){
   const r=scanCpcxObligations(position).find(o=>
@@ -23,7 +26,31 @@ function cell(g,label){
     (label.charCodeAt(0)-65);
 }
 
-test('fresh hidden-target opponent boundary has total strict response descent',()=>{
+test('fresh controller-saturation boundary has total strict response descent',()=>{
+  const g=createCpcxGeometry({columns:4,rows:4,connect:3}),
+    p=buildCpcxPosition('',{geometry:g}),
+    r=residual(p,0,'A3-B2-C1'),
+    saturation=certifyCpcxProtectedDiagonalControllerSaturation(p,{
+      protectedResidual:r,
+    });
+
+  assert.equal(saturation.kind,'PROTECTED_DIAGONAL_CONTROLLER_SATURATION');
+  assert.equal(saturation.exact,true);
+  assert.equal(saturation.finalPosition.mover,1);
+
+  const c=certifyCpcxProtectedDiagonalOpponentResponseDescent(
+    saturation.finalPosition,{
+      protectedResidual:saturation.finalResidual,
+    }
+  );
+  if(c.kind!=='PROTECTED_DIAGONAL_OPPONENT_RESPONSE_DESCENT')
+    assert.fail(JSON.stringify(c));
+  assert.equal(c.exact,true);
+  assert.equal(c.allCurrentOpponentEventsCovered,true);
+  assert.equal(c.everyEventWinsOrStrictlyDescends,true);
+});
+
+test('arbitrary hidden diagonal outside the saturation domain may fail closed',()=>{
   const g=createCpcxGeometry({columns:4,rows:4,connect:3}),
     p=buildCpcxPosition('1',{geometry:g}),
     r=residual(p,0,'A1-B2-C3'),
@@ -31,16 +58,10 @@ test('fresh hidden-target opponent boundary has total strict response descent',(
       protectedResidual:r,
     });
 
-  assert.equal(p.mover,1);
-  if(c.kind!=='PROTECTED_DIAGONAL_OPPONENT_RESPONSE_DESCENT')
-    assert.fail(JSON.stringify(c));
-  assert.equal(c.exact,true);
-  assert.equal(c.eventCount,3);
-  assert.equal(c.allCurrentOpponentEventsCovered,true);
-  assert.equal(c.everyEventWinsOrStrictlyDescends,true);
-  assert.ok(c.rows.every(x=>
-    x.kind==='CERTIFIED_FIRST_WIN'||
-    x.strictExtendedMeasureDecrease===true
+  assert.equal(c.kind,'NO_CERTIFICATE');
+  assert.equal(c.seam,'OPPONENT_RESPONSE_TOTALITY_FAILED');
+  assert.ok(c.failures.some(x=>
+    x.seam==='DETERMINISTIC_CONTROLLER_CLOSURE_FAILED'
   ));
 });
 
