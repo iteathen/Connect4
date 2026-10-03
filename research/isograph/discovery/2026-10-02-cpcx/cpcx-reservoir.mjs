@@ -52,6 +52,72 @@ function relevantCapacity(position,targetCell){
   return capacity;
 }
 
+export function analyzeCpcxTargetReservoir(position,{
+  attacker=position.mover^1,
+  targetCell,
+  obligations=scanCpcxObligations(position),
+}={}){
+  if(attacker!==0&&attacker!==1)throw new RangeError('attacker');
+  if(!Number.isInteger(targetCell))throw new RangeError('targetCell');
+  const defender=attacker^1,g=position.geometry,
+    target=targetSingleton(obligations,attacker,targetCell);
+  if(!target)return {
+    schema:'connect4.cpcx.target-reservoir-analysis.v0_1',
+    kind:'TARGET_NOT_ACTIVE_ATTACKER_SINGLETON',
+    exact:true,
+    attacker,defender,targetCell,
+  };
+  const capacity=relevantCapacity(position,targetCell);
+  if(!capacity)return {
+    schema:'connect4.cpcx.target-reservoir-analysis.v0_1',
+    kind:'TARGET_CAPACITY_INVALID',
+    exact:true,
+    attacker,defender,targetCell,
+  };
+  const {column:targetColumn,row:targetRow}=cpcxCell(g,targetCell),
+    targetDepth=targetRow-position.heights[targetColumn],
+    oddColumns=[],
+    evenColumns=[];
+  let totalRelevantEvents=0;
+  for(let c=0;c<g.columns;c++){
+    totalRelevantEvents+=capacity[c];
+    (capacity[c]&1?oddColumns:evenColumns).push(c);
+  }
+  return {
+    schema:'connect4.cpcx.target-reservoir-analysis.v0_1',
+    kind:totalRelevantEvents&1
+      ?'ODD_RESERVOIR_DEFECT'
+      :oddColumns.length&1
+        ?'ODD_COLUMN_PAIRING_DEFECT'
+        :'PAIRING_PARITY_ADMISSIBLE',
+    exact:true,
+    attacker,
+    defender,
+    target:{
+      cell:targetCell,
+      label:labelCell(g,targetCell),
+      column:targetColumn,
+      row:targetRow,
+      supportDistance:target.events[0].supportDistance,
+      targetDepth,
+      obligationId:target.id,
+      lineId:target.lineId,
+      lineLabel:target.lineLabel,
+    },
+    capacity:Array.from(capacity),
+    totalRelevantEvents,
+    totalParity:totalRelevantEvents&1,
+    oddColumns,
+    oddColumnLabels:oddColumns.map(c=>c+1),
+    evenColumns,
+    unmatchedEventCountLowerBound:totalRelevantEvents&1,
+    defenderResidualCount:obligations.filter(o=>o.player===defender).length,
+    proofBoundary:'parity analysis only; an odd reservoir defect is not a first-win certificate and requires an independently proved phase-transfer/repair theorem',
+    recursive:false,
+    gameTreeTraversal:false,
+  };
+}
+
 function residualHasCell(residual,cell){
   return residual.missingCells.includes(cell);
 }
