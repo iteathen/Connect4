@@ -86,15 +86,13 @@ test('opponent-terminal support scenario fails closed before acquisition',()=>{
     });
 
   assert.equal(c.kind,'NO_CERTIFICATE');
-  assert.ok([
-    'POST_CONTROLLER_OPPONENT_IMMEDIATE_SINGLETON',
-    'SUPPORT_TRIGGER_TERMINAL',
-  ].includes(c.seam));
+  assert.equal(c.seam,'SUPPORT_TRIGGER_TERMINAL');
+  assert.equal(c.terminal.player,1);
 });
 
-test('competing-singleton support scenario fails closed before acquisition',()=>{
-  const g=createCpcxGeometry({columns:4,rows:3,connect:3}),
-    p=buildCpcxPosition('13',{geometry:g}),
+test('support trigger creating a distinct opponent singleton fails capacity guard',()=>{
+  const g=createCpcxGeometry({columns:6,rows:3,connect:3}),
+    p=buildCpcxPosition('323531',{geometry:g}),
     r=residual(p,0,'B2-C2-D2'),
     c=certifyCpcxSupportReleaseAcquisition(p,{
       controllerResidual:r,
@@ -103,10 +101,8 @@ test('competing-singleton support scenario fails closed before acquisition',()=>
     });
 
   assert.equal(c.kind,'NO_CERTIFICATE');
-  assert.ok([
-    'EXTERNAL_CLASS_INTERSECTS_PROTECTED_RESIDUAL',
-    'SUPPLY_CREATES_OPPONENT_IMMEDIATE_SINGLETON',
-  ].includes(c.seam));
+  assert.equal(c.seam,'SUPPLY_CREATES_OPPONENT_IMMEDIATE_SINGLETON');
+  assert.deepEqual(c.cells,[cell(g,5,0)]);
 });
 
 test('target outside protected residual is rejected',()=>{
