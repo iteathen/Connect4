@@ -33,7 +33,43 @@ import {
   reflectCpcxCell,
 } from './cpcx-control-quotient.mjs';
 
-const g=createCpcxGeometry(),root=buildCpcxPosition('44444',{geometry:g});\n\nconst coverageRcicCache=new Map(),attachmentRcicCache=new Map();\n\nfunction exactRcicKey(position,targetCell){\n  const c=canonicalizeCpcxExactReflection(position),\n    canonicalTarget=c.reflected?reflectCpcxCell(position.geometry,targetCell):targetCell;\n  return {\n    key:`${c.key}|target:${canonicalTarget}`,\n    position:c.position,\n    targetCell:canonicalTarget,\n    reflected:c.reflected,\n  };\n}\n\nfunction cachedCoverageRcic(position,targetCell){\n  const k=exactRcicKey(position,targetCell);\n  if(!coverageRcicCache.has(k.key))coverageRcicCache.set(\n    k.key,\n    certifyCpcxReservoirCoverageGapRcic(\n      k.position,{attacker:0,targetCell:k.targetCell,maxNodes:2048}\n    )\n  );\n  return coverageRcicCache.get(k.key);\n}\n\nfunction cachedAttachmentRcic(position,targetCell){\n  const k=exactRcicKey(position,targetCell);\n  if(!attachmentRcicCache.has(k.key))attachmentRcicCache.set(\n    k.key,\n    certifyCpcxReservoirAttachmentRcic(\n      k.position,{attacker:0,targetCell:k.targetCell,maxNodes:4096}\n    )\n  );\n  return attachmentRcicCache.get(k.key);\n}\n
+const g=createCpcxGeometry(),root=buildCpcxPosition('44444',{geometry:g});
+
+const coverageRcicCache=new Map(),attachmentRcicCache=new Map();
+
+function exactRcicKey(position,targetCell){
+  const c=canonicalizeCpcxExactReflection(position),
+    canonicalTarget=c.reflected?reflectCpcxCell(position.geometry,targetCell):targetCell;
+  return {
+    key:`${c.key}|target:${canonicalTarget}`,
+    position:c.position,
+    targetCell:canonicalTarget,
+    reflected:c.reflected,
+  };
+}
+
+function cachedCoverageRcic(position,targetCell){
+  const k=exactRcicKey(position,targetCell);
+  if(!coverageRcicCache.has(k.key))coverageRcicCache.set(
+    k.key,
+    certifyCpcxReservoirCoverageGapRcic(
+      k.position,{attacker:0,targetCell:k.targetCell,maxNodes:2048}
+    )
+  );
+  return coverageRcicCache.get(k.key);
+}
+
+function cachedAttachmentRcic(position,targetCell){
+  const k=exactRcicKey(position,targetCell);
+  if(!attachmentRcicCache.has(k.key))attachmentRcicCache.set(
+    k.key,
+    certifyCpcxReservoirAttachmentRcic(
+      k.position,{attacker:0,targetCell:k.targetCell,maxNodes:4096}
+    )
+  );
+  return attachmentRcicCache.get(k.key);
+}
+
 
 function label(cell){
   const {column,row}=cpcxCell(g,cell);
