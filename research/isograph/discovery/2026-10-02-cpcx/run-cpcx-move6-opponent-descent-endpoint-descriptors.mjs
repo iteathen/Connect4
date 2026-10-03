@@ -298,15 +298,28 @@ for(const source of sources.values()){
           finalMeasure:null,
           finalMask:null,
         };
+        const finalDescriptor=x.finalPosition&&x.finalResidual
+          ?descriptor(x.finalPosition,x.finalResidual)
+          :null;
         return {
           eventCell:Number.isInteger(x.eventCell)?label(x.eventCell):null,
           kind:x.kind,
           player:x.player??null,
           finalMeasure:x.finalMeasure??null,
-          finalMask:x.finalPosition&&x.finalResidual
-            ?descriptor(x.finalPosition,x.finalResidual)
-              .d3WindowComplex.liveMask
-            :null,
+          finalMask:finalDescriptor?.d3WindowComplex.liveMask??null,
+          finalDescriptor:finalDescriptor?{
+            lineCells:finalDescriptor.lineCells,
+            anchorCells:finalDescriptor.anchorCells,
+            missingCount:finalDescriptor.missingCount,
+            missingCells:finalDescriptor.missingCells,
+            supportProfile:finalDescriptor.supportProfile,
+            supportDebt:finalDescriptor.supportDebt,
+            playableCells:finalDescriptor.playableCells,
+            targetTransferKinds:finalDescriptor.targetTransferKinds,
+            remainingCapacity:finalDescriptor.remainingCapacity,
+            supportResource:finalDescriptor.supportResource,
+            d3WindowComplex:finalDescriptor.d3WindowComplex,
+          }:null,
         };
       });
       novelMaskSecondLayerProbes.push({
