@@ -7,6 +7,7 @@ import {
   analyzeCpcxTargetReservoir,
 } from './cpcx-reservoir.mjs';
 import {classifyCpcxProgress} from './cpcx-progress.mjs';
+import {applyCpcxForcedEvent} from './cpcx-closure.mjs';
 
 const g=createCpcxGeometry();
 
@@ -76,6 +77,50 @@ test('target-reservoir theorem fails closed when no active nonplayable singleton
   const p=buildCpcxPosition('443',{geometry:g}),
     rows=findCpcxTruncatedTargetReservoirCertificates(p,{attacker:0});
   assert.deepEqual(rows,[]);
+});
+
+
+test('corrected move6 rank10 control admits exact one-defect static reservoir coverage without certifying a win',()=>{
+  const p=buildCpcxPosition('4444441123',{geometry:g}),
+    setupColumn=2,
+    setupCell=p.heights[setupColumn]*g.columns+setupColumn,
+    child=applyCpcxForcedEvent(p,setupCell),
+    target=3*g.columns+4, // E4
+    a=analyzeCpcxOneDefectTargetReservoir(child,{attacker:0,targetCell:target});
+  assert.equal(p.rank,10);
+  assert.equal(p.mover,0);
+  assert.equal(a.kind,'ONE_DEFECT_STATIC_COVERAGE');
+  assert.equal(a.exact,true);
+  assert.ok(a.fullCoverageTemplateCount>=1);
+  assert.equal(a.minimumUncoveredResiduals,0);
+  assert.equal(a.totalParity,1);
+  assert.ok(a.selectedFullCoverageTemplate);
+  assert.equal(a.selectedFullCoverageTemplate.uncoveredResidualCount,0);
+  assert.equal(a.firstWinCertified,false);
+  assert.match(a.proofBoundary,/transport\/repair viability theorem/i);
+});
+
+test('one-defect analyzer preserves the localized diagonal guard falsifier',()=>{
+  const p=buildCpcxPosition('4444427765',{geometry:g}),
+    setupColumn=4,
+    setupCell=p.heights[setupColumn]*g.columns+setupColumn,
+    child=applyCpcxForcedEvent(p,setupCell),
+    target=3*g.columns+2, // C4
+    a=analyzeCpcxOneDefectTargetReservoir(child,{attacker:0,targetCell:target}),
+    best=a.bestPartialTemplates[0];
+  assert.equal(a.kind,'ONE_DEFECT_STATIC_COVERAGE_GAP');
+  assert.equal(a.exact,true);
+  assert.equal(a.fullCoverageTemplateCount,0);
+  assert.equal(a.minimumUncoveredResiduals,1);
+  assert.ok(best);
+  assert.equal(best.uncoveredResidualCount,1);
+  assert.deepEqual(
+    best.uncovered[0].missingCells
+      .map(cell=>[cell%g.columns,Math.floor(cell/g.columns)])
+      .sort((x,y)=>x[0]-y[0]||x[1]-y[1]),
+    [[0,0],[1,1],[2,2]],
+  );
+  assert.equal(a.firstWinCertified,false);
 });
 
 test('target-reservoir implementation is current-state structural and isolated from solved/search machinery',async()=>{
