@@ -223,10 +223,12 @@ function abstractVerticalSuccessor(position,macro,collapse,envelope){
       supportOnly:uncertainty.directKillEdges===0,
     }]:[],
     opponentSingletonEnvelope:singletonEnvelope,
+    opponentResidualEnvelope:singletonEnvelope.opponentResidualEnvelope??null,
     firstWinFacts:{
       macroFirstWinGuardPassed:true,
       noTerminalDuringMacro:singletonEnvelope.defenderTerminalClasses===0,
       opponentSingletonEnvelope:singletonEnvelope,
+      opponentResidualEnvelope:singletonEnvelope.opponentResidualEnvelope??null,
       nextImmediateNormalizationClosed:
         singletonEnvelope.exact===true&&singletonEnvelope.normalizationClosed===true,
     },
