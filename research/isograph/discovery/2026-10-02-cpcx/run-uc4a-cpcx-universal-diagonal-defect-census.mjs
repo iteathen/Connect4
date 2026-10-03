@@ -1,13 +1,6 @@
-import {execFileSync} from 'node:child_process';
-import {fileURLToPath} from 'node:url';
+import {buildCpcxMove6UnresolvedClassesArtifact} from './cpcx-move6-unresolved-classes.mjs';
 
-const producer=fileURLToPath(
-  new URL('./run-cpcx-move6-unresolved-classes.mjs',import.meta.url)
-);
-const artifact=JSON.parse(execFileSync(process.execPath,[producer],{
-  encoding:'utf8',
-  maxBuffer:16*1024*1024,
-}));
+const artifact=buildCpcxMove6UnresolvedClassesArtifact();
 
 const targetMissing=['C4','B5','A6'],
   targetSorted=[...targetMissing].sort();
