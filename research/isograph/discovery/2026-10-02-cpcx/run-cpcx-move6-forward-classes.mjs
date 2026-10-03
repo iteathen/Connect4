@@ -114,7 +114,21 @@ function pairCompressionProbe(position){
   const replies=[];
   for(const replyCell of frontier(afterSetup)){
     const afterReply=applyCpcxForcedEvent(afterSetup,replyCell),
-      cert=runCpcxFirstWinCertificate(afterReply,{attacker:0});
+      cert=runCpcxFirstWinCertificate(afterReply,{attacker:0}),
+      secondSetups=[];
+    if(!afterReply.terminal&&afterReply.mover===0){
+      for(const secondCell of frontier(afterReply)){
+        const afterSecond=applyCpcxForcedEvent(afterReply,secondCell),
+          secondCert=runCpcxFirstWinCertificate(afterSecond,{attacker:0});
+        if(secondCert.kind==='CERTIFIED_FIRST_WIN'&&secondCert.player===0)
+          secondSetups.push({
+            cell:label(secondCell),
+            terminal:afterSecond.terminal,
+            certificateSource:secondCert.trace?.[0]?.progress?.source??null,
+            traceLength:secondCert.trace?.length??0,
+          });
+      }
+    }
     replies.push({
       replyCell:label(replyCell),
       replyTerminal:afterReply.terminal,
@@ -125,6 +139,7 @@ function pairCompressionProbe(position){
         seam:cert.seam??null,
         traceLength:cert.trace?.length??0,
       },
+      discoverySecondSetups:secondSetups,
     });
   }
   return {
@@ -247,6 +262,7 @@ console.log(JSON.stringify({
     solvedData:false,
     oracle:false,
     delayEquivalenceAssumed:false,
-    pairCompressionProbe:'one P0 setup on the unique playable endpoint of a two-cell residual, followed by one flat P1 frontier audit; not recursive search',
+    pairCompressionProbe:'one P0 setup on the unique playable endpoint of a two-cell residual, followed by one flat P1 frontier audit',
+    discoverySecondSetupProbe:'bounded theorem-discovery scan only; enumerates one additional current P0 setup per P1 reply and is forbidden as a proof premise until generalized',
   },
 },null,2));
