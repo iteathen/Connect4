@@ -1,0 +1,30 @@
+name: Research CPCX A-cycle closure
+
+on:
+  push:
+    branches:
+      - experiment/cpcx-20261002
+    paths:
+      - research/isograph/discovery/2026-10-02-cpcx/run-uc4a-cpcx-normalized-p1-a-cycle-response-descent.mjs
+      - research/isograph/discovery/2026-10-02-cpcx/cpcx-diagonal-anchor-pivot.mjs
+      - .github/workflows/research-cpcx-a-cycle-closure.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: "26.7.0"
+      - run: node research/isograph/discovery/2026-10-02-cpcx/run-uc4a-cpcx-normalized-p1-a-cycle-response-descent.mjs > a-cycle-closure.json
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: a-cycle-closure
+          path: a-cycle-closure.json
+          if-no-files-found: error
