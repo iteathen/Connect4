@@ -158,16 +158,16 @@ function projectionLadderProfiles(position,{attacker}){
     .map(x=>({
       orientation:x.orientation,
       missingCount:x.missingCount,
-      levelCount:x.levels.length,
-      supportDistances:x.levels
-        .map(y=>y.supportDistance)
-        .sort((a,b)=>a-b),
+      supportDistance:x.supportDistance,
+      eventRank:x.eventRank,
+      contractionDepth:x.contractionLevels.length,
     }))
     .sort((a,b)=>
       a.missingCount-b.missingCount||
       a.orientation.localeCompare(b.orientation)||
-      a.levelCount-b.levelCount||
-      a.supportDistances.join(',').localeCompare(b.supportDistances.join(','))
+      a.supportDistance-b.supportDistance||
+      a.eventRank-b.eventRank||
+      a.contractionDepth-b.contractionDepth
     );
 }
 
