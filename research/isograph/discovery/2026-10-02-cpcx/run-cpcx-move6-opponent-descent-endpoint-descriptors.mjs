@@ -436,7 +436,7 @@ for(const source of sources.values()){
                 };
                 const progress=classifyCpcxProgress(next,{player:0}),
                   first=runCpcxFirstWinCertificate(next,{attacker:0});
-                return {
+                const row={
                   actionCell:label(actionCell),
                   terminal:null,
                   immediate:(()=>{
@@ -460,6 +460,47 @@ for(const source of sources.values()){
                   },
                   p0SmallResiduals:smallResidualSummary(next,0).slice(0,12),
                 };
+                if(label(actionCell)==='F6'){
+                  row.f6OpponentResponses=frontierCells(next).map(replyCell=>{
+                    const reply=applyCpcxForcedEvent(next,replyCell);
+                    if(reply.terminal)return {
+                      replyCell:label(replyCell),
+                      terminal:reply.terminal,
+                      immediate:null,
+                      progress:null,
+                      firstWin:null,
+                    };
+                    const im=classifyCpcxImmediate(reply),
+                      rp=classifyCpcxProgress(reply,{player:0}),
+                      rf=runCpcxFirstWinCertificate(reply,{attacker:0});
+                    return {
+                      replyCell:label(replyCell),
+                      terminal:null,
+                      immediate:{
+                        kind:im.kind,
+                        mover:im.mover??null,
+                        cell:Number.isInteger(im.cell)?label(im.cell):null,
+                        winningCells:(im.winningCells??[]).map(label),
+                        threatCells:(im.threatCells??
+                          im.opponentThreatCells??[]).map(label),
+                      },
+                      progress:progressSummary(rp),
+                      firstWin:{
+                        kind:rf.kind,
+                        exact:rf.exact??false,
+                        player:rf.player??null,
+                        seam:rf.seam??null,
+                        traceLength:rf.trace?.length??0,
+                      },
+                      p0SmallResiduals:smallResidualSummary(reply,0).slice(0,12),
+                      p1SmallResiduals:smallResidualSummary(reply,1).slice(0,12),
+                      support:Array.from(reply.heights),
+                      rank:reply.rank,
+                      mover:reply.mover,
+                    };
+                  });
+                }
+                return row;
               }),
               support:child.terminal?null:Array.from(child.heights),
               rank:child.rank,
@@ -776,6 +817,8 @@ console.log(JSON.stringify({
     noSecondLayerResultUsedAsProofPremise:true,
     noTransferTargetBlockProbeRestrictedToSingleExposedTarget:true,
     noTransferTargetBlockProbeIsFalsificationOnly:true,
+    f6ResponseProbeIsOneCurrentOpponentLayerOnly:true,
+    f6ResponseProbeIsFalsificationOnly:true,
     currentPlayableTargetTransferAuditOnly:true,
     noSolvedData:true,
     oracle:false,
