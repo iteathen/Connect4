@@ -264,6 +264,8 @@ const sourceDescriptors=[...sources.values()].map(source=>({
   novelMaskSecondLayerProbes=[],
   endpoints=[],terminals=[];
 for(const source of sources.values()){
+  const sourceDescriptor=descriptor(source.position,source.residual),
+    sourceMask=sourceDescriptor.d3WindowComplex.liveMask;
   const c=certifyCpcxProtectedDiagonalOpponentResponseDescent(
     source.position,{protectedResidual:source.residual}
   );
@@ -306,6 +308,7 @@ for(const source of sources.values()){
     endpoints.push({
       sourceMeasure:row.sourceMeasure,
       finalMeasure:row.finalMeasure,
+      sourceMask,
       eventCell:label(row.eventCell),
       transportKind:row.transportKind,
       physicalKey:endpointPhysicalKey,
@@ -336,9 +339,24 @@ for(const row of endpoints){
   }
 }
 
-const transferCounts={};
-for(const row of endpoints)for(const t of row.descriptor.targetTransferKinds)
-  transferCounts[t.transferKind]=(transferCounts[t.transferKind]??0)+1;
+const transferCounts={},maskTransitions=new Map();
+for(const row of endpoints){
+  for(const t of row.descriptor.targetTransferKinds)
+    transferCounts[t.transferKind]=(transferCounts[t.transferKind]??0)+1;
+  const to=row.descriptor.d3WindowComplex.liveMask,
+    key=`${row.sourceMask}->${to}`;
+  if(!maskTransitions.has(key))maskTransitions.set(key,{
+    from:row.sourceMask,to,count:0,
+    transportKinds:new Set(),
+    sourceMeasures:new Set(),
+    finalMeasures:new Set(),
+  });
+  const x=maskTransitions.get(key);
+  x.count+=1;
+  x.transportKinds.add(row.transportKind);
+  x.sourceMeasures.add(JSON.stringify(row.sourceMeasure));
+  x.finalMeasures.add(JSON.stringify(row.finalMeasure));
+}
 
 console.log(JSON.stringify({
   schema:'connect4.cpcx.move6.opponent-descent-endpoint-descriptors.v0_1',
@@ -407,6 +425,19 @@ console.log(JSON.stringify({
         .map(k=>[k,endpoints.filter(x=>x.descriptor.missingCount===k).length])
     ),
     currentTargetTransferKinds:transferCounts,
+    maskTransitionClassCount:maskTransitions.size,
+    maskTransitions:[...maskTransitions.values()]
+      .map(x=>({
+        from:x.from,
+        to:x.to,
+        count:x.count,
+        transportKinds:[...x.transportKinds].sort(),
+        sourceMeasures:[...x.sourceMeasures].map(JSON.parse)
+          .sort((a,b)=>a[0]-b[0]||a[1]-b[1]||a[2]-b[2]),
+        finalMeasures:[...x.finalMeasures].map(JSON.parse)
+          .sort((a,b)=>a[0]-b[0]||a[1]-b[1]||a[2]-b[2]),
+      }))
+      .sort((a,b)=>a.from.localeCompare(b.from)||a.to.localeCompare(b.to)),
     d3WindowMaskClassCount:new Set(endpoints.map(x=>
       x.descriptor.d3WindowComplex.liveMask
     )).size,
