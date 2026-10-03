@@ -1,0 +1,283 @@
+import {
+  createCpcxGeometry,
+  cpcxCell,
+  scanCpcxObligations,
+} from './cpcx.mjs';
+import {
+  buildCpcxMove6UnresolvedClassesArtifact,
+} from './cpcx-move6-unresolved-classes.mjs';
+import {
+  certifyCpcxProtectedDiagonalControllerSaturation,
+} from './cpcx-controller-saturation.mjs';
+import {
+  certifyCpcxProtectedDiagonalOpponentResponseDescent,
+} from './cpcx-opponent-response-descent.mjs';
+import {
+  certifyCpcxProtectedResidualDiagonalTransfer,
+} from './cpcx-diagonal-transfer.mjs';
+import {
+  certifyCpcxProtectedDiagonalAnchorPivot,
+} from './cpcx-diagonal-anchor-pivot.mjs';
+
+const g=createCpcxGeometry(),
+  artifact=buildCpcxMove6UnresolvedClassesArtifact(),
+  rootLine='A6-B5-C4-D3';
+
+function label(cell){
+  const {column,row}=cpcxCell(g,cell);
+  return `${String.fromCharCode(65+column)}${row+1}`;
+}
+function positionFromClass(cls){
+  const [moverText,heightsText,ownerText]=cls.key.split('|'),
+    owner=new Int8Array(g.cellCount);
+  for(let i=0;i<ownerText.length;i++)owner[i]=Number(ownerText[i])-1;
+  return {
+    geometry:g,
+    moves:new Uint32Array(0),
+    rank:cls.rank,
+    mover:Number(moverText),
+    heights:new Uint32Array(heightsText.split(',').map(Number)),
+    owner,
+    terminal:null,
+  };
+}
+function physicalKey(p){
+  return `${p.mover}|${Array.from(p.heights).join(',')}|${Array.from(p.owner).map(x=>x+1).join('')}`;
+}
+function rootResidual(p){
+  return scanCpcxObligations(p).find(o=>
+    o.player===0&&o.lineLabel===rootLine
+  )??null;
+}
+function supportDebt(r){
+  return r.events.reduce((n,e)=>n+e.supportDistance,0);
+}
+function trackInfo(line){
+  const cells=[...line.cells].sort((a,b)=>{
+    const A=cpcxCell(g,a),B=cpcxCell(g,b);
+    return A.column-B.column||A.row-B.row;
+  }), first=cpcxCell(g,cells[0]),
+    orientation=line.orientation,
+    constant=orientation==='D+'
+      ?first.row-first.column
+      :first.row+first.column,
+    track=[];
+  for(let row=0;row<g.rows;row++)for(let column=0;column<g.columns;column++){
+    const ok=orientation==='D+'
+      ?row-column===constant
+      :row+column===constant;
+    if(ok)track.push(row*g.columns+column);
+  }
+  track.sort((a,b)=>cpcxCell(g,a).column-cpcxCell(g,b).column);
+  const lineStart=track.findIndex(x=>x===cells[0]);
+  return {
+    orientation,
+    constant,
+    trackLength:track.length,
+    windowOffset:lineStart,
+    lineCells:cells.map(label),
+  };
+}
+function transferKind(p,R,cell){
+  const e=R.events.find(x=>x.cell===cell);
+  if(!e||e.supportDistance!==0)return 'HIDDEN';
+  const same=certifyCpcxProtectedResidualDiagonalTransfer(p,{
+    protectedResidual:R,blockedCell:cell,
+  });
+  if(same.exact&&same.kind==='PROTECTED_RESIDUAL_DIAGONAL_TRANSFER')
+    return 'SAME_TRACK';
+  const pivot=certifyCpcxProtectedDiagonalAnchorPivot(p,{
+    protectedResidual:R,blockedCell:cell,
+  });
+  if(pivot.exact&&pivot.kind==='PROTECTED_DIAGONAL_ANCHOR_PIVOT_TRANSFER')
+    return 'ANCHOR_PIVOT';
+  return 'NO_TRANSFER';
+}
+function descriptor(p,R){
+  const line=g.lines[R.lineId],
+    lineCells=[...line.cells],
+    missing=new Set(R.missingCells),
+    anchors=lineCells.filter(cell=>
+      !missing.has(cell)&&p.owner[cell]===R.player
+    ),
+    events=[...R.events].sort((a,b)=>
+      b.row-a.row||a.column-b.column||a.cell-b.cell
+    ),
+    phase=events.map(e=>e.eventRank&1),
+    phase0=phase[0]??0,
+    t=trackInfo(line);
+  return {
+    orientation:R.orientation,
+    trackLength:t.trackLength,
+    windowOffset:t.windowOffset,
+    lineCells:t.lineCells,
+    anchorCells:anchors.map(label).sort(),
+    anchorCount:anchors.length,
+    missingCount:R.missingCount,
+    missingCells:events.map(e=>label(e.cell)),
+    supportProfile:events.map(e=>e.supportDistance),
+    supportDebt:supportDebt(R),
+    relativeEventParity:phase.map(x=>x^phase0),
+    playableCells:R.currentlyPlayableCells.map(label).sort(),
+    targetTransferKinds:events.map(e=>({
+      cell:label(e.cell),
+      supportDistance:e.supportDistance,
+      transferKind:transferKind(p,R,e.cell),
+    })),
+    remainingCapacity:g.cellCount-p.rank,
+    mover:p.mover,
+  };
+}
+function roleKey(d){
+  return JSON.stringify({
+    orientation:d.orientation,
+    trackLength:d.trackLength,
+    windowOffset:d.windowOffset,
+    anchorCells:d.anchorCells,
+    missingCount:d.missingCount,
+    missingCells:d.missingCells,
+    supportProfile:d.supportProfile,
+    relativeEventParity:d.relativeEventParity,
+    targetTransferKinds:d.targetTransferKinds,
+    mover:d.mover,
+  });
+}
+function coarseKey(d){
+  return JSON.stringify({
+    orientation:d.orientation,
+    trackLength:d.trackLength,
+    windowOffset:d.windowOffset,
+    anchorCount:d.anchorCount,
+    missingCount:d.missingCount,
+    supportProfile:d.supportProfile,
+    relativeEventParity:d.relativeEventParity,
+    transferKinds:d.targetTransferKinds.map(x=>x.transferKind),
+    mover:d.mover,
+  });
+}
+
+const sources=new Map();
+for(const cls of artifact.classes){
+  const p=positionFromClass(cls),R=rootResidual(p);
+  if(!R)throw new Error(`root residual missing ${cls.classId}`);
+  const provenance={
+    classId:cls.classId,
+    sixthMoves:[...new Set(cls.sources.map(x=>x.sixthMove))]
+      .sort((a,b)=>a-b),
+  };
+  if(p.mover===1){
+    const key=physicalKey(p);
+    if(!sources.has(key))sources.set(key,{position:p,residual:R,provenance:[]});
+    sources.get(key).provenance.push({kind:'ORIGINAL_P1',...provenance});
+    continue;
+  }
+  const s=certifyCpcxProtectedDiagonalControllerSaturation(p,{
+    protectedResidual:R,
+  });
+  if(!s.exact||s.kind!=='PROTECTED_DIAGONAL_CONTROLLER_SATURATION')
+    throw new Error(`saturation failed ${cls.classId}`);
+  const key=physicalKey(s.finalPosition);
+  if(!sources.has(key))sources.set(key,{
+    position:s.finalPosition,residual:s.finalResidual,provenance:[],
+  });
+  sources.get(key).provenance.push({kind:'SATURATED_P1',...provenance});
+}
+
+const endpoints=[],terminals=[];
+for(const source of sources.values()){
+  const c=certifyCpcxProtectedDiagonalOpponentResponseDescent(
+    source.position,{protectedResidual:source.residual}
+  );
+  if(!c.exact||c.kind!=='PROTECTED_DIAGONAL_OPPONENT_RESPONSE_DESCENT')
+    throw new Error(`source response descent failed: ${c.seam??c.kind}`);
+  for(const row of c.rows){
+    if(row.kind==='CERTIFIED_FIRST_WIN'){
+      terminals.push({
+        sourceMeasure:c.sourceMeasure,
+        eventCell:label(row.eventCell),
+        player:row.player,
+      });
+      continue;
+    }
+    if(row.kind!=='PROTECTED_DIAGONAL_OPPONENT_RESPONSE_EVENT_DESCENT'||
+       !row.finalPosition||!row.finalResidual)
+      throw new Error(`unexpected response row ${row.kind}`);
+    endpoints.push({
+      sourceMeasure:row.sourceMeasure,
+      finalMeasure:row.finalMeasure,
+      eventCell:label(row.eventCell),
+      transportKind:row.transportKind,
+      descriptor:descriptor(row.finalPosition,row.finalResidual),
+      provenance:source.provenance,
+    });
+  }
+}
+
+const roleClasses=new Map(),coarseClasses=new Map();
+for(const row of endpoints){
+  for(const [map,key] of [
+    [roleClasses,roleKey(row.descriptor)],
+    [coarseClasses,coarseKey(row.descriptor)],
+  ]){
+    if(!map.has(key))map.set(key,{descriptor:JSON.parse(key),count:0});
+    map.get(key).count+=1;
+  }
+}
+
+const transferCounts={};
+for(const row of endpoints)for(const t of row.descriptor.targetTransferKinds)
+  transferCounts[t.transferKind]=(transferCounts[t.transferKind]??0)+1;
+
+console.log(JSON.stringify({
+  schema:'connect4.cpcx.move6.opponent-descent-endpoint-descriptors.v0_1',
+  root:'44444',
+  observation:'nonterminal endpoints of the already-qualified one-layer opponent-response descent theorem; no second free opponent layer is generated',
+  endpointCount:endpoints.length,
+  terminalCount:terminals.length,
+  endpoints,
+  summary:{
+    sourceBoundaryCount:sources.size,
+    endpointCount:endpoints.length,
+    terminalCount:terminals.length,
+    roleDescriptorClassCount:roleClasses.size,
+    coarseDescriptorClassCount:coarseClasses.size,
+    roleDescriptorClasses:[...roleClasses.values()]
+      .sort((a,b)=>b.count-a.count),
+    coarseDescriptorClasses:[...coarseClasses.values()]
+      .sort((a,b)=>b.count-a.count),
+    orientationCounts:Object.fromEntries(
+      [...new Set(endpoints.map(x=>x.descriptor.orientation))].sort()
+        .map(k=>[k,endpoints.filter(x=>x.descriptor.orientation===k).length])
+    ),
+    anchorCountHistogram:Object.fromEntries(
+      [...new Set(endpoints.map(x=>x.descriptor.anchorCount))].sort((a,b)=>a-b)
+        .map(k=>[k,endpoints.filter(x=>x.descriptor.anchorCount===k).length])
+    ),
+    missingCountHistogram:Object.fromEntries(
+      [...new Set(endpoints.map(x=>x.descriptor.missingCount))].sort((a,b)=>a-b)
+        .map(k=>[k,endpoints.filter(x=>x.descriptor.missingCount===k).length])
+    ),
+    currentTargetTransferKinds:transferCounts,
+    noCurrentPlayableTargetLacksTransfer:endpoints.every(x=>
+      x.descriptor.targetTransferKinds.every(t=>
+        t.supportDistance!==0||t.transferKind!=='NO_TRANSFER'
+      )
+    ),
+    allEndpointsOpponentToMove:endpoints.every(x=>x.descriptor.mover===1),
+    representedSixthMoves:[...new Set(endpoints.flatMap(x=>
+      x.provenance.flatMap(p=>p.sixthMoves)
+    ))].sort((a,b)=>a-b),
+  },
+  boundary:{
+    diagnosticOnly:true,
+    endpointObservationOnly:true,
+    noSecondOpponentResponseLayer:true,
+    currentPlayableTargetTransferAuditOnly:true,
+    noSolvedData:true,
+    oracle:false,
+    minimax:false,
+    recursiveSearch:false,
+    futureTreeGeneration:false,
+    noBestSetConclusion:true,
+  },
+},null,2));
