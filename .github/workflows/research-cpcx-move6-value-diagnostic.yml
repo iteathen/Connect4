@@ -7,6 +7,8 @@ on:
     paths:
       - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-cpc2-setup-restriction.mjs
       - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-restriction-ladder.mjs
+      - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-control-quotient.mjs
+      - research/isograph/discovery/2026-10-02-cpcx/cpcx-control-quotient.mjs
       - research/isograph/discovery/2026-10-02-cpcx/cpcx-cpc2.mjs
       - research/isograph/discovery/2026-10-02-cpcx/cpcx-successor.mjs
       - research/isograph/discovery/2026-10-02-cpcx/cpcx-progress.mjs
@@ -29,6 +31,7 @@ jobs:
         run: |
           node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-cpc2-setup-restriction.mjs > cpcx-move6-cpc2-setup-restriction.json
           node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-restriction-ladder.mjs > cpcx-move6-restriction-ladder.json
+          node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-control-quotient.mjs > cpcx-move6-control-quotient.json
           node --input-type=module -e "
             import fs from 'node:fs';
             const x=JSON.parse(fs.readFileSync('cpcx-move6-cpc2-setup-restriction.json','utf8'));
@@ -58,4 +61,5 @@ jobs:
           path: |
             cpcx-move6-cpc2-setup-restriction.json
             cpcx-move6-restriction-ladder.json
+            cpcx-move6-control-quotient.json
           if-no-files-found: error
