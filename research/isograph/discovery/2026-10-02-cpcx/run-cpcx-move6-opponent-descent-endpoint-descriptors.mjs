@@ -53,6 +53,10 @@ import {
   certifyCpcxProtectedResidualForcedNormalization,
 } from './cpcx-forced-normalization.mjs';
 import {
+  findCpcxVerticalThreeStageObligations,
+  certifyCpcxVerticalThreeStageSetup,
+} from './cpcx-three-stage.mjs';
+import {
   certifyCpcxTruncatedTargetReservoir,
   analyzeCpcxOneDefectTargetReservoir,
 } from './cpcx-reservoir.mjs';
@@ -1082,6 +1086,27 @@ for(const source of sources.values()){
                     singletonCells:x.certificate.singletonCells.map(label),
                     deficiency:x.certificate.deficiency,
                   })),
+              verticalThreeStage:child.terminal?[]:
+                findCpcxVerticalThreeStageObligations(child,{player:0})
+                  .map(demand=>{
+                    const certificate=certifyCpcxVerticalThreeStageSetup(
+                      child,demand
+                    );
+                    return {
+                      lineId:demand.obligation.lineId,
+                      lineLabel:demand.obligation.lineLabel,
+                      setupCell:label(demand.setupCell),
+                      middleCell:label(demand.middleCell),
+                      upperCell:label(demand.upperCell),
+                      kind:certificate.kind,
+                      exact:certificate.exact??false,
+                      seam:certificate.seam??null,
+                      childCertificateKind:
+                        certificate.childCertificate?.kind??null,
+                      childCertificateExact:
+                        certificate.childCertificate?.exact??false,
+                    };
+                  }),
               currentP0Actions:child.terminal?[]:frontierCells(child).map(actionCell=>{
                 const next=applyCpcxForcedEvent(child,actionCell);
                 if(next.terminal)return {
