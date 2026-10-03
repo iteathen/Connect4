@@ -21,6 +21,7 @@ import {runCpcxFirstWinCertificate} from './cpcx-successor.mjs';
 import {
   analyzeCpcxTargetReservoir,
   analyzeCpcxOneDefectTargetReservoir,
+  analyzeCpcxTruncatedTargetReservoirCoverage,
 } from './cpcx-reservoir.mjs';
 
 const g=createCpcxGeometry(),root=buildCpcxPosition('44444',{geometry:g});
@@ -275,6 +276,11 @@ function ladderPoisonBranches(position,pair){
             :null,
           oneDefect=Number.isInteger(targetCell)&&!afterEndpoint.terminal
             ?analyzeCpcxOneDefectTargetReservoir(afterEndpoint,{attacker:0,targetCell})
+            :null,
+          reservoirCoverage=Number.isInteger(targetCell)&&!afterEndpoint.terminal
+            ?analyzeCpcxTruncatedTargetReservoirCoverage(
+              afterEndpoint,{attacker:0,targetCell}
+            )
             :null;
         branches.push({
           endpoint:event.label,
@@ -302,6 +308,21 @@ function ladderPoisonBranches(position,pair){
             totalRelevantEvents:oneDefect.totalRelevantEvents??null,
             fullCoverageTemplateCount:oneDefect.fullCoverageTemplateCount??null,
             minimumUncoveredResiduals:oneDefect.minimumUncoveredResiduals??null,
+          }:null,
+          reservoirCoverage:reservoirCoverage?{
+            kind:reservoirCoverage.kind,
+            fullCoverageTemplateCount:
+              reservoirCoverage.fullCoverageTemplateCount??null,
+            minimumUncoveredResiduals:
+              reservoirCoverage.minimumUncoveredResiduals??null,
+            bestUncovered:(reservoirCoverage.bestPartialTemplates?.[0]?.uncovered??[])
+              .map(x=>({
+                lineId:x.lineId,
+                lineLabel:x.lineLabel,
+                orientation:x.orientation,
+                missingCount:x.missingCount,
+                missingCells:x.missingCells.map(label),
+              })),
           }:null,
         });
       }
