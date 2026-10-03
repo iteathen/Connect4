@@ -104,7 +104,38 @@ This is explicitly described as close to action-labelled bisimulation / Myhill-N
 
 For CPCX, this criterion should be weakened only by the **declared observation scope**, not by dropping first-win-relevant structure.
 
-### 2.2 MQ2: the exact future-behavior quotient exists on bounded controls
+### 2.2 Standard-7x6 q_o congruence is already qualified
+
+The later authority record resolves an important question that the earlier semantic-quotient notes still treated as a candidate:
+
+- `research/isograph/discovery/2026-09-18-high-value-leads/STANDARD_7X6_Q_CONGRUENCE.md`
+- blob: `4d72c6984380bfee2c74345062a1849ebbd514db`
+- `research/isograph/qualification/Q_CONGRUENCE_FINAL_QUALIFICATION_0_2.md`
+- blob: `f96ce5a28fb41cee8fde82eb8b7b58393acb16ba`
+- independent review: `research/isograph/qualification/Q_CONGRUENCE_INDEPENDENT_REVIEW_0_1.md`, blob `552881337d8e013317524558a7c33d4bfc645502`
+
+Qualified standard-7x6 theorem:
+
+`q_o(s)=q_o(t)`
+
+for legal nonterminal states implies the same complete **orientation-sensitive literal-action-labelled ordinary future game**, including legal columns, terminal token for every action, successor `q_o`, W/D/L, fixed-tie distance value, and per-column action values.
+
+The qualification also keeps the scope boundary explicit: q equality does **not** imply physical/history identity or non-q CPC/CPCX proof identity.
+
+This theorem means ordinary future-game equivalence does not need to be reproved inside CPCX. CPCX only needs a rule-only witness that the relevant child carriers are equal or transition-isomorphic under an action transporter.
+
+### 2.3 Residual-q column orbits already motivate branch-local transporters
+
+`research/isograph/discovery/2026-09-29-center-proof-cycle/RESIDUAL_Q_COLUMN_ORBIT_RESULT.md`  
+blob: `1cac653892b6cbda4ce2e1c1b9057197be4ace87`
+
+On the exhaustive 4x4 control, every residual-q global column-permutation orbit lay inside one recursive action-unlabelled behavior class, but the static orbit quotient remained finer than the recursive quotient.
+
+The result explicitly identifies the remaining gap as a **local action-transporter system / bisimulation**: one node may match its actions using one correspondence while successor nodes use different correspondences.
+
+This is the closest prior structural model for the present ply-6 question.
+
+### 2.4 MQ2: the exact future-behavior quotient exists on bounded controls
 
 `docs/research/2026-09-11-semantic-quotient-mq2-behavioral-partition.md`  
 blob: `ce1aca32ba0fdce6a7d896f34aeb44d56d978bef`
@@ -115,7 +146,7 @@ MQ2 defines the coarsest deterministic behavior class by the complete labeled co
 
 This establishes the correct theoretical target but is an offline whole-graph construction, not an admissible CPCX runtime method.
 
-### 2.3 MQ3/MQ4: a forward-constructible semantic state already exists on bounded controls
+### 2.5 MQ3/MQ4: a forward-constructible semantic state already exists on bounded controls
 
 `docs/research/2026-09-11-semantic-quotient-mq3-residual-sufficiency.md`
 
@@ -132,7 +163,7 @@ MQ4 generates the residual automaton forward using only that state and its local
 
 This is the clearest existing evidence that a physical Connect Four board can be reduced to a smaller forward semantic state. It is **not** a standard-7x6 theorem.
 
-### 2.4 Identified-line quotient supplies a direct bisimulation proof pattern
+### 2.6 Identified-line quotient supplies a direct bisimulation proof pattern
 
 - `docs/research/2026-09-10-identified-winline-quotient.md`, blob `977f00253ee6f0cbd5384da3fa0a9525cead2070`
 - `docs/research/2026-09-10-identified-winline-quotient-exact-results.md`, blob `81a3d859ba76d02e110fbdea43ebc4d4fce0f140`
@@ -351,15 +382,25 @@ The current exact reflection classes remain valid positive instances. The next t
 
 ## 9. Smallest missing lemma
 
-The smallest missing lemma is a **CPCX first-win certificate transport / Transition-Isomorph lemma**, not another game tactic.
+The archaeology separates two questions that should not be conflated.
 
-Candidate statement:
+### 9.1 First missing lemma for **move-6 game-value equivalence**
 
-> Let `A` and `B` be CPCX proof states under a pinned first-win comparison view `C_FW`. If a verified mapping covers every load-bearing role, every projected role has independent irrelevance authority, terminal/first-win observations correspond, and every structural edge used by a certificate from `A` maps to an admissible edge from `B` whose child remains in the mapped class, then the finite/decreasing `CERTIFIED_FIRST_WIN(P)` certificate for `A` transports to `B`.
+Because standard-7x6 `q_o` future-behavior congruence is already qualified, the smallest missing lemma is a **finite branch-local q_o action-transporter witness** between the remaining move-6 classes.
 
-For a recurrent certificate schema, Core 0.21 additionally requires exact all-and-only edge coverage and an explicit finite/decreasing measure.
+A sufficient one-layer form is:
 
-This lemma does **not** discover a win and does not license arbitrary move mapping. It only permits reuse of an already-sound CPCX certificate across a verified claim-relative transition isomorph.
+> There is a bijection between the current legal actions of states `A` and `B`; matched actions have the same first-terminal observation; and every matched nonterminal child pair is related by an exact complete-`q_o` column transporter.
+
+Then qualified q_o congruence closes the entire future below each matched child. The current node is therefore ordinary future-game/value equivalent without recursively traversing the future game.
+
+This is exactly the branch-local transporter pattern anticipated by the bounded residual-q column-orbit work.
+
+### 9.2 Separate missing lemma for **CPCX certificate reuse**
+
+Only after ordinary value-equivalence classes are established do we need a broader CPCX first-win certificate-transport TI if we want to reuse one proof artifact across states whose non-q proof context differs.
+
+That later lemma must map every first-win-load-bearing CPCX role and preserve projected residual/guard/debt/first-terminal obligations. It must not be used merely to prove the game values equal when q_o transport already supplies that theorem.
 
 ## Consequence for current CPCX work
 
@@ -367,12 +408,11 @@ Pause further widening of reservoir/RCIC response grammars.
 
 Next work should:
 
-1. define the pinned `C_FW` role set from existing CPCX semantics;
-2. qualify certificate transport first on exact reflection;
-3. qualify a nontrivial neutral/gray or structurally renamed local positive control;
-4. preserve a same-support/non-equivalent falsifier;
-5. test the four `44444` reflection representatives after deterministic wing normalization for TI under `C_FW`;
-6. merge only classes with a complete witness;
-7. use existing CPCX tactics only for representative classes that remain distinct.
+1. test the four current `44444` reflection representatives for a finite branch-local `q_o` action-transporter witness;
+2. use the qualified q_o theorem as the ordinary future-game closure below transported children;
+3. merge only classes with a complete verified witness;
+4. if all seven sixth-action children collapse, prove one representative `CERTIFIED_FIRST_WIN(P0)`;
+5. only if proof artifacts themselves need transport, introduce the broader CPCX first-win TI;
+6. preserve same-support/non-equivalent and first-win-stopping falsifiers.
 
-This imports prior UC4A/IsoGraph machinery instead of inventing another bespoke move-6 proof chain.
+This imports the qualified q-congruence/UC4A/IsoGraph machinery instead of inventing another bespoke move-6 proof chain.
