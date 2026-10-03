@@ -389,6 +389,7 @@ console.log(JSON.stringify({
   observation:'nonterminal endpoints of the already-qualified one-layer opponent-response descent theorem; no second free opponent layer is generated',
   endpointCount:endpoints.length,
   terminalCount:terminals.length,
+  novelMaskSecondLayerProbes,
   endpoints,
   summary:{
     sourceBoundaryCount:sources.size,
