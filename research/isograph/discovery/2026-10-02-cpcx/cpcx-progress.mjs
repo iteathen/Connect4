@@ -17,6 +17,9 @@ import {scanCpcxObligations} from './cpcx.mjs';
 import {classifyCpcxImmediate,findCpcxSynchronizedProjectionLadders} from './cpcx-closure.mjs';
 import {findAndCertifyCpcxPairHubForks} from './cpcx-fork.mjs';
 import {
+  findAndCertifyCpcxLatentSingletonPairHubOverloads,
+} from './cpcx-latent-pair-hub.mjs';
+import {
   findCpcxVerticalTwoStageObligations,
   certifyCpcxVerticalTwoStage,
 } from './cpcx-two-stage.mjs';
@@ -95,6 +98,24 @@ export function classifyCpcxProgress(position,{player=position.mover}={}){
       a.certificate.kind.localeCompare(b.certificate.kind)
     )[0];
     return firstWin(player,'PAIR_HUB_FORK',selected);
+  }
+
+  if(player!==position.mover){
+    const latentPairHubs=
+      findAndCertifyCpcxLatentSingletonPairHubOverloads(
+        position,{attacker:player}
+      );
+    if(latentPairHubs.length){
+      const selected=[...latentPairHubs].sort((a,b)=>
+        a.candidate.targetCell-b.candidate.targetCell||
+        a.candidate.hubCell-b.candidate.hubCell
+      )[0];
+      return firstWin(
+        player,
+        'LATENT_SINGLETON_PAIR_HUB_OVERLOAD',
+        selected
+      );
+    }
   }
 
   if(player!==position.mover){
