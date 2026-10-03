@@ -1,5 +1,6 @@
 import {createCpcxGeometry,buildCpcxPosition} from './cpcx.mjs';
 import {applyCpcxForcedEvent} from './cpcx-closure.mjs';
+import {deriveCpcxDisjunctiveBlockObligation} from './cpcx-cpc2.mjs';
 import {
   certifyCpcxOneDefectTargetReservoirRcic,
 } from './cpcx-one-defect-rcic.mjs';
@@ -38,14 +39,38 @@ function summary(x){
   };
 }
 
+const lower=buildCpcxPosition('4444441123312',{geometry:g}),
+  lowerTarget=3*g.columns+4,
+  lowerCpc2=deriveCpcxDisjunctiveBlockObligation(lower,{attacker:0}),
+  lowerBaseline=certifyCpcxOneDefectTargetReservoirRcic(lower,{
+    attacker:0,targetCell:lowerTarget,maxNodes:4096,useCpc2Restriction:false,
+  }),
+  lowerRestricted=certifyCpcxOneDefectTargetReservoirRcic(lower,{
+    attacker:0,targetCell:lowerTarget,maxNodes:4096,useCpc2Restriction:true,
+  });
+
 console.log(JSON.stringify({
-  schema:'connect4.cpcx.one-defect-cpc2-restriction-probe.v0_1',
+  schema:'connect4.cpcx.one-defect-cpc2-restriction-probe.v0_2',
   control:'F9',
   sequence:'4444441123',
   setupColumn:3,
   target:'E4',
   baseline:summary(baseline),
   cpc2Restricted:summary(restricted),
+  lowerChild:{
+    sequence:'4444441123312',
+    support:Array.from(lower.heights),
+    cpc2:{
+      kind:lowerCpc2.kind,
+      exact:lowerCpc2.exact??false,
+      blockingCells:lowerCpc2.blockingCells??null,
+      blockingLabels:lowerCpc2.blockingLabels??null,
+      outsideMoveCount:lowerCpc2.outsideMoveCertificates?.length??null,
+      seam:lowerCpc2.seam??null,
+    },
+    baseline:summary(lowerBaseline),
+    restricted:summary(lowerRestricted),
+  },
   premises:{
     diagnosticOnly:true,
     standardBoard:'7x6',
