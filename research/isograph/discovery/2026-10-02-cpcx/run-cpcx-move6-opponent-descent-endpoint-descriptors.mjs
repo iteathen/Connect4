@@ -859,6 +859,25 @@ for(const source of sources.values()){
                   sourceMeasure:responseDescentV2.sourceMeasure??null,
                   eventCount:responseDescentV2.eventCount??null,
                   failureCount:responseDescentV2.failures?.length??0,
+                  failures:(responseDescentV2.failures??[]).map(f=>({
+                    eventCell:Number.isInteger(f.eventCell)
+                      ?label(f.eventCell):null,
+                    seam:f.seam??f.kind??null,
+                    transportKind:f.transportKind??null,
+                    transitionSeam:f.transition?.seam??null,
+                    closureSeam:f.closure?.seam??null,
+                    closureBoundary:f.closure?.boundary?{
+                      kind:f.closure.boundary.kind,
+                      threatCells:(f.closure.boundary.threatCells??[]).map(label),
+                      winningCells:(f.closure.boundary.winningCells??[]).map(label),
+                    }:null,
+                    closureCertificate:f.closure?.certificate?{
+                      kind:f.closure.certificate.kind,
+                      seam:f.closure.certificate.seam??null,
+                      sourceMeasure:f.closure.certificate.sourceMeasure??null,
+                      currentMeasure:f.closure.certificate.currentMeasure??null,
+                    }:null,
+                  })),
                   everyEventWinsOrStrictlyDescends:
                     responseDescentV2.everyEventWinsOrStrictlyDescends??false,
                 }:null,
