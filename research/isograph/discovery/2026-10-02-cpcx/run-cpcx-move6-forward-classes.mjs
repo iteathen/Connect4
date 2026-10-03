@@ -95,6 +95,55 @@ function obligationSummary(position,reflect){
       a.missing.join(',').localeCompare(b.missing.join(','))
     );
 }
+function defectColumnExhaustionProbe(position,analysis){
+  if(!analysis||analysis.kind!=='ODD_RESERVOIR_DEFECT')return [];
+  const rows=[];
+  for(const column of analysis.oddColumns){
+    let current=position,terminal=null,legal=true;
+    const events=[],limit=analysis.capacity[column];
+    for(let i=0;i<limit;i++){
+      const row=current.heights[column];
+      if(row>=g.rows){legal=false;break;}
+      const cell=row*g.columns+column,owner=current.mover;
+      events.push({cell:label(cell),owner});
+      current=applyCpcxForcedEvent(current,cell);
+      if(current.terminal){terminal=current.terminal;break;}
+    }
+    const progress=!terminal&&legal
+      ?classifyCpcxProgress(current,{player:0})
+      :null,
+      certificate=!terminal&&legal
+        ?runCpcxFirstWinCertificate(current,{attacker:0})
+        :null;
+    rows.push({
+      column:column+1,
+      consumedRelevantEvents:events.length,
+      expectedRelevantEvents:limit,
+      legal,
+      terminal,
+      events,
+      resultingRank:current.rank,
+      resultingMover:current.mover,
+      progress:progress?{
+        kind:progress.kind,
+        exact:progress.exact??false,
+        player:progress.player??null,
+        source:progress.source??null,
+        seam:progress.seam??null,
+        macroKind:progress.macro?.kind??null,
+      }:null,
+      certificate:certificate?{
+        kind:certificate.kind,
+        exact:certificate.exact,
+        player:certificate.player??null,
+        seam:certificate.seam??null,
+        traceLength:certificate.trace?.length??0,
+      }:null,
+    });
+  }
+  return rows;
+}
+
 function pairCompressionProbe(position){
   if(position.mover!==0)return null;
   const pair=scanCpcxObligations(position).find(o=>
@@ -154,6 +203,7 @@ function pairCompressionProbe(position){
     targetCell:label(targetCell),
     afterSetupSupport:Array.from(afterSetup.heights),
     reservoirAnalysis,
+    defectColumnExhaustion:afterSetup.terminal?[]:defectColumnExhaustionProbe(afterSetup,reservoirAnalysis),
     replies,
     closedReplyCount:replies.filter(x=>
       x.certificate.kind==='CERTIFIED_FIRST_WIN'&&x.certificate.player===0
@@ -270,5 +320,6 @@ console.log(JSON.stringify({
     delayEquivalenceAssumed:false,
     pairCompressionProbe:'one P0 setup on the unique playable endpoint of a two-cell residual, followed by one flat P1 frontier audit',
     discoverySecondSetupProbe:'bounded theorem-discovery scan only; enumerates one additional current P0 setup per P1 reply and is forbidden as a proof premise until generalized',
+    defectColumnExhaustionProbe:'discovery-only same-column normalization of each odd reservoir column through its truncated relevant capacity; no claim that the opponent is forced to choose this order',
   },
 },null,2));
