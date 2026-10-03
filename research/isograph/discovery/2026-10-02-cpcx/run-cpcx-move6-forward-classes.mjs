@@ -312,6 +312,221 @@ function oneDefectRenewalProbe(position,targetCell,analysis){
   };
 }
 
+function normalizedOneDefectHandoff(position,analysis){
+  const template=analysis?.selectedFullCoverageTemplate;
+  if(!template)return {kind:'NO_FULL_TEMPLATE',exact:false};
+  const defectColumn=template.defect.column,
+    partner=template.partner[defectColumn],
+    prefixLength=template.prefixLength[defectColumn],
+    events=[];
+  let current=position;
+
+  for(let i=0;i<prefixLength;i++){
+    if(current.mover!==1)return {kind:'TURN_MISMATCH',exact:false,events};
+    const dRow=current.heights[defectColumn],
+      dCell=dRow*g.columns+defectColumn;
+    current=applyCpcxForcedEvent(current,dCell);
+    events.push({cell:label(dCell),owner:1,role:'DEFECT_PREFIX_TRIGGER'});
+    if(current.terminal)return {
+      kind:current.terminal.player===0?'ATTACKER_TERMINAL':'DEFENDER_TERMINAL',
+      exact:true,terminal:current.terminal,position:current,events,
+    };
+    if(partner<0)return {kind:'PREFIX_PARTNER_MISSING',exact:false,events};
+    const rRow=current.heights[partner],
+      rCell=rRow*g.columns+partner;
+    current=applyCpcxForcedEvent(current,rCell);
+    events.push({cell:label(rCell),owner:0,role:'DEFECT_PREFIX_RESPONSE'});
+    if(current.terminal)return {
+      kind:current.terminal.player===0?'ATTACKER_TERMINAL':'DEFENDER_TERMINAL',
+      exact:true,terminal:current.terminal,position:current,events,
+    };
+  }
+
+  let tail=template.defect.tailLength;
+  while(tail>1){
+    if(current.mover!==1)return {kind:'TURN_MISMATCH',exact:false,events};
+    const lowerRow=current.heights[defectColumn],
+      lower=lowerRow*g.columns+defectColumn;
+    current=applyCpcxForcedEvent(current,lower);
+    events.push({cell:label(lower),owner:1,role:'DEFECT_VERTICAL_TRIGGER'});
+    if(current.terminal)return {
+      kind:current.terminal.player===0?'ATTACKER_TERMINAL':'DEFENDER_TERMINAL',
+      exact:true,terminal:current.terminal,position:current,events,
+    };
+    const upperRow=current.heights[defectColumn],
+      upper=upperRow*g.columns+defectColumn;
+    current=applyCpcxForcedEvent(current,upper);
+    events.push({cell:label(upper),owner:0,role:'DEFECT_VERTICAL_RESPONSE'});
+    if(current.terminal)return {
+      kind:current.terminal.player===0?'ATTACKER_TERMINAL':'DEFENDER_TERMINAL',
+      exact:true,terminal:current.terminal,position:current,events,
+    };
+    tail-=2;
+  }
+
+  if(tail!==1||current.mover!==1)
+    return {kind:'DEFECT_TAIL_INVARIANT_FAILURE',exact:false,events};
+  const topRow=current.heights[defectColumn],
+    top=topRow*g.columns+defectColumn;
+  current=applyCpcxForcedEvent(current,top);
+  events.push({cell:label(top),owner:1,role:'UNMATCHED_DEFENDER_TOP_EVENT'});
+  if(current.terminal)return {
+    kind:current.terminal.player===0?'ATTACKER_TERMINAL':'DEFENDER_TERMINAL',
+    exact:true,terminal:current.terminal,position:current,events,
+  };
+  return {
+    kind:'DEFECT_HANDOFF',
+    exact:true,
+    defectCell:top,
+    defectLabel:label(top),
+    position:current,
+    events,
+  };
+}
+
+function oneDefectViabilityChainProbe(position,targetCell){
+  let current=position;
+  const stages=[];
+  for(let stage=0;stage<24;stage++){
+    const ordinary=certifyCpcxTruncatedTargetReservoir(
+        current,{attacker:0,targetCell}
+      );
+    if(ordinary.kind==='CERTIFIED_FIRST_WIN')return {
+      kind:'DISCOVERY_CHAIN_TO_ORDINARY_RESERVOIR',
+      exactDiscovery:true,
+      certifiedByTheorem:false,
+      stageCount:stages.length,
+      stages,
+    };
+
+    const analysis=analyzeCpcxOneDefectTargetReservoir(
+      current,{attacker:0,targetCell}
+    );
+    if(analysis.kind!=='ONE_DEFECT_STATIC_COVERAGE')return {
+      kind:'DISCOVERY_CHAIN_BREAK',
+      exactDiscovery:true,
+      certifiedByTheorem:false,
+      stageCount:stages.length,
+      seam:analysis.kind,
+      stages,
+    };
+
+    const parentRank=analysis.totalRelevantEvents,
+      handoff=normalizedOneDefectHandoff(current,analysis);
+    if(handoff.kind==='ATTACKER_TERMINAL')return {
+      kind:'DISCOVERY_CHAIN_TO_ATTACKER_TERMINAL',
+      exactDiscovery:true,
+      certifiedByTheorem:false,
+      stageCount:stages.length+1,
+      stages:stages.concat([{
+        parentReservoirRank:parentRank,
+        defect:analysis.selectedFullCoverageTemplate.defect,
+        handoffKind:handoff.kind,
+        handoffEvents:handoff.events,
+      }]),
+    };
+    if(handoff.kind!=='DEFECT_HANDOFF')return {
+      kind:'DISCOVERY_CHAIN_BREAK',
+      exactDiscovery:true,
+      certifiedByTheorem:false,
+      stageCount:stages.length,
+      seam:handoff.kind,
+      stages,
+    };
+
+    const repairs=[];
+    for(const repairCell of frontier(handoff.position)){
+      const child=applyCpcxForcedEvent(handoff.position,repairCell);
+      if(child.terminal){
+        if(child.terminal.player===0)repairs.push({
+          cell:repairCell,
+          label:label(repairCell),
+          kind:'ATTACKER_TERMINAL',
+          child:null,
+          childRank:-1,
+        });
+        continue;
+      }
+      const childOrdinary=certifyCpcxTruncatedTargetReservoir(
+          child,{attacker:0,targetCell}
+        ),
+        childAnalysis=analyzeCpcxOneDefectTargetReservoir(
+          child,{attacker:0,targetCell}
+        ),
+        childRank=childAnalysis.totalRelevantEvents??null;
+      if(childOrdinary.kind==='CERTIFIED_FIRST_WIN')repairs.push({
+        cell:repairCell,
+        label:label(repairCell),
+        kind:'ORDINARY_RESERVOIR_FIRST_WIN',
+        child,
+        childRank:0,
+      });
+      else if(
+        childAnalysis.kind==='ONE_DEFECT_STATIC_COVERAGE'&&
+        Number.isInteger(childRank)&&
+        childRank<parentRank
+      )repairs.push({
+        cell:repairCell,
+        label:label(repairCell),
+        kind:'ONE_DEFECT_RENEWAL',
+        child,
+        childRank,
+      });
+    }
+    repairs.sort((a,b)=>
+      a.childRank-b.childRank||a.cell-b.cell
+    );
+    if(!repairs.length)return {
+      kind:'DISCOVERY_CHAIN_BREAK',
+      exactDiscovery:true,
+      certifiedByTheorem:false,
+      stageCount:stages.length+1,
+      seam:'NO_HANDOFF_REPAIR',
+      stages:stages.concat([{
+        parentReservoirRank:parentRank,
+        defect:analysis.selectedFullCoverageTemplate.defect,
+        handoffKind:handoff.kind,
+        handoffEvents:handoff.events,
+        repairCandidates:[],
+      }]),
+    };
+
+    const selected=repairs[0];
+    stages.push({
+      parentReservoirRank:parentRank,
+      defect:analysis.selectedFullCoverageTemplate.defect,
+      handoffKind:handoff.kind,
+      handoffEvents:handoff.events,
+      repairCandidates:repairs.map(x=>({
+        cell:x.label,kind:x.kind,childRank:x.childRank,
+      })),
+      selectedRepair:{
+        cell:selected.label,
+        kind:selected.kind,
+        childRank:selected.childRank,
+      },
+    });
+    if(selected.kind==='ATTACKER_TERMINAL'||
+       selected.kind==='ORDINARY_RESERVOIR_FIRST_WIN')return {
+      kind:selected.kind==='ATTACKER_TERMINAL'
+        ?'DISCOVERY_CHAIN_TO_ATTACKER_TERMINAL'
+        :'DISCOVERY_CHAIN_TO_ORDINARY_RESERVOIR',
+      exactDiscovery:true,
+      certifiedByTheorem:false,
+      stageCount:stages.length,
+      stages,
+    };
+    current=selected.child;
+  }
+  return {
+    kind:'DISCOVERY_CHAIN_STEP_BOUND',
+    exactDiscovery:true,
+    certifiedByTheorem:false,
+    stageCount:stages.length,
+    stages,
+  };
+}
+
 function pairCompressionProbe(position){
   if(position.mover!==0)return null;
   const pair=scanCpcxObligations(position).find(o=>
@@ -379,6 +594,8 @@ function pairCompressionProbe(position){
     oneDefectRenewal:afterSetup.terminal?null:oneDefectRenewalProbe(
       afterSetup,targetCell,oneDefectReservoirAnalysis
     ),
+    oneDefectViabilityChain:afterSetup.terminal?null:
+      oneDefectViabilityChainProbe(afterSetup,targetCell),
     defectColumnExhaustion:afterSetup.terminal?[]:defectColumnExhaustionProbe(afterSetup,reservoirAnalysis),
     replies,
     closedReplyCount:replies.filter(x=>
@@ -499,5 +716,6 @@ console.log(JSON.stringify({
     defectColumnExhaustionProbe:'discovery-only same-column normalization of each odd reservoir column through its truncated relevant capacity; no claim that the opponent is forced to choose this order',
     oneDefectRenewalProbe:'one theorem-template response layer only; tests reconstruction of the same one-defect class with reservoir rank reduced by two and does not recursively traverse descendants',
     defectHandoffRepairProbe:'discovery-only scan of one current P0 setup after an unmatched top event; successful cells are not proof premises until a generic repair theorem is established',
+    oneDefectViabilityChainProbe:'discovery-only deterministic normalization through unmatched top events; ordinary defender choices are discharged only by the static template invariant, while one locally synthesized repair is followed at each decreasing reservoir rank; this is not yet a promoted theorem',
   },
 },null,2));
