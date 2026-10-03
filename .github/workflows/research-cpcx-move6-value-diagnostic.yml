@@ -7,6 +7,8 @@ on:
     paths:
       - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-cpc2-setup-restriction.mjs
       - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-restriction-ladder.mjs
+      - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-final-block-ranked-reservoir.mjs
+      - research/isograph/discovery/2026-10-02-cpcx/cpcx-reservoir-gap-rcic.mjs
       - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-control-quotient.mjs
       - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-representative-proof-matrix.mjs
       - research/isograph/discovery/2026-10-02-cpcx/cpcx-control-quotient.mjs
@@ -32,6 +34,7 @@ jobs:
         run: |
           node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-cpc2-setup-restriction.mjs > cpcx-move6-cpc2-setup-restriction.json
           node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-restriction-ladder.mjs > cpcx-move6-restriction-ladder.json
+          node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-final-block-ranked-reservoir.mjs > cpcx-move6-final-block-ranked-reservoir.json
           node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-control-quotient.mjs > cpcx-move6-control-quotient.json
           node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-representative-proof-matrix.mjs > cpcx-move6-representative-proof-matrix.json
           node --input-type=module -e "
@@ -63,6 +66,7 @@ jobs:
           path: |
             cpcx-move6-cpc2-setup-restriction.json
             cpcx-move6-restriction-ladder.json
+            cpcx-move6-final-block-ranked-reservoir.json
             cpcx-move6-control-quotient.json
             cpcx-move6-representative-proof-matrix.json
           if-no-files-found: error
