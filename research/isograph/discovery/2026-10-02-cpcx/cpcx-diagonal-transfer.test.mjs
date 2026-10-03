@@ -33,7 +33,7 @@ test('fresh same-track target block transfers with strict cardinality descent',(
     });
 
   assert.equal(p.mover,1);
-  assert.equal(c.kind,'PROTECTED_DIAGONAL_TRACK_TRANSFER');
+  assert.equal(c.kind,'PROTECTED_RESIDUAL_DIAGONAL_TRANSFER');
   assert.equal(c.exact,true);
   assert.equal(c.source.lineLabel,'B4-C3-D2-E1');
   assert.deepEqual(c.source.tuple,[4,6]);
