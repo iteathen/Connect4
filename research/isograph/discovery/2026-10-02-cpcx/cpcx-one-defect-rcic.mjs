@@ -17,7 +17,7 @@
 // - re-enters this one-defect class with strictly smaller mu.
 //
 // The proof graph is built with an explicit worklist.  There is no recursive
-// legal-move value traversal, no minimax, and no oracle premise.
+// legal-move value traversal, no unrestricted value search, and no oracle premise.
 
 import {
   cpcxCell,
