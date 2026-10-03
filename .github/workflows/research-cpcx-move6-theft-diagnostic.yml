@@ -7,6 +7,7 @@ on:
     paths:
       - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-theft-setups.mjs
       - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-theft-two-ply.mjs
+      - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-theft-vertical-transport.mjs
       - .github/workflows/research-cpcx-move6-theft-diagnostic.yml
   workflow_dispatch:
 
@@ -26,13 +27,16 @@ jobs:
         run: |
           node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-theft-setups.mjs > cpcx-move6-theft-setups.json
           node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-theft-two-ply.mjs > cpcx-move6-theft-two-ply.json
+          node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-theft-vertical-transport.mjs > cpcx-move6-theft-vertical-transport.json
           node --input-type=module -e "
             import fs from 'node:fs';
             const x=JSON.parse(fs.readFileSync('cpcx-move6-theft-setups.json','utf8'));
             const y=JSON.parse(fs.readFileSync('cpcx-move6-theft-two-ply.json','utf8'));
+            const z=JSON.parse(fs.readFileSync('cpcx-move6-theft-vertical-transport.json','utf8'));
             console.log(JSON.stringify({
               onePlySummary:x.summary,
               twoPlySummary:y.summary,
+              verticalTransportSummary:z.summary,
               onePlyRows:x.rows.map(r=>({
                 sixthMove:r.sixthMove,
                 stolenTrigger:r.stolenTrigger,
@@ -60,4 +64,5 @@ jobs:
           path: |
             cpcx-move6-theft-setups.json
             cpcx-move6-theft-two-ply.json
+            cpcx-move6-theft-vertical-transport.json
           if-no-files-found: error
