@@ -78,6 +78,9 @@ test('vertical envelope carries a conservative defender first-terminal lower hor
   assert.equal(envelope.kind,'OPPONENT_SINGLETON_ENVELOPE');
   assert.equal(envelope.exact,true);
   assert.equal(envelope.defenderTerminalClasses,0);
+  assert.equal(envelope.opponentResidualEnvelope.exact,true);
+  assert.ok(envelope.opponentResidualEnvelope.possibleResiduals.length>=
+    envelope.opponentResidualEnvelope.guaranteedResiduals.length);
   assert.equal(Number.isInteger(envelope.defenderEarliestTerminalLowerBound),true);
   assert.ok(envelope.defenderEarliestTerminalLowerBound>=1);
   assert.equal(Object.prototype.hasOwnProperty.call(envelope,'winner'),false);
