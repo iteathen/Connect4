@@ -52,6 +52,10 @@ import {
 import {
   certifyCpcxProtectedResidualForcedNormalization,
 } from './cpcx-forced-normalization.mjs';
+import {
+  certifyCpcxTruncatedTargetReservoir,
+  analyzeCpcxOneDefectTargetReservoir,
+} from './cpcx-reservoir.mjs';
 
 const g=createCpcxGeometry(),
   artifact=buildCpcxMove6UnresolvedClassesArtifact(),
@@ -658,7 +662,8 @@ for(const source of sources.values()){
                       protectedResidual:inheritance.handoffResidual,
                     }
                   );
-              let responseDescent=null,responseDescentV2=null;
+              let responseDescent=null,responseDescentV2=null,
+                singletonReservoir=null,singletonOneDefect=null;
               if(
                 saturation.exact&&
                 saturation.kind==='PROTECTED_DIAGONAL_CONTROLLER_SATURATION'
@@ -671,12 +676,32 @@ for(const source of sources.values()){
               if(
                 saturationV2.exact&&
                 saturationV2.kind==='PROTECTED_DIAGONAL_CONTROLLER_SATURATION_V2'
-              )responseDescentV2=
-                certifyCpcxProtectedDiagonalOpponentResponseDescentV2(
-                  saturationV2.finalPosition,{
-                    protectedResidual:saturationV2.finalResidual,
-                  }
-                );
+              ){
+                responseDescentV2=
+                  certifyCpcxProtectedDiagonalOpponentResponseDescentV2(
+                    saturationV2.finalPosition,{
+                      protectedResidual:saturationV2.finalResidual,
+                    }
+                  );
+                if(
+                  saturationV2.finalResidual?.missingCount===1&&
+                  saturationV2.finalPosition?.mover===1
+                ){
+                  const targetCell=saturationV2.finalResidual.missingCells[0];
+                  singletonReservoir=certifyCpcxTruncatedTargetReservoir(
+                    saturationV2.finalPosition,{
+                      attacker:0,
+                      targetCell,
+                    }
+                  );
+                  singletonOneDefect=analyzeCpcxOneDefectTargetReservoir(
+                    saturationV2.finalPosition,{
+                      attacker:0,
+                      targetCell,
+                    }
+                  );
+                }
+              }
               inheritanceClosure={
                 handoff:{
                   kind:inheritance.kind,
@@ -779,6 +804,27 @@ for(const source of sources.values()){
                     }:null,
                   }:null,
                 },
+                singletonReservoir:singletonReservoir?{
+                  kind:singletonReservoir.kind,
+                  exact:singletonReservoir.exact??false,
+                  player:singletonReservoir.player??null,
+                  seam:singletonReservoir.seam??null,
+                  target:singletonReservoir.target?{
+                    cell:label(singletonReservoir.target.cell),
+                    supportDistance:singletonReservoir.target.supportDistance,
+                    lineLabel:singletonReservoir.target.lineLabel,
+                  }:null,
+                }:null,
+                singletonOneDefect:singletonOneDefect?{
+                  kind:singletonOneDefect.kind,
+                  exact:singletonOneDefect.exact??false,
+                  totalRelevantEvents:
+                    singletonOneDefect.totalRelevantEvents??null,
+                  minimumUncoveredResiduals:
+                    singletonOneDefect.minimumUncoveredResiduals??null,
+                  fullCoverageTemplateCount:
+                    singletonOneDefect.fullCoverageTemplateCount??null,
+                }:null,
                 responseDescentV2:responseDescentV2?{
                   kind:responseDescentV2.kind,
                   exact:responseDescentV2.exact??false,
@@ -1132,6 +1178,10 @@ console.log(JSON.stringify({
     ).length,
     targetInheritanceResponseDescentV2ExactCount:noTransferProbes.filter(x=>
       x.targetInheritance?.responseDescentV2?.exact===true
+    ).length,
+    targetInheritanceSingletonReservoirFirstWinCount:noTransferProbes.filter(x=>
+      x.targetInheritance?.singletonReservoir?.kind==='CERTIFIED_FIRST_WIN'&&
+      x.targetInheritance.singletonReservoir.player===0
     ).length,
     targetInheritanceResponseDescentExactCount:noTransferProbes.filter(x=>
       x.targetInheritance?.responseDescent?.exact===true
