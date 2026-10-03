@@ -18,6 +18,7 @@ on:
       - research/isograph/discovery/2026-10-02-cpcx/cpcx-common-rlc-guard.test.mjs
       - research/isograph/discovery/2026-10-02-cpcx/run-uc4a-cpcx-center-spine-debt-rule-second-layer.mjs
       - research/isograph/discovery/2026-10-02-cpcx/run-uc4a-cpcx-common-rlc-guard-set-second-layer.mjs
+      - research/isograph/discovery/2026-10-02-cpcx/run-uc4a-cpcx-rlc-defect-correction-rank.mjs
       - research/isograph/discovery/2026-10-02-cpcx/run-uc4a-cpcx-turn6-defect-pair-rlc-response-intersection.mjs
       - .github/workflows/research-cpcx-center-spine-cofactor.yml
   workflow_dispatch:
@@ -42,6 +43,7 @@ jobs:
       - run: node research/isograph/discovery/2026-10-02-cpcx/run-uc4a-cpcx-turn6-defect-pair-rlc-response-intersection.mjs > defect-pair-rlc-response-intersection.json
       - run: node research/isograph/discovery/2026-10-02-cpcx/run-uc4a-cpcx-center-spine-debt-rule-second-layer.mjs > center-spine-debt-rule-second-layer.json
       - run: node research/isograph/discovery/2026-10-02-cpcx/run-uc4a-cpcx-common-rlc-guard-set-second-layer.mjs > common-rlc-guard-set-second-layer.json
+      - run: node research/isograph/discovery/2026-10-02-cpcx/run-uc4a-cpcx-rlc-defect-correction-rank.mjs > rlc-defect-correction-rank.json
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
           name: center-spine-cofactor-equivalence
@@ -50,4 +52,5 @@ jobs:
             defect-pair-rlc-response-intersection.json
             center-spine-debt-rule-second-layer.json
             common-rlc-guard-set-second-layer.json
+            rlc-defect-correction-rank.json
           if-no-files-found: error
