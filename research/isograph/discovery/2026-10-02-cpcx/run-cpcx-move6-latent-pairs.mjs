@@ -24,7 +24,10 @@ import {
   analyzeCpcxTruncatedTargetReservoirCoverage,
   certifyCpcxTruncatedTargetReservoir,
 } from './cpcx-reservoir.mjs';
-import {certifyCpcxReservoirCoverageGapRcic} from './cpcx-reservoir-gap-rcic.mjs';
+import {
+  certifyCpcxReservoirCoverageGapRcic,
+  certifyCpcxReservoirAttachmentRcic,
+} from './cpcx-reservoir-gap-rcic.mjs';
 
 const g=createCpcxGeometry(),root=buildCpcxPosition('44444',{geometry:g});
 
@@ -500,6 +503,14 @@ function ladderPoisonBranches(position,pair){
               ?certifyCpcxReservoirCoverageGapRcic(
                 afterEndpoint,{attacker:0,targetCell,maxNodes:2048}
               )
+              :null,
+          attachmentRcic=
+            Number.isInteger(targetCell)&&
+            !afterEndpoint.terminal&&
+            reservoirCoverage?.kind==='TRUNCATED_TARGET_STATIC_COVERAGE_GAP'
+              ?certifyCpcxReservoirAttachmentRcic(
+                afterEndpoint,{attacker:0,targetCell,maxNodes:4096}
+              )
               :null;
         branches.push({
           endpoint:event.label,
@@ -548,6 +559,18 @@ function ladderPoisonBranches(position,pair){
               afterEndpoint,targetCell,reservoirCoverage
             )
             :null,
+          attachmentRcic:attachmentRcic?{
+            kind:attachmentRcic.kind,
+            exact:attachmentRcic.exact,
+            player:attachmentRcic.player??null,
+            seam:attachmentRcic.seam??null,
+            rootGap:attachmentRcic.rootGap??null,
+            rootReservoirRank:attachmentRcic.rootReservoirRank??null,
+            nodeCount:attachmentRcic.nodeCount??null,
+            certifiedNodeCount:attachmentRcic.certifiedNodeCount??null,
+            reservoirRanks:attachmentRcic.reservoirRanks??null,
+            unresolvedNodeCount:attachmentRcic.unresolvedNodeCount??0,
+          }:null,
           coverageRcic:coverageRcic?{
             kind:coverageRcic.kind,
             exact:coverageRcic.exact,
@@ -745,7 +768,9 @@ const profileCounts={},
   coverageRepairClosedTriggerCounts={},
   coverageRepairResultCounts={},
   coverageRcicCounts={},
-  coverageRcicByGap={};
+  coverageRcicByGap={},
+  attachmentRcicCounts={},
+  attachmentRcicByGap={};
 for(const row of states){
   const pair=row.bestPair;
   if(!pair)continue;
@@ -760,6 +785,13 @@ for(const row of states){
       const key=`${profile}|${source}|${branch.result?.kind??'NO_RESULT'}|${branch.result?.player??''}`;
       poisonBranchSourceCounts[source]=(poisonBranchSourceCounts[source]??0)+1;
       poisonBranchProfileCounts[key]=(poisonBranchProfileCounts[key]??0)+1;
+      const arcic=branch.attachmentRcic;
+      if(arcic){
+        const key=`${arcic.kind}|${arcic.player??''}|${arcic.seam??''}`;
+        attachmentRcicCounts[key]=(attachmentRcicCounts[key]??0)+1;
+        const gapKey=`${arcic.rootGap}|${arcic.kind}`;
+        attachmentRcicByGap[gapKey]=(attachmentRcicByGap[gapKey]??0)+1;
+      }
       const rcic=branch.coverageRcic;
       if(rcic){
         const key=`${rcic.kind}|${rcic.player??''}|${rcic.seam??''}`;
@@ -849,6 +881,8 @@ console.log(JSON.stringify({
     coverageRepairResultCounts,
     coverageRcicCounts,
     coverageRcicByGap,
+    attachmentRcicCounts,
+    attachmentRcicByGap,
     uniqueSetupPatternCount:uniqueSetupPatterns.size,
     uniqueSetupPatterns:[...uniqueSetupPatterns.values()]
       .sort((a,b)=>b.count-a.count||JSON.stringify(a.pattern).localeCompare(JSON.stringify(b.pattern))),
