@@ -212,3 +212,104 @@ export function classifyCpcxWingDeviation(contract,{decisionIndex,actualReplyCel
     forcingCertified:false,
   };
 }
+
+
+export function certifyCpcxSecondWingDeviation(position,contract,{actualReplyCell}={}){
+  if(contract?.kind!=='THREE_TRIGGER_WING_ATTACK')
+    throw new TypeError('wing contract');
+  if(!Number.isInteger(actualReplyCell))throw new RangeError('actualReplyCell');
+
+  const attacker=contract.attacker,defender=contract.action.owner,
+    decisionIndex=1,
+    deviation=classifyCpcxWingDeviation(contract,{decisionIndex,actualReplyCell});
+
+  if(deviation.kind==='HONORED_RESPONSE')return {
+    kind:'NO_CERTIFICATE',
+    exact:false,
+    seam:'SECOND_WING_RESPONSE_HONORED',
+    deviation,
+  };
+  if(deviation.stealsFutureTrigger)return {
+    kind:'NO_CERTIFICATE',
+    exact:false,
+    seam:'FINAL_WING_TRIGGER_STOLEN',
+    deviation,
+  };
+
+  const triggers=contract.anchoredLine.triggerCells,
+    responses=contract.anchoredLine.requiredResponseCells,
+    events=[
+      {cell:contract.action.cell,owner:defender,role:'INITIAL_DEFENDER_ACTION'},
+      {cell:triggers[0],owner:attacker,role:'TRIGGER_1'},
+      {cell:responses[0],owner:defender,role:'HONORED_RESPONSE_1'},
+      {cell:triggers[1],owner:attacker,role:'TRIGGER_2'},
+      {cell:actualReplyCell,owner:defender,role:'SECOND_DEVIATION'},
+      {cell:triggers[2],owner:attacker,role:'FINAL_TRIGGER'},
+    ],
+    verification=verifyCpcxFixedEventScript(position,events);
+
+  if(verification.terminal?.player===defender)return {
+    kind:'NO_CERTIFICATE',
+    exact:false,
+    seam:'DEFENDER_TERMINAL_ON_SECOND_DEVIATION',
+    deviation,
+    verification:{
+      legal:verification.legal,
+      terminal:verification.terminal,
+      steps:verification.steps,
+    },
+  };
+  if(!verification.legal)return {
+    kind:'NO_CERTIFICATE',
+    exact:false,
+    seam:'SECOND_DEVIATION_SCRIPT_NOT_LEGAL',
+    deviation,
+    verification:{
+      legal:false,
+      reason:verification.reason,
+      failedEvent:verification.failedEvent??null,
+      terminal:verification.terminal,
+      steps:verification.steps,
+    },
+  };
+
+  const terminal=verification.terminal,
+    expectedIndex=events.length-1;
+  if(
+    terminal?.index!==expectedIndex||
+    terminal.player!==attacker||
+    terminal.lineId!==contract.anchoredLine.lineId
+  )return {
+    kind:'NO_CERTIFICATE',
+    exact:false,
+    seam:'FINAL_TRIGGER_NOT_FIRST_TERMINAL',
+    deviation,
+    verification:{
+      legal:true,
+      terminal,
+      steps:verification.steps,
+    },
+  };
+
+  return {
+    schema:'connect4.cpcx.second-wing-deviation.v0_1',
+    kind:'CERTIFIED_FIRST_WIN',
+    exact:true,
+    player:attacker,
+    attacker,
+    defender,
+    decisionIndex,
+    deviationCell:actualReplyCell,
+    finalTriggerCell:triggers[2],
+    anchoredLineId:contract.anchoredLine.lineId,
+    deviation,
+    verification:{
+      legal:true,
+      terminal,
+      steps:verification.steps,
+    },
+    proofRule:'after trigger 1 is honored and trigger 2 is played, any legal second defender deviation that does not occupy trigger 3 leaves trigger 3 legal; trigger 3 completes the anchored line before any defender terminal',
+    choiceEnumeration:false,
+    recursive:false,
+  };
+}
