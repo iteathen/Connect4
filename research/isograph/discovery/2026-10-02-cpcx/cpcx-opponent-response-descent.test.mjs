@@ -26,7 +26,23 @@ function cell(g,label){
     (label.charCodeAt(0)-65);
 }
 
-test('fresh controller-saturation boundary has total strict response descent',()=>{
+test('fresh anchored standard-board boundary has total strict response descent',()=>{
+  const g=createCpcxGeometry(),
+    p=buildCpcxPosition('2244422',{geometry:g}),
+    r=residual(p,0,'A6-B5-C4-D3'),
+    c=certifyCpcxProtectedDiagonalOpponentResponseDescent(p,{
+      protectedResidual:r,
+    });
+
+  assert.equal(p.mover,1);
+  if(c.kind!=='PROTECTED_DIAGONAL_OPPONENT_RESPONSE_DESCENT')
+    assert.fail(JSON.stringify(c));
+  assert.equal(c.exact,true);
+  assert.equal(c.allCurrentOpponentEventsCovered,true);
+  assert.equal(c.everyEventWinsOrStrictlyDescends,true);
+});
+
+test('controller-saturation output is not automatically response-total outside the admitted band',()=>{
   const g=createCpcxGeometry({columns:4,rows:4,connect:3}),
     p=buildCpcxPosition('',{geometry:g}),
     r=residual(p,0,'A3-B2-C1'),
@@ -36,18 +52,13 @@ test('fresh controller-saturation boundary has total strict response descent',()
 
   assert.equal(saturation.kind,'PROTECTED_DIAGONAL_CONTROLLER_SATURATION');
   assert.equal(saturation.exact,true);
-  assert.equal(saturation.finalPosition.mover,1);
-
   const c=certifyCpcxProtectedDiagonalOpponentResponseDescent(
     saturation.finalPosition,{
       protectedResidual:saturation.finalResidual,
     }
   );
-  if(c.kind!=='PROTECTED_DIAGONAL_OPPONENT_RESPONSE_DESCENT')
-    assert.fail(JSON.stringify(c));
-  assert.equal(c.exact,true);
-  assert.equal(c.allCurrentOpponentEventsCovered,true);
-  assert.equal(c.everyEventWinsOrStrictlyDescends,true);
+  assert.equal(c.kind,'NO_CERTIFICATE');
+  assert.equal(c.seam,'OPPONENT_RESPONSE_TOTALITY_FAILED');
 });
 
 test('arbitrary hidden diagonal outside the saturation domain may fail closed',()=>{
