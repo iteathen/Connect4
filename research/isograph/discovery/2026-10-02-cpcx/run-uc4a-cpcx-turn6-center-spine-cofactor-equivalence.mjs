@@ -80,6 +80,15 @@ function orientationCounts(rows){
   }
   return out;
 }
+function reflectionFamilyCounts(rows){
+  const out={};
+  for(const r of rows){
+    const orientation=r.orientation==='D+'||r.orientation==='D-'?'D':r.orientation,
+      key=`${r.player}:${orientation}:${r.missing.length}`;
+    out[key]=(out[key]??0)+1;
+  }
+  return out;
+}
 function sideOnlyLine(line){
   return line.cells.every(cell=>cpcxCell(g,cell).column!==center);
 }
