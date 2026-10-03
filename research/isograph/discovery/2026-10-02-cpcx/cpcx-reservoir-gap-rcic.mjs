@@ -164,6 +164,37 @@ function baseHandoff(position,{attacker,targetCell}){
   };
 }
 
+function gapDescriptor(position,analysis){
+  const template=analysis?.bestPartialTemplates?.[0],
+    uncovered=template?.uncovered??[],
+    supportDistances=[];
+  let uncoveredMass=0;
+  for(const residual of uncovered){
+    uncoveredMass+=residual.missingCount;
+    for(const cell of residual.missingCells){
+      const {column,row}=cpcxCell(position.geometry,cell);
+      supportDistances.push(row-position.heights[column]);
+    }
+  }
+  supportDistances.sort((a,b)=>a-b);
+  return {
+    gap:analysis?.minimumUncoveredResiduals??null,
+    uncoveredMass,
+    uncoveredSupportDistances:supportDistances,
+    uncoveredSupportSum:supportDistances.reduce((a,b)=>a+b,0),
+    uncoveredSupportMax:supportDistances.length
+      ?Math.max(...supportDistances)
+      :null,
+    uncoveredShapes:uncovered.map(x=>({
+      lineId:x.lineId,
+      lineLabel:x.lineLabel,
+      orientation:x.orientation,
+      missingCount:x.missingCount,
+      missingCells:[...x.missingCells],
+    })),
+  };
+}
+
 function analyzeGap(position,{attacker,targetCell}){
   const base=baseHandoff(position,{attacker,targetCell});
   if(base.exact)return {
@@ -295,6 +326,7 @@ export function certifyCpcxReservoirCoverageGapRcic(position,{
       rank:p.rank,
       support:Array.from(p.heights),
       gap:gapClass.gap,
+      descriptor:gapDescriptor(p,gapClass.analysis),
       analysis:gapClass.analysis,
       status:'DISCOVERED',
       triggers:[],
@@ -321,6 +353,7 @@ export function certifyCpcxReservoirCoverageGapRcic(position,{
         defenderCell,
         defenderLabel:labelCell(g,defenderCell),
         options:[],
+        rejected:[],
       };
 
       const seen=new Set();
@@ -392,7 +425,23 @@ export function certifyCpcxReservoirCoverageGapRcic(position,{
             });
             if(!queue.some(x=>x.key===childKey))
               queue.push({key:childKey,position:child,gapClass:childClass});
+            continue;
           }
+
+          trigger.rejected.push({
+            templateIndex,
+            responseCell:response.cell,
+            responseLabel:labelCell(g,response.cell),
+            role:response.role,
+            lineIds:response.lineIds??[],
+            lineLabels:response.lineLabels??[],
+            childClass:childClass.kind,
+            childGap:childClass.gap??null,
+            childDescriptor:childClass.kind==='GAP'
+              ?gapDescriptor(child,childClass.analysis)
+              :null,
+            seam:childClass.seam??null,
+          });
         }
       }
 
@@ -448,6 +497,7 @@ export function certifyCpcxReservoirCoverageGapRcic(position,{
         rank:node.rank,
         gap:node.gap,
         support:node.support,
+        descriptor:node.descriptor,
         seam:node.seam??null,
         unresolvedTriggers:(node.triggers??[])
           .filter(trigger=>!trigger.selected)
@@ -457,6 +507,8 @@ export function certifyCpcxReservoirCoverageGapRcic(position,{
             defenderTerminal:trigger.defenderTerminal??null,
             optionCount:trigger.options.length,
             options:trigger.options,
+            rejectedCount:trigger.rejected?.length??0,
+            rejected:trigger.rejected??[],
           })),
       }))
       .sort((a,b)=>a.gap-b.gap||a.rank-b.rank||a.key.localeCompare(b.key));
