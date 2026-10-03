@@ -1,0 +1,201 @@
+import {
+  createCpcxGeometry,
+  buildCpcxPosition,
+  cpcxCell,
+  scanCpcxObligations,
+} from './cpcx.mjs';
+import {
+  classifyCpcxImmediate,
+  applyCpcxForcedEvent,
+} from './cpcx-closure.mjs';
+import {
+  verifyCpcxFixedEventScript,
+  compileCpcxPostActionWingAttack,
+} from './cpcx-wing.mjs';
+import {classifyCpcxProgress} from './cpcx-progress.mjs';
+import {runCpcxFirstWinCertificate} from './cpcx-successor.mjs';
+
+const g=createCpcxGeometry(),root=buildCpcxPosition('44444',{geometry:g});
+
+function label(cell){
+  const {column,row}=cpcxCell(g,cell);
+  return `${String.fromCharCode(65+column)}${row+1}`;
+}
+function reflectCell(cell){
+  const {column,row}=cpcxCell(g,cell);
+  return row*g.columns+(g.columns-1-column);
+}
+function appendMoves(position,events){
+  const out=new Uint32Array(position.moves.length+events.length);
+  out.set(position.moves);
+  for(let i=0;i<events.length;i++)
+    out[position.moves.length+i]=events[i].cell%position.geometry.columns;
+  return out;
+}
+function materialize(position,events){
+  const v=verifyCpcxFixedEventScript(position,events);
+  if(!v.legal||v.terminal)return null;
+  const rank=position.rank+events.length;
+  return {
+    geometry:position.geometry,
+    moves:appendMoves(position,events),
+    rank,
+    mover:(position.mover+events.length)&1,
+    heights:v.finalHeights,
+    owner:v.finalOwner,
+    terminal:null,
+  };
+}
+function frontier(position){
+  const out=[];
+  for(let c=0;c<g.columns;c++){
+    const r=position.heights[c];
+    if(r<g.rows)out.push(r*g.columns+c);
+  }
+  return out;
+}
+function physicalKey(position,reflect=false){
+  const heights=reflect
+    ?Array.from(position.heights).reverse()
+    :Array.from(position.heights),
+    owner=[];
+  for(let row=0;row<g.rows;row++)for(let column=0;column<g.columns;column++){
+    const sourceColumn=reflect?g.columns-1-column:column;
+    owner.push(position.owner[row*g.columns+sourceColumn]+1);
+  }
+  return `${position.mover}|${heights.join(',')}|${owner.join('')}`;
+}
+function canonicalPhysical(position){
+  const direct=physicalKey(position,false),reflected=physicalKey(position,true);
+  return reflected<direct?{key:reflected,reflect:true}:{key:direct,reflect:false};
+}
+function canonCell(cell,reflect){return reflect?reflectCell(cell):cell;}
+function canonOrientation(orientation,reflect){
+  if(!reflect)return orientation;
+  if(orientation==='D+')return 'D-';
+  if(orientation==='D-')return 'D+';
+  return orientation;
+}
+function obligationSummary(position,reflect){
+  return scanCpcxObligations(position)
+    .filter(o=>o.missingCount<=3)
+    .map(o=>({
+      player:o.player,
+      orientation:canonOrientation(o.orientation,reflect),
+      missingCount:o.missingCount,
+      missing:o.missingCells.map(x=>canonCell(x,reflect)).sort((a,b)=>a-b).map(label),
+      playable:o.events.filter(e=>e.supportDistance===0)
+        .map(e=>canonCell(e.cell,reflect)).sort((a,b)=>a-b).map(label),
+    }))
+    .sort((a,b)=>
+      a.player-b.player||
+      a.missingCount-b.missingCount||
+      a.orientation.localeCompare(b.orientation)||
+      a.missing.join(',').localeCompare(b.missing.join(','))
+    );
+}
+function progressSummary(position){
+  const p=classifyCpcxProgress(position,{player:0}),
+    c=runCpcxFirstWinCertificate(position,{attacker:0});
+  return {
+    progress:{
+      kind:p.kind,exact:p.exact??false,player:p.player??null,
+      source:p.source??null,seam:p.seam??null,
+      macroKind:p.macro?.kind??null,
+    },
+    certificate:{
+      kind:c.kind,exact:c.exact,player:c.player??null,
+      seam:c.seam??null,traceLength:c.trace?.length??0,
+    },
+  };
+}
+
+const groups=new Map();
+function add(position,source){
+  const canonical=canonicalPhysical(position);
+  if(!groups.has(canonical.key)){
+    const reflect=canonical.reflect;
+    groups.set(canonical.key,{
+      key:canonical.key,
+      reflect,
+      rank:position.rank,
+      mover:position.mover,
+      support:reflect?Array.from(position.heights).reverse():Array.from(position.heights),
+      ...progressSummary(position),
+      obligations:obligationSummary(position,reflect),
+      sources:[],
+    });
+  }
+  groups.get(canonical.key).sources.push(source);
+}
+
+for(let column=0;column<g.columns;column++){
+  const sixthCell=root.heights[column]*g.columns+column,
+    wing=compileCpcxPostActionWingAttack(root,{
+      actionCell:sixthCell,actionOwner:1,attacker:0,
+    }),
+    [t1,t2,t3]=wing.anchoredLine.triggerCells,
+    [r1]=wing.anchoredLine.requiredResponseCells,
+    first=materialize(root,[
+      {cell:sixthCell,owner:1},
+      {cell:t1,owner:0},
+    ]);
+  if(!first)throw new Error('invalid first trigger');
+
+  for(const defenderCell of frontier(first)){
+    const afterD=materialize(root,[
+      {cell:sixthCell,owner:1},
+      {cell:t1,owner:0},
+      {cell:defenderCell,owner:1},
+    ]);
+    if(!afterD)continue;
+
+    if(defenderCell===t2||defenderCell===t3){
+      add(afterD,{
+        sixthMove:column+1,
+        responseClass:defenderCell===t2?'STEAL_TRIGGER_2':'STEAL_TRIGGER_3',
+        defenderCell:label(defenderCell),
+        triggerOrder:[t1,t2,t3].map(label),
+      });
+      continue;
+    }
+
+    const afterT2=materialize(root,[
+      {cell:sixthCell,owner:1},
+      {cell:t1,owner:0},
+      {cell:defenderCell,owner:1},
+      {cell:t2,owner:0},
+    ]);
+    if(!afterT2)continue;
+    const immediate=classifyCpcxImmediate(afterT2);
+    if(immediate.kind!=='FORCED_RESPONSE'||immediate.cell!==t3)
+      throw new Error('expected forced trigger-3 block');
+    const normalized=applyCpcxForcedEvent(afterT2,t3);
+    add(normalized,{
+      sixthMove:column+1,
+      responseClass:defenderCell===r1?'HONOR_THEN_FORCED_BLOCK':'EXTERNAL_THEN_FORCED_BLOCK',
+      defenderCell:label(defenderCell),
+      forcedBlock:label(t3),
+      triggerOrder:[t1,t2,t3].map(label),
+    });
+  }
+}
+
+const classes=[...groups.values()]
+  .sort((a,b)=>a.rank-b.rank||a.key.localeCompare(b.key))
+  .map((x,i)=>({...x,classId:`F${i+1}`}));
+
+console.log(JSON.stringify({
+  schema:'connect4.cpcx.move6.forward-class-quotient.v0_1',
+  root:'44444',
+  classCount:classes.length,
+  classes,
+  premises:{
+    standardBoard:'7x6',
+    quotient:'exact occupancy/support/mover modulo horizontal reflection only',
+    recursiveSearch:false,
+    solvedData:false,
+    oracle:false,
+    delayEquivalenceAssumed:false,
+  },
+},null,2));
