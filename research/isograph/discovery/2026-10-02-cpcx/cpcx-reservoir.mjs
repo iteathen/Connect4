@@ -118,6 +118,255 @@ export function analyzeCpcxTargetReservoir(position,{
   };
 }
 
+
+function oneDefectTemplateEvidence(
+  position,targetCell,defenderResiduals,capacity,partner,length
+){
+  const g=position.geometry,{column:tc,row:tr}=cpcxCell(g,targetCell),
+    targetDepth=tr-position.heights[tc],
+    targetL=partner[tc]>=0?length[tc]:0,
+    targetIsAttackerResponse=
+      targetDepth>=targetL+1&&((targetDepth-(targetL+1))&1)===0;
+  if(!targetIsAttackerResponse)return null;
+
+  const tailLengths=Array.from({length:g.columns},(_,c)=>
+      capacity[c]-(partner[c]>=0?length[c]:0)
+    ),
+    defectColumns=[];
+  for(let c=0;c<g.columns;c++)if(tailLengths[c]&1)defectColumns.push(c);
+  if(defectColumns.length!==1)return null;
+  const defectColumn=defectColumns[0],
+    defectRow=position.heights[defectColumn]+capacity[defectColumn]-1,
+    defectCell=defectRow*g.columns+defectColumn;
+
+  const coverage=[],uncovered=[];
+  for(const residual of defenderResiduals){
+    const witness=coverageWitness(position,residual,targetCell,partner,length);
+    const row={
+      obligationId:residual.id,
+      lineId:residual.lineId,
+      lineLabel:residual.lineLabel,
+      missingCount:residual.missingCount,
+      missingCells:[...residual.missingCells],
+    };
+    if(witness)coverage.push({...row,witness});
+    else uncovered.push(row);
+  }
+
+  const synchronizedPairs=[];
+  for(let c=0;c<g.columns;c++){
+    const p=partner[c];
+    if(p>=0&&c<p)synchronizedPairs.push({
+      columns:[c,p],
+      prefixLength:length[c],
+      parityClass:(capacity[c]&1)===(capacity[p]&1)
+        ?'SAME_CAPACITY_PARITY'
+        :'OPPOSITE_CAPACITY_PARITY',
+    });
+  }
+
+  return {
+    targetDepth,
+    targetPrefixLength:targetL,
+    targetIsAttackerResponse:true,
+    tailLengths,
+    defect:{
+      column:defectColumn,
+      columnLabel:defectColumn+1,
+      cell:defectCell,
+      cellLabel:labelCell(g,defectCell),
+      tailLength:tailLengths[defectColumn],
+      role:'UNMATCHED_DEFENDER_TOP_EVENT',
+    },
+    synchronizedPairs,
+    defenderResidualCount:defenderResiduals.length,
+    coveredResidualCount:coverage.length,
+    uncoveredResidualCount:uncovered.length,
+    coverage,
+    uncovered,
+  };
+}
+
+export function analyzeCpcxOneDefectTargetReservoir(position,{
+  attacker=position.mover^1,
+  targetCell,
+  obligations=scanCpcxObligations(position),
+}={}){
+  if(attacker!==0&&attacker!==1)throw new RangeError('attacker');
+  if(!Number.isInteger(targetCell))throw new RangeError('targetCell');
+  const g=position.geometry,defender=attacker^1;
+  if(g.columns!==7||g.rows!==6||g.connect!==4)return {
+    schema:'connect4.cpcx.one-defect-target-reservoir-analysis.v0_1',
+    kind:'UNSUPPORTED_GEOMETRY',
+    exact:false,
+    attacker,defender,
+    boundary:'current qualification scope is standard 7x6 Connect Four only',
+  };
+
+  const target=targetSingleton(obligations,attacker,targetCell);
+  if(!target)return {
+    schema:'connect4.cpcx.one-defect-target-reservoir-analysis.v0_1',
+    kind:'TARGET_NOT_ACTIVE_ATTACKER_SINGLETON',
+    exact:true,
+    attacker,defender,targetCell,
+  };
+  if(position.mover!==defender)return {
+    schema:'connect4.cpcx.one-defect-target-reservoir-analysis.v0_1',
+    kind:'DEFENDER_NOT_TO_MOVE',
+    exact:true,
+    attacker,defender,targetCell,
+  };
+  if(target.events[0].supportDistance<=0)return {
+    schema:'connect4.cpcx.one-defect-target-reservoir-analysis.v0_1',
+    kind:'TARGET_NOT_NONPLAYABLE',
+    exact:true,
+    attacker,defender,targetCell,
+  };
+
+  const capacity=relevantCapacity(position,targetCell);
+  if(!capacity)return {
+    schema:'connect4.cpcx.one-defect-target-reservoir-analysis.v0_1',
+    kind:'TARGET_CAPACITY_INVALID',
+    exact:true,
+    attacker,defender,targetCell,
+  };
+
+  const attackerPlayable=playableSingletonCells(obligations,attacker),
+    defenderPlayable=playableSingletonCells(obligations,defender);
+  if(attackerPlayable.length||defenderPlayable.length)return {
+    schema:'connect4.cpcx.one-defect-target-reservoir-analysis.v0_1',
+    kind:'IMMEDIATE_NORMALIZATION_REQUIRED',
+    exact:true,
+    attacker,defender,targetCell,
+    attackerPlayable,
+    defenderPlayable,
+  };
+
+  const totalRelevantEvents=Array.from(capacity).reduce((a,b)=>a+b,0);
+  if((totalRelevantEvents&1)===0)return {
+    schema:'connect4.cpcx.one-defect-target-reservoir-analysis.v0_1',
+    kind:'RESERVOIR_NOT_ODD',
+    exact:true,
+    attacker,defender,targetCell,
+    capacity:Array.from(capacity),
+    totalRelevantEvents,
+  };
+
+  const defenderResiduals=obligations.filter(o=>o.player===defender),
+    partner=new Int16Array(g.columns),length=new Int16Array(g.columns);
+  partner.fill(-1);
+  let candidateCount=0,maxCovered=-1;
+  const best=[],full=[];
+
+  function recordCandidate(){
+    const evidence=oneDefectTemplateEvidence(
+      position,targetCell,defenderResiduals,capacity,partner,length
+    );
+    if(!evidence)return;
+    candidateCount+=1;
+    const row={
+      partner:Array.from(partner),
+      prefixLength:Array.from(length),
+      ...evidence,
+    };
+    if(evidence.coveredResidualCount>maxCovered){
+      maxCovered=evidence.coveredResidualCount;
+      best.length=0;
+      best.push(row);
+    }else if(evidence.coveredResidualCount===maxCovered){
+      best.push(row);
+    }
+    if(evidence.uncoveredResidualCount===0)full.push(row);
+  }
+
+  function enumerate(remaining){
+    if(!remaining.length){
+      recordCandidate();
+      return;
+    }
+    const a=remaining[0],rest=remaining.slice(1);
+
+    // An unpaired column uses only same-column response pairs; if its remaining
+    // capacity is odd, its final relevant event is the single defect.
+    enumerate(rest);
+
+    for(let j=0;j<rest.length;j++){
+      const b=rest[j],
+        next=rest.filter((_,k)=>k!==j),
+        max=Math.min(capacity[a],capacity[b]);
+      partner[a]=b;partner[b]=a;
+      for(let L=1;L<=max;L++){
+        // The target itself may never be consumed as a synchronized cross
+        // endpoint. Cells strictly below it may participate.
+        const {column:tc}=cpcxCell(g,targetCell);
+        if((a===tc||b===tc)&&L>=capacity[tc])continue;
+        length[a]=L;length[b]=L;
+        enumerate(next);
+      }
+      partner[a]=-1;partner[b]=-1;
+      length[a]=0;length[b]=0;
+    }
+  }
+
+  enumerate(Array.from({length:g.columns},(_,c)=>c));
+
+  const sortKey=x=>[
+    x.uncoveredResidualCount,
+    x.synchronizedPairs.length,
+    x.synchronizedPairs.reduce((n,p)=>n+p.prefixLength,0),
+    x.defect.column,
+    x.partner.join(','),
+    x.prefixLength.join(','),
+  ];
+  const compare=(a,b)=>{
+    const ka=sortKey(a),kb=sortKey(b);
+    for(let i=0;i<ka.length;i++){
+      if(typeof ka[i]==='number'&&typeof kb[i]==='number'){
+        if(ka[i]!==kb[i])return ka[i]-kb[i];
+      }else{
+        const c=String(ka[i]).localeCompare(String(kb[i]));
+        if(c)return c;
+      }
+    }
+    return 0;
+  };
+  best.sort(compare);full.sort(compare);
+
+  return {
+    schema:'connect4.cpcx.one-defect-target-reservoir-analysis.v0_1',
+    kind:full.length
+      ?'ONE_DEFECT_STATIC_COVERAGE'
+      :'ONE_DEFECT_STATIC_COVERAGE_GAP',
+    exact:true,
+    attacker,defender,
+    target:{
+      cell:targetCell,
+      label:labelCell(g,targetCell),
+      supportDistance:target.events[0].supportDistance,
+      obligationId:target.id,
+      lineId:target.lineId,
+      lineLabel:target.lineLabel,
+    },
+    capacity:Array.from(capacity),
+    totalRelevantEvents,
+    totalParity:1,
+    defenderResidualCount:defenderResiduals.length,
+    candidateCount,
+    maxCoveredResiduals:maxCovered,
+    minimumUncoveredResiduals:
+      maxCovered<0?defenderResiduals.length:defenderResiduals.length-maxCovered,
+    fullCoverageTemplateCount:full.length,
+    selectedFullCoverageTemplate:full[0]??null,
+    bestPartialTemplates:best.slice(0,16),
+    proofBoundary:full.length
+      ?'static coverage plus one unmatched defender top event is exact structure only; first-win certification still requires a qualified defect transport/repair viability theorem'
+      :'no one-defect template in the bounded standard7x6 synthesis covers every live defender residual; uncovered obligations are preserved as falsifiers',
+    firstWinCertified:false,
+    recursive:false,
+    gameTreeTraversal:false,
+  };
+}
+
 function residualHasCell(residual,cell){
   return residual.missingCells.includes(cell);
 }
