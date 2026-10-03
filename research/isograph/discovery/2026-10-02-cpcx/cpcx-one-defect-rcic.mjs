@@ -145,6 +145,160 @@ function baseHandoff(position,{attacker,targetCell}){
   };
 }
 
+function stableDefenderReentry(position,{
+  attacker,
+  targetCell,
+  parentMeasure,
+  normalizationSteps=[],
+}){
+  if(position.mover!==(attacker^1))return {
+    kind:'NO_REENTRY',
+    exact:false,
+    seam:'ONE_DEFECT_REENTRY_REQUIRES_DEFENDER_TO_MOVE',
+    normalizationSteps,
+  };
+  if(!targetStillActive(position,attacker,targetCell))return {
+    kind:'NO_REENTRY',
+    exact:false,
+    seam:'ONE_DEFECT_TARGET_NOT_PRESERVED',
+    normalizationSteps,
+  };
+
+  const analysis=analyzeCpcxOneDefectTargetReservoir(
+    position,{attacker,targetCell}
+  );
+  if(analysis.kind!=='ONE_DEFECT_STATIC_COVERAGE')return {
+    kind:'NO_REENTRY',
+    exact:false,
+    seam:analysis.kind,
+    analysis,
+    normalizationSteps,
+  };
+  if(!Number.isInteger(analysis.totalRelevantEvents)||
+     analysis.totalRelevantEvents>=parentMeasure)return {
+    kind:'NO_REENTRY',
+    exact:false,
+    seam:'ONE_DEFECT_MEASURE_NOT_DECREASING',
+    parentMeasure,
+    childMeasure:analysis.totalRelevantEvents??null,
+    analysis,
+    normalizationSteps,
+  };
+
+  return {
+    kind:'LOWER_ONE_DEFECT',
+    exact:true,
+    measure:analysis.totalRelevantEvents,
+    analysis,
+    position,
+    normalizationSteps,
+  };
+}
+
+function attackerSetupAfterNormalization(position,{
+  attacker,
+  targetCell,
+  parentMeasure,
+  normalizationSteps,
+}){
+  if(position.mover!==attacker)return {
+    kind:'NO_REENTRY',
+    exact:false,
+    seam:'ONE_DEFECT_SETUP_REQUIRES_ATTACKER_TO_MOVE',
+    normalizationSteps,
+  };
+
+  const candidates=[];
+  for(const setupCell of frontier(position)){
+    const child=applyCpcxForcedEvent(position,setupCell);
+    if(child.terminal){
+      if(child.terminal.player===attacker)candidates.push({
+        setupCell,
+        setupLabel:labelCell(position.geometry,setupCell),
+        class:'ATTACKER_TERMINAL',
+        priority:0,
+        measure:-1,
+        child:null,
+        reentry:{
+          kind:'BASE',
+          exact:true,
+          handoff:{
+            kind:'ATTACKER_TERMINAL',
+            exact:true,
+            player:attacker,
+          },
+          position:child,
+          normalizationSteps,
+        },
+      });
+      continue;
+    }
+
+    const base=baseHandoff(child,{attacker,targetCell});
+    if(base.exact){
+      candidates.push({
+        setupCell,
+        setupLabel:labelCell(position.geometry,setupCell),
+        class:base.kind,
+        priority:1,
+        measure:-1,
+        child:null,
+        reentry:{
+          kind:'BASE',
+          exact:true,
+          handoff:base,
+          position:child,
+          normalizationSteps,
+        },
+      });
+      continue;
+    }
+
+    const stable=stableDefenderReentry(child,{
+      attacker,targetCell,parentMeasure,normalizationSteps,
+    });
+    if(!stable.exact)continue;
+    candidates.push({
+      setupCell,
+      setupLabel:labelCell(position.geometry,setupCell),
+      class:'LOWER_ONE_DEFECT',
+      priority:2,
+      measure:stable.measure,
+      child:stable.position,
+      reentry:stable,
+    });
+  }
+
+  candidates.sort((a,b)=>
+    a.priority-b.priority||
+    a.measure-b.measure||
+    a.setupCell-b.setupCell
+  );
+  if(!candidates.length)return {
+    kind:'NO_REENTRY',
+    exact:false,
+    seam:'NO_ONE_DEFECT_SETUP_AFTER_NORMALIZATION',
+    normalizationSteps,
+  };
+
+  const selected=candidates[0];
+  return {
+    ...selected.reentry,
+    setupAfterNormalization:{
+      setupCell:selected.setupCell,
+      setupLabel:selected.setupLabel,
+      class:selected.class,
+      candidateCount:candidates.length,
+      candidates:candidates.map(x=>({
+        setupCell:x.setupCell,
+        setupLabel:x.setupLabel,
+        class:x.class,
+        measure:x.measure,
+      })),
+    },
+  };
+}
+
 function classifyReentry(position,{
   attacker,
   targetCell,
@@ -217,48 +371,19 @@ function classifyReentry(position,{
     normalizationSteps:normalized.steps,
   };
 
-  if(current.mover!==(attacker^1))return {
-    kind:'NO_REENTRY',
-    exact:false,
-    seam:'ONE_DEFECT_REENTRY_REQUIRES_DEFENDER_TO_MOVE',
-    normalizationSteps:normalized.steps,
-  };
-  if(!targetStillActive(current,attacker,targetCell))return {
-    kind:'NO_REENTRY',
-    exact:false,
-    seam:'ONE_DEFECT_TARGET_NOT_PRESERVED',
-    normalizationSteps:normalized.steps,
-  };
-
-  const analysis=analyzeCpcxOneDefectTargetReservoir(
-    current,{attacker,targetCell}
-  );
-  if(analysis.kind!=='ONE_DEFECT_STATIC_COVERAGE')return {
-    kind:'NO_REENTRY',
-    exact:false,
-    seam:analysis.kind,
-    analysis,
-    normalizationSteps:normalized.steps,
-  };
-  if(!Number.isInteger(analysis.totalRelevantEvents)||
-     analysis.totalRelevantEvents>=parentMeasure)return {
-    kind:'NO_REENTRY',
-    exact:false,
-    seam:'ONE_DEFECT_MEASURE_NOT_DECREASING',
+  if(current.mover===attacker)return attackerSetupAfterNormalization(current,{
+    attacker,
+    targetCell,
     parentMeasure,
-    childMeasure:analysis.totalRelevantEvents??null,
-    analysis,
     normalizationSteps:normalized.steps,
-  };
+  });
 
-  return {
-    kind:'LOWER_ONE_DEFECT',
-    exact:true,
-    measure:analysis.totalRelevantEvents,
-    analysis,
-    position:current,
+  return stableDefenderReentry(current,{
+    attacker,
+    targetCell,
+    parentMeasure,
     normalizationSteps:normalized.steps,
-  };
+  });
 }
 
 function defectRepair(position,{
