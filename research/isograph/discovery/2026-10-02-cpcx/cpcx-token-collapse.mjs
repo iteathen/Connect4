@@ -251,7 +251,7 @@ function normalizeHazard(position,hazardCell,attacker){
       };
 }
 
-export function collapseCpcxDebtRepairTokenProduct(position,contract,repair){
+export function collapseCpcxDebtRepairTokenProduct(position,contract,repair,{retainComponents=false}={}){
   if(contract?.kind!=='THREE_TRIGGER_WING_ATTACK'||!repair?.exact)
     throw new TypeError('exact wing repair required');
   if(!repair.firstWinGuardPassed||
@@ -508,5 +508,6 @@ export function collapseCpcxDebtRepairTokenProduct(position,contract,repair){
       kind:'WING_DEBT_VERTICAL_SAFE_SET_PLUS_NORMALIZATION_HAZARDS',
       decisionIndex:repair.decisionIndex,
     },
+    componentCarriers:retainComponents?continuing:undefined,
   };
 }
