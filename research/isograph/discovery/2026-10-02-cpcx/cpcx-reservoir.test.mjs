@@ -4,6 +4,7 @@ import {createCpcxGeometry,buildCpcxPosition} from './cpcx.mjs';
 import {
   certifyCpcxTruncatedTargetReservoir,
   findCpcxTruncatedTargetReservoirCertificates,
+  analyzeCpcxTargetReservoir,
 } from './cpcx-reservoir.mjs';
 import {classifyCpcxProgress} from './cpcx-progress.mjs';
 
@@ -42,6 +43,33 @@ test('target-reservoir discovery finds the qualified rank31 C5 target mechanical
     rows=findCpcxTruncatedTargetReservoirCertificates(p,{attacker:0});
   assert.ok(rows.some(x=>x.target.label==='C5'));
   assert.ok(rows.every(x=>x.kind==='CERTIFIED_FIRST_WIN'&&x.exact));
+});
+
+test('qualified rank31 reservoir is pairing-parity admissible',()=>{
+  const p=buildCpcxPosition('4444415666662322224233177555571',{geometry:g}),
+    target=4*g.columns+2,
+    a=analyzeCpcxTargetReservoir(p,{attacker:0,targetCell:target});
+  assert.equal(a.kind,'PAIRING_PARITY_ADMISSIBLE');
+  assert.equal(a.exact,true);
+  assert.equal(a.totalParity,0);
+  assert.equal(a.oddColumns.length&1,0);
+  assert.equal(a.target.label,'C5');
+  assert.equal(a.gameTreeTraversal,false);
+  assert.equal(a.recursive,false);
+});
+
+test('move6 rank10 diagonal setup exposes one odd reservoir defect without promoting a win',()=>{
+  const p=buildCpcxPosition('44444377655',{geometry:g}),
+    target=3*g.columns+2, // C4
+    a=analyzeCpcxTargetReservoir(p,{attacker:0,targetCell:target});
+  assert.equal(p.rank,11);
+  assert.equal(p.mover,1);
+  assert.equal(a.kind,'ODD_RESERVOIR_DEFECT');
+  assert.equal(a.exact,true);
+  assert.equal(a.totalParity,1);
+  assert.equal(a.unmatchedEventCountLowerBound,1);
+  assert.equal(a.target.label,'C4');
+  assert.match(a.proofBoundary,/not a first-win certificate/i);
 });
 
 test('target-reservoir theorem fails closed when no active nonplayable singleton exists',()=>{
