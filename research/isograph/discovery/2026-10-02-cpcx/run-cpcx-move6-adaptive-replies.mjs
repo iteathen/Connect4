@@ -8,6 +8,7 @@ import {
   compileCpcxPostActionWingAttack,
 } from './cpcx-wing.mjs';
 import {classifyCpcxProgress} from './cpcx-progress.mjs';
+import {runCpcxFirstWinCertificate} from './cpcx-successor.mjs';
 
 const g=createCpcxGeometry(),root=buildCpcxPosition('44444',{geometry:g});
 
@@ -119,12 +120,20 @@ for(let column=0;column<g.columns;column++){
           });
           continue;
         }
-        const progress=classifyCpcxProgress(child,{player:0});
+        const progress=classifyCpcxProgress(child,{player:0}),
+          certificate=runCpcxFirstWinCertificate(child,{attacker:0});
         replies.push({
           responseCell:label(responseCell),
           terminal:null,
-          certified:progress.kind==='CERTIFIED_FIRST_WIN'&&progress.player===0,
+          certified:certificate.kind==='CERTIFIED_FIRST_WIN'&&certificate.player===0,
           progress:progressSummary(progress),
+          certificate:{
+            kind:certificate.kind,
+            exact:certificate.exact,
+            player:certificate.player??null,
+            seam:certificate.seam??null,
+            traceLength:certificate.trace?.length??0,
+          },
         });
       }
 
@@ -173,7 +182,7 @@ console.log(JSON.stringify({
     recursiveSearch:false,
     solvedData:false,
     oracle:false,
-    responseSynthesis:'one current P0 reply after each theorem-defined wing deviation; child must already carry an exact CPCX first-win certificate',
+    responseSynthesis:'one current P0 reply after each theorem-defined wing deviation; child may advance only through CPCX deterministic normalization/exact macros and must terminate in an exact P0 first-win certificate',
     delayEquivalenceAssumed:false,
   },
 },null,2));
