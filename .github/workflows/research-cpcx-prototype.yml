@@ -37,6 +37,7 @@ jobs:
           node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-components.mjs > cpcx-move6-components.json
           node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-vertical-resolutions.mjs > cpcx-move6-vertical-resolutions.json
           node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-unresolved-classes.mjs > cpcx-move6-unresolved-classes.json
+          node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-adaptive-replies.mjs > cpcx-move6-adaptive-replies.json
 
       - name: Verify CPCX dependency isolation
         run: node research/isograph/discovery/2026-10-02-cpcx/verify-cpcx-isolation.mjs
@@ -69,4 +70,5 @@ jobs:
             cpcx-move6-components.json
             cpcx-move6-vertical-resolutions.json
             cpcx-move6-unresolved-classes.json
+            cpcx-move6-adaptive-replies.json
           if-no-files-found: error
