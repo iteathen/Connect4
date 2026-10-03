@@ -5,6 +5,7 @@ import {
   certifyCpcxTruncatedTargetReservoir,
   findCpcxTruncatedTargetReservoirCertificates,
 } from './cpcx-reservoir.mjs';
+import {classifyCpcxProgress} from './cpcx-progress.mjs';
 
 const g=createCpcxGeometry();
 
@@ -25,6 +26,15 @@ test('qualified rank31 control reconstructs a CPCX truncated target-reservoir fi
   assert.equal(c.firstWinGuard.passed,true);
   assert.equal(c.gameTreeTraversal,false);
   assert.equal(c.recursive,false);
+});
+
+test('progress promotes the qualified rank31 reservoir control to first-win',()=>{
+  const p=buildCpcxPosition('4444415666662322224233177555571',{geometry:g}),
+    progress=classifyCpcxProgress(p,{player:0});
+  assert.equal(progress.kind,'CERTIFIED_FIRST_WIN');
+  assert.equal(progress.player,0);
+  assert.equal(progress.source,'TRUNCATED_TARGET_RESERVOIR');
+  assert.equal(progress.exact,true);
 });
 
 test('target-reservoir discovery finds the qualified rank31 C5 target mechanically',()=>{
