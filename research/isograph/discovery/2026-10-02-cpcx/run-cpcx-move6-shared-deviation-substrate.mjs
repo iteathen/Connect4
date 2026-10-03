@@ -93,9 +93,19 @@ function normalizedSupportPhase(phase,reflect){
 }
 
 function normalizedOpponentResidual(row,reflect){
-  const mappedCells=(row.missingCells??[])
-    .map(cell=>reflect?reflectCpcxCell(g,cell):cell)
-    .sort((a,b)=>a-b);
+  const sourceCells=[...(row.missingCells??[])],
+    pairs=sourceCells.map((cell,index)=>({
+      cell:reflect?reflectCpcxCell(g,cell):cell,
+      index,
+    })).sort((a,b)=>a.cell-b.cell),
+    mappedCells=pairs.map(x=>x.cell),
+    supportProfiles=(row.supportProfiles??[]).map(profile=>
+      pairs.map(x=>profile[x.index])
+    ).sort((a,b)=>{
+      const n=Math.min(a.length,b.length);
+      for(let i=0;i<n;i++)if(a[i]!==b[i])return a[i]-b[i];
+      return a.length-b.length;
+    });
   return {
     orientation:reflect
       ?reflectCpcxOrientation(row.orientation)
@@ -103,6 +113,8 @@ function normalizedOpponentResidual(row,reflect){
     missingCount:row.missingCount,
     lineGeometry:lineKey(row.lineId,reflect),
     missingCells:mappedCells,
+    supportProfiles,
+    supportProfilesExact:row.supportProfilesExact===true,
   };
 }
 
