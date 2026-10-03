@@ -21,6 +21,10 @@ import {
   certifyCpcxVerticalTwoStage,
 } from './cpcx-two-stage.mjs';
 import {
+  findCpcxVerticalThreeStageObligations,
+  certifyCpcxVerticalThreeStageSetup,
+} from './cpcx-three-stage.mjs';
+import {
   findCpcxPlayableTwoPieceDemands,
   certifyEitherCpcxPlayableTwoPiece,
 } from './cpcx-two-piece.mjs';
@@ -112,6 +116,25 @@ export function classifyCpcxProgress(position,{player=position.mover}={}){
     return firstWin(player,'CPC2_TRIGGER_OVERLOAD',cpc2);
 
   const macros=[];
+  if(player===position.mover){
+    for(const demand of findCpcxVerticalThreeStageObligations(position,{player})){
+      const certificate=certifyCpcxVerticalThreeStageSetup(position,demand);
+      if(!certificate.exact)continue;
+      if(certificate.kind==='CERTIFIED_FIRST_WIN')
+        return firstWin(player,'VERTICAL_THREE_STAGE_TERMINAL',{demand,certificate});
+      if(certificate.kind!=='VERTICAL_THREE_STAGE_SETUP')continue;
+      macros.push({
+        kind:'VERTICAL_THREE_STAGE',
+        primaryCell:demand.setupCell,
+        secondaryCell:demand.middleCell,
+        tertiaryCell:demand.upperCell,
+        lineId:demand.obligation.lineId,
+        demand,
+        certificate,
+      });
+    }
+  }
+
   for(const demand of findCpcxVerticalTwoStageObligations(position,{player})){
     const certificate=certifyCpcxVerticalTwoStage(position,demand);
     if(!certificate.exact)continue;
@@ -162,7 +185,7 @@ export function classifyCpcxProgress(position,{player=position.mover}={}){
       player,
       macro:selected,
       candidateCount:macros.length,
-      selectionRule:'vertical two-stage and playable two-piece macros are ordered by primary cell, secondary cell, line id, then macro kind; choose the first exact macro',
+      selectionRule:'vertical three-stage, vertical two-stage and playable two-piece macros are ordered by primary cell, secondary cell, line id, then macro kind; choose the first exact macro',
       selectionAuthorized:true,
       selectionPremise:'local theorem exactness and deterministic structural order only',
       recursive:false,
