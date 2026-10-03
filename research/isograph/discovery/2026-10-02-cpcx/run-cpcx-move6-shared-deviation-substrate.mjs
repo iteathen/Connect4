@@ -62,6 +62,24 @@ function normalizeResidual(residual,reflect,successor){
   return row;
 }
 
+function normalizedSupportPhase(phase,reflect){
+  if(phase?.exact!==true||!Array.isArray(phase.vectors))return {
+    exact:false,
+    vectors:[],
+  };
+  const m=new Map();
+  for(const vector of phase.vectors){
+    const v=reflect?[...vector].reverse():[...vector];
+    m.set(v.join(''),v);
+  }
+  return {
+    exact:true,
+    vectors:[...m.values()].sort((a,b)=>
+      a.join('').localeCompare(b.join(''))
+    ),
+  };
+}
+
 function normalizedToken(token,reflect){
   return {
     owner:token.owner,
@@ -111,6 +129,7 @@ for(let column=0;column<g.columns;column++){
       ),
     blockerTokens=(successor.blockerTokens??[])
       .map(t=>normalizedToken(t,reflect)),
+    supportPhase=normalizedSupportPhase(successor.supportPhase,reflect),
     singletonEnvelope=successor.opponentSingletonEnvelope??null;
 
   rows.push({
@@ -124,6 +143,7 @@ for(let column=0;column<g.columns;column++){
     rank:successor.rank,
     nextMover:successor.nextMover,
     controlParityEquivalent:successor.controlParityEquivalent,
+    supportPhase,
     residuals,
     blockerTokens,
     firstWinFacts:successor.firstWinFacts,
@@ -177,6 +197,11 @@ for(const pair of pairRows){
   }
 }
 
+const phaseKeys=active.map(row=>
+  JSON.stringify(row.supportPhase)
+);
+const uniquePhaseKeys=[...new Set(phaseKeys)];
+
 const commonPairCells=new Set(pairRows.flatMap(r=>r.missingCells));
 const blockerAudit=active.map(row=>({
   sixthMove:row.sixthMove,
@@ -204,6 +229,10 @@ console.log(JSON.stringify({
     nestedCommonRelationCount:nested.length,
     allNextMoverP0:active.every(x=>x.nextMover===0),
     allControlParityEquivalent:active.every(x=>x.controlParityEquivalent===true),
+    allSupportPhaseExact:active.every(x=>x.supportPhase?.exact===true),
+    supportPhaseClassCount:uniquePhaseKeys.length,
+    allSupportPhaseClassesEqual:uniquePhaseKeys.length===1,
+    supportPhaseClass:uniquePhaseKeys.length===1?active[0].supportPhase:null,
     allOpponentSingletonEnvelopesExact:active.every(x=>
       x.opponentSingletonEnvelope?.exact===true
     ),
