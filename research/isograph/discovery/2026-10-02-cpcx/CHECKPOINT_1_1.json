@@ -1,0 +1,96 @@
+{
+  "schema": "connect4.cpcx.checkpoint.v1_1",
+  "date": "2026-10-03",
+  "branch": "experiment/cpcx-20261002",
+  "status": "OPPONENT_RESPONSE_DESCENT_QUALIFIED_ON_TURN6_BAND",
+  "parentCheckpoint": "CHECKPOINT_1_0.json",
+  "liveHeadBeforeCheckpoint": "cf19ed131baeefa0c6e904b76ee83612a74f6951",
+  "universalCarrier": {
+    "lineLabel": "A6-B5-C4-D3",
+    "player": 0,
+    "missingCells": [
+      "A6",
+      "B5",
+      "C4"
+    ],
+    "relativeEventPhase": [
+      0,
+      1,
+      0
+    ],
+    "unresolvedPhysicalClassCount": 45,
+    "spansAllSevenSixthMoves": true
+  },
+  "controllerSaturation": {
+    "workflowRun": 37145746138,
+    "conclusion": "success",
+    "p0MoverClassCount": 42,
+    "exactClassCount": 42,
+    "failureCount": 0,
+    "everyClassStrictlyDecreasesProtectedMeasure": true,
+    "openP1BoundaryCount": 42
+  },
+  "opponentResponseDescent": {
+    "theorem": "CPCX_PROTECTED_DIAGONAL_OPPONENT_RESPONSE_DESCENT_0_1",
+    "qualificationCommit": "d719e1676f667dcfe25bab5273badffdc8ce7dcf",
+    "workflowRun": 37146936116,
+    "conclusion": "success",
+    "freshPositive": "anchored standard-board source 2244422",
+    "retainedNegative": "hidden diagonal and arbitrary controller-saturation output are not automatically response-total",
+    "turn6Application": {
+      "p1BoundaryPhysicalClassCount": 45,
+      "exactBoundaryCertificateCount": 45,
+      "failureCount": 0,
+      "totalCurrentOpponentEvents": 304,
+      "everyBoundaryResponseTotal": true,
+      "everyBoundaryStrictDescentOrWin": true,
+      "representedSixthMoves": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "spansAllSevenSixthMoves": true
+    },
+    "measure": [
+      "protected residual missingCount",
+      "protected residual supportDebt",
+      "remaining physical capacity"
+    ],
+    "scope": "one current free opponent event followed only by qualified transport, deterministic forced normalization, and controller saturation"
+  },
+  "preservedFalsifiers": {
+    "hiddenTargetAloneSufficient": false,
+    "arbitraryControllerSaturationOutputResponseTotal": false,
+    "universalOneDefectRcic": false,
+    "commonPairNestedLadder": false,
+    "fullSupportPhaseEquivalent": false,
+    "fullQOEquivalent": false
+  },
+  "proofBoundary": {
+    "best44444Proven": false,
+    "bestSet": null,
+    "firstWinClosureProven": false,
+    "recurrenceClosed": false,
+    "reason": "qualified theorem is one-layer; strict smaller endpoints are not yet proved to remain inside one closed response-total descriptor band"
+  },
+  "nextTarget": {
+    "name": "protected-diagonal descriptor recurrence",
+    "purpose": "derive a finite structural band predicate preserved by opponent-response descent endpoints so well-founded induction closes without recursive legal-move-tree enumeration",
+    "preferredRoute": [
+      "use anchored diagonal role / transfer-resource descriptor",
+      "retain local released-cell hazard interface",
+      "prove same-track or anchor-pivot transfer completeness where target blocks can occur",
+      "compose with deterministic highest-target descent and forced normalization",
+      "use lexicographic protected measure for termination"
+    ],
+    "forbiddenShortcut": "do not recursively expand future P1 layers and quotient physical descendants"
+  },
+  "productionCpcModified": false,
+  "solvedDataUsed": false,
+  "oracleUsed": false,
+  "minimaxUsed": false
+}
