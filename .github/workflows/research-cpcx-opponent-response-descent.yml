@@ -9,6 +9,7 @@ on:
       - research/isograph/discovery/2026-10-02-cpcx/cpcx-opponent-response-descent.mjs
       - research/isograph/discovery/2026-10-02-cpcx/cpcx-opponent-response-descent.test.mjs
       - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-opponent-response-descent.mjs
+      - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-opponent-descent-endpoint-descriptors.mjs
       - .github/workflows/research-cpcx-opponent-response-descent.yml
   workflow_dispatch:
 
@@ -28,8 +29,12 @@ jobs:
         run: node --test research/isograph/discovery/2026-10-02-cpcx/cpcx-opponent-response-descent.test.mjs
       - name: Apply theorem to turn6 P1 band
         run: node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-opponent-response-descent.mjs > cpcx-move6-opponent-response-descent.json
+      - name: Census theorem endpoints
+        run: node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-opponent-descent-endpoint-descriptors.mjs > cpcx-move6-opponent-descent-endpoint-descriptors.json
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
           name: cpcx-opponent-response-descent
-          path: cpcx-move6-opponent-response-descent.json
+          path: |
+            cpcx-move6-opponent-response-descent.json
+            cpcx-move6-opponent-descent-endpoint-descriptors.json
           if-no-files-found: error
