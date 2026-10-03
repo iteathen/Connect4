@@ -1,5 +1,10 @@
-// CPCX one-defect target-reservoir RCIC.
+// CPCX one-defect target-reservoir RCIC candidate.
 //
+// Status: NOT PROMOTED. The move6 F9/F17/F18 controls currently falsify
+// closure of this candidate with NO_TRIGGER_ADAPTIVE_ONE_DEFECT_TEMPLATE.
+// The implementation is retained as negative evidence / proof-boundary tooling.
+//
+
 // Standard-7x6 research-side instantiation of the generic ranked controlled-
 // invariant theorem.  This is not W/D/L search and does not use solved data.
 //
