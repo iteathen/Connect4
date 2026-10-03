@@ -1013,6 +1013,15 @@ export function certifyCpcxOneDefectTargetReservoirRcic(position,{
               kind:option.kind,
               measure:option.measure,
               seam:childProof.seam??childProof.kind,
+              childKey:childProof.key??null,
+              childRank:childProof.rank??option.position?.rank??null,
+              childSupport:option.position?Array.from(option.position.heights):null,
+              childFailure:{
+                defenderCell:childProof.defenderCell??null,
+                defenderLabel:childProof.defenderLabel??null,
+                measure:childProof.measure??null,
+                templateCount:childProof.templateCount??null,
+              },
             });
           }
         }
