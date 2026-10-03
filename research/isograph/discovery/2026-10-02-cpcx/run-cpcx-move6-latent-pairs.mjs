@@ -565,6 +565,7 @@ function ladderPoisonBranches(position,pair){
                 gap:node.gap,
                 support:node.support,
                 seam:node.seam,
+                descriptor:node.descriptor??null,
                 unresolvedTriggers:node.unresolvedTriggers.map(t=>({
                   defenderCell:t.defenderLabel,
                   defenderTerminal:t.defenderTerminal,
@@ -574,6 +575,15 @@ function ladderPoisonBranches(position,pair){
                     role:o.role,
                     result:o.result,
                     childGap:o.childGap,
+                  })),
+                  rejectedCount:t.rejectedCount??0,
+                  rejected:(t.rejected??[]).map(o=>({
+                    responseLabel:o.responseLabel,
+                    role:o.role,
+                    childClass:o.childClass,
+                    childGap:o.childGap,
+                    childDescriptor:o.childDescriptor,
+                    seam:o.seam,
                   })),
                 })),
               })),
