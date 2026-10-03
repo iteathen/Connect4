@@ -187,6 +187,7 @@ function ladderAttachments(position,pair){
         missingCount:o.missingCount,
         liftedCells:lifted.map(label),
         extraCells:extras.map(label),
+        extraCellIds:[...extras],
         extraSupport:extras.map(cell=>{
           const meta=cpcxCell(g,cell);
           return {
@@ -206,6 +207,90 @@ function ladderAttachments(position,pair){
     Number(b.sameOrientation)-Number(a.sameOrientation)||
     a.lineId-b.lineId
   );
+}
+
+function ladderPoisonBranches(position,pair){
+  if(position.mover!==0)return [];
+  const out=[];
+  for(const attachment of ladderAttachments(position,pair)){
+    if(
+      attachment.liftRows!==2||
+      !attachment.exactOneTriggerRung||
+      !attachment.sameOrientation
+    )continue;
+    const playableExtras=attachment.extraSupport
+      .map((x,i)=>({meta:x,cell:attachment.extraCellIds[i]}))
+      .filter(x=>x.meta.distance===0);
+    for(const extra of playableExtras){
+      const afterTrigger=applyCpcxForcedEvent(position,extra.cell);
+      if(afterTrigger.terminal){
+        out.push({
+          triggerCell:label(extra.cell),
+          upperLine:attachment.lineLabel,
+          terminalOnTrigger:afterTrigger.terminal,
+          branches:[],
+        });
+        continue;
+      }
+      if(afterTrigger.mover!==1)throw new Error('expected P1 after ladder trigger');
+      const branches=[];
+      for(const event of pair.events){
+        if(event.supportDistance!==1)continue;
+        const supportCell=event.frontierCell,
+          afterSupport=applyCpcxForcedEvent(afterTrigger,supportCell);
+        if(afterSupport.terminal){
+          branches.push({
+            endpoint:event.label,
+            supportCell:label(supportCell),
+            defenderTerminal:afterSupport.terminal,
+            endpointLegal:false,
+            result:null,
+          });
+          continue;
+        }
+        const endpointMeta=cpcxCell(g,event.cell),
+          endpointLegal=
+            afterSupport.heights[endpointMeta.column]===endpointMeta.row&&
+            afterSupport.owner[event.cell]===-1;
+        if(!endpointLegal){
+          branches.push({
+            endpoint:event.label,
+            supportCell:label(supportCell),
+            defenderTerminal:null,
+            endpointLegal:false,
+            result:null,
+          });
+          continue;
+        }
+        const afterEndpoint=applyCpcxForcedEvent(afterSupport,event.cell),
+          result=resultSummary(afterEndpoint),
+          lineage=afterEndpoint.terminal?null:lineageAfter(afterEndpoint,pair.lineId);
+        branches.push({
+          endpoint:event.label,
+          supportCell:label(supportCell),
+          defenderTerminal:null,
+          endpointLegal:true,
+          endpointTerminal:afterEndpoint.terminal,
+          lineage:lineage?{
+            missingCount:lineage.missingCount,
+            missingCells:lineage.missingCells.map(label),
+            support:lineage.events.map(e=>({
+              cell:label(e.cell),
+              distance:e.supportDistance,
+            })),
+          }:null,
+          result,
+        });
+      }
+      out.push({
+        triggerCell:label(extra.cell),
+        upperLine:attachment.lineLabel,
+        terminalOnTrigger:null,
+        branches,
+      });
+    }
+  }
+  return out;
 }
 
 function lineageAfter(position,lineId){
@@ -276,6 +361,7 @@ function analyzeState(position,source){
       setups:setupRows(position,best),
       ladderAttachments:ladderAttachments(position,best),
       allSetups:allSetupRows(position,{...best,ladderAttachments:ladderAttachments(position,best)}),
+      ladderPoisonBranches:ladderPoisonBranches(position,best),
     }:null,
     allPairs:pairs.map(pair=>({
       lineId:pair.lineId,
@@ -344,7 +430,9 @@ const profileCounts={},
   ladderAttachmentCounts={},
   uniqueSetupPatterns=new Map(),
   certifiedSetupSourceCounts={},
-  certifiedSetupRoleCounts={};
+  certifiedSetupRoleCounts={},
+  poisonBranchSourceCounts={},
+  poisonBranchProfileCounts={};
 for(const row of states){
   const pair=row.bestPair;
   if(!pair)continue;
@@ -352,6 +440,15 @@ for(const row of states){
   profileCounts[profile]=(profileCounts[profile]??0)+1;
   const op=`${pair.orientation}|${profile}`;
   orientationProfileCounts[op]=(orientationProfileCounts[op]??0)+1;
+  for(const ladder of pair.ladderPoisonBranches??[]){
+    for(const branch of ladder.branches??[]){
+      const profile=pair.distances.join(',');
+      const source=branch.result?.source??branch.result?.kind??'NO_RESULT';
+      const key=`${profile}|${source}|${branch.result?.kind??'NO_RESULT'}|${branch.result?.player??''}`;
+      poisonBranchSourceCounts[source]=(poisonBranchSourceCounts[source]??0)+1;
+      poisonBranchProfileCounts[key]=(poisonBranchProfileCounts[key]??0)+1;
+    }
+  }
   for(const s of pair.allSetups??[]){
     if(!s.certified)continue;
     const source=s.result.source??s.result.kind;
@@ -413,6 +510,8 @@ console.log(JSON.stringify({
     ).length,
     certifiedSetupSourceCounts,
     certifiedSetupRoleCounts,
+    poisonBranchSourceCounts,
+    poisonBranchProfileCounts,
     uniqueSetupPatternCount:uniqueSetupPatterns.size,
     uniqueSetupPatterns:[...uniqueSetupPatterns.values()]
       .sort((a,b)=>b.count-a.count||JSON.stringify(a.pattern).localeCompare(JSON.stringify(b.pattern))),
