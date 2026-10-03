@@ -1265,6 +1265,93 @@ for(const source of sources.values()){
                                   nf=runCpcxFirstWinCertificate(
                                     next,{attacker:0}
                                   );
+                                let forcedFollowup=null;
+                                if(np.kind==='FORCED_NORMALIZATION'){
+                                  const closed=closeCpcxForcedResponses(next),
+                                    q2=closed.kind==='OPEN'
+                                      ?closed.position:null,
+                                    p2=q2?classifyCpcxProgress(
+                                      q2,{player:0}
+                                    ):null,
+                                    f2=q2?runCpcxFirstWinCertificate(
+                                      q2,{attacker:0}
+                                    ):null,
+                                    latent=q2?scanCpcxObligations(q2)
+                                      .filter(o=>
+                                        o.player===0&&
+                                        o.missingCount===1&&
+                                        o.events[0].supportDistance>0
+                                      ).map(o=>{
+                                        const targetCell=o.missingCells[0],
+                                          ordinary=
+                                            certifyCpcxTruncatedTargetReservoir(
+                                              q2,{
+                                                attacker:0,
+                                                targetCell,
+                                              }
+                                            ),
+                                          one=
+                                            analyzeCpcxOneDefectTargetReservoir(
+                                              q2,{
+                                                attacker:0,
+                                                targetCell,
+                                              }
+                                            );
+                                        return {
+                                          lineId:o.lineId,
+                                          lineLabel:o.lineLabel,
+                                          targetCell:label(targetCell),
+                                          supportDistance:
+                                            o.events[0].supportDistance,
+                                          truncated:{
+                                            kind:ordinary.kind,
+                                            exact:ordinary.exact??false,
+                                            player:ordinary.player??null,
+                                            seam:ordinary.seam??null,
+                                          },
+                                          oneDefect:{
+                                            kind:one.kind,
+                                            exact:one.exact??false,
+                                            totalRelevantEvents:
+                                              one.totalRelevantEvents??null,
+                                            minimumUncoveredResiduals:
+                                              one.minimumUncoveredResiduals??null,
+                                            fullCoverageTemplateCount:
+                                              one.fullCoverageTemplateCount??null,
+                                          },
+                                        };
+                                      }):[];
+                                  forcedFollowup={
+                                    normalization:{
+                                      kind:closed.kind,
+                                      player:closed.player??null,
+                                      stepCount:closed.steps?.length??0,
+                                      steps:(closed.steps??[]).map(step=>({
+                                        cell:label(step.cell),
+                                        player:step.player,
+                                      })),
+                                      boundary:closed.boundary?.kind??null,
+                                    },
+                                    rank:q2?.rank??null,
+                                    mover:q2?.mover??null,
+                                    support:q2?Array.from(q2.heights):null,
+                                    progress:p2?progressSummary(p2):null,
+                                    firstWin:f2?{
+                                      kind:f2.kind,
+                                      exact:f2.exact??false,
+                                      player:f2.player??null,
+                                      seam:f2.seam??null,
+                                      traceLength:f2.trace?.length??0,
+                                    }:null,
+                                    latentP0Singletons:latent,
+                                    p0SmallResiduals:q2
+                                      ?smallResidualSummary(q2,0).slice(0,16)
+                                      :[],
+                                    p1SmallResiduals:q2
+                                      ?smallResidualSummary(q2,1).slice(0,16)
+                                      :[],
+                                  };
+                                }
                                 return {
                                   kind:successor.kind,
                                   exact:true,
@@ -1281,6 +1368,7 @@ for(const source of sources.values()){
                                     seam:nf.seam??null,
                                     traceLength:nf.trace?.length??0,
                                   },
+                                  forcedFollowup,
                                   p0SmallResiduals:
                                     smallResidualSummary(next,0).slice(0,16),
                                   p1SmallResiduals:
