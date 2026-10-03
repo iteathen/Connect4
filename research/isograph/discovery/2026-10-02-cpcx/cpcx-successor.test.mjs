@@ -69,7 +69,21 @@ test('defender-turn vertical preempt/nonpreempt alternatives collapse to one abs
   assert.equal(successor.rank.allSameParity,true);
   assert.equal(successor.controlParityEquivalent,true);
   assert.equal(successor.supportPhase.exact,true);
-  assert.ok(successor.supportPhase.vectors.length>=1);
+  const base=Array.from(p.heights,h=>h&1),
+    expected=new Map(),
+    lowerColumn=selected.demand.lowerCell%g.columns,
+    preempt=[...base];
+  preempt[lowerColumn]^=1;
+  expected.set(preempt.join(''),preempt);
+  for(const cell of selected.certificate.nonpreemptFrontier){
+    const delayed=[...base],column=cell%g.columns;
+    delayed[column]^=1;
+    expected.set(delayed.join(''),delayed);
+  }
+  const expectedVectors=[...expected.values()].sort((a,b)=>
+    a.join('').localeCompare(b.join(''))
+  );
+  assert.deepEqual(successor.supportPhase.vectors,expectedVectors);
   assert.ok(successor.supportPhase.vectors.every(v=>
     v.length===g.columns&&v.every(bit=>bit===0||bit===1)
   ));
