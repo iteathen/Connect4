@@ -14,6 +14,7 @@ on:
       - research/isograph/discovery/2026-10-02-cpcx/CPCX_BOUNDED_RESIDUAL_DEFECT_TRANSPORT_0_1.md
       - research/isograph/discovery/2026-10-02-cpcx/cpcx-parity-debt.mjs
       - research/isograph/discovery/2026-10-02-cpcx/cpcx-parity-debt.test.mjs
+      - research/isograph/discovery/2026-10-02-cpcx/run-uc4a-cpcx-center-spine-debt-rule-second-layer.mjs
       - research/isograph/discovery/2026-10-02-cpcx/run-uc4a-cpcx-turn6-defect-pair-rlc-response-intersection.mjs
       - .github/workflows/research-cpcx-center-spine-cofactor.yml
   workflow_dispatch:
@@ -35,10 +36,12 @@ jobs:
       - run: node --test research/isograph/discovery/2026-10-02-cpcx/cpcx-parity-debt.test.mjs
       - run: node research/isograph/discovery/2026-10-02-cpcx/run-uc4a-cpcx-turn6-center-spine-cofactor-equivalence.mjs > center-spine-cofactor-equivalence.json
       - run: node research/isograph/discovery/2026-10-02-cpcx/run-uc4a-cpcx-turn6-defect-pair-rlc-response-intersection.mjs > defect-pair-rlc-response-intersection.json
+      - run: node research/isograph/discovery/2026-10-02-cpcx/run-uc4a-cpcx-center-spine-debt-rule-second-layer.mjs > center-spine-debt-rule-second-layer.json
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
           name: center-spine-cofactor-equivalence
           path: |
             center-spine-cofactor-equivalence.json
             defect-pair-rlc-response-intersection.json
+            center-spine-debt-rule-second-layer.json
           if-no-files-found: error
