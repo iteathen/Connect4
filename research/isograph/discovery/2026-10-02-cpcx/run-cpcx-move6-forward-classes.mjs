@@ -165,11 +165,57 @@ function oneDefectRenewalProbe(position,targetCell,analysis){
       responseCell=defenderCell+g.columns;
       responseKind='VERTICAL_RESPONSE';
     }else{
+      const afterDefender=applyCpcxForcedEvent(position,defenderCell),
+        repairs=[];
+      if(!afterDefender.terminal){
+        for(const setupCell of frontier(afterDefender)){
+          const child=applyCpcxForcedEvent(afterDefender,setupCell);
+          if(child.terminal){
+            if(child.terminal.player===0)repairs.push({
+              setupCell:label(setupCell),
+              repairClass:'ATTACKER_TERMINAL',
+              childReservoirRank:null,
+            });
+            continue;
+          }
+          const certificate=runCpcxFirstWinCertificate(child,{attacker:0}),
+            ordinary=certifyCpcxTruncatedTargetReservoir(
+              child,{attacker:0,targetCell}
+            ),
+            next=analyzeCpcxOneDefectTargetReservoir(
+              child,{attacker:0,targetCell}
+            ),
+            childRank=next.totalRelevantEvents??null,
+            exactExistingWin=
+              certificate.kind==='CERTIFIED_FIRST_WIN'&&certificate.player===0,
+            ordinaryWin=
+              ordinary.kind==='CERTIFIED_FIRST_WIN'&&ordinary.player===0,
+            oneDefectRenewal=
+              next.kind==='ONE_DEFECT_STATIC_COVERAGE'&&
+              childRank===analysis.totalRelevantEvents-2;
+          if(exactExistingWin||ordinaryWin||oneDefectRenewal)repairs.push({
+            setupCell:label(setupCell),
+            repairClass:exactExistingWin
+              ?'EXISTING_CPCX_FIRST_WIN'
+              :ordinaryWin
+                ?'ORDINARY_RESERVOIR_FIRST_WIN'
+                :'ONE_DEFECT_RENEWAL',
+            certificateSource:
+              certificate.trace?.[0]?.progress?.source??null,
+            ordinaryReservoirKind:ordinary.kind,
+            oneDefectKind:next.kind,
+            childReservoirRank:childRank,
+          });
+        }
+      }
       rows.push({
         defenderCell:label(defenderCell),
         responseKind:'DEFECT_HANDOFF',
         responseCell:null,
-        renews:false,
+        defenderTerminal:afterDefender.terminal,
+        discoveryHandoffRepairs:repairs,
+        renews:repairs.length>0,
+        renewalClass:repairs.length?'DISCOVERY_HANDOFF_REPAIR':'UNRESOLVED_HANDOFF',
       });
       continue;
     }
@@ -257,8 +303,10 @@ function oneDefectRenewalProbe(position,targetCell,analysis){
     rowCount:rows.length,
     renewedCount:rows.filter(x=>x.renews).length,
     defectHandoffCount:rows.filter(x=>x.responseKind==='DEFECT_HANDOFF').length,
-    allCurrentResponsesRenew:
-      rows.every(x=>x.renews||x.responseKind==='DEFECT_HANDOFF'),
+    repairedHandoffCount:rows.filter(x=>
+      x.responseKind==='DEFECT_HANDOFF'&&x.renews
+    ).length,
+    allCurrentResponsesRenew:rows.every(x=>x.renews),
     rows,
     proofBoundary:'one current response layer only; recurrent use requires a separately proved well-founded renewal theorem and a certified defect-handoff base case',
   };
@@ -450,5 +498,6 @@ console.log(JSON.stringify({
     discoverySecondSetupProbe:'bounded theorem-discovery scan only; enumerates one additional current P0 setup per P1 reply and is forbidden as a proof premise until generalized',
     defectColumnExhaustionProbe:'discovery-only same-column normalization of each odd reservoir column through its truncated relevant capacity; no claim that the opponent is forced to choose this order',
     oneDefectRenewalProbe:'one theorem-template response layer only; tests reconstruction of the same one-defect class with reservoir rank reduced by two and does not recursively traverse descendants',
+    defectHandoffRepairProbe:'discovery-only scan of one current P0 setup after an unmatched top event; successful cells are not proof premises until a generic repair theorem is established',
   },
 },null,2));
