@@ -95,7 +95,7 @@ test('higher-precedence source obligation rejects support advance',()=>{
 
   assert.equal(c.kind,'NO_CERTIFICATE');
   assert.equal(c.seam,'SOURCE_IMMEDIATE_PRECEDENCE');
-  assert.equal(c.boundary.kind,'FORCED_RESPONSE');
+  assert.equal(c.boundary.kind,'IMMEDIATE_TERMINAL_AVAILABLE');
 });
 
 test('support advance fails closed when it releases an opponent terminal',()=>{
