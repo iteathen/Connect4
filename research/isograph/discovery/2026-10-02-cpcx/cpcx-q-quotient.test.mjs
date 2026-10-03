@@ -102,3 +102,22 @@ test('q_o quotient source is generic and isolated from solved/search machinery',
   assert.match(source,/normalized P0 residual antichain/);
   assert.match(source,/Q_CONGRUENCE_FINAL_QUALIFICATION_0_2/);
 });
+import {
+  projectCpcxSupportEnvelope,
+  keyCpcxSupportEnvelope,
+} from './cpcx-support-envelope.mjs';
+
+
+
+test('support-envelope projection is set-valued after coordinate projection',()=>{
+  const a=projectCpcxSupportEnvelope({
+    exact:true,
+    vectors:[[3,0,0,5],[3,0,0,6],[4,1,0,5]],
+  },[0,1,2]);
+  const b=projectCpcxSupportEnvelope({
+    exact:true,
+    vectors:[[4,1,0,4],[3,0,0,2]],
+  },[0,1,2]);
+  assert.deepEqual(a.vectors,[[3,0,0],[4,1,0]]);
+  assert.equal(keyCpcxSupportEnvelope(a),keyCpcxSupportEnvelope(b));
+});
