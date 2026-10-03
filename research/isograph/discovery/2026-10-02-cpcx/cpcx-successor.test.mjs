@@ -68,6 +68,11 @@ test('defender-turn vertical preempt/nonpreempt alternatives collapse to one abs
   assert.deepEqual(successor.rank.deltaOptions,[1,3]);
   assert.equal(successor.rank.allSameParity,true);
   assert.equal(successor.controlParityEquivalent,true);
+  assert.equal(successor.supportPhase.exact,true);
+  assert.ok(successor.supportPhase.vectors.length>=1);
+  assert.ok(successor.supportPhase.vectors.every(v=>
+    v.length===g.columns&&v.every(bit=>bit===0||bit===1)
+  ));
   assert.equal(successor.blockerTokens.length,1);
   assert.equal(successor.blockerTokens[0].maxCount,1);
   assert.equal(successor.blockerTokens[0].directKillCapacity,0);
