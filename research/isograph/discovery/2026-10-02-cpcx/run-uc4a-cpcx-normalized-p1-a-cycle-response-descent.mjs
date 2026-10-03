@@ -151,8 +151,24 @@ function controllerDescentNoNormalization(position,R){
       :certifyCpcxProtectedResidualSupportAdvance(position,{controllerResidual:R,targetCell});
     if(c.exact)candidates.push(c);
   }
+  const attempts=R.missingCells.map(targetCell=>{
+    const e=R.events.find(x=>x.cell===targetCell);
+    const c=e.supportDistance===0
+      ?certifyCpcxProtectedResidualTargetAcquisition(position,{controllerResidual:R,targetCell})
+      :certifyCpcxProtectedResidualSupportAdvance(position,{controllerResidual:R,targetCell});
+    return {
+      targetCell:label(targetCell),
+      supportDistance:e.supportDistance,
+      kind:c.kind,
+      exact:c.exact??false,
+      seam:c.seam??null,
+      actionCell:Number.isInteger(c.actionCell)?label(c.actionCell):null,
+      boundaryKind:c.boundary?.kind??c.childImmediateBoundary?.kind??null,
+      opponentWinningCells:(c.boundary?.winningCells??c.childImmediateBoundary?.winningCells??[]).map(label),
+    };
+  });
   const scored=candidates.map(c=>({c,score:c.kind==='CERTIFIED_FIRST_WIN'?0:c.kind==='PROTECTED_RESIDUAL_TARGET_ACQUISITION'?1:2})).sort((a,b)=>a.score-b.score||((a.c.targetCell??0)-(b.c.targetCell??0)));
-  if(!scored.length)return {kind:'NO_CONTROLLER_DESCENT',exact:false,immediate:immediateSummary(immediate),attempts:R.missingCells.map(targetCell=>{const e=R.events.find(x=>x.cell===targetCell);const c=e.supportDistance===0?certifyCpcxProtectedResidualTargetAcquisition(position,{controllerResidual:R,targetCell}):certifyCpcxProtectedResidualSupportAdvance(position,{controllerResidual:R,targetCell});return summarizeCertificate(c);})};
+  if(!scored.length)return {kind:'NO_CONTROLLER_DESCENT',exact:false,immediate:immediateSummary(immediate),attempts};
   const best=scored[0].c;
   return {
     kind:best.kind==='CERTIFIED_FIRST_WIN'?'CONTROLLER_FIRST_WIN':best.kind,
@@ -166,6 +182,7 @@ function controllerDescentNoNormalization(position,R){
         :null,
     finalPhysicalKey:best.child?physicalKey(best.child):null,
     existingCertificate:best.child?existingCertificate(best.child):null,
+    attempts,
   };
 }
 
@@ -341,6 +358,35 @@ console.log(JSON.stringify({
       strictReturnEdges.filter(x=>x.toNode!==null).length,
     strictReturnEdgesUnmatched:
       strictReturnEdges.filter(x=>x.toNode===null),
+    supportHazards:(()=>{
+      function leaf(d){
+        if(!d)return null;
+        if(d.kind==='FORCED_NORMALIZATION_THEN_DESCENT')return leaf(d.next);
+        return d;
+      }
+      const leaves=all.map(x=>leaf(x.descent)).filter(Boolean),
+        rows=leaves.filter(x=>Array.isArray(x.attempts)),
+        counts=rows.map(x=>x.attempts.filter(a=>
+          a.seam==='OPPONENT_TERMINAL_AFTER_SUPPORT_ADVANCE'
+        ).length),
+        seams={};
+      for(const x of rows)for(const a of x.attempts){
+        const k=a.exact?a.kind:(a.seam??a.kind);
+        seams[k]=(seams[k]??0)+1;
+      }
+      return {
+        controllerDecisionCount:rows.length,
+        maxSimultaneousUnsafeSupportAdvances:counts.length?Math.max(...counts):0,
+        unsafeSupportAdvanceHistogram:Object.fromEntries(
+          [...new Set(counts)].sort((a,b)=>a-b).map(k=>[
+            String(k),counts.filter(x=>x===k).length,
+          ])
+        ),
+        attemptOutcomeCounts:seams,
+        allDecisionStatesRetainAtLeastOneExactProtectedAction:
+          rows.every(x=>x.attempts.some(a=>a.exact)),
+      };
+    })(),
     endpointCertificateCounts:Object.fromEntries(
       [...new Set(strictReturnEdges.map(x=>{
         const row=all.find(y=>
