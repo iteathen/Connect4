@@ -6,6 +6,7 @@ on:
       - experiment/cpcx-20261002
     paths:
       - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-one-defect-rcic-controls.mjs
+      - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-one-defect-child-localization.mjs
       - research/isograph/discovery/2026-10-02-cpcx/cpcx-one-defect-rcic.mjs
       - .github/workflows/research-cpcx-one-defect-rcic-diagnostic.yml
   workflow_dispatch:
@@ -25,6 +26,7 @@ jobs:
       - name: Run RCIC controls
         run: |
           node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-one-defect-rcic-controls.mjs > cpcx-one-defect-rcic-controls.json
+          node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-one-defect-child-localization.mjs > cpcx-one-defect-child-localization.json
           node --input-type=module -e "
             import fs from 'node:fs';
             const x=JSON.parse(fs.readFileSync('cpcx-one-defect-rcic-controls.json','utf8'));
@@ -41,5 +43,7 @@ jobs:
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
           name: cpcx-one-defect-rcic-controls
-          path: cpcx-one-defect-rcic-controls.json
+          path: |
+            cpcx-one-defect-rcic-controls.json
+            cpcx-one-defect-child-localization.json
           if-no-files-found: error
