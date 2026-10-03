@@ -92,6 +92,40 @@ function normalizedSupportPhase(phase,reflect){
   };
 }
 
+function normalizedOpponentResidual(row,reflect){
+  const mappedCells=(row.missingCells??[])
+    .map(cell=>reflect?reflectCpcxCell(g,cell):cell)
+    .sort((a,b)=>a-b);
+  return {
+    orientation:reflect
+      ?reflectCpcxOrientation(row.orientation)
+      :row.orientation,
+    missingCount:row.missingCount,
+    lineGeometry:lineKey(row.lineId,reflect),
+    missingCells:mappedCells,
+  };
+}
+
+function normalizedOpponentEnvelope(envelope,reflect){
+  if(envelope?.exact!==true)return {
+    exact:false,
+    possibleResiduals:[],
+    guaranteedResiduals:[],
+  };
+  const sort=(a,b)=>
+    a.missingCount-b.missingCount||
+    a.orientation.localeCompare(b.orientation)||
+    a.lineGeometry.localeCompare(b.lineGeometry)||
+    a.missingCells.join(',').localeCompare(b.missingCells.join(','));
+  return {
+    exact:true,
+    possibleResiduals:(envelope.possibleResiduals??[])
+      .map(r=>normalizedOpponentResidual(r,reflect)).sort(sort),
+    guaranteedResiduals:(envelope.guaranteedResiduals??[])
+      .map(r=>normalizedOpponentResidual(r,reflect)).sort(sort),
+  };
+}
+
 function normalizedToken(token,reflect){
   return {
     owner:token.owner,
@@ -142,6 +176,9 @@ for(let column=0;column<g.columns;column++){
     blockerTokens=(successor.blockerTokens??[])
       .map(t=>normalizedToken(t,reflect)),
     supportPhase=normalizedSupportPhase(successor.supportPhase,reflect),
+    opponentResidualEnvelope=normalizedOpponentEnvelope(
+      successor.opponentResidualEnvelope,reflect
+    ),
     singletonEnvelope=successor.opponentSingletonEnvelope??null;
 
   rows.push({
@@ -156,6 +193,7 @@ for(let column=0;column<g.columns;column++){
     nextMover:successor.nextMover,
     controlParityEquivalent:successor.controlParityEquivalent,
     supportPhase,
+    opponentResidualEnvelope,
     residuals,
     blockerTokens,
     firstWinFacts:successor.firstWinFacts,
@@ -232,6 +270,13 @@ const commonPairCells=new Set(pairRows.flatMap(r=>r.missingCells));
 const opponentLowerBounds=active
   .map(row=>row.opponentEarliestTerminalLowerBound)
   .filter(Number.isInteger);
+const opponentEnvelopeClasses=new Map();
+for(const row of active){
+  const key=JSON.stringify(row.opponentResidualEnvelope);
+  if(!opponentEnvelopeClasses.has(key))opponentEnvelopeClasses.set(key,[]);
+  opponentEnvelopeClasses.get(key).push(row.sixthMove);
+}
+
 
 const blockerAudit=active.map(row=>({
   sixthMove:row.sixthMove,
@@ -273,6 +318,10 @@ console.log(JSON.stringify({
     allOpponentSingletonEnvelopesEmpty:active.every(x=>
       (x.opponentSingletonEnvelope?.possibleCells?.length??-1)===0
     ),
+    opponentResidualEnvelopeClassCount:opponentEnvelopeClasses.size,
+    opponentResidualEnvelopeClasses:[...opponentEnvelopeClasses.entries()]
+      .map(([key,moves])=>({moves,envelope:JSON.parse(key)})),
+    allSevenShareOpponentResidualEnvelope:opponentEnvelopeClasses.size===1,
     allOpponentTerminalLowerBoundsKnown:
       opponentLowerBounds.length===active.length,
     sharedOpponentEarliestTerminalLowerBound:
