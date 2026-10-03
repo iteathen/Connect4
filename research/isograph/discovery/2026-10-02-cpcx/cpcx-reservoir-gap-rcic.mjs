@@ -649,3 +649,461 @@ export function certifyCpcxReservoirCoverageGapRcic(position,{
     gameTreeTraversal:false,
   };
 }
+
+
+// Experimental successor to the gap-count candidate above.
+//
+// The gap-count rank is known to be incomplete on the move6 controls. This
+// candidate keeps the same narrowly licensed response set but uses the finite
+// truncated-reservoir size itself as the well-founded rank. A child may
+// re-enter with the same coverage-gap count; it may not re-enter with a
+// nondecreasing totalRelevantEvents value.
+//
+// This is intentionally a separate export so the earlier failed/partial rank
+// remains preserved as negative evidence.
+function analyzeAttachmentReservoirClass(position,{attacker,targetCell}){
+  if(position.terminal)return position.terminal.player===attacker?{
+    kind:'BASE',
+    exact:true,
+    base:{kind:'ATTACKER_TERMINAL',exact:true,player:attacker},
+    analysis:null,
+    reservoirRank:-1,
+  }:{
+    kind:'OPPONENT_FIRST_WIN',
+    exact:false,
+    player:position.terminal.player,
+    seam:'OPPONENT_TERMINAL',
+  };
+
+  const existing=runCpcxFirstWinCertificate(position,{attacker});
+  if(existing.kind==='CERTIFIED_FIRST_WIN'){
+    if(existing.player===attacker)return {
+      kind:'BASE',
+      exact:true,
+      base:{
+        kind:'EXISTING_CPCX_FIRST_WIN',
+        exact:true,
+        player:attacker,
+        certificate:existing,
+      },
+      analysis:null,
+      reservoirRank:-1,
+    };
+    return {
+      kind:'OPPONENT_FIRST_WIN',
+      exact:false,
+      player:existing.player,
+      seam:'EXISTING_CPCX_OPPONENT_FIRST_WIN',
+      certificate:existing,
+    };
+  }
+
+  const ordinary=certifyCpcxTruncatedTargetReservoir(
+    position,{attacker,targetCell}
+  );
+  if(ordinary.kind==='CERTIFIED_FIRST_WIN')return {
+    kind:'BASE',
+    exact:true,
+    base:{
+      kind:'ORDINARY_TARGET_RESERVOIR',
+      exact:true,
+      player:attacker,
+      certificate:ordinary,
+    },
+    analysis:null,
+    reservoirRank:0,
+  };
+
+  if(position.mover!==(attacker^1))return {
+    kind:'NO_CLASS',
+    exact:false,
+    seam:'ATTACHMENT_RESERVOIR_REQUIRES_DEFENDER_TO_MOVE',
+  };
+
+  const analysis=analyzeCpcxTruncatedTargetReservoirCoverage(
+    position,{attacker,targetCell}
+  );
+  if(analysis.kind!=='TRUNCATED_TARGET_STATIC_COVERAGE_GAP')return {
+    kind:'NO_CLASS',
+    exact:false,
+    seam:analysis.kind,
+    analysis,
+  };
+
+  const reservoirRank=analysis.totalRelevantEvents;
+  if(!Number.isInteger(reservoirRank)||reservoirRank<1)return {
+    kind:'NO_CLASS',
+    exact:false,
+    seam:'INVALID_RELEVANT_EVENT_RANK',
+    analysis,
+  };
+
+  return {
+    kind:'GAP',
+    exact:true,
+    gap:analysis.minimumUncoveredResiduals,
+    reservoirRank,
+    analysis,
+  };
+}
+
+export function certifyCpcxReservoirAttachmentRcic(position,{
+  attacker=position.mover^1,
+  targetCell,
+  maxNodes=8192,
+}={}){
+  if(attacker!==0&&attacker!==1)throw new RangeError('attacker');
+  if(!Number.isInteger(targetCell))throw new RangeError('targetCell');
+  if(!Number.isInteger(maxNodes)||maxNodes<1)throw new RangeError('maxNodes');
+
+  const g=position.geometry,defender=attacker^1;
+  if(g.columns!==7||g.rows!==6||g.connect!==4)return {
+    schema:'connect4.cpcx.reservoir-attachment-rcic.v0_1',
+    kind:'NO_CERTIFICATE',
+    exact:false,
+    attacker,defender,
+    seam:'UNSUPPORTED_GEOMETRY',
+    recursive:false,
+    gameTreeTraversal:false,
+  };
+
+  const rootClass=analyzeAttachmentReservoirClass(
+    position,{attacker,targetCell}
+  );
+  if(rootClass.kind==='BASE')return {
+    schema:'connect4.cpcx.reservoir-attachment-rcic.v0_1',
+    kind:'CERTIFIED_FIRST_WIN',
+    exact:true,
+    player:attacker,
+    attacker,defender,
+    targetCell,
+    targetLabel:labelCell(g,targetCell),
+    rootReservoirRank:0,
+    nodeCount:0,
+    base:rootClass.base,
+    promotedToRuntime:false,
+    proofClassCandidate:true,
+    recursive:false,
+    gameTreeTraversal:false,
+  };
+  if(rootClass.kind!=='GAP')return {
+    schema:'connect4.cpcx.reservoir-attachment-rcic.v0_1',
+    kind:'NO_CERTIFICATE',
+    exact:false,
+    attacker,defender,
+    targetCell,
+    targetLabel:labelCell(g,targetCell),
+    seam:rootClass.seam??rootClass.kind,
+    opponentPlayer:rootClass.player??null,
+    recursive:false,
+    gameTreeTraversal:false,
+  };
+
+  const nodes=new Map(),queue=[];
+  function ensureNode(p,cls){
+    const key=stateKey(p,targetCell);
+    if(nodes.has(key))return key;
+    if(nodes.size>=maxNodes)return null;
+    const node={
+      key,
+      position:p,
+      rank:p.rank,
+      support:Array.from(p.heights),
+      gap:cls.gap,
+      reservoirRank:cls.reservoirRank,
+      descriptor:{
+        ...gapDescriptor(p,cls.analysis),
+        totalRelevantEvents:cls.reservoirRank,
+      },
+      analysis:cls.analysis,
+      status:'DISCOVERED',
+      triggers:[],
+    };
+    nodes.set(key,node);
+    queue.push({key,position:p,cls});
+    return key;
+  }
+
+  const rootKey=ensureNode(position,rootClass);
+  if(rootKey===null)throw new Error('root node bound');
+
+  for(let qi=0;qi<queue.length;qi++){
+    const work=queue[qi],node=nodes.get(work.key),
+      templates=node.analysis.bestPartialTemplates??[];
+
+    if(!templates.length){
+      node.status='UNRESOLVED';
+      node.seam='NO_PARTIAL_RESERVOIR_TEMPLATE';
+      continue;
+    }
+
+    for(const defenderCell of frontier(work.position)){
+      const trigger={
+        defenderCell,
+        defenderLabel:labelCell(g,defenderCell),
+        defenderTerminal:null,
+        options:[],
+        rejected:[],
+      },seen=new Set();
+
+      for(let templateIndex=0;templateIndex<templates.length;templateIndex++){
+        const template=templates[templateIndex],
+          branch=responseOptions(
+            work.position,node.analysis,template,defenderCell
+          );
+
+        if(branch.afterDefender.terminal){
+          trigger.defenderTerminal=branch.afterDefender.terminal;
+          continue;
+        }
+
+        for(const response of branch.responses){
+          const sig=[
+            response.cell,
+            templateIndex,
+            response.templateResponse?1:0,
+            response.attachmentResponse?1:0,
+          ].join('|');
+          if(seen.has(sig))continue;
+          seen.add(sig);
+
+          const meta=cpcxCell(g,response.cell);
+          if(
+            branch.afterDefender.mover!==attacker||
+            branch.afterDefender.heights[meta.column]!==meta.row||
+            branch.afterDefender.owner[response.cell]!==-1
+          )continue;
+
+          const child=applyCpcxForcedEvent(
+            branch.afterDefender,response.cell
+          ),childClass=analyzeAttachmentReservoirClass(
+            child,{attacker,targetCell}
+          );
+
+          if(childClass.kind==='BASE'){
+            trigger.options.push({
+              templateIndex,
+              responseCell:response.cell,
+              responseLabel:labelCell(g,response.cell),
+              role:response.role,
+              lineIds:response.lineIds??[],
+              lineLabels:response.lineLabels??[],
+              result:'BASE_FIRST_WIN',
+              baseClass:childClass.base.kind,
+              childGap:-1,
+              childReservoirRank:-1,
+              childKey:null,
+            });
+            continue;
+          }
+
+          if(
+            childClass.kind==='GAP'&&
+            childClass.reservoirRank<node.reservoirRank
+          ){
+            const childKey=ensureNode(child,childClass);
+            if(childKey===null)continue;
+            trigger.options.push({
+              templateIndex,
+              responseCell:response.cell,
+              responseLabel:labelCell(g,response.cell),
+              role:response.role,
+              lineIds:response.lineIds??[],
+              lineLabels:response.lineLabels??[],
+              result:'LOWER_RELEVANT_EVENT_RANK',
+              baseClass:null,
+              childGap:childClass.gap,
+              childReservoirRank:childClass.reservoirRank,
+              childKey,
+            });
+            continue;
+          }
+
+          trigger.rejected.push({
+            templateIndex,
+            responseCell:response.cell,
+            responseLabel:labelCell(g,response.cell),
+            role:response.role,
+            lineIds:response.lineIds??[],
+            lineLabels:response.lineLabels??[],
+            childClass:childClass.kind,
+            childGap:childClass.gap??null,
+            childReservoirRank:childClass.reservoirRank??null,
+            seam:childClass.seam??null,
+            opponentPlayer:childClass.player??null,
+          });
+        }
+      }
+
+      trigger.options.sort((a,b)=>
+        (a.result==='BASE_FIRST_WIN'?0:1)-
+          (b.result==='BASE_FIRST_WIN'?0:1)||
+        a.childReservoirRank-b.childReservoirRank||
+        a.childGap-b.childGap||
+        a.responseCell-b.responseCell||
+        a.templateIndex-b.templateIndex
+      );
+      node.triggers.push(trigger);
+    }
+    node.status='EXPANDED';
+  }
+
+  // Every nonterminal edge points to a strictly smaller integer reservoirRank,
+  // so this ordering is a topological proof-class order.
+  const ordered=[...nodes.values()].sort((a,b)=>
+    a.reservoirRank-b.reservoirRank||
+    a.gap-b.gap||
+    b.rank-a.rank||
+    a.key.localeCompare(b.key)
+  );
+
+  for(const node of ordered){
+    if(node.status!=='EXPANDED')continue;
+    let ok=node.triggers.length>0;
+    for(const trigger of node.triggers){
+      if(trigger.defenderTerminal?.player===defender){
+        trigger.selected=null;
+        ok=false;
+        continue;
+      }
+
+      const selected=trigger.options.find(option=>
+        option.result==='BASE_FIRST_WIN'||(
+          option.result==='LOWER_RELEVANT_EVENT_RANK'&&
+          nodes.get(option.childKey)?.status==='CERTIFIED'
+        )
+      )??null;
+      trigger.selected=selected;
+      if(!selected)ok=false;
+    }
+    node.status=ok?'CERTIFIED':'UNRESOLVED';
+    if(!ok)node.seam='ATTACHMENT_RESERVOIR_RESPONSE_TOTALITY_FAILURE';
+  }
+
+  const root=nodes.get(rootKey),certified=root?.status==='CERTIFIED',
+    unresolvedNodes=[...nodes.values()]
+      .filter(x=>x.status==='UNRESOLVED')
+      .map(node=>({
+        key:node.key,
+        rank:node.rank,
+        gap:node.gap,
+        reservoirRank:node.reservoirRank,
+        support:node.support,
+        seam:node.seam??null,
+        unresolvedTriggers:node.triggers
+          .filter(x=>!x.selected)
+          .map(trigger=>({
+            defenderCell:trigger.defenderCell,
+            defenderLabel:trigger.defenderLabel,
+            defenderTerminal:trigger.defenderTerminal,
+            optionCount:trigger.options.length,
+            options:trigger.options,
+            rejectedCount:trigger.rejected.length,
+            rejected:trigger.rejected,
+          })),
+      }))
+      .sort((a,b)=>
+        a.reservoirRank-b.reservoirRank||
+        a.gap-b.gap||
+        a.rank-b.rank||
+        a.key.localeCompare(b.key)
+      );
+
+  if(!certified)return {
+    schema:'connect4.cpcx.reservoir-attachment-rcic.v0_1',
+    kind:'NO_CERTIFICATE',
+    exact:false,
+    attacker,defender,
+    targetCell,
+    targetLabel:labelCell(g,targetCell),
+    rootGap:rootClass.gap,
+    rootReservoirRank:rootClass.reservoirRank,
+    seam:root?.seam??'RESERVOIR_ATTACHMENT_RCIC_UNRESOLVED',
+    nodeCount:nodes.size,
+    certifiedNodeCount:[...nodes.values()]
+      .filter(x=>x.status==='CERTIFIED').length,
+    unresolvedNodeCount:unresolvedNodes.length,
+    unresolvedNodes,
+    promotedToRuntime:false,
+    proofClassCandidate:true,
+    recursive:false,
+    gameTreeTraversal:false,
+  };
+
+  const certifiedNodes=[...nodes.values()]
+    .filter(x=>x.status==='CERTIFIED')
+    .map(node=>({
+      key:node.key,
+      rank:node.rank,
+      gap:node.gap,
+      reservoirRank:node.reservoirRank,
+      support:node.support,
+      triggers:node.triggers.map(trigger=>({
+        defenderCell:trigger.defenderCell,
+        defenderLabel:trigger.defenderLabel,
+        selected:trigger.selected,
+      })),
+    }))
+    .sort((a,b)=>
+      a.reservoirRank-b.reservoirRank||
+      a.gap-b.gap||
+      a.rank-b.rank||
+      a.key.localeCompare(b.key)
+    );
+
+  return {
+    schema:'connect4.cpcx.reservoir-attachment-rcic.v0_1',
+    kind:'CERTIFIED_FIRST_WIN',
+    exact:true,
+    player:attacker,
+    attacker,defender,
+    targetCell,
+    targetLabel:labelCell(g,targetCell),
+    rootGap:rootClass.gap,
+    rootReservoirRank:rootClass.reservoirRank,
+    nodeCount:nodes.size,
+    certifiedNodeCount:certifiedNodes.length,
+    edgeCount:certifiedNodes.reduce((n,node)=>n+node.triggers.length,0),
+    reservoirRanks:[...new Set(
+      certifiedNodes.map(x=>x.reservoirRank)
+    )].sort((a,b)=>a-b),
+    nodes:certifiedNodes,
+    rcic:{
+      obligations:[
+        'preserve the active P0 singleton target',
+        'prevent any P1 first win before the target or an exact P0 handoff',
+        'discharge uncovered live P1 residuals through exact current attachment when the partial pairing template alone does not cover them',
+      ],
+      resources:[
+        'one best partial truncated target-reservoir template selected after the observed P1 trigger',
+        'that template\'s prescribed current P0 mate',
+        'current frontier cells attached to that template\'s uncovered P1 residuals',
+        'exact handoff to existing CPCX or qualified ordinary target-reservoir first-win certificate',
+      ],
+      rank:'totalRelevantEvents',
+      strictDecrease:true,
+      responseTotality:true,
+      triggerAdaptiveTemplates:true,
+      firstWinPrecedence:true,
+      allowedNonterminalExit:'SAME_TARGET_COVERAGE_GAP_WITH_STRICTLY_SMALLER_TOTAL_RELEVANT_EVENTS',
+      allowedTerminalExit:'P0_FIRST_WIN_ONLY',
+    },
+    proofRule:'ranked target-reservoir attachment invariant: after every P1 trigger choose a response licensed by a partial pairing template or exact uncovered-residual frontier attachment; every nonterminal re-entry preserves the active P0 target and consumes a strict portion of the finite truncated reservoir; states with any certified P1 first win are rejected',
+    theoremProvenance:[
+      'RLC_RANKED_CONTROLLED_INVARIANT_CERTIFICATE_THEOREM.md',
+      'CPC_TRIGGER_ADAPTIVE_RENEWAL_THEOREM.md',
+      'CPC_FRONTIER_RESIDUAL_ATTACHMENT_RESPONSE_THEOREM.md',
+      'CPC_TRUNCATED_TARGET_RESERVOIR_PAIRING_THEOREM.md',
+    ],
+    standardBoardOnly:true,
+    proofClassCandidate:true,
+    promotedToRuntime:false,
+    solvedData:false,
+    oracle:false,
+    openingBook:false,
+    priorBestMoveLabels:false,
+    lossDelayAssumed:false,
+    recursive:false,
+    gameTreeTraversal:false,
+  };
+}
