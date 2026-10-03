@@ -86,14 +86,6 @@ function frontierCells(position){
 function setupRole(pair,cell){
   if(pair.cells.includes(cell))return 'PAIR_ENDPOINT';
   if(pair.events.some(x=>x.frontierCell===cell))return 'PAIR_COLUMN_SUPPORT';
-  for(const a of pair.ladderAttachments??[]){
-    for(const x of a.extraSupport??[]){
-      const meta=cpcxCell(g,a.extraCells[a.extraSupport.indexOf(x)]??-1);
-      if(x.distance===0&&Number.isInteger(meta.column)){
-        const frontier=0*g.columns; // role is resolved below from the label
-      }
-    }
-  }
   const cellLabel=label(cell);
   if((pair.ladderAttachments??[]).some(a=>
     a.extraSupport?.some(x=>x.distance===0&&x.frontier===cellLabel)
