@@ -477,6 +477,16 @@ export function collapseCpcxDebtRepairTokenProduct(position,contract,repair,{ret
     possibleOpponentSingletons=[...new Set(continuing.flatMap(c=>
       (c.opponentSingletonEnvelope??c.firstWinFacts?.opponentSingletonEnvelope)?.possibleCells??[]
     ))].sort((a,b)=>a-b),
+    opponentTerminalLowerBounds=continuing
+      .map(c=>
+        (c.opponentSingletonEnvelope??c.firstWinFacts?.opponentSingletonEnvelope)
+          ?.defenderEarliestTerminalLowerBound
+      )
+      .filter(Number.isFinite),
+    opponentEarliestTerminalLowerBound=
+      opponentTerminalLowerBounds.length===continuing.length
+        ?Math.min(...opponentTerminalLowerBounds)
+        :null,
     guaranteedOpponentSingletons=(()=>{
       const sets=continuing
         .map(c=>(c.opponentSingletonEnvelope??c.firstWinFacts?.opponentSingletonEnvelope)?.guaranteedCells)
@@ -495,7 +505,8 @@ export function collapseCpcxDebtRepairTokenProduct(position,contract,repair,{ret
     possibleCells:possibleOpponentSingletons,
     guaranteedCells:guaranteedOpponentSingletons,
     normalizationClosed:envelopeKnown&&possibleOpponentSingletons.length===0,
-    source:'intersection/union of exact component vertical singleton envelopes',
+    defenderEarliestTerminalLowerBound:opponentEarliestTerminalLowerBound,
+    source:'intersection/union of exact component vertical singleton envelopes plus minimum conservative defender terminal horizon',
   };
 
   return {
@@ -522,6 +533,8 @@ export function collapseCpcxDebtRepairTokenProduct(position,contract,repair,{ret
       opponentSingletonEnvelope,
       nextImmediateNormalizationClosed:
         opponentSingletonEnvelope.normalizationClosed,
+      opponentEarliestTerminalLowerBound:
+        opponentSingletonEnvelope.defenderEarliestTerminalLowerBound,
     },
     classes,
     responseClassCount:classes.length,
