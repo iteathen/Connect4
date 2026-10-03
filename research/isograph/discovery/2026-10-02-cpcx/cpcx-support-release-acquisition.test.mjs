@@ -91,13 +91,13 @@ test('opponent-terminal support scenario fails closed before acquisition',()=>{
 });
 
 test('support trigger creating a distinct opponent singleton fails capacity guard',()=>{
-  const g=createCpcxGeometry({columns:6,rows:3,connect:3}),
-    p=buildCpcxPosition('323531',{geometry:g}),
+  const g=createCpcxGeometry({columns:7,rows:3,connect:3}),
+    p=buildCpcxPosition('322531',{geometry:g}),
     r=residual(p,0,'B2-C2-D2'),
     c=certifyCpcxSupportReleaseAcquisition(p,{
       controllerResidual:r,
       targetCell:cell(g,3,1),
-      controllerActionCell:cell(g,0,1),
+      controllerActionCell:cell(g,6,0),
     });
 
   assert.equal(c.kind,'NO_CERTIFICATE');
