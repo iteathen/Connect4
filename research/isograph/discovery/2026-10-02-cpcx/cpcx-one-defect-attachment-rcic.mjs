@@ -675,6 +675,20 @@ export function certifyCpcxOneDefectAttachmentRcic(position,{
           afterDefender,template.uncovered??[]
         ))mergeResponse(responseMap,response);
 
+        if(!responseMap.size)trigger.rejected.push({
+          templateIndex,
+          templateSource:source,
+          policyKind:policy?.role??null,
+          seam:'NO_LICENSED_ONE_DEFECT_RESPONSE',
+          defectCell:template.defect?.cell??null,
+          defectLabel:template.defect?.cellLabel??null,
+          triggerColumn:defenderCell%g.columns,
+          partner:template.partner?.[defenderCell%g.columns]??null,
+          prefixLength:template.prefixLength?.[defenderCell%g.columns]??null,
+          columnCapacity:node.analysis.capacity?.[defenderCell%g.columns]??null,
+          uncoveredCount:template.uncovered?.length??0,
+        });
+
         for(const response of responseMap.values()){
           const sig=[
             templateIndex,
@@ -827,6 +841,8 @@ export function certifyCpcxOneDefectAttachmentRcic(position,{
         gap:node.gap,
         reservoirRank:node.reservoirRank,
         support:node.support,
+        analysisKind:node.analysis?.kind??null,
+        templateCount:templateRows(node.analysis).length,
         seam:node.seam??null,
         unresolvedTriggers:node.triggers
           .filter(x=>!x.selected)
