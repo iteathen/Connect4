@@ -8,7 +8,11 @@ import {
   classifyCpcxImmediate,
 } from './cpcx-closure.mjs';
 import {classifyCpcxProgress} from './cpcx-progress.mjs';
-import {runCpcxFirstWinCertificate} from './cpcx-successor.mjs';
+import {
+  runCpcxFirstWinCertificate,
+  composeCpcxForcingMacro,
+  composeCpcxForcedNormalization,
+} from './cpcx-successor.mjs';
 import {
   findAndCertifyCpcxPairStarProgress,
 } from './cpcx-pair-star.mjs';
@@ -375,6 +379,52 @@ for(const source of sources.values()){
             fw=immediateChild.terminal
               ?null
               :runCpcxFirstWinCertificate(immediateChild,{attacker:0});
+          let oneProgressHandoff=null;
+          if(!immediateChild.terminal&&pr?.exact){
+            let successor=null;
+            if(pr.kind==='FORCED_NORMALIZATION')
+              successor=composeCpcxForcedNormalization(immediateChild,pr);
+            else if(pr.kind==='CERTIFIED_FORCING_MACRO')
+              successor=composeCpcxForcingMacro(immediateChild,pr);
+            if(successor){
+              const q=successor.concretePosition??null,
+                protected=q
+                  ?findProtected(q)
+                  :null,
+                nextProgress=q
+                  ?classifyCpcxProgress(q,{player:0})
+                  :null;
+              oneProgressHandoff={
+                successorKind:successor.kind,
+                exact:successor.exact??false,
+                seam:successor.seam??null,
+                player:successor.player??null,
+                nextMover:successor.nextMover??q?.mover??null,
+                rank:successor.rank??(q?{
+                  options:[q.rank],deltaOptions:[],parity:q.rank&1
+                }:null),
+                concrete:Boolean(q),
+                support:q?Array.from(q.heights):null,
+                protectedResidual:protected?{
+                  lineId:protected.lineId,
+                  lineLabel:protected.lineLabel,
+                  missingCount:protected.missingCount,
+                  missing:protected.missingCells.map(label),
+                  support:protected.events.map(e=>e.supportDistance),
+                  playable:protected.currentlyPlayableCells.map(label),
+                }:null,
+                nextProgress:nextProgress
+                  ?progressSummary(nextProgress)
+                  :null,
+                p0SmallResiduals:q
+                  ?smallResidualSummary(q,0).slice(0,24)
+                  :[],
+                p1SmallResiduals:q
+                  ?smallResidualSummary(q,1).slice(0,24)
+                  :[],
+              };
+            }
+          }
           preControllerClosureProbe={
             eventCell:label(x.eventCell),
             terminal:immediateChild.terminal,
@@ -394,6 +444,7 @@ for(const source of sources.values()){
               seam:fw.seam??null,
               traceLength:fw.trace?.length??0,
             }:null,
+            oneProgressHandoff,
             p0SmallResiduals:immediateChild.terminal
               ?[]
               :smallResidualSummary(immediateChild,0).slice(0,24),
@@ -866,6 +917,7 @@ console.log(JSON.stringify({
     noTransferTargetBlockProbeRestrictedToSingleExposedTarget:true,
     preControllerClosureProbeInspectsExistingSecondLayerEventOnly:true,
     preControllerClosureProbeIsFalsificationOnly:true,
+    oneProgressHandoffUsesOnlyExistingExactMacro:true,
     noTransferTargetBlockProbeIsFalsificationOnly:true,
     f6ResponseProbeIsOneCurrentOpponentLayerOnly:true,
     f6ResponseProbeIsFalsificationOnly:true,
