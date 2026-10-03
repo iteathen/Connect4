@@ -1,4 +1,3 @@
-import assert from 'node:assert/strict';
 import {
   createCpcxGeometry,
   buildCpcxPosition,
@@ -58,11 +57,10 @@ const rootPosition=buildCpcxPosition(root,{geometry:g}),
   rootMax=maxima(rootRows),
   rootCenter=rootRows.find(x=>x.column===4);
 
-assert.deepEqual(
-  {A:rootCenter.A,B:rootCenter.B,H:rootCenter.H},
-  {A:6,B:6,H:0}
-);
-assert.deepEqual(rootMax.map(x=>x.column),[4]);
+if(rootCenter.A!==6||rootCenter.B!==6||rootCenter.H!==0)
+  throw new Error('unexpected root center tuple');
+if(JSON.stringify(rootMax.map(x=>x.column))!==JSON.stringify([4]))
+  throw new Error('unexpected root Pareto frontier');
 
 const branches=[];
 for(let sixth=1;sixth<=7;sixth++){
