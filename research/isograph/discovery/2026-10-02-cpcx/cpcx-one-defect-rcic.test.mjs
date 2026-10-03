@@ -13,10 +13,34 @@ function bySetup(rows,label){
   return rows.find(x=>x.setupLabel===label)??null;
 }
 
+function directRcic(position,setupColumn,targetCell){
+  const setupCell=position.heights[setupColumn]*g.columns+setupColumn,
+    child=applyCpcxForcedEvent(position,setupCell);
+  assert.equal(child.terminal,null);
+  return certifyCpcxOneDefectTargetReservoirRcic(child,{
+    attacker:0,targetCell,
+  });
+}
+
+function assertFirstWin(c,label){
+  assert.equal(
+    c.kind,
+    'CERTIFIED_FIRST_WIN',
+    `${label}: ${c.seam??'no seam'} ${JSON.stringify({
+      failedNode:c.failedNode??null,
+      defenderLabel:c.defenderLabel??null,
+      repair:c.repair??null,
+      reentry:c.reentry?.seam??null,
+    })}`,
+  );
+}
+
 test('rank10 full-coverage control closes by a one-defect RCIC after pair setup',()=>{
   const p=buildCpcxPosition('4444441123',{geometry:g}),
+    direct=directRcic(p,2,3*g.columns+4),
     rows=findCpcxPairSetupOneDefectRcicCertificates(p,{attacker:0}),
     c=bySetup(rows,'C2');
+  assertFirstWin(direct,'F9 direct RCIC');
   assert.ok(c);
   assert.equal(c.kind,'CERTIFIED_FIRST_WIN');
   assert.equal(c.exact,true);
@@ -35,8 +59,10 @@ test('rank10 full-coverage control closes by a one-defect RCIC after pair setup'
 
 test('two-stage renewal control closes with a strictly decreasing RCIC measure',()=>{
   const p=buildCpcxPosition('4444417765',{geometry:g}),
+    direct=directRcic(p,4,3*g.columns+2),
     rows=findCpcxPairSetupOneDefectRcicCertificates(p,{attacker:0}),
     c=bySetup(rows,'E2');
+  assertFirstWin(direct,'F17 direct RCIC');
   assert.ok(c);
   const rcic=c.childCertificate;
   assert.equal(rcic.kind,'CERTIFIED_FIRST_WIN');
@@ -54,8 +80,10 @@ test('two-stage renewal control closes with a strictly decreasing RCIC measure',
 
 test('ordinary-reservoir handoff control closes without a remoteness premise',()=>{
   const p=buildCpcxPosition('4444417465',{geometry:g}),
+    direct=directRcic(p,4,3*g.columns+2),
     rows=findCpcxPairSetupOneDefectRcicCertificates(p,{attacker:0}),
     c=bySetup(rows,'E2');
+  assertFirstWin(direct,'F18 direct RCIC');
   assert.ok(c);
   assert.equal(c.childCertificate.kind,'CERTIFIED_FIRST_WIN');
   assert.equal(c.childCertificate.lossDelayAssumed,false);
