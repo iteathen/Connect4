@@ -13,6 +13,7 @@ import {
   cpcxCell,
   scanCpcxObligations,
 } from './cpcx.mjs';
+import {applyCpcxForcedEvent} from './cpcx-closure.mjs';
 
 function unique(values){return [...new Set(values)].sort((a,b)=>a-b);}
 
@@ -297,4 +298,53 @@ export function findCpcxTruncatedTargetReservoirCertificates(position,{
     if(certificate.exact)out.push(certificate);
   }
   return out;
+}
+
+
+export function findCpcxTargetReservoirSetupCertificates(position,{
+  attacker=position.mover,
+}={}){
+  if(attacker!==0&&attacker!==1)throw new RangeError('attacker');
+  if(position.terminal||position.mover!==attacker)return [];
+  const g=position.geometry,out=[];
+  for(let column=0;column<g.columns;column++){
+    const row=position.heights[column];
+    if(row>=g.rows)continue;
+    const setupCell=row*g.columns+column,
+      child=applyCpcxForcedEvent(position,setupCell);
+    if(child.terminal){
+      if(child.terminal.player===attacker)out.push({
+        schema:'connect4.cpcx.target-reservoir-setup.v0_1',
+        kind:'CERTIFIED_FIRST_WIN',
+        exact:true,
+        player:attacker,
+        attacker,
+        setupCell,
+        setupLabel:labelCell(g,setupCell),
+        source:'TERMINAL_ON_SETUP',
+        childCertificate:null,
+        rankDeltaToCertificate:1,
+        gameTreeTraversal:false,
+        recursive:false,
+      });
+      continue;
+    }
+    const certificates=findCpcxTruncatedTargetReservoirCertificates(child,{attacker});
+    for(const childCertificate of certificates)out.push({
+      schema:'connect4.cpcx.target-reservoir-setup.v0_1',
+      kind:'CERTIFIED_FIRST_WIN',
+      exact:true,
+      player:attacker,
+      attacker,
+      setupCell,
+      setupLabel:labelCell(g,setupCell),
+      source:'SETUP_TO_TRUNCATED_TARGET_RESERVOIR',
+      childCertificate,
+      rankDeltaToCertificate:1,
+      theoremProvenance:'attacker setup lift + CPCX truncated target-reservoir theorem',
+      gameTreeTraversal:false,
+      recursive:false,
+    });
+  }
+  return out.sort((a,b)=>a.setupCell-b.setupCell);
 }
