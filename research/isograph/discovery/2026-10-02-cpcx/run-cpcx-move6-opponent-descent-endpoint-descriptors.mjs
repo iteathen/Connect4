@@ -1202,7 +1202,91 @@ for(const source of sources.values()){
                                 seam:qf.seam??null,
                                 traceLength:qf.trace?.length??0,
                               }:null,
-                              verticalTwoStage:vertical,
+                              verticalTwoStage:vertical.map(v=>{
+                                if(v.certificate.kind!==
+                                     'POST_LOWER_FIRST_WIN_GUARD_FAILURE')
+                                  return v;
+                                const d=findCpcxVerticalTwoStageObligations(
+                                    q,{player:0}
+                                  ).find(x=>
+                                    x.obligation.lineId===v.lineId&&
+                                    label(x.lowerCell)===v.lower&&
+                                    label(x.upperCell)===v.upper
+                                  ),
+                                  c=d?certifyCpcxVerticalTwoStage(q,d):null,
+                                  pp=d&&c&&
+                                    c.kind==='POST_LOWER_FIRST_WIN_GUARD_FAILURE'
+                                    ?partitionCpcxVerticalTwoStageGuard(q,d,c)
+                                    :null;
+                                return {
+                                  ...v,
+                                  risks:(c?.risks??[]).map(x=>({
+                                    kind:x.kind,
+                                    defenderMove:Number.isInteger(x.defenderMove)
+                                      ?label(x.defenderMove):null,
+                                    targetCell:Number.isInteger(x.targetCell)
+                                      ?label(x.targetCell):null,
+                                    obligationId:x.obligationId??null,
+                                  })),
+                                  partition:pp?{
+                                    preemptCell:label(pp.preemptCell),
+                                    safeNonpreemptFrontier:
+                                      pp.safeNonpreemptFrontier.map(label),
+                                    hazardClasses:
+                                      pp.guardNormalizationClasses.map(x=>({
+                                        defenderMove:label(x.defenderMove),
+                                        targetCells:x.targetCells.map(label),
+                                      })),
+                                    responseClasses:pp.responseClasses,
+                                  }:null,
+                                };
+                              }),
+                              postProgress:(()=>{
+                                if(!q||!qp?.exact||
+                                   qp.kind!=='CERTIFIED_FORCING_MACRO')
+                                  return null;
+                                const successor=composeCpcxForcingMacro(q,qp),
+                                  next=successor?.concretePosition??null;
+                                if(!successor?.exact)return {
+                                  kind:successor?.kind??null,
+                                  exact:false,
+                                  seam:successor?.seam??null,
+                                };
+                                if(!next)return {
+                                  kind:successor.kind,
+                                  exact:true,
+                                  concrete:false,
+                                  sourceKind:successor.source?.kind??null,
+                                  rank:successor.rank??null,
+                                };
+                                const np=classifyCpcxProgress(
+                                    next,{player:0}
+                                  ),
+                                  nf=runCpcxFirstWinCertificate(
+                                    next,{attacker:0}
+                                  );
+                                return {
+                                  kind:successor.kind,
+                                  exact:true,
+                                  concrete:true,
+                                  sourceKind:successor.source?.kind??null,
+                                  rank:next.rank,
+                                  mover:next.mover,
+                                  support:Array.from(next.heights),
+                                  progress:progressSummary(np),
+                                  firstWin:{
+                                    kind:nf.kind,
+                                    exact:nf.exact??false,
+                                    player:nf.player??null,
+                                    seam:nf.seam??null,
+                                    traceLength:nf.trace?.length??0,
+                                  },
+                                  p0SmallResiduals:
+                                    smallResidualSummary(next,0).slice(0,16),
+                                  p1SmallResiduals:
+                                    smallResidualSummary(next,1).slice(0,16),
+                                };
+                              })(),
                             };
                           }),
                         responseClasses:partition.responseClasses,
