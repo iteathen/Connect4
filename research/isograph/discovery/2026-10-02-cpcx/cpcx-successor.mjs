@@ -72,6 +72,43 @@ function exactResiduals(position){
   }));
 }
 
+function supportPhaseVector(heights){
+  return Array.from(heights,h=>h&1);
+}
+
+function uniquePhaseVectors(vectors){
+  const m=new Map();
+  for(const v of vectors)m.set(v.join(''),v);
+  return [...m.values()].sort((a,b)=>a.join('').localeCompare(b.join('')));
+}
+
+function verticalSupportPhaseVectors(position,demand,certificate){
+  const base=supportPhaseVector(position.heights),
+    lowerColumn=cpcxCell(position.geometry,demand.lowerCell).column;
+
+  if(certificate.kind==='FORCED_UPPER_RESPONSE')
+    return [base];
+
+  if(certificate.kind!=='PREEMPT_OR_FORCED_UPPER')
+    throw new TypeError('unsupported vertical phase certificate');
+
+  const vectors=[];
+  const preempt=[...base];
+  preempt[lowerColumn]^=1;
+  vectors.push(preempt);
+
+  for(const externalCell of certificate.nonpreemptFrontier){
+    const externalColumn=cpcxCell(position.geometry,externalCell).column,
+      delayed=[...base];
+    // Delayed class adds two cells in the vertical-demand column, so that
+    // column's support parity is unchanged. The one external defender event
+    // toggles only its own column.
+    delayed[externalColumn]^=1;
+    vectors.push(delayed);
+  }
+  return uniquePhaseVectors(vectors);
+}
+
 function verticalSupportInterval(position,demand,certificate,cell){
   const g=position.geometry,target=cpcxCell(g,cell),
     lower=cpcxCell(g,demand.lowerCell),
@@ -104,6 +141,7 @@ function abstractVerticalSuccessor(position,macro,collapse,envelope){
       position,demand,certificate
     ),
     rankOptions=collapse.rankDeltaOptions.map(x=>position.rank+x),
+    supportPhaseVectors=verticalSupportPhaseVectors(position,demand,certificate),
     residuals=collapse.guaranteedResiduals.map(r=>({
       id:r.id,
       player:r.player,
@@ -139,6 +177,11 @@ function abstractVerticalSuccessor(position,macro,collapse,envelope){
       allSameParity:rankOptions.every(x=>(x&1)===(rankOptions[0]&1)),
     },
     controlParityEquivalent:collapse.controlParityEquivalent,
+    supportPhase:{
+      exact:true,
+      vectors:supportPhaseVectors,
+      source:'exact vertical preempt/delayed support-parity projection',
+    },
     guaranteedResiduals:residuals,
     blockerTokens:collapse.externalDefenderUncertainty?[{
       owner:demand.defender,
@@ -193,6 +236,11 @@ export function composeCpcxForcingMacro(position,progress){
         allSameParity:true,
       },
       controlParityEquivalent:true,
+      supportPhase:{
+        exact:true,
+        vectors:[supportPhaseVector(next.position.heights)],
+        source:'exact concrete successor support parity',
+      },
       guaranteedResiduals:exactResiduals(next.position),
       blockerTokens:[],
       firstWinFacts:{
@@ -240,6 +288,11 @@ export function composeCpcxForcingMacro(position,progress){
           allSameParity:true,
         },
         controlParityEquivalent:true,
+        supportPhase:{
+          exact:true,
+          vectors:[supportPhaseVector(next.position.heights)],
+          source:'exact concrete successor support parity',
+        },
         guaranteedResiduals:exactResiduals(next.position),
         blockerTokens:[],
         opponentSingletonEnvelope:envelope,
@@ -290,6 +343,11 @@ export function composeCpcxForcedNormalization(position,progress){
       allSameParity:true,
     },
     controlParityEquivalent:false,
+    supportPhase:{
+      exact:true,
+      vectors:[supportPhaseVector(next.heights)],
+      source:'exact concrete successor support parity',
+    },
     guaranteedResiduals:exactResiduals(next),
     blockerTokens:[],
     firstWinFacts:{
