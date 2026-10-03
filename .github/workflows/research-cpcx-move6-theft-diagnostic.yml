@@ -6,6 +6,7 @@ on:
       - experiment/cpcx-20261002
     paths:
       - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-theft-setups.mjs
+      - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-theft-two-ply.mjs
       - .github/workflows/research-cpcx-move6-theft-diagnostic.yml
   workflow_dispatch:
 
@@ -24,12 +25,15 @@ jobs:
       - name: Run theft setup diagnostic
         run: |
           node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-theft-setups.mjs > cpcx-move6-theft-setups.json
+          node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-theft-two-ply.mjs > cpcx-move6-theft-two-ply.json
           node --input-type=module -e "
             import fs from 'node:fs';
             const x=JSON.parse(fs.readFileSync('cpcx-move6-theft-setups.json','utf8'));
+            const y=JSON.parse(fs.readFileSync('cpcx-move6-theft-two-ply.json','utf8'));
             console.log(JSON.stringify({
-              summary:x.summary,
-              rows:x.rows.map(r=>({
+              onePlySummary:x.summary,
+              twoPlySummary:y.summary,
+              onePlyRows:x.rows.map(r=>({
                 sixthMove:r.sixthMove,
                 stolenTrigger:r.stolenTrigger,
                 certifiedSetups:r.certifiedSetups.map(s=>({
@@ -37,11 +41,23 @@ jobs:
                   source:s.certificate?.firstSource??s.progress?.source??null,
                   traceLength:s.certificate?.traceLength??null
                 }))
+              })),
+              twoPlyRows:y.rows.map(r=>({
+                sixthMove:r.sixthMove,
+                stolenTrigger:r.stolenTrigger,
+                universalSetups:r.universalSetups.map(x=>x.setupCell),
+                bestSetups:r.bestSetups.map(x=>({
+                  setupCell:x.setupCell,
+                  certifiedReplyCount:x.certifiedReplyCount??null,
+                  replyCount:x.replyCount??null
+                }))
               }))
             },null,2));
           "
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
           name: cpcx-move6-theft-setups
-          path: cpcx-move6-theft-setups.json
+          path: |
+            cpcx-move6-theft-setups.json
+            cpcx-move6-theft-two-ply.json
           if-no-files-found: error
