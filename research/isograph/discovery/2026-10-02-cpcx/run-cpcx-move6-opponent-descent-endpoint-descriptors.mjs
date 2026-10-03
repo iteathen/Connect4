@@ -129,6 +129,15 @@ function d3WindowComplex(p){
   };
 }
 
+function frontierCells(p){
+  const out=[];
+  for(let c=0;c<p.geometry.columns;c++){
+    const row=p.heights[c];
+    if(row<p.geometry.rows)out.push(row*p.geometry.columns+c);
+  }
+  return out;
+}
+
 function smallResidualSummary(p,player){
   return scanCpcxObligations(p)
     .filter(o=>o.player===player&&o.missingCount<=3)
@@ -417,6 +426,41 @@ for(const source of sources.values()){
                     singletonCells:x.certificate.singletonCells.map(label),
                     deficiency:x.certificate.deficiency,
                   })),
+              currentP0Actions:child.terminal?[]:frontierCells(child).map(actionCell=>{
+                const next=applyCpcxForcedEvent(child,actionCell);
+                if(next.terminal)return {
+                  actionCell:label(actionCell),
+                  terminal:next.terminal,
+                  progress:null,
+                  firstWin:null,
+                };
+                const progress=classifyCpcxProgress(next,{player:0}),
+                  first=runCpcxFirstWinCertificate(next,{attacker:0});
+                return {
+                  actionCell:label(actionCell),
+                  terminal:null,
+                  immediate:(()=>{
+                    const im=classifyCpcxImmediate(next);
+                    return {
+                      kind:im.kind,
+                      mover:im.mover??null,
+                      cell:Number.isInteger(im.cell)?label(im.cell):null,
+                      winningCells:(im.winningCells??[]).map(label),
+                      threatCells:(im.threatCells??
+                        im.opponentThreatCells??[]).map(label),
+                    };
+                  })(),
+                  progress:progressSummary(progress),
+                  firstWin:{
+                    kind:first.kind,
+                    exact:first.exact??false,
+                    player:first.player??null,
+                    seam:first.seam??null,
+                    traceLength:first.trace?.length??0,
+                  },
+                  p0SmallResiduals:smallResidualSummary(next,0).slice(0,12),
+                };
+              }),
               support:child.terminal?null:Array.from(child.heights),
               rank:child.rank,
               mover:child.mover,
@@ -558,6 +602,30 @@ console.log(JSON.stringify({
     noTransferTargetBlockPairHubForkCount:noTransferProbes.reduce(
       (n,x)=>n+(x.pairHubForks?.length??0),0
     ),
+    commonPostBlockCurrentActionLabels:(()=>{
+      if(!noTransferProbes.length)return [];
+      let labels=noTransferProbes[0].currentP0Actions.map(x=>x.actionCell);
+      for(const probe of noTransferProbes.slice(1)){
+        const set=new Set(probe.currentP0Actions.map(x=>x.actionCell));
+        labels=labels.filter(x=>set.has(x));
+      }
+      return labels.sort();
+    })(),
+    commonPostBlockExactFirstWinActions:(()=>{
+      if(!noTransferProbes.length)return [];
+      let labels=noTransferProbes[0].currentP0Actions.filter(x=>
+        x.terminal?.player===0||
+        x.firstWin?.kind==='CERTIFIED_FIRST_WIN'&&x.firstWin.player===0
+      ).map(x=>x.actionCell);
+      for(const probe of noTransferProbes.slice(1)){
+        const set=new Set(probe.currentP0Actions.filter(x=>
+          x.terminal?.player===0||
+          x.firstWin?.kind==='CERTIFIED_FIRST_WIN'&&x.firstWin.player===0
+        ).map(x=>x.actionCell));
+        labels=labels.filter(x=>set.has(x));
+      }
+      return labels.sort();
+    })(),
     commonPostBlockP0Residuals,
     endpointCount:endpoints.length,
     terminalCount:terminals.length,
