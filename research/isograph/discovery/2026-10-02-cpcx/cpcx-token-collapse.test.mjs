@@ -42,14 +42,9 @@ test('first-deviation classes collapse without arbitrary second-frontier product
   }
 });
 
-test('second-deviation class advances for every move except retained move-3 special seam',()=>{
+test('reflection-canonical second-deviation class advances for every sixth move',()=>{
   for(let move=1;move<=7;move++){
     const c=collapse(move,1);
-    if(move===3){
-      assert.equal(c.kind,'NO_CERTIFICATE');
-      assert.equal(c.seam,'VERTICAL_TWO_STAGE_CLASSIFICATION_MISSING');
-      continue;
-    }
     assert.equal(c.kind,'ABSTRACT_SUCCESSOR',String(move));
     assert.equal(c.exact,true,String(move));
     assert.equal(c.nextMover,0,String(move));
