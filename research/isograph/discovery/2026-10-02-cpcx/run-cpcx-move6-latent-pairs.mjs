@@ -28,8 +28,12 @@ import {
   certifyCpcxReservoirCoverageGapRcic,
   certifyCpcxReservoirAttachmentRcic,
 } from './cpcx-reservoir-gap-rcic.mjs';
+import {
+  canonicalizeCpcxExactReflection,
+  reflectCpcxCell,
+} from './cpcx-control-quotient.mjs';
 
-const g=createCpcxGeometry(),root=buildCpcxPosition('44444',{geometry:g});
+const g=createCpcxGeometry(),root=buildCpcxPosition('44444',{geometry:g});\n\nconst coverageRcicCache=new Map(),attachmentRcicCache=new Map();\n\nfunction exactRcicKey(position,targetCell){\n  const c=canonicalizeCpcxExactReflection(position),\n    canonicalTarget=c.reflected?reflectCpcxCell(position.geometry,targetCell):targetCell;\n  return {\n    key:`${c.key}|target:${canonicalTarget}`,\n    position:c.position,\n    targetCell:canonicalTarget,\n    reflected:c.reflected,\n  };\n}\n\nfunction cachedCoverageRcic(position,targetCell){\n  const k=exactRcicKey(position,targetCell);\n  if(!coverageRcicCache.has(k.key))coverageRcicCache.set(\n    k.key,\n    certifyCpcxReservoirCoverageGapRcic(\n      k.position,{attacker:0,targetCell:k.targetCell,maxNodes:2048}\n    )\n  );\n  return coverageRcicCache.get(k.key);\n}\n\nfunction cachedAttachmentRcic(position,targetCell){\n  const k=exactRcicKey(position,targetCell);\n  if(!attachmentRcicCache.has(k.key))attachmentRcicCache.set(\n    k.key,\n    certifyCpcxReservoirAttachmentRcic(\n      k.position,{attacker:0,targetCell:k.targetCell,maxNodes:4096}\n    )\n  );\n  return attachmentRcicCache.get(k.key);\n}\n
 
 function label(cell){
   const {column,row}=cpcxCell(g,cell);
@@ -500,17 +504,13 @@ function ladderPoisonBranches(position,pair){
             Number.isInteger(targetCell)&&
             !afterEndpoint.terminal&&
             reservoirCoverage?.kind==='TRUNCATED_TARGET_STATIC_COVERAGE_GAP'
-              ?certifyCpcxReservoirCoverageGapRcic(
-                afterEndpoint,{attacker:0,targetCell,maxNodes:2048}
-              )
+              ?cachedCoverageRcic(afterEndpoint,targetCell)
               :null,
           attachmentRcic=
             Number.isInteger(targetCell)&&
             !afterEndpoint.terminal&&
             reservoirCoverage?.kind==='TRUNCATED_TARGET_STATIC_COVERAGE_GAP'
-              ?certifyCpcxReservoirAttachmentRcic(
-                afterEndpoint,{attacker:0,targetCell,maxNodes:4096}
-              )
+              ?cachedAttachmentRcic(afterEndpoint,targetCell)
               :null;
         branches.push({
           endpoint:event.label,
@@ -881,8 +881,10 @@ console.log(JSON.stringify({
     coverageRepairResultCounts,
     coverageRcicCounts,
     coverageRcicByGap,
+    coverageRcicUniqueExactStates:coverageRcicCache.size,
     attachmentRcicCounts,
     attachmentRcicByGap,
+    attachmentRcicUniqueExactStates:attachmentRcicCache.size,
     uniqueSetupPatternCount:uniqueSetupPatterns.size,
     uniqueSetupPatterns:[...uniqueSetupPatterns.values()]
       .sort((a,b)=>b.count-a.count||JSON.stringify(a.pattern).localeCompare(JSON.stringify(b.pattern))),
