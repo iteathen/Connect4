@@ -97,7 +97,7 @@ test('all seven sixth actions admit an untouched-wing honored-response win on th
 test('wing deviation is typed as debt rather than recursively followed',()=>{
   const p=buildCpcxPosition('44444',{geometry:g});
   const c=compileCpcxPostActionWingAttack(p,{actionCell:0,actionOwner:1,attacker:0});
-  const honored=classifyCpcxWingDeviation(c,{decisionIndex:0,actualReplyCell:11});
+  const honored=classifyCpcxWingDeviation(c,{decisionIndex:0,actualReplyCell:c.anchoredLine.requiredResponseCells[0]});
   const stolen=classifyCpcxWingDeviation(c,{decisionIndex:0,actualReplyCell:5});
   assert.equal(honored.kind,'HONORED_RESPONSE');
   assert.equal(stolen.kind,'TRIGGER_STOLEN_DEBT');
@@ -136,15 +136,39 @@ test('second wing response deviation also reduces to deterministic repair plus s
   }
 });
 
-test('canonical right-wing debt repair produces three deviation-invariant pair residuals',()=>{
+test('reflected sixth actions produce reflected wing trigger and debt-repair carriers',()=>{
   const p=buildCpcxPosition('44444',{geometry:g}),
-    c=compileCpcxPostActionWingAttack(p,{actionCell:0,actionOwner:1,attacker:0}),
-    d=deriveCpcxUniversalDebtRepair(p,c,{decisionIndex:0}),
-    pairs=d.guaranteedResiduals.filter(x=>x.missingCount===2),
-    labels=new Set(pairs.map(x=>x.lineLabel));
-  for(const line of ['D1-E2-F3-G4','E1-E2-E3-E4','B5-C4-D3-E2'])
-    assert.ok(labels.has(line),line);
-  for(const x of pairs)for(const e of x.events)
+    reflect=cell=>{
+      const column=cell%g.columns,row=Math.floor(cell/g.columns);
+      return row*g.columns+(g.columns-1-column);
+    },
+    right=compileCpcxPostActionWingAttack(p,{actionCell:0,actionOwner:1,attacker:0}),
+    left=compileCpcxPostActionWingAttack(p,{actionCell:6,actionOwner:1,attacker:0});
+  assert.equal(right.anchoredLine.triggerOrder,'OUTER_TO_ANCHOR_REFLECTION_CANONICAL');
+  assert.equal(left.anchoredLine.triggerOrder,'OUTER_TO_ANCHOR_REFLECTION_CANONICAL');
+  assert.deepEqual(
+    right.anchoredLine.triggerCells,
+    left.anchoredLine.triggerCells.map(reflect),
+  );
+  assert.deepEqual(
+    right.anchoredLine.requiredResponseCells,
+    left.anchoredLine.requiredResponseCells.map(reflect),
+  );
+
+  const dr=deriveCpcxUniversalDebtRepair(p,right,{decisionIndex:0}),
+    dl=deriveCpcxUniversalDebtRepair(p,left,{decisionIndex:0}),
+    key=(r,doReflect)=>JSON.stringify({
+      player:r.player??0,
+      orientation:r.orientation,
+      missingCount:r.missingCount,
+      cells:r.missingCells.map(c=>doReflect?reflect(c):c).sort((a,b)=>a-b),
+      eventParity:r.events.map(e=>e.eventRank&1).sort((a,b)=>a-b),
+    }),
+    rk=dr.guaranteedResiduals.map(r=>key(r,false)).sort(),
+    lk=dl.guaranteedResiduals.map(r=>key(r,true)).sort();
+  assert.deepEqual(rk,lk);
+  assert.ok(dr.guaranteedResiduals.some(x=>x.missingCount===2));
+  for(const x of dr.guaranteedResiduals)for(const e of x.events)
     assert.ok(Number.isInteger(e.eventRank));
 });
 
