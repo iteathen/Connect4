@@ -78,6 +78,45 @@ function trackInfo(line){
     lineCells:cells.map(label),
   };
 }
+function d3WindowComplex(p){
+  const d3=2*g.columns+3,
+    obligations=new Map(scanCpcxObligations(p)
+      .filter(o=>o.player===0)
+      .map(o=>[o.lineId,o])),
+    rows=g.lines.filter(line=>
+      (line.orientation==='D+'||line.orientation==='D-')&&
+      line.cells.includes(d3)
+    ).map(line=>{
+      const t=trackInfo(line),
+        R=obligations.get(line.id)??null,
+        p1Cells=line.cells.filter(cell=>p.owner[cell]===1),
+        p0Cells=line.cells.filter(cell=>p.owner[cell]===0),
+        emptyCells=line.cells.filter(cell=>p.owner[cell]===-1);
+      return {
+        orientation:line.orientation,
+        windowOffset:t.windowOffset,
+        lineCells:t.lineCells,
+        liveForP0:p1Cells.length===0,
+        p0Cells:p0Cells.map(label).sort(),
+        p1Cells:p1Cells.map(label).sort(),
+        emptyCells:emptyCells.map(label).sort(),
+        residualTuple:R?[R.missingCount,supportDebt(R)]:null,
+        residualMissing:R?[...R.missingCells].map(label):[],
+        residualSupport:R?[...R.events]
+          .sort((a,b)=>b.row-a.row||a.column-b.column)
+          .map(e=>e.supportDistance):[],
+      };
+    }).sort((a,b)=>
+      a.orientation.localeCompare(b.orientation)||
+      a.windowOffset-b.windowOffset
+    );
+  return {
+    liveMask:rows.map(x=>x.liveForP0?1:0).join(''),
+    liveWindowCount:rows.filter(x=>x.liveForP0).length,
+    rows,
+  };
+}
+
 function transferKind(p,R,cell){
   const e=R.events.find(x=>x.cell===cell);
   if(!e||e.supportDistance!==0)return 'HIDDEN';
@@ -125,6 +164,7 @@ function descriptor(p,R){
       transferKind:transferKind(p,R,e.cell),
     })),
     remainingCapacity:g.cellCount-p.rank,
+    d3WindowComplex:d3WindowComplex(p),
     mover:p.mover,
   };
 }
@@ -258,6 +298,23 @@ console.log(JSON.stringify({
         .map(k=>[k,endpoints.filter(x=>x.descriptor.missingCount===k).length])
     ),
     currentTargetTransferKinds:transferCounts,
+    d3WindowMaskClassCount:new Set(endpoints.map(x=>
+      x.descriptor.d3WindowComplex.liveMask
+    )).size,
+    d3WindowMaskClasses:[...new Set(endpoints.map(x=>
+      x.descriptor.d3WindowComplex.liveMask
+    ))].sort().map(mask=>({
+      mask,
+      count:endpoints.filter(x=>
+        x.descriptor.d3WindowComplex.liveMask===mask
+      ).length,
+      minimumLiveWindowCount:Math.min(...endpoints
+        .filter(x=>x.descriptor.d3WindowComplex.liveMask===mask)
+        .map(x=>x.descriptor.d3WindowComplex.liveWindowCount)),
+    })),
+    minimumLiveD3WindowCount:Math.min(...endpoints.map(x=>
+      x.descriptor.d3WindowComplex.liveWindowCount
+    )),
     noCurrentPlayableTargetLacksTransfer:endpoints.every(x=>
       x.descriptor.targetTransferKinds.every(t=>
         t.supportDistance!==0||t.transferKind!=='NO_TRANSFER'
