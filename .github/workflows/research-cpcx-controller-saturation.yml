@@ -1,0 +1,37 @@
+name: Research CPCX controller saturation
+
+on:
+  push:
+    branches:
+      - experiment/cpcx-20261002
+    paths:
+      - research/isograph/discovery/2026-10-02-cpcx/cpcx-controller-saturation.mjs
+      - research/isograph/discovery/2026-10-02-cpcx/cpcx-controller-saturation.test.mjs
+      - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-controller-saturation.mjs
+      - research/isograph/discovery/2026-10-02-cpcx/cpcx-highest-target-descent.mjs
+      - research/isograph/discovery/2026-10-02-cpcx/cpcx-forced-normalization.mjs
+      - research/isograph/discovery/2026-10-02-cpcx/cpcx-move6-unresolved-classes.mjs
+      - .github/workflows/research-cpcx-controller-saturation.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: "26.7.0"
+      - name: Qualify controller saturation
+        run: node --test research/isograph/discovery/2026-10-02-cpcx/cpcx-controller-saturation.test.mjs
+      - name: Apply to turn6 unresolved classes
+        run: node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-controller-saturation.mjs > cpcx-move6-controller-saturation.json
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: cpcx-controller-saturation
+          path: cpcx-move6-controller-saturation.json
+          if-no-files-found: error
