@@ -9,6 +9,8 @@ on:
       - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-restriction-ladder.mjs
       - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-final-block-ranked-reservoir.mjs
       - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-final-block-pair-options.mjs
+      - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-final-block-one-defect-attachment.mjs
+      - research/isograph/discovery/2026-10-02-cpcx/cpcx-one-defect-attachment-rcic.mjs
       - research/isograph/discovery/2026-10-02-cpcx/cpcx-reservoir-gap-rcic.mjs
       - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-control-quotient.mjs
       - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-representative-proof-matrix.mjs
@@ -37,6 +39,7 @@ jobs:
           node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-restriction-ladder.mjs > cpcx-move6-restriction-ladder.json
           node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-final-block-ranked-reservoir.mjs > cpcx-move6-final-block-ranked-reservoir.json
           node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-final-block-pair-options.mjs > cpcx-move6-final-block-pair-options.json
+          node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-final-block-one-defect-attachment.mjs > cpcx-move6-final-block-one-defect-attachment.json
           node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-control-quotient.mjs > cpcx-move6-control-quotient.json
           node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-representative-proof-matrix.mjs > cpcx-move6-representative-proof-matrix.json
           node --input-type=module -e "
@@ -70,6 +73,7 @@ jobs:
             cpcx-move6-restriction-ladder.json
             cpcx-move6-final-block-ranked-reservoir.json
             cpcx-move6-final-block-pair-options.json
+            cpcx-move6-final-block-one-defect-attachment.json
             cpcx-move6-control-quotient.json
             cpcx-move6-representative-proof-matrix.json
           if-no-files-found: error
