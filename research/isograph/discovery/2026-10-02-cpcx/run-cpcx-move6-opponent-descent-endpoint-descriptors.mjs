@@ -132,6 +132,34 @@ function transferKind(p,R,cell){
     return 'ANCHOR_PIVOT';
   return 'NO_TRANSFER';
 }
+function supportResourceState(p){
+  const support=Array.from(p.heights),
+    remaining=support.map(h=>g.rows-h),
+    parity=remaining.map(x=>x&1),
+    sideOddColumns=[];
+  for(let c=0;c<g.columns;c++)
+    if(c!==3&&parity[c])sideOddColumns.push(c);
+  const centerOwnerWord=Array.from({length:g.rows},(_,row)=>
+    p.owner[row*g.columns+3]
+  );
+  return {
+    support,
+    remaining,
+    capacityParity:parity,
+    oddCapacityColumns:parity
+      .map((x,c)=>x?c:null).filter(Number.isInteger),
+    sideOddCapacityColumns:sideOddColumns,
+    sideOddCapacityCount:sideOddColumns.length,
+    centerSaturated:support[3]===g.rows,
+    centerOwnerWord,
+    alternatingCenterSpine:
+      support[3]===g.rows&&
+      centerOwnerWord.every((owner,row)=>owner===(row&1)),
+    singleOddSideDebt:
+      support[3]===g.rows&&sideOddColumns.length===1,
+  };
+}
+
 function descriptor(p,R){
   const line=g.lines[R.lineId],
     lineCells=[...line.cells],
@@ -164,6 +192,7 @@ function descriptor(p,R){
       transferKind:transferKind(p,R,e.cell),
     })),
     remainingCapacity:g.cellCount-p.rank,
+    supportResource:supportResourceState(p),
     d3WindowComplex:d3WindowComplex(p),
     mover:p.mover,
   };
@@ -315,6 +344,40 @@ console.log(JSON.stringify({
     minimumLiveD3WindowCount:Math.min(...endpoints.map(x=>
       x.descriptor.d3WindowComplex.liveWindowCount
     )),
+    exhaustedMask111000:{
+      count:endpoints.filter(x=>
+        x.descriptor.d3WindowComplex.liveMask==='111000'
+      ).length,
+      centerSaturatedCount:endpoints.filter(x=>
+        x.descriptor.d3WindowComplex.liveMask==='111000'&&
+        x.descriptor.supportResource.centerSaturated
+      ).length,
+      alternatingCenterSpineCount:endpoints.filter(x=>
+        x.descriptor.d3WindowComplex.liveMask==='111000'&&
+        x.descriptor.supportResource.alternatingCenterSpine
+      ).length,
+      singleOddSideDebtCount:endpoints.filter(x=>
+        x.descriptor.d3WindowComplex.liveMask==='111000'&&
+        x.descriptor.supportResource.singleOddSideDebt
+      ).length,
+      resourceClasses:[...new Map(endpoints.filter(x=>
+        x.descriptor.d3WindowComplex.liveMask==='111000'
+      ).map(x=>[
+        JSON.stringify({
+          support:x.descriptor.supportResource.support,
+          remaining:x.descriptor.supportResource.remaining,
+          capacityParity:x.descriptor.supportResource.capacityParity,
+          sideOddCapacityColumns:x.descriptor.supportResource.sideOddCapacityColumns,
+          centerOwnerWord:x.descriptor.supportResource.centerOwnerWord,
+        }),{
+          support:x.descriptor.supportResource.support,
+          remaining:x.descriptor.supportResource.remaining,
+          capacityParity:x.descriptor.supportResource.capacityParity,
+          sideOddCapacityColumns:x.descriptor.supportResource.sideOddCapacityColumns,
+          centerOwnerWord:x.descriptor.supportResource.centerOwnerWord,
+        }
+      ])).values()],
+    },
     noCurrentPlayableTargetLacksTransfer:endpoints.every(x=>
       x.descriptor.targetTransferKinds.every(t=>
         t.supportDistance!==0||t.transferKind!=='NO_TRANSFER'
