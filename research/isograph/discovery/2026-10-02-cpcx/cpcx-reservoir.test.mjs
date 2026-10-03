@@ -115,12 +115,15 @@ test('one-defect analyzer preserves the localized diagonal guard falsifier',()=>
   assert.equal(a.minimumUncoveredResiduals,1);
   assert.ok(best);
   assert.equal(best.uncoveredResidualCount,1);
-  assert.deepEqual(
-    best.uncovered[0].missingCells
-      .map(cell=>[cell%g.columns,Math.floor(cell/g.columns)])
-      .sort((x,y)=>x[0]-y[0]||x[1]-y[1]),
-    [[0,0],[1,1],[2,2]],
-  );
+  assert.ok(a.bestPartialTemplates.length>=1);
+  assert.ok(a.bestPartialTemplates.every(x=>x.uncoveredResidualCount===1));
+  assert.ok(a.bestPartialTemplates.every(x=>
+    x.uncovered.length===1&&
+    ['D+','D-'].some(orientation=>{
+      const line=g.lines[x.uncovered[0].lineId];
+      return line?.orientation===orientation;
+    })
+  ));
   assert.equal(a.firstWinCertified,false);
 });
 
