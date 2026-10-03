@@ -78,6 +78,17 @@ function transferCandidate(position,sourceResidual,blockedCell){
 function summarizeCertificate(c){
   return {kind:c.kind,exact:c.exact??false,seam:c.seam??null,player:c.player??null,actionCell:Number.isInteger(c.actionCell)?label(c.actionCell):null,targetCell:Number.isInteger(c.targetCell)?label(c.targetCell):null,missingCountDelta:c.missingCountDelta??null,supportDebtDelta:c.supportDebtDelta??null};
 }
+function descentWins(d){
+  if(!d)return false;
+  if(['FORCED_NORMALIZATION_FIRST_WIN','CONTROLLER_FIRST_WIN','EXTERNAL_IMMEDIATE_WIN'].includes(d.kind))return true;
+  return d.kind==='FORCED_NORMALIZATION_THEN_DESCENT'&&descentWins(d.next);
+}
+function descentFinalTuple(d){
+  if(!d)return null;
+  if(Array.isArray(d.childTuple))return d.childTuple;
+  if(d.kind==='FORCED_NORMALIZATION_THEN_DESCENT')return descentFinalTuple(d.next);
+  return null;
+}
 function controllerDescent(position,R){
   if(position.terminal)return {kind:'SOURCE_TERMINAL',terminal:position.terminal,exact:false};
   if(position.mover!==R.player)return {kind:'WRONG_MOVER',exact:false};
@@ -156,8 +167,13 @@ for(const source of normalized){
       if(child.terminal){responses.push({eventCell:label(eventCell),role:'PROTECTED_TARGET_OCCUPATION',terminal:child.terminal,exact:child.terminal.player===0});continue;}
       const transfer=transferCandidate(child,R,eventCell);
       if(!transfer){responses.push({eventCell:label(eventCell),role:'PROTECTED_TARGET_OCCUPATION',exact:false,seam:'NO_STRICTLY_LOWER_TRANSFER'});continue;}
-      const descent=controllerDescent(child,transfer.residual);
-      responses.push({eventCell:label(eventCell),role:'PROTECTED_TARGET_OCCUPATION',exact:descent.exact===true,sourceTuple:tuple(R),transfer:{lineLabel:transfer.residual.lineLabel,overlap:transfer.overlap.map(label),tuple:tuple(transfer.residual),playable:transfer.residual.currentlyPlayableCells.map(label)},descent});
+      const descent=controllerDescent(child,transfer.residual),
+        sourceTuple=tuple(R),finalTuple=descentFinalTuple(descent),
+        strictDescentOrWin=descent.exact===true&&(
+          descentWins(descent)||
+          (finalTuple?tupleLess(finalTuple,sourceTuple):tupleLess(tuple(transfer.residual),sourceTuple))
+        );
+      responses.push({eventCell:label(eventCell),role:'PROTECTED_TARGET_OCCUPATION',exact:descent.exact===true,strictDescentOrWin,sourceTuple,finalTuple,transfer:{lineLabel:transfer.residual.lineLabel,overlap:transfer.overlap.map(label),tuple:tuple(transfer.residual),playable:transfer.residual.currentlyPlayableCells.map(label)},descent});
       continue;
     }
     const trans=certifyCpcxProtectedResidualSupportTransition(position,{protectedResidual:R,eventCell});
@@ -165,12 +181,18 @@ for(const source of normalized){
     if(trans.kind==='TERMINAL_EVENT'){
       responses.push({eventCell:label(eventCell),role:'EXTERNAL_SUPPORT_EVENT',exact:trans.terminal?.player===0,terminal:trans.terminal});continue;
     }
-    const child=applyCpcxForcedEvent(position,eventCell),childR=residualByLine(child,R.lineId,R.player),descent=childR?controllerDescent(child,childR):{kind:'RESIDUAL_LOST',exact:false};
-    responses.push({eventCell:label(eventCell),role:'EXTERNAL_SUPPORT_EVENT',exact:descent.exact===true,sourceTuple:tuple(R),afterP1Tuple:childR?tuple(childR):null,p1SupportDebtDelta:trans.supportDebtDelta,descent});
+    const child=applyCpcxForcedEvent(position,eventCell),childR=residualByLine(child,R.lineId,R.player),descent=childR?controllerDescent(child,childR):{kind:'RESIDUAL_LOST',exact:false},
+      sourceTuple=tuple(R),finalTuple=descentFinalTuple(descent),
+      strictDescentOrWin=descent.exact===true&&(
+        descentWins(descent)||(finalTuple!==null&&tupleLess(finalTuple,sourceTuple))
+      );
+    responses.push({eventCell:label(eventCell),role:'EXTERNAL_SUPPORT_EVENT',exact:descent.exact===true,strictDescentOrWin,sourceTuple,finalTuple,afterP1Tuple:childR?tuple(childR):null,p1SupportDebtDelta:trans.supportDebtDelta,descent});
   }
   rows.push({sourceKind:source.sourceKind,classId:source.classId,rank:position.rank,residual:{lineLabel:R.lineLabel,tuple:tuple(R),playable:R.currentlyPlayableCells.map(label)},responses});
 }
-const all=rows.flatMap(r=>r.responses.map(x=>({classId:r.classId,...x}))),failures=all.filter(x=>!x.exact);
+const all=rows.flatMap(r=>r.responses.map(x=>({classId:r.classId,...x}))),
+  failures=all.filter(x=>!x.exact),
+  strictFailures=all.filter(x=>!x.strictDescentOrWin);
 console.log(JSON.stringify({
   schema:'connect4.uc4a.cpcx.normalized-p1-response-descent.v0_1',
   observation:'one current P1 event from every exact normalized universal-diagonal P1 boundary, followed by deterministic forced normalization if required and one theorem-qualified current P0 descent action',
@@ -181,9 +203,13 @@ console.log(JSON.stringify({
     exactResponseDescentCount:all.length-failures.length,
     responseDescentFailureCount:failures.length,
     everyCurrentP1ResponseHasExactControllerDescent:failures.length===0,
+    strictDescentOrWinCount:all.length-strictFailures.length,
+    strictDescentOrWinFailureCount:strictFailures.length,
+    everyCurrentP1ResponseStrictlyDescendsOrWins:strictFailures.length===0,
     roleCounts:Object.fromEntries([...new Set(all.map(x=>x.role))].map(role=>[role,all.filter(x=>x.role===role).length])),
     descentKinds:[...new Set(all.map(x=>x.descent?.kind).filter(Boolean))].sort(),
     failures:failures.map(x=>({classId:x.classId,eventCell:x.eventCell,role:x.role,seam:x.seam??x.descent?.kind??null,descent:x.descent??null})),
+    strictFailures:strictFailures.map(x=>({classId:x.classId,eventCell:x.eventCell,role:x.role,sourceTuple:x.sourceTuple??null,finalTuple:x.finalTuple??null,seam:x.seam??x.descent?.kind??null,descent:x.descent??null})),
   },
   boundary:{diagnosticOnly:true,exactlyOneCurrentP1Event:true,controllerFollowupIsCurrentRankOnlyAfterDeterministicForcedNormalization:true,noFreeSecondP1Layer:true,transferSelectionDiagnosticOnly:true,noValueConclusion:true,solvedData:false,oracle:false,minimax:false,recursiveSearch:false},
 },null,2));
