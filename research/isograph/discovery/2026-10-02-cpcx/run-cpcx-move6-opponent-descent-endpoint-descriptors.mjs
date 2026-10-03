@@ -519,8 +519,29 @@ for(const source of sources.values()){
                   seam:saturation.seam??null,
                   player:saturation.player??null,
                   sourceMeasure:saturation.sourceMeasure??null,
+                  currentMeasure:saturation.currentMeasure??null,
                   finalMeasure:saturation.finalMeasure??null,
                   finalRank:saturation.finalRank??null,
+                  descent:saturation.descent?{
+                    kind:saturation.descent.kind,
+                    exact:saturation.descent.exact??false,
+                    seam:saturation.descent.seam??null,
+                    selectedTarget:Number.isInteger(
+                      saturation.descent.selectedTarget
+                    )?label(saturation.descent.selectedTarget):null,
+                    selectedMode:saturation.descent.selectedMode??null,
+                    localSafety:saturation.descent.localSafety?{
+                      kind:saturation.descent.localSafety.kind,
+                      releasedCell:Number.isInteger(
+                        saturation.descent.localSafety.releasedCell
+                      )?label(saturation.descent.localSafety.releasedCell):null,
+                      hazards:(saturation.descent.localSafety.hazards??[]).map(h=>({
+                        lineId:h.lineId,
+                        lineLabel:h.lineLabel,
+                        classification:h.classification,
+                      })),
+                    }:null,
+                  }:null,
                 },
                 responseDescent:responseDescent?{
                   kind:responseDescent.kind,
@@ -530,6 +551,25 @@ for(const source of sources.values()){
                   sourceMeasure:responseDescent.sourceMeasure??null,
                   eventCount:responseDescent.eventCount??null,
                   failureCount:responseDescent.failures?.length??0,
+                  failures:(responseDescent.failures??[]).map(f=>({
+                    eventCell:Number.isInteger(f.eventCell)
+                      ?label(f.eventCell):null,
+                    seam:f.seam??f.kind??null,
+                    sourceMeasure:f.sourceMeasure??null,
+                    transportKind:f.transportKind??null,
+                    transitionSeam:f.transition?.seam??null,
+                    sameTrackSeam:f.sameTrack?.seam??null,
+                    anchorPivotSeam:f.anchorPivot?.seam??null,
+                    closureSeam:f.closure?.seam??null,
+                  })),
+                  descentFailures:(responseDescent.descentFailures??[]).map(f=>({
+                    eventCell:Number.isInteger(f.eventCell)
+                      ?label(f.eventCell):null,
+                    kind:f.kind,
+                    seam:f.seam??null,
+                    sourceMeasure:f.sourceMeasure??null,
+                    finalMeasure:f.finalMeasure??null,
+                  })),
                   everyEventWinsOrStrictlyDescends:
                     responseDescent.everyEventWinsOrStrictlyDescends??false,
                 }:null,
