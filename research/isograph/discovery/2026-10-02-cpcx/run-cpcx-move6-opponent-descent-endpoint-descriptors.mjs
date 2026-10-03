@@ -290,6 +290,25 @@ for(const source of sources.values()){
       const probe=certifyCpcxProtectedDiagonalOpponentResponseDescent(
         row.finalPosition,{protectedResidual:row.finalResidual}
       );
+      const secondLayerRows=(probe.rows??[]).map(x=>{
+        if(x.kind==='CERTIFIED_FIRST_WIN')return {
+          eventCell:Number.isInteger(x.eventCell)?label(x.eventCell):null,
+          kind:x.kind,
+          player:x.player??null,
+          finalMeasure:null,
+          finalMask:null,
+        };
+        return {
+          eventCell:Number.isInteger(x.eventCell)?label(x.eventCell):null,
+          kind:x.kind,
+          player:x.player??null,
+          finalMeasure:x.finalMeasure??null,
+          finalMask:x.finalPosition&&x.finalResidual
+            ?descriptor(x.finalPosition,x.finalResidual)
+              .d3WindowComplex.liveMask
+            :null,
+        };
+      });
       novelMaskSecondLayerProbes.push({
         mask:endpointMask,
         sourceMeasure:row.sourceMeasure,
@@ -299,6 +318,12 @@ for(const source of sources.values()){
         kind:probe.kind,
         seam:probe.seam??null,
         eventCount:probe.eventCount??null,
+        secondLayerRows,
+        nonterminalFinalMasks:[...new Set(secondLayerRows
+          .map(x=>x.finalMask).filter(Boolean))].sort(),
+        firstWinCount:secondLayerRows.filter(x=>
+          x.kind==='CERTIFIED_FIRST_WIN'&&x.player===0
+        ).length,
         failureEvents:(probe.failures??[]).map(x=>({
           eventCell:Number.isInteger(x.eventCell)?label(x.eventCell):null,
           seam:x.seam??x.kind??null,
@@ -400,6 +425,15 @@ console.log(JSON.stringify({
     novelMaskSecondLayerFailures:novelMaskSecondLayerProbes.filter(x=>
       !x.exact
     ),
+    novelMaskSecondLayerNonterminalMasks:[...new Set(
+      novelMaskSecondLayerProbes.flatMap(x=>x.nonterminalFinalMasks??[])
+    )].sort(),
+    novelMaskSecondLayerProducesSingleWindow:
+      novelMaskSecondLayerProbes.some(x=>
+        (x.nonterminalFinalMasks??[]).some(mask=>
+          mask.split('').filter(bit=>bit==='1').length===1
+        )
+      ),
     endpointWindowMaskReentryCount:endpoints.filter(x=>
       x.reentersSourceWindowMask
     ).length,
