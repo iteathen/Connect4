@@ -57,6 +57,7 @@ export function deriveCpcxEventPhaseGauge(position,cells){
 
   const E=totalRemaining(position),
     H=position.geometry.rows,
+    W=position.geometry.columns,
     absoluteParity=rows.map(x=>x.meta.eventRank&1),
     origin=absoluteParity[0],
     relativeParity=absoluteParity.map(x=>x^origin),
@@ -67,12 +68,18 @@ export function deriveCpcxEventPhaseGauge(position,cells){
     ),
     relativeFormulaExact=relativeParity.every((x,i)=>
       x===rowRelativeParity[i]
+    ),
+    projectedOwners=rows.map(x=>x.meta.zeroReservationOwner),
+    geometryProjectedOwners=rows.map(x=>(H*(W-1)+x.row)&1),
+    ownershipFormulaExact=projectedOwners.every((x,i)=>
+      x===geometryProjectedOwners[i]
     );
 
-  if(!formulaExact||!relativeFormulaExact)
+  if(!formulaExact||!relativeFormulaExact||!ownershipFormulaExact)
     return fail('EVENT_PHASE_FORMULA_MISMATCH',{
       formulaExact,
       relativeFormulaExact,
+      ownershipFormulaExact,
     });
 
   return {
@@ -82,6 +89,7 @@ export function deriveCpcxEventPhaseGauge(position,cells){
     rank:position.rank,
     totalRemainingCapacity:E,
     boardRows:H,
+    boardColumns:W,
     cells:[...cells],
     rows:rows.map(x=>x.row),
     supportDistances:rows.map(x=>x.meta.supportDistance),
@@ -90,8 +98,11 @@ export function deriveCpcxEventPhaseGauge(position,cells){
     globalPhase:origin,
     relativeParity,
     rowRelativeParity,
+    projectedOwners,
+    geometryProjectedOwners,
     formula:'eventRank = totalRemainingCapacity - boardRows + row + 1',
-    proofRule:'the target-column height cancels algebraically; relative event parity is row parity relative to one fixed gauge origin',
+    ownershipFormula:'zeroReservationOwner = (boardRows * (boardColumns - 1) + row) mod 2',
+    proofRule:'the target-column height cancels algebraically; relative event parity is row parity relative to one fixed gauge origin; mover/rank parity then cancels the global event phase in zero-reservation ownership, leaving a geometry-only row-parity offset',
     complexity:'O(selectedCellCount)',
     recursive:false,
     gameTreeTraversal:false,
@@ -123,12 +134,16 @@ export function compareCpcxEventPhaseGauge(before,after,cells){
     ),
     relativeInvariant=a.relativeParity.every((p,i)=>
       b.relativeParity[i]===p
+    ),
+    projectedOwnerInvariant=a.projectedOwners.every((p,i)=>
+      b.projectedOwners[i]===p
     );
 
-  if(!absoluteTransport||!relativeInvariant)
+  if(!absoluteTransport||!relativeInvariant||!projectedOwnerInvariant)
     return fail('PHASE_TRANSPORT_MISMATCH',{
       rankDelta:delta,
       expectedGlobalFlip:flip,
+      projectedOwnerInvariant,
       before:a,
       after:b,
     });
@@ -142,9 +157,11 @@ export function compareCpcxEventPhaseGauge(before,after,cells){
     absoluteParityBefore:[...a.absoluteParity],
     absoluteParityAfter:[...b.absoluteParity],
     relativeParity:[...a.relativeParity],
+    projectedOwners:[...a.projectedOwners],
     supportDistancesBefore:[...a.supportDistances],
     supportDistancesAfter:[...b.supportDistances],
     relativePhaseInvariant:true,
+    projectedOwnerInvariant:true,
     transitionReachabilityCertified:false,
     boundary:'phase comparison is exact for the supplied exact positions; any claim that after is a successor of before requires a separate certified transition',
     complexity:'O(selectedCellCount)',
