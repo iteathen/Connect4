@@ -70,7 +70,6 @@ function cachedAttachmentRcic(position,targetCell){
   return attachmentRcicCache.get(k.key);
 }
 
-
 function label(cell){
   const {column,row}=cpcxCell(g,cell);
   return `${String.fromCharCode(65+column)}${row+1}`;
