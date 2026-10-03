@@ -633,6 +633,179 @@ function evaluateAdaptiveTemplateBranch(
   };
 }
 
+function enumerateReentryOptions(position,{
+  attacker,
+  targetCell,
+  parentMeasure,
+}){
+  const directBase=baseHandoff(position,{attacker,targetCell});
+  if(directBase.exact)return [{
+    kind:'BASE',
+    exact:true,
+    handoff:directBase,
+    position,
+    normalizationSteps:[],
+  }];
+
+  const normalized=closeCpcxForcedResponses(position);
+  if(normalized.kind==='CERTIFIED_FIRST_WIN')return normalized.player===attacker?[{
+    kind:'BASE',
+    exact:true,
+    handoff:{
+      kind:'FORCED_NORMALIZATION_FIRST_WIN',
+      exact:true,
+      player:attacker,
+      closure:normalized,
+    },
+    position:normalized.position,
+    normalizationSteps:normalized.steps,
+  }]:[];
+  if(normalized.kind==='TERMINAL'){
+    const player=normalized.position.terminal?.player;
+    return player===attacker?[{
+      kind:'BASE',
+      exact:true,
+      handoff:{
+        kind:'FORCED_NORMALIZATION_TERMINAL',
+        exact:true,
+        player:attacker,
+        closure:normalized,
+      },
+      position:normalized.position,
+      normalizationSteps:normalized.steps,
+    }]:[];
+  }
+  if(normalized.kind!=='OPEN')return [];
+
+  const current=normalized.position,
+    base=baseHandoff(current,{attacker,targetCell});
+  if(base.exact)return [{
+    kind:'BASE',
+    exact:true,
+    handoff:base,
+    position:current,
+    normalizationSteps:normalized.steps,
+  }];
+
+  if(current.mover===attacker){
+    const out=[];
+    for(const setupCell of frontier(current)){
+      const child=applyCpcxForcedEvent(current,setupCell);
+      if(child.terminal){
+        if(child.terminal.player===attacker)out.push({
+          kind:'BASE',
+          exact:true,
+          handoff:{
+            kind:'ATTACKER_TERMINAL',
+            exact:true,
+            player:attacker,
+          },
+          position:child,
+          normalizationSteps:normalized.steps,
+          setupAfterNormalization:{
+            setupCell,
+            setupLabel:labelCell(current.geometry,setupCell),
+            class:'ATTACKER_TERMINAL',
+          },
+        });
+        continue;
+      }
+
+      const childBase=baseHandoff(child,{attacker,targetCell});
+      if(childBase.exact){
+        out.push({
+          kind:'BASE',
+          exact:true,
+          handoff:childBase,
+          position:child,
+          normalizationSteps:normalized.steps,
+          setupAfterNormalization:{
+            setupCell,
+            setupLabel:labelCell(current.geometry,setupCell),
+            class:childBase.kind,
+          },
+        });
+        continue;
+      }
+
+      const stable=stableDefenderReentry(child,{
+        attacker,targetCell,parentMeasure,
+        normalizationSteps:normalized.steps,
+      });
+      if(stable.exact)out.push({
+        ...stable,
+        setupAfterNormalization:{
+          setupCell,
+          setupLabel:labelCell(current.geometry,setupCell),
+          class:'LOWER_ONE_DEFECT',
+        },
+      });
+    }
+    return out.sort((a,b)=>
+      (a.kind==='BASE'?0:1)-(b.kind==='BASE'?0:1)||
+      (a.measure??-1)-(b.measure??-1)||
+      (a.setupAfterNormalization?.setupCell??-1)-
+        (b.setupAfterNormalization?.setupCell??-1)
+    );
+  }
+
+  const stable=stableDefenderReentry(current,{
+    attacker,targetCell,parentMeasure,
+    normalizationSteps:normalized.steps,
+  });
+  return stable.exact?[stable]:[];
+}
+
+function enumerateDefectRepairOptions(position,{
+  attacker,
+  targetCell,
+  parentMeasure,
+}){
+  if(position.mover!==attacker)return [];
+  const out=[];
+  for(const repairCell of frontier(position)){
+    const child=applyCpcxForcedEvent(position,repairCell);
+    if(child.terminal){
+      if(child.terminal.player===attacker)out.push({
+        kind:'BASE',
+        exact:true,
+        handoff:{
+          kind:'ATTACKER_TERMINAL',
+          exact:true,
+          player:attacker,
+        },
+        position:child,
+        normalizationSteps:[],
+        defectRepair:{
+          repairCell,
+          repairLabel:labelCell(position.geometry,repairCell),
+          class:'ATTACKER_TERMINAL',
+        },
+      });
+      continue;
+    }
+
+    const reentries=enumerateReentryOptions(child,{
+      attacker,targetCell,parentMeasure,
+    });
+    for(const reentry of reentries)out.push({
+      ...reentry,
+      defectRepair:{
+        repairCell,
+        repairLabel:labelCell(position.geometry,repairCell),
+        class:reentry.kind==='BASE'
+          ?reentry.handoff.kind
+          :'LOWER_ONE_DEFECT',
+      },
+    });
+  }
+  return out.sort((a,b)=>
+    (a.kind==='BASE'?0:1)-(b.kind==='BASE'?0:1)||
+    (a.measure??-1)-(b.measure??-1)||
+    (a.defectRepair?.repairCell??-1)-(b.defectRepair?.repairCell??-1)
+  );
+}
+
 export function certifyCpcxOneDefectTargetReservoirRcic(position,{
   attacker=position.mover^1,
   targetCell,
@@ -644,21 +817,19 @@ export function certifyCpcxOneDefectTargetReservoirRcic(position,{
 
   const g=position.geometry,defender=attacker^1;
   if(g.columns!==7||g.rows!==6||g.connect!==4)return {
-    schema:'connect4.cpcx.one-defect-rcic.v0_1',
+    schema:'connect4.cpcx.one-defect-rcic.v0_2',
     kind:'NO_CERTIFICATE',
     exact:false,
-    attacker,
-    defender,
+    attacker,defender,
     seam:'UNSUPPORTED_GEOMETRY',
     recursive:false,
     gameTreeTraversal:false,
   };
   if(position.terminal||position.mover!==defender)return {
-    schema:'connect4.cpcx.one-defect-rcic.v0_1',
+    schema:'connect4.cpcx.one-defect-rcic.v0_2',
     kind:'NO_CERTIFICATE',
     exact:false,
-    attacker,
-    defender,
+    attacker,defender,
     seam:position.terminal?'ALREADY_TERMINAL':'DEFENDER_NOT_TO_MOVE',
     recursive:false,
     gameTreeTraversal:false,
@@ -668,207 +839,310 @@ export function certifyCpcxOneDefectTargetReservoirRcic(position,{
     position,{attacker,targetCell}
   );
   if(rootAnalysis.kind!=='ONE_DEFECT_STATIC_COVERAGE')return {
-    schema:'connect4.cpcx.one-defect-rcic.v0_1',
+    schema:'connect4.cpcx.one-defect-rcic.v0_2',
     kind:'NO_CERTIFICATE',
     exact:false,
-    attacker,
-    defender,
+    attacker,defender,
     seam:rootAnalysis.kind,
     analysis:rootAnalysis,
     recursive:false,
     gameTreeTraversal:false,
   };
 
-  const rootKey=positionKey(position,targetCell),
-    nodes=new Map(),
-    queue=[{
-      key:rootKey,
-      position,
-      analysis:rootAnalysis,
-    }];
-  nodes.set(rootKey,{
-    key:rootKey,
-    status:'PENDING',
-    measure:rootAnalysis.totalRelevantEvents,
-    rank:position.rank,
-    support:Array.from(position.heights),
-    edges:[],
-  });
+  const memo=new Map(),active=new Set();
+  let evaluatedNodes=0;
 
-  for(let qi=0;qi<queue.length;qi++){
-    if(nodes.size>maxNodes)return {
-      schema:'connect4.cpcx.one-defect-rcic.v0_1',
+  function prove(current,analysis){
+    const key=positionKey(current,targetCell);
+    if(memo.has(key))return memo.get(key);
+    if(active.has(key))return {
       kind:'NO_CERTIFICATE',
       exact:false,
-      attacker,
-      defender,
+      seam:'ONE_DEFECT_RCIC_CYCLE',
+      key,
+    };
+    evaluatedNodes+=1;
+    if(evaluatedNodes>maxNodes)return {
+      kind:'NO_CERTIFICATE',
+      exact:false,
       seam:'ONE_DEFECT_RCIC_NODE_BOUND',
-      nodeCount:nodes.size,
+      nodeCount:evaluatedNodes,
       maxNodes,
-      recursive:false,
-      gameTreeTraversal:false,
     };
 
-    const work=queue[qi],node=nodes.get(work.key),
-      current=work.position,analysis=work.analysis,
-      templates=analysis.fullCoverageTemplates?.length
-        ?analysis.fullCoverageTemplates
-        :analysis.selectedFullCoverageTemplate
-          ?[analysis.selectedFullCoverageTemplate]
-          :[];
-    if(!templates.length)return {
-      schema:'connect4.cpcx.one-defect-rcic.v0_1',
+    const measure=analysis.totalRelevantEvents;
+    if(!Number.isInteger(measure))return {
       kind:'NO_CERTIFICATE',
       exact:false,
-      attacker,
-      defender,
-      seam:'ONE_DEFECT_RCIC_TEMPLATE_MISSING',
-      failedNode:work.key,
-      recursive:false,
-      gameTreeTraversal:false,
+      seam:'ONE_DEFECT_RCIC_MEASURE_MISSING',
+      key,
+    };
+    if(analysis.fullCoverageTemplatesTruncated)return {
+      kind:'NO_CERTIFICATE',
+      exact:false,
+      seam:'ONE_DEFECT_TEMPLATE_SET_TRUNCATED',
+      key,
+      fullCoverageTemplateCount:analysis.fullCoverageTemplateCount,
     };
 
-    const currentFrontier=frontier(current);
-    for(const defenderCell of currentFrontier){
-      const afterDefender=applyCpcxForcedEvent(current,defenderCell);
-      if(afterDefender.terminal)return {
-        schema:'connect4.cpcx.one-defect-rcic.v0_1',
-        kind:'NO_CERTIFICATE',
-        exact:false,
-        attacker,
-        defender,
-        seam:'DEFENDER_FIRST_WIN_INSIDE_ONE_DEFECT_RCIC',
-        failedNode:work.key,
-        defenderCell,
-        defenderLabel:labelCell(g,defenderCell),
-        terminal:afterDefender.terminal,
-        recursive:false,
-        gameTreeTraversal:false,
-      };
+    const templates=analysis.fullCoverageTemplates?.length
+      ?analysis.fullCoverageTemplates
+      :analysis.selectedFullCoverageTemplate
+        ?[analysis.selectedFullCoverageTemplate]
+        :[];
+    if(!templates.length)return {
+      kind:'NO_CERTIFICATE',
+      exact:false,
+      seam:'ONE_DEFECT_RCIC_TEMPLATE_MISSING',
+      key,
+    };
 
-      const candidates=[],failures=[];
-      for(let templateIndex=0;templateIndex<templates.length;templateIndex++){
-        const row=evaluateAdaptiveTemplateBranch(
-          current,analysis,templates[templateIndex],templateIndex,
-          defenderCell,afterDefender,{attacker,targetCell}
+    active.add(key);
+    const failures=[];
+
+    for(let templateIndex=0;templateIndex<templates.length;templateIndex++){
+      const template=templates[templateIndex],edges=[];
+      let templateOk=true;
+
+      for(const defenderCell of frontier(current)){
+        const afterDefender=applyCpcxForcedEvent(current,defenderCell);
+        if(afterDefender.terminal){
+          templateOk=false;
+          failures.push({
+            templateIndex,
+            defenderCell,
+            defenderLabel:labelCell(g,defenderCell),
+            seam:'DEFENDER_FIRST_WIN_INSIDE_ONE_DEFECT_RCIC',
+            terminal:afterDefender.terminal,
+          });
+          break;
+        }
+
+        const policy=templateResponse(
+          current,analysis,template,defenderCell
         );
-        if(row.exact)candidates.push(row);
-        else failures.push({
-          templateIndex,
-          seam:row.seam,
-          templateDefectLabel:templates[templateIndex].defect?.cellLabel??null,
+        if(!policy.exact){
+          templateOk=false;
+          failures.push({
+            templateIndex,
+            defenderCell,
+            defenderLabel:labelCell(g,defenderCell),
+            seam:policy.kind,
+          });
+          break;
+        }
+
+        let options=[];
+        if(policy.kind==='DEFECT_HANDOFF'){
+          options=enumerateDefectRepairOptions(afterDefender,{
+            attacker,targetCell,parentMeasure:measure,
+          });
+        }else{
+          const responseCell=policy.responseCell,
+            responseMeta=cpcxCell(g,responseCell);
+          if(afterDefender.mover!==attacker||
+             responseMeta.row!==afterDefender.heights[responseMeta.column]||
+             afterDefender.owner[responseCell]!==-1){
+            templateOk=false;
+            failures.push({
+              templateIndex,
+              defenderCell,
+              defenderLabel:labelCell(g,defenderCell),
+              seam:'ONE_DEFECT_TEMPLATE_RESPONSE_ILLEGAL',
+              responseCell,
+            });
+            break;
+          }
+
+          const child=applyCpcxForcedEvent(afterDefender,responseCell);
+          if(child.terminal){
+            if(child.terminal.player===attacker)options=[{
+              kind:'BASE',
+              exact:true,
+              handoff:{
+                kind:'ATTACKER_TERMINAL',
+                exact:true,
+                player:attacker,
+              },
+              position:child,
+              normalizationSteps:[],
+            }];
+          }else{
+            options=enumerateReentryOptions(child,{
+              attacker,targetCell,parentMeasure:measure,
+            });
+          }
+        }
+
+        let selected=null;
+        const optionFailures=[];
+        for(const option of options){
+          if(option.kind==='BASE'){
+            selected=option;
+            break;
+          }
+          if(option.kind!=='LOWER_ONE_DEFECT'||
+             !Number.isInteger(option.measure)||
+             option.measure>=measure){
+            optionFailures.push({
+              kind:option.kind,
+              measure:option.measure??null,
+              seam:'ONE_DEFECT_MEASURE_NOT_DECREASING',
+            });
+            continue;
+          }
+
+          const childProof=prove(option.position,option.analysis);
+          if(childProof.kind==='CERTIFIED_FIRST_WIN'){
+            selected={...option,childProof};
+            break;
+          }
+          optionFailures.push({
+            kind:option.kind,
+            measure:option.measure,
+            seam:childProof.seam??childProof.kind,
+          });
+        }
+
+        if(!selected){
+          templateOk=false;
+          failures.push({
+            templateIndex,
+            defenderCell,
+            defenderLabel:labelCell(g,defenderCell),
+            policyKind:policy.kind,
+            seam:'NO_CERTIFIED_RCIC_RESPONSE_OPTION',
+            optionCount:options.length,
+            optionFailures,
+          });
+          break;
+        }
+
+        edges.push({
+          defenderCell,
+          defenderLabel:labelCell(g,defenderCell),
+          policyKind:policy.kind,
+          responseCell:policy.responseCell,
+          responseLabel:policy.responseCell===null
+            ?null
+            :labelCell(g,policy.responseCell),
+          defectRepair:selected.defectRepair??null,
+          setupAfterNormalization:selected.setupAfterNormalization??null,
+          normalizationStepCount:selected.normalizationSteps?.length??0,
+          result:selected.kind==='BASE'
+            ?'BASE_FIRST_WIN'
+            :'LOWER_ONE_DEFECT',
+          baseClass:selected.kind==='BASE'
+            ?selected.handoff.kind
+            :null,
+          childMeasure:selected.kind==='LOWER_ONE_DEFECT'
+            ?selected.measure
+            :null,
+          childKey:selected.kind==='LOWER_ONE_DEFECT'
+            ?positionKey(selected.position,targetCell)
+            :null,
         });
       }
 
-      candidates.sort((a,b)=>{
-        const pa=a.result==='ATTACKER_TERMINAL'||a.result==='BASE_FIRST_WIN'?0:1,
-          pb=b.result==='ATTACKER_TERMINAL'||b.result==='BASE_FIRST_WIN'?0:1;
-        return pa-pb||
-          a.measure-b.measure||
-          a.edge.templateIndex-b.edge.templateIndex;
-      });
-
-      if(!candidates.length)return {
-        schema:'connect4.cpcx.one-defect-rcic.v0_1',
-        kind:'NO_CERTIFICATE',
-        exact:false,
-        attacker,
-        defender,
-        seam:'NO_TRIGGER_ADAPTIVE_ONE_DEFECT_TEMPLATE',
-        failedNode:work.key,
-        defenderCell,
-        defenderLabel:labelCell(g,defenderCell),
-        templateCount:templates.length,
-        failures,
-        recursive:false,
-        gameTreeTraversal:false,
-      };
-
-      const selected=candidates[0];
-      if(selected.result==='LOWER_ONE_DEFECT'){
-        const child=selected.child,
-          childAnalysis=selected.childAnalysis,
-          childKey=positionKey(child,targetCell);
-        selected.edge.childKey=childKey;
-        node.edges.push(selected.edge);
-        if(!nodes.has(childKey)){
-          nodes.set(childKey,{
-            key:childKey,
-            status:'PENDING',
-            measure:childAnalysis.totalRelevantEvents,
-            rank:child.rank,
-            support:Array.from(child.heights),
-            edges:[],
-          });
-          queue.push({key:childKey,position:child,analysis:childAnalysis});
-        }
-      }else{
-        node.edges.push(selected.edge);
+      if(templateOk){
+        const result={
+          schema:'connect4.cpcx.one-defect-rcic-node.v0_2',
+          kind:'CERTIFIED_FIRST_WIN',
+          exact:true,
+          player:attacker,
+          key,
+          rank:current.rank,
+          measure,
+          support:Array.from(current.heights),
+          selectedTemplateIndex:templateIndex,
+          selectedTemplate:{
+            defect:template.defect,
+            synchronizedPairs:template.synchronizedPairs,
+            partner:template.partner,
+            prefixLength:template.prefixLength,
+          },
+          edgeCount:edges.length,
+          edges,
+        };
+        memo.set(key,result);
+        active.delete(key);
+        return result;
       }
     }
 
-    if(node.edges.length!==currentFrontier.length)return {
-      schema:'connect4.cpcx.one-defect-rcic.v0_1',
+    active.delete(key);
+    const failed={
       kind:'NO_CERTIFICATE',
       exact:false,
-      attacker,
-      defender,
-      seam:'ONE_DEFECT_RESPONSE_TOTALITY_FAILURE',
-      failedNode:work.key,
-      edgeCount:node.edges.length,
-      frontierCount:currentFrontier.length,
-      recursive:false,
-      gameTreeTraversal:false,
+      seam:'NO_VIABLE_ONE_DEFECT_FULL_TEMPLATE',
+      key,
+      rank:current.rank,
+      measure,
+      templateCount:templates.length,
+      failures,
     };
-    node.status='VERIFIED';
+    memo.set(key,failed);
+    return failed;
   }
 
-  const rows=[...nodes.values()];
-  if(rows.some(x=>x.status!=='VERIFIED'))throw new Error('unverified RCIC node');
-  for(const node of rows)for(const edge of node.edges){
-    if(edge.result!=='LOWER_ONE_DEFECT')continue;
-    const child=nodes.get(edge.childKey);
-    if(!child||child.measure>=node.measure)throw new Error('RCIC rank violation');
-  }
+  const root=prove(position,rootAnalysis);
+  if(root.kind!=='CERTIFIED_FIRST_WIN')return {
+    schema:'connect4.cpcx.one-defect-rcic.v0_2',
+    kind:'NO_CERTIFICATE',
+    exact:false,
+    attacker,defender,
+    targetCell,
+    targetLabel:labelCell(g,targetCell),
+    seam:root.seam??root.kind,
+    rootFailure:root,
+    evaluatedNodes,
+    recursive:false,
+    gameTreeTraversal:false,
+  };
+
+  const certifiedNodes=[...memo.values()]
+    .filter(x=>x.kind==='CERTIFIED_FIRST_WIN')
+    .sort((a,b)=>a.measure-b.measure||a.key.localeCompare(b.key));
 
   return {
-    schema:'connect4.cpcx.one-defect-rcic.v0_1',
+    schema:'connect4.cpcx.one-defect-rcic.v0_2',
     kind:'CERTIFIED_FIRST_WIN',
     exact:true,
     player:attacker,
-    attacker,
-    defender,
+    attacker,defender,
     targetCell,
     targetLabel:labelCell(g,targetCell),
     rootMeasure:rootAnalysis.totalRelevantEvents,
-    nodeCount:rows.length,
-    edgeCount:rows.reduce((n,x)=>n+x.edges.length,0),
-    maxPhysicalRank:Math.max(...rows.map(x=>x.rank)),
-    measures:unique(rows.map(x=>x.measure)),
-    nodes:rows,
+    nodeCount:certifiedNodes.length,
+    evaluatedNodeCount:evaluatedNodes,
+    edgeCount:certifiedNodes.reduce((n,x)=>n+x.edgeCount,0),
+    maxPhysicalRank:Math.max(...certifiedNodes.map(x=>x.rank)),
+    measures:unique(certifiedNodes.map(x=>x.measure)),
+    nodes:certifiedNodes,
+    rootNodeKey:root.key,
     rcic:{
+      quantifierOrder:'EXISTS_COMPLETE_TEMPLATE_THEN_FORALL_DEFENDER_TRIGGERS',
+      templateReconstruction:'each lower exact macro-state may choose its own complete full-coverage template',
       obligations:[
         'preserve the active attacker singleton target',
         'prevent defender first win before target/qualified handoff',
       ],
       resources:[
-        'trigger-adaptive complete one-defect target-reservoir template',
+        'one complete one-defect full-coverage target-reservoir template per macro-state',
         'template-prescribed cross/vertical response',
-        'one current attacker setup at an unmatched defect handoff',
+        'one current attacker setup at an unmatched defect handoff or after deterministic normalization',
         'exact handoff to existing CPCX/ordinary reservoir certificate',
       ],
       rank:'totalRelevantEvents',
       strictDecrease:true,
       responseTotality:true,
-      triggerAdaptiveTemplates:true,
       allowedNonterminalExit:'LOWER_ONE_DEFECT_ONLY',
       allowedTerminalExit:'ATTACKER_FIRST_WIN_ONLY',
     },
-    proofRule:'ranked controlled invariant with trigger-adaptive template selection: every observed defender trigger has at least one complete structural reservoir template whose prescribed response or defect handoff is exact; every nonterminal re-entry preserves one-defect full coverage and strictly decreases the finite relevant-event reservoir',
+    proofRule:'ranked controlled invariant with complete-template choice: at each exact macro-state choose one full-coverage structural template that answers every legal defender trigger; every nonterminal response reconstructs the one-defect class at strictly lower finite reservoir rank',
     theoremProvenance:[
       'RLC_RANKED_CONTROLLED_INVARIANT_CERTIFICATE_THEOREM.md',
       'CPC_TRUNCATED_TARGET_RESERVOIR_PAIRING_THEOREM.md',
-      'CPC_TRIGGER_ADAPTIVE_RENEWAL_THEOREM.md',
     ],
     standardBoardOnly:true,
     solvedData:false,
@@ -878,6 +1152,7 @@ export function certifyCpcxOneDefectTargetReservoirRcic(position,{
     lossDelayAssumed:false,
     ordinaryGameTreeSearch:false,
     structuralProofGraph:true,
+    proofClassInduction:true,
     recursive:false,
     gameTreeTraversal:false,
   };
