@@ -42,8 +42,11 @@ for(const p1Cell of frontier(advance.child)){
     child=applyCpcxForcedEvent(p,B5),src=tuple(pr),
     pivots=scanCpcxObligations(child).filter(o=>o.player===0&&(o.orientation==='D+'||o.orientation==='D-')&&g.lines[o.lineId].cells.includes(anchor)&&!g.lines[o.lineId].cells.includes(B5))
       .map(o=>({lineId:o.lineId,lineLabel:o.lineLabel,orientation:o.orientation,missing:o.missingCells.map(label),tuple:tuple(o),playable:o.currentlyPlayableCells.map(label)}))
-      .filter(x=>less(x.tuple,src)).sort((a,b)=>a.tuple[0]-b.tuple[0]||a.tuple[1]-b.tuple[1]||a.lineId-b.lineId);
+      .map(x=>({...x,tupleRelation:less(x.tuple,src)?'LOWER':less(src,x.tuple)?'HIGHER':'EQUAL'}))
+      .sort((a,b)=>a.tuple[0]-b.tuple[0]||a.tuple[1]-b.tuple[1]||a.lineId-b.lineId);
   rows.push({rootP1Event:label(p1Cell),rank:p.rank,sourceTuple:src,anchor:label(anchor),blockedCell:'B5',sameTrackSeam:same.seam,pivots});
 }
 
-console.log(JSON.stringify({schema:'connect4.uc4a.cpcx.u30-a-cycle-anchor-pivot.v0_1',rows,summary:{caseCount:rows.length,allHaveStrictPivot:rows.every(x=>x.pivots.length>0),pivotLines:[...new Set(rows.map(x=>x.pivots[0]?.lineLabel).filter(Boolean))],pivotTuples:[...new Map(rows.map(x=>x.pivots[0]?.tuple).filter(Array.isArray).map(x=>[x.join(','),x])).values()]},boundary:{diagnosticOnly:true,classIdLocatorOnly:true,anchorPivotNotPromoted:true,noValueConclusion:true,recursiveSearch:false,solvedData:false,oracle:false}},null,2));
+const lower=rows.flatMap(x=>x.pivots.filter(p=>p.tupleRelation==='LOWER')),
+  equal=rows.flatMap(x=>x.pivots.filter(p=>p.tupleRelation==='EQUAL'));
+console.log(JSON.stringify({schema:'connect4.uc4a.cpcx.u30-a-cycle-anchor-pivot.v0_2',rows,summary:{caseCount:rows.length,allHaveStrictPivot:rows.every(x=>x.pivots.some(p=>p.tupleRelation==='LOWER')),allHaveNonIncreasingPivot:rows.every(x=>x.pivots.some(p=>p.tupleRelation!=='HIGHER')),lowerPivotLines:[...new Set(lower.map(x=>x.lineLabel))],equalPivotLines:[...new Set(equal.map(x=>x.lineLabel))],equalPivotTuples:[...new Map(equal.map(x=>[x.tuple.join(','),x.tuple])).values()]},boundary:{diagnosticOnly:true,classIdLocatorOnly:true,anchorPivotNotPromoted:true,remainingCapacityDecreaseOnBlock:1,noValueConclusion:true,recursiveSearch:false,solvedData:false,oracle:false}},null,2));
