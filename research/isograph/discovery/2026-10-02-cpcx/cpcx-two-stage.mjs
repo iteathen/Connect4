@@ -26,13 +26,21 @@ function unique(values){return [...new Set(values)].sort((a,b)=>a-b);}
 function residualEnvelopeRows(position,player){
   return scanCpcxObligations(position)
     .filter(o=>o.player===player)
-    .map(o=>({
-      lineId:o.lineId,
-      lineLabel:o.lineLabel,
-      orientation:o.orientation,
-      missingCount:o.missingCount,
-      missingCells:[...o.missingCells].sort((a,b)=>a-b),
-    }))
+    .map(o=>{
+      const pairs=o.missingCells.map(cell=>({
+        cell,
+        distance:o.events.find(e=>e.cell===cell).supportDistance,
+      })).sort((a,b)=>a.cell-b.cell);
+      return {
+        lineId:o.lineId,
+        lineLabel:o.lineLabel,
+        orientation:o.orientation,
+        missingCount:o.missingCount,
+        missingCells:pairs.map(x=>x.cell),
+        supportProfiles:[pairs.map(x=>x.distance)],
+        supportProfilesExact:true,
+      };
+    })
     .sort((a,b)=>
       a.missingCount-b.missingCount||
       a.lineId-b.lineId||
@@ -43,6 +51,32 @@ function residualEnvelopeRows(position,player){
 function residualEnvelopeKey(r){
   return `${r.lineId}|${r.missingCells.join(',')}`;
 }
+
+function mergeResidualEnvelopeRows(rows){
+  const byKey=new Map();
+  for(const row of rows){
+    const key=residualEnvelopeKey(row);
+    if(!byKey.has(key))byKey.set(key,{
+      ...row,
+      missingCells:[...row.missingCells],
+      supportProfiles:[],
+      supportProfilesExact:true,
+    });
+    const out=byKey.get(key);
+    if(row.supportProfilesExact!==true||!Array.isArray(row.supportProfiles))
+      out.supportProfilesExact=false;
+    for(const p of row.supportProfiles??[])
+      if(!out.supportProfiles.some(x=>x.join(',')===p.join(',')))
+        out.supportProfiles.push([...p]);
+  }
+  for(const row of byKey.values())row.supportProfiles.sort((a,b)=>{
+    const n=Math.min(a.length,b.length);
+    for(let i=0;i<n;i++)if(a[i]!==b[i])return a[i]-b[i];
+    return a.length-b.length;
+  });
+  return byKey;
+}
+
 
 
 function currentFrontier(position){
@@ -448,13 +482,13 @@ export function deriveCpcxVerticalOpponentSingletonEnvelope(position,demand,cert
     :null;
 
   const defenderResidualMaps=continuing.map(cls=>
-      new Map((cls.defenderResiduals??[]).map(r=>[residualEnvelopeKey(r),r]))
+      mergeResidualEnvelopeRows(cls.defenderResiduals??[])
     ),
     possibleDefenderResiduals=(()=>{
-      const m=new Map();
-      for(const rows of defenderResidualMaps)for(const [key,row] of rows)
-        if(!m.has(key))m.set(key,row);
-      return [...m.values()].sort((a,b)=>
+      const merged=mergeResidualEnvelopeRows(
+        continuing.flatMap(cls=>cls.defenderResiduals??[])
+      );
+      return [...merged.values()].sort((a,b)=>
         a.missingCount-b.missingCount||
         a.lineId-b.lineId||
         a.missingCells.join(',').localeCompare(b.missingCells.join(','))
@@ -462,10 +496,12 @@ export function deriveCpcxVerticalOpponentSingletonEnvelope(position,demand,cert
     })(),
     guaranteedDefenderResiduals=(()=>{
       if(!defenderResidualMaps.length)return [];
-      const out=[];
-      for(const [key,row] of defenderResidualMaps[0])
-        if(defenderResidualMaps.slice(1).every(m=>m.has(key)))out.push(row);
-      return out.sort((a,b)=>
+      const keys=[...defenderResidualMaps[0].keys()]
+        .filter(key=>defenderResidualMaps.slice(1).every(m=>m.has(key))),
+        merged=mergeResidualEnvelopeRows(keys.flatMap(key=>
+          defenderResidualMaps.map(m=>m.get(key))
+        ));
+      return [...merged.values()].sort((a,b)=>
         a.missingCount-b.missingCount||
         a.lineId-b.lineId||
         a.missingCells.join(',').localeCompare(b.missingCells.join(','))
