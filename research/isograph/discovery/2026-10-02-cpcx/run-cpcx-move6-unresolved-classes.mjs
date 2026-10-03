@@ -151,7 +151,8 @@ function triggerLiftSummary(position){
 }
 function addState(groups,position,source){
   if(position.terminal)return;
-  const progress=classifyCpcxProgress(position,{player:0});
+  const progress=classifyCpcxProgress(position,{player:0}),
+    opposingProgress=classifyCpcxProgress(position,{player:1});
   if(!['NO_CERTIFICATE','PROJECTION_ONLY'].includes(progress.kind))return;
   const canonical=canonicalPhysical(position);
   if(!groups.has(canonical.key))groups.set(canonical.key,{
@@ -166,6 +167,13 @@ function addState(groups,position,source){
       kind:progress.kind,
       seam:progress.seam??null,
       projectionCount:progress.projections?.length??0,
+    },
+    opposingProgress:{
+      kind:opposingProgress.kind,
+      exact:opposingProgress.exact??false,
+      player:opposingProgress.player??null,
+      source:opposingProgress.source??null,
+      seam:opposingProgress.seam??null,
     },
     obligations:obligationSummary(position,canonical.reflect),
     triggerLift:triggerLiftSummary(position),
