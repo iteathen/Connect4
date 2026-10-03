@@ -196,6 +196,8 @@ function progressSummary(p){
       ?label(p.macro.primaryCell):null,
     secondaryCell:Number.isInteger(p.macro?.secondaryCell)
       ?label(p.macro.secondaryCell):null,
+    tertiaryCell:Number.isInteger(p.macro?.tertiaryCell)
+      ?label(p.macro.tertiaryCell):null,
     blockerCells:(p.obligation?.blockingCells??[]).map(label),
   };
 }
@@ -989,6 +991,12 @@ for(const source of sources.values()){
                   exact:successor.exact??false,
                   seam:successor.seam??null,
                   player:successor.player??null,
+                  sourceKind:successor.source?.kind??null,
+                  sourceSetupCell:Number.isInteger(successor.source?.setupCell)
+                    ?label(successor.source.setupCell):null,
+                  rankDescriptor:successor.rank??null,
+                  guaranteedResidualCount:
+                    successor.guaranteedResiduals?.length??null,
                   concrete:Boolean(q),
                   rank:q?.rank??null,
                   mover:q?.mover??null,
