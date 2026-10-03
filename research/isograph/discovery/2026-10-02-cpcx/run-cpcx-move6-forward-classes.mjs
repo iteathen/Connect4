@@ -14,6 +14,7 @@ import {
 } from './cpcx-wing.mjs';
 import {classifyCpcxProgress} from './cpcx-progress.mjs';
 import {runCpcxFirstWinCertificate} from './cpcx-successor.mjs';
+import {analyzeCpcxTargetReservoir} from './cpcx-reservoir.mjs';
 
 const g=createCpcxGeometry(),root=buildCpcxPosition('44444',{geometry:g});
 
@@ -104,7 +105,11 @@ function pairCompressionProbe(position){
   if(!pair)return null;
   const playable=pair.events.find(e=>e.supportDistance===0)?.cell;
   if(!Number.isInteger(playable))return null;
-  const afterSetup=applyCpcxForcedEvent(position,playable);
+  const targetCell=pair.missingCells.find(x=>x!==playable),
+    afterSetup=applyCpcxForcedEvent(position,playable),
+    reservoirAnalysis=afterSetup.terminal?null:analyzeCpcxTargetReservoir(
+      afterSetup,{attacker:0,targetCell}
+    );
   if(afterSetup.terminal)return {
     pairLine:pair.lineLabel,
     setupCell:label(playable),
@@ -146,8 +151,9 @@ function pairCompressionProbe(position){
     pairLine:pair.lineLabel,
     pairCells:pair.missingCells.map(label),
     setupCell:label(playable),
-    targetCell:label(pair.missingCells.find(x=>x!==playable)),
+    targetCell:label(targetCell),
     afterSetupSupport:Array.from(afterSetup.heights),
+    reservoirAnalysis,
     replies,
     closedReplyCount:replies.filter(x=>
       x.certificate.kind==='CERTIFIED_FIRST_WIN'&&x.certificate.player===0
