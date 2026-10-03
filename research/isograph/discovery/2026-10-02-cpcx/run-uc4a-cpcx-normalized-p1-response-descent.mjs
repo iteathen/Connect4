@@ -81,12 +81,25 @@ function descentWins(d){
 function descentFinalTuple(d){
   if(!d)return null;
   if(Array.isArray(d.childTuple))return d.childTuple;
+  if(Array.isArray(d.finalTuple))return d.finalTuple;
   if(d.kind==='FORCED_NORMALIZATION_THEN_DESCENT')return descentFinalTuple(d.next);
+  return null;
+}
+function descentFinalPhysicalKey(d){
+  if(!d)return null;
+  if(typeof d.finalPhysicalKey==='string')return d.finalPhysicalKey;
+  if(d.kind==='FORCED_NORMALIZATION_THEN_DESCENT')
+    return descentFinalPhysicalKey(d.next);
   return null;
 }
 function controllerDescent(position,R){
   if(position.terminal)return {kind:'SOURCE_TERMINAL',terminal:position.terminal,exact:false};
-  if(position.mover!==R.player)return {kind:'WRONG_MOVER',exact:false};
+  if(position.mover!==R.player)return {
+    kind:'RETURN_TO_OPPONENT',
+    exact:true,
+    finalTuple:tuple(R),
+    finalPhysicalKey:physicalKey(position),
+  };
   const immediate=classifyCpcxImmediate(position);
   if(immediate.kind==='FORCED_LOSS_OVERLOAD')return {kind:'CONTROLLER_FORCED_LOSS_OVERLOAD',exact:false,immediate:immediateSummary(immediate)};
   if(immediate.kind==='FORCED_RESPONSE'){
@@ -124,7 +137,18 @@ function controllerDescentNoNormalization(position,R){
   const scored=candidates.map(c=>({c,score:c.kind==='CERTIFIED_FIRST_WIN'?0:c.kind==='PROTECTED_RESIDUAL_TARGET_ACQUISITION'?1:2})).sort((a,b)=>a.score-b.score||((a.c.targetCell??0)-(b.c.targetCell??0)));
   if(!scored.length)return {kind:'NO_CONTROLLER_DESCENT',exact:false,immediate:immediateSummary(immediate),attempts:R.missingCells.map(targetCell=>{const e=R.events.find(x=>x.cell===targetCell);const c=e.supportDistance===0?certifyCpcxProtectedResidualTargetAcquisition(position,{controllerResidual:R,targetCell}):certifyCpcxProtectedResidualSupportAdvance(position,{controllerResidual:R,targetCell});return summarizeCertificate(c);})};
   const best=scored[0].c;
-  return {kind:best.kind==='CERTIFIED_FIRST_WIN'?'CONTROLLER_FIRST_WIN':best.kind,exact:true,certificate:summarizeCertificate(best),sourceTuple:tuple(R),childTuple:best.kind==='PROTECTED_RESIDUAL_TARGET_ACQUISITION'?[best.childMissingCount,best.childSupportDebt]:best.kind==='PROTECTED_RESIDUAL_SUPPORT_ADVANCE'?[R.missingCount,best.childSupportDebt]:null};
+  return {
+    kind:best.kind==='CERTIFIED_FIRST_WIN'?'CONTROLLER_FIRST_WIN':best.kind,
+    exact:true,
+    certificate:summarizeCertificate(best),
+    sourceTuple:tuple(R),
+    childTuple:best.kind==='PROTECTED_RESIDUAL_TARGET_ACQUISITION'
+      ?[best.childMissingCount,best.childSupportDebt]
+      :best.kind==='PROTECTED_RESIDUAL_SUPPORT_ADVANCE'
+        ?[R.missingCount,best.childSupportDebt]
+        :null,
+    finalPhysicalKey:best.child?physicalKey(best.child):null,
+  };
 }
 
 const generated=[];
@@ -152,7 +176,11 @@ for(const cls of artifact.classes.filter(x=>x.mover===1)){
     const r=normalizedRecord('P1_BOUNDARY',cls,eventCell,q); if(r)generated.push(r);
   }
 }
-const normalized=[...new Map(generated.filter(x=>x.position.mover===1).map(x=>[physicalKey(x.position),x])).values()],rows=[];
+const normalized=[...new Map(generated.filter(x=>x.position.mover===1).map(x=>[physicalKey(x.position),x])).values()],
+  normalizedNodeByKey=new Map(normalized.map((x,i)=>[
+    physicalKey(x.position),`N${i+1}`
+  ])),
+  rows=[];
 for(const source of normalized){
   const position=source.position,R=rootResidual(position); if(!R)throw new Error('root residual missing');
   const responses=[];
@@ -194,11 +222,39 @@ for(const source of normalized){
       );
     responses.push({eventCell:label(eventCell),role:'EXTERNAL_SUPPORT_EVENT',exact:descent.exact===true,strictDescentOrWin,sourceTuple,finalTuple,afterP1Tuple:childR?tuple(childR):null,p1SupportDebtDelta:trans.supportDebtDelta,descent});
   }
-  rows.push({sourceKind:source.sourceKind,classId:source.classId,rank:position.rank,residual:{lineLabel:R.lineLabel,tuple:tuple(R),playable:R.currentlyPlayableCells.map(label)},responses});
+  rows.push({
+    nodeId:normalizedNodeByKey.get(physicalKey(position)),
+    sourceKind:source.sourceKind,
+    classId:source.classId,
+    rank:position.rank,
+    residual:{
+      lineLabel:R.lineLabel,
+      tuple:tuple(R),
+      playable:R.currentlyPlayableCells.map(label),
+    },
+    responses,
+  });
 }
-const all=rows.flatMap(r=>r.responses.map(x=>({classId:r.classId,...x}))),
+const all=rows.flatMap(r=>r.responses.map(x=>({
+    nodeId:r.nodeId,
+    classId:r.classId,
+    ...x,
+  }))),
   failures=all.filter(x=>!x.exact),
-  strictFailures=all.filter(x=>!x.strictDescentOrWin);
+  strictFailures=all.filter(x=>!x.strictDescentOrWin),
+  strictReturnEdges=all.map(x=>({
+    ...x,
+    finalPhysicalKey:descentFinalPhysicalKey(x.descent),
+  })).filter(x=>x.strictDescentOrWin&&x.finalPhysicalKey)
+    .map(x=>({
+      fromNode:x.nodeId,
+      classId:x.classId,
+      eventCell:x.eventCell,
+      role:x.role,
+      sourceTuple:x.sourceTuple??null,
+      finalTuple:x.finalTuple??descentFinalTuple(x.descent),
+      toNode:normalizedNodeByKey.get(x.finalPhysicalKey)??null,
+    }));
 console.log(JSON.stringify({
   schema:'connect4.uc4a.cpcx.normalized-p1-response-descent.v0_1',
   observation:'one current P1 event from every exact normalized universal-diagonal P1 boundary, followed by deterministic forced normalization if required and, only when control returns to P0, at most one theorem-qualified current P0 descent action',
@@ -215,7 +271,22 @@ console.log(JSON.stringify({
     roleCounts:Object.fromEntries([...new Set(all.map(x=>x.role))].map(role=>[role,all.filter(x=>x.role===role).length])),
     descentKinds:[...new Set(all.map(x=>x.descent?.kind).filter(Boolean))].sort(),
     failures:failures.map(x=>({classId:x.classId,eventCell:x.eventCell,role:x.role,seam:x.seam??x.descent?.kind??null,descent:x.descent??null})),
-    strictFailures:strictFailures.map(x=>({classId:x.classId,eventCell:x.eventCell,role:x.role,sourceTuple:x.sourceTuple??null,finalTuple:x.finalTuple??null,seam:x.seam??x.descent?.kind??null,descent:x.descent??null})),
+    strictFailures:strictFailures.map(x=>({
+      nodeId:x.nodeId,
+      classId:x.classId,
+      eventCell:x.eventCell,
+      role:x.role,
+      sourceTuple:x.sourceTuple??null,
+      finalTuple:x.finalTuple??null,
+      seam:x.seam??x.descent?.kind??null,
+      descent:x.descent??null,
+    })),
+    strictReturnEdgeCount:strictReturnEdges.length,
+    strictReturnEdgesMatchedToNormalizedNode:
+      strictReturnEdges.filter(x=>x.toNode!==null).length,
+    strictReturnEdgesUnmatched:
+      strictReturnEdges.filter(x=>x.toNode===null),
+    strictReturnEdges,
   },
   boundary:{diagnosticOnly:true,exactlyOneCurrentP1Event:true,controllerFollowupUsesNoFreeLayerWhenForcedNormalizationReturnsDirectlyToP1:true,noFreeSecondP1Layer:true,transferUsesQualifiedDiagonalTransfer:true,noValueConclusion:true,solvedData:false,oracle:false,minimax:false,recursiveSearch:false},
 },null,2));
