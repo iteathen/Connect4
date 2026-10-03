@@ -440,7 +440,26 @@ export function certifyCpcxReservoirCoverageGapRcic(position,{
   }
 
   const rootKey=stateKey(position,targetCell),root=nodes.get(rootKey),
-    certified=root?.status==='CERTIFIED';
+    certified=root?.status==='CERTIFIED',
+    unresolvedNodes=[...nodes.values()]
+      .filter(x=>x.status==='UNRESOLVED')
+      .map(node=>({
+        key:node.key,
+        rank:node.rank,
+        gap:node.gap,
+        support:node.support,
+        seam:node.seam??null,
+        unresolvedTriggers:(node.triggers??[])
+          .filter(trigger=>!trigger.selected)
+          .map(trigger=>({
+            defenderCell:trigger.defenderCell,
+            defenderLabel:trigger.defenderLabel,
+            defenderTerminal:trigger.defenderTerminal??null,
+            optionCount:trigger.options.length,
+            options:trigger.options,
+          })),
+      }))
+      .sort((a,b)=>a.gap-b.gap||a.rank-b.rank||a.key.localeCompare(b.key));
   if(!certified)return {
     schema:'connect4.cpcx.reservoir-gap-rcic.v0_1',
     kind:'NO_CERTIFICATE',
@@ -462,6 +481,8 @@ export function certifyCpcxReservoirCoverageGapRcic(position,{
         optionCount:x.options.length,
         options:x.options,
       })),
+    unresolvedNodeCount:unresolvedNodes.length,
+    unresolvedNodes,
     recursive:false,
     gameTreeTraversal:false,
   };
