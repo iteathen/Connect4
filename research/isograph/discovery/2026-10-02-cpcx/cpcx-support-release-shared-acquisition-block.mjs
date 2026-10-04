@@ -273,7 +273,7 @@ export function certifyCpcxSupportReleaseSharedAcquisitionBlock(position,{
       responseCell:targetCell,
       responseOwner:controller,
       opponentUrgentCells:urgentCells,
-      opponentResidualLineIds:urgentLineIds,
+      opponentResidualLineIds:urgentRows.map(o=>o.lineId),
       opponentResidualLineLabels:urgentRows.map(o=>o.lineLabel),
       controllerResidualContracted:contracted,
       controllerResidualCompleted:completed,
