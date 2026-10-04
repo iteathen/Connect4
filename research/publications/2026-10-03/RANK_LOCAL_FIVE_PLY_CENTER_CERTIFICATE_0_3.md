@@ -613,7 +613,7 @@ For dependency auditing, the scope is strictly one-directional:
 
 > **This result establishes solved-knowledge independence only for plies 1–5 of the certified opening prefix. It makes no claim about solved-knowledge dependence or independence from ply 6 onward.**
 
-At (44444) the rank-local rule refuses, so any later move-selection path must be audited separately.
+At \(44444\) the rank-local rule refuses, so any later move-selection path must be audited separately.
 
 ---
 
