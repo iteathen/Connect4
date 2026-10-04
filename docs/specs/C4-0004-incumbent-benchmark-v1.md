@@ -8,6 +8,13 @@ Define the first reproducible Node-local performance protocol for the qualified 
 
 Correctness authority remains C4-0001, C4-0002 and C4-0003. Performance evidence is invalid if those conformance gates fail.
 
+
+### Independence-profile boundary
+
+This specification includes historical persistent-TT and isolated-reset performance lanes. Those lanes are not automatically clean solved-knowledge-independent benchmarks.
+
+Any run claiming clean exact-solver independence from solved/self-game knowledge must additionally satisfy `C4-0011-solved-knowledge-independent-benchmark-v1.md`. In particular, C4-0011 requires a cold start, a declared exact target, admitted theorem provenance, no stored answer-bearing state, and forbids RLC or any other selector from advancing the benchmark root or pruning legal alternatives without separate exact proof authority.
+
 ## Canonical runtime
 
 The initial canonical runtime is exactly Node `26.7.0`.
