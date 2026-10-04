@@ -10,6 +10,11 @@ on:
       - research/isograph/discovery/2026-10-02-cpcx/cpcx-opponent-response-descent.test.mjs
       - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-opponent-response-descent.mjs
       - research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-opponent-descent-endpoint-descriptors.mjs
+      - research/isograph/discovery/2026-10-02-cpcx/cpcx-progress.mjs
+      - research/isograph/discovery/2026-10-02-cpcx/cpcx-progress.test.mjs
+      - research/isograph/discovery/2026-10-02-cpcx/cpcx-latent-pair-hub.mjs
+      - research/isograph/discovery/2026-10-02-cpcx/cpcx-latent-pair-hub-normalization.mjs
+      - research/isograph/discovery/2026-10-02-cpcx/cpcx-latent-pair-hub-normalization.test.mjs
       - .github/workflows/research-cpcx-opponent-response-descent.yml
   workflow_dispatch:
 
@@ -25,6 +30,8 @@ jobs:
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
         with:
           node-version: "26.7.0"
+      - name: Qualify normalized latent pair-hub progress
+        run: node --test research/isograph/discovery/2026-10-02-cpcx/cpcx-latent-pair-hub-normalization.test.mjs research/isograph/discovery/2026-10-02-cpcx/cpcx-progress.test.mjs
       - name: Qualify opponent response descent
         run: node --test research/isograph/discovery/2026-10-02-cpcx/cpcx-opponent-response-descent.test.mjs
       - name: Apply theorem to turn6 P1 band
