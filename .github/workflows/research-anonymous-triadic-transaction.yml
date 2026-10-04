@@ -1,0 +1,41 @@
+name: Research anonymous triadic transaction
+
+on:
+  push:
+    branches:
+      - experiment/triadic-relational-normalization-20261003
+    paths:
+      - 'research/isograph/discovery/2026-10-03-triadic-relational-normalization/run-anonymous-triadic-transaction-test.mjs'
+      - '.github/workflows/research-anonymous-triadic-transaction.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  anonymous:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: '24'
+      - name: Generate current CPCX target-transfer census
+        run: |
+          mkdir -p research/isograph/discovery/2026-10-03-triadic-relational-normalization/artifacts
+          node research/isograph/discovery/2026-10-02-cpcx/run-uc4a-cpcx-normalized-p1-target-transfer-census.mjs \
+            > research/isograph/discovery/2026-10-03-triadic-relational-normalization/artifacts/cpcx-target-transfer.json
+      - name: Run anonymous triadic transaction test
+        run: |
+          node research/isograph/discovery/2026-10-03-triadic-relational-normalization/run-anonymous-triadic-transaction-test.mjs \
+            research/isograph/discovery/2026-10-03-triadic-relational-normalization/artifacts/cpcx-target-transfer.json \
+            > research/isograph/discovery/2026-10-03-triadic-relational-normalization/artifacts/anonymous-triadic-transaction-v0_1.json
+          cat research/isograph/discovery/2026-10-03-triadic-relational-normalization/artifacts/anonymous-triadic-transaction-v0_1.json
+      - name: Upload anonymous result
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: anonymous-triadic-transaction-v0-1
+          path: |
+            research/isograph/discovery/2026-10-03-triadic-relational-normalization/artifacts/cpcx-target-transfer.json
+            research/isograph/discovery/2026-10-03-triadic-relational-normalization/artifacts/anonymous-triadic-transaction-v0_1.json
