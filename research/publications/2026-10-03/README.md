@@ -5,14 +5,15 @@
 Author: Joshua Oshiro
 
 Current publication:
-RANK_LOCAL_FIVE_PLY_CENTER_CERTIFICATE_0_2.md
+RANK_LOCAL_FIVE_PLY_CENTER_CERTIFICATE_0_3.md
 
-Historical revision retained:
+Historical revisions retained:
 RANK_LOCAL_FIVE_PLY_CENTER_CERTIFICATE_0_1.md
+RANK_LOCAL_FIVE_PLY_CENTER_CERTIFICATE_0_2.md
 
 Status: formal project research preprint; not peer reviewed.
 
-Revision 0.2 adds explicit disclosure that the broader development process was not oracle-blind, records the LLM-contamination limitation, distinguishes runtime/oracle independence from discovery independence, compares the rule against plain line-incidence selection, and corrects notation, self-play framing, and the move-six headroom description.
+Revision 0.3 states the dependency-audit conclusion explicitly: plies 1–5 can be produced without reading solved-game knowledge, and no claim is made about dependence or independence from ply 6 onward. Revision 0.2 added the development-history and LLM-contamination disclosures, distinguished runtime-input independence from discovery independence, compared the rule against plain line incidence, and corrected notation, self-play framing, and the move-six headroom description.
 
 Result: the current-state rank-local landing certificate uniquely selects column 4 from the empty board and after prefixes 4, 44, 444, and 4444, constructively yielding 44444 without descendant enumeration, recursive search, oracle input, solved W/D/L values, projection, or an encoded opening table. At 44444 the same certificate reaches its explicit move-six unresolved boundary because the unique center incidence maximum has zero headroom.
 
