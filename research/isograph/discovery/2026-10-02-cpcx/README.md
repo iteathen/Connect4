@@ -581,3 +581,32 @@ realization.  Until that theorem exists, the `44444` result remains
 
 Qualification details and preserved falsifiers are frozen in
 `CHECKPOINT_0_6.json`.
+
+
+## Current action target — 2026-10-03
+
+The authoritative current objective is
+`CPCX_WINNER_EXISTENCE_LOSER_EQUIVALENCE_TARGET_0_1.md`, checkpointed in
+`CHECKPOINT_1_2.json`.
+
+CPCX now separates the two move obligations:
+
+```text
+winner to move:
+    prove at least one legal action is a certified winning action
+
+losing player to move:
+    prove every legal action remains in the same opponent first-win class
+```
+
+The losing-player equivalence is outcome-only. It deliberately does not require
+equal remoteness, equal terminal depth, equal continuation geometry, or a
+"longest-surviving" move.
+
+For `44444`, the target is therefore to certify P0 first win after every legal
+P1 sixth action. At subsequent P0 controller boundaries one qualified winning
+witness is sufficient; at P1 opponent boundaries every current legal action
+must be covered by the P0 first-win recurrence.
+
+The anti-search boundary is unchanged: no solved tables, oracle values,
+minimax/negamax/alpha-beta, or recursive arbitrary future-reply enumeration.
