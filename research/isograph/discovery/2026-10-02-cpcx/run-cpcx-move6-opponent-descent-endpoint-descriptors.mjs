@@ -1067,6 +1067,49 @@ for(const source of sources.values()){
                     });
                   }
                 }
+                const postSuccessorProgress=q
+                    ?classifyCpcxProgress(q,{player:0}):null,
+                  postSuccessorFirst=q
+                    ?runCpcxFirstWinCertificate(q,{attacker:0}):null,
+                  postSuccessorActionAudit=q&&q.mover===0
+                    ?frontierCells(q).map(actionCell=>{
+                      const after=applyCpcxForcedEvent(q,actionCell);
+                      if(after.terminal)return {
+                        actionCell:label(actionCell),
+                        terminal:after.terminal,
+                        immediate:null,
+                        progress:null,
+                        firstWin:null,
+                      };
+                      const afterImmediate=classifyCpcxImmediate(after),
+                        afterProgress=classifyCpcxProgress(
+                          after,{player:0}
+                        ),
+                        afterFirst=runCpcxFirstWinCertificate(
+                          after,{attacker:0}
+                        );
+                      return {
+                        actionCell:label(actionCell),
+                        terminal:null,
+                        immediate:{
+                          kind:afterImmediate.kind,
+                          cell:Number.isInteger(afterImmediate.cell)
+                            ?label(afterImmediate.cell):null,
+                          threatCells:(afterImmediate.threatCells??
+                            afterImmediate.opponentThreatCells??[]).map(label),
+                          winningCells:(afterImmediate.winningCells??[])
+                            .map(label),
+                        },
+                        progress:progressSummary(afterProgress),
+                        firstWin:{
+                          kind:afterFirst.kind,
+                          exact:afterFirst.exact??false,
+                          player:afterFirst.player??null,
+                          seam:afterFirst.seam??null,
+                          traceLength:afterFirst.trace?.length??0,
+                        },
+                      };
+                    }):[];
                 exactProgressFirst={
                   successorKind:successor.kind,
                   exact:successor.exact??false,
@@ -1081,6 +1124,16 @@ for(const source of sources.values()){
                   concrete:Boolean(q),
                   rank:q?.rank??null,
                   mover:q?.mover??null,
+                  postSuccessorProgress:postSuccessorProgress
+                    ?progressSummary(postSuccessorProgress):null,
+                  postSuccessorFirstWin:postSuccessorFirst?{
+                    kind:postSuccessorFirst.kind,
+                    exact:postSuccessorFirst.exact??false,
+                    player:postSuccessorFirst.player??null,
+                    seam:postSuccessorFirst.seam??null,
+                    traceLength:postSuccessorFirst.trace?.length??0,
+                  }:null,
+                  postSuccessorActionAudit,
                   postSuccessorExistentialActions,
                   protectedResidual:R?{
                     lineId:R.lineId,
