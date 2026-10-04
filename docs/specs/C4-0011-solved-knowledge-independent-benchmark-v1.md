@@ -222,7 +222,7 @@ Thus:
 
 The phrase “previously proved structural theorem” is not sufficient provenance by itself.
 
-Every theorem used as exact pruning/root-advancement authority in a solved-knowledge-independent benchmark must be cited by immutable file identity and commit/hash and classified before the run.
+Every theorem used to prune alternatives or to establish value-preservation/equivalence in a fixed-root exact proof must be cited by immutable file identity and commit/hash and classified before the run.
 
 ### 9.1 Lineage-clean rule-derived theorem
 
@@ -455,7 +455,7 @@ Search reductions, structural certificates, quotienting, symmetry, pruning, and 
 
 A fast heuristic answer is not an exact solve.
 
-A selector that chooses the same move as an oracle on a test position is not thereby a proof of optimality.
+A selector that chooses the same move as an oracle on a test position is not thereby a proof of global minimax optimality.
 
 ---
 
