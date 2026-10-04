@@ -1584,22 +1584,50 @@ for(const source of sources.values()){
                   progress:null,
                   firstWin:null,
                 };
-                const progress=classifyCpcxProgress(next,{player:0}),
-                  first=runCpcxFirstWinCertificate(next,{attacker:0});
+                const im=classifyCpcxImmediate(next),
+                  progress=classifyCpcxProgress(next,{player:0}),
+                  first=runCpcxFirstWinCertificate(next,{attacker:0}),
+                  responseTotalDiagonals=[];
+                if(
+                  next.mover===1&&
+                  im.kind==='NO_IMMEDIATE_OBLIGATION'
+                ){
+                  for(const residual of scanCpcxObligations(next).filter(o=>
+                    o.player===0&&
+                    (o.orientation==='D+'||o.orientation==='D-')
+                  )){
+                    const response=
+                      certifyCpcxProtectedDiagonalOpponentResponseDescentV2(
+                        next,{protectedResidual:residual}
+                      );
+                    if(
+                      response.exact&&
+                      response.kind===
+                        'PROTECTED_DIAGONAL_OPPONENT_RESPONSE_DESCENT_V2'
+                    )responseTotalDiagonals.push({
+                      lineId:residual.lineId,
+                      lineLabel:residual.lineLabel,
+                      missingCount:residual.missingCount,
+                      missing:residual.missingCells.map(label),
+                      support:residual.events.map(e=>e.supportDistance),
+                      sourceMeasure:response.sourceMeasure,
+                      eventCount:response.eventCount,
+                      everyEventWinsOrStrictlyDescends:
+                        response.everyEventWinsOrStrictlyDescends===true,
+                    });
+                  }
+                }
                 const row={
                   actionCell:label(actionCell),
                   terminal:null,
-                  immediate:(()=>{
-                    const im=classifyCpcxImmediate(next);
-                    return {
-                      kind:im.kind,
-                      mover:im.mover??null,
-                      cell:Number.isInteger(im.cell)?label(im.cell):null,
-                      winningCells:(im.winningCells??[]).map(label),
-                      threatCells:(im.threatCells??
-                        im.opponentThreatCells??[]).map(label),
-                    };
-                  })(),
+                  immediate:{
+                    kind:im.kind,
+                    mover:im.mover??null,
+                    cell:Number.isInteger(im.cell)?label(im.cell):null,
+                    winningCells:(im.winningCells??[]).map(label),
+                    threatCells:(im.threatCells??
+                      im.opponentThreatCells??[]).map(label),
+                  },
                   progress:progressSummary(progress),
                   firstWin:{
                     kind:first.kind,
@@ -1608,6 +1636,7 @@ for(const source of sources.values()){
                     seam:first.seam??null,
                     traceLength:first.trace?.length??0,
                   },
+                  responseTotalDiagonals,
                   p0SmallResiduals:smallResidualSummary(next,0).slice(0,12),
                 };
                 if(label(actionCell)==='F6'){
@@ -1861,6 +1890,29 @@ console.log(JSON.stringify({
       }
       return labels.sort();
     })(),
+    perProbeExistentialResponseTotalActions:noTransferProbes.map((probe,index)=>({
+      probe:index+1,
+      rank:probe.rank,
+      support:probe.support,
+      actions:probe.currentP0Actions.filter(x=>
+        x.terminal?.player===0||
+        x.firstWin?.kind==='CERTIFIED_FIRST_WIN'&&x.firstWin.player===0||
+        (x.responseTotalDiagonals?.length??0)>0
+      ).map(x=>({
+        actionCell:x.actionCell,
+        immediateTerminal:x.terminal?.player===0,
+        directFirstWin:
+          x.firstWin?.kind==='CERTIFIED_FIRST_WIN'&&x.firstWin.player===0,
+        responseTotalDiagonals:x.responseTotalDiagonals??[],
+      })),
+    })),
+    probeCountWithExistentialResponseTotalAction:noTransferProbes.filter(probe=>
+      probe.currentP0Actions.some(x=>
+        x.terminal?.player===0||
+        x.firstWin?.kind==='CERTIFIED_FIRST_WIN'&&x.firstWin.player===0||
+        (x.responseTotalDiagonals?.length??0)>0
+      )
+    ).length,
     commonPostBlockP0Residuals,
     endpointCount:endpoints.length,
     terminalCount:terminals.length,
@@ -2017,6 +2069,9 @@ console.log(JSON.stringify({
     f6ResponseProbeIsOneCurrentOpponentLayerOnly:true,
     f6ResponseProbeIsFalsificationOnly:true,
     currentPlayableTargetTransferAuditOnly:true,
+    controllerExistentialAuditCurrentActionOnly:true,
+    controllerExistentialAuditUsesQualifiedResponseDescentV2:true,
+    noRecursiveControllerActionTree:true,
     noSolvedData:true,
     oracle:false,
     minimax:false,
