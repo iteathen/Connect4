@@ -170,27 +170,21 @@ However:
 
 > **RLC selection is not, by itself, proof of game-theoretic optimality.**
 
-Therefore, in an exact benchmark, an RLC output may be used for:
+Therefore, an RLC output may be used for:
 
+- choosing the next move of a declared composite solve method;
+- advancing the live game state when that move was actually recomputed during the current run;
 - move ordering;
 - worker scheduling;
 - speculative work priority;
 - diagnostics;
 - non-pruning hints.
 
-Unless a separate admitted exact theorem proves value preservation or exact equivalence at the current position, RLC output may **not** be used to:
+A benchmark that starts from the empty board remains an **empty-board execution** when its solver computes one or more moves during that run and then hands the resulting live position to another solving method. Runtime state advancement is solver work; it is not equivalent to supplying a precomputed opening prefix.
 
-- eliminate a legal alternative;
-- prune an opponent reply;
-- advance the benchmark root;
-- assume an opening prefix;
-- substitute self-play for full adversarial quantification;
-- claim that the selected move is optimal;
-- return an exact result without the remaining exact proof obligation.
+RLC selection alone still does **not** authorize a different claim: if a component purports to prove the W/D/L value of a fixed root while leaving the root unchanged, RLC selection by itself cannot discharge unexamined legal alternatives. Such pruning requires separate exact proof authority.
 
-In particular, a clean empty-board exact benchmark may not start its exact solve at ply 5 merely because runtime RLC recomputes 44444.
-
-The generic RLC rule may survive into a clean run. The discovered result “44444” may not survive as a stored table, cache, prefix constant, or root shortcut. It must be recomputed if used.
+The generic RLC rule may survive into a clean run. The discovered result “44444” may not survive as a stored table, cache, prefix constant, or supplied starting position. It must be recomputed from the actual evolving position if used.
 
 ---
 
@@ -332,9 +326,11 @@ For an empty-board benchmark, every solver begins at the empty board.
 
 For a prefix benchmark, every solver receives exactly that prefix/current state.
 
-A solver may not start farther down the game because a heuristic, RLC, book, prior solve, or expected line predicts the preceding moves.
+A solver may not be **initialized** farther down the game because a heuristic, RLC, book, prior solve, or expected line predicts the preceding moves.
 
-If a structural theorem exactly eliminates earlier alternatives, that proof work is part of the benchmark unless the benchmark profile explicitly declares the theorem as admitted pre-run authority under Section 9.
+This does not prohibit the solver from advancing its own live position after the benchmark begins. If the declared start is empty and the solver computes moves 1..k during that run from admitted inputs, the resulting position is a runtime output of the empty-board execution, not a different benchmark start.
+
+If a structural theorem exactly eliminates alternatives inside a fixed-root proof, that proof work is part of the benchmark unless the benchmark profile explicitly declares the theorem as admitted pre-run authority under Section 9.
 
 When a theorem is admitted as pre-run authority, the historical cost of discovering or proving that theorem is outside the timed benchmark. **The cost of evaluating its premises, constructing its position-specific instance, and checking that it applies to the current benchmark state remains position-dependent work and must be included under Section 14.**
 
@@ -474,7 +470,9 @@ NEES is a Connect4/IsoMax project accounting requirement, not part of the portab
 
 The current RLC publication establishes runtime/proof-input solved-knowledge independence for its move selections through plies 1–5 only.
 
-It does not establish that RLC selection is game-theoretically optimal, and it does not authorize an empty-board exact benchmark to advance directly to 44444.
+A declared composite solver may therefore start from the empty board, recompute those moves one at a time, advance the live state, and hand the resulting position to the exact-search stage. Such a run is an empty-board composite execution because no prefix was supplied in advance.
+
+This does not turn RLC's scoring relation into a generic game-theoretic optimality theorem, and it does not permit the literal result `44444` to be embedded or loaded as prior knowledge.
 
 From ply 6 onward, solved-knowledge dependence/independence must be audited separately.
 
@@ -516,7 +514,7 @@ The benchmark report must state any deviation from this contract rather than sil
 
 For a strict solved-knowledge-independent exact benchmark:
 
-> The solver starts from the declared legal root with no stored or embedded answer-bearing state. It may use game rules, mechanically derived geometry, generic algorithms, current-run learning, and lineage-clean structural theorems whose provenance was frozen before oracle validation. Every selector and heuristic is declared with its lineage classification; oracle-informed selectors are excluded from the strict lineage-clean lane. Runtime selectors such as RLC may order work where their lane permits it but may not prune or advance the root without separate exact proof authority. Oracle information is excluded from execution and is used only after candidate freeze for validation. Every position-specific contribution to the exact result is either derived during the current run or discharged by an explicitly admitted theorem.
+> The solver starts from the declared legal root with no stored or embedded answer-bearing state. It may use game rules, mechanically derived geometry, generic algorithms, current-run learning, and admitted structural theorems under the declared independence lane. Every selector and heuristic is declared with its lineage classification. A solver may compute moves during the run, advance its live state, and hand that state between solving methods; this remains one execution from the declared root. What is forbidden is supplying or embedding those position-specific results before the run. Oracle information is excluded from execution and is used only under the declared validation boundary. Every position-specific contribution to the result is derived during the current run or discharged by an explicitly admitted theorem.
 
 ## 22. Referenced Connect4 specifications
 
