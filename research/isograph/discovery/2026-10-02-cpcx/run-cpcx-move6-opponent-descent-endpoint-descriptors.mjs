@@ -1164,6 +1164,7 @@ for(const source of sources.values()){
                                   gap.unresolvedRootTriggers??[],
                                 unresolvedNodes:(gap.unresolvedNodes??[]).map(
                                   node=>({
+                                    key:node.key,
                                     rank:node.rank,
                                     gap:node.gap,
                                     support:node.support,
@@ -1191,6 +1192,7 @@ for(const source of sources.values()){
                                 unresolvedNodes:
                                   (gapCapacity.unresolvedNodes??[]).map(
                                     node=>({
+                                      key:node.key,
                                       rank:node.rank,
                                       gap:node.gap,
                                       support:node.support,
