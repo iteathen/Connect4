@@ -1,0 +1,159 @@
+Statistical profiling result from C:\r\c4-isomax-no-rlc-diagnosis-20261004\isolate-00000248BCFB9000-29048-v8.log, (49 ticks, 0 unaccounted, 0 excluded).
+
+ [Shared libraries]:
+   ticks  total  nonlib   name
+     17   34.7%          C:\r\c4-isomax-no-rlc-20261004\runtime\isomax\node.exe
+      1    2.0%          C:\WINDOWS\SYSTEM32\ntdll.dll
+
+ [JavaScript]:
+   ticks  total  nonlib   name
+      6   12.2%   19.4%  Builtin: CallFunction_ReceiverIsAny
+      3    6.1%    9.7%  Builtin: KeyedStoreIC
+      3    6.1%    9.7%  Builtin: KeyedLoadIC_PolymorphicName
+      2    4.1%    6.5%  Builtin: LoadICGenericBaseline
+      2    4.1%    6.5%  Builtin: KeyedLoadIC
+      1    2.0%    3.2%  JS: ^popAsyncContext node:internal/async_hooks:552:25
+      1    2.0%    3.2%  JS: ^listOnTimeout node:internal/timers:623:25
+      1    2.0%    3.2%  JS: ^emitBeforeScript node:internal/async_hooks:508:26
+      1    2.0%    3.2%  Builtin: StoreFastElementIC_InBounds
+      1    2.0%    3.2%  Builtin: RecordWriteIgnoreFP
+      1    2.0%    3.2%  Builtin: LessThan_Baseline
+      1    2.0%    3.2%  Builtin: JSEntryTrampoline
+      1    2.0%    3.2%  Builtin: Call_ReceiverIsNullOrUndefined
+      1    2.0%    3.2%  Builtin: Call_ReceiverIsAny
+      1    2.0%    3.2%  Builtin: CallFunction_ReceiverIsNullOrUndefined
+      1    2.0%    3.2%  Builtin: CallFunction_ReceiverIsNotNullOrUndefined
+      1    2.0%    3.2%  Builtin: CallApiCallbackGeneric
+      1    2.0%    3.2%  Builtin: BaselineOutOfLinePrologue
+      1    2.0%    3.2%  Builtin: ArrayPrototypePop
+
+ [C++]:
+   ticks  total  nonlib   name
+
+ [Summary]:
+   ticks  total  nonlib   name
+     30   61.2%   96.8%  JavaScript
+      0    0.0%    0.0%  C++
+      1    2.0%    3.2%  GC
+     18   36.7%          Shared libraries
+
+ [C++ entry points]:
+   ticks    cpp   total   name
+
+ [Bottom up (heavy) profile]:
+  Note: percentage shows a share of a particular caller in the total
+  amount of its parent calls.
+  Callers occupying less than 1.0% are not shown.
+
+   ticks parent  name
+     17   34.7%  C:\r\c4-isomax-no-rlc-20261004\runtime\isomax\node.exe
+      2   11.8%    JS: ^compileForInternalLoader node:internal/bootstrap/realm:407:27
+      2  100.0%      JS: ^requireBuiltin node:internal/bootstrap/realm:444:24
+      1   50.0%        JS: ~<anonymous> node:internal/streams/operators:1:1
+      1  100.0%          JS: ^compileForInternalLoader node:internal/bootstrap/realm:407:27
+      1  100.0%            JS: ^requireBuiltin node:internal/bootstrap/realm:444:24
+      1   50.0%        Builtin: CallApiCallbackGeneric
+      1  100.0%          Script: ~<anonymous> file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/wrapper.mjs:1:1
+      1  100.0%            Builtin: AsyncModuleEvaluate
+      2   11.8%    C:\r\c4-isomax-no-rlc-20261004\runtime\isomax\node.exe
+      1   50.0%      JS: ^processTimers node:internal/timers:603:25
+      1   50.0%      JS: ^popAsyncContext node:internal/async_hooks:552:25
+      1  100.0%        JS: ^emitAfterScript node:internal/async_hooks:516:25
+      1  100.0%          JS: ^listOnTimeout node:internal/timers:623:25
+      1  100.0%            JS: +processTimers node:internal/timers:603:25
+      1    5.9%    JS: ~runInContext node:vm:141:15
+      1  100.0%      JS: ~runInNewContext node:vm:153:18
+      1  100.0%        JS: ~runInNewContext node:vm:305:25
+      1  100.0%          JS: ~<anonymous> node:internal/main/run_main_module:1:1
+      1    5.9%    JS: ^listOnTimeout node:internal/timers:623:25
+      1  100.0%      JS: ^processTimers node:internal/timers:603:25
+      1    5.9%    JS: ^insert node:internal/timers:426:16
+      1  100.0%      JS: ^listOnTimeout node:internal/timers:623:25
+      1  100.0%        JS: ^processTimers node:internal/timers:603:25
+
+      6   12.2%  Builtin: CallFunction_ReceiverIsAny
+
+      3    6.1%  Builtin: KeyedStoreIC
+      3  100.0%    JS: ^emitBeforeScript node:internal/async_hooks:508:26
+      3  100.0%      JS: ^listOnTimeout node:internal/timers:623:25
+      3  100.0%        JS: +processTimers node:internal/timers:603:25
+
+      3    6.1%  Builtin: KeyedLoadIC_PolymorphicName
+      2   66.7%    JS: +processTimers node:internal/timers:603:25
+      1   33.3%    JS: ^processTimers node:internal/timers:603:25
+
+      2    4.1%  Builtin: LoadICGenericBaseline
+      1   50.0%    JS: ^pushAsyncContext node:internal/async_hooks:538:26
+      1  100.0%      JS: ^emitBeforeScript node:internal/async_hooks:508:26
+      1  100.0%        JS: ^listOnTimeout node:internal/timers:623:25
+      1  100.0%          JS: ^processTimers node:internal/timers:603:25
+      1   50.0%    JS: ^load node:internal/modules/esm/loader:785:7
+      1  100.0%      JS: ^loadAndTranslate node:internal/modules/esm/loader:499:19
+      1  100.0%        JS: ^#getOrCreateModuleJobAfterResolve node:internal/modules/esm/loader:529:36
+      1  100.0%          JS: ^syncLink node:internal/modules/esm/module_job:261:11
+      1  100.0%            JS: ^link node:internal/modules/esm/module_job:385:7
+
+      2    4.1%  Builtin: KeyedLoadIC
+      1   50.0%    JS: ^percolateDown node:internal/priority_queue:38:16
+      1  100.0%      JS: ^listOnTimeout node:internal/timers:623:25
+      1  100.0%        JS: +processTimers node:internal/timers:603:25
+      1   50.0%    JS: +processTimers node:internal/timers:603:25
+
+      1    2.0%  JS: ^popAsyncContext node:internal/async_hooks:552:25
+      1  100.0%    JS: ^emitAfterScript node:internal/async_hooks:516:25
+      1  100.0%      JS: ^listOnTimeout node:internal/timers:623:25
+      1  100.0%        JS: +processTimers node:internal/timers:603:25
+
+      1    2.0%  JS: ^listOnTimeout node:internal/timers:623:25
+      1  100.0%    JS: +processTimers node:internal/timers:603:25
+
+      1    2.0%  JS: ^emitBeforeScript node:internal/async_hooks:508:26
+      1  100.0%    JS: ^processTimers node:internal/timers:603:25
+
+      1    2.0%  C:\WINDOWS\SYSTEM32\ntdll.dll
+
+      1    2.0%  Builtin: StoreFastElementIC_InBounds
+      1  100.0%    JS: ^pushAsyncContext node:internal/async_hooks:538:26
+      1  100.0%      JS: ^emitBeforeScript node:internal/async_hooks:508:26
+      1  100.0%        JS: ^listOnTimeout node:internal/timers:623:25
+      1  100.0%          JS: ^processTimers node:internal/timers:603:25
+
+      1    2.0%  Builtin: RecordWriteIgnoreFP
+      1  100.0%    JS: ^listOnTimeout node:internal/timers:623:25
+      1  100.0%      JS: ^processTimers node:internal/timers:603:25
+
+      1    2.0%  Builtin: LessThan_Baseline
+      1  100.0%    JS: ^processTimers node:internal/timers:603:25
+
+      1    2.0%  Builtin: JSEntryTrampoline
+
+      1    2.0%  Builtin: Call_ReceiverIsNullOrUndefined
+
+      1    2.0%  Builtin: Call_ReceiverIsAny
+      1  100.0%    JS: ^pushAsyncContext node:internal/async_hooks:538:26
+      1  100.0%      JS: ^emitBeforeScript node:internal/async_hooks:508:26
+      1  100.0%        JS: ^listOnTimeout node:internal/timers:623:25
+      1  100.0%          JS: ^processTimers node:internal/timers:603:25
+
+      1    2.0%  Builtin: CallFunction_ReceiverIsNullOrUndefined
+      1  100.0%    JS: ^listOnTimeout node:internal/timers:623:25
+      1  100.0%      JS: +processTimers node:internal/timers:603:25
+
+      1    2.0%  Builtin: CallFunction_ReceiverIsNotNullOrUndefined
+      1  100.0%    JS: +emitAfterScript node:internal/async_hooks:516:25
+      1  100.0%      JS: ^listOnTimeout node:internal/timers:623:25
+      1  100.0%        JS: +processTimers node:internal/timers:603:25
+
+      1    2.0%  Builtin: CallApiCallbackGeneric
+      1  100.0%    JS: ^processTimers node:internal/timers:603:25
+
+      1    2.0%  Builtin: BaselineOutOfLinePrologue
+      1  100.0%    JS: ^listOnTimeout node:internal/timers:623:25
+      1  100.0%      JS: ^processTimers node:internal/timers:603:25
+
+      1    2.0%  Builtin: ArrayPrototypePop
+      1  100.0%    JS: ^popAsyncContext node:internal/async_hooks:552:25
+      1  100.0%      JS: ^emitAfterScript node:internal/async_hooks:516:25
+      1  100.0%        JS: ^listOnTimeout node:internal/timers:623:25
+      1  100.0%          JS: ^processTimers node:internal/timers:603:25
+

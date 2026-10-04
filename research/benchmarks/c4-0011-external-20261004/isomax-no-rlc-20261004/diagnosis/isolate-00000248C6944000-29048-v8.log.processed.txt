@@ -1,0 +1,158 @@
+Statistical profiling result from C:\r\c4-isomax-no-rlc-diagnosis-20261004\isolate-00000248C6944000-29048-v8.log, (412 ticks, 1 unaccounted, 0 excluded).
+
+ [Shared libraries]:
+   ticks  total  nonlib   name
+     10    2.4%          C:\r\c4-isomax-no-rlc-20261004\runtime\isomax\node.exe
+
+ [JavaScript]:
+   ticks  total  nonlib   name
+    215   52.2%   53.5%  JS: *connect4RbaDenseCofactorKnownHeight file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/addons/rba-connect4-coordinate-dense.mjs:16:52
+     46   11.2%   11.4%  JS: *probeConnect4RbaExactCacheSlot32Frontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:35:50
+     39    9.5%    9.7%  JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+     39    9.5%    9.7%  Builtin: AtomicsLoad
+     16    3.9%    4.0%  JS: *evaluateConnect4CpcNonterminal32 file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/cpc.mjs:240:49
+     11    2.7%    2.7%  JS: *storeConnect4RbaExactCacheSlot32Frontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:53:50
+     11    2.7%    2.7%  JS: *connect4RbaPreparedCanonicalize file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/addons/rba-connect4-coordinate-prepared.mjs:94:48
+      9    2.2%    2.2%  Builtin: AtomicsStore
+      3    0.7%    0.7%  JS: *deriveForkPreemption32 file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/cpc.mjs:54:32
+      2    0.5%    0.5%  JS: +storeConnect4RbaExactCacheSlot32Frontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:53:50
+      2    0.5%    0.5%  JS: +probeConnect4RbaExactCacheSlot32Frontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:35:50
+      2    0.5%    0.5%  JS: *storeConnect4RbaBoundCacheSlot32Frontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:66:50
+      2    0.5%    0.5%  Builtin: AtomicsCompareExchange
+      1    0.2%    0.2%  JS: +emitSortedSetBits32 file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/src/basis32.mjs:1:36
+      1    0.2%    0.2%  JS: *wasm-function[0]
+      1    0.2%    0.2%  JS: *playableCell file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/cpc.mjs:42:22
+      1    0.2%    0.2%  JS: *advanceLive3x32 file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/fixed-ops.mjs:22:32
+
+ [C++]:
+   ticks  total  nonlib   name
+
+ [Summary]:
+   ticks  total  nonlib   name
+    401   97.3%   99.8%  JavaScript
+      0    0.0%    0.0%  C++
+      1    0.2%    0.2%  GC
+     10    2.4%          Shared libraries
+      1    0.2%          Unaccounted
+
+ [C++ entry points]:
+   ticks    cpp   total   name
+
+ [Bottom up (heavy) profile]:
+  Note: percentage shows a share of a particular caller in the total
+  amount of its parent calls.
+  Callers occupying less than 1.0% are not shown.
+
+   ticks parent  name
+    215   52.2%  JS: *connect4RbaDenseCofactorKnownHeight file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/addons/rba-connect4-coordinate-dense.mjs:16:52
+    210   97.7%    JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+    210  100.0%      JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+    210  100.0%        JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+    210  100.0%          JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+    210  100.0%            JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+      5    2.3%    JS: +searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+      5  100.0%      JS: +searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+      4   80.0%        JS: +searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+      4  100.0%          JS: +searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+      4  100.0%            JS: +searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+      1   20.0%        JS: ^searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+      1  100.0%          JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+      1  100.0%            JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+
+     46   11.2%  JS: *probeConnect4RbaExactCacheSlot32Frontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:35:50
+     45   97.8%    JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+     45  100.0%      JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+     45  100.0%        JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+     45  100.0%          JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+     45  100.0%            JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+      1    2.2%    JS: +searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+      1  100.0%      JS: +searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+      1  100.0%        JS: +searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+      1  100.0%          JS: +searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+      1  100.0%            JS: +searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+
+     39    9.5%  JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+     39  100.0%    JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+     39  100.0%      JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+     39  100.0%        JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+     39  100.0%          JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+     39  100.0%            JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+
+     39    9.5%  Builtin: AtomicsLoad
+     34   87.2%    JS: *probeConnect4RbaExactCacheSlot32Frontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:35:50
+     32   94.1%      JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+     32  100.0%        JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+     32  100.0%          JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+     32  100.0%            JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+      2    5.9%      JS: +searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+      2  100.0%        JS: +searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+      2  100.0%          JS: +searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+      2  100.0%            JS: +searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+      3    7.7%    JS: ^probeConnect4RbaSharedExactCache32 file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/shared-cache.mjs:74:51
+      3  100.0%      JS: +probeConnect4RbaExactCacheSlot32Frontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:35:50
+      3  100.0%        JS: +searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+      3  100.0%          JS: +searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+      3  100.0%            JS: +searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+      2    5.1%    JS: *storeConnect4RbaExactCacheSlot32Frontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:53:50
+      2  100.0%      JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+      2  100.0%        JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+      2  100.0%          JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+      2  100.0%            JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+
+     16    3.9%  JS: *evaluateConnect4CpcNonterminal32 file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/cpc.mjs:240:49
+     15   93.8%    JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+     15  100.0%      JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+     15  100.0%        JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+     15  100.0%          JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+     15  100.0%            JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+      1    6.3%    JS: +searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+      1  100.0%      JS: +searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+      1  100.0%        JS: +searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+      1  100.0%          JS: +searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+      1  100.0%            JS: +searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+
+     11    2.7%  JS: *storeConnect4RbaExactCacheSlot32Frontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:53:50
+     10   90.9%    JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+     10  100.0%      JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+     10  100.0%        JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+     10  100.0%          JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+     10  100.0%            JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+      1    9.1%    JS: +searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+      1  100.0%      JS: +searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+      1  100.0%        JS: +searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+      1  100.0%          JS: +searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+      1  100.0%            JS: +searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+
+     11    2.7%  JS: *connect4RbaPreparedCanonicalize file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/addons/rba-connect4-coordinate-prepared.mjs:94:48
+     11  100.0%    JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+     10   90.9%      JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+     10  100.0%        JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+     10  100.0%          JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+     10  100.0%            JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+      1    9.1%      JS: ^searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+      1  100.0%        JS: ^searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+      1  100.0%          JS: ^searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+      1  100.0%            JS: ^searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+
+     10    2.4%  C:\r\c4-isomax-no-rlc-20261004\runtime\isomax\node.exe
+      8   80.0%    C:\r\c4-isomax-no-rlc-20261004\runtime\isomax\node.exe
+      6   75.0%      JS: *evaluateConnect4CpcNonterminal32 file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/cpc.mjs:240:49
+      6  100.0%        JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+      6  100.0%          JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+      6  100.0%            JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+      1   12.5%      JS: ~<anonymous> node:perf_hooks:1:1
+      1  100.0%        JS: ^compileForInternalLoader node:internal/bootstrap/realm:407:27
+      1  100.0%          JS: ^requireBuiltin node:internal/bootstrap/realm:444:24
+      1  100.0%            Builtin: CEntry_Return1_ArgvOnStack_NoBuiltinExit
+      1   12.5%      JS: ^#translate node:internal/modules/esm/loader:432:13
+      1  100.0%        JS: ^afterLoad node:internal/modules/esm/loader:502:23
+      1  100.0%          JS: ^loadAndTranslate node:internal/modules/esm/loader:499:19
+      1  100.0%            JS: ^#getOrCreateModuleJobAfterResolve node:internal/modules/esm/loader:529:36
+
+      9    2.2%  Builtin: AtomicsStore
+      9  100.0%    JS: *storeConnect4RbaExactCacheSlot32Frontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:53:50
+      9  100.0%      JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+      9  100.0%        JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+      9  100.0%          JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+      9  100.0%            JS: *searchCpcOnlyFrontier file:///C:/r/c4-isomax-no-rlc-20261004/runtime/isomax/isomax/runtime/experiments/isomax-lean/solver-dense.mjs:152:31
+
