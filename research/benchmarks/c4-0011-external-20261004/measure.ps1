@@ -1,5 +1,21 @@
 param([Parameter(Mandatory=$true)][string]$Config)
 $ErrorActionPreference = 'Stop'
+Add-Type @'
+using System;
+using System.Runtime.InteropServices;
+public static class C4ProcessMemory {
+ [StructLayout(LayoutKind.Sequential)] public struct Counters {
+  public uint cb, pageFaultCount;
+  public UIntPtr peakWorkingSet, workingSet, peakPagedPool, pagedPool, peakNonPagedPool, nonPagedPool, pagefile, peakPagefile;
+ }
+ [DllImport("psapi.dll", SetLastError=true)] static extern bool GetProcessMemoryInfo(IntPtr process, ref Counters counters, uint size);
+ public static ulong Peak(IntPtr process) {
+  var c=new Counters(); c.cb=(uint)Marshal.SizeOf<Counters>();
+  if(!GetProcessMemoryInfo(process,ref c,c.cb)) throw new System.ComponentModel.Win32Exception(Marshal.GetLastWin32Error());
+  return c.peakWorkingSet.ToUInt64();
+ }
+}
+'@
 $configData = Get-Content -LiteralPath $Config -Raw | ConvertFrom-Json
 $p = [System.Diagnostics.Process]::new()
 $p.StartInfo.FileName = $configData.executable
@@ -25,7 +41,7 @@ $timedOut = -not $p.WaitForExit([int]$configData.timeoutMs)
 if ($timedOut) { $p.Kill($true); if (-not $p.WaitForExit(5000)) { throw 'Child failed to exit within cleanup deadline' } }
 $clock.Stop()
 $cpu = $null; $peak = $null; $metricError = $null
-try { $cpu = $p.TotalProcessorTime.TotalMilliseconds; $peak = $p.PeakWorkingSet64 } catch { $metricError = $_.Exception.Message }
+try { $cpu = $p.TotalProcessorTime.TotalMilliseconds; $peak = [C4ProcessMemory]::Peak($p.Handle) } catch { $metricError = $_.Exception.Message }
 if (-not $stdoutTask.Wait(5000) -or -not $stderrTask.Wait(5000)) { throw 'Output drain exceeded cleanup deadline' }
 $stdout = $stdoutTask.GetAwaiter().GetResult()
 $stderr = $stderrTask.GetAwaiter().GetResult()

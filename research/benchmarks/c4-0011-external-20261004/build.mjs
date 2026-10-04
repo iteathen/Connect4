@@ -10,6 +10,8 @@ const root=resolve(cfg.buildRoot);if(existsSync(root))throw Error('build root mu
 mkdirSync(root,{recursive:true});
 const gcc=join(cfg.toolchains,'w64devkit/bin/gcc.exe'),gxx=join(cfg.toolchains,'w64devkit/bin/g++.exe'),rust=join(cfg.toolchains,'rust/bin/rustc.exe');
 const env={SystemRoot:process.env.SystemRoot,WINDIR:process.env.WINDIR,ComSpec:process.env.ComSpec,TEMP:process.env.TEMP,TMP:process.env.TMP,PATH:`${dirname(gcc)};${process.env.SystemRoot}/System32`,LANG:'C',LC_ALL:'C'};
+for(const key of ['SystemDrive','ProgramFiles','ProgramFiles(x86)','ProgramData'])if(process.env[key])env[key]=process.env[key];
+env.PATHEXT='.COM;.EXE;.BAT;.CMD';env.VSCMD_SKIP_SENDTELEMETRY='1';
 function command(exe,args,cwd){const r=spawnSync(exe,args,{cwd,env,encoding:'utf8',maxBuffer:32*1024*1024,windowsHide:true});if(r.error||r.status!==0)throw Error(`${exe} ${args.join(' ')}\n${r.error??''}\n${r.stdout}\n${r.stderr}`);return r;}
 // git needs its absolute executable because the compiler environment deliberately excludes user PATH.
 const gitExe=spawnSync('where.exe',['git'],{encoding:'utf8'}).stdout.trim().split(/\r?\n/)[0];

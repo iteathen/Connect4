@@ -1,6 +1,6 @@
 import {readFileSync,writeFileSync,mkdirSync,existsSync} from 'node:fs';
 import {join,resolve,dirname} from 'node:path';
-import {fileURLToPath} from 'node:url';
+import {fileURLToPath,pathToFileURL} from 'node:url';
 import {spawnSync} from 'node:child_process';
 import {verifyClosure,parseOutput,hashFile,filesUnder,validateReady,validateResult} from './harness-lib.mjs';
 const here=dirname(fileURLToPath(import.meta.url));
@@ -22,9 +22,10 @@ const timeout=Number(options['--timeout-ms']??(mode==='prepare'?30000:mode==='sm
 if(!Number.isSafeInteger(timeout)||timeout<1||timeout>2147483647)throw Error('invalid timeout');
 if(mode==='smoke'&&timeout>10000)throw Error('smoke cannot exceed 10 seconds; use explicit run for later campaign');
 const env={SystemRoot:process.env.SystemRoot,WINDIR:process.env.WINDIR,PATH:join(process.env.SystemRoot,'System32'),TEMP:join(out,'temp'),TMP:join(out,'temp'),LANG:'C',LC_ALL:'C'};
+env.SystemDrive=process.env.SystemDrive;env.PATHEXT='.COM;.EXE;.BAT;.CMD';
 let args=[],executable=join(runtime,'solver.exe');
 if(id==='isomax'){
- executable=join(runtime,'node.exe');args=['--experimental-ffi','--import',join(runtime,'isomax/runtime/tools/worker-affinity-preload.mjs'),join(runtime,'wrapper.mjs')];
+ executable=join(runtime,'node.exe');args=['--experimental-ffi','--import',pathToFileURL(join(runtime,'isomax/runtime/tools/worker-affinity-preload.mjs')).href,join(runtime,'wrapper.mjs')];
  env.JMS_WORKER_AFFINITY_FILE=join(runtime,'isomax/targets.json');env.JMS_WORKER_AFFINITY_REPORT=join(out,'affinity');
 }
 if(mode==='prepare')args.push('--prepare-only');
