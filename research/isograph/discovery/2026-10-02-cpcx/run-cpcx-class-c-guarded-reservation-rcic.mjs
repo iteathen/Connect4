@@ -450,7 +450,26 @@ for(const candidate of candidates){
   const routeRows=[
     ...[...nWitness.values()].flatMap(x=>x.selections??[]),
     ...[...tWitness.values()].flatMap(x=>x.selections??[]),
-  ].map(x=>x.route);
+  ].map(x=>x.route),
+    nFailures=[...nWitness.entries()]
+      .filter(([,x])=>!x.certified)
+      .map(([key,x])=>({
+        key,
+        rank:nodeByKey.get(key)?.rank??null,
+        support:nodeByKey.get(key)?.support??null,
+        ...x.failedTrigger,
+      })),
+    tFailures=[...tWitness.entries()]
+      .filter(([,x])=>!x.certified)
+      .map(([id,x])=>({
+        tokenId:id,
+        key:tokenById.get(id)?.childKey??null,
+        rank:nodeByKey.get(tokenById.get(id)?.childKey)?.rank??null,
+        support:nodeByKey.get(tokenById.get(id)?.childKey)?.support??null,
+        tokenTriggerLabel:label(tokenById.get(id).triggerCell),
+        tokenResponseLabel:label(tokenById.get(id).responseCell),
+        ...x.failedTrigger,
+      }));
 
   reports.push({
     source:candidate.source,
@@ -479,6 +498,22 @@ for(const candidate of candidates){
       ).length,
     })),
     routeHistogram:countBy(routeRows,x=>x.kind),
+    failureCensus:{
+      nFailureReasons:countBy(nFailures,x=>x.reason),
+      nFailureDefenderLabels:countBy(nFailures,x=>x.defenderLabel),
+      nFailureImmediateKinds:countBy(nFailures,x=>x.immediate),
+      nFailureRanks:countBy(nFailures,x=>x.rank),
+      nP1TerminalLineIds:countBy(
+        nFailures.filter(x=>x.reason?.startsWith('P1_TERMINAL')),
+        x=>x.terminal?.lineId
+      ),
+      tFailureReasons:countBy(tFailures,x=>x.reason),
+      tFailureDefenderLabels:countBy(tFailures,x=>x.defenderLabel),
+      tFailureImmediateKinds:countBy(tFailures,x=>x.immediate),
+      tFailureRanks:countBy(tFailures,x=>x.rank),
+      firstNFailures:nFailures.slice(0,30),
+      firstTFailures:tFailures.slice(0,30),
+    },
     reservationTokenProvenance:{
       uniqueTokens:tokenById.size,
       predecessorEdges:[...tokenById.values()]
