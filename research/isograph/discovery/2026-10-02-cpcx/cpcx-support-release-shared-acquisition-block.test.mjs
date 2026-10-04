@@ -42,25 +42,40 @@ test('fresh 4x4 k3 shared acquisition/block terminal is exact',()=>{
   assert.equal(c.sharedEdge.opponentResidualsKilled,true);
 });
 
-test('fresh 5x4 k3 shared acquisition/block contracts without terminal',()=>{
-  const g=createCpcxGeometry({columns:5,rows:4,connect:3}),
-    p=buildCpcxPosition('215112',{geometry:g}),
-    r=residual(p,0,'B1-C2-D3'),
+test('fresh 7x4 k3 shared acquisition/block contracts without terminal',()=>{
+  const g=createCpcxGeometry({columns:7,rows:4,connect:3}),
+    p=buildCpcxPosition('244223533567',{geometry:g}),
+    r=residual(p,0,'A2-B3-C4'),
     c=certifyCpcxSupportReleaseSharedAcquisitionBlock(p,{
       controllerResidual:r,
-      targetCell:cell(g,2,1), // C2
-      controllerActionCell:cell(g,4,1), // E2
+      targetCell:cell(g,0,1), // A2
+      controllerActionCell:cell(g,6,1), // G2
     });
 
   assert.equal(p.mover,0);
   assert.equal(r.missingCount,2);
   assert.equal(c.kind,'SUPPORT_RELEASE_SHARED_ACQUISITION_BLOCK_EDGE',JSON.stringify(c));
   assert.equal(c.exact,true);
-  assert.deepEqual(c.sharedEdge.opponentUrgentCells,[cell(g,2,1)]);
+  assert.deepEqual(c.sharedEdge.opponentUrgentCells,[cell(g,0,1)]);
   assert.equal(c.sharedEdge.controllerResidualContracted,true);
   assert.equal(c.sharedEdge.controllerResidualCompleted,false);
   assert.equal(c.sharedEdge.controllerTerminal,null);
   assert.deepEqual(c.sharedEdge.postResponseOpponentSingletons,[]);
+});
+
+test('rejected 0.1 nonterminal fixture preserves transported-singleton falsifier',()=>{
+  const g=createCpcxGeometry({columns:5,rows:4,connect:3}),
+    p=buildCpcxPosition('215112',{geometry:g}),
+    r=residual(p,0,'B1-C2-D3'),
+    c=certifyCpcxSupportReleaseSharedAcquisitionBlock(p,{
+      controllerResidual:r,
+      targetCell:cell(g,2,1),
+      controllerActionCell:cell(g,4,1),
+    });
+
+  assert.equal(c.kind,'NO_CERTIFICATE');
+  assert.equal(c.seam,'POST_SHARED_DISCHARGE_P1_SINGLETON');
+  assert.deepEqual(c.cells,[cell(g,2,2)]); // C3
 });
 
 test('urgent singleton on a different cell fails shared-cell guard',()=>{
