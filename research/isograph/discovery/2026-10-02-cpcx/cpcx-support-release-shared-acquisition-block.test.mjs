@@ -42,21 +42,21 @@ test('fresh 4x4 k3 shared acquisition/block terminal is exact',()=>{
   assert.equal(c.sharedEdge.opponentResidualsKilled,true);
 });
 
-test('fresh 7x4 k3 shared acquisition/block contracts without terminal',()=>{
-  const g=createCpcxGeometry({columns:7,rows:4,connect:3}),
-    p=buildCpcxPosition('244223533567',{geometry:g}),
-    r=residual(p,0,'A2-B3-C4'),
+test('fresh 4x4 k3 shared acquisition/block contracts without terminal',()=>{
+  const g=createCpcxGeometry({columns:4,rows:4,connect:3}),
+    p=buildCpcxPosition('1122',{geometry:g}),
+    r=residual(p,0,'B1-C2-D3'),
     c=certifyCpcxSupportReleaseSharedAcquisitionBlock(p,{
       controllerResidual:r,
-      targetCell:cell(g,0,1), // A2
-      controllerActionCell:cell(g,6,1), // G2
+      targetCell:cell(g,2,1), // C2
+      controllerActionCell:cell(g,0,2), // A3
     });
 
   assert.equal(p.mover,0);
   assert.equal(r.missingCount,2);
   assert.equal(c.kind,'SUPPORT_RELEASE_SHARED_ACQUISITION_BLOCK_EDGE',JSON.stringify(c));
   assert.equal(c.exact,true);
-  assert.deepEqual(c.sharedEdge.opponentUrgentCells,[cell(g,0,1)]);
+  assert.deepEqual(c.sharedEdge.opponentUrgentCells,[cell(g,2,1)]);
   assert.equal(c.sharedEdge.controllerResidualContracted,true);
   assert.equal(c.sharedEdge.controllerResidualCompleted,false);
   assert.equal(c.sharedEdge.controllerTerminal,null);
