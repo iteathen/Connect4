@@ -1145,8 +1145,23 @@ for(const source of sources.values()){
                                 player:gap.player??null,
                                 seam:gap.seam??null,
                                 nodeCount:gap.nodeCount??null,
+                                certifiedNodeCount:gap.certifiedNodeCount??null,
+                                unresolvedNodeCount:gap.unresolvedNodeCount??null,
                                 edgeCount:gap.edgeCount??null,
                                 rootGap:gap.rootGap??null,
+                                unresolvedRootTriggers:
+                                  gap.unresolvedRootTriggers??[],
+                                unresolvedNodes:(gap.unresolvedNodes??[]).map(
+                                  node=>({
+                                    rank:node.rank,
+                                    gap:node.gap,
+                                    support:node.support,
+                                    descriptor:node.descriptor,
+                                    seam:node.seam??null,
+                                    unresolvedTriggers:
+                                      node.unresolvedTriggers??[],
+                                  })
+                                ),
                               },
                             };
                           }):[];
