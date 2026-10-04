@@ -1,0 +1,15 @@
+--- a/src/solver/settings.h
++++ b/src/solver/settings.h
+@@ -16,10 +16,10 @@
+ //
+ //   * Strong solution: Gives the weak solution plus the move on which the game will end assuming
+ //     perfect play. Slower than a weak solution, and requires more memory.
+-inline constexpr bool STRONG_SOLVES_ENABLED = true;
++inline constexpr bool STRONG_SOLVES_ENABLED = false;
+ 
+ // Number of search threads. If 0, the number concurrent threads available on the machine is used.
+-inline constexpr int NUM_THREADS = 0;
++inline constexpr int NUM_THREADS = 4;
+ 
+ // This setting controls the amount of memory the solver is allowed to use. Increasing the number
+ // of entries will reduce solve times significantly.

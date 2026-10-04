@@ -1,0 +1,186 @@
+{
+  "contract": "C4-0011-v1",
+  "independence_lane": "runtime-input-only",
+  "status": "source-reviewed; wrapper unbuilt; preparation/search not executed by author",
+  "start_position": {
+    "kind": "empty",
+    "columns": 7,
+    "rows": 6,
+    "connect": 4,
+    "ply": 0,
+    "side_to_move": 0,
+    "supplied_prefix": null
+  },
+  "exact_target": "WDL",
+  "external_column_notation": "No move input accepted; native source conventions documented in audit.md",
+  "oracle_available_to_runtime": false,
+  "opening_book_loaded": false,
+  "persisted_answer_cache_loaded": false,
+  "admitted_structural_theorems": [],
+  "workers": 1,
+  "worker_scope": "Single-thread external-reference profile; common owner declaration must disclose authorization/deviation from IsoMax worker rule.",
+  "deterministic": true,
+  "seed": null,
+  "proof_cache": {
+    "capacity": 0,
+    "initial_occupancy_required": 0
+  },
+  "preloaded_rule_artifacts": [],
+  "cold_start": {
+    "isolation": "fresh process per prepare or scored invocation",
+    "tt_initial_occupancy_required": 0,
+    "validation": "Full native key/value/metadata scan before ready; no cache reuse across processes"
+  },
+  "protocol": {
+    "arguments": {
+      "prepare_only": [
+        "--prepare-only"
+      ],
+      "solve": [],
+      "other": "reject"
+    },
+    "stdin": "never read",
+    "stderr": "flushed JSON event=ready before solve; errors and any native diagnostics",
+    "stdout_prepare": "single JSON ready record; exits without solve",
+    "stdout_solve": "single JSON result on exact completion",
+    "result_convention": "wdl sign -1/0/+1, relative to root mover; equals first-player perspective at empty root",
+    "primary_timer": "external fresh-process wall time including allocation, reset, full cold audit scan, solve and cleanup; ready is not timer start",
+    "smoke": "Root-owned external deadline; observe ready then terminate process if unresolved; no completed-solve claim"
+  },
+  "build_execution": "Root owns toolchain acquisition/staging, include listing, compiler/linker commands and binary/system-runtime hashes; never execute upstream build scripts.",
+  "qualification_pending": [
+    "compile and link",
+    "verify compiler/source/include closure",
+    "prepare-only JSON and zero-state checks",
+    "invalid-argument control",
+    "externally capped smoke observing ready",
+    "independent exactness qualification before scoring performance"
+  ],
+  "solver": "pons",
+  "upstream": {
+    "repository": "https://github.com/PascalPons/connect4",
+    "commit": "d6ba50d8aaf2308c769d9bf2abd42d90f34baf41",
+    "inspected_checkout": "C:/r/c4-external-sources-20261004/pons"
+  },
+  "source_closure": [
+    {
+      "path": "Solver.cpp",
+      "git_blob": "1c8c430953e213d905bc2196b8276e21ea1492f4",
+      "sha256_git_blob_bytes": "b0f0d99f38ecad923d719ee6090a73eb7049da7a2b8e510d7f52ad3035c5e9a6",
+      "sha256_checkout_bytes": "071a6bbe97530a40915f5b1f82766bd662e5c1cbeb0eb36f9fc89cc98ab74ccb",
+      "bytes_git_blob": 6614
+    },
+    {
+      "path": "Solver.hpp",
+      "git_blob": "9d9445d032a84eee123ace5935b8952a68e47a3b",
+      "sha256_git_blob_bytes": "d2248dab0dfa1d0a8f626270398490c34225b1d97ebd7775bbd630a1addb7a66",
+      "sha256_checkout_bytes": "3e556ff87ea5464260c92ba87125c1597f25bcc14d6beab050f673c447957cfc",
+      "bytes_git_blob": 2875
+    },
+    {
+      "path": "Position.hpp",
+      "git_blob": "89ed77e646dd8467630ffb63e6e20423bf806897",
+      "sha256_git_blob_bytes": "2450c3201bea5a197ede7f16a3cb7bcdb3f2e1737cb6a9a8c8a55910c35304e8",
+      "sha256_checkout_bytes": "d3010ccb14831791a4fb5c30ca19d9b55312be048da301a0aab59090b4b93e0b",
+      "bytes_git_blob": 13125
+    },
+    {
+      "path": "TranspositionTable.hpp",
+      "git_blob": "f3ba04150584b703929d0869886ce1f67968d39b",
+      "sha256_git_blob_bytes": "d9baff743f073daea0661fc2133f5ad9b3a78af6b9ff173d857ef584195d21cf",
+      "sha256_checkout_bytes": "cabe09871275b2362cfe851fd39dfb8077308b3134e54a040da4bdbeb9db9cb1",
+      "bytes_git_blob": 5166
+    },
+    {
+      "path": "OpeningBook.hpp",
+      "git_blob": "a15ad47c9d7244f9a0deb05f9ce98dd772135383",
+      "sha256_git_blob_bytes": "43d876b3864194195da7cd5084d6c8c5c5fcc754289c00431047512060738fbf",
+      "sha256_checkout_bytes": "5c62232e7f8eb5eb64019b6be76ce78de139bf9fe4b9197203cbf098f6c05fd4",
+      "bytes_git_blob": 6428
+    },
+    {
+      "path": "MoveSorter.hpp",
+      "git_blob": "e9658f08d170278e551ad62a0825c0ed12717b66",
+      "sha256_git_blob_bytes": "45e659e40a7ffaee63dd5c4f1ea142020c522eb61532681c98ecca474099eb63",
+      "sha256_checkout_bytes": "0a06cc0fbc0441010498f0eb2920dc8a043f1bf01cce748f4f70ba8f6bfeba38",
+      "bytes_git_blob": 2480
+    }
+  ],
+  "wrapper": {
+    "path": "wrapper.cpp",
+    "sha256": "512546ea94b45d4fe82c3e0842897aa94bdd4107c69d7818a1182588e35d1d23",
+    "upstream_algorithm_changes": false
+  },
+  "embedded_answer_data_attestation": {
+    "scope": "Reachable runtime source and static-data closure listed above, plus wrapper; compiler/system runtime identities remain root build-manifest obligations.",
+    "finding": "No embedded opening book, solved WDL/best-move table, answer-bearing prefix or persisted result input on the adapter execution path.",
+    "basis": "audit.md with immutable upstream paths and line references",
+    "lineage_limit": "No historically blind discovery attestation; upstream selector/history design provenance not independently established."
+  },
+  "tt": {
+    "log_size": 24,
+    "capacity_expression": "next_prime(1 << 24)",
+    "entries": 16777259,
+    "key_type": "uint_t<49-24> = uint_least32_t",
+    "value_type": "uint8_t",
+    "backing_bytes": "16777259*(sizeof(AuditKey)+sizeof(uint8_t)); emitted at runtime",
+    "typical_backing_bytes": 83886295,
+    "initial_zero_validation": "All keys and values scanned; node count zero"
+  },
+  "opening_book": {
+    "capacity": 0,
+    "initial_pointer": "nullptr",
+    "initial_depth": -1,
+    "loadBook_calls": 0,
+    "book_get": "Native call retained; every legal nbMoves >= 0 exceeds empty depth -1, so returns 0 before table access"
+  },
+  "admitted_selectors_and_heuristics": [
+    {
+      "name": "Native center-first order and potential-winning-cell popcount ordering",
+      "identity": "d6ba50d8aaf2308c769d9bf2abd42d90f34baf41:Solver.cpp:144-149;Position.hpp:208-209;MoveSorter.hpp:41-59",
+      "lineage": "unknown/potentially oracle-informed historical selection; not lineage-clean",
+      "permitted_use": "non-pruning ordering computed from current position"
+    }
+  ],
+  "commands": {
+    "build": [
+      "g++",
+      "-std=c++11",
+      "-O3",
+      "-DNDEBUG",
+      "-Wall",
+      "-Wextra",
+      "-I<STAGED_UPSTREAM>",
+      "wrapper.cpp",
+      "-o",
+      "<OUTPUT_EXE>"
+    ],
+    "prepare": [
+      "<OUTPUT_EXE>",
+      "--prepare-only"
+    ],
+    "solve": [
+      "<OUTPUT_EXE>"
+    ]
+  },
+  "flags_note": "Single TU includes unmodified Solver.cpp, no main.cpp/generator.cpp. Weak solve true. GCC handles upstream __int128 token; no MSVC shim retained. Standard headers supplied explicitly. Freeze any compiler constexpr-limit flag separately if required.",
+  "metrics": {
+    "nodes": "getNodeCount(): negamax entries summed across native null-window iterations",
+    "native_score": "Only sign interpreted as weak WDL; not exact remoteness",
+    "external": [
+      "process wall time",
+      "CPU time if available",
+      "peak RSS",
+      "exit/timeout",
+      "process/runtime/compiler identity"
+    ]
+  },
+  "unreachable": [
+    "main.cpp auto-book CLI",
+    "generator.cpp scored-input/book writer",
+    "OpeningBook load/save methods (present in header, uncalled)",
+    "Position string replay (uncalled)"
+  ],
+  "known_answer_assertions": "None. Dimension static_assert and negamax precondition asserts are rule/control assertions, not solved-root labels; dynamic asserts disabled under declared NDEBUG.",
+  "license": "GNU AGPL version 3 or later, per source notices."
+}

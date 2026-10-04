@@ -1,0 +1,219 @@
+{
+  "upstream_commit": "fa27f186d2f1bf8e8fd61bfad63454c6e4b0431c",
+  "hash_scope": "original pinned checkout bytes before patches; post-patch closure and executable hashes belong in build manifest",
+  "files": [
+    {
+      "path": "src/solver/entry.cpp",
+      "sha256": "f6064365a852456dce8dadd6a6ca267e6db631266a04e7d32782a248ecb9a227",
+      "local_includes": [
+        "src/solver/entry.h"
+      ]
+    },
+    {
+      "path": "src/solver/entry.h",
+      "sha256": "d42a8fb4d9d20b206a887e919d32a04f1a7744804b588c3d631939470eeb7d6e",
+      "local_includes": [
+        "src/solver/position.h",
+        "src/solver/settings.h"
+      ]
+    },
+    {
+      "path": "src/solver/parallel/pool.cpp",
+      "sha256": "d1d220dacab6f2a2fa563e00198ab4ee8449881cc0406e084699aee28691b461",
+      "local_includes": [
+        "src/solver/parallel/pool.h",
+        "src/solver/settings.h",
+        "src/solver/table.h"
+      ]
+    },
+    {
+      "path": "src/solver/parallel/pool.h",
+      "sha256": "6bd6f31338f8ea1d87be6f4fd126d04d7490f5ebc67f8fa6807c620cc9f0611a",
+      "local_includes": [
+        "src/solver/position.h",
+        "src/solver/table.h",
+        "src/solver/util/progress.h",
+        "src/solver/parallel/result.h",
+        "src/solver/parallel/worker.h"
+      ]
+    },
+    {
+      "path": "src/solver/parallel/result.cpp",
+      "sha256": "bb6befccda4b42800161e521f61faa42c7d8cf82378a07ce4dc03ee42c04f99c",
+      "local_includes": [
+        "src/solver/parallel/result.h",
+        "src/solver/search.h"
+      ]
+    },
+    {
+      "path": "src/solver/parallel/result.h",
+      "sha256": "3a0b3e5cb0c186c31ce068aa33611ca2a2ec2687d412fdd93152f265df81ecbd",
+      "local_includes": [
+        "src/solver/search.h"
+      ]
+    },
+    {
+      "path": "src/solver/parallel/worker.cpp",
+      "sha256": "10df150002a1fe50bc4ff73d63423365c33fedea34b57ba289b457de056f9cc5",
+      "local_includes": [
+        "src/solver/parallel/worker.h",
+        "src/solver/position.h",
+        "src/solver/util/os.h"
+      ]
+    },
+    {
+      "path": "src/solver/parallel/worker.h",
+      "sha256": "ec1b90bd4014bd3af268623516188319913317c6d032558fa46e762545d87d3b",
+      "local_includes": [
+        "src/solver/position.h",
+        "src/solver/search.h",
+        "src/solver/util/stats.h",
+        "src/solver/parallel/result.h"
+      ]
+    },
+    {
+      "path": "src/solver/position.cpp",
+      "sha256": "bf08c1d1de5aa8f5309dd4258e60343bcac99f87f71fcdc43e2eccd6c3694d70",
+      "local_includes": [
+        "src/solver/position.h",
+        "src/solver/settings.h"
+      ]
+    },
+    {
+      "path": "src/solver/position.h",
+      "sha256": "50529f19fe617669eb826e3a83560464cd263db726a3c2064cc153245772889a",
+      "local_includes": [
+        "src/solver/settings.h",
+        "src/solver/types.h"
+      ]
+    },
+    {
+      "path": "src/solver/search.cpp",
+      "sha256": "8a7ff58c8696dfef7884398c514b910bc3bd4d0ec41c3d184c6f4bb1d54b807a",
+      "local_includes": [
+        "src/solver/search.h",
+        "src/solver/position.h",
+        "src/solver/settings.h",
+        "src/solver/table.h"
+      ]
+    },
+    {
+      "path": "src/solver/search.h",
+      "sha256": "a4cb6fbb198c50e78cc7b7c9320cf61c34dd68cfc83f690bdab8d34e6fe12d0d",
+      "local_includes": [
+        "src/solver/position.h",
+        "src/solver/table.h",
+        "src/solver/util/progress.h",
+        "src/solver/util/stats.h"
+      ]
+    },
+    {
+      "path": "src/solver/settings.h",
+      "sha256": "cde2f48eead1054a19131c72fe4374c0b406bf4b56ee31f7be3a834199888fa8",
+      "local_includes": []
+    },
+    {
+      "path": "src/solver/solver.cpp",
+      "sha256": "d8d40cc2d4c81291fd9e374b6f46e131bd6aca92a63b690c88dcd6eb145d0f6f",
+      "local_includes": [
+        "src/solver/solver.h",
+        "src/solver/position.h",
+        "src/solver/settings.h",
+        "src/solver/table.h"
+      ]
+    },
+    {
+      "path": "src/solver/solver.h",
+      "sha256": "3a7b0e7bc9485769d4fdfaba2089b06f6bda3061f7be8e2d42c67e424a37a799",
+      "local_includes": [
+        "src/solver/parallel/pool.h",
+        "src/solver/position.h",
+        "src/solver/settings.h",
+        "src/solver/table.h",
+        "src/solver/util/progress.h"
+      ]
+    },
+    {
+      "path": "src/solver/table.cpp",
+      "sha256": "0cc1743840a7c5c4bc464b63f69dd1b193382ed4429581a9a258011c6f2e3296",
+      "local_includes": [
+        "src/solver/table.h",
+        "src/solver/position.h",
+        "src/solver/settings.h",
+        "src/solver/util/os.h"
+      ]
+    },
+    {
+      "path": "src/solver/table.h",
+      "sha256": "6ea38c8729859f779ebb08b6ba4451b6bf4311e69bfe53f93f809a2cf35d60de",
+      "local_includes": [
+        "src/solver/entry.h",
+        "src/solver/types.h",
+        "src/solver/util/stats.h",
+        "src/solver/util/writer.h"
+      ]
+    },
+    {
+      "path": "src/solver/types.h",
+      "sha256": "d0a37dff510485065dce01336a676284912e0a43f3b10109376b42dae8419ed2",
+      "local_includes": [
+        "src/solver/settings.h"
+      ]
+    },
+    {
+      "path": "src/solver/util/os.cpp",
+      "sha256": "cb6d93b8da31cc8649b38ca73ee16a10f61408a2ac6df9745f116e0bdb071bed",
+      "local_includes": [
+        "src/solver/util/os.h",
+        "src/solver/settings.h"
+      ]
+    },
+    {
+      "path": "src/solver/util/os.h",
+      "sha256": "28850b1199a7739a2d21379fa314a6db78c0a7a3b07a7f53d579cfe872e35270",
+      "local_includes": []
+    },
+    {
+      "path": "src/solver/util/progress.cpp",
+      "sha256": "d135a1ecc3edfa5233af0c39b69873e565f42a3d94a1fa5ea6b7a2c0df4f28ea",
+      "local_includes": [
+        "src/solver/util/progress.h",
+        "src/solver/settings.h"
+      ]
+    },
+    {
+      "path": "src/solver/util/progress.h",
+      "sha256": "5f0d91a30a6255ad44e593e0dbb1fe7ae4fd58a48b7ec9871595649204c55cd3",
+      "local_includes": [
+        "src/solver/util/stats.h"
+      ]
+    },
+    {
+      "path": "src/solver/util/stats.cpp",
+      "sha256": "d98bb3a60d44fcfd335f00f867930eca0ad2096ccb0f963b10e2d1a44bd99b5d",
+      "local_includes": [
+        "src/solver/util/stats.h"
+      ]
+    },
+    {
+      "path": "src/solver/util/stats.h",
+      "sha256": "6f19fb78ffa2f7b13578790f65dc884e7d2f283d3300273e65e4cc3af949b30d",
+      "local_includes": [
+        "src/solver/types.h"
+      ]
+    },
+    {
+      "path": "src/solver/util/writer.cpp",
+      "sha256": "3f318eaadbefcf5d64485af1eea13cf86eafb862baaacf78550d8024a768ba8a",
+      "local_includes": [
+        "src/solver/util/writer.h",
+        "src/solver/settings.h"
+      ]
+    },
+    {
+      "path": "src/solver/util/writer.h",
+      "sha256": "a086bd64f6feb9ea78f00c0f9bc6e31e18c2d3dca62d0bf47109174fd75ff50b",
+      "local_includes": []
+    }
+  ]
+}

@@ -1,0 +1,155 @@
+{
+  "contract": "C4-0011-v1",
+  "independence_lane": "runtime-input-only",
+  "status": "source-reviewed; wrapper unbuilt; preparation/search not executed by author",
+  "start_position": {
+    "kind": "empty",
+    "columns": 7,
+    "rows": 6,
+    "connect": 4,
+    "ply": 0,
+    "side_to_move": 0,
+    "supplied_prefix": null
+  },
+  "exact_target": "WDL",
+  "external_column_notation": "No move input accepted; native source conventions documented in audit.md",
+  "oracle_available_to_runtime": false,
+  "opening_book_loaded": false,
+  "persisted_answer_cache_loaded": false,
+  "admitted_structural_theorems": [],
+  "workers": 1,
+  "worker_scope": "Single-thread external-reference profile; common owner declaration must disclose authorization/deviation from IsoMax worker rule.",
+  "deterministic": true,
+  "seed": null,
+  "proof_cache": {
+    "capacity": 0,
+    "initial_occupancy_required": 0
+  },
+  "preloaded_rule_artifacts": [],
+  "cold_start": {
+    "isolation": "fresh process per prepare or scored invocation",
+    "tt_initial_occupancy_required": 0,
+    "validation": "Full native key/value/metadata scan before ready; no cache reuse across processes"
+  },
+  "protocol": {
+    "arguments": {
+      "prepare_only": [
+        "--prepare-only"
+      ],
+      "solve": [],
+      "other": "reject"
+    },
+    "stdin": "never read",
+    "stderr": "flushed JSON event=ready before solve; errors and any native diagnostics",
+    "stdout_prepare": "single JSON ready record; exits without solve",
+    "stdout_solve": "single JSON result on exact completion",
+    "result_convention": "wdl sign -1/0/+1, relative to root mover; equals first-player perspective at empty root",
+    "primary_timer": "external fresh-process wall time including allocation, reset, full cold audit scan, solve and cleanup; ready is not timer start",
+    "smoke": "Root-owned external deadline; observe ready then terminate process if unresolved; no completed-solve claim"
+  },
+  "build_execution": "Root owns toolchain acquisition/staging, include listing, compiler/linker commands and binary/system-runtime hashes; never execute upstream build scripts.",
+  "qualification_pending": [
+    "compile and link",
+    "verify compiler/source/include closure",
+    "prepare-only JSON and zero-state checks",
+    "invalid-argument control",
+    "externally capped smoke observing ready",
+    "independent exactness qualification before scoring performance"
+  ],
+  "solver": "fhourstones-c",
+  "upstream": {
+    "repository": "https://github.com/qu1j0t3/fhourstones",
+    "commit": "bf0e70ed9fe8128eeea8539f17dd41826f2cc6b6",
+    "inspected_checkout": "C:/r/c4-external-sources-20261004/fhourstones-c"
+  },
+  "source_closure": [
+    {
+      "path": "SearchGame.c",
+      "git_blob": "cedfd21fab6869961bbc2f54c0119d06888cc7c6",
+      "sha256_git_blob_bytes": "300a1f6d4d26bc7470e7c3920a8a282a647364909e59affb923471ebd6b0a98d",
+      "sha256_checkout_bytes": "08a075deec78aba57d42b6adea1bf156fdc05220aa10631ed9f06c5a832a9c2d",
+      "bytes_git_blob": 6356
+    },
+    {
+      "path": "TransGame.c",
+      "git_blob": "f171a62a2ecca6915e4b2d606af2cd84a1af757c",
+      "sha256_git_blob_bytes": "0adea5599da131a2b47ac651030fb4a78293d69a346542c3fdafbd35d508728f",
+      "sha256_checkout_bytes": "9087e3f26fc6a81a16d162c4c24b3f7b948a2ef097abcdea5077c5f863f4a45e",
+      "bytes_git_blob": 3544
+    },
+    {
+      "path": "Game.c",
+      "git_blob": "18f71a6962927b70ff991fd0550b1daced8749e5",
+      "sha256_git_blob_bytes": "fa4596ccdcb62209f0666c81c86b1220e56997a03fce5a7ca8e435b596f35ce7",
+      "sha256_checkout_bytes": "d4e9cf1d3fbcae5e9d12f16dbac631ed093f1c86b820c371826c4e4eb5542a3e",
+      "bytes_git_blob": 3297
+    }
+  ],
+  "wrapper": {
+    "path": "wrapper.c",
+    "sha256": "92f1043b19f4b86238c2f06723daabc4000050b11e30562f5cf80931d6c98e0b",
+    "upstream_algorithm_changes": false
+  },
+  "embedded_answer_data_attestation": {
+    "scope": "Reachable runtime source and static-data closure listed above, plus wrapper; compiler/system runtime identities remain root build-manifest obligations.",
+    "finding": "No embedded opening book, solved WDL/best-move table, answer-bearing prefix or persisted result input on the adapter execution path.",
+    "basis": "audit.md with immutable upstream paths and line references",
+    "lineage_limit": "No historically blind discovery attestation; upstream selector/history design provenance not independently established."
+  },
+  "tt": {
+    "records": 8306069,
+    "score_slots": 16612138,
+    "record_bytes": "sizeof(hashentry), emitted at runtime",
+    "backing_bytes": "8306069*sizeof(hashentry)",
+    "initial_zero_validation": "Both score fields, both lock fields and work field of every record; posed/nodes/history/root zero checks"
+  },
+  "admitted_selectors_and_heuristics": [
+    {
+      "name": "Native history initialization and adaptive history ordering",
+      "identity": "bf0e70ed9fe8128eeea8539f17dd41826f2cc6b6:SearchGame.c:53-62,123-145",
+      "lineage": "unknown/potentially oracle-informed; not lineage-clean",
+      "permitted_use": "non-pruning ordering; updates learned during this run"
+    }
+  ],
+  "commands": {
+    "build": [
+      "gcc",
+      "-O3",
+      "-Wall",
+      "-Wextra",
+      "-DWIN32",
+      "-I<STAGED_UPSTREAM>",
+      "wrapper.c",
+      "-o",
+      "<OUTPUT_EXE>"
+    ],
+    "prepare": [
+      "<OUTPUT_EXE>",
+      "--prepare-only"
+    ],
+    "solve": [
+      "<OUTPUT_EXE>"
+    ]
+  },
+  "flags_note": "Preserves native BOOKPLY=0, REPORTPLY=2, TRANSIZE and LOCKSIZE. WIN32 selects existing GetProcessTimes user-CPU timer. No clock/source shim; stdout diagnostic redirection only.",
+  "metrics": {
+    "nodes": "entries to native ab()",
+    "tt_store_calls": "posed, not unique occupancy",
+    "native_user_cpu_ms_plus_one": "solve() msecs; not wall time",
+    "external": [
+      "process wall time",
+      "CPU time if available",
+      "peak RSS",
+      "exit/timeout",
+      "process/runtime/compiler identity"
+    ]
+  },
+  "unreachable": [
+    "renamed SearchGame.c main stdin loop",
+    "inputs",
+    "Java/Haskell implementations",
+    "Makefile/nmake targets"
+  ],
+  "known_answer_assertions": "None in three-file C runtime closure; no answer-bearing test corpus is linked/read.",
+  "license": "Upstream custom notice: no sale for profit; preserve notices and redistribution restrictions."
+}

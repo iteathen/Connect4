@@ -1,0 +1,33 @@
+--- a/src/solver/table.h
++++ b/src/solver/table.h
+@@ -26,6 +26,15 @@
+ 
+     static std::string get_table_size();
+ 
++    // Benchmark cold check only: caller must ensure no search has started.
++    uint64_t benchmark_initial_nonempty_entries() const noexcept {
++        uint64_t count = 0;
++        for (uint64_t i = 0; i < NUM_TABLE_ENTRIES + 1; ++i) {
++            count += !table[i].is_empty();
++        }
++        return count;
++    }
++
+    private:
+     // The table is shared across all threads.
+     std::shared_ptr<Entry[]> table;
+--- a/src/solver/solver.h
++++ b/src/solver/solver.h
+@@ -31,6 +31,12 @@
+ 
+     std::string get_settings_string();
+ 
++    // Benchmark cold inspection only; no mutable state or hot-path hooks.
++    uint64_t benchmark_initial_nonempty_entries() const noexcept {
++        return table.benchmark_initial_nonempty_entries();
++    }
++    int benchmark_num_workers() { return pool.get_num_workers(); }
++
+    private:
+     std::shared_ptr<Progress> progress{std::make_shared<Progress>()};
+     

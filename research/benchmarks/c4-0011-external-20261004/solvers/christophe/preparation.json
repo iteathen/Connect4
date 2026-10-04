@@ -1,0 +1,101 @@
+{
+  "schema": "c4-0011-external-preparation-v1",
+  "solver": "christophe",
+  "upstream_url": "https://github.com/ChristopheSteininger/c4.git",
+  "upstream_commit": "fa27f186d2f1bf8e8fd61bfad63454c6e4b0431c",
+  "independence_lane": "runtime-input-only",
+  "lineage_classification": "unknown-not-certified",
+  "status": "source-prepared-build-and-runtime-checks-pending",
+  "exact_target": "WDL",
+  "root": {
+    "width": 7,
+    "height": 6,
+    "moves": [],
+    "side_to_move": "first-player"
+  },
+  "strong_solves": false,
+  "search_threads": 4,
+  "native_affinity": false,
+  "huge_pages": false,
+  "tt": {
+    "capacity": 134217757,
+    "allocated_entries": 134217758,
+    "entry_bytes": 8,
+    "allocated_bytes": 1073742064,
+    "ownership": "one-native-table-shared-by-four-search-workers",
+    "initial_nonempty_entries_required": 0,
+    "initial_occupancy_check": "complete-read-only-scan-before-search-including-extra-probe-slot"
+  },
+  "persistent_inputs": {
+    "book_load": false,
+    "table_load": false,
+    "table_update": false
+  },
+  "patches": [
+    "settings.patch",
+    "cold-audit.patch"
+  ],
+  "entrypoint": "benchmark.cpp",
+  "source_closure": "source-closure.json",
+  "build": {
+    "language": "C++20",
+    "architecture": "x64",
+    "include_directory": "<patched-source>/src",
+    "source_selection": "all twelve .cpp files in source-closure.json plus benchmark.cpp; no other entrypoint",
+    "expected_msvc_optimization": [
+      "NDEBUG",
+      "/W4",
+      "/Ox",
+      "/GL"
+    ],
+    "compiler_and_actual_flags": "common-build-manifest-required",
+    "post_patch_source_and_executable_hashes": "common-build-manifest-required",
+    "expected_gcc_optimization": [
+      "-std=c++20",
+      "-DNDEBUG",
+      "-O3",
+      "-flto"
+    ],
+    "selected_toolchain": "Windows GCC; precise portable distribution and flags supplied by common build manifest"
+  },
+  "prepare_arguments": [
+    "--prepare-only"
+  ],
+  "solve_arguments": [],
+  "output_schema": "c4-0011-christophe-v1",
+  "ready_channel": "stderr-json-line",
+  "prepare_output_channel": "stdout-json-line-event-ready",
+  "result_channel": "stdout-json-line-event-result",
+  "score_encoding": {
+    "-1": "first-player-loss",
+    "0": "draw",
+    "1": "first-player-win"
+  },
+  "native_work_metric": "summed-upstream-negamax-entry-count-excluding-static-search-only-visits",
+  "admitted_selectors_and_heuristics": [
+    {
+      "identity": "search.cpp:43-81@fa27f186d2f1bf8e8fd61bfad63454c6e4b0431c",
+      "role": "threat-center-TT-move-ordering-and-worker-jitter",
+      "lineage": "unknown-not-certified"
+    },
+    {
+      "identity": "search.cpp:287-355;position.cpp:310-448@fa27f186d2f1bf8e8fd61bfad63454c6e4b0431c",
+      "role": "correctness-critical-threat-forced-move-and-even-row-reductions",
+      "lineage": "unknown-not-certified"
+    },
+    {
+      "identity": "position.cpp:500-519;586-621@fa27f186d2f1bf8e8fd61bfad63454c6e4b0431c",
+      "role": "correctness-critical-dead-stone-and-reflection-TT-equivalence",
+      "lineage": "unknown-not-certified"
+    }
+  ],
+  "known_inherited_risks": [
+    "plain-shared-TT-entry-access",
+    "plain-cross-thread-stop-flag",
+    "pre-lock-progress-reads"
+  ],
+  "oracle_available_to_runtime": false,
+  "validation_performed": false,
+  "no_full_search_run_in_preparation": true,
+  "audit": "audit.md"
+}

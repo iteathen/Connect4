@@ -1,0 +1,696 @@
+{
+  "package_pin": "1b843981ba7d68c118656dad1a6c7591453e7686",
+  "upstream_provenance_source_commit": "ab628f21fa8c989aa7fc1bc416b23ed126f82b93",
+  "upstream_measured_runtime_commit": "8713baa11148a7723043d8c434ffb77343a96253",
+  "scope": "conservative all-runtime source inventory; selected standard-dense static imports and preload are separately listed; parent wrapper is outside this manifest",
+  "selected_roots": [
+    "index.mjs",
+    "runtime/experiments/isomax-lean/worker-dense.mjs",
+    "runtime/tools/worker-affinity-preload.mjs"
+  ],
+  "selected_closure": [
+    "index.mjs",
+    "runtime/addons/branch-manager-host.mjs",
+    "runtime/addons/connect4-live-line-evaluator.mjs",
+    "runtime/addons/connect4-rank-local-presearch.mjs",
+    "runtime/addons/rba-connect4-coordinate-dense.mjs",
+    "runtime/addons/rba-connect4-coordinate-prepared.mjs",
+    "runtime/addons/rba-connect4-coordinate.mjs",
+    "runtime/addons/rba-connect4-geometry.mjs",
+    "runtime/addons/rba-connect4-ingress.mjs",
+    "runtime/addons/rba-connect4-profile.mjs",
+    "runtime/addons/worker-affinity.mjs",
+    "runtime/addons/worker-behavior-search.mjs",
+    "runtime/addons/worker-behavior.mjs",
+    "runtime/addons/worker.mjs",
+    "runtime/experiments/isomax-lean/cpc.mjs",
+    "runtime/experiments/isomax-lean/execution-profile.mjs",
+    "runtime/experiments/isomax-lean/fixed-ops.mjs",
+    "runtime/experiments/isomax-lean/host.mjs",
+    "runtime/experiments/isomax-lean/shared-cache.mjs",
+    "runtime/experiments/isomax-lean/solver-dense.mjs",
+    "runtime/experiments/isomax-lean/worker-dense.mjs",
+    "runtime/src/basis32.mjs",
+    "runtime/src/relational32.mjs",
+    "runtime/src/search32.mjs",
+    "runtime/src/widekey32.mjs",
+    "runtime/src/word32.mjs",
+    "runtime/src/word64x32.mjs",
+    "runtime/src/worker-behavior32.mjs",
+    "runtime/tools/worker-affinity-preload.mjs"
+  ],
+  "files": [
+    {
+      "path": "index.mjs",
+      "sha256_raw": "9af6b98a2125bccee84c58b09b272e0d4f8f58951c2484fdeb86f7d153c27d32",
+      "sha256_lf": "e8af8371e02a01a842c000534e7c1250cc659bb22956f688c1ef64a201ef9cfa",
+      "local_imports": [
+        "runtime/addons/rba-connect4-geometry.mjs",
+        "runtime/addons/connect4-rank-local-presearch.mjs",
+        "runtime/experiments/isomax-lean/host.mjs"
+      ],
+      "builtin_imports": [],
+      "provenance_match": false
+    },
+    {
+      "path": "runtime/addons/branch-manager-host.mjs",
+      "sha256_raw": "4e4e439a4f33f9f65cd5001caabdce5f614f0a797f1d499807a14d9bf14df385",
+      "sha256_lf": "ae9f76f43677852e5da2855cde7e2d4ceea321a21995e0312b1c6a665b48d052",
+      "local_imports": [],
+      "builtin_imports": [
+        "node:worker_threads"
+      ],
+      "provenance_match": true
+    },
+    {
+      "path": "runtime/addons/connect4-live-line-evaluator.mjs",
+      "sha256_raw": "b949d659afa1e986e124cfa4930da972850dba060eec218e33f27be46863a495",
+      "sha256_lf": "7470ef41f8516cbe5f2fb616998426a7c8522e1b9d4eea830fb01394f9f6f8e2",
+      "local_imports": [
+        "runtime/src/word32.mjs",
+        "runtime/src/word64x32.mjs"
+      ],
+      "builtin_imports": [],
+      "provenance_match": true
+    },
+    {
+      "path": "runtime/addons/connect4-rank-local-presearch.mjs",
+      "sha256_raw": "8e3d78990bd980fc97c1e364f37cf780799ca13272e1cf1f096f4225d2064e5d",
+      "sha256_lf": "f3bfd946a3f624e0a56b6982c86985bf03a5833fa085eebbefa5fd3cdbf8f190",
+      "local_imports": [],
+      "builtin_imports": [],
+      "provenance_match": true
+    },
+    {
+      "path": "runtime/addons/rba-connect4-coordinate-dense.mjs",
+      "sha256_raw": "d54890c9c6ad940fc9c5c49af60ae54770d0393f81557319940d957829baf5ee",
+      "sha256_lf": "b463803372aab8ecdfbbe6185a5af1f421752e4fc00313cd6854bdf74712c71c",
+      "local_imports": [
+        "runtime/src/basis32.mjs",
+        "runtime/addons/rba-connect4-coordinate.mjs",
+        "runtime/addons/rba-connect4-coordinate-prepared.mjs"
+      ],
+      "builtin_imports": [],
+      "provenance_match": true
+    },
+    {
+      "path": "runtime/addons/rba-connect4-coordinate-prepared.mjs",
+      "sha256_raw": "50dd1630dcf70f675920ae6dd74f6bcfd253ab6f80a17533ccc4b6bb70070460",
+      "sha256_lf": "4df62559637083d4a9eb1108662ebe670699e1871dfc249ec3d820183b490b52",
+      "local_imports": [
+        "runtime/src/widekey32.mjs",
+        "runtime/src/basis32.mjs",
+        "runtime/addons/rba-connect4-coordinate.mjs"
+      ],
+      "builtin_imports": [],
+      "provenance_match": true
+    },
+    {
+      "path": "runtime/addons/rba-connect4-coordinate.mjs",
+      "sha256_raw": "3014a382e37fde49141f4135bb70382cafbb1796e4b3ab7d1a9905dbacdf46b0",
+      "sha256_lf": "b299993155d9f0bb66c81bda032d27bba0306b41dbb053ec913a4670a613c2c7",
+      "local_imports": [
+        "runtime/src/basis32.mjs",
+        "runtime/src/widekey32.mjs",
+        "runtime/addons/rba-connect4-geometry.mjs"
+      ],
+      "builtin_imports": [],
+      "provenance_match": true
+    },
+    {
+      "path": "runtime/addons/rba-connect4-geometry.mjs",
+      "sha256_raw": "ad9fa0252e565c36f82a4e04ce480a59ca148bb541f60d2080aed363008c737e",
+      "sha256_lf": "e57f6ad08215062587c08780540098c9573e105031d8ebadf87c202ad5c01c8f",
+      "local_imports": [],
+      "builtin_imports": [],
+      "provenance_match": true
+    },
+    {
+      "path": "runtime/addons/rba-connect4-ingress.mjs",
+      "sha256_raw": "b49f231c61a6fdf945868b919fcd0c8e52f61633cd0dd48e04d6a1bc0bf7e319",
+      "sha256_lf": "f4a36b17ca96a13971f3a1deeb0c70375eddfcb765bbb9d841dfbffcfe080db9",
+      "local_imports": [
+        "runtime/addons/rba-connect4-geometry.mjs",
+        "runtime/addons/rba-connect4-profile.mjs",
+        "runtime/addons/rba-connect4-coordinate.mjs"
+      ],
+      "builtin_imports": [],
+      "provenance_match": true
+    },
+    {
+      "path": "runtime/addons/rba-connect4-profile.mjs",
+      "sha256_raw": "31c2248f9f4f70c6711eb75d2364022044c57a596ebb7078538e56f5f9070284",
+      "sha256_lf": "edd8d17bcafdb2349b688f880ff2ba26cf362003eb4969ee0d98dacb65f11727",
+      "local_imports": [
+        "runtime/src/relational32.mjs",
+        "runtime/addons/rba-connect4-geometry.mjs"
+      ],
+      "builtin_imports": [],
+      "provenance_match": true
+    },
+    {
+      "path": "runtime/addons/worker-affinity.mjs",
+      "sha256_raw": "10f4d5509f26c184774b472f2fd4b6aae1c9f58de9e2e8bda0911acd03a15168",
+      "sha256_lf": "c22c347f5d8414632ae7fa247f31208b319e24c4b241c83d0b7b06ca9cd6fff3",
+      "local_imports": [],
+      "builtin_imports": [
+        "node:ffi",
+        "node:ffi"
+      ],
+      "provenance_match": true
+    },
+    {
+      "path": "runtime/addons/worker-behavior-search.mjs",
+      "sha256_raw": "cff6efa38c4b4b8c965341066f85c0662b3b4ea9190aa78d36078a94d3551157",
+      "sha256_lf": "6aecc20929ef0e32b3f7a5d4b699ce0988da1151711535ed080220ef6b958b4c",
+      "local_imports": [
+        "runtime/src/worker-behavior32.mjs"
+      ],
+      "builtin_imports": [],
+      "provenance_match": true
+    },
+    {
+      "path": "runtime/addons/worker-behavior.mjs",
+      "sha256_raw": "9ce70c6be554977e49bcad8e67fdb6940e576d5440bf31bcfb8ea1f93135fe5b",
+      "sha256_lf": "891231e5093cc60ad9d8197bd49883a7112efe45e2073760e353e625930fe8cd",
+      "local_imports": [
+        "runtime/addons/worker.mjs",
+        "runtime/src/worker-behavior32.mjs"
+      ],
+      "builtin_imports": [],
+      "provenance_match": true
+    },
+    {
+      "path": "runtime/addons/worker.mjs",
+      "sha256_raw": "8f366228f0d67a19bb24a1434dc2b363d1b6f54ef8b5c99a4e86e144f51a1d2b",
+      "sha256_lf": "6696165720589d3434f5ab9a899b3494c54bfd0fd6b27c6b36701dae7329f17b",
+      "local_imports": [],
+      "builtin_imports": [],
+      "provenance_match": true
+    },
+    {
+      "path": "runtime/experiments/isomax-lean/cpc-general.mjs",
+      "sha256_raw": "73ca5e109f6bdf72c471cf45c9a4d0a5c070aea2f933cd608b081b2972027b54",
+      "sha256_lf": "48dea26c8153279aa0d527491fa3a07450ff24a867ac9cf8e4b3758fd374ba0f",
+      "local_imports": [
+        "runtime/src/word32.mjs"
+      ],
+      "builtin_imports": [],
+      "provenance_match": true
+    },
+    {
+      "path": "runtime/experiments/isomax-lean/cpc-wide.mjs",
+      "sha256_raw": "a52933ce7418412c31f1d58cb694ee8ed941014bedfb44b42e4de24d626fc0ae",
+      "sha256_lf": "6201b047b4b1f812df5aadbbe9991c2b47dfface075b32fa191352da4ba911aa",
+      "local_imports": [
+        "runtime/src/word32.mjs"
+      ],
+      "builtin_imports": [],
+      "provenance_match": true
+    },
+    {
+      "path": "runtime/experiments/isomax-lean/cpc.mjs",
+      "sha256_raw": "f05071d70b39304680f7adf8a67485ffb51a7aa2a12efebe244b275a6db8d2a4",
+      "sha256_lf": "b1019a22454e256e7580868b42ad00f99274113da81bd4cdfb1af6757bed21ff",
+      "local_imports": [
+        "runtime/src/word32.mjs"
+      ],
+      "builtin_imports": [],
+      "provenance_match": true
+    },
+    {
+      "path": "runtime/experiments/isomax-lean/execution-profile.mjs",
+      "sha256_raw": "fc3945a4cb6cab9abd5becbb8009283c93ec58ed4458246238fd3dc6397dffa4",
+      "sha256_lf": "b80804b09e4791f999dc1f5ff08d4600e0a882e46c6e93f1890ffb1bd5ce8bf5",
+      "local_imports": [
+        "runtime/experiments/isomax-lean/shared-cache.mjs"
+      ],
+      "builtin_imports": [],
+      "provenance_match": true
+    },
+    {
+      "path": "runtime/experiments/isomax-lean/fixed-ops.mjs",
+      "sha256_raw": "b272b9c262a40a0f15b7552783f5b0e25ad384d87245671fe4c0a7857ecf4f0c",
+      "sha256_lf": "a3e01734b8f3012497a6fcc22b1d05e13aaff700dacbf866effd85757de46a32",
+      "local_imports": [],
+      "builtin_imports": [],
+      "provenance_match": true
+    },
+    {
+      "path": "runtime/experiments/isomax-lean/host.mjs",
+      "sha256_raw": "04503472ee550609729face9c8cd0e618cbcb4063c242b4a39743a54ba1fc1d1",
+      "sha256_lf": "6d8b52a75261c8a810198f7545cd3e990423353a15d22633d520efe1da388e3a",
+      "local_imports": [
+        "runtime/experiments/isomax-lean/execution-profile.mjs",
+        "runtime/addons/branch-manager-host.mjs",
+        "runtime/addons/rba-connect4-ingress.mjs",
+        "runtime/addons/rba-connect4-geometry.mjs",
+        "runtime/experiments/isomax-lean/shared-cache.mjs",
+        "runtime/addons/worker-behavior.mjs"
+      ],
+      "builtin_imports": [
+        "node:perf_hooks"
+      ],
+      "provenance_match": true
+    },
+    {
+      "path": "runtime/experiments/isomax-lean/live-profile.mjs",
+      "sha256_raw": "a9b4d3f34c782b4ba5821e6c79f871e7dc23b0371e4b3a5442160fd9fa24f06e",
+      "sha256_lf": "76dfc517bf71b3a699e55cd2396508655a705db54c1bd21c8a15e066129de0f0",
+      "local_imports": [
+        "runtime/addons/connect4-live-line-evaluator.mjs",
+        "runtime/addons/connect4-live-line-evaluator.mjs"
+      ],
+      "builtin_imports": [],
+      "provenance_match": true
+    },
+    {
+      "path": "runtime/experiments/isomax-lean/shared-cache.mjs",
+      "sha256_raw": "ee4fbe4501f17e62e5c8e5df462f855b2ae0654e171be66b2f164325aa38d1c0",
+      "sha256_lf": "a6b33afe59164165a5618de27d2f07b8757bf30b74f97e12827e156440793974",
+      "local_imports": [
+        "runtime/src/widekey32.mjs"
+      ],
+      "builtin_imports": [],
+      "provenance_match": true
+    },
+    {
+      "path": "runtime/experiments/isomax-lean/solver-dense.mjs",
+      "sha256_raw": "436ea134a03529bbda424cf656759098b901a569c6809660d77822b6624e8764",
+      "sha256_lf": "241e4fcc99eab1f7d8a153fa79d6faad0416a2dc1f7be686f2d0fa5db79c5ab7",
+      "local_imports": [
+        "runtime/experiments/isomax-lean/fixed-ops.mjs",
+        "runtime/addons/worker-behavior-search.mjs",
+        "runtime/src/widekey32.mjs",
+        "runtime/addons/rba-connect4-profile.mjs",
+        "runtime/addons/rba-connect4-geometry.mjs",
+        "runtime/addons/rba-connect4-coordinate-dense.mjs",
+        "runtime/experiments/isomax-lean/cpc.mjs",
+        "runtime/addons/connect4-live-line-evaluator.mjs",
+        "runtime/src/search32.mjs",
+        "runtime/experiments/isomax-lean/shared-cache.mjs"
+      ],
+      "builtin_imports": [],
+      "provenance_match": true
+    },
+    {
+      "path": "runtime/experiments/isomax-lean/solver-general-dense.mjs",
+      "sha256_raw": "b334a434d9f3523a1f1eb9f9456673bf4410741d0bf0807c77a58c5f97c42b9b",
+      "sha256_lf": "d3f2dc90c4171f562c8547691f35fdc46ee9e3b39c5c3050b16fc3a7e0c907ae",
+      "local_imports": [
+        "runtime/addons/worker-behavior-search.mjs",
+        "runtime/src/widekey32.mjs",
+        "runtime/addons/rba-connect4-profile.mjs",
+        "runtime/addons/rba-connect4-geometry.mjs",
+        "runtime/addons/rba-connect4-coordinate-dense.mjs",
+        "runtime/experiments/isomax-lean/cpc-general.mjs",
+        "runtime/experiments/isomax-lean/live-profile.mjs",
+        "runtime/src/search32.mjs",
+        "runtime/experiments/isomax-lean/shared-cache.mjs"
+      ],
+      "builtin_imports": [],
+      "provenance_match": true
+    },
+    {
+      "path": "runtime/experiments/isomax-lean/solver-general-unpacked-dense.mjs",
+      "sha256_raw": "545931049b74a2a3345a2c2c2ef32e3f07d623f672c2d2368b0b9ab06d348852",
+      "sha256_lf": "e86e3fa9d13ff3d89ef1f1cd52f3f65f246aa31a1318e6bc48b0bdc09e3b629c",
+      "local_imports": [
+        "runtime/addons/worker-behavior-search.mjs",
+        "runtime/src/widekey32.mjs",
+        "runtime/addons/rba-connect4-profile.mjs",
+        "runtime/addons/rba-connect4-geometry.mjs",
+        "runtime/addons/rba-connect4-coordinate-dense.mjs",
+        "runtime/experiments/isomax-lean/cpc-general.mjs",
+        "runtime/experiments/isomax-lean/live-profile.mjs",
+        "runtime/src/search32.mjs",
+        "runtime/experiments/isomax-lean/shared-cache.mjs"
+      ],
+      "builtin_imports": [],
+      "provenance_match": true
+    },
+    {
+      "path": "runtime/experiments/isomax-lean/solver-general-unpacked.mjs",
+      "sha256_raw": "91b628718ebaca5ba478771cb23308efd536e9e7dce05287cea359cb20f7128e",
+      "sha256_lf": "eda8f08b3819623f9ac45860ef5aa57181ff7f78195385f09e0d4918a3e3a143",
+      "local_imports": [
+        "runtime/addons/worker-behavior-search.mjs",
+        "runtime/src/widekey32.mjs",
+        "runtime/addons/rba-connect4-profile.mjs",
+        "runtime/addons/rba-connect4-geometry.mjs",
+        "runtime/addons/rba-connect4-coordinate-prepared.mjs",
+        "runtime/experiments/isomax-lean/cpc-general.mjs",
+        "runtime/experiments/isomax-lean/live-profile.mjs",
+        "runtime/src/search32.mjs",
+        "runtime/experiments/isomax-lean/shared-cache.mjs"
+      ],
+      "builtin_imports": [],
+      "provenance_match": true
+    },
+    {
+      "path": "runtime/experiments/isomax-lean/solver-general-wide-dense.mjs",
+      "sha256_raw": "39cf83a264e1c9d50548280518796da91ec80c64b1bb278251a96cbc9d2b7d94",
+      "sha256_lf": "a7e6bd16e080548a102c789bdd84049f906d445c0a4e9657938fe6e0c98ff006",
+      "local_imports": [
+        "runtime/addons/worker-behavior-search.mjs",
+        "runtime/src/widekey32.mjs",
+        "runtime/addons/rba-connect4-profile.mjs",
+        "runtime/addons/rba-connect4-geometry.mjs",
+        "runtime/addons/rba-connect4-coordinate-dense.mjs",
+        "runtime/experiments/isomax-lean/cpc-wide.mjs",
+        "runtime/experiments/isomax-lean/live-profile.mjs",
+        "runtime/src/search32.mjs",
+        "runtime/experiments/isomax-lean/shared-cache.mjs"
+      ],
+      "builtin_imports": [],
+      "provenance_match": true
+    },
+    {
+      "path": "runtime/experiments/isomax-lean/solver-general-wide-unpacked-dense.mjs",
+      "sha256_raw": "121df6721aa886928757e18557acf484df562a869d66ef6cd48cce0b239ea198",
+      "sha256_lf": "5e6cfee3411a594ec30cf1e1fb7658df27bb3cc41ffda30af21b6d58a13211bb",
+      "local_imports": [
+        "runtime/addons/worker-behavior-search.mjs",
+        "runtime/src/widekey32.mjs",
+        "runtime/addons/rba-connect4-profile.mjs",
+        "runtime/addons/rba-connect4-geometry.mjs",
+        "runtime/addons/rba-connect4-coordinate-dense.mjs",
+        "runtime/experiments/isomax-lean/cpc-wide.mjs",
+        "runtime/experiments/isomax-lean/live-profile.mjs",
+        "runtime/src/search32.mjs",
+        "runtime/experiments/isomax-lean/shared-cache.mjs"
+      ],
+      "builtin_imports": [],
+      "provenance_match": true
+    },
+    {
+      "path": "runtime/experiments/isomax-lean/solver-general-wide-unpacked.mjs",
+      "sha256_raw": "c19d5dcd4e6483160b40a58f9c0fda35bd34fe06bd9470b66f32475ede680436",
+      "sha256_lf": "61f9f825cd718810aaf8e886da57627108d9fb86c4b36e586f2a43776de1b9ec",
+      "local_imports": [
+        "runtime/addons/worker-behavior-search.mjs",
+        "runtime/src/widekey32.mjs",
+        "runtime/addons/rba-connect4-profile.mjs",
+        "runtime/addons/rba-connect4-geometry.mjs",
+        "runtime/addons/rba-connect4-coordinate-prepared.mjs",
+        "runtime/experiments/isomax-lean/cpc-wide.mjs",
+        "runtime/experiments/isomax-lean/live-profile.mjs",
+        "runtime/src/search32.mjs",
+        "runtime/experiments/isomax-lean/shared-cache.mjs"
+      ],
+      "builtin_imports": [],
+      "provenance_match": true
+    },
+    {
+      "path": "runtime/experiments/isomax-lean/solver-general-wide.mjs",
+      "sha256_raw": "c37852ed2c4053d6df9d606c4ba5f7d0e67e7954ed49e6c04bd67b96553cf133",
+      "sha256_lf": "9020b03fe6373c3c36b73043c3100d0f008d2b0c04d86971f3ad9deb2d3a8138",
+      "local_imports": [
+        "runtime/addons/worker-behavior-search.mjs",
+        "runtime/src/widekey32.mjs",
+        "runtime/addons/rba-connect4-profile.mjs",
+        "runtime/addons/rba-connect4-geometry.mjs",
+        "runtime/addons/rba-connect4-coordinate-prepared.mjs",
+        "runtime/experiments/isomax-lean/cpc-wide.mjs",
+        "runtime/experiments/isomax-lean/live-profile.mjs",
+        "runtime/src/search32.mjs",
+        "runtime/experiments/isomax-lean/shared-cache.mjs"
+      ],
+      "builtin_imports": [],
+      "provenance_match": true
+    },
+    {
+      "path": "runtime/experiments/isomax-lean/solver-general.mjs",
+      "sha256_raw": "50f14cbb46494f9dee8d6ba78ec254487ae63ce32e33e45adb64d74592d1f5f8",
+      "sha256_lf": "350e5f0d9bf8c389c3bb6f8e1e70bfa0d6f5ea3ce4a31f5c4d9f3fa91d720165",
+      "local_imports": [
+        "runtime/addons/worker-behavior-search.mjs",
+        "runtime/src/widekey32.mjs",
+        "runtime/addons/rba-connect4-profile.mjs",
+        "runtime/addons/rba-connect4-geometry.mjs",
+        "runtime/addons/rba-connect4-coordinate-prepared.mjs",
+        "runtime/experiments/isomax-lean/cpc-general.mjs",
+        "runtime/experiments/isomax-lean/live-profile.mjs",
+        "runtime/src/search32.mjs",
+        "runtime/experiments/isomax-lean/shared-cache.mjs"
+      ],
+      "builtin_imports": [],
+      "provenance_match": true
+    },
+    {
+      "path": "runtime/experiments/isomax-lean/solver.mjs",
+      "sha256_raw": "e9f703b4c506fb153a36e9d49e9e0c80be77e65c32f99dcc9b63d3d681cc2795",
+      "sha256_lf": "8b8f6d263c2b7c2e8106ba213e8f9aa5d3e80bc60b69d7c80796ff874510d546",
+      "local_imports": [
+        "runtime/experiments/isomax-lean/fixed-ops.mjs",
+        "runtime/addons/worker-behavior-search.mjs",
+        "runtime/src/widekey32.mjs",
+        "runtime/addons/rba-connect4-profile.mjs",
+        "runtime/addons/rba-connect4-geometry.mjs",
+        "runtime/addons/rba-connect4-coordinate-prepared.mjs",
+        "runtime/experiments/isomax-lean/cpc.mjs",
+        "runtime/addons/connect4-live-line-evaluator.mjs",
+        "runtime/src/search32.mjs",
+        "runtime/experiments/isomax-lean/shared-cache.mjs"
+      ],
+      "builtin_imports": [],
+      "provenance_match": true
+    },
+    {
+      "path": "runtime/experiments/isomax-lean/worker-dense.mjs",
+      "sha256_raw": "89b161b87518476953eae3e34abf3278700563abcd882178eb173c74db1116f7",
+      "sha256_lf": "00387713eeecfbc3779d1e671c2da6bd033676e81cec6ea1b3d883198251076e",
+      "local_imports": [
+        "runtime/addons/worker-behavior.mjs",
+        "runtime/experiments/isomax-lean/shared-cache.mjs",
+        "runtime/experiments/isomax-lean/solver-dense.mjs"
+      ],
+      "builtin_imports": [
+        "node:worker_threads"
+      ],
+      "provenance_match": true
+    },
+    {
+      "path": "runtime/experiments/isomax-lean/worker-general-dense.mjs",
+      "sha256_raw": "75adc866e8fa27c9173eb53c3e60b1cc3a2605948bb2238167b9a378c18b5dc2",
+      "sha256_lf": "2d42ff46d7c8a3e0bb73a165ff0c9829ff01cf88f7cf82c2472b299c8675bc39",
+      "local_imports": [
+        "runtime/addons/worker-behavior.mjs",
+        "runtime/experiments/isomax-lean/shared-cache.mjs",
+        "runtime/experiments/isomax-lean/solver-general-dense.mjs"
+      ],
+      "builtin_imports": [
+        "node:worker_threads"
+      ],
+      "provenance_match": true
+    },
+    {
+      "path": "runtime/experiments/isomax-lean/worker-general-unpacked-dense.mjs",
+      "sha256_raw": "2c0bb27eaa76412cbe3de17d93e3a9436192eabc2224067f78fe1195caa5b2e2",
+      "sha256_lf": "400342164c9500e6c4f27e920b333982df57ea479a0835c86ea64573cbd7f8b7",
+      "local_imports": [
+        "runtime/addons/worker-behavior.mjs",
+        "runtime/experiments/isomax-lean/shared-cache.mjs",
+        "runtime/experiments/isomax-lean/solver-general-unpacked-dense.mjs"
+      ],
+      "builtin_imports": [
+        "node:worker_threads"
+      ],
+      "provenance_match": true
+    },
+    {
+      "path": "runtime/experiments/isomax-lean/worker-general-unpacked.mjs",
+      "sha256_raw": "78b0a5a48eae4ab35c59dfaf7b1ff4ffb76758a9969700ade4e302f1fc7992ae",
+      "sha256_lf": "f29f983d85e30cf57037029333a11568b60bb8ffc429167b8d4fa6e3328aac63",
+      "local_imports": [
+        "runtime/addons/worker-behavior.mjs",
+        "runtime/experiments/isomax-lean/shared-cache.mjs",
+        "runtime/experiments/isomax-lean/solver-general-unpacked.mjs"
+      ],
+      "builtin_imports": [
+        "node:worker_threads"
+      ],
+      "provenance_match": true
+    },
+    {
+      "path": "runtime/experiments/isomax-lean/worker-general-wide-dense.mjs",
+      "sha256_raw": "a97d247c49446c926028f6e9532ad3c90acb5337cc6d9eafa6a9bbaf94d5769f",
+      "sha256_lf": "7915f853dd4935ddcda2f57655a79d6718dcd4baf0126f2d4b639e45ba0e8b90",
+      "local_imports": [
+        "runtime/addons/worker-behavior.mjs",
+        "runtime/experiments/isomax-lean/shared-cache.mjs",
+        "runtime/experiments/isomax-lean/solver-general-wide-dense.mjs"
+      ],
+      "builtin_imports": [
+        "node:worker_threads"
+      ],
+      "provenance_match": true
+    },
+    {
+      "path": "runtime/experiments/isomax-lean/worker-general-wide-unpacked-dense.mjs",
+      "sha256_raw": "961b96d91f3932200ab19d819d20f452417a21c01b5ee7f3c1c8bb329027346a",
+      "sha256_lf": "244fb375ac9e32dee70b9cf8c0d6e595ad35dda009e33c256567d24af308f0fd",
+      "local_imports": [
+        "runtime/addons/worker-behavior.mjs",
+        "runtime/experiments/isomax-lean/shared-cache.mjs",
+        "runtime/experiments/isomax-lean/solver-general-wide-unpacked-dense.mjs"
+      ],
+      "builtin_imports": [
+        "node:worker_threads"
+      ],
+      "provenance_match": true
+    },
+    {
+      "path": "runtime/experiments/isomax-lean/worker-general-wide-unpacked.mjs",
+      "sha256_raw": "fb6c8b33af3479b9f15c2b216f4f83d9191a6578acacfc57113168d06b7c5bf2",
+      "sha256_lf": "9a4f75c6b5826c9f8c51a245d404c584f4d9f05c9e52ea8c28fda06aaab25b82",
+      "local_imports": [
+        "runtime/addons/worker-behavior.mjs",
+        "runtime/experiments/isomax-lean/shared-cache.mjs",
+        "runtime/experiments/isomax-lean/solver-general-wide-unpacked.mjs"
+      ],
+      "builtin_imports": [
+        "node:worker_threads"
+      ],
+      "provenance_match": true
+    },
+    {
+      "path": "runtime/experiments/isomax-lean/worker-general-wide.mjs",
+      "sha256_raw": "b05c4d8d6ee0af438f0a5157ccd60fadc23008d23e155c7754c03daa7f2381eb",
+      "sha256_lf": "921dfca6594b83338a0c51608c2af0bb05ab18ccb8538dde833109af193a70d2",
+      "local_imports": [
+        "runtime/addons/worker-behavior.mjs",
+        "runtime/experiments/isomax-lean/shared-cache.mjs",
+        "runtime/experiments/isomax-lean/solver-general-wide.mjs"
+      ],
+      "builtin_imports": [
+        "node:worker_threads"
+      ],
+      "provenance_match": true
+    },
+    {
+      "path": "runtime/experiments/isomax-lean/worker-general.mjs",
+      "sha256_raw": "00e29f8f733828f90b541c8138b87d78512e3dd74184cf21357b4b6ececc3eec",
+      "sha256_lf": "167c40e0fbf76639c07f3243daf444663e59e18be31a89546215f46aa600d5ea",
+      "local_imports": [
+        "runtime/addons/worker-behavior.mjs",
+        "runtime/experiments/isomax-lean/shared-cache.mjs",
+        "runtime/experiments/isomax-lean/solver-general.mjs"
+      ],
+      "builtin_imports": [
+        "node:worker_threads"
+      ],
+      "provenance_match": true
+    },
+    {
+      "path": "runtime/experiments/isomax-lean/worker.mjs",
+      "sha256_raw": "9c030393b845e82ce524a9b55bb869fb242707d055c0252cbcc0690d9b467d6a",
+      "sha256_lf": "be0ce10a9709f8804f04477e877d7bf90f40f25aa45d6dfddfd1258f1d92117c",
+      "local_imports": [
+        "runtime/addons/worker-behavior.mjs",
+        "runtime/experiments/isomax-lean/shared-cache.mjs",
+        "runtime/experiments/isomax-lean/solver.mjs"
+      ],
+      "builtin_imports": [
+        "node:worker_threads"
+      ],
+      "provenance_match": true
+    },
+    {
+      "path": "runtime/src/basis32.mjs",
+      "sha256_raw": "5cdaf99d2c5c45055a5bca9958d56df3a215a17bfc7b4ec8a2184d5257cb3fde",
+      "sha256_lf": "d39e5e8d7db0fdbfb894b78ecd0b36f31481e2e777caca08f577134e30bf6b51",
+      "local_imports": [],
+      "builtin_imports": [],
+      "provenance_match": true
+    },
+    {
+      "path": "runtime/src/relational32.mjs",
+      "sha256_raw": "1583d5f1a296c78316ddc56e5d0dcb5590e4829a2241ba2533158ddc984cf87d",
+      "sha256_lf": "ef28a812be3e1a5df695e67ced20168689f9b0887b83518aca2c857ea9581d3c",
+      "local_imports": [],
+      "builtin_imports": [],
+      "provenance_match": true
+    },
+    {
+      "path": "runtime/src/search32.mjs",
+      "sha256_raw": "e7d406163549ebbba6c6c959c3fcdd518d9741e73ff21f530473e325b7276336",
+      "sha256_lf": "4131be32cfc4141cbe0fdf05961d6a909c75164258e22355fbe3afbc8595d845",
+      "local_imports": [],
+      "builtin_imports": [],
+      "provenance_match": true
+    },
+    {
+      "path": "runtime/src/widekey32.mjs",
+      "sha256_raw": "aacb43018b55912359b0352b73017f71fe176d508efe822f2677b37d493a29b4",
+      "sha256_lf": "81e11700ff71a38af021a21b8f9b59f80c4eb5508173c8ebbf3ee9aaefdf58c3",
+      "local_imports": [],
+      "builtin_imports": [],
+      "provenance_match": true
+    },
+    {
+      "path": "runtime/src/word32.mjs",
+      "sha256_raw": "1e5366d8b24943c0d17311b174ca83274063267e494ca8f004b8577c8a279098",
+      "sha256_lf": "f0b27429d7120362eedda5c6e48201e0b698da26b57848f547baa97ece2a2c33",
+      "local_imports": [],
+      "builtin_imports": [],
+      "provenance_match": true
+    },
+    {
+      "path": "runtime/src/word64x32.mjs",
+      "sha256_raw": "f7ca1906945d3779ac8c406e820bf6e5d49ac40f4848e857642558cdbfd303cc",
+      "sha256_lf": "ca59372f9f74b8272c0d24d2221899fb1b075334198ca14b54997e578ed49985",
+      "local_imports": [],
+      "builtin_imports": [],
+      "provenance_match": true
+    },
+    {
+      "path": "runtime/src/worker-behavior32.mjs",
+      "sha256_raw": "c6802017780a123729ca8463d4a1a151b16b3ef5bb17ee939d52d607a5dac8b1",
+      "sha256_lf": "beb8be728d1b571681aef06c5367f6c2913158e89ae113a7ccaebbeef1c8a6f8",
+      "local_imports": [],
+      "builtin_imports": [],
+      "provenance_match": true
+    },
+    {
+      "path": "runtime/tools/worker-affinity-preload.mjs",
+      "sha256_raw": "c76141300339725c9a8d8f6b3447c3934ab3ee14597bb81531e5e2705219a400",
+      "sha256_lf": "02105fdf5204ef91434fe9ef2358ebc8ef953b87188b33dbf7705d65493d651f",
+      "local_imports": [
+        "runtime/addons/worker-affinity.mjs"
+      ],
+      "builtin_imports": [
+        "node:worker_threads",
+        "node:fs"
+      ],
+      "provenance_match": true
+    }
+  ],
+  "metadata": [
+    {
+      "path": "profile.json",
+      "sha256_raw": "17091425c794b85be367dd354d5b512175e0ea73778e6c5b5881eb68b1a01329",
+      "sha256_lf": "487675ecaf9fd2d5a4d89395f55f35c761a227e88c7bf7173aff37b8c1c0ec6a",
+      "runtime_role": "configuration-or-package-metadata"
+    },
+    {
+      "path": "targets.json",
+      "sha256_raw": "43b6bd7ef0a33439dec6644405c3024d78d5db5a4fcbb1a71cd3e400e04066fc",
+      "sha256_lf": "1447f09c35bd01d309a57586b397460a95ea7efcad9a24cdfa2a4f34a0e9e0b5",
+      "runtime_role": "configuration-or-package-metadata"
+    },
+    {
+      "path": "provenance.json",
+      "sha256_raw": "0a0d92a92031013cc57bd6b6667b70dae0c0f24f95af19f96e11d5f40112f003",
+      "sha256_lf": "2d60b13e97fc5a47e69266a5202cc0fe9487d442e8394ea44a57b973fd37b397",
+      "runtime_role": "audit-only"
+    },
+    {
+      "path": "package.json",
+      "sha256_raw": "2114c0770482f1338c4853a8ddca01498613933301389e7974f98714763f6996",
+      "sha256_lf": "68c5f14cbbaa48953e13a384c454f279abb9122f8a0511b10ae36db7c632a5a7",
+      "runtime_role": "configuration-or-package-metadata"
+    }
+  ],
+  "verified_provenance_matches": 49
+}
