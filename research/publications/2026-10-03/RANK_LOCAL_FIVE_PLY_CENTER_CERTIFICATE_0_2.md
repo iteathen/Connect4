@@ -212,7 +212,7 @@ If the Pareto maximum is non-unique, the certificate returns unresolved. If the 
 
 ### Theorem 1 — five-ply center certificate under certificate self-play
 
-Let \(P_s\) denote the standard 7x6 Connect Four position reached by legal move prefix (s). Define **certificate self-play** to mean that, at each successive ply, whichever player is to move applies the same rank-local certificate to the actual current position and plays its certified move when one exists.
+Let \(P_s\) denote the standard 7x6 Connect Four position reached by legal move prefix \(s\). Define **certificate self-play** to mean that, at each successive ply, whichever player is to move applies the same rank-local certificate to the actual current position and plays its certified move when one exists.
 
 For
 
