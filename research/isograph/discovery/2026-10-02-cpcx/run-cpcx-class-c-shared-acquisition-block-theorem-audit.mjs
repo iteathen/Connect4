@@ -161,6 +161,8 @@ for(const candidate of candidates){
           }
 
           const afterPinned=applyCpcxForcedEvent(position,actionCell),
+            tokenEntryKey=!afterPinned.terminal&&afterPinned.mover===1
+              ?stateKey(afterPinned,c3):null,
             afterSupply=applyCpcxForcedEvent(
               afterPinned,cert.sharedEdge.triggerCell
             ),
@@ -189,6 +191,9 @@ for(const candidate of candidates){
             targetLabel:label(target.targetCell),
             pinnedActionCell:actionCell,
             pinnedActionLabel:label(actionCell),
+            tokenEntryKey,
+            exactFixedCohortTokenEntry:
+              Boolean(tokenEntryKey&&nodeByKey.has(tokenEntryKey)),
             triggerCell:cert.sharedEdge.triggerCell,
             triggerLabel:label(cert.sharedEdge.triggerCell),
             responseCell:cert.sharedEdge.responseCell,
@@ -243,6 +248,8 @@ for(const candidate of candidates){
     responseTerminalP0Count:certs.filter(x=>x.terminal?.player===0).length,
     responseTerminalP1Count:certs.filter(x=>x.terminal?.player===1).length,
     normalizationKinds:countBy(certs,x=>x.normalizationKind),
+    exactFixedCohortTokenEntryCount:
+      certs.filter(x=>x.exactFixedCohortTokenEntry).length,
     exactFixedCohortReentryCount:certs.filter(x=>x.exactFixedCohortReentry).length,
     finalP0FirstWinCount:certs.filter(x=>
       x.finalFirstWin?.kind==='CERTIFIED_FIRST_WIN'&&
@@ -274,6 +281,8 @@ console.log(JSON.stringify({
     exactCertificateCount:allCerts.length,
     targetHistogram:countBy(allCerts,x=>x.targetLabel),
     pinnedActionHistogram:countBy(allCerts,x=>x.pinnedActionLabel),
+    exactFixedCohortTokenEntryCount:
+      allCerts.filter(x=>x.exactFixedCohortTokenEntry).length,
     exactFixedCohortReentryCount:
       allCerts.filter(x=>x.exactFixedCohortReentry).length,
     finalP0FirstWinCount:allCerts.filter(x=>
