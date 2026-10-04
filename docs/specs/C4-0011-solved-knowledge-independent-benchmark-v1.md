@@ -162,13 +162,17 @@ The current Rank-Local Landing Certificate (RLC) dependency audit is pinned to:
 - commit: `02848960fb8d6a1e930778e9c6979f8007873526`
 - blob: `df178a01b97744c719cff3622dc49ab878b356b2`
 
-That pinned revision explicitly frames the five moves as **certificate self-play**, states that the result is a runtime/proof-input dependency result rather than a historically blind discovery claim, and does **not** claim that RLC selection proves game-theoretic optimality.
+That pinned revision explicitly frames the five moves as **certificate self-play**, states that the result is a runtime/proof-input dependency result rather than a historically blind discovery claim, and does **not** claim that RLC's rank-local ordering is a universal theorem of global minimax ordering.
 
 RLC computes its generic rule from current geometry. Its five-ply dependency audit establishes that its selections through the prefix 44444 can be reproduced without reading solved-game data.
 
-However:
+For those five actual positions, the published tables establish a stronger local decision fact than mere heuristic preference: center is the unique Pareto maximum in the admitted rank-local objectives `(A,B)`, strictly dominating every alternative, and has positive headroom. In that precise sense, center is the **unique structurally best move under the admitted rank-local information**.
 
-> **RLC selection is not, by itself, proof of game-theoretic optimality.**
+This must be kept distinct from a different statement:
+
+> **Rank-local structural bestness is not, by itself, a universal proof of global minimax optimality.**
+
+The contract does not require a runtime selector to know the global W/D/L value before it may choose and play a move. A player or solver may make a best available decision from its admitted information while the global outcome remains unknown.
 
 Therefore, an RLC output may be used for:
 
@@ -204,9 +208,13 @@ For this contract, **qualified** means that an immutable evidence record binds t
 
 Heuristic preference is not pruning authority.
 
-A rule that merely scores one move above another cannot advance the claimed root unless an exact bridge from that score to the declared benchmark target has been proved.
+This fixed-root proof rule must not be confused with live-state advancement by a declared solver policy. A solver may compute a move from admitted current-state information, play that move, and continue from the resulting position without first proving that the move preserves the unknown global minimax value. That is ordinary runtime decision-making, not retroactive pruning of the original root.
 
-For a root W/D/L solve, all legal alternatives remain semantically in scope unless an admitted exact proof discharges them.
+If, however, the declared benchmark target is an **exact value or exact action set of a fixed root**, then merely preferring or structurally ranking one move does not discharge the unexamined alternatives at that fixed root. For that claim, all legal alternatives remain semantically in scope unless exact proof authority discharges them.
+
+Thus:
+- **live-policy advancement:** may use an admitted runtime selector according to its declared semantics;
+- **fixed-root exact proof:** requires exact pruning/equivalence/value-preservation authority for alternatives that are not examined.
 
 ---
 
@@ -236,9 +244,18 @@ A theorem or rule may still be mathematically correct when solver/oracle feedbac
 
 Such a result must be labeled oracle-informed.
 
-It is **not** admissible as pruning/root-advancement authority in the strict lineage-independent lane unless the benchmark profile explicitly relaxes that requirement.
+It is **not** admissible as pruning authority for a strict lineage-independent fixed-root proof unless the benchmark profile explicitly relaxes that requirement.
 
-It is also **not** admissible as an ordering selector or heuristic in a run declared `lineage-clean`. It may be used for non-pruning move ordering only in a `runtime-input-only` or explicitly relaxed lane, where it must be listed under `admitted_selectors_and_heuristics` with its immutable identity and lineage classification.
+It is also **not** admissible as a selector or heuristic in a run declared `lineage-clean`.
+
+In a `runtime-input-only` or explicitly relaxed lane, however, historical oracle involvement in the design does not by itself prohibit runtime use. Such a rule may be used for move ordering, live move selection, live-state advancement, scheduling, or other declared runtime behavior provided that:
+
+- it consumes no solved-game data at runtime;
+- its actual permitted use is disclosed;
+- its immutable implementation identity and lineage classification are recorded;
+- it is not mislabeled as lineage-independent.
+
+If that same rule is used to discharge alternatives in a fixed-root exact proof, its mathematical pruning authority must still be established separately under Section 8.
 
 ### 9.3 Runtime-input-only audit lane
 
@@ -470,9 +487,11 @@ NEES is a Connect4/IsoMax project accounting requirement, not part of the portab
 
 The current RLC publication establishes runtime/proof-input solved-knowledge independence for its move selections through plies 1–5 only.
 
-A declared composite solver may therefore start from the empty board, recompute those moves one at a time, advance the live state, and hand the resulting position to the exact-search stage. Such a run is an empty-board composite execution because no prefix was supplied in advance.
+For those five positions, the published rank-local tables also show that center strictly Pareto-dominates every alternative in the admitted `(A,B)` objectives while retaining positive headroom. The project therefore describes center as the **unique structurally best rank-local move** at each of those five positions.
 
-This does not turn RLC's scoring relation into a generic game-theoretic optimality theorem, and it does not permit the literal result `44444` to be embedded or loaded as prior knowledge.
+A declared composite solver may start from the empty board, recompute those moves one at a time, advance the live state, and hand the resulting position to the exact-search stage. Such a run is an empty-board composite execution because no prefix was supplied in advance.
+
+This does not assert the stronger universal theorem that rank-local Pareto dominance always equals global minimax ordering, and it does not permit the literal result `44444` to be embedded or loaded as prior knowledge.
 
 From ply 6 onward, solved-knowledge dependence/independence must be audited separately.
 
