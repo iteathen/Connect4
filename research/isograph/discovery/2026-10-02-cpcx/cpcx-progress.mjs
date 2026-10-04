@@ -20,6 +20,9 @@ import {
   findAndCertifyCpcxLatentSingletonPairHubOverloads,
 } from './cpcx-latent-pair-hub.mjs';
 import {
+  findAndCertifyCpcxLatentPairHubNormalizationHandoffs,
+} from './cpcx-latent-pair-hub-normalization.mjs';
+import {
   findCpcxVerticalTwoStageObligations,
   certifyCpcxVerticalTwoStage,
 } from './cpcx-two-stage.mjs';
@@ -113,6 +116,24 @@ export function classifyCpcxProgress(position,{player=position.mover}={}){
       return firstWin(
         player,
         'LATENT_SINGLETON_PAIR_HUB_OVERLOAD',
+        selected
+      );
+    }
+  }
+
+  if(player!==position.mover){
+    const normalizedLatentPairHubs=
+      findAndCertifyCpcxLatentPairHubNormalizationHandoffs(
+        position,{attacker:player}
+      );
+    if(normalizedLatentPairHubs.length){
+      const selected=[...normalizedLatentPairHubs].sort((a,b)=>
+        a.candidate.targetCell-b.candidate.targetCell||
+        a.candidate.hubCell-b.candidate.hubCell
+      )[0];
+      return firstWin(
+        player,
+        'LATENT_SINGLETON_PAIR_HUB_FORCED_NORMALIZATION',
         selected
       );
     }
