@@ -1,0 +1,28 @@
+name: Research CPCX opponent-turn reservation theorem
+
+on:
+  push:
+    branches:
+      - experiment/cpcx-20261002
+    paths:
+      - 'research/isograph/discovery/2026-10-02-cpcx/CPCX_SUPPORT_RELEASE_OPPONENT_TURN_RESERVATION_0_1.md'
+      - 'research/isograph/discovery/2026-10-02-cpcx/cpcx-support-release-opponent-turn-reservation.mjs'
+      - 'research/isograph/discovery/2026-10-02-cpcx/cpcx-support-release-opponent-turn-reservation.test.mjs'
+      - '.github/workflows/research-cpcx-opponent-turn-reservation.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  theorem:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: '24'
+      - name: Run opponent-turn reservation qualification
+        run: |
+          node --test             research/isograph/discovery/2026-10-02-cpcx/cpcx-support-release-opponent-turn-reservation.test.mjs
