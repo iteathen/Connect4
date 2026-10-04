@@ -78,6 +78,9 @@ import {
 import {
   certifyCpcxReservoirCoverageGapRcic,
 } from './cpcx-reservoir-gap-rcic.mjs';
+import {
+  certifyCpcxReservoirCoverageGapCapacityRcic,
+} from './cpcx-reservoir-gap-capacity-rcic.mjs';
 
 const g=createCpcxGeometry(),
   artifact=buildCpcxMove6UnresolvedClassesArtifact(),
@@ -1122,7 +1125,15 @@ for(const source of sources.values()){
                                   targetCell,
                                   maxNodes:8192,
                                 }
-                              );
+                              ),
+                              gapCapacity=
+                                certifyCpcxReservoirCoverageGapCapacityRcic(
+                                  after,{
+                                    attacker:0,
+                                    targetCell,
+                                    maxNodes:8192,
+                                  }
+                                );
                             return {
                               targetCell:label(targetCell),
                               oneDefect:{
@@ -1162,6 +1173,33 @@ for(const source of sources.values()){
                                       node.unresolvedTriggers??[],
                                   })
                                 ),
+                              },
+                              gapCapacity:{
+                                kind:gapCapacity.kind,
+                                exact:gapCapacity.exact??false,
+                                player:gapCapacity.player??null,
+                                seam:gapCapacity.seam??null,
+                                nodeCount:gapCapacity.nodeCount??null,
+                                certifiedNodeCount:
+                                  gapCapacity.certifiedNodeCount??null,
+                                unresolvedNodeCount:
+                                  gapCapacity.unresolvedNodeCount??null,
+                                edgeCount:gapCapacity.edgeCount??null,
+                                rootGap:gapCapacity.rootGap??null,
+                                unresolvedRootTriggers:
+                                  gapCapacity.unresolvedRootTriggers??[],
+                                unresolvedNodes:
+                                  (gapCapacity.unresolvedNodes??[]).map(
+                                    node=>({
+                                      rank:node.rank,
+                                      gap:node.gap,
+                                      support:node.support,
+                                      descriptor:node.descriptor,
+                                      seam:node.seam??null,
+                                      unresolvedTriggers:
+                                        node.unresolvedTriggers??[],
+                                    })
+                                  ),
                               },
                             };
                           }):[];
