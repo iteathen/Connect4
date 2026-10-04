@@ -229,7 +229,7 @@ export function certifyCpcxSupportReleaseSharedAcquisitionBlock(position,{
     urgentLineIds=urgentRows.map(o=>o.lineId).sort((a,b)=>a-b),
     killedUrgentIds=urgentLast.killed
       .filter(x=>x.player===opponent&&x.killingCell===targetCell)
-      .map(x=>x.parentObligationId)
+      .map(x=>x.obligationId)
       .sort((a,b)=>a-b);
 
   if(
