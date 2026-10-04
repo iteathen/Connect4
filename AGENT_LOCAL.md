@@ -124,6 +124,7 @@ The legacy files listed below remain useful human-readable bridge views. Current
 - `docs/specs/C4-0008-bsfp-exact-solver-v1.md` — BSFP-specific exact W/D/L solver architecture and backward fixed-point meaning, subject to the status declared in that specification.
 - `docs/specs/C4-0009-bsfp-cuda-execution-profile-v1.md` — CUDA-BSFP execution/consumer profile, subject to its declared status.
 - `docs/specs/C4-0010-quotient-native-negamax-v1.md` — accepted **research** specification for the forward exact W/D/L Negamax consumer/execution lane. Where it imports CPC/WSL/NDC semantics from C4-0006/C4-0007, those imported structural/proof clauses retain the upstream Candidate status unless independently restated and accepted here.
+- `docs/specs/C4-0011-solved-knowledge-independent-benchmark-v1.md` — accepted benchmark-independence specification for clean exact-solver comparisons: admissible knowledge, theorem provenance, cold start, RLC non-pruning use, exact-target declaration, and reproducibility/reporting requirements.
 - `docs/research/2026-09-09-owner-searchless-connect4-findings.md` — owner-authored synthesis of CPC → WSL-625 → NDC → BSFP and attribution; research evidence, not a status override.
 - `docs/research/2026-09-09-universal-strategic-algebra.md` — U1 parity/response + U2 blocker-lattice unification, including even-release control preservation; research evidence.
 - `docs/research/2026-09-09-nested-strategic-dependency-closure.md` — nested conditional event reservoirs and proof closure; research evidence.
@@ -142,6 +143,8 @@ For BSFP work, read:
 For quotient-native Negamax work, read:
 
 **C4-0001 → C4-0006 → C4-0010 → STATUS.md → next_step.yaml**.
+
+For any benchmark claiming independence from solved/self-game knowledge, additionally read **C4-0011** before designing, running, or interpreting the benchmark.
 
 If the forward lane touches parity/Zugzwang control, blockers, strategic terminalization, event-frontier compression, race/deadline facts, or nested certificates, also read **C4-0007** and the relevant 2026-09-09 research notes above before changing semantics.
 
