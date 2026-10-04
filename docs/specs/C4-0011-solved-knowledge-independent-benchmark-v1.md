@@ -136,6 +136,8 @@ Examples:
 - A table of “equivalent” moves learned from solved outcomes is forbidden even if stored only as compact class IDs.
 - A numeric feature is forbidden when its constants were fitted against solved outcomes and then frozen into the solver for the clean benchmark.
 
+An oracle-informed selector or ordering heuristic is not “rule-derived” merely because it performs no pruning. Its use must be disclosed and lineage-classified. It is forbidden in the strict `lineage-clean` lane, but may be used in the narrower `runtime-input-only` lane when it does not consume solved data at runtime and is listed in the benchmark declaration.
+
 ---
 
 ## 6. Symmetry and equivalence
@@ -154,9 +156,13 @@ This does **not** authorize precomputed game-theoretic equivalence classes. Two 
 
 A runtime structural selector is admissible computation when it is evaluated from the current position and admitted rule-derived structure without reading solved data.
 
-The current Rank-Local Landing Certificate (RLC) is documented in:
+The current Rank-Local Landing Certificate (RLC) dependency audit is pinned to:
 
-research/publications/2026-10-03/RANK_LOCAL_FIVE_PLY_CENTER_CERTIFICATE_0_3.md
+- path: `research/publications/2026-10-03/RANK_LOCAL_FIVE_PLY_CENTER_CERTIFICATE_0_3.md`
+- commit: `02848960fb8d6a1e930778e9c6979f8007873526`
+- blob: `df178a01b97744c719cff3622dc49ab878b356b2`
+
+That pinned revision explicitly frames the five moves as **certificate self-play**, states that the result is a runtime/proof-input dependency result rather than a historically blind discovery claim, and does **not** claim that RLC selection proves game-theoretic optimality.
 
 RLC computes its generic rule from current geometry. Its five-ply dependency audit establishes that its selections through the prefix 44444 can be reproduced without reading solved-game data.
 
@@ -200,6 +206,8 @@ A legal move, response, or state may be removed from the exact proof obligation 
 - an admitted structural theorem whose premises are satisfied in the current state;
 - another sound exact certificate whose semantics are frozen and qualified.
 
+For this contract, **qualified** means that an immutable evidence record binds the exact certificate/theorem semantics to a source commit or content hash and records the proof, tests, controls, or other acceptance evidence required for the specific authority being exercised. A passing experiment or favorable oracle comparison alone is not qualification for pruning authority.
+
 Heuristic preference is not pruning authority.
 
 A rule that merely scores one move above another cannot advance the claimed root unless an exact bridge from that score to the declared benchmark target has been proved.
@@ -224,6 +232,8 @@ For the strict independence lane, all of the following are required:
 - the frozen candidate commit/hash predates oracle validation;
 - any later repair after oracle inspection is a new candidate and requires a new fresh validation boundary.
 
+The discovery/selection statement is necessarily a researcher self-attestation unless an independent development process provides stronger evidence. The contract does not pretend otherwise. The attestation must nevertheless be explicit, immutable, and consistent with the repository chronology so that an auditor can check the available evidence.
+
 A theorem meeting these requirements may be admitted as exact pruning authority if its proof/qualification status permits it.
 
 ### 9.2 Oracle-informed theorem or rule
@@ -234,7 +244,7 @@ Such a result must be labeled oracle-informed.
 
 It is **not** admissible as pruning/root-advancement authority in the strict lineage-independent lane unless the benchmark profile explicitly relaxes that requirement.
 
-It may still be used for non-pruning move ordering if its runtime inputs otherwise satisfy this contract.
+It is also **not** admissible as an ordering selector or heuristic in a run declared `lineage-clean`. It may be used for non-pruning move ordering only in a `runtime-input-only` or explicitly relaxed lane, where it must be listed under `admitted_selectors_and_heuristics` with its immutable identity and lineage classification.
 
 ### 9.3 Runtime-input-only audit lane
 
@@ -261,7 +271,7 @@ If oracle output is inspected and the candidate is changed, the revised candidat
 
 A fresh holdout must remain unqueried until the new candidate is frozen.
 
-The benchmark evidence must make the freeze-before-oracle chronology auditable.
+The benchmark evidence must make the freeze-before-oracle chronology auditable. Acceptable anchors include an immutable Git commit, signed or annotated tag, CI run tied to a commit, immutable workflow artifact, or another timestamped content-addressed record that establishes the candidate identity before the oracle query. A mutable local file or an undocumented verbal assertion is not sufficient chronology evidence.
 
 ---
 
@@ -279,9 +289,13 @@ Before timing/execution, the benchmark log must record at least:
 - persisted-cache status;
 - any preloaded rule/geometry artifacts and their hashes;
 - starting root identity;
-- process/runtime identity.
+- process/runtime identity;
+- executable source commit/hash;
+- an attestation that the runtime dependency closure contains no embedded opening book, solved W/D/L table, best-move table, answer-bearing prefix constants, or equivalent compiled-in solved data.
 
-For a clean run, mutable answer-bearing tables must report empty/zero initial contents.
+The embedded-data attestation must be backed by an auditable source/dependency scan, build manifest, or equivalent content-hash record covering the code and static data actually reachable by the benchmark executable. The repository may contain oracle corpora elsewhere; the requirement concerns the benchmark runtime closure.
+
+For a clean run, mutable answer-bearing tables must report empty/zero initial contents and the runtime closure must contain no forbidden answer-bearing constants.
 
 A separately labeled warm-cache benchmark is permitted, but it is not a C4-0011 clean run.
 
@@ -321,6 +335,8 @@ For a prefix benchmark, every solver receives exactly that prefix/current state.
 A solver may not start farther down the game because a heuristic, RLC, book, prior solve, or expected line predicts the preceding moves.
 
 If a structural theorem exactly eliminates earlier alternatives, that proof work is part of the benchmark unless the benchmark profile explicitly declares the theorem as admitted pre-run authority under Section 9.
+
+When a theorem is admitted as pre-run authority, the historical cost of discovering or proving that theorem is outside the timed benchmark. **The cost of evaluating its premises, constructing its position-specific instance, and checking that it applies to the current benchmark state remains position-dependent work and must be included under Section 14.**
 
 ---
 
@@ -400,7 +416,6 @@ Where available, also report:
 - nodes;
 - evaluator calls;
 - proof steps/certificates;
-- NEES/cycle accounting;
 - cache statistics;
 - synchronization or worker-efficiency metrics.
 
@@ -453,7 +468,7 @@ IsoMax benchmark evidence must cite the selected localhost resource profile actu
 
 ### 19.4 NEES and cycle accounting
 
-When a benchmarked JSMinSys/IsoMax function is subject to NEES accounting, the relevant cycle-ledger identity and source revision should be recorded with the benchmark evidence.
+NEES is a Connect4/IsoMax project accounting requirement, not part of the portable benchmark core. When a benchmarked JSMinSys/IsoMax function is subject to NEES accounting, report the relevant NEES/cycle-ledger identity, source revision, and applicable cycle/work totals with the benchmark evidence.
 
 ### 19.5 RLC scope
 
@@ -477,9 +492,13 @@ Every clean benchmark should freeze a declaration equivalent to:
     source_commit: <sha>
     admitted_structural_theorems:
       - <file + commit/hash + lineage classification>
+    admitted_selectors_and_heuristics:
+      - <name + file/commit/hash + lineage-clean | oracle-informed + permitted use>
     oracle_available_to_runtime: false
     opening_book_loaded: false
     persisted_answer_cache_loaded: false
+    runtime_closure_hash_or_manifest: <identity>
+    embedded_answer_data_attestation: <source/dependency scan evidence>
     cold_start_attestation: <fresh process/container + zero table counts>
     runtime: <version>
     workers: <count>
@@ -497,6 +516,25 @@ The benchmark report must state any deviation from this contract rather than sil
 
 For a strict solved-knowledge-independent exact benchmark:
 
-> The solver starts from the declared legal root with no stored answer-bearing state. It may use game rules, mechanically derived geometry, generic algorithms, current-run learning, and lineage-clean structural theorems whose provenance was frozen before oracle validation. Runtime selectors such as RLC may order work but may not prune or advance the root without separate exact proof authority. Oracle information is excluded from execution and is used only after candidate freeze for validation. Every position-specific contribution to the exact result is either derived during the current run or discharged by an explicitly admitted theorem.
+> The solver starts from the declared legal root with no stored or embedded answer-bearing state. It may use game rules, mechanically derived geometry, generic algorithms, current-run learning, and lineage-clean structural theorems whose provenance was frozen before oracle validation. Every selector and heuristic is declared with its lineage classification; oracle-informed selectors are excluded from the strict lineage-clean lane. Runtime selectors such as RLC may order work where their lane permits it but may not prune or advance the root without separate exact proof authority. Oracle information is excluded from execution and is used only after candidate freeze for validation. Every position-specific contribution to the exact result is either derived during the current run or discharged by an explicitly admitted theorem.
+
+## 22. Referenced Connect4 specifications
+
+The local specifications referenced by this contract are:
+
+- `docs/specs/C4-0001-domain-v1.md` — standard Connect Four domain semantics.
+- `docs/specs/C4-0002-incumbent-evaluator-v1.md` — incumbent evaluator semantics.
+- `docs/specs/C4-0003-incumbent-search-v1.md` — incumbent search semantics.
+- `docs/specs/C4-0004-incumbent-benchmark-v1.md` — historical incumbent Node benchmark protocol.
+- `docs/specs/C4-0005-solved-strength-oracle-v1.md` — solved-game oracle/strength evidence.
+- `docs/specs/C4-0006-control-parity-and-winspace-v1.md` — candidate structural CPC/WSL specification.
+- `docs/specs/C4-0007-nested-dependency-closure-v1.md` — candidate proof/certificate specification.
+- `docs/specs/C4-0008-bsfp-exact-solver-v1.md` — BSFP exact-solver specification.
+- `docs/specs/C4-0009-bsfp-cuda-execution-profile-v1.md` — BSFP CUDA execution profile.
+- `docs/specs/C4-0010-quotient-native-negamax-v1.md` — quotient-native Negamax research specification.
+
+Their individual status declarations remain authoritative within their own scopes; reference from C4-0011 does not promote a Candidate specification to Accepted.
+
+---
 
 This is the benchmark-independence contract.
