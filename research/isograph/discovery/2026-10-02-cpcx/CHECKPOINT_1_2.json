@@ -1,0 +1,68 @@
+{
+  "schema": "connect4.cpcx.checkpoint.v1_2",
+  "date": "2026-10-03",
+  "branch": "experiment/cpcx-20261002",
+  "status": "TARGET_RESCOPE_WINNER_EXISTENCE_LOSER_EQUIVALENCE",
+  "parentCheckpoint": "CHECKPOINT_1_1.json",
+  "liveHeadBeforeTargetChange": "8b04c9f88fd47f89f783a8badb80b83cad3a5552",
+  "targetCommit": "e571229827da37da9185d20cfa546a959043e412",
+  "targetDocument": "CPCX_WINNER_EXISTENCE_LOSER_EQUIVALENCE_TARGET_0_1.md",
+  "objective": {
+    "winnerTurn": "prove existence of at least one legal action preserving a theorem-certified first win for the winner",
+    "losingPlayerTurn": "prove every legal action is outcome-equivalent by preserving the same opponent first-win class",
+    "remotenessRequired": false,
+    "longestSurvivalRequired": false,
+    "fastestWinRequired": false,
+    "equalTerminalDepthRequired": false,
+    "equalContinuationGeometryRequired": false
+  },
+  "turn6": {
+    "prefix": "44444",
+    "mover": 1,
+    "designatedFirstWinClaimant": 0,
+    "legalSixthActions": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "target": "certify P0 first win after every legal P1 sixth action",
+    "desiredClaim": "OUTCOME_EQUIVALENT_LOSER_ACTIONS(P1,{1,2,3,4,5,6,7},winner=P0)",
+    "best44444Proven": false,
+    "firstWinClosureProven": false,
+    "recurrenceClosed": false
+  },
+  "currentQualifiedProgress": {
+    "controllerClassCount": 42,
+    "controllerClassesCovered": 42,
+    "p1BoundaryPhysicalClassCount": 45,
+    "p1BoundaryClassesCovered": 45,
+    "currentOpponentEventCount": 304,
+    "currentOpponentEventsWinOrStrictDescent": 304,
+    "latentPairHubOverloadQualified": true,
+    "latentPairHubForcedNormalizationQualified": true
+  },
+  "proofQuantifiers": {
+    "winnerTurn": "EXISTS certified winning action",
+    "losingPlayerTurn": "FORALL legal current actions preserve designated winner first-win class"
+  },
+  "constraints": {
+    "productionCpcUnchanged": true,
+    "productionSolverUnchanged": true,
+    "solvedData": false,
+    "oracle": false,
+    "minimax": false,
+    "negamax": false,
+    "alphaBeta": false,
+    "recursiveFutureMoveTree": false,
+    "currentFrontierUniversalAuditAllowed": true,
+    "deterministicForcedNormalizationAllowed": true
+  },
+  "proofBoundary": {
+    "reason": "strictly smaller endpoints are not yet proved to remain inside one finite admitted response-total descriptor band or terminate",
+    "nextTarget": "close the protected-diagonal descriptor recurrence under existential controller progress and universal opponent outcome equivalence"
+  }
+}
