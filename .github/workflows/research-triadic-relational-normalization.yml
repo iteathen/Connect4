@@ -1,0 +1,34 @@
+name: Research triadic relational normalization
+
+on:
+  push:
+    branches:
+      - experiment/triadic-relational-normalization-20261003
+    paths:
+      - 'research/isograph/discovery/2026-10-03-triadic-relational-normalization/**'
+      - '.github/workflows/research-triadic-relational-normalization.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  normalize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: '24'
+      - name: Run triadic normalization probe
+        run: |
+          mkdir -p research/isograph/discovery/2026-10-03-triadic-relational-normalization/artifacts
+          node research/isograph/discovery/2026-10-03-triadic-relational-normalization/run-triadic-relational-normalization.mjs \
+            > research/isograph/discovery/2026-10-03-triadic-relational-normalization/artifacts/triadic-relational-normalization-v0_1.json
+          node -e "const fs=require('fs'); const p='research/isograph/discovery/2026-10-03-triadic-relational-normalization/artifacts/triadic-relational-normalization-v0_1.json'; const x=JSON.parse(fs.readFileSync(p)); if(x.cpcx.sourceFailures.length||x.cpcx.descentFailures.length) { console.error(JSON.stringify({sourceFailures:x.cpcx.sourceFailures,descentFailures:x.cpcx.descentFailures},null,2)); process.exit(1); } console.log(JSON.stringify({uc4a:x.uc4a,cpcx:{unresolvedClassCount:x.cpcx.unresolvedClassCount,openBoundaryCount:x.cpcx.openBoundaryCount,nonterminalRowCount:x.cpcx.nonterminalRowCount,terminalRowCount:x.cpcx.terminalRowCount,maskHistogram:x.cpcx.maskHistogram,distinctMasks:x.cpcx.distinctMasks,recurringMasks:x.cpcx.recurringMasks,cardinality:x.cpcx.cardinality,transportKinds:x.cpcx.transportKinds,dropChannelAmbiguity:Object.fromEntries(Object.entries(x.cpcx.dropChannelAmbiguity).map(([k,v])=>[k,v.length]))},crossSystem:x.crossSystem.bestPermutation},null,2));"
+      - name: Upload structural result
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: triadic-relational-normalization-v0-1
+          path: research/isograph/discovery/2026-10-03-triadic-relational-normalization/artifacts/triadic-relational-normalization-v0_1.json
