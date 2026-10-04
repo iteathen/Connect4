@@ -1,0 +1,34 @@
+name: Research triadic CPCX seam inventory
+
+on:
+  push:
+    branches:
+      - experiment/triadic-relational-normalization-20261003
+    paths:
+      - 'research/isograph/discovery/2026-10-03-triadic-relational-normalization/run-cpcx-seam-inventory.mjs'
+      - '.github/workflows/research-triadic-cpcx-seam-inventory.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  inventory:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: '24'
+      - name: Run CPCX seam inventory
+        run: |
+          mkdir -p research/isograph/discovery/2026-10-03-triadic-relational-normalization/artifacts
+          node research/isograph/discovery/2026-10-03-triadic-relational-normalization/run-cpcx-seam-inventory.mjs \
+            > research/isograph/discovery/2026-10-03-triadic-relational-normalization/artifacts/cpcx-seam-inventory-v0_1.json
+          node -e "const fs=require('fs'); const p='research/isograph/discovery/2026-10-03-triadic-relational-normalization/artifacts/cpcx-seam-inventory-v0_1.json'; const x=JSON.parse(fs.readFileSync(p)); console.log(JSON.stringify({topLevelKeys:x.topLevelKeys,summary:x.summary,kindCounts:x.kindCounts,seamCounts:x.seamCounts,paths:x.paths.slice(0,40)},null,2));"
+      - name: Upload seam inventory
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: triadic-cpcx-seam-inventory-v0-1
+          path: research/isograph/discovery/2026-10-03-triadic-relational-normalization/artifacts/cpcx-seam-inventory-v0_1.json
