@@ -1,0 +1,170 @@
+{
+  "solver": "isomax",
+  "mode": "run",
+  "upstream_commit": "1b843981ba7d68c118656dad1a6c7591453e7686",
+  "measurement": {
+    "wall_ms": 167996.9333,
+    "cpu_ms": 625890.625,
+    "peak_rss_bytes": 6838280192,
+    "metric_error": null,
+    "exit_status": -1,
+    "timed_out": false,
+    "process_id": 30104,
+    "requested_affinity_mask": 85,
+    "actual_process_affinity_mask": 85,
+    "affinity_error": null,
+    "affinity_boundary": "set immediately after process start; IsoMax additionally binds individual workers before solver initialization",
+    "timing_boundary": "immediately before Process.Start through child process exit; includes initialization, cold checks, RLC, solve and cleanup",
+    "process_tree": "single solver process; threads counted in process CPU/RSS",
+    "performance_conclusion_allowed": false
+  },
+  "measurement_valid": true,
+  "prepare_passed": false,
+  "cold_verified": true,
+  "affinity_verified": true,
+  "solving_path_observed": true,
+  "solving_path_evidence": "wrapper reached audited direct solve invocation; no added hot-loop instrumentation",
+  "completed_exact": false,
+  "returned_wdl": null,
+  "native_result": null,
+  "ready": {
+    "event": "ready",
+    "solver": "isomax",
+    "start": "empty",
+    "ply": 0,
+    "prepare_only": false,
+    "workers": 4,
+    "rlc_enabled": false,
+    "opening_book_loaded": false,
+    "persisted_cache_loaded": false,
+    "tt_initial_occupied": 0,
+    "tt_evidence": "fresh zero-filled allocation in host/workers when invoked; not an occupancy measurement",
+    "node": "v27.0.0-nightly20260928b59840b593",
+    "v8": "14.6.202.34-node.36",
+    "profile": {
+      "id": "isomax-prepared-closure-tt32-four-deep-20261002",
+      "status": "prepared candidate on main; not published",
+      "geometry": {
+        "columns": 7,
+        "rows": 6
+      },
+      "options": {
+        "workers": 4,
+        "rootFrontier": false,
+        "sharedSampleMask": 0,
+        "sharedCacheCapacity": 134217728,
+        "localCacheCapacity": 16777216,
+        "timeoutMs": 300000
+      },
+      "standardSharedEntryBytes": 32,
+      "sharedBytes": 4294967296,
+      "privateBytesPerWorker": 603979776,
+      "workerTopology": {
+        "wide": [],
+        "deep": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      "qualifiedEnvironment": {
+        "node": "v27.0.0-nightly20260928b59840b593",
+        "v8": "14.6.202.34-node.36",
+        "cpu": "Intel Core i5-12600K",
+        "os": "Windows 10.0.26200",
+        "logicalProcessors": [
+          0,
+          2,
+          4,
+          6
+        ]
+      },
+      "timingScope": "computed empty-board structural prefix plus one exact search and cleanup; not full self-play"
+    }
+  },
+  "handoff": {
+    "event": "handoff",
+    "moves": [],
+    "trace": [],
+    "search_calls": 1,
+    "rlc_enabled": false
+  },
+  "affinity": {
+    "affinity-0.json": {
+      "index": 0,
+      "target": {
+        "group": 0,
+        "processor": 0,
+        "core": 0,
+        "efficiency": 1,
+        "l2Bytes": 1310720
+      },
+      "actual": {
+        "group": 0,
+        "processor": 0,
+        "mask": "1",
+        "previousGroup": 0,
+        "previousMask": "85"
+      },
+      "beforeSolverInitialization": true
+    },
+    "affinity-1.json": {
+      "index": 1,
+      "target": {
+        "group": 0,
+        "processor": 2,
+        "core": 1,
+        "efficiency": 1,
+        "l2Bytes": 1310720
+      },
+      "actual": {
+        "group": 0,
+        "processor": 2,
+        "mask": "4",
+        "previousGroup": 0,
+        "previousMask": "85"
+      },
+      "beforeSolverInitialization": true
+    },
+    "affinity-2.json": {
+      "index": 2,
+      "target": {
+        "group": 0,
+        "processor": 4,
+        "core": 2,
+        "efficiency": 1,
+        "l2Bytes": 1310720
+      },
+      "actual": {
+        "group": 0,
+        "processor": 4,
+        "mask": "16",
+        "previousGroup": 0,
+        "previousMask": "85"
+      },
+      "beforeSolverInitialization": true
+    },
+    "affinity-3.json": {
+      "index": 3,
+      "target": {
+        "group": 0,
+        "processor": 6,
+        "core": 3,
+        "efficiency": 1,
+        "l2Bytes": 1310720
+      },
+      "actual": {
+        "group": 0,
+        "processor": 6,
+        "mask": "64",
+        "previousGroup": 0,
+        "previousMask": "85"
+      },
+      "beforeSolverInitialization": true
+    }
+  },
+  "validation": "not performed; no expected result supplied to timed process",
+  "performance_conclusion_allowed": false,
+  "eligible_for_post_run_validation": false
+}
