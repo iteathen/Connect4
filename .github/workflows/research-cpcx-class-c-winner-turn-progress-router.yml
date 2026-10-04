@@ -1,0 +1,34 @@
+name: Research CPCX Class-C winner-turn progress router
+
+on:
+  push:
+    branches:
+      - experiment/cpcx-20261002
+    paths:
+      - 'research/isograph/discovery/2026-10-02-cpcx/CPCX_CLASS_C_WINNER_TURN_PROGRESS_ROUTER_DIAGNOSTIC_DESIGN_0_1.md'
+      - 'research/isograph/discovery/2026-10-02-cpcx/run-cpcx-class-c-winner-turn-progress-router-diagnostic.mjs'
+      - 'research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-opponent-descent-endpoint-descriptors.mjs'
+      - '.github/workflows/research-cpcx-class-c-winner-turn-progress-router.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: '24'
+      - name: Run winner-turn progress-router diagnostic
+        run: |
+          node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-class-c-winner-turn-progress-router-diagnostic.mjs             > cpcx-class-c-winner-turn-progress-router.json
+          cat cpcx-class-c-winner-turn-progress-router.json
+      - name: Upload result
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: cpcx-class-c-winner-turn-progress-router
+          path: cpcx-class-c-winner-turn-progress-router.json
