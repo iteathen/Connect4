@@ -73,7 +73,7 @@ Accordingly, this paper does **not** claim that the particular choice of live-li
 What is narrower and auditable is the following:
 
 - the final runtime rule contains no opening-prefix lookup;
-- the final runtime rule calls no solver, oracle, CPC routine, or recursive search;
+- the final runtime rule calls no solver, oracle, other move-finder, or recursive search;
 - the qualification workflow for the rank-local module runs its local tests and catalog verification without fetching or invoking an opening book or external solver;
 - the theorem tables follow directly from the stated geometry and can be independently recomputed;
 - the rule refuses at its declared boundary rather than being extended ad hoc to force a sixth answer.
@@ -100,17 +100,17 @@ Let \(\mathcal L\) be the set of all length-four winning lines on the 7x6 board.
 
 horizontal, vertical, and diagonal winning lines.
 
-For a nonterminal current position (P), let (S_0(P)) and (S_1(P)) be the sets of cells occupied by players 0 and 1. Let (min{0,1}) be the player to move, let (ar m=1-m) be the opponent, and abbreviate (S_m=S_m(P)) and (S_{ar m}=S_{ar m}(P)).
+For a nonterminal current position \(P\), let \(S_0(P)\) and \(S_1(P)\) be the sets of cells occupied by players 0 and 1. Let \(m\in\{0,1\}\) be the player to move, let \(\bar m=1-m\) be the opponent, and abbreviate \(S_m=S_m(P)\) and \(S_{\bar m}=S_{\bar m}(P)\).
 
-The **rank** of (P) is the number of accepted moves already played:
+The **rank** of \(P\) is the number of accepted moves already played:
 
-[
-operatorname{rank}(P)=|S_0(P)|+|S_1(P)|.
-]
+\[
+\operatorname{rank}(P)=|S_0(P)|+|S_1(P)|.
+\]
 
-Thus “rank-local” means that the certificate is evaluated from the present rank-(r) position and its current legal landings; it does not enumerate descendants at ranks (r+1,r+2,ldots).
+Thus “rank-local” means that the certificate is evaluated from the present rank-\(r\) position and its current legal landings; it does not enumerate descendants at ranks \(r+1,r+2,\ldots\).
 
-For every legal column (c), let
+For every legal column \(c\), let
 
 \[
 \ell(P,c)
@@ -212,7 +212,7 @@ If the Pareto maximum is non-unique, the certificate returns unresolved. If the 
 
 ### Theorem 1 — five-ply center certificate under certificate self-play
 
-Let (P_s) denote the standard 7x6 Connect Four position reached by legal move prefix (s). Define **certificate self-play** to mean that, at each successive ply, whichever player is to move applies the same rank-local certificate to the actual current position and plays its certified move when one exists.
+Let \(P_s\) denote the standard 7x6 Connect Four position reached by legal move prefix (s). Define **certificate self-play** to mean that, at each successive ply, whichever player is to move applies the same rank-local certificate to the actual current position and plays its certified move when one exists.
 
 For
 
@@ -404,21 +404,21 @@ After the actual prefix \(41\), the same rule recomputes the board and obtains:
 
 Center is again uniquely Pareto-maximal and is certified.
 
-There is no expected-line recovery rule of the form “if the opponent deviates, return to 4.” The result arises by recalculating (A), (B), and (H) on the actual (41) state.
+There is no expected-line recovery rule of the form “if the opponent deviates, return to 4.” The result arises by recalculating \(A\), \(B\), and \(H\) on the actual \(41\) state.
 
 ---
 
 ## 9. What this adds beyond plain line incidence
 
-A simpler heuristic deserves explicit comparison: choose the legal landing with the largest mover-live line count (A).
+A simpler heuristic deserves explicit comparison: choose the legal landing with the largest mover-live line count \(A\).
 
-For the five positions used in Theorem 1, that simpler rule already selects center uniquely. Therefore the paper does **not** claim that Pareto dominance is necessary to obtain the sequence (44444) on this narrow corpus. Nor does it claim that the five-ply result, by itself, demonstrates a new perfect-play law stronger than ordinary center-incidence intuition.
+For the five positions used in Theorem 1, that simpler rule already selects center uniquely. Therefore the paper does **not** claim that Pareto dominance is necessary to obtain the sequence \(44444\) on this narrow corpus. Nor does it claim that the five-ply result, by itself, demonstrates a new perfect-play law stronger than ordinary center-incidence intuition.
 
 The additional machinery has two narrower roles.
 
-First, (B) keeps offensive opportunity and defensive denial as separate coordinates rather than collapsing them into an arbitrary weighted scalar. Pareto dominance therefore makes explicit that a certified move is not trading away one declared resource for another. On the five theorem positions center happens to dominate in both coordinates, so no weighting choice is needed.
+First, \(B\) keeps offensive opportunity and defensive denial as separate coordinates rather than collapsing them into an arbitrary weighted scalar. Pareto dominance therefore makes explicit that a certified move is not trading away one declared resource for another. On the five theorem positions center happens to dominate in both coordinates, so no weighting choice is needed.
 
-Second, (H) creates a principled continuation-resource boundary. After (44444), the sixth center move is still legal: it lands in the top cell of column 4. What is exhausted is **post-move headroom**—after that candidate landing there is no cell remaining above it in the column. The rule therefore refuses at ((A,B,H)=(6,6,0)) instead of continuing merely because center still has the largest incidence count.
+Second, \(H\) creates a principled continuation-resource boundary. After \(44444\), the sixth center move is still legal: it lands in the top cell of column 4. What is exhausted is **post-move headroom**—after that candidate landing there is no cell remaining above it in the column. The rule therefore refuses at \((A,B,H)=(6,6,0)\) instead of continuing merely because center still has the largest incidence count.
 
 The five-ply result is consequently stronger than the single observation “center has the most lines on the empty board” only in a limited, precise sense: the same present-state rule is recomputed after alternating ownership at each ply, the live-line counts change non-monotonically, and center remains the unique two-coordinate maximum through five successive actual positions. The move-six refusal is the clearest evidence that the certificate is a bounded structural rule rather than an instruction to keep choosing center.
 
