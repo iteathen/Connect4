@@ -1,0 +1,34 @@
+name: Research CPCX Class-C reservation discharge
+
+on:
+  push:
+    branches:
+      - experiment/cpcx-20261002
+    paths:
+      - 'research/isograph/discovery/2026-10-02-cpcx/CPCX_CLASS_C_RESERVATION_DISCHARGE_NORMALIZATION_DESIGN_0_1.md'
+      - 'research/isograph/discovery/2026-10-02-cpcx/run-cpcx-class-c-reservation-discharge-normalization.mjs'
+      - 'research/isograph/discovery/2026-10-02-cpcx/run-cpcx-move6-opponent-descent-endpoint-descriptors.mjs'
+      - '.github/workflows/research-cpcx-class-c-reservation-discharge.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: '24'
+      - name: Run reservation discharge normalization
+        run: |
+          node research/isograph/discovery/2026-10-02-cpcx/run-cpcx-class-c-reservation-discharge-normalization.mjs             > cpcx-class-c-reservation-discharge.json
+          cat cpcx-class-c-reservation-discharge.json
+      - name: Upload result
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: cpcx-class-c-reservation-discharge
+          path: cpcx-class-c-reservation-discharge.json
