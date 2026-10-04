@@ -1135,6 +1135,22 @@ for(const source of sources.values()){
                   }:null,
                   postSuccessorActionAudit,
                   postSuccessorExistentialActions,
+                  postSuccessorPairStar:q
+                    ?findAndCertifyCpcxPairStarProgress(q,{player:0}).map(x=>({
+                      hub:label(x.candidate.hub),
+                      upperHub:label(x.candidate.upperHub),
+                      supportDepth:x.candidate.supportDepth,
+                      lowerLeaves:x.candidate.lowerLeaves.map(label),
+                      upperLeaves:x.candidate.upperLeaves.map(label),
+                      source:x.certificate.source,
+                      singletonCells:
+                        (x.certificate.singletonCells??[]).map(label),
+                      branchCount:x.certificate.branches?.length??0,
+                    })) : [],
+                  postSuccessorP0SmallResiduals:q
+                    ?smallResidualSummary(q,0).slice(0,24):[],
+                  postSuccessorP1SmallResiduals:q
+                    ?smallResidualSummary(q,1).slice(0,24):[],
                   protectedResidual:R?{
                     lineId:R.lineId,
                     lineLabel:R.lineLabel,
