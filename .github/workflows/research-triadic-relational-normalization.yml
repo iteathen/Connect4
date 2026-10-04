@@ -21,14 +21,40 @@ jobs:
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
         with:
           node-version: '24'
-      - name: Run triadic normalization probe
+      - name: Run independent UC4A-CPCX normalization probe
         run: |
           mkdir -p research/isograph/discovery/2026-10-03-triadic-relational-normalization/artifacts
           node research/isograph/discovery/2026-10-03-triadic-relational-normalization/run-triadic-relational-normalization.mjs \
             > research/isograph/discovery/2026-10-03-triadic-relational-normalization/artifacts/triadic-relational-normalization-v0_1.json
-          node -e "const fs=require('fs'); const p='research/isograph/discovery/2026-10-03-triadic-relational-normalization/artifacts/triadic-relational-normalization-v0_1.json'; const x=JSON.parse(fs.readFileSync(p)); if(x.cpcx.sourceFailures.length||x.cpcx.descentFailures.length) { console.error(JSON.stringify({sourceFailures:x.cpcx.sourceFailures,descentFailures:x.cpcx.descentFailures},null,2)); process.exit(1); } console.log(JSON.stringify({uc4a:x.uc4a,cpcx:{unresolvedClassCount:x.cpcx.unresolvedClassCount,openBoundaryCount:x.cpcx.openBoundaryCount,nonterminalRowCount:x.cpcx.nonterminalRowCount,terminalRowCount:x.cpcx.terminalRowCount,maskHistogram:x.cpcx.maskHistogram,distinctMasks:x.cpcx.distinctMasks,recurringMasks:x.cpcx.recurringMasks,cardinality:x.cpcx.cardinality,transportKinds:x.cpcx.transportKinds,dropChannelAmbiguity:Object.fromEntries(Object.entries(x.cpcx.dropChannelAmbiguity).map(([k,v])=>[k,v.length]))},crossSystem:x.crossSystem.bestPermutation},null,2));"
-      - name: Upload structural result
+          node -e "const fs=require('fs'); const p='research/isograph/discovery/2026-10-03-triadic-relational-normalization/artifacts/triadic-relational-normalization-v0_1.json'; const x=JSON.parse(fs.readFileSync(p)); if(x.cpcx.sourceFailures.length||x.cpcx.descentFailures.length) process.exit(1); console.log(JSON.stringify({uc4a:x.uc4a,cpcx:{openBoundaryCount:x.cpcx.openBoundaryCount,nonterminalRowCount:x.cpcx.nonterminalRowCount,maskHistogram:x.cpcx.maskHistogram,recurringMasks:x.cpcx.recurringMasks,dropChannelAmbiguity:Object.fromEntries(Object.entries(x.cpcx.dropChannelAmbiguity).map(([k,v])=>[k,v.length]))},crossSystem:x.crossSystem.bestPermutation},null,2));"
+      - name: Regenerate current CPCX three-role support census
+        run: |
+          node research/isograph/discovery/2026-10-02-cpcx/run-uc4a-cpcx-normalized-p1-target-transfer-census.mjs \
+            > research/isograph/discovery/2026-10-03-triadic-relational-normalization/artifacts/cpcx-target-transfer.json
+      - name: Run anonymous transaction test
+        run: |
+          node research/isograph/discovery/2026-10-03-triadic-relational-normalization/run-anonymous-triadic-transaction-test.mjs \
+            research/isograph/discovery/2026-10-03-triadic-relational-normalization/artifacts/cpcx-target-transfer.json \
+            > research/isograph/discovery/2026-10-03-triadic-relational-normalization/artifacts/anonymous-triadic-result.json
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          const p='research/isograph/discovery/2026-10-03-triadic-relational-normalization/artifacts/anonymous-triadic-result.json';
+          const x=JSON.parse(fs.readFileSync(p,'utf8'));
+          if(!x.historicalThreeChannel.exactPairDeltaCircuit.allClose)
+            throw new Error('historical three-pair circuit failed');
+          if(x.cpcx.singleRoleLawViolationCount!==0)
+            throw new Error('CPCX anonymous single-role transaction law failed');
+          if(!x.comparison.sharedPersistentMotif)
+            throw new Error('shared persistent transaction motif failed');
+          if(x.cpcx.rearrangementCount<1)
+            throw new Error('no CPCX re-coordination witness');
+          console.log(JSON.stringify(x,null,2));
+          NODE
+      - name: Upload structural results
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
-          name: triadic-relational-normalization-v0-1
-          path: research/isograph/discovery/2026-10-03-triadic-relational-normalization/artifacts/triadic-relational-normalization-v0_1.json
+          name: triadic-relational-normalization
+          path: |
+            research/isograph/discovery/2026-10-03-triadic-relational-normalization/artifacts/triadic-relational-normalization-v0_1.json
+            research/isograph/discovery/2026-10-03-triadic-relational-normalization/artifacts/anonymous-triadic-result.json
+            research/isograph/discovery/2026-10-03-triadic-relational-normalization/artifacts/cpcx-target-transfer.json
