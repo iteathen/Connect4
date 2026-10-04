@@ -1005,6 +1005,68 @@ for(const source of sources.values()){
                     q,{protectedResidual:R}
                   );
                 }
+                const postSuccessorExistentialActions=[];
+                if(q&&q.mover===0){
+                  for(const actionCell of frontierCells(q)){
+                    const after=applyCpcxForcedEvent(q,actionCell);
+                    if(after.terminal){
+                      if(after.terminal.player===0)
+                        postSuccessorExistentialActions.push({
+                          actionCell:label(actionCell),
+                          kind:'IMMEDIATE_P0_TERMINAL',
+                          terminal:after.terminal,
+                          responseTotalDiagonals:[],
+                        });
+                      continue;
+                    }
+                    const afterImmediate=classifyCpcxImmediate(after),
+                      afterFirst=runCpcxFirstWinCertificate(
+                        after,{attacker:0}
+                      ),
+                      responseTotalDiagonals=[];
+                    if(
+                      after.mover===1&&
+                      afterImmediate.kind==='NO_IMMEDIATE_OBLIGATION'
+                    ){
+                      for(const residual of scanCpcxObligations(after).filter(o=>
+                        o.player===0&&
+                        (o.orientation==='D+'||o.orientation==='D-')
+                      )){
+                        const response=
+                          certifyCpcxProtectedDiagonalOpponentResponseDescentV2(
+                            after,{protectedResidual:residual}
+                          );
+                        if(
+                          response.exact&&
+                          response.kind===
+                            'PROTECTED_DIAGONAL_OPPONENT_RESPONSE_DESCENT_V2'
+                        )responseTotalDiagonals.push({
+                          lineId:residual.lineId,
+                          lineLabel:residual.lineLabel,
+                          missingCount:residual.missingCount,
+                          missing:residual.missingCells.map(label),
+                          support:residual.events.map(e=>e.supportDistance),
+                          sourceMeasure:response.sourceMeasure,
+                          eventCount:response.eventCount,
+                        });
+                      }
+                    }
+                    if(
+                      afterFirst.kind==='CERTIFIED_FIRST_WIN'&&
+                      afterFirst.player===0||
+                      responseTotalDiagonals.length
+                    )postSuccessorExistentialActions.push({
+                      actionCell:label(actionCell),
+                      kind:
+                        afterFirst.kind==='CERTIFIED_FIRST_WIN'&&
+                        afterFirst.player===0
+                          ?'DIRECT_P0_FIRST_WIN'
+                          :'RESPONSE_TOTAL_HANDOFF',
+                      immediate:afterImmediate.kind,
+                      responseTotalDiagonals,
+                    });
+                  }
+                }
                 exactProgressFirst={
                   successorKind:successor.kind,
                   exact:successor.exact??false,
@@ -1019,6 +1081,7 @@ for(const source of sources.values()){
                   concrete:Boolean(q),
                   rank:q?.rank??null,
                   mover:q?.mover??null,
+                  postSuccessorExistentialActions,
                   protectedResidual:R?{
                     lineId:R.lineId,
                     lineLabel:R.lineLabel,
@@ -1845,6 +1908,17 @@ console.log(JSON.stringify({
     exactProgressFirstResponseV2Count:noTransferProbes.filter(x=>
       x.exactProgressFirst?.responseDescentV2?.exact===true
     ).length,
+    exactProgressFirstPostSuccessorExistentialCount:noTransferProbes.filter(x=>
+      (x.exactProgressFirst?.postSuccessorExistentialActions?.length??0)>0
+    ).length,
+    exactProgressFirstPostSuccessorExistentialActions:noTransferProbes.map(
+      (x,index)=>({
+        probe:index+1,
+        rank:x.exactProgressFirst?.rank??null,
+        mover:x.exactProgressFirst?.mover??null,
+        actions:x.exactProgressFirst?.postSuccessorExistentialActions??[],
+      })
+    ),
     targetInheritanceResponseDescentExactCount:noTransferProbes.filter(x=>
       x.targetInheritance?.responseDescent?.exact===true
     ).length,
