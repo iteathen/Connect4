@@ -1,8 +1,22 @@
 # CPCX Support-Release Acquisition 0.1
 
-**Status:** frozen theorem contract; implementation/qualification pending  
+**Status:** qualified exact claim-relative theorem  
 **Scope:** experimental CPCX only  
 **Observation:** one protected controller residual under a pinned progress event
+
+
+## Qualification result
+
+Qualified on 2026-10-03 by the isolated `Research CPCX support-release acquisition` workflow.
+
+- run: `37168820777` — SUCCESS
+- tests: 7
+- pass: 7
+- fail: 0
+
+The qualification includes fresh empty-board and non-bottom positive controls, rejection when the pinned controller action supplies the target, rejection of an opponent-terminal support trigger, rejection when supply creates a distinct opponent singleton, rejection when the target is outside the protected residual, and source-isolation checks against production CPC, solver, solved-data, oracle, and recursive-search dependencies.
+
+Workflow success is execution evidence; the theorem remains bounded by the premises and conclusion stated below.
 
 ## Purpose
 
