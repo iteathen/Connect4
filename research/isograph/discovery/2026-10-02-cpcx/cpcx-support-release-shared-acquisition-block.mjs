@@ -226,17 +226,17 @@ export function certifyCpcxSupportReleaseSharedAcquisitionBlock(position,{
       {cell:targetCell,owner:controller},
     ]),
     urgentLast=urgentChain.steps[0],
-    urgentLineIds=urgentRows.map(o=>o.lineId).sort((a,b)=>a-b),
+    urgentObligationIds=urgentRows.map(o=>o.id).sort(),
     killedUrgentIds=urgentLast.killed
       .filter(x=>x.player===opponent&&x.killingCell===targetCell)
       .map(x=>x.obligationId)
-      .sort((a,b)=>a-b);
+      .sort();
 
   if(
     urgentChain.residuals.length!==0||
-    urgentLineIds.some(id=>!killedUrgentIds.includes(id))
+    urgentObligationIds.some(id=>!killedUrgentIds.includes(id))
   )return fail('OPPONENT_SHARED_SINGLETON_NOT_KILLED',{
-    urgentLineIds,
+    urgentObligationIds,
     killedUrgentIds,
     remainingResidualCount:urgentChain.residuals.length,
   });
