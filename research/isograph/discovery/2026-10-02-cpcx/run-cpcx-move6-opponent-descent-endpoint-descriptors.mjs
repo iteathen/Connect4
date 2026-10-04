@@ -75,6 +75,9 @@ import {
 import {
   certifyCpcxOneDefectAttachmentRcic,
 } from './cpcx-one-defect-attachment-rcic.mjs';
+import {
+  certifyCpcxReservoirCoverageGapRcic,
+} from './cpcx-reservoir-gap-rcic.mjs';
 
 const g=createCpcxGeometry(),
   artifact=buildCpcxMove6UnresolvedClassesArtifact(),
@@ -1087,7 +1090,66 @@ for(const source of sources.values()){
                         ),
                         afterFirst=runCpcxFirstWinCertificate(
                           after,{attacker:0}
-                        );
+                        ),
+                        singletonTargets=[...new Set(
+                          scanCpcxObligations(after)
+                            .filter(o=>o.player===0&&o.missingCount===1)
+                            .map(o=>o.missingCells[0])
+                        )].sort((a,b)=>a-b),
+                        targetRcics=after.mover===1
+                          ?singletonTargets.map(targetCell=>{
+                            const one=
+                                certifyCpcxOneDefectTargetReservoirRcic(
+                                  after,{
+                                    attacker:0,
+                                    targetCell,
+                                    maxNodes:8192,
+                                    useCpc2Restriction:true,
+                                  }
+                                ),
+                              attachment=
+                                certifyCpcxOneDefectAttachmentRcic(
+                                  after,{
+                                    attacker:0,
+                                    targetCell,
+                                    maxNodes:8192,
+                                    useCpc2Restriction:true,
+                                  }
+                                ),
+                              gap=certifyCpcxReservoirCoverageGapRcic(
+                                after,{
+                                  attacker:0,
+                                  targetCell,
+                                  maxNodes:8192,
+                                }
+                              );
+                            return {
+                              targetCell:label(targetCell),
+                              oneDefect:{
+                                kind:one.kind,
+                                exact:one.exact??false,
+                                player:one.player??null,
+                                seam:one.seam??null,
+                                nodeCount:one.nodeCount??null,
+                              },
+                              attachment:{
+                                kind:attachment.kind,
+                                exact:attachment.exact??false,
+                                player:attachment.player??null,
+                                seam:attachment.seam??null,
+                                nodeCount:attachment.nodeCount??null,
+                              },
+                              gap:{
+                                kind:gap.kind,
+                                exact:gap.exact??false,
+                                player:gap.player??null,
+                                seam:gap.seam??null,
+                                nodeCount:gap.nodeCount??null,
+                                edgeCount:gap.edgeCount??null,
+                                rootGap:gap.rootGap??null,
+                              },
+                            };
+                          }):[];
                       return {
                         actionCell:label(actionCell),
                         terminal:null,
@@ -1108,6 +1170,7 @@ for(const source of sources.values()){
                           seam:afterFirst.seam??null,
                           traceLength:afterFirst.trace?.length??0,
                         },
+                        targetRcics,
                       };
                     }):[];
                 exactProgressFirst={
