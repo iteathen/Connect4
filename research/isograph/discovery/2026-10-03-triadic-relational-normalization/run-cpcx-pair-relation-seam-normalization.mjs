@@ -8,8 +8,12 @@ const endpointScript=new URL(
 const endpoint=JSON.parse(execFileSync(process.execPath,[endpointScript.pathname],{
   encoding:'utf8',maxBuffer:256*1024*1024,
 }));
-const bridge=JSON.parse(fs.readFileSync(new URL(
+const bridgePilot=JSON.parse(fs.readFileSync(new URL(
   '../2026-09-30-universal-structural-policy/CPC_FORMULA_EXCHANGE_PHASE_BRIDGE_PILOT_0_1.json',
+  import.meta.url
+),'utf8'));
+const bridgeGauge=JSON.parse(fs.readFileSync(new URL(
+  '../2026-09-30-universal-structural-policy/CPC_FORMULA_COUPLED_GAUGE_EQUATION_BRIDGE_0_1.json',
   import.meta.url
 ),'utf8'));
 
@@ -238,7 +242,7 @@ function pairChangeMask(row){
   return m;
 }
 function maskText(m){return [0,1,2].map(i=>(m&(1<<i))?'1':'0').join('');}
-const bridgeRows=(bridge.rows??[]).map(r=>({
+const bridgeRows=(bridgePilot.rows??[]).map(r=>({
   state:r.state,label:r.label,next:r.next??null,
   pre:relationVector(r.pre),
   post:relationVector(r.post),
@@ -275,13 +279,13 @@ console.log(JSON.stringify({
     changeMaskHistogram:bridgeMasks,
     rows:bridgeRows,
     allPairDeltaCircuitsClose:
-      bridge.structuralChecks?.allPairDeltaCircuitsClose??null,
+      bridgeGauge.structuralChecks?.allPairDeltaCircuitsClose??null,
     exactSinkEquality:
-      bridge.exactSinkEquality??null,
+      bridgePilot.exactSinkEquality??null,
     degree1Contradictions:
-      bridge.systems?.DELTA?.find(x=>x.degree===1)?.contradictions??null,
+      bridgeGauge.systems?.DELTA?.find(x=>x.degree===1)?.contradictions??null,
     degree2Contradictions:
-      bridge.systems?.DELTA?.find(x=>x.degree===2)?.contradictions??null,
+      bridgeGauge.systems?.DELTA?.find(x=>x.degree===2)?.contradictions??null,
   },
   signal:{
     allThreeCpcxPairChannelsObserved:
@@ -290,10 +294,10 @@ console.log(JSON.stringify({
     cpcxHasAllThreeVisit:seamWords.some(x=>x.visitsAllThree),
     cpcxHasReturnToPriorPair:seamWords.some(x=>x.returnsToPair),
     archivedBridgeHasClosedPairDeltaCircuit:
-      bridge.structuralChecks?.allPairDeltaCircuitsClose===true,
+      bridgeGauge.structuralChecks?.allPairDeltaCircuitsClose===true,
     archivedBridgeNeedsInteractionOrderAboveOne:
-      (bridge.systems?.DELTA?.find(x=>x.degree===1)?.contradictions??0)>0&&
-      (bridge.systems?.DELTA?.find(x=>x.degree===2)?.contradictions??1)===0,
+      (bridgeGauge.systems?.DELTA?.find(x=>x.degree===1)?.contradictions??0)>0&&
+      (bridgeGauge.systems?.DELTA?.find(x=>x.degree===2)?.contradictions??1)===0,
   },
   boundary:{
     oracleUsed:false,
