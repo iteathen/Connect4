@@ -1,0 +1,142 @@
+{
+  "schema": "connect4.cpcx.checkpoint.v1_3",
+  "date": "2026-10-03",
+  "branch": "experiment/cpcx-20261002",
+  "status": "CLAIM_RELATIVE_CONTROLLER_SEAM_REDUCED_TO_ONE_CLASS",
+  "parentCheckpoint": "CHECKPOINT_1_2.json",
+  "target": "winner-existence / loser-outcome-equivalence",
+  "targetDocument": "CPCX_WINNER_EXISTENCE_LOSER_EQUIVALENCE_TARGET_0_1.md",
+  "auditDocument": "CPCX_CLAIM_RELATIVE_CONTROLLER_WITNESS_AUDIT_0_1.md",
+  "liveHeadBeforeAuditFreeze": "bff9177fec4dc2a5521b48f9b4e570329e1653dd",
+  "auditCommit": "8042eb3c912eb79d11d845e1d0519988f1dc7157",
+  "qualifiedRuns": [
+    {
+      "run": 37166964679,
+      "head": "3fb391afb3dcbb450099a4e4e4fa2caaae06491c",
+      "conclusion": "success",
+      "purpose": "flat current P0 existential action audit"
+    },
+    {
+      "run": 37167121866,
+      "head": "bff9177fec4dc2a5521b48f9b4e570329e1653dd",
+      "conclusion": "success",
+      "purpose": "post-forcing returned-controller seam audit"
+    }
+  ],
+  "previousHardControllerClassCount": 3,
+  "claimRelativeWitnesses": [
+    {
+      "class": "A",
+      "rank": 22,
+      "support": [
+        6,
+        1,
+        0,
+        6,
+        2,
+        5,
+        2
+      ],
+      "action": "C1",
+      "responseTotalCarriers": [
+        {
+          "line": "A2-B3-C4-D5",
+          "missing": [
+            "B3",
+            "C4"
+          ],
+          "support": [
+            1,
+            2
+          ],
+          "eventCount": 5
+        },
+        {
+          "line": "C6-D5-E4-F3",
+          "missing": [
+            "C6",
+            "E4"
+          ],
+          "support": [
+            4,
+            1
+          ],
+          "eventCount": 5
+        }
+      ]
+    },
+    {
+      "class": "B",
+      "rank": 24,
+      "support": [
+        6,
+        1,
+        1,
+        5,
+        3,
+        5,
+        3
+      ],
+      "action": "E4",
+      "responseTotalCarriers": [
+        {
+          "line": "C6-D5-E4-F3",
+          "missing": [
+            "C6"
+          ],
+          "support": [
+            4
+          ],
+          "eventCount": 6
+        }
+      ]
+    }
+  ],
+  "remainingControllerSeam": {
+    "class": "C",
+    "sourceRank": 22,
+    "sourceSupport": [
+      6,
+      2,
+      0,
+      5,
+      2,
+      5,
+      2
+    ],
+    "exactPlayableTwoPieceMacro": true,
+    "postMacroRank": 24,
+    "postMacroMover": 0,
+    "postMacroProgress": "NO_CERTIFICATE",
+    "postMacroFirstWin": "NO_CERTIFICATE",
+    "currentActions": [
+      "B3",
+      "C1",
+      "D6",
+      "E4",
+      "F6",
+      "G4"
+    ],
+    "currentCertifiedP0Witnesses": [],
+    "rejected": {
+      "C1": "gives P1 immediate terminal at C2"
+    }
+  },
+  "stillOpen": {
+    "globalP0FirstWinClosure": true,
+    "recurrenceClosure": true,
+    "allSevenSixthMovesOutcomeEquivalentProven": false,
+    "reason": "one controller class still lacks an admitted P0 witness, and response-total one-layer handoffs still require recurrence closure"
+  },
+  "nextTarget": "derive one rank-local P0 witness theorem for Class C after the exact playable-two-piece macro; inspect existing non-diagonal CPCX carriers before adding a primitive",
+  "constraints": {
+    "productionCpcUnchanged": true,
+    "productionSolverUnchanged": true,
+    "solvedData": false,
+    "oracle": false,
+    "minimax": false,
+    "recursiveFutureMoveTree": false,
+    "remoteness": false,
+    "commonControllerActionRequired": false
+  }
+}
