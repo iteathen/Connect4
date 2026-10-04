@@ -18,6 +18,7 @@ Connect Four rules, evaluator meaning, solved-game oracle evidence, benchmark fa
 - `research/GAMEPLAY_DESCRIPTION_FOR_HUMANS.md` — novice gameplay explanation of q, with a classical logic proof and IsoGraph/NEI mapping.
 - `research/GAMEPLAY_STRATEGY_INDEX.md` — living index of gameplay-facing strategies and implementation proposals derived from IsoGraph research.
 - `docs/research/RESEARCH_INDEX.md` — compact map of durable research notes, controls, negative results, and historical evidence.
+- `docs/specs/C4-0011-solved-knowledge-independent-benchmark-v1.md` — accepted clean exact-solver benchmark contract: no solved/self-game input, cold-start attestation, theorem provenance, RLC non-pruning boundary, exact-target declaration, and reproducibility rules.
 
 Dated research notes are evidence, not current-state authority. Solved databases and finite oracle/census results may validate or falsify structural candidates but do not prove unbounded theorems.
 
