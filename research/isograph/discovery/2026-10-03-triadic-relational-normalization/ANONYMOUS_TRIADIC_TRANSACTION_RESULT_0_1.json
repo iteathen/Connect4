@@ -1,0 +1,112 @@
+{
+  "schema": "connect4.triadic_relational_normalization.first_pass.v0_1",
+  "date": "2026-10-03",
+  "branch": "experiment/triadic-relational-normalization-20261003",
+  "design": "TRIADIC_RELATIONAL_NORMALIZATION_EXPERIMENT_DESIGN_0_2.md",
+  "claim": "first-pass structural evidence only; no three-body equivalence or hardness claim",
+  "historicalBridge": {
+    "sources": [
+      "CPC_FORMULA_COUPLED_GAUGE_EQUATION_BRIDGE_0_1.json",
+      "CPC_FORMULA_EXCHANGE_PHASE_BRIDGE_PILOT_0_1.json",
+      "UC4A_IP_REGIME_SUBSPACE_TOMOGRAPHY_0_1.json"
+    ],
+    "exactPairDeltaCircuit": {
+      "testedStates": [
+        "Q",
+        "A",
+        "B",
+        "Z"
+      ],
+      "residualByState": {
+        "Q": "0",
+        "A": "0",
+        "B": "0",
+        "Z": "0"
+      },
+      "allClose": true
+    },
+    "anonymousTransactionIncidence": {
+      "transitionCount": 15,
+      "oneRoleTwoPairRelations": 11,
+      "twoRolesThreePairRelations": 4
+    },
+    "interactionOrder": {
+      "selected": {
+        "degree1Contradictions": 3,
+        "degree2Contradictions": 0
+      },
+      "augmented": {
+        "degree1Contradictions": 3,
+        "degree2Contradictions": 0
+      },
+      "delta": {
+        "degree1Contradictions": 3,
+        "degree2Contradictions": 0
+      },
+      "deltaAnchored": {
+        "degree1Contradictions": 3,
+        "degree2Contradictions": 0
+      }
+    },
+    "recurringUc4aDefect": {
+      "directionId": "D-8c7a3367fd7b3e71",
+      "occurrenceCount": 21,
+      "producingRowCount": 241,
+      "axes": [
+        "HEIGHT_PARITY",
+        "WIDTH_PARITY"
+      ],
+      "families": [
+        "HEIGHT2",
+        "WIDTH2"
+      ],
+      "extendedGridRecurring": true
+    }
+  },
+  "cpcx": {
+    "sourceWorkflowRun": 37161384386,
+    "sourceHead": "8b04c9f88fd47f89f783a8badb80b83cad3a5552",
+    "sourceArtifact": "cpcx-44444",
+    "targetTransferCensus": {
+      "normalizedP1PhysicalClassCount": 14,
+      "responseCount": 98,
+      "externalResponseCount": 97,
+      "protectedTargetResponseCount": 1,
+      "allExternalResponsesCoveredByExactSupportTransition": true,
+      "externalOpponentTerminalCount": 0,
+      "everyProtectedTargetOccupationHasDiagonalTransfer": true,
+      "everyNonterminalProtectedTargetOccupationHasStrictlyLowerBestTransferTuple": true
+    },
+    "anonymousThreeRoleSupportTransactions": {
+      "threeRoleSourceStateCount": 11,
+      "testedExternalRows": 76,
+      "stutterT0": 44,
+      "singleRoleT1": 32,
+      "violations": 0,
+      "law": "every non-stutter external support event changes exactly one anonymous role value and exactly the two incident pair-differences"
+    },
+    "rearrangementCase": {
+      "sourceCarrierDestroyed": true,
+      "replacementCandidateCount": 3,
+      "bestReplacementPhysicalOverlapCount": 2,
+      "bestReplacementMissingRoleCount": 3,
+      "sourceSupportDebt": 8,
+      "replacementSupportDebt": 4,
+      "strictLower": true
+    }
+  },
+  "firstPass": {
+    "exactThreePairCircuitObserved": true,
+    "localOffDiagonalRedistributionObservedOnBothHistoricalBridgeAndCpcx": true,
+    "carrierRecoordinationObservedInCpcx": true,
+    "firstOrderIndependentDecoderInsufficientInHistoricalBridge": true,
+    "secondOrderInteractionDecoderSufficientOnHistoricalQualifiedRows": true,
+    "status": "PROMISING_NOT_ISOMORPHISM"
+  },
+  "cautions": [
+    "The exact pair-delta circuit is algebraic for any three role vectors; evidentiary weight comes from the observed transition incidence and interaction-order behavior, not circuit closure alone.",
+    "Current CPCX T1 counts test the support-role projection only; a stronger normalization must include the other relation-bearing resources without reintroducing names.",
+    "UC4A recurring regime defects are structural cross-regime observations, not yet proved to be the same dynamical transition object as CPCX carrier recoordination.",
+    "No solved W/D/L or remoteness premise is used in this structural first pass."
+  ]
+}
