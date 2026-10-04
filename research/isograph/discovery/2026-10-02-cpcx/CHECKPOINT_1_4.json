@@ -1,0 +1,160 @@
+{
+  "schema": "connect4.cpcx.checkpoint.v1_4",
+  "date": "2026-10-03",
+  "branch": "experiment/cpcx-20261002",
+  "status": "CLASS_C_RESPONSE_TOTALITY_IS_FINAL_CURRENT_SEAM",
+  "parentCheckpoint": "CHECKPOINT_1_3.json",
+  "target": "winner-existence / loser-outcome-equivalence",
+  "auditDocument": "CPCX_CLASS_C_EXISTING_THEOREM_AUDIT_0_1.md",
+  "diagnosticCommit": "62c1abd608a55f05b366a0b2766a3a0d4e2dbc4e",
+  "diagnosticRun": {
+    "id": 37167336689,
+    "workflow": "Research CPCX opponent response descent",
+    "conclusion": "success"
+  },
+  "reducedControllerClasses": {
+    "originalHardCount": 3,
+    "claimRelativeWitnessCount": 2,
+    "remainingCount": 1,
+    "witnesses": [
+      {
+        "class": "A",
+        "sourceRank": 22,
+        "support": [
+          6,
+          1,
+          0,
+          6,
+          2,
+          5,
+          2
+        ],
+        "action": "C1"
+      },
+      {
+        "class": "B",
+        "sourceRank": 24,
+        "support": [
+          6,
+          1,
+          1,
+          5,
+          3,
+          5,
+          3
+        ],
+        "action": "E4"
+      }
+    ]
+  },
+  "remainingClassC": {
+    "sourceRank": 22,
+    "sourceSupport": [
+      6,
+      2,
+      0,
+      5,
+      2,
+      5,
+      2
+    ],
+    "exactPlayableTwoPieceMacro": true,
+    "postMacroRank": 24,
+    "postMacroMover": 0,
+    "postMacroProgress": "NO_CERTIFICATE",
+    "currentActions": [
+      "B3",
+      "C1",
+      "D6",
+      "E4",
+      "F6",
+      "G4"
+    ],
+    "pairStarCount": 0,
+    "existingTheoremAudit": {
+      "B3": {
+        "C3": {
+          "reservoirGap": {
+            "rootGap": 3,
+            "nodeCount": 763,
+            "seam": "COVERAGE_REPAIR_RESPONSE_TOTALITY_FAILURE"
+          }
+        },
+        "C4": {
+          "oneDefect": "ONE_DEFECT_STATIC_COVERAGE_GAP",
+          "attachment": "ONE_DEFECT_ATTACHMENT_RESPONSE_TOTALITY_FAILURE",
+          "reservoirGap": "PAIRING_PARITY_INADMISSIBLE"
+        }
+      },
+      "D6": {
+        "C3": {
+          "reservoirGap": {
+            "rootGap": 2,
+            "nodeCount": 30,
+            "seam": "COVERAGE_REPAIR_RESPONSE_TOTALITY_FAILURE"
+          }
+        }
+      },
+      "E4": {
+        "C3": {
+          "reservoirGap": {
+            "rootGap": 3,
+            "nodeCount": 173,
+            "seam": "COVERAGE_REPAIR_RESPONSE_TOTALITY_FAILURE"
+          }
+        },
+        "C6": {
+          "oneDefect": "ONE_DEFECT_STATIC_COVERAGE_GAP",
+          "attachment": {
+            "seam": "ONE_DEFECT_ATTACHMENT_RESPONSE_TOTALITY_FAILURE",
+            "nodeCount": 507
+          },
+          "reservoirGap": "PAIRING_PARITY_INADMISSIBLE"
+        }
+      },
+      "F6": {
+        "C3": {
+          "reservoirGap": {
+            "rootGap": 3,
+            "nodeCount": 82,
+            "seam": "COVERAGE_REPAIR_RESPONSE_TOTALITY_FAILURE"
+          }
+        }
+      },
+      "G4": {
+        "C3": {
+          "reservoirGap": {
+            "rootGap": 2,
+            "nodeCount": 86,
+            "seam": "COVERAGE_REPAIR_RESPONSE_TOTALITY_FAILURE"
+          }
+        }
+      }
+    }
+  },
+  "nextTarget": {
+    "name": "Class-C response-totality repair",
+    "preferredCandidates": [
+      "D6 -> C3 reservoir gap 2",
+      "G4 -> C3 reservoir gap 2"
+    ],
+    "forbiddenGoal": "longest surviving losing move",
+    "commonControllerActionRequired": false
+  },
+  "stillOpen": {
+    "turn6OutcomeEquivalenceProven": false,
+    "globalP0FirstWinClosure": false,
+    "recurrenceClosed": false
+  },
+  "constraints": {
+    "productionCpcUnchanged": true,
+    "productionSolverUnchanged": true,
+    "solvedData": false,
+    "oracle": false,
+    "minimax": false,
+    "negamax": false,
+    "alphaBeta": false,
+    "recursiveFutureMoveTree": false,
+    "remoteness": false
+  }
+}
