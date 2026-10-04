@@ -20,7 +20,8 @@ for(const probe of endpoint.novelMaskSecondLayerProbes??[]){
       if(!['D6','G4'].includes(action.actionCell))continue;
       for(const target of action.targetRcics??[]){
         if(target.targetCell!=='C3')continue;
-        const gap=target.gap;
+        const gap=target.gap,
+          gapCapacity=target.gapCapacity;
         if(gap?.rootGap!==2)continue;
         candidates.push({
           source:{
@@ -33,6 +34,7 @@ for(const probe of endpoint.novelMaskSecondLayerProbes??[]){
           actionCell:action.actionCell,
           targetCell:target.targetCell,
           gap,
+          gapCapacity,
         });
       }
     }
@@ -88,6 +90,20 @@ const result={
   root:'44444',
   candidateCount:candidates.length,
   candidates,
+  capacitySummary:candidates.map(x=>({
+    source:x.source,
+    actionCell:x.actionCell,
+    targetCell:x.targetCell,
+    kind:x.gapCapacity?.kind??null,
+    exact:x.gapCapacity?.exact??false,
+    player:x.gapCapacity?.player??null,
+    seam:x.gapCapacity?.seam??null,
+    rootGap:x.gapCapacity?.rootGap??null,
+    nodeCount:x.gapCapacity?.nodeCount??null,
+    certifiedNodeCount:x.gapCapacity?.certifiedNodeCount??null,
+    unresolvedNodeCount:x.gapCapacity?.unresolvedNodeCount??null,
+    unresolvedRootTriggers:x.gapCapacity?.unresolvedRootTriggers??[],
+  })),
   summary:{
     candidateActions:[...new Set(candidates.map(x=>x.actionCell))].sort(),
     unresolvedTriggerCount:flatTriggers.length,
