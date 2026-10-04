@@ -17,6 +17,14 @@ New durable gameplay-facing strategies must be registered there rather than left
 
 The strategy index is not semantic authority. It tracks what to try, how it could be implemented, what exact research it consumes, and what must be proved or measured before adoption.
 
+## Benchmark independence contract
+
+Clean exact-solver comparisons that claim independence from solved/self-game knowledge are governed by:
+
+- `../docs/specs/C4-0011-solved-knowledge-independent-benchmark-v1.md`
+
+The contract separates runtime-input independence from lineage independence, requires a declared exact target and cold start, permits only rule-derived symmetry, requires freeze-before-oracle provenance for strict theorem admission, and makes the RLC boundary explicit: RLC may order work but cannot prune alternatives or advance the root without separate exact proof authority.
+
 ## Read this first
 
 The qualified logic authority is IsoGraph. Read in this order:
