@@ -1,0 +1,34 @@
+warning: methods `reset` and `is_playable` are never used
+  --> C:\r\c4-external-build-final-20261004\build\fhourstones-rust\upstream\src\board.rs:64:12
+   |
+54 | impl Board {
+   | ---------- methods in this implementation
+...
+64 |     pub fn reset(&mut self) {
+   |            ^^^^^
+...
+82 |     pub fn is_playable(&self, col: usize) -> bool {
+   |            ^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` on by default
+
+warning: method `best_move` is never used
+   --> C:\r\c4-external-build-final-20261004\build\fhourstones-rust\upstream\src\search.rs:321:12
+    |
+125 | impl Solver {
+    | ----------- method in this implementation
+...
+321 |     pub fn best_move(&mut self, board: &mut Board) -> Option<usize> {
+    |            ^^^^^^^^^
+
+warning: method `stats_line` is never used
+   --> C:\r\c4-external-build-final-20261004\build\fhourstones-rust\upstream\src\tt.rs:172:12
+    |
+ 68 | impl TransTable {
+    | --------------- method in this implementation
+...
+172 |     pub fn stats_line(&self) -> Option<String> {
+    |            ^^^^^^^^^^
+
+warning: 3 warnings emitted
+

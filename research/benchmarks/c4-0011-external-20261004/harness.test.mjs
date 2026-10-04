@@ -25,3 +25,17 @@ test('parser preserves raw native records; incomplete smoke is not a result',()=
  assert.equal(p.result.wdl,-1);assert.equal(p.result.nodes,123);assert.equal(p.ready.event,'ready');
  assert.throws(()=>parseOutput('{"event":"result"}\n{"event":"result"}\n',''),/multiple/);
 });
+test('all native result schemas are parsed without game-answer fixtures',()=>{
+ for(const id of ['fhourstones-c','pons','fhourstones-rust'])for(const wdl of [-1,0,1]){
+  const r={event:'result',solver:id,status:'EXACT',wdl,nodes:17};
+  assert.equal(validateResult(id,parseOutput(JSON.stringify(r),'').result),true);
+ }
+ for(const [score,wdl]of [[-1,'loss'],[0,'draw'],[1,'win']]){
+  const r={event:'result',schema:'c4-0011-christophe-v1',root:'empty',score,wdl};
+  assert.equal(validateResult('christophe',parseOutput(JSON.stringify(r),'').result),true);
+  assert.equal(validateResult('christophe',{...r,wdl:'invalid'}),false);
+ }
+ const iso={event:'result',solver:'isomax',status:'EXACT',wdl:0,computed_moves:[],result:{status:'EXACT',workersUsed:4,requestedWorkers:4,errorCode:0,errors:[],rootWdl:0}};
+ assert.equal(validateResult('isomax',parseOutput(JSON.stringify(iso),'').result),true);
+ assert.equal(validateResult('isomax',{...iso,result:{...iso.result,workersUsed:1}}),false);
+});
