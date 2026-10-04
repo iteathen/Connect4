@@ -31,7 +31,7 @@ test('fresh 4x4 k3 shared acquisition/block terminal is exact',()=>{
     });
 
   assert.equal(p.mover,0);
-  assert.equal(c.kind,'SUPPORT_RELEASE_SHARED_ACQUISITION_BLOCK_EDGE');
+  assert.equal(c.kind,'SUPPORT_RELEASE_SHARED_ACQUISITION_BLOCK_EDGE',JSON.stringify(c));
   assert.equal(c.exact,true);
   assert.equal(c.sharedEdge.triggerCell,cell(g,2,0)); // C1
   assert.equal(c.sharedEdge.responseCell,cell(g,2,1)); // C2
@@ -54,7 +54,7 @@ test('fresh 5x4 k3 shared acquisition/block contracts without terminal',()=>{
 
   assert.equal(p.mover,0);
   assert.equal(r.missingCount,2);
-  assert.equal(c.kind,'SUPPORT_RELEASE_SHARED_ACQUISITION_BLOCK_EDGE');
+  assert.equal(c.kind,'SUPPORT_RELEASE_SHARED_ACQUISITION_BLOCK_EDGE',JSON.stringify(c));
   assert.equal(c.exact,true);
   assert.deepEqual(c.sharedEdge.opponentUrgentCells,[cell(g,2,1)]);
   assert.equal(c.sharedEdge.controllerResidualContracted,true);
