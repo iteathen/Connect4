@@ -170,14 +170,12 @@ function compareDescriptorRank(a,b){
       a?.uncoveredMass??Number.MAX_SAFE_INTEGER,
       a?.uncoveredSupportSum??Number.MAX_SAFE_INTEGER,
       a?.uncoveredSupportMax??Number.MAX_SAFE_INTEGER,
-      a?.remainingCapacity??Number.MAX_SAFE_INTEGER,
     ],
     bk=[
       b?.gap??Number.MAX_SAFE_INTEGER,
       b?.uncoveredMass??Number.MAX_SAFE_INTEGER,
       b?.uncoveredSupportSum??Number.MAX_SAFE_INTEGER,
       b?.uncoveredSupportMax??Number.MAX_SAFE_INTEGER,
-      b?.remainingCapacity??Number.MAX_SAFE_INTEGER,
     ];
   for(let i=0;i<ak.length;i++)if(ak[i]!==bk[i])return ak[i]-bk[i];
 
@@ -188,7 +186,10 @@ function compareDescriptorRank(a,b){
     const av=ad[i]??-1,bv=bd[i]??-1;
     if(av!==bv)return av-bv;
   }
-  return 0;
+
+  const ac=a?.remainingCapacity??Number.MAX_SAFE_INTEGER,
+    bc=b?.remainingCapacity??Number.MAX_SAFE_INTEGER;
+  return ac-bc;
 }
 
 function descriptorStrictlyDecreases(parent,child){
@@ -625,7 +626,7 @@ export function certifyCpcxReservoirCoverageGapCapacityRcic(position,{
         'current frontier cells attached to that template\'s uncovered P1 residuals',
         'exact handoff to existing CPCX or ordinary target-reservoir first-win certificate',
       ],
-      rank:'lexicographic(minimumUncoveredResiduals, uncoveredMissingCellMass, uncoveredSupportDebtSum, uncoveredSupportDebtMax, remainingCapacity, descendingSupportDebtVector)',
+      rank:'lexicographic(minimumUncoveredResiduals, uncoveredMissingCellMass, uncoveredSupportDebtSum, uncoveredSupportDebtMax, descendingSupportDebtVector, remainingCapacity)',
       strictDecrease:true,
       responseTotality:true,
       triggerAdaptiveTemplates:true,
