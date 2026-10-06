@@ -1,14 +1,16 @@
-# Connect4
+# Connect Four — IsoMax
 
-Connect4 is the shared product/domain repository for exact Connect Four semantics, benchmark and oracle authority, solver qualification contracts, and product-specific CUDA composition.
+**The current Connect4 solver is IsoMax 0.2.0-rc.2.** It replaces the older
+IsoMax implementation and is packaged together with its launchers, configuration,
+runtime, tests and evidence.
 
-## Run the current IsoMax solver
+**[Open the solver package](https://github.com/iteathen/Connect4/tree/work/isomax-jsminsys-rebuild/isomax)**
+· **[Download the archive](https://github.com/iteathen/Connect4/raw/refs/heads/work/isomax-jsminsys-rebuild/isomax/dist/iteathen-isomax-0.2.0-rc.2.tgz)**
+· **[Setup guide](https://github.com/iteathen/Connect4/blob/work/isomax-jsminsys-rebuild/README.md)**
 
-**IsoMax 0.2.0-rc.2 replaces the old solver on the existing Connect4 implementation
-branch. Open [the solver package](https://github.com/iteathen/Connect4/tree/work/isomax-jsminsys-rebuild/isomax)
-or its [setup guide](https://github.com/iteathen/Connect4/blob/work/isomax-jsminsys-rebuild/README.md).**
+## Quick start
 
-With Node 26.7 or later:
+Install Node 26.7 or later, then:
 
 ```sh
 git clone --branch work/isomax-jsminsys-rebuild https://github.com/iteathen/Connect4.git Connect4-IsoMax
@@ -17,72 +19,93 @@ node verify.mjs
 node run.mjs
 ```
 
-The default solves the actual empty 7×6 board with four deep workers, 4 GiB shared
-TT and 256 MiB private TT per worker, plus geometry plans. No opening, RLC or prior
-solved cache is consumed. No npm install or submodule checkout is required.
-The setup guide covers variable dimensions and measured Windows affinity.
+No npm install or submodule checkout is needed. If using the archive, extract
+the complete `package/` folder and run the two Node commands inside it.
 
-[Download the archive](https://github.com/iteathen/Connect4/raw/refs/heads/work/isomax-jsminsys-rebuild/isomax/dist/iteathen-isomax-0.2.0-rc.2.tgz)
-or read [replacement qualification](https://github.com/iteathen/Connect4/blob/work/isomax-jsminsys-rebuild/docs/qualification/20261006-isomax-package-replacement.md).
-The runtime and archive identities match the frozen producer package. Integration
-and package tests pass; the transfer's localhost empty-board confirmation returned
-WIN, column 4 in 57.46 s. This is a single transfer check, not a new performance ranking.
+The default operation starts at the actual **empty 7×6 board** and returns its
+exact W/D/L outcome and an optimal move. This is one root solve, not a complete
+self-play game. No opening book, supplied opening sequence, RLC or persisted
+solved cache is used.
 
-`main` routes to the solver implementation; `research/semantic-quotient` remains
-the research owner. The retired `solver/isometric` branch is preserved under
-`archive/lazy-smp-retirement-20260926/solver/isometric`; the current implementation
-is `work/isomax-jsminsys-rebuild`, now updated through [PR178](https://github.com/iteathen/Connect4/pull/178).
+## Configuration and other boards
 
-## Evidence and external validation
+| Setting | Current default |
+|---|---|
+| Workers | Four deep workers, center/live/center/live |
+| Shared TT | 4 GiB, native 32-byte entries |
+| Private TT | 256 MiB per worker |
+| Geometry | Prepared at initialization; compiled-transition or fallback path selected there |
+| Root frontier | Disabled |
+| Shared proof bounds | Enabled |
+| Observed whole-process peak memory | About 6.44 GiB |
 
-Start with [EVIDENCE.md](EVIDENCE.md) and the machine-readable [claim registry](evidence/claims.json).
+Workers, solver-owned tables and geometry plans are prepared before the readiness
+barrier. Root construction and search begin afterward. The startup launcher applies
+the retained JIT settings before initialization.
 
-The preserved external correctness result is **192/192 W/D/L matches with 0 mismatches** against deterministic published slices of Pascal Pons Connect Four benchmark sets: the first 32 rows of each L1 set and the first 64 rows of L2_R1 and L3_R1. Its original solver evidence remains in the [archived external-evidence index](https://github.com/iteathen/Connect4/blob/archive/lazy-smp-retirement-20260926/solver/isometric/evidence/external/README.md). That historical record does not automatically qualify the replacement package.
+From the package folder:
 
-That result is a scoped **REFERENCE-GROUNDED parent-position correctness claim**. It is not a performance ranking, does not externally validate the repository-generated per-move score vectors, and does not establish CUDA-BSFP correctness.
-
-The repository has one shared foundation, one canonical research lane, and **three active solver-family heads**:
-
-- IsoMax — current implementation at `work/isomax-jsminsys-rebuild`; the former `solver/isometric` ref is archived as noted above;
-- `solver/cuda-bsfp` — the active backward symbolic fixed-point exact solver;
-- `solver/sut` — the retained future exact-composition lane that will bring mature IsoMax and CUDA-BSFP capabilities together;
-- `research/semantic-quotient` — the single canonical owner of **all Connect4 research**, including active solver research, historical solver knowledge, negative results, synthesis, and provenance.
-
-`solver/minimax-alpha-beta` and `solver/hybrid-confluence` are historical solver lineages, not active implementation owners. Their useful knowledge is preserved in canonical research history. The qualified incumbent implementation on `main` remains a reference/baseline/conformance comparator.
-`main` is **not another solver line**. It is the shared accepted substrate and repository router. It owns domain rules, benchmark/fairness semantics, oracle/reference behavior, accepted cross-lane contracts and repository-level ownership decisions.
-
-The qualified incumbent implementation on `main` is retained as a reference/baseline and oracle comparator. It is not an active solver-family implementation.
-
-## Durable branch model
-
-```text
-                          main
-            shared domain / oracle / contracts
-               /            |            \
-              /             |             \
-       IsoMax/Isometric   CUDA-BSFP        SUT
-              \             |             /
-               \            |            /
-                research/semantic-quotient
-             canonical research + history
+```sh
+node run.mjs --columns 7 --rows 5
+node run.mjs --columns 1 --rows 4 --shared-entries 256 --local-entries 256
 ```
 
-The diagram is ownership-oriented, not a Git ancestry claim. Solver heads are peers and may have different historical origins.
+Winning length is four. Dimensions and native widths are selected during
+initialization. Performance qualification is on 7×6; the second command is a
+small installation check. The setup guide also covers the recorded Windows
+i5-12600K runtime and worker affinity.
 
-The current durable set is closed by `docs/decisions/2026-09-18-three-active-solver-topology.md`. Agents may create bounded temporary work/experiment branches, but may not invent another durable lane or let a temporary branch become a continuity owner without explicit owner instruction.
+## Measurements and qualification
 
-## Branch hygiene
+| Measurement | Empty-board primary time |
+|---|---:|
+| Retained candidate mean, two localhost trials | 53.83 s |
+| Original extracted-package confirmation | 55.33 s |
+| Connect4 transfer confirmation | 57.46 s |
 
-Temporary `work/*`, `experiment/*`, `feature/*`, handoff, staging and evidence branches must name an owning durable lane and a retirement condition. Do not create new durable focused `research/*` branches. Valuable implementation returns to its solver owner; every durable research result, hypothesis, falsifier, research-evidence packet, and unresolved question returns to `research/semantic-quotient` before the temporary ref is removed.
+Primary time includes actual empty-root construction and exact solving after all
+workers are ready and cold tables initialized. Initialization and cleanup are
+recorded separately. The confirmations are single checks, not new performance
+comparisons. Portable unpinned runs have no timing qualification. **The ≤10 s
+target remains unmet.**
 
-Shared accepted changes flow from `main` into solver lines. **All research** is normalized and preserved on `research/semantic-quotient`. Solver-specific kernels, scheduling, symbolic state, transposition structures, implementation contracts, and composition machinery stay on their owning solver head.
+The Connect4 transfer returned **WIN, column 4**, with four workers ready/exited
+and clean termination. Qualification passed **13 integration tests, 46 package
+tests and all 144 package-file identities**. The archive checksum is unchanged.
 
-Read `STATUS.md`, `next_step.yaml`, `REPOSITORY_STRUCTURE.md`, and the target lane's own status/next-step before executing work.
+See the [replacement qualification and raw evidence](https://github.com/iteathen/Connect4/blob/work/isomax-jsminsys-rebuild/docs/qualification/20261006-isomax-package-replacement.md),
+[configuration](https://github.com/iteathen/Connect4/blob/work/isomax-jsminsys-rebuild/isomax/profile.json)
+and [archive checksums](https://github.com/iteathen/Connect4/blob/work/isomax-jsminsys-rebuild/isomax/dist/SHA256SUMS).
 
-## Current state
+## Repository navigation
 
-The shared domain, benchmark protocol and solved-strength oracle baseline remain qualified on `main`. IsoMax/Isometric and CUDA-BSFP are the two active solving engines. SUT is intentionally early-stage and is retained as the future exact composition lane between them. Minimax and Hybrid Confluence are historical lineages only.
+| Area | Location |
+|---|---|
+| Current IsoMax solver and package | `work/isomax-jsminsys-rebuild` |
+| CUDA-BSFP solver | `solver/cuda-bsfp` |
+| Future IsoMax/BSFP composition | `solver/sut` |
+| Canonical research | `research/semantic-quotient` |
+| Shared rules, oracle, benchmarks and routing | `main` |
 
-The canonical research lane consolidates **all** research, including solver-specific findings and provenance, so solver and experiment branches never become competing research owners.
+Main links to the solver implementation; the solver package belongs to its
+implementation branch. Research remains separate. The former `solver/isometric`
+ref is preserved at `archive/lazy-smp-retirement-20260926/solver/isometric`.
 
-The archived 2025 browser game is source/provenance material, not the target architecture. UI/audio/browser-specific structure is not imported wholesale.
+For project authority and branch ownership, read [STATUS.md](STATUS.md),
+[REPOSITORY_STRUCTURE.md](REPOSITORY_STRUCTURE.md), [next_step.yaml](next_step.yaml)
+and the applicable [specifications](docs/specs/). The qualified incumbent on main
+is a reference comparator; historical Minimax and Hybrid Confluence lineages
+are not active implementation owners. No new solver family is created by this
+package replacement.
+
+## Historical external evidence
+
+[EVIDENCE.md](EVIDENCE.md) and the [claim registry](evidence/claims.json) describe
+the evidence classes and their limits. A previous IsoMax revision matched
+**192/192** externally sourced Pons parent-position W/D/L cases; its
+[archived evidence](https://github.com/iteathen/Connect4/blob/archive/lazy-smp-retirement-20260926/solver/isometric/evidence/external/README.md)
+remains scoped to that original source and corpus.
+
+That historical result does not automatically qualify this replacement package,
+per-move score vectors, comparative performance or CUDA-BSFP. Current qualification
+is not a universal proof or an external solver ranking.
