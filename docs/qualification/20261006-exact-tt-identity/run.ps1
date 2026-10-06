@@ -1,4 +1,4 @@
-param([Parameter(Mandatory=$true)][string]$Id,[ValidateSet('native32','partial24','partial16')][string]$Identity='native32',[switch]$JitDiagnostic)
+param([Parameter(Mandatory=$true)][string]$Id,[ValidateSet('native32','partial24','partial16')][string]$Identity='native32',[long]$SharedEntries=134217728,[long]$LocalEntries=8388608,[switch]$JitDiagnostic)
 $ErrorActionPreference='Stop'
 $taskRepo=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../../..'))
 Set-Location -LiteralPath $taskRepo
@@ -9,13 +9,22 @@ if($taskActive){throw 'Another solver is running'}
 $taskConfig=Get-Content docs/qualification/20261006-memory-profiles/final-default-run/invocation.json -Raw | ConvertFrom-Json
 if((Get-FileHash -LiteralPath $taskConfig.executable -Algorithm SHA256).Hash.ToLower() -ne $taskConfig.executable_hash){throw 'Runtime hash changed'}
 New-Item -ItemType Directory -Path $taskDir | Out-Null
+$taskMemory=Get-CimInstance Win32_OperatingSystem
+$taskMemory | Select-Object TotalVisibleMemorySize,FreePhysicalMemory,TotalVirtualMemorySize,FreeVirtualMemory | ConvertTo-Json | Set-Content (Join-Path $taskDir 'preflight-memory.json')
+$taskEntryBytes=if($Identity -eq 'partial16'){16}elseif($Identity -eq 'partial24'){24}else{32}
+$taskRequired=[long]$SharedEntries*$taskEntryBytes+6*[long]$LocalEntries*$taskEntryBytes+2147483648
+if([long]$taskMemory.FreePhysicalMemory*1024 -lt $taskRequired -or [long]$taskMemory.FreeVirtualMemory*1024 -lt $taskRequired){
+ [pscustomobject]@{status='RESOURCE_CENSORED';requiredBytes=$taskRequired;sharedEntries=$SharedEntries;localEntries=$LocalEntries;entryBytes=$taskEntryBytes;solveStarted=$false} | ConvertTo-Json | Set-Content (Join-Path $taskDir 'resource-status.json')
+ git add -- "docs/qualification/20261006-exact-tt-identity/$Id"; git commit -m "Record resource-censored TT identity $Id"; git push origin HEAD
+ throw 'Insufficient physical/commit headroom; no solver started'
+}
 $taskConfig.repositoryCommit=(git rev-parse HEAD)
 $taskConfig.sourceCommit=(git -C C:/r/jsminsys-cpc-rebuild-20261004 rev-parse HEAD)
 $taskConfig.arguments=@('--experimental-ffi','--max-inlined-bytecode-size=2400','--max-inlined-bytecode-size-cumulative=9600','--import','file:///C:/r/c4-external-20261004/isomax/runtime/tools/benchmark-v8-startup-preload.mjs')
 if($JitDiagnostic){$taskConfig.arguments+='--trace-turbo-inlining'}
-$taskConfig.arguments+=@((Join-Path $PSScriptRoot 'bench.mjs'),'--identity',$Identity,'--timeout',$(if($JitDiagnostic){'10000'}else{'120000'}))
+$taskConfig.arguments+=@((Join-Path $PSScriptRoot 'bench.mjs'),'--identity',$Identity,'--shared-entries',[string]$SharedEntries,'--local-entries',[string]$LocalEntries,'--timeout',$(if($JitDiagnostic){'10000'}else{'120000'}))
 $taskConfig.canonicalCommand='Frozen raw-host TT identity comparison; actual entry capacities unchanged'
-$taskConfig.execution='Six auto-discovered verified P-core workers; exact empty root; retained cache entry counts, topology, flags and support plans; candidate entry width only'
+$taskConfig.execution="Six auto-discovered verified P-core workers; exact empty root; sharedEntries=$SharedEntries localEntries=$LocalEntries entryBytes=$taskEntryBytes; retained topology flags and support plans"
 $taskConfig.stdout=Join-Path $taskDir 'stdout.json';$taskConfig.stderr=Join-Path $taskDir 'stderr.txt';$taskConfig.measurement=Join-Path $taskDir 'measurement.json'
 $taskConfig | ConvertTo-Json -Depth 10 | Set-Content (Join-Path $taskDir 'invocation.json')
 Get-CimInstance Win32_OperatingSystem | Select-Object TotalVisibleMemorySize,FreePhysicalMemory,TotalVirtualMemorySize,FreeVirtualMemory | ConvertTo-Json | Set-Content (Join-Path $taskDir 'preflight-memory.json')
