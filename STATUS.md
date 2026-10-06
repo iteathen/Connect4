@@ -3,7 +3,7 @@
 ## Current prepared package — 2026-10-06
 
 This branch contains self-contained **0.2.0-rc.4**, runtime freeze
-`89b1b147b8811bfd343724150ed304a081d61498`, with154 locked files. Worker
+`40b19431f00174c5d52c442677d67ec698e8c50a`, with154 locked files. Worker
 count/pinning and memory profiles are selected during initialization. Auto
 chooses any fitting profile, including labeled experimental sizes.1/2/4/8GiB
 tested;16/32/64/128GiB experimental. Actual allocation depends on geometry;

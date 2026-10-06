@@ -32,7 +32,7 @@ report hints rather than verified pinning. See the [platform guide](isomax/READM
 
 No RLC, supplied opening, solved table or prior-run proof cache is used. The
 historical four-worker candidate mean is 53.828 s; standalone package confirmation
-was 55.326 s. Current six-worker measurements are roughly42s at4GiB and41.124s average at8GiB (best39.822s). These results are hardware/profile-specific; experimental larger profiles have no full-capacity timing qualification.
+was 55.326 s. Current six-worker measurements are roughly42s at4GiB and41.124s average at8GiB (best39.822s). An automatic-profile default-path confirmation solved in39.662s with six verified P-core workers and8GiB shared TT. These results are hardware/profile-specific; experimental larger profiles have no full-capacity timing qualification.
 Primary timing includes empty-root construction and exact solving after readiness;
 initialization and cleanup are separate. The ≤10 s goal remains unmet.
 

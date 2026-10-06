@@ -3,8 +3,8 @@
 ## Current package boundary — 2026-10-06
 
 Connect4 consumes the frozen IsoMax0.2.0-rc.4 package under `isomax/`, from
-JSMinSys source `89b1b147b8811bfd343724150ed304a081d61498`. The producer owns
-the worker/session/cache/geometry support libraries and their562-unit ledger.
+JSMinSys source `40b19431f00174c5d52c442677d67ec698e8c50a`. The producer owns
+the worker/session/cache/geometry support libraries and their563-unit ledger.
 Connect4 owns the thin application API and independent qualification.
 
 `components/isometric/solve.mjs` delegates to the package's public
