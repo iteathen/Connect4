@@ -5,6 +5,20 @@
 
 `main` is the accepted shared Connect4 substrate. It is not the canonical implementation head for any solver family.
 
+## Current IsoMax routing — 2026-10-06
+
+The existing `work/isomax-jsminsys-rebuild` implementation now distributes the
+promoted IsoMax0.2.0-rc.2 package at `isomax/`, replacing its old adapter default.
+[Solver setup](https://github.com/iteathen/Connect4/blob/work/isomax-jsminsys-rebuild/README.md)
+and [qualification](https://github.com/iteathen/Connect4/blob/work/isomax-jsminsys-rebuild/docs/qualification/20261006-isomax-package-replacement.md)
+are on that solver head, integrated through PR178. The old `solver/isometric`
+ref is preserved at `archive/lazy-smp-retirement-20260926/solver/isometric`.
+
+The lane table below preserves the September organization record; use the current
+solver link above for executable IsoMax. This routing update does not create a
+new solver family or move its kernel into main/research. BSFP and research remain
+unchanged.
+
 ## Canonical durable lanes
 
 | Lane | Canonical branch | Purpose | Current routing note |

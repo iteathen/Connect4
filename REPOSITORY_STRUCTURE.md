@@ -2,6 +2,19 @@
 
 This file defines the live organizational model of the repository. It is routing/documentation, not a replacement for accepted specifications.
 
+## Current IsoMax implementation routing — 2026-10-06
+
+The retired `solver/isometric` ref is archived under
+`archive/lazy-smp-retirement-20260926/solver/isometric`. Current executable IsoMax
+is on the existing `work/isomax-jsminsys-rebuild` implementation branch, with the
+promoted0.2.0-rc.2 package together under `isomax/`; see the root README setup link.
+The diagrams below preserve the established solver-family ownership model and
+are not proof that each historical branch name is still executable.
+
+The replacement and its qualification stay on the solver implementation head.
+Main owns this routing update; canonical research remains separate. No new
+solver family, research authority or BSFP implementation is introduced.
+
 ## Durable branch topology
 
 ```text
