@@ -10,11 +10,12 @@ const apiURL=new URL('../components/isometric/solve.mjs',import.meta.url);
 // Correctness fixtures use bounded tables; never performance authority.
 const qualificationOptions={sharedCacheCapacity:256,localCacheCapacity:256,supportBasisPlanBudgetBytes:0};
 
-test('default IsoMax uses discovered workers with the retained native-cache sizes',async()=>{
+test('default IsoMax discovers workers and memory while preserving explicit fixture capacities',async()=>{
   const {solve7x6}=await import(apiURL.href);
   assert.equal(profile.options.workers,'auto');
-  assert.equal(profile.options.sharedCacheCapacity,134217728);
-  assert.equal(profile.options.localCacheCapacity,8388608);
+  assert.equal(profile.options.memoryProfile,'auto');
+  assert.equal(profile.explicitCacheDefaults.sharedCacheCapacity,134217728);
+  assert.equal(profile.explicitCacheDefaults.localCacheCapacity,8388608);
   assert.equal(profile.options.sharedSampleMask,0);
   assert.equal(profile.options.rootFrontier,false);
   const moves=[4,0,0,0,3,3,0,0,6,2,3,0,2,3,6,3,6,3,4,6,2,2,6,1,2,5,6,4];
@@ -24,6 +25,7 @@ test('default IsoMax uses discovered workers with the retained native-cache size
   assert.equal(result.sharedSampleMask,0);
   assert.equal(result.nodeCounts,null);assert.equal(result.frontierMetrics,null);
   assert.equal(result.cleanup,true);
+  assert.equal(result.memoryPlan.profile.id,'custom');
 });
 
 function assertOptimalCallerMove(moves,result,control){

@@ -15,7 +15,7 @@ const started=performance.now(),modules=options.mode==='baseline'?await import('
  plan=await modules.discoverWorkerPlan();
 if(plan.workers!==6||plan.targets.length!==6)throw Error('Six available physical P-core targets required for this experiment');
 const configuration={...profile.options,workers:plan.workers,geometry:modules.prepareConnect4RbaGeometry({columns:7,rows:6}),
- sharedCacheCapacity:sharedGiB*33554432,sharedCacheLayout:'native',workerTargets:plan.targets,
+ sharedCacheCapacity:sharedGiB*33554432,localCacheCapacity:8388608,sharedCacheLayout:'native',workerTargets:plan.targets,
  ...(bankGiB?{sharedBankCapacity:bankGiB*33554432}:{})};
 const app=await modules.prepareLazySmpConnect4Rba32(configuration);
 let result;
@@ -23,7 +23,7 @@ try{if(app.state().readyWorkers!==6||!app.state().affinityVerified)throw Error('
 finally{await app.close();}
 console.log(JSON.stringify({experiment:options.mode,startingPosition:'empty',geometry:'7x6',sharedGiB,bankGiB,
  workerPlan:app.workerPlan??plan,configuration:{...profile.options,workers:6,sharedCacheCapacity:configuration.sharedCacheCapacity,
- sharedCacheLayout:'native',sharedBankCapacity:configuration.sharedBankCapacity??null},
+ sharedCacheLayout:'native',localCacheCapacity:8388608,sharedBankCapacity:configuration.sharedBankCapacity??null},
  primaryWallMs:result.preparedTiming.solveMs,operationWallMs:performance.now()-started,
  runtime:{node:process.version,v8:process.versions.v8,cpu:cpus()[0]?.model},memory:process.memoryUsage(),result},null,2));
 process.exitCode=result.status==='EXACT'?0:2;

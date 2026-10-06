@@ -1,6 +1,6 @@
 # Connect4 IsoMax solver
 
-The current solver is **IsoMax 0.2.0-rc.3**, packaged together under
+The current solver is **IsoMax 0.2.0-rc.4**, packaged together under
 [isomax/](isomax/README.md). It replaces this branch's older seven-worker adapter
 default. Node 26.7 or later is supported; no npm install or submodule checkout
 is needed for the current solver.
@@ -10,6 +10,7 @@ From the repository root:
 ```sh
 cd isomax
 node verify.mjs
+node run.mjs --list-memory-profiles
 node run.mjs
 ```
 
@@ -18,8 +19,11 @@ the application discovers physical performance cores and prepares one deep searc
 worker per selected core, excluding extra SMT threads. Windows/Linux workers are
 bound to distinct cores and the exact CPU masks are verified before loading the
 solver modules and allocating their private TTs. All setup completes before the
-all-ready barrier. Default memory remains 4 GiB shared TT plus 256 MiB private TT
-per worker and geometry plans; more workers use more memory.
+all-ready barrier. Memory discovery selects the largest fitting profile: **1, 2,
+4 and 8 GiB tested; 16, 32, 64 and 128 GiB experimental**. Automatic selection
+includes experimental profiles, visibly labeled. Private TT budget is256MiB per
+worker, plus support/runtime reserve; actual geometry-dependent allocation and
+the memory snapshot are reported in `memoryPlan`.
 
 **macOS warning:** Apple provides scheduling hints rather than hard CPU pinning.
 IsoMax uses user-initiated QoS and affinity tags where supported. These do not
@@ -28,19 +32,19 @@ report hints rather than verified pinning. See the [platform guide](isomax/READM
 
 No RLC, supplied opening, solved table or prior-run proof cache is used. The
 historical four-worker candidate mean is 53.828 s; standalone package confirmation
-was 55.326 s. These timings do not qualify the new automatic worker configuration.
+was 55.326 s. Current six-worker measurements are roughly42s at4GiB and41.124s average at8GiB (best39.822s). These results are hardware/profile-specific; experimental larger profiles have no full-capacity timing qualification.
 Primary timing includes empty-root construction and exact solving after readiness;
 initialization and cleanup are separate. The ≤10 s goal remains unmet.
 
-[Download the archive](isomax/dist/iteathen-isomax-0.2.0-rc.3.tgz),
+[Download the archive](isomax/dist/iteathen-isomax-0.2.0-rc.4.tgz),
 [verify SHA-256](isomax/dist/SHA256SUMS), or read the
 [setup and dimension guide](isomax/README.md).
 
 Inside `isomax/`, `node run.mjs --columns 7 --rows 5` selects different dimensions
 at initialization. For a fast installation check, use `--columns 1 --rows 4
 --shared-entries 256 --local-entries 256`. Winning length is four. Performance
-qualification is on 7×6; the new automatic configuration has no full-solve timing
-qualification. There is one startup path across Windows, Linux and macOS; the
+qualification is on 7×6 and scoped to the recorded hardware/profile. There is
+one startup path across Windows, Linux and macOS; the
 i5-specific launcher has been removed. `--workers N` remains an explicit experiment
 override within the discovered physical target count.
 [profile.json](isomax/profile.json) owns the settings;

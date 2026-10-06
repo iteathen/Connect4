@@ -2,9 +2,9 @@
 
 ## Current package boundary — 2026-10-06
 
-Connect4 consumes the frozen IsoMax0.2.0-rc.3 package under `isomax/`, from
-JSMinSys source `e6580e951c8318395446dd5916482efddc3d33fd`. The producer owns
-the worker/session/cache/geometry support libraries and their546-unit ledger.
+Connect4 consumes the frozen IsoMax0.2.0-rc.4 package under `isomax/`, from
+JSMinSys source `89b1b147b8811bfd343724150ed304a081d61498`. The producer owns
+the worker/session/cache/geometry support libraries and their562-unit ledger.
 Connect4 owns the thin application API and independent qualification.
 
 `components/isometric/solve.mjs` delegates to the package's public
@@ -12,15 +12,18 @@ Connect4 owns the thin application API and independent qualification.
 The prepared API is available through `isomax/index.mjs`.
 
 Default execution discovers physical performance cores at initialization and
-uses one deep center/live worker per target, 4 GiB shared TT and256MiB
-private TT per worker. Native32 layouts, compiled support transitions, reflection
+uses one deep center/live worker per target and the largest fitting memory
+profile.1/2/4/8GiB tested;16/32/64/128GiB experimental, including automatic
+selection. Private budget256MiB/worker; geometry widths and banks are selected
+cold, with actual allocation/status reported. Native layouts, compiled support transitions, reflection
 and exact/bound sharing retain the producer semantics. Worker creation, all
 solver-owned allocation and configuration precede the all-ready barrier.
 Windows/Linux bindings are verified before worker module/private TT setup.
 macOS uses explicit scheduling hints, without a hard-pinning claim. CPU discovery,
 binding/hints and readiness acknowledgements are cold support-library operations;
-the 24 search kernels are unchanged. Historical four-worker performance evidence
-does not qualify the new automatic configuration.
+recursive search bodies and original unbanked hot cache functions are unchanged.
+Historical four-worker performance evidence does not qualify another automatically
+selected hardware/profile combination.
 
 No hot diagnostic counters or clocks are added. Metrics are null when unavailable;
 cache-protocol/cancellation atomics remain required work. Primary timing includes

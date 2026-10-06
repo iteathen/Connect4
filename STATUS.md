@@ -1,6 +1,21 @@
 # Current IsoMax state
 
-## Promoted replacement — 2026-10-06
+## Current prepared package — 2026-10-06
+
+This branch contains self-contained **0.2.0-rc.4**, runtime freeze
+`89b1b147b8811bfd343724150ed304a081d61498`, with154 locked files. Worker
+count/pinning and memory profiles are selected during initialization. Auto
+chooses any fitting profile, including labeled experimental sizes.1/2/4/8GiB
+tested;16/32/64/128GiB experimental. Actual allocation depends on geometry;
+private budget256MiB per worker plus support/runtime reserve. No new hot policy,
+diagnostic counters or resizes. Setup is in [isomax/README.md](isomax/README.md).
+
+Local six-worker8GiB measurements averaged41.124s/best39.822s. Larger profiles
+have address/metadata checks, not full-capacity timing qualification. Main/registry
+promotion is separate. Earlier records below remain historical authority for
+their exact source/configuration.
+
+## Historical promoted replacement — 2026-10-06
 
 The active solver is the self-contained **0.2.0-rc.2** package under `isomax/`.
 The existing `components/isometric/solve.mjs` application API delegates to it.
