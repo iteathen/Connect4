@@ -4,7 +4,19 @@
 
 The Connect4 Surplus + Branch Manager execution composition is retired.
 
-## Active execution
+## Profile supersession — 2026-10-06
+
+The owner requested that the promoted IsoMax0.2.0-rc.2 package replace the old
+Connect4 solver. `isomax/profile.json` and `isomax/provenance.json` now own the
+current execution settings/source. Four deep workers, rootFrontierfalse, 4 GiB
+shared/256MiB private TT per worker, licensed shared zero bounds and600s search
+ceiling supersede the old seven-worker profile and exact-only-sharing description.
+Lazy SMP remains the only active execution composition; single-worker execution
+and the retired Surplus scheduler remain forbidden. Solver kernels are unchanged
+copies of the qualified producer. The paragraphs below preserve the prior decision
+and do not restore its old operating profile.
+
+## Historical execution selection
 
 - Public IsoMax delegates to JSMinSys `runLazySmpConnect4Rba32()`.
 - Lazy SMP requires at least two search workers; single-worker execution remains forbidden.
