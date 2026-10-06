@@ -1,0 +1,62 @@
+{
+  "id": "screen-w2-g2-r1",
+  "phase": "screen",
+  "workers": 2,
+  "sharedGiB": 2,
+  "sharedEntries": 67108864,
+  "privateBytesPerWorker": 268435456,
+  "aggregatePrivateBytes": 536870912,
+  "status": "EXACT",
+  "validated": true,
+  "solveMs": 85223.8469,
+  "initializationMs": 3650.9173,
+  "cleanupMs": 11.8350999999966,
+  "rootWdl": 1,
+  "moveZeroBased": 3,
+  "winner": 1,
+  "affinity": [
+    {
+      "worker": 0,
+      "target": {
+        "platform": "win32",
+        "group": 0,
+        "processor": 0,
+        "core": 0
+      },
+      "verified": true,
+      "hintsApplied": false,
+      "affinityTagApplied": false,
+      "affinityTagStatus": null,
+      "group": 0,
+      "cpu": 0
+    },
+    {
+      "worker": 1,
+      "target": {
+        "platform": "win32",
+        "group": 0,
+        "processor": 2,
+        "core": 1
+      },
+      "verified": true,
+      "hintsApplied": false,
+      "affinityTagApplied": false,
+      "affinityTagStatus": null,
+      "group": 0,
+      "cpu": 2
+    }
+  ],
+  "peakRssBytes": 4175507456,
+  "processCpuMs": 159718.75,
+  "processCycles": null,
+  "externalWallMs": 89118.8323,
+  "exitStatus": 0,
+  "timedOut": false,
+  "runtime": {
+    "node": "v27.0.0-nightly20260928b59840b593",
+    "v8": "14.6.202.34-node.36",
+    "cpu": "12th Gen Intel(R) Core(TM) i5-12600K"
+  },
+  "repositoryCommit": "f5b4b4339a5383876e8eba2195662ed58ef1bbc1",
+  "producerCommit": "e6580e951c8318395446dd5916482efddc3d33fd"
+}
