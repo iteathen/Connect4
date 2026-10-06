@@ -1,0 +1,384 @@
+{
+  "sourceCommit": "6bc1dd047209664f9924c4cb49597a2154555107",
+  "runtime": {
+    "node": "v27.0.0-nightly20260928b59840b593",
+    "v8": "14.6.202.34-node.36",
+    "cpu": "12th Gen Intel(R) Core(TM) i5-12600K"
+  },
+  "executableHash": "2f2843c1802f6a17ba7fabe5550c90bb055c9bef8738a08338d94f71dbe91f29",
+  "method": "Fresh post-task-cleanup environment, sequential crossover, three6GiB/two-bank and three12GiB/two-bank runs; one fresh6GiB/single-bank reference. Descriptive statistics only.",
+  "primaryBoundary": "all-ready/page-warmed TT -> actual empty7x6 root -> exact result; initialization/cleanup separately recorded",
+  "processCycles": "unavailable",
+  "cpuBoundary": "whole process including preparation and cleanup",
+  "results": [
+    {
+      "name": "6GiB-single-bank-postfree",
+      "sharedGiB": 6,
+      "banks": 1,
+      "bankEntries": 268435456,
+      "ids": [
+        "partial24-shared-6gib-postfree-control-01"
+      ],
+      "totalTtGiB": 7.125,
+      "runs": [
+        {
+          "id": "partial24-shared-6gib-postfree-control-01",
+          "sourceCommit": "6bc1dd047209664f9924c4cb49597a2154555107",
+          "consumerCommit": "c46cde2e635d7e265df0728f61e79cc237b75905",
+          "configuration": {
+            "workers": 6,
+            "workerMode": "minimal",
+            "sharedCacheLayout": "native",
+            "localCacheLayout": "native",
+            "rootFrontier": false,
+            "sharedSampleMask": 0,
+            "sharedProofBounds": true,
+            "supportBasisPlanBudgetBytes": 1073741824,
+            "supportClosurePlan": true,
+            "supportReflectionPlan": true,
+            "supportBasisViews": true,
+            "timeoutMs": 120000,
+            "initializationTimeoutMs": 120000,
+            "memoryProfile": "auto",
+            "cacheIdentity": "partial24",
+            "sharedCacheCapacity": 268435456,
+            "localCacheCapacity": 8388608,
+            "sharedBankCapacity": null
+          },
+          "solveMs": 37920.5674,
+          "initializationMs": 4191.733499999999,
+          "cleanupMs": 14.510099999999511,
+          "wholeProcessCpuMs": 210906.25,
+          "peakRssBytes": 9217908736,
+          "externalWallMs": 42553.2777
+        }
+      ],
+      "solveMs": {
+        "n": 1,
+        "values": [
+          37920.5674
+        ],
+        "mean": 37920.5674,
+        "min": 37920.5674,
+        "median": 37920.5674,
+        "max": 37920.5674,
+        "sampleSd": null
+      },
+      "wholeProcessCpuMs": {
+        "n": 1,
+        "values": [
+          210906.25
+        ],
+        "mean": 210906.25,
+        "min": 210906.25,
+        "median": 210906.25,
+        "max": 210906.25,
+        "sampleSd": null
+      },
+      "peakRssBytes": {
+        "n": 1,
+        "values": [
+          9217908736
+        ],
+        "mean": 9217908736,
+        "min": 9217908736,
+        "median": 9217908736,
+        "max": 9217908736,
+        "sampleSd": null
+      }
+    },
+    {
+      "name": "6GiB-two-bank-postfree",
+      "sharedGiB": 6,
+      "banks": 2,
+      "bankEntries": 134217728,
+      "ids": [
+        "partial24-shared-6gib-banked-control-01",
+        "partial24-shared-6gib-banked-control-02",
+        "partial24-shared-6gib-banked-control-03"
+      ],
+      "totalTtGiB": 7.125,
+      "runs": [
+        {
+          "id": "partial24-shared-6gib-banked-control-01",
+          "sourceCommit": "6bc1dd047209664f9924c4cb49597a2154555107",
+          "consumerCommit": "8bbb5bd6d40d4b64c66ae1a27844f5c1f63933ba",
+          "configuration": {
+            "workers": 6,
+            "workerMode": "minimal",
+            "sharedCacheLayout": "native",
+            "localCacheLayout": "native",
+            "rootFrontier": false,
+            "sharedSampleMask": 0,
+            "sharedProofBounds": true,
+            "supportBasisPlanBudgetBytes": 1073741824,
+            "supportClosurePlan": true,
+            "supportReflectionPlan": true,
+            "supportBasisViews": true,
+            "timeoutMs": 120000,
+            "initializationTimeoutMs": 120000,
+            "memoryProfile": "auto",
+            "cacheIdentity": "partial24",
+            "sharedCacheCapacity": 268435456,
+            "localCacheCapacity": 8388608,
+            "sharedBankCapacity": 134217728
+          },
+          "solveMs": 38676.7723,
+          "initializationMs": 4368.8261,
+          "cleanupMs": 17.889000000002852,
+          "wholeProcessCpuMs": 214578.125,
+          "peakRssBytes": 9222840320,
+          "externalWallMs": 43507.1526
+        },
+        {
+          "id": "partial24-shared-6gib-banked-control-02",
+          "sourceCommit": "6bc1dd047209664f9924c4cb49597a2154555107",
+          "consumerCommit": "12eee85452d5aad61ffe8d281b3b9d781a3b579d",
+          "configuration": {
+            "workers": 6,
+            "workerMode": "minimal",
+            "sharedCacheLayout": "native",
+            "localCacheLayout": "native",
+            "rootFrontier": false,
+            "sharedSampleMask": 0,
+            "sharedProofBounds": true,
+            "supportBasisPlanBudgetBytes": 1073741824,
+            "supportClosurePlan": true,
+            "supportReflectionPlan": true,
+            "supportBasisViews": true,
+            "timeoutMs": 120000,
+            "initializationTimeoutMs": 120000,
+            "memoryProfile": "auto",
+            "cacheIdentity": "partial24",
+            "sharedCacheCapacity": 268435456,
+            "localCacheCapacity": 8388608,
+            "sharedBankCapacity": 134217728
+          },
+          "solveMs": 37485.5173,
+          "initializationMs": 4298.4385,
+          "cleanupMs": 14.184900000000198,
+          "wholeProcessCpuMs": 215968.75,
+          "peakRssBytes": 9220165632,
+          "externalWallMs": 42251.4408
+        },
+        {
+          "id": "partial24-shared-6gib-banked-control-03",
+          "sourceCommit": "6bc1dd047209664f9924c4cb49597a2154555107",
+          "consumerCommit": "e9cd6aec09b7abea7f8b737ba9a813a7e8f25081",
+          "configuration": {
+            "workers": 6,
+            "workerMode": "minimal",
+            "sharedCacheLayout": "native",
+            "localCacheLayout": "native",
+            "rootFrontier": false,
+            "sharedSampleMask": 0,
+            "sharedProofBounds": true,
+            "supportBasisPlanBudgetBytes": 1073741824,
+            "supportClosurePlan": true,
+            "supportReflectionPlan": true,
+            "supportBasisViews": true,
+            "timeoutMs": 120000,
+            "initializationTimeoutMs": 120000,
+            "memoryProfile": "auto",
+            "cacheIdentity": "partial24",
+            "sharedCacheCapacity": 268435456,
+            "localCacheCapacity": 8388608,
+            "sharedBankCapacity": 134217728
+          },
+          "solveMs": 38941.5413,
+          "initializationMs": 4750.661499999999,
+          "cleanupMs": 16.181400000001304,
+          "wholeProcessCpuMs": 216390.625,
+          "peakRssBytes": 9227558912,
+          "externalWallMs": 44149.9358
+        }
+      ],
+      "solveMs": {
+        "n": 3,
+        "values": [
+          38676.7723,
+          37485.5173,
+          38941.5413
+        ],
+        "mean": 38367.94363333333,
+        "min": 37485.5173,
+        "median": 38676.7723,
+        "max": 38941.5413,
+        "sampleSd": 775.5854763727407
+      },
+      "wholeProcessCpuMs": {
+        "n": 3,
+        "values": [
+          214578.125,
+          215968.75,
+          216390.625
+        ],
+        "mean": 215645.83333333334,
+        "min": 214578.125,
+        "median": 215968.75,
+        "max": 216390.625,
+        "sampleSd": 948.4173357274389
+      },
+      "peakRssBytes": {
+        "n": 3,
+        "values": [
+          9222840320,
+          9220165632,
+          9227558912
+        ],
+        "mean": 9223521621.333334,
+        "min": 9220165632,
+        "median": 9222840320,
+        "max": 9227558912,
+        "sampleSd": 3743431.035788069
+      }
+    },
+    {
+      "name": "12GiB-two-bank-postfree",
+      "sharedGiB": 12,
+      "banks": 2,
+      "bankEntries": 268435456,
+      "ids": [
+        "partial24-shared-12gib-01",
+        "partial24-shared-12gib-02",
+        "partial24-shared-12gib-03"
+      ],
+      "totalTtGiB": 13.125,
+      "runs": [
+        {
+          "id": "partial24-shared-12gib-01",
+          "sourceCommit": "6bc1dd047209664f9924c4cb49597a2154555107",
+          "consumerCommit": "c9241d3ab9ef6c0227823434c77eb2e4af3aecb7",
+          "configuration": {
+            "workers": 6,
+            "workerMode": "minimal",
+            "sharedCacheLayout": "native",
+            "localCacheLayout": "native",
+            "rootFrontier": false,
+            "sharedSampleMask": 0,
+            "sharedProofBounds": true,
+            "supportBasisPlanBudgetBytes": 1073741824,
+            "supportClosurePlan": true,
+            "supportReflectionPlan": true,
+            "supportBasisViews": true,
+            "timeoutMs": 120000,
+            "initializationTimeoutMs": 120000,
+            "memoryProfile": "auto",
+            "cacheIdentity": "partial24",
+            "sharedCacheCapacity": 536870912,
+            "localCacheCapacity": 8388608,
+            "sharedBankCapacity": 268435456
+          },
+          "solveMs": 34804.712700000004,
+          "initializationMs": 5381.5079,
+          "cleanupMs": 27.99800000000687,
+          "wholeProcessCpuMs": 211453.125,
+          "peakRssBytes": 15669559296,
+          "externalWallMs": 41101.3601
+        },
+        {
+          "id": "partial24-shared-12gib-02",
+          "sourceCommit": "6bc1dd047209664f9924c4cb49597a2154555107",
+          "consumerCommit": "b80e502826010c8f3cf27f6bfccaaf0881edf835",
+          "configuration": {
+            "workers": 6,
+            "workerMode": "minimal",
+            "sharedCacheLayout": "native",
+            "localCacheLayout": "native",
+            "rootFrontier": false,
+            "sharedSampleMask": 0,
+            "sharedProofBounds": true,
+            "supportBasisPlanBudgetBytes": 1073741824,
+            "supportClosurePlan": true,
+            "supportReflectionPlan": true,
+            "supportBasisViews": true,
+            "timeoutMs": 120000,
+            "initializationTimeoutMs": 120000,
+            "memoryProfile": "auto",
+            "cacheIdentity": "partial24",
+            "sharedCacheCapacity": 536870912,
+            "localCacheCapacity": 8388608,
+            "sharedBankCapacity": 268435456
+          },
+          "solveMs": 38466.7935,
+          "initializationMs": 5762.2125,
+          "cleanupMs": 70.20620000000054,
+          "wholeProcessCpuMs": 215843.75,
+          "peakRssBytes": 15659450368,
+          "externalWallMs": 45110.2991
+        },
+        {
+          "id": "partial24-shared-12gib-03",
+          "sourceCommit": "6bc1dd047209664f9924c4cb49597a2154555107",
+          "consumerCommit": "233c72e19dbca034f63345103e4ee0f2efa115ce",
+          "configuration": {
+            "workers": 6,
+            "workerMode": "minimal",
+            "sharedCacheLayout": "native",
+            "localCacheLayout": "native",
+            "rootFrontier": false,
+            "sharedSampleMask": 0,
+            "sharedProofBounds": true,
+            "supportBasisPlanBudgetBytes": 1073741824,
+            "supportClosurePlan": true,
+            "supportReflectionPlan": true,
+            "supportBasisViews": true,
+            "timeoutMs": 120000,
+            "initializationTimeoutMs": 120000,
+            "memoryProfile": "auto",
+            "cacheIdentity": "partial24",
+            "sharedCacheCapacity": 536870912,
+            "localCacheCapacity": 8388608,
+            "sharedBankCapacity": 268435456
+          },
+          "solveMs": 37298.1838,
+          "initializationMs": 5583.726,
+          "cleanupMs": 27.550499999997555,
+          "wholeProcessCpuMs": 214875,
+          "peakRssBytes": 15666237440,
+          "externalWallMs": 43691.3085
+        }
+      ],
+      "solveMs": {
+        "n": 3,
+        "values": [
+          34804.712700000004,
+          38466.7935,
+          37298.1838
+        ],
+        "mean": 36856.56333333333,
+        "min": 34804.712700000004,
+        "median": 37298.1838,
+        "max": 38466.7935,
+        "sampleSd": 1870.556180355542
+      },
+      "wholeProcessCpuMs": {
+        "n": 3,
+        "values": [
+          211453.125,
+          215843.75,
+          214875
+        ],
+        "mean": 214057.29166666666,
+        "min": 211453.125,
+        "median": 214875,
+        "max": 215843.75,
+        "sampleSd": 2306.703743756084
+      },
+      "peakRssBytes": {
+        "n": 3,
+        "values": [
+          15669559296,
+          15659450368,
+          15666237440
+        ],
+        "mean": 15665082368,
+        "min": 15659450368,
+        "median": 15666237440,
+        "max": 15669559296,
+        "sampleSd": 5152499.3761459105
+      }
+    }
+  ],
+  "mean12Vs6BankedChangePercent": -3.939174625681374
+}

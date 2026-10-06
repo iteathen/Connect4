@@ -78,9 +78,11 @@ Fresh read-only review found no outstanding issues after correcting the first
 full24 run's source attribution. Review bounds and fixes are recorded in
 `evidence/exact-tt-identity-20261006/FINAL-REVIEW.md` in the producer repository.
 
-The candidate currently requires compact7x6, compiled support plans, native
-private/shared caches and one optimized shared bank. Larger/banked production
-profiles are not qualified for this new key yet. Neither production package,
+The initial batch required compact7x6, compiled support plans, native
+private/shared caches and one optimized shared bank. The subsequent
+[12GiB extension and fresh controls](TWELVE-GIB-RESULT.md) add cold-bound full24
+shared banks and record their bounded qualification. Larger production profiles
+are not qualified by those tests. Neither production package,
 automatic memory policy nor main branch was changed. The frozen production
 runtime remains40b19431f00174c5d52c442677d67ec698e8c50a.
 
