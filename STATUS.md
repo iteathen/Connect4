@@ -8,7 +8,7 @@
 ## Current IsoMax routing — 2026-10-06
 
 The existing `work/isomax-jsminsys-rebuild` implementation now distributes the
-promoted IsoMax0.2.0-rc.2 package at `isomax/`, replacing its old adapter default.
+promoted IsoMax 0.2.0-rc.2 package at `isomax/`, replacing its old adapter default.
 [Solver setup](https://github.com/iteathen/Connect4/blob/work/isomax-jsminsys-rebuild/README.md)
 and [qualification](https://github.com/iteathen/Connect4/blob/work/isomax-jsminsys-rebuild/docs/qualification/20261006-isomax-package-replacement.md)
 are on that solver head, integrated through PR178. The old `solver/isometric`
@@ -73,7 +73,11 @@ C4-0001 through C4-0005 and the qualified incumbent/oracle baseline remain prote
 
 ### Isometric / IsoMax
 
-`solver/isometric` owns the active forward structural/frontier exact solver. It consumes canonical research and uses recursive exact W/D/L only for unresolved structural residue.
+The active IsoMax package and application entry point are on
+`work/isomax-jsminsys-rebuild`. The former `solver/isometric` ref is archived.
+The current package computes exact W/D/L through its qualified structural
+certificates and unresolved native search; it does not consume solved research
+answers as runtime inputs.
 
 ### CUDA-BSFP
 

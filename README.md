@@ -4,11 +4,11 @@ Connect4 is the shared product/domain repository for exact Connect Four semantic
 
 ## Run the current IsoMax solver
 
-**IsoMax0.2.0-rc.2 replaces the old solver on the existing Connect4 implementation
+**IsoMax 0.2.0-rc.2 replaces the old solver on the existing Connect4 implementation
 branch. Open [the solver package](https://github.com/iteathen/Connect4/tree/work/isomax-jsminsys-rebuild/isomax)
 or its [setup guide](https://github.com/iteathen/Connect4/blob/work/isomax-jsminsys-rebuild/README.md).**
 
-With Node26.7 or later:
+With Node 26.7 or later:
 
 ```sh
 git clone --branch work/isomax-jsminsys-rebuild https://github.com/iteathen/Connect4.git Connect4-IsoMax
@@ -17,8 +17,8 @@ node verify.mjs
 node run.mjs
 ```
 
-The default solves the actual empty7×6 board with four deep workers, 4 GiB shared
-TT and256MiB private TT per worker, plus geometry plans. No opening, RLC or prior
+The default solves the actual empty 7×6 board with four deep workers, 4 GiB shared
+TT and 256 MiB private TT per worker, plus geometry plans. No opening, RLC or prior
 solved cache is consumed. No npm install or submodule checkout is required.
 The setup guide covers variable dimensions and measured Windows affinity.
 
@@ -26,7 +26,7 @@ The setup guide covers variable dimensions and measured Windows affinity.
 or read [replacement qualification](https://github.com/iteathen/Connect4/blob/work/isomax-jsminsys-rebuild/docs/qualification/20261006-isomax-package-replacement.md).
 The runtime and archive identities match the frozen producer package. Integration
 and package tests pass; the transfer's localhost empty-board confirmation returned
-WIN/column4 in57.46s. This is a single transfer check, not a new performance ranking.
+WIN, column 4 in 57.46 s. This is a single transfer check, not a new performance ranking.
 
 `main` routes to the solver implementation; `research/semantic-quotient` remains
 the research owner. The retired `solver/isometric` branch is preserved under
