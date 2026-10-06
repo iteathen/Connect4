@@ -1,4 +1,4 @@
-param([Parameter(Mandatory=$true)][string]$Id,[ValidateSet('native32','partial24','partial16','partialMixed')][string]$Identity='native32',[long]$SharedEntries=134217728,[long]$LocalEntries=8388608,[switch]$JitDiagnostic)
+param([Parameter(Mandatory=$true)][string]$Id,[ValidateSet('native32','partial24','partialMixed')][string]$Identity='native32',[long]$SharedEntries=134217728,[long]$LocalEntries=8388608,[switch]$JitDiagnostic)
 $ErrorActionPreference='Stop'
 $taskRepo=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../../..'))
 Set-Location -LiteralPath $taskRepo
@@ -11,7 +11,7 @@ if((Get-FileHash -LiteralPath $taskConfig.executable -Algorithm SHA256).Hash.ToL
 New-Item -ItemType Directory -Path $taskDir | Out-Null
 $taskMemory=Get-CimInstance Win32_OperatingSystem
 $taskMemory | Select-Object TotalVisibleMemorySize,FreePhysicalMemory,TotalVirtualMemorySize,FreeVirtualMemory | ConvertTo-Json | Set-Content (Join-Path $taskDir 'preflight-memory.json')
-$taskEntryBytes=if($Identity -eq 'partial16'){16}elseif($Identity -eq 'partial24'){24}elseif($Identity -eq 'partialMixed'){28}else{32}
+$taskEntryBytes=if($Identity -eq 'partial24'){24}elseif($Identity -eq 'partialMixed'){28}else{32}
 $taskRequired=[long]$SharedEntries*$taskEntryBytes+6*[long]$LocalEntries*$taskEntryBytes+2147483648
 if([long]$taskMemory.FreePhysicalMemory*1024 -lt $taskRequired -or [long]$taskMemory.FreeVirtualMemory*1024 -lt $taskRequired){
  [pscustomobject]@{status='RESOURCE_CENSORED';requiredBytes=$taskRequired;sharedEntries=$SharedEntries;localEntries=$LocalEntries;entryBytes=$taskEntryBytes;solveStarted=$false} | ConvertTo-Json | Set-Content (Join-Path $taskDir 'resource-status.json')
