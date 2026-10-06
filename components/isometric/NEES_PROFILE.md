@@ -1,5 +1,31 @@
 # IsoMax NEES / JSMinSys boundary
 
+## Current package boundary — 2026-10-06
+
+Connect4 consumes the frozen IsoMax0.2.0-rc.2 package under `isomax/`, from
+JSMinSys source `d2e4ccadcef6d67bc97a53679476e1ef6a5a9916`. The producer owns
+the worker/session/cache/geometry support libraries and their535-unit ledger.
+Connect4 owns the thin application API and independent qualification.
+
+`components/isometric/solve.mjs` delegates to the package's public
+`runLazySmpConnect4Rba32`; it does not recreate a worker, cache or result translator.
+The prepared API is available through `isomax/index.mjs`.
+
+Default execution uses four deep center/live workers, 4 GiB shared TT and256MiB
+private TT per worker. Native32 layouts, compiled support transitions, reflection
+and exact/bound sharing retain the producer semantics. Worker creation, all
+solver-owned allocation and configuration precede the all-ready barrier.
+
+No hot diagnostic counters or clocks are added. Metrics are null when unavailable;
+cache-protocol/cancellation atomics remain required work. Primary timing includes
+empty-root construction after readiness; recorded process cycles include init and
+cleanup. Small correctness fixture capacities are not performance settings.
+
+## Historical replaced dependency/profile
+
+The following describes the previous gitlink and profile, retained as historical
+qualification rather than an active execution default.
+
 IsoMax no longer owns an independent hot execution kernel or result translator.
 
 Cost and hot-path authority for the active Connect4 Lazy-SMP runtime lives in

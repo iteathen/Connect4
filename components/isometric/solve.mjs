@@ -1,11 +1,11 @@
 import {
   prepareConnect4RbaGeometry,
   runLazySmpConnect4Rba32,
-} from '../../vendor/jsminsys/addons/index.mjs';
-import profile from '../../vendor/jsminsys/profiles/isomax-i5-12600k.json' with {type:'json'};
+  profile,
+} from '../../isomax/index.mjs';
 
 const geometry=prepareConnect4RbaGeometry({columns:7,rows:6});
-const MAX_TIMEOUT_MS=120000;
+const MAX_TIMEOUT_MS=profile.options.timeoutMs;
 
 export async function solve7x6(moves,options={}){
   // Cold application defaults come from the qualified library profile. Keep
@@ -23,6 +23,5 @@ export async function solve7x6(moves,options={}){
     workers,
     geometry,
     timeoutMs,
-    rootFrontier:true,
   });
 }

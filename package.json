@@ -6,6 +6,9 @@
     "node": ">=26.7.0"
   },
   "scripts": {
-    "test": "node --test test/*.test.mjs"
+    "start": "node isomax/run.mjs",
+    "verify": "node isomax/verify.mjs",
+    "test": "node --test test/*.test.mjs",
+    "test:package": "node --test --test-concurrency=1 isomax/test/*.test.mjs"
   }
 }

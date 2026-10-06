@@ -1,5 +1,24 @@
 # IsoMax JSMinSys adapter
 
+## Current packaged dependency
+
+The adapter now imports `../../isomax/index.mjs` from its component location.
+Connect4 distributes the unchanged0.2.0-rc.2 package under root `isomax/`;
+producer source is `d2e4ccadcef6d67bc97a53679476e1ef6a5a9916`.
+Its public profile owns four deep workers, 4 GiB shared and256MiB private TT per
+worker, 600s search ceiling, native layouts and compiled-transition admission.
+Run `node isomax/verify.mjs` from the repository root to verify that dependency.
+
+The producer owns support libraries and hot execution. Connect4 retains the
+thin fixed7×6 application entry and independent qualification. Other dimensions
+are available through the package's public initializer and standalone launcher.
+No submodule is needed for current execution.
+
+## Historical replaced gitlink
+
+The remaining text records the old dependency and profile. It does not describe
+current execution; reproduce it only at the original source revision.
+
 IsoMax is a thin Connect4 application adapter over JSMinSys.
 
 Pinned library:
