@@ -1,0 +1,92 @@
+{
+  "id": "screen-w4-g1-r1",
+  "phase": "screen",
+  "workers": 4,
+  "sharedGiB": 1,
+  "sharedEntries": 33554432,
+  "privateBytesPerWorker": 268435456,
+  "aggregatePrivateBytes": 1073741824,
+  "status": "EXACT",
+  "validated": true,
+  "solveMs": 65522.547900000005,
+  "initializationMs": 3546.5806,
+  "cleanupMs": 15.45910000000731,
+  "rootWdl": 1,
+  "moveZeroBased": 3,
+  "winner": 3,
+  "affinity": [
+    {
+      "worker": 0,
+      "target": {
+        "platform": "win32",
+        "group": 0,
+        "processor": 0,
+        "core": 0
+      },
+      "verified": true,
+      "hintsApplied": false,
+      "affinityTagApplied": false,
+      "affinityTagStatus": null,
+      "group": 0,
+      "cpu": 0
+    },
+    {
+      "worker": 1,
+      "target": {
+        "platform": "win32",
+        "group": 0,
+        "processor": 2,
+        "core": 1
+      },
+      "verified": true,
+      "hintsApplied": false,
+      "affinityTagApplied": false,
+      "affinityTagStatus": null,
+      "group": 0,
+      "cpu": 2
+    },
+    {
+      "worker": 2,
+      "target": {
+        "platform": "win32",
+        "group": 0,
+        "processor": 4,
+        "core": 2
+      },
+      "verified": true,
+      "hintsApplied": false,
+      "affinityTagApplied": false,
+      "affinityTagStatus": null,
+      "group": 0,
+      "cpu": 4
+    },
+    {
+      "worker": 3,
+      "target": {
+        "platform": "win32",
+        "group": 0,
+        "processor": 6,
+        "core": 3
+      },
+      "verified": true,
+      "hintsApplied": false,
+      "affinityTagApplied": false,
+      "affinityTagStatus": null,
+      "group": 0,
+      "cpu": 6
+    }
+  ],
+  "peakRssBytes": 3613118464,
+  "processCpuMs": 246671.875,
+  "processCycles": null,
+  "externalWallMs": 69271.7696,
+  "exitStatus": 0,
+  "timedOut": false,
+  "runtime": {
+    "node": "v27.0.0-nightly20260928b59840b593",
+    "v8": "14.6.202.34-node.36",
+    "cpu": "12th Gen Intel(R) Core(TM) i5-12600K"
+  },
+  "repositoryCommit": "1fdf61dfa815793937689bb6d7db0230130a2886",
+  "producerCommit": "e6580e951c8318395446dd5916482efddc3d33fd"
+}
