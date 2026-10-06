@@ -1,4 +1,4 @@
-name: IsoMax JSMinSys Verify
+name: IsoMax Package Verify
 
 on:
   push:
@@ -7,6 +7,7 @@ on:
   pull_request:
     paths:
       - 'components/isometric/**'
+      - 'isomax/**'
       - 'test/**'
       - 'tools/**'
       - 'vendor/jsminsys'
@@ -19,15 +20,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
-        with:
-          submodules: recursive
       - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444
         with:
           node-version: '26.7.0'
-          cache: npm
-      - run: npm ci
+      - run: node isomax/verify.mjs
       - run: npm test
-      - run: node --test test/*.test.mjs
-        working-directory: vendor/jsminsys
-      - run: node tools/verify-catalog.mjs && node tools/build-behavior-search.mjs --check && node tools/build-root-frontier.mjs --check && node tools/audit-root-frontier.mjs && node tools/audit-runtime-geometry.mjs
-        working-directory: vendor/jsminsys
+      - run: npm run test:package

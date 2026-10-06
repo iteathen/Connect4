@@ -1,0 +1,42 @@
+{
+  "name": "@iteathen/isomax",
+  "version": "0.2.0-rc.2",
+  "private": true,
+  "description": "Exact prepared-empty IsoMax; four minimal workers and frozen localhost settings",
+  "type": "module",
+  "license": "AGPL-3.0-only",
+  "engines": {
+    "node": ">=26"
+  },
+  "exports": {
+    ".": "./index.mjs",
+    "./profile": "./profile.json"
+  },
+  "files": [
+    "index.mjs",
+    "cli.mjs",
+    "run.mjs",
+    "run-i5.ps1",
+    "example.mjs",
+    "verify.mjs",
+    "test",
+    "runtime",
+    "profile.json",
+    "targets.json",
+    "provenance.json",
+    "README.md",
+    "LICENSE",
+    "evidence"
+  ],
+  "scripts": {
+    "start": "node run.mjs",
+    "test": "node --test --test-concurrency=1 test/*.test.mjs",
+    "verify": "node verify.mjs",
+    "example": "node run.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iteathen/JSMinSys.git",
+    "directory": "isomax"
+  }
+}

@@ -1,10 +1,11 @@
 import {parseArgs} from 'node:util';
 import {solve7x6} from '../components/isometric/solve.mjs';
+import profile from '../isomax/profile.json' with {type:'json'};
 // COLD CLI/reporting; external columns are explicitly zero-based.
 const {values}=parseArgs({options:{
   moves:{type:'string',default:''},
   workers:{type:'string'},
-  timeout:{type:'string',default:'120000'},
+  timeout:{type:'string',default:String(profile.options.timeoutMs)},
   'shared-sample-mask':{type:'string'},
 }});
 const moves=values.moves===''?[]:values.moves.split(',').map(Number);

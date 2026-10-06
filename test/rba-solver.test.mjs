@@ -2,24 +2,25 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {execFileSync} from 'node:child_process';
 import {exact} from './helpers/physical-oracle.mjs';
-import profile from '../vendor/jsminsys/profiles/isomax-i5-12600k.json' with {type:'json'};
+import profile from '../isomax/profile.json' with {type:'json'};
 
 const apiURL=new URL('../components/isometric/solve.mjs',import.meta.url);
+// Correctness fixtures use bounded tables; never performance authority.
+const qualificationOptions={sharedCacheCapacity:256,localCacheCapacity:256,supportBasisPlanBudgetBytes:0};
 
-test('default IsoMax uses the promoted six-deep one-wide profile',async()=>{
+test('default IsoMax uses the promoted four-deep native-cache profile',async()=>{
   const {solve7x6}=await import(apiURL.href);
-  assert.equal(profile.options.workers,7);
-  assert.equal(profile.options.sharedCacheCapacity,4194304);
-  assert.equal(profile.options.localCacheCapacity,1048576);
+  assert.equal(profile.options.workers,4);
+  assert.equal(profile.options.sharedCacheCapacity,134217728);
+  assert.equal(profile.options.localCacheCapacity,8388608);
   assert.equal(profile.options.sharedSampleMask,0);
-  assert.equal(profile.options.rootFrontier,true);
+  assert.equal(profile.options.rootFrontier,false);
   const moves=[4,0,0,0,3,3,0,0,6,2,3,0,2,3,6,3,6,3,4,6,2,2,6,1,2,5,6,4];
-  const result=await solve7x6(moves,{timeoutMs:5000});
+  const result=await solve7x6(moves,{...qualificationOptions,timeoutMs:5000});
   assert.equal(result.status,'EXACT');assert.equal(result.rootWdl,exact(moves).value-2);
-  assert.equal(result.workersUsed,7);assert.equal(result.workersExited,7);
+  assert.equal(result.workersUsed,4);assert.equal(result.workersExited,4);
   assert.equal(result.sharedSampleMask,0);
-  assert.equal(result.nodeCounts.length,7);assert.equal(result.frontierMetrics.length,7);
-  assert.ok(result.frontierMetrics.slice(1).every(m=>m[1]===0));
+  assert.equal(result.nodeCounts,null);assert.equal(result.frontierMetrics,null);
   assert.equal(result.cleanup,true);
 });
 
@@ -35,7 +36,7 @@ test('JSMinSys IsoMax solver API exists',async()=>{
 });
 
 test('stdin/eval module host flags do not poison Lazy SMP search workers',()=>{
-  const code=`import {solve7x6} from ${JSON.stringify(apiURL.href)};console.log(JSON.stringify(await solve7x6([0,1,0,1,0,1,0],{timeoutMs:3000})));`;
+  const code=`import {solve7x6} from ${JSON.stringify(apiURL.href)};console.log(JSON.stringify(await solve7x6([0,1,0,1,0,1,0],{...${JSON.stringify(qualificationOptions)},timeoutMs:3000})));`;
   const result=JSON.parse(execFileSync(process.execPath,['--input-type=module','-e',code],{encoding:'utf8',timeout:5000}));
   assert.equal(result.status,'EXACT',JSON.stringify(result));
   assert.equal(result.rootWdl,1);
@@ -52,7 +53,7 @@ test('JSMinSys Lazy SMP IsoMax agrees with independent late-position oracle',asy
   for(const moves of fixtures){
     const control=exact(moves);
     for(const workers of [2,4]){
-      const result=await solve7x6(moves,{workers,timeoutMs:5000});
+      const result=await solve7x6(moves,{...qualificationOptions,workers,timeoutMs:5000});
       assert.equal(result.status,'EXACT',JSON.stringify({moves,workers,result}));
       assert.equal(result.rootWdl,control.value-2);
       assertOptimalCallerMove(moves,result,control);
@@ -62,7 +63,7 @@ test('JSMinSys Lazy SMP IsoMax agrees with independent late-position oracle',asy
       assert.ok(result.winner>=0&&result.winner<workers,JSON.stringify(result));
       assert.equal(result.completedWorkers.length,workers);
       assert.ok(result.completedWorkers.some(Boolean),JSON.stringify(result));
-      assert.ok(result.winnerMetrics&&result.winnerMetrics.nodes>=0,JSON.stringify(result));
+      assert.equal(result.winnerMetrics,null);assert.equal(result.nodeCounts,null);
     }
   }
 });
@@ -72,7 +73,7 @@ test('JSMinSys IsoMax preserves caller-frame witness under reflection',async()=>
   const moves=[4,0,0,0,3,3,0,0,6,2,3,0,2,3,6,3,6,3,4,6,2,2,6,1,2,5,6,4];
   for(const replay of [moves,moves.map(c=>6-c)]){
     const control=exact(replay);
-    const result=await solve7x6(replay,{workers:2,timeoutMs:5000});
+    const result=await solve7x6(replay,{...qualificationOptions,workers:2,timeoutMs:5000});
     assert.equal(result.status,'EXACT',JSON.stringify({replay,result}));
     assert.equal(result.rootWdl,control.value-2);
     assertOptimalCallerMove(replay,result,control);
@@ -81,7 +82,7 @@ test('JSMinSys IsoMax preserves caller-frame witness under reflection',async()=>
 
 test('terminal roots return exact WDL with no move',async()=>{
   const {solve7x6}=await import(apiURL.href);
-  const result=await solve7x6([0,1,0,1,0,1,0],{timeoutMs:3000});
+  const result=await solve7x6([0,1,0,1,0,1,0],{...qualificationOptions,timeoutMs:3000});
   assert.equal(result.status,'EXACT',JSON.stringify(result));
   assert.equal(result.rootWdl,1);
   assert.equal(result.move,-1);
@@ -93,14 +94,14 @@ test('Lazy SMP remains exact across supported qualification worker counts',async
   const moves=[4,0,0,0,3,3,0,0,6,2,3,0,2,3,6,3,6,3,4,6,2,2,6,1,2,5,6,4];
   const control=exact(moves);
   for(const workers of [2,4]){
-    const result=await solve7x6(moves,{workers,timeoutMs:5000});
+    const result=await solve7x6(moves,{...qualificationOptions,workers,timeoutMs:5000});
     assert.equal(result.status,'EXACT',JSON.stringify({workers,result}));
     assert.equal(result.rootWdl,control.value-2);
     assertOptimalCallerMove(moves,result,control);
     assert.equal(result.workersExited,workers);
     assert.equal(result.workersUsed,workers);
     assert.ok(result.winner>=0&&result.winner<workers,JSON.stringify(result));
-    assert.ok(result.winnerMetrics&&result.winnerMetrics.nodes>=0,JSON.stringify(result));
+    assert.equal(result.winnerMetrics,null);assert.equal(result.nodeCounts,null);
   }
 });
 
@@ -112,13 +113,9 @@ test('single-worker IsoMax execution remains forbidden',async()=>{
   );
 });
 
-test('cancellation terminates Lazy SMP workers without WDL',async()=>{
+test('pre-aborted preparation rejects before worker allocation',async()=>{
   const {solve7x6}=await import(apiURL.href);
   const controller=new AbortController();
   controller.abort();
-  const result=await solve7x6([],{workers:2,timeoutMs:5000,signal:controller.signal});
-  assert.equal(result.status,'INTERRUPTED',JSON.stringify(result));
-  assert.equal(result.rootWdl,null);
-  assert.equal(result.move,-1);
-  assert.equal(result.cleanup,true);
+  await assert.rejects(()=>solve7x6([],{...qualificationOptions,workers:2,timeoutMs:5000,signal:controller.signal}),/preparation aborted/);
 });

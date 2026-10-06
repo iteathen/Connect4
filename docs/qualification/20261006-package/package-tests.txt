@@ -1,0 +1,61 @@
+
+> test:package
+> node --test --test-concurrency=1 isomax/test/*.test.mjs
+
+{"kind":"fast100-dimension-rule-transition-check","geometries":100,"states":2721,"children":22230,"plans":59,"viewChildren":24756,"viewReflections":14490,"seed":70368301,"solvedOutcomesQueried":false}
+✔ incremental support handles reproduce physical transitions and reflection across all100 dimensions (5342.6031ms)
+✔ root support view rejects reordered or truncated nonterminal ingress and accepts terminal unused basis (1.5357ms)
+✔ known-handle loader never scans child heights or copies shared basis (0.5785ms)
+✔ prepared: cofactors match every legal child along deterministic walks and reflected gauges (216.588ms)
+✔ prepared: excludes absent supersets even when inverse scratch points to a matching stale tail (8.5328ms)
+✔ prepared: preserves both players first wins and full-board draw/win precedence (5.3783ms)
+✔ dense: cofactors match every legal child along deterministic walks and reflected gauges (99.7078ms)
+✔ dense: excludes absent supersets even when inverse scratch points to a matching stale tail (4.5246ms)
+✔ dense: preserves both players first wins and full-board draw/win precedence (6.7603ms)
+✔ packaged preparation selects compiled planes before releasing four workers (69.4464ms)
+{"images":2142231,"dead":54516,"stable":1794440,"bit31":29534}
+✔ native transition slots and stability match independent enumerated child rows (170.2273ms)
+✔ native slot sentinel widths adapt to declared basis bounds before allocation (2.4002ms)
+✔ compiled plan reuse preserves buffers and accounts only reachable transition planes (1.7637ms)
+✔ optional and generated prepared/dense cofactors match independent physical residuals (226.5541ms)
+✔ dense kernel uses the cold removal table directly and preserves last-cell terminal precedence (4.0392ms)
+✔ prepared module canonicalization exports retain selectedSet and offset behavior (13.365ms)
+✔ prepared-only canonicalization matches the optional API without selected-set work (11.2544ms)
+✔ packaged rank-local history rejects non-indexed views (1.6602ms)
+✔ packaged capacity guards reject unsupported views before allocating (0.9225ms)
+✔ package verification accepts the intact distributable (850.9167ms)
+✔ package verification rejects missing index.mjs (276.0522ms)
+✔ package verification rejects missing profile.json (298.4583ms)
+✔ package verification rejects missing example.mjs (254.6059ms)
+✔ package verification rejects missing test/smoke.test.mjs (781.3244ms)
+✔ package verification rejects changed public entry (273.6953ms)
+✔ package verification rejects changed public configuration (258.6905ms)
+✔ package verification rejects changed verifier identity (890.8128ms)
+✔ package verification rejects changed package export (288.3258ms)
+✔ prepared package starts search only after every worker is ready (67.2337ms)
+✔ prepared package closes idle workers without starting search (58.5477ms)
+✔ prepared 7x6 transports a reflected nonempty root (6332.6771ms)
+✔ prepared 7x5 transports a reflected nonempty root (1767.7055ms)
+✔ abort after preparation returns interrupted result and cleans every worker (58.3279ms)
+✔ aborting READY owns cleanup without a subsequent solve or close (47.4622ms)
+✔ abort at terminal cleanup preserves the exact result and removes ownership (62.2042ms)
+✔ closing an active prepared solve interrupts and cleans workers (3100.3172ms)
+✔ invalid supplied root closes the prepared application (62.071ms)
+✔ pre-aborted initialization rejects without leaving an application (0.3924ms)
+✔ pre-aborted historical profile never allocates shared geometry or TT pages (55.2429ms)
+✔ a supported long solve deadline does not overflow the Node timer (68.6657ms)
+Verified 144 locked files and self-contained runtime/public launchers.
+✔ optional calculator preserves all seven controls (8.7809ms)
+✔ four-worker 7x6 preserves exact outcome and cleanup (3112.3919ms)
+✔ four-worker 7x5 preserves exact outcome and cleanup (975.6906ms)
+✔ four-worker 1x4 preserves exact outcome and cleanup (64.0184ms)
+✔ four-worker 4x1 preserves exact outcome and cleanup (62.3215ms)
+✔ portable launcher starts without installation and reports empty-board execution (204.3338ms)
+ℹ tests 46
+ℹ suites 0
+ℹ pass 46
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 27252.7647

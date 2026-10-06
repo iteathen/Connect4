@@ -1,5 +1,28 @@
 # Current IsoMax state
 
+## Promoted replacement — 2026-10-06
+
+The active solver is the self-contained **0.2.0-rc.2** package under `isomax/`.
+The existing `components/isometric/solve.mjs` application API delegates to it.
+Runtime source is JSMinSys `d2e4ccadcef6d67bc97a53679476e1ef6a5a9916`; all144
+locked files verify unchanged, and the transferred archive SHA-256 is
+`26b1c5232ced8fa7c1e12f0bb3ccf0e6fd9c55788a7dab6caeab18e034d162e1`.
+
+Defaults: four deep center/live workers, 4 GiB shared TT, 256 MiB private TT per
+worker, native32 entries, shared proof bounds, sampling mask0, rootFrontierfalse,
+1 GiB base plans and512 MiB auxiliary compiled-transition budget. All-ready
+precedes root construction and search. The candidate mean is53.828s; extracted
+package confirmation is55.326s. The10s target is unmet. These are scoped
+localhost7×6 root-solve measurements, not a complete self-play game.
+
+The package and thin application API have separate qualification. Current
+configuration and setup are in README.md. Research and BSFP are unchanged.
+
+## Historical replaced source and profile
+
+The remaining record is retained provenance for the previous adapter. It does
+not select the new solver's worker topology, memory or execution defaults.
+
 Lazy SMP is the only active parallel execution model. Public solve7x6 delegates
 to JSMinSys runLazySmpConnect4Rba32. Each of at least two workers owns a private
 RBA/CPC exact search and local cache, sharing only committed exact W/D/L.

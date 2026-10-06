@@ -2,26 +2,26 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {existsSync,readFileSync} from 'node:fs';
 import {solve7x6} from '../components/isometric/solve.mjs';
+const qualificationOptions={sharedCacheCapacity:256,localCacheCapacity:256,supportBasisPlanBudgetBytes:0};
 
 test('unresolved IsoMax positions execute through Lazy SMP only',async()=>{
   const moves=[4,0,0,0,3,3,0,0,6,2,3,0,2,3,6,3,6,3,4,6,2,2,6,1,2,5,6,4];
-  const r=await solve7x6(moves,{workers:2,timeoutMs:5000});
+  const r=await solve7x6(moves,{...qualificationOptions,workers:2,timeoutMs:5000});
   assert.equal(r.status,'EXACT',JSON.stringify(r));
   assert.equal(r.rootWdl,1);
   assert.equal(r.cleanup,true);
   assert.equal(r.workersUsed,2);
   assert.equal(r.workersExited,2);
   assert.ok(r.winner>=0&&r.winner<2,JSON.stringify(r));
-  assert.ok(r.winnerMetrics&&r.winnerMetrics.nodes>=0,JSON.stringify(r));
-  assert.ok(r.sharedCacheHits>=0);
-  assert.ok(r.sharedCacheStores>=0);
+  assert.equal(r.winnerMetrics,null);assert.equal(r.nodeCounts,null);
+  assert.equal(r.sharedCacheHits,null);assert.equal(r.sharedCacheStores,null);
   assert.equal('metrics' in r,false);
   assert.equal('workerClaims' in r,false);
   assert.equal('workerEvaluations' in r,false);
 });
 
 test('deadline interruption never invents WDL',async()=>{
-  const r=await solve7x6([],{workers:2,timeoutMs:1});
+  const r=await solve7x6([],{...qualificationOptions,workers:2,timeoutMs:1});
   assert.equal(r.status,'TIMEOUT',JSON.stringify(r));
   assert.equal(r.rootWdl,null);
   assert.equal(r.move,-1);
@@ -30,8 +30,8 @@ test('deadline interruption never invents WDL',async()=>{
 
 test('public IsoMax entrypoint delegates exclusively to JSMinSys Lazy SMP',()=>{
   const source=readFileSync(new URL('../components/isometric/solve.mjs',import.meta.url),'utf8');
-  const host=readFileSync(new URL('../vendor/jsminsys/addons/rba-connect4-lazy-smp-host.mjs',import.meta.url),'utf8');
-  const worker=readFileSync(new URL('../vendor/jsminsys/addons/rba-connect4-lazy-smp-worker.mjs',import.meta.url),'utf8');
+  const host=readFileSync(new URL('../isomax/runtime/addons/rba-connect4-prepared-session-host.mjs',import.meta.url),'utf8');
+  const worker=readFileSync(new URL('../isomax/runtime/addons/rba-connect4-lazy-smp-worker-minimal-views-compiled-center-proofs-local32.mjs',import.meta.url),'utf8');
 
   assert.equal(source.includes('./rba/'),false);
   assert.equal(source.includes('./execution/'),false);
@@ -47,7 +47,7 @@ test('public IsoMax entrypoint delegates exclusively to JSMinSys Lazy SMP',()=>{
   assert.equal(host.includes('session.state()'),true);
   assert.equal(host.includes('prepareRbaBranchManager32'),false);
   assert.equal(host.includes('rbaTtPublishSurplus32'),false);
-  assert.equal(worker.includes('solveConnect4RbaAlphaBeta('),true);
+  assert.equal(worker.includes('function negamax('),true);
 
   assert.equal(existsSync(new URL('../vendor/jsminsys/addons/rba-tt32.mjs',import.meta.url)),false);
   assert.equal(existsSync(new URL('../vendor/jsminsys/addons/rba-branch-manager.mjs',import.meta.url)),false);
