@@ -10,6 +10,8 @@ Stage 1: one trial of all 15 cells, in a frozen interleaved order to avoid measu
 
 Stage 2: for each worker count, repeat its fastest EXACT screening capacity twice, ties choosing smaller capacity. If six-worker 4GiB is not that winner, repeat it twice as a contemporary default control. Comparisons without repeated alternatives remain exploratory; screening winners may regress toward the mean. If a repeat contradicts the winner ranking materially, report ambiguity and gather relevant extra paired trials before selecting a rule.
 
+Confirmation refinement after the complete screening, frozen before repeats: also repeat alternatives within 5% of the fastest screening sample twice. This selects four-worker 2GiB (59.127s versus 58.188s), alongside every worker count's 4GiB winner. Five percent is a repetition-selection rule, not a retention threshold or evidence of statistical equivalence.
+
 Always inspect native32 entry bytes, exact WDL/move, worker counts, actual bindings and clean exit after each trial. Expected-answer comparison is only after the timed process has returned. If source identity, affinity, layout or cleanup fails, stop the campaign; do not change code to rescue it. Before each run record available physical memory and refuse allocation when estimated TT+2GiB support/runtime margin exceeds free RAM. This is a run admission guard, not a proposed product sizing rule.
 
 Each completed trial is committed promptly; refs are pushed at phase boundaries and every three screening trials. Raw outputs, invocation, machine snapshots, measurement and validated summary live under the case directory. `matrix.ps1` is a resumable external measurement driver, not solver/runtime code. `-ValidateOnly` checks the frozen plan without running a solve.

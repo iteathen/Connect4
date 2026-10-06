@@ -13,6 +13,9 @@ $cases=if($Phase -eq 'screen'){@($plan.cases)}else{
   } | Where-Object {$_.status -eq 'EXACT'} | Sort-Object solveMs,sharedGiB)
   if($samples.Count -eq 0){throw "No exact screening sample for $workers workers"}
   foreach($repeat in 2..3){$chosen += [pscustomobject]@{id="confirm-w$workers-g$($samples[0].sharedGiB)-r$repeat";workers=$workers;sharedGiB=$samples[0].sharedGiB;repetition=$repeat}}
+  foreach($alternative in @($samples | Select-Object -Skip 1 | Where-Object {$_.solveMs -le $samples[0].solveMs*1.05})){
+   foreach($repeat in 2..3){$chosen += [pscustomobject]@{id="near-w$workers-g$($alternative.sharedGiB)-r$repeat";workers=$workers;sharedGiB=$alternative.sharedGiB;repetition=$repeat}}
+  }
  }
  if(@($chosen | Where-Object {$_.workers -eq 6 -and $_.sharedGiB -eq 4}).Count -eq 0){
   foreach($repeat in 2..3){$chosen += [pscustomobject]@{id="control-w6-g4-r$repeat";workers=6;sharedGiB=4;repetition=$repeat}}
