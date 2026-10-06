@@ -1,8 +1,8 @@
 {
-  "version": "0.2.0-rc.2",
+  "version": "0.2.0-rc.3",
   "status": "repository distribution; registry publication disabled",
   "sourceRepository": "https://github.com/iteathen/JSMinSys",
-  "sourceCommit": "d2e4ccadcef6d67bc97a53679476e1ef6a5a9916",
+  "sourceCommit": "e6580e951c8318395446dd5916482efddc3d33fd",
   "measuredRuntimeCommits": [
     "427f691b00248ac15b795e187508bf5144f69706",
     "2e64e4b45cc8145f8c34b43829ae484ad2267bc1",
@@ -42,11 +42,11 @@
     },
     "README.md": {
       "source": "package-authored",
-      "sha256": "77447fa370d1f5802abb6f65e25e1b1155b07c32ad962a7ec10f61aeb1c32a8c"
+      "sha256": "06eeb7bf95f42b570635125214181e93b9c5b86314befeb3de79510f59f2e274"
     },
     "cli.mjs": {
       "source": "package-authored",
-      "sha256": "c5abe8ad09e13278764d81a8ec687ed48f79cdf2455fc65dac73d5736a2a0bc3"
+      "sha256": "a8a1bf4913192e356e96a7fa5efedfdac46f1dff7d0dd9ca350af87d375b6743"
     },
     "evidence/C61-MEMORY-GRID.json": {
       "source": "evidence/c4-inspired-optimization-20261005/C61-MEMORY-GRID.json",
@@ -67,6 +67,10 @@
     "evidence/README.md": {
       "source": "package-authored",
       "sha256": "caecced35e409c706193a3b3d7d0517e48b1b8f02085de85c2b842607d80ec76"
+    },
+    "evidence/SYSTEM-DISCOVERY.md": {
+      "source": "package-authored",
+      "sha256": "8cd942be1ad83f3f9ff8701539f6185fa688e80cd387eb23cf3c91f4927bc9fa"
     },
     "evidence/final-correctness-ci.json": {
       "source": "evidence/isomax-overhead-fusion-20261005/final-correctness-ci.json",
@@ -256,33 +260,33 @@
       "source": "evidence/minimal-worker-localhost-20261004/fusion-final-confirm-01/stdout.json",
       "sha256": "f3b3966816e50b3a17504ce9b9151d72c831b2d06938b0355a36def4cb202629"
     },
+    "evidence/system-discovery-20261006.json": {
+      "source": "package-authored",
+      "sha256": "d6339590348ef5b7e7b5408448e1de768ac106a90f1106667783327fe0223167"
+    },
     "example.mjs": {
       "source": "package-authored",
       "sha256": "ca52160caec7e5dbb69e5597d12e3064b0b9d112955d3dfc9f2c8eb01516821a"
     },
     "index.mjs": {
       "source": "package-authored",
-      "sha256": "c93ce8281b1d98748f6f97a4e3b01555d0de512b56bf5e7fe115eefb3d548e07"
+      "sha256": "c50a75d5b884605cbbf8ae00b446848c09aede7c5e62913fc0785e2289022f24"
     },
     "package.json": {
       "source": "package-authored",
-      "sha256": "b75971e211bdc0defe49d765d6ce2059119966bf87a43fb45d3392c34c024e0c"
+      "sha256": "d9287fc2d4446699d8aaea7af567a74e1dc2ce8dec83c6fc48112acf7e66dec0"
     },
     "profile.json": {
       "source": "package-authored",
-      "sha256": "c4d8e3f52984b2a616594ae6830d7168ffd8528bffcd4196b49156cdbced2486"
-    },
-    "run-i5.ps1": {
-      "source": "package-authored",
-      "sha256": "610dd784f8828d8011fc778e4b3f0b942c87f0692b1ab5936990d37ba8c16f2d"
+      "sha256": "03b6705439165c281736ba6ae874812a85d3a6c3f7d2e402cef2c5392b861d10"
     },
     "run.mjs": {
       "source": "package-authored",
-      "sha256": "c94ea7f39d40e94e5f55016090cbfcda25f1c26e4de3075849b0517b5199dedd"
+      "sha256": "967dc85405bb0366aa93bb9e6f64fe8af7e38c4545fb765c7c5de8ce0105ef3f"
     },
     "runtime/addons/branch-manager-host.mjs": {
       "source": "addons/branch-manager-host.mjs",
-      "sha256": "d663f828a91d69133820e30c13de7ac1e5988fb7816570c045ffaf20f56cfb13"
+      "sha256": "1635196c2b3660392fa9286de836fa6fba00bca82cba2aa1735fa65d543f8378"
     },
     "runtime/addons/connect4-cpc-matching-response.mjs": {
       "source": "addons/connect4-cpc-matching-response.mjs",
@@ -498,7 +502,7 @@
     },
     "runtime/addons/rba-connect4-prepared-session-host.mjs": {
       "source": "addons/rba-connect4-prepared-session-host.mjs",
-      "sha256": "541251182be12ace67659054afddb2e3ab8d5710b70acd51f6a067cc738be30f"
+      "sha256": "c213c7e87f63faf782868fd239a032732127134d8abc878cdce5f7a53678d0ae"
     },
     "runtime/addons/rba-connect4-profile.mjs": {
       "source": "addons/rba-connect4-profile.mjs",
@@ -538,7 +542,19 @@
     },
     "runtime/addons/worker-affinity.mjs": {
       "source": "addons/worker-affinity.mjs",
-      "sha256": "c22c347f5d8414632ae7fa247f31208b319e24c4b241c83d0b7b06ca9cd6fff3"
+      "sha256": "a7f84871bfeb6e7a6a681c0c4caab7f05960f46399d82fd30f4218d8fca2f600"
+    },
+    "runtime/addons/worker-pinning.mjs": {
+      "source": "addons/worker-pinning.mjs",
+      "sha256": "1f94834e9128b05c72b62e2fd1d66edd03c232065dfa284cdd76097700bf7cca"
+    },
+    "runtime/addons/worker-startup-affinity.mjs": {
+      "source": "addons/worker-startup-affinity.mjs",
+      "sha256": "e96fcd4732c86551b2e0bbe0fccea864ab519900ecd8130b31e2e87e943ccb38"
+    },
+    "runtime/addons/worker-topology.mjs": {
+      "source": "addons/worker-topology.mjs",
+      "sha256": "7ac82aed754da3a9878bf5a9afd78eb7ce07a4bcb78786e63a1d5be8d6de4955"
     },
     "runtime/src/basis32.mjs": {
       "source": "src/basis32.mjs",
@@ -568,10 +584,6 @@
       "source": "tools/worker-affinity-preload.mjs",
       "sha256": "02105fdf5204ef91434fe9ef2358ebc8ef953b87188b33dbf7705d65493d651f"
     },
-    "targets.json": {
-      "source": "isomax/targets.json",
-      "sha256": "1447f09c35bd01d309a57586b397460a95ea7efcad9a24cdfa2a4f34a0e9e0b5"
-    },
     "test/basis-view.test.mjs": {
       "source": "package-authored",
       "sha256": "a22a458c2c32aea3e30b9a8b675726fbc578d9eba679a397bcef0926314c0912"
@@ -582,7 +594,7 @@
     },
     "test/compiled-preparation.test.mjs": {
       "source": "package-authored",
-      "sha256": "21d9d7695686244d8b3271fbdfa38ea76181b310772e6c7bc72f2cc5f629c7b2"
+      "sha256": "1b70786bf82d78a333f08d9297b66d5a3382805ba093413bf1e0763ca0c210eb"
     },
     "test/compiled-transition.test.mjs": {
       "source": "package-authored",
@@ -602,15 +614,27 @@
     },
     "test/prepared.test.mjs": {
       "source": "package-authored",
-      "sha256": "80886c4fd94662857dba2c9f2a29cf4858d54bed8e0c8c77e1ad24c5a0c78032"
+      "sha256": "c29088b7273fe3e1318fd99b37180340047cf2dfc3473b24dbe245068f41a6e2"
     },
     "test/smoke.test.mjs": {
       "source": "package-authored",
-      "sha256": "496d6b0c734b01ac345a36dcdc55da8fb6d4127c0720570ec8fb727e3e643c9f"
+      "sha256": "bb06d50043dac19dc53af99868dd87ae50b6c85f751f29a2f4bad7da5f03c64c"
+    },
+    "test/worker-discovery.test.mjs": {
+      "source": "package-authored",
+      "sha256": "ef9220d30e0649d1f446d5b8e14a136eea75d72c3dd83c82656fe4dd6be2e9ee"
+    },
+    "test/worker-pinning.test.mjs": {
+      "source": "package-authored",
+      "sha256": "7c76ddaf1932d98314b235a6621a9cf60923fdb9625a376862708d10a8cd66c1"
+    },
+    "test/worker-topology.test.mjs": {
+      "source": "package-authored",
+      "sha256": "877645b8d9c5c865bd6fb9099d9c9c040eb8892b9c58701d16938fe848d46188"
     },
     "verify.mjs": {
       "source": "package-authored",
-      "sha256": "06a7b8603366090d804354c218edbdce3ccf61cd208257953b6f1ad8426ba7bd"
+      "sha256": "5c8424b64dfb74b476fed2da6bd51aa680a59d82ea06634428242e6711866810"
     }
   }
 }

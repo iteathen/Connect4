@@ -8,7 +8,7 @@
   "scripts": {
     "start": "node isomax/run.mjs",
     "verify": "node isomax/verify.mjs",
-    "test": "node --test test/*.test.mjs",
-    "test:package": "node --test --test-concurrency=1 isomax/test/*.test.mjs"
+    "test": "node --experimental-ffi --test test/*.test.mjs",
+    "test:package": "node --experimental-ffi --test --test-concurrency=1 isomax/test/*.test.mjs"
   }
 }

@@ -3,14 +3,16 @@ import assert from 'node:assert/strict';
 import {execFileSync} from 'node:child_process';
 import {exact} from './helpers/physical-oracle.mjs';
 import profile from '../isomax/profile.json' with {type:'json'};
+import {discoverWorkerPlan} from '../isomax/index.mjs';
+const system=await discoverWorkerPlan();
 
 const apiURL=new URL('../components/isometric/solve.mjs',import.meta.url);
 // Correctness fixtures use bounded tables; never performance authority.
 const qualificationOptions={sharedCacheCapacity:256,localCacheCapacity:256,supportBasisPlanBudgetBytes:0};
 
-test('default IsoMax uses the promoted four-deep native-cache profile',async()=>{
+test('default IsoMax uses discovered workers with the retained native-cache sizes',async()=>{
   const {solve7x6}=await import(apiURL.href);
-  assert.equal(profile.options.workers,4);
+  assert.equal(profile.options.workers,'auto');
   assert.equal(profile.options.sharedCacheCapacity,134217728);
   assert.equal(profile.options.localCacheCapacity,8388608);
   assert.equal(profile.options.sharedSampleMask,0);
@@ -18,7 +20,7 @@ test('default IsoMax uses the promoted four-deep native-cache profile',async()=>
   const moves=[4,0,0,0,3,3,0,0,6,2,3,0,2,3,6,3,6,3,4,6,2,2,6,1,2,5,6,4];
   const result=await solve7x6(moves,{...qualificationOptions,timeoutMs:5000});
   assert.equal(result.status,'EXACT');assert.equal(result.rootWdl,exact(moves).value-2);
-  assert.equal(result.workersUsed,4);assert.equal(result.workersExited,4);
+  assert.equal(result.workersUsed,system.workers);assert.equal(result.workersExited,system.workers);
   assert.equal(result.sharedSampleMask,0);
   assert.equal(result.nodeCounts,null);assert.equal(result.frontierMetrics,null);
   assert.equal(result.cleanup,true);
@@ -37,7 +39,7 @@ test('JSMinSys IsoMax solver API exists',async()=>{
 
 test('stdin/eval module host flags do not poison Lazy SMP search workers',()=>{
   const code=`import {solve7x6} from ${JSON.stringify(apiURL.href)};console.log(JSON.stringify(await solve7x6([0,1,0,1,0,1,0],{...${JSON.stringify(qualificationOptions)},timeoutMs:3000})));`;
-  const result=JSON.parse(execFileSync(process.execPath,['--input-type=module','-e',code],{encoding:'utf8',timeout:5000}));
+  const result=JSON.parse(execFileSync(process.execPath,['--experimental-ffi','--input-type=module','-e',code],{encoding:'utf8',timeout:5000}));
   assert.equal(result.status,'EXACT',JSON.stringify(result));
   assert.equal(result.rootWdl,1);
   assert.equal(result.move,-1);
@@ -52,7 +54,7 @@ test('JSMinSys Lazy SMP IsoMax agrees with independent late-position oracle',asy
   ];
   for(const moves of fixtures){
     const control=exact(moves);
-    for(const workers of [2,4]){
+    for(const workers of [...new Set([2,Math.min(4,system.workers)])]){
       const result=await solve7x6(moves,{...qualificationOptions,workers,timeoutMs:5000});
       assert.equal(result.status,'EXACT',JSON.stringify({moves,workers,result}));
       assert.equal(result.rootWdl,control.value-2);

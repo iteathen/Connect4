@@ -15,8 +15,8 @@ export async function solve7x6(moves,options={}){
     workers=config.workers;
   if(!Number.isFinite(timeoutMs)||timeoutMs<=0||timeoutMs>MAX_TIMEOUT_MS)
     throw new RangeError('invalid IsoMax timeout');
-  if(!Number.isInteger(workers)||workers<2)
-    throw new RangeError('IsoMax requires at least two search workers');
+  if(workers!=='auto'&&(!Number.isInteger(workers)||workers<2||workers>64))
+    throw new RangeError('IsoMax requires at least two search workers (2..64 or auto)');
 
   return runLazySmpConnect4Rba32(moves,{
     ...config,

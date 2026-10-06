@@ -3,9 +3,11 @@
 ## Current packaged dependency
 
 The adapter now imports `../../isomax/index.mjs` from its component location.
-Connect4 distributes the unchanged0.2.0-rc.2 package under root `isomax/`;
-producer source is `d2e4ccadcef6d67bc97a53679476e1ef6a5a9916`.
-Its public profile owns four deep workers, 4 GiB shared and256MiB private TT per
+Connect4 distributes the0.2.0-rc.3 package under root `isomax/`;
+producer source is `e6580e951c8318395446dd5916482efddc3d33fd`.
+Its public initializer discovers physical performance cores and owns verified
+Windows/Linux binding, or documented macOS scheduling hints, before worker setup.
+The profile retains 4 GiB shared and256MiB private TT per
 worker, 600s search ceiling, native layouts and compiled-transition admission.
 Run `node isomax/verify.mjs` from the repository root to verify that dependency.
 

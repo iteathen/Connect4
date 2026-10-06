@@ -57,7 +57,7 @@ export function selectPerformanceTargets(topology,count){
  return validateWorkerTargets(topology,targets,count);
 }
 export async function queryWindowsTopology(){
- if(process.platform!=='win32'||process.arch!=='x64')throw Error('Windows x64 affinity profile required');
+ if(process.platform!=='win32'||(process.arch!=='x64'&&process.arch!=='arm64'))throw Error('Windows 64-bit topology required');
  const {DynamicLibrary}=await import('node:ffi'),lib=new DynamicLibrary('kernel32.dll');
  try{
   const get=lib.getFunction('GetLogicalProcessorInformationEx',{arguments:['int32','buffer','buffer'],return:'int32'}),
@@ -70,7 +70,7 @@ export async function queryWindowsTopology(){
  }finally{lib.close();}
 }
 export async function bindCurrentThread(target){
- if(process.platform!=='win32'||process.arch!=='x64')throw Error('Windows x64 affinity profile required');
+ if(process.platform!=='win32'||(process.arch!=='x64'&&process.arch!=='arm64'))throw Error('Windows 64-bit affinity required');
  const {group,processor}=target;
  if(!Number.isInteger(group)||group<0||group>65535||!Number.isInteger(processor)||processor<0||processor>63)throw RangeError('invalid thread affinity');
  const {DynamicLibrary}=await import('node:ffi'),lib=new DynamicLibrary('kernel32.dll');
