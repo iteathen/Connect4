@@ -23,7 +23,7 @@ $taskConfig.sourceCommit=(git -C C:/r/jsminsys-cpc-rebuild-20261004 rev-parse HE
 $taskConfig.arguments=@('--experimental-ffi','--max-inlined-bytecode-size=2400','--max-inlined-bytecode-size-cumulative=9600','--import','file:///C:/r/c4-external-20261004/isomax/runtime/tools/benchmark-v8-startup-preload.mjs')
 if($JitDiagnostic){$taskConfig.arguments+='--trace-turbo-inlining'}
 $taskConfig.arguments+=@((Join-Path $PSScriptRoot 'bench.mjs'),'--identity',$Identity,'--shared-entries',[string]$SharedEntries,'--local-entries',[string]$LocalEntries,'--timeout',$(if($JitDiagnostic){'10000'}else{'120000'}))
-$taskConfig.canonicalCommand='Frozen raw-host TT identity comparison; actual entry capacities unchanged'
+$taskConfig.canonicalCommand="Frozen raw-host TT identity comparison; identity=$Identity sharedEntries=$SharedEntries localEntries=$LocalEntries"
 $taskConfig.execution="Six auto-discovered verified P-core workers; exact empty root; sharedEntries=$SharedEntries localEntries=$LocalEntries entryBytes=$taskEntryBytes; retained topology flags and support plans"
 $taskConfig.stdout=Join-Path $taskDir 'stdout.json';$taskConfig.stderr=Join-Path $taskDir 'stderr.txt';$taskConfig.measurement=Join-Path $taskDir 'measurement.json'
 $taskConfig | ConvertTo-Json -Depth 10 | Set-Content (Join-Path $taskDir 'invocation.json')
