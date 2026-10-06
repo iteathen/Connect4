@@ -34,6 +34,22 @@ performance records remain scoped to their exact source/configuration. This
 transfer does not claim a new speedup or universal evaluator and does not access
 the sealed EW-RS-059 formula-holdout outcomes.
 
+Transfer qualification:13 integration and46 package tests passed, all144 package
+locks and the original archive hash match. Fresh read-only review found an old
+execution-profile authority contradiction; dated supersession notes in the
+candidate solver specification and Lazy-SMP decision resolved it. No other
+concrete defects were reported. Review used textual inspection and saved logs,
+not new independent tests or performance data.
+
+One full empty7×6 confirmation from the Connect4 package location, source89a0882,
+completed EXACT WIN/column4 in57,460.6506ms primary,61,561.8893ms whole operation
+and61,840.4814ms external process wall. CPU217,187.5ms, peakRSS6,903,889,920bytes,
+recorded Node27nightly/V8 and verified0/2/4/6 worker targets, processmask85, four
+ready/exited workers and clean termination. TT/geometry capacities match the
+producer. Raw stdout/stderr/invocation/measurement/affinity are under
+`20261006-package/full-confirmation/`. This single transfer confirmation is not
+a new repeated optimization comparison, and the10s goal remains unmet.
+
 Historical gitlink and qualification artifacts remain preserved. Old benchmark
 commands require their original source revision; they do not select the current
 package settings. Solver-specific qualification stays on this implementation
