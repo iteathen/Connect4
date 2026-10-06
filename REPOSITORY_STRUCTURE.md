@@ -7,7 +7,7 @@ This file defines the live organizational model of the repository. It is routing
 The retired `solver/isometric` ref is archived under
 `archive/lazy-smp-retirement-20260926/solver/isometric`. Current executable IsoMax
 is on the existing `work/isomax-jsminsys-rebuild` implementation branch, with the
-promoted0.2.0-rc.2 package together under `isomax/`; see the root README setup link.
+promoted 0.2.0-rc.2 package together under `isomax/`; see the root README setup link.
 The diagrams below preserve the established solver-family ownership model and
 are not proof that each historical branch name is still executable.
 
@@ -29,9 +29,9 @@ main
 
 `research/semantic-quotient` is the **single canonical owner of all Connect4 research**, including solver-specific research observations, hypotheses, experiment results, research evidence, negative results, open questions, maps, synthesis, and provenance.
 
-The three active solver-family heads are:
+The three solver families and their current implementation routes are:
 
-- `solver/isometric` — IsoMax structural/frontier implementation and evidence;
+- `work/isomax-jsminsys-rebuild` — current IsoMax implementation and package; the historical `solver/isometric` ref is archived;
 - `solver/cuda-bsfp` — CUDA-BSFP implementation and evidence;
 - `solver/sut` — future exact composition of IsoMax + CUDA-BSFP.
 
