@@ -2,17 +2,48 @@
 
 Connect4 is the shared product/domain repository for exact Connect Four semantics, benchmark and oracle authority, solver qualification contracts, and product-specific CUDA composition.
 
+## Run the current IsoMax solver
+
+**IsoMax0.2.0-rc.2 replaces the old solver on the existing Connect4 implementation
+branch. Open [the solver package](https://github.com/iteathen/Connect4/tree/work/isomax-jsminsys-rebuild/isomax)
+or its [setup guide](https://github.com/iteathen/Connect4/blob/work/isomax-jsminsys-rebuild/README.md).**
+
+With Node26.7 or later:
+
+```sh
+git clone --branch work/isomax-jsminsys-rebuild https://github.com/iteathen/Connect4.git Connect4-IsoMax
+cd Connect4-IsoMax/isomax
+node verify.mjs
+node run.mjs
+```
+
+The default solves the actual empty7×6 board with four deep workers, 4 GiB shared
+TT and256MiB private TT per worker, plus geometry plans. No opening, RLC or prior
+solved cache is consumed. No npm install or submodule checkout is required.
+The setup guide covers variable dimensions and measured Windows affinity.
+
+[Download the archive](https://github.com/iteathen/Connect4/raw/refs/heads/work/isomax-jsminsys-rebuild/isomax/dist/iteathen-isomax-0.2.0-rc.2.tgz)
+or read [replacement qualification](https://github.com/iteathen/Connect4/blob/work/isomax-jsminsys-rebuild/docs/qualification/20261006-isomax-package-replacement.md).
+The runtime and archive identities match the frozen producer package. Integration
+and package tests pass; the transfer's localhost empty-board confirmation returned
+WIN/column4 in57.46s. This is a single transfer check, not a new performance ranking.
+
+`main` routes to the solver implementation; `research/semantic-quotient` remains
+the research owner. The retired `solver/isometric` branch is preserved under
+`archive/lazy-smp-retirement-20260926/solver/isometric`; the current implementation
+is `work/isomax-jsminsys-rebuild`, now updated through [PR178](https://github.com/iteathen/Connect4/pull/178).
+
 ## Evidence and external validation
 
 Start with [EVIDENCE.md](EVIDENCE.md) and the machine-readable [claim registry](evidence/claims.json).
 
-The current strongest external correctness result is **192/192 W/D/L matches with 0 mismatches** against deterministic published slices of Pascal Pons Connect Four benchmark sets: the first 32 rows of each L1 set and the first 64 rows of L2_R1 and L3_R1. The solver evidence is preserved on the authoritative [`solver/isometric` external-evidence index](https://github.com/iteathen/Connect4/blob/solver/isometric/evidence/external/README.md).
+The preserved external correctness result is **192/192 W/D/L matches with 0 mismatches** against deterministic published slices of Pascal Pons Connect Four benchmark sets: the first 32 rows of each L1 set and the first 64 rows of L2_R1 and L3_R1. Its original solver evidence remains in the [archived external-evidence index](https://github.com/iteathen/Connect4/blob/archive/lazy-smp-retirement-20260926/solver/isometric/evidence/external/README.md). That historical record does not automatically qualify the replacement package.
 
 That result is a scoped **REFERENCE-GROUNDED parent-position correctness claim**. It is not a performance ranking, does not externally validate the repository-generated per-move score vectors, and does not establish CUDA-BSFP correctness.
 
 The repository has one shared foundation, one canonical research lane, and **three active solver-family heads**:
 
-- `solver/isometric` — IsoMax, the active forward structural/frontier exact solver;
+- IsoMax — current implementation at `work/isomax-jsminsys-rebuild`; the former `solver/isometric` ref is archived as noted above;
 - `solver/cuda-bsfp` — the active backward symbolic fixed-point exact solver;
 - `solver/sut` — the retained future exact-composition lane that will bring mature IsoMax and CUDA-BSFP capabilities together;
 - `research/semantic-quotient` — the single canonical owner of **all Connect4 research**, including active solver research, historical solver knowledge, negative results, synthesis, and provenance.
