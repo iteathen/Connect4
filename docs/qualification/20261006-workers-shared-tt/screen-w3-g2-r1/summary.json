@@ -1,0 +1,77 @@
+{
+  "id": "screen-w3-g2-r1",
+  "phase": "screen",
+  "workers": 3,
+  "sharedGiB": 2,
+  "sharedEntries": 67108864,
+  "privateBytesPerWorker": 268435456,
+  "aggregatePrivateBytes": 805306368,
+  "status": "EXACT",
+  "validated": true,
+  "solveMs": 70005.54980000001,
+  "initializationMs": 3734.061,
+  "cleanupMs": 17.010500000003958,
+  "rootWdl": 1,
+  "moveZeroBased": 3,
+  "winner": 1,
+  "affinity": [
+    {
+      "worker": 0,
+      "target": {
+        "platform": "win32",
+        "group": 0,
+        "processor": 0,
+        "core": 0
+      },
+      "verified": true,
+      "hintsApplied": false,
+      "affinityTagApplied": false,
+      "affinityTagStatus": null,
+      "group": 0,
+      "cpu": 0
+    },
+    {
+      "worker": 1,
+      "target": {
+        "platform": "win32",
+        "group": 0,
+        "processor": 2,
+        "core": 1
+      },
+      "verified": true,
+      "hintsApplied": false,
+      "affinityTagApplied": false,
+      "affinityTagStatus": null,
+      "group": 0,
+      "cpu": 2
+    },
+    {
+      "worker": 2,
+      "target": {
+        "platform": "win32",
+        "group": 0,
+        "processor": 4,
+        "core": 2
+      },
+      "verified": true,
+      "hintsApplied": false,
+      "affinityTagApplied": false,
+      "affinityTagStatus": null,
+      "group": 0,
+      "cpu": 4
+    }
+  ],
+  "peakRssBytes": 4396195840,
+  "processCpuMs": 198312.5,
+  "processCycles": null,
+  "externalWallMs": 74012.0909,
+  "exitStatus": 0,
+  "timedOut": false,
+  "runtime": {
+    "node": "v27.0.0-nightly20260928b59840b593",
+    "v8": "14.6.202.34-node.36",
+    "cpu": "12th Gen Intel(R) Core(TM) i5-12600K"
+  },
+  "repositoryCommit": "bb637d6f0619b6d1f05a8edb2afb85e5f44a76e8",
+  "producerCommit": "e6580e951c8318395446dd5916482efddc3d33fd"
+}
