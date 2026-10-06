@@ -18,7 +18,7 @@ if([long]$memory.FreePhysicalMemory*1024 -lt $needed -or [long]$memory.FreeVirtu
 }
 $config=Get-Content (Join-Path $repo 'docs/qualification/20261006-auto-workers-default/invocation.json') -Raw | ConvertFrom-Json
 $config.repositoryCommit=(git rev-parse HEAD)
-$config.sourceCommit=(git -C C:/r/jsminsys-cpc-rebuild-20261004 rev-parse HEAD)
+$config.sourceCommit=if($Mode -eq 'baseline'){(Get-Content (Join-Path $repo 'isomax/provenance.json') -Raw | ConvertFrom-Json).sourceCommit}else{git -C C:/r/jsminsys-cpc-rebuild-20261004 rev-parse HEAD}
 if((Get-FileHash -LiteralPath $config.executable -Algorithm SHA256).Hash.ToLower() -ne $config.executable_hash){throw 'Runtime identity changed'}
 $config.arguments=@('--experimental-ffi','--max-inlined-bytecode-size=2400','--max-inlined-bytecode-size-cumulative=9600','--import',
  'file:///C:/r/c4-external-20261004/isomax/runtime/tools/benchmark-v8-startup-preload.mjs',
