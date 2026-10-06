@@ -6,7 +6,7 @@ import {cpus} from 'node:os';
 import {profile} from '../../../isomax/index.mjs';
 const options={identity:'native32',timeout:'120000','shared-entries':'134217728','local-entries':'8388608'};
 for(let i=2;i<process.argv.length;i+=2){const k=process.argv[i].replace(/^--/,'');if(!Object.hasOwn(options,k)||process.argv[i+1]===undefined)throw Error('Invalid option');options[k]=process.argv[i+1];}
-if(!['native32','partial24'].includes(options.identity))throw Error('Unknown candidate');
+if(!['native32','partial24','partial16'].includes(options.identity))throw Error('Unknown candidate');
 const producer='C:/r/jsminsys-cpc-rebuild-20261004',modules={
  ...await import(pathToFileURL(resolve(producer,'addons/rba-connect4-geometry.mjs'))),
  ...await import(pathToFileURL(resolve(producer,'addons/rba-connect4-prepared-session-host.mjs'))),

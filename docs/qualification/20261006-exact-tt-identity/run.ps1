@@ -1,4 +1,4 @@
-param([Parameter(Mandatory=$true)][string]$Id,[ValidateSet('native32','partial24')][string]$Identity='native32',[switch]$JitDiagnostic)
+param([Parameter(Mandatory=$true)][string]$Id,[ValidateSet('native32','partial24','partial16')][string]$Identity='native32',[switch]$JitDiagnostic)
 $ErrorActionPreference='Stop'
 $taskRepo=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../../..'))
 Set-Location -LiteralPath $taskRepo
