@@ -1,4 +1,4 @@
-param([string]$Id='partial24-banked-code-gc-01')
+param([string]$Id='partial24-banked-code-gc-01',[switch]$RedirectCode)
 $ErrorActionPreference='Stop'
 $taskRepo=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../../..'))
 Set-Location -LiteralPath $taskRepo
@@ -20,10 +20,12 @@ if([long]$taskMemory.FreePhysicalMemory*1024 -lt $taskNeeded -or [long]$taskMemo
 }
 $taskConfig.repositoryCommit=git rev-parse HEAD
 $taskConfig.sourceCommit=git -C C:/r/jsminsys-cpc-rebuild-20261004 rev-parse HEAD
+$taskConfig.cwd=$taskDir
 $taskConfig.arguments=@('--experimental-ffi','--max-inlined-bytecode-size=2400','--max-inlined-bytecode-size-cumulative=9600',
  '--trace-opt','--trace-deopt','--trace-file-names','--trace-gc','--print-opt-code','--print-opt-code-filter=negamax',
  '--import',('file:///'+((Join-Path $PSScriptRoot 'diagnostic-preload.mjs') -replace '\\','/')),
  (Join-Path $PSScriptRoot 'diagnostic.mjs'),(Join-Path $taskDir 'summary.json'))
+if($RedirectCode){$taskConfig.arguments=@('--redirect-code-traces')+$taskConfig.arguments}
 $taskConfig.canonicalCommand='NEES code/GC diagnostic, 10s observation; no performance conclusion'
 $taskConfig.stdout=Join-Path $taskDir 'stdout.txt';$taskConfig.stderr=Join-Path $taskDir 'stderr.txt';$taskConfig.measurement=Join-Path $taskDir 'measurement.json'
 $taskConfig | ConvertTo-Json -Depth 10 | Set-Content (Join-Path $taskDir 'invocation.json')
