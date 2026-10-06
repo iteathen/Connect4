@@ -1,0 +1,92 @@
+{
+  "workers": 6,
+  "privateBytesPerWorker": 268435456,
+  "allCompletedSamplesExactAndValidated": true,
+  "samples": 8,
+  "aggregate": {
+    "packaged4": {
+      "trials": 2,
+      "ids": [
+        "packaged-unbanked-4-r1",
+        "packaged-unbanked-4-r2"
+      ],
+      "solveMs": [
+        42790.931300000004,
+        41344.7372
+      ],
+      "meanMs": 42067.83425,
+      "minMs": 41344.7372,
+      "maxMs": 42790.931300000004,
+      "sampleSdMs": 1022.6136550219765,
+      "peakRssMaxBytes": 7405125632,
+      "meanProcessCpuMs": 243398.4375,
+      "meanInitializationMs": 3842.5853500000003
+    },
+    "candidateUnbanked4": {
+      "trials": 1,
+      "ids": [
+        "candidate-unbanked-4-r1"
+      ],
+      "solveMs": [
+        41156.5938
+      ],
+      "meanMs": 41156.5938,
+      "minMs": 41156.5938,
+      "maxMs": 41156.5938,
+      "sampleSdMs": null,
+      "peakRssMaxBytes": 7476490240,
+      "meanProcessCpuMs": 239828.125,
+      "meanInitializationMs": 3762.2164000000002
+    },
+    "banked4": {
+      "trials": 2,
+      "ids": [
+        "banked-4-r1",
+        "banked-4-r2"
+      ],
+      "solveMs": [
+        43386.262,
+        42627.0409
+      ],
+      "meanMs": 43006.651450000005,
+      "minMs": 42627.0409,
+      "maxMs": 43386.262,
+      "sampleSdMs": 536.8503882299117,
+      "peakRssMaxBytes": 7490162688,
+      "meanProcessCpuMs": 247210.9375,
+      "meanInitializationMs": 4032.15945
+    },
+    "banked8": {
+      "trials": 3,
+      "ids": [
+        "banked-8-r1",
+        "banked-8-r2b",
+        "banked-8-r3"
+      ],
+      "solveMs": [
+        42151.4821,
+        39822.416,
+        41398.195100000004
+      ],
+      "meanMs": 41124.03106666667,
+      "minMs": 39822.416,
+      "maxMs": 42151.4821,
+      "sampleSdMs": 1188.4913388083687,
+      "peakRssMaxBytes": 11770761216,
+      "meanProcessCpuMs": 241390.625,
+      "meanInitializationMs": 5067.153666666666
+    }
+  },
+  "banked8MeanReductionVsPackaged4Percent": 2.243526913519034,
+  "banked8MeanReductionVsBanked4Percent": 4.377509803389579,
+  "additionalPeakRssBytes": 4365635584,
+  "sixteenGiB": {
+    "status": "RESOURCE_CENSORED",
+    "sharedGiB": 16,
+    "estimatedRequiredHeadroomBytes": 20937965568,
+    "freePhysicalBytes": 15038697472,
+    "freeCommitBytes": 12379885568,
+    "solveStarted": false
+  },
+  "disposition": "Experimental, not promoted. Small 8GiB mean advantage overlaps observed variation.16GiB resource-censored; ROI unknown.Production package remains unchanged."
+}
