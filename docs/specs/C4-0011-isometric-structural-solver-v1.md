@@ -3,7 +3,35 @@
 **Status:** Candidate solver-semantic specification. Research direction: Josh Oshiro.
 This cleanup does not promote status or establish a new theorem.
 
-## Current execution profile
+## Current execution profile — supersession 2026-10-06
+
+The owner's promoted-package replacement supersedes the operational profile
+described below. Current execution authority is `isomax/profile.json` and the
+unchanged0.2.0-rc.2 runtime locked by `isomax/provenance.json`. The application
+delegates to that package's public prepared/Lazy-SMP API.
+
+Current defaults are four deep center/live workers, 4 GiB shared TT and256MiB
+private TT per worker, native32 entries, rootFrontier disabled, mask0 and licensed
+shared zero bounds alongside committed exact W/D/L. Search windows/tasks remain
+private. The package owns the bound encoding, mover transport and exact key checks;
+unknown or incomplete evidence still cannot produce a game value.
+
+All solver-owned workers, tables and geometry plans are prepared before readiness.
+The search ceiling is600s and initialization ceiling120s. Primary timing starts
+after all-ready and includes actual root construction and exact solving; init and
+cleanup are separate secondary measurements. Whole-process cycles include both.
+Diagnostic counts remain unavailable instead of adding per-node reporting.
+
+Domain legality, first-win precedence, reflection/action transport, exact key
+identity, proof guards and failure/cleanup obligations below remain unchanged.
+Historical assertions of seven workers, 4M/1M capacity, root-frontier execution,
+exact-only publication, the120s search ceiling and whole-operation primary timing
+are superseded only for the current package. See
+`docs/qualification/20261006-isomax-package-replacement.md` for the integration
+record. This change does not promote the candidate semantic spec or research
+hypotheses into a theorem or access sealed formula-holdout outcomes.
+
+## Historical previous execution profile and semantic record
 
 Lazy SMP is the sole active parallel composition. Public solve7x6 delegates to
 JSMinSys runLazySmpConnect4Rba32. Each of at least two workers owns a private
