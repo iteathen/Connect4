@@ -15,6 +15,12 @@ have address/metadata checks, not full-capacity timing qualification. Main/regis
 promotion is separate. Earlier records below remain historical authority for
 their exact source/configuration.
 
+Automatic-profile confirmations:8GiB39.662s at source89b1b14; final package
+source40b1943 selected4GiB42.226s because current available commit was below
+the8GiB requirement. Both used six verified P-core workers and exited cleanly.
+See [raw default-run evidence](docs/qualification/20261006-memory-profiles/README.md).
+The81-test package suite and native Windows/Linux/macOS startup checks pass.
+
 ## Historical promoted replacement — 2026-10-06
 
 The active solver is the self-contained **0.2.0-rc.2** package under `isomax/`.

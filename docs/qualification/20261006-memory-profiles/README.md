@@ -19,3 +19,27 @@ or evidence of a universal optimum. The generic measurement wrapper's
 `performance_conclusion_allowed:false` prevents automatic promotion; the raw
 successful result is interpreted here only as a configuration/solve confirmation.
 16–128GiB remain experimental with no full-capacity performance qualification.
+
+## Final package confirmation
+
+`final-default-run/` uses runtime40b19431f00174c5d52c442677d67ec698e8c50a
+and consumer1952b38c3ea892de921674afaed9127d2addcc32. The retained Node/V8,
+JIT flags, automatic six-core discovery and default empty7x6 command are unchanged.
+Available physical memory was15529377792bytes, but available Windows commit
+limited admission to12305539072bytes. The8GiB profile requires12348030976bytes
+with six private tables and the2GiB reserve, so auto correctly selected4GiB.
+
+EXACT/WIN, column4,42,226.11ms primary solve; initialization3993.1438ms,
+cleanup27.5771ms, external wall46519.3737ms, CPU243375ms and peak RSS
+7410049024bytes. Six workers were verified on0/2/4/6/8/10 and all exited.
+The cleanup check found no retained solver process. These two default-path
+confirmations use different actual TT capacities and are not a same-configuration
+regression comparison.
+
+The final package's native startup workflow passed Windows, Linux and macOS:
+https://github.com/iteathen/JSMinSys/actions/runs/37524761262 . Its exact head
+and individual jobs are retained in `native-startup-ci.json`. CI is correctness
+and startup evidence, not performance authority. Local packaged tests81/81,
+consumer exact tests9/9, focused cache/memory checks22/22 and catalog563units pass.
+The extracted archive starts and solves a tiny1x4 control with six workers;
+this installation check is separate from the standard7x6 performance workload.
