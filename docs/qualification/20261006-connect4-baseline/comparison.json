@@ -1,0 +1,125 @@
+{
+  "historicalBestSource": "427f691b00248ac15b795e187508bf5144f69706",
+  "historicalBestMs": 53450.9425,
+  "currentPackageSource": "d2e4ccadcef6d67bc97a53679476e1ef6a5a9916",
+  "currentMeanMs": 57651.621866666675,
+  "historicalRetestMeanMs": 58409.8391,
+  "sharedCapacity": 134217728,
+  "privateCapacityPerWorker": 8388608,
+  "workers": 4,
+  "rootFrontier": false,
+  "sharedSampleMask": 0,
+  "sharedProofBounds": true,
+  "rlc": false,
+  "startingPosition": "empty 7x6",
+  "boundary": "all-ready/cold TTs through empty root construction and exact result; excludes initialization and cleanup",
+  "cyclesBoundary": "whole operation, historical launcher only",
+  "runs": [
+    {
+      "run": "run-1",
+      "solveMs": 58346.4381,
+      "initializationMs": 4472.261799999999,
+      "cleanupMs": 24.59990000000107,
+      "cpuMs": 220921.875,
+      "peakRssBytes": 6904127488,
+      "wholeOperationCycles": null,
+      "result": "EXACT WIN",
+      "moveOneBased": 4,
+      "workersReady": 4,
+      "workersExited": 4,
+      "actualTargets": [
+        0,
+        2,
+        4,
+        6
+      ],
+      "clean": true,
+      "raw": "run-1/stdout.json"
+    },
+    {
+      "run": "run-2",
+      "solveMs": 55594.5886,
+      "initializationMs": 4120.5479,
+      "cleanupMs": 27.912300000003597,
+      "cpuMs": 214062.5,
+      "peakRssBytes": 6907842560,
+      "wholeOperationCycles": null,
+      "result": "EXACT WIN",
+      "moveOneBased": 4,
+      "workersReady": 4,
+      "workersExited": 4,
+      "actualTargets": [
+        0,
+        2,
+        4,
+        6
+      ],
+      "clean": true,
+      "raw": "run-2/stdout.json"
+    },
+    {
+      "run": "run-3",
+      "solveMs": 59013.8389,
+      "initializationMs": 4439.1835,
+      "cleanupMs": 30.727500000000873,
+      "cpuMs": 222421.875,
+      "peakRssBytes": 6903521280,
+      "wholeOperationCycles": null,
+      "result": "EXACT WIN",
+      "moveOneBased": 4,
+      "workersReady": 4,
+      "workersExited": 4,
+      "actualTargets": [
+        0,
+        2,
+        4,
+        6
+      ],
+      "clean": true,
+      "raw": "run-3/stdout.json"
+    },
+    {
+      "run": "best-retest-1",
+      "solveMs": 59652.8676,
+      "initializationMs": 4396.991300000001,
+      "cleanupMs": 31.30870000000141,
+      "cpuMs": 224953.125,
+      "peakRssBytes": 6903508992,
+      "wholeOperationCycles": "826417275714",
+      "result": "EXACT WIN",
+      "moveOneBased": 4,
+      "workersReady": 4,
+      "workersExited": 4,
+      "actualTargets": [
+        0,
+        2,
+        4,
+        6
+      ],
+      "clean": true,
+      "raw": "best-retest-1/stdout.json"
+    },
+    {
+      "run": "best-retest-2",
+      "solveMs": 57166.810600000004,
+      "initializationMs": 4245.2357,
+      "cleanupMs": 28.061799999995856,
+      "cpuMs": 218250.0,
+      "peakRssBytes": 6905966592,
+      "wholeOperationCycles": "801809725133",
+      "result": "EXACT WIN",
+      "moveOneBased": 4,
+      "workersReady": 4,
+      "workersExited": 4,
+      "actualTargets": [
+        0,
+        2,
+        4,
+        6
+      ],
+      "clean": true,
+      "raw": "best-retest-2/stdout.json"
+    }
+  ],
+  "conclusion": "Historical speed did not reproduce; current and historical revision overlap today. No cause or source regression established."
+}

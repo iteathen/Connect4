@@ -2,7 +2,7 @@ param([Parameter(Mandatory=$true)][ValidateRange(1,2)][int]$Run)
 $ErrorActionPreference='Stop'
 $source='C:/r/isomax-best-427f691b-20261006'
 $sha='427f691b00248ac15b795e187508bf5144f69706'
-$authority='C:/r/jsminsys-cpc-rebuild-20261004/evidence/minimal-worker-localhost-20261004/fusion-c66-01/invocation.json'
+$authority="$PSScriptRoot/best-original-invocation.json"
 $runDir="C:/r/connect4-isomax-best-retest-20261006/run-$Run"
 if(Test-Path -LiteralPath $runDir){throw 'Retest output already exists'}
 $existing=Get-CimInstance Win32_Process | Where-Object {$_.Name -eq 'node.exe' -and ($_.CommandLine -like '*bench-minimal-i5.mjs*' -or $_.CommandLine -like '*isomax*cli.mjs*')}
