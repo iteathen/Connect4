@@ -15,8 +15,10 @@ if(execFileSync('git',['diff','--name-only','HEAD'],{cwd:control,encoding:'utf8'
 const candidate=resolve(repo,'isomax/runtime'),candidateSha='8b81911bb19f58665f5a5bbb4811a05fc0fd9fba';
 const runtimeHash=sha256(readFileSync(node));
 if(runtimeHash!=='2f2843c1802f6a17ba7fabe5550c90bb055c9bef8738a08338d94f71dbe91f29')throw Error('Historical runtime identity mismatch');
-const rows=[];
-for(let pair=1;pair<=5;pair++)for(const arm of ['control','candidate']){
+const firstPair=Number(process.argv[4]??1),lastPair=Number(process.argv[5]??5);
+if(!Number.isInteger(firstPair)||!Number.isInteger(lastPair)||firstPair<1||lastPair<firstPair)throw Error('Invalid pair range');
+const rows=firstPair===1?[]:JSON.parse(readFileSync(resolve(here,'matched','progress.json'),'utf8'));
+for(let pair=firstPair;pair<=lastPair;pair++)for(const arm of ['control','candidate']){
  const id=arm+'-'+String(pair).padStart(2,'0'),dir=resolve(here,'matched',id);mkdirSync(dir,{recursive:true});
  if(freemem()<16.5*2**30)throw Error('Insufficient unchanged memory headroom before '+id);
  const source=arm==='control'?control:candidate,sourceCommit=arm==='control'?controlSha:candidateSha;
@@ -41,7 +43,9 @@ for(let pair=1;pair<=5;pair++)for(const arm of ['control','candidate']){
  writeFileSync(resolve(here,'matched','progress.json'),JSON.stringify(rows,null,2)+'\n');
 }
 const mean=a=>a.reduce((x,y)=>x+y,0)/a.length;
-const describe=arm=>{const r=rows.filter(x=>x.arm===arm),times=r.map(x=>x.primaryMs),m=mean(times);return{samples:r.length,meanPrimaryMs:m,minPrimaryMs:Math.min(...times),maxPrimaryMs:Math.max(...times),sampleSdMs:Math.sqrt(times.reduce((s,x)=>s+(x-m)**2,0)/(times.length-1)),meanCpuMs:mean(r.map(x=>x.cpuMs)),meanOperationMs:mean(r.map(x=>x.operationMs)),meanExternalWallMs:mean(r.map(x=>x.externalWallMs))};};
-const a=describe('control'),b=describe('candidate'),pairs=Array.from({length:5},(_,i)=>rows[i*2].primaryMs-rows[i*2+1].primaryMs);
-writeFileSync(resolve(here,'matched','summary.json'),JSON.stringify({order:'A B repeated five times; fixed before replay',control:a,candidate:b,observedPercentReduction:100*(a.meanPrimaryMs-b.meanPrimaryMs)/a.meanPrimaryMs,pairedSavingsMs:pairs,
+const exclusions=firstPair>1?[{ids:['control-01','candidate-01'],reason:'A qualification-only CPU process overlapped both solves. Excluded on observed workload contamination, not timing or returned value.'}]:[];
+const accepted=rows.filter(r=>!exclusions.some(e=>e.ids.includes(r.id)));
+const describe=arm=>{const r=accepted.filter(x=>x.arm===arm),times=r.map(x=>x.primaryMs),m=mean(times);return{samples:r.length,meanPrimaryMs:m,minPrimaryMs:Math.min(...times),maxPrimaryMs:Math.max(...times),sampleSdMs:Math.sqrt(times.reduce((s,x)=>s+(x-m)**2,0)/(times.length-1)),meanCpuMs:mean(r.map(x=>x.cpuMs)),meanOperationMs:mean(r.map(x=>x.operationMs)),meanExternalWallMs:mean(r.map(x=>x.externalWallMs))};};
+const a=describe('control'),b=describe('candidate'),pairs=Array.from({length:accepted.length/2},(_,i)=>accepted[i*2].primaryMs-accepted[i*2+1].primaryMs);
+writeFileSync(resolve(here,'matched','summary.json'),JSON.stringify({order:'A B repeated; first five pairs declared before replay, sixth replaces contaminated first pair',exclusions,control:a,candidate:b,observedPercentReduction:100*(a.meanPrimaryMs-b.meanPrimaryMs)/a.meanPrimaryMs,pairedSavingsMs:pairs,
  interpretation:'Local matched observation only; fixed order may retain drift/order effects. No attribution to individual edits or portable speed guarantee.',rows},null,2)+'\n');
