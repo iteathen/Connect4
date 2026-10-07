@@ -1,0 +1,67 @@
+{
+  "schema": 1,
+  "contract": "C4-0011-v1",
+  "authority": {
+    "repository": "iteathen/Connect4",
+    "branch": "research/semantic-quotient",
+    "commit": "e597ca5a80393b9e05ddc76d61fc7c568b28daf1",
+    "specification": "docs/specs/C4-0011-solved-knowledge-independent-benchmark-v1.md",
+    "specificationBlob": "7ae508abd186c246ee4779508aa0fc83d15b0651"
+  },
+  "independenceLane": "runtime-input-only",
+  "startPosition": "empty",
+  "exactTarget": "WDL",
+  "externalColumnNotation": "one-based",
+  "oracleAvailableToRuntime": false,
+  "openingBookLoaded": false,
+  "persistedAnswerCacheLoaded": false,
+  "admittedStructuralTheorems": [],
+  "admittedSelectorsAndHeuristics": [
+    {"solver":"christophe","definition":"Upstream threat and center scoring, TT move hints, shallow jitter, enhanced child table cutoff","lineage":"historical discovery not independently audited; no lineage-clean claim","permittedUse":"unchanged upstream ordering and exact search","sourceIdentity":"source-lock.json"},
+    {"solver":"pons","definition":"Upstream center column ordering and potential winning-position move score","lineage":"historical discovery not independently audited; no lineage-clean claim","permittedUse":"unchanged upstream ordering and exact search","sourceIdentity":"source-lock.json"}
+  ],
+  "runtimeClosure": {
+    "applicationSources":"Only the hashed solver files in source-lock.json and the new benchmark adapters/header; no external upstream app/main, data files, test corpus, books, oracle or repository research code is compiled or copied into the prepared closure",
+    "christopheExternalDependencies":"C++ standard library, Windows SDK and Advapi32; static MSVC CRT. Native OS helpers are the pinned upstream implementation",
+    "ponsExternalDependencies":"C++ standard library and system runtime; static GCC linkage",
+    "loadPathAudit":"c4 Solver constructor calls both table loaders, whose if-constexpr false branches return before opening files; Writer construction returns before starting its file thread when UPDATE_TABLE_FILE=false. All three flags are compile-time asserted false in the adapter. Pons book construction sets T=null and depth=-1; its adapter never calls loadBook and checks both fields before solve",
+    "embeddedAnswerDataAttestation":"The prior audited source closure is pinned by exact per-file hashes; include and file-load call sites plus current adapters/settings/constructors were rechecked. No answer data, root/prefix solution constant, book or persisted cache is introduced by these changes. This extends the pinned audit and does not claim historically blind algorithm discovery",
+    "freshness":"One new process per run; complete allocated c4 table emptiness scan, complete Pons key/value zero scan; native node counters zero before solve; no separate proof cache"
+  },
+  "resourcePolicy": {
+    "sharedTtBudgetBytes":12884901888,
+    "christopheWorkers":6,
+    "christopheEntries":1610612711,
+    "christopheAllocatedEntries":1610612712,
+    "christopheAllocatedBytes":12884901696,
+    "christopheBudgetRoundingBytes":192,
+    "christopheProcessAffinityMask":1365,
+    "christopheThreadPinning":false,
+    "isomaxSharedBytes":12884901888,
+    "isomaxEntryBytes":24,
+    "isomaxPrivateBytesPerWorker":201326592,
+    "isomaxWorkers":6,
+    "isomaxWorkerCpus":[0,2,4,6,8,10],
+    "ponsControlWorkers":1,
+    "ponsControlProcessAffinityMask":1,
+    "ponsControlEntries":16777259,
+    "ponsControlAllocatedBytes":83886295,
+    "ponsEqualCapacityCompetitor":false,
+    "totalMemoryEqualityClaim":false
+  },
+  "scheduling": {
+    "christophe":"Upstream pool runs all six workers and cancels/waits/merges after a result. mt19937 seed equals worker ID 0..5; scheduling and TT sharing make parallel work/time nondeterministic",
+    "pons":"Serial deterministic algorithm, no RNG; fresh TT every process",
+    "repetitions":"Operator serializes repeated fresh-process runs; report min/median/max and all raw records, never treat one parallel node count as invariant"
+  },
+  "workMetricDefinitions": {
+    "christophe":"Stats::new_node called at Search::negamax entry before stop check; merged across native workers and search iterations. Static-search child conclusions need not enter negamax",
+    "pons":"nodeCount incremented at Solver::negamax entry; solve immediate-win path does not enter negamax",
+    "isomaxDiagnostic":"Separate private copy counts selected worker negamax entries including cancellation checks; missing worker counts stay null",
+    "commensurateWorkClaim":false
+  },
+  "targetDifference":"The common timing target is exact WDL. IsoMax also emits a legal value-preserving witness in its normal result; native wrappers do not request best-move or PV follow-up searches. Witness qualification is handled separately",
+  "scope":"Preparation and bounded private diagnostics; no search algorithm changes, production runtime changes, source promotion, external communications or PR",
+  "searchExecutedDuringPreparation":false,
+  "historicalPrepareOnlyEvidence":"historical-pre-boundary-* records bind earlier adapter executable hashes; current revised adapters are build-verified and will exercise their READY checks in serialized full runs"
+}
