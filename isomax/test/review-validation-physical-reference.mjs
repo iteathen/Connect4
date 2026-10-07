@@ -1,5 +1,9 @@
 // Qualification-only physical board reference. No IsoMax, RBA, bitboard,
 // residual-support, cache-key, or producer imports.
+export function physicalToAbsoluteWdl(wdl,rank){
+ if(![-1,0,1].includes(wdl)||!Number.isInteger(rank)||rank<0)throw RangeError('invalid WDL or rank');
+ return wdl===0?0:(rank&1)?-wdl:wdl;
+}
 export function inspectHistory(moves,{columns=7,rows=6}={}){
  const board=Array.from({length:columns},()=>Array(rows).fill(0)),heights=Array(columns).fill(0);
  let winner=0,turn=1;

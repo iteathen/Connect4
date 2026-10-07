@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {writeFileSync,readFileSync} from 'node:fs';
 import {resolve} from 'node:path';
 import {pathToFileURL} from 'node:url';
-import {buildCorpus,inspectHistory,solvePhysical} from './review-validation-physical-reference.mjs';
+import {buildCorpus,inspectHistory,solvePhysical,physicalToAbsoluteWdl} from './review-validation-physical-reference.mjs';
 
 export async function validateOutcomes({mode='small',count=240,output=null,packageDirectory=null,casesFile=null}={}){
  assert.ok(['small','full12'].includes(mode),'mode small or full12 required');
@@ -34,7 +34,8 @@ export async function validateOutcomes({mode='small',count=240,output=null,packa
   // Independent expected value stays in this parent only, after timed solve.
   const reference=solvePhysical(root.moves),failures=[];
   const check=(ok,claim)=>{if(!ok)failures.push(claim);};
-  check(result.status==='EXACT','status EXACT');check(result.rootWdl===reference.wdl,'current-player WDL');
+  const expectedAbsoluteWdl=physicalToAbsoluteWdl(reference.wdl,root.moves.length);
+  check(result.status==='EXACT','status EXACT');check(result.rootWdl===expectedAbsoluteWdl,'player0-relative WDL');
   // Worker result move is a physical column, with reflection undone by worker.
   check(reference.bestMoves.includes(result.move),'physical legal outcome-preserving move');
   check(result.cleanup===true&&result.workersExited===6,'six-worker cleanup');
@@ -47,7 +48,7 @@ export async function validateOutcomes({mode='small',count=240,output=null,packa
    check(result.sharedTtPayloadBytes===12*2**30,'actual 12 GiB payload');
    check(result.sharedTtBankEntries===2**28,'actual bank boundary');
   }
-  const record={id:root.id,moves:root.moves,rank:root.moves.length,mode,expectedWdl:reference.wdl,
+  const record={id:root.id,moves:root.moves,rank:root.moves.length,mode,expectedMoverRelativeWdl:reference.wdl,expectedWdl:expectedAbsoluteWdl,
    expectedBestMoves:reference.bestMoves,referenceNodes:reference.nodes,rootWdl:result.rootWdl,move:result.move,
    status:result.status,workers:result.workersUsed,readyWorkers:result.readyWorkers,workersExited:result.workersExited,
    cleanup:result.cleanup,cacheIdentity:result.cacheIdentity,basisViews:result.basisViews,compiledTransitions:result.compiledTransitions,

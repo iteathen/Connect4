@@ -1,6 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {inspectHistory,solvePhysical,buildCorpus} from './review-validation-physical-reference.mjs';
+import {inspectHistory,solvePhysical,buildCorpus,physicalToAbsoluteWdl} from './review-validation-physical-reference.mjs';
+
+test('qualification converts mover-relative reference WDL to the player0-relative public result',()=>{
+ for(const wdl of [-1,0,1])for(const rank of [32,33])
+  assert.equal(physicalToAbsoluteWdl(wdl,rank),wdl===0?0:(rank&1)?-wdl:wdl);
+ const odd=buildCorpus({count:8}).find(p=>p.rank===33),reference=solvePhysical(odd.moves);
+ assert.equal(reference.wdl,1);assert.equal(physicalToAbsoluteWdl(reference.wdl,odd.rank),-1);
+});
 
 test('physical reference rejects moves after a win and full-column moves',()=>{
  assert.throws(()=>inspectHistory([0,1,0,1,0,1,0,2]),/terminal/);
