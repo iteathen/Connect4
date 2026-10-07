@@ -47,3 +47,20 @@ fallback and accurate split40 entry-width metadata. See REVIEW.md. The first
 archive hash above belongs to pre-fix evidence. The final archive SHA-256 is
 `be8335280f8dc1db881939c48fa65517f8b3c58c530efe57c5ee590d950d434b`;
 `archive-smoke-final.json` verifies its independent extraction.
+
+## Shipped-source confirmation
+
+Final source8b81911, `public-default-02`:33,334.3664ms primary,
+38,885.0416ms operation,39,689.6962ms external wall,204,688ms CPU,
+15,600,730,112bytes peakRSS. EXACT/WIN/column4, profile12 automatic,
+12GiB shared/192MiB private, six verified P-core workers, six clean exits,
+no solver process remaining. OneDrive remains stopped as instructed.
+
+Final main-derived suite:121passed,0failed,1GC-only skip. Final producer suite:
+493passed,0failed,1GC-only skip. The separate GC release test has3passing cases.
+The archive and source locks reproduce; no worker/CPC/search body changed.
+
+Owner review exception is explicitly configured by the repository's
+“PR review - owner and ChatGPT exceptions” ruleset. Promotion uses that exception
+only after required verify CI is green, retaining expected-head protection and
+linear-history squash merging. No branch protection is disabled.

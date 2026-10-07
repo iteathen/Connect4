@@ -70,6 +70,9 @@ portable performance. The ≤10-second objective remains unmet.
 [The promotion record](docs/qualification/20261006-nees-promotion/README.md)
 records identities, correctness and the packaged public solve.
 
+The final packaged default-path confirmation took **33.334 seconds**, with the
+same automatic 12 GiB selection, six verified workers and clean exits.
+
 ## Repository navigation
 
 | Area | Location |
