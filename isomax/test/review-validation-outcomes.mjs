@@ -17,7 +17,9 @@ export async function validateOutcomes({mode='small',count=240,output=null,packa
   for(const root of roots){
    const input=join(dir,root.id+'.input.json'),resultFile=join(dir,root.id+'.json');
    writeFileSync(input,JSON.stringify([root],null,2)+'\n');
-   const args=[...process.execArgv,fileURLToPath(import.meta.url),'--mode','full12','--cases',input,'--output',resultFile,
+   // Startup preload removes process-wide V8 flags from execArgv so Workers
+   // accept it. Reintroduce them for each fresh process, which must consume them.
+   const args=['--max-inlined-bytecode-size=2400','--max-inlined-bytecode-size-cumulative=9600',...process.execArgv,fileURLToPath(import.meta.url),'--mode','full12','--cases',input,'--output',resultFile,
     ...(packageDirectory?['--package',packageDirectory]:[])];
    const child=spawnSync(process.execPath,args,{encoding:'utf8',timeout:180000,maxBuffer:4*1024*1024});
    writeFileSync(join(dir,root.id+'.stdout.jsonl'),child.stdout??'');
