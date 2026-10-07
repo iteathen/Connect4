@@ -1,0 +1,20 @@
+✔ physical reference rejects moves after a win and full-column moves (0.8413ms)
+✔ physical reference handles wins in all four directions and board boundaries (1.2173ms)
+✔ deterministic late corpus is legal, varied, mirrored, and physically solved (18.9514ms)
+✔ physical late draw reference has legal outcome-preserving witnesses (0.1883ms)
+{"kind":"partial24","writers":6,"readers":2,"startBarrier":true,"collidedRows":[0,7],"keysPerRow":7,"storesAttempted":144000,"reports":[{"reads":10500,"hits":312,"misses":10188,"overlapReads":10500},{"reads":10500,"hits":100,"misses":10400,"overlapReads":10500},{"reads":10500,"hits":373,"misses":10127,"overlapReads":10500},{"reads":10500,"hits":71,"misses":10429,"overlapReads":10500},{"reads":10500,"hits":194,"misses":10306,"overlapReads":10500},{"reads":10500,"hits":63,"misses":10437,"overlapReads":10500},{"reads":100002,"hits":5580,"misses":94422,"overlapReads":81009},{"reads":100002,"hits":7132,"misses":92870,"overlapReads":64361}]}
+✔ six synchronized writers and two readers preserve single-bank partial24 proof identity (66.1431ms)
+{"kind":"banked-partial24","writers":6,"readers":2,"startBarrier":true,"collidedRows":[0,7,8,15,16,23,24,31],"keysPerRow":7,"storesAttempted":144000,"reports":[{"reads":10500,"hits":1289,"misses":9211,"overlapReads":10500},{"reads":10500,"hits":1140,"misses":9360,"overlapReads":10500},{"reads":10500,"hits":1011,"misses":9489,"overlapReads":10500},{"reads":10500,"hits":957,"misses":9543,"overlapReads":10500},{"reads":10500,"hits":790,"misses":9710,"overlapReads":10500},{"reads":10500,"hits":946,"misses":9554,"overlapReads":10500},{"reads":148568,"hits":17227,"misses":131341,"overlapReads":148551},{"reads":158928,"hits":18251,"misses":140677,"overlapReads":158880}]}
+{"geometries":100,"states":1551,"solvedOutcomesQueried":false}
+✔ six synchronized writers and two readers preserve banked boundary partial24 proof identity (66.4044ms)
+✔ banked boundary rows preserve busy, sequence wrap, cloned and signed locator behavior (0.7998ms)
+✔ shipped partial worker preambles carry the complete signed locator ABI (7.1148ms)
+✔ fast TT identity and reflection guards cover geometries 1x1 through 10x10 without searches (179.5277ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 412.6705
