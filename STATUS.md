@@ -1,5 +1,19 @@
 # Connect4 Repository Status
 
+## Current IsoMax distribution on main — 2026-10-06
+
+The owner requested the tested NEES-remediated IsoMax as the current solver on
+main. Version 0.2.0-rc.5 is packaged under `isomax/`; `npm start` launches it.
+JSMinSys remains the support-library and worker-kernel owner, frozen in package
+provenance. Main owns this runnable distribution, setup and qualification.
+Earlier statements that main only links to an implementation branch are
+superseded for this package. Research, CUDA-BSFP and the reference comparator
+remain unchanged. See [the current setup](README.md) and
+[promotion qualification](docs/qualification/20261006-nees-promotion/README.md).
+
+The organization records below preserve their historical scope and do not select
+the current executable or defaults.
+
 **Updated:** 2026-09-18  
 **Role:** shared-foundation dashboard and authority router
 

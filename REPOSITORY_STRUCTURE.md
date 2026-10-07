@@ -1,5 +1,17 @@
 # Connect4 repository structure
 
+## Current packaged solver on main — 2026-10-06
+
+The owner explicitly promoted IsoMax 0.2.0-rc.5 to main. The complete runnable
+distribution is `isomax/`, with a standalone archive under `isomax/dist/`.
+Root `npm start` uses that package. JSMinSys owns its kernels/support functions;
+package provenance binds their exact source. This promotion supersedes earlier
+main-only-routing restrictions for the IsoMax distribution. Other solver lanes,
+canonical research and the incumbent comparator retain their ownership.
+
+Older branch diagrams and routing below are historical context, not setup
+instructions for the current solver.
+
 This file defines the live organizational model of the repository. It is routing/documentation, not a replacement for accepted specifications.
 
 ## Current IsoMax implementation routing — 2026-10-06

@@ -1,0 +1,62 @@
+{
+  "version": "0.2.0-rc.5",
+  "sourceCommit": "b7604c7dcca54fca362d630ed96c96410469e3e2",
+  "options": {
+    "workers": "auto",
+    "workerMode": "minimal",
+    "sharedCacheLayout": "native",
+    "localCacheLayout": "native",
+    "rootFrontier": false,
+    "sharedSampleMask": 0,
+    "sharedProofBounds": true,
+    "supportBasisPlanBudgetBytes": 1073741824,
+    "supportClosurePlan": true,
+    "supportReflectionPlan": true,
+    "supportBasisViews": true,
+    "timeoutMs": 600000,
+    "initializationTimeoutMs": 120000,
+    "memoryProfile": "auto",
+    "cacheIdentity": "auto"
+  },
+  "launchFlags": [
+    "--max-inlined-bytecode-size=2400",
+    "--max-inlined-bytecode-size-cumulative=9600"
+  ],
+  "measured": {
+    "workers": 6,
+    "node": "v27.0.0-nightly20260928b59840b593",
+    "v8": "14.6.202.34-node.36",
+    "cpu": "Intel Core i5-12600K",
+    "platform": "Windows x64",
+    "searchCpus": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10
+    ],
+    "primaryMeanMs": 33245.44565,
+    "bestMs": 33162.6396,
+    "controlMeanMs": 34152.65045,
+    "processCpuMeanMs": 205750,
+    "peakRssBytes": 15663845376,
+    "sharedBytes": 12884901888,
+    "privateBytesPerWorker": 201326592,
+    "sharedCacheCapacity": 536870912,
+    "localCacheCapacity": 8388608,
+    "sharedBankEntries": 268435456,
+    "cacheIdentity": "partial24",
+    "runtimeFreeze": "1c7b64f352c2e44b4853f9faaf916b48d7837bce",
+    "primaryBoundary": "READY/pages initialized -> actual empty root construction -> exact result; cleanup separate",
+    "goalMs": 10000,
+    "goalMet": false,
+    "sampleCount": 2,
+    "oneDrive": "stopped by owner instruction"
+  },
+  "notes": "Cold automatic identity selects partial24 for admitted complete standard7x6 plans, otherwise native32/generic fallback. Discover physical cores and select largest fitting memory allocation.12GiB partial24 is localhost-qualified with6workers; other allocations/hardware retain their stated evidence limits. Experimental16..128 profiles remain auto-selectable.",
+  "explicitCacheDefaults": {
+    "sharedCacheCapacity": 134217728,
+    "localCacheCapacity": 8388608
+  }
+}

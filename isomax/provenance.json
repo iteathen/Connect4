@@ -1,0 +1,539 @@
+{
+  "version": "0.2.0-rc.5",
+  "status": "repository distribution; registry publication disabled",
+  "sourceRepository": "https://github.com/iteathen/JSMinSys",
+  "sourceCommit": "b7604c7dcca54fca362d630ed96c96410469e3e2",
+  "measuredRuntimeCommits": [
+    "1c7b64f352c2e44b4853f9faaf916b48d7837bce",
+    "d12d6d798b18c66c7ca2d1ee913cb2166089cc0f"
+  ],
+  "normalization": "UTF-8 with CRLF normalized to LF; SHA-256",
+  "workerModules": [
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal.mjs",
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-local32.mjs",
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-proofs.mjs",
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-proofs-local32.mjs",
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-center.mjs",
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-center-local32.mjs",
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-center-proofs.mjs",
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-center-proofs-local32.mjs",
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-views.mjs",
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-views-local32.mjs",
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-views-proofs.mjs",
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-views-proofs-local32.mjs",
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-views-center.mjs",
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-views-center-local32.mjs",
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-views-center-proofs.mjs",
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-views-center-proofs-local32.mjs",
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-views-compiled.mjs",
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-views-compiled-local32.mjs",
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-views-compiled-proofs.mjs",
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-views-compiled-proofs-local32.mjs",
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-views-compiled-center.mjs",
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-views-compiled-center-local32.mjs",
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-views-compiled-center-proofs.mjs",
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-views-compiled-center-proofs-local32.mjs",
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-views-compiled-local32-partial24.mjs",
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-views-compiled-local32-partialMixed.mjs",
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-views-compiled-proofs-local32-partial24.mjs",
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-views-compiled-proofs-local32-partialMixed.mjs",
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-views-compiled-center-local32-partial24.mjs",
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-views-compiled-center-local32-partialMixed.mjs",
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-views-compiled-center-proofs-local32-partial24.mjs",
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-views-compiled-center-proofs-local32-partialMixed.mjs"
+  ],
+  "files": {
+    "LICENSE": {
+      "source": "LICENSE",
+      "sha256": "8486a10c4393cee1c25392769ddd3b2d6c242d6ec7928e1414efff7dfb2f07ef"
+    },
+    "README.md": {
+      "source": "package-authored",
+      "sha256": "3cce16ecb53db502bf0c50d0e7c15eeb6a40369cc99f380218831695a04550f5"
+    },
+    "cli.mjs": {
+      "source": "package-authored",
+      "sha256": "400d3e9c44027cd8fcd12f7df25358bd29c28c9cc1b775b6ba6e00481b7b8ff2"
+    },
+    "evidence/README.md": {
+      "source": "package-authored",
+      "sha256": "914dfa42a14439668c88b32ad36d9a6e3c8c9a1319284d6f4380b63e6c0116c9"
+    },
+    "evidence/REPORT.md": {
+      "source": "evidence/isomax-nees-remediation-20261006/REPORT.md",
+      "sha256": "9e554a4f9c2cc4940d955fe34fad6742ee24068cee99ac6f2fe9a60e0fd009d5"
+    },
+    "evidence/REVIEW.md": {
+      "source": "evidence/isomax-nees-remediation-20261006/REVIEW.md",
+      "sha256": "d4b1ad659172819291dfbc61f07d86471e6bb145a407a1d468fec826e406ffeb"
+    },
+    "evidence/SYSTEM-DISCOVERY.md": {
+      "source": "package-authored",
+      "sha256": "8cd942be1ad83f3f9ff8701539f6185fa688e80cd387eb23cf3c91f4927bc9fa"
+    },
+    "evidence/correctness-summary.json": {
+      "source": "evidence/isomax-nees-remediation-20261006/correctness-summary.json",
+      "sha256": "bce0fc109494cf9640c47d66f674e2a76336f1d348fb8f8e89c6bf6d30f1dbe1"
+    },
+    "evidence/debt-dispositions.json": {
+      "source": "evidence/isomax-nees-remediation-20261006/debt-dispositions.json",
+      "sha256": "4f0a82c6b4c2f570a567bff5a44cffc847d9b5f8fbddee697e767c93e94e3ca0"
+    },
+    "evidence/environment-change.json": {
+      "source": "evidence/isomax-nees-remediation-20261006/environment-change.json",
+      "sha256": "10edf6d1b5a08e7cc45ee380f3ec6b8ff5f22a4d4eaef558784d9aef3437e32a"
+    },
+    "evidence/producer-cycle-ledger.json": {
+      "source": "catalog/addon-cycle-ledger-v0.json",
+      "sha256": "aee1f3c18181953095a8fb01e807528795e28a626c963afd86f5e1e5c2f5d28a"
+    },
+    "evidence/system-discovery-20261006.json": {
+      "source": "package-authored",
+      "sha256": "d6339590348ef5b7e7b5408448e1de768ac106a90f1106667783327fe0223167"
+    },
+    "evidence/timing-summary.json": {
+      "source": "evidence/isomax-nees-remediation-20261006/timing-summary.json",
+      "sha256": "5e1b54b71db545a98a047e5fdbfe3e82a4bc17bfa3d3658a1c8d1429eb5a6fee"
+    },
+    "example.mjs": {
+      "source": "package-authored",
+      "sha256": "ca52160caec7e5dbb69e5597d12e3064b0b9d112955d3dfc9f2c8eb01516821a"
+    },
+    "index.mjs": {
+      "source": "package-authored",
+      "sha256": "71a87a8b667b042ad14d6048be3af0ecc7a09a1a12b04cf862aca4a2150c1035"
+    },
+    "package.json": {
+      "source": "package-authored",
+      "sha256": "3d1ede16aa98f06f98e9b14af61492fd176659fdd5ba4e565257ab946fec5232"
+    },
+    "profile.json": {
+      "source": "package-authored",
+      "sha256": "db26366b6687f030edd7e2cbd5b866d0b1f2a8fe099527978a93497ea51de4da"
+    },
+    "run.mjs": {
+      "source": "package-authored",
+      "sha256": "967dc85405bb0366aa93bb9e6f64fe8af7e38c4545fb765c7c5de8ce0105ef3f"
+    },
+    "runtime/addons/branch-manager-host.mjs": {
+      "source": "addons/branch-manager-host.mjs",
+      "sha256": "1635196c2b3660392fa9286de836fa6fba00bca82cba2aa1735fa65d543f8378"
+    },
+    "runtime/addons/connect4-cpc-matching-response.mjs": {
+      "source": "addons/connect4-cpc-matching-response.mjs",
+      "sha256": "1e67fb8110ea535de4d0bf28e23057347e8d06013b2cb19813818729dd26b58c"
+    },
+    "runtime/addons/connect4-cpc-prepared-response.mjs": {
+      "source": "addons/connect4-cpc-prepared-response.mjs",
+      "sha256": "fc1f65fc453cfd4791e10c5eaeaaee1696c35b0631a29ed8f233c50410b1079f"
+    },
+    "runtime/addons/connect4-cpc-prepared-win.mjs": {
+      "source": "addons/connect4-cpc-prepared-win.mjs",
+      "sha256": "ce84aaeda7ef1965e887b30e7ad45eb6eeb43f489e2add2e4b2436725faab458"
+    },
+    "runtime/addons/connect4-cpc-target-dense-win.mjs": {
+      "source": "addons/connect4-cpc-target-dense-win.mjs",
+      "sha256": "f100b0ff794c6cb0f5234feea6827c02036ed92cb3e6f2998e28f529271536dd"
+    },
+    "runtime/addons/connect4-cpc-target-win.mjs": {
+      "source": "addons/connect4-cpc-target-win.mjs",
+      "sha256": "92f1848b7530c6045ec7a355bdce9852713486e45f0d7a7f6a11cb0acc80a6c7"
+    },
+    "runtime/addons/connect4-cpcx-pair-hub.mjs": {
+      "source": "addons/connect4-cpcx-pair-hub.mjs",
+      "sha256": "66de3d0fbd9a923410fec7e141f9a623329e1acf37ead426017ba06b96dd97bb"
+    },
+    "runtime/addons/connect4-live-line-evaluator.mjs": {
+      "source": "addons/connect4-live-line-evaluator.mjs",
+      "sha256": "94609f645d5988b15d0aece8f087701329f2ea15e8f19f7e89128e4660483b75"
+    },
+    "runtime/addons/connect4-live-line-order.mjs": {
+      "source": "addons/connect4-live-line-order.mjs",
+      "sha256": "1070bbce728a5245af8bc1a03f5943726d70f332ea3253c9c63568f5e3626cee"
+    },
+    "runtime/addons/connect4-rank-local-presearch.mjs": {
+      "source": "addons/connect4-rank-local-presearch.mjs",
+      "sha256": "e698fa6325be829269c9784331739e02a7a7ff92735c1fff51cd5109ea460d25"
+    },
+    "runtime/addons/connect4-residual-proof-frontier-span.mjs": {
+      "source": "addons/connect4-residual-proof-frontier-span.mjs",
+      "sha256": "e4b175e7f0b31dd417107a3ce4ff5db3fe3351abf1a499af45c9c0af95bc404a"
+    },
+    "runtime/addons/connect4-residual-proof-frontier-three.mjs": {
+      "source": "addons/connect4-residual-proof-frontier-three.mjs",
+      "sha256": "571f0c6c1a60c155f8e0a109f83a3a40320a664c6a4a05edbea2d6316cc76200"
+    },
+    "runtime/addons/connect4-residual-proof-frontier.mjs": {
+      "source": "addons/connect4-residual-proof-frontier.mjs",
+      "sha256": "8fdb95152ce6957d6c4f856798834a0c8f05590ae5e32b5aae8d44a5fc1cbc35"
+    },
+    "runtime/addons/isomax-memory-profile.mjs": {
+      "source": "addons/isomax-memory-profile.mjs",
+      "sha256": "ae908c2b97ed2cdf6f20a5921a7b193caa52561cff311c401e9d1734c545b683"
+    },
+    "runtime/addons/rba-connect4-cache-capacity.mjs": {
+      "source": "addons/rba-connect4-cache-capacity.mjs",
+      "sha256": "bfafaee4e1420f6ca7df5b18fdd87555625e457c123e74e95b7b5a2848117b8e"
+    },
+    "runtime/addons/rba-connect4-coordinate-closure-dense.mjs": {
+      "source": "addons/rba-connect4-coordinate-closure-dense.mjs",
+      "sha256": "2e5c717f7a7b763c3ccc18c08fe199aa467f489682c2f04346e6652cd7d358ff"
+    },
+    "runtime/addons/rba-connect4-coordinate-closure-handle-view-dense.mjs": {
+      "source": "addons/rba-connect4-coordinate-closure-handle-view-dense.mjs",
+      "sha256": "5a1609118694d414fe572fa2cd140f98514b3e9d56b572d45c38086cd8e541ec"
+    },
+    "runtime/addons/rba-connect4-coordinate-closure-handle-view-prepared.mjs": {
+      "source": "addons/rba-connect4-coordinate-closure-handle-view-prepared.mjs",
+      "sha256": "021e534d3fa33f298d4f87d9c0cb598f452c0437d5b902a4ab4d1640fbfda155"
+    },
+    "runtime/addons/rba-connect4-coordinate-closure-prepared.mjs": {
+      "source": "addons/rba-connect4-coordinate-closure-prepared.mjs",
+      "sha256": "4e75a4873953f5ef51a130e53b7cb011cd74b1e6f6ce007983e1f6ba1dacfee5"
+    },
+    "runtime/addons/rba-connect4-coordinate-compiled-transition.mjs": {
+      "source": "addons/rba-connect4-coordinate-compiled-transition.mjs",
+      "sha256": "7372b172cd1f23d605d81762e8239a0f23c62909abdf5e6ead532cdf94600908"
+    },
+    "runtime/addons/rba-connect4-coordinate-dense.mjs": {
+      "source": "addons/rba-connect4-coordinate-dense.mjs",
+      "sha256": "3b0e583342d757ca436a599b1d8b145918a16e639a331d88374861e581412355"
+    },
+    "runtime/addons/rba-connect4-coordinate-prepared.mjs": {
+      "source": "addons/rba-connect4-coordinate-prepared.mjs",
+      "sha256": "4e7e351197af44815f3d972fd0a9bb07c2ad6552870d3649f1de17cbe3cec084"
+    },
+    "runtime/addons/rba-connect4-coordinate-support-dense.mjs": {
+      "source": "addons/rba-connect4-coordinate-support-dense.mjs",
+      "sha256": "bb236355d6dc56092b43b65fd373fd4c595560a2851927dfa71999dbb65e6779"
+    },
+    "runtime/addons/rba-connect4-coordinate-support-prepared.mjs": {
+      "source": "addons/rba-connect4-coordinate-support-prepared.mjs",
+      "sha256": "d517c2fe616c65c43b94450e9c00087b3f845e7d68022ad71e908c0264a9cebe"
+    },
+    "runtime/addons/rba-connect4-coordinate-support-reflection-view.mjs": {
+      "source": "addons/rba-connect4-coordinate-support-reflection-view.mjs",
+      "sha256": "db834c0fe4ed907a2042d270186a74a4a74dc3707bf4198a2d88171523a657c5"
+    },
+    "runtime/addons/rba-connect4-coordinate-support-reflection.mjs": {
+      "source": "addons/rba-connect4-coordinate-support-reflection.mjs",
+      "sha256": "17a6d8733a4a919c9516729b4c1bdbffd1318a3cfb6aee207c8b42cd2f21f361"
+    },
+    "runtime/addons/rba-connect4-coordinate.mjs": {
+      "source": "addons/rba-connect4-coordinate.mjs",
+      "sha256": "328f9ecd3874c86544d1ca639e37dd5d630e29c4f5f0728e6b05f9b21d6f6e0e"
+    },
+    "runtime/addons/rba-connect4-geometry.mjs": {
+      "source": "addons/rba-connect4-geometry.mjs",
+      "sha256": "6236813c8dcf907ecbdcc6d9f665af2c9bc4dd49d32139c8e20e38f6380e4185"
+    },
+    "runtime/addons/rba-connect4-index-partial-cache.mjs": {
+      "source": "addons/rba-connect4-index-partial-cache.mjs",
+      "sha256": "caa458ec7beeb64860ffb7c91246d700c1696cfd0c239c2903c7c22ba1f76812"
+    },
+    "runtime/addons/rba-connect4-ingress.mjs": {
+      "source": "addons/rba-connect4-ingress.mjs",
+      "sha256": "2959f78130024e2418f5df58e29c80c2168129305dbb1bd86d93e81358a0dbe1"
+    },
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-center-local32.mjs": {
+      "source": "addons/rba-connect4-lazy-smp-worker-minimal-center-local32.mjs",
+      "sha256": "77c7fef369beef0c49b6eeaf898346c8f24675ecf0760484dba4ba85d653d7aa"
+    },
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-center-proofs-local32.mjs": {
+      "source": "addons/rba-connect4-lazy-smp-worker-minimal-center-proofs-local32.mjs",
+      "sha256": "d47b14e25d321d38d8503c82bb00fa649bbab44df52b90ec272a0b9547f668d6"
+    },
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-center-proofs.mjs": {
+      "source": "addons/rba-connect4-lazy-smp-worker-minimal-center-proofs.mjs",
+      "sha256": "c8a86350aef8833a89a57f30d5fe0e29576d04ac3e98a116a1f6b141aa866b98"
+    },
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-center.mjs": {
+      "source": "addons/rba-connect4-lazy-smp-worker-minimal-center.mjs",
+      "sha256": "5356f9669af04c424247328d921ca6661a010aafe9dead934eeeabd340d5de24"
+    },
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-local32.mjs": {
+      "source": "addons/rba-connect4-lazy-smp-worker-minimal-local32.mjs",
+      "sha256": "5e469391df4cfae71dbb1dfe0370af8e5b48226ba56305c9cd6fb190149e2dee"
+    },
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-proofs-local32.mjs": {
+      "source": "addons/rba-connect4-lazy-smp-worker-minimal-proofs-local32.mjs",
+      "sha256": "15ea6dd2d67b529ef04e86cdef1073e9d4182709e71ea0b3e42f6dc97daa1609"
+    },
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-proofs.mjs": {
+      "source": "addons/rba-connect4-lazy-smp-worker-minimal-proofs.mjs",
+      "sha256": "c44a937397f9a3874932792b878f335ae79b8168e032697b2d79b6a8f4483779"
+    },
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-views-center-local32.mjs": {
+      "source": "addons/rba-connect4-lazy-smp-worker-minimal-views-center-local32.mjs",
+      "sha256": "08264f902f9c369f9b35bb5c87ca00b14fc0033db3d67453602ae559b224f70e"
+    },
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-views-center-proofs-local32.mjs": {
+      "source": "addons/rba-connect4-lazy-smp-worker-minimal-views-center-proofs-local32.mjs",
+      "sha256": "8250f448b1f9e37f4b5d2b0a600afa5e18ea36b199b067c91bb4be6e09a00a37"
+    },
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-views-center-proofs.mjs": {
+      "source": "addons/rba-connect4-lazy-smp-worker-minimal-views-center-proofs.mjs",
+      "sha256": "a1d5e57fee4d20ec5708129e568a8789b80d48cc6f2d22dc593f5bd5768a0e46"
+    },
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-views-center.mjs": {
+      "source": "addons/rba-connect4-lazy-smp-worker-minimal-views-center.mjs",
+      "sha256": "80f5ac7fb8a76ecbd598d97eeb38b76eaab850c35e099bf421eb75ac17fd06c4"
+    },
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-views-compiled-center-local32-partial24.mjs": {
+      "source": "addons/rba-connect4-lazy-smp-worker-minimal-views-compiled-center-local32-partial24.mjs",
+      "sha256": "912bdb99b6a31e82df61890bcf965f8bc4f42d79c9d9a6d0bdbe93ae8ab18c90"
+    },
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-views-compiled-center-local32-partialMixed.mjs": {
+      "source": "addons/rba-connect4-lazy-smp-worker-minimal-views-compiled-center-local32-partialMixed.mjs",
+      "sha256": "1101fa6c024d428d4e06ef1ec7d82cdc11ba1283d07ab22238e8cd66f38025c8"
+    },
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-views-compiled-center-local32.mjs": {
+      "source": "addons/rba-connect4-lazy-smp-worker-minimal-views-compiled-center-local32.mjs",
+      "sha256": "b6c39ebafddb2b2d2246b7e4f60cdc105662a4b0e0783719a0bbec66209c532f"
+    },
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-views-compiled-center-proofs-local32-partial24.mjs": {
+      "source": "addons/rba-connect4-lazy-smp-worker-minimal-views-compiled-center-proofs-local32-partial24.mjs",
+      "sha256": "b9e706d402da4815e6b1de6087a837d93c063e751ba90a246673f4defb9adc5d"
+    },
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-views-compiled-center-proofs-local32-partialMixed.mjs": {
+      "source": "addons/rba-connect4-lazy-smp-worker-minimal-views-compiled-center-proofs-local32-partialMixed.mjs",
+      "sha256": "0c56bdd6e6d118a831e7918a6abb65efbd24cdd331610e7f0cc0c1c199a75f90"
+    },
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-views-compiled-center-proofs-local32.mjs": {
+      "source": "addons/rba-connect4-lazy-smp-worker-minimal-views-compiled-center-proofs-local32.mjs",
+      "sha256": "f90748fcd5de90e7c3e60fb44d319d2012c8a736876a5bafb09fb1bd16efc5ba"
+    },
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-views-compiled-center-proofs.mjs": {
+      "source": "addons/rba-connect4-lazy-smp-worker-minimal-views-compiled-center-proofs.mjs",
+      "sha256": "f2fb7d57e411ddea8afe750864f6c01b360f3e8485fd8d5745f494312db2b756"
+    },
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-views-compiled-center.mjs": {
+      "source": "addons/rba-connect4-lazy-smp-worker-minimal-views-compiled-center.mjs",
+      "sha256": "455b6851ac2d02bf13b0641d1302b6d8cf1edf3bf117d69b925351b2b7344666"
+    },
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-views-compiled-local32-partial24.mjs": {
+      "source": "addons/rba-connect4-lazy-smp-worker-minimal-views-compiled-local32-partial24.mjs",
+      "sha256": "aa66afea79aa83c5ee93b4c5d0bbd73845a2f5ea397dab4e2f2d009a3af59559"
+    },
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-views-compiled-local32-partialMixed.mjs": {
+      "source": "addons/rba-connect4-lazy-smp-worker-minimal-views-compiled-local32-partialMixed.mjs",
+      "sha256": "906954910a83ed828019cbbf4caa8e839da1b010e3e2786b71d37fa4255e0e5f"
+    },
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-views-compiled-local32.mjs": {
+      "source": "addons/rba-connect4-lazy-smp-worker-minimal-views-compiled-local32.mjs",
+      "sha256": "17556af1fe1768a7655f2ad813fe9318225486be732b716a73dc4f0bb566aaf1"
+    },
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-views-compiled-proofs-local32-partial24.mjs": {
+      "source": "addons/rba-connect4-lazy-smp-worker-minimal-views-compiled-proofs-local32-partial24.mjs",
+      "sha256": "de9af916ff5c6a85fae4fe0cae32c3e53f37793b67d5001a9cf6ec184766d7c8"
+    },
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-views-compiled-proofs-local32-partialMixed.mjs": {
+      "source": "addons/rba-connect4-lazy-smp-worker-minimal-views-compiled-proofs-local32-partialMixed.mjs",
+      "sha256": "882c7b181b82600908bf69802ba38391e06a4b4fa349e39da24d50ce359cb809"
+    },
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-views-compiled-proofs-local32.mjs": {
+      "source": "addons/rba-connect4-lazy-smp-worker-minimal-views-compiled-proofs-local32.mjs",
+      "sha256": "9a356fd0533d274bc5a67f9be8ae36d7cc9aade581d6067738c86218f2b3e083"
+    },
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-views-compiled-proofs.mjs": {
+      "source": "addons/rba-connect4-lazy-smp-worker-minimal-views-compiled-proofs.mjs",
+      "sha256": "482f4ee989078158b8c75f02997122ec46674ce33b7016a994502d629b5024f3"
+    },
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-views-compiled.mjs": {
+      "source": "addons/rba-connect4-lazy-smp-worker-minimal-views-compiled.mjs",
+      "sha256": "fac89bcb40901c41d99f2355ad00046b88d53ca3641dd6cc60b970516cfce116"
+    },
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-views-local32.mjs": {
+      "source": "addons/rba-connect4-lazy-smp-worker-minimal-views-local32.mjs",
+      "sha256": "a2923b617627cf8e597039d58a5e5819782bb674c7915b46e09a2cddb83a1064"
+    },
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-views-proofs-local32.mjs": {
+      "source": "addons/rba-connect4-lazy-smp-worker-minimal-views-proofs-local32.mjs",
+      "sha256": "ac860c8f2dcb3666d61cb46e636c44d848c84bc5481230e0ef4d1ea1d33f0aa1"
+    },
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-views-proofs.mjs": {
+      "source": "addons/rba-connect4-lazy-smp-worker-minimal-views-proofs.mjs",
+      "sha256": "b71c44f6e1a943c14b708757cee73b8462d18289ae0f2100f2c5b6bcb905103f"
+    },
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal-views.mjs": {
+      "source": "addons/rba-connect4-lazy-smp-worker-minimal-views.mjs",
+      "sha256": "2cb008cccc5b0bb4238d526ed7113203e99e2461ce428c5c0a16f0ec071fb703"
+    },
+    "runtime/addons/rba-connect4-lazy-smp-worker-minimal.mjs": {
+      "source": "addons/rba-connect4-lazy-smp-worker-minimal.mjs",
+      "sha256": "50c81ebfa085a47ebccae28e32b123fde874518f374b7b6d4a5fc036b3094dd6"
+    },
+    "runtime/addons/rba-connect4-local-native-proof-cache.mjs": {
+      "source": "addons/rba-connect4-local-native-proof-cache.mjs",
+      "sha256": "cf2fe8b57b4b31a7bfc6070bdd6a6e1d78c0395920f9a3dd9b5deaf93fb866ef"
+    },
+    "runtime/addons/rba-connect4-prepared-compact-cache.mjs": {
+      "source": "addons/rba-connect4-prepared-compact-cache.mjs",
+      "sha256": "c191081ff9a421a475eac3460d544fcafbdd38c16936798eb8684afcad38b307"
+    },
+    "runtime/addons/rba-connect4-prepared-session-host.mjs": {
+      "source": "addons/rba-connect4-prepared-session-host.mjs",
+      "sha256": "53c2d2c993a7dea60e86b93bd2a4587705bc72f1a550ddd2ce38af8ce352aa3b"
+    },
+    "runtime/addons/rba-connect4-profile.mjs": {
+      "source": "addons/rba-connect4-profile.mjs",
+      "sha256": "edd8d17bcafdb2349b688f880ff2ba26cf362003eb4969ee0d98dacb65f11727"
+    },
+    "runtime/addons/rba-connect4-shared-banked-cache.mjs": {
+      "source": "addons/rba-connect4-shared-banked-cache.mjs",
+      "sha256": "b087674aa12f2e9776f04db4b03b0de3913ce8911b82f102d0fc877c8b327307"
+    },
+    "runtime/addons/rba-connect4-shared-exact-cache-layout.mjs": {
+      "source": "addons/rba-connect4-shared-exact-cache-layout.mjs",
+      "sha256": "a4ea7e2a854e645e6f6f44662fef65a49d9316bfbe486c1348797dbdffba651c"
+    },
+    "runtime/addons/rba-connect4-shared-exact-cache-uncounted.mjs": {
+      "source": "addons/rba-connect4-shared-exact-cache-uncounted.mjs",
+      "sha256": "d3cdf4efa3515a9e740cf16ff487d9430f221ac1987ba9cb76a53201c1a3f648"
+    },
+    "runtime/addons/rba-connect4-shared-exact-cache.mjs": {
+      "source": "addons/rba-connect4-shared-exact-cache.mjs",
+      "sha256": "b85ad37e944cabb7e59e4df447e541318eebe8445425ccd4f9f7a502afeb100d"
+    },
+    "runtime/addons/rba-connect4-shared-proof-cache.mjs": {
+      "source": "addons/rba-connect4-shared-proof-cache.mjs",
+      "sha256": "6c735a7f0ae1c81f3620d84725efc85ff81cd1606b100420cbf6203db722a6f4"
+    },
+    "runtime/addons/rba-connect4-support-basis-plan.mjs": {
+      "source": "addons/rba-connect4-support-basis-plan.mjs",
+      "sha256": "9e54c57dd702ebdd4322bfb33b415111010c86778b0a7defac853ac609e21e52"
+    },
+    "runtime/addons/rba-connect4-support-basis-view.mjs": {
+      "source": "addons/rba-connect4-support-basis-view.mjs",
+      "sha256": "f5e9f648a9830dc6da5c68a973e2a0190a30d486b834f454544f55b6d23bc6cb"
+    },
+    "runtime/addons/rba-connect4-support-compiled-transition.mjs": {
+      "source": "addons/rba-connect4-support-compiled-transition.mjs",
+      "sha256": "44f2e6f9acc3d275eb4b70dd178177c7fb52fd058f190da81da6562f849ea66c"
+    },
+    "runtime/addons/rba-connect4-support-handle-view.mjs": {
+      "source": "addons/rba-connect4-support-handle-view.mjs",
+      "sha256": "f99a535a9079697943772fd9ff01bd826bf1d77011cd78812ddc6e88a1ffc216"
+    },
+    "runtime/addons/worker-affinity.mjs": {
+      "source": "addons/worker-affinity.mjs",
+      "sha256": "a7f84871bfeb6e7a6a681c0c4caab7f05960f46399d82fd30f4218d8fca2f600"
+    },
+    "runtime/addons/worker-pinning.mjs": {
+      "source": "addons/worker-pinning.mjs",
+      "sha256": "1f94834e9128b05c72b62e2fd1d66edd03c232065dfa284cdd76097700bf7cca"
+    },
+    "runtime/addons/worker-startup-affinity.mjs": {
+      "source": "addons/worker-startup-affinity.mjs",
+      "sha256": "e96fcd4732c86551b2e0bbe0fccea864ab519900ecd8130b31e2e87e943ccb38"
+    },
+    "runtime/addons/worker-topology.mjs": {
+      "source": "addons/worker-topology.mjs",
+      "sha256": "7ac82aed754da3a9878bf5a9afd78eb7ce07a4bcb78786e63a1d5be8d6de4955"
+    },
+    "runtime/src/basis32.mjs": {
+      "source": "src/basis32.mjs",
+      "sha256": "d39e5e8d7db0fdbfb894b78ecd0b36f31481e2e777caca08f577134e30bf6b51"
+    },
+    "runtime/src/relational32.mjs": {
+      "source": "src/relational32.mjs",
+      "sha256": "ef28a812be3e1a5df695e67ced20168689f9b0887b83518aca2c857ea9581d3c"
+    },
+    "runtime/src/widekey32.mjs": {
+      "source": "src/widekey32.mjs",
+      "sha256": "81e11700ff71a38af021a21b8f9b59f80c4eb5508173c8ebbf3ee9aaefdf58c3"
+    },
+    "runtime/src/word32.mjs": {
+      "source": "src/word32.mjs",
+      "sha256": "f0b27429d7120362eedda5c6e48201e0b698da26b57848f547baa97ece2a2c33"
+    },
+    "runtime/src/word64x32.mjs": {
+      "source": "src/word64x32.mjs",
+      "sha256": "ca59372f9f74b8272c0d24d2221899fb1b075334198ca14b54997e578ed49985"
+    },
+    "runtime/tools/benchmark-v8-startup-preload.mjs": {
+      "source": "tools/benchmark-v8-startup-preload.mjs",
+      "sha256": "3900df3b51e8cad5b309441f50a6d659650eb4a5c712d86c0cecfae2972ad2e7"
+    },
+    "runtime/tools/worker-affinity-preload.mjs": {
+      "source": "tools/worker-affinity-preload.mjs",
+      "sha256": "02105fdf5204ef91434fe9ef2358ebc8ef953b87188b33dbf7705d65493d651f"
+    },
+    "test/basis-view.test.mjs": {
+      "source": "package-authored",
+      "sha256": "a22a458c2c32aea3e30b9a8b675726fbc578d9eba679a397bcef0926314c0912"
+    },
+    "test/cofactor.test.mjs": {
+      "source": "package-authored",
+      "sha256": "e87d4484294d9f84e02403267812fe31e4a54afdb78674681df36de77c6257e1"
+    },
+    "test/compiled-preparation.test.mjs": {
+      "source": "package-authored",
+      "sha256": "1b70786bf82d78a333f08d9297b66d5a3382805ba093413bf1e0763ca0c210eb"
+    },
+    "test/compiled-transition.test.mjs": {
+      "source": "package-authored",
+      "sha256": "36a73df50cc0f5784deca0f4aa602c70aba10c46533def6118f453ebd58af9fe"
+    },
+    "test/geometry-cofactor.test.mjs": {
+      "source": "package-authored",
+      "sha256": "308b859e0b809e249afb36fe7483c3dd4f61e0ae59c94c124941b9227f15c39c"
+    },
+    "test/input-contract.test.mjs": {
+      "source": "package-authored",
+      "sha256": "0590cfcdca6f428f79d5ae75da8bd5b51765689828a06f57ad64159fe710dbf5"
+    },
+    "test/isomax-partial-memory-policy.test.mjs": {
+      "source": "package-authored",
+      "sha256": "489e993cf23a4d74228a2556f1c955ddc09903f6e13d009dc823fba76a168a14"
+    },
+    "test/memory-profile-sizing.test.mjs": {
+      "source": "package-authored",
+      "sha256": "b28cdc5a49db32d489f364f926ed2ebe6614ddf8555325203b24f3dec7d3b81d"
+    },
+    "test/memory-profiles.test.mjs": {
+      "source": "package-authored",
+      "sha256": "e461b1747911325db7e52134d63da33ec1b480133249432112c3da941b0779c0"
+    },
+    "test/package-verification.test.mjs": {
+      "source": "package-authored",
+      "sha256": "ac98df03fba44945898e94564312cbd69989627aa67d20d9be05577d2de0d40a"
+    },
+    "test/partial-memory.test.mjs": {
+      "source": "package-authored",
+      "sha256": "202872ffc4e3f283b8d9476c25ea984ec9f149824072793dc7e2e6eedc47be48"
+    },
+    "test/prepared.test.mjs": {
+      "source": "package-authored",
+      "sha256": "c29088b7273fe3e1318fd99b37180340047cf2dfc3473b24dbe245068f41a6e2"
+    },
+    "test/rba-ingress-history-boundary.test.mjs": {
+      "source": "package-authored",
+      "sha256": "310f29150bfbf82ef1d3b97395769c26371fe999348bdab99353ef36f0d76b5f"
+    },
+    "test/rba-prepared-resource-boundary.test.mjs": {
+      "source": "package-authored",
+      "sha256": "1c93535fcd7ff6fa85a3d03604f64fafa204ded5c7e3d51113e72497699d0d62"
+    },
+    "test/smoke.test.mjs": {
+      "source": "package-authored",
+      "sha256": "bb06d50043dac19dc53af99868dd87ae50b6c85f751f29a2f4bad7da5f03c64c"
+    },
+    "test/worker-discovery.test.mjs": {
+      "source": "package-authored",
+      "sha256": "ef9220d30e0649d1f446d5b8e14a136eea75d72c3dd83c82656fe4dd6be2e9ee"
+    },
+    "test/worker-pinning.test.mjs": {
+      "source": "package-authored",
+      "sha256": "7c76ddaf1932d98314b235a6621a9cf60923fdb9625a376862708d10a8cd66c1"
+    },
+    "test/worker-topology.test.mjs": {
+      "source": "package-authored",
+      "sha256": "877645b8d9c5c865bd6fb9099d9c9c040eb8892b9c58701d16938fe848d46188"
+    },
+    "verify.mjs": {
+      "source": "package-authored",
+      "sha256": "3a3b6869f09071b473aafe025c50ec304b2cea3ce8b47b1f087d70b9e567d9ca"
+    }
+  }
+}

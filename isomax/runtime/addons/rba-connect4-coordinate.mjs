@@ -1,0 +1,210 @@
+import {emitSortedSetBits32,emitSortedSetBitsAt32} from '../src/basis32.mjs';
+import {publishSpan32} from '../src/widekey32.mjs';
+import {connect4RbaShapeContains} from './rba-connect4-geometry.mjs';
+
+export function connect4RbaTerminal(g,words,offset){return words[offset+g.metaOffset]&3;}
+export function connect4RbaRank(g,words,offset){return words[offset+g.metaOffset]>>>2;}
+export function connect4RbaPlayer(g,words,offset){return (words[offset+g.metaOffset]>>>2)&1;}
+
+// Nonterminal q only. Singleton residuals precede larger shapes in the basis.
+// Return a playable mover singleton in the current frame, or -1; no child build.
+export function connect4RbaImmediateWinningColumn(g,words,offset,basis,bi,n,mover){
+  const own=offset+(mover?g.p1Offset:g.p0Offset);
+  for(let i=0;i<n;i+=1){
+    const cell=basis[bi+i];
+    if(cell>=g.pairShapeStart)break;
+    if(!(words[own+(i>>>5)]&(1<<(i&31))))continue;
+    const column=g.cellColumn[cell];
+    if(words[offset+column]===g.cellRow[cell])return column;
+  }
+  return -1;
+}
+
+// Requires no immediate mover win. One opponent frontier singleton must be
+// blocked; two distinct frontier singletons cannot both be blocked by one move.
+// Return forced current-frame column, -1 unrestricted, or -2 proved loss.
+export function connect4RbaForcedResponseColumn(g,words,offset,basis,bi,n,mover){
+  const opponent=offset+(mover?g.p0Offset:g.p1Offset);
+  let forced=-1;
+  for(let i=0;i<n;i+=1){
+    const cell=basis[bi+i];
+    if(cell>=g.pairShapeStart)break;
+    if(!(words[opponent+(i>>>5)]&(1<<(i&31))))continue;
+    const column=g.cellColumn[cell];
+    if(words[offset+column]!==g.cellRow[cell])continue;
+    if(forced>=0)return -2;
+    forced=column;
+  }
+  return forced;
+}
+
+// Legal landing after ruling out mover immediate wins. If its next cell is
+// an opponent singleton, filling this landing exposes an unblocked win.
+// No other line can be blocked by the landing: this residual has only one cell.
+export function connect4RbaExposesOpponentWin(g,words,offset,basis,bi,n,mover,column,height){
+  if(height+1>=g.rows)return 0;
+  const cell=(height+1)*g.columns+column;
+  let lo=0,hi=n;
+  while(lo<hi){const mid=(lo+hi)>>>1;if(basis[bi+mid]<cell)lo=mid+1;else hi=mid;}
+  if(lo===n||basis[bi+lo]!==cell)return 0;
+  const opponent=offset+(mover?g.p0Offset:g.p1Offset);
+  return (words[opponent+(lo>>>5)]&(1<<(lo&31)))!==0?1:0;
+}
+
+export function connect4RbaBasisFromSupport(g,support,supportOffset,out,outOffset,seen){
+  for(let w=0;w<g.shapeWordCount;w+=1)seen[w]=0;
+  for(let line=0;line<g.lineCount;line+=1){
+    const base=line*4;let bits=0;
+    for(let i=0;i<4;i+=1){
+      const column=g.lineColumn[base+i],row=g.lineRow[base+i];
+      if(support[supportOffset+column]<=row)bits|=1<<i;
+    }
+    if(bits){const id=g.lineShape[line*16+bits];seen[id>>>5]|=1<<(id&31);}
+  }
+  return emitSortedSetBits32(seen,g.shapeWordCount,out,outOffset);
+}
+export function connect4RbaCofactorBasis(g,profile,parent,parentOffset,count,cell,out,outOffset,seen,removed=null,seenOffset=0){
+  for(let w=0;w<g.shapeWordCount;w+=1)seen[seenOffset+w]=0;
+  const remove=profile.prepareRemove(g,cell);
+  for(let i=0;i<count;i+=1){
+    const id=profile.removePrepared(g,parent[parentOffset+i],remove);
+    if(removed)removed[i]=id;
+    if(id>=0)seen[seenOffset+(id>>>5)]|=1<<(id&31);
+  }
+  return seenOffset
+    ?emitSortedSetBitsAt32(seen,seenOffset,g.shapeWordCount,out,outOffset)
+    :emitSortedSetBits32(seen,g.shapeWordCount,out,outOffset);
+}
+
+export function connect4RbaCofactor(g,profile,source,src,basis,bi,n,column,target,dst,childBasis,ci,seen,sizes,sizeIndex,removed=null,childIndex=null,seenOffset=0){
+  const meta=source[src+g.metaOffset];
+  if((meta&3)||column<0||column>=g.columns)return -1;
+  const height=source[src+column];if(height>=g.rows)return -1;
+  return connect4RbaCofactorKnownHeight(g,profile,source,src,basis,bi,n,column,height,target,dst,childBasis,ci,seen,sizes,sizeIndex,removed,childIndex,seenOffset);
+}
+export function connect4RbaCofactorKnownLegal(g,profile,source,src,basis,bi,n,column,target,dst,childBasis,ci,seen,sizes,sizeIndex,removed=null,childIndex=null,seenOffset=0){
+  return connect4RbaCofactorKnownHeight(g,profile,source,src,basis,bi,n,column,source[src+column],target,dst,childBasis,ci,seen,sizes,sizeIndex,removed,childIndex,seenOffset);
+}
+export function connect4RbaCofactorKnownHeight(g,profile,source,src,basis,bi,n,column,height,target,dst,childBasis,ci,seen,sizes,sizeIndex,removed=null,childIndex=null,seenOffset=0){
+  const meta=source[src+g.metaOffset],rank=meta>>>2,
+    cell=height*g.columns+column,player=rank&1;
+  for(let c=0;c<g.columns;c+=1)target[dst+c]=source[src+c];
+  target[dst+column]=height+1;target[dst+g.metaOffset]=(rank+1)<<2;
+  for(let w=0;w<2*g.coordWords;w+=1)target[dst+g.p0Offset+w]=0;
+  sizes[sizeIndex]=0;
+
+  // Every physical cell is a singleton residual whenever winning geometry
+  // exists. Shape ordering is cardinality then cell id, so singleton id=cell.
+  const singleton=cell,coord=src+(player?g.p1Offset:g.p0Offset);
+  let lo=0,hi=n;
+  while(lo<hi){const mid=(lo+hi)>>>1;if(basis[bi+mid]<singleton)lo=mid+1;else hi=mid;}
+  if(lo<n&&basis[bi+lo]===singleton&&(source[coord+(lo>>>5)]&(1<<(lo&31)))){
+    const value=player?1:3;target[dst+g.metaOffset]=((rank+1)<<2)|value;return value;
+  }
+  if(rank+1===g.cellCount){target[dst+g.metaOffset]=((rank+1)<<2)|2;return 2;}
+
+  const cn=connect4RbaCofactorBasis(g,profile,basis,bi,n,cell,childBasis,ci,seen,removed,seenOffset);sizes[sizeIndex]=cn;
+  if(childIndex)for(let j=0;j<cn;j+=1)childIndex[childBasis[ci+j]]=j;
+  const remove=removed?0:profile.prepareRemove(g,cell),
+    p0Source=src+g.p0Offset,p1Source=src+g.p1Offset,
+    p0Target=dst+g.p0Offset,p1Target=dst+g.p1Offset,
+    offsets=profile.supersetWordOffsets,words=profile.supersetWords,masks=profile.supersetMasks;
+  const activeWords=(n+31)>>>5;
+  for(let sourceWord=0;sourceWord<activeWords;sourceWord+=1){
+    const owner0=source[p0Source+sourceWord],owner1=source[p1Source+sourceWord];
+    let active=owner0|owner1;
+    // The prior slot loop ignored every bit beyond n, including poisoned tails.
+    if(sourceWord+1===activeWords)active&=0xffffffff>>>((-n)&31);
+    while(active){
+    const sourceMask=active&-active,i=(sourceWord<<5)+31-Math.clz32(sourceMask),
+      active0=owner0&sourceMask,active1=owner1&sourceMask;
+    active^=sourceMask;
+    const id=basis[bi+i],raw=removed?removed[i]:profile.removePrepared(g,id,remove),
+      image=raw===0xffffffff?-1:raw;
+    if(image<0)continue;
+    let write0=(active0!==0)&&(player===0||image===id),
+      write1=(active1!==0)&&(player===1||image===id);
+    if(!write0&&!write1)continue;
+
+    // Both coordinates share the same residual image whenever they survive.
+    // Locate and expand it once, then publish the resulting upset bits into
+    // whichever player coordinates are active.
+    let lo;
+    if(childIndex)lo=childIndex[image];
+    else{
+      lo=0;let hi=cn;
+      while(lo<hi){const mid=(lo+hi)>>>1;if(childBasis[ci+mid]<image)lo=mid+1;else hi=mid;}
+    }
+    let targetWord=lo>>>5,targetMask=1<<(lo&31);
+    // HOT CONTRACT: each prior insertion completed its upward closure in this
+    // same child basis. An existing image bit therefore absorbs its entire
+    // expansion. Test each surviving player independently, BEFORE writing the
+    // current image; no additional state/allocation or cross-player inference.
+    // Preserve this proof guard and comment when changing the hot path.
+    write0=write0&&!(target[p0Target+targetWord]&targetMask);
+    write1=write1&&!(target[p1Target+targetWord]&targetMask);
+    if(!write0&&!write1)continue;
+    if(write0)target[p0Target+targetWord]|=targetMask;
+    if(write1)target[p1Target+targetWord]|=targetMask;
+
+    for(let at=offsets[image],end=offsets[image+1];at<end;at+=1){
+      const word=words[at],shapeBase=word<<5;let bits=masks[at]&seen[seenOffset+word];
+      // The intersection contains only current child-basis IDs. Stale inverse
+      // entries cannot enter this path. Do not mutate the shared seen scratch.
+      while(bits){
+        const bit=bits&-bits,id=shapeBase+(31-Math.clz32(bit));
+        let j;
+        if(childIndex)j=childIndex[id];
+        else{
+          j=0;let hi=cn;
+          while(j<hi){const mid=(j+hi)>>>1;if(childBasis[ci+mid]<id)j=mid+1;else hi=mid;}
+        }
+        targetWord=j>>>5;targetMask=1<<(j&31);
+        if(write0)target[p0Target+targetWord]|=targetMask;
+        if(write1)target[p1Target+targetWord]|=targetMask;
+        bits^=bit;
+      }
+    }
+  }
+  }
+  return 0;
+}
+
+
+function compareReflectedSupport(g,words,offset){
+  const half=g.columns>>>1;
+  for(let c=0;c<half;c+=1){
+    const a=words[offset+c],b=words[offset+g.mirrorColumn[c]];
+    if(a<b)return -1;if(a>b)return 1;
+  }
+  return 0;
+}
+export function connect4RbaCanonicalize(g,profile,words,offset,basis,bi,n,scratch,selectedSet=null,selectedSetOffset=0){
+  const primary=compareReflectedSupport(g,words,offset);
+  if(primary<0)return 0;
+
+  for(let w=0;w<g.shapeWordCount;w+=1)scratch.seen[w]=0;
+  for(let i=0;i<n;i+=1){
+    const id=g.reflect[basis[bi+i]];scratch.map[i]=id;scratch.seen[id>>>5]|=1<<(id&31);
+  }
+  emitSortedSetBits32(scratch.seen,g.shapeWordCount,scratch.mirrorBasis,0);
+  for(let i=0;i<n;i+=1)scratch.inverse[scratch.mirrorBasis[i]]=i;
+  for(let i=0;i<n;i+=1)scratch.map[i]=scratch.inverse[scratch.map[i]];
+  profile.permuteCoordinates(
+    scratch.mirror,g.p0Offset,g.p1Offset,g.coordWords,
+    words,offset+g.p0Offset,offset+g.p1Offset,scratch.map,0,n,
+  );
+
+  if(primary===0){
+    let w=g.p0Offset;while(w<g.keyWords&&words[offset+w]===scratch.mirror[w])w+=1;
+    if(w===g.keyWords||words[offset+w]<scratch.mirror[w])return 0;
+  }
+  // Support/meta are needed only when reflection is actually selected. In the
+  // symmetric-support case that remains canonical, avoid writing them at all.
+  for(let c=0;c<g.columns;c+=1)scratch.mirror[c]=words[offset+g.mirrorColumn[c]];
+  scratch.mirror[g.metaOffset]=words[offset+g.metaOffset];
+  publishSpan32(words,offset,scratch.mirror,0,g.keyWords);
+  publishSpan32(basis,bi,scratch.mirrorBasis,0,n);
+  if(selectedSet)publishSpan32(selectedSet,selectedSetOffset,scratch.seen,0,g.shapeWordCount);
+  return 1;
+}
