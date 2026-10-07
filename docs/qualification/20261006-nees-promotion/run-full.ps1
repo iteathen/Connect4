@@ -1,4 +1,8 @@
-param([string]$Id='public-default-01')
+param(
+ [Parameter(Mandatory=$true)][string]$NodePath,
+ [string]$Id='public-default-01',
+ [string]$BackgroundLoad='not recorded'
+)
 $ErrorActionPreference='Stop'
 $taskRoot=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../../..'))
 Set-Location -LiteralPath $taskRoot
@@ -7,7 +11,7 @@ if(Test-Path -LiteralPath $taskDir){throw 'Output already exists'}
 $taskProcesses=@(Get-CimInstance Win32_Process -Filter "Name='node.exe'" | Where-Object {
  $_.CommandLine -like '*isomax*cli.mjs*' -or $_.CommandLine -like '*exact-tt-identity*bench.mjs*'})
 if($taskProcesses.Count){throw 'A solve is already running'}
-$taskNode='C:/r/isomax-nightly-runtime/node-v27.0.0-nightly20260928b59840b593-win-x64/node.exe'
+$taskNode=(Resolve-Path -LiteralPath $NodePath).Path
 $taskHash=(Get-FileHash -LiteralPath $taskNode -Algorithm SHA256).Hash.ToLower()
 if($taskHash -ne '2f2843c1802f6a17ba7fabe5550c90bb055c9bef8738a08338d94f71dbe91f29'){throw 'Runtime identity changed'}
 & $taskNode isomax/verify.mjs
@@ -18,14 +22,18 @@ $taskMemory | Select-Object FreePhysicalMemory,FreeVirtualMemory,TotalVisibleMem
 if([long]$taskMemory.FreePhysicalMemory*1024 -lt 15.125*1073741824 -or [long]$taskMemory.FreeVirtualMemory*1024 -lt 15.125*1073741824){throw 'Measured12GiB allocation needs more headroom; do not substitute a smaller benchmark'}
 $taskLock=Get-Content isomax/provenance.json -Raw | ConvertFrom-Json
 [pscustomobject]@{repositorySha=(git rev-parse HEAD);producerSha=$taskLock.sourceCommit;
- executable=$taskNode;executableSha256=$taskHash;command='node isomax/run.mjs';
- node=(& $taskNode --version);oneDriveStopped=(@(Get-Process OneDrive -ErrorAction SilentlyContinue).Count -eq 0);
+ executable='node.exe';executableSha256=$taskHash;command='node isomax/run.mjs';
+ node=(& $taskNode --version);backgroundLoad=$BackgroundLoad;
  archiveSha256=(Get-FileHash isomax/dist/iteathen-isomax-0.2.0-rc.5.tgz -Algorithm SHA256).Hash.ToLower();
  boundary='Public default launcher; solver reports READY->actual empty root->exact. CPU/RSS from actual hosting child process, not launcher parent.'} |
  ConvertTo-Json -Depth 5 | Set-Content (Join-Path $taskDir 'invocation.json')
 $taskWatch=[Diagnostics.Stopwatch]::StartNew()
 & $taskNode isomax/run.mjs > (Join-Path $taskDir 'stdout.json') 2> (Join-Path $taskDir 'stderr.txt')
 $taskExit=$LASTEXITCODE;$taskWatch.Stop()
+# Preserve diagnostics while omitting disposable process identifiers from public evidence.
+$taskStderrPath=Join-Path $taskDir 'stderr.txt'
+$taskStderr=[IO.File]::ReadAllText($taskStderrPath) -replace '\(node:\d+\)','(node:process-id-omitted)'
+[IO.File]::WriteAllText($taskStderrPath,$taskStderr,[Text.UTF8Encoding]::new($false))
 if($taskExit){throw 'Public solve failed; retain raw output'}
 $taskRun=Get-Content (Join-Path $taskDir 'stdout.json') -Raw | ConvertFrom-Json
 $taskLeft=@(Get-CimInstance Win32_Process -Filter "Name='node.exe'" | Where-Object {$_.CommandLine -like '*isomax*cli.mjs*'})

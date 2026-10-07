@@ -27,7 +27,8 @@ node isomax/run.mjs --columns 1 --rows 4 --shared-entries 256 --local-entries 25
 
 [Download the standalone archive](isomax/dist/iteathen-isomax-0.2.0-rc.5.tgz).
 Extract its complete `package/` folder, then run `node verify.mjs` and
-`node run.mjs`. [SHA-256](isomax/dist/SHA256SUMS) verifies the download.
+`node run.mjs`. The repository's `dist/` holds the archive and checksum; it is
+excluded from the archive itself. [SHA-256](isomax/dist/SHA256SUMS) verifies the download.
 
 ## Automatic setup
 
@@ -65,13 +66,17 @@ reported separately. [The package guide](isomax/README.md) covers options and AP
 Matched localhost candidate runs averaged **33.245 seconds**, versus 34.153 for
 the prior control; best **33.163 seconds**. They used the i5-12600K, six verified
 P-core workers, 12 GiB shared TT, 192 MiB private per worker, recorded Node 27
-nightly/V8 and flags, and OneDrive stopped. Two trials per source do not establish
+nightly/V8 and flags, with the same reduced background load for both sources.
+These two trials per source are preliminary evidence and do not establish
 portable performance. The ≤10-second objective remains unmet.
 [The promotion record](docs/qualification/20261006-nees-promotion/README.md)
 records identities, correctness and the packaged public solve.
 
 The final packaged default-path confirmation took **33.334 seconds**, with the
-same automatic 12 GiB selection, six verified workers and clean exits.
+same automatic 12 GiB selection, six verified workers and clean exits. The
+shipped source `8b81911` took **39.690 seconds** from launcher invocation through
+completion. The primary time begins after READY and includes root construction;
+the full external wall time also includes startup and cleanup.
 
 ## Repository navigation
 

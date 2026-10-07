@@ -98,11 +98,13 @@ Diagnostic node/cache counts are unavailable (`null`); no hot reporting was adde
 Matched localhost candidate runs averaged 33.245 seconds, best 33.163, versus
 34.153 for the control. They used six pinned i5-12600K P-cores, actual 12 GiB shared
 /192 MiB private TTs, Node `v27.0.0-nightly20260928b59840b593`, V8
-`14.6.202.34-node.36`, and OneDrive stopped. Two samples per source are limited
-evidence, not a portable speed guarantee. The ≤10-second goal remains unmet.
-See [evidence/](evidence/README.md) and the Connect4 promotion record for the new
-public-package confirmation. Whole-runtime NEES/allocation-free certification
-remains unqualified.
+`14.6.202.34-node.36`, with the same reduced background load for both sources.
+Two samples per source are preliminary evidence, not a portable speed guarantee.
+The ≤10-second goal remains unmet.
+See [evidence/](evidence/README.md) and the [promotion record](evidence/promotion-20261006/README.md) for the
+public-package confirmation: shipped source `8b81911` measured 33,334.3664 ms
+primary and 39,689.6962 ms full external wall, including startup and cleanup.
+Whole-runtime NEES/allocation-free certification remains unqualified.
 
 - `run.mjs` / `cli.mjs`: portable startup and empty-board command.
 - `index.mjs`: public prepared/one-shot API and initialization policy.
@@ -110,8 +112,9 @@ remains unqualified.
 - `runtime/`: unchanged producer kernels and support closure.
 - `provenance.json` / `verify.mjs`: source, SHA-256 and closure verification.
 - `test/`: bounded correctness, platform, lifecycle and corruption checks.
-- `dist/`: standalone archive and download checksum.
+- `dist/`: repository download archive and checksum; excluded from the archive.
 
 AGPL-3.0-only. This is a repository distribution; npm registry publication is
-disabled. Maintainers reproduce it using JSMinSys `isomax/prepare.mjs` at the
-packaging revision; the consumer needs only this folder or the archive.
+disabled. JSMinSys `isomax/prepare.mjs` at the packaging revision is a maintainer
+reproduction tool in the producer checkout, not a consumer installation command.
+The consumer needs only this folder or the extracted archive.

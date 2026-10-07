@@ -277,15 +277,15 @@
       "control-03",
       "candidate-02"
     ],
-    "oneDrive": "stopped for all, owner instructed leaving stopped",
     "controlMeanSolveMs": 34152.65045,
     "candidateMeanSolveMs": 33245.44565,
     "observedPercentReduction": 2.65632326641284,
     "controlMeanCpuMs": 209789.0625,
-    "candidateMeanCpuMs": 205750.0,
+    "candidateMeanCpuMs": 205750,
     "allExactAndClean": true,
     "sampleCountPerSource": 2,
-    "interpretation": "No observed regression; modest observed improvement of composite only, not attribution to individual edits or proof of portable gain"
+    "interpretation": "Preliminary observation from two samples per source: no observed regression and modest improvement of the composite; no attribution to individual edits or proof of portable gain.",
+    "backgroundLoad": "Same reduced background-load condition for all four matched trials."
   },
   "cycles": null,
   "nativeNodeCounts": null,
@@ -302,5 +302,10 @@
       "status": "LAUNCHER_CONFIGURATION_ERROR",
       "solverStarted": false
     }
-  ]
+  ],
+  "scope": "Historical producer measurements; current package confirmation is public-default-02 at source 8b81911 in the promotion record.",
+  "backgroundLoadChange": {
+    "firstAffectedRun": "nees-fix-08-integer-windows-02",
+    "earlierRuns": "Different background-load condition; excluded from the matched comparison."
+  }
 }
