@@ -98,7 +98,7 @@ export async function validateOutcomes({mode='small',count=240,output=null,packa
  if(output)writeFileSync(output,JSON.stringify({summary,records},null,2)+'\n');
  console.log(JSON.stringify(summary));assert.equal(summary.failures.length,0,'outcome or resource validation failed');return summary;
 }
-if(process.argv[1]&&import.meta.url===pathToFileURL(resolve(process.argv[1])).href){
+if(process.argv[1]&&process.argv.length>2&&import.meta.url===pathToFileURL(resolve(process.argv[1])).href){
  const args=process.argv.slice(2),options={};
  for(let i=0;i<args.length;i+=2){
   const key={'--mode':'mode','--count':'count','--output':'output','--package':'packageDirectory','--cases':'casesFile'}[args[i]];

@@ -1,0 +1,268 @@
+✔ production incumbent strength curve matches the deterministic solved calibration corpus (2036.312ms)
+✔ beginning solved spot-check curve remains separate and reproducible (3802.5559ms)
+✔ known solved result-class defect is present at depth 12 and corrected at depth 19 (1311.4236ms)
+✔ standard board has 42 cells and 69 winning lines (1.0163ms)
+✔ moves obey gravity and alternate players (0.6097ms)
+✔ horizontal win is detected and closes the position (0.2089ms)
+✔ vertical win is detected (0.0955ms)
+✔ rising diagonal win is detected (0.0939ms)
+✔ falling diagonal win is detected (0.0839ms)
+✔ a full column rejects another move without changing state (0.1304ms)
+✔ undo restores the exact prior domain state (0.1334ms)
+✔ constructor rejects an invalid move sequence (0.2887ms)
+✔ generic profile retains standard 7x6 geometry without making it an implementation limit (0.9535ms)
+✔ frozen incumbent evaluator vectors match exactly across board profiles (0.5325ms)
+✔ live-line positional field naturally prefers center investment over edge investment (0.1547ms)
+✔ optimized repeated-immediate promotion remains observable incumbent behavior (0.1384ms)
+✔ root utility remains explicitly asymmetric rather than negamax-compatible (0.2303ms)
+✔ fixed-depth legacy-qualified search matches frozen move and score vectors exactly (31.0021ms)
+✔ tactical prepass preserves immediate win, forced block, and double-threat loss behavior (3.6812ms)
+✔ legacy-qualified persistent self-play reproduces the historical depth 3 through 12 sequences (20002.4872ms)
+✔ shallower inherited entries order moves but do not supply cross-generation scores (4.065ms)
+✔ reroot preserves search memory while enforcing root-perspective score identity (18.5048ms)
+✔ explicit reset isolates benchmark experiments without changing production persistence policy (3.8203ms)
+✔ oracle corpus provenance binds to independently mirrored Pons test-set blobs (0.5098ms)
+✔ 158 external Pons parent-score checkpoints match exactly (2837.6197ms)
+✔ deterministic calibration action scores are regenerated exactly by the qualified oracle (400.1325ms)
+✔ bounded beginning spot-check action scores are regenerated exactly by the qualified oracle (16955.1222ms)
+{"kind":"fast100-dimension-rule-transition-check","geometries":100,"states":2721,"children":22230,"plans":59,"viewChildren":24756,"viewReflections":14490,"seed":70368301,"solvedOutcomesQueried":false}
+✔ incremental support handles reproduce physical transitions and reflection across all100 dimensions (5778.923ms)
+✔ root support view rejects reordered or truncated nonterminal ingress and accepts terminal unused basis (2.3175ms)
+✔ known-handle loader never scans child heights or copies shared basis (0.7617ms)
+✔ prepared: cofactors match every legal child along deterministic walks and reflected gauges (190.1411ms)
+✔ prepared: excludes absent supersets even when inverse scratch points to a matching stale tail (7.8743ms)
+✔ prepared: preserves both players first wins and full-board draw/win precedence (4.3736ms)
+✔ dense: cofactors match every legal child along deterministic walks and reflected gauges (92.3515ms)
+✔ dense: excludes absent supersets even when inverse scratch points to a matching stale tail (4.4612ms)
+✔ dense: preserves both players first wins and full-board draw/win precedence (4.3404ms)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ packaged preparation selects compiled planes before releasing four workers (59.2922ms)
+{"images":2142231,"dead":54516,"stable":1794440,"bit31":29534}
+✔ native transition slots and stability match independent enumerated child rows (149.3836ms)
+✔ native slot sentinel widths adapt to declared basis bounds before allocation (1.7648ms)
+✔ compiled plan reuse preserves buffers and accounts only reachable transition planes (1.2854ms)
+✔ optional and generated prepared/dense cofactors match independent physical residuals (183.2206ms)
+✔ dense kernel uses the cold removal table directly and preserves last-cell terminal precedence (3.9383ms)
+✔ prepared module canonicalization exports retain selectedSet and offset behavior (13.5711ms)
+✔ prepared-only canonicalization matches the optional API without selected-set work (10.1541ms)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ packaged rank-local history rejects non-indexed views (1.5044ms)
+✔ packaged capacity guards reject unsupported views before allocating (6.0613ms)
+✔ automatic package identity admits partial24 only with complete standard plans (120.2448ms)
+✔ 12GiB profile reproduces measured rows, private size and bank boundary without allocating (0.5865ms)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ 128GiB compact bank plan uses full unsigned hash space without allocating (1.2999ms)
+✔ initialization reserve scales down for tiny geometry but retains measured7x6 headroom (8.4246ms)
+✔ oversized bank overrides reject before support-plan preparation (12.8281ms)
+✔ supplied support plans reserve missing compiled planes when preparation budget is zero (4.1497ms)
+✔ profile sizing accounts for every worker and exact fit boundary (4.6175ms)
+✔ dimension-dependent profile layouts fit all 1x1 through10x10 boards (122.7705ms)
+✔ native memory discovery reports physical and process/commit headroom (1.2728ms)
+✔ generic board banks retain native field identity without compact assumptions (5.665ms)
+✔ memory profile catalog and selection include tested8 and experimental128 (2.7512ms)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ public package exposes all tested and experimental memory profiles (0.825ms)
+✔ public profile selector allows automatic experimental choices without allocation (7.5447ms)
+✔ CLI profile listing reports tested8 and experimental16..128 without solving (103.3992ms)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ explicit tiny cache controls report custom memory and retain all discovered workers (64.1368ms)
+✔ package verification accepts the intact distributable (884.4247ms)
+✔ package verification rejects missing index.mjs (228.2432ms)
+✔ package verification rejects missing profile.json (227.9722ms)
+✔ package verification rejects missing example.mjs (222.4528ms)
+✔ package verification rejects missing test/smoke.test.mjs (1036.5221ms)
+✔ package verification rejects changed public entry (214.0663ms)
+✔ package verification rejects changed public configuration (235.7623ms)
+✔ package verification rejects changed verifier identity (1031.4522ms)
+✔ package verification rejects changed package export (361.8198ms)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ public policy reaches tested partial24 capacities without allocating (7.7769ms)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ public prepared session reports actual partial backing and private capacity (2673.8282ms)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ prepared package starts search only after every worker is ready (65.071ms)
+✔ prepared package closes idle workers without starting search (57.6652ms)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ prepared 7x6 transports a reflected nonempty root (7792.6213ms)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ prepared 7x5 transports a reflected nonempty root (2776.6712ms)
+✔ abort after preparation returns interrupted result and cleans every worker (53.1759ms)
+✔ aborting READY owns cleanup without a subsequent solve or close (77.136ms)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ abort at terminal cleanup preserves the exact result and removes ownership (69.5949ms)
+✔ closing an active prepared solve interrupts and cleans workers (4967.8601ms)
+✔ invalid supplied root closes the prepared application (64.3019ms)
+✔ pre-aborted initialization rejects without leaving an application (0.4561ms)
+✔ pre-aborted historical profile never allocates shared geometry or TT pages (55.9052ms)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ a supported long solve deadline does not overflow the Node timer (77.5201ms)
+✔ oversized history rejects before any ingress arena allocation or indexing (1.5557ms)
+✔ history boundary accepts indexed numeric arrays, rejects DataView and arbitrary iterables (1.5181ms)
+✔ owned indexed history is read once and reused by position-code construction (0.7909ms)
+✔ ingress remains exact for array and typed history across dimensions1..10 (168.8875ms)
+✔ already-expired initialization stops before launching any worker (2.1539ms)
+✔ pre-aborted partial preparation cancels before requiring compiled plans (9.646ms)
+﹣ retaining a closed application does not retain its large shared TT buffer (0.0742ms) # SKIP
+Verified 123 locked files and self-contained runtime/public launchers.
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ optional calculator preserves all seven controls (8.0241ms)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ 4-worker 7x6 preserves exact outcome and cleanup (2746.6155ms)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ 4-worker 7x5 preserves exact outcome and cleanup (1279.3879ms)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ 4-worker 1x4 preserves exact outcome and cleanup (79.899ms)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ 4-worker 4x1 preserves exact outcome and cleanup (80.7536ms)
+✔ portable launcher starts without installation and reports empty-board execution (185.1568ms)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ default prepared application creates discovered workers before search (75.1724ms)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:process-id-omitted) ExperimentalWarning: FFI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ explicit worker override uses a supported pinned worker count (56.3047ms)
+✔ portable launcher reports discovered count and explicit override (362.3377ms)
+✔ no override may silently allocate more workers than distinct physical targets (1.1463ms)
+✔ invalid worker counts reject before solver allocation (0.2729ms)
+✔ Windows plan identifies one logical target per physical P core (0.9506ms)
+✔ Linux targets use allowed online siblings and never choose an E core (0.4361ms)
+✔ affinity primitive exists and rejects unsupported platforms (0.4062ms)
+✔ Windows allowance selects an available SMT sibling without reclassifying E cores (0.1386ms)
+✔ default Windows group assignment does not hide other bindable groups (0.2209ms)
+✔ Linux capacity ranking uses system classes even when only E cores are allowed (0.2344ms)
+✔ Windows hybrid discovery counts physical P cores, excluding SMT and E cores (0.7094ms)
+✔ homogeneous Windows CPU uses every physical core (0.1249ms)
+✔ CPU lists parse ranges and reject corrupt topology (0.6535ms)
+✔ Linux selects allowed P cores once each, not SMT siblings (0.4073ms)
+✔ Linux physical fallback never counts hyperthreads as extra workers (0.1991ms)
+✔ Linux P-core selection tolerates low-power PMUs and empty E masks (2-3) (0.1427ms)
+✔ Linux P-core selection tolerates low-power PMUs and empty E masks () (0.0801ms)
+✔ Linux capacity classes distinguish heterogeneous ARM cores (0.1867ms)
+✔ Darwin performance level zero uses physical counts (0.2214ms)
+✔ Darwin homogeneous CPUs use physicalcpu (0.1624ms)
+✔ unknown or corrupt topology is not guessed from logical CPU count (0.1374ms)
+ℹ tests 119
+ℹ suites 0
+ℹ pass 118
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 84899.1674
