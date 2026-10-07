@@ -25,7 +25,7 @@ $taskConfig.repositoryCommit=(git rev-parse HEAD)
 $taskConfig.sourceCommit=(git -C $taskProducer rev-parse HEAD)
 $taskConfig.arguments=@('--experimental-ffi','--max-inlined-bytecode-size=2400','--max-inlined-bytecode-size-cumulative=9600','--import','file:///C:/r/c4-external-20261004/isomax/runtime/tools/benchmark-v8-startup-preload.mjs')
 if($JitDiagnostic){$taskConfig.arguments+='--trace-turbo-inlining'}
-$taskConfig.producerPath=$taskProducer
+$taskConfig | Add-Member -NotePropertyName producerPath -NotePropertyValue $taskProducer -Force
 $taskConfig.arguments+=@((Join-Path $PSScriptRoot 'bench.mjs'),'--producer',$taskProducer,'--identity',$Identity,'--shared-entries',[string]$SharedEntries,'--local-entries',[string]$LocalEntries,'--shared-bank-entries',[string]$SharedBankEntries,'--timeout',$(if($JitDiagnostic){'10000'}else{'120000'}))
 $taskConfig.canonicalCommand="Frozen raw-host TT identity comparison; producer=$taskProducer identity=$Identity sharedEntries=$SharedEntries localEntries=$LocalEntries sharedBankEntries=$SharedBankEntries"
 $taskConfig.execution="Six auto-discovered verified P-core workers; exact empty root; sharedEntries=$SharedEntries localEntries=$LocalEntries sharedBankEntries=$SharedBankEntries entryBytes=$taskEntryBytes; retained topology flags and support plans"
