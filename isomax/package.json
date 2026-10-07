@@ -1,0 +1,40 @@
+{
+  "name": "@iteathen/isomax",
+  "version": "0.2.0-rc.5",
+  "private": true,
+  "description": "Exact IsoMax solver with automatic core discovery, verified affinity and exact partial-key TTs",
+  "type": "module",
+  "license": "AGPL-3.0-only",
+  "engines": {
+    "node": ">=26.7.0"
+  },
+  "exports": {
+    ".": "./index.mjs",
+    "./profile": "./profile.json"
+  },
+  "files": [
+    "index.mjs",
+    "cli.mjs",
+    "run.mjs",
+    "example.mjs",
+    "verify.mjs",
+    "test",
+    "runtime",
+    "profile.json",
+    "provenance.json",
+    "README.md",
+    "LICENSE",
+    "evidence"
+  ],
+  "scripts": {
+    "start": "node run.mjs",
+    "test": "node --experimental-ffi --test --test-concurrency=1 test/*.test.mjs",
+    "verify": "node verify.mjs",
+    "example": "node run.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iteathen/Connect4.git",
+    "directory": "isomax"
+  }
+}
