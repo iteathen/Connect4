@@ -13,6 +13,7 @@ export async function validateOutcomes({mode='small',count=240,output=null,packa
   assert.ok(output,'full12 requires an output file for cold-process evidence');
   const generated=buildCorpus({count:240}),roots=Array.from({length:8},(_,rank)=>generated[rank*8+rank]).flatMap(p=>[p,{...p,id:p.id+'-mirror',moves:p.moves.map(c=>6-c)}]),
    dir=join(dirname(resolve(output)),'full12-cold-cases'),records=[],startUtc=new Date().toISOString();
+  let sourceCommit=null;
   mkdirSync(dir,{recursive:true});writeFileSync(join(dir,'frozen-roots.json'),JSON.stringify(roots,null,2)+'\n');
   for(const root of roots){
    const input=join(dir,root.id+'.input.json'),resultFile=join(dir,root.id+'.json');
@@ -25,10 +26,14 @@ export async function validateOutcomes({mode='small',count=240,output=null,packa
    writeFileSync(join(dir,root.id+'.stdout.jsonl'),child.stdout??'');
    writeFileSync(join(dir,root.id+'.stderr.txt'),(child.stderr??'').replace(/C:[\\/]Users[\\/][^\\/\s]+/gi,'USER_HOME').replace(/\(node:\d+\)/g,'(node:PID)'));
    assert.ok(!child.error&&child.status===0,'cold full-capacity case failed: '+root.id);
-   const result=JSON.parse(readFileSync(resultFile,'utf8'));records.push(...result.records);
+   const result=JSON.parse(readFileSync(resultFile,'utf8'));
+   assert.ok(typeof result.summary.sourceCommit==='string'&&result.summary.sourceCommit.length===40,'child source identity required');
+   sourceCommit??=result.summary.sourceCommit;
+   assert.equal(result.summary.sourceCommit,sourceCommit,'all full-capacity cases must use the same source');
+   records.push(...result.records);
    console.log(JSON.stringify({id:root.id,coldProcess:true,status:result.records[0].status,failures:result.summary.failures}));
   }
-  const summary={event:'outcome-validation-summary',mode,cases:records.length,sourceCommit:'8b81911bb19f58665f5a5bbb4811a05fc0fd9fba',
+  const summary={event:'outcome-validation-summary',mode,cases:records.length,sourceCommit,
    ranks:[...new Set(records.map(r=>r.rank))].sort((a,b)=>a-b),wdls:[...new Set(records.map(r=>r.expectedWdl))].sort(),
    failures:records.flatMap(r=>r.failures.map(claim=>({id:r.id,claim}))),startUtc,finishedUtc:new Date().toISOString(),
    coldStart:'one fresh process and fresh actual 12 GiB shared TT plus six private TTs per root',

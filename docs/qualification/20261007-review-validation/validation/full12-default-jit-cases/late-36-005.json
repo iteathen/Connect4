@@ -1,0 +1,186 @@
+{
+  "summary": {
+    "event": "outcome-validation-summary",
+    "mode": "full12",
+    "cases": 1,
+    "sourceCommit": "8b81911bb19f58665f5a5bbb4811a05fc0fd9fba",
+    "ranks": [
+      36
+    ],
+    "wdls": [
+      1
+    ],
+    "failures": [],
+    "startUtc": "2026-10-07T02:39:27.475Z",
+    "finishedUtc": "2026-10-07T02:39:30.482Z",
+    "reference": "physical array board minimax; no producer imports; evaluated after each solve returns",
+    "limitation": "late stratified roots; no exhaustive standard7x6 proof or early-search performance claim"
+  },
+  "records": [
+    {
+      "id": "late-36-005",
+      "moves": [
+        1,
+        5,
+        0,
+        1,
+        3,
+        2,
+        5,
+        2,
+        1,
+        0,
+        5,
+        1,
+        2,
+        1,
+        2,
+        5,
+        6,
+        0,
+        4,
+        6,
+        6,
+        0,
+        1,
+        2,
+        0,
+        4,
+        2,
+        5,
+        0,
+        4,
+        3,
+        3,
+        6,
+        5,
+        6,
+        6
+      ],
+      "rank": 36,
+      "mode": "full12",
+      "expectedMoverRelativeWdl": 1,
+      "expectedWdl": 1,
+      "expectedBestMoves": [
+        4
+      ],
+      "referenceNodes": 8,
+      "rootWdl": 1,
+      "move": 4,
+      "status": "EXACT",
+      "workers": 6,
+      "readyWorkers": 6,
+      "workersExited": 6,
+      "cleanup": true,
+      "cacheIdentity": "partial24",
+      "basisViews": true,
+      "compiledTransitions": true,
+      "supportTransitionPlanBytes": 466948881,
+      "sharedTtBanks": 2,
+      "sharedTtBankEntries": 268435456,
+      "sharedTtPayloadBytes": 12884901888,
+      "workerAffinity": [
+        {
+          "worker": 0,
+          "target": {
+            "platform": "win32",
+            "group": 0,
+            "processor": 0,
+            "core": 0
+          },
+          "verified": true,
+          "hintsApplied": false,
+          "affinityTagApplied": false,
+          "affinityTagStatus": null,
+          "group": 0,
+          "cpu": 0
+        },
+        {
+          "worker": 1,
+          "target": {
+            "platform": "win32",
+            "group": 0,
+            "processor": 2,
+            "core": 1
+          },
+          "verified": true,
+          "hintsApplied": false,
+          "affinityTagApplied": false,
+          "affinityTagStatus": null,
+          "group": 0,
+          "cpu": 2
+        },
+        {
+          "worker": 2,
+          "target": {
+            "platform": "win32",
+            "group": 0,
+            "processor": 4,
+            "core": 2
+          },
+          "verified": true,
+          "hintsApplied": false,
+          "affinityTagApplied": false,
+          "affinityTagStatus": null,
+          "group": 0,
+          "cpu": 4
+        },
+        {
+          "worker": 3,
+          "target": {
+            "platform": "win32",
+            "group": 0,
+            "processor": 6,
+            "core": 3
+          },
+          "verified": true,
+          "hintsApplied": false,
+          "affinityTagApplied": false,
+          "affinityTagStatus": null,
+          "group": 0,
+          "cpu": 6
+        },
+        {
+          "worker": 4,
+          "target": {
+            "platform": "win32",
+            "group": 0,
+            "processor": 8,
+            "core": 4
+          },
+          "verified": true,
+          "hintsApplied": false,
+          "affinityTagApplied": false,
+          "affinityTagStatus": null,
+          "group": 0,
+          "cpu": 8
+        },
+        {
+          "worker": 5,
+          "target": {
+            "platform": "win32",
+            "group": 0,
+            "processor": 10,
+            "core": 5
+          },
+          "verified": true,
+          "hintsApplied": false,
+          "affinityTagApplied": false,
+          "affinityTagStatus": null,
+          "group": 0,
+          "cpu": 10
+        }
+      ],
+      "preparedTiming": {
+        "readyWorkers": 6,
+        "rootConstructedAfterReady": true,
+        "initializationMs": 2974.6521000000002,
+        "solveMs": 5.019000000000233,
+        "cleanupMs": 19.00579999999991,
+        "boundary": "all workers ready and empty TT pages initialized -> root construction -> exact result observed; cleanup separate"
+      },
+      "expectedEvaluatedAfterSolve": true,
+      "failures": []
+    }
+  ]
+}
