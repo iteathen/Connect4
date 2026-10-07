@@ -1,13 +1,38 @@
 // Explicit qualification CLI. Default tests never allocate the full profile.
 import assert from 'node:assert/strict';
-import {writeFileSync,readFileSync} from 'node:fs';
-import {resolve} from 'node:path';
-import {pathToFileURL} from 'node:url';
+import {writeFileSync,readFileSync,mkdirSync} from 'node:fs';
+import {resolve,dirname,join} from 'node:path';
+import {pathToFileURL,fileURLToPath} from 'node:url';
+import {spawnSync} from 'node:child_process';
 import {buildCorpus,inspectHistory,solvePhysical,physicalToAbsoluteWdl} from './review-validation-physical-reference.mjs';
 
 export async function validateOutcomes({mode='small',count=240,output=null,packageDirectory=null,casesFile=null}={}){
  assert.ok(['small','full12'].includes(mode),'mode small or full12 required');
  assert.ok(mode!=='full12'||typeof globalThis.gc==='function','full12 requires --expose-gc to release each closed one-shot TT before admitting the next allocation');
+ if(mode==='full12'&&!casesFile){
+  assert.ok(output,'full12 requires an output file for cold-process evidence');
+  const generated=buildCorpus({count:240}),roots=Array.from({length:8},(_,rank)=>generated[rank*8+rank]).flatMap(p=>[p,{...p,id:p.id+'-mirror',moves:p.moves.map(c=>6-c)}]),
+   dir=join(dirname(resolve(output)),'full12-cold-cases'),records=[],startUtc=new Date().toISOString();
+  mkdirSync(dir,{recursive:true});writeFileSync(join(dir,'frozen-roots.json'),JSON.stringify(roots,null,2)+'\n');
+  for(const root of roots){
+   const input=join(dir,root.id+'.input.json'),resultFile=join(dir,root.id+'.json');
+   writeFileSync(input,JSON.stringify([root],null,2)+'\n');
+   const args=[...process.execArgv,fileURLToPath(import.meta.url),'--mode','full12','--cases',input,'--output',resultFile,
+    ...(packageDirectory?['--package',packageDirectory]:[])];
+   const child=spawnSync(process.execPath,args,{encoding:'utf8',timeout:180000,maxBuffer:4*1024*1024});
+   writeFileSync(join(dir,root.id+'.stdout.jsonl'),child.stdout??'');
+   writeFileSync(join(dir,root.id+'.stderr.txt'),(child.stderr??'').replace(/C:[\\/]Users[\\/][^\\/\s]+/gi,'USER_HOME').replace(/\(node:\d+\)/g,'(node:PID)'));
+   assert.ok(!child.error&&child.status===0,'cold full-capacity case failed: '+root.id);
+   const result=JSON.parse(readFileSync(resultFile,'utf8'));records.push(...result.records);
+   console.log(JSON.stringify({id:root.id,coldProcess:true,status:result.records[0].status,failures:result.summary.failures}));
+  }
+  const summary={event:'outcome-validation-summary',mode,cases:records.length,sourceCommit:'8b81911bb19f58665f5a5bbb4811a05fc0fd9fba',
+   ranks:[...new Set(records.map(r=>r.rank))].sort((a,b)=>a-b),wdls:[...new Set(records.map(r=>r.expectedWdl))].sort(),
+   failures:records.flatMap(r=>r.failures.map(claim=>({id:r.id,claim}))),startUtc,finishedUtc:new Date().toISOString(),
+   coldStart:'one fresh process and fresh actual 12 GiB shared TT plus six private TTs per root',
+   reference:'independent physical board minimax evaluated after solver returns',limitation:'16 late roots; not exhaustive or early-search performance qualification'};
+  writeFileSync(output,JSON.stringify({summary,records},null,2)+'\n');console.log(JSON.stringify(summary));return summary;
+ }
  const source=packageDirectory?pathToFileURL(resolve(packageDirectory,'index.mjs')):new URL('../index.mjs',import.meta.url),
   api=await import(source),runtime=new URL('./runtime/',source),
   {prepareSupportBasisPlans32}=await import(new URL('addons/rba-connect4-support-basis-plan.mjs',runtime)),

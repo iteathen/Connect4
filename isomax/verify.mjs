@@ -19,7 +19,7 @@ const actual=readdirSync(new URL('runtime/',base),{recursive:true,withFileTypes:
 assert.equal(actual.length,Object.keys(lock.files).filter(p=>p.startsWith('runtime/')).length,'Runtime closure');
 assert.deepEqual(readdirSync(new URL('test/',base)).filter(n=>n.endsWith('.mjs')).map(n=>'test/'+n).sort(),Object.keys(lock.files).filter(p=>p.startsWith('test/')).sort());
 const pkg=JSON.parse(readFileSync(new URL('package.json',base)));
-assert.equal(pkg.private,true);assert.equal(pkg.version,'0.2.0-rc.5');assert.equal(pkg.exports['.'],'./index.mjs');
+assert.equal(pkg.private,true);assert.equal(pkg.version,'0.2.0-rc.6');assert.equal(pkg.version,lock.version);assert.equal(pkg.exports['.'],'./index.mjs');
 const profile=JSON.parse(readFileSync(new URL('profile.json',base)));
 assert.equal(profile.sourceCommit,lock.sourceCommit);assert.equal(profile.options.workers,'auto');assert.equal(profile.measured.workers,6);
 assert.equal(profile.explicitCacheDefaults.localCacheCapacity,8388608);assert.equal(profile.options.supportBasisViews,true);
