@@ -1,6 +1,6 @@
 # Standalone IsoMax
 
-Download `iteathen-isomax-0.2.0-rc.5.tgz`, verify its SHA-256 against
+Download `iteathen-isomax-0.2.0-rc.6.tgz`, verify its SHA-256 against
 `SHA256SUMS`, and extract the complete `package/` folder. From that folder:
 
 ```sh

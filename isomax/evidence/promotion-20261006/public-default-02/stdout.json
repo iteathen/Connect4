@@ -1,0 +1,289 @@
+{
+  "packageVersion": "0.2.0-rc.5",
+  "sourceCommit": "8b81911bb19f58665f5a5bbb4811a05fc0fd9fba",
+  "startingPosition": "empty",
+  "columns": 7,
+  "rows": 6,
+  "runtime": {
+    "node": "v27.0.0-nightly20260928b59840b593",
+    "v8": "14.6.202.34-node.36",
+    "cpu": "12th Gen Intel(R) Core(TM) i5-12600K"
+  },
+  "workerPlan": {
+    "workers": 6,
+    "physicalCores": 10,
+    "systemPhysicalCores": 10,
+    "performanceCores": 6,
+    "targets": [
+      {
+        "platform": "win32",
+        "group": 0,
+        "processor": 0,
+        "core": 0
+      },
+      {
+        "platform": "win32",
+        "group": 0,
+        "processor": 2,
+        "core": 1
+      },
+      {
+        "platform": "win32",
+        "group": 0,
+        "processor": 4,
+        "core": 2
+      },
+      {
+        "platform": "win32",
+        "group": 0,
+        "processor": 6,
+        "core": 3
+      },
+      {
+        "platform": "win32",
+        "group": 0,
+        "processor": 8,
+        "core": 4
+      },
+      {
+        "platform": "win32",
+        "group": 0,
+        "processor": 10,
+        "core": 5
+      }
+    ],
+    "selection": "performance-cores",
+    "source": "Windows GetLogicalProcessorInformationEx",
+    "platform": "win32",
+    "affinityRequired": true,
+    "affinityPolicy": "verified-pinning"
+  },
+  "memoryPlan": {
+    "profile": {
+      "id": "12",
+      "sharedGiB": 12,
+      "sharedBudgetBytes": 12884901888,
+      "privateBudgetBytesPerWorker": 268435456,
+      "status": "tested",
+      "evidenceScope": "localhost i5-12600K Windows empty7x6,six workers,partial24 actual12GiB",
+      "addressing": "native fields in independently addressed banks"
+    },
+    "cacheIdentity": "partial24",
+    "selection": "automatic",
+    "sharedCacheCapacity": 536870912,
+    "localCacheCapacity": 8388608,
+    "sharedCacheLayout": "native",
+    "localCacheLayout": "native",
+    "sharedBankCapacity": 268435456,
+    "sharedBytes": 12884901888,
+    "privateBytesPerWorker": 201326592,
+    "privateBytes": 1207959552,
+    "reserveBytes": 2147483648,
+    "requiredBytes": 16240345088,
+    "availableBytes": 19638124544,
+    "bankCount": 2,
+    "bankEntries": 268435456,
+    "entryBytes": 24,
+    "addressing": "banked native fields",
+    "localEvidenceMatchesGeometryAndWorkers": true,
+    "performanceScope": "localhost i5-12600K Windows empty7x6,six workers,partial24 actual12GiB",
+    "snapshot": {
+      "platform": "win32",
+      "totalPhysicalBytes": 34088599552,
+      "physicalAvailableBytes": 19638128640,
+      "processAvailableBytes": 19638124544,
+      "commitAvailableBytes": 21692436480,
+      "availableBytes": 19638124544,
+      "source": "os.freemem + process.availableMemory (libuv process/resource limits) + GlobalMemoryStatusEx available commit"
+    }
+  },
+  "affinity": null,
+  "configuration": {
+    "workers": 6,
+    "workerMode": "minimal",
+    "sharedCacheLayout": "native",
+    "localCacheLayout": "native",
+    "rootFrontier": false,
+    "sharedSampleMask": 0,
+    "sharedProofBounds": true,
+    "supportBasisPlanBudgetBytes": 1073741824,
+    "supportClosurePlan": true,
+    "supportReflectionPlan": true,
+    "supportBasisViews": true,
+    "timeoutMs": 600000,
+    "initializationTimeoutMs": 120000,
+    "memoryProfile": "auto",
+    "cacheIdentity": "partial24",
+    "sharedCacheCapacity": 536870912,
+    "localCacheCapacity": 8388608
+  },
+  "primaryWallMs": 33334.3664,
+  "operationWallMs": 38885.041600000004,
+  "cpuMs": 204688,
+  "peakRssBytes": 15600730112,
+  "memory": {
+    "rss": 14313136128,
+    "heapTotal": 7475200,
+    "heapUsed": 6472480,
+    "external": 4275422,
+    "arrayBuffers": 14211894352
+  },
+  "result": {
+    "status": "EXACT",
+    "rootWdl": 1,
+    "move": 3,
+    "winner": 2,
+    "winnerMetrics": null,
+    "nodeCounts": null,
+    "workerTiming": null,
+    "frontierMetrics": null,
+    "sharedCacheHits": null,
+    "sharedCacheStores": null,
+    "sharedCacheStoreContention": null,
+    "sharedSampleMask": 0,
+    "workerMode": "minimal",
+    "cacheIdentity": "partial24",
+    "sharedCacheLayout": "native",
+    "sharedTtEntryBytes": 24,
+    "sharedTtEntryWidths": null,
+    "sharedTtPayloadBytes": 12884901888,
+    "sharedTtLogicalEntries": 536870912,
+    "sharedTtPools": 1,
+    "sharedTtBanks": 2,
+    "sharedTtBankEntries": 268435456,
+    "sharedProofBounds": true,
+    "basisViews": true,
+    "compiledTransitions": true,
+    "supportTransitionPlanBudgetBytes": 536870912,
+    "supportTransitionPlanBytes": 466948881,
+    "supportTransitionWorkingBytes": 466951381,
+    "localCacheLayout": "native",
+    "privateTtEntryBytes": 24,
+    "privateTtEntryWidths": null,
+    "privateTtPayloadBytes": null,
+    "privateTtLogicalEntries": 8388608,
+    "supportBasisPlanBytes": 1323433629,
+    "supportBasisPlanProfiles": 823543,
+    "supportClosurePlan": true,
+    "supportReflectionPlan": true,
+    "supportPlanWorkingBytes": 1389319569,
+    "sharedBytes": 14210046323,
+    "completedWorkers": [
+      0,
+      0,
+      1,
+      0,
+      0,
+      0
+    ],
+    "reflected": 0,
+    "elapsedMs": 38873.0844,
+    "readyWorkers": 6,
+    "preparedTiming": {
+      "readyWorkers": 6,
+      "rootConstructedAfterReady": true,
+      "initializationMs": 5511.6404,
+      "solveMs": 33334.3664,
+      "cleanupMs": 26.551600000006147,
+      "boundary": "all workers ready and empty TT pages initialized -> root construction -> exact result observed; cleanup separate"
+    },
+    "errorCode": 0,
+    "errors": [],
+    "cleanup": true,
+    "workersExited": 6,
+    "requestedWorkers": 6,
+    "workersUsed": 6,
+    "workerAffinity": [
+      {
+        "worker": 0,
+        "target": {
+          "platform": "win32",
+          "group": 0,
+          "processor": 0,
+          "core": 0
+        },
+        "verified": true,
+        "hintsApplied": false,
+        "affinityTagApplied": false,
+        "affinityTagStatus": null,
+        "group": 0,
+        "cpu": 0
+      },
+      {
+        "worker": 1,
+        "target": {
+          "platform": "win32",
+          "group": 0,
+          "processor": 2,
+          "core": 1
+        },
+        "verified": true,
+        "hintsApplied": false,
+        "affinityTagApplied": false,
+        "affinityTagStatus": null,
+        "group": 0,
+        "cpu": 2
+      },
+      {
+        "worker": 2,
+        "target": {
+          "platform": "win32",
+          "group": 0,
+          "processor": 4,
+          "core": 2
+        },
+        "verified": true,
+        "hintsApplied": false,
+        "affinityTagApplied": false,
+        "affinityTagStatus": null,
+        "group": 0,
+        "cpu": 4
+      },
+      {
+        "worker": 3,
+        "target": {
+          "platform": "win32",
+          "group": 0,
+          "processor": 6,
+          "core": 3
+        },
+        "verified": true,
+        "hintsApplied": false,
+        "affinityTagApplied": false,
+        "affinityTagStatus": null,
+        "group": 0,
+        "cpu": 6
+      },
+      {
+        "worker": 4,
+        "target": {
+          "platform": "win32",
+          "group": 0,
+          "processor": 8,
+          "core": 4
+        },
+        "verified": true,
+        "hintsApplied": false,
+        "affinityTagApplied": false,
+        "affinityTagStatus": null,
+        "group": 0,
+        "cpu": 8
+      },
+      {
+        "worker": 5,
+        "target": {
+          "platform": "win32",
+          "group": 0,
+          "processor": 10,
+          "core": 5
+        },
+        "verified": true,
+        "hintsApplied": false,
+        "affinityTagApplied": false,
+        "affinityTagStatus": null,
+        "group": 0,
+        "cpu": 10
+      }
+    ]
+  }
+}

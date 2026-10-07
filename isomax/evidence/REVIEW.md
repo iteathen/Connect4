@@ -1,4 +1,10 @@
-# Fresh whole-remediation review
+# Historical whole-remediation review
+
+This review covers the producer remediation cycle preceding rc.5 promotion.
+Its final labels and test totals belong to that cycle, not the current package.
+See [the promotion review](promotion-20261006/REVIEW.md)
+and [promotion record](promotion-20261006/README.md)
+for the shipped source `8b81911` and later qualification.
 
 Read-only reviewer inspected6792395..1c7b64f, plan and NEES authority without
 running tests or competing solvers. No Critical finding or demonstrated solver
@@ -25,5 +31,6 @@ and complete NEES conformance. Ruling: preserve bounded claims and report these
 limits; tests/code samples cannot establish those stronger properties. Cost if
 wrong: users overestimating qualification; no global certificate is issued.
 
-Production rc.4 is immutable and older. These are producer candidate fixes on
-the work branch; package/main promotion is separate and not claimed.
+Historical rc.4 remains immutable and older. This review assessed producer
+candidate fixes on the work branch. Package/main promotion was a later, separate
+step and is documented in the linked promotion record.

@@ -1,0 +1,90 @@
+{
+  "schema": 1,
+  "toolchains": {
+    "msvcCompilerSha256": "6641bee08a3cbafe204aa03b280ad634d7a88b1c03a06fbfec22aaf55d1e4ec2",
+    "msvcLinkerSha256": "2c26c8b28ca5e47ef0c0e89a7264cf4fe6685d26ec0b0a3188e2383bc4b7e08f",
+    "gccCompilerSha256": "95225e474909523c4ed1a41aa248af8ea4cacca1fc8988c807e78214e2eb32cf"
+  },
+  "solvers": {
+    "christophe": {
+      "repository": "https://github.com/ChristopheSteininger/c4",
+      "commit": "fa27f186d2f1bf8e8fd61bfad63454c6e4b0431c",
+      "original": {
+        "src/solver/entry.cpp": "4f648310b23b1da53c2445be680cea140cfce6f0de19c09ce70ae8e5786829cf",
+        "src/solver/entry.h": "3e2fc6836390e83597488bf42397cdc80505cb126ecbd720ff7fc3c83bbb1038",
+        "src/solver/parallel/pool.cpp": "e72436b32f9b227e58c40fdf44e872b510ead44d53e84afab0f2d4321000ea52",
+        "src/solver/parallel/pool.h": "85af861966d3dd2b8b6e5ef0c4552f1ab62b8a0b6aa8656aec019c4aedff39c2",
+        "src/solver/parallel/result.cpp": "72b6d6fc03f89c5ee49794e58b3914babec98d2e7a026e8609398c3541da2a92",
+        "src/solver/parallel/result.h": "5fdb15c22ec6aa6b01a41b306cdea9a6941cb0f8a1b901f39303bd76b82a375c",
+        "src/solver/parallel/worker.cpp": "a56c35fc232390b452edee37d19f6626481f394c1373f2a5e29104d07731f310",
+        "src/solver/parallel/worker.h": "1740a0f10507ddc505b6d3e3f019342452e993ade5c8010f0ed7e6c318393b57",
+        "src/solver/position.cpp": "42af0f7b3a7342535a729c91f1884aa669eff954c3e228c6ca1f6ce90fd546a7",
+        "src/solver/position.h": "b6347675b4c4408904127bbc39074f63d27b1aa787e1368daa2e0c233d1a1a99",
+        "src/solver/search.cpp": "513ddde548014d22975f99591f8a14805ae84de99dad02d43ac494355cd8e89a",
+        "src/solver/search.h": "f9f3bc081df5b55c59f9e1bd62df3cc15e5a4b12db0607851fbdc19c60580549",
+        "src/solver/settings.h": "2ee65a43dcf3c190399e5db9e5c04ddf8a2ea7c469cb14663b2a9f0bbfa7603a",
+        "src/solver/solver.cpp": "8a7bf55a6d16fe6dc2accd1d824ceca500678f8c220f993a55476806d11774cf",
+        "src/solver/solver.h": "7bfc2c3017381562b72e8d828dd3ddf9bc7c571030c6a01a0afa64da3952995e",
+        "src/solver/table.cpp": "a7f91f6738a5307719195bfa88058e181a04bc6fbedafc5cdc0ed93b5ca488cc",
+        "src/solver/table.h": "d5f8a0570ef219ce077f7bb6b3b829493c7041d81ec4045e2134b7f720daa5c4",
+        "src/solver/types.h": "4ad9eef77cd525cdf86eef1ba48419dba1a6381eb9e344d06c10038efbb29a13",
+        "src/solver/util/os.cpp": "058681a6498ede2d3c237645490a711a864b9aafc937e17a110d7f6b56ae47e1",
+        "src/solver/util/os.h": "012b6b9fda411958eb3b4ad97125d6777f9849c99aa9f8416643aa1244447090",
+        "src/solver/util/progress.cpp": "f6d027910f56cee0985630c44541fe94a8fad8e5748ea2ebc9bd33bcda97ed11",
+        "src/solver/util/progress.h": "404bb58de10ca8ce0de415bcf66fb55a90f975af7a9874d397c2d68735bf5e87",
+        "src/solver/util/stats.cpp": "7b382739f7b416898269ba6614f018184b4ddb5540b63bc5d3d5bbab677cac46",
+        "src/solver/util/stats.h": "ec7080d18ef5806d014ad5e0b215125c194259bd31b50e5d504bf1e7b280695f",
+        "src/solver/util/writer.cpp": "ed3a78f16d34cdbc490da9e8256080d2a7334f9910011d3ee53a6e944793510f",
+        "src/solver/util/writer.h": "f7a8dd1ac741da623d5ea754072bd144f253941e63cbfda114e37ec592a3d997"
+      },
+      "audited": {
+        "src/solver/entry.cpp": "4f648310b23b1da53c2445be680cea140cfce6f0de19c09ce70ae8e5786829cf",
+        "src/solver/entry.h": "3e2fc6836390e83597488bf42397cdc80505cb126ecbd720ff7fc3c83bbb1038",
+        "src/solver/parallel/pool.cpp": "e72436b32f9b227e58c40fdf44e872b510ead44d53e84afab0f2d4321000ea52",
+        "src/solver/parallel/pool.h": "85af861966d3dd2b8b6e5ef0c4552f1ab62b8a0b6aa8656aec019c4aedff39c2",
+        "src/solver/parallel/result.cpp": "72b6d6fc03f89c5ee49794e58b3914babec98d2e7a026e8609398c3541da2a92",
+        "src/solver/parallel/result.h": "5fdb15c22ec6aa6b01a41b306cdea9a6941cb0f8a1b901f39303bd76b82a375c",
+        "src/solver/parallel/worker.cpp": "a56c35fc232390b452edee37d19f6626481f394c1373f2a5e29104d07731f310",
+        "src/solver/parallel/worker.h": "1740a0f10507ddc505b6d3e3f019342452e993ade5c8010f0ed7e6c318393b57",
+        "src/solver/position.cpp": "42af0f7b3a7342535a729c91f1884aa669eff954c3e228c6ca1f6ce90fd546a7",
+        "src/solver/position.h": "b6347675b4c4408904127bbc39074f63d27b1aa787e1368daa2e0c233d1a1a99",
+        "src/solver/search.cpp": "513ddde548014d22975f99591f8a14805ae84de99dad02d43ac494355cd8e89a",
+        "src/solver/search.h": "f9f3bc081df5b55c59f9e1bd62df3cc15e5a4b12db0607851fbdc19c60580549",
+        "src/solver/settings.h": "3d6a7225d52554d865765f2d222d11ad843c65b894f0406a380f4516683cd4ea",
+        "src/solver/solver.cpp": "8a7bf55a6d16fe6dc2accd1d824ceca500678f8c220f993a55476806d11774cf",
+        "src/solver/solver.h": "ad40b38679644dbdfcadc0e16d4b028accf2e53ab2d71c28f0a5bd641cbe0c60",
+        "src/solver/table.cpp": "a7f91f6738a5307719195bfa88058e181a04bc6fbedafc5cdc0ed93b5ca488cc",
+        "src/solver/table.h": "41cd685355d428c406ced6f4c2dd20e30d4246f0d18e64d0b2db1ef8609e6398",
+        "src/solver/types.h": "4ad9eef77cd525cdf86eef1ba48419dba1a6381eb9e344d06c10038efbb29a13",
+        "src/solver/util/os.cpp": "058681a6498ede2d3c237645490a711a864b9aafc937e17a110d7f6b56ae47e1",
+        "src/solver/util/os.h": "012b6b9fda411958eb3b4ad97125d6777f9849c99aa9f8416643aa1244447090",
+        "src/solver/util/progress.cpp": "f6d027910f56cee0985630c44541fe94a8fad8e5748ea2ebc9bd33bcda97ed11",
+        "src/solver/util/progress.h": "404bb58de10ca8ce0de415bcf66fb55a90f975af7a9874d397c2d68735bf5e87",
+        "src/solver/util/stats.cpp": "7b382739f7b416898269ba6614f018184b4ddb5540b63bc5d3d5bbab677cac46",
+        "src/solver/util/stats.h": "ec7080d18ef5806d014ad5e0b215125c194259bd31b50e5d504bf1e7b280695f",
+        "src/solver/util/writer.cpp": "ed3a78f16d34cdbc490da9e8256080d2a7334f9910011d3ee53a6e944793510f",
+        "src/solver/util/writer.h": "f7a8dd1ac741da623d5ea754072bd144f253941e63cbfda114e37ec592a3d997"
+      }
+    },
+    "pons": {
+      "repository": "https://github.com/PascalPons/connect4",
+      "commit": "d6ba50d8aaf2308c769d9bf2abd42d90f34baf41",
+      "original": {
+        "MoveSorter.hpp": "45e659e40a7ffaee63dd5c4f1ea142020c522eb61532681c98ecca474099eb63",
+        "OpeningBook.hpp": "43d876b3864194195da7cd5084d6c8c5c5fcc754289c00431047512060738fbf",
+        "Position.hpp": "2450c3201bea5a197ede7f16a3cb7bcdb3f2e1737cb6a9a8c8a55910c35304e8",
+        "Solver.cpp": "b0f0d99f38ecad923d719ee6090a73eb7049da7a2b8e510d7f52ad3035c5e9a6",
+        "Solver.hpp": "d2248dab0dfa1d0a8f626270398490c34225b1d97ebd7775bbd630a1addb7a66",
+        "TranspositionTable.hpp": "d9baff743f073daea0661fc2133f5ad9b3a78af6b9ff173d857ef584195d21cf"
+      },
+      "audited": {
+        "MoveSorter.hpp": "45e659e40a7ffaee63dd5c4f1ea142020c522eb61532681c98ecca474099eb63",
+        "OpeningBook.hpp": "43d876b3864194195da7cd5084d6c8c5c5fcc754289c00431047512060738fbf",
+        "Position.hpp": "2450c3201bea5a197ede7f16a3cb7bcdb3f2e1737cb6a9a8c8a55910c35304e8",
+        "Solver.cpp": "b0f0d99f38ecad923d719ee6090a73eb7049da7a2b8e510d7f52ad3035c5e9a6",
+        "Solver.hpp": "d2248dab0dfa1d0a8f626270398490c34225b1d97ebd7775bbd630a1addb7a66",
+        "TranspositionTable.hpp": "d9baff743f073daea0661fc2133f5ad9b3a78af6b9ff173d857ef584195d21cf"
+      }
+    }
+  }
+}

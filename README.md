@@ -1,6 +1,6 @@
 # Connect Four — IsoMax
 
-**IsoMax 0.2.0-rc.5 is included directly on main in [isomax/](isomax/README.md).**
+**IsoMax 0.2.0-rc.6 is included directly on main in [isomax/](isomax/README.md).**
 The launcher, runtime, configuration, tests and verification stay together there.
 No installation or submodule checkout is needed.
 
@@ -25,9 +25,10 @@ node isomax/verify.mjs
 node isomax/run.mjs --columns 1 --rows 4 --shared-entries 256 --local-entries 256
 ```
 
-[Download the standalone archive](isomax/dist/iteathen-isomax-0.2.0-rc.5.tgz).
+[Download the standalone archive](isomax/dist/iteathen-isomax-0.2.0-rc.6.tgz).
 Extract its complete `package/` folder, then run `node verify.mjs` and
-`node run.mjs`. [SHA-256](isomax/dist/SHA256SUMS) verifies the download.
+`node run.mjs`. The repository's `dist/` holds the archive and checksum; it is
+excluded from the archive itself. [SHA-256](isomax/dist/SHA256SUMS) verifies the download.
 
 ## Automatic setup
 
@@ -62,16 +63,23 @@ reported separately. [The package guide](isomax/README.md) covers options and AP
 
 ## Qualification
 
-Matched localhost candidate runs averaged **33.245 seconds**, versus 34.153 for
-the prior control; best **33.163 seconds**. They used the i5-12600K, six verified
+Five fresh matched localhost candidate runs averaged **33.560 seconds**, versus
+33.803 for the prior control. They used the i5-12600K, six verified
 P-core workers, 12 GiB shared TT, 192 MiB private per worker, recorded Node 27
-nightly/V8 and flags, and OneDrive stopped. Two trials per source do not establish
-portable performance. The ≤10-second objective remains unmet.
+nightly/V8 and flags, with the same reduced background load for both sources.
+The observed 0.72% difference is smaller than candidate variability; the candidate
+was slower in two pairs. This does not establish a dependable speedup. The earlier
+two-per-arm 2.656% observation remains historical. The ≤10-second objective remains unmet.
+[The current review record](docs/qualification/20261007-review-validation/README.md)
+contains raw measurements and qualification scope.
 [The promotion record](docs/qualification/20261006-nees-promotion/README.md)
 records identities, correctness and the packaged public solve.
 
 The final packaged default-path confirmation took **33.334 seconds**, with the
-same automatic 12 GiB selection, six verified workers and clean exits.
+same automatic 12 GiB selection, six verified workers and clean exits. The
+shipped source `8b81911` took **39.690 seconds** from launcher invocation through
+completion. The primary time begins after READY and includes root construction;
+the full external wall time also includes startup and cleanup.
 
 ## Repository navigation
 

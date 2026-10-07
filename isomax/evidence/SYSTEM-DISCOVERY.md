@@ -1,4 +1,8 @@
-# Automatic worker setup
+# Automatic worker setup — historical discovery qualification
+
+The source, CI run and kernel counts below describe the initial discovery
+qualification. Current rc.5 binds 32 worker variants to source `8b81911`; the
+promotion record qualifies its public startup composition.
 
 IsoMax discovers physical CPU topology before allocating its solver or releasing search. The default selects one worker per available highest-performance physical core, excluding extra SMT siblings. Homogeneous Windows/macOS machines use their physical count; Linux reports a physical-only fallback explicitly when the OS does not provide class information.
 

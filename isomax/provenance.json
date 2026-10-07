@@ -1,6 +1,6 @@
 {
-  "version": "0.2.0-rc.5",
-  "status": "repository distribution; registry publication disabled",
+  "version": "0.2.0-rc.6",
+  "status": "Repository distribution with sanitized self-contained qualification; registry publication disabled",
   "sourceRepository": "https://github.com/iteathen/JSMinSys",
   "sourceCommit": "8b81911bb19f58665f5a5bbb4811a05fc0fd9fba",
   "measuredRuntimeCommits": [
@@ -49,7 +49,7 @@
     },
     "README.md": {
       "source": "package-authored",
-      "sha256": "3cce16ecb53db502bf0c50d0e7c15eeb6a40369cc99f380218831695a04550f5"
+      "sha256": "873e922f68bc236bf803446e9ad68e8e3fe8e33a0d663ccbaf237da29980f89f"
     },
     "cli.mjs": {
       "source": "package-authored",
@@ -57,19 +57,23 @@
     },
     "evidence/README.md": {
       "source": "package-authored",
-      "sha256": "914dfa42a14439668c88b32ad36d9a6e3c8c9a1319284d6f4380b63e6c0116c9"
+      "sha256": "8ce102d4ce20c47d902cc1dfae587c0ef36de5d81fb1cf0f5c99923078ad40bd"
     },
     "evidence/REPORT.md": {
       "source": "evidence/isomax-nees-remediation-20261006/REPORT.md",
-      "sha256": "9e554a4f9c2cc4940d955fe34fad6742ee24068cee99ac6f2fe9a60e0fd009d5"
+      "sha256": "e034ecbfc717de4ae7ae923049a1db901685f819b5d0227d4f65667c1302b9c8",
+      "originalSourceSha256": "9e554a4f9c2cc4940d955fe34fad6742ee24068cee99ac6f2fe9a60e0fd009d5",
+      "transformation": "Public evidence redaction or historical qualification annotation; numeric measurements and source identities preserved."
     },
     "evidence/REVIEW.md": {
       "source": "evidence/isomax-nees-remediation-20261006/REVIEW.md",
-      "sha256": "d4b1ad659172819291dfbc61f07d86471e6bb145a407a1d468fec826e406ffeb"
+      "sha256": "ecb9a9afc23139097906d7e9f15e75aca6344e82f014d7c2edb1b9e88937b793",
+      "originalSourceSha256": "d4b1ad659172819291dfbc61f07d86471e6bb145a407a1d468fec826e406ffeb",
+      "transformation": "Public evidence redaction or historical qualification annotation; numeric measurements and source identities preserved."
     },
     "evidence/SYSTEM-DISCOVERY.md": {
       "source": "package-authored",
-      "sha256": "8cd942be1ad83f3f9ff8701539f6185fa688e80cd387eb23cf3c91f4927bc9fa"
+      "sha256": "6659a1d1797f455ae8ce31551ae4d0009d8b569d3b8ef8ddc3aee050dbf31d54"
     },
     "evidence/correctness-summary.json": {
       "source": "evidence/isomax-nees-remediation-20261006/correctness-summary.json",
@@ -81,11 +85,1509 @@
     },
     "evidence/environment-change.json": {
       "source": "evidence/isomax-nees-remediation-20261006/environment-change.json",
-      "sha256": "10edf6d1b5a08e7cc45ee380f3ec6b8ff5f22a4d4eaef558784d9aef3437e32a"
+      "sha256": "2fd4b0e6655a0f3c9c0548ac27bf5752b84bd8dacca7db32ada287c25a320d4a",
+      "originalSourceSha256": "10edf6d1b5a08e7cc45ee380f3ec6b8ff5f22a4d4eaef558784d9aef3437e32a",
+      "transformation": "Public evidence redaction or historical qualification annotation; numeric measurements and source identities preserved."
     },
     "evidence/producer-cycle-ledger.json": {
       "source": "catalog/addon-cycle-ledger-v0.json",
       "sha256": "48d9e4d73eaa49ac786372a567aa5db2d597b242a5204812812812c2a5bc34ea"
+    },
+    "evidence/promotion-20261006/PR.md": {
+      "source": "package-authored",
+      "sha256": "0bbe865ce1c67bed5967aea033cff720d7a09a1eba4516886be758e1f26fe569"
+    },
+    "evidence/promotion-20261006/README.md": {
+      "source": "package-authored",
+      "sha256": "50372d3216372cfe08aaa63644511da3edc1dd372721f658cc3d6eb246ef698a"
+    },
+    "evidence/promotion-20261006/REVIEW.md": {
+      "source": "package-authored",
+      "sha256": "dd982be47c46da4426b65d021fd4852a100d5650557bc547e0188db161f2d6a8"
+    },
+    "evidence/promotion-20261006/archive-smoke-final.json": {
+      "source": "package-authored",
+      "sha256": "6ab0874551ee168bf117f4a4b67c9ba4104344bf57cff87f6ff14dd1f8f984fd"
+    },
+    "evidence/promotion-20261006/archive-smoke.json": {
+      "source": "package-authored",
+      "sha256": "35f86afb6be9721e0a0a24f3ea26a608342a449b09eb126a3480f42110f554ae"
+    },
+    "evidence/promotion-20261006/installation-smoke.json": {
+      "source": "package-authored",
+      "sha256": "a6a95f82b31ef1088244957bcd88af070fe4c1dc81158d91a3ce72b05b019a6a"
+    },
+    "evidence/promotion-20261006/public-default-01/invocation.json": {
+      "source": "package-authored",
+      "sha256": "65a2995c04fa2330fb50933512861aedbb3967698911f57c1325c22664d864b9"
+    },
+    "evidence/promotion-20261006/public-default-01/memory-before.json": {
+      "source": "package-authored",
+      "sha256": "4355aa5f004c16b74a5913dcea154f68f30e32024f32534b756b20312ce81ffe"
+    },
+    "evidence/promotion-20261006/public-default-01/stderr.txt": {
+      "source": "package-authored",
+      "sha256": "069230ce2dbd995c69e5c06f5c0ed85f9ae2a03d3cda3e68224874a4e3f5f91b"
+    },
+    "evidence/promotion-20261006/public-default-01/stdout.json": {
+      "source": "package-authored",
+      "sha256": "8e7198f2e768ae6269e78a39abf899461a25af64cb5f074c1a58f06710fea805"
+    },
+    "evidence/promotion-20261006/public-default-01/summary.json": {
+      "source": "package-authored",
+      "sha256": "f918422b6297f9b0f7b1eb90adac5c027c45dbd9de99291492920a31d33f148e"
+    },
+    "evidence/promotion-20261006/public-default-02/invocation.json": {
+      "source": "package-authored",
+      "sha256": "430bb1b9ebf2016c4bfbacf54c56c86ae30cdc5414cb31302ba5ee981e6a0ef4"
+    },
+    "evidence/promotion-20261006/public-default-02/memory-before.json": {
+      "source": "package-authored",
+      "sha256": "944a93dd690ace24e2abee21a479e34b86a3df941e03346ae3db89c6fd19b610"
+    },
+    "evidence/promotion-20261006/public-default-02/stderr.txt": {
+      "source": "package-authored",
+      "sha256": "533abc0ed3bdaf436e0f1d0d63fd52bea2ed8b84c5505e00238e793159d82066"
+    },
+    "evidence/promotion-20261006/public-default-02/stdout.json": {
+      "source": "package-authored",
+      "sha256": "836d8ebb045209398a26140962380321372ee16eab1e034396233dd1e31a7dee"
+    },
+    "evidence/promotion-20261006/public-default-02/summary.json": {
+      "source": "package-authored",
+      "sha256": "0b2237a3c52fe23c1554840238f856e60980313fa338033c44328a30253c3b45"
+    },
+    "evidence/promotion-20261006/run-full.ps1": {
+      "source": "package-authored",
+      "sha256": "9f4b30b43673d0362993c0f9d94ae75bcf72ca2e693855e7b0a2ea0216d6dd16"
+    },
+    "evidence/promotion-20261006/tests-final.txt": {
+      "source": "package-authored",
+      "sha256": "713dbc006563d1e3e459b4fd67b15fa0576ade63ef7d4a823555f8deab18efe5"
+    },
+    "evidence/promotion-20261006/tests.txt": {
+      "source": "package-authored",
+      "sha256": "1597a140da436dee1b5cdc6950831b64329641dde827d2b3e7d54854ae3904e6"
+    },
+    "evidence/review-validation-20261007/PARITY-NEXT.md": {
+      "source": "package-authored",
+      "sha256": "196a71a28bde90c3392f3aba34db8a6e405bf27c0580788788411d16db1b6620"
+    },
+    "evidence/review-validation-20261007/PLAN.md": {
+      "source": "package-authored",
+      "sha256": "e96eafd3ef95b44b73248061adc54426aff7ebcf178ba48f6180c1cfb4efcb8f"
+    },
+    "evidence/review-validation-20261007/README.md": {
+      "source": "package-authored",
+      "sha256": "93a5d692a2fe6fa31c3beaaf4a7685d58459c05464604b3ab73269ceda308cca"
+    },
+    "evidence/review-validation-20261007/REVIEW.md": {
+      "source": "package-authored",
+      "sha256": "36438a51b984cfff23f7f4ccf75244f915b03e7fcde46b276338f8989086cc12"
+    },
+    "evidence/review-validation-20261007/comparison/README.md": {
+      "source": "package-authored",
+      "sha256": "21de79a3220a7e683fa5fc8b10060d93e6d0f001a32871e598f060dec1b445be"
+    },
+    "evidence/review-validation-20261007/comparison/audit.json": {
+      "source": "package-authored",
+      "sha256": "91e2a496cf8e5aae122fa0e5a8a592c46f61f3afa325e30298ead7c5c1938968"
+    },
+    "evidence/review-validation-20261007/comparison/build-native.ps1": {
+      "source": "package-authored",
+      "sha256": "07a991ff1156212948643980c4ae4546c02621fc5857f39448f167e0a9d10898"
+    },
+    "evidence/review-validation-20261007/comparison/build.json": {
+      "source": "package-authored",
+      "sha256": "0e865dca2b9603e9cb96496a07f76e97e21f87cc9ca4eca2929c6999413c3daa"
+    },
+    "evidence/review-validation-20261007/comparison/christophe-benchmark.cpp": {
+      "source": "package-authored",
+      "sha256": "5675ec49c54eabde83586e48595d8aa5e0dbaccab2ef60e04e8b2493b22782f3"
+    },
+    "evidence/review-validation-20261007/comparison/christophe-r1.json": {
+      "source": "package-authored",
+      "sha256": "a2afecfbbf434fa2b87d5fb1c1b9952b8dcccb61093c3b36a04f75c0f7260ef8"
+    },
+    "evidence/review-validation-20261007/comparison/christophe-r1.json.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "2e83de27ca809397be926bd12297587fa919e27042ea9825e17cc1de84d9b84d"
+    },
+    "evidence/review-validation-20261007/comparison/christophe-r1.json.stdout.txt": {
+      "source": "package-authored",
+      "sha256": "87c4f919470e5a1da2585deae1e1201b880505babc18f689bf98956437caeb56"
+    },
+    "evidence/review-validation-20261007/comparison/christophe-r2.json": {
+      "source": "package-authored",
+      "sha256": "2d89b064c40952cf840559b904021157dfc003157120bca81c06a8a0d3fcf2f4"
+    },
+    "evidence/review-validation-20261007/comparison/christophe-r2.json.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "ff9a8b7bc4b436f9ff1419bb2de2614eae82e93566bccb32ee98adee904ee89f"
+    },
+    "evidence/review-validation-20261007/comparison/christophe-r2.json.stdout.txt": {
+      "source": "package-authored",
+      "sha256": "2f7c40b13eec6f62f20bdfc70392aab63dd429ca1092b9b8b2012559f3171c88"
+    },
+    "evidence/review-validation-20261007/comparison/christophe-r3.json": {
+      "source": "package-authored",
+      "sha256": "95cedcb858cca9f95a18aa8d635afb70d733d6af2bbd37dca489092015c3ef5c"
+    },
+    "evidence/review-validation-20261007/comparison/christophe-r3.json.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "7909dfe13cffe77beba26b6dcb686fb5c3e5ee2cac375972ee0ed291af15bab8"
+    },
+    "evidence/review-validation-20261007/comparison/christophe-r3.json.stdout.txt": {
+      "source": "package-authored",
+      "sha256": "b4ca7734889f7fa97cf6731b60524377256ec99a881e465aa824e6a510a55727"
+    },
+    "evidence/review-validation-20261007/comparison/early-corpus.json": {
+      "source": "package-authored",
+      "sha256": "20a017d8b8f8fc028fbc30a2aec504bd22e9315c9b87530def165b24469b17bc"
+    },
+    "evidence/review-validation-20261007/comparison/early-isomax.mjs": {
+      "source": "package-authored",
+      "sha256": "7d7dd0d1b905f987ea4fc47eafa47d55976dbc7ca98b122c34005176e0472bee"
+    },
+    "evidence/review-validation-20261007/comparison/early-preflight.json": {
+      "source": "package-authored",
+      "sha256": "2e8e04075d0ce599cba504f6e4330634368f7a5e3424ba907970859e73f4345d"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-10-iso.json": {
+      "source": "package-authored",
+      "sha256": "19ccdc5f23992bc3e437ab566106a325aab191a1ed75db23900dce37e548f58b"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-10-iso.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "49479cb29e78c46c6cf731dc1c75898468e8e38c2eb827c8637f7ae1542eecbb"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-10-iso.stdout.txt": {
+      "source": "package-authored",
+      "sha256": "5563e208c08c00bd2bcc93361e8b4a3972ee6d671d3053a072c2ba35db83c9a4"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-10-pons-root.json": {
+      "source": "package-authored",
+      "sha256": "ee1d26e34bd5f2de06fdbe310114f3b27bc497a486954949fc29c780201a21a1"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-10-pons-root.json.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "e5c7646eb8c50cdd1987c8ec7caed834ebcb58773836c95afadab1c72316c4ec"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-10-pons-root.json.stdout.txt": {
+      "source": "package-authored",
+      "sha256": "8bbf6c8afe8575881ceb297c0b7d6f236130cb83580c9bd2afd0f4fa1a7baa97"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-10-pons-root.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-10-pons-root.stdout.txt": {
+      "source": "package-authored",
+      "sha256": "ee1d26e34bd5f2de06fdbe310114f3b27bc497a486954949fc29c780201a21a1"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-11-iso.json": {
+      "source": "package-authored",
+      "sha256": "af27f12f57c32aad9578874554d76bf602dbdb9dec26ffcebd2b14e03f2f4cf2"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-11-iso.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "89d8f6b70cad981b0a8868c2ffa0559ff1e71802aa243c17a9c4462125dba030"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-11-iso.stdout.txt": {
+      "source": "package-authored",
+      "sha256": "cecd1b363665b5ddf9019a3faa1e50b69fcfb16a478bfa456b9fca900500d578"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-11-pons-child.json": {
+      "source": "package-authored",
+      "sha256": "7d6457cea0d119e054cee6f098a7a61e394ce31ba760cec7221f64ac81527d6b"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-11-pons-child.json.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "c36de10f4a699e8b04a9c3e33e6ef42ff56e9f9d4a320db85df37eefc15e1e64"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-11-pons-child.json.stdout.txt": {
+      "source": "package-authored",
+      "sha256": "fdd203e67209bc0b3b5b17ec3d82c76a81b20d5635d108871f08d4d183bb6a07"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-11-pons-child.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-11-pons-child.stdout.txt": {
+      "source": "package-authored",
+      "sha256": "7d6457cea0d119e054cee6f098a7a61e394ce31ba760cec7221f64ac81527d6b"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-11-pons-root.json": {
+      "source": "package-authored",
+      "sha256": "320b2dba7ad734b66e044cc580d5ff2208b1d1d2bd08b83d3d4f5f512ab4ecbe"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-11-pons-root.json.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "3c12dccc5c437412029c4b214ed2ea657e81522acfdac612e51259a6a83a19e6"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-11-pons-root.json.stdout.txt": {
+      "source": "package-authored",
+      "sha256": "13269b81c2fff3c1b6ac57dc0e9b6445eb456e90e45b40ddbc0a260a37360751"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-11-pons-root.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-11-pons-root.stdout.txt": {
+      "source": "package-authored",
+      "sha256": "320b2dba7ad734b66e044cc580d5ff2208b1d1d2bd08b83d3d4f5f512ab4ecbe"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-12-iso.json": {
+      "source": "package-authored",
+      "sha256": "e2d57e7ebf04f9218e112682c856fca8d467e851ce4218b5425645bfe2c18131"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-12-iso.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "49479cb29e78c46c6cf731dc1c75898468e8e38c2eb827c8637f7ae1542eecbb"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-12-iso.stdout.txt": {
+      "source": "package-authored",
+      "sha256": "6cb8741a96b2f5adbbda1f6d01f322ac4e06340e40d3d97aac207347ca351cd1"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-12-pons-root.json": {
+      "source": "package-authored",
+      "sha256": "92b9873b046dbc3c7e91dea6087e421f463d51965f7935005b163e844a4e82f4"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-12-pons-root.json.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "c36de10f4a699e8b04a9c3e33e6ef42ff56e9f9d4a320db85df37eefc15e1e64"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-12-pons-root.json.stdout.txt": {
+      "source": "package-authored",
+      "sha256": "865c34547e3a10bacb58aec2c052e801598cfce0aa74f7749bb209a8d130b470"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-12-pons-root.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-12-pons-root.stdout.txt": {
+      "source": "package-authored",
+      "sha256": "92b9873b046dbc3c7e91dea6087e421f463d51965f7935005b163e844a4e82f4"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-13-iso.json": {
+      "source": "package-authored",
+      "sha256": "41002fe4b80010a5e0e71d3641592c5ed3e9a45ea413f9204d695e13020ae2d7"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-13-iso.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "8a3004f3e36eee003dec99bf519a32244faa24f80a3fe5c1a93a7b683db881a6"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-13-iso.stdout.txt": {
+      "source": "package-authored",
+      "sha256": "22ac7e1e8087bfe6ea3f581be030fc16cfbc54e42d436c6f6241a90eabc8acbd"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-13-pons-child.json": {
+      "source": "package-authored",
+      "sha256": "97b8c9842b5aab35f54106544261fde81161fac90953f7f907ddcf5c5b3890d5"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-13-pons-child.json.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "b950c107aca5dae5379ff4a5a505555b5f14160a6e021a3f87c51cc8e76d4ea5"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-13-pons-child.json.stdout.txt": {
+      "source": "package-authored",
+      "sha256": "0a7e7e401ed6a14764720dd2fc391efb75267cea53843a136e1780a468961335"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-13-pons-child.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-13-pons-child.stdout.txt": {
+      "source": "package-authored",
+      "sha256": "97b8c9842b5aab35f54106544261fde81161fac90953f7f907ddcf5c5b3890d5"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-13-pons-root.json": {
+      "source": "package-authored",
+      "sha256": "e99b1d779f1df64e57518b278a93732d7f3119324d78e892cdced095e4fdb6f5"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-13-pons-root.json.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "1e92458eeff57b91482e9b8829b17492b062d9f709f2d28cf49e5639fc87906a"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-13-pons-root.json.stdout.txt": {
+      "source": "package-authored",
+      "sha256": "b2dab0aa0905103a0af78b02926fb58154043fc4374cf128579cf5f8eb1740fb"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-13-pons-root.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-13-pons-root.stdout.txt": {
+      "source": "package-authored",
+      "sha256": "e99b1d779f1df64e57518b278a93732d7f3119324d78e892cdced095e4fdb6f5"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-14-iso.json": {
+      "source": "package-authored",
+      "sha256": "79e92cb490b20f706f89c2f9a01f4464e2a65e4ac5caefd1c58a514a84f02be9"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-14-iso.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "8a3004f3e36eee003dec99bf519a32244faa24f80a3fe5c1a93a7b683db881a6"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-14-iso.stdout.txt": {
+      "source": "package-authored",
+      "sha256": "9e657cddde82ee676014a7a2a025456e0c0cc9874172b71f67127fc4d1976485"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-14-pons-child.json": {
+      "source": "package-authored",
+      "sha256": "38e952a71f50da42fd895de5b3c4963a1e7d29cbc5f26ed5072c07acf0843fdd"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-14-pons-child.json.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "edd6c9e19176da6ae67c4aaf76f19fc0d0c398769cac94fa100013d9da834278"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-14-pons-child.json.stdout.txt": {
+      "source": "package-authored",
+      "sha256": "9880360d112b053403f7e2013d3f5c998f7e9fd7a881a7c1eb9c060a3061425b"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-14-pons-child.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-14-pons-child.stdout.txt": {
+      "source": "package-authored",
+      "sha256": "38e952a71f50da42fd895de5b3c4963a1e7d29cbc5f26ed5072c07acf0843fdd"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-14-pons-root.json": {
+      "source": "package-authored",
+      "sha256": "fa46ab0094c66cd33f202c087e5b6b2643656be887e3af9f0d337cacef0c763c"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-14-pons-root.json.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "b950c107aca5dae5379ff4a5a505555b5f14160a6e021a3f87c51cc8e76d4ea5"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-14-pons-root.json.stdout.txt": {
+      "source": "package-authored",
+      "sha256": "86ff40f0df504a91aa56a699a25bb8a953b329d93a71e07dd3afdf8baef3c9df"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-14-pons-root.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-14-pons-root.stdout.txt": {
+      "source": "package-authored",
+      "sha256": "fa46ab0094c66cd33f202c087e5b6b2643656be887e3af9f0d337cacef0c763c"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-15-iso.json": {
+      "source": "package-authored",
+      "sha256": "d6ca50a7b4493367839d0f687d0ccad23ba04631e60f6c768cf369292ee6c324"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-15-iso.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "49479cb29e78c46c6cf731dc1c75898468e8e38c2eb827c8637f7ae1542eecbb"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-15-iso.stdout.txt": {
+      "source": "package-authored",
+      "sha256": "c029e006ef101773199ca4dd7fa3d884d48d0902408bd78a63dc16f42c5d36a2"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-15-pons-child.json": {
+      "source": "package-authored",
+      "sha256": "f5ef2db8d5682c494bea99ce090f3e459f63837788f897ded7c442c844f2146a"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-15-pons-child.json.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "8e45665b4c1135a1203f32122457f49b5ed361975c29b6c223d161378d2e8105"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-15-pons-child.json.stdout.txt": {
+      "source": "package-authored",
+      "sha256": "2244d1a688e84f31af34c64f6f15307125f6fcc9975979fb1fe2f15d9298d83f"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-15-pons-child.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-15-pons-child.stdout.txt": {
+      "source": "package-authored",
+      "sha256": "f5ef2db8d5682c494bea99ce090f3e459f63837788f897ded7c442c844f2146a"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-15-pons-root.json": {
+      "source": "package-authored",
+      "sha256": "3700bc9ea6f3af7eed0e85262886943fdb6fb497eb4923bdecad1c737300e212"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-15-pons-root.json.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "edd6c9e19176da6ae67c4aaf76f19fc0d0c398769cac94fa100013d9da834278"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-15-pons-root.json.stdout.txt": {
+      "source": "package-authored",
+      "sha256": "0487ed96de591c993ee589cd187ada6e468e07106d0c56d12fadad46459dbfdb"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-15-pons-root.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-15-pons-root.stdout.txt": {
+      "source": "package-authored",
+      "sha256": "3700bc9ea6f3af7eed0e85262886943fdb6fb497eb4923bdecad1c737300e212"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-16-iso.json": {
+      "source": "package-authored",
+      "sha256": "b5d1e60336d8435644fc43938e3eb1fe4c98c5fcfd32822079ebdcf987856555"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-16-iso.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "49479cb29e78c46c6cf731dc1c75898468e8e38c2eb827c8637f7ae1542eecbb"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-16-iso.stdout.txt": {
+      "source": "package-authored",
+      "sha256": "cc4db503f88aeda7080db28223c3d0d0c3cbbf1ea64c40ad1bf6c47ae97a9a6e"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-16-pons-root.json": {
+      "source": "package-authored",
+      "sha256": "128756659592603077a07f6e543f3ab58aa5f812fa2e6af8328d19806e90f868"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-16-pons-root.json.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "8e45665b4c1135a1203f32122457f49b5ed361975c29b6c223d161378d2e8105"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-16-pons-root.json.stdout.txt": {
+      "source": "package-authored",
+      "sha256": "2d003fd8735ca01b5308717af79f86b42b448d4b7615d2b78b8577573a83ffed"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-16-pons-root.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-16-pons-root.stdout.txt": {
+      "source": "package-authored",
+      "sha256": "128756659592603077a07f6e543f3ab58aa5f812fa2e6af8328d19806e90f868"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-8-iso.json": {
+      "source": "package-authored",
+      "sha256": "e6451d86787267ff97e608aaec1163260cd9d67512dc8e607ab0efcdbc6406a4"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-8-iso.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "49479cb29e78c46c6cf731dc1c75898468e8e38c2eb827c8637f7ae1542eecbb"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-8-iso.stdout.txt": {
+      "source": "package-authored",
+      "sha256": "909afe40e8dbccd0afa248ef00b255e453a34a6d7bcd31d5fefe6c17c8654ba1"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-8-pons-root.json": {
+      "source": "package-authored",
+      "sha256": "da9e427079ce3082a67f836d0d7f3d6801f75609fda0f17a9fa87a5898458177"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-8-pons-root.json.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "dc2be7f0440422cc75fc59412ae6ceb8cdfa064eb4da06164d43ac1b488278e1"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-8-pons-root.json.stdout.txt": {
+      "source": "package-authored",
+      "sha256": "15a078f8317ca6a28c6cb74ff3765ca785340b23e538aec91d3b7471556d9f0f"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-8-pons-root.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-8-pons-root.stdout.txt": {
+      "source": "package-authored",
+      "sha256": "da9e427079ce3082a67f836d0d7f3d6801f75609fda0f17a9fa87a5898458177"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-9-iso.json": {
+      "source": "package-authored",
+      "sha256": "98f940d68b9772f6df69c641bc85a8ea33e82841474b6187b9779133700008bf"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-9-iso.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "8a3004f3e36eee003dec99bf519a32244faa24f80a3fe5c1a93a7b683db881a6"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-9-iso.stdout.txt": {
+      "source": "package-authored",
+      "sha256": "39f7f3dd384a603d552c5db12a378fef14ce253ebadc33df10f80634fa40ed7c"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-9-pons-child.json": {
+      "source": "package-authored",
+      "sha256": "d34c2167dbfa39dbc5f71cb8a84ba68679a788f8e06691d58d202e95de4aea27"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-9-pons-child.json.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "e5c7646eb8c50cdd1987c8ec7caed834ebcb58773836c95afadab1c72316c4ec"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-9-pons-child.json.stdout.txt": {
+      "source": "package-authored",
+      "sha256": "d751e075e719d5fee337dbe8dbf5dc85e8f0a05d9a978aad3692ca0cdb4d0d9a"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-9-pons-child.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-9-pons-child.stdout.txt": {
+      "source": "package-authored",
+      "sha256": "d34c2167dbfa39dbc5f71cb8a84ba68679a788f8e06691d58d202e95de4aea27"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-9-pons-root.json": {
+      "source": "package-authored",
+      "sha256": "1567f29cec4e5969fff9e1182af4255489bffb34a4c9fd84c83d3f11be73cedb"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-9-pons-root.json.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "a36662f9299118b55d9948dc40b38334366e9516d64205e540aaf92a1a92aefa"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-9-pons-root.json.stdout.txt": {
+      "source": "package-authored",
+      "sha256": "9bf89924b3585c95889fd1144b1a3bbe8d80531b56a9aae731722d4f93f0602c"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-9-pons-root.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "evidence/review-validation-20261007/comparison/early9/early-9-pons-root.stdout.txt": {
+      "source": "package-authored",
+      "sha256": "1567f29cec4e5969fff9e1182af4255489bffb34a4c9fd84c83d3f11be73cedb"
+    },
+    "evidence/review-validation-20261007/comparison/early9/freeze.json": {
+      "source": "package-authored",
+      "sha256": "3b59f93b531a62528f448e44855f35dffb69baae4f8c8572de72d61425b43586"
+    },
+    "evidence/review-validation-20261007/comparison/early9/progress.json": {
+      "source": "package-authored",
+      "sha256": "2cac23b2b4514edf993cf72ba9f0357ac91290283dc83af1f96b08e1d98f900d"
+    },
+    "evidence/review-validation-20261007/comparison/early9/summary.json": {
+      "source": "package-authored",
+      "sha256": "54de1332e771ab6d2de80693513c976a50703c6ac1ffd2be69eed6be2e809a40"
+    },
+    "evidence/review-validation-20261007/comparison/freeze-early-corpus.mjs": {
+      "source": "package-authored",
+      "sha256": "c9de608468a8d2a2790e6c3a4c7177a6a84993b0768a7faad776b702a853053a"
+    },
+    "evidence/review-validation-20261007/comparison/historical-pre-boundary-build.json": {
+      "source": "package-authored",
+      "sha256": "9403c652fa70c513800696c1190011ad6483013c41c6a06033f30b4832efcdc0"
+    },
+    "evidence/review-validation-20261007/comparison/historical-pre-boundary-christophe-prepare.json": {
+      "source": "package-authored",
+      "sha256": "252e0950c3a8595fb4faba4193a612ad47ba8cd5b12249064965cbc9a8932869"
+    },
+    "evidence/review-validation-20261007/comparison/historical-pre-boundary-christophe-prepare.json.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "d677d5b95fc61fc0e31149df1b95db1f64f3f818c66e066633d7155e40762548"
+    },
+    "evidence/review-validation-20261007/comparison/historical-pre-boundary-christophe-prepare.json.stdout.txt": {
+      "source": "package-authored",
+      "sha256": "d677d5b95fc61fc0e31149df1b95db1f64f3f818c66e066633d7155e40762548"
+    },
+    "evidence/review-validation-20261007/comparison/historical-pre-boundary-pons-prepare.json": {
+      "source": "package-authored",
+      "sha256": "2431c2895f8de5f613f9c48ca352cfbef744993527da468c88d01f0f0ace453d"
+    },
+    "evidence/review-validation-20261007/comparison/historical-pre-boundary-pons-prepare.json.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "e8a55db4a327e68ba8665c4c8b2cb1557f3b4d8057ba87acf4ec0699a8107843"
+    },
+    "evidence/review-validation-20261007/comparison/historical-pre-boundary-pons-prepare.json.stdout.txt": {
+      "source": "package-authored",
+      "sha256": "e8a55db4a327e68ba8665c4c8b2cb1557f3b4d8057ba87acf4ec0699a8107843"
+    },
+    "evidence/review-validation-20261007/comparison/physical-legality.mjs": {
+      "source": "package-authored",
+      "sha256": "6131ec6c0590baad08e4cd5d8403480c9b124f94d4da65b9f7520b81f9f0056d"
+    },
+    "evidence/review-validation-20261007/comparison/pons-benchmark.cpp": {
+      "source": "package-authored",
+      "sha256": "29f77f64b51592d70db8ec6f01903e9c1dab7aad10ab1469dca632f5793e1b6f"
+    },
+    "evidence/review-validation-20261007/comparison/pons-r1.json": {
+      "source": "package-authored",
+      "sha256": "109b3951c4bb4250d10787aaeb7fe49404617a792fdeb6d6e27881559ffa37aa"
+    },
+    "evidence/review-validation-20261007/comparison/pons-r1.json.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "591117108a5417ba1676b12e505bad1bbd8ddee74571be8ee54e1c1ac0d96ee8"
+    },
+    "evidence/review-validation-20261007/comparison/pons-r1.json.stdout.txt": {
+      "source": "package-authored",
+      "sha256": "c58315c1104d02d8061e60201afe881b2cc9ceb66dfdc0cead059db77f2aa006"
+    },
+    "evidence/review-validation-20261007/comparison/preparation.json": {
+      "source": "package-authored",
+      "sha256": "73d7ef685f1f108d3fac2a36637aa7204eae904165a8ef1b29b4771c144c8eb5"
+    },
+    "evidence/review-validation-20261007/comparison/prepare-external.mjs": {
+      "source": "package-authored",
+      "sha256": "dc44df6155977c065c0390bd0ee2afc093d136b2f6a94b5d383ece6c5cc24c85"
+    },
+    "evidence/review-validation-20261007/comparison/production-runtime-lock.json": {
+      "source": "package-authored",
+      "sha256": "f63d093ff804e0ca7582f596c35e2b36cfb08fa3ebc7bbb08756379b33a3d4b4"
+    },
+    "evidence/review-validation-20261007/comparison/run-early-validation.mjs": {
+      "source": "package-authored",
+      "sha256": "67aec7c30d6e3177383576d7ce106774257d34127065a343471cb548cb8894fd"
+    },
+    "evidence/review-validation-20261007/comparison/run-native.ps1": {
+      "source": "package-authored",
+      "sha256": "79e96e70e4751a5984347fa6088211b15e7435d6bcb6e612a5ef08780eda5cda"
+    },
+    "evidence/review-validation-20261007/comparison/source-lock.json": {
+      "source": "package-authored",
+      "sha256": "64a5bcf74a08ce91bc56045540a0752583972f535ceb20da7942d36a8608234c"
+    },
+    "evidence/review-validation-20261007/diagnostic/README.md": {
+      "source": "package-authored",
+      "sha256": "f827a93a7230d2428e6e4b9ddd4b367eb2b35ede76e6d2474e2768c3faf79cdd"
+    },
+    "evidence/review-validation-20261007/diagnostic/empty-board.json": {
+      "source": "package-authored",
+      "sha256": "a7d3d568d14cf9a7d431149c04c0b09afd28c1b4b29474c902ed346c321159a6"
+    },
+    "evidence/review-validation-20261007/diagnostic/empty-board.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "c1f8a6c390a17c87f44c06d53cac39a625a0154d818a4d9c31e16ba8453e73c5"
+    },
+    "evidence/review-validation-20261007/diagnostic/late40.json": {
+      "source": "package-authored",
+      "sha256": "6876d0f963bca91fc0e34c73840ad761705f06e00de99ff3bb6cfb81fe83029d"
+    },
+    "evidence/review-validation-20261007/diagnostic/late40.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "49479cb29e78c46c6cf731dc1c75898468e8e38c2eb827c8637f7ae1542eecbb"
+    },
+    "evidence/review-validation-20261007/diagnostic/manifest.json": {
+      "source": "package-authored",
+      "sha256": "875e19adc06029f107963d4c59dcda2dd52dfd9a606d78ad7d9408e4b39de7b5"
+    },
+    "evidence/review-validation-20261007/diagnostic/prepare-diagnostic.mjs": {
+      "source": "package-authored",
+      "sha256": "2f5695e9d100a50754453627e17d68459659ec76ff25e3bbff402ec06aa34010"
+    },
+    "evidence/review-validation-20261007/diagnostic/run-diagnostic.mjs": {
+      "source": "package-authored",
+      "sha256": "ca526f4669641a5e6cdaeadd417e25d6a928acfab9c3bb1beb2f671ac357bbb5"
+    },
+    "evidence/review-validation-20261007/diagnostic/source-lock.json": {
+      "source": "package-authored",
+      "sha256": "906dbbea26d91585a5fde1e6c85706079664157960bf1107e56fe0f1b98aeb87"
+    },
+    "evidence/review-validation-20261007/final-tests.txt": {
+      "source": "package-authored",
+      "sha256": "e47cdd14d2fa45f80b1f05a1945246ac89e3084139adddfe7b831b2e3b3f815f"
+    },
+    "evidence/review-validation-20261007/gc-tests.txt": {
+      "source": "package-authored",
+      "sha256": "37a0d96b8c69042dbdb68c5aa180b67121acdda8e9045fcbcf0bf73df8b7efba"
+    },
+    "evidence/review-validation-20261007/matched-child.mjs": {
+      "source": "package-authored",
+      "sha256": "e7d6bf3a28eeb274cd6298a2c0f22da049324ef5d80555d2378889599e7cf1d6"
+    },
+    "evidence/review-validation-20261007/matched-series.mjs": {
+      "source": "package-authored",
+      "sha256": "0e1ec505d90f44caff63e4af0acbabc8739d9356859d80b2bf8c970d60ab4f14"
+    },
+    "evidence/review-validation-20261007/matched/candidate-01/invocation.json": {
+      "source": "package-authored",
+      "sha256": "b5edf38e41cb9633904c5ab3ac1d546833c54156d92539451e95ab4dc25fa1b9"
+    },
+    "evidence/review-validation-20261007/matched/candidate-01/stderr.txt": {
+      "source": "package-authored",
+      "sha256": "c2b4239d83c855f02475f587860b56c9af29db85e09cfdce3b6b3657a1e6a22f"
+    },
+    "evidence/review-validation-20261007/matched/candidate-01/stdout.json": {
+      "source": "package-authored",
+      "sha256": "12c3ca28f77dcfed91c740678cf4b861cb47f94ec03be14b69d3b717d3408cf9"
+    },
+    "evidence/review-validation-20261007/matched/candidate-01/summary.json": {
+      "source": "package-authored",
+      "sha256": "d72975bf78ad28db93087a0ea04cc5fc79eb133dd7840b384e9d916967d66a3e"
+    },
+    "evidence/review-validation-20261007/matched/candidate-02/invocation.json": {
+      "source": "package-authored",
+      "sha256": "65d50372bdd95a09a9f1e6f8b9da34792434cf3b2c6b61414f2b59cd8720d124"
+    },
+    "evidence/review-validation-20261007/matched/candidate-02/stderr.txt": {
+      "source": "package-authored",
+      "sha256": "bc3198d0973b70d1450533499d5d51a6b8b5de105332516c1c18b1359f599839"
+    },
+    "evidence/review-validation-20261007/matched/candidate-02/stdout.json": {
+      "source": "package-authored",
+      "sha256": "17d4a45e1394aa72f8e6373e423f4f1dea6a280ea7467ec7086172d3f611b2bc"
+    },
+    "evidence/review-validation-20261007/matched/candidate-02/summary.json": {
+      "source": "package-authored",
+      "sha256": "b239ccd6acf97144aa9c3e97b5d23f0924cc95347e1bc6460cbdb0c1974b8d23"
+    },
+    "evidence/review-validation-20261007/matched/candidate-03/invocation.json": {
+      "source": "package-authored",
+      "sha256": "05dda6c46b56c653165e679a6eded5f50592a005422e5c861e829cca3ccb0a64"
+    },
+    "evidence/review-validation-20261007/matched/candidate-03/stderr.txt": {
+      "source": "package-authored",
+      "sha256": "c2b4239d83c855f02475f587860b56c9af29db85e09cfdce3b6b3657a1e6a22f"
+    },
+    "evidence/review-validation-20261007/matched/candidate-03/stdout.json": {
+      "source": "package-authored",
+      "sha256": "f72a9533a21e77e74449ae70554da6bf905cd5c28d0c0996d7cb2e61a0276537"
+    },
+    "evidence/review-validation-20261007/matched/candidate-03/summary.json": {
+      "source": "package-authored",
+      "sha256": "8382ab7eb5feb91ff9c495a4d9567df12e196059e6cf406be90007a1120020c0"
+    },
+    "evidence/review-validation-20261007/matched/candidate-04/invocation.json": {
+      "source": "package-authored",
+      "sha256": "06ad9d97c338163d725ed252fed176bff29dee724e1f862412c3486d2bda816e"
+    },
+    "evidence/review-validation-20261007/matched/candidate-04/stderr.txt": {
+      "source": "package-authored",
+      "sha256": "bc3198d0973b70d1450533499d5d51a6b8b5de105332516c1c18b1359f599839"
+    },
+    "evidence/review-validation-20261007/matched/candidate-04/stdout.json": {
+      "source": "package-authored",
+      "sha256": "f5c1f44e20a5b7c1e476e6b493ba457a42418439a59b61b19afb5590db48922a"
+    },
+    "evidence/review-validation-20261007/matched/candidate-04/summary.json": {
+      "source": "package-authored",
+      "sha256": "9a5ed305dfa622ccaf6f428c1830a4d4e7eddb9a2b5d6bd0597bf60c042bf5d2"
+    },
+    "evidence/review-validation-20261007/matched/candidate-05/invocation.json": {
+      "source": "package-authored",
+      "sha256": "cd2c276c92fc1e9b51c4a3b6c9299fcbe380058af13ba9168e86d9f3f335aa9f"
+    },
+    "evidence/review-validation-20261007/matched/candidate-05/stderr.txt": {
+      "source": "package-authored",
+      "sha256": "c2b4239d83c855f02475f587860b56c9af29db85e09cfdce3b6b3657a1e6a22f"
+    },
+    "evidence/review-validation-20261007/matched/candidate-05/stdout.json": {
+      "source": "package-authored",
+      "sha256": "bb6ace4aec0e228996ffb909938913523f7c2e9c7859f6c3a8ed3f137789918b"
+    },
+    "evidence/review-validation-20261007/matched/candidate-05/summary.json": {
+      "source": "package-authored",
+      "sha256": "769ef63595aede7b5997b919370a6e0187c479b0659c5c1d7c361301f6b68acb"
+    },
+    "evidence/review-validation-20261007/matched/candidate-06/invocation.json": {
+      "source": "package-authored",
+      "sha256": "ef80a12fb0fe1e688498257798b4fea895d813d90b4b2b11cda92bf77354939b"
+    },
+    "evidence/review-validation-20261007/matched/candidate-06/stderr.txt": {
+      "source": "package-authored",
+      "sha256": "c2b4239d83c855f02475f587860b56c9af29db85e09cfdce3b6b3657a1e6a22f"
+    },
+    "evidence/review-validation-20261007/matched/candidate-06/stdout.json": {
+      "source": "package-authored",
+      "sha256": "67b77d4ef9d3dbeeb869d98466c2bc79ad124e4488677d31bb1045888166eb96"
+    },
+    "evidence/review-validation-20261007/matched/candidate-06/summary.json": {
+      "source": "package-authored",
+      "sha256": "04579c6c75c076424b6f7992667b125561ef46bebbb22b54ac98a2c6469c68c6"
+    },
+    "evidence/review-validation-20261007/matched/control-01/invocation.json": {
+      "source": "package-authored",
+      "sha256": "f4d86a73b316875c6cf9955286154c82b8fe31c55ab0e945338b1d0694b2b1f2"
+    },
+    "evidence/review-validation-20261007/matched/control-01/stderr.txt": {
+      "source": "package-authored",
+      "sha256": "c2b4239d83c855f02475f587860b56c9af29db85e09cfdce3b6b3657a1e6a22f"
+    },
+    "evidence/review-validation-20261007/matched/control-01/stdout.json": {
+      "source": "package-authored",
+      "sha256": "494f145bdabf86950caad3c9e7d4a377a4670bca5a6d3497202c09506794de4f"
+    },
+    "evidence/review-validation-20261007/matched/control-01/summary.json": {
+      "source": "package-authored",
+      "sha256": "71da79ac13a054b690549cb2ec6bc0f2a7124c7f70c9257618504fbe346c0685"
+    },
+    "evidence/review-validation-20261007/matched/control-02/invocation.json": {
+      "source": "package-authored",
+      "sha256": "ce984d1aa4ed5c85c0a741e980d31c679f57bd08515f00df8d0bbd1bfd564ec5"
+    },
+    "evidence/review-validation-20261007/matched/control-02/stderr.txt": {
+      "source": "package-authored",
+      "sha256": "bc3198d0973b70d1450533499d5d51a6b8b5de105332516c1c18b1359f599839"
+    },
+    "evidence/review-validation-20261007/matched/control-02/stdout.json": {
+      "source": "package-authored",
+      "sha256": "09caf90584e020866f8efcd032b621878254aba3fd462c5cde1b34320c47d69e"
+    },
+    "evidence/review-validation-20261007/matched/control-02/summary.json": {
+      "source": "package-authored",
+      "sha256": "6af3efc943bea350b841f2554cf00f3bf98a2ae23de63c8e7913e84095a466b9"
+    },
+    "evidence/review-validation-20261007/matched/control-03/invocation.json": {
+      "source": "package-authored",
+      "sha256": "c66c425585a89635ac19debac57da75a7e1522bfa2ad621eb05ac7970608112e"
+    },
+    "evidence/review-validation-20261007/matched/control-03/stderr.txt": {
+      "source": "package-authored",
+      "sha256": "c2b4239d83c855f02475f587860b56c9af29db85e09cfdce3b6b3657a1e6a22f"
+    },
+    "evidence/review-validation-20261007/matched/control-03/stdout.json": {
+      "source": "package-authored",
+      "sha256": "9a577381d63addca3178e21e118a2b630bf319b3cb66b223174bb1ef1677d771"
+    },
+    "evidence/review-validation-20261007/matched/control-03/summary.json": {
+      "source": "package-authored",
+      "sha256": "ee7697b109ff0175a7d5e5a3015f10c540dbbafea076b21fd441e2e3e2df722b"
+    },
+    "evidence/review-validation-20261007/matched/control-04/invocation.json": {
+      "source": "package-authored",
+      "sha256": "75b238bb8bacd204ecb1e0eee56d5cbfc063a0165b535679ecd6581739c5e9f6"
+    },
+    "evidence/review-validation-20261007/matched/control-04/stderr.txt": {
+      "source": "package-authored",
+      "sha256": "bc3198d0973b70d1450533499d5d51a6b8b5de105332516c1c18b1359f599839"
+    },
+    "evidence/review-validation-20261007/matched/control-04/stdout.json": {
+      "source": "package-authored",
+      "sha256": "32c2518a4f31666aa80a448fe7f386e8d39d63419a39480c5fc97199403e9cd7"
+    },
+    "evidence/review-validation-20261007/matched/control-04/summary.json": {
+      "source": "package-authored",
+      "sha256": "b081090deeb4dc086b33cfa02af2b419aff4d55ac5e1729b9d2a88279dc67b56"
+    },
+    "evidence/review-validation-20261007/matched/control-05/invocation.json": {
+      "source": "package-authored",
+      "sha256": "3cd9c337f52a50d025ab51849ea6a9f07a40670b6b5041d21cdeab117bb01499"
+    },
+    "evidence/review-validation-20261007/matched/control-05/stderr.txt": {
+      "source": "package-authored",
+      "sha256": "c2b4239d83c855f02475f587860b56c9af29db85e09cfdce3b6b3657a1e6a22f"
+    },
+    "evidence/review-validation-20261007/matched/control-05/stdout.json": {
+      "source": "package-authored",
+      "sha256": "eb35bbb5bde9bc1a060e2def85360e7f88421bc7fa95d4042494972f88a716c0"
+    },
+    "evidence/review-validation-20261007/matched/control-05/summary.json": {
+      "source": "package-authored",
+      "sha256": "6d49f917ab1f8c1d273e1905e1d9bb0c53733cb7dcafa5b6f0e12d15cc5fd12a"
+    },
+    "evidence/review-validation-20261007/matched/control-06/invocation.json": {
+      "source": "package-authored",
+      "sha256": "fd8e283b55f8a23437cff774d12fd3e5cbc0c28cadf9bfa26e300667c44ce74a"
+    },
+    "evidence/review-validation-20261007/matched/control-06/stderr.txt": {
+      "source": "package-authored",
+      "sha256": "c2b4239d83c855f02475f587860b56c9af29db85e09cfdce3b6b3657a1e6a22f"
+    },
+    "evidence/review-validation-20261007/matched/control-06/stdout.json": {
+      "source": "package-authored",
+      "sha256": "d5015fdf929ef30ad6d68f634109e57a20476765629108baf73f527c75f4e5cc"
+    },
+    "evidence/review-validation-20261007/matched/control-06/summary.json": {
+      "source": "package-authored",
+      "sha256": "17c34693ea5eb3c744083ae71f277a75c1d58331e7eefec0237a1e1e8a1d7bba"
+    },
+    "evidence/review-validation-20261007/matched/exclusions.json": {
+      "source": "package-authored",
+      "sha256": "2b5a45b8f65d98883179a1bbb2b702e7c86d84b05834bc995036985f00962eed"
+    },
+    "evidence/review-validation-20261007/matched/progress.json": {
+      "source": "package-authored",
+      "sha256": "64683a0364bbfdcd6210ee83216ec832e7946ea88d391490ddd14026f39c2f9a"
+    },
+    "evidence/review-validation-20261007/matched/summary.json": {
+      "source": "package-authored",
+      "sha256": "18321689e4c91d91f6b2c90ec93c4101fc05ab786325d6db204cff4325741268"
+    },
+    "evidence/review-validation-20261007/validation/README.md": {
+      "source": "package-authored",
+      "sha256": "4e24ac714fe935a6cc30a370850354fdee34cc1896d6691fefc0f5c25bad0449"
+    },
+    "evidence/review-validation-20261007/validation/bounded-tests.json": {
+      "source": "package-authored",
+      "sha256": "d83323c32c9ff717119e4f9c6d4aa37f9200667c11ceba8cdf2a74c635df95f8"
+    },
+    "evidence/review-validation-20261007/validation/bounded-tests.stdout.txt": {
+      "source": "package-authored",
+      "sha256": "0358509a98241c14d45ca6f42f24e40aab529d0f998a2458577f94a0c1954449"
+    },
+    "evidence/review-validation-20261007/validation/full12-16.json": {
+      "source": "package-authored",
+      "sha256": "b8e69825d354855079f0defe2ad2ca81e90d02a7301b21232377b7da37ba1130"
+    },
+    "evidence/review-validation-20261007/validation/full12-16.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "evidence/review-validation-20261007/validation/full12-16.stdout.jsonl": {
+      "source": "package-authored",
+      "sha256": "c152449539073522590d7c74289e956c4bc31806081a5a6490cf3bdfa4d17784"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/frozen-roots.json": {
+      "source": "package-authored",
+      "sha256": "780a6d823b9410989e8fb2feb530e28b7d5ffe6da2fea1205e54b87680e2db35"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-32-001-mirror.input.json": {
+      "source": "package-authored",
+      "sha256": "8f90bacdace2fc2cdaa8d6f61ba683b3a50a10af829ca652d0a48157c3aa1957"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-32-001-mirror.json": {
+      "source": "package-authored",
+      "sha256": "46cc3c90f1fe3d652f54c488f86c5b3fe8d5abbf3c155ae0973bc6afe40883a6"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-32-001-mirror.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "c1f8a6c390a17c87f44c06d53cac39a625a0154d818a4d9c31e16ba8453e73c5"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-32-001-mirror.stdout.jsonl": {
+      "source": "package-authored",
+      "sha256": "0c3b159a4be80fffb59d1a8c33f66a5d9053405e5e5449fa5c65ba7e62bcefe0"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-32-001.input.json": {
+      "source": "package-authored",
+      "sha256": "7dd80d7a751476cc5f45c05ed9fac2521228ea522468d2482ebd89591fa20101"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-32-001.json": {
+      "source": "package-authored",
+      "sha256": "897cd91d7705bfb74ca2eafa1cd83b38c08403c9b2aebcfe4fc0ed8f08326666"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-32-001.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "c1f8a6c390a17c87f44c06d53cac39a625a0154d818a4d9c31e16ba8453e73c5"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-32-001.stdout.jsonl": {
+      "source": "package-authored",
+      "sha256": "c78dd418eec69bbd368af458331e34a388b27e53309ddbdfab75136842318de9"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-33-002-mirror.input.json": {
+      "source": "package-authored",
+      "sha256": "7fabd60e73c57c2b80bb9c16b77751a4763fa15ad2e5661c7b7030da2b319ad0"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-33-002-mirror.json": {
+      "source": "package-authored",
+      "sha256": "4262467e97439e39ebafef5f2e9792b092558d0592222141ed18051f135c0b84"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-33-002-mirror.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "c1f8a6c390a17c87f44c06d53cac39a625a0154d818a4d9c31e16ba8453e73c5"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-33-002-mirror.stdout.jsonl": {
+      "source": "package-authored",
+      "sha256": "3c8691fc8279a4c6deac4a182fd0dfbe9dc8f1c1d80aafb6f78a151ba9180a05"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-33-002.input.json": {
+      "source": "package-authored",
+      "sha256": "93dfc28b905cf0653706ce73567480dbd0f64f156d90e84b0e7149067ea6270e"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-33-002.json": {
+      "source": "package-authored",
+      "sha256": "a19747196f9fd88434d1068e910cea804a92fe9ffbce9001968392937fb96207"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-33-002.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "c1f8a6c390a17c87f44c06d53cac39a625a0154d818a4d9c31e16ba8453e73c5"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-33-002.stdout.jsonl": {
+      "source": "package-authored",
+      "sha256": "1c55ef8cf1edfa944cd60348ba926e1ce2f51558443b4f6936be34da8a0c188d"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-34-003-mirror.input.json": {
+      "source": "package-authored",
+      "sha256": "c5363175b4ce3683c384a74de461e517ccd42c3f51edc7dd1e8083d09742af82"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-34-003-mirror.json": {
+      "source": "package-authored",
+      "sha256": "aaad338238cf962ac4348db37cce60466015fb6f8ca3f56d908f9632abad47ea"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-34-003-mirror.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "819fac84f86baa9d7f13dc0d96ed70c957aa2dd1bf8c007c3b7f190574d74224"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-34-003-mirror.stdout.jsonl": {
+      "source": "package-authored",
+      "sha256": "b79a4b8e7a33e27901ddc853f5ac4d00420c509d05dfd00f065a4471f11f582c"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-34-003.input.json": {
+      "source": "package-authored",
+      "sha256": "1cf89590352eacc0c0ef6de4fccbef857cd53f3ad9d45e371dcb299d9497d482"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-34-003.json": {
+      "source": "package-authored",
+      "sha256": "d5a76a73c7bc11d6fb7a1c2e9cf6951e4014f852da4ce75eacea88afe2135e54"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-34-003.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "c1f8a6c390a17c87f44c06d53cac39a625a0154d818a4d9c31e16ba8453e73c5"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-34-003.stdout.jsonl": {
+      "source": "package-authored",
+      "sha256": "57cf5fb6660b58b73a2c33bcdc7b4551b7027a4c1176cab9a5ca4269ba30125c"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-35-004-mirror.input.json": {
+      "source": "package-authored",
+      "sha256": "5098a7597a4a88f9770ee9cd81f431bc683926855194c34411d280b34879764e"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-35-004-mirror.json": {
+      "source": "package-authored",
+      "sha256": "8b98f52fdf6ff9a468b2b06892d31062d70b3e9255a2b7f4626d3bce62d12e77"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-35-004-mirror.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "c1f8a6c390a17c87f44c06d53cac39a625a0154d818a4d9c31e16ba8453e73c5"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-35-004-mirror.stdout.jsonl": {
+      "source": "package-authored",
+      "sha256": "4b86c1f2216529d9b5e9783398646fdd9d9317a59f4c55cdc64e4067c55effa7"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-35-004.input.json": {
+      "source": "package-authored",
+      "sha256": "94c2934195daea88cfbed7d9b67dee242d482d2028bfe0ef1f64d3f7ac7eaf60"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-35-004.json": {
+      "source": "package-authored",
+      "sha256": "6d0c6d05c35e0c708cbfb8ffe801aa1acec45fe7554658047343283a805630bb"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-35-004.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "c1f8a6c390a17c87f44c06d53cac39a625a0154d818a4d9c31e16ba8453e73c5"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-35-004.stdout.jsonl": {
+      "source": "package-authored",
+      "sha256": "a8f34debd19bfffed7503ab5282c92129e8872af67a2a2c49b36a4d5bffc54eb"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-36-005-mirror.input.json": {
+      "source": "package-authored",
+      "sha256": "ea06a1491fe880c09e591a86a7717099a9361e4fc02228fe91573daaed2827bf"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-36-005-mirror.json": {
+      "source": "package-authored",
+      "sha256": "5d1b8af3cc9c9c4ab3dab184cd566f8ec9b2b25574543c3ae6726ec839271c18"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-36-005-mirror.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "c1f8a6c390a17c87f44c06d53cac39a625a0154d818a4d9c31e16ba8453e73c5"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-36-005-mirror.stdout.jsonl": {
+      "source": "package-authored",
+      "sha256": "148f9d8e342e6161e18b655c8dc8f75ea7bf964f88353c54369d2fecfa65b864"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-36-005.input.json": {
+      "source": "package-authored",
+      "sha256": "a19ae2e2ebbb089e5c5a7fc8f654e16d0b30ad0873b14bfdc8996f7b347a9b97"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-36-005.json": {
+      "source": "package-authored",
+      "sha256": "b2812f8cbed2c26d6c8943d03477ddebe0afde9095a5981509aae799a075e5fe"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-36-005.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "c1f8a6c390a17c87f44c06d53cac39a625a0154d818a4d9c31e16ba8453e73c5"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-36-005.stdout.jsonl": {
+      "source": "package-authored",
+      "sha256": "b0777b4c27017809b13d4d4094165bc0edcfadfc83fd0a114ea1035a4f9a26e5"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-37-006-mirror.input.json": {
+      "source": "package-authored",
+      "sha256": "343d10adfbe33f1e01231965732781fa22b550bf2739196ab2af2cc9b67a6212"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-37-006-mirror.json": {
+      "source": "package-authored",
+      "sha256": "338d73fee49ee192722008d7177d32658107ac748af9a0a8c3121fdfa360d854"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-37-006-mirror.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "44fb40005ebe39c36727faf2f302a78cac75b8967519465dacb68a807948f3b9"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-37-006-mirror.stdout.jsonl": {
+      "source": "package-authored",
+      "sha256": "d0c9a27f92764806647bf1f2106632399c4d2ab471d582835a8d81f81a50ba27"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-37-006.input.json": {
+      "source": "package-authored",
+      "sha256": "74030f3adc8ae684b6a8f481744c8af287ba2e7a4e3acad28681d8c43d28af2d"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-37-006.json": {
+      "source": "package-authored",
+      "sha256": "c1f82df632fa9d893aad1b819930877a0a485842ec0e6db33363dbdfbf8299ec"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-37-006.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "c1f8a6c390a17c87f44c06d53cac39a625a0154d818a4d9c31e16ba8453e73c5"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-37-006.stdout.jsonl": {
+      "source": "package-authored",
+      "sha256": "3ec314ba7eea46b9fb2b1e495bf73d51e4d74232edcc779a850fd595707416ad"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-38-007-mirror.input.json": {
+      "source": "package-authored",
+      "sha256": "7e545a0d3a551dcb712bfc4e89131a62295a3ae86c3234f2a49d0ead07078a58"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-38-007-mirror.json": {
+      "source": "package-authored",
+      "sha256": "eb23f4a0bb3e6b2500a14e90cf33e7749826615c81addea67457ffa6bc65d511"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-38-007-mirror.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "45782381a5a9910bc363d3bcc4e751988efb90000a991ad661230c4606b8d6a8"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-38-007-mirror.stdout.jsonl": {
+      "source": "package-authored",
+      "sha256": "817cb0437041f8fa51a3ab31b237cc0fa117fc898796d964dd004e8a25ad9d01"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-38-007.input.json": {
+      "source": "package-authored",
+      "sha256": "7243a8470e60ee4d578218b07582563e3860072acdb1017e48e467851fecb56e"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-38-007.json": {
+      "source": "package-authored",
+      "sha256": "5e579c1a81284d7b716df2f1859e002b8f8b41c84bbda29f72061fb1841a6a4c"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-38-007.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "bc3198d0973b70d1450533499d5d51a6b8b5de105332516c1c18b1359f599839"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-38-007.stdout.jsonl": {
+      "source": "package-authored",
+      "sha256": "fa43e470ead7bd9ae76a3f3a0147e27bdb4c477c8eaa75a35f860ccf1412dda8"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-39-008-mirror.input.json": {
+      "source": "package-authored",
+      "sha256": "d05d61be501a8a77a3147ec53d1765155eb126f1c2ef7f5023affc54a59b732d"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-39-008-mirror.json": {
+      "source": "package-authored",
+      "sha256": "9c9ab4930440c17d1de25178d02a92bd709a986cf24021f254a12ddd8ae6fd9b"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-39-008-mirror.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "819fac84f86baa9d7f13dc0d96ed70c957aa2dd1bf8c007c3b7f190574d74224"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-39-008-mirror.stdout.jsonl": {
+      "source": "package-authored",
+      "sha256": "9d1fec77ebd6042a07df3949f7d04e23a1e23fc4392665fc0dcb453d983f57c7"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-39-008.input.json": {
+      "source": "package-authored",
+      "sha256": "13aca69c150ed8b8c85e536a488e5b355f381ca1bec6b718a1f8dd13438a0822"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-39-008.json": {
+      "source": "package-authored",
+      "sha256": "10130e0ac115a9fb2224187b71a86a41ef3ea86fe0c6100b1bf39b7e022b4994"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-39-008.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "c1f8a6c390a17c87f44c06d53cac39a625a0154d818a4d9c31e16ba8453e73c5"
+    },
+    "evidence/review-validation-20261007/validation/full12-cold-cases/late-39-008.stdout.jsonl": {
+      "source": "package-authored",
+      "sha256": "b5ccc16a8aacb6658c6b5646380ce55ab3d3a27a59d79700fd57cfa4e03ee268"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-16.json": {
+      "source": "package-authored",
+      "sha256": "c2084c22ba0a81a75f104a590d055264ef5371131622cc839f12038d96c8e99c"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/frozen-roots.json": {
+      "source": "package-authored",
+      "sha256": "780a6d823b9410989e8fb2feb530e28b7d5ffe6da2fea1205e54b87680e2db35"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-32-001-mirror.input.json": {
+      "source": "package-authored",
+      "sha256": "8f90bacdace2fc2cdaa8d6f61ba683b3a50a10af829ca652d0a48157c3aa1957"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-32-001-mirror.json": {
+      "source": "package-authored",
+      "sha256": "0840ca521e6fee33479c60c50c07e5b8d8fb7759440ed1f1fb8ce87611799c8d"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-32-001-mirror.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "c1f8a6c390a17c87f44c06d53cac39a625a0154d818a4d9c31e16ba8453e73c5"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-32-001-mirror.stdout.jsonl": {
+      "source": "package-authored",
+      "sha256": "c559c69c297cbf5a9d0369676e0c187a7606dcb7e58c5074d11532bf5c822f60"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-32-001.input.json": {
+      "source": "package-authored",
+      "sha256": "7dd80d7a751476cc5f45c05ed9fac2521228ea522468d2482ebd89591fa20101"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-32-001.json": {
+      "source": "package-authored",
+      "sha256": "8f7df98a72a509c31c629b37eab1a927fa5876e45921f5b689d402c02b9f79c3"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-32-001.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "819fac84f86baa9d7f13dc0d96ed70c957aa2dd1bf8c007c3b7f190574d74224"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-32-001.stdout.jsonl": {
+      "source": "package-authored",
+      "sha256": "f83ca9dc28a7ece07620fa3fe714db01ab938d6d5a9b5a112926ba4510c0f2eb"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-33-002-mirror.input.json": {
+      "source": "package-authored",
+      "sha256": "7fabd60e73c57c2b80bb9c16b77751a4763fa15ad2e5661c7b7030da2b319ad0"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-33-002-mirror.json": {
+      "source": "package-authored",
+      "sha256": "1d0ad4f4d2b40b3e3f94ba849530e223b0ebd2f473a716f6b02d0a579d7b0a53"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-33-002-mirror.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "c1f8a6c390a17c87f44c06d53cac39a625a0154d818a4d9c31e16ba8453e73c5"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-33-002-mirror.stdout.jsonl": {
+      "source": "package-authored",
+      "sha256": "b6b98bd715e10d192509eee262100b917854ba533acd1a384e35d1c5e5302531"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-33-002.input.json": {
+      "source": "package-authored",
+      "sha256": "93dfc28b905cf0653706ce73567480dbd0f64f156d90e84b0e7149067ea6270e"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-33-002.json": {
+      "source": "package-authored",
+      "sha256": "e6b4882b038153a7f20a383b52ff47e9ae71e53060107440469d3cd33f20c8c6"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-33-002.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "675f435f1f4144f4381771eabf31f265875fe128743d1266b2bd52a22b25ce49"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-33-002.stdout.jsonl": {
+      "source": "package-authored",
+      "sha256": "9303108419754a13acccafa32df67967b49199d1e6f0c7ecaca9180910bd5c74"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-34-003-mirror.input.json": {
+      "source": "package-authored",
+      "sha256": "c5363175b4ce3683c384a74de461e517ccd42c3f51edc7dd1e8083d09742af82"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-34-003-mirror.json": {
+      "source": "package-authored",
+      "sha256": "b62f3a59077f821d0ae75a6ed41e0e5069229243aec2743499513377cc5b7852"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-34-003-mirror.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "bc3198d0973b70d1450533499d5d51a6b8b5de105332516c1c18b1359f599839"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-34-003-mirror.stdout.jsonl": {
+      "source": "package-authored",
+      "sha256": "710a661d72f86012868fa2e7f43ad95f13dca42ef3e3e6e75bcbe026b97b92a0"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-34-003.input.json": {
+      "source": "package-authored",
+      "sha256": "1cf89590352eacc0c0ef6de4fccbef857cd53f3ad9d45e371dcb299d9497d482"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-34-003.json": {
+      "source": "package-authored",
+      "sha256": "46a3f259bfe16f69a6815912138efd24de6a8ed799628a354b1bcc4511216d0c"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-34-003.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "c1f8a6c390a17c87f44c06d53cac39a625a0154d818a4d9c31e16ba8453e73c5"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-34-003.stdout.jsonl": {
+      "source": "package-authored",
+      "sha256": "8c00778cf72eefd50343e1ed91013d15678aa8c9d7ad2975528369fc03a81990"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-35-004-mirror.input.json": {
+      "source": "package-authored",
+      "sha256": "5098a7597a4a88f9770ee9cd81f431bc683926855194c34411d280b34879764e"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-35-004-mirror.json": {
+      "source": "package-authored",
+      "sha256": "a6af1411d93c27764b9d25fbf5cb95c745c9f504d27995a09e2e726eb012a7c9"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-35-004-mirror.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "c2b4239d83c855f02475f587860b56c9af29db85e09cfdce3b6b3657a1e6a22f"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-35-004-mirror.stdout.jsonl": {
+      "source": "package-authored",
+      "sha256": "09048036274c1879fd43ac6b9b4196da7349cfea05c275516c60cf92f9c9d81f"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-35-004.input.json": {
+      "source": "package-authored",
+      "sha256": "94c2934195daea88cfbed7d9b67dee242d482d2028bfe0ef1f64d3f7ac7eaf60"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-35-004.json": {
+      "source": "package-authored",
+      "sha256": "fb4ebb93c2eca770be025e6bc99847eebd7322cd907da74d4bc55a73409bb437"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-35-004.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "c1f8a6c390a17c87f44c06d53cac39a625a0154d818a4d9c31e16ba8453e73c5"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-35-004.stdout.jsonl": {
+      "source": "package-authored",
+      "sha256": "d5e198aef0f5a5110f8659710d3845cb6c703f51dce4965f07b815fc4302a98b"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-36-005-mirror.input.json": {
+      "source": "package-authored",
+      "sha256": "ea06a1491fe880c09e591a86a7717099a9361e4fc02228fe91573daaed2827bf"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-36-005-mirror.json": {
+      "source": "package-authored",
+      "sha256": "b0ce30fd6c9c7851be690cc9d23f96711222b7e688d57c143004783c63184a05"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-36-005-mirror.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "c1f8a6c390a17c87f44c06d53cac39a625a0154d818a4d9c31e16ba8453e73c5"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-36-005-mirror.stdout.jsonl": {
+      "source": "package-authored",
+      "sha256": "945fdae2037809204b37fc8707b023e6f052871ab6abc5b42f5ce8eefba5dc19"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-36-005.input.json": {
+      "source": "package-authored",
+      "sha256": "a19ae2e2ebbb089e5c5a7fc8f654e16d0b30ad0873b14bfdc8996f7b347a9b97"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-36-005.json": {
+      "source": "package-authored",
+      "sha256": "83092646abd97eebde55efcd53bd2d64eaef6fedaec81b7836c76a6dcf46ef62"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-36-005.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "c1f8a6c390a17c87f44c06d53cac39a625a0154d818a4d9c31e16ba8453e73c5"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-36-005.stdout.jsonl": {
+      "source": "package-authored",
+      "sha256": "f74ab91b7d9d065300f273911873ffee91ea7cf106863b3e77ca0b5576a4f8f6"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-37-006-mirror.input.json": {
+      "source": "package-authored",
+      "sha256": "343d10adfbe33f1e01231965732781fa22b550bf2739196ab2af2cc9b67a6212"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-37-006-mirror.json": {
+      "source": "package-authored",
+      "sha256": "306a38d87bb5a63c26e256c5cc326b07b460ba8b5ead0c917256d913c741be6b"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-37-006-mirror.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "675f435f1f4144f4381771eabf31f265875fe128743d1266b2bd52a22b25ce49"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-37-006-mirror.stdout.jsonl": {
+      "source": "package-authored",
+      "sha256": "fec5eb30bacb045f4b7468b0a2d9b51fe7c7c42efef74702a42485c59109bfd1"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-37-006.input.json": {
+      "source": "package-authored",
+      "sha256": "74030f3adc8ae684b6a8f481744c8af287ba2e7a4e3acad28681d8c43d28af2d"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-37-006.json": {
+      "source": "package-authored",
+      "sha256": "7fb2beab4f2d734ae3f0cdf121e480392b11c58f40261dd86d926f3aa9fd35c4"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-37-006.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "44fb40005ebe39c36727faf2f302a78cac75b8967519465dacb68a807948f3b9"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-37-006.stdout.jsonl": {
+      "source": "package-authored",
+      "sha256": "effee40562aad6aabe4dae8c1542834dfae981ba166029b669b97f224d16f62d"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-38-007-mirror.input.json": {
+      "source": "package-authored",
+      "sha256": "7e545a0d3a551dcb712bfc4e89131a62295a3ae86c3234f2a49d0ead07078a58"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-38-007-mirror.json": {
+      "source": "package-authored",
+      "sha256": "030c06b878d13e9d8b4c330c43d15c1a23b60d6e8faf3fe74c80a304c8c0b464"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-38-007-mirror.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "44fb40005ebe39c36727faf2f302a78cac75b8967519465dacb68a807948f3b9"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-38-007-mirror.stdout.jsonl": {
+      "source": "package-authored",
+      "sha256": "80af1bbaa759153170a18d1d3a845a3b4b4a47c651fd5b3e8b6fbe65ab1160d5"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-38-007.input.json": {
+      "source": "package-authored",
+      "sha256": "7243a8470e60ee4d578218b07582563e3860072acdb1017e48e467851fecb56e"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-38-007.json": {
+      "source": "package-authored",
+      "sha256": "4d101e6c2adfa7e5cb839e468a7b4865bccb7e180bb07a4cd76fe527f5b9f81e"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-38-007.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "c1f8a6c390a17c87f44c06d53cac39a625a0154d818a4d9c31e16ba8453e73c5"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-38-007.stdout.jsonl": {
+      "source": "package-authored",
+      "sha256": "8b7b0054d1861c067d01be336a40b54af41b6a59d7fe76c2641c2d97c81f566e"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-39-008-mirror.input.json": {
+      "source": "package-authored",
+      "sha256": "d05d61be501a8a77a3147ec53d1765155eb126f1c2ef7f5023affc54a59b732d"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-39-008-mirror.json": {
+      "source": "package-authored",
+      "sha256": "9e9edf68c87bf193ad57197d2e707f967aa6cd0956e316fee052dda1373bc102"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-39-008-mirror.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "44fb40005ebe39c36727faf2f302a78cac75b8967519465dacb68a807948f3b9"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-39-008-mirror.stdout.jsonl": {
+      "source": "package-authored",
+      "sha256": "4e4b64c9796856149284bfa70dedcd32f1b06cd74eb5890e1d74bccd3890cd63"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-39-008.input.json": {
+      "source": "package-authored",
+      "sha256": "13aca69c150ed8b8c85e536a488e5b355f381ca1bec6b718a1f8dd13438a0822"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-39-008.json": {
+      "source": "package-authored",
+      "sha256": "941db80b03d75317cd9aba53c3613aa9dc36403512990363a2e47b59c1455d69"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-39-008.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "44fb40005ebe39c36727faf2f302a78cac75b8967519465dacb68a807948f3b9"
+    },
+    "evidence/review-validation-20261007/validation/full12-default-jit-cases/late-39-008.stdout.jsonl": {
+      "source": "package-authored",
+      "sha256": "1f4f6ceb54e665b1eb58209d1fe385e41cb28b24513e40b06c7afde9d0659084"
+    },
+    "evidence/review-validation-20261007/validation/full12-draw-case.json": {
+      "source": "package-authored",
+      "sha256": "4944b3c33ba83ed57f71221834f14d5d58618196d9bde4c2a746e99471db52b3"
+    },
+    "evidence/review-validation-20261007/validation/full12-draw.json": {
+      "source": "package-authored",
+      "sha256": "5d960404497fb4c792fddbbf4c1c4ca319e296143b86fc8bd0f8f671f8ef43e7"
+    },
+    "evidence/review-validation-20261007/validation/full12-draw.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "c1f8a6c390a17c87f44c06d53cac39a625a0154d818a4d9c31e16ba8453e73c5"
+    },
+    "evidence/review-validation-20261007/validation/full12-draw.stdout.jsonl": {
+      "source": "package-authored",
+      "sha256": "9f9d154171bf3485edd44a5f959d546519d2032a9859fb04eafc05120c7320ac"
+    },
+    "evidence/review-validation-20261007/validation/harness-corrections.json": {
+      "source": "package-authored",
+      "sha256": "32ddcd601b4bdfa043ae80104bb98c8734ae6b67c16de6c39a94a58a58fdda9e"
+    },
+    "evidence/review-validation-20261007/validation/invalid-sign-checker/small-240.json": {
+      "source": "package-authored",
+      "sha256": "5c21690be096eac8af4f4be1947ba5c7326e737fac56c2b976cff175e5e8d420"
+    },
+    "evidence/review-validation-20261007/validation/invalid-sign-checker/small-240.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "9929a05e7962cca3f95ed1fb590940d287d8b92bfabc61c3c775ab12625b03ca"
+    },
+    "evidence/review-validation-20261007/validation/invalid-sign-checker/small-240.stdout.jsonl": {
+      "source": "package-authored",
+      "sha256": "db7f8cb15f7d31aae28f506d50269447653b3357441958f1108ae1758ebf5193"
+    },
+    "evidence/review-validation-20261007/validation/resource-censored-reuse/full12-16.json": {
+      "source": "package-authored",
+      "sha256": "3f8c7563670ee9e38a2081bbac8ab8c58c4bd0f271bae001e93000dbf061b06f"
+    },
+    "evidence/review-validation-20261007/validation/resource-censored-reuse/full12-16.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "458ca72f91a3d089a2b3ab0ee571dcdb56d16fc57a76541fa5cdab337f3bfcf4"
+    },
+    "evidence/review-validation-20261007/validation/resource-censored-reuse/full12-16.stdout.jsonl": {
+      "source": "package-authored",
+      "sha256": "a5a7c0d387227c8ae7c8dde93f2001eaa1ba9791c25e0952b38cbbcdc751eeba"
+    },
+    "evidence/review-validation-20261007/validation/small-240.json": {
+      "source": "package-authored",
+      "sha256": "65fbf6b31b1da218931ee74776e5914eaa1f1bb9af93a7ea59c6f9cc9d1e90f2"
+    },
+    "evidence/review-validation-20261007/validation/small-240.stderr.txt": {
+      "source": "package-authored",
+      "sha256": "7a8c8407bce0d6cba7994d070510926f44c35a14cf6abb9c49ea5217b4447617"
+    },
+    "evidence/review-validation-20261007/validation/small-240.stdout.jsonl": {
+      "source": "package-authored",
+      "sha256": "49e12534c7a83025b2c5a6c63edc9926fa36f924e9e1f467730ceed786b1394c"
     },
     "evidence/system-discovery-20261006.json": {
       "source": "package-authored",
@@ -93,7 +1595,9 @@
     },
     "evidence/timing-summary.json": {
       "source": "evidence/isomax-nees-remediation-20261006/timing-summary.json",
-      "sha256": "5e1b54b71db545a98a047e5fdbfe3e82a4bc17bfa3d3658a1c8d1429eb5a6fee"
+      "sha256": "7470ac8ced5e20f0e201009a4ffe11aa30688dc1d59d539d3a9d0c440ba36150",
+      "originalSourceSha256": "5e1b54b71db545a98a047e5fdbfe3e82a4bc17bfa3d3658a1c8d1429eb5a6fee",
+      "transformation": "Public evidence redaction or historical qualification annotation; numeric measurements and source identities preserved."
     },
     "example.mjs": {
       "source": "package-authored",
@@ -105,11 +1609,11 @@
     },
     "package.json": {
       "source": "package-authored",
-      "sha256": "3d1ede16aa98f06f98e9b14af61492fd176659fdd5ba4e565257ab946fec5232"
+      "sha256": "18b4fb5e3f92a048735e62494e04315d4b28eca1f92719a7df9c0f0d661fc7fe"
     },
     "profile.json": {
       "source": "package-authored",
-      "sha256": "f39df7b1ababc47a8d05fd202778470a5221495cf7d7354fd36d7150922ba0e0"
+      "sha256": "e52b4c802ae9efac3eb06d29ece5b8459290c7795960a09db19a6a65282057fa"
     },
     "run.mjs": {
       "source": "package-authored",
@@ -507,6 +2011,10 @@
       "source": "package-authored",
       "sha256": "c29088b7273fe3e1318fd99b37180340047cf2dfc3473b24dbe245068f41a6e2"
     },
+    "test/public-evidence-privacy.test.mjs": {
+      "source": "package-authored",
+      "sha256": "6b0f7ea918fd0f55bd4ab948d3bc72d049d94957adae33c507fd54581ecefa22"
+    },
     "test/rba-ingress-history-boundary.test.mjs": {
       "source": "package-authored",
       "sha256": "310f29150bfbf82ef1d3b97395769c26371fe999348bdab99353ef36f0d76b5f"
@@ -515,9 +2023,25 @@
       "source": "package-authored",
       "sha256": "1c93535fcd7ff6fa85a3d03604f64fafa204ded5c7e3d51113e72497699d0d62"
     },
+    "test/review-validation-outcomes.mjs": {
+      "source": "package-authored",
+      "sha256": "9db642f9dfcfb2ea739af43012bf1fc1085e5dca1e5c9f8b5571a7443f00ad71"
+    },
+    "test/review-validation-physical-reference.mjs": {
+      "source": "package-authored",
+      "sha256": "213058fdb548782378f3b595198b56449c85f76bb664530ab61f91e2907d97d6"
+    },
+    "test/review-validation-physical-reference.test.mjs": {
+      "source": "package-authored",
+      "sha256": "c415a152d28a8ad24fb002697d088a5b209efb35494be10638c502cb060e95ff"
+    },
     "test/smoke.test.mjs": {
       "source": "package-authored",
       "sha256": "bb06d50043dac19dc53af99868dd87ae50b6c85f751f29a2f4bad7da5f03c64c"
+    },
+    "test/tt-stress-review.test.mjs": {
+      "source": "package-authored",
+      "sha256": "9f033c1243456a66502e08ee5f69c285231a6053bfba9a7da886f87184068d0b"
     },
     "test/worker-discovery.test.mjs": {
       "source": "package-authored",
@@ -533,7 +2057,7 @@
     },
     "verify.mjs": {
       "source": "package-authored",
-      "sha256": "ba8f757327bc8b4e84f12b29cf06d9ecb7832f5d590b7b3fd3c869fd360630d4"
+      "sha256": "e94d1e2b24966708a5d5921fd686aae2784a37b4374467cc3ede3b0d4f6d4231"
     }
   }
 }

@@ -1,12 +1,17 @@
-# IsoMax NEES remediation — selected producer candidate
+# Historical IsoMax NEES remediation — selected producer candidate
+
+This report records the producer remediation cycle before rc.5 promotion. Its
+`current` and `final` labels refer to that cycle. The current distributed source
+is `8b81911bb19f58665f5a5bbb4811a05fc0fd9fba`; see [the promotion record](promotion-20261006/README.md)
+for the shipped-source and public-launcher evidence.
 
 Confirmed accounting, numeric ABI and application boundary issues are addressed
 on `work/isomax-auto-workers-20261006`. The runtime freeze is
 `1c7b64f352c2e44b4853f9faaf916b48d7837bce`; later commits change accounting,
-verification and evidence. This is not a whole-runtime NEES certificate, a global
-optimum, a ≤10-second result, or a production-package promotion.
+verification and evidence. The results do not establish whole-runtime NEES certification, a global
+optimum or a ≤10-second result. Package promotion was a later qualification step.
 
-| Finding | Current disposition |
+| Finding | Disposition at producer review |
 |---|---|
 | L1 cost graph | All 32 worker roots plus prepared/discovery/memory/state roots. Source-local/import resolution fails closed on ambiguity. 651 units, 573 enforced. The declared-call resolver is not an AST completeness proof. |
 | L2 callbacks | Target-bound expressions survive maintenance generation; partial-cache and completion/affinity/state callback bodies are enforced. |
@@ -22,7 +27,7 @@ optimum, a ≤10-second result, or a production-package promotion.
 | C2 initialization | Cooperative checks before compilers, admission, large allocation and each launch. Pre-aborted partial preparation cancels without a missing-plan exception. Synchronous stages cannot be preempted; public discovery precedes this clock. |
 | C3 ownership | Close joins workers, snapshots scalar resource sizes and drops large owned references. A real shared-TT WeakRef becomes collectable. Immediate RSS or caller-owned-plan release is not promised. |
 | C4 ingress | Bounded indexed arrays/typed arrays admitted before arenas. DataView/arbitrary iterables rejected. Original history read once and owned snapshot replayed. |
-| C5 documentation | Historical rc.2/four-worker headings distinguished from current automatic profiles and the unpromoted partial24 candidate. |
+| C5 documentation | Historical rc.2/four-worker headings distinguished from current automatic profiles and the then-unpromoted partial24 candidate. |
 
 The final suite passed 490 tests, with zero failures and one GC-only skip. Eight
 targeted GC/layout tests passed separately. Boundary checks cover all 100 geometry
@@ -51,7 +56,8 @@ unavailable. No hot statistics or clocks were added.
 
 Every substantial runtime change has a full empty 7×6 result in
 `timing-summary.json`. The grouped boundary result was 33.871 seconds. The final
-alternating series used OneDrive stopped for both immutable control and candidate:
+alternating series used the same reduced background load for both immutable
+control and candidate:
 
 | Version | Primary seconds | Mean primary | Mean process CPU |
 |---|---|---:|---:|
@@ -59,11 +65,12 @@ alternating series used OneDrive stopped for both immutable control and candidat
 | Candidate, runtime `1c7b64f` | 33.328, 33.163 | 33.245 s | 205.750 s |
 
 All four returned EXACT/WIN/c4 with six verified pins and clean exits. The observed
-mean reduction is 2.656%; two samples per source support no observed regression,
+mean reduction is 2.656%; two samples per source are preliminary and show no observed regression,
 not a portable speedup or attribution to one edit. Candidate peak RSS was
 15,663,845,376 bytes (~14.59 GiB), including the whole process. Earlier timings
-with OneDrive active are not part of this comparison. The owner instructed
-leaving OneDrive stopped; see `environment-change.json`.
+under a different background load are not part of this comparison; see
+`environment-change.json`. Application identity and personal instructions are
+omitted from the public evidence.
 
 The fresh review's two Important accounting findings were reproduced and fixed;
 see `REVIEW.md`. Machine observations and raw hashes are in Connect4
@@ -72,6 +79,7 @@ paths and builtin/helper work remain; full machine cost conformance is unqualifi
 Further recurring-cost candidates retain explicit dispositions in
 `debt-dispositions.json`. No speculative control-equivalence theorem became pruning.
 
-Production rc.4 and main remain unchanged. The corrected producer candidate and
-raw measurements are pushed on the work branch. A newly bound distribution is
-required before these fixes can be advertised as part of the frozen package.
+At the time of this producer report, rc.4 and main were unchanged and the
+corrected candidate required a newly bound distribution. That step subsequently
+produced the rc.5 package on main. Historical rc.4 evidence remains bound to its
+own source; it does not describe the current package.

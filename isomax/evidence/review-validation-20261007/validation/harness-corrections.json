@@ -1,0 +1,16 @@
+{
+  "productionRuntimeChanged": false,
+  "signConvention": {
+    "invalidAttempt": "invalid-sign-checker/",
+    "cause": "Qualification compared mover-relative physical minimax WDL directly against the player0-relative public rootWdl field.",
+    "evidence": "Worker relativeToAbsolute publication and host value-minus2 materialization; all initial selected-move checks passed and nonzero mismatches occurred at odd ranks.",
+    "correction": "Convert reference WDL to player0-relative after the solver returns, retaining mover-relative value separately; add odd/even/draw regression.",
+    "rerun": "small-240.json contains the fresh 240-case corrected result."
+  },
+  "fullMemoryAdmission": {
+    "incompleteAttempt": "resource-censored-reuse/",
+    "cause": "Second full-capacity allocation was rejected by memory admission after a closed one-shot session; one synchronous GC call did not establish immediate backing-store reclamation.",
+    "correction": "Use one fresh process per full-capacity case with unchanged memory admission and actual 12 GiB table; no thresholds or solver behavior weakened.",
+    "rerun": "full12-16.json aggregates 16 cold-process cases."
+  }
+}

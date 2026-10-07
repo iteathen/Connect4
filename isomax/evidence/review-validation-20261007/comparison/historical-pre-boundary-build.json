@@ -1,0 +1,65 @@
+{
+  "schema": 1,
+  "solverExecuted": false,
+  "toolchainHashes": {
+    "msvcCompilerSha256": "6641bee08a3cbafe204aa03b280ad634d7a88b1c03a06fbfec22aaf55d1e4ec2",
+    "msvcLinkerSha256": "2c26c8b28ca5e47ef0c0e89a7264cf4fe6685d26ec0b0a3188e2383bc4b7e08f",
+    "gccCompilerSha256": "95225e474909523c4ed1a41aa248af8ea4cacca1fc8988c807e78214e2eb32cf"
+  },
+  "solvers": {
+    "christophe": {
+      "arguments": [
+        "/Bv",
+        "/O2",
+        "/GL",
+        "/DNDEBUG",
+        "/std:c++20",
+        "/EHsc",
+        "/MT",
+        "/W4",
+        "/Iupstream/src",
+        "/Foobjects/",
+        "/Fesolver.exe",
+        "christophe-benchmark.cpp",
+        "upstream\\src\\solver\\entry.cpp",
+        "upstream\\src\\solver\\parallel\\pool.cpp",
+        "upstream\\src\\solver\\parallel\\result.cpp",
+        "upstream\\src\\solver\\parallel\\worker.cpp",
+        "upstream\\src\\solver\\position.cpp",
+        "upstream\\src\\solver\\search.cpp",
+        "upstream\\src\\solver\\solver.cpp",
+        "upstream\\src\\solver\\table.cpp",
+        "upstream\\src\\solver\\util\\os.cpp",
+        "upstream\\src\\solver\\util\\progress.cpp",
+        "upstream\\src\\solver\\util\\stats.cpp",
+        "upstream\\src\\solver\\util\\writer.cpp",
+        "/link",
+        "/LTCG",
+        "Advapi32.lib"
+      ],
+      "executableSha256": "69fbb5245409f05b0c96f8d37c78294999961f90bcfeebf38150826f6c704017",
+      "sourceCommit": "fa27f186d2f1bf8e8fd61bfad63454c6e4b0431c"
+    },
+    "pons": {
+      "arguments": [
+        "-O3",
+        "-DNDEBUG",
+        "-march=native",
+        "-static",
+        "-std=gnu++17",
+        "-I",
+        "upstream",
+        "pons-benchmark.cpp",
+        "-o",
+        "solver.exe"
+      ],
+      "executableSha256": "3279aca2f9e5fcbca98e2b17beefab4d786ce0037def94da4fdb17caaa6337d9",
+      "sourceCommit": "d6ba50d8aaf2308c769d9bf2abd42d90f34baf41"
+    }
+  },
+  "toolchainVersions": {
+    "msvcCompiler": "19.50.35730.0",
+    "msvcLinker": "14.50.35730.0",
+    "gcc": "16.2.0"
+  }
+}

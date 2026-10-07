@@ -1,4 +1,4 @@
-# IsoMax 0.2.0-rc.5
+# IsoMax 0.2.0-rc.6
 
 Keep this folder together. It contains the launcher, exact solver, configuration,
 verification, tests and evidence. No npm install or producer checkout is needed.
@@ -93,16 +93,25 @@ Caller-owned plans and immediate RSS reclamation are not guaranteed. Initializat
 deadlines are cooperative checks around synchronous stages, not preemption.
 Diagnostic node/cache counts are unavailable (`null`); no hot reporting was added.
 
+`rootWdl` is player-0-relative: +1 means player0 wins, -1 means player1 wins,
+and 0 means draw. For an odd-length history, invert a nonzero result to express
+it relative to the side to move. `move` is a zero-based physical column.
+
 ## Evidence and contents
 
-Matched localhost candidate runs averaged 33.245 seconds, best 33.163, versus
-34.153 for the control. They used six pinned i5-12600K P-cores, actual 12 GiB shared
+Five fresh matched localhost candidate runs averaged 33.560 seconds, versus
+33.803 for the control. They used six pinned i5-12600K P-cores, actual 12 GiB shared
 /192 MiB private TTs, Node `v27.0.0-nightly20260928b59840b593`, V8
-`14.6.202.34-node.36`, and OneDrive stopped. Two samples per source are limited
-evidence, not a portable speed guarantee. The ≤10-second goal remains unmet.
-See [evidence/](evidence/README.md) and the Connect4 promotion record for the new
-public-package confirmation. Whole-runtime NEES/allocation-free certification
-remains unqualified.
+`14.6.202.34-node.36`, with the same reduced background load for both sources.
+The observed 0.72% difference does not establish a dependable speedup: the candidate
+was slower in two pairs and its spread exceeded the mean difference. The earlier
+two-per-arm 2.656% observation is historical. See the bundled
+[current review record](evidence/review-validation-20261007/README.md).
+The ≤10-second goal remains unmet.
+See [evidence/](evidence/README.md) and the [promotion record](evidence/promotion-20261006/README.md) for the
+public-package confirmation: shipped source `8b81911` measured 33,334.3664 ms
+primary and 39,689.6962 ms full external wall, including startup and cleanup.
+Whole-runtime NEES/allocation-free certification remains unqualified.
 
 - `run.mjs` / `cli.mjs`: portable startup and empty-board command.
 - `index.mjs`: public prepared/one-shot API and initialization policy.
@@ -110,8 +119,13 @@ remains unqualified.
 - `runtime/`: unchanged producer kernels and support closure.
 - `provenance.json` / `verify.mjs`: source, SHA-256 and closure verification.
 - `test/`: bounded correctness, platform, lifecycle and corruption checks.
-- `dist/`: standalone archive and download checksum.
+- `dist/`: repository download archive and checksum; excluded from the archive.
 
 AGPL-3.0-only. This is a repository distribution; npm registry publication is
-disabled. Maintainers reproduce it using JSMinSys `isomax/prepare.mjs` at the
-packaging revision; the consumer needs only this folder or the archive.
+disabled. The rc.6 update changes evidence and packaging only; runtime source
+`8b81911` remains unchanged. Maintainers can refresh evidence hashes with
+`node tools/refresh-isomax-evidence-lock.mjs` from the Connect4 repository, then
+`npm pack ./isomax --ignore-scripts --pack-destination ./isomax/dist`.
+The producer's `prepare.mjs` constructs the historical rc.5 runtime closure;
+it is not a consumer installation command or the rc.6 evidence updater.
+The consumer needs only this folder or the extracted archive.
