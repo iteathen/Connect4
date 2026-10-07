@@ -20,3 +20,23 @@ Preparation and solve timing are separate. CI qualifies correctness, not timing.
 
 Source/evidence are in `isomax/provenance.json` and its evidence folder.
 Whole-runtime NEES and allocation-free certification remain unqualified.
+
+## Public default confirmation
+
+`public-default-01` ran the unmodified `node isomax/run.mjs` startup on the
+recorded Node 27 runtime. It selected profile12 automatically and returned
+EXACT/WIN/column4 in33,083.8197ms primary,38,905.2284ms operation and
+39,621.574ms external wall. CPU204,923ms; peakRSS15,596,896,256bytes. Actual
+shared bytes12,884,901,888; private201,326,592 per worker. All six discovered
+workers pinned to0/2/4/6/8/10, ready/exited, cleanup true, no solver process left.
+Raw command/settings/stdout/stderr and summaries remain in that run folder.
+
+The extracted archive verified123locked files and returned an exact draw on
+the bounded4×1 installation check with six discovered workers. SHA-256:
+`9ae5bcddd3e92d51c313295b9feaf7fb6d3112233e098e67fa55306ce3904307`.
+Archive size466,177bytes. This is an extraction/closure check, not timing evidence.
+
+The main-derived suite passed118tests,0failed,1GC-only skip. The GC-only lifecycle
+test separately passed3cases, including backing-handle release. Worker kernels
+remain source-identical to the previously qualified candidate; cold memory
+selection and public CPU/RSS reporting are the only new runtime composition.
