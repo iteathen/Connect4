@@ -16,8 +16,10 @@ uses one deep center/live worker per target and the largest fitting memory
 profile.1/2/4/8GiB tested;16/32/64/128GiB experimental, including automatic
 selection. Private budget256MiB/worker; geometry widths and banks are selected
 cold, with actual allocation/status reported. Native layouts, compiled support transitions, reflection
-and exact/bound sharing retain the producer semantics. Worker creation, all
-solver-owned allocation and configuration precede the all-ready barrier.
+and exact/bound sharing retain the producer semantics. Worker creation,
+persistent worker arenas, TT/geometry allocation and configuration precede the
+all-ready barrier. One-shot ingress allocates and constructs the actual root
+after READY; that E3 work is included in the primary solve interval.
 Windows/Linux bindings are verified before worker module/private TT setup.
 macOS uses explicit scheduling hints, without a hard-pinning claim. CPU discovery,
 binding/hints and readiness acknowledgements are cold support-library operations;

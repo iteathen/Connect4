@@ -4,10 +4,10 @@ import {resolve} from 'node:path';
 import {performance} from 'node:perf_hooks';
 import {cpus} from 'node:os';
 import {profile} from '../../../isomax/index.mjs';
-const options={identity:'native32',timeout:'120000','shared-entries':'134217728','local-entries':'8388608','shared-bank-entries':'0'};
+const options={identity:'native32',timeout:'120000','shared-entries':'134217728','local-entries':'8388608','shared-bank-entries':'0',producer:'C:/r/jsminsys-cpc-rebuild-20261004'};
 for(let i=2;i<process.argv.length;i+=2){const k=process.argv[i].replace(/^--/,'');if(!Object.hasOwn(options,k)||process.argv[i+1]===undefined)throw Error('Invalid option');options[k]=process.argv[i+1];}
 if(!['native32','partial24','partialMixed'].includes(options.identity))throw Error('Unknown candidate');
-const producer='C:/r/jsminsys-cpc-rebuild-20261004',modules={
+const producer=resolve(options.producer),modules={
  ...await import(pathToFileURL(resolve(producer,'addons/rba-connect4-geometry.mjs'))),
  ...await import(pathToFileURL(resolve(producer,'addons/rba-connect4-prepared-session-host.mjs'))),
  ...await import(pathToFileURL(resolve(producer,'addons/worker-topology.mjs')))},plan=await modules.discoverWorkerPlan();
@@ -20,7 +20,7 @@ const app=await modules.prepareLazySmpConnect4Rba32(configuration);
 let result;
 try{if(app.state().readyWorkers!==6||!app.state().affinityVerified)throw Error('Readiness/pinning failure');result=await app.solve([]);}
 finally{await app.close();}
-console.log(JSON.stringify({identity:options.identity,startingPosition:'empty',geometry:'7x6',workerPlan:plan,
+console.log(JSON.stringify({producer,identity:options.identity,startingPosition:'empty',geometry:'7x6',workerPlan:plan,
  configuration:{...profile.options,cacheIdentity:options.identity,workers:6,sharedCacheCapacity:configuration.sharedCacheCapacity,localCacheCapacity:configuration.localCacheCapacity,sharedBankCapacity:configuration.sharedBankCapacity,timeoutMs:configuration.timeoutMs},
  primaryWallMs:result.preparedTiming.solveMs,operationWallMs:performance.now()-started,
  runtime:{node:process.version,v8:process.versions.v8,cpu:cpus()[0]?.model},memory:process.memoryUsage(),result},null,2));

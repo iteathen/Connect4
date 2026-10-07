@@ -1,7 +1,10 @@
-param([Parameter(Mandatory=$true)][string]$Id,[ValidateSet('native32','partial24','partialMixed')][string]$Identity='native32',[long]$SharedEntries=134217728,[long]$LocalEntries=8388608,[long]$SharedBankEntries=0,[switch]$JitDiagnostic)
+param([Parameter(Mandatory=$true)][string]$Id,[ValidateSet('native32','partial24','partialMixed')][string]$Identity='native32',[long]$SharedEntries=134217728,[long]$LocalEntries=8388608,[long]$SharedBankEntries=0,[switch]$JitDiagnostic,[string]$ProducerPath='C:/r/jsminsys-cpc-rebuild-20261004')
 $ErrorActionPreference='Stop'
 $taskRepo=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../../..'))
 Set-Location -LiteralPath $taskRepo
+$taskProducer=(Resolve-Path -LiteralPath $ProducerPath).Path
+git -C $taskProducer diff --exit-code HEAD -- addons src
+if($LASTEXITCODE){throw 'Uncommitted producer runtime cannot be measured'}
 $taskDir=Join-Path $PSScriptRoot $Id
 if(Test-Path -LiteralPath $taskDir){throw 'Output exists'}
 $taskActive=Get-CimInstance Win32_Process -Filter "Name='node.exe'" | Where-Object {$_.CommandLine -like '*isomax*cli.mjs*' -or $_.CommandLine -like '*bench-minimal-i5.mjs*' -or $_.CommandLine -like '*exact-tt-identity*bench.mjs*' -or $_.CommandLine -like '*large-shared-tt*bench.mjs*'}
@@ -19,11 +22,12 @@ if([long]$taskMemory.FreePhysicalMemory*1024 -lt $taskRequired -or [long]$taskMe
  throw 'Insufficient physical/commit headroom; no solver started'
 }
 $taskConfig.repositoryCommit=(git rev-parse HEAD)
-$taskConfig.sourceCommit=(git -C C:/r/jsminsys-cpc-rebuild-20261004 rev-parse HEAD)
+$taskConfig.sourceCommit=(git -C $taskProducer rev-parse HEAD)
 $taskConfig.arguments=@('--experimental-ffi','--max-inlined-bytecode-size=2400','--max-inlined-bytecode-size-cumulative=9600','--import','file:///C:/r/c4-external-20261004/isomax/runtime/tools/benchmark-v8-startup-preload.mjs')
 if($JitDiagnostic){$taskConfig.arguments+='--trace-turbo-inlining'}
-$taskConfig.arguments+=@((Join-Path $PSScriptRoot 'bench.mjs'),'--identity',$Identity,'--shared-entries',[string]$SharedEntries,'--local-entries',[string]$LocalEntries,'--shared-bank-entries',[string]$SharedBankEntries,'--timeout',$(if($JitDiagnostic){'10000'}else{'120000'}))
-$taskConfig.canonicalCommand="Frozen raw-host TT identity comparison; identity=$Identity sharedEntries=$SharedEntries localEntries=$LocalEntries sharedBankEntries=$SharedBankEntries"
+$taskConfig.producerPath=$taskProducer
+$taskConfig.arguments+=@((Join-Path $PSScriptRoot 'bench.mjs'),'--producer',$taskProducer,'--identity',$Identity,'--shared-entries',[string]$SharedEntries,'--local-entries',[string]$LocalEntries,'--shared-bank-entries',[string]$SharedBankEntries,'--timeout',$(if($JitDiagnostic){'10000'}else{'120000'}))
+$taskConfig.canonicalCommand="Frozen raw-host TT identity comparison; producer=$taskProducer identity=$Identity sharedEntries=$SharedEntries localEntries=$LocalEntries sharedBankEntries=$SharedBankEntries"
 $taskConfig.execution="Six auto-discovered verified P-core workers; exact empty root; sharedEntries=$SharedEntries localEntries=$LocalEntries sharedBankEntries=$SharedBankEntries entryBytes=$taskEntryBytes; retained topology flags and support plans"
 $taskConfig.stdout=Join-Path $taskDir 'stdout.json';$taskConfig.stderr=Join-Path $taskDir 'stderr.txt';$taskConfig.measurement=Join-Path $taskDir 'measurement.json'
 $taskConfig | ConvertTo-Json -Depth 10 | Set-Content (Join-Path $taskDir 'invocation.json')
