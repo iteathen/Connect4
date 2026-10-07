@@ -5,7 +5,7 @@ main. This promotion branch derives from main `ad0bfd0`, not the independent
 solver history. Only the package, setup/routing and qualification are imported.
 Incumbent, BSFP and research implementations remain unchanged.
 
-Producer runtime source: `b7604c7dcca54fca362d630ed96c96410469e3e2`. Its only
+Initial producer runtime source: `b7604c7dcca54fca362d630ed96c96410469e3e2`. Its only
 post-measurement runtime change is cold memory-policy admission for partial24 and
 the 12 GiB profile. Worker kernels remain byte-identical to qualified `1c7b64f`.
 Package provenance binds 86 modules, all 32 workers, source ledger and entry points.
@@ -40,3 +40,10 @@ The main-derived suite passed118tests,0failed,1GC-only skip. The GC-only lifecyc
 test separately passed3cases, including backing-handle release. Worker kernels
 remain source-identical to the previously qualified candidate; cold memory
 selection and public CPU/RSS reporting are the only new runtime composition.
+
+The review fix pass advances the shipped runtime to
+`8b81911bb19f58665f5a5bbb4811a05fc0fd9fba`, preserving custom-layout/tiny-cache
+fallback and accurate split40 entry-width metadata. See REVIEW.md. The first
+archive hash above belongs to pre-fix evidence. The final archive SHA-256 is
+`be8335280f8dc1db881939c48fa65517f8b3c58c530efe57c5ee590d950d434b`;
+`archive-smoke-final.json` verifies its independent extraction.
