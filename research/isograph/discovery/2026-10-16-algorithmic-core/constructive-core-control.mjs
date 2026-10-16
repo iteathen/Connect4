@@ -197,7 +197,7 @@ function lateSeven(){
     try{
       const q=core.fromPhysical(s),qSolve=core.solve(q,{maxStates:LATE_Q_LIMIT,
         maxTransitions:800000,deadlineAt:deadline});
-      const reference=rules.solveAll; // Full-root reference is forbidden for 7x6.
+      // The physical late-suffix reference starts only at this sampled state.
       // Exact physical comparison restricted to descendants of this late s.
       const memo=new Map(),local={states:0,edges:0};
       function rec(state){
