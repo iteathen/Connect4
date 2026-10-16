@@ -31,7 +31,10 @@ Unlisted dated notes remain repository evidence. Being unlisted means “not pri
 ### ACTIVE FOUNDATION / SYNTHESIS — term-only exact recurrence
 
 - [`2026-10-16-connect4-algorithmic-core-formula.md`](2026-10-16-connect4-algorithmic-core-formula.md)  
-  Records the Connect Four core as an exact residual transition plus claimant-relative existential/universal least-fixed-point recurrence. Separates the explicit recurrence from the still-open task of proving a polynomial-size exact quotient \(\pi\), closed transition operators \(F_c\), and polynomial quantified predecessor closure. This is a research synthesis, not a logic-authority revision or a claim that the universal polynomial construction is complete.
+  Records the Connect Four core as an exact residual transition plus claimant-relative existential/universal least-fixed-point recurrence. The recurrence is now oracle-validated; the remaining problem is direct oracle-equivalent structural evaluation without exponential continuation expansion.
+
+- [`2026-10-16-oracle-relative-proof-algorithmic-core.md`](2026-10-16-oracle-relative-proof-algorithmic-core.md)  
+  Proves the OR/AND recurrence algebraically from the accepted exact-oracle action-score contract and composes it with the q-local cofactor transition. Executed validation passed on 316 positions and 1,586 legal action transitions with no recursive formula descent.
 
 ---
 
