@@ -62,11 +62,13 @@ export function runMove7Move8Control(){
   rank7CoverComparisonStates:0,rank7CoverResponseRows:0,
   rank7CoverMismatches:0,rank8TwoOwnMoveStates:0,
   rank8TwoOwnMovePositiveActions:0,
+  rank8P0WinningPositionsByBoundedTwoOwnMove:0,
+  rank8ReplyCoverageComparisons:0,rank8ReplyCoverageMismatches:0,
   centerRank7ReflectionPairs:0,centerRank7ReflectionMismatches:0,
   rank8DistinctQ:0,singletonChecks:0,pairChecks:0,tripleChecks:0,
   totalPartialQChecks:0};
  const samples={rank5:null,rank6:[],rank7CenterFull:[],rank8CenterFull:[],
-  rank8PositiveExamples:[],crossingFirstFillByPly:{}};
+  rank8PositiveExamples:[],centerFullMove8DefensiveSets:[],crossingFirstFillByPly:{}};
  const rank8Keys=new Set(),rank7Center=new Map(),stray=[];
  const src=physical.empty();
  function invariant(s,q,origin){
@@ -186,7 +188,7 @@ export function runMove7Move8Control(){
        phase:phase(seven.q).join(''),mask:mask(colMask(seven.q)),
        shortHorizon:predicted.universal});}
     }else M.centerNotFullMove7States++;
-    everyRank7.push({b,a,seven});
+    everyRank7.push({b,a,seven,predicted});
    }
   }
   for(const [a,q] of rank7Center){
@@ -198,7 +200,19 @@ export function runMove7Move8Control(){
    }
    if(a<6-a)M.centerRank7ReflectionPairs++;
   }
-  for(const {b,a,seven} of everyRank7){
+  for(const {b,a,seven,predicted} of everyRank7){
+   if(b===3){
+    const defense=predicted.p1LegalMask&~predicted.p1CoveredMask;
+    samples.centerFullMove8DefensiveSets.push({
+      turn7Move:a+1,
+      turn8LegalMask:mask(predicted.p1LegalMask),
+      turn8DefensiveMask:mask(defense),
+      defensiveP1Columns:Array.from({length:7},(_,i)=>i)
+        .filter(c=>(defense&(1n<<BigInt(c)))!==0n).map(c=>c+1),
+      P0WithinNextTwoOwnTurnsAllowedByP1Mask:mask(predicted.p1CoveredMask),
+      disclaimer:'bounded immediate-or-next-two-P0-turn result, not optimal WDL at turn8'
+    });
+   }
    for(const d of physical.legal(seven.s)){
     const eight=makeMove(seven.s,seven.q,d,
       'move8-'+(b+1)+'-'+(a+1)+'-'+(d+1));
@@ -224,6 +238,13 @@ export function runMove7Move8Control(){
     const bits=horizon.forcedWinningFirstActionsMask;
     let ct=0;for(let x=bits;x;x&=x-1n)ct++;
     M.rank8TwoOwnMovePositiveActions+=ct;
+    M.rank8P0WinningPositionsByBoundedTwoOwnMove+=Number(ct>0);
+    const predictedCoverage=(predicted.p1CoveredMask&(1n<<BigInt(d)))!==0n;
+    M.rank8ReplyCoverageComparisons++;
+    if(predictedCoverage!==(ct>0)){
+      M.rank8ReplyCoverageMismatches++;
+      throw Error('move8 bounded source cover disagrees with actual rank8 q first-win horizon '+eight.s.sequence);
+    }
     if(ct>0&&samples.rank8PositiveExamples.length<12)
      samples.rank8PositiveExamples.push({
       sequence:eight.s.sequence,
@@ -244,7 +265,7 @@ export function runMove7Move8Control(){
      M.columnNotFilledThroughMove8!==216||
      M.centerRank7ReflectionPairs!==3)
    throw Error('expected exact full-column boundary census disagrees '+JSON.stringify(M));
-  return {schema:'connect4.move7-move8.column-full-virtual-cofactor.v0_1',
+  return {schema:'connect4.move7-move8.column-full-virtual-cofactor.v0_2',
    status:'PASS',scope:'all rank5 44444 / rank6 P1 / rank7 P0 / rank8 P1 legal first-win paths; bounded horizon only',
    tests:{prefix:'44444',mode:'rank-local cofactor, GF2 phase and move6/7/8 center-capacity guards; no value-oracle use'},
    metrics:M,samples,wallMs:Date.now()-t,
