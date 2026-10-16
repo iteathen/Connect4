@@ -496,25 +496,80 @@ See:
 
 ---
 
-## 11. Exact remaining problem
+## 11. Oracle-compiled direct evaluator
 
-The recurrence correctness is no longer the unresolved part.
-
-The remaining target is an oracle-independent direct evaluator or certificate map
+For fixed support \(s\), legal action \(a\), and oracle score threshold \(\theta\), define
 
 \[
-G(q)\in\{-1,0,+1\}
+M_{s,a,\theta}
+=
+\operatorname{Min}_{\succeq}
+\{q:Q_a^{\mathcal O}(q)\ge\theta\}.
 \]
 
-such that
+Then
 
 \[
 \boxed{
-G(q)=\widehat V_{\mathcal O}(q)
+\widehat Q_a(q)
+=
+\max
+\left\{
+\theta:
+\exists m\in M_{s,a,\theta},\ q\succeq m
+\right\}
+=
+Q_a^{\mathcal O}(q).
 }
 \]
 
-for every legal q, while avoiding ordinary exponential continuation expansion.
+Therefore
+
+\[
+\boxed{
+\widehat B(q)
+=
+\operatorname*{arg\,max}_{a\in\mathcal A(s)}
+\widehat Q_a(q).
+}
+\]
+
+The evaluator contains no recursive continuation term. The oracle is used only
+to compile or validate the frontier family \(M\); evaluation is structural
+antichain membership.
+
+An exhaustive four-game round-trip control decoded
+
+\[
+1,039,073
+\]
+
+exact action values and
+
+\[
+343,736
+\]
+
+exact best-move masks with zero mismatches.
+
+See:
+
+- \`docs/research/2026-10-16-oracle-compiled-action-value-frontier-theorem.md\`
+
+---
+
+## 12. Exact remaining problem
+
+The recurrence correctness and the existence of a nonrecursive exact
+oracle-compiled evaluator are no longer unresolved.
+
+For standard 7x6, the remaining practical target is to construct/materialize
+
+\[
+\mathcal M=\{M_{s,a,\theta}\}
+\]
+
+with sufficiently small construction, storage, and membership-query cost.
 
 A stronger generalized-complexity target additionally asks for
 
@@ -526,7 +581,7 @@ A stronger generalized-complexity target additionally asks for
 \operatorname{cost}(F_c)\le\operatorname{poly}(W,H,K),
 \]
 
-and polynomial quantified predecessor closure.
+and polynomial frontier construction/query complexity.
 
 In shortest form:
 
@@ -534,21 +589,16 @@ In shortest form:
 \boxed{
 \text{remaining problem}
 =
-\text{direct oracle-equivalent structural evaluator}
+\text{complete frontier construction}
 +
-\text{cheap closed consequence construction}.
+\text{frontier compression}
++
+\text{cheap membership/query}.
 }
 \]
 
-Oracle comparison can validate candidate \(G\) pointwise:
-
-\[
-\boxed{
-G(q)\stackrel{?}{=}\widehat V_{\mathcal O}(q)
-}
-\]
-
-without recursively running \(G\) to terminal depth.
+Oracle comparison can validate frontier construction pointwise without
+recursively running the structural evaluator to terminal depth.
 
 ---
 
@@ -561,6 +611,7 @@ This synthesis should be read against:
 - \`docs/research/2026-09-09-universal-strategic-algebra.md\`;
 - \`docs/research/2026-09-14-cpc-control-potential-unification.md\`;
 - \`research/isograph/discovery/2026-09-18-high-value-leads/STANDARD_7X6_Q_CONGRUENCE.md\`;
-- \`docs/research/2026-10-16-oracle-relative-proof-algorithmic-core.md\`.
+- \`docs/research/2026-10-16-oracle-relative-proof-algorithmic-core.md\`;
+- \`docs/research/2026-10-16-oracle-compiled-action-value-frontier-theorem.md\`.
 
 This file does not supersede \`research/isograph/CONNECT4_LOGIC_AUTHORITY_1_2.md\`, does not change specification acceptance status, and does not claim that a polynomial-time oracle-independent Connect Four evaluator has been completed.
