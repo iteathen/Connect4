@@ -1,6 +1,6 @@
 # Connect4 current research status
 
-**Updated:** 2026-09-19  
+**Updated:** 2026-10-16 (turn-six scoped update; older sections keep their original qualification dates)  
 **Branch:** `research/semantic-quotient`  
 **Research direction / structural architecture / invariant-first and self-proving-predicate program:** Josh Oshiro  
 **Formalization / implementation / qualification:** OpenAI ChatGPT
@@ -12,6 +12,37 @@ This file is the current-state router, not a theorem ledger. This branch owns **
 `research/semantic-quotient` is the single durable research owner. Active implementation consumers are IsoMax/Isometric, CUDA-BSFP, and SUT. Minimax/Negamax/alpha-beta and Hybrid Confluence are historical solver lineages, not current implementation owners. Temporary experiments may carry in-progress research only until durable results are integrated here.
 
 See `docs/decisions/2026-09-17-single-research-owner.md`.
+
+## Active turn-six parity-control certificate frontier — 2026-10-16
+
+This is a **scoped current research update**, not a change to qualified
+game-theory authority 1.2, the legacy RBA campaign, or solver implementation.
+
+Primary record: `docs/research/2026-10-16-turn6-bidirectional-certificate-campaign.md`.
+
+- The `44444` oracle-blind q cofactor control covers all seven literal P1
+  replies and finds four exact mirror/support classes.
+- All seven P1 responses have a compact directly checked finite **P1 delay
+  certificate through the next three P0 turns**. This is not a P1 draw/win
+  proof or an outcome oracle.
+- New **positive** P0-winning region seeds are exactly certified at
+  `44444422`, `44444426`, and `44444427` by P0 action 3, producing two
+  legal immediate winning landings; those fork certificates check all six
+  subsequent P1 replies.
+- The earlier `4444442` winning claim remains **OPEN** for P1 interventions
+  1,3,5. P1 actions 1/5 directly block the sole P0 terminal landing; action
+  3 produces a latent diagonal completion at c5,r4 (one-based) with three
+  gravity prerequisites and a P1 zero-reservation CPC phase. No guarded
+  P0 ownership correction or alternative full strategy is yet certified.
+- **Next vertical experiment:** derive one guarded CPC/WSL/NDC
+  resource/response/deadline certificate for each of those three missing
+  P1 interventions, or independently certify an alternative P0-winning
+  successor. Do not reconstruct rank-complete W/D/L shells or widen
+  unbounded game search.
+- Code, tests, raw positive and negative evidence are in
+  `research/isograph/discovery/2026-10-16-oracle-compiled-frontier/`.
+  Execution to date is internal V8 source qualification; maintained Node26
+  and independent oracle cross-check for eventual turn-six win remain pending.
 
 ## Current semantic authorities
 
