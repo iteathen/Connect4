@@ -1,0 +1,112 @@
+name: Research rank33 frontier automorphism quotient
+
+on:
+  push:
+    branches:
+      - research/semantic-quotient
+    paths:
+      - '.github/workflows/research-rank33-frontier-automorphism-quotient.yml'
+      - 'research/isograph/discovery/2026-09-18-policy-frontier/rba-g2-fiber-equivalence.mjs'
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  quotient:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333
+        with:
+          name: wdl-r33-g2-compact
+          path: ${{ runner.temp }}/g2
+          github-token: ${{ github.token }}
+          repository: iteathen/Connect4
+          run-id: 38939899999
+      - name: Quotient frontier generators by exact fiber automorphisms
+        run: |
+          node --input-type=module - <<'NODE'
+          import fs from 'node:fs';
+          import path from 'node:path';
+          import crypto from 'node:crypto';
+          import {
+            g2ResidualShapes,
+            g2ShapeAutomorphisms,
+            mapPackedQByShapePermutation,
+          } from './research/isograph/discovery/2026-09-18-policy-frontier/rba-g2-fiber-equivalence.mjs';
+
+          const src=path.join(process.env.RUNNER_TEMP,'g2');
+          function cmpBig(a,b){return a<b?-1:a>b?1:0;}
+          function loadHex(file){const t=fs.readFileSync(file,'utf8').trim();return t?t.split(/\n/).map(x=>BigInt('0x'+x)):[];}
+          function info(h){
+            const shapes=g2ResidualShapes(h),n=shapes.length;
+            return {shapes,n,all:n?((1n<<BigInt(n))-1n):0n};
+          }
+          function quotient(front,I,autos){
+            const original=new Set(front.map(String)),reps=new Map();
+            for(const q of front){
+              let best=null;
+              for(const a of autos){
+                const x=mapPackedQByShapePermutation(I,q,a);
+                if(!original.has(String(x)))throw new Error('frontier not closed under G2 automorphism');
+                if(best===null||x<best)best=x;
+              }
+              reps.set(String(best),best);
+            }
+            const expanded=new Set();
+            for(const q of reps.values())for(const a of autos)expanded.add(String(mapPackedQByShapePermutation(I,q,a)));
+            if(expanded.size!==original.size)throw new Error('automorphism orbit expansion size mismatch');
+            for(const x of original)if(!expanded.has(x))throw new Error('automorphism orbit expansion content mismatch');
+            return reps.size;
+          }
+
+          const metas=[];
+          for(const name of fs.readdirSync(src).filter(x=>x.endsWith('.json')&&x!=='manifest.json')){
+            const m=JSON.parse(fs.readFileSync(path.join(src,name),'utf8'));
+            if(m.rank===33&&Array.isArray(m.support))metas.push({name,meta:m});
+          }
+          if(metas.length!==2223)throw new Error('expected 2223 G2 representative supports, got '+metas.length);
+
+          let generators=0,orbitGenerators=0,upper=0,upperOrbits=0,lower=0,lowerOrbits=0;
+          let nontrivialFibers=0,maxAutomorphisms=0,totalAutomorphisms=0;
+          const groupDist={},compressionByAut={};
+          for(const {name,meta} of metas){
+            const base=name.slice(0,-5),I=info(meta.support),autos=g2ShapeAutomorphisms(meta.support);
+            maxAutomorphisms=Math.max(maxAutomorphisms,autos.length);
+            totalAutomorphisms+=autos.length;
+            groupDist[autos.length]=(groupDist[autos.length]??0)+1;
+            if(autos.length>1)nontrivialFibers++;
+            const U=loadHex(path.join(src,base+'.U.hex')),L=loadHex(path.join(src,base+'.L.hex'));
+            const uo=quotient(U,I,autos),lo=quotient(L,I,autos);
+            upper+=U.length;lower+=L.length;upperOrbits+=uo;lowerOrbits+=lo;
+            generators+=U.length+L.length;orbitGenerators+=uo+lo;
+            const d=compressionByAut[autos.length]??={fibers:0,generators:0,orbits:0};
+            d.fibers++;d.generators+=U.length+L.length;d.orbits+=uo+lo;
+          }
+          if(generators!==3981652)throw new Error('G2 representative generator total mismatch '+generators);
+          for(const d of Object.values(compressionByAut))d.compression=+(d.generators/d.orbits).toFixed(6);
+          const result={
+            schema:'standard7x6-r33-frontier-automorphism-quotient-v0_1',
+            fiberClasses:metas.length,
+            nontrivialAutomorphismFibers:nontrivialFibers,
+            maxAutomorphismGroupSize:maxAutomorphisms,
+            totalAutomorphisms,
+            automorphismGroupSizeDistribution:groupDist,
+            upperGenerators:upper,
+            upperOrbitRepresentatives:upperOrbits,
+            lowerGenerators:lower,
+            lowerOrbitRepresentatives:lowerOrbits,
+            generators,
+            orbitRepresentatives:orbitGenerators,
+            generatorOrbitCompression:+(generators/orbitGenerators).toFixed(6),
+            compressionByAutomorphismGroupSize:compressionByAut,
+            exactRoundtrip:true
+          };
+          result.digest=crypto.createHash('sha256').update(JSON.stringify(result)).digest('hex');
+          console.log(JSON.stringify(result,null,2));
+          NODE
