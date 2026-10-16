@@ -58,6 +58,73 @@ core. The empty standard-7x6 root is **not** claimed computed by this
 recursive research evaluator. New tests ran in isolated V8; Node26 sustained
 qualification and external reproduction remain separate.
 
+## Column completion and all-depth residual transitions — 2026-10-16
+
+The owner asked whether the **filled-column transition around moves 7
+and 8** is genuinely a new kind of structural mechanism, and directed
+testing to completion. The answer is now **NO for residual-state
+transitions**: the ordinary owner-true/false q-cofactor algebra and
+support/capacity guards handle both filling and later ranks without a
+new primitive. **Yes, arbitrary-depth strategic-value composition is
+still separately OPEN.**
+
+- Starting at standard7x6 `44444`, all seven legal P1 move6, 48
+  P0 move7 and 324 P1 move8 continuations were tested with independent
+  physical cofactor, phase and source-upset controls: **384**
+  physical/q transitions, **122,928** virtual-upset equalities,
+  zero mismatches. Center column 4 first fills at moves 6,7,8
+  on exactly 36 continuations each; 216 do not fill by move8.
+  The 324 rank8 histories collapse to **219 distinct q**.
+- The direct **source-q five-ply** operator was exact against all
+  48 constructed rank7 response-cover objects, with no intermediate
+  successor q in the candidate. Across the 324 rank8 states,
+  its response-cover predictions agree with independently computed
+  two-own-move P0 winning-action sets: zero disagreements.
+- The six P0 move7 actions following `444444` form **three horizontal
+  reflection pairs**, and the algebra gives precise P1 move8
+  short-horizon defensive masks. It has **NOT** determined full
+  perfect-play-optimal P1 move8 choices or W/D/L equivalence of
+  all move7 options. All seven P1 move6 children have no P0 action
+  forcing a win within P0's first three subsequent turns, which
+  does not determine eventual WDL.
+- **General path owner-mask cofactor identity:** for legal nonterminal
+  source q and any legal future owner-labelled cell sets A0,A1,
+  `Ri_after = Min({r\Ai : r in Ri_source and r∩A_other=∅})`.
+  Future-upset queries are read directly from source. Only
+  gravity/support and first-win chronology remain prefix-sensitive.
+  Verified in **90 complete legal 7x6 games**, including **eight
+  rank42 full-board draws**; every rank 1..42 visited, **2,549**
+  independent nonterminal q checks, **10,812** source-upset
+  queries, **291** full-column events, zero disagreements.
+  A preceding 97-game run stopped under fixed 20k physical-move
+  budget and was preserved separately; resources were not raised.
+- Negative controls reject omitted opponent-blocker requirements,
+  using phase=even as a legality predicate on full column 4,
+  and identifying distinct rank7 positions solely from phase weight.
+- **Load-bearing strategic-value gap:** empty 4x3 Connect-3 is an exact
+  P0 WDL win under the complete q core, but the independently
+  verified five-ply bounded algebra proves **no P0 win by its
+  first three own placements** (all first actions fail). Thus full
+  transition correctness does **not** imply a complete nonbranching
+  value evaluator.
+
+Main proof and evidence:
+`docs/research/2026-10-16-column-completion-through-full-game.md`,
+`MOVE7_MOVE8_COLUMN_CLOSURE_RESULTS_0_2.json`,
+`ALL_DEPTH_OWNER_MASK_RESULTS_0_1.json`,
+`SHORT_HORIZON_VS_FULL_WDL_GAP_RESULTS_0_1.json`,
+`ALL_DEPTH_TRANSITION_NEGATIVE_RESULTS_0_1.json`, under
+`research/isograph/discovery/2026-10-16-algorithmic-core/`.
+
+**Next mathematical target:** compact composition of *action-labelled
+adaptive response-cover antichains* for arbitrary alternating depth.
+The full-column state transition should no longer be treated as a
+separate unknown. Do not misclassify validation search or finite
+horizon response masks as a full-game solving method.
+This remains internally qualified V8 research, not maintained Node26
+or a new IsoGraph authority. The exact branching/recursive
+algorithmic core stays complete regardless.
+
 ## Exact four-ply response covers — 2026-10-16
 
 **New optional algebraic result (not a new core requirement):** The
