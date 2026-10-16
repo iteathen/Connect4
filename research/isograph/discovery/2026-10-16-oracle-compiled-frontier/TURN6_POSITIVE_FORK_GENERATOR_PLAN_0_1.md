@@ -16,7 +16,7 @@ From `444444`, propose P0 first c2, P0 second c3. Enumerate only P1's intervenin
 
 ## Budget
 
-At most 50 locally generated physical positions and 500 local line/cofactor predicates. Fixed geometry and deterministic actions; no random seed, no oracle, no rank-shell compilation. Stop on a falsifier or complete six-response census. A successful positive generator **does not prove the proposed P0 two-move plan is forced**, and a failed plan does not disprove P0's eventual forced win.
+At most 50 locally generated physical positions and 500 landing-action threat predicates (each is a fixed 69-line local test, not a game-tree expansion). Fixed geometry and deterministic actions; no random seed, no oracle, no rank-shell compilation. Stop on a falsifier or complete six-response census. A successful positive generator **does not prove the proposed P0 two-move plan is forced**, and a failed plan does not disprove P0's eventual forced win.
 
 ## Next stage
 
