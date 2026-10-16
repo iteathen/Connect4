@@ -69,10 +69,42 @@ class EdgeMap{
       if(!terminal&&ownImage!==null){const idx=this.own.length;this.own.push({P,I:ownImage});for(let b=0;b<child.n;b++)if(ownImage&(1n<<BigInt(b)))this.ownCover[b].push(idx);}
       const oi=this.opp.length;this.opp.push({P,I:oppImage});for(let b=0;b<child.n;b++)if(oppImage&(1n<<BigInt(b)))this.oppCover[b].push(oi);
     }
-    this.ownGE=new Map([[0n,[0n]]]);this.oppGE=new Map([[0n,[0n]]]);this.ownLE=new Map();this.oppLE=new Map();
+    this.denseGE=child.n<=20;
+    if(this.denseGE){
+      const cap=1<<child.n;
+      this.ownGE=new Array(cap);this.oppGE=new Array(cap);
+      this.ownGE[0]=[0n];this.oppGE[0]=[0n];
+      this.ownGECount=1;this.oppGECount=1;
+    }else{
+      this.ownGE=new Map([[0n,[0n]]]);this.oppGE=new Map([[0n,[0n]]]);
+      this.ownGECount=0;this.oppGECount=0;
+    }
+    this.ownLE=new Map();this.oppLE=new Map();
+  }
+  memoSize(mode){if(this.denseGE)return mode==='own'?this.ownGECount:this.oppGECount;return (mode==='own'?this.ownGE:this.oppGE).size;}
+  geGet(mode,target){
+    const memo=mode==='own'?this.ownGE:this.oppGE;
+    if(this.denseGE)return memo[Number(target)];
+    return memo.get(target);
+  }
+  geHas(mode,target){
+    const memo=mode==='own'?this.ownGE:this.oppGE;
+    if(this.denseGE)return memo[Number(target)]!==undefined;
+    return memo.has(target);
+  }
+  geSet(mode,target,value){
+    const memo=mode==='own'?this.ownGE:this.oppGE;
+    if(this.denseGE){
+      const key=Number(target);
+      if(memo[key]===undefined){
+        if(mode==='own')this.ownGECount++;
+        else this.oppGECount++;
+      }
+      memo[key]=value;
+    }else memo.set(target,value);
   }
   maxLE(mode,target){const memo=mode==='own'?this.ownLE:this.oppLE;if(memo.has(target))return memo.get(target);const list=mode==='own'?this.own:this.opp;let u=0n;for(const e of list)if(subset(e.I,target))u|=e.P;memo.set(target,u);return u;}
-  minGE(mode,target){const memo=mode==='own'?this.ownGE:this.oppGE;if(memo.has(target))return memo.get(target);const list=mode==='own'?this.own:this.opp,covers=mode==='own'?this.ownCover:this.oppCover;let bestBit=-1,bestN=1e9;for(let b=0;b<this.child.n;b++){if((target&(1n<<BigInt(b)))===0n)continue;const n=covers[b].length;if(n<bestN){bestN=n;bestBit=b;}}if(bestBit<0){memo.set(target,[0n]);return [0n];}if(bestN===0){memo.set(target,[]);return [];}const c=[];for(const idx of covers[bestBit]){const e=list[idx],rem=target&~e.I;for(const u of this.minGE(mode,rem))c.push(e.P|u);}const out=minMasks(c);memo.set(target,out);return out;}
+  minGE(mode,target){if(this.geHas(mode,target))return this.geGet(mode,target);const list=mode==='own'?this.own:this.opp,covers=mode==='own'?this.ownCover:this.oppCover;let bestBit=-1,bestN=1e9;for(let b=0;b<this.child.n;b++){if((target&(1n<<BigInt(b)))===0n)continue;const n=covers[b].length;if(n<bestN){bestN=n;bestBit=b;}}if(bestBit<0){this.geSet(mode,target,[0n]);return [0n];}if(bestN===0){this.geSet(mode,target,[]);return [];}const c=[];for(const idx of covers[bestBit]){const e=list[idx],rem=target&~e.I;for(const u of this.minGE(mode,rem))c.push(e.P|u);}const out=minMasks(c);this.geSet(mode,target,out);return out;}
 }
 function terminalBoundary(info,x){const idx=info.byMask.get(x.toString());return idx===undefined?[]:[info.up[idx]];}
 function actionUpper(parent,childLower,edge,term){const c=term.slice();for(const q of childLower){const {m,o}=qunpack(edge.child,q),ms=edge.minGE('own',o),op=edge.maxLE('opp',m);for(const mm of ms)c.push(qpack(parent,mm,op));}return staticMin(c,parent.bits);}
@@ -106,6 +138,6 @@ function saveHexFile(p,arr){fs.writeFileSync(p,serialize(arr));}
 function loadHexIf(p){return fs.existsSync(p)?loadHex(p):null;}
 
 const supports=coneSupports(OPT.base),metrics={products:[]},start=performance.now();
-for(const h of supports){const rank=h.reduce((a,b)=>a+b,0);if(rank<OPT.stopRank)break;const cached=loadBoundary(h);if(cached){console.error(JSON.stringify({type:'cached',support:h,rank,upper:cached.U.length,lower:cached.L.length}));continue;}const info=shapeInfo(h);if(rank===CELLS){saveBoundary(h,[0n],[0n],{rank,shapes:info.n,bits:info.bits,elapsed_ms:0});continue;}const actionU=[],actionL=[];const t0=performance.now();for(let c=0;c<W;c++){if(h[c]>=H)continue;const ap=actionPaths(h,c),cachedAU=loadHexIf(ap.u),cachedAL=loadHexIf(ap.l);let au,al;if(cachedAU&&cachedAL){au=cachedAU;al=cachedAL;console.error(JSON.stringify({type:'cached_action',support:h,rank,column:c,upper:au.length,lower:al.length}));}else{const ch=h.slice();ch[c]++;const childB=loadBoundary(ch);if(!childB)throw new Error(`missing child boundary ${skey(ch)}`);const child=shapeInfo(ch),x=cellBit(c,h[c]),edge=new EdgeMap(info,child,x),term=terminalBoundary(info,x);au=actionUpper(info,childB.L,edge,term);al=actionLower(info,childB.U,edge);saveHexFile(ap.u,au);saveHexFile(ap.l,al);console.error(JSON.stringify({type:'action',support:h,rank,column:c,upper:au.length,lower:al.length,ownMemo:edge.ownGE.size,oppMemo:edge.oppGE.size}));}actionU.push(...au);actionL.push({column:c,L:al});}
+for(const h of supports){const rank=h.reduce((a,b)=>a+b,0);if(rank<OPT.stopRank)break;const cached=loadBoundary(h);if(cached){console.error(JSON.stringify({type:'cached',support:h,rank,upper:cached.U.length,lower:cached.L.length}));continue;}const info=shapeInfo(h);if(rank===CELLS){saveBoundary(h,[0n],[0n],{rank,shapes:info.n,bits:info.bits,elapsed_ms:0});continue;}const actionU=[],actionL=[];const t0=performance.now();for(let c=0;c<W;c++){if(h[c]>=H)continue;const ap=actionPaths(h,c),cachedAU=loadHexIf(ap.u),cachedAL=loadHexIf(ap.l);let au,al;if(cachedAU&&cachedAL){au=cachedAU;al=cachedAL;console.error(JSON.stringify({type:'cached_action',support:h,rank,column:c,upper:au.length,lower:al.length}));}else{const ch=h.slice();ch[c]++;const childB=loadBoundary(ch);if(!childB)throw new Error(`missing child boundary ${skey(ch)}`);const child=shapeInfo(ch),x=cellBit(c,h[c]),edge=new EdgeMap(info,child,x),term=terminalBoundary(info,x);au=actionUpper(info,childB.L,edge,term);al=actionLower(info,childB.U,edge);saveHexFile(ap.u,au);saveHexFile(ap.l,al);console.error(JSON.stringify({type:'action',support:h,rank,column:c,upper:au.length,lower:al.length,ownMemo:edge.memoSize('own'),oppMemo:edge.memoSize('opp')}));}actionU.push(...au);actionL.push({column:c,L:al});}
   const sup=stateUpperPath(h);let U=loadHexIf(sup);if(!U){U=staticMin(actionU,info.bits);saveHexFile(sup,U);}else console.error(JSON.stringify({type:'cached_state_upper',support:h,rank,upper:U.length}));let L=actionL.length?actionL[0].L:[];for(let i=1;i<actionL.length;i++){const pp=productPath(h,i),cachedP=loadHexIf(pp);if(cachedP){L=cachedP;console.error(JSON.stringify({type:'cached_product',support:h,rank,step:i,output:L.length}));}else{console.error(JSON.stringify({type:'product_start',support:h,rank,step:i,a:L.length,b:actionL[i].L.length,column:actionL[i].column}));L=productMax(L,actionL[i].L,info.bits,metrics,`${skey(h)}:c${actionL[i].column}`);saveHexFile(pp,L);}}const elapsed=performance.now()-t0;saveBoundary(h,U,L,{rank,shapes:info.n,bits:info.bits,elapsed_ms:elapsed,products:metrics.products.splice(0)});console.error(JSON.stringify({type:'support',support:h,rank,shapes:info.n,bits:info.bits,upper:U.length,lower:L.length,elapsed_ms:elapsed}));}
 console.log(JSON.stringify({schema:1,experiment:'rba-draw-boundary-runner',base:OPT.base,stopRank:OPT.stopRank,cache:OPT.cache,elapsed_ms:performance.now()-start},null,2));
