@@ -160,3 +160,53 @@ The previous 2,108-state center-prefix boundary is historical discovery
 evidence, not an instruction to enumerate those states anew. A failing
 `(fiber,generator,reply)` is the correct next research output if the proposed
 family does not close.
+
+
+## 2026-10-16 — turn-six local closure and precise remaining guard
+
+See `docs/research/2026-10-16-turn6-bidirectional-certificate-campaign.md`.
+The previous 2,108-state restricted-response UNKNOWN boundary is **not** an
+instruction to re-run a complete search. New exact, bounded reverse checks
+establish:
+
+- `44444` has seven P1 replies but four mirror-equivalent structural
+  classes; the seven local q cofactors agree with physical first-win replay.
+- Every rank-6 child has P0 residual minimum length three.
+- A verified four-class P1 short-horizon strategy prevents P0 from forcing
+  a win on P0's next **three** moves after every P1 turn-6 choice. This is
+  a delay result only, not a refutation of eventual P0 winning.
+- A positive P0-winning state `444444273` has distinct immediately legal
+  terminal landings 1 and 5 and no immediate P1 terminal. Its fork is checked
+  against all six P1 replies.
+- Backward direct certificates establish P0 wins at the three rank-8 states
+  `44444422`, `44444426`, and `44444427`: P0 plays 3, generating that
+  double threat. These are genuine limited P0-winning generators, not
+  extrapolations from perfect-play oracle labels.
+- The same simple P0 policy is **not** yet a win certificate from
+  `4444442`. P1 replies **1, 3, 5** remain outside the supplied positive
+  winning region.
+
+The three P1 interventions have concrete missing guards:
+
+```text
+b=1 -> right current P0 terminal landing c5,r1, blockable by P1
+b=5 -> left current P0 terminal landing c1,r1, blockable by P1
+b=3 -> latent P0 diagonal landing c5,r4 needs three
+       gravity prerequisites; zero-reservation CPC owner is P1
+       (N=31 at ply 9, rho parity correction needed is odd)
+```
+
+All columns/rows above are one-based. The zero-reservation CPC owner is
+**conditional baseline control**, not a legal future-ownership certificate:
+no valid parity correction, reservation schedule or first-win deadline has
+yet been derived for the diagonal target.
+
+**Next vertical proof obligation:** derive an exact CPC/WSL/NDC guard which,
+for each of these three interventions, either forces an additional independent
+simultaneous P0 threat, certifies a realizable and timely ownership-control
+change, or transports into a separately verified P0-winning generator.
+Check this in the existing fixed-support antichain/quantified predecessor
+calculus; do not add another unrestricted depth or support-fiber census.
+
+The P0 winning-claim for `44444` remains **OPEN** and no authority or
+production adoption follows from the local certificates.
