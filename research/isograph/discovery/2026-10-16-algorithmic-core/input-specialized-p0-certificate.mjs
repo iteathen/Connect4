@@ -14,7 +14,8 @@ export class DiscoveryBudgetError extends Error {
 }
 const DEFAULT={
   maxObligationVisits:60000,maxLocalChecks:300000,
-  maxNodes:60000,maxProofEdges:300000,deadlineAt:Infinity
+  maxNodes:60000,maxProofEdges:300000,deadlineAt:Infinity,
+  useDominance:true
 };
 const subset=(a,b)=>(a&b)===a;
 const rankOf=q=>q.h.reduce((a,b)=>a+b,0);
@@ -82,6 +83,7 @@ export function discoverInputSpecializedP0Win(options={}) {
   function getCertified(q){
     const id=key(q),direct=winners.get(id);
     if(direct){metrics.exactMemoHits++;return direct;}
+    if(!opts.useDominance)return null;
     const pool=winBySupport.get(supportKey(q))??[];
     for(const rec of pool){
       metrics.localChecks++;metrics.dominanceQueries++;bound();
@@ -174,6 +176,7 @@ export function discoverInputSpecializedP0Win(options={}) {
         orphanedCandidateWinners:winners.size-serialized.length,
         elapsedMs:Date.now()-started},
       semantics:'all P1 actions covered; one P0 action certified; terminal-first rank decreasing; proof refs may use favorable residual dominance',
+      discoveryProfile:{useDominance:opts.useDominance},
       noOracleUsed:true,noSolvedValueInputs:true};
   }catch(e){
     if(e instanceof DiscoveryBudgetError)
