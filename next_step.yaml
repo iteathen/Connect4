@@ -26,6 +26,52 @@ active_semantic_authorities:
     New research uses these qualified authority surfaces directly. Historical authority 1.1 and old
     NEI/RBA/hot-loop overlays remain evidence/provenance only and must not be composed as parallel active semantics.
 
+current_algorithmic_core:
+  date: "2026-10-16"
+  owner: research/semantic-quotient
+  game_theory_authority: research/isograph/CONNECT4_LOGIC_AUTHORITY_1_2.md
+  authority_revision_or_new_claim: none
+  exact_core_status: constructively_complete_for_ordinary_WDL_and_WDL_optimal_action_sets
+  mathematical_certificate: docs/research/2026-10-16-constructive-algorithmic-core-completeness.md
+  research_proof_and_validation: research/isograph/discovery/2026-10-16-algorithmic-core/
+  implemented_research_reference: research/isograph/discovery/2026-10-16-algorithmic-core/exact-q-core.mjs
+  qualification_record: research/isograph/discovery/2026-10-16-algorithmic-core/CONSTRUCTIVE_CORE_QUALIFICATION_RESULTS_0_1.json
+  proof_basis:
+    - qualified_legal_nonterminal_q_o_congruence
+    - exact_owner_true_and_owner_false_residual_cofactors
+    - first_win_and_nonwinning_full_board_terminal_boundary
+    - P0_max_and_P1_min_over_legal_action_outcomes
+    - strictly_decreasing_remaining_board_cells
+  evidence:
+    - "4x3 Connect3: 4631 physical states, 11818 edges, 3734 q states, zero mismatches"
+    - "4x4 Connect4: 134289 physical states, 304574 edges, 34094 q states, zero mismatches"
+    - "standard7x6: 12 seed-generated legal rank35 positions, zero WDL/action-vector mismatches"
+    - "oracle queries: zero; executable branch/recursive call counts explicitly measured"
+  primary_objective_complete: true
+  still_open_preferred_properties:
+    - "eliminate separately recursively evaluated action alternatives while retaining exact universal/existential semantics"
+    - "reduce intermediate symbolic product width and work without hidden Cartesian branching"
+  optional_not_prerequisites:
+    - recursion_elimination
+    - polynomial_time_and_space
+    - minimality
+    - WDL_tie_distance_refinement
+  next_bounded_experiment: >-
+    Starting from the now-verified oracle-free q evaluator, compare a single
+    exact symbolic existential/universal predecessor transform against the
+    ordinary recursive reference on one selected support-local slice.
+    Require exact first-win handling and report both output equivalence
+    and actual dependency/branch counts, intermediate width, wall cost.
+    Never infer computational branch elimination from returning one set.
+  preserved_open_scope: >-
+    The standard7x6 empty-root value and the seven-reply turn-six
+    CPC certificate remain uncomputed/unproved by the new research
+    reference. These are not prerequisites for constructive core existence.
+  qualification_limit: >-
+    New source/exhaustive finite controls executed in isolated V8 rather
+    than the maintained Node26 suite; not an external reproduction.
+  merge_authorized: false
+
 active_turn6_bidirectional_certificate:
   date: "2026-10-16"
   owner: research/semantic-quotient
