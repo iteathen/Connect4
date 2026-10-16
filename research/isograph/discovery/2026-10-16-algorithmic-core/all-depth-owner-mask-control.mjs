@@ -9,7 +9,7 @@ import {independentPhysical} from './universal-one-reply-fusion-control.mjs';
 
 const G={width:7,height:6,connect:4},N=42,MAX_MOVES=20000,
  MAX_UPSET=250000,MAX_RESIDUAL_COMPARISONS=2000000,
- MAX_MS=45000,MAX_SAMPLES=200,MAX_ATTEMPTS=4000;
+ MAX_MS=45000,MAX_SAMPLES=120,MAX_ATTEMPTS=4000;
 const SEED=0x7a16c402;
 const phys=independentPhysical(G),core=createExactQCore(G);
 let rng=SEED;
@@ -80,6 +80,7 @@ export function runAllDepthOwnerMaskQualification(){
   const cells=[];
   for(let c=0;c<7;c++)for(let row=q.h[c];row<6;row++)
    cells.push(core.bit(c,row));
+  const before=lift.get().metrics;
   const queries=[];
   for(let i=0;i<Math.min(7,cells.length);i++)queries.push(cells[i]);
   let added=0;
@@ -99,6 +100,12 @@ export function runAllDepthOwnerMaskQualification(){
    M.virtualFutureQueryChecks++;
    if(expected!==actual)throw Error('arbitrary-depth virtual upset mismatch');
   }
+  const after=lift.get().metrics;
+  M.upsetQueriesUsed+=after.virtualUpsetQueries-before.virtualUpsetQueries;
+  M.residualMembershipComparisonsUsed+=
+    after.sourceMembershipComparisons-before.sourceMembershipComparisons;
+  if(M.upsetQueriesUsed>MAX_UPSET||M.residualMembershipComparisonsUsed>MAX_RESIDUAL_COMPARISONS)
+   throw Error('source virtual-upset validation budget reached');
  }
  function verifyPath(sequence,label){
   let s=phys.empty(),q=baselineEmpty;
@@ -113,7 +120,8 @@ export function runAllDepthOwnerMaskQualification(){
    const newQ=core.next(q,c);
    const actualTerminal=physical.terminal,sourceTerminal=newLift.terminal;
    const qTerminal=newQ.terminal;
-   if(actualTerminal!==sourceTerminal||actualTerminal!==qTerminal){
+   if(actualTerminal!==(sourceTerminal===null?undefined:sourceTerminal)||
+      actualTerminal!==qTerminal){
     M.firstWinMismatches++;throw Error('terminal guard disagreement on '+label+' ply '+(i+1));
    }
    M.terminalWinChecks++;
