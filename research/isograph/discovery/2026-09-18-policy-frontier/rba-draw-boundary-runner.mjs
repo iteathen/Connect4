@@ -10,7 +10,7 @@ function subset(a,b){return (a&b)===a;}
 function cmpBig(a,b){return a<b?-1:a>b?1:0;}
 function skey(h){return h.join(',');}
 function parseArgs(){
-  const o={base:[5,5,2,3,6,6,6],cache:'/mnt/data/rba-draw-cache',stopRank:0,traceMissing:7,skylineSwitch:2048};
+  const o={base:[5,5,2,3,6,6,6],cache:'/mnt/data/rba-draw-cache',stopRank:0,traceMissing:7,skylineSwitch:2048,normalizer:'tree',blockBits:8};
   for(let i=2;i<process.argv.length;i++){
     const a=process.argv[i];
     if(a==='--base')o.base=process.argv[++i].split(',').map(Number);
@@ -18,8 +18,12 @@ function parseArgs(){
     else if(a==='--stop-rank')o.stopRank=Number(process.argv[++i]);
     else if(a==='--trace-missing')o.traceMissing=Number(process.argv[++i]);
     else if(a==='--skyline-switch')o.skylineSwitch=Number(process.argv[++i]);
+    else if(a==='--normalizer')o.normalizer=process.argv[++i];
+    else if(a==='--block-bits')o.blockBits=Number(process.argv[++i]);
     else throw new Error(`unknown arg ${a}`);
   }
+  if(!['tree','block'].includes(o.normalizer))throw new Error('normalizer must be tree or block');
+  if(!Number.isInteger(o.blockBits)||o.blockBits<2||o.blockBits>12)throw new Error('block-bits must be 2..12');
   return o;
 }
 const OPT=parseArgs();
@@ -64,7 +68,7 @@ function sameBigSet(a,b){
 
 function minMasks(cands){const d=[...new Set(cands)];d.sort((a,b)=>pc(a)-pc(b)||cmpBig(a,b));const out=[];outer:for(const q of d){for(const g of out)if(subset(g,q))continue outer;out.push(q);}return out;}
 
-function staticMax(values, bits, leaf=31){
+function staticMaxTree(values, bits, leaf=31){
   if(!values.length)return [];
   const arr=[...new Set(values)];
   const recs=arr.map(q=>({q,p:pc(q)}));
@@ -80,6 +84,41 @@ function staticMax(values, bits, leaf=31){
   for(let i=0;i<recs.length;i++)if(!hasStrict(recs[i].q,recs[i].p,root,i))keep[i]=1;
   return recs.filter((_,i)=>keep[i]).map(r=>r.q).sort(cmpBig);
 }
+function staticMaxBlock(values,bits,blockBits=8){
+  if(!values.length)return [];
+  const recs=[...new Set(values)].map(q=>({q,p:pc(q)})).sort((a,b)=>b.p-a.p||cmpBig(a.q,b.q));
+  const blocks=[];
+  for(let shift=0;shift<bits;shift+=blockBits){
+    const width=Math.min(blockBits,bits-shift),size=1<<width,mask=size-1;
+    blocks.push({shift,width,mask,buckets:Array.from({length:size},()=>[]),covers:new Uint32Array(size)});
+  }
+  function sig(q,b){return Number((q>>BigInt(b.shift))&BigInt(b.mask));}
+  function eachSubset(mask,fn){let x=mask;for(;;){fn(x);if(x===0)break;x=(x-1)&mask;}}
+  function eachSuperset(s,b,fn){const missing=b.mask^s;eachSubset(missing,x=>fn(s|x));}
+  const out=[];
+  for(const r of recs){
+    let best=-1,bestCount=0xffffffff,bestSig=0;
+    for(let bi=0;bi<blocks.length;bi++){
+      const b=blocks[bi],s=sig(r.q,b),n=b.covers[s];
+      if(n<bestCount){best=bi;bestCount=n;bestSig=s;if(n===0)break;}
+    }
+    let dominated=false;
+    if(bestCount!==0){
+      const b=blocks[best];
+      eachSuperset(bestSig,b,s=>{
+        if(dominated)return;
+        for(const g of b.buckets[s])if(subset(r.q,g)){dominated=true;break;}
+      });
+    }
+    if(dominated)continue;
+    out.push(r.q);
+    for(const b of blocks){
+      const s=sig(r.q,b);b.buckets[s].push(r.q);eachSubset(s,x=>b.covers[x]++);
+    }
+  }
+  return out.sort(cmpBig);
+}
+function staticMax(values,bits){return OPT.normalizer==='block'?staticMaxBlock(values,bits,OPT.blockBits):staticMaxTree(values,bits);}
 function staticMin(values,bits){if(!values.length)return [];const all=bits?((1n<<BigInt(bits))-1n):0n;return staticMax(values.map(q=>all^q),bits).map(q=>all^q).sort(cmpBig);}
 
 class EdgeMap{
