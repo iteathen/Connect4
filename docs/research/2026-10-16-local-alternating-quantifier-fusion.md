@@ -172,6 +172,49 @@ The original partial 4x4 qualification `DIRECT_TWO_MOVE_MUTATION_BUDGET_PARTIAL_
 
 These are failures of mathematically necessary local clauses, not failed attempts to guess a winning policy.
 
+## 3.5 Standard 7x6 confirmation, not a standard root solve
+
+Additional frozen plan:
+`research/isograph/discovery/2026-10-16-algorithmic-core/STANDARD7X6_LOCAL_FUSION_CONTROL_PLAN_0_1.md`.
+
+Reproducible source/evidence:
+- `standard7x6-local-fusion-control.mjs`;
+- `STANDARD7X6_LOCAL_FUSION_RESULTS_0_1.json`.
+
+This separate **oracle-free validation only** test used the exact
+first-win physical rules, not stored outcome labels or searched
+winning policies, and did not modify the algebraic operators.
+
+Executed:
+
+- literal standard-board prefix `44444` (P1 to move), plus **all seven**
+  legal rank-6 P1 children, checked against the direct original-q
+  two-P0-own-move action set;
+- **12** independently seed-generated legal first-win-stopped rank-35
+  P1 states and their 12 rank-34 P0 predecessors; xorshift32
+  `0x4c2a7f16`, 12 attempts, no solver predictions as input;
+- **13 P1** complete favorable-reply masks compared against physical
+  one-reply/next-immediate-win replay and the independently compiled
+  threat polynomial;
+- **19 P0** complete two-own-move action sets compared with direct
+  physical P0/P1/P0 logic and exact one-step q-cofactor fusion;
+- 40 explicit legal P1 replies checked, 87 P0 initial actions checked,
+  32 reflected-position controls (13+19), **zero** mismatches;
+- 3,255 validation-only physical move checks, including 2,587
+  seed-fixture-generating moves; 2,061 candidate residual membership
+  queries; 72 intermediate q constructed by the older one-step
+  reference, **zero** by the new direct rule.
+
+All seven rank-6 positions after `44444` returned an empty
+immediate-or-next-P0-own-move forced-winning action set,
+consistent with their established three-or-more-P0-placement
+minimum residual. No eventual W/D/L claim follows.
+
+This provides scoped correctness evidence on the actual standard
+7x6 geometry. It is **not** a sample-based universal proof and does
+not establish a root winning move, polynomial arbitrary-horizon
+solver or global branch elimination.
+
 ## 4. What has and has not been achieved
 
 **Achieved:** Two exact, geometrically derived *short-horizon* strategic quantifier-composition identities:
