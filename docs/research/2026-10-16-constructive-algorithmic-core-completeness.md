@@ -12,7 +12,7 @@ The original question is **whether we have identified a complete algorithmic cor
 
 An algorithmic core is a finite, executable, mathematically sufficient specification of the transformations and value rule which, starting from any valid first-win-stopped position, uniquely computes the exact game value and every W/D/L-optimal action. The mechanism may be recursive and branching. This definition does not require a smallest representation, polynomial time, an oracle-precompiled table or a completed computation of the standard-board empty root.
 
-**Result:** yes, the qualified ordinary residual-q/cofactor/terminal/alterna­tion calculus is a complete constructive core for this scope. Its standard exact recursive implementation is finite, deterministic, oracle-independent and potentially exponential. The preferred property of *eliminating separately evaluated recursive alternatives* is a **different, still OPEN algorithmic improvement**.
+**Result:** yes, the qualified ordinary residual-q/cofactor/terminal/alternating-value calculus is a complete constructive core for this scope. Its standard exact recursive implementation is finite, deterministic, oracle-independent and potentially exponential. The preferred property of *eliminating separately evaluated recursive alternatives* is a **different, still OPEN algorithmic improvement**.
 
 This is a precise classification of already established structural mathematics, **not** a novel claim that Connect Four no longer requires minimax-like alternating quantification.
 
@@ -121,6 +121,44 @@ Standard 7x6 qualification, **not** a root solve:
 Execution used **isolated JavaScript V8** evaluating the exact committed module bodies with import/export syntax removed and minimal Node/performance shims. All specialized checks were internal; they are **not** Node26/Actions end-to-end qualification, mechanized machine proofs or independent external reproduction. The mathematical proof rests separately on domain rules and qualified q congruence; finite test counts support the implementation only.
 
 The total isolated run took about 0.37s (4x3), 7.02s (4x4 including exhaustive independent checking), and about 0.02s (12 late 7x6 suffix cases), on this execution path. These are not hardware-normalized solver benchmarks.
+
+### Exact reconciliation with the older 4x4 q-census
+
+The historical `RESIDUAL_Q_COLUMN_ORBIT_RESULT.md` counted **34,105**
+orientation-sensitive classes on **161,029** physical states. The new
+q-only recursive reference holds **34,094 nonterminal q states** across
+**134,289 nonterminal physical states**. This is **not** a mismatch:
+
+```text
+physical:  134,289 nonterminal + 26,740 first-win/draw terminal = 161,029
+carrier:    34,094 nonterminal q + 11 terminal (rank,kind) tokens  = 34,105
+```
+
+The historical producer explicitly uses `'T:'+rank+':'+kind` for terminal
+states. The new q solver instead returns exact terminal values on outgoing
+actions, never memoizing those 11 absorbing rank/kind tokens as q states.
+A fresh bounded direct physical census confirmed exactly 11 terminal tokens.
+The observation, negative-scope classification and reproduction are preserved
+in `TERMINAL_CLASS_ACCOUNTING_RECONCILIATION_0_1.json`.
+
+### Falsification sensitivity — not just passing a common implementation
+
+The independent physical-run-length control was also challenged with **three
+deliberately defective q-core copies** on the complete 4x3 domain:
+
+1. reverse the first-win terminal winner sign;
+2. omit the owner-true landing-event cofactor;
+3. omit the opponent-blocking cofactor.
+
+The unmodified source passed; **all three defects were rejected** as
+W/D/L or exact-transition discrepancies. The actual candidate core and
+qualified sources were not modified. Reproducer and evidence:
+
+- `constructive-core-mutation-control.mjs`;
+- `CONSTRUCTIVE_CORE_MUTATION_RESULTS_0_1.json`.
+
+This is an implementation-validator sanity control, not an independent
+formal/mechanized proof.
 
 ## 5. What we have, and what we do NOT have
 
