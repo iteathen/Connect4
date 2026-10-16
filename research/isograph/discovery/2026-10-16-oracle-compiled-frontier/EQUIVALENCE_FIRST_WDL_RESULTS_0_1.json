@@ -1,0 +1,95 @@
+{
+  "schema": "connect4-equivalence-first-wdl-quotient-0.1",
+  "date": "2026-10-16",
+  "scope": "standard 7x6 WDL frontier compilation; research evidence, no authority promotion",
+  "g2_census": {
+    "workflow_run": 38939595902,
+    "ranks_30_42": {
+      "supports": 44844,
+      "reflection_classes": 22575,
+      "exact_fiber_classes": 21167,
+      "support_over_fiber": 2.1186,
+      "max_class_size": 26
+    },
+    "rank33": {
+      "supports": 4809,
+      "reflection_classes": 2420,
+      "exact_fiber_classes": 2223
+    },
+    "historical_ranks_30_35_matched": true
+  },
+  "compiler_roundtrip": {
+    "workflow_run": 38939379587,
+    "ranks_33_42": {
+      "concrete_supports": 11188,
+      "exact_fiber_classes_computed": 4676,
+      "transported_supports": 6512,
+      "mirror_fallback_reused": 0,
+      "generators": 9786404
+    },
+    "elapsed_ms_before_g2": 463266.887038,
+    "before_run": 38937734403,
+    "elapsed_ms_after_g2": 400263.951857,
+    "after_run": 38939379587,
+    "elapsed_speedup": 1.1574
+  },
+  "rank33_compaction": {
+    "workflow_run": 38939899999,
+    "supports": 4809,
+    "fiber_classes": 2223,
+    "transported_supports": 2586,
+    "transport_mismatches": 0,
+    "original_generators": 8049016,
+    "representative_generators": 3981652,
+    "generator_compression": 2.021527,
+    "original_boundary_bytes": 95655410,
+    "representative_boundary_bytes": 47453067,
+    "byte_compression": 2.01579
+  },
+  "tested_coarser_equivalences": {
+    "wdl_value_boundary_alignment": {
+      "workflow_run": 38940088449,
+      "g2_fiber_classes": 2223,
+      "wdl_value_classes": 2223,
+      "additional_collapse": 0,
+      "scope": "same residual-poset relation plus exact U/L frontiers under tested canonical shape-index bijection"
+    },
+    "fiber_automorphisms": {
+      "workflow_run": 38940367841,
+      "nontrivial_fibers": 44,
+      "fiber_classes": 2223,
+      "max_group_size": 2,
+      "generators": 3981652,
+      "orbit_representatives": 3933415,
+      "compression": 1.012263,
+      "exact_roundtrip": true
+    }
+  },
+  "exploratory_negative_evidence": {
+    "generator_suffix_dag": {
+      "source_artifact_id": 12062426941,
+      "source_artifact_run": 38939899999,
+      "local_exact_language_roundtrip": true,
+      "generators": 3981652,
+      "raw_trie_nodes": 27496374,
+      "reduced_suffix_dag_nodes": 7385845,
+      "trie_to_dag_compression": 3.722847,
+      "generator_to_dag_ratio": 0.539092,
+      "disposition": "reduced suffix DAG is larger than flat generator count; not a storage win"
+    },
+    "naive_robdd_apply": {
+      "bounded_seconds": 120,
+      "largest_front_generators": 33278,
+      "smaller_front_generators": 3235,
+      "result": "both bounded pilots timed out before completion",
+      "disposition": "naive sequential OR/Apply builder rejected; no statement about optimized or line-first BDD constructions"
+    }
+  },
+  "conclusion": [
+    "Do not prove or compile concrete histories/support embeddings separately.",
+    "Exact G2 support-fiber equivalence is the useful whole-fiber quotient and is now integrated into the WDL compiler.",
+    "Minimal antichain dominance is the useful within-fiber implication compression.",
+    "Additional generic cross-fiber value equality, automorphism or suffix-DAG quotienting gives little or negative gain at rank33.",
+    "Next compression target should factor the Bellman/antichain operation or use the previously identified line-first incidence frontier, not add more generic symmetry layers."
+  ]
+}
