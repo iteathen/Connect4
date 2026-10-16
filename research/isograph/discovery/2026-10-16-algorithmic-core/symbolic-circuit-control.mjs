@@ -141,6 +141,8 @@ export function runCircuitControl({simplifyByPoset=false}={}){
    result.inputShapeCount=symbolic.sourceInfo(support).shapeCount;
    const physic=makePhysicalReference(board,support,Date.now()+MAX_PHYSICAL_MS);
    const physStart=performance.now(),positions=physic.generate();
+   result.fixtureGenerationMs=+(performance.now()-physStart).toFixed(3);
+   const comparisonDeadline=Date.now()+MAX_PHYSICAL_MS;
    const qMemo=new Map(),seenQ=new Set(),metric={gateVisits:0};
    let checked=0,qNewStates=0,qRecursiveCalls=0,qTransitions=0,ties=0;
    let firstMismatch=null;
@@ -151,7 +153,7 @@ export function runCircuitControl({simplifyByPoset=false}={}){
     const tq=performance.now();
     const root=core.solve(q,{
        sharedMemo:qMemo,maxStates:MAX_PHYSICAL_PREFIX_STATES,
-       maxTransitions:MAX_PHYSICAL_PREFIX_EDGES,deadlineAt:Date.now()+MAX_PHYSICAL_MS
+       maxTransitions:MAX_PHYSICAL_PREFIX_EDGES,deadlineAt:comparisonDeadline
      });
     qReferenceMs+=performance.now()-tq;
     const tp=performance.now(),expected=physic.solve(s);
@@ -178,7 +180,7 @@ export function runCircuitControl({simplifyByPoset=false}={}){
       const q={h:support.slice(),R0:rs(),R1:rs()};
       const tq=performance.now();
       const solved=core.solve(q,{sharedMemo:qMemo,maxStates:MAX_PHYSICAL_PREFIX_STATES,
-        maxTransitions:MAX_PHYSICAL_PREFIX_EDGES,deadlineAt:Date.now()+MAX_PHYSICAL_MS});
+        maxTransitions:MAX_PHYSICAL_PREFIX_EDGES,deadlineAt:comparisonDeadline});
       qReferenceMs+=performance.now()-tq;
       const ts=performance.now(),decoded=symbolic.decode(compiled,q,{metric});
       symbolicEvaluationMs+=performance.now()-ts;
@@ -211,7 +213,6 @@ export function runCircuitControl({simplifyByPoset=false}={}){
      symbolicGateEvaluations:metric.gateVisits,
      symbolicGateVisitsPerPosition:checked?+(metric.gateVisits/(checked+(result.abstractChecks?.samples??0))).toFixed(3):null,
      mismatches:firstMismatch?1:0};
-   result.fixtureGenerationMs=+(performance.now()-physStart).toFixed(3);
   }catch(e){
    result.status=e instanceof CoreBudgetError?'RUNTIME_BUDGET_EXHAUSTED':'FAIL';
    result.error=String(e);result.metrics=e.metrics??null;
