@@ -125,3 +125,41 @@ No generalized Connect-K polynomial-size guarantee, draw certificate, standard 7
 The next *vertical* test is whether the opponent-universal obligations at the 12 P1 nodes can be discharged by a **single guarded, output-sensitive backward inclusion operator** over the generator antichain, rather than materializing all 38 separate continuations. Track genuine quantified checking work and preserve exact first-win/resource/deadline guards. Do not merely wrap the 38 explicit cases in one AND call.
 
 All specialized execution to date is isolated JavaScript V8 on exact committed module source with minimal Node/filesystem/assert shims. The repository research-integrity workflow is separate, and no specialized maintained Node26 or external reproduction is claimed.
+
+## Research-direction correction — search is validation, not the proposed solving method
+
+**Owner clarification, 2026-10-16:** The candidate-first producer in this
+experiment **does forward game-continuation search**, albeit limited and
+goal-directed. Backward verification substantially reduces the cost of
+*confirming* one proposed answer. This is useful qualification evidence and
+a counterexample/falsifier generator, **not a candidate implementation of
+the preferred nonbranching algorithmic core**. Do not rename search as
+"forward discovery" in a proposed solver or count small witness size as
+eliminated solving branches.
+
+Retain both 46- and 47-generator certificates and their five negative controls
+as **validation fixtures**. They answer whether a later algebraically
+*derived* result is correct; they must not supply winning policy choices,
+solved labels, or a hidden precomputed decision map to that later method.
+
+The actual optional branch-elimination research target is an exact
+rule-derived cofactor/alternating-value **composition law** operating on the
+current structural descriptor. A candidate may recursively transform one
+descriptor, and may output a set of outcome-equivalent optimal actions.
+It may not obtain its move/result by enumerating continuations, guessing a
+winning policy through recursive trial-and-error, replaying a stored proof as
+a lookup table, or hiding those activities inside a named symbolic operator.
+An AND/OR DAG alone does not establish avoided branching; distinguish
+its construction work, child support expansion, fan-in and verification work.
+
+**Falsification protocol:** derive an algebraic operator *without* examining
+search-generated policy choices or oracle outcomes; afterward compare the
+operator's predictions with independent exact q evaluation and the frozen
+winning certificates. If it does not close, record the missing algebraic
+composition or guard, not a deeper search. Preserve the original complete
+recursive/branching q core as an accepted outcome even if this preferred
+branch-elimination objective proves unattainable.
+
+This correction supersedes any interpretation of the input-specialized
+proof producer as the future solving algorithm. Historical experiment
+measurements remain valid for their stated limited scope.
