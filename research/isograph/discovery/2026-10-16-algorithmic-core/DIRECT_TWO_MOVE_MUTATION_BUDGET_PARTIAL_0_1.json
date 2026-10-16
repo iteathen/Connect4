@@ -1,0 +1,86 @@
+{
+  "board": {
+    "width": 4,
+    "height": 4,
+    "connect": 4,
+    "name": "4x4-c4"
+  },
+  "status": "PARTIAL_FORMULA_BUDGET",
+  "metrics": {
+    "physicalStatesEnumerated": 134289,
+    "physicalGraphEdges": 304574,
+    "P0StatesLocalAlgebraChecked": 43435,
+    "P0ActionMasksEqualToCofactorFusion": 43435,
+    "directPullbackMembershipProbes": 856401,
+    "directPullbackPairAntecedentHits": 16552,
+    "directPullbackLatentAntecedentHits": 5468,
+    "directPullbackFirstActionChecks": 100000,
+    "qCofactorFirstActionObjectsCreated": 89984,
+    "P1ContinuationsMaterializedByDirectCandidate": 0,
+    "validatedP0PhysicalStates": 0,
+    "physicalValidationTransitions": 0,
+    "physicalP0ImmediateCandidates": 0,
+    "formulaChecks": 300000,
+    "mutatedMissingPairDifferences": 1230,
+    "mutatedMissingUpperDifferences": 982,
+    "differingP0ActionMasks": 0,
+    "physicallyDisagreeingP0Masks": 0,
+    "P0PhysicalValidationPartial": false
+  },
+  "error": "algebraic local formula work ceiling hit",
+  "first": {
+    "counterexample": null,
+    "missingPair": {
+      "sequence": "111122223434",
+      "q": {
+        "h": [
+          4,
+          4,
+          2,
+          2
+        ],
+        "R0": [
+          "0xc00",
+          "0x4400"
+        ],
+        "R1": [
+          "0x8800",
+          "0xc000"
+        ]
+      },
+      "correct": "0x4",
+      "wrong": "0x0"
+    },
+    "missingUpper": {
+      "sequence": "111122233233",
+      "q": {
+        "h": [
+          4,
+          4,
+          4,
+          0
+        ],
+        "R0": [
+          "0x800"
+        ],
+        "R1": [
+          "0x8000"
+        ]
+      },
+      "correct": "0x8",
+      "wrong": "0x0"
+    }
+  },
+  "elapsedMs": 2699,
+  "provenance": {
+    "branch": "research/semantic-quotient",
+    "sourceBlobs": {
+      "direct-two-move-pullback.mjs": "19fb4d0566e07e48d2848b94efecf5ad0018bdae",
+      "universal-one-reply-fusion.mjs": "3d163f15ea065997dc15d25cb33349438c5674e8",
+      "universal-one-reply-fusion-control.mjs": "0c5c71134308d8f438032b7df68457b73cd4950b",
+      "direct-two-move-pullback-control.mjs": "63c63ac91bcca356de30317a2eb830784bfb43d8"
+    },
+    "execution": "isolated V8 run of exact committed source; negative budget observation, not a proof failure",
+    "note": "The 300000 local-check budget was consumed by running both known-negative mutations on every P0 state. This does not imply a direct algebraic mismatch; 43435 state comparisons passed and neither original mutation escaped detection. Plan: record the first mutation falsifier, then stop those controls and prioritize independent formula coverage within the SAME unchanged budget."
+  }
+}
