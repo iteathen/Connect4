@@ -251,3 +251,65 @@ without enumerating a distinct future solve for each. Exact gravity,
 resource/race/first-win guards and honest algorithmic work counting
 are required. Do not call a single returned AND value branch elimination
 when it still enumerates the entire opponent response graph.
+
+
+## 2026-10-16 — exact search-free local alternating quantifier fusion
+
+**Correction to earlier "input-specific backward proof" direction:** the
+46/47-node winner proofs were constructed using forward policy search.
+They remain **validation fixtures only**; generating further searched
+proof DAGs is *not* the proposed nonbranching method.
+
+The first exact **rule-derived alternative** has now been implemented
+and independently tested:
+
+1. Given P1 to move, derive P0 immediate threat mask T, P1 immediate
+   terminal mask B, and P0 latent upper threat mask U from the CURRENT q.
+   A single bitmask equation identifies exactly all P1 replies that
+   leave P0 an immediate first win. This removes an entire one-opponent
+   universal reply layer without materializing any opponent child state.
+2. The same condition is an O(W^2)-term monotone Boolean polynomial:
+   guard away immediate P1 wins and require either two existing P0
+   threats, one same-column upper relay, or an upper relay for every
+   legal P1 response.
+3. The P0 owner-true cofactor pulls that polynomial directly back
+   through a proposed P0 placement using only original q residual
+   shapes of sizes 1 and 2. This yields **all P0 first moves that force
+   winning within the next two P0 own moves**, a closed
+   **P0 OR / P1 AND / P0 OR** operator. No candidate policy search,
+   recursive q value solve, or child q materialization is required.
+
+Deductive derivation and explicit terminal/support guards:
+`docs/research/2026-10-16-local-alternating-quantifier-fusion.md`.
+
+Independent oracle-free physical controls:
+
+- **70,200 / 70,200 P1 states**, exact favorable-opponent-reply mask
+  and matching polynomial, no disagreements;
+- **68,720 / 68,720 P0 states**, exact two-P0-own-move action mask
+  against both the independent q-cofactor reference and direct
+  physical continuation checker, no disagreements;
+- 160,554 P0 candidate first actions tested; **143,280** child q
+  objects constructed by the earlier comparator versus **zero**
+  by the direct parent-q pullback; local source membership work
+  counted separately;
+- broken immediate-P1-win, upper-threat and pair-source-cofactor
+  guards were all falsified by actual legal physical positions;
+- standard7x6 controls over `44444`, all seven rank6 replies,
+  and 12 generated late cases plus predecessors: zero mismatches.
+  No 7x6 eventual win claim follows.
+
+These are **genuine fixed-horizon quantifier eliminations**. They do
+**not** prove full arbitrary-depth branch elimination, a polynomial
+game-value procedure, minimality, or the P0 winning condition for
+`44444`.
+
+**Next exact GSP-004 seam:** derive the guarded `P1 universal
+preimage of the source-q two-own-move winning region` as one
+algebraic object. The new operation may require size-three source
+residuals and mixed-response correlations; compare against existing
+RBA antichain semiring and exact cofactor adjoints *before* inventing
+another semantic mechanism. Do not enumerate action words as disguised
+search. Verification uses exact q/physical solvers **after** a candidate
+law is mathematically derived.
+
