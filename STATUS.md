@@ -58,6 +58,75 @@ core. The empty standard-7x6 root is **not** claimed computed by this
 recursive research evaluator. New tests ran in isolated V8; Node26 sustained
 qualification and external reproduction remain separate.
 
+## Exact four-ply response covers — 2026-10-16
+
+**New optional algebraic result (not a new core requirement):** The
+`P1 FORALL / P0 EXISTS / P1 FORALL / P0 immediate-win EXISTS`
+four-ply fixed-horizon strategic predicate is directly calculable from
+the **original** (h,R0,R1) with only source singleton/pair residuals.
+A P0 action-indexed **P1 reply-cover mask family K_a** captures the
+adaptive choice; exact universal success iff the union of all K_a
+equals the original legal P1 mask. The operator scans at most O(W^3)
+local source-residual membership relationships (real work), but
+constructs **zero** q successor states or recursive game-value
+continuations.
+
+**Qualification/limits:**
+- Complete 4x3 and 4x4 small-board P1 domains: **70,200 source q
+  positions** and **310,120 (b,a) response rows** checked against
+  the independent one-step child-q two-P0-turn cofactor reference,
+  with **zero** response-mask mismatches.
+- Separate literal physical first-win checker: **33,709**
+  P1 states (complete 2,208/2,208 on 4x3, bounded 31,501/67,992
+  on 4x4 within frozen 800k move budget), zero mismatches.
+  Do not call the partial 4x4 physical check exhaustive.
+- Reference constructs **133,392** P1 child q objects in this
+  comparison; the direct original-q operator constructs zero,
+  while performing **3,438,998** hashed residual-membership probes.
+  This is not a measured universal runtime speedup.
+- Standard7x6: `44444` and 12 seeded legal rank35 P1 positions
+  passed explicit physical, child-q and horizontal-reflection checks;
+  bounded four-ply cover at `44444` is empty, **not** an
+  eventual game-outcome conclusion.
+- Deliberately omitting source P0 or P1 size-two antecedents produced
+  falsifiers on legal physical states.
+
+**Important obstruction discovered:** the quantified choice order
+**P1 b first, P0 a second** requires tracking who covers whom.
+For legal 4x3 history `223`, the source-derived covers are
+`K=[0xe,0x4,0xe,0x7]`, legal mask `0xf`: their union covers
+all P1 replies, but no single P0 action does. The physical checker
+independently verified this; **2,584** positions in the complete
+two-game matrix show the same adaptive-only property. Thus collapsing
+a cover family to its union is **unsound** for a later
+`EXISTS P0 / FORALL P1` composition. The inclusion-maximal
+(nonzero) cover-antichain preserves the relevant two scope queries
+without keeping dominated action rows: **30,540** nonzero
+covers -> **25,446** maximal masks across all 70,200 P1 states.
+
+The new **bounded source-degree observation** is that at most
+k additional claimant placements can complete only original
+residual requirements of size <=k; prepending an opponent action
+does not itself raise the claimant residual degree. The actual
+difficulty is adaptive-response correlation, not an immediate
+degree-three requirement for this four-ply operator.
+
+Primary research:
+`docs/research/2026-10-16-response-cover-next-quantifier-law.md`.
+Machine evidence:
+`research/isograph/discovery/2026-10-16-algorithmic-core/UNIVERSAL_RESPONSE_COVER_RESULTS_0_1.json`,
+`UNIVERSAL_RESPONSE_COVER_7X6_RESULTS_0_1.json`, and
+`RESPONSE_COVER_QUANTIFIER_SCOPE_RESULTS_0_1.json`.
+
+**Next vertical law:** lift the **full action-labelled maximal
+cover family**, not the bare union, through one preceding P0
+true cofactor using exact virtual residual-upset substitution and
+existing RBA semiring/adjoint identities. It must avoid full
+fifth-ply move-word enumeration, retain terminal/response resource
+guards, and measure mixed-cover width and computation. Existing
+recursive/branching W/D/L algorithmic core remains fully
+satisfactory even if this preferred property remains OPEN.
+
 ## First exact algebraic quantifier fusion — 2026-10-16
 
 **Substantive optional nonbranching progress** without a search-generated
