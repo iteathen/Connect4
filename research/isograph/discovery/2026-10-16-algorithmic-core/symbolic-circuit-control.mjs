@@ -136,20 +136,27 @@ export function runCircuitControl(){
    }
    result.compilationMs=+(performance.now()-t).toFixed(3);
    result.circuit= symbolic.stats();
+   result.liveCircuit=symbolic.liveGraphMetrics(compiled);
    result.inputShapeCount=symbolic.sourceInfo(support).shapeCount;
    const physic=makePhysicalReference(board,support,Date.now()+MAX_PHYSICAL_MS);
    const physStart=performance.now(),positions=physic.generate();
    const qMemo=new Map(),seenQ=new Set(),metric={gateVisits:0};
    let checked=0,qNewStates=0,qRecursiveCalls=0,qTransitions=0,ties=0;
    let firstMismatch=null;
+   let qReferenceMs=0,physicalSuffixMs=0,symbolicEvaluationMs=0;
    const valueStart=performance.now();
    for(const s of positions){
-    const q=core.fromPhysical(s),key=core.key(q),root=core.solve(q,{
+    const q=core.fromPhysical(s),key=core.key(q);
+    const tq=performance.now();
+    const root=core.solve(q,{
        sharedMemo:qMemo,maxStates:MAX_PHYSICAL_PREFIX_STATES,
        maxTransitions:MAX_PHYSICAL_PREFIX_EDGES,deadlineAt:Date.now()+MAX_PHYSICAL_MS
      });
-    const expected=physic.solve(s);
-    const actual=symbolic.decode(compiled,q,{metric});
+    qReferenceMs+=performance.now()-tq;
+    const tp=performance.now(),expected=physic.solve(s);
+    physicalSuffixMs+=performance.now()-tp;
+    const ts=performance.now(),actual=symbolic.decode(compiled,q,{metric});
+    symbolicEvaluationMs+=performance.now()-ts;
     if(!same(root.answer,expected)||!same(actual,expected)){
       firstMismatch={sequence:s.sequence,support:s.h,canonicalKey:key,
        physical:expected,recursiveQ:root.answer,symbolic:actual};break;
@@ -168,9 +175,12 @@ export function runCircuitControl(){
     for(let k=0;k<MAX_ABSTRACT_SAMPLES;k++){
       const rs=()=>minAntichain(shapes.filter(()=>randint(2)===1));
       const q={h:support.slice(),R0:rs(),R1:rs()};
+      const tq=performance.now();
       const solved=core.solve(q,{sharedMemo:qMemo,maxStates:MAX_PHYSICAL_PREFIX_STATES,
         maxTransitions:MAX_PHYSICAL_PREFIX_EDGES,deadlineAt:Date.now()+MAX_PHYSICAL_MS});
-      const decoded=symbolic.decode(compiled,q,{metric});
+      qReferenceMs+=performance.now()-tq;
+      const ts=performance.now(),decoded=symbolic.decode(compiled,q,{metric});
+      symbolicEvaluationMs+=performance.now()-ts;
       qNewStates+=solved.stats.uniqueStates;qRecursiveCalls+=solved.stats.recursiveCalls;
       qTransitions+=solved.stats.transitions;
       abstractSamples++;
@@ -184,6 +194,10 @@ export function runCircuitControl(){
     result.status=abstractMismatches?'FAIL':'PASS';
     if(abstractMismatches)result.counterexample=firstMismatch;
    }
+   result.cost={qReferenceMs:+qReferenceMs.toFixed(3),
+     independentPhysicalSuffixMs:+physicalSuffixMs.toFixed(3),
+     symbolicEvaluationMs:+symbolicEvaluationMs.toFixed(3),
+     physicalAndAbstractQueries:checked+(result.abstractChecks?.samples??0)};
    result.coverage={physicalPositionsChecked:checked,distinctQPositions:seenQ.size,
      physicalFixturePrefixStates:physic.stats.prefixStates,
      physicalFixturePrefixEdges:physic.stats.prefixTransitions,
