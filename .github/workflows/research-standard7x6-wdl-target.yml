@@ -22,11 +22,11 @@ jobs:
           node-version: 26.7.0
       - name: Assert exact Node runtime
         run: node -e "if (process.version !== 'v26.7.0') throw new Error('expected Node v26.7.0, got ' + process.version)"
-      - name: Compile isolated rank-33 target cone
+      - name: Compile isolated rank-32 pressure cone
         run: |
           node research/isograph/discovery/2026-09-18-policy-frontier/rba-draw-boundary-runner.mjs \
-            --base 4,6,6,5,3,4,5 \
-            --stop-rank 33 \
+            --base 6,6,3,2,3,6,6 \
+            --stop-rank 32 \
             --cache "$RUNNER_TEMP/wdl-target"
       - name: Summarize target
         if: always()
@@ -35,7 +35,7 @@ jobs:
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         if: always()
         with:
-          name: wdl-target-r33
+          name: wdl-target-r32-pressure
           path: ${{ runner.temp }}/wdl-target
           if-no-files-found: warn
           retention-days: 7
