@@ -6,7 +6,7 @@ import assert from 'node:assert/strict';
 import {performance} from 'node:perf_hooks';
 import {replay,move,legal,residual,bit,LINES} from './turn6-structural-control.mjs';
 
-const REPS=[1,2,3,4]; // all seven P1 replies modulo exact horizontal reflection
+const REPS=process.argv.includes('--center-only')?[4]:[1,2,3,4]; // complete representative list unless center isolated
 const MAX_STATES=400, MAX_PREDICATES=2000, BUDGET_MS=30000;
 const ORIGIN='44444';
 class BudgetError extends Error {constructor(message){super(message);this.name='BudgetError';}}
@@ -157,7 +157,9 @@ export function verifyTurnSixDelayCertificate(witness){
       }
     }
   }
-  return {...result,allSevenP1RepliesCoveredByReflection:true,
+  const coveredReplies=[...new Set(REPS.flatMap(x=>[x,8-x]))].sort((a,b)=>a-b);
+  return {...result,coveredP1Turn6Replies:coveredReplies,
+    allSevenP1RepliesCoveredByReflection:coveredReplies.length===7,
     recursiveSolveCalls:0,oracleCalls:0,provesOnly:'P1 can prevent P0 victory within three P0 moves after each rank-6 state'};
 }
 export function makeTurnSixDelayCandidate() {
@@ -180,7 +182,7 @@ export function makeTurnSixDelayCandidate() {
     malformedRejects++;
     const guarded={
       schema:'connect4.turn6.third-move-dual-certificate.v0_1',
-      scope:'standard7x6 44444 after each of seven P1 replies; four representatives by exact horizontal reflection',
+      scope:REPS.length===4?'standard7x6 44444 after all seven P1 replies (four exact mirror classes)':'standard7x6 444444 after center P1 reply only',
       status:'EXACT_BOUNDED_DELAY_CERTIFICATE',
       supportRepresentatives:REPS,
       witness:d.witness,
