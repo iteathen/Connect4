@@ -1,0 +1,41 @@
+name: Research standard7x6 WDL target
+
+on:
+  push:
+    branches:
+      - research/semantic-quotient
+    paths:
+      - '.github/workflows/research-standard7x6-wdl-target.yml'
+      - 'research/isograph/discovery/2026-09-18-policy-frontier/rba-draw-boundary-runner.mjs'
+
+permissions:
+  contents: read
+
+jobs:
+  target:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Assert exact Node runtime
+        run: node -e "if (process.version !== 'v26.7.0') throw new Error('expected Node v26.7.0, got ' + process.version)"
+      - name: Compile isolated rank-33 target cone
+        run: |
+          node research/isograph/discovery/2026-09-18-policy-frontier/rba-draw-boundary-runner.mjs \
+            --base 4,6,6,5,3,4,5 \
+            --stop-rank 33 \
+            --cache "$RUNNER_TEMP/wdl-target"
+      - name: Summarize target
+        if: always()
+        run: |
+          find "$RUNNER_TEMP/wdl-target" -maxdepth 1 -type f -printf '%f %s\n' | sort | tail -100
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        if: always()
+        with:
+          name: wdl-target-r33
+          path: ${{ runner.temp }}/wdl-target
+          if-no-files-found: warn
+          retention-days: 7
