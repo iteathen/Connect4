@@ -1,0 +1,29 @@
+name: Research oracle algorithmic-core proof
+
+on:
+  push:
+    branches:
+      - research/semantic-quotient
+    paths:
+      - '.github/workflows/research-oracle-algorithmic-core-proof.yml'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-oracle-algorithmic-core-proof.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-structural-discovery-signature.mjs'
+      - 'components/oracle/**'
+      - 'reference/oracles/**'
+
+permissions:
+  contents: read
+
+jobs:
+  oracle-local-proof:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Assert exact Node runtime
+        run: node -e "if (process.version !== 'v26.7.0') throw new Error('expected Node v26.7.0, got ' + process.version)"
+      - name: Validate algorithmic-core formula locally against exact oracle
+        run: node research/semantic-quotient/state-identity-unification/src/quotient-oracle-algorithmic-core-proof.mjs
