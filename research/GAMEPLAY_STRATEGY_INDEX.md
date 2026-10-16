@@ -124,6 +124,22 @@ Accordingly:
 
 Source: `isograph/discovery/2026-09-18-method-emergence/`.
 
+## Constructive core vs optional branch reduction — 2026-10-16
+
+The ordinary residual-q, terminal and alternating-value core is now
+**constructively complete for exact W/D/L and the complete W/D/L-optimal
+action set**, even though its reference evaluator branches recursively.
+See `docs/research/2026-10-16-constructive-algorithmic-core-completeness.md`.
+Its research evaluator is **not** a production implementation of GSP-003
+or GSP-004.
+
+GSP-003 (symbolic predecessor) and GSP-004 (guarded shortcut proof) are
+optional attempts to **reduce or eliminate branching work**, not attempts to
+supply missing correctness primitives to the already exact core. Evaluate
+their results against the qualified recursive reference and count underlying
+subproblems/materialized frontiers, not merely number of returned values.
+Recursion elimination and formal minimality may be pursued later if useful.
+
 ## Current proposals
 
 | ID | Proposal | Current status | What it changes | Primary implementation seam | Proof/qualification burden | Next action |
