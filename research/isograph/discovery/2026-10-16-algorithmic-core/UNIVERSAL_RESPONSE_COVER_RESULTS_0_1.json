@@ -1,0 +1,229 @@
+{
+  "schema": "connect4.source-q-four-ply-response-cover.v0_1",
+  "date": "2026-10-16",
+  "status": "PARTIAL",
+  "cases": [
+    {
+      "board": {
+        "width": 4,
+        "height": 3,
+        "connect": 3,
+        "name": "4x3-c3"
+      },
+      "status": "PASS",
+      "stats": {
+        "physicalPositionsEnumerated": 4631,
+        "physicalGraphEdges": 11818,
+        "P1StatesAlgebraicallyCompared": 2208,
+        "sourceOperatorRows": 10970,
+        "referenceQChildStatesConstructed": 4326,
+        "referenceDirectTwoMoveOperatorCalls": 4326,
+        "sourceResidualMembershipQueries": 105610,
+        "sourcePairResidualQueries": 44524,
+        "sourceOpponentOneMoveGuards": 1210,
+        "sourceP0ImmediateWinRows": 3712,
+        "responseCoverTrueRows": 5128,
+        "sourceThirdLandingLabels": 17962,
+        "referenceMaskMismatches": 0,
+        "physicalPositionsChecked": 2208,
+        "physicalValidationTransitionCalls": 43882,
+        "physicalValidationP0ImmediateCalls": 15240,
+        "physicalActionMaskMismatches": 0,
+        "universalMaskMismatches": 0,
+        "reflectedPositionChecks": 40,
+        "reflectionMismatches": 0,
+        "caseCountByRank": {
+          "1": 4,
+          "3": 52,
+          "5": 332,
+          "7": 884,
+          "9": 806,
+          "11": 130
+        },
+        "physicalCaseCountByRank": {
+          "1": 4,
+          "3": 52,
+          "5": 332,
+          "7": 884,
+          "9": 806,
+          "11": 130
+        },
+        "mutatedOmitP0PairDetected": true,
+        "mutatedOmitP1PairDetected": true,
+        "mutateProducerRows": 165,
+        "completeCandidateStates": 0
+      },
+      "physicalPartial": false,
+      "algebraicPartial": false,
+      "firstMismatch": null,
+      "firstPositive": {
+        "rank": 3,
+        "sequence": "223",
+        "coverByP0Column": [
+          "0xe",
+          "0x4",
+          "0xe",
+          "0x7"
+        ]
+      },
+      "firstP0PairCounterexample": {
+        "sequence": "2",
+        "rank": 1,
+        "correct": [
+          "0x0",
+          "0x0",
+          "0x2",
+          "0x0"
+        ],
+        "mutated": [
+          "0x0",
+          "0x0",
+          "0x0",
+          "0x0"
+        ]
+      },
+      "firstP1PairCounterexample": {
+        "sequence": "121",
+        "rank": 3,
+        "correct": [
+          "0xe",
+          "0x0",
+          "0x0",
+          "0x0"
+        ],
+        "mutated": [
+          "0xe",
+          "0x4",
+          "0x4",
+          "0x0"
+        ]
+      },
+      "elapsedMs": 398,
+      "proofScope": "fixed 4 strategic plies only; search-generated policy is never a producer input",
+      "producerParentOnly": true
+    },
+    {
+      "board": {
+        "width": 4,
+        "height": 4,
+        "connect": 4,
+        "name": "4x4-c4"
+      },
+      "status": "PASS_BOUNDED_PARTIAL",
+      "stats": {
+        "physicalPositionsEnumerated": 134289,
+        "physicalGraphEdges": 304574,
+        "P1StatesAlgebraicallyCompared": 67992,
+        "sourceOperatorRows": 299150,
+        "referenceQChildStatesConstructed": 129066,
+        "referenceDirectTwoMoveOperatorCalls": 129066,
+        "sourceResidualMembershipQueries": 3333388,
+        "sourcePairResidualQueries": 1441996,
+        "sourceOpponentOneMoveGuards": 10488,
+        "sourceP0ImmediateWinRows": 31082,
+        "responseCoverTrueRows": 39358,
+        "sourceThirdLandingLabels": 582948,
+        "referenceMaskMismatches": 0,
+        "physicalPositionsChecked": 31501,
+        "physicalValidationTransitionCalls": 799672,
+        "physicalValidationP0ImmediateCalls": 364172,
+        "physicalActionMaskMismatches": 0,
+        "universalMaskMismatches": 0,
+        "reflectedPositionChecks": 40,
+        "reflectionMismatches": 0,
+        "caseCountByRank": {
+          "1": 4,
+          "3": 52,
+          "5": 436,
+          "7": 2452,
+          "9": 8756,
+          "11": 19498,
+          "13": 23804,
+          "15": 12990
+        },
+        "physicalCaseCountByRank": {
+          "1": 4,
+          "3": 52,
+          "5": 436,
+          "7": 2452,
+          "9": 7140,
+          "11": 7139,
+          "13": 7139,
+          "15": 7139
+        },
+        "mutatedOmitP0PairDetected": true,
+        "mutatedOmitP1PairDetected": true,
+        "mutateProducerRows": 22835,
+        "completeCandidateStates": 0
+      },
+      "physicalPartial": true,
+      "algebraicPartial": false,
+      "firstMismatch": null,
+      "firstPositive": {
+        "rank": 9,
+        "sequence": "112112224",
+        "coverByP0Column": [
+          "0x0",
+          "0x0",
+          "0xc",
+          "0x8"
+        ]
+      },
+      "firstP0PairCounterexample": {
+        "sequence": "1121122",
+        "rank": 7,
+        "correct": [
+          "0x0",
+          "0x0",
+          "0x0",
+          "0x2"
+        ],
+        "mutated": [
+          "0x0",
+          "0x0",
+          "0x0",
+          "0x0"
+        ]
+      },
+      "firstP1PairCounterexample": {
+        "sequence": "1224343",
+        "rank": 7,
+        "correct": [
+          "0x0",
+          "0x0",
+          "0x0",
+          "0x0"
+        ],
+        "mutated": [
+          "0x0",
+          "0x0",
+          "0x8",
+          "0x0"
+        ]
+      },
+      "elapsedMs": 8202,
+      "proofScope": "fixed 4 strategic plies only; search-generated policy is never a producer input",
+      "producerParentOnly": true
+    }
+  ],
+  "oracleQueries": 0,
+  "policySearchInputs": 0,
+  "arbitraryHorizonNonbranchingProved": false,
+  "provenance": {
+    "date": "2026-10-16",
+    "branch": "research/semantic-quotient",
+    "sourceBlobSHAs": {
+      "universal-response-cover-operator.mjs": "97638a01578b4e62bef3a38ef8728de79dfbca75",
+      "direct-two-move-pullback.mjs": "19fb4d0566e07e48d2848b94efecf5ad0018bdae",
+      "universal-one-reply-fusion-control.mjs": "0c5c71134308d8f438032b7df68457b73cd4950b",
+      "universal-response-cover-control.mjs": "9aa41eacf6de716084cf08a496e80f572cea4c54"
+    },
+    "runtime": "isolated JavaScript V8 evaluation of exact committed module source with import syntax and process/performance shimmed, not maintained Node26 or external reproduction",
+    "candidateDataPolicy": "only original h/R0/R1, fixed support arithmetic and one-cell/two-cell residual membership. No game-tree searched policies, recursive game-value calls or WDL labels consulted in producer.",
+    "validation": "separate physical first-win and direct previously qualified source-q two-P0-turn operator applied to one-P1-move child only AFTER candidate matrix is constructed",
+    "hardCaps": "UNIVERSAL_PREIMAGE_RESPONSE_COVER_PLAN_0_1.md",
+    "caveat": "4x4 physical independent comparison 31501/67992 positions due fixed 800000 physical transition cap; algebraic child-q crosscheck 67992/67992 complete",
+    "epistemic": "fixed four-ply winning reachability for P0 with P1 first, not arbitrary-depth WDL nor universal polynomial game solver",
+    "budgetOverrun": false
+  }
+}
