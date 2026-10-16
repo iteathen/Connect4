@@ -78,3 +78,33 @@ intermediate width, memory, and total work**.
 Do not impose branch elimination, recursion elimination, or representation
 minimality as prerequisites for calling the existing semantic algorithmic
 core complete.
+
+
+## 2026-10-16 — first non-distributed threshold-circuit qualification
+
+The exact core remains constructively complete regardless of success of
+this optional symbolic optimization. New support-local, **un-distributed**
+Boolean value-threshold circuits were built independently of solved oracle
+values, using exact residual-upset one-step preimage/substitution.
+
+On three selected 4x3 and 4x4 supports, the compiler passed **260 physical
+states and 384 bounded abstract q antichain checks**, recovering complete
+W/D/L and equal-value action sets without recursive *concrete q-value*
+computation during construction. A support-poset implication simplifier
+reduced final reachable circuit gates by 15.6%–53.7% with zero disagreements;
+a corrupted first-win guard was rejected on all three controls.
+
+The empty 4x3 root **still exceeded 60,000 transient gate allocations** in
+both variants. This is a qualification **PARTIAL**, not general branch
+elimination: the compiler visits multiple child supports and the Boolean
+circuit still contains alternating fanout. A single output circuit is not
+equivalent to one computational path.
+
+Sources/evidence:
+`docs/research/2026-10-16-nondistributed-symbolic-alternation.md`
+and `research/isograph/discovery/2026-10-16-algorithmic-core/`.
+
+Next GSP-003 target: shrink the *construction-time* alternating expression
+rather than prove minimality or recompile complete standard-board ranks.
+Use a bounded root-suffix control and report both retained/live DAG
+and all transient/discarded work.
