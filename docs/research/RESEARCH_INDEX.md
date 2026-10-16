@@ -36,6 +36,9 @@ Unlisted dated notes remain repository evidence. Being unlisted means “not pri
 - [`research/isograph/discovery/2026-10-16-algorithmic-core/CONSTRUCTIVE_CORE_QUALIFICATION_RESULTS_0_1.json`](../../research/isograph/discovery/2026-10-16-algorithmic-core/CONSTRUCTIVE_CORE_QUALIFICATION_RESULTS_0_1.json)  
   Preserves reproducible source, exact run counts and environment boundaries; source `exact-q-core.mjs` is deliberately recursive and counts actual branching. Evidence is internal V8 source qualification, not independent external reproduction or a standard-root solve.
 
+- [`2026-10-16-nondistributed-symbolic-alternation.md`](2026-10-16-nondistributed-symbolic-alternation.md)  
+  **ACTIVE SEAM / INTERNAL EXACT SUPPORT-FIBER CONTROL.** Preserves one residual-upset Boolean-circuit W/D/L transformer per support, checked against 260 physically reachable positions and 384 abstract q samples with zero mismatches. The opt-in exact residual-poset simplifier cut final reachable gates by 15.6–53.7% on the three qualified supports. **Empty 4x3 symbolic root still hit the 60k allocated-gate budget**; global branching elimination and practical full-root compilation remain OPEN. Three deliberately corrupted first-win controls were rejected.
+
 ---
  
 ## Algorithmic-core formula checkpoint
