@@ -100,6 +100,6 @@ export function createAllDepthOwnerMaskLift({width:W,height:H,connect:K},q){
   },
   initialSupport:source.h,
   originalResiduals:[source.R0.slice(),source.R1.slice()],
-  scope:'exact fixed-legal-word residual/cofactor and first-win terminal projection, arbitrary rank, NOT WDL/strategy';
+  scope:'exact fixed-legal-word residual/cofactor and first-win terminal projection, arbitrary rank, NOT WDL/strategy'
  });
 }
