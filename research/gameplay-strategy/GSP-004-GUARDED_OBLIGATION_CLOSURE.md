@@ -123,3 +123,40 @@ GF(2) control syndrome
 ~~~
 
 The syndrome is evidence for structure, not a substitute for the guards.
+
+
+## 2026-10-16 — candidate-first backward generator certificate
+
+The next GSP-004 vertical experiment is no longer an open-ended verification
+traversal. The exact G2 support-fiber equivalence is now checkable by a compact
+column-map certificate and finite local incidence/cofactor obligations:
+
+- `docs/research/2026-10-16-equivalence-first-wdl-quotient.md`;
+- `research/isograph/discovery/2026-10-16-oracle-compiled-frontier/G2_REVERSE_CERTIFICATE_RESULTS_0_1.json`;
+- `research/isograph/discovery/2026-10-16-oracle-compiled-frontier/G2_REVERSE_CERTIFICATE_ADVERSARIAL_RESULTS_0_1.json`.
+
+To move vertically from **equivalence** to **winning-move proof**, apply
+`docs/research/2026-10-16-generator-backward-winning-certificate.md`.
+
+The proposed certificate is an oracle-blind family of claimant-favorable
+upward-closed regions, represented by minimal residual generators on the
+necessary G2 fibers. Verify the supplied family **backward**, generator by
+generator:
+
+- claimant turn: certify at least one immediate win or child-region inclusion;
+- opponent turn: certify every legal reply;
+- require terminal correctness and first-win guards;
+- use the physically decreasing rank to establish progress;
+- transport equivalent fibers through the exact G2 witness without forgetting
+  extra CPC/NDC reservation, response, race or deadline premises.
+
+This is a **sufficient certificate condition**, not yet a 7x6 certificate.
+It does not justify expanding the certificate into another rank-complete
+frontier or disguising recursive game search as verification.
+
+For `44444`, the next objective is a *small structurally derived P0-winning
+generator family* covering the current q and all seven possible P1 replies.
+The previous 2,108-state center-prefix boundary is historical discovery
+evidence, not an instruction to enumerate those states anew. A failing
+`(fiber,generator,reply)` is the correct next research output if the proposed
+family does not close.
