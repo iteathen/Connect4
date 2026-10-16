@@ -26,6 +26,18 @@ Unlisted dated notes remain repository evidence. Being unlisted means “not pri
 
 ---
 
+## Constructive algorithmic core — correctness established, branching OPEN
+
+### ACTIVE FOUNDATION — exact constructive W/D/L and W/D/L-optimal moves
+
+- [`2026-10-16-constructive-algorithmic-core-completeness.md`](2026-10-16-constructive-algorithmic-core-completeness.md)  
+  Establishes by finite-rank induction (using qualified q_o/terminal/cofactor semantics) that the residual-q recurrence is a complete **oracle-independent constructive algorithmic core**, even when it recursively branches. The new independent q-only evaluator matches a physical-run-length rule solver on 138,920 reachable small-board nonterminal states, 316,392 physical legal action transitions, and 12 additional seeded rank-35 standard-7x6 suffixes with zero W/D/L, optimal-action or cofactor mismatches. **Branch elimination, recursion elimination and minimality are optional further problems**, not conditions for recognizing the core.
+
+- [`research/isograph/discovery/2026-10-16-algorithmic-core/CONSTRUCTIVE_CORE_QUALIFICATION_RESULTS_0_1.json`](../../research/isograph/discovery/2026-10-16-algorithmic-core/CONSTRUCTIVE_CORE_QUALIFICATION_RESULTS_0_1.json)  
+  Preserves reproducible source, exact run counts and environment boundaries; source `exact-q-core.mjs` is deliberately recursive and counts actual branching. Evidence is internal V8 source qualification, not independent external reproduction or a standard-root solve.
+
+---
+ 
 ## Algorithmic-core formula checkpoint
 
 ### ACTIVE FOUNDATION / SYNTHESIS — term-only exact recurrence
