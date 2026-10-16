@@ -78,7 +78,12 @@ function verifyBoard(cfg){
    metrics,elapsedMs:Date.now()-start};}
  for(const s of states){
   if((s.rank&1)!==0)continue;
-  if(Date.now()>deadline||metrics.formulaChecks+cfg.width*3>MAX_FORMULA_CHECKS){
+  // Each unsound mutation needs only ONE confirmed falsifier.
+  // Repeating a known-false mutation over the entire board domain wastes
+  // the same fixed budget needed for substantive direct algebra checks.
+  const pendingProfiles=1+Number(!first.missingPair)+Number(!first.missingUpper);
+  if(Date.now()>deadline||
+      metrics.formulaChecks+cfg.width*pendingProfiles>MAX_FORMULA_CHECKS){
    return {board:cfg,status:'PARTIAL_FORMULA_BUDGET',metrics,
     error:'algebraic local formula work ceiling hit',first,elapsedMs:Date.now()-start};
   }
@@ -100,18 +105,23 @@ function verifyBoard(cfg){
    break;
   }
   metrics.P0ActionMasksEqualToCofactorFusion++;
-  const omitPair=newOperator.compute(q,{omitPairs:true});
-  const omitUpper=newOperator.compute(q,{omitUpper:true});
-  metrics.formulaChecks+=2*omitPair.metrics.P0CandidateActionsScanned;
-  if(omitPair.forcedWinningFirstActionsMask!==direct.forcedWinningFirstActionsMask){
-   metrics.mutatedMissingPairDifferences++;
-   if(!first.missingPair)first.missingPair={sequence:s.sequence,q:qEvidence(q),
-     correct:hex(direct.forcedWinningFirstActionsMask),wrong:hex(omitPair.forcedWinningFirstActionsMask)};
+  if(!first.missingPair){
+   const omitPair=newOperator.compute(q,{omitPairs:true});
+   metrics.formulaChecks+=omitPair.metrics.P0CandidateActionsScanned;
+   if(omitPair.forcedWinningFirstActionsMask!==direct.forcedWinningFirstActionsMask){
+    metrics.mutatedMissingPairDifferences++;
+    first.missingPair={sequence:s.sequence,q:qEvidence(q),
+      correct:hex(direct.forcedWinningFirstActionsMask),wrong:hex(omitPair.forcedWinningFirstActionsMask)};
+   }
   }
-  if(omitUpper.forcedWinningFirstActionsMask!==direct.forcedWinningFirstActionsMask){
-   metrics.mutatedMissingUpperDifferences++;
-   if(!first.missingUpper)first.missingUpper={sequence:s.sequence,q:qEvidence(q),
-     correct:hex(direct.forcedWinningFirstActionsMask),wrong:hex(omitUpper.forcedWinningFirstActionsMask)};
+  if(!first.missingUpper){
+   const omitUpper=newOperator.compute(q,{omitUpper:true});
+   metrics.formulaChecks+=omitUpper.metrics.P0CandidateActionsScanned;
+   if(omitUpper.forcedWinningFirstActionsMask!==direct.forcedWinningFirstActionsMask){
+    metrics.mutatedMissingUpperDifferences++;
+    first.missingUpper={sequence:s.sequence,q:qEvidence(q),
+      correct:hex(direct.forcedWinningFirstActionsMask),wrong:hex(omitUpper.forcedWinningFirstActionsMask)};
+   }
   }
  }
  if(metrics.differingP0ActionMasks)
