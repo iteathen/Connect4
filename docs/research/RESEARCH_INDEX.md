@@ -48,6 +48,9 @@ Unlisted dated notes remain repository evidence. Being unlisted means “not pri
 - [`2026-10-16-generator-backward-winning-certificate.md`](2026-10-16-generator-backward-winning-certificate.md)  
   **ACTIVE SEAM / DEDUCTIVE SUFFICIENCY CRITERION.** Uses pre-existing exact residual isotony and antichain containment to reduce candidate winning-region verification to generator-level claimant OR / opponent AND successor checks. A compact candidate generator family for `44444` remains unresolved; this is not a root proof.
 
+- [`2026-10-16-turn6-bidirectional-certificate-campaign.md`](2026-10-16-turn6-bidirectional-certificate-campaign.md)  
+  **ACTIVE SEAM / BOUNDED EXACT CERTIFICATES.** Oracle-blind `44444` q and seven reply cofactor controls, complete four-class P1 short-horizon defensive witness, three rank-8 positive P0-winning generators backed by directly checked rank-9 double threats, and the three exact unresolved CPC/response-preemption guards. The **eventual turn-6 P0 win remains OPEN**. Machine evidence and source are under `research/isograph/discovery/2026-10-16-oracle-compiled-frontier/`.
+
 ---
 
 ## Historical solver-family lineages
