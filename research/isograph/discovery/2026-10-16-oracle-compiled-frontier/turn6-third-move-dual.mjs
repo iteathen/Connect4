@@ -29,7 +29,7 @@ const source=replay(ORIGIN);
 assert.equal(source.rank,5);
 assert.equal(source.rank%2,1);
 const started=performance.now(),deadline=started+BUDGET_MS;
-const cost={materializedDiscoveryStates:0,localPredicates:0,verificationStates:0,verificationPredicates:0};
+const cost={materializedDiscoveryStates:0,localPredicates:0};
 function checkBudget(){
   if(cost.materializedDiscoveryStates>=MAX_STATES)
     throw new BudgetError('400-state discovery ceiling reached');
@@ -109,11 +109,12 @@ export function verifyTurnSixDelayCertificate(witness){
     throw Error('missing support representatives');
   const result={checkedRepresentatives:0,checkedP0FirstActions:0,
     checkedP0SecondActions:0,checkedP1ResponseWitnesses:0,
-    directP0WinningMoveTests:0};
+    directP0WinningMoveTests:0,materializedCertificateMoves:0};
   for(let i=0;i<REPS.length;i++){
     const item=witness[i];
     if(item.P1Turn6!==REPS[i])throw Error('noncanonical P1 reply rep');
     const s=move(source,item.P1Turn6-1);
+    result.materializedCertificateMoves++;
     if(!s||s.terminal!==null||s.rank!==6)throw Error('invalid initial P1 reply');
     const allFirst=legal(s).map(x=>x+1);
     if(!Array.isArray(item.cases)||
@@ -123,9 +124,11 @@ export function verifyTurnSixDelayCertificate(witness){
     for(const claim of item.cases){
       result.checkedP0FirstActions++;
       const afterA=move(s,claim.P0First-1);
+      result.materializedCertificateMoves++;
       if(afterA===null||afterA.terminal===0)
         throw Error('P0 terminalized on first action');
       const afterB=move(afterA,claim.P1First-1);
+      result.materializedCertificateMoves++;
       if(afterB===null||afterB.terminal===0)
         throw Error('illegal/losing first defensive response');
       if(afterB.terminal===1||afterB.terminal===2){
@@ -143,10 +146,12 @@ export function verifyTurnSixDelayCertificate(witness){
       for(const pair of claim.defenses){
         result.checkedP0SecondActions++;
         const afterC=move(afterB,pair.P0Second-1);
+        result.materializedCertificateMoves++;
         if(afterC===null||afterC.terminal===0)
           throw Error('P0 forced win on second action');
         if(afterC.terminal===1||afterC.terminal===2)continue;
         const afterD=move(afterC,pair.P1Second-1);
+        result.materializedCertificateMoves++;
         if(afterD===null||afterD.terminal===0)
           throw Error('illegal/losing second defensive response');
         result.checkedP1ResponseWitnesses++;
