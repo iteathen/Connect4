@@ -331,3 +331,6 @@ if(process.argv[1]?.endsWith('universal-one-reply-fusion-control.mjs')){
  console.log(JSON.stringify(out,null,2));
  if(out.status==='FAIL')process.exitCode=1;
 }
+
+// Independent geometry-only physical fixture helper for separate direct-pullback qualification.
+export {independentPhysical};
