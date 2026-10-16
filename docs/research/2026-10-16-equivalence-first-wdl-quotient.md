@@ -508,3 +508,111 @@ This is the precise equivalence-first form of the W/D/L construction.
   proof of global minimality of G2.
 - The remaining rank-32-and-earlier scaling wall is an operation/factorization
   problem, not evidence that the W/D/L recurrence or G2 quotient is incorrect.
+
+---
+
+## 9. Local reverse-checkable G2 certificate (2026-10-16 follow-up)
+
+A proposed G2 equivalence now has a compact **witness**, independent of
+enumerating abstract q states: a partial permutation `f` of the seven active
+gravity chains, with full columns denoted by `-1`.
+
+The independent reverse verifier is:
+
+- `research/isograph/discovery/2026-10-16-oracle-compiled-frontier/g2-reverse-certificate.mjs`
+- reproducible budgeted control:
+  `research/isograph/discovery/2026-10-16-oracle-compiled-frontier/g2-reverse-certificate-control.mjs`
+- predeclared plan: `G2_REVERSE_CERTIFICATE_PLAN_0_1.md`
+- executed evidence: `G2_REVERSE_CERTIFICATE_RESULTS_0_1.json`
+
+The verifier **does not trust the canonical G2 key**, invoke the solved oracle,
+construct W/D/L frontiers, or descend a continuation tree. It independently
+reconstructs the 69 geometric winning lines and checks that the witness:
+
+1. bijects all active future chains, preserving depth and playable frontiers;
+2. bijects the nonempty support-relative residual hyperedge sets;
+3. preserves each mapped legal successor fiber;
+4. commutes with all atomic owner-true/owner-false residual cofactors, including
+   the empty terminal requirement;
+5. preserves basic zero-reservation CPC event parity along mapped row coordinates.
+
+### Why this closes an entire abstract q fiber without enumeration
+
+Write `f(R)={f(r): r in R}` for a family of residual requirements and `x`
+for a playable event. Incidence preservation gives
+
+```text
+f(r \\ {x}) = f(r) \\ {f(x)}
+x in r iff f(x) in f(r)
+f(Min(R)) = Min(f(R))
+```
+
+so the owner-true and owner-false transitions commute with `f` for **every**
+abstract residual family, not merely the tested witnesses. Mapped active chains
+give a legal-action bijection, while child-fiber congruence inductively repeats
+the property at the next smaller remaining-cell rank. By the exact ordinary
+Bellman recurrence, abstract W/D/L, mapped action values, and the transported
+optimal-action set agree. This is a mathematical implication conditioned on a
+*valid certificate* and the ordinary first-win semantics, not a statistical
+assertion based on a sample of continuations.
+
+### New implementation evidence
+
+The bounded seeded control executed in isolated JavaScript V8 against the
+committed module source, with Node imports shimmed (not a maintained Node-26
+test or external reproduction):
+
+```text
+ranks in sampling frame                 33, 34, 35, 36
+support vectors in frame                 10,396
+exact G2 fiber classes in frame           4,509
+eligible non-mirror rep/member pairs      1,467
+fixed-seed draws                           400
+distinct sampled pairs                    354
+known non-mirror boundary pairs             3
+invalid witness cases rejected              3
+accepted false mappings                     0
+atomic cofactor checks                  38,246
+child-residual-shape checks             15,952
+basic CPC-control checks                 3,021
+recursive game states                        0
+oracle queries                               0
+
+frame construction                     3,671 ms
+local reverse verification               211 ms
+total                                   3,883 ms
+```
+
+The one-sided **nominal** 95% zero-failure upper bound for the defined IID
+rank-mixture sampling population would be `0.7461%`. The run used a fixed
+pseudorandom seed, so this is conditional on the ideal-draw model, not an
+unqualified frequentist coverage guarantee. It does not cover all support
+ranks or all q states.
+
+The earlier independently maintained 316-position/1,586-transition
+oracle-relative check and G3 1,592,642 abstract q-pair/3,929,368 action-value
+checks remain **separate existing evidence**; they were not rerun here.
+
+### Forward objective — not another equivalence census
+
+The G2 *equivalence* certificate is now cheap. That does not yet give a
+winning-move certificate for a specific early position. The next vertical
+research target is a compact proposed winning region/policy that can be
+verified **backward**, using quantified local cofactor containment:
+
+```text
+q in R and claimant to move  -> exists a certified action into R
+q in R and opponent to move  -> every legal action stays in R
+R excludes losing/draw terminals for the claimant
+each transition strictly decreases remaining-cell rank
+```
+
+If these universally quantified containment obligations are discharged by
+finite algebraic antichain/constraint certificates rather than enumerating
+their state instances, membership in `R` becomes an exact winning certificate.
+Until that universal verification exists, samples can guide candidate
+discovery but cannot promote it to a proof.
+
+**Hard boundary:** G2 does *not* transport physical/history realizability,
+reserved event resources, deadlines, response constraints, or non-q CPC/NDC
+proof context. Those need explicit separate guard-preserving maps.
