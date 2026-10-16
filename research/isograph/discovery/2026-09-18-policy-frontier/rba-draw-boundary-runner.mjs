@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { createHash } from 'node:crypto';
 import { performance } from 'node:perf_hooks';
+import { canonicalizeG2Fiber, transportG2Front } from './rba-g2-fiber-equivalence.mjs';
 
 const W=7,H=6,K=4,CELLS=W*H;
 function pc(x){let n=0;while(x){x&=x-1n;n++;}return n;}
@@ -205,6 +206,107 @@ function saveHexFile(p,arr){fs.writeFileSync(p,serialize(arr));}
 function loadHexIf(p){return fs.existsSync(p)?loadHex(p):null;}
 
 const supports=coneSupports(OPT.base),metrics={products:[]},start=performance.now();
-for(const h of supports){const rank=h.reduce((a,b)=>a+b,0);if(rank<OPT.stopRank)break;const cached=loadBoundary(h);if(cached){console.error(JSON.stringify({type:'cached',support:h,rank,upper:cached.U.length,lower:cached.L.length}));continue;}const info=shapeInfo(h);const mh=mirrorSupport(h),mk=skey(mh),hk=skey(h);if(mk<hk){const mb=loadBoundary(mh);if(mb){const mi=shapeInfo(mh),t0=performance.now(),U=reflectFront(mi,info,mb.U),L=reflectFront(mi,info,mb.L),backU=reflectFront(info,mi,U),backL=reflectFront(info,mi,L);if(!sameBigSet(backU,mb.U)||!sameBigSet(backL,mb.L))throw new Error('reflection round-trip mismatch');const elapsed=performance.now()-t0;saveBoundary(h,U,L,{rank,shapes:info.n,bits:info.bits,elapsed_ms:elapsed,reflected_from:mh});console.error(JSON.stringify({type:'reflected',support:h,rank,from:mh,upper:U.length,lower:L.length,elapsed_ms:elapsed}));continue;}}if(rank===CELLS){saveBoundary(h,[0n],[0n],{rank,shapes:info.n,bits:info.bits,elapsed_ms:0});continue;}const actionU=[],actionL=[];const t0=performance.now();for(let c=0;c<W;c++){if(h[c]>=H)continue;const ap=actionPaths(h,c),cachedAU=loadHexIf(ap.u),cachedAL=loadHexIf(ap.l);let au,al;if(cachedAU&&cachedAL){au=cachedAU;al=cachedAL;console.error(JSON.stringify({type:'cached_action',support:h,rank,column:c,upper:au.length,lower:al.length}));}else{const ch=h.slice();ch[c]++;const childB=loadBoundary(ch);if(!childB)throw new Error(`missing child boundary ${skey(ch)}`);const child=shapeInfo(ch),x=cellBit(c,h[c]),edge=new EdgeMap(info,child,x),term=terminalBoundary(info,x);au=actionUpper(info,childB.L,edge,term);al=actionLower(info,childB.U,edge);saveHexFile(ap.u,au);saveHexFile(ap.l,al);console.error(JSON.stringify({type:'action',support:h,rank,column:c,upper:au.length,lower:al.length,ownMemo:edge.memoSize('own'),oppMemo:edge.memoSize('opp')}));}actionU.push(...au);actionL.push({column:c,L:al});}
-  const sup=stateUpperPath(h);let U=loadHexIf(sup);if(!U){U=staticMin(actionU,info.bits);saveHexFile(sup,U);}else console.error(JSON.stringify({type:'cached_state_upper',support:h,rank,upper:U.length}));let L=actionL.length?actionL[0].L:[];for(let i=1;i<actionL.length;i++){const pp=productPath(h,i),cachedP=loadHexIf(pp);if(cachedP){L=cachedP;console.error(JSON.stringify({type:'cached_product',support:h,rank,step:i,output:L.length}));}else{console.error(JSON.stringify({type:'product_start',support:h,rank,step:i,a:L.length,b:actionL[i].L.length,column:actionL[i].column}));L=productMax(L,actionL[i].L,info.bits,metrics,`${skey(h)}:c${actionL[i].column}`);saveHexFile(pp,L);}}const elapsed=performance.now()-t0;saveBoundary(h,U,L,{rank,shapes:info.n,bits:info.bits,elapsed_ms:elapsed,products:metrics.products.splice(0)});console.error(JSON.stringify({type:'support',support:h,rank,shapes:info.n,bits:info.bits,upper:U.length,lower:L.length,elapsed_ms:elapsed}));}
-console.log(JSON.stringify({schema:1,experiment:'rba-draw-boundary-runner',base:OPT.base,stopRank:OPT.stopRank,cache:OPT.cache,elapsed_ms:performance.now()-start},null,2));
+const fiberRepresentatives=new Map();
+let fiberComputed=0,fiberReused=0,mirrorFallbackReused=0,cachedSupports=0;
+for(const h of supports){
+  const rank=h.reduce((a,b)=>a+b,0);
+  if(rank<OPT.stopRank)break;
+  const info=shapeInfo(h),canonical=canonicalizeG2Fiber(h);
+  const cached=loadBoundary(h);
+  if(cached){
+    cachedSupports++;
+    if(!fiberRepresentatives.has(canonical.key))fiberRepresentatives.set(canonical.key,{h:h.slice(),canonical});
+    console.error(JSON.stringify({type:'cached',support:h,rank,upper:cached.U.length,lower:cached.L.length}));
+    continue;
+  }
+
+  const rep=fiberRepresentatives.get(canonical.key);
+  if(rep){
+    const rb=loadBoundary(rep.h);
+    if(!rb)throw new Error('G2 representative boundary missing '+skey(rep.h));
+    const ri=shapeInfo(rep.h),t0=performance.now();
+    const U=transportG2Front(ri,rep.canonical,info,canonical,rb.U);
+    const L=transportG2Front(ri,rep.canonical,info,canonical,rb.L);
+    const backU=transportG2Front(info,canonical,ri,rep.canonical,U);
+    const backL=transportG2Front(info,canonical,ri,rep.canonical,L);
+    if(!sameBigSet(backU,rb.U)||!sameBigSet(backL,rb.L))throw new Error('G2 frontier round-trip mismatch');
+    const elapsed=performance.now()-t0;
+    saveBoundary(h,U,L,{rank,shapes:info.n,bits:info.bits,elapsed_ms:elapsed,g2_reused_from:rep.h});
+    fiberReused++;
+    console.error(JSON.stringify({type:'g2_reused',support:h,rank,from:rep.h,upper:U.length,lower:L.length,elapsed_ms:elapsed}));
+    continue;
+  }
+
+  const mh=mirrorSupport(h),mk=skey(mh),hk=skey(h);
+  if(mk<hk){
+    const mb=loadBoundary(mh);
+    if(mb){
+      const mi=shapeInfo(mh),t0=performance.now(),U=reflectFront(mi,info,mb.U),L=reflectFront(mi,info,mb.L),backU=reflectFront(info,mi,U),backL=reflectFront(info,mi,L);
+      if(!sameBigSet(backU,mb.U)||!sameBigSet(backL,mb.L))throw new Error('reflection round-trip mismatch');
+      const elapsed=performance.now()-t0;
+      saveBoundary(h,U,L,{rank,shapes:info.n,bits:info.bits,elapsed_ms:elapsed,reflected_from:mh});
+      fiberRepresentatives.set(canonical.key,{h:h.slice(),canonical});
+      mirrorFallbackReused++;
+      console.error(JSON.stringify({type:'reflected',support:h,rank,from:mh,upper:U.length,lower:L.length,elapsed_ms:elapsed}));
+      continue;
+    }
+  }
+
+  if(rank===CELLS){
+    saveBoundary(h,[0n],[0n],{rank,shapes:info.n,bits:info.bits,elapsed_ms:0});
+    fiberRepresentatives.set(canonical.key,{h:h.slice(),canonical});
+    fiberComputed++;
+    continue;
+  }
+
+  const actionU=[],actionL=[],t0=performance.now();
+  for(let c=0;c<W;c++){
+    if(h[c]>=H)continue;
+    const ap=actionPaths(h,c),cachedAU=loadHexIf(ap.u),cachedAL=loadHexIf(ap.l);
+    let au,al;
+    if(cachedAU&&cachedAL){
+      au=cachedAU;al=cachedAL;
+      console.error(JSON.stringify({type:'cached_action',support:h,rank,column:c,upper:au.length,lower:al.length}));
+    }else{
+      const ch=h.slice();ch[c]++;
+      const childB=loadBoundary(ch);
+      if(!childB)throw new Error('missing child boundary '+skey(ch));
+      const child=shapeInfo(ch),x=cellBit(c,h[c]),edge=new EdgeMap(info,child,x),term=terminalBoundary(info,x);
+      au=actionUpper(info,childB.L,edge,term);
+      al=actionLower(info,childB.U,edge);
+      saveHexFile(ap.u,au);saveHexFile(ap.l,al);
+      console.error(JSON.stringify({type:'action',support:h,rank,column:c,upper:au.length,lower:al.length,ownMemo:edge.memoSize('own'),oppMemo:edge.memoSize('opp')}));
+    }
+    actionU.push(...au);actionL.push({column:c,L:al});
+  }
+  const sup=stateUpperPath(h);
+  let U=loadHexIf(sup);
+  if(!U){U=staticMin(actionU,info.bits);saveHexFile(sup,U);}
+  else console.error(JSON.stringify({type:'cached_state_upper',support:h,rank,upper:U.length}));
+  let L=actionL.length?actionL[0].L:[];
+  for(let i=1;i<actionL.length;i++){
+    const pp=productPath(h,i),cachedP=loadHexIf(pp);
+    if(cachedP){
+      L=cachedP;
+      console.error(JSON.stringify({type:'cached_product',support:h,rank,step:i,output:L.length}));
+    }else{
+      console.error(JSON.stringify({type:'product_start',support:h,rank,step:i,a:L.length,b:actionL[i].L.length,column:actionL[i].column}));
+      L=productMax(L,actionL[i].L,info.bits,metrics,skey(h)+':c'+actionL[i].column);
+      saveHexFile(pp,L);
+    }
+  }
+  const elapsed=performance.now()-t0;
+  saveBoundary(h,U,L,{rank,shapes:info.n,bits:info.bits,elapsed_ms:elapsed,products:metrics.products.splice(0)});
+  fiberRepresentatives.set(canonical.key,{h:h.slice(),canonical});
+  fiberComputed++;
+  console.error(JSON.stringify({type:'support',support:h,rank,shapes:info.n,bits:info.bits,upper:U.length,lower:L.length,elapsed_ms:elapsed}));
+}
+console.log(JSON.stringify({
+  schema:2,
+  experiment:'rba-draw-boundary-runner',
+  base:OPT.base,
+  stopRank:OPT.stopRank,
+  cache:OPT.cache,
+  elapsed_ms:performance.now()-start,
+  equivalence:{fiberClassesSeen:fiberRepresentatives.size,fiberComputed,fiberReused,mirrorFallbackReused,cachedSupports}
+},null,2));
