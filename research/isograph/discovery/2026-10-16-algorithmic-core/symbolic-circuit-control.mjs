@@ -108,9 +108,10 @@ function shapesForSupport(core,h){
  return [...new Set(core.lines.map(line=>String(line&~occupied)))]
    .filter(s=>s!=='0').map(BigInt);
 }
-export function runCircuitControl(){
+export function runCircuitControl({simplifyByPoset=false}={}){
  const output={schema:'connect4.symbolic-branch-circuit-control.v0_1',
   date:'2026-10-16',result:'PASS',seed:'0x'+RANDOM_SEED.toString(16),
+  simplifyByPoset,
   intendedScope:'one symbolic Boolean threshold circuit per support; do not claim eliminated branching cost',
   compileBudgets:{maxNodes:MAX_CIRCUIT_NODES,maxSubstitutionVisits:MAX_SUB_VISITS,
     maxCompileMs:MAX_COMPILE_MS},
@@ -122,7 +123,7 @@ export function runCircuitControl(){
    const core=createExactQCore(board);
    const symbolic=createSymbolicResidualCircuit(board,{
     maxNodes:MAX_CIRCUIT_NODES,maxSubstitutionVisits:MAX_SUB_VISITS,
-    deadlineAt:Date.now()+MAX_COMPILE_MS
+    deadlineAt:Date.now()+MAX_COMPILE_MS,simplifyByPoset
    });
    let compiled;
    try{compiled=symbolic.compile(support);}
@@ -227,6 +228,7 @@ export function runCircuitControl(){
  return output;
 }
 if(process.argv[1]?.endsWith('symbolic-circuit-control.mjs')){
- const result=runCircuitControl();console.log(JSON.stringify(result,null,2));
+ const result=runCircuitControl({simplifyByPoset:process.argv.includes('--poset')});
+ console.log(JSON.stringify(result,null,2));
  if(result.result==='FAIL')process.exitCode=1;
 }
