@@ -1,0 +1,615 @@
+{
+  "schema": "connect4.standard7x6.ranklocal-fusion.v0_1",
+  "date": "2026-10-16",
+  "status": "PASS",
+  "seed": "0x4c2a7f16",
+  "scope": "P1 one-reply exact mask, P0 OR-AND-OR two-own-move mask; no eventual game WDL claim",
+  "budget": {
+    "maxPhysicalMoves": 30000,
+    "maxResidualLookups": 50000,
+    "maxMs": 30000,
+    "maxRandomAttempts": 4000,
+    "targetLatePositions": 12
+  },
+  "metrics": {
+    "validationPhysicalMoves": 3255,
+    "validationImmediateP0Trials": 443,
+    "fixtureGenerationPhysicalMoves": 2587,
+    "residualMembershipChecks": 2061,
+    "firstOpponentStates": 13,
+    "p1LiteralRepliesValidated": 40,
+    "P0PositionsValidated": 19,
+    "P0FirstActionsValidated": 87,
+    "qIntermediateQConstructedByOneStepReference": 72,
+    "qIntermediateQConstructedByDirectPullback": 0,
+    "polynomialComparisons": 13,
+    "physicalDisagreements": 0,
+    "structuralReferenceDisagreements": 0,
+    "mirrorDisagreements": 0,
+    "randomAttempts": 12,
+    "randomLatePositions": 12,
+    "P1PositiveStates": 1,
+    "P0WinningActionsCertified": 18
+  },
+  "cases": [
+    {
+      "label": "44444-P1-turn6",
+      "ply": 5,
+      "sequence": "44444",
+      "h": [
+        0,
+        0,
+        0,
+        5,
+        0,
+        0,
+        0
+      ],
+      "P1ReplyGoodMask": "0x0",
+      "polynomial": false,
+      "threatMask": "0x0",
+      "upperMask": "0x0"
+    },
+    {
+      "label": "44444-P1-column-1",
+      "ply": 6,
+      "sequence": "444441",
+      "h": [
+        1,
+        0,
+        0,
+        5,
+        0,
+        0,
+        0
+      ],
+      "forcedP0ActionMask": "0x0",
+      "baselineChildQsBuilt": 7,
+      "directChildQsBuilt": 0
+    },
+    {
+      "label": "44444-P1-column-2",
+      "ply": 6,
+      "sequence": "444442",
+      "h": [
+        0,
+        1,
+        0,
+        5,
+        0,
+        0,
+        0
+      ],
+      "forcedP0ActionMask": "0x0",
+      "baselineChildQsBuilt": 7,
+      "directChildQsBuilt": 0
+    },
+    {
+      "label": "44444-P1-column-3",
+      "ply": 6,
+      "sequence": "444443",
+      "h": [
+        0,
+        0,
+        1,
+        5,
+        0,
+        0,
+        0
+      ],
+      "forcedP0ActionMask": "0x0",
+      "baselineChildQsBuilt": 7,
+      "directChildQsBuilt": 0
+    },
+    {
+      "label": "44444-P1-column-4",
+      "ply": 6,
+      "sequence": "444444",
+      "h": [
+        0,
+        0,
+        0,
+        6,
+        0,
+        0,
+        0
+      ],
+      "forcedP0ActionMask": "0x0",
+      "baselineChildQsBuilt": 6,
+      "directChildQsBuilt": 0
+    },
+    {
+      "label": "44444-P1-column-5",
+      "ply": 6,
+      "sequence": "444445",
+      "h": [
+        0,
+        0,
+        0,
+        5,
+        1,
+        0,
+        0
+      ],
+      "forcedP0ActionMask": "0x0",
+      "baselineChildQsBuilt": 7,
+      "directChildQsBuilt": 0
+    },
+    {
+      "label": "44444-P1-column-6",
+      "ply": 6,
+      "sequence": "444446",
+      "h": [
+        0,
+        0,
+        0,
+        5,
+        0,
+        1,
+        0
+      ],
+      "forcedP0ActionMask": "0x0",
+      "baselineChildQsBuilt": 7,
+      "directChildQsBuilt": 0
+    },
+    {
+      "label": "44444-P1-column-7",
+      "ply": 6,
+      "sequence": "444447",
+      "h": [
+        0,
+        0,
+        0,
+        5,
+        0,
+        0,
+        1
+      ],
+      "forcedP0ActionMask": "0x0",
+      "baselineChildQsBuilt": 7,
+      "directChildQsBuilt": 0
+    },
+    {
+      "label": "seeded-rank35-1",
+      "ply": 35,
+      "sequence": "43214636342357317661423762461717147",
+      "h": [
+        6,
+        4,
+        6,
+        6,
+        1,
+        6,
+        6
+      ],
+      "P1ReplyGoodMask": "0x2",
+      "polynomial": false,
+      "threatMask": "0x12",
+      "upperMask": "0x0"
+    },
+    {
+      "label": "seeded-rank34-1",
+      "ply": 34,
+      "sequence": "4321463634235731766142376246171714",
+      "h": [
+        6,
+        4,
+        6,
+        6,
+        1,
+        6,
+        5
+      ],
+      "forcedP0ActionMask": "0x12",
+      "baselineChildQsBuilt": 1,
+      "directChildQsBuilt": 0
+    },
+    {
+      "label": "seeded-rank35-2",
+      "ply": 35,
+      "sequence": "57223314553362535625371464772641661",
+      "h": [
+        4,
+        5,
+        6,
+        4,
+        6,
+        6,
+        4
+      ],
+      "P1ReplyGoodMask": "0x3",
+      "polynomial": false,
+      "threatMask": "0x8",
+      "upperMask": "0x0"
+    },
+    {
+      "label": "seeded-rank34-2",
+      "ply": 34,
+      "sequence": "5722331455336253562537146477264166",
+      "h": [
+        3,
+        5,
+        6,
+        4,
+        6,
+        6,
+        4
+      ],
+      "forcedP0ActionMask": "0x8",
+      "baselineChildQsBuilt": 3,
+      "directChildQsBuilt": 0
+    },
+    {
+      "label": "seeded-rank35-3",
+      "ply": 35,
+      "sequence": "33274133457634234417475571251211755",
+      "h": [
+        6,
+        4,
+        6,
+        6,
+        6,
+        1,
+        6
+      ],
+      "P1ReplyGoodMask": "0x0",
+      "polynomial": false,
+      "threatMask": "0x20",
+      "upperMask": "0x0"
+    },
+    {
+      "label": "seeded-rank34-3",
+      "ply": 34,
+      "sequence": "3327413345763423441747557125121175",
+      "h": [
+        6,
+        4,
+        6,
+        6,
+        5,
+        1,
+        6
+      ],
+      "forcedP0ActionMask": "0x20",
+      "baselineChildQsBuilt": 2,
+      "directChildQsBuilt": 0
+    },
+    {
+      "label": "seeded-rank35-4",
+      "ply": 35,
+      "sequence": "53467622657372455261541117717566142",
+      "h": [
+        6,
+        5,
+        2,
+        4,
+        6,
+        6,
+        6
+      ],
+      "P1ReplyGoodMask": "0xa",
+      "polynomial": false,
+      "threatMask": "0x8",
+      "upperMask": "0x8"
+    },
+    {
+      "label": "seeded-rank34-4",
+      "ply": 34,
+      "sequence": "5346762265737245526154111771756614",
+      "h": [
+        6,
+        4,
+        2,
+        4,
+        6,
+        6,
+        6
+      ],
+      "forcedP0ActionMask": "0x8",
+      "baselineChildQsBuilt": 2,
+      "directChildQsBuilt": 0
+    },
+    {
+      "label": "seeded-rank35-5",
+      "ply": 35,
+      "sequence": "34662656472751626117411125525275774",
+      "h": [
+        6,
+        6,
+        1,
+        4,
+        6,
+        6,
+        6
+      ],
+      "P1ReplyGoodMask": "0x8",
+      "polynomial": false,
+      "threatMask": "0xc",
+      "upperMask": "0x4"
+    },
+    {
+      "label": "seeded-rank34-5",
+      "ply": 34,
+      "sequence": "3466265647275162611741112552527577",
+      "h": [
+        6,
+        6,
+        1,
+        3,
+        6,
+        6,
+        6
+      ],
+      "forcedP0ActionMask": "0x4",
+      "baselineChildQsBuilt": 1,
+      "directChildQsBuilt": 0
+    },
+    {
+      "label": "seeded-rank35-6",
+      "ply": 35,
+      "sequence": "54755213461651454512322324247666171",
+      "h": [
+        6,
+        6,
+        3,
+        6,
+        6,
+        5,
+        3
+      ],
+      "P1ReplyGoodMask": "0x20",
+      "polynomial": false,
+      "threatMask": "0x44",
+      "upperMask": "0x44"
+    },
+    {
+      "label": "seeded-rank34-6",
+      "ply": 34,
+      "sequence": "5475521346165145451232232424766617",
+      "h": [
+        5,
+        6,
+        3,
+        6,
+        6,
+        5,
+        3
+      ],
+      "forcedP0ActionMask": "0x44",
+      "baselineChildQsBuilt": 2,
+      "directChildQsBuilt": 0
+    },
+    {
+      "label": "seeded-rank35-7",
+      "ply": 35,
+      "sequence": "56752436151323377335777251124611225",
+      "h": [
+        6,
+        6,
+        6,
+        2,
+        6,
+        3,
+        6
+      ],
+      "P1ReplyGoodMask": "0x0",
+      "polynomial": false,
+      "threatMask": "0x0",
+      "upperMask": "0x0"
+    },
+    {
+      "label": "seeded-rank34-7",
+      "ply": 34,
+      "sequence": "5675243615132337733577725112461122",
+      "h": [
+        6,
+        6,
+        6,
+        2,
+        5,
+        3,
+        6
+      ],
+      "forcedP0ActionMask": "0x0",
+      "baselineChildQsBuilt": 3,
+      "directChildQsBuilt": 0
+    },
+    {
+      "label": "seeded-rank35-8",
+      "ply": 35,
+      "sequence": "27513157653423367273555166121177326",
+      "h": [
+        6,
+        5,
+        6,
+        1,
+        6,
+        5,
+        6
+      ],
+      "P1ReplyGoodMask": "0x28",
+      "polynomial": false,
+      "threatMask": "0x8",
+      "upperMask": "0x8"
+    },
+    {
+      "label": "seeded-rank34-8",
+      "ply": 34,
+      "sequence": "2751315765342336727355516612117732",
+      "h": [
+        6,
+        5,
+        6,
+        1,
+        6,
+        4,
+        6
+      ],
+      "forcedP0ActionMask": "0xa",
+      "baselineChildQsBuilt": 2,
+      "directChildQsBuilt": 0
+    },
+    {
+      "label": "seeded-rank35-9",
+      "ply": 35,
+      "sequence": "73127575262627351657423763332456516",
+      "h": [
+        3,
+        6,
+        6,
+        2,
+        6,
+        6,
+        6
+      ],
+      "P1ReplyGoodMask": "0x0",
+      "polynomial": false,
+      "threatMask": "0x1",
+      "upperMask": "0x8"
+    },
+    {
+      "label": "seeded-rank34-9",
+      "ply": 34,
+      "sequence": "7312757526262735165742376333245651",
+      "h": [
+        3,
+        6,
+        6,
+        2,
+        6,
+        5,
+        6
+      ],
+      "forcedP0ActionMask": "0x9",
+      "baselineChildQsBuilt": 2,
+      "directChildQsBuilt": 0
+    },
+    {
+      "label": "seeded-rank35-10",
+      "ply": 35,
+      "sequence": "47677744443523472637215165636531355",
+      "h": [
+        3,
+        3,
+        6,
+        6,
+        6,
+        5,
+        6
+      ],
+      "P1ReplyGoodMask": "0x22",
+      "polynomial": false,
+      "threatMask": "0x22",
+      "upperMask": "0x0"
+    },
+    {
+      "label": "seeded-rank34-10",
+      "ply": 34,
+      "sequence": "4767774444352347263721516563653135",
+      "h": [
+        3,
+        3,
+        6,
+        6,
+        5,
+        5,
+        6
+      ],
+      "forcedP0ActionMask": "0x22",
+      "baselineChildQsBuilt": 2,
+      "directChildQsBuilt": 0
+    },
+    {
+      "label": "seeded-rank35-11",
+      "ply": 35,
+      "sequence": "55274323233213555376447242667517611",
+      "h": [
+        4,
+        6,
+        6,
+        4,
+        6,
+        4,
+        5
+      ],
+      "P1ReplyGoodMask": "0x41",
+      "polynomial": false,
+      "threatMask": "0x8",
+      "upperMask": "0x8"
+    },
+    {
+      "label": "seeded-rank34-11",
+      "ply": 34,
+      "sequence": "5527432323321355537644724266751761",
+      "h": [
+        3,
+        6,
+        6,
+        4,
+        6,
+        4,
+        5
+      ],
+      "forcedP0ActionMask": "0x8",
+      "baselineChildQsBuilt": 3,
+      "directChildQsBuilt": 0
+    },
+    {
+      "label": "seeded-rank35-12",
+      "ply": 35,
+      "sequence": "55464552127624667623516274251311177",
+      "h": [
+        6,
+        6,
+        2,
+        4,
+        6,
+        6,
+        5
+      ],
+      "P1ReplyGoodMask": "0x4c",
+      "polynomial": true,
+      "threatMask": "0xc",
+      "upperMask": "0x0"
+    },
+    {
+      "label": "seeded-rank34-12",
+      "ply": 34,
+      "sequence": "5546455212762466762351627425131117",
+      "h": [
+        6,
+        6,
+        2,
+        4,
+        6,
+        6,
+        4
+      ],
+      "forcedP0ActionMask": "0x4c",
+      "baselineChildQsBuilt": 1,
+      "directChildQsBuilt": 0
+    }
+  ],
+  "elapsedMs": 30,
+  "externalOracleCalls": 0,
+  "solverSearchCalls": 0,
+  "producerForwardDiscoveryCalls": 0,
+  "outputIsNotGlobalBranchElimination": true,
+  "provenance": {
+    "branch": "research/semantic-quotient",
+    "date": "2026-10-16",
+    "sourceBlobs": {
+      "universal-one-reply-fusion.mjs": "3d163f15ea065997dc15d25cb33349438c5674e8",
+      "universal-reply-threat-polynomial.mjs": "fa59af39afe91fda529258dc13bdebd6a252cd8c",
+      "direct-two-move-pullback.mjs": "19fb4d0566e07e48d2848b94efecf5ad0018bdae",
+      "universal-one-reply-fusion-control.mjs": "0c5c71134308d8f438032b7df68457b73cd4950b",
+      "standard7x6-local-fusion-control.mjs": "c9e9bc119115342b795b8ff62a91e9a3e93868ca"
+    },
+    "executed": "isolated JavaScript V8 against committed source; imported Node functions shimmed; maintained Node26 qualification not performed",
+    "sampleMethod": "bounded seed-generated legal first-win-avoiding random playouts; generated solely for independent physical validation, never candidate rule derivation",
+    "noSolvedOracleQueries": true,
+    "noPolicySearchCandidate": true,
+    "gameTreeExpansionsInProducer": 0,
+    "scope": "13 P1 / 19 P0 exact local masks, including turn-six prefix 44444 and all seven P1 rank6 children; 12 sampled late legal positions with P0 predecessor"
+  }
+}
