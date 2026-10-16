@@ -96,6 +96,39 @@ minimality, recursion elimination, complete 7x6 root search or per-path
 `44444` proofs. This remains an internal V8 research control, not an
 accepted Node26 performance qualification or IsoGraph authority promotion.
 
+## Method boundary: search is validation, not branch elimination — 2026-10-16
+
+**Owner correction:** The 46/47-node 4x3 root-win certificates were
+**constructed through forward game-tree search**, then independently
+verified backward. Their compactness establishes that the result can
+be certified cheaply; it does **not** establish a nonbranching solving
+method. Keep both artifacts and their negative controls as validation
+fixtures, not as a proposed solver or inputs to a structural algorithm.
+
+The **existing exact recursive/branching residual-q core remains a
+complete algorithmic core**; it need not eliminate either recursion
+or branching. Optional preferred improvement: derive from the
+qualified game structure an exact algebraic alternating-choice
+transformer which does not discover winning policy choices by
+recursively searching separate game continuations. It may recurse
+on one structural descriptor and may return a set of equivalent moves.
+
+A compact proof, single returned value, AND/OR wrapper or symbolic
+circuit is **insufficient** to claim computational branch elimination
+if it conceals independent game continuations in construction.
+
+New research must derive the operator without consulting the
+search-generated P0 policy. Afterwards, use the known 4x3 proof,
+the 38 opponent replies, the q-only reference, and oracle comparisons
+as falsifiers/validation. Track independent child evaluations,
+intermediate front widths, proof-generation work and verification
+cost separately. If the operator does not close, preserve the
+missing mathematical law; do not deepen forward search.
+
+Current routing: `next_step.yaml:branch_elimination_research_boundary`
+and the correction in
+`docs/research/2026-10-16-input-specialized-winning-region-certificate.md`.
+
 ## Input-specialized backward P0-win proof — 2026-10-16
 
 **Confirmed scoped positive result:** Starting only with the concrete empty
