@@ -57,12 +57,12 @@ current_algorithmic_core:
     - minimality
     - WDL_tie_distance_refinement
   next_bounded_experiment: >-
-    Starting from the now-verified oracle-free q evaluator, compare a single
-    exact symbolic existential/universal predecessor transform against the
-    ordinary recursive reference on one selected support-local slice.
-    Require exact first-win handling and report both output equivalence
-    and actual dependency/branch counts, intermediate width, wall cost.
-    Never infer computational branch elimination from returning one set.
+    The first factored symbolic alternating-threshold control is complete on
+    three support fibers but failed empty 4x3 root construction under 60000
+    transient gate allocations. Focus on reducing intermediate construction
+    work while retaining the exact first-win guard and independently comparing
+    both output equivalence and true dependency/branch counts. Do not revisit
+    complete core semantics or declare branch elimination from one circuit.
   preserved_open_scope: >-
     The standard7x6 empty-root value and the seven-reply turn-six
     CPC certificate remain uncomputed/unproved by the new research
@@ -70,6 +70,46 @@ current_algorithmic_core:
   qualification_limit: >-
     New source/exhaustive finite controls executed in isolated V8 rather
     than the maintained Node26 suite; not an external reproduction.
+  merge_authorized: false
+
+active_symbolic_alternation_candidate:
+  date: "2026-10-16"
+  owner: research/semantic-quotient
+  authority_effect: none
+  status: exact_local_operator_global_branch_elimination_open
+  governing_core_status: constructively_complete_for_ordinary_WDL_and_WDL_optimal_action_sets
+  record: docs/research/2026-10-16-nondistributed-symbolic-alternation.md
+  source: research/isograph/discovery/2026-10-16-algorithmic-core/symbolic-residual-circuit.mjs
+  executable_control: research/isograph/discovery/2026-10-16-algorithmic-core/symbolic-circuit-control.mjs
+  baseline: research/isograph/discovery/2026-10-16-algorithmic-core/SYMBOLIC_CIRCUIT_MATCHED_BASELINE_0_1.json
+  poset_qualified: research/isograph/discovery/2026-10-16-algorithmic-core/SYMBOLIC_POSET_ABSORPTION_RESULTS_0_1.json
+  negative_control: research/isograph/discovery/2026-10-16-algorithmic-core/SYMBOLIC_CIRCUIT_TERMINAL_MUTATION_RESULTS_0_1.json
+  exact_scope:
+    - "260 physical positions from three complete bounded support fibers"
+    - "384 seeded abstract q residual-antichain controls; zero WDL, action-value, tie-mask disagreements"
+    - "P0-winning/nonloss monotone threshold circuits, correct immediate-win and full-board guards"
+    - "opt-in support-poset implication reduction saves 15.6%-53.7% reachable gates across supports"
+  observed_costs:
+    - "before poset: live gates 301, 6163, 482"
+    - "with poset: live gates 229, 2851, 407"
+    - "symbolic construction performs zero concrete-q value subsolves but still traverses child support DAG"
+    - "empty 4x3 root failed fixed 60000 gate budget with either profile"
+  open_questions:
+    - "bound support-wise transient construction allocation versus retained final circuit"
+    - "avoid hidden strategic branching in support compiler and universal AND gates"
+    - "generalized full-root scale/constructibility and comparison against exact recursive q economics"
+  next_bounded_experiment: >-
+    Attempt exactly one output-sensitive or transient-reclamation composition
+    refinement at the failed 4x3 root (60000 gate, 300000 substitution,
+    15-second budgets unchanged). Verify all success cases against
+    the independent recursive and physical controls and reject on any
+    mismatch. Do not substitute a new minimax tree or raise budgets.
+  prohibited_inferences:
+    - "No algorithmic core correctness gap"
+    - "No general branching or recursion elimination proved"
+    - "One circuit returning one result does not imply one unit of computational work"
+    - "No WDL oracle inputs, no minimality work and no 7x6 root claim"
+  qualification: "internal isolated V8 source controls only; Node26 maintained test unrun"
   merge_authorized: false
 
 active_turn6_bidirectional_certificate:
