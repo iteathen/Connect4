@@ -96,6 +96,50 @@ minimality, recursion elimination, complete 7x6 root search or per-path
 `44444` proofs. This remains an internal V8 research control, not an
 accepted Node26 performance qualification or IsoGraph authority promotion.
 
+## Input-specialized backward P0-win proof — 2026-10-16
+
+**Confirmed scoped positive result:** Starting only with the concrete empty
+4x3 Connect-3 root, a rule-only P0 policy candidate and independently
+checked residual-generator proof DAG certify **P0 WIN via column 2
+(one-based)**. This certifies one opening and all opponent replies,
+not the full W/D/L value function or all equal-valued moves.
+
+- 46 reachable winning-region generators, 72 certified edges.
+- P0 one-action policy: 34 nodes; P1 universal response: 12 nodes,
+  38 explicitly verified opponent reply actions.
+- 22 direct terminal P0 wins, 49 exact q references and **one**
+  nonidentical P0-favorable dominance reference.
+- 51 producer obligation visits, 72 attempted actions, zero failed
+  P0 policy guesses in this scoped discovery.
+- Checker independently replays 230 physical source-path moves, verifies
+  legal gravity/first-win q and all 72 backward cofactors; no recursive
+  WDL game solving or external oracle during verification.
+- Matched winner-only candidate with favorable dominance disabled
+  certifies the root with **47** generators and **73** edges. Only
+  one generator/edge was saved by order-based reuse; the major saving
+  relative to the previously solved full WDL reference comes from
+  **specializing the desired proof**, not generally eliminating branching.
+- The independent checker rejected five deliberate defective
+  certificates, including an omitted P1 reply, a wrong terminal
+  and a false same-support dominance transport.
+- The oracle-free full W/D/L reference agrees on the outcome and
+  independently reports all four opening columns as W/D/L-optimal,
+  after—not during—certificate construction.
+
+Primary record:
+`docs/research/2026-10-16-input-specialized-winning-region-certificate.md`.
+Reproducible certificate and readback:
+`research/isograph/discovery/2026-10-16-algorithmic-core/INPUT_SPECIALIZED_ROOT_WIN_CERTIFICATE_0_1.json`
+and `INPUT_SPECIALIZED_PROOF_CONTROL_RESULTS_0_1.json`.
+
+**Branch elimination remains OPEN.** The producer still recursively
+checks obligations, and its P1 universal cases branch in the proof
+graph. Next vertical target: a guarded output-sensitive inclusion
+operator that discharges the same 38 P1 actions without explicitly
+evaluating each independent future state; count all construction,
+quantifier, memory and verification work. No minimality, full-frontier,
+or standard7x6 root extension is authorized by this scoped result.
+
 ## Active turn-six parity-control certificate frontier — 2026-10-16
 
 This is a **scoped current research update**, not a change to qualified
