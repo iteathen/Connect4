@@ -57,13 +57,14 @@ current_algorithmic_core:
     - minimality
     - WDL_tie_distance_refinement
   next_bounded_experiment: >-
-    Fixed-horizon P1 universal reply and P0 OR / P1 AND / P0 OR cofactor
-    composition laws are now proved/qualified without search-generated
-    inputs. Advance one quantifier depth algebraically using source
-    residual degree-three/mixed-reply guards; do NOT enumerate action
-    histories, build game-tree policies, or infer arbitrary-depth
-    branch elimination from fixed-horizon formula compactness. Use
-    recursive q and physical controls for independent falsification only.
+    The exact source-only P1/P0/P1/P0 response-cover operator now closes
+    four bounded strategic plies using residual degree at most two,
+    without child q materialization. Next derive a virtual cofactor/
+    favorable-upset transform for the action-labelled maximal cover
+    FAMILY through one earlier P0 action; retain quantifier scope and
+    mixed reply correlation. Do not simply enumerate 5-ply move
+    histories or treat union coverage as equivalent to one policy
+    that precedes the opponent. Full game branching remains open.
   preserved_open_scope: >-
     The standard7x6 empty-root value and the seven-reply turn-six
     CPC certificate remain uncomputed/unproved by the new research
@@ -71,6 +72,48 @@ current_algorithmic_core:
   qualification_limit: >-
     New source/exhaustive finite controls executed in isolated V8 rather
     than the maintained Node26 suite; not an external reproduction.
+  merge_authorized: false
+
+bounded_four_ply_response_cover:
+  date: "2026-10-16"
+  owner: research/semantic-quotient
+  exact_scope: "P1 forall / P0 exists / P1 forall / P0 immediate first win within at most two P0 own placements"
+  theorem: docs/research/2026-10-16-response-cover-next-quantifier-law.md
+  frozen_plan: research/isograph/discovery/2026-10-16-algorithmic-core/UNIVERSAL_PREIMAGE_RESPONSE_COVER_PLAN_0_1.md
+  producer: research/isograph/discovery/2026-10-16-algorithmic-core/universal-response-cover-operator.mjs
+  qualification: research/isograph/discovery/2026-10-16-algorithmic-core/UNIVERSAL_RESPONSE_COVER_RESULTS_0_1.json
+  standard7x6_control: research/isograph/discovery/2026-10-16-algorithmic-core/UNIVERSAL_RESPONSE_COVER_7X6_RESULTS_0_1.json
+  scope_counterexample: research/isograph/discovery/2026-10-16-algorithmic-core/RESPONSE_COVER_QUANTIFIER_SCOPE_RESULTS_0_1.json
+  method:
+    - "Only original support and R0/R1 residuals with source degree <= 2 for each player"
+    - "One source-only action-indexed response cover K_a: first P1 replies handled by particular adaptive P0 reply a"
+    - "Exact universal test is union_a K_a equal initial legal P1 set"
+    - "No q child states created or recursive game-value solves by producer"
+    - "Polynomial O(W^3) local source-residual membership work, not zero local action-label work"
+  controls:
+    - "70200/70200 small-board P1 source positions and 310120 local b,a rows exact versus validated one-step child-q two-own-move operator"
+    - "33709/70200 P1 positions directly physically checked, including full 4x3 and 31501/67992 4x4 under fixed physical move cap"
+    - "133392 reference child-q objects vs zero original-q producer q children; 3438998 source residual membership queries counted"
+    - "7x6: 44444 plus 12 seeded rank35 P1 states, original-q / independent q / physical masks agree; 2 short-horizon positive"
+    - "P0 size2 and P1 size2 source antecedent omission both falsified on actual physical positions"
+  scope_preservation:
+    - "P1 first / P0 response quantifiers are adaptive: forall b exists a NOT equivalent to exists a forall b"
+    - "Legal 4x3 prefix 223 has K=[0xe,0x4,0xe,0x7], L=0xf; union full but no single K full, physically corroborated"
+    - "2584 actual small-board states expose this noncommutation"
+    - "Maximal response-cover antichain preserves union and existence of full cover, but discarding all action correlation is unsound"
+  next_structural_target: >-
+    Pull the full action-labelled maximal response-cover family backward
+    through one preceding P0 true cofactor using virtual residual-upset
+    substitution and existing RBA adjunction/semiring laws. Keep adaptive
+    choice scope and first-win guards; avoid enumerating 5-ply move
+    histories as a renamed forward search. Measure width/quantifier
+    work independently of resulting certificate/answer size.
+  full_game_branch_elimination: OPEN
+  ordinary_algorithmic_core_still_complete: true
+  validation_only_physical_enumeration: true
+  external_oracle_used_by_producer: false
+  maintained_Node26_qualification: pending
+  authority_change: none
   merge_authorized: false
 
 partial_algebraic_branch_fusion:
@@ -100,12 +143,13 @@ partial_algebraic_branch_fusion:
   role_of_search: "independent physical finite-domain validation/falsification ONLY; no policy-search input in the algebraic producer"
   proven_global_nonbranching: false
   next_research_seam: >-
-    Derive the guarded universal predecessor of the two-own-move P0
-    winning-region predicate over the ORIGINAL q using the existing
-    cofactor adjoints and antichain-semiring laws; test if
-    mixed opponent reply covers can remain factored at three-own-move
-    horizon. Do not enumerate move words as disguised search; quantify
-    expression size, dependencies and retained work before validation.
+    Universal P1 preimage of the fixed two-own-move P0-winning region is
+    now exactly derived as source-q response covers K_a. The missing
+    next law is a compact pullback of the FULL maximal action-labelled
+    cover family through an earlier P0 cofactor; a bare union of masks
+    loses quantifier scope and is falsified by actual legal 4x3 sequence
+    223. Use virtual residual-upset and semiring operations without
+    enumerating complete move words; monitor any mixed-cover blowup.
   disallowed_inference:
     - "fixed horizon O(W^2) does not imply polynomial arbitrary-depth WDL"
     - "scanning P0 candidate move labels is not recursively evaluating every continuation"
@@ -137,14 +181,13 @@ branch_elimination_research_boundary:
     - "47-node direct-only P0-winning proof and five negative controls"
     - "Independent exact q solver, external oracle comparisons and small-board exhaustive checks"
   next_experiment: >-
-    Take the exact rule-derived one-reply and two-own-move cofactor-fusion
-    polynomials as a base and derive a non-distributed guarded universal
-    preimage for one further opponent ply. Establish whether the
-    resulting degree-three source residual obligations/mixed reply
-    correlations admit a compact normal form, without enumerating
-    continuation words or trial policies. Only then test against the
-    frozen independent recursive q/physical oracles and the former
-    searched certificates as falsifiers. Preserve any width blowup.
+    Preserve the exact four-ply P1/P0/P1/P0 original-q cover operator.
+    The new proven obstruction is adaptive quantifier scope: forall b
+    exists a cannot be replaced by exists a forall b. Derive the next
+    earlier P0 cofactor as a virtual upset transformation over the
+    maximal action-labelled cover FAMILY, not its union, and do not
+    expand action histories. Test only after algebraic law is frozen.
+    Record actual source-degree growth and mixed-cover width.
   branch_elimination_proved: false
   minimality_required: false
   merge_authorized: false
