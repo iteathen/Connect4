@@ -1,7 +1,7 @@
 # Standard 7x6 W/D/L frontier-shell compilation
 
 **Date:** 2026-10-16  
-**Status:** complete ranks 34–42; isolated rank-33 cone complete; full rank-33 shell in progress  
+**Status:** complete ranks 33–42; mirror-reuse optimization under qualification  
 **Owner:** \`research/semantic-quotient\`  
 **Parent theorem:** \`docs/research/2026-10-16-oracle-compiled-action-value-frontier-theorem.md\`
 
@@ -215,33 +215,97 @@ This is complete support-fiber compilation, not sampled coverage.
 
 ---
 
-## 5. Rank-33 progression and dense cover memo
+## 5. Complete rank 33
 
-The first all-support rank-33 attempt showed long pauses inside repeated
-principal-cover/preimage work.
+The first full rank-33 shell run completed successfully before the dense-memo
+retry was required for correctness.
 
-A semantics-preserving implementation change was introduced at:
+Run:
+
+\[
+38935669989
+\]
+
+Head:
+
+\[
+\texttt{f0c0e050e00b9d5256055cf1899972a56552ecc4}
+\]
+
+Exact rank-33 result:
+
+\[
+\boxed{4,809\text{ support fibers}}
+\]
+
+\[
+\boxed{2,049,203\text{ Upper generators}}
+\]
+
+\[
+\boxed{5,999,813\text{ Lower generators}}
+\]
+
+\[
+\boxed{8,049,016\text{ rank-33 generators}}.
+\]
+
+Largest Upper:
+
+\[
+4,766
+\]
+
+at support
+
+\[
+[5,6,3,3,4,6,6].
+\]
+
+Largest Lower:
+
+\[
+33,278
+\]
+
+at support
+
+\[
+[6,6,3,3,3,6,6].
+\]
+
+The summed support-local elapsed time recorded for rank 33 was approximately
+
+\[
+598.3\text{ s}.
+\]
+
+Cumulative ranks 33–42:
+
+\[
+\boxed{11,188\text{ support fibers}}
+\]
+
+and
+
+\[
+\boxed{9,786,404\text{ total generators}}.
+\]
+
+The long pauses observed during the run were aggregate shell cost, not a failed
+support. Every rank-33 support closed.
+
+### Dense small-fiber memo
+
+A semantics-preserving implementation refinement was subsequently introduced at
 
 \[
 \texttt{ef229ca73db93b11f7529947dd9484939cbff214}.
 \]
 
 For child fibers with at most 20 residual shapes, the exact uncovered-target
-memo is stored in a dense array indexed by the target mask instead of a
-generic BigInt-keyed Map.
-
-The recurrence is unchanged.
-
-Research-integrity at that revision passed.
-
-The revised complete rank-33 shell run is:
-
-\[
-38936261619.
-\]
-
-It has progressed beyond the first support that appeared to block the earlier
-generic-map run. Full rank-33 completion is not yet claimed here.
+memo uses a dense target-mask array rather than a generic BigInt-keyed Map.
+The recurrence is unchanged and research-integrity passed.
 
 ---
 
@@ -309,7 +373,50 @@ Thus that support is not an intrinsic semantic or local-product wall.
 
 ---
 
-## 7. Current interpretation
+## 7. Exact horizontal-reflection reuse
+
+After rank-33 closure, the compiler was modified to avoid recomputing mirrored
+support fibers.
+
+For support
+
+\[
+s=(h_0,\ldots,h_6)
+\]
+
+define
+
+\[
+\rho(s)=(h_6,\ldots,h_0).
+\]
+
+Horizontal reflection is a game automorphism and an order isomorphism of the
+support-local residual lattice. Therefore
+
+\[
+U_{\rho(s)}=\rho(U_s),
+\qquad
+L_{\rho(s)}=\rho(L_s).
+\]
+
+The implementation at
+
+\[
+\texttt{6101e27ce44d5c79fdfe3bc5d9f4d7c4abea1c41}
+\]
+
+reuses an already-computed canonical mirror and performs an exact reflection
+round-trip assertion before accepting the copied frontier.
+
+This is an evaluation optimization only. It does not alter W/D/L semantics or
+frontier membership.
+
+A complete rank-33 timing replay under mirror reuse is currently being used as
+the direct qualification/control.
+
+---
+
+## 8. Current interpretation
 
 The complete rank-34 shell demonstrates that W/D/L-only frontier construction
 is dramatically narrower than the earlier full strong-distance campaign.
@@ -329,11 +436,14 @@ The current uncertainty is no longer correctness of the representation.
 The next empirical question is the rank at which complete-shell construction
 cost or frontier width ceases to remain practical.
 
-The rank-33 full-shell run is the first current measurement of that transition.
+Rank 33 shows the first substantial width/cost jump, but it remains a complete
+finite compilation rather than a semantic failure.
+
+The next descent should not repeat exact horizontal-reflection work.
 
 ---
 
-## 8. Claim boundary
+## 9. Claim boundary
 
 Established:
 
@@ -345,8 +455,7 @@ Established:
 
 Not yet established:
 
-- complete rank-33 shell;
-- complete ranks 0–33;
+- complete ranks 0–32;
 - empty-root frontier materialization;
 - a polynomial bound on frontier width or construction time;
 - final production storage/query layout;
