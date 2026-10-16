@@ -5,6 +5,7 @@ const controls = [
   { W: 4, H: 3, K: 3, name: "4x3-c3" },
   { W: 4, H: 4, K: 4, name: "4x4-c4" },
   { W: 5, H: 3, K: 4, name: "5x3-c4" },
+  { W: 4, H: 5, K: 4, name: "4x5-c4" },
 ];
 
 function popcount32(x) {
