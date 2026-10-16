@@ -224,7 +224,48 @@ export function createSymbolicResidualCircuit({width:W,height:H,connect:K},{
     const selected=av.filter(([,v])=>v===best).map(([a])=>a);
     return {value:best,bestMoves:selected,actionValues:av};
   }
+  function liveGraphMetrics(out){
+    const rootList=[out.W,out.N],
+      allRoots=[...rootList,...out.action.flatMap(a=>[a.W,a.N])];
+    const countLive=roots=>{
+      const live=new Set(),stack=roots.slice();
+      while(stack.length){
+        const id=stack.pop();
+        if(live.has(id))continue;
+        live.add(id);
+        const node=nodes[id];
+        if(node.op==='and'||node.op==='or')stack.push(...node.inputs);
+      }
+      let and=0,or=0,vars=0,edges=0,maxFanIn=0;
+      for(const id of live){
+        const n=nodes[id];
+        if(n.op==='and'||n.op==='or'){
+          if(n.op==='and')and++;else or++;
+          edges+=n.inputs.length;
+          maxFanIn=Math.max(maxFanIn,n.inputs.length);
+        }else if(n.op==='var')vars++;
+      }
+      const depthMemo=new Map();
+      function depth(id){
+        if(depthMemo.has(id))return depthMemo.get(id);
+        const n=nodes[id];
+        const out=n.op==='and'||n.op==='or'?
+          1+Math.max(0,...n.inputs.map(depth)):0;
+        depthMemo.set(id,out);return out;
+      }
+      const maxGateDepth=Math.max(0,...roots.map(depth));
+      return {reachableNodes:live.size,andGates:and,orGates:or,
+        uniqueVariableLeaves:vars,fanInEdges:edges,maxFanIn,maxGateDepth};
+    };
+    return {
+      rootThresholds:countLive(rootList),
+      rootAndActionThresholds:countLive(allRoots),
+      allocatedNodes:nodes.length,
+      deadOrIntermediateAllocatedNodes:nodes.length-countLive(allRoots).reachableNodes
+    };
+  }
   return {
+    liveGraphMetrics,
     compile(h){const out=compileSupport(h);const info=supportInfo(h);
       stats.totalRootInputVariables=info.vars0.length+info.vars1.length;
       return out;
