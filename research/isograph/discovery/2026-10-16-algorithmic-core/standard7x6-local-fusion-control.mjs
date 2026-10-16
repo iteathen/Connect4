@@ -21,10 +21,11 @@ function index(max){
  return x%max;
 }
 const hex=x=>'0x'+x.toString(16);
-function replay(sequence){
+function replay(sequence,metrics){
  let state=physical.empty();
  for(const text of sequence){
   const col=Number(text)-1,next=physical.transition(state,col);
+  metrics.validationPhysicalMoves++;
   if(next.terminal!==undefined)throw Error('premature first-win replay '+sequence);
   state=next.state;
  }
@@ -46,6 +47,7 @@ export function runStandard7x6FusionControl(){
  const start=Date.now(),deadline=start+MAX_MS;
  const metrics={
   validationPhysicalMoves:0,validationImmediateP0Trials:0,
+  fixtureGenerationPhysicalMoves:0,
   residualMembershipChecks:0,
   firstOpponentStates:0,p1LiteralRepliesValidated:0,
   P0PositionsValidated:0,P0FirstActionsValidated:0,
@@ -144,7 +146,7 @@ export function runStandard7x6FusionControl(){
     directChildQsBuilt:0});
  }
  try{
-  const origin=replay('44444');
+  const origin=replay('44444',metrics);
   validateP1(origin,'44444-P1-turn6');
   for(const c of physical.legal(origin)){
    const s=physical.transition(origin,c).state;
@@ -158,7 +160,10 @@ export function runStandard7x6FusionControl(){
    while(s.rank<35){
     const eligible=[];
     for(const c of physical.legal(s)){
+     if(Date.now()>deadline||metrics.validationPhysicalMoves>=MAX_MOVES)
+      throw Error('fixture-generation move/time validation budget exhausted');
      const possible=physical.transition(s,c);
+     metrics.validationPhysicalMoves++;metrics.fixtureGenerationPhysicalMoves++;
      if(possible.terminal===undefined)eligible.push(possible.state);
     }
     if(eligible.length===0)break;
