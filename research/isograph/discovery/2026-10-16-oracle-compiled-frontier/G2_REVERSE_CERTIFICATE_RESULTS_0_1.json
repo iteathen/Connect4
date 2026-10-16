@@ -1,0 +1,120 @@
+{
+  "schema": "connect4.g2-reverse-certificate-evidence.v0_1",
+  "date": "2026-10-16",
+  "owner": "research/semantic-quotient",
+  "starting_research_head": "ca21bef49d0bdf885bf99358b6ab007353217a18",
+  "verifier_source": {
+    "path": "research/isograph/discovery/2026-10-16-oracle-compiled-frontier/g2-reverse-certificate.mjs",
+    "blob_sha": "99d43821173addfa080b347ca9f4841f5adc7daa"
+  },
+  "control_source": {
+    "path": "research/isograph/discovery/2026-10-16-oracle-compiled-frontier/g2-reverse-certificate-control.mjs",
+    "blob_sha": "e05a5263530a23061d943aa6d59f65f292a157be"
+  },
+  "canonicalizer_source": {
+    "path": "research/isograph/discovery/2026-09-18-policy-frontier/rba-g2-fiber-equivalence.mjs",
+    "blob_sha": "58461bae62913e04a8a9494cd052854e9e037e5e"
+  },
+  "execution": {
+    "environment": "isolated JavaScript V8 code-mode runtime; exact committed module source loaded by dynamic Function after stripping export/import syntax; only node:assert/perf_hooks/process/console were replaced with minimal shims",
+    "node_26_runner_executed": false,
+    "github_actions_executed": false,
+    "sampling_seed": "0x4c2a2026",
+    "predeclared_rank_strata": [
+      33,
+      34,
+      35,
+      36
+    ],
+    "predeclared_trials": 400,
+    "predeclared_budget_ms": 60000,
+    "observed_wall_ms": 3883,
+    "budget_exhausted": false,
+    "run_status": "PASS"
+  },
+  "frame": {
+    "33": {
+      "supports": 4809,
+      "fiber_classes": 2223,
+      "eligible_nonmirror_rep_member_pairs": 394
+    },
+    "34": {
+      "supports": 2954,
+      "fiber_classes": 1294,
+      "eligible_nonmirror_rep_member_pairs": 395
+    },
+    "35": {
+      "supports": 1709,
+      "fiber_classes": 677,
+      "eligible_nonmirror_rep_member_pairs": 371
+    },
+    "36": {
+      "supports": 924,
+      "fiber_classes": 315,
+      "eligible_nonmirror_rep_member_pairs": 307
+    }
+  },
+  "counts": {
+    "total_supports_in_frame": 10396,
+    "total_exact_fiber_classes_in_frame": 4509,
+    "eligible_nonmirror_rep_member_pairs": 1467,
+    "known_nonmirror_pairs_checked": 3,
+    "deliberate_invalid_witnesses_rejected": 3,
+    "sampled_draws": 400,
+    "unique_sampled_pairs": 354,
+    "distinct_pair_coverage_fraction": 0.24130879345603273,
+    "draws_by_rank": {
+      "33": 103,
+      "34": 91,
+      "35": 103,
+      "36": 103
+    },
+    "mapping_mismatches": 0,
+    "local_atomic_cofactor_checks": 38246,
+    "child_residual_shape_checks": 15952,
+    "basic_cpc_control_checks": 3021,
+    "recursive_game_states_expanded": 0,
+    "oracle_calls": 0
+  },
+  "cost": {
+    "frame_build_ms": 3671,
+    "reverse_checks_ms": 211,
+    "total_ms": 3883,
+    "reverse_checks_total": 403
+  },
+  "statistical": {
+    "sampling_design": "with replacement; each trial selects one of ranks 33-36 uniformly, then one eligible representative/member pair uniformly within that rank; deterministic xorshift32 PRNG with rejection of modulo bias",
+    "observed_failures": 0,
+    "nominal_one_sided_confidence_level": 0.95,
+    "nominal_one_sided_upper_defect_fraction": 0.0074613555287995625,
+    "assumptions": "IID uniform rank-mixture draws; pseudo-random fixed seed approximates but does not guarantee the randomization assumptions. Applies only to the defined representative/member sampling population and the implemented local checker, not all 7x6 q states or all support ranks.",
+    "interpretation": "conditional diagnostic only; exact mathematical certificate proof and exercised local checks are distinct; no universal 95% proof claim"
+  },
+  "historical_context": {
+    "oracle_relative_core": {
+      "positions": 316,
+      "legal_transitions": 1586,
+      "recursive_formula_descent": false
+    },
+    "g3_abstract_transport": {
+      "q_pairs": 1592642,
+      "action_value_cases": 3929368,
+      "reported_mismatches": 0
+    },
+    "rank33_full_frontier_compression": {
+      "supports": 4809,
+      "classes": 2223,
+      "boundary_generator_ratio": 2.021527,
+      "byte_ratio": 2.01579
+    }
+  },
+  "scope_and_limitations": [
+    "Checks abstract ordinary support-fiber and terminal/cofactor congruence; legal/historical realizability and physical q mapping not asserted.",
+    "Only basic zero-reservation CPC event parity follows automatically from the preserved row/chain mapping. Reservation/release, race, deadline, response resource, and NDC proof contexts require separate guards.",
+    "No fresh oracle action/value comparison was attempted; the prior oracle-relative and abstract G3 evidence remains distinct and unchanged.",
+    "Statistical sampling is limited to ranks 33-36; the local theorem is generic under its exact isomorphism guards, not validated by sample size.",
+    "Evidence is internal execution on isolated JS V8, not Node26 maintained qualification, external replication or mechanized formal proof.",
+    "No root 7x6 winning certificate, turn-6 certificate, nor polynomial-time uniform construction theorem is claimed."
+  ],
+  "decision": "Advance from G2 equivalence discovery/expanding-graph validation to direct compact winning-region/counterstrategy certificate design; retain G2 as exact proof-transport primitive, not as the objective itself."
+}
