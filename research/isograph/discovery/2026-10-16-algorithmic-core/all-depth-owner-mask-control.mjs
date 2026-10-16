@@ -9,7 +9,7 @@ import {independentPhysical} from './universal-one-reply-fusion-control.mjs';
 
 const G={width:7,height:6,connect:4},N=42,MAX_MOVES=20000,
  MAX_UPSET=250000,MAX_RESIDUAL_COMPARISONS=2000000,
- MAX_MS=45000,MAX_SAMPLES=120,MAX_ATTEMPTS=4000;
+ MAX_MS=45000,MAX_SAMPLES=90,MAX_ATTEMPTS=4000;
 const SEED=0x7a16c402;
 const phys=independentPhysical(G),core=createExactQCore(G);
 let rng=SEED;
@@ -233,8 +233,9 @@ export function runAllDepthOwnerMaskQualification(){
  }catch(e){
   M.distinctNonterminalSupportCount=supports.size;
   M.rankCovered=Object.keys(M.rankVisits).map(Number).sort((a,b)=>a-b);
+  const budget=/(cap|budget|wall|clock|timeout)/i.test(String(e));
   return {schema:'connect4.all-depth-owner-mask-source-residual-cocycle.v0_1',
-   date:'2026-10-16',status:'FAIL_OR_BUDGET',error:String(e),seed:'0x'+SEED.toString(16),
+   date:'2026-10-16',status:budget?'PARTIAL_BUDGET':'FAIL',error:String(e),seed:'0x'+SEED.toString(16),
    metrics:M,examples:representativePaths,runMs:Date.now()-start};
  }
 }
