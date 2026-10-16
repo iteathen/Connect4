@@ -1,0 +1,383 @@
+{
+  "schema": "connect4.symbolic-threshold-first-win-mutation.v0_1",
+  "date": "2026-10-16",
+  "status": "PASS_NEGATIVE_CONTROL",
+  "mutation": {
+    "needle": "const p1NoWinNow=mover===1&&singleton!==undefined?parent.vars1[singleton]:1;",
+    "replacement": "const p1NoWinNow=1; // injected: P1 terminal guard deliberately erased"
+  },
+  "detectedCases": [
+    {
+      "board": {
+        "width": 4,
+        "height": 3,
+        "connect": 3
+      },
+      "support": [
+        2,
+        2,
+        1,
+        2
+      ],
+      "error": null,
+      "counterexample": {
+        "sequence": "1122434",
+        "support": [
+          2,
+          2,
+          1,
+          2
+        ],
+        "canonicalKey": "2.2.1.2|2048,576,1792|64,256,3584",
+        "physical": {
+          "value": -1,
+          "bestMoves": [
+            0,
+            2,
+            3
+          ],
+          "actionValues": [
+            [
+              0,
+              -1
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              -1
+            ],
+            [
+              3,
+              -1
+            ]
+          ]
+        },
+        "recursiveQ": {
+          "value": -1,
+          "bestMoves": [
+            0,
+            2,
+            3
+          ],
+          "actionValues": [
+            [
+              0,
+              -1
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              -1
+            ],
+            [
+              3,
+              -1
+            ]
+          ]
+        },
+        "symbolic": {
+          "value": 0,
+          "bestMoves": [
+            3
+          ],
+          "actionValues": [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              3,
+              0
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "board": {
+        "width": 4,
+        "height": 3,
+        "connect": 3
+      },
+      "support": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "error": null,
+      "counterexample": {
+        "sequence": "1234",
+        "support": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "canonicalKey": "1.1.1.1|272,288,1056,1088,112,224,1792,3584|544,576,2112,2176,112,224,1792,3584",
+        "physical": {
+          "value": 1,
+          "bestMoves": [
+            0,
+            1,
+            2
+          ],
+          "actionValues": [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              3,
+              -1
+            ]
+          ]
+        },
+        "recursiveQ": {
+          "value": 1,
+          "bestMoves": [
+            0,
+            1,
+            2
+          ],
+          "actionValues": [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              3,
+              -1
+            ]
+          ]
+        },
+        "symbolic": {
+          "value": 1,
+          "bestMoves": [
+            0,
+            1,
+            2
+          ],
+          "actionValues": [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              3,
+              0
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "board": {
+        "width": 4,
+        "height": 4,
+        "connect": 4
+      },
+      "support": [
+        3,
+        3,
+        2,
+        2
+      ],
+      "error": null,
+      "counterexample": {
+        "sequence": "1112223443",
+        "support": [
+          3,
+          3,
+          2,
+          2
+        ],
+        "canonicalKey": "3.3.2.2|33792,61440|4096",
+        "physical": {
+          "value": 0,
+          "bestMoves": [
+            0
+          ],
+          "actionValues": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              -1
+            ],
+            [
+              2,
+              -1
+            ],
+            [
+              3,
+              -1
+            ]
+          ]
+        },
+        "recursiveQ": {
+          "value": 0,
+          "bestMoves": [
+            0
+          ],
+          "actionValues": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              -1
+            ],
+            [
+              2,
+              -1
+            ],
+            [
+              3,
+              -1
+            ]
+          ]
+        },
+        "symbolic": {
+          "value": 0,
+          "bestMoves": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "actionValues": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              3,
+              0
+            ]
+          ]
+        }
+      }
+    }
+  ],
+  "checkedCases": [
+    {
+      "board": {
+        "width": 4,
+        "height": 3,
+        "connect": 3
+      },
+      "support": [
+        2,
+        2,
+        1,
+        2
+      ],
+      "status": "FAIL"
+    },
+    {
+      "board": {
+        "width": 4,
+        "height": 3,
+        "connect": 3
+      },
+      "support": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "FAIL"
+    },
+    {
+      "board": {
+        "width": 4,
+        "height": 4,
+        "connect": 4
+      },
+      "support": [
+        3,
+        3,
+        2,
+        2
+      ],
+      "status": "FAIL"
+    },
+    {
+      "board": {
+        "width": 4,
+        "height": 3,
+        "connect": 3
+      },
+      "support": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "status": "COMPILE_BUDGET_EXHAUSTED"
+    }
+  ],
+  "productionSourceModified": false,
+  "qualification": "internal corruption-detection control only; no formal proof",
+  "provenance": {
+    "sourceBlobs": {
+      "core": "6b25d0e2560fe4131d2f5442593e9ed9763c1a18",
+      "symbolic": "a7b7416ac677904ce0bb6c29ca7a5bb85ab53e1d",
+      "control": "282444de0743ec66ef1945e26907948deedbd599",
+      "mutant": "6d4e9fd7e1745828684256088902c374ed206747"
+    },
+    "execution": "isolated JavaScript V8 exact committed module bodies, import/meta shimmed; no production source changed",
+    "standaloneCommand": "node research/isograph/discovery/2026-10-16-algorithmic-core/symbolic-circuit-mutation-control.mjs",
+    "externalValidation": false
+  }
+}
