@@ -1,0 +1,105 @@
+{
+  "schema": "connect4.turn6.three-fork-preemption-guards.v0_1",
+  "root": "444444",
+  "proposedP0First": 2,
+  "proposedP0Second": 3,
+  "exactPreemptionCases": [
+    {
+      "P1Intervention": 1,
+      "sequence": "444444213",
+      "support": [
+        1,
+        1,
+        1,
+        6,
+        0,
+        0,
+        0
+      ],
+      "P0Singleton": {
+        "column": 5,
+        "row": 1,
+        "gravityPredecessorsRemaining": 0,
+        "immediatelyPlayable": true,
+        "eventCountN": 28,
+        "basicAbsoluteControlOwner": "P0",
+        "basicParityCorrectionToP0": 0
+      },
+      "legalP0ThreatCellsIfNext": [
+        5
+      ],
+      "legalP1WinsNow": [],
+      "P1LegalDirectBlock": 5,
+      "P0ImmediateWinsAfterBlock": []
+    },
+    {
+      "P1Intervention": 3,
+      "sequence": "444444233",
+      "support": [
+        0,
+        1,
+        2,
+        6,
+        0,
+        0,
+        0
+      ],
+      "P0Singleton": {
+        "column": 5,
+        "row": 4,
+        "gravityPredecessorsRemaining": 3,
+        "immediatelyPlayable": false,
+        "eventCountN": 31,
+        "basicAbsoluteControlOwner": "P1",
+        "basicParityCorrectionToP0": 1
+      },
+      "legalP0ThreatCellsIfNext": [],
+      "legalP1WinsNow": [],
+      "P1LegalDirectBlock": null,
+      "P0ImmediateWinsAfterBlock": null
+    },
+    {
+      "P1Intervention": 5,
+      "sequence": "444444253",
+      "support": [
+        0,
+        1,
+        1,
+        6,
+        1,
+        0,
+        0
+      ],
+      "P0Singleton": {
+        "column": 1,
+        "row": 1,
+        "gravityPredecessorsRemaining": 0,
+        "immediatelyPlayable": true,
+        "eventCountN": 28,
+        "basicAbsoluteControlOwner": "P0",
+        "basicParityCorrectionToP0": 0
+      },
+      "legalP0ThreatCellsIfNext": [
+        1
+      ],
+      "legalP1WinsNow": [],
+      "P1LegalDirectBlock": 1,
+      "P0ImmediateWinsAfterBlock": []
+    }
+  ],
+  "interpretation": "P1 replies 1 and 5 block a current single P0 winning landing, while reply 3 yields a nonplayable row-4 diagonal target in column 5 with three gravity prerequisites and basic zero-reservation control P1; a guarded parity correction/race proof is missing.",
+  "oracleQueries": 0,
+  "recursiveGameSolveCalls": 0,
+  "noClaim": "No assertion that a parity flip is possible, that a delayed target is P0-owned, that this P0 plan is forced, or that P0 wins from 444444.",
+  "provenance": {
+    "date": "2026-10-16",
+    "branch": "research/semantic-quotient",
+    "sourceShas": {
+      "g2": "58461bae62913e04a8a9494cd052854e9e037e5e",
+      "physical_q": "74b66f34ba1fc953db691d137867771dedd13ea3",
+      "guard_probe": "703d23efb7c058a8167f6ba37610e9290d106ee9"
+    },
+    "execution": "isolated JS V8 exact committed source; Node imports and assert shimmed",
+    "oracleUsed": false
+  }
+}
