@@ -58,6 +58,75 @@ core. The empty standard-7x6 root is **not** claimed computed by this
 recursive research evaluator. New tests ran in isolated V8; Node26 sustained
 qualification and external reproduction remain separate.
 
+## First exact algebraic quantifier fusion — 2026-10-16
+
+**Substantive optional nonbranching progress** without a search-generated
+policy: from qualified support/antichain/cofactor and first-win geometry,
+two *fixed-horizon* strategic quantifier operations are now derived and
+independently tested.
+
+1. For **P1 to move**, compute in ONE operation the entire literal P1
+   reply-action mask which leaves P0 an immediate first win. It depends
+   only on P0 current singleton threat mask T, P1 immediate-win mask B,
+   and P0 upper-latent threat mask U; no P1 child q states are
+   constructed. An exact monotone Boolean polynomial has at most
+   W(W-1)/2 + W + 1 terms plus first-win guards.
+2. For **P0 to move**, pull this predicate directly through one P0
+   owner-true/false cofactor using only ORIGINAL source residual
+   requirements of sizes 1 and 2. The resulting **P0 OR / P1 AND /
+   P0 immediate-win OR** decision returns all P0 first actions that
+   guarantee a win on P0's first or second own move. The algebra
+   scans literal P0 labels locally but does NOT construct any child
+   q or recursively search opponent continuations.
+
+**Independent physical qualification:**
+
+- all **70,200** legal P1-turn states on complete 4x3 Connect-3 /
+  4x4 Connect-4 controls: exact next-P0-immediate-win favorable
+  response masks with zero errors;
+- the independent factored monotone polynomial agrees on all
+  70,200 states;
+- all **68,720** legal P0-turn states in the same two full games:
+  exact within-two-P0-moves qualifying action set, zero errors,
+  against both direct physical rule continuations and the separately
+  written one-step q-cofactor/fusion reference;
+- 160,554 P0 candidate first actions checked. The reference
+  constructed 143,280 intermediate child q objects; the direct
+  algebra constructed **zero**. Residual membership tests and
+  literal P0 action scanning are explicitly counted, not hidden;
+- deletion of size-two antecedents, exposed upper threat or P1
+  immediate-win guard caused actual physical counterexamples;
+- standard7x6 short-horizon spot control: 13 P1 states / 19 P0
+  states (including `44444`, all seven rank6 replies and 12
+  independently sampled late positions with predecessors), plus
+  reflection and direct physical crosschecks: zero mismatches.
+  No forced next-two-P0-own-move wins were found at the seven
+  `44444` rank6 children, as required by local lower-bound geometry.
+
+Mathematical proof/scope:
+`docs/research/2026-10-16-local-alternating-quantifier-fusion.md`.
+Raw controls:
+`research/isograph/discovery/2026-10-16-algorithmic-core/UNIVERSAL_ONE_REPLY_POLYNOMIAL_RESULTS_0_1.json`,
+`DIRECT_TWO_MOVE_PULLBACK_RESULTS_0_1.json`, and
+`STANDARD7X6_LOCAL_FUSION_RESULTS_0_1.json`.
+
+**Hard limit:** exact nonbranching composition has been shown only for
+this fixed one/two-P0-own-move horizon. This is NOT a full 7x6
+perfect-play theorem, a no-recursion result, or a universal
+polynomial-size alternation closure. The established recursive/branching
+algorithmic core remains valid. The earlier 46/47-generator
+search-produced winning proof remains **validation only**.
+
+**Next vertical target:** derive, without enumerating action words,
+the exact guarded universal preimage of this direct
+two-own-move P0-winning region through one further P1 move.
+Study necessary degree-three source residuals and mixed reply
+correlations using the existing adjoint/antichain-semiring laws.
+Test against the small-board q reference **only after the algebra
+is derived**, and record intermediate symbolic width as well as
+actual independent continuation work. Avoid reverting to
+policy-search-based proof generation.
+
 ## Optional symbolic branch-work experiment — 2026-10-16
 
 **Primary algorithmic core completeness remains established and unchanged.**
