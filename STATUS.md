@@ -13,6 +13,51 @@ This file is the current-state router, not a theorem ledger. This branch owns **
 
 See `docs/decisions/2026-09-17-single-research-owner.md`.
 
+## Constructive algorithmic core — 2026-10-16 (primary research answer)
+
+The owner's corrected definition does **not** require recursion elimination,
+branch elimination, polynomial cost, or minimality. Those are optional stronger
+properties of an algorithmic core, not its definition.
+
+**The exact ordinary W/D/L + W/D/L-optimal-action-set core is constructively
+complete**, by finite-rank induction under qualified q_o congruence,
+first-win/draw termination and alternating max/min of exact owner-cofactor
+successors. This is a previously established semantic mechanism, now exposed
+as a standalone **oracle-independent** constructive evaluator. No new IsoGraph
+logic authority or claim ID has been promoted.
+
+Primary proof / distinction:
+`docs/research/2026-10-16-constructive-algorithmic-core-completeness.md`.
+
+Evidence:
+`research/isograph/discovery/2026-10-16-algorithmic-core/CONSTRUCTIVE_CORE_QUALIFICATION_RESULTS_0_1.json`.
+
+Bounded independent rule-evaluator checks:
+
+- 4x3 Connect-3: 4,631 legal nonterminal states, 11,818 legal edges,
+  3,734 exact q states and 0 value/action/cofactor mismatches;
+- 4x4 Connect-4: 134,289 legal nonterminal states, 304,574 legal edges,
+  34,094 exact q states and 0 value/action/cofactor mismatches;
+- standard 7x6: twelve seeded, legal, rank-35 suffix cases, 0 W/D/L or
+  action-vector mismatches, without using solved labels.
+
+The implementation is **still recursively branching**, as measured:
+10,232 q transitions on 4x3 and 100,764 on 4x4, with many multi-action q
+states. Returning one answer tuple `(WDL, set-of-all-WDL-optimal-moves)`
+does not itself avoid exploring independent child values.
+
+**Next preferred (not prerequisite) objective:** qualify an exact compressed
+alternating-predecessor/antichain operator that *actually reduces separately
+evaluated successor computations* while preserving terminal,
+realizability/resource/deadline guards. Do not substitute general minimality
+proof or turn-six path-by-path verification for this objective.
+
+The older turn-six CPC work below remains an **open, optional test case** for
+structural shortcut discovery, not a blocker to identifying the mathematical
+core. The empty standard-7x6 root is **not** claimed computed by this
+recursive research evaluator. New tests ran in isolated V8; Node26 sustained
+qualification and external reproduction remain separate.
+
 ## Active turn-six parity-control certificate frontier — 2026-10-16
 
 This is a **scoped current research update**, not a change to qualified
