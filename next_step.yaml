@@ -57,12 +57,13 @@ current_algorithmic_core:
     - minimality
     - WDL_tie_distance_refinement
   next_bounded_experiment: >-
-    The first factored symbolic alternating-threshold control is complete on
-    three support fibers but failed empty 4x3 root construction under 60000
-    transient gate allocations. Focus on reducing intermediate construction
-    work while retaining the exact first-win guard and independently comparing
-    both output equivalence and true dependency/branch counts. Do not revisit
-    complete core semantics or declare branch elimination from one circuit.
+    An input-specialized 46-generator / 72-edge exact P0 winning certificate
+    now closes the empty 4x3 Connect3 root for one chosen opening. The remaining
+    optional branch-elimination seam is P1's 38 universal actions: attempt one
+    guarded antichain inclusion/predecessor operator that covers them more
+    compactly and report its actual work. The universal factored Boolean
+    compiler's 60000 gate empty-root failure remains negative baseline
+    evidence, not the new active target.
   preserved_open_scope: >-
     The standard7x6 empty-root value and the seven-reply turn-six
     CPC certificate remain uncomputed/unproved by the new research
