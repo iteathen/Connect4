@@ -36,6 +36,9 @@ Unlisted dated notes remain repository evidence. Being unlisted means “not pri
 - [`2026-10-16-oracle-relative-proof-algorithmic-core.md`](2026-10-16-oracle-relative-proof-algorithmic-core.md)  
   Proves the OR/AND recurrence algebraically from the accepted exact-oracle action-score contract and composes it with the q-local cofactor transition. Executed validation passed on 316 positions and 1,586 legal action transitions with no recursive formula descent.
 
+- [`2026-10-16-oracle-compiled-action-value-frontier-theorem.md`](2026-10-16-oracle-compiled-action-value-frontier-theorem.md)  
+  Gives the direct compiled evaluator (Q_a(q)=max\{\theta:\exists m\in M_{s,a,\theta},q\succeq m\}). Exhaustive round-trip controls over four complete games decoded 1,039,073 exact action values and 343,736 best-move masks with zero mismatches. For standard 7x6, correctness follows once the complete oracle-labelled frontier family is materialized; compactness and construction/query cost remain open.
+
 ---
 
 ## Historical solver-family lineages
