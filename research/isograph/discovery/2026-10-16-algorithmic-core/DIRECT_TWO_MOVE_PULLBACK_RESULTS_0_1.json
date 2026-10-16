@@ -1,0 +1,184 @@
+{
+  "schema": "connect4.direct-two-move-residual-pullback.v0_1",
+  "date": "2026-10-16",
+  "status": "PASS",
+  "cases": [
+    {
+      "board": {
+        "width": 4,
+        "height": 3,
+        "connect": 3,
+        "name": "4x3-c3"
+      },
+      "status": "PASS",
+      "metrics": {
+        "physicalStatesEnumerated": 4631,
+        "physicalGraphEdges": 11818,
+        "P0StatesLocalAlgebraChecked": 2423,
+        "P0ActionMasksEqualToCofactorFusion": 2423,
+        "directPullbackMembershipProbes": 49178,
+        "directPullbackPairAntecedentHits": 2634,
+        "directPullbackLatentAntecedentHits": 1654,
+        "directPullbackFirstActionChecks": 6226,
+        "qCofactorFirstActionObjectsCreated": 4244,
+        "P1ContinuationsMaterializedByDirectCandidate": 0,
+        "validatedP0PhysicalStates": 2423,
+        "physicalValidationTransitions": 22526,
+        "physicalP0ImmediateCandidates": 9284,
+        "formulaChecks": 6284,
+        "mutatedMissingPairDifferences": 1,
+        "mutatedMissingUpperDifferences": 1,
+        "differingP0ActionMasks": 0,
+        "physicallyDisagreeingP0Masks": 0,
+        "P0PhysicalValidationPartial": false
+      },
+      "first": {
+        "counterexample": null,
+        "missingPair": {
+          "sequence": "11122243",
+          "q": {
+            "h": [
+              3,
+              3,
+              1,
+              1
+            ],
+            "R0": [
+              "0x400",
+              "0xc0",
+              "0x880"
+            ],
+            "R1": [
+              "0x440",
+              "0x840",
+              "0xc00"
+            ]
+          },
+          "correct": "0xc",
+          "wrong": "0x0"
+        },
+        "missingUpper": {
+          "sequence": "11122344",
+          "q": {
+            "h": [
+              3,
+              2,
+              1,
+              2
+            ],
+            "R0": [
+              "0x400",
+              "0x240"
+            ],
+            "R1": [
+              "0x440",
+              "0x840",
+              "0xe00"
+            ]
+          },
+          "correct": "0x6",
+          "wrong": "0x4"
+        }
+      },
+      "elapsedMs": 247,
+      "claim": "all P0 rank-local two-own-move action masks checked vs direct cofactor/fusion; physical first-win search solely validation",
+      "candidateP0SuccessorQObjectsMaterialized": 0
+    },
+    {
+      "board": {
+        "width": 4,
+        "height": 4,
+        "connect": 4,
+        "name": "4x4-c4"
+      },
+      "status": "PASS",
+      "metrics": {
+        "physicalStatesEnumerated": 134289,
+        "physicalGraphEdges": 304574,
+        "P0StatesLocalAlgebraChecked": 66297,
+        "P0ActionMasksEqualToCofactorFusion": 66297,
+        "directPullbackMembershipProbes": 1366110,
+        "directPullbackPairAntecedentHits": 25644,
+        "directPullbackLatentAntecedentHits": 8954,
+        "directPullbackFirstActionChecks": 154328,
+        "qCofactorFirstActionObjectsCreated": 139036,
+        "P1ContinuationsMaterializedByDirectCandidate": 0,
+        "validatedP0PhysicalStates": 66297,
+        "physicalValidationTransitions": 582242,
+        "physicalP0ImmediateCandidates": 260416,
+        "formulaChecks": 154487,
+        "mutatedMissingPairDifferences": 1,
+        "mutatedMissingUpperDifferences": 1,
+        "differingP0ActionMasks": 0,
+        "physicallyDisagreeingP0Masks": 0,
+        "P0PhysicalValidationPartial": false
+      },
+      "first": {
+        "counterexample": null,
+        "missingPair": {
+          "sequence": "111122223434",
+          "q": {
+            "h": [
+              4,
+              4,
+              2,
+              2
+            ],
+            "R0": [
+              "0xc00",
+              "0x4400"
+            ],
+            "R1": [
+              "0x8800",
+              "0xc000"
+            ]
+          },
+          "correct": "0x4",
+          "wrong": "0x0"
+        },
+        "missingUpper": {
+          "sequence": "111122233233",
+          "q": {
+            "h": [
+              4,
+              4,
+              4,
+              0
+            ],
+            "R0": [
+              "0x800"
+            ],
+            "R1": [
+              "0x8000"
+            ]
+          },
+          "correct": "0x8",
+          "wrong": "0x0"
+        }
+      },
+      "elapsedMs": 5545,
+      "claim": "all P0 rank-local two-own-move action masks checked vs direct cofactor/fusion; physical first-win search solely validation",
+      "candidateP0SuccessorQObjectsMaterialized": 0
+    }
+  ],
+  "producerUsesSearch": false,
+  "externalOracleCalls": 0,
+  "globalFullGameNonbranchingSolved": false,
+  "provenance": {
+    "date": "2026-10-16",
+    "owner": "research/semantic-quotient",
+    "sourceBlobs": {
+      "direct-two-move-pullback.mjs": "19fb4d0566e07e48d2848b94efecf5ad0018bdae",
+      "universal-one-reply-fusion.mjs": "3d163f15ea065997dc15d25cb33349438c5674e8",
+      "universal-one-reply-fusion-control.mjs": "0c5c71134308d8f438032b7df68457b73cd4950b",
+      "direct-two-move-pullback-control.mjs": "d0d46843be843c0c12b065180506f7f236b9c58c"
+    },
+    "runtime": "isolated V8 executing exact committed module code with import and performance shims, no maintained Node26 execution",
+    "candidateGeneration": "pure rule-derived one-cell/two-cell residual antecedent pullback; no game tree search or stored winning-policy inputs",
+    "physicalValidation": "complete physical rule first-win reachable finite 4x3 and 4x4 domains; explicit P0/P1/P0 continuations only inside the validation harness",
+    "fixedBudgets": "TWO_MOVE_DIRECT_COFACTOR_PULLBACK_PLAN_0_1.md",
+    "mutationBudgetHistory": "DIRECT_TWO_MOVE_MUTATION_BUDGET_PARTIAL_0_1.json retained; controller now halts each mutation after first falsifier, unchanged aggregate ceilings",
+    "mathematicalScope": "exact P0 first or second own move win under adversarial intervening P1 reply; not arbitrary-horizon WDL or general nonbranching",
+    "parallelValidationStatus": "P1 immediate universal operator independently passed 70200 P1 positions at the sibling polynomial control"
+  }
+}
