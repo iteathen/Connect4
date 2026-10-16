@@ -1,0 +1,577 @@
+{
+  "schema": "connect4.move7-move8.column-full-virtual-cofactor.v0_2",
+  "status": "PASS",
+  "scope": "all rank5 44444 / rank6 P1 / rank7 P0 / rank8 P1 legal first-win paths; bounded horizon only",
+  "tests": {
+    "prefix": "44444",
+    "mode": "rank-local cofactor, GF2 phase and move6/7/8 center-capacity guards; no value-oracle use"
+  },
+  "metrics": {
+    "physicalReplayEdges": 384,
+    "physicalGeometryQChecks": 385,
+    "coreCofactorQChecks": 384,
+    "phaseUpdateChecks": 384,
+    "virtualCofactorUpsetChecks": 122928,
+    "sourceUpsetLookups": 245856,
+    "residualContainmentComparisons": 9897976,
+    "virtualCofactorDisagreements": 0,
+    "firstWinTerminalEdges": 0,
+    "priorColumnFull": false,
+    "columnFirstFilledAtMove6": 36,
+    "columnFirstFilledAtMove7": 36,
+    "columnFirstFilledAtMove8": 36,
+    "columnNotFilledThroughMove8": 216,
+    "move6P1RepliesChecked": 7,
+    "move7P0ActionsChecked": 48,
+    "move8P1ActionsChecked": 324,
+    "centerFullMove7States": 12,
+    "centerNotFullMove7States": 36,
+    "move8ZeroPhaseOnCenterFull": 6,
+    "move8WeightTwoPhaseOnCenterFull": 30,
+    "fixedHorizonVirtualRoots": 7,
+    "virtualRootThreeOwnTurnWinActions": 0,
+    "virtualRootUpSetMembershipTests": 85476,
+    "virtualRootDegreeThreeQueries": 27216,
+    "virtualRootResidualComparisons": 3663544,
+    "rank7CoverComparisonStates": 48,
+    "rank7CoverResponseRows": 2160,
+    "rank7CoverMismatches": 0,
+    "rank8TwoOwnMoveStates": 324,
+    "rank8TwoOwnMovePositiveActions": 66,
+    "rank8P0WinningPositionsByBoundedTwoOwnMove": 56,
+    "rank8ReplyCoverageComparisons": 324,
+    "rank8ReplyCoverageMismatches": 0,
+    "centerRank7ReflectionPairs": 3,
+    "centerRank7ReflectionMismatches": 0,
+    "rank8DistinctQ": 219,
+    "singletonChecks": 12696,
+    "pairChecks": 44112,
+    "tripleChecks": 4656,
+    "totalPartialQChecks": 122928
+  },
+  "samples": {
+    "rank5": {
+      "height": [
+        0,
+        0,
+        0,
+        5,
+        0,
+        0,
+        0
+      ],
+      "legal": "0x7f",
+      "phase": "0001000",
+      "phaseWeight": 1,
+      "residual0": 48,
+      "residual1": 42
+    },
+    "rank6": [
+      {
+        "P1move6": 1,
+        "height": [
+          1,
+          0,
+          0,
+          5,
+          0,
+          0,
+          0
+        ],
+        "legal": "0x7f",
+        "phase": "1001000",
+        "phaseWeight": 2,
+        "residual0": 46,
+        "residual1": 40
+      },
+      {
+        "P1move6": 2,
+        "height": [
+          0,
+          1,
+          0,
+          5,
+          0,
+          0,
+          0
+        ],
+        "legal": "0x7f",
+        "phase": "0101000",
+        "phaseWeight": 2,
+        "residual0": 44,
+        "residual1": 41
+      },
+      {
+        "P1move6": 3,
+        "height": [
+          0,
+          0,
+          1,
+          5,
+          0,
+          0,
+          0
+        ],
+        "legal": "0x7f",
+        "phase": "0011000",
+        "phaseWeight": 2,
+        "residual0": 44,
+        "residual1": 40
+      },
+      {
+        "P1move6": 4,
+        "height": [
+          0,
+          0,
+          0,
+          6,
+          0,
+          0,
+          0
+        ],
+        "legal": "0x77",
+        "phase": "0000000",
+        "phaseWeight": 0,
+        "residual0": 42,
+        "residual1": 42
+      },
+      {
+        "P1move6": 5,
+        "height": [
+          0,
+          0,
+          0,
+          5,
+          1,
+          0,
+          0
+        ],
+        "legal": "0x7f",
+        "phase": "0001100",
+        "phaseWeight": 2,
+        "residual0": 44,
+        "residual1": 40
+      },
+      {
+        "P1move6": 6,
+        "height": [
+          0,
+          0,
+          0,
+          5,
+          0,
+          1,
+          0
+        ],
+        "legal": "0x7f",
+        "phase": "0001010",
+        "phaseWeight": 2,
+        "residual0": 44,
+        "residual1": 41
+      },
+      {
+        "P1move6": 7,
+        "height": [
+          0,
+          0,
+          0,
+          5,
+          0,
+          0,
+          1
+        ],
+        "legal": "0x7f",
+        "phase": "0001001",
+        "phaseWeight": 2,
+        "residual0": 46,
+        "residual1": 40
+      }
+    ],
+    "rank7CenterFull": [
+      {
+        "sequence": "4444441",
+        "move7": 1,
+        "phase": "1000000",
+        "mask": "0x77",
+        "shortHorizon": false
+      },
+      {
+        "sequence": "4444442",
+        "move7": 2,
+        "phase": "0100000",
+        "mask": "0x77",
+        "shortHorizon": false
+      },
+      {
+        "sequence": "4444443",
+        "move7": 3,
+        "phase": "0010000",
+        "mask": "0x77",
+        "shortHorizon": false
+      },
+      {
+        "sequence": "4444445",
+        "move7": 5,
+        "phase": "0000100",
+        "mask": "0x77",
+        "shortHorizon": false
+      },
+      {
+        "sequence": "4444446",
+        "move7": 6,
+        "phase": "0000010",
+        "mask": "0x77",
+        "shortHorizon": false
+      },
+      {
+        "sequence": "4444447",
+        "move7": 7,
+        "phase": "0000001",
+        "mask": "0x77",
+        "shortHorizon": false
+      }
+    ],
+    "rank8CenterFull": [
+      {
+        "sequence": "44444411",
+        "phase": "0000000",
+        "support": [
+          2,
+          0,
+          0,
+          6,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "sequence": "44444412",
+        "phase": "1100000",
+        "support": [
+          1,
+          1,
+          0,
+          6,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "sequence": "44444413",
+        "phase": "1010000",
+        "support": [
+          1,
+          0,
+          1,
+          6,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "sequence": "44444415",
+        "phase": "1000100",
+        "support": [
+          1,
+          0,
+          0,
+          6,
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "sequence": "44444416",
+        "phase": "1000010",
+        "support": [
+          1,
+          0,
+          0,
+          6,
+          0,
+          1,
+          0
+        ]
+      },
+      {
+        "sequence": "44444417",
+        "phase": "1000001",
+        "support": [
+          1,
+          0,
+          0,
+          6,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "sequence": "44444421",
+        "phase": "1100000",
+        "support": [
+          1,
+          1,
+          0,
+          6,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "sequence": "44444422",
+        "phase": "0000000",
+        "support": [
+          0,
+          2,
+          0,
+          6,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "sequence": "44444423",
+        "phase": "0110000",
+        "support": [
+          0,
+          1,
+          1,
+          6,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "sequence": "44444425",
+        "phase": "0100100",
+        "support": [
+          0,
+          1,
+          0,
+          6,
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "sequence": "44444426",
+        "phase": "0100010",
+        "support": [
+          0,
+          1,
+          0,
+          6,
+          0,
+          1,
+          0
+        ]
+      },
+      {
+        "sequence": "44444427",
+        "phase": "0100001",
+        "support": [
+          0,
+          1,
+          0,
+          6,
+          0,
+          0,
+          1
+        ]
+      }
+    ],
+    "rank8PositiveExamples": [
+      {
+        "sequence": "44444131",
+        "P1turn6": 1,
+        "P0turn7": 3,
+        "P1turn8": 1,
+        "P0twoOwnTurnWinningMask": "0x10"
+      },
+      {
+        "sequence": "44444133",
+        "P1turn6": 1,
+        "P0turn7": 3,
+        "P1turn8": 3,
+        "P0twoOwnTurnWinningMask": "0x10"
+      },
+      {
+        "sequence": "44444134",
+        "P1turn6": 1,
+        "P0turn7": 3,
+        "P1turn8": 4,
+        "P0twoOwnTurnWinningMask": "0x10"
+      },
+      {
+        "sequence": "44444137",
+        "P1turn6": 1,
+        "P0turn7": 3,
+        "P1turn8": 7,
+        "P0twoOwnTurnWinningMask": "0x10"
+      },
+      {
+        "sequence": "44444151",
+        "P1turn6": 1,
+        "P0turn7": 5,
+        "P1turn8": 1,
+        "P0twoOwnTurnWinningMask": "0x24"
+      },
+      {
+        "sequence": "44444152",
+        "P1turn6": 1,
+        "P0turn7": 5,
+        "P1turn8": 2,
+        "P0twoOwnTurnWinningMask": "0x20"
+      },
+      {
+        "sequence": "44444154",
+        "P1turn6": 1,
+        "P0turn7": 5,
+        "P1turn8": 4,
+        "P0twoOwnTurnWinningMask": "0x24"
+      },
+      {
+        "sequence": "44444155",
+        "P1turn6": 1,
+        "P0turn7": 5,
+        "P1turn8": 5,
+        "P0twoOwnTurnWinningMask": "0x24"
+      },
+      {
+        "sequence": "44444157",
+        "P1turn6": 1,
+        "P0turn7": 5,
+        "P1turn8": 7,
+        "P0twoOwnTurnWinningMask": "0x4"
+      },
+      {
+        "sequence": "44444161",
+        "P1turn6": 1,
+        "P0turn7": 6,
+        "P1turn8": 1,
+        "P0twoOwnTurnWinningMask": "0x10"
+      },
+      {
+        "sequence": "44444162",
+        "P1turn6": 1,
+        "P0turn7": 6,
+        "P1turn8": 2,
+        "P0twoOwnTurnWinningMask": "0x10"
+      },
+      {
+        "sequence": "44444164",
+        "P1turn6": 1,
+        "P0turn7": 6,
+        "P1turn8": 4,
+        "P0twoOwnTurnWinningMask": "0x10"
+      }
+    ],
+    "centerFullMove8DefensiveSets": [
+      {
+        "turn7Move": 1,
+        "turn8LegalMask": "0x77",
+        "turn8DefensiveMask": "0x77",
+        "defensiveP1Columns": [
+          1,
+          2,
+          3,
+          5,
+          6,
+          7
+        ],
+        "P0WithinNextTwoOwnTurnsAllowedByP1Mask": "0x0",
+        "disclaimer": "bounded immediate-or-next-two-P0-turn result, not optimal WDL at turn8"
+      },
+      {
+        "turn7Move": 2,
+        "turn8LegalMask": "0x77",
+        "turn8DefensiveMask": "0x15",
+        "defensiveP1Columns": [
+          1,
+          3,
+          5
+        ],
+        "P0WithinNextTwoOwnTurnsAllowedByP1Mask": "0x62",
+        "disclaimer": "bounded immediate-or-next-two-P0-turn result, not optimal WDL at turn8"
+      },
+      {
+        "turn7Move": 3,
+        "turn8LegalMask": "0x77",
+        "turn8DefensiveMask": "0x12",
+        "defensiveP1Columns": [
+          2,
+          5
+        ],
+        "P0WithinNextTwoOwnTurnsAllowedByP1Mask": "0x65",
+        "disclaimer": "bounded immediate-or-next-two-P0-turn result, not optimal WDL at turn8"
+      },
+      {
+        "turn7Move": 5,
+        "turn8LegalMask": "0x77",
+        "turn8DefensiveMask": "0x24",
+        "defensiveP1Columns": [
+          3,
+          6
+        ],
+        "P0WithinNextTwoOwnTurnsAllowedByP1Mask": "0x53",
+        "disclaimer": "bounded immediate-or-next-two-P0-turn result, not optimal WDL at turn8"
+      },
+      {
+        "turn7Move": 6,
+        "turn8LegalMask": "0x77",
+        "turn8DefensiveMask": "0x54",
+        "defensiveP1Columns": [
+          3,
+          5,
+          7
+        ],
+        "P0WithinNextTwoOwnTurnsAllowedByP1Mask": "0x23",
+        "disclaimer": "bounded immediate-or-next-two-P0-turn result, not optimal WDL at turn8"
+      },
+      {
+        "turn7Move": 7,
+        "turn8LegalMask": "0x77",
+        "turn8DefensiveMask": "0x77",
+        "defensiveP1Columns": [
+          1,
+          2,
+          3,
+          5,
+          6,
+          7
+        ],
+        "P0WithinNextTwoOwnTurnsAllowedByP1Mask": "0x0",
+        "disclaimer": "bounded immediate-or-next-two-P0-turn result, not optimal WDL at turn8"
+      }
+    ],
+    "crossingFirstFillByPly": {}
+  },
+  "wallMs": 1028,
+  "noSearchInCandidate": true,
+  "noFullGameWDLProof": true,
+  "provenance": {
+    "date": "2026-10-16",
+    "branch": "research/semantic-quotient",
+    "sourceSHAs": {
+      "virtual-upset-five-ply.mjs": "59e477b60419cb4c28286b020c72b919079a840f",
+      "universal-response-cover-operator.mjs": "97638a01578b4e62bef3a38ef8728de79dfbca75",
+      "direct-two-move-pullback.mjs": "19fb4d0566e07e48d2848b94efecf5ad0018bdae",
+      "exact-q-core.mjs": "6b25d0e2560fe4131d2f5442593e9ed9763c1a18",
+      "universal-one-reply-fusion-control.mjs": "0c5c71134308d8f438032b7df68457b73cd4950b",
+      "move7-move8-column-transition-control.mjs": "59d8d0f32540893de83312ee12432c8092828633"
+    },
+    "runtime": "isolated JS V8 exact committed code, imports stripped/process shim; maintained Node26 not run",
+    "oracleQueries": 0,
+    "policySearchInputs": 0,
+    "correction": "Defensive P1 move8 choices are exact only for preventing P0 first-win within the next two P0 own turns; not a WDL optimal-move result or proof all seventh moves equivalent."
+  }
+}
