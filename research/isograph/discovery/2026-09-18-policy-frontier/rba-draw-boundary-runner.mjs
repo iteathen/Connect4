@@ -11,7 +11,7 @@ function subset(a,b){return (a&b)===a;}
 function cmpBig(a,b){return a<b?-1:a>b?1:0;}
 function skey(h){return h.join(',');}
 function parseArgs(){
-  const o={base:[5,5,2,3,6,6,6],cache:'/mnt/data/rba-draw-cache',stopRank:0,traceMissing:7,skylineSwitch:2048,normalizer:'auto',blockBits:8,blockThreshold:50000};
+  const o={base:[5,5,2,3,6,6,6],cache:'/mnt/data/rba-draw-cache',stopRank:0,traceMissing:7,skylineSwitch:2048,normalizer:'auto',blockBits:8,blockThreshold:50000,shardIndex:0,shardCount:1};
   for(let i=2;i<process.argv.length;i++){
     const a=process.argv[i];
     if(a==='--base')o.base=process.argv[++i].split(',').map(Number);
@@ -22,10 +22,13 @@ function parseArgs(){
     else if(a==='--normalizer')o.normalizer=process.argv[++i];
     else if(a==='--block-bits')o.blockBits=Number(process.argv[++i]);
     else if(a==='--block-threshold')o.blockThreshold=Number(process.argv[++i]);
+    else if(a==='--shard-index')o.shardIndex=Number(process.argv[++i]);
+    else if(a==='--shard-count')o.shardCount=Number(process.argv[++i]);
     else throw new Error(`unknown arg ${a}`);
   }
   if(!['auto','tree','block'].includes(o.normalizer))throw new Error('normalizer must be auto, tree or block');
   if(!Number.isInteger(o.blockBits)||o.blockBits<2||o.blockBits>12)throw new Error('block-bits must be 2..12');
+  if(!Number.isInteger(o.shardCount)||o.shardCount<1||!Number.isInteger(o.shardIndex)||o.shardIndex<0||o.shardIndex>=o.shardCount)throw new Error('invalid shard index/count');
   return o;
 }
 const OPT=parseArgs();
@@ -193,6 +196,8 @@ function productMax(A,B,bits,metrics,label=''){if(!A.length||!B.length)return[];
   const tg=performance.now(),out=staticMax(local,bits),globalMs=performance.now()-tg,total=performance.now()-t0;const m={label,a:A.length,b:B.length,raw:A.length*B.length,absorbed_candidates:abs.absorbers.length,residual_a:abs.A.length,residual_b:abs.B.length,residual_pairs:abs.A.length*abs.B.length,local_candidates:localCandidates,trace_queries:traceQueries,tree_queries:treeQueries,switch_queries:switchQueries,leaf_scans:leafScans,node_visits:nodeVisits,global_ms:globalMs,total_ms:total,output:out.length};metrics.products.push(m);console.error(JSON.stringify({type:'product',...m}));return out;}
 
 function coneSupports(base){const arr=[],h=base.slice();function rec(c){if(c===W){arr.push(h.slice());return;}for(let v=base[c];v<=H;v++){h[c]=v;rec(c+1);}}rec(0);arr.sort((a,b)=>b.reduce((x,y)=>x+y,0)-a.reduce((x,y)=>x+y,0)||skey(a).localeCompare(skey(b)));return arr;}
+function hashString32(value){let h=0x811c9dc5;for(let i=0;i<value.length;i++){h^=value.charCodeAt(i);h=Math.imul(h,0x01000193)>>>0;}return h>>>0;}
+function fiberShard(canonical){return hashString32(canonical.key)%OPT.shardCount;}
 function pathsFor(h){const k=h.join('_');return{u:path.join(OPT.cache,`${k}.U.hex`),l:path.join(OPT.cache,`${k}.L.hex`),m:path.join(OPT.cache,`${k}.json`)};}
 function serialize(arr){return arr.slice().sort(cmpBig).map(x=>x.toString(16)).join('\n')+'\n';}
 function sha(s){return createHash('sha256').update(s).digest('hex');}
@@ -212,6 +217,7 @@ for(const h of supports){
   const rank=h.reduce((a,b)=>a+b,0);
   if(rank<OPT.stopRank)break;
   const info=shapeInfo(h),canonical=canonicalizeG2Fiber(h);
+  if(rank===OPT.stopRank&&OPT.shardCount>1&&fiberShard(canonical)!==OPT.shardIndex)continue;
   const cached=loadBoundary(h);
   if(cached){
     cachedSupports++;
