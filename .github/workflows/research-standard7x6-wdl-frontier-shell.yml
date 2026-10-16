@@ -22,11 +22,11 @@ jobs:
           node-version: 26.7.0
       - name: Assert exact Node runtime
         run: node -e "if (process.version !== 'v26.7.0') throw new Error('expected Node v26.7.0, got ' + process.version)"
-      - name: Compile complete rank 36..42 WDL shell
+      - name: Compile complete rank 34..42 WDL shell
         run: |
           node research/isograph/discovery/2026-09-18-policy-frontier/rba-draw-boundary-runner.mjs \
             --base 0,0,0,0,0,0,0 \
-            --stop-rank 36 \
+            --stop-rank 34 \
             --cache "$RUNNER_TEMP/wdl-frontier"
       - name: Summarize compiled shell
         run: |
