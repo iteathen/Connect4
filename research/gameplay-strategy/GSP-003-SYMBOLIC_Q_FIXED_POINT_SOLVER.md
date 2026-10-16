@@ -49,3 +49,32 @@ Measure frontier size, generated candidates, normalization work, retained memory
 ## Strategic value
 
 This is the clearest current route to an exact solver that avoids ordinary recursive minimax while still using the q reduction.
+
+
+## 2026-10-16 — constructive core status and the actual improvement target
+
+The exact q-oriented W/D/L algorithmic core is now **constructively
+complete** under the qualified ordinary game-theory semantics. It is
+realized in the standalone oracle-independent **recursive, branching**
+research reference:
+
+- `research/isograph/discovery/2026-10-16-algorithmic-core/exact-q-core.mjs`;
+- `docs/research/2026-10-16-constructive-algorithmic-core-completeness.md`;
+- `research/isograph/discovery/2026-10-16-algorithmic-core/CONSTRUCTIVE_CORE_QUALIFICATION_RESULTS_0_1.json`.
+
+This does **not** implement the distinct GSP-003 symbolic fixed-point strategy
+or imply production solver adoption. The direct core already computes
+exact W/D/L and all W/D/L-optimal moves using ordinary recursive max/min.
+
+The optional stronger objective is now **true branch-work compression**:
+take a quantified set of child obligations and derive one exact compact
+successor/proof object while avoiding separately recursive child-value
+evaluation and avoiding a hidden Cartesian enumeration inside the
+aggregating operator. Any proposed symbolic `Pre_a`, antichain-semiring
+product, or G2 action quotient must be compared against the established
+recursive reference in both exact W/D/L **and actual dependency count,
+intermediate width, memory, and total work**.
+
+Do not impose branch elimination, recursion elimination, or representation
+minimality as prerequisites for calling the existing semantic algorithmic
+core complete.
