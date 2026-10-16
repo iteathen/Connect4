@@ -1,0 +1,364 @@
+{
+  "schema": "connect4.alternating-one-reply-cofactor-fusion.v0_1",
+  "date": "2026-10-16",
+  "status": "PARTIAL",
+  "cases": [
+    {
+      "board": {
+        "width": 4,
+        "height": 3,
+        "connect": 3,
+        "name": "4x3-c3"
+      },
+      "status": "PASS",
+      "statement": "all P1 replies leave at least one immediate P0 win (not full-game WDL)",
+      "counts": {
+        "physicalStatesEnumerated": 4631,
+        "physicalGraphEdgesEnumerated": 11818,
+        "physicalTransitionCalls": 36428,
+        "physicalP0ImmediateCandidates": 17594,
+        "p1StateChecks": 2208,
+        "p1LiteralRepliesChecked": 5592,
+        "p1WinningReplies": 1210,
+        "polynomialChecks": 2208,
+        "polynomialTermChecks": 2151,
+        "polynomialResidualLookups": 9777,
+        "polynomialMaxTermsOnOneSupport": 8,
+        "polynomialCompiledSupports": 128,
+        "polynomialMismatches": 0,
+        "p0StateChecks": 2423,
+        "p0FirstActionChecks": 6226,
+        "p0LiteralP1RepliesChecked": 7016,
+        "p0ProbeBudgetPartial": false,
+        "formulaChecks": 10642,
+        "fusedOpponentChildStatesExpanded": 0,
+        "fusedStructuralMembershipLookups": 14198,
+        "fusedBitMaskOperations": 8872,
+        "p1PositiveCases": 430,
+        "p0PositiveFirstActions": 2754,
+        "types": {
+          "T_GE_2": 566,
+          "T_EQ_1": 1124,
+          "T_EQ_0": 518
+        },
+        "positiveByType": {
+          "T_GE_2": 264,
+          "T_EQ_1": 142,
+          "T_EQ_0": 24
+        },
+        "p1ImmediateWinGuardCases": 1020,
+        "reflectedCases": 40,
+        "mismatches": 0
+      },
+      "negativeControls": {
+        "missingP1WinGuardDetected": true,
+        "missingUpperThreatDetected": true
+      },
+      "firstCounterexample": null,
+      "positiveWitnessByType": {
+        "T_GE_2": {
+          "sequence": "111222433",
+          "rank": 9,
+          "q": {
+            "h": [
+              3,
+              3,
+              2,
+              1
+            ],
+            "R0": [
+              "80",
+              "400"
+            ],
+            "R1": [
+              "c00"
+            ]
+          },
+          "masks": {
+            "legalMask": "0xc",
+            "existingP0WinMask": "0xc",
+            "immediateP1WinMask": "0x0",
+            "upperLatentP0Mask": "0x0",
+            "opponentRepliesLeavingImmediateP0Win": "0xc",
+            "counterReplyMask": "0x0"
+          }
+        },
+        "T_EQ_1": {
+          "sequence": "111223442",
+          "rank": 9,
+          "q": {
+            "h": [
+              3,
+              3,
+              1,
+              2
+            ],
+            "R0": [
+              "40",
+              "400"
+            ],
+            "R1": [
+              "440",
+              "840"
+            ]
+          },
+          "masks": {
+            "legalMask": "0xc",
+            "existingP0WinMask": "0x4",
+            "immediateP1WinMask": "0x0",
+            "upperLatentP0Mask": "0x4",
+            "opponentRepliesLeavingImmediateP0Win": "0xc",
+            "counterReplyMask": "0x0"
+          }
+        },
+        "T_EQ_0": {
+          "sequence": "111242244",
+          "rank": 9,
+          "q": {
+            "h": [
+              3,
+              3,
+              0,
+              3
+            ],
+            "R0": [
+              "40",
+              "400"
+            ],
+            "R1": [
+              "40"
+            ]
+          },
+          "masks": {
+            "legalMask": "0x4",
+            "existingP0WinMask": "0x0",
+            "immediateP1WinMask": "0x0",
+            "upperLatentP0Mask": "0x4",
+            "opponentRepliesLeavingImmediateP0Win": "0x4",
+            "counterReplyMask": "0x0"
+          }
+        }
+      },
+      "firstBGuardWitness": {
+        "sequence": "111223332",
+        "rank": 9,
+        "mask": {
+          "legalMask": "0x8",
+          "existingP0WinMask": "0x8",
+          "immediateP1WinMask": "0x8",
+          "upperLatentP0Mask": "0x8",
+          "opponentRepliesLeavingImmediateP0Win": "0x0",
+          "counterReplyMask": "0x8"
+        }
+      },
+      "firstUpperThreatWitness": {
+        "sequence": "111223442",
+        "rank": 9,
+        "mask": {
+          "legalMask": "0xc",
+          "existingP0WinMask": "0x4",
+          "immediateP1WinMask": "0x0",
+          "upperLatentP0Mask": "0x4",
+          "opponentRepliesLeavingImmediateP0Win": "0xc",
+          "counterReplyMask": "0x0"
+        }
+      },
+      "totalMs": 245,
+      "obligations": {
+        "P1AllLegallyReachableStatesCompared": true,
+        "P0AllLegallyReachableStatesCompared": true,
+        "semanticProducerConsultedSearchGraph": false,
+        "physicalContinuationEnumerationOnlyInValidation": true
+      }
+    },
+    {
+      "board": {
+        "width": 4,
+        "height": 4,
+        "connect": 4,
+        "name": "4x4-c4"
+      },
+      "status": "PASS_P1_FULL_P0_PARTIAL",
+      "statement": "all P1 replies leave at least one immediate P0 win (not full-game WDL)",
+      "counts": {
+        "physicalStatesEnumerated": 134289,
+        "physicalGraphEdgesEnumerated": 304574,
+        "physicalTransitionCalls": 799929,
+        "physicalP0ImmediateCandidates": 438272,
+        "p1StateChecks": 67992,
+        "p1LiteralRepliesChecked": 150246,
+        "p1WinningReplies": 10488,
+        "polynomialChecks": 67992,
+        "polynomialTermChecks": 82245,
+        "polynomialResidualLookups": 339075,
+        "polynomialMaxTermsOnOneSupport": 7,
+        "polynomialCompiledSupports": 312,
+        "polynomialMismatches": 0,
+        "p0StateChecks": 44437,
+        "p0FirstActionChecks": 102408,
+        "p0LiteralP1RepliesChecked": 109003,
+        "p0ProbeBudgetPartial": true,
+        "formulaChecks": 238392,
+        "fusedOpponentChildStatesExpanded": 0,
+        "fusedStructuralMembershipLookups": 375208,
+        "fusedBitMaskOperations": 242396,
+        "p1PositiveCases": 2170,
+        "p0PositiveFirstActions": 12636,
+        "types": {
+          "T_GE_2": 1474,
+          "T_EQ_1": 19210,
+          "T_EQ_0": 47308
+        },
+        "positiveByType": {
+          "T_GE_2": 1200,
+          "T_EQ_1": 290,
+          "T_EQ_0": 680
+        },
+        "p1ImmediateWinGuardCases": 10160,
+        "reflectedCases": 40,
+        "mismatches": 0
+      },
+      "negativeControls": {
+        "missingP1WinGuardDetected": true,
+        "missingUpperThreatDetected": true
+      },
+      "firstCounterexample": null,
+      "positiveWitnessByType": {
+        "T_GE_2": {
+          "sequence": "1111222234343",
+          "rank": 13,
+          "q": {
+            "h": [
+              4,
+              4,
+              3,
+              2
+            ],
+            "R0": [
+              "800",
+              "4000"
+            ],
+            "R1": [
+              "8800",
+              "c000"
+            ]
+          },
+          "masks": {
+            "legalMask": "0xc",
+            "existingP0WinMask": "0xc",
+            "immediateP1WinMask": "0x0",
+            "upperLatentP0Mask": "0x0",
+            "opponentRepliesLeavingImmediateP0Win": "0xc",
+            "counterReplyMask": "0x0"
+          }
+        },
+        "T_EQ_1": {
+          "sequence": "1111232322344",
+          "rank": 13,
+          "q": {
+            "h": [
+              4,
+              4,
+              3,
+              2
+            ],
+            "R0": [
+              "800",
+              "8000"
+            ],
+            "R1": [
+              "c000"
+            ]
+          },
+          "masks": {
+            "legalMask": "0xc",
+            "existingP0WinMask": "0x8",
+            "immediateP1WinMask": "0x0",
+            "upperLatentP0Mask": "0x8",
+            "opponentRepliesLeavingImmediateP0Win": "0xc",
+            "counterReplyMask": "0x0"
+          }
+        },
+        "T_EQ_0": {
+          "sequence": "1111222332334",
+          "rank": 13,
+          "q": {
+            "h": [
+              4,
+              4,
+              4,
+              1
+            ],
+            "R0": [
+              "800"
+            ],
+            "R1": [
+              "8000"
+            ]
+          },
+          "masks": {
+            "legalMask": "0x8",
+            "existingP0WinMask": "0x0",
+            "immediateP1WinMask": "0x0",
+            "upperLatentP0Mask": "0x8",
+            "opponentRepliesLeavingImmediateP0Win": "0x8",
+            "counterReplyMask": "0x0"
+          }
+        }
+      },
+      "firstBGuardWitness": {
+        "sequence": "1111232334344",
+        "rank": 13,
+        "mask": {
+          "legalMask": "0xa",
+          "existingP0WinMask": "0xa",
+          "immediateP1WinMask": "0x2",
+          "upperLatentP0Mask": "0x0",
+          "opponentRepliesLeavingImmediateP0Win": "0x8",
+          "counterReplyMask": "0x2"
+        }
+      },
+      "firstUpperThreatWitness": {
+        "sequence": "1111232322344",
+        "rank": 13,
+        "mask": {
+          "legalMask": "0xc",
+          "existingP0WinMask": "0x8",
+          "immediateP1WinMask": "0x0",
+          "upperLatentP0Mask": "0x8",
+          "opponentRepliesLeavingImmediateP0Win": "0xc",
+          "counterReplyMask": "0x0"
+        }
+      },
+      "totalMs": 4871,
+      "obligations": {
+        "P1AllLegallyReachableStatesCompared": true,
+        "P0AllLegallyReachableStatesCompared": false,
+        "semanticProducerConsultedSearchGraph": false,
+        "physicalContinuationEnumerationOnlyInValidation": true
+      }
+    }
+  ],
+  "oracleQueries": 0,
+  "proofCandidateInputs": "support h, actual P0/P1 residual antichains only",
+  "gameValueScope": "exact one-P1-reply immediate P0 winning-response mask and P0 two-own-move first-win certificate, not eventual WDL",
+  "globalNonbranchingAlgorithmEstablished": false,
+  "provenance": {
+    "date": "2026-10-16",
+    "branch": "research/semantic-quotient",
+    "sourceBlobs": {
+      "universal-one-reply-fusion.mjs": "3d163f15ea065997dc15d25cb33349438c5674e8",
+      "universal-reply-threat-polynomial.mjs": "fa59af39afe91fda529258dc13bdebd6a252cd8c",
+      "universal-one-reply-fusion-control.mjs": "cab2afadf7f836b7a6e322d5b504618826474459"
+    },
+    "execution": "isolated JavaScript V8 evaluating exact committed code, Node imports stripped and performance shimmed; no maintained Node26 Actions or external replication",
+    "validation": "independent physical length-of-contiguous-run wins, full first-win legal game-state enumeration for P1; fixed-budget partial P0 successor controls",
+    "producerReadsSolvedValues": false,
+    "producerUsesWinningPolicySearch": false,
+    "mathematicalFormula": "(AND legal b of NOT P1singleton(b)) AND ((OR i<j P0singleton(i) AND P0singleton(j)) OR (OR i P0singleton(i) AND P0singleton(upper_i)) OR (AND legal b P0singleton(upper_b)))",
+    "complexity": "at most width*(width-1)/2 + width + 1 strategic threat terms, plus at most width no-P1-win guards",
+    "scope": "exact one-P1-response quantifier for next-turn P0 immediate first win; exact bounded two-P0-own-move lift",
+    "unknown": "no multi-turn composition theorem; no all-rank nonbranching algorithmic core",
+    "previousRun": "UNIVERSAL_ONE_REPLY_FUSION_INITIAL_RESULTS_0_1.json preserved before strict validation-budget repair"
+  }
+}
