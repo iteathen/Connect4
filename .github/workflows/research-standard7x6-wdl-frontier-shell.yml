@@ -1,0 +1,55 @@
+name: Research standard7x6 WDL frontier shell
+
+on:
+  push:
+    branches:
+      - research/semantic-quotient
+    paths:
+      - '.github/workflows/research-standard7x6-wdl-frontier-shell.yml'
+      - 'research/isograph/discovery/2026-09-18-policy-frontier/rba-draw-boundary-runner.mjs'
+
+permissions:
+  contents: read
+
+jobs:
+  compile-shell:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Assert exact Node runtime
+        run: node -e "if (process.version !== 'v26.7.0') throw new Error('expected Node v26.7.0, got ' + process.version)"
+      - name: Compile complete rank 36..42 WDL shell
+        run: |
+          node research/isograph/discovery/2026-09-18-policy-frontier/rba-draw-boundary-runner.mjs \
+            --base 0,0,0,0,0,0,0 \
+            --stop-rank 36 \
+            --cache "$RUNNER_TEMP/wdl-frontier"
+      - name: Summarize compiled shell
+        run: |
+          node --input-type=module - <<'NODE'
+          import fs from 'node:fs';
+          import path from 'node:path';
+          const dir=path.join(process.env.RUNNER_TEMP,'wdl-frontier');
+          const metas=fs.readdirSync(dir).filter(x=>x.endsWith('.json')&&!x.includes('.P')&&!x.includes('.local')&&!x.endsWith('.state.json'));
+          const rows=[];
+          for(const name of metas){
+            const m=JSON.parse(fs.readFileSync(path.join(dir,name),'utf8'));
+            if(!Array.isArray(m.support)||!Number.isInteger(m.rank)||!Number.isInteger(m.upper)||!Number.isInteger(m.lower)) continue;
+            rows.push(m);
+          }
+          rows.sort((a,b)=>b.rank-a.rank);
+          const byRank={};
+          let totalUpper=0,totalLower=0,maxUpper=null,maxLower=null;
+          for(const m of rows){
+            const r=byRank[m.rank]??={supports:0,upper:0,lower:0,maxUpper:0,maxLower:0,elapsedMs:0};
+            r.supports++;r.upper+=m.upper;r.lower+=m.lower;r.maxUpper=Math.max(r.maxUpper,m.upper);r.maxLower=Math.max(r.maxLower,m.lower);r.elapsedMs+=m.elapsed_ms??0;
+            totalUpper+=m.upper;totalLower+=m.lower;
+            if(!maxUpper||m.upper>maxUpper.count)maxUpper={count:m.upper,support:m.support,rank:m.rank};
+            if(!maxLower||m.lower>maxLower.count)maxLower={count:m.lower,support:m.support,rank:m.rank};
+          }
+          console.log(JSON.stringify({schema:'standard7x6-wdl-frontier-shell-v0_1',ranks:Object.fromEntries(Object.entries(byRank).sort((a,b)=>Number(b[0])-Number(a[0]))),totals:{supports:rows.length,upper:totalUpper,lower:totalLower,generators:totalUpper+totalLower,maxUpper,maxLower}},null,2));
+          NODE
