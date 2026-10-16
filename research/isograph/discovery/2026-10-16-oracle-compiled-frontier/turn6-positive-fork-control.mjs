@@ -61,7 +61,7 @@ export function probeForkPredecessor(){
   const s0=replay('444444');
   if(s0.terminal!==null||s0.rank!==6)throw Error('wrong center-full starting state');
   const first=play(s0,2); // propose P0 in one-based column 2
-  const byP1=[];
+  const byP1=[],positiveStates=new Map();
   for(const b of legal(first)){
     const postP1=play(first,b+1);
     if(postP1.terminal!==null){
@@ -72,31 +72,45 @@ export function probeForkPredecessor(){
     const p0Threats=postP0.terminal===null?threats(postP0,0):[];
     const p1ImmediateWins=postP0.terminal===null?threats(postP0,1):[];
     const fork=postP0.terminal===null&&p0Threats.length>=2&&p1ImmediateWins.length===0;
+    if(fork)positiveStates.set(b+1,{predecessor:postP1,forkState:postP0});
     byP1.push({P1Intervention:b+1,postP0Landing:postP1.h[2]+1,
       fork,p0Threats,p1ImmediateWins,
       failedGuard:fork?null:(postP0.terminal!==null?'early terminal':
         p0Threats.length<2?'not two legal P0 winning landings':'P1 has immediate win')});
   }
-  const witness=replay('444444273'),fork=certifyPositiveFork(witness);
+  const positiveBackwardGenerators=[];
+  for(const [b,{predecessor,forkState}] of positiveStates){
+    const certificate=certifyPositiveFork(forkState);
+    assert.equal(certificate.certified,true);
+    assert.equal(certificate.universalP1ReplyChecks,6);
+    const q=exactQ(predecessor);
+    positiveBackwardGenerators.push({
+      rank8Sequence:'4444442'+b,rank8Support:predecessor.h,
+      rank8P0WinningGenerator:{R0:q.R0.map(x=>x.toString(16)),R1:q.R1.map(x=>x.toString(16))},
+      witnessP0Action:3,rank9ForkCertificate:certificate
+    });
+  }
+  const witness=replay('444444273');
   assert.equal(witness.rank,9);
-  assert.equal(fork.certified,true);
+  const fork=positiveBackwardGenerators.find(x=>x.rank8Sequence==='44444427')?.rank9ForkCertificate;
+  if(!fork)throw Error('named candidate 444444273 did not survive');
   assert.deepEqual(fork.legalP0Threats,[1,5]);
-  assert.equal(fork.universalP1ReplyChecks,6);
   const failures=byP1.filter(x=>!x.fork);
   if(failures.length===0)throw Error('expected limited fixed P0 two-move proposal to have a defensive intervention');
   return {
-    schema:'connect4.turn6.positive-fork-generator.v0_1',
+    schema:'connect4.turn6.positive-fork-generator.v0_2',
     status:'LOCAL_P0_WIN_REGION_GENERATOR_VERIFIED',
     forkExampleSequence:'444444273',fork,
+    positiveBackwardGenerators,
     backwardCandidate:{source:'444444',P0First:2,P0SecondProposed:3,
       interveningP1Actions:byP1,
       preservingForkCount:byP1.length-failures.length,
       preemptingActions:failures.map(x=>x.P1Intervention),
       P0PredecessorClosed:false},
-    cost:{physicalStatesCreated:made,actionThreatPredicates:actionQueries,
+    cost:{localMaterializedSuccessors:made,actionThreatPredicates:actionQueries,
       wallMs:+(performance.now()-start).toFixed(3)},
     oracleUsed:false,recursiveSolveUsed:false,
-    scope:'Proof that this rank9 fork state is P0-winning, not a win from 444444 or 44444. A failed fixed two-move P0 plan is not proof no P0 plan exists.'
+    scope:'Proves three rank8 P0 winning states via one move into fully checked rank9 forks. Does NOT prove the earlier rank7 P1-turn state winning, nor 444444 or 44444.'
   };
 }
 if(process.argv[1]?.endsWith('turn6-positive-fork-control.mjs')){
