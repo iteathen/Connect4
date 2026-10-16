@@ -1,0 +1,44 @@
+{
+  "schema": "connect4.g2-reverse-certificate-adversarial-evidence.v0_1",
+  "date": "2026-10-16",
+  "owner": "research/semantic-quotient",
+  "plan": "G2_REVERSE_CERTIFICATE_ADVERSARIAL_PLAN_0_1.md",
+  "sources": {
+    "G2_canonicalizer_blob_sha": "58461bae62913e04a8a9494cd052854e9e037e5e",
+    "reverse_checker_blob_sha": "99d43821173addfa080b347ca9f4841f5adc7daa",
+    "adversarial_runner_blob_sha": "89b0cce0f8fa957f8a45b7bda2c890eadb17c3bd"
+  },
+  "execution": {
+    "environment": "isolated JavaScript V8 runtime evaluating exact committed JS functions and harness, after import/export syntax stripping and minimal Node shims; not maintained Node26 Actions CI",
+    "seed": "0x4c2a2027",
+    "target_distinct_false_candidates": 160,
+    "budget_ms": 10000,
+    "max_shuffles": 10000,
+    "duration_ms": 33,
+    "result": "PASS"
+  },
+  "counts": {
+    "permutations_attempted": 284,
+    "distinct_targets_seen": 175,
+    "identical_supports_skipped": 3,
+    "duplicate_targets_skipped": 106,
+    "equivalent_G2_targets_skipped": 15,
+    "gravity_chain_and_action_preserving_false_candidates_rejected_at_hyperedge_check": 160,
+    "by_source_rank": {
+      "30": 79,
+      "34": 54,
+      "35": 27
+    },
+    "false_equivalence_accepted": 0,
+    "unexpected_guard_rejections": 0,
+    "oracle_calls": 0,
+    "continuation_states_expanded": 0
+  },
+  "disposition": "All 160 deliberately invalid gravity/action-preserving maps failed exactly at independent residual-incidence comparison, not earlier malformed-mapping rejection. Negative internal qualification for the reverse checker; no universal false-acceptance bound.",
+  "limitations": [
+    "Negatives are deliberately generated permutations of only three known supports, not a representative statistical sample of arbitrary false maps.",
+    "Canonical G2 key is used only to exclude actual equivalences from the negative population; acceptance/rejection is determined independently from geometric residual incidence.",
+    "No new WDL or per-action oracle comparison or CPC/NDC guarded certificate coverage is asserted."
+  ],
+  "next": "Use verified G2 local witness as a transport primitive for candidate-first, generator-level backward winning-region closure at the actual 44444 P0-winning objective."
+}
