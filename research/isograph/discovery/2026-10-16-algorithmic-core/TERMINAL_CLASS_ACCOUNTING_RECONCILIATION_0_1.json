@@ -1,0 +1,47 @@
+{
+  "schema": "connect4.constructive-core.terminal-class-reconciliation.v0_1",
+  "date": "2026-10-16",
+  "branch": "research/semantic-quotient",
+  "observation": {
+    "historical": "RESIDUAL_Q_COLUMN_ORBIT_RESULT.md reports 34,105 orientation-sensitive residual-q classes and 161,029 physical 4x4 Connect4 states",
+    "new": "CONSTRUCTIVE_CORE_QUALIFICATION_RESULTS_0_1.json reports 34,094 nonterminal q cache states and 134,289 nonterminal physical states",
+    "initial_delta": 11
+  },
+  "source_explanation": {
+    "historical_producer": "research/isograph/discovery/2026-09-29-center-proof-cycle/control-algebra-dimensions.mjs",
+    "historic_implementation": "orientation='T:'+rec.rank+':'+kind for terminal physical states, otherwise 'Q:'+serializeResidualQ(...)",
+    "new_implementation": "exact-q-core.mjs solve() stores nonterminal q states only; terminal Win/Draw/Loss is an edge token, not a memoized q state",
+    "reference": "research/isograph/discovery/2026-10-16-algorithmic-core/constructive-core-control.mjs"
+  },
+  "executed_local_control": {
+    "environment": "isolated V8 evaluating exact committed physicalRules() source; bounded full 4x4 control; oracle-free direct run-length terminal checks",
+    "nonterminal_physical_states": 134289,
+    "terminal_physical_states": 26740,
+    "all_physical_states": 161029,
+    "nonterminal_orientation_sensitive_q": 34094,
+    "terminal_tokens_distinct": 11,
+    "total_orientation_sensitive_q_plus_terminal_tokens": 34105,
+    "terminal_tokens": [
+      "T:7:P0",
+      "T:8:P1",
+      "T:9:P0",
+      "T:10:P1",
+      "T:11:P0",
+      "T:12:P1",
+      "T:13:P0",
+      "T:14:P1",
+      "T:15:P0",
+      "T:16:P1",
+      "T:16:D"
+    ],
+    "matches_historical_physical_count": true,
+    "matches_historical_q_class_count": true,
+    "mismatch": false,
+    "unresolved_explanations": 0
+  },
+  "disposition": {
+    "qualification": "CLOSED_ACCOUNTING_SCOPE_DIFFERENCE",
+    "discovery": "NO_NEW_STRUCTURAL_LEAD_FROM_THIS_DELTA",
+    "note": "Do not compare 34,094 nonterminal q memo entries directly with 34,105 nonterminal-q-plus-absorbing-terminal tokens. The terminal rank/kind tokens are deliberately outside the q cofactor memo and remain represented by exact action outcome."
+  }
+}
