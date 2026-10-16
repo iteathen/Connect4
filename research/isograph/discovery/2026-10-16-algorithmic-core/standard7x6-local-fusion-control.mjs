@@ -26,6 +26,7 @@ function replay(sequence,metrics){
  for(const text of sequence){
   const col=Number(text)-1,next=physical.transition(state,col);
   metrics.validationPhysicalMoves++;
+  metrics.validationPhysicalMoves++;
   if(next.terminal!==undefined)throw Error('premature first-win replay '+sequence);
   state=next.state;
  }
@@ -47,6 +48,7 @@ export function runStandard7x6FusionControl(){
  const start=Date.now(),deadline=start+MAX_MS;
  const metrics={
   validationPhysicalMoves:0,validationImmediateP0Trials:0,
+  fixtureGenerationPhysicalMoves:0,
   fixtureGenerationPhysicalMoves:0,
   residualMembershipChecks:0,
   firstOpponentStates:0,p1LiteralRepliesValidated:0,
