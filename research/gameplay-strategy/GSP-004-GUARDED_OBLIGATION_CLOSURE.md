@@ -210,3 +210,44 @@ calculus; do not add another unrestricted depth or support-fiber census.
 
 The P0 winning-claim for `44444` remains **OPEN** and no authority or
 production adoption follows from the local certificates.
+
+
+## 2026-10-16 — input-specific backward proof generator established
+
+The prior complete recursive q core is exact, and branching is permitted.
+The desired optional next achievement is fewer separately evaluated strategic
+alternatives. An input-specific P0 winning-region proof **has now been
+produced and independently backward-checked** on the empty 4x3 Connect-3
+board:
+
+- **46 P0-win generators**, **72 proof edges**, winning opening
+  **column 2 (one-based)**;
+- **34 one-choice P0 policy nodes**, **12 universal P1 nodes**
+  and **38 complete P1 reply obligations**;
+- independent direct physical replay, exact residual cofactors,
+  first-win terminal and rank checks, plus one guarded P0-favorable
+  generator reuse; five malformed/false proofs rejected;
+- matched winner-only discovery *without* favorable reuse needed
+  **47 generators/73 edges**: strong specialization benefit relative
+  to the full-value reference, but only one extra improvement from
+  the current order equivalence.
+
+Research synthesis:
+`docs/research/2026-10-16-input-specialized-winning-region-certificate.md`.
+Evidence:
+`research/isograph/discovery/2026-10-16-algorithmic-core/INPUT_SPECIALIZED_ROOT_WIN_CERTIFICATE_0_1.json`
+and `INPUT_SPECIALIZED_PROOF_CONTROL_RESULTS_0_1.json`.
+
+This is a genuine compact **positive P0 win** certificate for one
+small board. It does **not** establish branch-free computation: the
+discovery still recursively explores candidate obligations and the
+checker explicitly covers all P1 replies. There is no change to
+qualified authority 1.2 or any proof of a 7x6 winning move.
+
+**Next GSP-004 structural target:** derive one sound, guarded
+*universal predecessor containment* over the certified winning-region
+antichain to discharge some or all of those 38 P1 action alternatives
+without enumerating a distinct future solve for each. Exact gravity,
+resource/race/first-win guards and honest algorithmic work counting
+are required. Do not call a single returned AND value branch elimination
+when it still enumerates the entire opponent response graph.
