@@ -39,6 +39,9 @@ Unlisted dated notes remain repository evidence. Being unlisted means “not pri
 - [`2026-10-16-oracle-compiled-action-value-frontier-theorem.md`](2026-10-16-oracle-compiled-action-value-frontier-theorem.md)  
   Gives the direct compiled evaluator (Q_a(q)=max\{\theta:\exists m\in M_{s,a,\theta},q\succeq m\}). Exhaustive round-trip controls over four complete games decoded 1,039,073 exact action values and 343,736 best-move masks with zero mismatches. For standard 7x6, correctness follows once the complete oracle-labelled frontier family is materialized; compactness and construction/query cost remain open.
 
+- [`2026-10-16-standard7x6-wdl-frontier-shell-compilation.md`](2026-10-16-standard7x6-wdl-frontier-shell-compilation.md)  
+  Specializes the compiled method to the central W/D/L threshold and records complete materialization of every support at ranks 34–42: 6,379 support fibers and 1,737,388 exact Upper/Lower generators. An isolated rank-33 target also closes and is persisted; the complete rank-33 shell remains in progress.
+
 ---
 
 ## Historical solver-family lineages
