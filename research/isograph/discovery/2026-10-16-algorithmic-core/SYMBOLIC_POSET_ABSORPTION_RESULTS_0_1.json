@@ -1,0 +1,338 @@
+{
+  "schema": "connect4.symbolic-branch-circuit-control.v0_1",
+  "date": "2026-10-16",
+  "result": "PARTIAL",
+  "seed": "0x4c2a3027",
+  "simplifyByPoset": true,
+  "intendedScope": "one symbolic Boolean threshold circuit per support; do not claim eliminated branching cost",
+  "compileBudgets": {
+    "maxNodes": 60000,
+    "maxSubstitutionVisits": 300000,
+    "maxCompileMs": 15000
+  },
+  "cases": [
+    {
+      "board": {
+        "width": 4,
+        "height": 3,
+        "connect": 3
+      },
+      "support": [
+        2,
+        2,
+        1,
+        2
+      ],
+      "status": "PASS",
+      "compilationMs": 5,
+      "circuit": {
+        "supportsCompiled": 23,
+        "supportCacheHits": 26,
+        "supportEdgeExpressions": 52,
+        "qStateValueSolves": 0,
+        "strategicQChildRecursions": 0,
+        "substitutionVisits": 734,
+        "substitutionCacheHits": 382,
+        "sourceShapePairsTested": 1148,
+        "sourceShapeLinks": 857,
+        "generatedGateCalls": 963,
+        "sharedGateReuses": 125,
+        "posetAbsorptionRemoved": 403,
+        "posetImplicationPairsTested": 2137,
+        "peakNodes": 799,
+        "maxDepthSupports": 4,
+        "totalRootInputVariables": 20,
+        "simplifyByPoset": true,
+        "nodes": 799,
+        "interned": 797,
+        "supportsInCache": 23
+      },
+      "liveCircuit": {
+        "rootThresholds": {
+          "reachableNodes": 229,
+          "andGates": 109,
+          "orGates": 102,
+          "uniqueVariableLeaves": 18,
+          "fanInEdges": 450,
+          "maxFanIn": 4,
+          "maxGateDepth": 10
+        },
+        "rootAndActionThresholds": {
+          "reachableNodes": 229,
+          "andGates": 109,
+          "orGates": 102,
+          "uniqueVariableLeaves": 18,
+          "fanInEdges": 450,
+          "maxFanIn": 4,
+          "maxGateDepth": 10
+        },
+        "allocatedNodes": 799,
+        "deadOrIntermediateAllocatedNodes": 570
+      },
+      "inputShapeCount": 10,
+      "fixtureGenerationMs": 3,
+      "valueCheckMs": 15,
+      "abstractChecks": {
+        "samples": 128,
+        "mismatches": 0,
+        "qualification": "abstract shapes from geometry, may not be physically realizable"
+      },
+      "cost": {
+        "qReferenceMs": 14,
+        "independentPhysicalSuffixMs": 4,
+        "symbolicEvaluationMs": 8,
+        "physicalAndAbstractQueries": 154
+      },
+      "coverage": {
+        "physicalPositionsChecked": 26,
+        "distinctQPositions": 26,
+        "physicalFixturePrefixStates": 309,
+        "physicalFixturePrefixEdges": 558,
+        "physicalSuffixStatesSolved": 483,
+        "physicalSuffixEdges": 1104,
+        "qReferenceNewStates": 924,
+        "qReferenceRecursiveCalls": 1546,
+        "qReferenceTransitions": 2666,
+        "physicalPositionsWithMultipleBestMoves": 18,
+        "symbolicRecursiveQValueCalls": 0,
+        "symbolicGateEvaluations": 14132,
+        "symbolicGateVisitsPerPosition": 91.766,
+        "mismatches": 0
+      },
+      "totalMs": 38
+    },
+    {
+      "board": {
+        "width": 4,
+        "height": 3,
+        "connect": 3
+      },
+      "support": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "PASS",
+      "compilationMs": 92,
+      "circuit": {
+        "supportsCompiled": 80,
+        "supportCacheHits": 133,
+        "supportEdgeExpressions": 216,
+        "qStateValueSolves": 0,
+        "strategicQChildRecursions": 0,
+        "substitutionVisits": 23844,
+        "substitutionCacheHits": 22412,
+        "sourceShapePairsTested": 12700,
+        "sourceShapeLinks": 6064,
+        "generatedGateCalls": 24782,
+        "sharedGateReuses": 5631,
+        "posetAbsorptionRemoved": 2630,
+        "posetImplicationPairsTested": 15830,
+        "peakNodes": 16995,
+        "maxDepthSupports": 7,
+        "totalRootInputVariables": 24,
+        "simplifyByPoset": true,
+        "nodes": 16995,
+        "interned": 16993,
+        "supportsInCache": 80
+      },
+      "liveCircuit": {
+        "rootThresholds": {
+          "reachableNodes": 2851,
+          "andGates": 1364,
+          "orGates": 1463,
+          "uniqueVariableLeaves": 24,
+          "fanInEdges": 6308,
+          "maxFanIn": 4,
+          "maxGateDepth": 14
+        },
+        "rootAndActionThresholds": {
+          "reachableNodes": 2851,
+          "andGates": 1364,
+          "orGates": 1463,
+          "uniqueVariableLeaves": 24,
+          "fanInEdges": 6308,
+          "maxFanIn": 4,
+          "maxGateDepth": 14
+        },
+        "allocatedNodes": 16995,
+        "deadOrIntermediateAllocatedNodes": 14144
+      },
+      "inputShapeCount": 12,
+      "fixtureGenerationMs": 0,
+      "valueCheckMs": 35,
+      "abstractChecks": {
+        "samples": 128,
+        "mismatches": 0,
+        "qualification": "abstract shapes from geometry, may not be physically realizable"
+      },
+      "cost": {
+        "qReferenceMs": 283,
+        "independentPhysicalSuffixMs": 16,
+        "symbolicEvaluationMs": 38,
+        "physicalAndAbstractQueries": 134
+      },
+      "coverage": {
+        "physicalPositionsChecked": 6,
+        "distinctQPositions": 6,
+        "physicalFixturePrefixStates": 35,
+        "physicalFixturePrefixEdges": 52,
+        "physicalSuffixStatesSolved": 1624,
+        "physicalSuffixEdges": 4060,
+        "qReferenceNewStates": 15589,
+        "qReferenceRecursiveCalls": 37552,
+        "qReferenceTransitions": 47325,
+        "physicalPositionsWithMultipleBestMoves": 6,
+        "symbolicRecursiveQValueCalls": 0,
+        "symbolicGateEvaluations": 116820,
+        "symbolicGateVisitsPerPosition": 871.791,
+        "mismatches": 0
+      },
+      "totalMs": 439
+    },
+    {
+      "board": {
+        "width": 4,
+        "height": 4,
+        "connect": 4
+      },
+      "support": [
+        3,
+        3,
+        2,
+        2
+      ],
+      "status": "PASS",
+      "compilationMs": 8,
+      "circuit": {
+        "supportsCompiled": 35,
+        "supportCacheHits": 46,
+        "supportEdgeExpressions": 84,
+        "qStateValueSolves": 0,
+        "strategicQChildRecursions": 0,
+        "substitutionVisits": 2104,
+        "substitutionCacheHits": 1544,
+        "sourceShapePairsTested": 1653,
+        "sourceShapeLinks": 1175,
+        "generatedGateCalls": 2488,
+        "sharedGateReuses": 370,
+        "posetAbsorptionRemoved": 382,
+        "posetImplicationPairsTested": 2388,
+        "peakNodes": 1868,
+        "maxDepthSupports": 5,
+        "totalRootInputVariables": 14,
+        "simplifyByPoset": true,
+        "nodes": 1868,
+        "interned": 1866,
+        "supportsInCache": 35
+      },
+      "liveCircuit": {
+        "rootThresholds": {
+          "reachableNodes": 407,
+          "andGates": 193,
+          "orGates": 202,
+          "uniqueVariableLeaves": 12,
+          "fanInEdges": 866,
+          "maxFanIn": 4,
+          "maxGateDepth": 11
+        },
+        "rootAndActionThresholds": {
+          "reachableNodes": 407,
+          "andGates": 193,
+          "orGates": 202,
+          "uniqueVariableLeaves": 12,
+          "fanInEdges": 866,
+          "maxFanIn": 4,
+          "maxGateDepth": 11
+        },
+        "allocatedNodes": 1868,
+        "deadOrIntermediateAllocatedNodes": 1461
+      },
+      "inputShapeCount": 7,
+      "fixtureGenerationMs": 22,
+      "valueCheckMs": 232,
+      "abstractChecks": {
+        "samples": 128,
+        "mismatches": 0,
+        "qualification": "abstract shapes from geometry, may not be physically realizable"
+      },
+      "cost": {
+        "qReferenceMs": 40,
+        "independentPhysicalSuffixMs": 188,
+        "symbolicEvaluationMs": 26,
+        "physicalAndAbstractQueries": 356
+      },
+      "coverage": {
+        "physicalPositionsChecked": 228,
+        "distinctQPositions": 117,
+        "physicalFixturePrefixStates": 2900,
+        "physicalFixturePrefixEdges": 5506,
+        "physicalSuffixStatesSolved": 22039,
+        "physicalSuffixEdges": 43845,
+        "qReferenceNewStates": 2695,
+        "qReferenceRecursiveCalls": 6263,
+        "qReferenceTransitions": 8145,
+        "physicalPositionsWithMultipleBestMoves": 146,
+        "symbolicRecursiveQValueCalls": 0,
+        "symbolicGateEvaluations": 75685,
+        "symbolicGateVisitsPerPosition": 212.598,
+        "mismatches": 0
+      },
+      "totalMs": 291
+    },
+    {
+      "board": {
+        "width": 4,
+        "height": 3,
+        "connect": 3
+      },
+      "support": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "status": "COMPILE_BUDGET_EXHAUSTED",
+      "compileBudgetReason": "node budget exhausted",
+      "partialStats": {
+        "supportsCompiled": 116,
+        "supportCacheHits": 187,
+        "supportEdgeExpressions": 301,
+        "qStateValueSolves": 0,
+        "strategicQChildRecursions": 0,
+        "substitutionVisits": 76722,
+        "substitutionCacheHits": 78700,
+        "sourceShapePairsTested": 23993,
+        "sourceShapeLinks": 9915,
+        "generatedGateCalls": 78091,
+        "sharedGateReuses": 12292,
+        "posetAbsorptionRemoved": 4602,
+        "posetImplicationPairsTested": 26729,
+        "peakNodes": 60000,
+        "maxDepthSupports": 11,
+        "totalRootInputVariables": 0,
+        "nodes": 60000,
+        "maxNodes": 60000
+      },
+      "compilationMs": 239
+    }
+  ],
+  "oracleQueries": 0,
+  "exactGameCoreUnchanged": true,
+  "branchEliminationEstablished": false,
+  "circuitHasAlternatingAndOrGates": true,
+  "rootFullBoardCompiled": false,
+  "provenance": {
+    "date": "2026-10-16",
+    "research_owner": "research/semantic-quotient",
+    "source_blobs": {
+      "exact_q": "6b25d0e2560fe4131d2f5442593e9ed9763c1a18",
+      "circuit": "a7b7416ac677904ce0bb6c29ca7a5bb85ab53e1d",
+      "independent_control": "282444de0743ec66ef1945e26907948deedbd599"
+    },
+    "execution": "isolated JavaScript V8, exact committed code with import syntax removed and minimal performance/Node shim; no Node26 Actions qualification",
+    "code_policy": "opt-in poset simplification only; zero q-state oracle use during symbolic construction",
+    "budget_source": "SYMBOLIC_POSET_ABSORPTION_PLAN_0_1.md"
+  }
+}
