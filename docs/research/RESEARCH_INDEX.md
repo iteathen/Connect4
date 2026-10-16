@@ -42,6 +42,12 @@ Unlisted dated notes remain repository evidence. Being unlisted means “not pri
 - [`2026-10-16-standard7x6-wdl-frontier-shell-compilation.md`](2026-10-16-standard7x6-wdl-frontier-shell-compilation.md)  
   Specializes the compiled method to the central W/D/L threshold. Every support at ranks 33–42 is now completely materialized: 11,188 support fibers and 9,786,404 exact Upper/Lower generators. Rank 33 is the first major width/cost jump; exact horizontal-reflection reuse is now under qualification before further descent.
 
+- [`2026-10-16-equivalence-first-wdl-quotient.md`](2026-10-16-equivalence-first-wdl-quotient.md)  
+  Preserves the implemented G2 support-fiber quotient and exact abstract frontier transport. New reverse certificate checks proposed non-mirror equivalences locally; bounded control: 400/400 seeded cases, 38,246 atomic cofactors, plus 160/160 adversarial gravity-valid but incidence-invalid mappings rejected. The checks do not assert physical/history realizability or guarded CPC/NDC certificate identity.
+
+- [`2026-10-16-generator-backward-winning-certificate.md`](2026-10-16-generator-backward-winning-certificate.md)  
+  **ACTIVE SEAM / DEDUCTIVE SUFFICIENCY CRITERION.** Uses pre-existing exact residual isotony and antichain containment to reduce candidate winning-region verification to generator-level claimant OR / opponent AND successor checks. A compact candidate generator family for `44444` remains unresolved; this is not a root proof.
+
 ---
 
 ## Historical solver-family lineages
