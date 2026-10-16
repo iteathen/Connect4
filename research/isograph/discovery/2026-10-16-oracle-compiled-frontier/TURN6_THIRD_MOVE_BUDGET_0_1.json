@@ -1,0 +1,28 @@
+{
+  "schema": "connect4.turn6.third-move-budget-exhaustion.v0_1",
+  "date": "2026-10-16",
+  "branch": "research/semantic-quotient",
+  "starting_head": "4480272223ab222aeae1a4abd39723003b2cd1b2",
+  "code_sha": "c4ee6c07a96ab0393124794b2553b9fe9b0e1356",
+  "origin": "44444",
+  "goal": "find a P1 defensive witness for every P0 first action across four P1 turn-6 classes, preventing a P0 win by P0's third subsequent move",
+  "bounds": {
+    "materialized_discovery_states": 400,
+    "local_predicates": 2000,
+    "wall_ms": 30000
+  },
+  "observed": {
+    "materialized_discovery_states": 400,
+    "local_predicates": 250,
+    "status": "BUDGET_EXHAUSTED",
+    "verified_complete_witnesses": 0
+  },
+  "epistemic": {
+    "complete_third_move_wdl_claim": false,
+    "fast_win_excluded": false,
+    "P0_winning_move_proved": false,
+    "reason": "Candidate discovery exhausted the declared 400-state budget; it did not produce a finished dual certificate. Budget exhaustion is neither a counterexample nor evidence of unsoundness."
+  },
+  "next": "Instrument the first unclosed quantifier obligation and seek a symbolic residual-cell hitting/response certificate rather than increasing the candidate enumeration budget.",
+  "note": "The earlier exhaustive seven-child one-/two-P0-move local impossibility result remains valid and independently recorded."
+}
