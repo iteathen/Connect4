@@ -6,7 +6,9 @@ import assert from 'node:assert/strict';
 import {performance} from 'node:perf_hooks';
 import {replay,move,legal,residual,bit,LINES} from './turn6-structural-control.mjs';
 
-const REPS=process.argv.includes('--center-only')?[4]:[1,2,3,4]; // complete representative list unless center isolated
+const replyFlag=process.argv.find(x=>/^--reply=[1-4]$/.test(x));
+const REPS=replyFlag?[Number(replyFlag.slice(-1))]:
+  process.argv.includes('--center-only')?[4]:[1,2,3,4]; // full cover or isolated reply
 const MAX_STATES=400, MAX_PREDICATES=2000, BUDGET_MS=30000;
 const ORIGIN='44444';
 class BudgetError extends Error {constructor(message){super(message);this.name='BudgetError';}}
@@ -187,7 +189,8 @@ export function makeTurnSixDelayCandidate() {
     malformedRejects++;
     const guarded={
       schema:'connect4.turn6.third-move-dual-certificate.v0_1',
-      scope:REPS.length===4?'standard7x6 44444 after all seven P1 replies (four exact mirror classes)':'standard7x6 444444 after center P1 reply only',
+      scope:REPS.length===4?'standard7x6 44444 after all seven P1 replies (four mirror classes)':
+        'standard7x6 44444 after P1 reply '+REPS[0]+' and its mirror only',
       status:'EXACT_BOUNDED_DELAY_CERTIFICATE',
       supportRepresentatives:REPS,
       witness:d.witness,
