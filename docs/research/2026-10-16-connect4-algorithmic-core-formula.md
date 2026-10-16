@@ -615,3 +615,28 @@ This synthesis should be read against:
 - \`docs/research/2026-10-16-oracle-compiled-action-value-frontier-theorem.md\`.
 
 This file does not supersede \`research/isograph/CONNECT4_LOGIC_AUTHORITY_1_2.md\`, does not change specification acceptance status, and does not claim that a polynomial-time oracle-independent Connect Four evaluator has been completed.
+
+---
+
+## 2026-10-16 clarification: constructive core versus preferred fast form
+
+This note's earlier phrase `remaining problem = complete frontier construction
++ frontier compression + cheap membership/query` refers to the **preferred
+efficient oracle-compiled/frontier evaluation strategy**, **not** a logical
+prerequisite for a complete Connect Four algorithmic core.
+
+Under the owner's corrected definition, **branching and recursion are allowed
+within an algorithmic core**. The exact state/cofactor/first-win and alternating
+recurrence above already constitute a *complete oracle-independent constructive
+core* for W/D/L and the set of W/D/L-optimal legal moves, by finite-rank
+induction under qualified q_o semantics. This is now independently exercised
+on complete 4x3/4x4 first-win legal controls and sampled 7x6 late suffixes.
+
+Primary classification/proof and qualification:
+`docs/research/2026-10-16-constructive-algorithmic-core-completeness.md`.
+
+Whether the same exact result can be computed with **one ongoing recursive
+descriptor that does not independently evaluate every strategic alternative**
+remains a **preferred but optional OPEN property**. Returning a single result
+set is not evidence that the computation avoided branching. No minimality or
+recursion-elimination result is claimed.
