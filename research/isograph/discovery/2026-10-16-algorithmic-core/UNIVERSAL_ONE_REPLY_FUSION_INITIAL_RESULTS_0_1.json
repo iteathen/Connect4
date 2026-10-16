@@ -1,0 +1,179 @@
+{
+  "schema": "connect4.alternating-one-reply-cofactor-fusion.v0_1",
+  "date": "2026-10-16",
+  "status": "PARTIAL",
+  "cases": [
+    {
+      "board": {
+        "width": 4,
+        "height": 3,
+        "connect": 3,
+        "name": "4x3-c3"
+      },
+      "status": "PASS",
+      "statement": "all P1 replies leave at least one immediate P0 win (not full-game WDL)",
+      "counts": {
+        "physicalStatesEnumerated": 4631,
+        "physicalGraphEdgesEnumerated": 11818,
+        "physicalTransitionCalls": 36428,
+        "physicalP0ImmediateCandidates": 17594,
+        "p1StateChecks": 2208,
+        "p1LiteralRepliesChecked": 5592,
+        "p1WinningReplies": 1210,
+        "p0StateChecks": 2423,
+        "p0FirstActionChecks": 6226,
+        "p0LiteralP1RepliesChecked": 7016,
+        "p0ProbeBudgetPartial": false,
+        "formulaChecks": 8434,
+        "fusedOpponentChildStatesExpanded": 0,
+        "fusedStructuralMembershipLookups": 14198,
+        "fusedBitMaskOperations": 8872,
+        "p1PositiveCases": 430,
+        "p0PositiveFirstActions": 2754,
+        "types": {
+          "T_GE_2": 566,
+          "T_EQ_1": 1124,
+          "T_EQ_0": 518
+        },
+        "positiveByType": {
+          "T_GE_2": 264,
+          "T_EQ_1": 142,
+          "T_EQ_0": 24
+        },
+        "p1ImmediateWinGuardCases": 1020,
+        "reflectedCases": 40,
+        "mismatches": 0
+      },
+      "negativeControls": {
+        "missingP1WinGuardDetected": true,
+        "missingUpperThreatDetected": true
+      },
+      "firstCounterexample": null,
+      "firstBGuardWitness": {
+        "sequence": "111223332",
+        "rank": 9,
+        "mask": {
+          "legalMask": "0x8",
+          "existingP0WinMask": "0x8",
+          "immediateP1WinMask": "0x8",
+          "upperLatentP0Mask": "0x8",
+          "opponentRepliesLeavingImmediateP0Win": "0x0",
+          "counterReplyMask": "0x8"
+        }
+      },
+      "firstUpperThreatWitness": {
+        "sequence": "111223332",
+        "rank": 9,
+        "mask": {
+          "legalMask": "0x8",
+          "existingP0WinMask": "0x8",
+          "immediateP1WinMask": "0x8",
+          "upperLatentP0Mask": "0x8",
+          "opponentRepliesLeavingImmediateP0Win": "0x0",
+          "counterReplyMask": "0x8"
+        }
+      },
+      "totalMs": 232,
+      "obligations": {
+        "P1AllLegallyReachableStatesCompared": true,
+        "P0AllLegallyReachableStatesCompared": true,
+        "semanticProducerConsultedSearchGraph": false,
+        "physicalContinuationEnumerationOnlyInValidation": true
+      }
+    },
+    {
+      "board": {
+        "width": 4,
+        "height": 4,
+        "connect": 4,
+        "name": "4x4-c4"
+      },
+      "status": "PASS_P1_FULL_P0_PARTIAL",
+      "statement": "all P1 replies leave at least one immediate P0 win (not full-game WDL)",
+      "counts": {
+        "physicalStatesEnumerated": 134289,
+        "physicalGraphEdgesEnumerated": 304574,
+        "physicalTransitionCalls": 800004,
+        "physicalP0ImmediateCandidates": 438299,
+        "p1StateChecks": 67992,
+        "p1LiteralRepliesChecked": 150246,
+        "p1WinningReplies": 10488,
+        "p0StateChecks": 44448,
+        "p0FirstActionChecks": 102432,
+        "p0LiteralP1RepliesChecked": 109027,
+        "p0ProbeBudgetPartial": true,
+        "formulaChecks": 170424,
+        "fusedOpponentChildStatesExpanded": 0,
+        "fusedStructuralMembershipLookups": 375208,
+        "fusedBitMaskOperations": 242396,
+        "p1PositiveCases": 2170,
+        "p0PositiveFirstActions": 12636,
+        "types": {
+          "T_GE_2": 1474,
+          "T_EQ_1": 19210,
+          "T_EQ_0": 47308
+        },
+        "positiveByType": {
+          "T_GE_2": 1200,
+          "T_EQ_1": 290,
+          "T_EQ_0": 680
+        },
+        "p1ImmediateWinGuardCases": 10160,
+        "reflectedCases": 40,
+        "mismatches": 0
+      },
+      "negativeControls": {
+        "missingP1WinGuardDetected": true,
+        "missingUpperThreatDetected": true
+      },
+      "firstCounterexample": null,
+      "firstBGuardWitness": {
+        "sequence": "1111232334344",
+        "rank": 13,
+        "mask": {
+          "legalMask": "0xa",
+          "existingP0WinMask": "0xa",
+          "immediateP1WinMask": "0x2",
+          "upperLatentP0Mask": "0x0",
+          "opponentRepliesLeavingImmediateP0Win": "0x8",
+          "counterReplyMask": "0x2"
+        }
+      },
+      "firstUpperThreatWitness": {
+        "sequence": "1111232322344",
+        "rank": 13,
+        "mask": {
+          "legalMask": "0xc",
+          "existingP0WinMask": "0x8",
+          "immediateP1WinMask": "0x0",
+          "upperLatentP0Mask": "0x8",
+          "opponentRepliesLeavingImmediateP0Win": "0xc",
+          "counterReplyMask": "0x0"
+        }
+      },
+      "totalMs": 4749,
+      "obligations": {
+        "P1AllLegallyReachableStatesCompared": true,
+        "P0AllLegallyReachableStatesCompared": false,
+        "semanticProducerConsultedSearchGraph": false,
+        "physicalContinuationEnumerationOnlyInValidation": true
+      }
+    }
+  ],
+  "oracleQueries": 0,
+  "proofCandidateInputs": "support h, actual P0/P1 residual antichains only",
+  "gameValueScope": "exact one-P1-reply immediate P0 winning-response mask and P0 two-own-move first-win certificate, not eventual WDL",
+  "globalNonbranchingAlgorithmEstablished": false,
+  "provenance": {
+    "date": "2026-10-16",
+    "branch": "research/semantic-quotient",
+    "sourceBlobs": {
+      "candidate": "3d163f15ea065997dc15d25cb33349438c5674e8",
+      "physicalFalsifier": "9670b8e05a07920c490a32ec32de4ae3f13797e8"
+    },
+    "runtime": "isolated JavaScript V8 evaluation of committed exact source with Node/performance imports shimmed, not Node26 Actions execution",
+    "oracleQueries": 0,
+    "policySearchInputs": 0,
+    "note": "Initial control checker stops its physical validation action budget at state granularity and exceeded the 800000 transition threshold by four actions (800004). Preserve for audit; next harness revision enforces the cap inside each validation action before final qualification."
+  }
+}
