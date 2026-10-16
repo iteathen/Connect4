@@ -77,6 +77,31 @@ Exact same input-specific candidate producer, action ordering and verification b
 
 **Only one node and one proof edge** were saved by favorable-order compression in this test. Nearly all savings relative to the full reference come from specializing the exact *claim to prove* and retaining only one selected P0 action, not from a discovered universal nonbranching operator.
 
+### Independent direct-only winning proof saved
+
+The no-dominance candidate was subsequently preserved as a **second
+complete exact certificate**, not only a numerical benchmark:
+
+- `INPUT_SPECIALIZED_DIRECT_ONLY_ROOT_CERTIFICATE_0_1.json` contains
+  **47 generator nodes and 73 proof edges**.
+- All **50 nonterminal references use exact q equality**; zero rely on
+  the favorable residual order, while all **38 opponent replies** are
+  explicitly covered.
+- The independent checker verifies the whole direct-only proof from
+  physical source paths, cofactor/terminal guards and descending-rank
+  dependencies, so the claim **does not depend on the stronger
+  P0-favorable value-isotony lemma**.
+- `INPUT_SPECIALIZED_PROOF_CONTROL_RESULTS_0_2.json` is the current
+  reproducible PASS record checking **both** the original compressed
+  46-node witness and this direct-only 47-node witness, as well as the
+  original five adversarial mutations. The original v0_1 record remains
+  historical evidence.
+
+This independent direct witness strengthens the first-win conclusion,
+while confirming that the single order-quotient compression in the
+46-node witness is an optional improvement rather than a proof
+prerequisite.
+
 ## Five negative controls
 
 The reproducible input-specialized-proof-control.mjs accepted the frozen original certificate and **rejected all five deliberate mutations**:
