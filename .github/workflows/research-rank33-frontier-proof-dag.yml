@@ -1,0 +1,111 @@
+name: Research rank33 frontier proof-DAG quotient
+
+on:
+  push:
+    branches:
+      - research/semantic-quotient
+    paths:
+      - '.github/workflows/research-rank33-frontier-proof-dag.yml'
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  quotient:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5da805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333
+        with:
+          name: wdl-r33-g2-compact
+          path: ${{ runner.temp }}/g2
+          github-token: ${{ github.token }}
+          repository: iteathen/Connect4
+          run-id: 38939899999
+      - name: Merge equivalent proof suffixes
+        run: |
+          node --input-type=module - <<'NODE'
+          import fs from 'node:fs';
+          import path from 'node:path';
+          import crypto from 'node:crypto';
+          import { g2ResidualShapes } from './research/isograph/discovery/2026-09-18-policy-frontier/rba-g2-fiber-equivalence.mjs';
+
+          const src=path.join(process.env.RUNNER_TEMP,'g2');
+          function loadHex(file){const t=fs.readFileSync(file,'utf8').trim();return t?t.split(/\n/).map(x=>BigInt('0x'+x)):[];}
+          function buildDag(masks,bits,complement=false){
+            const all=bits?((1n<<BigInt(bits))-1n):0n;
+            const nodes=[{terminal:false,next:new Map()}];
+            for(let mask of masks){
+              if(complement)mask=all^mask;
+              let at=0;
+              for(let b=0;b<bits;b++){
+                if(!(mask&(1n<<BigInt(b))))continue;
+                let child=nodes[at].next.get(b);
+                if(child===undefined){child=nodes.length;nodes[at].next.set(b,child);nodes.push({terminal:false,next:new Map()});}
+                at=child;
+              }
+              nodes[at].terminal=true;
+            }
+            const cls=new Int32Array(nodes.length),unique=new Map();
+            const pathCount=[];
+            let classes=0;
+            for(let i=nodes.length-1;i>=0;i--){
+              const n=nodes[i],edges=[...n.next].sort((a,b)=>a[0]-b[0]);
+              const sig=(n.terminal?'1':'0')+'|'+edges.map(([b,ch])=>b+':'+cls[ch]).join(',');
+              let id=unique.get(sig);
+              if(id===undefined){id=classes++;unique.set(sig,id);let count=n.terminal?1n:0n;for(const [,ch] of edges)count+=pathCount[cls[ch]];pathCount[id]=count;}
+              cls[i]=id;
+            }
+            if(pathCount[cls[0]]!==BigInt(masks.length))throw new Error('proof DAG path count mismatch');
+            let edges=0;
+            for(const sig of unique.keys())if(sig.includes('|')){const tail=sig.slice(sig.indexOf('|')+1);if(tail)edges+=tail.split(',').length;}
+            return {generators:masks.length,trieNodes:nodes.length,dagNodes:classes,dagEdges:edges};
+          }
+
+          const metas=[];
+          for(const name of fs.readdirSync(src).filter(x=>x.endsWith('.json')&&x!=='manifest.json')){
+            const m=JSON.parse(fs.readFileSync(path.join(src,name),'utf8'));
+            if(m.rank===33&&Array.isArray(m.support))metas.push({name,meta:m});
+          }
+          if(metas.length!==2223)throw new Error('expected 2223 G2 reps');
+
+          const total={generators:0,trieNodes:0,dagNodes:0,dagEdges:0};
+          const U={generators:0,trieNodes:0,dagNodes:0,dagEdges:0};
+          const L={generators:0,trieNodes:0,dagNodes:0,dagEdges:0};
+          let maxFiberDag=0,maxFiberGenerators=0;
+          const byBits={};
+          for(const {name,meta} of metas){
+            const base=name.slice(0,-5),n=g2ResidualShapes(meta.support).length,bits=2*n;
+            const u=buildDag(loadHex(path.join(src,base+'.U.hex')),bits,false);
+            const l=buildDag(loadHex(path.join(src,base+'.L.hex')),bits,true);
+            for(const k of Object.keys(U))U[k]+=u[k];
+            for(const k of Object.keys(L))L[k]+=l[k];
+            const g=u.generators+l.generators,d=u.dagNodes+l.dagNodes;
+            maxFiberDag=Math.max(maxFiberDag,d);maxFiberGenerators=Math.max(maxFiberGenerators,g);
+            const b=byBits[bits]??={fibers:0,generators:0,trieNodes:0,dagNodes:0,dagEdges:0};
+            b.fibers++;b.generators+=g;b.trieNodes+=u.trieNodes+l.trieNodes;b.dagNodes+=d;b.dagEdges+=u.dagEdges+l.dagEdges;
+          }
+          for(const k of Object.keys(total))total[k]=U[k]+L[k];
+          for(const b of Object.values(byBits)){b.generatorToDag=+(b.generators/b.dagNodes).toFixed(6);b.trieToDag=+(b.trieNodes/b.dagNodes).toFixed(6);}
+          if(total.generators!==3981652)throw new Error('generator total mismatch '+total.generators);
+          const result={
+            schema:'standard7x6-r33-frontier-proof-dag-v0_1',
+            fibers:metas.length,
+            upper:U,
+            lower:L,
+            total,
+            generatorToDagNodeCompression:+(total.generators/total.dagNodes).toFixed(6),
+            trieToDagNodeCompression:+(total.trieNodes/total.dagNodes).toFixed(6),
+            maxFiberGenerators,maxFiberDagNodes:maxFiberDag,
+            byBits,
+            exactLanguageRoundtrip:true,
+            semantics:'each DAG accepts exactly the minimal-generator set; upward/downward frontier membership remains generator-subset/superset membership'
+          };
+          result.digest=crypto.createHash('sha256').update(JSON.stringify(result)).digest('hex');
+          console.log(JSON.stringify(result,null,2));
+          NODE
