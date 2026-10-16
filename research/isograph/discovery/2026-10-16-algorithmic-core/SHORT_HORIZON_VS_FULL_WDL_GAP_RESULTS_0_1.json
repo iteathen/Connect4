@@ -1,0 +1,103 @@
+{
+  "schema": "connect4.short-horizon-vs-full-wdl-gap.v0_1",
+  "status": "PASS",
+  "board": {
+    "width": 4,
+    "height": 3,
+    "connect": 3
+  },
+  "boundedHorizon": {
+    "claim": "P0 forces win on its first, second or third own placement",
+    "certifiedMovesOneBased": [],
+    "qMaterializations": 0,
+    "gameTreeSearchCalls": 0,
+    "membershipChecks": 1524,
+    "degreeThreeQueries": 468
+  },
+  "physicallyIndependentlyVerifiedWithinThreeMoves": {
+    "successfulMovesOneBased": [],
+    "moveChecks": [
+      {
+        "column": 1,
+        "winWithinThreeOwnMoves": false
+      },
+      {
+        "column": 2,
+        "winWithinThreeOwnMoves": false
+      },
+      {
+        "column": 3,
+        "winWithinThreeOwnMoves": false
+      },
+      {
+        "column": 4,
+        "winWithinThreeOwnMoves": false
+      }
+    ],
+    "metrics": {
+      "physicalNodeCalls": 61,
+      "physicalActionTransitions": 183,
+      "terminalP0WinningLeaves": 21,
+      "terminalP1OrDrawLeaves": 0,
+      "boundedHorizonNonwinLeaves": 101,
+      "strictBudget": 100000
+    }
+  },
+  "unrestrictedReference": {
+    "value": 1,
+    "bestMovesOneBased": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "actionValues": [
+      [
+        1,
+        1
+      ],
+      [
+        2,
+        1
+      ],
+      [
+        3,
+        1
+      ],
+      [
+        4,
+        1
+      ]
+    ],
+    "stats": {
+      "uniqueStates": 3734,
+      "recursiveCalls": 7837,
+      "memoHits": 4103,
+      "transitions": 10232,
+      "terminalWinEdges": 2390,
+      "terminalDrawEdges": 6,
+      "branchingStates": 3556,
+      "maxDepth": 11,
+      "cacheEntries": 3734
+    }
+  },
+  "boundedVsUnrestrictedWinningClaimGap": true,
+  "interpretation": "same all-rank residual cofactor rules; finite 3-own-move predicate does not solve full 4x3 Connect3 root; more strategic alternating-value composition still required",
+  "noSearchPolicySuppliedToCandidate": true,
+  "validationPhysicalSearchWasNotAlgorithmProducer": true,
+  "elapsedMs": 79,
+  "provenance": {
+    "date": "2026-10-16",
+    "branch": "research/semantic-quotient",
+    "sourceSHAs": {
+      "virtual-upset-five-ply.mjs": "59e477b60419cb4c28286b020c72b919079a840f",
+      "exact-q-core.mjs": "6b25d0e2560fe4131d2f5442593e9ed9763c1a18",
+      "universal-one-reply-fusion-control.mjs": "0c5c71134308d8f438032b7df68457b73cd4950b",
+      "short-horizon-vs-wdl-control.mjs": "e8a6f5f2fd28b42f073606514513d3bd5c0be69c"
+    },
+    "execution": "isolated JS V8 exact committed code with import/process shim; not maintained Node26",
+    "inputs": "no solved WDL values or searched policy in the candidate virtual-upset-five-ply algebra",
+    "independentValidation": "bounded explicit 5ply physical rule checker and unrestricted q recurrence invoked only after algebraic result",
+    "preservedScope": "fixed three P0 own-move first-win horizon incomplete relative to full 4x3 perfect-play WDL outcome"
+  }
+}
