@@ -1,6 +1,6 @@
 # Connect4 research index
 
-**Updated:** 2026-09-18  
+**Updated:** 2026-10-16  
 **Purpose:** route durable research without turning chronology, handoffs, or historical experiments into current authority.
 
 Research direction / structural architecture / invariant-first program: **Josh Oshiro**.  
@@ -23,6 +23,15 @@ Unlisted dated notes remain repository evidence. Being unlisted means “not pri
 ## Gameplay strategy / implementation proposal index
 
 - `research/GAMEPLAY_STRATEGY_INDEX.md` — living index where IsoGraph findings are translated into gameplay description, solver strategy, and implementation proposals. Unlike this durable-evidence index, it is intentionally forward-looking and tracks candidate strategies, implementation seams, proof burdens, and next experiments.
+
+---
+
+## Algorithmic-core formula checkpoint
+
+### ACTIVE FOUNDATION / SYNTHESIS — term-only exact recurrence
+
+- [`2026-10-16-connect4-algorithmic-core-formula.md`](2026-10-16-connect4-algorithmic-core-formula.md)  
+  Records the Connect Four core as an exact residual transition plus claimant-relative existential/universal least-fixed-point recurrence. Separates the explicit recurrence from the still-open task of proving a polynomial-size exact quotient \(\pi\), closed transition operators \(F_c\), and polynomial quantified predecessor closure. This is a research synthesis, not a logic-authority revision or a claim that the universal polynomial construction is complete.
 
 ---
 
