@@ -13,6 +13,8 @@ import {verifyInputSpecializedP0Win} from './input-specialized-certificate-check
 const directory=dirname(fileURLToPath(import.meta.url));
 const stored=JSON.parse(readFileSync(join(directory,
  'INPUT_SPECIALIZED_ROOT_WIN_CERTIFICATE_0_1.json'),'utf8'));
+const directOnly=JSON.parse(readFileSync(join(directory,
+ 'INPUT_SPECIALIZED_DIRECT_ONLY_ROOT_CERTIFICATE_0_1.json'),'utf8'));
 const cfg={width:4,height:3,connect:3},clone=x=>JSON.parse(JSON.stringify(x));
 const parseQ=q=>({h:q.h.slice(),R0:q.R0.map(x=>BigInt('0x'+x)),
  R1:q.R1.map(x=>BigInt('0x'+x))});
@@ -30,6 +32,13 @@ export function runInputSpecializedProofControl(){
  const verified=verifyInputSpecializedP0Win(stored,{deadlineAt:Date.now()+15000});
  assert.equal(verified.status,'CERTIFIED_P0_WIN');
  assert.equal(verified.rootOpeningColumn1Based,2);
+ const directVerified=verifyInputSpecializedP0Win(directOnly,{deadlineAt:Date.now()+15000});
+ assert.equal(directVerified.status,'CERTIFIED_P0_WIN');
+ assert.equal(directVerified.rootOpeningColumn1Based,2);
+ assert.equal(directVerified.metrics.nodesChecked,47);
+ assert.equal(directVerified.metrics.totalProofEdges,73);
+ assert.equal(directVerified.metrics.dominatedReferenceEdges,0);
+ assert.equal(directVerified.metrics.exactReferenceEdges,directVerified.metrics.nonterminalEdges);
  const matched=[];
  for(const useDominance of [true,false]){
   const start=performance.now();
@@ -116,12 +125,13 @@ export function runInputSpecializedProofControl(){
  assert.equal(baseline.answer.value,1);
  assert.ok(baseline.answer.bestMoves.includes(stored.openingAction));
  return {
-  schema:'connect4.input-specialized-winning-region-control.v0_1',
+  schema:'connect4.input-specialized-winning-region-control.v0_2',
   status:'PASS',
   coreQuestion:'empty 4x3 Connect3: is P0 first-win from the actual root?',
   certifiedOpeningOneBased:verified.rootOpeningColumn1Based,
   certifiedConclusion:'P0_WIN',
   storedCertificateVerified:verified,
+  directOnlyCertificateVerified:directVerified,
   matchedDiscovery:matched,
   negativeControls:negatives,
   independentReferenceOnlyAfterProof:{
