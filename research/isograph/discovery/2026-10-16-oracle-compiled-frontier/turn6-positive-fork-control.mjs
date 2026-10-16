@@ -69,11 +69,13 @@ export function probeForkPredecessor(){
       continue;
     }
     const postP0=play(postP1,3); // proposed next P0 placement
-    const verdict=postP0.terminal===null?certifyPositiveFork(postP0):
-      {certified:false,failedGuard:'early terminal'};
+    const p0Threats=postP0.terminal===null?threats(postP0,0):[];
+    const p1ImmediateWins=postP0.terminal===null?threats(postP0,1):[];
+    const fork=postP0.terminal===null&&p0Threats.length>=2&&p1ImmediateWins.length===0;
     byP1.push({P1Intervention:b+1,postP0Landing:postP1.h[2]+1,
-      fork:verdict.certified,p0Threats:verdict.legalP0Threats??verdict.p0Threats??[],
-      p1ImmediateWins:verdict.immediateP1Wins??[],failedGuard:verdict.failedGuard??null});
+      fork,p0Threats,p1ImmediateWins,
+      failedGuard:fork?null:(postP0.terminal!==null?'early terminal':
+        p0Threats.length<2?'not two legal P0 winning landings':'P1 has immediate win')});
   }
   const witness=replay('444444273'),fork=certifyPositiveFork(witness);
   assert.equal(witness.rank,9);
