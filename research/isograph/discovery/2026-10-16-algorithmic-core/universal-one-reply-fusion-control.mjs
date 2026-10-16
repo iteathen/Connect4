@@ -9,6 +9,7 @@
 
 import {performance} from 'node:perf_hooks';
 import {createUniversalOneReplyFusion} from './universal-one-reply-fusion.mjs';
+import {createOneReplyThreatPolynomial} from './universal-reply-threat-polynomial.mjs';
 
 const CONTROLS=[
  {width:4,height:3,connect:3,name:'4x3-c3'},
@@ -105,7 +106,8 @@ function maskStrings(obj){
    .map(([k,v])=>[k,'0x'+v.toString(16)]));
 }
 function verifyOneBoard(cfg) {
- const fusion=createUniversalOneReplyFusion(cfg),physical=independentPhysical(cfg);
+ const fusion=createUniversalOneReplyFusion(cfg),
+   polynomial=createOneReplyThreatPolynomial(cfg),physical=independentPhysical(cfg);
  const started=performance.now(),deadline=Date.now()+MAX_MS;
  const result={
   board:cfg,status:'UNSTARTED',
@@ -114,6 +116,9 @@ function verifyOneBoard(cfg) {
    physicalStatesEnumerated:0,physicalGraphEdgesEnumerated:0,
    physicalTransitionCalls:0,physicalP0ImmediateCandidates:0,
    p1StateChecks:0,p1LiteralRepliesChecked:0,p1WinningReplies:0,
+   polynomialChecks:0,polynomialTermChecks:0,polynomialResidualLookups:0,
+   polynomialMaxTermsOnOneSupport:0,polynomialCompiledSupports:0,
+   polynomialMismatches:0,
    p0StateChecks:0,p0FirstActionChecks:0,p0LiteralP1RepliesChecked:0,
    p0ProbeBudgetPartial:false,formulaChecks:0,
    fusedOpponentChildStatesExpanded:0,
@@ -164,7 +169,21 @@ function verifyOneBoard(cfg) {
   if(Date.now()>deadline){result.status='BUDGET_EXHAUSTED';break;}
   const q=physical.qfrom(state);
   const predicted=fusion.analyzeOpponentReplies(q);
-  M.formulaChecks++;M.p1StateChecks++;
+  const pMetrics={residualMembershipQueries:0,termChecks:0};
+  const polynomialPrediction=polynomial.evaluate(q,{metrics:pMetrics});
+  M.formulaChecks+=2;M.p1StateChecks++;M.polynomialChecks++;
+  M.polynomialResidualLookups+=pMetrics.residualMembershipQueries;
+  M.polynomialTermChecks+=pMetrics.termChecks;
+  M.polynomialMaxTermsOnOneSupport=Math.max(
+    M.polynomialMaxTermsOnOneSupport,polynomial.compile(q.h).symbolicTermCount);
+  if(polynomialPrediction!==predicted.allOpponentRepliesCovered){
+    M.polynomialMismatches++;M.mismatches++;result.status='FAIL';
+    result.firstCounterexample={sequence:state.sequence,rank:state.rank,
+      kind:'Boolean monotone polynomial disagrees with fused reply mask',
+      polynomialPrediction,bitmaskPrediction:predicted.allOpponentRepliesCovered,
+      q:{h:q.h,R0:q.R0.map(String),R1:q.R1.map(String)}};
+    break;
+  }
   M.fusedStructuralMembershipLookups+=predicted.singletonMembershipLookups;
   M.fusedBitMaskOperations+=predicted.bitMaskAlgebraOperations;
   M.types[predicted.proofCase]++;
@@ -281,6 +300,7 @@ function verifyOneBoard(cfg) {
  // Negative controls are also attempted on synthetic abstract q shaped from
  // existing geometry only if physical states do not exercise them. Flag
  // absence of natural physical witnesses; never fabricate observed failures.
+ M.polynomialCompiledSupports=polynomial.compiledSupportCount();
  result.totalMs=+(performance.now()-started).toFixed(3);
  result.obligations={
   P1AllLegallyReachableStatesCompared:M.p1StateChecks===
