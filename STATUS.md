@@ -58,6 +58,44 @@ core. The empty standard-7x6 root is **not** claimed computed by this
 recursive research evaluator. New tests ran in isolated V8; Node26 sustained
 qualification and external reproduction remain separate.
 
+## Optional symbolic branch-work experiment — 2026-10-16
+
+**Primary algorithmic core completeness remains established and unchanged.**
+This is a distinct optional efficiency/branch-composition investigation, not
+a missing game-theory correctness primitive.
+
+One fixed-support symbolic threshold compiler expresses P0 WIN and NONLOSS
+as shared **un-distributed AND/OR circuits** over residual-upset coordinates.
+It constructs no concrete-q recursive solved values. Three supports on
+4x3 c3 / 4x4 c4 passed exact W/D/L and all optimal-action vectors on
+260 legal physical positions and 384 seeded abstract residual-antichain
+controls, with no discrepancies.
+
+An exact opt-in support-poset implication/absorption reduction decreased
+**final reachable** gates from 301->229, 6163->2851 and 482->407.
+These count only reachable final circuits, not the much larger transient
+allocation. The independent comparator rejects a corrupted P1 first-win
+terminal guard on each support.
+
+**Important negative:** even the small empty 4x3 c3 root failed to compile
+under the predeclared 60,000 allocated-gate cap with and without the
+simplifier. The representation still recursively visits multiple child
+supports and its AND/OR circuit carries choice fanout. Therefore **global
+branch elimination is still OPEN**; returning a circuit is not by itself
+proof of avoided computational branching.
+
+Primary results/limits:
+`docs/research/2026-10-16-nondistributed-symbolic-alternation.md`.
+Machine record:
+`research/isograph/discovery/2026-10-16-algorithmic-core/SYMBOLIC_POSET_ABSORPTION_RESULTS_0_1.json`.
+
+**Next vertical target:** reduce *transient and peak construction work* on
+one fixed root suffix by output-sensitive Boolean/antichain composition;
+retain the existing budgets and exact first-win constraints. Do not reopen
+minimality, recursion elimination, complete 7x6 root search or per-path
+`44444` proofs. This remains an internal V8 research control, not an
+accepted Node26 performance qualification or IsoGraph authority promotion.
+
 ## Active turn-six parity-control certificate frontier — 2026-10-16
 
 This is a **scoped current research update**, not a change to qualified
