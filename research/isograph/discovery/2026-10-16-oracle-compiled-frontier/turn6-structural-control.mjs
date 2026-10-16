@@ -165,3 +165,6 @@ function mirrorMask(m){
 }
 if(process.argv[1]&&process.argv[1].endsWith('turn6-structural-control.mjs'))
   console.log(JSON.stringify(probeTurnSix(),null,2));
+
+// Expose unchanged oracle-blind primitives to local bounded certificate controls.
+export { replay, move, legal, residual, exactQ, bit, LINES, popcount };
