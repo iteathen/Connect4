@@ -1,0 +1,46 @@
+{
+  "schema": "connect4.all-depth-owner-mask.negative-controls.v0_1",
+  "date": "2026-10-16",
+  "status": "PASS",
+  "blockerGuard": {
+    "legalPhysicalPrefix": "12",
+    "expectedR0Count": 63,
+    "missingBlockerR0Count": 66,
+    "incorrectExtraResiduals": [
+      "0xe",
+      "0x408102",
+      "0x2020202"
+    ],
+    "mutationRejected": true
+  },
+  "columnCapacityGuard": {
+    "legalPrefix": "444444",
+    "centerHeight": 6,
+    "emptyWingHeight": 0,
+    "centerAndEmptyWingSameEvenPhase": true,
+    "centerColumnLegallyPlayable": false,
+    "phaseOnlyLegalityRejected": true
+  },
+  "phaseDoesNotProveRank7OutcomeEquivalence": {
+    "histories": [
+      "4444441",
+      "4444442"
+    ],
+    "equalPhaseHammingWeight": true,
+    "exactOrientationSensitiveQEqual": false,
+    "interpretation": "same phase weight does not prove q future-game equivalence or WDL equality"
+  },
+  "oracleCalls": 0,
+  "searchDrivenCandidate": false,
+  "provenance": {
+    "date": "2026-10-16",
+    "branch": "research/semantic-quotient",
+    "sources": {
+      "all-depth-owner-mask-lift.mjs": "5fbe4ee534a78511839923cf9e9559a68031d15a",
+      "exact-q-core.mjs": "6b25d0e2560fe4131d2f5442593e9ed9763c1a18",
+      "universal-one-reply-fusion-control.mjs": "0c5c71134308d8f438032b7df68457b73cd4950b",
+      "all-depth-transition-negative-controls.mjs": "51fd812a7aa6722954efda3df275ca2294de0da4"
+    },
+    "execution": "isolated JS V8 exact committed module bodies with import/process shimmed; no WDL oracle or candidate game-tree search"
+  }
+}
