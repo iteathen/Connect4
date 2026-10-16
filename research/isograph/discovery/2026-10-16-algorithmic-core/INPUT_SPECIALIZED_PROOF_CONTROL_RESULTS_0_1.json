@@ -1,0 +1,215 @@
+{
+  "schema": "connect4.input-specialized-winning-region-control.v0_1",
+  "status": "PASS",
+  "coreQuestion": "empty 4x3 Connect3: is P0 first-win from the actual root?",
+  "certifiedOpeningOneBased": 2,
+  "certifiedConclusion": "P0_WIN",
+  "storedCertificateVerified": {
+    "status": "CERTIFIED_P0_WIN",
+    "scope": "empty 4x3 Connect3 board, P0 can force win via supplied single opening and universal P1 reply coverage",
+    "rootOpeningColumn1Based": 2,
+    "claimsAllFourOpeningsOptimal": false,
+    "independentOutcomeOracleCalls": 0,
+    "globalRecursiveSearchCalls": 0,
+    "evidence": "complete finite local proof-DAG verification using independently replayed physical paths, cofactors, favorable monotone order and strictly descending remaining rank",
+    "metrics": {
+      "nodesChecked": 46,
+      "policyActionsChecked": 34,
+      "universalReplyActionsChecked": 38,
+      "terminalP0Edges": 22,
+      "nonterminalEdges": 50,
+      "dominatedReferenceEdges": 1,
+      "exactReferenceEdges": 49,
+      "backwardCofactorChecks": 72,
+      "physicalReplaySteps": 230,
+      "maxRank": 10,
+      "maxSupportGenerators": 2,
+      "totalProofEdges": 72,
+      "distinctSupports": 36,
+      "predecessorChoiceComparisons": 50,
+      "reachedNodes": 46,
+      "verificationMs": 6
+    }
+  },
+  "matchedDiscovery": [
+    {
+      "useDominance": true,
+      "certificateNodes": 46,
+      "certificateEdges": 72,
+      "independentCheck": {
+        "nodesChecked": 46,
+        "policyActionsChecked": 34,
+        "universalReplyActionsChecked": 38,
+        "terminalP0Edges": 22,
+        "nonterminalEdges": 50,
+        "dominatedReferenceEdges": 1,
+        "exactReferenceEdges": 49,
+        "backwardCofactorChecks": 72,
+        "physicalReplaySteps": 230,
+        "maxRank": 10,
+        "maxSupportGenerators": 2,
+        "totalProofEdges": 72,
+        "distinctSupports": 36,
+        "predecessorChoiceComparisons": 50,
+        "reachedNodes": 46,
+        "verificationMs": 5
+      },
+      "search": {
+        "obligationVisits": 51,
+        "uniqueExploredQ": 46,
+        "localChecks": 160,
+        "candidateActionsRanked": 149,
+        "attemptedActionEdges": 72,
+        "p0OptionsAttempted": 34,
+        "p1RepliesAttempted": 38,
+        "p1UniversalNodes": 12,
+        "p0ExistentialNodes": 34,
+        "failedProofNodes": 0,
+        "dominanceQueries": 11,
+        "dominanceHits": 1,
+        "exactMemoHits": 4,
+        "winGeneratorCount": 46,
+        "proofEdgeCount": 72,
+        "maxSearchDepth": 10,
+        "peakActivePath": 11,
+        "maxCachedNonWinStates": 0,
+        "leafP0Wins": 22,
+        "leafP1Wins": 0,
+        "leafDraws": 0,
+        "candidateProofNodes": 46,
+        "candidateProofEdges": 72,
+        "orphanedCandidateWinners": 0,
+        "elapsedMs": 5
+      },
+      "totalMs": 10
+    },
+    {
+      "useDominance": false,
+      "certificateNodes": 47,
+      "certificateEdges": 73,
+      "independentCheck": {
+        "nodesChecked": 47,
+        "policyActionsChecked": 35,
+        "universalReplyActionsChecked": 38,
+        "terminalP0Edges": 23,
+        "nonterminalEdges": 50,
+        "dominatedReferenceEdges": 0,
+        "exactReferenceEdges": 50,
+        "backwardCofactorChecks": 73,
+        "physicalReplaySteps": 238,
+        "maxRank": 10,
+        "maxSupportGenerators": 2,
+        "totalProofEdges": 73,
+        "distinctSupports": 36,
+        "predecessorChoiceComparisons": 50,
+        "reachedNodes": 47,
+        "verificationMs": 4
+      },
+      "search": {
+        "obligationVisits": 51,
+        "uniqueExploredQ": 47,
+        "localChecks": 151,
+        "candidateActionsRanked": 151,
+        "attemptedActionEdges": 73,
+        "p0OptionsAttempted": 35,
+        "p1RepliesAttempted": 38,
+        "p1UniversalNodes": 12,
+        "p0ExistentialNodes": 35,
+        "failedProofNodes": 0,
+        "dominanceQueries": 0,
+        "dominanceHits": 0,
+        "exactMemoHits": 4,
+        "winGeneratorCount": 47,
+        "proofEdgeCount": 73,
+        "maxSearchDepth": 10,
+        "peakActivePath": 11,
+        "maxCachedNonWinStates": 0,
+        "leafP0Wins": 23,
+        "leafP1Wins": 0,
+        "leafDraws": 0,
+        "candidateProofNodes": 47,
+        "candidateProofEdges": 73,
+        "orphanedCandidateWinners": 0,
+        "elapsedMs": 2
+      },
+      "totalMs": 6
+    }
+  ],
+  "negativeControls": [
+    {
+      "kind": "missing P1 reply",
+      "rejected": true,
+      "error": "Error: P1 proof omitted a universal opponent reply"
+    },
+    {
+      "kind": "illegal P0 choice",
+      "rejected": true,
+      "error": "Error: illegal/duplicate proof action"
+    },
+    {
+      "kind": "false terminal outcome",
+      "rejected": true,
+      "error": "Error: claimed terminal is not an immediate P0 win"
+    },
+    {
+      "kind": "forged generator source path",
+      "rejected": true,
+      "error": "Error: certificate source-path q mismatch 3.3.3.1|128,2048|2048"
+    },
+    {
+      "kind": "false same-support dominance",
+      "rejected": true,
+      "error": "Error: false favorable-order dominance reference",
+      "testCase": {
+        "parent": "1.3.2.1|16,128,1024,2048|1280,2176,3072",
+        "action": 0,
+        "correct": "2.3.2.1|128,1024,2048|1280,2176,3072",
+        "incorrect": "2.3.2.1|128,256,1024,2048|256,2176,3072"
+      }
+    }
+  ],
+  "independentReferenceOnlyAfterProof": {
+    "value": 1,
+    "allWdlBestMovesOneBased": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "fullWdlCoreStats": {
+      "uniqueStates": 3734,
+      "recursiveCalls": 7837,
+      "memoHits": 4103,
+      "transitions": 10232,
+      "terminalWinEdges": 2390,
+      "terminalDrawEdges": 6,
+      "branchingStates": 3556,
+      "maxDepth": 11,
+      "cacheEntries": 3734
+    },
+    "elapsedMs": 96
+  },
+  "provenScope": "one certified winning P0 move and all P1 replies at every certificate node",
+  "scopeLimit": "does not certify all four openings from certificate; not generally branch-free",
+  "sourceType": "rule-only residual/proof candidate; independent geometry/first-win and favorable-order check",
+  "oracleQueries": 0,
+  "solvedValueInputsToCandidate": 0,
+  "overallMs": 130,
+  "provenance": {
+    "date": "2026-10-16",
+    "branch": "research/semantic-quotient",
+    "sourceBlobs": {
+      "exact-q-core.mjs": "6b25d0e2560fe4131d2f5442593e9ed9763c1a18",
+      "input-specialized-p0-certificate.mjs": "095395d639e94a928556fb6c3cdf8ef393f039a0",
+      "input-specialized-certificate-checker.mjs": "1a0cfcc0c4a1eb822786df2a67979495b56b2701",
+      "input-specialized-proof-control.mjs": "00157eaff8113e197ba5814154472f0977c51daa",
+      "INPUT_SPECIALIZED_ROOT_WIN_CERTIFICATE_0_1.json": "1f91ea9ffabd750a1bf8143359a12971b52b9a64"
+    },
+    "command": "node research/isograph/discovery/2026-10-16-algorithmic-core/input-specialized-proof-control.mjs",
+    "actualExecution": "isolated JavaScript V8 against exact committed source with import/export, fileURLToPath, fs and native assert/performance shimmed; not maintained Node26/Actions test",
+    "qualificationType": "finite exact certificate readback + five distinct mutation falsifiers + matched no-dominance discovery + independent oracle-free recursive q root comparison AFTER verification",
+    "runNote": "Wall times depend on isolated V8 runtime and are not matched solver performance benchmarks",
+    "oracleQueries": 0,
+    "branchEliminationClaim": false
+  }
+}
