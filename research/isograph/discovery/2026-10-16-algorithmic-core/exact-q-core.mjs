@@ -75,12 +75,14 @@ export function createExactQCore({width:W,height:H,connect:K}){
   function solve(q,{
     maxStates=Number.MAX_SAFE_INTEGER,
     maxTransitions=Number.MAX_SAFE_INTEGER,
-    deadlineAt=Infinity
+    deadlineAt=Infinity,
+    sharedMemo=null
   }={}){
     const stats={uniqueStates:0,recursiveCalls:0,memoHits:0,
       transitions:0,terminalWinEdges:0,terminalDrawEdges:0,
       branchingStates:0,maxDepth:0,cacheEntries:0};
-    const memo=new Map();
+    const memo=sharedMemo??new Map();
+    if(!(memo instanceof Map))throw Error('sharedMemo must be a Map');
     const resultFor=(node,depth)=>{
       stats.recursiveCalls++;
       stats.maxDepth=Math.max(stats.maxDepth,depth);
