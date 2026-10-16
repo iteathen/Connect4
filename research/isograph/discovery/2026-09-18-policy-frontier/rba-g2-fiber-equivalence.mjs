@@ -123,3 +123,73 @@ export function samePackedSet(a,b){
   for(let i=0;i<A.length;i++)if(A[i]!==B[i])return false;
   return true;
 }
+
+
+function g2ChainPermutationGroups(h){
+  const caps=h.map(x=>H-x),active=[];
+  for(let c=0;c<W;c++)if(caps[c]>0)active.push(c);
+  const byLength=new Map();
+  for(const c of active){const l=caps[c];if(!byLength.has(l))byLength.set(l,[]);byLength.get(l).push(c);}
+  const lengths=[...byLength.keys()].sort((a,b)=>b-a);
+  return {lengths,groups:lengths.map(l=>byLength.get(l))};
+}
+function g2ShapeKeysUnderPermutation(h,shapes,lengths,groupPerms){
+  const cellMap=new Map();
+  let nextCell=0;
+  for(let gi=0;gi<lengths.length;gi++){
+    const l=lengths[gi],order=groupPerms[gi];
+    for(const col of order)for(let d=0;d<l;d++)cellMap.set(col*H+(h[col]+d),nextCell++);
+  }
+  const shapeKeyByIndex=[];
+  for(const shape of shapes){
+    const ids=[];
+    for(let col=0;col<W;col++)for(let row=h[col];row<H;row++)if(shape&cellBit(col,row))ids.push(cellMap.get(col*H+row));
+    ids.sort((a,b)=>a-b);
+    shapeKeyByIndex.push(ids.join('.'));
+  }
+  const sortedShapeKeys=shapeKeyByIndex.slice().sort();
+  const chainLengths=lengths.flatMap((l,i)=>Array(groupPerms[i].length).fill(l));
+  return {key:JSON.stringify([chainLengths,sortedShapeKeys]),shapeKeyByIndex};
+}
+
+export function g2ShapeAutomorphisms(h){
+  const canonical=canonicalizeG2Fiber(h),shapes=canonical.shapes;
+  const {lengths,groups}=g2ChainPermutationGroups(h);
+  const canonicalIndexByShapeKey=new Map();
+  for(let i=0;i<canonical.shapeKeyByIndex.length;i++){
+    const k=canonical.shapeKeyByIndex[i];
+    if(canonicalIndexByShapeKey.has(k))throw new Error('duplicate canonical G2 shape key');
+    canonicalIndexByShapeKey.set(k,i);
+  }
+  const unique=new Map();
+  for(const groupPerms of productPermutations(groups)){
+    const x=g2ShapeKeysUnderPermutation(h,shapes,lengths,groupPerms);
+    if(x.key!==canonical.key)continue;
+    const map=x.shapeKeyByIndex.map(k=>{
+      const j=canonicalIndexByShapeKey.get(k);
+      if(j===undefined)throw new Error('G2 automorphism canonical shape missing');
+      return j;
+    });
+    const key=map.join(',');
+    unique.set(key,Object.freeze(map));
+  }
+  if(!unique.size)throw new Error('G2 automorphism group unexpectedly empty');
+  const identity=Array.from({length:shapes.length},(_,i)=>i).join(',');
+  if(!unique.has(identity))throw new Error('G2 automorphism group missing identity');
+  return Object.freeze([...unique.values()]);
+}
+
+export function mapPackedQByShapePermutation(info,q,shapeMap){
+  if(!info||!Number.isInteger(info.n)||typeof info.all!=='bigint')throw new Error('packed q info required');
+  if(!Array.isArray(shapeMap)||shapeMap.length!==info.n)throw new Error('shape permutation length mismatch');
+  const m=q&info.all,o=info.all^((q>>BigInt(info.n))&info.all);
+  let mm=0n,oo=0n;
+  for(let i=0;i<shapeMap.length;i++){
+    const j=shapeMap[i];
+    if(!Number.isInteger(j)||j<0||j>=info.n)throw new Error('invalid shape permutation');
+    const target=1n<<BigInt(j);
+    if(m&(1n<<BigInt(i)))mm|=target;
+    if(o&(1n<<BigInt(i)))oo|=target;
+  }
+  return mm|((info.all^oo)<<BigInt(info.n));
+}
