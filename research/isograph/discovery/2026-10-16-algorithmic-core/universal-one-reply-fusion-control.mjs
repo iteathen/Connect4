@@ -126,6 +126,7 @@ function verifyOneBoard(cfg) {
   },
   negativeControls:{missingP1WinGuardDetected:false,missingUpperThreatDetected:false},
   firstCounterexample:null,
+  positiveWitnessByType:{T_GE_2:null,T_EQ_1:null,T_EQ_0:null},
   firstBGuardWitness:null,firstUpperThreatWitness:null
  };
  const M=result.counts;
@@ -170,6 +171,14 @@ function verifyOneBoard(cfg) {
   if(predicted.immediateP1WinMask!==0n)M.p1ImmediateWinGuardCases++;
   if(predicted.allOpponentRepliesCovered){
    M.p1PositiveCases++;M.positiveByType[predicted.proofCase]++;
+   if(!result.positiveWitnessByType[predicted.proofCase]){
+    result.positiveWitnessByType[predicted.proofCase]={
+      sequence:state.sequence,rank:state.rank,
+      q:{h:q.h.slice(),R0:q.R0.map(x=>x.toString(16)),
+        R1:q.R1.map(x=>x.toString(16))},
+      masks:maskStrings(predicted)
+    };
+   }
   }
   let actualGood=0n;
   for(const col of physical.legal(state)){
@@ -195,7 +204,8 @@ function verifyOneBoard(cfg) {
     mask:maskStrings(predicted)};
    result.negativeControls.missingP1WinGuardDetected=true;
   }
-  if(!result.firstUpperThreatWitness&&predicted.existingThreatCount===1&&
+  if(!result.firstUpperThreatWitness&&predicted.allOpponentRepliesCovered&&
+    predicted.existingThreatCount===1&&
     (predicted.existingP0WinMask&predicted.upperLatentP0Mask)!==0n){
    result.firstUpperThreatWitness={sequence:state.sequence,rank:state.rank,
     mask:maskStrings(predicted)};
@@ -222,8 +232,16 @@ function verifyOneBoard(cfg) {
  if(result.status==='UNSTARTED'){
   for(const s of states){
    if((s.rank&1)!==0)continue;
-   if(M.formulaChecks>=MAX_FORMULA_CHECKS||
-      M.physicalTransitionCalls>=MAX_EDGES||Date.now()>deadline){
+   // Check a conservative per-state direct physical validation edge
+   // envelope *before* starting this full P0 universal test, so the
+   // declared 800000-edge budget cannot be exceeded mid-obligation.
+   // At width W: at most W first actions, W replies each, and W P0
+   // immediate-terminal checks after each reply.
+   const maxNewValidationTransitions=
+     cfg.width*(1+cfg.width*(1+cfg.width));
+   if(M.formulaChecks+cfg.width>MAX_FORMULA_CHECKS||
+      M.physicalTransitionCalls+maxNewValidationTransitions>MAX_EDGES||
+      Date.now()>deadline){
      M.p0ProbeBudgetPartial=true;break;
    }
    const predicted=fusion.p0WinsWithinTwoOwnMoves(physical.qfrom(s));
