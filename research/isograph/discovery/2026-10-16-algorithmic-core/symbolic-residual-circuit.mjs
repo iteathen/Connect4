@@ -14,7 +14,8 @@ export class SymbolicCircuitBudgetError extends Error {
   constructor(message,details){super(message);this.name='SymbolicCircuitBudgetError';this.details=details;}
 }
 export function createSymbolicResidualCircuit({width:W,height:H,connect:K},{
-  maxNodes=60000,maxSubstitutionVisits=300000,deadlineAt=Infinity
+  maxNodes=60000,maxSubstitutionVisits=300000,deadlineAt=Infinity,
+  simplifyByPoset=false
 }={}){
   if(![W,H,K].every(Number.isInteger)||W<1||H<1||K<2||W*H>42)
     throw Error('unsupported geometry');
@@ -36,6 +37,7 @@ export function createSymbolicResidualCircuit({width:W,height:H,connect:K},{
     substitutionVisits:0,substitutionCacheHits:0,
     sourceShapePairsTested:0,sourceShapeLinks:0,
     generatedGateCalls:0,sharedGateReuses:0,
+    posetAbsorptionRemoved:0,posetImplicationPairsTested:0,
     peakNodes:2,maxDepthSupports:0,
     totalRootInputVariables:0
   };
@@ -60,13 +62,58 @@ export function createSymbolicResidualCircuit({width:W,height:H,connect:K},{
     return internNode('v:'+supportKey+':'+role+':'+index,
       ()=>({op:'var',supportKey,role,index}));
   }
+  function variableImplies(a,b){
+    if(a===b)return true;
+    const na=nodes[a],nb=nodes[b];
+    if(na.op!=='var'||nb.op!=='var'||na.supportKey!==nb.supportKey||
+       na.role!==nb.role)return false;
+    const info=infoMemo.get(na.supportKey);
+    if(!info)throw Error('variable implication before support schema exists');
+    stats.posetImplicationPairsTested++;
+    const A=info.shapes[na.index],B=info.shapes[nb.index];
+    return na.role===0?subset(A,B):subset(B,A);
+  }
   function gate(op,raw){
     stats.generatedGateCalls++;
     if(op!=='and'&&op!=='or')throw Error('invalid gate');
     const ids=[...new Set(raw)].sort((a,b)=>a-b);
     const absorb=op==='and'?0:1,neutral=op==='and'?1:0;
     if(ids.includes(absorb))return absorb;
-    const remaining=ids.filter(x=>x!==neutral);
+    let remaining=ids.filter(x=>x!==neutral);
+    if(simplifyByPoset&&remaining.length>1){
+      // In an AND, keep the STRONGEST directly implied literal.
+      // In an OR, keep the WEAKEST one. Only exact upsets on one
+      // fixed support/player channel allow this implication.
+      let keep=remaining.map(()=>true);
+      for(let i=0;i<remaining.length;i++){
+        if(!keep[i]||nodes[remaining[i]].op!=='var')continue;
+        for(let j=0;j<remaining.length;j++){
+          if(i===j||!keep[j]||nodes[remaining[j]].op!=='var')continue;
+          const redundant=op==='and'?
+            variableImplies(remaining[i],remaining[j]):
+            variableImplies(remaining[j],remaining[i]);
+          if(redundant){keep[j]=false;stats.posetAbsorptionRemoved++;}
+        }
+      }
+      remaining=remaining.filter((_,i)=>keep[i]);
+      // Sound one-level absorption:
+      //   A AND (B OR C) = A when A -> B
+      //   A OR  (B AND C) = A when B -> A.
+      const direct=remaining.filter(id=>nodes[id].op==='var');
+      if(direct.length){
+        const before=remaining.length;
+        remaining=remaining.filter(id=>{
+          const n=nodes[id];
+          if((op==='and'&&n.op!=='or')||(op==='or'&&n.op!=='and'))
+            return true;
+          const absorbed=n.inputs.some(child=>direct.some(d=>
+            op==='and'?variableImplies(d,child):variableImplies(child,d)
+          ));
+          return !absorbed;
+        });
+        stats.posetAbsorptionRemoved+=before-remaining.length;
+      }
+    }
     if(remaining.length===0)return neutral;
     if(remaining.length===1)return remaining[0];
     return internNode(op+':'+remaining.join(','),()=>({op,inputs:remaining}));
@@ -271,7 +318,7 @@ export function createSymbolicResidualCircuit({width:W,height:H,connect:K},{
       return out;
     },
     decode,assignment,evaluate,
-    stats(){return {...stats,nodes:nodes.length,interned:intern.size,
+    stats(){return {...stats,simplifyByPoset,nodes:nodes.length,interned:intern.size,
       supportsInCache:compiled.size};},
     sourceInfo(h){const x=supportInfo(h);return{
       rank:x.rank,shapeCount:x.shapes.length,legalActions:x.legal.slice(),
