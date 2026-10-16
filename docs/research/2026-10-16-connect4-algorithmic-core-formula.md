@@ -1,186 +1,176 @@
 # Connect Four algorithmic core — term-only recurrence
 
 **Date:** 2026-10-16  
-**Status:** research synthesis / formula checkpoint; not a logic-authority revision  
-**Owner:** `research/semantic-quotient`
+**Status:** research synthesis / formula checkpoint; recurrence now oracle-validated, not a logic-authority revision  
+**Owner:** \`research/semantic-quotient\`
 
 ## Purpose
 
-Record the current algorithmic core in a form containing only state terms, transition operators, boundary predicates, quantifiers, and fixed-point equations.
+Record the Connect Four algorithmic core using only state terms, transition operators, boundary predicates, quantifiers, and fixed-point equations.
 
-This note does **not** promote an experimental CPCX result into accepted authority. It synthesizes the canonical residual/alternating-predecessor calculus with the later CPCX winner-existence / loser-equivalence quantifier discipline.
+Related oracle-relative proof:
+
+- \`docs/research/2026-10-16-oracle-relative-proof-algorithmic-core.md\`
 
 ---
 
 ## 1. State
 
-For board width (W), height (H), and player bit (pin{0,1}),
+For board width \(W\), height \(H\), and player bit \(p\in\{0,1\}\),
 
-[
-S=(h,R_0,R_1,p)
-]
+\[
+S=(h,R_0,R_1,p),
+\]
 
 with
 
-[
-h=(h_0,ldots,h_{W-1})in{0,ldots,H}^{W}.
-]
+\[
+h=(h_0,\ldots,h_{W-1})\in\{0,\ldots,H\}^{W}.
+\]
 
-(R_0,R_1) are normalized antichains of residual winning requirements.
+\(R_0,R_1\) are normalized antichains of residual winning requirements.
 
 Define
 
-[
-operatorname{Min}(A)
+\[
+\operatorname{Min}(A)
 =
-{ain A:
-exists bin A, bsubsetneq a}.
-]
+\{a\in A:\nexists b\in A,\ b\subsetneq a\}.
+\]
 
 Legal columns:
 
-[
-mathcal A(S)={cin{0,ldots,W-1}:h_c<H}.
-]
+\[
+\mathcal A(S)=\{c\in\{0,\ldots,W-1\}:h_c<H\}.
+\]
 
 Current landing event:
 
-[
+\[
 x_c=(c,h_c).
-]
+\]
 
 ---
 
 ## 2. Exact one-move transform
 
-For (cinmathcal A(S)),
+For \(c\in\mathcal A(S)\),
 
-[
+\[
 T_c(h,R_0,R_1,p)
 =
-(h+e_c,;R'_0,;R'_1,;1-p),
-]
+(h+e_c,\;R'_0,\;R'_1,\;1-p),
+\]
 
-where for the mover (p),
+where
 
-[
+\[
 R'_p
 =
-operatorname{Min}
-{rsetminus{x_c}:rin R_p},
-]
+\operatorname{Min}
+\{r\setminus\{x_c\}:r\in R_p\},
+\]
 
-and for the opponent (1-p),
+and
 
-[
+\[
 R'_{1-p}
 =
-operatorname{Min}
-{rin R_{1-p}:x_c
-otin r}.
-]
+\operatorname{Min}
+\{r\in R_{1-p}:x_c\notin r\}.
+\]
 
 Equivalently,
 
-[
+\[
 R'_i
 =
-operatorname{Min}
-egin{cases}
-{rsetminus{x_c}:rin R_i},&i=p,\[1mm]
-{rin R_i:x_c
-otin r},&i
-eq p.
-end{cases}
-]
+\operatorname{Min}
+\begin{cases}
+\{r\setminus\{x_c\}:r\in R_i\},&i=p,\\[1mm]
+\{r\in R_i:x_c\notin r\},&i\neq p.
+\end{cases}
+\]
 
 ---
 
 ## 3. Terminal predicates
 
-For (iin{0,1}),
+For \(i\in\{0,1\}\),
 
-[
-omega_i(S)=
-mathbf 1[arnothingin R_i].
-]
+\[
+\omega_i(S)=\mathbf 1[\varnothing\in R_i].
+\]
 
 No surviving win possibility:
 
-[
-eta_i(S)=
-mathbf 1[R_i=arnothing].
-]
+\[
+\eta_i(S)=\mathbf 1[R_i=\varnothing].
+\]
 
 Board exhaustion:
 
-[
-eta(S)=
-mathbf 1[mathcal A(S)=arnothing].
-]
+\[
+\beta(S)=\mathbf 1[\mathcal A(S)=\varnothing].
+\]
 
 Terminal partition:
 
-[
-mathcal T_i={S:omega_i(S)=1},
-]
+\[
+\mathcal T_i=\{S:\omega_i(S)=1\},
+\]
 
-[
-mathcal T_D=
-{S:eta(S)=1, omega_0(S)=omega_1(S)=0}.
-]
+\[
+\mathcal T_D=
+\{S:\beta(S)=1,\ \omega_0(S)=\omega_1(S)=0\}.
+\]
 
-First-win semantics require transition evaluation to stop on the first newly satisfied (omega_i).
+First-win semantics stop the transition at the first newly satisfied \(\omega_i\).
 
 ---
 
 ## 4. Claim-relative exact recurrence
 
-Fix claimant (win{0,1}).
+Fix claimant \(w\in\{0,1\}\).
 
-[
-C_w(S)in{0,1}
-]
+\[
+C_w(S)\in\{0,1\}.
+\]
 
-is defined by
+Then
 
-[
-oxed{
+\[
+\boxed{
 C_w(S)=
-egin{cases}
-1,&Sinmathcal T_w,\[1mm]
-0,&Sinmathcal T_{1-w}cupmathcal T_D,\[1mm]
-0,&eta_w(S)=1,\[2mm]
-displaystyleigvee_{cinmathcal A(S)} C_w(T_cS),
-&p=w,\[5mm]
-displaystyleigwedge_{cinmathcal A(S)} C_w(T_cS),
-&p
-eq w.
-end{cases}}
-]
+\begin{cases}
+1,&S\in\mathcal T_w,\\[1mm]
+0,&S\in\mathcal T_{1-w}\cup\mathcal T_D,\\[1mm]
+0,&\eta_w(S)=1,\\[2mm]
+\displaystyle\bigvee_{c\in\mathcal A(S)} C_w(T_cS),&p=w,\\[5mm]
+\displaystyle\bigwedge_{c\in\mathcal A(S)} C_w(T_cS),&p\neq w.
+\end{cases}}
+\]
 
 Nonterminal shorthand:
 
-[
-oxed{
+\[
+\boxed{
 C_w(S)=
-egin{cases}
-displaystyleigvee_{cinmathcal A(S)} C_w(T_cS),&p=w,\[4mm]
-displaystyleigwedge_{cinmathcal A(S)} C_w(T_cS),&p
-eq w.
-end{cases}}
-]
+\begin{cases}
+\displaystyle\bigvee_{c\in\mathcal A(S)} C_w(T_cS),&p=w,\\[4mm]
+\displaystyle\bigwedge_{c\in\mathcal A(S)} C_w(T_cS),&p\neq w.
+\end{cases}}
+\]
 
-Thus
+Hence
 
-[
-p=wRightarrowexists c,
-]
+\[
+p=w\Rightarrow\exists c,
+\]
 
-[
-p
-eq wRightarroworall c.
-]
+\[
+p\neq w\Rightarrow\forall c.
+\]
 
 No remoteness term occurs.
 
@@ -190,43 +180,42 @@ No remoteness term occurs.
 
 Let
 
-[
-q=pi(S)
-]
+\[
+q=\pi(S)
+\]
 
-for an exact future-behavior congruence (pi), and let
+for an exact future-behavior congruence, and define
 
-[
-F_c(q)=pi(T_c(S)).
-]
+\[
+F_c(q)=\pi(T_cS).
+\]
 
 Then
 
-[
-oxed{
+\[
+\boxed{
 C_w(q)=
-egin{cases}
-1,&qinmathcal T_w,\
-0,&qinmathcal T_{1-w}cupmathcal T_D,\[1mm]
-displaystyleigvee_{cinmathcal A(q)}C_w(F_c(q)),
-&p(q)=w,\[4mm]
-displaystyleigwedge_{cinmathcal A(q)}C_w(F_c(q)),
-&p(q)
-eq w.
-end{cases}}
-]
+\begin{cases}
+1,&q\in\mathcal T_w,\\
+0,&q\in\mathcal T_{1-w}\cup\mathcal T_D,\\[1mm]
+\displaystyle\bigvee_{c\in\mathcal A(q)}C_w(F_c(q)),&p(q)=w,\\[4mm]
+\displaystyle\bigwedge_{c\in\mathcal A(q)}C_w(F_c(q)),&p(q)\neq w.
+\end{cases}}
+\]
 
-For the currently qualified ordinary forward projection, the candidate quotient substrate is of the form
+The current ordinary future-behavior carrier is
 
-[
-pi(S)
+\[
+\pi(S)
 =
-(operatorname{support}(S),
-operatorname{Min}(R_0),
-operatorname{Min}(R_1)),
-]
+\left(
+\operatorname{support}(S),
+\operatorname{Min}(R_0(S)),
+\operatorname{Min}(R_1(S))
+\right),
+\]
 
-with any additional CPC/NDC certificate context retained whenever a claimed transition depends on reservation, release, response-resource, precedence, race, or deadline information.
+with stronger CPC/NDC proof context retained separately whenever a certificate depends on reservation, release, response-resource, precedence, race, or deadline state not derivable from ordinary q.
 
 ---
 
@@ -234,306 +223,344 @@ with any additional CPC/NDC certificate context retained whenever a claimed tran
 
 Define
 
-[
-X_w^{(0)}=mathcal T_w.
-]
+\[
+X_w^{(0)}=\mathcal T_w.
+\]
 
-For (nge0),
+For \(n\ge0\),
 
-[
-oxed{
+\[
+\boxed{
 X_w^{(n+1)}
 =
 X_w^{(n)}
-cup
-left{
+\cup
+\left\{
 q:
 p(q)=w
-land
-exists cinmathcal A(q);
-F_c(q)in X_w^{(n)}
-ight}
-cup
-left{
+\land
+\exists c\in\mathcal A(q)\;
+F_c(q)\in X_w^{(n)}
+\right\}
+\cup
+\left\{
 q:
-p(q)
-eq w
-land
-orall cinmathcal A(q);
-F_c(q)in X_w^{(n)}
-ight}.
+p(q)\neq w
+\land
+\forall c\in\mathcal A(q)\;
+F_c(q)\in X_w^{(n)}
+\right\}.
 }
-]
+\]
 
 Hence
 
-[
-oxed{
-X_w=igcup_{nge0}X_w^{(n)}
+\[
+\boxed{
+X_w=\bigcup_{n\ge0}X_w^{(n)}
 }
-]
+\]
 
 and
 
-[
-oxed{
+\[
+\boxed{
 C_w(S)=1
-iff
-pi(S)in X_w.
+\iff
+\pi(S)\in X_w.
 }
-]
+\]
 
-Equivalently, with controllable predecessor
+Define controllable predecessor
 
-[
-operatorname{Pre}_w(X)=
-{q:p(q)=wlandexists c, F_c(q)in X}
-cup
-{q:p(q)
-eq wlandorall c, F_c(q)in X},
-]
+\[
+\operatorname{Pre}_w(X)=
+\{q:p(q)=w\land\exists c,\ F_c(q)\in X\}
+\cup
+\{q:p(q)\neq w\land\forall c,\ F_c(q)\in X\}.
+\]
 
-[
-oxed{
-X_w=mu X.left(mathcal T_wcupoperatorname{Pre}_w(X)ight),
+Then
+
+\[
+\boxed{
+X_w=\mu X.\left(\mathcal T_w\cup\operatorname{Pre}_w(X)\right),
 }
-]
+\]
 
-where (mu) denotes the least fixed point.
+where \(\mu\) denotes the least fixed point.
 
 ---
 
 ## 7. Well-founded certificate form
 
-For a structural descriptor
+For structural descriptor \(D(q)\) with well-founded rank
 
-[
-D(q)
-]
-
-with well-founded rank
-
-[
-mu:D	omathcal W,
-]
+\[
+\mu:D\to\mathcal W,
+\]
 
 every admitted nonterminal certificate edge satisfies
 
-[
-oxed{
-mu(D(F_c(q)))<mu(D(q)).
+\[
+\boxed{
+\mu(D(F_c(q)))<\mu(D(q)).
 }
-]
+\]
 
-Therefore a certificate may replace recursive expansion by finite structural descent when the following are closed:
+Thus a searchless certificate may replace explicit recursive expansion when
 
-[
-oxed{
+\[
+\boxed{
 p=w:
-quad
-exists cinmathcal A(q)
-;[
-F_c(q)inmathcal T_w
-lor
-D(F_c(q))prec D(q)
+\quad
+\exists c\in\mathcal A(q)\;
+[
+F_c(q)\in\mathcal T_w
+\lor
+D(F_c(q))\prec D(q)
 ],
 }
-]
+\]
 
+and
+
+\[
+\boxed{
+p\neq w:
+\quad
+\forall c\in\mathcal A(q)\;
 [
-oxed{
-p
-eq w:
-quad
-orall cinmathcal A(q)
-;[
-F_c(q)inmathcal T_w
-lor
-D(F_c(q))prec D(q)
+F_c(q)\in\mathcal T_w
+\lor
+D(F_c(q))\prec D(q)
 ].
 }
-]
+\]
 
 A trivial physical rank is
 
-[
-mu_{mathrm{phys}}(S)
+\[
+\mu_{\mathrm{phys}}(S)
 =
-WH-sum_{c=0}^{W-1}h_c,
-]
+WH-\sum_{c=0}^{W-1}h_c,
+\]
 
-but this alone does not remove continuation-tree expansion.
+but that rank alone does not remove continuation-tree expansion.
 
 ---
 
 ## 8. CPC ownership term
 
-For future target (t=(c,r)),
+For future target \(t=(c,r)\),
 
-[
+\[
 N(t)
 =
 (r-h_c+1)
 +
-sum_{d
-eq c}(H-h_d)
-]
+\sum_{d\neq c}(H-h_d),
+\]
 
-and
+hence
 
-[
+\[
 N(t)
 =
-(W-1)H-operatorname{ply}+r+1.
-]
+(W-1)H-\operatorname{ply}+r+1.
+\]
 
 Absolute zero-reservation owner bit:
 
-[
-oxed{
+\[
+\boxed{
 q_0(c,r)
 =
-((W-1)H+r)mod2.
+((W-1)H+r)\bmod2.
 }
-]
+\]
 
-With a certified parity correction (ho(c,r)),
+With certified parity correction \(\rho(c,r)\),
 
-[
-oxed{
+\[
+\boxed{
 q(c,r)
 =
-((W-1)H+r+ho(c,r))mod2.
+((W-1)H+r+\rho(c,r))\bmod2.
 }
-]
+\]
 
-For standard (7	imes6),
+For standard \(7\times6\),
 
-[
-oxed{
-q_0(c,r)=rmod2.
+\[
+\boxed{
+q_0(c,r)=r\bmod2.
 }
-]
-
-These terms are inputs/constraints on admissible structural transforms; they do not replace the alternating recurrence.
+\]
 
 ---
 
 ## 9. Minimal complete statement
 
-[
-oxed{
-egin{gathered}
-q=pi(S),\[1mm]
-F_c(q)=pi(T_cS),\[1mm]
+\[
+\boxed{
+\begin{gathered}
+q=\pi(S),\\[1mm]
+F_c(q)=\pi(T_cS),\\[1mm]
 C_w(q)=
-egin{cases}
-1,&qinmathcal T_w,\
-0,&qinmathcal T_{1-w}cupmathcal T_D,\
-igvee_c C_w(F_c(q)),&p(q)=w,\
-igwedge_c C_w(F_c(q)),&p(q)
-eq w,
-end{cases}\[3mm]
-F_c(q)
-otinmathcal T
-Rightarrow
-mu(D(F_c(q)))<mu(D(q)).
-end{gathered}
+\begin{cases}
+1,&q\in\mathcal T_w,\\
+0,&q\in\mathcal T_{1-w}\cup\mathcal T_D,\\
+\bigvee_c C_w(F_c(q)),&p(q)=w,\\
+\bigwedge_c C_w(F_c(q)),&p(q)\neq w,
+\end{cases}\\[3mm]
+F_c(q)\notin\mathcal T
+\Rightarrow
+\mu(D(F_c(q)))<\mu(D(q)).
+\end{gathered}
 }
-]
+\]
 
 Equivalent fixed-point statement:
 
-[
-oxed{
+\[
+\boxed{
 X_w
 =
-mu X.
-left(
-mathcal T_w
-cup
-{q:p(q)=wlandexists c, F_c(q)in X}
-cup
-{q:p(q)
-eq wlandorall c, F_c(q)in X}
-ight).
+\mu X.
+\left(
+\mathcal T_w
+\cup
+\{q:p(q)=w\land\exists c,\ F_c(q)\in X\}
+\cup
+\{q:p(q)\neq w\land\forall c,\ F_c(q)\in X\}
+\right).
 }
-]
+\]
 
 ---
 
-## 10. Exact open problem
+## 10. Oracle-relative closure
 
-The recurrence above is not the unresolved part.
+Let \(\sigma(S,c)\) be the exact mover-relative solved action score from the accepted standard-7x6 oracle.
 
-The unresolved target is to construct and prove a quotient/operator pair
+Define
 
-[
-oxed{
-(pi,F)
+\[
+V_{\mathcal O}(S,c)
+=
+(-1)^{p(S)}
+\operatorname{sgn}\sigma(S,c).
+\]
+
+Then
+
+\[
+\boxed{
+V_{\mathcal O}(S)=
+\begin{cases}
+\max_c V_{\mathcal O}(S,c),&p(S)=0,\\
+\min_c V_{\mathcal O}(S,c),&p(S)=1.
+\end{cases}}
+\]
+
+Therefore the claimant-relative OR/AND recurrence above follows directly from the oracle action-score contract and does not need recursive formula execution during validation.
+
+Executed validation at head
+
+\[
+\texttt{c19c1a5e41cfd2200bf53b86a2f0c77435105529}
+\]
+
+passed on
+
+\[
+316\text{ positions}
+\]
+
+and
+
+\[
+1,586\text{ legal action transitions},
+\]
+
+with
+
+\[
+\texttt{formulaRecursiveDescentUsed=false}.
+\]
+
+See:
+
+- \`docs/research/2026-10-16-oracle-relative-proof-algorithmic-core.md\`
+
+---
+
+## 11. Exact remaining problem
+
+The recurrence correctness is no longer the unresolved part.
+
+The remaining target is an oracle-independent direct evaluator or certificate map
+
+\[
+G(q)\in\{-1,0,+1\}
+\]
+
+such that
+
+\[
+\boxed{
+G(q)=\widehat V_{\mathcal O}(q)
 }
-]
+\]
 
-such that all of the following hold:
+for every legal q, while avoiding ordinary exponential continuation expansion.
 
-[
-oxed{
-pi(S_1)=pi(S_2)
-Rightarrow
-C_w(S_1)=C_w(S_2)
-quad
-orall w,
-}
-]
+A stronger generalized-complexity target additionally asks for
 
-[
-oxed{
-pi(T_cS)=F_c(pi(S))
-}
-]
+\[
+|\pi(S)|\le\operatorname{poly}(W,H,K),
+\]
 
-for every legal (c),
+\[
+\operatorname{cost}(F_c)\le\operatorname{poly}(W,H,K),
+\]
 
-[
-oxed{
-|pi(S)|le operatorname{poly}(W,H,K),
-}
-]
-
-[
-oxed{
-operatorname{cost}(F_c)le operatorname{poly}(W,H,K),
-}
-]
-
-and the existential/universal predecessor can be certified without enumerating an exponential continuation tree.
+and polynomial quantified predecessor closure.
 
 In shortest form:
 
-[
-oxed{
-	ext{open problem}
+\[
+\boxed{
+\text{remaining problem}
 =
-	ext{polynomial exact congruence}
+\text{direct oracle-equivalent structural evaluator}
 +
-	ext{polynomial closed transition}
-+
-	ext{polynomial quantified predecessor closure}.
+\text{cheap closed consequence construction}.
 }
-]
+\]
 
-The alternating recurrence itself is already explicit.
+Oracle comparison can validate candidate \(G\) pointwise:
+
+\[
+\boxed{
+G(q)\stackrel{?}{=}\widehat V_{\mathcal O}(q)
+}
+\]
+
+without recursively running \(G\) to terminal depth.
 
 ---
 
 ## Provenance / claim boundary
 
-This synthesis is consistent with and should be read against:
+This synthesis should be read against:
 
-- `docs/research/2026-09-13-alternating-fixed-point-calculus.md`;
-- `docs/research/2026-09-10-minimum-description-semantic-quotient.md`;
-- `docs/research/2026-09-09-universal-strategic-algebra.md`;
-- `docs/research/2026-09-14-cpc-control-potential-unification.md`;
-- the experimental CPCX winner-existence / loser-equivalence work on `experiment/cpcx-20261002`.
+- \`docs/research/2026-09-13-alternating-fixed-point-calculus.md\`;
+- \`docs/research/2026-09-10-minimum-description-semantic-quotient.md\`;
+- \`docs/research/2026-09-09-universal-strategic-algebra.md\`;
+- \`docs/research/2026-09-14-cpc-control-potential-unification.md\`;
+- \`research/isograph/discovery/2026-09-18-high-value-leads/STANDARD_7X6_Q_CONGRUENCE.md\`;
+- \`docs/research/2026-10-16-oracle-relative-proof-algorithmic-core.md\`.
 
-It does not supersede `research/isograph/CONNECT4_LOGIC_AUTHORITY_1_2.md`, does not change specification acceptance status, and does not claim that the open polynomial quotient/operator construction has been completed.
+This file does not supersede \`research/isograph/CONNECT4_LOGIC_AUTHORITY_1_2.md\`, does not change specification acceptance status, and does not claim that a polynomial-time oracle-independent Connect Four evaluator has been completed.
