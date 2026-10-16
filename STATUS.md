@@ -130,7 +130,11 @@ Primary record:
 `docs/research/2026-10-16-input-specialized-winning-region-certificate.md`.
 Reproducible certificate and readback:
 `research/isograph/discovery/2026-10-16-algorithmic-core/INPUT_SPECIALIZED_ROOT_WIN_CERTIFICATE_0_1.json`
-and `INPUT_SPECIALIZED_PROOF_CONTROL_RESULTS_0_1.json`.
+and `INPUT_SPECIALIZED_PROOF_CONTROL_RESULTS_0_2.json`.
+A second fully persisted **direct-only 47-node / 73-edge** proof
+(`INPUT_SPECIALIZED_DIRECT_ONLY_ROOT_CERTIFICATE_0_1.json`)
+uses **zero** favorable-order references; all 50 nonterminal edges use
+literal q equality, independently establishing the same root win.
 
 **Branch elimination remains OPEN.** The producer still recursively
 checks obligations, and its P1 universal cases branch in the proof
