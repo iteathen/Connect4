@@ -89,7 +89,7 @@ export function discoverInputSpecializedP0Win(options={}) {
     }
     return null;
   }
-  function search(q,depth){
+  function search(q,depth,path){
     bound();metrics.obligationVisits++;
     metrics.maxSearchDepth=Math.max(depth,metrics.maxSearchDepth);
     metrics.peakActivePath=Math.max(metrics.peakActivePath,active.size+1);
@@ -116,7 +116,7 @@ export function discoverInputSpecializedP0Win(options={}) {
         else if(step.terminal===-1)metrics.leafP1Wins++;
         else metrics.leafDraws++;
       }else{
-        const proved=search(step.q,depth+1);
+        const proved=search(step.q,depth+1,[...path,a]);
         if(proved!==null){childRef=proved.id;p0Success=true;}
       }
       if(mover===0&&p0Success){
@@ -134,7 +134,7 @@ export function discoverInputSpecializedP0Win(options={}) {
       metrics.maxCachedNonWinStates=Math.max(metrics.maxCachedNonWinStates,refuted.size);
       return null;
     }
-    const node={id,q,policyAction:choice,edges};
+    const node={id,q,sourcePath:path.slice(),policyAction:choice,edges};
     winners.set(id,node);
     if(!winBySupport.has(supportKey(q)))winBySupport.set(supportKey(q),[]);
     winBySupport.get(supportKey(q)).push(node);
@@ -143,7 +143,7 @@ export function discoverInputSpecializedP0Win(options={}) {
     return node;
   }
   try{
-    const certified=search(root,0);
+    const certified=search(root,0,[]);
     if(certified===null)return {status:'P0_WIN_NOT_CERTIFIED',metrics,
       note:'An exhaustive bounded claimant-only search returned no P0 win; not a general draw/loss claim.',
       elapsedMs:Date.now()-started};
@@ -161,7 +161,7 @@ export function discoverInputSpecializedP0Win(options={}) {
     }
     const nodes=[...reachable].map(id=>winners.get(id)).sort((a,b)=>
       rankOf(b.q)-rankOf(a.q)||a.id.localeCompare(b.id));
-    const serialized=nodes.map(n=>({id:n.id,q:asJSON(n.q),
+    const serialized=nodes.map(n=>({id:n.id,q:asJSON(n.q),sourcePath:n.sourcePath.slice(),
       p0SelectedAction:n.policyAction,edges:n.edges.slice().sort((a,b)=>a.action-b.action)}));
     const included=new Set(serialized.map(x=>x.id));
     if(!included.has(certified.id))throw Error('proof root missing');
