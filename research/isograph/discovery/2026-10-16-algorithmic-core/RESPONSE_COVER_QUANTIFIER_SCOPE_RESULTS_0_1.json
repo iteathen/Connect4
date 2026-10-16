@@ -1,0 +1,245 @@
+{
+  "schema": "connect4.response-cover.quantifier-scope.v0_1",
+  "date": "2026-10-16",
+  "status": "PASS",
+  "cases": [
+    {
+      "board": {
+        "width": 4,
+        "height": 3,
+        "connect": 3,
+        "name": "4x3-c3"
+      },
+      "status": "PASS",
+      "stats": {
+        "totalReachableNonterminalStates": 4631,
+        "physicalGraphEdges": 11818,
+        "P1StatesProcessed": 2208,
+        "responseRows": 10970,
+        "allNonzeroActionMasks": 3178,
+        "distinctNonzeroActionMasks": 2866,
+        "inclusionMaximalMasks": 2038,
+        "prunedRedundantCoverMasks": 6794,
+        "adaptiveUniversalTrue": 620,
+        "staticFullCoverActionTrue": 346,
+        "adaptiveOnlyUniversalTrue": 274,
+        "adaptiveOnlyByRank": {
+          "3": 2,
+          "5": 62,
+          "7": 156,
+          "9": 54
+        },
+        "maxRawCoverSize": 4,
+        "maxMaximalAntichainWidth": 3,
+        "maxWidthViolationCount": 0,
+        "unionPreservationMismatches": 0,
+        "staticFullPreservationMismatches": 0,
+        "sourceResidualQueries": 105610,
+        "naturalWitness223Replayed": true,
+        "checkedNaturalWitnessPhysicalActions": 99,
+        "encounteredP1ImmediateWinCases": 1020
+      },
+      "examples": {
+        "firstAdaptiveOnly": {
+          "history": "111222433",
+          "support": [
+            3,
+            3,
+            2,
+            1
+          ],
+          "legal": "0xc",
+          "covers": [
+            "0x0",
+            "0x0",
+            "0x8",
+            "0x4"
+          ],
+          "maximal": [
+            "0x4",
+            "0x8"
+          ]
+        },
+        "firstFullStatic": {
+          "history": "1112224",
+          "support": [
+            3,
+            3,
+            0,
+            1
+          ],
+          "legal": "0xc",
+          "covers": [
+            "0x0",
+            "0x0",
+            "0xc",
+            "0x4"
+          ]
+        },
+        "natural223": {
+          "history": "223",
+          "support": [
+            0,
+            2,
+            1,
+            0
+          ],
+          "legal": "0xf",
+          "covers": [
+            "0xe",
+            "0x4",
+            "0xe",
+            "0x7"
+          ],
+          "maximal": [
+            "0x7",
+            "0xe"
+          ],
+          "forallP1ExistsP0": true,
+          "existsOneP0ForallP1": false,
+          "directPhysicalValidationMoves": 99
+        },
+        "maximalAntichainMaxWitness": {
+          "history": "112123443",
+          "support": [
+            3,
+            2,
+            2,
+            2
+          ],
+          "covers": [
+            "0x0",
+            "0xc",
+            "0xa",
+            "0x6"
+          ],
+          "maximal": [
+            "0x6",
+            "0xa",
+            "0xc"
+          ]
+        }
+      },
+      "partial": false,
+      "elapsedMs": 117,
+      "producerUsesGameTreeSearch": false,
+      "resultType": "maximal response-cover antichain preserves union and full-mask existential, not arbitrary deeper strategy quantifiers"
+    },
+    {
+      "board": {
+        "width": 4,
+        "height": 4,
+        "connect": 4,
+        "name": "4x4-c4"
+      },
+      "status": "PASS",
+      "stats": {
+        "totalReachableNonterminalStates": 134289,
+        "physicalGraphEdges": 304574,
+        "P1StatesProcessed": 67992,
+        "responseRows": 299150,
+        "allNonzeroActionMasks": 27362,
+        "distinctNonzeroActionMasks": 25952,
+        "inclusionMaximalMasks": 23408,
+        "prunedRedundantCoverMasks": 248560,
+        "adaptiveUniversalTrue": 3694,
+        "staticFullCoverActionTrue": 1384,
+        "adaptiveOnlyUniversalTrue": 2310,
+        "adaptiveOnlyByRank": {
+          "9": 70,
+          "11": 1584,
+          "13": 656
+        },
+        "maxRawCoverSize": 4,
+        "maxMaximalAntichainWidth": 3,
+        "maxWidthViolationCount": 0,
+        "unionPreservationMismatches": 0,
+        "staticFullPreservationMismatches": 0,
+        "sourceResidualQueries": 3333388,
+        "naturalWitness223Replayed": false,
+        "checkedNaturalWitnessPhysicalActions": 0,
+        "encounteredP1ImmediateWinCases": 10160
+      },
+      "examples": {
+        "firstAdaptiveOnly": {
+          "history": "1111222234343",
+          "support": [
+            4,
+            4,
+            3,
+            2
+          ],
+          "legal": "0xc",
+          "covers": [
+            "0x0",
+            "0x0",
+            "0x8",
+            "0x4"
+          ],
+          "maximal": [
+            "0x4",
+            "0x8"
+          ]
+        },
+        "firstFullStatic": {
+          "history": "1111222332334",
+          "support": [
+            4,
+            4,
+            4,
+            1
+          ],
+          "legal": "0x8",
+          "covers": [
+            "0x0",
+            "0x0",
+            "0x0",
+            "0x8"
+          ]
+        },
+        "natural223": null,
+        "maximalAntichainMaxWitness": {
+          "history": "11112223343",
+          "support": [
+            4,
+            3,
+            3,
+            1
+          ],
+          "covers": [
+            "0x0",
+            "0x4",
+            "0x2",
+            "0x8"
+          ],
+          "maximal": [
+            "0x2",
+            "0x4",
+            "0x8"
+          ]
+        }
+      },
+      "partial": false,
+      "elapsedMs": 2859,
+      "producerUsesGameTreeSearch": false,
+      "resultType": "maximal response-cover antichain preserves union and full-mask existential, not arbitrary deeper strategy quantifiers"
+    }
+  ],
+  "solvedOracleQueries": 0,
+  "policySearchInputs": 0,
+  "provenance": {
+    "branch": "research/semantic-quotient",
+    "date": "2026-10-16",
+    "sourceShas": {
+      "universal-response-cover-operator.mjs": "97638a01578b4e62bef3a38ef8728de79dfbca75",
+      "universal-one-reply-fusion-control.mjs": "0c5c71134308d8f438032b7df68457b73cd4950b",
+      "response-cover-scope-control.mjs": "42f2774d5803376a883128bdf2350c861d7b170f"
+    },
+    "runtime": "isolated JS V8 executing exact committed module source; import/process shimmed; Node26 maintained suite not executed",
+    "candidateInputs": "rule-derived response masks only, no policy search or solved WDL labels",
+    "physicalGraphRole": "VALIDATION ONLY; 4x3 witness 223 independently checked by literal physical first-win sequences",
+    "scope": "quantifier order and inclusion-maximal action-cover antichain, one P1 first-reply layer",
+    "maxAntichainWidthBound": "Sperner binomial(W,floor(W/2)) for a one-layer W-bit response mask; not an arbitrary-depth result",
+    "proofStatus": "elementary set-theoretic theorem with complete finite board qualification"
+  }
+}
