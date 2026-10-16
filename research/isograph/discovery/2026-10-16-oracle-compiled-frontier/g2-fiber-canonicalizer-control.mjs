@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import assert from 'node:assert/strict';
-import { canonicalizeG2Fiber } from '../../2026-09-18-policy-frontier/rba-g2-fiber-equivalence.mjs';
+import { canonicalizeG2Fiber } from '../2026-09-18-policy-frontier/rba-g2-fiber-equivalence.mjs';
 
 const W=7,H=6;
 function enumerateSupportsAtRank(rank){
