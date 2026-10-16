@@ -1,0 +1,51 @@
+{
+  "schema": "connect4.constructive-core-mutation-controls.v0_1",
+  "date": "2026-10-16",
+  "result": "PASS",
+  "control": "complete 4x3 Connect3 domain",
+  "baseline": {
+    "status": "PASS",
+    "physicalStates": 4631,
+    "actions": 11818
+  },
+  "mutants": [
+    {
+      "id": "reverse-terminal-winner",
+      "detected": true,
+      "controlStatus": "FAIL",
+      "firstDifference": "Error: empty root result differs",
+      "observedMs": 120,
+      "mutationOriginal": "return {terminal:mover===0?1:-1,kind:'win'};",
+      "mutationSubstitution": "return {terminal:mover===0?-1:1,kind:'win'};"
+    },
+    {
+      "id": "omit-owner-true-cofactor",
+      "detected": true,
+      "controlStatus": "FAIL",
+      "firstDifference": "Error: empty root result differs",
+      "observedMs": 234,
+      "mutationOriginal": "const reduced=normalized(own.map(m=>m&~landing));",
+      "mutationSubstitution": "const reduced=normalized(own);"
+    },
+    {
+      "id": "omit-opponent-false-cofactor",
+      "detected": true,
+      "controlStatus": "FAIL",
+      "firstDifference": "Error: nonterminal q cofactor mismatch at /1",
+      "observedMs": 204,
+      "mutationOriginal": "const blocked=normalized(opposite.filter(m=>(m&landing)===0n));",
+      "mutationSubstitution": "const blocked=normalized(opposite);"
+    }
+  ],
+  "oracleQueries": 0,
+  "productionCoreModified": false,
+  "evidenceClass": "internal injected-fault qualification, not an independent mathematical theorem",
+  "provenance": {
+    "module_blob_sha": "6b25d0e2560fe4131d2f5442593e9ed9763c1a18",
+    "independent_control_blob_sha": "50cac1869e2a8afda8b13cfa0e89a7c2df6a7fe7",
+    "mutation_control_blob_sha": "5ef62be20b4190b92ca97469ffa6b043cd9f68c4",
+    "exact_command": "node research/isograph/discovery/2026-10-16-algorithmic-core/constructive-core-mutation-control.mjs",
+    "actual_execution": "isolated JS V8 using exact committed module source and in-memory fake filesystem/Node shims; production source never modified",
+    "result_hash_pinned_to_git_file_sha": false
+  }
+}
