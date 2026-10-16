@@ -10,7 +10,7 @@ function subset(a,b){return (a&b)===a;}
 function cmpBig(a,b){return a<b?-1:a>b?1:0;}
 function skey(h){return h.join(',');}
 function parseArgs(){
-  const o={base:[5,5,2,3,6,6,6],cache:'/mnt/data/rba-draw-cache',stopRank:0,traceMissing:7,skylineSwitch:2048,normalizer:'tree',blockBits:8};
+  const o={base:[5,5,2,3,6,6,6],cache:'/mnt/data/rba-draw-cache',stopRank:0,traceMissing:7,skylineSwitch:2048,normalizer:'auto',blockBits:8,blockThreshold:50000};
   for(let i=2;i<process.argv.length;i++){
     const a=process.argv[i];
     if(a==='--base')o.base=process.argv[++i].split(',').map(Number);
@@ -20,9 +20,10 @@ function parseArgs(){
     else if(a==='--skyline-switch')o.skylineSwitch=Number(process.argv[++i]);
     else if(a==='--normalizer')o.normalizer=process.argv[++i];
     else if(a==='--block-bits')o.blockBits=Number(process.argv[++i]);
+    else if(a==='--block-threshold')o.blockThreshold=Number(process.argv[++i]);
     else throw new Error(`unknown arg ${a}`);
   }
-  if(!['tree','block'].includes(o.normalizer))throw new Error('normalizer must be tree or block');
+  if(!['auto','tree','block'].includes(o.normalizer))throw new Error('normalizer must be auto, tree or block');
   if(!Number.isInteger(o.blockBits)||o.blockBits<2||o.blockBits>12)throw new Error('block-bits must be 2..12');
   return o;
 }
@@ -118,7 +119,7 @@ function staticMaxBlock(values,bits,blockBits=8){
   }
   return out.sort(cmpBig);
 }
-function staticMax(values,bits){return OPT.normalizer==='block'?staticMaxBlock(values,bits,OPT.blockBits):staticMaxTree(values,bits);}
+function staticMax(values,bits){const mode=OPT.normalizer==='auto'?(values.length>=OPT.blockThreshold?'block':'tree'):OPT.normalizer;return mode==='block'?staticMaxBlock(values,bits,OPT.blockBits):staticMaxTree(values,bits);}
 function staticMin(values,bits){if(!values.length)return [];const all=bits?((1n<<BigInt(bits))-1n):0n;return staticMax(values.map(q=>all^q),bits).map(q=>all^q).sort(cmpBig);}
 
 class EdgeMap{
