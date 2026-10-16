@@ -313,3 +313,65 @@ another semantic mechanism. Do not enumerate action words as disguised
 search. Verification uses exact q/physical solvers **after** a candidate
 law is mathematically derived.
 
+
+## 2026-10-16 — four-ply original-q universal predecessor and quantifier-scope boundary
+
+A **rule-only** response-cover operator now composes the precise
+`P1 FORALL / P0 EXISTS / P1 FORALL / P0 immediate terminal EXISTS`
+pattern without constructing any child q or running recursive
+game-value search.
+
+For source P1-to-move q, each possible P0 action a has one bitmask
+K_a of original P1 reply columns b against which P0 may choose a
+*after seeing b* and guarantee a first win on its first/second own move.
+The exact bounded conclusion is **union(K_a) equals the original legal
+P1 mask**, with all first-win and board-draw guards included.
+
+The code uses only original R0/R1 singleton and pair residual
+requirements, original support arithmetic, and O(W^3) local
+action-column incidence/membership work. This is **bounded-depth
+quantifier composition**, not an algorithm for full game WDL.
+
+- Complete 4x3/4x4 cofactor qualifier: **70,200 P1 positions**,
+  **310,120 b,a response rows**, **zero** source/child-cofactor
+  mask disagreements.
+- Direct physical first-win independent qualifier: all 2,208 4x3
+  P1 states plus 31,501/67,992 4x4 states (bounded by fixed 800k
+  transition ceiling), **zero** disagreements; do not mislabel
+  the partial 4x4 physical subset as exhaustive.
+- Standard7x6: literal `44444` plus 12 seeded rank35 P1 states:
+  source original-q, child-cofactor, direct physical and mirror
+  results agree; two late states satisfy the bounded predicate.
+- Reference reconstructed 133,392 P1 child q states across small
+  games while original-q algebra created zero, but source operator
+  made 3,438,998 residual membership queries; **no universal
+  runtime speedup** claimed.
+- Real physical counterexamples reject omission of **both**
+  necessary size-two source cofactor antecedents.
+
+**Load-bearing algebraic obstruction: quantifier order.** In actual
+legal 4x3 prefix `223`, the family K=[0xe,0x4,0xe,0x7]
+covers the full legal P1 mask 0xf *in union*, but no one P0 action
+covers it alone. A physical checker replays and confirms this.
+The complete small-board census finds **2,584 P1 states** whose
+bounded success requires action choices adaptive to b.
+Therefore an outer P0-first transformer must preserve the **full
+action-labelled cover family**, not collapse it to its union. An
+inclusion-maximal nonzero cover-antichain is exact for both union
+coverage and existence of a full individual response cover.
+
+**Next guarded GSP-004 target:** pull back a **family** of maximal
+action-labelled covers through one preceding P0 true cofactor via the
+qualified residual-upset/adjunction laws, not a bare union or
+search-generated policy. Measure whether mixed reply correlation
+forces antichain width blowup. Do not simply nest loops over five-ply
+move words and call that algebraic branch elimination.
+
+Proof, controls and exact witnesses:
+`docs/research/2026-10-16-response-cover-next-quantifier-law.md`;
+`research/isograph/discovery/2026-10-16-algorithmic-core/UNIVERSAL_RESPONSE_COVER_RESULTS_0_1.json`,
+`UNIVERSAL_RESPONSE_COVER_7X6_RESULTS_0_1.json`,
+and `RESPONSE_COVER_QUANTIFIER_SCOPE_RESULTS_0_1.json`.
+
+Current qualified WDL core remains constructively complete despite
+the optional general nonbranching question still being OPEN.
