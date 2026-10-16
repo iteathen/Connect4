@@ -238,3 +238,39 @@ Use the new rank-local `A_<=2(q)` operator as a **structural algebraic base case
 Do not run forward candidate move search. Derive the necessary source-requirement degree and response-correlation guards **before** evaluating states; if a compact normal form fails, record the minimal mixed-reply obstruction. Compare with existing RBA semiring and four-front closures before naming anything new. Validate against the verified recursive q core and physical small-board controls **after** the algebra is frozen.
 
 A successful single next layer would progress toward 3-P0-own-move closure and the empty 4x3 test. It may still require more complex expression structure; no expectation of guaranteed compactness should be embedded in the premise.
+
+---
+
+## Successor checkpoint — next universal P1 layer now algebraically closed
+
+The earlier question in this document, "Can we pull the exact
+two-P0-own-move predicate backward through one more P1 turn?",
+is **answered YES for that fixed horizon**. See the newer,
+more precise research note:
+
+`docs/research/2026-10-16-response-cover-next-quantifier-law.md`.
+
+The exact original-q response-cover family K_a handles
+`P1 FORALL / P0 EXISTS / P1 FORALL / P0 immediate terminal EXISTS`
+without constructing child q objects. It uses only original
+R0/R1 residual requirements of size <=2. Across complete 4x3/4x4
+finite legal P1 state domains, 70,200 source-q predicates and
+310,120 response rows agree with the previously qualified
+one-step child-q two-own-move operator, with 0 discrepancies.
+A separate direct physical validator checked 33,709 states;
+the 4x4 subset is capped/partial. Standard7x6 `44444`
+and 12 seeded late states passed separate short-horizon controls.
+
+**The new open law is NOT that same already-closed P1 preimage.**
+It is how to carry the resulting **adaptive action-labelled
+response-cover antichain** backward through one preceding P0
+turn without distributing correlated mixed reply covers.
+A single union mask is provably insufficient: real legal
+4x3 prefix `223` has source covers
+`[0xe,0x4,0xe,0x7]` for legal mask `0xf`;
+union is full but no individual P0 response works for all
+initial P1 choices. The next operator must preserve quantifier
+scope, not enumerate longer move histories as disguised search.
+
+This successor is still a **bounded** quantifier-elimination
+mechanism, not a general arbitrary-depth nonbranching solver.
