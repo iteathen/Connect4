@@ -13,6 +13,31 @@ This file is the current-state router, not a theorem ledger. This branch owns **
 
 See `docs/decisions/2026-09-17-single-research-owner.md`.
 
+## Guard-qualified local quantifier projection — k7 complete / k8 lower still partial — 2026-10-16
+
+**Primary open research objective remains full exact strategic branch elimination with complete tied-optimal action labels.** A new **proved rule-based local quantifier operator** pushes FORALL through AND, EXISTS through OR (using signed negation duality), and either quantifier past a syntactically x-independent factor, BEFORE materializing both full Shannon cofactor DAGs. Correlated existential-AND and universal-OR cases retain exact Shannon fallback. All source first-win/draw/full-column/invalid-choice guards and chronological adaptive action dependencies remain unchanged; first action is FREE to return all literal labelled values together.
+
+**Qualified bounded controls (Node22 physical, not full Node26):** same 47 source-horizon cases, **188** projections, **672** per-action Boolean threshold checks, zero mismatches; full-game small-board suffixes **24/24 correct WDL and complete optimal sets (13 singleton, 11 tied)**. New independent physical standard7x6 `44444` k7 check: **2,799,124 physical validation transitions**, all **28** action/threshold values agree, zero discrepancies. The candidate itself does no concrete future game search or winning-policy lookup.
+
+**Major positive:** `44444` k7 all FOUR exact **bounded first-action threshold vectors** COMPLETE under the original 60,000-node/300,000 nontrivial Boolean operations/10,000-support/15s limits. Wlo/Nlo FALSE for all seven labels, using **63,757 projected Boolean ops, 6,298 peak nodes**; Whi/Nhi TRUE for all seven, using **166,807 operations, 16,517 nodes**. Additional compaction/evaluation work (not included in Boolean figures) is 268,070 lower / 507,801 upper units. The older action-QBF Shannon projector hit 60k nodes at k7. This is **actual reduced adaptive quantifier evaluation work**, not just compact CNF encoding.
+
+**Remaining open:** all seven move6 actions after `44444` still have intervals **[-1,+1]**, so NO unrestricted game value or complete optimal-action set has been proved there. At k8 Wlo/Nlo are **PARTIAL** after 16/21 inner action bits, 60k nodes and 292,251 Boolean ops; upper thresholds complete TRUE at 20,573 nodes and 208,467 ops, not independently physically checked at k8. The earlier SOURCE-OWNER reflected interval BDD remains ahead at k11 for bounded-value horizon; do not claim the action-QBF is generally fastest.
+
+**Negative follow-on:** A conservative syntactic signed-variable-unateness/common-witness shortcut was proved sound and passed the same physical controls, but saved only **56 counted Boolean ops** at the failed k8 lower wall after **85,612 extra polarity-cache misses**, leaving the 60k cap and unknown outcome unchanged. Keep this as a REJECTED practical default, not a refutation of semantically certified common witnesses.
+
+Primary theorem/test:
+`docs/research/2026-10-16-guard-qualified-quantifier-localization-and-action-vectors.md`.
+Sound-but-low-benefit negative:
+`docs/research/2026-10-16-common-witness-unateness-negative-width.md`.
+Reproducible operators/physical controls/measurements:
+`research/isograph/discovery/2026-10-16-algorithmic-core/guarded-action-qbf-local-quantifier.mjs`,
+`local-quantifier-control.mjs`,
+`local-quantifier-k7-physical-control.mjs`,
+`GUARDED_LOCAL_QUANTIFIER_PROJECTION_RESULTS_0_1.json`,
+`GUARDED_UNATE_WITNESS_PROJECTION_RESULTS_0_1.json`.
+
+**Next:** exact *semantic* dependency/local factor or cofactor-function quotient (not merely syntactic unateness) that shrinks the remaining correlated existential-AND / universal-OR obligations without hiding their enumeration. Preserve `223` noncommutation, literal tied-optimal masks and budgets. No new game-theory authority or merge.
+
 ## New exact shared first-action projection — one-pass complete optimal-action sets
 
 **Source-only theorem and Node22 scoped verification, 2026-10-16:** The original guard-complete alternating action-QBF matrix `F_z(a0,...)` can be quantified over **all future action blocks while keeping the first action free**. The resulting function `G_z(a0)` yields every literal legal move's Boolean threshold by direct conditioning, without separate opponent-continuation projection per first move. The ∀/∃ order and guarded first-win/capacity/terminal rules are unchanged. Four such shared functions recover all action value intervals and, where each action interval closes, the exact W/D/L plus **every tied-optimal literal action**.
