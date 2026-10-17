@@ -1,0 +1,108 @@
+{
+  "schema": "connect4.adaptive-galois-factor-results.v0_1",
+  "date": "2026-10-16",
+  "status": "EXACT_SINGLE_RELATION_ALGEBRA_TESTED_COMPRESSION_NEGATIVE",
+  "source": "adaptive-galois-factor.mjs",
+  "controlSource": "adaptive-galois-factor-control.mjs",
+  "provenance": {
+    "execution": "isolated V8 JavaScript direct bounded test in research session; committed Node control is reproducible but Node26 full-suite replay is NOT claimed",
+    "referenceRelation": "UNIVERSAL_RESPONSE_COVER_RESULTS_0_1.json, independent physical qualification of legal 4x3-c3 prefix 223",
+    "oracleCalls": 0,
+    "gameTreeStatesExploredDuringFactorization": 0
+  },
+  "source223": {
+    "actionRowsHex": [
+      "0xe",
+      "0x4",
+      "0xe",
+      "0x7"
+    ],
+    "maximalClosedRectangles": [
+      {
+        "actionMask": 5,
+        "replyMask": 14
+      },
+      {
+        "actionMask": 8,
+        "replyMask": 7
+      },
+      {
+        "actionMask": 13,
+        "replyMask": 6
+      },
+      {
+        "actionMask": 15,
+        "replyMask": 4
+      }
+    ],
+    "maximalConceptCount": 4,
+    "distinctActionRowTypeCount": 3,
+    "previouslyProvedMinimumBooleanRank": 3,
+    "forallReplyExistsAction": true,
+    "existsActionForallReply": false,
+    "countedWorkUnits": 169
+  },
+  "exhaustive4x4": {
+    "allBinaryRelations": 65536,
+    "allReplyUniverseMasksPerRelation": 16,
+    "quantifierScopeComparisons": 1048576,
+    "matrixReconstructionMismatches": 0,
+    "orderedQuantifierMismatches": 0,
+    "totalInstrumentedFactorWorkUnits": 8076084,
+    "maxFactorWorkUnits": 175,
+    "maxFactorWorkMatrixEncoding": 4369,
+    "maximalConceptsObserved": 14,
+    "maximalConceptsMatrixEncoding": 31710,
+    "conceptsPerRelationHistogram": {
+      "0": 1,
+      "1": 225,
+      "2": 3750,
+      "3": 14400,
+      "4": 21072,
+      "5": 14064,
+      "6": 6936,
+      "7": 3360,
+      "8": 1416,
+      "10": 288,
+      "14": 24
+    },
+    "comparedToDistinctActionRowTypes": {
+      "fewer": 8071,
+      "equal": 24549,
+      "more": 32916
+    }
+  },
+  "seeded7x7": {
+    "fixedSeedHex": "0x1a2b3c4d",
+    "relationCount": 100,
+    "zeroReconstructionMismatches": true,
+    "maxConceptsObserved": 29,
+    "associatedRows": [
+      120,
+      119,
+      106,
+      65,
+      44,
+      27,
+      62
+    ],
+    "associatedFactorWorkUnits": 1316,
+    "quantifierScopeMasksNotExhaustivelyRetestedInOriginalIsolatedV8Run": true
+  },
+  "resourceScope": {
+    "maxOperationsPerFactor": 300000,
+    "maxRectanglesPerFactor": 10000,
+    "maxObjectsPerFactor": 60000,
+    "maxTimeSecondsPerFactor": 15,
+    "independentControlTotalWorkMayExceedPerFactorLimit": true
+  },
+  "generalProof": "Galois concepts (A,B) with A=B' and B=A' are maximal all-ones rectangles. Every relation edge is in the closure of its singleton action, and closure adds no zero edge; hence union recovers full action-labelled relation. Quantifier-order predicates are computed from that exact union, not swapped.",
+  "negativeConclusion": "All maximal closed rectangles are NOT a generally compressive normal form. At 223 the concept basis has 4 objects while the previously known minimum rectangle cover has 3. A majority of 4x4 matrices have more concepts than distinct action row types.",
+  "remainingOpen": [
+    "exact factorization of future adaptive multi-block relations from source residuals without expanding their product",
+    "qualified full-game QBF dependency decomposition/width",
+    "44444 unrestricted WDL and action proofs"
+  ],
+  "fullGameWLDCertified": false,
+  "compositionalWidthReductionProved": false
+}
