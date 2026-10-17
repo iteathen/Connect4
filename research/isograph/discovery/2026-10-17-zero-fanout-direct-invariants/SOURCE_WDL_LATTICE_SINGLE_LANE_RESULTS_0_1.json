@@ -1,0 +1,100 @@
+{
+  "schema": "connect4.source_wdl_lattice_single_lane_results.v0_1",
+  "date": "2026-10-17",
+  "owner": "research/semantic-quotient",
+  "status": "EXACT_FINITE_WDL_ORDER_LATTICE_AND_RESTRICTED_ONE_LANE_ALL_OPTIMAL_SETS_TWO_FULL_SMALL_BOARDS_PASS",
+  "frozenPlan": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/SOURCE_WDL_LATTICE_SINGLE_LANE_PLAN_0_1.md",
+  "operator": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/source-lattice-one-lane-value.mjs",
+  "pureSourceFiniteOrderOperator": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/source-wdl-lattice-closure.mjs",
+  "genericAlgebraicFalsifier": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/source-wdl-lattice-generic-control.mjs",
+  "sourceBehaviorEquivalence": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/full-future-unknown-class.mjs",
+  "gitSourceBlobs": {
+    "lattice": "19e6d73ab4ab6455e8fd73fd2745d5be78fe4f7e",
+    "zeroFanoutProducer": "5e6f68a72cf086ec554f32197acd008dcfc6feaa",
+    "independentGenericFalsifier": "86ce8bbbb2a1d6553976691dfd524667889309f4",
+    "sourceWDLFullFutureOrderInterface": "80d568100a89272ef9c5ce14149e031f89a4498e"
+  },
+  "exactMathematicalLaw": "Given source-certified exact first-action scalar WDL anchors and source-only full-future weak inequalities V(a)<=V(b), initialize WDL interval [-1,+1] per first-action label. For every certified edge (a,b), propagate lower(b) >= lower(a) and upper(a) <= upper(b) until finite three-value lattice stabilization. Every interval contains true unrestricted WDL of its action; a singleton interval is exact. All action values exact -> exact root MAX/MIN and complete tie-preserving optimal set directly. If unresolved, source-full-future behavioral equivalence classes may be grouped as ONE strategically equivalent future; otherwise choose at most ONE source-proved global mover-best weak-order class to continue. If the resulting exact class value propagates all other WDL intervals to singletons, return exact WDL+complete optimum labels; otherwise INCOMPLETE. Never evaluate a second inequivalent game-semantic future.",
+  "genericFourActionFalsification": {
+    "allDirectedWeakOrderGraphs": 4096,
+    "allThreePointActionValueVectors": 331776,
+    "vectorsCompatibleWithAllCertifiedInequalities": 33792,
+    "differentKnownSourceExactAnchorSubsetsChecked": 540672,
+    "actionIntervalChecks": 2162688,
+    "inferredExactActionValueChecks": 1519304,
+    "wrongIntervalBounds": 0,
+    "wrongExactValues": 0,
+    "reversedInequalityContradictingAnchorMutationCaught": true,
+    "isolatedV8ElapsedMs": 6979
+  },
+  "exhaustiveLegalSmallBoardReferenceValidation": [
+    {
+      "board": "4x3 Connect3",
+      "distinctLegalNonterminalQStates": 3734,
+      "exactZeroBranchWDLPlusCompleteOptimalSets": 2910,
+      "previousFullFutureBehaviorSingleLane": 2908,
+      "newlyClosedByWDLOrderLattice": 2,
+      "validatedLiteralActionValues": 7586,
+      "completeTieSetsChecked": 2910,
+      "wrongOutcomes": 0,
+      "wrongOptimalSets": 0,
+      "wrongLiteralActionValues": 0,
+      "observedMaximumStrategicFanout": 1,
+      "sourceOnlyOriginalQConstruction": true,
+      "exampleOneLaneCertifiedExact": {
+        "heights": [
+          2,
+          3,
+          0,
+          2
+        ],
+        "rootWDL": 1,
+        "allOptimalOneBased": [
+          1,
+          3,
+          4
+        ]
+      }
+    },
+    {
+      "board": "4x4 Connect4",
+      "distinctLegalNonterminalQStates": 34094,
+      "exactZeroBranchWDLPlusCompleteOptimalSets": 6581,
+      "previousFullFutureBehaviorSingleLane": 6521,
+      "newlyClosedByWDLOrderLattice": 60,
+      "validatedLiteralActionValues": 16430,
+      "completeTieSetsChecked": 6581,
+      "wrongOutcomes": 0,
+      "wrongOptimalSets": 0,
+      "wrongLiteralActionValues": 0,
+      "observedMaximumStrategicFanout": 1,
+      "exampleOneLaneCertifiedExact": {
+        "heights": [
+          4,
+          1,
+          3,
+          3
+        ],
+        "rootWDL": 1,
+        "allOptimalOneBased": [
+          2,
+          3,
+          4
+        ]
+      }
+    }
+  ],
+  "candidateReferenceSeparation": "Producer only sees q residual h,R0,R1, source exact threat/first-win/draw certificates, source full-future behavior transport and source WDL weak inequalities. Candidate follows at most ONE game-semantic descendant, using existing exact one-step cofactor, and never asks full-game solved outcome labels. Independent exact-q recursion enumerated full small-board states only to generate corpus and verify values/tie sets AFTER direct candidate inference.",
+  "standard44444UnrestrictedWDL": "UNKNOWN [-1,+1]",
+  "fullZeroBranchingConnectFourSolved": false,
+  "timeSolveSpeedGate": false,
+  "statusQualification": "Source algebra deductively exact; exhaustive two small board independent q controls and generic 4-action finite lattice controls; not externally formal-proof-assistant checked or maintained Node26 tested.",
+  "originalResearchSafetyLimits": {
+    "sourceNodes": 60000,
+    "sourceBooleanOperations": 300000,
+    "supportRepresentatives": 10000,
+    "maxMs": 15000
+  },
+  "noAuthorityPromotion": true,
+  "noMerge": true
+}
