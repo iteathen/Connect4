@@ -122,7 +122,8 @@ export function createDirectTwoTurnFrontier({width:W,height:H,connect:K}){
    const value=p===0?Math.max(...results.map(x=>x.value)):Math.min(...results.map(x=>x.value));
    result={status:'EXACT_ZERO_STRATEGIC_FANOUT_RESTRICTED_DOMAIN',
      proofKind:'SOURCE_FRONTIER_TWO_TURN_COMPLETE_ACTION_VECTOR',
-     value,bestMoves:results.filter(x=>x.value===value).map(x=>x.column),
+     value,playerToMove:p,legalActionLabels:legal.slice(),
+     bestMoves:results.filter(x=>x.value===value).map(x=>x.column),
      actionValues:results.map(x=>[x.column,x.value]),
      firstActionSourceProofs:results,
      zeroStrategicFanoutCertified:true,
