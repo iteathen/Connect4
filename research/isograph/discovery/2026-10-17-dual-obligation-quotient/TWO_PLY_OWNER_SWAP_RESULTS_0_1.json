@@ -2,7 +2,7 @@
   "schema": "connect4.source-owner-swap-full-future-simulation-results.v0_1",
   "date": "2026-10-17",
   "owner": "research/semantic-quotient",
-  "status": "EXACT_SOURCE_ONLY_FULL_FUTURE_WDL_DOMINANCE_AND_EQUALITY_TWO_PLY_DIAMONDS_BOUNDED_DOMAIN_VERIFIED",
+  "status": "EXACT_FULL_FUTURE_TWO_PLY_DIAMOND_SIMULATION_WITH_UNIQUE_Q_CERTIFICATE_AUDIT_PASS",
   "frozenPlan": "research/isograph/discovery/2026-10-17-dual-obligation-quotient/TWO_PLY_OWNER_SWAP_SIMULATION_PLAN_0_1.md",
   "producer": "research/isograph/discovery/2026-10-17-dual-obligation-quotient/two-ply-owner-swap-simulation.mjs",
   "independentPhysicalQControl": "research/isograph/discovery/2026-10-17-dual-obligation-quotient/two-ply-owner-swap-control.mjs",
@@ -120,7 +120,7 @@
     "sourceGameTreeCalls": 0,
     "sourceSuccessorQObjectsBuilt": 0,
     "independentValidatorGameTreeCalls": "Only AFTER source candidate, reference qualified recursive exact q solve/cell cofactor",
-    "duplicatePhysicalVsExactQIdentity": "Counts are raw distinct physical source-position diamond instances; memo-equivalent q positions may repeat. Deduplicated-q audit pending.",
+    "duplicatePhysicalVsExactQIdentity": "Now qualified separately: 4x3 unique 72 exact+352 weak over 1522 eligible q/column pairs; 4x4 unique 2372 exact+9380 weak over 39798 q/column pairs. Raw physical counts retained as distinct source position instances.",
     "note": "A certified order among two conditioned branches does not imply root action dominance unless additional all-response matching and quantifier scope are proven."
   },
   "unchangedLimits": {
@@ -137,5 +137,42 @@
   "rootCanonical44444WDL": "UNKNOWN [-1,+1]",
   "optimalActionSet": "UNKNOWN",
   "noGameTheoryAuthorityPromotion": true,
-  "noMerge": true
+  "noMerge": true,
+  "duplicateSafeQKeyAudit": {
+    "instrumentedControl": "research/isograph/discovery/2026-10-17-dual-obligation-quotient/two-ply-owner-swap-control.mjs",
+    "rationale": "Multiple physical p0/p1 positions can have the SAME qualified residual-q state, so raw physical pair certificates can overstate novel q-strategic obligations. Deduplicate by exact core.key(q) plus unordered input column pair.",
+    "corpus4x3": {
+      "sourcePhysicalP1Positions": 2208,
+      "uniqueSourceP1QStates": 1786,
+      "rawEligibleDiamondPairs": 1530,
+      "uniqueQAndColumnPairs": 1522,
+      "rawExactEqualities": 72,
+      "uniqueExactEqualities": 72,
+      "rawOneWayDominance": 354,
+      "uniqueOneWayDominance": 352,
+      "rawOneWayPairsWithStrictFullWDLGapInValidator": 154,
+      "uniqueOneWayPairsWithStrictFullWDLGapInValidator": 152,
+      "rawOneWayPairsWithEqualFullWDLInValidator": 200,
+      "uniqueConditionalComparabilityPercent": 27.85808,
+      "falselyCertifiedOrderOrEquality": 0,
+      "elapsedMs": 238
+    },
+    "corpus4x4": {
+      "sourcePhysicalP1Positions": 67992,
+      "uniqueSourceP1QStates": 16950,
+      "rawEligibleDiamondPairs": 84026,
+      "uniqueQAndColumnPairs": 39798,
+      "rawExactEqualities": 17642,
+      "uniqueExactEqualities": 2372,
+      "rawOneWayDominance": 24644,
+      "uniqueOneWayDominance": 9380,
+      "rawOneWayPairsWithStrictFullWDLGapInValidator": 8668,
+      "uniqueOneWayPairsWithStrictFullWDLGapInValidator": 4006,
+      "rawOneWayPairsWithEqualFullWDLInValidator": 15976,
+      "uniqueConditionalComparabilityPercent": 29.52912,
+      "falselyCertifiedOrderOrEquality": 0,
+      "elapsedMs": 4510
+    },
+    "qualificationLimit": "Strict numeric WDL gaps were observed in the independent recursive-q validator; the SOURCE structural operator certifies only weak <= and exact equality, not strict value unless a new strict result is proved."
+  }
 }
