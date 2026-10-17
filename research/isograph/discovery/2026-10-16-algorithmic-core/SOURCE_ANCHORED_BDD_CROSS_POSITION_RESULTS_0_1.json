@@ -1,0 +1,2062 @@
+{
+  "schema": "connect4.source-anchored-bdd.multi-7x6-validation.v0_1",
+  "date": "2026-10-16",
+  "status": "PASS",
+  "frozenFixtureSource": "STANDARD7X6_LOCAL_FUSION_RESULTS_0_1.json",
+  "seedFromFixture": "0x4c2a7f16",
+  "limits": {
+    "nodes": 60000,
+    "BDDOperations": 300000,
+    "supports": 10000,
+    "compilationMs": 15000,
+    "qStates": 200000,
+    "qTransitions": 800000,
+    "qReferenceMs": 30000
+  },
+  "controls": [
+    {
+      "label": "seeded-rank35-1",
+      "rank": 35,
+      "history": "43214636342357317661423762461717147",
+      "support": [
+        6,
+        4,
+        6,
+        6,
+        1,
+        6,
+        6
+      ],
+      "futureSupportCount": 18,
+      "sourceRequirements": {
+        "P0": 4,
+        "P1": 3
+      },
+      "status": "PASS",
+      "compileMs": 1,
+      "symbolic": {
+        "value": -1,
+        "bestMoves": [
+          4
+        ],
+        "actionValues": [
+          [
+            1,
+            1
+          ],
+          [
+            4,
+            -1
+          ]
+        ]
+      },
+      "BDD": {
+        "supportsPlanned": 18,
+        "supportsBuilt": 18,
+        "supportEdgeCalls": 27,
+        "activeSupportMax": 3,
+        "childSupportReleases": 17,
+        "BDDNodeCreates": 7,
+        "peakNodesBeforeGC": 6,
+        "peakLiveAfterGC": 5,
+        "gcCount": 18,
+        "gcNodesFreed": 7,
+        "finalNodes": 2,
+        "applyCalls": 191,
+        "applyMisses": 8,
+        "applyMemoHits": 4,
+        "restrictCalls": 62,
+        "restrictMisses": 6,
+        "restrictMemoHits": 0,
+        "notCalls": 20,
+        "notMisses": 3,
+        "notMemoHits": 0,
+        "generatedImmediateLineTerms": 15,
+        "sourceOwnershipLiteralUses": 6,
+        "sourceResidualClauseChecks": 94,
+        "sourceSizeTwoTerminals": 6,
+        "sourceFutureCellsAtRoot": 7,
+        "sourceRank": 35,
+        "conditionalOwnerRestrictionCalls": 50,
+        "BDDThresholdRootActionCount": 27,
+        "WDLInputStatesVisitedDuringCompile": 0,
+        "gameTreeRecursiveBranchesSolved": 0,
+        "maxLiveActionRoots": 16,
+        "compilerMs": 1,
+        "retainAllSupportFunctions": false,
+        "finalRetainedSupportCount": 1,
+        "sourceResidual0": 4,
+        "sourceResidual1": 3,
+        "currentBDDNodes": 2,
+        "currentlyRetainedSupportFunctions": 1
+      },
+      "live": {
+        "reachableOutputBDDNodes": 2,
+        "distinctOutputOwnerVariables": 0,
+        "allAliveBDDNodes": 2,
+        "actions": 2
+      },
+      "referenceMs": 2,
+      "independent": {
+        "value": -1,
+        "bestMoves": [
+          4
+        ],
+        "actionValues": [
+          [
+            1,
+            1
+          ],
+          [
+            4,
+            -1
+          ]
+        ]
+      },
+      "independentQStats": {
+        "uniqueStates": 3,
+        "recursiveCalls": 3,
+        "memoHits": 0,
+        "transitions": 5,
+        "terminalWinEdges": 3,
+        "terminalDrawEdges": 0,
+        "branchingStates": 2,
+        "maxDepth": 2,
+        "cacheEntries": 3
+      },
+      "matchesWDLAndAllActions": true,
+      "totalMs": 5
+    },
+    {
+      "label": "seeded-rank35-2",
+      "rank": 35,
+      "history": "57223314553362535625371464772641661",
+      "support": [
+        4,
+        5,
+        6,
+        4,
+        6,
+        6,
+        4
+      ],
+      "futureSupportCount": 54,
+      "sourceRequirements": {
+        "P0": 2,
+        "P1": 3
+      },
+      "status": "PASS",
+      "compileMs": 3,
+      "symbolic": {
+        "value": -1,
+        "bestMoves": [
+          3,
+          6
+        ],
+        "actionValues": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            3,
+            -1
+          ],
+          [
+            6,
+            -1
+          ]
+        ]
+      },
+      "BDD": {
+        "supportsPlanned": 54,
+        "supportsBuilt": 54,
+        "supportEdgeCalls": 135,
+        "activeSupportMax": 16,
+        "childSupportReleases": 53,
+        "BDDNodeCreates": 15,
+        "peakNodesBeforeGC": 9,
+        "peakLiveAfterGC": 8,
+        "gcCount": 54,
+        "gcNodesFreed": 15,
+        "finalNodes": 2,
+        "applyCalls": 874,
+        "applyMisses": 16,
+        "applyMemoHits": 0,
+        "restrictCalls": 268,
+        "restrictMisses": 3,
+        "restrictMemoHits": 0,
+        "notCalls": 80,
+        "notMisses": 6,
+        "notMemoHits": 0,
+        "generatedImmediateLineTerms": 36,
+        "sourceOwnershipLiteralUses": 12,
+        "sourceResidualClauseChecks": 338,
+        "sourceSizeTwoTerminals": 9,
+        "sourceFutureCellsAtRoot": 7,
+        "sourceRank": 35,
+        "conditionalOwnerRestrictionCalls": 262,
+        "BDDThresholdRootActionCount": 135,
+        "WDLInputStatesVisitedDuringCompile": 0,
+        "gameTreeRecursiveBranchesSolved": 0,
+        "maxLiveActionRoots": 116,
+        "compilerMs": 3,
+        "retainAllSupportFunctions": false,
+        "finalRetainedSupportCount": 1,
+        "sourceResidual0": 2,
+        "sourceResidual1": 3,
+        "currentBDDNodes": 2,
+        "currentlyRetainedSupportFunctions": 1
+      },
+      "live": {
+        "reachableOutputBDDNodes": 2,
+        "distinctOutputOwnerVariables": 0,
+        "allAliveBDDNodes": 2,
+        "actions": 4
+      },
+      "referenceMs": 0,
+      "independent": {
+        "value": -1,
+        "bestMoves": [
+          3,
+          6
+        ],
+        "actionValues": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            3,
+            -1
+          ],
+          [
+            6,
+            -1
+          ]
+        ]
+      },
+      "independentQStats": {
+        "uniqueStates": 21,
+        "recursiveCalls": 30,
+        "memoHits": 9,
+        "transitions": 54,
+        "terminalWinEdges": 25,
+        "terminalDrawEdges": 0,
+        "branchingStates": 19,
+        "maxDepth": 5,
+        "cacheEntries": 21
+      },
+      "matchesWDLAndAllActions": true,
+      "totalMs": 4
+    },
+    {
+      "label": "seeded-rank35-3",
+      "rank": 35,
+      "history": "33274133457634234417475571251211755",
+      "support": [
+        6,
+        4,
+        6,
+        6,
+        6,
+        1,
+        6
+      ],
+      "futureSupportCount": 18,
+      "sourceRequirements": {
+        "P0": 2,
+        "P1": 3
+      },
+      "status": "PASS",
+      "compileMs": 0,
+      "symbolic": {
+        "value": -1,
+        "bestMoves": [
+          1,
+          5
+        ],
+        "actionValues": [
+          [
+            1,
+            -1
+          ],
+          [
+            5,
+            -1
+          ]
+        ]
+      },
+      "BDD": {
+        "supportsPlanned": 18,
+        "supportsBuilt": 18,
+        "supportEdgeCalls": 27,
+        "activeSupportMax": 3,
+        "childSupportReleases": 17,
+        "BDDNodeCreates": 0,
+        "peakNodesBeforeGC": 2,
+        "peakLiveAfterGC": 2,
+        "gcCount": 18,
+        "gcNodesFreed": 0,
+        "finalNodes": 2,
+        "applyCalls": 161,
+        "applyMisses": 0,
+        "applyMemoHits": 0,
+        "restrictCalls": 50,
+        "restrictMisses": 0,
+        "restrictMemoHits": 0,
+        "notCalls": 14,
+        "notMisses": 0,
+        "notMemoHits": 0,
+        "generatedImmediateLineTerms": 7,
+        "sourceOwnershipLiteralUses": 0,
+        "sourceResidualClauseChecks": 68,
+        "sourceSizeTwoTerminals": 0,
+        "sourceFutureCellsAtRoot": 7,
+        "sourceRank": 35,
+        "conditionalOwnerRestrictionCalls": 50,
+        "BDDThresholdRootActionCount": 27,
+        "WDLInputStatesVisitedDuringCompile": 0,
+        "gameTreeRecursiveBranchesSolved": 0,
+        "maxLiveActionRoots": 16,
+        "compilerMs": 0,
+        "retainAllSupportFunctions": false,
+        "finalRetainedSupportCount": 1,
+        "sourceResidual0": 2,
+        "sourceResidual1": 3,
+        "currentBDDNodes": 2,
+        "currentlyRetainedSupportFunctions": 1
+      },
+      "live": {
+        "reachableOutputBDDNodes": 1,
+        "distinctOutputOwnerVariables": 0,
+        "allAliveBDDNodes": 2,
+        "actions": 2
+      },
+      "referenceMs": 0,
+      "independent": {
+        "value": -1,
+        "bestMoves": [
+          1,
+          5
+        ],
+        "actionValues": [
+          [
+            1,
+            -1
+          ],
+          [
+            5,
+            -1
+          ]
+        ]
+      },
+      "independentQStats": {
+        "uniqueStates": 13,
+        "recursiveCalls": 14,
+        "memoHits": 1,
+        "transitions": 20,
+        "terminalWinEdges": 5,
+        "terminalDrawEdges": 2,
+        "branchingStates": 7,
+        "maxDepth": 6,
+        "cacheEntries": 13
+      },
+      "matchesWDLAndAllActions": true,
+      "totalMs": 1
+    },
+    {
+      "label": "seeded-rank35-4",
+      "rank": 35,
+      "history": "53467622657372455261541117717566142",
+      "support": [
+        6,
+        5,
+        2,
+        4,
+        6,
+        6,
+        6
+      ],
+      "futureSupportCount": 30,
+      "sourceRequirements": {
+        "P0": 3,
+        "P1": 5
+      },
+      "status": "PASS",
+      "compileMs": 1,
+      "symbolic": {
+        "value": -1,
+        "bestMoves": [
+          2
+        ],
+        "actionValues": [
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            -1
+          ],
+          [
+            3,
+            1
+          ]
+        ]
+      },
+      "BDD": {
+        "supportsPlanned": 30,
+        "supportsBuilt": 30,
+        "supportEdgeCalls": 59,
+        "activeSupportMax": 7,
+        "childSupportReleases": 29,
+        "BDDNodeCreates": 36,
+        "peakNodesBeforeGC": 16,
+        "peakLiveAfterGC": 15,
+        "gcCount": 30,
+        "gcNodesFreed": 36,
+        "finalNodes": 2,
+        "applyCalls": 461,
+        "applyMisses": 37,
+        "applyMemoHits": 6,
+        "restrictCalls": 136,
+        "restrictMisses": 12,
+        "restrictMemoHits": 0,
+        "notCalls": 44,
+        "notMisses": 7,
+        "notMemoHits": 0,
+        "generatedImmediateLineTerms": 29,
+        "sourceOwnershipLiteralUses": 16,
+        "sourceResidualClauseChecks": 237,
+        "sourceSizeTwoTerminals": 10,
+        "sourceFutureCellsAtRoot": 7,
+        "sourceRank": 35,
+        "conditionalOwnerRestrictionCalls": 112,
+        "BDDThresholdRootActionCount": 59,
+        "WDLInputStatesVisitedDuringCompile": 0,
+        "gameTreeRecursiveBranchesSolved": 0,
+        "maxLiveActionRoots": 46,
+        "compilerMs": 1,
+        "retainAllSupportFunctions": false,
+        "finalRetainedSupportCount": 1,
+        "sourceResidual0": 3,
+        "sourceResidual1": 5,
+        "currentBDDNodes": 2,
+        "currentlyRetainedSupportFunctions": 1
+      },
+      "live": {
+        "reachableOutputBDDNodes": 2,
+        "distinctOutputOwnerVariables": 0,
+        "allAliveBDDNodes": 2,
+        "actions": 3
+      },
+      "referenceMs": 0,
+      "independent": {
+        "value": -1,
+        "bestMoves": [
+          2
+        ],
+        "actionValues": [
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            -1
+          ],
+          [
+            3,
+            1
+          ]
+        ]
+      },
+      "independentQStats": {
+        "uniqueStates": 8,
+        "recursiveCalls": 9,
+        "memoHits": 1,
+        "transitions": 19,
+        "terminalWinEdges": 11,
+        "terminalDrawEdges": 0,
+        "branchingStates": 8,
+        "maxDepth": 4,
+        "cacheEntries": 8
+      },
+      "matchesWDLAndAllActions": true,
+      "totalMs": 2
+    },
+    {
+      "label": "seeded-rank35-5",
+      "rank": 35,
+      "history": "34662656472751626117411125525275774",
+      "support": [
+        6,
+        6,
+        1,
+        4,
+        6,
+        6,
+        6
+      ],
+      "futureSupportCount": 18,
+      "sourceRequirements": {
+        "P0": 5,
+        "P1": 4
+      },
+      "status": "PASS",
+      "compileMs": 0,
+      "symbolic": {
+        "value": -1,
+        "bestMoves": [
+          2
+        ],
+        "actionValues": [
+          [
+            2,
+            -1
+          ],
+          [
+            3,
+            1
+          ]
+        ]
+      },
+      "BDD": {
+        "supportsPlanned": 18,
+        "supportsBuilt": 18,
+        "supportEdgeCalls": 27,
+        "activeSupportMax": 4,
+        "childSupportReleases": 17,
+        "BDDNodeCreates": 31,
+        "peakNodesBeforeGC": 16,
+        "peakLiveAfterGC": 9,
+        "gcCount": 18,
+        "gcNodesFreed": 31,
+        "finalNodes": 2,
+        "applyCalls": 235,
+        "applyMisses": 26,
+        "applyMemoHits": 6,
+        "restrictCalls": 68,
+        "restrictMisses": 9,
+        "restrictMemoHits": 1,
+        "notCalls": 34,
+        "notMisses": 10,
+        "notMemoHits": 2,
+        "generatedImmediateLineTerms": 17,
+        "sourceOwnershipLiteralUses": 12,
+        "sourceResidualClauseChecks": 121,
+        "sourceSizeTwoTerminals": 8,
+        "sourceFutureCellsAtRoot": 7,
+        "sourceRank": 35,
+        "conditionalOwnerRestrictionCalls": 50,
+        "BDDThresholdRootActionCount": 27,
+        "WDLInputStatesVisitedDuringCompile": 0,
+        "gameTreeRecursiveBranchesSolved": 0,
+        "maxLiveActionRoots": 22,
+        "compilerMs": 0,
+        "retainAllSupportFunctions": false,
+        "finalRetainedSupportCount": 1,
+        "sourceResidual0": 5,
+        "sourceResidual1": 4,
+        "currentBDDNodes": 2,
+        "currentlyRetainedSupportFunctions": 1
+      },
+      "live": {
+        "reachableOutputBDDNodes": 2,
+        "distinctOutputOwnerVariables": 0,
+        "allAliveBDDNodes": 2,
+        "actions": 2
+      },
+      "referenceMs": 1,
+      "independent": {
+        "value": -1,
+        "bestMoves": [
+          2
+        ],
+        "actionValues": [
+          [
+            2,
+            -1
+          ],
+          [
+            3,
+            1
+          ]
+        ]
+      },
+      "independentQStats": {
+        "uniqueStates": 3,
+        "recursiveCalls": 3,
+        "memoHits": 0,
+        "transitions": 5,
+        "terminalWinEdges": 3,
+        "terminalDrawEdges": 0,
+        "branchingStates": 2,
+        "maxDepth": 2,
+        "cacheEntries": 3
+      },
+      "matchesWDLAndAllActions": true,
+      "totalMs": 2
+    },
+    {
+      "label": "seeded-rank35-6",
+      "rank": 35,
+      "history": "54755213461651454512322324247666171",
+      "support": [
+        6,
+        6,
+        3,
+        6,
+        6,
+        5,
+        3
+      ],
+      "futureSupportCount": 32,
+      "sourceRequirements": {
+        "P0": 4,
+        "P1": 6
+      },
+      "status": "PASS",
+      "compileMs": 1,
+      "symbolic": {
+        "value": -1,
+        "bestMoves": [
+          2,
+          6
+        ],
+        "actionValues": [
+          [
+            2,
+            -1
+          ],
+          [
+            5,
+            1
+          ],
+          [
+            6,
+            -1
+          ]
+        ]
+      },
+      "BDD": {
+        "supportsPlanned": 32,
+        "supportsBuilt": 32,
+        "supportEdgeCalls": 64,
+        "activeSupportMax": 8,
+        "childSupportReleases": 31,
+        "BDDNodeCreates": 13,
+        "peakNodesBeforeGC": 8,
+        "peakLiveAfterGC": 5,
+        "gcCount": 32,
+        "gcNodesFreed": 13,
+        "finalNodes": 2,
+        "applyCalls": 432,
+        "applyMisses": 6,
+        "applyMemoHits": 0,
+        "restrictCalls": 126,
+        "restrictMisses": 2,
+        "restrictMemoHits": 0,
+        "notCalls": 48,
+        "notMisses": 8,
+        "notMemoHits": 0,
+        "generatedImmediateLineTerms": 40,
+        "sourceOwnershipLiteralUses": 8,
+        "sourceResidualClauseChecks": 320,
+        "sourceSizeTwoTerminals": 8,
+        "sourceFutureCellsAtRoot": 7,
+        "sourceRank": 35,
+        "conditionalOwnerRestrictionCalls": 122,
+        "BDDThresholdRootActionCount": 64,
+        "WDLInputStatesVisitedDuringCompile": 0,
+        "gameTreeRecursiveBranchesSolved": 0,
+        "maxLiveActionRoots": 50,
+        "compilerMs": 1,
+        "retainAllSupportFunctions": false,
+        "finalRetainedSupportCount": 1,
+        "sourceResidual0": 4,
+        "sourceResidual1": 6,
+        "currentBDDNodes": 2,
+        "currentlyRetainedSupportFunctions": 1
+      },
+      "live": {
+        "reachableOutputBDDNodes": 2,
+        "distinctOutputOwnerVariables": 0,
+        "allAliveBDDNodes": 2,
+        "actions": 3
+      },
+      "referenceMs": 0,
+      "independent": {
+        "value": -1,
+        "bestMoves": [
+          2,
+          6
+        ],
+        "actionValues": [
+          [
+            2,
+            -1
+          ],
+          [
+            5,
+            1
+          ],
+          [
+            6,
+            -1
+          ]
+        ]
+      },
+      "independentQStats": {
+        "uniqueStates": 2,
+        "recursiveCalls": 2,
+        "memoHits": 0,
+        "transitions": 5,
+        "terminalWinEdges": 4,
+        "terminalDrawEdges": 0,
+        "branchingStates": 2,
+        "maxDepth": 1,
+        "cacheEntries": 2
+      },
+      "matchesWDLAndAllActions": true,
+      "totalMs": 2
+    },
+    {
+      "label": "seeded-rank35-7",
+      "rank": 35,
+      "history": "56752436151323377335777251124611225",
+      "support": [
+        6,
+        6,
+        6,
+        2,
+        6,
+        3,
+        6
+      ],
+      "futureSupportCount": 20,
+      "sourceRequirements": {
+        "P0": 3,
+        "P1": 5
+      },
+      "status": "PASS",
+      "compileMs": 1,
+      "symbolic": {
+        "value": -1,
+        "bestMoves": [
+          3,
+          5
+        ],
+        "actionValues": [
+          [
+            3,
+            -1
+          ],
+          [
+            5,
+            -1
+          ]
+        ]
+      },
+      "BDD": {
+        "supportsPlanned": 20,
+        "supportsBuilt": 20,
+        "supportEdgeCalls": 31,
+        "activeSupportMax": 5,
+        "childSupportReleases": 19,
+        "BDDNodeCreates": 5,
+        "peakNodesBeforeGC": 6,
+        "peakLiveAfterGC": 5,
+        "gcCount": 20,
+        "gcNodesFreed": 5,
+        "finalNodes": 2,
+        "applyCalls": 203,
+        "applyMisses": 3,
+        "applyMemoHits": 0,
+        "restrictCalls": 74,
+        "restrictMisses": 8,
+        "restrictMemoHits": 4,
+        "notCalls": 16,
+        "notMisses": 0,
+        "notMemoHits": 0,
+        "generatedImmediateLineTerms": 14,
+        "sourceOwnershipLiteralUses": 5,
+        "sourceResidualClauseChecks": 125,
+        "sourceSizeTwoTerminals": 3,
+        "sourceFutureCellsAtRoot": 7,
+        "sourceRank": 35,
+        "conditionalOwnerRestrictionCalls": 58,
+        "BDDThresholdRootActionCount": 31,
+        "WDLInputStatesVisitedDuringCompile": 0,
+        "gameTreeRecursiveBranchesSolved": 0,
+        "maxLiveActionRoots": 26,
+        "compilerMs": 1,
+        "retainAllSupportFunctions": false,
+        "finalRetainedSupportCount": 1,
+        "sourceResidual0": 3,
+        "sourceResidual1": 5,
+        "currentBDDNodes": 2,
+        "currentlyRetainedSupportFunctions": 1
+      },
+      "live": {
+        "reachableOutputBDDNodes": 1,
+        "distinctOutputOwnerVariables": 0,
+        "allAliveBDDNodes": 2,
+        "actions": 2
+      },
+      "referenceMs": 0,
+      "independent": {
+        "value": -1,
+        "bestMoves": [
+          3,
+          5
+        ],
+        "actionValues": [
+          [
+            3,
+            -1
+          ],
+          [
+            5,
+            -1
+          ]
+        ]
+      },
+      "independentQStats": {
+        "uniqueStates": 1,
+        "recursiveCalls": 1,
+        "memoHits": 0,
+        "transitions": 2,
+        "terminalWinEdges": 2,
+        "terminalDrawEdges": 0,
+        "branchingStates": 1,
+        "maxDepth": 0,
+        "cacheEntries": 1
+      },
+      "matchesWDLAndAllActions": true,
+      "totalMs": 1
+    },
+    {
+      "label": "seeded-rank35-8",
+      "rank": 35,
+      "history": "27513157653423367273555166121177326",
+      "support": [
+        6,
+        5,
+        6,
+        1,
+        6,
+        5,
+        6
+      ],
+      "futureSupportCount": 24,
+      "sourceRequirements": {
+        "P0": 5,
+        "P1": 5
+      },
+      "status": "PASS",
+      "compileMs": 0,
+      "symbolic": {
+        "value": -1,
+        "bestMoves": [
+          1
+        ],
+        "actionValues": [
+          [
+            1,
+            -1
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            5,
+            1
+          ]
+        ]
+      },
+      "BDD": {
+        "supportsPlanned": 24,
+        "supportsBuilt": 24,
+        "supportEdgeCalls": 44,
+        "activeSupportMax": 5,
+        "childSupportReleases": 23,
+        "BDDNodeCreates": 3,
+        "peakNodesBeforeGC": 5,
+        "peakLiveAfterGC": 5,
+        "gcCount": 24,
+        "gcNodesFreed": 3,
+        "finalNodes": 2,
+        "applyCalls": 284,
+        "applyMisses": 2,
+        "applyMemoHits": 1,
+        "restrictCalls": 82,
+        "restrictMisses": 0,
+        "restrictMemoHits": 0,
+        "notCalls": 22,
+        "notMisses": 0,
+        "notMemoHits": 0,
+        "generatedImmediateLineTerms": 24,
+        "sourceOwnershipLiteralUses": 4,
+        "sourceResidualClauseChecks": 220,
+        "sourceSizeTwoTerminals": 4,
+        "sourceFutureCellsAtRoot": 7,
+        "sourceRank": 35,
+        "conditionalOwnerRestrictionCalls": 82,
+        "BDDThresholdRootActionCount": 44,
+        "WDLInputStatesVisitedDuringCompile": 0,
+        "gameTreeRecursiveBranchesSolved": 0,
+        "maxLiveActionRoots": 30,
+        "compilerMs": 0,
+        "retainAllSupportFunctions": false,
+        "finalRetainedSupportCount": 1,
+        "sourceResidual0": 5,
+        "sourceResidual1": 5,
+        "currentBDDNodes": 2,
+        "currentlyRetainedSupportFunctions": 1
+      },
+      "live": {
+        "reachableOutputBDDNodes": 2,
+        "distinctOutputOwnerVariables": 0,
+        "allAliveBDDNodes": 2,
+        "actions": 3
+      },
+      "referenceMs": 0,
+      "independent": {
+        "value": -1,
+        "bestMoves": [
+          1
+        ],
+        "actionValues": [
+          [
+            1,
+            -1
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            5,
+            1
+          ]
+        ]
+      },
+      "independentQStats": {
+        "uniqueStates": 7,
+        "recursiveCalls": 8,
+        "memoHits": 1,
+        "transitions": 14,
+        "terminalWinEdges": 7,
+        "terminalDrawEdges": 0,
+        "branchingStates": 5,
+        "maxDepth": 3,
+        "cacheEntries": 7
+      },
+      "matchesWDLAndAllActions": true,
+      "totalMs": 1
+    },
+    {
+      "label": "seeded-rank35-9",
+      "rank": 35,
+      "history": "73127575262627351657423763332456516",
+      "support": [
+        3,
+        6,
+        6,
+        2,
+        6,
+        6,
+        6
+      ],
+      "futureSupportCount": 20,
+      "sourceRequirements": {
+        "P0": 3,
+        "P1": 2
+      },
+      "status": "PASS",
+      "compileMs": 0,
+      "symbolic": {
+        "value": -1,
+        "bestMoves": [
+          3
+        ],
+        "actionValues": [
+          [
+            0,
+            0
+          ],
+          [
+            3,
+            -1
+          ]
+        ]
+      },
+      "BDD": {
+        "supportsPlanned": 20,
+        "supportsBuilt": 20,
+        "supportEdgeCalls": 31,
+        "activeSupportMax": 4,
+        "childSupportReleases": 19,
+        "BDDNodeCreates": 15,
+        "peakNodesBeforeGC": 7,
+        "peakLiveAfterGC": 4,
+        "gcCount": 20,
+        "gcNodesFreed": 15,
+        "finalNodes": 2,
+        "applyCalls": 209,
+        "applyMisses": 7,
+        "applyMemoHits": 0,
+        "restrictCalls": 68,
+        "restrictMisses": 5,
+        "restrictMemoHits": 0,
+        "notCalls": 28,
+        "notMisses": 6,
+        "notMemoHits": 0,
+        "generatedImmediateLineTerms": 11,
+        "sourceOwnershipLiteralUses": 6,
+        "sourceResidualClauseChecks": 77,
+        "sourceSizeTwoTerminals": 3,
+        "sourceFutureCellsAtRoot": 7,
+        "sourceRank": 35,
+        "conditionalOwnerRestrictionCalls": 58,
+        "BDDThresholdRootActionCount": 31,
+        "WDLInputStatesVisitedDuringCompile": 0,
+        "gameTreeRecursiveBranchesSolved": 0,
+        "maxLiveActionRoots": 22,
+        "compilerMs": 0,
+        "retainAllSupportFunctions": false,
+        "finalRetainedSupportCount": 1,
+        "sourceResidual0": 3,
+        "sourceResidual1": 2,
+        "currentBDDNodes": 2,
+        "currentlyRetainedSupportFunctions": 1
+      },
+      "live": {
+        "reachableOutputBDDNodes": 2,
+        "distinctOutputOwnerVariables": 0,
+        "allAliveBDDNodes": 2,
+        "actions": 2
+      },
+      "referenceMs": 0,
+      "independent": {
+        "value": -1,
+        "bestMoves": [
+          3
+        ],
+        "actionValues": [
+          [
+            0,
+            0
+          ],
+          [
+            3,
+            -1
+          ]
+        ]
+      },
+      "independentQStats": {
+        "uniqueStates": 16,
+        "recursiveCalls": 20,
+        "memoHits": 4,
+        "transitions": 26,
+        "terminalWinEdges": 5,
+        "terminalDrawEdges": 2,
+        "branchingStates": 10,
+        "maxDepth": 6,
+        "cacheEntries": 16
+      },
+      "matchesWDLAndAllActions": true,
+      "totalMs": 1
+    },
+    {
+      "label": "seeded-rank35-10",
+      "rank": 35,
+      "history": "47677744443523472637215165636531355",
+      "support": [
+        3,
+        3,
+        6,
+        6,
+        6,
+        5,
+        6
+      ],
+      "futureSupportCount": 32,
+      "sourceRequirements": {
+        "P0": 3,
+        "P1": 2
+      },
+      "status": "PASS",
+      "compileMs": 1,
+      "symbolic": {
+        "value": -1,
+        "bestMoves": [
+          0
+        ],
+        "actionValues": [
+          [
+            0,
+            -1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            5,
+            1
+          ]
+        ]
+      },
+      "BDD": {
+        "supportsPlanned": 32,
+        "supportsBuilt": 32,
+        "supportEdgeCalls": 64,
+        "activeSupportMax": 9,
+        "childSupportReleases": 31,
+        "BDDNodeCreates": 5,
+        "peakNodesBeforeGC": 5,
+        "peakLiveAfterGC": 4,
+        "gcCount": 32,
+        "gcNodesFreed": 5,
+        "finalNodes": 2,
+        "applyCalls": 410,
+        "applyMisses": 6,
+        "applyMemoHits": 3,
+        "restrictCalls": 134,
+        "restrictMisses": 6,
+        "restrictMemoHits": 0,
+        "notCalls": 38,
+        "notMisses": 3,
+        "notMemoHits": 0,
+        "generatedImmediateLineTerms": 23,
+        "sourceOwnershipLiteralUses": 3,
+        "sourceResidualClauseChecks": 160,
+        "sourceSizeTwoTerminals": 3,
+        "sourceFutureCellsAtRoot": 7,
+        "sourceRank": 35,
+        "conditionalOwnerRestrictionCalls": 122,
+        "BDDThresholdRootActionCount": 64,
+        "WDLInputStatesVisitedDuringCompile": 0,
+        "gameTreeRecursiveBranchesSolved": 0,
+        "maxLiveActionRoots": 56,
+        "compilerMs": 1,
+        "retainAllSupportFunctions": false,
+        "finalRetainedSupportCount": 1,
+        "sourceResidual0": 3,
+        "sourceResidual1": 2,
+        "currentBDDNodes": 2,
+        "currentlyRetainedSupportFunctions": 1
+      },
+      "live": {
+        "reachableOutputBDDNodes": 2,
+        "distinctOutputOwnerVariables": 0,
+        "allAliveBDDNodes": 2,
+        "actions": 3
+      },
+      "referenceMs": 0,
+      "independent": {
+        "value": -1,
+        "bestMoves": [
+          0
+        ],
+        "actionValues": [
+          [
+            0,
+            -1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            5,
+            1
+          ]
+        ]
+      },
+      "independentQStats": {
+        "uniqueStates": 30,
+        "recursiveCalls": 42,
+        "memoHits": 12,
+        "transitions": 61,
+        "terminalWinEdges": 17,
+        "terminalDrawEdges": 3,
+        "branchingStates": 23,
+        "maxDepth": 6,
+        "cacheEntries": 30
+      },
+      "matchesWDLAndAllActions": true,
+      "totalMs": 2
+    },
+    {
+      "label": "seeded-rank35-11",
+      "rank": 35,
+      "history": "55274323233213555376447242667517611",
+      "support": [
+        4,
+        6,
+        6,
+        4,
+        6,
+        4,
+        5
+      ],
+      "futureSupportCount": 54,
+      "sourceRequirements": {
+        "P0": 2,
+        "P1": 3
+      },
+      "status": "PASS",
+      "compileMs": 2,
+      "symbolic": {
+        "value": -1,
+        "bestMoves": [
+          3,
+          5
+        ],
+        "actionValues": [
+          [
+            0,
+            1
+          ],
+          [
+            3,
+            -1
+          ],
+          [
+            5,
+            -1
+          ],
+          [
+            6,
+            1
+          ]
+        ]
+      },
+      "BDD": {
+        "supportsPlanned": 54,
+        "supportsBuilt": 54,
+        "supportEdgeCalls": 135,
+        "activeSupportMax": 17,
+        "childSupportReleases": 53,
+        "BDDNodeCreates": 0,
+        "peakNodesBeforeGC": 2,
+        "peakLiveAfterGC": 2,
+        "gcCount": 54,
+        "gcNodesFreed": 0,
+        "finalNodes": 2,
+        "applyCalls": 839,
+        "applyMisses": 0,
+        "applyMemoHits": 0,
+        "restrictCalls": 262,
+        "restrictMisses": 0,
+        "restrictMemoHits": 0,
+        "notCalls": 68,
+        "notMisses": 0,
+        "notMemoHits": 0,
+        "generatedImmediateLineTerms": 45,
+        "sourceOwnershipLiteralUses": 0,
+        "sourceResidualClauseChecks": 338,
+        "sourceSizeTwoTerminals": 0,
+        "sourceFutureCellsAtRoot": 7,
+        "sourceRank": 35,
+        "conditionalOwnerRestrictionCalls": 262,
+        "BDDThresholdRootActionCount": 135,
+        "WDLInputStatesVisitedDuringCompile": 0,
+        "gameTreeRecursiveBranchesSolved": 0,
+        "maxLiveActionRoots": 122,
+        "compilerMs": 2,
+        "retainAllSupportFunctions": false,
+        "finalRetainedSupportCount": 1,
+        "sourceResidual0": 2,
+        "sourceResidual1": 3,
+        "currentBDDNodes": 2,
+        "currentlyRetainedSupportFunctions": 1
+      },
+      "live": {
+        "reachableOutputBDDNodes": 2,
+        "distinctOutputOwnerVariables": 0,
+        "allAliveBDDNodes": 2,
+        "actions": 4
+      },
+      "referenceMs": 1,
+      "independent": {
+        "value": -1,
+        "bestMoves": [
+          3,
+          5
+        ],
+        "actionValues": [
+          [
+            0,
+            1
+          ],
+          [
+            3,
+            -1
+          ],
+          [
+            5,
+            -1
+          ],
+          [
+            6,
+            1
+          ]
+        ]
+      },
+      "independentQStats": {
+        "uniqueStates": 16,
+        "recursiveCalls": 26,
+        "memoHits": 10,
+        "transitions": 44,
+        "terminalWinEdges": 19,
+        "terminalDrawEdges": 0,
+        "branchingStates": 15,
+        "maxDepth": 5,
+        "cacheEntries": 16
+      },
+      "matchesWDLAndAllActions": true,
+      "totalMs": 4
+    },
+    {
+      "label": "seeded-rank35-12",
+      "rank": 35,
+      "history": "55464552127624667623516274251311177",
+      "support": [
+        6,
+        6,
+        2,
+        4,
+        6,
+        6,
+        5
+      ],
+      "futureSupportCount": 30,
+      "sourceRequirements": {
+        "P0": 4,
+        "P1": 3
+      },
+      "status": "PASS",
+      "compileMs": 2,
+      "symbolic": {
+        "value": 1,
+        "bestMoves": [
+          2,
+          3,
+          6
+        ],
+        "actionValues": [
+          [
+            2,
+            1
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            6,
+            1
+          ]
+        ]
+      },
+      "BDD": {
+        "supportsPlanned": 30,
+        "supportsBuilt": 30,
+        "supportEdgeCalls": 59,
+        "activeSupportMax": 9,
+        "childSupportReleases": 29,
+        "BDDNodeCreates": 10,
+        "peakNodesBeforeGC": 8,
+        "peakLiveAfterGC": 7,
+        "gcCount": 30,
+        "gcNodesFreed": 10,
+        "finalNodes": 2,
+        "applyCalls": 394,
+        "applyMisses": 9,
+        "applyMemoHits": 1,
+        "restrictCalls": 130,
+        "restrictMisses": 9,
+        "restrictMemoHits": 0,
+        "notCalls": 40,
+        "notMisses": 5,
+        "notMemoHits": 0,
+        "generatedImmediateLineTerms": 24,
+        "sourceOwnershipLiteralUses": 10,
+        "sourceResidualClauseChecks": 206,
+        "sourceSizeTwoTerminals": 10,
+        "sourceFutureCellsAtRoot": 7,
+        "sourceRank": 35,
+        "conditionalOwnerRestrictionCalls": 112,
+        "BDDThresholdRootActionCount": 59,
+        "WDLInputStatesVisitedDuringCompile": 0,
+        "gameTreeRecursiveBranchesSolved": 0,
+        "maxLiveActionRoots": 54,
+        "compilerMs": 2,
+        "retainAllSupportFunctions": false,
+        "finalRetainedSupportCount": 1,
+        "sourceResidual0": 4,
+        "sourceResidual1": 3,
+        "currentBDDNodes": 2,
+        "currentlyRetainedSupportFunctions": 1
+      },
+      "live": {
+        "reachableOutputBDDNodes": 1,
+        "distinctOutputOwnerVariables": 0,
+        "allAliveBDDNodes": 2,
+        "actions": 3
+      },
+      "referenceMs": 0,
+      "independent": {
+        "value": 1,
+        "bestMoves": [
+          2,
+          3,
+          6
+        ],
+        "actionValues": [
+          [
+            2,
+            1
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            6,
+            1
+          ]
+        ]
+      },
+      "independentQStats": {
+        "uniqueStates": 23,
+        "recursiveCalls": 29,
+        "memoHits": 6,
+        "transitions": 47,
+        "terminalWinEdges": 19,
+        "terminalDrawEdges": 0,
+        "branchingStates": 18,
+        "maxDepth": 6,
+        "cacheEntries": 23
+      },
+      "matchesWDLAndAllActions": true,
+      "totalMs": 2
+    },
+    {
+      "label": "first-four-seeded-prefix-rank30-1",
+      "rank": 30,
+      "history": "432146363423573176614237624617",
+      "support": [
+        4,
+        4,
+        6,
+        5,
+        1,
+        6,
+        4
+      ],
+      "futureSupportCount": 324,
+      "sourceRequirements": {
+        "P0": 7,
+        "P1": 6
+      },
+      "status": "PASS",
+      "compileMs": 58,
+      "symbolic": {
+        "value": 1,
+        "bestMoves": [
+          4
+        ],
+        "actionValues": [
+          [
+            0,
+            -1
+          ],
+          [
+            1,
+            -1
+          ],
+          [
+            3,
+            -1
+          ],
+          [
+            4,
+            1
+          ],
+          [
+            6,
+            -1
+          ]
+        ]
+      },
+      "BDD": {
+        "supportsPlanned": 324,
+        "supportsBuilt": 324,
+        "supportEdgeCalls": 1080,
+        "activeSupportMax": 54,
+        "childSupportReleases": 323,
+        "BDDNodeCreates": 550,
+        "peakNodesBeforeGC": 156,
+        "peakLiveAfterGC": 150,
+        "gcCount": 324,
+        "gcNodesFreed": 550,
+        "finalNodes": 2,
+        "applyCalls": 10414,
+        "applyMisses": 1509,
+        "applyMemoHits": 695,
+        "restrictCalls": 4392,
+        "restrictMisses": 1121,
+        "restrictMemoHits": 200,
+        "notCalls": 888,
+        "notMisses": 174,
+        "notMemoHits": 18,
+        "generatedImmediateLineTerms": 495,
+        "sourceOwnershipLiteralUses": 441,
+        "sourceResidualClauseChecks": 7020,
+        "sourceSizeTwoTerminals": 387,
+        "sourceFutureCellsAtRoot": 12,
+        "sourceRank": 30,
+        "conditionalOwnerRestrictionCalls": 2150,
+        "BDDThresholdRootActionCount": 1080,
+        "WDLInputStatesVisitedDuringCompile": 0,
+        "gameTreeRecursiveBranchesSolved": 0,
+        "maxLiveActionRoots": 492,
+        "compilerMs": 58,
+        "retainAllSupportFunctions": false,
+        "finalRetainedSupportCount": 1,
+        "sourceResidual0": 7,
+        "sourceResidual1": 6,
+        "currentBDDNodes": 2,
+        "currentlyRetainedSupportFunctions": 1
+      },
+      "live": {
+        "reachableOutputBDDNodes": 2,
+        "distinctOutputOwnerVariables": 0,
+        "allAliveBDDNodes": 2,
+        "actions": 5
+      },
+      "referenceMs": 4,
+      "independent": {
+        "value": 1,
+        "bestMoves": [
+          4
+        ],
+        "actionValues": [
+          [
+            0,
+            -1
+          ],
+          [
+            1,
+            -1
+          ],
+          [
+            3,
+            -1
+          ],
+          [
+            4,
+            1
+          ],
+          [
+            6,
+            -1
+          ]
+        ]
+      },
+      "independentQStats": {
+        "uniqueStates": 192,
+        "recursiveCalls": 343,
+        "memoHits": 151,
+        "transitions": 600,
+        "terminalWinEdges": 258,
+        "terminalDrawEdges": 0,
+        "branchingStates": 188,
+        "maxDepth": 7,
+        "cacheEntries": 192
+      },
+      "matchesWDLAndAllActions": true,
+      "totalMs": 62
+    },
+    {
+      "label": "first-four-seeded-prefix-rank30-2",
+      "rank": 30,
+      "history": "572233145533625356253714647726",
+      "support": [
+        2,
+        5,
+        6,
+        3,
+        6,
+        4,
+        4
+      ],
+      "futureSupportCount": 360,
+      "sourceRequirements": {
+        "P0": 4,
+        "P1": 5
+      },
+      "status": "PASS",
+      "compileMs": 39,
+      "symbolic": {
+        "value": -1,
+        "bestMoves": [
+          0,
+          1,
+          3,
+          5,
+          6
+        ],
+        "actionValues": [
+          [
+            0,
+            -1
+          ],
+          [
+            1,
+            -1
+          ],
+          [
+            3,
+            -1
+          ],
+          [
+            5,
+            -1
+          ],
+          [
+            6,
+            -1
+          ]
+        ]
+      },
+      "BDD": {
+        "supportsPlanned": 360,
+        "supportsBuilt": 360,
+        "supportEdgeCalls": 1218,
+        "activeSupportMax": 71,
+        "childSupportReleases": 359,
+        "BDDNodeCreates": 91,
+        "peakNodesBeforeGC": 40,
+        "peakLiveAfterGC": 39,
+        "gcCount": 360,
+        "gcNodesFreed": 91,
+        "finalNodes": 2,
+        "applyCalls": 8202,
+        "applyMisses": 205,
+        "applyMemoHits": 44,
+        "restrictCalls": 2960,
+        "restrictMisses": 267,
+        "restrictMemoHits": 53,
+        "notCalls": 669,
+        "notMisses": 30,
+        "notMemoHits": 0,
+        "generatedImmediateLineTerms": 354,
+        "sourceOwnershipLiteralUses": 150,
+        "sourceResidualClauseChecks": 5481,
+        "sourceSizeTwoTerminals": 123,
+        "sourceFutureCellsAtRoot": 12,
+        "sourceRank": 30,
+        "conditionalOwnerRestrictionCalls": 2426,
+        "BDDThresholdRootActionCount": 1218,
+        "WDLInputStatesVisitedDuringCompile": 0,
+        "gameTreeRecursiveBranchesSolved": 0,
+        "maxLiveActionRoots": 666,
+        "compilerMs": 39,
+        "retainAllSupportFunctions": false,
+        "finalRetainedSupportCount": 1,
+        "sourceResidual0": 4,
+        "sourceResidual1": 5,
+        "currentBDDNodes": 2,
+        "currentlyRetainedSupportFunctions": 1
+      },
+      "live": {
+        "reachableOutputBDDNodes": 1,
+        "distinctOutputOwnerVariables": 0,
+        "allAliveBDDNodes": 2,
+        "actions": 5
+      },
+      "referenceMs": 7,
+      "independent": {
+        "value": -1,
+        "bestMoves": [
+          0,
+          1,
+          3,
+          5,
+          6
+        ],
+        "actionValues": [
+          [
+            0,
+            -1
+          ],
+          [
+            1,
+            -1
+          ],
+          [
+            3,
+            -1
+          ],
+          [
+            5,
+            -1
+          ],
+          [
+            6,
+            -1
+          ]
+        ]
+      },
+      "independentQStats": {
+        "uniqueStates": 385,
+        "recursiveCalls": 796,
+        "memoHits": 411,
+        "transitions": 1243,
+        "terminalWinEdges": 448,
+        "terminalDrawEdges": 0,
+        "branchingStates": 376,
+        "maxDepth": 10,
+        "cacheEntries": 385
+      },
+      "matchesWDLAndAllActions": true,
+      "totalMs": 46
+    },
+    {
+      "label": "first-four-seeded-prefix-rank30-3",
+      "rank": 30,
+      "history": "332741334576342344174755712512",
+      "support": [
+        4,
+        4,
+        6,
+        6,
+        4,
+        1,
+        5
+      ],
+      "futureSupportCount": 324,
+      "sourceRequirements": {
+        "P0": 4,
+        "P1": 4
+      },
+      "status": "PASS",
+      "compileMs": 35,
+      "symbolic": {
+        "value": 1,
+        "bestMoves": [
+          0,
+          1,
+          4,
+          5,
+          6
+        ],
+        "actionValues": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            4,
+            1
+          ],
+          [
+            5,
+            1
+          ],
+          [
+            6,
+            1
+          ]
+        ]
+      },
+      "BDD": {
+        "supportsPlanned": 324,
+        "supportsBuilt": 324,
+        "supportEdgeCalls": 1080,
+        "activeSupportMax": 54,
+        "childSupportReleases": 323,
+        "BDDNodeCreates": 340,
+        "peakNodesBeforeGC": 75,
+        "peakLiveAfterGC": 74,
+        "gcCount": 324,
+        "gcNodesFreed": 340,
+        "finalNodes": 2,
+        "applyCalls": 8443,
+        "applyMisses": 744,
+        "applyMemoHits": 208,
+        "restrictCalls": 3530,
+        "restrictMisses": 690,
+        "restrictMemoHits": 58,
+        "notCalls": 756,
+        "notMisses": 108,
+        "notMemoHits": 0,
+        "generatedImmediateLineTerms": 282,
+        "sourceOwnershipLiteralUses": 213,
+        "sourceResidualClauseChecks": 4320,
+        "sourceSizeTwoTerminals": 147,
+        "sourceFutureCellsAtRoot": 12,
+        "sourceRank": 30,
+        "conditionalOwnerRestrictionCalls": 2150,
+        "BDDThresholdRootActionCount": 1080,
+        "WDLInputStatesVisitedDuringCompile": 0,
+        "gameTreeRecursiveBranchesSolved": 0,
+        "maxLiveActionRoots": 490,
+        "compilerMs": 35,
+        "retainAllSupportFunctions": false,
+        "finalRetainedSupportCount": 1,
+        "sourceResidual0": 4,
+        "sourceResidual1": 4,
+        "currentBDDNodes": 2,
+        "currentlyRetainedSupportFunctions": 1
+      },
+      "live": {
+        "reachableOutputBDDNodes": 1,
+        "distinctOutputOwnerVariables": 0,
+        "allAliveBDDNodes": 2,
+        "actions": 5
+      },
+      "referenceMs": 10,
+      "independent": {
+        "value": 1,
+        "bestMoves": [
+          0,
+          1,
+          4,
+          5,
+          6
+        ],
+        "actionValues": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            4,
+            1
+          ],
+          [
+            5,
+            1
+          ],
+          [
+            6,
+            1
+          ]
+        ]
+      },
+      "independentQStats": {
+        "uniqueStates": 656,
+        "recursiveCalls": 1580,
+        "memoHits": 924,
+        "transitions": 2032,
+        "terminalWinEdges": 447,
+        "terminalDrawEdges": 6,
+        "branchingStates": 632,
+        "maxDepth": 11,
+        "cacheEntries": 656
+      },
+      "matchesWDLAndAllActions": true,
+      "totalMs": 46
+    },
+    {
+      "label": "first-four-seeded-prefix-rank30-4",
+      "rank": 30,
+      "history": "534676226573724552615411177175",
+      "support": [
+        5,
+        4,
+        2,
+        3,
+        6,
+        4,
+        6
+      ],
+      "futureSupportCount": 360,
+      "sourceRequirements": {
+        "P0": 6,
+        "P1": 8
+      },
+      "status": "PASS",
+      "compileMs": 51,
+      "symbolic": {
+        "value": -1,
+        "bestMoves": [
+          0,
+          1,
+          2,
+          3,
+          5
+        ],
+        "actionValues": [
+          [
+            0,
+            -1
+          ],
+          [
+            1,
+            -1
+          ],
+          [
+            2,
+            -1
+          ],
+          [
+            3,
+            -1
+          ],
+          [
+            5,
+            -1
+          ]
+        ]
+      },
+      "BDD": {
+        "supportsPlanned": 360,
+        "supportsBuilt": 360,
+        "supportEdgeCalls": 1218,
+        "activeSupportMax": 67,
+        "childSupportReleases": 359,
+        "BDDNodeCreates": 732,
+        "peakNodesBeforeGC": 130,
+        "peakLiveAfterGC": 123,
+        "gcCount": 360,
+        "gcNodesFreed": 732,
+        "finalNodes": 2,
+        "applyCalls": 11436,
+        "applyMisses": 1525,
+        "applyMemoHits": 503,
+        "restrictCalls": 4134,
+        "restrictMisses": 854,
+        "restrictMemoHits": 222,
+        "notCalls": 1037,
+        "notMisses": 214,
+        "notMemoHits": 6,
+        "generatedImmediateLineTerms": 564,
+        "sourceOwnershipLiteralUses": 534,
+        "sourceResidualClauseChecks": 8526,
+        "sourceSizeTwoTerminals": 342,
+        "sourceFutureCellsAtRoot": 12,
+        "sourceRank": 30,
+        "conditionalOwnerRestrictionCalls": 2426,
+        "BDDThresholdRootActionCount": 1218,
+        "WDLInputStatesVisitedDuringCompile": 0,
+        "gameTreeRecursiveBranchesSolved": 0,
+        "maxLiveActionRoots": 618,
+        "compilerMs": 51,
+        "retainAllSupportFunctions": false,
+        "finalRetainedSupportCount": 1,
+        "sourceResidual0": 6,
+        "sourceResidual1": 8,
+        "currentBDDNodes": 2,
+        "currentlyRetainedSupportFunctions": 1
+      },
+      "live": {
+        "reachableOutputBDDNodes": 1,
+        "distinctOutputOwnerVariables": 0,
+        "allAliveBDDNodes": 2,
+        "actions": 5
+      },
+      "referenceMs": 10,
+      "independent": {
+        "value": -1,
+        "bestMoves": [
+          0,
+          1,
+          2,
+          3,
+          5
+        ],
+        "actionValues": [
+          [
+            0,
+            -1
+          ],
+          [
+            1,
+            -1
+          ],
+          [
+            2,
+            -1
+          ],
+          [
+            3,
+            -1
+          ],
+          [
+            5,
+            -1
+          ]
+        ]
+      },
+      "independentQStats": {
+        "uniqueStates": 462,
+        "recursiveCalls": 1003,
+        "memoHits": 541,
+        "transitions": 1550,
+        "terminalWinEdges": 548,
+        "terminalDrawEdges": 0,
+        "branchingStates": 454,
+        "maxDepth": 11,
+        "cacheEntries": 462
+      },
+      "matchesWDLAndAllActions": true,
+      "totalMs": 61
+    }
+  ],
+  "summary": {
+    "totalPositions": 16,
+    "exactMatches": 16,
+    "partialBudget": 0,
+    "mismatches": 0,
+    "rank35Compared": 12,
+    "rank30Compared": 4,
+    "peakNodesAcrossCompleted": 156,
+    "totalCandidateSupportEdges": 5299,
+    "totalIndependentQStates": 1838
+  },
+  "candidatePolicySearchCalls": 0,
+  "fullStandard7x6RootSolved": false,
+  "symbolicSupportsStillEnumerated": true,
+  "provenance": {
+    "date": "2026-10-16",
+    "branch": "research/semantic-quotient",
+    "sourceBlobs": {
+      "source-anchored-owner-bdd.mjs": "a08869be044ef45bf78cdbc1ca2ca7b6d2710af1",
+      "exact-q-core.mjs": "6b25d0e2560fe4131d2f5442593e9ed9763c1a18",
+      "constructive-core-control.mjs": "b18cbb6e7a3db66c7c8bcda2efd615e45127d615",
+      "source-anchored-owner-bdd-cross-position-control.mjs": "e7eff17bd417f4969f668ef994df0f20daadaa0e",
+      "STANDARD7X6_LOCAL_FUSION_RESULTS_0_1.json": "f1da8101c224737a40d7afff9316abafb2477ac5"
+    },
+    "execution": "isolated JS V8 exact committed module bodies with fs/import/process/performance shimmed; maintained Node26 not run",
+    "candidateReceivesOnlySourceQ": true,
+    "independentValidation": "q-only recursive oracle after each anchored symbolic calculation, independent physical first-win prefixes verified",
+    "noSearchGeneratedPolicyInputs": true,
+    "limitedScope": "12 seeded independently rule-valid rank35 suffix positions plus first four truncated rank30 prefixes; no empty 7x6 root solving"
+  }
+}
