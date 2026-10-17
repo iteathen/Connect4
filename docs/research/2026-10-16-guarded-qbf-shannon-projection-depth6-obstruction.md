@@ -63,3 +63,22 @@ This comparison specifically rules out the premise that small structural QBF enc
 Any further cutoff experiment must freeze budget, source algebra and falsifiers first. A width/impossibility statement requires a **mathematical lower-bound witness**, not running out of a chosen representation. Retain all `44444` and old negative evidence.
 
 **Final disposition:** Exactly **118 bounded QBF projections passed independent physical WDL threshold controls; 2 k6 lower projections hit the original 60k retained-node cap.** Full unrestricted `44444` WDL remains **UNKNOWN [-1,+1]** and the exact recursive core remains complete.
+
+## 6. Live projected frontier vs retained allocation — further exact diagnostic
+
+A separate frozen experiment recorded the AND/NOT DAG nodes *actually reachable* from each completed quantified root, independently of historical allocated gates. Plan: `research/isograph/discovery/2026-10-16-algorithmic-core/GUARDED_QBF_LIVE_DAG_PLAN_0_1.md`. Executable diagnostic: `guarded-action-qbf-project-live-probe.mjs` (Git blob `aa73539b9f0d53484fec97e08a56be2ee7f7a3f5`) and `guarded-qbf-live-probe.mjs` (blob `1ae31c4ee76d4e7b86407bec164dfbf12f116df1`), both source-identical to local Node22 test. Evidence: `GUARDED_QBF_LIVE_DAG_RESULTS_0_1.json`.
+
+| `44444` QBF probe | Total retained peak | Maximum root-reachable AND gates |
+|---|---:|---:|
+| k4 Wlo | 2,606 | 474 |
+| k4 Whi | 1,870 | 342 |
+| k5 Wlo | 9,649 | 2,219 |
+| k5 Whi | 9,033 | 1,457 |
+| k6 Wlo | **60,000 cap, PARTIAL** | 17,990 (last completed step) |
+| k6 Whi | 53,920 | 14,625 |
+
+At the last completed k6 Wlo projection, after 12 of 18 action bits, the allocator had assigned **53,025** variable/gate IDs, whereas only **17,990 AND gates** were reachable from the current formula. Excluding 18 action input bits, **35,017 allocated AND gates were no longer reachable**. This was after 121,227 nontrivial projection operations; the *next* cofactor stopped at 60,000 allocations / 147,262 counted nontrivial operations, with no completed next-step live measurement.
+
+**Result:** a substantial portion of the failed projector's memory ceiling is historical dead structure. Allocated 60,000 gates is NOT a proof of 60,000 simultaneously live nodes or a semantic Boolean cofactor lower bound. The counts come from DFS of the current root through signed-edge AND definitions, visiting each distinct reachable gate exactly once; they are not cofactor-function isomorphism tests, work-free analyses, or an executed garbage collector.
+
+**Next bounded test:** a safely rebuilt/garbage-collected AND DAG that retains current roots and temporary cofactor dependencies, charges actual GC/reindexing work and peak storage, and compares full quantifier/first-win results against independently qualified small-board controls before attempting k6–k7 again. The 60k/300k/15s envelope must remain unchanged. No new unrestricted outcome is justified; `44444` stays UNKNOWN [-1,+1].
