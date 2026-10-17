@@ -1,0 +1,278 @@
+{
+  "schema": "connect4.standard7x6.row_column_phase_cocycle_physical_v0_1",
+  "date": "2026-10-17",
+  "status": "PASS_SOURCE_PHASE_AND_NONTERMINAL_SOURCE_COFAC_EXCHANGE_TRUE_7x6",
+  "source": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-column-row-phase-cocycle.mjs",
+  "sourceGitBlob": "137e8eec15fb04312fb1234329df0709698afe0b",
+  "independentPhysicalControl": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-column-row-phase-physical-control.mjs",
+  "controlGitBlob": "ffc331d9352bb706c3e98571ddb2a740bb917229",
+  "math": "docs/research/2026-10-17-standard7x6-row-column-phase-boundary-cocycle.md",
+  "board": {
+    "W": 7,
+    "H": 6,
+    "K": 4,
+    "originalWinningLines": 69
+  },
+  "metricScope": "Actual 7x6 first-win-stopped physical q sampled by deterministic nonwinning histories; source-only phase algebra checked against separate physical colored board; future full orders sampled as VALIDATION ONLY, not strategic values",
+  "genuineNonterminalPhysicalSources": 22028,
+  "sourcePhaseActionChecks": 132469,
+  "futureOwnerPhaseChecks": 570926,
+  "relativeLinePhaseChecks": 2554513,
+  "nonterminalTwoPlyDiamondsCompared": 12518,
+  "wrongSourceActionPhase": 0,
+  "wrongEventOwnerParity": 0,
+  "wrongRelativeLinePhase": 0,
+  "wrongSourceTwoPlyResidualAgainstPhysical": 0,
+  "independentFutureGameWDLValuesEvaluatedByProducer": 0,
+  "canonical": [
+    {
+      "history": "44444",
+      "n": 5,
+      "h": [
+        0,
+        0,
+        0,
+        5,
+        0,
+        0,
+        0
+      ],
+      "kappa": [
+        1,
+        1,
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "R": [
+        48,
+        42
+      ],
+      "legal": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    {
+      "history": "444444",
+      "n": 6,
+      "h": [
+        0,
+        0,
+        0,
+        6,
+        0,
+        0,
+        0
+      ],
+      "kappa": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "R": [
+        42,
+        42
+      ],
+      "legal": [
+        1,
+        2,
+        3,
+        5,
+        6,
+        7
+      ]
+    },
+    {
+      "history": "444441",
+      "n": 6,
+      "h": [
+        1,
+        0,
+        0,
+        5,
+        0,
+        0,
+        0
+      ],
+      "kappa": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "R": [
+        46,
+        40
+      ],
+      "legal": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    {
+      "history": "4444442",
+      "n": 7,
+      "h": [
+        0,
+        1,
+        0,
+        6,
+        0,
+        0,
+        0
+      ],
+      "kappa": [
+        1,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "R": [
+        39,
+        41
+      ],
+      "legal": [
+        1,
+        2,
+        3,
+        5,
+        6,
+        7
+      ]
+    }
+  ],
+  "canonical44444TwoMovePairs": 21,
+  "canonical44444TwoMoveDifferentNormalizedResiduals": 21,
+  "canonical44444SourceOddIncidentGeneratorsByPairOneBased": [
+    [
+      1,
+      2,
+      7
+    ],
+    [
+      1,
+      3,
+      8
+    ],
+    [
+      1,
+      4,
+      16
+    ],
+    [
+      1,
+      5,
+      10
+    ],
+    [
+      1,
+      6,
+      9
+    ],
+    [
+      1,
+      7,
+      8
+    ],
+    [
+      2,
+      3,
+      7
+    ],
+    [
+      2,
+      4,
+      17
+    ],
+    [
+      2,
+      5,
+      9
+    ],
+    [
+      2,
+      6,
+      10
+    ],
+    [
+      2,
+      7,
+      9
+    ],
+    [
+      3,
+      4,
+      18
+    ],
+    [
+      3,
+      5,
+      8
+    ],
+    [
+      3,
+      6,
+      9
+    ],
+    [
+      3,
+      7,
+      10
+    ],
+    [
+      4,
+      5,
+      18
+    ],
+    [
+      4,
+      6,
+      17
+    ],
+    [
+      4,
+      7,
+      16
+    ],
+    [
+      5,
+      6,
+      7
+    ],
+    [
+      5,
+      7,
+      8
+    ],
+    [
+      6,
+      7,
+      7
+    ]
+  ],
+  "conclusion": "Outside-column phase kappa updates commute, but residual owner/opp cofactor outcomes generally do NOT; all 21 canonical conditioned swaps had different normalized source residuals despite same final heights and kappa. This does NOT prove distinct perfect-play WDL or source zero-locus membership.",
+  "qualificationLimit": "Frozen GitHub V8 isolated evaluation; no maintained Node26 full CI, independent proof assistant, or full arbitrary 7x6 perfect-play solve."
+}
