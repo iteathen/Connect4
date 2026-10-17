@@ -1,0 +1,85 @@
+{
+  "schema": "connect4.qbf-projection-live-frontier-results.v0_1",
+  "date": "2026-10-16",
+  "status": "EXACT_DIAGNOSTIC_NODE22_PASS_ALLOCATION_VERSUS_LIVE_GAP",
+  "source": "44444",
+  "geometry": {
+    "width": 7,
+    "height": 6,
+    "connect": 4
+  },
+  "sourceResidualCounts": {
+    "P0": 48,
+    "P1": 42
+  },
+  "baseOperatorBlob": "00524113be32e40ac4b940342f5d570974ac1ffd",
+  "diagnosticForkLocalGitBlob": "aa73539b9f0d53484fec97e08a56be2ee7f7a3f5",
+  "independentProbeLocalGitBlob": "1ae31c4ee76d4e7b86407bec164dfbf12f116df1",
+  "testNode": "22.16.0",
+  "isolatedOutputSha256": "c03015bdac4960ceb83660916f1f9b2f2d54dcb5aa2fd62146c10b13ebdbd589",
+  "cases": [
+    {
+      "k": 4,
+      "z": "Wlo",
+      "status": "EXACT",
+      "totalRetainedPeak": 2606,
+      "maxReachableAND": 474
+    },
+    {
+      "k": 4,
+      "z": "Whi",
+      "status": "EXACT",
+      "totalRetainedPeak": 1870,
+      "maxReachableAND": 342
+    },
+    {
+      "k": 5,
+      "z": "Wlo",
+      "status": "EXACT",
+      "totalRetainedPeak": 9649,
+      "maxReachableAND": 2219
+    },
+    {
+      "k": 5,
+      "z": "Whi",
+      "status": "EXACT",
+      "totalRetainedPeak": 9033,
+      "maxReachableAND": 1457
+    },
+    {
+      "k": 6,
+      "z": "Wlo",
+      "status": "PARTIAL_NODE_CAP",
+      "totalRetainedPeak": 60000,
+      "maxReachableAND": 17990,
+      "quantifiedActionBitsCompleted": 12,
+      "requiredBits": 18,
+      "lastCompletedStage": {
+        "actionIndex": 2,
+        "quantifier": "forall",
+        "bitVariable": 7,
+        "retainedGateIds": 53025,
+        "reachableANDGates": 17990,
+        "retainedMinusLiveAND": 35017,
+        "nontrivialOperations": 121227
+      },
+      "projectionAtAbortNontrivialOps": 147262
+    },
+    {
+      "k": 6,
+      "z": "Whi",
+      "status": "EXACT",
+      "totalRetainedPeak": 53920,
+      "maxReachableAND": 14625,
+      "quantifiedActionBitsCompleted": 18,
+      "nontrivialOperations": 159492
+    }
+  ],
+  "exactCountingDefinition": "Visited live gate IDs once in depth-first traversal from projected signed-edge root; constants and source decision bits excluded. Every AND has two child-edge traversals, so measured edges=2*reachableAND in a stage.",
+  "omittedFromLiveCount": "Global hash-cons unique map, historical cofactor memo tables and original source gates that are not reachable from the current threshold root.",
+  "interpretation": "Large allocated-dead gap demonstrates this chosen non-GC projector's 60k cap is not an exact minimal live-width obstruction. No actual GC or deeper WDL was accomplished here.",
+  "currentGameValue": "UNKNOWN [-1,+1]",
+  "sourceQBFQuantifierTruthBeyondK5": false,
+  "gameTreeSearchInProducer": false,
+  "caveat": "Live gate count is structural reachability, not canonical Boolean function equivalence. Width necessary for a different representation may be smaller or larger."
+}
