@@ -140,14 +140,33 @@ their results against the qualified recursive reference and count underlying
 subproblems/materialized frontiers, not merely number of returned values.
 Recursion elimination and formal minimality may be pursued later if useful.
 
+## 2026-10-16 — GSP-003/004 exact bounded response algebra and next mathematical proof
+
+[Primary theorem/falsifier note](../docs/research/2026-10-16-bilateral-treewidth-and-galois-response-closures.md)
+adds one exact finite action/reply Galois-recovery law and independently
+reproduced Node22 exhaustive Boolean-relation controls. The family of ALL
+maximal rectangles expands more often than it compresses (32,916 / 65,536
+4x4 matrices), so it is not a suitable general recursive normal form.
+Legal `223` remains a quantifier-order counterexample and has Boolean rank
+three versus four maximal concepts.
+
+GSP-004 continues sound action-labelled obligation factoring; GSP-003
+continues structured quantified predecessor/threshold computation.
+The next high-priority *conditional* hybrid is source-residual-derived,
+terminal/legality-complete alternating QBF plus verified sound dependency
+poset and trunk-aligned decomposition, using the Ganian/Gründel bilateral
+width theorem and Capelli/Mengel structured quantifier projection.
+A raw source residual min-fill width-15 result is NOT a QBF bilateral-width
+bound. No unrestricted `44444` value or deep branch-elimination proof.
+
 ## Current proposals
 
 | ID | Proposal | Current status | What it changes | Primary implementation seam | Proof/qualification burden | Next action |
 |---|---|---|---|---|---|---|
 | GSP-001 | [Quotient-native gameplay description](gameplay-strategy/GSP-001-QUOTIENT_NATIVE_GAMEPLAY_DESCRIPTION.md) | ROUGH_PROPOSAL | Makes q the explicit exact internal gameplay description | Connect4 domain/gameplay adapter | independent q-vs-physical transition replay; first-win controls | define the gameplay interface and exact record ownership |
 | GSP-002 | [Packed q transition compiler](gameplay-strategy/GSP-002-PACKED_Q_TRANSITION_COMPILER.md) | ROUGH_PROPOSAL | Turns q + column into a low-cost exact runtime kernel | state compiler / transition layer | exact equality; transition equivalence; economics | prototype transparent packed q before aggressive compression |
-| GSP-003 | [Symbolic q fixed-point solver](gameplay-strategy/GSP-003-SYMBOLIC_Q_FIXED_POINT_SOLVER.md) | ACTIVE_INVESTIGATION | Exact source-q bounded WIN/NLOSS interval BDD; now testing mathematically sound quantified factorization instead of growing support cones | dependency-localized structured Boolean factor circuit; exact distinct-cofactor width instrumentation | quantify interface width and action-label preservation after each QBF-style projection | The math proof literature on knowledge compilation and OBDD cofactors suggests measuring projection width, not only support count. Canonical 44444 depth11 completed (9,366 orbits) but WDL remains UNKNOWN. Next derive source-factor separation and compare construction costs before another depth expansion. |
-| GSP-004 | [Guarded obligation closure](gameplay-strategy/GSP-004-GUARDED_OBLIGATION_CLOSURE.md) | ACTIVE_INVESTIGATION | Exact action-labelled adaptive response obligation algebra, no search-derived policy generation | Boolean-rank rectangle factorization and sound dependency-localized quantifier composition over source residuals | preserve forall/exists order, first-win guards, action transport and sound factor supports; use fooling-set lower bounds | Legal 4x3 prefix 223 has exact Boolean rank 3 (three rectangle factorization plus three-element fooling witness). Canonical 44444 source hypergraph still connected; seek CONDITIONAL separators/factored response covers, not mere left-right split or illegal quantifier swaps. |
+| GSP-003 | [Symbolic q fixed-point solver](gameplay-strategy/GSP-003-SYMBOLIC_Q_FIXED_POINT_SOLVER.md) | ACTIVE_INVESTIGATION | Exact source-q bounded WIN/NLOSS interval BDD; now testing mathematically sound quantified factorization instead of growing support cones | dependency-localized structured Boolean factor circuit; exact distinct-cofactor width instrumentation | quantify interface width and action-label preservation after each QBF-style projection | Next: prove guard-complete bounded source threshold-QBF with sound dependency poset; measure true bilateral quantified width and structured-DNNF projection work, then falsify against q/physical controls. |
+| GSP-004 | [Guarded obligation closure](gameplay-strategy/GSP-004-GUARDED_OBLIGATION_CLOSURE.md) | ACTIVE_INVESTIGATION | Exact action-labelled adaptive response obligation algebra, no search-derived policy generation | Boolean-rank rectangle factorization and sound dependency-localized quantifier composition over source residuals | preserve forall/exists order, first-win guards, action transport and sound factor supports; use fooling-set lower bounds | Exact local Galois closure PASS but 32,916/65,536 relations EXPAND and 223 gives 4 maximal concepts vs Boolean rank 3. Reject all-maximal basis; test dependency-sound compact action-cover or hybrid bilateral-QBF composition. |
 | GSP-005 | [Second-stage behavioral quotient after q](gameplay-strategy/GSP-005-BEHAVIORAL_QUOTIENT_AFTER_Q.md) | ROUGH_PROPOSAL | Tries to shrink q further while remaining executable | semantic-state minimization / automaton layer | exact behavior equivalence + maintainable update law | classify bounded q distinctions erased by MQ2 |
 | GSP-006 | [Profile-safe proof and cache keys](gameplay-strategy/GSP-006-PROFILE_SAFE_PROOF_AND_CACHE_KEYS.md) | ROUGH_PROPOSAL | Prevents q identity from over-authorizing proof/context reuse | TT/proof-store/cache contracts | negative controls with equal q but different proof context | define QKey/ProofKey/HintKey contracts |
 | GSP-007 | [Generic finite-gravity Connect-K q congruence](gameplay-strategy/GSP-007-GENERIC_CONNECT_K_Q_CONGRUENCE.md) | ROUGH_PROPOSAL | Tests whether q gameplay semantics generalize beyond 7x6 K=4 | generic Connect-K domain/profile | symbolic proof review + nonstandard-board controls | build qualification matrix and independent theorem review |
