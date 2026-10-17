@@ -1,0 +1,386 @@
+{
+  "schema": "connect4.bounded-support-interval.earlier-ranks.v0_1",
+  "date": "2026-10-16",
+  "status": "PARTIAL_REFERENCE_BUDGET",
+  "rank": 5,
+  "sequence": "44444",
+  "support": [
+    0,
+    0,
+    0,
+    5,
+    0,
+    0,
+    0
+  ],
+  "toMove": 1,
+  "futureSupports": 235298,
+  "sourceResiduals": {
+    "P0": 48,
+    "P1": 42
+  },
+  "intendedDepths": [
+    2,
+    4,
+    6,
+    8
+  ],
+  "budgets": {
+    "maxBDDNodes": 60000,
+    "maxNontrivialOperations": 300000,
+    "maxSupports": 10000,
+    "maxCompileMs": 15000,
+    "gcEverySupports": 64,
+    "gcNodeHighWater": 40000,
+    "qMaxStates": 200000,
+    "qMaxTransitions": 800000,
+    "qMaxMs": 30000
+  },
+  "horizon": [
+    {
+      "depth": 2,
+      "status": "COMPILED",
+      "bounds": {
+        "status": "BOUNDED_WDL_INTERVAL",
+        "lower": -1,
+        "upper": 1,
+        "exactValue": null,
+        "actionIntervals": [
+          {
+            "column": 0,
+            "lower": -1,
+            "upper": 1,
+            "exact": false
+          },
+          {
+            "column": 1,
+            "lower": -1,
+            "upper": 1,
+            "exact": false
+          },
+          {
+            "column": 2,
+            "lower": -1,
+            "upper": 1,
+            "exact": false
+          },
+          {
+            "column": 3,
+            "lower": -1,
+            "upper": 1,
+            "exact": false
+          },
+          {
+            "column": 4,
+            "lower": -1,
+            "upper": 1,
+            "exact": false
+          },
+          {
+            "column": 5,
+            "lower": -1,
+            "upper": 1,
+            "exact": false
+          },
+          {
+            "column": 6,
+            "lower": -1,
+            "upper": 1,
+            "exact": false
+          }
+        ],
+        "certifiedOptimalMoves": [],
+        "certifiedSuboptimalMoves": [],
+        "unresolvedActionMoves": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "completeBestMoves": null,
+        "allActionIntervalsExact": false,
+        "cutoffDepth": 2,
+        "scope": "perfect-play P0-relative WDL lies in [lower,upper] under first-win rules; actions are literal fixed-mover moves"
+      },
+      "supportConeCount": 35,
+      "supportsCompleted": 35,
+      "allocatedBDDNodes": 0,
+      "peakBDDNodes": 2,
+      "finalBDDNodes": 2,
+      "nontrivialBDDOperations": 0,
+      "GCCount": 1,
+      "sourceClauseChecks": 2598,
+      "wallMs": 2
+    },
+    {
+      "depth": 4,
+      "status": "COMPILED",
+      "bounds": {
+        "status": "BOUNDED_WDL_INTERVAL",
+        "lower": -1,
+        "upper": 1,
+        "exactValue": null,
+        "actionIntervals": [
+          {
+            "column": 0,
+            "lower": -1,
+            "upper": 1,
+            "exact": false
+          },
+          {
+            "column": 1,
+            "lower": -1,
+            "upper": 1,
+            "exact": false
+          },
+          {
+            "column": 2,
+            "lower": -1,
+            "upper": 1,
+            "exact": false
+          },
+          {
+            "column": 3,
+            "lower": -1,
+            "upper": 1,
+            "exact": false
+          },
+          {
+            "column": 4,
+            "lower": -1,
+            "upper": 1,
+            "exact": false
+          },
+          {
+            "column": 5,
+            "lower": -1,
+            "upper": 1,
+            "exact": false
+          },
+          {
+            "column": 6,
+            "lower": -1,
+            "upper": 1,
+            "exact": false
+          }
+        ],
+        "certifiedOptimalMoves": [],
+        "certifiedSuboptimalMoves": [],
+        "unresolvedActionMoves": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "completeBestMoves": null,
+        "allActionIntervalsExact": false,
+        "cutoffDepth": 4,
+        "scope": "perfect-play P0-relative WDL lies in [lower,upper] under first-win rules; actions are literal fixed-mover moves"
+      },
+      "supportConeCount": 294,
+      "supportsCompleted": 294,
+      "allocatedBDDNodes": 57,
+      "peakBDDNodes": 47,
+      "finalBDDNodes": 2,
+      "nontrivialBDDOperations": 246,
+      "GCCount": 5,
+      "sourceClauseChecks": 35148,
+      "wallMs": 13
+    },
+    {
+      "depth": 6,
+      "status": "COMPILED",
+      "bounds": {
+        "status": "BOUNDED_WDL_INTERVAL",
+        "lower": -1,
+        "upper": 1,
+        "exactValue": null,
+        "actionIntervals": [
+          {
+            "column": 0,
+            "lower": -1,
+            "upper": 1,
+            "exact": false
+          },
+          {
+            "column": 1,
+            "lower": -1,
+            "upper": 1,
+            "exact": false
+          },
+          {
+            "column": 2,
+            "lower": -1,
+            "upper": 1,
+            "exact": false
+          },
+          {
+            "column": 3,
+            "lower": -1,
+            "upper": 1,
+            "exact": false
+          },
+          {
+            "column": 4,
+            "lower": -1,
+            "upper": 1,
+            "exact": false
+          },
+          {
+            "column": 5,
+            "lower": -1,
+            "upper": 1,
+            "exact": false
+          },
+          {
+            "column": 6,
+            "lower": -1,
+            "upper": 1,
+            "exact": false
+          }
+        ],
+        "certifiedOptimalMoves": [],
+        "certifiedSuboptimalMoves": [],
+        "unresolvedActionMoves": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "completeBestMoves": null,
+        "allActionIntervalsExact": false,
+        "cutoffDepth": 6,
+        "scope": "perfect-play P0-relative WDL lies in [lower,upper] under first-win rules; actions are literal fixed-mover moves"
+      },
+      "supportConeCount": 1386,
+      "supportsCompleted": 1386,
+      "allocatedBDDNodes": 458,
+      "peakBDDNodes": 276,
+      "finalBDDNodes": 2,
+      "nontrivialBDDOperations": 4476,
+      "GCCount": 22,
+      "sourceClauseChecks": 207264,
+      "wallMs": 76
+    },
+    {
+      "depth": 8,
+      "status": "COMPILED",
+      "bounds": {
+        "status": "BOUNDED_WDL_INTERVAL",
+        "lower": -1,
+        "upper": 1,
+        "exactValue": null,
+        "actionIntervals": [
+          {
+            "column": 0,
+            "lower": -1,
+            "upper": 1,
+            "exact": false
+          },
+          {
+            "column": 1,
+            "lower": -1,
+            "upper": 1,
+            "exact": false
+          },
+          {
+            "column": 2,
+            "lower": -1,
+            "upper": 1,
+            "exact": false
+          },
+          {
+            "column": 3,
+            "lower": -1,
+            "upper": 1,
+            "exact": false
+          },
+          {
+            "column": 4,
+            "lower": -1,
+            "upper": 1,
+            "exact": false
+          },
+          {
+            "column": 5,
+            "lower": -1,
+            "upper": 1,
+            "exact": false
+          },
+          {
+            "column": 6,
+            "lower": -1,
+            "upper": 1,
+            "exact": false
+          }
+        ],
+        "certifiedOptimalMoves": [],
+        "certifiedSuboptimalMoves": [],
+        "unresolvedActionMoves": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "completeBestMoves": null,
+        "allActionIntervalsExact": false,
+        "cutoffDepth": 8,
+        "scope": "perfect-play P0-relative WDL lies in [lower,upper] under first-win rules; actions are literal fixed-mover moves"
+      },
+      "supportConeCount": 4671,
+      "supportsCompleted": 4671,
+      "allocatedBDDNodes": 4249,
+      "peakBDDNodes": 1911,
+      "finalBDDNodes": 2,
+      "nontrivialBDDOperations": 40256,
+      "GCCount": 73,
+      "sourceClauseChecks": 801768,
+      "wallMs": 523
+    }
+  ],
+  "sourceUsesOracleLabels": false,
+  "sourceUsesPolicySearch": false,
+  "reference": {
+    "status": "PARTIAL_Q_BUDGET",
+    "error": "CoreBudgetError: constructive q solve budget exhausted",
+    "metrics": {
+      "uniqueStates": 200000,
+      "recursiveCalls": 558457,
+      "memoHits": 358456,
+      "transitions": 661366,
+      "terminalWinEdges": 102900,
+      "terminalDrawEdges": 10,
+      "branchingStates": 198289,
+      "maxDepth": 36,
+      "cacheEntries": 0
+    }
+  },
+  "earliestExactDepth": null,
+  "earliestCompleteBestSetDepth": null,
+  "provenance": {
+    "date": "2026-10-16",
+    "branch": "research/semantic-quotient",
+    "sourceBlobs": {
+      "bounded-support-interval-bdd.mjs": "7053efd87465a0d542a1e0c1b37e02834df606d9",
+      "exact-q-core.mjs": "6b25d0e2560fe4131d2f5442593e9ed9763c1a18",
+      "constructive-core-control.mjs": "b18cbb6e7a3db66c7c8bcda2efd615e45127d615",
+      "bounded-support-interval-earlier-ranks-control.mjs": "1d5f551073442db6fd41461224215eac0e81ab58"
+    },
+    "runtime": "isolated JS V8 exact modules, Node interfaces shimmed; maintained Node26 not run",
+    "plan": "BOUNDED_SUPPORT_INTERVAL_EARLIER_RANKS_PLAN_0_1.md",
+    "candidateInputs": "q h,R0,R1 at canonical 44444 only, no descendants, WDL labels or searched winning policies",
+    "strictCapsUnchanged": true
+  }
+}
