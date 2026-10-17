@@ -375,3 +375,67 @@ and `RESPONSE_COVER_QUANTIFIER_SCOPE_RESULTS_0_1.json`.
 
 Current qualified WDL core remains constructively complete despite
 the optional general nonbranching question still being OPEN.
+
+
+## 2026-10-16 — move7-to-move8 column transition and arbitrary-rank cofactor closed
+
+Following the owner's proposal to test through the filled center column
+and onward **to completion**, the research now establishes a general
+**fixed-history residual transition** algebra across *every* legal
+first-win-stopped rank:
+
+```text
+Ri_after = Min({r minus Ai | r in Ri_source
+                             and r intersect Aother is empty})
+```
+
+where A0/A1 are the subsequent P0/P1-owned cells. Source upset
+membership follows by testing the same original residuals against
+`S union Ai` under the opponent blocker guard. The terminal
+test must still be executed in move order, and a full column must
+be identified by support height H rather than parity alone.
+
+The direct virtual cofactor passed **every** move-7 and move-8 path
+following `44444` (384 replayed physical/q transitions, 122,928
+upset comparison identities, 324 move8 histories) across all three
+timings of center completion. It lifted the existing exact P1/P0
+response-cover family through the P0 move7 true cofactor with
+**zero successor q materializations** and matched all 324 move8
+two-P0-own-move response predicates. Source-mask response queries
+yield finite-horizon, not W/D/L-optimal, move8 defensive alternatives.
+
+The arbitrary-depth owner-mask transformer additionally passed
+**90 complete independent 7x6 game playouts**, including **eight
+42-cell draws**, all ranks1..42, 291 full-column events,
+2,549 nonterminal q comparisons and 10,812 source-upset
+queries, with zero discrepancies. Missing opponent blockers
+and treating phase-even as playable on a filled column were
+rejected by explicit negative controls.
+
+**This closes the column-full local transition problem. It does
+NOT close full strategic value.** For example the input-only
+five-ply formula correctly says no P0 first action wins by its
+third own turn from empty 4x3 Connect-3, while the complete
+exact WDL q core independently gives P0 WIN and all four
+opening moves WDL-optimal. Thus source cofactor path
+compositionality is necessary but insufficient for nonbranching
+arbitrary-depth game-value computation.
+
+**Next GSP-004 task:** derive exact compact repeated composition
+of the **action-labelled maximal adaptive response-cover FAMILY**
+with alternating existential/universal choices. Preserve
+reply/action correlations, first-win precedence and shared
+capacity/deadline guards. Use the now-proved owner-mask upset law
+as the source-state substitution; do not invent another
+column-completion state rule, enumerate long move histories as
+candidate policy search, or extrapolate one fixed horizon to WDL.
+
+Full derivation and reproducible evidence:
+`docs/research/2026-10-16-column-completion-through-full-game.md`;
+`research/isograph/discovery/2026-10-16-algorithmic-core/MOVE7_MOVE8_COLUMN_CLOSURE_RESULTS_0_2.json`,
+`ALL_DEPTH_OWNER_MASK_RESULTS_0_1.json`,
+`ALL_DEPTH_TRANSITION_NEGATIVE_RESULTS_0_1.json`,
+and `SHORT_HORIZON_VS_FULL_WDL_GAP_RESULTS_0_1.json`.
+
+No authority revision, production solver merge, general minimality claim
+or arbitrarily deep nonbranching algorithm has been established.
