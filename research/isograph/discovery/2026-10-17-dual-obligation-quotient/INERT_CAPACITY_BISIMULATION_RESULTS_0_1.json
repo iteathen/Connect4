@@ -1,0 +1,143 @@
+{
+  "schema": "connect4.dynamic-inert-capacity-bisimulation-results.v0_1",
+  "date": "2026-10-17",
+  "owner": "research/semantic-quotient",
+  "status": "EXACT_DYNAMIC_NONBIJECTIVE_NEUTRAL_CAPACITY_FUTURE_ACTION_EQUIVALENCE_PASS_TWO_COMPLETE_BOARDS",
+  "plan": "research/isograph/discovery/2026-10-17-dual-obligation-quotient/INERT_CAPACITY_BISIMULATION_PLAN_0_1.md",
+  "sourceProducer": "research/isograph/discovery/2026-10-17-dual-obligation-quotient/inert-capacity-bisimulation.mjs",
+  "physicalFullQControl": "research/isograph/discovery/2026-10-17-dual-obligation-quotient/inert-capacity-physical-control.mjs",
+  "theorem": "If every remaining future cell in a playable column is absent from BOTH normalized P0 and P1 source minimal residual requirement families, no future legal move in that column can complete a first win or alter either player's residuals. All currently fully inert columns can be aggregated into one neutral-token pool K=sum remaining capacities. First-win and draw timing, legal nonneutral actions, mover alternation, and remaining payoff are invariant under the dynamic relation: equal labelled active-column h and normalized residual families and equal K; neutral actions map to ANY available neutral column in the other state, consuming exactly one token (not a fixed column permutation). Hence all currently inert first-action columns have EXACT identical unrestricted WDL and must all be returned as ties if their shared value is optimal.",
+  "guards": [
+    "ENTIRE remaining column suffix must be absent from BOTH players' antichain generators, not merely the next landing cell",
+    "Only legal nonterminal first-win-stopped source q, full-board draw uses total active+neutral remaining tokens",
+    "All original literal action labels retained",
+    "Newly rendered inert columns from residual cofactors join pool simultaneously in matched states"
+  ],
+  "sourceConstructorUsesGameContinuations": false,
+  "sourceConstructorUsesSolvedLabels": false,
+  "physicalValidationOnly": [
+    "all legal nonterminal states, independently rebuilt exact source q",
+    "all certified inert first-action child residual q/active-label/pool equality checks",
+    "independently evaluated complete q WDL action values and minimax root values",
+    "baseline static fixed-permutation first-action graph computed separately"
+  ],
+  "actualCompleteBoardCensuses": [
+    {
+      "geometry": "4x3 Connect3",
+      "physicalNonterminalSources": 4631,
+      "uniqueQ": 3734,
+      "P1UniqueQ": 1786,
+      "P0UniqueQ": 1948,
+      "statesWithAtLeastOneInertLegalColumn": 247,
+      "statesWithTwoOrMoreInertLegalColumns": 19,
+      "certifiedInertFirstActionEquivalencePairs": 19,
+      "sourceInertScalarRootProofsAvoidedAllMovernodes": 19,
+      "groupsWhoseChildColumnCapacityProfilesDiffer": 0,
+      "originalP1LegalScalarValueObligations": 4872,
+      "staticPermutationP1ScalarRepresentatives": 4502,
+      "dynamicNeutralPlusStaticP1ScalarRepresentatives": 4502,
+      "additionalP1ScalarOmissionsBeyondStatic": 0,
+      "sourceInertClassifierOperations": 52354,
+      "priorStaticTransportPlusGraphOperations": 408967,
+      "additionalCombinedP1GraphOperations": 139128,
+      "independentQValidatorTransitions": 10228,
+      "falseNeutralGuardOrChildEquivalence": 0,
+      "falseUnrestrictedChildWDLTie": 0,
+      "falseCombinedP1RootScalarMin": 0,
+      "falseFullWDLValueEqualityClass": 0,
+      "localIsolatedV8Milliseconds": 486
+    },
+    {
+      "geometry": "4x4 Connect4",
+      "physicalNonterminalSources": 134289,
+      "uniqueQ": 34094,
+      "P1UniqueQ": 16950,
+      "P0UniqueQ": 17144,
+      "statesWithAtLeastOneInertLegalColumn": 2467,
+      "statesWithTwoOrMoreInertLegalColumns": 425,
+      "certifiedInertFirstActionEquivalencePairs": 437,
+      "sourceInertScalarRootProofsAvoidedAllMovernodes": 431,
+      "groupsWhoseChildColumnCapacityProfilesDiffer": 188,
+      "originalP1LegalScalarValueObligations": 50034,
+      "staticPermutationP1ScalarRepresentatives": 44480,
+      "dynamicNeutralPlusStaticP1ScalarRepresentatives": 44386,
+      "additionalP1ScalarOmissionsBeyondStatic": 94,
+      "P1QSourcePositionsWithNewNeutralSaving": 94,
+      "sourceInertClassifierOperations": 477869,
+      "priorStaticTransportPlusGraphOperations": 3476170,
+      "additionalCombinedP1GraphOperations": 1538248,
+      "independentQValidatorTransitions": 100760,
+      "falseNeutralGuardOrChildEquivalence": 0,
+      "falseUnrestrictedChildWDLTie": 0,
+      "falseCombinedP1RootScalarMin": 0,
+      "falseFullWDLValueEqualityClass": 0,
+      "localIsolatedV8Milliseconds": 5402
+    }
+  ],
+  "uniqueNonbijectiveDynamicFutureExample": {
+    "geometry": "4x4 Connect4",
+    "legalSourceHistory": "1111222324334",
+    "sourceP1ToMove": true,
+    "inertFirstActionsOneBased": [
+      3,
+      4
+    ],
+    "neutralPoolRemainingCapacity": 3,
+    "perColumnNeutralCapacityOneBased": [
+      {
+        "column": 3,
+        "capacity": 1
+      },
+      {
+        "column": 4,
+        "capacity": 2
+      }
+    ],
+    "sortedChildColumnHeightsAfterP1Action3": [
+      2,
+      4,
+      4,
+      4
+    ],
+    "sortedChildColumnHeightsAfterP1Action4": [
+      3,
+      3,
+      4,
+      4
+    ],
+    "sourceOnlyFutureGameEquality": true,
+    "incapableOfFixedHeightPreservingColumnTransport": true,
+    "independentWDLChildValue": 0,
+    "sourceOnlyPriorStaticFirstActionScalarRepresentativesOneBased": [
+      3,
+      4
+    ],
+    "newDynamicScalarRepresentativesOneBased": [
+      3
+    ],
+    "additionalRootScalarValueProofRemoved": 1,
+    "caveat": "Numeric DRAW from independent full-q validator ONLY; source proof certifies equal WDL and tie-group without determining numeric value."
+  },
+  "canonical44444": {
+    "geometry": "7x6 Connect4",
+    "sourceHistory": "44444",
+    "fullyInertSourceColumns": [],
+    "neutralPool": 0,
+    "fullFutureWDL": "UNKNOWN [-1,+1]",
+    "additionalFirstActionReduction": 0,
+    "limitation": "No new center-vs-wing capacity simulation at this source; all current source future cells remain strategically live or otherwise not classified fully inert."
+  },
+  "strictPerSourceLimits": {
+    "representationNodes": 60000,
+    "nontrivialBitsetOperations": 300000,
+    "supportRepresentatives": 10000,
+    "maxMilliseconds": 15000
+  },
+  "scopeLimits": [
+    "Full legal source-state reference exhaustive only on 4x3/4x4, no independent all-depth standard 7x6 WDL qualification",
+    "Neutral-token pooling is a proven structural bisimulation and potential value-query saving, NOT proof of total solver walltime reduction or globally branchless play",
+    "A neutral first action may TIE an active action in WDL; source operator retains full set of original labels and class membership"
+  ],
+  "noAuthorityPromotion": true,
+  "noMerge": true
+}
