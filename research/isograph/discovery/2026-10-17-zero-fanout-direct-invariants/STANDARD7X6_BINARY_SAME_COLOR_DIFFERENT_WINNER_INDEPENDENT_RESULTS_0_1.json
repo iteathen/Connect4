@@ -1,0 +1,77 @@
+{
+  "schema": "connect4.7x6.binary_same_final_color_time_counterexample_v0_1",
+  "geometry": {
+    "W": 7,
+    "H": 6,
+    "K": 4
+  },
+  "hypotheticalFullGravitySchedules": [
+    "277734114757637654125614163236521322364545",
+    "277734114757637654125614163216523322364545"
+  ],
+  "bothFullSchedulesGravityLegal": true,
+  "identicalFinalPerCellColorAssignment": true,
+  "scheduleA": {
+    "firstWin": {
+      "player": 1,
+      "turn": 30,
+      "lastPlacedCell": [
+        6,
+        5
+      ],
+      "winningLine": [
+        [
+          6,
+          2
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          6,
+          4
+        ],
+        [
+          6,
+          5
+        ]
+      ]
+    },
+    "legalFirstWinStoppedHistory": "277734114757637654125614163236"
+  },
+  "scheduleB": {
+    "firstWin": {
+      "player": 0,
+      "turn": 29,
+      "lastPlacedCell": [
+        1,
+        6
+      ],
+      "winningLine": [
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          1,
+          6
+        ]
+      ]
+    },
+    "legalFirstWinStoppedHistory": "27773411475763765412561416321"
+  },
+  "statement": "An ownership-only end-board XOR signature cannot recover first-win WDL; exact timing of first monochromatic original line remains required.",
+  "codeIndependence": "Array-grid directional K-checker; no source parity formula, no shared BigInt hyperedge implementation, no exact game-value reference.",
+  "frozenIndependentSource": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-binary-same-final-color-independent-witness.mjs",
+  "gitBlob": "0962ae639a96130386f5d0ddcb40960d859a65aa",
+  "qualification": "Genuine 7x6 physical first-win prefixes verified. Full 42-move schedules are hypothetical post-first-win extensions for final-ownership comparison; not legal continued gameplay. Independent array-grid detector, no minimax or zero-branch algorithm claimed."
+}
