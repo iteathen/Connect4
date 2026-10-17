@@ -1,0 +1,168 @@
+{
+  "schema": "connect4.source-anchored-owner-bdd.standard7x6-suffix.v0_1",
+  "date": "2026-10-16",
+  "rank": 26,
+  "prefix": "43214636342357317661423762",
+  "support": [
+    3,
+    4,
+    6,
+    4,
+    1,
+    5,
+    3
+  ],
+  "futureSupportCount": 1728,
+  "status": "PASS",
+  "candidateInputContract": "actual source q h0,R0,R1 and Connect4 geometry only, no solved values",
+  "candidateUsedGameTreeSearch": false,
+  "candidateUsesSourceQGeometryOnly": true,
+  "fixedBudget": {
+    "maxBDDNodes": 60000,
+    "maxBDDOperations": 300000,
+    "maxSupports": 10000,
+    "maxCompileMs": 15000,
+    "maxQStates": 200000,
+    "maxQTransitions": 800000,
+    "maxQTimeMs": 30000
+  },
+  "compileMs": 1240,
+  "compiler": {
+    "supportsPlanned": 1728,
+    "supportsBuilt": 1728,
+    "supportEdgeCalls": 7200,
+    "activeSupportMax": 262,
+    "childSupportReleases": 1727,
+    "BDDNodeCreates": 4180,
+    "peakNodesBeforeGC": 1025,
+    "peakLiveAfterGC": 1015,
+    "gcCount": 1728,
+    "gcNodesFreed": 4180,
+    "finalNodes": 2,
+    "applyCalls": 71858,
+    "applyMisses": 11533,
+    "applyMemoHits": 4321,
+    "restrictCalls": 34918,
+    "restrictMisses": 10265,
+    "restrictMemoHits": 1586,
+    "notCalls": 5472,
+    "notMisses": 936,
+    "notMemoHits": 78,
+    "generatedImmediateLineTerms": 2976,
+    "sourceOwnershipLiteralUses": 2640,
+    "sourceResidualClauseChecks": 61200,
+    "sourceSizeTwoTerminals": 1896,
+    "sourceFutureCellsAtRoot": 16,
+    "sourceRank": 26,
+    "conditionalOwnerRestrictionCalls": 14388,
+    "BDDThresholdRootActionCount": 7200,
+    "WDLInputStatesVisitedDuringCompile": 0,
+    "gameTreeRecursiveBranchesSolved": 0,
+    "maxLiveActionRoots": 2818,
+    "compilerMs": 1240,
+    "retainAllSupportFunctions": false,
+    "finalRetainedSupportCount": 1,
+    "sourceResidual0": 9,
+    "sourceResidual1": 8,
+    "currentBDDNodes": 2,
+    "currentlyRetainedSupportFunctions": 1
+  },
+  "outputLiveBDD": {
+    "reachableOutputBDDNodes": 2,
+    "distinctOutputOwnerVariables": 0,
+    "allAliveBDDNodes": 2,
+    "actions": 6
+  },
+  "candidate": {
+    "value": 1,
+    "bestMoves": [
+      4
+    ],
+    "actionValues": [
+      [
+        0,
+        -1
+      ],
+      [
+        1,
+        -1
+      ],
+      [
+        3,
+        -1
+      ],
+      [
+        4,
+        1
+      ],
+      [
+        5,
+        -1
+      ],
+      [
+        6,
+        -1
+      ]
+    ]
+  },
+  "independentQMs": 44,
+  "independentQ": {
+    "value": 1,
+    "bestMoves": [
+      4
+    ],
+    "actionValues": [
+      [
+        0,
+        -1
+      ],
+      [
+        1,
+        -1
+      ],
+      [
+        3,
+        -1
+      ],
+      [
+        4,
+        1
+      ],
+      [
+        5,
+        -1
+      ],
+      [
+        6,
+        -1
+      ]
+    ]
+  },
+  "independentQStats": {
+    "uniqueStates": 1637,
+    "recursiveCalls": 3600,
+    "memoHits": 1963,
+    "transitions": 6195,
+    "terminalWinEdges": 2596,
+    "terminalDrawEdges": 0,
+    "branchingStates": 1627,
+    "maxDepth": 11,
+    "cacheEntries": 1637
+  },
+  "actionAndValueMatch": true,
+  "totalMs": 1285,
+  "provenance": {
+    "date": "2026-10-16",
+    "branch": "research/semantic-quotient",
+    "sourceBlobs": {
+      "source-anchored-owner-bdd.mjs": "a08869be044ef45bf78cdbc1ca2ca7b6d2710af1",
+      "exact-q-core.mjs": "6b25d0e2560fe4131d2f5442593e9ed9763c1a18",
+      "constructive-core-control.mjs": "b18cbb6e7a3db66c7c8bcda2efd615e45127d615",
+      "source-anchored-owner-bdd-7x6-control.mjs": "442ec0a320a1f2e147f8f8319d59a44687954cbe"
+    },
+    "execution": "isolated JS V8 exact committed source, Node/process/performance shim, Node26 maintained test not run",
+    "candidateInputPolicy": "actual legal q0 from independently validated fixed prefix; no solved future value or continuation state fed to compiler",
+    "plannedStage": "SOURCE_ANCHORED_BDD_EARLIER_RANK_STRESS_PLAN_0_1.md",
+    "boundStatus": "frozen 60000 BDD node/300000 nontrivial operations/10000 support/15s compile; independent q max 200000 states/800000 transitions/30s"
+  }
+}
