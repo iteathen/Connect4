@@ -49,7 +49,7 @@ export function createFourRibbonSourceLift({width:W,height:H,connect:K}){
   const id=edges.length,edge={id,x,y,direction:strand.direction,strand:strand.id};
   edges.push(edge);edgesByCell[x].push(id);edgesByCell[y].push(id);
  }
- const graph={strands:37,occurrences:4*N,windows:windows.length,edges:edges.length};
+ const graph={strands:strands.length,occurrences:4*N,windows:windows.length,edges:edges.length};
  const pop=m=>{let i=0;while(m){m&=m-1n;i++;}return i;};
  const normalize=gs=>{
   const xs=[...new Set(gs.map(String))].map(BigInt)
