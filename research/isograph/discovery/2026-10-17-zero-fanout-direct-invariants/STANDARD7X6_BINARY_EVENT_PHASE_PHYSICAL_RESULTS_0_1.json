@@ -1,0 +1,50 @@
+{
+  "schema": "connect4.standard7x6.binary_event_phase_falsification_v0_1",
+  "geometry": {
+    "W": 7,
+    "H": 6,
+    "K": 4,
+    "lines": 69
+  },
+  "seedStart": 206247909,
+  "samplesByPrefix": {
+    "44444": 3500,
+    "4444442": 1500,
+    "empty": 14000
+  },
+  "verifiedEventParityIdentities": 782852,
+  "verifiedLineMonochromeConditions": 1332114,
+  "verifiedEarliestFirstWinSchedules": 19306,
+  "invalidPrefix": 0,
+  "wrongEventParity": 0,
+  "wrongFirstWin": 0,
+  "distinctColumnAdjacentSwapChecks": 305,
+  "wrongAdjacentSwap": 0,
+  "sameOwnerLegalSwapTrials": 13,
+  "sameFinalOwnershipAssignmentChecks": 1,
+  "sameFinalOwnershipDifferentFirstWinner": {
+    "sourceScheduleColumns": "277734114757637654125614163236521322364545",
+    "swappedScheduleColumns": "277734114757637654125614163216523322364545",
+    "swappedOneBasedTurns": [
+      29,
+      33
+    ],
+    "originalFirstWinner": {
+      "winner": 1,
+      "time": 30
+    },
+    "swappedFirstWinner": {
+      "winner": 0,
+      "time": 29
+    },
+    "identicalFinalPerCellOwners": true
+  },
+  "firstWinEvents": 19292,
+  "drawEvents": 14,
+  "seedEnd": 3424317435,
+  "source_file": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-binary-event-phase-physical-falsifier.mjs",
+  "exactGitBlob": "1bab50931b19e53cedbf5959a452e1c1e23576aa",
+  "test_execution": "isolated V8 evaluating fetched exact committed source; no game-value oracle; hypothetical full schedules used solely for physical falsification",
+  "elapsedMs": 934,
+  "evidence_status": "DIRECT_SOURCE_CONTROL_PASS_WITH_SAME_FINAL_OWNERSHIP_DIFFERENT_FIRST_WIN_WITNESS_PENDING_SEPARATE_INDEPENDENT_CHECK"
+}
