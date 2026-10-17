@@ -1,0 +1,141 @@
+{
+  "schema": "connect4.source-owner-swap-full-future-simulation-results.v0_1",
+  "date": "2026-10-17",
+  "owner": "research/semantic-quotient",
+  "status": "EXACT_SOURCE_ONLY_FULL_FUTURE_WDL_DOMINANCE_AND_EQUALITY_TWO_PLY_DIAMONDS_BOUNDED_DOMAIN_VERIFIED",
+  "frozenPlan": "research/isograph/discovery/2026-10-17-dual-obligation-quotient/TWO_PLY_OWNER_SWAP_SIMULATION_PLAN_0_1.md",
+  "producer": "research/isograph/discovery/2026-10-17-dual-obligation-quotient/two-ply-owner-swap-simulation.mjs",
+  "independentPhysicalQControl": "research/isograph/discovery/2026-10-17-dual-obligation-quotient/two-ply-owner-swap-control.mjs",
+  "theorem": "Given legal P1-to-move source q and two distinct legal columns b,c, compare histories P1 b/P0 c and P1 c/P0 b. If both nonterminal, they end at SAME h+e_b+e_c. Compute R0,R1 final antichains by source-only player-owned cell contraction and opponent blocker deletion. Pointwise residual upset inclusion U0_bc subseteq U0_cb AND U1_cb subseteq U1_bc is a P0-favorable monotone simulation certificate for exact unrestricted WDL V_bc<=V_cb, by finite-rank induction under identical future legal moves, first-win guards and owner-cofactor isotonicity. Both directions imply exact full WDL equality.",
+  "proofScope": "ONLY conditioned two-ply continuations sharing support; not an unconditional P1 root-action value or optimal-move result. Weak order does not prove strict WDL separation or let a tied move label be discarded.",
+  "numericalControls": [
+    {
+      "board": "4x3 Connect3",
+      "sourceCorpus": "FULL physical legal nonterminal states",
+      "physicalNonterminalStates": 4631,
+      "P1Sources": 2208,
+      "pairsScanned": 5158,
+      "terminalExcluded": 3628,
+      "eligiblePairs": 1530,
+      "sourceOnlyEqualityCertificates": 72,
+      "sourceOnlyOneWayWDLOrderCertificates": 354,
+      "incomparablePairs": 1104,
+      "comparableProportionPercent": 27.84314,
+      "sourceGeneratorAndInclusionCountedOperations": 170736,
+      "validationTwoStepQTransitions": 6120,
+      "independentExactQReferenceTransitions": 2944,
+      "independentExactQReferenceCacheEntries": 1212,
+      "falseSourceInclusion": 0,
+      "falseValueOrder": 0,
+      "falseValueEquality": 0,
+      "firstEquality": {
+        "sourceHistory": "1112244",
+        "P1P0": [
+          2,
+          4
+        ],
+        "swapped": [
+          4,
+          2
+        ],
+        "exactP0WDL": -1
+      },
+      "firstOneWay": {
+        "sourceHistory": "1112234",
+        "P1P0": [
+          2,
+          3
+        ],
+        "swapped": [
+          3,
+          2
+        ],
+        "exactP0WDLLeft": 1,
+        "exactP0WDLRight": -1,
+        "structuralCertificate": "V(swapped)<=V(original) only; exact gap found by validator"
+      },
+      "isolateElapsedMs": 222
+    },
+    {
+      "board": "4x4 Connect4",
+      "sourceCorpus": "FULL physical legal nonterminal states (supersedes earlier 3425 position hash sample)",
+      "physicalNonterminalStates": 134289,
+      "P1Sources": 67992,
+      "pairsScanned": 120048,
+      "terminalExcluded": 36022,
+      "eligiblePairs": 84026,
+      "sourceOnlyEqualityCertificates": 17642,
+      "sourceOnlyOneWayWDLOrderCertificates": 24644,
+      "incomparablePairs": 41740,
+      "comparableProportionPercent": 50.3249,
+      "sourceGeneratorAndInclusionCountedOperations": 2032466,
+      "validationTwoStepQTransitions": 336104,
+      "independentExactQReferenceTransitions": 36088,
+      "independentExactQReferenceCacheEntries": 13437,
+      "falseSourceInclusion": 0,
+      "falseValueOrder": 0,
+      "falseValueEquality": 0,
+      "firstEquality": {
+        "sourceHistory": "11112223233",
+        "P1P0": [
+          3,
+          4
+        ],
+        "swapped": [
+          4,
+          3
+        ],
+        "exactP0WDL": -1
+      },
+      "firstOneWay": {
+        "sourceHistory": "1111222234334",
+        "P1P0": [
+          3,
+          4
+        ],
+        "swapped": [
+          4,
+          3
+        ],
+        "exactP0WDLLeft": -1,
+        "exactP0WDLRight": 0,
+        "structuralCertificate": "V(original)<=V(swapped) only; numeric gap validation-only"
+      },
+      "isolateElapsedMs": 4226
+    }
+  ],
+  "canonical44444": {
+    "geometry": "7x6 Connect4",
+    "sourceP1Rank": 5,
+    "legalUnorderedOwnerSwapDiamonds": 21,
+    "terminalOrDrawExcluded": 0,
+    "fullFutureEqualCertifications": 0,
+    "oneWayFullFutureDominanceCertifications": 0,
+    "incomparable": 21,
+    "originalSourceOnlyCountedOperations": 77900,
+    "status": "NO_NEW_44444_ROOT_WDL_OR_BRANCH_ELIMINATION"
+  },
+  "certificateWork": {
+    "sourceOperationScope": "generator filters, antichain subset normalization, source residual upset inclusion. Sorting/hash string/BigInt work separately uninstrumented, no matched CPU speedup claimed.",
+    "sourceGameTreeCalls": 0,
+    "sourceSuccessorQObjectsBuilt": 0,
+    "independentValidatorGameTreeCalls": "Only AFTER source candidate, reference qualified recursive exact q solve/cell cofactor",
+    "duplicatePhysicalVsExactQIdentity": "Counts are raw distinct physical source-position diamond instances; memo-equivalent q positions may repeat. Deduplicated-q audit pending.",
+    "note": "A certified order among two conditioned branches does not imply root action dominance unless additional all-response matching and quantifier scope are proven."
+  },
+  "unchangedLimits": {
+    "maxNodes": 60000,
+    "maxBitsetOpsPerSource": 300000,
+    "maxSupportReps": 10000,
+    "maxMillisecondsPerCompile": 15000
+  },
+  "historicalFalsifiersRetained": [
+    "111 bounded signature 0x0 equals across P1 replies2/3 yet full P0 WDL +1/0",
+    "223 forall reply exists answer not exists one answer forall reply",
+    "44444 all 7 bounded signatures zero but no full WDL equivalence"
+  ],
+  "rootCanonical44444WDL": "UNKNOWN [-1,+1]",
+  "optimalActionSet": "UNKNOWN",
+  "noGameTheoryAuthorityPromotion": true,
+  "noMerge": true
+}
