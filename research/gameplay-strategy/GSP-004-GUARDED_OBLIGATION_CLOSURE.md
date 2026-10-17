@@ -676,3 +676,34 @@ enumeration work audit. Existing `223` counterexample continues
 to prohibit `forall b exists a` -> `exists a forall b`.
 See `docs/research/2026-10-16-guard-qualified-quantifier-localization-and-action-vectors.md`
 and `docs/research/2026-10-16-common-witness-unateness-negative-width.md`.
+
+## 2026-10-16 — output-cone deterministic factoring and exact cofactor identity
+
+The original move7/move8 full-column transition, all 324
+rank8 histories and bounded short-horizon P1 defensive
+reply masks were already closed. A separate new exact
+Boolean result now quotients source-q's later adaptive
+obligations by *identical future Boolean cofactor functions*
+in a canonical reduced ordered BDD. The operator eliminates
+irrelevant deterministic Tseitin gate clauses outside one
+source WIN/NONLOSS output's dependency cone, without
+dropping terminal/legality/response guards or swapping
+`forall b exists a` into `exists a forall b`.
+
+This genuinely shares source Boolean work and completes
+all seven bounded `44444` k8 first-action intervals,
+independently validated by 3,567,031 physical transitions.
+A nine-ply lower threshold is also closed for all seven
+initial P1 actions, matching independent source-owner BDD,
+but k9 upper cannot compile within 60k nodes and exact
+unrestricted best moves remain UNKNOWN. Small-game
+full-horizon tied-optimal masks 24/24 correct.
+
+**Next GSP-004 structural lemma:** exact support-guarded
+quantified factor elimination *during* source
+compilation, or a constructed low-width conditional
+cofactor interface preserving action-dependent responses,
+without hidden continuation enumeration. Neither a small
+final BDD nor a one-sided k9 lower result proves the
+global nonbranching goal.
+See `docs/research/2026-10-16-action-robd-output-cone-functional-quotient.md`.
