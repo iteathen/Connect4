@@ -7,6 +7,10 @@
 
 This file is the current-state router, not a theorem ledger. This branch owns **all durable Connect4 research**, regardless of which solver produced it. Research artifacts live across `research/**` and `docs/research/**` on this branch; the executable research continuation lives in `next_step.yaml`.
 
+## Governing board-domain focus — owner refinement, 2026-10-17
+
+Current zero-strategic-branching mathematics and positive evidence MUST focus on the **standard 7-column × 6-row Connect4 game (W=7,H=6,K=4)**. Reduced-board 4×3/4×4 counts are valid historical scoped controls only, not standard-board discovery progress. **Keep W, H, and win length K explicitly symbolic in the formulas and their incidence/release/parity guards**, even as all primary tests and conclusions specialize to (7,6,4). Generalizing to other board dimensions is a LATER phase after standard-board research is substantially exhausted. Neither generic formula notation nor small-board exhaustive conformance establishes 7×6 value/optimal-action completeness. Source of owner instruction: `docs/research/2026-10-17-owner-standard-7x6-geometry-first-zero-branch-domain.md` (two-phase domain policy). Original 7×6 `44444` exact WDL/complete optimal set remains UNKNOWN.
+
 ## Research ownership
 
 `research/semantic-quotient` is the single durable research owner. Active implementation consumers are IsoMax/Isometric, CUDA-BSFP, and SUT. Minimax/Negamax/alpha-beta and Hybrid Confluence are historical solver lineages, not current implementation owners. Temporary experiments may carry in-progress research only until durable results are integrated here.
