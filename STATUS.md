@@ -1,6 +1,6 @@
 # Connect4 current research status
 
-**Updated:** 2026-10-17 (full-future nongeometric branch-elimination checkpoint; older sections retain their qualification dates)  
+**Updated:** 2026-10-17 (latest: 7×6 XOR/event-phase binary payoff and nested zero-locus theorem; older sections retain their qualification dates)  
 **Branch:** `research/semantic-quotient`  
 **Research direction / structural architecture / invariant-first and self-proving-predicate program:** Josh Oshiro  
 **Formalization / implementation / qualification:** OpenAI ChatGPT
