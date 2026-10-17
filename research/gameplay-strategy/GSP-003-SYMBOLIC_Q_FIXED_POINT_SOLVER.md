@@ -196,3 +196,14 @@ Do not compute a game-tree winning policy inside the constructor.
 Full literature/proof audit and reproducible structural diagnostic:
 `docs/research/2026-10-16-general-mathematical-quantifier-width-proof-search.md`.
 No general polynomial or nonbranching theorem was established.
+
+
+## 2026-10-16 — proof-theoretic quantified-width candidate, NOT a solved symbolic root
+
+The new reviewed SAT-2026 bilateral-treewidth theorem supplies a conditional QBF decision algorithm combining guarded resolution/universal reduction with bounded local existential-strategy extension; it can handle decompositions which simple dependency-treewidth or prefix-pathwidth alone cannot. It requires a **full quantified CNF**, polynomial-time sound dependency poset and a qualifying trunk-aligned decomposition. The prior `44444` source-residual graph's greedy width15 is not a measurement of those prerequisites.
+
+Exact local action/reply Galois-closure reconstruction and Node22 finite tests also establish a useful *negative* carrier result: enumerating all maximal binary-relation concepts can expand intermediate size (32,916 of 65,536 four-action relations; legal `223` four concepts vs minimum rank three). Do not substitute this basis for a compact multi-ply predecessor operator merely because it returns one factor object.
+
+**Next GSP-003 experiment:** prove the source q WIN/NLOSS threshold-to-guarded-CNF equivalence including every legal action, terminal/first-win, mover and original owner cofactor; instrument the genuine dependency-qualified *quantified* interface and candidate trunk aligned decomposition; compare with structured-dDNNF elimination and exact q/physical controls. Freeze current computational budgets before testing source `44444`. No unsupported value closure or production implementation.
+
+See `docs/research/2026-10-16-bilateral-treewidth-and-galois-response-closures.md`.
