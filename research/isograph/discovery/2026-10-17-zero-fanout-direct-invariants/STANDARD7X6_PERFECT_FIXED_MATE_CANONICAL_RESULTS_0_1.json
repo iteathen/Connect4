@@ -1,0 +1,84 @@
+{
+  "schema": "connect4.7x6.perfect_mate_exhaustive.canonical44444_v0_1",
+  "date": "2026-10-17",
+  "status": "EXHAUSTIVE_STATIC_BLOCK_NORMAL_FORM_CANDIDATE_CONTROL",
+  "sourceFile": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-perfect-fixed-mate-exhaustive.mjs",
+  "localExactGitBlobSha": "3494a3c1b8507950e24b3168b0e398dc596b2cd7",
+  "localOutputSHA256": "2b40baed88f74e84c4bc0af62701e65e31afe685e54d3b854cb837787676d878",
+  "board": {
+    "W": 7,
+    "H": 6,
+    "K": 4,
+    "winlineCount": 69
+  },
+  "scenario": "P1 moves absolute turn6 after 44444, P0 is attacker on turn7; fixed perfect pairing tries P1 immediate mate defense",
+  "semanticallyEvaluatedInequivalentFutureGames": 0,
+  "results": [
+    {
+      "history": "444441",
+      "p0Residuals": 46,
+      "matchings": 166,
+      "fullCovers": 0,
+      "maxCovered": 20,
+      "minUncovered": 26
+    },
+    {
+      "history": "444442",
+      "p0Residuals": 44,
+      "matchings": 166,
+      "fullCovers": 0,
+      "maxCovered": 19,
+      "minUncovered": 25
+    },
+    {
+      "history": "444443",
+      "p0Residuals": 44,
+      "matchings": 166,
+      "fullCovers": 0,
+      "maxCovered": 18,
+      "minUncovered": 26
+    },
+    {
+      "history": "444444",
+      "p0Residuals": 42,
+      "matchings": 856,
+      "fullCovers": 0,
+      "maxCovered": 22,
+      "minUncovered": 20
+    },
+    {
+      "history": "444445",
+      "p0Residuals": 44,
+      "matchings": 166,
+      "fullCovers": 0,
+      "maxCovered": 18,
+      "minUncovered": 26
+    },
+    {
+      "history": "444446",
+      "p0Residuals": 44,
+      "matchings": 166,
+      "fullCovers": 0,
+      "maxCovered": 19,
+      "minUncovered": 25
+    },
+    {
+      "history": "444447",
+      "p0Residuals": 46,
+      "matchings": 166,
+      "fullCovers": 0,
+      "maxCovered": 20,
+      "minUncovered": 26
+    }
+  ],
+  "allMatchingsExamined": 1852,
+  "totalFullyCovering": 0,
+  "originalR0GeneratorsAreMinimalAntichain": true,
+  "normalFormCompletenessProof": "docs/research/2026-10-17-standard7x6-perfect-mate-response-completeness-candidate.md",
+  "claimsNotEstablished": [
+    "No proof yet that all adaptive defender strategies fail",
+    "No unrestricted P0/P1 WDL certified",
+    "No complete optimal move set certified",
+    "Normal-form necessity remains candidate until independent release-order control"
+  ]
+}
