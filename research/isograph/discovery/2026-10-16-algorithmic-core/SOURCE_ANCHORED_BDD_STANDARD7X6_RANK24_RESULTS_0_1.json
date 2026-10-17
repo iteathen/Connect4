@@ -1,0 +1,169 @@
+{
+  "schema": "connect4.source-anchored-owner-bdd.standard7x6-suffix.v0_1",
+  "date": "2026-10-16",
+  "rank": 24,
+  "prefix": "432146363423573176614237",
+  "support": [
+    3,
+    3,
+    6,
+    4,
+    1,
+    4,
+    3
+  ],
+  "futureSupportCount": 3456,
+  "status": "PASS",
+  "candidateInputContract": "actual source q h0,R0,R1 and Connect4 geometry only, no solved values",
+  "candidateUsedGameTreeSearch": false,
+  "candidateUsesSourceQGeometryOnly": true,
+  "fixedBudget": {
+    "maxBDDNodes": 60000,
+    "maxBDDOperations": 300000,
+    "maxSupports": 10000,
+    "maxCompileMs": 15000,
+    "maxQStates": 200000,
+    "maxQTransitions": 800000,
+    "maxQTimeMs": 30000
+  },
+  "compileMs": 6706,
+  "compiler": {
+    "supportsPlanned": 3456,
+    "supportsBuilt": 3456,
+    "supportEdgeCalls": 15264,
+    "activeSupportMax": 493,
+    "childSupportReleases": 3455,
+    "BDDNodeCreates": 14151,
+    "peakNodesBeforeGC": 2945,
+    "peakLiveAfterGC": 2930,
+    "gcCount": 3456,
+    "gcNodesFreed": 14151,
+    "finalNodes": 2,
+    "applyCalls": 176632,
+    "applyMisses": 36874,
+    "applyMemoHits": 13253,
+    "restrictCalls": 95730,
+    "restrictMisses": 32607,
+    "restrictMemoHits": 5694,
+    "notCalls": 13344,
+    "notMisses": 2856,
+    "notMemoHits": 268,
+    "generatedImmediateLineTerms": 6008,
+    "sourceOwnershipLiteralUses": 5316,
+    "sourceResidualClauseChecks": 145008,
+    "sourceSizeTwoTerminals": 3416,
+    "sourceFutureCellsAtRoot": 18,
+    "sourceRank": 24,
+    "conditionalOwnerRestrictionCalls": 30516,
+    "BDDThresholdRootActionCount": 15264,
+    "WDLInputStatesVisitedDuringCompile": 0,
+    "gameTreeRecursiveBranchesSolved": 0,
+    "maxLiveActionRoots": 5554,
+    "compilerMs": 6706,
+    "retainAllSupportFunctions": false,
+    "finalRetainedSupportCount": 1,
+    "sourceResidual0": 10,
+    "sourceResidual1": 9,
+    "currentBDDNodes": 2,
+    "currentlyRetainedSupportFunctions": 1
+  },
+  "outputLiveBDD": {
+    "reachableOutputBDDNodes": 2,
+    "distinctOutputOwnerVariables": 0,
+    "allAliveBDDNodes": 2,
+    "actions": 6
+  },
+  "candidate": {
+    "value": 1,
+    "bestMoves": [
+      1,
+      4
+    ],
+    "actionValues": [
+      [
+        0,
+        -1
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        3,
+        -1
+      ],
+      [
+        4,
+        1
+      ],
+      [
+        5,
+        -1
+      ],
+      [
+        6,
+        -1
+      ]
+    ]
+  },
+  "independentQMs": 178,
+  "independentQ": {
+    "value": 1,
+    "bestMoves": [
+      1,
+      4
+    ],
+    "actionValues": [
+      [
+        0,
+        -1
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        3,
+        -1
+      ],
+      [
+        4,
+        1
+      ],
+      [
+        5,
+        -1
+      ],
+      [
+        6,
+        -1
+      ]
+    ]
+  },
+  "independentQStats": {
+    "uniqueStates": 4822,
+    "recursiveCalls": 11448,
+    "memoHits": 6626,
+    "transitions": 18899,
+    "terminalWinEdges": 7452,
+    "terminalDrawEdges": 0,
+    "branchingStates": 4806,
+    "maxDepth": 13,
+    "cacheEntries": 4822
+  },
+  "actionAndValueMatch": true,
+  "totalMs": 6885,
+  "provenance": {
+    "date": "2026-10-16",
+    "branch": "research/semantic-quotient",
+    "sourceBlobs": {
+      "source-anchored-owner-bdd.mjs": "a08869be044ef45bf78cdbc1ca2ca7b6d2710af1",
+      "exact-q-core.mjs": "6b25d0e2560fe4131d2f5442593e9ed9763c1a18",
+      "constructive-core-control.mjs": "b18cbb6e7a3db66c7c8bcda2efd615e45127d615",
+      "source-anchored-owner-bdd-7x6-control.mjs": "442ec0a320a1f2e147f8f8319d59a44687954cbe"
+    },
+    "execution": "isolated JS V8 exact committed source with Node imports shimmed; Node26 maintained test not run",
+    "candidateInputPolicy": "original q support and residuals from fixed legal prefix, no solved label or searched policy enters candidate",
+    "plan": "SOURCE_ANCHORED_BDD_EARLIER_RANK_STRESS_PLAN_0_1.md"
+  }
+}
