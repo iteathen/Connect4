@@ -57,15 +57,17 @@ current_algorithmic_core:
     - minimality
     - WDL_tie_distance_refinement
   next_bounded_experiment: >-
-    The virtual source owner-mask cofactor is now exact for ANY legal fixed
-    continuation, including column completion on moves6/7/8 and rank42
-    draws; turn7-to-turn8 fixed five-ply lift and source response-cover
-    equality are qualified. DO NOT confuse this transition completeness
-    with full WDL nonbranching: empty 4x3 remains a positive exact WDL
-    root without any first-three-own-turn forced win. Next derive compact
-    adaptive response-cover family composition at the preceding
-    alternating quantifier, without enumerating all game histories or
-    relying on search-generated policy choices.
+    Source-q anchored four-threshold WDL interval Bellman is qualified:
+    early terminal bounds can certify exact unrestricted action values,
+    but canonical 44444 remains [-1,+1] after 11 symbolically composed
+    plies despite exact horizontal mirror quotient and a static
+    source-residual owner-variable order (9366 orbits, 268341 BDD ops).
+    Its 12-ply reflected cone needs 13524 orbits, above the old 10000
+    support cap. Next derive a genuine additional adaptive cover quotient
+    or non-distributive multi-ply cofactor operator BEFORE using oracle/
+    physical q values for verification. Do not increase limits, turn
+    certificate search into the solver, or confuse a tactical rank20
+    immediate win with deep-game branch elimination.
   preserved_open_scope: >-
     The standard7x6 empty-root value and the seven-reply turn-six
     CPC certificate remain uncomputed/unproved by the new research
@@ -73,6 +75,62 @@ current_algorithmic_core:
   qualification_limit: >-
     New source/exhaustive finite controls executed in isolated V8 rather
     than the maintained Node26 suite; not an external reproduction.
+  merge_authorized: false
+
+active_source_anchored_interval_bellman:
+  date: "2026-10-16"
+  owner: research/semantic-quotient
+  governing_game_theory: research/isograph/CONNECT4_LOGIC_AUTHORITY_1_2.md
+  status: EXACT_BOUNDED_WDL_INTERVALS_WITH_EARLY_CLOSURE_AND_OPEN_EARLY_GAME
+  theorem_and_controls: docs/research/2026-10-16-source-anchored-interval-and-reflection.md
+  main_operator: research/isograph/discovery/2026-10-16-algorithmic-core/bounded-support-interval-bdd.mjs
+  exact_reflection_operator: research/isograph/discovery/2026-10-16-algorithmic-core/reflected-bounded-support-interval-bdd.mjs
+  static_source_variable_order: research/isograph/discovery/2026-10-16-algorithmic-core/reflected-bounded-interval-variable-order.mjs
+  mathematical_basis:
+    - "nonterminal depth cutoff is UNKNOWN absolute WDL [-1,+1], never guessed loss/draw"
+    - "exact source-q terminal guard, owner-variable Shannon cofactor, P0 OR and P1 AND on each of four WIN/NONLOSS lower/upper BDD thresholds"
+    - "lower/upper interval sound by rank induction and monotonically tightens with depth"
+    - "if root/actions bounds coincide their unrestricted WDL is proven without solving deeper support cone"
+    - "exact source-q mirror support orbit requires invariant h,R0,R1 and literal action/value transporter, not only symmetric phase"
+  strict_per_compile_limits:
+    max_retained_BDD_nodes: 60000
+    max_nontrivial_BDD_operations: 300000
+    max_support_representatives: 10000
+    max_seconds: 15
+    garbage_collect_every_supports: 64
+    garbage_collect_at_nodes: 40000
+  evidence:
+    rank20: research/isograph/discovery/2026-10-16-algorithmic-core/BOUNDED_SUPPORT_INTERVAL_RANK20_RESULTS_0_1.json
+    cross_horizon: research/isograph/discovery/2026-10-16-algorithmic-core/BOUNDED_SUPPORT_INTERVAL_CROSS_HORIZON_RESULTS_0_1.json
+    direct_physical: research/isograph/discovery/2026-10-16-algorithmic-core/BOUNDED_INTERVAL_PHYSICAL_RESULTS_0_2.json
+    horizon_sensitivity: research/isograph/discovery/2026-10-16-algorithmic-core/BOUNDED_INTERVAL_HORIZON_SENSITIVITY_RESULTS_0_1.json
+    mirror: research/isograph/discovery/2026-10-16-algorithmic-core/REFLECTION_BOUNDED_SUPPORT_INTERVAL_RESULTS_0_1.json
+    variable_order: research/isograph/discovery/2026-10-16-algorithmic-core/REFLECTED_INTERVAL_VARIABLE_ORDER_RESULTS_0_1.json
+  qualified_summary:
+    - "rank20 P0 wins by first placement, all seven literal move WDL exact by depth2, unique optimal column5; initial depth4 report was true but tactically shallow"
+    - "rank14/16/18 exact P0 WDL action vectors by depth2; full q reference hit original 800k limit, but independent physical depth2 validators PASS"
+    - "90 source-q bounded horizon calculations across 19 legal states: no interval containment, monotone depth or action-value mismatches; one predeclared terminal fixture excluded"
+    - "nine independent physical horizon controls, 2089 physical move checks and zero action interval errors"
+    - "rank10 source k9, 9224 support vectors: WDL and all action values remain UNKNOWN"
+    - "canonical 44444 reflected k11: 9366 canonical supports / 18620 ordinary, 16511 peak BDD nodes, 268341 operations, still UNKNOWN [-1,+1]"
+    - "44444 depth12 would require 13524 reflection-orbit supports and is OUT OF SCOPE within unchanged 10000 cap"
+  next_mathematical_target: >-
+    Derive and freeze an exact further compression of adaptive action-labelled
+    response cover families or a source-state multi-ply predecessor normal
+    form reducing canonical 44444 depth12 from 13524 orbits below the old
+    10000 support cap, WITHOUT dropping first-win ordering, literal move
+    labels, universal opponent replies or source-q realizability.
+    Candidate must not use forward game-tree policy search, searched winning
+    certificates or solved WDL labels as inputs. Only afterwards use
+    the bounded interval, q-only and direct physical controls as falsifiers.
+    Count all symbolic fanout, variable transport, width and work.
+  still_open:
+    - "44444 eventual P0/P1/draw WDL or all turn7-move outcome equivalences"
+    - "general polynomial-size arbitrary-depth Connect4 value calculus"
+    - "computational elimination of all strategic AND/OR branching"
+    - "formal minimality"
+  validation_environment: isolated_V8_exact_committed_code_not_Node26_or_external_replication
+  change_to_qualified_authority: none
   merge_authorized: false
 
 column_completion_transition_to_terminal:
