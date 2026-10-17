@@ -53,3 +53,27 @@ At L=T with L_o>T, this reduces to the previous unconditional full-board packing
 6. New candidate and source producer frozen before values; full first-win stopping is non-negotiable.
 
 No IsoGraph authority promotion, solver merge, or smaller-board primary qualification.
+
+## Post-freeze derivation: exact *ALL* legal current actions tied
+
+**Stronger output theorem, no additional strategic evaluation:** The capacity contradiction above proves p's first win for **every possible legal full continuation** (subject to the original first-win stop), not just existence of one p winning strategy against an optimal opponent. Accordingly, for a source state q that satisfies this proof, **every literal legal first action a has exactly the same full unrestricted scalar value V(q,a)=WIN_p**: otherwise the nonwinning first action could be extended to a counterexample continuation. The complete optimal move set is therefore **M*(q)=all legal current columns**, with no child-q game evaluation and no full-future behavioral isomorphism assertion. This is VALUE equality, not future-program equivalence. It is valid whether p or 1-p is currently to move. This is exactly the owner's strongest zero-strategic-branching output on this expressly restricted source-certified domain.
+
+### Subsequent genuine 7×6 control
+
+The frozen standalone source producer
+
+    research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-source-temporal-transversal.mjs
+
+was checked on 33,811 legal nonterminal 7×6 Connect4 physical prefixes from the pinned seed-based sample, independently re-solving the unrestricted physical game after each source certificate. Results:
+
+- 434 guarded source p-first-win certificates; 375 still had opponent surviving original residual requirements;
+- 256 had opponent potential winning lines NOT eliminated by the earlier CPC last-event no-win criterion; 18 had a claimed forced completion horizon L>2, three of those with unproven opponent no-win;
+- **434/434** unrestricted physical root WDLs equal the certified p winner;
+- **462/462** literal root action WDLs across those 434 sources equal that same certified winner, hence every legal label is optimal; ZERO missing or false ties;
+- **26** certified sources had at least TWO literal legal moves (the rest 408 had only one);
+- 10 of those 26 also had surviving opponent requirements; three had earlier CPC no-win unproved, and none of those three lacked an immediate currently playable winning move for the certified p;
+- zero physical reference mismatches.
+
+These facts **do not constitute a major early/mid 7×6 multi-inequivalent action solution**. They qualify a mathematical all-ties source certificate on restricted late, largely forced source states and demonstrate a concrete long-range conditional-terminal proof mechanism. They do NOT solve canonical 44444, general standard 7×6, or demonstrate extra 7×6 success over every previously qualified direct/two-turn/paired one-lane theorem.
+
+The source producer uses an integer disjoint-residual packing witness (λ=1 for selected disjoint original requirements), rather than an optimized fractional LP. A failed search among its fixed static orderings remains INCOMPLETE; no hidden strategic alternatives are constructed. The independent physical game solver is used only AFTER source claims for falsification. Machine results recorded separately from the original frozen candidate. No IsoGraph authority promotion, maintained Node26 CI or external formal assistant qualification.
