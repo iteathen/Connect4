@@ -304,3 +304,23 @@ work eliminated, memory, total operations and full mask correctness
 under existing limits. Source-anchored BDD k11 vs guarded QBF k6
 remains reference evidence, not success at full branch elimination.
 See `docs/research/2026-10-16-branch-elimination-primary-objective.md`.
+
+## 2026-10-16 — shared free-first-action projection (all optimal ties retained)
+
+The source-only guarded QBF matrix now admits a **single** quantified projection
+of every future action block while leaving the first action code FREE.
+This shared projected function returns all literal action Boolean
+WIN/NONLOSS thresholds without a separate full QBF continuation per
+first move. Four threshold vectors reconstruct exact WDL and the
+complete set of tied-optimal legal actions whenever intervals close.
+Independent physical control: 24/24 exact full suffix optimal masks,
+13 singleton/11 ties; 672 bounded action threshold checks; zero
+discrepancies. A deliberately uncached repeated-first-action baseline
+used 76.5–86.7% more counted Boolean construction/projection work
+when stated as baseline-relative savings from the shared method.
+This is real root-action sharing but still not general branch elimination.
+`44444` remains UNKNOWN at k6; k7 hits the same 60k future cofactor wall.
+Next: guarded *inner subfactor* quantifier localization, not more
+independent root compilation.
+
+Research: `docs/research/2026-10-16-one-pass-optimal-action-vector-quantifier-projection.md`.
