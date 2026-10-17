@@ -1,0 +1,484 @@
+{
+  "schema": "connect4.bounded-WDL-horizon-sensitivity.v0_1",
+  "status": "PASS",
+  "date": "2026-10-16",
+  "bounds": {
+    "maxNodes": 60000,
+    "maxApplyVisits": 300000,
+    "maxSupports": 10000,
+    "gcEverySupports": 64,
+    "gcNodeHighWater": 40000,
+    "maxCompileMs": 15000
+  },
+  "results": [
+    {
+      "name": "rank20-shallower",
+      "sourceHistory": "43214636342357317661",
+      "sourceRank": 20,
+      "support": [
+        3,
+        2,
+        5,
+        3,
+        1,
+        4,
+        2
+      ],
+      "fullSupportRectangle": 14400,
+      "rows": [
+        {
+          "depth": 1,
+          "status": "COMPILED",
+          "WDL": {
+            "status": "EXACT_ROOT_VALUE",
+            "lower": 1,
+            "upper": 1,
+            "exactValue": 1,
+            "actionIntervals": [
+              {
+                "column": 0,
+                "lower": -1,
+                "upper": 1,
+                "exact": false
+              },
+              {
+                "column": 1,
+                "lower": -1,
+                "upper": 1,
+                "exact": false
+              },
+              {
+                "column": 2,
+                "lower": -1,
+                "upper": 1,
+                "exact": false
+              },
+              {
+                "column": 3,
+                "lower": -1,
+                "upper": 1,
+                "exact": false
+              },
+              {
+                "column": 4,
+                "lower": 1,
+                "upper": 1,
+                "exact": true
+              },
+              {
+                "column": 5,
+                "lower": -1,
+                "upper": 1,
+                "exact": false
+              },
+              {
+                "column": 6,
+                "lower": -1,
+                "upper": 1,
+                "exact": false
+              }
+            ],
+            "certifiedOptimalMoves": [
+              4
+            ],
+            "certifiedSuboptimalMoves": [],
+            "unresolvedActionMoves": [
+              0,
+              1,
+              2,
+              3,
+              5,
+              6
+            ],
+            "completeBestMoves": null,
+            "allActionIntervalsExact": false,
+            "cutoffDepth": 1,
+            "scope": "perfect-play P0-relative WDL lies in [lower,upper] under first-win rules; actions are literal fixed-mover moves"
+          },
+          "metrics": {
+            "supports": 8,
+            "totalFutureSupportCone": 8,
+            "peakNodes": 2,
+            "nontrivialOperations": 0,
+            "sourceRequirementChecks": 119,
+            "GCCount": 1,
+            "cutoffSupports": 7
+          },
+          "elapsedMs": 1
+        },
+        {
+          "depth": 2,
+          "status": "COMPILED",
+          "WDL": {
+            "status": "EXACT_ROOT_VALUE",
+            "lower": 1,
+            "upper": 1,
+            "exactValue": 1,
+            "actionIntervals": [
+              {
+                "column": 0,
+                "lower": -1,
+                "upper": -1,
+                "exact": true
+              },
+              {
+                "column": 1,
+                "lower": -1,
+                "upper": -1,
+                "exact": true
+              },
+              {
+                "column": 2,
+                "lower": -1,
+                "upper": -1,
+                "exact": true
+              },
+              {
+                "column": 3,
+                "lower": -1,
+                "upper": -1,
+                "exact": true
+              },
+              {
+                "column": 4,
+                "lower": 1,
+                "upper": 1,
+                "exact": true
+              },
+              {
+                "column": 5,
+                "lower": -1,
+                "upper": -1,
+                "exact": true
+              },
+              {
+                "column": 6,
+                "lower": -1,
+                "upper": -1,
+                "exact": true
+              }
+            ],
+            "certifiedOptimalMoves": [
+              4
+            ],
+            "certifiedSuboptimalMoves": [
+              0,
+              1,
+              2,
+              3,
+              5,
+              6
+            ],
+            "unresolvedActionMoves": [],
+            "completeBestMoves": [
+              4
+            ],
+            "allActionIntervalsExact": true,
+            "cutoffDepth": 2,
+            "scope": "perfect-play P0-relative WDL lies in [lower,upper] under first-win rules; actions are literal fixed-mover moves"
+          },
+          "metrics": {
+            "supports": 35,
+            "totalFutureSupportCone": 35,
+            "peakNodes": 2,
+            "nontrivialOperations": 0,
+            "sourceRequirementChecks": 983,
+            "GCCount": 1,
+            "cutoffSupports": 27
+          },
+          "elapsedMs": 1
+        },
+        {
+          "depth": 3,
+          "status": "COMPILED",
+          "WDL": {
+            "status": "EXACT_ROOT_VALUE",
+            "lower": 1,
+            "upper": 1,
+            "exactValue": 1,
+            "actionIntervals": [
+              {
+                "column": 0,
+                "lower": -1,
+                "upper": -1,
+                "exact": true
+              },
+              {
+                "column": 1,
+                "lower": -1,
+                "upper": -1,
+                "exact": true
+              },
+              {
+                "column": 2,
+                "lower": -1,
+                "upper": -1,
+                "exact": true
+              },
+              {
+                "column": 3,
+                "lower": -1,
+                "upper": -1,
+                "exact": true
+              },
+              {
+                "column": 4,
+                "lower": 1,
+                "upper": 1,
+                "exact": true
+              },
+              {
+                "column": 5,
+                "lower": -1,
+                "upper": -1,
+                "exact": true
+              },
+              {
+                "column": 6,
+                "lower": -1,
+                "upper": -1,
+                "exact": true
+              }
+            ],
+            "certifiedOptimalMoves": [
+              4
+            ],
+            "certifiedSuboptimalMoves": [
+              0,
+              1,
+              2,
+              3,
+              5,
+              6
+            ],
+            "unresolvedActionMoves": [],
+            "completeBestMoves": [
+              4
+            ],
+            "allActionIntervalsExact": true,
+            "cutoffDepth": 3,
+            "scope": "perfect-play P0-relative WDL lies in [lower,upper] under first-win rules; actions are literal fixed-mover moves"
+          },
+          "metrics": {
+            "supports": 111,
+            "totalFutureSupportCone": 111,
+            "peakNodes": 7,
+            "nontrivialOperations": 5,
+            "sourceRequirementChecks": 4077,
+            "GCCount": 2,
+            "cutoffSupports": 76
+          },
+          "elapsedMs": 3
+        }
+      ]
+    },
+    {
+      "name": "rank10-ninth-ply",
+      "sourceHistory": "4321463634",
+      "sourceRank": 10,
+      "support": [
+        1,
+        1,
+        3,
+        3,
+        0,
+        2,
+        0
+      ],
+      "fullSupportRectangle": 141120,
+      "rows": [
+        {
+          "depth": 9,
+          "status": "COMPILED",
+          "WDL": {
+            "status": "BOUNDED_WDL_INTERVAL",
+            "lower": -1,
+            "upper": 1,
+            "exactValue": null,
+            "actionIntervals": [
+              {
+                "column": 0,
+                "lower": -1,
+                "upper": 1,
+                "exact": false
+              },
+              {
+                "column": 1,
+                "lower": -1,
+                "upper": 1,
+                "exact": false
+              },
+              {
+                "column": 2,
+                "lower": -1,
+                "upper": 1,
+                "exact": false
+              },
+              {
+                "column": 3,
+                "lower": -1,
+                "upper": 1,
+                "exact": false
+              },
+              {
+                "column": 4,
+                "lower": -1,
+                "upper": 1,
+                "exact": false
+              },
+              {
+                "column": 5,
+                "lower": -1,
+                "upper": 1,
+                "exact": false
+              },
+              {
+                "column": 6,
+                "lower": -1,
+                "upper": 1,
+                "exact": false
+              }
+            ],
+            "certifiedOptimalMoves": [],
+            "certifiedSuboptimalMoves": [],
+            "unresolvedActionMoves": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "completeBestMoves": null,
+            "allActionIntervalsExact": false,
+            "cutoffDepth": 9,
+            "scope": "perfect-play P0-relative WDL lies in [lower,upper] under first-win rules; actions are literal fixed-mover moves"
+          },
+          "metrics": {
+            "supports": 9224,
+            "totalFutureSupportCone": 9224,
+            "peakNodes": 4372,
+            "nontrivialOperations": 82670,
+            "sourceRequirementChecks": 1449912,
+            "GCCount": 145,
+            "cutoffSupports": 3656
+          },
+          "elapsedMs": 1652
+        }
+      ]
+    },
+    {
+      "name": "canonical-44444-ninth-ply",
+      "sourceHistory": "44444",
+      "sourceRank": 5,
+      "support": [
+        0,
+        0,
+        0,
+        5,
+        0,
+        0,
+        0
+      ],
+      "fullSupportRectangle": 235298,
+      "rows": [
+        {
+          "depth": 9,
+          "status": "COMPILED",
+          "WDL": {
+            "status": "BOUNDED_WDL_INTERVAL",
+            "lower": -1,
+            "upper": 1,
+            "exactValue": null,
+            "actionIntervals": [
+              {
+                "column": 0,
+                "lower": -1,
+                "upper": 1,
+                "exact": false
+              },
+              {
+                "column": 1,
+                "lower": -1,
+                "upper": 1,
+                "exact": false
+              },
+              {
+                "column": 2,
+                "lower": -1,
+                "upper": 1,
+                "exact": false
+              },
+              {
+                "column": 3,
+                "lower": -1,
+                "upper": 1,
+                "exact": false
+              },
+              {
+                "column": 4,
+                "lower": -1,
+                "upper": 1,
+                "exact": false
+              },
+              {
+                "column": 5,
+                "lower": -1,
+                "upper": 1,
+                "exact": false
+              },
+              {
+                "column": 6,
+                "lower": -1,
+                "upper": 1,
+                "exact": false
+              }
+            ],
+            "certifiedOptimalMoves": [],
+            "certifiedSuboptimalMoves": [],
+            "unresolvedActionMoves": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "completeBestMoves": null,
+            "allActionIntervalsExact": false,
+            "cutoffDepth": 9,
+            "scope": "perfect-play P0-relative WDL lies in [lower,upper] under first-win rules; actions are literal fixed-mover moves"
+          },
+          "metrics": {
+            "supports": 7798,
+            "totalFutureSupportCone": 7798,
+            "peakNodes": 4183,
+            "nontrivialOperations": 84318,
+            "sourceRequirementChecks": 1362594,
+            "GCCount": 122,
+            "cutoffSupports": 3127
+          },
+          "elapsedMs": 1266
+        }
+      ]
+    }
+  ],
+  "candidateSearchCalls": 0,
+  "candidateSolvedValueInputs": 0,
+  "excludesSupportDepth10AtCanonicalAndRank10": true,
+  "provenance": {
+    "date": "2026-10-16",
+    "branch": "research/semantic-quotient",
+    "sourceBlobs": {
+      "bounded-support-interval-bdd.mjs": "7053efd87465a0d542a1e0c1b37e02834df606d9",
+      "exact-q-core.mjs": "6b25d0e2560fe4131d2f5442593e9ed9763c1a18",
+      "constructive-core-control.mjs": "b18cbb6e7a3db66c7c8bcda2efd615e45127d615",
+      "bounded-interval-horizon-sensitivity-control.mjs": "023d723688e31625d773244f9efff661cc6abaf1"
+    },
+    "runtime": "isolated JS V8 exact committed code, Node/process shim; maintained Node26 not run",
+    "scope": "ninth-ply constrained to <=10000 supports; no separate value oracle in candidate construction",
+    "plan": "BOUNDED_INTERVAL_HORIZON_SENSITIVITY_PLAN_0_1.md"
+  }
+}
