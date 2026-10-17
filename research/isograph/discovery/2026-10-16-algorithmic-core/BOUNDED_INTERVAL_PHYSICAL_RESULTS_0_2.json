@@ -1,0 +1,1472 @@
+{
+  "schema": "connect4.bounded-support-interval.direct-physical-falsifier.v0_1",
+  "date": "2026-10-16",
+  "status": "PASS",
+  "caps": {
+    "maxPhysicalMoves": 300000,
+    "maxPhysicalMemoStates": 200000,
+    "maxPhysicalMs": 30000,
+    "maxBDDNodes": 60000,
+    "maxBDDOps": 300000,
+    "maxSupports": 10000,
+    "maxSymbolicMs": 15000
+  },
+  "cases": [
+    {
+      "board": {
+        "width": 7,
+        "height": 6,
+        "connect": 4
+      },
+      "history": "432146363423573176",
+      "rank": 18,
+      "depth": 2,
+      "status": "PASS",
+      "symbolicMs": 2,
+      "symbolic": {
+        "status": "EXACT_ROOT_VALUE",
+        "lower": 1,
+        "upper": 1,
+        "exactValue": 1,
+        "actionIntervals": [
+          {
+            "column": 0,
+            "lower": -1,
+            "upper": -1,
+            "exact": true
+          },
+          {
+            "column": 1,
+            "lower": -1,
+            "upper": -1,
+            "exact": true
+          },
+          {
+            "column": 2,
+            "lower": -1,
+            "upper": -1,
+            "exact": true
+          },
+          {
+            "column": 3,
+            "lower": -1,
+            "upper": -1,
+            "exact": true
+          },
+          {
+            "column": 4,
+            "lower": 1,
+            "upper": 1,
+            "exact": true
+          },
+          {
+            "column": 5,
+            "lower": -1,
+            "upper": -1,
+            "exact": true
+          },
+          {
+            "column": 6,
+            "lower": -1,
+            "upper": -1,
+            "exact": true
+          }
+        ],
+        "certifiedOptimalMoves": [
+          4
+        ],
+        "certifiedSuboptimalMoves": [
+          0,
+          1,
+          2,
+          3,
+          5,
+          6
+        ],
+        "unresolvedActionMoves": [],
+        "completeBestMoves": [
+          4
+        ],
+        "allActionIntervalsExact": true,
+        "cutoffDepth": 2,
+        "scope": "perfect-play P0-relative WDL lies in [lower,upper] under first-win rules; actions are literal fixed-mover moves"
+      },
+      "symbolicStats": {
+        "supportsPlanned": 35,
+        "supportsBuilt": 35,
+        "supportEdgeCalls": 55,
+        "activeSupportMax": 27,
+        "childSupportReleases": 34,
+        "BDDNodeCreates": 2,
+        "peakNodesBeforeGC": 4,
+        "peakLiveAfterGC": 2,
+        "gcCount": 1,
+        "gcNodesFreed": 2,
+        "finalNodes": 2,
+        "applyCalls": 675,
+        "applyMisses": 0,
+        "applyMemoHits": 0,
+        "restrictCalls": 220,
+        "restrictMisses": 0,
+        "restrictMemoHits": 0,
+        "notCalls": 50,
+        "notMisses": 1,
+        "notMemoHits": 0,
+        "generatedImmediateLineTerms": 14,
+        "sourceOwnershipLiteralUses": 1,
+        "sourceResidualClauseChecks": 1086,
+        "sourceSizeTwoTerminals": 1,
+        "sourceFutureCellsAtRoot": 24,
+        "sourceRank": 18,
+        "conditionalOwnerRestrictionCalls": 220,
+        "BDDThresholdRootActionCount": 55,
+        "WDLInputStatesVisitedDuringCompile": 0,
+        "gameTreeRecursiveBranchesSolved": 0,
+        "maxLiveActionRoots": 220,
+        "compilerMs": 2,
+        "maxDepth": 2,
+        "intervalCutoffSupports": 27,
+        "intervalCutoffActionBounds": 0,
+        "gcEverySupports": 64,
+        "gcNodeHighWater": 40000,
+        "gcDeferredSupports": 34,
+        "gcByInterval": 0,
+        "gcByHighWater": 0,
+        "gcAtFinalRoot": 1,
+        "retainAllSupportFunctions": false,
+        "finalRetainedSupportCount": 1,
+        "sourceResidual0": 18,
+        "sourceResidual1": 20,
+        "currentBDDNodes": 2,
+        "currentlyRetainedSupportFunctions": 1
+      },
+      "directPhysical": {
+        "root": {
+          "lower": 1,
+          "upper": 1,
+          "actionIntervals": [
+            {
+              "column": 0,
+              "lower": -1,
+              "upper": -1
+            },
+            {
+              "column": 1,
+              "lower": -1,
+              "upper": -1
+            },
+            {
+              "column": 2,
+              "lower": -1,
+              "upper": -1
+            },
+            {
+              "column": 3,
+              "lower": -1,
+              "upper": -1
+            },
+            {
+              "column": 4,
+              "lower": 1,
+              "upper": 1
+            },
+            {
+              "column": 5,
+              "lower": -1,
+              "upper": -1
+            },
+            {
+              "column": 6,
+              "lower": -1,
+              "upper": -1
+            }
+          ]
+        },
+        "stats": {
+          "physicalMoveTransitions": 48,
+          "uniquePhysicalDepthStates": 37,
+          "physicalCacheHits": 0,
+          "wallMs": 0
+        }
+      },
+      "matchesWDLBounds": true,
+      "matchesEveryActionInterval": true
+    },
+    {
+      "board": {
+        "width": 7,
+        "height": 6,
+        "connect": 4
+      },
+      "history": "43214636342357317661",
+      "rank": 20,
+      "depth": 4,
+      "status": "PASS",
+      "symbolicMs": 9,
+      "symbolic": {
+        "status": "EXACT_ROOT_VALUE",
+        "lower": 1,
+        "upper": 1,
+        "exactValue": 1,
+        "actionIntervals": [
+          {
+            "column": 0,
+            "lower": -1,
+            "upper": -1,
+            "exact": true
+          },
+          {
+            "column": 1,
+            "lower": -1,
+            "upper": -1,
+            "exact": true
+          },
+          {
+            "column": 2,
+            "lower": -1,
+            "upper": -1,
+            "exact": true
+          },
+          {
+            "column": 3,
+            "lower": -1,
+            "upper": -1,
+            "exact": true
+          },
+          {
+            "column": 4,
+            "lower": 1,
+            "upper": 1,
+            "exact": true
+          },
+          {
+            "column": 5,
+            "lower": -1,
+            "upper": -1,
+            "exact": true
+          },
+          {
+            "column": 6,
+            "lower": -1,
+            "upper": -1,
+            "exact": true
+          }
+        ],
+        "certifiedOptimalMoves": [
+          4
+        ],
+        "certifiedSuboptimalMoves": [
+          0,
+          1,
+          2,
+          3,
+          5,
+          6
+        ],
+        "unresolvedActionMoves": [],
+        "completeBestMoves": [
+          4
+        ],
+        "allActionIntervalsExact": true,
+        "cutoffDepth": 4,
+        "scope": "perfect-play P0-relative WDL lies in [lower,upper] under first-win rules; actions are literal fixed-mover moves"
+      },
+      "symbolicStats": {
+        "supportsPlanned": 284,
+        "supportsBuilt": 284,
+        "supportEdgeCalls": 740,
+        "activeSupportMax": 173,
+        "childSupportReleases": 283,
+        "BDDNodeCreates": 38,
+        "peakNodesBeforeGC": 28,
+        "peakLiveAfterGC": 14,
+        "gcCount": 5,
+        "gcNodesFreed": 38,
+        "finalNodes": 2,
+        "applyCalls": 9178,
+        "applyMisses": 18,
+        "applyMemoHits": 54,
+        "restrictCalls": 2964,
+        "restrictMisses": 2,
+        "restrictMemoHits": 2,
+        "notCalls": 587,
+        "notMisses": 18,
+        "notMemoHits": 32,
+        "generatedImmediateLineTerms": 194,
+        "sourceOwnershipLiteralUses": 68,
+        "sourceResidualClauseChecks": 13131,
+        "sourceSizeTwoTerminals": 57,
+        "sourceFutureCellsAtRoot": 22,
+        "sourceRank": 20,
+        "conditionalOwnerRestrictionCalls": 2960,
+        "BDDThresholdRootActionCount": 740,
+        "WDLInputStatesVisitedDuringCompile": 0,
+        "gameTreeRecursiveBranchesSolved": 0,
+        "maxLiveActionRoots": 2316,
+        "compilerMs": 9,
+        "maxDepth": 4,
+        "intervalCutoffSupports": 173,
+        "intervalCutoffActionBounds": 0,
+        "gcEverySupports": 64,
+        "gcNodeHighWater": 40000,
+        "gcDeferredSupports": 279,
+        "gcByInterval": 4,
+        "gcByHighWater": 0,
+        "gcAtFinalRoot": 1,
+        "retainAllSupportFunctions": false,
+        "finalRetainedSupportCount": 1,
+        "sourceResidual0": 17,
+        "sourceResidual1": 18,
+        "currentBDDNodes": 2,
+        "currentlyRetainedSupportFunctions": 1
+      },
+      "directPhysical": {
+        "root": {
+          "lower": 1,
+          "upper": 1,
+          "actionIntervals": [
+            {
+              "column": 0,
+              "lower": -1,
+              "upper": -1
+            },
+            {
+              "column": 1,
+              "lower": -1,
+              "upper": -1
+            },
+            {
+              "column": 2,
+              "lower": -1,
+              "upper": -1
+            },
+            {
+              "column": 3,
+              "lower": -1,
+              "upper": -1
+            },
+            {
+              "column": 4,
+              "lower": 1,
+              "upper": 1
+            },
+            {
+              "column": 5,
+              "lower": -1,
+              "upper": -1
+            },
+            {
+              "column": 6,
+              "lower": -1,
+              "upper": -1
+            }
+          ]
+        },
+        "stats": {
+          "physicalMoveTransitions": 930,
+          "uniquePhysicalDepthStates": 637,
+          "physicalCacheHits": 46,
+          "wallMs": 4
+        }
+      },
+      "matchesWDLBounds": true,
+      "matchesEveryActionInterval": true
+    },
+    {
+      "board": {
+        "width": 7,
+        "height": 6,
+        "connect": 4
+      },
+      "history": "4321463634235731",
+      "rank": 16,
+      "depth": 2,
+      "status": "PASS",
+      "symbolicMs": 1,
+      "symbolic": {
+        "status": "EXACT_ROOT_VALUE",
+        "lower": 1,
+        "upper": 1,
+        "exactValue": 1,
+        "actionIntervals": [
+          {
+            "column": 0,
+            "lower": -1,
+            "upper": -1,
+            "exact": true
+          },
+          {
+            "column": 1,
+            "lower": -1,
+            "upper": -1,
+            "exact": true
+          },
+          {
+            "column": 2,
+            "lower": -1,
+            "upper": -1,
+            "exact": true
+          },
+          {
+            "column": 3,
+            "lower": -1,
+            "upper": -1,
+            "exact": true
+          },
+          {
+            "column": 4,
+            "lower": 1,
+            "upper": 1,
+            "exact": true
+          },
+          {
+            "column": 5,
+            "lower": -1,
+            "upper": -1,
+            "exact": true
+          },
+          {
+            "column": 6,
+            "lower": -1,
+            "upper": -1,
+            "exact": true
+          }
+        ],
+        "certifiedOptimalMoves": [
+          4
+        ],
+        "certifiedSuboptimalMoves": [
+          0,
+          1,
+          2,
+          3,
+          5,
+          6
+        ],
+        "unresolvedActionMoves": [],
+        "completeBestMoves": [
+          4
+        ],
+        "allActionIntervalsExact": true,
+        "cutoffDepth": 2,
+        "scope": "perfect-play P0-relative WDL lies in [lower,upper] under first-win rules; actions are literal fixed-mover moves"
+      },
+      "symbolicStats": {
+        "supportsPlanned": 35,
+        "supportsBuilt": 35,
+        "supportEdgeCalls": 55,
+        "activeSupportMax": 27,
+        "childSupportReleases": 34,
+        "BDDNodeCreates": 4,
+        "peakNodesBeforeGC": 6,
+        "peakLiveAfterGC": 2,
+        "gcCount": 1,
+        "gcNodesFreed": 4,
+        "finalNodes": 2,
+        "applyCalls": 671,
+        "applyMisses": 0,
+        "applyMemoHits": 0,
+        "restrictCalls": 220,
+        "restrictMisses": 0,
+        "restrictMemoHits": 0,
+        "notCalls": 52,
+        "notMisses": 2,
+        "notMemoHits": 0,
+        "generatedImmediateLineTerms": 9,
+        "sourceOwnershipLiteralUses": 2,
+        "sourceResidualClauseChecks": 1306,
+        "sourceSizeTwoTerminals": 2,
+        "sourceFutureCellsAtRoot": 26,
+        "sourceRank": 16,
+        "conditionalOwnerRestrictionCalls": 220,
+        "BDDThresholdRootActionCount": 55,
+        "WDLInputStatesVisitedDuringCompile": 0,
+        "gameTreeRecursiveBranchesSolved": 0,
+        "maxLiveActionRoots": 220,
+        "compilerMs": 1,
+        "maxDepth": 2,
+        "intervalCutoffSupports": 27,
+        "intervalCutoffActionBounds": 0,
+        "gcEverySupports": 64,
+        "gcNodeHighWater": 40000,
+        "gcDeferredSupports": 34,
+        "gcByInterval": 0,
+        "gcByHighWater": 0,
+        "gcAtFinalRoot": 1,
+        "retainAllSupportFunctions": false,
+        "finalRetainedSupportCount": 1,
+        "sourceResidual0": 22,
+        "sourceResidual1": 24,
+        "currentBDDNodes": 2,
+        "currentlyRetainedSupportFunctions": 1
+      },
+      "directPhysical": {
+        "root": {
+          "lower": 1,
+          "upper": 1,
+          "actionIntervals": [
+            {
+              "column": 0,
+              "lower": -1,
+              "upper": -1
+            },
+            {
+              "column": 1,
+              "lower": -1,
+              "upper": -1
+            },
+            {
+              "column": 2,
+              "lower": -1,
+              "upper": -1
+            },
+            {
+              "column": 3,
+              "lower": -1,
+              "upper": -1
+            },
+            {
+              "column": 4,
+              "lower": 1,
+              "upper": 1
+            },
+            {
+              "column": 5,
+              "lower": -1,
+              "upper": -1
+            },
+            {
+              "column": 6,
+              "lower": -1,
+              "upper": -1
+            }
+          ]
+        },
+        "stats": {
+          "physicalMoveTransitions": 48,
+          "uniquePhysicalDepthStates": 42,
+          "physicalCacheHits": 0,
+          "wallMs": 0
+        }
+      },
+      "matchesWDLBounds": true,
+      "matchesEveryActionInterval": true
+    },
+    {
+      "board": {
+        "width": 7,
+        "height": 6,
+        "connect": 4
+      },
+      "history": "43214636342357",
+      "rank": 14,
+      "depth": 2,
+      "status": "PASS",
+      "symbolicMs": 0,
+      "symbolic": {
+        "status": "EXACT_ROOT_VALUE",
+        "lower": 1,
+        "upper": 1,
+        "exactValue": 1,
+        "actionIntervals": [
+          {
+            "column": 0,
+            "lower": 1,
+            "upper": 1,
+            "exact": true
+          },
+          {
+            "column": 1,
+            "lower": -1,
+            "upper": -1,
+            "exact": true
+          },
+          {
+            "column": 2,
+            "lower": -1,
+            "upper": -1,
+            "exact": true
+          },
+          {
+            "column": 3,
+            "lower": -1,
+            "upper": -1,
+            "exact": true
+          },
+          {
+            "column": 4,
+            "lower": 1,
+            "upper": 1,
+            "exact": true
+          },
+          {
+            "column": 5,
+            "lower": -1,
+            "upper": -1,
+            "exact": true
+          },
+          {
+            "column": 6,
+            "lower": -1,
+            "upper": -1,
+            "exact": true
+          }
+        ],
+        "certifiedOptimalMoves": [
+          0,
+          4
+        ],
+        "certifiedSuboptimalMoves": [
+          1,
+          2,
+          3,
+          5,
+          6
+        ],
+        "unresolvedActionMoves": [],
+        "completeBestMoves": [
+          0,
+          4
+        ],
+        "allActionIntervalsExact": true,
+        "cutoffDepth": 2,
+        "scope": "perfect-play P0-relative WDL lies in [lower,upper] under first-win rules; actions are literal fixed-mover moves"
+      },
+      "symbolicStats": {
+        "supportsPlanned": 36,
+        "supportsBuilt": 36,
+        "supportEdgeCalls": 56,
+        "activeSupportMax": 28,
+        "childSupportReleases": 35,
+        "BDDNodeCreates": 2,
+        "peakNodesBeforeGC": 4,
+        "peakLiveAfterGC": 2,
+        "gcCount": 1,
+        "gcNodesFreed": 2,
+        "finalNodes": 2,
+        "applyCalls": 682,
+        "applyMisses": 0,
+        "applyMemoHits": 0,
+        "restrictCalls": 224,
+        "restrictMisses": 0,
+        "restrictMemoHits": 0,
+        "notCalls": 51,
+        "notMisses": 1,
+        "notMemoHits": 0,
+        "generatedImmediateLineTerms": 9,
+        "sourceOwnershipLiteralUses": 1,
+        "sourceResidualClauseChecks": 1638,
+        "sourceSizeTwoTerminals": 1,
+        "sourceFutureCellsAtRoot": 28,
+        "sourceRank": 14,
+        "conditionalOwnerRestrictionCalls": 224,
+        "BDDThresholdRootActionCount": 56,
+        "WDLInputStatesVisitedDuringCompile": 0,
+        "gameTreeRecursiveBranchesSolved": 0,
+        "maxLiveActionRoots": 224,
+        "compilerMs": 0,
+        "maxDepth": 2,
+        "intervalCutoffSupports": 28,
+        "intervalCutoffActionBounds": 0,
+        "gcEverySupports": 64,
+        "gcNodeHighWater": 40000,
+        "gcDeferredSupports": 35,
+        "gcByInterval": 0,
+        "gcByHighWater": 0,
+        "gcAtFinalRoot": 1,
+        "retainAllSupportFunctions": false,
+        "finalRetainedSupportCount": 1,
+        "sourceResidual0": 24,
+        "sourceResidual1": 30,
+        "currentBDDNodes": 2,
+        "currentlyRetainedSupportFunctions": 1
+      },
+      "directPhysical": {
+        "root": {
+          "lower": 1,
+          "upper": 1,
+          "actionIntervals": [
+            {
+              "column": 0,
+              "lower": 1,
+              "upper": 1
+            },
+            {
+              "column": 1,
+              "lower": -1,
+              "upper": -1
+            },
+            {
+              "column": 2,
+              "lower": -1,
+              "upper": -1
+            },
+            {
+              "column": 3,
+              "lower": -1,
+              "upper": -1
+            },
+            {
+              "column": 4,
+              "lower": 1,
+              "upper": 1
+            },
+            {
+              "column": 5,
+              "lower": -1,
+              "upper": -1
+            },
+            {
+              "column": 6,
+              "lower": -1,
+              "upper": -1
+            }
+          ]
+        },
+        "stats": {
+          "physicalMoveTransitions": 42,
+          "uniquePhysicalDepthStates": 36,
+          "physicalCacheHits": 0,
+          "wallMs": 0
+        }
+      },
+      "matchesWDLBounds": true,
+      "matchesEveryActionInterval": true
+    },
+    {
+      "board": {
+        "width": 4,
+        "height": 3,
+        "connect": 3
+      },
+      "history": "",
+      "rank": 0,
+      "depth": 1,
+      "status": "PASS",
+      "symbolicMs": 0,
+      "symbolic": {
+        "status": "BOUNDED_WDL_INTERVAL",
+        "lower": -1,
+        "upper": 1,
+        "exactValue": null,
+        "actionIntervals": [
+          {
+            "column": 0,
+            "lower": -1,
+            "upper": 1,
+            "exact": false
+          },
+          {
+            "column": 1,
+            "lower": -1,
+            "upper": 1,
+            "exact": false
+          },
+          {
+            "column": 2,
+            "lower": -1,
+            "upper": 1,
+            "exact": false
+          },
+          {
+            "column": 3,
+            "lower": -1,
+            "upper": 1,
+            "exact": false
+          }
+        ],
+        "certifiedOptimalMoves": [],
+        "certifiedSuboptimalMoves": [],
+        "unresolvedActionMoves": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "completeBestMoves": null,
+        "allActionIntervalsExact": false,
+        "cutoffDepth": 1,
+        "scope": "perfect-play P0-relative WDL lies in [lower,upper] under first-win rules; actions are literal fixed-mover moves"
+      },
+      "symbolicStats": {
+        "supportsPlanned": 5,
+        "supportsBuilt": 5,
+        "supportEdgeCalls": 4,
+        "activeSupportMax": 4,
+        "childSupportReleases": 4,
+        "BDDNodeCreates": 0,
+        "peakNodesBeforeGC": 2,
+        "peakLiveAfterGC": 2,
+        "gcCount": 1,
+        "gcNodesFreed": 0,
+        "finalNodes": 2,
+        "applyCalls": 48,
+        "applyMisses": 0,
+        "applyMemoHits": 0,
+        "restrictCalls": 16,
+        "restrictMisses": 0,
+        "restrictMemoHits": 0,
+        "notCalls": 0,
+        "notMisses": 0,
+        "notMemoHits": 0,
+        "generatedImmediateLineTerms": 0,
+        "sourceOwnershipLiteralUses": 0,
+        "sourceResidualClauseChecks": 56,
+        "sourceSizeTwoTerminals": 0,
+        "sourceFutureCellsAtRoot": 12,
+        "sourceRank": 0,
+        "conditionalOwnerRestrictionCalls": 16,
+        "BDDThresholdRootActionCount": 4,
+        "WDLInputStatesVisitedDuringCompile": 0,
+        "gameTreeRecursiveBranchesSolved": 0,
+        "maxLiveActionRoots": 20,
+        "compilerMs": 0,
+        "maxDepth": 1,
+        "intervalCutoffSupports": 4,
+        "intervalCutoffActionBounds": 0,
+        "gcEverySupports": 64,
+        "gcNodeHighWater": 40000,
+        "gcDeferredSupports": 4,
+        "gcByInterval": 0,
+        "gcByHighWater": 0,
+        "gcAtFinalRoot": 1,
+        "retainAllSupportFunctions": false,
+        "finalRetainedSupportCount": 1,
+        "sourceResidual0": 14,
+        "sourceResidual1": 14,
+        "currentBDDNodes": 2,
+        "currentlyRetainedSupportFunctions": 1
+      },
+      "directPhysical": {
+        "root": {
+          "lower": -1,
+          "upper": 1,
+          "actionIntervals": [
+            {
+              "column": 0,
+              "lower": -1,
+              "upper": 1
+            },
+            {
+              "column": 1,
+              "lower": -1,
+              "upper": 1
+            },
+            {
+              "column": 2,
+              "lower": -1,
+              "upper": 1
+            },
+            {
+              "column": 3,
+              "lower": -1,
+              "upper": 1
+            }
+          ]
+        },
+        "stats": {
+          "physicalMoveTransitions": 4,
+          "uniquePhysicalDepthStates": 5,
+          "physicalCacheHits": 0,
+          "wallMs": 0
+        }
+      },
+      "matchesWDLBounds": true,
+      "matchesEveryActionInterval": true
+    },
+    {
+      "board": {
+        "width": 4,
+        "height": 3,
+        "connect": 3
+      },
+      "history": "",
+      "rank": 0,
+      "depth": 3,
+      "status": "PASS",
+      "symbolicMs": 0,
+      "symbolic": {
+        "status": "BOUNDED_WDL_INTERVAL",
+        "lower": -1,
+        "upper": 1,
+        "exactValue": null,
+        "actionIntervals": [
+          {
+            "column": 0,
+            "lower": -1,
+            "upper": 1,
+            "exact": false
+          },
+          {
+            "column": 1,
+            "lower": -1,
+            "upper": 1,
+            "exact": false
+          },
+          {
+            "column": 2,
+            "lower": -1,
+            "upper": 1,
+            "exact": false
+          },
+          {
+            "column": 3,
+            "lower": -1,
+            "upper": 1,
+            "exact": false
+          }
+        ],
+        "certifiedOptimalMoves": [],
+        "certifiedSuboptimalMoves": [],
+        "unresolvedActionMoves": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "completeBestMoves": null,
+        "allActionIntervalsExact": false,
+        "cutoffDepth": 3,
+        "scope": "perfect-play P0-relative WDL lies in [lower,upper] under first-win rules; actions are literal fixed-mover moves"
+      },
+      "symbolicStats": {
+        "supportsPlanned": 35,
+        "supportsBuilt": 35,
+        "supportEdgeCalls": 60,
+        "activeSupportMax": 20,
+        "childSupportReleases": 34,
+        "BDDNodeCreates": 17,
+        "peakNodesBeforeGC": 19,
+        "peakLiveAfterGC": 2,
+        "gcCount": 1,
+        "gcNodesFreed": 17,
+        "finalNodes": 2,
+        "applyCalls": 800,
+        "applyMisses": 25,
+        "applyMemoHits": 14,
+        "restrictCalls": 258,
+        "restrictMisses": 9,
+        "restrictMemoHits": 9,
+        "notCalls": 16,
+        "notMisses": 0,
+        "notMemoHits": 0,
+        "generatedImmediateLineTerms": 10,
+        "sourceOwnershipLiteralUses": 20,
+        "sourceResidualClauseChecks": 840,
+        "sourceSizeTwoTerminals": 10,
+        "sourceFutureCellsAtRoot": 12,
+        "sourceRank": 0,
+        "conditionalOwnerRestrictionCalls": 240,
+        "BDDThresholdRootActionCount": 60,
+        "WDLInputStatesVisitedDuringCompile": 0,
+        "gameTreeRecursiveBranchesSolved": 0,
+        "maxLiveActionRoots": 200,
+        "compilerMs": 0,
+        "maxDepth": 3,
+        "intervalCutoffSupports": 20,
+        "intervalCutoffActionBounds": 0,
+        "gcEverySupports": 64,
+        "gcNodeHighWater": 40000,
+        "gcDeferredSupports": 34,
+        "gcByInterval": 0,
+        "gcByHighWater": 0,
+        "gcAtFinalRoot": 1,
+        "retainAllSupportFunctions": false,
+        "finalRetainedSupportCount": 1,
+        "sourceResidual0": 14,
+        "sourceResidual1": 14,
+        "currentBDDNodes": 2,
+        "currentlyRetainedSupportFunctions": 1
+      },
+      "directPhysical": {
+        "root": {
+          "lower": -1,
+          "upper": 1,
+          "actionIntervals": [
+            {
+              "column": 0,
+              "lower": -1,
+              "upper": 1
+            },
+            {
+              "column": 1,
+              "lower": -1,
+              "upper": 1
+            },
+            {
+              "column": 2,
+              "lower": -1,
+              "upper": 1
+            },
+            {
+              "column": 3,
+              "lower": -1,
+              "upper": 1
+            }
+          ]
+        },
+        "stats": {
+          "physicalMoveTransitions": 84,
+          "uniquePhysicalDepthStates": 85,
+          "physicalCacheHits": 0,
+          "wallMs": 0
+        }
+      },
+      "matchesWDLBounds": true,
+      "matchesEveryActionInterval": true
+    },
+    {
+      "board": {
+        "width": 4,
+        "height": 3,
+        "connect": 3
+      },
+      "history": "",
+      "rank": 0,
+      "depth": 5,
+      "status": "PASS",
+      "symbolicMs": 2,
+      "symbolic": {
+        "status": "BOUNDED_WDL_INTERVAL",
+        "lower": -1,
+        "upper": 1,
+        "exactValue": null,
+        "actionIntervals": [
+          {
+            "column": 0,
+            "lower": -1,
+            "upper": 1,
+            "exact": false
+          },
+          {
+            "column": 1,
+            "lower": -1,
+            "upper": 1,
+            "exact": false
+          },
+          {
+            "column": 2,
+            "lower": -1,
+            "upper": 1,
+            "exact": false
+          },
+          {
+            "column": 3,
+            "lower": -1,
+            "upper": 1,
+            "exact": false
+          }
+        ],
+        "certifiedOptimalMoves": [],
+        "certifiedSuboptimalMoves": [],
+        "unresolvedActionMoves": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "completeBestMoves": null,
+        "allActionIntervalsExact": false,
+        "cutoffDepth": 5,
+        "scope": "perfect-play P0-relative WDL lies in [lower,upper] under first-win rules; actions are literal fixed-mover moves"
+      },
+      "symbolicStats": {
+        "supportsPlanned": 106,
+        "supportsBuilt": 106,
+        "supportEdgeCalls": 248,
+        "activeSupportMax": 42,
+        "childSupportReleases": 105,
+        "BDDNodeCreates": 110,
+        "peakNodesBeforeGC": 111,
+        "peakLiveAfterGC": 44,
+        "gcCount": 2,
+        "gcNodesFreed": 110,
+        "finalNodes": 2,
+        "applyCalls": 3686,
+        "applyMisses": 205,
+        "applyMemoHits": 387,
+        "restrictCalls": 1422,
+        "restrictMisses": 215,
+        "restrictMemoHits": 112,
+        "notCalls": 128,
+        "notMisses": 18,
+        "notMemoHits": 23,
+        "generatedImmediateLineTerms": 100,
+        "sourceOwnershipLiteralUses": 200,
+        "sourceResidualClauseChecks": 3472,
+        "sourceSizeTwoTerminals": 100,
+        "sourceFutureCellsAtRoot": 12,
+        "sourceRank": 0,
+        "conditionalOwnerRestrictionCalls": 992,
+        "BDDThresholdRootActionCount": 248,
+        "WDLInputStatesVisitedDuringCompile": 0,
+        "gameTreeRecursiveBranchesSolved": 0,
+        "maxLiveActionRoots": 596,
+        "compilerMs": 2,
+        "maxDepth": 5,
+        "intervalCutoffSupports": 40,
+        "intervalCutoffActionBounds": 0,
+        "gcEverySupports": 64,
+        "gcNodeHighWater": 40000,
+        "gcDeferredSupports": 104,
+        "gcByInterval": 1,
+        "gcByHighWater": 0,
+        "gcAtFinalRoot": 1,
+        "retainAllSupportFunctions": false,
+        "finalRetainedSupportCount": 1,
+        "sourceResidual0": 14,
+        "sourceResidual1": 14,
+        "currentBDDNodes": 2,
+        "currentlyRetainedSupportFunctions": 1
+      },
+      "directPhysical": {
+        "root": {
+          "lower": -1,
+          "upper": 1,
+          "actionIntervals": [
+            {
+              "column": 0,
+              "lower": -1,
+              "upper": 1
+            },
+            {
+              "column": 1,
+              "lower": -1,
+              "upper": 1
+            },
+            {
+              "column": 2,
+              "lower": -1,
+              "upper": 1
+            },
+            {
+              "column": 3,
+              "lower": -1,
+              "upper": 1
+            }
+          ]
+        },
+        "stats": {
+          "physicalMoveTransitions": 864,
+          "uniquePhysicalDepthStates": 745,
+          "physicalCacheHits": 60,
+          "wallMs": 3
+        }
+      },
+      "matchesWDLBounds": true,
+      "matchesEveryActionInterval": true
+    },
+    {
+      "board": {
+        "width": 4,
+        "height": 3,
+        "connect": 3
+      },
+      "history": "223",
+      "rank": 3,
+      "depth": 2,
+      "status": "PASS",
+      "symbolicMs": 1,
+      "symbolic": {
+        "status": "EXACT_ROOT_VALUE",
+        "lower": 1,
+        "upper": 1,
+        "exactValue": 1,
+        "actionIntervals": [
+          {
+            "column": 0,
+            "lower": 1,
+            "upper": 1,
+            "exact": true
+          },
+          {
+            "column": 1,
+            "lower": 1,
+            "upper": 1,
+            "exact": true
+          },
+          {
+            "column": 2,
+            "lower": 1,
+            "upper": 1,
+            "exact": true
+          },
+          {
+            "column": 3,
+            "lower": 1,
+            "upper": 1,
+            "exact": true
+          }
+        ],
+        "certifiedOptimalMoves": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "certifiedSuboptimalMoves": [],
+        "unresolvedActionMoves": [],
+        "completeBestMoves": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "allActionIntervalsExact": true,
+        "cutoffDepth": 2,
+        "scope": "perfect-play P0-relative WDL lies in [lower,upper] under first-win rules; actions are literal fixed-mover moves"
+      },
+      "symbolicStats": {
+        "supportsPlanned": 14,
+        "supportsBuilt": 14,
+        "supportEdgeCalls": 19,
+        "activeSupportMax": 9,
+        "childSupportReleases": 13,
+        "BDDNodeCreates": 1,
+        "peakNodesBeforeGC": 3,
+        "peakLiveAfterGC": 2,
+        "gcCount": 1,
+        "gcNodesFreed": 1,
+        "finalNodes": 2,
+        "applyCalls": 238,
+        "applyMisses": 1,
+        "applyMemoHits": 3,
+        "restrictCalls": 76,
+        "restrictMisses": 0,
+        "restrictMemoHits": 0,
+        "notCalls": 4,
+        "notMisses": 0,
+        "notMemoHits": 0,
+        "generatedImmediateLineTerms": 7,
+        "sourceOwnershipLiteralUses": 1,
+        "sourceResidualClauseChecks": 122,
+        "sourceSizeTwoTerminals": 1,
+        "sourceFutureCellsAtRoot": 9,
+        "sourceRank": 3,
+        "conditionalOwnerRestrictionCalls": 76,
+        "BDDThresholdRootActionCount": 19,
+        "WDLInputStatesVisitedDuringCompile": 0,
+        "gameTreeRecursiveBranchesSolved": 0,
+        "maxLiveActionRoots": 76,
+        "compilerMs": 1,
+        "maxDepth": 2,
+        "intervalCutoffSupports": 9,
+        "intervalCutoffActionBounds": 0,
+        "gcEverySupports": 64,
+        "gcNodeHighWater": 40000,
+        "gcDeferredSupports": 13,
+        "gcByInterval": 0,
+        "gcByHighWater": 0,
+        "gcAtFinalRoot": 1,
+        "retainAllSupportFunctions": false,
+        "finalRetainedSupportCount": 1,
+        "sourceResidual0": 6,
+        "sourceResidual1": 8,
+        "currentBDDNodes": 2,
+        "currentlyRetainedSupportFunctions": 1
+      },
+      "directPhysical": {
+        "root": {
+          "lower": 1,
+          "upper": 1,
+          "actionIntervals": [
+            {
+              "column": 0,
+              "lower": 1,
+              "upper": 1
+            },
+            {
+              "column": 1,
+              "lower": 1,
+              "upper": 1
+            },
+            {
+              "column": 2,
+              "lower": 1,
+              "upper": 1
+            },
+            {
+              "column": 3,
+              "lower": 1,
+              "upper": 1
+            }
+          ]
+        },
+        "stats": {
+          "physicalMoveTransitions": 19,
+          "uniquePhysicalDepthStates": 14,
+          "physicalCacheHits": 0,
+          "wallMs": 0
+        }
+      },
+      "matchesWDLBounds": true,
+      "matchesEveryActionInterval": true
+    },
+    {
+      "board": {
+        "width": 4,
+        "height": 3,
+        "connect": 3
+      },
+      "history": "223",
+      "rank": 3,
+      "depth": 3,
+      "status": "PASS",
+      "symbolicMs": 0,
+      "symbolic": {
+        "status": "EXACT_ROOT_VALUE",
+        "lower": 1,
+        "upper": 1,
+        "exactValue": 1,
+        "actionIntervals": [
+          {
+            "column": 0,
+            "lower": 1,
+            "upper": 1,
+            "exact": true
+          },
+          {
+            "column": 1,
+            "lower": 1,
+            "upper": 1,
+            "exact": true
+          },
+          {
+            "column": 2,
+            "lower": 1,
+            "upper": 1,
+            "exact": true
+          },
+          {
+            "column": 3,
+            "lower": 1,
+            "upper": 1,
+            "exact": true
+          }
+        ],
+        "certifiedOptimalMoves": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "certifiedSuboptimalMoves": [],
+        "unresolvedActionMoves": [],
+        "completeBestMoves": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "allActionIntervalsExact": true,
+        "cutoffDepth": 3,
+        "scope": "perfect-play P0-relative WDL lies in [lower,upper] under first-win rules; actions are literal fixed-mover moves"
+      },
+      "symbolicStats": {
+        "supportsPlanned": 29,
+        "supportsBuilt": 29,
+        "supportEdgeCalls": 51,
+        "activeSupportMax": 15,
+        "childSupportReleases": 28,
+        "BDDNodeCreates": 24,
+        "peakNodesBeforeGC": 26,
+        "peakLiveAfterGC": 2,
+        "gcCount": 1,
+        "gcNodesFreed": 24,
+        "finalNodes": 2,
+        "applyCalls": 669,
+        "applyMisses": 11,
+        "applyMemoHits": 12,
+        "restrictCalls": 210,
+        "restrictMisses": 3,
+        "restrictMemoHits": 3,
+        "notCalls": 58,
+        "notMisses": 11,
+        "notMemoHits": 5,
+        "generatedImmediateLineTerms": 18,
+        "sourceOwnershipLiteralUses": 17,
+        "sourceResidualClauseChecks": 378,
+        "sourceSizeTwoTerminals": 12,
+        "sourceFutureCellsAtRoot": 9,
+        "sourceRank": 3,
+        "conditionalOwnerRestrictionCalls": 204,
+        "BDDThresholdRootActionCount": 51,
+        "WDLInputStatesVisitedDuringCompile": 0,
+        "gameTreeRecursiveBranchesSolved": 0,
+        "maxLiveActionRoots": 164,
+        "compilerMs": 0,
+        "maxDepth": 3,
+        "intervalCutoffSupports": 15,
+        "intervalCutoffActionBounds": 0,
+        "gcEverySupports": 64,
+        "gcNodeHighWater": 40000,
+        "gcDeferredSupports": 28,
+        "gcByInterval": 0,
+        "gcByHighWater": 0,
+        "gcAtFinalRoot": 1,
+        "retainAllSupportFunctions": false,
+        "finalRetainedSupportCount": 1,
+        "sourceResidual0": 6,
+        "sourceResidual1": 8,
+        "currentBDDNodes": 2,
+        "currentlyRetainedSupportFunctions": 1
+      },
+      "directPhysical": {
+        "root": {
+          "lower": 1,
+          "upper": 1,
+          "actionIntervals": [
+            {
+              "column": 0,
+              "lower": 1,
+              "upper": 1
+            },
+            {
+              "column": 1,
+              "lower": 1,
+              "upper": 1
+            },
+            {
+              "column": 2,
+              "lower": 1,
+              "upper": 1
+            },
+            {
+              "column": 3,
+              "lower": 1,
+              "upper": 1
+            }
+          ]
+        },
+        "stats": {
+          "physicalMoveTransitions": 50,
+          "uniquePhysicalDepthStates": 44,
+          "physicalCacheHits": 0,
+          "wallMs": 0
+        }
+      },
+      "matchesWDLBounds": true,
+      "matchesEveryActionInterval": true
+    }
+  ],
+  "summary": {
+    "validated": 9,
+    "firstWinMismatches": 0,
+    "totalDirectPhysicalMoveChecks": 2089
+  },
+  "candidateInputs": "only source q residuals and support; no physical future continuation or optimal search policies",
+  "physicalRecursionScope": "validation ONLY, exact independent finite-horizon first-win rules",
+  "provenance": {
+    "date": "2026-10-16",
+    "branch": "research/semantic-quotient",
+    "sourceBlobs": {
+      "bounded-support-interval-bdd.mjs": "7053efd87465a0d542a1e0c1b37e02834df606d9",
+      "exact-q-core.mjs": "6b25d0e2560fe4131d2f5442593e9ed9763c1a18",
+      "constructive-core-control.mjs": "b18cbb6e7a3db66c7c8bcda2efd615e45127d615",
+      "bounded-interval-physical-falsifier.mjs": "b28982a065627a39d02912111e921906505d5351"
+    },
+    "execution": "isolated JS V8 exact committed sources, Node/process/performance shim, Node26 not run",
+    "qualification": "rank18/rank20 previously frozen + explicitly authorized posthoc rank14/16 k2 direct physical falsifiers, q-reference full-game budget not raised",
+    "noSearchedPolicyInputToCandidate": true
+  }
+}
