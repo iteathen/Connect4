@@ -10,11 +10,16 @@ export function runTwoPlyOwnerSwapControl({geometry={width:4,height:3,connect:3}
   core=createExactQCore(geometry),maker=createTwoPlyOwnerSwapSimulation(geometry),
   bit=(c,r)=>1n<<BigInt(r*W+c);
  if(!Number.isInteger(sourceSelectionModulo)||sourceSelectionModulo<1)throw Error('invalid sample modulus');
- const memo=new Map(),seen=new Set(),stack=[{
+ const memo=new Map(),seen=new Set(),seenQ=new Set(),seenDiamond=new Set(),stack=[{
   h:Array(W).fill(0),p0:0n,p1:0n,rank:0,history:''}];
  const stats={schema:'connect4.two-ply-owner-swap-control.v0_1',geometry,
   sourceSelectionModulo,status:'PASS',physicalNonterminalStates:0,
-  selectedP1SourceStates:0,sourcePairScans:0,
+  selectedP1SourceStates:0,uniqueP1SourceQStates:0,sourcePairScans:0,
+  uniqueEligibleQDiamonds:0,uniqueExactEqualityCertificates:0,
+  uniqueOneWayDominanceCertificates:0,
+  oneWayCertificatesWithStrictReferenceValueGap:0,
+  oneWayCertificatesWithTiedReferenceValue:0,
+  uniqueOneWayCertificatesWithStrictReferenceValueGap:0,
   pairTerminalGuards:0,pairDrawGuards:0,eligibleNonterminalDiamonds:0,
   certifiedFullFutureResidualEquality:0,certifiedOneWayDominance:0,
   pairsIncomparable:0,sourceComputationUnits:0,
@@ -37,7 +42,9 @@ export function runTwoPlyOwnerSwapControl({geometry={width:4,height:3,connect:3}
   if(terminal(p.p0,p.p1))throw Error('terminal source in validator');
   stats.physicalNonterminalStates++;
   if(p.rank%2===1&&((p.p0^(p.p1<<1n))%BigInt(sourceSelectionModulo))===0n){
-    const sourceQ=core.fromPhysical(p),result=maker.compute(sourceQ);
+    const sourceQ=core.fromPhysical(p),sourceQKey=core.key(sourceQ),
+      result=maker.compute(sourceQ);
+    if(!seenQ.has(sourceQKey)){seenQ.add(sourceQKey);stats.uniqueP1SourceQStates++;}
     stats.selectedP1SourceStates++;stats.sourceComputationUnits+=result.statistics.operations;
     stats.sourcePairScans+=result.statistics.unorderedColumnPairsScanned;
     stats.pairTerminalGuards+=result.statistics.terminalGuardSkips;
@@ -53,7 +60,13 @@ export function runTwoPlyOwnerSwapControl({geometry={width:4,height:3,connect:3}
     rank.terminalSkipped+=result.statistics.terminalGuardSkips;
     for(const item of result.pairs) {
       if(item.status==='TERMINAL_GUARD_EXCLUDED'||item.status==='FULL_BOARD_DRAW_GUARD_EXCLUDED')continue;
-      const [b,c]=item.P1ThenP0;
+      const [b,c]=item.P1ThenP0,diamondKey=sourceQKey+'|'+b+':'+c;
+      const newlyUnique=!seenDiamond.has(diamondKey);
+      if(newlyUnique){
+        seenDiamond.add(diamondKey);stats.uniqueEligibleQDiamonds++;
+        if(item.status==='EXACT_FUTURE_WDL_EQUALITY')stats.uniqueExactEqualityCertificates++;
+        else if(item.bcNoBetter||item.cbNoBetter)stats.uniqueOneWayDominanceCertificates++;
+      }
       const n1=core.next(sourceQ,b),n2=core.next(sourceQ,c);
       stats.validationTwoStepQTransitions+=2;
       if(n1.terminal!==undefined||n2.terminal!==undefined)
@@ -77,6 +90,12 @@ export function runTwoPlyOwnerSwapControl({geometry={width:4,height:3,connect:3}
         if(item.bcNoBetter&&left>right||item.cbNoBetter&&right>left){
           stats.certifiedFalseValueDominance++;
           throw Error('false source-only future WDL dominance '+p.history);
+        }
+        if((item.bcNoBetter||item.cbNoBetter)&&!(item.bcNoBetter&&item.cbNoBetter)){
+          if(left!==right){
+            stats.oneWayCertificatesWithStrictReferenceValueGap++;
+            if(newlyUnique)stats.uniqueOneWayCertificatesWithStrictReferenceValueGap++;
+          }else stats.oneWayCertificatesWithTiedReferenceValue++;
         }
         if(item.bcNoBetter&&item.cbNoBetter&&left!==right){
           stats.certifiedFalseValueEquality++;throw Error('false exact q equivalence '+p.history);
