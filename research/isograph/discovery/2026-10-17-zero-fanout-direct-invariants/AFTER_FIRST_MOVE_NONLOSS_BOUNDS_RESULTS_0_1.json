@@ -1,0 +1,55 @@
+{
+  "schema": "connect4.after_first_move_nonloss_v0_1",
+  "status": "EXACT_SOURCE_ONLY_PER_ACTION_BOUNDED_NONLOSS_DRAW_3734_34094_REFERENCE_PASS",
+  "date": "2026-10-17",
+  "plan": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/AFTER_FIRST_MOVE_DEFENSIVE_PAIR_BOUND_PLAN_0_1.md",
+  "producer": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/after-first-move-nonloss-bounds.mjs",
+  "theorem": "For source player p first action c, delete all opponent residual requirement masks containing source landing x_c. If opponent family becomes empty, opponent can never win. Otherwise, if the remaining gravity cells can be paired by fixed vertical consecutive / horizontal equal-height full-column blocks so that each opponent residual win requirement contains a full pair, the original mover (now second player) can reply to each opponent first-touch with its immediately gravity playable mate, preventing opponent win. Thus first action cannot lose. Original mover source winning requirements empty implies mover can never win, so combination proves exact draw. Source immediate mover first win and final nonwinning full board draw are handled before bounds.",
+  "producerFutureGameStateObjects": 0,
+  "producerStrategicContinuationEvaluations": 0,
+  "genericStaticCertificateAlternativesScannedNotFutureGameBranches": true,
+  "board4x3": {
+    "distinctQ": 3734,
+    "independentlyComparedLegalActionValues": 10232,
+    "certifiedBoundedActions": 2704,
+    "exactSourceDrawActions": 22,
+    "pairingNonlossActionCertificates": 128,
+    "sourcePositionsWithAnyPairing": 110,
+    "sourceBooleanAndStaticPairTests": 98594,
+    "falseWDLActionIntervals": 0,
+    "budgetIncomplete": 0
+  },
+  "board4x4": {
+    "distinctQ": 34094,
+    "independentlyComparedLegalActionValues": 100764,
+    "certifiedBoundedActions": 23574,
+    "exactSourceDrawActions": 756,
+    "pairingNonlossActionCertificates": 8784,
+    "sourcePositionsWithAnyPairing": 6498,
+    "sourceBooleanAndStaticPairTests": 937700,
+    "falseWDLActionIntervals": 0,
+    "budgetIncomplete": 0
+  },
+  "canonical44444": {
+    "mover": "P1 on historical move6",
+    "afterFirstMoveRemainingCells": 36,
+    "sourceP0ResidualRequirements": 48,
+    "sourceP1ResidualRequirements": 42,
+    "firstActionIntervalsAllSeven": "[-1,+1]",
+    "sourcePairProofsFound": 0,
+    "staticColumnPartitionsExamined": 69,
+    "sourceOperations": 24763,
+    "fullWDL": "UNKNOWN",
+    "completeOptimalActionSet": "UNKNOWN"
+  },
+  "limitation": "Sound full-future one-sided per-literal WDL bounds do not alone solve general zero-branching Connect4; static source pairing matching search may fail despite other possible winning strategies.",
+  "historicalResearchLimits": {
+    "nodes": 60000,
+    "BooleanOperationsPerSource": 300000,
+    "supports": 10000,
+    "maxMsPerSource": 15000
+  },
+  "exactQReferenceRole": "Independent full WDL values for each legal move on all small-board q used post-derivation only.",
+  "noAuthorityPromotion": true,
+  "noMerge": true
+}
