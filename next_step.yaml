@@ -297,6 +297,68 @@ current_algorithmic_core:
     canonical_44444_complete_Mstar: UNKNOWN
     all_standard_7x6_zero_strategic_fanout_algorithm: NOT_DISCOVERED
     qualification: "standalone exact committed-source V8 and local Node22, not maintained Node26/CI nor external formal proof assistant"
+  standard_7x6_exact_geometry_unfolding_20261017:
+    owner_intent: "Exact linked one-dimensional unfolding without changing 7x6 Connect4 computation, source q or first-win timing"
+    primary_geometry: "W=7 H=6 K=4; preserve W H K symbolic for later generalization"
+    status: EXACT_SOURCE_Q_AND_PHYSICAL_PROCESS_REPRESENTATION_PASS_NOT_ZERO_BRANCH_GENERAL_WDL
+    geometric_four_ribbons:
+      proof: docs/research/2026-10-17-exact-four-ribbon-geometry-unfolding-and-phase-code-candidate.md
+      producer: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-four-ribbon-source-lift.mjs
+      physical_control: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-four-ribbon-independent-q-conjugacy-control.mjs
+      evidence: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/STANDARD7X6_EXACT_FOUR_RIBBON_Q_CONJUGACY_RESULTS_0_1.json
+      ordered_strands: 37
+      occurrence_aliases_of_42_physical_cells: 168
+      original_K_length_win_intervals: 69
+      full_grid_adjacent_XOR_edges: 131
+      GF2_cut_space_rank: 41
+      independent_cycle_consistency_constraints: 90
+      exact_q_one_ply_transitions_checked: 73271
+      incorrect_terminal_or_full_q_cofactor: 0
+    bounded_column_word:
+      proof: docs/research/2026-10-17-exact-linear-word-unfolding-of-7x6-gravity-game.md
+      producer: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-linked-linear-word-game.mjs
+      control: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-linear-word-game-independent-control.mjs
+      evidence: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/STANDARD7X6_LINEAR_WORD_GAME_BISIMULATION_RESULTS_0_1.json
+      one_step: "Append one literal column symbol; kth occurrence lands at next gravity cell; update all four references to same cell"
+      tape_slots: 204
+      source_q_one_step_checks: 62725
+      first_win_tokens_checked: 7164
+      nonwinning_full_board_draws_checked: 93
+      fixed_hypothetical_word_first_win_checks: 4398
+      wrong_semantic_transitions_or_payoffs: 0
+    filled_center_two_word_phase:
+      proof: docs/research/2026-10-17-center-full-left-right-shuffle-xor-bridge-factorization.md
+      producer: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-center-shuffle-bridge-source.mjs
+      control: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-center-shuffle-bridge-physical-control.mjs
+      evidence: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/STANDARD7X6_CENTER_SHUFFLE_XOR_BRIDGE_RESULTS_0_1.json
+      exact_event_phase: "owner(e)=(n+localRank(e)-1) XOR parity(opposite_region_moves_before_e)"
+      viable_left_right_bridge_generators_P0_P1_after_444444: [12,12]
+      same_local_regional_words_interleavings_tested: 2800
+      such_pairs_with_different_first_winner: 1140
+      independent_first_win_reference_errors: 0
+      must_preserve_shared_global_turn_clock: true
+      must_preserve_original_cross_center_K_winlines: true
+    canonical_44444_center_marker:
+      proof: docs/research/2026-10-17-canonical44444-single-center-marker-xor-defect-unfolding.md
+      producer: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-canonical-center-marker-source.mjs
+      independent_control: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-canonical-center-marker-physical-control.mjs
+      evidence: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/STANDARD7X6_CENTER_MARKER_XOR_DEFECT_RESULTS_0_1.json
+      exact_decomposition: "One center letter placed at rank m into a fixed 36-letter noncenter word, creates one-time XOR flip on each later noncenter event"
+      fixed_hypothetical_7x6_schedules_tested: 12000
+      pairs_whose_first_winner_differs_but_center_owner_same: 9840
+      physical_source_payoff_disagreements: 0
+    exact_representation_but_unsolved_wdl: true
+    all_standard_7x6_zero_branch_V_Mstar: OPEN
+    canonical_44444_unrestricted_WDL: UNKNOWN
+    canonical_44444_complete_optimal_columns: UNKNOWN
+    next_math: >-
+      Seek exact, guarded source-only zero-locus closure on the linked
+      bounded-word ribbon game. Exploit the single-center marker
+      XOR range-phase effect and 24 cross-center surviving line
+      obligations without enumerating two inequivalent future words
+      or using QBF/BDD/strategy-policy hidden branching. Prove complete
+      WDL and ALL tied literal move labels; otherwise INCOMPLETE.
+    evaluation_limits: "Isolated committed-source V8 / local Node22 controls only; maintained Node26 CI and external formal proof assistant not qualified"
   owner_zero_branch_objective_20261017:
     research_contract: docs/research/2026-10-17-zero-strategic-branching-objective.md
     zero_strategic_fanout_status: OPEN_NOT_DISCOVERED
