@@ -1,0 +1,58 @@
+{
+  "schema": "connect4.7x6.fixed_mate_release_order_20261017_v0_1",
+  "date": "2026-10-17",
+  "status": "COMPLETE_INDEPENDENT_STANDARD_BOARD_SUFFIX_PROFILE_VALIDATION",
+  "geometry": {
+    "W": 7,
+    "H": 6,
+    "K": 4,
+    "remainingEvents": [
+      2,
+      4,
+      6,
+      8
+    ]
+  },
+  "frozenSource": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-fixed-mate-release-order-falsifier.mjs",
+  "sourceGitBlob": "2b1606cb15cc3673671efd6619a37cc9919b8479",
+  "profiles": 4116,
+  "attackerOrderValidatorCalls": 1240093,
+  "allPerfectMatchingsConsidered": 324688,
+  "releaseRobustPerfectMatchings": 10675,
+  "normalFormPerfectMatchings": 10675,
+  "mismatchingProfiles": 0,
+  "actualButNotNormalForm": 0,
+  "normalFormButNotActual": 0,
+  "byRemaining": {
+    "2": {
+      "profiles": 28,
+      "matchings": 28,
+      "robust": 28,
+      "normal": 28,
+      "mismatches": 0
+    },
+    "4": {
+      "profiles": 210,
+      "matchings": 630,
+      "robust": 301,
+      "normal": 301,
+      "mismatches": 0
+    },
+    "6": {
+      "profiles": 924,
+      "matchings": 13860,
+      "robust": 1890,
+      "normal": 1890,
+      "mismatches": 0
+    },
+    "8": {
+      "profiles": 2954,
+      "matchings": 310170,
+      "robust": 8456,
+      "normal": 8456,
+      "mismatches": 0
+    }
+  },
+  "scope": "VALIDATION uses all attacker legal first-touch orderings of STATIC fixed pairings on standard7x6 last-8-events support profiles, not a strategic-game-value producer. In the producer classification no game continuations are valued. Finite validation supports the separately derived normal-form necessity proof and canonical all-seven static no-cert result. Does not prove absence of more adaptive defenders, unrestricted WDL or M*. Node22 local, maintained Node26/CI or external formal assistant NOT run.",
+  "proof": "docs/research/2026-10-17-standard7x6-perfect-mate-response-completeness-candidate.md"
+}
