@@ -38,7 +38,7 @@ export function createReciprocalForcedXorRoot({width:W,height:H,connect:K}){
    constructedIndependentStrategicGameTrees:0,
    sourceStaticProofOnly:true};
   const wins=R[p],other=R[o],certificates=[];
-  const sourceFirst=(c,expected){
+  const sourceFirst=(c,expected)=>{
    stat.firstActionThreatScans++;
    const x=bit(c,q.h[c]);
    const hc=q.h.slice();hc[c]++;
