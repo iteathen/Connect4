@@ -568,3 +568,23 @@ fooling sets. A bounded width-232 QBF decision algorithm may still be
 prohibitively expensive; a theorem providing an FPT f(k) is not a
 demonstrated practical solver at this k. See
 `docs/research/2026-10-16-guarded-action-qbf-full-depth-width.md`.
+
+## 2026-10-16 — adaptive quantified obligation expansion measured
+
+The action-labelled, legality/terminal-guarded source-QBF has now been
+actually projected by exact right-to-left Shannon cofactors. All 118
+finished finite-horizon thresholds agree with independently computed
+physical P0/P1 max-min values. But syntactic support-literal DAG
+deduplication is not sufficient to keep every deep mixed universal/
+existential obligation compact: `44444` k6 lower thresholds exhaust
+60,000 retained nodes, while upper thresholds close only their bounded
+truth.
+
+This is a retained-representation wall, NOT a proof that no compact
+adaptive response cover exists, and NOT a proof of WDL after `44444`.
+The GSP-004 proof objective is to identify sound semantic response
+equivalence, cofactor-interface quotient or conditional factorization
+that materially reduces *quantifier elimination work*, retaining
+the real `223` noncommutation falsifier and all first-win/resource
+guards. See
+`docs/research/2026-10-16-guarded-qbf-shannon-projection-depth6-obstruction.md`.
