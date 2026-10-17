@@ -473,3 +473,52 @@ Full record:
 `docs/research/2026-10-16-source-anchored-interval-and-reflection.md`.
 This does **not** claim full W/D/L after `44444`, WDL equivalence of
 all move7 actions, minimax elimination or polynomial scaling.
+
+## 2026-10-16 — Boolean-rank factorization as action-labelled adaptive obligation
+
+Mathematical (not game-search) proof literature suggests a different
+representation for mixed P1/P0 response relations. Let P(b,a) be
+the exact success predicate for P0 choosing a AFTER observing P1 b.
+A Boolean matrix factorization
+
+```text
+P(b,a) = OR_j ( U_j(b) AND V_j(a) )
+```
+
+retains both move-label sets and their dependency. Exact existential
+localization then gives
+
+```text
+FORALL b EXISTS a P(b,a)
+ = FORALL b OR_j [ U_j(b) AND (EXISTS a V_j(a)) ].
+```
+
+No quantifier order is reversed and no prior opponent action is
+discarded. The physically checked legal prefix `223` masks
+[0xe,0x4,0xe,0x7] have Boolean rank **exactly 3**:
+three literal all-true rectangles cover the relation and a
+three-element fooling set proves rank >=3. This is a proof
+of representation soundness, **not** an actual full-game speedup.
+
+**Next GSP-004 target:** derive such rectangular/factored action
+obligation terms directly from source residual hyperedges,
+not AFTER constructing a full branching reply-history matrix.
+Use independent factor-support quantifier-localization lemmas,
+prove terminal/turn/capacity guarded variable independence
+and measure Boolean rank/fooling-set lower bounds when a
+factorization fails to stay compact. Preserve the fact that
+`forall b exists a` is not `exists a forall b`.
+
+Independent source residual interaction graph at `44444`
+contains 37 future cells and one connected component with
+198 edges; min-fill treewidth upper bound 15. Thus no immediate
+disconnected raw-component factorization is evident; **conditional**
+separator/factored logical formulas remain possible. The graph
+probe has no WDL/game-tree search inputs.
+
+Full proof/literature audit:
+`docs/research/2026-10-16-general-mathematical-quantifier-width-proof-search.md`.
+
+Still OPEN: unrestricted perfect-play WDL after `44444`,
+all turn7 WDL-equivalence, polynomial arbitrary-depth composition
+and full computational branch elimination.
