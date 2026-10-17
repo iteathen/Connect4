@@ -324,3 +324,36 @@ Next: guarded *inner subfactor* quantifier localization, not more
 independent root compilation.
 
 Research: `docs/research/2026-10-16-one-pass-optimal-action-vector-quantifier-projection.md`.
+
+## 2026-10-16 — exact local quantified factor pushdown extends free-action vector to k7
+
+Sound universal-AND, existential-OR (by signed negation), and
+variable-independent-factor quantifier laws were implemented
+**inside** the shared first-action-free source-QBF projector, before
+building large whole-function cofactors. Both-x-dependent EXISTS-AND
+and FORALL-OR cases still use exact Shannon, avoiding the false
+independent-witness shortcut. Preserve action chronology and all
+first-win/full-column/legal decision guards.
+
+47 bounded source controls, 188 projected thresholds and 672
+per-action physically checked values PASS, with 24 complete-game
+short suffix optimal masks (13 singleton, 11 ties). Independent
+standard7x6 canonical `44444` **k7** physical first-win check
+covered 2,799,124 transitions, zero mismatches. Lower projected
+thresholds use 63,757 Boolean ops/6,298 nodes; upper 166,807/
+16,517, completing all seven labelled bounds as [-1,+1].
+This fixes the prior action-QBF k7 retention wall but does NOT
+determine any unrestricted 44444 action value; owner-BDD still
+compiles k11.
+
+k8 lower hits 60k node budget after 16/21 inner action bits.
+Syntactic unate common-witness detection is exact but gave
+negligible benefit (one useful k8 lower shortcut, 85,612 polarity
+cache misses), so keep it a negative experimental carrier.
+**Next GSP-003:** structure-aware semantic cofactor equivalence,
+conditional-separator projection or proof-bearing TDD/structured
+decision representation that truly reduces correlated mixed
+quantifier work, preserving output masks and budgets. Proof:
+`docs/research/2026-10-16-guard-qualified-quantifier-localization-and-action-vectors.md`.
+Negative:
+`docs/research/2026-10-16-common-witness-unateness-negative-width.md`.
