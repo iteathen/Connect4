@@ -632,3 +632,21 @@ sound conditional factors and an exact adaptive response-cover
 quotient is first-priority work rather than incidental speed tuning.
 Formal objective:
 `docs/research/2026-10-16-branch-elimination-primary-objective.md`.
+
+## 2026-10-16 — complete optimal masks from one quantified future
+
+An exact source-derived operation now retains the first labelled action
+as a FREE Boolean input while eliminating all later P0/P1 quantified
+choices in their original adaptive order. Reading that shared function
+at each legal initial action reconstructs all bounded WIN/NONLOSS
+action values, and returns the **whole** tied optimal-move set when
+all action intervals are exact. Small-board full-game suffix
+falsifiers: 24 correct optimal sets, 13 singleton and 11 ties.
+The legal 223 noncommutation law remains intact: the P0 response
+may depend on a prior P1 move; no quantifier was swapped.
+
+It removes repeated root-action projection work, not hidden inner
+strategy branching. Canonical 44444 k6 still UNKNOWN, k7 resource
+partial. GSP-004 must derive a stronger sound factor/local
+quantifier rule for the inner adaptive obligations.
+Proof and evidence: `docs/research/2026-10-16-one-pass-optimal-action-vector-quantifier-projection.md`.
