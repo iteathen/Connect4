@@ -612,3 +612,23 @@ factored expression. The shared exact recursive core remains
 complete and `44444` remains UNKNOWN [-1,+1].
 
 Full law/evidence: `docs/research/2026-10-16-exact-qbf-live-compaction-transient-width.md`.
+
+## 2026-10-16 — owner-prioritized branch-free complete optimal actions
+
+**Primary open proof goal:** derive the exact full W/D/L-optimal
+literal action set and scalar result together, directly from the
+source residual/guarded obligation structure, without separately
+evaluating each possible strategic continuation or hiding their
+enumeration in a symbolic representation. Return all moves tied at
+the mover's best W/D/L; never discard ties to report a favored
+single move.
+
+Preserve `forall reply exists adaptive answer` distinct from
+`exists one answer forall replies`, legal/first-win/draw/response
+resources, and reflection column transport. Exact original
+recursive q WDL core stays complete but is not the intended
+nonbranching achievement. The ongoing search for mathematically
+sound conditional factors and an exact adaptive response-cover
+quotient is first-priority work rather than incidental speed tuning.
+Formal objective:
+`docs/research/2026-10-16-branch-elimination-primary-objective.md`.
