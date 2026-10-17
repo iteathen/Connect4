@@ -1,0 +1,87 @@
+{
+  "schema": "connect4.standard7x6.one_center_marker_xor_defect_v0_1",
+  "date": "2026-10-17",
+  "status": "PASS_ACTUAL7X6_CANONICAL_SINGLE_MARKER_PHASE_DEFECT_WITH_SAME_OWNER_DIFFERENT_FIRST_WIN_WITNESS",
+  "theorem": "docs/research/2026-10-17-canonical44444-single-center-marker-xor-defect-unfolding.md",
+  "producer": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-canonical-center-marker-source.mjs",
+  "producerExactGitBlob": "21542d604c1122dd8e869aa1ae7a5ad6114e3937",
+  "independentPhysicalControl": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-canonical-center-marker-physical-control.mjs",
+  "controlExactGitBlob": "be3a60003f77690472fcadd443d37829f794ae6d",
+  "board": {
+    "W": 7,
+    "H": 6,
+    "K": 4,
+    "totalOriginalLines": 69
+  },
+  "canonical": "44444",
+  "sourceResidualCounts": {
+    "P0": 48,
+    "P1": 42
+  },
+  "uniqueFutureCenterCell": {
+    "oneBasedColumn": 4,
+    "oneBasedRow": 6,
+    "sourceGeneratorIncidences": {
+      "P0": 6,
+      "P1": 6
+    }
+  },
+  "exactStructuralIdentity": "For a fixed 36-letter noncenter word u and center marker insertion m, noncenter event global rank t(e)=j_region(e)+oppositeRegionEarlier(e)+I(markerBeforeEvent); owner(e)=(n+t(e)-1)mod2. Center owner=(n+m-1)mod2. Every q original surviving residual G completes when all its linked owners p, at max event rank, and first winner is min completing rank.",
+  "control": {
+    "noncenterFixedRegionalWords": 1500,
+    "completeHypotheticalLegalGravitySchedules": 12000,
+    "individualEventRankAndOwnerChecks": 444000,
+    "sourceResidualLineGeneratorConjunctionChecks": 1080000,
+    "pairsOfMarkerPositionsWithDifferentFirstWinner": 21038,
+    "pairsWithDifferentFirstWinningMoveTime": 28081,
+    "pairsWithDifferentFirstWinnerAndCenterOwnerChanged": 11198,
+    "pairsWithDifferentFirstWinnerAndCenterOwnerUnchanged": 9840,
+    "wrongWinnerComparedToIndependentPhysicalArrayGrid": 0,
+    "wrongFirstWinRankComparedToIndependentPhysicalArrayGrid": 0,
+    "note": "Pair counts are across 28 distinct chosen insertion-rank pairs for each of 1500 identical u words (42,000 pair comparisons); outcomes not independent game-strategy probes. Physical first-win observer uses W=7,H=6,K=4 and stops at first terminal."
+  },
+  "witnessDifferentCenterOwners": {
+    "noncenterWordOneBased": "673517656267656123223512711552173733",
+    "markerInsertionRanks": [
+      1,
+      12
+    ],
+    "centerPlayerBits": [
+      1,
+      0
+    ],
+    "fullGravityWordA": "4673517656267656123223512711552173733",
+    "fullGravityWordB": "6735176562647656123223512711552173733",
+    "firstWinnerA": "P0",
+    "firstWinTurnA": 17,
+    "firstWinnerB": "P1",
+    "firstWinTurnB": 16,
+    "originalWinningSourceGeneratorSamePhysicalCellsBoth": [
+      5,
+      12,
+      19,
+      26
+    ],
+    "samePhysicalWinningLine": "Vertical four cells in one right-side column; marker itself is not in winning line."
+  },
+  "witnessSameCenterOwner": {
+    "sameNoncenterWord": "673517656267656123223512711552173733",
+    "markerInsertionRanks": [
+      1,
+      35
+    ],
+    "centerOwnerBoth": "P1",
+    "winnerA": "P0",
+    "firstWinTurnA": 17,
+    "winnerB": "P1",
+    "firstWinTurnB": 16,
+    "conclusion": "Final identity of player owning the LAST center square is NOT sufficient; even with identical projected regional words and the same center owner, changing center insertion time changes first-winning line timing/player."
+  },
+  "scope": [
+    "Genuine 7x6 first-win-stopped source q=44444, with 37 hypothetical future gravity placements; after a first win, continuation is hypothetical only, not legal actual play.",
+    "Demonstrates exact STRATEGY-INDEPENDENT geometry/phase/payoff identity for any one supplied schedule, NOT perfect-play unrestricted WDL, best move labels or zero strategic branching.",
+    "Every fixed-word test is a validation input, no producer game-future value evaluation and no source case solved at 44444.",
+    "Shows candidate algorithm must preserve CENTER MARKER INSERTION/PREFIX PHASE HISTORY, not merely column capacity or center cell owner parity at the final board.",
+    "Standalone frozen committed-source V8 control, not maintained Node26 CI nor external formal proof assistant."
+  ]
+}
