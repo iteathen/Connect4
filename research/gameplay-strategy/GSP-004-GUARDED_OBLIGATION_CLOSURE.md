@@ -1,5 +1,7 @@
 # GSP-004 — Guarded obligation closure
 
+**OWNER OVERRIDE — 2026-10-17:** The primary theorem target is **ZERO strategic branching**. Construct a mathematically exact nonforking value/optimal-move-set operator directly from source-q structural invariants. The result must supply unrestricted WDL and **every equally optimal legal action** without resolving multiple inequivalent future states or hiding their continuations inside an obligation DAG, quantified matrix, cofactor bundle or precomputation. Fewer universal obligations, transitive dominance graphs, fixed future transports and inert neutral classes are supporting local lemmas only; they DO NOT satisfy this target if two strategic directions still must be evaluated. Equivalent moves may constitute ONE decision result; using one shared continuation additionally requires full future-behavior equivalence. Search solve time and branching factor reduction are not evaluation metrics. See [strict zero-fanout contract](../../docs/research/2026-10-17-zero-strategic-branching-objective.md).
+
 **Status:** rough proposal / highest-risk highest-upside  
 **Goal:** derive game value from structural obligations rather than enumerating the q graph.
 
