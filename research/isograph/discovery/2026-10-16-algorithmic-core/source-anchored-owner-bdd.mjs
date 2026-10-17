@@ -17,10 +17,15 @@ export class OwnerBDDBudgetError extends Error{
 }
 export function createSourceAnchoredOwnerBDDSolver({width:W,height:H,connect:K},sourceQ,{
  maxNodes=60000,maxApplyVisits=300000,maxSupports=10000,
- deadlineAt=Infinity,retainAllSupportFunctions=false
+ deadlineAt=Infinity,retainAllSupportFunctions=false,
+ gcEverySupports=1,gcNodeHighWater=40000
 }={}){
  if(![W,H,K].every(Number.isInteger)||W<1||H<1||K<2||W*H>42)
   throw Error('invalid finite gravity geometry');
+ if(!Number.isInteger(gcEverySupports)||gcEverySupports<1||
+    !Number.isInteger(gcNodeHighWater)||gcNodeHighWater<2||
+    gcNodeHighWater>maxNodes)
+   throw Error('invalid garbage collection batch or high-water setting');
  const N=W*H,cell=(c,r)=>r*W+c,cellMask=(c,r)=>1n<<BigInt(cell(c,r));
  if(!sourceQ||!Array.isArray(sourceQ.h)||sourceQ.h.length!==W||
     sourceQ.h.some(h=>!Number.isInteger(h)||h<0||h>H)||
@@ -63,6 +68,8 @@ export function createSourceAnchoredOwnerBDDSolver({width:W,height:H,connect:K},
   WDLInputStatesVisitedDuringCompile:0,
   gameTreeRecursiveBranchesSolved:0,
   maxLiveActionRoots:0,compilerMs:0,
+  gcEverySupports,gcNodeHighWater,gcDeferredSupports:0,
+  gcByInterval:0,gcByHighWater:0,gcAtFinalRoot:0,
   retainAllSupportFunctions,finalRetainedSupportCount:0
  };
  const node0={var:Infinity,low:null,high:null},
@@ -286,7 +293,15 @@ export function createSourceAnchoredOwnerBDDSolver({width:W,height:H,connect:K},
    stats.activeSupportMax=Math.max(stats.activeSupportMax,compiled.size);
    stats.maxLiveActionRoots=Math.max(stats.maxLiveActionRoots,
     [...compiled.values()].reduce((k,c)=>k+2+2*c.action.length,0));
-   sweep();
+   const last=stats.supportsBuilt===supports.length;
+   const high=nodes.length>=gcNodeHighWater,
+     interval=stats.supportsBuilt%gcEverySupports===0;
+   if(last||high||interval){
+    if(last)stats.gcAtFinalRoot++;
+    else if(high)stats.gcByHighWater++;
+    else stats.gcByInterval++;
+    sweep();
+   }else stats.gcDeferredSupports++;
   }
   if(!compiled.has(key(root))||
     (!retainAllSupportFunctions&&compiled.size!==1))
