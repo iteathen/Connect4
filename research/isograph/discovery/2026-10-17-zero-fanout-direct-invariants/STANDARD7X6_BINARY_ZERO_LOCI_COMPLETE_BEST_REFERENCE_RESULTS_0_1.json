@@ -1,0 +1,57 @@
+{
+  "schema": "connect4.standard7x6.binary_zero_locus_optimal_reconstruction_v0_1",
+  "board": {
+    "W": 7,
+    "H": 6,
+    "K": 4,
+    "geometricWinLines": 69
+  },
+  "sourceSelection": "Actual 7x6 at ply>=36 with at least TWO currently legal literal columns, sorted by count of legal columns (descending) then rank ascending; not unique optimal count",
+  "seedStart": 2980507714,
+  "nonterminalTrajectoriesGenerated": 2700,
+  "eligibleLateSourcePositions": 6586,
+  "uniqueLatePhysicalRootPositions": 6586,
+  "rootValuesChecked": 600,
+  "legalLiteralActionValuesChecked": 2126,
+  "wrongRootValues": 0,
+  "wrongOptimalLiteralMasks": 0,
+  "wrongFirstActionValues": 0,
+  "tiedBestRootPositions": 326,
+  "singleBestRootPositions": 274,
+  "zeroLocusReconstructionsChecked": 600,
+  "wrongNestedLocus": 0,
+  "wrongReconstructedValue": 0,
+  "wrongReconstructedBestSet": 0,
+  "drawXORMatches": 600,
+  "dualZeroLociBothEmpty": 63,
+  "dualZeroLociBothNonempty": 501,
+  "rootValueDistribution": {
+    "P0win": 464,
+    "draw": 36,
+    "P1win": 100
+  },
+  "minimax": {
+    "calls": 24315,
+    "memoHits": 4879,
+    "nodes": 10318
+  },
+  "binaryKernel": {
+    "calls": 26441,
+    "memoHits": 6272,
+    "nodes": 10318,
+    "terminalWins": 8796,
+    "terminalDraws": 1055
+  },
+  "canonicalSourcePrefixes": [
+    "44444",
+    "444444",
+    "4444442"
+  ],
+  "canonicalSourcePrimaryUnrestrictedWDL": "NOT_COMPUTED",
+  "zeroLociComputedFromIndependentBranchingReference": true,
+  "sourceOnlyZeroLocusAlgorithmDiscovered": false,
+  "frozenScript": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-binary-zero-locus-reference-control.mjs",
+  "exactGitBlob": "eddded5ab907289d327cd9e21965ee224c6a787f",
+  "proof": "docs/research/2026-10-17-binary-zero-loci-complete-optimal-moves.md",
+  "disposition": "Exact mathematical post-derivation root (V,M*) extraction from TWO child Boolean zero sets validated on standard7x6, but zero sets themselves were computed via a branching independent NAND reference; no source-only 7x6 total algorithm."
+}
