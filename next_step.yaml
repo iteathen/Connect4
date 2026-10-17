@@ -61,6 +61,34 @@ current_algorithmic_core:
     construction/quantification work and peak live/temporary memory.
     Exact recursive core remains complete; this stronger aim is OPEN.
   primary_open_objective_record: docs/research/2026-10-16-branch-elimination-primary-objective.md
+  research_focus_20261017: FUTURE_STABLE_SOURCE_RESPONSE_DOMINANCE_NOT_BDD_COMPILATION_DEPTH
+  newly_proved_dual_obligation_theorem: docs/research/2026-10-17-branch-elimination-dual-obligation-and-future-separation.md
+  dual_obligation_operator: research/isograph/discovery/2026-10-17-dual-obligation-quotient/dual-response-obligation.mjs
+  dual_obligation_results: research/isograph/discovery/2026-10-17-dual-obligation-quotient/DUAL_RESPONSE_OBLIGATION_RESULTS_0_1.json
+  dual_obligation_horizon_falsifier: research/isograph/discovery/2026-10-17-dual-obligation-quotient/DUAL_RESPONSE_HORIZON_LIFT_RESULTS_0_1.json
+  exact_one_layer_reply_antichain_reduction:
+    generic_4x4_matrices: 65536
+    generic_scoped_relation_checks: 1048576
+    generic_discrepancies: 0
+    physical_4x3_P1_positions_exhaustive: 2208
+    physical_4x4_P1_positions_exhaustive: 67992
+    4x3_original_to_minimal: "5592 -> 2546 (54.47% fewer)"
+    4x4_original_to_minimal: "150246 -> 70706 (52.94% fewer)"
+    4x3_successful_universal_proofs_reduction: "39.60%"
+    4x4_successful_universal_proofs_reduction: "20.77%"
+    source_cover_construction_already_performed: true
+    measured_net_game_solver_speedup: false
+    arbitrary_depth_branch_elimination: false
+  one_layer_signature_cross_horizon_counterexample:
+    history: "111"
+    board: "4x3-c3"
+    two_P1_replies_one_based: [2, 3]
+    bounded_signatures: ["0x0", "0x0"]
+    unrestricted_P0_WDL_values: [1, 0]
+    full_4x3_equal_signature_pairs_with_different_WDL: 220
+    full_4x4_equal_signature_pairs_with_different_WDL: 22380
+    conclusion: BOUNDED_EQUIVALENCE_NOT_PERFECT_PLAY_EQUIVALENCE
+
   new_scoped_operator: research/isograph/discovery/2026-10-16-algorithmic-core/guarded-action-qbf-first-action-vector.mjs
   new_scoped_proof: docs/research/2026-10-16-one-pass-optimal-action-vector-quantifier-projection.md
   new_scoped_evidence: research/isograph/discovery/2026-10-16-algorithmic-core/SHARED_FIRST_ACTION_QUANTIFIER_PROJECTION_RESULTS_0_1.json
@@ -140,19 +168,19 @@ current_algorithmic_core:
     - minimality
     - WDL_tie_distance_refinement
   next_bounded_experiment: >-
-    Branch elimination and full exact optimal-action masks remain
-    the owner-primary OPEN research target. Exact residual state,
-    column completion at historic moves7/8 and bounded defensive
-    masks were previously completed and verified. Now a canonical
-    guard-complete source-action ROBDD with deterministic output
-    gate cone and safe BDD GC computes all seven k8 bounded
-    action intervals after 44444, and k9 lower-only; full WDL
-    remains UNKNOWN. Source-owner reflected BDD k11 is still
-    deeper. The k9 upper action-bit output cone cannot yet
-    compile within 60000 nodes, despite eight variable orders.
-    Seek structurally sound quantifier-aware factor elimination
-    while building a shared first-action-free function, not
-    independent continuations or further superficial memory tuning.
+    Under the owner-primary exact branch elimination goal,
+    derive a FULL-FUTURE cofactor-preserving reply dominance
+    certificate from source q. Retain original action guards,
+    chrono forall/exists order, and complete tied-optimal
+    label transport. One-layer dual reply signatures now
+    have exact antichain proof and exhaustive legal controls
+    but bounded equality is NOT full WDL equivalence: the
+    legal 111 replies 2 vs 3 refute that shortcut.
+    Do NOT default to further QBF/BDD depth, gate/GC tuning
+    or numerical cap expansion. Independently validate each
+    proposed pointwise simulation without using searched
+    value labels in construction. Recursive core correctness,
+    historic turn7/turn8 transitions and root UNKNOWN remain.
   preserved_open_scope: >-
     The standard7x6 empty-root value and the seven-reply turn-six
     CPC certificate remain uncomputed/unproved by the new research
@@ -198,35 +226,41 @@ general_mathematical_proof_research_20261016:
     boundary variables s, provided all legal move/terminal
     dependencies are included in the factor supports.
   ranked_next_experiment: >-
-    Original historical move7/move8 full-column residual transition
-    and bounded move8 defensive sets are ALREADY EXACT; do not reopen.
-    The owner primary OPEN target remains branch-eliminating exact
-    WDL with ALL equally optimal legal move labels, not merely formula
-    construction. NEW: canonical source-action ROBDD with exact
-    deterministic output-cone deletion, stable-handle BDD GC and
-    original alternating quantifier abstraction closed ALL labelled
-    bounded 44444 k8 intervals within 60000 nodes / 300000 Boolean
-    ops / 10000 supports / 15 seconds; independent physical k8
-    validation explored 3567031 moves with no discrepancies. At k9
-    the lower threshold for all seven actions completed in 121999
-    BDD operations and 39142 peak slots, independently agreeing
-    prior source-owner BDD lower. K9 upper source ROBDD output-cone
-    COMPILE still exceeds 60000 nodes under eight predeclared
-    action-bit orders, and k10 variants remain incomplete. Source-
-    owner reflected BDD k11 remains deeper. NEXT derive/test a
-    quantified FACTOR/CIRCUIT elimination that pushes guarded
-    quantifier operations inside source Boolean construction,
-    rather than expanding whole output function before deciding.
-    Preserve literal root action bit variables and every tied WDL
-    move. Prove legality/first-win/capacity and adaptive forall/exists
-    dependencies; match independent 4x3/4x4 full-game optimal sets,
-    legal 223 scope counterexample, and 44444 k8 physical and
-    previous k9 source-owner BDD bounds as POST-derivation controls.
-    Count source construction, factor width, all Boolean/cofactor
-    operations, transient memory, mark-sweep work and actual time.
-    Do not raise budgets, hide alternative enumeration or promote
-    an unrestricted winner from any bounded UNKNOWN. A genuine
-    width lower-bound theorem would also be valuable.
+    OWNER REFOCUS: STOP treating deeper BDD/QBF compilation as the
+    research goal. Exact source residual q cofactors and the
+    historic chronological move7/move8 column transition are
+    ALREADY CLOSED. The remaining primary mathematical task is
+    to ELIMINATE INDEPENDENT STRATEGIC BRANCHES while computing
+    exact P0-relative WDL and ALL equally optimal labelled moves.
+    New source-only dual universal reply antichain has an exact
+    finite proof, over one million generic quantifier scopes,
+    and complete 4x3/4x4 legal P1-position checks; it removes
+    54.47%/52.94% of one-layer proof obligations, but AFTER the
+    bounded action-response matrix has been constructed. It is
+    NOT a full-game speedup. Crucial refuters: legal 4x3
+    history 111, P1 replies 2 and 3 have IDENTICAL bounded
+    signatures 0x0 but unrestricted WDL P0 values +1/0;
+    220 / 22380 equal-signature WDL-different pairs exist
+    in exhaustive 4x3 / 4x4 validations. Thus NEVER promote
+    bounded reply equality into game-value equivalence.
+    NEXT derive a source-only, source-residual/capacity/
+    terminal-guard-preserving FUTURE POINTWISE DOMINANCE or
+    alternating-simulation certificate: P(hard,a,z) => P(easy,a,z)
+    for all a and all totalized legal future contexts z,
+    with the original adaptive quantifier prefix unchanged.
+    Prove the certificate from local algebra WITHOUT enumerating
+    future continuations, THEN check against independent exact
+    4x3/4x4 WDL and optimal tie controls, legal 223,
+    111 cross-horizon counterexample and 44444 rank5.
+    A two-threshold WIN/NONLOSS implication proves weak
+    P0 WDL order; to return ALL P1 optimal actions, retain
+    potentially tied labels until an EXACT equality/strict
+    value certificate discharges them. Compare actual eliminated
+    downstream proof obligations and TOTAL source work;
+    do not claim savings merely by storing fewer signatures.
+    60000 nodes / 300000 Boolean operations / 10000 supports /
+    15 seconds PER compile remain unchanged. 44444 unrestricted
+    value and optimal set UNKNOWN; no authority promotion/merge.
   next_primary_source: "Ganian and Grundel, Bilateral Treewidth for QBF, SAT 2026, doi:10.4230/LIPIcs.SAT.2026.16"
   new_mathematical_record: docs/research/2026-10-16-bilateral-treewidth-and-galois-response-closures.md
   exact_local_response_factor: research/isograph/discovery/2026-10-16-algorithmic-core/adaptive-galois-factor.mjs
