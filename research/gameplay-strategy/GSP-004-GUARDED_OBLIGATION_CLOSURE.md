@@ -541,3 +541,30 @@ All 65,536 four-action matrices and their 1,048,576 reply-legality quantifier co
 Primary mathematical derivation and hierarchy:
 `docs/research/2026-10-16-bilateral-treewidth-and-galois-response-closures.md`.
 Canonical `44444` full W/D/L, seven-reply equivalence and deep branchless composition stay **OPEN**. No authority/implementation promotion.
+
+## 2026-10-16 — full-depth quantified guard formula; adaptive proof obligation remains
+
+The strict source-residual owner/cell algebra, counting exact proposed
+column occurrences and reflecting *first* illegal or terminal outcomes,
+has now generated a truth-equivalent full 37-ply quantified formula at
+`44444`. It encodes P1 universal invalid-action neutrality and P0
+existential invalid-action neutrality without quantifier swapping;
+the deterministic Tseitin auxiliary witnesses have proven sound
+stage-local existential scopes.
+
+A QBF formula of 12,436 variables, 36,976 CNF clauses with a sound
+trunk-aligned path-width UPPER bound 232 is a genuine full-horizon,
+non-history-enumerating *representation*. It is **not** an adaptive
+response-cover decision/certificate. In particular, the original
+`forall b exists a` scope and its legal `223` counterexample are
+preserved. Every existential P0 response remains contingent on earlier
+P1 universal moves; no uniform response was inferred.
+
+**Next GSP-004 proof:** find a rule-derived quantified elimination or
+sound nontrivial dependency/factor quotient that discharges these
+adaptive obligations while keeping source first-win/resource guards.
+Instrument growing complete future Boolean cofactors or obstruction
+fooling sets. A bounded width-232 QBF decision algorithm may still be
+prohibitively expensive; a theorem providing an FPT f(k) is not a
+demonstrated practical solver at this k. See
+`docs/research/2026-10-16-guarded-action-qbf-full-depth-width.md`.
