@@ -1,0 +1,145 @@
+{
+  "schema": "connect4.co_release_defender_one_lane_20261017_checkpoint_v0_1",
+  "date": "2026-10-17",
+  "status": "COMPLETE_SMALL_BOARD_CONFORMANCE_PASS_GENERAL_CONNECT4_ZERO_FANOUT_OPEN",
+  "controllingGoal": "ZERO game-semantic branching into independently evaluated inequivalent future games, exact unrestricted WDL plus ALL equally optimal legal move labels. Search time and number of pruned branches irrelevant.",
+  "sourceThm": "Guarded co-release: unmatched gravity future cells are partitioned into same-column consecutive pairs or cross-column cells with equal RELATIVE release ordinal j, even at different absolute row heights, by a contiguous cross-prefix and even-length vertical tails. Attacker cannot complete a source residual win line containing a full pair because defender always can play the mate. This is full-future no-win/one-sided WDL, not a numerical WDL for all inputs.",
+  "proofImplementation": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/co-release-pair-block-proof.mjs",
+  "latestOneLaneOperator": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/co-release-defensive-one-lane-optimal-set.mjs",
+  "independentlyRunControl": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/co-release-defensive-one-lane-physical-control.mjs",
+  "controlGitBlobSHA": "70a69606d6ef8fc0213adee9e08ff3ce587949c0",
+  "independentReleaseTimingControl": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/co-release-pair-independent-release-control.mjs",
+  "formalProof": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/CO_RELEASE_PAIR_BLOCK_NORMAL_FORM_0_1.md",
+  "frozenPlans": [
+    "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/GUARDED_CO_RELEASE_STATIC_PAIRING_PLAN_0_1.md",
+    "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/CO_RELEASE_PAIR_BLOCK_NORMAL_FORM_0_1.md"
+  ],
+  "independentFullControls": [
+    {
+      "board": "4x3 Connect3",
+      "qualifiedDistinctQ": 3734,
+      "exactWDLandALLBestMoves": 2928,
+      "previouslyCertifiedBeforeCoRelease": 2928,
+      "newlyCertified": 0,
+      "exactValueChecks": 2928,
+      "allBestLabelSetsVerified": 2928,
+      "eachLegalActionWDLBoundChecks": 10232,
+      "coReleaseGlobalProofsFoundInControl": 63,
+      "perActionCoReleasePairedDefenseWitnesses": 148,
+      "errorsInGlobalActionBoundsOrValuesOrBestLabels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "maximumStrategicFanout": 1,
+      "V8IsolatedElapsedMilliseconds": 1030
+    },
+    {
+      "board": "4x4 Connect4",
+      "qualifiedDistinctQ": 34094,
+      "exactWDLandALLBestMoves": 7618,
+      "previouslyCertifiedBeforeCoRelease": 7338,
+      "newlyCertified": 280,
+      "exactValueChecks": 7618,
+      "allBestLabelSetsVerified": 7618,
+      "eachLegalActionWDLBoundChecks": 100764,
+      "coReleaseGlobalProofsFoundInControl": 4084,
+      "perActionCoReleasePairedDefenseWitnesses": 13662,
+      "errorsInGlobalActionBoundsOrValuesOrBestLabels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "maximumStrategicFanout": 1,
+      "V8IsolatedElapsedMilliseconds": 11097
+    }
+  ],
+  "genericReleaseControl": {
+    "abstractProfiles": 43,
+    "sourceRequirementMasks": 418,
+    "sourcePairCertificates": 134,
+    "independentlyEnumeratedAttackerOrders": 2185,
+    "mateImmediatelyPlayableChecks": 2051,
+    "diagonalWithUnequalReleaseOrdinalsMutationRejected": true
+  },
+  "previousLineageCounts": [
+    {
+      "stage": "immediate threats / forced-column / safe pairing",
+      "connect3x4": 925,
+      "connect4x4": 1202
+    },
+    {
+      "stage": "two-turn direct source frontier",
+      "connect3x4": 2019,
+      "connect4x4": 2866
+    },
+    {
+      "stage": "single unresolved q successor only",
+      "connect3x4": 2881,
+      "connect4x4": 5978
+    },
+    {
+      "stage": "full-future behavioral-equivalence one class",
+      "connect3x4": 2908,
+      "connect4x4": 6521
+    },
+    {
+      "stage": "source WDL weak-order lattice",
+      "connect3x4": 2910,
+      "connect4x4": 6581
+    },
+    {
+      "stage": "strict complete optimal-set separation with unresolved numeric inferior action values",
+      "connect3x4": 2914,
+      "connect4x4": 6725
+    },
+    {
+      "stage": "older vertical/equal-height source defensive matching",
+      "connect3x4": 2928,
+      "connect4x4": 7338
+    },
+    {
+      "stage": "new relative-release co-release matching",
+      "connect3x4": 2928,
+      "connect4x4": 7618
+    }
+  ],
+  "canonical7x6": {
+    "history": "44444",
+    "rank": 5,
+    "mover": "P1",
+    "legalLabelsOneBased": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "originalSourceResidualGeneratorCounts": {
+      "P0": 48,
+      "P1": 42
+    },
+    "remainingCellsBeforeP1Move": 37,
+    "afterP1Move": 36,
+    "allSourceFirstActionFullWDLBounds": "[-1,+1]",
+    "newCoReleasePairingCertificates": 0,
+    "exactUnrestrictedWDL": "UNKNOWN",
+    "completeWDLBestMoves": "UNKNOWN",
+    "priorHistoricMove7And8CofactorTransition": "EXACT for previously scoped bounded transition; NOT unrestricted WDL"
+  },
+  "nextResearch": "Derive a genuinely nonlocal source structural invariant that settles competing inequivalent longer-range obligations simultaneously, perhaps exact first-win-guarded CPC parity/resource release, Hall shared response capacity, nested dependent blocker saturation; no BDD depth, no minimax branch pruning; implement as one source descriptor/one semantic lane. Do not promote prior bounded equivalences into full-game WDL.",
+  "persistedSourceSeparateFromValidation": true,
+  "externalProofAssistantCheck": false,
+  "noGameTheoryAuthorityChange": true,
+  "noMerge": true,
+  "qualificationDisposition": "SOUND_GUARDED_CO_RELEASE_WDL_BOUNDS_AND_EXHAUSTIVE_SMALL_BOARD_REFERENCE_PASS",
+  "discoveryDisposition": "NEW_SOURCE_ONLY_ZERO_FANOUT_RESTRICTED_DOMAIN_CERTIFICATES; TOTAL_ZERO_BRANCH_LAW_OPEN"
+}
