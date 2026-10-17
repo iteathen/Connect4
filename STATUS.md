@@ -58,6 +58,23 @@ core. The empty standard-7x6 root is **not** claimed computed by this
 recursive research evaluator. New tests ran in isolated V8; Node26 sustained
 qualification and external reproduction remain separate.
 
+## Proof literature continuation and exact response-closure falsifier — 2026-10-16
+
+**Newly reviewed primary theorem:** Ganian and Gründel, *Bilateral Treewidth for QBF: Where Strategies and Resolution Meet* (SAT 2026), supplies an exact FPT quantified-elimination method using a sound dependency poset, **full guard-complete CNF**, and a **trunk-aligned tree decomposition**. Its proof combines Q-resolution/universal reduction and bounded strategy extension. These prerequisites have **not** been established for the `44444` game-value circuit; the previously reported primal residual min-fill width 15 is not bilateral QBF width.
+
+**New exact local theorem/test:** Galois closure recovers *any* finite action-labelled P0-response/P1-reply Boolean relation as its all-maximal all-ones rectangles without swapping `forall b exists a` and `exists a forall b`. Source `223` retains the prior independent physical response masks and both asymmetric quantifier results. An exact committed producer/harness completed **65,536** possible 4×4 relations and **1,048,576** legal-mask predicate checks, plus **100** seven-action cases: **zero discrepancies**. Files byte-identical to the committed Git blobs were executed under **Node 22.16.0**, in addition to isolated V8 controls. The largest 4-action compile used **175** counted operations.
+
+**Important negative representation result:** The `223` relation's minimal Boolean rank is **3**, while its canonical set of maximal Galois rectangles has **4** elements. Across all 4×4 matrices, the maximal concept set was **larger** than the distinct action-row basis in **32,916 / 65,536** cases; among the 7-action seeded cases it reached **29 concepts for 7 rows**. Therefore *all maximal Galois concepts* are **not** a generally compressed normal form. This does not rule out a smaller chosen rectangle cover or a dependency-aware hybrid factor circuit.
+
+Proof, primary citations, hierarchy and next conditional QBF factor experiment:
+`docs/research/2026-10-16-bilateral-treewidth-and-galois-response-closures.md`.
+Operator/control/evidence:
+`research/isograph/discovery/2026-10-16-algorithmic-core/adaptive-galois-factor.mjs`,
+`adaptive-galois-factor-control.mjs`,
+`ADAPTIVE_GALOIS_FACTOR_RESULTS_0_1.json`.
+
+**Unchanged:** the recursive source-q WDL core is complete; `44444` remains `UNKNOWN [-1,+1]` at eleven further plies, depth12 support count still 13,524 > 10,000. No deep adaptive-composition compression, new unrestricted game result, authority change, or merge is claimed. Preferred next gate: prove guarded full QBF translation with explicit action dependency and test actual bilateral decomposition/interface width, rather than further brute support expansion.
+
 ## Mathematical logic proof search — new exact candidate interface — 2026-10-16
 
 Per owner directive, research was conducted in **general mathematical
