@@ -58,6 +58,88 @@ core. The empty standard-7x6 root is **not** claimed computed by this
 recursive research evaluator. New tests ran in isolated V8; Node26 sustained
 qualification and external reproduction remain separate.
 
+## Source-anchored interval W/D/L algebra and mirror-orbit cone — 2026-10-16
+
+**New qualified bounded-source candidate:** a four-threshold WIN/NONLOSS
+lower/upper Bellman BDD over only future owner variables. At a nonterminal
+support cutoff return UNKNOWN [-1,+1]; compose P0 OR / P1 AND
+cofactors, exact first-win/draw rules, and all literal action intervals.
+By finite-rank monotonicity, each interval encloses actual unrestricted
+W/D/L. When bounds meet, the value is EXACT; retain incomplete action
+sets as UNKNOWN rather than inventing WDL equivalence. No concrete q
+game-state search or winning-policy lookup enters compilation.
+
+Primary derivation and correction:
+`docs/research/2026-10-16-source-anchored-interval-and-reflection.md`.
+Candidate:
+`research/isograph/discovery/2026-10-16-algorithmic-core/bounded-support-interval-bdd.mjs`.
+
+**Qualified controls:**
+
+- On standard7x6 source rank20 `43214636342357317661`, P0
+  is already WIN at cutoff depth **1**, with **all seven first-move
+  values exact by depth 2**: unique winning column **5**.
+  The initial depth4 result was CORRECT but **not strategically deep**;
+  a complete independent q solve agrees (79,697 q states,
+  351,153 edges), plus direct physical validation.
+- Standard rank14/16/18 also certify exact P0 WIN by depth2,
+  with optimal columns (1,5), (5), (5) respectively. The full q
+  references hit their fixed 800k-edge budgets; separate direct
+  physical depth2 validators checked all literal actions and passed.
+  Across nine physical finite-horizon controls, **2,089**
+  move checks, no discrepancies.
+- **90** cross-horizon symbolic computations across **19** legal
+  input states found zero interval containment/monotonicity/action
+  errors. One predeclared 4x3 `112233` fixture correctly rejected
+  as already terminal; 4x3 empty root stays UNKNOWN until depth12.
+- Standard7x6 rank10 and canonical `44444` remain **UNKNOWN
+  [-1,+1]** through ordinary bounded depth9 despite correct
+  local q and turn7/8 cofactor dynamics.
+
+**Exact horizontal reflection reduction** applies ONLY if original
+q=(h,R0,R1) is completely mirror invariant. The compiler generates
+canonical support-orbit representatives directly and transports
+mirrored child owner variables via ordered Shannon ITE (not naive
+BDD variable-ID swap). It preserves every literal action interval.
+Small-board full-root and symmetric `1243` action values match
+independent q exactly. A legal symmetric-height but asymmetric-R
+`1234` control is rejected.
+
+**Under the unchanged limits** 60k BDD nodes, 300k nontrivial
+operations, 10k compiled support orbits and 15s:
+- canonical `44444` k9: 3,934 orbits (7,798 ordinary supports);
+- k10: 6,216 orbits (12,341 ordinary); still UNKNOWN;
+- k11 with **source-residual-frequency static variable order**:
+  **9,366 orbits** (18,620 ordinary support states),
+  **16,511** peak nodes, **268,341** BDD operations,
+  completed with UNKNOWN outcome. Row-major/column-major k11 hit
+  300k operation cap.
+- k12 would need **13,524** mirror-orbit supports (26,908 ordinary)
+  and remains OUT OF SCOPE beyond the old 10k cap. No resource
+  inflation or arbitrary turn6/turn7 WDL claim.
+
+Evidence:
+`BOUNDED_SUPPORT_INTERVAL_RANK20_RESULTS_0_1.json`,
+`BOUNDED_SUPPORT_INTERVAL_CROSS_HORIZON_RESULTS_0_1.json`,
+`BOUNDED_INTERVAL_PHYSICAL_RESULTS_0_2.json`,
+`BOUNDED_INTERVAL_HORIZON_SENSITIVITY_RESULTS_0_1.json`,
+`REFLECTION_BOUNDED_SUPPORT_INTERVAL_RESULTS_0_1.json`,
+`REFLECTED_INTERVAL_VARIABLE_ORDER_RESULTS_0_1.json`
+in `research/isograph/discovery/2026-10-16-algorithmic-core/`.
+
+**Current open mathematical objective:** compact exact repeated
+composition of adaptive action-labelled response covers beyond
+ordinary support plus horizontal reflection, or a lawful multi-ply
+cofactor/interval aggregation that does not materialize every support
+orbit. Full arbitrary-depth computational branch elimination, early
+7x6 perfect-play WDL at `44444`, polynomial scaling, and formal
+minimality remain OPEN. Existing complete recursive/branching q
+algorithmic core is unchanged and remains valid.
+
+Research code executed with isolated JS V8 source tests only,
+not maintained Node26/CI or an independent external reproduction.
+No merge or qualified IsoGraph authority promotion.
+
 ## Column completion and all-depth residual transitions — 2026-10-16
 
 The owner asked whether the **filled-column transition around moves 7
