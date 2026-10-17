@@ -96,6 +96,21 @@ Unlisted dated notes remain repository evidence. Being unlisted means “not pri
 
 - Durable experiment: `research/isograph/discovery/2026-10-16-algorithmic-core/adaptive-galois-factor.mjs`, `adaptive-galois-factor-control.mjs`, `ADAPTIVE_GALOIS_FACTOR_RESULTS_0_1.json`. A fixed local-response relation is not an arbitrary-depth strategic-value solver.
 
+## Owner-directed primary OPEN mathematical target — 2026-10-16
+
+- [`2026-10-16-branch-elimination-primary-objective.md`](2026-10-16-branch-elimination-primary-objective.md)  
+  **CURRENT RESEARCH PRIORITY CONTRACT (NOT A NEW GAME-THEORY THEOREM).**
+  Preserve constructively complete exact recursive residual-q W/D/L
+  and optimal-action core, but prioritize **eliminating independently
+  evaluated strategic branching** in the continuing research program.
+  Desired answer: exact W/D/L plus the **complete literal set of every
+  equally W/D/L-optimal legal action** (singleton only when uniquely
+  optimal). Count source-to-result construction AND quantified
+  evaluation, reject hidden continuation/strategy enumeration or
+  mere compact undetermined QBF shells, preserve exact first-win/
+  capacity/adaptive-action scope. GSP-003/GSP-004 are the active
+  mathematical mechanisms; no authority promotion or merge.
+
 ## Constructive algorithmic core — correctness established, branching OPEN
 
 ### ACTIVE FOUNDATION — exact constructive W/D/L and W/D/L-optimal moves
