@@ -274,8 +274,10 @@ export function createSupportDAGLiveCircuit({width:W,height:H,connect:K},{
     action.push({column:col,W:Wact,N:Nact});stats.intermediateActionsBuilt++;
    }
    compiled.set(parent.sk,{supportKey:parent.sk,h:h.slice(),
-    W:mover===0?OR(action.map(x=>x.W)):AND(action.map(x=>x.W)),
-    N:mover===0?OR(action.map(x=>x.N)):AND(action.map(x=>x.N)),
+    W:action.length===0?0:
+      mover===0?OR(action.map(x=>x.W)):AND(action.map(x=>x.W)),
+    N:action.length===0?1:
+      mover===0?OR(action.map(x=>x.N)):AND(action.map(x=>x.N)),
     action});
    stats.supportsBuilt++;
    // Consume all already-built children and release those never needed again.
