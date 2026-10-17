@@ -26,6 +26,13 @@ Unlisted dated notes remain repository evidence. Being unlisted means “not pri
 
 ---
 
+## New 2026-10-16 mathematical factor-width continuation
+
+- [`2026-10-16-bilateral-treewidth-and-galois-response-closures.md`](2026-10-16-bilateral-treewidth-and-galois-response-closures.md)  
+  **ACTIVE EXTERNAL QBF WIDTH THEOREM CANDIDATE + EXACT FINITE RELATION LAW + NEGATIVE COMPRESSION CONTROL.** Proves finite binary action/reply relation recovery by formal-concept/Galois closed rectangles without exchanging alternating quantifiers; verifies 65,536 generic 4x4 Boolean relations and 1,048,576 quantifier-scope checks against exact committed Node22 producer/controls. Legal source `223`: canonical maximal concept count 4 but minimum Boolean rank 3. **32,916 matrices** expand relative to distinct action rows. New primary source Ganian/Gründel SAT 2026 bilateral QBF treewidth provides a *conditional* exact mixed resolution/strategy-extension mechanism, but requires a sound permutation dependency poset and full CNF trunk-aligned decomposition. The original residual graph width15 estimate is **not** that bound; `44444` remains UNKNOWN. Next: encode/qualify guarded source action QBF, then measure actual bilateral quantified interface width.
+
+- Durable experiment: `research/isograph/discovery/2026-10-16-algorithmic-core/adaptive-galois-factor.mjs`, `adaptive-galois-factor-control.mjs`, `ADAPTIVE_GALOIS_FACTOR_RESULTS_0_1.json`. A fixed local-response relation is not an arbitrary-depth strategic-value solver.
+
 ## Constructive algorithmic core — correctness established, branching OPEN
 
 ### ACTIVE FOUNDATION — exact constructive W/D/L and W/D/L-optimal moves
