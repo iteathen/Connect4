@@ -26,6 +26,27 @@ Unlisted dated notes remain repository evidence. Being unlisted means “not pri
 
 ---
 
+## Quantified Boolean projection — exact evaluation controls and negative wall
+
+- [`2026-10-16-guarded-qbf-shannon-projection-depth6-obstruction.md`](2026-10-16-guarded-qbf-shannon-projection-depth6-obstruction.md)  
+  **ACTIVE EXACT QUANTIFIER-ELIMINATION TEST / RESOURCE-LIMITED NEGATIVE RESULT.**
+  After unique Tseitin gate substitution, apply literal decision-bit
+  Shannon cofactors from innermost to outermost action block with existential
+  P0 OR and universal P1 AND. Hash-consed AND/NOT DAG support masks
+  are constructed from source q; no game state search in producer.
+  **118 of 120 finite threshold projections** complete and match
+  separately physically evaluated WDL cutoffs. At `44444`, all four
+  bounded values through k5 still form UNKNOWN [-1,+1]. At k6, the
+  lower Wlo/Nlo each hit 60k retained nodes after 12/18 quantified
+  input bits (147,262 counted nontrivial operations); upper Whi/Nhi
+  complete at 53,920 retained nodes, 159,492 work. This is NOT
+  an exact minimal width lower bound, since the implementation retains
+  dead DAG gates. The earlier source-owner BDD k11 remains the
+  stronger bounded-value method. Reproducible code/control/evidence:
+  `research/isograph/discovery/2026-10-16-algorithmic-core/guarded-action-qbf-project.mjs`,
+  `guarded-action-qbf-projection-control.mjs`,
+  `GUARDED_ACTION_QBF_PROJECTION_RESULTS_0_1.json`.
+
 ## Full-horizon quantified source action encoding — 2026-10-16
 
 - [`2026-10-16-guarded-action-qbf-full-depth-width.md`](2026-10-16-guarded-action-qbf-full-depth-width.md)  
