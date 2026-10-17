@@ -107,6 +107,7 @@ export function createSingleLaneDirectValue(geometry){
     result.status,result.reason);
   return {status:'EXACT_ZERO_STRATEGIC_FANOUT_RESTRICTED_DOMAIN',
    value:result.value,bestMoves:result.bestMoves,actionValues:result.actionValues,
+   legalActionLabels:core.legal(q),playerToMove:q.h.reduce((a,b)=>a+b,0)%2,
    proofKind:result.proofKind,sourceProof:result.sourceProof,
    fullUnrestrictedWDLCertified:true,completeOptimalMoveSetCertified:true,
    zeroStrategicFanoutCertified:stats.maxStrategicFanout<=1&&
