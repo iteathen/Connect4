@@ -588,3 +588,27 @@ that materially reduces *quantifier elimination work*, retaining
 the real `223` noncommutation falsifier and all first-win/resource
 guards. See
 `docs/research/2026-10-16-guarded-qbf-shannon-projection-depth6-obstruction.md`.
+
+## 2026-10-16 — mixed adaptive obligation carrier fails within quantified bit at k7
+
+Rule-derived source action-QBF truth-preserving live-gate compaction
+eliminates the earlier `44444` k6 allocated-dead memory wall:
+all four k6 bounded thresholds finish, with 120 of 124 local
+independently physically compared threshold queries EXACT and
+four resource-partial k8 queries. But k7 action-bit cofactor
+construction itself reaches 60k retained nodes after 12/21 bits
+despite between-bit compaction. No arbitrary-depth strategy
+compression, unrestricted outcome, or new equivalent-action class
+has been proved.
+
+The relevant next structural law must **not** repackage another
+Cartesian adaptive expansion. Test variable-support-qualified
+Boolean adjunction and quantifier localization inside subcircuits
+before constructing both unrestricted Shannon cofactor DAGs.
+Preserve earlier opponent-dependent action Skolem scope, `223`
+noncommutation counterexample, first-win, draw and full-column
+guards; count all quantifier/gate/GC work, not just the returned
+factored expression. The shared exact recursive core remains
+complete and `44444` remains UNKNOWN [-1,+1].
+
+Full law/evidence: `docs/research/2026-10-16-exact-qbf-live-compaction-transient-width.md`.
