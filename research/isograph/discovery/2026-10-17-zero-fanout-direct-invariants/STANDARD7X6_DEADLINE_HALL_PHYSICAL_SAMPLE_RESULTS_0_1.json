@@ -1,0 +1,122 @@
+{
+  "schema": "connect4.7x6.deadline_prefix_hall_physical_sample_v0_1",
+  "status": "LOCAL_NODE22_CANDIDATE_CONTROL_NOT_MAINTAINED_NODE26_OR_EXTERNAL",
+  "date": "2026-10-17",
+  "candidate": "docs/research/2026-10-17-standard7x6-deadline-hall-source-candidate-0-1.md",
+  "geometry": {
+    "W": 7,
+    "H": 6,
+    "K": 4,
+    "originalWinlineCounts": {
+      "horizontal": 24,
+      "vertical": 21,
+      "risingDiagonal": 12,
+      "fallingDiagonal": 12
+    },
+    "allWinlines": 69,
+    "nonemptyWinspaceSubsets": 625
+  },
+  "sample": {
+    "physicalNonterminalUnique": 33811,
+    "numberOfTrajectories": 1000,
+    "seedUnsigned32": 698820097,
+    "lcg": "rng=(1664525*rng + 1013904223) mod 2^32; choose legal nonwinning move at rng modulo number of options",
+    "prefixes": [
+      "44444",
+      "444444",
+      "4444442",
+      "1234567",
+      "1223344",
+      "1452736"
+    ],
+    "selection": "non-winning placements chosen to reach late endgame; outside source-only proof; not uniform over legal q",
+    "terminalFullDrawStatesExcluded": true
+  },
+  "sourceProducer": {
+    "futureStrategicGamesEvaluated": 0,
+    "sourceStateNoWinLastEvent": [
+      303,
+      271
+    ],
+    "sourceStateNoWinEDF": [
+      303,
+      271
+    ],
+    "sourceNoWinIncrementEDF": [
+      0,
+      0
+    ],
+    "postActionNoWinLastEvent": [
+      449,
+      401
+    ],
+    "postActionNoWinEDF": [
+      449,
+      401
+    ],
+    "postActionNoWinIncrementEDF": [
+      0,
+      0
+    ],
+    "postActionExactDrawLastEvent": 169,
+    "postActionExactDrawEDF": 169,
+    "incrementDraw": 0,
+    "sourceOnlyExactRootValueAndCompleteBestMoves": 1228,
+    "sourceOnlyExactScalarRootBounds": 18897
+  },
+  "independentReference": {
+    "board": "actual 7x6 Connect4",
+    "selectedSampleNonterminalPositionsWithPlyAtLeast35": 1000,
+    "actualFirstActionValuesChecked": 2919,
+    "sourceExactRootsWithAllBestMovesChecked": 122,
+    "errors": 0,
+    "physicalRecursiveStates": 16581,
+    "physicalMemoHits": 6003,
+    "referenceWorkOnlyForPostSourceValidation": true
+  },
+  "canonical": [
+    {
+      "history": "44444",
+      "ply": 5,
+      "requirements": [
+        48,
+        42
+      ],
+      "interval": [
+        -1,
+        1
+      ],
+      "exactFullValue": "UNKNOWN",
+      "bestSet": "UNKNOWN"
+    },
+    {
+      "history": "444444",
+      "ply": 6,
+      "requirements": [
+        42,
+        42
+      ],
+      "interval": [
+        -1,
+        1
+      ],
+      "exactFullValue": "UNKNOWN",
+      "bestSet": "UNKNOWN"
+    },
+    {
+      "history": "4444442",
+      "ply": 7,
+      "requirements": [
+        39,
+        41
+      ],
+      "interval": [
+        -1,
+        1
+      ],
+      "exactFullValue": "UNKNOWN",
+      "bestSet": "UNKNOWN"
+    }
+  ],
+  "qualification": "No marginal EDF vs coarse source advantage in sampled standard board; 1000 late-suffix physical validations cannot validate all 7x6 states; original executable control generated locally under /mnt/data/c4research/standard7x6/standard7x6-deadline-hall-control.mjs and must be mirrored to repository for full independent reproducer; structural generalization currently under investigation. Initial preliminary local run erroneously counted 75 full-board terminal draws as nonterminal states; corrected before this checkpoint. Counts here exclude terminal full boards."
+}
