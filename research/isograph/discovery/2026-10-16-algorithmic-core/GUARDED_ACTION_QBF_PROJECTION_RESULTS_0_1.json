@@ -1,0 +1,150 @@
+{
+  "schema": "connect4.guarded-action-shannon-projection-results.v0_1",
+  "date": "2026-10-16",
+  "status": "SMALL_BOARD_PROJECTION_PASS_44444_DEPTH6_LOWER_NODE_CAP",
+  "owner": "research/semantic-quotient",
+  "frozenPlan": "research/isograph/discovery/2026-10-16-algorithmic-core/GUARDED_ACTION_QBF_PROJECTION_PLAN_0_1.md",
+  "producer": "research/isograph/discovery/2026-10-16-algorithmic-core/guarded-action-qbf-project.mjs",
+  "independentControl": "research/isograph/discovery/2026-10-16-algorithmic-core/guarded-action-qbf-projection-control.mjs",
+  "deterministicSourceBlobs": {
+    "guarded-action-qbf.mjs": "f099f080b6213f277ac8cbdf84b66340143206cc",
+    "guarded-action-qbf-project.mjs": "00524113be32e40ac4b940342f5d570974ac1ffd",
+    "guarded-action-qbf-projection-control.mjs": "d23cf18f465a08599441cfa3c0505d23ca6ac34c"
+  },
+  "sourceOutputSHA256": "fc6068df6f95591837364c6fe5d072adaa666c33ed1bbc49f6993b1c8121e95e",
+  "runtime": "local Node22.16.0, no maintained Node26 suite, no independent third-party QBF solver",
+  "mathematicalLaw": "At each quantified action bit, exact Shannon cofactor F0,F1 is aggregated by OR for existential P0 and AND for universal P1, in inverse action-prefix order; stage-local deterministic Tseitin gates are functionally eliminated by their defining straight-line DAG.",
+  "producerOracleGameContinuations": 0,
+  "resourceLimits": {
+    "maxNodes": 60000,
+    "maxNontrivialOperations": 300000,
+    "maxMs": 15000,
+    "maxSupportRepresentatives": 10000
+  },
+  "smallBoardAndCanonicalCases": {
+    "geometries": [
+      "4x3-c3",
+      "4x4-c4",
+      "7x6-c4"
+    ],
+    "sourceHistories": [
+      "",
+      "223",
+      "1212",
+      "44444"
+    ],
+    "totalCases": 30,
+    "projectedThresholdQueries": 120,
+    "exactCompleted": 118,
+    "incomplete": 2,
+    "independentPhysicalMinimaxComparisonForAllExact": true,
+    "exactValueDiscrepancies": 0,
+    "fixedFirstActionProjected": false,
+    "note": "Complete small-board checked horizons <=6; 7x6 44444 horizon<=6; post-depth6 44444 horizons not attempted after lower bound hit resource cap."
+  },
+  "canonical44444": [
+    {
+      "k": 1,
+      "lower": {
+        "value": false,
+        "ops": 46,
+        "peak": 24
+      },
+      "upper": {
+        "value": true,
+        "ops": 0,
+        "peak": 20
+      }
+    },
+    {
+      "k": 2,
+      "lower": {
+        "value": false,
+        "ops": 268,
+        "peak": 164
+      },
+      "upper": {
+        "value": true,
+        "ops": 244,
+        "peak": 160
+      }
+    },
+    {
+      "k": 3,
+      "lower": {
+        "value": false,
+        "ops": 1354,
+        "peak": 600
+      },
+      "upper": {
+        "value": true,
+        "ops": 649,
+        "peak": 405
+      }
+    },
+    {
+      "k": 4,
+      "lower": {
+        "value": false,
+        "ops": 7020,
+        "peak": 2606
+      },
+      "upper": {
+        "value": true,
+        "ops": 4684,
+        "peak": 1870
+      }
+    },
+    {
+      "k": 5,
+      "lower": {
+        "value": false,
+        "ops": 27563,
+        "peak": 9649
+      },
+      "upper": {
+        "value": true,
+        "ops": 25709,
+        "peak": 9033
+      }
+    },
+    {
+      "k": 6,
+      "lower": {
+        "status": "PARTIAL_NODE_CAP",
+        "value": null,
+        "ops": 147262,
+        "peak": 60000,
+        "quantifiedBitsCompleted": 12,
+        "outOf": 18
+      },
+      "upper": {
+        "status": "EXACT",
+        "value": true,
+        "ops": 159492,
+        "peak": 53920,
+        "quantifiedBitsCompleted": 18,
+        "outOf": 18
+      }
+    }
+  ],
+  "stoppedAt": {
+    "source": "44444",
+    "horizon": 6,
+    "queries": [
+      "Wlo",
+      "Nlo"
+    ],
+    "resource": "retained hash-consed AND nodes (no GC)",
+    "limit": 60000,
+    "projectionCompletedActionBits": 12,
+    "neededBits": 18,
+    "nontrivialOpsAtAbort": 147262,
+    "booleanWorkLimit": 300000,
+    "diagnosis": "work limit and 15s not reached; retained-node budget exhausted. Does NOT lower-bound optimal cofactor width; old dead nodes retained, and other quantifier orders/structured carriers may compress more."
+  },
+  "scope": "Exact finite-horizon QBF projected truth only. No unrestricted WDL for 44444; k6 upper threshold true does not imply bounded/exact winner. The already qualified reflected interval BDD reaches k11 in the original budget; this alternative is worse for actual current projection.",
+  "gameValueAfter44444": "UNKNOWN [-1,+1]",
+  "authorityChange": false,
+  "merge": false
+}
