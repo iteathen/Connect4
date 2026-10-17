@@ -67,11 +67,14 @@
     "drawOutcomes": 22,
     "finalSeedUnsigned32": 2804561501
   },
-  "executableStatus": "Exact local reproducible Node22 harness /mnt/data/c4_binary_core/source_payoff_control.mjs with SHA256 40a4db3d0bbbfedc5c3b990b99c97765ba88854fbc90fb5810ffe8326a6c2a66. Source has not yet been mirrored to repository. Mathematical candidate and falsification contract were committed BEFORE local testing.",
+  "executableStatus": "Bit-identical local Node22 and independently re-run frozen GitHub script on isolated V8. Git source blob 874ffe3cceaee69d958606e5ae930acb5afe685b matches local git hash-object. Both returned precisely 22003 schedule checks, 705717 phase checks, 3313200 generator checks, zero first-win discrepancies.",
   "qualificationLimits": [
     "Fixed-schedule payoff algebra only; hypothetical full suffixes ignore stop solely for first-win validation; original first-win-stopped source prefixes genuine legal Connect4.",
     "Sampling schedules and reference calculation outside zero-branch producer; zero game-value future evaluations in algebraic payoff for supplied sigma, but this does not solve optimal strategy selection.",
     "No WDL/optimal-move result for canonical 44444 or general 7x6.",
     "Standalone Node22 local; no Node26 CI or proof-assistant external qualification."
-  ]
+  ],
+  "frozenSourceFile": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-source-q-binary-payoff-control.mjs",
+  "frozenGitBlob": "874ffe3cceaee69d958606e5ae930acb5afe685b",
+  "independentPostCommitReexecution": "PASS"
 }
