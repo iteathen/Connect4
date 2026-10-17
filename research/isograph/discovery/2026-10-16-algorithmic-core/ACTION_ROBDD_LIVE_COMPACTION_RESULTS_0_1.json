@@ -1,0 +1,111 @@
+{
+  "schema": "connect4.action-robd-live-compaction.v0_1",
+  "date": "2026-10-16",
+  "owner": "research/semantic-quotient",
+  "status": "K8_ACTION_ROBDD_EXACT_BOUNDED_ALL_ACTIONS_K9_COMPILATION_ALLOCATOR_WALL",
+  "frozenPlan": "research/isograph/discovery/2026-10-16-algorithmic-core/ACTION_ROBDD_LIVE_COMPACTION_PLAN_0_1.md",
+  "candidate": "research/isograph/discovery/2026-10-16-algorithmic-core/action-robd-fused-live-compaction.mjs",
+  "method": "Canonical complemented-edge ROBDD over source-only guarded action-QBF; exact timed SOURCE matrix compile with ordered APPLY, then universal AND / existential OR abstraction of every later action-bit block, first action free; exact reachable-node copying after full QBF compilation and each completed quantifier block. Does not enumerate concrete game states.",
+  "originalLimits": {
+    "maxNodesIncludingOldAndNewDuringGC": 60000,
+    "maxNontrivialBooleanOperations": 300000,
+    "maxSupportRepresentatives": 10000,
+    "maxMilliseconds": 15000
+  },
+  "testedLocalExecution": "Isolated V8 evaluation of exact GitHub source; source q from legal five center placements with independent original exact-q cofactor, not a policy/oracle",
+  "results": [
+    {
+      "k": 7,
+      "threshold": "Wlo",
+      "order": "reverse",
+      "status": "COMPLETE_BOUNDED_FALSE_ALL_7",
+      "ops": 21164,
+      "allocatedPeak": 12487,
+      "compactionCopyNodes": 1362,
+      "gcPeakSimultaneousNodes": 12947
+    },
+    {
+      "k": 7,
+      "threshold": "Whi",
+      "order": "reverse",
+      "status": "COMPLETE_BOUNDED_TRUE_ALL_7",
+      "ops": 23722,
+      "allocatedPeak": 12487,
+      "compactionCopyNodes": 2670,
+      "gcPeakSimultaneousNodes": 13834
+    },
+    {
+      "k": 8,
+      "threshold": "Wlo",
+      "order": "chronological",
+      "status": "COMPLETE_BOUNDED_FALSE_ALL_7",
+      "ops": 83909,
+      "allocatedPeak": 45322,
+      "compileLiveNodes": 4212,
+      "gcCycles": 8,
+      "gcCopiedNodes": 9626,
+      "gcPeakSimultaneousNodes": 49534
+    },
+    {
+      "k": 8,
+      "threshold": "Whi",
+      "order": "chronological",
+      "status": "COMPLETE_BOUNDED_TRUE_ALL_7",
+      "ops": 69157,
+      "allocatedPeak": 45322,
+      "compileLiveNodes": 2093,
+      "gcCycles": 8,
+      "gcCopiedNodes": 4433,
+      "gcPeakSimultaneousNodes": 47415
+    },
+    {
+      "k": 8,
+      "threshold": "Wlo",
+      "order": "reverse",
+      "status": "COMPLETE_BOUNDED_FALSE_ALL_7",
+      "ops": 107816,
+      "allocatedPeak": 50337,
+      "compileLiveNodes": 5557,
+      "gcCycles": 8,
+      "gcCopiedNodes": 14027,
+      "gcPeakSimultaneousNodes": 55894
+    },
+    {
+      "k": 8,
+      "threshold": "Whi",
+      "order": "reverse",
+      "status": "COMPLETE_BOUNDED_TRUE_ALL_7",
+      "ops": 80838,
+      "allocatedPeak": 50337,
+      "compileLiveNodes": 3777,
+      "gcCycles": 8,
+      "gcCopiedNodes": 6447,
+      "gcPeakSimultaneousNodes": 54114
+    },
+    {
+      "k": 9,
+      "threshold": "Wlo/Whi",
+      "order": "chronological",
+      "status": "ALLOCATOR_CAP_BEFORE_QUANTIFICATION",
+      "opsAtStop": 77131,
+      "allocatedPeak": 60000
+    },
+    {
+      "k": 9,
+      "threshold": "Wlo/Whi",
+      "order": "reverse",
+      "status": "ALLOCATOR_CAP_BEFORE_QUANTIFICATION",
+      "opsAtStop": 95869,
+      "allocatedPeak": 60000
+    }
+  ],
+  "proof": "Copying each reachable normalized Shannon node (var,low,high) preserves its Boolean function by induction over the source DAG; complemented edge sign and unique table rebuilt, one root retained between projection blocks. Old+new peak is explicitly charged as simultaneous node storage, so GC is not treated as free.",
+  "historicalComparison": "Local AND/NOT k8 lower exhausted 60000 nodes at 292251 Boolean work. New canonical ROBDD has complete bounded k8 Wlo/Whi but still [-1,+1] unrestricted value and unknown optimal move set.",
+  "qualifications": [
+    "Standalone source-identity/source-QBF mathematical controls, k7 matches previous 2,799,124-transition physical validation; k8 has no NEW independent physical test yet",
+    "No Node26/external QBF solver qualification",
+    "Symbolic quantification still expands adaptive logic; no full-game WDL or branchless general theorem"
+  ],
+  "noAuthorityPromotion": true,
+  "noMerge": true
+}
