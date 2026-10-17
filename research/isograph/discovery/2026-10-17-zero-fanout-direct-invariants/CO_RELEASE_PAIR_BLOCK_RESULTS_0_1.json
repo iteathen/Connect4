@@ -1,0 +1,79 @@
+{
+  "schema": "connect4.co_release_staggered_source_paired_defense_v0_1",
+  "date": "2026-10-17",
+  "owner": "research/semantic-quotient",
+  "status": "PROVED_CO_RELEASE_STATIC_BLOCK_MATCHING_FULL_FUTURE_NO_WIN_WITH_TWO_INDEPENDENT_EXHAUSTIVE_SMALL_BOARDS",
+  "design": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/CO_RELEASE_PAIR_BLOCK_NORMAL_FORM_0_1.md",
+  "parentPlan": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/GUARDED_CO_RELEASE_STATIC_PAIRING_PLAN_0_1.md",
+  "sourceProof": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/co-release-pair-block-proof.mjs",
+  "independentReleaseTimingFalsifier": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/co-release-pair-independent-release-control.mjs",
+  "sourcePerFirstActionConsumer": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/co-release-after-first-move-nonloss-bounds.mjs",
+  "exactMathematicalLaw": "With original q future cells ordered by per-column gravity event chains, a two-column safe paired-response block may match corresponding relative future ordinal j in c and d even when their ORIGINAL heights differ. The two columns cross-pair the first t event ordinals with 1<=t<=min(capacities), both remaining tails EVEN, followed by consecutive vertical pairing of tails. Cross pair (c,hc+j),(d,hd+j) co-releases by induction from previous paired ordinal: after attacker first touches one member, defender mate is immediately playable. Vertical pairs are consecutive and gravity-safe. If disjoint blocks partition ALL source future cells and every ATTACKER normalized residual winning requirement contains a complete paired block, attacker cannot first-win under ANY remaining alternate play; defender responds second to every first-touch. This is a full-future WDL nonwin bound derived from source only.",
+  "genericIndependentResponseTimingControls": {
+    "distinctSmallAbstractColumnHeightProfiles": 43,
+    "testedTwoCellSourceRequirementMasks": 418,
+    "generatedPairingCertificates": 134,
+    "independentlyVerifiedPairedSourceCellEventEndpoints": 740,
+    "attackerCompletePairedMoveOrdersExploredByValidatorOnly": 2185,
+    "defenderMatePlayableTests": 2051,
+    "wronglyAccessibleMateWitnesses": 0,
+    "deliberatelyShiftedCrossPairWithDifferentRelativeOrdinalsRejected": true,
+    "sourceProofEnumeratesStrategicGameHistories": false
+  },
+  "exhaustiveAllLegalExactQReference": [
+    {
+      "board": "4x3 Connect3",
+      "distinctLegalSourceQ": 3734,
+      "newStaticPairedDefenseAttackerRootCertificates": 78,
+      "precedingEqualHeightOrVerticalPairCertificates": 53,
+      "rootPairCertificatesNotPreviouslyProved": 25,
+      "perFirstActionPairedOpponentDefenseCertificates": 148,
+      "precedingPerActionDefenderPairCertificates": 128,
+      "newPerActionDefenseCertificates": 20,
+      "independentlyCheckedPerActionWDL": 10232,
+      "falseUnrestrictedRootOrPerActionWDLBounds": 0
+    },
+    {
+      "board": "4x4 Connect4",
+      "distinctLegalSourceQ": 34094,
+      "newStaticPairedDefenseAttackerRootCertificates": 4496,
+      "precedingEqualHeightOrVerticalPairCertificates": 2445,
+      "rootCertificatesNotPreviouslyProved": 2051,
+      "perFirstActionPairedOpponentDefenseCertificates": 13662,
+      "precedingPerActionDefenderPairCertificates": 8784,
+      "newPerActionDefenseCertificates": 4878,
+      "independentlyCheckedPerActionWDL": 100764,
+      "exactSourcePerFirstActionDrawCertificates": 888,
+      "formerlyExactDrawCertificates": 756,
+      "falseUnrestrictedRootOrPerActionWDLBounds": 0
+    }
+  ],
+  "accurateSubsetCaveat": "Some new source root ATTACKER defense classifications include vacuous R_attacker empty cases already qualified by global winline extinction. The difference in count is NOT entirely a new nonvacuous diagonal pairing theorem. New per-action cases explicitly require R_opponent after blocker nonempty, and are genuine new pairing witnesses.",
+  "canonicalStandard7x6": {
+    "source": "44444",
+    "P1FirstMoveOneBased": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "postFirstRemainingCells": 36,
+    "sourcePairedDefenseOutcomesForAllSeven": "NO_CERTIFICATE_IN_THIS_SOURCE_BLOCK_FAMILY",
+    "sourceFullGameActionIntervalsForAllSeven": "[-1,+1]",
+    "sourceCofactorAndStaticBlockWitnessOperationTotal": 71306,
+    "fullGameWDL": "UNKNOWN",
+    "completeOptimalMoveSet": "UNKNOWN"
+  },
+  "candidateGameSemanticFanout": 0,
+  "experimentalLimits": {
+    "nodes": 60000,
+    "perSourceBooleanOps": 300000,
+    "supports": 10000,
+    "maxMs": 15000
+  },
+  "noAuthorityPromotion": true,
+  "noMerge": true
+}
