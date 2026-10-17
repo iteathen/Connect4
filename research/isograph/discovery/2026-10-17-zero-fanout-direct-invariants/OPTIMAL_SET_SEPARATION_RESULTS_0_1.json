@@ -1,0 +1,140 @@
+{
+  "schema": "connect4.zero_fanout_optimal_label_separation.v0_1",
+  "date": "2026-10-17",
+  "owner": "research/semantic-quotient",
+  "status": "EXACT_COMPLETE_OPTIMAL_SET_WITH_UNRESOLVED_INFERIOR_NUMERIC_WDL_TWO_EXHAUSTIVE_BOARDS_PASS",
+  "frozenPlan": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/OPTIMAL_SET_SEPARATION_WITHOUT_INFERIOR_VALUES_PLAN_0_1.md",
+  "pureSourceOperator": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/source-optimal-set-separation.mjs",
+  "singleLaneOperator": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/separated-optimal-set-one-lane.mjs",
+  "genericControl": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/source-optimal-set-separation-generic-control.mjs",
+  "canonicalPrefixScopeControl": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/canonical-zero-fanout-scope-control.mjs",
+  "committedGitBlobIdentities": {
+    "sourceOptimumSeparator": "8277a99a7431f221891a46354c57a7ce28610488",
+    "singleLaneConsumer": "57849476e591674c35942e3c2ff1bad128fba308",
+    "genericControl": "33a9f67338b6d39ed04f8f5c9aa042f403f42bce",
+    "canonicalControl": "8a08c148470713752da207dff66ecd01310111d1"
+  },
+  "theorem": "If exact value root interval closes at V, then P0 to move action c is proven optimum iff lo_c=V, strictly inferior iff hi_c<V. P1 to move action c is proven optimum iff hi_c=V, strictly inferior iff lo_c>V. Every literal label must be certified one or the other; otherwise return INCOMPLETE. Inferior exact numeric WDL may remain a non-singleton interval. WDL bounds originate only from source q direct first-win/threat/neutral/forced predicates plus proven full-future weak orders, and at most one selected future-equivalent class representative is evaluated.",
+  "zeroStrategicFanout": true,
+  "genericFalsifier": {
+    "directedWeakOrderGraphs": 4096,
+    "threePointWDLVectors": 331776,
+    "consistentWDLVectors": 33792,
+    "knownActionWDLAnchorSubsets": 540672,
+    "playerSpecificOptimalSetCertifierChecks": 1081344,
+    "exactRootPlusFullOptimalActionSetCertificates": 435728,
+    "certifiedWithOpenNumericWDLForInferiorMove": 20352,
+    "falseRootWDL": 0,
+    "falseOptimalTieSet": 0,
+    "isolateElapsedMs": 9341
+  },
+  "exactIndependentTwoBoardConformance": [
+    {
+      "board": "4x3 Connect3",
+      "qualifiedQStates": 3734,
+      "previousZeroFanoutAllActionValuesExact": 2910,
+      "newExactRootWDLAndCompleteOptimalSets": 2914,
+      "additionalDirectOptimalSets": 4,
+      "completedBestSetComparisons": 2914,
+      "returnedBestSetMismatches": 0,
+      "maximumStrategicFanout": 1,
+      "exactBestWithInferiorIntervalUnresolved": 4,
+      "example": {
+        "sourceHeights": [
+          2,
+          1,
+          2,
+          3
+        ],
+        "P0ToMove": true,
+        "fullRootWDL": 1,
+        "fullBestOneBased": [
+          2
+        ],
+        "certifiedIntervalsOneBased": [
+          [
+            1,
+            -1,
+            0
+          ],
+          [
+            2,
+            1,
+            1
+          ],
+          [
+            3,
+            0,
+            0
+          ]
+        ]
+      }
+    },
+    {
+      "board": "4x4 Connect4",
+      "qualifiedQStates": 34094,
+      "previousZeroFanoutAllActionValuesExact": 6581,
+      "newExactRootWDLAndCompleteOptimalSets": 6725,
+      "additionalDirectOptimalSets": 144,
+      "completedBestSetComparisons": 6725,
+      "returnedBestSetMismatches": 0,
+      "maximumStrategicFanout": 1,
+      "exactBestWithInferiorIntervalUnresolved": 142,
+      "example": {
+        "sourceHeights": [
+          4,
+          1,
+          3,
+          3
+        ],
+        "P1ToMove": true,
+        "fullRootWDL": -1,
+        "fullBestOneBased": [
+          2
+        ],
+        "certifiedIntervalsOneBased": [
+          [
+            2,
+            -1,
+            -1
+          ],
+          [
+            3,
+            0,
+            1
+          ],
+          [
+            4,
+            0,
+            0
+          ]
+        ]
+      }
+    }
+  ],
+  "strictCanonicalScopeControls": {
+    "status": "PASS",
+    "legal4x3prefix223": {
+      "P1ToMove": true,
+      "exactP0Win": 1,
+      "allFourP1RepliesEqualWDL": true,
+      "childStatesConstructedByCandidate": 0,
+      "independentlyVerified": true
+    },
+    "legal4x3prefix111": "INCOMPLETE",
+    "legal4x4prefix1111222": "INCOMPLETE",
+    "standard7x6prefix44444": "UNKNOWN after 5 historical moves",
+    "standard7x6prefix444444": "UNKNOWN after 6 historical moves",
+    "standard7x6prefix4444442": "UNKNOWN after 7 historical moves"
+  },
+  "execution": "Isolated V8 evaluating exact live GitHub committed source, independent qualified full q recursive reference only post-derivation. No Node26 CI or external formal proof assistant.",
+  "generalZeroBranchingConnectFourSolved": false,
+  "protectedLimits": {
+    "nodes": 60000,
+    "sourceBitsetOps": 300000,
+    "supportReps": 10000,
+    "maxMs": 15000
+  },
+  "noAuthorityPromotion": true,
+  "noMerge": true
+}
