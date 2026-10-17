@@ -326,6 +326,15 @@ export function createSupportDAGLiveCircuit({width:W,height:H,connect:K},{
       mover===0?OR(action.map(x=>x.N)):AND(action.map(x=>x.N)),
     action});
    stats.supportsBuilt++;
+   // A full-board support has no nonterminal predecessor use: the
+   // preceding action terminates immediately by draw/win. The full
+   // constant W=false,N=true is a mathematical boundary, not a live
+   // compiled child dependency, and may be reclaimed at once.
+   if(parent.rank===cells&&parent.sk!==rootKey&&
+      predecessors.get(parent.sk)===0){
+    compiled.delete(parent.sk);
+    stats.supportTemporaryReleases++;
+   }
    // Consume all already-built children and release those never needed again.
    for(const col of parent.legal){
     if(parent.rank+1===cells)continue;
