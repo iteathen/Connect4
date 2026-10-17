@@ -1,0 +1,75 @@
+{
+  "schema": "connect4.action_robd_inplace_sweep_results.v0_1",
+  "date": "2026-10-16",
+  "owner": "research/semantic-quotient",
+  "status": "EXACT_K8_BOUNDED_K9_SOURCE_COMPILE_NODE_LIMIT",
+  "plan": "research/isograph/discovery/2026-10-16-algorithmic-core/ACTION_ROBDD_INPLACE_SWEEP_PLAN_0_1.md",
+  "source": "research/isograph/discovery/2026-10-16-algorithmic-core/action-robd-inplace-mark-sweep.mjs",
+  "exactLaw": "Mark from all live source gate handles (or projected root), free unused BDD slots and rebuild unique table without changing surviving handles. Semantics and every future source gate definition preserved by reachability and stable ID induction; caches cleared on reused IDs.",
+  "nontrivialBooleanCap": 300000,
+  "retainedBDDSlotCap": 60000,
+  "deadlineMs": 15000,
+  "sourceCase": "canonical legal 44444, output threshold Wlo; no state search in producer",
+  "controls": [
+    {
+      "k": 7,
+      "order": "chronological",
+      "status": "PASS",
+      "ops": 25788,
+      "peakSlots": 15487
+    },
+    {
+      "k": 7,
+      "order": "reverse",
+      "status": "PASS",
+      "ops": 21164,
+      "peakSlots": 12487
+    },
+    {
+      "k": 8,
+      "order": "chronological",
+      "status": "PASS",
+      "ops": 86331,
+      "peakSlots": 19451,
+      "compilerGC": 10,
+      "allSevenLowerValues": false
+    },
+    {
+      "k": 8,
+      "order": "reverse",
+      "status": "PASS",
+      "ops": 108532,
+      "peakSlots": 35109,
+      "compilerGC": 1,
+      "allSevenLowerValues": false
+    },
+    {
+      "k": 9,
+      "order": "chronological",
+      "status": "ALLOCATOR_NODE_LIMIT",
+      "opsAtStop": 135054,
+      "peakSlots": 60000,
+      "compilerGC": 28
+    },
+    {
+      "k": 9,
+      "order": "reverse",
+      "status": "ALLOCATOR_NODE_LIMIT",
+      "opsAtStop": 117624,
+      "peakSlots": 60000,
+      "compilerGC": 3
+    },
+    {
+      "k": 9,
+      "order": "bitplane",
+      "status": "ALLOCATOR_NODE_LIMIT",
+      "opsAtStop": 116995,
+      "peakSlots": 60000,
+      "compilerGC": 8
+    }
+  ],
+  "negativeInterpretation": "A one-space GC removes the duplicate-copy memory issue but does not remove k9 source compiler overproduction. The source QBF CNF contains deterministic definitions for four threshold outputs; compiling their entire shared gate DAG for one selected threshold may be the next avoidable semantic support overapproximation. No essential ROBDD width lower bound proven.",
+  "smallBoardPhysicalQualification": "Original BDD algorithm with same semantics has 24/24 full optimal masks and 672 independent threshold controls; additional mark-sweep variant tested only against earlier k7/k8 masks until fresh independent controls.",
+  "unknown": "44444 unrestricted WDL / all best moves UNKNOWN",
+  "authorityPromoted": false
+}
