@@ -439,3 +439,37 @@ and `SHORT_HORIZON_VS_FULL_WDL_GAP_RESULTS_0_1.json`.
 
 No authority revision, production solver merge, general minimality claim
 or arbitrarily deep nonbranching algorithm has been established.
+
+
+## 2026-10-16 — interval BDD witness for open adaptive cover problem
+
+The exact source-q owner-mask transition and turn7/8 full-column
+mechanism remain closed; they are no longer the missing primitive.
+A source-q anchored four-threshold WDL interval Bellman BDD can
+exactly derive all literal actions when its lower/upper bounds
+converge, without searching colored game-state continuations.
+The resulting AND/OR quantifier **fanout remains encoded** in its
+support DAG, so a single returned BDD is not sufficient to prove
+the preferred general nonbranching algorithm.
+
+Canonical standard7x6 `44444` is still UNKNOWN [-1,+1]
+after **eleven symbolically composed plies**. Exact source q reflection
+and source-residual-frequency owner-variable order compress that
+depth to 9,366 support representatives (18,620 ordinary), under
+the old 60k-node/300k-operation/10k-support/15s limits.
+Depth12 requires 13,524 support orbits and is not currently qualified.
+
+**Next structural obligation:** derive an additional exact
+*adaptive action-labelled response-cover* quotient that survives
+further alternating P0/P1 quantifiers without discarding literal
+action compatibility. It must be stronger than source horizontal
+reflection; false shortcuts include replacing `forall b exists a`
+by `exists a forall b`, as explicitly falsified on legal prefix
+`223`. No searched certificate may be used to produce the
+new algebra. Once frozen, current source-q interval BDD and
+independent physical/q solvers are validation oracles only.
+
+Full record:
+`docs/research/2026-10-16-source-anchored-interval-and-reflection.md`.
+This does **not** claim full W/D/L after `44444`, WDL equivalence of
+all move7 actions, minimax elimination or polynomial scaling.
