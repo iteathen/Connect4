@@ -462,3 +462,39 @@ Input values and winning policies from recursive reference
 are POST-derivation falsifiers only; preserve complete
 tie-set reconstruction. Mathematical proof:
 `docs/research/2026-10-17-full-future-two-ply-cofactor-simulation.md`.
+
+## 2026-10-17 — source residual strategic branch elimination outranks symbolic compile depth
+
+A new full-future source-only cross-support column
+transporter has now compared ORIGINAL P1 FIRST-ACTION
+values directly: source cofactor/upset inclusion plus
+height-preserving permutation of all FUTURE move labels
+proves exact unrestricted WDL weak order and, under
+mutual inclusion on one permutation, full future-game
+isomorphism. This can occur for nongeometric column
+permutations once previous blockers delete geometric
+winning lines. The source generator proof NEVER reads
+game-value labels or evaluates downstream game states.
+
+Fully independently verified on every legal small-board
+P1 source-q: 86/2280 novel nonreflection whole-game
+isomorphism pairs and 320/3760 one-way weak WDL orders
+(4x3/4x4); no false WDL or transported-action result.
+The exact MIN-over-P1-successors directed SCC/source
+quotient then reduces scalar first-action value queries
+by 370/4872 and 5554/50034, beyond ordinary geometric
+reflection, without losing possible tied-optimal labels.
+It does NOT yet decide which of the dominated actions
+tie; all original move labels remain available.
+
+Standard `44444` only proves the existing horizontal
+reflection equivalences among the 7 root P1 moves.
+DO NOT divert the next research to action-QBF/BDD gate
+memory, tree search or larger arbitrary horizons.
+**Next mathematical theorem:** a nonbijective or dynamic
+guarded alternating response transport for mismatched
+column supports, paired with a source-derived strict
+value/tie certificate for the COMPLETE optimal action set.
+The original recursive q core is still complete,
+and unrestricted `44444` value is UNKNOWN.
+Primary proof: `docs/research/2026-10-17-cross-support-root-branch-elimination.md`.
