@@ -83,6 +83,19 @@ export function createFullFutureUnknownClass(geometry){
     stats.reflectionSourceBitsetChecks);
   const t=transport.compute(q,{maxOperations:remainingMax,maxMs:Math.max(1,maxMs-(Date.now()-start))});
   stats.staticSourceBooleanOperations=t.statistics.operations;
+  const weakWDLOrderEdges=[];
+  for(const record of t.pairs){
+   if(record.actions&&record.firstNoHigher)
+     weakWDLOrderEdges.push({lowerP0ValueAction:record.actions[0],
+       upperP0ValueAction:record.actions[1],
+       sourceProofKind:'FULL_FUTURE_P0_FAVORABLE_UPSET_TRANSPORT',
+       transporter:record.firstToSecondPermutation});
+   if(record.actions&&record.secondNoHigher)
+     weakWDLOrderEdges.push({lowerP0ValueAction:record.actions[1],
+       upperP0ValueAction:record.actions[0],
+       sourceProofKind:'FULL_FUTURE_P0_FAVORABLE_UPSET_TRANSPORT',
+       transporter:record.secondToFirstPermutation});
+  }
   for(const record of t.pairs){
    stats.rawTransportPairs++;
    if(!record.exactFutureActionMap)continue;
@@ -100,9 +113,15 @@ export function createFullFutureUnknownClass(geometry){
   }
   const classes=[...map.values()].map(group=>group.sort((x,y)=>x-y))
     .sort((x,y)=>x[0]-y[0]);
+  for(const group of classes)for(const a of group)for(const b of group){
+    if(a===b)continue;
+    weakWDLOrderEdges.push({lowerP0ValueAction:a,upperP0ValueAction:b,
+      sourceProofKind:'EXACT_FULL_FUTURE_PROGRAM_EQUIVALENCE_CLASS'});
+  }
   stats.exactBehaviorGroups=classes.length;stats.elapsedMs=Date.now()-start;
   return {status:t.status==='COMPLETE'?'EXACT_CERTIFIED_GROUPS':'PARTIAL_BUT_EVERY_REPORTED_GROUP_PROVED',
    legalActionLabels:legal,classes,sourceCertificates:proofs,
+   weakFullFutureWDLOrderEdges:weakWDLOrderEdges,
    originalSourceQRank:q.h.reduce((a,b)=>a+b,0),
    statistics:stats,allUnknownClassComparisonsComplete:t.status==='COMPLETE',
    scope:'Only exact full-future program equivalence via source reflection/fixed transport or dynamic neutral-token bisimulation. UNKNOWN between distinct output groups: never infer inequality or equality from missing map.'};
