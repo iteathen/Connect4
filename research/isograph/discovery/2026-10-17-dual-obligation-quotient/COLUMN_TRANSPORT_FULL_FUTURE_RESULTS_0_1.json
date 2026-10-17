@@ -1,0 +1,164 @@
+{
+  "schema": "connect4.source-column-transport-full-future-results.v0_1",
+  "date": "2026-10-17",
+  "owner": "research/semantic-quotient",
+  "status": "EXACT_NON_GEOMETRIC_FULL_FUTURE_P1_ACTION_SIMULATION_TWO_FULL_SMALL_BOARD_CENSUSES_PASS",
+  "frozenPlans": [
+    "research/isograph/discovery/2026-10-17-dual-obligation-quotient/CROSS_SUPPORT_COLUMN_TRANSPORT_PLAN_0_1.md",
+    "research/isograph/discovery/2026-10-17-dual-obligation-quotient/COLUMN_TRANSPORT_PARTIAL_GENERATOR_PLAN_0_1.md"
+  ],
+  "prototype": "research/isograph/discovery/2026-10-17-dual-obligation-quotient/column-transport-partial-generators.mjs",
+  "validator": "research/isograph/discovery/2026-10-17-dual-obligation-quotient/column-transport-physical-control.mjs",
+  "firstNegative": "research/isograph/discovery/2026-10-17-dual-obligation-quotient/COLUMN_TRANSPORT_INITIAL_RESULTS_0_1.json",
+  "exactMathematicalLaw": "For legal same-rank/same-mover nonterminal q_A, q_B and bijection π of columns satisfying h_A[c]=h_B[π(c)], map all future cells (c,row>=hA[c]) to (π(c),row). If mapped P0 completion upset of qA is included in P0 upset qB, while P1 upset qB is included in mapped P1 upset qA, then unrestricted P0-relative WDL V(qA)<=V(qB) for all remaining moves. Finite-rank induction preserves every future legal move through π and first-win terminal/draw guards. Mutual inclusion under SAME π proves exact future program isomorphism, including all subsequent optimal action-label transports.",
+  "partialGeneratorPruning": "Partial column mapping assigns source/target height-compatible columns; a source residual generator whose every column has been assigned maps to a fixed future-cell set. If no target generator is contained, that directional upset inclusion can never be satisfied by any extension. Equivalent inverse-mapped target residual constraints and both WDL ordering directions are tracked separately. Pruning occurs only if BOTH directions are impossible; complete permutations remain sufficient exact certificates.",
+  "sourceOnlyConstruction": "Original source h,R0,R1, exact one-player P1 source cofactor, minimal generator normalization, capacity bijection constraints, fixed column permutations and subset tests. No concrete future-game states or searched policy/value inputs.",
+  "originalLimits": {
+    "maxNodes": 60000,
+    "maxNontrivialBitsetOperationsPerSource": 300000,
+    "maxSupportReps": 10000,
+    "maxMsPerSourceCompile": 15000
+  },
+  "initialCanonicalSlowTrial": {
+    "source": "44444",
+    "status": "PARTIAL_300000_OPERATIONS",
+    "firstMirrorPair": [
+      1,
+      7
+    ],
+    "numberOriginalReplyPairsAssessedBeforeStop": 7
+  },
+  "canonicalAfterPartialPruning": {
+    "source": "44444",
+    "rank": 5,
+    "status": "COMPLETE_ALL_21_ROOT_ACTION_PAIRS",
+    "originalFirstP1RepliesOneBased": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "capacityCompatiblePairs": 15,
+    "capacityIncompatiblePairs": 6,
+    "exactFutureProgramIsomorphismPairsOneBased": [
+      [
+        1,
+        7
+      ],
+      [
+        2,
+        6
+      ],
+      [
+        3,
+        5
+      ]
+    ],
+    "allCertifiedPermutationsInThisSource": "whole-board horizontal reflection only",
+    "nonreflectionFullFutureValueEquivalencesFound": 0,
+    "oneWayDominanceBeyondReflection": 0,
+    "firstActionWDLStillUnknown": true,
+    "sourceCountedWork": 291518,
+    "completePermutationsTestedAfterPartialPruning": 3,
+    "partialMappingsAttempted": 596,
+    "partialMappingsPrunedWhenBothDirectionsImpossible": 415,
+    "sourceGeneratorContainmentChecks": 107244,
+    "preprocessSourceCellScans": 91800,
+    "sourceSuccessorQObjects": 0,
+    "futureGameContinuationStatesSearched": 0
+  },
+  "independentFullPhysicalSmallBoardCensuses": [
+    {
+      "board": "4x3 Connect3",
+      "status": "PASS",
+      "physicalNonterminalStates": 4631,
+      "uniqueP1SourceResidualStates": 1786,
+      "distinctSourceQFirstActionPairs": 4794,
+      "nonreflectionExactFullFutureProgramIsomorphismPairs": 86,
+      "nonreflectionOneWayFullWDLOrderPairs": 320,
+      "incorrectFullWDLValueOrderCertificates": 0,
+      "incorrectExactFutureActionMapCertificates": 0,
+      "validatedFutureActionLabelValuesUnderPermutation": 214,
+      "independentFullQValidatorTransitions": 3198,
+      "sourceTotalCountedBitsetWork": 269839,
+      "sourceExample": {
+        "history": "111223443",
+        "P1RepliesOneBased": [
+          2,
+          3
+        ],
+        "futureMapOneBased": [
+          1,
+          3,
+          2,
+          4
+        ],
+        "independentWDLReference": 1,
+        "exactRootP1ActionValueEqualityProvedBySource": true
+      },
+      "separateOneWayStrictNumericWitness": {
+        "history": "111232344",
+        "P1RepliesOneBased": [
+          3,
+          4
+        ],
+        "proof": "source only weak order of first action 3 <= 4 for P0 WDL",
+        "strictFullWDLValuesDiscoveredInValidatorOnly": [
+          0,
+          1
+        ]
+      }
+    },
+    {
+      "board": "4x4 Connect4",
+      "status": "PASS",
+      "physicalNonterminalStates": 134289,
+      "uniqueP1SourceResidualStates": 16950,
+      "distinctSourceQFirstActionPairs": 53130,
+      "nonreflectionExactFullFutureProgramIsomorphismPairs": 2280,
+      "nonreflectionOneWayFullWDLOrderPairs": 3760,
+      "incorrectFullWDLValueOrderCertificates": 0,
+      "incorrectExactFutureActionMapCertificates": 0,
+      "validatedFutureActionLabelValuesUnderPermutation": 6560,
+      "independentFullQValidatorTransitions": 60388,
+      "sourceTotalCountedBitsetWork": 1937506,
+      "sourceExample": {
+        "history": "1111222",
+        "P1RepliesOneBased": [
+          3,
+          4
+        ],
+        "futureMapOneBased": [
+          1,
+          2,
+          4,
+          3
+        ],
+        "independentWDLReference": 0,
+        "exactRootP1ActionValueEqualityProvedBySource": true,
+        "note": "This maps columns 3 and 4, not the global 1<->4 and 2<->3 geometric horizontal reflection."
+      },
+      "separateOneWayStrictNumericWitness": {
+        "history": "1111222343434",
+        "P1RepliesOneBased": [
+          2,
+          4
+        ],
+        "proof": "source-only weak order P1 action 4 <= action 2 for P0-relative WDL",
+        "strictFullWDLValuesDiscoveredInValidatorOnly": [
+          1,
+          0
+        ]
+      }
+    }
+  ],
+  "rigorousScope": "A fixed column transporter matches ALL subsequent legal adaptive P0/P1 replies by one global bijection and guarantees full-game P0 WDL weak order; mutual inclusion under a single map yields exact full-future policy/action isomorphism. This is stronger than bounded reply-mask equivalence. It is a sufficient criterion, not a complete strategic classification.",
+  "tieDiscipline": "Weak dominance alone cannot drop a P1 reply from the full optimal move LABEL set because it may tie. The equal-isomorphism pairs may be returned as linked tied-value groups; identifying which groups attain the root minimax still requires an exact value certificate.",
+  "currentRoot44444Value": "UNKNOWN [-1,+1]",
+  "noProductionSolverIntegration": true,
+  "noIsoGraphAuthorityPromotion": true,
+  "noMerge": true
+}
