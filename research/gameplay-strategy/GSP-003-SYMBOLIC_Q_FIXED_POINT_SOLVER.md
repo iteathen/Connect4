@@ -357,3 +357,38 @@ quantifier work, preserving output masks and budgets. Proof:
 `docs/research/2026-10-16-guard-qualified-quantifier-localization-and-action-vectors.md`.
 Negative:
 `docs/research/2026-10-16-common-witness-unateness-negative-width.md`.
+
+## 2026-10-16 — canonical action-ROBDD exact cofactor quotient (k8 both, k9 lower)
+
+A newly constructed shared Boolean-function carrier derives
+`G_z(a0)=Q1 a1 ... Qk ak F_z(a0,...)` from the ORIGINAL
+guard-complete source-q residual action formula, leaving every
+literal first-action label free. It compiles only deterministic
+AND/NOT gate ancestors of one threshold and uses a
+complemented-edge reduced ordered BDD (true fixed-order
+Boolean function/cofactor identity). Safe last-use and
+stable-handle BDD garbage collection preserve all source
+gate dependencies and avoid materializing concrete future
+game states.
+
+Physical small-board controls: 47 bounded cases/672 action
+checks/24 full WDL and complete tied-optimal sets all PASS.
+Independent `44444` future k8 physical evaluator: 3,567,031
+transitions, all seven literal bounds [-1,+1], no discrepancies.
+Both k8 threshold classes COMPLETE within original budgets
+(lower 75,392 BDD ops / 19,354 peak slots, upper 40,220 /
+15,988). K9 lower completes all seven FALSE in 121,999 BDD
+ops/39,142 slots, agreeing with the independent prior
+source-owner BDD. K9 upper remains INCOMPLETE at 60k slots
+during output-cone compilation on all eight fixed action-bit
+orders. The established source-owner reflected BDD k11
+remains the deeper bounded-value method.
+
+**Next mathematical stage:** a factor/structured-circuit
+quantifier-aware compile that discharges local adaptive
+obligations before the full output Boolean function is
+materialized, with exact first-win/capacity guards and
+action scope. The current result is canonical cofactor
+sharing, NOT global strategic branch elimination.
+Proof: `docs/research/2026-10-16-action-robd-output-cone-functional-quotient.md`.
+Evidence: `ACTION_ROBDD_OUTPUT_CONE_RESULTS_0_1.json`.
