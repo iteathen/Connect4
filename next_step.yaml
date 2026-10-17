@@ -240,6 +240,63 @@ current_algorithmic_core:
       not hide histories/strategies in certificate graph. Compare with
       full previously qualified one-lane source family, not just CPC
       baseline. Preserve historical negatives and original 44444 unknown.
+  standard_7x6_binary_phase_and_zero_locus_20261017:
+    owner_hypothesis: "Board geometry plus alternating placement order gives exact WDL; XOR factor clock to expose a binary strategic kernel"
+    status: EXACT_BINARY_IDENTITIES_AND_STANDARD_BOARD_FALSIFICATION_PASS_ZERO_BRANCH_TOTAL_OPEN
+    synthesis: docs/research/2026-10-17-7x6-xor-binary-core-synthesis-and-open-zero-locus.md
+    binary_turn_phase_theorem: docs/research/2026-10-17-standard7x6-binary-turn-phase-xor-kernel-candidate.md
+    source_q_exact_payoff_theorem: docs/research/2026-10-17-standard7x6-binary-source-residual-payoff-factorization.md
+    nested_zero_locus_optimal_set_theorem: docs/research/2026-10-17-binary-zero-loci-complete-optimal-moves.md
+    preserved_symbolic_geometry: ["W","H","K"]
+    actual_primary_test_geometry: "W=7 H=6 K=4; 69 original line hyperedges; 42 turn events"
+    source_owner_formula: "owner(c,r)=plyParity XOR ((r-h_c) mod2) XOR parity(other-column earlier events)"
+    original_residual_first_win_formula: "first rank=min over p and satisfied G in R_p of max eventRank(e) for e in G; requires all event owners p; no satisfied generator means DRAW"
+    original_source_q_fixed_schedule_payoff:
+      frozen_executable: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-source-q-binary-payoff-control.mjs
+      evidence: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/STANDARD7X6_SOURCE_Q_XOR_PAYOFF_RESULTS_0_1.json
+      exact_source_blob: 874ffe3cceaee69d958606e5ae930acb5afe685b
+      genuine_7x6_hypothetical_full_schedule_controls: 22003
+      source_event_phase_checks: 705717
+      source_residual_event_checks: 3313200
+      wrong_first_winner_or_terminal_time: 0
+      validation_only_no_perfect_play_claim: true
+    first_win_timing_is_essential:
+      independent_physical_witness: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/STANDARD7X6_BINARY_SAME_COLOR_DIFFERENT_WINNER_INDEPENDENT_RESULTS_0_1.json
+      same_final_cell_owner_labels: true
+      different_first_winners: "P1 turn30 vs P0 turn29, actual standard 7x6"
+      post_terminal_moves: "hypothetical only, to demonstrate insufficient end-color quotient"
+    NAND_phase_transform:
+      threshold_bits: "f+=[V=+1], f0=[V>=0]"
+      g: "g_t=f_t XOR (ply mod2)"
+      nonterminal_unified_gate: "g_t(q)=1 XOR PRODUCT_{a legal} g_t(next(q,a))"
+      winning_terminal_bits: [0,0]
+      standard_even_board_draw_terminal_bits: [0,1]
+      exact_draw_bit: "g0 XOR g+"
+      still_unresolved_child_product: true
+    full_optimal_zero_loci:
+      definition: "Z_t(q)={literal column a: g_t(next(q,a))=0}"
+      P0_turn: "Z+ subset Z0; best=Z+ if nonempty else Z0 if nonempty else ALL"
+      P1_turn: "Z0 subset Z+; best=Z0 if nonempty else Z+ if nonempty else ALL"
+      literal_best_set_exact_if_full_loci_known: true
+      direct_source_loci_from_geometry_discovered: false
+      independent_actual7x6_dual_NAND_and_best_set_control: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/STANDARD7X6_BINARY_DUAL_NAND_MULTI_CHOICE_RESULTS_0_1.json
+      independent_actual7x6_locus_control: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/STANDARD7X6_BINARY_ZERO_LOCI_COMPLETE_BEST_REFERENCE_RESULTS_0_1.json
+      original_legal_multi_action_7x6_roots: 600
+      independent_full_WDL_literal_action_values: 2126
+      roots_with_two_or_more_tied_optimal_moves: 326
+      wrong_WDL_or_all_best_sets: 0
+      control_uses_recursive_game_values: "YES, independent reference ONLY; strictly forbidden as zero-branch source producer"
+    next_math: >-
+      Seek SOURCE-ONLY GF2 parity/winline/response and first-completion rank
+      normal form simultaneously certifying BOTH complete action ZERO loci
+      for all seven literal columns, including strict inferior labels
+      and all tied labels, with zero independently valued inequivalent
+      future states. Begin at actual 7x6 44444 with four reflection
+      classes; preserve all previous negative controls and safeguards.
+    canonical_44444_unrestricted_WDL: UNKNOWN
+    canonical_44444_complete_Mstar: UNKNOWN
+    all_standard_7x6_zero_strategic_fanout_algorithm: NOT_DISCOVERED
+    qualification: "standalone exact committed-source V8 and local Node22, not maintained Node26/CI nor external formal proof assistant"
   owner_zero_branch_objective_20261017:
     research_contract: docs/research/2026-10-17-zero-strategic-branching-objective.md
     zero_strategic_fanout_status: OPEN_NOT_DISCOVERED
