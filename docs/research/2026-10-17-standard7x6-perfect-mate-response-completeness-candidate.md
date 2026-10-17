@@ -49,3 +49,24 @@ On the ACTUAL 7×6 canonical legal history 44444 with P1 at move6, for each of a
 Known previous co-release restricted-family negative was "no certificate" for any of the seven literal moves. The new mathematical value, if established, is to EXCLUDE the **ENTIRE universal perfect fixed-mate strategy class**, not merely the previously treated example normal form. This is a class impossibility, NOT a game-theory loss or a 7×6 optimal-move decision.
 
 Target subsequent math: nonperfect, guarded, first-win-aware **adaptive response resources across overlapping original winning lines**, not more enumeration of fixed perfect mates. Preserve ZERO strategic fanout or return INCOMPLETE.
+
+## Subsequent frozen-source 7×6 controls (executed after this candidate was committed)
+
+**Full six-ply canonical reply controls:** An independently written geometry-source enumerator generated actual W=7,H=6,K=4 original residual P0 requirements after each legal history 44444c, c=1..7, and enumerated every matching in the block normal form over the exact remaining 36 gravity events. Exact committed source:
+
+    research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-perfect-fixed-mate-exhaustive.mjs
+
+All **1,852** full-board static matchings (166 for each noncenter P1 response; 856 for center) were checked. **Zero** cover every remaining P0 residual requirement. Best residual coverage counts by c=1..7 are [20/46,19/44,18/44,22/42,18/44,19/44,20/46], leaving respectively [26,25,26,20,26,25,26] uncovered in the best matching. Source includes no game continuation evaluations. Machine evidence:
+
+    research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/STANDARD7X6_PERFECT_FIXED_MATE_CANONICAL_RESULTS_0_1.json
+
+**Separate release-order falsifier:** To challenge the completeness argument without changing board geometry, a different executable enumerated **ALL** perfect 2-cell matchings and all attacker first-touch orders on **4,116 actual 7×6 gravity height profiles with 2,4,6,8 remaining events**, i.e. suffixes of the same standard board. It examined **324,688** perfect matchings and **1,240,093** attacker-order validation calls. Exactly **10,675** matchings were legal under every tested first-touch order; the derived fixed-mate normal form generated exactly the same 10,675, with **zero** counterexample in either direction. Sources:
+
+    research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-fixed-mate-release-order-falsifier.mjs
+    research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/STANDARD7X6_FIXED_MATE_RELEASE_ORDER_RESULTS_0_1.json
+
+**Research conclusion under narrowly explicit guards:** The analytic source normal-form necessity argument, together with this distinct negative canonical and positive suffix-order falsification, supports the scoped result that the universally playable *fixed perfect immediate-mate* strategy class is exactly the existing co-release column-block class and **offers no complete P0 no-win certificate after ANY of P1's seven 44444 replies**. It does not rule out adaptive/nonperfect strategies, defender counter-winning strategies, conditional certificates, or any WDL/complete M* result. Explicit original-line/first-win guards remain.
+
+**Qualification limit:** Standalone Node22 physical/static research controls (not maintained Node26 CI or externally formal proof-assistant qualified); no promotion of IsoGraph 1.2. Only validation/proof checking enumerates attacker order alternatives. The source certificate producer never values more than zero strategic future games. No full unrestricted standard Connect4 solution was found.
+
+**New mathematical research direction:** Stop revisiting perfect static mate pairings; investigate source-time-adaptive *cross-line blocker/resource obligation closure*, including shared simultaneous blockers, forced reply timing, defender counter-win precedence, and genuine universal quantification, without hidden enumeration of entire strategy variants or inequivalent game successors.
