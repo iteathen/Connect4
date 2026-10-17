@@ -194,6 +194,65 @@ hidden future-policy traversal.
 Theorem: `docs/research/2026-10-16-guard-qualified-quantifier-localization-and-action-vectors.md`;
 negative: `docs/research/2026-10-16-common-witness-unateness-negative-width.md`.
 
+## 2026-10-17 — mathematical branch-elimination refocus, not another BDD depth chase
+
+**Dominant continuing research goal:** source-q algebra that discharges
+ENTIRE future opponent-response obligations while retaining exact
+P0-relative W/D/L and **all tied-optimal literal action labels**.
+The exact recursive core remains constructively complete and the
+historic move7/move8 transition/short-horizon tactical masks are
+already verified. Do not treat higher BDD/QBF horizons, gate GC
+or a smaller symbolic expression as evidence of branch elimination.
+
+**Two fundamentally different structural quotients must remain separate:**
+
+- **Genuine full-game symmetry equivalence:** from symmetric
+  canonical `44444`, seven P1 move6 alternatives form
+  **four** horizontal-reflection action classes:
+  {1,7}, {2,6}, {3,5}, {4}. The value of each pair is
+  equal under exact game-rule automorphism, so only four
+  distinct classes need independent WDL certificates.
+  This alone does NOT classify their WDL values or prove
+  classes equal to one another.
+- **New exact but bounded universal-obligation quotient:** for
+  an ORIGINAL source-only P1-reply/P0-answer success matrix,
+  transpose the action response covers into reply signatures
+  `S_b` and retain only their inclusion-MINIMAL antichain,
+  storing ALL original labels. This preserves both fixed-layer
+  `forall b exists a` and `exists a forall b` predicates.
+  All 65,536×16 generic matrix scopes and COMPLETE legal P1
+  source sets 2,208 (4x3) / 67,992 (4x4) PASS.
+  Minimal universal proof obligations are 54.47%/52.94% fewer
+  overall and 39.60%/20.77% fewer on positive bounded-winning
+  source cases. Source response-mask construction is NOT
+  eliminated; no end-to-end solver speedup was proved.
+
+**Essential unsound shortcut falsifier:** legal 4x3 `111`
+P1 replies 2/3 have equal bounded P0-answer signature 0x0,
+yet full P0-relative WDL differs +1/0. Exhaustive 4x3/4x4
+P1 states contain 220/22,380 equal-short-signature reply
+pairs with unequal unrestricted WDL. On canonical `44444`
+all seven replies also have bounded empty signatures:
+this is ONE bounded predicate class, NOT one full-game
+value class. `223` remains the quantified-order test.
+
+**Selected proof gate:** construct a future-stable, FIRST-WIN/
+gravity/response/terminal-guarded source-cofactor simulation
+or a pointwise Boolean payoff implication for ALL future
+action contexts. Original ∀/∃ adaptive scopes must be
+preserved; each eliminated universal branch needs a
+structural certificate of at least weak dominance,
+and ALL WDL-tied move labels must survive unless strict
+value or full functional equality is proved. Compute
+and report **downstream strategic alternatives not
+constructed**, plus proof construction cost. A mere
+bounded signature reduction is not this achievement.
+Supportive symbolic BDD/structured circuit consumers
+should be used only after the new theorem is frozen.
+
+Research and falsifier:
+`docs/research/2026-10-17-branch-elimination-dual-obligation-and-future-separation.md`.
+
 ## Owner priority: eliminate strategic branching, preserve every tied-optimal action — 2026-10-16
 
 **The leading continuing research objective for GSP-003 and GSP-004 is
@@ -315,8 +374,8 @@ bound. No unrestricted `44444` value or deep branch-elimination proof.
 |---|---|---|---|---|---|---|
 | GSP-001 | [Quotient-native gameplay description](gameplay-strategy/GSP-001-QUOTIENT_NATIVE_GAMEPLAY_DESCRIPTION.md) | ROUGH_PROPOSAL | Makes q the explicit exact internal gameplay description | Connect4 domain/gameplay adapter | independent q-vs-physical transition replay; first-win controls | define the gameplay interface and exact record ownership |
 | GSP-002 | [Packed q transition compiler](gameplay-strategy/GSP-002-PACKED_Q_TRANSITION_COMPILER.md) | ROUGH_PROPOSAL | Turns q + column into a low-cost exact runtime kernel | state compiler / transition layer | exact equality; transition equivalence; economics | prototype transparent packed q before aggressive compression |
-| GSP-003 | [Symbolic q fixed-point solver](gameplay-strategy/GSP-003-SYMBOLIC_Q_FIXED_POINT_SOLVER.md) | ACTIVE_INVESTIGATION | Exact source-q bounded WIN/NLOSS interval BDD; now testing mathematically sound quantified factorization instead of growing support cones | dependency-localized structured Boolean factor circuit; exact distinct-cofactor width instrumentation | quantify interface width and action-label preservation after each QBF-style projection | Canonical source-output ROBDD computes 44444 k8 all bounded action vectors plus k9 lower; 24 exact small best sets PASS. Next guard-complete quantified factoring DURING compilation, k9 upper incomplete. |
-| GSP-004 | [Guarded obligation closure](gameplay-strategy/GSP-004-GUARDED_OBLIGATION_CLOSURE.md) | ACTIVE_INVESTIGATION | Exact action-labelled adaptive response obligation algebra, no search-derived policy generation | Boolean-rank rectangle factorization and sound dependency-localized quantifier composition over source residuals | preserve forall/exists order, first-win guards, action transport and sound factor supports; use fooling-set lower bounds | Exact source deterministic output-cone/Boolean cofactor quotient, all tied literal first actions preserved. k8 physical PASS, k9 upper width OPEN; seek adaptive factor composition not hidden expansion. |
+| GSP-003 | [Symbolic q fixed-point solver](gameplay-strategy/GSP-003-SYMBOLIC_Q_FIXED_POINT_SOLVER.md) | ACTIVE_INVESTIGATION | Exact source-q bounded WIN/NLOSS interval BDD; now testing mathematically sound quantified factorization instead of growing support cones | dependency-localized structured Boolean factor circuit; exact distinct-cofactor width instrumentation | quantify interface width and action-label preservation after each QBF-style projection | Deprioritize another BDD/QBF depth; derive guarded source future-function implication or exact cofactor simulation that shares/eliminates strategic branches while retaining every tied best label. |
+| GSP-004 | [Guarded obligation closure](gameplay-strategy/GSP-004-GUARDED_OBLIGATION_CLOSURE.md) | ACTIVE_INVESTIGATION | Exact action-labelled adaptive response obligation algebra, no search-derived policy generation | Boolean-rank rectangle factorization and sound dependency-localized quantifier composition over source residuals | preserve forall/exists order, first-win guards, action transport and sound factor supports; use fooling-set lower bounds | Dual inclusion-minimal universal reply antichain exact on 70200 real P1 sources, but bounded equality refuted as full WDL by legal 111. Prove FUTURE-stable reply dominance/strict tie certificate before eliminating deeper alternatives. |
 | GSP-005 | [Second-stage behavioral quotient after q](gameplay-strategy/GSP-005-BEHAVIORAL_QUOTIENT_AFTER_Q.md) | ROUGH_PROPOSAL | Tries to shrink q further while remaining executable | semantic-state minimization / automaton layer | exact behavior equivalence + maintainable update law | classify bounded q distinctions erased by MQ2 |
 | GSP-006 | [Profile-safe proof and cache keys](gameplay-strategy/GSP-006-PROFILE_SAFE_PROOF_AND_CACHE_KEYS.md) | ROUGH_PROPOSAL | Prevents q identity from over-authorizing proof/context reuse | TT/proof-store/cache contracts | negative controls with equal q but different proof context | define QKey/ProofKey/HintKey contracts |
 | GSP-007 | [Generic finite-gravity Connect-K q congruence](gameplay-strategy/GSP-007-GENERIC_CONNECT_K_Q_CONGRUENCE.md) | ROUGH_PROPOSAL | Tests whether q gameplay semantics generalize beyond 7x6 K=4 | generic Connect-K domain/profile | symbolic proof review + nonstandard-board controls | build qualification matrix and independent theorem review |
