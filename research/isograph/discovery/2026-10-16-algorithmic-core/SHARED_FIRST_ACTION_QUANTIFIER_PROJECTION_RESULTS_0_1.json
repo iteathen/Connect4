@@ -30,7 +30,8 @@
     "WinDrawLossValuesPresent": true,
     "mismatchCount": 0,
     "noForwardGameContinuationDiscoveryByCandidate": true,
-    "supportRepresentativesGenerated": 0
+    "supportRepresentativesGenerated": 0,
+    "additionalBudgetPartialThresholdQueries": 4
   },
   "inputSelection": "Deterministic lexicographic DFS of independently legal, nonterminal physical 4x3 c3 and 4x4 c4 positions, four distinct physical positions at each rank N-5, N-4, N-3, requiring at least two legal columns, selected before viewing value/optimal action; plus frozen 223,1212,44444,444444 bounded sources.",
   "fullSuffixCases": [
@@ -613,7 +614,24 @@
     ],
     "rootUnrestrictedValue": "UNKNOWN [-1,+1]",
     "WDLOptimalMoveSet": "UNKNOWN",
-    "nextWithinBitWidthBoundaryNotSolved": true
+    "nextWithinBitWidthBoundaryNotSolved": true,
+    "depth7Attempt": {
+      "status": "BUDGET_EXHAUSTED_PER_THRESHOLD",
+      "rootFourThresholdFunctionsIncomplete": true,
+      "allFourQueries": [
+        "Wlo",
+        "Nlo",
+        "Whi",
+        "Nhi"
+      ],
+      "allFourStageBitsCompleted": 12,
+      "totalInnerStageBits": 18,
+      "lowerBooleanOpsAtStop": 207236,
+      "upperBooleanOpsAtStop": 237668,
+      "peakNodes": 60000,
+      "source": "local Node22 standalone quantifier projection k7 using same committed candidate",
+      "scope": "First-action-free projection cannot overcome the pre-outer-block k7 cofactor width wall; no WDL or action equivalence claim"
+    }
   },
   "budgets": {
     "maxRetainedNodes": 60000,
