@@ -238,3 +238,22 @@ carrier and measure intermediate quantifier function width; validate
 on small boards before `44444` k12. Do not exceed 60k nodes, 300k
 Boolean work, 10k supports, or 15s per compile.
 Full proof: `docs/research/2026-10-16-guarded-action-qbf-full-depth-width.md`.
+
+## 2026-10-16 — actual action-QBF quantified projection, scoped negative
+
+A Shannon-cofactor action-bit projector (after exact deterministic
+Tseitin elimination) now evaluates source-only guarded QBF thresholds
+by quantifying from the innermost action bit outward, with original
+P0 existential OR/P1 universal AND. It made 120 finite threshold
+attempts; 118 returned exact bounded truths with zero independent
+physical minimax discrepancies. On `44444`, k5 all four results are
+computed but remain [-1,+1]. At k6 Wlo/Nlo hit the original 60k
+retained-node ceiling after 12 of 18 bits; Whi/Nhi completed.
+
+This does NOT improve on the earlier source-owner reflected BDD k11
+and does not establish a lower bound on *semantic* quantified width
+because dead DAG nodes are not reclaimed. Next measure reachable
+live/essential-future-cofactor width, then use actual quantified
+structured-circuit reduction, not just a smaller CNF.
+
+Record: `docs/research/2026-10-16-guarded-qbf-shannon-projection-depth6-obstruction.md`.
