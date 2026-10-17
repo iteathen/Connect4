@@ -1,0 +1,135 @@
+{
+  "schema": "connect4.source-anchored-BDD-mutant-falsifiers.v0_1",
+  "date": "2026-10-16",
+  "status": "PASS",
+  "controlDomain": "4x3 Connect3 legal physical nonterminal state reference",
+  "independentPositions": 4631,
+  "baselinesRechecked": 2,
+  "mutants": [
+    {
+      "id": "omit-immediate-P1-first-win-guard",
+      "original": "const guard=negate(now);",
+      "replacement": "const guard=1;",
+      "scanned": 1,
+      "availableCandidatePositions": 1020,
+      "detected": true,
+      "firstCounterexample": {
+        "history": "1112232",
+        "support": [
+          3,
+          3,
+          1,
+          0
+        ],
+        "rank": 7,
+        "physicalOwners": {
+          "p0": "321",
+          "p1": "16"
+        },
+        "correct": {
+          "value": -1,
+          "bestMoves": [
+            3
+          ],
+          "actionValues": [
+            [
+              2,
+              1
+            ],
+            [
+              3,
+              -1
+            ]
+          ]
+        },
+        "mutant": {
+          "value": 1,
+          "bestMoves": [
+            2,
+            3
+          ],
+          "actionValues": [
+            [
+              2,
+              1
+            ],
+            [
+              3,
+              1
+            ]
+          ]
+        },
+        "error": null,
+        "semanticDifference": "INCORRECT_VALUE_OR_LITERAL_ACTIONS"
+      }
+    },
+    {
+      "id": "omit-owner-cofactor-restriction",
+      "original": "const cw=fix(child.W,occupied,player===0,memo),\n       cn=fix(child.N,occupied,player===0,memo);",
+      "replacement": "const cw=child.W,\n       cn=child.N;",
+      "scanned": 1,
+      "availableCandidatePositions": 4631,
+      "detected": true,
+      "firstCounterexample": {
+        "history": "",
+        "support": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "rank": 0,
+        "physicalOwners": {
+          "p0": "0",
+          "p1": "0"
+        },
+        "correct": {
+          "value": 1,
+          "bestMoves": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "actionValues": [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              3,
+              1
+            ]
+          ]
+        },
+        "mutant": null,
+        "error": "Error: unbound future-owner variable escaped source-root cofactor",
+        "semanticDifference": "UNBOUND_OR_INVALID_SYMBOLIC_CONTRACT"
+      }
+    }
+  ],
+  "productionSourceModified": false,
+  "oracleQueries": 0,
+  "provenance": {
+    "date": "2026-10-16",
+    "branch": "research/semantic-quotient",
+    "sourceBlobs": {
+      "source-anchored-owner-bdd.mjs": "a08869be044ef45bf78cdbc1ca2ca7b6d2710af1",
+      "exact-q-core.mjs": "6b25d0e2560fe4131d2f5442593e9ed9763c1a18",
+      "constructive-core-control.mjs": "b18cbb6e7a3db66c7c8bcda2efd615e45127d615",
+      "source-anchored-owner-bdd-mutation-control.mjs": "9ea2f027b51130e7ab3b2a038947ec39f0ba9760"
+    },
+    "execution": "isolated JS V8 compiled code with Node imports shimmed; source mutation in memory only, production source untouched",
+    "independentRuleValidator": "complete first-win physical 4x3 Connect3 evaluation used only to falsify deliberately broken algebraic mutations",
+    "doesNotModifyCandidate": true,
+    "noPolicySearchInBuilder": true
+  }
+}
