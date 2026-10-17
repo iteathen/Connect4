@@ -1,0 +1,175 @@
+{
+  "schema": "connect4.dual-universal-response-antichain-results.v0_1",
+  "date": "2026-10-17",
+  "branch": "research/semantic-quotient",
+  "status": "EXACT_FINITE_RESPONSE_QUOTIENT_EXHAUSTIVE_4X4_BINARY_AND_FULL_LEGAL_SMALL_BOARDS_PASS",
+  "frozenPlan": "research/isograph/discovery/2026-10-17-dual-obligation-quotient/DUAL_RESPONSE_OBLIGATION_PLAN_0_1.md",
+  "producer": "research/isograph/discovery/2026-10-17-dual-obligation-quotient/dual-response-obligation.mjs",
+  "controls": [
+    "research/isograph/discovery/2026-10-17-dual-obligation-quotient/dual-response-generic-control.mjs",
+    "research/isograph/discovery/2026-10-17-dual-obligation-quotient/dual-response-legal-control.mjs"
+  ],
+  "theorem": "With finite action-labelled guarded relation P(b,a), let S_b={a:P(b,a)}. Remove a row b if another row b' has S_b' a strict subset of S_b, deduplicating equal rows but preserving all original labels. The inclusion-minimal row signatures preserve BOTH forall b exists a P(b,a) and exists a forall b P(b,a): former iff every minimal row is nonempty; latter iff the intersection of minimal rows is nonempty. Every labelled binary fixed-horizon per-reply outcome is reconstructed from retained input signatures.",
+  "proofScope": "ONE already constructed, source-guarded bounded response relation; no arbitrary-depth quantifier composition, full game-value equivalence or perfect-play optimal-move certificate",
+  "genericBooleanRelations": {
+    "matrixShape": "4 P0-action labels x 4 P1-reply labels",
+    "allMatricesChecked": 65536,
+    "legalReplyMasksPerMatrix": 16,
+    "totalScopedCases": 1048576,
+    "quantifierTruthMismatches": 0,
+    "actionLabelTransportMismatches": 0,
+    "antichainInclusionMismatches": 0,
+    "dominanceWitnessMismatches": 0,
+    "originalRepliesAtFullLegalScope": 262144,
+    "minimalRepliesAtFullLegalScope": 120558,
+    "reductionPct": 54.010773,
+    "matricesWithReduction": 64936,
+    "withoutReduction": 600,
+    "maximumMinimalReplyAntichain": 4,
+    "totalProducerCountedBitsetOperationsAcrossScopedCases": 18884438,
+    "isolatedV8ElapsedMilliseconds": 10817,
+    "populationCaveat": "All 65536 Boolean matrices are equally weighted; not representative of legal gameplay or a statistical claim."
+  },
+  "actualLegalGames": [
+    {
+      "geometry": "4x3-c3",
+      "physicalNonterminalStates": 4631,
+      "P1SourceStates": 2208,
+      "originalUniversalReplyObligations": 5592,
+      "minimalUniversalReplyObligations": 2546,
+      "reductionPct": 54.47067,
+      "P0BoundedPositiveP1Sources": 620,
+      "positiveOriginalReplyObligations": 1586,
+      "positiveMinimalReplyObligations": 958,
+      "positiveReductionPct": 39.59647,
+      "allReplyReductionSourcePositions": 1830,
+      "positiveCaseReductionPositions": 472,
+      "maximalMinimalAntichainWidth": 3,
+      "sourceResidualMembershipQueries": 105610,
+      "additionalDualBitsetOperations": 46626,
+      "controlledPhysicalGraphPurpose": "INPUT FIXTURE + INDEPENDENT verification, not candidate",
+      "elapsedMs": 161,
+      "scope": "Full legal nonterminal physical-state census, every P1 source state checked"
+    },
+    {
+      "geometry": "4x4-c4",
+      "physicalNonterminalStates": 134289,
+      "P1SourceStates": 67992,
+      "originalUniversalReplyObligations": 150246,
+      "minimalUniversalReplyObligations": 70706,
+      "reductionPct": 52.93985,
+      "P0BoundedPositiveP1Sources": 3694,
+      "positiveOriginalReplyObligations": 8088,
+      "positiveMinimalReplyObligations": 6408,
+      "positiveReductionPct": 20.77151,
+      "allReplyReductionSourcePositions": 48752,
+      "positiveCaseReductionPositions": 1480,
+      "maximalMinimalAntichainWidth": 3,
+      "sourceResidualMembershipQueries": 3333388,
+      "additionalDualBitsetOperations": 1068690,
+      "physicalGraphEdgesVisited": 304574,
+      "elapsedMs": 3961,
+      "scope": "Full legal nonterminal physical-state census, every P1 source state checked"
+    }
+  ],
+  "mandatoryLiteralWitnesses": [
+    {
+      "profile": "4x3-c3",
+      "history": "223",
+      "actionCoverP0Hex": [
+        "0xe",
+        "0x4",
+        "0xe",
+        "0x7"
+      ],
+      "P1ReplySignatures": [
+        {
+          "reply": 1,
+          "P0SuccessfulActionsMask": "0x8"
+        },
+        {
+          "reply": 2,
+          "P0SuccessfulActionsMask": "0xd"
+        },
+        {
+          "reply": 3,
+          "P0SuccessfulActionsMask": "0xf"
+        },
+        {
+          "reply": 4,
+          "P0SuccessfulActionsMask": "0x5"
+        }
+      ],
+      "minimalUniversalReplyLabels": [
+        1,
+        4
+      ],
+      "originalReplyLabels": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "forallP1ExistsP0": true,
+      "existsOneP0ForallP1": false,
+      "conclusion": "One bounded layer reduces four universal reply obligations to two hard signatures while preserving noncommutation."
+    },
+    {
+      "profile": "7x6-c4",
+      "history": "44444",
+      "sourceCoversP0": [
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x0"
+      ],
+      "originalP1ReplyLabels": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "oneMinimalSignature": {
+        "0x0": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      },
+      "forallP1ExistsP0ToWinBySecondOwnTurn": false,
+      "allP1RepliesSameBinaryFixedHorizonPredicate": true,
+      "fullGameWDLClassesEstablished": false,
+      "fullGameOptimalP1Replies": "UNKNOWN",
+      "caution": "THIS is a bounded predicate quotient only, NOT the missing turn-six 7-way WDL equivalence theorem."
+    }
+  ],
+  "workAndSuccess": {
+    "sourceQueryWorkBeforeQuotientStillRequired": true,
+    "candidateGameTreeContinuationsExpanded": 0,
+    "sourceResponseCoverGeneratedBeforeThisQuotient": true,
+    "claimedEndToEndRuntimeSpeedup": false,
+    "measuredReductionIsInUniversalObligationCardinalityNotSourceMatrixConstruction": true,
+    "nextMeaningfulApplication": "Prove pointwise future-function dominance under shared guarded continuation variables, then eliminate selected universal alternatives BEFORE expensive later adaptive quantification. A one-layer dominance relation cannot be reused beyond its predicate scope automatically.",
+    "arithmeticDomain": "BigInt action/reply masks, supports W<=42; all 7x6 source rule masks fit"
+  },
+  "originalLimits": {
+    "maxNodes": 60000,
+    "maxNontrivialBooleanOpsPerCompile": 300000,
+    "maxSupportRepresentatives": 10000,
+    "maxMsPerCompile": 15000
+  },
+  "executionProvenance": "Isolated GitHub-connected V8 direct execution of freshly fetched committed exact module sources; no maintained Node26 suite or independent external validator. Full physical corpus used only as validation inputs. Existing source response-cover operator already independently qualified on its bounded predicate.",
+  "gameValueAfterCanonical44444": "UNKNOWN [-1,+1]",
+  "authorityChange": false,
+  "merged": false
+}
