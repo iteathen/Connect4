@@ -1,0 +1,77 @@
+{
+  "schema": "connect4.column-transport-bounded-first-probe.v0_1",
+  "date": "2026-10-17",
+  "status": "SOURCE_ONLY_FULL_FUTURE_SIMULATION_CONSTRUCTED_BUDGET_PARTIAL_CANONICAL",
+  "frozenPlan": "research/isograph/discovery/2026-10-17-dual-obligation-quotient/CROSS_SUPPORT_COLUMN_TRANSPORT_PLAN_0_1.md",
+  "candidate": "research/isograph/discovery/2026-10-17-dual-obligation-quotient/column-transport-full-future.mjs",
+  "mathematicalScope": "First P1 move b vs c from source q, exact source cofactor of P0/P1 minimal residuals. Under height-matching column permutation π and P0-favorable mapped residual upset inclusions, prove unrestricted WDL weak order without enumerating any later game moves. Mutual upset equality under SAME π proves full future-game action-transport isomorphism.",
+  "run": "GitHub fetched source evaluated in isolated V8, no Node26 full-suite",
+  "checks": [
+    {
+      "board": "4x3-c3",
+      "source": "111",
+      "status": "COMPLETE",
+      "originalPairs": 3,
+      "provenExactIsoPairs": 0,
+      "provenOneWayPairs": 0,
+      "operations": 772
+    },
+    {
+      "board": "4x3-c3",
+      "source": "223",
+      "status": "COMPLETE",
+      "originalPairs": 6,
+      "terminalGuardExcluded": 0,
+      "capacityMismatchPairs": 5,
+      "provenExactIsoPairs": 0,
+      "provenOneWayPairs": 0,
+      "operations": 444
+    },
+    {
+      "board": "4x4-c4",
+      "source": "1111222234334",
+      "status": "COMPLETE",
+      "originalPairs": 1,
+      "capacityMismatchPairs": 1,
+      "operations": 3
+    },
+    {
+      "board": "7x6-c4",
+      "source": "44444",
+      "status": "BUDGET_PARTIAL",
+      "pairsEntered": 7,
+      "permutationCandidatesTested": 676,
+      "prunedOrTerminalGuardPairs": 1,
+      "sourceOriginalResiduals": 90,
+      "operationsAtStop": 300001,
+      "confirmedFullFutureIsomorphism": {
+        "originalP1ActionsOneBased": [
+          1,
+          7
+        ],
+        "commonPermutationOneBased": [
+          7,
+          6,
+          5,
+          4,
+          3,
+          2,
+          1
+        ],
+        "isKnownHorizontalReflection": true
+      },
+      "noNewNonreflectionRelationEstablished": true,
+      "remainingPairsUnknown": true
+    }
+  ],
+  "limits": {
+    "nodes": 60000,
+    "nontrivialSourceBooleanOperations": 300000,
+    "supportRepresentatives": 10000,
+    "msPerCompile": 15000
+  },
+  "foundCounterexample": false,
+  "next": "Prune incomplete column permutations by partial source residual-generator containment. Do not mistake budget partial for incomparability or missing value relations. Verify root action equivalence/weak dominance with qualified independent full-q reference only AFTER source-derived certificates. No future game search in candidate.",
+  "noUnrestricted44444Value": true,
+  "authorityPromoted": false
+}
