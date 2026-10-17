@@ -1,0 +1,231 @@
+{
+  "schema": "connect4.source-residual-guarded-action-qbf-results.v0_1",
+  "date": "2026-10-16",
+  "status": "BOUNDED_FORMULA_EQUIVALENCE_PASS_FULL_DEPTH_QBF_COMPILED_TRUTH_UNEVALUATED",
+  "owner": "research/semantic-quotient",
+  "controlledVersion": {
+    "compiledSource": "research/isograph/discovery/2026-10-16-algorithmic-core/guarded-action-qbf.mjs",
+    "physicalControl": "research/isograph/discovery/2026-10-16-algorithmic-core/guarded-action-qbf-control.mjs",
+    "widthProbe": "research/isograph/discovery/2026-10-16-algorithmic-core/guarded-action-qbf-width-probe.mjs",
+    "gitBlobs": {
+      "source": "f099f080b6213f277ac8cbdf84b66340143206cc",
+      "control": "2a09d5b0118f0e115c4b203d4ade028752849da5",
+      "width": "8b79439e2daa4267de944ca1191e64f4d4c96bf8"
+    },
+    "localRuntime": "Node 22.16.0",
+    "evidenceHash": {
+      "controlOutputSha256": "c9fface4dc72fb35e5af2e9b13c8aa9f03b831270692ec99a196f69a19d41a3f",
+      "widthOutputSha256": "11c9d51973de74920027ae8c28375491e7b3137dcf262cae7030cd3023056af3"
+    }
+  },
+  "boundedIndependentPhysicalControls": {
+    "geometryProfiles": [
+      "4x3 Connect3",
+      "4x4 Connect4",
+      "7x6 Connect4"
+    ],
+    "fixtureSet": {
+      "4x3-c3": [
+        "",
+        "2",
+        "223",
+        "1212",
+        "1234"
+      ],
+      "4x4-c4": [
+        "",
+        "223",
+        "121212",
+        "1234"
+      ],
+      "7x6-c4": [
+        "44444",
+        "444444",
+        "4444414",
+        "121212"
+      ]
+    },
+    "testedHorizonRange": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "numberCompilerBuilds": 78,
+    "numberThresholdQBFs": 624,
+    "sourcePhysicalActionTuplesTested": 24804,
+    "thresholdValueComparisons": 99216,
+    "alternatingQuantifierRootComparisons": 312,
+    "CNFClauseChecks": 108888000,
+    "allZeroMismatch": true,
+    "maximumCandidateVariables": 524,
+    "maximumCandidateClauses": 1537,
+    "maxObservedCertifiedPathWidthUpperBound": 78,
+    "sumCandidateCircuitAndClauseWork": 74291,
+    "physicalValidatorMayEnumerateHistories": true,
+    "QBFCompilerEnumeratedHistories": false,
+    "scope": "finite horizon including fixed first action, illegal action, early terminal, full column and all four WDL thresholds; not independent QBF-solver certification"
+  },
+  "canonical44444Width": [
+    {
+      "depth": 4,
+      "variables": 450,
+      "clauses": 1315,
+      "primalEdges": 1225,
+      "stageLocalPathUpper": 63,
+      "postfixPathUpper": 73,
+      "circuitBooleanOps": 3194,
+      "elapsedMs": 8,
+      "solverStatus": "NOT_DECIDED"
+    },
+    {
+      "depth": 5,
+      "variables": 722,
+      "clauses": 2122,
+      "primalEdges": 1995,
+      "stageLocalPathUpper": 89,
+      "postfixPathUpper": 106,
+      "circuitBooleanOps": 4458,
+      "elapsedMs": 7,
+      "solverStatus": "NOT_DECIDED"
+    },
+    {
+      "depth": 6,
+      "variables": 1074,
+      "clauses": 3169,
+      "primalEdges": 2999,
+      "stageLocalPathUpper": 115,
+      "postfixPathUpper": 145,
+      "circuitBooleanOps": 5986,
+      "elapsedMs": 9,
+      "solverStatus": "NOT_DECIDED"
+    },
+    {
+      "depth": 8,
+      "variables": 1802,
+      "clauses": 5335,
+      "primalEdges": 5079,
+      "stageLocalPathUpper": 164,
+      "postfixPathUpper": 233,
+      "circuitBooleanOps": 9090,
+      "elapsedMs": 16,
+      "solverStatus": "NOT_DECIDED"
+    },
+    {
+      "depth": 10,
+      "variables": 2536,
+      "clauses": 7519,
+      "primalEdges": 7177,
+      "stageLocalPathUpper": 180,
+      "postfixPathUpper": 309,
+      "circuitBooleanOps": 12212,
+      "elapsedMs": 17,
+      "solverStatus": "NOT_DECIDED"
+    },
+    {
+      "depth": 11,
+      "variables": 2894,
+      "clauses": 8584,
+      "primalEdges": 8199,
+      "stageLocalPathUpper": 180,
+      "postfixPathUpper": 347,
+      "circuitBooleanOps": 13734,
+      "elapsedMs": 14,
+      "solverStatus": "NOT_DECIDED"
+    },
+    {
+      "depth": 12,
+      "variables": 3270,
+      "clauses": 9703,
+      "primalEdges": 9275,
+      "stageLocalPathUpper": 184,
+      "postfixPathUpper": 385,
+      "circuitBooleanOps": 15334,
+      "elapsedMs": 22,
+      "solverStatus": "NOT_DECIDED"
+    },
+    {
+      "depth": 14,
+      "variables": 4004,
+      "clauses": 11887,
+      "primalEdges": 11373,
+      "stageLocalPathUpper": 188,
+      "postfixPathUpper": 461,
+      "circuitBooleanOps": 18456,
+      "elapsedMs": 19,
+      "solverStatus": "NOT_DECIDED"
+    },
+    {
+      "depth": 16,
+      "variables": 4738,
+      "clauses": 14071,
+      "primalEdges": 13471,
+      "stageLocalPathUpper": 192,
+      "postfixPathUpper": 537,
+      "circuitBooleanOps": 21578,
+      "elapsedMs": 25,
+      "solverStatus": "NOT_DECIDED"
+    },
+    {
+      "depth": 20,
+      "variables": 6206,
+      "clauses": 18439,
+      "primalEdges": 17667,
+      "stageLocalPathUpper": 200,
+      "postfixPathUpper": 689,
+      "circuitBooleanOps": 27822,
+      "elapsedMs": 29,
+      "solverStatus": "NOT_DECIDED"
+    },
+    {
+      "depth": 24,
+      "variables": 7674,
+      "clauses": 22807,
+      "primalEdges": 21863,
+      "stageLocalPathUpper": 208,
+      "postfixPathUpper": 841,
+      "circuitBooleanOps": 34066,
+      "elapsedMs": 39,
+      "solverStatus": "NOT_DECIDED"
+    },
+    {
+      "depth": 30,
+      "variables": 9876,
+      "clauses": 29359,
+      "primalEdges": 28157,
+      "stageLocalPathUpper": 220,
+      "postfixPathUpper": 1069,
+      "circuitBooleanOps": 43432,
+      "elapsedMs": 59,
+      "solverStatus": "NOT_DECIDED"
+    },
+    {
+      "depth": 37,
+      "variables": 12436,
+      "clauses": 36976,
+      "primalEdges": 35473,
+      "stageLocalPathUpper": 232,
+      "postfixPathUpper": 1335,
+      "circuitBooleanOps": 54320,
+      "elapsedMs": 89,
+      "solverStatus": "NOT_DECIDED"
+    }
+  ],
+  "widthInterpretation": "Bounds are valid explicit single-trunk PATH decomposition widths under trivial total-prefix dependency poset; valid UPPER bounds on bilateral treewidth of the full Tseitin CNF, not minimum, not the original residual hypergraph heuristic, and not evidence of affordable f(k).",
+  "compilationScope": "All 37 remaining action blocks from 44444 yield a polynomial-size full-horizon exact QBF whose two relevant Boolean thresholds are P0 WIN and P0 NONLOSS; their quantified TRUTH was not computed. A full-horizon formula is not a game-value certificate.",
+  "resourceEnvelope": {
+    "maxRetainedNodes": 60000,
+    "maxNontrivialBooleanWork": 300000,
+    "maxSupports": 10000,
+    "maxCompileMs": 15000
+  },
+  "qualificationLimits": [
+    "local Node22, not maintained Node26 suite",
+    "bounded physical comparison through k4, not full 37-ply exhaustive reference",
+    "no cryptographic/independent external QBF solver used",
+    "full-depth action-prefix matrix truth unknown",
+    "graph diagnostic scans are separate from circuit Boolean operation count and must be tracked for future economics"
+  ],
+  "arbitraryDepthBranchEliminationProved": false,
+  "unrestrictedCanonical44444WDL": "UNKNOWN"
+}
