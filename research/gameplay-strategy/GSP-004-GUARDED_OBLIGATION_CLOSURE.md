@@ -707,3 +707,51 @@ without hidden continuation enumeration. Neither a small
 final BDD nor a one-sided k9 lower result proves the
 global nonbranching goal.
 See `docs/research/2026-10-16-action-robd-output-cone-functional-quotient.md`.
+
+## 2026-10-17 — owner refocus: eliminate strategic response branches, not just BDD width
+
+The PRIMARY open GSP-004 problem is now a mathematical certificate that a
+whole opponent response is **fully future-equivalent or dominated**, so
+that its downstream alternating strategic obligations need not be
+evaluated independently. Preserve all literal WDL-optimal action
+labels, including ties. Source q state transitions through the
+historical move7/8 full-column boundary and bounded turn8 defensive
+sets are ALREADY complete; do not reopen them.
+
+**Exact, one-layer progress:** for the established bounded
+P1-response/P0-answer matrix `K_a`, transpose into universal
+reply signatures `S_b={a:P(b,a)}`. Inclusion-minimal distinct
+signatures preserve BOTH `forall b exists a` and `exists a forall b`,
+with reply label transport. Exhaustive 65,536 generic matrices ×16
+legal scopes PASS. All 2,208/67,992 legal P1 source positions on
+4x3 Connect3 / 4x4 Connect4 PASS, reducing universal obligation
+cardinality by **54.47% / 52.94%**, and on positive bounded
+universal proofs by **39.60% / 20.77%**. This savings is AFTER the
+original source response matrix was constructed: no end-to-end
+strategic runtime improvement is claimed yet.
+
+**Hard boundary:** on legal small-board source `111` (4x3),
+P1 replies 2 and 3 have identical bounded signatures 0x0,
+yet independent exact full WDL values for P0 are +1 and 0.
+The full 4x3/4x4 P1-state censuses find 220 / 22,380
+equal-bounded-signature reply pairs with different full WDL.
+Thus the seven `44444` move6 replies ALL having bounded
+signature zero does NOT prove eventual equivalence.
+Retain legal `223` noncommutation falsifier.
+
+**Selected next theorem:** guarded pointwise future payoff
+dominance `P(b_h,a,z)=>P(b_e,a,z)` for all a and every
+shared totalized legal z, derived from source residual cofactors,
+gravity/first-win/terminal guards and response resources WITHOUT
+enumerating futures. Correct original alternating quantifiers
+preserve implication, yielding weak WIN/NONLOSS/WDL dominance
+and potential pruning of easier universal branches. Weak
+dominance does NOT erase the easier reply from the complete
+optimal-move label set until strict value or exact future equality
+is separately certified. Prove a source-only simulation/structural
+certificate and count **downstream obligations never constructed**.
+Do NOT default to action-QBF/BDD variable-order, GC or horizon
+optimization, or pass searched values into the producer.
+
+Proof, controls and negative full-WDL witness:
+`docs/research/2026-10-17-branch-elimination-dual-obligation-and-future-separation.md`.
