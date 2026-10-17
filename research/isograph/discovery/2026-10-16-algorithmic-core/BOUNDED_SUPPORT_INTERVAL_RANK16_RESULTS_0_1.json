@@ -1,0 +1,157 @@
+{
+  "schema": "connect4.bounded-support-interval.earlier-ranks.v0_1",
+  "date": "2026-10-16",
+  "status": "PARTIAL_REFERENCE_BUDGET",
+  "rank": 16,
+  "sequence": "4321463634235731",
+  "support": [
+    2,
+    2,
+    5,
+    3,
+    1,
+    2,
+    1
+  ],
+  "toMove": 0,
+  "futureSupports": 36000,
+  "sourceResiduals": {
+    "P0": 22,
+    "P1": 24
+  },
+  "intendedDepths": [
+    2,
+    4,
+    6,
+    8,
+    10
+  ],
+  "budgets": {
+    "maxBDDNodes": 60000,
+    "maxNontrivialOperations": 300000,
+    "maxSupports": 10000,
+    "maxCompileMs": 15000,
+    "gcEverySupports": 64,
+    "gcNodeHighWater": 40000,
+    "qMaxStates": 200000,
+    "qMaxTransitions": 800000,
+    "qMaxMs": 30000
+  },
+  "horizon": [
+    {
+      "depth": 2,
+      "status": "COMPILED",
+      "bounds": {
+        "status": "EXACT_ROOT_VALUE",
+        "lower": 1,
+        "upper": 1,
+        "exactValue": 1,
+        "actionIntervals": [
+          {
+            "column": 0,
+            "lower": -1,
+            "upper": -1,
+            "exact": true
+          },
+          {
+            "column": 1,
+            "lower": -1,
+            "upper": -1,
+            "exact": true
+          },
+          {
+            "column": 2,
+            "lower": -1,
+            "upper": -1,
+            "exact": true
+          },
+          {
+            "column": 3,
+            "lower": -1,
+            "upper": -1,
+            "exact": true
+          },
+          {
+            "column": 4,
+            "lower": 1,
+            "upper": 1,
+            "exact": true
+          },
+          {
+            "column": 5,
+            "lower": -1,
+            "upper": -1,
+            "exact": true
+          },
+          {
+            "column": 6,
+            "lower": -1,
+            "upper": -1,
+            "exact": true
+          }
+        ],
+        "certifiedOptimalMoves": [
+          4
+        ],
+        "certifiedSuboptimalMoves": [
+          0,
+          1,
+          2,
+          3,
+          5,
+          6
+        ],
+        "unresolvedActionMoves": [],
+        "completeBestMoves": [
+          4
+        ],
+        "allActionIntervalsExact": true,
+        "cutoffDepth": 2,
+        "scope": "perfect-play P0-relative WDL lies in [lower,upper] under first-win rules; actions are literal fixed-mover moves"
+      },
+      "supportConeCount": 35,
+      "supportsCompleted": 35,
+      "allocatedBDDNodes": 4,
+      "peakBDDNodes": 6,
+      "finalBDDNodes": 2,
+      "nontrivialBDDOperations": 2,
+      "GCCount": 1,
+      "sourceClauseChecks": 1306,
+      "wallMs": 2
+    }
+  ],
+  "sourceUsesOracleLabels": false,
+  "sourceUsesPolicySearch": false,
+  "stoppedReason": "EXACT_VALUE_AND_ALL_OPTIMAL_ACTIONS",
+  "reference": {
+    "status": "PARTIAL_Q_BUDGET",
+    "error": "CoreBudgetError: constructive q solve budget exhausted",
+    "metrics": {
+      "uniqueStates": 184876,
+      "recursiveCalls": 508921,
+      "memoHits": 324045,
+      "transitions": 800000,
+      "terminalWinEdges": 291080,
+      "terminalDrawEdges": 0,
+      "branchingStates": 184788,
+      "maxDepth": 21,
+      "cacheEntries": 0
+    }
+  },
+  "earliestExactDepth": 2,
+  "earliestCompleteBestSetDepth": 2,
+  "provenance": {
+    "date": "2026-10-16",
+    "branch": "research/semantic-quotient",
+    "sourceBlobs": {
+      "bounded-support-interval-bdd.mjs": "7053efd87465a0d542a1e0c1b37e02834df606d9",
+      "exact-q-core.mjs": "6b25d0e2560fe4131d2f5442593e9ed9763c1a18",
+      "constructive-core-control.mjs": "b18cbb6e7a3db66c7c8bcda2efd615e45127d615",
+      "bounded-support-interval-earlier-ranks-control.mjs": "1d5f551073442db6fd41461224215eac0e81ab58"
+    },
+    "runtime": "isolated JS V8 exact committed source, Node interfaces shimmed",
+    "scope": "predeclared rank16 suffix interval support-cone benchmark, full q WDL called solely for independent validation",
+    "plan": "BOUNDED_SUPPORT_INTERVAL_EARLIER_RANKS_PLAN_0_1.md",
+    "noBudgetIncrease": true
+  }
+}
