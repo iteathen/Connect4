@@ -106,8 +106,20 @@ export function createEquivalenceSingleLaneValue(geometry){
       unresolvedBehaviorGroups:unresolvedGroups,
       knownSourceValues:[...known]};
    }
-   if(unresolvedGroups.length!==1)
-    throw Error('all labels classified only by equivalences but source not yet returned');
+   if(unresolvedGroups.length===0){
+    const values=legal.map(a=>{
+      if(!known.has(a))throw Error('missing direct equivalence-propagated WDL');
+      return [a,known.get(a)];
+    });
+    const mover=state.h.reduce((a,b)=>a+b,0)&1;
+    const value=mover===0?Math.max(...values.map(([,v])=>v)):
+      Math.min(...values.map(([,v])=>v));
+    stats.outputCompleteActionVectors++;stats.outputCompleteOptimalMoveSets++;
+    return {status:'EXACT',value,actionValues:values,
+      bestMoves:values.filter(([,v])=>v===value).map(([a])=>a),
+      proofKind:'ALL_SOURCE_VALUES_CLOSED_BY_FUTURE_EQUIVALENCE',
+      proof:{sourceKnownValues:[...known],transporters:rawClassProofs}};
+   }
    const group=unresolvedGroups[0],rep=group[0];
    stats.certifiedEquivalentUnknownLabelsReused+=group.length-1;
    stats.maximumInequivalentStrategicFanout=Math.max(stats.maximumInequivalentStrategicFanout,1);
