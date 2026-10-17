@@ -1,0 +1,46 @@
+{
+  "schema": "connect4.standard7x6.dual_nand_vs_physical_minimax_v0_1",
+  "board": {
+    "W": 7,
+    "H": 6,
+    "K": 4,
+    "geometricWinLines": 69
+  },
+  "seedStart": 2980507714,
+  "nonterminalTrajectoriesGenerated": 2700,
+  "eligibleLateSourcePositions": 6586,
+  "uniqueLatePhysicalRootPositions": 6586,
+  "rootValuesChecked": 300,
+  "legalLiteralActionValuesChecked": 309,
+  "wrongRootValues": 0,
+  "wrongOptimalLiteralMasks": 0,
+  "wrongFirstActionValues": 0,
+  "tiedBestRootPositions": 5,
+  "singleBestRootPositions": 295,
+  "rootValueDistribution": {
+    "P0win": 21,
+    "draw": 184,
+    "P1win": 95
+  },
+  "minimax": {
+    "calls": 923,
+    "memoHits": 39,
+    "nodes": 305
+  },
+  "binaryKernel": {
+    "calls": 923,
+    "memoHits": 39,
+    "nodes": 305,
+    "terminalWins": 230,
+    "terminalDraws": 349
+  },
+  "canonicalSourcePrefixes": [
+    "44444",
+    "444444",
+    "4444442"
+  ],
+  "canonicalSourcePrimaryUnrestrictedWDL": "NOT_COMPUTED",
+  "testExactSourceBlob": "986eb6ccd1543e797e6d6470a988af1dcc037906",
+  "testSource": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-dual-nand-late-physical-control.mjs",
+  "qualification": "V8 isolated evaluation of committed 7x6 independent physical references, not Node26/CI, and both reference procedures branching (not a zero-strategic-branching candidate). First 300 roots prioritized greatest ply so 295 single optimal labels; follow-up stratified multi-choice test necessary."
+}
