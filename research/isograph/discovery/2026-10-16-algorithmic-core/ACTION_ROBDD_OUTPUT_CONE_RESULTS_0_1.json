@@ -1,0 +1,174 @@
+{
+  "schema": "connect4.source-action-robd-output-cone.v0_1",
+  "date": "2026-10-16",
+  "owner": "research/semantic-quotient",
+  "status": "OUTPUT_CONE_EXACT_SMALL_ACTION_SETS_PASS_K8_FULL_BOUNDS_K9_LOWER_ONLY",
+  "mathematicalSource": "Full guarded source-q original residual action-QBF; deterministic Tseitin AND/NOT gates",
+  "exactTheorem": "For a chosen output literal o, remove all deterministic source gate definitions outside the transitive input/gate dependency cone of o. Every omitted Tseitin auxiliary has a uniquely satisfying assignment under any action input, and no causal path to o. Quantified truth and all labelled action-values of o remain unchanged. Under a fixed input variable order, reduced complemented-edge BDDs canonically merge identical future Boolean cofactors; quantified future action blocks retain original OR/AND alternating order.",
+  "frozenPlan": "research/isograph/discovery/2026-10-16-algorithmic-core/ACTION_QBF_OUTPUT_CONE_PLAN_0_1.md",
+  "candidate": "research/isograph/discovery/2026-10-16-algorithmic-core/action-robd-output-cone.mjs",
+  "controls": [
+    "research/isograph/discovery/2026-10-16-algorithmic-core/action-robd-output-cone-physical-control.mjs",
+    "research/isograph/discovery/2026-10-16-algorithmic-core/action-robd-independent-physical-interval-control.mjs",
+    "research/isograph/discovery/2026-10-16-algorithmic-core/action-robd-quantifier-order-control.mjs"
+  ],
+  "sourceGitBlobSHAs": {
+    "candidate": "c270eda79c1c6d49bdfde8376dd64bcb6d730c9e",
+    "completeOptimalSetControl": "8c104b1a3c20cd7feb464fcc48cd1c8727a91e2e",
+    "independentPhysicalIntervalControl": "1984cb79df0bbf9534cf59260f3eaa4b7ad81b32",
+    "adaptiveOrderControl": "3538e062d217f63b531dd4038bcf4beca5e6bbbc"
+  },
+  "contextAndRuntime": "V8 isolate evaluating exact freshly fetched GitHub JavaScript source; independently written physical validator. No direct Node26 suite or third-party qualification in this turn.",
+  "strictLimits": {
+    "maxRetainedBDDNnodes": 60000,
+    "maxNontrivialBDDOperations": 300000,
+    "maxSupports": 10000,
+    "maxMillisecondsPerCompile": 15000
+  },
+  "independentPhysicalControls": {
+    "smallBoardCases": 47,
+    "sharedThresholdProjections": 188,
+    "legalActionThresholdComparisons": 672,
+    "completeGameSmallSuffixOptimalSets": 24,
+    "uniqueBest": 13,
+    "tiedBest": 11,
+    "discrepancies": 0,
+    "validatorPhysicalTransitionsSmallCases": 532956,
+    "standard7x6": {
+      "history": "44444",
+      "futureDepth7": {
+        "independentPhysicalTransitions": 601092,
+        "allSevenIntervals": [
+          -1,
+          1
+        ],
+        "result": "MATCH"
+      },
+      "futureDepth8": {
+        "independentPhysicalTransitions": 3567031,
+        "allSevenIntervals": [
+          -1,
+          1
+        ],
+        "result": "MATCH"
+      }
+    },
+    "legal223": {
+      "actionResponseRowMasksHex": [
+        "0xe",
+        "0x4",
+        "0xe",
+        "0x7"
+      ],
+      "forallReplyExistsAdaptiveAction": true,
+      "existsOneActionForallReplies": false,
+      "chronologicalAndReverseBDDChecked": true,
+      "quantifiedOrderDiscrepancies": 0
+    },
+    "noGameSearchInProducer": true
+  },
+  "canonical44444": {
+    "sourceQBFConstructionBooleanOps": {
+      "k7": 7490,
+      "k8": 9090,
+      "k9": 10612,
+      "k10": 12212
+    },
+    "k7": [
+      {
+        "thresholds": "Wlo/Nlo",
+        "order": "reverse",
+        "result": "FALSE all seven",
+        "ops": 10196,
+        "peakNodeSlots": 5176,
+        "sourceConeGates": 1054,
+        "totalSourceGates": 1405
+      },
+      {
+        "thresholds": "Whi/Nhi",
+        "order": "reverse",
+        "result": "TRUE all seven",
+        "ops": 21874,
+        "peakNodeSlots": 10819,
+        "sourceConeGates": 1235,
+        "totalSourceGates": 1405
+      }
+    ],
+    "k8": [
+      {
+        "thresholds": "Wlo/Nlo",
+        "order": "chronological",
+        "result": "FALSE all seven",
+        "ops": 75392,
+        "peakNodeSlots": 19354,
+        "sourceConeGates": 1592,
+        "totalSourceGates": 1778,
+        "BDDApplyMisses": 49842,
+        "projectionCalls": 51051,
+        "gcSweepSlots": 250760
+      },
+      {
+        "thresholds": "Whi/Nhi",
+        "order": "chronological",
+        "result": "TRUE all seven",
+        "ops": 40220,
+        "peakNodeSlots": 15988,
+        "sourceConeGates": 1387,
+        "totalSourceGates": 1778,
+        "BDDApplyMisses": 29422,
+        "projectionCalls": 21579,
+        "gcSweepSlots": 143892
+      }
+    ],
+    "k9": {
+      "lower": {
+        "status": "COMPLETE_FALSE_ALL_SEVEN",
+        "order": "chronological",
+        "sourceGateCone": 1744,
+        "totalSourceGates": 2133,
+        "omittedGateDefinitions": 389,
+        "sourceQBFBooleanWork": 10612,
+        "BDDNontrivialWork": 121999,
+        "peakBDDNodeSlots": 39142,
+        "abstractionBitsCompleted": 24,
+        "compilerGarbageCollections": 21,
+        "gcMarkVisits": 189114,
+        "gcSweepScans": 869718,
+        "gcReclaimedSlots": 97093,
+        "externalIndependentSourceOwnerBDD": "k9 all seven lower -1, matched"
+      },
+      "upper": {
+        "status": "RESOURCE_INCOMPLETE_SOURCE_COMPILATION",
+        "order": "chronological",
+        "sourceGateCone": 1931,
+        "totalSourceGates": 2133,
+        "omittedGateDefinitions": 202,
+        "sourceQBFBooleanWork": 10612,
+        "BDDWorkAtStop": 134232,
+        "peakBDDNodeSlots": 60000,
+        "abstractionBitsCompleted": 0,
+        "compilerGarbageCollections": 25,
+        "checkedEightPredeclaredBDDOrders": "all resource-incomplete at source compilation",
+        "reason": "retained BDD node slot budget, not the 300k Boolean-operation cap"
+      },
+      "rootInterval": "UNKNOWN [-1,+1]",
+      "completeOptimalMoveSet": "UNKNOWN"
+    },
+    "k10": {
+      "status": "RESOURCE_INCOMPLETE_FOR_TESTED_ORDERS",
+      "noFullGameOutcomeClaim": true
+    }
+  },
+  "comparator": {
+    "priorAndNotLocalQBFk7LowerBooleanWork": 63757,
+    "priorAndNotLocalQBFk7UpperBooleanWork": 166807,
+    "priorAndNotLocalQBFk8Lower": "resource partial at 60000 nodes",
+    "priorAndNotLocalQBFk8UpperBooleanWork": 208467,
+    "existingSourceOwnerReflectedBDD": "k11 compiled with 9366 support orbits / 16511 peak BDD nodes / 268341 counted Boolean operations, still UNKNOWN; still deeper than new action-bit variant.",
+    "caveat": "Different symbolic representations and work counter definitions. Neither BDD operations alone nor source QBF size constitute matched end-to-end speed; report full source-QBF/gate-cone, BDD APPLY, GC and physical verifier costs separately."
+  },
+  "remainingMathematicalOpen": "Exact unrestricted 44444 WDL and all tied-optimal move labels; economical arbitrary adaptive quantifier elimination beyond existing k11 source-owner horizon; exact semantic factor/conditional separator quotient avoiding k9 upper Boolean interface explosion.",
+  "noFullStrategicBranchElimination": true,
+  "authorityPromoted": false,
+  "merged": false
+}
