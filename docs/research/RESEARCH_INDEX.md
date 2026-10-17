@@ -26,6 +26,26 @@ Unlisted dated notes remain repository evidence. Being unlisted means “not pri
 
 ---
 
+## Full-horizon quantified source action encoding — 2026-10-16
+
+- [`2026-10-16-guarded-action-qbf-full-depth-width.md`](2026-10-16-guarded-action-qbf-full-depth-width.md)  
+  **ACTIVE EXACT REPRESENTATION THEOREM / GAME VALUE STILL UNKNOWN.**
+  Derives a polynomial-size, source-q-residual-only, guard-complete alternating
+  binary-action QBF/CNF that preserves first win, draw, P0-existential/P1-universal
+  invalid-move neutrality, and fixed-first-action scopes. A deterministic
+  stage-local Tseitin prefix is proved equivalent to postfix auxiliary
+  quantification by unique gate values. Constructs two explicit sound
+  *trunk-aligned path* decompositions of the ACTUAL quantified CNF graph,
+  yielding upper bounds on bilateral width (not minimum). Source `44444`
+  k37 has 12,436 variables, 36,976 clauses, stage-local width <=232, 0
+  materialized supports; **quantified truth was not evaluated**. 78
+  bounded physical control cases, 24,804 move words, 312 independently
+  aggregated quantifier checks, 1,024 sampled k37 physical words, no
+  mismatches. Next genuine gap is **quantified elimination**, not another
+  game-equivalent formula shell. Code, standalone independent physical
+  control and evidence: `research/isograph/discovery/2026-10-16-algorithmic-core/guarded-action-qbf*.mjs`
+  and `GUARDED_ACTION_QBF_RESULTS_0_1.json`.
+
 ## New 2026-10-16 mathematical factor-width continuation
 
 - [`2026-10-16-bilateral-treewidth-and-galois-response-closures.md`](2026-10-16-bilateral-treewidth-and-galois-response-closures.md)  
