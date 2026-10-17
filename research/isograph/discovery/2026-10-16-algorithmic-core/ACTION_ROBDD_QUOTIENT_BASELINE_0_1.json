@@ -1,0 +1,149 @@
+{
+  "schema": "connect4.action-robd-abstract-baseline.v0_1",
+  "date": "2026-10-16",
+  "owner": "research/semantic-quotient",
+  "status": "CANONICAL_ACTION_ROBDD_K7_COMPLETE_K8_LOWER_ALLOCATED_NODE_CAP",
+  "frozenPlan": "research/isograph/discovery/2026-10-16-algorithmic-core/ACTION_ROBDD_FUSED_ABSTRACTION_PLAN_0_1.md",
+  "prototype": "research/isograph/discovery/2026-10-16-algorithmic-core/action-robd-fused-abstraction.mjs",
+  "semantics": "Compile source guarded deterministic QBF Boolean matrix by canonical complemented-edge ordered Shannon graph. Quantify future action bits in original alternating blocks via exact BDD cofactor OR/AND. Retain first action bits free and extract every literal threshold.",
+  "source": "rule-only source q after 44444, created by exact q-cofactor from empty; no game state search or oracle values in candidate",
+  "localExecution": "GitHub tool isolated V8 dynamic evaluation of GitHub source scripts; not independent Node26 qualification",
+  "geometry": {
+    "W": 7,
+    "H": 6,
+    "K": 4
+  },
+  "inputHistory": "44444",
+  "limits": {
+    "maxBDDNnodes": 60000,
+    "maxNontrivialOperations": 300000,
+    "maxSupports": 10000,
+    "maxMs": 15000
+  },
+  "tests": [
+    {
+      "k": 6,
+      "z": "Wlo",
+      "order": "chronological",
+      "status": "EXACT",
+      "ops": 11514,
+      "peak": 7606,
+      "values": "FALSE all seven"
+    },
+    {
+      "k": 6,
+      "z": "Wlo",
+      "order": "reverse",
+      "status": "EXACT",
+      "ops": 8928,
+      "peak": 5004,
+      "values": "FALSE all seven"
+    },
+    {
+      "k": 6,
+      "z": "Whi",
+      "order": "reverse",
+      "status": "EXACT",
+      "ops": 7256,
+      "peak": 4349,
+      "values": "TRUE all seven"
+    },
+    {
+      "k": 7,
+      "z": "Wlo",
+      "order": "chronological",
+      "status": "EXACT",
+      "ops": 25788,
+      "peak": 17820,
+      "values": "FALSE all seven"
+    },
+    {
+      "k": 7,
+      "z": "Wlo",
+      "order": "reverse",
+      "status": "EXACT",
+      "ops": 21088,
+      "peak": 13145,
+      "values": "FALSE all seven"
+    },
+    {
+      "k": 7,
+      "z": "Whi",
+      "order": "chronological",
+      "status": "EXACT",
+      "ops": 28077,
+      "peak": 19917,
+      "values": "TRUE all seven"
+    },
+    {
+      "k": 7,
+      "z": "Whi",
+      "order": "reverse",
+      "status": "EXACT",
+      "ops": 23685,
+      "peak": 13878,
+      "values": "TRUE all seven"
+    },
+    {
+      "k": 8,
+      "z": "Wlo",
+      "order": "chronological",
+      "status": "ALLOCATOR_CAP_PARTIAL",
+      "opsAtStop": 74581,
+      "peak": 60000,
+      "compiledNodes": 45322,
+      "compiledReachableNodes": 4212,
+      "quantifiedBitsCompleted": 4
+    },
+    {
+      "k": 8,
+      "z": "Wlo",
+      "order": "reverse",
+      "status": "ALLOCATOR_CAP_PARTIAL",
+      "opsAtStop": 89893,
+      "peak": 60000,
+      "compiledNodes": 50337,
+      "compiledReachableNodes": 5557,
+      "quantifiedBitsCompleted": 3
+    },
+    {
+      "k": 8,
+      "z": "Whi",
+      "order": "chronological",
+      "status": "EXACT",
+      "ops": 69157,
+      "peak": 52020,
+      "values": "TRUE all seven"
+    },
+    {
+      "k": 8,
+      "z": "Whi",
+      "order": "reverse",
+      "status": "EXACT",
+      "ops": 80530,
+      "peak": 51739,
+      "values": "TRUE all seven"
+    },
+    {
+      "k": 9,
+      "z": "Wlo",
+      "order": "chronological",
+      "status": "ALLOCATOR_CAP_PARTIAL_DURING_COMPILATION",
+      "opsAtStop": 77131,
+      "peak": 60000
+    },
+    {
+      "k": 9,
+      "z": "Whi",
+      "order": "reverse",
+      "status": "ALLOCATOR_CAP_PARTIAL_DURING_COMPILATION",
+      "opsAtStop": 95869,
+      "peak": 60000
+    }
+  ],
+  "relationToExistingEvidence": "k7 seven labelled bounded action values match previously physically verified local-quantifier results (false lower, true upper); same project source and mathematical identity, not a new independent physical validation. k8 only upper completed, no new unrestricted WDL.",
+  "diagnostic": "At k8 Wlo chrono, only 4212 of 45322 allocated nodes are reachable from compiled root; reverse only 5557 of 50337. Initial 60k limit is strongly affected by dead intermediates. Live compaction required before essential cofactor-width claims.",
+  "noFullGameValue": true,
+  "noAuthorityPromotion": true,
+  "noMerge": true
+}
