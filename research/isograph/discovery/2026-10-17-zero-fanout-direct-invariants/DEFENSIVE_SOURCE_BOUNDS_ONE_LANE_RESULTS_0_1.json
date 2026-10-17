@@ -1,0 +1,63 @@
+{
+  "schema": "connect4.global_and_first_action_defensive_bound_zero_fanout_combination_v0_1",
+  "status": "EXACT_SOURCE_DEFENSIVE_INTERVAL_COMPOSITION_ONE_LANE_2928_7338_ALL_BEST_TIES_PASS",
+  "date": "2026-10-17",
+  "branch": "research/semantic-quotient",
+  "sourcePrototype": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/guarded-defensive-one-lane-optimal-set.mjs",
+  "pureBoundMerge": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/source-wdl-with-defensive-bounds.mjs",
+  "sourceGlobalBounds": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/global-no-win-bound.mjs",
+  "sourcePerActionBounds": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/after-first-move-nonloss-bounds.mjs",
+  "plans": [
+    "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/GLOBAL_WIN_IMPOSSIBILITY_AND_PAIR_DEFENSE_PLAN_0_1.md",
+    "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/AFTER_FIRST_MOVE_DEFENSIVE_PAIR_BOUND_PLAN_0_1.md"
+  ],
+  "priorFullyQualifiedStrictOneLane": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/OPTIMAL_SET_SEPARATION_RESULTS_0_1.json",
+  "exactTheorem": "Unrestricted WDL action value intervals may be intersected when each bound is independently source-certified, preserving original P0/P1 min/max quantification and full-future source-WDL weak order. The first-move opponent-response pairing is a full-future guaranteed nonloss for that first move; source R_p extinction gives no-win. All action interval intersections remain sound, and strict optimality/inferiority separation yields full root WDL and every tied move while allowing inferior numeric values to remain intervals. Candidate evaluates at most ONE future game-semantic q and returns INCOMPLETE on multiple unresolved inequivalent classes.",
+  "exhaustiveIndependentQualifiedQControls": [
+    {
+      "board": "4x3 Connect3",
+      "distinctQ": 3734,
+      "oldExactZeroFanoutWDLAndFullOptimalSets": 2914,
+      "newExactZeroFanoutWDLAndFullOptimalSets": 2928,
+      "newlyClosed": 14,
+      "wrongWDLOrCompleteBestSets": 0,
+      "wrongFirstActionIntervals": 0,
+      "independentRootBestSetVerifications": 2928,
+      "evaluatedIntervalActionReferences": 2354,
+      "maxStrategicFanout": 1
+    },
+    {
+      "board": "4x4 Connect4",
+      "distinctQ": 34094,
+      "oldExactZeroFanoutWDLAndFullOptimalSets": 6725,
+      "newExactZeroFanoutWDLAndFullOptimalSets": 7338,
+      "newlyClosed": 613,
+      "wrongWDLOrCompleteBestSets": 0,
+      "wrongFirstActionIntervals": 0,
+      "independentRootBestSetVerifications": 7338,
+      "evaluatedIntervalActionReferences": 11474,
+      "maxStrategicFanout": 1
+    }
+  ],
+  "canonical44444": {
+    "sourceHistory": "44444",
+    "P1AbsoluteMove6": true,
+    "sourcePerFirstActionAdditionalBounds": "NONE; all seven [-1,+1]",
+    "staticPairedDefenseSourceCertificateCount": 0,
+    "unrestrictedFullWDL": "UNKNOWN",
+    "allBestLegalMoveLabels": "UNKNOWN",
+    "nextHistoricalMove7AndMove8AlreadyStructurallyClosedButUnrestrictedStillOpen": true
+  },
+  "candidateStrategicFutureStatesEvaluatedPerNodeMaximum": 1,
+  "sourceStaticMatchingWitnessConstructionNotGameTreeSearch": true,
+  "caveat": "Not a TOTAL zero-branch full Connect Four algorithm; source static pairing and WDL bounds are sufficient but incomplete, and many future inequivalent classes remain.",
+  "finiteReference": "Distinct legal residual q on complete 4x3/4x4 games validated with independently qualified exact q reference AFTER candidate inference. Generic full-future pairing theorem under same-height/vertical-block gravity guard.",
+  "safety": {
+    "nodeCap": 60000,
+    "bitsetOpCapPerSource": 300000,
+    "supportCap": 10000,
+    "maxMsPerSource": 15000
+  },
+  "noGameTheoryAuthorityPromotion": true,
+  "noMerge": true
+}
