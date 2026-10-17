@@ -257,3 +257,32 @@ live/essential-future-cofactor width, then use actual quantified
 structured-circuit reduction, not just a smaller CNF.
 
 Record: `docs/research/2026-10-16-guarded-qbf-shannon-projection-depth6-obstruction.md`.
+
+## 2026-10-16 — exact quantified live compaction advances to k6; k7 within-bit cap
+
+The earlier action-bit QBF Shannon projector's `44444` k6 60k node
+cap was not an essential width bound: at its last completed bit
+53,025 IDs had been allocated, but only 17,990 AND gates remained
+root-reachable. A proven post-quantifier signed-edge AND-DAG
+compaction now completes every k6 root threshold with independent
+physical finite-horizon agreement. Wlo/Nlo FALSE and Whi/Nhi TRUE
+still imply unrestricted UNKNOWN [-1,+1]. This required 216,140
+nontrivial Boolean operations and **517,861 additional** compaction
+traversal/evaluation units (lower threshold), so cheap total-work
+compression was NOT obtained.
+
+Both k7 lower and upper thresholds again hit 60k retained nodes
+**during the next single cofactor** after 12/21 quantified bits;
+after post-bit GC they previously held 26,783 and 30,848 live AND
+gates, respectively. GC between whole bits cannot safely reclaim
+temporary nodes still needed by an unfinished cofactor. This is a
+construction-schedule wall, not proven Boolean essential width.
+
+**Next GSP-003 proof experiment:** dependency-sound quantified
+localization/structured-DNNF or canonical cofactor sharing inside
+the actual source guarded circuit, with complete physical scope
+falsifiers and separate work/peak memory measurements. The
+existing source-owner reflected BDD still reaches k11 and remains
+the better bounded WDL carrier.
+
+Record: `docs/research/2026-10-16-exact-qbf-live-compaction-transient-width.md`.
