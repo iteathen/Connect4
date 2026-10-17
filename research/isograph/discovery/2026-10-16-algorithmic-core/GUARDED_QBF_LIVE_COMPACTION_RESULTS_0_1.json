@@ -1,0 +1,142 @@
+{
+  "schema": "connect4.source-q-live-compacted-shannon-QBF-results.v0_1",
+  "date": "2026-10-16",
+  "owner": "research/semantic-quotient",
+  "status": "EXACT_K6_RESTORED_K7_WITHIN_BIT_NODE_WALL",
+  "frozenPlan": "research/isograph/discovery/2026-10-16-algorithmic-core/GUARDED_QBF_LIVE_COMPACTION_PLAN_0_1.md",
+  "producer": "research/isograph/discovery/2026-10-16-algorithmic-core/guarded-action-qbf-project-live-compact.mjs",
+  "independentPhysicalControl": "research/isograph/discovery/2026-10-16-algorithmic-core/guarded-action-qbf-projection-live-compact-control.mjs",
+  "fixedCanonicalProbe": "research/isograph/discovery/2026-10-16-algorithmic-core/guarded-qbf-compact-probe.mjs",
+  "exactCommittedGitBlobs": {
+    "generator": "f099f080b6213f277ac8cbdf84b66340143206cc",
+    "compactProjector": "5d0b2c79f61999172d532bae2a78cd92398e0ce9",
+    "compactControl": "f384ee5b1c885c3389fcf0d4d4af7441b818780a",
+    "compactProbe": "db02a8ba6d9bdeb2ca4161f991e044f1d612eaf6"
+  },
+  "localReproduction": {
+    "runtime": "Node 22.16.0",
+    "compactControlOutputSHA256": "66a314ac0f860f71da67f1ef9b695c2460f6e18cb239fe040092a7eed4cda231",
+    "compactProbeOutputSHA256": "8b89b41cb6f40daa1b07e4cc53f38091c3d89c5c53557aeb17e39c3a0bdccae1",
+    "equivalentPhysicalSourceFixtures": [
+      "4x3-c3 empty,223,1212",
+      "4x4-c4 empty,223",
+      "7x6-c4 44444"
+    ],
+    "compiledCases": 31,
+    "totalThresholdQueries": 124,
+    "exact": 120,
+    "budgetPartial": 4,
+    "independentPhysicalComparisonsForExact": true,
+    "zeroValueMismatches": true,
+    "projectedFixedInitialActionDirectly": false
+  },
+  "perCompileHardLimits": {
+    "retainedANDPlusActionInputNodes": 60000,
+    "nontrivialBooleanOperations": 300000,
+    "supportRepresentatives": 10000,
+    "maxTimeSeconds": 15
+  },
+  "canonical44444Cases": [
+    {
+      "k": 6,
+      "threshold": "Wlo",
+      "status": "EXACT",
+      "value": false,
+      "bitsCompleted": 18,
+      "requiredBits": 18,
+      "peakRetainedNodes": 31064,
+      "BooleanOperations": 216140,
+      "compactionWorkUnits": 517861,
+      "postCompactionMaxNodeCount": 18008,
+      "gcCycles": 18
+    },
+    {
+      "k": 6,
+      "threshold": "Whi",
+      "status": "EXACT",
+      "value": true,
+      "bitsCompleted": 18,
+      "requiredBits": 18,
+      "peakRetainedNodes": 24985,
+      "BooleanOperations": 159697,
+      "compactionWorkUnits": 353844,
+      "postCompactionMaxNodeCount": 14643,
+      "gcCycles": 18
+    },
+    {
+      "k": 7,
+      "threshold": "Wlo",
+      "status": "PARTIAL_NODE_CAP",
+      "bitsCompleted": 12,
+      "requiredBits": 21,
+      "peakRetainedNodes": 60000,
+      "BooleanOperations": 207236,
+      "compactionWorkUnits": 478573,
+      "postCompactionMaxNodeCount": 26804,
+      "gcCycles": 12,
+      "lastCompleteBit": {
+        "actionIndex": 3,
+        "quantifier": "P0 exists",
+        "bit": 10,
+        "currentRetainedNodes": 26804,
+        "liveANDGates": 26783,
+        "BooleanOps": 139912
+      }
+    },
+    {
+      "k": 7,
+      "threshold": "Whi",
+      "status": "PARTIAL_NODE_CAP",
+      "bitsCompleted": 12,
+      "requiredBits": 21,
+      "peakRetainedNodes": 60000,
+      "BooleanOperations": 237668,
+      "compactionWorkUnits": 619546,
+      "postCompactionMaxNodeCount": 30869,
+      "gcCycles": 12,
+      "lastCompleteBit": {
+        "actionIndex": 3,
+        "quantifier": "P0 exists",
+        "bit": 10,
+        "currentRetainedNodes": 30869,
+        "liveANDGates": 30848,
+        "BooleanOps": 177627
+      }
+    },
+    {
+      "k": 8,
+      "threshold": "Wlo",
+      "status": "PARTIAL_NODE_CAP",
+      "bitsCompleted": 11,
+      "requiredBits": 24,
+      "peakRetainedNodes": 60000,
+      "BooleanOperations": 210168,
+      "compactionWorkUnits": 623801,
+      "postCompactionMaxNodeCount": 27021,
+      "gcCycles": 11
+    },
+    {
+      "k": 8,
+      "threshold": "Whi",
+      "status": "PARTIAL_NODE_CAP",
+      "bitsCompleted": 12,
+      "requiredBits": 24,
+      "peakRetainedNodes": 60000,
+      "BooleanOperations": 225756,
+      "compactionWorkUnits": 621593,
+      "postCompactionMaxNodeCount": 32869,
+      "gcCycles": 12
+    }
+  ],
+  "exactnessArgument": "Between fully completed quantifier bits, copy only signed-edge AND gates reachable from current root in dependency order, preserve signs/input IDs/cell owner guards, rebuild unique AND hash and variable-dependency supports. Topological induction proves same Boolean function. Four deterministic input assignments before/after each collection provide finite mutation falsification, not a general proof.",
+  "actualCostAccounting": "Boolean operations and compaction traversal/evaluation work separated. k6 Wlo 216140 nontrivial Boolean operations PLUS 517861 compaction work units; k6 Whi 159697 PLUS 353844. Therefore 300k limit is met only for nontrivial Boolean operations, not aggregate work. Counted before/after equivalence evaluations and DFS in compactionWorkUnits.",
+  "k7Mechanism": "After 12/21 quantified bits a complete garbage collection leaves ~26804 Wlo or ~30869 Whi retained node IDs; the NEXT single Shannon cofactor pair requires more than the remaining peak-retention headroom and reaches 60000 BEFORE the next safe post-bit GC. This is a transient within-bit construction wall, not an essential/minimum semantic QBF width lower bound.",
+  "relevantPrior": {
+    "nonGCCandidateFailure": "44444 k6 lower hit 60000 after 12/18 bits, 147262 Boolean operations",
+    "originalReflectedSourceOwnerBDD": "k11 finished under source support and Boolean caps with UNKNOWN [-1,+1]"
+  },
+  "fullGameWDL": "UNKNOWN [-1,+1]",
+  "arbitraryDepthNonbranchingProved": false,
+  "authorityPromoted": false,
+  "merged": false
+}
