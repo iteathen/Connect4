@@ -13,6 +13,24 @@ This file is the current-state router, not a theorem ledger. This branch owns **
 
 See `docs/decisions/2026-09-17-single-research-owner.md`.
 
+## Full-future source-only branch comparison: two-ply cofactor diamonds — 2026-10-17
+
+**New substantive structural proof (not merely bounded response equality):** For an original nonterminal P1-to-move source `q=(h,R0,R1)`, consider `P1 b, P0 c` versus `P1 c, P0 b` for DISTINCT legal columns, requiring both sequences nonterminal. They end on the SAME support `h+e_b+e_c`. Using only original parent residual masks, pull back all owner-true/opponent-blocked generators and test the **P0-favorable residual-upset preorder**. If P0's upset in BC is included in CB's and P1's upset in CB is included in BC's, cofactor isotonicity plus finite-rank first-win Bellman induction proves **exact unrestricted `V(BC)<=V(CB)`**, without evaluating future continuations. Both directions certify full future residual-state/every-action equivalence, retaining literal labels. Terminal guards checked before comparison. This is a same-support structural specialization of established q/favorable-order theory.
+
+**Exhaustive independent physical/q controls PASS** (recursive full WDL used VALIDATION ONLY, never to select source certificates). On all 2,208 P1 physical sources of 4x3 Connect3: **1,522 distinct q+column diamonds**, of which **72 exact future equivalences** and **352 one-way full-WDL dominance** certified; **0 false** WDL/antichain claims. On all 67,992 P1 physical sources of 4x4 Connect4: **39,798 distinct q+column diamonds**, **2,372 equal** and **9,380 one-way dominance**, **0 false**. Deduplication by exact q key explicitly avoids inflating independent work by physical-history duplicates. Raw physical-pair counts (including repetitions) were 72+354 over 1,530 eligible 4x3, and 17,642+24,644 over 84,026 4x4. Independent full-q evaluator checked only AFTER producer proof; some one-way source orders had strictly different full WDL, but source theorem claims ONLY weak `<=`, never a strict ordering without another proof. Full WDL and all tied-optimal future action masks transport exactly for the mutual-equality cases.
+
+**Canonical `44444` limitation:** All 21 unordered distinct P1 move6/P0 move7 owner-swap diamonds are structurally INCOMPARABLE under this bare same-support upset order; no new unrestricted move6/turn8 value or tie certificate. The previously proved literal mirror orbits `{1,7},{2,6},{3,5},{4}` remain the only full-horizon move6 equivalence there. The 7→1 one-layer bounded zero-response-signature quotient MUST NOT be mistaken for future WDL equality.
+
+**NEXT structural proof gate:** turn source-only TWO-PLY value comparisons into a **complete alternating response matching**. To prove P1 first reply `b_h` harder than `b_e` in P0 WDL, certify for EVERY legal P0 response `a_h` to `b_h` some matching P0 response `a_e` to `b_e` with full-future source value order, preserving move/terminal/legality guards. Same-support ownership swapping currently matches only `a_h=b_e, a_e=b_h` and cannot cover all other replies. Search a source cofactor-preserving transport/simulation ACROSS DIFFERENT SUPPORTS (possibly existing G2 future-chain iso plus favorable-upset dominance), then prove closure by source-local algebra rather than branching over future games. Weak dominance cannot discard possible tied-best literal labels.
+
+Primary theorem and exact accounting:
+`docs/research/2026-10-17-full-future-two-ply-cofactor-simulation.md`.
+Producer and independent physical/q conformance:
+`research/isograph/discovery/2026-10-17-dual-obligation-quotient/two-ply-owner-swap-simulation.mjs`,
+`two-ply-owner-swap-control.mjs`,
+`TWO_PLY_OWNER_SWAP_RESULTS_0_1.json`.
+Resource envelope unchanged; full standard7x6 `44444` WDL and exact best-move set remain UNKNOWN, no authority promotion/merge.
+
 ## Refocused primary research: eliminate adaptive strategic branching — 2026-10-17
 
 **Explicit renewed owner priority:** Do NOT optimize yet another action-QBF/BDD encoding, source-gate GC, variable order, or larger fixed-depth support cone as the default experiment. The target is an exact **source-derived, future-stable adaptive response equivalence/dominance certificate** that removes whole universal/existential strategic obligations BEFORE independently evaluating successor values, while still returning exact W/D/L and **ALL tied-optimal literal moves**. The ordinary recursive/cofactor algorithmic core remains constructively complete; the historic chronological move7/8 transition and bounded turn8 defensive sets are already solved. No turn6/7/8 full-game WDL equivalence has been proved.
