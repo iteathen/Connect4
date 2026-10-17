@@ -13,7 +13,7 @@ import {physicalRules} from './constructive-core-control.mjs';
 
 const G={width:7,height:6,connect:4};
 const FROZEN='43214636342357317661423762461717147';
-const CANDIDATE_RANKS=[35,30,28,32];
+const CANDIDATE_RANKS=[35,32,30,28,27,26,24,22];
 const LIMITS={maxBDDNodes:60000,maxBDDOperations:300000,
  maxSupports:10000,maxCompileMs:15000,
  maxQStates:200000,maxQTransitions:800000,maxQTimeMs:30000};
