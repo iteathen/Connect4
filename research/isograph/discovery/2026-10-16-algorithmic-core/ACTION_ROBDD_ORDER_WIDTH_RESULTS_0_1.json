@@ -1,0 +1,125 @@
+{
+  "schema": "connect4.action_robd_order_width_0_1",
+  "date": "2026-10-16",
+  "status": "K9_COMPILE_INCOMPLETE_FOR_EIGHT_PREDECLARED_STATIC_ORDERS",
+  "source": "research/isograph/discovery/2026-10-16-algorithmic-core/action-robd-structural-orders.mjs",
+  "plan": "research/isograph/discovery/2026-10-16-algorithmic-core/ACTION_ROBDD_ORDER_WIDTH_PLAN_0_1.md",
+  "tested": "canonical 44444 guarded QBF Wlo 9 future plies, action blocks preserved, 60k nodes / 300k Boolean operations / 15 s unchanged",
+  "orders": [
+    {
+      "order": "chronological",
+      "failure": "NODE",
+      "booleanOps": 131110,
+      "peakNodeSlots": 60000,
+      "peakSimultaneousDuringCopyGC": 39252,
+      "gcCycles": 3
+    },
+    {
+      "order": "reverse",
+      "failure": "NODE",
+      "booleanOps": 109067,
+      "peakNodeSlots": 60000,
+      "peakSimultaneousDuringCopyGC": 22721,
+      "gcCycles": 1
+    },
+    {
+      "order": "bitplane",
+      "failure": "COMPACTION_SPACE",
+      "booleanOps": 59777,
+      "peakNodeSlots": 35157,
+      "peakSimultaneousDuringCopyGC": 60000,
+      "gcCycles": 4
+    },
+    {
+      "order": "bitplane-reverse",
+      "failure": "COMPACTION_SPACE",
+      "booleanOps": 59031,
+      "peakNodeSlots": 37002,
+      "peakSimultaneousDuringCopyGC": 60000,
+      "gcCycles": 4
+    },
+    {
+      "order": "existential-first",
+      "failure": "NODE",
+      "booleanOps": 153046,
+      "peakNodeSlots": 60000,
+      "peakSimultaneousDuringCopyGC": 48741,
+      "gcCycles": 6
+    },
+    {
+      "order": "universal-first",
+      "failure": "COMPACTION_SPACE",
+      "booleanOps": 128475,
+      "peakNodeSlots": 43002,
+      "peakSimultaneousDuringCopyGC": 60000,
+      "gcCycles": 6
+    },
+    {
+      "order": "parity-blocks",
+      "failure": "COMPACTION_SPACE",
+      "booleanOps": 128475,
+      "peakNodeSlots": 43002,
+      "peakSimultaneousDuringCopyGC": 60000,
+      "gcCycles": 6
+    },
+    {
+      "order": "snake",
+      "failure": "NODE",
+      "booleanOps": 129312,
+      "peakNodeSlots": 60000,
+      "peakSimultaneousDuringCopyGC": 38121,
+      "gcCycles": 3
+    }
+  ],
+  "aggressiveSchedule": {
+    "maxRetainedNodes": 60000,
+    "triggerAtAllocatedNodes": 8000,
+    "triggerEveryGates": 8,
+    "results": [
+      {
+        "order": "chronological",
+        "failure": "COMPACTION_SPACE",
+        "BooleanOps": 111950,
+        "gcCycles": 14,
+        "gcNodesCopied": 134092
+      },
+      {
+        "order": "reverse",
+        "failure": "COMPACTION_SPACE",
+        "BooleanOps": 118467,
+        "gcCycles": 7,
+        "gcNodesCopied": 48451
+      },
+      {
+        "order": "bitplane",
+        "failure": "COMPACTION_SPACE",
+        "BooleanOps": 79828,
+        "gcCycles": 32,
+        "gcNodesCopied": 544722
+      },
+      {
+        "order": "bitplane-reverse",
+        "failure": "COMPACTION_SPACE",
+        "BooleanOps": 67768,
+        "gcCycles": 30,
+        "gcNodesCopied": 490640
+      },
+      {
+        "order": "universal-first",
+        "failure": "COMPACTION_SPACE",
+        "BooleanOps": 138085,
+        "gcCycles": 35,
+        "gcNodesCopied": 575224
+      }
+    ]
+  },
+  "interpretation": "Eight source-only variable orders and an alternate GC frequency still fail k9 without QBF decision. COMPACTION_SPACE counts simultaneously retained old and copied BDD nodes against original 60k; no essential cofactor-width lower bound follows. In-place stable-handle mark/sweep is a distinct, falsifiable memory-lifetime hypothesis.",
+  "completedWDL": false,
+  "priorIndependentK8PhysicalControl": {
+    "transitionChecks": 3567031,
+    "result": "all seven bounded intervals [-1,+1]"
+  },
+  "oracleValueInputs": 0,
+  "gameContinuationExpansionInCandidate": 0,
+  "authorityPromotion": false
+}
