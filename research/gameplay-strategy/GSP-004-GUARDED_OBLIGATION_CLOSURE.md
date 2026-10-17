@@ -755,3 +755,47 @@ optimization, or pass searched values into the producer.
 
 Proof, controls and negative full-WDL witness:
 `docs/research/2026-10-17-branch-elimination-dual-obligation-and-future-separation.md`.
+
+## 2026-10-17 — first source-only FULL-FUTURE WDL branch-comparison operator
+
+This is materially stronger than the earlier fixed-horizon reply
+signature reduction. For P1-to-move parent q and distinct legal
+columns b,c, original-source cofactor algebra compares two
+nonterminal two-ply conditioned histories `P1 b, P0 c` and
+`P1 c, P0 b`. Both have the same final support. Pointwise
+minimal generator containment of their P0/P1 residual upsets
+supplies an exact P0-favorable-order certificate; first-win,
+gravity, draw and owner-cofactor monotonicity prove unrestricted
+future `V(BC)<=V(CB)`, without any future game solve in the
+producer. Mutual inclusion proves exact future residual-q
+equality and complete subsequent best-action label transport.
+
+**FULL independent legal small-board validation PASS:** 4x3-c3
+2,208 P1 physical sources, unique q+column diamond pairs
+1,522: **72 exact future equal / 352 one-way WDL dominance**,
+zero false certificates. 4x4-c4 all 67,992 P1 physical
+sources, unique 39,798 diamonds: **2,372 exact equal /
+9,380 weak WDL dominance**, zero false certificates.
+Physical histories were deduplicated by exact q key before
+reporting genuine distinct proof obligations. Some one-way
+certificates had strict numeric WDL gaps ONLY in the
+independent validator; the source comparison proves <=,
+not that strict gap. These numbers are conditioned
+two-ply continuation comparisons, NOT complete P1 root
+action ranking or eliminated game-tree branches.
+
+**Critical standard7x6 control:** all 21 distinct-column
+owner-swap diamonds from `44444` are incomparable under
+this bare same-support order; no new P1 turn6 full-WDL
+optimal/equivalence claim. Existing full-horizon
+reflection orbits of seven actions into four classes remain.
+**Next GSP-004 proof obligation:** source-only guarded
+alternating simulation that provides a response MATCHING
+for EVERY P0 action after a proposed P1 choice, including
+DIFFERENT resulting supports. A single ownership-swap
+diamond only matches one P0 reply to another. Weak
+dominance alone cannot erase possible tied-optimal labels.
+Avoid deeper uncomputed QBF/BDD compilation.
+
+Mathematical theorem/controls:
+`docs/research/2026-10-17-full-future-two-ply-cofactor-simulation.md`.
