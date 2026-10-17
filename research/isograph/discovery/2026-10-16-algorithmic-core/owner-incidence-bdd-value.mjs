@@ -17,7 +17,7 @@ export class OwnerBDDBudgetError extends Error{
 }
 export function createOwnerIncidenceBDDSolver({width:W,height:H,connect:K},{
  maxNodes=60000,maxApplyVisits=300000,maxSupports=10000,
- deadlineAt=Infinity
+ deadlineAt=Infinity,retainAllSupportFunctions=false
 }={}){
  if(![W,H,K].every(Number.isInteger)||W<1||H<1||K<2||W*H>42)
   throw Error('invalid finite gravity geometry');
@@ -46,7 +46,8 @@ export function createOwnerIncidenceBDDSolver({width:W,height:H,connect:K},{
   BDDThresholdRootActionCount:0,
   WDLInputStatesVisitedDuringCompile:0,
   gameTreeRecursiveBranchesSolved:0,
-  maxLiveActionRoots:0,compilerMs:0
+  maxLiveActionRoots:0,compilerMs:0,
+  retainAllSupportFunctions,finalRetainedSupportCount:0
  };
  const node0={var:Infinity,low:null,high:null},
   node1={var:Infinity,low:null,high:null};
@@ -240,7 +241,7 @@ export function createOwnerIncidenceBDDSolver({width:W,height:H,connect:K},{
     W:action.length===0?0:player===0?OR(action.map(a=>a.W)):AND(action.map(a=>a.W)),
     N:action.length===0?1:player===0?OR(action.map(a=>a.N)):AND(action.map(a=>a.N))};
    compiled.set(sk,state);stats.supportsBuilt++;
-   if(rank===N&&sk!==key(root)&&parents.get(sk)===0){
+   if(!retainAllSupportFunctions&&rank===N&&sk!==key(root)&&parents.get(sk)===0){
     compiled.delete(sk);stats.childSupportReleases++;
    }
    for(const a of action){
@@ -249,16 +250,18 @@ export function createOwnerIncidenceBDDSolver({width:W,height:H,connect:K},{
     const id=key(hChild),left=parents.get(id)-1;
     if(left<0)throw Error('negative predecessor count');
     parents.set(id,left);
-    if(left===0){compiled.delete(id);stats.childSupportReleases++;}
+    if(left===0&&!retainAllSupportFunctions){compiled.delete(id);stats.childSupportReleases++;}
    }
    stats.activeSupportMax=Math.max(stats.activeSupportMax,compiled.size);
    stats.maxLiveActionRoots=Math.max(stats.maxLiveActionRoots,
     [...compiled.values()].reduce((k,c)=>k+2+2*c.action.length,0));
    sweep();
   }
-  if(compiled.size!==1||!compiled.has(key(root)))
+  if(!compiled.has(key(root))||
+    (!retainAllSupportFunctions&&compiled.size!==1))
    throw Error('support live-root accounting incorrect');
   stats.compilerMs=Date.now()-started;stats.finalNodes=nodes.length;
+  stats.finalRetainedSupportCount=compiled.size;
   return compiled.get(key(root));
  }
  function evalBDD(id,p0Bits){
@@ -298,6 +301,7 @@ export function createOwnerIncidenceBDDSolver({width:W,height:H,connect:K},{
    allAliveBDDNodes:nodes.length,actions:comp.action.length};
  }
  return Object.freeze({compile,decode,liveOutput,
+  getSupport:(h)=>compiled.get(key(h)),
   stats:()=>({...stats,currentBDDNodes:nodes.length,
    currentlyRetainedSupportFunctions:compiled.size}),
   lineCount:lineMap.size,
