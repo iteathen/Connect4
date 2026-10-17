@@ -1,0 +1,85 @@
+{
+  "schema": "connect4.7x6.center_full_left_right_shuffle_bridge_v0_1",
+  "date": "2026-10-17",
+  "status": "PASS_ACTUAL7X6_EXACT_TWO_WORD_XOR_INTERLEAVE_AND_BOOLEAN_BRIDGE_FIRST_WIN_WITH_NONTRIVIAL_PHASE_SHIFT_WITNESS",
+  "theorem": "docs/research/2026-10-17-center-full-left-right-shuffle-xor-bridge-factorization.md",
+  "sourceProducer": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-center-shuffle-bridge-source.mjs",
+  "sourceExactGitBlob": "b70f9d8a77de247ae08046d16d298a58882ebf04",
+  "independentPhysicalControl": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-center-shuffle-bridge-physical-control.mjs",
+  "controlExactGitBlob": "d9c24bfd9cf68a1b110c71f7ec704f5b410588de",
+  "geometry": {
+    "W": 7,
+    "H": 6,
+    "K": 4,
+    "geometricWinningLines": 69,
+    "centerColumnLiteral": 4,
+    "canonicalHistory": "444444"
+  },
+  "sourceQ": {
+    "R0": 42,
+    "R1": 42,
+    "partition": {
+      "P0": {
+        "left": 15,
+        "right": 15,
+        "bridge": 12
+      },
+      "P1": {
+        "left": 15,
+        "right": 15,
+        "bridge": 12
+      }
+    }
+  },
+  "mathematicalIdentity": "For event e in left/right regional word, global relative rank t(e)=local regional rank j(e)+number opposite-region events before e. owner(e)=(n+j(e)-1) mod2 XOR opposite-prefix event-count parity. Every source residual G splits G_L,G_R, and whole completion is C_p,G=C_p,G_L AND C_p,G_R, with first terminal rank min_G max_e t(e).",
+  "execution": "Frozen committed source executed in isolated V8, ~4.18 seconds. Physical array-grid checker built from original 7x6 geometry, not game value reference; full suffix schedules hypothetical after first terminal.",
+  "control": {
+    "sameInternalLeftAndRightWordPairs": 2800,
+    "fullHypotheticalGravitySchedules": 5600,
+    "phaseOwnerChecks": 201600,
+    "sourceCrossRegionBooleanConjunctionChecks": 470400,
+    "originalLineBridgeGeneratorChecks": 24,
+    "differentFirstWinnerDespiteIdenticalProjectedLeftAndRightWords": 1140,
+    "differentFirstWinTurnDespiteIdenticalProjectedWords": 2546,
+    "firstWinnerMismatchesPhysical": 0,
+    "firstWinTimeMismatchesPhysical": 0,
+    "producerFutureStrategicGameValuesQueried": 0
+  },
+  "witness": {
+    "prefix": "444444",
+    "leftWordOneBased": "323233112211113322",
+    "rightWordOneBased": "756775676755665765",
+    "globalInterleavingA": "732356237371567126217151516363527652",
+    "globalInterleavingB": "735263727353617162725151616153736252",
+    "sameLeftWord": true,
+    "sameRightWord": true,
+    "firstWinnerA": "P1",
+    "firstWinAbsoluteMoveA": 16,
+    "firstWinningResidualA": {
+      "region": "LEFT",
+      "zeroBasedPhysicalCellIds": [
+        2,
+        9,
+        16,
+        23
+      ]
+    },
+    "firstWinnerB": "P0",
+    "firstWinAbsoluteMoveB": 11,
+    "firstWinningResidualB": {
+      "region": "RIGHT",
+      "zeroBasedPhysicalCellIds": [
+        4,
+        5,
+        6
+      ]
+    }
+  },
+  "scope": [
+    "This is a stronger actual7x6 falsifier of independence of left/right subgames: even with IDENTICAL internal left and right column-symbol orders, changing only their INTERLEAVING changes global owner XOR phase and can reverse the first winner.",
+    "Source ORIGINAL winlines crossing center remain 12 per player even though center has no legal next action. Both shared phase and 24 surviving geometric bridge requirements are needed for an exact general two-region composition.",
+    "Demonstrates first-win schedule payoff, NOT unrestricted perfect play, all-optimal literal move set or lack of a more sophisticated direct source invariant.",
+    "No hidden strategy/future-game valuations in source; validation supplies four? In this experiment 5600 fixed complete hypothetical words as ordinary verification inputs, not recursive game choices.",
+    "Maintained Node26 all-suite / external proof-assistant qualification not performed. W,H,K symbolically retained in theorem, evidence actual 7x6 only."
+  ]
+}
