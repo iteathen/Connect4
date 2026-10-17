@@ -1,0 +1,171 @@
+{
+  "schema": "connect4.guard-qualified-local-quantifier-projection-results.v0_1",
+  "date": "2026-10-16",
+  "owner": "research/semantic-quotient",
+  "status": "LOCAL_QUANTIFIER_PUSH_EXACT_K7_PASS_K8_LOWER_PARTIAL",
+  "frozenPlan": "research/isograph/discovery/2026-10-16-algorithmic-core/GUARDED_LOCAL_QUANTIFIER_PROJECTION_PLAN_0_1.md",
+  "theorem": "For x-independent B, Q_x(A OP B)=(Q_x A) OP B; forall distributes across AND; exists across OR by duality; Q_x NOT F=NOT dual(Q)_x F; when exists over two x-dependent AND factors or forall over two x-dependent OR factors, use full exact Shannon fallback without commuting alternating action blocks.",
+  "producer": "research/isograph/discovery/2026-10-16-algorithmic-core/guarded-action-qbf-local-quantifier.mjs",
+  "completeOptimalActionControl": "research/isograph/discovery/2026-10-16-algorithmic-core/local-quantifier-control.mjs",
+  "independentStandard7x6K7PhysicalControl": "research/isograph/discovery/2026-10-16-algorithmic-core/local-quantifier-k7-physical-control.mjs",
+  "sourceQBF": "research/isograph/discovery/2026-10-16-algorithmic-core/guarded-action-qbf.mjs",
+  "sourceCodesConfirmed": {
+    "producerGitBlob": "e46a847c43ab5b8d79bc02cc09d60f9e89fb86ae",
+    "standardControlGitBlob": "81fbe9cb770097f68d05a61fab92f52910ddec77",
+    "k7PhysicalControlGitBlob": "ec395be044069434ce55957b5561cc453a242657",
+    "sourceQBF": "f099f080b6213f277ac8cbdf84b66340143206cc"
+  },
+  "localNodeVersion": "v22.16.0",
+  "evidenceSHA256": {
+    "standardControlStdout": "493fd4a20a88224c2c29f4061d26c2e99a1d7b4d4deb4f4c2004a2d222e1c289",
+    "independentK7PhysicalStdout": "fa32a67993040bb46c7178abd7a559daa53427760dd64772b60c5a1580d7f612"
+  },
+  "conformance": {
+    "sourceHorizonCases": 47,
+    "sourceThresholdSharedProjectionCalls": 188,
+    "perLiteralActionThresholdChecks": 672,
+    "independentPhysicalValidationTransitions": 532956,
+    "exactFullGameSuffixOptimalMoveSets": 24,
+    "singletonBestSets": 13,
+    "multipleEqualBestSets": 11,
+    "zeroDiscrepancies": true,
+    "scope": "4x3 Connect3 and 4x4 Connect4 exact full suffixes plus bounded 7x6 44444/444444 and legal 223 counterexample; candidate has zero physical continuation enumeration"
+  },
+  "canonical44444": {
+    "k6": {
+      "lower": {
+        "status": "EXACT_BOUNDED_FALSE_ALL_SEVEN",
+        "projectedBooleanOps": 49929,
+        "peakRetainedNodes": 4874
+      },
+      "upper": {
+        "status": "EXACT_BOUNDED_TRUE_ALL_SEVEN",
+        "projectedBooleanOps": 17271,
+        "peakRetainedNodes": 1543
+      },
+      "earlierNonlocalizedLowerOps": 214299,
+      "earlierNonlocalizedUpperOps": 159697,
+      "allActionsUnrestrictedInterval": [
+        -1,
+        1
+      ]
+    },
+    "k7": {
+      "independentPhysical": "PASS",
+      "independentPhysicalMoveTransitions": 2799124,
+      "individuallyCheckedBooleanActionThresholds": 28,
+      "lower": {
+        "status": "EXACT_BOUNDED_FALSE_ALL_SEVEN",
+        "projectedBooleanOps": 63757,
+        "peakRetainedNodes": 6298,
+        "additionalCompactionUnits": 268070,
+        "universalConjunctionPushes": 182,
+        "independentFactorPushes": 176,
+        "mixedShannonFallbacks": 35
+      },
+      "upper": {
+        "status": "EXACT_BOUNDED_TRUE_ALL_SEVEN",
+        "projectedBooleanOps": 166807,
+        "peakRetainedNodes": 16517,
+        "additionalCompactionUnits": 507801,
+        "universalConjunctionPushes": 78,
+        "independentFactorPushes": 54,
+        "mixedShannonFallbacks": 42
+      },
+      "originalCompactedShannon": "PARTIAL at 60000 nodes after 12/21 quantified action bits; new local pushdown completes all inner 18/18 bits.",
+      "allSevenActionIntervals": [
+        -1,
+        1
+      ],
+      "unrestrictedRootValue": "UNKNOWN [-1,+1]",
+      "WDLOptimalSet": "UNKNOWN"
+    },
+    "k8": {
+      "lower": {
+        "status": "RESOURCE_PARTIAL",
+        "projectedBooleanOpsBeforeStop": 292251,
+        "peakNodes": 60000,
+        "innerBitsCompleted": 16,
+        "requiredInnerBits": 21
+      },
+      "upper": {
+        "status": "EXACT_BOUNDED_TRUE_ALL_SEVEN",
+        "projectedBooleanOps": 208467,
+        "peakRetainedNodes": 20573,
+        "independentFullK8PhysicalComparison": false
+      },
+      "arbitraryDepthBranchEliminationProved": false
+    }
+  },
+  "matchedNaivePerActionBaselines": {
+    "cases": [
+      {
+        "board": "4x3-c3",
+        "prefix": "223",
+        "k": 3,
+        "naivePerActionBooleanWork": 12012,
+        "locallyProjectedBooleanWork": 2201,
+        "booleanSavingsPercent": 81.68,
+        "booleanPlusGCsavingsPercent": 76.31
+      },
+      {
+        "board": "4x3-c3",
+        "prefix": "223",
+        "k": 4,
+        "naivePerActionBooleanWork": 31536,
+        "locallyProjectedBooleanWork": 4337,
+        "booleanSavingsPercent": 86.25,
+        "booleanPlusGCsavingsPercent": 78.21
+      },
+      {
+        "board": "4x4-c4",
+        "prefix": "223",
+        "k": 4,
+        "naivePerActionBooleanWork": 22356,
+        "locallyProjectedBooleanWork": 4237,
+        "booleanSavingsPercent": 81.05,
+        "booleanPlusGCsavingsPercent": 75.92
+      },
+      {
+        "board": "7x6-c4",
+        "prefix": "44444",
+        "k": 3,
+        "naivePerActionBooleanWork": 44366,
+        "locallyProjectedBooleanWork": 5383,
+        "booleanSavingsPercent": 87.87,
+        "booleanPlusGCsavingsPercent": 84.34
+      },
+      {
+        "board": "7x6-c4",
+        "prefix": "44444",
+        "k": 4,
+        "naivePerActionBooleanWork": 135856,
+        "locallyProjectedBooleanWork": 12556,
+        "booleanSavingsPercent": 90.76,
+        "booleanPlusGCsavingsPercent": 86.41
+      }
+    ],
+    "BooleanSavingsPercentRange": [
+      81.05,
+      90.76
+    ],
+    "BooleanPlusGCsavingsPercentRange": [
+      75.92,
+      86.41
+    ],
+    "caveat": "Each independent first-action solve recompiles and projects without cross-action caching; no comparison to best existing source-owner reflected ROBDD or optimally cached minimax. Counted Boolean ops and separately counted GC work are only partial proxies for wall clock."
+  },
+  "strictPerCompileLimits": {
+    "maxRetainedNodes": 60000,
+    "maxBooleanOps": 300000,
+    "maxSupports": 10000,
+    "maxTimeMs": 15000
+  },
+  "proofBoundary": "Exact Boolean identities and bounded independent physical controls; no certified numerical game value after 44444, no global branchlessness, no new IsoGraph authority or merge.",
+  "historicalResultsPreserved": [
+    "source-owner reflected BDD 44444 k11 UNKNOWN after 9366 orbits",
+    "compacted whole-root Shannon 44444 k7 retained-node failure",
+    "non-distributivity of exists-over-correlated-conjunction / forall-over-correlated-disjunction",
+    "legal 223 forall b exists a vs exists a forall b"
+  ]
+}
