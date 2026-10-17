@@ -96,6 +96,14 @@ Unlisted dated notes remain repository evidence. Being unlisted means “not pri
 
 - Durable experiment: `research/isograph/discovery/2026-10-16-algorithmic-core/adaptive-galois-factor.mjs`, `adaptive-galois-factor-control.mjs`, `ADAPTIVE_GALOIS_FACTOR_RESULTS_0_1.json`. A fixed local-response relation is not an arbitrary-depth strategic-value solver.
 
+## New guarded local adaptive quantifier proof (k7) and unate negative (k8)
+
+- [`2026-10-16-guard-qualified-quantifier-localization-and-action-vectors.md`](2026-10-16-guard-qualified-quantifier-localization-and-action-vectors.md)  
+  **ACTIVE PROVEN LOCAL QUANTIFIER LAW / SCOPED k7 COMPUTATIONAL IMPROVEMENT.** An exact signed Boolean DAG projector pushes universal quantifiers through conjunction, existential through disjunction by duality, and either through a factor proven independent of that choice bit. Shannon fallback preserves full correlated existential conjunction / universal disjunction. Maintains shared free first-action labelled outputs. Node22 complete small-board reference: 47 source/depth cases, 188 four-threshold projections, 672 physical action checks, 24 complete WDL + tied-optimal action sets (13 unique, 11 tied), zero mismatches. Canonical 7x6 `44444` k7 all four bounded action threshold vectors COMPLETE, independently checked against 2,799,124 physical move evaluations: lower false/upper true on all seven, unrestricted WDL still UNKNOWN. Lower 63,757 Boolean ops / 6,298 peak nodes, upper 166,807 / 16,517. k8 upper completes but lower hits 60k nodes after 16/21 inner action bits. This is a genuine removal of k7's temporary quantifier width wall, NOT global nonbranching proof. Script/control/evidence: `research/isograph/discovery/2026-10-16-algorithmic-core/guarded-action-qbf-local-quantifier.mjs`, `local-quantifier-control.mjs`, `local-quantifier-k7-physical-control.mjs`, `GUARDED_LOCAL_QUANTIFIER_PROJECTION_RESULTS_0_1.json`.
+
+- [`2026-10-16-common-witness-unateness-negative-width.md`](2026-10-16-common-witness-unateness-negative-width.md)  
+  **EXACT THEOREM / NEGATIVE COST-BENEFIT CONTROL.** Same-direction monotonicity in a quantified Boolean input supplies one common existential endpoint for correlated AND factors; signed AND/NOT DAG polarity provides a sound conservative certificate. Independent small-board and k7 physical controls still PASS, but the failed `44444` k8 lower projection gained only 56 Boolean work units while requiring 85,612 additional polarity-cache misses and still reaching 60k nodes. Do not promote generic syntactic unateness probing as the next default. Evidence `GUARDED_UNATE_WITNESS_PROJECTION_RESULTS_0_1.json`. Semantic source-guard-conditioned cofactor equivalence remains OPEN.
+
 ## One-pass root-action sharing — exact labelled vectors and complete tied best sets
 
 - [`2026-10-16-one-pass-optimal-action-vector-quantifier-projection.md`](2026-10-16-one-pass-optimal-action-vector-quantifier-projection.md)  
