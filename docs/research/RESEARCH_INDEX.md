@@ -96,6 +96,11 @@ Unlisted dated notes remain repository evidence. Being unlisted means “not pri
 
 - Durable experiment: `research/isograph/discovery/2026-10-16-algorithmic-core/adaptive-galois-factor.mjs`, `adaptive-galois-factor-control.mjs`, `ADAPTIVE_GALOIS_FACTOR_RESULTS_0_1.json`. A fixed local-response relation is not an arbitrary-depth strategic-value solver.
 
+## One-pass root-action sharing — exact labelled vectors and complete tied best sets
+
+- [`2026-10-16-one-pass-optimal-action-vector-quantifier-projection.md`](2026-10-16-one-pass-optimal-action-vector-quantifier-projection.md)  
+  **SCOPED EXACT ROOT-ACTION WORK SHARING / GENERAL BRANCH ELIMINATION STILL OPEN.** Project the source-rule-derived guarded alternating QBF over every *future* action block while leaving the initial action variable free; every legal first action's Boolean WIN/NONLOSS thresholds are recovered by conditioning that **one** function. Complete action values yield exact WDL and **all equally optimal literal moves**, not guessed singleton. Node22 first-win reference: 47 bounded cases, 188 shared projections, 672 per-action threshold checks, 24 complete-game short suffixes (13 singleton optima, 11 tied), zero discrepancies. Deliberately uncached per-action baseline consumes 76.5%–86.7% more Boolean work than one shared vector (measured as fractional savings from baseline); charged GC work separately. Inner adaptive quantifiers still expand, and `44444` stays UNKNOWN through shared k6; k7 resource-partial. Code/control/results in `research/isograph/discovery/2026-10-16-algorithmic-core/` with names `guarded-action-qbf-first-action-vector.mjs`, `first-action-vector-control.mjs`, `SHARED_FIRST_ACTION_QUANTIFIER_PROJECTION_RESULTS_0_1.json`.
+
 ## Owner-directed primary OPEN mathematical target — 2026-10-16
 
 - [`2026-10-16-branch-elimination-primary-objective.md`](2026-10-16-branch-elimination-primary-objective.md)  
