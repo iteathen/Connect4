@@ -58,6 +58,62 @@ core. The empty standard-7x6 root is **not** claimed computed by this
 recursive research evaluator. New tests ran in isolated V8; Node26 sustained
 qualification and external reproduction remain separate.
 
+## Mathematical logic proof search — new exact candidate interface — 2026-10-16
+
+Per owner directive, research was conducted in **general mathematical
+proof literature**, not Connect Four literature or cross-domain
+analogies. The strongest relevant theorems concern (a) sound
+dependency-qualified quantifier localization, (b) Boolean relation
+rank/rectangle factorization for adaptive action-response covers,
+(c) OBDD width as the number of distinct essential future
+Boolean cofactors, and (d) structured-circuit treewidth/quantified
+width upper and lower bounds.
+
+The existing `44444` source-q mirrored BDD can compile eleven
+future plies but remains [-1,+1]. Its depth12 cone needs 13,524
+canonical supports, exceeding the experimental 10k cap.
+The literature points to a more mathematically meaningful objective
+than raw support-count reduction:
+
+**Derive a sound factored representation of adaptive P1/P0 response
+relations from source residual requirements, retaining legal
+first-win/action dependencies; measure the actual width of
+distinct cofactor functions crossing each quantified boundary,
+and attempt quantifier localization only where dependency
+independence is proved.**
+
+A concrete pure Boolean-rank calculation on existing physically
+verified 4x3 `223` response masks [0xe,0x4,0xe,0x7] gives an
+**EXACT three-rectangle factorization**, with a matching
+three-element fooling-set lower bound. It preserves
+`forall b exists a` without incorrectly swapping the quantifiers.
+This is a test for a proposed descriptor, **not** a proof of
+efficient arbitrary-depth composition.
+
+A separate exact geometry/residual hypergraph diagnostic at
+`44444` found 37 future-cell variables and 90 total
+minimal residual requirements (48 P0,42 P1), with 198
+primal graph edges and one connected component. A deterministic
+greedy min-fill order gives **treewidth upper bound 15**, NOT
+an exact width or an impossibility theorem. After center fills
+(`444444`), the raw hypergraph is STILL connected. This
+rules out a trivial disconnected-component split of the
+displayed requirements, not algebraically equivalent or
+conditional-separator factorizations; terminal/turn/capacity
+guards introduce further quantified dependencies.
+
+Main theorem/literature record:
+`docs/research/2026-10-16-general-mathematical-quantifier-width-proof-search.md`.
+Reproducible diagnostic:
+`research/isograph/discovery/2026-10-16-algorithmic-core/RESIDUAL_DEPENDENCY_WIDTH_PROBE_0_1.json`
+and `residual-dependency-width-probe.mjs`.
+Updated continuation:
+`next_step.yaml:general_mathematical_proof_research_20261016`.
+
+**No new WDL label or guaranteed polynomial/nonbranching solver is
+claimed.** Full ordinary recursive core and qualified authority
+are unchanged. No production integration or merge performed.
+
 ## Source-anchored interval W/D/L algebra and mirror-orbit cone — 2026-10-16
 
 **New qualified bounded-source candidate:** a four-threshold WIN/NONLOSS
