@@ -140,6 +140,24 @@ their results against the qualified recursive reference and count underlying
 subproblems/materialized frontiers, not merely number of returned values.
 Recursion elimination and formal minimality may be pursued later if useful.
 
+## 2026-10-16 — first actual action-QBF projector finds k6 retained-width wall
+
+The source-only action-bit QBF is not merely represented now: an
+exact Shannon cofactor quantifier eliminator computes all four threshold
+truth values through k5 for canonical `44444` with independent
+physical bounded-control agreement, but returns UNKNOWN [-1,+1].
+For k6 the lower thresholds hit 60,000 retained hash-consed gates after
+12/18 action bits; upper thresholds complete TRUE. This is a concrete
+representation-resource wall, not a minimum semantic width proof.
+The older reflected source-owner BDD still completes k11 and is better
+for current bounded-value calculations.
+
+Next GSP-003/004 experiment: instrument truly reachable quantified
+Boolean cofactors and transition-safe factor structure, then consider
+garbage-collected or structured DNNF / bilateral strategies; count
+construction AND projection, not just final constant. Record:
+`docs/research/2026-10-16-guarded-qbf-shannon-projection-depth6-obstruction.md`.
+
 ## 2026-10-16 — full quantified source game representation; value closure OPEN
 
 The guard-complete, all-horizon source-residual action QBF translation
@@ -182,8 +200,8 @@ bound. No unrestricted `44444` value or deep branch-elimination proof.
 |---|---|---|---|---|---|---|
 | GSP-001 | [Quotient-native gameplay description](gameplay-strategy/GSP-001-QUOTIENT_NATIVE_GAMEPLAY_DESCRIPTION.md) | ROUGH_PROPOSAL | Makes q the explicit exact internal gameplay description | Connect4 domain/gameplay adapter | independent q-vs-physical transition replay; first-win controls | define the gameplay interface and exact record ownership |
 | GSP-002 | [Packed q transition compiler](gameplay-strategy/GSP-002-PACKED_Q_TRANSITION_COMPILER.md) | ROUGH_PROPOSAL | Turns q + column into a low-cost exact runtime kernel | state compiler / transition layer | exact equality; transition equivalence; economics | prototype transparent packed q before aggressive compression |
-| GSP-003 | [Symbolic q fixed-point solver](gameplay-strategy/GSP-003-SYMBOLIC_Q_FIXED_POINT_SOLVER.md) | ACTIVE_INVESTIGATION | Exact source-q bounded WIN/NLOSS interval BDD; now testing mathematically sound quantified factorization instead of growing support cones | dependency-localized structured Boolean factor circuit; exact distinct-cofactor width instrumentation | quantify interface width and action-label preservation after each QBF-style projection | Full-depth guarded 44444 action QBF compiled exactly, truth UNKNOWN; next evaluate quantified prefixes/structured projection with honest width/work, not more formula construction. |
-| GSP-004 | [Guarded obligation closure](gameplay-strategy/GSP-004-GUARDED_OBLIGATION_CLOSURE.md) | ACTIVE_INVESTIGATION | Exact action-labelled adaptive response obligation algebra, no search-derived policy generation | Boolean-rank rectangle factorization and sound dependency-localized quantifier composition over source residuals | preserve forall/exists order, first-win guards, action transport and sound factor supports; use fooling-set lower bounds | Full-depth literal action dependencies retained in guarded QBF, no response certificate yet; next derive bounded exact adaptive quantifier elimination preserving 223 scope falsifier. |
+| GSP-003 | [Symbolic q fixed-point solver](gameplay-strategy/GSP-003-SYMBOLIC_Q_FIXED_POINT_SOLVER.md) | ACTIVE_INVESTIGATION | Exact source-q bounded WIN/NLOSS interval BDD; now testing mathematically sound quantified factorization instead of growing support cones | dependency-localized structured Boolean factor circuit; exact distinct-cofactor width instrumentation | quantify interface width and action-label preservation after each QBF-style projection | Shannon QBF projection 118/120 finite thresholds PASS, 44444 k6 lower node-cap FAIL/partial; next live cofactor interface and structured elimination. |
+| GSP-004 | [Guarded obligation closure](gameplay-strategy/GSP-004-GUARDED_OBLIGATION_CLOSURE.md) | ACTIVE_INVESTIGATION | Exact action-labelled adaptive response obligation algebra, no search-derived policy generation | Boolean-rank rectangle factorization and sound dependency-localized quantifier composition over source residuals | preserve forall/exists order, first-win guards, action transport and sound factor supports; use fooling-set lower bounds | Adaptive obligation QBF projection expands at 44444 k6 despite exact compact CNF; seek true response-cover quotient, not syntax-only hash sharing. |
 | GSP-005 | [Second-stage behavioral quotient after q](gameplay-strategy/GSP-005-BEHAVIORAL_QUOTIENT_AFTER_Q.md) | ROUGH_PROPOSAL | Tries to shrink q further while remaining executable | semantic-state minimization / automaton layer | exact behavior equivalence + maintainable update law | classify bounded q distinctions erased by MQ2 |
 | GSP-006 | [Profile-safe proof and cache keys](gameplay-strategy/GSP-006-PROFILE_SAFE_PROOF_AND_CACHE_KEYS.md) | ROUGH_PROPOSAL | Prevents q identity from over-authorizing proof/context reuse | TT/proof-store/cache contracts | negative controls with equal q but different proof context | define QKey/ProofKey/HintKey contracts |
 | GSP-007 | [Generic finite-gravity Connect-K q congruence](gameplay-strategy/GSP-007-GENERIC_CONNECT_K_Q_CONGRUENCE.md) | ROUGH_PROPOSAL | Tests whether q gameplay semantics generalize beyond 7x6 K=4 | generic Connect-K domain/profile | symbolic proof review + nonstandard-board controls | build qualification matrix and independent theorem review |
