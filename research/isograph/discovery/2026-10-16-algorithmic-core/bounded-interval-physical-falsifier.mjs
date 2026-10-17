@@ -14,6 +14,10 @@ const SEQ7='43214636342357317661423762461717147';
 const PREDECLARED=[
  {g:G7,history:SEQ7.slice(0,18),depth:2},
  {g:G7,history:SEQ7.slice(0,20),depth:4},
+ // Post-hoc direct physical falsifiers explicitly authorized by the
+ // predeclared plan AFTER exact source-only convergence at k<=4.
+ {g:G7,history:SEQ7.slice(0,16),depth:2},
+ {g:G7,history:SEQ7.slice(0,14),depth:2},
  {g:G3,history:'',depth:1},
  {g:G3,history:'',depth:3},
  {g:G3,history:'',depth:5},
