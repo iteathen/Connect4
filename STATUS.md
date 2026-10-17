@@ -58,6 +58,20 @@ core. The empty standard-7x6 root is **not** claimed computed by this
 recursive research evaluator. New tests ran in isolated V8; Node26 sustained
 qualification and external reproduction remain separate.
 
+## First actual quantified-action projection: depth-six retained-node wall — 2026-10-16
+
+A separate exact **Shannon cofactor QBF evaluator** now eliminates source-only action bits from the innermost to the outermost block, using OR for P0 EXISTS and AND for P1 FORALL, after substituting deterministic Tseitin definitions. This is a genuine *value-threshold evaluation* operator, not merely a compact CNF wrapper, and constructs no concrete game continuations.
+
+**Node22 independent finite-horizon controls:** 30 cases, 120 projected four-threshold attempts; **118 completed with zero discrepancies** against an independent physical first-win/alternating max-min evaluator. Two P0 lower-bound attempts for canonical `44444` k6 were budget-partial, not wrong.
+
+At `44444` depth5, all four Boolean threshold truths completed: lower FALSE, upper TRUE, hence unrestricted WDL remains UNKNOWN [-1,+1]. The lower projections used 27,563 nontrivial operations and 9,649 retained nodes. At depth6, lower projection exhausted the original **60,000 retained-node limit** after 12 of 18 action bits and 147,262 nontrivial operations; upper projection completed with TRUE using 53,920 nodes / 159,492 operations. No exact root/action value follows from the partial k6 interval. The projector retains dead gates; this is **not** a mathematical lower-bound proof.
+
+Mathematical law, diagnostics, comparator and stop:
+`docs/research/2026-10-16-guarded-qbf-shannon-projection-depth6-obstruction.md`.
+Producer `research/isograph/discovery/2026-10-16-algorithmic-core/guarded-action-qbf-project.mjs`, separate physical control `guarded-action-qbf-projection-control.mjs`, machine evidence `GUARDED_ACTION_QBF_PROJECTION_RESULTS_0_1.json`. All are current research branch commits.
+
+**Comparative finding:** The earlier source-owner reflected BDD still gets further (k11) than this action-bit QBF projector (k5 complete, k6 lower partial), despite the latter's compact k37 formula. The genuine missing mathematical operation remains sound semantic cofactor merging/structured quantified-width reduction, not another concise formula and not transition correctness. Qualified recursive exact core unchanged, no authority promotion or merge.
+
 ## Exact full-depth quantified action representation (value NOT decided) — 2026-10-16
 
 **New rule-only representation theorem:** From a legal nonterminal source q=(h,R0,R1), recurrence-count each column choice with exact Boolean counters, derive landing/owner and first-win residual guards, and build four P0-relative lower/upper WIN/NONLOSS matrices over alternating **binary-coded column actions**. Illegal P0 existential decisions return FALSE, illegal P1 universal decisions TRUE; terminal outcomes absorb remaining actions. Stage-local deterministic Tseitin existential auxiliaries are safely introduced only after their last transitive action input. By induction this yields a polynomial-size CNF QBF **truth-equivalent** to the bounded Bellman threshold. At all 37 remaining plies of canonical `44444`, the QBF truth is equivalent to unrestricted ordinary game WIN/NONLOSS, **but it has not been evaluated**.
