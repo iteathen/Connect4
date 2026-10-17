@@ -1,5 +1,7 @@
 # Owner-directed research objective: eliminate strategic branching
 
+**2026-10-17 OWNER CORRECTION — SUPERSEDED AS A SUCCESS CRITERION:** See [`2026-10-17-zero-strategic-branching-objective.md`](2026-10-17-zero-strategic-branching-objective.md). The owner explicitly requires **ZERO strategic branching**, NOT fewer/minimized branches, eliminated scalar successor queries, better search solve time, or a faster/more compact minimax. Any previous phrasing below that counts *materially reduced independent continuation expansion* as success is historically informative but **NO LONGER THE ACTIVE GOAL**. A complete exact value and ALL tied optimal actions must arise from one nonforking structural evaluation, with proven equivalence sets counted as a single logical result. Prior research/correctness statements remain intact; this is a research direction correction, not a game-theory authority change.
+
 **Date:** 2026-10-16  
 **Owner/direction:** Josh Oshiro  
 **Canonical research branch:** `research/semantic-quotient`  
