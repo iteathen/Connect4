@@ -1,0 +1,84 @@
+{
+  "schema": "connect4.guarded-unate-common-witness-projection.v0_1",
+  "date": "2026-10-16",
+  "owner": "research/semantic-quotient",
+  "status": "EXACT_GUARDED_UNATE_LEMMA_PASS_NO_MEANINGFUL_K8_GAIN",
+  "frozenPlan": "research/isograph/discovery/2026-10-16-algorithmic-core/GUARDED_UNATE_WITNESS_PROJECTION_PLAN_0_1.md",
+  "producer": "research/isograph/discovery/2026-10-16-algorithmic-core/guarded-action-qbf-unate-witness.mjs",
+  "independentSmallBoardControl": "research/isograph/discovery/2026-10-16-algorithmic-core/unate-witness-control.mjs",
+  "independentK7PhysicalControl": "research/isograph/discovery/2026-10-16-algorithmic-core/unate-k7-physical-control.mjs",
+  "gitBlobIdentity": {
+    "producer": "6484bb3f5b784fff02d7bec2a57ed695e79cfc82",
+    "smallBoardControl": "489c3e4587bdf98403e16e660741b4109ec82735",
+    "k7Physical": "2c6c93573d6d2ee230f57263b4ab056df7e1844d"
+  },
+  "localRuntime": "Node.js v22.16.0",
+  "stdoutSHA256": {
+    "smallBoard": "4be2925b12b5371426de9db53b761630cb956d912a0f958b9c88318101aad91f",
+    "physicalK7": "965c43eb88b6e692c43f0466c9fbd392c985057ab5f6e984cda4ff7d981d004c"
+  },
+  "exactLemma": "If Boolean F is monotonically nondecreasing in quantified x, then exists_x F=F(x=1) and forall_x F=F(x=0), with endpoints reversed for nonincreasing F. A signed AND/NOT DAG determines a sound conservative +/0/-/unknown syntactic polarity by induction. Two x-dependent same-direction AND factors have a common existential witness endpoint. Opposite signs require original exact Shannon fallback.",
+  "controls": {
+    "sourceHorizonPairs": 47,
+    "completeFourThresholdVectors": 188,
+    "physicalActionThresholdChecks": 672,
+    "zeroMismatches": true,
+    "fullGameSmallSuffixPositions": 24,
+    "exactOptimalMoveSets": 24,
+    "singletons": 13,
+    "allTieSets": 11,
+    "independentStandard7x6K7Transitions": 2799124,
+    "K7FourThresholdActionVectorsPASS": true
+  },
+  "strictBudgets": {
+    "maxNodes": 60000,
+    "maxNontrivialBooleanOps": 300000,
+    "maxSupports": 10000,
+    "maxMs": 15000
+  },
+  "canonical44444Results": {
+    "k7": {
+      "lower": {
+        "status": "EXACT_FALSE_ALL_SEVEN",
+        "BooleanOps": 63757,
+        "peakNodes": 6298,
+        "deltaVsPlainLocalOps": 0
+      },
+      "upper": {
+        "status": "EXACT_TRUE_ALL_SEVEN",
+        "BooleanOps": 166758,
+        "peakNodes": 16517,
+        "deltaVsPlainLocalOps": -49
+      },
+      "intervals": "All seven [-1,+1]; unrestricted value and optimal set UNKNOWN"
+    },
+    "k8": {
+      "lower": {
+        "status": "BUDGET_EXHAUSTED",
+        "BooleanOpsBeforeStop": 292195,
+        "peakNodes": 60000,
+        "innerBitsCompleted": 16,
+        "totalInnerBits": 21,
+        "certifiedUnateEndpointShortcuts": 1,
+        "polarityCacheMisses": 85612,
+        "BooleanSavingsVsLocalPush": 56
+      },
+      "upper": {
+        "status": "EXACT_TRUE_ALL_SEVEN",
+        "BooleanOps": 208467,
+        "peakNodes": 20573,
+        "certifiedUnateEndpointShortcuts": 77,
+        "polarityCacheMisses": 68499,
+        "BooleanSavingsVsLocalPush": 0,
+        "independentPhysicalK8Control": false
+      }
+    }
+  },
+  "negativeInterpretation": "The correct but conservative syntactic sign certificate produces only one useful endpoint shortcut on the blocked 44444 k8 lower projection. It leaves the depth8 60000 node limit and nearly all Boolean work unchanged while performing more than 85000 additional polarity recursion/cache misses. Not a useful selected next operator for this current source formula.",
+  "retainedBestCurrentCandidate": "research/isograph/discovery/2026-10-16-algorithmic-core/guarded-action-qbf-local-quantifier.mjs",
+  "nextProofTarget": "Find source/guard-qualified SEMANTIC variable independence or low-dimensional conditional cofactor signatures that can certify correlations beyond syntactic polarity. Preserve adaptive move dependencies, all WDL-tied actions, and exact work counts.",
+  "fullRootAfter44444": "UNKNOWN [-1,+1]",
+  "globalBranchElimination": false,
+  "noAuthorityPromotion": true,
+  "noMerge": true
+}
