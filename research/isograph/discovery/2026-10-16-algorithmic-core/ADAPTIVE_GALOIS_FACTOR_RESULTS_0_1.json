@@ -1,14 +1,35 @@
 {
   "schema": "connect4.adaptive-galois-factor-results.v0_1",
   "date": "2026-10-16",
-  "status": "EXACT_SINGLE_RELATION_ALGEBRA_TESTED_COMPRESSION_NEGATIVE",
+  "status": "EXACT_SINGLE_RELATION_ALGEBRA_NODE22_PASS_COMPRESSION_NEGATIVE",
   "source": "adaptive-galois-factor.mjs",
   "controlSource": "adaptive-galois-factor-control.mjs",
   "provenance": {
-    "execution": "isolated V8 JavaScript direct bounded test in research session; committed Node control is reproducible but Node26 full-suite replay is NOT claimed",
+    "execution": "Isolated V8 research-run derivation followed by executable committed-source direct local Node22.16.0 replay with exact matching Git blobs; Node26 maintained suite/external reproduction NOT claimed",
     "referenceRelation": "UNIVERSAL_RESPONSE_COVER_RESULTS_0_1.json, independent physical qualification of legal 4x3-c3 prefix 223",
     "oracleCalls": 0,
-    "gameTreeStatesExploredDuringFactorization": 0
+    "gameTreeStatesExploredDuringFactorization": 0,
+    "nodeReproduction": {
+      "runtime": "Node.js v22.16.0, local container",
+      "gitBlobHashesVerifiedAgainstLiveGithub": {
+        "adaptive-galois-factor.mjs": "22d114b78e68f9091dcb941ce3abdeee4f9fe4a0",
+        "adaptive-galois-factor-control.mjs": "f31369822ba8f8dfec8a5458741a193cc14fcf8e"
+      },
+      "exactSourceSha256": {
+        "adaptive-galois-factor.mjs": "dff855a657eca8ba53b96b2898d960db654f951d9df0eb0d236bb33d64c82167",
+        "adaptive-galois-factor-control.mjs": "3bd2363f21c174ed43d926d11696709655e5a445a569344daf39848817ca7090"
+      },
+      "outputSha256": "a170818162f59df67f5bd231d41a43950dab3dfa21e8aa50b4a12b8d643736cf",
+      "result": "PASS",
+      "runtimeError": null,
+      "counts": {
+        "allMatrices": 65536,
+        "quantifierScopeComparisons": 1048576,
+        "seeded7Cases": 100,
+        "zeroMismatches": true
+      },
+      "qualificationLimit": "Direct maintained Node22 run; separate Node26 suite / independent external validator not claimed"
+    }
   },
   "source223": {
     "actionRowsHex": [
@@ -87,7 +108,15 @@
       62
     ],
     "associatedFactorWorkUnits": 1316,
-    "quantifierScopeMasksNotExhaustivelyRetestedInOriginalIsolatedV8Run": true
+    "quantifierScopeMasksNotExhaustivelyRetestedInOriginalIsolatedV8Run": true,
+    "node22RunAdditionalQuantifierScopeMasksEach": [
+      0,
+      1,
+      31,
+      63,
+      127
+    ],
+    "node22RunAdditionalQuantifierScopeChecks": 500
   },
   "resourceScope": {
     "maxOperationsPerFactor": 300000,
