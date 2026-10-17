@@ -1,0 +1,51 @@
+{
+  "schema": "connect4.dual-response-cross-horizon-falsifier.v0_1",
+  "date": "2026-10-17",
+  "owner": "research/semantic-quotient",
+  "status": "EXACT_LEGAL_COUNTEREXAMPLE_BOUNDED_EQUALITY_NOT_FULL_WDL_EQUALITY",
+  "frozenPlan": "research/isograph/discovery/2026-10-17-dual-obligation-quotient/FUTURE_DOMINANCE_LIFT_FALSIFIER_PLAN_0_1.md",
+  "independentValidator": "research/isograph/discovery/2026-10-17-dual-obligation-quotient/dual-response-future-value-falsifier.mjs",
+  "originalSourceAlgebra": "research/isograph/discovery/2026-10-16-algorithmic-core/universal-response-cover-operator.mjs",
+  "genericExactQReference": "research/isograph/discovery/2026-10-16-algorithmic-core/exact-q-core.mjs",
+  "board": "4x3 Connect3",
+  "fullLegalNonterminalPhysicalStates": 4631,
+  "fullP1SourcePositions": 2208,
+  "allP1ActionsComparedAgainstIndependentFullQCore": 5592,
+  "independentFullQCoreMemoUniqueStates": 3729,
+  "independentFullQCoreTransitions": 10212,
+  "equalBoundedSignatureReplyPairs": 1316,
+  "equalBoundedSignatureWithDifferentFullWDL": 220,
+  "strictBoundedInclusionPairs": 3226,
+  "strictInclusionWithFullWDLReversePreference": 0,
+  "firstVerifiedCounterexample": {
+    "legalHistory": "111",
+    "sourceRank": 3,
+    "P1ToMove": true,
+    "legalP1Reply1Based": [
+      2,
+      3
+    ],
+    "sameBoundedP0AnswerSignatureMaskHex": "0x0",
+    "originalSourceP0ActionCoversByP0ColumnHex": [
+      "0x0",
+      "0x0",
+      "0x8",
+      "0x0"
+    ],
+    "unrestrictedP0RelativeWDLAfterReply2": 1,
+    "unrestrictedP0RelativeWDLAfterReply3": 0,
+    "bothRepliesNonterminal": true,
+    "conclusion": "Equal reply-response neighborhoods for P1/P0/P1/P0 fixed horizon do not imply same full-game WDL after P1 replies; the P1 mover would prefer column3 over column2 under unrestricted WDL."
+  },
+  "separationOfRoles": {
+    "SOURCE_PRODUCER": "constructs fixed-horizon K_a and dual signatures without solved game labels or future q value queries",
+    "VALIDATOR_ONLY": "after the algebra is frozen, separately evaluate unrestricted replies with the existing qualified branching recursive exact q core, recording all edges and states",
+    "noDeepValueUsedToConstructQuotient": true
+  },
+  "scopeGuard": "This falsifies UNSOUND full-game reuse of one-layer equality. It does not falsify the exact one-layer dual antichain theorem or any pointwise future-function equivalence theorem.",
+  "standard7x6": "Still UNKNOWN; all seven 44444 short-horizon zero signatures do not authorize equivalence of full WDL.",
+  "strictInclusionInterpretation": "No strict-inclusion full-WDL reversal found in 4x3 census; this is finite negative evidence only, not a general monotonicity theorem.",
+  "independentFullBoard4x4": "NOT RUN IN THIS CHECKPOINT",
+  "authorityPromotion": false,
+  "merged": false
+}
