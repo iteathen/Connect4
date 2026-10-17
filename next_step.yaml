@@ -66,6 +66,35 @@ current_algorithmic_core:
   dual_obligation_operator: research/isograph/discovery/2026-10-17-dual-obligation-quotient/dual-response-obligation.mjs
   dual_obligation_results: research/isograph/discovery/2026-10-17-dual-obligation-quotient/DUAL_RESPONSE_OBLIGATION_RESULTS_0_1.json
   dual_obligation_horizon_falsifier: research/isograph/discovery/2026-10-17-dual-obligation-quotient/DUAL_RESPONSE_HORIZON_LIFT_RESULTS_0_1.json
+  two_ply_full_future_simulation_theorem: docs/research/2026-10-17-full-future-two-ply-cofactor-simulation.md
+  two_ply_source_simulation_operator: research/isograph/discovery/2026-10-17-dual-obligation-quotient/two-ply-owner-swap-simulation.mjs
+  two_ply_independent_reference_control: research/isograph/discovery/2026-10-17-dual-obligation-quotient/two-ply-owner-swap-control.mjs
+  two_ply_full_future_evidence: research/isograph/discovery/2026-10-17-dual-obligation-quotient/TWO_PLY_OWNER_SWAP_RESULTS_0_1.json
+  two_ply_source_only_full_WDL_comparison:
+    mathematical_scope: >-
+      Conditioned P1 b/P0 c versus P1 c/P0 b, distinct
+      initially legal columns, BOTH histories nonterminal,
+      same final support. Original-source owner contract/
+      blocker cofactor antichain inclusion certifies
+      unrestricted P0 WDL <= across entire future,
+      and mutual inclusion certifies exact future-q
+      equality with full action-mask transport.
+    proof_uses_future_game_tree: false
+    physical_full_4x3_P1_source_positions: 2208
+    physical_full_4x4_P1_source_positions: 67992
+    unique_4x3_q_column_pair_candidates: 1522
+    unique_4x3_full_future_equal_certificates: 72
+    unique_4x3_weak_dominance_certificates: 352
+    unique_4x4_q_column_pair_candidates: 39798
+    unique_4x4_full_future_equal_certificates: 2372
+    unique_4x4_weak_dominance_certificates: 9380
+    false_source_q_cofactor_or_WDL_certificates: 0
+    canonical_44444_unordered_owner_swap_diamonds: 21
+    canonical_44444_comparable_owner_swap_diamonds: 0
+    does_not_prove_root_P1_reply_dominance: true
+    strict_value_gap_requires_separate_theorem: true
+    repeated_physical_history_comparisons_deduplicated_by_exact_q: true
+
   exact_one_layer_reply_antichain_reduction:
     generic_4x4_matrices: 65536
     generic_scoped_relation_checks: 1048576
@@ -168,19 +197,18 @@ current_algorithmic_core:
     - minimality
     - WDL_tie_distance_refinement
   next_bounded_experiment: >-
-    Under the owner-primary exact branch elimination goal,
-    derive a FULL-FUTURE cofactor-preserving reply dominance
-    certificate from source q. Retain original action guards,
-    chrono forall/exists order, and complete tied-optimal
-    label transport. One-layer dual reply signatures now
-    have exact antichain proof and exhaustive legal controls
-    but bounded equality is NOT full WDL equivalence: the
-    legal 111 replies 2 vs 3 refute that shortcut.
-    Do NOT default to further QBF/BDD depth, gate/GC tuning
-    or numerical cap expansion. Independently validate each
-    proposed pointwise simulation without using searched
-    value labels in construction. Recursive core correctness,
-    historic turn7/turn8 transitions and root UNKNOWN remain.
+    The owner focus remains exact branch elimination and complete
+    WDL-optimal literal action ties. New ORIGINAL-q source
+    two-ply ownership-swap favorable-upset algebra now certifies
+    genuine ALL-REMAINING-MOVES WDL dominance/equality for
+    424/1522 unique 4x3 and 11752/39798 unique 4x4
+    comparable conditioned response pairs, with no
+    independent reference false positive. But 44444 all 21
+    such diamonds are incomparable. Next derive a broader
+    source-only guarded multi-action alternating simulation
+    across different supports, matching EVERY P0 response
+    under each P1 root choice; not another BDD horizon,
+    duplicate one-layer signature mask or deep path search.
   preserved_open_scope: >-
     The standard7x6 empty-root value and the seven-reply turn-six
     CPC certificate remain uncomputed/unproved by the new research
@@ -226,41 +254,47 @@ general_mathematical_proof_research_20261016:
     boundary variables s, provided all legal move/terminal
     dependencies are included in the factor supports.
   ranked_next_experiment: >-
-    OWNER REFOCUS: STOP treating deeper BDD/QBF compilation as the
-    research goal. Exact source residual q cofactors and the
-    historic chronological move7/move8 column transition are
-    ALREADY CLOSED. The remaining primary mathematical task is
-    to ELIMINATE INDEPENDENT STRATEGIC BRANCHES while computing
-    exact P0-relative WDL and ALL equally optimal labelled moves.
-    New source-only dual universal reply antichain has an exact
-    finite proof, over one million generic quantifier scopes,
-    and complete 4x3/4x4 legal P1-position checks; it removes
-    54.47%/52.94% of one-layer proof obligations, but AFTER the
-    bounded action-response matrix has been constructed. It is
-    NOT a full-game speedup. Crucial refuters: legal 4x3
-    history 111, P1 replies 2 and 3 have IDENTICAL bounded
-    signatures 0x0 but unrestricted WDL P0 values +1/0;
-    220 / 22380 equal-signature WDL-different pairs exist
-    in exhaustive 4x3 / 4x4 validations. Thus NEVER promote
-    bounded reply equality into game-value equivalence.
-    NEXT derive a source-only, source-residual/capacity/
-    terminal-guard-preserving FUTURE POINTWISE DOMINANCE or
-    alternating-simulation certificate: P(hard,a,z) => P(easy,a,z)
-    for all a and all totalized legal future contexts z,
-    with the original adaptive quantifier prefix unchanged.
-    Prove the certificate from local algebra WITHOUT enumerating
-    future continuations, THEN check against independent exact
-    4x3/4x4 WDL and optimal tie controls, legal 223,
-    111 cross-horizon counterexample and 44444 rank5.
-    A two-threshold WIN/NONLOSS implication proves weak
-    P0 WDL order; to return ALL P1 optimal actions, retain
-    potentially tied labels until an EXACT equality/strict
-    value certificate discharges them. Compare actual eliminated
-    downstream proof obligations and TOTAL source work;
-    do not claim savings merely by storing fewer signatures.
-    60000 nodes / 300000 Boolean operations / 10000 supports /
-    15 seconds PER compile remain unchanged. 44444 unrestricted
-    value and optimal set UNKNOWN; no authority promotion/merge.
+    PRIMARY OBJECTIVE: ELIMINATE INDEPENDENT STRATEGIC BRANCHES,
+    not compile deeper BDD/QBF horizons. Original q residual
+    cofactor/first-win core and historical move7/turn8 transition
+    remain exact. NEW source-only full-FUTURE comparison theorem:
+    after two distinct-column histories P1 b/P0 c and P1 c/P0 b,
+    both nonterminal, final supports IDENTICAL. Original-source
+    owner contract/blocker residual upset order proves exact
+    unrestricted WDL weak dominance (both directions -> full
+    q-future equality) without evaluating EITHER continuation.
+    FULL independent 4x3/4x4 legal physical corpora PASS:
+    unique exact-q diamond comparisons 1522/39798; certified
+    q-future equalities 72/2372, weak full WDL orders
+    352/9380; ZERO false q/WDL certificates. Duped physical
+    histories are excluded from unique counts. At canonical
+    44444 all 21 distinct-column ownership-swap diamonds
+    are INCOMPARABLE, so the full-game root move6 values
+    and complete optimal set remain UNKNOWN. The prior dual
+    minimal P1 reply signatures save bounded obligation
+    cardinality, but bounded signature equality is NOT full
+    WDL equality (legal 111/4x4 refuters).
+    NEXT: construct a source residual, support-transport and
+    first-win/legality-guarded ALTERNATING SIMULATION relation
+    that matches EVERY P0 response after a candidate P1 reply
+    with a suitable P0 response after a comparison reply,
+    including DIFFERENT resulting supports (G2 fiber transport
+    plus monotone upset inclusion is a candidate). PROVE the
+    relation closed under all cofactors and first terminal
+    guards without enumerating future states; use direct
+    source generator comparisons and action transporter data.
+    One diamond matches only one response pair and is not
+    enough to eliminate a P1 root move. For all tied-optimal
+    P1 labels, weak dominance may hide equality; retain
+    labels until strict value or bidirectional equivalence
+    is certified. Then test the frozen relation against
+    independent exact small-board WDL, all move-set ties,
+    223 quantifier order, 111 bounded-signature breaker,
+    44444 capacity/turn6 reflection controls. Count ACTUAL
+    successor solves avoided plus source proof work and
+    original 60000-node/300000-Boolean-op/10000-support/
+    15s per-compile limits. No searched policy premise,
+    no authority promotion or merge.
   next_primary_source: "Ganian and Grundel, Bilateral Treewidth for QBF, SAT 2026, doi:10.4230/LIPIcs.SAT.2026.16"
   new_mathematical_record: docs/research/2026-10-16-bilateral-treewidth-and-galois-response-closures.md
   exact_local_response_factor: research/isograph/discovery/2026-10-16-algorithmic-core/adaptive-galois-factor.mjs
