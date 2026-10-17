@@ -124,6 +124,38 @@ Accordingly:
 
 Source: `isograph/discovery/2026-09-18-method-emergence/`.
 
+## New k7 exact guarded inner-quantifier projection; k8 semantic-width frontier — 2026-10-16
+
+A proof-backed local Boolean factor operator now performs
+**quantifier elimination before unnecessary full-function
+cofactor products**. FORALL distributes through conjunction,
+EXISTS through disjunction, either localizes past genuinely
+variable-independent factors, and all correlated mixed cases
+retain exact Shannon fallback. The first action stays FREE to
+report every literal optimal action and tie when full bounds close.
+
+**Independent tests:** 24 small-game complete optimum masks PASS
+(13 unique, 11 ties); `44444` k7 28 labelled bounded thresholds
+pass 2,799,124 physical reference transitions. k7 lower 63,757
+Boolean ops/6,298 nodes; upper 166,807/16,517. All seven
+unrestricted action intervals remain [-1,+1] and complete best
+move set UNKNOWN. At k8 upper completes; lower reaches
+60,000-node cap. The earlier source-owner reflected BDD
+continues to reach deeper at k11; neither method proves
+global branch elimination.
+
+Sound same-direction *common-witness* unateness is too weak
+under current syntactic sign certificates (k8 lower: one
+shortcut and 85,612 extra polarity-cache misses, no width gain),
+so keep as negative evidence, not a default implementation.
+
+**Next:** source guard-conditioned essential-cofactor
+equivalence/conditional separator that reduces correlated
+adaptive obligations without lost `223` dependency order or
+hidden future-policy traversal.
+Theorem: `docs/research/2026-10-16-guard-qualified-quantifier-localization-and-action-vectors.md`;
+negative: `docs/research/2026-10-16-common-witness-unateness-negative-width.md`.
+
 ## Owner priority: eliminate strategic branching, preserve every tied-optimal action — 2026-10-16
 
 **The leading continuing research objective for GSP-003 and GSP-004 is
@@ -245,8 +277,8 @@ bound. No unrestricted `44444` value or deep branch-elimination proof.
 |---|---|---|---|---|---|---|
 | GSP-001 | [Quotient-native gameplay description](gameplay-strategy/GSP-001-QUOTIENT_NATIVE_GAMEPLAY_DESCRIPTION.md) | ROUGH_PROPOSAL | Makes q the explicit exact internal gameplay description | Connect4 domain/gameplay adapter | independent q-vs-physical transition replay; first-win controls | define the gameplay interface and exact record ownership |
 | GSP-002 | [Packed q transition compiler](gameplay-strategy/GSP-002-PACKED_Q_TRANSITION_COMPILER.md) | ROUGH_PROPOSAL | Turns q + column into a low-cost exact runtime kernel | state compiler / transition layer | exact equality; transition equivalence; economics | prototype transparent packed q before aggressive compression |
-| GSP-003 | [Symbolic q fixed-point solver](gameplay-strategy/GSP-003-SYMBOLIC_Q_FIXED_POINT_SOLVER.md) | ACTIVE_INVESTIGATION | Exact source-q bounded WIN/NLOSS interval BDD; now testing mathematically sound quantified factorization instead of growing support cones | dependency-localized structured Boolean factor circuit; exact distinct-cofactor width instrumentation | quantify interface width and action-label preservation after each QBF-style projection | Primary OPEN goal: exact source-only nonbranching WDL and complete literal optimal-action set; compare guarded factor/quantifier localization with current ROBDD, count actual shared/eliminated continuation work. |
-| GSP-004 | [Guarded obligation closure](gameplay-strategy/GSP-004-GUARDED_OBLIGATION_CLOSURE.md) | ACTIVE_INVESTIGATION | Exact action-labelled adaptive response obligation algebra, no search-derived policy generation | Boolean-rank rectangle factorization and sound dependency-localized quantifier composition over source residuals | preserve forall/exists order, first-win guards, action transport and sound factor supports; use fooling-set lower bounds | Primary OPEN goal: one exact adaptive obligation operation preserving all replies and every equally optimal action; no hidden path enumeration, 223 scope swap or guessed singleton. |
+| GSP-003 | [Symbolic q fixed-point solver](gameplay-strategy/GSP-003-SYMBOLIC_Q_FIXED_POINT_SOLVER.md) | ACTIVE_INVESTIGATION | Exact source-q bounded WIN/NLOSS interval BDD; now testing mathematically sound quantified factorization instead of growing support cones | dependency-localized structured Boolean factor circuit; exact distinct-cofactor width instrumentation | quantify interface width and action-label preservation after each QBF-style projection | Sound factor-localized quantifiers now compute 44444 k7 full labelled bounded vectors under caps, independent physical PASS; k8 lower partial. Seek certified semantic cofactor quotient, retain full optimal ties. |
+| GSP-004 | [Guarded obligation closure](gameplay-strategy/GSP-004-GUARDED_OBLIGATION_CLOSURE.md) | ACTIVE_INVESTIGATION | Exact action-labelled adaptive response obligation algebra, no search-derived policy generation | Boolean-rank rectangle factorization and sound dependency-localized quantifier composition over source residuals | preserve forall/exists order, first-win guards, action transport and sound factor supports; use fooling-set lower bounds | Exact adaptive factor/quantifier pushdown closed prior 44444 k7 temporary wall; all unrestricted actions still UNKNOWN. Reject ineffective syntactic unateness; derive guard-conditioned correlated-witness proof. |
 | GSP-005 | [Second-stage behavioral quotient after q](gameplay-strategy/GSP-005-BEHAVIORAL_QUOTIENT_AFTER_Q.md) | ROUGH_PROPOSAL | Tries to shrink q further while remaining executable | semantic-state minimization / automaton layer | exact behavior equivalence + maintainable update law | classify bounded q distinctions erased by MQ2 |
 | GSP-006 | [Profile-safe proof and cache keys](gameplay-strategy/GSP-006-PROFILE_SAFE_PROOF_AND_CACHE_KEYS.md) | ROUGH_PROPOSAL | Prevents q identity from over-authorizing proof/context reuse | TT/proof-store/cache contracts | negative controls with equal q but different proof context | define QKey/ProofKey/HintKey contracts |
 | GSP-007 | [Generic finite-gravity Connect-K q congruence](gameplay-strategy/GSP-007-GENERIC_CONNECT_K_Q_CONGRUENCE.md) | ROUGH_PROPOSAL | Tests whether q gameplay semantics generalize beyond 7x6 K=4 | generic Connect-K domain/profile | symbolic proof review + nonstandard-board controls | build qualification matrix and independent theorem review |
