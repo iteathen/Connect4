@@ -13,6 +13,17 @@ This file is the current-state router, not a theorem ledger. This branch owns **
 
 See `docs/decisions/2026-09-17-single-research-owner.md`.
 
+## Owner-prioritized open objective — eliminate strategic branching
+
+**Current primary mathematical research objective (2026-10-16 owner clarification):**
+derive exact ordinary W/D/L and the **entire legal set of W/D/L-optimal action labels** directly from original residual-state structure **without independently evaluating strategic game continuations**. Return a single move if and only if it is uniquely optimal; otherwise return the full tied-optimal set. Computation may use Boolean gates, proof cases, and bounded action-mask operations; strategic "branch elimination" specifically forbids merely hiding forward continuation/response enumeration inside QBF, BDD, circuits, state support DAGs, or preprocessing. Measure actual construction AND quantifier-elimination work and full action-vector correctness.
+
+This is **the leading open research goal**, not a correction to the existing exact, constructively complete recursive/branching algorithmic core. It neither requires polynomial complexity as an axiom nor promises branch elimination is always possible. Source-anchored reflected BDD k11 remains UNKNOWN; full-depth source-QBF is not yet decided and k7 action QBF projection hits within-bit resource limits. Any exact unavoidable-width lower bound under explicit assumptions is also valuable. Preserve the `223` universal/existential counterexample, first-win/capacity/deadline guards, reflection literal-action transport and original per-compile research budgets.
+
+**Governing priority/success record:**
+`docs/research/2026-10-16-branch-elimination-primary-objective.md`.
+Continue through GSP-003/004 with source-only simultaneous WIN/NONLOSS action functions, guard-qualified quantifier localization and essential cofactor-width reduction; independently qualify output AND actual saved work rather than expression size alone.
+
 ## Constructive algorithmic core — 2026-10-16 (primary research answer)
 
 The owner's corrected definition does **not** require recursion elimination,
@@ -46,7 +57,7 @@ The implementation is **still recursively branching**, as measured:
 states. Returning one answer tuple `(WDL, set-of-all-WDL-optimal-moves)`
 does not itself avoid exploring independent child values.
 
-**Next preferred (not prerequisite) objective:** qualify an exact compressed
+**Primary continuing research objective (not a prerequisite for the established core):** qualify an exact compressed
 alternating-predecessor/antichain operator that *actually reduces separately
 evaluated successor computations* while preserving terminal,
 realizability/resource/deadline guards. Do not substitute general minimality
