@@ -13,6 +13,16 @@ This file is the current-state router, not a theorem ledger. This branch owns **
 
 See `docs/decisions/2026-09-17-single-research-owner.md`.
 
+## New exact shared first-action projection — one-pass complete optimal-action sets
+
+**Source-only theorem and Node22 scoped verification, 2026-10-16:** The original guard-complete alternating action-QBF matrix `F_z(a0,...)` can be quantified over **all future action blocks while keeping the first action free**. The resulting function `G_z(a0)` yields every literal legal move's Boolean threshold by direct conditioning, without separate opponent-continuation projection per first move. The ∀/∃ order and guarded first-win/capacity/terminal rules are unchanged. Four such shared functions recover all action value intervals and, where each action interval closes, the exact W/D/L plus **every tied-optimal literal action**.
+
+Independent first-win physical controls: 47 source/horizon cases, **188** shared threshold projections, **672** literal per-action threshold checks (0 mismatches), and 24 complete-game 4x3/4x4 nonterminal suffix positions: **13 unique-best, 11 tied-best, 24/24 exact complete action sets**. Five deliberately uncached separate-per-root-action QBF comparisons show **76.50%–86.71% fewer counted source-plus-projection Boolean work units**, or **68.11%–81.67%** fewer Boolean-plus-charged-GC work units. This is real root-action sharing, **not** demonstrated superiority to cached solvers or to the already stronger source-owner reflected BDD.
+
+Canonical `44444`: all 7 depth6 first-action interval vectors are still **[-1,+1]**. k7 still hits **60,000 retained nodes** after 12/18 inner action bits; unrestricted WDL, all optimal move6/7 values and global nonbranching composition remain OPEN. The independent physical reference explores gameplay only on the *validator* side; the source-QBF projection remains arithmetic on guarded source residuals, though it still expands nested adaptive cofactors.
+
+Primary derivation: `docs/research/2026-10-16-one-pass-optimal-action-vector-quantifier-projection.md`. Exact producer/control/results: `research/isograph/discovery/2026-10-16-algorithmic-core/guarded-action-qbf-first-action-vector.mjs`, `first-action-vector-control.mjs`, `SHARED_FIRST_ACTION_QUANTIFIER_PROJECTION_RESULTS_0_1.json`. No game-theory authority promotion or merge.
+
 ## Owner-prioritized open objective — eliminate strategic branching
 
 **Current primary mathematical research objective (2026-10-16 owner clarification):**
