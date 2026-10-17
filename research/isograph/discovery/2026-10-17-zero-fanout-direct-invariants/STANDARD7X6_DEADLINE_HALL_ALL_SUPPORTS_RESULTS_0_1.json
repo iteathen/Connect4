@@ -1,0 +1,59 @@
+{
+  "schema": "connect4.7x6.deadline_hall_all_gravity_supports_v0_1",
+  "date": "2026-10-17",
+  "status": "COMPLETE_ALL_STANDARD7X6_GRAVITY_SUPPORT_STATIC_AUDIT_AND_ANALYTICAL_REDUNDANCY_PROOF",
+  "geometry": {
+    "W": 7,
+    "H": 6,
+    "K": 4,
+    "lineCounts": {
+      "horizontal": 24,
+      "vertical": 21,
+      "rising": 12,
+      "falling": 12
+    },
+    "totalLines": 69
+  },
+  "frozenExecutable": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-deadline-hall-all-supports.mjs",
+  "verifiedExactLocalGitBlobSHA": "ac6e55ec71b579a557fa29e8d1b3bfc68aecdbbf",
+  "localOutputSHA256": "f92a1f3f522d7d96b46e86f7538ad9a186b043fb95a11c3e1c5b480bd93b5b0b",
+  "semanticFutureEvaluations": 0,
+  "sourceStatesHeightVectors": 823542,
+  "lineSupportPairs": 56824398,
+  "nonemptyLineResiduals": 47378933,
+  "playerResidualTests": 94757866,
+  "oldImpossible": 5418,
+  "edfImpossible": 5418,
+  "edfIncrementBeyondOld": 0,
+  "invalidParityGeometryCases": 0,
+  "incrementExamples": [],
+  "byRemainingCount": {
+    "1": {
+      "tested": 23765098,
+      "oldBad": 213,
+      "edfBad": 213,
+      "increment": 0
+    },
+    "2": {
+      "tested": 28336602,
+      "oldBad": 368,
+      "edfBad": 368,
+      "increment": 0
+    },
+    "3": {
+      "tested": 23765098,
+      "oldBad": 1311,
+      "edfBad": 1311,
+      "increment": 0
+    },
+    "4": {
+      "tested": 18891068,
+      "oldBad": 3526,
+      "edfBad": 3526,
+      "increment": 0
+    }
+  },
+  "analyticProof": "docs/research/2026-10-17-7x6-deadline-hall-redundancy-proof-and-next-seam.md",
+  "scopeNote": "Checks ALL non-full 7^7 gravity-column support vectors and 69 original Connect4 lines for BOTH possible owners, including colored-board-unrealizable overapprox; each future residual subset of one geometric line. No game-tree evaluation, game-availability claim or 7x6 root WDL claim. Independent mathematical proof supplied separately, not inferred from finite counts alone.",
+  "runtime": "standalone Node22 source executed locally, maintained Node26 CI and external independent proof assistant NOT run"
+}
