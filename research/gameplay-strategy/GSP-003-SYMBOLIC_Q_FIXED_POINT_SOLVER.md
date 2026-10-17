@@ -431,3 +431,34 @@ The source-owner reflected BDD k11 and action-QBF k9
 partial remain historical measurement baselines.
 Proof/evidence:
 `docs/research/2026-10-17-branch-elimination-dual-obligation-and-future-separation.md`.
+
+## 2026-10-17 — exact source future-WDL simulation precedes any new symbolic solver work
+
+The owner-primary branch elimination goal has a positive
+STRUCTURAL proof component beyond bounded response masks:
+for nonterminal `P1 b/P0 c` vs `P1 c/P0 b` owner-swap
+histories with identical resulting support, original
+source residual generator upset inclusions prove
+full-unrestricted-game P0-relative WDL weak dominance,
+and mutual inclusion proves full future-q equality.
+This uses only parent `h,R0,R1` and first-win/capacity
+guards, no recursive future solve or policy data.
+
+Independent full small-board physical-q controls PASS on
+1,522 unique 4x3 q+column diamonds (72 future equality,
+352 one-way dominance) and 39,798 unique 4x4 pairs
+(2,372 future equality, 9,380 dominance), zero false
+structural/game-value claims. `44444` 21 swap diamonds
+remain incomparable, and full WDL/best moves UNKNOWN.
+
+**Next GSP-003 engineering role** is to realize a
+mathematically frozen source-only multi-action
+alternating-simulation/matching relation across DIFFERENT
+support fibers (G2 action transport plus original
+upset-favorable order is a candidate) once proved.
+Do NOT resume routine variable-order/garbage-collection/
+larger QBF diagram searches as the main research agenda.
+Input values and winning policies from recursive reference
+are POST-derivation falsifiers only; preserve complete
+tie-set reconstruction. Mathematical proof:
+`docs/research/2026-10-17-full-future-two-ply-cofactor-simulation.md`.
