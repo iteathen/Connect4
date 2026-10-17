@@ -124,6 +124,30 @@ Accordingly:
 
 Source: `isograph/discovery/2026-09-18-method-emergence/`.
 
+## Owner priority: eliminate strategic branching, preserve every tied-optimal action — 2026-10-16
+
+**The leading continuing research objective for GSP-003 and GSP-004 is
+EXACT STRATEGIC BRANCH ELIMINATION**, not simply representing the
+recursive minimax game with a smaller circuit. For each legal source q,
+derive directly the exact W/D/L value and **all literal legal columns
+whose W/D/L equals the mover-optimal value**. A singleton answer is
+correct only when no other legal move ties. Count actual construction,
+quantifier/projection, intermediate obligation expansion, and solver
+work; a closed QBF, compressed BDD, or hidden enumeration is not
+enough. Prove source residual/terminal/legality and adaptive-response
+scope preservation first.
+
+The completed recursive/branching residual-q core remains
+**constructively complete**. Branch elimination is not a missing
+correctness primitive retroactively imposed on that core, but it
+**is the primary goal of further research**, not merely an incidental
+optimization. Falsify against independent complete small-board
+action vectors, `223` quantified-order scope, `44444`, and the
+same original 60k/300k/10k/15s resource envelope. Preserve
+unresolved outcomes and genuine lower bounds.
+
+[Owner-directed objective and mathematical output contract](../docs/research/2026-10-16-branch-elimination-primary-objective.md).
+
 ## Constructive core vs optional branch reduction — 2026-10-16
 
 The ordinary residual-q, terminal and alternating-value core is now
@@ -134,8 +158,8 @@ Its research evaluator is **not** a production implementation of GSP-003
 or GSP-004.
 
 GSP-003 (symbolic predecessor) and GSP-004 (guarded shortcut proof) are
-optional attempts to **reduce or eliminate branching work**, not attempts to
-supply missing correctness primitives to the already exact core. Evaluate
+**the primary continuing research efforts to eliminate strategic branching**.
+This stronger goal is not required for correctness of the already complete core. Evaluate
 their results against the qualified recursive reference and count underlying
 subproblems/materialized frontiers, not merely number of returned values.
 Recursion elimination and formal minimality may be pursued later if useful.
@@ -221,8 +245,8 @@ bound. No unrestricted `44444` value or deep branch-elimination proof.
 |---|---|---|---|---|---|---|
 | GSP-001 | [Quotient-native gameplay description](gameplay-strategy/GSP-001-QUOTIENT_NATIVE_GAMEPLAY_DESCRIPTION.md) | ROUGH_PROPOSAL | Makes q the explicit exact internal gameplay description | Connect4 domain/gameplay adapter | independent q-vs-physical transition replay; first-win controls | define the gameplay interface and exact record ownership |
 | GSP-002 | [Packed q transition compiler](gameplay-strategy/GSP-002-PACKED_Q_TRANSITION_COMPILER.md) | ROUGH_PROPOSAL | Turns q + column into a low-cost exact runtime kernel | state compiler / transition layer | exact equality; transition equivalence; economics | prototype transparent packed q before aggressive compression |
-| GSP-003 | [Symbolic q fixed-point solver](gameplay-strategy/GSP-003-SYMBOLIC_Q_FIXED_POINT_SOLVER.md) | ACTIVE_INVESTIGATION | Exact source-q bounded WIN/NLOSS interval BDD; now testing mathematically sound quantified factorization instead of growing support cones | dependency-localized structured Boolean factor circuit; exact distinct-cofactor width instrumentation | quantify interface width and action-label preservation after each QBF-style projection | Post-bit live-DAG compaction completes k6 exact bounded 44444 intervals, still UNKNOWN; k7 reaches 60k within one cofactor. Next dependency-sound local quantified projection. |
-| GSP-004 | [Guarded obligation closure](gameplay-strategy/GSP-004-GUARDED_OBLIGATION_CLOSURE.md) | ACTIVE_INVESTIGATION | Exact action-labelled adaptive response obligation algebra, no search-derived policy generation | Boolean-rank rectangle factorization and sound dependency-localized quantifier composition over source residuals | preserve forall/exists order, first-win guards, action transport and sound factor supports; use fooling-set lower bounds | Mixed adaptive response obligations now measured through k6 exact bounded QBF, k7 cofactor transient blowup; seek semantic quotient/quantifier localization preserving 223 and guards. |
+| GSP-003 | [Symbolic q fixed-point solver](gameplay-strategy/GSP-003-SYMBOLIC_Q_FIXED_POINT_SOLVER.md) | ACTIVE_INVESTIGATION | Exact source-q bounded WIN/NLOSS interval BDD; now testing mathematically sound quantified factorization instead of growing support cones | dependency-localized structured Boolean factor circuit; exact distinct-cofactor width instrumentation | quantify interface width and action-label preservation after each QBF-style projection | Primary OPEN goal: exact source-only nonbranching WDL and complete literal optimal-action set; compare guarded factor/quantifier localization with current ROBDD, count actual shared/eliminated continuation work. |
+| GSP-004 | [Guarded obligation closure](gameplay-strategy/GSP-004-GUARDED_OBLIGATION_CLOSURE.md) | ACTIVE_INVESTIGATION | Exact action-labelled adaptive response obligation algebra, no search-derived policy generation | Boolean-rank rectangle factorization and sound dependency-localized quantifier composition over source residuals | preserve forall/exists order, first-win guards, action transport and sound factor supports; use fooling-set lower bounds | Primary OPEN goal: one exact adaptive obligation operation preserving all replies and every equally optimal action; no hidden path enumeration, 223 scope swap or guessed singleton. |
 | GSP-005 | [Second-stage behavioral quotient after q](gameplay-strategy/GSP-005-BEHAVIORAL_QUOTIENT_AFTER_Q.md) | ROUGH_PROPOSAL | Tries to shrink q further while remaining executable | semantic-state minimization / automaton layer | exact behavior equivalence + maintainable update law | classify bounded q distinctions erased by MQ2 |
 | GSP-006 | [Profile-safe proof and cache keys](gameplay-strategy/GSP-006-PROFILE_SAFE_PROOF_AND_CACHE_KEYS.md) | ROUGH_PROPOSAL | Prevents q identity from over-authorizing proof/context reuse | TT/proof-store/cache contracts | negative controls with equal q but different proof context | define QKey/ProofKey/HintKey contracts |
 | GSP-007 | [Generic finite-gravity Connect-K q congruence](gameplay-strategy/GSP-007-GENERIC_CONNECT_K_Q_CONGRUENCE.md) | ROUGH_PROPOSAL | Tests whether q gameplay semantics generalize beyond 7x6 K=4 | generic Connect-K domain/profile | symbolic proof review + nonstandard-board controls | build qualification matrix and independent theorem review |
