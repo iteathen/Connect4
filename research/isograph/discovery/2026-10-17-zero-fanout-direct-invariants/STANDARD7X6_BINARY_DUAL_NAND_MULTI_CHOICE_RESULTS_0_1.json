@@ -1,0 +1,48 @@
+{
+  "schema": "connect4.standard7x6.dual_nand_multi_choice_physical_v0_1",
+  "board": {
+    "W": 7,
+    "H": 6,
+    "K": 4,
+    "geometricWinLines": 69
+  },
+  "sourceSelection": "Actual 7x6 at ply>=36 with at least TWO currently legal literal columns, sorted by count of legal columns (descending) then rank ascending; not unique optimal count",
+  "seedStart": 2980507714,
+  "nonterminalTrajectoriesGenerated": 2700,
+  "eligibleLateSourcePositions": 6586,
+  "uniqueLatePhysicalRootPositions": 6586,
+  "rootValuesChecked": 600,
+  "legalLiteralActionValuesChecked": 2126,
+  "wrongRootValues": 0,
+  "wrongOptimalLiteralMasks": 0,
+  "wrongFirstActionValues": 0,
+  "tiedBestRootPositions": 326,
+  "singleBestRootPositions": 274,
+  "rootValueDistribution": {
+    "P0win": 464,
+    "draw": 36,
+    "P1win": 100
+  },
+  "minimax": {
+    "calls": 24315,
+    "memoHits": 4879,
+    "nodes": 10318
+  },
+  "binaryKernel": {
+    "calls": 24315,
+    "memoHits": 4879,
+    "nodes": 10318,
+    "terminalWins": 8063,
+    "terminalDraws": 1055
+  },
+  "canonicalSourcePrefixes": [
+    "44444",
+    "444444",
+    "4444442"
+  ],
+  "canonicalSourcePrimaryUnrestrictedWDL": "NOT_COMPUTED",
+  "testExactSourceBlob": "d7b204fd01fc0f8f26f7997a4fa342eb78c422c2",
+  "frozenSource": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-dual-nand-multi-choice-physical-control.mjs",
+  "scope": "600 legal first-win-stopped physical 7x6 roots at ranks>=36 with >=2 currently legal literal columns; ordinary WDL reference and terminal-tagged XOR NAND both independently recursively branch (REFERENCE ONLY), no input to source-only zero-branch producer.",
+  "evidenceClass": "independent post-derivation 7x6 physical reference conformance; not Node26 maintained CI or external proof-assistant; does not solve unrestricted 44444"
+}
