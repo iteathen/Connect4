@@ -1,0 +1,192 @@
+{
+  "schema": "connect4.full-future-source-root-action-scalar-quotient.v0_1",
+  "date": "2026-10-17",
+  "owner": "research/semantic-quotient",
+  "status": "EXACT_NONREFLECTION_SOURCE_ONLY_FULL_FUTURE_ROOT_SCALAR_ACTION_ELIMINATION_PASS",
+  "frozenPlans": [
+    "research/isograph/discovery/2026-10-17-dual-obligation-quotient/CROSS_SUPPORT_COLUMN_TRANSPORT_PLAN_0_1.md",
+    "research/isograph/discovery/2026-10-17-dual-obligation-quotient/COLUMN_TRANSPORT_PARTIAL_GENERATOR_PLAN_0_1.md",
+    "research/isograph/discovery/2026-10-17-dual-obligation-quotient/FULL_ROOT_SCALAR_DOMINANCE_QUOTIENT_PLAN_0_1.md"
+  ],
+  "sourceProducer": "research/isograph/discovery/2026-10-17-dual-obligation-quotient/column-transport-partial-generators.mjs",
+  "rootScalarProducer": "research/isograph/discovery/2026-10-17-dual-obligation-quotient/root-action-dominance-quotient.mjs",
+  "independentControls": [
+    "research/isograph/discovery/2026-10-17-dual-obligation-quotient/column-transport-physical-control.mjs",
+    "research/isograph/discovery/2026-10-17-dual-obligation-quotient/root-action-dominance-physical-control.mjs",
+    "research/isograph/discovery/2026-10-17-dual-obligation-quotient/root-action-dominance-generic-control.mjs"
+  ],
+  "certifiedFileGitBlobSHAs": {
+    "column-transport-partial-generators.mjs": "ffae0ba14330e0681269062c9a0789a2da90c981",
+    "column-transport-physical-control.mjs": "cb242a14fab762175aaa98749c9f70a35f81bb5e",
+    "root-action-dominance-quotient.mjs": "2c9782254b7e1905c77408d973b1965d32c6c4ef",
+    "root-action-dominance-physical-control.mjs": "30faf45be5527edce59150c65779ffbacd535cfb",
+    "root-action-dominance-generic-control.mjs": "3787ff8e4c7f4936d3f39d5dee366e05e158eb1a"
+  },
+  "formalTheorem": "For P1 first actions b,c with source-only full-future value order V_b<=V_c proved under a height-preserving column bijection and P0/P1 residual-upset favorable inclusions, direct edge b->c preserves the exact min scalar. Every directed path preserves order; every directed SCC implies value equality. Keeping one representative of each source SCC (no incoming other SCC edge) yields precisely min over all P1 legal actions, with an explicit proof path from a retained representative to every omitted scalar VALUE query. This does NOT certify which omitted P1 actions TIE at the global min.",
+  "producerNeverReadsSolvedValues": true,
+  "producerFutureGameStatesEnumerated": 0,
+  "producerFuturePolicyPathsEnumerated": 0,
+  "genericDirectedGraphFalsifier": {
+    "allFourActionDirectedGraphs": 4096,
+    "totalThreeValuedAssignmentsInspected": 331776,
+    "assignmentsSatisfyingAllCertificateEdges": 33792,
+    "scalarMinMismatches": 0,
+    "equalitySCCValueMismatches": 0,
+    "omittedRootActionProofPathMismatches": 0,
+    "wrongArrowPolarityMutationCaught": true,
+    "measuredIsolatedV8Milliseconds": 794
+  },
+  "exhaustiveIndependentSmallBoards": [
+    {
+      "board": "4x3 Connect3",
+      "physicalStates": 4631,
+      "uniqueP1Q": 1786,
+      "sourceQFirstActionPairs": 4794,
+      "rootScalarValuesWithoutProof": 4872,
+      "scalarRepresentativesRequired": 4502,
+      "sourceOnlyScalarEvaluationsEliminated": 370,
+      "sourcesWithNonreflectionProof": 336,
+      "fullFutureProgramIsomorphismPairs": 86,
+      "weakOneWayWDLOrderPairs": 320,
+      "independentlyCheckedTransportedActionValues": 214,
+      "sourceTransportBitsetWork": 269839,
+      "transportPlusGraphBitsetWork": 408967,
+      "independentQualifiedReferenceTransitions": 10228,
+      "scalarValueWorkObligationReductionPercent": 7.59442,
+      "sourcesWithNonreflectionProofPercent": 18.81299,
+      "falseRootScalarMinCertificates": 0,
+      "falseWeakOrderProofPaths": 0,
+      "falseFutureProgramActionTransportValues": 0,
+      "falseWDLValueEquivalenceClasses": 0,
+      "reflectionOnlyScalarObligationsEliminated": 0,
+      "additionalBeyondReflection": 370
+    },
+    {
+      "board": "4x4 Connect4",
+      "physicalStates": 134289,
+      "uniqueP1Q": 16950,
+      "sourceQFirstActionPairs": 53130,
+      "rootScalarValuesWithoutProof": 50034,
+      "scalarRepresentativesRequired": 44480,
+      "sourceOnlyScalarEvaluationsEliminated": 5554,
+      "sourcesWithNonreflectionProof": 5074,
+      "fullFutureProgramIsomorphismPairs": 2280,
+      "weakOneWayWDLOrderPairs": 3760,
+      "independentlyCheckedTransportedActionValues": 6560,
+      "sourceTransportBitsetWork": 1937506,
+      "transportPlusGraphBitsetWork": 3476170,
+      "independentQualifiedReferenceTransitions": 100760,
+      "scalarValueWorkObligationReductionPercent": 11.10045,
+      "sourcesWithNonreflectionProofPercent": 29.9351,
+      "falseRootScalarMinCertificates": 0,
+      "falseWeakOrderProofPaths": 0,
+      "falseFutureProgramActionTransportValues": 0,
+      "falseWDLValueEquivalenceClasses": 0,
+      "reflectionOnlyScalarObligationsEliminated": 0,
+      "additionalBeyondReflection": 5554
+    }
+  ],
+  "canonical44444": {
+    "sourceP1Rank": 5,
+    "originalSevenLegalActionsOneBased": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "sourceOnlyFullFutureProgramEqualityGroupsOneBased": [
+      [
+        1,
+        7
+      ],
+      [
+        2,
+        6
+      ],
+      [
+        3,
+        5
+      ],
+      [
+        4
+      ]
+    ],
+    "noCertificateForDifferentMirrorClasses": true,
+    "valueEvaluationRepresentativesOneBased": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "scalarActionEvaluationsEliminated": 3,
+    "extraBeyondReflection": 0,
+    "fullRootValue": "UNKNOWN [-1,+1]",
+    "completeOptimalMoveSet": "UNKNOWN",
+    "directSourceTransportOperations": 291518,
+    "sourcePlusDominanceGraphOperations": 292338,
+    "operationCap": 300000
+  },
+  "illustrativeRootSourceOnlyProof": {
+    "board": "4x4 Connect4",
+    "history": "1111222",
+    "P1ToMove": true,
+    "firstActionExactFutureProgramIsomorphismOneBased": [
+      3,
+      4
+    ],
+    "futureColumnTransportOneBased": [
+      1,
+      2,
+      4,
+      3
+    ],
+    "originalLegalP1FirstActions": [
+      2,
+      3,
+      4
+    ],
+    "sourceOnlyScalarValueReps": [
+      2,
+      3
+    ],
+    "removedIndependentRootScalarValueProofForColumn": 4,
+    "sourceOnlyMoveValueTieClass": [
+      3,
+      4
+    ],
+    "independentQualifiedExactQValidation": {
+      "rootP0RelativeWDL": 0,
+      "eachP1MoveP0RelativeWDL": {
+        "2": 0,
+        "3": 0,
+        "4": 0
+      },
+      "completeBestP1ActionSet": [
+        2,
+        3,
+        4
+      ]
+    },
+    "note": "Numeric DRAW and full optimal set learned in independent validator only; source producer proves action3/action4 equality without asking any value labels."
+  },
+  "caveats": [
+    "7.6%/11.1% are reductions in number of independent first-action WDL VALUE obligations over distinct small-board P1 q sources, NOT measured end-to-end solver walltime and NOT reduction in future recursively expanded q graph by same fraction.",
+    "Full-game best-move set still requires identifying whether weakly dominated actions TIE; all original literal labels preserved, no guessed unique optimal.",
+    "Source-only column transports enumerate finite height-compatible column permutations/partial residual-generator obligations (not move histories), and are only sufficient, not exhaustive of full WDL dominance.",
+    "Proof construction and source residual/cofactor subset work are additionally charged, never called free.",
+    "Canonical 44444 only known mirror-isomorphism classes from this source condition; no new root value or nonmirror dominance certificate there.",
+    "Independent full-q recursion performed ONLY AFTER deriving source simulator/graph certificates as a falsifier; not fed into producer.",
+    "No maintained Node26 suite or external proof-assistant qualification in this checkpoint."
+  ],
+  "strictPerSourceLimits": {
+    "maxRepresentationNodes": 60000,
+    "maxNontrivialBitsetOrGraphOperations": 300000,
+    "maxSupportRepresentatives": 10000,
+    "maxTimeMs": 15000
+  },
+  "gameTheoryAuthorityPromoted": false,
+  "merged": false
+}
