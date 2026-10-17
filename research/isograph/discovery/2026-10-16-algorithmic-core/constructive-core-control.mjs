@@ -264,3 +264,6 @@ if(process.argv[1]?.endsWith('constructive-core-control.mjs')){
   console.log(JSON.stringify(x,null,2));
   if(x.result==='FAIL')process.exitCode=1;
 }
+
+// Pure direct-physical reference, exported for independent research controls.
+export {physicalRules};
