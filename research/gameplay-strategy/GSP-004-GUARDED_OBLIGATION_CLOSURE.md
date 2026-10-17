@@ -849,3 +849,11 @@ DIFFERENT capacity supports and a strict WDL/tie
 certificate, not another BDD/QBF depth extension.
 Full theorem and independent conformance:
 `docs/research/2026-10-17-cross-support-root-branch-elimination.md`.
+
+## 2026-10-17 — proved full WDL/all-tied-best ZERO-fanout source subdomain; nonlocal obligation closure remains open
+
+The owner goal is eliminating STRATEGIC BRANCHING, not reducing branches. A working source-only zero-strategic-fanout operator now derives unrestricted WDL and complete tied-optimal move labels from first-win and two-turn residual consequences, matched pairing/draw constraints, and a finite WDL interval lattice of source-proved future weak orders; one source-provably full-future-equivalent action set may be treated as ONE direction, and at most one game-semantic successor q is ever evaluated at any source rank. Otherwise return INCOMPLETE without a minimax/search fallback.
+
+**New exact best-set law:** the precise numeric values of already strictly inferior moves are unnecessary. With exact source-certified root value V and sound WDL action intervals, P0 best labels are those with `lo=V`, inferior where `hi<V`; P1 best labels have `hi=V`, inferior where `lo>V`. ALL labels must be so classified; remaining ambiguous labels cause INCOMPLETE. This source theorem is verified on EVERY legal distinct q of 4x3/4x4: 2,914/3,734 and 6,725/34,094 exact unrestricted root WDL+FULL best set with zero discrepancies and max actual strategic fanout ONE. On standard `44444`, `444444` and `4444442`, source algebra correctly abstains from unrestricted values. Former historic turn7/8 state transition and bounded defensive results remain qualified.
+
+**NEXT:** derive source-level structural LAW sufficient to settle genuinely NONLOCAL coupled residual obligations across multiple still inequivalent action classes at once. Existing CPC/parity conservation, blocker clauses, Hall response capacity with shared blockers and first-win resource/deadline guards are relevant mathematical primitives, but none may merely re-encode hidden ∀/∃ game-tree alternatives. Source-only invariant must produce exact V and all ties, prove single-lane nonfanout and be validated afterward; a search-derived winning policy is disallowed as an input. Proof: `docs/research/2026-10-17-direct-one-lane-zero-strategic-fanout-closure.md`.
