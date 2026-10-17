@@ -1,0 +1,633 @@
+{
+  "schema": "connect4.shared-first-action-quantifier-project-results.v0_1",
+  "date": "2026-10-16",
+  "owner": "research/semantic-quotient",
+  "status": "SCOPED_EXACT_COMPLETE_ACTION_SETS_PASS_GENERAL_DEEP_BRANCH_ELIMINATION_OPEN",
+  "theorem": "For original guarded Boolean action-QBF matrix F_z(a0,...,ak-1), quantify only inner action blocks (in their original order) to get G_z(a0); conditioning G_z on each legal first action c equals the exact depth-k source-Bellman action threshold. Four shared projected threshold vectors yield action intervals and, when all action intervals close, exact complete WDL-optimal-action set.",
+  "proofStatus": "Finite-prefix quantifier and conditioning law deductively exact for all legal source-q under existing qualified guard/terminal QBF translation; representation cost not polynomially bounded in horizon",
+  "source": "research/isograph/discovery/2026-10-16-algorithmic-core/guarded-action-qbf-first-action-vector.mjs",
+  "independentlyExecutedReproducer": "research/isograph/discovery/2026-10-16-algorithmic-core/first-action-vector-control.mjs",
+  "originalQBF": "research/isograph/discovery/2026-10-16-algorithmic-core/guarded-action-qbf.mjs",
+  "originalScalarProjector": "research/isograph/discovery/2026-10-16-algorithmic-core/guarded-action-qbf-project-live-compact.mjs",
+  "gitBlobs": {
+    "source": "e09d12a5764879289c96b3ee0d9db5f424adcce7",
+    "reproducer": "370b1c14d8603b43f5d82bf0ff3668a4f3668040",
+    "QBF": "f099f080b6213f277ac8cbdf84b66340143206cc",
+    "scalarProjector": "5d0b2c79f61999172d532bae2a78cd92398e0ce9"
+  },
+  "localRuntime": "Node.js v22.16.0",
+  "entireLocalControlStdoutSha256": "736a57439520faf060dee40a4ae296ca1a68c29128d2ed35dd8922b207d23a54",
+  "scope": {
+    "boundedHorizonCases": 47,
+    "sharedThresholdCompileAndProjectionCalls": 188,
+    "individualLegalActionThresholdComparisons": 672,
+    "independentPhysicalValidationMoveCalls": 532956,
+    "exactCompleteGameSuffixCases": 24,
+    "allOptimalSetCorrect": 24,
+    "uniqueOptimumCases": 13,
+    "tiedOptimumCases": 11,
+    "P0AndP1TurnSuffixes": true,
+    "WinDrawLossValuesPresent": true,
+    "mismatchCount": 0,
+    "noForwardGameContinuationDiscoveryByCandidate": true,
+    "supportRepresentativesGenerated": 0
+  },
+  "inputSelection": "Deterministic lexicographic DFS of independently legal, nonterminal physical 4x3 c3 and 4x4 c4 positions, four distinct physical positions at each rank N-5, N-4, N-3, requiring at least two legal columns, selected before viewing value/optimal action; plus frozen 223,1212,44444,444444 bounded sources.",
+  "fullSuffixCases": [
+    {
+      "board": "4x3-c3",
+      "history": "1112224",
+      "mover": 1,
+      "value": 1,
+      "optimalColumns1Based": [
+        3,
+        4
+      ],
+      "actionValues1Based": [
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          1
+        ]
+      ]
+    },
+    {
+      "board": "4x3-c3",
+      "history": "1112232",
+      "mover": 1,
+      "value": -1,
+      "optimalColumns1Based": [
+        4
+      ],
+      "actionValues1Based": [
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          -1
+        ]
+      ]
+    },
+    {
+      "board": "4x3-c3",
+      "history": "1112233",
+      "mover": 1,
+      "value": -1,
+      "optimalColumns1Based": [
+        4
+      ],
+      "actionValues1Based": [
+        [
+          2,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          -1
+        ]
+      ]
+    },
+    {
+      "board": "4x3-c3",
+      "history": "1112234",
+      "mover": 1,
+      "value": 1,
+      "optimalColumns1Based": [
+        2,
+        3,
+        4
+      ],
+      "actionValues1Based": [
+        [
+          2,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          1
+        ]
+      ]
+    },
+    {
+      "board": "4x3-c3",
+      "history": "11122243",
+      "mover": 0,
+      "value": 1,
+      "optimalColumns1Based": [
+        3,
+        4
+      ],
+      "actionValues1Based": [
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          1
+        ]
+      ]
+    },
+    {
+      "board": "4x3-c3",
+      "history": "11122244",
+      "mover": 0,
+      "value": 1,
+      "optimalColumns1Based": [
+        3
+      ],
+      "actionValues1Based": [
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          0
+        ]
+      ]
+    },
+    {
+      "board": "4x3-c3",
+      "history": "11122323",
+      "mover": 0,
+      "value": 1,
+      "optimalColumns1Based": [
+        3
+      ],
+      "actionValues1Based": [
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          -1
+        ]
+      ]
+    },
+    {
+      "board": "4x3-c3",
+      "history": "11122332",
+      "mover": 0,
+      "value": 1,
+      "optimalColumns1Based": [
+        3,
+        4
+      ],
+      "actionValues1Based": [
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          1
+        ]
+      ]
+    },
+    {
+      "board": "4x3-c3",
+      "history": "111222433",
+      "mover": 1,
+      "value": 1,
+      "optimalColumns1Based": [
+        3,
+        4
+      ],
+      "actionValues1Based": [
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          1
+        ]
+      ]
+    },
+    {
+      "board": "4x3-c3",
+      "history": "111222434",
+      "mover": 1,
+      "value": 1,
+      "optimalColumns1Based": [
+        3,
+        4
+      ],
+      "actionValues1Based": [
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          1
+        ]
+      ]
+    },
+    {
+      "board": "4x3-c3",
+      "history": "111223234",
+      "mover": 1,
+      "value": -1,
+      "optimalColumns1Based": [
+        3
+      ],
+      "actionValues1Based": [
+        [
+          3,
+          -1
+        ],
+        [
+          4,
+          1
+        ]
+      ]
+    },
+    {
+      "board": "4x3-c3",
+      "history": "111223334",
+      "mover": 1,
+      "value": 1,
+      "optimalColumns1Based": [
+        2,
+        4
+      ],
+      "actionValues1Based": [
+        [
+          2,
+          1
+        ],
+        [
+          4,
+          1
+        ]
+      ]
+    },
+    {
+      "board": "4x4-c4",
+      "history": "11112222333",
+      "mover": 1,
+      "value": 0,
+      "optimalColumns1Based": [
+        4
+      ],
+      "actionValues1Based": [
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          0
+        ]
+      ]
+    },
+    {
+      "board": "4x4-c4",
+      "history": "11112222343",
+      "mover": 1,
+      "value": 0,
+      "optimalColumns1Based": [
+        3
+      ],
+      "actionValues1Based": [
+        [
+          3,
+          0
+        ],
+        [
+          4,
+          1
+        ]
+      ]
+    },
+    {
+      "board": "4x4-c4",
+      "history": "11112222344",
+      "mover": 1,
+      "value": 0,
+      "optimalColumns1Based": [
+        3,
+        4
+      ],
+      "actionValues1Based": [
+        [
+          3,
+          0
+        ],
+        [
+          4,
+          0
+        ]
+      ]
+    },
+    {
+      "board": "4x4-c4",
+      "history": "11112222433",
+      "mover": 1,
+      "value": 0,
+      "optimalColumns1Based": [
+        3,
+        4
+      ],
+      "actionValues1Based": [
+        [
+          3,
+          0
+        ],
+        [
+          4,
+          0
+        ]
+      ]
+    },
+    {
+      "board": "4x4-c4",
+      "history": "111122223334",
+      "mover": 0,
+      "value": 0,
+      "optimalColumns1Based": [
+        4
+      ],
+      "actionValues1Based": [
+        [
+          3,
+          -1
+        ],
+        [
+          4,
+          0
+        ]
+      ]
+    },
+    {
+      "board": "4x4-c4",
+      "history": "111122223433",
+      "mover": 0,
+      "value": 0,
+      "optimalColumns1Based": [
+        3
+      ],
+      "actionValues1Based": [
+        [
+          3,
+          0
+        ],
+        [
+          4,
+          -1
+        ]
+      ]
+    },
+    {
+      "board": "4x4-c4",
+      "history": "111122223434",
+      "mover": 0,
+      "value": 1,
+      "optimalColumns1Based": [
+        3
+      ],
+      "actionValues1Based": [
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          0
+        ]
+      ]
+    },
+    {
+      "board": "4x4-c4",
+      "history": "111122223443",
+      "mover": 0,
+      "value": 0,
+      "optimalColumns1Based": [
+        3,
+        4
+      ],
+      "actionValues1Based": [
+        [
+          3,
+          0
+        ],
+        [
+          4,
+          0
+        ]
+      ]
+    },
+    {
+      "board": "4x4-c4",
+      "history": "1111222233344",
+      "mover": 1,
+      "value": 0,
+      "optimalColumns1Based": [
+        4
+      ],
+      "actionValues1Based": [
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          0
+        ]
+      ]
+    },
+    {
+      "board": "4x4-c4",
+      "history": "1111222234334",
+      "mover": 1,
+      "value": -1,
+      "optimalColumns1Based": [
+        3
+      ],
+      "actionValues1Based": [
+        [
+          3,
+          -1
+        ],
+        [
+          4,
+          0
+        ]
+      ]
+    },
+    {
+      "board": "4x4-c4",
+      "history": "1111222234343",
+      "mover": 1,
+      "value": 1,
+      "optimalColumns1Based": [
+        3,
+        4
+      ],
+      "actionValues1Based": [
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          1
+        ]
+      ]
+    },
+    {
+      "board": "4x4-c4",
+      "history": "1111222234344",
+      "mover": 1,
+      "value": 0,
+      "optimalColumns1Based": [
+        3
+      ],
+      "actionValues1Based": [
+        [
+          3,
+          0
+        ],
+        [
+          4,
+          1
+        ]
+      ]
+    }
+  ],
+  "matchedSeparateActionControls": {
+    "scope": "Only Wlo and Whi on five fixed source/horizon cases, independent separate fixed-first-action full QBF recompile+projection vs one shared free-first-action QBF; NOT compared with an optimally cached solver, earlier reflected owner-BDD or full-game solver.",
+    "cases": [
+      {
+        "board": "4x3-c3",
+        "prefix": "223",
+        "depth": 3,
+        "actionCount": 4,
+        "separateThresholdCompiles": 8,
+        "sharedThresholdCompiles": 2,
+        "separateBooleanOps": 12012,
+        "sharedBooleanOps": 2590,
+        "separateCompactionUnits": 19442,
+        "sharedCompactionUnits": 6864,
+        "separatePeakNodes": 206,
+        "sharedPeakNodes": 194,
+        "BooleanSavingsPercent": 78.44,
+        "measuredBooleanPlusCompactionSavingsPercent": 69.94
+      },
+      {
+        "board": "4x3-c3",
+        "prefix": "223",
+        "depth": 4,
+        "actionCount": 4,
+        "separateThresholdCompiles": 8,
+        "sharedThresholdCompiles": 2,
+        "separateBooleanOps": 31536,
+        "sharedBooleanOps": 6460,
+        "separateCompactionUnits": 67190,
+        "sharedCompactionUnits": 25026,
+        "separatePeakNodes": 584,
+        "sharedPeakNodes": 511,
+        "BooleanSavingsPercent": 79.52,
+        "measuredBooleanPlusCompactionSavingsPercent": 68.11
+      },
+      {
+        "board": "4x4-c4",
+        "prefix": "223",
+        "depth": 4,
+        "actionCount": 4,
+        "separateThresholdCompiles": 8,
+        "sharedThresholdCompiles": 2,
+        "separateBooleanOps": 22356,
+        "sharedBooleanOps": 5254,
+        "separateCompactionUnits": 40046,
+        "sharedCompactionUnits": 13953,
+        "separatePeakNodes": 318,
+        "sharedPeakNodes": 298,
+        "BooleanSavingsPercent": 76.5,
+        "measuredBooleanPlusCompactionSavingsPercent": 69.22
+      },
+      {
+        "board": "7x6-c4",
+        "prefix": "44444",
+        "depth": 3,
+        "actionCount": 7,
+        "separateThresholdCompiles": 14,
+        "sharedThresholdCompiles": 2,
+        "separateBooleanOps": 44366,
+        "sharedBooleanOps": 6072,
+        "separateCompactionUnits": 51055,
+        "sharedCompactionUnits": 11688,
+        "separatePeakNodes": 298,
+        "sharedPeakNodes": 294,
+        "BooleanSavingsPercent": 86.31,
+        "measuredBooleanPlusCompactionSavingsPercent": 81.39
+      },
+      {
+        "board": "7x6-c4",
+        "prefix": "44444",
+        "depth": 4,
+        "actionCount": 7,
+        "separateThresholdCompiles": 14,
+        "sharedThresholdCompiles": 2,
+        "separateBooleanOps": 135856,
+        "sharedBooleanOps": 18049,
+        "separateCompactionUnits": 241070,
+        "sharedCompactionUnits": 51037,
+        "separatePeakNodes": 1053,
+        "sharedPeakNodes": 929,
+        "BooleanSavingsPercent": 86.71,
+        "measuredBooleanPlusCompactionSavingsPercent": 81.67
+      }
+    ],
+    "BooleanWorkReductionRangePercent": [
+      76.5,
+      86.71
+    ],
+    "BooleanPlusCompactionReductionRangePercent": [
+      68.11,
+      81.67
+    ]
+  },
+  "canonical44444": {
+    "depth6CompleteFourThresholdActionVectors": true,
+    "legalActions": 7,
+    "eachActionBoundedInterval": [
+      -1,
+      1
+    ],
+    "rootUnrestrictedValue": "UNKNOWN [-1,+1]",
+    "WDLOptimalMoveSet": "UNKNOWN",
+    "nextWithinBitWidthBoundaryNotSolved": true
+  },
+  "budgets": {
+    "maxRetainedNodes": 60000,
+    "maxNontrivialBoolOps": 300000,
+    "maxSupports": 10000,
+    "maxMilliseconds": 15000
+  },
+  "qualitativeLimits": [
+    "Shared first-action projection avoids repeated independent first-action evaluation but still applies cofactor expansion to the remaining alternating inner action blocks; not full strategic branch elimination",
+    "Benchmark against a deliberately independent, uncached per-action QBF baseline, not the strongest existing ROBDD or optimized cached minimax",
+    "Reported Boolean-work and extra compaction units are separate, and do not capture every JS allocation/interpreter action; no end-to-end speed claim",
+    "No maintained Node26 qualification or external mathematical proof assistant validation",
+    "When action intervals are not all exact, report UNKNOWN optimal action set; no inferred uniqueness or equality from bounded intervals"
+  ],
+  "noAuthorityPromotion": true,
+  "noMerge": true
+}
