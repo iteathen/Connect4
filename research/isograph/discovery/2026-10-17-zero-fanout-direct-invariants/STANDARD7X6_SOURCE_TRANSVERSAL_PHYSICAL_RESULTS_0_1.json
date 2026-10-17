@@ -1,0 +1,102 @@
+{
+  "schema": "connect4.7x6.source_fractional_transversal_physical_control_v0_1",
+  "date": "2026-10-17",
+  "status": "RESTRICTED_POSITIVE_SOURCE_WIN_AND_ALL_BEST_SET_CONTROL_NOT_TOTAL_GAME_SOLUTION",
+  "geometry": {
+    "W": 7,
+    "H": 6,
+    "K": 4,
+    "lines": 69,
+    "winspaceSubsets": 625
+  },
+  "proof": "docs/research/2026-10-17-standard7x6-bilateral-winline-transversal-packing-candidate.md",
+  "sourceProducer": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-source-fractional-transversal.mjs",
+  "producerCommittedBeforeReferenceExecution": true,
+  "sourceAlgorithm": "For each original residual generator G_i find scaled nonnegative packing numerator n_i with each future cell load sum_(G_i contains x) n_i <=D. If sum n_i > D*opponentTotalTurns and opponent independently source-certified unable to win, guaranteed owner first win by full-board contradiction; no future game value computed.",
+  "sourceSearchScope": "Finite predeclared denominators 1,2,3,4,6,8,12 and six deterministic generator orders with 1/floor(D/2)/D quota patterns; static algebraic witness attempts not strategic continuations.",
+  "sourceGameSemanticFanout": 0,
+  "physicalSample": {
+    "positions": 33811,
+    "boardSize": "strict standard 7x6 Connect4",
+    "source": "1,000 deterministic seeded nonwinning-prefix physical trajectories, plus canonical prefixes, nonterminal first-win-stopped, LCG seed=698820097",
+    "sourceReferencesIndependent": true
+  },
+  "directResults": {
+    "globalPositionsWithProvenOpponentSourceNoWinAndAdmissibleOverload": 114,
+    "postFirstActionSourceScopesExamined": 166517,
+    "postActionWithOpponentNoWin": 616,
+    "postActionDualCertificates": 135,
+    "previousSourceUncertainActionsBecomingExactWin": 135,
+    "actionDualByDenominator": {
+      "1": 135
+    },
+    "dualCapacitiesWereVerifiedInProducer": true,
+    "postActionCertificatesWithFewerThanTwoImmediatelyPlayableOwnerSingletons": 106,
+    "singletonBuckets": {
+      "0": 1,
+      "1": 105,
+      "2": 25,
+      "3": 4
+    },
+    "staticWeightVectorsAttempted": 97269,
+    "baselineSourceFirstWinCPCFullValueBestLabels": 1228,
+    "baselinePlusTransversalFullValueBestLabels": 1275,
+    "additionalCompleteValueAndAllOptimalLiteralMasks": 47,
+    "strictlySampleConditionalImprovement": true
+  },
+  "independentPhysicalFullReference": {
+    "selectedLateAndAllPackingEmitPositions": 1122,
+    "independentFirstActionValuesCheckedTotal": 3161,
+    "fractionalPackingFirstActionValuesChecked": 135,
+    "fractionalPackingEnhancedCompleteBestMasksChecked": 222,
+    "mismatches": 0,
+    "referenceTerminalAwareNonterminalNodesVisited": 16583,
+    "referenceSolverMemoHits": 6125,
+    "referenceBudgetFailures": 0
+  },
+  "canonical": {
+    "history": "44444",
+    "relativeP1Move": 6,
+    "expectedSourceDecision": "INCOMPLETE",
+    "unrestrictedWDL": "UNKNOWN",
+    "allOptimalMoves": "UNKNOWN"
+  },
+  "examples": [
+    {
+      "history": "2452655262562535467674112411146147",
+      "ply": 34,
+      "firstAction": 7,
+      "provedWinner": "P1",
+      "proofDenominator": 1,
+      "weightedLineSum": 5,
+      "defenderFutureTurns": 3
+    },
+    {
+      "history": "152673121742462227636777564555563434",
+      "ply": 36,
+      "firstAction": 3,
+      "provedWinner": "P0",
+      "proofDenominator": 1,
+      "weightedLineSum": 4,
+      "defenderFutureTurns": 3
+    },
+    {
+      "history": "1526731217424622276367775645555634343",
+      "ply": 37,
+      "sourceAfterTransversalRootValue": 1,
+      "completeOptimalLiteralMoves": [
+        1,
+        3,
+        4
+      ]
+    }
+  ],
+  "qualification_limits": [
+    "All 47 additional exact optimal sets are relative to a lightweight CPC/immediate-source baseline, not yet an incremental comparison against every previously known full one-lane/co-release source rule on 7x6.",
+    "Sample is nonuniform and mostly mid/endgame, not a completeness percentage for all 7x6 q.",
+    "All 135 emitted first-action certificates were independently checked against unrestricted 7x6 physical future WDL. The physical reference DOES recursively evaluate game continuations, only AFTER source producer returned; that work is excluded from source semantic fanout.",
+    "All observed successful weights were integral D=1 (disjoint surviving requirements). Fractional D>1 may be mathematically stronger but was not observed as a necessary successful witness in this sample.",
+    "Standalone locally executed Node22; maintained Node26 suite, external peer proof assistant and full corpus coverage not performed.",
+    "Original local experiment harness remains local; independently frozen theorem and source-only proof-producer are committed, reproducible curated controls can be added."
+  ]
+}
