@@ -392,3 +392,42 @@ action scope. The current result is canonical cofactor
 sharing, NOT global strategic branch elimination.
 Proof: `docs/research/2026-10-16-action-robd-output-cone-functional-quotient.md`.
 Evidence: `ACTION_ROBDD_OUTPUT_CONE_RESULTS_0_1.json`.
+
+## 2026-10-17 — branch elimination outranks deeper diagram compilation
+
+The owner-primary objective is exact structural elimination of
+**independently expanded strategic actions** with complete literal
+WDL-optimal sets. The currently completed recursive q core and
+chronological move7/8 full-column transition remain established.
+New action-BDD output-cone work is valid supporting representation
+research but does not itself decide unrestricted `44444` or
+discharge adaptive opponent choices.
+
+**New exact source-response algebra:** inclusion-MINIMAL
+P1 reply success-action signatures preserve both quantified
+bounded response predicates and all action labels. Exhaustive
+65,536×16 generic controls plus complete small-board P1
+state checks PASS (2,208 4x3 and 67,992 4x4 sources).
+Original-to-minimal reply obligations 5,592→2,546 (4x3)
+and 150,246→70,706 (4x4), but original response matrix
+construction still incurs its full work.
+
+A decisive legal full-game falsifier `111` (4x3 Connect3)
+has identical bounded signatures after P1 replies 2,3
+but different exact full-game outcomes (+1 vs 0 for P0).
+There are 220 / 22,380 such pairs in the exhaustive 4x3/4x4
+validations. Therefore none of these one-layer groups,
+including all seven `44444` P1 replies, may be elevated
+to full-WDL equivalence without a further theorem.
+
+**Next GSP-003 role:** provide a source-residual-derived
+functional/guarded simulation certificate for *entire future
+adaptive response relations*, with labelled W and N
+threshold implication, response/terminal/resource guards
+and true saved downstream quantifier work. Once proved,
+symbolic diagrams may be used as a *post-derivation falsifier*
+or bounded implementation—not as the main research target.
+The source-owner reflected BDD k11 and action-QBF k9
+partial remain historical measurement baselines.
+Proof/evidence:
+`docs/research/2026-10-17-branch-elimination-dual-obligation-and-future-separation.md`.
