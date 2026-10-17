@@ -1,0 +1,66 @@
+{
+  "schema": "connect4.7x6.temporal_transversal_initial_physical_v0_1",
+  "date": "2026-10-17",
+  "status": "SOURCE_THEOREM_FROZEN_BEFORE_INDEPENDENT_7x6_PHYSICAL_WDL_TEST",
+  "board": {
+    "W": 7,
+    "H": 6,
+    "K": 4,
+    "geometricLines": 69
+  },
+  "math": "docs/research/2026-10-17-standard7x6-temporal-transversal-first-win-candidate.md",
+  "producer": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-source-temporal-transversal.mjs",
+  "producerGitBlob": "2da8ae78d85ed2e4ea3d487ae5972341c368e472",
+  "sourceMath": "For p, choose horizon L<minimum over opponent generators of max(required gravity prefixes, earliest o owner-turn rank). Take p generators whose every remaining cell latest release U<=L. If a nonnegative hyperedge packing of those generators has weight exceeding o-turn capacity A_o(L), p first-wins by L under all continuations.",
+  "sourceFutureStrategicValuesEvaluated": 0,
+  "sample": {
+    "independentPhysicalNonterminalStates": 33811,
+    "trajectories": 1000,
+    "seedUnsigned32": 698820097,
+    "canonicalIncluded": [
+      "44444",
+      "444444",
+      "4444442"
+    ],
+    "selection": "non-uniform delayed first-win legal 7x6 histories, no reduced boards"
+  },
+  "results": {
+    "sourceTemporalWinnersCertified": 434,
+    "ofWhichOpponentResidualFamilyStillNonempty": 375,
+    "opponentResidualFamilyEmpty": 59,
+    "staticDeadlineThresholdsExamined": 886,
+    "staticDisjointGeneratorPackingAttempts": 454,
+    "independentPhysicalFullWDLWinnerChecks": 434,
+    "fullGameWinnerMismatches": 0
+  },
+  "examples": [
+    {
+      "history": "17711317213435727273135523255425444",
+      "ply": 35,
+      "winner": "P1",
+      "opponentViableGenerators": 2,
+      "sourceForcedFinishByRank": 3,
+      "opponentEarliestPossibleWinRankLowerBound": 5,
+      "disjointRequirementPackSize": 2,
+      "opponentSlots": 1
+    },
+    {
+      "history": "24526552625625354676741124111461477",
+      "ply": 35,
+      "winner": "P1",
+      "opponentViableGenerators": 2,
+      "sourceForcedFinishByRank": 5,
+      "opponentEarliestPossibleWinRankLowerBound": 6,
+      "disjointRequirementPackSize": 3,
+      "opponentSlots": 2
+    }
+  ],
+  "qualification": [
+    "Claims are exact for the particular guarded source certificates; no assumption that uncovered positions are draws or losses.",
+    "Physical game reference is independent and branching, called AFTER source claims, not by the zero-fanout producer.",
+    "No all-optimal-root-mask results calculated yet from this temporal rule in this checkpoint.",
+    "Many winners may be immediate/two-turn tactical cases, not yet decomposed.",
+    "Local Node22 standalone tests, not maintained Node26 suite or external proof assistant.",
+    "No standard 7x6 general zero-branch algorithm; 44444 remains INCOMPLETE."
+  ]
+}
