@@ -8,6 +8,23 @@ For the continuing search for a source-structural ZERO-STRATEGIC-BRANCHING algor
 
 Historical small-board exhaustive tests remain valid *within their original geometries* and are preserved as past falsification/implementation controls, NOT promoted 7×6 effectiveness evidence. New smaller-board exercises, if ever retained, are strictly non-governing negative counterexample checks and must not displace real 7×6 tests. Prefer wholly 7×6 tests for new work.
 
+## Owner's two-phase domain policy — variables preserved
+
+**Phase 1: solve the actual standard game as far as possible.** Source mathematics, certificates, examples, tests, proof obligations, counterexamples, and meaningful coverage claims must be grounded in **W=7 columns, H=6 rows, K=4 in a line**. Do not distract the discovery by alternating between small-board geometries. The geometry is part of the structural problem, not just an implementation setting.
+
+**Phase 2: generalize only after the 7×6 research is substantially resolved and the owner moves us to generalization.** Determine the valid domain of the discovered equations for other (W,H,K), additional win conditions, and different parity/incidence structures. Generalization is future work, not a license to skip 7×6 proof gaps.
+
+**Important preservation condition throughout Phase 1:** the symbolic derivations MUST retain **W, H, and K** as explicit independent structural parameters. Do not eliminate their dependence from the equations, embed the values 7,6,4 into theorem identities, replace expressions by evaluated constants as the only surviving form, or make silent shape assumptions. Keep general forms for geometry and support:
+- column indices `0 <= c < W`, gravity rows `0 <= r < H`, target length `K`;
+- total gravity events `W H` (specializes to 42);
+- geometric winning-line count `L(W,H,K)=H(W-K+1)+W(H-K+1)+2(W-K+1)(H-K+1)` when `1 <= K <= min(W,H)` (specializes to 69);
+- event rank `N_q(t)=(W-1)H-ply+r+1`, retaining its dimensions;
+- all release-reservoir, parity, blocker, overlap, deadline, and first-win conditions as functions of `W,H,K` where appropriate.
+
+For **tests and claims NOW**, specialize these symbols to (7,6,4) and validate there. Parameterization of the algebra is NOT a claim of general validity: a proof may still require specific guards such as odd W, even H, K=4, or special geometric incidence. State such guards explicitly instead of falsely universalizing them. Keep derived standard-board structural lemmas even if they later prove impossible to extend unchanged; do not weaken Phase 1 to chase universality. Future generalization can revise the domain and proof, rather than silently smuggling non-7×6 cases into today's validation.
+
+This clarifies rather than supersedes the preceding geometry-first policy: **symbolically parameterized formulas; operationally and scientifically 7×6 Connect4 first.**
+
 ## Geometric baseline to retain explicitly
 
 Standard W=7, H=6, K=4 has 42 gravity events and 69 geometric winning lines, decomposed as:
