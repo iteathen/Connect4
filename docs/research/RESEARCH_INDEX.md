@@ -26,6 +26,28 @@ Unlisted dated notes remain repository evidence. Being unlisted means “not pri
 
 ---
 
+## Exact quantified live-gate compaction / transient cofactor width — 2026-10-16
+
+- [`2026-10-16-exact-qbf-live-compaction-transient-width.md`](2026-10-16-exact-qbf-live-compaction-transient-width.md)  
+  **ACTIVE GUARDED QBF BOUNDED EVALUATION / NEGATIVE k7 WITHIN-BIT WIDTH.**
+  A signed-edge AND-DAG live-root audit finds 35,017 dead
+  gate allocations vs 17,990 live at the last pre-GC `44444`
+  k6 Wlo checkpoint. Proven exact post-bit compaction copies
+  only reachable gates with dependency-preserving input IDs
+  and signed edges. **120/124 finite physical threshold controls
+  exact**; k6 all four threshold truths now finish under unchanged
+  60k-node/300k-Boolean-op/15s limits, but interval remains
+  UNKNOWN [-1,+1]. k7 lower and upper reach 60k within the
+  NEXT Shannon cofactor after only 12/21 quantified bits, even
+  following post-bit compaction. Separate GC extra work is large
+  (k6 Wlo 517,861 and Whi 353,844 additional units), explicitly
+  charged, not conflated with Boolean operations. This is a
+  *representation/schedule* wall, not an essential cofactor-function
+  width lower bound. Next: prove guarded quantifier localization
+  inside factored Boolean operations and measure authentic projected
+  future cofactor-function diversity before materializing both
+  full cofactors. Code, controls and evidence: `research/isograph/discovery/2026-10-16-algorithmic-core/guarded-action-qbf-project-live-compact.mjs`, `guarded-action-qbf-projection-live-compact-control.mjs`, `GUARDED_QBF_LIVE_COMPACTION_RESULTS_0_1.json`.
+
 ## Quantified Boolean projection — exact evaluation controls and negative wall
 
 - [`2026-10-16-guarded-qbf-shannon-projection-depth6-obstruction.md`](2026-10-16-guarded-qbf-shannon-projection-depth6-obstruction.md)  
