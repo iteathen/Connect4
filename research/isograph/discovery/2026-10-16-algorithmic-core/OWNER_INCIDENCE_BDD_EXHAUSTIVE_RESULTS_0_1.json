@@ -1,0 +1,339 @@
+{
+  "schema": "connect4.owner-incidence-bdd.full-support-wdl.v0_1",
+  "date": "2026-10-16",
+  "status": "PASS",
+  "controls": [
+    {
+      "board": {
+        "width": 4,
+        "height": 3,
+        "connect": 3,
+        "name": "4x3-c3"
+      },
+      "status": "PASS",
+      "symbolicCompileMs": 935,
+      "symbolicRoot": {
+        "value": 1,
+        "bestMoves": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "actionValues": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            3,
+            1
+          ]
+        ]
+      },
+      "compilerStats": {
+        "supportsPlanned": 256,
+        "supportsBuilt": 256,
+        "supportEdgeCalls": 768,
+        "activeSupportMax": 256,
+        "childSupportReleases": 0,
+        "BDDNodeCreates": 9742,
+        "peakNodesBeforeGC": 5536,
+        "peakLiveAfterGC": 5536,
+        "gcCount": 256,
+        "gcNodesFreed": 4208,
+        "finalNodes": 5536,
+        "applyCalls": 37628,
+        "applyMisses": 15366,
+        "applyMemoHits": 6631,
+        "restrictCalls": 18952,
+        "restrictMisses": 8712,
+        "restrictMemoHits": 3015,
+        "notCalls": 2126,
+        "notMisses": 871,
+        "notMemoHits": 183,
+        "generatedImmediateLineTerms": 768,
+        "sourceOwnershipLiteralUses": 1536,
+        "conditionalOwnerRestrictionCalls": 1528,
+        "BDDThresholdRootActionCount": 768,
+        "WDLInputStatesVisitedDuringCompile": 0,
+        "gameTreeRecursiveBranchesSolved": 0,
+        "maxLiveActionRoots": 2048,
+        "compilerMs": 934,
+        "retainAllSupportFunctions": true,
+        "finalRetainedSupportCount": 256,
+        "currentBDDNodes": 5536,
+        "currentlyRetainedSupportFunctions": 256
+      },
+      "rootLive": {
+        "reachableOutputBDDNodes": 1,
+        "distinctOutputOwnerVariables": 0,
+        "allAliveBDDNodes": 5536,
+        "actions": 4
+      },
+      "physicalBuildMs": 41,
+      "physicalRefStats": {
+        "uniqueStates": 4631,
+        "edges": 11818,
+        "terminalEdges": 3248,
+        "memoHits": 3940,
+        "maxDepth": 11
+      },
+      "coverage": {
+        "physicalNonterminalStatesCompared": 4631,
+        "physicalActionValuesCompared": 11818,
+        "statesWithMultipleWDLEqualBestMoves": 2321,
+        "mirrorTransportedStates": 128,
+        "expectedPhysicalNonterminalStates": 4631,
+        "mismatches": 0,
+        "firstDifference": null,
+        "statesByOccupiedRank": {
+          "0": 1,
+          "1": 4,
+          "2": 16,
+          "3": 52,
+          "4": 156,
+          "5": 332,
+          "6": 670,
+          "7": 884,
+          "8": 1096,
+          "9": 806,
+          "10": 484,
+          "11": 130
+        }
+      },
+      "independentQRoot": {
+        "value": 1,
+        "bestMoves": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "actionValues": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            3,
+            1
+          ]
+        ]
+      },
+      "independentQStats": {
+        "uniqueStates": 3734,
+        "recursiveCalls": 7837,
+        "memoHits": 4103,
+        "transitions": 10232,
+        "terminalWinEdges": 2390,
+        "terminalDrawEdges": 6,
+        "branchingStates": 3556,
+        "maxDepth": 11,
+        "cacheEntries": 3734
+      },
+      "rootAgreementWithPhysical": true,
+      "rootAgreementWithQ": true,
+      "totalMs": 1073
+    },
+    {
+      "board": {
+        "width": 4,
+        "height": 4,
+        "connect": 4,
+        "name": "4x4-c4"
+      },
+      "status": "PASS",
+      "symbolicCompileMs": 9825,
+      "symbolicRoot": {
+        "value": 0,
+        "bestMoves": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "actionValues": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            3,
+            0
+          ]
+        ]
+      },
+      "compilerStats": {
+        "supportsPlanned": 625,
+        "supportsBuilt": 625,
+        "supportEdgeCalls": 2000,
+        "activeSupportMax": 625,
+        "childSupportReleases": 0,
+        "BDDNodeCreates": 34423,
+        "peakNodesBeforeGC": 23954,
+        "peakLiveAfterGC": 23948,
+        "gcCount": 625,
+        "gcNodesFreed": 10477,
+        "finalNodes": 23948,
+        "applyCalls": 143958,
+        "applyMisses": 63987,
+        "applyMemoHits": 25777,
+        "restrictCalls": 93776,
+        "restrictMisses": 44892,
+        "restrictMemoHits": 17438,
+        "notCalls": 4248,
+        "notMisses": 1624,
+        "notMemoHits": 140,
+        "generatedImmediateLineTerms": 1000,
+        "sourceOwnershipLiteralUses": 3000,
+        "conditionalOwnerRestrictionCalls": 3992,
+        "BDDThresholdRootActionCount": 2000,
+        "WDLInputStatesVisitedDuringCompile": 0,
+        "gameTreeRecursiveBranchesSolved": 0,
+        "maxLiveActionRoots": 5250,
+        "compilerMs": 9825,
+        "retainAllSupportFunctions": true,
+        "finalRetainedSupportCount": 625,
+        "currentBDDNodes": 23948,
+        "currentlyRetainedSupportFunctions": 625
+      },
+      "rootLive": {
+        "reachableOutputBDDNodes": 2,
+        "distinctOutputOwnerVariables": 0,
+        "allAliveBDDNodes": 23948,
+        "actions": 4
+      },
+      "physicalBuildMs": 1295,
+      "physicalRefStats": {
+        "uniqueStates": 134289,
+        "edges": 304574,
+        "terminalEdges": 36472,
+        "memoHits": 133814,
+        "maxDepth": 15
+      },
+      "coverage": {
+        "physicalNonterminalStatesCompared": 134289,
+        "physicalActionValuesCompared": 304574,
+        "statesWithMultipleWDLEqualBestMoves": 56763,
+        "mirrorTransportedStates": 128,
+        "expectedPhysicalNonterminalStates": 134289,
+        "mismatches": 0,
+        "firstDifference": null,
+        "statesByOccupiedRank": {
+          "0": 1,
+          "1": 4,
+          "2": 16,
+          "3": 52,
+          "4": 160,
+          "5": 436,
+          "6": 1128,
+          "7": 2452,
+          "8": 5036,
+          "9": 8756,
+          "10": 14352,
+          "11": 19498,
+          "12": 24710,
+          "13": 23804,
+          "14": 20894,
+          "15": 12990
+        }
+      },
+      "independentQRoot": {
+        "value": 0,
+        "bestMoves": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "actionValues": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            3,
+            0
+          ]
+        ]
+      },
+      "independentQStats": {
+        "uniqueStates": 34094,
+        "recursiveCalls": 94501,
+        "memoHits": 60407,
+        "transitions": 100764,
+        "terminalWinEdges": 6256,
+        "terminalDrawEdges": 8,
+        "branchingStates": 33704,
+        "maxDepth": 15,
+        "cacheEntries": 34094
+      },
+      "rootAgreementWithPhysical": true,
+      "rootAgreementWithQ": true,
+      "totalMs": 12691
+    }
+  ],
+  "budgets": {
+    "maxBDDNodes": 60000,
+    "maxNontrivialApplyRestrictNotVisits": 300000,
+    "maxSupports": 10000,
+    "compileMs": 15000,
+    "physicalStates": 200000,
+    "physicalEdges": 800000,
+    "physicalMs": 30000
+  },
+  "candidateUsedGameTreeSearch": false,
+  "candidateUsedSolvedOracle": false,
+  "candidateContainsSupportActionAndOrFanout": true,
+  "globalNoBranchingProved": false,
+  "provenance": {
+    "branch": "research/semantic-quotient",
+    "date": "2026-10-16",
+    "sourceBlobs": {
+      "owner-incidence-bdd-value.mjs": "6a8f4878d4e953a813b5388a39393ab79f34c657",
+      "exact-q-core.mjs": "6b25d0e2560fe4131d2f5442593e9ed9763c1a18",
+      "constructive-core-control.mjs": "b18cbb6e7a3db66c7c8bcda2efd615e45127d615",
+      "owner-incidence-bdd-control.mjs": "8e9f697dfecfe0198bb9e71fbdbe853fadca8b21"
+    },
+    "actualExecution": "isolated V8 evaluating exact committed code with node imports process/performance shimmed; maintained Node26 tests not run",
+    "candidateDataInputs": "support geometric winning lines and occupied-owner symbolic variables; NO concrete colored/q histories nor solved WDL labels used during compilation",
+    "independentValidation": "after each symbolic compile, separate direct contiguous-run physical game-rule oracle and independent q-only recursive core checked all legal physical states and action vectors",
+    "qualificationScope": "4x3 Connect3 and 4x4 Connect4 exact ordinary WDL/action sets, including every legal nonterminal physical state; no 7x6 root generalization",
+    "branchAccounting": "symbolic construction follows support DAG and quantified per-action OR/AND gates; no distinct physical q game-state solver calls during compilation; general computational branch elimination NOT proved",
+    "originalBudgetsUntouched": true,
+    "previousFailedRepresentation": "BOTTOM_UP_REFLECTION_SUPPORT_RESULTS_0_1.json"
+  }
+}
