@@ -57,14 +57,15 @@ current_algorithmic_core:
     - minimality
     - WDL_tie_distance_refinement
   next_bounded_experiment: >-
-    The exact source-only P1/P0/P1/P0 response-cover operator now closes
-    four bounded strategic plies using residual degree at most two,
-    without child q materialization. Next derive a virtual cofactor/
-    favorable-upset transform for the action-labelled maximal cover
-    FAMILY through one earlier P0 action; retain quantifier scope and
-    mixed reply correlation. Do not simply enumerate 5-ply move
-    histories or treat union coverage as equivalent to one policy
-    that precedes the opponent. Full game branching remains open.
+    The virtual source owner-mask cofactor is now exact for ANY legal fixed
+    continuation, including column completion on moves6/7/8 and rank42
+    draws; turn7-to-turn8 fixed five-ply lift and source response-cover
+    equality are qualified. DO NOT confuse this transition completeness
+    with full WDL nonbranching: empty 4x3 remains a positive exact WDL
+    root without any first-three-own-turn forced win. Next derive compact
+    adaptive response-cover family composition at the preceding
+    alternating quantifier, without enumerating all game histories or
+    relying on search-generated policy choices.
   preserved_open_scope: >-
     The standard7x6 empty-root value and the seven-reply turn-six
     CPC certificate remain uncomputed/unproved by the new research
@@ -72,6 +73,67 @@ current_algorithmic_core:
   qualification_limit: >-
     New source/exhaustive finite controls executed in isolated V8 rather
     than the maintained Node26 suite; not an external reproduction.
+  merge_authorized: false
+
+column_completion_transition_to_terminal:
+  date: "2026-10-16"
+  owner: research/semantic-quotient
+  status: EXACT_RESIDUAL_TRANSITION_RULE_AT_ALL_RANKS
+  scope: "legal first-win-stopped fixed event histories; not unrestricted WDL strategy value"
+  synthesis: docs/research/2026-10-16-column-completion-through-full-game.md
+  experimental_plan:
+    - research/isograph/discovery/2026-10-16-algorithmic-core/MOVE7_MOVE8_COLUMN_CLOSURE_VIRTUAL_PULLBACK_PLAN_0_1.md
+    - research/isograph/discovery/2026-10-16-algorithmic-core/ALL_DEPTH_OWNER_MASK_PATH_LIFT_PLAN_0_1.md
+    - research/isograph/discovery/2026-10-16-algorithmic-core/SHORT_HORIZON_VS_FULL_WDL_GAP_PLAN_0_1.md
+  candidate_source:
+    - research/isograph/discovery/2026-10-16-algorithmic-core/virtual-upset-five-ply.mjs
+    - research/isograph/discovery/2026-10-16-algorithmic-core/all-depth-owner-mask-lift.mjs
+  execution_control:
+    - research/isograph/discovery/2026-10-16-algorithmic-core/move7-move8-column-transition-control.mjs
+    - research/isograph/discovery/2026-10-16-algorithmic-core/all-depth-owner-mask-control.mjs
+    - research/isograph/discovery/2026-10-16-algorithmic-core/all-depth-transition-negative-controls.mjs
+    - research/isograph/discovery/2026-10-16-algorithmic-core/short-horizon-vs-wdl-control.mjs
+  evidence:
+    move7_to_move8: research/isograph/discovery/2026-10-16-algorithmic-core/MOVE7_MOVE8_COLUMN_CLOSURE_RESULTS_0_2.json
+    complete_games: research/isograph/discovery/2026-10-16-algorithmic-core/ALL_DEPTH_OWNER_MASK_RESULTS_0_1.json
+    negative_controls: research/isograph/discovery/2026-10-16-algorithmic-core/ALL_DEPTH_TRANSITION_NEGATIVE_RESULTS_0_1.json
+    bounded_vs_unrestricted: research/isograph/discovery/2026-10-16-algorithmic-core/SHORT_HORIZON_VS_FULL_WDL_GAP_RESULTS_0_1.json
+  exact_laws:
+    - "U_own_after(S) = U_own_source(S union Aown) with opposite-owned residuals blocked"
+    - "Ri_after = Min({r minus Ai | r in Ri_source and r intersection Aother empty})"
+    - "Legal action mask from heights h; phi=(H-h) mod 2 does NOT distinguish an empty from a full column"
+    - "Every supplied event must be checked in order for first-win precedence and draw"
+  test_results:
+    - "44444 followed by every legal move6, move7, move8: 384 physical-q edges, 122928 virtual cofactor checks, 0 mismatches"
+    - "center column first filled on moves6,7,8: 36 histories each; no fill by move8 on 216; total324 rank8 histories, 219 distinct q"
+    - "all 324 turn8 bounded P0-win reply masks exact vs independent rank8 q; P0 limited-horizon positives at 56 move8 positions, 0 mismatches"
+    - "90 completed legal standard7x6 games, including eight 42-stone draws, all ranks1..42 covered"
+    - "2549 independent nonterminal q projections, 10812 virtual upset tests, 291 full-column events; no disagreements"
+    - "negative: omitted opponent blocker and phase-only full-column legality both rejected"
+    - "empty4x3 P0 first3 own move win NONE, but unrestricted WDL P0 WIN for all four openings; shows transition completeness does not imply value completeness"
+  rank7_move8_bounded_defenses_after_center_full_444444:
+    P0_move7_1: [1,2,3,5,6,7]
+    P0_move7_2: [1,3,5]
+    P0_move7_3: [2,5]
+    P0_move7_5: [3,6]
+    P0_move7_6: [3,5,7]
+    P0_move7_7: [1,2,3,5,6,7]
+  interpretation:
+    - "Defensive sets stop P0 winning within NEXT TWO OWN TURNS only, not WDL-optimal P1 move8"
+    - "After center full, rank7 move pairs 1/7,2/6,3/5 are reflection-transportable, not one proven WDL-equivalent class"
+    - "The older 44444 P0 eventual win proof against all P1 turn6 actions remains OPEN"
+    - "All-depth cofactor path-lift is NOT a full-game alternating-value solver"
+  next_exact_target: >-
+    Derive an exact output-sensitive composition law for the FULL
+    action-labelled adaptive response-cover ANTICHAIN under the preceding
+    P0 existential and P1 universal quantifiers. Use the now-closed
+    all-depth source owner-mask residual transition as a primitive;
+    do not waste work on full-column transition special cases, or
+    reintroduce game-tree policy search under a symbolic wrapper.
+    Test on the empty 4x3 WDL gap only after freezing the algebra.
+  arbitrary_depth_branch_elimination: OPEN
+  full_7x6_root_value_proved_by_algebra: false
+  authority_promotion: none
   merge_authorized: false
 
 bounded_four_ply_response_cover:
@@ -102,12 +164,14 @@ bounded_four_ply_response_cover:
     - "2584 actual small-board states expose this noncommutation"
     - "Maximal response-cover antichain preserves union and existence of full cover, but discarding all action correlation is unsound"
   next_structural_target: >-
-    Pull the full action-labelled maximal response-cover family backward
-    through one preceding P0 true cofactor using virtual residual-upset
-    substitution and existing RBA adjunction/semiring laws. Keep adaptive
-    choice scope and first-win guards; avoid enumerating 5-ply move
-    histories as a renamed forward search. Measure width/quantifier
-    work independently of resulting certificate/answer size.
+    The preceding P0 owner's virtual UPSET cofactor pullback is now exact
+    at turn7/8 and for arbitrary fixed nonterminal event words. The
+    remaining task is an efficient source-q composition of the FULL
+    action-labelled maximal response-cover FAMILY under further
+    alternating quantifiers, with value closure beyond a fixed horizon.
+    Preserve mixed covers and quantifier order. The empty4x3 root
+    failure of the 3-own-move predicate is the next falsifier.
+    Do not enumerate longer paths as disguised forward search.
   full_game_branch_elimination: OPEN
   ordinary_algorithmic_core_still_complete: true
   validation_only_physical_enumeration: true
@@ -181,13 +245,14 @@ branch_elimination_research_boundary:
     - "47-node direct-only P0-winning proof and five negative controls"
     - "Independent exact q solver, external oracle comparisons and small-board exhaustive checks"
   next_experiment: >-
-    Preserve the exact four-ply P1/P0/P1/P0 original-q cover operator.
-    The new proven obstruction is adaptive quantifier scope: forall b
-    exists a cannot be replaced by exists a forall b. Derive the next
-    earlier P0 cofactor as a virtual upset transformation over the
-    maximal action-labelled cover FAMILY, not its union, and do not
-    expand action histories. Test only after algebraic law is frozen.
-    Record actual source-degree growth and mixed-cover width.
+    Preserve the exact arbitrary-depth OWNER-MASK COFACTOR transition
+    and fixed 5-ply virtual-upset lift as solved structural building
+    blocks. The open math is the next quantifier/response-cover FAMILY
+    compression across arbitrary depth, not the move7/8 column
+    boundary. A bare union loses adaptive choice scope, and the
+    empty4x3 root demonstrates that limited horizon does not close
+    full WDL. Derive law before testing; never turn search into
+    candidate generation or inflate budgets.
   branch_elimination_proved: false
   minimality_required: false
   merge_authorized: false
