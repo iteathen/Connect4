@@ -1,0 +1,156 @@
+{
+  "schema": "connect4.standard7x6.gf2_legal_two_swap_curvature_v0_1",
+  "date": "2026-10-17",
+  "status": "Genuine actual 7x6 fixed-play GF2 NONAFFINITY WITNESS; ZERO BRANCH PERFECT-PLAY REMAINS OPEN",
+  "sourceTheory": "docs/research/2026-10-17-7x6-independent-event-swap-gf2-curvature-candidate.md",
+  "script": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-gf2-legal-order-double-swap-falsifier.mjs",
+  "scriptGitBlob": "5c40a34fe9bcd6c0670c18352f9679dc2d68a021",
+  "geometry": {
+    "W": 7,
+    "H": 6,
+    "K": 4,
+    "originalWinningLines": 69
+  },
+  "canonicalSource": "44444",
+  "seedStartHex": "0x7344F012",
+  "experiment": {
+    "fullScheduleSamples": 18000,
+    "validTwoSwitchPlaquettes": 286703,
+    "mixedDerivativeP0Win": 22875,
+    "mixedDerivativeP0Nonloss": 22870,
+    "mixedDerivativeAny": 23031,
+    "sourceQGF2PayoffComparisonsOnFirstWitness": 4,
+    "sourceQVsPhysicalMismatchesOnWitness": 0,
+    "expectedOwnerCellTogglesVerified": 3,
+    "elapsedMs": 16247
+  },
+  "witness": {
+    "oneBasedSwapTurns": [
+      16,
+      18
+    ],
+    "completeHypotheticalGravitySchedules": [
+      "444443377152473215176732651235173216655626",
+      "444443377152473125176732651235173216655626",
+      "444443377152473211576732651235173216655626",
+      "444443377152473121576732651235173216655626"
+    ],
+    "observedFirstWins": [
+      {
+        "winner": "P1",
+        "absoluteMove": 28,
+        "oneBasedWinLine": [
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            2,
+            4
+          ]
+        ]
+      },
+      {
+        "winner": "P0",
+        "absoluteMove": 29,
+        "oneBasedWinLine": [
+          [
+            3,
+            2
+          ],
+          [
+            3,
+            3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            3,
+            5
+          ]
+        ]
+      },
+      {
+        "winner": "P0",
+        "absoluteMove": 23,
+        "oneBasedWinLine": [
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            3
+          ],
+          [
+            5,
+            2
+          ],
+          [
+            6,
+            1
+          ]
+        ]
+      },
+      {
+        "winner": "P0",
+        "absoluteMove": 23,
+        "oneBasedWinLine": [
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            3
+          ],
+          [
+            5,
+            2
+          ],
+          [
+            6,
+            1
+          ]
+        ]
+      }
+    ],
+    "GF2ThresholdBits": {
+      "fPlus": [
+        0,
+        1,
+        1,
+        1
+      ],
+      "fNonloss": [
+        0,
+        1,
+        1,
+        1
+      ],
+      "mixedSecondDerivativeBoth": 1
+    },
+    "sourceOriginalResidualGeneratorsTouchingBothSwitchCellPairs": 5,
+    "allFourSchedulesShareExactQ44444": true,
+    "terminalWinnerAndMoveMatchesSourceResidualXorOnAllFour": true
+  },
+  "proof": "Affine F(i,j)=alpha XOR beta*i XOR gamma*j has vanishing mixed derivative F00 XOR F10 XOR F01 XOR F11=0. The displayed four exact legal 7x6 hypothetical order schedules yield 1, so binary fixed-schedule payoff cannot be affine in these two independent event switches. A nonlinear AND/product is genuinely load-bearing.",
+  "limitations": [
+    "4-schedule witness and counts concern first-win payoff for FIXED hypothetical event orders, NOT perfect-play unrestricted WDL and not game-semantic successor queries.",
+    "Post-terminal moves included only for constructing a common complete hypothetical permutation; actual gameplay first-win stops.",
+    "No general proof of nonexistence of a nonbranching source-only algorithm; nonlinear binary operators may still permit one.",
+    "Original source q has P1 to move on absolute move6, residual counts [48,42]; full optimal literal labels remain unknown.",
+    "Initial witness source-vs-physical comparison shared original generated 69-line mask table; independent array-grid directional witness check is next."
+  ],
+  "runtime": "Frozen exact GitHub source executed in isolated V8, not Node26 maintained suite or external proof assistant."
+}
