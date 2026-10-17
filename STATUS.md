@@ -58,6 +58,24 @@ core. The empty standard-7x6 root is **not** claimed computed by this
 recursive research evaluator. New tests ran in isolated V8; Node26 sustained
 qualification and external reproduction remain separate.
 
+## Quantified live-DAG compaction: k6 recovered, k7 transient cofactor wall — 2026-10-16
+
+**Exact structural correction:** A distinct counted live-root audit of canonical `44444` k6 Wlo found only **17,990 reachable AND gates** after 12 action bits, versus 53,025 assigned gate/input IDs (35,017 unreachable historical AND gates). The prior k6 60k *allocated* limit was NOT a semantic cofactor-width obstruction. A frozen exact post-bit live-DAG copier now safely reindexes ONLY reachable AND gates; a signed-edge topological induction proves functional identity. Compaction occurs strictly after both cofactors and the quantified OR/AND have returned, so no in-flight handles are invalidated. Four input-vector mutation checks also pass at every collection.
+
+**Independent physical Node22 controls:** 31 case/horizon combinations, 124 root-threshold attempts, **120 complete with zero physical bounded-value mismatches**, four k8 PARTIAL. At `44444` k6, all four thresholds now finish under unchanged 60,000 peak nodes / 300,000 Boolean operations / 15s: Wlo/Nlo FALSE with **31,064 peak nodes and 216,140 Boolean operations**; Whi/Nhi TRUE with **24,985 peak nodes / 159,697 operations**. The full unrestricted interval remains **UNKNOWN [-1,+1]**. The separately charged k6 *additional* compaction/validation work is **517,861** (lower) and **353,844** (upper) work units; neither figure may be omitted from true total-work comparisons.
+
+**New narrowed wall:** `44444` k7 Wlo/Whi both exhaust 60k retained nodes **within the next cofactor step** after 12/21 completed quantified bits. At the last completed step, live post-GC roots have **26,783** lower / **30,848** upper AND gates; the new within-bit pair construction exceeds remaining headroom BEFORE a safe between-bit collection. k8 also partial. This is a concrete temporary cofactor-product cost under this representation, **not** a mathematical lower bound for all factorized QBF or game strategies. Earlier source-owner reflected interval BDD's k11 remains better for bounded WDL calculation.
+
+Frozen plan, derivation, measurements:
+`docs/research/2026-10-16-exact-qbf-live-compaction-transient-width.md`,
+`research/isograph/discovery/2026-10-16-algorithmic-core/GUARDED_QBF_LIVE_COMPACTION_PLAN_0_1.md`,
+`guarded-action-qbf-project-live-compact.mjs`,
+`guarded-action-qbf-projection-live-compact-control.mjs`,
+`GUARDED_QBF_LIVE_COMPACTION_RESULTS_0_1.json`,
+plus prior `GUARDED_QBF_LIVE_DAG_RESULTS_0_1.json`.
+
+**Next mathematical proof target:** sound guard-complete quantifier localization in factored/source-owner Boolean circuits, performing dependency-independent eliminations before materializing two entire future cofactor subgraphs; measure actual essential cofactor-function width. Do not raise budgets or use game-tree-discovered policy. Qualified recursive exact WDL core remains complete, no unrestricted 44444 winner, no authority revision or merge.
+
 ## First actual quantified-action projection: depth-six retained-node wall — 2026-10-16
 
 A separate exact **Shannon cofactor QBF evaluator** now eliminates source-only action bits from the innermost to the outermost block, using OR for P0 EXISTS and AND for P1 FORALL, after substituting deterministic Tseitin definitions. This is a genuine *value-threshold evaluation* operator, not merely a compact CNF wrapper, and constructs no concrete game continuations.
