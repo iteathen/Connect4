@@ -205,6 +205,29 @@ current_algorithmic_core:
       wrong_root_WDL_or_optimal_literal_ties: 0
       value_equal_does_not_imply_full_program_bisimulation: true
       reference_uses_branching_only_post_derivation: true
+    canonical_early_source_timing_barrier:
+      status: PROVED_NARROW_TEMPORAL_CERTIFICATE_IMPOSSIBILITY_NOT_GAME_OUTCOME
+      proof: docs/research/2026-10-17-standard7x6-canonical-temporal-universal-race-barrier.md
+      frozen_executable: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-canonical-transversal-control.mjs
+      evidence: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/STANDARD7X6_CANONICAL_TRANSVERSAL_SCOPE_RESULTS_0_1.json
+      symbolic_lower_bound_on_any_future_cell_latest_event_rank: "D(q)=(W-1)*H-ply+1"
+      theorem: "D(q)>=EarliestPossibleOpponentWinLowerRank(q) makes all strict first-win temporal-line-overload source threshold families empty"
+      source_44444:
+        absolute_next_move: 6
+        current_mover: P1
+        residual_generators_P0_P1: [48,42]
+        D: 32
+        opponent_earliest_lower_rank_P0_P1: [6,6]
+        temporal_winners_certified: 0
+      all_seven_44444c_move6_responses:
+        D: 31
+        temporal_winners_certified: 0
+        full_board_fractional_winners_certified: 0
+      historical_move8_4444442:
+        D: 30
+        temporal_winners_certified: 0
+      strategic_game_futures_evaluated: 0
+      inference_boundary: "Only excluded this unconditional timed and current full-board packing certificate; does not establish winner, loser, best moves, or impossibility of adaptive nonbranching theorem"
     canonical_44444_exact_WDL: UNKNOWN
     canonical_44444_complete_Mstar: UNKNOWN
     total_7x6_zero_branch_exact_algorithm: OPEN
