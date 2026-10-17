@@ -1,0 +1,270 @@
+{
+  "schema": "connect4.standard7x6.four_ribbon_source_q_conjugacy_v0_1",
+  "date": "2026-10-17",
+  "status": "PASS_TRUE_STANDARD7X6_EXACT_RIBBON_INTERVAL_GEOMETRY_AND_ALL_SCOPED_Q_SUCCESSOR_EQUIVALENCE",
+  "theorem": "docs/research/2026-10-17-exact-four-ribbon-geometry-unfolding-and-phase-code-candidate.md",
+  "producer": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-four-ribbon-source-lift.mjs",
+  "producerGitBlob": "92bb2ba4569606e7f7382f78edcf6b4684302331",
+  "independentControl": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-four-ribbon-independent-q-conjugacy-control.mjs",
+  "controlGitBlob": "72c72da13af2a3d82a81519f18057c19b812d2ca",
+  "independentQCore": "research/isograph/discovery/2026-10-16-algorithmic-core/exact-q-core.mjs",
+  "referenceQCoreGitBlob": "6b25d0e2560fe4131d2f5442593e9ed9763c1a18",
+  "execution": "Committed exact Github source fetched and executed in a single isolated V8 verification, ~30.2 sec; independent physical q core used for ONE source action at a time; no solve/recursive WDL anywhere in producer or reference for this experiment.",
+  "geometry": {
+    "W": 7,
+    "H": 6,
+    "K": 4,
+    "physicalCells": 42,
+    "strands": 37,
+    "occurrenceSlots": 168,
+    "originalWinIntervals": 69,
+    "windows": {
+      "horizontal": 24,
+      "vertical": 21,
+      "rising": 12,
+      "falling": 12
+    }
+  },
+  "linearGF2Code": {
+    "distinctAdjacentDirectionEdges": 131,
+    "GF2IncidenceRank": 41,
+    "independentCycleParityConstraints": 90,
+    "independentGaussianElimination": true,
+    "fullOwnerAssignmentRoundTrips": 700,
+    "monochromeKWindowsChecked": 48300,
+    "mismatches": 0
+  },
+  "firstWinStoppedGame": {
+    "sampledRealPhysicalSources": 12841,
+    "distinctNormalizedExactQ": 10905,
+    "legalLiteralOnePlyTransitionsCompared": 73271,
+    "exactNonterminalSuccessorQAgreements": 64569,
+    "exactTerminalFirstWinTokens": 8702,
+    "exactFullBoardDrawTokens": 0,
+    "wrongSourceStateOrTerminalTransitions": 0,
+    "uncoveredTerminalDrawValidation": "The nonuniform sample did not reach a first-win-stopped rank41 state whose last nonwinning move draws; the formula handles it algebraically but a separate physical draw-edge control remains desirable."
+  },
+  "centerColumnBoundary": {
+    "history": "444444",
+    "ply": 6,
+    "centerHeight": 6,
+    "centerHasNoFutureLegalEvents": true,
+    "sourceResidualCounts": {
+      "P0": 42,
+      "P1": 42
+    },
+    "sourceRequirementsStillCrossingLeftAndRightFutureCells": {
+      "P0": 12,
+      "P1": 12
+    },
+    "examplesP0": [
+      [
+        [
+          2,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          5,
+          1
+        ]
+      ],
+      [
+        [
+          3,
+          1
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          6,
+          1
+        ]
+      ]
+    ],
+    "examplesP1": [
+      [
+        [
+          2,
+          2
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          5,
+          2
+        ]
+      ],
+      [
+        [
+          3,
+          2
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          6,
+          2
+        ]
+      ]
+    ],
+    "conclusion": "Even though the future-only physical adjacency graph separates into left and right across full center, 24 surviving source winning requirements still connect both sides THROUGH fixed historical center cells. Splitting into independent left/right subgames loses exact terminal incidence."
+  },
+  "canonical": [
+    {
+      "history": "44444",
+      "ply": 5,
+      "h": [
+        0,
+        0,
+        0,
+        5,
+        0,
+        0,
+        0
+      ],
+      "R": [
+        48,
+        42
+      ],
+      "phase": [
+        1,
+        1,
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "legal": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    {
+      "history": "444444",
+      "ply": 6,
+      "h": [
+        0,
+        0,
+        0,
+        6,
+        0,
+        0,
+        0
+      ],
+      "R": [
+        42,
+        42
+      ],
+      "phase": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "legal": [
+        1,
+        2,
+        3,
+        5,
+        6,
+        7
+      ]
+    },
+    {
+      "history": "444441",
+      "ply": 6,
+      "h": [
+        1,
+        0,
+        0,
+        5,
+        0,
+        0,
+        0
+      ],
+      "R": [
+        46,
+        40
+      ],
+      "phase": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "legal": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    {
+      "history": "4444442",
+      "ply": 7,
+      "h": [
+        0,
+        1,
+        0,
+        6,
+        0,
+        0,
+        0
+      ],
+      "R": [
+        39,
+        41
+      ],
+      "phase": [
+        1,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "legal": [
+        1,
+        2,
+        3,
+        5,
+        6,
+        7
+      ]
+    }
+  ],
+  "epistemicLimits": [
+    "Exact change-of-representation / labeled-one-step transition law, not computation of unrestricted perfect-play WDL and ALL optimal moves.",
+    "GF2 edge-rank constraints are for whole fixed physical 42-cell graph and do not turn the winning-window AND or strategic NAND into an affine XOR equation.",
+    "All duplicated strand occurrences share ONE physical cell; dropping equality/copy links changes the game.",
+    "Center-filled 24 cross-side generator count proves naive separation invalid, not impossibility of more sophisticated exact decomposition with boundary constraints.",
+    "No independent move tree was valued; source producer has game-semantic value fanout ZERO by construction but no total (V,M*) algorithm.",
+    "Maintained Node26 CI/external formal proof assistant not performed; V8 isolated research run only."
+  ]
+}
