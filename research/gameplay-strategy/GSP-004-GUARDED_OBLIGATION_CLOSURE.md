@@ -799,3 +799,51 @@ Avoid deeper uncomputed QBF/BDD compilation.
 
 Mathematical theorem/controls:
 `docs/research/2026-10-17-full-future-two-ply-cofactor-simulation.md`.
+
+## 2026-10-17 — proven nongeometric full-future ROOT branch elimination
+
+The owner target is to eliminate independently evaluated strategic
+branches while returning exact W/D/L and ALL tied optimal moves.
+For the first time in this line, an ORIGINAL-SOURCE q relation
+certifies exact FULL-REMAINING-GAME comparison between two
+different P1 ROOT actions, beyond basic global reflection,
+without constructing their future game continuations.
+
+For each legal P1 child, original residual P1 contraction and
+P0 blocker deletion give the exact full-future P0/P1 upset
+generators. A FIXED height/capacity-preserving permutation of
+remaining columns is a bijection of EVERY future gravity-legal
+action word, even when this is NOT a raw-board geometric
+automorphism. If transported P0 source upset is contained
+in the comparison child's and the opposite P1 inclusion
+holds, cofactor/first-win induction proves unrestricted
+P0 WDL weak <=. Mutual inclusion under one permutation
+proves entire future-game isomorphism with ALL subsequent
+action labels transported. A partial-generator relation
+prunes static permutation candidates when both value
+directions become impossible, within unchanged per-source
+work ceilings; candidate has ZERO future game searches.
+
+Independent complete small-board P1-q tests found 86/2280
+novel nonreflection whole-future action equivalences plus
+320/3760 weak WDL value orders (4x3/4x4), zero false
+qualified exact-q results. A directed SCC quotient on
+these proven VALUE orders safely omits 370/4872 and
+5554/50034 independent first-action WDL scalar proof
+requests beyond geometric reflection, retaining a proof
+path for every omitted action. 4096 generic directed
+4-action graphs / 33792 compatible WDL vector controls
+PASS. This is true root-action VALUE branching reduction,
+NOT already a measured solver speedup or a theorem
+classifying ALL tied-optimal labels.
+
+Standard 7x6 source `44444` finishes all 21 root
+reply-pair static transport probes in 291518 source
+operations; only original reflection groups
+{1,7},{2,6},{3,5},{4} survive; exact WDL still UNKNOWN.
+The next critical proof gate is a source-cofactor-preserving
+NONBIJECTIVE or DYNAMIC alternate-response relation for
+DIFFERENT capacity supports and a strict WDL/tie
+certificate, not another BDD/QBF depth extension.
+Full theorem and independent conformance:
+`docs/research/2026-10-17-cross-support-root-branch-elimination.md`.
