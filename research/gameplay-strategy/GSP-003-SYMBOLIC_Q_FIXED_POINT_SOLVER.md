@@ -286,3 +286,21 @@ existing source-owner reflected BDD still reaches k11 and remains
 the better bounded WDL carrier.
 
 Record: `docs/research/2026-10-16-exact-qbf-live-compaction-transient-width.md`.
+
+## 2026-10-16 — owner-prioritized exact branch elimination
+
+**Primary continuing research objective:** from a legal q=(h,R0,R1), derive
+the exact W/D/L value AND complete literal W/D/L-optimal action mask
+*simultaneously* without independently solving each strategic continuation
+or concealing that traversal in a support DAG, BDD/QBF, circuit or
+precomputed policy. Return a singleton only when its strict uniqueness
+is proved; exact ties are all retained.
+
+The ordinary recursive algorithmic core remains complete. This
+stronger nonbranching result is OPEN and is not a prerequisite for the
+core's validity, but is now the central GSP-003 research target.
+Measure actual constructed/quantified cofactors, independent successor
+work eliminated, memory, total operations and full mask correctness
+under existing limits. Source-anchored BDD k11 vs guarded QBF k6
+remains reference evidence, not success at full branch elimination.
+See `docs/research/2026-10-16-branch-elimination-primary-objective.md`.
