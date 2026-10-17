@@ -1,0 +1,357 @@
+{
+  "schema": "connect4.bounded-support-interval-bdd.rank20-early-closure.v0_1",
+  "date": "2026-10-16",
+  "status": "PASS",
+  "sourcePrefix": "43214636342357317661",
+  "support": [
+    3,
+    2,
+    5,
+    3,
+    1,
+    4,
+    2
+  ],
+  "rank": 20,
+  "board": {
+    "width": 7,
+    "height": 6,
+    "connect": 4
+  },
+  "predeclaredDepths": [
+    4,
+    6,
+    8,
+    10,
+    12
+  ],
+  "stoppedAfterDepth": 6,
+  "candidateRuns": [
+    {
+      "depth": 4,
+      "status": "COMPILED",
+      "candidate": {
+        "status": "EXACT_ROOT_VALUE",
+        "lower": 1,
+        "upper": 1,
+        "exactValue": 1,
+        "actionIntervals": [
+          {
+            "column": 0,
+            "lower": -1,
+            "upper": -1,
+            "exact": true
+          },
+          {
+            "column": 1,
+            "lower": -1,
+            "upper": -1,
+            "exact": true
+          },
+          {
+            "column": 2,
+            "lower": -1,
+            "upper": -1,
+            "exact": true
+          },
+          {
+            "column": 3,
+            "lower": -1,
+            "upper": -1,
+            "exact": true
+          },
+          {
+            "column": 4,
+            "lower": 1,
+            "upper": 1,
+            "exact": true
+          },
+          {
+            "column": 5,
+            "lower": -1,
+            "upper": -1,
+            "exact": true
+          },
+          {
+            "column": 6,
+            "lower": -1,
+            "upper": -1,
+            "exact": true
+          }
+        ],
+        "certifiedOptimalMoves": [
+          4
+        ],
+        "certifiedSuboptimalMoves": [
+          0,
+          1,
+          2,
+          3,
+          5,
+          6
+        ],
+        "unresolvedActionMoves": [],
+        "completeBestMoves": [
+          4
+        ],
+        "allActionIntervalsExact": true,
+        "cutoffDepth": 4,
+        "scope": "perfect-play P0-relative WDL lies in [lower,upper] under first-win rules; actions are literal fixed-mover moves"
+      },
+      "stats": {
+        "supportsPlanned": 284,
+        "supportsBuilt": 284,
+        "supportEdgeCalls": 740,
+        "activeSupportMax": 173,
+        "childSupportReleases": 283,
+        "BDDNodeCreates": 38,
+        "peakNodesBeforeGC": 28,
+        "peakLiveAfterGC": 14,
+        "gcCount": 5,
+        "gcNodesFreed": 38,
+        "finalNodes": 2,
+        "applyCalls": 9178,
+        "applyMisses": 18,
+        "applyMemoHits": 54,
+        "restrictCalls": 2964,
+        "restrictMisses": 2,
+        "restrictMemoHits": 2,
+        "notCalls": 587,
+        "notMisses": 18,
+        "notMemoHits": 32,
+        "generatedImmediateLineTerms": 194,
+        "sourceOwnershipLiteralUses": 68,
+        "sourceResidualClauseChecks": 13131,
+        "sourceSizeTwoTerminals": 57,
+        "sourceFutureCellsAtRoot": 22,
+        "sourceRank": 20,
+        "conditionalOwnerRestrictionCalls": 2960,
+        "BDDThresholdRootActionCount": 740,
+        "WDLInputStatesVisitedDuringCompile": 0,
+        "gameTreeRecursiveBranchesSolved": 0,
+        "maxLiveActionRoots": 2316,
+        "compilerMs": 13,
+        "maxDepth": 4,
+        "intervalCutoffSupports": 173,
+        "intervalCutoffActionBounds": 0,
+        "gcEverySupports": 64,
+        "gcNodeHighWater": 40000,
+        "gcDeferredSupports": 279,
+        "gcByInterval": 4,
+        "gcByHighWater": 0,
+        "gcAtFinalRoot": 1,
+        "retainAllSupportFunctions": false,
+        "finalRetainedSupportCount": 1,
+        "sourceResidual0": 17,
+        "sourceResidual1": 18,
+        "currentBDDNodes": 2,
+        "currentlyRetainedSupportFunctions": 1
+      },
+      "live": {
+        "reachableRootOutputNodes": 2,
+        "allAliveBDDNodes": 2,
+        "actionCount": 7
+      },
+      "wallMs": 15
+    },
+    {
+      "depth": 6,
+      "status": "COMPILED",
+      "candidate": {
+        "status": "EXACT_ROOT_VALUE",
+        "lower": 1,
+        "upper": 1,
+        "exactValue": 1,
+        "actionIntervals": [
+          {
+            "column": 0,
+            "lower": -1,
+            "upper": -1,
+            "exact": true
+          },
+          {
+            "column": 1,
+            "lower": -1,
+            "upper": -1,
+            "exact": true
+          },
+          {
+            "column": 2,
+            "lower": -1,
+            "upper": -1,
+            "exact": true
+          },
+          {
+            "column": 3,
+            "lower": -1,
+            "upper": -1,
+            "exact": true
+          },
+          {
+            "column": 4,
+            "lower": 1,
+            "upper": 1,
+            "exact": true
+          },
+          {
+            "column": 5,
+            "lower": -1,
+            "upper": -1,
+            "exact": true
+          },
+          {
+            "column": 6,
+            "lower": -1,
+            "upper": -1,
+            "exact": true
+          }
+        ],
+        "certifiedOptimalMoves": [
+          4
+        ],
+        "certifiedSuboptimalMoves": [
+          0,
+          1,
+          2,
+          3,
+          5,
+          6
+        ],
+        "unresolvedActionMoves": [],
+        "completeBestMoves": [
+          4
+        ],
+        "allActionIntervalsExact": true,
+        "cutoffDepth": 6,
+        "scope": "perfect-play P0-relative WDL lies in [lower,upper] under first-win rules; actions are literal fixed-mover moves"
+      },
+      "stats": {
+        "supportsPlanned": 1187,
+        "supportsBuilt": 1187,
+        "supportEdgeCalls": 3986,
+        "activeSupportMax": 570,
+        "childSupportReleases": 1186,
+        "BDDNodeCreates": 186,
+        "peakNodesBeforeGC": 54,
+        "peakLiveAfterGC": 44,
+        "gcCount": 19,
+        "gcNodesFreed": 186,
+        "finalNodes": 2,
+        "applyCalls": 50171,
+        "applyMisses": 204,
+        "applyMemoHits": 1009,
+        "restrictCalls": 16496,
+        "restrictMisses": 276,
+        "restrictMemoHits": 261,
+        "notCalls": 2871,
+        "notMisses": 98,
+        "notMemoHits": 361,
+        "generatedImmediateLineTerms": 1182,
+        "sourceOwnershipLiteralUses": 749,
+        "sourceResidualClauseChecks": 70437,
+        "sourceSizeTwoTerminals": 569,
+        "sourceFutureCellsAtRoot": 22,
+        "sourceRank": 20,
+        "conditionalOwnerRestrictionCalls": 15944,
+        "BDDThresholdRootActionCount": 3986,
+        "WDLInputStatesVisitedDuringCompile": 0,
+        "gameTreeRecursiveBranchesSolved": 0,
+        "maxLiveActionRoots": 9872,
+        "compilerMs": 54,
+        "maxDepth": 6,
+        "intervalCutoffSupports": 568,
+        "intervalCutoffActionBounds": 0,
+        "gcEverySupports": 64,
+        "gcNodeHighWater": 40000,
+        "gcDeferredSupports": 1168,
+        "gcByInterval": 18,
+        "gcByHighWater": 0,
+        "gcAtFinalRoot": 1,
+        "retainAllSupportFunctions": false,
+        "finalRetainedSupportCount": 1,
+        "sourceResidual0": 17,
+        "sourceResidual1": 18,
+        "currentBDDNodes": 2,
+        "currentlyRetainedSupportFunctions": 1
+      },
+      "live": {
+        "reachableRootOutputNodes": 2,
+        "allAliveBDDNodes": 2,
+        "actionCount": 7
+      },
+      "wallMs": 54
+    }
+  ],
+  "independentReferenceAfterCandidate": {
+    "answer": {
+      "value": 1,
+      "bestMoves": [
+        4
+      ],
+      "actionValues": [
+        [
+          0,
+          -1
+        ],
+        [
+          1,
+          -1
+        ],
+        [
+          2,
+          -1
+        ],
+        [
+          3,
+          -1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          5,
+          -1
+        ],
+        [
+          6,
+          -1
+        ]
+      ]
+    },
+    "stats": {
+      "uniqueStates": 79697,
+      "recursiveCalls": 219584,
+      "memoHits": 139887,
+      "transitions": 351153,
+      "terminalWinEdges": 131570,
+      "terminalDrawEdges": 0,
+      "branchingStates": 79652,
+      "maxDepth": 17,
+      "cacheEntries": 79697
+    },
+    "wallMs": 3516
+  },
+  "referenceAgreement": true,
+  "scope": "exact P0-relative WDL/action sets certified at depth4, despite 22 future empty cells and 14400-support full rectangle",
+  "provenance": {
+    "branch": "research/semantic-quotient",
+    "sourceBlobs": {
+      "bounded-support-interval-bdd.mjs": "7053efd87465a0d542a1e0c1b37e02834df606d9",
+      "exact-q-core.mjs": "6b25d0e2560fe4131d2f5442593e9ed9763c1a18",
+      "constructive-core-control.mjs": "b18cbb6e7a3db66c7c8bcda2efd615e45127d615"
+    },
+    "runtime": "isolated JS V8 exact committed module code with Node process/performance shim; Node26 maintained test not run",
+    "frozenPlan": "research/isograph/discovery/2026-10-16-algorithmic-core/BOUNDED_SUPPORT_INTERVAL_BDD_PLAN_0_1.md",
+    "strictBudgets": {
+      "nodes": 60000,
+      "nontrivialOperations": 300000,
+      "supports": 10000,
+      "compileMs": 15000
+    },
+    "candidateDataContract": "source q initial h/R0/R1; no descendant boards, searched policies, oracle labels or solved WDL values used during symbolic BDD construction",
+    "independentValidation": "q-only complete recursive WDL/action vectors evaluated after candidate intervals frozen",
+    "noComplete7x6RootSolved": true,
+    "noGeneralPolynomialComplexityTheorem": true
+  }
+}
