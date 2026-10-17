@@ -1,0 +1,165 @@
+{
+  "schema": "connect4.owner-incidence-ROBDD-first-compilation.v0_1",
+  "date": "2026-10-16",
+  "branch": "research/semantic-quotient",
+  "candidateSourceSha": "8dc7b6f1cc4e379ef56deb583a1ceccd6241c019",
+  "status": "PRELIMINARY_COMPILED",
+  "budget": {
+    "maxSimultaneouslyHeldNodes": 60000,
+    "maxApplyRestrictNegateVisits": 300000,
+    "maxSupports": 10000,
+    "maxWallMsPerBoard": 15000
+  },
+  "cases": [
+    {
+      "board": {
+        "width": 4,
+        "height": 3,
+        "connect": 3
+      },
+      "status": "SYMBOLIC_COMPILE_COMPLETE_NOT_YET_INDEPENDENTLY_VALIDATED",
+      "result": {
+        "value": 1,
+        "bestMoves": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "actionValues": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            3,
+            1
+          ]
+        ]
+      },
+      "compiler": {
+        "supportsPlanned": 256,
+        "supportsBuilt": 256,
+        "supportEdgeCalls": 768,
+        "activeSupportMax": 48,
+        "childSupportReleases": 255,
+        "BDDNodeCreates": 10102,
+        "peakNodesBeforeGC": 2003,
+        "peakLiveAfterGC": 1895,
+        "gcCount": 256,
+        "gcNodesFreed": 10102,
+        "finalNodes": 2,
+        "applyCalls": 37628,
+        "applyMisses": 15366,
+        "applyMemoHits": 6631,
+        "restrictCalls": 18952,
+        "restrictMisses": 8712,
+        "restrictMemoHits": 3015,
+        "notCalls": 2126,
+        "notMisses": 871,
+        "notMemoHits": 183,
+        "generatedImmediateLineTerms": 768,
+        "sourceOwnershipLiteralUses": 1536,
+        "conditionalOwnerRestrictionCalls": 1528,
+        "BDDThresholdRootActionCount": 768,
+        "WDLInputStatesVisitedDuringCompile": 0,
+        "gameTreeRecursiveBranchesSolved": 0,
+        "maxLiveActionRoots": 408,
+        "compilerMs": 310,
+        "currentBDDNodes": 2,
+        "currentlyRetainedSupportFunctions": 1
+      },
+      "rootLive": {
+        "reachableOutputBDDNodes": 1,
+        "distinctOutputOwnerVariables": 0,
+        "allAliveBDDNodes": 2,
+        "actions": 4
+      }
+    },
+    {
+      "board": {
+        "width": 4,
+        "height": 4,
+        "connect": 4
+      },
+      "status": "SYMBOLIC_COMPILE_COMPLETE_NOT_YET_INDEPENDENTLY_VALIDATED",
+      "result": {
+        "value": 0,
+        "bestMoves": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "actionValues": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            3,
+            0
+          ]
+        ]
+      },
+      "compiler": {
+        "supportsPlanned": 625,
+        "supportsBuilt": 625,
+        "supportEdgeCalls": 2000,
+        "activeSupportMax": 91,
+        "childSupportReleases": 624,
+        "BDDNodeCreates": 35656,
+        "peakNodesBeforeGC": 7354,
+        "peakLiveAfterGC": 7142,
+        "gcCount": 625,
+        "gcNodesFreed": 35656,
+        "finalNodes": 2,
+        "applyCalls": 143958,
+        "applyMisses": 63987,
+        "applyMemoHits": 25777,
+        "restrictCalls": 93776,
+        "restrictMisses": 44892,
+        "restrictMemoHits": 17438,
+        "notCalls": 4248,
+        "notMisses": 1624,
+        "notMemoHits": 140,
+        "generatedImmediateLineTerms": 1000,
+        "sourceOwnershipLiteralUses": 3000,
+        "conditionalOwnerRestrictionCalls": 3992,
+        "BDDThresholdRootActionCount": 2000,
+        "WDLInputStatesVisitedDuringCompile": 0,
+        "gameTreeRecursiveBranchesSolved": 0,
+        "maxLiveActionRoots": 804,
+        "compilerMs": 2657,
+        "currentBDDNodes": 2,
+        "currentlyRetainedSupportFunctions": 1
+      },
+      "rootLive": {
+        "reachableOutputBDDNodes": 2,
+        "distinctOutputOwnerVariables": 0,
+        "allAliveBDDNodes": 2,
+        "actions": 4
+      }
+    }
+  ],
+  "candidateInputs": "support geometry and symbolic occupied-cell owner-bit functions; no concrete color states, game-search policy or solved oracle values",
+  "validationPending": "Independent physical and q-only recursion checks follow; do not treat compiler output as qualified until validated.",
+  "runtime": "isolated JavaScript V8 against exact committed source, not Node26 maintained test",
+  "generalNonbranchingClaim": false
+}
