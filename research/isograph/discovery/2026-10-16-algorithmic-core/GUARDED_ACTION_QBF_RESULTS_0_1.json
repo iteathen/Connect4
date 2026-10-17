@@ -10,13 +10,16 @@
     "gitBlobs": {
       "source": "f099f080b6213f277ac8cbdf84b66340143206cc",
       "control": "2a09d5b0118f0e115c4b203d4ade028752849da5",
-      "width": "8b79439e2daa4267de944ca1191e64f4d4c96bf8"
+      "width": "8b79439e2daa4267de944ca1191e64f4d4c96bf8",
+      "fullPrefixControl": "eea10dedc39b1abe3338896bbd354d1a7f3fe372"
     },
     "localRuntime": "Node 22.16.0",
     "evidenceHash": {
       "controlOutputSha256": "c9fface4dc72fb35e5af2e9b13c8aa9f03b831270692ec99a196f69a19d41a3f",
-      "widthOutputSha256": "11c9d51973de74920027ae8c28375491e7b3137dcf262cae7030cd3023056af3"
-    }
+      "widthOutputSha256": "11c9d51973de74920027ae8c28375491e7b3137dcf262cae7030cd3023056af3",
+      "fullPrefixOutputSha256": "478b654eda20d844e9ba5828b1e79a2911b21ecf309b8ffec2e1e5c17bff0785"
+    },
+    "fullPrefixControl": "research/isograph/discovery/2026-10-16-algorithmic-core/guarded-action-qbf-full-prefix-control.mjs"
   },
   "boundedIndependentPhysicalControls": {
     "geometryProfiles": [
@@ -227,5 +230,34 @@
     "graph diagnostic scans are separate from circuit Boolean operation count and must be tracked for future economics"
   ],
   "arbitraryDepthBranchEliminationProved": false,
-  "unrestrictedCanonical44444WDL": "UNKNOWN"
+  "unrestrictedCanonical44444WDL": "UNKNOWN",
+  "fullHorizonIndependentSampleControl": {
+    "status": "PASS",
+    "sampledPhysicalWords": 1024,
+    "terminalP0": 29,
+    "terminalP1": 22,
+    "firstInvalidP0": 452,
+    "firstInvalidP1": 521,
+    "pointwiseFullHorizonLowerUpperEqualityOnSamples": true,
+    "deterministicGateCausalPlacementChecksPerPrefixMode": 12325,
+    "stagedPrefixBlocks": 74,
+    "postfixPrefixBlocks": 38,
+    "firstWinOutcomeMismatches": 0,
+    "independentVerdict": "finite falsifier only; quantified full-game truth remains uncomputed"
+  },
+  "fullHorizonCostAudit": {
+    "status": "COUNTS_DERIVED_FROM_SPECIFIC_IMPLEMENTED_LOOPS",
+    "k": 37,
+    "andCallsPlusTseitinClauseWork": 54320,
+    "stagedGateFilterPredicateVisits": 456025,
+    "CNFLiteralVisits": 86276,
+    "clausePrimalPairExamined": 61625,
+    "primalAdjacencyScansAcrossBothPathOrders": 141892,
+    "primalEdgeCoverageVerificationsAcrossBothOrders": 70946,
+    "pathVariableAndBagLoopIterationsAcrossBothOrders": 49744,
+    "oneStagedQBFAndTwoPathOrdersTotalModelUnits": 920828,
+    "notIncluded": "input residual geometry construction, Map/Set and allocation overhead; these are not candidate game-path enumeration",
+    "interpretation": "Boolean operation budget is 300k nontrivial Boolean operations; other graph/path/prefix scans are separately counted and not silently called zero. No solver quantifier elimination attempted."
+  },
+  "proofDocument": "docs/research/2026-10-16-guarded-action-qbf-full-depth-width.md"
 }
