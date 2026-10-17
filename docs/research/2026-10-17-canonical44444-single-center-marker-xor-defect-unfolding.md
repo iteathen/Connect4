@@ -62,3 +62,24 @@ A candidate zero-strategic-branching theorem would certify both complete nested 
 6. Do not infer unrestricted WDL or all-optimal labels at q44444. Do not treat exact u,m payoff evaluation as a strategic zero-branch producer. All full words here are explicitly validation inputs, no search tree, no solved table, no UI estimates or generalization to other board shapes.
 
 **Scope conclusion:** turn sequence XOR, center completion and 4-cell original geometry have now been separated algebraically. Their product is still nonlinear in source win guards and in the adversarial choice of m/u; finding an exact closed source zero-locus operator is OPEN.
+
+## Post-test exact interval-XOR transport law — a strictly linearized geometric phase operation
+
+This is a DEDUCTION from the frozen single-marker identity, added AFTER the independent true7×6 marker controls, not part of the original pre-test frozen claim. Fix ANY one legal 36-symbol noncenter word u, and let u_j be its j-th event for j=1..36. For insertion rank m, this event is placed at relative global rank
+
+    t_m(u_j) = j + 1_[j>=m].
+
+Let m<m' be two different insertions of the SAME single center event into the SAME u. Then
+
+    t_m(u_j)-t_m'(u_j)=1_[m<=j<m']  (ordinary integer equation);
+    χ_m(u_j) XOR χ_m'(u_j)=1_[m<=j<m']  (GF(2) equation).
+
+The center cell itself changes its owner by
+
+    χ_m(center) XOR χ_m'(center) = (m'-m) mod 2.
+
+**Thus MOVING the center event through the linear word is EXACTLY an XOR bit flip of ONE CONTIGUOUS INTERVAL of noncenter event owner phases, plus one potential toggle of the center owner's own bit.** No other noncenter owner bit changes. It can also be proved by factoring the move of the distinguished center marker into |m'-m| adjacent swaps with successive noncenter letters: each crossed noncenter event toggles exactly once, and the center bit toggles once per swap.
+
+For any current source residual G, define its STATIC marker-sensitivity set as its required future event positions j in [m,m') together with whether the unique center event lies in G and (m'-m) is odd. A G whose source requirements intersect neither changed phase set has the SAME ultimate owner-conjunction result under the two complete hypothetical schedules, although its completion RANK must still be interpreted under original t_m/t_m' and cannot be discarded if first-win timing changes. The actual first-winning player of the entire game may flip because a pivotal other-player G changes its satisfaction.
+
+This gives a literal **interval update operator on ONE linear word** and an exact source-local influence mask over all 69 K-line interval constraints. It is NOT a proof of affine perfect-play WDL: applying these interval XOR flips to distinct hypothetical schedules and then comparing their game outcomes does not implement the owner's zero-branch algorithm. An exact source operator for BOTH complete optimal-action zero loci remains the next unsolved problem. The actual 7×6 marker experiment (12,000 fixed schedules, 9,840 different-first-winner pairs even with same center owner, zero physical source mismatches) is consistent with this law and exposes its nontrivial first-win consequences.
