@@ -58,6 +58,27 @@ core. The empty standard-7x6 root is **not** claimed computed by this
 recursive research evaluator. New tests ran in isolated V8; Node26 sustained
 qualification and external reproduction remain separate.
 
+## Exact full-depth quantified action representation (value NOT decided) — 2026-10-16
+
+**New rule-only representation theorem:** From a legal nonterminal source q=(h,R0,R1), recurrence-count each column choice with exact Boolean counters, derive landing/owner and first-win residual guards, and build four P0-relative lower/upper WIN/NONLOSS matrices over alternating **binary-coded column actions**. Illegal P0 existential decisions return FALSE, illegal P1 universal decisions TRUE; terminal outcomes absorb remaining actions. Stage-local deterministic Tseitin existential auxiliaries are safely introduced only after their last transitive action input. By induction this yields a polynomial-size CNF QBF **truth-equivalent** to the bounded Bellman threshold. At all 37 remaining plies of canonical `44444`, the QBF truth is equivalent to unrestricted ordinary game WIN/NONLOSS, **but it has not been evaluated**.
+
+**Full `44444` representation:** k37: **12,436 variables, 36,976 CNF clauses, 35,473 real CNF primal edges, 12,325 deterministic auxiliary gates; no enumerated support representatives**. An explicit *trivial-poset, one-trunk path decomposition* satisfies Ganian/Gründel's P1 (reverse prefix) or P2 (forward prefix) by construction. Its **stage-local bilateral-width UPPER bound is 232** versus **1335** for postfix auxiliary scope; neither width is minimal or guarantees affordable QBF solving. k12: 3,270 variables, 9,703 clauses, stage-local width upper bound 184. This crosses the prior 13,524-support-orbit REPRESENTATION ceiling, not the uncomputed WDL/quantifier-elimination frontier.
+
+**Bounded independently replayed controls:** Node22 physical first-win oracle-blind source controls on 4x3-c3, 4x4-c4, standard7x6: **78 compiles, 24,804 independently checked action words, 99,216 Boolean threshold checks, 312 independently aggregated alternating scope checks, 108,888,000 deterministic CNF clause truth checks; 0 mismatches.** Separate full-horizon samples: 1,024 physical words (29 P0 wins, 22 P1 wins, 452 invalid P0 and 521 invalid P1 first-violations), zero mismatches; both aux scopes pass **12,325 defining-gate causal precedence checks**.
+
+**Actual work accounting:** 54,320 charged gate/CNF Boolean work units at k37, below the original 300k nontrivial-Boolean-op cap, plus **456,025** prefix-stage gate-record predicate scans, 86,276 CNF literal visits, 61,625 primal-pair examinations, 141,892 adjacency scans, 70,946 edge coverage checks, and 49,744 path-loop iterations. Do NOT present the Boolean-only count as all-work. The two-schedule structural diagnostic completed locally in **89 ms** under the 15s limit; no value decision speed is claimed.
+
+Primary deductive proof and limitations:
+`docs/research/2026-10-16-guarded-action-qbf-full-depth-width.md`.
+Executable candidate/harness and evidence:
+`research/isograph/discovery/2026-10-16-algorithmic-core/guarded-action-qbf.mjs`,
+`guarded-action-qbf-control.mjs`,
+`guarded-action-qbf-width-probe.mjs`,
+`guarded-action-qbf-full-prefix-control.mjs`, and
+`GUARDED_ACTION_QBF_RESULTS_0_1.json`.
+
+**Next real mathematical obstacle:** implement/qualify **quantifier elimination/strategy-extension** over that formula within the 60k-node/300k-Boolean-op/10k-support/15s envelope, preserving all decision dependencies and counting residual cofactor growth. A full formula is not a finished game WDL solver. The original exact recursive core is unchanged and complete; `44444` remains UNKNOWN [-1,+1]. No new IsoGraph game-theory authority or merge.
+
 ## Proof literature continuation and exact response-closure falsifier — 2026-10-16
 
 **Newly reviewed primary theorem:** Ganian and Gründel, *Bilateral Treewidth for QBF: Where Strategies and Resolution Meet* (SAT 2026), supplies an exact FPT quantified-elimination method using a sound dependency poset, **full guard-complete CNF**, and a **trunk-aligned tree decomposition**. Its proof combines Q-resolution/universal reduction and bounded strategy extension. These prerequisites have **not** been established for the `44444` game-value circuit; the previously reported primal residual min-fill width 15 is not bilateral QBF width.
