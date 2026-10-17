@@ -93,5 +93,35 @@ export function createInertCapacityBisimulation({width:W,height:H,connect:K}){
    theoremScope:'Entire remaining first-win/draw/alternating-move game equivalence of plays into currently fully inert columns, by aggregating their neutral tokens. Does not claim exact scalar WDL or classify active columns.'
   };
  }
- return Object.freeze({compute,width:W,height:H,connect:K});
+ // Dynamic guarded bisimulation relation between TWO independent
+ // source residual games. Both must have the same labelled active
+ // columns and support, same residual upset generators, and the same
+ // total neutral pool (not the same distribution of inert cells).
+ function structuralSignature(q,options={}){
+  const result=compute(q,options);
+  const activeSupports=result.activeLiteralColumns.map(c=>[c,q.h[c]]);
+  return {
+   activeSupports,
+   neutralPoolTokens:result.initialNeutralPoolCapacity,
+   playerToMove:result.playerToMove,
+   P0ResidualGeneratorsHex:q.R0.map(x=>x.toString(16)).sort(),
+   P1ResidualGeneratorsHex:q.R1.map(x=>x.toString(16)).sort(),
+   literalInertColumns:result.inertLiteralColumns,
+   classifierWork:result.statistics.operations
+  };
+ }
+ function compareFutureGames(qA,qB,options={}){
+  const a=structuralSignature(qA,options),b=structuralSignature(qB,options);
+  const key=x=>JSON.stringify([x.playerToMove,x.activeSupports,
+    x.neutralPoolTokens,x.P0ResidualGeneratorsHex,x.P1ResidualGeneratorsHex]);
+  const bisimilar=key(a)===key(b);
+  return {status:bisimilar?'EXACT_DYNAMIC_FULL_FUTURE_BISIMULATION':'NOT_CERTIFIED',
+   exactWDLValueEqualityCertified:bisimilar,
+   allFutureActiveActionLabelsTransportIdentically:bisimilar,
+   neutralMovesMatchAsUnlabelledUnitTokens:bisimilar,
+   sourceA:a,sourceB:b,
+   noFutureGameplayPathEvaluated:true,
+   caution:'NOT_CERTIFIED does not prove different game WDL; when certified, active moves preserve their literal labels while available inert moves may use history-dependent matching.'};
+ }
+ return Object.freeze({compute,compareFutureGames,structuralSignature,width:W,height:H,connect:K});
 }
