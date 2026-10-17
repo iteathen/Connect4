@@ -207,3 +207,34 @@ Exact local action/reply Galois-closure reconstruction and Node22 finite tests a
 **Next GSP-003 experiment:** prove the source q WIN/NLOSS threshold-to-guarded-CNF equivalence including every legal action, terminal/first-win, mover and original owner cofactor; instrument the genuine dependency-qualified *quantified* interface and candidate trunk aligned decomposition; compare with structured-dDNNF elimination and exact q/physical controls. Freeze current computational budgets before testing source `44444`. No unsupported value closure or production implementation.
 
 See `docs/research/2026-10-16-bilateral-treewidth-and-galois-response-closures.md`.
+
+## 2026-10-16 — guard-complete source QBF compiled to full game, value still UNKNOWN
+
+A mathematically explicit source-q residual action-threshold circuit has now
+constructed, **without support or game-history enumeration**, the entire
+37-ply alternating action QBF after canonical `44444`. It retains literal
+action labels and first-win/draw/legal move guards; a stage-local Tseitin
+existential definition can be introduced immediately after its last
+transitive action input because its value is uniquely forced and future
+choices cannot affect it.
+
+The actual 37-ply quantified CNF has 12,436 variables, 36,976 clauses
+and 35,473 primal edges. With the **trivial total prefix dependency
+poset**, an explicit verified trunk-aligned path decomposition certifies
+bilateral width <=232, compared to <=1335 with postfix gate quantification.
+These are legitimate width UPPER bounds, not optimal widths. 78 physical
+finite-horizon controls and 1,024 sampled full-depth words agree with the
+source formula, with separately counted construction work.
+
+**Critical boundary:** None of the `44444` formula truth values were
+computed by a QBF solver. Full-depth representation is NOT a solution
+of the adaptive strategic-value composition problem. Do not relabel
+CNF creation as elimination of quantified choices; its remaining
+strategy complexity is real.
+
+Next GSP-003 target: implement one bounded exact quantified-predecessor
+projection on the constructed CNF or an equivalent structured-DNNF
+carrier and measure intermediate quantifier function width; validate
+on small boards before `44444` k12. Do not exceed 60k nodes, 300k
+Boolean work, 10k supports, or 15s per compile.
+Full proof: `docs/research/2026-10-16-guarded-action-qbf-full-depth-width.md`.
