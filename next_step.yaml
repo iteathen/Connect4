@@ -172,6 +172,51 @@ current_algorithmic_core:
       General 7x6 zero-fanout (V,M*) and canonical 44444 remain OPEN.
     do_not_repeat: "Per-line deadline-prefix EDF refinement, static perfect mate block enumeration, 4x3/4x4 as primary positive benchmark, CPU/BDD/QBF search tuning"
     independent_controls: "Node22 isolated local research, not maintained Node26 CI or external formal-proof assistant"
+  standard_7x6_cross_line_terminal_math_20261017:
+    owner_domain: "Primary W=7 H=6 K=4; preserve symbolic W H K for later generalization"
+    status: GUARDED_SOURCE_ONLY_RESTRICTED_EXACT_WDL_AND_COMPLETE_BEST_SET_NOT_TOTAL
+    source_game_future_fanout: 0
+    full_board_fractional_transversal:
+      mathematical_proof: docs/research/2026-10-17-standard7x6-bilateral-winline-transversal-packing-candidate.md
+      source_producer: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-source-fractional-transversal.mjs
+      machine_evidence: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/STANDARD7X6_SOURCE_TRANSVERSAL_PHYSICAL_RESULTS_0_1.json
+      guard: "Opponent cannot win under independently valid source theorem; first win stopping"
+      theorem: "Feasible lambda per future cell load <= 1 and sum lambda > opponent remaining turn capacity implies p wins first"
+      sampled_standard_7x6_legal_nonterminal_physical_positions: 33811
+      certified_first_action_wins: 135
+      such_wins_with_fewer_than_two_playable_owner_singletons: 106
+      extra_exact_WDL_and_all_best_masks_vs_lightweight_source_only_baseline: 47
+      baseline_qualification: "CPC immediate source only; NOT yet compared to full existing co-release one lane"
+      incorrect_independent_physical_first_action_wdl: 0
+      successful_witness_denominators_observed: [1]
+    temporal_first_win_race:
+      mathematical_proof: docs/research/2026-10-17-standard7x6-temporal-transversal-first-win-candidate.md
+      source_producer: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-source-temporal-transversal.mjs
+      initial_machine_evidence: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/STANDARD7X6_TEMPORAL_TRANSVERSAL_INITIAL_PHYSICAL_RESULTS_0_1.json
+      complete_all_literal_ties_evidence: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/STANDARD7X6_TEMPORAL_ALL_LITERAL_BEST_SET_RESULTS_0_1.json
+      theorem: "All p winning lines guaranteed occupied by L require > A_o(L) distinct blocks; opponent cannot win before L => p wins by L under ALL continuations; every legal root first action tied in exact p-winning WDL"
+      exact_source_root_WDL_with_complete_all_legal_best_set: 434
+      sources_with_opponent_residual_family_nonempty: 375
+      source_wins_not_already_prior_CPC_opponent_no_win_certified: 256
+      certified_sources_with_multiple_legal_root_actions: 26
+      with_multi_root_and_CPC_no_win_unproven_and_no_current_immediate_win: 0
+      independent_actual7x6_root_WDL_checked: 434
+      independent_literal_action_WDL_checked: 462
+      wrong_root_WDL_or_optimal_literal_ties: 0
+      value_equal_does_not_imply_full_program_bisimulation: true
+      reference_uses_branching_only_post_derivation: true
+    canonical_44444_exact_WDL: UNKNOWN
+    canonical_44444_complete_Mstar: UNKNOWN
+    total_7x6_zero_branch_exact_algorithm: OPEN
+    independent_qualification: "Standalone Node22 local physical reference, NOT maintained Node26 CI/external proof assistant"
+    next_mathematics: >-
+      Source-only adaptive cross-line shared-blocker response obligation
+      and CPC rank/temporal counter-win closure for genuinely multi-choice
+      early/mid standard7x6 q. Exact unrestricted WDL + ALL optimal
+      columns without separately valued inequivalent game futures; do
+      not hide histories/strategies in certificate graph. Compare with
+      full previously qualified one-lane source family, not just CPC
+      baseline. Preserve historical negatives and original 44444 unknown.
   owner_zero_branch_objective_20261017:
     research_contract: docs/research/2026-10-17-zero-strategic-branching-objective.md
     zero_strategic_fanout_status: OPEN_NOT_DISCOVERED
