@@ -48,6 +48,26 @@ current_algorithmic_core:
     - "standard7x6: 12 seed-generated legal rank35 positions, zero WDL/action-vector mismatches"
     - "oracle queries: zero; executable branch/recursive call counts explicitly measured"
   primary_objective_complete: true
+  primary_objective_scope: "constructive algorithmic-core existence, NOT continuing branch-elimination research"
+  primary_continuing_research_objective: >-
+    Eliminate independent strategic branching: calculate exact
+    P0-relative WDL and the COMPLETE literal-labelled set of
+    WDL-optimal legal actions directly from source-q structural
+    residuals, preserving all adaptive forall/exists scopes and guards.
+    A singleton is returned only if exactly one move is optimal.
+    Prohibit hidden enumeration in symbolic construction/preprocessing
+    and distinguish formula compactness from actual value evaluation.
+    Count all separately evaluated strategic alternatives plus
+    construction/quantification work and peak live/temporary memory.
+    Exact recursive core remains complete; this stronger aim is OPEN.
+  primary_open_objective_record: docs/research/2026-10-16-branch-elimination-primary-objective.md
+  desired_output_contract: "(exact P0-relative WDL, all literal legal WDL-optimal columns)"
+  success_criterion: >-
+    Demonstrate a source-derived exact strategic value and complete
+    optimal-action mask operator avoiding independent continuation
+    evaluation with fully counted construction/evaluation and independent
+    post-derivation physical/q references; otherwise retain explicit
+    scoped partials/unknowns and any proved width obstruction.
   still_open_preferred_properties:
     - "eliminate separately recursively evaluated action alternatives while retaining exact universal/existential semantics"
     - "reduce intermediate symbolic product width and work without hidden Cartesian branching"
@@ -78,6 +98,16 @@ current_algorithmic_core:
   merge_authorized: false
 
 general_mathematical_proof_research_20261016:
+  owner_primary_research_directive: >-
+    Eliminate strategic branching as the central OPEN goal while
+    preserving existing constructively complete recursive core.
+    Output all legal equally optimal WDL actions, not an arbitrary
+    singleton. Measure actual independently expanded response/game
+    continuations, source algebra construction and quantified
+    evaluation costs; symbolic QBF/BDD output size alone does not
+    qualify. Guard-complete action dependencies, reflection transport
+    and first-win/capacity/terminal semantics remain mandatory.
+  owner_primary_directive_document: docs/research/2026-10-16-branch-elimination-primary-objective.md
   date: "2026-10-16"
   owner: research/semantic-quotient
   method: "Literature search only in abstract mathematical logic, finite lattices, Boolean functions and width theorems; no Connect4 literature or cross-domain analogy search."
