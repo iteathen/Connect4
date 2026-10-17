@@ -121,7 +121,7 @@ export function createPartialGeneratorTransport({width:W,height:H,connect:K}){
      .sort((x,y)=>countHeights[A.h[x]]-countHeights[A.h[y]]||degree[y]-degree[x]||x-y);
    const perm=Array(W).fill(-1),inverse=Array(W).fill(-1);
    let fwd=null,rev=null,iso=null;
-   function search(depth,oldS,newS,oldT,newT,canForward,canReverse){
+   function search(depth,assignedS,assignedT,canForward,canReverse){
     if(depth===W){
       if(stats.completeColumnPermutations>=maxRepresentatives)throw new Limit('REPRESENTATIVES');
       charge('completeColumnPermutations');
@@ -135,29 +135,28 @@ export function createPartialGeneratorTransport({width:W,height:H,connect:K}){
      if(inverse[z]!==-1||A.h[col]!==B.h[z])continue;
      charge('partialMappingAssignments');
      perm[col]=z;inverse[z]=col;
-     const sourceAssigned=newS|(1<<col),targetAssigned=newT|(1<<z);
+     const sourceAssigned=assignedS|(1<<col),targetAssigned=assignedT|(1<<z);
      let forward=canForward,reverse=canReverse;
      if(forward){
-       forward=testCompleted(AO,BO,perm,oldS,sourceAssigned)&&
-          testCompleted(BP,AP,inverse,oldT,targetAssigned);
+       forward=testCompleted(AO,BO,perm,assignedS,sourceAssigned)&&
+          testCompleted(BP,AP,inverse,assignedT,targetAssigned);
        if(!forward)stats.partialDirectionImpossibilityProofs++;
      }
      if(reverse){
-       reverse=testCompleted(BO,AO,inverse,oldT,targetAssigned)&&
-          testCompleted(AP,BP,perm,oldS,sourceAssigned);
+       reverse=testCompleted(BO,AO,inverse,assignedT,targetAssigned)&&
+          testCompleted(AP,BP,perm,assignedS,sourceAssigned);
        if(!reverse)stats.partialDirectionImpossibilityProofs++;
      }
      if(forward||reverse){
-       search(depth+1,oldS=sourceAssigned,newS=sourceAssigned,
-         oldT=targetAssigned,newT=targetAssigned,forward,reverse);
+       search(depth+1,sourceAssigned,targetAssigned,forward,reverse);
      }else stats.partialMapNodesPrunedBothDirections++;
      inverse[z]=-1;perm[col]=-1;
      if(fwd&&rev&&iso)break;
     }
    }
-   // NB: old assigned sets are 0 at root, then at each recursion the
-   // previous source/target full assigned set comes from depth parent.
-   search(0,0,0,0,0,true,true);
+   // A partial assignment's older set is immutable through siblings;
+   // each new column can only complete new generator constraints.
+   search(0,0,0,true,true);
    const mutual=!!fwd&&!!rev;
    if(iso)stats.exactFullFutureIsomorphisms++;
    if(mutual)stats.biDirectionalWeakOrders++;
