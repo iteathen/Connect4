@@ -161,3 +161,38 @@ full arbitrary-depth value composition and computational branch
 elimination **OPEN**. The existing recursive q algorithmic core is
 complete and remains valid. No minimality or standard7x6 full-root
 WDL claim follows.
+
+## 2026-10-16 — mathematical proof search changes the next symbolic target
+
+The latest source-q `44444` owner-BDD interval reaches k11 exactly,
+with strict source-reflection and source-residual-frequency variable
+order, but UNKNOWN full WDL. Higher support-orbit count is a
+representation bottleneck, not a proven minimum-width theorem.
+
+Independent GENERAL MATHEMATICS literature (NOT Connect4 search)
+supplies a more precise approach:
+
+- Capelli/Mengel: quantified Boolean projection blows up according
+  to STRUCTURED CIRCUIT WIDTH; another static BDD order need not
+  guarantee arbitrary-depth closure.
+- Sieling/Wegener: reduced OBDD per-level width equals distinct
+  essential future Boolean cofactors after assigned variables.
+  Measure this **interface cofactor diversity** rather than counting
+  total support states or final root constants only.
+- Ge-Ernst et al. / FAQ: localize/commute quantifier operations
+  only when logical variable dependency is proven absent.
+  Strict mover, gravity, capacity, first-win and literal action
+  labels belong in those dependencies.
+- Amarilli/Monet/Senellart: structured/decomposable circuits may
+  behave better than path-ordered BDDs when structural width is
+  favorable, but general exponential lower bounds remain.
+
+**Next GSP-003 control:** derive a source-q factored multi-output
+WIN/NLOSS threshold descriptor, instrument per-quantified-block
+cofactor-function counts and bounded interface width, and
+compare its real construction work with the existing BDD.
+Do not compute a game-tree winning policy inside the constructor.
+
+Full literature/proof audit and reproducible structural diagnostic:
+`docs/research/2026-10-16-general-mathematical-quantifier-width-proof-search.md`.
+No general polynomial or nonbranching theorem was established.
