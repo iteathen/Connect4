@@ -1,0 +1,75 @@
+{
+  "schema": "connect4.single_lane_direct_zero_fanout_results.v0_1",
+  "date": "2026-10-17",
+  "branch": "research/semantic-quotient",
+  "status": "EXACT_RESTRICTED_SINGLE_LANE_FULL_WDL_AND_ALL_TIES_TWO_EXHAUSTIVE_SMALL_BOARDS_PASS",
+  "plan": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/SINGLE_LANE_UNIQUE_UNKNOWN_PLAN_0_1.md",
+  "sourceOperator": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/single-lane-direct-value.mjs",
+  "innerSourceOperator": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/direct-two-turn-frontier-operator.mjs",
+  "independentControl": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/single-lane-physical-control.mjs",
+  "directPriorEvidence": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/DIRECT_ZERO_FANOUT_RESTRICTED_RESULTS_0_1.json",
+  "exactlyFetchedGitBlobs": {
+    "exactQReference": "6b25d0e2560fe4131d2f5442593e9ed9763c1a18",
+    "directLocalPrior": "9dacce646ca44ff3def9e506932a0cd49df2ed57",
+    "sourceFrontier": "389aa5d1f9f0a007a988f04df6436bec8d4887f2",
+    "singleLane": "6a180bc7424c0df8a96164b5f980d7fe473e0f6d",
+    "independentPhysical": "efdceaf8bdfeacf68f2dc4dd24929ba07b0ba567"
+  },
+  "theorem": "For legal q source local two-turn predicates certify exact WDL of every c except U(q). If U(q) empty, full labelled min/max and best set are exact. If U(q)={c}, compute exactly ONE next(q,c), and recurse by this same nonbranching operation. If it eventually closes at a source-certified terminal or source structural rule, induction on strictly decreasing remaining rank proves exact V and every tied move label, with max concurrent strategic future evaluations ONE. When |U(q)|>=2 and no equivalence transport, return INCOMPLETE WITHOUT constructing any q child or speculative future. No hidden game future enumeration in source predicate.",
+  "strictExecutionContract": {
+    "maxStrategicFanout": 1,
+    "maximumInequivalentFutureEvaluationsAtOneNode": 1,
+    "qualifiedReferenceInProducer": 0,
+    "sourceQChildObjectsMaterializedAtBranchNode": 0,
+    "allLabelsRecovered": true
+  },
+  "independentQualifiedFullLegalBoardChecks": [
+    {
+      "board": "4x3 Connect3",
+      "physicalLegalNonterminalStates": 4631,
+      "distinctExactQStates": 3734,
+      "sourceLocalImmediatelyClosed": 2019,
+      "additionalExactClosedSingleLane": 862,
+      "totalExactWDLAndCompleteBestSets": 2881,
+      "qualifiedWithMultipleLegalMoves": 2703,
+      "oneLaneQChildCofactorsMaterializedAcrossIndependentRootQueries": 1878,
+      "maxOneLaneChainDepth": 6,
+      "allLiteralActionValuesCompared": 7508,
+      "rootCompleteBestSetComparisons": 2881,
+      "wrongWDL": 0,
+      "wrongBestMoveSet": 0,
+      "wrongIndividualActionValues": 0,
+      "observedMaxStrategicFanout": 1,
+      "sourceLocalBooleanOps": 122801
+    },
+    {
+      "board": "4x4 Connect4",
+      "physicalLegalNonterminalStates": 134289,
+      "distinctExactQStates": 34094,
+      "sourceLocalImmediatelyClosed": 2866,
+      "additionalExactClosedSingleLane": 3112,
+      "totalExactWDLAndCompleteBestSets": 5978,
+      "qualifiedWithMultipleLegalMoves": 5588,
+      "oneLaneQChildCofactorsMaterializedAcrossIndependentRootQueries": 11800,
+      "maxOneLaneChainDepth": 4,
+      "allLiteralActionValuesCompared": 14626,
+      "rootCompleteBestSetComparisons": 5978,
+      "wrongWDL": 0,
+      "wrongBestMoveSet": 0,
+      "wrongIndividualActionValues": 0,
+      "observedMaxStrategicFanout": 1,
+      "sourceLocalBooleanOps": 1693465
+    }
+  ],
+  "arithmeticScope": "Two complete small-board legal source-position corpora, exact q memo oracle-independent reference post-derivation. V8 isolated direct execution of exact newly fetched GitHub source, not maintained Node26.",
+  "limits": {
+    "maxStates": 60000,
+    "maxNontrivialBitsetOperations": 300000,
+    "maxSupports": 10000,
+    "maxMilliseconds": 15000
+  },
+  "stillOpen": "The operator returns INCOMPLETE whenever two or more inequivalent root actions remain unresolved. No arbitrary legal Connect4 total zero-fanout WDL/optimal-set result. Canonical 44444 remains UNKNOWN.",
+  "next": "Source-only FULL FUTURE equivalence class quotient over remaining unknown actions, then follow at most one inequivalent representative. Combining program-isomorphism or neutral-token bisimulation with source-predicated labelled WDL avoids branching but may still leave multiple unresolved classes. Never infer equivalence from short-horizon signatures or scalar WDL alone if transporting a state.",
+  "authorityPromoted": false,
+  "merged": false
+}
