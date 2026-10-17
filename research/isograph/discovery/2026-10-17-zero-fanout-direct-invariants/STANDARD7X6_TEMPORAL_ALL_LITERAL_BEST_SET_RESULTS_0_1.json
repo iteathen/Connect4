@@ -1,0 +1,43 @@
+{
+  "schema": "connect4.7x6.temporal_transversal_all_action_tie_control_v0_1",
+  "date": "2026-10-17",
+  "status": "RESTRICTED_VALUE_AND_COMPLETE_OPTIMAL_SET_PROVED_SOURCE_ONLY_VALIDATED_POST_DERIVATION",
+  "geometry": {
+    "W": 7,
+    "H": 6,
+    "K": 4
+  },
+  "proof": "docs/research/2026-10-17-standard7x6-temporal-transversal-first-win-candidate.md",
+  "producer": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-source-temporal-transversal.mjs",
+  "claim": "Once a universal source fractional blocking-overload witness plus the opponent's independently proved earliest-win lower bound proves p wins by L, ALL literal legal first actions have p's exact full WDL, since the contradiction is independent of ANY strategic choice. The precise complete optimal action set is the entire legal current column set; no future-game program equivalence is inferred.",
+  "sourceGameSemanticFanout": 0,
+  "priorReferenceResults": {
+    "7x6.nonterminal.sample": 33811,
+    "terminalClaims": 434,
+    "opponentStillHasResiduals": 375
+  },
+  "enhancedSourceScoping": {
+    "rootClaimsNotAlreadySourceOpponentNoWinCertified": 256,
+    "claimsWithCompletionHorizonGreaterThan2": 18,
+    "thoseWithEarlierNoWinNotCertified": 3,
+    "rootClaimsWithoutAnImmediateWinnerAvailableToTheCurrentMoverAmongEarlierNoWinUnproven": 8
+  },
+  "independentPhysicalControl": {
+    "unrestrictedRootWinnerComparisons": 434,
+    "unrestrictedLiteralActionValueComparisons": 462,
+    "falseRootOutcomes": 0,
+    "falseOptimalTieOrExcludedLiteralColumns": 0,
+    "sourcePositionsWithMultipleLegalActions": 26,
+    "ofThoseWithOpponentResidualsStillSurviving": 10,
+    "ofThoseWithCPCNoWinNotProved": 3,
+    "ofThoseWithoutImmediateCurrentPlayableWinner": 0
+  },
+  "epistemicBoundary": [
+    "This is a value-equivalent all-first-action set, NOT behavioral bisimulation of different successors.",
+    "408/434 certified source positions have only one legal action; do not mistake the 434 root count for multi-choice strategic-selection progress.",
+    "Claims are from the nonuniform sampled genuine 7x6 physical corpus; not a percent of all possible q.",
+    "Physical reference recursively evaluates future games AFTER source certification only; no game value query in source producer.",
+    "Does not supersede 44444 UNKNOWN or solve arbitrary standard7x6.",
+    "Most root certificates here are late/forced and may overlap existing source tactics. Standalone Node22, no maintained Node26 or independent proof assistant."
+  ]
+}
