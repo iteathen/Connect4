@@ -1,0 +1,133 @@
+{
+  "schema": "connect4.direct-zero-strategic-fanout-restricted-theorems.v0_1",
+  "date": "2026-10-17",
+  "owner": "research/semantic-quotient",
+  "status": "EXACT_RESTRICTED_ZERO_FANOUT_FULL_WDL_ALL_OPTIMAL_LABELS_VERIFIED_GENERAL_OPEN",
+  "sourceOnlyOperator": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/direct-zero-fanout-operator.mjs",
+  "exhaustiveIndependentPhysicalControl": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/direct-zero-fanout-physical-control.mjs",
+  "independentNegativeMutationControl": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/direct-zero-fanout-mutation-control.mjs",
+  "frozenPlan": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/DIRECT_THREAT_AND_PAIRING_PLAN_0_1.md",
+  "certifiedSourceGitBlobs": {
+    "producer": "9dacce646ca44ff3def9e506932a0cd49df2ed57",
+    "physicalControl": "3f7b9dcd7c146b1c79829a66b548c75809a4e009",
+    "mutationControl": "a6b4c732d2514917ad1e085daf638d2d4d9ee83a"
+  },
+  "zeroFanoutSpecification": "Producer only scans h,R0,R1, all legal literal columns and static pairing source certificates. It never materializes any child game state, performs a minimax/negamax oracle query, enumerates a game-continuation/response tree or compiles an alternate-future QBF/BDD; every qualified output is unrestricted exact P0 WDL plus complete labelled optimal move set.",
+  "sourceProofs": [
+    {
+      "name": "TWO_DISTINCT_OPPONENT_LIVE_SINGLETONS",
+      "law": "If opponent has >=2 distinct presently gravity-playable residual singleton threats, each non-immediately-winning mover action can occupy at most one threat cell; opponent's other first win remains available next turn. Thus each legal move's exact outcome is mover win iff its own source singleton completes immediately, otherwise opponent win. All action labels evaluated simultaneously from source; no game future."
+    },
+    {
+      "name": "ONE_LEGAL_COLUMN_PARITY_DETERMINISTIC_FULL_FUTURE",
+      "law": "When exactly one nonfull column remains, all future owners are fixed by (occupiedRank+row-currentColumnHeight)%2. Earliest source residual whose every required cell has matching owner determines exact earliest winning terminal (or draw if none). This is direct parity arithmetic on source residuals, not traversal of the deterministic future moves."
+    },
+    {
+      "name": "BOTH_PLAYERS_HAVE_NO_OPEN_WIN_REQUIREMENTS",
+      "law": "If R0 and R1 are both empty in a nonterminal source q, no subsequent cofactor can create a line; every legal move leads to draw."
+    },
+    {
+      "name": "SAFE_GRAVITY_PAIRING_AND_NO_P1_WIN_PATH",
+      "law": "At P0-to-move source with no P1 unblocked winning requirements, select ONE deterministic matching of all remaining future cells in vertical consecutive same-column pairs and horizontal same-row equal-height column twins. Every playable P0 choice has a reply whose mate is immediately gravity-playable. If every P0 minimal residual requirement contains BOTH cells of some matched pair, P1 owns at least one cell in each target before P0 can complete it. P1 can never win because R1 empty; hence every P0 choice leads to exact draw. Static pair certificate selection scans source constraints but never evaluates game-continuation paths."
+    }
+  ],
+  "fullExhaustivePhysicalConformance": [
+    {
+      "board": "4x3 Connect3",
+      "physicalLegalNonterminalStates": 4631,
+      "uniqueExactResidualQStates": 3734,
+      "qualifiedZeroFanoutWDLAndCompleteBestMoveSets": 925,
+      "certifiedWithAtLeastTwoLegalMoves": 747,
+      "passedCompleteSourceValueChecks": 925,
+      "passedActionValueChecks": 2406,
+      "byProofKind": {
+        "opponentDoubleThreat": 746,
+        "deterministicSingleColumn": 176,
+        "bothResidualFamiliesEmpty": 3,
+        "safePairingDraw": 0
+      },
+      "candidateSourceBooleanOpsAcrossAllQ": 21712,
+      "independentQualifiedQMemoStatesUsed": 2143,
+      "independentQualifiedQTransitionsUsed": 5574,
+      "valueDiscrepancies": 0,
+      "completeBestMoveSetDiscrepancies": 0,
+      "perActionValueDiscrepancies": 0,
+      "coveragePct": 24.77236,
+      "multiMoveCoverageOfAllCertifiedPct": 80.75676,
+      "isolatedV8ElapsedMs": 160
+    },
+    {
+      "board": "4x4 Connect4",
+      "physicalLegalNonterminalStates": 134289,
+      "uniqueExactResidualQStates": 34094,
+      "qualifiedZeroFanoutWDLAndCompleteBestMoveSets": 1202,
+      "certifiedWithAtLeastTwoLegalMoves": 812,
+      "passedCompleteSourceValueChecks": 1202,
+      "passedActionValueChecks": 2734,
+      "byProofKind": {
+        "opponentDoubleThreat": 726,
+        "deterministicSingleColumn": 382,
+        "bothResidualFamiliesEmpty": 32,
+        "safePairingDraw": 62
+      },
+      "sourcePairingEvidence": {
+        "pairedDrawStatesWithHorizontalColumnPairs": 46,
+        "pairedDrawStatesWithOnlyVerticalPairs": 16,
+        "examplePhysicallyLegalHistory": "111123234334",
+        "sourceHeights": [
+          4,
+          2,
+          4,
+          2
+        ],
+        "legalMoveLabelsOneBased": [
+          2,
+          4
+        ],
+        "P0MinimalSourceRequirements": 1,
+        "P1SourceRequirements": 0,
+        "proofResult": "DRAW; BOTH columns 2,4 equally optimal; P1 responds with mate in the same vertical pair"
+      },
+      "candidateSourceBooleanOpsAcrossAllQ": 205900,
+      "independentQualifiedQMemoStatesUsed": 3145,
+      "independentQualifiedQTransitionsUsed": 7812,
+      "valueDiscrepancies": 0,
+      "completeBestMoveSetDiscrepancies": 0,
+      "perActionValueDiscrepancies": 0,
+      "coveragePct": 3.52555,
+      "isolatedV8ElapsedMs": 1990
+    }
+  ],
+  "negativeControls": {
+    "status": "PASS",
+    "mutations": 8,
+    "guards": [
+      "duplicate same-column singleton is not two distinct threats",
+      "unplayable upper singleton cannot be counted as immediate",
+      "two opponent threats plus immediate mover win returns ONLY winning action",
+      "two opponent threats without mover win returns ALL losing actions",
+      "uncovered P0 line rejects pairing draw",
+      "gravity-unsafe column mismatch rejects pairing",
+      "nonempty P1 requirement rejects paired DRAW",
+      "source-safe horizontal pair correctly yields DRAW and all tied labels"
+    ],
+    "allMutationControlsPassed": true
+  },
+  "limits": {
+    "sourceMaxNodes": 60000,
+    "sourceMaxNontrivialBooleanOperations": 300000,
+    "sourceMaxSupports": 10000,
+    "sourceMaxMs": 15000
+  },
+  "referenceRole": "Independent qualified exact-q exhaustive first-win WDL and action vector oracle-free solver called only AFTER source theorem classification; no values feed producer. Source corpus constructed from separately legal physical enumeration.",
+  "generalZeroBranchAlgorithmDiscovered": false,
+  "canonical44444": {
+    "history": "44444",
+    "playerToMove": "P1",
+    "status": "INCOMPLETE",
+    "reason": "Neither source immediate double-threat saturation, exhausted winlines, deterministic single column, nor P0 defensive draw-pair domain applies; current WDL and all optimal move6 labels remain UNKNOWN."
+  },
+  "researchClassification": "Proved exact restricted-domain nonforking source structural WDL-and-all-optimal-set results, NOT the owner's still-open universally applicable nonbranching Connect Four algorithm",
+  "noAuthorityPromotion": true,
+  "noMerge": true
+}
