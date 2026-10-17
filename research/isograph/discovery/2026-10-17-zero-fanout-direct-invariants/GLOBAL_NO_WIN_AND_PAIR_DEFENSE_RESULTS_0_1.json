@@ -1,0 +1,60 @@
+{
+  "schema": "connect4.global_source_win_impossibility_and_paired_defense_v0_1",
+  "date": "2026-10-17",
+  "branch": "research/semantic-quotient",
+  "status": "EXACT_SOURCE_GLOBAL_NO_WIN_BOUNDS_3734_34094_ALL_ACTION_REFERENCE_PASS",
+  "plan": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/GLOBAL_WIN_IMPOSSIBILITY_AND_PAIR_DEFENSE_PLAN_0_1.md",
+  "sourceOnlyProducer": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/global-no-win-bound.mjs",
+  "preciseTheorem": "If normalized source R0 is empty, P0 cannot ever win under any future play, hence all current first-action P0-relative WDL<=0. If R1 empty, all WDL>=0. If even total future empty cells and current player p attacks first, a fixed gravity-legal complete partition of all empty cells into consecutive vertical pairs and horizontal same-height row pairs that covers EVERY source attacker R_p requirement with at least one complete pair permits opponent 1-p to reply to the mate after every attacker first move, ensuring p can never win first. For P0 attacker all first-action WDL upper<=0, for P1 attacker all lower>=0. Defender's earlier win only strengthens the bound. These are global all-action full-future WDL bounds with no q child or game policy enumeration.",
+  "proofLimitation": "All-remaining-cells matching must be safe at every first-touch by attacker and defender responds second; odd unpaired spare-cell or a first-moving defender does not automatically qualify. Source pairing construction is deterministic local proof and not complete over all possible safe matchings.",
+  "validatedBy": "All distinct canonical exact-q legal nonterminal full-game memo states from qualified core. Independently compared EVERY literal first-action exact WDL against source-certified interval after proof construction, with no false exclusions.",
+  "fullBoardExhaustiveControls": [
+    {
+      "geometry": "4x3 Connect3",
+      "distinctQ": 3734,
+      "sourceR0EmptyStates": 21,
+      "sourceR1EmptyStates": 33,
+      "sourceStaticDefensivePairCertificates": 53,
+      "pairCertificatesWithBothPlayersHavingLiveWinRequirements": 51,
+      "sourceValueBoundsWithLowerStrictGreaterThanMinusOne": 33,
+      "sourceValueBoundsWithUpperStrictLessThanPlusOne": 74,
+      "alreadyExactDrawIntervals": 5,
+      "sourceBitsetOperations": 24758,
+      "falseRootWDLBounds": 0,
+      "falseIndividualLegalActionWDLBounds": 0
+    },
+    {
+      "geometry": "4x4 Connect4",
+      "distinctQ": 34094,
+      "sourceR0EmptyStates": 668,
+      "sourceR1EmptyStates": 976,
+      "sourceStaticDefensivePairCertificates": 2445,
+      "pairCertificatesWithBothPlayersHavingLiveWinRequirements": 2379,
+      "sourceValueBoundsWithLowerStrictGreaterThanMinusOne": 976,
+      "sourceValueBoundsWithUpperStrictLessThanPlusOne": 3113,
+      "alreadyExactDrawIntervals": 98,
+      "sourceBitsetOperations": 243764,
+      "falseRootWDLBounds": 0,
+      "falseIndividualLegalActionWDLBounds": 0
+    }
+  ],
+  "canonical44444": {
+    "sourceRank": 5,
+    "remainingCells": 37,
+    "purePairedResponseGuard": "INAPPLICABLE, remaining capacity is ODD",
+    "R0SourceRequirements": 48,
+    "R1SourceRequirements": 42,
+    "fullWDL": "UNKNOWN",
+    "completeOptimalSet": "UNKNOWN"
+  },
+  "candidateUsesChildren": false,
+  "candidateStrategicFanout": 0,
+  "strictHistoricalSafetyLimits": {
+    "sourceBooleanOps": 300000,
+    "retainedNodes": 60000,
+    "supportRepresentatives": 10000,
+    "msPerSourceCompile": 15000
+  },
+  "noGameTheoryAuthorityPromotion": true,
+  "noMerge": true
+}
