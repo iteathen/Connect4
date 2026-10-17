@@ -1,0 +1,162 @@
+{
+  "schema": "connect4.source-anchored-owner-bdd.standard7x6-suffix.v0_1",
+  "date": "2026-10-16",
+  "rank": 32,
+  "prefix": "43214636342357317661423762461717",
+  "support": [
+    5,
+    4,
+    6,
+    5,
+    1,
+    6,
+    5
+  ],
+  "futureSupportCount": 144,
+  "status": "PASS",
+  "candidateInputContract": "actual source q h0,R0,R1 and Connect4 geometry only, no solved values",
+  "candidateUsedGameTreeSearch": false,
+  "candidateUsesSourceQGeometryOnly": true,
+  "fixedBudget": {
+    "maxBDDNodes": 60000,
+    "maxBDDOperations": 300000,
+    "maxSupports": 10000,
+    "maxCompileMs": 15000,
+    "maxQStates": 200000,
+    "maxQTransitions": 800000,
+    "maxQTimeMs": 30000
+  },
+  "compileMs": 11,
+  "compiler": {
+    "supportsPlanned": 144,
+    "supportsBuilt": 144,
+    "supportEdgeCalls": 432,
+    "activeSupportMax": 25,
+    "childSupportReleases": 143,
+    "BDDNodeCreates": 111,
+    "peakNodesBeforeGC": 34,
+    "peakLiveAfterGC": 33,
+    "gcCount": 144,
+    "gcNodesFreed": 111,
+    "finalNodes": 2,
+    "applyCalls": 3338,
+    "applyMisses": 213,
+    "applyMemoHits": 89,
+    "restrictCalls": 1238,
+    "restrictMisses": 192,
+    "restrictMemoHits": 44,
+    "notCalls": 312,
+    "notMisses": 48,
+    "notMemoHits": 12,
+    "generatedImmediateLineTerms": 212,
+    "sourceOwnershipLiteralUses": 128,
+    "sourceResidualClauseChecks": 2376,
+    "sourceSizeTwoTerminals": 104,
+    "sourceFutureCellsAtRoot": 10,
+    "sourceRank": 32,
+    "conditionalOwnerRestrictionCalls": 854,
+    "BDDThresholdRootActionCount": 432,
+    "WDLInputStatesVisitedDuringCompile": 0,
+    "gameTreeRecursiveBranchesSolved": 0,
+    "maxLiveActionRoots": 210,
+    "compilerMs": 11,
+    "retainAllSupportFunctions": false,
+    "finalRetainedSupportCount": 1,
+    "sourceResidual0": 6,
+    "sourceResidual1": 5,
+    "currentBDDNodes": 2,
+    "currentlyRetainedSupportFunctions": 1
+  },
+  "outputLiveBDD": {
+    "reachableOutputBDDNodes": 2,
+    "distinctOutputOwnerVariables": 0,
+    "allAliveBDDNodes": 2,
+    "actions": 5
+  },
+  "candidate": {
+    "value": 1,
+    "bestMoves": [
+      1,
+      4
+    ],
+    "actionValues": [
+      [
+        0,
+        -1
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        3,
+        -1
+      ],
+      [
+        4,
+        1
+      ],
+      [
+        6,
+        -1
+      ]
+    ]
+  },
+  "independentQMs": 1,
+  "independentQ": {
+    "value": 1,
+    "bestMoves": [
+      1,
+      4
+    ],
+    "actionValues": [
+      [
+        0,
+        -1
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        3,
+        -1
+      ],
+      [
+        4,
+        1
+      ],
+      [
+        6,
+        -1
+      ]
+    ]
+  },
+  "independentQStats": {
+    "uniqueStates": 23,
+    "recursiveCalls": 31,
+    "memoHits": 8,
+    "transitions": 70,
+    "terminalWinEdges": 40,
+    "terminalDrawEdges": 0,
+    "branchingStates": 22,
+    "maxDepth": 5,
+    "cacheEntries": 23
+  },
+  "actionAndValueMatch": true,
+  "totalMs": 13,
+  "provenance": {
+    "date": "2026-10-16",
+    "branch": "research/semantic-quotient",
+    "sourceBlobs": {
+      "source-anchored-owner-bdd.mjs": "a08869be044ef45bf78cdbc1ca2ca7b6d2710af1",
+      "exact-q-core.mjs": "6b25d0e2560fe4131d2f5442593e9ed9763c1a18",
+      "constructive-core-control.mjs": "b18cbb6e7a3db66c7c8bcda2efd615e45127d615",
+      "source-anchored-owner-bdd-7x6-control.mjs": "d6f065b7a5a0dcfdf2c3c49048af5deda8872b71"
+    },
+    "execution": "isolated V8 exact committed code, Node/performance/process shimmed, not maintained Node26",
+    "builderInputs": "actual source q0 support and normalized R0/R1 from independent physical rules; no q descendant or solver value used before compile",
+    "independentReference": "bounded exact-q-only recursive suffix after symbolic root was produced",
+    "comparisonWithUnanchored": "OWNER_INCIDENCE_BDD_STANDARD7X6_RANK32_RESULTS_0_1.json (failed 60000 BDD node cap)"
+  }
+}
