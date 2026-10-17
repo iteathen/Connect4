@@ -99,8 +99,9 @@ export function createActionROBDDProjection({maxNodes=60000,maxOperations=300000
  function finish(cnf,{legalColumns=null}={}){
   const compiled=compile(cnf);
   if(compiled.status!=='COMPILED')return {...compiled,statistics:{...stats,elapsedMs:Date.now()-started}};
+  const stages=[];
   try{
-   let root=compiled.root;const stages=[];
+   let root=compiled.root;
    for(let t=compiled.actions.length-1;t>=1;t--){
     root=quantify(root,compiled.actions[t]);
     stages.push({action:t,quantifier:compiled.actions[t].quantifier,operations:stats.operations,
