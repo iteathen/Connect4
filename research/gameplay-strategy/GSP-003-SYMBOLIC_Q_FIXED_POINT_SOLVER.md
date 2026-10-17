@@ -1,5 +1,7 @@
 # GSP-003 — Symbolic q fixed-point solver
 
+**OWNER OVERRIDE — 2026-10-17:** The primary mathematical objective is **ZERO strategic branching**, not symbolic savings, deeper fixed-point region growth, or a lower search time. A fixed-point operator that still creates or evaluates multiple inequivalent successor strategic possibilities (even in a single symbolic expression) **FAILS the owner criterion**. GSP-003 is supporting research unless it supplies a proved single-lane direct `q -> (exact WDL, ALL optimal literal actions)` operator with NO independently evaluated inequivalent game futures. Prior useful representation findings remain valid but are not success claims. See [strict zero-fanout contract](../../docs/research/2026-10-17-zero-strategic-branching-objective.md).
+
 **Status:** rough proposal  
 **Goal:** exploit q without ordinary recursive game-tree search.
 
