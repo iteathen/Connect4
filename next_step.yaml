@@ -61,7 +61,27 @@ current_algorithmic_core:
     construction/quantification work and peak live/temporary memory.
     Exact recursive core remains complete; this stronger aim is OPEN.
   primary_open_objective_record: docs/research/2026-10-16-branch-elimination-primary-objective.md
-  research_focus_20261017: FUTURE_STABLE_SOURCE_RESPONSE_DOMINANCE_NOT_BDD_COMPILATION_DEPTH
+  owner_zero_branch_objective_20261017:
+    research_contract: docs/research/2026-10-17-zero-strategic-branching-objective.md
+    zero_strategic_fanout_status: OPEN_NOT_DISCOVERED
+    goal: >-
+      Compute unrestricted exact WDL and ALL optimal literal
+      moves from source q in ONE game-semantic evaluation lane.
+      Never fork into separately evaluated INEQUIVALENT future
+      strategic continuations or hide them in BDD/QBF,
+      proof obligation graphs, precomputations, or recursion.
+      A proved set of WDL-equivalent moves is one logical
+      decision output. A single continued abstract successor
+      additionally requires full future-behavior congruence.
+    completeness_requires_all_equally_optimal_moves: true
+    zero_branching_required_not_branch_count_reduction: true
+    forbid_search_fallback_inside_candidate: true
+    search_solve_time_is_not_a_research_success_metric: true
+    experiment_resource_limits_are_safety_controls_only: true
+    recursive_exact_core_remains_complete: true
+    reference_minimax_for_post_derivation_validation_only: true
+
+  research_focus_20261017: ZERO_STRATEGIC_FANOUT_DIRECT_SOURCE_OPTIMALITY_NOT_PRUNING
   newly_proved_dual_obligation_theorem: docs/research/2026-10-17-branch-elimination-dual-obligation-and-future-separation.md
   dual_obligation_operator: research/isograph/discovery/2026-10-17-dual-obligation-quotient/dual-response-obligation.mjs
   dual_obligation_results: research/isograph/discovery/2026-10-17-dual-obligation-quotient/DUAL_RESPONSE_OBLIGATION_RESULTS_0_1.json
@@ -245,17 +265,24 @@ current_algorithmic_core:
     - minimality
     - WDL_tie_distance_refinement
   next_bounded_experiment: >-
-    Exact original-q FULL-FUTURE cross-support column transports
-    now match EVERY downstream adaptive move after P1 root replies
-    in a structurally certified subset of source states; SCC
-    weak-value condensation skips 370/4872 and 5554/50034
-    independent P1 root scalar WDL queries on exhaustive
-    distinct small-board q sets, with no wrong value.
-    This is beyond reflection but NOT complete exact best-mask
-    or 7x6 44444 WDL. Next find guarded nonbijective/dynamic
-    alternating simulation for mismatched capacity profiles
-    and exact strict/equality proof for ties, not another
-    BDD compile-depth or implementation memory heuristic.
+    STOP treating fewer strategic branches, fewer scalar root queries,
+    improved BDD/QBF compile depth or search time as success. The
+    owner requires ZERO STRATEGIC FANOUT: derive from source q one
+    game-semantic evaluation lane yielding exact unrestricted WDL
+    and ALL equally optimal literal moves. At no point may the
+    candidate branch into separately evaluated inequivalent
+    game continuations or hide their evaluation in symbolic
+    source tables or quantified response graphs. A proved
+    WDL-equivalent move set is one permitted decision result;
+    one continued representative requires full-future
+    behavioral equivalence. If two inequivalent future
+    alternatives remain, report INCOMPLETE / FAIL_ZERO_BRANCH.
+    Prove source-local invariant/value reconstruction and zero
+    fanout BEFORE consulting qualified exact q references.
+    Preserve first-win/legality/gravity/terminal/forall-exists
+    guards and the historic move7/8 transition results.
+    Runtime and speed are NOT research gates; old numeric limits
+    remain experiment safety controls, not theorem success criteria.
   preserved_open_scope: >-
     The standard7x6 empty-root value and the seven-reply turn-six
     CPC certificate remain uncomputed/unproved by the new research
@@ -301,48 +328,36 @@ general_mathematical_proof_research_20261016:
     boundary variables s, provided all legal move/terminal
     dependencies are included in the factor supports.
   ranked_next_experiment: >-
-    OWNER PRIMARY MATHEMATICAL GOAL: ELIMINATE INDEPENDENT
-    ADAPTIVE GAME BRANCHES AND RETURN COMPLETE LITERAL
-    WDL-OPTIMAL ACTION SETS. New EXACT SOURCE-ONLY
-    CROSS-SUPPORT FIRST-ACTION SIMULATION certifies
-    full-future P0-relative WDL inequalities/equalities
-    between ORIGINAL P1 first replies under a single
-    height/capacity-preserving column permutation and
-    guarded original-source P0/P1 residual-upset inclusion.
-    All subsequent adaptive action labels correspond under
-    the permutation, WITHOUT enumerating game futures.
-    On FULL independent legal 4x3/4x4 reference corpora,
-    86/2280 nongeometric future game isomorphisms and
-    320/3760 weak nongeometric P0 WDL orders, ZERO
-    incorrect value/action transport certificates.
-    A directed weak-value graph SCC source-component
-    theorem removes 370 of 4872 and 5554 of 50034
-    ORIGINAL P1 root scalar VALUE proof obligations
-    beyond basic geometric reflection, verified against
-    every distinct legal P1 residual q in those boards.
-    Exhaustive generic 4096 directed graphs/33792
-    order-consistent three-valued WDL assignments PASS.
-    This is genuine ROOT scalar branch elimination,
-    NOT an all-game branchless solution or a measured
-    runtime saving. All tied-optimal literal move labels
-    are retained, because weak domination can TIE.
-    At standard7x6 44444 the source-only full-game
-    transport still yields only reflection classes
-    {1,7},{2,6},{3,5},{4}, and unrestricted WDL
-    and complete best set remain UNKNOWN.
-    NEXT derive an exact FIRST-WIN/CAPACITY/TERMINAL
-    guarded NONBIJECTIVE or DYNAMIC response simulation
-    across future states with DIFFERENT column capacity
-    multisets, and a source-only strict-value/tie
-    certificate to identify ALL optimal actions.
-    Derive before qualified oracle/physical validation,
-    and enforce unchanged 60000-node/300000 Boolean
-    work/10000 supports/15s per source limits.
-    DO NOT default back to optimizing BDD/QBF/gate GC
-    or merely extending a fixed-depth cone. Preserve
-    legal 111 and 223 counterexamples, complete
-    small-board ties, historical move7/8 transition
-    and all prior negative results. No merge/authority.
+    OWNER ZERO-BRANCH CORRECTION 2026-10-17: ELIMINATE
+    BRANCHING itself, NOT a percentage of branches or
+    their search time. The required algorithm directly maps
+    original q to exact unrestricted ordinary WDL and the
+    COMPLETE WDL-optimal action set by one deterministic
+    strategic evaluation. Source generator tests, proof
+    case distinctions and inspecting labels are allowed,
+    but NOT separate future q value evaluations, recursively
+    or hidden in BDD/QBF/cofactor/antichain or preprocessing.
+    A provably value-equivalent SET of actions is ONE logical
+    outcome; a single shared continued abstract successor
+    additionally needs full-future congruence. Every action
+    excluded must be proved inferior, every tied action
+    retained; if multiple inequivalent candidates remain
+    to be evaluated separately, research objective FAILS
+    even when seven branches shrink to four or two.
+    Next derive a source-local exact nonbranching optimality
+    invariant/operator, its full WDL and complete-mask
+    reconstruction theorem and a proof of zero strategic
+    fanout along the entire computational trace.
+    Prior transport, dual antichain, static column
+    permutations, inert-capacity proof groups, and scalar
+    pruning remain supporting results, not achieved goal.
+    Do not perform another pruning-count experiment,
+    search solve-time comparison, memory tuning, or
+    depth expansion as primary research. Validate AFTER
+    derivation on exact 4x3/4x4 action values, 223, 111,
+    historic chronological move7/8 and 44444 (UNKNOWN).
+    Unchanged resource caps remain safety envelopes only,
+    never mathematical success gates. No merge or authority.
   next_primary_source: "Ganian and Grundel, Bilateral Treewidth for QBF, SAT 2026, doi:10.4230/LIPIcs.SAT.2026.16"
   new_mathematical_record: docs/research/2026-10-16-bilateral-treewidth-and-galois-response-closures.md
   exact_local_response_factor: research/isograph/discovery/2026-10-16-algorithmic-core/adaptive-galois-factor.mjs
