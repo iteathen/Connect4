@@ -124,6 +124,20 @@ current_algorithmic_core:
     total_unrestricted_Connect4_zero_fanout_solution_found: false
     runtime_research_success_gate: false
     original_experimental_caps_are_safety_only: true
+  board_domain_policy_20261017:
+    owner_directive: docs/research/2026-10-17-owner-standard-7x6-geometry-first-zero-branch-domain.md
+    current_primary_board: "W=7, H=6, K=4 standard Connect4"
+    discovery_and_positive_qualification: "Standard 7x6 Connect4 only; literal columns 1..7 and all 69 original winning lines"
+    preserve_symbolic_dimensions_in_math: true
+    symbolic_parameters: ["W", "H", "K"]
+    forbid_implicit_hardcoding_of_dimensions_in_theorems: true
+    retain_event_rank: "N_q(t)=(W-1)*H-ply+r+1"
+    preserve_structural_guards: "original winline incidence, gravity, release resources, parity, terminal-first and response deadlines as functions of W/H/K"
+    historic_small_board_controls: "secondary falsification only, not evidence of 7x6 progress"
+    generalization_to_other_sizes: "later owner-directed phase, after standard 7x6 research has been explored as far as possible"
+    algorithmic_goal_unchanged: "zero strategic fanout; exact unrestricted WDL and complete equally-optimal literal labels"
+    standard_44444: "INCOMPLETE; no unrestricted WDL and all-optimal-set proof"
+
   owner_zero_branch_objective_20261017:
     research_contract: docs/research/2026-10-17-zero-strategic-branching-objective.md
     zero_strategic_fanout_status: OPEN_NOT_DISCOVERED
