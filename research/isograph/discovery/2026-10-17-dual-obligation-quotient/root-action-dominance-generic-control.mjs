@@ -26,7 +26,7 @@ export function runRootDominanceGenericControl(){
   const out=quotientP1RootActionValueObligations(source);
   if(out.status!=='EXACT_SCALAR_VALUE_OBLIGATION_QUOTIENT')throw Error('generic quotient incomplete');
   report.directedGraphsChecked++;
-  if(out.scalarRootValueEvaluationsNotNeeded.length)report.reducedGraphs++;
+  if(out.scalarRootEvaluationsNotNeeded.length)report.reducedGraphs++;
   let validInGraph=0;
   for(let enc=0;enc<81;enc++){
    let tmp=enc,values=[];
