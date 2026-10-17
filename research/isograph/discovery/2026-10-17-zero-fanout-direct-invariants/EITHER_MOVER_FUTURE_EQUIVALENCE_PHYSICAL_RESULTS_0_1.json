@@ -1,0 +1,92 @@
+{
+  "schema": "connect4.either_mover_source_transport_full_future_reference_v0_1",
+  "date": "2026-10-17",
+  "status": "COMPLETE_FULL_SMALL_BOARD_P0_AND_P1_NON_GEOMETRIC_FUTURE_PROGRAM_ISOMORPHISM_PASS",
+  "source": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/either-mover-future-transport.mjs",
+  "independentFullQValidator": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/either-mover-transport-physical-control.mjs",
+  "theorem": "Original source q mover-relative owner contraction and opponent blocker deletion yields exact next residual upsets. With a capacity-height preserving fixed column permutation and pointwise equality of both P0 and P1 future completion upsets after first moves, the entire remaining first-win game is isomorphic under the action bijection for either P0 or P1 to move. A one-way P0 favorable source-upset inequality yields weak full WDL order for both movers. Proof by original exact q cofactor isotony and strict residual-rank induction, without constructing/evaluating alternative game futures.",
+  "sourceConstructorEnumeratesGameFutures": false,
+  "validationUsesFullGameQValuesOnlyAfterFrozenSourceProof": true,
+  "fullGameIndependentControls": [
+    {
+      "board": "4x3 Connect3",
+      "allExactQStates": 3734,
+      "sourceP0States": 1948,
+      "sourceP1States": 1786,
+      "originalFirstActionPairsInspected": 10065,
+      "exactFutureProgramIsomorphismPairs": 161,
+      "P0TurnPairs": 75,
+      "P1TurnPairs": 86,
+      "weakOneWayFullWDLOrders": 556,
+      "independentFutureActionTransportLabelsVerified": 399,
+      "falseRootValueEquality": 0,
+      "falseWeakWDLOrder": 0,
+      "falseFutureActionTransport": 0,
+      "sourceProofOperations": 540514,
+      "firstP0NonreflectionExample": {
+        "sourceHeights": [
+          3,
+          1,
+          1,
+          3
+        ],
+        "firstActionsOneBased": [
+          2,
+          3
+        ],
+        "futureActionPermutationOneBased": [
+          1,
+          3,
+          2,
+          4
+        ],
+        "referenceWDL": 0
+      }
+    },
+    {
+      "board": "4x4 Connect4",
+      "allExactQStates": 34094,
+      "sourceP0States": 17144,
+      "sourceP1States": 16950,
+      "originalFirstActionPairsInspected": 107254,
+      "exactFutureProgramIsomorphismPairs": 4691,
+      "P0TurnPairs": 2411,
+      "P1TurnPairs": 2280,
+      "weakOneWayFullWDLOrders": 7182,
+      "independentFutureActionTransportLabelsVerified": 13276,
+      "falseRootValueEquality": 0,
+      "falseWeakWDLOrder": 0,
+      "falseFutureActionTransport": 0,
+      "sourceProofOperations": 3994149,
+      "firstP0NonreflectionExample": {
+        "sourceHeights": [
+          4,
+          4,
+          3,
+          3
+        ],
+        "firstActionsOneBased": [
+          3,
+          4
+        ],
+        "futureActionPermutationOneBased": [
+          1,
+          2,
+          4,
+          3
+        ],
+        "referenceWDL": 0
+      }
+    }
+  ],
+  "maxCompilePerSource": {
+    "bitsetOperations": 300000,
+    "maxMs": 15000,
+    "nodeLimit": 60000,
+    "supportRepresentatives": 10000
+  },
+  "confirmedExactForP1AndP0": true,
+  "full44444WDLAndCompleteBestActionSet": "UNKNOWN",
+  "authorityPromoted": false,
+  "merged": false
+}
