@@ -522,3 +522,22 @@ Full proof/literature audit:
 Still OPEN: unrestricted perfect-play WDL after `44444`,
 all turn7 WDL-equivalence, polynomial arbitrary-depth composition
 and full computational branch elimination.
+
+
+## 2026-10-16 — closed rectangles exact; canonical maximal basis REJECTED for compression
+
+A new local theorem (Galois closure) recovers every finite action-labelled P0-response/P1-reply binary relation as the union of **all maximal all-one rectangles**, without exchanging `forall reply exists action` and `exists action forall reply`. This is an exact fixed-relation law, not an unrestricted game-WDL theorem.
+
+Executable producer and exhaustively tested standalone control:
+`research/isograph/discovery/2026-10-16-algorithmic-core/adaptive-galois-factor.mjs`,
+`adaptive-galois-factor-control.mjs`,
+`ADAPTIVE_GALOIS_FACTOR_RESULTS_0_1.json`.
+All 65,536 four-action matrices and their 1,048,576 reply-legality quantifier controls agree exactly; 100 seeded 7-action relations also pass. The source and control were independently rerun on local Node22 with Git blob identity verified.
+
+**Negative compression finding:** legal `223` has three *minimal Boolean-rank* rectangles but four *maximal Galois concepts*. On 32,916 of 65,536 4x4 matrices the maximal concept basis exceeds the number of distinct action row types; a 7x7 control reaches 29 concepts from seven rows. Therefore **do not use enumeration of every maximal concept as the default recursive adaptive-cover normal form**. This does not disprove a smaller selected biclique cover, conditional independent factorization, or another compact strategy interface.
+
+**Next candidate:** derive a full first-win/legality-guarded bounded action-threshold QBF with a sound dependency poset, then seek a trunk-aligned tree decomposition permitting the mixed Q-resolution / strategy-extension algorithm of Ganian–Gründel (SAT 2026, DOI 10.4230/LIPIcs.SAT.2026.16). A source hypergraph min-fill width-15 upper bound is not the quantified CNF's bilateral width. For a sound hybrid with source-factored structured DNNF, verify action-dependency localization before removing any universal/existential interaction.
+
+Primary mathematical derivation and hierarchy:
+`docs/research/2026-10-16-bilateral-treewidth-and-galois-response-closures.md`.
+Canonical `44444` full W/D/L, seven-reply equivalence and deep branchless composition stay **OPEN**. No authority/implementation promotion.
