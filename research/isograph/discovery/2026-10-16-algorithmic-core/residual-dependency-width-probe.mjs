@@ -5,8 +5,10 @@
 //
 // The primal graph has one vertex for each unoccupied board cell, and an
 // undirected edge iff two future cells occur in one normalized residual
-// requirement (either player). Graph connectedness forbids a trivial
-// zero-boundary AND-factorization of all source residual clauses.
+// requirement (either player). Graph connectedness precludes only
+// splitting the GIVEN residual hyperedges into disjoint variable components;
+// a logically equivalent factorization could still exist after algebraic
+// rewriting. The primal graph is NOT an exact quantifier-dependency graph.
 //
 // Greedy min-fill elimination width is an UPPER BOUND on graph treewidth,
 // NOT a proven optimal treewidth, and not a bound on quantified Bellman
