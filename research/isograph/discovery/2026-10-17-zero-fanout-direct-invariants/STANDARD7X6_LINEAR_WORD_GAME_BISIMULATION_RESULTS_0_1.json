@@ -1,0 +1,157 @@
+{
+  "schema": "connect4.standard7x6.linear_word_game_bisimulation_v0_1",
+  "date": "2026-10-17",
+  "status": "PASS_TRUE_STANDARD7X6_EXACT_LINEAR_WORD_AND_LINKED_TAPE_SOURCE_GAME_REPRESENTATION",
+  "math": "docs/research/2026-10-17-exact-linear-word-unfolding-of-7x6-gravity-game.md",
+  "wordProducer": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-linked-linear-word-game.mjs",
+  "wordSourceExactGitBlob": "c567d28038725e3d42b881b5abdde80af78bcd74",
+  "ribbonProducer": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-four-ribbon-source-lift.mjs",
+  "ribbonExactGitBlob": "92bb2ba4569606e7f7382f78edcf6b4684302331",
+  "independentControl": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-linear-word-game-independent-control.mjs",
+  "controlExactGitBlob": "80c7582b5b2ec27098ee58b6f6f43fcf4e3d8138",
+  "qualifiedQReference": "research/isograph/discovery/2026-10-16-algorithmic-core/exact-q-core.mjs",
+  "qualifiedQReferenceExactGitBlob": "6b25d0e2560fe4131d2f5442593e9ed9763c1a18",
+  "runtime": "Frozen exact repository JavaScript source fetched and executed in isolated V8; approximately 30.9 seconds; not maintained Node26 full CI or external proof assistant",
+  "board": {
+    "W": 7,
+    "H": 6,
+    "K": 4,
+    "physicalEventCells": 42,
+    "geometricWinningLineWindows": 69
+  },
+  "linearRepresentation": {
+    "alphabet": "literal current column labels 1..7 with per-column remaining multiplicity H-h_c",
+    "oneMove": "append one legal column symbol to linear word; j-th occurrence fills column row h_c+j-1",
+    "tapeLength": 204,
+    "tapeSegments": 37,
+    "delimiterSlots": 36,
+    "tapePhysicalCellOccurrences": 168,
+    "originalGeometricKWindows": 69,
+    "physicalAliasCopiesEachEvent": 4,
+    "allWinIntervalsSingleContiguousWithinOneSegment": true,
+    "crossStrandCopiesLinkedByOriginalPhysicalCellIdentity": true
+  },
+  "tests": {
+    "genuineLegalFirstWinStoppedPhysicalSources": 10948,
+    "onePlyLegalLiteralActionComparisons": 62725,
+    "firstWinTerminalTokensCompared": 7164,
+    "nonWinningFullBoardDrawTokensCompared": 93,
+    "nonterminalExactQSuccessorMatches": 55468,
+    "physicalGridFirstWinComparisons": 62725,
+    "fixedHypotheticalCompleteGravityWordSourceQXorPayoffMatchesIndependentPhysicalFirstWin": 4398,
+    "wrongSourceTransitionOrTerminalOrFirstWinOrDraw": 0,
+    "sourceStrategicFutureWDLQueries": 0
+  },
+  "canonical": [
+    {
+      "history": "44444",
+      "ply": 5,
+      "sourceResidualGenerators": [
+        48,
+        42
+      ],
+      "remainingPerColumn": [
+        6,
+        6,
+        6,
+        1,
+        6,
+        6,
+        6
+      ],
+      "legalNextSymbols": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    {
+      "history": "444444",
+      "ply": 6,
+      "sourceResidualGenerators": [
+        42,
+        42
+      ],
+      "remainingPerColumn": [
+        6,
+        6,
+        6,
+        0,
+        6,
+        6,
+        6
+      ],
+      "legalNextSymbols": [
+        1,
+        2,
+        3,
+        5,
+        6,
+        7
+      ]
+    },
+    {
+      "history": "444441",
+      "ply": 6,
+      "sourceResidualGenerators": [
+        46,
+        40
+      ],
+      "remainingPerColumn": [
+        5,
+        6,
+        6,
+        1,
+        6,
+        6,
+        6
+      ],
+      "legalNextSymbols": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    {
+      "history": "4444442",
+      "ply": 7,
+      "sourceResidualGenerators": [
+        39,
+        41
+      ],
+      "remainingPerColumn": [
+        6,
+        5,
+        6,
+        0,
+        6,
+        6,
+        6
+      ],
+      "legalNextSymbols": [
+        1,
+        2,
+        3,
+        5,
+        6,
+        7
+      ]
+    }
+  ],
+  "proofStatus": "Conjugacy of each original literal placement with bounded-word append follows from occupied count + per-symbol occurrence rank + exact original owner contraction/opponent blocker deletion + first-win terminal guards; independent real7x6 source checks agree in all sampled cases. This is a represented FULL future game isomorphism for each q because every action transition/terminal preserves semantics, not a direct value calculation.",
+  "limitations": [
+    "Continuations still offer several inequivalent possible next column symbols, so the source has NOT eliminated branching as required for full WDL and all equally optimal columns.",
+    "Hypothetical full words used for fixed-schedule payoff controls are validation only and may extend beyond first win counterfactually.",
+    "To avoid altering the game, all four tape occurrences of each cell share a single event; dropping equality wires or ignoring cross-center surviving residuals is false.",
+    "Still no direct source formula producing the two complete Boolean strategic zero-loci for arbitrary 7x6 positions; canonical 44444 unrestricted exact (V,M*) UNKNOWN.",
+    "No generalization to non-7x6 tested, although all production formulas retain W/H/K symbols."
+  ]
+}
