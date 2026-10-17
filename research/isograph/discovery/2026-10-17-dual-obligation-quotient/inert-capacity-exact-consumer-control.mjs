@@ -87,7 +87,9 @@ export function runInertCapacityConsumerControl({geometry={width:4,height:3,conn
   stats.independentlyReferenceStates=ref.stats.uniqueStates;
   stats.independentlyReferenceTransitions=ref.stats.transitions;
   const stringify=x=>JSON.stringify(x);
-  if(stringify(candidate)!==stringify(ref.answer)){
+  if(candidate.value!==ref.answer.value||
+     stringify(candidate.actionValues)!==stringify(ref.answer.actionValues)||
+     stringify(candidate.bestMoves)!==stringify(ref.answer.bestMoves)){
    stats.falseValueOrActionVectorResults++;
    throw Error('root full WDL + best/action values disagree');
   }
