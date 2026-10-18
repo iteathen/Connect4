@@ -29,3 +29,16 @@ The SOURCE producer may call the already-frozen `createSourceFractionalTransvers
 **Important scope:** no maximum win-distance or prolonged-loss timing is established. All losses tie at Level2, whereas Level3 preferences could differ. Simply computing physical p capacity and o edge count is NOT a valid certificate without the fractional per-cell packing admissibility. All static candidate λ weights and denominator attempts are proof-construction work, not strategic future-game value search.
 
 **Original7×6 independently controlled experiment to follow:** source q from genuine legal first-win-stopped physical histories (including long, full-column cases). For every positive source, independent physical recursive minimax on late ranks MUST give current-mover loss for the root and each original legal first action (selected sample), including no early draws. Record coverage and all 69 original lines, no use of search results in source producer. Failure to find sources is sample-negative not a theorem error. Root canonical `44444` unrestricted value and Level2 remain UNKNOWN unless newly proved by original source.
+
+
+## Executed independent standard 7×6 physical conformance
+
+Frozen source implementation `research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-inevitable-loss-source-dual-packing.mjs`, independent physical reference `standard7x6-inevitable-loss-packing-independent-physical-control.mjs`, machine evidence `STANDARD7X6_INEVITABLE_LOSS_ANY_BEST_MOVE_SOURCE_RESULTS_0_1.json`.
+
+From 1,600 non-winning true original 7×6 physical game trajectories and **16,168** tested genuine late (rank≥28) nonterminal source states, the current mover had NO viable original win requirement at **427** roots. The independently frozen rational original opponent-win hypergraph packing source successfully proved opponent inevitable FIRST WIN at **17** of those roots, with a total of **30** original literal legal first actions (11 sources offered at least two alternatives). Source output contains **all legal first actions as equally Level2 best in LOSS tier**, so selecting any one is a valid continuation.
+
+The independent PHYSICAL first-win-stopped full recursive reference checked **all 17 roots plus all 30 original literal first-action values**: every root was current-mover forced LOSS and every action also LOSS, with ZERO scalar or label disagreements.
+
+**Concrete evidence:** original legal 7×6 first-win-stopped history `46525656251511547372472721217733633364` on rank38, P0 to move. Original current-mover R0 is empty. Opponent P1 has three disjoint residual winning requirements, giving an integral packing numerator 3 at denominator 1, while P0 has only TWO blocking turns left. Therefore P1 MUST first-win under every opponent play, so P0 columns {1,4,6} are all Level2 best LOSS continuations. No faster/longer loss time was calculated, and this does not claim those moves are Level3 equivalent.
+
+These are historical fractional-transversal theorem ingredients applied to the latest owner single-continuation Level2 output contract, not a new general fractional packing theorem or a claim of incremental source coverage over every existing proof family.
