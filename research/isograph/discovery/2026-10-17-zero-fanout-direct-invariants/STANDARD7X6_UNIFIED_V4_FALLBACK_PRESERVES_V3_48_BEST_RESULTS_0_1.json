@@ -1,0 +1,30 @@
+{
+  "schema": "connect4.true7x6.unified_source_v4_existing_scalar_free_best_preservation_v0_1",
+  "date": "2026-10-17",
+  "status": "PASS_COMPACT_CHECKPOINT_EXECUTED_ISOLATED_V8_TRUE7X6_PHYSICAL_COMPARISON",
+  "provenanceNote": "Compact metrics captured from preceding successfully executed frozen physical control; not the full raw test JSON. Exact executable blob and methods provided.",
+  "sourceV4": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-unified-one-valid-best-action-source-v4.mjs",
+  "sourceV4Blob": "462cead38be227dcb3659c0d99b2fd1779a8d256",
+  "sourceV3Blob": "07b5d83bd3ebc25b768bcd2b45618989a165d3db",
+  "frozenOriginalPhysicalControl": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-unified-v4-qualitative-fallback-preservation-physical-control.mjs",
+  "physicalControlGitBlob": "e1da57765a0e42ef90fa3bc8b7a5c6ee4e3b30f1",
+  "physicalGame": "Original standard W=7 H=6 K=4, first-win-stopped real legal history",
+  "comparison": {
+    "previousV3CertifiedRootsChecked": 48,
+    "V4RetainedOldExactScalarMoveAndRoot": 37,
+    "V4RetainedOldUnknownScalarBestMoveRoot": 11,
+    "V4DirectNoPermutationProofOnAll11UnknownScalarCases": 11,
+    "V4StaticPermutationTransportFallbackOnTestedPositiveRoots": 0,
+    "V4LostPriorBestMoveCertificates": 0,
+    "physicalV4OriginalSelectedFirstActionWDLMismatches": 0,
+    "independentPhysicalSelectedFirstActionsChecked": 48
+  },
+  "limitations": [
+    "The fact no enumerated transport was required among these 48 late sampled positive roots does NOT show enumerated fallback is unnecessary on all legal original 7x6 positions.",
+    "Source fixed transposition only handles equal-height first-action pairs; fallback remains for any exact original source order outside that class.",
+    "48 physically checked positions are from an earlier nonuniform 1300-trajectory corpus and overlap earlier 86-root V4 comparison; not additive.",
+    "Source never values competing strategic future games; independent physical minimax reference is deliberately branching and run after source result.",
+    "Value UNKNOWN/null is explicitly retained on 11 scalar-free V3/V4 certified best actions, not converted to fabricated DRAW/LOSS.",
+    "Node26 CI and external proof assistant not executed; IsoGraph logic authority 1.2 unchanged."
+  ]
+}
