@@ -64,7 +64,7 @@ export function createGradientCutInterface({width:W,height:H,connect:K}){
  function normalizePairs(family,L){
   // Global residual normalization is mandatory. One-sided normalization
   // would destroy the paired left/right source-line relation.
-  const masks=norm(family.map(g=>g.left|g.right));
+  const masks=norm(family);
   return masks.map(mask=>{
    const parts=split(mask,L);
    return {...parts};
