@@ -51,7 +51,16 @@ export function createOddSpareColCoReleaseNoWin({width:W,height:H,connect:K}){
     stats.sourceStaticMatchingCandidateSetsConstructed++;
     result=matcher.prove(heights,own,{
       maxOperations,maxMs,maxStaticWitnessStates});
-   }catch(e){throw e;}
+   }catch(e){
+    // Existing matcher can throw this resource guard DURING its static
+    // block-candidate construction (before its DFS catch); this is
+    // UNKNOWN source proof, never a negative strategic result.
+    if(/^CO_RELEASE_PAIR_.*_LIMIT$/.test(String(e.message))){
+      stats.sourceStaticProofResourceIncomplete++;
+      continue;
+    }
+    throw e;
+   }
    stats.sourceStaticBlockMatchingWorkOps+=result.statistics?.sourceOperations??0;
    stats.sourceStaticBlockRepresentativesVisited+=
     result.statistics?.staticColumnPartitionProofStates??0;
