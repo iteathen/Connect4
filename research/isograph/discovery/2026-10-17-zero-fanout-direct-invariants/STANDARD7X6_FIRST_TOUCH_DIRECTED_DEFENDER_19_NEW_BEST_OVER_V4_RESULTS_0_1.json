@@ -1,0 +1,978 @@
+{
+  "schema": "connect4.standard7x6.source_first_touch_directed_blocker_physical_v0_1",
+  "testDate": "2026-10-18",
+  "board": {
+    "W": 7,
+    "H": 6,
+    "K": 4,
+    "originalWinlines": 69
+  },
+  "seed": 294601324,
+  "physicalNonwinningHistories": 2700,
+  "realPhysicalNonterminalSourcesSeen": 89354,
+  "realSourceQChecked": 49023,
+  "realSourceQOwnerLiveGensNonempty": 48393,
+  "sourceGuardSuccessfulRoots": 295,
+  "sourceGuardFailedRoots": 48728,
+  "sourceWithAtLeastTwoCurrentLegalMoves": 257,
+  "sourceDirectedRepeatedBlockerTargets": 84,
+  "sourceVerticalSuccessorResponseMaps": 288,
+  "sourceOriginalFrontierResponseMaps": 298,
+  "originalPhysicalAttackerChoicesTested": 314,
+  "physicalAdversarialPChoicesDFSNodes": 1725,
+  "completeAdversarialPPolicyDFSRoots": 288,
+  "boundedSourcePhysicalDFSRoots": 0,
+  "physicalDefenderSuccessfulReplies": 1701,
+  "physicallyPlayedVerticalSuccessorReplies": 262,
+  "physicallyPlayedFrontierReplies": 167,
+  "physicallyChosenIdleDefenderReplies": 1272,
+  "physicalOwnerWinDetectedAfterSourceProof": 0,
+  "physicalIllegalDefenderReplyDetected": 0,
+  "physicalOriginalGateTouchNotCoveredBySourceMap": 0,
+  "independentFullPhysicalMinimaxRootChecks": 90,
+  "independentPhysicalMinimaxStates": 2801,
+  "independentPhysicalMinimaxCalls": 5457,
+  "physicallyWrongNoForceWinRoot": 0,
+  "sourceNoGameWDLQueries": 0,
+  "canonical": [
+    {
+      "history": "",
+      "ply": 0,
+      "status": "INCOMPLETE",
+      "reason": "AT_LEAST_ONE_ORIGINAL_FIRST_TOUCH_GATE_WITHOUT_COMMON_GRAVITY_SAFE_REPLY",
+      "sourceGateStats": {
+        "sourceCurrentRank": 0,
+        "sourceOriginalPlayer": 0,
+        "sourceOpponent": 1,
+        "originalOwnerViableWinRequirements": 69,
+        "originalFuturePhysicalCells": 42,
+        "sourceGateIncidences": 213,
+        "sourceGateCellsWithRequirements": 42,
+        "originalResidualBitIntersectionOps": 213,
+        "staticCandidateGravityReleaseTests": 336,
+        "gateCellsWithCommonOneMoveBlockers": 0,
+        "gateCellsOnlyWithVerticalSuccessor": 0,
+        "gateCellsOnlyWithOriginalRootFrontier": 0,
+        "gateCellsWithNeitherSafeOneMoveBlocker": 42,
+        "sourceProducedSharedDirectedResponseTargets": 0,
+        "sourceCompletePhysicalCellPairsEnumerated": 0,
+        "sourceStrategyTreeNodesOrGameQSuccessors": 0,
+        "sourceIndependentStrategicFutureGameValues": 0,
+        "sourceAdaptivePolicySpecificPrecomputedResponseCount": 0
+      }
+    },
+    {
+      "history": "4",
+      "ply": 1,
+      "status": "INCOMPLETE",
+      "reason": "AT_LEAST_ONE_ORIGINAL_FIRST_TOUCH_GATE_WITHOUT_COMMON_GRAVITY_SAFE_REPLY",
+      "sourceGateStats": {
+        "sourceCurrentRank": 1,
+        "sourceOriginalPlayer": 1,
+        "sourceOpponent": 0,
+        "originalOwnerViableWinRequirements": 62,
+        "originalFuturePhysicalCells": 41,
+        "sourceGateIncidences": 188,
+        "sourceGateCellsWithRequirements": 41,
+        "originalResidualBitIntersectionOps": 188,
+        "staticCandidateGravityReleaseTests": 328,
+        "gateCellsWithCommonOneMoveBlockers": 0,
+        "gateCellsOnlyWithVerticalSuccessor": 0,
+        "gateCellsOnlyWithOriginalRootFrontier": 0,
+        "gateCellsWithNeitherSafeOneMoveBlocker": 41,
+        "sourceProducedSharedDirectedResponseTargets": 0,
+        "sourceCompletePhysicalCellPairsEnumerated": 0,
+        "sourceStrategyTreeNodesOrGameQSuccessors": 0,
+        "sourceIndependentStrategicFutureGameValues": 0,
+        "sourceAdaptivePolicySpecificPrecomputedResponseCount": 0
+      }
+    },
+    {
+      "history": "44444",
+      "ply": 5,
+      "status": "INCOMPLETE",
+      "reason": "AT_LEAST_ONE_ORIGINAL_FIRST_TOUCH_GATE_WITHOUT_COMMON_GRAVITY_SAFE_REPLY",
+      "sourceGateStats": {
+        "sourceCurrentRank": 5,
+        "sourceOriginalPlayer": 1,
+        "sourceOpponent": 0,
+        "originalOwnerViableWinRequirements": 42,
+        "originalFuturePhysicalCells": 37,
+        "sourceGateIncidences": 96,
+        "sourceGateCellsWithRequirements": 35,
+        "originalResidualBitIntersectionOps": 96,
+        "staticCandidateGravityReleaseTests": 280,
+        "gateCellsWithCommonOneMoveBlockers": 8,
+        "gateCellsOnlyWithVerticalSuccessor": 4,
+        "gateCellsOnlyWithOriginalRootFrontier": 4,
+        "gateCellsWithNeitherSafeOneMoveBlocker": 27,
+        "sourceProducedSharedDirectedResponseTargets": 3,
+        "sourceCompletePhysicalCellPairsEnumerated": 0,
+        "sourceStrategyTreeNodesOrGameQSuccessors": 0,
+        "sourceIndependentStrategicFutureGameValues": 0,
+        "sourceAdaptivePolicySpecificPrecomputedResponseCount": 8
+      }
+    },
+    {
+      "history": "444444",
+      "ply": 6,
+      "status": "INCOMPLETE",
+      "reason": "AT_LEAST_ONE_ORIGINAL_FIRST_TOUCH_GATE_WITHOUT_COMMON_GRAVITY_SAFE_REPLY",
+      "sourceGateStats": {
+        "sourceCurrentRank": 6,
+        "sourceOriginalPlayer": 0,
+        "sourceOpponent": 1,
+        "originalOwnerViableWinRequirements": 42,
+        "originalFuturePhysicalCells": 36,
+        "sourceGateIncidences": 90,
+        "sourceGateCellsWithRequirements": 32,
+        "originalResidualBitIntersectionOps": 90,
+        "staticCandidateGravityReleaseTests": 224,
+        "gateCellsWithCommonOneMoveBlockers": 2,
+        "gateCellsOnlyWithVerticalSuccessor": 2,
+        "gateCellsOnlyWithOriginalRootFrontier": 0,
+        "gateCellsWithNeitherSafeOneMoveBlocker": 30,
+        "sourceProducedSharedDirectedResponseTargets": 0,
+        "sourceCompletePhysicalCellPairsEnumerated": 0,
+        "sourceStrategyTreeNodesOrGameQSuccessors": 0,
+        "sourceIndependentStrategicFutureGameValues": 0,
+        "sourceAdaptivePolicySpecificPrecomputedResponseCount": 2
+      }
+    },
+    {
+      "history": "444441",
+      "ply": 6,
+      "status": "INCOMPLETE",
+      "reason": "AT_LEAST_ONE_ORIGINAL_FIRST_TOUCH_GATE_WITHOUT_COMMON_GRAVITY_SAFE_REPLY",
+      "sourceGateStats": {
+        "sourceCurrentRank": 6,
+        "sourceOriginalPlayer": 0,
+        "sourceOpponent": 1,
+        "originalOwnerViableWinRequirements": 46,
+        "originalFuturePhysicalCells": 36,
+        "sourceGateIncidences": 110,
+        "sourceGateCellsWithRequirements": 36,
+        "originalResidualBitIntersectionOps": 110,
+        "staticCandidateGravityReleaseTests": 288,
+        "gateCellsWithCommonOneMoveBlockers": 6,
+        "gateCellsOnlyWithVerticalSuccessor": 2,
+        "gateCellsOnlyWithOriginalRootFrontier": 4,
+        "gateCellsWithNeitherSafeOneMoveBlocker": 30,
+        "sourceProducedSharedDirectedResponseTargets": 3,
+        "sourceCompletePhysicalCellPairsEnumerated": 0,
+        "sourceStrategyTreeNodesOrGameQSuccessors": 0,
+        "sourceIndependentStrategicFutureGameValues": 0,
+        "sourceAdaptivePolicySpecificPrecomputedResponseCount": 6
+      }
+    },
+    {
+      "history": "4444442",
+      "ply": 7,
+      "status": "INCOMPLETE",
+      "reason": "AT_LEAST_ONE_ORIGINAL_FIRST_TOUCH_GATE_WITHOUT_COMMON_GRAVITY_SAFE_REPLY",
+      "sourceGateStats": {
+        "sourceCurrentRank": 7,
+        "sourceOriginalPlayer": 1,
+        "sourceOpponent": 0,
+        "originalOwnerViableWinRequirements": 41,
+        "originalFuturePhysicalCells": 35,
+        "sourceGateIncidences": 89,
+        "sourceGateCellsWithRequirements": 33,
+        "originalResidualBitIntersectionOps": 89,
+        "staticCandidateGravityReleaseTests": 231,
+        "gateCellsWithCommonOneMoveBlockers": 3,
+        "gateCellsOnlyWithVerticalSuccessor": 3,
+        "gateCellsOnlyWithOriginalRootFrontier": 0,
+        "gateCellsWithNeitherSafeOneMoveBlocker": 30,
+        "sourceProducedSharedDirectedResponseTargets": 0,
+        "sourceCompletePhysicalCellPairsEnumerated": 0,
+        "sourceStrategyTreeNodesOrGameQSuccessors": 0,
+        "sourceIndependentStrategicFutureGameValues": 0,
+        "sourceAdaptivePolicySpecificPrecomputedResponseCount": 3
+      }
+    }
+  ],
+  "positiveExamples": [
+    {
+      "history": "4537216642355157344414222763266111733776",
+      "ply": 40,
+      "p": 0,
+      "legal": [
+        5
+      ],
+      "originalOwnerResiduals": 1,
+      "sourceGateCellCount": 1,
+      "sourceSharedDirectedBlockerTargets": 0,
+      "originalResponsePlan": [
+        {
+          "attackedPhysicalCellID": 32,
+          "attackerLiteralColumn": 5,
+          "attackerRowZeroBased": 4,
+          "safeDefenderPhysicalCellID": 39,
+          "defenderLiteralColumn": 5,
+          "defenderRowZeroBased": 5,
+          "sourceResponseKind": "VERTICAL_SUCCESSOR",
+          "originalRequirementIndexes": [
+            0
+          ],
+          "originalSourceCommonIntersectionHex": "0x8000000000",
+          "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+        }
+      ]
+    },
+    {
+      "history": "32377422217472574517561264114646535",
+      "ply": 35,
+      "p": 1,
+      "legal": [
+        1,
+        3,
+        5,
+        6
+      ],
+      "originalOwnerResiduals": 2,
+      "sourceGateCellCount": 2,
+      "sourceSharedDirectedBlockerTargets": 0,
+      "originalResponsePlan": [
+        {
+          "attackedPhysicalCellID": 23,
+          "attackerLiteralColumn": 3,
+          "attackerRowZeroBased": 3,
+          "safeDefenderPhysicalCellID": 30,
+          "defenderLiteralColumn": 3,
+          "defenderRowZeroBased": 4,
+          "sourceResponseKind": "VERTICAL_SUCCESSOR",
+          "originalRequirementIndexes": [
+            1
+          ],
+          "originalSourceCommonIntersectionHex": "0x2040000000",
+          "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+        },
+        {
+          "attackedPhysicalCellID": 33,
+          "attackerLiteralColumn": 6,
+          "attackerRowZeroBased": 4,
+          "safeDefenderPhysicalCellID": 40,
+          "defenderLiteralColumn": 6,
+          "defenderRowZeroBased": 5,
+          "sourceResponseKind": "VERTICAL_SUCCESSOR",
+          "originalRequirementIndexes": [
+            0
+          ],
+          "originalSourceCommonIntersectionHex": "0x10000000000",
+          "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+        }
+      ]
+    },
+    {
+      "history": "72331443173433212671742174426626566557",
+      "ply": 38,
+      "p": 0,
+      "legal": [
+        1,
+        5
+      ],
+      "originalOwnerResiduals": 1,
+      "sourceGateCellCount": 1,
+      "sourceSharedDirectedBlockerTargets": 0,
+      "originalResponsePlan": [
+        {
+          "attackedPhysicalCellID": 25,
+          "attackerLiteralColumn": 5,
+          "attackerRowZeroBased": 3,
+          "safeDefenderPhysicalCellID": 32,
+          "defenderLiteralColumn": 5,
+          "defenderRowZeroBased": 4,
+          "sourceResponseKind": "VERTICAL_SUCCESSOR",
+          "originalRequirementIndexes": [
+            0
+          ],
+          "originalSourceCommonIntersectionHex": "0x8100000000",
+          "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+        }
+      ]
+    },
+    {
+      "history": "5216133242745444742352237663377765",
+      "ply": 34,
+      "p": 0,
+      "legal": [
+        1,
+        5,
+        6
+      ],
+      "originalOwnerResiduals": 2,
+      "sourceGateCellCount": 2,
+      "sourceSharedDirectedBlockerTargets": 0,
+      "originalResponsePlan": [
+        {
+          "attackedPhysicalCellID": 14,
+          "attackerLiteralColumn": 1,
+          "attackerRowZeroBased": 2,
+          "safeDefenderPhysicalCellID": 21,
+          "defenderLiteralColumn": 1,
+          "defenderRowZeroBased": 3,
+          "sourceResponseKind": "VERTICAL_SUCCESSOR",
+          "originalRequirementIndexes": [
+            0
+          ],
+          "originalSourceCommonIntersectionHex": "0x200000",
+          "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+        },
+        {
+          "attackedPhysicalCellID": 33,
+          "attackerLiteralColumn": 6,
+          "attackerRowZeroBased": 4,
+          "safeDefenderPhysicalCellID": 40,
+          "defenderLiteralColumn": 6,
+          "defenderRowZeroBased": 5,
+          "sourceResponseKind": "VERTICAL_SUCCESSOR",
+          "originalRequirementIndexes": [
+            1
+          ],
+          "originalSourceCommonIntersectionHex": "0x10000000000",
+          "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+        }
+      ]
+    },
+    {
+      "history": "521613324274544474235223766337776566",
+      "ply": 36,
+      "p": 0,
+      "legal": [
+        1,
+        5
+      ],
+      "originalOwnerResiduals": 1,
+      "sourceGateCellCount": 1,
+      "sourceSharedDirectedBlockerTargets": 0,
+      "originalResponsePlan": [
+        {
+          "attackedPhysicalCellID": 14,
+          "attackerLiteralColumn": 1,
+          "attackerRowZeroBased": 2,
+          "safeDefenderPhysicalCellID": 21,
+          "defenderLiteralColumn": 1,
+          "defenderRowZeroBased": 3,
+          "sourceResponseKind": "VERTICAL_SUCCESSOR",
+          "originalRequirementIndexes": [
+            0
+          ],
+          "originalSourceCommonIntersectionHex": "0x200000",
+          "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+        }
+      ]
+    },
+    {
+      "history": "4135544142374476767353261223352166215",
+      "ply": 37,
+      "p": 1,
+      "legal": [
+        1,
+        5,
+        6,
+        7
+      ],
+      "originalOwnerResiduals": 1,
+      "sourceGateCellCount": 3,
+      "sourceSharedDirectedBlockerTargets": 1,
+      "originalResponsePlan": [
+        {
+          "attackedPhysicalCellID": 39,
+          "attackerLiteralColumn": 5,
+          "attackerRowZeroBased": 5,
+          "safeDefenderPhysicalCellID": 40,
+          "defenderLiteralColumn": 6,
+          "defenderRowZeroBased": 5,
+          "sourceResponseKind": "INDEPENDENT_ORIGINAL_FRONTIER",
+          "originalRequirementIndexes": [
+            0
+          ],
+          "originalSourceCommonIntersectionHex": "0x30000000000",
+          "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+        },
+        {
+          "attackedPhysicalCellID": 40,
+          "attackerLiteralColumn": 6,
+          "attackerRowZeroBased": 5,
+          "safeDefenderPhysicalCellID": 39,
+          "defenderLiteralColumn": 5,
+          "defenderRowZeroBased": 5,
+          "sourceResponseKind": "INDEPENDENT_ORIGINAL_FRONTIER",
+          "originalRequirementIndexes": [
+            0
+          ],
+          "originalSourceCommonIntersectionHex": "0x28000000000",
+          "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+        },
+        {
+          "attackedPhysicalCellID": 41,
+          "attackerLiteralColumn": 7,
+          "attackerRowZeroBased": 5,
+          "safeDefenderPhysicalCellID": 39,
+          "defenderLiteralColumn": 5,
+          "defenderRowZeroBased": 5,
+          "sourceResponseKind": "INDEPENDENT_ORIGINAL_FRONTIER",
+          "originalRequirementIndexes": [
+            0
+          ],
+          "originalSourceCommonIntersectionHex": "0x18000000000",
+          "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+        }
+      ]
+    },
+    {
+      "history": "25446213547166644164565531775272",
+      "ply": 32,
+      "p": 0,
+      "legal": [
+        1,
+        2,
+        3,
+        7
+      ],
+      "originalOwnerResiduals": 2,
+      "sourceGateCellCount": 4,
+      "sourceSharedDirectedBlockerTargets": 1,
+      "originalResponsePlan": [
+        {
+          "attackedPhysicalCellID": 16,
+          "attackerLiteralColumn": 3,
+          "attackerRowZeroBased": 2,
+          "safeDefenderPhysicalCellID": 23,
+          "defenderLiteralColumn": 3,
+          "defenderRowZeroBased": 3,
+          "sourceResponseKind": "VERTICAL_SUCCESSOR",
+          "originalRequirementIndexes": [
+            0
+          ],
+          "originalSourceCommonIntersectionHex": "0x40800000",
+          "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+        },
+        {
+          "attackedPhysicalCellID": 28,
+          "attackerLiteralColumn": 1,
+          "attackerRowZeroBased": 4,
+          "safeDefenderPhysicalCellID": 29,
+          "defenderLiteralColumn": 2,
+          "defenderRowZeroBased": 4,
+          "sourceResponseKind": "INDEPENDENT_ORIGINAL_FRONTIER",
+          "originalRequirementIndexes": [
+            1
+          ],
+          "originalSourceCommonIntersectionHex": "0x60000000",
+          "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+        },
+        {
+          "attackedPhysicalCellID": 29,
+          "attackerLiteralColumn": 2,
+          "attackerRowZeroBased": 4,
+          "safeDefenderPhysicalCellID": 28,
+          "defenderLiteralColumn": 1,
+          "defenderRowZeroBased": 4,
+          "sourceResponseKind": "INDEPENDENT_ORIGINAL_FRONTIER",
+          "originalRequirementIndexes": [
+            1
+          ],
+          "originalSourceCommonIntersectionHex": "0x50000000",
+          "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+        },
+        {
+          "attackedPhysicalCellID": 30,
+          "attackerLiteralColumn": 3,
+          "attackerRowZeroBased": 4,
+          "safeDefenderPhysicalCellID": 28,
+          "defenderLiteralColumn": 1,
+          "defenderRowZeroBased": 4,
+          "sourceResponseKind": "INDEPENDENT_ORIGINAL_FRONTIER",
+          "originalRequirementIndexes": [
+            1
+          ],
+          "originalSourceCommonIntersectionHex": "0x30000000",
+          "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+        }
+      ]
+    },
+    {
+      "history": "61545713742524451511663474276652",
+      "ply": 32,
+      "p": 0,
+      "legal": [
+        1,
+        2,
+        3,
+        6,
+        7
+      ],
+      "originalOwnerResiduals": 1,
+      "sourceGateCellCount": 1,
+      "sourceSharedDirectedBlockerTargets": 0,
+      "originalResponsePlan": [
+        {
+          "attackedPhysicalCellID": 16,
+          "attackerLiteralColumn": 3,
+          "attackerRowZeroBased": 2,
+          "safeDefenderPhysicalCellID": 23,
+          "defenderLiteralColumn": 3,
+          "defenderRowZeroBased": 3,
+          "sourceResponseKind": "VERTICAL_SUCCESSOR",
+          "originalRequirementIndexes": [
+            0
+          ],
+          "originalSourceCommonIntersectionHex": "0x40800000",
+          "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+        }
+      ]
+    },
+    {
+      "history": "4414767177553667121711362336533644425222",
+      "ply": 40,
+      "p": 0,
+      "legal": [
+        5
+      ],
+      "originalOwnerResiduals": 1,
+      "sourceGateCellCount": 1,
+      "sourceSharedDirectedBlockerTargets": 0,
+      "originalResponsePlan": [
+        {
+          "attackedPhysicalCellID": 32,
+          "attackerLiteralColumn": 5,
+          "attackerRowZeroBased": 4,
+          "safeDefenderPhysicalCellID": 39,
+          "defenderLiteralColumn": 5,
+          "defenderRowZeroBased": 5,
+          "sourceResponseKind": "VERTICAL_SUCCESSOR",
+          "originalRequirementIndexes": [
+            0
+          ],
+          "originalSourceCommonIntersectionHex": "0x8000000000",
+          "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+        }
+      ]
+    },
+    {
+      "history": "7626672716415551237351531176427532643",
+      "ply": 37,
+      "p": 1,
+      "legal": [
+        2,
+        3,
+        4
+      ],
+      "originalOwnerResiduals": 2,
+      "sourceGateCellCount": 4,
+      "sourceSharedDirectedBlockerTargets": 1,
+      "originalResponsePlan": [
+        {
+          "attackedPhysicalCellID": 24,
+          "attackerLiteralColumn": 4,
+          "attackerRowZeroBased": 3,
+          "safeDefenderPhysicalCellID": 31,
+          "defenderLiteralColumn": 4,
+          "defenderRowZeroBased": 4,
+          "sourceResponseKind": "VERTICAL_SUCCESSOR",
+          "originalRequirementIndexes": [
+            0
+          ],
+          "originalSourceCommonIntersectionHex": "0x4080000000",
+          "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+        },
+        {
+          "attackedPhysicalCellID": 36,
+          "attackerLiteralColumn": 2,
+          "attackerRowZeroBased": 5,
+          "safeDefenderPhysicalCellID": 37,
+          "defenderLiteralColumn": 3,
+          "defenderRowZeroBased": 5,
+          "sourceResponseKind": "INDEPENDENT_ORIGINAL_FRONTIER",
+          "originalRequirementIndexes": [
+            1
+          ],
+          "originalSourceCommonIntersectionHex": "0x6000000000",
+          "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+        },
+        {
+          "attackedPhysicalCellID": 37,
+          "attackerLiteralColumn": 3,
+          "attackerRowZeroBased": 5,
+          "safeDefenderPhysicalCellID": 36,
+          "defenderLiteralColumn": 2,
+          "defenderRowZeroBased": 5,
+          "sourceResponseKind": "INDEPENDENT_ORIGINAL_FRONTIER",
+          "originalRequirementIndexes": [
+            1
+          ],
+          "originalSourceCommonIntersectionHex": "0x5000000000",
+          "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+        },
+        {
+          "attackedPhysicalCellID": 38,
+          "attackerLiteralColumn": 4,
+          "attackerRowZeroBased": 5,
+          "safeDefenderPhysicalCellID": 36,
+          "defenderLiteralColumn": 2,
+          "defenderRowZeroBased": 5,
+          "sourceResponseKind": "INDEPENDENT_ORIGINAL_FRONTIER",
+          "originalRequirementIndexes": [
+            1
+          ],
+          "originalSourceCommonIntersectionHex": "0x3000000000",
+          "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+        }
+      ]
+    },
+    {
+      "history": "1427621765342337722214446633773455565",
+      "ply": 37,
+      "p": 1,
+      "legal": [
+        1,
+        5,
+        6
+      ],
+      "originalOwnerResiduals": 1,
+      "sourceGateCellCount": 2,
+      "sourceSharedDirectedBlockerTargets": 0,
+      "originalResponsePlan": [
+        {
+          "attackedPhysicalCellID": 39,
+          "attackerLiteralColumn": 5,
+          "attackerRowZeroBased": 5,
+          "safeDefenderPhysicalCellID": 40,
+          "defenderLiteralColumn": 6,
+          "defenderRowZeroBased": 5,
+          "sourceResponseKind": "INDEPENDENT_ORIGINAL_FRONTIER",
+          "originalRequirementIndexes": [
+            0
+          ],
+          "originalSourceCommonIntersectionHex": "0x10000000000",
+          "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+        },
+        {
+          "attackedPhysicalCellID": 40,
+          "attackerLiteralColumn": 6,
+          "attackerRowZeroBased": 5,
+          "safeDefenderPhysicalCellID": 39,
+          "defenderLiteralColumn": 5,
+          "defenderRowZeroBased": 5,
+          "sourceResponseKind": "INDEPENDENT_ORIGINAL_FRONTIER",
+          "originalRequirementIndexes": [
+            0
+          ],
+          "originalSourceCommonIntersectionHex": "0x8000000000",
+          "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+        }
+      ]
+    },
+    {
+      "history": "142762176534233772221444663377345556511",
+      "ply": 39,
+      "p": 1,
+      "legal": [
+        1,
+        5,
+        6
+      ],
+      "originalOwnerResiduals": 1,
+      "sourceGateCellCount": 2,
+      "sourceSharedDirectedBlockerTargets": 0,
+      "originalResponsePlan": [
+        {
+          "attackedPhysicalCellID": 39,
+          "attackerLiteralColumn": 5,
+          "attackerRowZeroBased": 5,
+          "safeDefenderPhysicalCellID": 40,
+          "defenderLiteralColumn": 6,
+          "defenderRowZeroBased": 5,
+          "sourceResponseKind": "INDEPENDENT_ORIGINAL_FRONTIER",
+          "originalRequirementIndexes": [
+            0
+          ],
+          "originalSourceCommonIntersectionHex": "0x10000000000",
+          "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+        },
+        {
+          "attackedPhysicalCellID": 40,
+          "attackerLiteralColumn": 6,
+          "attackerRowZeroBased": 5,
+          "safeDefenderPhysicalCellID": 39,
+          "defenderLiteralColumn": 5,
+          "defenderRowZeroBased": 5,
+          "sourceResponseKind": "INDEPENDENT_ORIGINAL_FRONTIER",
+          "originalRequirementIndexes": [
+            0
+          ],
+          "originalSourceCommonIntersectionHex": "0x8000000000",
+          "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+        }
+      ]
+    }
+  ],
+  "firstNonpairingDirectedPolicy": {
+    "history": "4135544142374476767353261223352166215",
+    "ply": 37,
+    "responseMap": [
+      {
+        "attackedPhysicalCellID": 39,
+        "attackerLiteralColumn": 5,
+        "attackerRowZeroBased": 5,
+        "safeDefenderPhysicalCellID": 40,
+        "defenderLiteralColumn": 6,
+        "defenderRowZeroBased": 5,
+        "sourceResponseKind": "INDEPENDENT_ORIGINAL_FRONTIER",
+        "originalRequirementIndexes": [
+          0
+        ],
+        "originalSourceCommonIntersectionHex": "0x30000000000",
+        "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+      },
+      {
+        "attackedPhysicalCellID": 40,
+        "attackerLiteralColumn": 6,
+        "attackerRowZeroBased": 5,
+        "safeDefenderPhysicalCellID": 39,
+        "defenderLiteralColumn": 5,
+        "defenderRowZeroBased": 5,
+        "sourceResponseKind": "INDEPENDENT_ORIGINAL_FRONTIER",
+        "originalRequirementIndexes": [
+          0
+        ],
+        "originalSourceCommonIntersectionHex": "0x28000000000",
+        "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+      },
+      {
+        "attackedPhysicalCellID": 41,
+        "attackerLiteralColumn": 7,
+        "attackerRowZeroBased": 5,
+        "safeDefenderPhysicalCellID": 39,
+        "defenderLiteralColumn": 5,
+        "defenderRowZeroBased": 5,
+        "sourceResponseKind": "INDEPENDENT_ORIGINAL_FRONTIER",
+        "originalRequirementIndexes": [
+          0
+        ],
+        "originalSourceCommonIntersectionHex": "0x18000000000",
+        "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+      }
+    ]
+  },
+  "firstPhysicalFalsifier": null,
+  "finalSeed": 326008604,
+  "marginalOutcomeSelection": {
+    "schema": "connect4.true7x6.first_touch_no_force_win_plus_one_best_DRAW_LOSS_vs_V4_v0_1",
+    "firstTouchSourceNoWinPositiveRoots": 295,
+    "newOutcomeSourceBestActionRoots": 105,
+    "newSourceBestDraw": 79,
+    "newSourceBestLoss": 26,
+    "newSourceBestFromVerifiedPartialPrefix": 0,
+    "oldV4AlreadyCertifiesBestRoot": 86,
+    "oldV4PreviouslyINCOMPLETEnewSourceBestRoot": 19,
+    "v4VerifiedWIN": 0,
+    "v4VerifiedDRAW": 57,
+    "v4VerifiedLOSS": 22,
+    "v4ScalarUnknownRoot": 7,
+    "independentPhysicalRootWDLChecks": 99,
+    "independentPhysicalSelectedMoveWDLChecks": 99,
+    "independentPhysicalAllLossMoveWDLChecks": 45,
+    "independentlyPhysicallyWrongRootOrSelectedMove": 0,
+    "contradictionsToOldV4WDL": 0,
+    "newSourceExamplesOverV4": [
+      {
+        "history": "7626672716415551237351531176427532643",
+        "ply": 37,
+        "mover": 1,
+        "newBest": 3,
+        "newBestTier": "DRAW",
+        "oldV4Status": "INCOMPLETE",
+        "sharedOriginalResponseTargets": 1
+      },
+      {
+        "history": "34732352214117115346447471352273276565",
+        "ply": 38,
+        "mover": 0,
+        "newBest": 5,
+        "newBestTier": "DRAW",
+        "oldV4Status": "INCOMPLETE",
+        "sharedOriginalResponseTargets": 0
+      },
+      {
+        "history": "4171636215325667676231541427335577152",
+        "ply": 37,
+        "mover": 1,
+        "newBest": 4,
+        "newBestTier": "DRAW",
+        "oldV4Status": "INCOMPLETE",
+        "sharedOriginalResponseTargets": 1
+      },
+      {
+        "history": "4326241222156151477465734364155531366",
+        "ply": 37,
+        "mover": 1,
+        "newBest": 7,
+        "newBestTier": "DRAW",
+        "oldV4Status": "INCOMPLETE",
+        "sharedOriginalResponseTargets": 0
+      },
+      {
+        "history": "3636425446326417616257217272175715154",
+        "ply": 37,
+        "mover": 1,
+        "newBest": 3,
+        "newBestTier": "DRAW",
+        "oldV4Status": "INCOMPLETE",
+        "sharedOriginalResponseTargets": 1
+      },
+      {
+        "history": "6476664541421717621772552724624535335",
+        "ply": 37,
+        "mover": 1,
+        "newBest": 1,
+        "newBestTier": "LOSS",
+        "oldV4Status": "INCOMPLETE",
+        "sharedOriginalResponseTargets": 0
+      },
+      {
+        "history": "343354633244673674515427756656175712",
+        "ply": 36,
+        "mover": 0,
+        "newBest": 2,
+        "newBestTier": "DRAW",
+        "oldV4Status": "INCOMPLETE",
+        "sharedOriginalResponseTargets": 0
+      },
+      {
+        "history": "2763372532476323135154762174645725664",
+        "ply": 37,
+        "mover": 1,
+        "newBest": 1,
+        "newBestTier": "DRAW",
+        "oldV4Status": "INCOMPLETE",
+        "sharedOriginalResponseTargets": 0
+      },
+      {
+        "history": "233424532355355452412374166411671762177",
+        "ply": 39,
+        "mover": 1,
+        "newBest": 6,
+        "newBestTier": "DRAW",
+        "oldV4Status": "INCOMPLETE",
+        "sharedOriginalResponseTargets": 0
+      },
+      {
+        "history": "52325474454125431326231512376737745761",
+        "ply": 38,
+        "mover": 0,
+        "newBest": 6,
+        "newBestTier": "DRAW",
+        "oldV4Status": "INCOMPLETE",
+        "sharedOriginalResponseTargets": 0
+      },
+      {
+        "history": "52472342423517353117166442436613217",
+        "ply": 35,
+        "mover": 1,
+        "newBest": 5,
+        "newBestTier": "DRAW",
+        "oldV4Status": "INCOMPLETE",
+        "sharedOriginalResponseTargets": 0
+      },
+      {
+        "history": "67414414237277352735336462152327465",
+        "ply": 35,
+        "mover": 1,
+        "newBest": 1,
+        "newBestTier": "DRAW",
+        "oldV4Status": "INCOMPLETE",
+        "sharedOriginalResponseTargets": 0
+      },
+      {
+        "history": "46577134575764614715713315436334522626",
+        "ply": 38,
+        "mover": 0,
+        "newBest": 1,
+        "newBestTier": "DRAW",
+        "oldV4Status": "INCOMPLETE",
+        "sharedOriginalResponseTargets": 0
+      },
+      {
+        "history": "465771345757646147157133154363345226262",
+        "ply": 39,
+        "mover": 1,
+        "newBest": 2,
+        "newBestTier": "DRAW",
+        "oldV4Status": "INCOMPLETE",
+        "sharedOriginalResponseTargets": 0
+      },
+      {
+        "history": "3425216133715412465174442671655662533",
+        "ply": 37,
+        "mover": 1,
+        "newBest": 7,
+        "newBestTier": "DRAW",
+        "oldV4Status": "INCOMPLETE",
+        "sharedOriginalResponseTargets": 0
+      }
+    ],
+    "firstDrawBestWitness": {
+      "history": "4537216642355157344414222763266111733776",
+      "ply": 40,
+      "mover": 0,
+      "literalAction": 5,
+      "oldRootSourceKind": "UNIFORM_DIRECTED_FIRST_TOUCH_GATE_COMMON_BLOCKER_INVARIANT",
+      "firstActionInterval": [
+        0,
+        1
+      ],
+      "sourceVerificationWasPartialPrefix": false
+    },
+    "firstLossBestWitness": {
+      "history": "5216133242745444742352237663377765",
+      "ply": 34,
+      "mover": 0,
+      "allLiteralActionLabels": [
+        1,
+        5,
+        6
+      ],
+      "opponentDual": {
+        "denominator": 1,
+        "numerators": [
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1"
+        ],
+        "sumNumerator": 6,
+        "maximumCellLoadNumerator": 1,
+        "guaranteedExcessNumerator": 2
+      }
+    }
+  },
+  "resultStatus": "PASS_SOURCE_FIRST_TOUCH_DIRECTED_DEFENDER_PLUS_DUAL_OR_ONE_NONLOSS_GIVES_19_NEW_ORIGINAL7X6_LEVEL2_BEST_MOVES_VS_V4",
+  "frozenMathematicalTheorem": "docs/research/2026-10-18-first-touch-directed-blocker-plus-opponent-dual-or-one-nonloss-level2.md",
+  "frozenRootInvariant": "docs/research/2026-10-18-source-first-touch-universal-blocker-invariant.md",
+  "pureSourceRootInvariant": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-source-first-touch-gate-blocker-no-win.mjs",
+  "originalGateSourceGitBlob": "7ff81f7616cede406b90c09371f1563f9967f8b7",
+  "pureSourceBestLevel2": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-source-first-touch-best-draw-loss.mjs",
+  "sourceBestGitBlob": "0e8d144df757b6ccc18695c7403b47b1ae740444",
+  "frozenIndependentTrue7x6PhysicalControl": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-first-touch-best-v4-marginal-independent-physical-control.mjs",
+  "physicalControlGitBlob": "a8af105e91f13535e9435cd92deec8297799fe82",
+  "executablePriorImmutableV4SourceBundle": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-unified-v4-dependency-execution-bundle-20261018.mjs",
+  "priorImmutableV4BundleGitBlob": "a6151f03c7034f9b40b449a13aa84606831ee78e",
+  "fixedTwoColumnDependencyNotInBundle": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-source-fixed-two-column-swap-WDL-order.mjs",
+  "fixedTwoColumnExactGitBlob": "7beb2ca37b1e8a4cf0885c91f6c3678261b18329",
+  "executionIsolatedV8Ms": 5191,
+  "qualifications": [
+    "Source proves no current mover forced first win via directed nonpairing first-touch response x to y; every touched still-live original winning line is blocked by one physically legal defender landing. This source property does NOT alone prove best action.",
+    "WIN exclusion + one source p NONLOSS first action yields exact best DRAW; WIN exclusion + o strict source fractional winline packing over all p blocking turns yields exact inevitable LOSS and all first actions equally best.",
+    "49,023 original real7x6 first-win-stopped q in a 2700-history nonuniform sample; 295 no-current-mover-forced-win roots and 105 root best outcome closures (79 DRAW,26 LOSS); old source V4 previously INCOMPLETE on 19, all now best-move certified.",
+    "99 post-source independent physical full recursive root WDL and 99 selected first-action WDL checks, 45 additional all-loss first-action WDL checks, zero disagreements. Source evaluates zero competing future strategic game values.",
+    "Source one-action NONLOSS may use independently verified prefix after its own static budget if a positive source interval is already proven; no positive in this sample required partial prefix.",
+    "Canonical 44444 source first-touch guard INCOMPLETE; no best move or scalar game outcome deduced. No arbitrary7x6 total Level2 proof.",
+    "First isolated validation run missed a previously frozen V4 source dependency in the test loader and failed with ReferenceError before physics; adding the loader dependency (without modifying source/physical control) yielded successful result.",
+    "Node26 maintained CI and independent external formal proof assistant NOT performed, qualified IsoGraph logic authority 1.2 unchanged."
+  ]
+}
