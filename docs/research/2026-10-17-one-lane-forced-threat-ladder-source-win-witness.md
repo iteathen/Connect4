@@ -58,3 +58,54 @@ This is more general than the source immediate/double threat because the p win m
 ## Further mathematical target
 
 If positive multi-round certificate examples exist, investigate a **non-recursive source invariant** characterizing existence of such forced chains directly from a column-height/line-release DAG, with the same strong opponent counter-win guards. The objective remains eliminating even the ONE necessary forced-response lane by deriving a closed structural normal form for guarded forcing ladders. Nothing here proves that arbitrary L2 can be solved without search.
+
+
+## Deterministic one-lane partial winner functional
+
+Define `DirectWin(q)` as the ORIGINAL q source response-cover Boolean theorem that certifies an immediate mover win or winning next mover turn, without future q evaluation. For any q where `DirectWin` is inconclusive, the source scans only its CURRENT literal action masks and chooses a single pair `(a(q), b(q))` satisfying:
+
+- current mover p plays a nonwinning original action `a(q)`;
+- o has NO immediately winning next response;
+- p has **exactly ONE concurrently playable winning threat** in literal column `b(q)`;
+- this threat is NOT already covered by the same-column direct stacked release theorem.
+
+Choose the single candidate by a fixed SOURCE priority: descending number of current original owner residual win generators containing the candidate landing cell; ties by original literal ascending column. Construct only the cofactor after chosen p action a and the one strategically forced blocking opponent reply b. Every other opponent first reply allows p to win immediately at b, as shown by the source threat guard.
+
+Thus the partial Boolean winner certificate satisfies the sound implication
+
+    C_p(q) :=
+       DirectWin_p(q) OR
+       (ChosenForcedThreat(q) AND
+        C_p( T_{b(q)}(T_{a(q)}(q)) )).
+
+Only ONE q-successor lane of length two is instantiated per forcing round. If that lane never reaches `DirectWin`, return INCOMPLETE, not loss or an alternate policy exploration. Remaining W*H-n strictly decreases by two on every selected forced block, providing a well-founded finite recursion and proof by backward induction. This is a STRATEGY-CERTIFICATE path, not a traditional game-tree search or complete q-value recurrence.
+
+**Important complexity accounting:** scanning all CURRENT original legal action masks to select one p forcing action is source proof construction, not alternative future-game valuation. Explicit source counts include all local candidate static tests and future q cofactors on the ONE selected forcing lane. No backtracking, no BDD/QBF/strategy-graph construction, no future values of unselected actions.
+
+## Executed original standard7x6 independent conformance
+
+Frozen source `research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-source-single-forced-threat-ladder.mjs`, independent physical checker `standard7x6-one-forced-lane-independent-physical-control.mjs`, and machine results `STANDARD7X6_SINGLE_FORCED_THREAT_LADDER_VALID_CONTINUATION_RESULTS_0_1.json`.
+
+**1700 deterministic nonwinning FIRST-WIN-STOPPED actual7×6 physical game trajectories, 56,712 unique original legal source q:**
+
+| Certificate forced opponent-block rounds | Source-proved winning original root continuations |
+| --- | ---: |
+| 0 (already direct winner) | 32,614 |
+| 1 | 338 |
+| 2 | 201 |
+| 3 | 96 |
+| 4 | 29 |
+| 5 | 5 |
+| 6 | 2 |
+| **At least 1; direct source previously inconclusive** | **671** |
+| **All winning root continuations certified** | **33,285** |
+
+An additional **7,137** source evaluations selected a forced lane but failed to finish a winner certificate: they were correctly marked **INCOMPLETE**, with NO alternate source game lane tried. The source materialized 22,702 total q cofactors along selected forced lanes across the sampled roots and never valued a competing future game (maximum strategically live lane fanout **ONE**).
+
+The independent original7x6 physical validator checked **6,627** off-threat opponent deviations (all allowed mover immediate first-win), **1,181** on-threat forced opponent blocking responses, and **59,529** direct final-stage opponent replies (each admitted mover physical first-win before any reply could win/draw). No discrepancy with original first-win game semantics, and **75** independently branching full physical perfect-WDL reference checks for late successful selected actions confirmed mover WIN exactly.
+
+**Concrete new early source witness, original history `243766762437135` (rank 15, P1 to move):** deterministic SOURCE selects column 4, generating exactly one immediate P1 threat in column 4. P0 must block 4; any other P0 move permits P1's immediate win on 4. After that single forced reply, source's direct gravity-release theorem certifies P1 winning action 7 using stacked targets in column 5; EVERY intervening original physical reply was independently checked. The old direct source response-cover root returned INCOMPLETE. This is an exact **Level2 best winning continuation certificate** without independently valuing any alternative future game.
+
+**At least two actual standard7x6 source positions required SIX selected forcing-block rounds** before the source direct winner. Those chains can be much longer than the 3-ply closed response-cover; this finding is about source **winning guarantee**, not Level3 shortest-win timing. Canonical `44444` remains INCOMPLETE.
+
+**Qualification:** This is a restricted-domain total-return-on-success procedure, not arbitrary 7x6 full L2. The source construction examines several CURRENT literal actions' static residual masks but builds one strategically forced future q lane. No alternate strategic future WDL is evaluated, not even after a chosen lane fails. Complete optimal move set is not returned. Tests are deterministic, nonuniform original board histories, local isolated V8 execution; external formal peer proof and maintained Node26 CI not run. Qualified game-theory IsoGraph authority 1.2 unchanged.
