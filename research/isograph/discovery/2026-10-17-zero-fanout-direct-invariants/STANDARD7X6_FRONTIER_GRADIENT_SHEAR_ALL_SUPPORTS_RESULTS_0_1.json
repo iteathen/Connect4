@@ -1,0 +1,130 @@
+{
+  "schema": "connect4.standard7x6.relative_frontier_gradient_virtual_shear_v0_1",
+  "date": "2026-10-17",
+  "status": "COMPLETE_ALL_823543_STANDARD7X6_HEIGHT_VECTOR_STATIC_GEOMETRY_CONTROL_PASS_ONLY",
+  "math": "docs/research/2026-10-17-standard7x6-geometry-unobfuscation-candidate-hierarchy.md",
+  "frozenExecutable": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-frontier-gradient-shear-geometry-control.mjs",
+  "sourceGitBlob": "8a495a19f0d69ab35782035b01506b942fb24f7c",
+  "execution": "Frozen exact committed GitHub source run in isolated V8; 105.3 seconds; not maintained Node26 CI or external qualified proof assistant.",
+  "board": {
+    "W": 7,
+    "H": 6,
+    "K": 4,
+    "originalWinlineCount": 69,
+    "byDirection": {
+      "horizontal": 24,
+      "vertical": 21,
+      "rising": 12,
+      "falling": 12
+    }
+  },
+  "sourceMath": {
+    "j": "r-h[c] zero-based future cell ordinal; j<0 means occupied historical cell, not a future event",
+    "delta": "delta[c]=h[c+1]-h[c] integer",
+    "columnPhase": "kappa[c]=(sum heights - h[c]) mod2",
+    "phaseGradient": "kappa[c] XOR kappa[c+1] = delta[c] mod2",
+    "baseline": "(r mod2) XOR kappa[c] = (sum heights + j) mod2",
+    "futureOwner": "baseline XOR parity(future earlier other-column placements)",
+    "crossColumnWinStep": "jNext=j+slope-delta[c], slope in {0,+1,-1}",
+    "verticalWinStep": "jNext=j+1",
+    "moveUpdate": "delta[a-1]+=1 if a>0; delta[a]-=1 if a<W-1; all other deltas unchanged; future ordinals in a shift down by one",
+    "reconstruction": "An absolute column height anchor plus all delta determines h; delta parity alone does NOT determine full support or R0/R1/game value"
+  },
+  "diagonalVirtualCharts": {
+    "rising": {
+      "real": 42,
+      "ghost": 30,
+      "originalKWindows": 12
+    },
+    "falling": {
+      "real": 42,
+      "ghost": 30,
+      "originalKWindows": 12
+    }
+  },
+  "exhaustiveStaticControls": {
+    "allGravityHeightVectors": 823543,
+    "nearestColumnGF2PhaseDifferenceIdentities": 4941258,
+    "everyLegalSourceMoveDeltaBoundaryChecks": 29647548,
+    "futureCellRelativeOrdinalBaselinePhaseIdentities": 17294403,
+    "originalGeometricLineNeighborAffineShiftIdentities": 170473401,
+    "diagonalKWindowVirtualChartChecks": 19765032,
+    "discrepancies": 0
+  },
+  "canonical": {
+    "history44444": {
+      "h": [
+        0,
+        0,
+        0,
+        5,
+        0,
+        0,
+        0
+      ],
+      "delta": [
+        0,
+        0,
+        5,
+        -5,
+        0,
+        0
+      ],
+      "gradGF2": [
+        0,
+        0,
+        1,
+        1,
+        0,
+        0
+      ],
+      "residualGenerators": [
+        48,
+        42
+      ]
+    },
+    "history444444": {
+      "h": [
+        0,
+        0,
+        0,
+        6,
+        0,
+        0,
+        0
+      ],
+      "delta": [
+        0,
+        0,
+        6,
+        -6,
+        0,
+        0
+      ],
+      "gradGF2": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "residualGenerators": [
+        42,
+        42
+      ],
+      "crossCenterSourceGeneratorsP0P1": [
+        12,
+        12
+      ]
+    }
+  },
+  "researchLimits": [
+    "The all-height-vector enumeration includes physically unreachable colored history states. It is a conservative deterministic STATIC algebra control, not exhaustive WDL, q states or owner game path validation.",
+    "Geometry is an invertible reparameterization, not a proved reduced complexity class: integer delta plus a height anchor carries exactly the original support degrees of freedom.",
+    "Opposing players' surviving original residual K-lines, first-win timing, future interleavings beta and actual winning-response strategy still determine unrestricted WDL and complete M*.",
+    "All future diagonal virtual ghost cells must be excluded from playable cells and original K-windows.",
+    "Owner current research objective remains ZERO independent future strategic value branching; ordinary 7x6 (V,M*) and canonical 44444 unresolved.",
+    "Symbolic W/H/K preserved; no generalization of positive game-theoretic conclusions to other geometries claimed."
+  ]
+}
