@@ -1,11 +1,19 @@
 # Connect4 current research status
 
-**Updated:** 2026-10-17 (latest: unified owner L1 outcome / L2 all best outcome-tier moves / L3 time-refined perfect moves, with opponent-model conditions; historical claims preserved)  
+**Updated:** 2026-10-17 (latest: valid Level2 continuation requires ONE certified best action, full Level2 information names ALL best actions; original game theory unchanged)  
 **Branch:** `research/semantic-quotient`  
 **Research direction / structural architecture / invariant-first and self-proving-predicate program:** Josh Oshiro  
 **Formalization / implementation / qualification:** OpenAI ChatGPT
 
 This file is the current-state router, not a theorem ledger. This branch owns **all durable Connect4 research**, regardless of which solver produced it. Research artifacts live across `research/**` and `docs/research/**` on this branch; the executable research continuation lives in `next_step.yaml`.
+
+## Owner distinction — Level 2 complete information vs single certified continuation (2026-10-17)
+
+**LATEST OPERATIONAL CORRECTION:** Level 2 INFORMATION is defined by the COMPLETE current-mover, opponent-model-conditioned best outcome action set `B_M(q)=argmax_{a in A(q)}U_M(q,a)`. A VALID LEVEL-2 PLAY CONTINUATION needs only ONE source-certified legal action `a*∈B_M(q)`; there is NO requirement to derive every equally good move before choosing a best continuation. Certification strength/output labels remain distinct: `VALID_CONTINUATION` (one proven best action, others unknown), `PARTIAL_BEST_SET` (some proven members), and `COMPLETE_LEVEL2_SET` (all and only members, full information). Reference: `docs/research/2026-10-17-owner-level2-set-vs-valid-continuation-correction.md`.
+
+**Necessary proof guards:** A certified WIN-tier action automatically attains highest tier under the stated PERFECT/UNKNOWN model. A DRAW-tier action is best only when source evidence proves no WIN is attainable from the same root. If the current mover is provably an unavoidable LOSER under PERFECT opposition, ALL current legal actions are WDL-equal losses and ANY legal action gives a valid Level2 continuation; full set equals `A(q)`. No timing/rank3 requirement. One lucky/cooperative hypothetical winning history is NOT a valid PERFECT-opponent forced-win certificate.
+
+**UPDATED NO-SEARCH PRIMARY GOAL:** find a general arbitrary-original-7x6 **source-derived single best action with complete proof** using ZERO separately evaluated inequivalent strategic future-game values. Stronger discovery of ALL optimal literal moves can follow separately; older "complete set or INCOMPLETE" tests remain historical information-level targets, but are too strong a test for whether a VALID continuation can be selected. A proof covering restricted true7x6 positions can be a correctly qualified partial-domain success; no total standard7x6 single-witness zero-branch procedure yet established. Preserve full q=(h,R0,R1), first-win, draw, all player/opponent quantifiers, and qualified IsoGraph semantics. Canonical `44444` still unknown.
 
 ## New owner-directed no-search Level 2 research options — 2026-10-17
 
