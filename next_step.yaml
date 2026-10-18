@@ -1,3 +1,55 @@
+latest_owner_extended_opponent_quality_move_levels_20261017:
+  status: LATEST_OWNER_OUTPUT_POLICY_PRECEDENCE_OVER_OLDER_THREE_LEVEL_NOMENCLATURE
+  canonical_research_owner: research/semantic-quotient
+  mathematical_contract: docs/research/2026-10-17-owner-two-opponent-models-three-level-move-taxonomy.md
+  earlier_p0_guaranteed_win_special_case: docs/research/2026-10-17-owner-level2-any-p0-winning-continuation-and-level3-perfect-fastest-win.md
+  qualified_IsoGraph_1_2_board_semantics_unchanged: true
+  board_primary: "standard W=7 H=6 K=4; preserve W H K symbolic"
+  information_levels:
+    L1: "ordinary under PERFECT opponent: P0-relative V in {-1,0,+1}; with UNKNOWN opponent actual winner cannot be predicted without model; preserve possible terminal outcomes as separate set"
+    L2_best: "ALL original literal actions in highest available outcome class for evaluated player; NO timing ranking"
+    L3_perfect: "duration-optimal subset of L2 candidate actions under explicitly declared opponent-quality and timing quantifiers"
+  opponent_models:
+    PERFECT:
+      p0_forced_winner_at_p0_turn: "L2 = every action with J_a=+1; L3 = fastest P0 guaranteed win, opponent delaying"
+      p1_forced_loser_to_p0_at_p1_turn: "guard P0 relative V(q)=+1; ALL P1 actions lose with perfect P0; L2 = ALL original legal actions; L3 = max forced time to P1 inevitable loss"
+      no_general_loss_at_any_q_assumption: true
+    QUALITY_UNKNOWN:
+      p1_L2_preference_order: ["ANY POSSIBLE P1 FIRST WIN","else ANY POSSIBLE DRAW","else ALL losing continuations"]
+      p1_L3_preference_order: ["earliest ACHIEVABLE P1 FIRST WIN","earliest ACHIEVABLE FULL DRAW, ALL TIED","longest survival in P1 loss, timing quantifier must be specified"]
+      possible_outcome_definition: "exists legitimate first-win-stopped future legal event history starting with original action and yielding outcome; may require opponent mistake"
+      possible_not_guaranteed: true
+      guaranteed_vs_possible_labels_mandatory: true
+      robust_vs_optimistic_or_probability_timing_distinction: "NO stochastic opponent policy inferred; path-existential shortest time is not a guarantee against a perfect opponent"
+      p0_unchanged_only_if: "source proves P0 already has forced win against PERFECT P1 and keeps worst-case winning-strategy criterion"
+      p0_arbitrary_source_may_gain_possible_wins_after_p1_mistakes: true
+  exact_draw_duration:
+    all_board_full_draw_paths_total_absolute_plies: "W*H"
+    any_draw_continuation_remaining: "W*H - occupiedCount(q)"
+    true_standard_7x6_remaining: "42 - occupiedCount(q)"
+    any_draw_tier_L3_fastest_draw_tie_break: "TRIVIAL: ALL possible drawing continuations last exactly 42-n, same as L2 draw tier"
+    only_applies_first_win_stopped_no_early_draw_rules: true
+  actual7x6_model_discrimination:
+    frozen_physical_control: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-unknown-opponent-potential-outcome-physical-control.mjs
+    machine_evidence: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/STANDARD7X6_UNKNOWN_OPPONENT_OUTCOME_POSSIBILITY_RESULTS_0_1.json
+    genuine_source_roots: 1600
+    original_literal_actions: 4611
+    p1_turn_roots_forced_loss_against_perfect_p0: 55
+    those_with_possible_p1_win_if_p0_errs: 37
+    those_whose_opportunity_L2_mask_differs_from_known_perfect_loss_all_actions: 23
+    p0_turn_roots_no_forced_p0_win: 129
+    those_with_possible_p0_win_if_p1_errs: 100
+    reference_branching_only: true
+    source_unrestricted_zero_fanout_algorithm_found: false
+  computational_boundary:
+    perfect_p0_win_mask: "one P0-win threshold channel g_plus, child action mask B0={a:g_plus(child)=mover_bit}"
+    perfect_p1_forced_loss_L2: "all legal literal actions from root-certified V_P0=+1; no independent child value evaluation"
+    unknown_p1_opportunity_L2: "needs two complete existential reachability sets for P1 win and DRAW, not the perfect-play P0 winning-threshold mask"
+    unknown_level3: "requires time-sensitive reachability or adversarial resource guards, cannot claim no branching"
+    owner_conjecture_generic_L3_branching_needed: UNPROVEN
+    primary_open_research_target: "Compute exact L1 and declared model's COMPLETE L2 action sets source-only with no separately evaluated inequivalent strategic future games"
+    canonical_44444_unrestricted_L1_L2_L3: UNKNOWN
+
 active_semantic_authorities:
   game_theory:
     status: qualified_current_game_theory_authority
