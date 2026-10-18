@@ -1,0 +1,98 @@
+{
+  "schema": "connect4.true7x6.nongeometric_source_transport_first_witness_independent_physical_WDL_v0_1",
+  "rank": 34,
+  "originalCurrentMover": 0,
+  "originalHeights": [
+    5,
+    5,
+    5,
+    3,
+    6,
+    5,
+    5
+  ],
+  "legalFirstActions": [
+    1,
+    2,
+    3,
+    4,
+    6,
+    7
+  ],
+  "physicalKLines": 69,
+  "physicalTerminalShortCircuitChecks": 34,
+  "fullRecursiveRootValueCalls": 209,
+  "physicalReferenceStates": 69,
+  "physicalActionWDLExactValues": [
+    {
+      "literalOriginalColumn": 1,
+      "firstActionP0RelativePerfectWDL": -1
+    },
+    {
+      "literalOriginalColumn": 2,
+      "firstActionP0RelativePerfectWDL": -1
+    },
+    {
+      "literalOriginalColumn": 3,
+      "firstActionP0RelativePerfectWDL": -1
+    },
+    {
+      "literalOriginalColumn": 4,
+      "firstActionP0RelativePerfectWDL": 1
+    },
+    {
+      "literalOriginalColumn": 6,
+      "firstActionP0RelativePerfectWDL": -1
+    },
+    {
+      "literalOriginalColumn": 7,
+      "firstActionP0RelativePerfectWDL": -1
+    }
+  ],
+  "sourceWeakWdlInequalityPhysicallyVerified": true,
+  "sourceWeakWdlInequalityStrict": false,
+  "sourceUpperP0ValueActionActuallyBest": false,
+  "sourceLegacyProofWasNeededForBestAction": false,
+  "anyOriginalIllegalGravityOrEarlyFirstWin": false,
+  "ordinaryRootP0RelativePerfectValue": 1,
+  "actualLevel2BestOriginalLiteralActions": [
+    4
+  ],
+  "sourceStructuralWeakOrderClaim": {
+    "lowerP0RelativeOriginalLiteralAction": 2,
+    "upperP0RelativeOriginalLiteralAction": 7,
+    "sourceOneBasedWholeColumnMapping": [
+      1,
+      5,
+      6,
+      4,
+      7,
+      2,
+      3
+    ],
+    "sourceFirstWinStoppedRank": 34,
+    "sourceExpectedHeights": [
+      5,
+      5,
+      5,
+      3,
+      6,
+      5,
+      5
+    ]
+  },
+  "status": "PASS_INDEPENDENT_TRUE7X6_PHYSICAL_WDL_CONFIRMED_OLD_NONGEOMETRIC_SOURCE_J2_LEQ_J7",
+  "frozenControl": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-nongeometric-transport-first-witness-independent-physical-WDL-control.mjs",
+  "frozenControlExactGitBlob": "113f45f9be3f05d51a8ff809042a781955b45571",
+  "sourceDiscoveryEvidence": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/STANDARD7X6_6000Q_NONGEOMETRIC_OLD_TRANSPORT_11_EDGES_SOURCE_WITNESS_RESULTS_0_1.json",
+  "sourceDiscoveryStatus": "Historical completed q source transport structural weak inequality, independent physical WDL separately validated AFTER prior source evidence frozen.",
+  "executionIsolatedV8Ms": 1,
+  "qualifiers": [
+    "Original rank34 genuine first-win-stopped q legal history 1555271171452354215737327342666366, P0 current mover, six legal actions.",
+    "Independent physical 69-winline recursion checked all legal first-action values. J2=-1 and J7=-1, verifying old source J2<=J7 (EQUALITY, not strict) under nongeometric column permutation [1,5,6,4,7,2,3].",
+    "Actual ordinary perfect-play root WDL was P0 WIN and its only best original literal move was column4; the nongeometric proof related TWO LOSING moves, and therefore DID NOT add a Level2 valid best continuation.",
+    "Source historical full transporter used static permutation witness enumeration, but never valued strategically inequivalent future games. This physical minmax test is a separately frozen validation oracle, not a source selection input.",
+    "Original 6000 q comparative sample found 11 such old-only inequalities not derivable by two fixed maps; only this FIRST physical witness was recursively evaluated here.",
+    "No general source best move at canonical 44444 discovered; no qualified IsoGraph 1.2 promotion and no Node26 CI."
+  ]
+}
