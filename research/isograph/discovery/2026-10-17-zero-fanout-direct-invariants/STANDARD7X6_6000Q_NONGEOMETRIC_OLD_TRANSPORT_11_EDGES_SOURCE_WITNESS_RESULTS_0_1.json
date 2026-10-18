@@ -1,0 +1,118 @@
+{
+  "schema": "connect4.true7x6.fixed_swap_vs_nonenumerated_capacity_transporter_v0_1",
+  "frozenDate": "2026-10-17",
+  "board": {
+    "W": 7,
+    "H": 6,
+    "K": 4
+  },
+  "firstWinStoppedPhysicalGamesSampled": 3282,
+  "firstWinStoppedPhysicalStatesVisited": 125043,
+  "originalSourceStatesCompared": 6000,
+  "positiveFixedOneTranspositionEdges": 3714,
+  "fullTransportPositiveEdgeRecords": 3693,
+  "fullTransportOnlyWeakWDLEdges": 11,
+  "fullTransportWithDifferentThanSwappedWitness": 11,
+  "fullTransportWithExactSwapWitnessButDirectMissing": 0,
+  "completedStaticColumnTransportPermutationsExploredByVALIDATOR": 126973,
+  "oldTransportBudgetPartialSourceRoots": 1,
+  "noGravityValidQFirstWinViolation": 0,
+  "originalPhysicalReferenceWDLCalls": 0,
+  "originalPhysicalReferenceUniqueStates": 0,
+  "physicallyValidatedOldOnlyEdgeCount": 0,
+  "physicallyUnsoundTransportEdgeCount": 0,
+  "firstOldOnlySourceWitness": {
+    "originalLegalHistory": "1555271171452354215737327342666366",
+    "originalAbsolutePly": 34,
+    "originalCurrentMover": 0,
+    "h": [
+      5,
+      5,
+      5,
+      3,
+      6,
+      5,
+      5
+    ],
+    "originalLiteralLegalColumns": [
+      1,
+      2,
+      3,
+      4,
+      6,
+      7
+    ],
+    "sourceGeneratorCounts": [
+      4,
+      4
+    ],
+    "originalR0Masks": [
+      "0x1000000",
+      "0x7000000000",
+      "0x16000000000",
+      "0x34000000000"
+    ],
+    "originalR1Masks": [
+      "0x1000000",
+      "0x80000000",
+      "0x800000000",
+      "0x4000000000"
+    ],
+    "originalLowerP0ValueAction": 2,
+    "originalUpperP0ValueAction": 7,
+    "actualOldTransportPermutationZeroBased": [
+      0,
+      4,
+      5,
+      3,
+      6,
+      1,
+      2
+    ],
+    "actualOldTransportPermutationOriginalOneBased": [
+      1,
+      5,
+      6,
+      4,
+      7,
+      2,
+      3
+    ],
+    "sourceFixedSwapPermutationZeroBased": [
+      0,
+      6,
+      2,
+      3,
+      4,
+      5,
+      1
+    ],
+    "sourceFixedSwapWeakWDLClauseSucceeded": false,
+    "fixedSwapSourceStatus": "INCOMPLETE",
+    "oldTransportSourceStatus": "COMPLETE",
+    "independentlyComputedPhysicalFirstActionWDL": null,
+    "oldTransportDirectionConfirmedByPhysical": null,
+    "oldSourceTransportPartialGeneratorProofNote": "OLD capacity-compatible whole-column program map, not a first-win game value query"
+  },
+  "firstLateOldOnlyPhysicallyChecked": null,
+  "noOldOnlyComparisonFoundBeforeBudget": false,
+  "comparisonTruncatedOriginalSourcePositions": true,
+  "status": "TRUE7X6_OLD_TRANSPORT_WDL_EDGE_NOT_DERIVABLE_FROM_FIXED_SWAP_AND_REFLECTION",
+  "finalSeed": 3472132066,
+  "comparisonAgainstTransitiveClosureOfTwoFixedSourceMaps": true,
+  "statusQualification": "COMPLETED_OLD_SOURCE_WEAK_WDL_TRANSPORT_INEQUALITIES_OUTSIDE_TWO_FIXED_SOURCE_TRANSITIVE_CLOSURE; FIRST_PHYSICAL_WDL_CHECK_PENDING",
+  "frozenSourceControl": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-two-fixed-vs-nongeometric-transport-wide-independent-control.mjs",
+  "frozenControlExactGitBlob": "4e4c74bed51ccf6cf7d0545c1b96f5c368d09982",
+  "directSourceGitBlob": "954c2739211272da10a258d1adcc5daab6b71319",
+  "historicalTransportGitBlob": "963014775aeee5d9fea9c2dd191302d44e04bcc0",
+  "exactQBuilderGitBlob": "6b25d0e2560fe4131d2f5442593e9ed9763c1a18",
+  "executionIsolatedV8Ms": 2468,
+  "limitations": [
+    "11 completed previous original q source weak WDL inequalities in 6000 real7x6 late positions are not derivable from source WDL graph transitive closure of fixed swap and horizontal reflection.",
+    "First original q witness n34 history 1555271171452354215737327342666366, source action weak P0 relative inequality J2<=J7 via whole column mapping [1,5,6,4,7,2,3] original 1-based, absent in direct fixed-map closure.",
+    "Old source static proof enumerated 126973 complete column mappings as historical comparison, not strategically independently valued future game states. Source-only new direct method still to be derived.",
+    "n34 first source witness is NOT yet tested by independent recursive PHYSICAL minimax in this source comparison. Source-positive order alone does not establish that action7 is best among every legal action.",
+    "Genuine 7x6 first-win-stopped sample of 6000 q, nonuniform; historical old transport matcher partially budget exhausted for 1 q, completed positive edges remain valid.",
+    "Canonical44444 remains source BEST INCOMPLETE, ordinary unrestricted root WDL UNKNOWN. No maintained Node26 CI or qualified IsoGraph authority change."
+  ]
+}
