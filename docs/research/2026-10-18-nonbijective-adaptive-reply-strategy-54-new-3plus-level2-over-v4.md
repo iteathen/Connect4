@@ -60,6 +60,12 @@ The **54** genuinely additional same-q source-best-root certificates (NOT genera
 
 Physical mover-relative root outcome distribution among these 54: for P0 roots, **2 WIN, 6 DRAW, 20 LOSS**; for P1 roots, **2 WIN, 3 DRAW, 21 LOSS**. A source output of best action on an unavoidable-LOSS root is still a valid operational Level2 optimal continuation, not proof the mover can win. SOURCE never knew or requested the numeric WDL tier; the physical labels are POST-FROZEN independent falsification.
 
+## 3a. V4 INCOMPLETE was structural, not a resource cap
+
+A separate read-only same-q replication of unchanged V4 under the PREDECLARED comparator resource envelope `orderOptions={maxOperations:180000,maxMs:750,maxRepresentatives:10000}` found that **ALL 54 original V4 INCOMPLETE results** were precisely `NO_SOURCE_PROVED_ROOT_CURRENT_MOVER_GLOBAL_WDL_EXTREMAL_ORBIT`, with ZERO time, static operation or representative-count budget exhaustion. Source V2 reported `NO_UNIVERSALLY_APPLICABLE_SOURCE_BEST_ACTION_THEOREM` on all 54. Historical V4 had constructed 451 static column permutation witnesses total (max 120 on one root) but lacked a proved global current action-label extremum in these positions.
+
+Durable matched audit: `research/isograph/discovery/2026-10-18-strategy-congruence/STANDARD7X6_NONBIJECTIVE_54_V4_INCOMPLETE_NOT_RESOURCE_BUDGET_AUDIT_0_1.json`. Consequently the new 54-source-best increase is not simply a consequence of V4 being starved of resources; it is new **SOURCE proof coverage**, still under a bounded nonuniform control corpus and pending independent external qualification.
+
 ## 4. Counterexample repaired and new strict witnesses
 
 The old physically counterexample to promoting static equal four-move endpoints into strategic equality is now a NEW positive source strategy WDL best-action witness:
