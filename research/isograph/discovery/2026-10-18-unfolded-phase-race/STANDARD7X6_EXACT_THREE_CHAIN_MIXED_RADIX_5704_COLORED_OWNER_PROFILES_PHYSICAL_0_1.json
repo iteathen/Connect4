@@ -1,0 +1,3056 @@
+{
+  "schema": "connect4.original7x6.exact_three_chain_fixed_owner_phase_mixedradix_v0_1",
+  "date": "2026-10-18",
+  "status": "SOURCE_EXACT_THREE_CHAIN_COLORED_PROFILE_FEASIBILITY_AND_ALL_CAUSAL_HEADS",
+  "math": "docs/research/2026-10-18-multichain-mixed-radix-colored-shuffle-factorization.md",
+  "knownTrue7x6RootHistories": [
+    "",
+    "44444",
+    "2532541156412471331416356736376672"
+  ],
+  "total": {
+    "cases": 62,
+    "originalWinlineCount": 69,
+    "hypotheticalGravityWordsEnumeratedByIndependentPhysicalValidator": 10326,
+    "ownerColorPatternsCompared": 5704,
+    "physicallyRealizableOwnerColorPatterns": 1482,
+    "sourceCorrectlyFeasible": 1482,
+    "sourceCorrectlyInfeasible": 4222,
+    "exactSourceAllFirstHeadsCorrect": 1482,
+    "sourceExactlyOneFirstHead": 633,
+    "sourceTwoOrThreeFirstHeads": 849,
+    "sourceDirectExactNonterminalBatchQ": 1368,
+    "sourceOneGuaranteedFixedProfileFirstWinner": 92,
+    "sourceDualFirstWinnerRaceIncomplete": 22,
+    "sourceFullDraw": 0,
+    "sourcePhysicalFeasibilityOrFirstHeadOrBatchMismatches": 0,
+    "sourceIndependentFutureGameWDLQueries": 0
+  },
+  "sourceTwoColumnReductionCrosscheck": {
+    "overlappingOriginalTwoChainProfiles": 392,
+    "headAndFeasibilityMismatches": 0
+  },
+  "firstPositiveConfigurationExamples": [
+    {
+      "history": "",
+      "chains": [
+        {
+          "column": 1,
+          "length": 1
+        },
+        {
+          "column": 2,
+          "length": 1
+        },
+        {
+          "column": 3,
+          "length": 2
+        }
+      ],
+      "uniqueFirstHeads": 3,
+      "feasible": 6,
+      "firstWinnerFixed": 0
+    },
+    {
+      "history": "",
+      "chains": [
+        {
+          "column": 1,
+          "length": 1
+        },
+        {
+          "column": 2,
+          "length": 1
+        },
+        {
+          "column": 3,
+          "length": 3
+        }
+      ],
+      "uniqueFirstHeads": 6,
+      "feasible": 10,
+      "firstWinnerFixed": 0
+    },
+    {
+      "history": "",
+      "chains": [
+        {
+          "column": 1,
+          "length": 1
+        },
+        {
+          "column": 2,
+          "length": 2
+        },
+        {
+          "column": 3,
+          "length": 1
+        }
+      ],
+      "uniqueFirstHeads": 3,
+      "feasible": 6,
+      "firstWinnerFixed": 0
+    },
+    {
+      "history": "",
+      "chains": [
+        {
+          "column": 1,
+          "length": 1
+        },
+        {
+          "column": 2,
+          "length": 2
+        },
+        {
+          "column": 3,
+          "length": 2
+        }
+      ],
+      "uniqueFirstHeads": 3,
+      "feasible": 10,
+      "firstWinnerFixed": 0
+    },
+    {
+      "history": "",
+      "chains": [
+        {
+          "column": 1,
+          "length": 1
+        },
+        {
+          "column": 2,
+          "length": 2
+        },
+        {
+          "column": 3,
+          "length": 3
+        }
+      ],
+      "uniqueFirstHeads": 8,
+      "feasible": 18,
+      "firstWinnerFixed": 0
+    },
+    {
+      "history": "",
+      "chains": [
+        {
+          "column": 1,
+          "length": 1
+        },
+        {
+          "column": 2,
+          "length": 3
+        },
+        {
+          "column": 3,
+          "length": 1
+        }
+      ],
+      "uniqueFirstHeads": 6,
+      "feasible": 10,
+      "firstWinnerFixed": 0
+    }
+  ],
+  "firstDualSourceIncompleteExamples": [
+    {
+      "history": "2532541156412471331416356736376672",
+      "chains": [
+        {
+          "column": 2,
+          "length": 1
+        },
+        {
+          "column": 4,
+          "length": 1
+        },
+        {
+          "column": 5,
+          "length": 1
+        }
+      ],
+      "first": {
+        "profile": [
+          {
+            "column": 2,
+            "owners": [
+              0
+            ]
+          },
+          {
+            "column": 4,
+            "owners": [
+              0
+            ]
+          },
+          {
+            "column": 5,
+            "owners": [
+              1
+            ]
+          }
+        ],
+        "physicalFirstWinnerPossibilities": [
+          "1"
+        ]
+      }
+    },
+    {
+      "history": "2532541156412471331416356736376672",
+      "chains": [
+        {
+          "column": 2,
+          "length": 1
+        },
+        {
+          "column": 4,
+          "length": 1
+        },
+        {
+          "column": 5,
+          "length": 2
+        }
+      ],
+      "first": {
+        "profile": [
+          {
+            "column": 2,
+            "owners": [
+              1
+            ]
+          },
+          {
+            "column": 4,
+            "owners": [
+              0
+            ]
+          },
+          {
+            "column": 5,
+            "owners": [
+              1,
+              0
+            ]
+          }
+        ],
+        "physicalFirstWinnerPossibilities": [
+          "1"
+        ]
+      }
+    },
+    {
+      "history": "2532541156412471331416356736376672",
+      "chains": [
+        {
+          "column": 2,
+          "length": 1
+        },
+        {
+          "column": 4,
+          "length": 2
+        },
+        {
+          "column": 5,
+          "length": 1
+        }
+      ],
+      "first": {
+        "profile": [
+          {
+            "column": 2,
+            "owners": [
+              0
+            ]
+          },
+          {
+            "column": 4,
+            "owners": [
+              0,
+              1
+            ]
+          },
+          {
+            "column": 5,
+            "owners": [
+              1
+            ]
+          }
+        ],
+        "physicalFirstWinnerPossibilities": [
+          "1",
+          "0"
+        ]
+      }
+    },
+    {
+      "history": "2532541156412471331416356736376672",
+      "chains": [
+        {
+          "column": 2,
+          "length": 1
+        },
+        {
+          "column": 4,
+          "length": 2
+        },
+        {
+          "column": 5,
+          "length": 2
+        }
+      ],
+      "first": {
+        "profile": [
+          {
+            "column": 2,
+            "owners": [
+              1
+            ]
+          },
+          {
+            "column": 4,
+            "owners": [
+              0,
+              0
+            ]
+          },
+          {
+            "column": 5,
+            "owners": [
+              1,
+              0
+            ]
+          }
+        ],
+        "physicalFirstWinnerPossibilities": [
+          "1"
+        ]
+      }
+    },
+    {
+      "history": "2532541156412471331416356736376672",
+      "chains": [
+        {
+          "column": 2,
+          "length": 2
+        },
+        {
+          "column": 4,
+          "length": 1
+        },
+        {
+          "column": 5,
+          "length": 1
+        }
+      ],
+      "first": {
+        "profile": [
+          {
+            "column": 2,
+            "owners": [
+              0,
+              1
+            ]
+          },
+          {
+            "column": 4,
+            "owners": [
+              0
+            ]
+          },
+          {
+            "column": 5,
+            "owners": [
+              1
+            ]
+          }
+        ],
+        "physicalFirstWinnerPossibilities": [
+          "0",
+          "1"
+        ]
+      }
+    },
+    {
+      "history": "2532541156412471331416356736376672",
+      "chains": [
+        {
+          "column": 2,
+          "length": 2
+        },
+        {
+          "column": 4,
+          "length": 1
+        },
+        {
+          "column": 5,
+          "length": 2
+        }
+      ],
+      "first": {
+        "profile": [
+          {
+            "column": 2,
+            "owners": [
+              1,
+              0
+            ]
+          },
+          {
+            "column": 4,
+            "owners": [
+              0
+            ]
+          },
+          {
+            "column": 5,
+            "owners": [
+              1,
+              0
+            ]
+          }
+        ],
+        "physicalFirstWinnerPossibilities": [
+          "1"
+        ]
+      }
+    }
+  ],
+  "perCase": [
+    {
+      "history": "",
+      "rootPly": 0,
+      "rootOriginalRCounts": [
+        69,
+        69
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 1
+        },
+        {
+          "column": 2,
+          "length": 1
+        },
+        {
+          "column": 3,
+          "length": 1
+        }
+      ],
+      "physicalWordCount": 6,
+      "physicalOwnerFiberCount": 3,
+      "allRequestedOwnerProfiles": 8,
+      "sourceFeasible": 3,
+      "sourceNotRealizable": 5,
+      "sourceExactFirstHeads": 3,
+      "sourceFixedProfileUniqueHead": 0,
+      "sourceFixedProfileMultipleHeads": 3,
+      "sourceDirectNonterminalBatchedQ": 3,
+      "sourceOneOwnerFirstWin": 0,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "",
+      "rootPly": 0,
+      "rootOriginalRCounts": [
+        69,
+        69
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 1
+        },
+        {
+          "column": 2,
+          "length": 1
+        },
+        {
+          "column": 3,
+          "length": 2
+        }
+      ],
+      "physicalWordCount": 12,
+      "physicalOwnerFiberCount": 6,
+      "allRequestedOwnerProfiles": 16,
+      "sourceFeasible": 6,
+      "sourceNotRealizable": 10,
+      "sourceExactFirstHeads": 6,
+      "sourceFixedProfileUniqueHead": 3,
+      "sourceFixedProfileMultipleHeads": 3,
+      "sourceDirectNonterminalBatchedQ": 6,
+      "sourceOneOwnerFirstWin": 0,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "",
+      "rootPly": 0,
+      "rootOriginalRCounts": [
+        69,
+        69
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 1
+        },
+        {
+          "column": 2,
+          "length": 1
+        },
+        {
+          "column": 3,
+          "length": 3
+        }
+      ],
+      "physicalWordCount": 20,
+      "physicalOwnerFiberCount": 10,
+      "allRequestedOwnerProfiles": 32,
+      "sourceFeasible": 10,
+      "sourceNotRealizable": 22,
+      "sourceExactFirstHeads": 10,
+      "sourceFixedProfileUniqueHead": 6,
+      "sourceFixedProfileMultipleHeads": 4,
+      "sourceDirectNonterminalBatchedQ": 10,
+      "sourceOneOwnerFirstWin": 0,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "",
+      "rootPly": 0,
+      "rootOriginalRCounts": [
+        69,
+        69
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 1
+        },
+        {
+          "column": 2,
+          "length": 2
+        },
+        {
+          "column": 3,
+          "length": 1
+        }
+      ],
+      "physicalWordCount": 12,
+      "physicalOwnerFiberCount": 6,
+      "allRequestedOwnerProfiles": 16,
+      "sourceFeasible": 6,
+      "sourceNotRealizable": 10,
+      "sourceExactFirstHeads": 6,
+      "sourceFixedProfileUniqueHead": 3,
+      "sourceFixedProfileMultipleHeads": 3,
+      "sourceDirectNonterminalBatchedQ": 6,
+      "sourceOneOwnerFirstWin": 0,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "",
+      "rootPly": 0,
+      "rootOriginalRCounts": [
+        69,
+        69
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 1
+        },
+        {
+          "column": 2,
+          "length": 2
+        },
+        {
+          "column": 3,
+          "length": 2
+        }
+      ],
+      "physicalWordCount": 30,
+      "physicalOwnerFiberCount": 10,
+      "allRequestedOwnerProfiles": 32,
+      "sourceFeasible": 10,
+      "sourceNotRealizable": 22,
+      "sourceExactFirstHeads": 10,
+      "sourceFixedProfileUniqueHead": 3,
+      "sourceFixedProfileMultipleHeads": 7,
+      "sourceDirectNonterminalBatchedQ": 10,
+      "sourceOneOwnerFirstWin": 0,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "",
+      "rootPly": 0,
+      "rootOriginalRCounts": [
+        69,
+        69
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 1
+        },
+        {
+          "column": 2,
+          "length": 2
+        },
+        {
+          "column": 3,
+          "length": 3
+        }
+      ],
+      "physicalWordCount": 60,
+      "physicalOwnerFiberCount": 18,
+      "allRequestedOwnerProfiles": 64,
+      "sourceFeasible": 18,
+      "sourceNotRealizable": 46,
+      "sourceExactFirstHeads": 18,
+      "sourceFixedProfileUniqueHead": 8,
+      "sourceFixedProfileMultipleHeads": 10,
+      "sourceDirectNonterminalBatchedQ": 18,
+      "sourceOneOwnerFirstWin": 0,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "",
+      "rootPly": 0,
+      "rootOriginalRCounts": [
+        69,
+        69
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 1
+        },
+        {
+          "column": 2,
+          "length": 3
+        },
+        {
+          "column": 3,
+          "length": 1
+        }
+      ],
+      "physicalWordCount": 20,
+      "physicalOwnerFiberCount": 10,
+      "allRequestedOwnerProfiles": 32,
+      "sourceFeasible": 10,
+      "sourceNotRealizable": 22,
+      "sourceExactFirstHeads": 10,
+      "sourceFixedProfileUniqueHead": 6,
+      "sourceFixedProfileMultipleHeads": 4,
+      "sourceDirectNonterminalBatchedQ": 10,
+      "sourceOneOwnerFirstWin": 0,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "",
+      "rootPly": 0,
+      "rootOriginalRCounts": [
+        69,
+        69
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 1
+        },
+        {
+          "column": 2,
+          "length": 3
+        },
+        {
+          "column": 3,
+          "length": 2
+        }
+      ],
+      "physicalWordCount": 60,
+      "physicalOwnerFiberCount": 18,
+      "allRequestedOwnerProfiles": 64,
+      "sourceFeasible": 18,
+      "sourceNotRealizable": 46,
+      "sourceExactFirstHeads": 18,
+      "sourceFixedProfileUniqueHead": 8,
+      "sourceFixedProfileMultipleHeads": 10,
+      "sourceDirectNonterminalBatchedQ": 18,
+      "sourceOneOwnerFirstWin": 0,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "",
+      "rootPly": 0,
+      "rootOriginalRCounts": [
+        69,
+        69
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 1
+        },
+        {
+          "column": 2,
+          "length": 3
+        },
+        {
+          "column": 3,
+          "length": 3
+        }
+      ],
+      "physicalWordCount": 140,
+      "physicalOwnerFiberCount": 33,
+      "allRequestedOwnerProfiles": 128,
+      "sourceFeasible": 33,
+      "sourceNotRealizable": 95,
+      "sourceExactFirstHeads": 33,
+      "sourceFixedProfileUniqueHead": 16,
+      "sourceFixedProfileMultipleHeads": 17,
+      "sourceDirectNonterminalBatchedQ": 33,
+      "sourceOneOwnerFirstWin": 0,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "",
+      "rootPly": 0,
+      "rootOriginalRCounts": [
+        69,
+        69
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 2
+        },
+        {
+          "column": 2,
+          "length": 1
+        },
+        {
+          "column": 3,
+          "length": 1
+        }
+      ],
+      "physicalWordCount": 12,
+      "physicalOwnerFiberCount": 6,
+      "allRequestedOwnerProfiles": 16,
+      "sourceFeasible": 6,
+      "sourceNotRealizable": 10,
+      "sourceExactFirstHeads": 6,
+      "sourceFixedProfileUniqueHead": 3,
+      "sourceFixedProfileMultipleHeads": 3,
+      "sourceDirectNonterminalBatchedQ": 6,
+      "sourceOneOwnerFirstWin": 0,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "",
+      "rootPly": 0,
+      "rootOriginalRCounts": [
+        69,
+        69
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 2
+        },
+        {
+          "column": 2,
+          "length": 1
+        },
+        {
+          "column": 3,
+          "length": 2
+        }
+      ],
+      "physicalWordCount": 30,
+      "physicalOwnerFiberCount": 10,
+      "allRequestedOwnerProfiles": 32,
+      "sourceFeasible": 10,
+      "sourceNotRealizable": 22,
+      "sourceExactFirstHeads": 10,
+      "sourceFixedProfileUniqueHead": 3,
+      "sourceFixedProfileMultipleHeads": 7,
+      "sourceDirectNonterminalBatchedQ": 10,
+      "sourceOneOwnerFirstWin": 0,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "",
+      "rootPly": 0,
+      "rootOriginalRCounts": [
+        69,
+        69
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 2
+        },
+        {
+          "column": 2,
+          "length": 1
+        },
+        {
+          "column": 3,
+          "length": 3
+        }
+      ],
+      "physicalWordCount": 60,
+      "physicalOwnerFiberCount": 18,
+      "allRequestedOwnerProfiles": 64,
+      "sourceFeasible": 18,
+      "sourceNotRealizable": 46,
+      "sourceExactFirstHeads": 18,
+      "sourceFixedProfileUniqueHead": 8,
+      "sourceFixedProfileMultipleHeads": 10,
+      "sourceDirectNonterminalBatchedQ": 18,
+      "sourceOneOwnerFirstWin": 0,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "",
+      "rootPly": 0,
+      "rootOriginalRCounts": [
+        69,
+        69
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 2
+        },
+        {
+          "column": 2,
+          "length": 2
+        },
+        {
+          "column": 3,
+          "length": 1
+        }
+      ],
+      "physicalWordCount": 30,
+      "physicalOwnerFiberCount": 10,
+      "allRequestedOwnerProfiles": 32,
+      "sourceFeasible": 10,
+      "sourceNotRealizable": 22,
+      "sourceExactFirstHeads": 10,
+      "sourceFixedProfileUniqueHead": 3,
+      "sourceFixedProfileMultipleHeads": 7,
+      "sourceDirectNonterminalBatchedQ": 10,
+      "sourceOneOwnerFirstWin": 0,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "",
+      "rootPly": 0,
+      "rootOriginalRCounts": [
+        69,
+        69
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 2
+        },
+        {
+          "column": 2,
+          "length": 2
+        },
+        {
+          "column": 3,
+          "length": 2
+        }
+      ],
+      "physicalWordCount": 90,
+      "physicalOwnerFiberCount": 19,
+      "allRequestedOwnerProfiles": 64,
+      "sourceFeasible": 19,
+      "sourceNotRealizable": 45,
+      "sourceExactFirstHeads": 19,
+      "sourceFixedProfileUniqueHead": 9,
+      "sourceFixedProfileMultipleHeads": 10,
+      "sourceDirectNonterminalBatchedQ": 19,
+      "sourceOneOwnerFirstWin": 0,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "",
+      "rootPly": 0,
+      "rootOriginalRCounts": [
+        69,
+        69
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 2
+        },
+        {
+          "column": 2,
+          "length": 2
+        },
+        {
+          "column": 3,
+          "length": 3
+        }
+      ],
+      "physicalWordCount": 210,
+      "physicalOwnerFiberCount": 33,
+      "allRequestedOwnerProfiles": 128,
+      "sourceFeasible": 33,
+      "sourceNotRealizable": 95,
+      "sourceExactFirstHeads": 33,
+      "sourceFixedProfileUniqueHead": 12,
+      "sourceFixedProfileMultipleHeads": 21,
+      "sourceDirectNonterminalBatchedQ": 33,
+      "sourceOneOwnerFirstWin": 0,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "",
+      "rootPly": 0,
+      "rootOriginalRCounts": [
+        69,
+        69
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 2
+        },
+        {
+          "column": 2,
+          "length": 3
+        },
+        {
+          "column": 3,
+          "length": 1
+        }
+      ],
+      "physicalWordCount": 60,
+      "physicalOwnerFiberCount": 18,
+      "allRequestedOwnerProfiles": 64,
+      "sourceFeasible": 18,
+      "sourceNotRealizable": 46,
+      "sourceExactFirstHeads": 18,
+      "sourceFixedProfileUniqueHead": 8,
+      "sourceFixedProfileMultipleHeads": 10,
+      "sourceDirectNonterminalBatchedQ": 18,
+      "sourceOneOwnerFirstWin": 0,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "",
+      "rootPly": 0,
+      "rootOriginalRCounts": [
+        69,
+        69
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 2
+        },
+        {
+          "column": 2,
+          "length": 3
+        },
+        {
+          "column": 3,
+          "length": 2
+        }
+      ],
+      "physicalWordCount": 210,
+      "physicalOwnerFiberCount": 33,
+      "allRequestedOwnerProfiles": 128,
+      "sourceFeasible": 33,
+      "sourceNotRealizable": 95,
+      "sourceExactFirstHeads": 33,
+      "sourceFixedProfileUniqueHead": 12,
+      "sourceFixedProfileMultipleHeads": 21,
+      "sourceDirectNonterminalBatchedQ": 33,
+      "sourceOneOwnerFirstWin": 0,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "",
+      "rootPly": 0,
+      "rootOriginalRCounts": [
+        69,
+        69
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 2
+        },
+        {
+          "column": 2,
+          "length": 3
+        },
+        {
+          "column": 3,
+          "length": 3
+        }
+      ],
+      "physicalWordCount": 560,
+      "physicalOwnerFiberCount": 62,
+      "allRequestedOwnerProfiles": 256,
+      "sourceFeasible": 62,
+      "sourceNotRealizable": 194,
+      "sourceExactFirstHeads": 62,
+      "sourceFixedProfileUniqueHead": 27,
+      "sourceFixedProfileMultipleHeads": 35,
+      "sourceDirectNonterminalBatchedQ": 62,
+      "sourceOneOwnerFirstWin": 0,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "",
+      "rootPly": 0,
+      "rootOriginalRCounts": [
+        69,
+        69
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 3
+        },
+        {
+          "column": 2,
+          "length": 1
+        },
+        {
+          "column": 3,
+          "length": 1
+        }
+      ],
+      "physicalWordCount": 20,
+      "physicalOwnerFiberCount": 10,
+      "allRequestedOwnerProfiles": 32,
+      "sourceFeasible": 10,
+      "sourceNotRealizable": 22,
+      "sourceExactFirstHeads": 10,
+      "sourceFixedProfileUniqueHead": 6,
+      "sourceFixedProfileMultipleHeads": 4,
+      "sourceDirectNonterminalBatchedQ": 10,
+      "sourceOneOwnerFirstWin": 0,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "",
+      "rootPly": 0,
+      "rootOriginalRCounts": [
+        69,
+        69
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 3
+        },
+        {
+          "column": 2,
+          "length": 1
+        },
+        {
+          "column": 3,
+          "length": 2
+        }
+      ],
+      "physicalWordCount": 60,
+      "physicalOwnerFiberCount": 18,
+      "allRequestedOwnerProfiles": 64,
+      "sourceFeasible": 18,
+      "sourceNotRealizable": 46,
+      "sourceExactFirstHeads": 18,
+      "sourceFixedProfileUniqueHead": 8,
+      "sourceFixedProfileMultipleHeads": 10,
+      "sourceDirectNonterminalBatchedQ": 18,
+      "sourceOneOwnerFirstWin": 0,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "",
+      "rootPly": 0,
+      "rootOriginalRCounts": [
+        69,
+        69
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 3
+        },
+        {
+          "column": 2,
+          "length": 1
+        },
+        {
+          "column": 3,
+          "length": 3
+        }
+      ],
+      "physicalWordCount": 140,
+      "physicalOwnerFiberCount": 33,
+      "allRequestedOwnerProfiles": 128,
+      "sourceFeasible": 33,
+      "sourceNotRealizable": 95,
+      "sourceExactFirstHeads": 33,
+      "sourceFixedProfileUniqueHead": 16,
+      "sourceFixedProfileMultipleHeads": 17,
+      "sourceDirectNonterminalBatchedQ": 33,
+      "sourceOneOwnerFirstWin": 0,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "",
+      "rootPly": 0,
+      "rootOriginalRCounts": [
+        69,
+        69
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 3
+        },
+        {
+          "column": 2,
+          "length": 2
+        },
+        {
+          "column": 3,
+          "length": 1
+        }
+      ],
+      "physicalWordCount": 60,
+      "physicalOwnerFiberCount": 18,
+      "allRequestedOwnerProfiles": 64,
+      "sourceFeasible": 18,
+      "sourceNotRealizable": 46,
+      "sourceExactFirstHeads": 18,
+      "sourceFixedProfileUniqueHead": 8,
+      "sourceFixedProfileMultipleHeads": 10,
+      "sourceDirectNonterminalBatchedQ": 18,
+      "sourceOneOwnerFirstWin": 0,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "",
+      "rootPly": 0,
+      "rootOriginalRCounts": [
+        69,
+        69
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 3
+        },
+        {
+          "column": 2,
+          "length": 2
+        },
+        {
+          "column": 3,
+          "length": 2
+        }
+      ],
+      "physicalWordCount": 210,
+      "physicalOwnerFiberCount": 33,
+      "allRequestedOwnerProfiles": 128,
+      "sourceFeasible": 33,
+      "sourceNotRealizable": 95,
+      "sourceExactFirstHeads": 33,
+      "sourceFixedProfileUniqueHead": 12,
+      "sourceFixedProfileMultipleHeads": 21,
+      "sourceDirectNonterminalBatchedQ": 33,
+      "sourceOneOwnerFirstWin": 0,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "",
+      "rootPly": 0,
+      "rootOriginalRCounts": [
+        69,
+        69
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 3
+        },
+        {
+          "column": 2,
+          "length": 2
+        },
+        {
+          "column": 3,
+          "length": 3
+        }
+      ],
+      "physicalWordCount": 560,
+      "physicalOwnerFiberCount": 62,
+      "allRequestedOwnerProfiles": 256,
+      "sourceFeasible": 62,
+      "sourceNotRealizable": 194,
+      "sourceExactFirstHeads": 62,
+      "sourceFixedProfileUniqueHead": 27,
+      "sourceFixedProfileMultipleHeads": 35,
+      "sourceDirectNonterminalBatchedQ": 62,
+      "sourceOneOwnerFirstWin": 0,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "",
+      "rootPly": 0,
+      "rootOriginalRCounts": [
+        69,
+        69
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 3
+        },
+        {
+          "column": 2,
+          "length": 3
+        },
+        {
+          "column": 3,
+          "length": 1
+        }
+      ],
+      "physicalWordCount": 140,
+      "physicalOwnerFiberCount": 33,
+      "allRequestedOwnerProfiles": 128,
+      "sourceFeasible": 33,
+      "sourceNotRealizable": 95,
+      "sourceExactFirstHeads": 33,
+      "sourceFixedProfileUniqueHead": 16,
+      "sourceFixedProfileMultipleHeads": 17,
+      "sourceDirectNonterminalBatchedQ": 33,
+      "sourceOneOwnerFirstWin": 0,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "",
+      "rootPly": 0,
+      "rootOriginalRCounts": [
+        69,
+        69
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 3
+        },
+        {
+          "column": 2,
+          "length": 3
+        },
+        {
+          "column": 3,
+          "length": 2
+        }
+      ],
+      "physicalWordCount": 560,
+      "physicalOwnerFiberCount": 62,
+      "allRequestedOwnerProfiles": 256,
+      "sourceFeasible": 62,
+      "sourceNotRealizable": 194,
+      "sourceExactFirstHeads": 62,
+      "sourceFixedProfileUniqueHead": 27,
+      "sourceFixedProfileMultipleHeads": 35,
+      "sourceDirectNonterminalBatchedQ": 62,
+      "sourceOneOwnerFirstWin": 0,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "",
+      "rootPly": 0,
+      "rootOriginalRCounts": [
+        69,
+        69
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 3
+        },
+        {
+          "column": 2,
+          "length": 3
+        },
+        {
+          "column": 3,
+          "length": 3
+        }
+      ],
+      "physicalWordCount": 1680,
+      "physicalOwnerFiberCount": 114,
+      "allRequestedOwnerProfiles": 512,
+      "sourceFeasible": 114,
+      "sourceNotRealizable": 398,
+      "sourceExactFirstHeads": 114,
+      "sourceFixedProfileUniqueHead": 45,
+      "sourceFixedProfileMultipleHeads": 69,
+      "sourceDirectNonterminalBatchedQ": 114,
+      "sourceOneOwnerFirstWin": 0,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "44444",
+      "rootPly": 5,
+      "rootOriginalRCounts": [
+        48,
+        42
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 1
+        },
+        {
+          "column": 2,
+          "length": 1
+        },
+        {
+          "column": 3,
+          "length": 1
+        }
+      ],
+      "physicalWordCount": 6,
+      "physicalOwnerFiberCount": 3,
+      "allRequestedOwnerProfiles": 8,
+      "sourceFeasible": 3,
+      "sourceNotRealizable": 5,
+      "sourceExactFirstHeads": 3,
+      "sourceFixedProfileUniqueHead": 0,
+      "sourceFixedProfileMultipleHeads": 3,
+      "sourceDirectNonterminalBatchedQ": 3,
+      "sourceOneOwnerFirstWin": 0,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "44444",
+      "rootPly": 5,
+      "rootOriginalRCounts": [
+        48,
+        42
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 1
+        },
+        {
+          "column": 2,
+          "length": 1
+        },
+        {
+          "column": 3,
+          "length": 2
+        }
+      ],
+      "physicalWordCount": 12,
+      "physicalOwnerFiberCount": 6,
+      "allRequestedOwnerProfiles": 16,
+      "sourceFeasible": 6,
+      "sourceNotRealizable": 10,
+      "sourceExactFirstHeads": 6,
+      "sourceFixedProfileUniqueHead": 3,
+      "sourceFixedProfileMultipleHeads": 3,
+      "sourceDirectNonterminalBatchedQ": 6,
+      "sourceOneOwnerFirstWin": 0,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "44444",
+      "rootPly": 5,
+      "rootOriginalRCounts": [
+        48,
+        42
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 1
+        },
+        {
+          "column": 2,
+          "length": 1
+        },
+        {
+          "column": 3,
+          "length": 3
+        }
+      ],
+      "physicalWordCount": 20,
+      "physicalOwnerFiberCount": 10,
+      "allRequestedOwnerProfiles": 32,
+      "sourceFeasible": 10,
+      "sourceNotRealizable": 22,
+      "sourceExactFirstHeads": 10,
+      "sourceFixedProfileUniqueHead": 6,
+      "sourceFixedProfileMultipleHeads": 4,
+      "sourceDirectNonterminalBatchedQ": 10,
+      "sourceOneOwnerFirstWin": 0,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "44444",
+      "rootPly": 5,
+      "rootOriginalRCounts": [
+        48,
+        42
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 1
+        },
+        {
+          "column": 2,
+          "length": 2
+        },
+        {
+          "column": 3,
+          "length": 1
+        }
+      ],
+      "physicalWordCount": 12,
+      "physicalOwnerFiberCount": 6,
+      "allRequestedOwnerProfiles": 16,
+      "sourceFeasible": 6,
+      "sourceNotRealizable": 10,
+      "sourceExactFirstHeads": 6,
+      "sourceFixedProfileUniqueHead": 3,
+      "sourceFixedProfileMultipleHeads": 3,
+      "sourceDirectNonterminalBatchedQ": 6,
+      "sourceOneOwnerFirstWin": 0,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "44444",
+      "rootPly": 5,
+      "rootOriginalRCounts": [
+        48,
+        42
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 1
+        },
+        {
+          "column": 2,
+          "length": 2
+        },
+        {
+          "column": 3,
+          "length": 2
+        }
+      ],
+      "physicalWordCount": 30,
+      "physicalOwnerFiberCount": 10,
+      "allRequestedOwnerProfiles": 32,
+      "sourceFeasible": 10,
+      "sourceNotRealizable": 22,
+      "sourceExactFirstHeads": 10,
+      "sourceFixedProfileUniqueHead": 3,
+      "sourceFixedProfileMultipleHeads": 7,
+      "sourceDirectNonterminalBatchedQ": 10,
+      "sourceOneOwnerFirstWin": 0,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "44444",
+      "rootPly": 5,
+      "rootOriginalRCounts": [
+        48,
+        42
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 1
+        },
+        {
+          "column": 2,
+          "length": 2
+        },
+        {
+          "column": 3,
+          "length": 3
+        }
+      ],
+      "physicalWordCount": 60,
+      "physicalOwnerFiberCount": 18,
+      "allRequestedOwnerProfiles": 64,
+      "sourceFeasible": 18,
+      "sourceNotRealizable": 46,
+      "sourceExactFirstHeads": 18,
+      "sourceFixedProfileUniqueHead": 8,
+      "sourceFixedProfileMultipleHeads": 10,
+      "sourceDirectNonterminalBatchedQ": 18,
+      "sourceOneOwnerFirstWin": 0,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "44444",
+      "rootPly": 5,
+      "rootOriginalRCounts": [
+        48,
+        42
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 1
+        },
+        {
+          "column": 2,
+          "length": 3
+        },
+        {
+          "column": 3,
+          "length": 1
+        }
+      ],
+      "physicalWordCount": 20,
+      "physicalOwnerFiberCount": 10,
+      "allRequestedOwnerProfiles": 32,
+      "sourceFeasible": 10,
+      "sourceNotRealizable": 22,
+      "sourceExactFirstHeads": 10,
+      "sourceFixedProfileUniqueHead": 6,
+      "sourceFixedProfileMultipleHeads": 4,
+      "sourceDirectNonterminalBatchedQ": 10,
+      "sourceOneOwnerFirstWin": 0,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "44444",
+      "rootPly": 5,
+      "rootOriginalRCounts": [
+        48,
+        42
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 1
+        },
+        {
+          "column": 2,
+          "length": 3
+        },
+        {
+          "column": 3,
+          "length": 2
+        }
+      ],
+      "physicalWordCount": 60,
+      "physicalOwnerFiberCount": 18,
+      "allRequestedOwnerProfiles": 64,
+      "sourceFeasible": 18,
+      "sourceNotRealizable": 46,
+      "sourceExactFirstHeads": 18,
+      "sourceFixedProfileUniqueHead": 8,
+      "sourceFixedProfileMultipleHeads": 10,
+      "sourceDirectNonterminalBatchedQ": 18,
+      "sourceOneOwnerFirstWin": 0,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "44444",
+      "rootPly": 5,
+      "rootOriginalRCounts": [
+        48,
+        42
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 1
+        },
+        {
+          "column": 2,
+          "length": 3
+        },
+        {
+          "column": 3,
+          "length": 3
+        }
+      ],
+      "physicalWordCount": 140,
+      "physicalOwnerFiberCount": 33,
+      "allRequestedOwnerProfiles": 128,
+      "sourceFeasible": 33,
+      "sourceNotRealizable": 95,
+      "sourceExactFirstHeads": 33,
+      "sourceFixedProfileUniqueHead": 16,
+      "sourceFixedProfileMultipleHeads": 17,
+      "sourceDirectNonterminalBatchedQ": 29,
+      "sourceOneOwnerFirstWin": 4,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "44444",
+      "rootPly": 5,
+      "rootOriginalRCounts": [
+        48,
+        42
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 2
+        },
+        {
+          "column": 2,
+          "length": 1
+        },
+        {
+          "column": 3,
+          "length": 1
+        }
+      ],
+      "physicalWordCount": 12,
+      "physicalOwnerFiberCount": 6,
+      "allRequestedOwnerProfiles": 16,
+      "sourceFeasible": 6,
+      "sourceNotRealizable": 10,
+      "sourceExactFirstHeads": 6,
+      "sourceFixedProfileUniqueHead": 3,
+      "sourceFixedProfileMultipleHeads": 3,
+      "sourceDirectNonterminalBatchedQ": 6,
+      "sourceOneOwnerFirstWin": 0,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "44444",
+      "rootPly": 5,
+      "rootOriginalRCounts": [
+        48,
+        42
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 2
+        },
+        {
+          "column": 2,
+          "length": 1
+        },
+        {
+          "column": 3,
+          "length": 2
+        }
+      ],
+      "physicalWordCount": 30,
+      "physicalOwnerFiberCount": 10,
+      "allRequestedOwnerProfiles": 32,
+      "sourceFeasible": 10,
+      "sourceNotRealizable": 22,
+      "sourceExactFirstHeads": 10,
+      "sourceFixedProfileUniqueHead": 3,
+      "sourceFixedProfileMultipleHeads": 7,
+      "sourceDirectNonterminalBatchedQ": 10,
+      "sourceOneOwnerFirstWin": 0,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "44444",
+      "rootPly": 5,
+      "rootOriginalRCounts": [
+        48,
+        42
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 2
+        },
+        {
+          "column": 2,
+          "length": 1
+        },
+        {
+          "column": 3,
+          "length": 3
+        }
+      ],
+      "physicalWordCount": 60,
+      "physicalOwnerFiberCount": 18,
+      "allRequestedOwnerProfiles": 64,
+      "sourceFeasible": 18,
+      "sourceNotRealizable": 46,
+      "sourceExactFirstHeads": 18,
+      "sourceFixedProfileUniqueHead": 8,
+      "sourceFixedProfileMultipleHeads": 10,
+      "sourceDirectNonterminalBatchedQ": 18,
+      "sourceOneOwnerFirstWin": 0,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "44444",
+      "rootPly": 5,
+      "rootOriginalRCounts": [
+        48,
+        42
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 2
+        },
+        {
+          "column": 2,
+          "length": 2
+        },
+        {
+          "column": 3,
+          "length": 1
+        }
+      ],
+      "physicalWordCount": 30,
+      "physicalOwnerFiberCount": 10,
+      "allRequestedOwnerProfiles": 32,
+      "sourceFeasible": 10,
+      "sourceNotRealizable": 22,
+      "sourceExactFirstHeads": 10,
+      "sourceFixedProfileUniqueHead": 3,
+      "sourceFixedProfileMultipleHeads": 7,
+      "sourceDirectNonterminalBatchedQ": 10,
+      "sourceOneOwnerFirstWin": 0,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "44444",
+      "rootPly": 5,
+      "rootOriginalRCounts": [
+        48,
+        42
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 2
+        },
+        {
+          "column": 2,
+          "length": 2
+        },
+        {
+          "column": 3,
+          "length": 2
+        }
+      ],
+      "physicalWordCount": 90,
+      "physicalOwnerFiberCount": 19,
+      "allRequestedOwnerProfiles": 64,
+      "sourceFeasible": 19,
+      "sourceNotRealizable": 45,
+      "sourceExactFirstHeads": 19,
+      "sourceFixedProfileUniqueHead": 9,
+      "sourceFixedProfileMultipleHeads": 10,
+      "sourceDirectNonterminalBatchedQ": 19,
+      "sourceOneOwnerFirstWin": 0,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "44444",
+      "rootPly": 5,
+      "rootOriginalRCounts": [
+        48,
+        42
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 2
+        },
+        {
+          "column": 2,
+          "length": 2
+        },
+        {
+          "column": 3,
+          "length": 3
+        }
+      ],
+      "physicalWordCount": 210,
+      "physicalOwnerFiberCount": 33,
+      "allRequestedOwnerProfiles": 128,
+      "sourceFeasible": 33,
+      "sourceNotRealizable": 95,
+      "sourceExactFirstHeads": 33,
+      "sourceFixedProfileUniqueHead": 12,
+      "sourceFixedProfileMultipleHeads": 21,
+      "sourceDirectNonterminalBatchedQ": 26,
+      "sourceOneOwnerFirstWin": 7,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "44444",
+      "rootPly": 5,
+      "rootOriginalRCounts": [
+        48,
+        42
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 2
+        },
+        {
+          "column": 2,
+          "length": 3
+        },
+        {
+          "column": 3,
+          "length": 1
+        }
+      ],
+      "physicalWordCount": 60,
+      "physicalOwnerFiberCount": 18,
+      "allRequestedOwnerProfiles": 64,
+      "sourceFeasible": 18,
+      "sourceNotRealizable": 46,
+      "sourceExactFirstHeads": 18,
+      "sourceFixedProfileUniqueHead": 8,
+      "sourceFixedProfileMultipleHeads": 10,
+      "sourceDirectNonterminalBatchedQ": 18,
+      "sourceOneOwnerFirstWin": 0,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "44444",
+      "rootPly": 5,
+      "rootOriginalRCounts": [
+        48,
+        42
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 2
+        },
+        {
+          "column": 2,
+          "length": 3
+        },
+        {
+          "column": 3,
+          "length": 2
+        }
+      ],
+      "physicalWordCount": 210,
+      "physicalOwnerFiberCount": 33,
+      "allRequestedOwnerProfiles": 128,
+      "sourceFeasible": 33,
+      "sourceNotRealizable": 95,
+      "sourceExactFirstHeads": 33,
+      "sourceFixedProfileUniqueHead": 12,
+      "sourceFixedProfileMultipleHeads": 21,
+      "sourceDirectNonterminalBatchedQ": 30,
+      "sourceOneOwnerFirstWin": 3,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "44444",
+      "rootPly": 5,
+      "rootOriginalRCounts": [
+        48,
+        42
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 2
+        },
+        {
+          "column": 2,
+          "length": 3
+        },
+        {
+          "column": 3,
+          "length": 3
+        }
+      ],
+      "physicalWordCount": 560,
+      "physicalOwnerFiberCount": 62,
+      "allRequestedOwnerProfiles": 256,
+      "sourceFeasible": 62,
+      "sourceNotRealizable": 194,
+      "sourceExactFirstHeads": 62,
+      "sourceFixedProfileUniqueHead": 27,
+      "sourceFixedProfileMultipleHeads": 35,
+      "sourceDirectNonterminalBatchedQ": 54,
+      "sourceOneOwnerFirstWin": 8,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "44444",
+      "rootPly": 5,
+      "rootOriginalRCounts": [
+        48,
+        42
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 3
+        },
+        {
+          "column": 2,
+          "length": 1
+        },
+        {
+          "column": 3,
+          "length": 1
+        }
+      ],
+      "physicalWordCount": 20,
+      "physicalOwnerFiberCount": 10,
+      "allRequestedOwnerProfiles": 32,
+      "sourceFeasible": 10,
+      "sourceNotRealizable": 22,
+      "sourceExactFirstHeads": 10,
+      "sourceFixedProfileUniqueHead": 6,
+      "sourceFixedProfileMultipleHeads": 4,
+      "sourceDirectNonterminalBatchedQ": 10,
+      "sourceOneOwnerFirstWin": 0,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "44444",
+      "rootPly": 5,
+      "rootOriginalRCounts": [
+        48,
+        42
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 3
+        },
+        {
+          "column": 2,
+          "length": 1
+        },
+        {
+          "column": 3,
+          "length": 2
+        }
+      ],
+      "physicalWordCount": 60,
+      "physicalOwnerFiberCount": 18,
+      "allRequestedOwnerProfiles": 64,
+      "sourceFeasible": 18,
+      "sourceNotRealizable": 46,
+      "sourceExactFirstHeads": 18,
+      "sourceFixedProfileUniqueHead": 8,
+      "sourceFixedProfileMultipleHeads": 10,
+      "sourceDirectNonterminalBatchedQ": 18,
+      "sourceOneOwnerFirstWin": 0,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "44444",
+      "rootPly": 5,
+      "rootOriginalRCounts": [
+        48,
+        42
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 3
+        },
+        {
+          "column": 2,
+          "length": 1
+        },
+        {
+          "column": 3,
+          "length": 3
+        }
+      ],
+      "physicalWordCount": 140,
+      "physicalOwnerFiberCount": 33,
+      "allRequestedOwnerProfiles": 128,
+      "sourceFeasible": 33,
+      "sourceNotRealizable": 95,
+      "sourceExactFirstHeads": 33,
+      "sourceFixedProfileUniqueHead": 16,
+      "sourceFixedProfileMultipleHeads": 17,
+      "sourceDirectNonterminalBatchedQ": 33,
+      "sourceOneOwnerFirstWin": 0,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "44444",
+      "rootPly": 5,
+      "rootOriginalRCounts": [
+        48,
+        42
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 3
+        },
+        {
+          "column": 2,
+          "length": 2
+        },
+        {
+          "column": 3,
+          "length": 1
+        }
+      ],
+      "physicalWordCount": 60,
+      "physicalOwnerFiberCount": 18,
+      "allRequestedOwnerProfiles": 64,
+      "sourceFeasible": 18,
+      "sourceNotRealizable": 46,
+      "sourceExactFirstHeads": 18,
+      "sourceFixedProfileUniqueHead": 8,
+      "sourceFixedProfileMultipleHeads": 10,
+      "sourceDirectNonterminalBatchedQ": 18,
+      "sourceOneOwnerFirstWin": 0,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "44444",
+      "rootPly": 5,
+      "rootOriginalRCounts": [
+        48,
+        42
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 3
+        },
+        {
+          "column": 2,
+          "length": 2
+        },
+        {
+          "column": 3,
+          "length": 2
+        }
+      ],
+      "physicalWordCount": 210,
+      "physicalOwnerFiberCount": 33,
+      "allRequestedOwnerProfiles": 128,
+      "sourceFeasible": 33,
+      "sourceNotRealizable": 95,
+      "sourceExactFirstHeads": 33,
+      "sourceFixedProfileUniqueHead": 12,
+      "sourceFixedProfileMultipleHeads": 21,
+      "sourceDirectNonterminalBatchedQ": 30,
+      "sourceOneOwnerFirstWin": 3,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "44444",
+      "rootPly": 5,
+      "rootOriginalRCounts": [
+        48,
+        42
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 3
+        },
+        {
+          "column": 2,
+          "length": 2
+        },
+        {
+          "column": 3,
+          "length": 3
+        }
+      ],
+      "physicalWordCount": 560,
+      "physicalOwnerFiberCount": 62,
+      "allRequestedOwnerProfiles": 256,
+      "sourceFeasible": 62,
+      "sourceNotRealizable": 194,
+      "sourceExactFirstHeads": 62,
+      "sourceFixedProfileUniqueHead": 27,
+      "sourceFixedProfileMultipleHeads": 35,
+      "sourceDirectNonterminalBatchedQ": 55,
+      "sourceOneOwnerFirstWin": 7,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "44444",
+      "rootPly": 5,
+      "rootOriginalRCounts": [
+        48,
+        42
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 3
+        },
+        {
+          "column": 2,
+          "length": 3
+        },
+        {
+          "column": 3,
+          "length": 1
+        }
+      ],
+      "physicalWordCount": 140,
+      "physicalOwnerFiberCount": 33,
+      "allRequestedOwnerProfiles": 128,
+      "sourceFeasible": 33,
+      "sourceNotRealizable": 95,
+      "sourceExactFirstHeads": 33,
+      "sourceFixedProfileUniqueHead": 16,
+      "sourceFixedProfileMultipleHeads": 17,
+      "sourceDirectNonterminalBatchedQ": 33,
+      "sourceOneOwnerFirstWin": 0,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "44444",
+      "rootPly": 5,
+      "rootOriginalRCounts": [
+        48,
+        42
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 3
+        },
+        {
+          "column": 2,
+          "length": 3
+        },
+        {
+          "column": 3,
+          "length": 2
+        }
+      ],
+      "physicalWordCount": 560,
+      "physicalOwnerFiberCount": 62,
+      "allRequestedOwnerProfiles": 256,
+      "sourceFeasible": 62,
+      "sourceNotRealizable": 194,
+      "sourceExactFirstHeads": 62,
+      "sourceFixedProfileUniqueHead": 27,
+      "sourceFixedProfileMultipleHeads": 35,
+      "sourceDirectNonterminalBatchedQ": 59,
+      "sourceOneOwnerFirstWin": 3,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "44444",
+      "rootPly": 5,
+      "rootOriginalRCounts": [
+        48,
+        42
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 1,
+          "length": 3
+        },
+        {
+          "column": 2,
+          "length": 3
+        },
+        {
+          "column": 3,
+          "length": 3
+        }
+      ],
+      "physicalWordCount": 1680,
+      "physicalOwnerFiberCount": 114,
+      "allRequestedOwnerProfiles": 512,
+      "sourceFeasible": 114,
+      "sourceNotRealizable": 398,
+      "sourceExactFirstHeads": 114,
+      "sourceFixedProfileUniqueHead": 45,
+      "sourceFixedProfileMultipleHeads": 69,
+      "sourceDirectNonterminalBatchedQ": 91,
+      "sourceOneOwnerFirstWin": 23,
+      "sourceDualFirstWinRaceIncomplete": 0,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": null
+    },
+    {
+      "history": "2532541156412471331416356736376672",
+      "rootPly": 34,
+      "rootOriginalRCounts": [
+        4,
+        3
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 2,
+          "length": 1
+        },
+        {
+          "column": 4,
+          "length": 1
+        },
+        {
+          "column": 5,
+          "length": 1
+        }
+      ],
+      "physicalWordCount": 6,
+      "physicalOwnerFiberCount": 3,
+      "allRequestedOwnerProfiles": 8,
+      "sourceFeasible": 3,
+      "sourceNotRealizable": 5,
+      "sourceExactFirstHeads": 3,
+      "sourceFixedProfileUniqueHead": 0,
+      "sourceFixedProfileMultipleHeads": 3,
+      "sourceDirectNonterminalBatchedQ": 1,
+      "sourceOneOwnerFirstWin": 1,
+      "sourceDualFirstWinRaceIncomplete": 1,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": {
+        "profile": [
+          {
+            "column": 2,
+            "owners": [
+              0
+            ]
+          },
+          {
+            "column": 4,
+            "owners": [
+              0
+            ]
+          },
+          {
+            "column": 5,
+            "owners": [
+              1
+            ]
+          }
+        ],
+        "physicalFirstWinnerPossibilities": [
+          "1"
+        ]
+      }
+    },
+    {
+      "history": "2532541156412471331416356736376672",
+      "rootPly": 34,
+      "rootOriginalRCounts": [
+        4,
+        3
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 2,
+          "length": 1
+        },
+        {
+          "column": 4,
+          "length": 1
+        },
+        {
+          "column": 5,
+          "length": 2
+        }
+      ],
+      "physicalWordCount": 12,
+      "physicalOwnerFiberCount": 6,
+      "allRequestedOwnerProfiles": 16,
+      "sourceFeasible": 6,
+      "sourceNotRealizable": 10,
+      "sourceExactFirstHeads": 6,
+      "sourceFixedProfileUniqueHead": 3,
+      "sourceFixedProfileMultipleHeads": 3,
+      "sourceDirectNonterminalBatchedQ": 2,
+      "sourceOneOwnerFirstWin": 2,
+      "sourceDualFirstWinRaceIncomplete": 2,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": {
+        "profile": [
+          {
+            "column": 2,
+            "owners": [
+              1
+            ]
+          },
+          {
+            "column": 4,
+            "owners": [
+              0
+            ]
+          },
+          {
+            "column": 5,
+            "owners": [
+              1,
+              0
+            ]
+          }
+        ],
+        "physicalFirstWinnerPossibilities": [
+          "1"
+        ]
+      }
+    },
+    {
+      "history": "2532541156412471331416356736376672",
+      "rootPly": 34,
+      "rootOriginalRCounts": [
+        4,
+        3
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 2,
+          "length": 1
+        },
+        {
+          "column": 4,
+          "length": 2
+        },
+        {
+          "column": 5,
+          "length": 1
+        }
+      ],
+      "physicalWordCount": 12,
+      "physicalOwnerFiberCount": 6,
+      "allRequestedOwnerProfiles": 16,
+      "sourceFeasible": 6,
+      "sourceNotRealizable": 10,
+      "sourceExactFirstHeads": 6,
+      "sourceFixedProfileUniqueHead": 3,
+      "sourceFixedProfileMultipleHeads": 3,
+      "sourceDirectNonterminalBatchedQ": 1,
+      "sourceOneOwnerFirstWin": 4,
+      "sourceDualFirstWinRaceIncomplete": 1,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": {
+        "profile": [
+          {
+            "column": 2,
+            "owners": [
+              0
+            ]
+          },
+          {
+            "column": 4,
+            "owners": [
+              0,
+              1
+            ]
+          },
+          {
+            "column": 5,
+            "owners": [
+              1
+            ]
+          }
+        ],
+        "physicalFirstWinnerPossibilities": [
+          "1",
+          "0"
+        ]
+      }
+    },
+    {
+      "history": "2532541156412471331416356736376672",
+      "rootPly": 34,
+      "rootOriginalRCounts": [
+        4,
+        3
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 2,
+          "length": 1
+        },
+        {
+          "column": 4,
+          "length": 2
+        },
+        {
+          "column": 5,
+          "length": 2
+        }
+      ],
+      "physicalWordCount": 30,
+      "physicalOwnerFiberCount": 10,
+      "allRequestedOwnerProfiles": 32,
+      "sourceFeasible": 10,
+      "sourceNotRealizable": 22,
+      "sourceExactFirstHeads": 10,
+      "sourceFixedProfileUniqueHead": 3,
+      "sourceFixedProfileMultipleHeads": 7,
+      "sourceDirectNonterminalBatchedQ": 2,
+      "sourceOneOwnerFirstWin": 5,
+      "sourceDualFirstWinRaceIncomplete": 3,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": {
+        "profile": [
+          {
+            "column": 2,
+            "owners": [
+              1
+            ]
+          },
+          {
+            "column": 4,
+            "owners": [
+              0,
+              0
+            ]
+          },
+          {
+            "column": 5,
+            "owners": [
+              1,
+              0
+            ]
+          }
+        ],
+        "physicalFirstWinnerPossibilities": [
+          "1"
+        ]
+      }
+    },
+    {
+      "history": "2532541156412471331416356736376672",
+      "rootPly": 34,
+      "rootOriginalRCounts": [
+        4,
+        3
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 2,
+          "length": 2
+        },
+        {
+          "column": 4,
+          "length": 1
+        },
+        {
+          "column": 5,
+          "length": 1
+        }
+      ],
+      "physicalWordCount": 12,
+      "physicalOwnerFiberCount": 6,
+      "allRequestedOwnerProfiles": 16,
+      "sourceFeasible": 6,
+      "sourceNotRealizable": 10,
+      "sourceExactFirstHeads": 6,
+      "sourceFixedProfileUniqueHead": 3,
+      "sourceFixedProfileMultipleHeads": 3,
+      "sourceDirectNonterminalBatchedQ": 2,
+      "sourceOneOwnerFirstWin": 3,
+      "sourceDualFirstWinRaceIncomplete": 1,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": {
+        "profile": [
+          {
+            "column": 2,
+            "owners": [
+              0,
+              1
+            ]
+          },
+          {
+            "column": 4,
+            "owners": [
+              0
+            ]
+          },
+          {
+            "column": 5,
+            "owners": [
+              1
+            ]
+          }
+        ],
+        "physicalFirstWinnerPossibilities": [
+          "0",
+          "1"
+        ]
+      }
+    },
+    {
+      "history": "2532541156412471331416356736376672",
+      "rootPly": 34,
+      "rootOriginalRCounts": [
+        4,
+        3
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 2,
+          "length": 2
+        },
+        {
+          "column": 4,
+          "length": 1
+        },
+        {
+          "column": 5,
+          "length": 2
+        }
+      ],
+      "physicalWordCount": 30,
+      "physicalOwnerFiberCount": 10,
+      "allRequestedOwnerProfiles": 32,
+      "sourceFeasible": 10,
+      "sourceNotRealizable": 22,
+      "sourceExactFirstHeads": 10,
+      "sourceFixedProfileUniqueHead": 3,
+      "sourceFixedProfileMultipleHeads": 7,
+      "sourceDirectNonterminalBatchedQ": 3,
+      "sourceOneOwnerFirstWin": 4,
+      "sourceDualFirstWinRaceIncomplete": 3,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": {
+        "profile": [
+          {
+            "column": 2,
+            "owners": [
+              1,
+              0
+            ]
+          },
+          {
+            "column": 4,
+            "owners": [
+              0
+            ]
+          },
+          {
+            "column": 5,
+            "owners": [
+              1,
+              0
+            ]
+          }
+        ],
+        "physicalFirstWinnerPossibilities": [
+          "1"
+        ]
+      }
+    },
+    {
+      "history": "2532541156412471331416356736376672",
+      "rootPly": 34,
+      "rootOriginalRCounts": [
+        4,
+        3
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 2,
+          "length": 2
+        },
+        {
+          "column": 4,
+          "length": 2
+        },
+        {
+          "column": 5,
+          "length": 1
+        }
+      ],
+      "physicalWordCount": 30,
+      "physicalOwnerFiberCount": 10,
+      "allRequestedOwnerProfiles": 32,
+      "sourceFeasible": 10,
+      "sourceNotRealizable": 22,
+      "sourceExactFirstHeads": 10,
+      "sourceFixedProfileUniqueHead": 3,
+      "sourceFixedProfileMultipleHeads": 7,
+      "sourceDirectNonterminalBatchedQ": 1,
+      "sourceOneOwnerFirstWin": 5,
+      "sourceDualFirstWinRaceIncomplete": 4,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": {
+        "profile": [
+          {
+            "column": 2,
+            "owners": [
+              1,
+              0
+            ]
+          },
+          {
+            "column": 4,
+            "owners": [
+              0,
+              0
+            ]
+          },
+          {
+            "column": 5,
+            "owners": [
+              1
+            ]
+          }
+        ],
+        "physicalFirstWinnerPossibilities": [
+          "1"
+        ]
+      }
+    },
+    {
+      "history": "2532541156412471331416356736376672",
+      "rootPly": 34,
+      "rootOriginalRCounts": [
+        4,
+        3
+      ],
+      "originalChosenColumnLengths": [
+        {
+          "column": 2,
+          "length": 2
+        },
+        {
+          "column": 4,
+          "length": 2
+        },
+        {
+          "column": 5,
+          "length": 2
+        }
+      ],
+      "physicalWordCount": 90,
+      "physicalOwnerFiberCount": 19,
+      "allRequestedOwnerProfiles": 64,
+      "sourceFeasible": 19,
+      "sourceNotRealizable": 45,
+      "sourceExactFirstHeads": 19,
+      "sourceFixedProfileUniqueHead": 9,
+      "sourceFixedProfileMultipleHeads": 10,
+      "sourceDirectNonterminalBatchedQ": 2,
+      "sourceOneOwnerFirstWin": 10,
+      "sourceDualFirstWinRaceIncomplete": 7,
+      "sourceFullBoardDraw": 0,
+      "sourcePhysicalFeasibilityMismatches": 0,
+      "sourcePhysicalHeadMismatches": 0,
+      "sourcePhysicalFirstWinnerMismatches": 0,
+      "sourcePhysicalBatchQMismatches": 0,
+      "firstDualSourceIncompleteExample": {
+        "profile": [
+          {
+            "column": 2,
+            "owners": [
+              1,
+              1
+            ]
+          },
+          {
+            "column": 4,
+            "owners": [
+              0,
+              0
+            ]
+          },
+          {
+            "column": 5,
+            "owners": [
+              1,
+              0
+            ]
+          }
+        ],
+        "physicalFirstWinnerPossibilities": [
+          "1"
+        ]
+      }
+    }
+  ],
+  "sourceAdversarialStrategyValuesNeverComputed": true,
+  "canonical44444PerfectPlayWDL": "UNKNOWN",
+  "canonical44444BestAction": "INCOMPLETE",
+  "maintainedNode26OrExternalFormalProof": "NOT_RUN",
+  "qualifiedIsoGraph12Unchanged": true,
+  "frozenGitBlobs": {
+    "source": "11a1b4a196bdb0c88b9d9b26fdec1deaa4e416f1",
+    "physical": "cc253aa82d3adff89bfa8d1eb2d991285a9e78e4",
+    "old": "feb9d91a766203aca57cf5ae375aec81551d9f55",
+    "runner": "861ca3b449b26303c2fade01e65bf5b2783a8b27"
+  },
+  "executionEnvironment": "Committed SOURCE and independently written original69-winline physical falsifier executed under isolated V8, no maintained Node26 CI or independent external formal assistant"
+}
