@@ -1,0 +1,84 @@
+{
+  "schema": "connect4.original7x6.independent_exact_wdl_diamond_action_equality_falsifier_v0_1",
+  "referenceOnly": true,
+  "sourceProducerNeverQueriesWDL": true,
+  "physicalGeometry": {
+    "W": 7,
+    "H": 6,
+    "K": 4,
+    "originalWinlines": 69
+  },
+  "oracle": {
+    "method": "recursive memoized original-physical P0-relative minimax with first-win stop",
+    "maxStatesPerRoot": 250000,
+    "maxRoots": 300,
+    "maxPairsPerRoot": 20,
+    "domain": "frozen source-certified diamond root action pairs only"
+  },
+  "counters": {
+    "candidateRootsInPacket": 450,
+    "rootsChecked": 1,
+    "rootBudgetsIncomplete": 0,
+    "actionPairsChecked": 1,
+    "exactValuedFirstActions": 4,
+    "physicalRecursiveCalls": 159,
+    "physicallyCachedUniqueGameStates": 129,
+    "sourceGuardRecomputed": false,
+    "allActionValuesComputedForWitness": true
+  },
+  "disposition": "PHYSICAL_DISPROVING_WITNESS",
+  "firstDisprovingWitness": {
+    "originalHistory": "2532541156412471331416356736376672",
+    "ply": 34,
+    "originalHeights": [
+      6,
+      4,
+      6,
+      4,
+      4,
+      6,
+      4
+    ],
+    "originalSourceRCounts": [
+      4,
+      3
+    ],
+    "originalP0RelativeFirstActionValues": {
+      "2": -1,
+      "5": 0
+    },
+    "firstActionA": 2,
+    "firstActionC": 5,
+    "sourceCertifiedDiamond": [
+      2,
+      4,
+      5,
+      7
+    ],
+    "sourceSwappedTwoRoundWord": [
+      5,
+      7,
+      2,
+      4
+    ],
+    "physicalRootMover": 0,
+    "exactReferenceStatesMemoized": 90,
+    "exactPhysicalReferenceRecursionCalls": 112,
+    "conclusion": "COUNTEREXAMPLE_TO_STATIC_DIAMOND_IMPLIES_EQUAL_ROOT_ACTION_VALUES",
+    "allRootFirstActionValuesP0Relative": {
+      "2": -1,
+      "4": -1,
+      "5": 0,
+      "7": -1
+    },
+    "ordinaryRootValueP0Relative": 0,
+    "exactAllMoveValuesComputed": true
+  },
+  "sourceRevisions": {
+    "sourceDiamondBlob": "0efc75d8ca630db8c8263ed93e1c627738160ef7",
+    "sourceCandidateProducerBlob": "9c0866f0a427947847f510dcc4dc79f50f940559",
+    "sourceDiamondTheory": "docs/research/2026-10-18-unfolded-two-round-static-interactive-trace-diamond.md"
+  },
+  "sourceInputBlob": "3a15cc8e8a64dbab5db0c0051a8a7f4518b54afb",
+  "physicalReferenceOracleBlob": "79428663df84699ea20d66cff58d9de1a3f411b3"
+}
