@@ -260,3 +260,121 @@ Other numerical facts are from different nonuniform test corpora. Do NOT SUM the
 The source must record ZERO independently valued strategically inequivalent futures; a forced WIN ladder may materialize one specifically proved forced strategic q lane. Static original matching/packing/map proof witness enumeration, mask subset checks and label graph closure are separately disclosed. “No search” in the active research sense refers strictly to no branching into distinct STRATEGIC game-value evaluations, not literally zero loops.
 
 Recent source-control tests were executed using isolated JavaScript/V8 and frozen Git blobs. Maintained Node26 CI and external independently formalized proof-assistant checking were not newly performed for these results. No new qualified IsoGraph authority revision, production solver branch merge or game-rule change has been authorized or executed.
+## 17. Most urgent unsolved mathematics: multi-response first-touch control, not more map heuristics
+
+The ACTIVE obstacle is source `Gates(x)` whose common intersection `I(x)` contains no SINGLE immediately gravity-legal defender reply. `44444` has 27 such gate cells among 35 first-touch gate cells. The current proof cannot immediately kill every touched original requirement with one next defender stone; this does NOT imply a forced WIN for the mover or a need to evaluate alternative game futures. A stronger algebraic policy may be able to:
+- block one generator now while gravity prevents another from completing until a later defender action;
+- pay/retire multiple pending original requirement obligations from shared defensive resources across several forced ranks;
+- preemptively claim blocker cells as a STATIC source policy derived from release precedence and parity;
+- show a first-winning-line race resource potential cannot reach p completion before opponent o first-win or before a safe blocking reaction;
+- certify an attacker p win by the DUAL source winning-strategy closure if all safe o defenses are structurally excluded—not by assuming the failure of this PARTICULAR no-win guard proves p win.
+
+**Research-candidate descriptor, NOT yet established theorem:** From original q retain live owner-tagged K-line requirements, first-touch gate equivalence classes, source gravity release predecessors, shared blocker incidence and a bounded threat-debt potential D. Seek a source-local predicate `C_o(q,D)` that proves one deterministic defender response / resource allocation is sufficient for EVERY possible current attacker landing x by a UNIVERSAL algebraic check; show it preserves first-win safety and strictly decreases a well-founded rank or closes a robust invariant after owner/opponent response pairs.
+
+A formula merely stating `∀ attacker action ∃ response action` is TAUTOLOGICAL as an attempted algorithm unless the response is computed and universally checked DIRECTLY from source original requirements without tracing or valuing different strategic futures. A QBF/BDD that unrolls all future strategy responses is disallowed. A source proof may use STATIC source generator subset/linear-capacity inequalities, bounded interface closure, or a global static policy certificate; it must not hide multiple game-semantic branches in the witness search.
+
+Prioritize one minimal obstruction gate family and its original live G masks before proposing a global theorem. Source success on previously uncovered genuine q is valuable; source failure must remain INCOMPLETE. Do not reopen the solved local move7/8 transition or reinterpret center XOR geometry as a WDL proof.
+
+## 18. Concrete next agent experiment, freeze-and-verify sequence
+
+**A. Reproduce the source obstruction without oracle guidance.**
+1. Re-fetch live research branch HEAD, CURRENT `STATUS.md` and `next_step.yaml`. Use the existing `D/standard7x6-source-first-touch-gate-blocker-no-win.mjs` with the genuine ORIGINAL canonical q after history `44444` to enumerate all 35 gate physical cells and the exact 27 that lack one source-common legal reply. Record each gate x, its `Gates(x)` generator indexes/masks, `I(x)`, all current and released legal blocker cells, parity and gravity release predecessors in frozen machine-readable source evidence. Do not assume the 27 form independent strategic games.
+2. Classify minimal conflicting generator families into distinct geometric/temporal cases: no shared residual cell; shared cell exists but not gravity-released; multiple independent gates share one later responder; first-winning deadline relative to response; source opposition has an immediate counterwinning threat. Compare with prior safe even/odd pair, forced-threat ladder, dual packing and current WDL action-order inequalities. Freeze exact negative and positive classifications.
+
+**B. Derive ONE direct candidate theorem.**
+3. Propose a concrete deterministic SOURCE policy/invariant with multi-response resource debt and explicit legal release guard. It must quantify opponent adaptive actions and both first wins correctly, but MUST NOT evaluate the value of separate future game states. Supply exact algebraic update, inclusion/packing/guard conditions, clear well-founded rank descent, and terminal precedence. If no theorem can be formulated, save an honest mathematical wall instead of implementing an oracle disguised as source algebra.
+4. Commit the theorem plus PURE SOURCE executable and separate independently implemented ORIGINAL physical falsifier BEFORE running. Include source operation budgets; budget exhaustion returns `INCOMPLETE`. Freeze exact 7×6 seed/histories and original q construction details so a UI desync cannot erase work.
+
+**C. Physically falsify the source theorem, not learn it from outcomes.**
+5. On true W=7,H=6,K=4 gravity/69-original-win-line FIRST-WIN physical boards, test every positive source response against all physically legal opponent actions relevant to the universal guard, including illegal gravity mates, early p/o first win and full-board draw. First run small chosen genuine q examples and canonical `44444` for source-local certification (DO NOT recursively solve rank5 `44444` just to tune a candidate).
+6. Only AFTER source output is frozen, use independent physical recursive ordinary WDL to verify root scalar and selected original first action on budgeted genuinely late positive q. Source WIN proof automatically best; DRAW requires root no-WIN and one robust NONLOSS; LOSS requires globally guarded o WIN and all-current-action tie. Qualitative order source best proof may carry `ordinaryRootValueP0Relative=null`.
+7. Compare on THE SAME original q corpus to immutable V4 and the already frozen parallel first-touch best source. Report genuinely NEW best-root certifications, old proof equivalents, unchanged incomplete q and exact test counts. Do not add unrelated corpora together.
+8. Preserve every counterexample (especially unsafe odd cross-prefix), reference resource exhaustion, failed guard and chosen new hypothesis as durable records. If no new best move but a new closed source invariant is proven and physically checked, record it as a restricted theorem, not a total Level2 solution.
+
+**D. Crash-safe closure.**
+9. Commit machine evidence, theorem claim scope, producer/ref SHA/seed, negative controls and minimal witness to `research/semantic-quotient`. Update `STATUS.md` and `next_step.yaml` and confirm live HEAD. Never silently promote a research artifact to qualified gameplay authority 1.2 or merge into solver/main. Preserve all prior theorem files and imperfect historical experiments for audit.
+10. Stop at a complete durable checkpoint if transport/UI desync threatens. Re-fetch the live state after any uncertain GitHub write and do not claim success without verification.
+
+Immediate successful outcome: ONE newly proven exact source Level2 best action on an original q that V4 plus first-touch sources could not previously certify, OR one new guarded adaptive no-forced-win/forced-win mathematical theorem covering an unserved first-touch obstruction and independently verified. A strong negative falsifier can also be substantive progress; do not fake total coverage.
+
+## 19. Repository retrieval paths and reproducibility map
+
+On resumption, read these in THIS order; `D` is shorthand for `research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/`. Expand `D` literally when using the GitHub API.
+
+**Current authorities / routing**
+- `iteathen/.github/AGENTS.md`, `AGENT_LOCAL.md`, `research/AGENTS.md`.
+- `research/isograph/CONNECT4_LOGIC_AUTHORITY_1_2.md` and `research/isograph/CONNECT4_LOGIC_AUTHORITY_MANIFEST_1_2.json`.
+- `STATUS.md` and `next_step.yaml`, ALWAYS re-fetch latest.
+- `docs/research/2026-10-17-owner-unified-three-level-information-definition.md`.
+- `docs/research/2026-10-17-owner-level2-set-vs-valid-continuation-correction.md`.
+- `docs/research/2026-10-17-zero-strategic-branching-objective.md` (original stricter complete-set wording is superseded operationally).
+- `docs/research/2026-10-17-zero-branching-comprehensive-context-handoff.md` for historical pre-owner-correction background, not current next step.
+
+**LATEST first-touch theorems and validation**
+- `docs/research/2026-10-18-source-first-touch-universal-blocker-invariant.md`.
+- `docs/research/2026-10-18-first-touch-directed-blocker-plus-opponent-dual-or-one-nonloss-level2.md`.
+- `D/standard7x6-source-first-touch-gate-blocker-no-win.mjs`.
+- `D/standard7x6-source-first-touch-best-draw-loss.mjs`.
+- `D/standard7x6-first-touch-best-v4-marginal-independent-physical-control.mjs`.
+- `D/STANDARD7X6_FIRST_TOUCH_DIRECTED_NONPAIRING_NO_FORCED_WIN_PHYSICAL_RESULTS_0_1.json`.
+- `D/STANDARD7X6_FIRST_TOUCH_DIRECTED_DEFENDER_19_NEW_BEST_OVER_V4_RESULTS_0_1.json`.
+
+**Previous source WIN/DRAW/LOSS and odd repair**
+- `docs/research/2026-10-17-source-gravity-response-cover-exact-mate-in-three.md`.
+- `docs/research/2026-10-17-one-lane-forced-threat-ladder-source-win-witness.md`.
+- `docs/research/2026-10-17-source-root-win-exclusion-plus-one-action-draw-witness.md`.
+- `docs/research/2026-10-17-source-inevitable-loss-dual-packing-any-L2-move.md`.
+- `docs/research/2026-10-17-adaptive-gravity-pairing-plus-opponent-overload-forced-loss.md`.
+- `docs/research/2026-10-17-odd-spare-gravity-cross-prefix-rejection-and-safe-restriction.md`.
+- `docs/research/2026-10-17-odd-pending-pair-plus-dual-or-one-nonloss-tier-closure.md`.
+- `D/standard7x6-source-gravity-response-cover.mjs`.
+- `D/standard7x6-source-single-forced-threat-ladder.mjs`.
+- `D/standard7x6-one-action-root-noforce-win-draw-certificate.mjs`.
+- `D/standard7x6-pair-defense-plus-dual-overload-source.mjs`.
+- `D/STANDARD7X6_GRAVITY_RESPONSE_COVER_DIRECT_MATE_RESULTS_0_1.json`.
+- `D/STANDARD7X6_SINGLE_FORCED_THREAT_LADDER_VALID_CONTINUATION_RESULTS_0_1.json`.
+- `D/STANDARD7X6_ROOT_NO_WIN_SINGLE_DRAW_BEST_SOURCE_RESULTS_0_1.json`.
+
+**Source WDL-order algorithms and negative incremental controls**
+- `research/isograph/discovery/2026-10-16-algorithmic-core/exact-q-core.mjs` — branching independent reference ONLY.
+- `D/standard7x6-unified-one-valid-best-action-source-v4.mjs` — immutable current combined research WIN/DRAW/LOSS/qualitative source selector.
+- `D/standard7x6-unified-v4-dependency-execution-bundle-20261018.mjs` — frozen V4 source dependency execution recipe.
+- `D/either-mover-future-transport.mjs` — older STATIC column-mapping proof search.
+- `D/standard7x6-source-fixed-two-column-swap-WDL-order.mjs`.
+- `D/standard7x6-original-source-fixed-reflection-WDL-order.mjs`.
+- `D/standard7x6-source-deterministic-column-footprint-WDL-order.mjs`.
+- `D/standard7x6-source-three-deterministic-maps-WDL-order.mjs`.
+- `D/STANDARD7X6_THREE_DETERMINISTIC_MAPS_UNION_101_BEST_ZERO_NEW_V4_RESULTS_0_1.json`.
+- `D/STANDARD7X6_TWO_FIXED_TRANSFORM_WDL_UNION_RESULTS_0_1.json`.
+
+**Geometry / XOR / canonical root guards**
+- `docs/research/2026-10-17-exact-linear-word-unfolding-of-7x6-gravity-game.md`.
+- `docs/research/2026-10-17-center-full-left-right-shuffle-xor-bridge-factorization.md`.
+- `docs/research/2026-10-17-canonical44444-single-center-marker-xor-defect-unfolding.md`.
+- `docs/research/2026-10-17-standard7x6-row-column-phase-boundary-cocycle.md`.
+- `docs/research/2026-10-17-true7x6-height-only-Level2-counterexample.md`.
+- `D/STANDARD7X6_CANONICAL44444_DIRECT_Q_REFLECTION_EQUALITY_CLASSES_RESULTS_0_1.json`.
+
+For executable reproduction use the exact committed source/control scripts and their Git blob IDs preserved in the corresponding machine evidence. Source code is ESM, and some checks ran via isolated V8 with frozen imported-module bundle assembly. Maintained Node26 CI or an independent external proof assistant must be run explicitly before citing such a qualification. Do not use the old handoff commit SHA as live HEAD.
+
+## 20. Completion checklist and final handoff boundary
+
+Before a new agent begins new mathematical work, it must be able to answer YES with grounded repository evidence:
+
+- [ ] Live research branch, current HEAD and qualified original game theory 1.2 located; current `STATUS.md`/`next_step.yaml` read in full.
+- [ ] User's corrected distinction between FULL Level2 information set and ONE certified best continuation understood, including P0/P1 preference and opponent-quality axis.
+- [ ] Zero STRATEGIC game-value branching distinguished from allowed static source generator/matching/proof work, and one specifically FORCED future lane.
+- [ ] Original q, first-win stop, 69 K-lines, gravity, owner contraction / enemy blocker deletion, source ambiguity and reflected q transporter fully understood.
+- [ ] Canonical `44444` original rank5 P1 move6 and later historical local move7/8 theorem scoped correctly; four action mirror equality classes not misidentified as best.
+- [ ] Geometric ribbons, single future center marker XOR law, cross-center bridges, GF(2) nonlinear first-winner obstacle understood without overclaiming a game solution.
+- [ ] Guarded source WIN/DRAW/LOSS families and immutable V1–V4 read; source scalar-free best moves can legitimately have UNKNOWN root WDL.
+- [ ] Historical odd preemptive pair with longer cross prefix is marked REJECTED and concrete illegal gravity mate preserved.
+- [ ] Deterministic swap/mirror/footprint program results classified correctly: 101 qualified three-map best roots, **zero NEW over V4**, and no invented mixed-only best roots.
+- [ ] LATEST October18 first-touch NO-FORCED-WIN theorem reconstructed, with 295 positive root defenses, 105 DRAW/LOSS closures and **19 NEW over V4** on the SAME tested corpus.
+- [ ] Canonical 35 first-touch gate cells, 27 without single common legal reply and four mirrored action-value classes are understood as incomplete source proof coverage, not a scalar perfect outcome.
+- [ ] One concrete adaptive multi-response source predicate/finite-rank closure or a clearly documented unresolved obstacle is the next mathematical step, with frozen source and genuinely independent physical falsifier.
+- [ ] Every new success OR falsification is durably committed to `research/semantic-quotient`, claim strength is accurate, and no authority promotion, main merge, alternative strategic game-value search, or background work is invented.
+
+**Final state:** The latest actual mathematics is directed first-touch shared-blocker defense plus source tier closure (19 new real7×6 Level2 best roots beyond V4). Total no-strategic-branching Level2 for arbitrary 7×6 remains OPEN; source best move and unrestricted perfect WDL at `44444` remain UNKNOWN; Level3 nonbranching impossibility remains UNPROVEN.
+
+**END OF COMPLETE HANDOFF — Sections 1 through 20, full next-agent prompt, proof/evidence directory and current open boundary are included.** This file is the durable retrieval artifact. It must be read past section 6 and never supersede the live branch's more recent verified research if new commits appear.
