@@ -1,5 +1,7 @@
 # Connect4 current research status
 
+> **Complete October 18 restart handoff (20 verified sections):** [docs/research/2026-10-18-COMPLETE-zero-strategic-branching-Level2-research-handoff.md](docs/research/2026-10-18-COMPLETE-zero-strategic-branching-Level2-research-handoff.md). This supersedes the obsolete operational full-M* requirement and stale checkpoint of the October 17 handoff; it does **not** supersede live current-state routing, original qualified IsoGraph 1.2, or newer independently validated research. Contains latest directed first-touch 19-new-over-V4 result, concrete canonical 44444 source gate wall, all major prior theorem/proof paths and failures, and the next-agent mathematical procedure.
+
 **Updated:** 2026-10-18 (latest: first-touch shared-blocker adaptive source invariant adds 19 new WDL-best original moves beyond V4; two-fixed-map experiment rescued; total original7x6 Level2 still OPEN)  
 **Branch:** `research/semantic-quotient`  
 **Research direction / structural architecture / invariant-first and self-proving-predicate program:** Josh Oshiro  
