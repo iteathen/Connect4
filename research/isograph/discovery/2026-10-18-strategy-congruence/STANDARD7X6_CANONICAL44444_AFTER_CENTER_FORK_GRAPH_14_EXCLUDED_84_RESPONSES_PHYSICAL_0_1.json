@@ -1,0 +1,497 @@
+{
+  "schema": "connect4.original7x6.canonical44444_conditional_center_finished_fork_graph_v0_1",
+  "date": "2026-10-18",
+  "status": "SOURCE_14_P1_PREEMPTION_FAILURES_FORCED_P0_WIN_IN_84_PHYSICAL_RESPONSES",
+  "sourceTheorem": "docs/research/2026-10-18-canonical44444-center-branch-playable-pair-fork-frontier-strategy-funnel.md",
+  "originalBoard": "TRUE standard7x6 K4 69 winning original four-cell windows and FIRST-win stopping",
+  "originalFixedHistory": "44444",
+  "nextP1ActionCompletesCenter": 4,
+  "actualConditionalP0FirstResponseWings": [
+    1,
+    2,
+    3,
+    5,
+    6,
+    7
+  ],
+  "originalRootScalarWDL": "UNKNOWN",
+  "originalRootP1BestLevel2Column": "INCOMPLETE",
+  "totals": {
+    "trueOriginalK4Winlines": 69,
+    "originalRootPly5": true,
+    "centerCompletedAndSixP0WingRepliesPhysicallyReplayed": 6,
+    "sourceOriginalR0R1FromIndependentGridReconstructed": 6,
+    "physicallyPlayableAttackerSize2GeneratorEdges": 12,
+    "sourceExpectedForkPreemptionSetComparisons": 6,
+    "sourceExcludedP1CurrentActionsWithExplicitAttackerForcedWINMacro": 14,
+    "independentPhysicalP1NextReplyOptionsCheckedAfterAttackerFork": 84,
+    "verifiedOriginalPhysicalAttackerWinsBeforeDefenderHasThirdReply": 84,
+    "falseOriginalSourceForcedWinClaims": 0,
+    "earlyPhysicalP1WinSupersessionClaims": 0,
+    "generatedTrueGameWDLOracleRootValues": 0,
+    "futureStrategicallyDifferentGamesValuedInSource": 0
+  },
+  "sourceAndIndependentPhysicalByP0WingReply": [
+    {
+      "P0InitialWingReplyAfterP1CompletesCenter": 1,
+      "physicalP1Rank7MinimumRemainingSourceRequirement": 3,
+      "originalCurrentP1LegalColumns": [
+        1,
+        2,
+        3,
+        5,
+        6,
+        7
+      ],
+      "sourcePlayableP0PairEdges": [
+        [
+          2,
+          3
+        ]
+      ],
+      "sourceP0ForkTriples": [],
+      "sourceNecessaryP1CurrentReplySubset": [
+        1,
+        2,
+        3,
+        5,
+        6,
+        7
+      ],
+      "excludedP1RepliesWithConfirmedPhysicalForkLoss": [],
+      "currentExcludedAttackerMacroWitnesses": []
+    },
+    {
+      "P0InitialWingReplyAfterP1CompletesCenter": 2,
+      "physicalP1Rank7MinimumRemainingSourceRequirement": 3,
+      "originalCurrentP1LegalColumns": [
+        1,
+        2,
+        3,
+        5,
+        6,
+        7
+      ],
+      "sourcePlayableP0PairEdges": [
+        [
+          1,
+          3
+        ],
+        [
+          3,
+          5
+        ]
+      ],
+      "sourceP0ForkTriples": [
+        [
+          1,
+          3,
+          5
+        ]
+      ],
+      "sourceNecessaryP1CurrentReplySubset": [
+        1,
+        3,
+        5
+      ],
+      "excludedP1RepliesWithConfirmedPhysicalForkLoss": [
+        2,
+        6,
+        7
+      ],
+      "currentExcludedAttackerMacroWitnesses": [
+        {
+          "excludedDefenderCurrentOriginalColumn": 2,
+          "forcingAttackerOriginalColumnNext": 3,
+          "forcingAttackerThreatChoicesAfterOneMoreDefenderReply": [
+            1,
+            5
+          ],
+          "attackerGuaranteesOriginalFirstWINByAtMostSecondOwnPlacement": true,
+          "defenderCannotCompleteAnOriginalLineInItsNextTwoPlacementsByCardinalityGuard": true,
+          "originalStaticForkTriple": [
+            1,
+            3,
+            5
+          ]
+        },
+        {
+          "excludedDefenderCurrentOriginalColumn": 6,
+          "forcingAttackerOriginalColumnNext": 3,
+          "forcingAttackerThreatChoicesAfterOneMoreDefenderReply": [
+            1,
+            5
+          ],
+          "attackerGuaranteesOriginalFirstWINByAtMostSecondOwnPlacement": true,
+          "defenderCannotCompleteAnOriginalLineInItsNextTwoPlacementsByCardinalityGuard": true,
+          "originalStaticForkTriple": [
+            1,
+            3,
+            5
+          ]
+        },
+        {
+          "excludedDefenderCurrentOriginalColumn": 7,
+          "forcingAttackerOriginalColumnNext": 3,
+          "forcingAttackerThreatChoicesAfterOneMoreDefenderReply": [
+            1,
+            5
+          ],
+          "attackerGuaranteesOriginalFirstWINByAtMostSecondOwnPlacement": true,
+          "defenderCannotCompleteAnOriginalLineInItsNextTwoPlacementsByCardinalityGuard": true,
+          "originalStaticForkTriple": [
+            1,
+            3,
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "P0InitialWingReplyAfterP1CompletesCenter": 3,
+      "physicalP1Rank7MinimumRemainingSourceRequirement": 3,
+      "originalCurrentP1LegalColumns": [
+        1,
+        2,
+        3,
+        5,
+        6,
+        7
+      ],
+      "sourcePlayableP0PairEdges": [
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          5,
+          6
+        ]
+      ],
+      "sourceP0ForkTriples": [
+        [
+          1,
+          2,
+          5
+        ],
+        [
+          2,
+          5,
+          6
+        ]
+      ],
+      "sourceNecessaryP1CurrentReplySubset": [
+        2,
+        5
+      ],
+      "excludedP1RepliesWithConfirmedPhysicalForkLoss": [
+        1,
+        3,
+        6,
+        7
+      ],
+      "currentExcludedAttackerMacroWitnesses": [
+        {
+          "excludedDefenderCurrentOriginalColumn": 1,
+          "forcingAttackerOriginalColumnNext": 5,
+          "forcingAttackerThreatChoicesAfterOneMoreDefenderReply": [
+            2,
+            6
+          ],
+          "attackerGuaranteesOriginalFirstWINByAtMostSecondOwnPlacement": true,
+          "defenderCannotCompleteAnOriginalLineInItsNextTwoPlacementsByCardinalityGuard": true,
+          "originalStaticForkTriple": [
+            2,
+            5,
+            6
+          ]
+        },
+        {
+          "excludedDefenderCurrentOriginalColumn": 3,
+          "forcingAttackerOriginalColumnNext": 2,
+          "forcingAttackerThreatChoicesAfterOneMoreDefenderReply": [
+            1,
+            5
+          ],
+          "attackerGuaranteesOriginalFirstWINByAtMostSecondOwnPlacement": true,
+          "defenderCannotCompleteAnOriginalLineInItsNextTwoPlacementsByCardinalityGuard": true,
+          "originalStaticForkTriple": [
+            1,
+            2,
+            5
+          ]
+        },
+        {
+          "excludedDefenderCurrentOriginalColumn": 6,
+          "forcingAttackerOriginalColumnNext": 2,
+          "forcingAttackerThreatChoicesAfterOneMoreDefenderReply": [
+            1,
+            5
+          ],
+          "attackerGuaranteesOriginalFirstWINByAtMostSecondOwnPlacement": true,
+          "defenderCannotCompleteAnOriginalLineInItsNextTwoPlacementsByCardinalityGuard": true,
+          "originalStaticForkTriple": [
+            1,
+            2,
+            5
+          ]
+        },
+        {
+          "excludedDefenderCurrentOriginalColumn": 7,
+          "forcingAttackerOriginalColumnNext": 2,
+          "forcingAttackerThreatChoicesAfterOneMoreDefenderReply": [
+            1,
+            5
+          ],
+          "attackerGuaranteesOriginalFirstWINByAtMostSecondOwnPlacement": true,
+          "defenderCannotCompleteAnOriginalLineInItsNextTwoPlacementsByCardinalityGuard": true,
+          "originalStaticForkTriple": [
+            1,
+            2,
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "P0InitialWingReplyAfterP1CompletesCenter": 5,
+      "physicalP1Rank7MinimumRemainingSourceRequirement": 3,
+      "originalCurrentP1LegalColumns": [
+        1,
+        2,
+        3,
+        5,
+        6,
+        7
+      ],
+      "sourcePlayableP0PairEdges": [
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          6,
+          7
+        ]
+      ],
+      "sourceP0ForkTriples": [
+        [
+          2,
+          3,
+          6
+        ],
+        [
+          3,
+          6,
+          7
+        ]
+      ],
+      "sourceNecessaryP1CurrentReplySubset": [
+        3,
+        6
+      ],
+      "excludedP1RepliesWithConfirmedPhysicalForkLoss": [
+        1,
+        2,
+        5,
+        7
+      ],
+      "currentExcludedAttackerMacroWitnesses": [
+        {
+          "excludedDefenderCurrentOriginalColumn": 1,
+          "forcingAttackerOriginalColumnNext": 3,
+          "forcingAttackerThreatChoicesAfterOneMoreDefenderReply": [
+            2,
+            6
+          ],
+          "attackerGuaranteesOriginalFirstWINByAtMostSecondOwnPlacement": true,
+          "defenderCannotCompleteAnOriginalLineInItsNextTwoPlacementsByCardinalityGuard": true,
+          "originalStaticForkTriple": [
+            2,
+            3,
+            6
+          ]
+        },
+        {
+          "excludedDefenderCurrentOriginalColumn": 2,
+          "forcingAttackerOriginalColumnNext": 6,
+          "forcingAttackerThreatChoicesAfterOneMoreDefenderReply": [
+            3,
+            7
+          ],
+          "attackerGuaranteesOriginalFirstWINByAtMostSecondOwnPlacement": true,
+          "defenderCannotCompleteAnOriginalLineInItsNextTwoPlacementsByCardinalityGuard": true,
+          "originalStaticForkTriple": [
+            3,
+            6,
+            7
+          ]
+        },
+        {
+          "excludedDefenderCurrentOriginalColumn": 5,
+          "forcingAttackerOriginalColumnNext": 3,
+          "forcingAttackerThreatChoicesAfterOneMoreDefenderReply": [
+            2,
+            6
+          ],
+          "attackerGuaranteesOriginalFirstWINByAtMostSecondOwnPlacement": true,
+          "defenderCannotCompleteAnOriginalLineInItsNextTwoPlacementsByCardinalityGuard": true,
+          "originalStaticForkTriple": [
+            2,
+            3,
+            6
+          ]
+        },
+        {
+          "excludedDefenderCurrentOriginalColumn": 7,
+          "forcingAttackerOriginalColumnNext": 3,
+          "forcingAttackerThreatChoicesAfterOneMoreDefenderReply": [
+            2,
+            6
+          ],
+          "attackerGuaranteesOriginalFirstWINByAtMostSecondOwnPlacement": true,
+          "defenderCannotCompleteAnOriginalLineInItsNextTwoPlacementsByCardinalityGuard": true,
+          "originalStaticForkTriple": [
+            2,
+            3,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "P0InitialWingReplyAfterP1CompletesCenter": 6,
+      "physicalP1Rank7MinimumRemainingSourceRequirement": 3,
+      "originalCurrentP1LegalColumns": [
+        1,
+        2,
+        3,
+        5,
+        6,
+        7
+      ],
+      "sourcePlayableP0PairEdges": [
+        [
+          3,
+          5
+        ],
+        [
+          5,
+          7
+        ]
+      ],
+      "sourceP0ForkTriples": [
+        [
+          3,
+          5,
+          7
+        ]
+      ],
+      "sourceNecessaryP1CurrentReplySubset": [
+        3,
+        5,
+        7
+      ],
+      "excludedP1RepliesWithConfirmedPhysicalForkLoss": [
+        1,
+        2,
+        6
+      ],
+      "currentExcludedAttackerMacroWitnesses": [
+        {
+          "excludedDefenderCurrentOriginalColumn": 1,
+          "forcingAttackerOriginalColumnNext": 5,
+          "forcingAttackerThreatChoicesAfterOneMoreDefenderReply": [
+            3,
+            7
+          ],
+          "attackerGuaranteesOriginalFirstWINByAtMostSecondOwnPlacement": true,
+          "defenderCannotCompleteAnOriginalLineInItsNextTwoPlacementsByCardinalityGuard": true,
+          "originalStaticForkTriple": [
+            3,
+            5,
+            7
+          ]
+        },
+        {
+          "excludedDefenderCurrentOriginalColumn": 2,
+          "forcingAttackerOriginalColumnNext": 5,
+          "forcingAttackerThreatChoicesAfterOneMoreDefenderReply": [
+            3,
+            7
+          ],
+          "attackerGuaranteesOriginalFirstWINByAtMostSecondOwnPlacement": true,
+          "defenderCannotCompleteAnOriginalLineInItsNextTwoPlacementsByCardinalityGuard": true,
+          "originalStaticForkTriple": [
+            3,
+            5,
+            7
+          ]
+        },
+        {
+          "excludedDefenderCurrentOriginalColumn": 6,
+          "forcingAttackerOriginalColumnNext": 5,
+          "forcingAttackerThreatChoicesAfterOneMoreDefenderReply": [
+            3,
+            7
+          ],
+          "attackerGuaranteesOriginalFirstWINByAtMostSecondOwnPlacement": true,
+          "defenderCannotCompleteAnOriginalLineInItsNextTwoPlacementsByCardinalityGuard": true,
+          "originalStaticForkTriple": [
+            3,
+            5,
+            7
+          ]
+        }
+      ]
+    },
+    {
+      "P0InitialWingReplyAfterP1CompletesCenter": 7,
+      "physicalP1Rank7MinimumRemainingSourceRequirement": 3,
+      "originalCurrentP1LegalColumns": [
+        1,
+        2,
+        3,
+        5,
+        6,
+        7
+      ],
+      "sourcePlayableP0PairEdges": [
+        [
+          5,
+          6
+        ]
+      ],
+      "sourceP0ForkTriples": [],
+      "sourceNecessaryP1CurrentReplySubset": [
+        1,
+        2,
+        3,
+        5,
+        6,
+        7
+      ],
+      "excludedP1RepliesWithConfirmedPhysicalForkLoss": [],
+      "currentExcludedAttackerMacroWitnesses": []
+    }
+  ],
+  "thisIsNecessaryP1ReplySetNotProofP1AvoidsFutureLoss": true,
+  "independentlySearchedFutureStrategicGameWDLValues": 0,
+  "Node26CIAndExternalIndependentFormalProof": "NOT_RUN",
+  "frozenCodeBlobs": {
+    "source": "de98b16574955739200cb8e8bbc636e5ad5304a4",
+    "physical": "d05316884ecc0afc7aded93e872be0c83b23768f"
+  },
+  "executionMode": "Exact frozen committed SOURCE and separately authored original TRUE 69-line colored-grid physical first-win falsifier executed in isolated V8; source no game q futures/alternative root WDL, independent physical enum only for one bounded fork program.",
+  "originalGeometryAuthority": "IsoGraph 1.2 unchanged",
+  "maintainedNode26CI": "NOT_RUN",
+  "externalFormalChecker": "NOT_RUN"
+}
