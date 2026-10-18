@@ -1,5 +1,7 @@
 # Owner's corrected three-tier information target: Level 2 is ANY P0-winning continuation, Level 3 is FASTEST forced P0 win
 
+> **Later owner generalization supersedes single-player nomenclature:** See [`2026-10-17-owner-two-opponent-models-three-level-move-taxonomy.md`](2026-10-17-owner-two-opponent-models-three-level-move-taxonomy.md) for the TWO opponent-quality contexts, P1's deliberate longest forced loss when P0 is a known perfect winner, potential WIN > DRAW > LOSS preference when P0 quality is unknown, conditional P0 invariance, and exact equal WH−n duration of all full-board draws. This file remains a precise description of the **P0 guaranteed-win, known-perfect-opposition special case**, not the universal Level 2/3 output policy.
+
 **Date:** 2026-10-17 Pacific. **Canonical owner:** `research/semantic-quotient`. **Status:** latest explicit project-owner OUTPUT DEFINITION supersedes **only the labels / output contract** in `docs/research/2026-10-17-three-level-wdl-optimal-set-remoteness-information-hierarchy.md`. The previous file and its exact physical reference evidence are retained unchanged as historical WDL-optimal/remoteness mathematical results; do not rewrite older data as if it was measured under this new naming. This research note is NOT an IsoGraph 1.2 gameplay authority promotion. Primary domain actual `W=7,H=6,K=4`; preserve `W,H,K` symbolically for later generalization.
 
 ## A. The owner's exact wording / corrected definitions
