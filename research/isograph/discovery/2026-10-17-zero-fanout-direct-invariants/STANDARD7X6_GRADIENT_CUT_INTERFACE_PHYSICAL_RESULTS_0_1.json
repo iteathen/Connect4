@@ -1,0 +1,199 @@
+{
+  "schema": "connect4.standard7x6.gradient_cut_interface_physical_v0_1",
+  "date": "2026-10-17",
+  "status": "PASS_REPAIRED_SOURCE_CUT_INTERFACE_REAL7X6_Q_TERMINAL_CONJUGACY",
+  "geometry": {
+    "W": 7,
+    "H": 6,
+    "K": 4,
+    "originalWinningLines": 69
+  },
+  "math": "docs/research/2026-10-17-source-interface-transfer-gradient-cut-candidate.md",
+  "producer": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-gradient-cut-interface.mjs",
+  "qualifiedCorrectedProducerBlob": "b4e03c6fc0ed53950de34ad2a2a6d656500da1ad",
+  "independentControl": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-gradient-cut-physical-control.mjs",
+  "independentControlBlob": "9d49e08a60e949a78072ab431d4462aa3587a801",
+  "qualifiedQReference": "research/isograph/discovery/2026-10-16-algorithmic-core/exact-q-core.mjs",
+  "referenceBlob": "6b25d0e2560fe4131d2f5442593e9ed9763c1a18",
+  "real7x6FirstWinStoppedPhysicalSources": 5518,
+  "distinctNormalizedQ": 4738,
+  "perCutQEncodeDecodeChecks": 33108,
+  "allCutLiteralOneStepTransitionsChecked": 195888,
+  "exactNonterminalSuccessorQ": 178866,
+  "exactFirstWinTerminals": 16812,
+  "exactFullNonwinningDrawTerminals": 210,
+  "wrongCutQOrTerminal": 0,
+  "sourceFutureGameValuesEvaluated": 0,
+  "staticOriginalGeometricCuts": [
+    {
+      "cutAfterLiteralColumn": 1,
+      "originalCrossingKLines": 12,
+      "directions": {
+        "horizontal": 6,
+        "vertical": 0,
+        "rising": 3,
+        "falling": 3
+      },
+      "spanColumns": [
+        1,
+        4
+      ]
+    },
+    {
+      "cutAfterLiteralColumn": 2,
+      "originalCrossingKLines": 24,
+      "directions": {
+        "horizontal": 12,
+        "vertical": 0,
+        "rising": 6,
+        "falling": 6
+      },
+      "spanColumns": [
+        1,
+        5
+      ]
+    },
+    {
+      "cutAfterLiteralColumn": 3,
+      "originalCrossingKLines": 36,
+      "directions": {
+        "horizontal": 18,
+        "vertical": 0,
+        "rising": 9,
+        "falling": 9
+      },
+      "spanColumns": [
+        1,
+        6
+      ]
+    },
+    {
+      "cutAfterLiteralColumn": 4,
+      "originalCrossingKLines": 36,
+      "directions": {
+        "horizontal": 18,
+        "vertical": 0,
+        "rising": 9,
+        "falling": 9
+      },
+      "spanColumns": [
+        2,
+        7
+      ]
+    },
+    {
+      "cutAfterLiteralColumn": 5,
+      "originalCrossingKLines": 24,
+      "directions": {
+        "horizontal": 12,
+        "vertical": 0,
+        "rising": 6,
+        "falling": 6
+      },
+      "spanColumns": [
+        3,
+        7
+      ]
+    },
+    {
+      "cutAfterLiteralColumn": 6,
+      "originalCrossingKLines": 12,
+      "directions": {
+        "horizontal": 6,
+        "vertical": 0,
+        "rising": 3,
+        "falling": 3
+      },
+      "spanColumns": [
+        4,
+        7
+      ]
+    }
+  ],
+  "canonicalCutBridgeCounts": {
+    "44444": {
+      "cutAfter1": [
+        8,
+        6
+      ],
+      "cutAfter2": [
+        15,
+        12
+      ],
+      "cutAfter3": [
+        16,
+        14
+      ],
+      "cutAfter4": [
+        16,
+        14
+      ],
+      "cutAfter5": [
+        15,
+        12
+      ],
+      "cutAfter6": [
+        8,
+        6
+      ]
+    },
+    "444444": {
+      "cutAfter1": [
+        6,
+        6
+      ],
+      "cutAfter2": [
+        12,
+        12
+      ],
+      "cutAfter3": [
+        12,
+        12
+      ],
+      "cutAfter4": [
+        12,
+        12
+      ],
+      "cutAfter5": [
+        12,
+        12
+      ],
+      "cutAfter6": [
+        6,
+        6
+      ]
+    }
+  },
+  "negativeNormalizationLocality": {
+    "observedChangesToNormalizedCrossCutBridgesFromActionsOutsideAllOriginalCrossingWindows": 18894,
+    "firstWitness": {
+      "sourceHistory": "",
+      "actionOneBased": 5,
+      "cutAfterOneBasedColumn": 1,
+      "originalKCrossingWindowColumnSpanOneBased": [
+        1,
+        4
+      ],
+      "sourceP0AndP1BridgeGeneratorsBefore": [
+        12,
+        12
+      ],
+      "note": "Action 5 touches no original K-window crossing cut 1. Its globally normalized source residual bridge family can nevertheless change due to inclusion absorption by a newly shortened non-bridge generator. This is a readout effect, not proof that raw original-line incidence propagation is nonlocal."
+    },
+    "status": "OBSERVED_DIRECT_Q_NORMALIZATION_GLOBAL_EFFECT; proof of deferred-normalization local raw stream is separate and passed 48218 real7x6 transitions"
+  },
+  "provenanceIssue": {
+    "initialProducerBlob": "c2ce9ce361173111386d725ec5e24b6d852a568e",
+    "initialResult": "FAIL on initial q=empty first-action; helper normalizePairs expected array of generator masks but erroneously unioned nonexistent left/right fields, generating empty zero mask",
+    "repairCommit": "4013505eeaa4183e1de39c87bc003e8dd29dc558",
+    "repair": "Use norm(family) directly on BigInt masks prior to re-split",
+    "finalResult": "PASS after source code fixed; initial FAIL not erased"
+  },
+  "qualificationLimits": [
+    "All tested positions are first-win-stopped genuine 7x6 physical sources, nonuniform seeded corpus; not a complete q enumeration.",
+    "Source cut representation is EXACT source q cofactor, not proof of zero-strategic-branching unrestricted WDL or full tied M*.",
+    "No strategic future game values evaluated; independent exact-q reference called for single-step only.",
+    "R0/R1 and exact first-win remain required; a 3-column separator does not create independent perfect-play regional games.",
+    "Maintained Node26/CI and external proof assistant not run."
+  ]
+}
