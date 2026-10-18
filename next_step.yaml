@@ -1,3 +1,83 @@
+true7x6_direct_fixed_column_swap_WDL_order_source_v4_20261017:
+  research_branch: research/semantic-quotient
+  result: EXACT_GUARDED_SOURCE_DIRECT_TWO_COLUMN_RAW_Q_WEAK_WDL_ORDER_NO_STATIC_PERMUTATION_ENUMERATION_WITH_V4_CONSERVATIVE_FALLBACK
+  theorem: docs/research/2026-10-17-fixed-transposition-raw-source-WDL-order-theorem.md
+  v4_design_and_proof: docs/research/2026-10-17-unified-source-v4-fixed-two-column-swap-before-transport.md
+  direct_source: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-source-fixed-two-column-swap-WDL-order.mjs
+  direct_source_exact_blob: 7beb2ca37b1e8a4cf0885c91f6c3678261b18329
+  unified_source_v4: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-unified-one-valid-best-action-source-v4.mjs
+  unified_source_v4_exact_blob: 462cead38be227dcb3659c0d99b2fd1779a8d256
+  earlier_source_v3_immutable: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-unified-one-valid-best-action-source-v3.mjs
+  baseline_direct_original_physical_control: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-fixed-transposition-independent-physical-WDL-control.mjs
+  direct_evidence: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/STANDARD7X6_FIXED_TWO_COLUMN_DIRECT_RAW_SOURCE_WDL_ORDER_RESULTS_0_1.json
+  frozen_same_q_v3_v4_direct_physical_control: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-unified-v4-86-direct-source-marginal-physical-control.mjs
+  v4_direct_23_static_swap_marginal_evidence: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/STANDARD7X6_UNIFIED_V4_DIRECT_SOURCE_23_NO_PERMUTATION_RESULTS_0_1.json
+  frozen_other_v3_v4_physical_preservation_control: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-unified-v4-qualitative-fallback-preservation-physical-control.mjs
+  v4_preservation_48_result: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/STANDARD7X6_UNIFIED_V4_FALLBACK_PRESERVES_V3_48_BEST_RESULTS_0_1.json
+  primary_game: "true standard W=7 H=6 K=4, retain W H K symbolically"
+  mathematical_guards:
+    root_original_q: "(h,R0,R1), original first-win-stopped nonterminal"
+    selected_actions_a_b: "distinct legal original first action columns with EQUAL source h[a]=h[b]"
+    bit_permutation: "EXACTLY ONE fixed physical column transposition a<->b, rows preserved, no permutation candidate search"
+    first_actions_nonterminal: "skip own immediate win and full nonwinning last board placement in this comparison; old source V2 handles terminals"
+    owner_raw_family: "F_s(t)={G minus landed cell if current mover s} OR {G not containing landed cell if opponent s}"
+    source_P0_weak_value_order: "C0(a,b): each raw P0-after-a G has P0-after-b H subset sigma(G); C1(a,b): each raw P1-after-b H has P1-after-a G subset sigma(H); implies J_a<=J_b"
+    root_best_choice: "P0 choose upper extremum reachable FROM all legal current actions; P1 choose lower extremum REACHING all actions; transitive closure over current literal labels only"
+    source_root_scalar_WDL: UNKNOWN_WHEN_ONLY_THIS_BEST_ACTION_PROOF
+    source_game_value_lookups: 0
+    source_completed_static_column_permutation_candidates: 0
+    source_raw_source_mask_subset_compares_allowed: true
+  first_true7x6_real_sample:
+    genuine_q_examined: 13318
+    original_current_legal_action_pairs: 51839
+    equal_height_action_pairs: 12827
+    original_q_raw_generator_subset_checks: 132679
+    source_weak_WDL_action_order_edges: 4234
+    source_scalar_free_best_move_positions: 86
+    independent_physical_perfect_WDL_order_edges_checked: 967
+    independent_physical_best_actions_checked: 85
+    source_or_physical_errors: 0
+  same_q_v3_coverage_comparison:
+    v4_direct_source_positive_roots: 86
+    v3_ALREADY_VALID_roots_among_same86: 86
+    new_q_coverage_vs_v3: 0
+    old_v3_scalar_WDL_proof_preserved: 63
+    old_v3_scalar_free_QUALITATIVE_ORDER_proof_replaced_by_direct_fixed_swap: 23
+    previous_completed_STATIC_COLUMN_PERMUTATION_WITNESS_CANDIDATES_AVOIDED_FOR_23: 4142
+    note: "This is proof candidate construction count, NOT timing speedup or 23 new q certifications"
+  v3_preservation_separate_corpus:
+    known_V3_original_best_root_q: 48
+    exact_scalar_source_V3_root_results_retained: 37
+    scalar_free_source_V3_best_actions_directly_reproved_by_v4: 11
+    original_physical_selected_action_WDL_checks: 48
+    wrong: 0
+    enumerated_permutation_fallback_used_on_this_sample: 0
+  v4_runtime_source_precedence:
+    - "Immutable V2 source WIN/DRAW/LOSS theorem returns best original move with known V when possible"
+    - "If no V2 and single legal original first move, its only column trivially best with root ordinary WDL UNKNOWN"
+    - "Direct fixed two-column swap original q raw winning-line inclusion and qualitative best extremum, no static permutation enumeration"
+    - "Retain older enumerated column transporter ONLY as fallback when direct q proof insufficient; count STATIC proof work; source zero independently valued future game WDL"
+    - "If no source best proof, INCOMPLETE; never fabricate scalar V or move"
+  canonical_44444_unrestricted_scalar_WDL: UNKNOWN
+  canonical_44444_no_search_best_original_action: INCOMPLETE
+  total_arbitrary_standard7x6_source_only_Level2_algorithm: OPEN
+  source_static_perm_fallback_not_universally_eliminated: true
+  all_strategically_valued_competing_future_games_in_source: 0
+  source_max_strategically_live_forced_future_lanes: 1
+  qualified_IsoGraph_gameplay_1_2_unchanged: true
+  next_mathematical_gate: >-
+    Freeze SOURCE-only original7x6 direct fixed transposition vs
+    full capacity-preserving earlier source transporter comparison on
+    identical real q. Seek old certified weak WDL order edges which no
+    single fixed two-column swap can prove, then identify minimal
+    nontransposition column-cycle witness or prove guarded direct swap
+    sufficiency. If a counterexample is found, preserve q/history and
+    redesign a deterministic original-q SOURCE column normalization
+    removing static assignment enumeration without ever branching
+    through independently valued strategic GAME futures. Otherwise
+    do not assume universal direct transposition completeness from
+    finite samples. Maintain canonical44444 uncertainty.
+
 true7x6_unified_source_v3_scalar_free_Level2_11_new_20261017:
   owner: research/semantic-quotient
   status: EXACT_SCOPED_SOURCE_UNIFIED_V3_11_NEW_LEVEL2_BEST_ORIGINAL_ACTIONS_WITHOUT_SCALAR_LEVEL1_WDL_OVER_IMMUTABLE_V2
