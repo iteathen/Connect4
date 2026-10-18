@@ -1,0 +1,65 @@
+{
+  "schema": "connect4.true7x6.two_fixed_transforms_swap_reflection_vs_v4_same_source_q_v0_1",
+  "date": "2026-10-18",
+  "status": "PASS_COMPACT_CHECKPOINT_OF_EXECUTED_INDEPENDENT_PHYSICAL_TEST",
+  "provenanceNote": "Exact metrics transcribed from successfully executed frozen control. Compact checkpoint, not full raw control JSON; replay exact frozen control and frozen source dependency blobs for raw report.",
+  "governingTheorem": "docs/research/2026-10-17-fixed-transposition-plus-reflection-source-WDL-closure.md",
+  "pureSource": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-source-two-fixed-transform-WDL-extremum.mjs",
+  "pureSourceBlob": "954c2739211272da10a258d1adcc5daab6b71319",
+  "frozenIndependentControl": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-two-fixed-transform-v4-marginal-physical-control.mjs",
+  "controlGitBlob": "9b7d853662565d7d9f9b446835553112f3bd3c14",
+  "existingV4Source": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-unified-one-valid-best-action-source-v4.mjs",
+  "v4GitBlob": "462cead38be227dcb3659c0d99b2fd1779a8d256",
+  "isolatedExecutionSourceBundle": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/three-fixed-transforms-source-test-execution-bundle.mjs",
+  "executionBundleGitBlob": "fbd48a66a2e768317e94a1882fe09ba6f58bd990",
+  "actualBoard": {
+    "width": 7,
+    "height": 6,
+    "connect": 4
+  },
+  "sameOriginalQComparison": {
+    "genuineQExamined": 13318,
+    "certifiedBestByEitherFixedTransform": 97,
+    "oldV4AlreadyValidBestActionRoots": 97,
+    "newValidBestActionsBeyondOldV4": 0,
+    "oldV4KnownWIN": 13,
+    "oldV4KnownDRAW": 49,
+    "oldV4KnownLOSS": 12,
+    "oldV4PreviouslyScalarUnknownButBestCertified": 23,
+    "oldV4StaticPermutationFallbackReplacedWithinThisCorpus": 0,
+    "oldV4CompletedColumnPermutationWitnessesAvoidedWithinThisCorpus": 0,
+    "newlyCertifiedRootPhysicalOracleChecks": 0,
+    "physicalFalseSourceOrderOrOptimalMoveResults": 0,
+    "swapAloneSourceBest": 86,
+    "reflectionAloneSourceBest": 21,
+    "positiveUnionButNeitherComponentAlone": 0,
+    "knownOriginalCanonical44444MirrorOutcomeEqualClasses": [
+      [
+        1,
+        7
+      ],
+      [
+        2,
+        6
+      ],
+      [
+        3,
+        5
+      ],
+      [
+        4
+      ]
+    ],
+    "canonical44444SourceBest": "INCOMPLETE",
+    "canonical44444OrdinaryWDL": "UNKNOWN"
+  },
+  "qualifiers": [
+    "V4 scalar win/draw/loss source certifiers already handled all eleven reflection-only (not fixed-swap) positions in the nonuniform sample; union adds ZERO new Level2 action coverage over V4.",
+    "The 97 combined fixed source root-best hits correspond to 13 V4 known wins, 49 draws, 12 losses and 23 V4 scalar-free source best labels. This is 97 positions, not different independent corpora.",
+    "Combined source only directly tests one fixed two-column swap and one fixed full-board reflection; source enumerates zero static whole-column mapping candidates and values zero competing future game outcomes.",
+    "Previous V4 full-column transporter static proof search remains necessary as a conservative fallback for other source positions. No general removal of all structural proof-candidate enumeration is proved.",
+    "Independent physical recursive WDL is a post-source falsifier; original combined physical control checked 985 weak order inequalities and 94 selected first actions without discrepancies.",
+    "Resumed after UI desync and checkpointed during current live branch session; previous immutable V1/V2/V3/V4 sources and qualified IsoGraph 1.2 unchanged.",
+    "No Node26 maintained CI, no external formal proof assistant. No arbitrary-source total no-search Level2 solver or canonical44444 best move discovered."
+  ]
+}
