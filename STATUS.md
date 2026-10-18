@@ -1,11 +1,25 @@
 # Connect4 current research status
 
-**Updated:** 2026-10-17 (latest: separate zero-search best WIN via forced ladders and best DRAW via root win exclusion plus one nonloss move; arbitrary7x6 still open)  
+**Updated:** 2026-10-17 (latest: scoped source-only Level2 best move WIN, DRAW and LOSS certificates; total standard7x6 remains open)  
 **Branch:** `research/semantic-quotient`  
 **Research direction / structural architecture / invariant-first and self-proving-predicate program:** Josh Oshiro  
 **Formalization / implementation / qualification:** OpenAI ChatGPT
 
 This file is the current-state router, not a theorem ledger. This branch owns **all durable Connect4 research**, regardless of which solver produced it. Research artifacts live across `research/**` and `docs/research/**` on this branch; the executable research continuation lives in `next_step.yaml`.
+
+## New source proof coverage: WIN / DRAW / LOSS valid Level2 continuations (2026-10-17)
+
+**Three outcome classes now have independently validated restricted-domain source-only Level2 best-action certificates.** This is NOT a total arbitrary-standard7x6 no-search solver; source future game WDL evaluations are zero, except the permitted ONE selected forced-opponent response lane in the WIN ladder.
+
+**WIN:** the original-q direct gravity response-cover rule S/Z/D certified 153,311 original first actions on 134,185 genuine sampled 7x6 nonterminal positions, with 249,206 independent physical opponent replies fully verified. A single chosen forced-opponent blocking lane added 671 winning best action certificates beyond the direct source result on a separately sampled 56,712-position real7x6 corpus, including six-round forced threat chains. All actual physical first-win checks passed. Evidence: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/STANDARD7X6_GRAVITY_RESPONSE_COVER_DIRECT_MATE_RESULTS_0_1.json and STANDARD7X6_SINGLE_FORCED_THREAT_LADDER_VALID_CONTINUATION_RESULTS_0_1.json.
+
+**DRAW:** prove current mover cannot FORCE win from root by source original owner-line extinction or gravity-safe global defender pairing, AND prove one source literal action guarantees nonloss (opponent blocker elimination or safe co-release static pairing). That move is necessarily BEST DRAW. Tested 8,899 actual sampled late 7x6 q: 213 selected best drawing moves, including 15 with root nontrivial pairing; 180 full independent physical root/action WDL checks, ZERO errors. Proof docs/research/2026-10-17-source-root-win-exclusion-plus-one-action-draw-witness.md, evidence STANDARD7X6_ROOT_NO_WIN_SINGLE_DRAW_BEST_SOURCE_RESULTS_0_1.json.
+
+**LOSS:** if current mover has NO viable original residual winning generator, while opponent source hypergraph packing weight exceeds ALL current-mover remaining blocking turns, the opponent must FIRST win against EVERY legal play sequence. Thus ALL legal current mover actions tie as unavoidable LOSS (valid Level2 best continuation from any one). Tested 16,168 sampled genuine late 7x6 roots: 17 source inevitable-loss roots, 30 individually tied losing original legal labels, all 17 physical roots and all 30 literal actions independently full-recursive verified, ZERO errors. Proof docs/research/2026-10-17-source-inevitable-loss-dual-packing-any-L2-move.md; evidence STANDARD7X6_INEVITABLE_LOSS_ANY_BEST_MOVE_SOURCE_RESULTS_0_1.json.
+
+**Limits:** sampled nonuniform TRUE7x6 sources, three different corpora (counts must NOT be added as disjoint total coverage); winner/draw results may leave other equally best original labels unknown. No universal arbitrary-q no-strategic-branching Level2 solution; canonical history 44444 still source-INCOMPLETE. No Level3 impossibility theorem; maintained Node26/external proof assistant not run; qualified IsoGraph logic authority 1.2 gameplay unchanged.
+
+**NEXT mathematical challenge:** combine the three proof families in a conservative ONE-valid-move source protocol (try forced WIN, then guarded DRAW, then root-certified inevitable LOSS), return INCOMPLETE otherwise. Extend the adaptive response invariant beyond forcing lines without enumerating opponent strategy branches or separately valuing inequivalent future games.
 
 ## Source-certified best DRAW action — root cannot force win + one move avoids loss (2026-10-17)
 
