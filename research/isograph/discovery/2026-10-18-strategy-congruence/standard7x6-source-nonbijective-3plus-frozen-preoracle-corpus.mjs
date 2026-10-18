@@ -52,7 +52,7 @@ export function generateFrozenNonbijective3PlusCorpus({
    trueOriginalNonterminalRootsScreened:0,
    distinctHeightSupportProfiles:0,
    moverP0:0,moverP1:0,
-   3Legal:0,4Legal:0,5OrMoreLegal:0,
+   '3Legal':0,'4Legal':0,'5OrMoreLegal':0,
    sourcePositiveWdlOrderEdges:0,
    sourceRootsWithPositiveWdlEdges:0,
    sourceEdgesNotProvedByPreviousFixedInvolutionReplyMethod:0,
