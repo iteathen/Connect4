@@ -1,3 +1,66 @@
+true7x6_single_forced_lane_longer_level2_winner_20261017:
+  owner_objective: "ONE certified current-player Level2 best literal continuation, no independent strategic future game value branching; full all-best move set stronger"
+  status: SOURCE_EXACT_SCOPED_ONE_FORCED_OPPONENT_REPLY_LANE_UP_TO_SIX_ROUNDS_CONFIRMED_ACTUAL7X6_NOT_TOTAL_SOLVER
+  theorem: docs/research/2026-10-17-one-lane-forced-threat-ladder-source-win-witness.md
+  source: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-source-single-forced-threat-ladder.mjs
+  direct_base: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-source-gravity-response-cover.mjs
+  frozen_independent_original_physical_control: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-one-forced-lane-independent-physical-control.mjs
+  evidence: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/STANDARD7X6_SINGLE_FORCED_THREAT_LADDER_VALID_CONTINUATION_RESULTS_0_1.json
+  deterministic_one_lane_rule: >-
+    On current owner p source q, try direct all-reply gravity response-cover.
+    Else choose ONE q-mask-ordered original action a yielding exactly one
+    currently playable p winning target b, no opponent immediate win,
+    and no direct win. Opponent must block b (else immediate p win).
+    Follow ONLY q-after-a,b; repeat same policy. If chosen lane fails,
+    return INCOMPLETE with NO fallback/backtracking through alternative
+    strategically inequivalent games. Successful chain terminal source
+    direct winner implies certified original root p win by rank induction.
+  source_value_queries_of_unselected_future_games: 0
+  max_source_strategic_lane_fanout: 1
+  source_original_q_physical_root_count: 56712
+  deterministic_physical_histories_sampled: 1700
+  direct_original_source_winner_roots: 32614
+  additional_source_winner_roots_not_direct: 671
+  exact_source_winner_roots_total: 33285
+  forced_round_success_histogram:
+    "0": 32614
+    "1": 338
+    "2": 201
+    "3": 96
+    "4": 29
+    "5": 5
+    "6": 2
+  failed_selected_forced_reply_lanes_returned_INCOMPLETE: 7137
+  selected_one_lane_original_q_cofactors_materialized: 22702
+  physical_off_target_opponent_reply_deviations_checked: 6627
+  physical_forced_opponent_blocks_checked: 1181
+  physical_direct_terminal_all_opponent_reply_checks: 59529
+  independent_late_full_recursive_action_WDL_checks: 75
+  false_source_wins_or_physical_reply_mismatches: 0
+  concrete_physical_rank15_P1_winning_first_action:
+    history: "243766762437135"
+    ply: 15
+    first: 4
+    forced_P0_block: 4
+    next_P1_source_direct_action: 7
+    next_P1_fork_kind: SAME_COLUMN_STACKED_RELEASE
+    old_root_direct_source_WDL: INCOMPLETE
+    new_root: VALID_CONTINUATION
+  standard_44444_source_value: UNKNOWN
+  standard_44444_valid_source_best_move: INCOMPLETE
+  general_original7x6_zero_branch_level2_complete_solver: OPEN
+  level3_fastest_or_longest_remoteness_proved_no_branch: false
+  qualification: "Original source proof of restricted WIN conditions only; all true7x6 actual physical first-win checks separate after frozen source; 1700 nonuniform games, no Node26 CI or external proof assistant"
+  next_math: >-
+    Derive closed form adaptive multi-round gravity release-cover invariant
+    that subsumes deterministic forced ladders and can certify wins WITHOUT
+    constructing even the selected forced-response future q lane. Investigate
+    source K-line blocker pressure and parity release, preserve opponent
+    immediate counterwins and FIRST-win semantics. For other outcome tiers,
+    combine direct source DRAW/LOSS root non-win guarantees with one winning
+    action certification to produce a best continuation without proving
+    all literal best labels. No strategic alternative future value search.
+
 true7x6_gravity_response_cover_direct_L2_win_20261017:
   status: PROVED_SCOPED_DIRECT_SOURCE_VALID_BEST_CONTINUATION_NOT_TOTAL_STANDARD_BOARD_SOLVER
   canonical_research_owner: research/semantic-quotient
