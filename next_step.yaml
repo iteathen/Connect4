@@ -1,3 +1,74 @@
+true7x6_safe_odd_spare_one_pending_pair_and_tier_closure_20261017:
+  owner: research/semantic-quotient
+  status: EXACT_SCOPED_REPAIRED_ODD_SAFE_PAIR_NO_MOVER_FORCE_WIN_AND_16_DRAW_3_LOSS_SOURCE_BEST_MOVES
+  original_unrestricted_odd_claim_REJECTED: true
+  physical_counterexample_and_safe_repair_math: docs/research/2026-10-17-odd-spare-gravity-cross-prefix-rejection-and-safe-restriction.md
+  corrected_odd_no_win_theorem: docs/research/2026-10-17-odd-gravity-spare-cell-co-release-defensive-pairing.md
+  corrected_odd_source: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-odd-spare-col-co-release-no-win-source.mjs
+  odd_repaired_independent_physical_control: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-odd-spare-pair-independent-physical-control.mjs
+  odd_repaired_no_win_evidence: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/STANDARD7X6_ODD_SINGLE_SPARE_SAFE_GRAVITY_PAIR_NO_FORCED_WIN_RESULTS_0_1.json
+  original_board: "W=7 H=6 K=4, math dimensions W/H/K preserved"
+  correct_source_guards:
+    remaining_cells: "ODD T=WH-ply=2m+1"
+    unmatched_column: "EXACTLY ONE currently playable future cell at its column, remaining capacity1, chosen source U"
+    matched_other_future_cells: "source co-release safe column block pairing, EVERY original current-mover viable K-line requirement contains a complete pair"
+    preemption_safe_cross_block: "crossPairPrefixLength <= 1; any longer cross prefix is UNSAFE for one pending defender-marked pair because cross successor may be released asymmetrically"
+    online_defender_policy: "when p touches virgin pair, o mates; when p plays U or pending mate, o premarks one currently playable virgin safe pair, at most one pending pair at a time"
+    conclusion: "Current mover cannot FORCE WIN against this uniform o policy, without materializing child WDL games. Does NOT by itself prove DRAW/LOSS."
+  original_counterexample:
+    legal_history: "32452113456772416435741762343657217"
+    originally_returned_unsafe_cross_prefix_length: 2
+    physical_future_history_falsifying_mate: "32452113456772416435741762343657217155"
+    source_required_mate: "original literal col6 row5"
+    physical_actual_gravity_frontier: "original literal col6 row4"
+    historic_counterexample_status: NEVER_IGNORE_UNQUALIFIED_CANDIDATE_FALSE
+  source_odd_no_win_genuine_positions_scanned: 18076
+  source_eligible_one_capacity_column_positions: 12293
+  source_proved_odd_no_forced_mover_win_with_live_R_mover: 65
+  independent_true7x6_defender_policy_physical_trials: 414
+  independent_physically_legal_preemptive_source_pair_marks: 306
+  independent_original_physical_recursive_root_WDL_checks: 50
+  false_safe_odd_pairing_claims_after_guard: 0
+  full_odd_source_outcome_theorem: docs/research/2026-10-17-odd-pending-pair-plus-dual-or-one-nonloss-tier-closure.md
+  odd_full_outcome_source: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-odd-safe-pair-best-draw-or-loss-source.mjs
+  odd_full_outcome_independent_physical_control: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-odd-pair-draw-loss-best-independent-physical-control.mjs
+  odd_full_outcome_evidence: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/STANDARD7X6_SAFE_ODD_PAIR_SOURCE_DRAW_OR_LOSS_BEST_RESULTS_0_1.json
+  safe_odd_root_no_win_plus_single_action_nonloss_best_DRAW: 16
+  safe_odd_root_no_win_plus_opponent_strict_dual_best_LOSS: 3
+  odd_source_no_win_but_L2_unresolved: 46
+  independent_full_physical_exact_root_WDL_checks: 18
+  independent_full_physical_exact_original_action_WDL_checks: 22
+  wrong_certified_odd_best_witnesses: 0
+  concrete_odd_loss_witness:
+    history: "7575555752146116171264427741224626363"
+    ply: 37
+    mover: P1
+    original_legal_best_loss_columns: [3,4]
+    source_surviving_p1_winline_generator_count: 1
+    source_safe_single_spare_column: 4
+    opponent_P0_disjoint_viable_winline_count: 4
+    p1_remaining_blocker_turns: 3
+  concrete_odd_draw_witness:
+    history: "534672614313313315171544555464227266677"
+    ply: 39
+    mover: P1
+    exact_root_outcome: DRAW
+    certified_one_best_literal_column: 2
+    source_proof: "corrected odd safe P0 defender no P1 first win + one original P1 action blocking all P0 viable wins"
+  canonical_44444_source: INCOMPLETE
+  no_unrestricted_standard7x6_source_no_search_L2_total: true
+  source_future_independent_game_values_evaluated: 0
+  qualified_IsoGraph_game_rules_1_2_unchanged: true
+  next_task: >-
+    Add the corrected odd root no-force-win plus dual/one-nonloss
+    DRAW/LOSS certificate as one more source proof family to the typed
+    single-best action union (after WIN, before losing fallback) without
+    changing original full-game semantics. Compare OLD union vs NEW
+    union on SAME true7x6 source q, preserve any independently proven
+    new best actions and positive/negative source theorem provenance.
+    Retain failed unsafe cross-prefix story and never permit t>1
+    dangling pairs without a new independent theorem/proof.
+
 true7x6_adaptive_defender_pair_plus_o_dual_forced_loss_20261017:
   research_owner: research/semantic-quotient
   status: EXACT_SCOPED_SOURCE_UNIFORM_GRAVITY_DEFENDER_RESPONSE_AND_HYPERGRAPH_DUAL_FORCES_MOVER_LOSS_WITH_NONEMPTY_R_MOVER
