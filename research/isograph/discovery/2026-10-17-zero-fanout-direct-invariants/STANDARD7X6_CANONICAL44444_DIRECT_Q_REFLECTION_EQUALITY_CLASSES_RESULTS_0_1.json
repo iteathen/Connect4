@@ -1,0 +1,158 @@
+{
+  "schema": "connect4.standard7x6.canonical44444.direct_fixed_reflection_source_q_automorphism_v0_1",
+  "date": "2026-10-17",
+  "status": "EXACT_SOURCE_Q_REFLECTION_AUTOMORPHISM_AND_THREE_PAIRS_OF_WDL_EQUALITY_NO_BEST_MOVE_YET",
+  "frozenSourceTheorem": "docs/research/2026-10-17-fixed-reflection-source-q-automorphism-and-weak-WDL-order.md",
+  "frozenSourceExecutable": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-original-source-fixed-reflection-WDL-order.mjs",
+  "sourceGitBlob": "d932f40180d0170fd5a1747471227e5a37287e0c",
+  "exactOriginalQBuilderBlob": "6b25d0e2560fe4131d2f5442593e9ed9763c1a18",
+  "originalGame": {
+    "W": 7,
+    "H": 6,
+    "K": 4,
+    "history": "44444",
+    "absoluteRank": 5,
+    "mover": "P1",
+    "heights": [
+      0,
+      0,
+      0,
+      5,
+      0,
+      0,
+      0
+    ],
+    "sourceR0Generators": 48,
+    "sourceR1Generators": 42
+  },
+  "sourceDirectResult": {
+    "status": "INCOMPLETE",
+    "reason": "NO_SOURCE_WDL_ORDER_EXTREMUM_FROM_ONE_FIXED_REFLECTION",
+    "originalSourceFullMirrorAutomorphismProved": true,
+    "originalLegalLiteralColumns": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "sourceP0WdlWeakOrderEdges": [
+      {
+        "lowerP0ValueOriginalLiteralAction": 1,
+        "upperP0ValueOriginalLiteralAction": 7,
+        "kind": "CURRENT_Q_EXACT_FULL_FUTURE_REFLECTION_AUTOMORPHISM",
+        "sourceProof": {
+          "hMirrorInvariant": true,
+          "R0MirrorInvariant": true,
+          "R1MirrorInvariant": true
+        },
+        "sourceFutureWDLQueries": 0
+      },
+      {
+        "lowerP0ValueOriginalLiteralAction": 7,
+        "upperP0ValueOriginalLiteralAction": 1,
+        "kind": "CURRENT_Q_EXACT_FULL_FUTURE_REFLECTION_AUTOMORPHISM",
+        "sourceProof": {
+          "hMirrorInvariant": true,
+          "R0MirrorInvariant": true,
+          "R1MirrorInvariant": true
+        },
+        "sourceFutureWDLQueries": 0
+      },
+      {
+        "lowerP0ValueOriginalLiteralAction": 2,
+        "upperP0ValueOriginalLiteralAction": 6,
+        "kind": "CURRENT_Q_EXACT_FULL_FUTURE_REFLECTION_AUTOMORPHISM",
+        "sourceProof": {
+          "hMirrorInvariant": true,
+          "R0MirrorInvariant": true,
+          "R1MirrorInvariant": true
+        },
+        "sourceFutureWDLQueries": 0
+      },
+      {
+        "lowerP0ValueOriginalLiteralAction": 6,
+        "upperP0ValueOriginalLiteralAction": 2,
+        "kind": "CURRENT_Q_EXACT_FULL_FUTURE_REFLECTION_AUTOMORPHISM",
+        "sourceProof": {
+          "hMirrorInvariant": true,
+          "R0MirrorInvariant": true,
+          "R1MirrorInvariant": true
+        },
+        "sourceFutureWDLQueries": 0
+      },
+      {
+        "lowerP0ValueOriginalLiteralAction": 3,
+        "upperP0ValueOriginalLiteralAction": 5,
+        "kind": "CURRENT_Q_EXACT_FULL_FUTURE_REFLECTION_AUTOMORPHISM",
+        "sourceProof": {
+          "hMirrorInvariant": true,
+          "R0MirrorInvariant": true,
+          "R1MirrorInvariant": true
+        },
+        "sourceFutureWDLQueries": 0
+      },
+      {
+        "lowerP0ValueOriginalLiteralAction": 5,
+        "upperP0ValueOriginalLiteralAction": 3,
+        "kind": "CURRENT_Q_EXACT_FULL_FUTURE_REFLECTION_AUTOMORPHISM",
+        "sourceProof": {
+          "hMirrorInvariant": true,
+          "R0MirrorInvariant": true,
+          "R1MirrorInvariant": true
+        },
+        "sourceFutureWDLQueries": 0
+      }
+    ],
+    "sourceProvedActionWdlEqualityClasses": [
+      [
+        1,
+        7
+      ],
+      [
+        2,
+        6
+      ],
+      [
+        3,
+        5
+      ],
+      [
+        4
+      ]
+    ],
+    "selectedOriginalLiteralBestColumn": null,
+    "numericalRootWDL": null,
+    "statistics": {
+      "originalRank": 5,
+      "mover": 1,
+      "currentLegalOriginalActions": 7,
+      "hSourceMirrorSymmetryChecked": 1,
+      "originalR0R1MasksReflected": 90,
+      "originalSourceMaskCellBitReflectionOperations": 3780,
+      "fullQOriginalHorizontalReflectionAutomorphism": 1,
+      "mirrorRelatedCurrentFirstActionTiesProved": 3,
+      "postActionMirrorSupportEqualPairsCompared": 6,
+      "postActionMirrorSupportInequalityPairsExcluded": 36,
+      "originalQRawOwnerOpponentCofactorMaskCopies": 0,
+      "originalQRawGeneratorSubsetTests": 0,
+      "directWeakP0WDLInequalities": 6,
+      "originalSourceReflectionWdlDirectEqualities": 3,
+      "sourceCurrentActionOrderReachabilityChecks": 343,
+      "staticColumnPermutationAssignmentsSearched": 0,
+      "staticCompletedColumnPermutationCandidatesEnumerated": 0,
+      "futureGameSuccessorQMaterialized": 0,
+      "independentlyValuedAlternativeStrategicGameOutcomes": 0,
+      "staticSourceMaskBudgetIncomplete": false
+    }
+  },
+  "qualification": [
+    "Exact original q=(h,R0,R1) is invariant under the one predetermined horizontal board reflection c -> W-1-c. This preserves all original gravity legal moves, first terminal winner and draw, so mirrored action labels have EXACT identical unrestricted WDL. No independent game-value oracle or future game q examined.",
+    "This does not certify the ordinary scalar root WDL or a BEST move: four distinct source-WDL equivalence classes {1,7},{2,6},{3,5},{4} remain unordered.",
+    "Source runtime constructed only original q generator mask reflections, with ZERO candidate column permutation searches, ZERO strategically valued alternative game futures.",
+    "The older capacity-preserving transporter produced reflection-based weak comparisons even though one simple 1<->7 swap could not. This direct proof resolves that structural limitation while preserving no-search constraint.",
+    "Maintained Node26 CI, external formal assistant and qualified IsoGraph 1.2 promotion not run."
+  ]
+}
