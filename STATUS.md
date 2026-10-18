@@ -1,13 +1,25 @@
 # Connect4 current research status
 
-**Updated:** 2026-10-17 (latest: owner-expanded opponent-quality conditional move hierarchy, P1 win/draw/loss tiers and guaranteed-vs-possible semantics; historical output meanings preserved)  
+**Updated:** 2026-10-17 (latest: unified owner L1 outcome / L2 all best outcome-tier moves / L3 time-refined perfect moves, with opponent-model conditions; historical claims preserved)  
 **Branch:** `research/semantic-quotient`  
 **Research direction / structural architecture / invariant-first and self-proving-predicate program:** Josh Oshiro  
 **Formalization / implementation / qualification:** OpenAI ChatGPT
 
 This file is the current-state router, not a theorem ledger. This branch owns **all durable Connect4 research**, regardless of which solver produced it. Research artifacts live across `research/**` and `docs/research/**` on this branch; the executable research continuation lives in `next_step.yaml`.
 
-## Latest owner generalization — PERFECT vs UNKNOWN opponent quality, P1 opportunity tiers (2026-10-17)
+## Governing owner definition — information levels, objective and opponent model independently (2026-10-17)
+
+**LATEST information contract (overrides earlier player-specific and win-only LEVEL naming):** `docs/research/2026-10-17-owner-unified-three-level-information-definition.md`. There are THREE independent dimensions: (i) L1/L2/L3 **information depth**, (ii) **evaluated player** with symmetric WIN > DRAW > LOSS preferences, and (iii) **opponent evaluation mode** (PERFECT adversarial guaranteed outcome, or QUALITY_UNKNOWN optimistic reachable outcome where win may require opponent mistakes and no probability is known).
+
+- **L1 — Outcome:** who wins/draws/loses under perfect play, or which first-terminal outcomes remain POSSIBLE under unknown-quality assumptions; do not promise a single actual future winner absent a predictive model.
+- **L2 — Best:** COMPLETE set of ALL original literal first actions in the highest available outcome tier WIN, else DRAW, else LOSS **under the selected opponent model**; timing never changes Level2 membership. For PERFECT mode this is the existing mathematically conventional mover-relative WDL-optimal set; the historical single P0-winning bit mask is only its WIN-tier special case, NOT the all-q definition.
+- **L3 — Perfect:** time-preferred SUBSET of L2: fastest WIN, all drawn continuations tied (draw occurs only at WH occupied cells, `WH-n` remaining), longest inevitable LOSS. Under perfect opposition times are defended/worst-case; under unknown quality an **optimistic shortest/longest possible legal path** is not an adversarial guarantee or probability prediction; timing convention must be explicit.
+
+**Both players governed identically:** If P0 can FORCE win, P0's Level2 consists of all forced-winning actions, Level3 fastest guaranteed wins. If P1 is forced to lose against PERFECT P0, Level2 includes ALL P1 legal losing replies, Level3 longest forced-loss survival. With UNKNOWN-quality P0, P1 can have POSSIBLE winning moves that rank above possible drawing moves and all losing moves; this changes the policy but not its information level. P0 policy invariance under opponent uncertainty is only a guaranteed-win-preserving statement, not unconditional equality of best-move sets.
+
+**Prior real7×6 evidence preserved:** 1,600 actual first-win-stopped q and 4,611 original actions distinguished PERFECT `V` from UNKNOWN `Ω`, with 37/55 known-P0-winning P1-mover roots offering possible P1 wins after P0 error. The previous frozen results and independent L3 physical reference retain their exact historical meanings. Standard `44444` full L1 and complete L2 (both declared opponent models) remain UNKNOWN. Primary zero-fanout research seeks complete L2 under PERFECT opposition first, with no separately valued INEQUIVALENT future games; no L3 impossibility proof and no gameplay authority promotion.
+
+## Historical opponent-model examples — prior player-specific presentation (superseded terminology, retained evidence)
 
 **LATEST EXPLICIT OWNER GUIDANCE:** The three levels are ONE hierarchy conditioned on **player**, **actual game value** and **opponent model**. Earlier P0 forced-win-only L2 and L3 language below is a SPECIAL CASE, not the complete latest policy. Exact owner taxonomy: `docs/research/2026-10-17-owner-two-opponent-models-three-level-move-taxonomy.md`. Qualified source q, gravity, first-win and IsoGraph 1.2 remain unchanged. With known PERFECT P0 opposition and certified `V_P0(q)=+1` on a **P1 turn**, P1 Level 2 "best" = **ALL legal P1 moves** (all lose), and Level 3 "perfect" = those forcing the **LONGEST unavoidable loss** under WDL-first play. For P0 with proven forced victory, Level 2 still means all winning continuations and Level 3 fastest GUARANTEED win against opponent's strongest defenses.
 
