@@ -41,3 +41,23 @@ Previously the odd safe pairing produced only a root winning outcome exclusion. 
 - No solver branch merge, no arbitrary-size result extrapolation, no Node26 CI or external formal proof claim without corresponding execution.
 
 General arbitrary7x6 no-search Level2 one-best-continuation problem remains OPEN.
+
+## Executed genuine standard7×6 physical qualification
+
+Source-only typed guarded decision: `research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-odd-safe-pair-best-draw-or-loss-source.mjs`. Independent first-win-stopped original physical validator: `standard7x6-odd-pair-draw-loss-best-independent-physical-control.mjs`. Full machine evidence: `STANDARD7X6_SAFE_ODD_PAIR_SOURCE_DRAW_OR_LOSS_BEST_RESULTS_0_1.json`.
+
+After the corrected odd no-force-win safe one-pending-pair source theorem had certified **65** actual standard7×6 genuine nonterminal positions with nonempty current mover winning requirements, the additional source outcome tier predicates yielded:
+
+| Result after a certified odd no-force-win root | Original7×6 source q |
+| --- | ---: |
+| Exact DRAW root and ONE selected original literal best drawing action | 16 |
+| Exact LOSS root and ALL original legal literal actions equally best losing | 3 |
+| Source root p no-forced-WIN proven, but neither complete DRAW nor LOSS proof | 46 |
+
+The independent physical full recursive WDL oracle confirmed **18** late root values and **22** selected/all-tied original first-action values, all matching source WIN/DRAW/LOSS classification with ZERO disagreements. The safe odd physical opponent pairing strategy continued to pass **414** independent full policy trials with 306 preemptively o-marked untouched pairs and no p first win. Source game future values queried ZERO.
+
+**Concrete DRAW witness:** original first-win-stopped history `534672614313313315171544555464227266677`, original absolute n39, P1 mover. The odd safe source pairing proves P1 cannot force first win; the original literal **column2** source blocker completes an action certificate stopping every P0 winning requirement (so P1 can force at least DRAW). Consequently root outcome exact DRAW and that one original move is best. Other drawing actions need not be enumerated.
+
+**Concrete LOSS witness:** original first-win-stopped history `7575555752146116171264427741224626363`, absolute n37, P1 mover, original legal columns **{3,4}**. P1 has one viable original winning generator, so the former empty-R_p theorem cannot prove its loss. Safe odd response pairing with unmatched source column4 row5 denies P1 first-win; opponent P0 has FOUR disjoint surviving K-winning requirements against P1's maximum THREE future blocking placements, so P0 MUST first-win under that single response policy. Hence BOTH original first moves are equally Level2 BEST LOSSES. Independently checked physical WDL.
+
+**Negative and qualification:** The UNSAFE longer-cross-prefix odd pending-pair candidate was refuted in genuine original7×6 physical play and remains explicitly REJECTED. The corrected source only accepts crossPrefixLength<=1 co-release blocks, potentially missing other valid defenses; no proof of complete odd no-win or general Level2. Original `44444` remains source INCOMPLETE. Node26 CI and independent formal proof assistant not run; no qualified IsoGraph game authority promotion/merge.
