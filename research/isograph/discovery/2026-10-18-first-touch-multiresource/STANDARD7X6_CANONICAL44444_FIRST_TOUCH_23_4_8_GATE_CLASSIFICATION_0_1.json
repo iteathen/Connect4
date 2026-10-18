@@ -1,0 +1,385 @@
+{
+  "schema": "connect4.standard7x6.canonical44444_first_touch_gate_classification_v0_1",
+  "qualification": "SOURCE_ONLY_CLASSIFICATION_NOT_WDL_BEST_MOVE",
+  "date": "2026-10-18",
+  "source": "research/isograph/discovery/2026-10-18-first-touch-multiresource/standard7x6-first-touch-canonical-gate-audit.mjs",
+  "sourceCommit": "f544fc469a2ef5279ce51e6db8550e3bcf8d0b87",
+  "physicalInput": {
+    "originalBoard": "7x6 K4",
+    "firstWinStop": true,
+    "originalWinningWindows": 69,
+    "history": "44444",
+    "playerToMove": 1,
+    "heights": [
+      0,
+      0,
+      0,
+      5,
+      0,
+      0,
+      0
+    ]
+  },
+  "qResidualCounts": {
+    "P0": 48,
+    "P1": 42
+  },
+  "gateCellCount": 35,
+  "gateGeneratorIncidenceCount": 96,
+  "classCounts": {
+    "EMPTY_COMMON_INTERSECTION": 23,
+    "ONE_SAFE_BLOCKER": 8,
+    "COMMON_LATE_ONLY": 4
+  },
+  "description": "Source generator indexes are a deterministic independent normalization: winning windows filtered by opponent owner, contracted by current owner, sorted by ascending popcount then original BigInt mask, subset-reduced. Physical cells are zero-based id=row*7+column.",
+  "classes": [
+    {
+      "originalPhysicalID": 0,
+      "literalColumn": 1,
+      "literalRow": 1,
+      "class": "EMPTY_COMMON_INTERSECTION",
+      "minimalEmptyCommonIntersectionGeneratorIndexPair": [
+        4,
+        18
+      ]
+    },
+    {
+      "originalPhysicalID": 1,
+      "literalColumn": 2,
+      "literalRow": 1,
+      "class": "ONE_SAFE_BLOCKER"
+    },
+    {
+      "originalPhysicalID": 2,
+      "literalColumn": 3,
+      "literalRow": 1,
+      "class": "EMPTY_COMMON_INTERSECTION",
+      "minimalEmptyCommonIntersectionGeneratorIndexPair": [
+        9,
+        20
+      ]
+    },
+    {
+      "originalPhysicalID": 4,
+      "literalColumn": 5,
+      "literalRow": 1,
+      "class": "EMPTY_COMMON_INTERSECTION",
+      "minimalEmptyCommonIntersectionGeneratorIndexPair": [
+        6,
+        21
+      ]
+    },
+    {
+      "originalPhysicalID": 5,
+      "literalColumn": 6,
+      "literalRow": 1,
+      "class": "ONE_SAFE_BLOCKER"
+    },
+    {
+      "originalPhysicalID": 6,
+      "literalColumn": 7,
+      "literalRow": 1,
+      "class": "EMPTY_COMMON_INTERSECTION",
+      "minimalEmptyCommonIntersectionGeneratorIndexPair": [
+        5,
+        23
+      ]
+    },
+    {
+      "originalPhysicalID": 7,
+      "literalColumn": 1,
+      "literalRow": 2,
+      "class": "EMPTY_COMMON_INTERSECTION",
+      "minimalEmptyCommonIntersectionGeneratorIndexPair": [
+        0,
+        24
+      ]
+    },
+    {
+      "originalPhysicalID": 8,
+      "literalColumn": 2,
+      "literalRow": 2,
+      "class": "EMPTY_COMMON_INTERSECTION",
+      "minimalEmptyCommonIntersectionGeneratorIndexPair": [
+        0,
+        4
+      ]
+    },
+    {
+      "originalPhysicalID": 9,
+      "literalColumn": 3,
+      "literalRow": 2,
+      "class": "EMPTY_COMMON_INTERSECTION",
+      "minimalEmptyCommonIntersectionGeneratorIndexPair": [
+        0,
+        2
+      ]
+    },
+    {
+      "originalPhysicalID": 11,
+      "literalColumn": 5,
+      "literalRow": 2,
+      "class": "EMPTY_COMMON_INTERSECTION",
+      "minimalEmptyCommonIntersectionGeneratorIndexPair": [
+        1,
+        3
+      ]
+    },
+    {
+      "originalPhysicalID": 12,
+      "literalColumn": 6,
+      "literalRow": 2,
+      "class": "EMPTY_COMMON_INTERSECTION",
+      "minimalEmptyCommonIntersectionGeneratorIndexPair": [
+        2,
+        5
+      ]
+    },
+    {
+      "originalPhysicalID": 13,
+      "literalColumn": 7,
+      "literalRow": 2,
+      "class": "EMPTY_COMMON_INTERSECTION",
+      "minimalEmptyCommonIntersectionGeneratorIndexPair": [
+        3,
+        29
+      ]
+    },
+    {
+      "originalPhysicalID": 14,
+      "literalColumn": 1,
+      "literalRow": 3,
+      "class": "EMPTY_COMMON_INTERSECTION",
+      "minimalEmptyCommonIntersectionGeneratorIndexPair": [
+        30,
+        33
+      ]
+    },
+    {
+      "originalPhysicalID": 15,
+      "literalColumn": 2,
+      "literalRow": 3,
+      "class": "ONE_SAFE_BLOCKER"
+    },
+    {
+      "originalPhysicalID": 16,
+      "literalColumn": 3,
+      "literalRow": 3,
+      "class": "EMPTY_COMMON_INTERSECTION",
+      "minimalEmptyCommonIntersectionGeneratorIndexPair": [
+        4,
+        6
+      ]
+    },
+    {
+      "originalPhysicalID": 18,
+      "literalColumn": 5,
+      "literalRow": 3,
+      "class": "EMPTY_COMMON_INTERSECTION",
+      "minimalEmptyCommonIntersectionGeneratorIndexPair": [
+        5,
+        9
+      ]
+    },
+    {
+      "originalPhysicalID": 19,
+      "literalColumn": 6,
+      "literalRow": 3,
+      "class": "ONE_SAFE_BLOCKER"
+    },
+    {
+      "originalPhysicalID": 20,
+      "literalColumn": 7,
+      "literalRow": 3,
+      "class": "EMPTY_COMMON_INTERSECTION",
+      "minimalEmptyCommonIntersectionGeneratorIndexPair": [
+        34,
+        40
+      ]
+    },
+    {
+      "originalPhysicalID": 21,
+      "literalColumn": 1,
+      "literalRow": 4,
+      "class": "COMMON_LATE_ONLY"
+    },
+    {
+      "originalPhysicalID": 22,
+      "literalColumn": 2,
+      "literalRow": 4,
+      "class": "EMPTY_COMMON_INTERSECTION",
+      "minimalEmptyCommonIntersectionGeneratorIndexPair": [
+        6,
+        7
+      ]
+    },
+    {
+      "originalPhysicalID": 23,
+      "literalColumn": 3,
+      "literalRow": 4,
+      "class": "EMPTY_COMMON_INTERSECTION",
+      "minimalEmptyCommonIntersectionGeneratorIndexPair": [
+        7,
+        10
+      ]
+    },
+    {
+      "originalPhysicalID": 25,
+      "literalColumn": 5,
+      "literalRow": 4,
+      "class": "EMPTY_COMMON_INTERSECTION",
+      "minimalEmptyCommonIntersectionGeneratorIndexPair": [
+        8,
+        11
+      ]
+    },
+    {
+      "originalPhysicalID": 26,
+      "literalColumn": 6,
+      "literalRow": 4,
+      "class": "EMPTY_COMMON_INTERSECTION",
+      "minimalEmptyCommonIntersectionGeneratorIndexPair": [
+        9,
+        10
+      ]
+    },
+    {
+      "originalPhysicalID": 27,
+      "literalColumn": 7,
+      "literalRow": 4,
+      "class": "COMMON_LATE_ONLY"
+    },
+    {
+      "originalPhysicalID": 28,
+      "literalColumn": 1,
+      "literalRow": 5,
+      "class": "COMMON_LATE_ONLY"
+    },
+    {
+      "originalPhysicalID": 30,
+      "literalColumn": 3,
+      "literalRow": 5,
+      "class": "EMPTY_COMMON_INTERSECTION",
+      "minimalEmptyCommonIntersectionGeneratorIndexPair": [
+        13,
+        33
+      ]
+    },
+    {
+      "originalPhysicalID": 32,
+      "literalColumn": 5,
+      "literalRow": 5,
+      "class": "EMPTY_COMMON_INTERSECTION",
+      "minimalEmptyCommonIntersectionGeneratorIndexPair": [
+        14,
+        34
+      ]
+    },
+    {
+      "originalPhysicalID": 34,
+      "literalColumn": 7,
+      "literalRow": 5,
+      "class": "COMMON_LATE_ONLY"
+    },
+    {
+      "originalPhysicalID": 35,
+      "literalColumn": 1,
+      "literalRow": 6,
+      "class": "ONE_SAFE_BLOCKER"
+    },
+    {
+      "originalPhysicalID": 36,
+      "literalColumn": 2,
+      "literalRow": 6,
+      "class": "EMPTY_COMMON_INTERSECTION",
+      "minimalEmptyCommonIntersectionGeneratorIndexPair": [
+        16,
+        35
+      ]
+    },
+    {
+      "originalPhysicalID": 37,
+      "literalColumn": 3,
+      "literalRow": 6,
+      "class": "ONE_SAFE_BLOCKER"
+    },
+    {
+      "originalPhysicalID": 38,
+      "literalColumn": 4,
+      "literalRow": 6,
+      "class": "EMPTY_COMMON_INTERSECTION",
+      "minimalEmptyCommonIntersectionGeneratorIndexPair": [
+        33,
+        34
+      ]
+    },
+    {
+      "originalPhysicalID": 39,
+      "literalColumn": 5,
+      "literalRow": 6,
+      "class": "ONE_SAFE_BLOCKER"
+    },
+    {
+      "originalPhysicalID": 40,
+      "literalColumn": 6,
+      "literalRow": 6,
+      "class": "EMPTY_COMMON_INTERSECTION",
+      "minimalEmptyCommonIntersectionGeneratorIndexPair": [
+        17,
+        39
+      ]
+    },
+    {
+      "originalPhysicalID": 41,
+      "literalColumn": 7,
+      "literalRow": 6,
+      "class": "ONE_SAFE_BLOCKER"
+    }
+  ],
+  "minimalEmptyIntersectionCoresOfCardinalityTwo": 23,
+  "originalRootCurrentlyPlayableGateIDs": [
+    0,
+    1,
+    2,
+    4,
+    5,
+    6,
+    38
+  ],
+  "rootPlayableObstructions": [
+    {
+      "literalCell": "c1r1",
+      "physicalId": 0,
+      "originalResidualGeneratorMasks": [
+        "0x10101",
+        "0x204081"
+      ],
+      "originalGeneratorFutureCellSets": [
+        [
+          "c1r1",
+          "c2r2",
+          "c3r3"
+        ],
+        [
+          "c1r1",
+          "c1r2",
+          "c1r3",
+          "c1r4"
+        ]
+      ]
+    },
+    {
+      "literalCell": "c4r6",
+      "physicalId": 38,
+      "minimalDisjointGeneratorIndices": [
+        33,
+        34
+      ],
+      "description": "One rising/cross-center diagonal and one mirror-facing falling/cross-center diagonal require distinct post-gate cells"
+    }
+  ],
+  "method": "Pure original static winning-window source normalization and gate subset intersections; ZERO strategic future game WDL queries or source game successor materializations.",
+  "consequence": "23 source gate failures are structural empty intersections; 4 have shared blockers unreleased under theorem's immediate/root-frontier guards. None imply a P1 force win, P1 perfect loss, or impossibility of stronger policy.",
+  "node26CI": "NOT_RUN",
+  "independentExternalFormalProof": "NOT_RUN"
+}
