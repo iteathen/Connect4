@@ -60,3 +60,30 @@ An operational Level2 valid move needs one action certificate. Full Level2 move 
 ## Research path beyond this boundary
 
 The Boolean `forall d` collapses to just cardinality and set inclusion on D,S,Z, eliminating even explicit dynamic opponent-response enumeration. Seek a similar algebraic elimination for TWO or more adversarial response rounds, using the original q cofactor and K-banded gravity predecessors to build an *inductive release-cover invariant* without enumerating conditional response trees. Never misclassify an algebraic source proof of mate-in-3 as a full no-search game solver.
+
+
+## Executed actual standard7x6 results (independent control)
+
+**Independent original-physical falsifier PASS** on 4,100 reproducible first-win-stopped original7×6 nonwinning sampled trajectories, yielding **134,185** unique physical nonterminal positions. The pure source producer proved **153,311 original literal first actions** that WIN now or on p's NEXT turn:
+
+| Proof class | Source-certified original first actions |
+| --- | ---: |
+| Already immediate first win (historical) | 111,336 |
+| Two DIFFERENT concurrently playable win targets (historical) | 36,718 |
+| One currently playable win target, stacked next-row release (new) | 5,201 |
+| NO currently playable win target, ALL opponent moves release win (new) | 56 |
+
+Of the **56** ALL-OPPONENT gifts, **51** had one legal reply and **5** had TWO OR MORE legal reply choices (these five cannot be explained as merely one remaining playable column). This is a finite sample, not source certificate completeness for all 7×6 games.
+
+The independent validator checked **249,206** actual legal original opponent replies to EVERY source-certified non-immediate action and directly found a physically winning p next response in EVERY case. It cross-checked exact source S and Z original threats against an INDEPENDENT bitboard physical winline detector (ZERO mismatches), plus **80** late 7×6 first-action ordinary physical recursive perfect-WDL outcomes, all exact. **No** source game future q or strategic outcome was constructed by the candidate, and **no** improper early opponent win or last-board draw was detected.
+
+**Concrete independently checked multi-reply GIFT witness:**
+- Original gravity legal first-win-stopped history `15551624162264264226443165545177173` (absolute ply35, p=P1).
+- New source certificate chooses original literal **column 3**.
+- The opponent P0 may then play **column 3 OR column 7**.
+- The source proves p has **NO presently playable immediate winning target** immediately after the chosen action (`S=∅`). But `D={3,7}⊆Z={3,7}`: either P0 move releases a P1 immediate original K-win target in the column P0 just played, which P1 then takes next.
+- Prior `direct-two-turn-frontier-operator.mjs` classified the SAME original action 3 as `NO_EXACT_SOURCE_LOCAL_FINISHING_CERTIFICATE`; its full root L2 output was `INCOMPLETE`. Earlier standalone SAME-COLUMN stacked operator was also `INCOMPLETE` because S=∅. The new source result was `VALID_CONTINUATION`.
+
+Proof executable: `research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-source-gravity-response-cover.mjs`. Independent physical control: `standard7x6-gravity-response-cover-physical-control.mjs`. Machine evidence: `STANDARD7X6_GRAVITY_RESPONSE_COVER_DIRECT_MATE_RESULTS_0_1.json`. Full source/no-future-q source blob and control blob IDs are in evidence. A separate previously proved stacked-only theorem/control recorded **3,276** genuine one-simultaneous-threat selected positive roots and **40,891** independently verified opponent replies, all correct; counts differ because one operator returns ONE selected move per root and the generalized law records ALL static positive first actions.
+
+**Boundary:** The three-case algebra is COMPLETE for this precise win-at-next-turn condition, but not complete for eventual forced win, drawing choice, inevitable-loss fallback, or arbitrary-state total zero-branch Level2. Canonical `44444` remains source-INCOMPLETE. The owner requires just one certified continuation, and this new theorem meets that operational goal on its guarded positive domain.
