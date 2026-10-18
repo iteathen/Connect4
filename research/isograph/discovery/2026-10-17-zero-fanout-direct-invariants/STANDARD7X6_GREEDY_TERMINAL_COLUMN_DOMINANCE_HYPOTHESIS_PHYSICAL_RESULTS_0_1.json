@@ -1,0 +1,123 @@
+{
+  "schema": "connect4.standard7x6.source_greedy_terminal_column_candidate_falsifier_v0_1",
+  "date": "2026-10-17",
+  "board": {
+    "W": 7,
+    "H": 6,
+    "K": 4,
+    "originalWinlines": 69
+  },
+  "seedStart": 353838119,
+  "physicallyValidNonwinningTrajectoryCount": 5000,
+  "genuinePhysicalFirstWinStoppedNonterminalPositions": 190456,
+  "sourceGeometricEligibilityAtLeastTwoTopColumns": 23475,
+  "distinctEligibleSourceQSeen": 23475,
+  "sourceSingletonFreeEligibilityPassed": 371,
+  "sourceOwnerResidualTwoCellTopPairBeforeDominance": 24,
+  "sourceDominatingPairsCandidateFound": 20,
+  "sourceCandidateDistinctRoots": 10,
+  "originalLegalSourceActionsCandidateTested": 20,
+  "candidateRootsWithLateIndependentFullPhysicalWDL": 10,
+  "independentExactRootActionWDLMismatches": 0,
+  "independentPhysicalRootWDLEvaluations": 10,
+  "independentPhysicalOriginalLegalFirstActionWDLEvaluations": 29,
+  "referenceRecursiveCalls": 401,
+  "referenceDistinctStates": 211,
+  "sourceIndependentFutureGameValueQueries": 0,
+  "firstGravityGreedyFalsifier": null,
+  "exampleCandidate": {
+    "history": "3154462116344525675723565411366431722",
+    "ply": 37,
+    "sourceRCounts": [
+      1,
+      1
+    ],
+    "legalOriginalColumns": [
+      2,
+      3,
+      7
+    ],
+    "candidates": [
+      {
+        "originalCurrentMover": 1,
+        "originalLiteralCandidateFirstAction": 2,
+        "originalTopCellU": {
+          "column": 3,
+          "rowZeroBased": 5,
+          "maskHex": "0x2000000000"
+        },
+        "originalTopCellV": {
+          "column": 2,
+          "rowZeroBased": 5,
+          "maskHex": "0x1000000000"
+        },
+        "sourceResidualPairMaskHex": "0x3000000000",
+        "allOriginalGensContainingUAlsoContainV": true,
+        "noOriginalResidualSingletonBothPlayers": true,
+        "twoCandidateColumnsExhaustAfterOnePhysicalPlacement": true,
+        "proposedFutureOpponentReplyColumn": 3,
+        "originalSourceFutureGameQueries": 0,
+        "isQualifiedBestMove": false
+      },
+      {
+        "originalCurrentMover": 1,
+        "originalLiteralCandidateFirstAction": 3,
+        "originalTopCellU": {
+          "column": 2,
+          "rowZeroBased": 5,
+          "maskHex": "0x1000000000"
+        },
+        "originalTopCellV": {
+          "column": 3,
+          "rowZeroBased": 5,
+          "maskHex": "0x2000000000"
+        },
+        "sourceResidualPairMaskHex": "0x3000000000",
+        "allOriginalGensContainingUAlsoContainV": true,
+        "noOriginalResidualSingletonBothPlayers": true,
+        "twoCandidateColumnsExhaustAfterOnePhysicalPlacement": true,
+        "proposedFutureOpponentReplyColumn": 2,
+        "originalSourceFutureGameQueries": 0,
+        "isQualifiedBestMove": false
+      }
+    ]
+  },
+  "noCandidateReason": "SOURCE_HYPOTHESIS_FOUND_IN_NONUNIFORM_REAL7X6_ROOTS_NOT_FORMALLY_PROVEN",
+  "byRank": {
+    "37": {
+      "candidates": 3,
+      "oracle": 3
+    },
+    "38": {
+      "candidates": 2,
+      "oracle": 2
+    },
+    "39": {
+      "candidates": 2,
+      "oracle": 2
+    },
+    "40": {
+      "candidates": 3,
+      "oracle": 3
+    }
+  },
+  "lastSeed": 1899004567,
+  "status": "SAMPLE_POSITIVE_BUT_UNQUALIFIED_7x6_TERMINAL_COLUMN_GREEDY_SOURCE_DOMINANCE_HYPOTHESIS",
+  "frozenHypothesisDoc": "docs/research/2026-10-17-source-dominating-greedy-terminal-column-move-candidate.md",
+  "frozenPureSourceCandidate": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-original-source-terminal-greedy-dominance-candidate.mjs",
+  "pureSourceExactGitBlob": "273414cc5cb62d298b77bdcec462a179e6cc5af4",
+  "frozenIndependentPhysicalMinimaxTest": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-original-terminal-greedy-independent-physical-control.mjs",
+  "independentPhysicalTestGitBlob": "ab0d78161bcd78f5c07cfa39c974189aa789f4a5",
+  "exactOriginalQConversionGitBlob": "6b25d0e2560fe4131d2f5442593e9ed9763c1a18",
+  "elapsedIsolatedV8Ms": 2116,
+  "crossDomainLemma": "STACS 2026 rank4 Maker-Maker achievement games; Greedy Move Lemma (via earlier Lemma 3.8)",
+  "researchLimits": [
+    "All 10 genuine standard7x6 root source detections passed independent PHYSICAL full recursive perfect WDL best-action comparison on sampled late q. This is only empirical non-falsification, NEVER a proof of gravity lifting or source-certified best action.",
+    "Strict candidate conditions: no current original q singleton winning requirement anywhere for either owner; original two-cell mover generator of two independent terminal-column top cells u,v; every original R0 or R1 generator containing u also contains v; v selected as current candidate.",
+    "Published unrestricted achievement positional game's Greedy Move Lemma may rely on freely claimable vertices or move replacements that are illegal under gravity. Only cap1 terminal columns are used to suppress gravity differences at u,v; a source self-proving transfer/simulation theorem is still required.",
+    "Physical reference WDL calculations are BRANCHING and only serve after-the-fact testing; candidate source only examines current q.",
+    "This data does NOT increase qualified nonsearch Level2 solver v2's domain. Source candidate output remains CANDIDATE_UNQUALIFIED.",
+    "5000 deterministic first-win-stopped nonwinning real7x6 games, nonuniform 190456 physical source positions, 23475 with >=2 cap1 columns; small sample of actual candidate q.",
+    "Canonical 44444 has only one cap1 center column; greedy test is inapplicable, no scalar root or best move inferred."
+  ]
+}
