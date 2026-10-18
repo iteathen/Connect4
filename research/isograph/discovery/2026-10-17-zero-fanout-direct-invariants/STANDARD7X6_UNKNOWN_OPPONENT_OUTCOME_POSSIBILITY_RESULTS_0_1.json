@@ -1,0 +1,427 @@
+{
+  "schema": "connect4.standard7x6.opponent_quality_robust_vs_possible_v0_1",
+  "date": "2026-10-17",
+  "W": 7,
+  "H": 6,
+  "K": 4,
+  "originalKLines": 69,
+  "seedStart": 2702238330,
+  "nonWinningTrajectories": 2600,
+  "realSourceStatesSeen": 9170,
+  "distinctRealRoots": 9170,
+  "sourcePositionsChecked": 1600,
+  "originalLegalActionsChecked": 4611,
+  "perfectReferenceRecursions": 44129,
+  "perfectReferenceStates": 16303,
+  "pathAccessibilityReferenceRecursions": 41124,
+  "pathAccessibilityStates": 15890,
+  "firstWinTerminalGuardDisagreements": 0,
+  "perfectValueNotAmongReachableOutcomes": 0,
+  "perfectP0WinP1TurnRoots": 55,
+  "suchRootsWithP1PossibleWin": 37,
+  "suchRootsWithDrawPossible": 28,
+  "suchRootsP1UnknownTierWinsVsPerfectAllDisagree": 23,
+  "p0TurnNonforcedWinRoots": 129,
+  "suchRootsWithP0PossibleWin": 100,
+  "possibleWinTiers": 1549,
+  "possibleDrawFallbackTiers": 36,
+  "onlyLossTiers": 15,
+  "witnessedP1PerfectForcedLossButP1CanWinAgainstError": {
+    "history": "47652214565177714154742274221556666",
+    "absolutePly": 35,
+    "mover": 1,
+    "perfectPlayP0RelativeV": 1,
+    "allLegalActions": [
+      1,
+      3
+    ],
+    "perfectPlayActionValues": [
+      [
+        1,
+        1
+      ],
+      [
+        3,
+        1
+      ]
+    ],
+    "reachabilityPerLiteralAction": [
+      {
+        "a": 1,
+        "perfectValue": 1,
+        "possibleTerminalOutcomes": [
+          1
+        ],
+        "possibleShortestAbsoluteAdditionalPlies": {
+          "1": 2
+        },
+        "possibleLongestAbsoluteAdditionalPlies": {
+          "1": 2
+        }
+      },
+      {
+        "a": 3,
+        "perfectValue": 1,
+        "possibleTerminalOutcomes": [
+          -1,
+          1
+        ],
+        "possibleShortestAbsoluteAdditionalPlies": {
+          "1": 2,
+          "-1": 3
+        },
+        "possibleLongestAbsoluteAdditionalPlies": {
+          "1": 2,
+          "-1": 3
+        }
+      }
+    ],
+    "opponentUnknownBestTier": "WIN",
+    "opponentUnknownLevel2BestMoves": [
+      3
+    ],
+    "opponentUnknownLevel3OptimisticTime": 3,
+    "opponentUnknownLevel3PerfectMoveLabels": [
+      3
+    ],
+    "qualification": "opponent quality unknown: reachable outcomes and times are existential POSSIBLE, not guaranteed or probability-ranked"
+  },
+  "witnessedP1PerfectForcedLossDrawOpportunity": {
+    "history": "62625661574664574417421553154322723",
+    "absolutePly": 35,
+    "mover": 1,
+    "perfectPlayP0RelativeV": 1,
+    "allLegalActions": [
+      1,
+      3,
+      7
+    ],
+    "perfectPlayActionValues": [
+      [
+        1,
+        1
+      ],
+      [
+        3,
+        1
+      ],
+      [
+        7,
+        1
+      ]
+    ],
+    "reachabilityPerLiteralAction": [
+      {
+        "a": 1,
+        "perfectValue": 1,
+        "possibleTerminalOutcomes": [
+          0,
+          1
+        ],
+        "possibleShortestAbsoluteAdditionalPlies": {
+          "0": 7,
+          "1": 2
+        },
+        "possibleLongestAbsoluteAdditionalPlies": {
+          "0": 7,
+          "1": 6
+        }
+      },
+      {
+        "a": 3,
+        "perfectValue": 1,
+        "possibleTerminalOutcomes": [
+          0,
+          1
+        ],
+        "possibleShortestAbsoluteAdditionalPlies": {
+          "0": 7,
+          "1": 2
+        },
+        "possibleLongestAbsoluteAdditionalPlies": {
+          "0": 7,
+          "1": 6
+        }
+      },
+      {
+        "a": 7,
+        "perfectValue": 1,
+        "possibleTerminalOutcomes": [
+          1
+        ],
+        "possibleShortestAbsoluteAdditionalPlies": {
+          "1": 2
+        },
+        "possibleLongestAbsoluteAdditionalPlies": {
+          "1": 6
+        }
+      }
+    ],
+    "opponentUnknownBestTier": "DRAW",
+    "opponentUnknownLevel2BestMoves": [
+      1,
+      3
+    ],
+    "opponentUnknownLevel3OptimisticTime": 7,
+    "opponentUnknownLevel3PerfectMoveLabels": [
+      1,
+      3
+    ],
+    "qualification": "opponent quality unknown: reachable outcomes and times are existential POSSIBLE, not guaranteed or probability-ranked"
+  },
+  "witnessedP0NotGuaranteedButP0CanWinAgainstError": {
+    "history": "2152243131347423553666447255154321",
+    "absolutePly": 34,
+    "mover": 0,
+    "perfectPlayP0RelativeV": -1,
+    "allLegalActions": [
+      1,
+      6,
+      7
+    ],
+    "perfectPlayActionValues": [
+      [
+        1,
+        -1
+      ],
+      [
+        6,
+        -1
+      ],
+      [
+        7,
+        -1
+      ]
+    ],
+    "reachabilityPerLiteralAction": [
+      {
+        "a": 1,
+        "perfectValue": -1,
+        "possibleTerminalOutcomes": [
+          -1,
+          0,
+          1
+        ],
+        "possibleShortestAbsoluteAdditionalPlies": {
+          "0": 8,
+          "1": 5,
+          "-1": 2
+        },
+        "possibleLongestAbsoluteAdditionalPlies": {
+          "0": 8,
+          "1": 5,
+          "-1": 8
+        }
+      },
+      {
+        "a": 6,
+        "perfectValue": -1,
+        "possibleTerminalOutcomes": [
+          -1,
+          0,
+          1
+        ],
+        "possibleShortestAbsoluteAdditionalPlies": {
+          "0": 8,
+          "1": 5,
+          "-1": 2
+        },
+        "possibleLongestAbsoluteAdditionalPlies": {
+          "0": 8,
+          "1": 5,
+          "-1": 8
+        }
+      },
+      {
+        "a": 7,
+        "perfectValue": -1,
+        "possibleTerminalOutcomes": [
+          -1,
+          0,
+          1
+        ],
+        "possibleShortestAbsoluteAdditionalPlies": {
+          "0": 8,
+          "1": 3,
+          "-1": 2
+        },
+        "possibleLongestAbsoluteAdditionalPlies": {
+          "0": 8,
+          "1": 5,
+          "-1": 8
+        }
+      }
+    ],
+    "opponentUnknownBestTier": "WIN",
+    "opponentUnknownLevel2BestMoves": [
+      1,
+      6,
+      7
+    ],
+    "opponentUnknownLevel3OptimisticTime": 3,
+    "opponentUnknownLevel3PerfectMoveLabels": [
+      7
+    ],
+    "qualification": "opponent quality unknown: reachable outcomes and times are existential POSSIBLE, not guaranteed or probability-ranked"
+  },
+  "witnessedP1DifferentPerfectVsUnknownLevel2Mask": {
+    "history": "47652214565177714154742274221556666",
+    "absolutePly": 35,
+    "mover": 1,
+    "perfectPlayP0RelativeV": 1,
+    "allLegalActions": [
+      1,
+      3
+    ],
+    "perfectPlayActionValues": [
+      [
+        1,
+        1
+      ],
+      [
+        3,
+        1
+      ]
+    ],
+    "reachabilityPerLiteralAction": [
+      {
+        "a": 1,
+        "perfectValue": 1,
+        "possibleTerminalOutcomes": [
+          1
+        ],
+        "possibleShortestAbsoluteAdditionalPlies": {
+          "1": 2
+        },
+        "possibleLongestAbsoluteAdditionalPlies": {
+          "1": 2
+        }
+      },
+      {
+        "a": 3,
+        "perfectValue": 1,
+        "possibleTerminalOutcomes": [
+          -1,
+          1
+        ],
+        "possibleShortestAbsoluteAdditionalPlies": {
+          "1": 2,
+          "-1": 3
+        },
+        "possibleLongestAbsoluteAdditionalPlies": {
+          "1": 2,
+          "-1": 3
+        }
+      }
+    ],
+    "opponentUnknownBestTier": "WIN",
+    "opponentUnknownLevel2BestMoves": [
+      3
+    ],
+    "opponentUnknownLevel3OptimisticTime": 3,
+    "opponentUnknownLevel3PerfectMoveLabels": [
+      3
+    ],
+    "qualification": "opponent quality unknown: reachable outcomes and times are existential POSSIBLE, not guaranteed or probability-ranked"
+  },
+  "witnessedP1FastestPossibleWinDifferentFromAllPossibleWinMoves": {
+    "history": "13551211354253465313754671773266766",
+    "absolutePly": 35,
+    "mover": 1,
+    "perfectPlayP0RelativeV": -1,
+    "allLegalActions": [
+      2,
+      4,
+      7
+    ],
+    "perfectPlayActionValues": [
+      [
+        2,
+        -1
+      ],
+      [
+        4,
+        -1
+      ],
+      [
+        7,
+        1
+      ]
+    ],
+    "reachabilityPerLiteralAction": [
+      {
+        "a": 2,
+        "perfectValue": -1,
+        "possibleTerminalOutcomes": [
+          -1
+        ],
+        "possibleShortestAbsoluteAdditionalPlies": {
+          "-1": 1
+        },
+        "possibleLongestAbsoluteAdditionalPlies": {
+          "-1": 1
+        }
+      },
+      {
+        "a": 4,
+        "perfectValue": -1,
+        "possibleTerminalOutcomes": [
+          -1
+        ],
+        "possibleShortestAbsoluteAdditionalPlies": {
+          "-1": 1
+        },
+        "possibleLongestAbsoluteAdditionalPlies": {
+          "-1": 1
+        }
+      },
+      {
+        "a": 7,
+        "perfectValue": 1,
+        "possibleTerminalOutcomes": [
+          -1,
+          1
+        ],
+        "possibleShortestAbsoluteAdditionalPlies": {
+          "1": 2,
+          "-1": 3
+        },
+        "possibleLongestAbsoluteAdditionalPlies": {
+          "1": 4,
+          "-1": 5
+        }
+      }
+    ],
+    "opponentUnknownBestTier": "WIN",
+    "opponentUnknownLevel2BestMoves": [
+      2,
+      4,
+      7
+    ],
+    "opponentUnknownLevel3OptimisticTime": 1,
+    "opponentUnknownLevel3PerfectMoveLabels": [
+      2,
+      4
+    ],
+    "qualification": "opponent quality unknown: reachable outcomes and times are existential POSSIBLE, not guaranteed or probability-ranked"
+  },
+  "witnessedP1FastestPossibleDrawDifferentFromAllPossibleDrawMoves": null,
+  "historicalSourceWDLAndP1WinOpportunityNotEquated": true,
+  "referenceFutureGameBranching": true,
+  "canonical44444UnrestrictedWDL": "NOT_EVALUATED",
+  "finishSeed": 3694480740,
+  "frozenSource": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-unknown-opponent-potential-outcome-physical-control.mjs",
+  "frozenGitBlob": "b9be665998bfddf347eb76ddf1d53ed3f99d1869",
+  "evalMs": 566,
+  "governingDefinition": "docs/research/2026-10-17-owner-two-opponent-models-three-level-move-taxonomy.md",
+  "resultStatus": "PASS_SCOPED_ACTUAL7X6_OPPONENT_MODEL_REACHABILITY_DIFFERENCES; NOT_ZERO_BRANCH_STRATEGIC_ALGORITHM",
+  "scope": [
+    "1600 original physical legal first-win-stopped real7x6 nonterminal positions chosen from deterministic nonwinning trajectories and 4611 first literal actions; nonuniform sample, not whole 7x6 census.",
+    "Two recursive branching independent reference procedures: perfect-play minimax V and existential first-terminal outcome reachability Ω; BOTH validation ONLY.",
+    "All 55 P1-to-move roots with P0 perfect forced-win had all their P1 action minimax values +1, but possible P1 win under some nonperfect P0 play in 37, possible draw in 28, and best opportunity mask strictly smaller than all legal in 23.",
+    "129 P0-to-move root positions lacked guaranteed P0 win (under perfect P1), yet 100 had a possible P0-win path under some P1 mistake. Therefore P0 quality-unknown policy invariance ONLY conditioned on forced-win premise.",
+    "Shortest possible win and draw / longest possible loss are existential path statistics, not guaranteed times or probability claims. With unknown opponent quality user still must decide whether perfect-move timing denotes optimistic possible path, robust worst-case, or a behavior-weighted criterion.",
+    "The old WDL-optimal Mstar output and qualified game theory remain valid but are NOT identical to potential-winning B^exists_i under uncertain opponent quality.",
+    "Canonical 44444 exact unrestricted WDL/Level2 still UNKNOWN; no Node26 maintained CI or external proof assistant."
+  ]
+}
