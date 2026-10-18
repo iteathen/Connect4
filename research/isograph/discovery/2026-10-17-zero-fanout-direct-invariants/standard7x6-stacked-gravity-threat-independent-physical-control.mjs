@@ -109,9 +109,12 @@ function examine(s,canon=false){
   stats.positiveActionsAlreadyTwoDistinctPlayableImmediateThreats++;
  if(liveWinColumns.length===1)
   stats.positiveActionsWithExactlyOneSimultaneouslyPlayableWinningTarget++;
- if(liveWinColumns.length!==1||liveWinColumns[0]!==cert.uniqueStackedColumn){
+ // A sound stacked source certificate may COEXIST with a standard
+ // two-distinct-playable-column fork. Only the EXACT ONE target cases
+ // are marginal structural evidence beyond the older double threat.
+ if(!liveWinColumns.includes(cert.uniqueStackedColumn)){
    stats.wrongSourceWitnessOrPhysicalWinningAction++;
-   throw Error('stacked source source theorem not a genuinely single-playable threat');
+   throw Error('certified lower winning target not physically playable');
  }
  for(const d of legal(first)){
   const afterO=physicalStep(first,d);
