@@ -1,0 +1,780 @@
+{
+  "schema": "connect4.standard7x6.source_first_touch_directed_blocker_physical_v0_1",
+  "testDate": "2026-10-18",
+  "board": {
+    "W": 7,
+    "H": 6,
+    "K": 4,
+    "originalWinlines": 69
+  },
+  "seed": 294601324,
+  "physicalNonwinningHistories": 2700,
+  "realPhysicalNonterminalSourcesSeen": 89354,
+  "realSourceQChecked": 49023,
+  "realSourceQOwnerLiveGensNonempty": 48393,
+  "sourceGuardSuccessfulRoots": 295,
+  "sourceGuardFailedRoots": 48728,
+  "sourceWithAtLeastTwoCurrentLegalMoves": 257,
+  "sourceDirectedRepeatedBlockerTargets": 84,
+  "sourceVerticalSuccessorResponseMaps": 288,
+  "sourceOriginalFrontierResponseMaps": 298,
+  "originalPhysicalAttackerChoicesTested": 314,
+  "physicalAdversarialPChoicesDFSNodes": 1725,
+  "completeAdversarialPPolicyDFSRoots": 288,
+  "boundedSourcePhysicalDFSRoots": 0,
+  "physicalDefenderSuccessfulReplies": 1701,
+  "physicallyPlayedVerticalSuccessorReplies": 262,
+  "physicallyPlayedFrontierReplies": 167,
+  "physicallyChosenIdleDefenderReplies": 1272,
+  "physicalOwnerWinDetectedAfterSourceProof": 0,
+  "physicalIllegalDefenderReplyDetected": 0,
+  "physicalOriginalGateTouchNotCoveredBySourceMap": 0,
+  "independentFullPhysicalMinimaxRootChecks": 90,
+  "independentPhysicalMinimaxStates": 1866,
+  "independentPhysicalMinimaxCalls": 3629,
+  "physicallyWrongNoForceWinRoot": 0,
+  "sourceNoGameWDLQueries": 0,
+  "canonical": [
+    {
+      "history": "",
+      "ply": 0,
+      "status": "INCOMPLETE",
+      "reason": "AT_LEAST_ONE_ORIGINAL_FIRST_TOUCH_GATE_WITHOUT_COMMON_GRAVITY_SAFE_REPLY",
+      "sourceGateStats": {
+        "sourceCurrentRank": 0,
+        "sourceOriginalPlayer": 0,
+        "sourceOpponent": 1,
+        "originalOwnerViableWinRequirements": 69,
+        "originalFuturePhysicalCells": 42,
+        "sourceGateIncidences": 213,
+        "sourceGateCellsWithRequirements": 42,
+        "originalResidualBitIntersectionOps": 213,
+        "staticCandidateGravityReleaseTests": 336,
+        "gateCellsWithCommonOneMoveBlockers": 0,
+        "gateCellsOnlyWithVerticalSuccessor": 0,
+        "gateCellsOnlyWithOriginalRootFrontier": 0,
+        "gateCellsWithNeitherSafeOneMoveBlocker": 42,
+        "sourceProducedSharedDirectedResponseTargets": 0,
+        "sourceCompletePhysicalCellPairsEnumerated": 0,
+        "sourceStrategyTreeNodesOrGameQSuccessors": 0,
+        "sourceIndependentStrategicFutureGameValues": 0,
+        "sourceAdaptivePolicySpecificPrecomputedResponseCount": 0
+      }
+    },
+    {
+      "history": "4",
+      "ply": 1,
+      "status": "INCOMPLETE",
+      "reason": "AT_LEAST_ONE_ORIGINAL_FIRST_TOUCH_GATE_WITHOUT_COMMON_GRAVITY_SAFE_REPLY",
+      "sourceGateStats": {
+        "sourceCurrentRank": 1,
+        "sourceOriginalPlayer": 1,
+        "sourceOpponent": 0,
+        "originalOwnerViableWinRequirements": 62,
+        "originalFuturePhysicalCells": 41,
+        "sourceGateIncidences": 188,
+        "sourceGateCellsWithRequirements": 41,
+        "originalResidualBitIntersectionOps": 188,
+        "staticCandidateGravityReleaseTests": 328,
+        "gateCellsWithCommonOneMoveBlockers": 0,
+        "gateCellsOnlyWithVerticalSuccessor": 0,
+        "gateCellsOnlyWithOriginalRootFrontier": 0,
+        "gateCellsWithNeitherSafeOneMoveBlocker": 41,
+        "sourceProducedSharedDirectedResponseTargets": 0,
+        "sourceCompletePhysicalCellPairsEnumerated": 0,
+        "sourceStrategyTreeNodesOrGameQSuccessors": 0,
+        "sourceIndependentStrategicFutureGameValues": 0,
+        "sourceAdaptivePolicySpecificPrecomputedResponseCount": 0
+      }
+    },
+    {
+      "history": "44444",
+      "ply": 5,
+      "status": "INCOMPLETE",
+      "reason": "AT_LEAST_ONE_ORIGINAL_FIRST_TOUCH_GATE_WITHOUT_COMMON_GRAVITY_SAFE_REPLY",
+      "sourceGateStats": {
+        "sourceCurrentRank": 5,
+        "sourceOriginalPlayer": 1,
+        "sourceOpponent": 0,
+        "originalOwnerViableWinRequirements": 42,
+        "originalFuturePhysicalCells": 37,
+        "sourceGateIncidences": 96,
+        "sourceGateCellsWithRequirements": 35,
+        "originalResidualBitIntersectionOps": 96,
+        "staticCandidateGravityReleaseTests": 280,
+        "gateCellsWithCommonOneMoveBlockers": 8,
+        "gateCellsOnlyWithVerticalSuccessor": 4,
+        "gateCellsOnlyWithOriginalRootFrontier": 4,
+        "gateCellsWithNeitherSafeOneMoveBlocker": 27,
+        "sourceProducedSharedDirectedResponseTargets": 3,
+        "sourceCompletePhysicalCellPairsEnumerated": 0,
+        "sourceStrategyTreeNodesOrGameQSuccessors": 0,
+        "sourceIndependentStrategicFutureGameValues": 0,
+        "sourceAdaptivePolicySpecificPrecomputedResponseCount": 8
+      }
+    },
+    {
+      "history": "444444",
+      "ply": 6,
+      "status": "INCOMPLETE",
+      "reason": "AT_LEAST_ONE_ORIGINAL_FIRST_TOUCH_GATE_WITHOUT_COMMON_GRAVITY_SAFE_REPLY",
+      "sourceGateStats": {
+        "sourceCurrentRank": 6,
+        "sourceOriginalPlayer": 0,
+        "sourceOpponent": 1,
+        "originalOwnerViableWinRequirements": 42,
+        "originalFuturePhysicalCells": 36,
+        "sourceGateIncidences": 90,
+        "sourceGateCellsWithRequirements": 32,
+        "originalResidualBitIntersectionOps": 90,
+        "staticCandidateGravityReleaseTests": 224,
+        "gateCellsWithCommonOneMoveBlockers": 2,
+        "gateCellsOnlyWithVerticalSuccessor": 2,
+        "gateCellsOnlyWithOriginalRootFrontier": 0,
+        "gateCellsWithNeitherSafeOneMoveBlocker": 30,
+        "sourceProducedSharedDirectedResponseTargets": 0,
+        "sourceCompletePhysicalCellPairsEnumerated": 0,
+        "sourceStrategyTreeNodesOrGameQSuccessors": 0,
+        "sourceIndependentStrategicFutureGameValues": 0,
+        "sourceAdaptivePolicySpecificPrecomputedResponseCount": 2
+      }
+    },
+    {
+      "history": "444441",
+      "ply": 6,
+      "status": "INCOMPLETE",
+      "reason": "AT_LEAST_ONE_ORIGINAL_FIRST_TOUCH_GATE_WITHOUT_COMMON_GRAVITY_SAFE_REPLY",
+      "sourceGateStats": {
+        "sourceCurrentRank": 6,
+        "sourceOriginalPlayer": 0,
+        "sourceOpponent": 1,
+        "originalOwnerViableWinRequirements": 46,
+        "originalFuturePhysicalCells": 36,
+        "sourceGateIncidences": 110,
+        "sourceGateCellsWithRequirements": 36,
+        "originalResidualBitIntersectionOps": 110,
+        "staticCandidateGravityReleaseTests": 288,
+        "gateCellsWithCommonOneMoveBlockers": 6,
+        "gateCellsOnlyWithVerticalSuccessor": 2,
+        "gateCellsOnlyWithOriginalRootFrontier": 4,
+        "gateCellsWithNeitherSafeOneMoveBlocker": 30,
+        "sourceProducedSharedDirectedResponseTargets": 3,
+        "sourceCompletePhysicalCellPairsEnumerated": 0,
+        "sourceStrategyTreeNodesOrGameQSuccessors": 0,
+        "sourceIndependentStrategicFutureGameValues": 0,
+        "sourceAdaptivePolicySpecificPrecomputedResponseCount": 6
+      }
+    },
+    {
+      "history": "4444442",
+      "ply": 7,
+      "status": "INCOMPLETE",
+      "reason": "AT_LEAST_ONE_ORIGINAL_FIRST_TOUCH_GATE_WITHOUT_COMMON_GRAVITY_SAFE_REPLY",
+      "sourceGateStats": {
+        "sourceCurrentRank": 7,
+        "sourceOriginalPlayer": 1,
+        "sourceOpponent": 0,
+        "originalOwnerViableWinRequirements": 41,
+        "originalFuturePhysicalCells": 35,
+        "sourceGateIncidences": 89,
+        "sourceGateCellsWithRequirements": 33,
+        "originalResidualBitIntersectionOps": 89,
+        "staticCandidateGravityReleaseTests": 231,
+        "gateCellsWithCommonOneMoveBlockers": 3,
+        "gateCellsOnlyWithVerticalSuccessor": 3,
+        "gateCellsOnlyWithOriginalRootFrontier": 0,
+        "gateCellsWithNeitherSafeOneMoveBlocker": 30,
+        "sourceProducedSharedDirectedResponseTargets": 0,
+        "sourceCompletePhysicalCellPairsEnumerated": 0,
+        "sourceStrategyTreeNodesOrGameQSuccessors": 0,
+        "sourceIndependentStrategicFutureGameValues": 0,
+        "sourceAdaptivePolicySpecificPrecomputedResponseCount": 3
+      }
+    }
+  ],
+  "positiveExamples": [
+    {
+      "history": "4537216642355157344414222763266111733776",
+      "ply": 40,
+      "p": 0,
+      "legal": [
+        5
+      ],
+      "originalOwnerResiduals": 1,
+      "sourceGateCellCount": 1,
+      "sourceSharedDirectedBlockerTargets": 0,
+      "originalResponsePlan": [
+        {
+          "attackedPhysicalCellID": 32,
+          "attackerLiteralColumn": 5,
+          "attackerRowZeroBased": 4,
+          "safeDefenderPhysicalCellID": 39,
+          "defenderLiteralColumn": 5,
+          "defenderRowZeroBased": 5,
+          "sourceResponseKind": "VERTICAL_SUCCESSOR",
+          "originalRequirementIndexes": [
+            0
+          ],
+          "originalSourceCommonIntersectionHex": "0x8000000000",
+          "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+        }
+      ]
+    },
+    {
+      "history": "32377422217472574517561264114646535",
+      "ply": 35,
+      "p": 1,
+      "legal": [
+        1,
+        3,
+        5,
+        6
+      ],
+      "originalOwnerResiduals": 2,
+      "sourceGateCellCount": 2,
+      "sourceSharedDirectedBlockerTargets": 0,
+      "originalResponsePlan": [
+        {
+          "attackedPhysicalCellID": 23,
+          "attackerLiteralColumn": 3,
+          "attackerRowZeroBased": 3,
+          "safeDefenderPhysicalCellID": 30,
+          "defenderLiteralColumn": 3,
+          "defenderRowZeroBased": 4,
+          "sourceResponseKind": "VERTICAL_SUCCESSOR",
+          "originalRequirementIndexes": [
+            1
+          ],
+          "originalSourceCommonIntersectionHex": "0x2040000000",
+          "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+        },
+        {
+          "attackedPhysicalCellID": 33,
+          "attackerLiteralColumn": 6,
+          "attackerRowZeroBased": 4,
+          "safeDefenderPhysicalCellID": 40,
+          "defenderLiteralColumn": 6,
+          "defenderRowZeroBased": 5,
+          "sourceResponseKind": "VERTICAL_SUCCESSOR",
+          "originalRequirementIndexes": [
+            0
+          ],
+          "originalSourceCommonIntersectionHex": "0x10000000000",
+          "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+        }
+      ]
+    },
+    {
+      "history": "72331443173433212671742174426626566557",
+      "ply": 38,
+      "p": 0,
+      "legal": [
+        1,
+        5
+      ],
+      "originalOwnerResiduals": 1,
+      "sourceGateCellCount": 1,
+      "sourceSharedDirectedBlockerTargets": 0,
+      "originalResponsePlan": [
+        {
+          "attackedPhysicalCellID": 25,
+          "attackerLiteralColumn": 5,
+          "attackerRowZeroBased": 3,
+          "safeDefenderPhysicalCellID": 32,
+          "defenderLiteralColumn": 5,
+          "defenderRowZeroBased": 4,
+          "sourceResponseKind": "VERTICAL_SUCCESSOR",
+          "originalRequirementIndexes": [
+            0
+          ],
+          "originalSourceCommonIntersectionHex": "0x8100000000",
+          "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+        }
+      ]
+    },
+    {
+      "history": "5216133242745444742352237663377765",
+      "ply": 34,
+      "p": 0,
+      "legal": [
+        1,
+        5,
+        6
+      ],
+      "originalOwnerResiduals": 2,
+      "sourceGateCellCount": 2,
+      "sourceSharedDirectedBlockerTargets": 0,
+      "originalResponsePlan": [
+        {
+          "attackedPhysicalCellID": 14,
+          "attackerLiteralColumn": 1,
+          "attackerRowZeroBased": 2,
+          "safeDefenderPhysicalCellID": 21,
+          "defenderLiteralColumn": 1,
+          "defenderRowZeroBased": 3,
+          "sourceResponseKind": "VERTICAL_SUCCESSOR",
+          "originalRequirementIndexes": [
+            0
+          ],
+          "originalSourceCommonIntersectionHex": "0x200000",
+          "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+        },
+        {
+          "attackedPhysicalCellID": 33,
+          "attackerLiteralColumn": 6,
+          "attackerRowZeroBased": 4,
+          "safeDefenderPhysicalCellID": 40,
+          "defenderLiteralColumn": 6,
+          "defenderRowZeroBased": 5,
+          "sourceResponseKind": "VERTICAL_SUCCESSOR",
+          "originalRequirementIndexes": [
+            1
+          ],
+          "originalSourceCommonIntersectionHex": "0x10000000000",
+          "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+        }
+      ]
+    },
+    {
+      "history": "521613324274544474235223766337776566",
+      "ply": 36,
+      "p": 0,
+      "legal": [
+        1,
+        5
+      ],
+      "originalOwnerResiduals": 1,
+      "sourceGateCellCount": 1,
+      "sourceSharedDirectedBlockerTargets": 0,
+      "originalResponsePlan": [
+        {
+          "attackedPhysicalCellID": 14,
+          "attackerLiteralColumn": 1,
+          "attackerRowZeroBased": 2,
+          "safeDefenderPhysicalCellID": 21,
+          "defenderLiteralColumn": 1,
+          "defenderRowZeroBased": 3,
+          "sourceResponseKind": "VERTICAL_SUCCESSOR",
+          "originalRequirementIndexes": [
+            0
+          ],
+          "originalSourceCommonIntersectionHex": "0x200000",
+          "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+        }
+      ]
+    },
+    {
+      "history": "4135544142374476767353261223352166215",
+      "ply": 37,
+      "p": 1,
+      "legal": [
+        1,
+        5,
+        6,
+        7
+      ],
+      "originalOwnerResiduals": 1,
+      "sourceGateCellCount": 3,
+      "sourceSharedDirectedBlockerTargets": 1,
+      "originalResponsePlan": [
+        {
+          "attackedPhysicalCellID": 39,
+          "attackerLiteralColumn": 5,
+          "attackerRowZeroBased": 5,
+          "safeDefenderPhysicalCellID": 40,
+          "defenderLiteralColumn": 6,
+          "defenderRowZeroBased": 5,
+          "sourceResponseKind": "INDEPENDENT_ORIGINAL_FRONTIER",
+          "originalRequirementIndexes": [
+            0
+          ],
+          "originalSourceCommonIntersectionHex": "0x30000000000",
+          "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+        },
+        {
+          "attackedPhysicalCellID": 40,
+          "attackerLiteralColumn": 6,
+          "attackerRowZeroBased": 5,
+          "safeDefenderPhysicalCellID": 39,
+          "defenderLiteralColumn": 5,
+          "defenderRowZeroBased": 5,
+          "sourceResponseKind": "INDEPENDENT_ORIGINAL_FRONTIER",
+          "originalRequirementIndexes": [
+            0
+          ],
+          "originalSourceCommonIntersectionHex": "0x28000000000",
+          "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+        },
+        {
+          "attackedPhysicalCellID": 41,
+          "attackerLiteralColumn": 7,
+          "attackerRowZeroBased": 5,
+          "safeDefenderPhysicalCellID": 39,
+          "defenderLiteralColumn": 5,
+          "defenderRowZeroBased": 5,
+          "sourceResponseKind": "INDEPENDENT_ORIGINAL_FRONTIER",
+          "originalRequirementIndexes": [
+            0
+          ],
+          "originalSourceCommonIntersectionHex": "0x18000000000",
+          "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+        }
+      ]
+    },
+    {
+      "history": "25446213547166644164565531775272",
+      "ply": 32,
+      "p": 0,
+      "legal": [
+        1,
+        2,
+        3,
+        7
+      ],
+      "originalOwnerResiduals": 2,
+      "sourceGateCellCount": 4,
+      "sourceSharedDirectedBlockerTargets": 1,
+      "originalResponsePlan": [
+        {
+          "attackedPhysicalCellID": 16,
+          "attackerLiteralColumn": 3,
+          "attackerRowZeroBased": 2,
+          "safeDefenderPhysicalCellID": 23,
+          "defenderLiteralColumn": 3,
+          "defenderRowZeroBased": 3,
+          "sourceResponseKind": "VERTICAL_SUCCESSOR",
+          "originalRequirementIndexes": [
+            0
+          ],
+          "originalSourceCommonIntersectionHex": "0x40800000",
+          "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+        },
+        {
+          "attackedPhysicalCellID": 28,
+          "attackerLiteralColumn": 1,
+          "attackerRowZeroBased": 4,
+          "safeDefenderPhysicalCellID": 29,
+          "defenderLiteralColumn": 2,
+          "defenderRowZeroBased": 4,
+          "sourceResponseKind": "INDEPENDENT_ORIGINAL_FRONTIER",
+          "originalRequirementIndexes": [
+            1
+          ],
+          "originalSourceCommonIntersectionHex": "0x60000000",
+          "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+        },
+        {
+          "attackedPhysicalCellID": 29,
+          "attackerLiteralColumn": 2,
+          "attackerRowZeroBased": 4,
+          "safeDefenderPhysicalCellID": 28,
+          "defenderLiteralColumn": 1,
+          "defenderRowZeroBased": 4,
+          "sourceResponseKind": "INDEPENDENT_ORIGINAL_FRONTIER",
+          "originalRequirementIndexes": [
+            1
+          ],
+          "originalSourceCommonIntersectionHex": "0x50000000",
+          "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+        },
+        {
+          "attackedPhysicalCellID": 30,
+          "attackerLiteralColumn": 3,
+          "attackerRowZeroBased": 4,
+          "safeDefenderPhysicalCellID": 28,
+          "defenderLiteralColumn": 1,
+          "defenderRowZeroBased": 4,
+          "sourceResponseKind": "INDEPENDENT_ORIGINAL_FRONTIER",
+          "originalRequirementIndexes": [
+            1
+          ],
+          "originalSourceCommonIntersectionHex": "0x30000000",
+          "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+        }
+      ]
+    },
+    {
+      "history": "61545713742524451511663474276652",
+      "ply": 32,
+      "p": 0,
+      "legal": [
+        1,
+        2,
+        3,
+        6,
+        7
+      ],
+      "originalOwnerResiduals": 1,
+      "sourceGateCellCount": 1,
+      "sourceSharedDirectedBlockerTargets": 0,
+      "originalResponsePlan": [
+        {
+          "attackedPhysicalCellID": 16,
+          "attackerLiteralColumn": 3,
+          "attackerRowZeroBased": 2,
+          "safeDefenderPhysicalCellID": 23,
+          "defenderLiteralColumn": 3,
+          "defenderRowZeroBased": 3,
+          "sourceResponseKind": "VERTICAL_SUCCESSOR",
+          "originalRequirementIndexes": [
+            0
+          ],
+          "originalSourceCommonIntersectionHex": "0x40800000",
+          "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+        }
+      ]
+    },
+    {
+      "history": "4414767177553667121711362336533644425222",
+      "ply": 40,
+      "p": 0,
+      "legal": [
+        5
+      ],
+      "originalOwnerResiduals": 1,
+      "sourceGateCellCount": 1,
+      "sourceSharedDirectedBlockerTargets": 0,
+      "originalResponsePlan": [
+        {
+          "attackedPhysicalCellID": 32,
+          "attackerLiteralColumn": 5,
+          "attackerRowZeroBased": 4,
+          "safeDefenderPhysicalCellID": 39,
+          "defenderLiteralColumn": 5,
+          "defenderRowZeroBased": 5,
+          "sourceResponseKind": "VERTICAL_SUCCESSOR",
+          "originalRequirementIndexes": [
+            0
+          ],
+          "originalSourceCommonIntersectionHex": "0x8000000000",
+          "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+        }
+      ]
+    },
+    {
+      "history": "7626672716415551237351531176427532643",
+      "ply": 37,
+      "p": 1,
+      "legal": [
+        2,
+        3,
+        4
+      ],
+      "originalOwnerResiduals": 2,
+      "sourceGateCellCount": 4,
+      "sourceSharedDirectedBlockerTargets": 1,
+      "originalResponsePlan": [
+        {
+          "attackedPhysicalCellID": 24,
+          "attackerLiteralColumn": 4,
+          "attackerRowZeroBased": 3,
+          "safeDefenderPhysicalCellID": 31,
+          "defenderLiteralColumn": 4,
+          "defenderRowZeroBased": 4,
+          "sourceResponseKind": "VERTICAL_SUCCESSOR",
+          "originalRequirementIndexes": [
+            0
+          ],
+          "originalSourceCommonIntersectionHex": "0x4080000000",
+          "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+        },
+        {
+          "attackedPhysicalCellID": 36,
+          "attackerLiteralColumn": 2,
+          "attackerRowZeroBased": 5,
+          "safeDefenderPhysicalCellID": 37,
+          "defenderLiteralColumn": 3,
+          "defenderRowZeroBased": 5,
+          "sourceResponseKind": "INDEPENDENT_ORIGINAL_FRONTIER",
+          "originalRequirementIndexes": [
+            1
+          ],
+          "originalSourceCommonIntersectionHex": "0x6000000000",
+          "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+        },
+        {
+          "attackedPhysicalCellID": 37,
+          "attackerLiteralColumn": 3,
+          "attackerRowZeroBased": 5,
+          "safeDefenderPhysicalCellID": 36,
+          "defenderLiteralColumn": 2,
+          "defenderRowZeroBased": 5,
+          "sourceResponseKind": "INDEPENDENT_ORIGINAL_FRONTIER",
+          "originalRequirementIndexes": [
+            1
+          ],
+          "originalSourceCommonIntersectionHex": "0x5000000000",
+          "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+        },
+        {
+          "attackedPhysicalCellID": 38,
+          "attackerLiteralColumn": 4,
+          "attackerRowZeroBased": 5,
+          "safeDefenderPhysicalCellID": 36,
+          "defenderLiteralColumn": 2,
+          "defenderRowZeroBased": 5,
+          "sourceResponseKind": "INDEPENDENT_ORIGINAL_FRONTIER",
+          "originalRequirementIndexes": [
+            1
+          ],
+          "originalSourceCommonIntersectionHex": "0x3000000000",
+          "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+        }
+      ]
+    },
+    {
+      "history": "1427621765342337722214446633773455565",
+      "ply": 37,
+      "p": 1,
+      "legal": [
+        1,
+        5,
+        6
+      ],
+      "originalOwnerResiduals": 1,
+      "sourceGateCellCount": 2,
+      "sourceSharedDirectedBlockerTargets": 0,
+      "originalResponsePlan": [
+        {
+          "attackedPhysicalCellID": 39,
+          "attackerLiteralColumn": 5,
+          "attackerRowZeroBased": 5,
+          "safeDefenderPhysicalCellID": 40,
+          "defenderLiteralColumn": 6,
+          "defenderRowZeroBased": 5,
+          "sourceResponseKind": "INDEPENDENT_ORIGINAL_FRONTIER",
+          "originalRequirementIndexes": [
+            0
+          ],
+          "originalSourceCommonIntersectionHex": "0x10000000000",
+          "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+        },
+        {
+          "attackedPhysicalCellID": 40,
+          "attackerLiteralColumn": 6,
+          "attackerRowZeroBased": 5,
+          "safeDefenderPhysicalCellID": 39,
+          "defenderLiteralColumn": 5,
+          "defenderRowZeroBased": 5,
+          "sourceResponseKind": "INDEPENDENT_ORIGINAL_FRONTIER",
+          "originalRequirementIndexes": [
+            0
+          ],
+          "originalSourceCommonIntersectionHex": "0x8000000000",
+          "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+        }
+      ]
+    },
+    {
+      "history": "142762176534233772221444663377345556511",
+      "ply": 39,
+      "p": 1,
+      "legal": [
+        1,
+        5,
+        6
+      ],
+      "originalOwnerResiduals": 1,
+      "sourceGateCellCount": 2,
+      "sourceSharedDirectedBlockerTargets": 0,
+      "originalResponsePlan": [
+        {
+          "attackedPhysicalCellID": 39,
+          "attackerLiteralColumn": 5,
+          "attackerRowZeroBased": 5,
+          "safeDefenderPhysicalCellID": 40,
+          "defenderLiteralColumn": 6,
+          "defenderRowZeroBased": 5,
+          "sourceResponseKind": "INDEPENDENT_ORIGINAL_FRONTIER",
+          "originalRequirementIndexes": [
+            0
+          ],
+          "originalSourceCommonIntersectionHex": "0x10000000000",
+          "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+        },
+        {
+          "attackedPhysicalCellID": 40,
+          "attackerLiteralColumn": 6,
+          "attackerRowZeroBased": 5,
+          "safeDefenderPhysicalCellID": 39,
+          "defenderLiteralColumn": 5,
+          "defenderRowZeroBased": 5,
+          "sourceResponseKind": "INDEPENDENT_ORIGINAL_FRONTIER",
+          "originalRequirementIndexes": [
+            0
+          ],
+          "originalSourceCommonIntersectionHex": "0x8000000000",
+          "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+        }
+      ]
+    }
+  ],
+  "firstNonpairingDirectedPolicy": {
+    "history": "4135544142374476767353261223352166215",
+    "ply": 37,
+    "responseMap": [
+      {
+        "attackedPhysicalCellID": 39,
+        "attackerLiteralColumn": 5,
+        "attackerRowZeroBased": 5,
+        "safeDefenderPhysicalCellID": 40,
+        "defenderLiteralColumn": 6,
+        "defenderRowZeroBased": 5,
+        "sourceResponseKind": "INDEPENDENT_ORIGINAL_FRONTIER",
+        "originalRequirementIndexes": [
+          0
+        ],
+        "originalSourceCommonIntersectionHex": "0x30000000000",
+        "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+      },
+      {
+        "attackedPhysicalCellID": 40,
+        "attackerLiteralColumn": 6,
+        "attackerRowZeroBased": 5,
+        "safeDefenderPhysicalCellID": 39,
+        "defenderLiteralColumn": 5,
+        "defenderRowZeroBased": 5,
+        "sourceResponseKind": "INDEPENDENT_ORIGINAL_FRONTIER",
+        "originalRequirementIndexes": [
+          0
+        ],
+        "originalSourceCommonIntersectionHex": "0x28000000000",
+        "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+      },
+      {
+        "attackedPhysicalCellID": 41,
+        "attackerLiteralColumn": 7,
+        "attackerRowZeroBased": 5,
+        "safeDefenderPhysicalCellID": 39,
+        "defenderLiteralColumn": 5,
+        "defenderRowZeroBased": 5,
+        "sourceResponseKind": "INDEPENDENT_ORIGINAL_FRONTIER",
+        "originalRequirementIndexes": [
+          0
+        ],
+        "originalSourceCommonIntersectionHex": "0x18000000000",
+        "everyFirstTouchedOriginalGeneratorBlockedByReply": true
+      }
+    ]
+  },
+  "firstPhysicalFalsifier": null,
+  "finalSeed": 326008604,
+  "status": "PASS_SOURCE_UNIFORM_FIRST_TOUCH_DIRECTED_NONPAIRING_NO_MOVER_FORCED_WIN_TRUE7X6",
+  "governingSourceMath": "docs/research/2026-10-18-source-first-touch-universal-blocker-invariant.md",
+  "pureSourceProducer": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-source-first-touch-gate-blocker-no-win.mjs",
+  "frozenSourceGitBlob": "7ff81f7616cede406b90c09371f1563f9967f8b7",
+  "frozenIndependentPhysicalControl": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-first-touch-directed-blocker-independent-physical-control.mjs",
+  "frozenPhysicalControlGitBlob": "b34886b63c01006800c3f1b79ab5f346459f4e37",
+  "qualifiedSourceQAdapterBlob": "6b25d0e2560fe4131d2f5442593e9ed9763c1a18",
+  "executionIsolatedV8Ms": 5076,
+  "qualification": [
+    "Exactly one predetermined SOURCE y(x) chosen from common intersection of every original R_mover winning requirement for which x is its lowest future cell in one original column; y is either original bottom frontier cell or immediately-above x in same column.",
+    "ONE online opponent defender policy deletes every currently active p requirement first touched by p, preserving a finite monotone source invariant: every still active original p-winning requirement contains NO p future stones. The map may be MANY-TO-ONE and is not an involutive/complete cell pairing.",
+    "49,023 original source nonterminal q examined in 2700 reproducible nonwinning first-win-stopped W=7 H=6 K=4 physical trajectories, 295 nonempty-R source positives, 257 with multiple legal first columns.",
+    "84 repeated assigned directed reply targets across the source positive plans (aggregated repeats, NOT count of independent unpaired roots); individual source plans may still overlap ordinary pairing no-win proof domains.",
+    "Independent physical control exercised 1701 o replies against varying legal p choices, verified 288 exhaustive late original p choice DFS roots, and independently computed 90 late root ordinary physical minimax values showing p cannot force WIN, zero original first-win/gravity contradictions. Other source positives were on early ranks with sampled p choices, not exhaustive physical DFS.",
+    "Source constructs ZERO alternative future game q states, values ZERO strategically inequivalent future WDL games, does not generate pairing candidate partitions, and chooses ONE deterministic gate-response source mask map.",
+    "Source NO-FORCED-WIN does NOT automatically decide whether root DRAW or LOSS, nor identify a best move; combine with original opponent resource dual or one robust first-action nonloss to get Level2 move. Canonical 44444 no source gate cover.",
+    "These are nonuniform late-biased real7x6 source samples, NOT full game coverage or total Level2. No maintained Node26 CI, external formal proof assistant or qualified IsoGraph authority 1.2 change."
+  ]
+}
