@@ -1,0 +1,2771 @@
+{
+  "schema": "connect4.original7x6.uniform_reply_fiber_preoracle_compact_v0_1",
+  "date": "2026-10-18",
+  "status": "FROZEN_SOURCE_ONLY_BEFORE_PHYSICAL_WDL_AND_V4",
+  "exactProducerInputs": {
+    "seed": 20261018,
+    "games": 2600,
+    "rankMin": 26,
+    "rankMax": 39,
+    "rootLimit": 12500
+  },
+  "reproducibleSourceAndIndependentOriginalQAlgorithm": "research/isograph/discovery/2026-10-18-strategy-congruence/standard7x6-uniform-reply-fiber-frozen-preoracle-corpus.mjs",
+  "frozenSourceBlobs": {
+    "candidate": "1a7fbb45996b2b86c19d8e34697906db27d70e8b",
+    "swap": "7beb2ca37b1e8a4cf0885c91f6c3678261b18329",
+    "mirror": "d932f40180d0170fd5a1747471227e5a37287e0c",
+    "producer": "6b2f10caec2dee0291326969ec69c49c4b310a24"
+  },
+  "stats": {
+    "generatedNonwinningPhysicalHistories": 1062,
+    "sampledFirstWinFreeOriginalQ": 12500,
+    "sourceRootsWithAtLeastOneEdge": 2851,
+    "sourceProvedWeakOrderEdgesTotal": 4308,
+    "sourceEdgesAbsentFromOldOnePlySwapAndReflection": 112,
+    "rootsWithAtLeastOneNewDirectSourceWeakOrderEdge": 105,
+    "sourceRootsWithOneProofOfBest": 35,
+    "oldOnePlySourceRootsWithAtLeastOneEdge": 2764,
+    "sourceNewBestRootCandidateCount": 12,
+    "sourceSourceStructuralMaskChecks": 609373,
+    "sourceOpponentReplyLabelsExamined": 43767,
+    "sampledOriginalPlyHistogram": {
+      "26": 1062,
+      "27": 1062,
+      "28": 1062,
+      "29": 1062,
+      "30": 1061,
+      "31": 1057,
+      "32": 1046,
+      "33": 1033,
+      "34": 994,
+      "35": 938,
+      "36": 835,
+      "37": 657,
+      "38": 436,
+      "39": 195
+    },
+    "exactlyPhysicalRootWDLCalls": 0,
+    "V4SourceInvocations": 0,
+    "positiveRootsStored": 2851,
+    "newEdgeRootsStored": 105
+  },
+  "selectionClass": "all weak edges J_a <= J_b from ORIGINAL q static cofactor masks; global current literal action extremum when connected",
+  "newOnePlyMarginalOrderCandidates": [
+    {
+      "history": "562433542363654245164656543322217771",
+      "n": 36,
+      "novelEdges": [
+        [
+          7,
+          1,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": 1,
+      "headHeights": [
+        3,
+        6,
+        6,
+        6,
+        6,
+        6,
+        3
+      ]
+    },
+    {
+      "history": "756776446263613113134217473671435",
+      "n": 33,
+      "novelEdges": [
+        [
+          2,
+          5,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        6,
+        2,
+        6,
+        5,
+        2,
+        6,
+        6
+      ]
+    },
+    {
+      "history": "266575361466767444154131332231",
+      "n": 30,
+      "novelEdges": [
+        [
+          3,
+          1,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        5,
+        3,
+        5,
+        5,
+        3,
+        6,
+        3
+      ]
+    },
+    {
+      "history": "11564257643642122412277415545536377",
+      "n": 35,
+      "novelEdges": [
+        [
+          1,
+          7,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        5,
+        6,
+        3,
+        6,
+        6,
+        4,
+        5
+      ]
+    },
+    {
+      "history": "16635733437715142522753762734241",
+      "n": 32,
+      "novelEdges": [
+        [
+          4,
+          5,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        4,
+        5,
+        6,
+        4,
+        4,
+        3,
+        6
+      ]
+    },
+    {
+      "history": "1554626733322315726537211315215",
+      "n": 31,
+      "novelEdges": [
+        [
+          6,
+          7,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        6,
+        6,
+        6,
+        1,
+        6,
+        3,
+        3
+      ]
+    },
+    {
+      "history": "52745315457343365577443613274172",
+      "n": 32,
+      "novelEdges": [
+        [
+          2,
+          1,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        3,
+        3,
+        6,
+        6,
+        6,
+        2,
+        6
+      ]
+    },
+    {
+      "history": "517416574346755722166367323736551",
+      "n": 33,
+      "novelEdges": [
+        [
+          2,
+          4,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ],
+        [
+          4,
+          2,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        4,
+        3,
+        5,
+        3,
+        6,
+        6,
+        6
+      ]
+    },
+    {
+      "history": "14361175621545433251752573321362624",
+      "n": 35,
+      "novelEdges": [
+        [
+          6,
+          4,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        6,
+        6,
+        6,
+        4,
+        6,
+        4,
+        3
+      ]
+    },
+    {
+      "history": "21427555757311135646172442123526446773",
+      "n": 38,
+      "novelEdges": [
+        [
+          6,
+          3,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": 3,
+      "headHeights": [
+        6,
+        6,
+        4,
+        6,
+        6,
+        4,
+        6
+      ]
+    },
+    {
+      "history": "5727341344517565671746617521214452",
+      "n": 34,
+      "novelEdges": [
+        [
+          2,
+          6,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        6,
+        4,
+        2,
+        6,
+        6,
+        4,
+        6
+      ]
+    },
+    {
+      "history": "64571436746727132616675371132152",
+      "n": 32,
+      "novelEdges": [
+        [
+          2,
+          3,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        6,
+        4,
+        4,
+        3,
+        3,
+        6,
+        6
+      ]
+    },
+    {
+      "history": "5414627324336521332617367162264474",
+      "n": 34,
+      "novelEdges": [
+        [
+          7,
+          1,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        4,
+        6,
+        6,
+        6,
+        2,
+        6,
+        4
+      ]
+    },
+    {
+      "history": "1136676371767362312263435427721125",
+      "n": 34,
+      "novelEdges": [
+        [
+          5,
+          4,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": 4,
+      "headHeights": [
+        6,
+        6,
+        6,
+        2,
+        2,
+        6,
+        6
+      ]
+    },
+    {
+      "history": "6423331616546615712134132673",
+      "n": 28,
+      "novelEdges": [
+        [
+          7,
+          5,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        6,
+        3,
+        6,
+        3,
+        2,
+        6,
+        2
+      ]
+    },
+    {
+      "history": "71151564725641662516476217753272",
+      "n": 32,
+      "novelEdges": [
+        [
+          5,
+          2,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        6,
+        5,
+        1,
+        3,
+        5,
+        6,
+        6
+      ]
+    },
+    {
+      "history": "6442373411135444213335277115256762275",
+      "n": 37,
+      "novelEdges": [
+        [
+          5,
+          7,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        6,
+        6,
+        6,
+        6,
+        5,
+        3,
+        5
+      ]
+    },
+    {
+      "history": "7566242252726463772536117141741165",
+      "n": 34,
+      "novelEdges": [
+        [
+          4,
+          5,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        6,
+        6,
+        2,
+        4,
+        4,
+        6,
+        6
+      ]
+    },
+    {
+      "history": "45243646355741642324761613633",
+      "n": 29,
+      "novelEdges": [
+        [
+          1,
+          5,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        3,
+        3,
+        6,
+        6,
+        3,
+        6,
+        2
+      ]
+    },
+    {
+      "history": "55477775314242511127237623335562616",
+      "n": 35,
+      "novelEdges": [
+        [
+          1,
+          3,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        5,
+        6,
+        5,
+        3,
+        6,
+        4,
+        6
+      ]
+    },
+    {
+      "history": "114742753237161516717537426333",
+      "n": 30,
+      "novelEdges": [
+        [
+          6,
+          5,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        6,
+        3,
+        6,
+        3,
+        3,
+        3,
+        6
+      ]
+    },
+    {
+      "history": "5753541241224624427412131667676",
+      "n": 31,
+      "novelEdges": [
+        [
+          1,
+          6,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ],
+        [
+          6,
+          1,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        5,
+        6,
+        2,
+        6,
+        3,
+        5,
+        4
+      ]
+    },
+    {
+      "history": "11163371527434673337261422226167",
+      "n": 32,
+      "novelEdges": [
+        [
+          6,
+          7,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        6,
+        6,
+        6,
+        3,
+        1,
+        5,
+        5
+      ]
+    },
+    {
+      "history": "43473724316557767414525536152173411632",
+      "n": 38,
+      "novelEdges": [
+        [
+          2,
+          6,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": 6,
+      "headHeights": [
+        6,
+        4,
+        6,
+        6,
+        6,
+        4,
+        6
+      ]
+    },
+    {
+      "history": "1123637734346655431674512677553711",
+      "n": 34,
+      "novelEdges": [
+        [
+          5,
+          6,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        6,
+        2,
+        6,
+        4,
+        5,
+        5,
+        6
+      ]
+    },
+    {
+      "history": "21767651733726234753371452243264",
+      "n": 32,
+      "novelEdges": [
+        [
+          6,
+          4,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        3,
+        6,
+        6,
+        4,
+        3,
+        4,
+        6
+      ]
+    },
+    {
+      "history": "325242571151747546272217514645713",
+      "n": 33,
+      "novelEdges": [
+        [
+          6,
+          3,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        6,
+        6,
+        2,
+        5,
+        6,
+        2,
+        6
+      ]
+    },
+    {
+      "history": "41477237226631346642633746411525523",
+      "n": 35,
+      "novelEdges": [
+        [
+          1,
+          7,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        4,
+        6,
+        6,
+        6,
+        3,
+        6,
+        4
+      ]
+    },
+    {
+      "history": "1434347665263741522671216727447263",
+      "n": 34,
+      "novelEdges": [
+        [
+          3,
+          1,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        4,
+        6,
+        4,
+        6,
+        2,
+        6,
+        6
+      ]
+    },
+    {
+      "history": "376442621443756113162473317437157566",
+      "n": 36,
+      "novelEdges": [
+        [
+          2,
+          5,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": 5,
+      "headHeights": [
+        6,
+        3,
+        6,
+        6,
+        3,
+        6,
+        6
+      ]
+    },
+    {
+      "history": "5355572422121142675756416166",
+      "n": 28,
+      "novelEdges": [
+        [
+          6,
+          1,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ],
+        [
+          6,
+          2,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        5,
+        5,
+        1,
+        3,
+        6,
+        5,
+        3
+      ]
+    },
+    {
+      "history": "53555724221211426757564161662644",
+      "n": 32,
+      "novelEdges": [
+        [
+          4,
+          1,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        5,
+        6,
+        1,
+        5,
+        6,
+        6,
+        3
+      ]
+    },
+    {
+      "history": "736731754711531164167366634475344222",
+      "n": 36,
+      "novelEdges": [
+        [
+          2,
+          5,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ],
+        [
+          5,
+          2,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": 2,
+      "headHeights": [
+        6,
+        3,
+        6,
+        6,
+        3,
+        6,
+        6
+      ]
+    },
+    {
+      "history": "4732463726731251256337676712421635155",
+      "n": 37,
+      "novelEdges": [
+        [
+          1,
+          5,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        5,
+        6,
+        6,
+        3,
+        5,
+        6,
+        6
+      ]
+    },
+    {
+      "history": "5764163743655357352125423321266442",
+      "n": 34,
+      "novelEdges": [
+        [
+          1,
+          7,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        3,
+        6,
+        6,
+        5,
+        6,
+        5,
+        3
+      ]
+    },
+    {
+      "history": "335732517326327255736511141625261",
+      "n": 33,
+      "novelEdges": [
+        [
+          7,
+          6,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        6,
+        6,
+        6,
+        1,
+        6,
+        4,
+        4
+      ]
+    },
+    {
+      "history": "663337157225126747264551435167226351",
+      "n": 36,
+      "novelEdges": [
+        [
+          3,
+          1,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        5,
+        6,
+        5,
+        3,
+        6,
+        6,
+        5
+      ]
+    },
+    {
+      "history": "3214775474432125516741532772125",
+      "n": 31,
+      "novelEdges": [
+        [
+          5,
+          4,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        5,
+        6,
+        3,
+        5,
+        5,
+        1,
+        6
+      ]
+    },
+    {
+      "history": "25662454635234446355437173271737",
+      "n": 32,
+      "novelEdges": [
+        [
+          5,
+          7,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        2,
+        4,
+        6,
+        6,
+        5,
+        4,
+        5
+      ]
+    },
+    {
+      "history": "4243744572376435263167677466151",
+      "n": 31,
+      "novelEdges": [
+        [
+          1,
+          2,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        3,
+        3,
+        4,
+        6,
+        3,
+        6,
+        6
+      ]
+    },
+    {
+      "history": "625271755631652417414741175324237",
+      "n": 33,
+      "novelEdges": [
+        [
+          2,
+          4,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ],
+        [
+          2,
+          5,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        6,
+        5,
+        3,
+        5,
+        5,
+        3,
+        6
+      ]
+    },
+    {
+      "history": "556476665123411414143727422561652253",
+      "n": 36,
+      "novelEdges": [
+        [
+          3,
+          7,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": 7,
+      "headHeights": [
+        6,
+        6,
+        3,
+        6,
+        6,
+        6,
+        3
+      ]
+    },
+    {
+      "history": "44644724137265567126723217711216334355",
+      "n": 38,
+      "novelEdges": [
+        [
+          6,
+          3,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        6,
+        6,
+        5,
+        6,
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "history": "264311417157777664743362234354662212",
+      "n": 36,
+      "novelEdges": [
+        [
+          3,
+          1,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        5,
+        6,
+        5,
+        6,
+        2,
+        6,
+        6
+      ]
+    },
+    {
+      "history": "113421616534653411227326373775",
+      "n": 30,
+      "novelEdges": [
+        [
+          6,
+          2,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        6,
+        4,
+        6,
+        3,
+        3,
+        4,
+        4
+      ]
+    },
+    {
+      "history": "11342161653465341122732637377577",
+      "n": 32,
+      "novelEdges": [
+        [
+          6,
+          2,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        6,
+        4,
+        6,
+        3,
+        3,
+        4,
+        6
+      ]
+    },
+    {
+      "history": "742452324411256247256645561151673361",
+      "n": 36,
+      "novelEdges": [
+        [
+          7,
+          3,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": 3,
+      "headHeights": [
+        6,
+        6,
+        3,
+        6,
+        6,
+        6,
+        3
+      ]
+    },
+    {
+      "history": "1621234671462452752575523537716437",
+      "n": 34,
+      "novelEdges": [
+        [
+          4,
+          6,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        4,
+        6,
+        4,
+        4,
+        6,
+        4,
+        6
+      ]
+    },
+    {
+      "history": "66347316421566221362437732477357255",
+      "n": 35,
+      "novelEdges": [
+        [
+          4,
+          5,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        3,
+        6,
+        6,
+        4,
+        4,
+        6,
+        6
+      ]
+    },
+    {
+      "history": "741433112547375755256164141543",
+      "n": 30,
+      "novelEdges": [
+        [
+          3,
+          7,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        6,
+        2,
+        4,
+        6,
+        6,
+        2,
+        4
+      ]
+    },
+    {
+      "history": "23715276565142173243772714351243554",
+      "n": 35,
+      "novelEdges": [
+        [
+          1,
+          3,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        5,
+        6,
+        5,
+        5,
+        6,
+        2,
+        6
+      ]
+    },
+    {
+      "history": "624515253426675132545221617776",
+      "n": 30,
+      "novelEdges": [
+        [
+          7,
+          1,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        4,
+        6,
+        2,
+        3,
+        6,
+        5,
+        4
+      ]
+    },
+    {
+      "history": "2447127566516162615644225213177",
+      "n": 31,
+      "novelEdges": [
+        [
+          4,
+          7,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ],
+        [
+          5,
+          7,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        6,
+        6,
+        1,
+        4,
+        4,
+        6,
+        4
+      ]
+    },
+    {
+      "history": "244712756651616261564422521317755",
+      "n": 33,
+      "novelEdges": [
+        [
+          4,
+          7,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        6,
+        6,
+        1,
+        4,
+        6,
+        6,
+        4
+      ]
+    },
+    {
+      "history": "3724152722131365611255364174754623756",
+      "n": 37,
+      "novelEdges": [
+        [
+          7,
+          6,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        6,
+        6,
+        5,
+        4,
+        6,
+        5,
+        5
+      ]
+    },
+    {
+      "history": "1443667352525551251137333116776",
+      "n": 31,
+      "novelEdges": [
+        [
+          7,
+          6,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        6,
+        3,
+        6,
+        2,
+        6,
+        4,
+        4
+      ]
+    },
+    {
+      "history": "56363356373744746252661441747311221",
+      "n": 35,
+      "novelEdges": [
+        [
+          7,
+          1,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        5,
+        4,
+        6,
+        6,
+        3,
+        6,
+        5
+      ]
+    },
+    {
+      "history": "5426553565366713642763121222715347",
+      "n": 34,
+      "novelEdges": [
+        [
+          7,
+          1,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        4,
+        6,
+        5,
+        3,
+        6,
+        6,
+        4
+      ]
+    },
+    {
+      "history": "576361426426126325415722514647737",
+      "n": 33,
+      "novelEdges": [
+        [
+          5,
+          1,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        4,
+        6,
+        3,
+        5,
+        4,
+        6,
+        5
+      ]
+    },
+    {
+      "history": "57636142642612632541572251464773741",
+      "n": 35,
+      "novelEdges": [
+        [
+          7,
+          1,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        5,
+        6,
+        3,
+        6,
+        4,
+        6,
+        5
+      ]
+    },
+    {
+      "history": "6374715725271527341334366344427522",
+      "n": 34,
+      "novelEdges": [
+        [
+          1,
+          6,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        3,
+        6,
+        6,
+        6,
+        4,
+        3,
+        6
+      ]
+    },
+    {
+      "history": "756114522234667231761432444327177366",
+      "n": 36,
+      "novelEdges": [
+        [
+          3,
+          1,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        5,
+        6,
+        5,
+        6,
+        2,
+        6,
+        6
+      ]
+    },
+    {
+      "history": "12535215343132135636544577267167771",
+      "n": 35,
+      "novelEdges": [
+        [
+          2,
+          6,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        6,
+        4,
+        6,
+        3,
+        6,
+        4,
+        6
+      ]
+    },
+    {
+      "history": "324211624545565634765373713344222",
+      "n": 33,
+      "novelEdges": [
+        [
+          7,
+          1,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        3,
+        6,
+        6,
+        6,
+        5,
+        4,
+        3
+      ]
+    },
+    {
+      "history": "114666266615722331452217451274747",
+      "n": 33,
+      "novelEdges": [
+        [
+          7,
+          4,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        6,
+        6,
+        2,
+        5,
+        3,
+        6,
+        5
+      ]
+    },
+    {
+      "history": "46441675677216252522715235514374661",
+      "n": 35,
+      "novelEdges": [
+        [
+          7,
+          1,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ],
+        [
+          7,
+          4,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        5,
+        6,
+        2,
+        5,
+        6,
+        6,
+        5
+      ]
+    },
+    {
+      "history": "2262723436753751554175265373714632",
+      "n": 34,
+      "novelEdges": [
+        [
+          4,
+          1,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        3,
+        6,
+        6,
+        3,
+        6,
+        4,
+        6
+      ]
+    },
+    {
+      "history": "7364133734236525347652761717626552",
+      "n": 34,
+      "novelEdges": [
+        [
+          5,
+          2,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        3,
+        5,
+        6,
+        3,
+        5,
+        6,
+        6
+      ]
+    },
+    {
+      "history": "7774111215162762364344465373453376625",
+      "n": 37,
+      "novelEdges": [
+        [
+          2,
+          5,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        5,
+        4,
+        6,
+        6,
+        4,
+        6,
+        6
+      ]
+    },
+    {
+      "history": "7165211726464272134457516614433267",
+      "n": 34,
+      "novelEdges": [
+        [
+          7,
+          2,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        6,
+        5,
+        3,
+        6,
+        3,
+        6,
+        5
+      ]
+    },
+    {
+      "history": "714444257235212511776716174436662",
+      "n": 33,
+      "novelEdges": [
+        [
+          2,
+          6,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        6,
+        5,
+        2,
+        6,
+        3,
+        5,
+        6
+      ]
+    },
+    {
+      "history": "152443654253574774242673122615577",
+      "n": 33,
+      "novelEdges": [
+        [
+          1,
+          6,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        3,
+        6,
+        3,
+        6,
+        6,
+        3,
+        6
+      ]
+    },
+    {
+      "history": "76572776732276424451433341435225311",
+      "n": 35,
+      "novelEdges": [
+        [
+          5,
+          1,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        4,
+        6,
+        6,
+        6,
+        4,
+        3,
+        6
+      ]
+    },
+    {
+      "history": "6773471232564324537773414666364121",
+      "n": 34,
+      "novelEdges": [
+        [
+          2,
+          1,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        4,
+        4,
+        6,
+        6,
+        2,
+        6,
+        6
+      ]
+    },
+    {
+      "history": "5323123556434337151171266165756",
+      "n": 31,
+      "novelEdges": [
+        [
+          2,
+          7,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        6,
+        3,
+        6,
+        2,
+        6,
+        5,
+        3
+      ]
+    },
+    {
+      "history": "4162453454162552237551374772134721",
+      "n": 34,
+      "novelEdges": [
+        [
+          7,
+          1,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        5,
+        6,
+        4,
+        6,
+        6,
+        2,
+        5
+      ]
+    },
+    {
+      "history": "616146354442212532472265564675753",
+      "n": 33,
+      "novelEdges": [
+        [
+          7,
+          3,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        3,
+        6,
+        3,
+        6,
+        6,
+        6,
+        3
+      ]
+    },
+    {
+      "history": "4255333322155217534147263417652161",
+      "n": 34,
+      "novelEdges": [
+        [
+          6,
+          7,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        6,
+        6,
+        6,
+        4,
+        6,
+        3,
+        3
+      ]
+    },
+    {
+      "history": "4176562337617132126161435443354",
+      "n": 31,
+      "novelEdges": [
+        [
+          6,
+          4,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        6,
+        3,
+        6,
+        5,
+        3,
+        5,
+        3
+      ]
+    },
+    {
+      "history": "37573276231424727722553164533561514446",
+      "n": 38,
+      "novelEdges": [
+        [
+          6,
+          1,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": 1,
+      "headHeights": [
+        4,
+        6,
+        6,
+        6,
+        6,
+        4,
+        6
+      ]
+    },
+    {
+      "history": "3323644161127252677655676543272537",
+      "n": 34,
+      "novelEdges": [
+        [
+          3,
+          5,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        3,
+        6,
+        5,
+        3,
+        5,
+        6,
+        6
+      ]
+    },
+    {
+      "history": "1273466777371431242265736353252",
+      "n": 31,
+      "novelEdges": [
+        [
+          1,
+          5,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        3,
+        6,
+        6,
+        3,
+        3,
+        4,
+        6
+      ]
+    },
+    {
+      "history": "63376145117544177555642756361762123223",
+      "n": 38,
+      "novelEdges": [
+        [
+          3,
+          2,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        6,
+        5,
+        5,
+        4,
+        6,
+        6,
+        6
+      ]
+    },
+    {
+      "history": "31614214371135656543462636143477",
+      "n": 32,
+      "novelEdges": [
+        [
+          7,
+          5,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        6,
+        2,
+        6,
+        6,
+        3,
+        6,
+        3
+      ]
+    },
+    {
+      "history": "3726516655117377313571763654635214",
+      "n": 34,
+      "novelEdges": [
+        [
+          4,
+          2,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": 2,
+      "headHeights": [
+        6,
+        2,
+        6,
+        2,
+        6,
+        6,
+        6
+      ]
+    },
+    {
+      "history": "775613763225333441577352511244271",
+      "n": 33,
+      "novelEdges": [
+        [
+          5,
+          2,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        5,
+        5,
+        6,
+        4,
+        5,
+        2,
+        6
+      ]
+    },
+    {
+      "history": "67564414266326313754625333152572215117",
+      "n": 38,
+      "novelEdges": [
+        [
+          7,
+          4,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": 4,
+      "headHeights": [
+        6,
+        6,
+        6,
+        4,
+        6,
+        6,
+        4
+      ]
+    },
+    {
+      "history": "14125747711372454331544516756",
+      "n": 29,
+      "novelEdges": [
+        [
+          7,
+          5,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        6,
+        2,
+        3,
+        6,
+        5,
+        2,
+        5
+      ]
+    },
+    {
+      "history": "57275115322556733627356316346614247",
+      "n": 35,
+      "novelEdges": [
+        [
+          2,
+          7,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        4,
+        5,
+        6,
+        3,
+        6,
+        6,
+        5
+      ]
+    },
+    {
+      "history": "6421457753427347221663271617626",
+      "n": 31,
+      "novelEdges": [
+        [
+          1,
+          4,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        4,
+        6,
+        3,
+        4,
+        2,
+        6,
+        6
+      ]
+    },
+    {
+      "history": "1616447463351627222332617453372747415",
+      "n": 37,
+      "novelEdges": [
+        [
+          1,
+          6,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        5,
+        6,
+        6,
+        6,
+        3,
+        5,
+        6
+      ]
+    },
+    {
+      "history": "64635615543273351575311744412432",
+      "n": 32,
+      "novelEdges": [
+        [
+          2,
+          7,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        5,
+        3,
+        6,
+        6,
+        6,
+        3,
+        3
+      ]
+    },
+    {
+      "history": "25565377671173472312337514232411255664",
+      "n": 38,
+      "novelEdges": [
+        [
+          6,
+          4,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": 4,
+      "headHeights": [
+        6,
+        6,
+        6,
+        4,
+        6,
+        4,
+        6
+      ]
+    },
+    {
+      "history": "644332672624551756767463534274253",
+      "n": 33,
+      "novelEdges": [
+        [
+          7,
+          5,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        1,
+        5,
+        5,
+        6,
+        5,
+        6,
+        5
+      ]
+    },
+    {
+      "history": "36416127371462362112266427137335447",
+      "n": 35,
+      "novelEdges": [
+        [
+          4,
+          7,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        6,
+        6,
+        6,
+        5,
+        1,
+        6,
+        5
+      ]
+    },
+    {
+      "history": "2137522677636515512361273511737",
+      "n": 31,
+      "novelEdges": [
+        [
+          2,
+          3,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        6,
+        5,
+        5,
+        0,
+        5,
+        4,
+        6
+      ]
+    },
+    {
+      "history": "54534136163565757743346357742164117",
+      "n": 35,
+      "novelEdges": [
+        [
+          6,
+          1,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        5,
+        1,
+        6,
+        6,
+        6,
+        5,
+        6
+      ]
+    },
+    {
+      "history": "5453413616356575774334635774216411722",
+      "n": 37,
+      "novelEdges": [
+        [
+          6,
+          1,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        5,
+        3,
+        6,
+        6,
+        6,
+        5,
+        6
+      ]
+    },
+    {
+      "history": "5661473515564372267735612375613341122",
+      "n": 37,
+      "novelEdges": [
+        [
+          7,
+          2,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        6,
+        5,
+        6,
+        3,
+        6,
+        6,
+        5
+      ]
+    },
+    {
+      "history": "7742674646322172271174255655155113",
+      "n": 34,
+      "novelEdges": [
+        [
+          4,
+          6,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        6,
+        6,
+        2,
+        4,
+        6,
+        4,
+        6
+      ]
+    },
+    {
+      "history": "62152134666524574363313757612511547",
+      "n": 35,
+      "novelEdges": [
+        [
+          4,
+          7,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        6,
+        4,
+        5,
+        4,
+        6,
+        6,
+        4
+      ]
+    },
+    {
+      "history": "6556176661617413237542425227553213173",
+      "n": 37,
+      "novelEdges": [
+        [
+          7,
+          3,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        6,
+        6,
+        5,
+        3,
+        6,
+        6,
+        5
+      ]
+    },
+    {
+      "history": "2465221535261111722477377417",
+      "n": 28,
+      "novelEdges": [
+        [
+          3,
+          6,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        6,
+        6,
+        2,
+        3,
+        3,
+        2,
+        6
+      ]
+    },
+    {
+      "history": "24652215352611117224773774174464",
+      "n": 32,
+      "novelEdges": [
+        [
+          6,
+          5,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        6,
+        6,
+        2,
+        6,
+        3,
+        3,
+        6
+      ]
+    },
+    {
+      "history": "675732237427422113616736336742614",
+      "n": 33,
+      "novelEdges": [
+        [
+          4,
+          1,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "selected": null,
+      "headHeights": [
+        4,
+        6,
+        6,
+        4,
+        1,
+        6,
+        6
+      ]
+    }
+  ],
+  "sourceNewBestCandidates": [
+    {
+      "history": "562433542363654245164656543322217771",
+      "n": 36,
+      "heights": [
+        3,
+        6,
+        6,
+        6,
+        6,
+        6,
+        3
+      ],
+      "RCounts": [
+        1,
+        2
+      ],
+      "legal": [
+        1,
+        7
+      ],
+      "sourceStatus": "SOURCE_CERTIFIED_ONE_BEST_ORIGINAL_ACTION",
+      "selected": 1,
+      "newEdges": [
+        [
+          7,
+          1,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "novelEdges": [
+        [
+          7,
+          1,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "onePlyEdges": []
+    },
+    {
+      "history": "21427555757311135646172442123526446773",
+      "n": 38,
+      "heights": [
+        6,
+        6,
+        4,
+        6,
+        6,
+        4,
+        6
+      ],
+      "RCounts": [
+        2,
+        3
+      ],
+      "legal": [
+        3,
+        6
+      ],
+      "sourceStatus": "SOURCE_CERTIFIED_ONE_BEST_ORIGINAL_ACTION",
+      "selected": 3,
+      "newEdges": [
+        [
+          6,
+          3,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "novelEdges": [
+        [
+          6,
+          3,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "onePlyEdges": []
+    },
+    {
+      "history": "1136676371767362312263435427721125",
+      "n": 34,
+      "heights": [
+        6,
+        6,
+        6,
+        2,
+        2,
+        6,
+        6
+      ],
+      "RCounts": [
+        7,
+        3
+      ],
+      "legal": [
+        4,
+        5
+      ],
+      "sourceStatus": "SOURCE_CERTIFIED_ONE_BEST_ORIGINAL_ACTION",
+      "selected": 4,
+      "newEdges": [
+        [
+          5,
+          4,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "novelEdges": [
+        [
+          5,
+          4,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "onePlyEdges": []
+    },
+    {
+      "history": "43473724316557767414525536152173411632",
+      "n": 38,
+      "heights": [
+        6,
+        4,
+        6,
+        6,
+        6,
+        4,
+        6
+      ],
+      "RCounts": [
+        1,
+        2
+      ],
+      "legal": [
+        2,
+        6
+      ],
+      "sourceStatus": "SOURCE_CERTIFIED_ONE_BEST_ORIGINAL_ACTION",
+      "selected": 6,
+      "newEdges": [
+        [
+          2,
+          6,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "novelEdges": [
+        [
+          2,
+          6,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "onePlyEdges": []
+    },
+    {
+      "history": "376442621443756113162473317437157566",
+      "n": 36,
+      "heights": [
+        6,
+        3,
+        6,
+        6,
+        3,
+        6,
+        6
+      ],
+      "RCounts": [
+        1,
+        2
+      ],
+      "legal": [
+        2,
+        5
+      ],
+      "sourceStatus": "SOURCE_CERTIFIED_ONE_BEST_ORIGINAL_ACTION",
+      "selected": 5,
+      "newEdges": [
+        [
+          2,
+          5,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "novelEdges": [
+        [
+          2,
+          5,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "onePlyEdges": []
+    },
+    {
+      "history": "736731754711531164167366634475344222",
+      "n": 36,
+      "heights": [
+        6,
+        3,
+        6,
+        6,
+        3,
+        6,
+        6
+      ],
+      "RCounts": [
+        3,
+        6
+      ],
+      "legal": [
+        2,
+        5
+      ],
+      "sourceStatus": "SOURCE_CERTIFIED_ONE_BEST_ORIGINAL_ACTION",
+      "selected": 2,
+      "newEdges": [
+        [
+          2,
+          5,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ],
+        [
+          5,
+          2,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "novelEdges": [
+        [
+          2,
+          5,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ],
+        [
+          5,
+          2,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "onePlyEdges": []
+    },
+    {
+      "history": "556476665123411414143727422561652253",
+      "n": 36,
+      "heights": [
+        6,
+        6,
+        3,
+        6,
+        6,
+        6,
+        3
+      ],
+      "RCounts": [
+        3,
+        2
+      ],
+      "legal": [
+        3,
+        7
+      ],
+      "sourceStatus": "SOURCE_CERTIFIED_ONE_BEST_ORIGINAL_ACTION",
+      "selected": 7,
+      "newEdges": [
+        [
+          3,
+          7,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "novelEdges": [
+        [
+          3,
+          7,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "onePlyEdges": []
+    },
+    {
+      "history": "742452324411256247256645561151673361",
+      "n": 36,
+      "heights": [
+        6,
+        6,
+        3,
+        6,
+        6,
+        6,
+        3
+      ],
+      "RCounts": [
+        4,
+        3
+      ],
+      "legal": [
+        3,
+        7
+      ],
+      "sourceStatus": "SOURCE_CERTIFIED_ONE_BEST_ORIGINAL_ACTION",
+      "selected": 3,
+      "newEdges": [
+        [
+          7,
+          3,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "novelEdges": [
+        [
+          7,
+          3,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "onePlyEdges": []
+    },
+    {
+      "history": "37573276231424727722553164533561514446",
+      "n": 38,
+      "heights": [
+        4,
+        6,
+        6,
+        6,
+        6,
+        4,
+        6
+      ],
+      "RCounts": [
+        1,
+        2
+      ],
+      "legal": [
+        1,
+        6
+      ],
+      "sourceStatus": "SOURCE_CERTIFIED_ONE_BEST_ORIGINAL_ACTION",
+      "selected": 1,
+      "newEdges": [
+        [
+          6,
+          1,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "novelEdges": [
+        [
+          6,
+          1,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "onePlyEdges": []
+    },
+    {
+      "history": "3726516655117377313571763654635214",
+      "n": 34,
+      "heights": [
+        6,
+        2,
+        6,
+        2,
+        6,
+        6,
+        6
+      ],
+      "RCounts": [
+        6,
+        4
+      ],
+      "legal": [
+        2,
+        4
+      ],
+      "sourceStatus": "SOURCE_CERTIFIED_ONE_BEST_ORIGINAL_ACTION",
+      "selected": 2,
+      "newEdges": [
+        [
+          4,
+          2,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "novelEdges": [
+        [
+          4,
+          2,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "onePlyEdges": []
+    },
+    {
+      "history": "67564414266326313754625333152572215117",
+      "n": 38,
+      "heights": [
+        6,
+        6,
+        6,
+        4,
+        6,
+        6,
+        4
+      ],
+      "RCounts": [
+        1,
+        2
+      ],
+      "legal": [
+        4,
+        7
+      ],
+      "sourceStatus": "SOURCE_CERTIFIED_ONE_BEST_ORIGINAL_ACTION",
+      "selected": 4,
+      "newEdges": [
+        [
+          7,
+          4,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "novelEdges": [
+        [
+          7,
+          4,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "onePlyEdges": []
+    },
+    {
+      "history": "25565377671173472312337514232411255664",
+      "n": 38,
+      "heights": [
+        6,
+        6,
+        6,
+        4,
+        6,
+        4,
+        6
+      ],
+      "RCounts": [
+        1,
+        3
+      ],
+      "legal": [
+        4,
+        6
+      ],
+      "sourceStatus": "SOURCE_CERTIFIED_ONE_BEST_ORIGINAL_ACTION",
+      "selected": 4,
+      "newEdges": [
+        [
+          6,
+          4,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "novelEdges": [
+        [
+          6,
+          4,
+          "FIXED_ROOT_TWO_COLUMN_TRANSPOSITION"
+        ]
+      ],
+      "onePlyEdges": []
+    }
+  ],
+  "preoracleNeverUsedPhysicalMinimax": true,
+  "preoracleNeverCalledUnifiedV4": true,
+  "warnings": [
+    "12 newly certified SOURCE best roots versus one-ply fixed map, NOT YET new vs immutable V4, and not physically validated",
+    "All root histories genuine W7H6K4 first-win-free original physical samples, nonuniform repeat possible",
+    "This proof examines ALL opponent reply labels symbolically; this is source quantifier work, not zero arithmetic",
+    "The failed prior full-payload GitHub transfer is not evidence failure of the source mathematics"
+  ]
+}
