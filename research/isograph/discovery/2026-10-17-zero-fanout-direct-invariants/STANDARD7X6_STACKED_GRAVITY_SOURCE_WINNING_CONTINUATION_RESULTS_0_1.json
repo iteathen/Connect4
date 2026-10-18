@@ -1,0 +1,800 @@
+{
+  "schema": "connect4.standard7x6.stacked_gravity_source_first_win_real_physical_control_v0_1",
+  "date": "2026-10-17",
+  "geometry": {
+    "W": 7,
+    "H": 6,
+    "K": 4,
+    "originalWinlines": 69
+  },
+  "seedStart": 357222355,
+  "canonicalInputs": [
+    {
+      "history": "",
+      "ply": 0,
+      "result": "INCOMPLETE"
+    },
+    {
+      "history": "4",
+      "ply": 1,
+      "result": "INCOMPLETE"
+    },
+    {
+      "history": "44444",
+      "ply": 5,
+      "result": "INCOMPLETE"
+    },
+    {
+      "history": "444444",
+      "ply": 6,
+      "result": "INCOMPLETE"
+    },
+    {
+      "history": "444441",
+      "ply": 6,
+      "result": "INCOMPLETE"
+    },
+    {
+      "history": "4444442",
+      "ply": 7,
+      "result": "INCOMPLETE"
+    }
+  ],
+  "sampledNonwinningTrajectories": 4100,
+  "actualFirstWinStoppedSourcePositions": 134185,
+  "distinctRealPhysicalInputs": 134185,
+  "sourceStaticChecks": 134185,
+  "sourcePositiveSingleBestActions": 7710,
+  "sourcePositiveOriginalFirstActionLabels": [],
+  "sourcePositiveDistinctRootBoards": 7710,
+  "positiveActionsAlreadyImmediateRootWin": 0,
+  "positiveActionsAlreadyTwoDistinctPlayableImmediateThreats": 4434,
+  "positiveActionsWithExactlyOneSimultaneouslyPlayableWinningTarget": 3276,
+  "physicallyTestedOpponentLiteralReplies": 40891,
+  "confirmedActualNoOpponentImmediateCounterwin": 7710,
+  "verifiedPWinAfterEveryOpponentReply": 40891,
+  "badFirstActionWinPrecedence": 0,
+  "badFullDrawGuards": 0,
+  "badOpponentCounters": 0,
+  "wrongSourceWitnessOrPhysicalWinningAction": 0,
+  "selectedFirstActionOrdinaryPerfectWDLChecks": 80,
+  "independentRecursiveReferenceCalls": 1322,
+  "independentReferenceStates": 635,
+  "sampledReferenceWdlWrong": 0,
+  "proofGraphStrategicFutureFanoutAtSource": 0,
+  "sourceFutureGameStatesConstructed": 0,
+  "sourceAnyGameValuesQueried": 0,
+  "sampleUniqueMultiStepSourceWitness": null,
+  "sampleWitnesses": [
+    {
+      "history": "61211176647235555437321517257666233",
+      "ply": 35,
+      "mover": 1,
+      "firstAction": 4,
+      "stackColumn": 4,
+      "bottomRow": 3,
+      "topRow": 4,
+      "pSourceResiduals": 3,
+      "enemyResiduals": 3,
+      "afterFirstSingleWinningColumns": [
+        4
+      ],
+      "opponentReplyColumnsCovered": [
+        2,
+        3,
+        4,
+        7
+      ],
+      "directSourceCertificate": {
+        "schema": "connect4.source_stacked_gravity_fork_witness.v0_1",
+        "mover": 1,
+        "certifiedWinningOwner": 1,
+        "firstActionColumn": 4,
+        "firstActionLandsAt": {
+          "column": 4,
+          "rowZeroBased": 2,
+          "cellMaskHex": "0x20000"
+        },
+        "uniqueStackedColumn": 4,
+        "bottomImmediateWinCell": {
+          "column": 4,
+          "rowZeroBased": 3,
+          "cellMaskHex": "0x1000000"
+        },
+        "upperReleasedWinCell": {
+          "column": 4,
+          "rowZeroBased": 4,
+          "cellMaskHex": "0x80000000"
+        },
+        "sourceBottomRequirementMasks": [
+          "0x1020000"
+        ],
+        "sourceUpperRequirementMasks": [
+          "0x80000000"
+        ],
+        "allDistinctCurrentlyPlayablePImmediateWinningTargetColumns": [
+          4
+        ],
+        "opponentImmediateWinDeniedAtEveryNextPlayableColumn": true,
+        "proofMoveIfOpponentDeviation": 4,
+        "proofMoveIfOpponentBlocksBottom": 4,
+        "firstWinBeforeFullBoardDraw": true,
+        "geometricGuard": "upper winning singleton exactly one gravity cell above lower, same column",
+        "proof": "opponent must play lower to block imminent own win, thereby releasing upper; no immediate opponent win",
+        "strategicGameValueQueries": 0
+      }
+    },
+    {
+      "history": "6121117664723555543732151725766623372",
+      "ply": 37,
+      "mover": 1,
+      "firstAction": 4,
+      "stackColumn": 4,
+      "bottomRow": 3,
+      "topRow": 4,
+      "pSourceResiduals": 3,
+      "enemyResiduals": 3,
+      "afterFirstSingleWinningColumns": [
+        4
+      ],
+      "opponentReplyColumnsCovered": [
+        3,
+        4
+      ],
+      "directSourceCertificate": {
+        "schema": "connect4.source_stacked_gravity_fork_witness.v0_1",
+        "mover": 1,
+        "certifiedWinningOwner": 1,
+        "firstActionColumn": 4,
+        "firstActionLandsAt": {
+          "column": 4,
+          "rowZeroBased": 2,
+          "cellMaskHex": "0x20000"
+        },
+        "uniqueStackedColumn": 4,
+        "bottomImmediateWinCell": {
+          "column": 4,
+          "rowZeroBased": 3,
+          "cellMaskHex": "0x1000000"
+        },
+        "upperReleasedWinCell": {
+          "column": 4,
+          "rowZeroBased": 4,
+          "cellMaskHex": "0x80000000"
+        },
+        "sourceBottomRequirementMasks": [
+          "0x1020000"
+        ],
+        "sourceUpperRequirementMasks": [
+          "0x80000000"
+        ],
+        "allDistinctCurrentlyPlayablePImmediateWinningTargetColumns": [
+          4
+        ],
+        "opponentImmediateWinDeniedAtEveryNextPlayableColumn": true,
+        "proofMoveIfOpponentDeviation": 4,
+        "proofMoveIfOpponentBlocksBottom": 4,
+        "firstWinBeforeFullBoardDraw": true,
+        "geometricGuard": "upper winning singleton exactly one gravity cell above lower, same column",
+        "proof": "opponent must play lower to block imminent own win, thereby releasing upper; no immediate opponent win",
+        "strategicGameValueQueries": 0
+      }
+    },
+    {
+      "history": "4743347313171354545177714561",
+      "ply": 28,
+      "mover": 0,
+      "firstAction": 3,
+      "stackColumn": 6,
+      "bottomRow": 1,
+      "topRow": 2,
+      "pSourceResiduals": 6,
+      "enemyResiduals": 8,
+      "afterFirstSingleWinningColumns": [
+        6
+      ],
+      "opponentReplyColumnsCovered": [
+        2,
+        5,
+        6
+      ],
+      "directSourceCertificate": {
+        "schema": "connect4.source_stacked_gravity_fork_witness.v0_1",
+        "mover": 0,
+        "certifiedWinningOwner": 0,
+        "firstActionColumn": 3,
+        "firstActionLandsAt": {
+          "column": 3,
+          "rowZeroBased": 5,
+          "cellMaskHex": "0x2000000000"
+        },
+        "uniqueStackedColumn": 6,
+        "bottomImmediateWinCell": {
+          "column": 6,
+          "rowZeroBased": 1,
+          "cellMaskHex": "0x1000"
+        },
+        "upperReleasedWinCell": {
+          "column": 6,
+          "rowZeroBased": 2,
+          "cellMaskHex": "0x80000"
+        },
+        "sourceBottomRequirementMasks": [
+          "0x1000"
+        ],
+        "sourceUpperRequirementMasks": [
+          "0x80000"
+        ],
+        "allDistinctCurrentlyPlayablePImmediateWinningTargetColumns": [
+          6
+        ],
+        "opponentImmediateWinDeniedAtEveryNextPlayableColumn": true,
+        "proofMoveIfOpponentDeviation": 6,
+        "proofMoveIfOpponentBlocksBottom": 6,
+        "firstWinBeforeFullBoardDraw": true,
+        "geometricGuard": "upper winning singleton exactly one gravity cell above lower, same column",
+        "proof": "opponent must play lower to block imminent own win, thereby releasing upper; no immediate opponent win",
+        "strategicGameValueQueries": 0
+      }
+    },
+    {
+      "history": "47433473131713545451777145613655222",
+      "ply": 35,
+      "mover": 1,
+      "firstAction": 6,
+      "stackColumn": 2,
+      "bottomRow": 3,
+      "topRow": 4,
+      "pSourceResiduals": 3,
+      "enemyResiduals": 2,
+      "afterFirstSingleWinningColumns": [
+        2,
+        6
+      ],
+      "opponentReplyColumnsCovered": [
+        2,
+        6
+      ],
+      "directSourceCertificate": {
+        "schema": "connect4.source_stacked_gravity_fork_witness.v0_1",
+        "mover": 1,
+        "certifiedWinningOwner": 1,
+        "firstActionColumn": 6,
+        "firstActionLandsAt": {
+          "column": 6,
+          "rowZeroBased": 2,
+          "cellMaskHex": "0x80000"
+        },
+        "uniqueStackedColumn": 2,
+        "bottomImmediateWinCell": {
+          "column": 2,
+          "rowZeroBased": 3,
+          "cellMaskHex": "0x400000"
+        },
+        "upperReleasedWinCell": {
+          "column": 2,
+          "rowZeroBased": 4,
+          "cellMaskHex": "0x20000000"
+        },
+        "sourceBottomRequirementMasks": [
+          "0x400000"
+        ],
+        "sourceUpperRequirementMasks": [
+          "0x20000000"
+        ],
+        "allDistinctCurrentlyPlayablePImmediateWinningTargetColumns": [
+          2,
+          6
+        ],
+        "opponentImmediateWinDeniedAtEveryNextPlayableColumn": true,
+        "proofMoveIfOpponentDeviation": 2,
+        "proofMoveIfOpponentBlocksBottom": 2,
+        "firstWinBeforeFullBoardDraw": true,
+        "geometricGuard": "upper winning singleton exactly one gravity cell above lower, same column",
+        "proof": "opponent must play lower to block imminent own win, thereby releasing upper; no immediate opponent win",
+        "strategicGameValueQueries": 0
+      }
+    },
+    {
+      "history": "4743347313171354545177714561365522266",
+      "ply": 37,
+      "mover": 1,
+      "firstAction": 6,
+      "stackColumn": 2,
+      "bottomRow": 3,
+      "topRow": 4,
+      "pSourceResiduals": 2,
+      "enemyResiduals": 1,
+      "afterFirstSingleWinningColumns": [
+        2
+      ],
+      "opponentReplyColumnsCovered": [
+        2,
+        6
+      ],
+      "directSourceCertificate": {
+        "schema": "connect4.source_stacked_gravity_fork_witness.v0_1",
+        "mover": 1,
+        "certifiedWinningOwner": 1,
+        "firstActionColumn": 6,
+        "firstActionLandsAt": {
+          "column": 6,
+          "rowZeroBased": 4,
+          "cellMaskHex": "0x200000000"
+        },
+        "uniqueStackedColumn": 2,
+        "bottomImmediateWinCell": {
+          "column": 2,
+          "rowZeroBased": 3,
+          "cellMaskHex": "0x400000"
+        },
+        "upperReleasedWinCell": {
+          "column": 2,
+          "rowZeroBased": 4,
+          "cellMaskHex": "0x20000000"
+        },
+        "sourceBottomRequirementMasks": [
+          "0x400000"
+        ],
+        "sourceUpperRequirementMasks": [
+          "0x20000000"
+        ],
+        "allDistinctCurrentlyPlayablePImmediateWinningTargetColumns": [
+          2
+        ],
+        "opponentImmediateWinDeniedAtEveryNextPlayableColumn": true,
+        "proofMoveIfOpponentDeviation": 2,
+        "proofMoveIfOpponentBlocksBottom": 2,
+        "firstWinBeforeFullBoardDraw": true,
+        "geometricGuard": "upper winning singleton exactly one gravity cell above lower, same column",
+        "proof": "opponent must play lower to block imminent own win, thereby releasing upper; no immediate opponent win",
+        "strategicGameValueQueries": 0
+      }
+    },
+    {
+      "history": "7221746565673334",
+      "ply": 16,
+      "mover": 0,
+      "firstAction": 5,
+      "stackColumn": 4,
+      "bottomRow": 2,
+      "topRow": 3,
+      "pSourceResiduals": 27,
+      "enemyResiduals": 27,
+      "afterFirstSingleWinningColumns": [
+        4,
+        6
+      ],
+      "opponentReplyColumnsCovered": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "directSourceCertificate": {
+        "schema": "connect4.source_stacked_gravity_fork_witness.v0_1",
+        "mover": 0,
+        "certifiedWinningOwner": 0,
+        "firstActionColumn": 5,
+        "firstActionLandsAt": {
+          "column": 5,
+          "rowZeroBased": 2,
+          "cellMaskHex": "0x40000"
+        },
+        "uniqueStackedColumn": 4,
+        "bottomImmediateWinCell": {
+          "column": 4,
+          "rowZeroBased": 2,
+          "cellMaskHex": "0x20000"
+        },
+        "upperReleasedWinCell": {
+          "column": 4,
+          "rowZeroBased": 3,
+          "cellMaskHex": "0x1000000"
+        },
+        "sourceBottomRequirementMasks": [
+          "0x60000"
+        ],
+        "sourceUpperRequirementMasks": [
+          "0x1040000"
+        ],
+        "allDistinctCurrentlyPlayablePImmediateWinningTargetColumns": [
+          4,
+          6
+        ],
+        "opponentImmediateWinDeniedAtEveryNextPlayableColumn": true,
+        "proofMoveIfOpponentDeviation": 4,
+        "proofMoveIfOpponentBlocksBottom": 4,
+        "firstWinBeforeFullBoardDraw": true,
+        "geometricGuard": "upper winning singleton exactly one gravity cell above lower, same column",
+        "proof": "opponent must play lower to block imminent own win, thereby releasing upper; no immediate opponent win",
+        "strategicGameValueQueries": 0
+      }
+    },
+    {
+      "history": "352171747543622265632142564665133731",
+      "ply": 36,
+      "mover": 0,
+      "firstAction": 5,
+      "stackColumn": 4,
+      "bottomRow": 4,
+      "topRow": 5,
+      "pSourceResiduals": 2,
+      "enemyResiduals": 1,
+      "afterFirstSingleWinningColumns": [
+        4
+      ],
+      "opponentReplyColumnsCovered": [
+        1,
+        4,
+        7
+      ],
+      "directSourceCertificate": {
+        "schema": "connect4.source_stacked_gravity_fork_witness.v0_1",
+        "mover": 0,
+        "certifiedWinningOwner": 0,
+        "firstActionColumn": 5,
+        "firstActionLandsAt": {
+          "column": 5,
+          "rowZeroBased": 5,
+          "cellMaskHex": "0x8000000000"
+        },
+        "uniqueStackedColumn": 4,
+        "bottomImmediateWinCell": {
+          "column": 4,
+          "rowZeroBased": 4,
+          "cellMaskHex": "0x80000000"
+        },
+        "upperReleasedWinCell": {
+          "column": 4,
+          "rowZeroBased": 5,
+          "cellMaskHex": "0x4000000000"
+        },
+        "sourceBottomRequirementMasks": [
+          "0x80000000"
+        ],
+        "sourceUpperRequirementMasks": [
+          "0xc000000000"
+        ],
+        "allDistinctCurrentlyPlayablePImmediateWinningTargetColumns": [
+          4
+        ],
+        "opponentImmediateWinDeniedAtEveryNextPlayableColumn": true,
+        "proofMoveIfOpponentDeviation": 4,
+        "proofMoveIfOpponentBlocksBottom": 4,
+        "firstWinBeforeFullBoardDraw": true,
+        "geometricGuard": "upper winning singleton exactly one gravity cell above lower, same column",
+        "proof": "opponent must play lower to block imminent own win, thereby releasing upper; no immediate opponent win",
+        "strategicGameValueQueries": 0
+      }
+    },
+    {
+      "history": "35217174754362226563214256466513373151",
+      "ply": 38,
+      "mover": 0,
+      "firstAction": 7,
+      "stackColumn": 4,
+      "bottomRow": 4,
+      "topRow": 5,
+      "pSourceResiduals": 2,
+      "enemyResiduals": 1,
+      "afterFirstSingleWinningColumns": [
+        4
+      ],
+      "opponentReplyColumnsCovered": [
+        4,
+        7
+      ],
+      "directSourceCertificate": {
+        "schema": "connect4.source_stacked_gravity_fork_witness.v0_1",
+        "mover": 0,
+        "certifiedWinningOwner": 0,
+        "firstActionColumn": 7,
+        "firstActionLandsAt": {
+          "column": 7,
+          "rowZeroBased": 4,
+          "cellMaskHex": "0x400000000"
+        },
+        "uniqueStackedColumn": 4,
+        "bottomImmediateWinCell": {
+          "column": 4,
+          "rowZeroBased": 4,
+          "cellMaskHex": "0x80000000"
+        },
+        "upperReleasedWinCell": {
+          "column": 4,
+          "rowZeroBased": 5,
+          "cellMaskHex": "0x4000000000"
+        },
+        "sourceBottomRequirementMasks": [
+          "0x80000000"
+        ],
+        "sourceUpperRequirementMasks": [
+          "0x4000000000"
+        ],
+        "allDistinctCurrentlyPlayablePImmediateWinningTargetColumns": [
+          4
+        ],
+        "opponentImmediateWinDeniedAtEveryNextPlayableColumn": true,
+        "proofMoveIfOpponentDeviation": 4,
+        "proofMoveIfOpponentBlocksBottom": 4,
+        "firstWinBeforeFullBoardDraw": true,
+        "geometricGuard": "upper winning singleton exactly one gravity cell above lower, same column",
+        "proof": "opponent must play lower to block imminent own win, thereby releasing upper; no immediate opponent win",
+        "strategicGameValueQueries": 0
+      }
+    },
+    {
+      "history": "3115764225351417322322735",
+      "ply": 25,
+      "mover": 1,
+      "firstAction": 1,
+      "stackColumn": 4,
+      "bottomRow": 2,
+      "topRow": 3,
+      "pSourceResiduals": 10,
+      "enemyResiduals": 13,
+      "afterFirstSingleWinningColumns": [
+        4,
+        6
+      ],
+      "opponentReplyColumnsCovered": [
+        1,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "directSourceCertificate": {
+        "schema": "connect4.source_stacked_gravity_fork_witness.v0_1",
+        "mover": 1,
+        "certifiedWinningOwner": 1,
+        "firstActionColumn": 1,
+        "firstActionLandsAt": {
+          "column": 1,
+          "rowZeroBased": 4,
+          "cellMaskHex": "0x10000000"
+        },
+        "uniqueStackedColumn": 4,
+        "bottomImmediateWinCell": {
+          "column": 4,
+          "rowZeroBased": 2,
+          "cellMaskHex": "0x20000"
+        },
+        "upperReleasedWinCell": {
+          "column": 4,
+          "rowZeroBased": 3,
+          "cellMaskHex": "0x1000000"
+        },
+        "sourceBottomRequirementMasks": [
+          "0x20000"
+        ],
+        "sourceUpperRequirementMasks": [
+          "0x1000000"
+        ],
+        "allDistinctCurrentlyPlayablePImmediateWinningTargetColumns": [
+          4,
+          6
+        ],
+        "opponentImmediateWinDeniedAtEveryNextPlayableColumn": true,
+        "proofMoveIfOpponentDeviation": 4,
+        "proofMoveIfOpponentBlocksBottom": 4,
+        "firstWinBeforeFullBoardDraw": true,
+        "geometricGuard": "upper winning singleton exactly one gravity cell above lower, same column",
+        "proof": "opponent must play lower to block imminent own win, thereby releasing upper; no immediate opponent win",
+        "strategicGameValueQueries": 0
+      }
+    },
+    {
+      "history": "3115764225351417322322735341441765476",
+      "ply": 37,
+      "mover": 1,
+      "firstAction": 7,
+      "stackColumn": 6,
+      "bottomRow": 3,
+      "topRow": 4,
+      "pSourceResiduals": 3,
+      "enemyResiduals": 2,
+      "afterFirstSingleWinningColumns": [
+        5,
+        6
+      ],
+      "opponentReplyColumnsCovered": [
+        5,
+        6
+      ],
+      "directSourceCertificate": {
+        "schema": "connect4.source_stacked_gravity_fork_witness.v0_1",
+        "mover": 1,
+        "certifiedWinningOwner": 1,
+        "firstActionColumn": 7,
+        "firstActionLandsAt": {
+          "column": 7,
+          "rowZeroBased": 5,
+          "cellMaskHex": "0x20000000000"
+        },
+        "uniqueStackedColumn": 6,
+        "bottomImmediateWinCell": {
+          "column": 6,
+          "rowZeroBased": 3,
+          "cellMaskHex": "0x4000000"
+        },
+        "upperReleasedWinCell": {
+          "column": 6,
+          "rowZeroBased": 4,
+          "cellMaskHex": "0x200000000"
+        },
+        "sourceBottomRequirementMasks": [
+          "0x4000000"
+        ],
+        "sourceUpperRequirementMasks": [
+          "0x200000000"
+        ],
+        "allDistinctCurrentlyPlayablePImmediateWinningTargetColumns": [
+          5,
+          6
+        ],
+        "opponentImmediateWinDeniedAtEveryNextPlayableColumn": true,
+        "proofMoveIfOpponentDeviation": 6,
+        "proofMoveIfOpponentBlocksBottom": 6,
+        "firstWinBeforeFullBoardDraw": true,
+        "geometricGuard": "upper winning singleton exactly one gravity cell above lower, same column",
+        "proof": "opponent must play lower to block imminent own win, thereby releasing upper; no immediate opponent win",
+        "strategicGameValueQueries": 0
+      }
+    },
+    {
+      "history": "52553774171124544341",
+      "ply": 20,
+      "mover": 0,
+      "firstAction": 2,
+      "stackColumn": 3,
+      "bottomRow": 2,
+      "topRow": 3,
+      "pSourceResiduals": 15,
+      "enemyResiduals": 14,
+      "afterFirstSingleWinningColumns": [
+        3
+      ],
+      "opponentReplyColumnsCovered": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "directSourceCertificate": {
+        "schema": "connect4.source_stacked_gravity_fork_witness.v0_1",
+        "mover": 0,
+        "certifiedWinningOwner": 0,
+        "firstActionColumn": 2,
+        "firstActionLandsAt": {
+          "column": 2,
+          "rowZeroBased": 2,
+          "cellMaskHex": "0x8000"
+        },
+        "uniqueStackedColumn": 3,
+        "bottomImmediateWinCell": {
+          "column": 3,
+          "rowZeroBased": 2,
+          "cellMaskHex": "0x10000"
+        },
+        "upperReleasedWinCell": {
+          "column": 3,
+          "rowZeroBased": 3,
+          "cellMaskHex": "0x800000"
+        },
+        "sourceBottomRequirementMasks": [
+          "0x10000"
+        ],
+        "sourceUpperRequirementMasks": [
+          "0x808000"
+        ],
+        "allDistinctCurrentlyPlayablePImmediateWinningTargetColumns": [
+          3
+        ],
+        "opponentImmediateWinDeniedAtEveryNextPlayableColumn": true,
+        "proofMoveIfOpponentDeviation": 3,
+        "proofMoveIfOpponentBlocksBottom": 3,
+        "firstWinBeforeFullBoardDraw": true,
+        "geometricGuard": "upper winning singleton exactly one gravity cell above lower, same column",
+        "proof": "opponent must play lower to block imminent own win, thereby releasing upper; no immediate opponent win",
+        "strategicGameValueQueries": 0
+      }
+    },
+    {
+      "history": "5255377417112454434115",
+      "ply": 22,
+      "mover": 0,
+      "firstAction": 2,
+      "stackColumn": 3,
+      "bottomRow": 2,
+      "topRow": 3,
+      "pSourceResiduals": 12,
+      "enemyResiduals": 12,
+      "afterFirstSingleWinningColumns": [
+        3
+      ],
+      "opponentReplyColumnsCovered": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "directSourceCertificate": {
+        "schema": "connect4.source_stacked_gravity_fork_witness.v0_1",
+        "mover": 0,
+        "certifiedWinningOwner": 0,
+        "firstActionColumn": 2,
+        "firstActionLandsAt": {
+          "column": 2,
+          "rowZeroBased": 2,
+          "cellMaskHex": "0x8000"
+        },
+        "uniqueStackedColumn": 3,
+        "bottomImmediateWinCell": {
+          "column": 3,
+          "rowZeroBased": 2,
+          "cellMaskHex": "0x10000"
+        },
+        "upperReleasedWinCell": {
+          "column": 3,
+          "rowZeroBased": 3,
+          "cellMaskHex": "0x800000"
+        },
+        "sourceBottomRequirementMasks": [
+          "0x10000"
+        ],
+        "sourceUpperRequirementMasks": [
+          "0x808000"
+        ],
+        "allDistinctCurrentlyPlayablePImmediateWinningTargetColumns": [
+          3
+        ],
+        "opponentImmediateWinDeniedAtEveryNextPlayableColumn": true,
+        "proofMoveIfOpponentDeviation": 3,
+        "proofMoveIfOpponentBlocksBottom": 3,
+        "firstWinBeforeFullBoardDraw": true,
+        "geometricGuard": "upper winning singleton exactly one gravity cell above lower, same column",
+        "proof": "opponent must play lower to block imminent own win, thereby releasing upper; no immediate opponent win",
+        "strategicGameValueQueries": 0
+      }
+    }
+  ],
+  "sourceWorkCounts": {
+    "literalSourceActionsScanned": 765716,
+    "residualLookupTests": 8314869
+  },
+  "canonical44444Result": "INCOMPLETE",
+  "finishedSeed": 3398037306,
+  "status": "PASS_SCOPED_SOURCE_ONLY_STACKED_GRAVITY_FIRST_WIN_CERTIFICATES_TRUE_7X6",
+  "proof": "docs/research/2026-10-17-virtual-gravity-stacked-threat-direct-mate.md",
+  "producerSource": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-stacked-gravity-threat-source-certificate.mjs",
+  "producerGitBlob": "a15175c64d92394855d8f7d21f12900db6e92b8d",
+  "independentPhysicalControl": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-stacked-gravity-threat-independent-physical-control.mjs",
+  "controlGitBlob": "b39ca0bc9c4900b6b876a0f3b55931e56a0c89a6",
+  "exactQReferenceSource": "research/isograph/discovery/2026-10-16-algorithmic-core/exact-q-core.mjs",
+  "qCoreGitBlob": "6b25d0e2560fe4131d2f5442593e9ed9763c1a18",
+  "elapsedIsolatedV8Ms": 19717,
+  "qualificationLimits": [
+    "The producer reads current q only, examines original R0/R1 mask singleton/doubleton incidence, and never constructs future game states, explores branching game successors or queries action WDL values.",
+    "The independent first-win-stopped physical control checked EVERY opponent literal reply at 7710 true 7x6 positive states; all 40891 replies ended with proved owner first win immediately on following move.",
+    "The 3276 source-positive roots with EXACTLY ONE concurrently playable owner winning target are not captured by the ordinary two DISTINCT simultaneously playable column fork condition. Incremental coverage versus all other historical nonforking proof operators requires separate conformance.",
+    "The further 4434 positive roots also had two-or-more physical immediate threat columns, and are NOT claimed as incremental over prior double-fork rule.",
+    "The independent full recursive physical WDL reference was run only on 80 late rank>=35 root first-action continuations, all matched; 7710 positive witnesses were exhaustively falsified by direct one-ply physical opponent reply checks.",
+    "The source operator returns only one ORIGINAL literal proven winner (valid Level2 continuation) not full Level2 labels or scalar outcomes when no certificate matches.",
+    "Real 7x6 game prefixes sampled nonuniformly from 4100 deterministic non-winning game histories; positive frequencies are not performance/completeness rates over all 7x6 positions.",
+    "Canonical 44444 returns INCOMPLETE. General arbitrary 7x6 zero-branch best continuation remains OPEN.",
+    "Initial independent control turn bug, novelty overconstraint and unbounded early-reference exhaustion were committed as negative harness history before successful independent control, see STANDARD7X6_STACKED_GRAVITY_INITIAL_CONTROL_FAILURES_0_1.md.",
+    "Executed isolated V8 not maintained Node26 CI, no independent external mathematical proof assistant."
+  ]
+}
