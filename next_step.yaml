@@ -1,3 +1,59 @@
+true7x6_root_no_winning_outcome_plus_one_DRAW_best_action_20261017:
+  owner_goal: "Any ONE source-certified Level2 best action; no requirement for full optimal original label set"
+  status: EXACT_SCOPED_SOURCE_TWO_CERTIFICATE_DRAW_BEST_ACTION_TRUE7X6_213_POSITIVES_NOT_TOTAL_SOLVER
+  mathematical_theorem: docs/research/2026-10-17-source-root-win-exclusion-plus-one-action-draw-witness.md
+  source: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-one-action-root-noforce-win-draw-certificate.mjs
+  physical_validator: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-one-draw-best-source-independent-physical-control.mjs
+  evidence: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/STANDARD7X6_ROOT_NO_WIN_SINGLE_DRAW_BEST_SOURCE_RESULTS_0_1.json
+  exact_theorem: >-
+    Source global NO_FORCE_WIN_p(q) plus source action AVOID_LOSS_p(q,a)
+    implies root WDL exactly DRAW and a is a mathematically BEST Level2
+    continuation. No other literal action WDL must be evaluated, ties
+    need not be enumerated. Root global bound may come from no surviving
+    original owner winlines or a gravity-safe opponent second-player
+    defensive source pairing. Action no-loss may come from original
+    opponent residuals all blocked by a, or valid static opponent
+    attacker-first co-release p defending pairing.
+  root_P0_relative_source_bounds:
+    p0_mover: "global root upper <= 0 and selected action lower >=0"
+    p1_mover: "global root lower >= 0 and selected action upper <=0"
+  generic_one_best_interval_selection:
+    p0_turn: "L_a >= maximum U_b across all legal b"
+    p1_turn: "U_a <= minimum L_b across all legal b"
+    equality_allowed: true
+    no_full_action_values_or_ties_required: true
+  static_source_future_games_independently_valued: 0
+  independent_real7x6_physical_nonterminal_sources_explored: 8899
+  source_global_cannot_force_win_certificates: 327
+  source_single_draw_best_moves_certified: 213
+  source_no_win_but_no_selected_draw_certificates: 114
+  root_proof_via_owner_win_generator_extinction: 198
+  root_proof_via_nontrivial_gravity_pairing: 15
+  independent_full_physical_root_and_action_WDL_checks: 180
+  reference_wrong_root_or_selected_action_values: 0
+  true7x6_pairing_root_draw_witness:
+    legal_original_history: "14134251643437345353422222717671666517"
+    absolute_ply: 38
+    mover: P0
+    selected_literal_best_DRAW_action: 5
+    root_certification: "opponent gravity-safe defensive pairing means mover cannot FORCE win"
+    selected_action_certification: "blocks every opponent remaining original win requirement"
+  opponent_quality_mode: PERFECT
+  no_claim_full_level2_all_best_move_set: true
+  no_claim_general_total_solver: true
+  canonical_44444_unrestricted_level2: UNKNOWN
+  updated_priority: >-
+    Unify source WIN direct gravity response-cover/one forced opponent
+    continuation lane with root source no-force-win + single action
+    nonloss draw to return one provably best action on more true7x6
+    cases. If certified root mover has unavoidable LOSS under perfect
+    opponent, ANY legal action is best and all moves tie. Aim
+    for proof-complete arbitrary-q behavior without multiple WDL
+    future-game evaluation; never substitute precompiled strategy
+    tables or future game graph enumeration.
+  maintained_Node26_CI: NOT_RUN
+  IsoGraph_authority_1_2_game_rules_unchanged: true
+
 true7x6_single_forced_lane_longer_level2_winner_20261017:
   owner_objective: "ONE certified current-player Level2 best literal continuation, no independent strategic future game value branching; full all-best move set stronger"
   status: SOURCE_EXACT_SCOPED_ONE_FORCED_OPPONENT_REPLY_LANE_UP_TO_SIX_ROUNDS_CONFIRMED_ACTUAL7X6_NOT_TOTAL_SOLVER
