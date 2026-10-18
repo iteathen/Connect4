@@ -1,0 +1,427 @@
+{
+  "schema": "connect4.standard7x6.root_no_force_win_plus_action_nonloss_draw_v0_1",
+  "date": "2026-10-17",
+  "board": {
+    "W": 7,
+    "H": 6,
+    "K": 4,
+    "originalKWindows": 69
+  },
+  "seedStart": 357222355,
+  "gameHistoriesSampled": 1250,
+  "actual7x6PhysicalRootsVisited": 42025,
+  "distinctGenuineRealNonterminalRoots": 42025,
+  "sourceEvaluatedCandidateRoots": 8899,
+  "rootNoForcedWinSourceCertified": 327,
+  "sourceSelectedBestDrawRootActions": 213,
+  "sourceSelectedRootNoWinByExtinction": 198,
+  "sourceSelectedRootNoWinByPairing": 15,
+  "selectedActionSourceNoLossByPairing": 7,
+  "selectedActionSourceNoLossByTotalOriginalBlocker": 112,
+  "firstSelectedDrawSourceWitness": {
+    "hist": "7221746565673334351232551546436417622177",
+    "ply": 40,
+    "mover": 0,
+    "action": 4,
+    "rootProof": "ROOT_MOVER_NO_ORIGINAL_SURVIVING_K_LINE",
+    "actionReasons": [
+      "SOURCE_MOVER_WIN_REQUIREMENTS_ALREADY_EMPTY",
+      "FIRST_MOVE_BLOCKS_ALL_OPPONENT_WIN_REQUIREMENTS"
+    ]
+  },
+  "firstSelectedDrawBeyondFullExtinction": {
+    "hist": "14134251643437345353422222717671666517",
+    "ply": 38,
+    "mover": 0,
+    "action": 5,
+    "rootProof": "GLOBAL_ORIGINAL_SOURCE_NO_FORCED_MOVER_WIN",
+    "actionReasons": [
+      "FIRST_MOVE_BLOCKS_ALL_OPPONENT_WIN_REQUIREMENTS"
+    ]
+  },
+  "selectedDrawActionsOriginalLiteralColumns": [],
+  "sourceFutureStrategicGameValueCalls": 0,
+  "sourceAlternativeFutureGameStatesCreated": 0,
+  "sourceStaticPairWorkTotal": 239188,
+  "sourceOriginalLiteralActionScans": 563,
+  "sourceBudgetIncomplete": 0,
+  "physicalRecursiveReferenceRootsVerified": 180,
+  "physicalRootDrawWrong": 0,
+  "physicalActionDrawWrong": 0,
+  "referenceRecursiveCalls": 1020,
+  "referenceUniqueStates": 476,
+  "physicalDrawWitnessExamples": [
+    {
+      "history": "7221746565673334351232551546436417622177",
+      "ply": 40,
+      "playerToMove": 0,
+      "h": [
+        5,
+        6,
+        6,
+        5,
+        6,
+        6,
+        6
+      ],
+      "selectedLiteralColumn": 4,
+      "rootNoWinSourceKind": "ROOT_MOVER_NO_ORIGINAL_SURVIVING_K_LINE",
+      "actionSourceReasons": [
+        "SOURCE_MOVER_WIN_REQUIREMENTS_ALREADY_EMPTY",
+        "FIRST_MOVE_BLOCKS_ALL_OPPONENT_WIN_REQUIREMENTS"
+      ],
+      "fullBestSetNotClaimed": true
+    },
+    {
+      "history": "35217174754362226563214256466513373151747",
+      "ply": 41,
+      "playerToMove": 1,
+      "h": [
+        6,
+        6,
+        6,
+        5,
+        6,
+        6,
+        6
+      ],
+      "selectedLiteralColumn": 4,
+      "rootNoWinSourceKind": "ROOT_MOVER_NO_ORIGINAL_SURVIVING_K_LINE",
+      "actionSourceReasons": [],
+      "fullBestSetNotClaimed": true
+    },
+    {
+      "history": "1413425164343734535342222271767166651",
+      "ply": 37,
+      "playerToMove": 1,
+      "h": [
+        6,
+        6,
+        6,
+        6,
+        4,
+        5,
+        4
+      ],
+      "selectedLiteralColumn": 7,
+      "rootNoWinSourceKind": "ROOT_MOVER_NO_ORIGINAL_SURVIVING_K_LINE",
+      "actionSourceReasons": [
+        "SOURCE_MOVER_WIN_REQUIREMENTS_ALREADY_EMPTY",
+        "POST_FIRST_ACTION_OPPONENT_ATTACK_FIRST_SOURCE_PAIR_DEFENSE"
+      ],
+      "fullBestSetNotClaimed": true
+    },
+    {
+      "history": "14134251643437345353422222717671666517",
+      "ply": 38,
+      "playerToMove": 0,
+      "h": [
+        6,
+        6,
+        6,
+        6,
+        4,
+        5,
+        5
+      ],
+      "selectedLiteralColumn": 5,
+      "rootNoWinSourceKind": "GLOBAL_ORIGINAL_SOURCE_NO_FORCED_MOVER_WIN",
+      "actionSourceReasons": [
+        "FIRST_MOVE_BLOCKS_ALL_OPPONENT_WIN_REQUIREMENTS"
+      ],
+      "fullBestSetNotClaimed": true
+    },
+    {
+      "history": "141342516434373453534222227176716665175",
+      "ply": 39,
+      "playerToMove": 1,
+      "h": [
+        6,
+        6,
+        6,
+        6,
+        5,
+        5,
+        5
+      ],
+      "selectedLiteralColumn": 5,
+      "rootNoWinSourceKind": "ROOT_MOVER_NO_ORIGINAL_SURVIVING_K_LINE",
+      "actionSourceReasons": [
+        "SOURCE_MOVER_WIN_REQUIREMENTS_ALREADY_EMPTY",
+        "FIRST_MOVE_BLOCKS_ALL_OPPONENT_WIN_REQUIREMENTS"
+      ],
+      "fullBestSetNotClaimed": true
+    },
+    {
+      "history": "1413425164343734535342222271767166651756",
+      "ply": 40,
+      "playerToMove": 0,
+      "h": [
+        6,
+        6,
+        6,
+        6,
+        5,
+        6,
+        5
+      ],
+      "selectedLiteralColumn": 5,
+      "rootNoWinSourceKind": "ROOT_MOVER_NO_ORIGINAL_SURVIVING_K_LINE",
+      "actionSourceReasons": [
+        "SOURCE_MOVER_WIN_REQUIREMENTS_ALREADY_EMPTY",
+        "FIRST_MOVE_BLOCKS_ALL_OPPONENT_WIN_REQUIREMENTS"
+      ],
+      "fullBestSetNotClaimed": true
+    },
+    {
+      "history": "14134251643437345353422222717671666517567",
+      "ply": 41,
+      "playerToMove": 1,
+      "h": [
+        6,
+        6,
+        6,
+        6,
+        5,
+        6,
+        6
+      ],
+      "selectedLiteralColumn": 5,
+      "rootNoWinSourceKind": "ROOT_MOVER_NO_ORIGINAL_SURVIVING_K_LINE",
+      "actionSourceReasons": [],
+      "fullBestSetNotClaimed": true
+    },
+    {
+      "history": "3674747112541741224277553152162534566",
+      "ply": 37,
+      "playerToMove": 1,
+      "h": [
+        6,
+        6,
+        3,
+        6,
+        6,
+        4,
+        6
+      ],
+      "selectedLiteralColumn": 3,
+      "rootNoWinSourceKind": "ROOT_MOVER_NO_ORIGINAL_SURVIVING_K_LINE",
+      "actionSourceReasons": [
+        "SOURCE_MOVER_WIN_REQUIREMENTS_ALREADY_EMPTY",
+        "FIRST_MOVE_BLOCKS_ALL_OPPONENT_WIN_REQUIREMENTS"
+      ],
+      "fullBestSetNotClaimed": true
+    },
+    {
+      "history": "367474711254174122427755315216253456666",
+      "ply": 39,
+      "playerToMove": 1,
+      "h": [
+        6,
+        6,
+        3,
+        6,
+        6,
+        6,
+        6
+      ],
+      "selectedLiteralColumn": 3,
+      "rootNoWinSourceKind": "ROOT_MOVER_NO_ORIGINAL_SURVIVING_K_LINE",
+      "actionSourceReasons": [
+        "SOURCE_MOVER_WIN_REQUIREMENTS_ALREADY_EMPTY",
+        "FIRST_MOVE_BLOCKS_ALL_OPPONENT_WIN_REQUIREMENTS"
+      ],
+      "fullBestSetNotClaimed": true
+    },
+    {
+      "history": "3674747112541741224277553152162534566663",
+      "ply": 40,
+      "playerToMove": 0,
+      "h": [
+        6,
+        6,
+        4,
+        6,
+        6,
+        6,
+        6
+      ],
+      "selectedLiteralColumn": 3,
+      "rootNoWinSourceKind": "ROOT_MOVER_NO_ORIGINAL_SURVIVING_K_LINE",
+      "actionSourceReasons": [
+        "SOURCE_MOVER_WIN_REQUIREMENTS_ALREADY_EMPTY",
+        "FIRST_MOVE_BLOCKS_ALL_OPPONENT_WIN_REQUIREMENTS"
+      ],
+      "fullBestSetNotClaimed": true
+    },
+    {
+      "history": "36747471125417412242775531521625345666633",
+      "ply": 41,
+      "playerToMove": 1,
+      "h": [
+        6,
+        6,
+        5,
+        6,
+        6,
+        6,
+        6
+      ],
+      "selectedLiteralColumn": 3,
+      "rootNoWinSourceKind": "ROOT_MOVER_NO_ORIGINAL_SURVIVING_K_LINE",
+      "actionSourceReasons": [],
+      "fullBestSetNotClaimed": true
+    },
+    {
+      "history": "3426723523224613745511157547521766631637",
+      "ply": 40,
+      "playerToMove": 0,
+      "h": [
+        6,
+        6,
+        6,
+        4,
+        6,
+        6,
+        6
+      ],
+      "selectedLiteralColumn": 4,
+      "rootNoWinSourceKind": "ROOT_MOVER_NO_ORIGINAL_SURVIVING_K_LINE",
+      "actionSourceReasons": [
+        "SOURCE_MOVER_WIN_REQUIREMENTS_ALREADY_EMPTY",
+        "FIRST_MOVE_BLOCKS_ALL_OPPONENT_WIN_REQUIREMENTS"
+      ],
+      "fullBestSetNotClaimed": true
+    },
+    {
+      "history": "34267235232246137455111575475217666316374",
+      "ply": 41,
+      "playerToMove": 1,
+      "h": [
+        6,
+        6,
+        6,
+        5,
+        6,
+        6,
+        6
+      ],
+      "selectedLiteralColumn": 4,
+      "rootNoWinSourceKind": "ROOT_MOVER_NO_ORIGINAL_SURVIVING_K_LINE",
+      "actionSourceReasons": [],
+      "fullBestSetNotClaimed": true
+    },
+    {
+      "history": "325526366344546227442431136635125577777",
+      "ply": 39,
+      "playerToMove": 1,
+      "h": [
+        3,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "selectedLiteralColumn": 1,
+      "rootNoWinSourceKind": "ROOT_MOVER_NO_ORIGINAL_SURVIVING_K_LINE",
+      "actionSourceReasons": [
+        "SOURCE_MOVER_WIN_REQUIREMENTS_ALREADY_EMPTY",
+        "FIRST_MOVE_BLOCKS_ALL_OPPONENT_WIN_REQUIREMENTS"
+      ],
+      "fullBestSetNotClaimed": true
+    },
+    {
+      "history": "3255263663445462274424311366351255777771",
+      "ply": 40,
+      "playerToMove": 0,
+      "h": [
+        4,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "selectedLiteralColumn": 1,
+      "rootNoWinSourceKind": "ROOT_MOVER_NO_ORIGINAL_SURVIVING_K_LINE",
+      "actionSourceReasons": [
+        "SOURCE_MOVER_WIN_REQUIREMENTS_ALREADY_EMPTY",
+        "FIRST_MOVE_BLOCKS_ALL_OPPONENT_WIN_REQUIREMENTS"
+      ],
+      "fullBestSetNotClaimed": true
+    },
+    {
+      "history": "32552636634454622744243113663512557777711",
+      "ply": 41,
+      "playerToMove": 1,
+      "h": [
+        5,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "selectedLiteralColumn": 1,
+      "rootNoWinSourceKind": "ROOT_MOVER_NO_ORIGINAL_SURVIVING_K_LINE",
+      "actionSourceReasons": [],
+      "fullBestSetNotClaimed": true
+    }
+  ],
+  "canonical": [
+    {
+      "hist": "",
+      "sourceNotAttemptedBelowRank": 31
+    },
+    {
+      "hist": "4",
+      "sourceNotAttemptedBelowRank": 31
+    },
+    {
+      "hist": "44444",
+      "sourceNotAttemptedBelowRank": 31
+    },
+    {
+      "hist": "444444",
+      "sourceNotAttemptedBelowRank": 31
+    },
+    {
+      "hist": "444441",
+      "sourceNotAttemptedBelowRank": 31
+    },
+    {
+      "hist": "4444442",
+      "sourceNotAttemptedBelowRank": 31
+    }
+  ],
+  "sourceNoWinButActionNotCertified": 114,
+  "finalSeed": 3028596828,
+  "status": "SOURCE_ONLY_ROOT_NO_FORCE_WIN_PLUS_ONE_DRAW_ACTION_213_TRUE7X6_WIN_DRAW_PRIORITY_VALID_CONTINUATIONS_CONFIRMED",
+  "frozenMathematicalProof": "docs/research/2026-10-17-source-root-win-exclusion-plus-one-action-draw-witness.md",
+  "frozenSource": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-one-action-root-noforce-win-draw-certificate.mjs",
+  "frozenSourceExactBlob": "d502e97b8a7f272479d6c8418070411d65d850b5",
+  "frozenPhysicalReference": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-one-draw-best-source-independent-physical-control.mjs",
+  "frozenPhysicalReferenceExactBlob": "f6ed1cba68e0507b10d1a05bb5e3dc9a001faf1a",
+  "qualifiedQAdapterBlob": "6b25d0e2560fe4131d2f5442593e9ed9763c1a18",
+  "sourceModulesExactBlobIds": {
+    "global": "6a9aed9590ac71366404cf8f9f540286084b4985",
+    "coGlobal": "466dc988942c2b52086d7190828dd005f22b74c0",
+    "coAction": "0ec449cfaf777ffa9acb2ce380fa151104659ec5",
+    "coPair": "1704db3137480d66a654c7d970e042fdd1003c48"
+  },
+  "elapsedIsolatedV8Ms": 736,
+  "qualifiers": [
+    "Owner Level2 operational valid ONE BEST action target, not all original action labels.",
+    "Root source proves current player CANNOT FORCE win against perfect opponent. Action source proves p CAN FORCE avoid loss, so selected a guarantees draw and root is draw. No independently strategically-valued futures inside source.",
+    "Genuine first-win-stopped standard 7x6 physical nonuniform sample; source DRAW certificate and root results checked by independent FULL RECURSIVE physical minimax on 180 late positives, all matched.",
+    "15 positive root examples require a global pairing no-forced-win source guard beyond simple missing original owner K-line case; these are not claimed as incremental versus every earlier source theorem.",
+    "Source may try multiple STATIC original column pairings/partitions; these attempts are structural proof witnesses, not future game strategy recursion; counts and work must be reported.",
+    "Run used capped source structural maxOperations 4000/maxMs 8 per q; budget incompletions retained. No claim of arbitrary 7x6 total L2 or canonical 44444.",
+    "Lost/failed all alternative strategy game evaluations forbidden; physical reference branches only independently AFTER source result.",
+    "Maintained Node26 CI and independent external formal proof assistant not run."
+  ]
+}
