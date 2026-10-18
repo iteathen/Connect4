@@ -98,3 +98,31 @@ For full ordinary Level 1 WDL under perfect-play, keep the exact P0/P1 quantifie
 6. Any owner Level-2 total zero-branch result must produce complete relevant literal masks for the declared opponent model from ONE source q without independently valuing inequivalent strategic futures. No solver merge / new IsoGraph authority promotion.
 
 **Epistemic summary:** definitions by owner now more general and conditional, exact ordinary game semantics unchanged; robust guaranteed win and optimistic possible win are different logical predicates; no unrestricted standard7×6 `44444` L1/Level2/Level3 solution claimed.
+
+## 8. Exact additional theorem: all drawing paths have IDENTICAL duration on standard Connect4
+
+**Discovered in this correction analysis after the theorem was first saved.** Under the *qualified original first-win-stopped gravity game rules*, a game only terminates in DRAW when the board is FULL and no K-in-line terminal win occurred previously. Therefore from any legal nonterminal q with n=sum h occupied cells,
+
+    For all legal actions a with 0∈Ω(q,a):
+       T_draw_min(q,a)=T_draw_max(q,a)=WH-n.
+
+This is an EXACT identity (not a probabilistic statement or a sampled assumption). All legal drawing terminal histories have absolute final move WH, including standard W=7,H=6,K=4 where WH=42. A final draw is no shorter when a player selects a particular column, so **"fastest achievable draw" adds ZERO tie-breaking information** at the same q. The entire quality-unknown **DRAW** Level-3 perfect-move set equals the complete quality-unknown DRAW Level-2 best set whenever WIN opportunities have been ruled out. The same observation applies to any claimed forced DRAW when adversarial opponent is perfect.
+
+This does NOT eliminate the hard work of proving which actions *can* draw, or which guaranteed-win/possible-win continuations complete fastest; it simply states that draw REMOTENESS is a source-determined constant on any fixed original board, and hence no extra strategic-duration branch is needed for DRAW choices.
+
+If variant rules allowed agreed early draws or other termination rules, this result would no longer apply. Here it follows from qualified original Connect4 `first win stops, otherwise full board draw` semantics.
+
+### Confirmed meaning of the latest owner categories
+
+Under the explicitly described asymmetric scenario `P0 forced winner versus perfect P1`, P0 still uses all guaranteed winning actions, whereas P1 if PERFECT P0 quality is known uses ALL losing replies at Level 2 and prefers longest guaranteed survival at Level 3. Under UNKNOWN P0 quality, P1 instead seeks potential wins, then possible draws, then losing continuations, and Level 3 ranks shortest achievable wins, **all possible draws tied by WH−n**, then longest losing survival under a separately stated adversarial/optimistic timing convention. If any class is reachable only via P0 mistakes, output must mark `possible_not_guaranteed`.
+
+### Executed genuine 7×6 model-discrimination control
+
+Frozen before running:
+`research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-unknown-opponent-potential-outcome-physical-control.mjs`.
+Machine evidence:
+`research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/STANDARD7X6_UNKNOWN_OPPONENT_OUTCOME_POSSIBILITY_RESULTS_0_1.json`.
+
+The independent validation BRANCHES through legal near-endgame physical paths to determine Ω (existential possibility) and independently computes perfect opponent minimax V. Of 1,600 real first-win-stopped standard7×6 nonterminal roots and 4,611 original literal actions, 55 P1-to-move roots were guaranteed P0 wins under perfect play; **37** nevertheless allowed P1 to win through some legal opponent-error continuation. In **23** of the 55, the quality-unknown P1 best-opportunity literal mask differed from the PERFECT P0 model's all-legal loss mask. From 129 P0-to-move source roots without a forced P0 win, **100** had possible P0-win histories if P1 erred, falsifying unconditional invariance of P0's move opportunity set to opponent quality. All 1,600 sampled roots retained perfect minimax V among their actual possible outcomes; no contradiction. This is finite nonuniform REAL standard-board evidence, NOT an oracle-free zero-strategic-branching source method or proof of typical imperfect-player probability.
+
+**Sharp witness:** genuine P1-turn first-win-stopped history `47652214565177714154742274221556666` at absolute ply35 has `V_P0=+1` and legal P1 replies {1,3}, BOTH forced losses under perfect P0. If P1 plays column1 then only P0 first win is reachable; if P1 plays column3 then P1 first win becomes POSSIBLE (in three more plies) if P0 fails to make a win-preserving reply. Thus PERFECT-P0 model Level2 P1 labels are {1,3}, but quality-UNKNOWN P1 potential-win Tier1 labels are {3}. This demonstrates why perfect adversarial game value and existential "maybe the opponent errs" cannot be used as the same predicate.
