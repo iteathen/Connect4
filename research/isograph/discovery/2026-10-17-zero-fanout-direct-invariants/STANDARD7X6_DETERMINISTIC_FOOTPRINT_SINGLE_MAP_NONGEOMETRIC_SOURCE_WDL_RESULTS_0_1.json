@@ -1,0 +1,238 @@
+{
+  "schema": "connect4.true7x6.deterministic_footprint_original_q_single_column_map_v0_1",
+  "date": "2026-10-18",
+  "W": 7,
+  "H": 6,
+  "K": 4,
+  "originalWinningLines": 69,
+  "sourceFixtureNongeometricHistory": "1555271171452354215737327342666366",
+  "samplePhysicalNonwinningGames": 2200,
+  "sourceRootsExamined": 10083,
+  "sourceOriginalOrderedActionPairs": 67198,
+  "sourceSingleCandidateMappingsConstructed": 8224,
+  "sourcePositiveWdlWeakEdges": 3132,
+  "sourceDirectBestRootSelections": 90,
+  "sourceNoEnumerationOfColumnPermutationCandidates": true,
+  "sourceFutureCompetingGameValuesQueried": 0,
+  "independentlyPhysicallyCheckedWeakEdges": 1301,
+  "independentlyPhysicallyCheckedBestRoots": 65,
+  "falseWeakEdges": 0,
+  "falseBestRootSelections": 0,
+  "sourceDeterministicOldWitnessPairMapping": {
+    "pair": [
+      2,
+      7
+    ],
+    "heightA": [
+      5,
+      6,
+      5,
+      3,
+      6,
+      5,
+      5
+    ],
+    "heightB": [
+      5,
+      5,
+      5,
+      3,
+      6,
+      5,
+      6
+    ],
+    "selectedDeterministicOriginalOneBasedColumnMap": [
+      1,
+      5,
+      6,
+      4,
+      7,
+      3,
+      2
+    ],
+    "P0SourceInclusionGuard": true,
+    "P1ReverseSourceInclusionGuard": true
+  },
+  "sourceOldWitnessPairSourceGuardQualified": true,
+  "firstPositiveNongeometricMapping": {
+    "history": "42653267255763414454264121175176127",
+    "n": 35,
+    "edge": {
+      "sourceLowerP0ValueOriginalLiteralColumn": 5,
+      "sourceUpperP0ValueOriginalLiteralColumn": 6,
+      "deterministicSingleMappingOriginalOneBased": [
+        1,
+        2,
+        3,
+        4,
+        6,
+        7,
+        5
+      ],
+      "sourceProvedP0RelativeInequality": true,
+      "rootNumericWDLNotComputed": true
+    },
+    "independentPhysicalFirstActionValues": [
+      [
+        3,
+        -1
+      ],
+      [
+        5,
+        1
+      ],
+      [
+        6,
+        1
+      ],
+      [
+        7,
+        1
+      ]
+    ]
+  },
+  "firstPositiveBestRootExample": {
+    "history": "663251775325252762515162763376343411444",
+    "n": 39,
+    "sourceBestOriginalLiteral": 1,
+    "weakEdges": [
+      {
+        "sourceLowerP0ValueOriginalLiteralColumn": 1,
+        "sourceUpperP0ValueOriginalLiteralColumn": 4,
+        "deterministicSingleMappingOriginalOneBased": [
+          2,
+          3,
+          4,
+          1,
+          5,
+          6,
+          7
+        ],
+        "sourceProvedP0RelativeInequality": true,
+        "rootNumericWDLNotComputed": true
+      },
+      {
+        "sourceLowerP0ValueOriginalLiteralColumn": 1,
+        "sourceUpperP0ValueOriginalLiteralColumn": 7,
+        "deterministicSingleMappingOriginalOneBased": [
+          2,
+          3,
+          5,
+          1,
+          6,
+          7,
+          4
+        ],
+        "sourceProvedP0RelativeInequality": true,
+        "rootNumericWDLNotComputed": true
+      },
+      {
+        "sourceLowerP0ValueOriginalLiteralColumn": 4,
+        "sourceUpperP0ValueOriginalLiteralColumn": 1,
+        "deterministicSingleMappingOriginalOneBased": [
+          4,
+          1,
+          2,
+          3,
+          5,
+          6,
+          7
+        ],
+        "sourceProvedP0RelativeInequality": true,
+        "rootNumericWDLNotComputed": true
+      },
+      {
+        "sourceLowerP0ValueOriginalLiteralColumn": 4,
+        "sourceUpperP0ValueOriginalLiteralColumn": 7,
+        "deterministicSingleMappingOriginalOneBased": [
+          1,
+          2,
+          3,
+          5,
+          6,
+          7,
+          4
+        ],
+        "sourceProvedP0RelativeInequality": true,
+        "rootNumericWDLNotComputed": true
+      },
+      {
+        "sourceLowerP0ValueOriginalLiteralColumn": 7,
+        "sourceUpperP0ValueOriginalLiteralColumn": 1,
+        "deterministicSingleMappingOriginalOneBased": [
+          4,
+          1,
+          2,
+          7,
+          3,
+          5,
+          6
+        ],
+        "sourceProvedP0RelativeInequality": true,
+        "rootNumericWDLNotComputed": true
+      },
+      {
+        "sourceLowerP0ValueOriginalLiteralColumn": 7,
+        "sourceUpperP0ValueOriginalLiteralColumn": 4,
+        "deterministicSingleMappingOriginalOneBased": [
+          1,
+          2,
+          3,
+          7,
+          4,
+          5,
+          6
+        ],
+        "sourceProvedP0RelativeInequality": true,
+        "rootNumericWDLNotComputed": true
+      }
+    ]
+  },
+  "oldFixtureIndependentPhysicalFirstActionVector": [
+    [
+      1,
+      -1
+    ],
+    [
+      2,
+      -1
+    ],
+    [
+      3,
+      -1
+    ],
+    [
+      4,
+      1
+    ],
+    [
+      6,
+      -1
+    ],
+    [
+      7,
+      -1
+    ]
+  ],
+  "sourceMaskWork": 70312,
+  "finalSeed": 733072812,
+  "status": "PASS_SOURCE_SINGLE_DETERMINISTIC_COLUMN_SIGNATURE_MAP_REPRODUCES_NONGEOMETRIC_J2_LEQ_J7_AND_SELECTS_90_ORIGINAL7X6_BEST_MOVES",
+  "governingTheorem": "docs/research/2026-10-18-deterministic-original-column-incidence-footprint-transport-candidate.md",
+  "originalSourceExecutable": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-source-deterministic-column-footprint-WDL-order.mjs",
+  "originalSourceExactGitBlob": "274e2d0376128d651f29cbd24fae7bf6dacf8077",
+  "frozenIndependentTrue7x6PhysicalControl": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-deterministic-footprint-independent-physical-WDL-control.mjs",
+  "frozenPhysicalControlGitBlob": "8962d3ce7d3a012f3de305e353059f1f79c6cfb4",
+  "independentOriginalQBuilderBlob": "6b25d0e2560fe4131d2f5442593e9ed9763c1a18",
+  "executionIsolatedV8Ms": 1347,
+  "limits": [
+    "Source derives EXACTLY ONE height-compatible column map per ordered current action pair by sorting owner-tagged residual generator size and future-relative-row incidence counts within height classes; no DFS/backtracking or enumeration of alternative whole-column mappings.",
+    "Map is only a candidate; validity of every printed J_a<=J_b order edge requires two independently checked original owner R0/R1 raw cofactor generator subset simulation guards. A failed candidate returns no edge, not an incorrect assumption.",
+    "The historical nongeometric rank34 q history 1555271171452354215737327342666366, P0 J2<=J7 source witness is reproduced by deterministic mapping [1,5,6,4,7,3,2], different from old enumerating source mapping [1,5,6,4,7,2,3]. Independent physical first-win-stopped minimax confirmed J2=J7=-1, but best at root is literal column4; no BEST claim follows from this edge alone.",
+    "Across 10083 genuine first-win-stopped actual W7xH6K4 positions, source generated 8224 single candidate maps and 3132 positive weak order edges, 90 scalar-free root best move certificates. Independent first-win-stopped physical minimax checked 1301 edges and 65 root selected best moves without contradiction.",
+    "65 of 90 selected best moves physically checked due late-rank/sample guard, remaining 25 source cases not directly independently checked in this run.",
+    "2200 deterministic nonwinning physical histories, nonuniform sample; positive fraction does not measure full 7x6 game coverage.",
+    "Combined V4 same-q incremental best-move coverage, and how many V4 enumerated STATIC permutation witness searches can be avoided, still needs comparison.",
+    "Source used zero independently valued future game states, zero static candidate permutations and one deterministic ordered-rank pairing per legal action pair. WDL of root and alternative first action games UNKNOWN in source unless fully certified by prior separate methods.",
+    "Original 44444 unrestricted scalar WDL and optimal current P1 continuation still UNKNOWN under source research. No maintained Node26 CI/external proof assistant, no IsoGraph authority 1.2 promotion."
+  ]
+}
