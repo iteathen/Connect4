@@ -133,7 +133,10 @@ function examine(s,canon=false){
   stats.verifiedPWinAfterEveryOpponentReply++;
  }
  stats.confirmedActualNoOpponentImmediateCounterwin++;
- if(stats.selectedFirstActionOrdinaryPerfectWDLChecks<80){
+ // Recursing from an early q is exponential and not part of source proof.
+ // Restrict optional independent full-WDL references to late actual 7x6 roots;
+ // ALL positive source certificates still get EVERY physical opponent reply tested.
+ if(s.n>=35&&stats.selectedFirstActionOrdinaryPerfectWDLChecks<80){
   const want=p===0?1:-1,got=physicalWDL(first);
   stats.selectedFirstActionOrdinaryPerfectWDLChecks++;
   if(got!==want){stats.sampledReferenceWdlWrong++;throw Error('source certificate selected nonwinning action');}
