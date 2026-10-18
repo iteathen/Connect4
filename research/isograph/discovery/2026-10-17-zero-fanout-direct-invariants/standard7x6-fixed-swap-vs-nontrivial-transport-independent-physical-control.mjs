@@ -77,7 +77,7 @@ function inspect(s,frozen=false){
  const id=key(s);if(seen.has(id))return;seen.add(id);
  const q=core.fromPhysical({h:s.h,p0:s.P[0],p1:s.P[1]});
  const legalLabels=legal(s);
- if(!legalLabels.some((a,i)=>legalLabels.some((b,j)=>j>i&&s.h[a]===s.h[b]))return;
+ if(!legalLabels.some((a,i)=>legalLabels.some((b,j)=>j>i&&s.h[a]===s.h[b])))return;
  result.originalSourceStatesCompared++;
  const simple=fixed.compute(q,{maxStaticSubsetTests:140000});
  const elaborate=full.compute(q,{maxOperations:180000,maxMs:100,maxRepresentatives:15000});
