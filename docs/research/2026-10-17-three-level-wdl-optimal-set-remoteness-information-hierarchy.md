@@ -1,5 +1,7 @@
 # Three distinct levels of Connect4 strategic information: exact WDL, all optimal labels, and remoteness
 
+> **Historical terminology notice (owner revision, 2026-10-17):** The latest owner-directed Level 2 is **ALL moves yielding forced P0 win**, not the conventional WDL-optimal action set described below; Level 3 is **P0 fastest forced winning moves**, with longest-loss timing a separately optional statistic. The newer governing output-contract definition is [`2026-10-17-owner-level2-any-p0-winning-continuation-and-level3-perfect-fastest-win.md`](2026-10-17-owner-level2-any-p0-winning-continuation-and-level3-perfect-fastest-win.md). This historical theorem and its 7×6 validation evidence remain valid under their original WDL-optimal/remoteness meanings and are NOT retroactively relabeled.
+
 **Date:** 2026-10-17 Pacific. **Owner direction:** explicitly distinguish (1) who wins/loses/draws, (2) who wins/loses/draws **and best move**, (3) those results **and fastest win or longest loss**. **Canonical owner:** research/semantic-quotient. **Status:** exact conceptual/game-theoretic output contract candidate and differential physical-control plan; not yet game-theory authority 1.2 promotion. Current discovery and testing **standard W=7,H=6,K=4** only, while retaining W,H,K as symbols for later generalization.
 
 ## The hierarchy and why it matters
