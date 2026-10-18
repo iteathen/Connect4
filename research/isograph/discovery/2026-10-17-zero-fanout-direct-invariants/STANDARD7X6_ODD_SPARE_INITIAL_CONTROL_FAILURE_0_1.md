@@ -1,0 +1,5 @@
+# Initial true7x6 odd spare source control budget failure
+
+**2026-10-17 Pacific.** The first source-only/independent physical experiment for `standard7x6-odd-spare-col-co-release-no-win-source.mjs` stopped before qualification: the existing `co-release-pair-block-proof.mjs` emitted `CO_RELEASE_PAIR_OPERATIONS_LIMIT` while constructing STATIC original block pairing candidates. The matcher throws at its `charge()` call before its internal DFS budget catch. The new odd source wrapper had not yet converted this expected static resource exhaustion into `INCOMPLETE`.
+
+This is a *source proof-search budget/error-handling failure*, NOT a physical first-win contradiction and NOT an odd theorem falsification. No positive count or physical outcome can be claimed from this failed run. Correct the wrapper to catch ONLY explicit `CO_RELEASE_PAIR_..._LIMIT` source resource exceptions and record original source `STATIC_PAIRING_RESOURCE_INCOMPLETE`; preserve all other errors. Re-run after committing patch. The qualified original game theory and matcher semantics must not be modified.
