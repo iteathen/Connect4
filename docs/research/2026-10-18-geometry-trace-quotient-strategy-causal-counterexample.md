@@ -11,7 +11,7 @@ Before numerical perfect-play results, the original `docs/research/2026-10-18-tr
 The frozen original source theorem `docs/research/2026-10-18-unfolded-two-round-static-interactive-trace-diamond.md` certifies fixed two-round endpoint equality when all four root columns are distinct/current playable and no surviving original generator of p is included in p's two allocated cells, nor a generator of o in o's two allocated cells. This certificate computes no future game value.
 
 Frozen BEFORE physical oracle:
-- deterministic original7×6 source-only candidate generator: `research/isograph/discovery/2026-10-18-unfolded-phase-race/standard7x6-source-diamond-strategy-candidates.mjs`, git blob `[discover in frozen source packet]`;
+- deterministic original7×6 source-only candidate generator: `research/isograph/discovery/2026-10-18-unfolded-phase-race/standard7x6-source-diamond-strategy-candidates.mjs`, git blob `9c0866f0a427947847f510dcc4dc79f50f940559`;
 - 450 source q roots and 1,172 SOURCE original root action pairs selected from 1,252 nonwinning sampled histories (seed 20261018, source min rank 34), preserved in `STANDARD7X6_SOURCE_DIAMOND_STRATEGIC_EQUALITY_FROZEN_PREORACLE_ROOTS_0_1.json`. **Zero source WDL queries**;
 - independent first-win-stopped 69-original-window, height-gravity, P0-relative fully recursive physical minimax: `standard7x6-diamond-independent-exact-wdl-falsifier.mjs`;
 - even more independent original colored-array-grid / 69-window physical minimax + source-q endpoint reproducer: `standard7x6-diamond-counterexample-independent-reproducer.mjs`.
