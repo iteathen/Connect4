@@ -1,0 +1,86 @@
+{
+  "schema": "connect4.standard7x6_selected_critical_subfamily_internal_initial_marginal_control_v0_1",
+  "date": "2026-10-18",
+  "qualifiedGameplayAuthorityEffect": "NONE",
+  "experimentalEvidenceClass": "INTERNAL_QUALIFICATION_PRELIMINARY_NOT_EXTERNAL",
+  "mathematicalStatus": "EXACT_CONDITIONAL_SOURCE_CANDIDATE_GUARDS; NO_UNIVERSAL_SOLVER",
+  "canonicalBranch": "research/semantic-quotient",
+  "sourceTheorem": "docs/research/2026-10-18-selected-critical-subfamily-first-touch-certificate.md",
+  "frozenNewSource": "research/isograph/discovery/2026-10-18-first-touch-multiresource/standard7x6-source-critical-subfamily-first-touch.mjs",
+  "frozenSourceCommit": "2bd1b105a58e1032b559c6d462f3d44e5c9f8984",
+  "frozenPhysicalFalsifier": "research/isograph/discovery/2026-10-18-first-touch-multiresource/standard7x6-critical-subfamily-independent-physical-falsifier.mjs",
+  "frozenPhysicalFalsifierCommit": "07fa4b91c73438d9d2f2dc978c9373e4a957e4b2",
+  "geometry": {
+    "board": "W=7 H=6 K=4",
+    "originalKWinlines": 69,
+    "physicalHistoryMustStopOnFirstWin": true
+  },
+  "method": {
+    "runtime": "independently reimplemented ephemeral Python 3 analytic/physical controls; NOT maintained repository JS/Node26 execution",
+    "seed": 20261018,
+    "rng": "Python random.Random(20261018), seeded once at beginning",
+    "sampledGames": 400,
+    "generation": "On each ply uniformly choose a gravity-legal column whose placement does NOT immediately complete the current player's first K winline; stop when none remain. This generates genuine legal nonterminal first-win-stopped histories biased toward late game; not an unbiased game sample.",
+    "observeBeforePlyAtLeast": 26,
+    "q": "Build 69 original W=7 H=6 K=4 horizontal/vertical/both-diagonal windows; remove all opponent-blocked windows; contract mover stones; deduplicate and inclusion-normalize remaining original owner residual masks.",
+    "comparison": "For EACH SAME q apply original full-generator first-touch guard and new deterministic protected-critical-subfamily guard separately; negative source guard is INCOMPLETE, not a game value.",
+    "selectedC": "Highest (row of lower cell descending; physical id tie ascending) contained vertical-adjacent pair; else first two current original root-frontier cells in ascending original id; else original G itself.",
+    "independentPhysical": "Separate colored grid array and four oriented directional count on last physical drop; deterministic responder from frozen source witness, independently varied all p legal choices on 4 budgeted late positives. No recursive physical WDL root valuation in this initial marginal screen."
+  },
+  "measured": {
+    "qObservationsTested": 5031,
+    "originalFirstTouchNO_FORCE_WINPositive": 46,
+    "selectedCriticalSubfamilyNO_FORCE_WINPositive": 46,
+    "newlyPositiveSourceNoWinRootsOverEarlierGuard": 0,
+    "sameQSourceResultDisagreementsOnPositives": 0,
+    "distinctGameStatesProven": "NOT_DEDUPLICATED",
+    "sourceFutureGameWDLQueries": 0,
+    "scalarRootWDLChecks": 0,
+    "sourceLevel2BestMoveNewVsV4": "NOT_TESTED"
+  },
+  "canonical44444": {
+    "currentSourceOriginalP1Requirements": 42,
+    "existingSourceGateCount": 35,
+    "priorFullFirstTouchEmptyIntersection": 23,
+    "priorFullFirstTouchCommonLateOnly": 4,
+    "priorFullFirstTouchOneSafeReply": 8,
+    "selectedCriticalSubfamilySourceGateCount": 35,
+    "selectedCriticalSubfamilyUnprotectedGates": 27,
+    "currentOrdinaryRootWDL": "UNKNOWN",
+    "currentSourceLevel2BestMove": "INCOMPLETE"
+  },
+  "independentPhysicalSelectedPositiveControls": [
+    {
+      "history": "146562623152347671221177456613437273354",
+      "physicalAttackerNodes": 2,
+      "physicalDefenderReplies": 2,
+      "originalDefenderFirstWins": 1,
+      "fullBoardDraws": 1
+    },
+    {
+      "history": "44642554565172356532324311131341672",
+      "physicalAttackerNodes": 15,
+      "physicalDefenderReplies": 15,
+      "originalDefenderFirstWins": 1,
+      "fullBoardDraws": 6
+    },
+    {
+      "history": "46114732465274256211511227767634735634",
+      "physicalAttackerNodes": 3,
+      "physicalDefenderReplies": 4,
+      "originalDefenderFirstWins": 2,
+      "fullBoardDraws": 0
+    },
+    {
+      "history": "317374446537262172277112411333552545",
+      "physicalAttackerNodes": 3,
+      "physicalDefenderReplies": 6,
+      "originalDefenderFirstWins": 4,
+      "fullBoardDraws": 0
+    }
+  ],
+  "physicalObservedIllegalDefenderMoves": 0,
+  "physicalObservedAttackerFirstWins": 0,
+  "controlErrorCountObserved": 0,
+  "note": "Result is a SAME-q sampled negative marginal control, not a proof of equivalence or formal validation of the new source theorem. The frozen Node source/validator are available but were not executed in this analytic environment. No maintained CI, reference WDL root solve or external proof assistant run."
+}
