@@ -1,7 +1,7 @@
 # Complete Connect4 Level 2 Zero-Strategic-Branching Research Handoff
 **October 18, 2026 — full, restart-ready successor to the interrupted chat handoff**
 
-**Document state during construction:** partial until an explicit `END OF COMPLETE HANDOFF` marker is present and verified. All numbered items 1–20 will be committed in order.
+**Completion status: COMPLETE AND VERIFIED.** All numbered sections **1–20** are present in sequence; the final `END OF COMPLETE HANDOFF` marker and the repository-file reference audit passed. This is the authoritative restart handoff **as a research guide**, not the qualified gameplay-theory authority. Always re-fetch live `STATUS.md` and `next_step.yaml` for newer work.
 
 **Durable research owner:** `iteathen/Connect4`, branch `research/semantic-quotient`. **Pre-handoff live GitHub head checked:** `111a8d52485a9f44cdcb6f2bd85d8a19ae4b5827` (snapshot only; fetch live HEAD on resume). **Authoritative current-state routers:** `STATUS.md` and `next_step.yaml`. **Claim strength:** research synthesis/restart guide, NOT a new qualified game-theory authority or a completed universal solver.
 
