@@ -72,7 +72,7 @@ export function createSourceFirstTouchGateBlockerNoWin({width:W,height:H,connect
    const bottoms=frontier.filter(v=>v!==x&&(common&bit(v))!==0n);
    stats.staticCandidateGravityReleaseTests+=1+frontier.length;
    let y=null,kind=null;
-   if(vert!==null){y=vert;kind:'VERTICAL_SUCCESSOR';kind='VERTICAL_SUCCESSOR';}
+   if(vert!==null){y=vert;kind='VERTICAL_SUCCESSOR';}
    else if(bottoms.length){y=bottoms[0];kind='INDEPENDENT_ORIGINAL_FRONTIER';}
    if(y===null){
     stats.gateCellsWithNeitherSafeOneMoveBlocker++;
