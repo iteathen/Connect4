@@ -1,11 +1,21 @@
 # Connect4 current research status
 
-**Updated:** 2026-10-17 (latest: exact direct q two-column transposition replaces V3 static permutation proof on 23 cases, unified V4 physically verified; general source Level2 open)  
+**Updated:** 2026-10-18 (latest: fixed swap + whole reflection union 97 exact source best move hits, ZERO new V4 marginal q; canonical44444 mirror four classes only; total original7x6 Level2 OPEN)  
 **Branch:** `research/semantic-quotient`  
 **Research direction / structural architecture / invariant-first and self-proving-predicate program:** Josh Oshiro  
 **Formalization / implementation / qualification:** OpenAI ChatGPT
 
 This file is the current-state router, not a theorem ledger. This branch owns **all durable Connect4 research**, regardless of which solver produced it. Research artifacts live across `research/**` and `docs/research/**` on this branch; the executable research continuation lives in `next_step.yaml`.
+
+## Two fixed source transformations: 97 no-permutation best actions, zero new V4 coverage (2026-10-18)
+
+**Crash-recovered exact original-q source:** `docs/research/2026-10-17-fixed-transposition-plus-reflection-source-WDL-closure.md`, `research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-source-two-fixed-transform-WDL-extremum.mjs`. The source explicitly tests TWO deterministic transformations only: equal-height first-action 2-column physical bit swap, and the one fixed whole-board horizontal reflection. Their original P0-relative q-cofactor weak WDL inequalities are unioned and transitively closed over original LEGAL CURRENT FIRST-ACTION LABELS; if a mover-relative extremum exists, it certifies ONE Level2 best column without any numeric root WDL or alternative game value evaluation. Zero STATIC whole-column permutation candidate enumeration; source still checks current q winning-line subset witnesses.
+
+**Independent true7x6 original physical validation:** frozen `standard7x6-two-fixed-transform-independent-physical-control.mjs`, evidence `STANDARD7X6_TWO_FIXED_TRANSFORM_DIRECT_97_SOURCE_BEST_PHYSICAL_RESULTS_0_1.json`: **13,318** genuine source q sampled across 2400 nonwinning original first-win-stopped histories, 86 fixed-swap positive source roots, 21 reflection positive roots, their union **97** roots (NO "mixed path only" extra root in sample), physically checked 985 weak WDL source edges and 94 optimal first action selections with ZERO contradictions. Exactly `44444` original q is mirror-invariant and gives FOUR exact outcome equivalence classes `{1,7}, {2,6}, {3,5}, {4}`, not their cross-class ranking or root scalar WDL.
+
+**Strict SAME-q V4 marginal control:** frozen `standard7x6-two-fixed-transform-v4-marginal-physical-control.mjs`, compact durable evidence `STANDARD7X6_TWO_FIXED_TRANSFORM_V4_SAME_Q_MARGINAL_RESULTS_0_1.json`: all **97** combined source best root q were ALREADY fully certifiable by immutable V4 (13 WIN,49 DRAW,12 LOSS,23 scalar-UNKNOWN best). The **11 reflection-only** first-source best roots not covered by fixed swap were ALL already certified by earlier scalar V2 proofs, so combined direct source adds **ZERO new source Level2 coverage**, and eliminates ZERO additional V4 static permutation fallback proofs in this sampled corpus. Mathematical win lies in direct no-permutation reflection q equality/weak order, not falsely claimed incremental gameplay coverage.
+
+**NEXT source proof challenge:** use older capacity-compatible column transporter ONLY as historical structural comparison to find a true original7x6 source weak WDL inequality that is NOT provable by either deterministic fixed swap or fixed horizontal reflection. If old only π is non-geometric, derive one deterministic owner-tagged original q **canonical column mapping** from signatures/obligations, not static permutation assignment enumeration, then check strict full-future source inequality and one-action Level2 extrema WITHOUT valuing different future games. A lack of old-only witness in bounded sample is NOT proof fixed two transforms complete. Qualified IsoGraph game theory 1.2 unchanged, Node26 CI and independent proof assistant not run; arbitrary 7x6 zero-branch total L2 and `44444` remain OPEN.
 
 ## New V4 direct two-column swap q algebra eliminates STATIC permutation witness enumeration on qualified cases (2026-10-17)
 
