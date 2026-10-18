@@ -59,6 +59,17 @@ and all other Δ are unchanged. At the boundary columns fewer than two links cha
 
 **Canonical exact example:** \`44444\` has \`Δ=(0,0,5,-5,0,0)\`, so the phase gradient is \`g=(0,0,1,1,0,0)\`. The next center placement yields \`Δ'=(0,0,6,-6,0,0)\`, \`g'=(0,0,0,0,0,0)\`, and no future event in center column. This is the owner's observed "phase shift" localized to the two center interfaces. However, the source R0/R1 still contain 24 cross-center requirements—\`g'=0\` does NOT separate the game.
 
+**Exact neighbor owner-equality constraint, now exposed in this coordinate system:** For two CURRENTLY FUTURE events in adjacent columns along one original geometric line step with slope s∈{0,+1,-1}, let their OTHER-column future prefix phases be β and β'. Then
+
+    χ(c,r) XOR χ(c+1,r+s)
+       = [(s-Δ_c) mod2] XOR β XOR β'.
+
+Hence they have the same eventual owner exactly when
+
+    β XOR β' = (s-Δ_c) mod2.
+
+An original length-K straight horizontal/diagonal K-window spanning K adjacent columns therefore has **K−1 local XOR phase-match equations** plus one player/anchor condition and exact gravity/timing/first-win guards. On standard Connect4 K=4, that is THREE local edge conditions. Vertical lines within one column instead require β(r) XOR β(r+1)=1 between consecutive future events, because their relative ordinals differ by one. This **factorizes the per-line owner-consistency constraints** but their conjunction, the OR across competing winlines and earliest first-win selection remain nonlinear. If a K-line contains ALREADY OCCUPIED cells, the source residual requirement and original owner tag replace those past cells: do not pretend historical cells have unresolved future β.
+
 **Benefit:** localizes BOTH integer geometric shear and the relative GF2 phase, without duplicating the 42 future event identities. This is the top candidate for representation/invariant discovery. **Limitation:** owner β, first-win race, original line blocker interactions and adaptive action choices remain.
 
 ## Candidate B — selective diagonal virtual charts (SECOND PRIORITY, complements A)
