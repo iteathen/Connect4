@@ -31,3 +31,20 @@ Equality IS ALLOWED and may hide unknown equal-best actions. This is a direct BE
 5. If pair tools cannot certify enough actual7x6 cases, report SAMPLE NEGATIVE, keep theorem sound, and do not enlarge domain by unproven matching assumptions.
 
 **General result still OPEN:** a total no-search arbitrary-q Level2 best continuation including P0/P1 winner/draw/loser, and canonical `44444` unresolved. Independent branching physical reference for VALIDATION only; no new IsoGraph 1.2 authority.
+
+
+## Independently executed true 7×6 controls (2026-10-17)
+
+Source implementation: `research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-one-action-root-noforce-win-draw-certificate.mjs`. Pre-run frozen physical control: `standard7x6-one-draw-best-source-independent-physical-control.mjs`. Complete machine evidence: `STANDARD7X6_ROOT_NO_WIN_SINGLE_DRAW_BEST_SOURCE_RESULTS_0_1.json`.
+
+From **1,250** independent non-winning physical trajectories, **8,899** genuine first-win-stopped actual7×6 late q (rank≥31) were examined by the source. **327** source roots had a certified inability of the current player to FORCE a win; **213** of these had a valid DRAW-preserving original literal action and returned `VALID_CONTINUATION`. Exactly **198** used trivial owner-original-winline extinction as root no-win proof; **15** used the nontrivial source original **GLOBAL gravity-safe defensive pairing** even while owner winning requirements survived. The selected action avoided loss via source opponent-all-winline blocker, gravity co-release pairing or other sound original source first-action bounds. The remaining **114** root no-forced-win certified cases did not yield a selected DRAW action and stayed INCOMPLETE.
+
+The independent original PHYSICAL ordinary full recursive WDL reference examined root AND selected first-action outcome for **180** source-positive late original7×6 states. Every checked root had scalar DRAW and every selected action outcome was DRAW. **ZERO** root/action WDL mismatches. This is truly an outcome-tier optimal move: all potential WIN actions are excluded by the original root SOURCE no-force-win theorem; there is no need to evaluate any competing original action value.
+
+**Non-extinction witness:** genuine original first-win-stopped history `14134251643437345353422222717671666517` at rank38, P0 moves: source global defensive pairing proves P0 cannot FORCE a win, although P0 residual R0 is nonempty. The source first action **literal column 5** blocks all remaining original P1 win requirements and guarantees a draw. Independently confirmed against physical full recursive reference. Earlier all-empty-R direct theorem cannot explain the root; other historical pairing+root value methods may overlap, so no claim of global marginal coverage against every archived theorem.
+
+**Scope and risk:** The source's proof combining two independent unilateral outcomes remains sound for any ordinary original7x6 q meeting guards, not merely the tested sample. The source-only candidate visits no game successor q or strategic alternative WDL query; it scans static root matching candidates and all original literal action masks. The selected move is Level2 best under PERFECT opponent assumption; UNKNOWN opponent optimistic opportunity mode is a different evaluation. Node26 CI and external formal qualification not run, IsoGraph 1.2 unchanged.
+
+## Relation to complete Level2 information
+
+The previous exact interval closure `source-optimal-set-separation.mjs` requires inferiority/membership certification across ALL original labels to output COMPLETE Level2; this result does NOT. The root global no-winning bound plus ONE per-action guaranteed DRAW lower bound suffices. Its generic one-witness interval condition is `L_a ≥ max_b U_b` on a P0 turn, or `U_a ≤ min_b L_b` on a P1 turn; equal-best ties may remain UNKNOWN. This distinction now becomes a concrete source-only DRAW continuation implementation, not merely a definition.
