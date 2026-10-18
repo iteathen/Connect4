@@ -1,0 +1,46 @@
+{
+  "schema": "connect4.true7x6.deterministic_footprint_direct_source_order_vs_v4_same_q_v0_1",
+  "date": "2026-10-18",
+  "status": "PASS_SCOPED_90_DIRECT_FOOTPRINT_BEST_MOVES_NO_ADDITIONAL_SOURCE_Q_COVERAGE_BEYOND_V4",
+  "evidenceType": "COMPACT_VERIFIED_RESULTS_WITH_FROZEN_REPRODUCIBLE_EXECUTABLE_NOT_FULL_RAW_JSON",
+  "sourceMath": "docs/research/2026-10-18-deterministic-original-column-incidence-footprint-transport-candidate.md",
+  "source": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-source-deterministic-column-footprint-WDL-order.mjs",
+  "sourceBlob": "274e2d0376128d651f29cbd24fae7bf6dacf8077",
+  "priorV4": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-unified-one-valid-best-action-source-v4.mjs",
+  "priorV4Blob": "462cead38be227dcb3659c0d99b2fd1779a8d256",
+  "physicalControl": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-footprint-v4-marginal-independent-physical-control.mjs",
+  "physicalControlBlob": "ce0a6d88e1f21347c7eb971d5e6a18504c1933b9",
+  "sourcePhysicalPrimaryEvidence": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/STANDARD7X6_DETERMINISTIC_FOOTPRINT_SINGLE_MAP_NONGEOMETRIC_SOURCE_WDL_RESULTS_0_1.json",
+  "sameQResults": {
+    "footprintSourceBestActionRoots": 90,
+    "previousV4AlreadyCertifiedBestRoots": 90,
+    "newSourceBestMoveRootsBeyondV4": 0,
+    "previousV4KnownWIN": 2,
+    "previousV4KnownDRAW": 59,
+    "previousV4KnownLOSS": 9,
+    "previousV4BestButScalarUnknown": 20,
+    "oldV4StaticPermutationFallbackProofsReplaced": 0,
+    "oldV4CompletedStaticPermutationCandidatesEliminated": 0,
+    "independentPhysicalContradictions": 0,
+    "independentPrimaryPhysicalWeakEdgesChecked": 1301,
+    "independentPrimaryPhysicalBestRootsChecked": 65,
+    "nongeometricRank34J2_leq_J7_sourceProvedUsingOneSignatureMap": true,
+    "nongeometricSingleMapOriginalOneBased": [
+      1,
+      5,
+      6,
+      4,
+      7,
+      3,
+      2
+    ]
+  },
+  "limits": [
+    "New deterministic rank-sorted column incidence matching proves previously known nongeometric structural P0-WDL inequality without enumerating static column permutation candidates, but did not add a root best selection over V4 in this sampled corpus.",
+    "This does not establish that deterministic rank-signature transport is complete or that no future source best improvements exist by combining its weak order graph with fixed-map weak edges.",
+    "90 source positive roots arise from a separate 2200-game nonuniform genuine first-win-stopped true7x6 corpus. The old scalar WDL breakdown and marginal are from same q.",
+    "Source has zero independently evaluated game future WDL and exactly one deterministically chosen column map per ordered legal first action pair, with exact cofactor simulation verification before positive claims.",
+    "Physical reference recursively explores game futures only AFTER source proof, not in source; maintained Node26/external formal assistant not run.",
+    "Canonical 44444 best and unrestricted WDL source-incomplete; qualified IsoGraph 1.2 unchanged."
+  ]
+}
