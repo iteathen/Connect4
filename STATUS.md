@@ -1,11 +1,21 @@
 # Connect4 current research status
 
-**Updated:** 2026-10-17 (latest: scoped source-only Level2 best move WIN, DRAW and LOSS certificates; total standard7x6 remains open)  
+**Updated:** 2026-10-17 (latest: source adaptive defender pairing + hypergraph overload forces LOSS with surviving winning lines, verified true7x6; universal Level2 still open)  
 **Branch:** `research/semantic-quotient`  
 **Research direction / structural architecture / invariant-first and self-proving-predicate program:** Josh Oshiro  
 **Formalization / implementation / qualification:** OpenAI ChatGPT
 
 This file is the current-state router, not a theorem ledger. This branch owns **all durable Connect4 research**, regardless of which solver produced it. Research artifacts live across `research/**` and `docs/research/**` on this branch; the executable research continuation lives in `next_step.yaml`.
+
+## New full-future adaptive defender invariant: live attacker winlines blocked by uniform pairing, defender victory forced by dual overload (2026-10-17)
+
+**New exact SOURCE structural theorem:** `docs/research/2026-10-17-adaptive-gravity-pairing-plus-opponent-overload-forced-loss.md`. On a genuine nonterminal q with mover p and EVEN remaining cells T, an original gravity co-release pairing of EVERY remaining cell allows opponent o as SECOND mover to mate any p placement immediately, with at least one full matched pair inside EVERY p original residual winning requirement. Unlike historical `R_p=[]` inevitable-loss, the attacker p can still possess viable winning lines and real tactical threats. Separately source o original K-line fractional edge packing λ has per-future-cell sum ≤1 and total Σλ > T/2 (all future p blocking turns). The SINGLE static pairing policy prevents p winning FIRST against EVERY p move selection; the dual overload proves o MUST win FIRST before a hypothetical nonwinning full board, because p cannot hit all o requirements. Therefore p WDL=LOSS and ALL current original legal columns are equally Level2 best, with ZERO alternative strategic future value calculations.
+
+**Verified on TRUE 7×6:** Frozen source `research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-pair-defense-plus-dual-overload-source.mjs`, independently frozen physical control `standard7x6-pair-defense-dual-overload-independent-physical-control.mjs`; evidence `STANDARD7X6_PAIR_DEFENSE_DUAL_OVERLOAD_NONEXTINCT_FORCED_LOSS_RESULTS_0_1.json`. Among **50,037** genuine sampled actual7×6 source q examined, **18** with surviving R_p>0 satisfied the new TWO source proof conditions, certifying **40** original legal losing first actions, 14 positions with ≥2 legal columns. Independent original physical opponent-mate policy replay **80** games, all 80 opponents won FIRST without illegal mate, attacker prior win or draw; independently branching physical minimax confirmed **17** late roots/ **36** original first-action LOSS outcomes, zero mismatches. One additional root below rank32 passed source+policy control but was outside budgeted recursion. Source certified uniform adaptive opponent defense without enumerating future opponent reply strategy graphs.
+
+**Concrete physical original witness:** history `7654253275136145236326217611177672`, absolute ply34 P0 to move, original legal columns {3,4,5}, P0 still has TWO viable original K-win requirements but P1's pairing blocks both via cross-column equal-relative-release prefix plus one vertical-pair column. P1 has FIVE disjoint viable winning requirements and P0 at most FOUR future blocking turns. Root LOSS and every legal move equally best. This is strictly beyond the old `R_p=[]` sufficient theorem, not necessarily beyond all other historical certificate families.
+
+**Boundary:** Cannot infer a total arbitrary7×6 source-only Level2 algorithm; other roots remain INCOMPLETE, root `44444` unchanged. Structural matching enumerates STATIC candidate column-block partitions as proof-witness construction, charged separately from game-semantic branching. No maintained Node26 CI / external proof assistant, IsoGraph 1.2 unmodified.
 
 ## New source proof coverage: WIN / DRAW / LOSS valid Level2 continuations (2026-10-17)
 
