@@ -1,0 +1,40 @@
+{
+  "schema": "connect4.true7x6.unified_source_v4_direct_two_swap_replaces_v3_perm_v0_1",
+  "date": "2026-10-17",
+  "status": "PASS_COMPACT_CHECKPOINT_OF_EXECUTED_ISOLATED_V8_PHYSICAL_CONTROL",
+  "provenanceNote": "Compact measured-results checkpoint authored from the preceding successfully executed independent control output. Not the full raw control JSON payload. Reproduction files and exact source blobs are included.",
+  "branch": "research/semantic-quotient",
+  "governingProof": "docs/research/2026-10-17-unified-source-v4-fixed-two-column-swap-before-transport.md",
+  "sourceV4": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-unified-one-valid-best-action-source-v4.mjs",
+  "sourceV4Blob": "462cead38be227dcb3659c0d99b2fd1779a8d256",
+  "sourceFixedSwap": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-source-fixed-two-column-swap-WDL-order.mjs",
+  "sourceFixedSwapBlob": "7beb2ca37b1e8a4cf0885c91f6c3678261b18329",
+  "immutableV3Blob": "07b5d83bd3ebc25b768bcd2b45618989a165d3db",
+  "frozenPhysicalControl": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-unified-v4-86-direct-source-marginal-physical-control.mjs",
+  "frozenPhysicalControlBlob": "94ae965368925f553bfc9e53a34b55f2eb187753",
+  "actualBoard": {
+    "W": 7,
+    "H": 6,
+    "K": 4
+  },
+  "sameOriginalQPhysicalControl": {
+    "directFixedSwapSourceBestRoots": 86,
+    "previousV3AlreadyBestAll86": 86,
+    "previousV3ExactScalarRootsPreserved": 63,
+    "previousV3ScalarFreeRootsNowCertifiedDirectWithoutPermutation": 23,
+    "previousV3CompletedStaticPermutationWitnessesEliminatedByV4OnThese23": 4142,
+    "unexpectedV4PermutationFallbackAmongDirectPositive": 0,
+    "V4RootAndProofTypeErrors": 0,
+    "physicallyIndependentlyCheckedV4BestMoves": 85,
+    "physicallyWrongBestMoves": 0,
+    "v4NewQBestMoveCoverageOverV3": 0
+  },
+  "restrictions": [
+    "Earlier V3 still performs static permutation proof search on fallback roots where direct source transposition is insufficient.",
+    "4142 is completed static COLUMN PERMUTATION proof-witness count avoided over 23 same source positions, not a runtime measurement.",
+    "Physical reference recursively evaluated selected actions only AFTER source theorem; source itself evaluated zero competing future GAME WDL values.",
+    "One early source positive root outside late-rank physical minimax verification, so 85/86 checked in this particular control.",
+    "Nonuniform sample of genuine standard7x6 first-win-stopped original q. No total arbitrary-state no-search Level2 solver or canonical44444 solution.",
+    "Maintained Node26 CI and external formal proof assistant not executed; qualified IsoGraph gameplay theory 1.2 unchanged."
+  ]
+}
