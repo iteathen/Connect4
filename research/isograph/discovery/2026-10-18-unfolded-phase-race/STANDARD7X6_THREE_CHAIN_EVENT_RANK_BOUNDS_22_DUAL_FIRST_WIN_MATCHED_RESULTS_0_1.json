@@ -1,0 +1,736 @@
+{
+  "schema": "connect4.original7x6.multichain_fixed_colored_rank_first_win_race_physical_v0_1",
+  "date": "2026-10-18",
+  "status": "SOURCE_EXACT_MULTI_CHAIN_PHYSICAL_EVENT_RANKS_AND_GUARDED_FIXED_FIRST_WINNER",
+  "scope": "same 62 frozen original true 7x6 3chain configurations, 1482 feasible fixed owner patterns; original physical word enumeration solely validator",
+  "sourceRankTheorem": "docs/research/2026-10-18-multichain-event-rank-enclosures-and-guarded-first-winner.md",
+  "totals": {
+    "sourcePhysicalSameRootCases": 62,
+    "physicallyEnumeratedHypotheticalWordsValidatorOnly": 10326,
+    "sourceFeasibleOwnerProfilesWithRankBounds": 1482,
+    "sourceEventRankExtremaIndependentlyPhysicallyChecked": 10431,
+    "sourceExactRankIntervalConflicts": 0,
+    "originalDualSourceCompletionProfilesFromPriorResearch": 22,
+    "newSourceGuaranteedP0First": 0,
+    "newSourceGuaranteedP1First": 1,
+    "newlyUnresolvedOrCorrectlyUnresolvedDualCases": 21,
+    "independentlyPhysicalAmbiguousFirstWinnerColorFibers": 9,
+    "incorrectSourceFirstWinnerClaims": 0,
+    "sourceRootOrActionWDLGameQueries": 0,
+    "sourceFutureStrategicGameValues": 0
+  },
+  "newlySourceCertifiedFirstWinnerExamples": [
+    {
+      "history": "2532541156412471331416356736376672",
+      "profile": [
+        {
+          "column": 2,
+          "owners": [
+            1
+          ]
+        },
+        {
+          "column": 4,
+          "owners": [
+            0
+          ]
+        },
+        {
+          "column": 5,
+          "owners": [
+            1,
+            0
+          ]
+        }
+      ],
+      "sourceWinner": 1,
+      "originalCompletionBounds": [
+        {
+          "player": 0,
+          "lower": 3,
+          "upper": 3
+        },
+        {
+          "player": 1,
+          "lower": 2,
+          "upper": 2
+        }
+      ],
+      "physicalExampleFirstWinnerWord": {
+        "word": "4552",
+        "firstWinRelativeRank": 2
+      }
+    }
+  ],
+  "trueOppositeFirstWinnerSameColorProfileWitnesses": [
+    {
+      "history": "2532541156412471331416356736376672",
+      "chains": [
+        {
+          "column": 2,
+          "length": 1
+        },
+        {
+          "column": 4,
+          "length": 2
+        },
+        {
+          "column": 5,
+          "length": 1
+        }
+      ],
+      "profile": [
+        {
+          "column": 2,
+          "owners": [
+            0
+          ]
+        },
+        {
+          "column": 4,
+          "owners": [
+            0,
+            1
+          ]
+        },
+        {
+          "column": 5,
+          "owners": [
+            1
+          ]
+        }
+      ],
+      "physicalOppositeWinners": [
+        "1",
+        "0"
+      ],
+      "exampleFirstTerminalWords": {
+        "0": {
+          "word": "4425",
+          "firstWinRelativeRank": 3
+        },
+        "1": {
+          "word": "2544",
+          "firstWinRelativeRank": 2
+        }
+      },
+      "sourceResult": "SOURCE_DUAL_FIRST_WIN_RACE_STILL_INCOMPLETE"
+    },
+    {
+      "history": "2532541156412471331416356736376672",
+      "chains": [
+        {
+          "column": 2,
+          "length": 1
+        },
+        {
+          "column": 4,
+          "length": 2
+        },
+        {
+          "column": 5,
+          "length": 2
+        }
+      ],
+      "profile": [
+        {
+          "column": 2,
+          "owners": [
+            0
+          ]
+        },
+        {
+          "column": 4,
+          "owners": [
+            0,
+            1
+          ]
+        },
+        {
+          "column": 5,
+          "owners": [
+            1,
+            0
+          ]
+        }
+      ],
+      "physicalOppositeWinners": [
+        "1",
+        "0"
+      ],
+      "exampleFirstTerminalWords": {
+        "0": {
+          "word": "44255",
+          "firstWinRelativeRank": 3
+        },
+        "1": {
+          "word": "25445",
+          "firstWinRelativeRank": 2
+        }
+      },
+      "sourceResult": "SOURCE_DUAL_FIRST_WIN_RACE_STILL_INCOMPLETE"
+    },
+    {
+      "history": "2532541156412471331416356736376672",
+      "chains": [
+        {
+          "column": 2,
+          "length": 2
+        },
+        {
+          "column": 4,
+          "length": 1
+        },
+        {
+          "column": 5,
+          "length": 1
+        }
+      ],
+      "profile": [
+        {
+          "column": 2,
+          "owners": [
+            0,
+            1
+          ]
+        },
+        {
+          "column": 4,
+          "owners": [
+            0
+          ]
+        },
+        {
+          "column": 5,
+          "owners": [
+            1
+          ]
+        }
+      ],
+      "physicalOppositeWinners": [
+        "0",
+        "1"
+      ],
+      "exampleFirstTerminalWords": {
+        "0": {
+          "word": "2245",
+          "firstWinRelativeRank": 3
+        },
+        "1": {
+          "word": "2542",
+          "firstWinRelativeRank": 2
+        }
+      },
+      "sourceResult": "SOURCE_DUAL_FIRST_WIN_RACE_STILL_INCOMPLETE"
+    },
+    {
+      "history": "2532541156412471331416356736376672",
+      "chains": [
+        {
+          "column": 2,
+          "length": 2
+        },
+        {
+          "column": 4,
+          "length": 1
+        },
+        {
+          "column": 5,
+          "length": 2
+        }
+      ],
+      "profile": [
+        {
+          "column": 2,
+          "owners": [
+            0,
+            1
+          ]
+        },
+        {
+          "column": 4,
+          "owners": [
+            0
+          ]
+        },
+        {
+          "column": 5,
+          "owners": [
+            1,
+            0
+          ]
+        }
+      ],
+      "physicalOppositeWinners": [
+        "0",
+        "1"
+      ],
+      "exampleFirstTerminalWords": {
+        "0": {
+          "word": "22455",
+          "firstWinRelativeRank": 3
+        },
+        "1": {
+          "word": "25425",
+          "firstWinRelativeRank": 2
+        }
+      },
+      "sourceResult": "SOURCE_DUAL_FIRST_WIN_RACE_STILL_INCOMPLETE"
+    },
+    {
+      "history": "2532541156412471331416356736376672",
+      "chains": [
+        {
+          "column": 2,
+          "length": 2
+        },
+        {
+          "column": 4,
+          "length": 2
+        },
+        {
+          "column": 5,
+          "length": 1
+        }
+      ],
+      "profile": [
+        {
+          "column": 2,
+          "owners": [
+            0,
+            1
+          ]
+        },
+        {
+          "column": 4,
+          "owners": [
+            0,
+            0
+          ]
+        },
+        {
+          "column": 5,
+          "owners": [
+            1
+          ]
+        }
+      ],
+      "physicalOppositeWinners": [
+        "0",
+        "1"
+      ],
+      "exampleFirstTerminalWords": {
+        "0": {
+          "word": "22454",
+          "firstWinRelativeRank": 3
+        },
+        "1": {
+          "word": "25424",
+          "firstWinRelativeRank": 2
+        }
+      },
+      "sourceResult": "SOURCE_DUAL_FIRST_WIN_RACE_STILL_INCOMPLETE"
+    },
+    {
+      "history": "2532541156412471331416356736376672",
+      "chains": [
+        {
+          "column": 2,
+          "length": 2
+        },
+        {
+          "column": 4,
+          "length": 2
+        },
+        {
+          "column": 5,
+          "length": 1
+        }
+      ],
+      "profile": [
+        {
+          "column": 2,
+          "owners": [
+            0,
+            0
+          ]
+        },
+        {
+          "column": 4,
+          "owners": [
+            0,
+            1
+          ]
+        },
+        {
+          "column": 5,
+          "owners": [
+            1
+          ]
+        }
+      ],
+      "physicalOppositeWinners": [
+        "1",
+        "0"
+      ],
+      "exampleFirstTerminalWords": {
+        "0": {
+          "word": "44252",
+          "firstWinRelativeRank": 3
+        },
+        "1": {
+          "word": "25442",
+          "firstWinRelativeRank": 2
+        }
+      },
+      "sourceResult": "SOURCE_DUAL_FIRST_WIN_RACE_STILL_INCOMPLETE"
+    },
+    {
+      "history": "2532541156412471331416356736376672",
+      "chains": [
+        {
+          "column": 2,
+          "length": 2
+        },
+        {
+          "column": 4,
+          "length": 2
+        },
+        {
+          "column": 5,
+          "length": 2
+        }
+      ],
+      "profile": [
+        {
+          "column": 2,
+          "owners": [
+            0,
+            1
+          ]
+        },
+        {
+          "column": 4,
+          "owners": [
+            0,
+            0
+          ]
+        },
+        {
+          "column": 5,
+          "owners": [
+            1,
+            1
+          ]
+        }
+      ],
+      "physicalOppositeWinners": [
+        "0",
+        "1"
+      ],
+      "exampleFirstTerminalWords": {
+        "0": {
+          "word": "224545",
+          "firstWinRelativeRank": 3
+        },
+        "1": {
+          "word": "254245",
+          "firstWinRelativeRank": 2
+        }
+      },
+      "sourceResult": "SOURCE_DUAL_FIRST_WIN_RACE_STILL_INCOMPLETE"
+    },
+    {
+      "history": "2532541156412471331416356736376672",
+      "chains": [
+        {
+          "column": 2,
+          "length": 2
+        },
+        {
+          "column": 4,
+          "length": 2
+        },
+        {
+          "column": 5,
+          "length": 2
+        }
+      ],
+      "profile": [
+        {
+          "column": 2,
+          "owners": [
+            0,
+            1
+          ]
+        },
+        {
+          "column": 4,
+          "owners": [
+            0,
+            1
+          ]
+        },
+        {
+          "column": 5,
+          "owners": [
+            1,
+            0
+          ]
+        }
+      ],
+      "physicalOppositeWinners": [
+        "0",
+        "1"
+      ],
+      "exampleFirstTerminalWords": {
+        "0": {
+          "word": "224554",
+          "firstWinRelativeRank": 3
+        },
+        "1": {
+          "word": "254254",
+          "firstWinRelativeRank": 2
+        }
+      },
+      "sourceResult": "SOURCE_DUAL_FIRST_WIN_RACE_STILL_INCOMPLETE"
+    }
+  ],
+  "sourceStillRaceIncompleteExamples": [
+    {
+      "history": "2532541156412471331416356736376672",
+      "profile": [
+        {
+          "column": 2,
+          "owners": [
+            0
+          ]
+        },
+        {
+          "column": 4,
+          "owners": [
+            0
+          ]
+        },
+        {
+          "column": 5,
+          "owners": [
+            1
+          ]
+        }
+      ],
+      "independentlyObservedFirstWinners": [
+        "1"
+      ]
+    },
+    {
+      "history": "2532541156412471331416356736376672",
+      "profile": [
+        {
+          "column": 2,
+          "owners": [
+            0
+          ]
+        },
+        {
+          "column": 4,
+          "owners": [
+            0
+          ]
+        },
+        {
+          "column": 5,
+          "owners": [
+            1,
+            1
+          ]
+        }
+      ],
+      "independentlyObservedFirstWinners": [
+        "1"
+      ]
+    },
+    {
+      "history": "2532541156412471331416356736376672",
+      "profile": [
+        {
+          "column": 2,
+          "owners": [
+            0
+          ]
+        },
+        {
+          "column": 4,
+          "owners": [
+            0,
+            1
+          ]
+        },
+        {
+          "column": 5,
+          "owners": [
+            1
+          ]
+        }
+      ],
+      "independentlyObservedFirstWinners": [
+        "1",
+        "0"
+      ]
+    },
+    {
+      "history": "2532541156412471331416356736376672",
+      "profile": [
+        {
+          "column": 2,
+          "owners": [
+            0
+          ]
+        },
+        {
+          "column": 4,
+          "owners": [
+            0,
+            1
+          ]
+        },
+        {
+          "column": 5,
+          "owners": [
+            1,
+            0
+          ]
+        }
+      ],
+      "independentlyObservedFirstWinners": [
+        "1",
+        "0"
+      ]
+    },
+    {
+      "history": "2532541156412471331416356736376672",
+      "profile": [
+        {
+          "column": 2,
+          "owners": [
+            0
+          ]
+        },
+        {
+          "column": 4,
+          "owners": [
+            0,
+            0
+          ]
+        },
+        {
+          "column": 5,
+          "owners": [
+            1,
+            1
+          ]
+        }
+      ],
+      "independentlyObservedFirstWinners": [
+        "1"
+      ]
+    },
+    {
+      "history": "2532541156412471331416356736376672",
+      "profile": [
+        {
+          "column": 2,
+          "owners": [
+            1
+          ]
+        },
+        {
+          "column": 4,
+          "owners": [
+            0,
+            0
+          ]
+        },
+        {
+          "column": 5,
+          "owners": [
+            1,
+            0
+          ]
+        }
+      ],
+      "independentlyObservedFirstWinners": [
+        "1"
+      ]
+    },
+    {
+      "history": "2532541156412471331416356736376672",
+      "profile": [
+        {
+          "column": 2,
+          "owners": [
+            0,
+            1
+          ]
+        },
+        {
+          "column": 4,
+          "owners": [
+            0
+          ]
+        },
+        {
+          "column": 5,
+          "owners": [
+            1
+          ]
+        }
+      ],
+      "independentlyObservedFirstWinners": [
+        "0",
+        "1"
+      ]
+    },
+    {
+      "history": "2532541156412471331416356736376672",
+      "profile": [
+        {
+          "column": 2,
+          "owners": [
+            0,
+            1
+          ]
+        },
+        {
+          "column": 4,
+          "owners": [
+            0
+          ]
+        },
+        {
+          "column": 5,
+          "owners": [
+            1,
+            0
+          ]
+        }
+      ],
+      "independentlyObservedFirstWinners": [
+        "0",
+        "1"
+      ]
+    }
+  ],
+  "protectedFourEventCounterexampleSourceStatus": "SOURCE_DUAL_FIRST_WIN_RACE_STILL_INCOMPLETE",
+  "original44444RootPerfectPlayWDL": "UNKNOWN",
+  "original44444SourceBestOriginalColumn": "INCOMPLETE",
+  "sourceStrategicGameValuesEvaluated": 0,
+  "Node26CIAndExternalMechanicalProof": "NOT_RUN",
+  "frozenBlobs": {
+    "source": "11a1b4a196bdb0c88b9d9b26fdec1deaa4e416f1",
+    "rank": "7206932a9141068861c94361e0a95881bb47c0a9",
+    "physical": "cc253aa82d3adff89bfa8d1eb2d991285a9e78e4",
+    "validation": "8b98c50137c5d652ceb7b8dc4f3c3cfc2d1985d4"
+  },
+  "executionEnvironment": "exact frozen source ESM + independently authored original 69-winline physical fixed-word checker in isolated V8; NOT maintained Node26 CI or external mechanical proof assistant"
+}
