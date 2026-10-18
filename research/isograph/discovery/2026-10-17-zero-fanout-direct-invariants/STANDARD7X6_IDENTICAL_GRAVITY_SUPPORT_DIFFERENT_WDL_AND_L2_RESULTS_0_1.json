@@ -1,0 +1,228 @@
+{
+  "schema": "connect4.standard7x6.same_support_height_phase_insufficiency_v0_1",
+  "W": 7,
+  "H": 6,
+  "K": 4,
+  "originalWinLines": 69,
+  "seedStart": 398775207,
+  "randomNonwinningTrajectories": 4800,
+  "candidateActualPhysicalRoots": 17451,
+  "uniqueActualRootPositions": 17451,
+  "lateRootsAnalyzed": 129,
+  "perfectReferenceCalls": 4067,
+  "uniqueReferenceStates": 1538,
+  "independentQualifiedQWitnessChecks": 4,
+  "invalidOriginalLegalHistory": 0,
+  "sameHeightValueDifferentWitness": {
+    "identicalH": [
+      3,
+      6,
+      6,
+      6,
+      3,
+      6,
+      6
+    ],
+    "identicalDelta": [
+      3,
+      0,
+      0,
+      -3,
+      3,
+      0
+    ],
+    "identicalGF2Gradient": [
+      1,
+      0,
+      0,
+      1,
+      1,
+      0
+    ],
+    "A": {
+      "history": "176233462722464426755463717326315734",
+      "n": 36,
+      "h": [
+        3,
+        6,
+        6,
+        6,
+        3,
+        6,
+        6
+      ],
+      "P0": "233674542381",
+      "P1": "3575657362130",
+      "residualCounts": [
+        1,
+        4
+      ],
+      "sourceQKey": "3.6.6.6.3.6.6|4328521728|2097152,33554432,4294967296,549755813888",
+      "mover": 0,
+      "WDL": -1,
+      "allOriginalLiteralOptimalColumns": [
+        1,
+        5
+      ],
+      "allLiteralActionValues": [
+        [
+          1,
+          -1
+        ],
+        [
+          5,
+          -1
+        ]
+      ]
+    },
+    "B": {
+      "history": "413374727463414426632166226237753755",
+      "n": 36,
+      "h": [
+        3,
+        6,
+        6,
+        6,
+        3,
+        6,
+        6
+      ],
+      "P0": "1257441372524",
+      "P1": "2551890531987",
+      "residualCounts": [
+        1,
+        3
+      ],
+      "sourceQKey": "3.6.6.6.3.6.6|33554432|2097152,33554432,34359738368",
+      "mover": 0,
+      "WDL": 1,
+      "allOriginalLiteralOptimalColumns": [
+        5
+      ],
+      "allLiteralActionValues": [
+        [
+          1,
+          -1
+        ],
+        [
+          5,
+          1
+        ]
+      ]
+    }
+  },
+  "sameHeightSameValueDifferentL2Witness": {
+    "identicalH": [
+      5,
+      5,
+      6,
+      6,
+      6,
+      6,
+      6
+    ],
+    "identicalDelta": [
+      0,
+      1,
+      0,
+      0,
+      0,
+      0
+    ],
+    "identicalGF2Gradient": [
+      0,
+      1,
+      0,
+      0,
+      0,
+      0
+    ],
+    "A": {
+      "history": "4645277416674332116163135555352234477276",
+      "n": 40,
+      "h": [
+        5,
+        5,
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "P0": "2638570106507",
+      "P1": "1656397189492",
+      "residualCounts": [
+        1,
+        1
+      ],
+      "sourceQKey": "5.5.6.6.6.6.6|103079215104|34359738368",
+      "mover": 0,
+      "WDL": 0,
+      "allOriginalLiteralOptimalColumns": [
+        1
+      ],
+      "allLiteralActionValues": [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          -1
+        ]
+      ]
+    },
+    "B": {
+      "history": "5516453267116323455516366277721732374444",
+      "n": 40,
+      "h": [
+        5,
+        5,
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "P0": "1244880582045",
+      "P1": "3050086713954",
+      "residualCounts": [
+        0,
+        1
+      ],
+      "sourceQKey": "5.5.6.6.6.6.6||68719476736",
+      "mover": 0,
+      "WDL": 0,
+      "allOriginalLiteralOptimalColumns": [
+        2
+      ],
+      "allLiteralActionValues": [
+        [
+          1,
+          -1
+        ],
+        [
+          2,
+          0
+        ]
+      ]
+    }
+  },
+  "rootValueOrBestMasksComputedInSourceOnlyCandidate": false,
+  "conclusion": "FALSIFIER_ONLY_NOT_ZERO_STRATEGIC_BRANCH_SOURCE_L2",
+  "seedFinal": 1868592380,
+  "frozenSource": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-same-heights-different-L2-physical-falsifier.mjs",
+  "frozenSourceExactGitBlob": "853f99b447d98b0ec88bb6a796e0534ad4483aed",
+  "qualifiedQCrossCheckSource": "research/isograph/discovery/2026-10-16-algorithmic-core/exact-q-core.mjs",
+  "qReferenceExactGitBlob": "6b25d0e2560fe4131d2f5442593e9ed9763c1a18",
+  "elapsedMs": 827,
+  "status": "CONFIRMED_TRUE_STANDARD7X6_SAME_SUPPORT_DIFFERENT_PERFECT_OUTCOME_AND_SAME_OUTCOME_DIFFERENT_COMPLETE_L2_MASK",
+  "mathematicalConsequence": "Height h and all deterministic functions thereof (ply, Δ, phase gradient, legal action mask, virtual diagonal shear geometry) do NOT determine ordinary perfect-play winner or current-mover all L2 best labels; exact source R0/R1 or equivalent surviving owner-line info necessary. Does NOT prove any source-complete invariant impossible.",
+  "referenceLimitations": [
+    "Source proof candidate computes ZERO alternative future game values. The independent REAL 7x6 physical WDL oracle did recursively branch for falsification only.",
+    "The qualification covers 4 explicitly checked legal physical history witnesses and 2 independent q-core action-mask cross-check pairs; not all 7x6 positions.",
+    "No source zero-branch L2 solution found; canonical original 44444 unrestricted WDL and full L2 still UNKNOWN.",
+    "Actual first-win stops and gravity preserved; source hist strings are 1-based original legal columns.",
+    "Maintained Node26 CI / external proof assistant not run."
+  ]
+}
