@@ -1,5 +1,7 @@
 # Owner's extended three-level move information: opponent model, player, outcome accessibility and timing
 
+> **Latest unified owner definition:** [`2026-10-17-owner-unified-three-level-information-definition.md`](2026-10-17-owner-unified-three-level-information-definition.md) now governs all future L1 outcome / L2 best outcome-tier labels / L3 timing-perfect labels. The two opponent-quality models and original 7×6 reachability counterexamples below remain valid; the former P1-specific framing is a historical illustration rather than a separate hierarchy. In particular the same WIN > DRAW > LOSS priority applies to P0 and P1 under the declared opponent mode, and conventional WDL-optimal bestMoves is exactly L2 in known-PERFECT mode.
+
 **Owner-directed revision, 2026-10-17 Pacific.** Canonical research owner `research/semantic-quotient`. **Status:** latest explicitly stated semantic OUTPUT/POLICY interpretation; supersedes the single-player/known-perfect assumptions and terminology only in `docs/research/2026-10-17-owner-level2-any-p0-winning-continuation-and-level3-perfect-fastest-win.md`. Frozen prior source/value experiments retain their historical mathematical meaning; qualified IsoGraph 1.2 board rules and q_o gameplay semantics are not altered or promoted by this note. Current discovery board **W=7,H=6,K=4**, symbols W,H,K preserved.
 
 ## 1. This is ONE hierarchy with TWO independent axes, not separate player categories
