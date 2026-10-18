@@ -1,0 +1,88 @@
+{
+  "schema": "connect4.true7x6.same_exact_owner_allocation_different_first_winner_3columns_4events_v0_1",
+  "date": "2026-10-18",
+  "sourceTheorem": "docs/research/2026-10-18-multichain-mixed-radix-colored-shuffle-factorization.md",
+  "sourcePhysicalCampaign": "research/isograph/discovery/2026-10-18-unfolded-phase-race/STANDARD7X6_EXACT_THREE_CHAIN_MIXED_RADIX_5704_COLORED_OWNER_PROFILES_PHYSICAL_0_1.json",
+  "sourceFutureValueQueries": 0,
+  "originalGame": {
+    "W": 7,
+    "H": 6,
+    "K": 4,
+    "allOriginalGeometricWinlines": 69,
+    "firstWinStops": true
+  },
+  "genuineOriginalNonterminalOneBasedRootHistory": "2532541156412471331416356736376672",
+  "rootPly": 34,
+  "rootMover": "P0",
+  "originalHeights": [
+    6,
+    4,
+    6,
+    4,
+    4,
+    6,
+    4
+  ],
+  "originalQResidualCounts": {
+    "R0": 4,
+    "R1": 3
+  },
+  "fixedHypotheticalFourEventColumns": [
+    {
+      "column": 2,
+      "ownerBits": [
+        0
+      ]
+    },
+    {
+      "column": 4,
+      "ownerBits": [
+        0,
+        1
+      ]
+    },
+    {
+      "column": 5,
+      "ownerBits": [
+        1
+      ]
+    }
+  ],
+  "exactPhaseOwnerAllocationEqualAcrossAllWords": true,
+  "originalPhysicalControllerSourceStatus": "SOURCE_FEASIBLE_DUAL_ORIGINAL_FIRST_WIN_RACE_INCOMPLETE",
+  "physicallyValidatedOneBasedHypotheticalSegmentWords": [
+    {
+      "word": "2544",
+      "actualPlayStopsAfterRelativePly": 2,
+      "physicalFirstWinner": "P1",
+      "absoluteWinningMove": 36,
+      "note": "P0 2, P1 5 FIRST WIN; c4,c4 rest counterfactual bookkeeping only"
+    },
+    {
+      "word": "4425",
+      "actualPlayStopsAfterRelativePly": 3,
+      "physicalFirstWinner": "P0",
+      "absoluteWinningMove": 37,
+      "note": "P0 4, P1 4, P0 2 FIRST WIN; c5 final event counterfactual only"
+    },
+    {
+      "word": "4524",
+      "actualPlayStopsAfterRelativePly": 2,
+      "physicalFirstWinner": "P1",
+      "absoluteWinningMove": 36,
+      "note": "P0 4, P1 5 FIRST WIN; later c2,c4 counterfactual"
+    }
+  ],
+  "sourceHeadSetForThisFixedProfile": [
+    2,
+    4
+  ],
+  "implication": "Original physical final event-owner coloring and exact batched q are NOT sufficient to reconstruct first winner. Even 3 columns/4 scheduled events may require a chronology race bit. It remains correct to treat phase as part of an eventual source strategy factor only if earliest-first-win and adversarial observation are retained.",
+  "independentPhysicalValidator": "research/isograph/discovery/2026-10-18-unfolded-phase-race/standard7x6-multichain-independent-original-physical-falsifier.mjs",
+  "independentPhysicalValidatorBlob": "cc253aa82d3adff89bfa8d1eb2d991285a9e78e4",
+  "sourceBitset": "source static phase original q; zero game WDL queries",
+  "evidenceClass": "INTERNAL independent original-grid physical falsification of stronger phase-only payoff hypothesis; NOT external checker",
+  "canonical44444RootGameWDL": "UNKNOWN",
+  "canonical44444SourceBestColumn": "INCOMPLETE",
+  "status": "PHASE_ONLY_FIRST_WINNER_WDL_FACTORIZATION_FALSE_IN_RESTRICTED_ORIGINAL_THREE_CHAIN_GAME"
+}
