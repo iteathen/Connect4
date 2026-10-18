@@ -184,3 +184,48 @@ These are restricted-domain mathematical best-action certifiers, NOT yet a singl
 
 Main records `docs/research/2026-10-17-unified-one-certified-best-action-source-protocol.md` and `docs/research/2026-10-17-unified-source-v4-fixed-two-column-swap-before-transport.md`; evidence `D/STANDARD7X6_UNIFIED_SOURCE_V3_SCALAR_FREE_11_NEW_LEVEL2_BEST_RESULTS_0_1.json` and `D/STANDARD7X6_UNIFIED_V4_DIRECT_SOURCE_23_NO_PERMUTATION_RESULTS_0_1.json`.
 
+## 13. Qualitative WDL-order certificates and what deterministic column maps actually achieved
+
+For current q legal original action labels, a sound directed source edge a→b means P0-relative `J_a(q)≤J_b(q)`, regardless of unknown actual scalar J values. Close the graph transitively over CURRENT action labels (not future q game states). On P0 turn an upper extremum reached from all original legal actions is BEST; on P1 turn a lower extremum reaching every action is BEST. No scalar root WDL nor the full tied-best set is required.
+
+The source-only proof candidates and genuine7×6 controls are distinct:
+
+1. **Full capacity-compatible column transporter** (`D/either-mover-future-transport.mjs`): source original-q cofactor simulation finds weak-order edges by STATIC column-permutation witness search. V3 produced 48 source best roots/110 independently evaluated current legal action values, **11 new best roots over V2**, with 57,670 completed static mapping candidates on one sampled corpus. No competing FUTURE GAME values were computed in source, but this IS combinatorial STATIC proof search.
+2. **One direct equal-height two-column swap** (`D/standard7x6-source-fixed-two-column-swap-WDL-order.mjs`): one fixed σ=(a b), raw R0/R1 owner contraction/enemy blocker inclusion. 4,234 source weak inequalities, 86 source best roots, 967 physical inequality and 85 physical best-action checks, zero wrong; ZERO enumerated whole-column maps. All 86 were previously V3 best roots on same-q comparison. In 23 scalar-free V3 examples it avoided **4,142** completed old static permutation proof candidates—reduced proof search, not more q coverage.
+3. **One fixed whole-board horizontal reflection** (`D/standard7x6-original-source-fixed-reflection-WDL-order.mjs`): exact original q automorphism when h,R0,R1 all reflected to themselves; otherwise may establish weaker WDL order after two compatible first-action supports. Broader corpus: 188 source weak inequalities and 31 best roots, 123 physical edge and 30 physical best checks, zero mismatch. Exact canonical `44444` mirror classes `{1,7},{2,6},{3,5},{4}` remain unordered.
+4. **Fixed swap + fixed reflection union** (`D/standard7x6-source-two-fixed-transform-WDL-extremum.mjs`): on SAME 13,318 real original q, 86 swap positive roots, 21 reflection positives, union **97** roots; NO mixed-only global extremum; 985 independent physical weak-edge checks and 94 best checks, zero discrepancy. SAME-q V4 comparison found **ZERO new Level2 root coverage**. Evidence `D/STANDARD7X6_TWO_FIXED_TRANSFORM_WDL_UNION_RESULTS_0_1.json`.
+5. **One deterministic nongeometric incidence-footprint map**: sort owner-tagged current residual-generator incidence signatures within compatible post-action height classes; propose ONE mapping per ordered original action pair, then verify exact two-sided source raw cofactor inclusion. The incidence signature is not itself a proof. 3,132 source weak edges, 90 best roots across 10,083 q, 1,301 physical edges and 65 physical best checks, zero wrong—but all 90 were previously V4 best. Genuine history `1555271171452354215737327342666366` yields source `J_2≤J_7` via mapping `[1,5,6,4,7,3,2]`; independent physical WDL had `J_2=J_7=−1` while P0's UNIQUE root best move was col4. The inequality is useful but does NOT select a best move by itself.
+6. **Union of three deterministic maps** (fixed two-swap, global mirror, incidence footprint): on same 10,083 q, **3,317** source weak inequalities and **101** best source roots, physical checks 336 weak inequalities + 19 best actions, zero mismatch. **ALL 101 previously V4 known**, NO new q best actions, NO mixed-transform-only extremal roots. Source enumerated ZERO alternative static whole-column mapping candidates and evaluated ZERO competing game values. `D/STANDARD7X6_THREE_DETERMINISTIC_MAPS_UNION_101_BEST_ZERO_NEW_V4_RESULTS_0_1.json`.
+
+The 2026-10-18 map campaign produced exact NEW structural relationships, but no added operational Level2 source position coverage beyond V4. Its mathematical cost was already tested. Current priority is adaptive opponent resource closure rather than adding more mapping heuristics with no demonstrated new q coverage.
+
+Reading: `docs/research/2026-10-18-deterministic-original-column-incidence-footprint-transport-candidate.md`, `docs/research/2026-10-18-three-deterministic-original-q-maps-WDL-order-closure.md`, `docs/research/2026-10-18-two-fixed-transforms-versus-nongeometric-source-transport-falsifier.md`.
+
+## 14. CURRENT October18 exact source breakthrough: first-touch directed shared-blocker invariant
+
+This is the latest substantive completed theorem and test series. The exact ORIGINAL current source q=(h,R0,R1) has mover p and opponent o. For every live p original winning generator G and each column c represented in G, let `gate_c(G)` be its LOWEST still-unplayed G cell in c. For any physical future cell x, set
+
+    Gates(x) = {G in R_p : x = gate_c(G) in its column}
+    I(x) = INTERSECTION_{G in Gates(x)} G minus {x}.
+
+**Sufficient source no-forced-WIN law:** For EVERY x with Gates(x) nonempty, compute one source-chosen blocker y(x)∈I(x) that is immediately gravity-legal after p plays x, either (A) same-column immediate vertical successor y=x+(one row), or (B) an original root frontier cell in another column whose availability is guaranteed inductively while relevant winning generators G remain live. On p's FIRST touch of any still-live G, x must be its lowest future G cell in that column, so every touched G lies in Gates(x). The opponent plays the one common y(x), blocking ALL newly touched G with ONE stone. Induction: after each completed p/o pair, no surviving p original generator has been newly p-owned. Thus p can NEVER FIRST win against ONE uniform defender o response policy. This is a source-global `NO_FORCED_WIN_p(q)` certificate, **not automatically DRAW, LOSS or a best first action**.
+
+Unlike complete even/odd disjoint pairing strategies, this map is directed, many-to-one/shared and does NOT require full cell pairing. No future game child WDL is evaluated; no opponent strategy tree is constructed.
+
+Genuine original standard7×6 validation:
+- Source theorem `docs/research/2026-10-18-source-first-touch-universal-blocker-invariant.md` and producer `D/standard7x6-source-first-touch-gate-blocker-no-win.mjs`.
+- `D/STANDARD7X6_FIRST_TOUCH_DIRECTED_NONPAIRING_NO_FORCED_WIN_PHYSICAL_RESULTS_0_1.json`: **49,023** actual q examined across 2,700 seeded nonwinning legal physical games; **295** successful source global no-forced-win roots, 257 with at least two legal moves and 84 involving reused blocker targets. Independent physical reference checked **1,701** defender replies and **90** perfect-play root WDL values, zero contradictions.
+
+**Closing Level2 with one extra independent source witness** (no strategically competing child values):
+- root source NO_FORCED_WIN + one original action GUARANTEED NONLOSS → exact root DRAW and that original literal move BEST;
+- root source NO_FORCED_WIN + opponent original winning-generator fractional packing exceeding p's future blocking-turn capacity → opponent must FIRST win under o policy → p LOSS and ALL legal current moves tied best.
+
+`docs/research/2026-10-18-first-touch-directed-blocker-plus-opponent-dual-or-one-nonloss-level2.md`; source `D/standard7x6-source-first-touch-best-draw-loss.mjs`; physical `D/standard7x6-first-touch-best-v4-marginal-independent-physical-control.mjs`; evidence `D/STANDARD7X6_FIRST_TOUCH_DIRECTED_DEFENDER_19_NEW_BEST_OVER_V4_RESULTS_0_1.json`.
+
+On the SAME 295 no-forced-win q, **105** Level2 root outcomes completed (**79 DRAW, 26 LOSS**). Previous immutable V4 already classified 86; **19 were NEW source best positions** where V4 returned INCOMPLETE. **190** roots had source no-forced-win proof but still lacked DRAW/LOSS resolution and correctly returned Level2 INCOMPLETE. Independent physical recursive reference checked **99** scalar root values and **99** selected literal action values plus **45** additional tied loss action values, ZERO discrepancies.
+
+Concrete source-best DRAW not covered by V4: legal one-based history `7626672716415551237351531176427532643`, original n37, P1 mover, chosen original column3, ROOT no P1 forced win + selected move guaranteed DRAW. Other new examples are in the machine evidence.
+
+**Canonical 44444 wall:** P1 has 35 first-touch gate cells associated with its R1=42 original viable K-line requirements; at **27** gate cells the current proof can find NO one physical blocker common to every touched G and meeting immediate vertical/root frontier guards. Eight gates do admit a single reply. The first-touch source returns INCOMPLETE at canonical. That is an insufficiency of one-common-blocker defense at each gate, NOT a perfect-play value, NOR an impossibility of a richer adaptive source theorem.
+
+The 19 new first-touch certified best roots are a frozen PARALLEL source research result, not silently merged into a mythical V5 implementation. The immutable source unified V4 remains the latest validated composed program, and any future combined successor must be separately frozen, validated and qualified.
