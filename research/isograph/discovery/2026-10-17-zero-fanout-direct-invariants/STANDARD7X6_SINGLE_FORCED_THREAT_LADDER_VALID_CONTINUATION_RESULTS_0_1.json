@@ -1,0 +1,869 @@
+{
+  "schema": "connect4.standard7x6.single_forced_lane_source_winner_physical_validation_v0_1",
+  "date": "2026-10-17",
+  "board": {
+    "W": 7,
+    "H": 6,
+    "K": 4,
+    "originalKlines": 69
+  },
+  "seedStart": 357222355,
+  "genuineNonterminalOriginalRoots": 56712,
+  "uniqueSourceRoots": 56712,
+  "historiesSampled": 1700,
+  "selectedForcedLaneSourceEvaluations": 56712,
+  "sourceDirectAlreadyCertifiableRoots": 32614,
+  "oneLaneNewPositiveRootMoveCertificates": 671,
+  "sourceValidWinMovesTotal": 33285,
+  "sourceForcedRoundHistogram": {
+    "0": 32614,
+    "1": 338,
+    "2": 201,
+    "3": 96,
+    "4": 29,
+    "5": 5,
+    "6": 2
+  },
+  "rootSelectedForcedLaneUnsuccessfulCount": 7137,
+  "sourceConstructedFutureQStatesAcrossAllSelectedLanes": 22702,
+  "sourceEvaluatedAlternativeFutureWDLQueries": 0,
+  "sourceEvaluatedGameSemanticMaxFanout": 1,
+  "sourceStaticCandidateChecks": 242254,
+  "physicalForcedStepSourceProofsReplayed": 1181,
+  "physicalOffThreatOpponentDeviationsChecked": 6627,
+  "physicalForcedOpponentBlocksChecked": 1181,
+  "physicalDirectTerminalStepOpponentRepliesChecked": 59529,
+  "wrongPhysicalSourceWinningCertificate": 0,
+  "positiveNewRootSamples": [
+    {
+      "history": "243766762437135",
+      "ply": 15,
+      "mover": 1,
+      "firstAction": 4,
+      "forcedRounds": 1,
+      "proofSteps": [
+        {
+          "kind": "SINGLE_WIN_THREAT_FORCES_ONE_BLOCKING_REPLY",
+          "selectedPAction": 4,
+          "uniqueForcedOpponentBlockColumn": 4,
+          "rankAtPAction": 15,
+          "allOpponentImmediateWinningColumnsExcluded": true,
+          "singleCurrentlyPlayableOwnerWinningThreat": true,
+          "originalOwnerThreatKind": "singleton target or contracted original two-cell generator",
+          "permittedOpponentDeviationOutcome": "immediate owner P win at blocked column",
+          "noAlternativeForcedLaneEvaluated": true
+        },
+        {
+          "kind": "DIRECT_SOURCE_NEXT_OWNER_TURN_WIN",
+          "literalPAction": 7,
+          "sourceCertificate": {
+            "kind": "SAME_COLUMN_STACKED_RELEASE",
+            "literalAction": 7,
+            "mover": 1,
+            "opponentLiteralReplyColumns": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "currentPlayableOwnerWinTargetColumns": [
+              5
+            ],
+            "opponentReplyReleaseOwnerWinTargetColumns": [
+              5
+            ],
+            "sourceOriginalCurrentOwnerWitnesses": {
+              "5": [
+                "0x8000800"
+              ]
+            },
+            "sourceOriginalReleasedOwnerWitnesses": {
+              "5": [
+                "0x40000"
+              ]
+            },
+            "allOpponentImmediateWinsSourceDenied": true,
+            "allOpponentRepliesCoveredByStaticSetBoolean": true,
+            "originalSourceFutureValueQueries": 0,
+            "proofType": "forall d in D: (S minus {d} nonempty) OR (d in Z)",
+            "replayOnlyForIndependentFalsification": true
+          }
+        }
+      ]
+    },
+    {
+      "history": "16474754725244712766",
+      "ply": 20,
+      "mover": 0,
+      "firstAction": 3,
+      "forcedRounds": 1,
+      "proofSteps": [
+        {
+          "kind": "SINGLE_WIN_THREAT_FORCES_ONE_BLOCKING_REPLY",
+          "selectedPAction": 3,
+          "uniqueForcedOpponentBlockColumn": 3,
+          "rankAtPAction": 20,
+          "allOpponentImmediateWinningColumnsExcluded": true,
+          "singleCurrentlyPlayableOwnerWinningThreat": true,
+          "originalOwnerThreatKind": "singleton target or contracted original two-cell generator",
+          "permittedOpponentDeviationOutcome": "immediate owner P win at blocked column",
+          "noAlternativeForcedLaneEvaluated": true
+        },
+        {
+          "kind": "DIRECT_SOURCE_NEXT_OWNER_TURN_WIN",
+          "literalPAction": 6,
+          "sourceCertificate": {
+            "kind": "SAME_COLUMN_STACKED_RELEASE",
+            "literalAction": 6,
+            "mover": 0,
+            "opponentLiteralReplyColumns": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "currentPlayableOwnerWinTargetColumns": [
+              5
+            ],
+            "opponentReplyReleaseOwnerWinTargetColumns": [
+              5
+            ],
+            "sourceOriginalCurrentOwnerWitnesses": {
+              "5": [
+                "0x4040000"
+              ]
+            },
+            "sourceOriginalReleasedOwnerWitnesses": {
+              "5": [
+                "0x6000000"
+              ]
+            },
+            "allOpponentImmediateWinsSourceDenied": true,
+            "allOpponentRepliesCoveredByStaticSetBoolean": true,
+            "originalSourceFutureValueQueries": 0,
+            "proofType": "forall d in D: (S minus {d} nonempty) OR (d in Z)",
+            "replayOnlyForIndependentFalsification": true
+          }
+        }
+      ]
+    },
+    {
+      "history": "1647475472524471276672",
+      "ply": 22,
+      "mover": 0,
+      "firstAction": 3,
+      "forcedRounds": 1,
+      "proofSteps": [
+        {
+          "kind": "SINGLE_WIN_THREAT_FORCES_ONE_BLOCKING_REPLY",
+          "selectedPAction": 3,
+          "uniqueForcedOpponentBlockColumn": 3,
+          "rankAtPAction": 22,
+          "allOpponentImmediateWinningColumnsExcluded": true,
+          "singleCurrentlyPlayableOwnerWinningThreat": true,
+          "originalOwnerThreatKind": "singleton target or contracted original two-cell generator",
+          "permittedOpponentDeviationOutcome": "immediate owner P win at blocked column",
+          "noAlternativeForcedLaneEvaluated": true
+        },
+        {
+          "kind": "DIRECT_SOURCE_NEXT_OWNER_TURN_WIN",
+          "literalPAction": 6,
+          "sourceCertificate": {
+            "kind": "SAME_COLUMN_STACKED_RELEASE",
+            "literalAction": 6,
+            "mover": 0,
+            "opponentLiteralReplyColumns": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "currentPlayableOwnerWinTargetColumns": [
+              5
+            ],
+            "opponentReplyReleaseOwnerWinTargetColumns": [
+              5
+            ],
+            "sourceOriginalCurrentOwnerWitnesses": {
+              "5": [
+                "0x4040000"
+              ]
+            },
+            "sourceOriginalReleasedOwnerWitnesses": {
+              "5": [
+                "0x6000000"
+              ]
+            },
+            "allOpponentImmediateWinsSourceDenied": true,
+            "allOpponentRepliesCoveredByStaticSetBoolean": true,
+            "originalSourceFutureValueQueries": 0,
+            "proofType": "forall d in D: (S minus {d} nonempty) OR (d in Z)",
+            "replayOnlyForIndependentFalsification": true
+          }
+        }
+      ]
+    },
+    {
+      "history": "421722372616",
+      "ply": 12,
+      "mover": 0,
+      "firstAction": 4,
+      "forcedRounds": 3,
+      "proofSteps": [
+        {
+          "kind": "SINGLE_WIN_THREAT_FORCES_ONE_BLOCKING_REPLY",
+          "selectedPAction": 4,
+          "uniqueForcedOpponentBlockColumn": 3,
+          "rankAtPAction": 12,
+          "allOpponentImmediateWinningColumnsExcluded": true,
+          "singleCurrentlyPlayableOwnerWinningThreat": true,
+          "originalOwnerThreatKind": "singleton target or contracted original two-cell generator",
+          "permittedOpponentDeviationOutcome": "immediate owner P win at blocked column",
+          "noAlternativeForcedLaneEvaluated": true
+        },
+        {
+          "kind": "SINGLE_WIN_THREAT_FORCES_ONE_BLOCKING_REPLY",
+          "selectedPAction": 4,
+          "uniqueForcedOpponentBlockColumn": 4,
+          "rankAtPAction": 14,
+          "allOpponentImmediateWinningColumnsExcluded": true,
+          "singleCurrentlyPlayableOwnerWinningThreat": true,
+          "originalOwnerThreatKind": "singleton target or contracted original two-cell generator",
+          "permittedOpponentDeviationOutcome": "immediate owner P win at blocked column",
+          "noAlternativeForcedLaneEvaluated": true
+        },
+        {
+          "kind": "SINGLE_WIN_THREAT_FORCES_ONE_BLOCKING_REPLY",
+          "selectedPAction": 3,
+          "uniqueForcedOpponentBlockColumn": 5,
+          "rankAtPAction": 16,
+          "allOpponentImmediateWinningColumnsExcluded": true,
+          "singleCurrentlyPlayableOwnerWinningThreat": true,
+          "originalOwnerThreatKind": "singleton target or contracted original two-cell generator",
+          "permittedOpponentDeviationOutcome": "immediate owner P win at blocked column",
+          "noAlternativeForcedLaneEvaluated": true
+        },
+        {
+          "kind": "DIRECT_SOURCE_NEXT_OWNER_TURN_WIN",
+          "literalPAction": 1,
+          "sourceCertificate": {
+            "kind": "SAME_COLUMN_STACKED_RELEASE",
+            "literalAction": 1,
+            "mover": 0,
+            "opponentLiteralReplyColumns": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "currentPlayableOwnerWinTargetColumns": [
+              1
+            ],
+            "opponentReplyReleaseOwnerWinTargetColumns": [
+              1
+            ],
+            "sourceOriginalCurrentOwnerWitnesses": {
+              "1": [
+                "0x204000"
+              ]
+            },
+            "sourceOriginalReleasedOwnerWitnesses": {
+              "1": [
+                "0x10000000"
+              ]
+            },
+            "allOpponentImmediateWinsSourceDenied": true,
+            "allOpponentRepliesCoveredByStaticSetBoolean": true,
+            "originalSourceFutureValueQueries": 0,
+            "proofType": "forall d in D: (S minus {d} nonempty) OR (d in Z)",
+            "replayOnlyForIndependentFalsification": true
+          }
+        }
+      ]
+    },
+    {
+      "history": "42172237261666",
+      "ply": 14,
+      "mover": 0,
+      "firstAction": 4,
+      "forcedRounds": 3,
+      "proofSteps": [
+        {
+          "kind": "SINGLE_WIN_THREAT_FORCES_ONE_BLOCKING_REPLY",
+          "selectedPAction": 4,
+          "uniqueForcedOpponentBlockColumn": 3,
+          "rankAtPAction": 14,
+          "allOpponentImmediateWinningColumnsExcluded": true,
+          "singleCurrentlyPlayableOwnerWinningThreat": true,
+          "originalOwnerThreatKind": "singleton target or contracted original two-cell generator",
+          "permittedOpponentDeviationOutcome": "immediate owner P win at blocked column",
+          "noAlternativeForcedLaneEvaluated": true
+        },
+        {
+          "kind": "SINGLE_WIN_THREAT_FORCES_ONE_BLOCKING_REPLY",
+          "selectedPAction": 4,
+          "uniqueForcedOpponentBlockColumn": 4,
+          "rankAtPAction": 16,
+          "allOpponentImmediateWinningColumnsExcluded": true,
+          "singleCurrentlyPlayableOwnerWinningThreat": true,
+          "originalOwnerThreatKind": "singleton target or contracted original two-cell generator",
+          "permittedOpponentDeviationOutcome": "immediate owner P win at blocked column",
+          "noAlternativeForcedLaneEvaluated": true
+        },
+        {
+          "kind": "SINGLE_WIN_THREAT_FORCES_ONE_BLOCKING_REPLY",
+          "selectedPAction": 3,
+          "uniqueForcedOpponentBlockColumn": 5,
+          "rankAtPAction": 18,
+          "allOpponentImmediateWinningColumnsExcluded": true,
+          "singleCurrentlyPlayableOwnerWinningThreat": true,
+          "originalOwnerThreatKind": "singleton target or contracted original two-cell generator",
+          "permittedOpponentDeviationOutcome": "immediate owner P win at blocked column",
+          "noAlternativeForcedLaneEvaluated": true
+        },
+        {
+          "kind": "DIRECT_SOURCE_NEXT_OWNER_TURN_WIN",
+          "literalPAction": 1,
+          "sourceCertificate": {
+            "kind": "SAME_COLUMN_STACKED_RELEASE",
+            "literalAction": 1,
+            "mover": 0,
+            "opponentLiteralReplyColumns": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "currentPlayableOwnerWinTargetColumns": [
+              1
+            ],
+            "opponentReplyReleaseOwnerWinTargetColumns": [
+              1,
+              5
+            ],
+            "sourceOriginalCurrentOwnerWitnesses": {
+              "1": [
+                "0x204000"
+              ]
+            },
+            "sourceOriginalReleasedOwnerWitnesses": {
+              "1": [
+                "0x10000000"
+              ],
+              "5": [
+                "0x40000"
+              ]
+            },
+            "allOpponentImmediateWinsSourceDenied": true,
+            "allOpponentRepliesCoveredByStaticSetBoolean": true,
+            "originalSourceFutureValueQueries": 0,
+            "proofType": "forall d in D: (S minus {d} nonempty) OR (d in Z)",
+            "replayOnlyForIndependentFalsification": true
+          }
+        }
+      ]
+    },
+    {
+      "history": "42371566653751",
+      "ply": 14,
+      "mover": 0,
+      "firstAction": 4,
+      "forcedRounds": 1,
+      "proofSteps": [
+        {
+          "kind": "SINGLE_WIN_THREAT_FORCES_ONE_BLOCKING_REPLY",
+          "selectedPAction": 4,
+          "uniqueForcedOpponentBlockColumn": 6,
+          "rankAtPAction": 14,
+          "allOpponentImmediateWinningColumnsExcluded": true,
+          "singleCurrentlyPlayableOwnerWinningThreat": true,
+          "originalOwnerThreatKind": "singleton target or contracted original two-cell generator",
+          "permittedOpponentDeviationOutcome": "immediate owner P win at blocked column",
+          "noAlternativeForcedLaneEvaluated": true
+        },
+        {
+          "kind": "DIRECT_SOURCE_NEXT_OWNER_TURN_WIN",
+          "literalPAction": 3,
+          "sourceCertificate": {
+            "kind": "TWO_DISTINCT_CURRENT_WIN_TARGETS",
+            "literalAction": 3,
+            "mover": 0,
+            "opponentLiteralReplyColumns": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "currentPlayableOwnerWinTargetColumns": [
+              3,
+              4
+            ],
+            "opponentReplyReleaseOwnerWinTargetColumns": [],
+            "sourceOriginalCurrentOwnerWitnesses": {
+              "3": [
+                "0x810000"
+              ],
+              "4": [
+                "0x30000"
+              ]
+            },
+            "sourceOriginalReleasedOwnerWitnesses": {},
+            "allOpponentImmediateWinsSourceDenied": true,
+            "allOpponentRepliesCoveredByStaticSetBoolean": true,
+            "originalSourceFutureValueQueries": 0,
+            "proofType": "forall d in D: (S minus {d} nonempty) OR (d in Z)",
+            "replayOnlyForIndependentFalsification": true
+          }
+        }
+      ]
+    },
+    {
+      "history": "4237156665375111",
+      "ply": 16,
+      "mover": 0,
+      "firstAction": 4,
+      "forcedRounds": 1,
+      "proofSteps": [
+        {
+          "kind": "SINGLE_WIN_THREAT_FORCES_ONE_BLOCKING_REPLY",
+          "selectedPAction": 4,
+          "uniqueForcedOpponentBlockColumn": 6,
+          "rankAtPAction": 16,
+          "allOpponentImmediateWinningColumnsExcluded": true,
+          "singleCurrentlyPlayableOwnerWinningThreat": true,
+          "originalOwnerThreatKind": "singleton target or contracted original two-cell generator",
+          "permittedOpponentDeviationOutcome": "immediate owner P win at blocked column",
+          "noAlternativeForcedLaneEvaluated": true
+        },
+        {
+          "kind": "DIRECT_SOURCE_NEXT_OWNER_TURN_WIN",
+          "literalPAction": 3,
+          "sourceCertificate": {
+            "kind": "TWO_DISTINCT_CURRENT_WIN_TARGETS",
+            "literalAction": 3,
+            "mover": 0,
+            "opponentLiteralReplyColumns": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "currentPlayableOwnerWinTargetColumns": [
+              3,
+              4
+            ],
+            "opponentReplyReleaseOwnerWinTargetColumns": [],
+            "sourceOriginalCurrentOwnerWitnesses": {
+              "3": [
+                "0x810000"
+              ],
+              "4": [
+                "0x30000"
+              ]
+            },
+            "sourceOriginalReleasedOwnerWitnesses": {},
+            "allOpponentImmediateWinsSourceDenied": true,
+            "allOpponentRepliesCoveredByStaticSetBoolean": true,
+            "originalSourceFutureValueQueries": 0,
+            "proofType": "forall d in D: (S minus {d} nonempty) OR (d in Z)",
+            "replayOnlyForIndependentFalsification": true
+          }
+        }
+      ]
+    },
+    {
+      "history": "6175561717417322761",
+      "ply": 19,
+      "mover": 1,
+      "firstAction": 6,
+      "forcedRounds": 1,
+      "proofSteps": [
+        {
+          "kind": "SINGLE_WIN_THREAT_FORCES_ONE_BLOCKING_REPLY",
+          "selectedPAction": 6,
+          "uniqueForcedOpponentBlockColumn": 6,
+          "rankAtPAction": 19,
+          "allOpponentImmediateWinningColumnsExcluded": true,
+          "singleCurrentlyPlayableOwnerWinningThreat": true,
+          "originalOwnerThreatKind": "singleton target or contracted original two-cell generator",
+          "permittedOpponentDeviationOutcome": "immediate owner P win at blocked column",
+          "noAlternativeForcedLaneEvaluated": true
+        },
+        {
+          "kind": "DIRECT_SOURCE_NEXT_OWNER_TURN_WIN",
+          "literalPAction": 5,
+          "sourceCertificate": {
+            "kind": "SAME_COLUMN_STACKED_RELEASE",
+            "literalAction": 5,
+            "mover": 1,
+            "opponentLiteralReplyColumns": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "currentPlayableOwnerWinTargetColumns": [
+              4
+            ],
+            "opponentReplyReleaseOwnerWinTargetColumns": [
+              4
+            ],
+            "sourceOriginalCurrentOwnerWitnesses": {
+              "4": [
+                "0x40400"
+              ]
+            },
+            "sourceOriginalReleasedOwnerWitnesses": {
+              "4": [
+                "0x60000"
+              ]
+            },
+            "allOpponentImmediateWinsSourceDenied": true,
+            "allOpponentRepliesCoveredByStaticSetBoolean": true,
+            "originalSourceFutureValueQueries": 0,
+            "proofType": "forall d in D: (S minus {d} nonempty) OR (d in Z)",
+            "replayOnlyForIndependentFalsification": true
+          }
+        }
+      ]
+    },
+    {
+      "history": "6175561717417322761763",
+      "ply": 22,
+      "mover": 0,
+      "firstAction": 4,
+      "forcedRounds": 2,
+      "proofSteps": [
+        {
+          "kind": "SINGLE_WIN_THREAT_FORCES_ONE_BLOCKING_REPLY",
+          "selectedPAction": 4,
+          "uniqueForcedOpponentBlockColumn": 5,
+          "rankAtPAction": 22,
+          "allOpponentImmediateWinningColumnsExcluded": true,
+          "singleCurrentlyPlayableOwnerWinningThreat": true,
+          "originalOwnerThreatKind": "singleton target or contracted original two-cell generator",
+          "permittedOpponentDeviationOutcome": "immediate owner P win at blocked column",
+          "noAlternativeForcedLaneEvaluated": true
+        },
+        {
+          "kind": "SINGLE_WIN_THREAT_FORCES_ONE_BLOCKING_REPLY",
+          "selectedPAction": 4,
+          "uniqueForcedOpponentBlockColumn": 4,
+          "rankAtPAction": 24,
+          "allOpponentImmediateWinningColumnsExcluded": true,
+          "singleCurrentlyPlayableOwnerWinningThreat": true,
+          "originalOwnerThreatKind": "singleton target or contracted original two-cell generator",
+          "permittedOpponentDeviationOutcome": "immediate owner P win at blocked column",
+          "noAlternativeForcedLaneEvaluated": true
+        },
+        {
+          "kind": "DIRECT_SOURCE_NEXT_OWNER_TURN_WIN",
+          "literalPAction": 3,
+          "sourceCertificate": {
+            "kind": "TWO_DISTINCT_CURRENT_WIN_TARGETS",
+            "literalAction": 3,
+            "mover": 0,
+            "opponentLiteralReplyColumns": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "currentPlayableOwnerWinTargetColumns": [
+              2,
+              3
+            ],
+            "opponentReplyReleaseOwnerWinTargetColumns": [
+              2
+            ],
+            "sourceOriginalCurrentOwnerWitnesses": {
+              "2": [
+                "0x18000"
+              ],
+              "3": [
+                "0x800000"
+              ]
+            },
+            "sourceOriginalReleasedOwnerWitnesses": {
+              "2": [
+                "0x410000"
+              ]
+            },
+            "allOpponentImmediateWinsSourceDenied": true,
+            "allOpponentRepliesCoveredByStaticSetBoolean": true,
+            "originalSourceFutureValueQueries": 0,
+            "proofType": "forall d in D: (S minus {d} nonempty) OR (d in Z)",
+            "replayOnlyForIndependentFalsification": true
+          }
+        }
+      ]
+    },
+    {
+      "history": "552111466543",
+      "ply": 12,
+      "mover": 0,
+      "firstAction": 3,
+      "forcedRounds": 1,
+      "proofSteps": [
+        {
+          "kind": "SINGLE_WIN_THREAT_FORCES_ONE_BLOCKING_REPLY",
+          "selectedPAction": 3,
+          "uniqueForcedOpponentBlockColumn": 2,
+          "rankAtPAction": 12,
+          "allOpponentImmediateWinningColumnsExcluded": true,
+          "singleCurrentlyPlayableOwnerWinningThreat": true,
+          "originalOwnerThreatKind": "singleton target or contracted original two-cell generator",
+          "permittedOpponentDeviationOutcome": "immediate owner P win at blocked column",
+          "noAlternativeForcedLaneEvaluated": true
+        },
+        {
+          "kind": "DIRECT_SOURCE_NEXT_OWNER_TURN_WIN",
+          "literalPAction": 4,
+          "sourceCertificate": {
+            "kind": "TWO_DISTINCT_CURRENT_WIN_TARGETS",
+            "literalAction": 4,
+            "mover": 0,
+            "opponentLiteralReplyColumns": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "currentPlayableOwnerWinTargetColumns": [
+              4,
+              5
+            ],
+            "opponentReplyReleaseOwnerWinTargetColumns": [],
+            "sourceOriginalCurrentOwnerWitnesses": {
+              "4": [
+                "0x1020000"
+              ],
+              "5": [
+                "0x2020000"
+              ]
+            },
+            "sourceOriginalReleasedOwnerWitnesses": {},
+            "allOpponentImmediateWinsSourceDenied": true,
+            "allOpponentRepliesCoveredByStaticSetBoolean": true,
+            "originalSourceFutureValueQueries": 0,
+            "proofType": "forall d in D: (S minus {d} nonempty) OR (d in Z)",
+            "replayOnlyForIndependentFalsification": true
+          }
+        }
+      ]
+    },
+    {
+      "history": "57777476563664474163",
+      "ply": 20,
+      "mover": 0,
+      "firstAction": 4,
+      "forcedRounds": 1,
+      "proofSteps": [
+        {
+          "kind": "SINGLE_WIN_THREAT_FORCES_ONE_BLOCKING_REPLY",
+          "selectedPAction": 4,
+          "uniqueForcedOpponentBlockColumn": 4,
+          "rankAtPAction": 20,
+          "allOpponentImmediateWinningColumnsExcluded": true,
+          "singleCurrentlyPlayableOwnerWinningThreat": true,
+          "originalOwnerThreatKind": "singleton target or contracted original two-cell generator",
+          "permittedOpponentDeviationOutcome": "immediate owner P win at blocked column",
+          "noAlternativeForcedLaneEvaluated": true
+        },
+        {
+          "kind": "DIRECT_SOURCE_NEXT_OWNER_TURN_WIN",
+          "literalPAction": 5,
+          "sourceCertificate": {
+            "kind": "SAME_COLUMN_STACKED_RELEASE",
+            "literalAction": 5,
+            "mover": 0,
+            "opponentLiteralReplyColumns": [
+              1,
+              2,
+              3,
+              5,
+              6
+            ],
+            "currentPlayableOwnerWinTargetColumns": [
+              5
+            ],
+            "opponentReplyReleaseOwnerWinTargetColumns": [
+              5
+            ],
+            "sourceOriginalCurrentOwnerWitnesses": {
+              "5": [
+                "0x2000000"
+              ]
+            },
+            "sourceOriginalReleasedOwnerWitnesses": {
+              "5": [
+                "0x100000000"
+              ]
+            },
+            "allOpponentImmediateWinsSourceDenied": true,
+            "allOpponentRepliesCoveredByStaticSetBoolean": true,
+            "originalSourceFutureValueQueries": 0,
+            "proofType": "forall d in D: (S minus {d} nonempty) OR (d in Z)",
+            "replayOnlyForIndependentFalsification": true
+          }
+        }
+      ]
+    },
+    {
+      "history": "34267235232246137",
+      "ply": 17,
+      "mover": 1,
+      "firstAction": 4,
+      "forcedRounds": 1,
+      "proofSteps": [
+        {
+          "kind": "SINGLE_WIN_THREAT_FORCES_ONE_BLOCKING_REPLY",
+          "selectedPAction": 4,
+          "uniqueForcedOpponentBlockColumn": 5,
+          "rankAtPAction": 17,
+          "allOpponentImmediateWinningColumnsExcluded": true,
+          "singleCurrentlyPlayableOwnerWinningThreat": true,
+          "originalOwnerThreatKind": "singleton target or contracted original two-cell generator",
+          "permittedOpponentDeviationOutcome": "immediate owner P win at blocked column",
+          "noAlternativeForcedLaneEvaluated": true
+        },
+        {
+          "kind": "DIRECT_SOURCE_NEXT_OWNER_TURN_WIN",
+          "literalPAction": 6,
+          "sourceCertificate": {
+            "kind": "TWO_DISTINCT_CURRENT_WIN_TARGETS",
+            "literalAction": 6,
+            "mover": 1,
+            "opponentLiteralReplyColumns": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "currentPlayableOwnerWinTargetColumns": [
+              5,
+              6
+            ],
+            "opponentReplyReleaseOwnerWinTargetColumns": [],
+            "sourceOriginalCurrentOwnerWitnesses": {
+              "5": [
+                "0xc0000"
+              ],
+              "6": [
+                "0x4080000"
+              ]
+            },
+            "sourceOriginalReleasedOwnerWitnesses": {},
+            "allOpponentImmediateWinsSourceDenied": true,
+            "allOpponentRepliesCoveredByStaticSetBoolean": true,
+            "originalSourceFutureValueQueries": 0,
+            "proofType": "forall d in D: (S minus {d} nonempty) OR (d in Z)",
+            "replayOnlyForIndependentFalsification": true
+          }
+        }
+      ]
+    }
+  ],
+  "canonical": [
+    {
+      "history": "",
+      "ply": 0,
+      "baseline": "INCOMPLETE",
+      "ladder": "INCOMPLETE",
+      "forcedRounds": 0
+    },
+    {
+      "history": "4",
+      "ply": 1,
+      "baseline": "INCOMPLETE",
+      "ladder": "INCOMPLETE",
+      "forcedRounds": 0
+    },
+    {
+      "history": "44444",
+      "ply": 5,
+      "baseline": "INCOMPLETE",
+      "ladder": "INCOMPLETE",
+      "forcedRounds": 0
+    },
+    {
+      "history": "444444",
+      "ply": 6,
+      "baseline": "INCOMPLETE",
+      "ladder": "INCOMPLETE",
+      "forcedRounds": 0
+    },
+    {
+      "history": "444441",
+      "ply": 6,
+      "baseline": "INCOMPLETE",
+      "ladder": "INCOMPLETE",
+      "forcedRounds": 0
+    },
+    {
+      "history": "4444442",
+      "ply": 7,
+      "baseline": "INCOMPLETE",
+      "ladder": "INCOMPLETE",
+      "forcedRounds": 0
+    }
+  ],
+  "positiveLateFullRecursivePhysicalChecks": 75,
+  "independentPlainPhysicalRecursiveCalls": 400,
+  "independentPlainPhysicalStates": 157,
+  "wrongIndependentFullWDL": 0,
+  "finalSeed": 64038097,
+  "status": "PASS_REAL7X6_ONE_FORCED_REPLY_SEMANTIC_LANE_671_ADDITIONAL_VALID_WIN_CONTINUATIONS_ZERO_SOURCE_ALTERNATIVE_GAME_VALUES",
+  "theoremFrozenBeforeControls": "docs/research/2026-10-17-one-lane-forced-threat-ladder-source-win-witness.md",
+  "sourceLadder": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-source-single-forced-threat-ladder.mjs",
+  "ladderGitBlob": "64d7ec5cc5fc220ebeae2649cbaff70b95c3382b",
+  "sourceDirectBoundary": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-source-gravity-response-cover.mjs",
+  "directBoundaryGitBlob": "a8d908d90b92fae70fa12106cae63e483a022b4a",
+  "independentPhysicalControl": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-one-forced-lane-independent-physical-control.mjs",
+  "physicalControlGitBlob": "385a6d569498ba4f373572a33b556a3b69e6810f",
+  "sourceExactQTransitionReference": "research/isograph/discovery/2026-10-16-algorithmic-core/exact-q-core.mjs",
+  "qCoreGitBlob": "6b25d0e2560fe4131d2f5442593e9ed9763c1a18",
+  "isolatedV8ExecutionMs": 17072,
+  "boundaries": [
+    "Current p action candidates are statically screened from the ONE current original source q, choosing ONE by a fixed original-mask incidence ranking. No candidate alternative future q is constructed or valued.",
+    "Each chosen action provokes ONE unique currently playable p winning target. Enemy has NO immediate winning reply; deviation from blocking is verified by immediate p winning response, and the only strategically live opponent reply is to take the indicated target.",
+    "After selected p move and unique forced o response, exactly two original normalized q cofactors are materialized for the SINGLE remaining strategic lane. If chosen lane fails, source returns INCOMPLETE, no backtracking.",
+    "Success is proven by finite rank induction terminating at a separately source-certified closed gravity response-cover winner. No complete current-mover action set or remoteness optimization claimed.",
+    "Nonuniform actual W=7 H=6 K=4 physical first-win-stopped sample only, 1700 seeded nonwinning trajectories; not entire game census or total L2 solver.",
+    "The independent physical validator checks every opponent deviation from forced reply, each unique block, and every original opponent reply at the final gravity response-cover step. 75 late positive first-action WDL values independently fully recursively verified; source reads no oracle.",
+    "Six forced rounds achieved in a sampled real7x6 source; numerical time-to-win was not optimized and does not claim Level3 remoteness.",
+    "Canonical 44444 remains source INCOMPLETE; general arbitrary-q zero-strategic-branch best-move selection unresolved.",
+    "Standalone isolated V8 run, maintained Node26 CI and external proof assistant not run."
+  ]
+}
