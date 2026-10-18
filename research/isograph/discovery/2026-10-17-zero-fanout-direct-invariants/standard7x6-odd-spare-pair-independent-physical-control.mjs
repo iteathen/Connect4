@@ -168,7 +168,20 @@ function replay(root,proof,first,chooseRandom){
    defenderRow=Math.floor(defenderCellID/W);
   if(q.h[defenderColumn]!==defenderRow){
    stats.sourcePolicyErrors++;errorCounter.opponentResponseNotGravityLegal++;
-   throw Error('opponent odd pair response illegally placed above gravity frontier');
+   throw Error('ODD_CROSS_PENDING_RELEASE_COUNTEREXAMPLE '+JSON.stringify({
+      originalRootHistory:root.history,originalRootPly:root.n,
+      originalUnmatched:proof.sourceUnmatchedLastCell,
+      originalSourcePairBlocks:proof.sourceGravitySafePairBlocks,
+      currentPhysicalHistory:q.history,attackerOriginalColumn:a+1,
+      neededDefenderPhysicalCellId:defenderCellID,
+      neededDefenderLiteralColumn:defenderColumn+1,
+      neededDefenderRow:defenderRow,
+      actualGravityFrontierRow:q.h[defenderColumn],
+      currentDanglingPair:pending,
+      attackerEnteredPreviouslyVirginPair:wasVirgin,
+      attackerEnteredOldPendingMate:wasPendingMate,
+      attackerEnteredSpare:originalPCellID===spareID
+     }));
   }
   q=step(q,defenderColumn);
   stats.physicalOpponentPairedReplies++;
