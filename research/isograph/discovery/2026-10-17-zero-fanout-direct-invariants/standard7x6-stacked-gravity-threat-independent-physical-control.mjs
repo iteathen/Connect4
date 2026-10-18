@@ -94,9 +94,13 @@ function examine(s,canon=false){
  const p=s.n&1,o=1-p;
  const liveWinColumns=[];
  for(const d of legal(first)){
+  // The physical turn belongs to o now; test p's hypothetical
+  // immediate winning cell by placing P[p] into the NEXT playable cell,
+  // not by asking physicalStep to alternate as though p were moving.
+  const id=first.h[d]*W+d,ownHypothetical=first.P[p]|bit(d,first.h[d]);
+  if(byCell[id].some(g=>(ownHypothetical&g)===g))liveWinColumns.push(d+1);
   const test=physicalStep(first,d);
-  if(test.winner===p)liveWinColumns.push(d+1);
-  else if(test.winner===o){
+  if(test.winner===o){
    stats.badOpponentCounters++;
    throw Error('uncertified opponent immediate counterwin');
   }
