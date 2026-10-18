@@ -1,0 +1,334 @@
+{
+  "schema": "connect4.true7x6.odd_spare_single_pending_pair_source_no_force_win_v0_1",
+  "date": "2026-10-17",
+  "board": {
+    "W": 7,
+    "H": 6,
+    "K": 4,
+    "originalKLines": 69
+  },
+  "sampledFirstWinStoppedPhysicalTrajectories": 2300,
+  "uniquePhysicalSourceStatesSeen": 76458,
+  "sampledOriginalRankOddSourceRootsEvaluated": 18076,
+  "oddSourceRootsEligibleOneCapacityCell": 12293,
+  "sourceOddSlackPairNoForcedMoverWinCertified": 65,
+  "positiveSourcesWhereOriginalMoverWinningGeneratorsStillLive": 65,
+  "positiveSourcesWith2OrMoreOriginalLegalActions": 65,
+  "matchedFuturePairsInPositiveSourcesTotal": 165,
+  "physicalAttackerFirstActionVaried": 207,
+  "physicalCompleteOpponentPolicyTrials": 414,
+  "physicallyRespondedToFirstTouchedMatchedPair": 468,
+  "physicallyPreemptedFreshPairAfterSpareOrPendingMate": 306,
+  "physicallyReplayedAttackerFutureMoves": 916,
+  "physicalOpponentPairedReplies": 774,
+  "physicalCompletedFirstWinByOpponent": 272,
+  "physicalCompletedNonwinningDraw": 142,
+  "sourcePolicyErrors": 0,
+  "sourceNoWinAgainstPerfectOpponentFullMinimaxRootChecks": 50,
+  "sourceWrongRootPerfectWDL": 0,
+  "sourceStaticPairingProofOps": 3357019,
+  "sourceStaticPairRepresentativesChecked": 214677,
+  "physicalMinimaxReferenceCalls": 2844,
+  "physicalMinimaxUniqueStates": 1413,
+  "firstPositive": {
+    "history": "7575555752146116171264427741224626363",
+    "ply": 37,
+    "currentMover": 1,
+    "legalFirstActions": [
+      3,
+      4
+    ],
+    "originalMoverR": 1,
+    "originalDefenderR": 4,
+    "unmatched": {
+      "originalLiteralColumn": 4,
+      "rowZeroBased": 5,
+      "physicalCellMaskHex": "0x4000000000"
+    },
+    "pairBlocks": [
+      {
+        "kind": "VERTICAL_CONSECUTIVE",
+        "columns": [
+          2
+        ],
+        "crossPairPrefixLength": 0,
+        "sourcePairMasksHex": [
+          "0x810000",
+          "0x2040000000"
+        ]
+      }
+    ]
+  },
+  "firstPreemptiveExample": {
+    "rootHistory": "7575555752146116171264427741224626363",
+    "firstLiteralColumn": 4,
+    "originalMover": 1,
+    "sourceUnmatchedCell": {
+      "originalLiteralColumn": 4,
+      "rowZeroBased": 5,
+      "physicalCellMaskHex": "0x4000000000"
+    },
+    "opponentResponseCount": 3,
+    "actualFirstTerminal": 1
+  },
+  "positiveExamples": [
+    {
+      "history": "7575555752146116171264427741224626363",
+      "ply": 37,
+      "R1": 1,
+      "legal": [
+        3,
+        4
+      ],
+      "unmatched": {
+        "originalLiteralColumn": 4,
+        "rowZeroBased": 5,
+        "physicalCellMaskHex": "0x4000000000"
+      },
+      "pairBlockCount": 1,
+      "pairCount": 2
+    },
+    {
+      "history": "534672614313313315171544555464227266677",
+      "ply": 39,
+      "R1": 1,
+      "legal": [
+        2,
+        7
+      ],
+      "unmatched": {
+        "originalLiteralColumn": 7,
+        "rowZeroBased": 5,
+        "physicalCellMaskHex": "0x20000000000"
+      },
+      "pairBlockCount": 1,
+      "pairCount": 1
+    },
+    {
+      "history": "4716324752713151422223773446437355551",
+      "ply": 37,
+      "R1": 1,
+      "legal": [
+        1,
+        6
+      ],
+      "unmatched": {
+        "originalLiteralColumn": 1,
+        "rowZeroBased": 5,
+        "physicalCellMaskHex": "0x800000000"
+      },
+      "pairBlockCount": 1,
+      "pairCount": 2
+    },
+    {
+      "history": "442612232512614331135326746147774",
+      "ply": 33,
+      "R1": 1,
+      "legal": [
+        3,
+        5,
+        6,
+        7
+      ],
+      "unmatched": {
+        "originalLiteralColumn": 3,
+        "rowZeroBased": 5,
+        "physicalCellMaskHex": "0x2000000000"
+      },
+      "pairBlockCount": 3,
+      "pairCount": 4
+    },
+    {
+      "history": "4426122325126143311353267461477745356",
+      "ply": 37,
+      "R1": 1,
+      "legal": [
+        5,
+        6,
+        7
+      ],
+      "unmatched": {
+        "originalLiteralColumn": 6,
+        "rowZeroBased": 5,
+        "physicalCellMaskHex": "0x10000000000"
+      },
+      "pairBlockCount": 2,
+      "pairCount": 2
+    },
+    {
+      "history": "442612232512614331135326746147774535667",
+      "ply": 39,
+      "R1": 1,
+      "legal": [
+        5,
+        7
+      ],
+      "unmatched": {
+        "originalLiteralColumn": 7,
+        "rowZeroBased": 5,
+        "physicalCellMaskHex": "0x20000000000"
+      },
+      "pairBlockCount": 1,
+      "pairCount": 1
+    },
+    {
+      "history": "27515772124112432447751147465326353",
+      "ply": 35,
+      "R1": 1,
+      "legal": [
+        3,
+        5,
+        6
+      ],
+      "unmatched": {
+        "originalLiteralColumn": 5,
+        "rowZeroBased": 5,
+        "physicalCellMaskHex": "0x8000000000"
+      },
+      "pairBlockCount": 2,
+      "pairCount": 3
+    },
+    {
+      "history": "5141763154522626436674631545471722153",
+      "ply": 37,
+      "R1": 1,
+      "legal": [
+        2,
+        3,
+        7
+      ],
+      "unmatched": {
+        "originalLiteralColumn": 2,
+        "rowZeroBased": 5,
+        "physicalCellMaskHex": "0x1000000000"
+      },
+      "pairBlockCount": 2,
+      "pairCount": 2
+    },
+    {
+      "history": "45676353464752527767366174433531522",
+      "ply": 35,
+      "R1": 1,
+      "legal": [
+        1,
+        2,
+        4
+      ],
+      "unmatched": {
+        "originalLiteralColumn": 4,
+        "rowZeroBased": 5,
+        "physicalCellMaskHex": "0x4000000000"
+      },
+      "pairBlockCount": 2,
+      "pairCount": 3
+    },
+    {
+      "history": "533612276276134314436265224145156717543",
+      "ply": 39,
+      "R1": 1,
+      "legal": [
+        5,
+        7
+      ],
+      "unmatched": {
+        "originalLiteralColumn": 5,
+        "rowZeroBased": 5,
+        "physicalCellMaskHex": "0x8000000000"
+      },
+      "pairBlockCount": 1,
+      "pairCount": 1
+    },
+    {
+      "history": "54264712451521327544532671476",
+      "ply": 29,
+      "R1": 2,
+      "legal": [
+        1,
+        2,
+        3,
+        5,
+        6,
+        7
+      ],
+      "unmatched": {
+        "originalLiteralColumn": 2,
+        "rowZeroBased": 5,
+        "physicalCellMaskHex": "0x1000000000"
+      },
+      "pairBlockCount": 4,
+      "pairCount": 6
+    },
+    {
+      "history": "5426471245152132754453267147653",
+      "ply": 31,
+      "R1": 1,
+      "legal": [
+        1,
+        2,
+        3,
+        6,
+        7
+      ],
+      "unmatched": {
+        "originalLiteralColumn": 2,
+        "rowZeroBased": 5,
+        "physicalCellMaskHex": "0x1000000000"
+      },
+      "pairBlockCount": 3,
+      "pairCount": 5
+    }
+  ],
+  "canonical": [
+    {
+      "history": "4",
+      "ply": 1,
+      "status": "INCOMPLETE",
+      "reason": "NO_ORIGINAL_SOURCE_COLUMN_WITH_EXACTLY_ONE_IMMEDIATELY_PLAYABLE_LAST_CELL",
+      "staticSourceOps": 0
+    },
+    {
+      "history": "44444",
+      "ply": 5,
+      "status": "INCOMPLETE",
+      "reason": "STATIC_PAIRING_RESOURCE_INCOMPLETE_OR_NO_WITNESS",
+      "staticSourceOps": 0
+    },
+    {
+      "history": "4444442",
+      "ply": 7,
+      "status": "INCOMPLETE",
+      "reason": "NO_ORIGINAL_SOURCE_COLUMN_WITH_EXACTLY_ONE_IMMEDIATELY_PLAYABLE_LAST_CELL",
+      "staticSourceOps": 0
+    }
+  ],
+  "onePendingPolicyViolations": {
+    "moverFirstWinViolations": 0,
+    "opponentResponseNotGravityLegal": 0,
+    "emptyAvailableVirginPairOnOpponentTurn": 0,
+    "ownerPairForbiddenBothPhysicalCells": 0,
+    "terminalPWinDespitePhysicalPairCoverage": 0,
+    "pairedGuardBroken": 0
+  },
+  "finalSeed": 807003508,
+  "resultStatus": "PASS_SAFE_RESTRICTED_ODD_SPARE_GRAVITY_ONE_PENDING_PAIR_CURRENT_MOVER_NO_FORCED_FIRST_WIN_TRUE7X6",
+  "originalUnrestrictedOddTheoremREJECTED": "docs/research/2026-10-17-odd-spare-gravity-cross-prefix-rejection-and-safe-restriction.md",
+  "correctedStructuralTheorem": "docs/research/2026-10-17-odd-gravity-spare-cell-co-release-defensive-pairing.md",
+  "sourceProducer": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-odd-spare-col-co-release-no-win-source.mjs",
+  "sourceProducerExactGitBlob": "1b39c79cf3789ac70832c69f646b729aaced6eb6",
+  "sourceMatchingDependency": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/co-release-pair-block-proof.mjs",
+  "matchingDependencyGitBlob": "1704db3137480d66a654c7d970e042fdd1003c48",
+  "frozenIndependentPhysicalControl": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-odd-spare-pair-independent-physical-control.mjs",
+  "physicalControlGitBlob": "897088c9f38a0b7a2d41d53bf28056def514b217",
+  "independentQReferenceBlob": "6b25d0e2560fe4131d2f5442593e9ed9763c1a18",
+  "elapsedIsolatedV8Ms": 2488,
+  "qualifiers": [
+    "IMPORTANT HISTORICAL FAILURE: unrestricted odd-one-pending-pair source was REFUTED in genuine7x6 when cross prefix length>1 exposes a later cross pair on one column before mate gravity-released. Original source blob 58b1b8aa..., physical counterexample preserved in explicit doc. No claim of full odd pairing was ever qualified.",
+    "Corrected source ONLY returns certificate when source co-release block match has cross-prefix length <=1 (or vertical pairs). This is a SUFFICIENT preemption-safe class and may miss alternative safe matching because existing matching producer returns first structural solution.",
+    "65 genuine standard 7x6 source states with nonempty original mover winning requirements received safe odd source root NO-FORCED-WIN proofs. 414 independent full physical games followed defender uniform odd spare/pending policy and all avoided mover winning; 306 preemptive new-pair marks exercised. 50 late roots independently full recursively verified mover cannot force WIN.",
+    "Physical validator tested original legal first actions and original gravity legality of every odd defender move; zero source/physical mismatch. A draw or opponent win is permitted; source does NOT prove which outcome occurs.",
+    "Canonical 44444 remains INCOMPLETE: source cannot cover all original P1 residual winlines under tested fixed safe-pair block family and static proof bounds; do NOT infer unrestricted P1 winning ability.",
+    "Sample nonuniform genuine 7x6 first-win-stopped q from 2300 nonwinning random physical trajectories; observed proportions not global correctness/coverage estimates.",
+    "Source materializes ZERO future game states, values ZERO strategically inequivalent continuations. Existing pairing proof constructor enumerates bounded STATIC original column-block witnesses; all such construction separately counted and bounded.",
+    "Maintained Node26 CI and external formal proof assistant not run; qualified IsoGraph game theory 1.2 unchanged."
+  ]
+}
