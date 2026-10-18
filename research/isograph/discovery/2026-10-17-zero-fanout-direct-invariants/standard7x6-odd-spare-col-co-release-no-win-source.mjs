@@ -67,6 +67,21 @@ export function createOddSpareColCoReleaseNoWin({width:W,height:H,connect:K}){
    if(result.status==='RESOURCE_INCOMPLETE'){stats.sourceStaticProofResourceIncomplete++;continue;}
    if(!result.certifiedAttackerWinImpossible||!result.allSourceFutureCellsPaired||
     !result.allAttackerWinningRequirementsContainDefenderPair)continue;
+   // CRITICAL original true7x6 falsifier: a dangling preemptively
+   // o-marked cross pair j can release the NEXT cross pair j+1 on one
+   // source column WITHOUT making its mate gravity playable in the
+   // other column. The standard even-T co-release matcher assumes
+   // previous cross-prefix pairs COMPLETE. Odd pending policy breaks
+   // that assumption. Only ZERO/ONE cross-prefix pairs per block are
+   // safely preemptable in the current one-dangling-token proof.
+   // See 2026-10-17-odd-spare-gravity-cross-prefix-rejection-and-safe-restriction.md
+   if(result.sourceBlocks.some(b=>
+       b.kind==='CO_RELEASE_PREFIX_AND_VERTICAL_TAILS'&&
+       b.crossPairPrefixLength>1)){
+     stats.sourceReturnedUnsafeLongCrossPrefixRejected=
+       (stats.sourceReturnedUnsafeLongCrossPrefixRejected??0)+1;
+     continue;
+   }
    const pairs=result.sourceBlocks.flatMap(b=>b.sourcePairMasksHex.map(BigInt));
    let cells=0n;
    for(const P of pairs){
