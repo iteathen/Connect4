@@ -1,0 +1,96 @@
+{
+  "schema": "connect4.standard7x6.canonical44444_unified_source_v2_gates_v0_1",
+  "date": "2026-10-17",
+  "status": "OPEN_SOURCE_PROOF_INCOMPLETE_NO_WIN_DRAW_LOSS_CLAIM_OR_BEST_MOVE_SELECTED",
+  "branch": "research/semantic-quotient",
+  "board": {
+    "W": 7,
+    "H": 6,
+    "K": 4,
+    "originalWinningLines": 69
+  },
+  "inputOriginalLiteralHistory": "44444",
+  "rank": 5,
+  "mover": "P1",
+  "sourceQ": {
+    "heights": [
+      0,
+      0,
+      0,
+      5,
+      0,
+      0,
+      0
+    ],
+    "sourceResidualGeneratorCountP0": 48,
+    "sourceResidualGeneratorCountP1": 42,
+    "legalLiteralColumns": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ]
+  },
+  "frozenV2Source": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-unified-one-valid-best-action-source-v2.mjs",
+  "exactSourceGitBlob": "aca84558a77bacde0c5e0c0e5f624022e701c832",
+  "sourceExecution": {
+    "positiveBestActionSelected": null,
+    "sourceAlternativeStrategicGameValuesEvaluated": 0,
+    "sourceMaximumStrategicFutureLaneFanout": 0,
+    "sourceSelectedForcedFutureQMaterialized": 0,
+    "sourceOddMatchingStaticOriginalWorkOperations": 14472,
+    "proofStages": [
+      {
+        "kind": "WIN_DIRECT_OR_SINGLE_FORCED_LANE",
+        "status": "INCOMPLETE",
+        "reason": "NO_DIRECT_OR_ONE_SELECTED_FORCED_THREAT_CERTIFICATE"
+      },
+      {
+        "kind": "ROOT_NO_FORCED_WIN_PLUS_ONE_NONLOSS_DRAW",
+        "status": "INCOMPLETE",
+        "reason": "ROOT_NO_FORCED_WIN_NOT_CERTIFIED"
+      },
+      {
+        "kind": "EXTINCT_OWN_WINLINE_AND_OPPONENT_HYPEREDGE_OVERLOAD",
+        "status": "INCOMPLETE",
+        "reason": "CURRENT_MOVER_STILL_HAS_ORIGINAL_VIABLE_WIN_REQUIREMENTS"
+      },
+      {
+        "kind": "UNIFORM_OPPONENT_MATE_RESPONSES_PLUS_STRICT_OPPONENT_WINLINE_DUAL",
+        "status": "INCOMPLETE",
+        "reason": "REQUIRES_DEFENDER_AS_SECOND_WITH_EVEN_REMAINING_CELLS"
+      },
+      {
+        "kind": "SAFE_ODD_SPARE_ONE_PENDING_PAIR_PLUS_DUAL_OR_ONE_NONLOSS",
+        "status": "INCOMPLETE",
+        "reason": "ODD_MOVER_NO_FORCE_WIN_NOT_CERTIFIED"
+      }
+    ]
+  },
+  "executionParameters": {
+    "maxWinSourceMaskTests": 100000,
+    "drawMaxOperations": 15000,
+    "drawMaxMs": 60,
+    "dualDenominators": [
+      1,
+      2,
+      3,
+      4,
+      6,
+      8,
+      12
+    ],
+    "pairMaxOperations": 15000,
+    "pairMaxMs": 60,
+    "pairMaxStaticStates": 5000,
+    "oddPairMaxOperations": 120000,
+    "oddPairMaxMs": 800,
+    "oddPairMaxStaticStates": 30000
+  },
+  "researchImplication": "All locally frozen source theorem families currently return INCOMPLETE on canonical 44444. No perfect-play scalar WDL, no full L2 optimal action set, and no one source-certified best action is established by the zero-strategic-branch method. This is NOT a proof that no source-invariant algorithm exists; it identifies the missing multi-response adaptive strategic control closure.",
+  "provenance": "Executed directly from frozen exact original-q-core and V2 source Git blobs using source-only isolated V8 at canonical first-win-stopped history; no independent recursive value reference consulted.",
+  "limits": "No maintained Node26 CI/external proof assistant; qualified IsoGraph authority unchanged, no solver merge."
+}
