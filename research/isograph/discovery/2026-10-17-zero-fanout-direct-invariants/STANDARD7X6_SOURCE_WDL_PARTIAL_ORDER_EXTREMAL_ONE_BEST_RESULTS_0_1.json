@@ -1,0 +1,909 @@
+{
+  "schema": "connect4.true7x6.source_only_full_WDL_weak_order_extremal_best_action_v0_1",
+  "date": "2026-10-17",
+  "board": {
+    "W": 7,
+    "H": 6,
+    "K": 4,
+    "originalKLines": 69
+  },
+  "seedStart": 385912881,
+  "nonwinningPhysicalHistoriesSampled": 1300,
+  "realNonterminalPhysicalPositionSeen": 49628,
+  "nontrivialLegalActionPositionsAnalyzed": 0,
+  "physicalPositionsSkippedByRank": 43598,
+  "physicalSourceUniquePositions": 6030,
+  "sourceTransportOriginalActionWeakOrderEdges": 2047,
+  "sourceFullTransportPermutationProofCandidates": 57670,
+  "sourceStaticTransportOperations": 2256736,
+  "sourceBestMoveExtremaProduced": 48,
+  "sourceNoExtremumFound": 5982,
+  "sourcePositivesWith2OrMoreLegalActions": 48,
+  "sourcePositivesWithNoRootWDLComputedBySource": 48,
+  "sourceComparedLegalActionsTotal": 110,
+  "independentFullPhysicalRootWDLChecks": 48,
+  "independentFullPhysicalChosenMoveWDLChecks": 48,
+  "independentFullPhysicalAllCurrentActionWDLChecks": 110,
+  "independentPhysicalRecursions": 674,
+  "independentPhysicalUniqueStates": 305,
+  "sourceBestMoveFalseProofs": 0,
+  "inferredScalarRootFromSource": false,
+  "unqualifiedTerminalGreedyHypothesisUsed": false,
+  "sourceIndependentlyValuedCompetingGameFutures": 0,
+  "positiveHistoricalExamples": [
+    {
+      "history": "11534153511234371636254554422642677327",
+      "ply": 38,
+      "mover": 0,
+      "originalLegalColumns": [
+        6,
+        7
+      ],
+      "selectedOriginalLiteralBest": 6,
+      "soundSourceWeakOrderEdges": 2,
+      "sourceBestVsEveryOtherActionPaths": [
+        {
+          "fromOriginalLiteral": 6,
+          "toOriginalLiteral": 6,
+          "sourceCertifiedInequalityPath": [
+            6
+          ]
+        },
+        {
+          "fromOriginalLiteral": 7,
+          "toOriginalLiteral": 6,
+          "sourceCertifiedInequalityPath": [
+            7,
+            6
+          ]
+        }
+      ],
+      "sourceDoesNotKnowScalarRootWDL": true
+    },
+    {
+      "history": "1153415351123437163625455442264267732767",
+      "ply": 40,
+      "mover": 0,
+      "originalLegalColumns": [
+        6,
+        7
+      ],
+      "selectedOriginalLiteralBest": 6,
+      "soundSourceWeakOrderEdges": 2,
+      "sourceBestVsEveryOtherActionPaths": [
+        {
+          "fromOriginalLiteral": 6,
+          "toOriginalLiteral": 6,
+          "sourceCertifiedInequalityPath": [
+            6
+          ]
+        },
+        {
+          "fromOriginalLiteral": 7,
+          "toOriginalLiteral": 6,
+          "sourceCertifiedInequalityPath": [
+            7,
+            6
+          ]
+        }
+      ],
+      "sourceDoesNotKnowScalarRootWDL": true
+    },
+    {
+      "history": "3456577612677311414363677135162522432524",
+      "ply": 40,
+      "mover": 0,
+      "originalLegalColumns": [
+        4,
+        5
+      ],
+      "selectedOriginalLiteralBest": 5,
+      "soundSourceWeakOrderEdges": 1,
+      "sourceBestVsEveryOtherActionPaths": [
+        {
+          "fromOriginalLiteral": 4,
+          "toOriginalLiteral": 5,
+          "sourceCertifiedInequalityPath": [
+            4,
+            5
+          ]
+        },
+        {
+          "fromOriginalLiteral": 5,
+          "toOriginalLiteral": 5,
+          "sourceCertifiedInequalityPath": [
+            5
+          ]
+        }
+      ],
+      "sourceDoesNotKnowScalarRootWDL": true
+    },
+    {
+      "history": "475234143513367623351115664414672762",
+      "ply": 36,
+      "mover": 0,
+      "originalLegalColumns": [
+        2,
+        5,
+        7
+      ],
+      "selectedOriginalLiteralBest": 5,
+      "soundSourceWeakOrderEdges": 4,
+      "sourceBestVsEveryOtherActionPaths": [
+        {
+          "fromOriginalLiteral": 2,
+          "toOriginalLiteral": 5,
+          "sourceCertifiedInequalityPath": [
+            2,
+            5
+          ]
+        },
+        {
+          "fromOriginalLiteral": 5,
+          "toOriginalLiteral": 5,
+          "sourceCertifiedInequalityPath": [
+            5
+          ]
+        },
+        {
+          "fromOriginalLiteral": 7,
+          "toOriginalLiteral": 5,
+          "sourceCertifiedInequalityPath": [
+            7,
+            5
+          ]
+        }
+      ],
+      "sourceDoesNotKnowScalarRootWDL": true
+    },
+    {
+      "history": "47523414351336762335111566441467276277",
+      "ply": 38,
+      "mover": 0,
+      "originalLegalColumns": [
+        2,
+        5
+      ],
+      "selectedOriginalLiteralBest": 5,
+      "soundSourceWeakOrderEdges": 1,
+      "sourceBestVsEveryOtherActionPaths": [
+        {
+          "fromOriginalLiteral": 2,
+          "toOriginalLiteral": 5,
+          "sourceCertifiedInequalityPath": [
+            2,
+            5
+          ]
+        },
+        {
+          "fromOriginalLiteral": 5,
+          "toOriginalLiteral": 5,
+          "sourceCertifiedInequalityPath": [
+            5
+          ]
+        }
+      ],
+      "sourceDoesNotKnowScalarRootWDL": true
+    },
+    {
+      "history": "4557367365316316335557216442177117226424",
+      "ply": 40,
+      "mover": 0,
+      "originalLegalColumns": [
+        2,
+        4
+      ],
+      "selectedOriginalLiteralBest": 4,
+      "soundSourceWeakOrderEdges": 1,
+      "sourceBestVsEveryOtherActionPaths": [
+        {
+          "fromOriginalLiteral": 2,
+          "toOriginalLiteral": 4,
+          "sourceCertifiedInequalityPath": [
+            2,
+            4
+          ]
+        },
+        {
+          "fromOriginalLiteral": 4,
+          "toOriginalLiteral": 4,
+          "sourceCertifiedInequalityPath": [
+            4
+          ]
+        }
+      ],
+      "sourceDoesNotKnowScalarRootWDL": true
+    },
+    {
+      "history": "23455357116333315146267726144574717245",
+      "ply": 38,
+      "mover": 0,
+      "originalLegalColumns": [
+        2,
+        6
+      ],
+      "selectedOriginalLiteralBest": 2,
+      "soundSourceWeakOrderEdges": 2,
+      "sourceBestVsEveryOtherActionPaths": [
+        {
+          "fromOriginalLiteral": 2,
+          "toOriginalLiteral": 2,
+          "sourceCertifiedInequalityPath": [
+            2
+          ]
+        },
+        {
+          "fromOriginalLiteral": 6,
+          "toOriginalLiteral": 2,
+          "sourceCertifiedInequalityPath": [
+            6,
+            2
+          ]
+        }
+      ],
+      "sourceDoesNotKnowScalarRootWDL": true
+    },
+    {
+      "history": "74276421466367463473247362332271515515",
+      "ply": 38,
+      "mover": 0,
+      "originalLegalColumns": [
+        1,
+        5
+      ],
+      "selectedOriginalLiteralBest": 1,
+      "soundSourceWeakOrderEdges": 1,
+      "sourceBestVsEveryOtherActionPaths": [
+        {
+          "fromOriginalLiteral": 1,
+          "toOriginalLiteral": 1,
+          "sourceCertifiedInequalityPath": [
+            1
+          ]
+        },
+        {
+          "fromOriginalLiteral": 5,
+          "toOriginalLiteral": 1,
+          "sourceCertifiedInequalityPath": [
+            5,
+            1
+          ]
+        }
+      ],
+      "sourceDoesNotKnowScalarRootWDL": true
+    },
+    {
+      "history": "4532243251332754664715422174677331756651",
+      "ply": 40,
+      "mover": 0,
+      "originalLegalColumns": [
+        1,
+        6
+      ],
+      "selectedOriginalLiteralBest": 1,
+      "soundSourceWeakOrderEdges": 1,
+      "sourceBestVsEveryOtherActionPaths": [
+        {
+          "fromOriginalLiteral": 1,
+          "toOriginalLiteral": 1,
+          "sourceCertifiedInequalityPath": [
+            1
+          ]
+        },
+        {
+          "fromOriginalLiteral": 6,
+          "toOriginalLiteral": 1,
+          "sourceCertifiedInequalityPath": [
+            6,
+            1
+          ]
+        }
+      ],
+      "sourceDoesNotKnowScalarRootWDL": true
+    },
+    {
+      "history": "7662455571163417223565174722434462633351",
+      "ply": 40,
+      "mover": 0,
+      "originalLegalColumns": [
+        1,
+        7
+      ],
+      "selectedOriginalLiteralBest": 1,
+      "soundSourceWeakOrderEdges": 2,
+      "sourceBestVsEveryOtherActionPaths": [
+        {
+          "fromOriginalLiteral": 1,
+          "toOriginalLiteral": 1,
+          "sourceCertifiedInequalityPath": [
+            1
+          ]
+        },
+        {
+          "fromOriginalLiteral": 7,
+          "toOriginalLiteral": 1,
+          "sourceCertifiedInequalityPath": [
+            7,
+            1
+          ]
+        }
+      ],
+      "sourceDoesNotKnowScalarRootWDL": true
+    },
+    {
+      "history": "2262254721465563263636173475515741734173",
+      "ply": 40,
+      "mover": 0,
+      "originalLegalColumns": [
+        1,
+        4
+      ],
+      "selectedOriginalLiteralBest": 1,
+      "soundSourceWeakOrderEdges": 1,
+      "sourceBestVsEveryOtherActionPaths": [
+        {
+          "fromOriginalLiteral": 1,
+          "toOriginalLiteral": 1,
+          "sourceCertifiedInequalityPath": [
+            1
+          ]
+        },
+        {
+          "fromOriginalLiteral": 4,
+          "toOriginalLiteral": 1,
+          "sourceCertifiedInequalityPath": [
+            4,
+            1
+          ]
+        }
+      ],
+      "sourceDoesNotKnowScalarRootWDL": true
+    },
+    {
+      "history": "5622275176544623451162525641737614133437",
+      "ply": 40,
+      "mover": 0,
+      "originalLegalColumns": [
+        3,
+        7
+      ],
+      "selectedOriginalLiteralBest": 3,
+      "soundSourceWeakOrderEdges": 1,
+      "sourceBestVsEveryOtherActionPaths": [
+        {
+          "fromOriginalLiteral": 3,
+          "toOriginalLiteral": 3,
+          "sourceCertifiedInequalityPath": [
+            3
+          ]
+        },
+        {
+          "fromOriginalLiteral": 7,
+          "toOriginalLiteral": 3,
+          "sourceCertifiedInequalityPath": [
+            7,
+            3
+          ]
+        }
+      ],
+      "sourceDoesNotKnowScalarRootWDL": true
+    },
+    {
+      "history": "642675224346646461237324213137117551575",
+      "ply": 39,
+      "mover": 1,
+      "originalLegalColumns": [
+        3,
+        5,
+        7
+      ],
+      "selectedOriginalLiteralBest": 5,
+      "soundSourceWeakOrderEdges": 4,
+      "sourceBestVsEveryOtherActionPaths": [
+        {
+          "fromOriginalLiteral": 5,
+          "toOriginalLiteral": 3,
+          "sourceCertifiedInequalityPath": [
+            5,
+            3
+          ]
+        },
+        {
+          "fromOriginalLiteral": 5,
+          "toOriginalLiteral": 5,
+          "sourceCertifiedInequalityPath": [
+            5
+          ]
+        },
+        {
+          "fromOriginalLiteral": 5,
+          "toOriginalLiteral": 7,
+          "sourceCertifiedInequalityPath": [
+            5,
+            7
+          ]
+        }
+      ],
+      "sourceDoesNotKnowScalarRootWDL": true
+    },
+    {
+      "history": "6733217412151733325734545646711475422266",
+      "ply": 40,
+      "mover": 0,
+      "originalLegalColumns": [
+        5,
+        6
+      ],
+      "selectedOriginalLiteralBest": 5,
+      "soundSourceWeakOrderEdges": 1,
+      "sourceBestVsEveryOtherActionPaths": [
+        {
+          "fromOriginalLiteral": 5,
+          "toOriginalLiteral": 5,
+          "sourceCertifiedInequalityPath": [
+            5
+          ]
+        },
+        {
+          "fromOriginalLiteral": 6,
+          "toOriginalLiteral": 5,
+          "sourceCertifiedInequalityPath": [
+            6,
+            5
+          ]
+        }
+      ],
+      "sourceDoesNotKnowScalarRootWDL": true
+    },
+    {
+      "history": "547322254423646662427317665541115533771",
+      "ply": 39,
+      "mover": 1,
+      "originalLegalColumns": [
+        1,
+        3,
+        7
+      ],
+      "selectedOriginalLiteralBest": 1,
+      "soundSourceWeakOrderEdges": 6,
+      "sourceBestVsEveryOtherActionPaths": [
+        {
+          "fromOriginalLiteral": 1,
+          "toOriginalLiteral": 1,
+          "sourceCertifiedInequalityPath": [
+            1
+          ]
+        },
+        {
+          "fromOriginalLiteral": 1,
+          "toOriginalLiteral": 3,
+          "sourceCertifiedInequalityPath": [
+            1,
+            3
+          ]
+        },
+        {
+          "fromOriginalLiteral": 1,
+          "toOriginalLiteral": 7,
+          "sourceCertifiedInequalityPath": [
+            1,
+            7
+          ]
+        }
+      ],
+      "sourceDoesNotKnowScalarRootWDL": true
+    },
+    {
+      "history": "5473222544236466624273176655411155337713",
+      "ply": 40,
+      "mover": 0,
+      "originalLegalColumns": [
+        1,
+        7
+      ],
+      "selectedOriginalLiteralBest": 1,
+      "soundSourceWeakOrderEdges": 2,
+      "sourceBestVsEveryOtherActionPaths": [
+        {
+          "fromOriginalLiteral": 1,
+          "toOriginalLiteral": 1,
+          "sourceCertifiedInequalityPath": [
+            1
+          ]
+        },
+        {
+          "fromOriginalLiteral": 7,
+          "toOriginalLiteral": 1,
+          "sourceCertifiedInequalityPath": [
+            7,
+            1
+          ]
+        }
+      ],
+      "sourceDoesNotKnowScalarRootWDL": true
+    },
+    {
+      "history": "364443363722347746755473517222652511611",
+      "ply": 39,
+      "mover": 1,
+      "originalLegalColumns": [
+        1,
+        5,
+        6
+      ],
+      "selectedOriginalLiteralBest": 5,
+      "soundSourceWeakOrderEdges": 4,
+      "sourceBestVsEveryOtherActionPaths": [
+        {
+          "fromOriginalLiteral": 5,
+          "toOriginalLiteral": 1,
+          "sourceCertifiedInequalityPath": [
+            5,
+            1
+          ]
+        },
+        {
+          "fromOriginalLiteral": 5,
+          "toOriginalLiteral": 5,
+          "sourceCertifiedInequalityPath": [
+            5
+          ]
+        },
+        {
+          "fromOriginalLiteral": 5,
+          "toOriginalLiteral": 6,
+          "sourceCertifiedInequalityPath": [
+            5,
+            6
+          ]
+        }
+      ],
+      "sourceDoesNotKnowScalarRootWDL": true
+    },
+    {
+      "history": "3644433637223477467554735172226525116115",
+      "ply": 40,
+      "mover": 0,
+      "originalLegalColumns": [
+        1,
+        6
+      ],
+      "selectedOriginalLiteralBest": 6,
+      "soundSourceWeakOrderEdges": 1,
+      "sourceBestVsEveryOtherActionPaths": [
+        {
+          "fromOriginalLiteral": 1,
+          "toOriginalLiteral": 6,
+          "sourceCertifiedInequalityPath": [
+            1,
+            6
+          ]
+        },
+        {
+          "fromOriginalLiteral": 6,
+          "toOriginalLiteral": 6,
+          "sourceCertifiedInequalityPath": [
+            6
+          ]
+        }
+      ],
+      "sourceDoesNotKnowScalarRootWDL": true
+    },
+    {
+      "history": "46316546731126714275213623652214445557",
+      "ply": 38,
+      "mover": 0,
+      "originalLegalColumns": [
+        3,
+        7
+      ],
+      "selectedOriginalLiteralBest": 3,
+      "soundSourceWeakOrderEdges": 1,
+      "sourceBestVsEveryOtherActionPaths": [
+        {
+          "fromOriginalLiteral": 3,
+          "toOriginalLiteral": 3,
+          "sourceCertifiedInequalityPath": [
+            3
+          ]
+        },
+        {
+          "fromOriginalLiteral": 7,
+          "toOriginalLiteral": 3,
+          "sourceCertifiedInequalityPath": [
+            7,
+            3
+          ]
+        }
+      ],
+      "sourceDoesNotKnowScalarRootWDL": true
+    },
+    {
+      "history": "3566516424673661434345732275317524172271",
+      "ply": 40,
+      "mover": 0,
+      "originalLegalColumns": [
+        1,
+        5
+      ],
+      "selectedOriginalLiteralBest": 5,
+      "soundSourceWeakOrderEdges": 1,
+      "sourceBestVsEveryOtherActionPaths": [
+        {
+          "fromOriginalLiteral": 1,
+          "toOriginalLiteral": 5,
+          "sourceCertifiedInequalityPath": [
+            1,
+            5
+          ]
+        },
+        {
+          "fromOriginalLiteral": 5,
+          "toOriginalLiteral": 5,
+          "sourceCertifiedInequalityPath": [
+            5
+          ]
+        }
+      ],
+      "sourceDoesNotKnowScalarRootWDL": true
+    },
+    {
+      "history": "331523136515377222627755744157324166446",
+      "ply": 39,
+      "mover": 1,
+      "originalLegalColumns": [
+        1,
+        4,
+        6
+      ],
+      "selectedOriginalLiteralBest": 4,
+      "soundSourceWeakOrderEdges": 4,
+      "sourceBestVsEveryOtherActionPaths": [
+        {
+          "fromOriginalLiteral": 4,
+          "toOriginalLiteral": 1,
+          "sourceCertifiedInequalityPath": [
+            4,
+            1
+          ]
+        },
+        {
+          "fromOriginalLiteral": 4,
+          "toOriginalLiteral": 4,
+          "sourceCertifiedInequalityPath": [
+            4
+          ]
+        },
+        {
+          "fromOriginalLiteral": 4,
+          "toOriginalLiteral": 6,
+          "sourceCertifiedInequalityPath": [
+            4,
+            6
+          ]
+        }
+      ],
+      "sourceDoesNotKnowScalarRootWDL": true
+    },
+    {
+      "history": "3315231365153772226277557441573241664464",
+      "ply": 40,
+      "mover": 0,
+      "originalLegalColumns": [
+        1,
+        6
+      ],
+      "selectedOriginalLiteralBest": 1,
+      "soundSourceWeakOrderEdges": 2,
+      "sourceBestVsEveryOtherActionPaths": [
+        {
+          "fromOriginalLiteral": 1,
+          "toOriginalLiteral": 1,
+          "sourceCertifiedInequalityPath": [
+            1
+          ]
+        },
+        {
+          "fromOriginalLiteral": 6,
+          "toOriginalLiteral": 1,
+          "sourceCertifiedInequalityPath": [
+            6,
+            1
+          ]
+        }
+      ],
+      "sourceDoesNotKnowScalarRootWDL": true
+    },
+    {
+      "history": "4325236157776624745676371361541115425232",
+      "ply": 40,
+      "mover": 0,
+      "originalLegalColumns": [
+        3,
+        4
+      ],
+      "selectedOriginalLiteralBest": 4,
+      "soundSourceWeakOrderEdges": 1,
+      "sourceBestVsEveryOtherActionPaths": [
+        {
+          "fromOriginalLiteral": 3,
+          "toOriginalLiteral": 4,
+          "sourceCertifiedInequalityPath": [
+            3,
+            4
+          ]
+        },
+        {
+          "fromOriginalLiteral": 4,
+          "toOriginalLiteral": 4,
+          "sourceCertifiedInequalityPath": [
+            4
+          ]
+        }
+      ],
+      "sourceDoesNotKnowScalarRootWDL": true
+    },
+    {
+      "history": "5267746674125235247765763233334642511411",
+      "ply": 40,
+      "mover": 0,
+      "originalLegalColumns": [
+        1,
+        5
+      ],
+      "selectedOriginalLiteralBest": 1,
+      "soundSourceWeakOrderEdges": 2,
+      "sourceBestVsEveryOtherActionPaths": [
+        {
+          "fromOriginalLiteral": 1,
+          "toOriginalLiteral": 1,
+          "sourceCertifiedInequalityPath": [
+            1
+          ]
+        },
+        {
+          "fromOriginalLiteral": 5,
+          "toOriginalLiteral": 1,
+          "sourceCertifiedInequalityPath": [
+            5,
+            1
+          ]
+        }
+      ],
+      "sourceDoesNotKnowScalarRootWDL": true
+    },
+    {
+      "history": "316767447124744675415315612621563235322",
+      "ply": 39,
+      "mover": 1,
+      "originalLegalColumns": [
+        3,
+        5,
+        7
+      ],
+      "selectedOriginalLiteralBest": 3,
+      "soundSourceWeakOrderEdges": 6,
+      "sourceBestVsEveryOtherActionPaths": [
+        {
+          "fromOriginalLiteral": 3,
+          "toOriginalLiteral": 3,
+          "sourceCertifiedInequalityPath": [
+            3
+          ]
+        },
+        {
+          "fromOriginalLiteral": 3,
+          "toOriginalLiteral": 5,
+          "sourceCertifiedInequalityPath": [
+            3,
+            5
+          ]
+        },
+        {
+          "fromOriginalLiteral": 3,
+          "toOriginalLiteral": 7,
+          "sourceCertifiedInequalityPath": [
+            3,
+            7
+          ]
+        }
+      ],
+      "sourceDoesNotKnowScalarRootWDL": true
+    }
+  ],
+  "canonical44444SourceResult": {
+    "status": "INCOMPLETE",
+    "reason": "NO_SOURCE_PROVED_ROOT_CURRENT_MOVER_GLOBAL_WDL_EXTREMAL_ORBIT",
+    "weakOrderEdges": 0,
+    "sourceStaticWDLGameQueries": 0
+  },
+  "byPly": {
+    "0": {
+      "sources": 1,
+      "positive": 0,
+      "relativeEdges": 0
+    },
+    "1": {
+      "sources": 1,
+      "positive": 0,
+      "relativeEdges": 0
+    },
+    "5": {
+      "sources": 1,
+      "positive": 0,
+      "relativeEdges": 0
+    },
+    "6": {
+      "sources": 2,
+      "positive": 0,
+      "relativeEdges": 0
+    },
+    "7": {
+      "sources": 1,
+      "positive": 0,
+      "relativeEdges": 0
+    },
+    "33": {
+      "sources": 1237,
+      "positive": 0,
+      "relativeEdges": 488
+    },
+    "34": {
+      "sources": 1183,
+      "positive": 0,
+      "relativeEdges": 468
+    },
+    "35": {
+      "sources": 1109,
+      "positive": 0,
+      "relativeEdges": 402
+    },
+    "36": {
+      "sources": 973,
+      "positive": 3,
+      "relativeEdges": 267
+    },
+    "37": {
+      "sources": 747,
+      "positive": 1,
+      "relativeEdges": 224
+    },
+    "38": {
+      "sources": 496,
+      "positive": 10,
+      "relativeEdges": 108
+    },
+    "39": {
+      "sources": 209,
+      "positive": 7,
+      "relativeEdges": 54
+    },
+    "40": {
+      "sources": 70,
+      "positive": 27,
+      "relativeEdges": 36
+    }
+  },
+  "seedFinal": 3400050588,
+  "status": "PASS_ORIGINAL7X6_SOURCE_QUALITATIVE_WDL_PARTIAL_ORDER_EXTREMAL_48_LEVEL2_VALID_MOVES_NO_ROOT_WDL_COMPUTED",
+  "governingProof": "docs/research/2026-10-17-source-WDL-extremal-one-best-action-no-scalar-value.md",
+  "newSource": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-source-WDL-order-extremal-one-best.mjs",
+  "newSourceExactGitBlob": "2bbcbd09f95eed902a3c1f887212f78396f8828f",
+  "originalFullFutureValueOrderTransport": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/either-mover-future-transport.mjs",
+  "transportExactGitBlob": "963014775aeee5d9fea9c2dd191302d44e04bcc0",
+  "originalIndependentPhysicalMinimaxControl": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-source-order-extremal-independent-physical-control.mjs",
+  "controlGitBlob": "616b2610e116e37d2d2b5c77db22b897cd2168c8",
+  "exactQBuilderGitBlob": "6b25d0e2560fe4131d2f5442593e9ed9763c1a18",
+  "elapsedIsolatedV8Ms": 1320,
+  "qualifications": [
+    "Qualitative source order certificate uses exact original future WDL order edges J(a)<=J(b) from frozen full-future transported cofactor residual simulation and transitive closure. No root V or any action J was computed in source.",
+    "On P0 turn a source-action reachable from all other literal labels is certified at least as good as all; on P1 turn an action that reaches all others is certified best. This theorem is exact independently of unknown scalar WDL.",
+    "48 physical source positions from 1300 nonuniform actual standard7x6 first-win-stopped nonwinning histories passed source order-extremal gate; 48 independently physical recursive WDL root and selected action checks, 110 total independently evaluated legal actions, ZERO source move mismatches.",
+    "Existing source either-mover transporter constructs STATIC cofactor residual descriptions and enumerates bounded COLUMN PERMUTATION proof witnesses. It is not a closed-time no-combinatorial-search arithmetic formula; SOURCE does not evaluate any strategically inequivalent future GAME VALUES but proof search workload must be disclosed.",
+    "Source output is ONE guaranteed Level2 move, not complete best action labels nor scalar root WDL. This is qualitative current original-q membership certificate, separate from earlier win/draw/loss root source proofs.",
+    "Canonical 44444 current source direct order proof found ZERO certifiable pair inequalities within 140000 structural operations and returned INCOMPLETE. Its unrestricted perfect WDL remains UNKNOWN.",
+    "Scope nonuniform genuine 7x6 mostly late position q, not an arbitrary source coverage percentage; v2 marginal coverage comparison pending.",
+    "Retain unqualified cross-domain Greedy Move Lemma terminal-column gravity adaptation in separate hypothesis; no proof that its 10 physical-positive samples imply universal optimality.",
+    "Maintained Node26 CI and independent external proof assistant not executed, IsoGraph 1.2 qualified game-theory unchanged."
+  ]
+}
