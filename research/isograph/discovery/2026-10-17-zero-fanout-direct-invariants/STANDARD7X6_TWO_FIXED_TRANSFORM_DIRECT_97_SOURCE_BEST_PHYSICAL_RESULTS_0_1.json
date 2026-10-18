@@ -1,0 +1,819 @@
+{
+  "schema": "connect4.true7x6.direct_q_two_column_swap_WDL_order_v0_1",
+  "date": "2026-10-17",
+  "originalGeometry": {
+    "W": 7,
+    "H": 6,
+    "K": 4,
+    "originalWinningLines": 69
+  },
+  "startingSeed": 386509254,
+  "firstWinStoppedPhysicalTrajectories": 2400,
+  "actualUniqueSourceQVisited": 79548,
+  "sourceQExaminedForDirectSwap": 13318,
+  "originalLegalActionPairsExamined": 51839,
+  "originalEqualHeightLegalPairs": 12827,
+  "originalUnequalHeightExcludedPairs": 39012,
+  "directRawP0AndP1SubsetTests": 132679,
+  "directPositiveWdlWeakOrderEdges": 4234,
+  "directBidirectionalValueTiesCertified": 783,
+  "sourceEntireRootBestMoveCertified": 86,
+  "sourceBestMoveWithUnknownScalarRoot": 86,
+  "sourceBestMoveWithAtLeast2LegalActions": 86,
+  "sourceNoExtremum": 13232,
+  "originalCurrentActionLabelsExamined": 42189,
+  "directSourceFixedSwapBitOperations": 53175,
+  "staticColumnPermutationAssignmentNodes": 0,
+  "completedColumnPermutationCandidatesEnumerated": 0,
+  "sourceGameAlternativeValuesCalculated": 0,
+  "independentPhysicalWeakWdlEdgesChecked": 967,
+  "independentPhysicalRootBestLabelsChecked": 85,
+  "independentPhysicalAllLegalActionValueChecks": 8076,
+  "independentPhysicalWdlRecursiveCalls": 42079,
+  "independentPhysicalWdlUniqueStates": 16574,
+  "falseWeakWdlEdges": 0,
+  "falseSelectedBestActions": 0,
+  "rootSourcePositiveByPly": {
+    "34": {
+      "count": 1
+    },
+    "36": {
+      "count": 6
+    },
+    "38": {
+      "count": 21
+    },
+    "39": {
+      "count": 17
+    },
+    "40": {
+      "count": 41
+    }
+  },
+  "examples": [
+    {
+      "history": "475234143513367623351115664414672762",
+      "ply": 36,
+      "currentMover": 0,
+      "h": [
+        6,
+        4,
+        6,
+        6,
+        4,
+        6,
+        4
+      ],
+      "originalLegalColumns": [
+        2,
+        5,
+        7
+      ],
+      "directFixedSwapBestMove": 5,
+      "exactSourceWeakWdlEdges": [
+        [
+          2,
+          5
+        ],
+        [
+          2,
+          7
+        ],
+        [
+          5,
+          7
+        ],
+        [
+          7,
+          5
+        ]
+      ],
+      "numericalOutcomeNotSourceComputed": true
+    },
+    {
+      "history": "1213176724226742642663565335533155777414",
+      "ply": 40,
+      "currentMover": 0,
+      "h": [
+        5,
+        6,
+        6,
+        5,
+        6,
+        6,
+        6
+      ],
+      "originalLegalColumns": [
+        1,
+        4
+      ],
+      "directFixedSwapBestMove": 4,
+      "exactSourceWeakWdlEdges": [
+        [
+          1,
+          4
+        ]
+      ],
+      "numericalOutcomeNotSourceComputed": true
+    },
+    {
+      "history": "2522756267664253555717166344347734113311",
+      "ply": 40,
+      "currentMover": 0,
+      "h": [
+        6,
+        5,
+        6,
+        5,
+        6,
+        6,
+        6
+      ],
+      "originalLegalColumns": [
+        2,
+        4
+      ],
+      "directFixedSwapBestMove": 2,
+      "exactSourceWeakWdlEdges": [
+        [
+          2,
+          4
+        ],
+        [
+          4,
+          2
+        ]
+      ],
+      "numericalOutcomeNotSourceComputed": true
+    },
+    {
+      "history": "3555615173325321677363466745277611142442",
+      "ply": 40,
+      "currentMover": 0,
+      "h": [
+        6,
+        5,
+        6,
+        5,
+        6,
+        6,
+        6
+      ],
+      "originalLegalColumns": [
+        2,
+        4
+      ],
+      "directFixedSwapBestMove": 2,
+      "exactSourceWeakWdlEdges": [
+        [
+          2,
+          4
+        ],
+        [
+          4,
+          2
+        ]
+      ],
+      "numericalOutcomeNotSourceComputed": true
+    },
+    {
+      "history": "27256437676622226116535543713434571314",
+      "ply": 38,
+      "currentMover": 0,
+      "h": [
+        5,
+        6,
+        6,
+        5,
+        5,
+        6,
+        5
+      ],
+      "originalLegalColumns": [
+        1,
+        4,
+        5,
+        7
+      ],
+      "directFixedSwapBestMove": 4,
+      "exactSourceWeakWdlEdges": [
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          1,
+          7
+        ],
+        [
+          7,
+          1
+        ],
+        [
+          5,
+          4
+        ],
+        [
+          7,
+          4
+        ],
+        [
+          5,
+          7
+        ],
+        [
+          7,
+          5
+        ]
+      ],
+      "numericalOutcomeNotSourceComputed": true
+    },
+    {
+      "history": "2725643767662222611653554371343457131417",
+      "ply": 40,
+      "currentMover": 0,
+      "h": [
+        6,
+        6,
+        6,
+        5,
+        5,
+        6,
+        6
+      ],
+      "originalLegalColumns": [
+        4,
+        5
+      ],
+      "directFixedSwapBestMove": 4,
+      "exactSourceWeakWdlEdges": [
+        [
+          5,
+          4
+        ]
+      ],
+      "numericalOutcomeNotSourceComputed": true
+    },
+    {
+      "history": "3347227165647426743723721236511156635545",
+      "ply": 40,
+      "currentMover": 0,
+      "h": [
+        5,
+        6,
+        6,
+        5,
+        6,
+        6,
+        6
+      ],
+      "originalLegalColumns": [
+        1,
+        4
+      ],
+      "directFixedSwapBestMove": 1,
+      "exactSourceWeakWdlEdges": [
+        [
+          1,
+          4
+        ],
+        [
+          4,
+          1
+        ]
+      ],
+      "numericalOutcomeNotSourceComputed": true
+    },
+    {
+      "history": "6325375152456631641347457756621744172123",
+      "ply": 40,
+      "currentMover": 0,
+      "h": [
+        6,
+        5,
+        5,
+        6,
+        6,
+        6,
+        6
+      ],
+      "originalLegalColumns": [
+        2,
+        3
+      ],
+      "directFixedSwapBestMove": 2,
+      "exactSourceWeakWdlEdges": [
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          2
+        ]
+      ],
+      "numericalOutcomeNotSourceComputed": true
+    },
+    {
+      "history": "2274346622337217555754573266136643111514",
+      "ply": 40,
+      "currentMover": 0,
+      "h": [
+        6,
+        6,
+        6,
+        5,
+        6,
+        6,
+        5
+      ],
+      "originalLegalColumns": [
+        4,
+        7
+      ],
+      "directFixedSwapBestMove": 4,
+      "exactSourceWeakWdlEdges": [
+        [
+          4,
+          7
+        ],
+        [
+          7,
+          4
+        ]
+      ],
+      "numericalOutcomeNotSourceComputed": true
+    },
+    {
+      "history": "53462164674414332372115715652754132756",
+      "ply": 38,
+      "currentMover": 0,
+      "h": [
+        6,
+        5,
+        5,
+        6,
+        6,
+        5,
+        5
+      ],
+      "originalLegalColumns": [
+        2,
+        3,
+        6,
+        7
+      ],
+      "directFixedSwapBestMove": 2,
+      "exactSourceWeakWdlEdges": [
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          2,
+          7
+        ],
+        [
+          7,
+          2
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          3,
+          7
+        ],
+        [
+          7,
+          3
+        ],
+        [
+          6,
+          7
+        ]
+      ],
+      "numericalOutcomeNotSourceComputed": true
+    },
+    {
+      "history": "5346216467441433237211571565275413275626",
+      "ply": 40,
+      "currentMover": 0,
+      "h": [
+        6,
+        6,
+        5,
+        6,
+        6,
+        6,
+        5
+      ],
+      "originalLegalColumns": [
+        3,
+        7
+      ],
+      "directFixedSwapBestMove": 3,
+      "exactSourceWeakWdlEdges": [
+        [
+          3,
+          7
+        ],
+        [
+          7,
+          3
+        ]
+      ],
+      "numericalOutcomeNotSourceComputed": true
+    },
+    {
+      "history": "36135114322411415266345242274376377555",
+      "ply": 38,
+      "currentMover": 0,
+      "h": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        4,
+        4
+      ],
+      "originalLegalColumns": [
+        6,
+        7
+      ],
+      "directFixedSwapBestMove": 6,
+      "exactSourceWeakWdlEdges": [
+        [
+          7,
+          6
+        ]
+      ],
+      "numericalOutcomeNotSourceComputed": true
+    },
+    {
+      "history": "3613511432241141526634524227437637755576",
+      "ply": 40,
+      "currentMover": 0,
+      "h": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        5,
+        5
+      ],
+      "originalLegalColumns": [
+        6,
+        7
+      ],
+      "directFixedSwapBestMove": 6,
+      "exactSourceWeakWdlEdges": [
+        [
+          7,
+          6
+        ]
+      ],
+      "numericalOutcomeNotSourceComputed": true
+    },
+    {
+      "history": "231444412542631367473511777752125566632",
+      "ply": 39,
+      "currentMover": 1,
+      "h": [
+        6,
+        6,
+        5,
+        6,
+        5,
+        5,
+        6
+      ],
+      "originalLegalColumns": [
+        3,
+        5,
+        6
+      ],
+      "directFixedSwapBestMove": 3,
+      "exactSourceWeakWdlEdges": [
+        [
+          3,
+          5
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          6,
+          5
+        ]
+      ],
+      "numericalOutcomeNotSourceComputed": true
+    },
+    {
+      "history": "2314444125426313674735117777521255666323",
+      "ply": 40,
+      "currentMover": 0,
+      "h": [
+        6,
+        6,
+        6,
+        6,
+        5,
+        5,
+        6
+      ],
+      "originalLegalColumns": [
+        5,
+        6
+      ],
+      "directFixedSwapBestMove": 5,
+      "exactSourceWeakWdlEdges": [
+        [
+          5,
+          6
+        ],
+        [
+          6,
+          5
+        ]
+      ],
+      "numericalOutcomeNotSourceComputed": true
+    },
+    {
+      "history": "2424325446313743221413631266767755657551",
+      "ply": 40,
+      "currentMover": 0,
+      "h": [
+        5,
+        6,
+        6,
+        6,
+        6,
+        6,
+        5
+      ],
+      "originalLegalColumns": [
+        1,
+        7
+      ],
+      "directFixedSwapBestMove": 1,
+      "exactSourceWeakWdlEdges": [
+        [
+          1,
+          7
+        ],
+        [
+          7,
+          1
+        ]
+      ],
+      "numericalOutcomeNotSourceComputed": true
+    },
+    {
+      "history": "24516226667664171134521757221555334434",
+      "ply": 38,
+      "currentMover": 0,
+      "h": [
+        6,
+        6,
+        4,
+        6,
+        6,
+        6,
+        4
+      ],
+      "originalLegalColumns": [
+        3,
+        7
+      ],
+      "directFixedSwapBestMove": 7,
+      "exactSourceWeakWdlEdges": [
+        [
+          3,
+          7
+        ]
+      ],
+      "numericalOutcomeNotSourceComputed": true
+    },
+    {
+      "history": "24576724251232276541664465631153543373",
+      "ply": 38,
+      "currentMover": 0,
+      "h": [
+        4,
+        6,
+        6,
+        6,
+        6,
+        6,
+        4
+      ],
+      "originalLegalColumns": [
+        1,
+        7
+      ],
+      "directFixedSwapBestMove": 1,
+      "exactSourceWeakWdlEdges": [
+        [
+          1,
+          7
+        ],
+        [
+          7,
+          1
+        ]
+      ],
+      "numericalOutcomeNotSourceComputed": true
+    }
+  ],
+  "firstUnsoundWeakSourceOrderEdge": null,
+  "firstIncorrectRootBestMove": null,
+  "originalCanonical44444Source": {
+    "history": "44444",
+    "ply": 5,
+    "status": "INCOMPLETE",
+    "sourceReason": "NO_GLOBAL_CURRENT_MOVER_EXTREMUM_FROM_EXPLICIT_FIXED_TRANSPOSE_EDGES",
+    "legalOriginalLiteralColumns": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "directWeakOrderEdges": [],
+    "selected": null,
+    "sourceIndependentFutureWdlValueQueries": 0,
+    "sourcePermutationMappingCandidateCount": 0
+  },
+  "sourceStaticBudgetIncomplete": 0,
+  "status": "PASS_SCOPED_TRUE7X6_TWO_PREDETERMINED_TRANSFORM_SOURCE_BEST_ACTIONS_ZERO_PERMUTATION_SEARCH",
+  "endingSeed": 953403156,
+  "combinedTwoFixedTransforms": {
+    "schema": "connect4.true7x6.two_fixed_transforms_union_source_action_WDL_v0_1",
+    "directOnly": 86,
+    "mirrorOnly": 21,
+    "combinedSuccess": 97,
+    "neitherAloneButCombinedSuccess": 0,
+    "combinedWithEitherAloneSuccess": 97,
+    "combinedOriginalSourceWeakEdges": 4284,
+    "independentCombinedPhysicalWDLRootChecks": 94,
+    "independentCombinedPhysicalWeakEdgesChecked": 985,
+    "wrongPhysicalCombinedBest": 0,
+    "wrongPhysicalCombinedEdge": 0,
+    "sourceFixedStaticCompletedPermutationCandidates": 0,
+    "sourceReflectionAutomorphismCount": 41,
+    "canonical44444": {
+      "direct": "INCOMPLETE",
+      "reflection": "INCOMPLETE",
+      "combined": "INCOMPLETE",
+      "equivalenceClasses": [
+        [
+          1,
+          7
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          4
+        ]
+      ],
+      "selected": null
+    },
+    "firstMixedProofWitness": null,
+    "examples": [
+      {
+        "history": "475234143513367623351115664414672762",
+        "ply": 36,
+        "chosen": 5,
+        "directAlone": true,
+        "mirrorAlone": false
+      },
+      {
+        "history": "1213176724226742642663565335533155777414",
+        "ply": 40,
+        "chosen": 4,
+        "directAlone": true,
+        "mirrorAlone": false
+      },
+      {
+        "history": "2522756267664253555717166344347734113311",
+        "ply": 40,
+        "chosen": 2,
+        "directAlone": true,
+        "mirrorAlone": false
+      },
+      {
+        "history": "3555615173325321677363466745277611142442",
+        "ply": 40,
+        "chosen": 2,
+        "directAlone": true,
+        "mirrorAlone": false
+      },
+      {
+        "history": "27256437676622226116535543713434571314",
+        "ply": 38,
+        "chosen": 4,
+        "directAlone": true,
+        "mirrorAlone": false
+      },
+      {
+        "history": "2725643767662222611653554371343457131417",
+        "ply": 40,
+        "chosen": 4,
+        "directAlone": true,
+        "mirrorAlone": false
+      },
+      {
+        "history": "3347227165647426743723721236511156635545",
+        "ply": 40,
+        "chosen": 1,
+        "directAlone": true,
+        "mirrorAlone": false
+      },
+      {
+        "history": "6325375152456631641347457756621744172123",
+        "ply": 40,
+        "chosen": 2,
+        "directAlone": true,
+        "mirrorAlone": false
+      },
+      {
+        "history": "2274346622337217555754573266136643111514",
+        "ply": 40,
+        "chosen": 4,
+        "directAlone": true,
+        "mirrorAlone": false
+      },
+      {
+        "history": "53462164674414332372115715652754132756",
+        "ply": 38,
+        "chosen": 2,
+        "directAlone": true,
+        "mirrorAlone": false
+      },
+      {
+        "history": "5346216467441433237211571565275413275626",
+        "ply": 40,
+        "chosen": 3,
+        "directAlone": true,
+        "mirrorAlone": false
+      },
+      {
+        "history": "36135114322411415266345242274376377555",
+        "ply": 38,
+        "chosen": 6,
+        "directAlone": true,
+        "mirrorAlone": false
+      }
+    ]
+  },
+  "governingTheorem": "docs/research/2026-10-17-fixed-transposition-plus-reflection-source-WDL-closure.md",
+  "executableSource": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-source-two-fixed-transform-WDL-extremum.mjs",
+  "executableSourceGitBlob": "954c2739211272da10a258d1adcc5daab6b71319",
+  "frozenIndependentPhysicalControl": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-two-fixed-transform-independent-physical-control.mjs",
+  "frozenIndependentControlGitBlob": "da5602f1ad19fd3067ccc990b1ed99c0a15c6792",
+  "frozenSourceSwapGitBlob": "7beb2ca37b1e8a4cf0885c91f6c3678261b18329",
+  "frozenSourceReflectionGitBlob": "d932f40180d0170fd5a1747471227e5a37287e0c",
+  "originalExactQConversionGitBlob": "6b25d0e2560fe4131d2f5442593e9ed9763c1a18",
+  "executionIsolatedV8Ms": 2180,
+  "limits": [
+    "97 positive best actions over SAME original7x6 nonuniform 2400 first-win-stopped physical game histories; 86 fixed-swap and 21 mirror with overlap; no mixed-only success in this sample.",
+    "Independent actual physical recursive minimax checked 985 source action order edges and 94 positive root best selected first actions; 0 mismatches; 3 others outside physical check budget.",
+    "Source checks current original h,R0,R1 raw-generator descriptions via one fixed 2-column swap and one fixed full horizontal reflection, ZERO enumerated candidate whole-column permutations and ZERO strategic game-value alternatives.",
+    "Canonical 44444 exact source symmetry classes remain {1,7},{2,6},{3,5},{4}, with no ranking between classes and no source-known root perfect-play WDL or best move.",
+    "Same-corpus comparison against complete V4 source not yet executed; 11 mirror-only are NOT yet known as new Level2 coverage over V4.",
+    "Independent physical minimax deliberately branching falsifier only; maintained Node26 CI or external proof assistant not run; no IsoGraph authority promotion."
+  ]
+}
