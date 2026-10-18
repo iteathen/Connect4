@@ -1,3 +1,48 @@
+latest_owner_unified_information_levels_20261017:
+  status: GOVERNING_LATEST_OWNER_OUTPUT_POLICY_THREE_INDEPENDENT_AXES
+  canonical_research_owner: research/semantic-quotient
+  governing_spec: docs/research/2026-10-17-owner-unified-three-level-information-definition.md
+  override_scope: "Information-level names and action-selection policy only; qualified IsoGraph 1.2 original game rules remain unchanged"
+  governing_information_levels:
+    L1: "OUTCOME: guaranteed ordinary perfect-play WDL or reachable outcome SET under unknown opponent quality; no unsupported prediction"
+    L2: "BEST: ALL legal literal first actions reaching the best attainable outcome tier WIN > DRAW > LOSS for evaluated player AND declared opponent model; NO duration ranking"
+    L3: "PERFECT: time-optimal subset of L2, fastest win, draw-time tie, longest inevitable loss, with explicit robust/optimistic time semantics"
+  symmetric_player_objective: true
+  current_player_can_be: [P0, P1]
+  opponent_models:
+    PERFECT:
+      meaning: "Outcome guaranteed under adversarial perfect-play quantification"
+      level2_equivalence_to_existing_exact_q_core_bestMoves: true
+      p0_proven_win: "all legal P0 actions preserving forced +1 first-win result"
+      p1_proven_forced_loss_to_p0: "all original legal P1 replies best at WDL tier; longest forced loss for Level3"
+      fastest_win: "shortest guaranteed first-win with adversary maximizing delay"
+      losing_move_timing: "longest guaranteed delay to first defeat under WDL-first play"
+    QUALITY_UNKNOWN:
+      meaning: "Optimistic possible terminal FIRST-win/draw/loss outcomes; opponent may make errors but no probability model is supplied"
+      outcome_accessibility: "Omega_p(q,a) is all attainable first terminal result labels after original literal action a, with existential future legal words"
+      level2_tier: "highest of possible WIN, possible DRAW, unavoidable LOSS; return ALL ties"
+      level3_timing: "shortest possible win / draw fixed WH-n / longest possible loss, conditional on feasible opponent error path; not a guarantee"
+      potential_win_not_guaranteed: true
+      unknown_skill_probability: UNAVAILABLE_NO_INFERENCE
+      p0_forced_winner_preservation: "Every P0 forced-win action remains robust to inferior opposition, though extra possible-win actions can enter optimistic Level2"
+  full_board_draw_duration_theorem: "Every legal drawing continuation after q with occupied n lasts exactly W*H-n placements; Level3 draw duration adds zero discrimination"
+  symbolic_parameters: [W, H, K]
+  primary_test_game: "real standard 7 columns, 6 rows, K=4"
+  exact_root_priority: "derive full PERFECT-opposition L1 scalar and COMPLETE mover-relative L2 actions directly from ONE source q, without separately valuing inequivalent strategic future branches"
+  L2_win_only_P0_mask_history: "B0(q)={a:J_a=+1} is the complete P0 WIN-TIER only; not whole Level2 when P0 cannot win"
+  prior_owner_docs_scope:
+    earliest_WDL_optimal_remoteness_reference: docs/research/2026-10-17-three-level-wdl-optimal-set-remoteness-information-hierarchy.md
+    P0_forced_win_special_case: docs/research/2026-10-17-owner-level2-any-p0-winning-continuation-and-level3-perfect-fastest-win.md
+    two_model_scenarios: docs/research/2026-10-17-owner-two-opponent-models-three-level-move-taxonomy.md
+  frozen_reference_evidence:
+    perfect_remoteness: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/STANDARD7X6_THREE_LEVEL_WDL_MSTAR_REMOTENESS_RESULTS_0_1.json
+    owner_P0_win_only_tier: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/STANDARD7X6_OWNER_L2_P0_WIN_ONLY_MASK_REDEFINITION_RESULTS_0_1.json
+    unknown_opponent_accessibility: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/STANDARD7X6_UNKNOWN_OPPONENT_OUTCOME_POSSIBILITY_RESULTS_0_1.json
+  canonical_44444_exact_L1_L2: UNKNOWN
+  general_zero_strategic_fanout_perfect_L2: OPEN
+  general_zero_strategic_fanout_unknown_quality_opportunity_L2: OPEN
+  general_L3_branching_necessity: UNPROVEN_HYPOTHESIS
+
 latest_owner_extended_opponent_quality_move_levels_20261017:
   status: LATEST_OWNER_OUTPUT_POLICY_PRECEDENCE_OVER_OLDER_THREE_LEVEL_NOMENCLATURE
   canonical_research_owner: research/semantic-quotient
