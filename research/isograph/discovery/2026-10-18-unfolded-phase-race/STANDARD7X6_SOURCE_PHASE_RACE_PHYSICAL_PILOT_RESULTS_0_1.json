@@ -1,0 +1,85 @@
+{
+  "schema": "connect4.standard7x6.unfolded_geometry_phase_race_physical_pilot_v0_1",
+  "date": "2026-10-18",
+  "status": "INTERNAL_REFERENCE_GROUNDED_FIXED_WORD_SOURCE_PAYOFF_IDENTITY_WITH_GUARDED_RACE_FREE_SOURCE; NOT_A_STRATEGIC_SOLVER",
+  "scope": "true physical 7x6 K4; first-win-stopped prefix, hypothetical COMPLETE future interleaving may extend post first-win ONLY inside physical validator",
+  "proof": "docs/research/2026-10-18-owner-refocus-unfolded-geometry-turn-sequence-elimination-and-race-factor.md",
+  "exactMath": "PAYOFF=F0(chi)-F1(chi)+F0(chi)*F1(chi)*rho; rho=+1 iff earliest P0-completed original winning requirement precedes earliest P1 completion, -1 otherwise, needed only if both F0=F1=1",
+  "sourceGuard": "research/isograph/discovery/2026-10-18-unfolded-phase-race/original-q-race-support.mjs",
+  "independentPhysicalChecker": "research/isograph/discovery/2026-10-18-unfolded-phase-race/original7x6-physical-phase-race-falsifier.mjs",
+  "independentPhysicalCheckerGitBlob": "5f644ad989f86f350960424a2953db6caacafc53",
+  "witnessReproducer": "research/isograph/discovery/2026-10-18-unfolded-phase-race/canonical44444-same-phase-different-winner-reproducer.mjs",
+  "originalPhysicalWindows": 69,
+  "testRuntime": "Node v22.16.0 container, NOT maintained Node26 CI and NOT external proof-assistant",
+  "seed": 20261018,
+  "rng": "xorshift32 state XOR left13, XOR right17, XOR left5; initial 20261018; each uniform candidate index selected by unsigned modulo",
+  "corpus": {
+    "canonicalPrefix": "44444",
+    "canonicalHypotheticalFullWordsRandomlySampled": 901,
+    "nonwinningHistoryGamesGenerated": 400,
+    "generation": "From blank original physical board, at each ply choose a uniformly indexed gravity-legal column that does not immediately complete mover K4, until no such move remains.",
+    "sampledNonterminalRoots": 1745,
+    "sampleRule": "for each generated history, after a safe move at rank >=24 when t%5==0 or t>=37, check one random complete legal column-multiset shuffle; sample root observations NOT deduplicated",
+    "otherWitnessSearch": "320-at-most randomly shuffled canonical words, for each swap two events at same-parity relative ranks with no intervening occurrence of either selected column, preserve literal event phase and compare first winner. Stops on first difference.",
+    "sampledCompleteHypotheticalWordsVerified": 2884
+  },
+  "observed": {
+    "canonicalOriginalSourceR0": 48,
+    "canonicalOriginalSourceR1": 42,
+    "canonicalCrossOwnerGeneratorPairs": 2016,
+    "canonicalDisjointCrossOwnerGeneratorPairs": 1450,
+    "sampledOriginalRootObservations": 1745,
+    "sourceRaceFreeRootObservations": 265,
+    "raceFreeBothPlayersHaveNonemptyOriginalR": 86,
+    "fixedHypotheticalWordsTested": 2884,
+    "counterfactualBothPlayersEventuallyCompleteAtLeastOneOriginalRequirement": 2037,
+    "amongThoseP0First": 1106,
+    "amongThoseP1First": 931,
+    "phaseRacePayoffVersusDirectOriginalPhysicalFirstWinErrors": 0,
+    "sourceGuardRaceExclusionViolations": 0
+  },
+  "canonicalSameOwnershipDifferentFirstWinner": {
+    "originalPrefix": "44444",
+    "firstFullHypotheticalSuffix": "2121525536737532617137561336654727261",
+    "secondFullHypotheticalSuffix": "2121525536737532317167561336654727261",
+    "oneBasedRelativeExchangedRanks": [
+      17,
+      21
+    ],
+    "exchangedLiteralColumns": [
+      6,
+      3
+    ],
+    "all37FutureOriginalPhysicalEventOwnerBitsIdentical": true,
+    "firstEarliestRelativeP0P1Completions": [
+      20,
+      17
+    ],
+    "secondEarliestRelativeP0P1Completions": [
+      20,
+      21
+    ],
+    "originalPhysicalFirstWinnerP0Relative": [
+      -1,
+      1
+    ],
+    "originalAbsoluteFirstTerminalMoves": [
+      22,
+      25
+    ],
+    "firstWinnerIsADifferentPlayer": true,
+    "reproductionStatus": "PASS on frozen original7x6 physical checker; exact committed self-checking source"
+  },
+  "caveats": [
+    "The full future words are counterfactual extensions after any earlier first win. They are NOT legal fully played post-win games or opponent strategies.",
+    "Source static race-free sufficiency only removes chronological competition after event owner bits are supplied. It does not remove adversarial dependence on deciding those bits.",
+    "Source original root WDL, best literal Level2 action for canonical 44444, and total no-strategic-branch formula remain UNKNOWN/INCOMPLETE.",
+    "Sample q are late-game biased and repeated; no general coverage percentage.",
+    "Evidence is controlled internal reference checking; no independent external validator/Node26 CI run.",
+    "The pilot's exact sampling driver was executed locally; exact source/checker and witness reproducer are frozen in GitHub, while the numerical pilot's RNG/reproduction recipe is preserved here."
+  ],
+  "sourceValuedStrategicallyInequivalentFutureGameWDL": 0,
+  "sourceComputedRootOrActionWDLFromSampledWords": false,
+  "qualifiedIsoGraph1_2Unaffected": true,
+  "mainOrSolverMergeAuthorized": false
+}
