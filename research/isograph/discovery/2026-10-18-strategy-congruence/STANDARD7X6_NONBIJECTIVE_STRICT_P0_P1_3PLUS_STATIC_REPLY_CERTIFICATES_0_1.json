@@ -1,0 +1,1862 @@
+{
+  "schema": "connect4.original7x6.nonbijective_source_static_p0_p1_3plus_strict_physical_witnesses_v0_1",
+  "date": "2026-10-18",
+  "authoritativeTheorem": "docs/research/2026-10-18-nonbijective-one-round-reply-simulation-strategy-order.md",
+  "source": "research/isograph/discovery/2026-10-18-strategy-congruence/standard7x6-source-nonbijective-reply-WDL-order.mjs",
+  "sourceGitBlob": "dcc94c845b5c5f3910a179296ded4ccb84934ad1",
+  "builder": "Reconstruct original true W7 H6 K4 69-line R0/R1 antichains from each FIRST-WIN-STOPPED history, then directly evaluate SOURCE E(r,s) coverage only. No physical minimax oracle calls in this artifact.",
+  "sourceStaticWitnessQ": [
+    {
+      "history": "2532541156412471331416356736376672",
+      "originalRank": 34,
+      "originalMover": "P0",
+      "selectedBestOriginalColumn": 5,
+      "legal": [
+        2,
+        4,
+        5,
+        7
+      ],
+      "originalSourceQ": {
+        "h": [
+          6,
+          4,
+          6,
+          4,
+          4,
+          6,
+          4
+        ],
+        "R0": [
+          "0xa0000000",
+          "0x180000000",
+          "0x5000000000",
+          "0x8080000000"
+        ],
+        "R1": [
+          "0x100000000",
+          "0x4080000000",
+          "0x2c000000000"
+        ]
+      },
+      "sourceProofEdges": [
+        {
+          "a": 2,
+          "b": 4,
+          "orientation": "FOR_EVERY_RIGHT_REPLY_EXISTS_LEFT_REPLY",
+          "replyWitnesses": [
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 2,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 4,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 7,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            }
+          ]
+        },
+        {
+          "a": 2,
+          "b": 5,
+          "orientation": "FOR_EVERY_RIGHT_REPLY_EXISTS_LEFT_REPLY",
+          "replyWitnesses": [
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 2,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 4,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 7,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            }
+          ]
+        },
+        {
+          "a": 2,
+          "b": 7,
+          "orientation": "FOR_EVERY_RIGHT_REPLY_EXISTS_LEFT_REPLY",
+          "replyWitnesses": [
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 2,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 4,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 7,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            }
+          ]
+        },
+        {
+          "a": 4,
+          "b": 2,
+          "orientation": "FOR_EVERY_RIGHT_REPLY_EXISTS_LEFT_REPLY",
+          "replyWitnesses": [
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 2,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 4,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 7,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            }
+          ]
+        },
+        {
+          "a": 4,
+          "b": 5,
+          "orientation": "FOR_EVERY_RIGHT_REPLY_EXISTS_LEFT_REPLY",
+          "replyWitnesses": [
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 2,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 4,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 7,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            }
+          ]
+        },
+        {
+          "a": 4,
+          "b": 7,
+          "orientation": "FOR_EVERY_RIGHT_REPLY_EXISTS_LEFT_REPLY",
+          "replyWitnesses": [
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 2,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 4,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 7,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            }
+          ]
+        },
+        {
+          "a": 7,
+          "b": 2,
+          "orientation": "FOR_EVERY_RIGHT_REPLY_EXISTS_LEFT_REPLY",
+          "replyWitnesses": [
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 2,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 4,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 7,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            }
+          ]
+        },
+        {
+          "a": 7,
+          "b": 4,
+          "orientation": "FOR_EVERY_RIGHT_REPLY_EXISTS_LEFT_REPLY",
+          "replyWitnesses": [
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 2,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 4,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 7,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            }
+          ]
+        },
+        {
+          "a": 7,
+          "b": 5,
+          "orientation": "FOR_EVERY_RIGHT_REPLY_EXISTS_LEFT_REPLY",
+          "replyWitnesses": [
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 2,
+              "kind": "SOURCE_FULL_FUTURE_SAME_SUPPORT_RESIDUAL_WDL_MONOTONE",
+              "mapKind": "FIXED_ROOT_FIRST_ACTION_POST_TWO_SWAP",
+              "mapColumns": [
+                1,
+                2,
+                3,
+                4,
+                7,
+                6,
+                5
+              ],
+              "staticSubsetMasksChecked": 9
+            },
+            {
+              "leftOriginalOpponentReply": 4,
+              "rightOriginalOpponentReply": 4,
+              "kind": "SOURCE_FULL_FUTURE_SAME_SUPPORT_RESIDUAL_WDL_MONOTONE",
+              "mapKind": "FIXED_ROOT_FIRST_ACTION_POST_TWO_SWAP",
+              "mapColumns": [
+                1,
+                2,
+                3,
+                4,
+                7,
+                6,
+                5
+              ],
+              "staticSubsetMasksChecked": 5
+            },
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 7,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            }
+          ]
+        }
+      ],
+      "sourceOperationCounts": {
+        "sourceOriginalRootPly": 34,
+        "sourceOriginalCurrentMover": 0,
+        "currentLegalLiteralFirstActions": 4,
+        "sourceRootOrderedActionPairs": 12,
+        "sourceOpponentReplyOriginalLabelPairRelationChecks": 117,
+        "sourceTerminalSafeReplyPairEdges": 34,
+        "sourceStaticHeightHistogramMismatchPairs": 31,
+        "sourceDeterministicStableHeightPostTwoMaps": 19,
+        "sourceDeterministicFixedFullReflectionMaps": 0,
+        "sourceDeterministicFixedTwoColumnSwapMaps": 21,
+        "sourceOriginalGeneratorSubsetChecks": 166,
+        "sourceOriginalGeneratorMasksTransformed": 78,
+        "sourceOriginalReplyCoverageRoots": 9,
+        "sourcePositiveActionWdlEdges": 9,
+        "sourceZeroFutureWdlValues": 0,
+        "sourceZeroFutureGameQObjects": 0,
+        "sourceZeroOpponentPolicyTrees": 0,
+        "sourceZeroStaticMapCandidatePermutationSearch": true,
+        "sourceBudgetIncomplete": false
+      },
+      "sourceConsequence": "Proves one current action BEST in unrestricted perfect-play WDL without computing ordinary root/child scalar WDL, NOT strictness or complete tied best labels.",
+      "scalarWDLAbsentByConstruction": true,
+      "allFutureStrategicQWDLQueries": 0
+    },
+    {
+      "history": "227265274113625631757767341443443",
+      "originalRank": 33,
+      "originalMover": "P1",
+      "selectedBestOriginalColumn": 5,
+      "legal": [
+        1,
+        2,
+        3,
+        5,
+        6
+      ],
+      "originalSourceQ": {
+        "h": [
+          4,
+          5,
+          5,
+          6,
+          3,
+          4,
+          6
+        ],
+        "R0": [
+          "0x2000000",
+          "0x300000000",
+          "0x10100000000"
+        ],
+        "R1": [
+          "0x800000000",
+          "0x202000000",
+          "0x18000000000",
+          "0x8102000000",
+          "0xb000000000"
+        ]
+      },
+      "sourceProofEdges": [
+        {
+          "a": 1,
+          "b": 2,
+          "orientation": "FOR_EVERY_LEFT_REPLY_EXISTS_RIGHT_REPLY",
+          "replyWitnesses": [
+            {
+              "leftOriginalOpponentReply": 1,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 3,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 6,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            }
+          ]
+        },
+        {
+          "a": 1,
+          "b": 3,
+          "orientation": "FOR_EVERY_LEFT_REPLY_EXISTS_RIGHT_REPLY",
+          "replyWitnesses": [
+            {
+              "leftOriginalOpponentReply": 1,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 3,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 6,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            }
+          ]
+        },
+        {
+          "a": 1,
+          "b": 6,
+          "orientation": "FOR_EVERY_LEFT_REPLY_EXISTS_RIGHT_REPLY",
+          "replyWitnesses": [
+            {
+              "leftOriginalOpponentReply": 1,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 3,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 6,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            }
+          ]
+        },
+        {
+          "a": 2,
+          "b": 1,
+          "orientation": "FOR_EVERY_LEFT_REPLY_EXISTS_RIGHT_REPLY",
+          "replyWitnesses": [
+            {
+              "leftOriginalOpponentReply": 1,
+              "rightOriginalOpponentReply": 1,
+              "kind": "SOURCE_FULL_FUTURE_SAME_SUPPORT_RESIDUAL_WDL_MONOTONE",
+              "mapKind": "FIXED_ROOT_FIRST_ACTION_POST_TWO_SWAP",
+              "mapColumns": [
+                2,
+                1,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "staticSubsetMasksChecked": 16
+            },
+            {
+              "leftOriginalOpponentReply": 3,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 6,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            }
+          ]
+        },
+        {
+          "a": 2,
+          "b": 3,
+          "orientation": "FOR_EVERY_LEFT_REPLY_EXISTS_RIGHT_REPLY",
+          "replyWitnesses": [
+            {
+              "leftOriginalOpponentReply": 1,
+              "rightOriginalOpponentReply": 1,
+              "kind": "SOURCE_FULL_FUTURE_SAME_SUPPORT_RESIDUAL_WDL_MONOTONE",
+              "mapKind": "FIXED_ROOT_FIRST_ACTION_POST_TWO_SWAP",
+              "mapColumns": [
+                1,
+                3,
+                2,
+                4,
+                5,
+                6,
+                7
+              ],
+              "staticSubsetMasksChecked": 21
+            },
+            {
+              "leftOriginalOpponentReply": 3,
+              "rightOriginalOpponentReply": 2,
+              "kind": "SOURCE_FULL_FUTURE_SAME_SUPPORT_RESIDUAL_WDL_MONOTONE",
+              "mapKind": "FIXED_ROOT_FIRST_ACTION_POST_TWO_SWAP",
+              "mapColumns": [
+                1,
+                3,
+                2,
+                4,
+                5,
+                6,
+                7
+              ],
+              "staticSubsetMasksChecked": 16
+            },
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 6,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            }
+          ]
+        },
+        {
+          "a": 2,
+          "b": 6,
+          "orientation": "FOR_EVERY_LEFT_REPLY_EXISTS_RIGHT_REPLY",
+          "replyWitnesses": [
+            {
+              "leftOriginalOpponentReply": 1,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 3,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 6,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            }
+          ]
+        },
+        {
+          "a": 3,
+          "b": 1,
+          "orientation": "FOR_EVERY_LEFT_REPLY_EXISTS_RIGHT_REPLY",
+          "replyWitnesses": [
+            {
+              "leftOriginalOpponentReply": 1,
+              "rightOriginalOpponentReply": 1,
+              "kind": "SOURCE_FULL_FUTURE_SAME_SUPPORT_RESIDUAL_WDL_MONOTONE",
+              "mapKind": "FIXED_ROOT_FIRST_ACTION_POST_TWO_SWAP",
+              "mapColumns": [
+                3,
+                2,
+                1,
+                4,
+                5,
+                6,
+                7
+              ],
+              "staticSubsetMasksChecked": 16
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 6,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            }
+          ]
+        },
+        {
+          "a": 3,
+          "b": 2,
+          "orientation": "FOR_EVERY_LEFT_REPLY_EXISTS_RIGHT_REPLY",
+          "replyWitnesses": [
+            {
+              "leftOriginalOpponentReply": 1,
+              "rightOriginalOpponentReply": 1,
+              "kind": "SOURCE_FULL_FUTURE_SAME_SUPPORT_RESIDUAL_WDL_MONOTONE",
+              "mapKind": "FIXED_ROOT_FIRST_ACTION_POST_TWO_SWAP",
+              "mapColumns": [
+                1,
+                3,
+                2,
+                4,
+                5,
+                6,
+                7
+              ],
+              "staticSubsetMasksChecked": 21
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 3,
+              "kind": "SOURCE_FULL_FUTURE_SAME_SUPPORT_RESIDUAL_WDL_MONOTONE",
+              "mapKind": "FIXED_ROOT_FIRST_ACTION_POST_TWO_SWAP",
+              "mapColumns": [
+                1,
+                3,
+                2,
+                4,
+                5,
+                6,
+                7
+              ],
+              "staticSubsetMasksChecked": 16
+            },
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 6,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            }
+          ]
+        },
+        {
+          "a": 3,
+          "b": 6,
+          "orientation": "FOR_EVERY_LEFT_REPLY_EXISTS_RIGHT_REPLY",
+          "replyWitnesses": [
+            {
+              "leftOriginalOpponentReply": 1,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 6,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            }
+          ]
+        },
+        {
+          "a": 5,
+          "b": 1,
+          "orientation": "FOR_EVERY_LEFT_REPLY_EXISTS_RIGHT_REPLY",
+          "replyWitnesses": [
+            {
+              "leftOriginalOpponentReply": 1,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 3,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 6,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            }
+          ]
+        },
+        {
+          "a": 5,
+          "b": 2,
+          "orientation": "FOR_EVERY_LEFT_REPLY_EXISTS_RIGHT_REPLY",
+          "replyWitnesses": [
+            {
+              "leftOriginalOpponentReply": 1,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 3,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 6,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            }
+          ]
+        },
+        {
+          "a": 5,
+          "b": 3,
+          "orientation": "FOR_EVERY_LEFT_REPLY_EXISTS_RIGHT_REPLY",
+          "replyWitnesses": [
+            {
+              "leftOriginalOpponentReply": 1,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 3,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 6,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            }
+          ]
+        },
+        {
+          "a": 5,
+          "b": 6,
+          "orientation": "FOR_EVERY_LEFT_REPLY_EXISTS_RIGHT_REPLY",
+          "replyWitnesses": [
+            {
+              "leftOriginalOpponentReply": 1,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 3,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 6,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            }
+          ]
+        },
+        {
+          "a": 6,
+          "b": 1,
+          "orientation": "FOR_EVERY_LEFT_REPLY_EXISTS_RIGHT_REPLY",
+          "replyWitnesses": [
+            {
+              "leftOriginalOpponentReply": 1,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 3,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 6,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            }
+          ]
+        },
+        {
+          "a": 6,
+          "b": 2,
+          "orientation": "FOR_EVERY_LEFT_REPLY_EXISTS_RIGHT_REPLY",
+          "replyWitnesses": [
+            {
+              "leftOriginalOpponentReply": 1,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 3,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 6,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            }
+          ]
+        },
+        {
+          "a": 6,
+          "b": 3,
+          "orientation": "FOR_EVERY_LEFT_REPLY_EXISTS_RIGHT_REPLY",
+          "replyWitnesses": [
+            {
+              "leftOriginalOpponentReply": 1,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 3,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 5,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 6,
+              "rightOriginalOpponentReply": 5,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            }
+          ]
+        }
+      ],
+      "sourceOperationCounts": {
+        "sourceOriginalRootPly": 33,
+        "sourceOriginalCurrentMover": 1,
+        "currentLegalLiteralFirstActions": 5,
+        "sourceRootOrderedActionPairs": 20,
+        "sourceOpponentReplyOriginalLabelPairRelationChecks": 266,
+        "sourceTerminalSafeReplyPairEdges": 68,
+        "sourceStaticHeightHistogramMismatchPairs": 118,
+        "sourceDeterministicStableHeightPostTwoMaps": 36,
+        "sourceDeterministicFixedFullReflectionMaps": 0,
+        "sourceDeterministicFixedTwoColumnSwapMaps": 14,
+        "sourceOriginalGeneratorSubsetChecks": 343,
+        "sourceOriginalGeneratorMasksTransformed": 160,
+        "sourceOriginalReplyCoverageRoots": 16,
+        "sourcePositiveActionWdlEdges": 16,
+        "sourceZeroFutureWdlValues": 0,
+        "sourceZeroFutureGameQObjects": 0,
+        "sourceZeroOpponentPolicyTrees": 0,
+        "sourceZeroStaticMapCandidatePermutationSearch": true,
+        "sourceBudgetIncomplete": false
+      },
+      "sourceConsequence": "Proves one current action BEST in unrestricted perfect-play WDL without computing ordinary root/child scalar WDL, NOT strictness or complete tied best labels.",
+      "scalarWDLAbsentByConstruction": true,
+      "allFutureStrategicQWDLQueries": 0
+    },
+    {
+      "history": "63373726573342663551126155527744",
+      "originalRank": 32,
+      "originalMover": "P0",
+      "selectedBestOriginalColumn": 2,
+      "legal": [
+        1,
+        2,
+        4,
+        6,
+        7
+      ],
+      "originalSourceQ": {
+        "h": [
+          3,
+          4,
+          6,
+          3,
+          6,
+          5,
+          5
+        ],
+        "R0": [
+          "0x80000000",
+          "0x5000000000",
+          "0x14000000000"
+        ],
+        "R1": [
+          "0x20000000",
+          "0x4000000000",
+          "0x810200000"
+        ]
+      },
+      "sourceProofEdges": [
+        {
+          "a": 1,
+          "b": 2,
+          "orientation": "FOR_EVERY_RIGHT_REPLY_EXISTS_LEFT_REPLY",
+          "replyWitnesses": [
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 1,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 2,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 4,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 6,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 7,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            }
+          ]
+        },
+        {
+          "a": 1,
+          "b": 4,
+          "orientation": "FOR_EVERY_RIGHT_REPLY_EXISTS_LEFT_REPLY",
+          "replyWitnesses": [
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 1,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 2,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 4,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 6,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 7,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            }
+          ]
+        },
+        {
+          "a": 1,
+          "b": 6,
+          "orientation": "FOR_EVERY_RIGHT_REPLY_EXISTS_LEFT_REPLY",
+          "replyWitnesses": [
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 1,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 2,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 4,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 7,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            }
+          ]
+        },
+        {
+          "a": 1,
+          "b": 7,
+          "orientation": "FOR_EVERY_RIGHT_REPLY_EXISTS_LEFT_REPLY",
+          "replyWitnesses": [
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 1,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 2,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 4,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 6,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            }
+          ]
+        },
+        {
+          "a": 4,
+          "b": 1,
+          "orientation": "FOR_EVERY_RIGHT_REPLY_EXISTS_LEFT_REPLY",
+          "replyWitnesses": [
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 1,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 2,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 4,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 6,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 7,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            }
+          ]
+        },
+        {
+          "a": 4,
+          "b": 2,
+          "orientation": "FOR_EVERY_RIGHT_REPLY_EXISTS_LEFT_REPLY",
+          "replyWitnesses": [
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 1,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 2,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 4,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 6,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 7,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            }
+          ]
+        },
+        {
+          "a": 4,
+          "b": 6,
+          "orientation": "FOR_EVERY_RIGHT_REPLY_EXISTS_LEFT_REPLY",
+          "replyWitnesses": [
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 1,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 2,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 4,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 7,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            }
+          ]
+        },
+        {
+          "a": 4,
+          "b": 7,
+          "orientation": "FOR_EVERY_RIGHT_REPLY_EXISTS_LEFT_REPLY",
+          "replyWitnesses": [
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 1,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 2,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 4,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 6,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            }
+          ]
+        },
+        {
+          "a": 6,
+          "b": 1,
+          "orientation": "FOR_EVERY_RIGHT_REPLY_EXISTS_LEFT_REPLY",
+          "replyWitnesses": [
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 1,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 2,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 4,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 6,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 7,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            }
+          ]
+        },
+        {
+          "a": 6,
+          "b": 2,
+          "orientation": "FOR_EVERY_RIGHT_REPLY_EXISTS_LEFT_REPLY",
+          "replyWitnesses": [
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 1,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 2,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 4,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 6,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 7,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            }
+          ]
+        },
+        {
+          "a": 6,
+          "b": 4,
+          "orientation": "FOR_EVERY_RIGHT_REPLY_EXISTS_LEFT_REPLY",
+          "replyWitnesses": [
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 1,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 2,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 4,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 6,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 7,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            }
+          ]
+        },
+        {
+          "a": 6,
+          "b": 7,
+          "orientation": "FOR_EVERY_RIGHT_REPLY_EXISTS_LEFT_REPLY",
+          "replyWitnesses": [
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 1,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 2,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 4,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 6,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            }
+          ]
+        },
+        {
+          "a": 7,
+          "b": 1,
+          "orientation": "FOR_EVERY_RIGHT_REPLY_EXISTS_LEFT_REPLY",
+          "replyWitnesses": [
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 1,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 2,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 4,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 6,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 1,
+              "rightOriginalOpponentReply": 7,
+              "kind": "SOURCE_FULL_FUTURE_SAME_SUPPORT_RESIDUAL_WDL_MONOTONE",
+              "mapKind": "STABLE_POST_TWO_HEIGHT_CLASS_MAP",
+              "mapColumns": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "staticSubsetMasksChecked": 9
+            }
+          ]
+        },
+        {
+          "a": 7,
+          "b": 2,
+          "orientation": "FOR_EVERY_RIGHT_REPLY_EXISTS_LEFT_REPLY",
+          "replyWitnesses": [
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 1,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 2,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 4,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 6,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 7,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            }
+          ]
+        },
+        {
+          "a": 7,
+          "b": 4,
+          "orientation": "FOR_EVERY_RIGHT_REPLY_EXISTS_LEFT_REPLY",
+          "replyWitnesses": [
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 1,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 2,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 4,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 6,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 7,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            }
+          ]
+        },
+        {
+          "a": 7,
+          "b": 6,
+          "orientation": "FOR_EVERY_RIGHT_REPLY_EXISTS_LEFT_REPLY",
+          "replyWitnesses": [
+            {
+              "leftOriginalOpponentReply": 1,
+              "rightOriginalOpponentReply": 1,
+              "kind": "SOURCE_FULL_FUTURE_SAME_SUPPORT_RESIDUAL_WDL_MONOTONE",
+              "mapKind": "FIXED_ROOT_FIRST_ACTION_POST_TWO_SWAP",
+              "mapColumns": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                7,
+                6
+              ],
+              "staticSubsetMasksChecked": 12
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 2,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 4,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            },
+            {
+              "leftOriginalOpponentReply": 2,
+              "rightOriginalOpponentReply": 7,
+              "kind": "SOURCE_SAFE_OPPONENT_IMMEDIATE_FIRST_WIN_BOUND",
+              "mapKind": null,
+              "staticSubsetMasksChecked": 0
+            }
+          ]
+        }
+      ],
+      "sourceOperationCounts": {
+        "sourceOriginalRootPly": 32,
+        "sourceOriginalCurrentMover": 0,
+        "currentLegalLiteralFirstActions": 5,
+        "sourceRootOrderedActionPairs": 20,
+        "sourceOpponentReplyOriginalLabelPairRelationChecks": 166,
+        "sourceTerminalSafeReplyPairEdges": 72,
+        "sourceStaticHeightHistogramMismatchPairs": 64,
+        "sourceDeterministicStableHeightPostTwoMaps": 12,
+        "sourceDeterministicFixedFullReflectionMaps": 0,
+        "sourceDeterministicFixedTwoColumnSwapMaps": 6,
+        "sourceOriginalGeneratorSubsetChecks": 78,
+        "sourceOriginalGeneratorMasksTransformed": 37,
+        "sourceOriginalReplyCoverageRoots": 16,
+        "sourcePositiveActionWdlEdges": 16,
+        "sourceZeroFutureWdlValues": 0,
+        "sourceZeroFutureGameQObjects": 0,
+        "sourceZeroOpponentPolicyTrees": 0,
+        "sourceZeroStaticMapCandidatePermutationSearch": true,
+        "sourceBudgetIncomplete": false
+      },
+      "sourceConsequence": "Proves one current action BEST in unrestricted perfect-play WDL without computing ordinary root/child scalar WDL, NOT strictness or complete tied best labels.",
+      "scalarWDLAbsentByConstruction": true,
+      "allFutureStrategicQWDLQueries": 0
+    }
+  ],
+  "separatelyFrozenPostSourceIndependentPhysicalControl": "research/isograph/discovery/2026-10-18-strategy-congruence/STANDARD7X6_NONBIJECTIVE_3PLUS_58_ORIGINAL_PHYSICAL_AND_V4_RESULTS_0_1.json",
+  "sourceAndOracleSeparation": "These static source certificates have no numerical action WDL; the independent physical file separately proves strict DRAW/WIN differences.",
+  "externalFormalProofQualification": "NOT_RUN",
+  "maintainedNode26CI": "NOT_RUN",
+  "sourceNoStrategicFutureGameValueEvaluations": true
+}
