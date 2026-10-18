@@ -1,0 +1,1142 @@
+{
+  "schema": "connect4.standard7x6.gravity_response_cover_closed_boolean_control_v0_1",
+  "date": "2026-10-17",
+  "geometry": {
+    "W": 7,
+    "H": 6,
+    "K": 4,
+    "originalWinlines": 69
+  },
+  "seedStart": 357222355,
+  "sampledNonwinningTrajectories": 4100,
+  "realFirstWinStoppedSourceRoots": 134185,
+  "uniquePhysicalRoots": 134185,
+  "originalLegalFirstActionsSourceScanned": 765716,
+  "sourceProvenMateInAtMostThreeActionCount": 153311,
+  "sourceProvenNonImmediateActionCount": 41975,
+  "directImmediateOwnerFirstWin": 111336,
+  "ordinaryTwoColumnFork": 36718,
+  "newStackedSingleColumnRelease": 5201,
+  "allOpponentRepliesReleaseGift": 56,
+  "giftWithMultipleOpponentOptions": 5,
+  "giftWithSingleOpponentOption": 51,
+  "allSourcePositiveActionsIndependentlyValidated": 153311,
+  "allOpponentPhysicalReplyBranchesChecked": 249206,
+  "ownerWinImmediatelyNextTurnEveryBranch": 249206,
+  "sourceSetSvsPhysicalDiscrepancies": 0,
+  "sourceSetZvsPhysicalDiscrepancies": 0,
+  "falseSourceWinOrDrawOrOpponentImmediateWin": 0,
+  "independentPhysicalMinimaxReferenceCalls": 2339,
+  "independentPhysicalMinimaxReferenceStates": 1097,
+  "independentlyValuedLatePositiveActions": 80,
+  "independentMinimaxMismatch": 0,
+  "totalSourceGameValueQueries": 0,
+  "totalSourceFutureGameStates": 0,
+  "savedProofExamples": [
+    {
+      "history": "61211176647235555437321517257666233",
+      "ply": 35,
+      "proof": {
+        "kind": "SAME_COLUMN_STACKED_RELEASE",
+        "literalAction": 4,
+        "mover": 1,
+        "opponentLiteralReplyColumns": [
+          2,
+          3,
+          4,
+          7
+        ],
+        "currentPlayableOwnerWinTargetColumns": [
+          4
+        ],
+        "opponentReplyReleaseOwnerWinTargetColumns": [
+          4
+        ],
+        "sourceOriginalCurrentOwnerWitnesses": {
+          "4": [
+            "0x1020000"
+          ]
+        },
+        "sourceOriginalReleasedOwnerWitnesses": {
+          "4": [
+            "0x80000000"
+          ]
+        },
+        "allOpponentImmediateWinsSourceDenied": true,
+        "allOpponentRepliesCoveredByStaticSetBoolean": true,
+        "originalSourceFutureValueQueries": 0,
+        "proofType": "forall d in D: (S minus {d} nonempty) OR (d in Z)",
+        "replayOnlyForIndependentFalsification": true
+      }
+    },
+    {
+      "history": "6121117664723555543732151725766623372",
+      "ply": 37,
+      "proof": {
+        "kind": "SAME_COLUMN_STACKED_RELEASE",
+        "literalAction": 4,
+        "mover": 1,
+        "opponentLiteralReplyColumns": [
+          3,
+          4
+        ],
+        "currentPlayableOwnerWinTargetColumns": [
+          4
+        ],
+        "opponentReplyReleaseOwnerWinTargetColumns": [
+          4
+        ],
+        "sourceOriginalCurrentOwnerWitnesses": {
+          "4": [
+            "0x1020000"
+          ]
+        },
+        "sourceOriginalReleasedOwnerWitnesses": {
+          "4": [
+            "0x80000000"
+          ]
+        },
+        "allOpponentImmediateWinsSourceDenied": true,
+        "allOpponentRepliesCoveredByStaticSetBoolean": true,
+        "originalSourceFutureValueQueries": 0,
+        "proofType": "forall d in D: (S minus {d} nonempty) OR (d in Z)",
+        "replayOnlyForIndependentFalsification": true
+      }
+    },
+    {
+      "history": "4743347313171354545177714561",
+      "ply": 28,
+      "proof": {
+        "kind": "SAME_COLUMN_STACKED_RELEASE",
+        "literalAction": 3,
+        "mover": 0,
+        "opponentLiteralReplyColumns": [
+          2,
+          5,
+          6
+        ],
+        "currentPlayableOwnerWinTargetColumns": [
+          6
+        ],
+        "opponentReplyReleaseOwnerWinTargetColumns": [
+          2,
+          6
+        ],
+        "sourceOriginalCurrentOwnerWitnesses": {
+          "6": [
+            "0x1000"
+          ]
+        },
+        "sourceOriginalReleasedOwnerWitnesses": {
+          "2": [
+            "0x100"
+          ],
+          "6": [
+            "0x80000"
+          ]
+        },
+        "allOpponentImmediateWinsSourceDenied": true,
+        "allOpponentRepliesCoveredByStaticSetBoolean": true,
+        "originalSourceFutureValueQueries": 0,
+        "proofType": "forall d in D: (S minus {d} nonempty) OR (d in Z)",
+        "replayOnlyForIndependentFalsification": true
+      }
+    },
+    {
+      "history": "4743347313171354545177714561365522266",
+      "ply": 37,
+      "proof": {
+        "kind": "SAME_COLUMN_STACKED_RELEASE",
+        "literalAction": 6,
+        "mover": 1,
+        "opponentLiteralReplyColumns": [
+          2,
+          6
+        ],
+        "currentPlayableOwnerWinTargetColumns": [
+          2
+        ],
+        "opponentReplyReleaseOwnerWinTargetColumns": [
+          2
+        ],
+        "sourceOriginalCurrentOwnerWitnesses": {
+          "2": [
+            "0x400000"
+          ]
+        },
+        "sourceOriginalReleasedOwnerWitnesses": {
+          "2": [
+            "0x20000000"
+          ]
+        },
+        "allOpponentImmediateWinsSourceDenied": true,
+        "allOpponentRepliesCoveredByStaticSetBoolean": true,
+        "originalSourceFutureValueQueries": 0,
+        "proofType": "forall d in D: (S minus {d} nonempty) OR (d in Z)",
+        "replayOnlyForIndependentFalsification": true
+      }
+    },
+    {
+      "history": "352171747543622265632142564665133731",
+      "ply": 36,
+      "proof": {
+        "kind": "SAME_COLUMN_STACKED_RELEASE",
+        "literalAction": 5,
+        "mover": 0,
+        "opponentLiteralReplyColumns": [
+          1,
+          4,
+          7
+        ],
+        "currentPlayableOwnerWinTargetColumns": [
+          4
+        ],
+        "opponentReplyReleaseOwnerWinTargetColumns": [
+          4
+        ],
+        "sourceOriginalCurrentOwnerWitnesses": {
+          "4": [
+            "0x80000000"
+          ]
+        },
+        "sourceOriginalReleasedOwnerWitnesses": {
+          "4": [
+            "0xc000000000"
+          ]
+        },
+        "allOpponentImmediateWinsSourceDenied": true,
+        "allOpponentRepliesCoveredByStaticSetBoolean": true,
+        "originalSourceFutureValueQueries": 0,
+        "proofType": "forall d in D: (S minus {d} nonempty) OR (d in Z)",
+        "replayOnlyForIndependentFalsification": true
+      }
+    },
+    {
+      "history": "35217174754362226563214256466513373151",
+      "ply": 38,
+      "proof": {
+        "kind": "SAME_COLUMN_STACKED_RELEASE",
+        "literalAction": 7,
+        "mover": 0,
+        "opponentLiteralReplyColumns": [
+          4,
+          7
+        ],
+        "currentPlayableOwnerWinTargetColumns": [
+          4
+        ],
+        "opponentReplyReleaseOwnerWinTargetColumns": [
+          4
+        ],
+        "sourceOriginalCurrentOwnerWitnesses": {
+          "4": [
+            "0x80000000"
+          ]
+        },
+        "sourceOriginalReleasedOwnerWitnesses": {
+          "4": [
+            "0x4000000000"
+          ]
+        },
+        "allOpponentImmediateWinsSourceDenied": true,
+        "allOpponentRepliesCoveredByStaticSetBoolean": true,
+        "originalSourceFutureValueQueries": 0,
+        "proofType": "forall d in D: (S minus {d} nonempty) OR (d in Z)",
+        "replayOnlyForIndependentFalsification": true
+      }
+    },
+    {
+      "history": "52553774171124544341",
+      "ply": 20,
+      "proof": {
+        "kind": "SAME_COLUMN_STACKED_RELEASE",
+        "literalAction": 2,
+        "mover": 0,
+        "opponentLiteralReplyColumns": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "currentPlayableOwnerWinTargetColumns": [
+          3
+        ],
+        "opponentReplyReleaseOwnerWinTargetColumns": [
+          3
+        ],
+        "sourceOriginalCurrentOwnerWitnesses": {
+          "3": [
+            "0x10000"
+          ]
+        },
+        "sourceOriginalReleasedOwnerWitnesses": {
+          "3": [
+            "0x808000"
+          ]
+        },
+        "allOpponentImmediateWinsSourceDenied": true,
+        "allOpponentRepliesCoveredByStaticSetBoolean": true,
+        "originalSourceFutureValueQueries": 0,
+        "proofType": "forall d in D: (S minus {d} nonempty) OR (d in Z)",
+        "replayOnlyForIndependentFalsification": true
+      }
+    },
+    {
+      "history": "5255377417112454434115",
+      "ply": 22,
+      "proof": {
+        "kind": "SAME_COLUMN_STACKED_RELEASE",
+        "literalAction": 2,
+        "mover": 0,
+        "opponentLiteralReplyColumns": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "currentPlayableOwnerWinTargetColumns": [
+          3
+        ],
+        "opponentReplyReleaseOwnerWinTargetColumns": [
+          3
+        ],
+        "sourceOriginalCurrentOwnerWitnesses": {
+          "3": [
+            "0x10000"
+          ]
+        },
+        "sourceOriginalReleasedOwnerWitnesses": {
+          "3": [
+            "0x808000"
+          ]
+        },
+        "allOpponentImmediateWinsSourceDenied": true,
+        "allOpponentRepliesCoveredByStaticSetBoolean": true,
+        "originalSourceFutureValueQueries": 0,
+        "proofType": "forall d in D: (S minus {d} nonempty) OR (d in Z)",
+        "replayOnlyForIndependentFalsification": true
+      }
+    },
+    {
+      "history": "525537741711245443411565",
+      "ply": 24,
+      "proof": {
+        "kind": "SAME_COLUMN_STACKED_RELEASE",
+        "literalAction": 2,
+        "mover": 0,
+        "opponentLiteralReplyColumns": [
+          1,
+          2,
+          3,
+          4,
+          6,
+          7
+        ],
+        "currentPlayableOwnerWinTargetColumns": [
+          3
+        ],
+        "opponentReplyReleaseOwnerWinTargetColumns": [
+          3,
+          6
+        ],
+        "sourceOriginalCurrentOwnerWitnesses": {
+          "3": [
+            "0x10000"
+          ]
+        },
+        "sourceOriginalReleasedOwnerWitnesses": {
+          "3": [
+            "0x808000"
+          ],
+          "6": [
+            "0x80000"
+          ]
+        },
+        "allOpponentImmediateWinsSourceDenied": true,
+        "allOpponentRepliesCoveredByStaticSetBoolean": true,
+        "originalSourceFutureValueQueries": 0,
+        "proofType": "forall d in D: (S minus {d} nonempty) OR (d in Z)",
+        "replayOnlyForIndependentFalsification": true
+      }
+    },
+    {
+      "history": "41116316211747",
+      "ply": 14,
+      "proof": {
+        "kind": "SAME_COLUMN_STACKED_RELEASE",
+        "literalAction": 3,
+        "mover": 0,
+        "opponentLiteralReplyColumns": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "currentPlayableOwnerWinTargetColumns": [
+          2
+        ],
+        "opponentReplyReleaseOwnerWinTargetColumns": [
+          2
+        ],
+        "sourceOriginalCurrentOwnerWitnesses": {
+          "2": [
+            "0x300"
+          ]
+        },
+        "sourceOriginalReleasedOwnerWitnesses": {
+          "2": [
+            "0x8200"
+          ]
+        },
+        "allOpponentImmediateWinsSourceDenied": true,
+        "allOpponentRepliesCoveredByStaticSetBoolean": true,
+        "originalSourceFutureValueQueries": 0,
+        "proofType": "forall d in D: (S minus {d} nonempty) OR (d in Z)",
+        "replayOnlyForIndependentFalsification": true
+      }
+    },
+    {
+      "history": "63274452453134",
+      "ply": 14,
+      "proof": {
+        "kind": "SAME_COLUMN_STACKED_RELEASE",
+        "literalAction": 2,
+        "mover": 0,
+        "opponentLiteralReplyColumns": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "currentPlayableOwnerWinTargetColumns": [
+          5
+        ],
+        "opponentReplyReleaseOwnerWinTargetColumns": [
+          1,
+          5
+        ],
+        "sourceOriginalCurrentOwnerWitnesses": {
+          "5": [
+            "0x48000"
+          ]
+        },
+        "sourceOriginalReleasedOwnerWitnesses": {
+          "1": [
+            "0xc000"
+          ],
+          "5": [
+            "0x2000000"
+          ]
+        },
+        "allOpponentImmediateWinsSourceDenied": true,
+        "allOpponentRepliesCoveredByStaticSetBoolean": true,
+        "originalSourceFutureValueQueries": 0,
+        "proofType": "forall d in D: (S minus {d} nonempty) OR (d in Z)",
+        "replayOnlyForIndependentFalsification": true
+      }
+    },
+    {
+      "history": "632744524531341121",
+      "ply": 18,
+      "proof": {
+        "kind": "SAME_COLUMN_STACKED_RELEASE",
+        "literalAction": 1,
+        "mover": 0,
+        "opponentLiteralReplyColumns": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "currentPlayableOwnerWinTargetColumns": [
+          5
+        ],
+        "opponentReplyReleaseOwnerWinTargetColumns": [
+          5
+        ],
+        "sourceOriginalCurrentOwnerWitnesses": {
+          "5": [
+            "0x40000"
+          ]
+        },
+        "sourceOriginalReleasedOwnerWitnesses": {
+          "5": [
+            "0x2000000"
+          ]
+        },
+        "allOpponentImmediateWinsSourceDenied": true,
+        "allOpponentRepliesCoveredByStaticSetBoolean": true,
+        "originalSourceFutureValueQueries": 0,
+        "proofType": "forall d in D: (S minus {d} nonempty) OR (d in Z)",
+        "replayOnlyForIndependentFalsification": true
+      }
+    },
+    {
+      "history": "632744524531341121",
+      "ply": 18,
+      "proof": {
+        "kind": "SAME_COLUMN_STACKED_RELEASE",
+        "literalAction": 2,
+        "mover": 0,
+        "opponentLiteralReplyColumns": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "currentPlayableOwnerWinTargetColumns": [
+          5
+        ],
+        "opponentReplyReleaseOwnerWinTargetColumns": [
+          5
+        ],
+        "sourceOriginalCurrentOwnerWitnesses": {
+          "5": [
+            "0x40000"
+          ]
+        },
+        "sourceOriginalReleasedOwnerWitnesses": {
+          "5": [
+            "0x2000000"
+          ]
+        },
+        "allOpponentImmediateWinsSourceDenied": true,
+        "allOpponentRepliesCoveredByStaticSetBoolean": true,
+        "originalSourceFutureValueQueries": 0,
+        "proofType": "forall d in D: (S minus {d} nonempty) OR (d in Z)",
+        "replayOnlyForIndependentFalsification": true
+      }
+    },
+    {
+      "history": "632744524531341121",
+      "ply": 18,
+      "proof": {
+        "kind": "SAME_COLUMN_STACKED_RELEASE",
+        "literalAction": 6,
+        "mover": 0,
+        "opponentLiteralReplyColumns": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "currentPlayableOwnerWinTargetColumns": [
+          5
+        ],
+        "opponentReplyReleaseOwnerWinTargetColumns": [
+          5
+        ],
+        "sourceOriginalCurrentOwnerWitnesses": {
+          "5": [
+            "0x40000"
+          ]
+        },
+        "sourceOriginalReleasedOwnerWitnesses": {
+          "5": [
+            "0x2000000"
+          ]
+        },
+        "allOpponentImmediateWinsSourceDenied": true,
+        "allOpponentRepliesCoveredByStaticSetBoolean": true,
+        "originalSourceFutureValueQueries": 0,
+        "proofType": "forall d in D: (S minus {d} nonempty) OR (d in Z)",
+        "replayOnlyForIndependentFalsification": true
+      }
+    },
+    {
+      "history": "632744524531341121",
+      "ply": 18,
+      "proof": {
+        "kind": "SAME_COLUMN_STACKED_RELEASE",
+        "literalAction": 7,
+        "mover": 0,
+        "opponentLiteralReplyColumns": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "currentPlayableOwnerWinTargetColumns": [
+          5
+        ],
+        "opponentReplyReleaseOwnerWinTargetColumns": [
+          5
+        ],
+        "sourceOriginalCurrentOwnerWitnesses": {
+          "5": [
+            "0x40000"
+          ]
+        },
+        "sourceOriginalReleasedOwnerWitnesses": {
+          "5": [
+            "0x2000000"
+          ]
+        },
+        "allOpponentImmediateWinsSourceDenied": true,
+        "allOpponentRepliesCoveredByStaticSetBoolean": true,
+        "originalSourceFutureValueQueries": 0,
+        "proofType": "forall d in D: (S minus {d} nonempty) OR (d in Z)",
+        "replayOnlyForIndependentFalsification": true
+      }
+    },
+    {
+      "history": "4217223726166641",
+      "ply": 16,
+      "proof": {
+        "kind": "SAME_COLUMN_STACKED_RELEASE",
+        "literalAction": 5,
+        "mover": 0,
+        "opponentLiteralReplyColumns": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "currentPlayableOwnerWinTargetColumns": [
+          3
+        ],
+        "opponentReplyReleaseOwnerWinTargetColumns": [
+          3
+        ],
+        "sourceOriginalCurrentOwnerWitnesses": {
+          "3": [
+            "0x200"
+          ]
+        },
+        "sourceOriginalReleasedOwnerWitnesses": {
+          "3": [
+            "0x10010"
+          ]
+        },
+        "allOpponentImmediateWinsSourceDenied": true,
+        "allOpponentRepliesCoveredByStaticSetBoolean": true,
+        "originalSourceFutureValueQueries": 0,
+        "proofType": "forall d in D: (S minus {d} nonempty) OR (d in Z)",
+        "replayOnlyForIndependentFalsification": true
+      }
+    },
+    {
+      "history": "421722372616664122",
+      "ply": 18,
+      "proof": {
+        "kind": "SAME_COLUMN_STACKED_RELEASE",
+        "literalAction": 5,
+        "mover": 0,
+        "opponentLiteralReplyColumns": [
+          1,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "currentPlayableOwnerWinTargetColumns": [
+          3
+        ],
+        "opponentReplyReleaseOwnerWinTargetColumns": [
+          3
+        ],
+        "sourceOriginalCurrentOwnerWitnesses": {
+          "3": [
+            "0x200"
+          ]
+        },
+        "sourceOriginalReleasedOwnerWitnesses": {
+          "3": [
+            "0x10010"
+          ]
+        },
+        "allOpponentImmediateWinsSourceDenied": true,
+        "allOpponentRepliesCoveredByStaticSetBoolean": true,
+        "originalSourceFutureValueQueries": 0,
+        "proofType": "forall d in D: (S minus {d} nonempty) OR (d in Z)",
+        "replayOnlyForIndependentFalsification": true
+      }
+    },
+    {
+      "history": "42172237261666412256",
+      "ply": 20,
+      "proof": {
+        "kind": "SAME_COLUMN_STACKED_RELEASE",
+        "literalAction": 1,
+        "mover": 0,
+        "opponentLiteralReplyColumns": [
+          1,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "currentPlayableOwnerWinTargetColumns": [
+          3
+        ],
+        "opponentReplyReleaseOwnerWinTargetColumns": [
+          3
+        ],
+        "sourceOriginalCurrentOwnerWitnesses": {
+          "3": [
+            "0x200"
+          ]
+        },
+        "sourceOriginalReleasedOwnerWitnesses": {
+          "3": [
+            "0x10000"
+          ]
+        },
+        "allOpponentImmediateWinsSourceDenied": true,
+        "allOpponentRepliesCoveredByStaticSetBoolean": true,
+        "originalSourceFutureValueQueries": 0,
+        "proofType": "forall d in D: (S minus {d} nonempty) OR (d in Z)",
+        "replayOnlyForIndependentFalsification": true
+      }
+    }
+  ],
+  "seenGift": {
+    "history": "15551624162264264226443165545177173",
+    "ply": 35,
+    "proof": {
+      "kind": "ALL_OPPONENT_REPLIES_RELEASE_NEXT_WIN",
+      "literalAction": 3,
+      "mover": 1,
+      "opponentLiteralReplyColumns": [
+        3,
+        7
+      ],
+      "currentPlayableOwnerWinTargetColumns": [],
+      "opponentReplyReleaseOwnerWinTargetColumns": [
+        3,
+        7
+      ],
+      "sourceOriginalCurrentOwnerWitnesses": {},
+      "sourceOriginalReleasedOwnerWitnesses": {
+        "3": [
+          "0x40000000"
+        ],
+        "7": [
+          "0x400000000"
+        ]
+      },
+      "allOpponentImmediateWinsSourceDenied": true,
+      "allOpponentRepliesCoveredByStaticSetBoolean": true,
+      "originalSourceFutureValueQueries": 0,
+      "proofType": "forall d in D: (S minus {d} nonempty) OR (d in Z)",
+      "replayOnlyForIndependentFalsification": true
+    },
+    "opponentReplies": [
+      3,
+      7
+    ]
+  },
+  "seenNewStack": {
+    "history": "61211176647235555437321517257666233",
+    "ply": 35,
+    "proof": {
+      "kind": "SAME_COLUMN_STACKED_RELEASE",
+      "literalAction": 4,
+      "mover": 1,
+      "opponentLiteralReplyColumns": [
+        2,
+        3,
+        4,
+        7
+      ],
+      "currentPlayableOwnerWinTargetColumns": [
+        4
+      ],
+      "opponentReplyReleaseOwnerWinTargetColumns": [
+        4
+      ],
+      "sourceOriginalCurrentOwnerWitnesses": {
+        "4": [
+          "0x1020000"
+        ]
+      },
+      "sourceOriginalReleasedOwnerWitnesses": {
+        "4": [
+          "0x80000000"
+        ]
+      },
+      "allOpponentImmediateWinsSourceDenied": true,
+      "allOpponentRepliesCoveredByStaticSetBoolean": true,
+      "originalSourceFutureValueQueries": 0,
+      "proofType": "forall d in D: (S minus {d} nonempty) OR (d in Z)",
+      "replayOnlyForIndependentFalsification": true
+    }
+  },
+  "canonical": [
+    {
+      "history": "",
+      "ply": 0,
+      "status": "INCOMPLETE",
+      "validAction": null,
+      "witnessedForms": {
+        "ALL_OPPONENT_REPLIES_RELEASE_NEXT_WIN": 0,
+        "SAME_COLUMN_STACKED_RELEASE": 0,
+        "TWO_DISTINCT_CURRENT_WIN_TARGETS": 0,
+        "IMMEDIATE_OWNER_FIRST_WIN": 0
+      }
+    },
+    {
+      "history": "4",
+      "ply": 1,
+      "status": "INCOMPLETE",
+      "validAction": null,
+      "witnessedForms": {
+        "ALL_OPPONENT_REPLIES_RELEASE_NEXT_WIN": 0,
+        "SAME_COLUMN_STACKED_RELEASE": 0,
+        "TWO_DISTINCT_CURRENT_WIN_TARGETS": 0,
+        "IMMEDIATE_OWNER_FIRST_WIN": 0
+      }
+    },
+    {
+      "history": "44444",
+      "ply": 5,
+      "status": "INCOMPLETE",
+      "validAction": null,
+      "witnessedForms": {
+        "ALL_OPPONENT_REPLIES_RELEASE_NEXT_WIN": 0,
+        "SAME_COLUMN_STACKED_RELEASE": 0,
+        "TWO_DISTINCT_CURRENT_WIN_TARGETS": 0,
+        "IMMEDIATE_OWNER_FIRST_WIN": 0
+      }
+    },
+    {
+      "history": "444444",
+      "ply": 6,
+      "status": "INCOMPLETE",
+      "validAction": null,
+      "witnessedForms": {
+        "ALL_OPPONENT_REPLIES_RELEASE_NEXT_WIN": 0,
+        "SAME_COLUMN_STACKED_RELEASE": 0,
+        "TWO_DISTINCT_CURRENT_WIN_TARGETS": 0,
+        "IMMEDIATE_OWNER_FIRST_WIN": 0
+      }
+    },
+    {
+      "history": "444441",
+      "ply": 6,
+      "status": "INCOMPLETE",
+      "validAction": null,
+      "witnessedForms": {
+        "ALL_OPPONENT_REPLIES_RELEASE_NEXT_WIN": 0,
+        "SAME_COLUMN_STACKED_RELEASE": 0,
+        "TWO_DISTINCT_CURRENT_WIN_TARGETS": 0,
+        "IMMEDIATE_OWNER_FIRST_WIN": 0
+      }
+    },
+    {
+      "history": "4444442",
+      "ply": 7,
+      "status": "INCOMPLETE",
+      "validAction": null,
+      "witnessedForms": {
+        "ALL_OPPONENT_REPLIES_RELEASE_NEXT_WIN": 0,
+        "SAME_COLUMN_STACKED_RELEASE": 0,
+        "TWO_DISTINCT_CURRENT_WIN_TARGETS": 0,
+        "IMMEDIATE_OWNER_FIRST_WIN": 0
+      }
+    }
+  ],
+  "summaryByPly": {
+    "0": {
+      "sources": 1,
+      "positive": 0,
+      "gifts": 0,
+      "stacked": 0
+    },
+    "1": {
+      "sources": 7,
+      "positive": 0,
+      "gifts": 0,
+      "stacked": 0
+    },
+    "2": {
+      "sources": 49,
+      "positive": 0,
+      "gifts": 0,
+      "stacked": 0
+    },
+    "3": {
+      "sources": 238,
+      "positive": 0,
+      "gifts": 0,
+      "stacked": 0
+    },
+    "4": {
+      "sources": 1020,
+      "positive": 73,
+      "gifts": 0,
+      "stacked": 0
+    },
+    "5": {
+      "sources": 2317,
+      "positive": 48,
+      "gifts": 0,
+      "stacked": 0
+    },
+    "6": {
+      "sources": 3342,
+      "positive": 496,
+      "gifts": 0,
+      "stacked": 0
+    },
+    "7": {
+      "sources": 3816,
+      "positive": 207,
+      "gifts": 0,
+      "stacked": 0
+    },
+    "8": {
+      "sources": 3985,
+      "positive": 861,
+      "gifts": 0,
+      "stacked": 1
+    },
+    "9": {
+      "sources": 4057,
+      "positive": 473,
+      "gifts": 0,
+      "stacked": 0
+    },
+    "10": {
+      "sources": 4089,
+      "positive": 1201,
+      "gifts": 0,
+      "stacked": 40
+    },
+    "11": {
+      "sources": 4088,
+      "positive": 781,
+      "gifts": 0,
+      "stacked": 22
+    },
+    "12": {
+      "sources": 4099,
+      "positive": 1581,
+      "gifts": 0,
+      "stacked": 76
+    },
+    "13": {
+      "sources": 4100,
+      "positive": 1194,
+      "gifts": 0,
+      "stacked": 71
+    },
+    "14": {
+      "sources": 4100,
+      "positive": 1894,
+      "gifts": 0,
+      "stacked": 171
+    },
+    "15": {
+      "sources": 4100,
+      "positive": 1550,
+      "gifts": 0,
+      "stacked": 135
+    },
+    "16": {
+      "sources": 4100,
+      "positive": 2235,
+      "gifts": 0,
+      "stacked": 240
+    },
+    "17": {
+      "sources": 4100,
+      "positive": 1951,
+      "gifts": 0,
+      "stacked": 172
+    },
+    "18": {
+      "sources": 4100,
+      "positive": 2563,
+      "gifts": 0,
+      "stacked": 270
+    },
+    "19": {
+      "sources": 4100,
+      "positive": 2320,
+      "gifts": 0,
+      "stacked": 210
+    },
+    "20": {
+      "sources": 4100,
+      "positive": 2855,
+      "gifts": 0,
+      "stacked": 302
+    },
+    "21": {
+      "sources": 4100,
+      "positive": 2641,
+      "gifts": 0,
+      "stacked": 213
+    },
+    "22": {
+      "sources": 4100,
+      "positive": 3053,
+      "gifts": 0,
+      "stacked": 310
+    },
+    "23": {
+      "sources": 4100,
+      "positive": 2895,
+      "gifts": 0,
+      "stacked": 235
+    },
+    "24": {
+      "sources": 4100,
+      "positive": 3218,
+      "gifts": 0,
+      "stacked": 308
+    },
+    "25": {
+      "sources": 4100,
+      "positive": 3093,
+      "gifts": 0,
+      "stacked": 213
+    },
+    "26": {
+      "sources": 4100,
+      "positive": 3368,
+      "gifts": 0,
+      "stacked": 311
+    },
+    "27": {
+      "sources": 4097,
+      "positive": 3243,
+      "gifts": 0,
+      "stacked": 196
+    },
+    "28": {
+      "sources": 4094,
+      "positive": 3427,
+      "gifts": 0,
+      "stacked": 247
+    },
+    "29": {
+      "sources": 4090,
+      "positive": 3319,
+      "gifts": 0,
+      "stacked": 161
+    },
+    "30": {
+      "sources": 4083,
+      "positive": 3522,
+      "gifts": 0,
+      "stacked": 225
+    },
+    "31": {
+      "sources": 4051,
+      "positive": 3369,
+      "gifts": 0,
+      "stacked": 152
+    },
+    "32": {
+      "sources": 4010,
+      "positive": 3475,
+      "gifts": 1,
+      "stacked": 178
+    },
+    "33": {
+      "sources": 3918,
+      "positive": 3336,
+      "gifts": 0,
+      "stacked": 149
+    },
+    "34": {
+      "sources": 3755,
+      "positive": 3244,
+      "gifts": 1,
+      "stacked": 141
+    },
+    "35": {
+      "sources": 3470,
+      "positive": 2983,
+      "gifts": 3,
+      "stacked": 155
+    },
+    "36": {
+      "sources": 3094,
+      "positive": 2646,
+      "gifts": 6,
+      "stacked": 109
+    },
+    "37": {
+      "sources": 2502,
+      "positive": 2088,
+      "gifts": 11,
+      "stacked": 95
+    },
+    "38": {
+      "sources": 1983,
+      "positive": 1603,
+      "gifts": 7,
+      "stacked": 62
+    },
+    "39": {
+      "sources": 1391,
+      "positive": 1074,
+      "gifts": 27,
+      "stacked": 31
+    },
+    "40": {
+      "sources": 705,
+      "positive": 390,
+      "gifts": 0,
+      "stacked": 0
+    },
+    "41": {
+      "sources": 434,
+      "positive": 140,
+      "gifts": 0,
+      "stacked": 0
+    }
+  },
+  "finalSeed": 3398037306,
+  "status": "PASS_EXACT_SOURCE_ONLY_NEXT_TURN_MATE_BOOLEAN_CLOSURE_TRUE7X6_249206_INDEPENDENT_OPPONENT_REPLIES",
+  "frozenSourceMath": "docs/research/2026-10-17-source-gravity-response-cover-exact-mate-in-three.md",
+  "frozenProducer": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-source-gravity-response-cover.mjs",
+  "producerGitBlob": "a8d908d90b92fae70fa12106cae63e483a022b4a",
+  "frozenIndependentPhysicalControl": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-gravity-response-cover-physical-control.mjs",
+  "controlGitBlob": "b9e3a98601eea3cad2a5a5106ba3156a704f9e3b",
+  "qConversionSource": "research/isograph/discovery/2026-10-16-algorithmic-core/exact-q-core.mjs",
+  "qConversionGitBlob": "6b25d0e2560fe4131d2f5442593e9ed9763c1a18",
+  "executionIsolatedV8Ms": 23268,
+  "qualifier": [
+    "This is the per-CURRENT ACTION exact NECESSARY and SUFFICIENT local source S,Z,D Boolean condition for forcing player win ON THEIR NEXT TURN, under no opponent immediate win; not a characterization of all eventually winning moves or a general L2 solver.",
+    "Original 7x6 source function uses existing q=(h,R0,R1), 69 K-lines encoded by residual masks and current static source tests only. It constructs ZERO alternative future q game states and makes ZERO independent future game value evaluations.",
+    "Independent physical control checked all replies for each source-positive nonimmediate action. Source-observed reply scans are NOT used as a source producer procedure, only in independent physical falsifier.",
+    "Sample includes 4100 deterministic nonwinning first-win-stopped physical trajectories; frequencies of forms are not statistically representative of all legal 7x6 positions.",
+    "Source-positive actions include original immediate-win actions and ordinary double-forks that already existed. New evidence: 5201 stacked releases and 56 all-opponent release gifts; EXACT incremental counts over all prior source rules not yet measured.",
+    "All-reply gifts include 51 with one legal opponent reply (can overlap one-column deterministic baseline) and FIVE with >=2 distinct opponent legal replies, a genuinely different source form from one-lane columns.",
+    "80 late action values independently checked via branching full physical WDL; all 249206 opponent replies checked directly against first-win-stopped original physical play, no mismatches.",
+    "General arbitrary legal q 7x6 no-search valid Level2 continuation still OPEN; canonical 44444 and nearby height transition remain INCOMPLETE.",
+    "Standalone isolated V8 execution, not maintained Node26 CI or external independently formalized proof assistant."
+  ]
+}
