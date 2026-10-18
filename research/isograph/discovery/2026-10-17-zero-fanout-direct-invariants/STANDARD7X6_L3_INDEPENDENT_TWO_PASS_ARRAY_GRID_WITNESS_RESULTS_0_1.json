@@ -1,0 +1,223 @@
+{
+  "schema": "connect4.standard7x6.L3_independent_two_pass_array_grid_v0_1",
+  "date": "2026-10-17",
+  "board": {
+    "W": 7,
+    "H": 6,
+    "K": 4
+  },
+  "physicalHistories": 6,
+  "rootLiteralActions": 16,
+  "independentSourceWDLReferenceCalls": 233,
+  "independentSourceWDLReferenceStates": 63,
+  "independentTimeReferenceCalls": 67,
+  "independentTimeReferenceStates": 29,
+  "independentlyVerifiedExactRemotenessRoots": 6,
+  "independentlyVerifiedExactActionDistances": 16,
+  "wrongWDL": 0,
+  "wrongMstar": 0,
+  "wrongRemoteness": 0,
+  "wrongMtime": 0,
+  "wrongLiteralActionVector": 0,
+  "firstWinViolation": 0,
+  "drawTimeAssigned": 0,
+  "results": [
+    {
+      "tag": "winning mover, different forced-win times",
+      "history": "74164275144616557561416465277721225",
+      "ply": 35,
+      "ordinaryOutcome": -1,
+      "completeWDLBestMoves": [
+        2,
+        3
+      ],
+      "remoteness": 1,
+      "remotenessBestMoves": [
+        3
+      ],
+      "literalActionValuesAndDurations": [
+        [
+          2,
+          -1,
+          3
+        ],
+        [
+          3,
+          -1,
+          1
+        ]
+      ]
+    },
+    {
+      "tag": "losing mover, different forced-loss times",
+      "history": "14514517422472347117221257453753336",
+      "ply": 35,
+      "ordinaryOutcome": 1,
+      "completeWDLBestMoves": [
+        3,
+        5,
+        6
+      ],
+      "remoteness": 4,
+      "remotenessBestMoves": [
+        3,
+        5
+      ],
+      "literalActionValuesAndDurations": [
+        [
+          3,
+          1,
+          4
+        ],
+        [
+          5,
+          1,
+          4
+        ],
+        [
+          6,
+          1,
+          2
+        ]
+      ]
+    },
+    {
+      "tag": "L1 same L2 same, L3 time 2",
+      "history": "17465376721522163351235571177433654",
+      "ply": 35,
+      "ordinaryOutcome": 1,
+      "completeWDLBestMoves": [
+        2,
+        4,
+        6
+      ],
+      "remoteness": 2,
+      "remotenessBestMoves": [
+        2,
+        4,
+        6
+      ],
+      "literalActionValuesAndDurations": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          4,
+          1,
+          2
+        ],
+        [
+          6,
+          1,
+          2
+        ]
+      ]
+    },
+    {
+      "tag": "L1 same L2 same, L3 time 1",
+      "history": "17465376721522163351235571177433654442",
+      "ply": 38,
+      "ordinaryOutcome": 1,
+      "completeWDLBestMoves": [
+        2,
+        4,
+        6
+      ],
+      "remoteness": 1,
+      "remotenessBestMoves": [
+        4,
+        6
+      ],
+      "literalActionValuesAndDurations": [
+        [
+          2,
+          1,
+          3
+        ],
+        [
+          4,
+          1,
+          1
+        ],
+        [
+          6,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "tag": "same L1, L2 optimal 4 and 5",
+      "history": "73214345113623713521726226436516677",
+      "ply": 35,
+      "ordinaryOutcome": -1,
+      "completeWDLBestMoves": [
+        4,
+        5
+      ],
+      "remoteness": 1,
+      "remotenessBestMoves": [
+        4,
+        5
+      ],
+      "literalActionValuesAndDurations": [
+        [
+          4,
+          -1,
+          1
+        ],
+        [
+          5,
+          -1,
+          1
+        ],
+        [
+          7,
+          1,
+          2
+        ]
+      ]
+    },
+    {
+      "tag": "same L1, L2 optimal 4",
+      "history": "7321434511362371352172622643651667775",
+      "ply": 37,
+      "ordinaryOutcome": -1,
+      "completeWDLBestMoves": [
+        4
+      ],
+      "remoteness": 1,
+      "remotenessBestMoves": [
+        4
+      ],
+      "literalActionValuesAndDurations": [
+        [
+          4,
+          -1,
+          1
+        ],
+        [
+          5,
+          1,
+          2
+        ]
+      ]
+    }
+  ],
+  "explicitlyBranchingReference": true,
+  "noSourceZeroStrategicFanoutProved": true,
+  "executionSource": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-l3-independent-two-pass-array-grid-control.mjs",
+  "exactExecutionSourceGitBlob": "4d83b0bafbdd7d413ee0bfe3d946da608ada5410",
+  "elapsedIsolatedV8Ms": 3,
+  "priorIndependentReferenceEvidence": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/STANDARD7X6_THREE_LEVEL_WDL_MSTAR_REMOTENESS_RESULTS_0_1.json",
+  "status": "PASS_SEPARATELY_IMPLEMENTED_7x6_TWO_PASS_PHYSICAL_ARRAY_GRID_REFERENCE_ON_ALL_SIX_STORED_LEVEL_DIFFERENTIAL_WITNESSES",
+  "provenance": [
+    "New control was committed BEFORE running.",
+    "Independent plain WDL recursion then distinct WDL-preserving remoteness recursion; no bitboards, no shared integrated remoteness implementation.",
+    "Original 2500-root batch was a branching physical reference. This is an independent corroboration of six previously frozen witness outcomes only, not 2500 independent D confirmations.",
+    "All witnesses are actual 7x6 first-win-stopped legal histories; exact WDL, full literal optimal labels, every literal action WDL and distance, and time-preferred label sets matched.",
+    "No 7x6 arbitrary source zero-fanout (V,M*) algorithm or canonical 44444 WDL was obtained."
+  ]
+}
