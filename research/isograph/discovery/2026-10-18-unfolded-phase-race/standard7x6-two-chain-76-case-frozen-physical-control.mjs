@@ -35,7 +35,7 @@ export function runFrozenTwoChainOriginal7x6ExhaustiveControl(){
   sourceFutureGameTreesOrAlternativeHypotheticalWordsConstructed:0,
   originalRootGameWDLQueried:false,
   completeAllBestLevel2InformationObtained:false};
- const perCase=[],firstDualRace=null,firstNonquotaDeadlock=null;
+ const perCase=[]; let firstDualRace=null,firstNonquotaDeadlock=null;
  for(const item of cases){
   const res=independent.verifyCase(item.history,item);
   perCase.push(res);
