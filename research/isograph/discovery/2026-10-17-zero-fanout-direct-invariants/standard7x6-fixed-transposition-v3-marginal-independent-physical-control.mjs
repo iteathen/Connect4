@@ -127,10 +127,11 @@ function inspect(s,forced=false){
    sourceIndependentFutureWdlValueQueries:res.statistics.sourceIndependentGameValueQueries,
    sourcePermutationMappingCandidateCount:res.statistics.sourceCompletedColumnPermutationCandidatesEnumerated
   };
+ let old=null;
  if(res.status==='VALID_CONTINUATION'){
   stats.sourceEntireRootBestMoveCertified++;
   relative.directRootBestSourceCertificates++;
-  const old=oldV3.compute(q);
+  old=oldV3.compute(q);
   if(old.status==='VALID_CONTINUATION'){
    relative.oldV3AlreadyCertifiedBestMoves++;
    if(old.ordinaryRootValueP0Relative===null)relative.oldV3BestSourceScalarUnknown++;
