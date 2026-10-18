@@ -9,6 +9,10 @@
 
 This file is the current-state router, not a theorem ledger. This branch owns **all durable Connect4 research**, regardless of which solver produced it. Research artifacts live across `research/**` and `docs/research/**` on this branch; the executable research continuation lives in `next_step.yaml`.
 
+## Owner priority change — geometry/turn-sequence factor (2026-10-18)
+
+The latest explicit owner direction prioritizes **four-ribbon unfolding and factoring out the strategic turn sequence**, rather than first-touch defender heuristics. New exact fixed-word factor `PAYOFF=F0-F1+F0*F1*rho`, a source race-free guard, and genuine 7x6 equal-ownership/different-first-winner canonical `44444` falsifier are recorded in `docs/research/2026-10-18-owner-refocus-unfolded-geometry-turn-sequence-elimination-and-race-factor.md` and `research/isograph/discovery/2026-10-18-unfolded-phase-race/`. This is NOT a new Level2 best move, still UNKNOWN at `44444`. Qualified IsoGraph 1.2 untouched.
+
 ## Follow-up: canonical two-generator gates and selected critical-subfamily pilot (2026-10-18)
 
 **New crash-safe SOURCE-only structural audit:** `research/isograph/discovery/2026-10-18-first-touch-multiresource/standard7x6-first-touch-canonical-gate-audit.mjs` and machine classification `STANDARD7X6_CANONICAL44444_FIRST_TOUCH_23_4_8_GATE_CLASSIFICATION_0_1.json`. Independently reconstructed original canonical `44444` q from all 69 geometric winlines, first-win stopping and antichain reduction (h=[0,0,0,5,0,0,0], R0=48, R1=42). The 35 first-touch gate cells split exactly into **23 with EMPTY common residual blocker intersection**, **4 with shared remaining blocker cells not available by the immediate/root-frontier release guards**, and **8 with a valid one-response blocker**. All **23** empty-intersection gates have a **two-generator minimal conflicting core**. Thus the original 27 failures split into structural multi-obligation conflict vs temporal gravity-release failure. This does NOT supply `44444` WDL or a best move.
