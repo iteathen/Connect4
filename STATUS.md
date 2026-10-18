@@ -1,11 +1,21 @@
 # Connect4 current research status
 
-**Updated:** 2026-10-17 (latest: corrected ODD one-spare co-release defender proof and 16 DRAW plus 3 LOSS source Level2 witnesses on true7x6; general total still open)  
+**Updated:** 2026-10-17 (latest: guarded odd spare unified source V2 19 NEW real7x6 Level2 DRAW/LOSS continuations beyond V1; unrestricted odd theory refuted; total remains open)  
 **Branch:** `research/semantic-quotient`  
 **Research direction / structural architecture / invariant-first and self-proving-predicate program:** Josh Oshiro  
 **Formalization / implementation / qualification:** OpenAI ChatGPT
 
 This file is the current-state router, not a theorem ledger. This branch owns **all durable Connect4 research**, regardless of which solver produced it. Research artifacts live across `research/**` and `docs/research/**` on this branch; the executable research continuation lives in `next_step.yaml`.
+
+## Strictly guarded odd-spare Level2 combined source V2 adds 19 new real7x6 best continuations beyond immutable V1 (2026-10-17)
+
+**SOURCE UNION V2, preserved separately from prior V1:** `docs/research/2026-10-17-unified-one-certified-best-action-source-protocol.md` (v2 frozen theorem addendum) and `research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-unified-one-valid-best-action-source-v2.mjs`. The immutable v1 source and prior evidence remain unchanged. V2 keeps prior source WIN gravity release cover, ONE FORCED opponent-response WIN lane, DRAW global no-forced-win + one-action nonloss, and EVEN-T opponent pairing/dual or original mover winline-extinct inevitable LOSS. Only when those are INCOMPLETE and T odd does it apply the new STRICT cross-prefix<=1 one-unmatched-cell ODD safe pairing plus source dual LOSS or one original nonloss DRAW action.
+
+**Independent real 7×6 V1-vs-V2 SAME ROOT comparison:** frozen independent physical validator `research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-unified-v1-v2-safe-odd-marginal-physical-control.mjs`; evidence `STANDARD7X6_UNIFIED_V1_V2_SAFE_ODD_19_NEW_LEVEL2_BEST_MARGINAL_RESULTS_0_1.json`. On the same **65** true original7x6 first-win-stopped odd q where the corrected one-pending-pair safe SOURCE defense succeeded, V1 returned INCOMPLETE on ALL 65. New v2 classified exact Level2 **16 DRAW best single action positions** and **3 unavoidable-LOSS positions with ALL legal actions tied**, 19 previously unproved source outputs, 46 unchanged INCOMPLETE. The independent ordinary PHYSICAL full recursive reference confirmed **18** of these root WDL values and **18** selected best first-action WDL values plus **7** extra all-best LOSS action values, zero discrepancies. All certificates preserve original K=4 true7x6 WIN/DRAW/LOSS first-win and gravity. No alternative strategically inequivalent future value was queried by the source operator; source forced WIN lane max 1 remains.
+
+**Explicit physical counterexample to hidden overclaim:** prior unrestricted odd pairing with longer cross prefix is FALSE; physical history `32452113456772416435741762343657217` admits a preemptively half-marked prefix exposing an illegally unplayable next cross pair mate. V2 imports ONLY repaired source guarded crossPrefixLength<=1; failed original proof/first resource-budget failure remain preserved. Canonical `44444` no-search winner/best move still UNKNOWN.
+
+**Research remains OPEN:** output of ONE certified Level2 best action for arbitrary legal7x6 source not complete; 65 source odd q are not random/global coverage. v2 is a stronger restricted-domain source proof union and uses static original matching witness enumeration, not a game strategy tree. Qualified IsoGraph 1.2 remains unchanged, maintained Node26 and external formal assistant not executed. Next gate: develop a source structural response invariant that handles unsafe-long-cross-prefix release without dynamic contingent strategy-tree branching; no false acceptance of the refuted one-pending policy.
 
 ## Corrected source odd-capacity pairing + complete best DRAW/LOSS certificates (2026-10-17)
 
