@@ -1,0 +1,145 @@
+{
+  "schema": "connect4.standard7x6.owner_redefined_L2_P0_win_continuations_v0_1",
+  "W": 7,
+  "H": 6,
+  "K": 4,
+  "originalReference": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-three-tier-physical-remoteness-control.mjs",
+  "referenceFirstWinAndWDLIsBranching": true,
+  "rootValueAndActionVectorSource": "independent true 7x6 physical bitboard WDL reference (old 3-level frozen population)",
+  "sourceOnlyZeroFanoutSolutionFound": false,
+  "sampledNonterminalActual7x6Roots": 2500,
+  "legalLiteralActionValues": 6575,
+  "readoutFromExactWDLChecked": 2500,
+  "readoutFromGPlusBitsChecked": 2500,
+  "incorrectWinMasks": 0,
+  "p0ToMoveWinningRoots": 888,
+  "p0ToMoveNonwinRoots": 174,
+  "p0ToMoveNonwinButOldWdlOptimalNonempty": 174,
+  "p1ToMoveP0ForcedWinRoots": 171,
+  "p1ToMoveOtherRoots": 1267,
+  "p1ToMoveOtherRootsWithP0WinningBlunder": 903,
+  "rootMasksDifferentFromConventionalWdlOptimal": 1441,
+  "witnessedP0NonwinOldOptimalVsNewEmpty": {
+    "history": "445613737265676333137717465425556421",
+    "ply": 36,
+    "rootValue": 0,
+    "allLegalActions": [
+      1,
+      2,
+      4
+    ],
+    "P0WinningContinuations": [],
+    "originalConventionalWdlOptimalSet": [
+      1,
+      2
+    ],
+    "actionP0RelativeWDL": [
+      [
+        1,
+        0
+      ],
+      [
+        2,
+        0
+      ],
+      [
+        4,
+        -1
+      ]
+    ]
+  },
+  "witnessedP1NonwinYetSomeP0WinningActions": {
+    "history": "73214345113623713521726226436516677",
+    "ply": 35,
+    "rootValue": -1,
+    "allLegalActions": [
+      4,
+      5,
+      7
+    ],
+    "P0WinningContinuations": [
+      7
+    ],
+    "originalConventionalWdlOptimalSet": [
+      4,
+      5
+    ],
+    "actionP0RelativeWDL": [
+      [
+        4,
+        -1
+      ],
+      [
+        5,
+        -1
+      ],
+      [
+        7,
+        1
+      ]
+    ]
+  },
+  "witnessedP0ForcedWinMultipleP0WinningActions": {
+    "history": "174653767215221633512355711774336544",
+    "ply": 36,
+    "rootValue": 1,
+    "allLegalActions": [
+      2,
+      4,
+      6
+    ],
+    "P0WinningContinuations": [
+      4,
+      6
+    ],
+    "originalConventionalWdlOptimalSet": [
+      4,
+      6
+    ],
+    "actionP0RelativeWDL": [
+      [
+        2,
+        -1
+      ],
+      [
+        4,
+        1
+      ],
+      [
+        6,
+        1
+      ]
+    ]
+  },
+  "rootP0WinMaskCountDistribution": {
+    "0": 538,
+    "1": 1027,
+    "2": 679,
+    "3": 224,
+    "4": 30,
+    "5": 2
+  },
+  "errors": 0,
+  "referenceRootWDLComparisons": 850,
+  "referenceRootWDLDisagreements": 0,
+  "previousPopulationRootCount": 2500,
+  "previousPopulationFirstWins": 1059,
+  "previousPopulationP1Wins": 1324,
+  "previousPopulationDraws": 117,
+  "frozenReadout": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-owner-p0-winset-readout.mjs",
+  "readoutSourceGitBlob": "4c1124b2eb0e24d74e02e873baa719e7c89c8fb2",
+  "frozenPhysicalControl": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-owner-win-only-L2-physical-projection-control.mjs",
+  "physicalControlGitBlob": "8a7c5048c640422d8665511e64be357b052df91e",
+  "elapsedMs": 765,
+  "ownerCorrection": "docs/research/2026-10-17-owner-level2-any-p0-winning-continuation-and-level3-perfect-fastest-win.md",
+  "status": "PASS_REDEFINED_L2_P0_WIN_PRESERVING_MASK_ACROSS_2500_ACTUAL7X6_ROOTS_AND_6575_ACTIONS",
+  "qualifier": [
+    "Same frozen nonuniform 2500 late standard7x6 physical root corpus as prior Level3 test; not 2500 new independent sampled roots.",
+    "WDL reference is a BRANCHING physical full-WDL/remoteness reference with 850 separate plain-minimax cross-checks; readout takes existing full child values or existing child g+ bits, evaluates ZERO independent future-game values itself.",
+    "Test independently checks both scalar P0 outcome==+1 and XOR/turn-phase readout, and confirms preservation of conventional M_WDL masks as separate legacy output.",
+    "1441 source roots have a DIFFERENT owner B0 vs conventional M_WDL. This is output-contract information, not a proof of zero-strategic-branching total L2 source evaluation.",
+    "For P1-to-move positions B0 labels are P1 replies that permit or preserve P0 win; they are not preferred actions for P1.",
+    "Level3 fastest guaranteed win under adversarial defense remains separate unproved zero-branch complexity hypothesis; no general impossibility proof.",
+    "Maintained Node26 CI and external independent formal proof assistant not executed."
+  ]
+}
