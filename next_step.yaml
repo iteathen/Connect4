@@ -1,3 +1,56 @@
+true7x6_scoped_three_tier_best_action_certificates_20261017:
+  status: THREE_OUTCOME_CLASSES_SCOPED_VALID_LEVEL2_ACTION_THEOREMS_INDEPENDENTLY_VALIDATED_NOT_TOTAL_UNRESTRICTED_SOLVER
+  canonical_owner: research/semantic-quotient
+  owner_operational_goal: "One source-certified BEST move is enough for valid Level2 continuation, complete set remains stronger information target"
+  board: "true W=7 H=6 K=4 Connect Four, retain W H K symbols"
+  proof_families:
+    WIN:
+      theorem: docs/research/2026-10-17-source-gravity-response-cover-exact-mate-in-three.md
+      direct_source: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-source-gravity-response-cover.mjs
+      direct_evidence: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/STANDARD7X6_GRAVITY_RESPONSE_COVER_DIRECT_MATE_RESULTS_0_1.json
+      direct_winning_actions: 153311
+      independent_direct_physical_opponent_responses_checked: 249206
+      one_forced_lane_theorem: docs/research/2026-10-17-one-lane-forced-threat-ladder-source-win-witness.md
+      one_lane_evidence: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/STANDARD7X6_SINGLE_FORCED_THREAT_LADDER_VALID_CONTINUATION_RESULTS_0_1.json
+      extra_winning_roots_beyond_direct_in_separate_sample: 671
+      max_verified_forced_block_rounds: 6
+      max_strategic_live_future_lanes: 1
+    DRAW:
+      theorem: docs/research/2026-10-17-source-root-win-exclusion-plus-one-action-draw-witness.md
+      source: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-one-action-root-noforce-win-draw-certificate.mjs
+      evidence: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/STANDARD7X6_ROOT_NO_WIN_SINGLE_DRAW_BEST_SOURCE_RESULTS_0_1.json
+      valid_best_draw_actions: 213
+      global_pairing_root_no_forced_win_nontrivial_draw_certificates: 15
+      independent_physical_recursive_WDL_root_and_action_checks: 180
+      exact_requirement: "Global q mover cannot force WIN AND one original literal move guarantees nonloss (DRAW); no competing action values required"
+    LOSS:
+      theorem: docs/research/2026-10-17-source-inevitable-loss-dual-packing-any-L2-move.md
+      source: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-inevitable-loss-source-dual-packing.mjs
+      evidence: research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/STANDARD7X6_INEVITABLE_LOSS_ANY_BEST_MOVE_SOURCE_RESULTS_0_1.json
+      roots_current_mover_forced_loss_certified: 17
+      original_literal_all_equal_best_loss_actions: 30
+      independent_true7x6_root_WDL_checks: 17
+      independent_true7x6_first_action_WDL_checks: 30
+      exact_requirement: "R_mover empty and opponent hyperedge fractional packing > all remaining mover blocker turns => opponent MUST first win, every current action same LOSS"
+  source_strategic_future_game_WDL_queries: 0
+  independent_physical_reference_recursive_calls: "Only validator after original source source-proof outputs; scoped late roots for WDL checks"
+  conformance_errors_across_scoped_validations: 0
+  corpus_counts_may_NOT_be_added_as_disjoint_coverage: true
+  no_total_standard_7x6_one_best_move_algorithm: true
+  canonical_44444_source_best_move: UNKNOWN
+  qualified_gameplay_authority_IsoGraph_1_2_unchanged: true
+  new_next_mathematical_task: >-
+    Implement conservative combined ONE-BEST-MOVE original q source operator:
+    direct gravity mate; one selected forced opponent block ladder; else
+    root no-forced-win + candidate DRAW no-loss; else root inevitable
+    LOSS via opponent packing; return INCOMPLETE otherwise. Independently
+    test on same genuine true7x6 corpus, report mutually overlapping
+    WIN DRAW LOSS proof counts and marginal coverage versus previous
+    full-optimal-set source operator. Beyond this, derive original q
+    algebra for adaptive MULTIPLE opponent defensive responses using
+    source proof invariants WITHOUT compiling/enumerating a strategy
+    tree, alternative q WDL games, QBF/BDD or background search.
+
 true7x6_root_no_winning_outcome_plus_one_DRAW_best_action_20261017:
   owner_goal: "Any ONE source-certified Level2 best action; no requirement for full optimal original label set"
   status: EXACT_SCOPED_SOURCE_TWO_CERTIFICATE_DRAW_BEST_ACTION_TRUE7X6_213_POSITIVES_NOT_TOTAL_SOLVER
