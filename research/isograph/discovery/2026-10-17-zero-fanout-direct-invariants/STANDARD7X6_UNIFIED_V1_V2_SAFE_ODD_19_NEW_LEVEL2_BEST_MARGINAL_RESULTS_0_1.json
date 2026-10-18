@@ -1,0 +1,543 @@
+{
+  "schema": "connect4.true7x6.odd_spare_single_pending_pair_source_no_force_win_v0_1",
+  "date": "2026-10-17",
+  "board": {
+    "W": 7,
+    "H": 6,
+    "K": 4,
+    "originalKLines": 69
+  },
+  "sampledFirstWinStoppedPhysicalTrajectories": 2300,
+  "uniquePhysicalSourceStatesSeen": 76458,
+  "sampledOriginalRankOddSourceRootsEvaluated": 18076,
+  "oddSourceRootsEligibleOneCapacityCell": 12293,
+  "sourceOddSlackPairNoForcedMoverWinCertified": 65,
+  "positiveSourcesWhereOriginalMoverWinningGeneratorsStillLive": 65,
+  "positiveSourcesWith2OrMoreOriginalLegalActions": 65,
+  "matchedFuturePairsInPositiveSourcesTotal": 165,
+  "physicalAttackerFirstActionVaried": 207,
+  "physicalCompleteOpponentPolicyTrials": 414,
+  "physicallyRespondedToFirstTouchedMatchedPair": 468,
+  "physicallyPreemptedFreshPairAfterSpareOrPendingMate": 306,
+  "physicallyReplayedAttackerFutureMoves": 916,
+  "physicalOpponentPairedReplies": 774,
+  "physicalCompletedFirstWinByOpponent": 272,
+  "physicalCompletedNonwinningDraw": 142,
+  "sourcePolicyErrors": 0,
+  "sourceNoWinAgainstPerfectOpponentFullMinimaxRootChecks": 50,
+  "sourceWrongRootPerfectWDL": 0,
+  "sourceStaticPairingProofOps": 3357019,
+  "sourceStaticPairRepresentativesChecked": 214677,
+  "physicalMinimaxReferenceCalls": 2887,
+  "physicalMinimaxUniqueStates": 1413,
+  "firstPositive": {
+    "history": "7575555752146116171264427741224626363",
+    "ply": 37,
+    "currentMover": 1,
+    "legalFirstActions": [
+      3,
+      4
+    ],
+    "originalMoverR": 1,
+    "originalDefenderR": 4,
+    "unmatched": {
+      "originalLiteralColumn": 4,
+      "rowZeroBased": 5,
+      "physicalCellMaskHex": "0x4000000000"
+    },
+    "pairBlocks": [
+      {
+        "kind": "VERTICAL_CONSECUTIVE",
+        "columns": [
+          2
+        ],
+        "crossPairPrefixLength": 0,
+        "sourcePairMasksHex": [
+          "0x810000",
+          "0x2040000000"
+        ]
+      }
+    ]
+  },
+  "firstPreemptiveExample": {
+    "rootHistory": "7575555752146116171264427741224626363",
+    "firstLiteralColumn": 4,
+    "originalMover": 1,
+    "sourceUnmatchedCell": {
+      "originalLiteralColumn": 4,
+      "rowZeroBased": 5,
+      "physicalCellMaskHex": "0x4000000000"
+    },
+    "opponentResponseCount": 3,
+    "actualFirstTerminal": 1
+  },
+  "positiveExamples": [
+    {
+      "history": "7575555752146116171264427741224626363",
+      "ply": 37,
+      "R1": 1,
+      "legal": [
+        3,
+        4
+      ],
+      "unmatched": {
+        "originalLiteralColumn": 4,
+        "rowZeroBased": 5,
+        "physicalCellMaskHex": "0x4000000000"
+      },
+      "pairBlockCount": 1,
+      "pairCount": 2
+    },
+    {
+      "history": "534672614313313315171544555464227266677",
+      "ply": 39,
+      "R1": 1,
+      "legal": [
+        2,
+        7
+      ],
+      "unmatched": {
+        "originalLiteralColumn": 7,
+        "rowZeroBased": 5,
+        "physicalCellMaskHex": "0x20000000000"
+      },
+      "pairBlockCount": 1,
+      "pairCount": 1
+    },
+    {
+      "history": "4716324752713151422223773446437355551",
+      "ply": 37,
+      "R1": 1,
+      "legal": [
+        1,
+        6
+      ],
+      "unmatched": {
+        "originalLiteralColumn": 1,
+        "rowZeroBased": 5,
+        "physicalCellMaskHex": "0x800000000"
+      },
+      "pairBlockCount": 1,
+      "pairCount": 2
+    },
+    {
+      "history": "442612232512614331135326746147774",
+      "ply": 33,
+      "R1": 1,
+      "legal": [
+        3,
+        5,
+        6,
+        7
+      ],
+      "unmatched": {
+        "originalLiteralColumn": 3,
+        "rowZeroBased": 5,
+        "physicalCellMaskHex": "0x2000000000"
+      },
+      "pairBlockCount": 3,
+      "pairCount": 4
+    },
+    {
+      "history": "4426122325126143311353267461477745356",
+      "ply": 37,
+      "R1": 1,
+      "legal": [
+        5,
+        6,
+        7
+      ],
+      "unmatched": {
+        "originalLiteralColumn": 6,
+        "rowZeroBased": 5,
+        "physicalCellMaskHex": "0x10000000000"
+      },
+      "pairBlockCount": 2,
+      "pairCount": 2
+    },
+    {
+      "history": "442612232512614331135326746147774535667",
+      "ply": 39,
+      "R1": 1,
+      "legal": [
+        5,
+        7
+      ],
+      "unmatched": {
+        "originalLiteralColumn": 7,
+        "rowZeroBased": 5,
+        "physicalCellMaskHex": "0x20000000000"
+      },
+      "pairBlockCount": 1,
+      "pairCount": 1
+    },
+    {
+      "history": "27515772124112432447751147465326353",
+      "ply": 35,
+      "R1": 1,
+      "legal": [
+        3,
+        5,
+        6
+      ],
+      "unmatched": {
+        "originalLiteralColumn": 5,
+        "rowZeroBased": 5,
+        "physicalCellMaskHex": "0x8000000000"
+      },
+      "pairBlockCount": 2,
+      "pairCount": 3
+    },
+    {
+      "history": "5141763154522626436674631545471722153",
+      "ply": 37,
+      "R1": 1,
+      "legal": [
+        2,
+        3,
+        7
+      ],
+      "unmatched": {
+        "originalLiteralColumn": 2,
+        "rowZeroBased": 5,
+        "physicalCellMaskHex": "0x1000000000"
+      },
+      "pairBlockCount": 2,
+      "pairCount": 2
+    },
+    {
+      "history": "45676353464752527767366174433531522",
+      "ply": 35,
+      "R1": 1,
+      "legal": [
+        1,
+        2,
+        4
+      ],
+      "unmatched": {
+        "originalLiteralColumn": 4,
+        "rowZeroBased": 5,
+        "physicalCellMaskHex": "0x4000000000"
+      },
+      "pairBlockCount": 2,
+      "pairCount": 3
+    },
+    {
+      "history": "533612276276134314436265224145156717543",
+      "ply": 39,
+      "R1": 1,
+      "legal": [
+        5,
+        7
+      ],
+      "unmatched": {
+        "originalLiteralColumn": 5,
+        "rowZeroBased": 5,
+        "physicalCellMaskHex": "0x8000000000"
+      },
+      "pairBlockCount": 1,
+      "pairCount": 1
+    },
+    {
+      "history": "54264712451521327544532671476",
+      "ply": 29,
+      "R1": 2,
+      "legal": [
+        1,
+        2,
+        3,
+        5,
+        6,
+        7
+      ],
+      "unmatched": {
+        "originalLiteralColumn": 2,
+        "rowZeroBased": 5,
+        "physicalCellMaskHex": "0x1000000000"
+      },
+      "pairBlockCount": 4,
+      "pairCount": 6
+    },
+    {
+      "history": "5426471245152132754453267147653",
+      "ply": 31,
+      "R1": 1,
+      "legal": [
+        1,
+        2,
+        3,
+        6,
+        7
+      ],
+      "unmatched": {
+        "originalLiteralColumn": 2,
+        "rowZeroBased": 5,
+        "physicalCellMaskHex": "0x1000000000"
+      },
+      "pairBlockCount": 3,
+      "pairCount": 5
+    }
+  ],
+  "canonical": [
+    {
+      "history": "4",
+      "ply": 1,
+      "status": "INCOMPLETE",
+      "reason": "NO_ORIGINAL_SOURCE_COLUMN_WITH_EXACTLY_ONE_IMMEDIATELY_PLAYABLE_LAST_CELL",
+      "staticSourceOps": 0
+    },
+    {
+      "history": "44444",
+      "ply": 5,
+      "status": "INCOMPLETE",
+      "reason": "STATIC_PAIRING_RESOURCE_INCOMPLETE_OR_NO_WITNESS",
+      "staticSourceOps": 0
+    },
+    {
+      "history": "4444442",
+      "ply": 7,
+      "status": "INCOMPLETE",
+      "reason": "NO_ORIGINAL_SOURCE_COLUMN_WITH_EXACTLY_ONE_IMMEDIATELY_PLAYABLE_LAST_CELL",
+      "staticSourceOps": 0
+    }
+  ],
+  "onePendingPolicyViolations": {
+    "moverFirstWinViolations": 0,
+    "opponentResponseNotGravityLegal": 0,
+    "emptyAvailableVirginPairOnOpponentTurn": 0,
+    "ownerPairForbiddenBothPhysicalCells": 0,
+    "terminalPWinDespitePhysicalPairCoverage": 0,
+    "pairedGuardBroken": 0
+  },
+  "finalSeed": 807003508,
+  "unifiedV1VsV2SafeOddMarginal": {
+    "schema": "connect4.true7x6.unified_source_v2_safe_odd_pair_incremental_v0_1",
+    "oddSafeOriginalQCompared": 65,
+    "v1CertifiedOnOddSafeRoots": 0,
+    "v2CertifiedOnOddSafeRoots": 19,
+    "newV2CertificationsBeyondV1": 19,
+    "newlyCertifiedBestDRAW": 16,
+    "newlyCertifiedBestLOSS": 3,
+    "v1ResultLostByV2": 0,
+    "v1V2DifferentRootValueClaims": 0,
+    "newProofPrefixGuardRequired": true,
+    "fullPhysicalWDLRootChecksForNew": 18,
+    "fullPhysicalChosenActionWDLChecksForNew": 18,
+    "fullPhysicalAllLegalLossActionChecksForNew": 7,
+    "wrongPhysicalRootOrSelectedBestWDL": 0,
+    "newOddRootSamples": [
+      {
+        "history": "7575555752146116171264427741224626363",
+        "ply": 37,
+        "chosenLiteralAction": 3,
+        "mover": 1,
+        "bestTier": "LOSS",
+        "oldSourceStatus": "INCOMPLETE",
+        "newSourceProof": "ODD_SAFE_SPARE_O_DUAL_FORCED_MOVER_LOSS",
+        "fullBestMovesClaimed": [
+          3,
+          4
+        ]
+      },
+      {
+        "history": "534672614313313315171544555464227266677",
+        "ply": 39,
+        "chosenLiteralAction": 2,
+        "mover": 1,
+        "bestTier": "DRAW",
+        "oldSourceStatus": "INCOMPLETE",
+        "newSourceProof": "ODD_SAFE_SPARE_ROOT_NO_WIN_PLUS_ONE_NONLOSS_DRAW",
+        "fullBestMovesClaimed": null
+      },
+      {
+        "history": "5141763154522626436674631545471722153",
+        "ply": 37,
+        "chosenLiteralAction": 2,
+        "mover": 1,
+        "bestTier": "DRAW",
+        "oldSourceStatus": "INCOMPLETE",
+        "newSourceProof": "ODD_SAFE_SPARE_ROOT_NO_WIN_PLUS_ONE_NONLOSS_DRAW",
+        "fullBestMovesClaimed": null
+      },
+      {
+        "history": "533612276276134314436265224145156717543",
+        "ply": 39,
+        "chosenLiteralAction": 7,
+        "mover": 1,
+        "bestTier": "DRAW",
+        "oldSourceStatus": "INCOMPLETE",
+        "newSourceProof": "ODD_SAFE_SPARE_ROOT_NO_WIN_PLUS_ONE_NONLOSS_DRAW",
+        "fullBestMovesClaimed": null
+      },
+      {
+        "history": "771161767724431636173533132245526446455",
+        "ply": 39,
+        "chosenLiteralAction": 2,
+        "mover": 1,
+        "bestTier": "DRAW",
+        "oldSourceStatus": "INCOMPLETE",
+        "newSourceProof": "ODD_SAFE_SPARE_ROOT_NO_WIN_PLUS_ONE_NONLOSS_DRAW",
+        "fullBestMovesClaimed": null
+      },
+      {
+        "history": "221552752544416372377267333354175611664",
+        "ply": 39,
+        "chosenLiteralAction": 4,
+        "mover": 1,
+        "bestTier": "DRAW",
+        "oldSourceStatus": "INCOMPLETE",
+        "newSourceProof": "ODD_SAFE_SPARE_ROOT_NO_WIN_PLUS_ONE_NONLOSS_DRAW",
+        "fullBestMovesClaimed": null
+      },
+      {
+        "history": "5223111526711744654522215364476647567",
+        "ply": 37,
+        "chosenLiteralAction": 3,
+        "mover": 1,
+        "bestTier": "LOSS",
+        "oldSourceStatus": "INCOMPLETE",
+        "newSourceProof": "ODD_SAFE_SPARE_O_DUAL_FORCED_MOVER_LOSS",
+        "fullBestMovesClaimed": [
+          3,
+          7
+        ]
+      },
+      {
+        "history": "377466255277112222517656443111437435653",
+        "ply": 39,
+        "chosenLiteralAction": 3,
+        "mover": 1,
+        "bestTier": "DRAW",
+        "oldSourceStatus": "INCOMPLETE",
+        "newSourceProof": "ODD_SAFE_SPARE_ROOT_NO_WIN_PLUS_ONE_NONLOSS_DRAW",
+        "fullBestMovesClaimed": null
+      },
+      {
+        "history": "776245711441374213362117745264626523355",
+        "ply": 39,
+        "chosenLiteralAction": 6,
+        "mover": 1,
+        "bestTier": "DRAW",
+        "oldSourceStatus": "INCOMPLETE",
+        "newSourceProof": "ODD_SAFE_SPARE_ROOT_NO_WIN_PLUS_ONE_NONLOSS_DRAW",
+        "fullBestMovesClaimed": null
+      },
+      {
+        "history": "724165754555343333654227146376726671412",
+        "ply": 39,
+        "chosenLiteralAction": 1,
+        "mover": 1,
+        "bestTier": "DRAW",
+        "oldSourceStatus": "INCOMPLETE",
+        "newSourceProof": "ODD_SAFE_SPARE_ROOT_NO_WIN_PLUS_ONE_NONLOSS_DRAW",
+        "fullBestMovesClaimed": null
+      },
+      {
+        "history": "666127423773442643272364677431355",
+        "ply": 33,
+        "chosenLiteralAction": 2,
+        "mover": 1,
+        "bestTier": "DRAW",
+        "oldSourceStatus": "INCOMPLETE",
+        "newSourceProof": "ODD_SAFE_SPARE_ROOT_NO_WIN_PLUS_ONE_NONLOSS_DRAW",
+        "fullBestMovesClaimed": null
+      },
+      {
+        "history": "66612742377344264327236467743135555",
+        "ply": 35,
+        "chosenLiteralAction": 2,
+        "mover": 1,
+        "bestTier": "DRAW",
+        "oldSourceStatus": "INCOMPLETE",
+        "newSourceProof": "ODD_SAFE_SPARE_ROOT_NO_WIN_PLUS_ONE_NONLOSS_DRAW",
+        "fullBestMovesClaimed": null
+      },
+      {
+        "history": "544334756325734267631435177416662152112",
+        "ply": 39,
+        "chosenLiteralAction": 2,
+        "mover": 1,
+        "bestTier": "DRAW",
+        "oldSourceStatus": "INCOMPLETE",
+        "newSourceProof": "ODD_SAFE_SPARE_ROOT_NO_WIN_PLUS_ONE_NONLOSS_DRAW",
+        "fullBestMovesClaimed": null
+      },
+      {
+        "history": "3151313745531613153442424465522722777",
+        "ply": 37,
+        "chosenLiteralAction": 6,
+        "mover": 1,
+        "bestTier": "DRAW",
+        "oldSourceStatus": "INCOMPLETE",
+        "newSourceProof": "ODD_SAFE_SPARE_ROOT_NO_WIN_PLUS_ONE_NONLOSS_DRAW",
+        "fullBestMovesClaimed": null
+      },
+      {
+        "history": "743464755255577737161252262213366143164",
+        "ply": 39,
+        "chosenLiteralAction": 1,
+        "mover": 1,
+        "bestTier": "DRAW",
+        "oldSourceStatus": "INCOMPLETE",
+        "newSourceProof": "ODD_SAFE_SPARE_ROOT_NO_WIN_PLUS_ONE_NONLOSS_DRAW",
+        "fullBestMovesClaimed": null
+      },
+      {
+        "history": "45257367435151423234422631137727417",
+        "ply": 35,
+        "chosenLiteralAction": 1,
+        "mover": 1,
+        "bestTier": "LOSS",
+        "oldSourceStatus": "INCOMPLETE",
+        "newSourceProof": "ODD_SAFE_SPARE_O_DUAL_FORCED_MOVER_LOSS",
+        "fullBestMovesClaimed": [
+          1,
+          5,
+          6
+        ]
+      },
+      {
+        "history": "746256413222422747756513131537643463511",
+        "ply": 39,
+        "chosenLiteralAction": 6,
+        "mover": 1,
+        "bestTier": "DRAW",
+        "oldSourceStatus": "INCOMPLETE",
+        "newSourceProof": "ODD_SAFE_SPARE_ROOT_NO_WIN_PLUS_ONE_NONLOSS_DRAW",
+        "fullBestMovesClaimed": null
+      },
+      {
+        "history": "226722562637215635147737557344156644113",
+        "ply": 39,
+        "chosenLiteralAction": 1,
+        "mover": 1,
+        "bestTier": "DRAW",
+        "oldSourceStatus": "INCOMPLETE",
+        "newSourceProof": "ODD_SAFE_SPARE_ROOT_NO_WIN_PLUS_ONE_NONLOSS_DRAW",
+        "fullBestMovesClaimed": null
+      }
+    ],
+    "canonical44444NewUnifiedSource": "NOT_TESTED"
+  },
+  "status": "PASS_UNIFIED_V2_SAFE_ODD_STATIC_SOURCE_COVERAGE_INCREASE_19_CLOSED_LEVEL2_BEST_ORIGINAL_ROOTS",
+  "frozenV2Source": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-unified-one-valid-best-action-source-v2.mjs",
+  "frozenV2ExactGitBlob": "aca84558a77bacde0c5e0c0e5f624022e701c832",
+  "priorImmutableV1Source": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-unified-one-valid-best-action-source.mjs",
+  "priorV1ExactGitBlob": "a8834b6c1bac9da031af961b5e0a77c4fde67dec",
+  "frozenIndependentPhysicalControl": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-unified-v1-v2-safe-odd-marginal-physical-control.mjs",
+  "independentPhysicalControlExactGitBlob": "8150c78a42256fdde2a83a3334965a4b89384062",
+  "governingTheorem": "docs/research/2026-10-17-unified-one-certified-best-action-source-protocol.md",
+  "safeOddTheorem": "docs/research/2026-10-17-odd-pending-pair-plus-dual-or-one-nonloss-tier-closure.md",
+  "safeOddOriginalCounterexample": "docs/research/2026-10-17-odd-spare-gravity-cross-prefix-rejection-and-safe-restriction.md",
+  "executionIsolatedV8Ms": 2538,
+  "qualifier": [
+    "19 new certified original7x6 q are marginal to PRIOR V1 source exactly on the SAME 65 safeguarded odd-spare no-mover-win q. This sample is inherited from 2300 deterministic actual nonwinning histories and is NOT arbitrary-state total coverage.",
+    "V1 returned INCOMPLETE on all these 65 strictly guarded odd roots. V2 returned 16 exact best DRAW continuations plus 3 exact losing root all-action masks, 46 still INCOMPLETE.",
+    "Corrected odd source matcher disallows crossPrefixLength>1; the unrestricted variant had an independently observed true7x6 illegal gravity mate. Never silently treat the previous refuted case as positive qualification.",
+    "The independent original real7x6 physical full recursive reference verified 18 new root outcomes, 18 newly selected first action WDL, 7 additional tied LOSS first action values, all ZERO discrepancy.",
+    "All original source WDL-proof components produce no alternative future game values; forced reply WIN ladder alone may follow one uniquely forced strategically live q lane. static pairing proof witness construction operations separate.",
+    "Canonical 44444 remains INCOMPLETE in both versions, and no universal standard7x6 no-search Level2 solution is claimed.",
+    "V2 implementation preserved alongside the original v1 and prior independent physical evidence; no solver implementation branch merge and no qualified IsoGraph authority change.",
+    "Standalone isolated V8 execution, maintained Node26 CI/external peer formal proof assistant not executed."
+  ]
+}
