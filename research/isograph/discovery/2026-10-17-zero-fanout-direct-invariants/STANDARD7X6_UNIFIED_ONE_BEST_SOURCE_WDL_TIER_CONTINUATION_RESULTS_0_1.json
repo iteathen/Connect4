@@ -1,0 +1,666 @@
+{
+  "schema": "connect4.standard7x6.unified_source_one_valid_Level2_best_action_v0_1",
+  "date": "2026-10-17",
+  "W": 7,
+  "H": 6,
+  "K": 4,
+  "originalWinlines": 69,
+  "frozenSeed": 332690031,
+  "actualFirstWinStoppedGenuineRootsVisited": 38693,
+  "sourceOriginalRanksEvaluated": 12771,
+  "distinctPhysicalInputs": 38693,
+  "frozenHistoryWitnesses": [
+    {
+      "history": "",
+      "ply": 0,
+      "sourceStatus": "INCOMPLETE",
+      "selectedAction": null
+    },
+    {
+      "history": "4",
+      "ply": 1,
+      "sourceStatus": "INCOMPLETE",
+      "selectedAction": null
+    },
+    {
+      "history": "44444",
+      "ply": 5,
+      "sourceStatus": "INCOMPLETE",
+      "selectedAction": null
+    },
+    {
+      "history": "444444",
+      "ply": 6,
+      "sourceStatus": "INCOMPLETE",
+      "selectedAction": null
+    },
+    {
+      "history": "444441",
+      "ply": 6,
+      "sourceStatus": "INCOMPLETE",
+      "selectedAction": null
+    },
+    {
+      "history": "4444442",
+      "ply": 7,
+      "sourceStatus": "INCOMPLETE",
+      "selectedAction": null
+    },
+    {
+      "history": "243766762437135",
+      "ply": 15,
+      "sourceStatus": "VALID_CONTINUATION",
+      "certifiedOutcome": "WIN",
+      "selectedAction": 4,
+      "proof": "ONE_FORCED_LANE_TO_GRAVITY_RESPONSE_COVER"
+    },
+    {
+      "history": "15551624162264264226443165545177173",
+      "ply": 35,
+      "sourceStatus": "VALID_CONTINUATION",
+      "certifiedOutcome": "WIN",
+      "selectedAction": 3,
+      "proof": "ONE_FORCED_LANE_TO_GRAVITY_RESPONSE_COVER"
+    },
+    {
+      "history": "14134251643437345353422222717671666517",
+      "ply": 38,
+      "sourceStatus": "VALID_CONTINUATION",
+      "certifiedOutcome": "DRAW",
+      "selectedAction": 5,
+      "proof": "ORIGINAL_ROOT_WIN_EXCLUSION_AND_SINGLE_ACTION_NONLOSS"
+    },
+    {
+      "history": "46525656251511547372472721217733633364",
+      "ply": 38,
+      "sourceStatus": "VALID_CONTINUATION",
+      "certifiedOutcome": "LOSS",
+      "selectedAction": 1,
+      "proof": "EXTINCT_OWN_WINLINES_OPPONENT_DUAL_FORCE_LOSS"
+    },
+    {
+      "history": "7654253275136145236326217611177672",
+      "ply": 34,
+      "sourceStatus": "VALID_CONTINUATION",
+      "certifiedOutcome": "LOSS",
+      "selectedAction": 3,
+      "proof": "LIVE_OWN_WINLINES_DEFENDER_SAFE_PAIRING_PLUS_DUAL_FORCE_LOSS"
+    }
+  ],
+  "randomPhysicalNonwinningHistories": 1150,
+  "certifiedSourceBestOriginalActionsTotal": 10819,
+  "certifiedWin": 10550,
+  "certifiedDraw": 244,
+  "certifiedLoss": 25,
+  "directBoundaryWin": 10504,
+  "forcedLadderWin": 46,
+  "forcedLadderMaxDepth": 4,
+  "extinctMOverLoss": 14,
+  "nonextinctPairDualLoss": 11,
+  "unknownOrSourceBudget": 1952,
+  "sourceStaticLiteralMoveScanWork": 9386,
+  "sourceSelectedForcedFutureQStates": 808,
+  "sourceStrategicallyValuedOtherGameFutures": 0,
+  "sourceMaximumStrategicFutureLaneFanout": 1,
+  "sourceStaticRootDrawPairingWork": 95988,
+  "sourceStaticOpponentDualCandidateWork": 96722,
+  "originalRootScenariosWithMultipleLegalMovesCertified": 10210,
+  "independentOriginalPhysicalFullWDLRootChecks": 200,
+  "independentOriginalPhysicalSelectedActionWDLChecks": 200,
+  "independentOriginalPhysicalEveryBestLossActionWDLChecks": 5,
+  "independentRecursiveCalls": 2146,
+  "independentRecursiveUniqueStates": 847,
+  "sourceFalseSelectedWinningAction": 0,
+  "sourceFalseSelectedDrawingAction": 0,
+  "sourceFalseSelectedLosingAction": 0,
+  "sourceFirstWinOrGravityViolation": 0,
+  "sourceOutcomeProofContradiction": 0,
+  "byPly": {
+    "0": {
+      "tested": 1,
+      "certified": 0,
+      "win": 0,
+      "draw": 0,
+      "loss": 0
+    },
+    "1": {
+      "tested": 1,
+      "certified": 0,
+      "win": 0,
+      "draw": 0,
+      "loss": 0
+    },
+    "5": {
+      "tested": 1,
+      "certified": 0,
+      "win": 0,
+      "draw": 0,
+      "loss": 0
+    },
+    "6": {
+      "tested": 2,
+      "certified": 0,
+      "win": 0,
+      "draw": 0,
+      "loss": 0
+    },
+    "7": {
+      "tested": 1,
+      "certified": 0,
+      "win": 0,
+      "draw": 0,
+      "loss": 0
+    },
+    "15": {
+      "tested": 1,
+      "certified": 1,
+      "win": 1,
+      "draw": 0,
+      "loss": 0
+    },
+    "27": {
+      "tested": 1150,
+      "certified": 920,
+      "win": 920,
+      "draw": 0,
+      "loss": 0
+    },
+    "28": {
+      "tested": 1150,
+      "certified": 993,
+      "win": 993,
+      "draw": 0,
+      "loss": 0
+    },
+    "29": {
+      "tested": 1147,
+      "certified": 948,
+      "win": 948,
+      "draw": 0,
+      "loss": 0
+    },
+    "30": {
+      "tested": 1143,
+      "certified": 999,
+      "win": 999,
+      "draw": 0,
+      "loss": 0
+    },
+    "31": {
+      "tested": 1133,
+      "certified": 946,
+      "win": 946,
+      "draw": 0,
+      "loss": 0
+    },
+    "32": {
+      "tested": 1121,
+      "certified": 989,
+      "win": 989,
+      "draw": 0,
+      "loss": 0
+    },
+    "33": {
+      "tested": 1083,
+      "certified": 896,
+      "win": 896,
+      "draw": 0,
+      "loss": 0
+    },
+    "34": {
+      "tested": 1023,
+      "certified": 892,
+      "win": 891,
+      "draw": 0,
+      "loss": 1
+    },
+    "35": {
+      "tested": 945,
+      "certified": 774,
+      "win": 774,
+      "draw": 0,
+      "loss": 0
+    },
+    "36": {
+      "tested": 844,
+      "certified": 735,
+      "win": 732,
+      "draw": 0,
+      "loss": 3
+    },
+    "37": {
+      "tested": 711,
+      "certified": 583,
+      "win": 575,
+      "draw": 8,
+      "loss": 0
+    },
+    "38": {
+      "tested": 577,
+      "certified": 484,
+      "win": 455,
+      "draw": 21,
+      "loss": 8
+    },
+    "39": {
+      "tested": 397,
+      "certified": 343,
+      "win": 297,
+      "draw": 45,
+      "loss": 1
+    },
+    "40": {
+      "tested": 209,
+      "certified": 185,
+      "win": 103,
+      "draw": 70,
+      "loss": 12
+    },
+    "41": {
+      "tested": 131,
+      "certified": 131,
+      "win": 31,
+      "draw": 100,
+      "loss": 0
+    }
+  },
+  "frozenExamplesByTier": {
+    "WIN": [
+      {
+        "history": "243766762437135",
+        "rank": 15,
+        "owner": 1,
+        "selectedAction": 4,
+        "proof": "ONE_FORCED_LANE_TO_GRAVITY_RESPONSE_COVER",
+        "ordinaryRootValueP0Relative": -1,
+        "otherEquallyBestLabelsUnknown": true,
+        "sourceForcedReplyRounds": 1
+      },
+      {
+        "history": "15551624162264264226443165545177173",
+        "rank": 35,
+        "owner": 1,
+        "selectedAction": 3,
+        "proof": "ONE_FORCED_LANE_TO_GRAVITY_RESPONSE_COVER",
+        "ordinaryRootValueP0Relative": -1,
+        "otherEquallyBestLabelsUnknown": true,
+        "sourceForcedReplyRounds": 0
+      },
+      {
+        "history": "716311235213326733175572576",
+        "rank": 27,
+        "owner": 1,
+        "selectedAction": 2,
+        "proof": "ONE_FORCED_LANE_TO_GRAVITY_RESPONSE_COVER",
+        "ordinaryRootValueP0Relative": -1,
+        "otherEquallyBestLabelsUnknown": true,
+        "sourceForcedReplyRounds": 0
+      },
+      {
+        "history": "7163112352133267331755725767",
+        "rank": 28,
+        "owner": 0,
+        "selectedAction": 2,
+        "proof": "ONE_FORCED_LANE_TO_GRAVITY_RESPONSE_COVER",
+        "ordinaryRootValueP0Relative": 1,
+        "otherEquallyBestLabelsUnknown": true,
+        "sourceForcedReplyRounds": 0
+      },
+      {
+        "history": "71631123521332673317557257675",
+        "rank": 29,
+        "owner": 1,
+        "selectedAction": 2,
+        "proof": "ONE_FORCED_LANE_TO_GRAVITY_RESPONSE_COVER",
+        "ordinaryRootValueP0Relative": -1,
+        "otherEquallyBestLabelsUnknown": true,
+        "sourceForcedReplyRounds": 0
+      },
+      {
+        "history": "716311235213326733175572576754",
+        "rank": 30,
+        "owner": 0,
+        "selectedAction": 6,
+        "proof": "ONE_FORCED_LANE_TO_GRAVITY_RESPONSE_COVER",
+        "ordinaryRootValueP0Relative": 1,
+        "otherEquallyBestLabelsUnknown": true,
+        "sourceForcedReplyRounds": 0
+      },
+      {
+        "history": "7163112352133267331755725767541",
+        "rank": 31,
+        "owner": 1,
+        "selectedAction": 6,
+        "proof": "ONE_FORCED_LANE_TO_GRAVITY_RESPONSE_COVER",
+        "ordinaryRootValueP0Relative": -1,
+        "otherEquallyBestLabelsUnknown": true,
+        "sourceForcedReplyRounds": 0
+      },
+      {
+        "history": "71631123521332673317557257675414",
+        "rank": 32,
+        "owner": 0,
+        "selectedAction": 4,
+        "proof": "ONE_FORCED_LANE_TO_GRAVITY_RESPONSE_COVER",
+        "ordinaryRootValueP0Relative": 1,
+        "otherEquallyBestLabelsUnknown": true,
+        "sourceForcedReplyRounds": 0
+      },
+      {
+        "history": "716311235213326733175572576754142",
+        "rank": 33,
+        "owner": 1,
+        "selectedAction": 4,
+        "proof": "ONE_FORCED_LANE_TO_GRAVITY_RESPONSE_COVER",
+        "ordinaryRootValueP0Relative": -1,
+        "otherEquallyBestLabelsUnknown": true,
+        "sourceForcedReplyRounds": 0
+      },
+      {
+        "history": "7163112352133267331755725767541425",
+        "rank": 34,
+        "owner": 0,
+        "selectedAction": 4,
+        "proof": "ONE_FORCED_LANE_TO_GRAVITY_RESPONSE_COVER",
+        "ordinaryRootValueP0Relative": 1,
+        "otherEquallyBestLabelsUnknown": true,
+        "sourceForcedReplyRounds": 0
+      },
+      {
+        "history": "71631123521332673317557257675414252",
+        "rank": 35,
+        "owner": 1,
+        "selectedAction": 4,
+        "proof": "ONE_FORCED_LANE_TO_GRAVITY_RESPONSE_COVER",
+        "ordinaryRootValueP0Relative": -1,
+        "otherEquallyBestLabelsUnknown": true,
+        "sourceForcedReplyRounds": 0
+      },
+      {
+        "history": "511151225345263216231454357",
+        "rank": 27,
+        "owner": 1,
+        "selectedAction": 6,
+        "proof": "ONE_FORCED_LANE_TO_GRAVITY_RESPONSE_COVER",
+        "ordinaryRootValueP0Relative": -1,
+        "otherEquallyBestLabelsUnknown": true,
+        "sourceForcedReplyRounds": 0
+      }
+    ],
+    "DRAW": [
+      {
+        "history": "14134251643437345353422222717671666517",
+        "rank": 38,
+        "owner": 0,
+        "selectedAction": 5,
+        "proof": "ORIGINAL_ROOT_WIN_EXCLUSION_AND_SINGLE_ACTION_NONLOSS",
+        "ordinaryRootValueP0Relative": 0,
+        "otherEquallyBestLabelsUnknown": true,
+        "sourceForcedReplyRounds": 0
+      },
+      {
+        "history": "5111512253452632162314543572774337767466",
+        "rank": 40,
+        "owner": 0,
+        "selectedAction": 4,
+        "proof": "ORIGINAL_ROOT_WIN_EXCLUSION_AND_SINGLE_ACTION_NONLOSS",
+        "ordinaryRootValueP0Relative": 0,
+        "otherEquallyBestLabelsUnknown": true,
+        "sourceForcedReplyRounds": 0
+      },
+      {
+        "history": "35215153417547351252373261177422764643466",
+        "rank": 41,
+        "owner": 1,
+        "selectedAction": 6,
+        "proof": "ORIGINAL_ROOT_WIN_EXCLUSION_AND_SINGLE_ACTION_NONLOSS",
+        "ordinaryRootValueP0Relative": 0,
+        "otherEquallyBestLabelsUnknown": true,
+        "sourceForcedReplyRounds": 0
+      },
+      {
+        "history": "756667215243225125345733321354476674467",
+        "rank": 39,
+        "owner": 1,
+        "selectedAction": 1,
+        "proof": "ORIGINAL_ROOT_WIN_EXCLUSION_AND_SINGLE_ACTION_NONLOSS",
+        "ordinaryRootValueP0Relative": 0,
+        "otherEquallyBestLabelsUnknown": true,
+        "sourceForcedReplyRounds": 0
+      },
+      {
+        "history": "7566672152432251253457333213544766744671",
+        "rank": 40,
+        "owner": 0,
+        "selectedAction": 1,
+        "proof": "ORIGINAL_ROOT_WIN_EXCLUSION_AND_SINGLE_ACTION_NONLOSS",
+        "ordinaryRootValueP0Relative": 0,
+        "otherEquallyBestLabelsUnknown": true,
+        "sourceForcedReplyRounds": 0
+      },
+      {
+        "history": "75666721524322512534573332135447667446711",
+        "rank": 41,
+        "owner": 1,
+        "selectedAction": 1,
+        "proof": "ORIGINAL_ROOT_WIN_EXCLUSION_AND_SINGLE_ACTION_NONLOSS",
+        "ordinaryRootValueP0Relative": 0,
+        "otherEquallyBestLabelsUnknown": true,
+        "sourceForcedReplyRounds": 0
+      },
+      {
+        "history": "1117434241557436626311363434526625577572",
+        "rank": 40,
+        "owner": 0,
+        "selectedAction": 7,
+        "proof": "ORIGINAL_ROOT_WIN_EXCLUSION_AND_SINGLE_ACTION_NONLOSS",
+        "ordinaryRootValueP0Relative": 0,
+        "otherEquallyBestLabelsUnknown": true,
+        "sourceForcedReplyRounds": 0
+      },
+      {
+        "history": "11174342415574366263113634345266255775727",
+        "rank": 41,
+        "owner": 1,
+        "selectedAction": 2,
+        "proof": "ORIGINAL_ROOT_WIN_EXCLUSION_AND_SINGLE_ACTION_NONLOSS",
+        "ordinaryRootValueP0Relative": 0,
+        "otherEquallyBestLabelsUnknown": true,
+        "sourceForcedReplyRounds": 0
+      },
+      {
+        "history": "47225326136526233376717137447162446455",
+        "rank": 38,
+        "owner": 0,
+        "selectedAction": 1,
+        "proof": "ORIGINAL_ROOT_WIN_EXCLUSION_AND_SINGLE_ACTION_NONLOSS",
+        "ordinaryRootValueP0Relative": 0,
+        "otherEquallyBestLabelsUnknown": true,
+        "sourceForcedReplyRounds": 0
+      },
+      {
+        "history": "4722532613652623337671713744716244645555",
+        "rank": 40,
+        "owner": 0,
+        "selectedAction": 1,
+        "proof": "ORIGINAL_ROOT_WIN_EXCLUSION_AND_SINGLE_ACTION_NONLOSS",
+        "ordinaryRootValueP0Relative": 0,
+        "otherEquallyBestLabelsUnknown": true,
+        "sourceForcedReplyRounds": 0
+      },
+      {
+        "history": "47225326136526233376717137447162446455551",
+        "rank": 41,
+        "owner": 1,
+        "selectedAction": 1,
+        "proof": "ORIGINAL_ROOT_WIN_EXCLUSION_AND_SINGLE_ACTION_NONLOSS",
+        "ordinaryRootValueP0Relative": 0,
+        "otherEquallyBestLabelsUnknown": true,
+        "sourceForcedReplyRounds": 0
+      },
+      {
+        "history": "57544344272725765145616761467562221113333",
+        "rank": 41,
+        "owner": 1,
+        "selectedAction": 3,
+        "proof": "ORIGINAL_ROOT_WIN_EXCLUSION_AND_SINGLE_ACTION_NONLOSS",
+        "ordinaryRootValueP0Relative": 0,
+        "otherEquallyBestLabelsUnknown": true,
+        "sourceForcedReplyRounds": 0
+      }
+    ],
+    "LOSS": [
+      {
+        "history": "46525656251511547372472721217733633364",
+        "rank": 38,
+        "owner": 0,
+        "selectedAction": 1,
+        "proof": "EXTINCT_OWN_WINLINES_OPPONENT_DUAL_FORCE_LOSS",
+        "ordinaryRootValueP0Relative": -1,
+        "otherEquallyBestLabelsUnknown": false,
+        "sourceForcedReplyRounds": 0
+      },
+      {
+        "history": "7654253275136145236326217611177672",
+        "rank": 34,
+        "owner": 0,
+        "selectedAction": 3,
+        "proof": "LIVE_OWN_WINLINES_DEFENDER_SAFE_PAIRING_PLUS_DUAL_FORCE_LOSS",
+        "ordinaryRootValueP0Relative": -1,
+        "otherEquallyBestLabelsUnknown": false,
+        "sourceForcedReplyRounds": 0
+      },
+      {
+        "history": "2533156517645745231422652231143317777664",
+        "rank": 40,
+        "owner": 0,
+        "selectedAction": 4,
+        "proof": "EXTINCT_OWN_WINLINES_OPPONENT_DUAL_FORCE_LOSS",
+        "ordinaryRootValueP0Relative": -1,
+        "otherEquallyBestLabelsUnknown": false,
+        "sourceForcedReplyRounds": 0
+      },
+      {
+        "history": "41674362237752476413243476111375532156",
+        "rank": 38,
+        "owner": 0,
+        "selectedAction": 2,
+        "proof": "LIVE_OWN_WINLINES_DEFENDER_SAFE_PAIRING_PLUS_DUAL_FORCE_LOSS",
+        "ordinaryRootValueP0Relative": -1,
+        "otherEquallyBestLabelsUnknown": false,
+        "sourceForcedReplyRounds": 0
+      },
+      {
+        "history": "4167436223775247641324347611137553215655",
+        "rank": 40,
+        "owner": 0,
+        "selectedAction": 2,
+        "proof": "EXTINCT_OWN_WINLINES_OPPONENT_DUAL_FORCE_LOSS",
+        "ordinaryRootValueP0Relative": -1,
+        "otherEquallyBestLabelsUnknown": false,
+        "sourceForcedReplyRounds": 0
+      },
+      {
+        "history": "72451616643612244562657277723154174515",
+        "rank": 38,
+        "owner": 0,
+        "selectedAction": 3,
+        "proof": "LIVE_OWN_WINLINES_DEFENDER_SAFE_PAIRING_PLUS_DUAL_FORCE_LOSS",
+        "ordinaryRootValueP0Relative": -1,
+        "otherEquallyBestLabelsUnknown": false,
+        "sourceForcedReplyRounds": 0
+      },
+      {
+        "history": "3723457654535765343722215174224674116361",
+        "rank": 40,
+        "owner": 0,
+        "selectedAction": 1,
+        "proof": "EXTINCT_OWN_WINLINES_OPPONENT_DUAL_FORCE_LOSS",
+        "ordinaryRootValueP0Relative": -1,
+        "otherEquallyBestLabelsUnknown": false,
+        "sourceForcedReplyRounds": 0
+      },
+      {
+        "history": "71244731641317732632666351437217265424",
+        "rank": 38,
+        "owner": 0,
+        "selectedAction": 5,
+        "proof": "LIVE_OWN_WINLINES_DEFENDER_SAFE_PAIRING_PLUS_DUAL_FORCE_LOSS",
+        "ordinaryRootValueP0Relative": -1,
+        "otherEquallyBestLabelsUnknown": false,
+        "sourceForcedReplyRounds": 0
+      },
+      {
+        "history": "7124473164131773263266635143721726542455",
+        "rank": 40,
+        "owner": 0,
+        "selectedAction": 5,
+        "proof": "EXTINCT_OWN_WINLINES_OPPONENT_DUAL_FORCE_LOSS",
+        "ordinaryRootValueP0Relative": -1,
+        "otherEquallyBestLabelsUnknown": false,
+        "sourceForcedReplyRounds": 0
+      },
+      {
+        "history": "2624267533523153737523241556616611144777",
+        "rank": 40,
+        "owner": 0,
+        "selectedAction": 4,
+        "proof": "EXTINCT_OWN_WINLINES_OPPONENT_DUAL_FORCE_LOSS",
+        "ordinaryRootValueP0Relative": -1,
+        "otherEquallyBestLabelsUnknown": false,
+        "sourceForcedReplyRounds": 0
+      },
+      {
+        "history": "33172467641516575153416321657454743367",
+        "rank": 38,
+        "owner": 0,
+        "selectedAction": 2,
+        "proof": "LIVE_OWN_WINLINES_DEFENDER_SAFE_PAIRING_PLUS_DUAL_FORCE_LOSS",
+        "ordinaryRootValueP0Relative": -1,
+        "otherEquallyBestLabelsUnknown": false,
+        "sourceForcedReplyRounds": 0
+      },
+      {
+        "history": "661435431127725717426245331565343714",
+        "rank": 36,
+        "owner": 0,
+        "selectedAction": 2,
+        "proof": "LIVE_OWN_WINLINES_DEFENDER_SAFE_PAIRING_PLUS_DUAL_FORCE_LOSS",
+        "ordinaryRootValueP0Relative": -1,
+        "otherEquallyBestLabelsUnknown": false,
+        "sourceForcedReplyRounds": 0
+      }
+    ]
+  },
+  "finalSeed": 1544287094,
+  "resultStatus": "PASS_SCOPED_ONE_PROOF_CARRYING_BEST_LEVEL2_MOVE_FROM_ORIGINAL_Q_WIN_DRAW_LOSS_ACTUAL7X6_PHYSICAL_MINIMAX_VERIFIED",
+  "mathematicalProof": "docs/research/2026-10-17-unified-one-certified-best-action-source-protocol.md",
+  "sourceImplementation": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-unified-one-valid-best-action-source.mjs",
+  "sourceGitBlob": "a8834b6c1bac9da031af961b5e0a77c4fde67dec",
+  "frozenIndependentPhysicalControl": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-unified-source-one-best-physical-control.mjs",
+  "physicalControlGitBlob": "99df21937d385b1c77a7366fb550a483e69940cc",
+  "dependencyModuleBlobIdentity": {
+    "core": "6b25d0e2560fe4131d2f5442593e9ed9763c1a18",
+    "direct": "a8d908d90b92fae70fa12106cae63e483a022b4a",
+    "copair": "1704db3137480d66a654c7d970e042fdd1003c48",
+    "frac": "271c1266337ee5999ab8866b7472daf109c299c2",
+    "global": "6a9aed9590ac71366404cf8f9f540286084b4985",
+    "coglobal": "466dc988942c2b52086d7190828dd005f22b74c0",
+    "coaction": "0ec449cfaf777ffa9acb2ce380fa151104659ec5",
+    "ladder": "64d7ec5cc5fc220ebeae2649cbaff70b95c3382b",
+    "draw": "d502e97b8a7f272479d6c8418070411d65d850b5",
+    "oldloss": "6f4fddaf7c8878ce8dedd1646212b51d40c9d949",
+    "newloss": "e5ae5466915ada351011eac8a1d1edeee90cb254"
+  },
+  "isolatedV8ExecutionMs": 1674,
+  "scopeAndQualification": [
+    "Selected best action is certified in an outcome-tier-specific original q proof: WIN proof highest tier; DRAW root no forced win + one first-action guaranteed nonloss; LOSS defender pairing/fractional hypergraph dual or extinct mover requirements proves all legal actions lose.",
+    "Original source does NOT value any alternative future game state, follow more than one strategically forced opponent lane, QBF/BDD strategy tree or oracle. Failed paths return INCOMPLETE; zero silent heuristic fallbacks.",
+    "Each source proof family has independently frozen theorem and test results from prior research. This integrated validation samples ONE common nonuniform corpus of actual first-win-stopped standard7x6 positions (rank >=27 plus named earlier witnesses), unlike previous separate corpus counts.",
+    "The physical reference FULL recursively checks ordinary scalar root WDL and the chosen legal first-action WDL for 200 positive late positions, with 0 discrepancies. Every LOSS root among checked samples that emitted full best labels was also checked across all literal first actions (5 such actions).",
+    "Separate earlier independently validated full opponent reply checks and physical paired policy trials provide strong evidence for winning and losing proof families; integrated physical control concentrates on root and selected action correctness.",
+    "Unified source selected strategic lane max=1, q cofactors materialized only on selected forced-reply paths, and all returned WIN/DRAW/LOSS root claims are exact under proof guards. The input canonical 44444 remains INCOMPLETE.",
+    "These source samples are nonuniform and heavily late game; the observed 10819/12771 cannot be reported as coverage proportion over arbitrary 7x6 Connect4 source q.",
+    "Maintained Node26 CI and external independent formal proof assistant not run. IsoGraph 1.2 governing gameplay authority unchanged; no solver implementation branch or merge."
+  ]
+}
