@@ -1,0 +1,170 @@
+{
+  "schema": "connect4.standard7x6.opponent_pair_policy_guard_needed_for_dual_win_v0_1",
+  "resultType": "INDEPENDENT_PHYSICAL_CONTINGENCY_FALSIFIER_NOT_SOURCE_WIN_ALGORITHM",
+  "originalBoard": {
+    "W": 7,
+    "H": 6,
+    "K": 4,
+    "lines": 69
+  },
+  "histories": [
+    {
+      "history": "7654253275136145236326217611177672",
+      "ply": 34,
+      "mover": 0,
+      "opponent": 1,
+      "legalOriginalFirstActions": [
+        3,
+        4,
+        5
+      ],
+      "possibleFirstTerminalOutcomePaths": {
+        "pWin": 0,
+        "oWin": 15,
+        "draw": 0
+      },
+      "shortestStoredConcreteContinuationToEachOutcome": {
+        "pWin": null,
+        "oWin": "3344",
+        "draw": null
+      }
+    },
+    {
+      "history": "41674362237752476413243476111375532156",
+      "ply": 38,
+      "mover": 0,
+      "opponent": 1,
+      "legalOriginalFirstActions": [
+        2,
+        5,
+        6
+      ],
+      "possibleFirstTerminalOutcomePaths": {
+        "pWin": 1,
+        "oWin": 8,
+        "draw": 0
+      },
+      "shortestStoredConcreteContinuationToEachOutcome": {
+        "pWin": "565",
+        "oWin": "25",
+        "draw": null
+      }
+    },
+    {
+      "history": "72451616643612244562657277723154174515",
+      "ply": 38,
+      "mover": 0,
+      "opponent": 1,
+      "legalOriginalFirstActions": [
+        3
+      ],
+      "possibleFirstTerminalOutcomePaths": {
+        "pWin": 0,
+        "oWin": 1,
+        "draw": 0
+      },
+      "shortestStoredConcreteContinuationToEachOutcome": {
+        "pWin": null,
+        "oWin": "33",
+        "draw": null
+      }
+    },
+    {
+      "history": "71244731641317732632666351437217265424",
+      "ply": 38,
+      "mover": 0,
+      "opponent": 1,
+      "legalOriginalFirstActions": [
+        5
+      ],
+      "possibleFirstTerminalOutcomePaths": {
+        "pWin": 0,
+        "oWin": 1,
+        "draw": 0
+      },
+      "shortestStoredConcreteContinuationToEachOutcome": {
+        "pWin": null,
+        "oWin": "5555",
+        "draw": null
+      }
+    },
+    {
+      "history": "33172467641516575153416321657454743367",
+      "ply": 38,
+      "mover": 0,
+      "opponent": 1,
+      "legalOriginalFirstActions": [
+        2
+      ],
+      "possibleFirstTerminalOutcomePaths": {
+        "pWin": 0,
+        "oWin": 1,
+        "draw": 0
+      },
+      "shortestStoredConcreteContinuationToEachOutcome": {
+        "pWin": null,
+        "oWin": "22",
+        "draw": null
+      }
+    },
+    {
+      "history": "661435431127725717426245331565343714",
+      "ply": 36,
+      "mover": 0,
+      "opponent": 1,
+      "legalOriginalFirstActions": [
+        2,
+        5,
+        6,
+        7
+      ],
+      "possibleFirstTerminalOutcomePaths": {
+        "pWin": 0,
+        "oWin": 28,
+        "draw": 0
+      },
+      "shortestStoredConcreteContinuationToEachOutcome": {
+        "pWin": null,
+        "oWin": "2256",
+        "draw": null
+      }
+    }
+  ],
+  "physicalTerminalSuffixBranchesEnumerated": 55,
+  "physicalIntermediateStatesChecked": 107,
+  "demonstratedNontrivialPolicyDependence": {
+    "history": "41674362237752476413243476111375532156",
+    "ply": 38,
+    "mover": 0,
+    "opponent": 1,
+    "legalOriginalFirstActions": [
+      2,
+      5,
+      6
+    ],
+    "possibleFirstTerminalOutcomePaths": {
+      "pWin": 1,
+      "oWin": 8,
+      "draw": 0
+    },
+    "shortestStoredConcreteContinuationToEachOutcome": {
+      "pWin": "565",
+      "oWin": "25",
+      "draw": null
+    }
+  },
+  "noPreviousWinnerGuardFailures": 0,
+  "status": "PASS_INDEPENDENT_ACTUAL7X6_NONPERFECT_P_WIN_POSSIBLE_WHILE_PERFECT_O_PAIR_DEFENSE_FORCES_P_LOSS",
+  "frozenIndependentPhysicalControl": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/standard7x6-pair-response-policy-necessity-falsifier.mjs",
+  "controlGitBlob": "ece6b35903e2e3644696e96278ba82637f013c38",
+  "sourceTheorem": "docs/research/2026-10-17-adaptive-gravity-pairing-plus-opponent-overload-forced-loss.md",
+  "sourceComplementaryWDLResult": "research/isograph/discovery/2026-10-17-zero-fanout-direct-invariants/STANDARD7X6_PAIR_DEFENSE_DUAL_OVERLOAD_NONEXTINCT_FORCED_LOSS_RESULTS_0_1.json",
+  "executionIsolatedV8Ms": 1,
+  "qualification": [
+    "The physical reachability test explicitly enumerated short first-win-stopped original7x6 legal suffixes for SIX frozen source-certified o win positions, solely as POST-source proof falsification; this is NOT the no-search solution.",
+    "At least ONE source-proved o forced-win q admitted a genuine p first-win sequence when o chooses suboptimally, demonstrating conditional adaptive response policy importance vs naive 'opponent inevitably first-wins regardless of both players choices'.",
+    "Source theorem proves o HAS ONE winning safe-mate strategy versus ALL p strategies, not that o must win if they deliberately fail to follow it. Perfect opposition root WDL confirmed independently on the same q in prior nonextinct-loss physical minimax evidence.",
+    "The concrete P0 possible first-win suffix is original literal '565' after history '41674362237752476413243476111375532156'; each move gravity legal, no earlier winner.",
+    "These are six late and nonuniform sources selected from previous positive research evidence, not game-wide statistical rates, not guarantee of P0 winning against perfect opposition."
+  ]
+}
