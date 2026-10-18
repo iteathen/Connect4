@@ -16,9 +16,16 @@ The outcome ordering is universal from the evaluated player's perspective:
 
     WIN > DRAW > LOSS.
 
-A user-visible `best` or `perfect` claim MUST state evaluated player and opponent model. Preserve ALL equally qualifying literal labels. Do not silently return a single representative, even if the initial winning certificate exhibits only one witness.
+Every result must state the evaluated player and opponent model. A **COMPLETE Level 2 information result** must preserve ALL equally qualifying original literal labels; a **VALID Level 2 continuation** needs only ONE source-certified action belonging to that complete set. It need not enumerate or exclude other equally best moves. Mark single-witness outputs as `VALID_CONTINUATION`, NOT `COMPLETE_LEVEL2_SET`. Never silently assert full information from one witness.
 
 The label `perfect move` here is an **owner information-level term** meaning time-refined best, not an assertion that any possible-winning move guarantees victory.
+
+
+### Operational requirement is weaker than the information set
+
+The Level 2 mathematical set is `B_M(q)=arg max_{a∈A(q)} U_M(q,a)`. To continue playing optimally, a solver requires only one legal action `a*` with a proof `a*∈B_M(q)`, not the entire set `B_M(q)`. Returning one action is a correct Level 2 **continuation certificate** without claiming it is a complete Level 2 **information result**. This distinction is owner-governing and supersedes prior blanket requirements to prove every move's membership before selecting any valid next move.
+
+A guaranteed/possible WIN-tier certificate immediately proves highest-tier membership, because no outcome ranks above WIN. A DRAW-tier certificate needs an additional root guarantee that no winning move is attainable under the declared opponent model. Under PERFECT opposition, when root value is an unavoidable LOSS for the mover, EVERY legal action is tied in the LOSS tier, so any legal move is already a valid continuation. No time preference applies at Level 2. Full mathematical proof and output contract: [`2026-10-17-owner-level2-set-vs-valid-continuation-correction.md`](2026-10-17-owner-level2-set-vs-valid-continuation-correction.md).
 
 ## 2. What the OPPONENT MODELS mean
 
