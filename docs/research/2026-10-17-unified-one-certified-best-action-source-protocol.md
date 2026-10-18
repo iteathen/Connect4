@@ -26,3 +26,17 @@ If any valid source proof returns the selected first action a from one of these 
 - Do not merge into solver implementation or qualify gameplay authority 1.2 on these samples.
 
 **Unsolved seam:** The union is still only sufficient proof coverage. For q where p and o both retain multiple adaptive threat/response paths without a static pairing, forcing ladder or source global bound, no source theorem yet proves a best move. General arbitrary standard7x6 Level2 one-action no-strategic-branching solution and canonical `44444` remain OPEN. The owner conjecture Level3 remoteness often needs branching is not a proven lower bound.
+
+
+## Frozen v2 candidate extension: corrected odd one-spare-cell root WDL closure
+
+**Frozen before v2 source implementation or common physical validation.** The earlier v1 union source/evidence retains its exact blob and previous five proof-family qualifications. Add one further mutually compatible source proof family conditioned on ODD remaining capacity:
+
+5. **Safe odd-root defender pairing + independent source DRAW/LOSS conclusion.** At q where mover p has surviving original winning requirements, an original capacity-one unmatched cell U and a co-release safe pairing of all other empty cells covering every original p winning requirement with CROSS PREFIX LENGTH AT MOST ONE proves that o has one uniform legal one-pending-pair response strategy denying all p first wins. This source NO-FORCE-WIN proof can be completed in two independent ways:
+   - o original K-winning generator fractional dual weight > ceil((WH−n)/2) p blocking stones forces o first WIN under the same adaptive pairing, hence p root LOSS, and all original legal actions are tied best;
+   - one ORIGINAL first action certified p NONLOSS by the already frozen co-release/blocker source theorem forces q root DRAW and selected a best.
+   - if neither second outcome certificate holds, output INCOMPLETE; root no-forced-win alone cannot decide best.
+
+**Critical NEGATIVE preserved:** unrestricted odd pending CROSS PREFIX LENGTH >1 produced an illegal mate in real standard7x6. This extension MUST import ONLY the source producer with the strict preemption-safe crossPrefix<=1 guard. No physical oracle result enters the source. Compatible exact WDL source outcomes cannot logically conflict; choose first successful certificate by deterministic theorem ordering, and do not re-evaluate multiple future strategic q values.
+
+**Comparison gate:** freeze a v2 union source as a SEPARATE file rather than overwriting qualified v1 source/evidence. On SAME genuine real7x6 q and fixed seed, evaluate old and new source outputs (no search); if old says VALID, v2 must preserve same optimal WDL tier though may pick another tied valid action, and if old INCOMPLETE/v2 VALID, independently confirm scalar root and selected original literal action with PHYSICAL MINIMAX on budgeted late real7x6. Record the incremental DRAW/LOSS source certification count distinctly, and retain root `44444` INCOMPLETE absent a genuine new certificate.
