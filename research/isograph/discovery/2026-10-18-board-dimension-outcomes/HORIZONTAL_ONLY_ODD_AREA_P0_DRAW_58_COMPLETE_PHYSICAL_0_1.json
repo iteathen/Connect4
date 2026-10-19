@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "date": "2026-10-19",
+  "theorem": "docs/research/2026-10-19-horizontal-only-area-parity-complementary-defender-theorem.md",
+  "source": "research/isograph/discovery/2026-10-18-board-dimension-outcomes/source-horizontal-only-odd-area-P0-draw-response.mjs",
+  "sourceBlob": "6829d96650a9aed43f1d1f10745be4e7563f534d",
+  "independentPhysicalValidator": "research/isograph/discovery/2026-10-18-board-dimension-outcomes/independent-horizontal-only-odd-area-P0-adversary.mjs",
+  "physicalBlob": "002f1a6ca14f37e9ce83d145aa0f7aa78d3636c3",
+  "scope": "every positive odd W,H with K>=3 and H<K; independent bounded W<=9 odd,H<=7 odd, K3..8, WH<=23",
+  "result": "ALL_ODD_AREA_PHYSICAL_P1_BRANCHES_DRAW",
+  "independentPhysical": {
+    "completeFixtures": 58,
+    "incompleteCases": 0,
+    "sourcePhysicalStates": 35147,
+    "physicalOpponentP1Choices": 121350,
+    "sourceP0Responses": 121350,
+    "distinctPhysicalTerminalDrawObservations": 12331,
+    "P0FirstWins": 0,
+    "P1FirstWins": 0,
+    "byK": {
+      "3": 5,
+      "4": 9,
+      "5": 9,
+      "6": 11,
+      "7": 11,
+      "8": 13
+    },
+    "negativeScopeGuardsRejected": 5
+  },
+  "exactMathematicalInformation": "H<K K>=3 WH odd => P0 has forced DRAW response against every P1, so source perfect-play P0-relative V>=0. A different P0 winning policy remains possible, so root sign not fixed.",
+  "compositionWithPreexisting": "H<K K>=3 WH even => P1 forced DRAW response against every P0, so V<=0; covers all H<K parity sectors with a proven one-sided outcome bound.",
+  "originalFutureGameWDLValuesSearchedBySource": 0,
+  "independentPhysicalBranching": "P1 choices only as separate falsifier",
+  "qualification": "Deductive guarded source theorem with 58 internal full adversarial finite fixtures, no external formal assistant",
+  "officialGameTheoryAuthorityChanged": false,
+  "solverModified": false
+}
