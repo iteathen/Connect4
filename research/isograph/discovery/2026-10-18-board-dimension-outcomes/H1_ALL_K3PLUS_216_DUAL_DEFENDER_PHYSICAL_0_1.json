@@ -1,0 +1,38 @@
+{
+  "schema": 1,
+  "date": "2026-10-18",
+  "theorem": "docs/research/2026-10-18-one-row-all-k-total-empty-wdl-law.md",
+  "frozenSource": "research/isograph/discovery/2026-10-18-board-dimension-outcomes/source-one-row-all-K-pair-defense.mjs",
+  "sourceBlob": "6b5b5878aa4ff130d2e9b52619fb3734b0b10a05",
+  "independentPhysicalValidator": "research/isograph/discovery/2026-10-18-board-dimension-outcomes/independent-one-row-K3plus-pair-defender-physical-all-attacks.mjs",
+  "validatorBlob": "13d2101da08cf42d086edfa5c800ac8b5fbb0614",
+  "theoremResult": "H=1: P0 WIN exactly for K1 or K2 with W>=3; DRAW otherwise; P1 never WIN",
+  "scope": {
+    "W": "1..18",
+    "H": 1,
+    "K": "3..8",
+    "defenders": [
+      "P0",
+      "P1"
+    ],
+    "opponentBranchEnumeration": "Independent physical validator ONLY"
+  },
+  "physical": {
+    "status": "PASS",
+    "fullFixtures": 216,
+    "incompleteFixtures": 0,
+    "uniqueOriginalPhysicalStates": 468318,
+    "actualAttackerAlternatives": 2527038,
+    "physicalResponderMoves": 2499390,
+    "fullBoardDrawTerminals": 107347,
+    "defenderFirstWins": 5084,
+    "attackerFirstWins": 0,
+    "maxPerFixtureStates": 19171,
+    "errors": 0
+  },
+  "newClaimComparedToPrior": "Generalizes 4-in-a-row H=1 and arbitrary-K one-column nonwin to all widths K>=3; complete all-K H=1 result combines earlier K1/K2 formula",
+  "sourceGameWDLQueryCount": 0,
+  "externalFormalProofAssistant": "NOT_RUN",
+  "officialGameTheoryAuthority": "UNCHANGED",
+  "engine": "Exact O(1) empty root cutoff for H1, K>=3; no solver changes"
+}
