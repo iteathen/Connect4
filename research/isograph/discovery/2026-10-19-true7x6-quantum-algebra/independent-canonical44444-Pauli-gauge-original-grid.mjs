@@ -55,7 +55,7 @@ function independentlyClassifyConditionalProjector(originalGeneratorHex,p,pairs,
 }
 function fullGaugeColoring(canonical,pairs,lowerBits){
  const grid=canonical.grid.slice();
- const center=3*7+5;grid[center]=1;
+ const center=5*7+3;grid[center]=1;
  let bits=lowerBits;
  for(const pair of pairs){
   const lo=Number(bits&1n);bits>>=1n;
