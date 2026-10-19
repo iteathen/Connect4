@@ -22,6 +22,8 @@ export function classifySourceEmptyDimension({width:W,height:H,connect:K}){
   const x=classifyOneRowEmpty({width:W,connect:K});
   return exact(x.P0relativeWDL,'ONE_ROW_BOTH_SIDED_ADJACENT_PAIR_DEFENSE_K3PLUS');
  }
+ if(K>=3&&H<K&&W>=K&&W<=2*K-1&&((W*H)&1)===0)
+  return exact(0,'P0_UPPER_SUPPORT_KERNEL_AND_P1_HORIZONTAL_PAIR_COMPOSE_EXACT_DRAW');
  if(K===4&&Math.min(W,H)<4)
   return exact(0,'INHERITED_20260914_K4_THIN_BOARD_DRAW_DEDUCTIVE_THEOREM');
  if(K>=3 && H<K && (W*H)%2===1) {
