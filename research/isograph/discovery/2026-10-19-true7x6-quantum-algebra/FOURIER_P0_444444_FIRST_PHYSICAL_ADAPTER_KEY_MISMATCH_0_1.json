@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "date": "2026-10-19",
+  "board": {
+    "W": 7,
+    "H": 6,
+    "K": 4
+  },
+  "realOriginalPrefix": "444444",
+  "status": "INVALID_VALIDATOR_ADAPTER_INTERFACE",
+  "frozenPureSource": "research/isograph/discovery/2026-10-19-true7x6-quantum-algebra/source-true7x6-444444-Fourier-weighted-pending-pair-P0.mjs",
+  "sourceBlob": "e05c79ff9b6f0c8d7fa1f917e6cb4d153a562e5c",
+  "physicalChecker": "research/isograph/discovery/2026-10-19-true7x6-quantum-algebra/independent-original7x6-444444-Fourier-P0-physical-adversary.mjs",
+  "checkerBlob": "0f77ef58ff09899ff6f8568c1e0c60e910e83dfc",
+  "observed": "At legal original attacker action c0 in prefix 44444421, checker called replyAfterP1({hBeforeP1,p1Column:c}), but frozen source exact signature expects replyAfterP1({hBeforeP1,attackColumn:c}). The undefined field caused a source guard rejection before evaluating any reply. No genuine illegal P0 move or P1 winning line is established.",
+  "qualDisposition": "INVALID_TEST_HARNESS_ADAPTER_KEY_ONLY",
+  "discoveryDisposition": "NO_GAMEPLAY_COUNTEREXAMPLE_FROM_THIS_RUN",
+  "repair": "Change checker only from p1Column:c to attackColumn:c, leave source strategy frozen and rerun."
+}
