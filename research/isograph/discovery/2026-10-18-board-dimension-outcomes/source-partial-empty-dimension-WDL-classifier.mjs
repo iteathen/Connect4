@@ -24,6 +24,13 @@ export function classifySourceEmptyDimension({width:W,height:H,connect:K}){
  }
  if(K===4&&Math.min(W,H)<4)
   return exact(0,'INHERITED_20260914_K4_THIN_BOARD_DRAW_DEDUCTIVE_THEOREM');
+ if(K>=3 && H<K && (W*H)%2===1) {
+  return {status:'GUARDED_P1_CANNOT_FORCE_WIN_BY_ODD_AREA_P0_MIRROR',
+   originalDimensions:{W,H,K},P0relativeWDL:null,
+   P0relativeValueLowerBound:0,P0relativeValueUpperBound:1,
+   proof:'H_LT_K_ODD_WIDTH_ODD_HEIGHT_P0_OPEN_SPARE_MIRROR_RESPONSE',
+   sourceFutureWdlQueries:0,sourceFutureGameStatesEvaluated:0};
+ }
  if(K>=4 && H%2===0 && W>=K && W<=2*K-2) {
   return {status:'GUARDED_P0_CANNOT_FORCE_WIN_BY_ALLIS_GENERAL_K_TWO_CENTER',
    originalDimensions:{W,H,K},P0relativeWDL:null,
