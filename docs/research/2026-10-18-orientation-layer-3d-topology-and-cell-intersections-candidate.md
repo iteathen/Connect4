@@ -52,3 +52,46 @@ Ask whether the local intersections induce a **finite, strategy-sufficient compo
 5. Preserve physical 69-line parity/geometry regression, including nontrivial full-column bridges and source R0/R1. Unknown new mathematical strength: **OPEN**.
 
 **Next falsifiable question:** can we derive a 4-orientation intersection invariant with richer information than plain geometric incidence, whose update under adding one column is independent of distant columns, while still respecting globally alternating ownership and gravity? A no-go showing unavoidable nonlocal phase coupling is equally informative. Do not assert a total non-search dimension-to-WDL algorithm without proof.
+
+
+## Additional exact result — crossing diagonals without target-cell intersection can share extensive gravity support
+
+This is a concrete owner-motivated explanation of why diagonal/X/Y intersections in a topology are more complicated than ordinary line crossings. Work in an **initially empty** board containing a K-by-K bottom-anchored patch over K adjacent columns. Let
+
+    L_+ = { (i,i) : i=0,...,K-1 }
+    L_- = { (i,K-1-i) : i=0,...,K-1 }.
+
+Both are genuine opposite-orientation K-cell geometric lines. Direct winning-cell intersection is
+
+    |L_+ ∩ L_-| = K mod 2
+
+(0 for even K, 1 for odd K).
+
+Define the physical GRAVITY SUPPORT CLOSURE
+
+    S(L) = union_{(c,r) in L} { (c,t) : 0 <= t <= r }.
+
+This is the set of cells that have to be filled by either player for EVERY cell in L to become physically accessible. It is NOT the set of cells the intended winning player must personally own. Both diagonals have
+
+    |S(L_+)|=|S(L_-)|=K(K+1)/2.
+
+In column i, the two closures share exactly
+
+    min(i+1,K-i)
+
+cells, so
+
+    |S(L_+) ∩ S(L_-)| 
+       = sum_{i=0}^{K-1} min(i+1,K-i)
+       = floor((K+1)^2/4).
+
+For K=2m, the sum is m(m+1); for K=2m+1, it is (m+1)^2. At K=4 the two WINNING LINES intersect in ZERO cells but their GRAVITY SUPPORT CLOSURES intersect in SIX cells. This is a symbolic identity for all positive K, not a solved WDL conclusion.
+
+This establishes TWO different source-relational intersections worth tracking:
+
+1. **winning-cell incidence overlap**: |L∩M|;
+2. **gravity-support overlap**: |S_h(L)∩S_h(M)|, with h-based future support for genuine nonempty q.
+
+The second may capture indirect column dependencies invisible to the first. In a nonempty q, support is anchored at h: for each column touched by G, include only the still-future physical cells from h_c through the highest G cell in that column. Recompute the expression, not reuse the empty-board triangle.
+
+**Limits:** common supports can be occupied by either player, and their overlap is NOT itself a threat, a defense, a coupling of forced strategies, or a perfect-play winner. More explicitly: support footprint cardinality is not a duration-to-win theorem and no first-win timing search is prescribed. Proposed next algebraic task: combine signed winning-incidence overlaps with gravity support-overlap and CPC column-phase relations, then test whether such a local interface is sufficient for guarded no-win/win information across dimension extension; preserve any counterexamples where it is not.
