@@ -46,3 +46,19 @@ The corrective operator \`(I-Q_ℓ)C_ℓ\` has rank<=3, and its sum over active 
 4. If true original DRAW has no fake toroidal line, the count of99 illegal geometric requirements remains deductively true, but the concrete example hypothesis is FALSE; record honestly.
 
 **Outcome scope:** exact geometry and an intentionally false alternative boundary transformation only; no source best move/WDL proof or solver branch edits.
+
+
+## Verified physical negative: eight false wins on a real draw
+
+The source precommitted exactly 69 valid original K4 intervals versus 168 PERIODIZED 2D DFT four-tap windows; 99 are illegal top/bottom/left/right wrapped spans. An INDEPENDENT original-grid 69-line physical checker replayed all 42 alternating gravity placements of the prespecified legal full DRAW \`123456123456654321654321123456123456777777\`, checking every move for a true first-winning K4 line. It found zero early or final real monochromatic K4 lines and correct 21/21 owner quotas.
+
+On that same already established TRUE original final coloring, the independent INCORRECT-torus window detector found **EIGHT spurious monochromatic four-point windows**:
+- 6 false vertical windows: 3 falsely appear P0-winning, 3 falsely P1-winning;
+- 2 false falling diagonal windows: 1 falsely P0-winning and 1 falsely P1-winning;
+- ZERO horizontal or rising fake monochromatic windows in this witness (though many of their *candidate windows* are geometrically invalid).
+
+Example false original P0 vertical four is the wrapped physical zero-based original site sequence \`[28,35,0,7]\`: original column1 rows 5,6,1,2 one-based. The physical top row is NOT adjacent to bottom row, so it is not a legal Connect4 winning line. The 42-move draw remains valid and unaffected. This shows naive UNMASKED PERIODIC 2D Fourier window detection would produce a real false terminal claim; **unfold-first open-boundary correction is mathematically necessary, not merely aesthetic**.
+
+The independently qualified machine packet is \`research/isograph/discovery/2026-10-19-true7x6-quantum-algebra/STANDARD7X6_FLAT_PERIODIC_QFT_99_SPURIOUS_LINES_8_FALSE_WINS_ON_REAL_DRAW_0_1.json\` with independently frozen source/physical checker. No game WDL search or nonstandard-board controls were used.
+
+**Qualification:** exact original geometrical observation and negative fake-periodic transform. This does NOT prove that ALL flat 2D Fourier transforms are wrong: appropriately zero-padded or boundary-masked flat transforms can also remain accurate. It validates WHY the owner's four-ribbon-FIRST method is a naturally exact way to retain four direction-specific open finite paths before applying per-strand transforms. Strategy closure remains OPEN.
