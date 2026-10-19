@@ -40,11 +40,7 @@ export function sourceTrue7x6K4PauliExchange(){
    add((1n<<BigInt(L.cells[i]))|(1n<<BigInt(L.cells[j])),1);
   add(BigInt(L.maskHex),1);
  }
- const terms=[...coefficients.values()].sort((a,b)=>
-   a.operatorDegree-b.operatorDegree||
-   BigInt(a.PauliZSupportMaskHex)<BigInt(b.PauliZSupportMaskHex)?-1:1);
- // The sort comparator above has a deliberately simple deterministic
- // intended type: use explicit degree-first then numeric support.
+ const terms=[...coefficients.values()];
  terms.sort((a,b)=>{
   if(a.operatorDegree!==b.operatorDegree)return a.operatorDegree-b.operatorDegree;
   const x=BigInt(a.PauliZSupportMaskHex),y=BigInt(b.PauliZSupportMaskHex);
