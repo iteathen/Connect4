@@ -1,7 +1,7 @@
 // Reproducible STATIC geometry/phase falsifier for
 // docs/research/2026-10-18-nested-width-parity-k-connection-twist.md
 // No game-tree search or WDL oracle. Actual prefix is first-win-free.
-// A full hypothetical column word may extend beyond terminal solely to
+// A complete hypothetical column word may extend beyond terminal solely to
 // test the published fixed-word source ownership/parity identities.
 export function verifyNestedWidthKPhase({seed=20261018,cases=1536}={}) {
  let state=seed>>>0;
@@ -57,7 +57,7 @@ export function verifyNestedWidthKPhase({seed=20261018,cases=1536}={}) {
   }
   if(full.length!==N)continue;
   stats.fullWordsGravityLegal++;
-  const limit=(firstWinAt===Infinity?N:firstWinAt-1);
+  const limit=(firstWinAt===Infinity?N-1:firstWinAt-1);
   const n=pick(limit+1),h0=Array(W).fill(0);
   for(let i=0;i<n;i++)h0[full[i]]++;
   // n is before a first winner, so genuine first-win-stopped prefix.
