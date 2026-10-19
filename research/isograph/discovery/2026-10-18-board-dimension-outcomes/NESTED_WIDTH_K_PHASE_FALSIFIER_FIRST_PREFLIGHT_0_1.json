@@ -1,0 +1,28 @@
+{
+  "status": "PREFLIGHT_HARNESS_SCOPE_REJECTED",
+  "date": "2026-10-18",
+  "sourceRevision": "eee32e605ee126725f803243fc0459973096273b",
+  "sourceBlob": "2a7442233a3150031dacb0ebe56ae8172844ab06",
+  "seed": 20261018,
+  "cases": 1536,
+  "observed": {
+    "originalPrefixes": 1536,
+    "realGeometryCases": 1535,
+    "phaseOwnerChecks": 79018,
+    "monochromeWindowChecks": 77318,
+    "unexpectedCases": 1,
+    "failures": [
+      {
+        "kind": "no legal root action",
+        "W": 5,
+        "H": 4,
+        "K": 4,
+        "n": 20
+      }
+    ]
+  },
+  "reason": "When no first win occurred, prefix sampler permitted n=W*H (terminal full-board draw), violating nonterminal premise. This is a harness/sample-domain mistake, NOT a mathematical parity identity counterexample.",
+  "repair": "Set no-firstwin prefix maximum to WH-1, keeping all geometry equations and input source immutable.",
+  "discoveryDisposition": "NO_STRUCTURAL_FALSIFIER",
+  "qualificationDisposition": "INVALID_NONTERMINAL_FIXTURE; RERUN_REQUIRED"
+}
