@@ -85,3 +85,52 @@ This produces rigorously derived **seven wave-cancellation nodes** without compu
 - **Optional strategic consequences:** ONLY IF proved that a wave invariant is preserved against the opponent's choices and determines forced outcomes/optimal moves. Equality of unsigned potential or a zero signed contrast alone is NOT a WDL tie.
 
 **Qualification:** new source theorem/HYPOTHESIS frozen before direct computer verification. No solver modification, gameplay1.2 change or presumed quantum speedup; no other W/H/K board tests.
+
+
+## 7. Verified source plus independently exhaustive original physical test (2026-10-19)
+
+The frozen pure source \`research/isograph/discovery/2026-10-19-true7x6-quantum-algebra/source-original7x6-two-owner-complete-gravity-wave-overlay.mjs\` exactly computed **all 69 original line K4 P0/P1 potentialities** at TRUE empty standard root, genuine first-win-free \`44444\`, and a genuine rank32 prefix of the physically validated 42-ply full DRAW. The line source uses an original equal-multiplicity compressed shuffle (<=4 marked original physical columns + filler); one-body temporal Fourier uses NEGATIVE HYPERGEOMETRIC binomial rational coefficients. No next-game WDL, minimax or policy tree is consulted. The real original \`44444\` line incidence support EXACTLY separates into:
+
+    BOTH p potentials positive = 24 original K4 lines;
+    P0 ONLY positive = 24;
+    P1 ONLY positive = 18;
+    NEITHER positive = 3.
+
+The THREE \`44444\` zero-contrast modes are all both-sides BLOCKED original center-column vertical lines (P0=P1=0). That is **not** destructive cancellation of two live waves. Of the 24 genuinely SHARED nonzero modes, six favor P0 in signed contrast and eighteen favor P1. Across all 69 possible original lines the source signed contrast totals approximately 0.1571720782534926 under the **uniform hypothetical complete shuffle** measure; this is NOT original game WDL.
+
+At the EMPTY original board (all 42 future gravity events), there are exactly FIFTEEN **NONTRIVIAL LIVE** signed P0/P1 cancellation modes:
+- 7 central vertical K4 lines with rows **1,2,3,4 zero-based** in each original column;
+- 4 rising diagonal windows with consecutive original rows **1,2,3,4** across their four respective columns;
+- 4 falling diagonal windows using the SAME symmetric four-row set in reverse direction.
+
+Every one of these 15 has **P0>0, P1>0 and P0=P1** in exact BIGINT rational counts. Other 54 K4 lines have nonzero signed owner potential. Source also checked all 69 Jx same-owner and all69 Jy+owner-swap empty-shuffle potentiality equalities, no mismatches.
+
+### Why the extra EIGHT diagonal nodes cancel even though Jy does not fix those geometric lines
+
+The empty standard 7×6 has SEVEN **EQUAL original six-event column chains**. The UNIFORM complete gravity-shuffle ensemble is invariant under arbitrary column-label permutations (this is not a game-winning-line symmetry) and under reversing the complete length42 COLUMN-LABEL WORD. Reversing the word reassigns original physical row r to row 5-r inside each column and reverses 0-based absolute time t to 41-t, which FLIPS the owner bit.
+
+For any rising diagonal with target row ranks {1,2,3,4}, under reversal the four TARGET rows are exactly the same unordered multiset, merely reversed. Compose the history reversal with a permutation reversing the FOUR target column labels (and fixing the other three). This bijectively maps the four target sites of that SAME diagonal line back to themselves AS A SET while exchanging P0/P1 owners. Thus P0-all-own and P1-all-own hypothetical gravity interleavings have equal cardinality. The falling diagonals follow identically. For a vertical central line the four target rows already map to the same physical column's four target sites without requiring a column permutation.
+
+**This is a new nontrivial owner-wave cancellation derivation on the ENTIRE hypothetical full gravity-shuffle potentiality space**, not only a site-level reflection argument. Note that the column permutation generally does NOT preserve original ADJACENT physical winning lines elsewhere, and reversing a hypothetical complete word is NOT an automorphism of first-win-stopped two-player GAME histories. No perfect-play WDL symmetry is claimed.
+
+### Independently exhaustive checker — actual original geometry, no other boards
+
+A different physical 7×6 K4 checker independently replayed the REAL nonterminal rank32 original history
+
+    12345612345665432165432112345612
+
+then generated **ALL 5040** original gravity-compatible 10-event hypothetical completed suffixes. It compared against frozen source:
+- **138 independent P0/P1 original 69 four-owner K4 line probability rational equalities** (not naive product of cell marginals);
+- **84 independent physical P0/P1 one-cell Fourier parity marginal equalities**;
+- **347,760 exact physical four-cell Pauli owner contrast/sum identities**, checked in the ORIGINAL board's 69 winline geometry;
+- true gravity, alternating P0/P1, original 69-line FIRST WIN checks at every prefix, keeping first-win-stopped results DISTINCT from postterminal hypothetical full colorings;
+- ZERO mismatches.
+
+In the 5040 completed hypothetical schedules, first winning player under original strict prefix play is P0 for 1350, P1 for 564, and DRAW for 3126; **1548** of those hypothetical complete schedules would have terminated BEFORE the last physical move under actual first-win-stopped play. These numbers are a validation/pushforward of one artificial uniformly complete interleaving distribution and are NOT optimal-play probabilities or independent original game strategy values.
+
+Durable source + checker + data packet:
+\`research/isograph/discovery/2026-10-19-true7x6-quantum-algebra/STANDARD7X6_TWO_OWNER_PLAYSPACE_69_LINE_WAVE_5040_PHYSICAL_EXHAUSTIVE_0_1.json\`.
+
+**Concrete failure of naive independent-cell waves:** on bottom horizontal original physical K4 line [0,1,2,3], exact potential \(\mathcal P_0=0.04607415041493256\) and \(\mathcal P_1=0.019503257066628775\), while multiplying one-body marginals would incorrectly give \(\mathcal P_0\approx0.08378105083023334\), \(\mathcal P_1\approx0.04555630104347921\). Gravity/turn coupling means the four-owner joint wave is strongly CORRELATED. The owner's proposed overlay must retain fourth-order intersections, not just two independent scalar heatmaps.
+
+**Epistemic boundary:** The “waves” are exact finite-dimensional classically defined Fourier amplitudes and Boolean projection correlators over a chosen uniform combinatorial measure. In quantum physics, indistinguishable alternatives can interfere via coherent amplitudes; distinct classical move histories do NOT acquire physically interfering amplitudes merely because we sum over them. Our zero signed fields are mathematical cancellations under the natural turn-parity character, not actual winning continuations erased by quantum destructive interference. A special nonsearch game theorem remains OPEN.
