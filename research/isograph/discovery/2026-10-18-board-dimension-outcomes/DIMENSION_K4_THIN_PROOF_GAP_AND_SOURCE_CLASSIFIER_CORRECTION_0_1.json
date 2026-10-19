@@ -1,0 +1,66 @@
+{
+  "schema": 1,
+  "date": "2026-10-19",
+  "branch": "research/semantic-quotient",
+  "historicalPaper": "docs/research/2026-09-14-thin-board-draw-theorem.md",
+  "historicalPaperBlob": "5af4ed8a980081b7767ec9591618e19761c79154",
+  "audit": "docs/research/2026-10-19-k4-thin-height-dual-pair-proof-obligation-audit.md",
+  "spillDebt": "docs/research/2026-10-19-unmatched-parity-spill-debt-column-pairing-obstruction.md",
+  "sourceGuardedClassifier": "research/isograph/discovery/2026-10-18-board-dimension-outcomes/source-partial-empty-dimension-WDL-classifier.mjs",
+  "correctedSourceBlob": "590b16952fe092a0802f83f472908a5a4d4ebe92",
+  "mathDisposition": "H<4 inherited dual-pair proof incomplete for arbitrary W because root P0 opener invalidates equal-height condition and W odd spare attacker choices lack response. No actual WDL counterexample claimed.",
+  "witnesses": [
+    {
+      "W": 4,
+      "H": 2,
+      "K": 4,
+      "case": "P0 defender initial move in paired col0 gives h=(1,0), P1 plays paired col1 row0; prescribed same-row mate col0 row0 unavailable"
+    },
+    {
+      "W": 5,
+      "H": 3,
+      "K": 4,
+      "case": "Odd width spare c4 unpaired, P0 c4 row0, P1 c4 row1, P0 c4 row2 fills spare; P1 cannot respond inside spare, four paired columns remain unused"
+    },
+    {
+      "W": 4,
+      "H": 2,
+      "K": 4,
+      "case": "P0 preserves pristine interior pairs (1,2) by opening c0 then P1 c3,P0 c0,P1 c3; both spares full before paired cells, P0 must spill"
+    }
+  ],
+  "reproducibleK4PlusSourceClassifierScreen": {
+    "WRange": [
+      1,
+      12
+    ],
+    "HRange": [
+      1,
+      12
+    ],
+    "KRange": [
+      1,
+      8
+    ],
+    "total": 1152,
+    "exactWDL": 744,
+    "oneSidedBounds": 137,
+    "incomplete": 271,
+    "previousExactWithUnreviewedHistoricalThinGuard": 756,
+    "previousBounds": 125,
+    "deltaExact": -12,
+    "deltaBound": 12
+  },
+  "publishedK4SameQTable": {
+    "publishedKnown": 52,
+    "knownSourceExactWDL": 0,
+    "sourceOneSidedBounds": 15,
+    "sourceIncomplete": 37,
+    "sourceContradictions": 0
+  },
+  "safetyConclusion": "Do not source-certify entire K4 H<4 from historical Case2 without a repaired opponent-universal pair policy. Preserve original note and published solved values as historical/independent evidence.",
+  "validation": "Direct deductive opening and unmatched response counterexamples; guarded source regression across 1152 dimension inputs and 52 external WDL controls",
+  "physicalIndependentWDLResolvesRemainingUnknownSource": false,
+  "officialIsoGraphPromotion": "NONE",
+  "solverModifications": "NONE"
+}
