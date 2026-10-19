@@ -1,0 +1,19 @@
+{
+  "date": "2026-10-19",
+  "board": [
+    7,
+    6,
+    4
+  ],
+  "genuinePrefix": "44444",
+  "source": "research/isograph/discovery/2026-10-19-true7x6-quantum-algebra/source-canonical44444-Pauli-split-cofactors.mjs",
+  "sourceBlob": "TO_BE_CHECKED",
+  "independentChecker": "research/isograph/discovery/2026-10-19-true7x6-quantum-algebra/independent-canonical44444-Pauli-gauge-original-grid.mjs",
+  "failedStatus": "INDEPENDENT_VALIDATOR_FIXTURE_INDEXING_ERROR",
+  "error": "Error: gauge coloring left physical site unowned",
+  "rootCause": "Checker used center-top grid index 3*7+5=26 (interpreted center column as row) instead of original physical row-major row5 col3 index 5*7+3=38; gauge assignment did not fill c3,r5. Frozen source geometry/Pauli theorem not assessed by this invalid validation result.",
+  "repair": "Change only independent checker center=5*7+3; record independent source SHA and full result after rerun. Preserve this failed preflight.",
+  "qualification": "INVALID_VALIDATOR_FIXTURE, NOT_A_SOURCE_FORMULA_FALSIFIER",
+  "discovery": "NO_MATHEMATICAL_LEAD",
+  "noWDLValuesComputed": true
+}
