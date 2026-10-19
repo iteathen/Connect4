@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "date": "2026-10-19",
+  "board": [
+    7,
+    6,
+    4
+  ],
+  "source": "research/isograph/discovery/2026-10-19-true7x6-quantum-algebra/source-canonical44444-six-generator-Fourier-coboundary.mjs",
+  "independentPhysicalChecker": "research/isograph/discovery/2026-10-19-true7x6-quantum-algebra/independent-canonical44444-six-coboundary-original-physical.mjs",
+  "failure": "TypeError: Assignment to constant variable.",
+  "diagnosis": "Independent validator declared valuesDiffer counter as const and attempted to increment it when it observed different oriented R; preflight harness defect, not source theorem falsification.",
+  "qualificationDisposition": "INVALID_CHECKER_PREFLIGHT",
+  "discoveryDisposition": "NO_STRUCTURAL_SOURCE_CONCLUSION_FROM_FAILED_RUN",
+  "fix": "Make physical checker valuesDiffer mutable with let, leave source incidence theorem unchanged and rerun all 21 real first-win-free orders.",
+  "originalGameWDLValuesEvaluated": 0
+}
