@@ -1,0 +1,67 @@
+{
+  "schema": 1,
+  "date": "2026-10-19",
+  "research": "docs/research/2026-10-19-k4-thin-height-dual-pair-proof-obligation-audit.md",
+  "resourceDebt": "docs/research/2026-10-19-unmatched-parity-spill-debt-column-pairing-obstruction.md",
+  "independentPhysicalSource": "research/isograph/discovery/2026-10-18-board-dimension-outcomes/independent-legacy-thin-pair-spill-physical-prefix-controls.mjs",
+  "checkerBlob": "f46648df9ac09f0a8cb7f0e03f004217bb5a5044",
+  "status": "PASS_SCOPED_SOURCE_RESPONSE_OBSTRUCTION",
+  "provenOriginalNonterminalPrefixes": [
+    {
+      "W": 4,
+      "H": 2,
+      "K": 4,
+      "history": "12",
+      "heights": [
+        1,
+        1,
+        0,
+        0
+      ],
+      "currentMover": "P0",
+      "obstruction": "P0 opening column1 breaks matching (column1,column2) equal-height guard before P1 move; after P1 column2 bottom original col1 row1 not row0, so same-row mate impossible"
+    },
+    {
+      "W": 5,
+      "H": 3,
+      "K": 4,
+      "history": "555",
+      "heights": [
+        0,
+        0,
+        0,
+        0,
+        3
+      ],
+      "currentMover": "P1",
+      "obstruction": "Odd height unmatched spare column five fully consumed on P0 turn; other four mirrored columns untouched; P1 must spill into a paired block"
+    },
+    {
+      "W": 4,
+      "H": 2,
+      "K": 4,
+      "history": "1414",
+      "heights": [
+        2,
+        0,
+        0,
+        2
+      ],
+      "currentMover": "P0",
+      "obstruction": "Both unpaired boundary columns fully consumed, paired interior untouched; P0 must leave boundary reserve"
+    }
+  ],
+  "checkedOpeningAndSpareObligations": 4,
+  "incorrectScopeUnconditionalWDLClaims": 0,
+  "scope": "Falsifies completeness of OLD ADVERTISED MIRROR POLICY, not truth of claimed perfect-play DRAW on these boards",
+  "sourceCounterfactualGameValueCalls": 0,
+  "classifiedDomainChange": {
+    "total": 1152,
+    "exactOld": 756,
+    "exactCorrected": 744,
+    "boundedOld": 125,
+    "boundedCorrected": 137,
+    "incompleteUnchanged": 271
+  },
+  "widerQualStatus": "No new qualified IsoGraph authority and no solver modifications"
+}
