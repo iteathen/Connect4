@@ -1,0 +1,40 @@
+{
+  "schema": 1,
+  "date": "2026-10-18",
+  "sourceTheorem": "docs/research/2026-10-18-allis-central-two-column-general-k-even-height-nonwin.md",
+  "classicalAttribution": "Victor Allis 1988 §2.2 proves K4 W<=6 even H; generalization to K>=4 and W<=2K-2 is new research scope",
+  "source": "research/isograph/discovery/2026-10-18-board-dimension-outcomes/source-allis-general-k-two-center-response.mjs",
+  "sourceBlob": "ae6e0d9967cf282b45f119741e35199378867b5e",
+  "independentPhysicalValidator": "research/isograph/discovery/2026-10-18-board-dimension-outcomes/independent-allis-general-k-original-P0-adversary.mjs",
+  "validatorBlob": "403b2d86caba8605c2dabbbbeb5efc0d036c213a",
+  "sourceGuard": "K>=4, even H, K<=W<=2K-2; empty original board",
+  "result": "ALL_PHYSICAL_CHECKS_PASS",
+  "physical": {
+    "completeP0UniversalFixtures": 17,
+    "resourceIncompleteFixtures": 0,
+    "independentlyExploredPhysicalStates": 70407,
+    "physicalP0AdversarialAlternatives": 312532,
+    "physicallyLegalP1Replies": 312532,
+    "adversarialP0FirstWinFailures": 0,
+    "sampledPhysicalOriginalGames": 12000,
+    "sampledP0Moves": 202500,
+    "sampledP1Replies": 202500,
+    "sampledP0FirstWins": 0,
+    "sampledP1FirstWins": 0,
+    "sampledFullDraws": 12000,
+    "byK": {
+      "4": 3000,
+      "5": 4000,
+      "6": 5000
+    },
+    "illegalGuardedCandidatesRejected": 5
+  },
+  "strictEpistemicResult": "P1 original deterministic response ensures no P0 first win; exact P0-relative value upper bound 0, not exact root WDL for K4 W4..6 etc",
+  "conditionalGeometry": "all K-span windows contain u=W-K and v=u+1; every K>=4 diagonal K-span includes 2 opposite-parity OUTER columns",
+  "sourceFutureGameWDLQueries": 0,
+  "validatorP0Branching": "independent full adversarial checker only",
+  "externalFormalCheck": "NOT_RUN",
+  "gameplayAuthorityPromotion": "NONE",
+  "solverMerge": "NONE",
+  "searchEngine": "O(1) guard upper-bound; integration deferred until independent qualification and end-to-end cost"
+}
