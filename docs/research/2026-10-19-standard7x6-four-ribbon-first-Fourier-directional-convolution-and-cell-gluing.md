@@ -99,3 +99,22 @@ Next work in this turn: source-freeze actual Walsh-influence P0 reply, independe
 - Treat failure as negative research evidence; preserve original source, checker, test and exact counterexample. Enforce single research ownership, qualified IsoGraph1.2 unchanged and no production solver modifications.
 
 **Outcome status:** exact algebraic representation/geometry anticipated; true game strategy sufficiency STILL OPEN. A more compact spectral WIN projector is not equivalent to a solution unless a source-proven legally adaptive response invariant and first-win guards are derived.
+
+
+## 8. Independent original7x6 qualification and active policy outcome (2026-10-19)
+
+The frozen pure original7x6 Fourier/ribbon producer and SEPARATE physical original7x6 checker completed with **ZERO mismatches**:
+
+- 37 strands / 168 directional appearances / 42 physical cell IDs, exactly four aliases per site;
+- 25 strands support K4 windows, 144 appearance sites across active strands, exactly 69 distinct original K4 winning intervals;
+- four-ribbon alias lift \`M^T M=4I\`, Fourier lift projects onto rank42 subspace and leaves 126 nonphysical unconstrained appearances;
+- exact finite K4 directional 4-tap convolution \`Q_\ell C_\ell\`; invalid wrap windows canceled, combined rank of the Fourier-bulk discarded-end correction **67** across the 25 active strands;
+- independent checker: **854 exact integer window-convolution comparisons, 854 circular Fourier diagonal-multiplier comparisons, 1,820 open-path sine-basis orthogonality/eigenvector checks, 7,056 linked physical impulse Fourier coefficient checks, 1,764 original-site reconstruction checks**;
+- maximum numerical errors: circular DFT approx 3e-15, open-path sine approx 1.9e-15, physical alias reconstruction approx 7.3e-16;
+- one separate genuine strictly FIRST-WIN-STOPPED 42-ply original 7×6 cooperative DRAW independently replayed, zero original physical winning intervals.
+
+Validated original-only packet \`research/isograph/discovery/2026-10-19-true7x6-quantum-algebra/STANDARD7X6_UNFOLD_FIRST_37_RIBBONS_FOURIER_ALIAS_FRAME_BOUNDARY67_0_1.json\`; frozen source and checker also in that folder. This gives a COMPLETE EXACT spectral GEOMETRY change-of-representation, not an opponent-universal WDL theorem.
+
+**Continued independent active work as owner requested:** earlier frozen real \`444444\` Fourier-influence P0 response was independently refuted by legitimate P1 RISING K4 at absolute ply14, original history \`44444421122333\`. A separate signed singleton-Walsh priority, frozen BEFORE independent original physical opponent checking, was ALSO refuted by genuine P1 RISING K4 at absolute ply32, original history \`44444411117113333557553553777722\`. Independent original move-by-move replayer verified BOTH whole histories are gravity-legal, each P0 move matches its respective frozen Fourier source rule, one-pending-pair invariant holds at every pre-attacker turn, and first win occurs exactly on the final P1 move. Packet \`STANDARD7X6_UNFOLD_FOURIER_TWO_P0_POLICY_FAILURES_INDEPENDENT_FIRSTWIN_REPLAY_0_1.json\`. These disprove the SPECIFIC policies as first-win prevention, not the exact unfolded spectra, not all possible Fourier/ZH strategies, and do not establish that P1 can force an outcome.
+
+**Next mathematical hypothesis, without more static scoring:** use four-ribbon alias-glued spectral windows as the exact source representation for an ONLINE signed blocker/response obligation graph. A legal P0 resource cannot be chosen only by marginal Fourier weight: preserving a vertical split pair may **create** the specific upper/lower owner literal pattern of a P1 diagonal K4 generator. Need guard direct observed FIRST-WIN threats, respond with gravity-safe capacity, and prove source inductive closure. If no guarded defense emerges, retain \`INCOMPLETE\`; do not hide future game WDL evaluation in Fourier tensor contraction, do not generalize board geometry, and do not modify game authority/solvers.
