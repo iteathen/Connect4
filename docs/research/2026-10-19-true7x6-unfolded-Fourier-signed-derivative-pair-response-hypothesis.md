@@ -34,3 +34,18 @@ Thus the signed candidate first P0 move is literal column1 (j0), unlike the fail
 4. No other boards or K, no game WDL value oracle, no production solver edits, no authoritative IsoGraph gameplay promotion.
 
 **Research goal:** prioritize a signed, moving Fourier/ZH defender resource contract that respects shared original four-ribbon aliases and first-win BEFORE a response; this candidate only tests a first potential improvement.
+
+
+## Outcome: actual signed source hypothesis FALSIFIED on the true original game
+
+Frozen source \`research/isograph/discovery/2026-10-19-true7x6-quantum-algebra/source-true7x6-444444-signed-Walsh-P0-pair-priority.mjs\`; independent physical checker \`independent-original7x6-444444-signed-Walsh-P0-physical-falsifier.mjs\` rebuilt all actual original 69 K4 windows and exhaustively expanded P1 opponent moves against the ONE source P0 response until a shortest discovered P1 first-win branch.
+
+**Actual outcome:** P0 source opens true literal column1 at ply7 as predicted; 30,854 unique nonterminal physical P1-turn states were checked, 138,439 P1 legal alternatives and 138,438 physically legal P0 source replies examined; **ZERO** illegal P0 mate or pending-pair resource violations. Nevertheless, a genuine original P1 RISING diagonal first-win was found at **ply32** on physical cells IDs [8,16,24,32], one-based original c2r2,c3r3,c4r4,c5r5. Entire first-win-stopped one-based move history:
+
+    44444411117113333557553553777722
+
+No previous original K4 completion exists in the witness. Another independent non-search ORIGINAL history replayer checked every defender move against the frozen source, all original gravity and first-win terminal rules, and the literal rising diagonal: \`research/isograph/discovery/2026-10-19-true7x6-quantum-algebra/STANDARD7X6_UNFOLD_FOURIER_TWO_P0_POLICY_FAILURES_INDEPENDENT_FIRSTWIN_REPLAY_0_1.json\`. Machine \`STANDARD7X6_444444_SIGNED_WALSH_P0_PAIR_POLICY_PHYSICAL_REJECTED_0_1.json\` contains the complete physical experiment.
+
+**Qualification:** REJECT as a P0 no-P1-FIRST-WIN strategy. The Walsh **signed conditional-mean formula remains exact**, and the one-pending P0 lower response remains source gravity-legal along tested paths, but the static conditional mean is not sufficient to ensure opponent-adaptive protection of all K4 diagonals. The signed witness survives to rank32 rather than the unsigned witness's rank14, but those lengths are outcomes of different fixed P0 policies under one physical P1 continuation each, NOT proof of stronger worst-case strategic play or a speed improvement. Genuine source Level1 WDL / Level2 best remains INCOMPLETE.
+
+**Specific lesson:** Fourier should be applied AFTER exact four-ribbon unfolding to a *moving, signed winning-line obligation/response algebra* rather than as a one-dimensional absolute or marginal weight for selecting the next P0 move. Shared physical alias constraints and opponent FIRST-WIN before P0 response are still decisive.
