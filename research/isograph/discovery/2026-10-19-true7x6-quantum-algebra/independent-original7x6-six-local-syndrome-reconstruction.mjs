@@ -9,7 +9,7 @@ import {sourceTrue7x6SixLocalPauliSyndrome}
 function buildPhysicalMeasurements() {
  const lines=[],groups=[[1,0],[0,1],[1,1],[1,-1]],
   edgePairs=[[0,1],[1,2],[7,8],[8,9],[0,7],[7,14]];
- for(let c=0;c<7;c++)for(let r=0;r<6;r++)for(const [dc,dr] of groups){
+ for(let r=0;r<6;r++)for(let c=0;c<7;c++)for(const [dc,dr] of groups){
   if(c+3*dc<0||c+3*dc>=7||r+3*dr<0||r+3*dr>=6)continue;
   lines.push([0,1,2,3].map(t=>(r+t*dr)*7+c+t*dc));
  }
