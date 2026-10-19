@@ -16,6 +16,10 @@ export function checkPartialEmptyDimensionClassifier({publishedK4Cells}){
    matrix.bounds++;
    if(!((K>=3&&H<K&&(W*H)%2===0)||(K>=4&&H%2===0&&W>=K&&W<=2*K-2)))
     issues.push({W,H,K,issue:'unproved P0 nonwin bound',x});
+  }else if(x.P0relativeValueLowerBound===0&&x.P0relativeValueUpperBound===1){
+   matrix.bounds++;
+   if(!(K>=3&&H<K&&(W*H)%2===1))
+    issues.push({W,H,K,issue:'unproved P1 nonwin odd-area bound',x});
   }else if(x.status==='INCOMPLETE_DIMENSION_WDL')matrix.incomplete++;
   else issues.push({W,H,K,issue:'bad classification status',x});
  }
