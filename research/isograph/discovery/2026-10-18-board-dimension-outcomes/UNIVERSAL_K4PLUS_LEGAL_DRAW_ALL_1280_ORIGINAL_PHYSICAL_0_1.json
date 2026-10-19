@@ -1,0 +1,87 @@
+{
+  "schema": 1,
+  "claim": "constructive existential legal DRAW history on empty W x H gravity Connect-K for every positive finite W,H and K>=4",
+  "theorem": "docs/research/2026-10-18-all-finite-k4plus-existential-draw-constructive-width-parity-theorem.md",
+  "source": "research/isograph/discovery/2026-10-18-board-dimension-outcomes/source-universal-k4plus-cooperative-draw-word.mjs",
+  "sourceGitBlob": "08b4bdaeea4bc7d92fef52cf51982e4be547e456",
+  "independentlyWrittenPhysicalFalsifier": "research/isograph/discovery/2026-10-18-board-dimension-outcomes/independent-original-k4plus-draw-physical-control.mjs",
+  "validatorGitBlob": "4d673e843f16464f2dd1555297b822e55add7039",
+  "scope": "all integer W,H in 1..16 each, K 4..8, physical gravity original each move, first-win stopping",
+  "physical": {
+    "status": "ALL_1280_REACHED_LEGAL_FILLED_BOARD_DRAW",
+    "configurations": 1280,
+    "byConnectionLength": {
+      "4": 256,
+      "5": 256,
+      "6": 256,
+      "7": 256,
+      "8": 256
+    },
+    "totalPhysicalMoves": 92480,
+    "sumGeometricWinningLineCounts": 138662,
+    "oddWidthCases": 640,
+    "evenWidthCases": 640,
+    "casesWithWidthAndHeightAtLeastK": 615,
+    "incorrectHistoryCount": 0,
+    "incorrectOwnerPatternCount": 0
+  },
+  "concreteControls": [
+    {
+      "W": 4,
+      "H": 4,
+      "K": 4,
+      "status": "DRAW",
+      "historyOneBased": "1234123443214321",
+      "geometricLines": 10
+    },
+    {
+      "W": 6,
+      "H": 4,
+      "K": 4,
+      "status": "DRAW",
+      "historyOneBasedPrefix": "1234561234566543216543",
+      "totalMoves": 24,
+      "geometricLines": 24,
+      "perfectPlayKnownSeparately": "P1_WIN"
+    },
+    {
+      "W": 7,
+      "H": 6,
+      "K": 4,
+      "status": "DRAW",
+      "historyOneBasedPrefix": "1234561234566543216543",
+      "totalMoves": 42,
+      "geometricLines": 69,
+      "perfectPlayKnownSeparately": "P0_WIN"
+    }
+  ],
+  "negativeControl": {
+    "W": 3,
+    "H": 6,
+    "K": 3,
+    "runSameK4PlusConstruction": true,
+    "firstWinFoundAtMove": 15,
+    "winner": "P0",
+    "winningOriginalLine": {
+      "startZeroBased": [
+        0,
+        4
+      ],
+      "direction": [
+        1,
+        -1
+      ],
+      "cellsOriginalZeroBased": [
+        12,
+        10,
+        8
+      ]
+    },
+    "classification": "DELIBERATELY_UNSUPPORTED_K3_CONSTRUCTOR; not impossibility of other K3 draw word"
+  },
+  "independentUnrestrictedPerfectPlayValuesComputed": 0,
+  "sourceAlternativeStrategicFutureWDLQueried": 0,
+  "claimStrength": "deductive general theorem with bounded 1280-case physical falsification; not independent formal proof assistant",
+  "rootWDLClaim": "NONE — existence of cooperative draw does not imply perfect-play DRAW",
+  "engineIntegration": "NONE"
+}
