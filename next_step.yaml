@@ -1,85 +1,93 @@
 owner_dimension_to_WDL_nested_parity_subtrack_20261018:
   research_owner: research/semantic-quotient
-  date: "2026-10-18"
-  position_scope: "EMPTY board V_empty(W,H,K), narrower than standing original arbitrary-q Level1"
-  primary_target: "Derive exact dimension-to-perfect-play-WDL classification from source structure, eliminating strategically alternative future game-value evaluation"
-  governing_gameplay: research/isograph/CONNECT4_LOGIC_AUTHORITY_1_2.md
-  complete_latest_synthesis: docs/research/2026-10-18-dimension-WDL-recovery-synthesis-parameter-classifier.md
-  source_partial_dimension_classifier: research/isograph/discovery/2026-10-18-board-dimension-outcomes/source-partial-empty-dimension-WDL-classifier.mjs
-  source_classifier_guard_validation: research/isograph/discovery/2026-10-18-board-dimension-outcomes/check-partial-empty-dimension-classifier-guards.mjs
-  original_external_K4_census: research/isograph/discovery/2026-10-18-board-dimension-outcomes/SOLVED_K4_EMPTY_BOARD_WIDTH_HEIGHT_CENSUS_0_1.json
-  physical_exact_families:
-    total_K1_K2_closed_formula:
-      proof: docs/research/2026-10-18-total-dimension-wdl-classification-connect1-connect2.md
-      evidence: research/isograph/discovery/2026-10-18-board-dimension-outcomes/COMPLETE_K1_K2_W_H_TO30_EXACT_DIMENSION_WDL_0_1.json
-      result: "K1 P0 WIN all W,H; K2 P0 WIN iff W>=2 and (H>=2 or W>=3), otherwise DRAW"
-    narrow_width_K3plus:
-      proof: docs/research/2026-10-18-arbitrary-k-narrow-width-exact-draw-response-theorem.md
-      evidence: research/isograph/discovery/2026-10-18-board-dimension-outcomes/NARROW_WIDTH_W_LT_K_124_POLICY_UNIVERSAL_ORIGINAL_PHYSICAL_0_1.json
-      result: "W<K, K>=3 => exact DRAW"
-    one_row_K3plus:
-      proof: docs/research/2026-10-18-one-row-all-k-total-empty-wdl-law.md
-      evidence: research/isograph/discovery/2026-10-18-board-dimension-outcomes/H1_ALL_K3PLUS_216_DUAL_DEFENDER_PHYSICAL_0_1.json
-      result: "H=1, K>=3 => exact DRAW"
-    inherited_K4_thin_board:
-      proof: docs/research/2026-09-14-thin-board-draw-theorem.md
-      status: "retained historical project deduction, not newly qualified"
-      result: "K4 min(W,H)<4 => exact DRAW under existing theorem guards"
-  guarded_P0_nonwin_families:
-    horizontal_only_even_area:
-      theorem: docs/research/2026-10-18-general-k-horizontal-only-even-area-second-player-draw-policy.md
-      physical: research/isograph/discovery/2026-10-18-board-dimension-outcomes/HORIZONTAL_ONLY_EVEN_AREA_P1_DRAW_73_COMPLETE_PHYSICAL_0_1.json
-      result: "K>=3, H<K, WH even => P1 forces DRAW under one response, hence P0 relative V<=0"
-    allis_K_general_two_center:
-      theorem: docs/research/2026-10-18-allis-central-two-column-general-k-even-height-nonwin.md
-      physical: research/isograph/discovery/2026-10-18-board-dimension-outcomes/ALLIS_GENERAL_K_TWO_CENTER_17_FULL_AND_12000_SAMPLED_0_1.json
-      classical_prior: "Victor Allis, 1988, §2.2 K4 W<=6 even height P1 drawing strategy"
-      new_general_scope: "K>=4, even H, K<=W<=2K-2"
-      direct_width_invariant: "Number of columns common to all K-column windows=max(0,2K-W); 2+ iff W<=2K-2"
-      result: "One deterministic original P1 two-center response excludes all P0 K-lines; V<=0, exact scalar WDL still unknown"
-  negative_static_results:
-    all_balanced_K3plus_safe: docs/research/2026-10-18-universal-balanced-k3plus-static-coloring-no-go.md
-    all_K4plus_possible_draw: docs/research/2026-10-18-all-finite-k4plus-existential-draw-constructive-width-parity-theorem.md
-    static_K_column_transfer: docs/research/2026-10-18-k-column-transfer-static-draw-boundary-and-strategic-gap.md
-    disposition: "Balanced safe final coloring always exists for K>=3; legal cooperative draw always exists K>=4; neither can classify perfect-play root WDL. Do not repeat purely static feasibility searches."
-  original_published_K4_marginal:
-    external_exact_outcomes: 52
-    source_qualified_nonwin_bounds_on_identical_games: 15
-    source_incomplete_on_other_games: 37
-    source_exact_scalar_values_new_on_these_regular_games: 0
-    incorrect_new_source_bounds: 0
-  rectangular_parameter_guard_screen:
-    domain: "1<=W,H<=12;1<=K<=8"
-    source_exact: 675
-    source_one_sided_P0_nonwin: 184
-    incomplete: 293
-    note: "Exact guarded theorem-domain counts, NOT unbiased universal coverage"
-  next_exact_mathematical_requirement: >-
-    Starting with K4 W4 or W5 and even H>=4, derive a source-only
-    ONLINE P0 no-loss response invariant which composes with the exact
-    Allis P1 nonwin contract into full empty-root DRAW WDL.
-    Preserve opponent-adaptive observation, original gravity, horizontal/
-    diagonal/vertical K-incidence and shared response resources.
-    Reject unguarded transfer to K4 W6 even H (P1 wins) and K4 W7 H6
-    (P0 wins). Do not use game-tree/QBF/BDD enumeration as a claimed
-    mathematical source mechanism; physical references may falsify after
-    source theorem frozen. If no proof, return INCOMPLETE and preserve
-    exact blocker/resource obstruction rather than patching special cases.
-  parked_topological_idea: docs/research/2026-10-18-orientation-layer-3d-topology-and-cell-intersections-candidate.md
+  verified_date: "2026-10-19"
+  branch: research/semantic-quotient
+  position_scope: "Empty board V_empty(W,H,K), subsidiary to general original q Level1"
+  owner_primary_objective: "Derive exact perfect-play WDL without any strategically alternative future-game value search"
+  qualified_gameplay_authority: research/isograph/CONNECT4_LOGIC_AUTHORITY_1_2.md
+  latest_synthesis: docs/research/2026-10-18-dimension-WDL-recovery-synthesis-parameter-classifier.md
+  latest_proof_correction: docs/research/2026-10-19-k4-thin-height-dual-pair-proof-obligation-audit.md
+  newest_parity_debt_theorem: docs/research/2026-10-19-unmatched-parity-spill-debt-column-pairing-obstruction.md
+  legacy_thin_source_warning: >-
+    Sept14 K4 H<4 two-sided horizontal pair-defense proof has incomplete
+    P0 opening and odd-width unmatched-column response; do NOT use the
+    entire H<4 family as source-exact from that legacy note alone.
+    Independent previously solved WDL labels are NOT disproved.
+    Fail closed on H<4 beyond separately verified exact subfamilies.
+  corrected_machine_reclassification: research/isograph/discovery/2026-10-18-board-dimension-outcomes/DIMENSION_K4_THIN_PROOF_GAP_AND_SOURCE_CLASSIFIER_CORRECTION_0_1.json
+  source_guarded_classifier: research/isograph/discovery/2026-10-18-board-dimension-outcomes/source-partial-empty-dimension-WDL-classifier.mjs
+  source_guarded_classifier_control: research/isograph/discovery/2026-10-18-board-dimension-outcomes/check-partial-empty-dimension-classifier-guards.mjs
+  empty_K4_published_oracle: research/isograph/discovery/2026-10-18-board-dimension-outcomes/SOLVED_K4_EMPTY_BOARD_WIDTH_HEIGHT_CENSUS_0_1.json
+  exact_WDL_source_guards:
+    K1: "P0 WIN for every positive W,H"
+    K2: "P0 WIN iff W>=2 and (H>=2 or W>=3), otherwise DRAW"
+    narrow_width: "K>=3 and W<K => exact DRAW by dual vertical pair response"
+    single_row: "K>=3 and H=1 => exact DRAW by dual adjacent-column pair response"
+    new_horizontal_common_K_span: >-
+      K>=3 and H<K and K<=W<=2K-1 and WH even
+      => exact DRAW. P0 bottom central-K anchor plus P0 immediate upper
+      support-mirror strategy yields V>=0; separate P1 horizontal mirror
+      yields V<=0. 65 adversarial P0 defender physical fixtures,
+      311603 P1 replies and zero first-win counterexamples; 73 prior
+      P1 policy physical fixtures complete.
+  new_horizontal_common_span_math: docs/research/2026-10-19-p0-top-support-mirror-horizontal-only-common-kernel-exact-draw.md
+  new_horizontal_common_span_physical: research/isograph/discovery/2026-10-18-board-dimension-outcomes/P0_TOP_SUPPORT_KERNEL_65_PHYSICAL_EXACT_DRAW_0_1.json
+  one_sided_WDL_bounds:
+    odd_area_horizontal: >-
+      K>=3 H<K WH odd => P0-NONLOSS V>=0 by odd-width/odd-height
+      matched-column reserve. 58 independently adversarial physical
+      fixtures, 121350 P1 opponent moves.
+    even_area_horizontal: >-
+      K>=3 H<K WH even => P0-NONWIN V<=0 by P1 horizontal mirror;
+      exact DRAW where new common-span lower bound also holds.
+    even_height_common_two_center: >-
+      K>=4 H even K<=W<=2K-2 => P0-NONWIN V<=0,
+      K-general extension of Victor Allis 1988 K4 W<=6 drawing strategy;
+      17 complete adversarial fixtures and 12000 sampled original games.
+  allis_general_theorem: docs/research/2026-10-18-allis-central-two-column-general-k-even-height-nonwin.md
+  allis_general_physical: research/isograph/discovery/2026-10-18-board-dimension-outcomes/ALLIS_GENERAL_K_TWO_CENTER_17_FULL_AND_12000_SAMPLED_0_1.json
+  structural_source_results:
+    nested_phase: docs/research/2026-10-18-nested-width-parity-k-connection-twist.md
+    diagonal_topology_parked: docs/research/2026-10-18-orientation-layer-3d-topology-and-cell-intersections-candidate.md
+    static_transfer_exact_geometry_only: docs/research/2026-10-18-k-column-transfer-static-draw-boundary-and-strategic-gap.md
+    universally_possible_static_draw_K3plus: docs/research/2026-10-18-universal-balanced-k3plus-static-coloring-no-go.md
+    universally_cooperative_legal_draw_K4plus: docs/research/2026-10-18-all-finite-k4plus-existential-draw-constructive-width-parity-theorem.md
+  frozen_negative_controls:
+    naive_P0_vertical_follower_rejected: research/isograph/discovery/2026-10-18-board-dimension-outcomes/CENTRAL_KERNEL_P0_VERTICAL_FOLLOWER_4_REJECTED_POLICY_ORIGINAL_COUNTEREXAMPLES_0_1.json
+    historical_K4_Hlt4_incomplete: docs/research/2026-10-19-k4-thin-height-dual-pair-proof-obligation-audit.md
+    width_at_least_2K_spare_common_col_lost: research/isograph/discovery/2026-10-18-board-dimension-outcomes/P0_TOP_SUPPORT_KERNEL_65_PHYSICAL_EXACT_DRAW_0_1.json
+  current_parameter_screen:
+    domain: "W,H=1..12; K=1..8; 1152 total"
+    mathematically_exact_source_values: 744
+    one_sided_signed_bounds: 137
+    INCOMPLETE: 271
+    same_published_K4_known: 52
+    same_published_K4_source_upper_bounds: 15
+    same_published_K4_source_incomplete: 37
+    incorrect_source_claims: 0
+    general_standard7x6_empty_source_WDL: INCOMPLETE
+  immediate_next_exact_mathematical_requirement: >-
+    Derive a P1 response/defender no-P0-WIN theorem on horizontal-only
+    K4 W5 H3 ODD area or a general odd-unmatched-column pending-pair
+    debt clearance law. Once certified with full original adversarial
+    observation, combine with existing P0 nonloss to prove exact DRAW.
+    For nontrivial H>=K, derive P0 no-loss for K4 W4/5 H even, composing
+    with K-general Allis P1 no-win; preserve negative barriers W6 even
+    P1 WIN and W7H6 P0 WIN. No direct first-win timing search.
+    Freeze source theorem and implementation before original physical
+    falsification. Return INCOMPLETE on failed guards rather than
+    treating the preserved published table as proof input.
+  search_engine_applicability: >-
+    Exact empty-root cutoffs for proven K1/2, W<K, H1, even-area common
+    horizontal-K-span families. K-general Allis P0 nonwin and odd-area
+    P0 nonloss only tighten signed bounds. Do not consume unqualified
+    historical full H<4 claim. Benchmarks later; no solver changes.
   qualification:
-    new_source_math: GUARDED_DEDUCTIVE_RESEARCH
-    internal_original_physical_controls: PASS_WITH_STATED_SCOPES
-    independent_external_formal_check: NOT_RUN
-    total_dimension_WDL: OPEN
-    total_general_q_Level1: OPEN
-    qualified_IsoGraph1_2_promotion: NONE
-    solver_or_main_merge: NONE
-  search_engine_note: >-
-    Exact empty root cutoffs for complete K<=2/H1/W<K guarded families;
-    guarded Allis-style P0-nonwin intervals may tighten alpha-beta bound,
-    not provide scalar cutoff. Verify guards and net wall-time before
-    integration; no production solver changes authorized.
-
+    qualified_IsoGraph_1_2_modified: false
+    independent_external_formal_proof_assistant: NOT_RUN
+    game_solver_or_main_changes: NONE
+    total_dimension_legal_general_WDL: OPEN
+    total_arbitrary_q_Level1: OPEN
 true7x6_support_mirror_first_win_veto_full27_physical_source_loss_20261018:
   research_owner: research/semantic-quotient
   date: "2026-10-18"
