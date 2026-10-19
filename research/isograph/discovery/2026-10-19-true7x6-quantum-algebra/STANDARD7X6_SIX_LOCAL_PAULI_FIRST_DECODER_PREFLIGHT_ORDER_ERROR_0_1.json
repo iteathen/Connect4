@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "date": "2026-10-19",
+  "strictBoard": [
+    7,
+    6,
+    4
+  ],
+  "status": "INVALID_INDEPENDENT_SYNDROME_ORDERING_FIXTURE",
+  "source": "research/isograph/discovery/2026-10-19-true7x6-quantum-algebra/source-true7x6-six-local-Pauli-FFT-syndrome-decoder.mjs",
+  "independentChecker": "research/isograph/discovery/2026-10-19-true7x6-quantum-algebra/independent-original7x6-six-local-syndrome-reconstruction.mjs",
+  "failure": "Error: inconsistent original 76-bit Pauli syndrome supplied",
+  "diagnosis": "Source and independent checker independently generate the correct SET of 69 original physical K4 lines but enumerate them in different order: source loops original rows then columns, checker columns then rows. The 69 syndrome output bits are ORDERED measurements; passing checker ordering into source decoder without reindexing creates unrelated/inconsistent equations. The first source-side encode/decode self-control PASSED. This is a test adapter/measurement-label ordering defect, not a mathematical counterexample to the 6-probe rank theorem.",
+  "qualificationDisposition": "INVALID_TEST_FIXTURE_ORDERING",
+  "discoveryDisposition": "NO_MATHEMATICAL_FALSIFIER_FROM_THIS_RUN",
+  "repair": "Reorder independent true physical line enumeration to same fixed row-major source measurement labels or explicitly map each checker source line mask to the source label, then rerun independent ranks, 128 period reductions, 76 syndrome checks and owner color decodes. Keep source frozen."
+}
