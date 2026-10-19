@@ -1,0 +1,88 @@
+{
+  "schema": 1,
+  "date": "2026-10-19",
+  "theoremAndFrozenHypothesis": "docs/research/2026-10-19-central-kernel-overlap-parity-and-p0-follower-test.md",
+  "frozenSource": "research/isograph/discovery/2026-10-18-board-dimension-outcomes/source-central-kernel-P0-vertical-follower-candidate.mjs",
+  "sourceBlob": "6a59e2ff2a92e423fbd538f6f142d037eb9926b6",
+  "independentPhysicalChecker": "research/isograph/discovery/2026-10-18-board-dimension-outcomes/independent-central-kernel-P0-follower-physical-falsifier.mjs",
+  "checkerBlob": "fdee082c5be5beaaee0780f9f5f45c421cf8c0fd",
+  "sourceClaimUnderTest": "P0 opens at c=W-K zero-based, responds directly ABOVE every P1 drop when possible, otherwise opens leftmost other available column. Candidate guarantee of P1 NO-FIRST-WIN was HYPOTHESIS only.",
+  "physical": {
+    "status": "REJECTED_SPECIFIC_SOURCE_P0_POLICY",
+    "testedFixtures": 4,
+    "allFoundGenuineP1FirstWin": true,
+    "independentPhysicalP1AlternativesTested": 1726,
+    "illegalGravities": 0
+  },
+  "counterexamples": [
+    {
+      "W": 4,
+      "H": 4,
+      "K": 4,
+      "originalLiteralHistory": "111222213334",
+      "P1TerminalPly": 12,
+      "winningLineOneBasedStart": [
+        1,
+        4
+      ],
+      "direction": [
+        1,
+        -1
+      ],
+      "P1LastMoveOriginalColumn": 4
+    },
+    {
+      "W": 5,
+      "H": 4,
+      "K": 4,
+      "originalLiteralHistory": "2111122333344244",
+      "P1TerminalPly": 16,
+      "winningLineOneBasedStart": [
+        1,
+        1
+      ],
+      "direction": [
+        1,
+        1
+      ],
+      "P1LastMoveOriginalColumn": 4
+    },
+    {
+      "W": 4,
+      "H": 6,
+      "K": 4,
+      "originalLiteralHistory": "111112222122333334",
+      "P1TerminalPly": 18,
+      "winningLineOneBasedStart": [
+        1,
+        4
+      ],
+      "direction": [
+        1,
+        -1
+      ],
+      "P1LastMoveOriginalColumn": 4
+    },
+    {
+      "W": 5,
+      "H": 6,
+      "K": 4,
+      "originalLiteralHistory": "2111122222133331344344",
+      "P1TerminalPly": 22,
+      "winningLineOneBasedStart": [
+        1,
+        1
+      ],
+      "direction": [
+        1,
+        1
+      ],
+      "P1LastMoveOriginalColumn": 4
+    }
+  ],
+  "mathematicalInterpretation": "Pure vertical mate/fallback response can yield P1 stones on alternating column-parity rows, making a complete diagonal K-line possible, even though vertical P1 4-lines are blocked. Additional cross-column response coordination is required.",
+  "qualificationDisposition": "REJECTED specific strategy only; SOURCE phase parity/central overlap theorem remains exact",
+  "discoveryDisposition": "OPEN: P0 nonloss under some richer source policy for K4 W4/5, despite known external perfect-play DRAW data",
+  "solverModifications": "NONE",
+  "gameTheoryAuthority": "UNCHANGED"
+}
