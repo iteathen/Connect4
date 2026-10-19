@@ -26,6 +26,7 @@ For all finite W,H positive and K positive:
 | K>=3 AND H=1 | DRAW exact | Independent both-player one-row adjacent-pair reply; 216 K3..8 fixtures, 2,527,038 adversarial attacker choices, none wins |
 | K=4 AND min(W,H)<4 | DRAW exact **prior project theorem**, conditional on its historical proof scope | docs/research/2026-09-14-thin-board-draw-theorem.md; not introduced in this research cycle |
 | K>=3 AND H<K AND WH even, outside earlier exact families | P0-NONWIN bound V<=0; exact root sign INCOMPLETE | Frozen one uniform P1 online drawing policy, 73 independent original physical controls, 179,406 P0 choices and 0 premature wins |
+| K>=4 AND even H AND K<=W<=2K-2, outside earlier exact families | P0-NONWIN bound V<=0; exact root sign INCOMPLETE | Allis 1988 K4 W<=6 even H, generalized symbolic K>=4 two-center strategy and independent checks | 
 | everything else | INCOMPLETE | No general source strategy-sufficient law has been established |
 
 The H<K/WH-even P1 policy is actually **forced full-board DRAW when that particular policy is followed**, against any P0 choice. Hence P1 can guarantee at least DRAW and P0 cannot force WIN. It does NOT establish that P0 can hold DRAW against another P1 policy. The K4 min(W,H)<4 historical result is inherited rather than represented as newly externally proved.
@@ -107,3 +108,33 @@ Prove each local contract's inductive safety and algebraic cross-contract compat
 - No gameplay solver, hot-loop or CUDA/BSFP implementation changes authorized. Any later benchmark must measure total wall-clock solve cost, not merely node count.
 
 **Disposition:** total arbitrary W,H,K dimension classifier remains OPEN; exact new K1/K2 and H1 families established; key missing object is a strategy-sufficient online-response transfer, not geometry or static coloring.
+
+
+## 8. New strategy-sufficient regular-board transfer: Allis two-center width threshold
+
+**This changes the research focus materially.** Source: \`docs/research/2026-10-18-allis-central-two-column-general-k-even-height-nonwin.md\`, independently validated \`research/isograph/discovery/2026-10-18-board-dimension-outcomes/ALLIS_GENERAL_K_TWO_CENTER_17_FULL_AND_12000_SAMPLED_0_1.json\`. Distinguish Allis's prior K4 W<=6 even-H proof from our symbolic K>=4 extension.
+
+For fixed K, all possible horizontal/diagonal K-column spans share a common intersection of size
+
+    C(W,K)=max(0,2K-W) when W>=K.
+
+Thus:
+- K<=W<=2K-2: at least TWO shared columns;
+- W=2K-1: precisely ONE shared column;
+- W>=2K: ZERO shared columns.
+
+When H is EVEN and K>=4, source chooses two adjacent common columns u=W-K, v=u+1. P1 answers every P0 outer-column drop by immediate SAME-COLUMN upper mate, controlling P0's outer row parity. In the common pair, P1 first splits the bottom cells, then mates vertically; when one center fills on P0's top-row move, P1 shifts response to the other. A source invariant proves every P0 vertical/horizontal/diagonal K-line blocked. Therefore
+
+    H even, K>=4, K<=W<=2K-2
+       => P1 can prevent P0 FIRST WIN
+       => V_empty(W,H,K) in {-1,0}.
+
+In the critical diagonals, K-2 outer columns always contain two positions of OPPOSITE column-index parity for K>=4. A diagonal alternates row parity across such columns, and P0 owns only even-index rows in outer columns, so no P0 diagonal K-line exists. This is not a mere parity lookup: the argument includes an explicit legally viable P1 response resource contract.
+
+Original physical validation after theorem/source freeze: **17 complete exhaustive P0-opponent fixtures** (70,407 physical states and 312,532 P0 alternatives/312,532 P1 replies), plus **12,000** independently simulated P0-adversarial games covering K4,5,6 and 202,500 original P0/P1 move pairs; zero P0 first wins, zero illegality and zero resource incompletes. Exact symbolic proof, internal physical corroboration, **external independent formal checker NOT RUN**. No production solver adoption or authority-1.2 promotion.
+
+**Now genuine regular K4 table coverage:** source-only partial classifier \`source-partial-empty-dimension-WDL-classifier.mjs\`, with independently checked guards \`check-partial-empty-dimension-classifier-guards.mjs\`, classifies **15 of the 52** published K4 regular-board states as P0-NONWIN (W4/5/6, even H), zero disagreements with published WDL; the remaining **37 of 52** are still INCOMPLETE; none of the 52 has a source exact scalar WDL from our dimension guard union yet. This is genuinely meaningful one-sided outcome information on regular K4, not a new exact K4 opening-game solve. In parameter screen 1<=W,H<=12 and 1<=K<=8: 675 exact classifications, 184 one-sided bounds and 293 INCOMPLETE. These are deliberately nonuniform geometry-domain counts, not coverage percentages for unrestricted game states.
+
+**The mathematically smallest uncovered dual problem** is to find an analogous P0 no-loss contract on W4/5,H>=4,K4 (especially even H), which could combine with Allis P1 nonwin to prove exact DRAW without search. At width6,H even published P1-win prevents generalizing such a P0 policy to width6. At W7,H6 published P0 WIN prevents broadening the P1 two-center contract past W=2K-2. Any next theorem MUST retain and explain these negative guards.
+
+**Engine assessment**: new Allis-general K>=4 even-H width threshold gives a constant-time P0-relative upper bound 0 at the empty root, but not exact WDL node cutoff. It may improve alpha-beta bounds for generalized-K solvers, subject to original-game qualification and wall-time benefit. Existing K4 prior published strategy must be credited; no solver modifications authorized.
