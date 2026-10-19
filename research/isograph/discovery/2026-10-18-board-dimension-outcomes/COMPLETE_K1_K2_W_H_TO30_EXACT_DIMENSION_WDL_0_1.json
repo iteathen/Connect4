@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "date": "2026-10-18",
+  "theorem": "docs/research/2026-10-18-total-dimension-wdl-classification-connect1-connect2.md",
+  "source": "research/isograph/discovery/2026-10-18-board-dimension-outcomes/source-complete-K1-K2-empty-wdl.mjs",
+  "sourceBlob": "d37d5b20e8e442eb3731369c56546f61a6735c8a",
+  "independentPhysicalValidator": "research/isograph/discovery/2026-10-18-board-dimension-outcomes/independent-original-K1-K2-dimension-WDL-physical-control.mjs",
+  "checkerBlob": "f5563e5ad78fdb1e7d1dadb2abef80a2b8522bfd",
+  "proofStatement": "K1 always P0; K2 P0 iff W>=2 and (H>=2 or W>=3), otherwise DRAW for all positive W,H",
+  "independentResult": {
+    "status": "PASS",
+    "widthRange": [
+      1,
+      30
+    ],
+    "heightRange": [
+      1,
+      30
+    ],
+    "K": [
+      1,
+      2
+    ],
+    "roots": 1800,
+    "k1Roots": 900,
+    "k2Roots": 900,
+    "sourceP0RootWins": 1769,
+    "sourceDrawRoots": 31,
+    "P1RootWins": 0,
+    "exhaustiveOriginalP1SecondMoveChecks": 13890,
+    "physicalP0ReplyWinWitnesses": 13890,
+    "physicalMovesChecked": 30016,
+    "errors": 0
+  },
+  "sourceStrategicGameStatesValued": 0,
+  "sourceOpponentPolicyTreeNodes": 0,
+  "physicalMinimaxUsed": false,
+  "formalExternalProofChecker": "NOT_RUN",
+  "officialIsoGraphRevision": "UNCHANGED",
+  "engine": "Exact empty-root O(1) P0/D cutoff where original generalized K1/2 supported; no solver modifications"
+}
