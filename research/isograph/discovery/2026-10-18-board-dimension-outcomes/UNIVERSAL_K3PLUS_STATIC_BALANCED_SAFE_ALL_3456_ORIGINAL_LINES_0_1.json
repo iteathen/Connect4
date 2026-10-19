@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "date": "2026-10-18",
+  "theorem": "docs/research/2026-10-18-universal-balanced-k3plus-static-coloring-no-go.md",
+  "frozenSource": "research/isograph/discovery/2026-10-18-board-dimension-outcomes/source-all-dimensions-balanced-k3plus-safe-coloring.mjs",
+  "frozenSourceBlob": "0c5d403f49b19ea8a626956c3f4eda588daa7759",
+  "independentPhysicalLineChecker": "research/isograph/discovery/2026-10-18-board-dimension-outcomes/independent-balanced-k3plus-line-incidence-control.mjs",
+  "checkerBlob": "531d03bcc17157ebcfa488848b39c2302cbd7dd3",
+  "tested": "W,H 1..24 and K3..8; static physical colorings ONLY, not alternating gravity history",
+  "physicalResult": {
+    "status": "ALL_STATIC_BALANCED_AND_MONOCHROME_FREE",
+    "boardConfigurations": 3456,
+    "totalPhysicalCellsColored": 540000,
+    "originalGeometricKLinesChecked": 1225240,
+    "oddWidthCases": 1728,
+    "oddWidthHeight2Mod4Cases": 432,
+    "failedCases": 0
+  },
+  "negativeMutation": {
+    "dimensions": [
+      5,
+      6,
+      3
+    ],
+    "missingShift0ProducesP0Count": 16,
+    "requiredP0Count": 15,
+    "frozenSourceCorrectShift1P0Count": 15,
+    "negativeControlDetected": true
+  },
+  "conclusion": "For every finite empty (W,H,K>=3), the static balanced safe-coloring transfer's source balanced-existence predicate equals true, deduced symbolically; full-board color feasibility cannot serve as empty-root forced WDL classifier.",
+  "firstWinLegalHistoryClaim": "NONE FOR K3; STATIC COLORINGS MAY NOT BE LEGALLY REALIZABLE",
+  "strategyOrPerfectPlayWDLClaim": "NONE",
+  "oracleWDLReadInProducer": false,
+  "authoritativeIsoGraphGameplayUnchanged": true
+}
