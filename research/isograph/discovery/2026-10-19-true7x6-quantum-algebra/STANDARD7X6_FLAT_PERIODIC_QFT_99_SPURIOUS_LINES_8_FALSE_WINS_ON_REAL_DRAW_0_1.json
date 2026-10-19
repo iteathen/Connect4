@@ -1,0 +1,72 @@
+{
+  "schema": 1,
+  "date": "2026-10-19",
+  "strictOriginalConnect4": {
+    "W": 7,
+    "H": 6,
+    "K": 4,
+    "gravity": true,
+    "alternatingP0P1": true,
+    "firstWinStopped": true
+  },
+  "originalBoardUnchanged": "Only the Fourier transformation PERIODIZATION is intentionally invalid; this is NOT an additional board size or gameplay variant test",
+  "sourceTheorem": "docs/research/2026-10-19-true7x6-flat-QFT-periodization-99-spurious-windows-falsifier.md",
+  "pureSource": "research/isograph/discovery/2026-10-19-true7x6-quantum-algebra/source-true7x6-flat-torus-wrapped-K4-contrast.mjs",
+  "sourceBlob": "3971eb43e82da4d99fc67a955d58736ffeba9ba4",
+  "independentRealPhysicalGameChecker": "research/isograph/discovery/2026-10-19-true7x6-quantum-algebra/independent-true7x6-flat-Fourier-torus-falsewin-draw-control.mjs",
+  "checkerBlob": "87d6d85bc695e98cbc12d499c06e424f5ac436c3",
+  "status": "INDEPENDENT_TRUE7X6_PERIODIC_QFT_REPORTS_FALSE_WINS_ON_ACTUAL_ORIGINAL_DRAW",
+  "exact": {
+    "originalValidPhysicalK4Lines": 69,
+    "invalidTorusPeriodizedCandidateLines": 99,
+    "totalArtificialTorusWindowCandidates": 168,
+    "invalidByOrientation": {
+      "horizontal": 18,
+      "vertical": 21,
+      "rising": 30,
+      "falling": 30
+    }
+  },
+  "independentActualFirstWinStoppedOriginalGame": {
+    "oneBasedColumnHistory": "123456123456654321654321123456123456777777",
+    "alternatingGravityLegalActionsChecked": 42,
+    "firstWinsBeforeBoardFull": 0,
+    "actualTerminalResult": "DRAW",
+    "completedActualOriginalK4Lines": 0,
+    "P0Cells": 21,
+    "P1Cells": 21
+  },
+  "independentArtificialPeriodicFalseTerminal": {
+    "monochromeWrappedWindowsCount": 8,
+    "byDirection": {
+      "horizontal": {
+        "P0": 0,
+        "P1": 0
+      },
+      "vertical": {
+        "P0": 3,
+        "P1": 3
+      },
+      "rising": {
+        "P0": 0,
+        "P1": 0
+      },
+      "falling": {
+        "P0": 1,
+        "P1": 1
+      }
+    },
+    "sampleWrongVerticalLinePhysicalOriginalZeroBasedIDs": [
+      28,
+      35,
+      0,
+      7
+    ],
+    "invalidBoundary": "wraps real top row5 to bottom row0 for four-in-a-row despite NO real physical adjacency",
+    "all8NeverOriginalLegalFourCellLines": true
+  },
+  "scope": "Exact geometry, not source game WDL proof. Correct finite 37-ribbon transform Q_l C_l excludes last3 fake starts per active strand, preserving real 69 K4 lines.",
+  "noSolverEdit": true,
+  "qualifiedIsoGraph1_2Unchanged": true,
+  "sourceGameWDLValuesComputed": 0
+}
