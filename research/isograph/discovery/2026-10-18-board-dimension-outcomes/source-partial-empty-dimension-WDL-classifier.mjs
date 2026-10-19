@@ -24,6 +24,14 @@ export function classifySourceEmptyDimension({width:W,height:H,connect:K}){
  }
  if(K===4&&Math.min(W,H)<4)
   return exact(0,'INHERITED_20260914_K4_THIN_BOARD_DRAW_DEDUCTIVE_THEOREM');
+ if(K>=4 && H%2===0 && W>=K && W<=2*K-2) {
+  return {status:'GUARDED_P0_CANNOT_FORCE_WIN_BY_ALLIS_GENERAL_K_TWO_CENTER',
+   originalDimensions:{W,H,K},P0relativeWDL:null,
+   P0relativeValueLowerBound:-1,P0relativeValueUpperBound:0,
+   proof:'ALLIS_K4_W_LE6_EVEN_HEIGHT_K_GENERALIZATION_TWO_CENTER_P1_RESPONSE',
+   attribution:'Allis 1988 K4 W<=6 even H; generalized guarded K>=4 W<=2K-2 here',
+   sourceFutureWdlQueries:0,sourceFutureGameStatesEvaluated:0};
+ }
  if(H<K&&(W*H)%2===0) {
   return {status:'GUARDED_P0_CANNOT_FORCE_WIN_BY_P1_MIRROR',
    originalDimensions:{W,H,K},P0relativeWDL:null,
