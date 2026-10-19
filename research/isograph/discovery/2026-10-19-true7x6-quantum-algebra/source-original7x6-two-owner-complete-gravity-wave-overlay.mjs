@@ -185,6 +185,12 @@ export function sourceOriginal7x6TwoOwnerHistoryWaveOverlay(){
  }
  const empty=sample(stateFromOriginalHistory(''));
  const canonical=sample(stateFromOriginalHistory('44444'));
+ // Independent original-game falsification control: use a GENUINE
+ // first-win-free rank32 prefix of a previously physically verified
+ // 42-ply DRAW. Only TEN original 7x6 cells remain; exactly 5040
+ // hypothetical full interleavings can be independently enumerated.
+ const originalDraw='123456123456654321654321123456123456777777';
+ const latePrefix32=sample(stateFromOriginalHistory(originalDraw.slice(0,32)));
  if(empty.hypotheticalEmptyReverseJySwapSymmetryMismatches||
    empty.physicalJxWaveSymmetryMismatches||
    canonical.physicalJxWaveSymmetryMismatches||
@@ -200,6 +206,7 @@ export function sourceOriginal7x6TwoOwnerHistoryWaveOverlay(){
   originalGeometricK4Lines:lines.length,
   emptyOriginalRoot:empty,
   trueFirstWinFree44444Prefix:canonical,
+  trueFirstWinFreePhysicalDrawPrefix32:latePrefix32,
   sourceStrategicGameValueQueries:0,sourceMinimaxFutureBranching:0,
   actualFutureLegalFirstWinFilteringComputed:false,
   sourceQuantumHardwareInterferenceClaimed:false
