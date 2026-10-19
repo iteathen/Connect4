@@ -96,7 +96,7 @@ export function independentlyCheckCanonical44444SixFourierCoboundary(){
  if(m.some((v,i)=>v!==sourcePotentials[i]))errors.push({type:'SOURCE_POTENTIAL_MISMATCH'});
  const E=[],E0=[],E1=[];
  let edgePhysicalSourceChecks=0;
- const twoPly=[],valuesDiffer=0;
+ const twoPly=[];let valuesDiffer=0;
  for(let a=0;a<7;a++)for(let b=a+1;b<7;b++){
   const edge=m[a]^m[b];E.push(edge);
   E0.push(m0[a]^m0[b]);E1.push(m1[a]^m1[b]);
