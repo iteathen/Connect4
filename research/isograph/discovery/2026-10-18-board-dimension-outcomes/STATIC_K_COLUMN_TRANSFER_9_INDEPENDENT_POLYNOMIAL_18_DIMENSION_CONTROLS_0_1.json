@@ -1,0 +1,107 @@
+{
+  "schema": 1,
+  "date": "2026-10-18",
+  "theorem": "docs/research/2026-10-18-k-column-transfer-static-draw-boundary-and-strategic-gap.md",
+  "transferProducer": "research/isograph/discovery/2026-10-18-board-dimension-outcomes/source-k-column-static-draw-transfer.mjs",
+  "producerBlob": "40118df7db4a66df38e9494c5e8492373deaf35e",
+  "independentPhysicalStaticEnumerator": "research/isograph/discovery/2026-10-18-board-dimension-outcomes/k-column-transfer-independent-static-enumeration.mjs",
+  "physicalEnumeratorBlob": "2bbb6e86eb1728511d41bff0925029cf6d737a18",
+  "exhaustiveSmallStaticGeneratingPolynomialControls": {
+    "fixtures": [
+      [
+        3,
+        3,
+        3
+      ],
+      [
+        4,
+        3,
+        3
+      ],
+      [
+        5,
+        3,
+        3
+      ],
+      [
+        3,
+        4,
+        4
+      ],
+      [
+        4,
+        4,
+        4
+      ],
+      [
+        5,
+        4,
+        4
+      ],
+      [
+        5,
+        4,
+        5
+      ],
+      [
+        4,
+        2,
+        3
+      ],
+      [
+        6,
+        3,
+        4
+      ]
+    ],
+    "allOriginalWinningLineCountsMatched": true,
+    "allGeneratedColoringCountPolynomialsMatched": true,
+    "incorrectlyPredictedStaticColors": 0,
+    "totalTests": 9,
+    "totalsByFixture": [
+      32,
+      44,
+      64,
+      2744,
+      16688,
+      124318,
+      810000,
+      100,
+      110592
+    ]
+  },
+  "sameOriginalPublishedK4EmptyBoardComparison": {
+    "widthsTested": "4..12",
+    "heightsTested": [
+      4,
+      5
+    ],
+    "cases": 18,
+    "knownExactWDL": 17,
+    "unreportedValues": 1,
+    "balancedNoWinningLineStaticColoringPresent": 18,
+    "generatedMaxSuffixStatesH4": 2744,
+    "generatedMaxSuffixStatesH5": 17576,
+    "publishedForcedP1Example": [
+      6,
+      4,
+      4
+    ],
+    "publishedForcedP0Example": [
+      8,
+      5,
+      4
+    ],
+    "publishedDrawExample": [
+      4,
+      4,
+      4
+    ],
+    "result": "BALANCED STATIC SAFE COLORING exists regardless of different perfect-play WDL, so direct signed static feasibility cannot classify empty-board outcomes"
+  },
+  "laterSymbolicStrengthening": "docs/research/2026-10-18-universal-balanced-k3plus-static-coloring-no-go.md proves static balancing always feasible for ANY empty W,H,K>=3",
+  "futureGameWDLQueries": 0,
+  "exactSourceBoundaryTransferProvenForFullStaticColorings": true,
+  "strategySufficientWidthTransfer": "OPEN",
+  "sourceEmptyWDLClassifier": "NONE"
+}
