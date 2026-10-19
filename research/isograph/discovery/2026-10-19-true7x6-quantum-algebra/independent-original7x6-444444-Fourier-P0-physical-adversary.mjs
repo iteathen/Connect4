@@ -130,7 +130,7 @@ export function independentOriginal7x6FourierPendingPairCampaign(){
    }
    if(p1.full){counts.fullDrawOutcomes++;continue;}
    let ans;
-   try{ans=source.replyAfterP1({hBeforeP1:state.h,p1Column:c})}
+   try{ans=source.replyAfterP1({hBeforeP1:state.h,attackColumn:c})}
    catch(e){errors.push({kind:'SOURCE_P0_POLICY_ILLEGAL_RESPONSE',history:hist,details:String(e)});
     counts.gravityMateViolations++;break;}
    if(ans.status==='NO_P0_MOVE_FULL_BOARD_AFTER_P1'){
