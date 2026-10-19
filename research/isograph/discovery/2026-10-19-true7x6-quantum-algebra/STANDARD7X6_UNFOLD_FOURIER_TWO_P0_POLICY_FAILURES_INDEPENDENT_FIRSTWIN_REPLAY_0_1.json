@@ -1,0 +1,71 @@
+{
+  "schema": 1,
+  "date": "2026-10-19",
+  "strictBoard": {
+    "W": 7,
+    "H": 6,
+    "K": 4,
+    "firstWinStopped": true,
+    "originalGravity": true
+  },
+  "status": "INDEPENDENT_REAL7X6_BOTH_FOURIER_P0_SOURCE_FIRSTWIN_COUNTEREXAMPLES_REPLAYED",
+  "frozenIndependentOriginalPhysicalReplayer": "research/isograph/discovery/2026-10-19-true7x6-quantum-algebra/independent-original7x6-Fourier-two-policy-firstwin-witness-replay.mjs",
+  "replayGitBlob": "eab53a410b2d0c0a5158805bbdb87cedf0623434",
+  "sourceOriginalFourierWalsh": "source-true7x6-canonical-fourier-walsh-18bit.mjs",
+  "tests": [
+    {
+      "priorSourcePolicy": "UNSIGNED_MAXIMUM_ORIGINAL_STATIC_WALSH_BITFLIP_INFLUENCE",
+      "frozenSource": "research/isograph/discovery/2026-10-19-true7x6-quantum-algebra/source-true7x6-444444-Fourier-weighted-pending-pair-P0.mjs",
+      "oneBasedFirstWinStoppedMoveHistory": "44444421122333",
+      "fullPhysicalMoves": 14,
+      "sourceP0InitialLiteralColumn": 2,
+      "physicalP0SourceRepliesReplayed": 3,
+      "pendingPairGuardChecks": 4,
+      "originalK4PhysicalLineIDs": [
+        0,
+        8,
+        16,
+        24
+      ],
+      "direction": [
+        1,
+        1
+      ],
+      "winner": "P1"
+    },
+    {
+      "priorSourcePolicy": "SIGNED_MINIMUM_ORIGINAL_STATIC_SINGLETON_WALSH_NUMERATOR",
+      "frozenSource": "research/isograph/discovery/2026-10-19-true7x6-quantum-algebra/source-true7x6-444444-signed-Walsh-P0-pair-priority.mjs",
+      "oneBasedFirstWinStoppedMoveHistory": "44444411117113333557553553777722",
+      "fullPhysicalMoves": 32,
+      "sourceP0InitialLiteralColumn": 1,
+      "physicalP0SourceRepliesReplayed": 12,
+      "pendingPairGuardChecks": 13,
+      "originalK4PhysicalLineIDs": [
+        8,
+        16,
+        24,
+        32
+      ],
+      "direction": [
+        1,
+        1
+      ],
+      "winner": "P1"
+    }
+  ],
+  "physicalGameRuleConformance": {
+    "bothActualWinSequencesLegalGravity": true,
+    "bothTerminatedAtFIRSTPlayerOneFourInLine": true,
+    "noEarlierTerminalOnEither": true,
+    "sourceReplyColumnsMatchEveryP0Move": true,
+    "onePendingPairPhysicalInvariantBeforeEveryTestedP1Move": true,
+    "originalWinningLineCountPerReplay": 69,
+    "failedChecks": 0
+  },
+  "mathInterpretation": "Even when original directed Fourier ribbon windows and static conditional Walsh scores are EXACT, both magnitude-only and signed-average one-pair P0 heuristics allow actual rising diagonal P1 first-win before P0 responds. Valid one-pending split-pair safety of paired cell ownership is not same as first-winning-line prevention. A dynamically enforceable cross-ribbon response-obligation contract is still missing.",
+  "sourceFirstWinWDLValueQueries": 0,
+  "noNewGuaranteedBestAction": true,
+  "qualifiedIsoGraph1_2Unchanged": true,
+  "solversModified": false
+}
