@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "date": "2026-10-19",
+  "sourceTheorem": "docs/research/2026-10-19-p0-top-support-mirror-horizontal-only-common-kernel-exact-draw.md",
+  "source": "research/isograph/discovery/2026-10-18-board-dimension-outcomes/source-p0-top-support-mirror-horizontal-kernel.mjs",
+  "sourceBlob": "ec0cb625aa74e6a6e0079724e0764482b98452e9",
+  "independentOriginalPhysicalValidator": "research/isograph/discovery/2026-10-18-board-dimension-outcomes/independent-p0-top-support-kernel-original-physical.mjs",
+  "physicalBlob": "e37c1e6ed68c41bd1332fdfae1616b72024fbc44",
+  "theoremGuards": "K>=3,H<K,K<=W<=2K-1. P0 opening col W-K is in every bottom original K span. P0 follows above every P1 lower drop, or preempts first free original column when previous fills; upper P1 line implies previously owned P0 lower source mirror line.",
+  "exactWDLComposite": "If WH even, independent P1 even-area horizontal-mirror theorem implies V<=0; current P0 no-loss gives V>=0; hence empty-root V=0 DRAW, without game-tree search.",
+  "physicalChecks": {
+    "status": "ALL_SOURCE_TOP_SUPPORT_NONLOSS_PHYSICAL_PASS",
+    "fullFixtureCount": 65,
+    "incompleteFixtures": 0,
+    "uniquePhysicalStates": 90843,
+    "adversarialP1Alternatives": 311603,
+    "legalP0SourceResponses": 300623,
+    "P0FirstWinEndpoints": 8932,
+    "P1FirstWinEndpoints": 0,
+    "fullBoardDrawEndpoints": 15784,
+    "byK": {
+      "3": 6,
+      "4": 12,
+      "5": 16,
+      "6": 16,
+      "7": 15
+    },
+    "evenAreaCompositeExactDrawFixtureCount": 45
+  },
+  "necessaryWidthGuardNegativeControls": [
+    {
+      "W": 6,
+      "H": 2,
+      "K": 3,
+      "p1WinMove": 6,
+      "word": "144556"
+    },
+    {
+      "W": 8,
+      "H": 2,
+      "K": 4,
+      "p1WinMove": 8,
+      "word": "15566778"
+    },
+    {
+      "W": 10,
+      "H": 2,
+      "K": 5,
+      "p1WinMove": 10,
+      "word": "16677889910"
+    }
+  ],
+  "negativesScope": "Guard W<=2K-1 is essential to THIS single-bottom-anchor P0 policy; P1 physical win under fixed source policy is not proof of perfect-play P1 win outside guard.",
+  "sourceFutureGameValuesEvaluated": 0,
+  "physicalAdversarialBranchingUsedOnlyForFalsification": true,
+  "independentExternalFormalProofChecker": "NOT_RUN",
+  "qualifiedIsoGraphGameplayAuthority": "UNCHANGED",
+  "solverOrMainMutation": "NONE",
+  "engine": "O(1) dimension-guard exact DRAW when WH even; P0-NONLOSS lower bound when odd. Requires separate source proof qualification and net wall-time before solver adoption."
+}
