@@ -6,7 +6,7 @@
 export function verifyNestedWidthKPhase({seed=20261018,cases=1536}={}) {
  let state=seed>>>0;
  function nextU32(){state=(Math.imul(1664525,state)+1013904223)>>>0;return state;}
- function pick(n){return nextU32()%n;}
+ function pick(n){return (nextU32()>>>8)%n;} // discard correlated low LCG bits
  const dirs=[[1,0],[0,1],[1,1],[1,-1]];
  const stats={
   seed,cases,originalLegalFirstWinFreePrefixes:0,realGeometryCases:0,
