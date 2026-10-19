@@ -34,3 +34,15 @@ Preserve old note as HISTORICAL evidence with this explicit linked qualification
 Repair the P1 and P0 horizontal-column response contracts under (a) P0 opening imbalance, (b) optional unmatched-column free moves and (c) gravity-equal-height restoration, without searching for future game values. One possible approach is typed pending-half-pair / reserve-debt proof (2026-09-13 response-channel antichain calculus; 2026-10-17 odd-pair repair), not an unguarded "same strategy for both" assumption.
 
 Cost/engine disposition: the prior alleged exact thin-height cutoff must NOT be used in a new solver from this proof alone. Retain proven narrow and composite families; return source bound or INCOMPLETE on the other cases. No production solver changes.
+
+
+## Physical replay checkpoint (after proof-gap freeze)
+
+A separately frozen actual original-gravity first-win-stopped checker independently replayed these specific 1-based column prefixes and regenerated all valid physical K4 winlines:
+- \`4x2 K4 12\`: after P0 col1 and P1 col2, prescribed P0 same-row mate in col1 row1 is **NOT playable**, because P0 already occupies that physical cell; pairs had unequal heights immediately after P0 opening.
+- \`5x3 K4 555\`: P1 to move with all four paired columns untouched and unmatched c5 FULL.
+- \`4x2 K4 1414\`: P0 to move with both boundary reserve columns FULL and internal paired columns untouched.
+
+All are legal, nonterminal original prefix boards; all four checked structural obstruction assertions passed. No scalar root WDL was calculated or inferred. Immutable producer \`research/isograph/discovery/2026-10-18-board-dimension-outcomes/independent-legacy-thin-pair-spill-physical-prefix-controls.mjs\` (blob \`f46648df9ac09f0a8cb7f0e03f004217bb5a5044\`); durable machine packet \`research/isograph/discovery/2026-10-18-board-dimension-outcomes/HISTORICAL_K4_THIN_PAIR_PARITY_SPILL_3_ORIGINAL_PHYSICAL_GAP_CONTROLS_0_1.json\`.
+
+Disposition unchanged: insufficient *old* proof contract, **not** a game-outcome theorem refutation.
