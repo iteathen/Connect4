@@ -1,0 +1,66 @@
+{
+  "schema": 1,
+  "date": "2026-10-18",
+  "theorem": "docs/research/2026-10-18-general-k-horizontal-only-even-area-second-player-draw-policy.md",
+  "source": "research/isograph/discovery/2026-10-18-board-dimension-outcomes/source-horizontal-only-even-area-P1-draw-response.mjs",
+  "sourceBlob": "76e31301b517f6b4d0caf3474f2d8132f9219c98",
+  "independentlyFrozenPhysicalValidator": "research/isograph/discovery/2026-10-18-board-dimension-outcomes/independent-horizontal-only-P1-draw-physical-adversary.mjs",
+  "validatorBlob": "5eac8705e260d220f9b60eaa3cbab051c27ce3a7",
+  "exactSourceGuard": "K>=3 and H<K and WH even, EMPTY board, original gravity and first-win-stopped",
+  "theoremConsequence": "P1 has deterministic always-legal DRAW response against every P0 game continuation; root perfect-play P0-relative V<=0, not necessarily V=0",
+  "status": "ALL_PHYSICAL_P0_ALTERNATIVES_DRAW",
+  "physics": {
+    "completeFixtures": 73,
+    "incomplete": 0,
+    "uniqueOriginalPhysicalStates": 50165,
+    "P0AlternativesChecked": 179406,
+    "P1RepliesChecked": 179406,
+    "drawTerminalSamples": 21526,
+    "physicalP0EarlyFirstWins": 0,
+    "physicalP1EarlyFirstWins": 0,
+    "scope": "K=3..6, H<K, width W<=9, WH even and WH<=22; explicit full adversarial P0 branching IN VALIDATOR ONLY",
+    "byK": {
+      "3": 13,
+      "4": 16,
+      "5": 21,
+      "6": 23
+    },
+    "invalidScopeGuardsRejected": 5,
+    "selectedCases": [
+      {
+        "W": 8,
+        "H": 2,
+        "K": 3,
+        "states": 2145,
+        "p0Actions": 8232
+      },
+      {
+        "W": 7,
+        "H": 2,
+        "K": 4,
+        "states": 622,
+        "p0Actions": 2107
+      },
+      {
+        "W": 6,
+        "H": 3,
+        "K": 4,
+        "states": 2863,
+        "p0Actions": 9450
+      },
+      {
+        "W": 5,
+        "H": 4,
+        "K": 5,
+        "states": 2627,
+        "p0Actions": 7502
+      }
+    ]
+  },
+  "sourceFutureGameValuesEvaluated": 0,
+  "sourceStrategyBranchesSearched": 0,
+  "independentFormalProofAssistant": "NOT_RUN",
+  "qualifiedIsoGraphGameplayPromotion": "NONE",
+  "solverModifications": "NONE",
+  "engineDisposition": "PROMISING EXACT P0_NONWIN BOUND, benchmark cost and regression before adoption"
+}
