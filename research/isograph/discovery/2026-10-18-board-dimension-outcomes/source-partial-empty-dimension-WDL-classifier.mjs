@@ -24,8 +24,11 @@ export function classifySourceEmptyDimension({width:W,height:H,connect:K}){
  }
  if(K>=3&&H<K&&W>=K&&W<=2*K-1&&((W*H)&1)===0)
   return exact(0,'P0_UPPER_SUPPORT_KERNEL_AND_P1_HORIZONTAL_PAIR_COMPOSE_EXACT_DRAW');
- if(K===4&&Math.min(W,H)<4)
-  return exact(0,'INHERITED_20260914_K4_THIN_BOARD_DRAW_DEDUCTIVE_THEOREM');
+ // Historical 2026-09-14 K4 H<4 two-sided column-pair proof has
+ // uncovered P0 first-move and unmatched-column reply gaps. See
+ // docs/research/2026-10-19-k4-thin-height-dual-pair-proof-obligation-audit.md.
+ // Only the independently proved W<K, H1 and composed even-area
+ // horizontal-kernel DRAW families above may return exact DRAW.
  if(K>=3 && H<K && (W*H)%2===1) {
   return {status:'GUARDED_P1_CANNOT_FORCE_WIN_BY_ODD_AREA_P0_MIRROR',
    originalDimensions:{W,H,K},P0relativeWDL:null,
