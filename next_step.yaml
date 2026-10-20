@@ -1,3 +1,42 @@
+owner_20261020_K4_REGULAR_DIMENSION_WDL_DISCOVERY_SCOPE:
+  priority: CURRENT
+  reason: "Short-axis W<5 or H<5 induces simple directional-window birth/death and pairing-regime transitions that confound higher-dimensional adaptive defense/WDL patterns."
+  canonical_branch: research/semantic-quotient
+  discovery_primary_K4: {min_W: 5, min_H: 5, K: 4}
+  discovery_strict_interior_K4: {min_W: 6, min_H: 6, K: 4}
+  shoulder_K4: "W,H>=5, and (W=5 or H=5)"
+  boundary_controls_K4: "W<5 or H<5; keep separately for exact source draw theorem, fixed-policy counterexamples, and later falsification; do not pool into main WDL fit"
+  generalized_K_relative_scope: "regular min(W,H)>=K+1, interior min(W,H)>=K+2, with separately guarded W=K/H=K and W<K/H<K cases"
+  frozen_source_rationale: "At dimension3 no physical length4 interval exists along the axis; at4 one exists; at5 two overlapping intervals exist. Even when all four directions exist at W,H=4, finite paired-response policy geometry differs."
+  pinned_published_52_K4_WDL_screen:
+    source: research/isograph/discovery/2026-10-18-board-dimension-outcomes/SOLVED_K4_EMPTY_BOARD_WIDTH_HEIGHT_CENSUS_0_1.json
+    short_axis: {reported: 18, P0_win: 0, draw: 12, P1_win: 6, unreported: 0}
+    regular_both_ge5: {reported: 34, P0_win: 14, draw: 13, P1_win: 7, unreported: 38}
+    shoulder: {reported: 15, P0_win: 4, draw: 11, P1_win: 0, unreported: 1}
+    strict_interior_ge6: {reported: 19, P0_win: 10, draw: 2, P1_win: 7, unreported: 37}
+    warning: "Nonrandom partial and correlated published table; outcome counts are descriptive, missing stays missing, no game-value theorem inferred."
+  first_strict_interior_falsifiers:
+    - "W6 H6 K4 published P1 wins"
+    - "W7 H6 K4 published P0 wins"
+    - "W8 H6 K4 published P1 wins"
+    - "W10 H6 K4 published P0 wins despite no shared common K4 column"
+  main_mathematical_proof_goal: >-
+    Discover an exact source-only strategy-sufficient W,H,K paired-response
+    compatibility and first-win deadline law on W,H>=5, primarily
+    W,H>=6 for stability control, without valuing strategically inequivalent
+    future games or fitting outcome labels. Preserve full owner-specific
+    original K4 four-body incidence, support/vertical-release, alternating
+    opponent responses and actual terminal stopping. Once proved, apply
+    separate guarded boundary formulas to smaller boards and independently
+    test against the held-back 28 strong-optimal terminal K4 line IDs only
+    after root WDL plus strong distance-selection semantics are proved.
+  protocol: docs/research/2026-10-20-regular-domain-WDL-discovery-filter.md
+  outcome_evidence: research/isograph/discovery/2026-10-20-narrow-phase-transitions/POSTFROZEN_K4_REGULAR_GE5_INTERIOR_GE6_WDL_COHORT_SCREEN_0_1.json
+  source_empty_standard7x6_WDL_closed_form: OPEN
+  unrestricted_q_zero_strategic_branching_WDL: OPEN
+  qualified_IsoGraph1_2_modified: false
+  production_solver_modified: false
+
 owner_20261020_K4_WIDTH3_WIDTH4_HEIGHT3_HEIGHT4_PHASE_TRANSITIONS:
   PRIORITY: CURRENT
   owner_hypothesis: "Below width5 defensive pair structure must change at width4 and again at width3; determine corresponding height changes and relation to exact no-search WDL"
