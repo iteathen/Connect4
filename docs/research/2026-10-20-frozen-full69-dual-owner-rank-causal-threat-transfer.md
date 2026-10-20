@@ -1,0 +1,21 @@
+# Frozen: original all69 K4 line-tagged two-owner causal interference transfer
+
+Date 2026-10-20. Canonical owner research/semantic-quotient. Owner hypothesis: interference among competing P0/P1 pairing/defensive obligations may force P1 into a no-safe-response state. Historical selected28 terminal line overlap graph has rank27 but is NOT a source theorem input; start from original full69 physical original open-boundary four-site lines.
+
+Let a genuine firstwin-free original q have heights h, owner bits 0/1/empty, and original owner P0 surviving K4 line residual R0_ell(q) = physical EMPTY cells in line ell iff no P1 blocker; otherwise mark blocked. For a line ell define f_ell(q)=1 iff R0_ell is EXACTLY one empty physical cell v AND v is CURRENT gravity-playable. Keep f in 69 line-labelled coordinates, not OR-collapsed 42-cell or 7-column summary. For actual action x=(a,h_a), let y=(a,h_a+1) if physical, and F'=legal frontiers after the action. Every identity below is conditioned on legal, actual firstwinfree ORIGINAL q and nonterminal action by mover. A FIRST WIN should be absorbed before next turn, and no P0 acquisition may be mistaken for a P1 acquisition.
+
+Frozen P1 action law (previously independently source-verified over 2867 one-move alternatives):
+ delta_P1 f_ell = -1[R0_ell(q)={x}] +1[y exists AND R0_ell(q)={y}].
+Consequence: blocker takes away a playable P0 singleton at x; physical gravity releases previously latent P0 singleton directly above. P1 cannot create new P0 ownership and hence cannot create a new K4 P0 singleton from a higher-degree residual.
+
+Frozen candidate P0 action law (not yet tested):
+ delta_P0 f_ell = +1[y exists AND R0_ell(q)={y}] + 1[|R0_ell(q)|=2, x belongs to R0_ell(q), and remaining singleton v in R0_ell(q) minus{x} lies in F'].
+Why: P0 claiming x cannot remove a P0 live line; if P0 had an ORIGINAL immediately playable singleton at x then the game would FIRSTWIN and the nonterminal guard would fail. Otherwise P0 may (i) release an already 3-owned one-missing line y in its own column, or (ii) promote any surviving 2-missing K4 line containing x to a 3-owned singleton at its other currently playable original cell v. If x was not in the line, the only accessible change is release of y; no other column frontier changes. These source terms have disjoint line-residual degrees (1 vs2), so they do not double count.
+
+Combine into a discrete signed owner-graded rank-step equation f_(n+1)=f_n + A_(owner,a)(q_n), with the firstwin absorption and P0/P1 alternating ROLE carrying different operator tensors. Any Fourier transform F of all69 line coordinates or original 37 glued ribbons is a change of basis and preserves exact identities but does not automatically compute WDL.
+
+Frozen tests: independently regenerate all69 original W7H6 K4 windows; replay all27 distinct genuine issue41 41-ply historical game histories from empty under gravity and firstwinner stopping as held-back fixture, not line-ID source. At EVERY original P0-to-move firstwinfree prefix (even n from0..40), test all physically legal P0 next actions: exclude genuine immediate firstwinning actions, then compute FULL69 residual-degree flags from BEFORE board, predict f' using formula, compare all69 bits to genuinely recomputed physical q' state. All actual ORIGINAL recorded P0-to-move nonterminal historical moves should match. Separately reproduce P1 formula on all legal alternatives, with upper absent-y guard explicit, and generate a true legal full42-ply DRAW negative control.
+
+Falsifier: if any result differs, preserve actual original prefix+action, line residual, expected versus original recomputation and guard outcome, correct theorem before claiming full owner dual transfer. If source holds, measure exact signed gain/loss events by rank; rank39 P1 forced exposure Z need not correlate with selected28 charge changes. Derive a general source two-owner obligation-compatibility progress invariant WITHOUT any historical28 mask. The 27 relative modes can be used only as LATER output diagnostics, never the core input.
+
+No all-q WDL solver, strong remoteness proof, production solver modification or qualified IsoGraph1.2 game-theory promotion claimed.
