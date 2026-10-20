@@ -11,6 +11,8 @@ zero-based witness words (one per line).
 """
 from functools import lru_cache
 import sys
+import json
+from pathlib import Path
 W, H = 7, 6
 WIN = []
 for c in range(W):
@@ -59,9 +61,12 @@ def actual_cooperative_draw(state):
     return answer,check.cache_info().currsize
 
 if __name__ == "__main__":
-    if len(sys.argv)!=2:
-        raise SystemExit("Pass a text file of exact historical unique zero-based game words")
-    words = [x.strip() for x in open(sys.argv[1]) if x.strip()]
+    if len(sys.argv)==2:
+        words = [x.strip() for x in open(sys.argv[1]) if x.strip()]
+    else:
+        fixture_path = Path(__file__).resolve().parent.parent / "2026-10-19-true7x6-quantum-algebra" / "STRONG28_ISSUE41_HISTORICAL_WITNESS_FIXTURE_0_1.json"
+        witness_entries = json.loads(fixture_path.read_text())["witnesses"]
+        words = list(dict.fromkeys(x["movesZeroBased"] for x in witness_entries))
     assert len(words)==27 and len(set(words))==27
     for w in words:
         assert len(w)==41
