@@ -1,0 +1,103 @@
+{
+  "schema": 1,
+  "date_recovered": "2026-10-19",
+  "original_research_date": "2026-09-14",
+  "disposition": "ALREADY_PREVIOUSLY_PROVED_AND_RECORDED__NOT_A_NEW_PERFECT_PLAY_RESULT",
+  "board": {
+    "width": 7,
+    "height": 6,
+    "connect": 4
+  },
+  "originalAuthority": {
+    "githubIssue": "https://github.com/iteathen/Connect4/issues/41",
+    "canonicalClaims": "research/canonical/CLAIMS_WINSET.md",
+    "claimID": "C4-R0049",
+    "researchAudit": "docs/research/2026-09-14-optimal-28-oracle-incidence-audit.md",
+    "consolidatedEvidence": "research/evidence/perfect-play/winset-invariants.json",
+    "geometricBridge": "docs/research/2026-09-14-empty-board-canonical-28-bridge.md"
+  },
+  "differentObjects": {
+    "allOriginalGeometricWinlines": 69,
+    "historicalWDLOnlyP0FirstWinningLineUnion": 61,
+    "WDLOnly61Provenance": "Historical empirical summary; normalized raw WDL-only complete run not retained in current evidence packet; coarser P1 losing replies tied.",
+    "historicalDistanceSensitiveStrongOptimalFirstWinningLineUnion": 28,
+    "strongScoreConvention": "Both players use supplied distance-sensitive exact best-move ordering: fastest win for P0, longest resistance to inevitable loss for P1.",
+    "terminalFirstWinAbsolutePly": 41,
+    "allFirstWinners": "P0",
+    "strongOptimalForcedFirstFiveColumnsOneBased": "44444",
+    "originalP1SixthMoveAllSevenTiedBest": true,
+    "orientation": {
+      "vertical": 12,
+      "horizontal": 8,
+      "risingDiagonal": 4,
+      "fallingDiagonal": 4
+    },
+    "structuralGF2CoreDimensions": {
+      "Y_cell": 28,
+      "Y_line": 28
+    },
+    "core28DoesNotEqualThese28LineVectors": true,
+    "oracle28IncidenceFiltration": "28 = 2 line dependencies + 20 cell-core coordinates + 6 boundary coordinates"
+  },
+  "historicalIssue41Qualification": {
+    "publishedDataset": "Markus Böck, Strong Solution Connect4 W7H6 Zenodo 14582823",
+    "publishedDataURL": "https://zenodo.org/records/14582823",
+    "candidateGeometryUpperBound": 28,
+    "oneFull41MoveRootToTerminalStrongOptimalWitnessPerCandidate": 28,
+    "historicallyRecheckedMovePositionScores": 1148,
+    "historicallyIndependentEndgameOracleScores": 504,
+    "centralSelectionAndPly41CertifiedUsingExternalSolvedData": true,
+    "sourceNotes": "Archived oracle qualification is not a target-free nonsearch proof that game semantics MUST select center/ply41."
+  },
+  "newCurrentTurnIndependentGeometryWitnessReplay": {
+    "method": "Directly fetched live issue41 body, parsed complete-line-census.json 28 witnesses, independently constructed all four-direction nonwrapped K4 windows and simulated original zero-based column words 28x41 with physical gravity, P0/P1 alternating and first-win stop. Independently constructed upper bound by fixed center five owned stones, necessary terminal row5/6 one-based, excluding last landing on already owned row5 center.",
+    "sourceOriginalWinningLineCount": 69,
+    "witnessesReplayed": 28,
+    "actualPhysicalMovesReplayed": 1148,
+    "allWitnessesValidOriginalGravity": true,
+    "allWitnessesFirstWinnerP0ExactlyOnPly41": true,
+    "everyWitnessCompletesItsRecordedK4Line": true,
+    "independentlyComputedStructuralUpperBound": 28,
+    "allUpperBoundPhysicalK4LineSetsExactlyEqual28WitnessLineSets": true,
+    "physicalRuleOrGeometryMismatches": 0,
+    "strengthOfCheck": "This independently rechecks geometry and play legality, NOT the solved-database optimality of every move.",
+    "original28LineIDs": [
+      4,
+      7,
+      8,
+      11,
+      13,
+      14,
+      19,
+      22,
+      23,
+      26,
+      27,
+      28,
+      34,
+      35,
+      37,
+      41,
+      43,
+      44,
+      53,
+      56,
+      58,
+      59,
+      61,
+      62,
+      64,
+      65,
+      67,
+      68
+    ]
+  },
+  "researchCorrection": {
+    "claimWithdrawn": "No record establishes 27 or 28 across empty-root perfect play. This was false.",
+    "newResearchTarget": "DO NOT retry basic survivor COUNT for strong-optimal play: it is already 28. Instead relate this EXACT known 28 physical terminal-line support set to 37 four-ribbon owner wave intersections, Fourier/Pauli Z3 junction cancellation and 28-dimensional structural core; distinct coordinate spaces and 2+20+6 overlap require an explicit structural mapping, not numerical coincidence.",
+    "sourceScoreOracleRole": "Existing 7x6 exact Oracle may still verify other prefixes/moves; not needed to establish the already archived 28 count. Previous cold root incomplete reports belong to recomputation lane only.",
+    "nonsearchOutcomeFormulaStillOpen": true
+  },
+  "productionSolverChanged": false,
+  "qualifiedIsoGraph1_2Changed": false
+}
