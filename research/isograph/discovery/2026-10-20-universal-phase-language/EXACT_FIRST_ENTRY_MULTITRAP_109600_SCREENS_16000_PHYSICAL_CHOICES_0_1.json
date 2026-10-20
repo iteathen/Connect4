@@ -1,0 +1,192 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "researchBranch": "research/semantic-quotient",
+  "status": "GUARDED_EXACT_MULTITRAP_THEOREM_INDEPENDENT_ORIGINAL_PHYSICAL_CONTROLS_AND_SIX_DIMENSION_SOURCE_SCREEN",
+  "sourceFrozenBeforeTests": "docs/research/2026-10-20-frozen-maximal-multitrap-first-entry-online-strategy.md",
+  "sourceCode": "research/isograph/discovery/2026-10-20-universal-phase-language/maximal-first-entry-source.mjs",
+  "independentPhysicalCode": "research/isograph/discovery/2026-10-20-universal-phase-language/verify-maximal-first-entry-physical.py",
+  "sourceSamplingCode": "research/isograph/discovery/2026-10-20-universal-phase-language/sample-maximal-first-entry-original.mjs",
+  "sourceTheorem": "For nonterminal original q and D to move, A=1-D, let C be ALL columns with legal lower frontier x and latent A original-K singleton winning cell y directly above, t_c>=2. Require C nonempty, even remaining t in EVERY other column. E is all lower sites of those even column pairs, X is the set of trap frontiers. For EVERY original surviving D winning-line missing set G, G\\E is neither empty nor singleton {x} with x in X. Then A upper-mates in every nontrap and wins immediately on first trap entry. D extra cells before A firstwin lie in E or E union ONE trap x, so D cannot firstwin. Nontrap m finite pairs consume, A must firstwin within 2m+2 actual plies. Guard failure => INCOMPLETE.",
+  "remainderGuard": "forall G in R_D(q): (G minus E) not in [{}, {x_c}:c in C]",
+  "mathematicalRelationToPrior": "Maximal trap set is a source-derived chronology-sensitive online strategy strengthening the 2026-10-20 role-general ONE-trap multireservoir theorem. At one trap it agrees with old guard; a positive old single-trap candidate remains positive after adding all extra valid traps. New C>=2 trap source examples with zero old singleton positives verify strict coverage.",
+  "independentPhysicalFixtures": [
+    {
+      "W": 5,
+      "H": 6,
+      "sourceRank": 20,
+      "oneBasedHistory": "51345313332312145115",
+      "D": "P0",
+      "A": "P1",
+      "trapColumnsOneBased": [
+        2,
+        4
+      ],
+      "m": 1,
+      "sourceViableDLines": 7,
+      "physicalRespondentTurnNodes": 2,
+      "physicalCheckedDChoices": 5,
+      "physicalAFirstwinLeaves": 4,
+      "balanceStaticOriginalK4free": 0,
+      "oldOneTrapCertified": false
+    },
+    {
+      "W": 6,
+      "H": 6,
+      "sourceRank": 26,
+      "oneBasedHistory": "33334334114464156266564561",
+      "D": "P0",
+      "A": "P1",
+      "trapColumnsOneBased": [
+        2,
+        5
+      ],
+      "m": 1,
+      "sourceViableDLines": 6,
+      "physicalRespondentTurnNodes": 2,
+      "physicalCheckedDChoices": 5,
+      "physicalAFirstwinLeaves": 4,
+      "balanceStaticOriginalK4free": 0,
+      "oldOneTrapCertified": false
+    },
+    {
+      "W": 7,
+      "H": 5,
+      "sourceRank": 27,
+      "oneBasedHistory": "624627765714441453277266325",
+      "D": "P1",
+      "A": "P0",
+      "trapColumnsOneBased": [
+        1,
+        3
+      ],
+      "m": 1,
+      "sourceViableDLines": 6,
+      "physicalRespondentTurnNodes": 2,
+      "physicalCheckedDChoices": 5,
+      "physicalAFirstwinLeaves": 4,
+      "balanceStaticOriginalK4free": 0,
+      "oldOneTrapCertified": false
+    },
+    {
+      "W": 7,
+      "H": 6,
+      "sourceRank": 23,
+      "oneBasedHistory": "74254126764411163322446",
+      "D": "P1",
+      "A": "P0",
+      "trapColumnsOneBased": [
+        3,
+        5
+      ],
+      "m": 5,
+      "sourceViableDLines": 16,
+      "physicalRespondentTurnNodes": 171,
+      "physicalCheckedDChoices": 512,
+      "physicalAFirstwinLeaves": 342,
+      "maxAdditionalPlies": 12,
+      "balanceStaticOriginalK4free": 1031,
+      "oldOneTrapCertified": false
+    },
+    {
+      "W": 7,
+      "H": 6,
+      "sourceRank": 16,
+      "oneBasedHistory": "6326226316246461",
+      "D": "P0",
+      "A": "P1",
+      "trapColumnsOneBased": [
+        1,
+        5
+      ],
+      "m": 8,
+      "sourceViableDLines": 32,
+      "physicalRespondentTurnNodes": 5024,
+      "physicalCheckedDChoices": 15071,
+      "physicalAFirstwinLeaves": 10048,
+      "maxAdditionalPlies": 18,
+      "balanceStaticOriginalK4free": "NOT_RUN_26_FREE_CELLS",
+      "oldOneTrapCertified": false
+    }
+  ],
+  "genuineCooperativeDrawCounterexample": {
+    "sourcePositionW": 7,
+    "H": 6,
+    "rank": 23,
+    "prefixOneBased": "74254126764411163322446",
+    "suffixOneBased": "7663171722753355553",
+    "complete42PlyOneBased": "742541267644111633224467663171722753355553",
+    "independentReplayedEveryMoveNoFirstwin": true,
+    "interpretation": "Nonempty STATIC and nonempty actual LEGAL cooperative terminal draw remain compatible with A=P0 forcibly WINNING by choosing source online multitrap responder; this shows strictly strategic incompatibility."
+  },
+  "nodeSampler": {
+    "runtime": "isolated Node.js 22.16.0 (source files Git blob verified where noted), not maintained Node26 CI",
+    "sampleGeneration": "600 independent seeded one-path firstwin-free P0/P1 gravity trajectories per dimensions, from EMPTY, RNG xorshift32 seed 0x7f4a7c15 continued across boards; rank>=8 source states. Both players voluntarily avoid any immediate K4-winning move while generating q, not a perfect-play policy.",
+    "scannedLegalSourceOccurrences": 109600,
+    "distinctStatesNotDeduplicated": true,
+    "boards": [
+      {
+        "W": 5,
+        "H": 6,
+        "screens": 12041,
+        "newStrictMulti": 1,
+        "oldAlsoPositiveMulti": 0,
+        "singleTrapPositive": 158
+      },
+      {
+        "W": 6,
+        "H": 6,
+        "screens": 15149,
+        "newStrictMulti": 3,
+        "oldAlsoPositiveMulti": 12,
+        "singleTrapPositive": 130
+      },
+      {
+        "W": 7,
+        "H": 5,
+        "screens": 14984,
+        "newStrictMulti": 4,
+        "oldAlsoPositiveMulti": 4,
+        "singleTrapPositive": 77
+      },
+      {
+        "W": 7,
+        "H": 6,
+        "screens": 18338,
+        "newStrictMulti": 8,
+        "oldAlsoPositiveMulti": 7,
+        "singleTrapPositive": 93
+      },
+      {
+        "W": 8,
+        "H": 6,
+        "screens": 21364,
+        "newStrictMulti": 3,
+        "oldAlsoPositiveMulti": 1,
+        "singleTrapPositive": 34
+      },
+      {
+        "W": 10,
+        "H": 6,
+        "screens": 27724,
+        "newStrictMulti": 12,
+        "oldAlsoPositiveMulti": 5,
+        "singleTrapPositive": 24
+      }
+    ],
+    "totalNewStrictMultiOccurrences": 31,
+    "totalMultiAlreadySingleOccurrences": 29,
+    "totalSingleTrapOccurrences": 516,
+    "negativeGuardCounts": "Remaining samples predominantly have no latent traps, some have odd nontrap capacity, and others fail D counterwinning residual requirement guard; those failures are correctly INCOMPLETE, not opponent win or draw.",
+    "universalWDLFromEmpty": "NOT_ESTABLISHED"
+  },
+  "qualifications": {
+    "formalProofAssistant": "NOT_RUN",
+    "maintainedNode26CI": "NOT_RUN",
+    "solverChanges": false,
+    "gameTheory1p2Promotion": false,
+    "strongOracleAsSourceInput": false,
+    "selected28TerminalLineInput": false,
+    "unrestrictedNonsearchWDL": "OPEN"
+  }
+}
