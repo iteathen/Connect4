@@ -1,0 +1,1186 @@
+{
+  "schema": 1,
+  "status": "PASS_INTERNAL_SEPARATE_SOURCE_VS_ORIGINAL_RAY_AND_PYTHON_RANK39",
+  "date": "2026-10-19",
+  "board": {
+    "W": 7,
+    "H": 6,
+    "K": 4,
+    "cells": 42,
+    "actualWinningWindows": 69
+  },
+  "qualification": {
+    "historical_strong_optimality": "Root-optimal line witness premises from issue41 archived database scoring, NOT rerun in this experiment",
+    "source_vs_physical_implementation": "Distinct 69-original-window singleton producer versus direction-local ray firstwinner checker",
+    "independent_recheck": "Separate Python3 reproduction in same analysis session, 28 histories/50 P1 cases, PASS",
+    "full_Node22_committed_runner": "COMMITTED_NOT_EXECUTED_IN_NODE_CI",
+    "root_28_labels_used_to_generate_source_formula": false,
+    "other_W_H_K_tested": false
+  },
+  "causal_step_math": {
+    "future_pairs": "t_c=6-h_c=2j_c+u_c, u_c=t_c mod2=h_c mod2, J=sum j_c, U=sum u_c, 42-rank=2J+U",
+    "single_step": "u'=u XOR e_a; J'=J-(1-u_a); U'=U+1-2u_a",
+    "paired_step": "d_{n+2}=d_n XOR L_E z_ab, d_n=delta u_n, partial z_ab=e_a XOR e_b (GF2, same column a=b displacement0)",
+    "opponent_singleton_transfer": "sigma0_postP1(c)=sigma0_preP1(c) for c!=a; sigma0_postP1(a)=latent0_preP1(a,h_a+1)",
+    "width_DFT_rank_step": "Delta Fourier(sigma0)(k)=7^-1/2 exp(-2pi i*k*a/7)*(latent_a - sigma0_a), conditional on no P1 first-terminal",
+    "firstwin_pressure_polynomial": "for each P1 legal a, E_a=(1-P1_immediate_a)*(1-(1-latent0_a)*product_{b legal,b!=a}(1-P0_immediate_b)); Z_39=product_{a legal} E_a",
+    "proof_boundary": "Exact one-reply/no-terminal P0 local property only. Not an all-rank Schr Hamiltonian, not a root WDL proof, and not a unique full source q quotient."
+  },
+  "results": {
+    "archived_per_line_witness_entries": 28,
+    "distinct_archived_histories": 27,
+    "original_physical_moves_replayed_earlier": 1148,
+    "all_legal_P1_reply_cases_at_n39": 50,
+    "universal_P0_nextfirstwin_for_every_archived_witness": true,
+    "preexisting_P0_playable_singleton_count_distribution": {
+      "0": 9,
+      "1": 9,
+      "2": 10
+    },
+    "pairing_rank39_U": {
+      "1": 25,
+      "3": 3
+    },
+    "pairing_rank39_J": {
+      "0": 3,
+      "1": 25
+    },
+    "rank39_no_playable_P0_wins_P1_forced_to_release": 9,
+    "rank39_one_playable_P0_win_P1_block_reveals_above": 9,
+    "rank39_preexisting_two_win_targets": 10,
+    "exact_same_column_row4_to_row5_release_for_all_one_preexisting": true,
+    "all_no_preexisting_are_one_legal_P1_move_and_release": true,
+    "archival_unique_histories_category": {
+      "zero": 8,
+      "one": 9,
+      "two": 10
+    },
+    "prior_independently_executed_odd_rank_transfer_over_all_archived_histories": {
+      "actual_P1_state_observations": 560,
+      "all_P1_one_step_action_alternatives": 2973,
+      "opponent_P1_early_first_terminal_cases": 0,
+      "source_physical_mismatches": 0,
+      "DFT_complex_plane_wave_mismatches": 0,
+      "pair_resource_recurrence_mismatches": 0
+    },
+    "draw_negative_control": {
+      "literal_onebased_full_draw": "123456123456654321654321123456123456777777",
+      "source_n39_pair_J": 1,
+      "source_n39_unmatched_U": 1,
+      "preP0Playable": 0,
+      "local_P0_immediate_after_every_P1": false,
+      "disproves": "same J/U matching positive cannot decide value or exposure without full physical owner requirement incidence"
+    }
+  },
+  "outcomes": [
+    {
+      "lineId": 4,
+      "rank39U": 1,
+      "rank39J": 1,
+      "preexistingPlayableP0": [
+        [
+          0,
+          4
+        ]
+      ],
+      "options": [
+        {
+          "p1_column_onebased": 1,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": false,
+          "newly_released_upper_P0_winning_site": [
+            0,
+            5
+          ],
+          "source_next_immediate_winning_P0_sites": [
+            [
+              0,
+              5
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        },
+        {
+          "p1_column_onebased": 2,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": true,
+          "newly_released_upper_P0_winning_site": null,
+          "source_next_immediate_winning_P0_sites": [
+            [
+              0,
+              4
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        }
+      ]
+    },
+    {
+      "lineId": 7,
+      "rank39U": 1,
+      "rank39J": 1,
+      "preexistingPlayableP0": [
+        [
+          0,
+          5
+        ],
+        [
+          2,
+          4
+        ]
+      ],
+      "options": [
+        {
+          "p1_column_onebased": 1,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": true,
+          "newly_released_upper_P0_winning_site": null,
+          "source_next_immediate_winning_P0_sites": [
+            [
+              2,
+              4
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        },
+        {
+          "p1_column_onebased": 3,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": true,
+          "newly_released_upper_P0_winning_site": null,
+          "source_next_immediate_winning_P0_sites": [
+            [
+              0,
+              5
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        }
+      ]
+    },
+    {
+      "lineId": 8,
+      "rank39U": 1,
+      "rank39J": 1,
+      "preexistingPlayableP0": [
+        [
+          1,
+          4
+        ],
+        [
+          3,
+          5
+        ]
+      ],
+      "options": [
+        {
+          "p1_column_onebased": 2,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": true,
+          "newly_released_upper_P0_winning_site": null,
+          "source_next_immediate_winning_P0_sites": [
+            [
+              3,
+              5
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        },
+        {
+          "p1_column_onebased": 4,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": true,
+          "newly_released_upper_P0_winning_site": null,
+          "source_next_immediate_winning_P0_sites": [
+            [
+              1,
+              4
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        }
+      ]
+    },
+    {
+      "lineId": 11,
+      "rank39U": 1,
+      "rank39J": 1,
+      "preexistingPlayableP0": [],
+      "options": [
+        {
+          "p1_column_onebased": 1,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": false,
+          "newly_released_upper_P0_winning_site": [
+            0,
+            4
+          ],
+          "source_next_immediate_winning_P0_sites": [
+            [
+              0,
+              4
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        }
+      ]
+    },
+    {
+      "lineId": 13,
+      "rank39U": 1,
+      "rank39J": 1,
+      "preexistingPlayableP0": [
+        [
+          1,
+          4
+        ]
+      ],
+      "options": [
+        {
+          "p1_column_onebased": 2,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": false,
+          "newly_released_upper_P0_winning_site": [
+            1,
+            5
+          ],
+          "source_next_immediate_winning_P0_sites": [
+            [
+              1,
+              5
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        },
+        {
+          "p1_column_onebased": 7,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": true,
+          "newly_released_upper_P0_winning_site": null,
+          "source_next_immediate_winning_P0_sites": [
+            [
+              1,
+              4
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        }
+      ]
+    },
+    {
+      "lineId": 14,
+      "rank39U": 1,
+      "rank39J": 1,
+      "preexistingPlayableP0": [],
+      "options": [
+        {
+          "p1_column_onebased": 2,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": false,
+          "newly_released_upper_P0_winning_site": [
+            1,
+            4
+          ],
+          "source_next_immediate_winning_P0_sites": [
+            [
+              1,
+              4
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        }
+      ]
+    },
+    {
+      "lineId": 19,
+      "rank39U": 1,
+      "rank39J": 1,
+      "preexistingPlayableP0": [
+        [
+          1,
+          4
+        ]
+      ],
+      "options": [
+        {
+          "p1_column_onebased": 2,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": false,
+          "newly_released_upper_P0_winning_site": [
+            1,
+            5
+          ],
+          "source_next_immediate_winning_P0_sites": [
+            [
+              1,
+              5
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        },
+        {
+          "p1_column_onebased": 6,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": true,
+          "newly_released_upper_P0_winning_site": null,
+          "source_next_immediate_winning_P0_sites": [
+            [
+              1,
+              4
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        }
+      ]
+    },
+    {
+      "lineId": 22,
+      "rank39U": 3,
+      "rank39J": 0,
+      "preexistingPlayableP0": [
+        [
+          0,
+          5
+        ],
+        [
+          1,
+          5
+        ]
+      ],
+      "options": [
+        {
+          "p1_column_onebased": 1,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": true,
+          "newly_released_upper_P0_winning_site": null,
+          "source_next_immediate_winning_P0_sites": [
+            [
+              1,
+              5
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        },
+        {
+          "p1_column_onebased": 2,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": true,
+          "newly_released_upper_P0_winning_site": null,
+          "source_next_immediate_winning_P0_sites": [
+            [
+              0,
+              5
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        },
+        {
+          "p1_column_onebased": 6,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": true,
+          "newly_released_upper_P0_winning_site": null,
+          "source_next_immediate_winning_P0_sites": [
+            [
+              0,
+              5
+            ],
+            [
+              1,
+              5
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        }
+      ]
+    },
+    {
+      "lineId": 23,
+      "rank39U": 1,
+      "rank39J": 1,
+      "preexistingPlayableP0": [
+        [
+          2,
+          4
+        ],
+        [
+          4,
+          5
+        ]
+      ],
+      "options": [
+        {
+          "p1_column_onebased": 3,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": true,
+          "newly_released_upper_P0_winning_site": null,
+          "source_next_immediate_winning_P0_sites": [
+            [
+              4,
+              5
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        },
+        {
+          "p1_column_onebased": 5,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": true,
+          "newly_released_upper_P0_winning_site": null,
+          "source_next_immediate_winning_P0_sites": [
+            [
+              2,
+              4
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        }
+      ]
+    },
+    {
+      "lineId": 26,
+      "rank39U": 1,
+      "rank39J": 1,
+      "preexistingPlayableP0": [],
+      "options": [
+        {
+          "p1_column_onebased": 2,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": false,
+          "newly_released_upper_P0_winning_site": [
+            1,
+            4
+          ],
+          "source_next_immediate_winning_P0_sites": [
+            [
+              1,
+              4
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        }
+      ]
+    },
+    {
+      "lineId": 27,
+      "rank39U": 1,
+      "rank39J": 1,
+      "preexistingPlayableP0": [],
+      "options": [
+        {
+          "p1_column_onebased": 2,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": false,
+          "newly_released_upper_P0_winning_site": [
+            1,
+            4
+          ],
+          "source_next_immediate_winning_P0_sites": [
+            [
+              1,
+              4
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        }
+      ]
+    },
+    {
+      "lineId": 28,
+      "rank39U": 1,
+      "rank39J": 1,
+      "preexistingPlayableP0": [
+        [
+          4,
+          4
+        ]
+      ],
+      "options": [
+        {
+          "p1_column_onebased": 5,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": false,
+          "newly_released_upper_P0_winning_site": [
+            4,
+            5
+          ],
+          "source_next_immediate_winning_P0_sites": [
+            [
+              4,
+              5
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        },
+        {
+          "p1_column_onebased": 6,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": true,
+          "newly_released_upper_P0_winning_site": null,
+          "source_next_immediate_winning_P0_sites": [
+            [
+              4,
+              4
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        }
+      ]
+    },
+    {
+      "lineId": 34,
+      "rank39U": 1,
+      "rank39J": 1,
+      "preexistingPlayableP0": [
+        [
+          0,
+          5
+        ],
+        [
+          2,
+          4
+        ]
+      ],
+      "options": [
+        {
+          "p1_column_onebased": 1,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": true,
+          "newly_released_upper_P0_winning_site": null,
+          "source_next_immediate_winning_P0_sites": [
+            [
+              2,
+              4
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        },
+        {
+          "p1_column_onebased": 3,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": true,
+          "newly_released_upper_P0_winning_site": null,
+          "source_next_immediate_winning_P0_sites": [
+            [
+              0,
+              5
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        }
+      ]
+    },
+    {
+      "lineId": 35,
+      "rank39U": 1,
+      "rank39J": 1,
+      "preexistingPlayableP0": [],
+      "options": [
+        {
+          "p1_column_onebased": 6,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": false,
+          "newly_released_upper_P0_winning_site": [
+            5,
+            4
+          ],
+          "source_next_immediate_winning_P0_sites": [
+            [
+              5,
+              4
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        }
+      ]
+    },
+    {
+      "lineId": 37,
+      "rank39U": 1,
+      "rank39J": 1,
+      "preexistingPlayableP0": [
+        [
+          2,
+          5
+        ],
+        [
+          4,
+          4
+        ]
+      ],
+      "options": [
+        {
+          "p1_column_onebased": 3,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": true,
+          "newly_released_upper_P0_winning_site": null,
+          "source_next_immediate_winning_P0_sites": [
+            [
+              4,
+              4
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        },
+        {
+          "p1_column_onebased": 5,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": true,
+          "newly_released_upper_P0_winning_site": null,
+          "source_next_immediate_winning_P0_sites": [
+            [
+              2,
+              5
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        }
+      ]
+    },
+    {
+      "lineId": 41,
+      "rank39U": 1,
+      "rank39J": 1,
+      "preexistingPlayableP0": [],
+      "options": [
+        {
+          "p1_column_onebased": 6,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": false,
+          "newly_released_upper_P0_winning_site": [
+            5,
+            4
+          ],
+          "source_next_immediate_winning_P0_sites": [
+            [
+              5,
+              4
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        }
+      ]
+    },
+    {
+      "lineId": 43,
+      "rank39U": 1,
+      "rank39J": 1,
+      "preexistingPlayableP0": [
+        [
+          4,
+          4
+        ]
+      ],
+      "options": [
+        {
+          "p1_column_onebased": 5,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": false,
+          "newly_released_upper_P0_winning_site": [
+            4,
+            5
+          ],
+          "source_next_immediate_winning_P0_sites": [
+            [
+              4,
+              5
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        },
+        {
+          "p1_column_onebased": 7,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": true,
+          "newly_released_upper_P0_winning_site": null,
+          "source_next_immediate_winning_P0_sites": [
+            [
+              4,
+              4
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        }
+      ]
+    },
+    {
+      "lineId": 44,
+      "rank39U": 1,
+      "rank39J": 1,
+      "preexistingPlayableP0": [
+        [
+          2,
+          5
+        ],
+        [
+          4,
+          4
+        ]
+      ],
+      "options": [
+        {
+          "p1_column_onebased": 3,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": true,
+          "newly_released_upper_P0_winning_site": null,
+          "source_next_immediate_winning_P0_sites": [
+            [
+              4,
+              4
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        },
+        {
+          "p1_column_onebased": 5,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": true,
+          "newly_released_upper_P0_winning_site": null,
+          "source_next_immediate_winning_P0_sites": [
+            [
+              2,
+              5
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        }
+      ]
+    },
+    {
+      "lineId": 53,
+      "rank39U": 1,
+      "rank39J": 1,
+      "preexistingPlayableP0": [],
+      "options": [
+        {
+          "p1_column_onebased": 6,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": false,
+          "newly_released_upper_P0_winning_site": [
+            5,
+            4
+          ],
+          "source_next_immediate_winning_P0_sites": [
+            [
+              5,
+              4
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        }
+      ]
+    },
+    {
+      "lineId": 56,
+      "rank39U": 1,
+      "rank39J": 1,
+      "preexistingPlayableP0": [],
+      "options": [
+        {
+          "p1_column_onebased": 6,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": false,
+          "newly_released_upper_P0_winning_site": [
+            5,
+            4
+          ],
+          "source_next_immediate_winning_P0_sites": [
+            [
+              5,
+              4
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        }
+      ]
+    },
+    {
+      "lineId": 58,
+      "rank39U": 1,
+      "rank39J": 1,
+      "preexistingPlayableP0": [
+        [
+          4,
+          4
+        ]
+      ],
+      "options": [
+        {
+          "p1_column_onebased": 2,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": true,
+          "newly_released_upper_P0_winning_site": null,
+          "source_next_immediate_winning_P0_sites": [
+            [
+              4,
+              4
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        },
+        {
+          "p1_column_onebased": 5,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": false,
+          "newly_released_upper_P0_winning_site": [
+            4,
+            5
+          ],
+          "source_next_immediate_winning_P0_sites": [
+            [
+              4,
+              5
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        }
+      ]
+    },
+    {
+      "lineId": 59,
+      "rank39U": 1,
+      "rank39J": 1,
+      "preexistingPlayableP0": [],
+      "options": [
+        {
+          "p1_column_onebased": 5,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": false,
+          "newly_released_upper_P0_winning_site": [
+            4,
+            4
+          ],
+          "source_next_immediate_winning_P0_sites": [
+            [
+              4,
+              4
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        }
+      ]
+    },
+    {
+      "lineId": 61,
+      "rank39U": 1,
+      "rank39J": 1,
+      "preexistingPlayableP0": [
+        [
+          4,
+          4
+        ]
+      ],
+      "options": [
+        {
+          "p1_column_onebased": 5,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": false,
+          "newly_released_upper_P0_winning_site": [
+            4,
+            5
+          ],
+          "source_next_immediate_winning_P0_sites": [
+            [
+              4,
+              5
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        },
+        {
+          "p1_column_onebased": 6,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": true,
+          "newly_released_upper_P0_winning_site": null,
+          "source_next_immediate_winning_P0_sites": [
+            [
+              4,
+              4
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        }
+      ]
+    },
+    {
+      "lineId": 62,
+      "rank39U": 3,
+      "rank39J": 0,
+      "preexistingPlayableP0": [
+        [
+          3,
+          5
+        ],
+        [
+          4,
+          5
+        ]
+      ],
+      "options": [
+        {
+          "p1_column_onebased": 4,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": true,
+          "newly_released_upper_P0_winning_site": null,
+          "source_next_immediate_winning_P0_sites": [
+            [
+              4,
+              5
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        },
+        {
+          "p1_column_onebased": 5,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": true,
+          "newly_released_upper_P0_winning_site": null,
+          "source_next_immediate_winning_P0_sites": [
+            [
+              3,
+              5
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        },
+        {
+          "p1_column_onebased": 6,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": true,
+          "newly_released_upper_P0_winning_site": null,
+          "source_next_immediate_winning_P0_sites": [
+            [
+              3,
+              5
+            ],
+            [
+              4,
+              5
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        }
+      ]
+    },
+    {
+      "lineId": 64,
+      "rank39U": 1,
+      "rank39J": 1,
+      "preexistingPlayableP0": [
+        [
+          5,
+          4
+        ]
+      ],
+      "options": [
+        {
+          "p1_column_onebased": 1,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": true,
+          "newly_released_upper_P0_winning_site": null,
+          "source_next_immediate_winning_P0_sites": [
+            [
+              5,
+              4
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        },
+        {
+          "p1_column_onebased": 6,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": false,
+          "newly_released_upper_P0_winning_site": [
+            5,
+            5
+          ],
+          "source_next_immediate_winning_P0_sites": [
+            [
+              5,
+              5
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        }
+      ]
+    },
+    {
+      "lineId": 65,
+      "rank39U": 3,
+      "rank39J": 0,
+      "preexistingPlayableP0": [
+        [
+          5,
+          5
+        ],
+        [
+          6,
+          5
+        ]
+      ],
+      "options": [
+        {
+          "p1_column_onebased": 2,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": true,
+          "newly_released_upper_P0_winning_site": null,
+          "source_next_immediate_winning_P0_sites": [
+            [
+              5,
+              5
+            ],
+            [
+              6,
+              5
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        },
+        {
+          "p1_column_onebased": 6,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": true,
+          "newly_released_upper_P0_winning_site": null,
+          "source_next_immediate_winning_P0_sites": [
+            [
+              6,
+              5
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        },
+        {
+          "p1_column_onebased": 7,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": true,
+          "newly_released_upper_P0_winning_site": null,
+          "source_next_immediate_winning_P0_sites": [
+            [
+              5,
+              5
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        }
+      ]
+    },
+    {
+      "lineId": 67,
+      "rank39U": 1,
+      "rank39J": 1,
+      "preexistingPlayableP0": [
+        [
+          6,
+          4
+        ]
+      ],
+      "options": [
+        {
+          "p1_column_onebased": 2,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": true,
+          "newly_released_upper_P0_winning_site": null,
+          "source_next_immediate_winning_P0_sites": [
+            [
+              6,
+              4
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        },
+        {
+          "p1_column_onebased": 7,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": false,
+          "newly_released_upper_P0_winning_site": [
+            6,
+            5
+          ],
+          "source_next_immediate_winning_P0_sites": [
+            [
+              6,
+              5
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        }
+      ]
+    },
+    {
+      "lineId": 68,
+      "rank39U": 1,
+      "rank39J": 1,
+      "preexistingPlayableP0": [
+        [
+          5,
+          4
+        ],
+        [
+          6,
+          5
+        ]
+      ],
+      "options": [
+        {
+          "p1_column_onebased": 6,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": true,
+          "newly_released_upper_P0_winning_site": null,
+          "source_next_immediate_winning_P0_sites": [
+            [
+              6,
+              5
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        },
+        {
+          "p1_column_onebased": 7,
+          "P1_first_win": false,
+          "preexisting_P0_threat_survives": true,
+          "newly_released_upper_P0_winning_site": null,
+          "source_next_immediate_winning_P0_sites": [
+            [
+              5,
+              4
+            ]
+          ],
+          "P0_can_firstwin_on_next_ply": true
+        }
+      ]
+    }
+  ],
+  "negative_control_details": {
+    "lineId": "known_legal_full_draw_n39",
+    "pairResourcesRank39": {
+      "J": 1,
+      "U": 1,
+      "nonfull": 1,
+      "capacities": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        3
+      ]
+    },
+    "preexistingP0PlayableSingeSites": [],
+    "preexistingP1PlayableSingeSites": [],
+    "originalP0SingletonFutureCells": [],
+    "options": [
+      {
+        "p1_column_onebased": 7,
+        "P1_first_win": false,
+        "preexisting_P0_threat_survives": false,
+        "newly_released_upper_P0_winning_site": null,
+        "source_next_immediate_winning_P0_sites": [],
+        "P0_can_firstwin_on_next_ply": false
+      }
+    ],
+    "p0NextFirstwinAfterEveryP1Move": false,
+    "rank39PressurePolynomialValue": 0
+  },
+  "closed_claim": "On these historically optimal witness histories, P1 must make a compulsory original move exposing P0 firstwin at move41; 18/28 entries require an inaccessible winning site to be released under at least one legal P1 move. They are witness-record counts, NOT exhaustive optimal terminal rank39 population frequencies.",
+  "open_question": "Can full 69-line unfold-first two-owner 4-body/cofactor/absorbing causal-rank evolution prove from empty that P1 must enter such a paired-release exposure region, WITHOUT using the historical 28-set or the strong optimal histories as source premises?"
+}
