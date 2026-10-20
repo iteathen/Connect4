@@ -64,7 +64,30 @@ function execute(){
   originalWinlines:69,geomSurvival:count(q,geom),seed});
  while(q.terminal===null){
   const before=q.word,ply=before.length,start=performance.now();
-  const scores=Array.from(oracle.analyzeSequence(before));
+  // Empty-original-root strong score vector uses real gameplay Jx reflection.
+  // EXACT four root child solves, not a guessed opening or solved-book value.
+  // Reuse the SAME Oracle's transposition cache for every completed class.
+  let scores;
+  if(before===''){
+   scores=Array(7).fill(-1000);
+   for(let opening=1;opening<=4;opening++){
+    // No single move on empty true 7x6 can complete a K4 line.
+    // Negamax side change yields exact first-player candidate score.
+    const exactScore=-oracle.solveSequence(String(opening));
+    scores[opening-1]=exactScore;
+    scores[7-opening]=exactScore;
+    parentPort.postMessage({type:'EXACT_EMPTYROOT_MIRRORED_OPENING_CLASS_COMPUTED',
+     originalBoard:[7,6,4],rootHistory:'',
+     representativeOneBasedColumn:opening,
+     reflectedOneBasedColumn:8-opening,
+     exactStrongScoreForFirstMover:exactScore,
+     transpositionEntriesSoFar:oracle.table.size,
+     nodesCumulative:oracle.nodes,
+     noPartialChildValueAccepted:true});
+   }
+  }else{
+   scores=Array.from(oracle.analyzeSequence(before));
+  }
   const best=Math.max(...scores);
   const optimal=scores.flatMap((x,c)=>x!==-1000&&x===best?[c+1]:[]);
   if(scores.length!==7||optimal.length===0)
