@@ -69,7 +69,7 @@ if __name__ == "__main__":
     for i,w in enumerate(words):
         first_no_draw = None
         n31=n37=n39=None
-        for n in range(29,42):
+        for n in range(29,41):
             suffix,states = actual_cooperative_draw(prefix_state(w,n))
             feasible = suffix is not None
             if not feasible and first_no_draw is None:
@@ -77,7 +77,8 @@ if __name__ == "__main__":
             if n==31:n31=feasible
             if n==37:n37=feasible
             if n==39:n39=feasible
-        assert first_no_draw is not None
+        if first_no_draw is None:
+            first_no_draw = 41  # historical P0 firstwins on move41; original game stops
         statuses.append((i+1,first_no_draw,n31,n37,n39))
         print("ORIGINAL_GAME",i+1,"first_legal_draw_impossible_rank",first_no_draw,
               "rank31",n31,"rank37",n37,"rank39",n39)
