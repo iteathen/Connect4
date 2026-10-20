@@ -1,0 +1,53 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "status": "PASS_EXACT_K4_EXCEPTION_K5PLUS_PERIODIC_STATIONARY_PAIR_COVER",
+  "frozenBeforeIndependentPhysicalTest": "docs/research/2026-10-20-frozen-k4-exceptional-versus-k5plus-complementary-phase-matching.md",
+  "theorem": {
+    "K4": "fixed disjoint complementary opposite-phase pairs at SAME column parity can leave min U_4(W)=max(0,ceil((W-6)/4)) length4 windows unprotected; first nonzero W7",
+    "K5plus": "For every integer K>=5,W>=K, periodic disjoint matched step2 edges (4j+1,4j+3),(4j+2,4j+4), restricted to endpoints inside W, cover EVERY original lengthK consecutive-column interval; hence no stationary phase-word constant or alternating lengthK span can arise under opposite phases of these matched column pairs",
+    "proof": "Every start s modulo4 has a period4 pair wholly inside its length5 subinterval; each K>=5 interval contains its first 5-column subinterval. Thus all K>=5 windows are covered for ANY width.",
+    "caution": "This is a fixed COLUMN-START PHASE ownership pairing restriction. It is NOT an actual unconditional winner/nonloser game strategy under gravity, which can force ownership changes and firstwin interactions."
+  },
+  "independentOriginalBoardValidation": {
+    "physicalOriginalGameRules": "original K5 K6 K7 H=K+1 W=K..20; genuine horizontal vertical rising falling open-line windows, stationary alternating column ownership",
+    "totalKSpanPairIncidences": 361,
+    "totalOriginalStaticOwnerColoringsChecked": 2880,
+    "validation": "Separate Python physical original K-line generator and all-line monochrome exact checks with 64 random matched-pair orientations per W,K case, ZERO K-cell completed lines for either owner.",
+    "perK": [
+      {
+        "K": 5,
+        "widthRange": "5..20",
+        "physicalHeightTested": 6,
+        "dimensions": 16,
+        "independentlyVerifiedSpanPairIncidences": 136,
+        "originalCompleteStaticOwnerBoardsPhysicallyRechecked": 1024,
+        "sourcePrediction": "period-4 disjoint step2 pair matching has at least one complete pair inside every K-column interval"
+      },
+      {
+        "K": 6,
+        "widthRange": "6..20",
+        "physicalHeightTested": 7,
+        "dimensions": 15,
+        "independentlyVerifiedSpanPairIncidences": 120,
+        "originalCompleteStaticOwnerBoardsPhysicallyRechecked": 960,
+        "sourcePrediction": "period-4 disjoint step2 pair matching has at least one complete pair inside every K-column interval"
+      },
+      {
+        "K": 7,
+        "widthRange": "7..20",
+        "physicalHeightTested": 8,
+        "dimensions": 14,
+        "independentlyVerifiedSpanPairIncidences": 105,
+        "originalCompleteStaticOwnerBoardsPhysicallyRechecked": 896,
+        "sourcePrediction": "period-4 disjoint step2 pair matching has at least one complete pair inside every K-column interval"
+      }
+    ]
+  },
+  "noGameTheoreticInference": [
+    "K>=5 matching implies no dangerous K-run in this restricted stationary phase owner coloring, not a forceable legal defense policy in actual Connect-K",
+    "Standard W7H5 K4 is published DRAW despite K4 W7 obstruction, and W8H6 K4 published P1 WIN also despite obstruction.",
+    "No historical terminal28-selected line target used.",
+    "No general WDL or qualified IsoGraph game-theory1.2 revision."
+  ]
+}
