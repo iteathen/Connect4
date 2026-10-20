@@ -155,4 +155,10 @@ if __name__=='__main__':
     assert len(draw)==42 and heights==[6]*7
     assert records[-1]['balancedStaticOriginalK4free']==1031
     assert records[-1]['policyChecks']['opponent_D_actions']==512
+    # Earlier rank16 true 7x6 source is physically tested, but a 26-cell
+    # static K4-free coefficient expansion is intentionally NOT run here.
+    early=validate_policy_all_opponent_choices('6326226316246461',7,6)
+    assert early['policyChecks']['opponent_D_actions']==15071
+    early['balancedStaticOriginalK4free']='NOT_RUN_26_FREE_CELLS'
+    records.append(early)
     print(json.dumps({'sourcePolicyExamples':records,'legalCooperativeFull42DrawOnProvedWinSource':draw},indent=2))
