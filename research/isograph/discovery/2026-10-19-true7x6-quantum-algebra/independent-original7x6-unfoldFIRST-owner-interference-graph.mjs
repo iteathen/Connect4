@@ -149,7 +149,7 @@ export function independentStandard7x6UnfoldFirstOwnerJunctionWaveValidation(){
   modes.push({s,k});
  const frame=Array.from({length:modes.length},(_,m)=>
   Array.from({length:42},(_,e)=>
-   spectralMode(physicalStrands[modes[m].s],modes[m].k,e)));
+   spectralMode(modes[m].s,modes[m].k,e)));
  let GramChecks=0,maxGramError=0;
  for(let e=0;e<42;e++)for(let f=0;f<42;f++){
   let z={r:0,i:0};
