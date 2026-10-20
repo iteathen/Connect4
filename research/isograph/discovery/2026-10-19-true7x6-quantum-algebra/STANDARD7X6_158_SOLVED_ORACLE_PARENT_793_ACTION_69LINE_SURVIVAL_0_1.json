@@ -1,0 +1,7316 @@
+{
+  "schema": 1,
+  "date": "2026-10-19",
+  "sourceScope": "standard original W7 H6 K4; all source line metrics purely geometric, oracle scores accepted externally and only for OBSERVATION not source non-search algorithm",
+  "theorem": "docs/research/2026-10-19-true7x6-perfectplay-surviving-K4-lines-27-28-wave-hypothesis.md",
+  "sourceObserver": "research/isograph/discovery/2026-10-19-true7x6-quantum-algebra/source-true7x6-69-lines-surviving-perfect-action-geometry.mjs",
+  "sourceBlob": "b92eb2a31a9e0f59b950a49e87e9ada6961a2cfb",
+  "independentPhysicalChecker": "research/isograph/discovery/2026-10-19-true7x6-quantum-algebra/independent-true7x6-oracle-corpus-survivor-statistics.mjs",
+  "checkerBlob": "bd1b310a7b25683a3a93004d3d89925b1763c32d",
+  "qualifiedCorpora": [
+    {
+      "file": "reference/oracles/solved-actions-v1.tsv",
+      "gitBlob": "e096faea3c8c62eabbf7bb0f8fc58d30287565b9",
+      "number": 128,
+      "selection": "64 Test_L3_R1 end/easy + 64 Test_L2_R1 middle/easy externally qualified parent scores and independent oracle best scores"
+    },
+    {
+      "file": "reference/oracles/beginning-spotchecks-v1.tsv",
+      "gitBlob": "a780fba3ca100d7cff699ce64cdd9b62ffc74c31",
+      "number": 30,
+      "selection": "beginning easy/medium cost-restricted calibration spotchecks, NOT representative"
+    }
+  ],
+  "status": "INDEPENDENT_ORIGINAL7X6_PER_ACTION_QUALIFIED_ORACLE_SURVIVOR_STATISTICS_PASS",
+  "physical": {
+    "numberOfOriginalK4WinningLines": 69,
+    "sourceUnfoldedFirstStrands": 37,
+    "originalPhysicalOwnerCells": 42,
+    "bottomCornerFirstCellK4Incidence": 3,
+    "bottomCenterK4Incidence": 7,
+    "internalCenterThirdRowK4Incidence": 13,
+    "parents": 158,
+    "oneMoveOracleStrongOptimalChildren": 227,
+    "oneMoveOtherLegalChildren": 566,
+    "oneMoveGeometricChecks": 54717,
+    "sourceAndIndependentPhysicalErrors": 0
+  },
+  "regimeSummary": {
+    "allParents": {
+      "n": 158,
+      "meanDistinct": 28.20886075949367,
+      "medianDistinct": 29,
+      "hits27or28": 2
+    },
+    "strictOptimalChildren": {
+      "n": 227,
+      "meanDistinct": 25.24669603524229,
+      "medianDistinct": 23,
+      "hits27or28": 9
+    },
+    "nonoptimalControls": {
+      "n": 566,
+      "meanDistinct": 36.18904593639576,
+      "medianDistinct": 38,
+      "hits27or28": 19
+    },
+    "matchedParentsWithBothMoveTypes": 140,
+    "matchedParentMeanOptimalMinusOtherDistinct": -0.8880952380952382
+  },
+  "segments": {
+    "early_0_15": {
+      "parentN": 31,
+      "parentMeanDistinct": 53.774193548387096,
+      "parent27or28": 0,
+      "optN": 38,
+      "optMeanDistinct": 51.78947368421053,
+      "opt27or28": 0,
+      "nonoptN": 172,
+      "nonoptMeanDistinct": 52.05813953488372,
+      "nonopt27or28": 0
+    },
+    "middle_16_29": {
+      "parentN": 69,
+      "parentMeanDistinct": 33.42028985507246,
+      "parent27or28": 2,
+      "optN": 93,
+      "optMeanDistinct": 30.93548387096774,
+      "opt27or28": 7,
+      "nonoptN": 299,
+      "nonoptMeanDistinct": 34.55518394648829,
+      "nonopt27or28": 19
+    },
+    "late_30_35": {
+      "parentN": 28,
+      "parentMeanDistinct": 13.642857142857142,
+      "parent27or28": 0,
+      "optN": 56,
+      "optMeanDistinct": 13.660714285714286,
+      "opt27or28": 2,
+      "nonoptN": 70,
+      "nonoptMeanDistinct": 15.17142857142857,
+      "nonopt27or28": 0
+    },
+    "end_36_42": {
+      "parentN": 30,
+      "parentMeanDistinct": 3.4,
+      "parent27or28": 0,
+      "optN": 40,
+      "optMeanDistinct": 3.025,
+      "opt27or28": 0,
+      "nonoptN": 25,
+      "nonoptMeanDistinct": 5.4,
+      "nonopt27or28": 0
+    }
+  },
+  "qualifiedCohorts": {
+    "Test_L3_R1": {
+      "parentN": 64,
+      "parentMeanU": 9.59375,
+      "optimalN": 96,
+      "optimalMeanU": 9.229166666666666
+    },
+    "Test_L2_R1": {
+      "parentN": 64,
+      "parentMeanU": 34.84375,
+      "optimalN": 93,
+      "optimalMeanU": 30.93548387096774
+    },
+    "Test_L1_R1": {
+      "parentN": 17,
+      "parentMeanU": 53.23529411764706,
+      "optimalN": 21,
+      "optimalMeanU": 52.04761904761905
+    },
+    "Test_L1_R2": {
+      "parentN": 13,
+      "parentMeanU": 54.46153846153846,
+      "optimalN": 17,
+      "optimalMeanU": 51.470588235294116
+    }
+  },
+  "raw158ParentPositions": [
+    {
+      "sample": "calibration:1",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "2252576253462244111563365343671351441",
+      "rootPly": 37,
+      "sourcePerfectPlayValue": -1,
+      "rootDistinct": 6,
+      "rootOwnerLayerMultiplicity": 7,
+      "rootCancelledBoth": 63,
+      "rootP0Live": 4,
+      "rootP1Live": 3,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 1,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 5,
+      "oneStepMeanDistinctAfterOtherLegalAction": 6,
+      "optimalLiteralColumns": [
+        6
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 0,
+          "dead": 23
+        },
+        "V": {
+          "empty": 1,
+          "P0only": 0,
+          "P1only": 2,
+          "dead": 18
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 2,
+          "P1only": 0,
+          "dead": 10
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 12
+        }
+      }
+    },
+    {
+      "sample": "calibration:2",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "7422341735647741166133573473242566",
+      "rootPly": 34,
+      "sourcePerfectPlayValue": 1,
+      "rootDistinct": 8,
+      "rootOwnerLayerMultiplicity": 8,
+      "rootCancelledBoth": 61,
+      "rootP0Live": 2,
+      "rootP1Live": 6,
+      "numberStrictStrongOptimalMoves": 2,
+      "numberOtherLegalMoves": 2,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 7,
+      "oneStepMeanDistinctAfterOtherLegalAction": 7.5,
+      "optimalLiteralColumns": [
+        2,
+        6
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 4,
+          "dead": 20
+        },
+        "V": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 1,
+          "dead": 19
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 0,
+          "dead": 11
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 1,
+          "dead": 11
+        }
+      }
+    },
+    {
+      "sample": "calibration:3",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "23163416124767223154467471272416755633",
+      "rootPly": 38,
+      "sourcePerfectPlayValue": 0,
+      "rootDistinct": 4,
+      "rootOwnerLayerMultiplicity": 4,
+      "rootCancelledBoth": 65,
+      "rootP0Live": 1,
+      "rootP1Live": 3,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 1,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 3,
+      "oneStepMeanDistinctAfterOtherLegalAction": 4,
+      "optimalLiteralColumns": [
+        3
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 3,
+          "dead": 21
+        },
+        "V": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 0,
+          "dead": 20
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 12
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 12
+        }
+      }
+    },
+    {
+      "sample": "calibration:4",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "71255763773133525731261364622167124446454",
+      "rootPly": 41,
+      "sourcePerfectPlayValue": 0,
+      "rootDistinct": 0,
+      "rootOwnerLayerMultiplicity": 0,
+      "rootCancelledBoth": 69,
+      "rootP0Live": 0,
+      "rootP1Live": 0,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 0,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 0,
+      "oneStepMeanDistinctAfterOtherLegalAction": null,
+      "optimalLiteralColumns": [
+        5
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 24
+        },
+        "V": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 21
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 12
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 12
+        }
+      }
+    },
+    {
+      "sample": "calibration:5",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "65214673556155731566316327373221417",
+      "rootPly": 35,
+      "sourcePerfectPlayValue": -1,
+      "rootDistinct": 9,
+      "rootOwnerLayerMultiplicity": 10,
+      "rootCancelledBoth": 60,
+      "rootP0Live": 6,
+      "rootP1Live": 4,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 2,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 7,
+      "oneStepMeanDistinctAfterOtherLegalAction": 9,
+      "optimalLiteralColumns": [
+        4
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 24
+        },
+        "V": {
+          "empty": 1,
+          "P0only": 2,
+          "P1only": 0,
+          "dead": 18
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 2,
+          "dead": 9
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 2,
+          "P1only": 1,
+          "dead": 9
+        }
+      }
+    },
+    {
+      "sample": "calibration:6",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "52677675164321472411331752454",
+      "rootPly": 29,
+      "sourcePerfectPlayValue": 0,
+      "rootDistinct": 16,
+      "rootOwnerLayerMultiplicity": 20,
+      "rootCancelledBoth": 53,
+      "rootP0Live": 10,
+      "rootP1Live": 10,
+      "numberStrictStrongOptimalMoves": 5,
+      "numberOtherLegalMoves": 2,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 15,
+      "oneStepMeanDistinctAfterOtherLegalAction": 14.5,
+      "optimalLiteralColumns": [
+        2,
+        3,
+        4,
+        6,
+        7
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 4,
+          "P0only": 3,
+          "P1only": 0,
+          "dead": 17
+        },
+        "V": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 3,
+          "dead": 18
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 1,
+          "dead": 10
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 2,
+          "P1only": 2,
+          "dead": 8
+        }
+      }
+    },
+    {
+      "sample": "calibration:7",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "3135151421347443544172316522225776773566",
+      "rootPly": 40,
+      "sourcePerfectPlayValue": 0,
+      "rootDistinct": 2,
+      "rootOwnerLayerMultiplicity": 2,
+      "rootCancelledBoth": 67,
+      "rootP0Live": 1,
+      "rootP1Live": 1,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 0,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 1,
+      "oneStepMeanDistinctAfterOtherLegalAction": null,
+      "optimalLiteralColumns": [
+        6
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 24
+        },
+        "V": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 21
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 1,
+          "dead": 10
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 12
+        }
+      }
+    },
+    {
+      "sample": "calibration:8",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "562154564361751726662253737734213275114",
+      "rootPly": 39,
+      "sourcePerfectPlayValue": 0,
+      "rootDistinct": 6,
+      "rootOwnerLayerMultiplicity": 6,
+      "rootCancelledBoth": 63,
+      "rootP0Live": 3,
+      "rootP1Live": 3,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 1,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 3,
+      "oneStepMeanDistinctAfterOtherLegalAction": 6,
+      "optimalLiteralColumns": [
+        4
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 3,
+          "P1only": 3,
+          "dead": 18
+        },
+        "V": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 21
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 12
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 12
+        }
+      }
+    },
+    {
+      "sample": "calibration:9",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "233377345754465174223731671122611552",
+      "rootPly": 36,
+      "sourcePerfectPlayValue": 1,
+      "rootDistinct": 6,
+      "rootOwnerLayerMultiplicity": 6,
+      "rootCancelledBoth": 63,
+      "rootP0Live": 5,
+      "rootP1Live": 1,
+      "numberStrictStrongOptimalMoves": 2,
+      "numberOtherLegalMoves": 1,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 5.5,
+      "oneStepMeanDistinctAfterOtherLegalAction": 6,
+      "optimalLiteralColumns": [
+        4,
+        5
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 2,
+          "P1only": 1,
+          "dead": 21
+        },
+        "V": {
+          "empty": 0,
+          "P0only": 2,
+          "P1only": 0,
+          "dead": 19
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 0,
+          "dead": 11
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 12
+        }
+      }
+    },
+    {
+      "sample": "calibration:10",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "6763525635134453444361412671365712",
+      "rootPly": 34,
+      "sourcePerfectPlayValue": -1,
+      "rootDistinct": 6,
+      "rootOwnerLayerMultiplicity": 6,
+      "rootCancelledBoth": 63,
+      "rootP0Live": 2,
+      "rootP1Live": 4,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 3,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 4,
+      "oneStepMeanDistinctAfterOtherLegalAction": 5.666666666666667,
+      "optimalLiteralColumns": [
+        2
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 2,
+          "P1only": 1,
+          "dead": 21
+        },
+        "V": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 2,
+          "dead": 19
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 12
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 1,
+          "dead": 11
+        }
+      }
+    },
+    {
+      "sample": "calibration:11",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "211376455663355325112113664364524722",
+      "rootPly": 36,
+      "sourcePerfectPlayValue": 0,
+      "rootDistinct": 7,
+      "rootOwnerLayerMultiplicity": 8,
+      "rootCancelledBoth": 62,
+      "rootP0Live": 4,
+      "rootP1Live": 4,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 1,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 5,
+      "oneStepMeanDistinctAfterOtherLegalAction": 6,
+      "optimalLiteralColumns": [
+        4
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 2,
+          "P1only": 2,
+          "dead": 20
+        },
+        "V": {
+          "empty": 1,
+          "P0only": 0,
+          "P1only": 1,
+          "dead": 19
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 0,
+          "dead": 11
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 12
+        }
+      }
+    },
+    {
+      "sample": "calibration:12",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "3146762114467714356347741621375222",
+      "rootPly": 34,
+      "sourcePerfectPlayValue": -1,
+      "rootDistinct": 10,
+      "rootOwnerLayerMultiplicity": 11,
+      "rootCancelledBoth": 59,
+      "rootP0Live": 3,
+      "rootP1Live": 8,
+      "numberStrictStrongOptimalMoves": 4,
+      "numberOtherLegalMoves": 0,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 7.5,
+      "oneStepMeanDistinctAfterOtherLegalAction": null,
+      "optimalLiteralColumns": [
+        2,
+        3,
+        5,
+        6
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 4,
+          "dead": 20
+        },
+        "V": {
+          "empty": 1,
+          "P0only": 1,
+          "P1only": 0,
+          "dead": 19
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 1,
+          "dead": 10
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 2,
+          "dead": 10
+        }
+      }
+    },
+    {
+      "sample": "calibration:13",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "67152117737262713366376314254",
+      "rootPly": 29,
+      "sourcePerfectPlayValue": 6,
+      "rootDistinct": 21,
+      "rootOwnerLayerMultiplicity": 26,
+      "rootCancelledBoth": 48,
+      "rootP0Live": 13,
+      "rootP1Live": 13,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 5,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 20,
+      "oneStepMeanDistinctAfterOtherLegalAction": 19.4,
+      "optimalLiteralColumns": [
+        5
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 3,
+          "P0only": 3,
+          "P1only": 3,
+          "dead": 15
+        },
+        "V": {
+          "empty": 2,
+          "P0only": 1,
+          "P1only": 2,
+          "dead": 16
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 2,
+          "P1only": 2,
+          "dead": 8
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 2,
+          "P1only": 1,
+          "dead": 9
+        }
+      }
+    },
+    {
+      "sample": "calibration:14",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "2762751722231276466633475674533",
+      "rootPly": 31,
+      "sourcePerfectPlayValue": 5,
+      "rootDistinct": 19,
+      "rootOwnerLayerMultiplicity": 20,
+      "rootCancelledBoth": 50,
+      "rootP0Live": 9,
+      "rootP1Live": 11,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 3,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 18,
+      "oneStepMeanDistinctAfterOtherLegalAction": 17.333333333333332,
+      "optimalLiteralColumns": [
+        4
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 3,
+          "P1only": 6,
+          "dead": 15
+        },
+        "V": {
+          "empty": 1,
+          "P0only": 4,
+          "P1only": 1,
+          "dead": 15
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 2,
+          "dead": 10
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 1,
+          "dead": 10
+        }
+      }
+    },
+    {
+      "sample": "calibration:15",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "3642756176227637211322113551637574556",
+      "rootPly": 37,
+      "sourcePerfectPlayValue": 2,
+      "rootDistinct": 9,
+      "rootOwnerLayerMultiplicity": 10,
+      "rootCancelledBoth": 60,
+      "rootP0Live": 4,
+      "rootP1Live": 6,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 1,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 9,
+      "oneStepMeanDistinctAfterOtherLegalAction": 9,
+      "optimalLiteralColumns": [
+        3
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 2,
+          "P1only": 3,
+          "dead": 19
+        },
+        "V": {
+          "empty": 1,
+          "P0only": 0,
+          "P1only": 1,
+          "dead": 19
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 12
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 1,
+          "dead": 10
+        }
+      }
+    },
+    {
+      "sample": "calibration:16",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "22647455554314246733661634615122372377511",
+      "rootPly": 41,
+      "sourcePerfectPlayValue": 0,
+      "rootDistinct": 0,
+      "rootOwnerLayerMultiplicity": 0,
+      "rootCancelledBoth": 69,
+      "rootP0Live": 0,
+      "rootP1Live": 0,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 0,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 0,
+      "oneStepMeanDistinctAfterOtherLegalAction": null,
+      "optimalLiteralColumns": [
+        7
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 24
+        },
+        "V": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 21
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 12
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 12
+        }
+      }
+    },
+    {
+      "sample": "calibration:17",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "427566236745127177115664464254",
+      "rootPly": 30,
+      "sourcePerfectPlayValue": 2,
+      "rootDistinct": 18,
+      "rootOwnerLayerMultiplicity": 20,
+      "rootCancelledBoth": 51,
+      "rootP0Live": 10,
+      "rootP1Live": 10,
+      "numberStrictStrongOptimalMoves": 4,
+      "numberOtherLegalMoves": 1,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 17,
+      "oneStepMeanDistinctAfterOtherLegalAction": 17,
+      "optimalLiteralColumns": [
+        1,
+        2,
+        5,
+        7
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 3,
+          "P1only": 4,
+          "dead": 17
+        },
+        "V": {
+          "empty": 2,
+          "P0only": 1,
+          "P1only": 2,
+          "dead": 16
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 2,
+          "P1only": 0,
+          "dead": 10
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 2,
+          "P1only": 2,
+          "dead": 8
+        }
+      }
+    },
+    {
+      "sample": "calibration:18",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "7172212567451542223676134464437761515",
+      "rootPly": 37,
+      "sourcePerfectPlayValue": 0,
+      "rootDistinct": 5,
+      "rootOwnerLayerMultiplicity": 5,
+      "rootCancelledBoth": 64,
+      "rootP0Live": 1,
+      "rootP1Live": 4,
+      "numberStrictStrongOptimalMoves": 3,
+      "numberOtherLegalMoves": 0,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 4.333333333333333,
+      "oneStepMeanDistinctAfterOtherLegalAction": null,
+      "optimalLiteralColumns": [
+        3,
+        5,
+        6
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 0,
+          "dead": 23
+        },
+        "V": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 2,
+          "dead": 19
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 12
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 2,
+          "dead": 10
+        }
+      }
+    },
+    {
+      "sample": "calibration:19",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "641154574541323641152467137655232232366",
+      "rootPly": 39,
+      "sourcePerfectPlayValue": 0,
+      "rootDistinct": 2,
+      "rootOwnerLayerMultiplicity": 2,
+      "rootCancelledBoth": 67,
+      "rootP0Live": 1,
+      "rootP1Live": 1,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 0,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 1,
+      "oneStepMeanDistinctAfterOtherLegalAction": null,
+      "optimalLiteralColumns": [
+        7
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 24
+        },
+        "V": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 0,
+          "dead": 20
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 1,
+          "dead": 11
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 12
+        }
+      }
+    },
+    {
+      "sample": "calibration:20",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "5775265212657176476365522624313714333",
+      "rootPly": 37,
+      "sourcePerfectPlayValue": 2,
+      "rootDistinct": 5,
+      "rootOwnerLayerMultiplicity": 5,
+      "rootCancelledBoth": 64,
+      "rootP0Live": 2,
+      "rootP1Live": 3,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 1,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 5,
+      "oneStepMeanDistinctAfterOtherLegalAction": 5,
+      "optimalLiteralColumns": [
+        4
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 2,
+          "P1only": 0,
+          "dead": 22
+        },
+        "V": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 2,
+          "dead": 19
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 1,
+          "dead": 11
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 12
+        }
+      }
+    },
+    {
+      "sample": "calibration:21",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "3575316255751336464276636772271112",
+      "rootPly": 34,
+      "sourcePerfectPlayValue": -3,
+      "rootDistinct": 11,
+      "rootOwnerLayerMultiplicity": 14,
+      "rootCancelledBoth": 58,
+      "rootP0Live": 6,
+      "rootP1Live": 8,
+      "numberStrictStrongOptimalMoves": 4,
+      "numberOtherLegalMoves": 1,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 10.75,
+      "oneStepMeanDistinctAfterOtherLegalAction": 11,
+      "optimalLiteralColumns": [
+        1,
+        2,
+        3,
+        5
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 2,
+          "P0only": 1,
+          "P1only": 2,
+          "dead": 19
+        },
+        "V": {
+          "empty": 1,
+          "P0only": 2,
+          "P1only": 0,
+          "dead": 18
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 2,
+          "dead": 10
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 1,
+          "dead": 11
+        }
+      }
+    },
+    {
+      "sample": "calibration:22",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "75662564375666511575212332122171447733",
+      "rootPly": 38,
+      "sourcePerfectPlayValue": 1,
+      "rootDistinct": 8,
+      "rootOwnerLayerMultiplicity": 8,
+      "rootCancelledBoth": 61,
+      "rootP0Live": 2,
+      "rootP1Live": 6,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 1,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 7,
+      "oneStepMeanDistinctAfterOtherLegalAction": 7,
+      "optimalLiteralColumns": [
+        3
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 4,
+          "dead": 20
+        },
+        "V": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 1,
+          "dead": 20
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 1,
+          "dead": 10
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 0,
+          "dead": 11
+        }
+      }
+    },
+    {
+      "sample": "calibration:23",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "3576127617575661522124647446257235344113",
+      "rootPly": 40,
+      "sourcePerfectPlayValue": 0,
+      "rootDistinct": 0,
+      "rootOwnerLayerMultiplicity": 0,
+      "rootCancelledBoth": 69,
+      "rootP0Live": 0,
+      "rootP1Live": 0,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 0,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 0,
+      "oneStepMeanDistinctAfterOtherLegalAction": null,
+      "optimalLiteralColumns": [
+        3
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 24
+        },
+        "V": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 21
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 12
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 12
+        }
+      }
+    },
+    {
+      "sample": "calibration:24",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "655651721435342216255374674123",
+      "rootPly": 30,
+      "sourcePerfectPlayValue": 4,
+      "rootDistinct": 13,
+      "rootOwnerLayerMultiplicity": 14,
+      "rootCancelledBoth": 56,
+      "rootP0Live": 7,
+      "rootP1Live": 7,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 5,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 11,
+      "oneStepMeanDistinctAfterOtherLegalAction": 11.6,
+      "optimalLiteralColumns": [
+        3
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 1,
+          "P0only": 4,
+          "P1only": 2,
+          "dead": 17
+        },
+        "V": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 2,
+          "dead": 19
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 1,
+          "dead": 10
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 1,
+          "dead": 10
+        }
+      }
+    },
+    {
+      "sample": "calibration:25",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "335413424327172446337172625415575517",
+      "rootPly": 36,
+      "sourcePerfectPlayValue": 1,
+      "rootDistinct": 7,
+      "rootOwnerLayerMultiplicity": 8,
+      "rootCancelledBoth": 62,
+      "rootP0Live": 3,
+      "rootP1Live": 5,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 2,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 5,
+      "oneStepMeanDistinctAfterOtherLegalAction": 6.5,
+      "optimalLiteralColumns": [
+        2
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 4,
+          "dead": 19
+        },
+        "V": {
+          "empty": 1,
+          "P0only": 1,
+          "P1only": 0,
+          "dead": 19
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 12
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 12
+        }
+      }
+    },
+    {
+      "sample": "calibration:26",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "12156756715535615116237724723",
+      "rootPly": 29,
+      "sourcePerfectPlayValue": -2,
+      "rootDistinct": 29,
+      "rootOwnerLayerMultiplicity": 31,
+      "rootCancelledBoth": 40,
+      "rootP0Live": 17,
+      "rootP1Live": 14,
+      "numberStrictStrongOptimalMoves": 4,
+      "numberOtherLegalMoves": 1,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 26.75,
+      "oneStepMeanDistinctAfterOtherLegalAction": 29,
+      "optimalLiteralColumns": [
+        2,
+        3,
+        6,
+        7
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 7,
+          "P1only": 7,
+          "dead": 10
+        },
+        "V": {
+          "empty": 2,
+          "P0only": 1,
+          "P1only": 1,
+          "dead": 17
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 3,
+          "P1only": 4,
+          "dead": 5
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 4,
+          "P1only": 0,
+          "dead": 8
+        }
+      }
+    },
+    {
+      "sample": "calibration:27",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "4744236462134233111155374771566655522",
+      "rootPly": 37,
+      "sourcePerfectPlayValue": -1,
+      "rootDistinct": 4,
+      "rootOwnerLayerMultiplicity": 4,
+      "rootCancelledBoth": 65,
+      "rootP0Live": 4,
+      "rootP1Live": 0,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 3,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 3,
+      "oneStepMeanDistinctAfterOtherLegalAction": 2.3333333333333335,
+      "optimalLiteralColumns": [
+        7
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 3,
+          "P1only": 0,
+          "dead": 21
+        },
+        "V": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 21
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 0,
+          "dead": 11
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 12
+        }
+      }
+    },
+    {
+      "sample": "calibration:28",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "144324431445513573673777361765615215226",
+      "rootPly": 39,
+      "sourcePerfectPlayValue": 0,
+      "rootDistinct": 3,
+      "rootOwnerLayerMultiplicity": 3,
+      "rootCancelledBoth": 66,
+      "rootP0Live": 3,
+      "rootP1Live": 0,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 1,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 1,
+      "oneStepMeanDistinctAfterOtherLegalAction": 3,
+      "optimalLiteralColumns": [
+        6
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 0,
+          "dead": 23
+        },
+        "V": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 0,
+          "dead": 20
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 0,
+          "dead": 11
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 12
+        }
+      }
+    },
+    {
+      "sample": "calibration:29",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "466337133772221726726511133452571",
+      "rootPly": 33,
+      "sourcePerfectPlayValue": 0,
+      "rootDistinct": 16,
+      "rootOwnerLayerMultiplicity": 17,
+      "rootCancelledBoth": 53,
+      "rootP0Live": 9,
+      "rootP1Live": 8,
+      "numberStrictStrongOptimalMoves": 2,
+      "numberOtherLegalMoves": 1,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 12.5,
+      "oneStepMeanDistinctAfterOtherLegalAction": 15,
+      "optimalLiteralColumns": [
+        5,
+        6
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 4,
+          "P1only": 3,
+          "dead": 17
+        },
+        "V": {
+          "empty": 1,
+          "P0only": 2,
+          "P1only": 1,
+          "dead": 17
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 2,
+          "dead": 9
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 1,
+          "dead": 10
+        }
+      }
+    },
+    {
+      "sample": "calibration:30",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "5577777735365512235162362241426611",
+      "rootPly": 34,
+      "sourcePerfectPlayValue": -3,
+      "rootDistinct": 16,
+      "rootOwnerLayerMultiplicity": 17,
+      "rootCancelledBoth": 53,
+      "rootP0Live": 7,
+      "rootP1Live": 10,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 3,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 13,
+      "oneStepMeanDistinctAfterOtherLegalAction": 14,
+      "optimalLiteralColumns": [
+        4
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 4,
+          "P1only": 7,
+          "dead": 13
+        },
+        "V": {
+          "empty": 1,
+          "P0only": 2,
+          "P1only": 0,
+          "dead": 18
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 1,
+          "dead": 11
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 1,
+          "dead": 11
+        }
+      }
+    },
+    {
+      "sample": "calibration:31",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "6274476136716665132411555412333345",
+      "rootPly": 34,
+      "sourcePerfectPlayValue": 0,
+      "rootDistinct": 5,
+      "rootOwnerLayerMultiplicity": 5,
+      "rootCancelledBoth": 64,
+      "rootP0Live": 3,
+      "rootP1Live": 2,
+      "numberStrictStrongOptimalMoves": 4,
+      "numberOtherLegalMoves": 0,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 4.25,
+      "oneStepMeanDistinctAfterOtherLegalAction": null,
+      "optimalLiteralColumns": [
+        2,
+        4,
+        5,
+        7
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 1,
+          "dead": 22
+        },
+        "V": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 1,
+          "dead": 19
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 0,
+          "dead": 11
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 12
+        }
+      }
+    },
+    {
+      "sample": "calibration:32",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "2166166176633734115273317322475724",
+      "rootPly": 34,
+      "sourcePerfectPlayValue": -2,
+      "rootDistinct": 16,
+      "rootOwnerLayerMultiplicity": 17,
+      "rootCancelledBoth": 53,
+      "rootP0Live": 8,
+      "rootP1Live": 9,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 2,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 14,
+      "oneStepMeanDistinctAfterOtherLegalAction": 15,
+      "optimalLiteralColumns": [
+        2
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 2,
+          "P1only": 4,
+          "dead": 18
+        },
+        "V": {
+          "empty": 1,
+          "P0only": 2,
+          "P1only": 1,
+          "dead": 17
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 1,
+          "dead": 10
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 2,
+          "P1only": 2,
+          "dead": 8
+        }
+      }
+    },
+    {
+      "sample": "calibration:33",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "3432357517256661231652672362571175",
+      "rootPly": 34,
+      "sourcePerfectPlayValue": 3,
+      "rootDistinct": 16,
+      "rootOwnerLayerMultiplicity": 18,
+      "rootCancelledBoth": 53,
+      "rootP0Live": 10,
+      "rootP1Live": 8,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 3,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 14,
+      "oneStepMeanDistinctAfterOtherLegalAction": 15,
+      "optimalLiteralColumns": [
+        4
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 2,
+          "P1only": 3,
+          "dead": 19
+        },
+        "V": {
+          "empty": 2,
+          "P0only": 0,
+          "P1only": 1,
+          "dead": 18
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 5,
+          "P1only": 0,
+          "dead": 7
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 2,
+          "dead": 9
+        }
+      }
+    },
+    {
+      "sample": "calibration:34",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "26512741647245111351472255277",
+      "rootPly": 29,
+      "sourcePerfectPlayValue": -5,
+      "rootDistinct": 25,
+      "rootOwnerLayerMultiplicity": 30,
+      "rootCancelledBoth": 44,
+      "rootP0Live": 19,
+      "rootP1Live": 11,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 4,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 23,
+      "oneStepMeanDistinctAfterOtherLegalAction": 22.75,
+      "optimalLiteralColumns": [
+        3
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 2,
+          "P0only": 4,
+          "P1only": 2,
+          "dead": 16
+        },
+        "V": {
+          "empty": 3,
+          "P0only": 2,
+          "P1only": 1,
+          "dead": 15
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 4,
+          "P1only": 2,
+          "dead": 6
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 4,
+          "P1only": 1,
+          "dead": 7
+        }
+      }
+    },
+    {
+      "sample": "calibration:35",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "3414355576455177144321543311672273",
+      "rootPly": 34,
+      "sourcePerfectPlayValue": -2,
+      "rootDistinct": 9,
+      "rootOwnerLayerMultiplicity": 10,
+      "rootCancelledBoth": 60,
+      "rootP0Live": 4,
+      "rootP1Live": 6,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 2,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 7,
+      "oneStepMeanDistinctAfterOtherLegalAction": 9,
+      "optimalLiteralColumns": [
+        2
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 2,
+          "dead": 21
+        },
+        "V": {
+          "empty": 1,
+          "P0only": 1,
+          "P1only": 1,
+          "dead": 18
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 12
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 2,
+          "dead": 9
+        }
+      }
+    },
+    {
+      "sample": "calibration:36",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "112471523663662675764743257544335112741",
+      "rootPly": 39,
+      "sourcePerfectPlayValue": 0,
+      "rootDistinct": 2,
+      "rootOwnerLayerMultiplicity": 2,
+      "rootCancelledBoth": 67,
+      "rootP0Live": 0,
+      "rootP1Live": 2,
+      "numberStrictStrongOptimalMoves": 3,
+      "numberOtherLegalMoves": 0,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 2,
+      "oneStepMeanDistinctAfterOtherLegalAction": null,
+      "optimalLiteralColumns": [
+        2,
+        3,
+        5
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 2,
+          "dead": 22
+        },
+        "V": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 21
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 12
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 12
+        }
+      }
+    },
+    {
+      "sample": "calibration:37",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "24555313265147651622632244317534477",
+      "rootPly": 35,
+      "sourcePerfectPlayValue": 3,
+      "rootDistinct": 5,
+      "rootOwnerLayerMultiplicity": 5,
+      "rootCancelledBoth": 64,
+      "rootP0Live": 3,
+      "rootP1Live": 2,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 3,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 4,
+      "oneStepMeanDistinctAfterOtherLegalAction": 4.666666666666667,
+      "optimalLiteralColumns": [
+        7
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 1,
+          "dead": 23
+        },
+        "V": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 21
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 2,
+          "P1only": 1,
+          "dead": 9
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 0,
+          "dead": 11
+        }
+      }
+    },
+    {
+      "sample": "calibration:38",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "5512371662253342337574526766763245",
+      "rootPly": 34,
+      "sourcePerfectPlayValue": 3,
+      "rootDistinct": 12,
+      "rootOwnerLayerMultiplicity": 13,
+      "rootCancelledBoth": 57,
+      "rootP0Live": 7,
+      "rootP1Live": 6,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 2,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 11,
+      "oneStepMeanDistinctAfterOtherLegalAction": 11,
+      "optimalLiteralColumns": [
+        4
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 2,
+          "dead": 22
+        },
+        "V": {
+          "empty": 1,
+          "P0only": 3,
+          "P1only": 0,
+          "dead": 17
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 1,
+          "dead": 10
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 2,
+          "P1only": 2,
+          "dead": 8
+        }
+      }
+    },
+    {
+      "sample": "calibration:39",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "27573772361321663724362213661574",
+      "rootPly": 32,
+      "sourcePerfectPlayValue": 2,
+      "rootDistinct": 29,
+      "rootOwnerLayerMultiplicity": 31,
+      "rootCancelledBoth": 40,
+      "rootP0Live": 15,
+      "rootP1Live": 16,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 2,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 25,
+      "oneStepMeanDistinctAfterOtherLegalAction": 27,
+      "optimalLiteralColumns": [
+        5
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 5,
+          "P1only": 5,
+          "dead": 14
+        },
+        "V": {
+          "empty": 2,
+          "P0only": 1,
+          "P1only": 3,
+          "dead": 15
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 5,
+          "P1only": 3,
+          "dead": 4
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 2,
+          "P1only": 3,
+          "dead": 7
+        }
+      }
+    },
+    {
+      "sample": "calibration:40",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "3336513263356226156221176142517577574",
+      "rootPly": 37,
+      "sourcePerfectPlayValue": 2,
+      "rootDistinct": 12,
+      "rootOwnerLayerMultiplicity": 13,
+      "rootCancelledBoth": 57,
+      "rootP0Live": 10,
+      "rootP1Live": 3,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 1,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 10,
+      "oneStepMeanDistinctAfterOtherLegalAction": 9,
+      "optimalLiteralColumns": [
+        7
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 2,
+          "P1only": 0,
+          "dead": 22
+        },
+        "V": {
+          "empty": 1,
+          "P0only": 2,
+          "P1only": 0,
+          "dead": 18
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 3,
+          "P1only": 1,
+          "dead": 8
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 2,
+          "P1only": 1,
+          "dead": 9
+        }
+      }
+    },
+    {
+      "sample": "calibration:41",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "6216633712715125334265163163777225",
+      "rootPly": 34,
+      "sourcePerfectPlayValue": -3,
+      "rootDistinct": 14,
+      "rootOwnerLayerMultiplicity": 16,
+      "rootCancelledBoth": 55,
+      "rootP0Live": 6,
+      "rootP1Live": 10,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 2,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 12,
+      "oneStepMeanDistinctAfterOtherLegalAction": 13.5,
+      "optimalLiteralColumns": [
+        5
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 2,
+          "dead": 21
+        },
+        "V": {
+          "empty": 2,
+          "P0only": 1,
+          "P1only": 2,
+          "dead": 16
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 1,
+          "dead": 10
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 3,
+          "dead": 8
+        }
+      }
+    },
+    {
+      "sample": "calibration:42",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "735425274762537661575175136212214614443",
+      "rootPly": 39,
+      "sourcePerfectPlayValue": 1,
+      "rootDistinct": 2,
+      "rootOwnerLayerMultiplicity": 2,
+      "rootCancelledBoth": 67,
+      "rootP0Live": 1,
+      "rootP1Live": 1,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 1,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 2,
+      "oneStepMeanDistinctAfterOtherLegalAction": 2,
+      "optimalLiteralColumns": [
+        6
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 1,
+          "dead": 23
+        },
+        "V": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 21
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 12
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 0,
+          "dead": 11
+        }
+      }
+    },
+    {
+      "sample": "calibration:43",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "67652627754667711122263741251355513444433",
+      "rootPly": 41,
+      "sourcePerfectPlayValue": 0,
+      "rootDistinct": 1,
+      "rootOwnerLayerMultiplicity": 1,
+      "rootCancelledBoth": 68,
+      "rootP0Live": 1,
+      "rootP1Live": 0,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 0,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 0,
+      "oneStepMeanDistinctAfterOtherLegalAction": null,
+      "optimalLiteralColumns": [
+        3
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 0,
+          "dead": 23
+        },
+        "V": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 21
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 12
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 12
+        }
+      }
+    },
+    {
+      "sample": "calibration:44",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "3324524346452572767551333257727114",
+      "rootPly": 34,
+      "sourcePerfectPlayValue": 0,
+      "rootDistinct": 9,
+      "rootOwnerLayerMultiplicity": 10,
+      "rootCancelledBoth": 60,
+      "rootP0Live": 5,
+      "rootP1Live": 5,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 2,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 6,
+      "oneStepMeanDistinctAfterOtherLegalAction": 9,
+      "optimalLiteralColumns": [
+        6
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 2,
+          "P1only": 1,
+          "dead": 21
+        },
+        "V": {
+          "empty": 1,
+          "P0only": 1,
+          "P1only": 2,
+          "dead": 17
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 1,
+          "dead": 11
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 0,
+          "dead": 11
+        }
+      }
+    },
+    {
+      "sample": "calibration:45",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "47344144255311355215566613617433267622277",
+      "rootPly": 41,
+      "sourcePerfectPlayValue": 0,
+      "rootDistinct": 0,
+      "rootOwnerLayerMultiplicity": 0,
+      "rootCancelledBoth": 69,
+      "rootP0Live": 0,
+      "rootP1Live": 0,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 0,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 0,
+      "oneStepMeanDistinctAfterOtherLegalAction": null,
+      "optimalLiteralColumns": [
+        7
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 24
+        },
+        "V": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 21
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 12
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 12
+        }
+      }
+    },
+    {
+      "sample": "calibration:46",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "5711457417462173563673656226153335724441",
+      "rootPly": 40,
+      "sourcePerfectPlayValue": 0,
+      "rootDistinct": 1,
+      "rootOwnerLayerMultiplicity": 1,
+      "rootCancelledBoth": 68,
+      "rootP0Live": 0,
+      "rootP1Live": 1,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 0,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 0,
+      "oneStepMeanDistinctAfterOtherLegalAction": null,
+      "optimalLiteralColumns": [
+        2
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 1,
+          "dead": 23
+        },
+        "V": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 21
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 12
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 12
+        }
+      }
+    },
+    {
+      "sample": "calibration:47",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "7174362564676726631735257252323",
+      "rootPly": 31,
+      "sourcePerfectPlayValue": -4,
+      "rootDistinct": 19,
+      "rootOwnerLayerMultiplicity": 21,
+      "rootCancelledBoth": 50,
+      "rootP0Live": 14,
+      "rootP1Live": 7,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 3,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 16,
+      "oneStepMeanDistinctAfterOtherLegalAction": 17.333333333333332,
+      "optimalLiteralColumns": [
+        3
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 4,
+          "P1only": 3,
+          "dead": 17
+        },
+        "V": {
+          "empty": 2,
+          "P0only": 2,
+          "P1only": 2,
+          "dead": 15
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 4,
+          "P1only": 0,
+          "dead": 8
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 2,
+          "P1only": 0,
+          "dead": 10
+        }
+      }
+    },
+    {
+      "sample": "calibration:48",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "6213724444421524673215767767233",
+      "rootPly": 31,
+      "sourcePerfectPlayValue": 0,
+      "rootDistinct": 12,
+      "rootOwnerLayerMultiplicity": 13,
+      "rootCancelledBoth": 57,
+      "rootP0Live": 6,
+      "rootP1Live": 7,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 3,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 9,
+      "oneStepMeanDistinctAfterOtherLegalAction": 11,
+      "optimalLiteralColumns": [
+        1
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 2,
+          "dead": 21
+        },
+        "V": {
+          "empty": 1,
+          "P0only": 3,
+          "P1only": 2,
+          "dead": 15
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 2,
+          "dead": 9
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 12
+        }
+      }
+    },
+    {
+      "sample": "calibration:49",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "74335434411656772367437345716111256622255",
+      "rootPly": 41,
+      "sourcePerfectPlayValue": 0,
+      "rootDistinct": 0,
+      "rootOwnerLayerMultiplicity": 0,
+      "rootCancelledBoth": 69,
+      "rootP0Live": 0,
+      "rootP1Live": 0,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 0,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 0,
+      "oneStepMeanDistinctAfterOtherLegalAction": null,
+      "optimalLiteralColumns": [
+        2
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 24
+        },
+        "V": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 21
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 12
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 12
+        }
+      }
+    },
+    {
+      "sample": "calibration:50",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "12513736213523127714633572657256",
+      "rootPly": 32,
+      "sourcePerfectPlayValue": -4,
+      "rootDistinct": 17,
+      "rootOwnerLayerMultiplicity": 20,
+      "rootCancelledBoth": 52,
+      "rootP0Live": 8,
+      "rootP1Live": 12,
+      "numberStrictStrongOptimalMoves": 4,
+      "numberOtherLegalMoves": 1,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 16.25,
+      "oneStepMeanDistinctAfterOtherLegalAction": 16,
+      "optimalLiteralColumns": [
+        1,
+        5,
+        6,
+        7
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 1,
+          "P0only": 2,
+          "P1only": 2,
+          "dead": 19
+        },
+        "V": {
+          "empty": 2,
+          "P0only": 0,
+          "P1only": 1,
+          "dead": 18
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 3,
+          "P1only": 2,
+          "dead": 7
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 4,
+          "dead": 8
+        }
+      }
+    },
+    {
+      "sample": "calibration:51",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "33345517452154243637525163177771661442",
+      "rootPly": 38,
+      "sourcePerfectPlayValue": 0,
+      "rootDistinct": 2,
+      "rootOwnerLayerMultiplicity": 2,
+      "rootCancelledBoth": 67,
+      "rootP0Live": 1,
+      "rootP1Live": 1,
+      "numberStrictStrongOptimalMoves": 2,
+      "numberOtherLegalMoves": 0,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 1.5,
+      "oneStepMeanDistinctAfterOtherLegalAction": null,
+      "optimalLiteralColumns": [
+        2,
+        6
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 0,
+          "dead": 23
+        },
+        "V": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 1,
+          "dead": 20
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 12
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 12
+        }
+      }
+    },
+    {
+      "sample": "calibration:52",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "4242255734462136735555743337711172114266",
+      "rootPly": 40,
+      "sourcePerfectPlayValue": 0,
+      "rootDistinct": 0,
+      "rootOwnerLayerMultiplicity": 0,
+      "rootCancelledBoth": 69,
+      "rootP0Live": 0,
+      "rootP1Live": 0,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 0,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 0,
+      "oneStepMeanDistinctAfterOtherLegalAction": null,
+      "optimalLiteralColumns": [
+        6
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 24
+        },
+        "V": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 21
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 12
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 12
+        }
+      }
+    },
+    {
+      "sample": "calibration:53",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "47715713331437527153255735112",
+      "rootPly": 29,
+      "sourcePerfectPlayValue": 0,
+      "rootDistinct": 14,
+      "rootOwnerLayerMultiplicity": 18,
+      "rootCancelledBoth": 55,
+      "rootP0Live": 10,
+      "rootP1Live": 8,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 2,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 12,
+      "oneStepMeanDistinctAfterOtherLegalAction": 12.5,
+      "optimalLiteralColumns": [
+        4
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 2,
+          "dead": 21
+        },
+        "V": {
+          "empty": 4,
+          "P0only": 2,
+          "P1only": 1,
+          "dead": 14
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 1,
+          "dead": 10
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 2,
+          "P1only": 0,
+          "dead": 10
+        }
+      }
+    },
+    {
+      "sample": "calibration:54",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "75345112462162112542645517445723663673",
+      "rootPly": 38,
+      "sourcePerfectPlayValue": 0,
+      "rootDistinct": 1,
+      "rootOwnerLayerMultiplicity": 1,
+      "rootCancelledBoth": 68,
+      "rootP0Live": 1,
+      "rootP1Live": 0,
+      "numberStrictStrongOptimalMoves": 2,
+      "numberOtherLegalMoves": 0,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 1,
+      "oneStepMeanDistinctAfterOtherLegalAction": null,
+      "optimalLiteralColumns": [
+        3,
+        7
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 24
+        },
+        "V": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 21
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 12
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 0,
+          "dead": 11
+        }
+      }
+    },
+    {
+      "sample": "calibration:55",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "345272112577424477722116144566361353335",
+      "rootPly": 39,
+      "sourcePerfectPlayValue": 0,
+      "rootDistinct": 4,
+      "rootOwnerLayerMultiplicity": 4,
+      "rootCancelledBoth": 65,
+      "rootP0Live": 3,
+      "rootP1Live": 1,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 1,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 2,
+      "oneStepMeanDistinctAfterOtherLegalAction": 3,
+      "optimalLiteralColumns": [
+        6
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 0,
+          "dead": 23
+        },
+        "V": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 1,
+          "dead": 20
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 2,
+          "P1only": 0,
+          "dead": 10
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 12
+        }
+      }
+    },
+    {
+      "sample": "calibration:56",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "7235431667532555335366227767122741",
+      "rootPly": 34,
+      "sourcePerfectPlayValue": 3,
+      "rootDistinct": 10,
+      "rootOwnerLayerMultiplicity": 11,
+      "rootCancelledBoth": 59,
+      "rootP0Live": 5,
+      "rootP1Live": 6,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 2,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 10,
+      "oneStepMeanDistinctAfterOtherLegalAction": 9,
+      "optimalLiteralColumns": [
+        4
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 2,
+          "dead": 22
+        },
+        "V": {
+          "empty": 1,
+          "P0only": 2,
+          "P1only": 1,
+          "dead": 17
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 2,
+          "P1only": 2,
+          "dead": 8
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 12
+        }
+      }
+    },
+    {
+      "sample": "calibration:57",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "3515655547334632573462442436722717672611",
+      "rootPly": 40,
+      "sourcePerfectPlayValue": 0,
+      "rootDistinct": 0,
+      "rootOwnerLayerMultiplicity": 0,
+      "rootCancelledBoth": 69,
+      "rootP0Live": 0,
+      "rootP1Live": 0,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 0,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 0,
+      "oneStepMeanDistinctAfterOtherLegalAction": null,
+      "optimalLiteralColumns": [
+        1
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 24
+        },
+        "V": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 21
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 12
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 12
+        }
+      }
+    },
+    {
+      "sample": "calibration:58",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "5114752266375176254672271463763",
+      "rootPly": 31,
+      "sourcePerfectPlayValue": 5,
+      "rootDistinct": 16,
+      "rootOwnerLayerMultiplicity": 18,
+      "rootCancelledBoth": 53,
+      "rootP0Live": 9,
+      "rootP1Live": 9,
+      "numberStrictStrongOptimalMoves": 2,
+      "numberOtherLegalMoves": 3,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 14,
+      "oneStepMeanDistinctAfterOtherLegalAction": 14.666666666666666,
+      "optimalLiteralColumns": [
+        3,
+        4
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 2,
+          "P0only": 3,
+          "P1only": 3,
+          "dead": 16
+        },
+        "V": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 1,
+          "dead": 19
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 2,
+          "P1only": 1,
+          "dead": 9
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 2,
+          "dead": 9
+        }
+      }
+    },
+    {
+      "sample": "calibration:59",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "26226627217273417775416514661414455",
+      "rootPly": 35,
+      "sourcePerfectPlayValue": -2,
+      "rootDistinct": 13,
+      "rootOwnerLayerMultiplicity": 15,
+      "rootCancelledBoth": 56,
+      "rootP0Live": 4,
+      "rootP1Live": 11,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 1,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 12,
+      "oneStepMeanDistinctAfterOtherLegalAction": 13,
+      "optimalLiteralColumns": [
+        5
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 3,
+          "dead": 21
+        },
+        "V": {
+          "empty": 2,
+          "P0only": 0,
+          "P1only": 1,
+          "dead": 18
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 3,
+          "dead": 9
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 2,
+          "P1only": 2,
+          "dead": 8
+        }
+      }
+    },
+    {
+      "sample": "calibration:60",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "75671334317317336771215665546",
+      "rootPly": 29,
+      "sourcePerfectPlayValue": -4,
+      "rootDistinct": 25,
+      "rootOwnerLayerMultiplicity": 28,
+      "rootCancelledBoth": 44,
+      "rootP0Live": 16,
+      "rootP1Live": 12,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 4,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 21,
+      "oneStepMeanDistinctAfterOtherLegalAction": 22.5,
+      "optimalLiteralColumns": [
+        4
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 4,
+          "P1only": 4,
+          "dead": 16
+        },
+        "V": {
+          "empty": 3,
+          "P0only": 1,
+          "P1only": 2,
+          "dead": 15
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 7,
+          "P1only": 2,
+          "dead": 3
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 1,
+          "dead": 10
+        }
+      }
+    },
+    {
+      "sample": "calibration:61",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "171231226144413625631766635232354",
+      "rootPly": 33,
+      "sourcePerfectPlayValue": 0,
+      "rootDistinct": 13,
+      "rootOwnerLayerMultiplicity": 14,
+      "rootCancelledBoth": 56,
+      "rootP0Live": 8,
+      "rootP1Live": 6,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 2,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 11,
+      "oneStepMeanDistinctAfterOtherLegalAction": 11.5,
+      "optimalLiteralColumns": [
+        5
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 3,
+          "P1only": 1,
+          "dead": 20
+        },
+        "V": {
+          "empty": 1,
+          "P0only": 1,
+          "P1only": 3,
+          "dead": 16
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 1,
+          "dead": 10
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 2,
+          "P1only": 0,
+          "dead": 10
+        }
+      }
+    },
+    {
+      "sample": "calibration:62",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "316775734112511514276652774525666433324",
+      "rootPly": 39,
+      "sourcePerfectPlayValue": 0,
+      "rootDistinct": 3,
+      "rootOwnerLayerMultiplicity": 3,
+      "rootCancelledBoth": 66,
+      "rootP0Live": 2,
+      "rootP1Live": 1,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 2,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 1,
+      "oneStepMeanDistinctAfterOtherLegalAction": 2,
+      "optimalLiteralColumns": [
+        4
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 1,
+          "dead": 22
+        },
+        "V": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 21
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 0,
+          "dead": 11
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 0,
+          "dead": 12
+        }
+      }
+    },
+    {
+      "sample": "calibration:63",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "671337313517162274736137166625",
+      "rootPly": 30,
+      "sourcePerfectPlayValue": 2,
+      "rootDistinct": 29,
+      "rootOwnerLayerMultiplicity": 32,
+      "rootCancelledBoth": 40,
+      "rootP0Live": 17,
+      "rootP1Live": 15,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 2,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 26,
+      "oneStepMeanDistinctAfterOtherLegalAction": 26,
+      "optimalLiteralColumns": [
+        4
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 8,
+          "P1only": 4,
+          "dead": 12
+        },
+        "V": {
+          "empty": 3,
+          "P0only": 1,
+          "P1only": 3,
+          "dead": 14
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 3,
+          "P1only": 1,
+          "dead": 8
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 2,
+          "P1only": 4,
+          "dead": 6
+        }
+      }
+    },
+    {
+      "sample": "calibration:64",
+      "sourceSet": "Test_L3_R1",
+      "originalRealWord": "724426633665427464467135277713322",
+      "rootPly": 33,
+      "sourcePerfectPlayValue": -3,
+      "rootDistinct": 12,
+      "rootOwnerLayerMultiplicity": 14,
+      "rootCancelledBoth": 57,
+      "rootP0Live": 8,
+      "rootP1Live": 6,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 2,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 10,
+      "oneStepMeanDistinctAfterOtherLegalAction": 11,
+      "optimalLiteralColumns": [
+        1
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 2,
+          "P1only": 0,
+          "dead": 22
+        },
+        "V": {
+          "empty": 2,
+          "P0only": 1,
+          "P1only": 2,
+          "dead": 16
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 2,
+          "P1only": 1,
+          "dead": 9
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 1,
+          "dead": 10
+        }
+      }
+    },
+    {
+      "sample": "calibration:65",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "5554224333234511764415115",
+      "rootPly": 25,
+      "sourcePerfectPlayValue": 4,
+      "rootDistinct": 26,
+      "rootOwnerLayerMultiplicity": 31,
+      "rootCancelledBoth": 43,
+      "rootP0Live": 16,
+      "rootP1Live": 15,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 5,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 24,
+      "oneStepMeanDistinctAfterOtherLegalAction": 24,
+      "optimalLiteralColumns": [
+        6
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 1,
+          "P0only": 4,
+          "P1only": 4,
+          "dead": 15
+        },
+        "V": {
+          "empty": 4,
+          "P0only": 2,
+          "P1only": 2,
+          "dead": 13
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 2,
+          "P1only": 1,
+          "dead": 9
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 3,
+          "P1only": 3,
+          "dead": 6
+        }
+      }
+    },
+    {
+      "sample": "calibration:66",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "52753311433677442422121",
+      "rootPly": 23,
+      "sourcePerfectPlayValue": 8,
+      "rootDistinct": 31,
+      "rootOwnerLayerMultiplicity": 41,
+      "rootCancelledBoth": 38,
+      "rootP0Live": 15,
+      "rootP1Live": 26,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 6,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 29,
+      "oneStepMeanDistinctAfterOtherLegalAction": 30.5,
+      "optimalLiteralColumns": [
+        5
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 6,
+          "P0only": 0,
+          "P1only": 5,
+          "dead": 13
+        },
+        "V": {
+          "empty": 3,
+          "P0only": 1,
+          "P1only": 4,
+          "dead": 13
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 3,
+          "P1only": 4,
+          "dead": 5
+        },
+        "F": {
+          "empty": 1,
+          "P0only": 1,
+          "P1only": 3,
+          "dead": 7
+        }
+      }
+    },
+    {
+      "sample": "calibration:67",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "1233722555341451114725221333",
+      "rootPly": 28,
+      "sourcePerfectPlayValue": -1,
+      "rootDistinct": 14,
+      "rootOwnerLayerMultiplicity": 19,
+      "rootCancelledBoth": 55,
+      "rootP0Live": 8,
+      "rootP1Live": 11,
+      "numberStrictStrongOptimalMoves": 4,
+      "numberOtherLegalMoves": 0,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 13,
+      "oneStepMeanDistinctAfterOtherLegalAction": null,
+      "optimalLiteralColumns": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 1,
+          "P0only": 1,
+          "P1only": 3,
+          "dead": 19
+        },
+        "V": {
+          "empty": 4,
+          "P0only": 1,
+          "P1only": 1,
+          "dead": 15
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 1,
+          "dead": 10
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 1,
+          "dead": 11
+        }
+      }
+    },
+    {
+      "sample": "calibration:68",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "271713432331713132",
+      "rootPly": 18,
+      "sourcePerfectPlayValue": -11,
+      "rootDistinct": 45,
+      "rootOwnerLayerMultiplicity": 58,
+      "rootCancelledBoth": 24,
+      "rootP0Live": 31,
+      "rootP1Live": 27,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 5,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 44,
+      "oneStepMeanDistinctAfterOtherLegalAction": 43.2,
+      "optimalLiteralColumns": [
+        1
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 3,
+          "P0only": 8,
+          "P1only": 5,
+          "dead": 8
+        },
+        "V": {
+          "empty": 8,
+          "P0only": 2,
+          "P1only": 2,
+          "dead": 9
+        },
+        "R": {
+          "empty": 2,
+          "P0only": 1,
+          "P1only": 3,
+          "dead": 6
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 7,
+          "P1only": 4,
+          "dead": 1
+        }
+      }
+    },
+    {
+      "sample": "calibration:69",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "6672375354252731116762237724",
+      "rootPly": 28,
+      "sourcePerfectPlayValue": -2,
+      "rootDistinct": 24,
+      "rootOwnerLayerMultiplicity": 27,
+      "rootCancelledBoth": 45,
+      "rootP0Live": 12,
+      "rootP1Live": 15,
+      "numberStrictStrongOptimalMoves": 2,
+      "numberOtherLegalMoves": 3,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 20.5,
+      "oneStepMeanDistinctAfterOtherLegalAction": 21,
+      "optimalLiteralColumns": [
+        5,
+        6
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 2,
+          "P0only": 5,
+          "P1only": 3,
+          "dead": 14
+        },
+        "V": {
+          "empty": 1,
+          "P0only": 1,
+          "P1only": 4,
+          "dead": 15
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 2,
+          "P1only": 4,
+          "dead": 6
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 1,
+          "dead": 10
+        }
+      }
+    },
+    {
+      "sample": "calibration:70",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "763452543756455357732314",
+      "rootPly": 24,
+      "sourcePerfectPlayValue": -8,
+      "rootDistinct": 23,
+      "rootOwnerLayerMultiplicity": 28,
+      "rootCancelledBoth": 46,
+      "rootP0Live": 11,
+      "rootP1Live": 17,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 5,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 21,
+      "oneStepMeanDistinctAfterOtherLegalAction": 21,
+      "optimalLiteralColumns": [
+        3
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 1,
+          "P0only": 4,
+          "P1only": 4,
+          "dead": 15
+        },
+        "V": {
+          "empty": 4,
+          "P0only": 2,
+          "P1only": 3,
+          "dead": 12
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 2,
+          "dead": 10
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 3,
+          "dead": 9
+        }
+      }
+    },
+    {
+      "sample": "calibration:71",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "662222576343651642712157",
+      "rootPly": 24,
+      "sourcePerfectPlayValue": 8,
+      "rootDistinct": 36,
+      "rootOwnerLayerMultiplicity": 41,
+      "rootCancelledBoth": 33,
+      "rootP0Live": 19,
+      "rootP1Live": 22,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 5,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 32,
+      "oneStepMeanDistinctAfterOtherLegalAction": 34,
+      "optimalLiteralColumns": [
+        4
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 2,
+          "P0only": 6,
+          "P1only": 6,
+          "dead": 10
+        },
+        "V": {
+          "empty": 2,
+          "P0only": 3,
+          "P1only": 5,
+          "dead": 11
+        },
+        "R": {
+          "empty": 1,
+          "P0only": 2,
+          "P1only": 4,
+          "dead": 5
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 3,
+          "P1only": 2,
+          "dead": 7
+        }
+      }
+    },
+    {
+      "sample": "calibration:72",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "3455565261655364217",
+      "rootPly": 19,
+      "sourcePerfectPlayValue": -10,
+      "rootDistinct": 46,
+      "rootOwnerLayerMultiplicity": 58,
+      "rootCancelledBoth": 23,
+      "rootP0Live": 32,
+      "rootP1Live": 26,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 5,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 43,
+      "oneStepMeanDistinctAfterOtherLegalAction": 43.8,
+      "optimalLiteralColumns": [
+        6
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 4,
+          "P0only": 9,
+          "P1only": 3,
+          "dead": 8
+        },
+        "V": {
+          "empty": 6,
+          "P0only": 4,
+          "P1only": 5,
+          "dead": 6
+        },
+        "R": {
+          "empty": 1,
+          "P0only": 2,
+          "P1only": 2,
+          "dead": 7
+        },
+        "F": {
+          "empty": 1,
+          "P0only": 5,
+          "P1only": 4,
+          "dead": 2
+        }
+      }
+    },
+    {
+      "sample": "calibration:73",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "4661237137541742643224",
+      "rootPly": 22,
+      "sourcePerfectPlayValue": 8,
+      "rootDistinct": 34,
+      "rootOwnerLayerMultiplicity": 40,
+      "rootCancelledBoth": 35,
+      "rootP0Live": 20,
+      "rootP1Live": 20,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 6,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 31,
+      "oneStepMeanDistinctAfterOtherLegalAction": 32.166666666666664,
+      "optimalLiteralColumns": [
+        3
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 4,
+          "P0only": 1,
+          "P1only": 6,
+          "dead": 13
+        },
+        "V": {
+          "empty": 2,
+          "P0only": 6,
+          "P1only": 2,
+          "dead": 11
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 5,
+          "P1only": 4,
+          "dead": 3
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 2,
+          "P1only": 2,
+          "dead": 8
+        }
+      }
+    },
+    {
+      "sample": "calibration:74",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "21253774536432517717274325",
+      "rootPly": 26,
+      "sourcePerfectPlayValue": 2,
+      "rootDistinct": 27,
+      "rootOwnerLayerMultiplicity": 33,
+      "rootCancelledBoth": 42,
+      "rootP0Live": 19,
+      "rootP1Live": 14,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 5,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 26,
+      "oneStepMeanDistinctAfterOtherLegalAction": 26.4,
+      "optimalLiteralColumns": [
+        1
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 4,
+          "P0only": 4,
+          "P1only": 4,
+          "dead": 12
+        },
+        "V": {
+          "empty": 2,
+          "P0only": 3,
+          "P1only": 0,
+          "dead": 16
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 3,
+          "P1only": 2,
+          "dead": 7
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 3,
+          "P1only": 2,
+          "dead": 7
+        }
+      }
+    },
+    {
+      "sample": "calibration:75",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "715371563635542612576371",
+      "rootPly": 24,
+      "sourcePerfectPlayValue": 3,
+      "rootDistinct": 29,
+      "rootOwnerLayerMultiplicity": 37,
+      "rootCancelledBoth": 40,
+      "rootP0Live": 20,
+      "rootP1Live": 17,
+      "numberStrictStrongOptimalMoves": 5,
+      "numberOtherLegalMoves": 2,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 28.4,
+      "oneStepMeanDistinctAfterOtherLegalAction": 27,
+      "optimalLiteralColumns": [
+        1,
+        3,
+        5,
+        6,
+        7
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 5,
+          "P0only": 5,
+          "P1only": 2,
+          "dead": 12
+        },
+        "V": {
+          "empty": 3,
+          "P0only": 0,
+          "P1only": 2,
+          "dead": 16
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 5,
+          "P1only": 2,
+          "dead": 5
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 2,
+          "P1only": 3,
+          "dead": 7
+        }
+      }
+    },
+    {
+      "sample": "calibration:76",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "4435612735531457155143",
+      "rootPly": 22,
+      "sourcePerfectPlayValue": -5,
+      "rootDistinct": 29,
+      "rootOwnerLayerMultiplicity": 36,
+      "rootCancelledBoth": 40,
+      "rootP0Live": 17,
+      "rootP1Live": 19,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 5,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 28,
+      "oneStepMeanDistinctAfterOtherLegalAction": 27,
+      "optimalLiteralColumns": [
+        6
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 2,
+          "P0only": 4,
+          "P1only": 4,
+          "dead": 14
+        },
+        "V": {
+          "empty": 5,
+          "P0only": 2,
+          "P1only": 3,
+          "dead": 11
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 0,
+          "dead": 11
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 3,
+          "P1only": 5,
+          "dead": 4
+        }
+      }
+    },
+    {
+      "sample": "calibration:77",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "3457741246677474572223453551",
+      "rootPly": 28,
+      "sourcePerfectPlayValue": 5,
+      "rootDistinct": 18,
+      "rootOwnerLayerMultiplicity": 20,
+      "rootCancelledBoth": 51,
+      "rootP0Live": 10,
+      "rootP1Live": 10,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 4,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 15,
+      "oneStepMeanDistinctAfterOtherLegalAction": 17,
+      "optimalLiteralColumns": [
+        3
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 3,
+          "P1only": 2,
+          "dead": 19
+        },
+        "V": {
+          "empty": 2,
+          "P0only": 2,
+          "P1only": 1,
+          "dead": 16
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 2,
+          "dead": 9
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 2,
+          "P1only": 3,
+          "dead": 7
+        }
+      }
+    },
+    {
+      "sample": "calibration:78",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "754732466173162124726115261",
+      "rootPly": 27,
+      "sourcePerfectPlayValue": 7,
+      "rootDistinct": 37,
+      "rootOwnerLayerMultiplicity": 44,
+      "rootCancelledBoth": 32,
+      "rootP0Live": 21,
+      "rootP1Live": 23,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 5,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 33,
+      "oneStepMeanDistinctAfterOtherLegalAction": 35.2,
+      "optimalLiteralColumns": [
+        5
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 3,
+          "P0only": 5,
+          "P1only": 5,
+          "dead": 11
+        },
+        "V": {
+          "empty": 2,
+          "P0only": 1,
+          "P1only": 4,
+          "dead": 14
+        },
+        "R": {
+          "empty": 1,
+          "P0only": 5,
+          "P1only": 4,
+          "dead": 2
+        },
+        "F": {
+          "empty": 1,
+          "P0only": 3,
+          "P1only": 3,
+          "dead": 5
+        }
+      }
+    },
+    {
+      "sample": "calibration:79",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "64115442265757253615",
+      "rootPly": 20,
+      "sourcePerfectPlayValue": 10,
+      "rootDistinct": 38,
+      "rootOwnerLayerMultiplicity": 47,
+      "rootCancelledBoth": 31,
+      "rootP0Live": 23,
+      "rootP1Live": 24,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 6,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 38,
+      "oneStepMeanDistinctAfterOtherLegalAction": 35.666666666666664,
+      "optimalLiteralColumns": [
+        3
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 6,
+          "P0only": 2,
+          "P1only": 6,
+          "dead": 10
+        },
+        "V": {
+          "empty": 3,
+          "P0only": 5,
+          "P1only": 4,
+          "dead": 9
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 3,
+          "P1only": 1,
+          "dead": 8
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 4,
+          "P1only": 4,
+          "dead": 4
+        }
+      }
+    },
+    {
+      "sample": "calibration:80",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "34651743747475571565",
+      "rootPly": 20,
+      "sourcePerfectPlayValue": -9,
+      "rootDistinct": 38,
+      "rootOwnerLayerMultiplicity": 51,
+      "rootCancelledBoth": 31,
+      "rootP0Live": 20,
+      "rootP1Live": 31,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 6,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 37,
+      "oneStepMeanDistinctAfterOtherLegalAction": 36,
+      "optimalLiteralColumns": [
+        2
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 5,
+          "P0only": 0,
+          "P1only": 7,
+          "dead": 12
+        },
+        "V": {
+          "empty": 6,
+          "P0only": 4,
+          "P1only": 2,
+          "dead": 9
+        },
+        "R": {
+          "empty": 2,
+          "P0only": 2,
+          "P1only": 5,
+          "dead": 3
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 4,
+          "dead": 7
+        }
+      }
+    },
+    {
+      "sample": "calibration:81",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "36127316172165452675422251",
+      "rootPly": 26,
+      "sourcePerfectPlayValue": 7,
+      "rootDistinct": 26,
+      "rootOwnerLayerMultiplicity": 33,
+      "rootCancelledBoth": 43,
+      "rootP0Live": 19,
+      "rootP1Live": 14,
+      "numberStrictStrongOptimalMoves": 2,
+      "numberOtherLegalMoves": 4,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 25,
+      "oneStepMeanDistinctAfterOtherLegalAction": 25.75,
+      "optimalLiteralColumns": [
+        3,
+        4
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 4,
+          "P0only": 2,
+          "P1only": 3,
+          "dead": 15
+        },
+        "V": {
+          "empty": 2,
+          "P0only": 3,
+          "P1only": 1,
+          "dead": 15
+        },
+        "R": {
+          "empty": 1,
+          "P0only": 5,
+          "P1only": 0,
+          "dead": 6
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 2,
+          "P1only": 3,
+          "dead": 7
+        }
+      }
+    },
+    {
+      "sample": "calibration:82",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "4235245615377275211512",
+      "rootPly": 22,
+      "sourcePerfectPlayValue": -7,
+      "rootDistinct": 38,
+      "rootOwnerLayerMultiplicity": 46,
+      "rootCancelledBoth": 31,
+      "rootP0Live": 17,
+      "rootP1Live": 29,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 6,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 36,
+      "oneStepMeanDistinctAfterOtherLegalAction": 35.666666666666664,
+      "optimalLiteralColumns": [
+        5
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 4,
+          "P0only": 1,
+          "P1only": 8,
+          "dead": 11
+        },
+        "V": {
+          "empty": 4,
+          "P0only": 5,
+          "P1only": 3,
+          "dead": 9
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 3,
+          "P1only": 5,
+          "dead": 4
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 5,
+          "dead": 7
+        }
+      }
+    },
+    {
+      "sample": "calibration:83",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "122435527534575161761",
+      "rootPly": 21,
+      "sourcePerfectPlayValue": 10,
+      "rootDistinct": 43,
+      "rootOwnerLayerMultiplicity": 52,
+      "rootCancelledBoth": 26,
+      "rootP0Live": 28,
+      "rootP1Live": 24,
+      "numberStrictStrongOptimalMoves": 2,
+      "numberOtherLegalMoves": 5,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 38.5,
+      "oneStepMeanDistinctAfterOtherLegalAction": 42,
+      "optimalLiteralColumns": [
+        3,
+        4
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 5,
+          "P0only": 7,
+          "P1only": 3,
+          "dead": 9
+        },
+        "V": {
+          "empty": 3,
+          "P0only": 3,
+          "P1only": 4,
+          "dead": 11
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 5,
+          "P1only": 4,
+          "dead": 3
+        },
+        "F": {
+          "empty": 1,
+          "P0only": 4,
+          "P1only": 4,
+          "dead": 3
+        }
+      }
+    },
+    {
+      "sample": "calibration:84",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "473175162213611457122724",
+      "rootPly": 24,
+      "sourcePerfectPlayValue": -7,
+      "rootDistinct": 36,
+      "rootOwnerLayerMultiplicity": 48,
+      "rootCancelledBoth": 33,
+      "rootP0Live": 21,
+      "rootP1Live": 27,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 5,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 31,
+      "oneStepMeanDistinctAfterOtherLegalAction": 33.4,
+      "optimalLiteralColumns": [
+        3
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 6,
+          "P0only": 4,
+          "P1only": 4,
+          "dead": 10
+        },
+        "V": {
+          "empty": 3,
+          "P0only": 2,
+          "P1only": 4,
+          "dead": 12
+        },
+        "R": {
+          "empty": 1,
+          "P0only": 1,
+          "P1only": 6,
+          "dead": 4
+        },
+        "F": {
+          "empty": 2,
+          "P0only": 2,
+          "P1only": 1,
+          "dead": 7
+        }
+      }
+    },
+    {
+      "sample": "calibration:85",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "5533212164224336233241461",
+      "rootPly": 25,
+      "sourcePerfectPlayValue": 3,
+      "rootDistinct": 24,
+      "rootOwnerLayerMultiplicity": 31,
+      "rootCancelledBoth": 45,
+      "rootP0Live": 17,
+      "rootP1Live": 14,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 4,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 21,
+      "oneStepMeanDistinctAfterOtherLegalAction": 22.5,
+      "optimalLiteralColumns": [
+        4
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 2,
+          "P0only": 3,
+          "P1only": 1,
+          "dead": 18
+        },
+        "V": {
+          "empty": 4,
+          "P0only": 2,
+          "P1only": 3,
+          "dead": 12
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 4,
+          "P1only": 2,
+          "dead": 6
+        },
+        "F": {
+          "empty": 1,
+          "P0only": 1,
+          "P1only": 1,
+          "dead": 9
+        }
+      }
+    },
+    {
+      "sample": "calibration:86",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "1231426213112346726266353",
+      "rootPly": 25,
+      "sourcePerfectPlayValue": -7,
+      "rootDistinct": 33,
+      "rootOwnerLayerMultiplicity": 40,
+      "rootCancelledBoth": 36,
+      "rootP0Live": 23,
+      "rootP1Live": 17,
+      "numberStrictStrongOptimalMoves": 4,
+      "numberOtherLegalMoves": 2,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 32.25,
+      "oneStepMeanDistinctAfterOtherLegalAction": 30,
+      "optimalLiteralColumns": [
+        1,
+        3,
+        6,
+        7
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 2,
+          "P0only": 5,
+          "P1only": 4,
+          "dead": 13
+        },
+        "V": {
+          "empty": 5,
+          "P0only": 3,
+          "P1only": 1,
+          "dead": 12
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 4,
+          "P1only": 5,
+          "dead": 3
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 4,
+          "P1only": 0,
+          "dead": 8
+        }
+      }
+    },
+    {
+      "sample": "calibration:87",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "45277231624411643516213",
+      "rootPly": 23,
+      "sourcePerfectPlayValue": 8,
+      "rootDistinct": 30,
+      "rootOwnerLayerMultiplicity": 40,
+      "rootCancelledBoth": 39,
+      "rootP0Live": 16,
+      "rootP1Live": 24,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 6,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 27,
+      "oneStepMeanDistinctAfterOtherLegalAction": 29.166666666666668,
+      "optimalLiteralColumns": [
+        3
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 7,
+          "P0only": 0,
+          "P1only": 4,
+          "dead": 13
+        },
+        "V": {
+          "empty": 2,
+          "P0only": 4,
+          "P1only": 4,
+          "dead": 11
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 2,
+          "P1only": 2,
+          "dead": 8
+        },
+        "F": {
+          "empty": 1,
+          "P0only": 0,
+          "P1only": 4,
+          "dead": 7
+        }
+      }
+    },
+    {
+      "sample": "calibration:88",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "1667675535724753771415352132",
+      "rootPly": 28,
+      "sourcePerfectPlayValue": 1,
+      "rootDistinct": 20,
+      "rootOwnerLayerMultiplicity": 23,
+      "rootCancelledBoth": 49,
+      "rootP0Live": 12,
+      "rootP1Live": 11,
+      "numberStrictStrongOptimalMoves": 4,
+      "numberOtherLegalMoves": 1,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 19,
+      "oneStepMeanDistinctAfterOtherLegalAction": 19,
+      "optimalLiteralColumns": [
+        1,
+        3,
+        4,
+        6
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 2,
+          "P0only": 2,
+          "P1only": 5,
+          "dead": 15
+        },
+        "V": {
+          "empty": 1,
+          "P0only": 3,
+          "P1only": 2,
+          "dead": 15
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 2,
+          "P1only": 0,
+          "dead": 10
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 2,
+          "P1only": 1,
+          "dead": 9
+        }
+      }
+    },
+    {
+      "sample": "calibration:89",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "41416453222527221644",
+      "rootPly": 20,
+      "sourcePerfectPlayValue": 10,
+      "rootDistinct": 34,
+      "rootOwnerLayerMultiplicity": 43,
+      "rootCancelledBoth": 35,
+      "rootP0Live": 20,
+      "rootP1Live": 23,
+      "numberStrictStrongOptimalMoves": 2,
+      "numberOtherLegalMoves": 4,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 33,
+      "oneStepMeanDistinctAfterOtherLegalAction": 31,
+      "optimalLiteralColumns": [
+        1,
+        3
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 2,
+          "P0only": 4,
+          "P1only": 6,
+          "dead": 12
+        },
+        "V": {
+          "empty": 6,
+          "P0only": 1,
+          "P1only": 4,
+          "dead": 10
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 3,
+          "P1only": 2,
+          "dead": 7
+        },
+        "F": {
+          "empty": 1,
+          "P0only": 3,
+          "P1only": 2,
+          "dead": 6
+        }
+      }
+    },
+    {
+      "sample": "calibration:90",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "1715764132212113656454",
+      "rootPly": 22,
+      "sourcePerfectPlayValue": -9,
+      "rootDistinct": 41,
+      "rootOwnerLayerMultiplicity": 54,
+      "rootCancelledBoth": 28,
+      "rootP0Live": 28,
+      "rootP1Live": 26,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 5,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 38,
+      "oneStepMeanDistinctAfterOtherLegalAction": 39,
+      "optimalLiteralColumns": [
+        5
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 9,
+          "P0only": 1,
+          "P1only": 2,
+          "dead": 12
+        },
+        "V": {
+          "empty": 2,
+          "P0only": 6,
+          "P1only": 3,
+          "dead": 10
+        },
+        "R": {
+          "empty": 1,
+          "P0only": 4,
+          "P1only": 4,
+          "dead": 3
+        },
+        "F": {
+          "empty": 1,
+          "P0only": 4,
+          "P1only": 4,
+          "dead": 3
+        }
+      }
+    },
+    {
+      "sample": "calibration:91",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "651142666562345525716135112",
+      "rootPly": 27,
+      "sourcePerfectPlayValue": 2,
+      "rootDistinct": 22,
+      "rootOwnerLayerMultiplicity": 26,
+      "rootCancelledBoth": 47,
+      "rootP0Live": 13,
+      "rootP1Live": 13,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 3,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 19,
+      "oneStepMeanDistinctAfterOtherLegalAction": 20.666666666666668,
+      "optimalLiteralColumns": [
+        3
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 2,
+          "P1only": 3,
+          "dead": 19
+        },
+        "V": {
+          "empty": 4,
+          "P0only": 4,
+          "P1only": 1,
+          "dead": 12
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 1,
+          "dead": 11
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 3,
+          "P1only": 4,
+          "dead": 5
+        }
+      }
+    },
+    {
+      "sample": "calibration:92",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "7532455277545526",
+      "rootPly": 16,
+      "sourcePerfectPlayValue": -10,
+      "rootDistinct": 48,
+      "rootOwnerLayerMultiplicity": 61,
+      "rootCancelledBoth": 21,
+      "rootP0Live": 34,
+      "rootP1Live": 27,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 5,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 45,
+      "oneStepMeanDistinctAfterOtherLegalAction": 46.2,
+      "optimalLiteralColumns": [
+        3
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 3,
+          "P0only": 9,
+          "P1only": 6,
+          "dead": 6
+        },
+        "V": {
+          "empty": 8,
+          "P0only": 2,
+          "P1only": 3,
+          "dead": 8
+        },
+        "R": {
+          "empty": 1,
+          "P0only": 4,
+          "P1only": 1,
+          "dead": 6
+        },
+        "F": {
+          "empty": 1,
+          "P0only": 6,
+          "P1only": 4,
+          "dead": 1
+        }
+      }
+    },
+    {
+      "sample": "calibration:93",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "2737772244262123677516643354",
+      "rootPly": 28,
+      "sourcePerfectPlayValue": 0,
+      "rootDistinct": 20,
+      "rootOwnerLayerMultiplicity": 24,
+      "rootCancelledBoth": 49,
+      "rootP0Live": 13,
+      "rootP1Live": 11,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 4,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 14,
+      "oneStepMeanDistinctAfterOtherLegalAction": 19.5,
+      "optimalLiteralColumns": [
+        4
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 2,
+          "P0only": 5,
+          "P1only": 1,
+          "dead": 16
+        },
+        "V": {
+          "empty": 2,
+          "P0only": 2,
+          "P1only": 2,
+          "dead": 15
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 2,
+          "dead": 9
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 2,
+          "dead": 9
+        }
+      }
+    },
+    {
+      "sample": "calibration:94",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "5746741223753516274755",
+      "rootPly": 22,
+      "sourcePerfectPlayValue": 8,
+      "rootDistinct": 40,
+      "rootOwnerLayerMultiplicity": 50,
+      "rootCancelledBoth": 29,
+      "rootP0Live": 28,
+      "rootP1Live": 22,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 6,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 36,
+      "oneStepMeanDistinctAfterOtherLegalAction": 39.166666666666664,
+      "optimalLiteralColumns": [
+        4
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 6,
+          "P0only": 3,
+          "P1only": 3,
+          "dead": 12
+        },
+        "V": {
+          "empty": 3,
+          "P0only": 6,
+          "P1only": 2,
+          "dead": 10
+        },
+        "R": {
+          "empty": 1,
+          "P0only": 5,
+          "P1only": 3,
+          "dead": 3
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 4,
+          "P1only": 4,
+          "dead": 4
+        }
+      }
+    },
+    {
+      "sample": "calibration:95",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "736655673445166272447546",
+      "rootPly": 24,
+      "sourcePerfectPlayValue": -7,
+      "rootDistinct": 33,
+      "rootOwnerLayerMultiplicity": 40,
+      "rootCancelledBoth": 36,
+      "rootP0Live": 20,
+      "rootP1Live": 20,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 5,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 29,
+      "oneStepMeanDistinctAfterOtherLegalAction": 31.8,
+      "optimalLiteralColumns": [
+        5
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 2,
+          "P0only": 5,
+          "P1only": 5,
+          "dead": 12
+        },
+        "V": {
+          "empty": 4,
+          "P0only": 3,
+          "P1only": 4,
+          "dead": 10
+        },
+        "R": {
+          "empty": 1,
+          "P0only": 2,
+          "P1only": 2,
+          "dead": 7
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 3,
+          "P1only": 2,
+          "dead": 7
+        }
+      }
+    },
+    {
+      "sample": "calibration:96",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "5237261635627332664143376",
+      "rootPly": 25,
+      "sourcePerfectPlayValue": 8,
+      "rootDistinct": 31,
+      "rootOwnerLayerMultiplicity": 34,
+      "rootCancelledBoth": 38,
+      "rootP0Live": 16,
+      "rootP1Live": 18,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 4,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 29,
+      "oneStepMeanDistinctAfterOtherLegalAction": 29.75,
+      "optimalLiteralColumns": [
+        5
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 6,
+          "P1only": 6,
+          "dead": 12
+        },
+        "V": {
+          "empty": 3,
+          "P0only": 2,
+          "P1only": 4,
+          "dead": 12
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 2,
+          "P1only": 2,
+          "dead": 8
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 3,
+          "P1only": 3,
+          "dead": 6
+        }
+      }
+    },
+    {
+      "sample": "calibration:97",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "5617131757733341415",
+      "rootPly": 19,
+      "sourcePerfectPlayValue": -8,
+      "rootDistinct": 44,
+      "rootOwnerLayerMultiplicity": 59,
+      "rootCancelledBoth": 25,
+      "rootP0Live": 33,
+      "rootP1Live": 26,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 6,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 40,
+      "oneStepMeanDistinctAfterOtherLegalAction": 42.333333333333336,
+      "optimalLiteralColumns": [
+        5
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 7,
+          "P0only": 4,
+          "P1only": 4,
+          "dead": 9
+        },
+        "V": {
+          "empty": 6,
+          "P0only": 5,
+          "P1only": 1,
+          "dead": 9
+        },
+        "R": {
+          "empty": 1,
+          "P0only": 6,
+          "P1only": 3,
+          "dead": 2
+        },
+        "F": {
+          "empty": 1,
+          "P0only": 3,
+          "P1only": 3,
+          "dead": 5
+        }
+      }
+    },
+    {
+      "sample": "calibration:98",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "6561461362133747245312317267",
+      "rootPly": 28,
+      "sourcePerfectPlayValue": 0,
+      "rootDistinct": 23,
+      "rootOwnerLayerMultiplicity": 28,
+      "rootCancelledBoth": 46,
+      "rootP0Live": 15,
+      "rootP1Live": 13,
+      "numberStrictStrongOptimalMoves": 3,
+      "numberOtherLegalMoves": 4,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 21.333333333333332,
+      "oneStepMeanDistinctAfterOtherLegalAction": 22.75,
+      "optimalLiteralColumns": [
+        1,
+        2,
+        4
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 4,
+          "P0only": 3,
+          "P1only": 1,
+          "dead": 16
+        },
+        "V": {
+          "empty": 1,
+          "P0only": 1,
+          "P1only": 2,
+          "dead": 17
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 3,
+          "P1only": 2,
+          "dead": 7
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 3,
+          "P1only": 3,
+          "dead": 6
+        }
+      }
+    },
+    {
+      "sample": "calibration:99",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "3111642212167362762555645527",
+      "rootPly": 28,
+      "sourcePerfectPlayValue": -2,
+      "rootDistinct": 28,
+      "rootOwnerLayerMultiplicity": 32,
+      "rootCancelledBoth": 41,
+      "rootP0Live": 13,
+      "rootP1Live": 19,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 5,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 21,
+      "oneStepMeanDistinctAfterOtherLegalAction": 26.6,
+      "optimalLiteralColumns": [
+        3
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 2,
+          "P0only": 3,
+          "P1only": 2,
+          "dead": 17
+        },
+        "V": {
+          "empty": 2,
+          "P0only": 0,
+          "P1only": 4,
+          "dead": 15
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 6,
+          "dead": 5
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 5,
+          "P1only": 3,
+          "dead": 4
+        }
+      }
+    },
+    {
+      "sample": "calibration:100",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "46212622667241121631756",
+      "rootPly": 23,
+      "sourcePerfectPlayValue": -8,
+      "rootDistinct": 44,
+      "rootOwnerLayerMultiplicity": 50,
+      "rootCancelledBoth": 25,
+      "rootP0Live": 26,
+      "rootP1Live": 24,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 4,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 40,
+      "oneStepMeanDistinctAfterOtherLegalAction": 41,
+      "optimalLiteralColumns": [
+        3
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 7,
+          "P1only": 9,
+          "dead": 8
+        },
+        "V": {
+          "empty": 6,
+          "P0only": 5,
+          "P1only": 1,
+          "dead": 9
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 5,
+          "P1only": 2,
+          "dead": 5
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 3,
+          "P1only": 6,
+          "dead": 3
+        }
+      }
+    },
+    {
+      "sample": "calibration:101",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "47611556754127222",
+      "rootPly": 17,
+      "sourcePerfectPlayValue": 12,
+      "rootDistinct": 46,
+      "rootOwnerLayerMultiplicity": 66,
+      "rootCancelledBoth": 23,
+      "rootP0Live": 33,
+      "rootP1Live": 33,
+      "numberStrictStrongOptimalMoves": 2,
+      "numberOtherLegalMoves": 5,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 42.5,
+      "oneStepMeanDistinctAfterOtherLegalAction": 44.8,
+      "optimalLiteralColumns": [
+        4,
+        6
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 10,
+          "P0only": 4,
+          "P1only": 4,
+          "dead": 6
+        },
+        "V": {
+          "empty": 5,
+          "P0only": 2,
+          "P1only": 4,
+          "dead": 10
+        },
+        "R": {
+          "empty": 3,
+          "P0only": 3,
+          "P1only": 1,
+          "dead": 5
+        },
+        "F": {
+          "empty": 2,
+          "P0only": 4,
+          "P1only": 4,
+          "dead": 2
+        }
+      }
+    },
+    {
+      "sample": "calibration:102",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "3262221111647466",
+      "rootPly": 16,
+      "sourcePerfectPlayValue": -12,
+      "rootDistinct": 48,
+      "rootOwnerLayerMultiplicity": 70,
+      "rootCancelledBoth": 21,
+      "rootP0Live": 34,
+      "rootP1Live": 36,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 6,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 45,
+      "oneStepMeanDistinctAfterOtherLegalAction": 47.166666666666664,
+      "optimalLiteralColumns": [
+        3
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 8,
+          "P0only": 4,
+          "P1only": 6,
+          "dead": 6
+        },
+        "V": {
+          "empty": 8,
+          "P0only": 2,
+          "P1only": 2,
+          "dead": 9
+        },
+        "R": {
+          "empty": 3,
+          "P0only": 1,
+          "P1only": 3,
+          "dead": 5
+        },
+        "F": {
+          "empty": 3,
+          "P0only": 5,
+          "P1only": 3,
+          "dead": 1
+        }
+      }
+    },
+    {
+      "sample": "calibration:103",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "7722654117336331661371176",
+      "rootPly": 25,
+      "sourcePerfectPlayValue": 7,
+      "rootDistinct": 37,
+      "rootOwnerLayerMultiplicity": 45,
+      "rootCancelledBoth": 32,
+      "rootP0Live": 21,
+      "rootP1Live": 24,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 5,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 34,
+      "oneStepMeanDistinctAfterOtherLegalAction": 35.8,
+      "optimalLiteralColumns": [
+        5
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 3,
+          "P0only": 3,
+          "P1only": 5,
+          "dead": 13
+        },
+        "V": {
+          "empty": 5,
+          "P0only": 1,
+          "P1only": 2,
+          "dead": 13
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 4,
+          "P1only": 5,
+          "dead": 3
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 5,
+          "P1only": 4,
+          "dead": 3
+        }
+      }
+    },
+    {
+      "sample": "calibration:104",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "3237735666151513515634",
+      "rootPly": 22,
+      "sourcePerfectPlayValue": -7,
+      "rootDistinct": 32,
+      "rootOwnerLayerMultiplicity": 41,
+      "rootCancelledBoth": 37,
+      "rootP0Live": 18,
+      "rootP1Live": 23,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 6,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 31,
+      "oneStepMeanDistinctAfterOtherLegalAction": 30.833333333333332,
+      "optimalLiteralColumns": [
+        2
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 4,
+          "P0only": 5,
+          "P1only": 4,
+          "dead": 11
+        },
+        "V": {
+          "empty": 5,
+          "P0only": 1,
+          "P1only": 3,
+          "dead": 12
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 3,
+          "P1only": 3,
+          "dead": 6
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 4,
+          "dead": 8
+        }
+      }
+    },
+    {
+      "sample": "calibration:105",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "71521736623715176174362",
+      "rootPly": 23,
+      "sourcePerfectPlayValue": -8,
+      "rootDistinct": 39,
+      "rootOwnerLayerMultiplicity": 52,
+      "rootCancelledBoth": 30,
+      "rootP0Live": 31,
+      "rootP1Live": 21,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 6,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 33,
+      "oneStepMeanDistinctAfterOtherLegalAction": 37.166666666666664,
+      "optimalLiteralColumns": [
+        3
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 7,
+          "P0only": 5,
+          "P1only": 3,
+          "dead": 9
+        },
+        "V": {
+          "empty": 3,
+          "P0only": 4,
+          "P1only": 2,
+          "dead": 12
+        },
+        "R": {
+          "empty": 1,
+          "P0only": 5,
+          "P1only": 0,
+          "dead": 6
+        },
+        "F": {
+          "empty": 2,
+          "P0only": 4,
+          "P1only": 3,
+          "dead": 3
+        }
+      }
+    },
+    {
+      "sample": "calibration:106",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "544111732146347",
+      "rootPly": 15,
+      "sourcePerfectPlayValue": -9,
+      "rootDistinct": 54,
+      "rootOwnerLayerMultiplicity": 73,
+      "rootCancelledBoth": 15,
+      "rootP0Live": 41,
+      "rootP1Live": 32,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 6,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 51,
+      "oneStepMeanDistinctAfterOtherLegalAction": 51,
+      "optimalLiteralColumns": [
+        2
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 8,
+          "P0only": 7,
+          "P1only": 4,
+          "dead": 5
+        },
+        "V": {
+          "empty": 8,
+          "P0only": 5,
+          "P1only": 2,
+          "dead": 6
+        },
+        "R": {
+          "empty": 1,
+          "P0only": 5,
+          "P1only": 5,
+          "dead": 1
+        },
+        "F": {
+          "empty": 2,
+          "P0only": 5,
+          "P1only": 2,
+          "dead": 3
+        }
+      }
+    },
+    {
+      "sample": "calibration:107",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "47724652442416755146",
+      "rootPly": 20,
+      "sourcePerfectPlayValue": 8,
+      "rootDistinct": 39,
+      "rootOwnerLayerMultiplicity": 43,
+      "rootCancelledBoth": 30,
+      "rootP0Live": 24,
+      "rootP1Live": 19,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 5,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 34,
+      "oneStepMeanDistinctAfterOtherLegalAction": 37.4,
+      "optimalLiteralColumns": [
+        6
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 6,
+          "P1only": 8,
+          "dead": 10
+        },
+        "V": {
+          "empty": 4,
+          "P0only": 4,
+          "P1only": 4,
+          "dead": 9
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 5,
+          "P1only": 2,
+          "dead": 5
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 5,
+          "P1only": 1,
+          "dead": 6
+        }
+      }
+    },
+    {
+      "sample": "calibration:108",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "54527613337336351111622",
+      "rootPly": 23,
+      "sourcePerfectPlayValue": 9,
+      "rootDistinct": 30,
+      "rootOwnerLayerMultiplicity": 38,
+      "rootCancelledBoth": 39,
+      "rootP0Live": 20,
+      "rootP1Live": 18,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 5,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 30,
+      "oneStepMeanDistinctAfterOtherLegalAction": 28.4,
+      "optimalLiteralColumns": [
+        4
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 3,
+          "P0only": 5,
+          "P1only": 2,
+          "dead": 14
+        },
+        "V": {
+          "empty": 3,
+          "P0only": 4,
+          "P1only": 2,
+          "dead": 12
+        },
+        "R": {
+          "empty": 1,
+          "P0only": 1,
+          "P1only": 4,
+          "dead": 6
+        },
+        "F": {
+          "empty": 1,
+          "P0only": 2,
+          "P1only": 2,
+          "dead": 7
+        }
+      }
+    },
+    {
+      "sample": "calibration:109",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "35531254275547623",
+      "rootPly": 17,
+      "sourcePerfectPlayValue": -9,
+      "rootDistinct": 43,
+      "rootOwnerLayerMultiplicity": 57,
+      "rootCancelledBoth": 26,
+      "rootP0Live": 33,
+      "rootP1Live": 24,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 6,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 42,
+      "oneStepMeanDistinctAfterOtherLegalAction": 40.333333333333336,
+      "optimalLiteralColumns": [
+        7
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 6,
+          "P0only": 5,
+          "P1only": 3,
+          "dead": 10
+        },
+        "V": {
+          "empty": 6,
+          "P0only": 4,
+          "P1only": 3,
+          "dead": 8
+        },
+        "R": {
+          "empty": 1,
+          "P0only": 4,
+          "P1only": 2,
+          "dead": 5
+        },
+        "F": {
+          "empty": 1,
+          "P0only": 6,
+          "P1only": 2,
+          "dead": 3
+        }
+      }
+    },
+    {
+      "sample": "calibration:110",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "16773414341241421774376322",
+      "rootPly": 26,
+      "sourcePerfectPlayValue": -5,
+      "rootDistinct": 25,
+      "rootOwnerLayerMultiplicity": 29,
+      "rootCancelledBoth": 44,
+      "rootP0Live": 14,
+      "rootP1Live": 15,
+      "numberStrictStrongOptimalMoves": 3,
+      "numberOtherLegalMoves": 3,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 24,
+      "oneStepMeanDistinctAfterOtherLegalAction": 23.666666666666668,
+      "optimalLiteralColumns": [
+        2,
+        3,
+        6
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 4,
+          "P1only": 5,
+          "dead": 15
+        },
+        "V": {
+          "empty": 4,
+          "P0only": 1,
+          "P1only": 0,
+          "dead": 16
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 2,
+          "dead": 9
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 4,
+          "P1only": 4,
+          "dead": 4
+        }
+      }
+    },
+    {
+      "sample": "calibration:111",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "175617344365477255",
+      "rootPly": 18,
+      "sourcePerfectPlayValue": 11,
+      "rootDistinct": 43,
+      "rootOwnerLayerMultiplicity": 61,
+      "rootCancelledBoth": 26,
+      "rootP0Live": 35,
+      "rootP1Live": 26,
+      "numberStrictStrongOptimalMoves": 2,
+      "numberOtherLegalMoves": 5,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 41.5,
+      "oneStepMeanDistinctAfterOtherLegalAction": 42.2,
+      "optimalLiteralColumns": [
+        3,
+        6
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 9,
+          "P0only": 3,
+          "P1only": 2,
+          "dead": 10
+        },
+        "V": {
+          "empty": 5,
+          "P0only": 5,
+          "P1only": 2,
+          "dead": 9
+        },
+        "R": {
+          "empty": 4,
+          "P0only": 4,
+          "P1only": 0,
+          "dead": 4
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 5,
+          "P1only": 4,
+          "dead": 3
+        }
+      }
+    },
+    {
+      "sample": "calibration:112",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "411717625255115123554",
+      "rootPly": 21,
+      "sourcePerfectPlayValue": -9,
+      "rootDistinct": 46,
+      "rootOwnerLayerMultiplicity": 52,
+      "rootCancelledBoth": 23,
+      "rootP0Live": 31,
+      "rootP1Live": 21,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 4,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 43,
+      "oneStepMeanDistinctAfterOtherLegalAction": 42.25,
+      "optimalLiteralColumns": [
+        3
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 9,
+          "P1only": 7,
+          "dead": 8
+        },
+        "V": {
+          "empty": 6,
+          "P0only": 4,
+          "P1only": 3,
+          "dead": 8
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 6,
+          "P1only": 1,
+          "dead": 5
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 6,
+          "P1only": 4,
+          "dead": 2
+        }
+      }
+    },
+    {
+      "sample": "calibration:113",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "13227167421566572721",
+      "rootPly": 20,
+      "sourcePerfectPlayValue": -9,
+      "rootDistinct": 47,
+      "rootOwnerLayerMultiplicity": 64,
+      "rootCancelledBoth": 22,
+      "rootP0Live": 31,
+      "rootP1Live": 33,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 6,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 45,
+      "oneStepMeanDistinctAfterOtherLegalAction": 45,
+      "optimalLiteralColumns": [
+        7
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 7,
+          "P0only": 4,
+          "P1only": 5,
+          "dead": 8
+        },
+        "V": {
+          "empty": 5,
+          "P0only": 2,
+          "P1only": 4,
+          "dead": 10
+        },
+        "R": {
+          "empty": 4,
+          "P0only": 2,
+          "P1only": 4,
+          "dead": 2
+        },
+        "F": {
+          "empty": 1,
+          "P0only": 6,
+          "P1only": 3,
+          "dead": 2
+        }
+      }
+    },
+    {
+      "sample": "calibration:114",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "1456346777667336372",
+      "rootPly": 19,
+      "sourcePerfectPlayValue": 11,
+      "rootDistinct": 45,
+      "rootOwnerLayerMultiplicity": 60,
+      "rootCancelledBoth": 24,
+      "rootP0Live": 34,
+      "rootP1Live": 26,
+      "numberStrictStrongOptimalMoves": 2,
+      "numberOtherLegalMoves": 5,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 42.5,
+      "oneStepMeanDistinctAfterOtherLegalAction": 43,
+      "optimalLiteralColumns": [
+        2,
+        5
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 6,
+          "P0only": 5,
+          "P1only": 4,
+          "dead": 9
+        },
+        "V": {
+          "empty": 7,
+          "P0only": 4,
+          "P1only": 2,
+          "dead": 8
+        },
+        "R": {
+          "empty": 1,
+          "P0only": 5,
+          "P1only": 3,
+          "dead": 3
+        },
+        "F": {
+          "empty": 1,
+          "P0only": 5,
+          "P1only": 2,
+          "dead": 4
+        }
+      }
+    },
+    {
+      "sample": "calibration:115",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "3464123621337153667644637227",
+      "rootPly": 28,
+      "sourcePerfectPlayValue": 2,
+      "rootDistinct": 22,
+      "rootOwnerLayerMultiplicity": 24,
+      "rootCancelledBoth": 47,
+      "rootP0Live": 7,
+      "rootP1Live": 17,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 4,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 16,
+      "oneStepMeanDistinctAfterOtherLegalAction": 20.5,
+      "optimalLiteralColumns": [
+        4
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 3,
+          "P1only": 8,
+          "dead": 13
+        },
+        "V": {
+          "empty": 2,
+          "P0only": 1,
+          "P1only": 2,
+          "dead": 16
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 3,
+          "dead": 9
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 2,
+          "dead": 9
+        }
+      }
+    },
+    {
+      "sample": "calibration:116",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "31266511114762722166672",
+      "rootPly": 23,
+      "sourcePerfectPlayValue": -3,
+      "rootDistinct": 43,
+      "rootOwnerLayerMultiplicity": 51,
+      "rootCancelledBoth": 26,
+      "rootP0Live": 29,
+      "rootP1Live": 22,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 4,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 38,
+      "oneStepMeanDistinctAfterOtherLegalAction": 40.75,
+      "optimalLiteralColumns": [
+        4
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 1,
+          "P0only": 10,
+          "P1only": 6,
+          "dead": 7
+        },
+        "V": {
+          "empty": 6,
+          "P0only": 2,
+          "P1only": 2,
+          "dead": 11
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 5,
+          "P1only": 5,
+          "dead": 2
+        },
+        "F": {
+          "empty": 1,
+          "P0only": 4,
+          "P1only": 1,
+          "dead": 6
+        }
+      }
+    },
+    {
+      "sample": "calibration:117",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "137616613112365341",
+      "rootPly": 18,
+      "sourcePerfectPlayValue": 6,
+      "rootDistinct": 50,
+      "rootOwnerLayerMultiplicity": 66,
+      "rootCancelledBoth": 19,
+      "rootP0Live": 34,
+      "rootP1Live": 32,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 5,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 47,
+      "oneStepMeanDistinctAfterOtherLegalAction": 48.6,
+      "optimalLiteralColumns": [
+        4
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 6,
+          "P0only": 6,
+          "P1only": 6,
+          "dead": 6
+        },
+        "V": {
+          "empty": 8,
+          "P0only": 3,
+          "P1only": 1,
+          "dead": 9
+        },
+        "R": {
+          "empty": 1,
+          "P0only": 5,
+          "P1only": 4,
+          "dead": 2
+        },
+        "F": {
+          "empty": 1,
+          "P0only": 4,
+          "P1only": 5,
+          "dead": 2
+        }
+      }
+    },
+    {
+      "sample": "calibration:118",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "6237377156733264225773",
+      "rootPly": 22,
+      "sourcePerfectPlayValue": 8,
+      "rootDistinct": 40,
+      "rootOwnerLayerMultiplicity": 48,
+      "rootCancelledBoth": 29,
+      "rootP0Live": 25,
+      "rootP1Live": 23,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 5,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 36,
+      "oneStepMeanDistinctAfterOtherLegalAction": 38.6,
+      "optimalLiteralColumns": [
+        5
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 3,
+          "P0only": 4,
+          "P1only": 4,
+          "dead": 13
+        },
+        "V": {
+          "empty": 5,
+          "P0only": 3,
+          "P1only": 2,
+          "dead": 11
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 5,
+          "P1only": 5,
+          "dead": 2
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 5,
+          "P1only": 4,
+          "dead": 3
+        }
+      }
+    },
+    {
+      "sample": "calibration:119",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "55371476331451637535",
+      "rootPly": 20,
+      "sourcePerfectPlayValue": 10,
+      "rootDistinct": 35,
+      "rootOwnerLayerMultiplicity": 44,
+      "rootCancelledBoth": 34,
+      "rootP0Live": 16,
+      "rootP1Live": 28,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 6,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 28,
+      "oneStepMeanDistinctAfterOtherLegalAction": 33.666666666666664,
+      "optimalLiteralColumns": [
+        4
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 4,
+          "P0only": 2,
+          "P1only": 6,
+          "dead": 12
+        },
+        "V": {
+          "empty": 5,
+          "P0only": 3,
+          "P1only": 3,
+          "dead": 10
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 5,
+          "dead": 7
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 2,
+          "P1only": 5,
+          "dead": 5
+        }
+      }
+    },
+    {
+      "sample": "calibration:120",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "615475226615213226217557",
+      "rootPly": 24,
+      "sourcePerfectPlayValue": -8,
+      "rootDistinct": 36,
+      "rootOwnerLayerMultiplicity": 42,
+      "rootCancelledBoth": 33,
+      "rootP0Live": 17,
+      "rootP1Live": 25,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 5,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 33,
+      "oneStepMeanDistinctAfterOtherLegalAction": 33.8,
+      "optimalLiteralColumns": [
+        7
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 2,
+          "P0only": 6,
+          "P1only": 7,
+          "dead": 9
+        },
+        "V": {
+          "empty": 4,
+          "P0only": 1,
+          "P1only": 4,
+          "dead": 12
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 3,
+          "P1only": 6,
+          "dead": 3
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 2,
+          "dead": 9
+        }
+      }
+    },
+    {
+      "sample": "calibration:121",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "5127773675347376151",
+      "rootPly": 19,
+      "sourcePerfectPlayValue": 10,
+      "rootDistinct": 49,
+      "rootOwnerLayerMultiplicity": 66,
+      "rootCancelledBoth": 20,
+      "rootP0Live": 30,
+      "rootP1Live": 36,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 5,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 48,
+      "oneStepMeanDistinctAfterOtherLegalAction": 46.8,
+      "optimalLiteralColumns": [
+        6
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 9,
+          "P0only": 4,
+          "P1only": 3,
+          "dead": 8
+        },
+        "V": {
+          "empty": 5,
+          "P0only": 3,
+          "P1only": 6,
+          "dead": 7
+        },
+        "R": {
+          "empty": 1,
+          "P0only": 5,
+          "P1only": 3,
+          "dead": 3
+        },
+        "F": {
+          "empty": 2,
+          "P0only": 1,
+          "P1only": 7,
+          "dead": 2
+        }
+      }
+    },
+    {
+      "sample": "calibration:122",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "7717464322265274226441151",
+      "rootPly": 25,
+      "sourcePerfectPlayValue": 3,
+      "rootDistinct": 29,
+      "rootOwnerLayerMultiplicity": 34,
+      "rootCancelledBoth": 40,
+      "rootP0Live": 15,
+      "rootP1Live": 19,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 5,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 28,
+      "oneStepMeanDistinctAfterOtherLegalAction": 27.6,
+      "optimalLiteralColumns": [
+        3
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 2,
+          "P0only": 4,
+          "P1only": 4,
+          "dead": 14
+        },
+        "V": {
+          "empty": 3,
+          "P0only": 2,
+          "P1only": 2,
+          "dead": 14
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 2,
+          "P1only": 4,
+          "dead": 6
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 2,
+          "P1only": 4,
+          "dead": 6
+        }
+      }
+    },
+    {
+      "sample": "calibration:123",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "55772343111646575236",
+      "rootPly": 20,
+      "sourcePerfectPlayValue": 5,
+      "rootDistinct": 40,
+      "rootOwnerLayerMultiplicity": 53,
+      "rootCancelledBoth": 29,
+      "rootP0Live": 30,
+      "rootP1Live": 23,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 6,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 36,
+      "oneStepMeanDistinctAfterOtherLegalAction": 38.333333333333336,
+      "optimalLiteralColumns": [
+        6
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 9,
+          "P0only": 5,
+          "P1only": 0,
+          "dead": 10
+        },
+        "V": {
+          "empty": 2,
+          "P0only": 5,
+          "P1only": 6,
+          "dead": 8
+        },
+        "R": {
+          "empty": 1,
+          "P0only": 4,
+          "P1only": 1,
+          "dead": 6
+        },
+        "F": {
+          "empty": 1,
+          "P0only": 3,
+          "P1only": 3,
+          "dead": 5
+        }
+      }
+    },
+    {
+      "sample": "calibration:124",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "72276133256716235275764",
+      "rootPly": 23,
+      "sourcePerfectPlayValue": 7,
+      "rootDistinct": 35,
+      "rootOwnerLayerMultiplicity": 44,
+      "rootCancelledBoth": 34,
+      "rootP0Live": 18,
+      "rootP1Live": 26,
+      "numberStrictStrongOptimalMoves": 2,
+      "numberOtherLegalMoves": 5,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 32,
+      "oneStepMeanDistinctAfterOtherLegalAction": 34.2,
+      "optimalLiteralColumns": [
+        3,
+        4
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 5,
+          "P0only": 3,
+          "P1only": 5,
+          "dead": 11
+        },
+        "V": {
+          "empty": 3,
+          "P0only": 2,
+          "P1only": 4,
+          "dead": 12
+        },
+        "R": {
+          "empty": 1,
+          "P0only": 3,
+          "P1only": 3,
+          "dead": 5
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 1,
+          "P1only": 5,
+          "dead": 6
+        }
+      }
+    },
+    {
+      "sample": "calibration:125",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "65452257612667655615271112",
+      "rootPly": 26,
+      "sourcePerfectPlayValue": -4,
+      "rootDistinct": 30,
+      "rootOwnerLayerMultiplicity": 36,
+      "rootCancelledBoth": 39,
+      "rootP0Live": 18,
+      "rootP1Live": 18,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 4,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 27,
+      "oneStepMeanDistinctAfterOtherLegalAction": 29.25,
+      "optimalLiteralColumns": [
+        7
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 1,
+          "P0only": 4,
+          "P1only": 4,
+          "dead": 15
+        },
+        "V": {
+          "empty": 5,
+          "P0only": 1,
+          "P1only": 3,
+          "dead": 12
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 4,
+          "P1only": 1,
+          "dead": 7
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 3,
+          "P1only": 4,
+          "dead": 5
+        }
+      }
+    },
+    {
+      "sample": "calibration:126",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "2577525532532441626",
+      "rootPly": 19,
+      "sourcePerfectPlayValue": -9,
+      "rootDistinct": 44,
+      "rootOwnerLayerMultiplicity": 54,
+      "rootCancelledBoth": 25,
+      "rootP0Live": 28,
+      "rootP1Live": 26,
+      "numberStrictStrongOptimalMoves": 4,
+      "numberOtherLegalMoves": 3,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 43.25,
+      "oneStepMeanDistinctAfterOtherLegalAction": 40.333333333333336,
+      "optimalLiteralColumns": [
+        1,
+        2,
+        5,
+        7
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 4,
+          "P0only": 5,
+          "P1only": 4,
+          "dead": 11
+        },
+        "V": {
+          "empty": 6,
+          "P0only": 3,
+          "P1only": 3,
+          "dead": 9
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 4,
+          "P1only": 5,
+          "dead": 3
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 6,
+          "P1only": 4,
+          "dead": 2
+        }
+      }
+    },
+    {
+      "sample": "calibration:127",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "35653272262316437167672",
+      "rootPly": 23,
+      "sourcePerfectPlayValue": -3,
+      "rootDistinct": 32,
+      "rootOwnerLayerMultiplicity": 41,
+      "rootCancelledBoth": 37,
+      "rootP0Live": 21,
+      "rootP1Live": 20,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 6,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 31,
+      "oneStepMeanDistinctAfterOtherLegalAction": 30,
+      "optimalLiteralColumns": [
+        2
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 4,
+          "P0only": 4,
+          "P1only": 2,
+          "dead": 14
+        },
+        "V": {
+          "empty": 4,
+          "P0only": 2,
+          "P1only": 5,
+          "dead": 10
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 5,
+          "P1only": 2,
+          "dead": 5
+        },
+        "F": {
+          "empty": 1,
+          "P0only": 1,
+          "P1only": 2,
+          "dead": 8
+        }
+      }
+    },
+    {
+      "sample": "calibration:128",
+      "sourceSet": "Test_L2_R1",
+      "originalRealWord": "1243234332773245342572475767",
+      "rootPly": 28,
+      "sourcePerfectPlayValue": 5,
+      "rootDistinct": 18,
+      "rootOwnerLayerMultiplicity": 22,
+      "rootCancelledBoth": 51,
+      "rootP0Live": 15,
+      "rootP1Live": 7,
+      "numberStrictStrongOptimalMoves": 2,
+      "numberOtherLegalMoves": 2,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 17.5,
+      "oneStepMeanDistinctAfterOtherLegalAction": 17.5,
+      "optimalLiteralColumns": [
+        1,
+        4
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 0,
+          "P0only": 5,
+          "P1only": 2,
+          "dead": 17
+        },
+        "V": {
+          "empty": 4,
+          "P0only": 3,
+          "P1only": 0,
+          "dead": 14
+        },
+        "R": {
+          "empty": 0,
+          "P0only": 0,
+          "P1only": 1,
+          "dead": 11
+        },
+        "F": {
+          "empty": 0,
+          "P0only": 3,
+          "P1only": 0,
+          "dead": 9
+        }
+      }
+    },
+    {
+      "sample": "biased-beginning:1",
+      "sourceSet": "Test_L1_R1",
+      "originalRealWord": "243335424257",
+      "rootPly": 12,
+      "sourcePerfectPlayValue": 12,
+      "rootDistinct": 50,
+      "rootOwnerLayerMultiplicity": 77,
+      "rootCancelledBoth": 19,
+      "rootP0Live": 42,
+      "rootP1Live": 35,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 6,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 49,
+      "oneStepMeanDistinctAfterOtherLegalAction": 48.833333333333336,
+      "optimalLiteralColumns": [
+        6
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 12,
+          "P0only": 3,
+          "P1only": 1,
+          "dead": 8
+        },
+        "V": {
+          "empty": 9,
+          "P0only": 4,
+          "P1only": 3,
+          "dead": 5
+        },
+        "R": {
+          "empty": 1,
+          "P0only": 4,
+          "P1only": 2,
+          "dead": 5
+        },
+        "F": {
+          "empty": 5,
+          "P0only": 4,
+          "P1only": 2,
+          "dead": 1
+        }
+      }
+    },
+    {
+      "sample": "biased-beginning:2",
+      "sourceSet": "Test_L1_R1",
+      "originalRealWord": "5512243243536",
+      "rootPly": 13,
+      "sourcePerfectPlayValue": 13,
+      "rootDistinct": 48,
+      "rootOwnerLayerMultiplicity": 74,
+      "rootCancelledBoth": 21,
+      "rootP0Live": 36,
+      "rootP1Live": 38,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 6,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 46,
+      "oneStepMeanDistinctAfterOtherLegalAction": 47,
+      "optimalLiteralColumns": [
+        4
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 12,
+          "P0only": 1,
+          "P1only": 1,
+          "dead": 10
+        },
+        "V": {
+          "empty": 8,
+          "P0only": 4,
+          "P1only": 3,
+          "dead": 6
+        },
+        "R": {
+          "empty": 2,
+          "P0only": 2,
+          "P1only": 6,
+          "dead": 2
+        },
+        "F": {
+          "empty": 4,
+          "P0only": 3,
+          "P1only": 2,
+          "dead": 3
+        }
+      }
+    },
+    {
+      "sample": "biased-beginning:3",
+      "sourceSet": "Test_L1_R1",
+      "originalRealWord": "265756512",
+      "rootPly": 9,
+      "sourcePerfectPlayValue": -12,
+      "rootDistinct": 60,
+      "rootOwnerLayerMultiplicity": 97,
+      "rootCancelledBoth": 9,
+      "rootP0Live": 56,
+      "rootP1Live": 41,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 6,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 56,
+      "oneStepMeanDistinctAfterOtherLegalAction": 58.166666666666664,
+      "optimalLiteralColumns": [
+        5
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 13,
+          "P0only": 6,
+          "P1only": 0,
+          "dead": 5
+        },
+        "V": {
+          "empty": 12,
+          "P0only": 5,
+          "P1only": 4,
+          "dead": 0
+        },
+        "R": {
+          "empty": 6,
+          "P0only": 5,
+          "P1only": 0,
+          "dead": 1
+        },
+        "F": {
+          "empty": 6,
+          "P0only": 3,
+          "P1only": 0,
+          "dead": 3
+        }
+      }
+    },
+    {
+      "sample": "biased-beginning:4",
+      "sourceSet": "Test_L1_R1",
+      "originalRealWord": "7343363417254",
+      "rootPly": 13,
+      "sourcePerfectPlayValue": 14,
+      "rootDistinct": 54,
+      "rootOwnerLayerMultiplicity": 77,
+      "rootCancelledBoth": 15,
+      "rootP0Live": 44,
+      "rootP1Live": 33,
+      "numberStrictStrongOptimalMoves": 2,
+      "numberOtherLegalMoves": 5,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 51.5,
+      "oneStepMeanDistinctAfterOtherLegalAction": 51.4,
+      "optimalLiteralColumns": [
+        2,
+        5
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 9,
+          "P0only": 7,
+          "P1only": 4,
+          "dead": 4
+        },
+        "V": {
+          "empty": 9,
+          "P0only": 4,
+          "P1only": 3,
+          "dead": 5
+        },
+        "R": {
+          "empty": 1,
+          "P0only": 7,
+          "P1only": 2,
+          "dead": 2
+        },
+        "F": {
+          "empty": 4,
+          "P0only": 3,
+          "P1only": 1,
+          "dead": 4
+        }
+      }
+    },
+    {
+      "sample": "biased-beginning:5",
+      "sourceSet": "Test_L1_R1",
+      "originalRealWord": "74746315233",
+      "rootPly": 11,
+      "sourcePerfectPlayValue": 15,
+      "rootDistinct": 59,
+      "rootOwnerLayerMultiplicity": 92,
+      "rootCancelledBoth": 10,
+      "rootP0Live": 48,
+      "rootP1Live": 44,
+      "numberStrictStrongOptimalMoves": 2,
+      "numberOtherLegalMoves": 5,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 57,
+      "oneStepMeanDistinctAfterOtherLegalAction": 56.8,
+      "optimalLiteralColumns": [
+        2,
+        5
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 13,
+          "P0only": 3,
+          "P1only": 3,
+          "dead": 5
+        },
+        "V": {
+          "empty": 10,
+          "P0only": 6,
+          "P1only": 3,
+          "dead": 2
+        },
+        "R": {
+          "empty": 4,
+          "P0only": 3,
+          "P1only": 4,
+          "dead": 1
+        },
+        "F": {
+          "empty": 6,
+          "P0only": 3,
+          "P1only": 1,
+          "dead": 2
+        }
+      }
+    },
+    {
+      "sample": "biased-beginning:6",
+      "sourceSet": "Test_L1_R1",
+      "originalRealWord": "51756773145177",
+      "rootPly": 14,
+      "sourcePerfectPlayValue": -10,
+      "rootDistinct": 55,
+      "rootOwnerLayerMultiplicity": 83,
+      "rootCancelledBoth": 14,
+      "rootP0Live": 41,
+      "rootP1Live": 42,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 6,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 54,
+      "oneStepMeanDistinctAfterOtherLegalAction": 52.833333333333336,
+      "optimalLiteralColumns": [
+        2
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 10,
+          "P0only": 5,
+          "P1only": 6,
+          "dead": 3
+        },
+        "V": {
+          "empty": 9,
+          "P0only": 2,
+          "P1only": 3,
+          "dead": 7
+        },
+        "R": {
+          "empty": 6,
+          "P0only": 1,
+          "P1only": 2,
+          "dead": 3
+        },
+        "F": {
+          "empty": 3,
+          "P0only": 5,
+          "P1only": 3,
+          "dead": 1
+        }
+      }
+    },
+    {
+      "sample": "biased-beginning:7",
+      "sourceSet": "Test_L1_R1",
+      "originalRealWord": "165746146225",
+      "rootPly": 12,
+      "sourcePerfectPlayValue": -11,
+      "rootDistinct": 56,
+      "rootOwnerLayerMultiplicity": 87,
+      "rootCancelledBoth": 13,
+      "rootP0Live": 43,
+      "rootP1Live": 44,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 6,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 54,
+      "oneStepMeanDistinctAfterOtherLegalAction": 54,
+      "optimalLiteralColumns": [
+        7
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 14,
+          "P0only": 2,
+          "P1only": 2,
+          "dead": 6
+        },
+        "V": {
+          "empty": 9,
+          "P0only": 4,
+          "P1only": 3,
+          "dead": 5
+        },
+        "R": {
+          "empty": 5,
+          "P0only": 3,
+          "P1only": 3,
+          "dead": 1
+        },
+        "F": {
+          "empty": 3,
+          "P0only": 3,
+          "P1only": 5,
+          "dead": 1
+        }
+      }
+    },
+    {
+      "sample": "biased-beginning:8",
+      "sourceSet": "Test_L1_R1",
+      "originalRealWord": "1562527227511",
+      "rootPly": 13,
+      "sourcePerfectPlayValue": 13,
+      "rootDistinct": 53,
+      "rootOwnerLayerMultiplicity": 78,
+      "rootCancelledBoth": 16,
+      "rootP0Live": 44,
+      "rootP1Live": 34,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 6,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 52,
+      "oneStepMeanDistinctAfterOtherLegalAction": 51,
+      "optimalLiteralColumns": [
+        4
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 10,
+          "P0only": 5,
+          "P1only": 2,
+          "dead": 7
+        },
+        "V": {
+          "empty": 9,
+          "P0only": 4,
+          "P1only": 1,
+          "dead": 7
+        },
+        "R": {
+          "empty": 3,
+          "P0only": 4,
+          "P1only": 4,
+          "dead": 1
+        },
+        "F": {
+          "empty": 3,
+          "P0only": 6,
+          "P1only": 2,
+          "dead": 1
+        }
+      }
+    },
+    {
+      "sample": "biased-beginning:9",
+      "sourceSet": "Test_L1_R1",
+      "originalRealWord": "43745416472735",
+      "rootPly": 14,
+      "sourcePerfectPlayValue": -13,
+      "rootDistinct": 52,
+      "rootOwnerLayerMultiplicity": 72,
+      "rootCancelledBoth": 17,
+      "rootP0Live": 34,
+      "rootP1Live": 38,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 6,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 50,
+      "oneStepMeanDistinctAfterOtherLegalAction": 49.833333333333336,
+      "optimalLiteralColumns": [
+        6
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 8,
+          "P0only": 4,
+          "P1only": 5,
+          "dead": 7
+        },
+        "V": {
+          "empty": 8,
+          "P0only": 3,
+          "P1only": 4,
+          "dead": 6
+        },
+        "R": {
+          "empty": 3,
+          "P0only": 3,
+          "P1only": 3,
+          "dead": 3
+        },
+        "F": {
+          "empty": 1,
+          "P0only": 4,
+          "P1only": 6,
+          "dead": 1
+        }
+      }
+    },
+    {
+      "sample": "biased-beginning:10",
+      "sourceSet": "Test_L1_R1",
+      "originalRealWord": "42434653771434",
+      "rootPly": 14,
+      "sourcePerfectPlayValue": 9,
+      "rootDistinct": 46,
+      "rootOwnerLayerMultiplicity": 61,
+      "rootCancelledBoth": 23,
+      "rootP0Live": 29,
+      "rootP1Live": 32,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 6,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 41,
+      "oneStepMeanDistinctAfterOtherLegalAction": 45.166666666666664,
+      "optimalLiteralColumns": [
+        3
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 4,
+          "P0only": 4,
+          "P1only": 8,
+          "dead": 8
+        },
+        "V": {
+          "empty": 9,
+          "P0only": 3,
+          "P1only": 3,
+          "dead": 6
+        },
+        "R": {
+          "empty": 1,
+          "P0only": 3,
+          "P1only": 2,
+          "dead": 6
+        },
+        "F": {
+          "empty": 1,
+          "P0only": 4,
+          "P1only": 4,
+          "dead": 3
+        }
+      }
+    },
+    {
+      "sample": "biased-beginning:11",
+      "sourceSet": "Test_L1_R1",
+      "originalRealWord": "1626434452343",
+      "rootPly": 13,
+      "sourcePerfectPlayValue": 13,
+      "rootDistinct": 48,
+      "rootOwnerLayerMultiplicity": 71,
+      "rootCancelledBoth": 21,
+      "rootP0Live": 32,
+      "rootP1Live": 39,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 6,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 46,
+      "oneStepMeanDistinctAfterOtherLegalAction": 47.166666666666664,
+      "optimalLiteralColumns": [
+        3
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 8,
+          "P0only": 0,
+          "P1only": 5,
+          "dead": 11
+        },
+        "V": {
+          "empty": 9,
+          "P0only": 4,
+          "P1only": 4,
+          "dead": 4
+        },
+        "R": {
+          "empty": 3,
+          "P0only": 2,
+          "P1only": 1,
+          "dead": 6
+        },
+        "F": {
+          "empty": 3,
+          "P0only": 3,
+          "P1only": 6,
+          "dead": 0
+        }
+      }
+    },
+    {
+      "sample": "biased-beginning:12",
+      "sourceSet": "Test_L1_R1",
+      "originalRealWord": "6513243566177",
+      "rootPly": 13,
+      "sourcePerfectPlayValue": 12,
+      "rootDistinct": 54,
+      "rootOwnerLayerMultiplicity": 86,
+      "rootCancelledBoth": 15,
+      "rootP0Live": 43,
+      "rootP1Live": 43,
+      "numberStrictStrongOptimalMoves": 2,
+      "numberOtherLegalMoves": 5,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 53,
+      "oneStepMeanDistinctAfterOtherLegalAction": 52.4,
+      "optimalLiteralColumns": [
+        5,
+        7
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 14,
+          "P0only": 1,
+          "P1only": 2,
+          "dead": 7
+        },
+        "V": {
+          "empty": 8,
+          "P0only": 5,
+          "P1only": 4,
+          "dead": 4
+        },
+        "R": {
+          "empty": 6,
+          "P0only": 4,
+          "P1only": 2,
+          "dead": 0
+        },
+        "F": {
+          "empty": 4,
+          "P0only": 1,
+          "P1only": 3,
+          "dead": 4
+        }
+      }
+    },
+    {
+      "sample": "biased-beginning:13",
+      "sourceSet": "Test_L1_R1",
+      "originalRealWord": "43623536647361",
+      "rootPly": 14,
+      "sourcePerfectPlayValue": 11,
+      "rootDistinct": 47,
+      "rootOwnerLayerMultiplicity": 67,
+      "rootCancelledBoth": 22,
+      "rootP0Live": 35,
+      "rootP1Live": 32,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 6,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 47,
+      "oneStepMeanDistinctAfterOtherLegalAction": 45.166666666666664,
+      "optimalLiteralColumns": [
+        6
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 8,
+          "P0only": 5,
+          "P1only": 3,
+          "dead": 8
+        },
+        "V": {
+          "empty": 9,
+          "P0only": 2,
+          "P1only": 4,
+          "dead": 6
+        },
+        "R": {
+          "empty": 2,
+          "P0only": 4,
+          "P1only": 2,
+          "dead": 4
+        },
+        "F": {
+          "empty": 1,
+          "P0only": 4,
+          "P1only": 3,
+          "dead": 4
+        }
+      }
+    },
+    {
+      "sample": "biased-beginning:14",
+      "sourceSet": "Test_L1_R1",
+      "originalRealWord": "33375546411",
+      "rootPly": 11,
+      "sourcePerfectPlayValue": -12,
+      "rootDistinct": 55,
+      "rootOwnerLayerMultiplicity": 87,
+      "rootCancelledBoth": 14,
+      "rootP0Live": 47,
+      "rootP1Live": 40,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 6,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 54,
+      "oneStepMeanDistinctAfterOtherLegalAction": 52.833333333333336,
+      "optimalLiteralColumns": [
+        2
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 13,
+          "P0only": 4,
+          "P1only": 0,
+          "dead": 7
+        },
+        "V": {
+          "empty": 10,
+          "P0only": 4,
+          "P1only": 3,
+          "dead": 4
+        },
+        "R": {
+          "empty": 3,
+          "P0only": 5,
+          "P1only": 2,
+          "dead": 2
+        },
+        "F": {
+          "empty": 6,
+          "P0only": 2,
+          "P1only": 3,
+          "dead": 1
+        }
+      }
+    },
+    {
+      "sample": "biased-beginning:15",
+      "sourceSet": "Test_L1_R1",
+      "originalRealWord": "427631264721",
+      "rootPly": 12,
+      "sourcePerfectPlayValue": 10,
+      "rootDistinct": 57,
+      "rootOwnerLayerMultiplicity": 89,
+      "rootCancelledBoth": 12,
+      "rootP0Live": 48,
+      "rootP1Live": 41,
+      "numberStrictStrongOptimalMoves": 2,
+      "numberOtherLegalMoves": 5,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 55.5,
+      "oneStepMeanDistinctAfterOtherLegalAction": 55.8,
+      "optimalLiteralColumns": [
+        3,
+        4
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 14,
+          "P0only": 3,
+          "P1only": 0,
+          "dead": 7
+        },
+        "V": {
+          "empty": 9,
+          "P0only": 5,
+          "P1only": 5,
+          "dead": 2
+        },
+        "R": {
+          "empty": 4,
+          "P0only": 5,
+          "P1only": 1,
+          "dead": 2
+        },
+        "F": {
+          "empty": 5,
+          "P0only": 3,
+          "P1only": 3,
+          "dead": 1
+        }
+      }
+    },
+    {
+      "sample": "biased-beginning:16",
+      "sourceSet": "Test_L1_R1",
+      "originalRealWord": "27534134362633",
+      "rootPly": 14,
+      "sourcePerfectPlayValue": 10,
+      "rootDistinct": 54,
+      "rootOwnerLayerMultiplicity": 74,
+      "rootCancelledBoth": 15,
+      "rootP0Live": 39,
+      "rootP1Live": 35,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 6,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 54,
+      "oneStepMeanDistinctAfterOtherLegalAction": 52.833333333333336,
+      "optimalLiteralColumns": [
+        2
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 7,
+          "P0only": 6,
+          "P1only": 4,
+          "dead": 7
+        },
+        "V": {
+          "empty": 9,
+          "P0only": 3,
+          "P1only": 5,
+          "dead": 4
+        },
+        "R": {
+          "empty": 1,
+          "P0only": 7,
+          "P1only": 3,
+          "dead": 1
+        },
+        "F": {
+          "empty": 3,
+          "P0only": 3,
+          "P1only": 3,
+          "dead": 3
+        }
+      }
+    },
+    {
+      "sample": "biased-beginning:17",
+      "sourceSet": "Test_L1_R1",
+      "originalRealWord": "6126741462153",
+      "rootPly": 13,
+      "sourcePerfectPlayValue": 14,
+      "rootDistinct": 57,
+      "rootOwnerLayerMultiplicity": 86,
+      "rootCancelledBoth": 12,
+      "rootP0Live": 43,
+      "rootP1Live": 43,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 6,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 56,
+      "oneStepMeanDistinctAfterOtherLegalAction": 54.666666666666664,
+      "optimalLiteralColumns": [
+        5
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 13,
+          "P0only": 3,
+          "P1only": 3,
+          "dead": 5
+        },
+        "V": {
+          "empty": 8,
+          "P0only": 5,
+          "P1only": 4,
+          "dead": 4
+        },
+        "R": {
+          "empty": 4,
+          "P0only": 3,
+          "P1only": 3,
+          "dead": 2
+        },
+        "F": {
+          "empty": 4,
+          "P0only": 3,
+          "P1only": 4,
+          "dead": 1
+        }
+      }
+    },
+    {
+      "sample": "biased-beginning:18",
+      "sourceSet": "Test_L1_R2",
+      "originalRealWord": "335662333565",
+      "rootPly": 12,
+      "sourcePerfectPlayValue": -2,
+      "rootDistinct": 50,
+      "rootOwnerLayerMultiplicity": 69,
+      "rootCancelledBoth": 19,
+      "rootP0Live": 33,
+      "rootP1Live": 36,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 6,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 48,
+      "oneStepMeanDistinctAfterOtherLegalAction": 48.333333333333336,
+      "optimalLiteralColumns": [
+        6
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 6,
+          "P0only": 4,
+          "P1only": 5,
+          "dead": 9
+        },
+        "V": {
+          "empty": 11,
+          "P0only": 2,
+          "P1only": 3,
+          "dead": 5
+        },
+        "R": {
+          "empty": 1,
+          "P0only": 4,
+          "P1only": 5,
+          "dead": 2
+        },
+        "F": {
+          "empty": 1,
+          "P0only": 4,
+          "P1only": 4,
+          "dead": 3
+        }
+      }
+    },
+    {
+      "sample": "biased-beginning:19",
+      "sourceSet": "Test_L1_R2",
+      "originalRealWord": "157564142155",
+      "rootPly": 12,
+      "sourcePerfectPlayValue": -5,
+      "rootDistinct": 55,
+      "rootOwnerLayerMultiplicity": 79,
+      "rootCancelledBoth": 14,
+      "rootP0Live": 35,
+      "rootP1Live": 44,
+      "numberStrictStrongOptimalMoves": 2,
+      "numberOtherLegalMoves": 5,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 51,
+      "oneStepMeanDistinctAfterOtherLegalAction": 54,
+      "optimalLiteralColumns": [
+        4,
+        6
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 9,
+          "P0only": 3,
+          "P1only": 7,
+          "dead": 5
+        },
+        "V": {
+          "empty": 10,
+          "P0only": 3,
+          "P1only": 3,
+          "dead": 5
+        },
+        "R": {
+          "empty": 3,
+          "P0only": 2,
+          "P1only": 4,
+          "dead": 3
+        },
+        "F": {
+          "empty": 2,
+          "P0only": 3,
+          "P1only": 6,
+          "dead": 1
+        }
+      }
+    },
+    {
+      "sample": "biased-beginning:20",
+      "sourceSet": "Test_L1_R2",
+      "originalRealWord": "1616621455211",
+      "rootPly": 13,
+      "sourcePerfectPlayValue": 6,
+      "rootDistinct": 56,
+      "rootOwnerLayerMultiplicity": 86,
+      "rootCancelledBoth": 13,
+      "rootP0Live": 45,
+      "rootP1Live": 41,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 6,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 53,
+      "oneStepMeanDistinctAfterOtherLegalAction": 55,
+      "optimalLiteralColumns": [
+        4
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 11,
+          "P0only": 5,
+          "P1only": 3,
+          "dead": 5
+        },
+        "V": {
+          "empty": 10,
+          "P0only": 2,
+          "P1only": 2,
+          "dead": 7
+        },
+        "R": {
+          "empty": 6,
+          "P0only": 4,
+          "P1only": 1,
+          "dead": 1
+        },
+        "F": {
+          "empty": 3,
+          "P0only": 4,
+          "P1only": 5,
+          "dead": 0
+        }
+      }
+    },
+    {
+      "sample": "biased-beginning:21",
+      "sourceSet": "Test_L1_R2",
+      "originalRealWord": "2541266355551",
+      "rootPly": 13,
+      "sourcePerfectPlayValue": -3,
+      "rootDistinct": 55,
+      "rootOwnerLayerMultiplicity": 76,
+      "rootCancelledBoth": 14,
+      "rootP0Live": 42,
+      "rootP1Live": 34,
+      "numberStrictStrongOptimalMoves": 2,
+      "numberOtherLegalMoves": 5,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 49.5,
+      "oneStepMeanDistinctAfterOtherLegalAction": 53.2,
+      "optimalLiteralColumns": [
+        3,
+        4
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 7,
+          "P0only": 7,
+          "P1only": 6,
+          "dead": 4
+        },
+        "V": {
+          "empty": 10,
+          "P0only": 5,
+          "P1only": 1,
+          "dead": 5
+        },
+        "R": {
+          "empty": 2,
+          "P0only": 5,
+          "P1only": 3,
+          "dead": 2
+        },
+        "F": {
+          "empty": 2,
+          "P0only": 4,
+          "P1only": 3,
+          "dead": 3
+        }
+      }
+    },
+    {
+      "sample": "biased-beginning:22",
+      "sourceSet": "Test_L1_R2",
+      "originalRealWord": "13134411534775",
+      "rootPly": 14,
+      "sourcePerfectPlayValue": -6,
+      "rootDistinct": 45,
+      "rootOwnerLayerMultiplicity": 69,
+      "rootCancelledBoth": 24,
+      "rootP0Live": 32,
+      "rootP1Live": 37,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 6,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 41,
+      "oneStepMeanDistinctAfterOtherLegalAction": 43.5,
+      "optimalLiteralColumns": [
+        3
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 11,
+          "P0only": 1,
+          "P1only": 3,
+          "dead": 9
+        },
+        "V": {
+          "empty": 8,
+          "P0only": 2,
+          "P1only": 4,
+          "dead": 7
+        },
+        "R": {
+          "empty": 1,
+          "P0only": 3,
+          "P1only": 4,
+          "dead": 4
+        },
+        "F": {
+          "empty": 4,
+          "P0only": 2,
+          "P1only": 2,
+          "dead": 4
+        }
+      }
+    },
+    {
+      "sample": "biased-beginning:23",
+      "sourceSet": "Test_L1_R2",
+      "originalRealWord": "23766176641753",
+      "rootPly": 14,
+      "sourcePerfectPlayValue": 2,
+      "rootDistinct": 53,
+      "rootOwnerLayerMultiplicity": 82,
+      "rootCancelledBoth": 16,
+      "rootP0Live": 40,
+      "rootP1Live": 42,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 6,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 50,
+      "oneStepMeanDistinctAfterOtherLegalAction": 51.166666666666664,
+      "optimalLiteralColumns": [
+        5
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 12,
+          "P0only": 3,
+          "P1only": 3,
+          "dead": 6
+        },
+        "V": {
+          "empty": 8,
+          "P0only": 3,
+          "P1only": 4,
+          "dead": 6
+        },
+        "R": {
+          "empty": 5,
+          "P0only": 2,
+          "P1only": 3,
+          "dead": 2
+        },
+        "F": {
+          "empty": 4,
+          "P0only": 3,
+          "P1only": 3,
+          "dead": 2
+        }
+      }
+    },
+    {
+      "sample": "biased-beginning:24",
+      "sourceSet": "Test_L1_R2",
+      "originalRealWord": "54676552255627",
+      "rootPly": 14,
+      "sourcePerfectPlayValue": 2,
+      "rootDistinct": 52,
+      "rootOwnerLayerMultiplicity": 70,
+      "rootCancelledBoth": 17,
+      "rootP0Live": 37,
+      "rootP1Live": 33,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 6,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 51,
+      "oneStepMeanDistinctAfterOtherLegalAction": 50.666666666666664,
+      "optimalLiteralColumns": [
+        2
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 6,
+          "P0only": 6,
+          "P1only": 4,
+          "dead": 8
+        },
+        "V": {
+          "empty": 9,
+          "P0only": 2,
+          "P1only": 4,
+          "dead": 6
+        },
+        "R": {
+          "empty": 1,
+          "P0only": 7,
+          "P1only": 4,
+          "dead": 0
+        },
+        "F": {
+          "empty": 2,
+          "P0only": 4,
+          "P1only": 3,
+          "dead": 3
+        }
+      }
+    },
+    {
+      "sample": "biased-beginning:25",
+      "sourceSet": "Test_L1_R2",
+      "originalRealWord": "274121776146",
+      "rootPly": 12,
+      "sourcePerfectPlayValue": 4,
+      "rootDistinct": 60,
+      "rootOwnerLayerMultiplicity": 91,
+      "rootCancelledBoth": 9,
+      "rootP0Live": 48,
+      "rootP1Live": 43,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 6,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 57,
+      "oneStepMeanDistinctAfterOtherLegalAction": 58.833333333333336,
+      "optimalLiteralColumns": [
+        1
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 14,
+          "P0only": 3,
+          "P1only": 2,
+          "dead": 5
+        },
+        "V": {
+          "empty": 9,
+          "P0only": 4,
+          "P1only": 5,
+          "dead": 3
+        },
+        "R": {
+          "empty": 4,
+          "P0only": 5,
+          "P1only": 2,
+          "dead": 1
+        },
+        "F": {
+          "empty": 4,
+          "P0only": 5,
+          "P1only": 3,
+          "dead": 0
+        }
+      }
+    },
+    {
+      "sample": "biased-beginning:26",
+      "sourceSet": "Test_L1_R2",
+      "originalRealWord": "663152175",
+      "rootPly": 9,
+      "sourcePerfectPlayValue": -4,
+      "rootDistinct": 62,
+      "rootOwnerLayerMultiplicity": 104,
+      "rootCancelledBoth": 7,
+      "rootP0Live": 55,
+      "rootP1Live": 49,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 6,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 60,
+      "oneStepMeanDistinctAfterOtherLegalAction": 60.333333333333336,
+      "optimalLiteralColumns": [
+        4
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 16,
+          "P0only": 3,
+          "P1only": 0,
+          "dead": 5
+        },
+        "V": {
+          "empty": 12,
+          "P0only": 4,
+          "P1only": 3,
+          "dead": 2
+        },
+        "R": {
+          "empty": 7,
+          "P0only": 3,
+          "P1only": 2,
+          "dead": 0
+        },
+        "F": {
+          "empty": 7,
+          "P0only": 3,
+          "P1only": 2,
+          "dead": 0
+        }
+      }
+    },
+    {
+      "sample": "biased-beginning:27",
+      "sourceSet": "Test_L1_R2",
+      "originalRealWord": "67331624326767",
+      "rootPly": 14,
+      "sourcePerfectPlayValue": -5,
+      "rootDistinct": 53,
+      "rootOwnerLayerMultiplicity": 78,
+      "rootCancelledBoth": 16,
+      "rootP0Live": 40,
+      "rootP1Live": 38,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 6,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 50,
+      "oneStepMeanDistinctAfterOtherLegalAction": 51.5,
+      "optimalLiteralColumns": [
+        7
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 10,
+          "P0only": 5,
+          "P1only": 4,
+          "dead": 5
+        },
+        "V": {
+          "empty": 8,
+          "P0only": 3,
+          "P1only": 5,
+          "dead": 5
+        },
+        "R": {
+          "empty": 4,
+          "P0only": 3,
+          "P1only": 1,
+          "dead": 4
+        },
+        "F": {
+          "empty": 3,
+          "P0only": 4,
+          "P1only": 3,
+          "dead": 2
+        }
+      }
+    },
+    {
+      "sample": "biased-beginning:28",
+      "sourceSet": "Test_L1_R2",
+      "originalRealWord": "55575766112413",
+      "rootPly": 14,
+      "sourcePerfectPlayValue": 4,
+      "rootDistinct": 55,
+      "rootOwnerLayerMultiplicity": 78,
+      "rootCancelledBoth": 14,
+      "rootP0Live": 42,
+      "rootP1Live": 36,
+      "numberStrictStrongOptimalMoves": 1,
+      "numberOtherLegalMoves": 6,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 50,
+      "oneStepMeanDistinctAfterOtherLegalAction": 53,
+      "optimalLiteralColumns": [
+        4
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 9,
+          "P0only": 7,
+          "P1only": 4,
+          "dead": 4
+        },
+        "V": {
+          "empty": 8,
+          "P0only": 3,
+          "P1only": 5,
+          "dead": 5
+        },
+        "R": {
+          "empty": 3,
+          "P0only": 6,
+          "P1only": 2,
+          "dead": 1
+        },
+        "F": {
+          "empty": 3,
+          "P0only": 3,
+          "P1only": 2,
+          "dead": 4
+        }
+      }
+    },
+    {
+      "sample": "biased-beginning:29",
+      "sourceSet": "Test_L1_R2",
+      "originalRealWord": "447276333363",
+      "rootPly": 12,
+      "sourcePerfectPlayValue": -4,
+      "rootDistinct": 53,
+      "rootOwnerLayerMultiplicity": 74,
+      "rootCancelledBoth": 16,
+      "rootP0Live": 33,
+      "rootP1Live": 41,
+      "numberStrictStrongOptimalMoves": 2,
+      "numberOtherLegalMoves": 5,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 51.5,
+      "oneStepMeanDistinctAfterOtherLegalAction": 51.8,
+      "optimalLiteralColumns": [
+        2,
+        7
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 7,
+          "P0only": 3,
+          "P1only": 8,
+          "dead": 6
+        },
+        "V": {
+          "empty": 11,
+          "P0only": 3,
+          "P1only": 2,
+          "dead": 5
+        },
+        "R": {
+          "empty": 1,
+          "P0only": 4,
+          "P1only": 6,
+          "dead": 1
+        },
+        "F": {
+          "empty": 2,
+          "P0only": 2,
+          "P1only": 4,
+          "dead": 4
+        }
+      }
+    },
+    {
+      "sample": "biased-beginning:30",
+      "sourceSet": "Test_L1_R2",
+      "originalRealWord": "3544242671",
+      "rootPly": 10,
+      "sourcePerfectPlayValue": -4,
+      "rootDistinct": 59,
+      "rootOwnerLayerMultiplicity": 91,
+      "rootCancelledBoth": 10,
+      "rootP0Live": 40,
+      "rootP1Live": 51,
+      "numberStrictStrongOptimalMoves": 2,
+      "numberOtherLegalMoves": 5,
+      "oneStepMeanDistinctAfterPerfectStrongAction": 55.5,
+      "oneStepMeanDistinctAfterOtherLegalAction": 57.2,
+      "optimalLiteralColumns": [
+        2,
+        5
+      ],
+      "rootStrandOrientationStatuses": {
+        "H": {
+          "empty": 12,
+          "P0only": 0,
+          "P1only": 6,
+          "dead": 6
+        },
+        "V": {
+          "empty": 11,
+          "P0only": 4,
+          "P1only": 5,
+          "dead": 1
+        },
+        "R": {
+          "empty": 4,
+          "P0only": 2,
+          "P1only": 3,
+          "dead": 3
+        },
+        "F": {
+          "empty": 5,
+          "P0only": 2,
+          "P1only": 5,
+          "dead": 0
+        }
+      }
+    }
+  ],
+  "sourceGameWDLBranchesSearched": 0,
+  "newRootPerfectPlayResult": false,
+  "disposition": "27-28 is not a stable individual geometric survivor count in biased qualified parent/one-step samples; no optimal full empty-root continuations assessed yet; do not preselect a spectral mode with this number."
+}
