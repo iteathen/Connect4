@@ -52,3 +52,16 @@ Oracle use is allowed ONLY as an external falsifier/teacher for this empirical c
 5. Final interpretation must distinguish observed numerical regularity from proven source game-value invariant. Confirm true original game rules, statistical coverage and sample selection; preserve negative outcomes.
 
 **Qualification:** methodological correction effective NOW. No change to qualified IsoGraph 1.2 gameplay/authority, no solver modification, no novel mathematical WDL theorem claimed.
+
+
+## 6. SECOND estimand correction — what does "surviving original 69 lines" mean ACROSS perfect play variations?
+
+The owner's hypothesized ~27/28 surviving WINNING POSITIONS may mean the cardinality of an ORIGINAL WINNING-LINE ID SET aggregated across all perfectly played games, NOT the number \`U(q)=69−DeadBoth(q)\` remaining unblocked at a SINGLE board position. These objects differ, and previous use of arbitrary states measured only U(q). Predefine and preserve at least:
+
+1. \(\mathcal H_*\): complete ORIGINAL first-win-stopped game histories rooted in EMPTY 7x6 for which **EVERY** P0 and P1 action is in the exact strong-score argmax at that precise prefix; this is the central root-perfect-play space to sample or analyze.
+2. \(\mathcal W_p=\{L:\exists h\in\mathcal H_*,\ L\text{ is a physical K4 line completed on the FIRST-winning move by P}_p\}\). Measure \(\left|\mathcal W_0\cup\mathcal W_1\right|\) as the number of DIFFERENT original69 four-cell windows that **actually become first-winning lines across perfect variations**. If P0 can force win at empty under accepted rule, P1's \(\mathcal W_1\) is empty for every strong-perfect root history, but the spatial locations of possible P0 first-win lines could vary.
+3. \(\mathcal U_t^{\exists}=\bigcup_{h\in\mathcal H_*} \{L:\text{ L is geometrically live in the position after ply t of h}\}\) (for histories that have not terminated); and \(\mathcal U_t^{\forall}=\bigcap_h\{\dots\}\). These are distinct across-histories *existential* and *universal* survivals, not a single-state U; they are trivially all69 at root t=0, so any 27/28 claim requires a specified ply/range.
+4. \(\mathcal L_{p,t}\) are corresponding owner-specific live sets and signed Fourier-mode supports when ORIGINAL 37 finite strands and 42 gluing junctions are unfolded BEFORE Fourier. Strong strategic "a line can be FORCED as first win" must have a specified opponent quantifier; the simple existential union of firstwinning histories is a weaker notion.
+5. For sampled root-perfect histories \(\widehat{\mathcal H}_*\subseteq\mathcal H_*\), empirical \(|\widehat{\mathcal W}|\) is a LOWER BOUND on the full possible first-winning-line support set cardinality, not an upper bound or exact figure. Failure to observe a line in a small sample DOES NOT prove perfect opposition cancels it.
+
+Therefore do not interpret terminal U∈{0,1,2,3} on separately selected late roots as refutation of a possible \(|\mathcal W|=27\) or28 across all truly root-perfect winning first-terminal variants. The earlier pool means are not substitutes for these set-valued estimands. All 69 fixed original winline identities must be retained in results, not just counts.
