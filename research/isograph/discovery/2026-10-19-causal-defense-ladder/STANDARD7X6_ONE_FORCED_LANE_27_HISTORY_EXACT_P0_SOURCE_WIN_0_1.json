@@ -1,0 +1,97 @@
+{
+  "schema": 1,
+  "date": "2026-10-19",
+  "status": "PASS_INTERNAL_GUARDED_SOURCE_INDUCTION_INDEPENDENT_PHYSICAL_RAY",
+  "scope": "ORIGINAL 7x6 K4 gravity alternating first-win stop",
+  "frozenSourceTheory": "docs/research/2026-10-19-frozen-standard7x6-one-forced-response-lane-constraint-proof.md",
+  "reproducibleSource": "research/isograph/discovery/2026-10-19-causal-defense-ladder/standard7x6-single-forced-opponent-lane-source.mjs",
+  "originalWitnessFixture": "research/isograph/discovery/2026-10-19-true7x6-quantum-algebra/STRONG28_ISSUE41_HISTORICAL_WITNESS_FIXTURE_0_1.json",
+  "algorithm": "Compute the exact immediate next-P0-win flags E_a at CURRENT original P1 turn for all legal labels. If no locally safe P1 action, P0 wins next under every reply. If exactly one locally safe P1 action a, every other P1 reply loses immediately, and P0 follows one DETERMINISTIC same-column upper mate after a; repeat on that ONE nonterminal pair lane. If more than one safe move or mate illegal, return INCOMPLETE.",
+  "archivalSample": {
+    "originalPerLineWinningWitnessRecords": 28,
+    "uniqueCompleteRootHistories": 27,
+    "actualFirstwinningAbsoluteMove": 41,
+    "oddRankSourceRootsPerHistory": 20,
+    "totalOddRankSourceRoots": 540,
+    "sourceP0WinCertificationsByInitialOddRank": {
+      "35": 6,
+      "37": 12,
+      "39": 27
+    },
+    "allEarlierOddRanksPositive": 0,
+    "earliestCertifiedRankOverDistinctHistory": {
+      "35": 6,
+      "37": 6,
+      "39": 15
+    },
+    "rank35HistoricalLineIds": [
+      11,
+      13,
+      14,
+      26,
+      27,
+      53
+    ],
+    "rank37HistoricalLineIds": [
+      11,
+      13,
+      14,
+      19,
+      26,
+      27,
+      34,
+      35,
+      43,
+      53,
+      58,
+      59
+    ]
+  },
+  "physicalValidation": {
+    "independentlyRayCheckedNonchosenP1ImmediateLossActions": 463,
+    "errors": 0,
+    "separateIndependentPython3OriginalPhysicalReproduction": "PASS 27 histories and exact rank counts",
+    "independentlyPhysicalCheckedSourceLaneSteps": 623,
+    "knownActualFullDrawOnebased": "123456123456654321654321123456123456777777",
+    "drawControlRank39": "INCOMPLETE"
+  },
+  "concreteExample": {
+    "archivedLineWitnessId": 13,
+    "sourceStartingRank": 35,
+    "originalPhysicalPrefixZeroBased": "33333222220044444456550001350125561",
+    "initialColumnHeightsZeroBased": [
+      6,
+      3,
+      6,
+      6,
+      6,
+      6,
+      2
+    ],
+    "liveColumnsOneBased": [
+      2,
+      7
+    ],
+    "twoForcedP1TurnsOneBased": [
+      7,
+      7
+    ],
+    "predeterminedP0UpperMatesOneBased": [
+      7,
+      7
+    ],
+    "remainingP1TurnOneBased": 2,
+    "P0TerminalColumnOneBased": 2,
+    "P0TerminalRowOneBased": 5,
+    "P0TerminalAbsoluteMove": 41,
+    "derivedResourceModel": "A=column2 with3 remaining, P0 already owns3-of-4 of winning line whose missing cell A row5 is one above A current frontier; B=column7 with4 remaining=two upper-mate pairs. Each P1 A entry releases immediate P0 win; each P1 B entry consumes one B pair; when B exhausted, P1 MUST enter A.",
+    "sourceDoesNotReadHistoricalSuffixOrSelected28LineList": true
+  },
+  "qualifications": [
+    "SOURCE-certified P0 WIN only for scoped real midgame q; NOT exact empty root value formula.",
+    "Historical issue41 strong-optimal score labels not recomputed.",
+    "No strategically inequivalent future-game values used to produce source certificates.",
+    "Maintained Node26 CI and external formal proof assistant not run.",
+    "Production solvers and accepted IsoGraph1.2 gameplay unchanged."
+  ]
+}
