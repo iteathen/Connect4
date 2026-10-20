@@ -1,0 +1,425 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "status": "PASS_THREE_DISTINCT_TERMINAL_DRAW_FEASIBILITY_LAYERS_27_STRONG_HISTORY_PREFIXES",
+  "governingFrozenMath": "docs/research/2026-10-20-frozen-full-physical-draw-language-automaton-and-safety-to-win-composition.md",
+  "staticSourceRunner": "research/isograph/discovery/2026-10-20-universal-phase-language/full-original-k4-draw-language-column-transfer.mjs",
+  "independentCooperativePhysicalRunner": "research/isograph/discovery/2026-10-20-universal-phase-language/independent-original-7x6-cooperative-draw-suffix-controls.py",
+  "historicalFixture": "research/isograph/discovery/2026-10-19-true7x6-quantum-algebra/STRONG28_ISSUE41_HISTORICAL_WITNESS_FIXTURE_0_1.json",
+  "sample": "27 DISTINCT full original 41-ply legal historical game words, one witness chosen per literal word, preserved fixture insertion order. These words are all historically score-certified strong optimal but score oracle was not rerun. No terminal28 line IDs source inputs.",
+  "definitions": {
+    "phaseSurvival": "Existence of a K4-free fully owner-alternating column phase epsilon completion consistent with current board q (restricted previous Fibonacci family).",
+    "staticBalancedSurvival": "Existence of ANY fully original 69-window K4-free terminal P0/P1 colored completion q with total P0=21, P1=21, independently of whether gravity and turns can reach it.",
+    "legalCooperativeDrawSurvival": "Existence of SOME fully legal original gravity/alternation firstwin-free P0/P1 continuation from the current physical q until all42 stones placed; both players COOPERATE, not game WDL.",
+    "actualForcedP0WIN": "Strong optimal rooted P0 win from histories is an externally score-certified property, and for some late q separately source-proved; not inferred from any preceding feasibility count.",
+    "monotoneOrder": "No legal draw implies NO winning safe static completed coloring? Opposite: legal implies static, so first NO-legal-draw rank <= first NO-static-draw rank. Restricted Fibonacci phase loss may be far earlier than either.",
+    "rank41": "Under each recorded historical move41, P0 FIRSTWINS; suffix draw existence is necessarily false because GAME TERMINATED, not a preterminal move choice."
+  },
+  "firstRankWithoutFeasiblePhaseHistogram": {
+    "9": 1,
+    "11": 1,
+    "12": 4,
+    "13": 6,
+    "14": 1,
+    "15": 5,
+    "16": 1,
+    "21": 1,
+    "22": 2,
+    "23": 2,
+    "24": 2,
+    "25": 1
+  },
+  "firstRankWithoutAnyBalancedK4FreeStaticTerminalHistogram": {
+    "35": 1,
+    "37": 1,
+    "39": 1,
+    "40": 10,
+    "41": 14
+  },
+  "firstRankWithoutLegalCooperativeDrawHistogram": {
+    "35": 1,
+    "37": 1,
+    "39": 7,
+    "40": 7,
+    "41": 11
+  },
+  "preterminalSamples": {
+    "rank29": {
+      "legalCooperativeDrawPossible": 27,
+      "notPossible": 0
+    },
+    "rank31": {
+      "legalCooperativeDrawPossible": 27,
+      "notPossible": 0,
+      "staticBalancedPositive": 27
+    },
+    "rank35": {
+      "legalCooperativeDrawPossible": 26,
+      "notPossible": 1
+    },
+    "rank37": {
+      "legalCooperativeDrawPossible": 25,
+      "notPossible": 2,
+      "staticBalancedPositive": 25
+    },
+    "rank39": {
+      "legalCooperativeDrawPossible": 18,
+      "notPossible": 9,
+      "staticBalancedPositive": 24,
+      "staticBalancedZero": 3,
+      "staticPositiveButLegallyImpossible": 6
+    },
+    "rank40": {
+      "legalCooperativeDrawPossible": 11,
+      "notPossible": 16
+    }
+  },
+  "keyContradictionExamples": {
+    "genuineDrawWithFibonacciPhaseAlreadyGoneAtRank3": {
+      "completeOriginalOneBasedHistory": "414121111222223333334444655555566666777777",
+      "atRank3": "P0 owns center column4 both first two rows; cannot match any stationary alternating epsilon4",
+      "yetStillOriginal42PlyDraw": true
+    },
+    "staticPositiveButNoLegalDrawAtRank39": {
+      "historicalFixtureDistinctWordIndexOneBased": 4,
+      "literalSourcePrefix39OneBased": "444444326555553233322676235266611177777",
+      "originalPhysicalHeightsZeroBased": [
+        3,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "threeEmptyOriginalPhysicalCellsOneBased": [
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          1,
+          6
+        ]
+      ],
+      "uniqueK4FreeStaticBalancePlacement": "P1 c1r4, P1 c1r5, P0 c1r6",
+      "failedCausalOrder": "Actual mover at rank39 must be P1 at c1r4; next must be P0 at c1r5, contradicting static required P1 ownership there. The unique statically K4-free coloring is NOT legally schedulable."
+    },
+    "cooperativeFullDrawStillExistsFromGenuinelySourceProvedP0WINRank31": {
+      "sourceProvenP0WINRecord": "docs/research/2026-10-20-multireservoir-signed-WDL-and-rank31-verified-source-results.md",
+      "exactOriginalHistoryPrefix31ZeroBased": "3333332154444421222115651241000",
+      "originalOneBasedPrefix31": "4444443265555532333226762352111",
+      "trueLegalFull42DrawOneBased": "444444326555553233322676235211116116677777",
+      "cooperativeElevenMoveDrawSuffixOneBased": "16116677777",
+      "staticBalancedDrawTerminalCompletionsFromThisRank31": 32,
+      "independentPhysicalValidation": "Every original one of42 moves checked alternating, gravity and 69 real K4 windows, NO firstwinner. Nonetheless the same q has a separately source-CERTIFIED strategy P0 FIRSTWIN against ANY P1, because P0 can choose its proven forced-winning replies. Cooperative draw path does NOT refute forced WDL."
+    },
+    "rank39CanHaveP0ImmediateForcedWINButCooperativeDraw": {
+      "originalFixtureDistinctWordIndexOneBased": 1,
+      "prefixOneBased": "444443333636613412225777255525666717751",
+      "actualLegalDrawSuffixOneBased": "121",
+      "fullOriginalDrawWordOneBased": "444443333636613412225777255525666717751121",
+      "P1FirstReplyAlternativesOneBased": [
+        1,
+        2
+      ],
+      "P0ImmediatelyWinningReplyColumnOneBased": 1,
+      "P0DeliberatelyNonwinningReplyAlongDraw": "P1c1, P0c2, P1c1; only P0's choice differs from its already available immediate firstwin",
+      "caveat": "The P0 WIN from this rank39 is established by the prior local source Z=1 theorem, not newly discovered from drawing feasibility."
+    }
+  },
+  "perHistoricalGameCompactColumns": [
+    "firstPhaseLossRank",
+    "firstNoStaticBalanceDrawRank",
+    "firstNoLegalCooperativeDrawRank",
+    "staticBalanceCountAt31",
+    "staticBalanceCountAt37",
+    "staticBalanceCountAt39",
+    "hasLegalDrawAt39_bit",
+    "hasLegalDrawAt40_bit"
+  ],
+  "perHistoricalUniqueHistoryCompactRecords": [
+    [
+      11,
+      40,
+      40,
+      29,
+      3,
+      1,
+      1,
+      0
+    ],
+    [
+      12,
+      41,
+      41,
+      56,
+      5,
+      1,
+      1,
+      1
+    ],
+    [
+      24,
+      41,
+      41,
+      145,
+      4,
+      1,
+      1,
+      1
+    ],
+    [
+      15,
+      41,
+      39,
+      99,
+      3,
+      1,
+      0,
+      0
+    ],
+    [
+      21,
+      41,
+      41,
+      32,
+      3,
+      1,
+      1,
+      1
+    ],
+    [
+      15,
+      40,
+      39,
+      28,
+      2,
+      1,
+      0,
+      0
+    ],
+    [
+      23,
+      40,
+      40,
+      55,
+      3,
+      1,
+      1,
+      0
+    ],
+    [
+      22,
+      40,
+      40,
+      160,
+      4,
+      1,
+      1,
+      0
+    ],
+    [
+      12,
+      41,
+      41,
+      14,
+      4,
+      1,
+      1,
+      1
+    ],
+    [
+      16,
+      41,
+      39,
+      92,
+      3,
+      1,
+      0,
+      0
+    ],
+    [
+      15,
+      39,
+      39,
+      28,
+      1,
+      0,
+      0,
+      0
+    ],
+    [
+      13,
+      41,
+      41,
+      43,
+      2,
+      1,
+      1,
+      1
+    ],
+    [
+      12,
+      41,
+      40,
+      40,
+      3,
+      1,
+      1,
+      0
+    ],
+    [
+      15,
+      40,
+      39,
+      32,
+      1,
+      1,
+      0,
+      0
+    ],
+    [
+      9,
+      41,
+      41,
+      107,
+      4,
+      1,
+      1,
+      1
+    ],
+    [
+      14,
+      40,
+      39,
+      92,
+      2,
+      1,
+      0,
+      0
+    ],
+    [
+      13,
+      41,
+      41,
+      43,
+      3,
+      1,
+      1,
+      1
+    ],
+    [
+      12,
+      41,
+      41,
+      14,
+      4,
+      1,
+      1,
+      1
+    ],
+    [
+      15,
+      40,
+      39,
+      30,
+      1,
+      1,
+      0,
+      0
+    ],
+    [
+      13,
+      41,
+      41,
+      81,
+      3,
+      1,
+      1,
+      1
+    ],
+    [
+      13,
+      35,
+      35,
+      28,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      13,
+      40,
+      40,
+      65,
+      2,
+      1,
+      1,
+      0
+    ],
+    [
+      24,
+      41,
+      41,
+      61,
+      3,
+      1,
+      1,
+      1
+    ],
+    [
+      23,
+      37,
+      37,
+      39,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      22,
+      40,
+      40,
+      160,
+      4,
+      1,
+      1,
+      0
+    ],
+    [
+      13,
+      40,
+      40,
+      62,
+      2,
+      1,
+      1,
+      0
+    ],
+    [
+      25,
+      41,
+      41,
+      46,
+      4,
+      1,
+      1,
+      1
+    ]
+  ],
+  "proofBoundary": [
+    "Global K4-free static terminal-language transfer is exact for ALL owner column words, not only Fibonacci; still not a value function.",
+    "Physical draw continuation existence is examined as a bounded COOPERATIVE schedule existence test on VALID history suffixes, not minimax, and is not used in any source WDL formula.",
+    "Historical selected game words are a biased sample; reported rank histograms are not all perfect-play states.",
+    "The full original signed WDL requires a source-certified strategy-closed quantifier relation ∃P0 strategy ∀P1 choices and possibly remoteness for the strong28 line set, neither inferred here.",
+    "No maintained Node26 CI run or external formal-proof qualification; source geometry, independent C++ count and independently implemented Python physical witness controls.",
+    "No solver changes or qualified IsoGraph gameplay authority edits."
+  ]
+}
