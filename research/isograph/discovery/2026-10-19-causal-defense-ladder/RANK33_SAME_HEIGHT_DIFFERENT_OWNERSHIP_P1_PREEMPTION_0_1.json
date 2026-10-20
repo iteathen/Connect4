@@ -1,0 +1,100 @@
+{
+  "schema": 1,
+  "date": "2026-10-19",
+  "status": "PASS_INDEPENDENT_ORIGINAL_PHYSICAL_RAY_NEGATIVE_CONTROL",
+  "board": "original 7 columns height6 K4, real gravity alternating firstwin",
+  "rootPrefixZeroBased": "3333322222004444445655000135012556166",
+  "rootPrefixAbsoluteOccupiedRank": 33,
+  "observedRootHeights": [
+    6,
+    2,
+    6,
+    6,
+    6,
+    6,
+    1
+  ],
+  "remainingLegalP1ColumnsOneBased": [
+    2,
+    7
+  ],
+  "sourceP0WinningSingletonPhysicalCellsOneBased": [
+    [
+      2,
+      5
+    ],
+    [
+      2,
+      6
+    ]
+  ],
+  "comparedTwoLegalTwoMoveOrders": [
+    {
+      "P1MoveOneBased": 2,
+      "P0MoveOneBased": 7,
+      "resultantRank35Heights": [
+        6,
+        3,
+        6,
+        6,
+        6,
+        6,
+        2
+      ],
+      "P1NextImmediateWinningColumn": 2,
+      "P1NextWinningOriginalK4Line": [
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          4
+        ]
+      ],
+      "P0LatentWinningCellOneBased": [
+        2,
+        5
+      ],
+      "pairClockFromResult": "INCOMPLETE_PREEMPTED_BY_P1_VERTICAL_K4"
+    },
+    {
+      "P1MoveOneBased": 7,
+      "P0MoveOneBased": 2,
+      "resultantRank35Heights": [
+        6,
+        3,
+        6,
+        6,
+        6,
+        6,
+        2
+      ],
+      "P1NextImmediateWinningColumn": null,
+      "P0LatentWinningCellOneBased": [
+        2,
+        5
+      ],
+      "pairClockFromResult": "SOURCE_PROVED_P0_WIN",
+      "pairsInSafeReservoir": 2
+    }
+  ],
+  "sameHeights": true,
+  "samePhysicalP0LatentWinningSites": true,
+  "differentOwnerAssignments": true,
+  "mathematicalInterpretation": "The same two currently legal columns P1->P0 increment heights in either order to the IDENTICAL vector, and the same P0 rank35 latent one-missing win exists, but P1's earlier occupation of row3 in column2 enables P1 vertical firstwinning row4 (column2 rows1..4) before P0 may answer above. The other owner order does not. Source counterterminals and owner cofactor MUST accompany parity height phase; gravity pair quota and 42-cell scalar incidence alone cannot support P0 win certification.",
+  "evidenceType": "falsifier of height-only or generic commuting response pair interpretations; not proof the first rank33 state is P0 win or P1 win",
+  "sourceWitnessHistory": "historical issue41 original root-to-firstwin record line13, ONLY first33 plays used; history suffix not used in source comparison",
+  "independentPhysicalCheck": "generated 69 four-windows and physical firstwin on single legal actions",
+  "priorResearch": "docs/research/2026-10-19-frozen-two-column-latent-threat-pair-clock-source-theorem.md",
+  "productionSolverModified": false,
+  "qualifiedGameTheoryIsoGraph1_2Changed": false
+}
