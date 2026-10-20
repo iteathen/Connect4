@@ -1,5 +1,19 @@
 owner_20261020_K4_REGULAR_DIMENSION_WDL_DISCOVERY_SCOPE:
   priority: CURRENT
+  strong_optimal_27_vs_28_cardinality_audit_20261020:
+    historical_exact_line_IDs: 28
+    selected_distinct_optimal_witness_history_words: 27
+    duplicated_line_tagged_word_IDs: [41, 56]
+    if_dedup_history_keep_first_label_missing: 56
+    if_dedup_history_keep_last_label_missing: 41
+    real_simultaneous_terminal_K4_lines_in_shared_word: [35, 41, 53, 56]
+    original_terminal_last_cell_onebased: [6, 5]
+    all_27_history_actual_terminal_line_union: 28
+    full_census_histogram_completed_line_counts: {one: 19, two: 5, three: 2, four: 1}
+    evidence_scope: 'original W7H6 K4 literal physical firstwin replay; strong optimal scoring historical issue41, not rerun'
+    audit: docs/research/2026-10-20-audit-27-versus-28-optimal-firstwinning-line-identities.md
+    machine: research/isograph/discovery/2026-10-20-27-vs-28-audit/ORIGINAL_27_HISTORY_28_FIRSTWIN_LINE_ID_AUDIT_0_1.json
+    interpretation: '27 is the number of selected witness histories, NOT an alternative 27-line strong-optimal terminal set; keep strong28 held out of the source-only WDL formula'
   reason: "Short-axis W<5 or H<5 induces simple directional-window birth/death and pairing-regime transitions that confound higher-dimensional adaptive defense/WDL patterns."
   canonical_branch: research/semantic-quotient
   discovery_primary_K4: {min_W: 5, min_H: 5, K: 4}
