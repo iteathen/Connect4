@@ -1,0 +1,111 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "status": "PASS_INDEPENDENT_CPP_FULL_ORIGINAL_K4_TERMINAL_COLORING_TRANSFER_PLUS_4X4_BRUTE_CONTROL",
+  "frozenMath": "docs/research/2026-10-20-frozen-full-physical-draw-language-automaton-and-safety-to-win-composition.md",
+  "executableNodeReproduction": "research/isograph/discovery/2026-10-20-universal-phase-language/full-original-k4-draw-language-column-transfer.mjs",
+  "scope": "ALL fully colored original K4-free boards, including adjacent same-owner stones and nonstationary column phases; ORIGINAL physical horizontal, vertical, rising, falling, nonwrapped K4 winning sets. Static firstwinning-line avoidance, NOT game WDL and not schedule reachability.",
+  "exactTheorem": "Let alphabet A_H be all H-bit columns with no vertical monochrome 4-interval. Transition (a,b,c)->(b,c,d) permitted iff all real horizontal/rising/falling original K4 lines in these four columns are nonmonochrome. Sum products of transitions, weighting each column by z^(P0-owned site count), yields the EXACT generating polynomial Z_WH(z) for all K4-free fully colored true board cells.",
+  "exactBalanceCoefficient": "[z^ceil(W*H/2)] Z_WH(z) counts K4-free fully colored original boards with correct FINAL alternating P0/P1 stone counts; it is NOT necessarily gravity+turn reachable, only an upper bound on potential cooperative DRAW terminal colorings.",
+  "testedCounts": [
+    {
+      "W": 4,
+      "H": 4,
+      "staticAll": 16688,
+      "balanced": 5356
+    },
+    {
+      "W": 5,
+      "H": 4,
+      "staticAll": 124318,
+      "balanced": 37362
+    },
+    {
+      "W": 5,
+      "H": 5,
+      "staticAll": 1289076,
+      "balanced": 339543
+    },
+    {
+      "W": 5,
+      "H": 6,
+      "staticAll": 13745948,
+      "balanced": 3595514
+    },
+    {
+      "W": 6,
+      "H": 6,
+      "staticAll": 206014204,
+      "balanced": 49986108
+    },
+    {
+      "W": 7,
+      "H": 5,
+      "staticAll": 145974182,
+      "balanced": 34075872
+    },
+    {
+      "W": 7,
+      "H": 6,
+      "staticAll": 3152419330,
+      "balanced": 713305820
+    },
+    {
+      "W": 8,
+      "H": 6,
+      "staticAll": 47546802940,
+      "balanced": 10520898876
+    }
+  ],
+  "independence": {
+    "CplusplusImplementation": "Fresh independent std::vector H-bit words, all original window checks via four-column loop, Float64 exact integers only where W*H<=48 (all values <=2^48)",
+    "smallBrute": "Independent direct enumeration of ALL 65536 binary original 4x4 fully colored boards, explicit actual10 K4 windows, yielded total16688 and exact8-P0 balance5356, matching transfer exactly",
+    "original5x6_oracleWDLInput": false,
+    "maintainedNode26CI": false,
+    "formalProofAssistant": false
+  },
+  "original7x6": {
+    "totalAllOwnerNoK4StaticTerminals": 3152419330,
+    "exactlyBalancedBy21P0And21P1": 713305820,
+    "FibonacciRestrictedColumnAlternatingFinalColorings": 52,
+    "geometricExpansionBeyondFibonacciFactor": 13717419.615384616,
+    "highLevelInterpretation": "52 is a very narrow class. Nonalternating column layouts can ALSO be completely K4-free; opposite-player phase repair cannot be modeled by the restricted Fibonacci language alone."
+  },
+  "independentTrueDrawWithNonstationaryCenter": {
+    "oneBasedOriginal42MoveWord": "414121111222223333334444655555566666777777",
+    "firstMovesOneBased": "414",
+    "rank3BoardHasP0CellsOneBased": [
+      [
+        4,
+        1
+      ],
+      [
+        4,
+        2
+      ]
+    ],
+    "noOriginalK4FirstwinningAtAnyOf42ActualMoves": true,
+    "finalOriginalBoardHeights": [
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6
+    ],
+    "originalPhysical69WindowsGenerated": true,
+    "fullBoardP0Stones": 21,
+    "fullBoardP1Stones": 21,
+    "originalTerminatingResult": "DRAW",
+    "oldRestrictedFibonacciCompatiblePhasesAtRank3": 0,
+    "universalFullColoringExtensionsAtRank3": {
+      "staticAll": 363242652,
+      "staticBalanced": 80498171
+    },
+    "note": "This is an explicit genuine game-semantic counterexample to treating disappearance of restricted Fibonacci phase completions as no-DRAW-possible. It is a legal path under cooperative/nonoptimal choices; externally perfect 7x6 remains P0 forced WIN."
+  },
+  "exactCompositionalSignedWDLTheorem": "If a player p has a separately PROVED legal nonloss strategy preventing opponent firstwins from current q, AND the full original pinned static terminal-language balance coefficient D(q) equals 0, then p forces FIRSTWIN from q: no draws or opponent firstwins possible in this finite firstwinner-stopped game. This is dimension-general, guarded and exact, but does not furnish a source nonloss strategy or arbitrary-q WDL by itself.",
+  "nextExperiment": "Apply source pinned terminal-language coefficient D(q) to true 7x6 historic 27 P0 winning words, identify the EARLIEST rank at which NO even cooperative static full DRAW completion exists. It may be earlier than rank39 or never before terminal. Compare to full legal draw control without equating feasibility with winning strategy.",
+  "qualifier": "No production solver and no accepted IsoGraph1.2 game theory authority modifications."
+}
