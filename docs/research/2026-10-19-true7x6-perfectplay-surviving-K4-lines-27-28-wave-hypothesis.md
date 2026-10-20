@@ -1,5 +1,10 @@
 # TRUE W7 H6 K4: owner hypothesis of ≈27–28 surviving winning lines under perfect play — definitions, falsifiers, exact-oracle controls
 
+## SUPERSEDED SCOPE (2026-10-19): 28 already established by Sep14 issue #41
+
+This October 27/28 hypothesis test was framed as though NO previous EMPTY-root strong-optimal terminal winning-line census existed. That premise was false. Canonical C4-R0049, [issue #41](https://github.com/iteathen/Connect4/issues/41) and `docs/research/2026-09-14-optimal-28-oracle-incidence-audit.md` already prove and preserve **EXACTLY 28 DISTANCE-SENSITIVE STRONG-OPTIMAL FIRST-TERMINAL winning-line IDs** from the genuinely empty standard7x6 root, with 28 complete 41-move optimal witnesses. The different WDL-only tie criterion historically yields61. This document below remains valid ONLY as a narrower geometric U(s)/arbitrary-state test-control, NOT a new 27/28 root-survival investigation. See `docs/research/2026-10-19-RECOVERY-PERFECT-PLAY-28-WINNING-LINES-ALREADY-PROVEN.md`. The new discovery target is a NONSEARCH algebraic explanation of this already known support set, including FOUR-RIBBON owner interference, not its resampling.
+
+
 **Date:** 2026-10-19. **Research owner:** research/semantic-quotient. **Origin:** the owner proposes that game-causal P0/P1 cancellations eliminate many of the 69 actual original K4 winning lines; statistical analysis of perfect-play variants may reveal around **27 or 28 distinct surviving lines**, possibly resonating with an asymmetry/invariant in the unfolded owner-wave/interference representation. Treat 27/28 as an EXPLORATORY NUMERICAL HYPOTHESIS, not a calibration target or guaranteed mathematical constant. **All tests STRICT original W7,H6,K4 with gravity, alternating move ownership and FIRST-WIN STOP**. Seek broad statistics, geometric/stranded/dual-owner wave overlap, not merely tactical/defensive-obligation filtering.
 
 ## Three different survival concepts that MUST NOT be merged
