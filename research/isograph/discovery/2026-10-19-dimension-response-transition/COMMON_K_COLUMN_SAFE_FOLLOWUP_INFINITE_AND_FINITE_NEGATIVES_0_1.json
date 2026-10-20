@@ -1,0 +1,215 @@
+{
+  "schema": 1,
+  "date": "2026-10-19",
+  "scope": "source no labels; K4,5,6, W K..2K+1; sufficient crop H=K+4, infinite-height follower owner pattern",
+  "status": "PASS_INTERNAL_INDEPENDENT_GEOMETRIC_AND_REAL_GRAVITY_WITNESS",
+  "theorem": "For K>=4,W>=K the P0 single-bottom setup + immediate same-column upper mate prevents P1 firstwin on unbounded-height board iff opening belongs to common intersection of ALL K-column winning intervals",
+  "cases": 171,
+  "commonSets": 46,
+  "outsideSets": 125,
+  "p1HasWinInBulkCounterexamples": 125,
+  "mismatches": [],
+  "actualOriginalGravityP1FirstwinOutOfKernelWitnesses": 125,
+  "threeConnectionLengthGuardFalsifier": {
+    "W": 5,
+    "H": 6,
+    "K": 3,
+    "opening": 3,
+    "P1AttacksOneBased": [
+      2,
+      3,
+      4,
+      4
+    ],
+    "realLegalSequenceOneBased": [
+      3,
+      2,
+      2,
+      3,
+      3,
+      4,
+      4,
+      4
+    ],
+    "P1TerminalLines": [
+      [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          3,
+          2
+        ]
+      ]
+    ]
+  },
+  "firstTenCases": [
+    {
+      "K": 4,
+      "W": 4,
+      "c": 0,
+      "common": true,
+      "P1WinInInfFollowupPhase": false
+    },
+    {
+      "K": 4,
+      "W": 4,
+      "c": 1,
+      "common": true,
+      "P1WinInInfFollowupPhase": false
+    },
+    {
+      "K": 4,
+      "W": 4,
+      "c": 2,
+      "common": true,
+      "P1WinInInfFollowupPhase": false
+    },
+    {
+      "K": 4,
+      "W": 4,
+      "c": 3,
+      "common": true,
+      "P1WinInInfFollowupPhase": false
+    },
+    {
+      "K": 4,
+      "W": 5,
+      "c": 0,
+      "common": false,
+      "P1WinInInfFollowupPhase": true,
+      "legalAttackerWitness": {
+        "rootP0ColumnOneBased": 1,
+        "P1BottomColumnsOneBased": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "firstWinAtMove": 8,
+        "P1": true,
+        "allMovesOneBased": [
+          1,
+          2,
+          2,
+          3,
+          3,
+          4,
+          4,
+          5
+        ]
+      }
+    },
+    {
+      "K": 4,
+      "W": 5,
+      "c": 1,
+      "common": true,
+      "P1WinInInfFollowupPhase": false
+    },
+    {
+      "K": 4,
+      "W": 5,
+      "c": 2,
+      "common": true,
+      "P1WinInInfFollowupPhase": false
+    },
+    {
+      "K": 4,
+      "W": 5,
+      "c": 3,
+      "common": true,
+      "P1WinInInfFollowupPhase": false
+    },
+    {
+      "K": 4,
+      "W": 5,
+      "c": 4,
+      "common": false,
+      "P1WinInInfFollowupPhase": true,
+      "legalAttackerWitness": {
+        "rootP0ColumnOneBased": 5,
+        "P1BottomColumnsOneBased": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "firstWinAtMove": 8,
+        "P1": true,
+        "allMovesOneBased": [
+          5,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          4
+        ]
+      }
+    },
+    {
+      "K": 4,
+      "W": 6,
+      "c": 0,
+      "common": false,
+      "P1WinInInfFollowupPhase": true,
+      "legalAttackerWitness": {
+        "rootP0ColumnOneBased": 1,
+        "P1BottomColumnsOneBased": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "firstWinAtMove": 8,
+        "P1": true,
+        "allMovesOneBased": [
+          1,
+          2,
+          2,
+          3,
+          3,
+          4,
+          4,
+          5
+        ]
+      }
+    }
+  ],
+  "oneSampleOutside": {
+    "K": 4,
+    "W": 5,
+    "c": 0,
+    "common": false,
+    "P1WinInInfFollowupPhase": true,
+    "legalAttackerWitness": {
+      "rootP0ColumnOneBased": 1,
+      "P1BottomColumnsOneBased": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "firstWinAtMove": 8,
+      "P1": true,
+      "allMovesOneBased": [
+        1,
+        2,
+        2,
+        3,
+        3,
+        4,
+        4,
+        5
+      ]
+    }
+  },
+  "qualification": "Finite width+finite crop algebra and legal short counterexamples verify the frozen infinite-height P1 owner phase proof; no finite-height WDL or all-defensive-policy impossibility follows"
+}
