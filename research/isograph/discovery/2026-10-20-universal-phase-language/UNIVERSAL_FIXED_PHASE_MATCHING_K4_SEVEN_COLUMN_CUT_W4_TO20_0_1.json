@@ -1,0 +1,597 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "status": "PASS_GENERAL_FIXED_COMPLEMENTARY_PHASE_MATCHING_K4_CUT_W4_TO20",
+  "frozen": "docs/research/2026-10-20-frozen-universal-distance-two-phase-pair-cover-cut.md",
+  "sourceCode": "research/isograph/discovery/2026-10-20-universal-phase-language/verify-distance-two-matching-defense-cut-all-widths.mjs",
+  "theorem": "A disjoint complementary-column-phase pairing guarantees that every physical K4 four-column span is neither uniform nor strictly alternating iff every such span contains a paired pair of columns separated by two (same parity column indices). For W>=4 the minimum uncovered spans among ANY matching is max(0,ceil((W-6)/4)).",
+  "lowerProof": "Within every consecutive7-column block its four length4 windows cannot all be covered by disjoint distance2 pairs. Choose 7-column blocks with starts 0,4,8,... to demand distinct uncovered windows.",
+  "upperProof": "Choose matched distance2 pairs (4j+1,4j+3),(4j+2,4j+4) for all legal j. They are disjoint and cover all starts except 4j+3.",
+  "testedWidths": "4..20",
+  "independentlyRecomputedMinimumByDP": "PASS in separate Python DP, with W20 20734 DP states",
+  "W5": {
+    "allOpponentComplementaryPhasePatterns": 8,
+    "allK4Compatible": 8,
+    "pairsOneBased": [
+      [
+        1,
+        3
+      ],
+      [
+        2,
+        4
+      ]
+    ]
+  },
+  "W6": {
+    "allOpponentComplementaryPhasePatterns": 8,
+    "allK4Compatible": 8,
+    "pairsOneBased": [
+      [
+        1,
+        6
+      ],
+      [
+        2,
+        4
+      ],
+      [
+        3,
+        5
+      ]
+    ]
+  },
+  "W7": {
+    "allOpponentComplementaryPhasePatterns": 16,
+    "compatible": 12,
+    "violating": 4,
+    "pairsOneBased": [
+      [
+        1,
+        7
+      ],
+      [
+        2,
+        4
+      ],
+      [
+        3,
+        5
+      ]
+    ],
+    "exampleFailingPhaseWord": "0100101",
+    "uncoveredK4Window": "column4..7, alternating 0101"
+  },
+  "allWidths": [
+    {
+      "W": 4,
+      "physicalK4ColumnSpans": 1,
+      "minimumUnprotectedSpans": 0,
+      "constructedMatchedColumnPairsZeroBased": [
+        [
+          1,
+          3
+        ]
+      ],
+      "unprotectedStartsZeroBased": []
+    },
+    {
+      "W": 5,
+      "physicalK4ColumnSpans": 2,
+      "minimumUnprotectedSpans": 0,
+      "constructedMatchedColumnPairsZeroBased": [
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          4
+        ]
+      ],
+      "unprotectedStartsZeroBased": []
+    },
+    {
+      "W": 6,
+      "physicalK4ColumnSpans": 3,
+      "minimumUnprotectedSpans": 0,
+      "constructedMatchedColumnPairsZeroBased": [
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          4
+        ]
+      ],
+      "unprotectedStartsZeroBased": []
+    },
+    {
+      "W": 7,
+      "physicalK4ColumnSpans": 4,
+      "minimumUnprotectedSpans": 1,
+      "constructedMatchedColumnPairsZeroBased": [
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          4
+        ]
+      ],
+      "unprotectedStartsZeroBased": [
+        3
+      ]
+    },
+    {
+      "W": 8,
+      "physicalK4ColumnSpans": 5,
+      "minimumUnprotectedSpans": 1,
+      "constructedMatchedColumnPairsZeroBased": [
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          5,
+          7
+        ]
+      ],
+      "unprotectedStartsZeroBased": [
+        3
+      ]
+    },
+    {
+      "W": 9,
+      "physicalK4ColumnSpans": 6,
+      "minimumUnprotectedSpans": 1,
+      "constructedMatchedColumnPairsZeroBased": [
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          5,
+          7
+        ],
+        [
+          6,
+          8
+        ]
+      ],
+      "unprotectedStartsZeroBased": [
+        3
+      ]
+    },
+    {
+      "W": 10,
+      "physicalK4ColumnSpans": 7,
+      "minimumUnprotectedSpans": 1,
+      "constructedMatchedColumnPairsZeroBased": [
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          5,
+          7
+        ],
+        [
+          6,
+          8
+        ]
+      ],
+      "unprotectedStartsZeroBased": [
+        3
+      ]
+    },
+    {
+      "W": 11,
+      "physicalK4ColumnSpans": 8,
+      "minimumUnprotectedSpans": 2,
+      "constructedMatchedColumnPairsZeroBased": [
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          5,
+          7
+        ],
+        [
+          6,
+          8
+        ]
+      ],
+      "unprotectedStartsZeroBased": [
+        3,
+        7
+      ]
+    },
+    {
+      "W": 12,
+      "physicalK4ColumnSpans": 9,
+      "minimumUnprotectedSpans": 2,
+      "constructedMatchedColumnPairsZeroBased": [
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          5,
+          7
+        ],
+        [
+          6,
+          8
+        ],
+        [
+          9,
+          11
+        ]
+      ],
+      "unprotectedStartsZeroBased": [
+        3,
+        7
+      ]
+    },
+    {
+      "W": 13,
+      "physicalK4ColumnSpans": 10,
+      "minimumUnprotectedSpans": 2,
+      "constructedMatchedColumnPairsZeroBased": [
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          5,
+          7
+        ],
+        [
+          6,
+          8
+        ],
+        [
+          9,
+          11
+        ],
+        [
+          10,
+          12
+        ]
+      ],
+      "unprotectedStartsZeroBased": [
+        3,
+        7
+      ]
+    },
+    {
+      "W": 14,
+      "physicalK4ColumnSpans": 11,
+      "minimumUnprotectedSpans": 2,
+      "constructedMatchedColumnPairsZeroBased": [
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          5,
+          7
+        ],
+        [
+          6,
+          8
+        ],
+        [
+          9,
+          11
+        ],
+        [
+          10,
+          12
+        ]
+      ],
+      "unprotectedStartsZeroBased": [
+        3,
+        7
+      ]
+    },
+    {
+      "W": 15,
+      "physicalK4ColumnSpans": 12,
+      "minimumUnprotectedSpans": 3,
+      "constructedMatchedColumnPairsZeroBased": [
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          5,
+          7
+        ],
+        [
+          6,
+          8
+        ],
+        [
+          9,
+          11
+        ],
+        [
+          10,
+          12
+        ]
+      ],
+      "unprotectedStartsZeroBased": [
+        3,
+        7,
+        11
+      ]
+    },
+    {
+      "W": 16,
+      "physicalK4ColumnSpans": 13,
+      "minimumUnprotectedSpans": 3,
+      "constructedMatchedColumnPairsZeroBased": [
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          5,
+          7
+        ],
+        [
+          6,
+          8
+        ],
+        [
+          9,
+          11
+        ],
+        [
+          10,
+          12
+        ],
+        [
+          13,
+          15
+        ]
+      ],
+      "unprotectedStartsZeroBased": [
+        3,
+        7,
+        11
+      ]
+    },
+    {
+      "W": 17,
+      "physicalK4ColumnSpans": 14,
+      "minimumUnprotectedSpans": 3,
+      "constructedMatchedColumnPairsZeroBased": [
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          5,
+          7
+        ],
+        [
+          6,
+          8
+        ],
+        [
+          9,
+          11
+        ],
+        [
+          10,
+          12
+        ],
+        [
+          13,
+          15
+        ],
+        [
+          14,
+          16
+        ]
+      ],
+      "unprotectedStartsZeroBased": [
+        3,
+        7,
+        11
+      ]
+    },
+    {
+      "W": 18,
+      "physicalK4ColumnSpans": 15,
+      "minimumUnprotectedSpans": 3,
+      "constructedMatchedColumnPairsZeroBased": [
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          5,
+          7
+        ],
+        [
+          6,
+          8
+        ],
+        [
+          9,
+          11
+        ],
+        [
+          10,
+          12
+        ],
+        [
+          13,
+          15
+        ],
+        [
+          14,
+          16
+        ]
+      ],
+      "unprotectedStartsZeroBased": [
+        3,
+        7,
+        11
+      ]
+    },
+    {
+      "W": 19,
+      "physicalK4ColumnSpans": 16,
+      "minimumUnprotectedSpans": 4,
+      "constructedMatchedColumnPairsZeroBased": [
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          5,
+          7
+        ],
+        [
+          6,
+          8
+        ],
+        [
+          9,
+          11
+        ],
+        [
+          10,
+          12
+        ],
+        [
+          13,
+          15
+        ],
+        [
+          14,
+          16
+        ]
+      ],
+      "unprotectedStartsZeroBased": [
+        3,
+        7,
+        11,
+        15
+      ]
+    },
+    {
+      "W": 20,
+      "physicalK4ColumnSpans": 17,
+      "minimumUnprotectedSpans": 4,
+      "constructedMatchedColumnPairsZeroBased": [
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          5,
+          7
+        ],
+        [
+          6,
+          8
+        ],
+        [
+          9,
+          11
+        ],
+        [
+          10,
+          12
+        ],
+        [
+          13,
+          15
+        ],
+        [
+          14,
+          16
+        ],
+        [
+          17,
+          19
+        ]
+      ],
+      "unprotectedStartsZeroBased": [
+        3,
+        7,
+        11,
+        15
+      ]
+    }
+  ],
+  "warnings": [
+    "This is a GLOBAL width law for a RESTRICTED fixed complementary-column-phase pairing certificate, NOT a game-semantic universal defense/nonloss strategy.",
+    "Original W7H5 published DRAW and W8H6 published P1 WIN falsify inference U(W)>0 => P0 WIN.",
+    "No input from historical strong28 line IDs or externally solved labels in the formula.",
+    "No maintained Node26 CI or independent formal proof assistant; independent Python finite controls and analytic all-W proof."
+  ],
+  "solverChange": false,
+  "qualifiedGameTheoryChange": false
+}
