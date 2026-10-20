@@ -1,5 +1,10 @@
 # Owner correction: EXISTING qualified exact7x6 Oracle is primary for empty-root perfect-play measurements
 
+## OVERRIDDEN RESEARCH PRIORITY: historical EMPTY-root 28 already qualified
+
+This existing Oracle procedure remains a valid way to **independently re-solve** selected original states and validate new mathematical claims, but is NOT required to **discover** the count of all strong-optimal root terminal winlines. The September14 [issue #41](https://github.com/iteathen/Connect4/issues/41) already delivered exact 28 first-terminal P0 line identities (12V+8H+8 diagonals) with a geometric upper bound and 28 full distance-optimal witnesses. The October cold root 200k/4m node cap failures were simply unfinished redundant recomputations. See `docs/research/2026-10-19-RECOVERY-PERFECT-PLAY-28-WINNING-LINES-ALREADY-PROVEN.md`. Study the 28-line vs 28-dimensional core `2+20+6` relation and true unfolded-fourway wave invariants; do not reframe known 28 as unmeasured.
+
+
 **Date:** 2026-10-19. **Owner instruction:** “Can we use our existing Oracle instead?” **Decision: YES.** Scope stays original standard W7,H6,K4; both players' moves must be proven optimal beginning at the literal empty board, stopping on the first original win/draw. Research branch: `research/semantic-quotient`. Existing IsoGraph1.2/gameplay/production source unchanged.
 
 ## 1. What is already in this repository
