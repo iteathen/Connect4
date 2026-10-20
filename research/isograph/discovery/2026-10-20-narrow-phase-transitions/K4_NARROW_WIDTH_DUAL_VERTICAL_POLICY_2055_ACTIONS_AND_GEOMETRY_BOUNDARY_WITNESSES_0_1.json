@@ -1,0 +1,201 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "status": "PASS_INTERNAL_ORIGINAL_PHYSICAL_FIRSTWIN_AND_EIGHT_W3_DUAL_POLICY_EXHAUSTIVE_CONTROLS",
+  "protocol": "docs/research/2026-10-20-narrow-width-3-4-and-height-3-4-transition-frozen.md",
+  "reproducibleRunner": "research/isograph/discovery/2026-10-20-narrow-phase-transitions/independent-original-vertical-horizontal-response-policy-controls.mjs",
+  "game": {
+    "K": 4,
+    "originalGravity": true,
+    "alternatingP0First": true,
+    "firstWinStops": true,
+    "noCyclicWinlines": true
+  },
+  "sourceTheorem": "docs/research/2026-10-18-arbitrary-k-narrow-width-exact-draw-response-theorem.md",
+  "W3VerticalPolicy": {
+    "description": "Defender P0 (first move c1) or P1 (after P0 initial action); whenever attacker first claims lower of an available standard (r0,r1),(r2,r3),... pair, defender immediately claims upper member. Otherwise defender takes leftmost currently legal cell; attacker cannot own both members of a pair, hence cannot win vertically for K4; width3 has zero horizontal/diagonal K4 windows.",
+    "tests": [
+      {
+        "H": 5,
+        "D": 0,
+        "states": 64,
+        "actions": 127,
+        "draw": 23,
+        "Dwin": 0
+      },
+      {
+        "H": 5,
+        "D": 1,
+        "states": 89,
+        "actions": 170,
+        "draw": 15,
+        "Dwin": 0
+      },
+      {
+        "H": 6,
+        "D": 0,
+        "states": 96,
+        "actions": 186,
+        "draw": 16,
+        "Dwin": 0
+      },
+      {
+        "H": 6,
+        "D": 1,
+        "states": 63,
+        "actions": 144,
+        "draw": 3,
+        "Dwin": 0
+      },
+      {
+        "H": 7,
+        "D": 0,
+        "states": 164,
+        "actions": 324,
+        "draw": 41,
+        "Dwin": 0
+      },
+      {
+        "H": 7,
+        "D": 1,
+        "states": 204,
+        "actions": 404,
+        "draw": 24,
+        "Dwin": 0
+      },
+      {
+        "H": 8,
+        "D": 0,
+        "states": 200,
+        "actions": 400,
+        "draw": 25,
+        "Dwin": 0
+      },
+      {
+        "H": 8,
+        "D": 1,
+        "states": 124,
+        "actions": 300,
+        "draw": 3,
+        "Dwin": 0
+      }
+    ],
+    "totalIndividuallyCheckedAttackerChoices": 2055,
+    "distinctSourceStateRootsCheckedAcrossControls": 1004,
+    "totalEarlyAttackerWins": 0,
+    "sourceWDLConsequence": "exact empty-root DRAW for W3 any positive height by BOTH dual independent policy certificates, not inferred from these bounded tests alone"
+  },
+  "actualPhysicalPolicyBoundaryCounterexamples": [
+    {
+      "board": [
+        4,
+        4,
+        4
+      ],
+      "originalMovesOneBased": "1122334",
+      "firstWinner": "P0",
+      "firstWinnerAbsoluteMove": 7,
+      "realWinningCellsOneBased": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          1
+        ]
+      ],
+      "counterTo": "P1 using vertical upper-mate response alone; becomes insufficient at W=4 because a horizontal K4 line exists"
+    },
+    {
+      "board": [
+        5,
+        4,
+        4
+      ],
+      "originalMovesOneBased": "12233445",
+      "firstWinner": "P1",
+      "firstWinnerAbsoluteMove": 8,
+      "realWinningCellsOneBased": [
+        [
+          2,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          5,
+          1
+        ]
+      ],
+      "counterTo": "P0 opening c1 then same-column upper mating P1; W5 adds second horizontal K4 span avoiding c1"
+    },
+    {
+      "board": [
+        4,
+        4,
+        4
+      ],
+      "originalMovesOneBased": "1212121",
+      "firstWinner": "P0",
+      "firstWinnerAbsoluteMove": 7,
+      "realWinningCellsOneBased": [
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          4
+        ]
+      ],
+      "counterTo": "P1 following P0's one-column build with same-row mate in neighboring column; at H4 vertical K4 first appears"
+    },
+    {
+      "board": [
+        4,
+        3,
+        4
+      ],
+      "originalMovesOneBased": "121212",
+      "firstWinner": null,
+      "firstWinnerAbsoluteMove": null,
+      "realWinningCellsOneBased": [],
+      "counterTo": "Negative height-control prefix has no vertical 4-window at H3; the next fourth lower-column move is physically illegal"
+    }
+  ],
+  "guardedConclusions": [
+    "W4 vs W3: on H>=4, horizontal K4 lines are newly present, so vertical-only pair defense not complete",
+    "W5 vs W4: second overlapping K4 column span appears, so a first-column P0 marker no longer hits all original horizontal K4 spans",
+    "H4 vs H3: actual vertical K4 lines appear at H4, so horizontal-only same-row response can fail",
+    "Individual losing fixed-policy trajectories DO NOT imply perfect play has that losing outcome",
+    "W4 and W5 published H4..13 perfect-play DRAW still possible under more sophisticated defense",
+    "One vertical/horizontal directional policy is not a total source WDL solver for mixed-direction boards"
+  ],
+  "oracleWinLossDrawUsedAsSourceInput": false,
+  "independentFormalQualification": false,
+  "qualifiedGameplayChanged": false,
+  "solverChanged": false
+}
