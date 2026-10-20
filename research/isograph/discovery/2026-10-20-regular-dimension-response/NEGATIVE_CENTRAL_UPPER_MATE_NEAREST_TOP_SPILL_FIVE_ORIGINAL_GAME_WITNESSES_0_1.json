@@ -1,0 +1,198 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "status": "FAIL_FROZEN_SIMPLE_P0_POLICY_ALL_FIVE_REGULAR_BOARDS_P1_FIRSTWIN",
+  "governingFreeze": "docs/research/2026-10-20-regular-W5-H6-P0-fixed-response-finite-pair-spill-frozen.md",
+  "reproducibleSource": "research/isograph/discovery/2026-10-20-regular-dimension-response/standard-k4-central-mate-nearest-top-spill-source.mjs",
+  "sourcePolicy": "P0 opens center. On each actual P1 action P0 first takes any original immediately winning P0 physical K4 landing, otherwise immediately above same-column P1 if legal, otherwise chooses legal TOP spill nearest center (tie smaller column). No game oracle or future value consulted.",
+  "game": "ORIGINAL K4 gravity alternating P0 first, FIRSTWIN stops",
+  "initialIndependentJSFixedPolicyControl": {
+    "5x5": {
+      "physicalStatesPriorToCounterexample": 197,
+      "P1AlternativesConsidered": 543
+    },
+    "5x6": {
+      "physicalStatesPriorToCounterexample": 104,
+      "P1AlternativesConsidered": 246
+    },
+    "5x8": {
+      "physicalStatesPriorToCounterexample": 303,
+      "P1AlternativesConsidered": 785
+    },
+    "6x6": {
+      "physicalStatesPriorToCounterexample": 79,
+      "P1AlternativesConsidered": 190
+    },
+    "7x6": {
+      "physicalStatesPriorToCounterexample": 273,
+      "P1AlternativesConsidered": 710
+    }
+  },
+  "independentPythonOriginalFourDirectionWindowAndPolicyReplay": "PASS for all five: each is legally alternating, original gravity, all intermediate moves firstwin-free, final P1 firstwins, each P0 action agrees with frozen source policy",
+  "independentFirstWinWitnesses": [
+    {
+      "W": 5,
+      "H": 5,
+      "sequence": "355554444333352421122211",
+      "originalP1FirstwinningPly": 24,
+      "P1WinningK4CellsOneBased": [
+        [
+          1,
+          4
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          4,
+          1
+        ]
+      ],
+      "topSpills": 3,
+      "firstTopSpill": {
+        "P0ply": 15,
+        "P1LastColumn": 5,
+        "P0SpillColumn": 2,
+        "P0SpillRow": 1
+      }
+    },
+    {
+      "W": 5,
+      "H": 6,
+      "sequence": "3555555444433332211223224411",
+      "originalP1FirstwinningPly": 28,
+      "P1WinningK4CellsOneBased": [
+        [
+          1,
+          4
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          4,
+          1
+        ]
+      ],
+      "topSpills": 3,
+      "firstTopSpill": {
+        "P0ply": 23,
+        "P1LastColumn": 3,
+        "P0SpillColumn": 2,
+        "P0SpillRow": 5
+      }
+    },
+    {
+      "W": 5,
+      "H": 8,
+      "sequence": "355555555444433333322112232222444411",
+      "originalP1FirstwinningPly": 36,
+      "P1WinningK4CellsOneBased": [
+        [
+          1,
+          4
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          4,
+          1
+        ]
+      ],
+      "topSpills": 3,
+      "firstTopSpill": {
+        "P0ply": 27,
+        "P1LastColumn": 3,
+        "P0SpillColumn": 2,
+        "P0SpillRow": 5
+      }
+    },
+    {
+      "W": 6,
+      "H": 6,
+      "sequence": "3666666555555443344332211223224411",
+      "originalP1FirstwinningPly": 34,
+      "P1WinningK4CellsOneBased": [
+        [
+          1,
+          4
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          4,
+          1
+        ]
+      ],
+      "topSpills": 3,
+      "firstTopSpill": {
+        "P0ply": 29,
+        "P1LastColumn": 3,
+        "P0SpillColumn": 2,
+        "P0SpillRow": 5
+      }
+    },
+    {
+      "W": 7,
+      "H": 6,
+      "sequence": "4777777666666554455443322334335522",
+      "originalP1FirstwinningPly": 34,
+      "P1WinningK4CellsOneBased": [
+        [
+          2,
+          4
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          5,
+          1
+        ]
+      ],
+      "topSpills": 3,
+      "firstTopSpill": {
+        "P0ply": 29,
+        "P1LastColumn": 4,
+        "P0SpillColumn": 3,
+        "P0SpillRow": 5
+      }
+    }
+  ],
+  "physicalCausalObservation": "W5H6 original P1 already has a LIVE diagonal K4 singleton at physical c1r4 before n22, latent directly above currently accessible c1r3. P0 lasttop-spill sequence c2r5 then c4r5 then c1r3 forces P1 c1r4 at ply28. The SIMPLE policy cannot certify P0 nonloss even though published EMPTY 5x6 is DRAW.",
+  "importantDistinctions": [
+    "Failure of this ONE deterministic P0 upper-mate plus nearest-top-spill response does NOT imply P1 can win against other P0 responses from empty; externally exact 5x6 root value is DRAW.",
+    "Original q after n22 W5H6 turns out to satisfy a separately FROZEN NEW multi-column responder P1 forcedwin SOURCE theorem against ALL P0 moves, not just under original simple P0 policy.",
+    "The attacker-winning diagonal is real firstwinner and reflects owner-phase seam after TOP spills; cannot be deduced from bare height counts alone.",
+    "No full minimax was performed to choose a different response policy; adversarial verification branched only the P1 actions against one frozen P0 policy."
+  ],
+  "qualifiedIsoGraphTheoryModified": false,
+  "productionSolversModified": false
+}
