@@ -1,3 +1,73 @@
+owner_true7x6_web_solved_data_first_20261019:
+  owner: research/semantic-quotient
+  date: "2026-10-19"
+  owner_request: >-
+    Stop re-solving full original empty board from scratch for
+    empirical perfect-play evidence. Look up and use existing
+    externally solved 7x6 K4 book/strong tables. Any perfect
+    sampling must begin from literal empty board and qualify
+    EVERY P0/P1 move against exact source data.
+  canonical_research_doc: docs/research/2026-10-19-EXTERNAL-SOLVED-DATA-FIRST-EMPTYROOT-PERFECT-PLAY-RESEARCH.md
+  exact_original_game:
+    width: 7
+    height: 6
+    connect: 4
+    gravity: true
+    alternating_ownership: true
+    first_win_stops: true
+    other_board_dimensions_and_K: FORBIDDEN
+  external_authoritative_options:
+    practical_fast_first:
+      solver: https://github.com/PascalPons/connect4
+      release: https://github.com/PascalPons/connect4/releases/tag/book
+      main_book_url: https://github.com/PascalPons/connect4/releases/download/book/7x6.book
+      main_book_bytes: 33554524
+      main_book_asset_id: 10766475
+      small_book_url: https://github.com/PascalPons/connect4/releases/download/book/7x6_small.book
+      small_book_bytes: 6291513
+      exact_interface: "Pons C++ compiled solver -a (per-column exact strong score) -b FILE and STDIN column history, supports empty line"
+      caveat: "Opening book covers partial game; solver may still search uncovered later positions."
+    complete_WDL_BDD:
+      dataset: https://zenodo.org/records/14582823
+      paper: https://arxiv.org/abs/2507.05267
+      repo: https://github.com/markus7800/Connect4-Strong-Solver
+      compressed_archive_size: "46.8 GB"
+      compressed_archive_md5: 59750231c1131ee352a8bda03f231aea
+      published_raw_lookup_size: "89.6 GB"
+      interface: "wdl_w7_h6.out solution_w7_h6/ <original move word> outputs per-column W/D/L"
+      caveat: "WDL-class perfect play not necessarily fastest-win/slowest-loss; full DTM requires separate search."
+    independent_provenance:
+      tromp: https://tromp.github.io/c4/c4.html
+  current_execution:
+    external_book_materialized: false
+    external_BDD_materialized: false
+    perfect_empty_root_complete_games_produced: 0
+    last_cold_root_attempt: "200000 and 4000000 nodes both INCOMPLETE"
+    do_not_substitute_158_midgame_or_30_late_conditional_samples: true
+  next_required_run: >-
+    In a connected runtime, download and verify Pascal Pons
+    official 7x6.book file and query compiled original solver
+    seven per-action strong scores for literal empty input.
+    Then repeatedly re-query at EVERY subsequent original
+    legal prefix, select only exact optimal actions, explore
+    tie variations, STOP at actual first K4 win, and record
+    full scores/provenance/histories. As separate robust option,
+    mount the full Zenodo WDL BDD for arbitrarily complete
+    no-resolve WDL-class move queries. Keep source mathematics
+    separate from outcome teacher. At each verified ply compute
+    69 true K4 live-window U/L0/L1/S/D after unfolding FIRST;
+    across complete root-perfect games also compute UNION
+    of distinct original winning line IDs (potential 27/28
+    hypothesis), and overlay owner Fourier modes without
+    fitting dimensions to estimate.
+  scope_limits:
+    downloaded_published_solution_not_new_theorem: true
+    27_28_hypothesis_unresolved: true
+    prior_cold_oracle_root_not_qualified: true
+    source_algorithmic_no_search_WDL_still_open: true
+    qualified_IsoGraph_1_2_unchanged: true
+    solver_main_unmodified: true
+
 owner_true7x6_unfold_first_fourier_20261019:
   research_owner: research/semantic-quotient
   current_date: "2026-10-19"
