@@ -1,0 +1,581 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "status": "PASS_POSTFROZEN_COHORT_SCOPE_AND_COUNTS_WITH_MISSING_LABELS_UNIMPUTED",
+  "ownerMethod": "Discover K4 board-dimension WDL laws primarily where W>=5,H>=5; compare shoulder and strict interior; W<5 OR H<5 reserved for geometric controls/falsification",
+  "mathematicalGeneralization": "For K4 regular means W,H>=K+1; strict interior means W,H>=K+2. For changing K, preserve relative thresholds.",
+  "protocol": "docs/research/2026-10-20-regular-domain-WDL-discovery-filter.md",
+  "source": {
+    "path": "research/isograph/discovery/2026-10-18-board-dimension-outcomes/SOLVED_K4_EMPTY_BOARD_WIDTH_HEIGHT_CENSUS_0_1.json",
+    "originalRepository": "ChristopheSteininger/c4",
+    "pinnedCommit": "fa27f186d2f1bf8e8fd61bfad63454c6e4b0431c",
+    "pinnedReadmeBlob": "274cb47fef75252c637b07982c96ad3cb2314aa9"
+  },
+  "fullInputGrid": {
+    "widths": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "heights": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "publishedCoding": {
+      "P0": 1,
+      "DRAW": 0,
+      "P1": -1,
+      "notReported": null
+    }
+  },
+  "cohorts": [
+    {
+      "name": "short_axis_control",
+      "criterion": "W<5 OR H<5",
+      "allWithinPinnedRectangle": 18,
+      "published": 18,
+      "counts": {
+        "P0_win": 0,
+        "Draw": 12,
+        "P1_win": 6,
+        "Unreported": 0
+      },
+      "publishedBoards": [
+        [
+          4,
+          4,
+          0
+        ],
+        [
+          5,
+          4,
+          0
+        ],
+        [
+          6,
+          4,
+          -1
+        ],
+        [
+          7,
+          4,
+          0
+        ],
+        [
+          8,
+          4,
+          -1
+        ],
+        [
+          9,
+          4,
+          -1
+        ],
+        [
+          10,
+          4,
+          -1
+        ],
+        [
+          11,
+          4,
+          -1
+        ],
+        [
+          12,
+          4,
+          -1
+        ],
+        [
+          4,
+          5,
+          0
+        ],
+        [
+          4,
+          6,
+          0
+        ],
+        [
+          4,
+          7,
+          0
+        ],
+        [
+          4,
+          8,
+          0
+        ],
+        [
+          4,
+          9,
+          0
+        ],
+        [
+          4,
+          10,
+          0
+        ],
+        [
+          4,
+          11,
+          0
+        ],
+        [
+          4,
+          12,
+          0
+        ],
+        [
+          4,
+          13,
+          0
+        ]
+      ]
+    },
+    {
+      "name": "regular_discovery",
+      "criterion": "W>=5 AND H>=5",
+      "allWithinPinnedRectangle": 72,
+      "published": 34,
+      "counts": {
+        "P0_win": 14,
+        "Draw": 13,
+        "P1_win": 7,
+        "Unreported": 38
+      },
+      "publishedBoards": [
+        [
+          5,
+          5,
+          0
+        ],
+        [
+          6,
+          5,
+          0
+        ],
+        [
+          7,
+          5,
+          0
+        ],
+        [
+          8,
+          5,
+          1
+        ],
+        [
+          9,
+          5,
+          1
+        ],
+        [
+          10,
+          5,
+          1
+        ],
+        [
+          11,
+          5,
+          1
+        ],
+        [
+          5,
+          6,
+          0
+        ],
+        [
+          6,
+          6,
+          -1
+        ],
+        [
+          7,
+          6,
+          1
+        ],
+        [
+          8,
+          6,
+          -1
+        ],
+        [
+          9,
+          6,
+          -1
+        ],
+        [
+          10,
+          6,
+          1
+        ],
+        [
+          5,
+          7,
+          0
+        ],
+        [
+          6,
+          7,
+          1
+        ],
+        [
+          7,
+          7,
+          0
+        ],
+        [
+          8,
+          7,
+          1
+        ],
+        [
+          9,
+          7,
+          1
+        ],
+        [
+          5,
+          8,
+          0
+        ],
+        [
+          6,
+          8,
+          -1
+        ],
+        [
+          7,
+          8,
+          1
+        ],
+        [
+          8,
+          8,
+          -1
+        ],
+        [
+          5,
+          9,
+          0
+        ],
+        [
+          6,
+          9,
+          1
+        ],
+        [
+          7,
+          9,
+          0
+        ],
+        [
+          8,
+          9,
+          1
+        ],
+        [
+          5,
+          10,
+          0
+        ],
+        [
+          6,
+          10,
+          -1
+        ],
+        [
+          7,
+          10,
+          1
+        ],
+        [
+          5,
+          11,
+          0
+        ],
+        [
+          6,
+          11,
+          1
+        ],
+        [
+          5,
+          12,
+          0
+        ],
+        [
+          6,
+          12,
+          -1
+        ],
+        [
+          5,
+          13,
+          0
+        ]
+      ]
+    },
+    {
+      "name": "shoulder",
+      "criterion": "W>=5 AND H>=5 AND (W=5 OR H=5)",
+      "allWithinPinnedRectangle": 16,
+      "published": 15,
+      "counts": {
+        "P0_win": 4,
+        "Draw": 11,
+        "P1_win": 0,
+        "Unreported": 1
+      },
+      "publishedBoards": [
+        [
+          5,
+          5,
+          0
+        ],
+        [
+          6,
+          5,
+          0
+        ],
+        [
+          7,
+          5,
+          0
+        ],
+        [
+          8,
+          5,
+          1
+        ],
+        [
+          9,
+          5,
+          1
+        ],
+        [
+          10,
+          5,
+          1
+        ],
+        [
+          11,
+          5,
+          1
+        ],
+        [
+          5,
+          6,
+          0
+        ],
+        [
+          5,
+          7,
+          0
+        ],
+        [
+          5,
+          8,
+          0
+        ],
+        [
+          5,
+          9,
+          0
+        ],
+        [
+          5,
+          10,
+          0
+        ],
+        [
+          5,
+          11,
+          0
+        ],
+        [
+          5,
+          12,
+          0
+        ],
+        [
+          5,
+          13,
+          0
+        ]
+      ]
+    },
+    {
+      "name": "strict_interior",
+      "criterion": "W>=6 AND H>=6",
+      "allWithinPinnedRectangle": 56,
+      "published": 19,
+      "counts": {
+        "P0_win": 10,
+        "Draw": 2,
+        "P1_win": 7,
+        "Unreported": 37
+      },
+      "publishedBoards": [
+        [
+          6,
+          6,
+          -1
+        ],
+        [
+          7,
+          6,
+          1
+        ],
+        [
+          8,
+          6,
+          -1
+        ],
+        [
+          9,
+          6,
+          -1
+        ],
+        [
+          10,
+          6,
+          1
+        ],
+        [
+          6,
+          7,
+          1
+        ],
+        [
+          7,
+          7,
+          0
+        ],
+        [
+          8,
+          7,
+          1
+        ],
+        [
+          9,
+          7,
+          1
+        ],
+        [
+          6,
+          8,
+          -1
+        ],
+        [
+          7,
+          8,
+          1
+        ],
+        [
+          8,
+          8,
+          -1
+        ],
+        [
+          6,
+          9,
+          1
+        ],
+        [
+          7,
+          9,
+          0
+        ],
+        [
+          8,
+          9,
+          1
+        ],
+        [
+          6,
+          10,
+          -1
+        ],
+        [
+          7,
+          10,
+          1
+        ],
+        [
+          6,
+          11,
+          1
+        ],
+        [
+          6,
+          12,
+          -1
+        ]
+      ]
+    }
+  ],
+  "focals": [
+    {
+      "W": 6,
+      "H": 6,
+      "outcome": -1,
+      "sourceRole": "strict_interior_P1_win"
+    },
+    {
+      "W": 7,
+      "H": 6,
+      "outcome": 1,
+      "sourceRole": "strict_interior_P0_win"
+    },
+    {
+      "W": 8,
+      "H": 6,
+      "outcome": -1,
+      "sourceRole": "strict_interior_P1_win"
+    },
+    {
+      "W": 7,
+      "H": 5,
+      "outcome": 0,
+      "sourceRole": "shoulder_draw_height_threshold"
+    },
+    {
+      "W": 7,
+      "H": 4,
+      "outcome": 0,
+      "sourceRole": "excluded_boundary_draw_not_fitting_input"
+    },
+    {
+      "W": 10,
+      "H": 6,
+      "outcome": 1,
+      "sourceRole": "strict_interior_P0_win_despite_no_common_K4_column"
+    }
+  ],
+  "constraints": [
+    "Published tabulation is nonrandom, incomplete, and dependent; cohort proportions are descriptive only, not probabilities or statistical inference.",
+    "Blank published table cells are Unreported, NOT zero/DRAW and NOT proven unsolved.",
+    "The cohort restriction is for discovering a robust response law; smaller boards must still be explained by a later complete piecewise source-WDL formula.",
+    "The 28 historical distance-sensitive terminal K4 line IDs are held-back validation only, never source features.",
+    "Window line birth at W=4,H=4 explains different policy classes, not exact winner by itself."
+  ],
+  "sourceOnlyGameValueLawDiscovered": false,
+  "solverChanged": false,
+  "qualifiedIsoGraphGameTheoryChanged": false
+}
