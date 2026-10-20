@@ -1,3 +1,45 @@
+owner_true7x6_EXISTING_exact_oracle_primary_20261019:
+  owner_explicit_override: "Can we use our existing Oracle instead? YES"
+  priority: CURRENT
+  board: {W: 7, H: 6, K: 4, first_win_stops: true}
+  canonical_research: docs/research/2026-10-19-EXISTING-ORACLE-PRIMARY-EMPTYROOT-PERFECT-PLAY.md
+  exact_existing_implementation: components/oracle/exact7x6.mjs
+  accepted_external_calibration: docs/specs/C4-0005-solved-strength-oracle-v1.md
+  approved_root_perfect_campaign: research/isograph/discovery/2026-10-19-true7x6-quantum-algebra/independent-true7x6-EMPTYROOT-exact-oracle-perfect-play-campaign.mjs
+  root_only_allowed_initial_history: ""
+  every_both_player_action_must_be_exact_optimal: true
+  exact_empty_root_mirror_classes:
+    - [1, 7]
+    - [2, 6]
+    - [3, 5]
+    - [4]
+  exact_root_computation: "Within ONE Oracle instance v_j=-oracle.solveSequence(String(j)) for j1..4, then [v1,v2,v3,v4,v3,v2,v1]; do not treat unresolved class as scored."
+  subsequent_moves: "Oracle.analyzeSequence(currentActualHistory), select argmax legal strong-score actions; retain same table object; first-winning physical line stops game."
+  reproducible_seed_use: "Only tie break among exact maximizing columns; never handcraft initial states or earlier moves."
+  important_observables:
+    - "69 original K4 line E,P0only,P1only,DeadBoth,U,L0,L1,S after genuine 37-ribbon geometry-first owner overlay"
+    - "At least one original root-perfect terminal physical history with all 7 strong per-action scores saved every ply"
+    - "Union of first-winning K4 original line IDs ACROSS verified root-perfect tie histories, distinct from per-position geometric U; investigate 27/28 without forcing fit."
+  existing_research_status:
+    cold_empty_root_initial_full_vector: INCOMPLETE
+    root_optimal_terminal_histories_completed: 0
+    prior_cold_budget_attempts: [200000, 4000000]
+    new_four_class_optimization_tested_by_real_symmetry: true
+    external_book_or_BDD_required: false
+    Pascal_Pons_book_or_Bock_BDD: OPTIONAL_ACCELERATION_OR_INDEPENDENT_CROSSCHECK
+    qualified_IsoGraph_1_2_unchanged: true
+    production_solver_unmodified: true
+    algebraic_nonsearch_WDL_target_still_open: true
+  next_execution: >-
+    Execute approved original empty-root Oracle campaign within an
+    explicit resource budget, checkpoint each completed exact root
+    mirror-class score and reuse the SAME transposition table across
+    children and whole subsequent game. Do not claim perfect play
+    until all four root class scores AND every subsequent action
+    strong-score vector is complete. If resource exhausted,
+    preserve INCOMPLETE and consider optional published book.
+  earlier_web_book_first_priority: SUPERSEDED_BY_OWNER_CHOICE
+
 owner_true7x6_web_solved_data_first_20261019:
   owner: research/semantic-quotient
   date: "2026-10-19"
