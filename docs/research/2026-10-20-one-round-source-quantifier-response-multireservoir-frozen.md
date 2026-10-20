@@ -1,0 +1,15 @@
+# Frozen source-only one-round opponent-response quantifier macro for P0 WIN on original7x6 K4
+
+Date 2026-10-20. Research owner research/semantic-quotient. This is a direct strictly bounded one-round strengthening of already verified single-fixed-response current-label source closure. It must NOT be confused with an unbounded minimax game tree or a total zero-strategic-branching q WDL formula.
+
+At original nonterminal true 7x6K4 q with P1 to move (odd occupied rank n<=37), let L(q) be physically legal CURRENT P1 actions. Define the SOURCE terminal-current-pair predicate C(q,a,b), for P1 a followed by P0 b, from actual original 69 K4 one-cell owner cofactor, legal gravity, firstwin chronology and exact already frozen source-proved terminal sufficient predicates:
+- Reject if P1 firstwins on action a before any P0 response.
+- If P0 can legally drop b and FIRSTWIN now, C=true.
+- Otherwise build the ORIGINAL post-two owner source cofactor q_ab (single bounded P1/P0 pair, NOT a recursive WDL computation), and return C=true only when the SOURCE exact immediate universal exposure Z(q_ab)=1 OR the exact role-agnostic MULTI-RESERVOIR latent-terminal source theorem proves responder P0 WIN (D=P1 to move).
+- If source cannot prove either, C=false/unknown for this specific pair, NOT a game-loss label.
+
+Define source-one-round sufficient P0 winning condition R(q)=PRODUCT_{a∈L(q)}[OR_{b∈L(q_after_P1a)} C(q,a,b)]. A true R proves P0 firstwins from CURRENT q under an online policy choosing the smallest certified original P0 b after observing a, with all P1 current actions admitted. Each leaf is an already mathematically proved source absorbing win macro, not an Oracle value or recursively evaluated alternative future game. A false R returns INCOMPLETE (not P1 winner).
+
+This variant permits P0's ONE physically observed first response to vary with the actually observed P1 a; it checks at most 7x7 bounded ORIGINAL literal current-pair cofactors, and never recurses the same R into later q. This relaxes prior need for ONE b that covers every a. It does NOT eliminate the algebraic opponent-action quantifier; its calculation remains bounded pair-case work, distinct from the desired eventual total non-search WDL expression.
+
+Frozen tests: true original archive 28 strong terminal line witnesses/27 unique 41-ply histories at odd P1 ranks1,3,...,37, using only literal prefixes as source input (no known best move or terminal line ID inside source). Preserve histogram of positive roots and first positive rank; compare existing fixed-b rank33=1, rank35=2, rank37=8, and new role-independent multi-reservoir standalone rank35=8. Validate every positive a/b with independent original directional ray and source-macro guard and the draw-only legal 42-ply negative control. If no new rank31 or earlier positives, record evidence and STOP expanding bounded one-round action-pair enumeration; pursue a genuinely new all-depth response compatibility invariant rather than more search disguised as source algebra.
