@@ -1,0 +1,3994 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "scope": "Original nonwrap finite grid all four K4 orientations, 64 1..8 parameter pairs plus 48 K3/K5/K6 controls",
+  "status": "PASS_SOURCE_WINDOW_TOPOLOGY_COUNTS_PAIR_BUDGET_112_PARAMETER_PAIRS",
+  "frozenDefinitions": "docs/research/2026-10-20-narrow-width-3-4-and-height-3-4-transition-frozen.md",
+  "sourceCode": "research/isograph/discovery/2026-10-20-narrow-phase-transitions/source-k4-width-height-incidence-response-filtration.mjs",
+  "sampleCases": 64,
+  "crossKControls": 48,
+  "counters": [
+    {
+      "condition": "W<K,H<K",
+      "winningDirections": "none",
+      "nontrivialComponents": 0,
+      "gameConclusion": "DRAW trivially because no K-windows"
+    },
+    {
+      "condition": "W<K,H>=K",
+      "winningDirections": "vertical only",
+      "nontrivialComponents": "W",
+      "gameConclusion": "DRAW by independently proved BOTH-player gravity vertical adjacent-pair responder for K>=3"
+    },
+    {
+      "condition": "W>=K,H<K",
+      "winningDirections": "horizontal only",
+      "nontrivialComponents": "H",
+      "gameConclusion": "NOT AUTOMATIC exact WDL; global turn/vertical gravity response interface remains critical"
+    },
+    {
+      "condition": "W>=K,H>=K",
+      "winningDirections": "all four possible",
+      "nontrivialComponents": 1,
+      "gameConclusion": "No exact WDL from graph connectedness"
+    }
+  ],
+  "originalK4Rows": [
+    {
+      "W": 1,
+      "H": 1,
+      "K": 4,
+      "directionCounts": {
+        "H": 0,
+        "V": 0,
+        "R": 0,
+        "F": 0,
+        "total": 0
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 0,
+        "isolatedCells": 1,
+        "componentCellSizes": []
+      },
+      "rankGF2": 0,
+      "rankF1009": 0,
+      "horizontalKcolumnSpans": null,
+      "verticalKrowSpans": null,
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 0,
+        "unmatchedTops": 0
+      }
+    },
+    {
+      "W": 1,
+      "H": 2,
+      "K": 4,
+      "directionCounts": {
+        "H": 0,
+        "V": 0,
+        "R": 0,
+        "F": 0,
+        "total": 0
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 0,
+        "isolatedCells": 2,
+        "componentCellSizes": []
+      },
+      "rankGF2": 0,
+      "rankF1009": 0,
+      "horizontalKcolumnSpans": null,
+      "verticalKrowSpans": null,
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 0,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 1,
+      "H": 3,
+      "K": 4,
+      "directionCounts": {
+        "H": 0,
+        "V": 0,
+        "R": 0,
+        "F": 0,
+        "total": 0
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 0,
+        "isolatedCells": 3,
+        "componentCellSizes": []
+      },
+      "rankGF2": 0,
+      "rankF1009": 0,
+      "horizontalKcolumnSpans": null,
+      "verticalKrowSpans": null,
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 1,
+        "unmatchedTops": 0
+      }
+    },
+    {
+      "W": 1,
+      "H": 4,
+      "K": 4,
+      "directionCounts": {
+        "H": 0,
+        "V": 1,
+        "R": 0,
+        "F": 0,
+        "total": 1
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          4
+        ]
+      },
+      "rankGF2": 1,
+      "rankF1009": 1,
+      "horizontalKcolumnSpans": null,
+      "verticalKrowSpans": {
+        "commonCells": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 1
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 1,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 1,
+      "H": 5,
+      "K": 4,
+      "directionCounts": {
+        "H": 0,
+        "V": 2,
+        "R": 0,
+        "F": 0,
+        "total": 2
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          5
+        ]
+      },
+      "rankGF2": 2,
+      "rankF1009": 2,
+      "horizontalKcolumnSpans": null,
+      "verticalKrowSpans": {
+        "commonCells": [
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 2
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 2,
+        "unmatchedTops": 0
+      }
+    },
+    {
+      "W": 1,
+      "H": 6,
+      "K": 4,
+      "directionCounts": {
+        "H": 0,
+        "V": 3,
+        "R": 0,
+        "F": 0,
+        "total": 3
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          6
+        ]
+      },
+      "rankGF2": 3,
+      "rankF1009": 3,
+      "horizontalKcolumnSpans": null,
+      "verticalKrowSpans": {
+        "commonCells": [
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 3
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 2,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 1,
+      "H": 7,
+      "K": 4,
+      "directionCounts": {
+        "H": 0,
+        "V": 4,
+        "R": 0,
+        "F": 0,
+        "total": 4
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          7
+        ]
+      },
+      "rankGF2": 4,
+      "rankF1009": 4,
+      "horizontalKcolumnSpans": null,
+      "verticalKrowSpans": {
+        "commonCells": [
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 4
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 3,
+        "unmatchedTops": 0
+      }
+    },
+    {
+      "W": 1,
+      "H": 8,
+      "K": 4,
+      "directionCounts": {
+        "H": 0,
+        "V": 5,
+        "R": 0,
+        "F": 0,
+        "total": 5
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          8
+        ]
+      },
+      "rankGF2": 5,
+      "rankF1009": 5,
+      "horizontalKcolumnSpans": null,
+      "verticalKrowSpans": {
+        "commonCells": [],
+        "minBlockerTransversal": 2,
+        "windowCount": 5
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 3,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 2,
+      "H": 1,
+      "K": 4,
+      "directionCounts": {
+        "H": 0,
+        "V": 0,
+        "R": 0,
+        "F": 0,
+        "total": 0
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 0,
+        "isolatedCells": 2,
+        "componentCellSizes": []
+      },
+      "rankGF2": 0,
+      "rankF1009": 0,
+      "horizontalKcolumnSpans": null,
+      "verticalKrowSpans": null,
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 0,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 2,
+      "H": 2,
+      "K": 4,
+      "directionCounts": {
+        "H": 0,
+        "V": 0,
+        "R": 0,
+        "F": 0,
+        "total": 0
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 0,
+        "isolatedCells": 4,
+        "componentCellSizes": []
+      },
+      "rankGF2": 0,
+      "rankF1009": 0,
+      "horizontalKcolumnSpans": null,
+      "verticalKrowSpans": null,
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 1,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 2,
+      "H": 3,
+      "K": 4,
+      "directionCounts": {
+        "H": 0,
+        "V": 0,
+        "R": 0,
+        "F": 0,
+        "total": 0
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 0,
+        "isolatedCells": 6,
+        "componentCellSizes": []
+      },
+      "rankGF2": 0,
+      "rankF1009": 0,
+      "horizontalKcolumnSpans": null,
+      "verticalKrowSpans": null,
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 2,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 2,
+      "H": 4,
+      "K": 4,
+      "directionCounts": {
+        "H": 0,
+        "V": 2,
+        "R": 0,
+        "F": 0,
+        "total": 2
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 2,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          4,
+          4
+        ]
+      },
+      "rankGF2": 2,
+      "rankF1009": 2,
+      "horizontalKcolumnSpans": null,
+      "verticalKrowSpans": {
+        "commonCells": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 1
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 3,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 2,
+      "H": 5,
+      "K": 4,
+      "directionCounts": {
+        "H": 0,
+        "V": 4,
+        "R": 0,
+        "F": 0,
+        "total": 4
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 2,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          5,
+          5
+        ]
+      },
+      "rankGF2": 4,
+      "rankF1009": 4,
+      "horizontalKcolumnSpans": null,
+      "verticalKrowSpans": {
+        "commonCells": [
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 2
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 4,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 2,
+      "H": 6,
+      "K": 4,
+      "directionCounts": {
+        "H": 0,
+        "V": 6,
+        "R": 0,
+        "F": 0,
+        "total": 6
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 2,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          6,
+          6
+        ]
+      },
+      "rankGF2": 6,
+      "rankF1009": 6,
+      "horizontalKcolumnSpans": null,
+      "verticalKrowSpans": {
+        "commonCells": [
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 3
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 5,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 2,
+      "H": 7,
+      "K": 4,
+      "directionCounts": {
+        "H": 0,
+        "V": 8,
+        "R": 0,
+        "F": 0,
+        "total": 8
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 2,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          7,
+          7
+        ]
+      },
+      "rankGF2": 8,
+      "rankF1009": 8,
+      "horizontalKcolumnSpans": null,
+      "verticalKrowSpans": {
+        "commonCells": [
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 4
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 6,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 2,
+      "H": 8,
+      "K": 4,
+      "directionCounts": {
+        "H": 0,
+        "V": 10,
+        "R": 0,
+        "F": 0,
+        "total": 10
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 2,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          8,
+          8
+        ]
+      },
+      "rankGF2": 10,
+      "rankF1009": 10,
+      "horizontalKcolumnSpans": null,
+      "verticalKrowSpans": {
+        "commonCells": [],
+        "minBlockerTransversal": 2,
+        "windowCount": 5
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 7,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 3,
+      "H": 1,
+      "K": 4,
+      "directionCounts": {
+        "H": 0,
+        "V": 0,
+        "R": 0,
+        "F": 0,
+        "total": 0
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 0,
+        "isolatedCells": 3,
+        "componentCellSizes": []
+      },
+      "rankGF2": 0,
+      "rankF1009": 0,
+      "horizontalKcolumnSpans": null,
+      "verticalKrowSpans": null,
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 0,
+        "unmatchedTops": 2
+      }
+    },
+    {
+      "W": 3,
+      "H": 2,
+      "K": 4,
+      "directionCounts": {
+        "H": 0,
+        "V": 0,
+        "R": 0,
+        "F": 0,
+        "total": 0
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 0,
+        "isolatedCells": 6,
+        "componentCellSizes": []
+      },
+      "rankGF2": 0,
+      "rankF1009": 0,
+      "horizontalKcolumnSpans": null,
+      "verticalKrowSpans": null,
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 2,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 3,
+      "H": 3,
+      "K": 4,
+      "directionCounts": {
+        "H": 0,
+        "V": 0,
+        "R": 0,
+        "F": 0,
+        "total": 0
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 0,
+        "isolatedCells": 9,
+        "componentCellSizes": []
+      },
+      "rankGF2": 0,
+      "rankF1009": 0,
+      "horizontalKcolumnSpans": null,
+      "verticalKrowSpans": null,
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 3,
+        "unmatchedTops": 2
+      }
+    },
+    {
+      "W": 3,
+      "H": 4,
+      "K": 4,
+      "directionCounts": {
+        "H": 0,
+        "V": 3,
+        "R": 0,
+        "F": 0,
+        "total": 3
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 3,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          4,
+          4,
+          4
+        ]
+      },
+      "rankGF2": 3,
+      "rankF1009": 3,
+      "horizontalKcolumnSpans": null,
+      "verticalKrowSpans": {
+        "commonCells": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 1
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 5,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 3,
+      "H": 5,
+      "K": 4,
+      "directionCounts": {
+        "H": 0,
+        "V": 6,
+        "R": 0,
+        "F": 0,
+        "total": 6
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 3,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          5,
+          5,
+          5
+        ]
+      },
+      "rankGF2": 6,
+      "rankF1009": 6,
+      "horizontalKcolumnSpans": null,
+      "verticalKrowSpans": {
+        "commonCells": [
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 2
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 6,
+        "unmatchedTops": 2
+      }
+    },
+    {
+      "W": 3,
+      "H": 6,
+      "K": 4,
+      "directionCounts": {
+        "H": 0,
+        "V": 9,
+        "R": 0,
+        "F": 0,
+        "total": 9
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 3,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          6,
+          6,
+          6
+        ]
+      },
+      "rankGF2": 9,
+      "rankF1009": 9,
+      "horizontalKcolumnSpans": null,
+      "verticalKrowSpans": {
+        "commonCells": [
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 3
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 8,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 3,
+      "H": 7,
+      "K": 4,
+      "directionCounts": {
+        "H": 0,
+        "V": 12,
+        "R": 0,
+        "F": 0,
+        "total": 12
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 3,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          7,
+          7,
+          7
+        ]
+      },
+      "rankGF2": 12,
+      "rankF1009": 12,
+      "horizontalKcolumnSpans": null,
+      "verticalKrowSpans": {
+        "commonCells": [
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 4
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 9,
+        "unmatchedTops": 2
+      }
+    },
+    {
+      "W": 3,
+      "H": 8,
+      "K": 4,
+      "directionCounts": {
+        "H": 0,
+        "V": 15,
+        "R": 0,
+        "F": 0,
+        "total": 15
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 3,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          8,
+          8,
+          8
+        ]
+      },
+      "rankGF2": 15,
+      "rankF1009": 15,
+      "horizontalKcolumnSpans": null,
+      "verticalKrowSpans": {
+        "commonCells": [],
+        "minBlockerTransversal": 2,
+        "windowCount": 5
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 11,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 4,
+      "H": 1,
+      "K": 4,
+      "directionCounts": {
+        "H": 1,
+        "V": 0,
+        "R": 0,
+        "F": 0,
+        "total": 1
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          4
+        ]
+      },
+      "rankGF2": 1,
+      "rankF1009": 1,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 1
+      },
+      "verticalKrowSpans": null,
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 0,
+        "unmatchedTops": 3
+      }
+    },
+    {
+      "W": 4,
+      "H": 2,
+      "K": 4,
+      "directionCounts": {
+        "H": 2,
+        "V": 0,
+        "R": 0,
+        "F": 0,
+        "total": 2
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 2,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          4,
+          4
+        ]
+      },
+      "rankGF2": 2,
+      "rankF1009": 2,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 1
+      },
+      "verticalKrowSpans": null,
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 3,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 4,
+      "H": 3,
+      "K": 4,
+      "directionCounts": {
+        "H": 3,
+        "V": 0,
+        "R": 0,
+        "F": 0,
+        "total": 3
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 3,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          4,
+          4,
+          4
+        ]
+      },
+      "rankGF2": 3,
+      "rankF1009": 3,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 1
+      },
+      "verticalKrowSpans": null,
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 4,
+        "unmatchedTops": 3
+      }
+    },
+    {
+      "W": 4,
+      "H": 4,
+      "K": 4,
+      "directionCounts": {
+        "H": 4,
+        "V": 4,
+        "R": 1,
+        "F": 1,
+        "total": 10
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          16
+        ]
+      },
+      "rankGF2": 8,
+      "rankF1009": 9,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 1
+      },
+      "verticalKrowSpans": {
+        "commonCells": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 1
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 7,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 4,
+      "H": 5,
+      "K": 4,
+      "directionCounts": {
+        "H": 5,
+        "V": 8,
+        "R": 2,
+        "F": 2,
+        "total": 17
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          20
+        ]
+      },
+      "rankGF2": 13,
+      "rankF1009": 15,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 1
+      },
+      "verticalKrowSpans": {
+        "commonCells": [
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 2
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 8,
+        "unmatchedTops": 3
+      }
+    },
+    {
+      "W": 4,
+      "H": 6,
+      "K": 4,
+      "directionCounts": {
+        "H": 6,
+        "V": 12,
+        "R": 3,
+        "F": 3,
+        "total": 24
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          24
+        ]
+      },
+      "rankGF2": 17,
+      "rankF1009": 20,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 1
+      },
+      "verticalKrowSpans": {
+        "commonCells": [
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 3
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 11,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 4,
+      "H": 7,
+      "K": 4,
+      "directionCounts": {
+        "H": 7,
+        "V": 16,
+        "R": 4,
+        "F": 4,
+        "total": 31
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          28
+        ]
+      },
+      "rankGF2": 21,
+      "rankF1009": 24,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 1
+      },
+      "verticalKrowSpans": {
+        "commonCells": [
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 4
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 12,
+        "unmatchedTops": 3
+      }
+    },
+    {
+      "W": 4,
+      "H": 8,
+      "K": 4,
+      "directionCounts": {
+        "H": 8,
+        "V": 20,
+        "R": 5,
+        "F": 5,
+        "total": 38
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          32
+        ]
+      },
+      "rankGF2": 25,
+      "rankF1009": 28,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 1
+      },
+      "verticalKrowSpans": {
+        "commonCells": [],
+        "minBlockerTransversal": 2,
+        "windowCount": 5
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 15,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 5,
+      "H": 1,
+      "K": 4,
+      "directionCounts": {
+        "H": 2,
+        "V": 0,
+        "R": 0,
+        "F": 0,
+        "total": 2
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          5
+        ]
+      },
+      "rankGF2": 2,
+      "rankF1009": 2,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 2
+      },
+      "verticalKrowSpans": null,
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 0,
+        "unmatchedTops": 4
+      }
+    },
+    {
+      "W": 5,
+      "H": 2,
+      "K": 4,
+      "directionCounts": {
+        "H": 4,
+        "V": 0,
+        "R": 0,
+        "F": 0,
+        "total": 4
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 2,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          5,
+          5
+        ]
+      },
+      "rankGF2": 4,
+      "rankF1009": 4,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 2
+      },
+      "verticalKrowSpans": null,
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 4,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 5,
+      "H": 3,
+      "K": 4,
+      "directionCounts": {
+        "H": 6,
+        "V": 0,
+        "R": 0,
+        "F": 0,
+        "total": 6
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 3,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          5,
+          5,
+          5
+        ]
+      },
+      "rankGF2": 6,
+      "rankF1009": 6,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 2
+      },
+      "verticalKrowSpans": null,
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 5,
+        "unmatchedTops": 4
+      }
+    },
+    {
+      "W": 5,
+      "H": 4,
+      "K": 4,
+      "directionCounts": {
+        "H": 8,
+        "V": 5,
+        "R": 2,
+        "F": 2,
+        "total": 17
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          20
+        ]
+      },
+      "rankGF2": 13,
+      "rankF1009": 15,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 2
+      },
+      "verticalKrowSpans": {
+        "commonCells": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 1
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 9,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 5,
+      "H": 5,
+      "K": 4,
+      "directionCounts": {
+        "H": 10,
+        "V": 10,
+        "R": 4,
+        "F": 4,
+        "total": 28
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          25
+        ]
+      },
+      "rankGF2": 18,
+      "rankF1009": 21,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 2
+      },
+      "verticalKrowSpans": {
+        "commonCells": [
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 2
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 10,
+        "unmatchedTops": 4
+      }
+    },
+    {
+      "W": 5,
+      "H": 6,
+      "K": 4,
+      "directionCounts": {
+        "H": 12,
+        "V": 15,
+        "R": 6,
+        "F": 6,
+        "total": 39
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          30
+        ]
+      },
+      "rankGF2": 23,
+      "rankF1009": 26,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 2
+      },
+      "verticalKrowSpans": {
+        "commonCells": [
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 3
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 14,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 5,
+      "H": 7,
+      "K": 4,
+      "directionCounts": {
+        "H": 14,
+        "V": 20,
+        "R": 8,
+        "F": 8,
+        "total": 50
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          35
+        ]
+      },
+      "rankGF2": 28,
+      "rankF1009": 31,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 2
+      },
+      "verticalKrowSpans": {
+        "commonCells": [
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 4
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 15,
+        "unmatchedTops": 4
+      }
+    },
+    {
+      "W": 5,
+      "H": 8,
+      "K": 4,
+      "directionCounts": {
+        "H": 16,
+        "V": 25,
+        "R": 10,
+        "F": 10,
+        "total": 61
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          40
+        ]
+      },
+      "rankGF2": 33,
+      "rankF1009": 36,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 2
+      },
+      "verticalKrowSpans": {
+        "commonCells": [],
+        "minBlockerTransversal": 2,
+        "windowCount": 5
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 19,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 6,
+      "H": 1,
+      "K": 4,
+      "directionCounts": {
+        "H": 3,
+        "V": 0,
+        "R": 0,
+        "F": 0,
+        "total": 3
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          6
+        ]
+      },
+      "rankGF2": 3,
+      "rankF1009": 3,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 3
+      },
+      "verticalKrowSpans": null,
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 0,
+        "unmatchedTops": 5
+      }
+    },
+    {
+      "W": 6,
+      "H": 2,
+      "K": 4,
+      "directionCounts": {
+        "H": 6,
+        "V": 0,
+        "R": 0,
+        "F": 0,
+        "total": 6
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 2,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          6,
+          6
+        ]
+      },
+      "rankGF2": 6,
+      "rankF1009": 6,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 3
+      },
+      "verticalKrowSpans": null,
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 5,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 6,
+      "H": 3,
+      "K": 4,
+      "directionCounts": {
+        "H": 9,
+        "V": 0,
+        "R": 0,
+        "F": 0,
+        "total": 9
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 3,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          6,
+          6,
+          6
+        ]
+      },
+      "rankGF2": 9,
+      "rankF1009": 9,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 3
+      },
+      "verticalKrowSpans": null,
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 6,
+        "unmatchedTops": 5
+      }
+    },
+    {
+      "W": 6,
+      "H": 4,
+      "K": 4,
+      "directionCounts": {
+        "H": 12,
+        "V": 6,
+        "R": 3,
+        "F": 3,
+        "total": 24
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          24
+        ]
+      },
+      "rankGF2": 17,
+      "rankF1009": 20,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 3
+      },
+      "verticalKrowSpans": {
+        "commonCells": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 1
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 11,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 6,
+      "H": 5,
+      "K": 4,
+      "directionCounts": {
+        "H": 15,
+        "V": 12,
+        "R": 6,
+        "F": 6,
+        "total": 39
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          30
+        ]
+      },
+      "rankGF2": 23,
+      "rankF1009": 26,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 3
+      },
+      "verticalKrowSpans": {
+        "commonCells": [
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 2
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 12,
+        "unmatchedTops": 5
+      }
+    },
+    {
+      "W": 6,
+      "H": 6,
+      "K": 4,
+      "directionCounts": {
+        "H": 18,
+        "V": 18,
+        "R": 9,
+        "F": 9,
+        "total": 54
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          36
+        ]
+      },
+      "rankGF2": 29,
+      "rankF1009": 32,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 3
+      },
+      "verticalKrowSpans": {
+        "commonCells": [
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 3
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 17,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 6,
+      "H": 7,
+      "K": 4,
+      "directionCounts": {
+        "H": 21,
+        "V": 24,
+        "R": 12,
+        "F": 12,
+        "total": 69
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          42
+        ]
+      },
+      "rankGF2": 35,
+      "rankF1009": 38,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 3
+      },
+      "verticalKrowSpans": {
+        "commonCells": [
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 4
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 18,
+        "unmatchedTops": 5
+      }
+    },
+    {
+      "W": 6,
+      "H": 8,
+      "K": 4,
+      "directionCounts": {
+        "H": 24,
+        "V": 30,
+        "R": 15,
+        "F": 15,
+        "total": 84
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          48
+        ]
+      },
+      "rankGF2": 41,
+      "rankF1009": 44,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 3
+      },
+      "verticalKrowSpans": {
+        "commonCells": [],
+        "minBlockerTransversal": 2,
+        "windowCount": 5
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 23,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 7,
+      "H": 1,
+      "K": 4,
+      "directionCounts": {
+        "H": 4,
+        "V": 0,
+        "R": 0,
+        "F": 0,
+        "total": 4
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          7
+        ]
+      },
+      "rankGF2": 4,
+      "rankF1009": 4,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 4
+      },
+      "verticalKrowSpans": null,
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 0,
+        "unmatchedTops": 6
+      }
+    },
+    {
+      "W": 7,
+      "H": 2,
+      "K": 4,
+      "directionCounts": {
+        "H": 8,
+        "V": 0,
+        "R": 0,
+        "F": 0,
+        "total": 8
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 2,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          7,
+          7
+        ]
+      },
+      "rankGF2": 8,
+      "rankF1009": 8,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 4
+      },
+      "verticalKrowSpans": null,
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 6,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 7,
+      "H": 3,
+      "K": 4,
+      "directionCounts": {
+        "H": 12,
+        "V": 0,
+        "R": 0,
+        "F": 0,
+        "total": 12
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 3,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          7,
+          7,
+          7
+        ]
+      },
+      "rankGF2": 12,
+      "rankF1009": 12,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 4
+      },
+      "verticalKrowSpans": null,
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 7,
+        "unmatchedTops": 6
+      }
+    },
+    {
+      "W": 7,
+      "H": 4,
+      "K": 4,
+      "directionCounts": {
+        "H": 16,
+        "V": 7,
+        "R": 4,
+        "F": 4,
+        "total": 31
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          28
+        ]
+      },
+      "rankGF2": 21,
+      "rankF1009": 24,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 4
+      },
+      "verticalKrowSpans": {
+        "commonCells": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 1
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 13,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 7,
+      "H": 5,
+      "K": 4,
+      "directionCounts": {
+        "H": 20,
+        "V": 14,
+        "R": 8,
+        "F": 8,
+        "total": 50
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          35
+        ]
+      },
+      "rankGF2": 28,
+      "rankF1009": 31,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 4
+      },
+      "verticalKrowSpans": {
+        "commonCells": [
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 2
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 14,
+        "unmatchedTops": 6
+      }
+    },
+    {
+      "W": 7,
+      "H": 6,
+      "K": 4,
+      "directionCounts": {
+        "H": 24,
+        "V": 21,
+        "R": 12,
+        "F": 12,
+        "total": 69
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          42
+        ]
+      },
+      "rankGF2": 35,
+      "rankF1009": 38,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 4
+      },
+      "verticalKrowSpans": {
+        "commonCells": [
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 3
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 20,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 7,
+      "H": 7,
+      "K": 4,
+      "directionCounts": {
+        "H": 28,
+        "V": 28,
+        "R": 16,
+        "F": 16,
+        "total": 88
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          49
+        ]
+      },
+      "rankGF2": 42,
+      "rankF1009": 45,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 4
+      },
+      "verticalKrowSpans": {
+        "commonCells": [
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 4
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 21,
+        "unmatchedTops": 6
+      }
+    },
+    {
+      "W": 7,
+      "H": 8,
+      "K": 4,
+      "directionCounts": {
+        "H": 32,
+        "V": 35,
+        "R": 20,
+        "F": 20,
+        "total": 107
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          56
+        ]
+      },
+      "rankGF2": 49,
+      "rankF1009": 52,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 4
+      },
+      "verticalKrowSpans": {
+        "commonCells": [],
+        "minBlockerTransversal": 2,
+        "windowCount": 5
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 27,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 8,
+      "H": 1,
+      "K": 4,
+      "directionCounts": {
+        "H": 5,
+        "V": 0,
+        "R": 0,
+        "F": 0,
+        "total": 5
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          8
+        ]
+      },
+      "rankGF2": 5,
+      "rankF1009": 5,
+      "horizontalKcolumnSpans": {
+        "commonCells": [],
+        "minBlockerTransversal": 2,
+        "windowCount": 5
+      },
+      "verticalKrowSpans": null,
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 0,
+        "unmatchedTops": 7
+      }
+    },
+    {
+      "W": 8,
+      "H": 2,
+      "K": 4,
+      "directionCounts": {
+        "H": 10,
+        "V": 0,
+        "R": 0,
+        "F": 0,
+        "total": 10
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 2,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          8,
+          8
+        ]
+      },
+      "rankGF2": 10,
+      "rankF1009": 10,
+      "horizontalKcolumnSpans": {
+        "commonCells": [],
+        "minBlockerTransversal": 2,
+        "windowCount": 5
+      },
+      "verticalKrowSpans": null,
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 7,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 8,
+      "H": 3,
+      "K": 4,
+      "directionCounts": {
+        "H": 15,
+        "V": 0,
+        "R": 0,
+        "F": 0,
+        "total": 15
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 3,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          8,
+          8,
+          8
+        ]
+      },
+      "rankGF2": 15,
+      "rankF1009": 15,
+      "horizontalKcolumnSpans": {
+        "commonCells": [],
+        "minBlockerTransversal": 2,
+        "windowCount": 5
+      },
+      "verticalKrowSpans": null,
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 8,
+        "unmatchedTops": 7
+      }
+    },
+    {
+      "W": 8,
+      "H": 4,
+      "K": 4,
+      "directionCounts": {
+        "H": 20,
+        "V": 8,
+        "R": 5,
+        "F": 5,
+        "total": 38
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          32
+        ]
+      },
+      "rankGF2": 25,
+      "rankF1009": 28,
+      "horizontalKcolumnSpans": {
+        "commonCells": [],
+        "minBlockerTransversal": 2,
+        "windowCount": 5
+      },
+      "verticalKrowSpans": {
+        "commonCells": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 1
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 15,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 8,
+      "H": 5,
+      "K": 4,
+      "directionCounts": {
+        "H": 25,
+        "V": 16,
+        "R": 10,
+        "F": 10,
+        "total": 61
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          40
+        ]
+      },
+      "rankGF2": 33,
+      "rankF1009": 36,
+      "horizontalKcolumnSpans": {
+        "commonCells": [],
+        "minBlockerTransversal": 2,
+        "windowCount": 5
+      },
+      "verticalKrowSpans": {
+        "commonCells": [
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 2
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 16,
+        "unmatchedTops": 7
+      }
+    },
+    {
+      "W": 8,
+      "H": 6,
+      "K": 4,
+      "directionCounts": {
+        "H": 30,
+        "V": 24,
+        "R": 15,
+        "F": 15,
+        "total": 84
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          48
+        ]
+      },
+      "rankGF2": 41,
+      "rankF1009": 44,
+      "horizontalKcolumnSpans": {
+        "commonCells": [],
+        "minBlockerTransversal": 2,
+        "windowCount": 5
+      },
+      "verticalKrowSpans": {
+        "commonCells": [
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 3
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 23,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 8,
+      "H": 7,
+      "K": 4,
+      "directionCounts": {
+        "H": 35,
+        "V": 32,
+        "R": 20,
+        "F": 20,
+        "total": 107
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          56
+        ]
+      },
+      "rankGF2": 49,
+      "rankF1009": 52,
+      "horizontalKcolumnSpans": {
+        "commonCells": [],
+        "minBlockerTransversal": 2,
+        "windowCount": 5
+      },
+      "verticalKrowSpans": {
+        "commonCells": [
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 4
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 24,
+        "unmatchedTops": 7
+      }
+    },
+    {
+      "W": 8,
+      "H": 8,
+      "K": 4,
+      "directionCounts": {
+        "H": 40,
+        "V": 40,
+        "R": 25,
+        "F": 25,
+        "total": 130
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          64
+        ]
+      },
+      "rankGF2": 57,
+      "rankF1009": 60,
+      "horizontalKcolumnSpans": {
+        "commonCells": [],
+        "minBlockerTransversal": 2,
+        "windowCount": 5
+      },
+      "verticalKrowSpans": {
+        "commonCells": [],
+        "minBlockerTransversal": 2,
+        "windowCount": 5
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 31,
+        "unmatchedTops": 1
+      }
+    }
+  ],
+  "spotChecks": [
+    {
+      "K": 3,
+      "W": 2,
+      "H": 2,
+      "lines": 0,
+      "components": 0
+    },
+    {
+      "K": 3,
+      "W": 2,
+      "H": 3,
+      "lines": 2,
+      "components": 2
+    },
+    {
+      "K": 3,
+      "W": 2,
+      "H": 4,
+      "lines": 4,
+      "components": 2
+    },
+    {
+      "K": 3,
+      "W": 2,
+      "H": 5,
+      "lines": 6,
+      "components": 2
+    },
+    {
+      "K": 3,
+      "W": 3,
+      "H": 2,
+      "lines": 2,
+      "components": 2
+    },
+    {
+      "K": 3,
+      "W": 3,
+      "H": 3,
+      "lines": 8,
+      "components": 1
+    },
+    {
+      "K": 3,
+      "W": 3,
+      "H": 4,
+      "lines": 14,
+      "components": 1
+    },
+    {
+      "K": 3,
+      "W": 3,
+      "H": 5,
+      "lines": 20,
+      "components": 1
+    },
+    {
+      "K": 3,
+      "W": 4,
+      "H": 2,
+      "lines": 4,
+      "components": 2
+    },
+    {
+      "K": 3,
+      "W": 4,
+      "H": 3,
+      "lines": 14,
+      "components": 1
+    },
+    {
+      "K": 3,
+      "W": 4,
+      "H": 4,
+      "lines": 24,
+      "components": 1
+    },
+    {
+      "K": 3,
+      "W": 4,
+      "H": 5,
+      "lines": 34,
+      "components": 1
+    },
+    {
+      "K": 3,
+      "W": 5,
+      "H": 2,
+      "lines": 6,
+      "components": 2
+    },
+    {
+      "K": 3,
+      "W": 5,
+      "H": 3,
+      "lines": 20,
+      "components": 1
+    },
+    {
+      "K": 3,
+      "W": 5,
+      "H": 4,
+      "lines": 34,
+      "components": 1
+    },
+    {
+      "K": 3,
+      "W": 5,
+      "H": 5,
+      "lines": 48,
+      "components": 1
+    },
+    {
+      "K": 5,
+      "W": 4,
+      "H": 4,
+      "lines": 0,
+      "components": 0
+    },
+    {
+      "K": 5,
+      "W": 4,
+      "H": 5,
+      "lines": 4,
+      "components": 4
+    },
+    {
+      "K": 5,
+      "W": 4,
+      "H": 6,
+      "lines": 8,
+      "components": 4
+    },
+    {
+      "K": 5,
+      "W": 4,
+      "H": 7,
+      "lines": 12,
+      "components": 4
+    },
+    {
+      "K": 5,
+      "W": 5,
+      "H": 4,
+      "lines": 4,
+      "components": 4
+    },
+    {
+      "K": 5,
+      "W": 5,
+      "H": 5,
+      "lines": 12,
+      "components": 1
+    },
+    {
+      "K": 5,
+      "W": 5,
+      "H": 6,
+      "lines": 20,
+      "components": 1
+    },
+    {
+      "K": 5,
+      "W": 5,
+      "H": 7,
+      "lines": 28,
+      "components": 1
+    },
+    {
+      "K": 5,
+      "W": 6,
+      "H": 4,
+      "lines": 8,
+      "components": 4
+    },
+    {
+      "K": 5,
+      "W": 6,
+      "H": 5,
+      "lines": 20,
+      "components": 1
+    },
+    {
+      "K": 5,
+      "W": 6,
+      "H": 6,
+      "lines": 32,
+      "components": 1
+    },
+    {
+      "K": 5,
+      "W": 6,
+      "H": 7,
+      "lines": 44,
+      "components": 1
+    },
+    {
+      "K": 5,
+      "W": 7,
+      "H": 4,
+      "lines": 12,
+      "components": 4
+    },
+    {
+      "K": 5,
+      "W": 7,
+      "H": 5,
+      "lines": 28,
+      "components": 1
+    },
+    {
+      "K": 5,
+      "W": 7,
+      "H": 6,
+      "lines": 44,
+      "components": 1
+    },
+    {
+      "K": 5,
+      "W": 7,
+      "H": 7,
+      "lines": 60,
+      "components": 1
+    },
+    {
+      "K": 6,
+      "W": 5,
+      "H": 5,
+      "lines": 0,
+      "components": 0
+    },
+    {
+      "K": 6,
+      "W": 5,
+      "H": 6,
+      "lines": 5,
+      "components": 5
+    },
+    {
+      "K": 6,
+      "W": 5,
+      "H": 7,
+      "lines": 10,
+      "components": 5
+    },
+    {
+      "K": 6,
+      "W": 5,
+      "H": 8,
+      "lines": 15,
+      "components": 5
+    },
+    {
+      "K": 6,
+      "W": 6,
+      "H": 5,
+      "lines": 5,
+      "components": 5
+    },
+    {
+      "K": 6,
+      "W": 6,
+      "H": 6,
+      "lines": 14,
+      "components": 1
+    },
+    {
+      "K": 6,
+      "W": 6,
+      "H": 7,
+      "lines": 23,
+      "components": 1
+    },
+    {
+      "K": 6,
+      "W": 6,
+      "H": 8,
+      "lines": 32,
+      "components": 1
+    },
+    {
+      "K": 6,
+      "W": 7,
+      "H": 5,
+      "lines": 10,
+      "components": 5
+    },
+    {
+      "K": 6,
+      "W": 7,
+      "H": 6,
+      "lines": 23,
+      "components": 1
+    },
+    {
+      "K": 6,
+      "W": 7,
+      "H": 7,
+      "lines": 36,
+      "components": 1
+    },
+    {
+      "K": 6,
+      "W": 7,
+      "H": 8,
+      "lines": 49,
+      "components": 1
+    },
+    {
+      "K": 6,
+      "W": 8,
+      "H": 5,
+      "lines": 15,
+      "components": 5
+    },
+    {
+      "K": 6,
+      "W": 8,
+      "H": 6,
+      "lines": 32,
+      "components": 1
+    },
+    {
+      "K": 6,
+      "W": 8,
+      "H": 7,
+      "lines": 49,
+      "components": 1
+    },
+    {
+      "K": 6,
+      "W": 8,
+      "H": 8,
+      "lines": 66,
+      "components": 1
+    }
+  ],
+  "mostRelevant": [
+    {
+      "W": 3,
+      "H": 3,
+      "K": 4,
+      "directionCounts": {
+        "H": 0,
+        "V": 0,
+        "R": 0,
+        "F": 0,
+        "total": 0
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 0,
+        "isolatedCells": 9,
+        "componentCellSizes": []
+      },
+      "rankGF2": 0,
+      "rankF1009": 0,
+      "horizontalKcolumnSpans": null,
+      "verticalKrowSpans": null,
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 3,
+        "unmatchedTops": 2
+      }
+    },
+    {
+      "W": 3,
+      "H": 4,
+      "K": 4,
+      "directionCounts": {
+        "H": 0,
+        "V": 3,
+        "R": 0,
+        "F": 0,
+        "total": 3
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 3,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          4,
+          4,
+          4
+        ]
+      },
+      "rankGF2": 3,
+      "rankF1009": 3,
+      "horizontalKcolumnSpans": null,
+      "verticalKrowSpans": {
+        "commonCells": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 1
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 5,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 3,
+      "H": 5,
+      "K": 4,
+      "directionCounts": {
+        "H": 0,
+        "V": 6,
+        "R": 0,
+        "F": 0,
+        "total": 6
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 3,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          5,
+          5,
+          5
+        ]
+      },
+      "rankGF2": 6,
+      "rankF1009": 6,
+      "horizontalKcolumnSpans": null,
+      "verticalKrowSpans": {
+        "commonCells": [
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 2
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 6,
+        "unmatchedTops": 2
+      }
+    },
+    {
+      "W": 3,
+      "H": 6,
+      "K": 4,
+      "directionCounts": {
+        "H": 0,
+        "V": 9,
+        "R": 0,
+        "F": 0,
+        "total": 9
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 3,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          6,
+          6,
+          6
+        ]
+      },
+      "rankGF2": 9,
+      "rankF1009": 9,
+      "horizontalKcolumnSpans": null,
+      "verticalKrowSpans": {
+        "commonCells": [
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 3
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 8,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 3,
+      "H": 7,
+      "K": 4,
+      "directionCounts": {
+        "H": 0,
+        "V": 12,
+        "R": 0,
+        "F": 0,
+        "total": 12
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 3,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          7,
+          7,
+          7
+        ]
+      },
+      "rankGF2": 12,
+      "rankF1009": 12,
+      "horizontalKcolumnSpans": null,
+      "verticalKrowSpans": {
+        "commonCells": [
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 4
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 9,
+        "unmatchedTops": 2
+      }
+    },
+    {
+      "W": 3,
+      "H": 8,
+      "K": 4,
+      "directionCounts": {
+        "H": 0,
+        "V": 15,
+        "R": 0,
+        "F": 0,
+        "total": 15
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 3,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          8,
+          8,
+          8
+        ]
+      },
+      "rankGF2": 15,
+      "rankF1009": 15,
+      "horizontalKcolumnSpans": null,
+      "verticalKrowSpans": {
+        "commonCells": [],
+        "minBlockerTransversal": 2,
+        "windowCount": 5
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 11,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 4,
+      "H": 3,
+      "K": 4,
+      "directionCounts": {
+        "H": 3,
+        "V": 0,
+        "R": 0,
+        "F": 0,
+        "total": 3
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 3,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          4,
+          4,
+          4
+        ]
+      },
+      "rankGF2": 3,
+      "rankF1009": 3,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 1
+      },
+      "verticalKrowSpans": null,
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 4,
+        "unmatchedTops": 3
+      }
+    },
+    {
+      "W": 4,
+      "H": 4,
+      "K": 4,
+      "directionCounts": {
+        "H": 4,
+        "V": 4,
+        "R": 1,
+        "F": 1,
+        "total": 10
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          16
+        ]
+      },
+      "rankGF2": 8,
+      "rankF1009": 9,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 1
+      },
+      "verticalKrowSpans": {
+        "commonCells": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 1
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 7,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 4,
+      "H": 5,
+      "K": 4,
+      "directionCounts": {
+        "H": 5,
+        "V": 8,
+        "R": 2,
+        "F": 2,
+        "total": 17
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          20
+        ]
+      },
+      "rankGF2": 13,
+      "rankF1009": 15,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 1
+      },
+      "verticalKrowSpans": {
+        "commonCells": [
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 2
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 8,
+        "unmatchedTops": 3
+      }
+    },
+    {
+      "W": 4,
+      "H": 6,
+      "K": 4,
+      "directionCounts": {
+        "H": 6,
+        "V": 12,
+        "R": 3,
+        "F": 3,
+        "total": 24
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          24
+        ]
+      },
+      "rankGF2": 17,
+      "rankF1009": 20,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 1
+      },
+      "verticalKrowSpans": {
+        "commonCells": [
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 3
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 11,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 4,
+      "H": 7,
+      "K": 4,
+      "directionCounts": {
+        "H": 7,
+        "V": 16,
+        "R": 4,
+        "F": 4,
+        "total": 31
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          28
+        ]
+      },
+      "rankGF2": 21,
+      "rankF1009": 24,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 1
+      },
+      "verticalKrowSpans": {
+        "commonCells": [
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 4
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 12,
+        "unmatchedTops": 3
+      }
+    },
+    {
+      "W": 4,
+      "H": 8,
+      "K": 4,
+      "directionCounts": {
+        "H": 8,
+        "V": 20,
+        "R": 5,
+        "F": 5,
+        "total": 38
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          32
+        ]
+      },
+      "rankGF2": 25,
+      "rankF1009": 28,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 1
+      },
+      "verticalKrowSpans": {
+        "commonCells": [],
+        "minBlockerTransversal": 2,
+        "windowCount": 5
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 15,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 5,
+      "H": 3,
+      "K": 4,
+      "directionCounts": {
+        "H": 6,
+        "V": 0,
+        "R": 0,
+        "F": 0,
+        "total": 6
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 3,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          5,
+          5,
+          5
+        ]
+      },
+      "rankGF2": 6,
+      "rankF1009": 6,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 2
+      },
+      "verticalKrowSpans": null,
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 5,
+        "unmatchedTops": 4
+      }
+    },
+    {
+      "W": 5,
+      "H": 4,
+      "K": 4,
+      "directionCounts": {
+        "H": 8,
+        "V": 5,
+        "R": 2,
+        "F": 2,
+        "total": 17
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          20
+        ]
+      },
+      "rankGF2": 13,
+      "rankF1009": 15,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 2
+      },
+      "verticalKrowSpans": {
+        "commonCells": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 1
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 9,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 5,
+      "H": 5,
+      "K": 4,
+      "directionCounts": {
+        "H": 10,
+        "V": 10,
+        "R": 4,
+        "F": 4,
+        "total": 28
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          25
+        ]
+      },
+      "rankGF2": 18,
+      "rankF1009": 21,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 2
+      },
+      "verticalKrowSpans": {
+        "commonCells": [
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 2
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 10,
+        "unmatchedTops": 4
+      }
+    },
+    {
+      "W": 5,
+      "H": 6,
+      "K": 4,
+      "directionCounts": {
+        "H": 12,
+        "V": 15,
+        "R": 6,
+        "F": 6,
+        "total": 39
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          30
+        ]
+      },
+      "rankGF2": 23,
+      "rankF1009": 26,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 2
+      },
+      "verticalKrowSpans": {
+        "commonCells": [
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 3
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 14,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 5,
+      "H": 7,
+      "K": 4,
+      "directionCounts": {
+        "H": 14,
+        "V": 20,
+        "R": 8,
+        "F": 8,
+        "total": 50
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          35
+        ]
+      },
+      "rankGF2": 28,
+      "rankF1009": 31,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 2
+      },
+      "verticalKrowSpans": {
+        "commonCells": [
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 4
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 15,
+        "unmatchedTops": 4
+      }
+    },
+    {
+      "W": 5,
+      "H": 8,
+      "K": 4,
+      "directionCounts": {
+        "H": 16,
+        "V": 25,
+        "R": 10,
+        "F": 10,
+        "total": 61
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          40
+        ]
+      },
+      "rankGF2": 33,
+      "rankF1009": 36,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 2
+      },
+      "verticalKrowSpans": {
+        "commonCells": [],
+        "minBlockerTransversal": 2,
+        "windowCount": 5
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 19,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 7,
+      "H": 3,
+      "K": 4,
+      "directionCounts": {
+        "H": 12,
+        "V": 0,
+        "R": 0,
+        "F": 0,
+        "total": 12
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 3,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          7,
+          7,
+          7
+        ]
+      },
+      "rankGF2": 12,
+      "rankF1009": 12,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 4
+      },
+      "verticalKrowSpans": null,
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 7,
+        "unmatchedTops": 6
+      }
+    },
+    {
+      "W": 7,
+      "H": 4,
+      "K": 4,
+      "directionCounts": {
+        "H": 16,
+        "V": 7,
+        "R": 4,
+        "F": 4,
+        "total": 31
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          28
+        ]
+      },
+      "rankGF2": 21,
+      "rankF1009": 24,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 4
+      },
+      "verticalKrowSpans": {
+        "commonCells": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 1
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 13,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 7,
+      "H": 5,
+      "K": 4,
+      "directionCounts": {
+        "H": 20,
+        "V": 14,
+        "R": 8,
+        "F": 8,
+        "total": 50
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          35
+        ]
+      },
+      "rankGF2": 28,
+      "rankF1009": 31,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 4
+      },
+      "verticalKrowSpans": {
+        "commonCells": [
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 2
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 14,
+        "unmatchedTops": 6
+      }
+    },
+    {
+      "W": 7,
+      "H": 6,
+      "K": 4,
+      "directionCounts": {
+        "H": 24,
+        "V": 21,
+        "R": 12,
+        "F": 12,
+        "total": 69
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          42
+        ]
+      },
+      "rankGF2": 35,
+      "rankF1009": 38,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 4
+      },
+      "verticalKrowSpans": {
+        "commonCells": [
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 3
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 20,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 7,
+      "H": 7,
+      "K": 4,
+      "directionCounts": {
+        "H": 28,
+        "V": 28,
+        "R": 16,
+        "F": 16,
+        "total": 88
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          49
+        ]
+      },
+      "rankGF2": 42,
+      "rankF1009": 45,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 4
+      },
+      "verticalKrowSpans": {
+        "commonCells": [
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 4
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 21,
+        "unmatchedTops": 6
+      }
+    },
+    {
+      "W": 7,
+      "H": 8,
+      "K": 4,
+      "directionCounts": {
+        "H": 32,
+        "V": 35,
+        "R": 20,
+        "F": 20,
+        "total": 107
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          56
+        ]
+      },
+      "rankGF2": 49,
+      "rankF1009": 52,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 4
+      },
+      "verticalKrowSpans": {
+        "commonCells": [],
+        "minBlockerTransversal": 2,
+        "windowCount": 5
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 27,
+        "unmatchedTops": 1
+      }
+    }
+  ],
+  "keyPhysicalTransitions": [
+    {
+      "W": 3,
+      "H": 6,
+      "K": 4,
+      "directionCounts": {
+        "H": 0,
+        "V": 9,
+        "R": 0,
+        "F": 0,
+        "total": 9
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 3,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          6,
+          6,
+          6
+        ]
+      },
+      "rankGF2": 9,
+      "rankF1009": 9,
+      "horizontalKcolumnSpans": null,
+      "verticalKrowSpans": {
+        "commonCells": [
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 3
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 8,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 4,
+      "H": 6,
+      "K": 4,
+      "directionCounts": {
+        "H": 6,
+        "V": 12,
+        "R": 3,
+        "F": 3,
+        "total": 24
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          24
+        ]
+      },
+      "rankGF2": 17,
+      "rankF1009": 20,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 1
+      },
+      "verticalKrowSpans": {
+        "commonCells": [
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 3
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 11,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 5,
+      "H": 6,
+      "K": 4,
+      "directionCounts": {
+        "H": 12,
+        "V": 15,
+        "R": 6,
+        "F": 6,
+        "total": 39
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          30
+        ]
+      },
+      "rankGF2": 23,
+      "rankF1009": 26,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 2
+      },
+      "verticalKrowSpans": {
+        "commonCells": [
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 3
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 14,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 7,
+      "H": 2,
+      "K": 4,
+      "directionCounts": {
+        "H": 8,
+        "V": 0,
+        "R": 0,
+        "F": 0,
+        "total": 8
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 2,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          7,
+          7
+        ]
+      },
+      "rankGF2": 8,
+      "rankF1009": 8,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 4
+      },
+      "verticalKrowSpans": null,
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 6,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 7,
+      "H": 3,
+      "K": 4,
+      "directionCounts": {
+        "H": 12,
+        "V": 0,
+        "R": 0,
+        "F": 0,
+        "total": 12
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 3,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          7,
+          7,
+          7
+        ]
+      },
+      "rankGF2": 12,
+      "rankF1009": 12,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 4
+      },
+      "verticalKrowSpans": null,
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 7,
+        "unmatchedTops": 6
+      }
+    },
+    {
+      "W": 7,
+      "H": 4,
+      "K": 4,
+      "directionCounts": {
+        "H": 16,
+        "V": 7,
+        "R": 4,
+        "F": 4,
+        "total": 31
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          28
+        ]
+      },
+      "rankGF2": 21,
+      "rankF1009": 24,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 4
+      },
+      "verticalKrowSpans": {
+        "commonCells": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 1
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 13,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 7,
+      "H": 5,
+      "K": 4,
+      "directionCounts": {
+        "H": 20,
+        "V": 14,
+        "R": 8,
+        "F": 8,
+        "total": 50
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          35
+        ]
+      },
+      "rankGF2": 28,
+      "rankF1009": 31,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 4
+      },
+      "verticalKrowSpans": {
+        "commonCells": [
+          1,
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 2
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 14,
+        "unmatchedTops": 6
+      }
+    },
+    {
+      "W": 7,
+      "H": 6,
+      "K": 4,
+      "directionCounts": {
+        "H": 24,
+        "V": 21,
+        "R": 12,
+        "F": 12,
+        "total": 69
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          42
+        ]
+      },
+      "rankGF2": 35,
+      "rankF1009": 38,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 4
+      },
+      "verticalKrowSpans": {
+        "commonCells": [
+          2,
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 3
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 20,
+        "unmatchedTops": 1
+      }
+    },
+    {
+      "W": 7,
+      "H": 7,
+      "K": 4,
+      "directionCounts": {
+        "H": 28,
+        "V": 28,
+        "R": 16,
+        "F": 16,
+        "total": 88
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          49
+        ]
+      },
+      "rankGF2": 42,
+      "rankF1009": 45,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 4
+      },
+      "verticalKrowSpans": {
+        "commonCells": [
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 4
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 21,
+        "unmatchedTops": 6
+      }
+    },
+    {
+      "W": 7,
+      "H": 8,
+      "K": 4,
+      "directionCounts": {
+        "H": 32,
+        "V": 35,
+        "R": 20,
+        "F": 20,
+        "total": 107
+      },
+      "incidenceTopology": {
+        "nontrivialComponents": 1,
+        "isolatedCells": 0,
+        "componentCellSizes": [
+          56
+        ]
+      },
+      "rankGF2": 49,
+      "rankF1009": 52,
+      "horizontalKcolumnSpans": {
+        "commonCells": [
+          3
+        ],
+        "minBlockerTransversal": 1,
+        "windowCount": 4
+      },
+      "verticalKrowSpans": {
+        "commonCells": [],
+        "minBlockerTransversal": 2,
+        "windowCount": 5
+      },
+      "P0AfterFirstMiddleColumnDrop": {
+        "pairedResources": 27,
+        "unmatchedTops": 1
+      }
+    }
+  ],
+  "strictLimits": [
+    "Incidence graph connectivity is geometry only: global alternation couples otherwise disconnected graph components and gravity couples horizontal-only row components.",
+    "Finite field F1009 matrix rank is NOT certified Q rank; GF2 rank exact from binary row reductions.",
+    "No published WDL table or archived 28 terminal lines were used to construct these source rows."
+  ]
+}
