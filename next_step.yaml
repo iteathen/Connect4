@@ -1,3 +1,80 @@
+owner_20261019_DIMENSION_WDL_PAIR_COMPATIBILITY:
+  PRIORITY: CURRENT
+  target: "Derive general algorithmic exact WDL from width, height and K-dependent source paired-response/defense compatibility; specifically WHY original 7x6 K4 allows P0 to FORCE P1 into no-safe-move while 7x4 draws and 6x6/8x6 P1 WIN"
+  canonical_branch: research/semantic-quotient
+  game_semantics: "Original gravity, alternating P0/P1, first-win stopped; no strategically inequivalent future-game valuing inside source"
+  correct_epistemic_answer:
+    externally_solved_empty_7x6_K4: "P0 WIN"
+    original7x6_source_only_unrestricted_empty_WDL_formula: OPEN
+    arbitrary_q_zero_strategic_branching_exact_WDL: OPEN
+    some_guarded_parameter_WDL_families: PROVED
+    source_rank39_forced_P0_win_some_real_q: PROVED_LOCAL
+    optimal_28_first_terminal_lines: "historical externally scored strong optimal, not source algorithm input"
+  new_cross_dimension_width_theorem:
+    scope: "W>=K>=4; P0 one bottom setup c then P0 upper-mates every P1 column on infinite-height board"
+    all_Kspan_intersection: "I(W,K)=integer interval [W-K,K-1] if W<=2K-1, else empty"
+    exact_fixed_response_safety_set: "S_mate(W,K)=I(W,K), not a full finite-board P0 optimal-opening theorem"
+    size: "C(W,K)=max(0,2K-W)"
+    width6_K4_common: 2
+    width7_K4_common: 1
+    width8_K4_common: 0
+    independent_controls: "171 opening-column K4/5/6 cases, 46 inside and 125 outside; all external openings yield firstwin gravity bottom-row P1 counterexample against FIXED P0 mate response"
+    scope_guard_negative_K3: "legal W5 K3 P1 diagonal win despite common center, 1based sequence 3,2,2,3,3,4,4,4"
+    allis_two_center_P1_source: "Prior theorem K>=4 H even K<=W<=2K-2 implies P0 NONWIN, NOT automatically exact DRAW/P1 WIN; guard ceases at W7 for K4"
+  finite_height_pair_resources:
+    after_first_P0_center:
+      J: "floor((H-1)/2)+(W-1)floor(H/2)"
+      U: "((H-1) mod2)+(W-1)(H mod2)"
+    after_conditionally_firstwinfree_center_H_minus1_moves:
+      J: "(W-1)floor(H/2)"
+      U: "1+(W-1)(H mod2)"
+      next_mover: "P1 if H even, P0 if H odd"
+    original_H_plus2_window_increment: "2(W-K+1) horizontal +2W vertical +4(W-K+1) diagonal =8W-6(K-1)"
+    key_K4_W7:
+      H4: {J: 12, U: 1, P0_center_3missing_horizontal: 8, original_lines: 31, published_empty_WDL: "DRAW"}
+      H5: {J: 12, U: 7, P0_center_3missing_horizontal: 8, original_lines: 50, published_empty_WDL: "DRAW"}
+      H6: {J: 18, U: 1, P0_center_3missing_horizontal: 12, original_lines: 69, published_empty_WDL: "P0"}
+      H7: {J: 18, U: 7, P0_center_3missing_horizontal: 12, original_lines: 88, published_empty_WDL: "DRAW"}
+      H8: {J: 24, U: 1, P0_center_3missing_horizontal: 16, original_lines: 107, published_empty_WDL: "P0"}
+    center_stacked_prefix_warning: "Only conditional original legal prefix, no generalized proof such prefixes are optimal or forced"
+  published_outcome_validation:
+    source_only_fingerprint_board_dimensions: 90
+    pinned_ext_WDL_known: 52
+    ext_unknown: 38
+    Allis_15_known_evenH_C_ge2: "10 DRAW,5 P1 win, ZERO P0 win (correct one-sided source bound)"
+    W6_H6: "P1 WIN"
+    W7_H6: "P0 WIN"
+    W8_H6: "P1 WIN"
+    W7_H4: "DRAW"
+    W10_H6: "P0 WIN despite common kernel C0"
+    posthoc_candidate_not_theorem: "C=1,H even,H/2>=3 is compatible with W7H6,H8,H10 known P0 wins, but NOT proved beyond observed data or generalized K"
+    must_not_conclude: "No complete WDL rule from C, J/U, parity, one fixed safety strategy failure, static coloring, or terminal 28 labels"
+  artifacts:
+    frozen: docs/research/2026-10-19-dimension-pairing-causal-transition-frozen.md
+    synthesis: docs/research/2026-10-19-dimensional-response-transition-core-and-solved-outcomes.md
+    source_script: research/isograph/discovery/2026-10-19-dimension-response-transition/derive-dimension-safekernel-fingerprint.mjs
+    geometry_first_90: research/isograph/discovery/2026-10-19-dimension-response-transition/SOURCE_WHK_PAIR_KERNEL_FINGERPRINT_0_1.json
+    common_K_followup_171: research/isograph/discovery/2026-10-19-dimension-response-transition/COMMON_K_COLUMN_SAFE_FOLLOWUP_INFINITE_AND_FINITE_NEGATIVES_0_1.json
+    postfreeze_exact_WDL_52: research/isograph/discovery/2026-10-19-dimension-response-transition/POSTFROZEN_52_K4_WDL_TRANSITION_CONTROLS_0_1.json
+  new_PRIMARY_source_proof_gate: >-
+    Develop source-only all-original-69-K4 two-owner guarded response CONTRACT algebra
+    capturing W/H/K common-span geometry, exact paired-resource capacity and
+    gravity release deadlines, diagonal K4 phase twists, independent firstwin
+    absorbers, and observation-conditioned reply compatibility. Starting from
+    SOURCE-justified P0 opening, prove for EVERY legal P1 action an actual
+    SOURCE-certified P0 response producing an earlier forced first WIN or
+    a strict rank-progress invariant class eventually guaranteeing terminal
+    compulsory-response exposure. Fail closed as INCOMPLETE on unproved
+    class/obligation, do not hide game-tree policies in tensor graphs. First
+    compare source success/failure on the exact WDL contrast boards
+    6x6,7x4,7x6,8x6,10x6 K4 without fitting their labels. After exact WDL
+    game-semantic proof, separately derive strong temporal/remoteness selector
+    before explaining issue41 28 first-terminal line identities.
+  preserve_current_qualified_IsoGraph1_2: true
+  production_solvers_changed: false
+  maintained_Node26_CI_run: false
+  external_formal_checker_run: false
+
 owner_20261019_CAUSAL_INTERFERENCE_PRECURSOR_TWO_OWNER_RESPONSE:
   PRIORITY: CURRENT
   date: "2026-10-19"
