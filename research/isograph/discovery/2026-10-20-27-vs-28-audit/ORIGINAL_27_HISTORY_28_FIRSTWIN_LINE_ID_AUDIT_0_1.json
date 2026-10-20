@@ -1,0 +1,362 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "status": "PASS_INTERNAL_INDEPENDENT_ORIGINAL_PHYSICAL_REPLAY_27_DISTINCT_GAME_WORDS_AND_28_DISTINCT_K4_FIRSTWIN_LINES",
+  "original_game": {
+    "W": 7,
+    "H": 6,
+    "K": 4,
+    "gravity": true,
+    "P0First": true,
+    "alternating": true,
+    "stopOnFirstWin": true
+  },
+  "score_qualification": "Historical strong distance-sensitive optimal scoring verified in issue41, NOT newly rerun here. Present evidence confirms original physical legality, terminal completions and line identities.",
+  "strongOptimalTeacher": "https://github.com/iteathen/Connect4/issues/41",
+  "inputFixture": "research/isograph/discovery/2026-10-19-true7x6-quantum-algebra/STRONG28_ISSUE41_HISTORICAL_WITNESS_FIXTURE_0_1.json",
+  "independentResearchSource": "research/isograph/discovery/2026-10-20-27-vs-28-audit/verify-27-histories-28-original-firstwinning-lines.mjs",
+  "counts": {
+    "originalActualK4Windows": 69,
+    "archivedPerTerminalWinningLineWitnessRecords": 28,
+    "uniqueLiteral41MoveHistoryWords": 27,
+    "uniqueColoredFinalPositionsWithinSelectedHistoryFixture": 27,
+    "allHistoricalGamesEndWithP0FirstWinOnAbsoluteMove41": true,
+    "historicalGamesWithAnyEarlierWinningPlayer": 0,
+    "actualTerminalLineCompletionOccurrencesAcross27Histories": 39,
+    "originalDistinctK4LineIdentityUnionAcross27Histories": 28,
+    "anyCompletedK4LineOutsideHistorical28Labels": 0,
+    "anyHistorical28K4LineNotSeenInUnion": 0,
+    "simultaneousActualTerminalLineCountHistogram": {
+      "1": 19,
+      "2": 5,
+      "3": 2,
+      "4": 1
+    }
+  },
+  "actual28WinningLineIDs": [
+    4,
+    7,
+    8,
+    11,
+    13,
+    14,
+    19,
+    22,
+    23,
+    26,
+    27,
+    28,
+    34,
+    35,
+    37,
+    41,
+    43,
+    44,
+    53,
+    56,
+    58,
+    59,
+    61,
+    62,
+    64,
+    65,
+    67,
+    68
+  ],
+  "arbitrary27OneLabelPerGameKeepFirst": [
+    4,
+    7,
+    8,
+    11,
+    13,
+    14,
+    19,
+    22,
+    23,
+    26,
+    27,
+    28,
+    34,
+    35,
+    37,
+    41,
+    43,
+    44,
+    53,
+    58,
+    59,
+    61,
+    62,
+    64,
+    65,
+    67,
+    68
+  ],
+  "arbitrary27OneLabelPerGameKeepLast": [
+    4,
+    7,
+    8,
+    11,
+    13,
+    14,
+    19,
+    22,
+    23,
+    26,
+    27,
+    28,
+    34,
+    35,
+    37,
+    56,
+    43,
+    44,
+    53,
+    58,
+    59,
+    61,
+    62,
+    64,
+    65,
+    67,
+    68
+  ],
+  "difference": {
+    "keepingFirstHistoryWitnessLineID": 56,
+    "keepingLastHistoryWitnessLineID": 41,
+    "interpretation": "Neither is eliminated in perfect play. A 27-label table is an arbitrary one-label-per-history reduction, not a distinct strong-optimal winning-line support set."
+  },
+  "identicalWordLines41and56": {
+    "zeroBasedActual41MoveWord": "33333321544441211565616661222020440000655",
+    "scoreOptimalityEvidence": "Issue41 historical independent external strong score verification, this session physically replayed only",
+    "lastMoveOneBased": [
+      6,
+      5
+    ],
+    "physicalLineId41OneBased": [
+      [
+        3,
+        5
+      ],
+      [
+        4,
+        5
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        6,
+        5
+      ]
+    ],
+    "physicalLineId56OneBased": [
+      [
+        4,
+        5
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        6,
+        5
+      ],
+      [
+        7,
+        5
+      ]
+    ],
+    "simultaneousP0FirstWinLineIds": [
+      35,
+      41,
+      53,
+      56
+    ],
+    "allFourSimultaneousLinesOneBased": {
+      "35": [
+        [
+          3,
+          2
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          5,
+          4
+        ],
+        [
+          6,
+          5
+        ]
+      ],
+      "41": [
+        [
+          3,
+          5
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          6,
+          5
+        ]
+      ],
+      "53": [
+        [
+          4,
+          3
+        ],
+        [
+          5,
+          4
+        ],
+        [
+          6,
+          5
+        ],
+        [
+          7,
+          6
+        ]
+      ],
+      "56": [
+        [
+          4,
+          5
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          6,
+          5
+        ],
+        [
+          7,
+          5
+        ]
+      ]
+    },
+    "finalBoardTopToBottomOneBasedRows": [
+      "r6 O O X O O . X",
+      "r5 X O X X X X X",
+      "r4 O X O O X O O",
+      "r3 X O X X O O X",
+      "r2 O O X O X O X",
+      "r1 O O X X O X X"
+    ],
+    "noP0OrP1WinnerBeforeFinalPlacement": true
+  },
+  "uniqueHistoricalMultiLineFirstWins": [
+    {
+      "recordLabels": [
+        4
+      ],
+      "actualTerminalLineIDs": [
+        4,
+        11
+      ]
+    },
+    {
+      "recordLabels": [
+        14
+      ],
+      "actualTerminalLineIDs": [
+        14,
+        27
+      ]
+    },
+    {
+      "recordLabels": [
+        19
+      ],
+      "actualTerminalLineIDs": [
+        14,
+        19
+      ]
+    },
+    {
+      "recordLabels": [
+        34
+      ],
+      "actualTerminalLineIDs": [
+        26,
+        34,
+        41
+      ]
+    },
+    {
+      "recordLabels": [
+        41,
+        56
+      ],
+      "actualTerminalLineIDs": [
+        35,
+        41,
+        53,
+        56
+      ]
+    },
+    {
+      "recordLabels": [
+        53
+      ],
+      "actualTerminalLineIDs": [
+        35,
+        53
+      ]
+    },
+    {
+      "recordLabels": [
+        61
+      ],
+      "actualTerminalLineIDs": [
+        59,
+        61
+      ]
+    },
+    {
+      "recordLabels": [
+        64
+      ],
+      "actualTerminalLineIDs": [
+        35,
+        53,
+        64
+      ]
+    }
+  ],
+  "conditionalExact28GeometricEnvelope": {
+    "actualOriginal69Windows": 69,
+    "historicalExternallyProvedAssumptions": [
+      "P0 center/P1 center alternating first 5 moves, literal zeroBased 33333",
+      "P0 first-winning landing absolute move41"
+    ],
+    "windowsWithAnyTopTwoRowCell": 38,
+    "afterExcludingAlreadyP1OwnedCenterSites": 30,
+    "afterRequiringSomeTopTwoRowLegalLastLandingNotAlreadyP0Center": 28,
+    "all28MatchFixtureLineCoordinates": true,
+    "includingLine41And56": true,
+    "notSourceProofOfOptimalOpeningOrOptimalTerminalHorizon": true
+  },
+  "provenanceWarning": [
+    "28 number is ORIGINAL distinct firstwinning line identities in historically distance-sensitive strong-optimal paths; not same as 27 selected example histories or total possible terminal positions.",
+    "The difference is not an actual line removed by adversarial defense. A 27-line result from deduplicating game words and retaining only one line ID is undercounting physically simultaneous K4 completions.",
+    "Externally strong-score verification from issue41 was relied upon as premise, not independently recomputed in this audit.",
+    "No change to total nonsearch WDL or strong selected 28 algorithm, still open."
+  ],
+  "qualifiedGameplayTheoryChanged": false,
+  "productionSolverChanged": false
+}
