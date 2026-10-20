@@ -1,0 +1,291 @@
+{
+  "schema": 1,
+  "research_date": "2026-10-19",
+  "status": "PASS_INTERNAL_INDEPENDENT_SOURCE_AND_PHYSICAL_RECONSTRUCTION",
+  "scope": {
+    "W": 7,
+    "H": 6,
+    "K": 4,
+    "first_win_stops": true
+  },
+  "historical_sources": [
+    "https://github.com/iteathen/Connect4/issues/41",
+    "research/canonical/CLAIMS_WINSET.md",
+    "docs/research/2026-09-14-optimal-28-oracle-incidence-audit.md"
+  ],
+  "historical_claim_boundary": "28 source witness paths originally strong-scored using external Bock dataset; Oct19 independent checks revalidated physical legality/first-wins but DID NOT recompute all strong values",
+  "witness_fixture": "research/isograph/discovery/2026-10-19-true7x6-quantum-algebra/STRONG28_ISSUE41_HISTORICAL_WITNESS_FIXTURE_0_1.json",
+  "source_reconstruction": {
+    "original_sites": 42,
+    "original_strands": 37,
+    "unfolded_appearances": 168,
+    "active_K4_strands": 25,
+    "original_WinK4_windows": 69,
+    "actual_source_terminal_line_ids": [
+      4,
+      7,
+      8,
+      11,
+      13,
+      14,
+      19,
+      22,
+      23,
+      26,
+      27,
+      28,
+      34,
+      35,
+      37,
+      41,
+      43,
+      44,
+      53,
+      56,
+      58,
+      59,
+      61,
+      62,
+      64,
+      65,
+      67,
+      68
+    ],
+    "original_move_histories_replayed": 28,
+    "physical_moves_replayed": 1148,
+    "early_terminal_errors": 0,
+    "terminal_ply": 41,
+    "first_five_zero_based": "33333",
+    "unique_history_words": 27,
+    "duplicate_witness_line_ids": [
+      [
+        41,
+        56
+      ]
+    ],
+    "terminal_line_multiplicity_across_witness_paths": {
+      "1": 19,
+      "2": 5,
+      "3": 2,
+      "4": 2
+    }
+  },
+  "frozen_operator": {
+    "node_meaning": "Each historical strong-optimal first-winning original physical K4 line",
+    "edge_meaning": "Two line nodes share an original top-two-row physically possible terminal landing cell, excluding already P0-occupied (3,4) after historical strong prefix",
+    "eligible_site_count": 13,
+    "eligible_site_labels": [
+      "0,4",
+      "0,5",
+      "1,4",
+      "1,5",
+      "2,4",
+      "2,5",
+      "3,5",
+      "4,4",
+      "4,5",
+      "5,4",
+      "5,5",
+      "6,4",
+      "6,5"
+    ],
+    "node_count": 28,
+    "physical_line_site_incidences": 58,
+    "unique_undirected_line_pair_edges": 102,
+    "connected_components": 1,
+    "canonical_bfs_spanning_tree_line_id_pairs": [
+      [
+        4,
+        7
+      ],
+      [
+        4,
+        11
+      ],
+      [
+        7,
+        13
+      ],
+      [
+        7,
+        14
+      ],
+      [
+        11,
+        8
+      ],
+      [
+        11,
+        19
+      ],
+      [
+        11,
+        22
+      ],
+      [
+        11,
+        26
+      ],
+      [
+        11,
+        27
+      ],
+      [
+        11,
+        34
+      ],
+      [
+        11,
+        37
+      ],
+      [
+        11,
+        41
+      ],
+      [
+        13,
+        28
+      ],
+      [
+        13,
+        43
+      ],
+      [
+        13,
+        44
+      ],
+      [
+        13,
+        58
+      ],
+      [
+        13,
+        59
+      ],
+      [
+        26,
+        56
+      ],
+      [
+        26,
+        61
+      ],
+      [
+        26,
+        62
+      ],
+      [
+        41,
+        35
+      ],
+      [
+        41,
+        53
+      ],
+      [
+        41,
+        64
+      ],
+      [
+        41,
+        65
+      ],
+      [
+        28,
+        23
+      ],
+      [
+        58,
+        68
+      ],
+      [
+        56,
+        67
+      ]
+    ],
+    "spanning_tree_count_edges": 27,
+    "edge_coboundary_rank_GF2": 27,
+    "edge_coboundary_rank_Q": 27,
+    "edge_coboundary_kernel_dimension": 1,
+    "graph_cycle_dimension_GF2": 75,
+    "reflection_pair_orbits": 14,
+    "reflection_even_relative_modes_over_Q": 13,
+    "reflection_odd_modes_over_Q": 14
+  },
+  "other_different_incidence": {
+    "line_to_physical_cell_incidence_rank_GF2": 26,
+    "line_to_physical_cell_incidence_rank_Q": 26,
+    "line_to_physical_cell_incidence_kernel_dim_GF2": 2,
+    "signed_Z_line_relation_1": {
+      "34": -1,
+      "35": 1,
+      "37": 1,
+      "43": -1,
+      "53": -1,
+      "58": 1
+    },
+    "signed_Z_line_relation_2": {
+      "13": 1,
+      "14": -1,
+      "27": 1,
+      "28": -1,
+      "61": -1,
+      "62": 1
+    },
+    "full_original_B_rank_GF2": 35,
+    "full_original_B_kernel_dim_GF2": 34,
+    "structural_Y_cell_dimension": 28,
+    "structural_Y_line_dimension": 28,
+    "prior_filtration": "28=2+20+6",
+    "physical_field_to_line_sums_then_graph_differences_rank_GF2": 25,
+    "physical_field_to_line_sums_then_graph_differences_rank_Q": 25
+  },
+  "independent_algebra": "Q rank26 from exact two integer signed null vectors and an independently found nonzero mod101 rank26 lower bound; Q rank25 of d∘P from mod101 rank25 and constant physical field -> constant line projection -> d kernel, giving upper bound25.",
+  "rejected_interpretations": {
+    "literal_shared_edges_are_27": false,
+    "literal_shared_edges": 102,
+    "old_physical_line_incidence_has_rank27": false,
+    "all_27_local_owner_ternary_fourier_modes_are_these_27_graph_differences": false,
+    "archive_27_distinct_histories_is_universal_game_invariant": false
+  },
+  "other_27_signatures": {
+    "single_original_fourway_junction_Z3_charge_conserving_frequency_tuples": 27,
+    "local_Z3_vanishing_tuples": 54,
+    "local_tuple_total": 81,
+    "original_junction_count": 42,
+    "historical_first_touch_27_gate_failures_out_of_35": "different source proof obstacle",
+    "historical_27_support_mirror_loss_q": "different finite sampled q corpus",
+    "unique_historical_witness_histories": 27
+  },
+  "same_board_negative_controls": {
+    "restricted_to_eligible_row4": {
+      "edges": 63,
+      "components": 7
+    },
+    "restricted_to_row5": {
+      "edges": 39,
+      "components": 13
+    },
+    "opt28_any_physical_cell": {
+      "edges": 146,
+      "components": 1
+    },
+    "all69_any_physical_cell": {
+      "edges": 821,
+      "components": 1
+    },
+    "all69_eligible_top_sites": {
+      "edges": 146,
+      "components": 35
+    }
+  },
+  "verifiers": [
+    "Independently regenerated original 69 physical windows and four-strand aliases in standalone Node v22 internal checker",
+    "Independent Python 3/SymPy rational and GF2 reconstruction on 42 physical cells and 28 archived issue41 line IDs",
+    "Independent GitHub-side direct historical issue41 game replay and original finite window check"
+  ],
+  "independence_qualification": "INTERNAL distinct implementations, not external formal validation",
+  "new_strategic_ability": "NONE",
+  "target_free_exact_WDL": "OPEN",
+  "strong_center_horizon_selection_without_teacher": "OPEN"
+}
